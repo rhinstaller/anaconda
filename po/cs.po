@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2003-05-28 21:50-0400\n"
-"PO-Revision-Date: 2003-02-21 17:18+0100\n"
+"PO-Revision-Date: 2003-06-18 13:42+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -14,16 +14,15 @@ msgstr ""
 
 #: ../anaconda:92 ../anaconda:174
 msgid "Starting VNC..."
-msgstr ""
+msgstr "Startuji VNC..."
 
 #: ../anaconda:104 ../anaconda:186
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "Nemohu nastavit heslo vnc - nepoužívám heslo!"
 
 #: ../anaconda:105 ../anaconda:187
-#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Heslo pro uživatele root musí obsahovat nejméně 6 znaků."
+msgstr "Zkontrolujte, zda je vaše heslo alespoň 6 znaků dlouhé."
 
 #: ../anaconda:125 ../anaconda:207
 msgid ""
@@ -31,30 +30,34 @@ msgid ""
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!"
 msgstr ""
+"\n"
+"\n"
+"VAROVÁNÍ!!! VNC server běží BEZ HESLA!"
 
 #: ../anaconda:126 ../anaconda:208
 msgid "You can use the vncpasswd=<password> boot option"
-msgstr ""
+msgstr "Můžete při zavádění použít přepínač vncpasswd=<heslo>"
 
 #: ../anaconda:127 ../anaconda:209
 msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"pokud byste chtěli zabezpečit server.\n"
+"\n"
 
 #: ../anaconda:129 ../anaconda:211
 msgid "VNC server now running - please connect to install..."
-msgstr ""
+msgstr "VNC server nyní běží - připojte se prosím pro instalaci..."
 
 #: ../anaconda:571
-#, fuzzy
 msgid "Unknown Error"
-msgstr "Neznámá karta"
+msgstr "Neznámá chyba"
 
 #: ../anaconda:574
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Chyba při čtení obsahu souboru kickstart %s: %s"
+msgstr "Chyba při stahování druhé části konfigurace kickstart: %s"
 
 #: ../anaconda:667
 msgid ""
@@ -105,18 +108,15 @@ msgstr "OK"
 
 #: ../anaconda:739
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Nenalezen žádný video hardware, předpokládám počítač bez monitoru"
 
 #: ../anaconda:750 ../anaconda:984 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nemohu vytvořit objekt stavu hardware X."
 
 #: ../anaconda:774
-#, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafická instalace není dostupná pro %s instalaci. Spouštím textové "
-"prostředí instalačního programu."
+msgstr "Grafická instalace není k dispozici... Spouštím textový režim."
 
 #: ../anaconda:787
 msgid ""
@@ -179,13 +179,13 @@ msgstr ""
 "oddílu."
 
 #: ../autopart.py:996
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be "
 "able to boot from this partition."
 msgstr ""
-"Zaváděcí oddíl %s není oddíl VFAT. EFI nebude moci zavést systém z tohoto "
-"oddílu."
+"Zaváděcí oddíl %s není zaváděcí oddíl PPC PReP. OpenFirmware nebude moci "
+"zavést systém z tohoto oddílu."
 
 #: ../autopart.py:999
 #, python-format
@@ -223,52 +223,49 @@ msgstr ""
 "Stiskněte OK pro restart systému."
 
 #: ../autopart.py:1215
-#, fuzzy
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Požadovaný oddíl neexistuje"
+msgstr "Požadované RAID zařízení neexistuje"
 
 #: ../autopart.py:1216
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nemohu nalézt oddíl %s pro %s.\n"
+"Nemohu nalézt raid zařízení %s pro %s.\n"
 "\n"
-"Stiskněte OK pro restart systému."
+"Stiskněte 'OK' pro restart systému."
 
 #: ../autopart.py:1245
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Požadovaný oddíl neexistuje"
+msgstr "Požadovaná skupina svazků neexistuje"
 
 #: ../autopart.py:1246
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nemohu nalézt oddíl %s pro %s.\n"
+"Nemohu nalézt skupinu svazků %s pro %s.\n"
 "\n"
-"Stiskněte OK pro restart systému."
+"Stiskněte 'OK' pro restart systému."
 
 #: ../autopart.py:1281
-#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Požadovaný oddíl neexistuje"
+msgstr "Požadovaný logický svazek neexistuje"
 
 #: ../autopart.py:1282
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nemohu nalézt oddíl %s pro %s.\n"
+"Nemohu nalézt logický svazek %s pro %s.\n"
 "\n"
-"Stiskněte OK pro restart systému."
+"Stiskněte 'OK' pro restart systému."
 
 #: ../autopart.py:1314 ../autopart.py:1355
 msgid "Automatic Partitioning Errors"
@@ -355,12 +352,11 @@ msgstr ""
 
 #: ../autopart.py:1370
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Neopravitelná chyba"
 
 #: ../autopart.py:1371
-#, fuzzy
 msgid "Your system will now be rebooted."
-msgstr "Váš počítač se nyní restartuje..."
+msgstr "Váš systém se nyní restartuje."
 
 #: ../autopart.py:1451 ../bootloader.py:139 ../gui.py:949 ../image.py:387
 #: ../partedUtils.py:252 ../partedUtils.py:747 ../upgrade.py:304
@@ -404,7 +400,6 @@ msgid "Remove all partitions on this system"
 msgstr "Odstranit všechny oddíly"
 
 #: ../autopart.py:1474
-#, fuzzy
 msgid "Remove all Linux partitions on this system"
 msgstr "Odstranit všechny linuxové oddíly"
 
@@ -413,18 +408,18 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Zachovat všechny oddíly a využít jen volný prostor"
 
 #: ../autopart.py:1477
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Zvolili jste smazání všech oddílů (VŠECHNA DATA) na následujících discích:%"
-"s\n"
-"Jste si opravdu jisti?"
+"Zvolili jste odstranění všech oddílů (VŠECHNA DATA) na následujících discích:"
+"%s\n"
+"Jste si jisti, že to chcete udělat?"
 
 #: ../autopart.py:1481
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
@@ -432,7 +427,7 @@ msgid ""
 msgstr ""
 "Zvolili jste odstranění všech linuxových oddílů (a VŠECH DAT na nich) na "
 "následujících discích:%s\n"
-"Jste si opravdu jisti?"
+"Jste si jisti, že to chcete udělat?"
 
 #: ../bootloader.py:99
 msgid "Bootloader"
@@ -455,27 +450,26 @@ msgid "Completed"
 msgstr "Hotovo"
 
 #: ../cmdline.py:47
-#, fuzzy
 msgid "In progress...   "
-msgstr "Celkový průběh:   "
+msgstr "Probíhá...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Nemohu mít dotaz v režimu příkazového řádku!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Výjimky parted nemohou být obslouženy v režimu příkazového řádku!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Hotovo [%d/%d]"
 
 #: ../cmdline.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Instalace %s-%s-%s.\n"
+msgstr "Instaluji %s-%s-%s... "
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:556
 msgid "Everything"
@@ -665,11 +659,11 @@ msgstr "RAID zařízení"
 
 #: ../fsset.py:1107 ../fsset.py:1113
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Zavádění Apple"
 
 #: ../fsset.py:1119
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "Zavádění PPC PReP"
 
 #: ../fsset.py:1122 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -917,9 +911,8 @@ msgid "Release notes are missing.\n"
 msgstr "Poznámky k vydání nejsou k dispozici.\n"
 
 #: ../gui.py:950
-#, fuzzy
 msgid "The release notes are missing."
-msgstr "Poznámky k vydání nejsou k dispozici.\n"
+msgstr "Poznámky k vydání chybí."
 
 #: ../gui.py:1045
 msgid "Error!"
@@ -1000,16 +993,17 @@ msgid "Install Window"
 msgstr "Instalační okno"
 
 #: ../harddrive.py:103 ../image.py:433
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
 "\n"
 "%s\n"
 "The system will now reboot."
 msgstr ""
-"Chybí obraz ISO pro CD #%d, který je pro instalaci potřeba.\n"
+"Následující obrazy ISO které jsou pro instalaci potřeba, chybí:\n"
 "\n"
-"Nyní se počítač restartuje."
+"%s\n"
+"Nyní se systém restartuje."
 
 #: ../image.py:78
 #, python-format
@@ -1183,9 +1177,8 @@ msgstr ""
 "Stiskněte Enter pro nový pokus."
 
 #: ../packages.py:346
-#, fuzzy
 msgid "Installing..."
-msgstr "Instaluji zavaděč systému..."
+msgstr "Instaluji..."
 
 #: ../packages.py:367
 msgid "Error Installing Package"
@@ -1225,7 +1218,6 @@ msgstr ""
 "vadné médium. Stiskněte Enter pro nový pokus."
 
 #: ../packages.py:691
-#, fuzzy
 msgid "Preparing RPM transaction..."
 msgstr "Připravuji RPM transakci..."
 
@@ -1331,7 +1323,6 @@ msgstr ""
 "Následující balíčky byly k dispozici, ale NEBYLY aktualizovány:\n"
 
 #: ../packages.py:915
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1339,7 +1330,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Následující balíčky byly k dispozici, ale NEBYLY aktualizovány:\n"
+"Následující balíčky byly v této verzi k dispozici, ale NEBYLY "
+"nainstalovány:\n"
 
 #: ../packages.py:940
 msgid "Post Install"
@@ -1354,7 +1346,7 @@ msgid "Warning! This is a beta!"
 msgstr "Varování! Toto je betaverze!"
 
 #: ../packages.py:1230
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1368,16 +1360,16 @@ msgid ""
 "\n"
 "and file a report against '%s Beta'.\n"
 msgstr ""
-"Děkujeme vám, že jste si stáhli tuto Red Hat betaverzi.\n"
+"Děkujeme vám, že jste si stáhli tuto betaverzi %s.\n"
 "\n"
 "Toto není konečná verze a není určena pro nasazení na důležitých počítačích. "
-"Účel této verze je získat ohlasy od testerů, není určena pro běžné použití.\n"
+"Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
 "\n"
 "Pro nahlášení svých poznatků prosím navštivte\n"
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"a založte zprávu pro 'Red Hat Public Beta'.\n"
+"a založte zprávu pro '%s Beta'.\n"
 
 #: ../packages.py:1243
 msgid "_Install BETA"
@@ -1931,14 +1923,13 @@ msgstr ""
 "musíte přidat další členy RAIDu."
 
 #: ../rescue.py:93
-#, fuzzy
 msgid "Starting Interface"
-msgstr "Upravit rozhraní %s"
+msgstr "Startuji rozhraní"
 
 #: ../rescue.py:94
 #, python-format
 msgid "Attempting to start %s"
-msgstr ""
+msgstr "Pokouším se spustit %s"
 
 #: ../rescue.py:143
 msgid "Setup Networking"
@@ -2201,7 +2192,6 @@ msgid "Absolute Symlinks"
 msgstr "Absolutní symbolické odkazy"
 
 #: ../upgrade.py:293
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2211,7 +2201,6 @@ msgstr ""
 "Níže jsou vypsány adresáře, které mají být symbolické odkazy. To bude při "
 "aktualizaci dělat problémy. Změňte je prosím zpět do původního stavu na "
 "symbolické odkazy a spusťte aktualizaci znovu.\n"
-"\n"
 
 #: ../upgrade.py:299
 msgid "Invalid Directories"
@@ -2245,7 +2234,6 @@ msgid "An error occurred when finding the packages to upgrade."
 msgstr "Při vyhledávání balíčků pro aktualizaci se vyskytla chyba."
 
 #: ../upgrade.py:442
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2255,9 +2243,13 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"V systému jsou nainstalovány balíčky třetích stran, které kolidují s balíčky "
-"Red Hat Linuxu. To může způsobit nefunkčnost některých programů nebo "
-"nestabilitu systému. Chcete pokračovat v aktualizaci systému?"
+"V tomto systému jsou zřejmě nainstalovány balíčky třetích stran, které se "
+"překrývají s balíčky obsaženými v Red Hat Linuxu. Protože se tyto balíčky "
+"překrývají, pokračování procesu aktualizace může způsobit, že přestanou "
+"správně fungovat nebo mohou způsobit jinou nestabilitu systému. Pro více "
+"informací si prosím přečtěte poznámky o vydání.\n"
+"\n"
+"Chcete pokračovat v procesu aktualizace?"
 
 #: ../upgrade.py:465
 msgid ""
@@ -2282,9 +2274,8 @@ msgstr ""
 "aktualizaci systému?"
 
 #: ../urlinstall.py:45
-#, fuzzy
 msgid "Connecting..."
-msgstr "Kontroluji \"%s\"..."
+msgstr "Připojuji se..."
 
 #: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2304,16 +2295,16 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
+"Pro pokračování musíte zadat své heslo uživatele root a potvrdit je jeho "
+"opakovaným zadáním."
 
 #: ../iw/account_gui.py:44
-#, fuzzy
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Nezadali jste dvakrát stejné heslo. Musíte jej zadat znovu."
+msgstr "Hesla, která jste zadali, jsou různá. Zkuste to prosím znovu."
 
 #: ../iw/account_gui.py:51
-#, fuzzy
 msgid "The root password must be at least six characters long."
-msgstr "Heslo pro uživatele root musí obsahovat nejméně 6 znaků."
+msgstr "Heslo pro uživatele root musí být alespoň šest znaků dlouhé."
 
 #: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
@@ -2723,18 +2714,16 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:63 ../textw/complete_text.py:38
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Vyjměte všechny diskety používané při instalaci a stiskněte Enter pro "
-"restart počítače.\n"
-"\n"
+"Vyjměte všechna instalační média (diskety nebo CD-ROM) používaná při "
+"instalaci a restartujte svůj systém stisknutím Enter.\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2755,10 +2744,7 @@ msgid ""
 msgstr ""
 "Blahopřejeme, instalace je hotova.\n"
 "\n"
-"Vyjměte všechna instalační média (diskety nebo CD-ROM) použitá při "
-"instalaci.\n"
-"\n"
-"%sPro informace o errata (aktualizace a opravy chyb) navštivte:\n"
+"%s%sPro informace o errata (aktualizace a opravy chyb) navštivte:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "Pro informace o automatických aktualizacích pomocí Red Hat Network "
@@ -2903,16 +2889,12 @@ msgstr ""
 "její úpravu níže."
 
 #: ../iw/desktop_choice_gui.py:106
-#, fuzzy
 msgid "_Install default software packages"
-msgstr ""
-"Instalace %s balíčků\n"
-"\n"
+msgstr "Nainstalovat _implicitní balíčky software"
 
 #: ../iw/desktop_choice_gui.py:107
-#, fuzzy
 msgid "_Customize software packages to be installed"
-msgstr "_Upravit sadu instalovaných balíčků"
+msgstr "_Upravit sadu instalovaných balíčků software"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -2932,9 +2914,8 @@ msgid "Upgrade Examine"
 msgstr "Aktualizace nebo Instalace"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "_Upgrade an existing installation"
-msgstr "Aktualizace existující instalace"
+msgstr "_Aktualizovat existující instalaci"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2946,15 +2927,17 @@ msgstr ""
 "Tato možnost zachová existující data na vašich discích."
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "_Install %s"
-msgstr "_Instalovat BETAVERZI"
+msgstr "_Instalovat %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
+"Zvolte tuto možnost pro novou instalaci svého systému. Existující software a "
+"data mohou být přepsána, podle vašich rozhodnutí při konfiguraci."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following Red Hat product will be upgraded:"
@@ -3579,9 +3562,8 @@ msgid "Net_mask"
 msgstr "_Maska sítě"
 
 #: ../iw/network_gui.py:229
-#, fuzzy
 msgid "_Point to Point (IP)"
-msgstr "Point to Point (IP)"
+msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:252
 #, python-format
@@ -3630,7 +3612,7 @@ msgstr "_ručně"
 
 #: ../iw/network_gui.py:517
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(př. \"host.domain.com\")"
 
 #: ../iw/network_gui.py:580
 msgid "Miscellaneous Settings"
@@ -4148,7 +4130,7 @@ msgstr "Instaluji balíčky"
 #: ../iw/progress_gui.py:52 ../textw/progress_text.py:65
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "Stahuji - %s"
 
 #: ../iw/progress_gui.py:110 ../iw/progress_gui.py:299
 msgid "Total"
@@ -4168,9 +4150,8 @@ msgid "Summary"
 msgstr "Popis"
 
 #: ../iw/progress_gui.py:270 ../textw/progress_text.py:129
-#, fuzzy
 msgid "Status: "
-msgstr "Stav instalace"
+msgstr "Stav: "
 
 #: ../iw/progress_gui.py:280
 msgid "Package Progress: "
@@ -4460,9 +4441,8 @@ msgid "System clock uses _UTC"
 msgstr "Hardwarové hodiny používají _UTC"
 
 #: ../iw/timezone_gui.py:73
-#, fuzzy
 msgid "Please select the nearest city in your timezone:"
-msgstr "Zvolte rozlišení, které chcete používat:"
+msgstr "Vyberte prosím nejbližší město ve vaší časové zóně:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4694,21 +4674,23 @@ msgstr "Nastavení monitoru"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:448
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "Neurčen monitor"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:449
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"Nevybrali jste typ monitoru. Doporučuje se, abyste zvolili nejlépe "
+"odpovídající model pro dosažení nejlepší možné kvality zobrazování."
 
 #: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:454
 msgid "Proceed"
-msgstr ""
+msgstr "Pokračovat"
 
 #: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:454
 msgid "Choose monitor type"
-msgstr ""
+msgstr "Vybrat typ monitoru"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4778,6 +4760,9 @@ msgid ""
 "System.  If you do not want to setup the X Window System , choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
+"System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
+"nastavování X' níže."
 
 #: ../iw/xconfig_gui.py:978
 msgid ""
@@ -4809,9 +4794,8 @@ msgid "z/IPL Boot Loader Configuration"
 msgstr "Nastavení zavaděče systému z/IPL"
 
 #: ../iw/zipl_gui.py:75
-#, fuzzy
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "Zavaděč %s bude nainstalován na /dev/%s."
+msgstr "Zavaděč z/IPL bude nainstalován na váš systém."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4846,9 +4830,8 @@ msgid "Kernel Parameters"
 msgstr "Parametry jádra"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
-#, fuzzy
 msgid "Chandev Parameters"
-msgstr "Parametry jádra"
+msgstr "Parametry chandev"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5009,14 +4992,12 @@ msgid "<Enter> to reboot"
 msgstr "<Enter> pro restart"
 
 #: ../textw/complete_text.py:36
-#, fuzzy
 msgid ""
 "Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Stiskněte Enter pro restart systému.\n"
 "\n"
-"\n"
-"Stiskněte OK pro restart systému."
 
 #: ../textw/complete_text.py:44
 msgid "Complete"
@@ -5317,24 +5298,21 @@ msgid "Mouse Selection"
 msgstr "Výběr myši"
 
 #: ../textw/network_text.py:29
-#, fuzzy
 msgid "Invalid IP string"
-msgstr "Chybná IP informace"
+msgstr "Neplatný řetězec IP"
 
 #: ../textw/network_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "Vložený údaj není platné číslo."
+msgstr "Vložené IP '%s' není platné."
 
 #: ../textw/network_text.py:62
-#, fuzzy
 msgid "IP Address"
-msgstr "_IP adresa"
+msgstr "IP adresa"
 
 #: ../textw/network_text.py:63
-#, fuzzy
 msgid "Netmask"
-msgstr "_Maska sítě"
+msgstr "Maska sítě"
 
 #: ../textw/network_text.py:65
 msgid "Point to Point (IP)"
@@ -5346,9 +5324,8 @@ msgid "Network Device: %s"
 msgstr "Síťové zařízení: %s"
 
 #: ../textw/network_text.py:75
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Nastavení pomocí _DHCP"
+msgstr "Nastavit pomocí DHCP"
 
 #: ../textw/network_text.py:85
 msgid "Activate on boot"
@@ -5368,39 +5345,32 @@ msgid "You must enter valid IP information to continue"
 msgstr "Pro pokračování musíte zadat platné informace o IP"
 
 #: ../textw/network_text.py:220
-#, fuzzy
 msgid "Gateway:"
-msgstr "Gateway"
+msgstr "Gateway:"
 
 #: ../textw/network_text.py:230
-#, fuzzy
 msgid "Primary DNS:"
-msgstr "Primární DNS"
+msgstr "Primární DNS:"
 
 #: ../textw/network_text.py:235
-#, fuzzy
 msgid "Secondary DNS:"
-msgstr "Sekundární DNS"
+msgstr "Sekundární DNS:"
 
 #: ../textw/network_text.py:240
-#, fuzzy
 msgid "Tertiary DNS:"
-msgstr "Terciální DNS"
+msgstr "Terciální DNS:"
 
 #: ../textw/network_text.py:247
-#, fuzzy
 msgid "Miscellaneous Network Settings"
-msgstr "Různé volby"
+msgstr "Různá nastavení sítě"
 
 #: ../textw/network_text.py:314
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "_automaticky pomocí DHCP"
+msgstr "automaticky pomocí DHCP"
 
 #: ../textw/network_text.py:318
-#, fuzzy
 msgid "manually"
-msgstr "_ručně"
+msgstr "ručně"
 
 #: ../textw/network_text.py:337
 msgid "Hostname Configuration"
@@ -5413,15 +5383,18 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Pokud je váš systém součástí větší sítě, kde jsou jména počítačů přiřazována "
+"pomocí DHCP, zvolte Automaticky pomocí DHCP. V opačtném případě zvolte Ručně "
+"a zadejte jméno svého počítače. Pokud to neuděláte, váš systém bude znám "
+"jako 'localhost'."
 
 #: ../textw/network_text.py:366 ../textw/network_text.py:372
-#, fuzzy
 msgid "Invalid Hostname"
-msgstr "Neplatná jmenovka systému"
+msgstr "Neplatné jméno počítače"
 
 #: ../textw/network_text.py:367
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "Neurčili jste jméno počítače."
 
 #: ../textw/packages_text.py:50
 msgid "Select individual packages"
@@ -6270,6 +6243,9 @@ msgid ""
 "System.  If you do not want setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
+"System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
+"nastavování X' níže."
 
 #: ../textw/xconfig_text.py:627
 msgid "Select the video card and video RAM for your system."
@@ -6306,9 +6282,8 @@ msgid "Chandev line "
 msgstr "Řádek chandev "
 
 #: ../installclasses/custom.py:12
-#, fuzzy
 msgid "_Custom"
-msgstr "Vlastní"
+msgstr "_Vlastní"
 
 #: ../installclasses/custom.py:14
 msgid ""
@@ -6319,9 +6294,8 @@ msgstr ""
 "instalace, včetně výběru balíčků a nastavení autentizace."
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid "_Personal Desktop"
-msgstr "Osobní systém"
+msgstr "_Osobní systém"
 
 #: ../installclasses/personal_desktop.py:14
 msgid ""
@@ -6334,9 +6308,8 @@ msgstr ""
 "kancelářské použití."
 
 #: ../installclasses/server.py:12
-#, fuzzy
 msgid "_Server"
-msgstr "Server"
+msgstr "_Server"
 
 #: ../installclasses/server.py:14
 msgid ""
@@ -6349,9 +6322,8 @@ msgstr ""
 "jestli chcete instalovat grafické prostředí."
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid "_Workstation"
-msgstr "Pracovní stanice"
+msgstr "_Pracovní stanice"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -6520,9 +6492,9 @@ msgid "Kickstart Error"
 msgstr "Chyba Kickstartu"
 
 #: ../loader2/driverdisk.c:394
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to driver disk kickstart method command %s: %s"
-msgstr "Chybný argument Kickstart příkazu metody Url %s: %s"
+msgstr "Chybný argument kickstart příkazu metody driver disk %s: %s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6798,7 +6770,7 @@ msgstr "Přidat zařízení"
 
 #: ../loader2/loader.c:992
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "loader již byl spuštěn. Spouštím shell."
 
 #: ../loader2/loader.c:1313
 #, c-format
@@ -6905,9 +6877,9 @@ msgid "Checksum Test"
 msgstr "Test kontrolních součtů"
 
 #: ../loader2/modules.c:922
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Chybný argument kickstart příkazu metody HD %s: %s"
+msgstr "Chybný argument kickstart příkazu metody device %s: %s"
 
 #: ../loader2/net.c:43
 #, c-format
@@ -7068,13 +7040,12 @@ msgid "Unable to retrieve the install image."
 msgstr "Nemohu přenést instalační obraz."
 
 #: ../loader2/urlinstall.c:283
-#, fuzzy
 msgid "Media Detected"
-msgstr "Kontrola média"
+msgstr "Detekováno médium"
 
 #: ../loader2/urlinstall.c:284
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Detekováno místní instalační médium..."
 
 #: ../loader2/urlinstall.c:399
 #, c-format
@@ -7694,9 +7665,8 @@ msgid "Roraima"
 msgstr "Roraima"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rothera Station, Adelaide Island"
-msgstr "Palmer Station, Anvers Island"
+msgstr "Rothera Station, Adelaide Island"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7897,24 +7867,6 @@ msgstr "Turečtina"
 #~ msgid "Root passwords do not match."
 #~ msgstr "Heslo správce systému nesouhlasí."
 
-#~ msgid "_Accept the current package list"
-#~ msgstr "Přijmout _aktuální seznam balíčků"
-
-#~ msgid "Perform a new %s installation"
-#~ msgstr "Nová instalace distribuce %s"
-
-#~ msgid ""
-#~ "Choose this option to install your system from scratch.  Depending on how "
-#~ "you choose to partition your system the existing data on your drives may "
-#~ "or may not be preserved."
-#~ msgstr ""
-#~ "Zvolte tuto možnost pro novou instalaci vašeho systému. Podle toho, jak "
-#~ "se rozhodnete vytvořit oddíly, budou nebo nebudou zachována data na "
-#~ "vašich discích."
-
-#~ msgid "_Customize packages to be upgraded"
-#~ msgstr "_Vybrat balíčky pro aktualizaci"
-
 #~ msgid "Check for _bad blocks"
 #~ msgstr "Při formátování zjišťovat _chybné bloky"
 
@@ -7926,12 +7878,6 @@ msgstr "Turečtina"
 
 #~ msgid "Location"
 #~ msgstr "Umístění"
-
-#~ msgid "Use _daylight saving time (US only)"
-#~ msgstr "Používat _letní čas (jen USA)"
-
-#~ msgid "UTC Offset"
-#~ msgstr "Časový posun"
 
 #~ msgid ""
 #~ "If you created a boot disk to use to boot your %s system, insert it "
@@ -7945,22 +7891,6 @@ msgstr "Turečtina"
 
 #~ msgid "Use bootp/dhcp"
 #~ msgstr "Použít BOOTP/DHCP"
-
-#~ msgid "Secondary nameserver:"
-#~ msgstr "Sekundární DNS server:"
-
-#~ msgid "Tertiary nameserver:"
-#~ msgstr "Terciální DNS server:"
-
-#~ msgid "Point to Point (IP):"
-#~ msgstr "Point to Point (IP):"
-
-#~ msgid ""
-#~ "The hostname is the name of your computer.  If your computer is attached "
-#~ "to a network, this may be assigned by your network administrator."
-#~ msgstr ""
-#~ "Jméno tohoto počítače (hostname) si můžete zvolit. Pokud je počítač "
-#~ "připojen do sítě, může mu být jméno přiděleno správcem sítě."
 
 #~ msgid "You must go back and use fdasd to initialize this partition"
 #~ msgstr "Pro inicializaci tohoto oddílu se musíte vrátit a použít fdasd"

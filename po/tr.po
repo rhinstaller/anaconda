@@ -1,27 +1,29 @@
+# translation of tr.po to Turkish
+# $Id$
+# Nilgün Belma Bugüner <nilgun@superonline.com>, 2003
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda \n"
+"Project-Id-Version: tr\n"
 "POT-Creation-Date: 2003-05-28 21:50-0400\n"
-"PO-Revision-Date: 2002-08-10 17:45+0300\n"
+"PO-Revision-Date: 2003-07-05 02:12+0300\n"
 "Last-Translator: Nilgün Belma Bugüner <nilgun@superonline.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.6\n"
+"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:92 ../anaconda:174
 msgid "Starting VNC..."
-msgstr ""
+msgstr "VNC Başlatılıyor..."
 
 #: ../anaconda:104 ../anaconda:186
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "vnc parolası belirlenemiyor - parola kullanılmayacak!"
 
 #: ../anaconda:105 ../anaconda:187
-#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "root parolası en az 6 karakter uzunluğunda olmalı."
+msgstr "Parolanızın en azından 6 karakter içermesini sağlamalısınız."
 
 #: ../anaconda:125 ../anaconda:207
 msgid ""
@@ -29,37 +31,41 @@ msgid ""
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!"
 msgstr ""
+"\n"
+"\n"
+"UYARI!!! VNC sunucusu PAROLASIZ çalıştırılıyor!"
 
 #: ../anaconda:126 ../anaconda:208
 msgid "You can use the vncpasswd=<password> boot option"
-msgstr ""
+msgstr "Açılış seçeneği olarak vncpasswd=<parola> kullanabilirsiniz."
 
 #: ../anaconda:127 ../anaconda:209
 msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+", sunucunun güvenilir olmasını isterseniz.\n"
+"\n"
 
 #: ../anaconda:129 ../anaconda:211
 msgid "VNC server now running - please connect to install..."
-msgstr ""
+msgstr "VNC sunucusu çalışmıyor - lütfen kuruluma bağlanın..."
 
 #: ../anaconda:571
-#, fuzzy
 msgid "Unknown Error"
-msgstr "Bilinmeyen sunucu"
+msgstr "Bilinmeyen Hata"
 
 #: ../anaconda:574
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "kickstart %s dosyasının içeriği okunamadı: %s"
+msgstr "kickstart yapılandırmasının ikinci bölümü alınırken hata: %s!"
 
 #: ../anaconda:667
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Grafik kip kurulumu için donanımınız yetersiz.  Metin kipi kuruluma "
+"Grafik kip kurulumu için belleğiniz yetersiz.  Metin kipi kuruluma "
 "geçilecek."
 
 #: ../anaconda:682 ../gui.py:239 ../gui.py:952 ../rescue.py:40
@@ -103,18 +109,15 @@ msgstr "Tamam"
 
 #: ../anaconda:739
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Ekran ile ilgili donanım bilgileri bulunamadı, monitörsüz olduğu varsayılacak"
 
 #: ../anaconda:750 ../anaconda:984 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Bir X donanım durum nesnesi gerçeklenemedi."
 
 #: ../anaconda:774
-#, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"%s kurulumlarında grafik kipi kurulum yapılamıyor.  Metin kipi kuruluma "
-"geçiliyor."
+msgstr "Grafik kipte kurulum yapılamıyor.  Metin kipi kuruluma geçiliyor."
 
 #: ../anaconda:787
 msgid ""
@@ -125,9 +128,9 @@ msgstr ""
 "kuruluma geçiliyor."
 
 #: ../anaconda:792
-#, fuzzy, c-format
+#, c-format
 msgid "Using mouse type: %s"
-msgstr "Kullanılan fare türü: "
+msgstr "Kullanılan fare türü: %s"
 
 #: ../autopart.py:919
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -152,6 +155,9 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"Önyükleme bölümü %s bir BSD disk etiketi içermiyor. SRM bu bölümden "
+"yüklenemez. Bir BSD disk etiketine sahip bir bölüm kullanın ya da bu aygıtın "
+"disk etiketini BSD olarak değiştirin."
 
 #: ../autopart.py:992
 #, python-format
@@ -160,13 +166,16 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Önyükleme bölümü %s, başlangıcında önyükleyicinin yerleştirilebileceği yeterli "
+"boş alana sahip değil. /boot dizinini içerecek bölümün başlangıcında 5MB'lık "
+"boş yer olmasını sağlamalısınız."
 
 #: ../autopart.py:994
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "Önyükleme bölümü %s bir VFAT bölümü değil. EFI bu disk bölümünden yüklenemez."
 
 #: ../autopart.py:996
 #, python-format
@@ -174,6 +183,8 @@ msgid ""
 "Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be "
 "able to boot from this partition."
 msgstr ""
+"Önyükleme bölümü %s bir PPC PReP önyükleme bölümü değil. OpenFirmware "
+"bu bölümden yüklenemez."
 
 #: ../autopart.py:999
 #, python-format
@@ -209,50 +220,47 @@ msgstr ""
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
 #: ../autopart.py:1215
-#, fuzzy
 msgid "Requested Raid Device Does Not Exist"
-msgstr "İstenen Disk Bölümü Mevcut Değil"
+msgstr "İstenen RAID Aygıtı Mevcut Değil"
 
 #: ../autopart.py:1216
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s disk bölümü %s kullanımı için ayrılamıyor.\n"
+"%s raid aygıtı %s kullanımı için ayrılamıyor.\n"
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
 #: ../autopart.py:1245
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "İstenen Disk Bölümü Mevcut Değil"
+msgstr "İstenen Oylum Grubu Mevcut Değil"
 
 #: ../autopart.py:1246
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s disk bölümü %s kullanımı için ayrılamıyor.\n"
+"%s oylum grubu %s kullanımı için ayrılamıyor.\n"
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
 #: ../autopart.py:1281
-#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "İstenen Disk Bölümü Mevcut Değil"
+msgstr "İstenen Mantıksal Oylum Mevcut Değil"
 
 #: ../autopart.py:1282
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"%s disk bölümü %s kullanımı için ayrılamıyor.\n"
+"%s mantıksal oylumu %s kullanımı için ayrılamıyor.\n"
 "\n"
 "'Tamam' düğmesini seçtiğinizde sistem yeniden başlatılacak."
 
@@ -334,19 +342,18 @@ msgstr ""
 "%s\n"
 "\n"
 "Bu durum genellikle otomatik bölümlendirmenin başarımı için yeterli disk "
-"alanı olmadığında ortaya çıkar. Kurulumu tamamlayabilmek için "
-"bölümlendirmeyi kendiniz yapmanız gerekecek.\n"
+"alanı olmadığında ortaya çıkar. Kurulumu tamamlayabilmek ya başka bir "
+"bölümleme seçeneği kullanın ya da bölümlendirmeyi kendiniz yapın.\n"
 "\n"
 "Devam etmek için 'Tamam' düğmesine tıklayınız."
 
 #: ../autopart.py:1370
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Kurtarılamayan Hata"
 
 #: ../autopart.py:1371
-#, fuzzy
 msgid "Your system will now be rebooted."
-msgstr "Sisteminiz yeniden başlatılacak..."
+msgstr "Sisteminiz şimdi yeniden başlatılacak..."
 
 #: ../autopart.py:1451 ../bootloader.py:139 ../gui.py:949 ../image.py:387
 #: ../partedUtils.py:252 ../partedUtils.py:747 ../upgrade.py:304
@@ -362,7 +369,6 @@ msgid "Warning"
 msgstr "Uyarı"
 
 #: ../autopart.py:1457
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -377,13 +383,9 @@ msgstr ""
 "Elle bölümlendirme aracı, DiskDruid ile disk bölümlendirmesini etkileşimli "
 "olarak yapabilirsiniz. DiskDruid'in görsel arayüzü ile dosya sistemi türü, "
 "bağlama noktası, bölüm boyları ve daha bir çok özelliği "
-"belirleyebilirsiniz.\n"
-"\n"
-"fdisk ise geleneksel, metin tabanlı, kullanımı zor ancak bazı durumlarda "
-"özellikle uzman kullanıcılar için önerilen bir disk bölümleme aracıdır."
+"belirleyebilirsiniz."
 
 #: ../autopart.py:1468
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -396,7 +398,6 @@ msgid "Remove all partitions on this system"
 msgstr "Tüm disk bölümlerini sil"
 
 #: ../autopart.py:1474
-#, fuzzy
 msgid "Remove all Linux partitions on this system"
 msgstr "Tüm Linux disk bölümlerini sil"
 
@@ -405,27 +406,28 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Disk bölümlerine dokunma, sadece boş alanı kullan"
 
 #: ../autopart.py:1477
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
 "%s\n"
-"sabit diskindeki tüm disk bölümlerinin kaldırılmasını (TÜM VERİNİN "
+"sabit disk(ler)indeki tüm disk bölümlerinin kaldırılmasını (TÜM VERİNİN "
 "SİLİNMESİNİ) seçtiniz.\n"
 "Böyle yapmak istediğinizden emin misiniz?"
 
 #: ../autopart.py:1481
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Aşağıdaki sürücüler üzerindeki tüm Linux bölümlerinin ve üzerlerindeki TÜM "
-"VERİNİN SİLİNMESİNİ seçtiniz:%s\n"
-"Bunu yapmak istediğinize emin misiniz?"
+"%s\n"
+"sabit disk(ler)indeki tüm Linux bölümlerinin kaldırılmasını (TÜM VERİNİN "
+"SİLİNMESİNİ) seçtiniz.\n"
+"Böyle yapmak istediğinizden emin misiniz?"
 
 #: ../bootloader.py:99
 msgid "Bootloader"
@@ -448,27 +450,26 @@ msgid "Completed"
 msgstr "Bitti"
 
 #: ../cmdline.py:47
-#, fuzzy
 msgid "In progress...   "
-msgstr "Toplam:           "
+msgstr "İşlem yapılıyor... "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Komut satırı kipinde bir soru olamaz!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Parted hata yakalaması komut satırı kipinde çalışmaz!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "%d/%d tamamlandı"
 
 #: ../cmdline.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "%s-%s-%s kuruluyor.\n"
+msgstr "%s-%s-%s kuruluyor..."
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:556
 msgid "Everything"
@@ -483,7 +484,6 @@ msgid "Miscellaneous"
 msgstr "Çeşitli"
 
 #: ../comps.py:1114 ../hdrlist.py:41 ../hdrlist.py:537 ../hdrlist.py:701
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -497,8 +497,8 @@ msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
-"En küçük boyutlu kurulum bu grupla mümkündür. Sistemi sadece yöneltici/"
-"güvenlik duvarı gibi az amaçlı kullanacaksanız bu faydalıdır."
+"En küçük boyutlu kurulum bu grupla mümkündür. Sistemi sadece "
+"yöneltici/güvenlik duvarı gibi az amaçlı kullanacaksanız bu faydalıdır."
 
 #: ../constants.py:65
 msgid ""
@@ -513,14 +513,13 @@ msgstr ""
 "bir hata raporu gönderiniz."
 
 #: ../constants.py:72
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Bir sorun oluştu. Bu büyük ihtimalle bir yazılım hatası. Bu hata sırasında "
-"üretilen hata iletisini ya da core dosyasını bir diskete kopyalayıp,lütfen "
+"üretilen hata iletisini bir diskete kopyalayıp, lütfen  "
 "http://bugzilla.redhat.com/bugzilla adresinden anaconda hakkında ayrıntılı "
 "bir hata raporu gönderiniz."
 
@@ -530,25 +529,25 @@ msgstr "Bir sorun oluştu"
 
 #: ../exception.py:294
 msgid "Dump Written"
-msgstr "Yazıldı"
+msgstr "Bellek Kopyası Yazıldı"
 
 #: ../exception.py:295
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"Sisteminizin durumu diskete kaydedildi. Sistem şimdi yeniden başlatılacak."
+msgstr "Sisteminizin durumu diskete kaydedildi. Sistem şimdi yeniden başlatılacak."
 
 #: ../floppy.py:91
-#, fuzzy
 msgid "Unable to make boot floppy"
-msgstr "Disket bağlanamadı."
+msgstr "Açılış disketi oluşturulamıyor"
 
 #: ../floppy.py:92
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Makineniz için gereken çekirdek modülleri bir diskete sığmadığından bir "
+"açılış disketi oluşturulamıyor."
 
 #: ../floppy.py:101
 msgid "Insert a floppy disk"
@@ -611,39 +610,38 @@ msgstr ""
 
 #: ../floppy.py:129
 msgid "Creating"
-msgstr "Yaratılıyor"
+msgstr "Oluşturuluyor"
 
 #: ../floppy.py:129
 msgid "Creating boot disk..."
-msgstr "Açılış disketi yaratılıyor..."
+msgstr "Açılış disketi oluşturuluyor..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Açılış disketi oluşturulurken bir hata oluştu. Birinci disket sürücüsünde "
-"bir disketin olup olmadığını kontrol ediniz."
+"Açılış disketi doğrulanırken bir hata oluştu. Birinci disket sürücüsündeki "
+"disketin bozuk olup olmadığını kontrol ediniz."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Açılış disketi oluşturulurken bir hata oluştu. Birinci disket sürücüsünde "
-"bir disketin olup olmadığını kontrol ediniz."
+"Açılış disketi geçersiz görünüyor. Bu durum genellikle disketteki bir bozukluktan "
+"kaynaklanır. Lütfen birinci disket sürücüsündeki disketin bozuk olup "
+"olmadığını kontrol ediniz."
 
 #: ../fsset.py:174
 msgid "Checking for Bad Blocks"
-msgstr "Hatalı disk blokları için sınama"
+msgstr "Hatalı Disk Bloklarının Aranması"
 
 #: ../fsset.py:175
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "/dev/%s üzerinde hatalı disk bloğu sınaması yapılıyor..."
+msgstr "/dev/%s üzerinde hatalı disk blokları için denetim yapılıyor..."
 
 #: ../fsset.py:563
 #, python-format
@@ -664,11 +662,11 @@ msgstr "RAID Aygıtı"
 
 #: ../fsset.py:1107 ../fsset.py:1113
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple Önyükleyici"
 
 #: ../fsset.py:1119
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP Önyükleyici"
 
 #: ../fsset.py:1122 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -686,9 +684,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s aygıtı üzerinde takas alanı oluşturulurken bir hata oluştu. Bu sorun "
-"zincirleme başka sorunlara sebep olabileceğinden kuruluma devam "
-"edilemeyecek.\n"
+"%s aygıtı üzerinde takas alanı ilklendirilirken bir hata oluştu. Bu sorun "
+"zincirleme başka sorunlara sebep olabileceğinden kuruluma devam edilemeyecek.\n"
 "\n"
 "Sistem <Enter> tuşuna bastığınızda yeniden başlatılacaktır."
 
@@ -727,7 +724,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s üzerindeki hatalı blokların sınanması sırasında bir hata oluştu. Bu hata "
+"%s üzerindeki hatalı blokların aranması sırasında bir hata oluştu. Bu hata "
 "kuruluma devam edilmesini engelliyor.\n"
 "\n"
 "Sistemi yeniden başlatmak için <Enter> tuşuna basınız."
@@ -740,7 +737,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"%s biçemlendirilmeye çalışılırken bir hata oluştu. Bu sorun kuruluma devam "
+"%s biçimlendirilmeye çalışılırken bir hata oluştu. Bu sorun kuruluma devam "
 "edilmesine engeldir.\n"
 "\n"
 "Sistemi yeniden başlatmak için <Enter> tuşuna basınız."
@@ -799,9 +796,9 @@ msgid ""
 msgstr ""
 "%s aygıtı %s olarak bağlanırken bir hata oluştu: %s\n"
 "\n"
-"Bu disk bölümü biçemlendirilmemiş olabilir.\n"
+"Bu disk bölümü biçimlendirilmemiş olabilir.\n"
 "\n"
-"Sistemi yeniden başlatmak için Enter tuşuna basınız."
+"Sistemi yeniden başlatmak için Tamam'a basınız."
 
 #: ../fsset.py:2204
 msgid "Formatting"
@@ -810,18 +807,15 @@ msgstr "Biçimlendiriliyor"
 #: ../fsset.py:2205
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "%s dosya sistemi biçemlendiriliyor..."
+msgstr "%s dosya sistemi biçimlendiriliyor..."
 
 #: ../gui.py:106
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr ""
-"\"%s\" için girilen değer dönüştürülürken bir hata oluştu:\n"
-"%s"
+msgstr "Üzerine görüntü kopyalanırken bir hata oluştu."
 
 #: ../gui.py:118
 msgid "Screenshots Copied"
-msgstr ""
+msgstr "Görüntüler Kopyalandı"
 
 #: ../gui.py:119
 msgid ""
@@ -831,25 +825,34 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
+"Görüntüler\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"dizinine kopyalandı. Bunlara sistemi yeniden başlatıp root olduğunuzda "
+"görebilirsiniz."
 
 #: ../gui.py:163
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Ekran Görüntülerinin Kaydedilmesi"
 
 #: ../gui.py:164
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr ""
+msgstr "Bir ekran görüntüsü '%s' ismiyle kaydedildi."
 
 #: ../gui.py:167
 msgid "Error Saving Screenshot"
-msgstr ""
+msgstr "Ekran Görüntüleri Kaydedilirken Hata"
 
 #: ../gui.py:168
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
+"Görüntüler kaydedilirken bir hata oluştu. Bu durum paket kurulumu sırasında "
+"ortaya çıkmışsa, bu hata oluşmayana kadar işlemi defalarca tekrarlamanız "
+"gerekebilir."
 
 #: ../gui.py:236 ../text.py:320
 msgid "Fix"
@@ -897,7 +900,7 @@ msgid ""
 "please choose your diskette carefully."
 msgstr ""
 "Lütfen sürücüye bir disket yerleştirin. Disket içindeki tüm veriler "
-"silinecektir"
+"silineceğinden disketi dikkatli seçin."
 
 #: ../gui.py:739 ../gui.py:1336
 msgid "Online Help"
@@ -912,23 +915,23 @@ msgid "Release notes are missing.\n"
 msgstr "Dağıtım notları bulunamadı.\n"
 
 #: ../gui.py:950
-#, fuzzy
 msgid "The release notes are missing."
-msgstr "Dağıtım notları bulunamadı.\n"
+msgstr "Dağıtım notları bulunamadı."
 
 #: ../gui.py:1045
 msgid "Error!"
 msgstr "Hata!"
 
 #: ../gui.py:1046
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
 msgstr ""
 "Kurulum programının bir arabirim elemanı yüklenmeye çalışılırken bir hata "
-"oluştu."
+"oluştu.\n"
+"sınıfİsmi = %s"
 
 #: ../gui.py:1050 ../packages.py:515 ../packages.py:1243
 #: ../iw/congrats_gui.py:29
@@ -945,7 +948,7 @@ msgstr "Sistemin Yeniden Başlatılması"
 
 #: ../gui.py:1054 ../packages.py:1247
 msgid "Your system will now be rebooted..."
-msgstr "Sisteminiz yeniden başlatılacak..."
+msgstr "Sisteminiz şimdi yeniden başlatılacak..."
 
 #: ../gui.py:1057 ../packages.py:1249
 msgid "_Reboot"
@@ -983,7 +986,7 @@ msgstr "%s Kurulum Programı"
 #: ../gui.py:1255
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%s Kurulum Programı %s"
+msgstr "%s Kurulum Programı, %s"
 
 #: ../gui.py:1294
 msgid "Unable to load title bar"
@@ -994,13 +997,17 @@ msgid "Install Window"
 msgstr "Kurulum Penceresi"
 
 #: ../harddrive.py:103 ../image.py:433
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
 "\n"
 "%s\n"
 "The system will now reboot."
-msgstr "Kurulum için gereken %d. CD eksik."
+msgstr ""
+"Kurulum için gereken aşağıdaki ISO imgeleri bulunamadı:\n"
+"\n"
+"%s\n"
+"Sistem şimdi yeniden başlatılacak."
 
 #: ../image.py:78
 #, python-format
@@ -1008,14 +1015,17 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
+"CD sistemden ayrılırken bir hata oluştu. %s erişimini tty2 üzerindeki kabuktan "
+"yapmamalısınız, böyle bir durum sözkonusu değilse tekrar denenmesi için "
+"Tamam düğmesine tıklayınız. "
 
 #: ../image.py:111
 msgid "Copying File"
-msgstr "Dosyalar Kopyalanıyor"
+msgstr "Dosya Kopyalanıyor"
 
 #: ../image.py:112
 msgid "Transferring install image to hard drive..."
-msgstr "Kurulum dosyaları sabit diske aktarılıyor.."
+msgstr "Kurulum dosyaları sabit diske aktarılıyor..."
 
 #: ../image.py:115
 msgid ""
@@ -1032,11 +1042,11 @@ msgstr "CDROM'u değiştir"
 #: ../image.py:209
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr "Lütfen %d numaralı CD'yi yerleştirin."
+msgstr "Lütfen %d. diski yerleştirin."
 
 #: ../image.py:244
 msgid "Wrong CDROM"
-msgstr "Hatalı CDROM"
+msgstr "Yanlış CDROM"
 
 #: ../image.py:245
 #, python-format
@@ -1052,9 +1062,8 @@ msgid "Install on System"
 msgstr "Sistemde Kurulum"
 
 #: ../kickstart.py:1214
-#, fuzzy
 msgid "Missing Package"
-msgstr "Paketler Kuruluyor"
+msgstr "Paket Eksik"
 
 #: ../kickstart.py:1215
 #, python-format
@@ -1062,20 +1071,20 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"'%s' paketinin kurulması gerektiğini belirtmişsiniz. Bu paket yok. Kuruluma "
+"devam etmek mi yoksa kurulumdan çıkmak mı istersiniz?"
 
 #: ../kickstart.py:1221 ../kickstart.py:1248
-#, fuzzy
 msgid "_Abort"
-msgstr "Yeniden _Başlat"
+msgstr "Çı_k"
 
 #: ../kickstart.py:1222 ../kickstart.py:1249 ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Devam"
 
 #: ../kickstart.py:1240
-#, fuzzy
 msgid "Missing Group"
-msgstr "Eksik Bilgi"
+msgstr "Grup Eksik"
 
 #: ../kickstart.py:1241
 #, python-format
@@ -1083,16 +1092,17 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"'%s' grubunun kurulması gerektiğini belirtmişsiniz. Bu paket grubu yok. Kuruluma "
+"devam etmek mi yoksa kurulumdan çıkmak mı istersiniz?"
 
 #: ../network.py:40
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Makina ismi bir harf ile başlamalıdır. Türkçeye özgü harfleri kullanmayınız."
+msgstr "Konak ismi bir harf ile başlamalıdır. Türkçeye özgü harfleri kullanmayınız."
 
 #: ../network.py:45
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Makina isimleri harfler, '-' ve '.' karaterlerini içerebilir. Türkçeye özgü "
+"Konak isimleri harfler, '-' ve '.' karaterlerini içerebilir. Türkçeye özgü "
 "harfleri kullanmayınız."
 
 #: ../packages.py:45 ../iw/package_gui.py:41
@@ -1122,22 +1132,20 @@ msgid "Reading package information..."
 msgstr "Paket bilgisi okunuyor..."
 
 #: ../packages.py:148
-#, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"%s dosyası açılamıyor. Bu, bir eksik dosya, bir hatalı paket ya da hatalı "
-"bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
+"Başlık listesi okunamıyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
+"kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
 
 #: ../packages.py:162
-#, fuzzy
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"%s dosyası açılamıyor. Bu, bir eksik dosya, bir hatalı paket ya da hatalı "
-"bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
+"comps dosyası okunamıyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
+"kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
 
 #: ../packages.py:231
 msgid "Dependency Check"
@@ -1145,7 +1153,7 @@ msgstr "Bağımlılık Denetimi"
 
 #: ../packages.py:232
 msgid "Checking dependencies in packages selected for installation..."
-msgstr "Kurulumdaki paketlerdeki bağımlılıklar denetleniyor..."
+msgstr "Kurulacak paketlerdeki bağımlılıklar denetleniyor..."
 
 #: ../packages.py:288 ../packages.py:690
 msgid "Processing"
@@ -1153,7 +1161,7 @@ msgstr "İşleniyor"
 
 #: ../packages.py:289
 msgid "Preparing to install..."
-msgstr "Kuruluma hazırlık yapılıyor..."
+msgstr "Kuruluma hazırlanılıyor..."
 
 #: ../packages.py:338
 #, python-format
@@ -1164,15 +1172,19 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"%s-%s-%s paketi açılamıyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
+"kaynaklanabilir. Kurulumu CD'den yapıyorsanız disk hatalı olabilir ya da "
+"sürücü diski okuyamıyordur.\n"
+"\n"
+"Tekrar denemek için <enter> tuşuna basınız."
 
 #: ../packages.py:346
-#, fuzzy
 msgid "Installing..."
-msgstr "Önyükleyici kuruluyor..."
+msgstr "Kuruluyor..."
 
 #: ../packages.py:367
 msgid "Error Installing Package"
-msgstr "Paketler Kurulumunda Hata"
+msgstr "Paket Kurulumunda Hata"
 
 #: ../packages.py:368
 #, python-format
@@ -1196,21 +1208,19 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
+msgstr "Bu %s dağıtımının desteklemediği bir makinaya kurulum yapmayı deniyorsunuz."
 
 #: ../packages.py:594 ../upgrade.py:336
-#, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"%s dosyası açılamıyor. Bu, bir eksik dosya, bir hatalı paket ya da hatalı "
-"bir ortamdan kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
+"Başlık listesi eklenemiyor. Bu, bir eksik dosya ya da hatalı bir ortamdan "
+"kaynaklanabilir. Tekrar denemek için <enter> tuşuna basınız."
 
 #: ../packages.py:691
-#, fuzzy
 msgid "Preparing RPM transaction..."
-msgstr "RPM işlemleri ayarlanıyor..."
+msgstr "RPM aktarımlarına hazırlanılıyor..."
 
 #: ../packages.py:763
 #, python-format
@@ -1263,7 +1273,7 @@ msgstr "Kurulum Başlıyor"
 
 #: ../packages.py:798
 msgid "Starting install process, this may take several minutes..."
-msgstr "Kurulum başlatılıyor. Başlatma bir kaç dakika sürebilir..."
+msgstr "Kurulum başlatılıyor. Bu işlem biraz uzun sürebilir..."
 
 #: ../packages.py:838
 msgid ""
@@ -1291,8 +1301,8 @@ msgid ""
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
-"Seçtiğiniz paketleri kurmak için yeterli disk bölümünüz yok görünüyor. "
-"Aşağıdaki dosya sistemlerinde daha fazla alana ihtiyacınız var:\n"
+"Seçtiğiniz paketleri kurmak için dosya düğümlerinin sayısı yetersiz görünüyor. "
+"Aşağıdaki dosya sistemlerinde daha fazla dosya düğümüne ihtiyaç var:\n"
 "\n"
 
 #: ../packages.py:864
@@ -1311,10 +1321,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Aşağıdaki paketler bu sürümde var ama güncel değil:\n"
+"Aşağıdaki paketler bu sürümde var ama güncellenmiş değil:\n"
 
 #: ../packages.py:915
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1322,7 +1331,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Aşağıdaki paketler bu sürümde var ama güncel değil:\n"
+"Aşağıdaki paketler bu sürümde var ama kurulu değil:\n"
 
 #: ../packages.py:940
 msgid "Post Install"
@@ -1337,7 +1346,7 @@ msgid "Warning! This is a beta!"
 msgstr "Uyarı! Bu bir beta sürümüdür!"
 
 #: ../packages.py:1230
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1351,7 +1360,7 @@ msgid ""
 "\n"
 "and file a report against '%s Beta'.\n"
 msgstr ""
-"Red Hat Beta dağıtımını indirdiğiniz için teşekkür ederiz.\n"
+"Bu %s Beta dağıtımını indirdiğiniz için teşekkür ederiz.\n"
 "\n"
 "Bu kararlı bir dağıtım olmadığından üretim sistemlerinde kullanılması "
 "önerilmez. Bu dağıtımın amacı denetleyicilerden geribesleme toplamaktır. "
@@ -1359,14 +1368,14 @@ msgstr ""
 "\n"
 "Geribesleme için lütfen:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"\thttp://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"adresini kullanınız ve 'Red Hat Public Beta' konu başlığı ile raporunuzu "
+"adresini kullanınız ve '%s Beta' konu başlığı ile raporunuzu "
 "gönderiniz.\n"
 
 #: ../packages.py:1243
 msgid "_Install BETA"
-msgstr "_BETA Kurulumu"
+msgstr "_BETAsını Kur"
 
 #: ../partedUtils.py:174 ../textw/partition_text.py:491
 msgid "Foreign"
@@ -1385,7 +1394,7 @@ msgstr ""
 "değil. Bu disk üzerine %s kurulumu bu disk üzerindeki TÜM VERİNİN "
 "SİLİNMESİne sebep olacaktır.\n"
 "\n"
-"Bu aygıtın tüm disk bölümlerinin yeniden yapılandırılmasını istiyor musunuz?"
+"Bu sürücünün ilklendirilmesini istiyor musunuz?"
 
 #: ../partedUtils.py:546
 #, python-format
@@ -1399,10 +1408,10 @@ msgstr "Hazırlanıyor"
 #: ../partedUtils.py:630
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "%s sürücüsü biçemlendiriliyor. Lütfen bekleyiniz...\n"
+msgstr "%s sürücüsü biçimlendiriliyor. Lütfen bekleyiniz...\n"
 
 #: ../partedUtils.py:748
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1416,7 +1425,10 @@ msgstr ""
 "yaratmak için bu tablonun yeniden düzenlenmesi gerekiyor. Bu durumda DİSK "
 "ÜZERİNDE BULUNAN TÜM BİLGİLER SİLİNECEKTİR.\n"
 "\n"
-"Bunun yapılmasını istiyor musunuz?"
+"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinize "
+"uygun olmayabilir.\n"
+"\n"
+"Bunun yine de yapılmasını (TÜM BİLGİLERİN SİLİNMESİNİ) istiyor musunuz?"
 
 #: ../partedUtils.py:866 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -1525,8 +1537,7 @@ msgstr "Boş alanı silemezsiniz."
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"Bu bölümü silemezsiniz. Bu bölüm %s bölümünü de içeren mantıksal ek bölümdür."
+msgstr "Bu bölümü silemezsiniz. Bu bölüm %s bölümünü de içeren mantıksal ek bölümdür."
 
 #: ../partIntfHelpers.py:177
 msgid ""
@@ -1595,7 +1606,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:372
 msgid "Format as Swap?"
-msgstr "Takas alanı olarak biçemlendirilsin mi?"
+msgstr "Takas alanı olarak biçimlensin mi?"
 
 #: ../partIntfHelpers.py:373
 #, python-format
@@ -1606,9 +1617,9 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 "/dev/%s 0x82 (Linux takas) türünde görünüyor ama bir takas alanı olarak "
-"biçemlendirilmemiş.\n"
+"biçimlendirilmemiş.\n"
 "\n"
-"Bu bölümün Linux takas alanı olarak biçemlendirilmesini ister misiniz?"
+"Bu bölümün Linux takas alanı olarak biçimlendirilmesini ister misiniz?"
 
 #: ../partIntfHelpers.py:394
 msgid ""
@@ -1619,20 +1630,20 @@ msgid ""
 "contains files that you need to keep, such as a users home directories, then "
 "you should continue without formatting this partition."
 msgstr ""
-"Mevcut bir bölümü biçemlemeden kullanmayı seçtiniz. Önceki sistem "
+"Mevcut bir bölümü biçimlemeden kullanmayı seçtiniz. Önceki sistem "
 "kurulumundaki dosyalarla bu Linux kurulumunun dosyaları arasında bazı "
 "sorunlar yaşayabileceğinizi gözönüne alarak Red Hat bu bölümü yeniden "
-"biçemlemenizi önermektedir. Ancak, bu bölümde kullanıcı ev dizinleri gibi "
+"biçimlemenizi önermektedir. Ancak, bu bölümde kullanıcı ev dizinleri gibi "
 "kaybetmek istemediğiniz dosyalar varsa elbette ki, bu bölümü yeniden "
-"biçemlemeden kuruluma devam etmeniz gerekir."
+"biçimlemeden kuruluma devam etmeniz gerekir."
 
 #: ../partIntfHelpers.py:406
 msgid "Format?"
-msgstr "Biçemlendirilsin mi?"
+msgstr "Biçimlendirilsin mi?"
 
 #: ../partIntfHelpers.py:406
 msgid "Do _Not Format"
-msgstr "Biçemle_me"
+msgstr "Biçimle_Me"
 
 #: ../partIntfHelpers.py:414
 msgid "Error with Partitioning"
@@ -1689,7 +1700,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:453
 msgid "Format Warning"
-msgstr "Biçemleme Uyarısı"
+msgstr "Biçimleme Uyarısı"
 
 #: ../partIntfHelpers.py:501
 #, python-format
@@ -1725,10 +1736,8 @@ msgid "Confirm Reset"
 msgstr "Sıfırlama Onayı"
 
 #: ../partIntfHelpers.py:525
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Bu bölümü eski (orjinal) durumuna getirmek istediğinizden emin misiniz?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Bu bölümü eski (orjinal) durumuna getirmek istediğinizden emin misiniz?"
 
 #: ../partitioning.py:76
 msgid "Installation cannot continue."
@@ -1740,7 +1749,7 @@ msgid ""
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
-"Seçtiğiniz bölümlendirme seçenekleri etkinleştirildi. Artık disk düzenleme "
+"Seçtiğiniz bölümlendirme seçenekleri artık etkinleştirildi. Artık disk düzenleme "
 "ekranlarına dönemezsiniz. Kuruluma devam etmek istiyor musunuz?"
 
 #: ../partitioning.py:107
@@ -1753,7 +1762,7 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"Bu sistemde yeteri kadar bellek olmadığı için hemen takas alanını açılıp "
+"Bu sistemde yeteri kadar bellek olmadığı için hemen takas alanının açılıp "
 "kullanılması gerekiyor. Bunun için disk üzerindeki bölümlendirme bilgilerini "
 "de değiştirmek gerekiyor. Yapılsın mı?"
 
@@ -1762,19 +1771,17 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"%s kurulumuna devam edebilmek için bir kök disk bölümü (/) belirtmelisiniz."
+msgstr "%s kurulumuna devam edebilmek için bir kök disk bölümü (/) belirtmelisiniz."
 
 #: ../partitions.py:777
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr "Kök disk bölümü 250 MBdan küçük ve %s kurulumu için bu alan yetersiz."
+msgstr "Kök disk bölümü 250 MB'dan küçük ve %s kurulumu için bu alan yetersiz."
 
 #: ../partitions.py:784
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "FAT türünde 50 MBlık bir /boot/efi disk bölümü oluşturmalısınız."
 
 #: ../partitions.py:792
@@ -1832,19 +1839,17 @@ msgstr "bir LVM Oylum Grubunun üyesi olan bir bölüm."
 
 #: ../partRequests.py:218
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Bu bağlama noktası geçersiz. %s dizini / dosya sisteminde bulunmalıdır."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Bu bağlama noktası geçersiz. %s dizini / dosya sisteminde bulunmalıdır."
 
 #: ../partRequests.py:221
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"İstenen bağlama noktası \"%s\" kullanımda, lütfen başka bir bağlama noktası "
-"seçin."
+"Bağlama noktası \"%s\" kullanılamaz. İşlemlerin olması gibi yürüyebilmesi için "
+"onun bir sembolik bağ olması gerekir. Lütfen başka bir bağlama noktası seçiniz."
 
 #: ../partRequests.py:228
 msgid "This mount point must be on a linux file system."
@@ -1864,15 +1869,14 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"%s bölümünün boyu (%10.2f MB) %10.2f MBlık mümkün en büyük boyuttan fazla."
+msgstr "%s bölümünün boyu (%10.2f MB) %10.2f MB'lık mümkün en büyük boyuttan fazla."
 
 #: ../partRequests.py:454
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr "İstenen bölüm (%s MB) %s MBlık mümkün en büyük boyuttan büyük."
+msgstr "İstenen bölüm (%s MB) %s MB'lık mümkün en büyük boyuttan büyük."
 
 #: ../partRequests.py:459
 #, python-format
@@ -1906,23 +1910,21 @@ msgstr ""
 "varsa RAID aygıtına yeni üyeler eklemelisiniz."
 
 #: ../rescue.py:93
-#, fuzzy
 msgid "Starting Interface"
-msgstr "%s Bağdaştırıcısını Düzenle"
+msgstr "Arayüz Başlatılıyor"
 
 #: ../rescue.py:94
-#, fuzzy, python-format
+#, python-format
 msgid "Attempting to start %s"
-msgstr "Bir VGA16 X sunucusu başlatılmaya çalışılıyor."
+msgstr "%s başlatılmaya çalışılıyor."
 
 #: ../rescue.py:143
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Ağ"
+msgstr "Ağ Ayarları"
 
 #: ../rescue.py:144
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Bu sistemde ağ bağdaştırıcılarını başlatmak ister misiniz?"
 
 #: ../rescue.py:189 ../text.py:457
 msgid "Cancelled"
@@ -2033,7 +2035,7 @@ msgid ""
 "exit from the shell."
 msgstr ""
 "Dosya sisteminizi bağlamaya çalışırken bir hata oluştu. Kısmen de olsa dosya "
-"isteminiz %s altında bağlanmış olabilir.\n"
+"sisteminiz %s altında bağlanmış olabilir.\n"
 "\n"
 "<Enter> tuşuna bastığınızda kabuğa düşeceksiniz. Kabuktan 'exit' yazarak "
 "çıktığınızda sistem kendiliğinden tekrar başlatılacaktır."
@@ -2076,22 +2078,19 @@ msgid "Debug"
 msgstr "Hata Ayıklama"
 
 #: ../text.py:341
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s © 2002 Red Hat, Inc."
+msgstr "%s © 2003 Red Hat, Inc."
 
 #: ../text.py:348
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"<F1> yardım  |  Gezinmek için <Tab>  |  <Boşluk> seçer  | <F12> sonraki ekran"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "<F1> yardım  |  Gezinmek için <Tab>  |  <Boşluk> seçer  | <F12> sonraki ekran"
 
 #: ../text.py:350
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> ileri-geri   |   <Boşluk> işaretle   |   <F12> sonraki ekran"
+msgstr " gezinmek için <Tab>/<Alt-Tab>  |  <Boşluk> işaretler  |  <F12> sonraki ekran"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2099,7 +2098,7 @@ msgstr "Mevcut Sistemi Güncelle"
 
 #: ../upgradeclass.py:12
 msgid "Upgrade"
-msgstr "Güncelleme"
+msgstr "Güncelle"
 
 #: ../upgrade.py:62
 msgid "Searching"
@@ -2122,8 +2121,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Diskinizdeki bir ya da birden fazla dosya sisteminin ayrılması başarısız "
-"oldu. Lütfen Linux'u tekrar başlatıp, dosya sistemlerinin denetlenmesini "
+"Diskinizdeki bir ya da birden fazla dosya sistemi düzgün ayrılmamış. "
+"Lütfen Linux'u tekrar başlatıp, dosya sistemlerinin denetlenmesini "
 "sağladıktan sonra güncellemek üzere sistemi normal şekilde kapatın.\n"
 "%s"
 
@@ -2134,8 +2133,8 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Diskinizdeki bir ya da birden fazla dosya sisteminin ayrılması başarısız "
-"oldu.  Bunların yine de bağlanmasını istiyor musunuz?\n"
+"Diskinizdeki bir ya da birden fazla dosya sistemi düzgün ayrılmamış.  "
+"Bunların yine de bağlanmasını istiyor musunuz?\n"
 "%s"
 
 #: ../upgrade.py:252 ../upgrade.py:258
@@ -2174,25 +2173,23 @@ msgstr ""
 
 #: ../upgrade.py:282
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Sabit Sembolik Bağlar"
 
 #: ../upgrade.py:293
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"Aşağıdaki dosyalar sabit sembolik bağ dosyalarıdır ve bir güncelleme "
+"Aşağıdaki dizinler sabit sembolik bağ dosyalarıdır ve bir güncelleme "
 "sırasında desteklenmezler. Lütfen onları göreli sembolik bağ dosyalarına "
 "dönüştürdükten sonra güncelleme işlemine yeniden başlayınız.\n"
 "\n"
 
 #: ../upgrade.py:299
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "Geçersiz Seçim"
+msgstr "Geçersiz Dizinler"
 
 #: ../upgrade.py:305
 #, python-format
@@ -2213,13 +2210,15 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"Kurulum programı rpm-4.x öncesi veritabanı kullanılmış sistemleri güncelleyemez. "
+"Dağıtım notlarında açıklandığı gibi bu işlem için kullanılan rpm paketlerini "
+"kurduktan sonra bu güncelleme işlemini yeniden başlatın."
 
 #: ../upgrade.py:388
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Güncellenecek paketler belirlenirken bir hata oluştu."
 
 #: ../upgrade.py:442
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2229,10 +2228,12 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Bu sistemde kurulu bazı paketler bu Red Hat Linux dağıtımındaki bazı "
-"paketlerle örtüşüyor. Güncelleme işlemi bu paketlerin üzerine yazacağından "
-"sisteminiz bu işlemden sonra kararsız duruma gelebilir. Yine de güncelleme "
-"işlemine devam edilsin mi?"
+"Bu sistemde kurulu bazı üçüncü parti paketler bu Red Hat Linux dağıtımındaki "
+"bazı paketlerle örtüşüyor. Güncelleme işlemi bu paketlerin üzerine yazacağından "
+"sisteminiz bu işlemden sonra kararsız duruma gelebilir. Daha fazla bilgi için "
+"dağıtım notlarına bakınız.\n"
+"\n"
+"Yine de güncelleme işlemine devam edilsin mi?"
 
 #: ../upgrade.py:465
 msgid ""
@@ -2242,7 +2243,7 @@ msgid ""
 "process?"
 msgstr ""
 "Bu sistemde bir /etc/redhat-release dosyası yok. Büyük ihtimalle bir Red Hat "
-"Linux sistemi değil. Güncelleme işlemi sisteminizin karasız duruma gelmesi "
+"Linux sistemi değil. Güncelleme işlemi sisteminizin kararsız duruma gelmesi "
 "ile sonuçlanabilir. Yine de güncelleme işlemine devam edilsin mi?"
 
 #: ../upgrade.py:506
@@ -2252,48 +2253,48 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"Bu %s sürümü sadece Red Hat Linux 6.2 ve üstü sürümlerin güncellenmesini "
+"destekler. Bu sistem daha eski görünüyor. Yine de güncelleme işlemine devam "
+"edilmesini istiyor musunuz?"
 
 #: ../urlinstall.py:45
-#, fuzzy
 msgid "Connecting..."
-msgstr "\"%s\" sınanıyor..."
+msgstr "Bağlanıyor..."
 
 #: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
 msgstr "DDC Algılamalı Monitör"
 
 #: ../iw/account_gui.py:25
-#, fuzzy
 msgid "Set Root Password"
-msgstr "root Parolası"
+msgstr "Root Parolasının Belirlenmesi"
 
 #: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
 #: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
-#, fuzzy
 msgid "Error with Password"
-msgstr "root Parolası"
+msgstr "Parola Hatası"
 
 #: ../iw/account_gui.py:36
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
+msgstr "root prolasını bir kere girdikten sonra ikinci kez girerek doğrulamalısınız."
 
 #: ../iw/account_gui.py:44
-#, fuzzy
 msgid "The passwords you entered were different.  Please try again."
 msgstr "Verdiğiniz parolalar birbirini tutmuyor. Lütfen yeniden deneyin."
 
 #: ../iw/account_gui.py:51
-#, fuzzy
 msgid "The root password must be at least six characters long."
-msgstr "root parolası en az 6 karakter uzunluğunda olmalı."
+msgstr "root parolası en az 6 karakterlik olmalı."
 
 #: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
+"Verdiğiniz parola, parolalarda kullanılmasına izin verilmeyen karakterler "
+"içeriyor. (Türkçe karakter kullanmayın)"
 
 #: ../iw/account_gui.py:87
 msgid "Enter the root (administrator) password for the system."
@@ -2305,11 +2306,11 @@ msgstr "Root _Parolası: "
 
 #: ../iw/account_gui.py:106
 msgid "_Confirm: "
-msgstr "O_nayla : "
+msgstr "O_nayla: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr "Erişim Ayarları"
+msgstr "Kimlik Kanıtlama Yapılandırması"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
@@ -2325,7 +2326,7 @@ msgstr "_NIS kullanılsın"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "NIS sunucuyu _bulmak için yayın adresini kullan"
+msgstr "NIS sunucuyu _bulmak için yayın adresi kullanılsın"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
@@ -2341,7 +2342,7 @@ msgstr "_LDAP kullanılsın"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr "_TLS kullanılsın"
+msgstr "_TLS sorguları kullanılsın"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
@@ -2365,7 +2366,7 @@ msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "_Yetkili Sunucu:"
+msgstr "_Yönetim Sunucusu:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
@@ -2377,7 +2378,7 @@ msgstr "SMB _Sunucu:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr "SMB _Workgroup:"
+msgstr "SMB Çalışma _Grubu:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2398,13 +2399,12 @@ msgstr "SMB"
 #: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1412
 #: ../textw/partition_text.py:1203
 msgid "Automatic Partitioning"
-msgstr "Otomatik Bölümlendirme"
+msgstr "Otomatik Bölümleme"
 
 #: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1440
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"%s kurulumunun yapılabilmesi için en azından bir aygıt belirtmelisiniz."
+msgstr "%s kurulumunun yapılabilmesi için en azından bir aygıt belirtmelisiniz."
 
 #: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1482
 msgid "I want to have automatic partitioning:"
@@ -2424,9 +2424,9 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"Bir önyükleme parolası yetkisiz kullanıcıların çekirdeğe "
-"aktarılanseçenekleri değiştirmelerini engellemek içindir. Daha yüksek bir "
-"güvenlik istiyorsanız bir parolalı açılış tavsiye edilir."
+"Bir önyükleme parolası yetkisiz kullanıcıların çekirdeğe aktarılan seçenekleri "
+"değiştirmelerini engellemek içindir. Daha yüksek güvenlik istiyorsanız bir "
+"parolalı açılış tavsiye edilir."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2473,12 +2473,11 @@ msgstr ""
 "Bu parolayı kullanarak devam etmek istiyor musunuz?"
 
 #: ../iw/bootdisk_gui.py:23
-#, fuzzy
 msgid "Boot Diskette Creation"
 msgstr "Açılış Disketinin Oluşturulması"
 
 #: ../iw/bootdisk_gui.py:54
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -2491,17 +2490,16 @@ msgstr ""
 "çalışmadığında, bir önyükleyici kurmamışsanız ya da başka bir önyükleyici "
 "ile sisteminizi açamıyorsanız bu disket yardımıyla sisteminizi "
 "açabilirsiniz.\n"
+"\n"
 "Bu bakımdan mutlaka bir açılış disketi oluşturmalısınız.\n"
 
 #: ../iw/bootdisk_gui.py:70
-#, fuzzy
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "_Evet, bir açılış disketi oluşturulmalı"
+msgstr "_Evet, bir açılış disketi oluşturulsun"
 
 #: ../iw/bootdisk_gui.py:73
-#, fuzzy
 msgid "No, I _do not want to create a boot diskette"
-msgstr "Hay_ır, bir açılış disketi oluşturulmasın"
+msgstr "_Hayır, bir açılış disketi oluşturulmasın"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2516,8 +2514,8 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "LBA32 kullanımına zorlamak BIOS tarafından desteklenmediği durumlarda "
-"makinanın önyükleme yapamaması ile sonuçlanabilir. Kurulumun ileri "
-"safhalarında sorulduğunda bir açılış disketi oluşturmayı ihmal etmeyin.\n"
+"sistemin yüklenememesi ile sonuçlanabilir. Kurulumun ileri safhalarında "
+"sorulduğunda bir açılış disketi oluşturmayı ihmal etmeyin.\n"
 "\n"
 "LBA32 kipine zorlayarak kuruluma devam etmek istiyor musunuz?"
 
@@ -2605,11 +2603,11 @@ msgstr "Önyükleyiciyi _değiştir"
 
 #: ../iw/bootloader_main_gui.py:254
 msgid "Configure advanced boot loader _options"
-msgstr "İleri düzey önyükleyici yapılandırma _seçenekleri"
+msgstr "İleri düzey önyükleyici _seçeneklerini yapılandır"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
-msgstr "LILO kaydını bu bölüme kur:"
+msgstr "Önyükleyici kaydını bu bölüme yap:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
@@ -2636,9 +2634,9 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Lütfen sürücülerin sıralamasını BIOS'un saptadığı gibi yapınız. Bu, çok "
-"sayıda SCSI ya da hem SCSI hem de IDE bağdaştırıcıyı birlikte "
-"kullanıyorsanız ve sistemi bir SCSI aygıtı ile açmak istiyorsanız "
+"Lütfen sürücülerin sıralamasını BIOS'un saptadığı gibi yapınız. Sürücü sırasının "
+"değiştirilmesi, çok sayıda SCSI ya da hem SCSI hem de IDE bağdaştırıcıyı "
+"birlikte kullanıyorsanız ve sistemi bir SCSI aygıtı ile açmak istiyorsanız "
 "kullanışlıdır.\n"
 "\n"
 "Sürücülerin sırasını değiştirirseniz, ana önyükleme kaydının (MBR) yerini "
@@ -2646,7 +2644,7 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:55
 msgid "About to Install"
-msgstr "Kuruluma Başlanıyor"
+msgstr "Kuruluma Hazırlanma"
 
 #: ../iw/confirm_gui.py:60
 #, python-format
@@ -2670,7 +2668,7 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
-msgstr "Güncellemeye Başlanıyor"
+msgstr "Güncellemeye Hazırlık"
 
 #: ../iw/confirm_gui.py:73
 #, python-format
@@ -2688,33 +2686,32 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
-msgstr "Kutlarız"
+msgstr "Tebrikler"
 
 #: ../iw/congrats_gui.py:53 ../textw/complete_text.py:28
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "If you created a boot diskette during this installation as your primary "
 "means of booting %s, insert it before rebooting your newly installed "
 "system.\n"
 "\n"
 msgstr ""
-"Sisteminizi açmak için bir açılış disketi oluşturduysanız, sistemi yeniden "
+"%s sisteminizi açmak için bir açılış disketi oluşturduysanız, sistemi yeniden "
 "başlatmadan önce bu disketi sürücüye yerleştiriniz.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:63 ../textw/complete_text.py:38
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Kurulum sorasında kullanığınız bir disket varsa sürücüden çıkarın ve <Enter> "
+"Kurulum sorasında kullanığınız disk ve/veya disketi sürücüden çıkarın ve <Enter> "
 "tuşuna basarak sisteminizi yeniden başlatın.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2735,10 +2732,7 @@ msgid ""
 msgstr ""
 "Tebrikler, kurulum tamamlandı.\n"
 "\n"
-"Kurulum sırasında kullanılan disket, CD gibi kurulum ortamlarını "
-"kaldırınız.\n"
-"\n"
-"%sSon dakika haberleri için (güncelleme ve düzeltmeler)\n"
+"%s%sSon dakika haberleri için (güncelleme ve düzeltmeler)\n"
 "\thttp://www.redhat.com/errata/\n"
 "adresini ziyaret edebilirsiniz.\n"
 "\n"
@@ -2759,7 +2753,7 @@ msgstr ""
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
-msgstr "Çözülemeyen Paket Gerekliliği"
+msgstr "Çözülmeyen Paket Bağımlılıkları"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
 #: ../iw/package_gui.py:495 ../iw/package_gui.py:672
@@ -2779,7 +2773,7 @@ msgstr "Gereksinim"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr "Gereklilikleri gözönüne alarak paketleri _kur"
+msgstr "_Bağımlılıkları gözönüne alarak paketleri kur"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
@@ -2795,7 +2789,7 @@ msgid "Workstation Defaults"
 msgstr "İşistasyonu Öntanımlıları"
 
 #: ../iw/desktop_choice_gui.py:58
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default workstation environment includes our recommendations for new "
 "users, including:\n"
@@ -2821,15 +2815,15 @@ msgstr ""
 "\n"
 "\tMasaüstü ortamı (GNOME)\n"
 "\tOfis paketi (OpenOffice)\n"
-"\tWeb istemci (Mozilla) \n"
+"\tSanaldoku istemci (Mozilla) \n"
 "\tEposta istemci (Evolution)\n"
-"\tICQ\n"
+"\tAnında İletişim\n"
 "\tSes ve video uygulamaları\n"
 "\tOyunlar\n"
 "\tYazılım Geliştirme Araçları\n"
 "\tYönetim Araçları\n"
 "\n"
-"Kurulumdan sonra 'redhat-config-package' uygulamasını kullanarak yeni "
+"Kurulumdan sonra 'redhat-config-packages' uygulamasını kullanarak yeni "
 "paketler ekleyebilir ya da mevcutları kaldırabilirsiniz.\n"
 "\n"
 "%s tecrübeniz varsa, istediğiniz paketleri kendiniz de seçebilirsiniz "
@@ -2840,7 +2834,7 @@ msgid "Personal Desktop Defaults"
 msgstr "Kişisel Masaüstü Öntanımlıları"
 
 #: ../iw/desktop_choice_gui.py:81
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default personal desktop environment includes our recommendations for "
 "new users, including:\n"
@@ -2864,13 +2858,13 @@ msgstr ""
 "\n"
 "\tMasaüstü ortamı (GNOME)\n"
 "\tOfis paketi (OpenOffice)\n"
-"\tWeb istemci (Mozilla) \n"
-"\tEposta istemci (Evolution)\n"
-"\tICQ\n"
+"\tSanaldoku istemcisi (Mozilla) \n"
+"\tEposta istemcisi (Evolution)\n"
+"\tAnında iletişim\n"
 "\tSes ve video uygulamaları\n"
 "\tOyunlar\n"
 "\n"
-"Kurulumdan sonra 'redhat-config-package' uygulamasını kullanarak yeni "
+"Kurulumdan sonra 'redhat-config-packages' uygulamasını kullanarak yeni "
 "paketler ekleyebilir ya da mevcutları kaldırabilirsiniz.\n"
 "\n"
 "%s tecrübeniz varsa, istediğiniz paketleri kendiniz de seçebilirsiniz "
@@ -2881,20 +2875,16 @@ msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
 msgstr ""
-"Öntanımlı paket gruplarını değiştirmek isterseniz bunları aşağıda "
-"belirleyebilirsiniz."
+"Öntanımlı paket gruplarını değiştirmek isterseniz bunları aşağıdan "
+"seçerek kişiselleştirebilirsiniz."
 
 #: ../iw/desktop_choice_gui.py:106
-#, fuzzy
 msgid "_Install default software packages"
-msgstr ""
-"%s paketleri kuruluyor\n"
-"\n"
+msgstr "Ö_ntanımlı paketler kurulsun"
 
 #: ../iw/desktop_choice_gui.py:107
-#, fuzzy
 msgid "_Customize software packages to be installed"
-msgstr "_Kurulacak paketlerin seçiminin özelleştirilmesi"
+msgstr "_Paketleri kendim seçeceğim."
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -2911,12 +2901,11 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr "Güncelleme Araştırılıyor"
+msgstr "Güncellemenin Gözden Geçirilmesi"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "_Upgrade an existing installation"
-msgstr "Mevcut Sistemi Güncelle"
+msgstr "Mevcut Sistemi _Güncelle"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2924,27 +2913,29 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
+"Mevcut %s sisteminizi güncellemek istiyorsanız bu seçeneği kullanın. Bu "
+"seçenekle sürücülerinizdeki verileriniz korunacaktır."
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "_Install %s"
-msgstr "Kurulum"
+msgstr "%s _Kurulumu Yap"
 
 #: ../iw/examine_gui.py:69
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
+"Temiz bir sistem kurmak için bu seçeneği kullanın. Mevcut yazılımlar ve veriler "
+"sizin seçimlerinize bağlı olarak değiştirilecektir."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following Red Hat product will be upgraded:"
-msgstr "Önyükleyici kurulmayacak."
+msgstr "Aşağıdaki Red Hat ürünü güncellenecek:"
 
 #: ../iw/examine_gui.py:136
-#, fuzzy
 msgid "Unknown Linux system"
-msgstr "Bilinmeyen Makina"
+msgstr "Bilinmeyen Linux Sistemi"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -2959,6 +2950,8 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Seçilen DASD aygıtının biçimlenmesiyle aygıtın tüm içeriği silinecektir. "
+"Seçilen DASD aygıtının biçimlenmesini gerçekten istiyor musunuz?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -2973,14 +2966,14 @@ msgid "Firewall Configuration"
 msgstr "Güvenlik Duvarı Yapılandırması"
 
 #: ../iw/firewall_gui.py:132
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
 "between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
 "\n"
 "For example, '1234:udp'"
 msgstr ""
-"Geçersiz port verildi: %s. Doğru biçem 'port:protokol' şeklindedir. Burada "
+"Geçersiz port verildi: %s. Doğru biçim 'port:protokol' şeklindedir. Burada "
 "port 1 ile 65535 arasında bir sayı ve port da ya 'tcp' ya da 'udp' "
 "olmalıdır.\n"
 "\n"
@@ -3016,7 +3009,7 @@ msgstr "Ö_zelleştir"
 
 #: ../iw/firewall_gui.py:229
 msgid "_Trusted devices:"
-msgstr "_Güvenilen aygıtlar:"
+msgstr "_Güvenilir aygıtlar:"
 
 #: ../iw/firewall_gui.py:255
 msgid "_Allow incoming:"
@@ -3119,14 +3112,14 @@ msgstr ""
 "10.2f MB) daha büyük olduğundan fiziksel ekin boyutu değiştirilemez."
 
 #: ../iw/lvm_dialog_gui.py:165
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
 msgstr ""
 "Seçilen değer (%10.2f MB), oylum grubundaki en küçük fiziksel oylumdan (%"
-"10.2f MB) daha büyük olduğundan fiziksel ekin boyutu değiştirilemez."
+"10.2f MB) çok büyük olduğundan fiziksel ekin boyutu değiştirilemez."
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -3244,8 +3237,7 @@ msgstr "Mantıksal oylum ismi uygun değil"
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Mantıksal oylum ismi \"%s\" kullanımda. Lütfen başka bir isim belirtin."
+msgstr "Mantıksal oylum ismi \"%s\" kullanımda. Lütfen başka bir isim belirtin."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -3296,7 +3288,7 @@ msgid ""
 "currently existing logical volumes"
 msgstr ""
 "Oylum grubunda yeni mantıksal oylumlar oluşturulabilecek yer yok. Bir "
-"mantıksal oylum eklemek için bir ya da daha fazla mevcut mantıksal bölümün "
+"mantıksal oylum eklemek için bir ya da daha fazla mevcut mantıksal oylumun "
 "boyutunu küçültmeniz gerekiyor."
 
 #: ../iw/lvm_dialog_gui.py:731
@@ -3366,7 +3358,7 @@ msgstr "Fiziksel Ek:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr "Kullanımdaki Fiziksel _Oylumlar:"
+msgstr "Kullanılacak Fiziksel _Oylumlar:"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
@@ -3431,7 +3423,7 @@ msgstr "_Model"
 
 #: ../iw/mouse_gui.py:234
 msgid "_Emulate 3 buttons"
-msgstr "3. _Tuş Öykünümü"
+msgstr "3. _Düğmeyi Taklit Et"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3439,7 +3431,7 @@ msgstr "Sisteminizdeki fareye en uygununu seçiniz."
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:570
 msgid "Gateway"
-msgstr "Geçit"
+msgstr "Ağ Geçidi"
 
 #: ../iw/network_gui.py:26 ../iw/network_gui.py:572
 msgid "Primary DNS"
@@ -3455,7 +3447,7 @@ msgstr "Üçüncül DNS"
 
 #: ../iw/network_gui.py:29
 msgid "_Gateway"
-msgstr "_Ağgeçidi"
+msgstr "_Ağ Geçidi"
 
 #: ../iw/network_gui.py:29
 msgid "_Primary DNS"
@@ -3471,7 +3463,7 @@ msgstr "Üçü_ncül DNS"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
-msgstr "Ağ Ayarları"
+msgstr "Ağ Yapılandırması"
 
 #: ../iw/network_gui.py:153 ../iw/network_gui.py:157 ../iw/network_gui.py:161
 #: ../iw/network_gui.py:166 ../iw/network_gui.py:172 ../iw/network_gui.py:176
@@ -3484,7 +3476,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Bir makina ismi belirtmediniz. Ağ ortamınıza bağlı olarak ilerde bu bazı "
+"Bir konak ismi belirtmediniz. Ağ ortamınıza bağlı olarak ilerde bu bazı "
 "sorunlara yol açabilir."
 
 #: ../iw/network_gui.py:158
@@ -3503,7 +3495,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Makina ismi \"%s\" aşağıdaki sebeplerden dolayı geçerli değildir:\n"
+"Konak ismi \"%s\" aşağıdaki sebeplerden dolayı geçerli değil:\n"
 "\n"
 "%s"
 
@@ -3548,11 +3540,11 @@ msgstr "%s Bağdaştırıcısını Düzenle"
 
 #: ../iw/network_gui.py:210
 msgid "Configure using _DHCP"
-msgstr "_DHCP kullanarak yapılandır"
+msgstr "_DHCP kullanarak yapılandırılsın"
 
 #: ../iw/network_gui.py:216
 msgid "_Activate on boot"
-msgstr "_Açılış sırasında etkinleştir"
+msgstr "_Açılışta etkinleştir"
 
 #: ../iw/network_gui.py:225
 msgid "_IP Address"
@@ -3563,9 +3555,8 @@ msgid "Net_mask"
 msgstr "Ağ _maskesi"
 
 #: ../iw/network_gui.py:229
-#, fuzzy
 msgid "_Point to Point (IP)"
-msgstr "Uçtan uca (IP)"
+msgstr "_Uçtan uca (IP)"
 
 #: ../iw/network_gui.py:252
 #, python-format
@@ -3574,7 +3565,7 @@ msgstr "%s Yapılandırması"
 
 #: ../iw/network_gui.py:394
 msgid "Active on Boot"
-msgstr "Açılışta etkinleştir"
+msgstr "Açılışta etkinleştirilsin"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3590,11 +3581,11 @@ msgstr "IP/Ağ maskesi"
 
 #: ../iw/network_gui.py:421 ../iw/network_gui.py:523 ../loader2/net.c:587
 msgid "Hostname"
-msgstr "Makine Adı"
+msgstr "Konak Adı"
 
 #: ../iw/network_gui.py:426
 msgid "Set hostname"
-msgstr "Makine Adı"
+msgstr "Konak adını verin"
 
 #: ../iw/network_gui.py:494
 msgid "Network Devices"
@@ -3602,11 +3593,11 @@ msgstr "Ağ Aygıtları"
 
 #: ../iw/network_gui.py:501
 msgid "Set the hostname:"
-msgstr "Makine Adı:"
+msgstr "Konak Adı:"
 
 #: ../iw/network_gui.py:505
 msgid "_automatically via DHCP"
-msgstr "_DHCP üzerinden kendiliğinden"
+msgstr "_DHCP üzerinden"
 
 #: ../iw/network_gui.py:511
 msgid "_manually"
@@ -3614,7 +3605,7 @@ msgstr "_elle"
 
 #: ../iw/network_gui.py:517
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(örn. \"konak.alan.com\")"
 
 #: ../iw/network_gui.py:580
 msgid "Miscellaneous Settings"
@@ -3628,12 +3619,12 @@ msgid ""
 "'Add.' To change the operating system booted by default, select 'Default' by "
 "the desired operating system."
 msgstr ""
-"Önyükleyiciyi başka işletim sistemlerini açabilmek içinde "
-"yapılandırabilirsiniz. Önyükleyici açılış sırasında bu işletim sistemlerini "
-"bir listeden seçmenizi sağlayabilir. Otomatik olarak algılanmamış işletim "
-"sistemleriniz varsa, bunları 'Ekle' düğmesi ile ekleyebilirsiniz. Açılışta "
-"öntanımlı olarak açılmasını istediğiniz işletim sistemini belirlemek "
-"isterseniz, bu işletim sistemini 'Öntanımlı' düğmesi ile belirleyebilirsiniz."
+"Önyükleyiciyi başka işletim sistemlerini açabilmek içinde yapılandırabilirsiniz. "
+"Önyükleyici açılış sırasında bu işletim sistemlerini bir listeden seçmenizi "
+"sağlayabilir. Otomatik olarak algılanmamış işletim sistemleriniz varsa, bunları "
+"'Ekle' düğmesi ile ekleyebilirsiniz. Açılışta öntanımlı olarak yüklenmesini "
+"istediğiniz işletim sistemini belirlemek isterseniz, bu işletim sistemini "
+"'Öntanımlı' düğmesi ile belirleyebilirsiniz."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:284 ../textw/silo_text.py:207
@@ -3649,7 +3640,7 @@ msgstr "Etiket"
 
 #: ../iw/osbootwidget.py:131
 msgid "Image"
-msgstr "Bellekeşlemi"
+msgstr "İmge"
 
 #: ../iw/osbootwidget.py:138
 msgid ""
@@ -3659,7 +3650,7 @@ msgstr ""
 "Önyükleme etiketi açılışını yapmak istediğiniz işletim sistemini seçmenizi "
 "sağlayan ve önyükleyiciye gösterilen bir isimdir. Önyükleme aygıtı ise "
 "sistemden önce çalışıp sistem seçimini sağlayan önyükleme alanının "
-"bulunacağı aygıttır."
+"bulunacağı aygıttır. Önyükleme etiketini girin."
 
 #: ../iw/osbootwidget.py:150
 msgid "_Label"
@@ -3667,7 +3658,7 @@ msgstr "_Etiket"
 
 #: ../iw/osbootwidget.py:194
 msgid "Default Boot _Target"
-msgstr "Öntanımlı Açılış _Hedefi"
+msgstr "Öntanımlı Yükleme _Hedefi"
 
 #: ../iw/osbootwidget.py:223
 msgid "You must specify a label for the entry"
@@ -3675,7 +3666,7 @@ msgstr "Girdi olarak bir isim belirtmelisiniz"
 
 #: ../iw/osbootwidget.py:232
 msgid "Boot label contains illegal characters"
-msgstr "Açılış etiketi geçersiz karakterler içeriyor"
+msgstr "Önyükleme etiketi geçersiz karakterler içeriyor"
 
 #: ../iw/osbootwidget.py:256
 msgid "Duplicate Label"
@@ -3744,11 +3735,11 @@ msgstr "Toplam boy: "
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr "Grubun t_amamını seç"
+msgstr "Gruptakilerin _tümünü seç"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "Seçilenleri _bırak"
+msgstr "Gruptakileri seçimden çı_kart"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:57
 msgid "Package Group Selection"
@@ -3855,19 +3846,19 @@ msgstr "_Birincil disk bölümü olmaya zorla"
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1119
 msgid "Type"
-msgstr "Tip"
+msgstr "Türü"
 
 #: ../iw/partition_gui.py:362
 msgid "Format"
-msgstr "Biçem"
+msgstr "Biçim"
 
 #: ../iw/partition_gui.py:364 ../textw/partition_text.py:1119
 msgid "Start"
-msgstr "Başla"
+msgstr "Başlangıç"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1119
 msgid "End"
-msgstr "Son"
+msgstr "Bitiş"
 
 #: ../iw/partition_gui.py:402
 msgid ""
@@ -3887,17 +3878,15 @@ msgstr ""
 
 #: ../iw/partition_gui.py:547 ../textw/partition_text.py:1113
 msgid "Partitioning"
-msgstr "Bölümlendirme"
+msgstr "Bölümleme"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "İstediğiniz bölümleme şemasına bağlı olarak aşağıdaki hatalar oluştu."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "%s kurulumuna devam etmeden önce bu hatalar giderilmelidir."
 
 #: ../iw/partition_gui.py:648
@@ -3918,11 +3907,11 @@ msgstr "Bölümleme Uyarıları"
 
 #: ../iw/partition_gui.py:683
 msgid "Format Warnings"
-msgstr "Biçemleme Uyarıları"
+msgstr "Biçimleme Uyarıları"
 
 #: ../iw/partition_gui.py:688
 msgid "_Format"
-msgstr "_Biçem"
+msgstr "_Biçimle"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
@@ -3944,7 +3933,7 @@ msgstr "Sabit Diskler"
 #: ../iw/partition_gui.py:870 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
-msgstr "Boş disk alanı"
+msgstr "Boş alan"
 
 #: ../iw/partition_gui.py:872 ../textw/partition_text.py:135
 msgid "Extended"
@@ -3961,7 +3950,7 @@ msgstr "Boş"
 #: ../iw/partition_gui.py:999 ../textw/partition_text.py:214
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "İstenen bölüm tahsis edilemedi: %s."
+msgstr "İstenen bölümler tahsis edilemedi: %s."
 
 #: ../iw/partition_gui.py:1008
 #, python-format
@@ -4026,7 +4015,7 @@ msgid ""
 "\n"
 msgstr ""
 "RAID kullanmak için önce 'yazılımsal RAID' türünde en az iki disk bölümü "
-"oluşturmalısınız. Ancak ondan sonra biçemlenebilir ve bağlanabilir bir RAID "
+"oluşturmalısınız. Ancak ondan sonra biçimlenebilir ve bağlanabilir bir RAID "
 "aygıtı oluşturabilirsiniz.\n"
 "\n"
 
@@ -4093,15 +4082,15 @@ msgstr "_Olduğu gibi bırak (veriler korunur)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
-msgstr "_Böyle Biçemle:"
+msgstr "_Böyle Biçimle:"
 
 #: ../iw/partition_ui_helpers_gui.py:278
 msgid "Mi_grate partition to:"
-msgstr "Buna _Yansıla:"
+msgstr "Buna _Dönüştür:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
-msgstr "_Hatalı disk blokları sınansın mı?"
+msgstr "_Hatalı disk blokları için sınansın mı?"
 
 #: ../iw/partition_ui_helpers_gui.py:336
 #, python-format
@@ -4109,7 +4098,7 @@ msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
 msgstr ""
-"'%s' türündeki bölümler bir tek sürücüyle sınırlanmalıdır. Bu, 'İzin verilen "
+"'%s' türündeki bölümler bir tek sürücüyle sınırlanmalıdır. Bu, 'Kullanılabilir "
 "Sürücüler' listesinden sürücü seçerek yapılır."
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
@@ -4131,7 +4120,7 @@ msgstr "Paketler Kuruluyor"
 #: ../iw/progress_gui.py:52 ../textw/progress_text.py:65
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "İndiriliyor - %s"
 
 #: ../iw/progress_gui.py:110 ../iw/progress_gui.py:299
 msgid "Total"
@@ -4144,16 +4133,15 @@ msgstr "Kalan"
 #: ../iw/progress_gui.py:154
 #, python-format
 msgid "%s KBytes"
-msgstr "%s Kbayt"
+msgstr "%s kB"
 
 #: ../iw/progress_gui.py:234
 msgid "Summary"
 msgstr "Özet"
 
 #: ../iw/progress_gui.py:270 ../textw/progress_text.py:129
-#, fuzzy
 msgid "Status: "
-msgstr "Durum"
+msgstr "Durum: "
 
 #: ../iw/progress_gui.py:280
 msgid "Package Progress: "
@@ -4197,7 +4185,7 @@ msgstr "RAID Aygıtı Yap"
 #: ../iw/raid_dialog_gui.py:278
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr "Düzenlenecek RAID Aygıt: /dev/md%s"
+msgstr "Düzenlenecek RAID Aygıtı: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:898
 msgid "Edit RAID Device"
@@ -4221,7 +4209,7 @@ msgstr "_Yedeklerin sayısı:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
-msgstr "_Bölüm biçemlendirilsin mi?"
+msgstr "_Bölüm biçimlendirilsin mi?"
 
 #: ../iw/raid_dialog_gui.py:487
 msgid ""
@@ -4398,7 +4386,7 @@ msgstr "Bölümlendirme"
 
 #: ../iw/silo_gui.py:172
 msgid "Install SILO boot record on:"
-msgstr "SILO açılış kaydını bu bölüme kur:"
+msgstr "SILO önyükleme kaydını bu bölüme kur:"
 
 #: ../iw/silo_gui.py:189
 msgid "Create PROM alias"
@@ -4406,7 +4394,7 @@ msgstr "PROM kaydı yarat"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "PROM açılış aygıtını Linux'a aktar"
+msgstr "Öntanımlı PROM önyükleme aygıtını Linux'a ayarla"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
@@ -4414,25 +4402,25 @@ msgstr "Çekirdek parametreleri"
 
 #: ../iw/silo_gui.py:234
 msgid "Create boot disk"
-msgstr "Açılış disketi yarat"
+msgstr "Açılış disketi oluştur"
 
 #: ../iw/silo_gui.py:244
 msgid "Do not install SILO"
-msgstr "SILO kurma"
+msgstr "SILO kurMa"
 
 #: ../iw/silo_gui.py:263 ../textw/silo_text.py:207
 msgid "Partition type"
-msgstr "Bölüm Tipi"
+msgstr "Bölüm Türü"
 
 #: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:214
 #: ../textw/bootloader_text.py:284 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr "Açılış Etiketi"
+msgstr "Önyükleme Etiketi"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
-msgstr "Öntanımlı açılış görüntüsü"
+msgstr "Öntanımlı önyükleme imgesi"
 
 #: ../iw/timezone_gui.py:26 ../textw/timezone_text.py:95
 msgid "Time Zone Selection"
@@ -4443,9 +4431,8 @@ msgid "System clock uses _UTC"
 msgstr "Sistem saati _UTC kullanıyor"
 
 #: ../iw/timezone_gui.py:73
-#, fuzzy
 msgid "Please select the nearest city in your timezone:"
-msgstr "Kullanmak istediğiniz çözünürlüğü seçiniz:"
+msgstr "Zaman diliminize en yakın şehri seçiniz:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4469,8 +4456,7 @@ msgstr "Bu, mevcut önyükleyiciyi güncelleyecektir."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Kurulum programı %s önyükleyicisini %s üzerinde saptadı."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4527,10 +4513,10 @@ msgid ""
 msgstr ""
 "Bu %s dağıtımı ext3 jurnalli dosya sistemi desteklidir. %s ile geleneksel "
 "olarak gelen ext2 dosya sistemine göre pek çok üstünlüğe sahiptir. ext2 "
-"biçemli disk bölümleri veri kaybı olmaksızın ext3 biçemli disk bölümlerine "
+"biçimli disk bölümleri veri kaybı olmaksızın ext3 biçimli disk bölümlerine "
 "dönüştürülebilir.\n"
 "\n"
-"Bu bölümlerden hangilerini dönüştürmek istersiniz?."
+"Bu bölümlerden hangilerini dönüştürmek istersiniz?"
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
@@ -4545,7 +4531,7 @@ msgid ""
 "file systems now."
 msgstr ""
 "2.4 çekirdekler sisteminizdeki RAM'in iki katına kadar bir takas alanına "
-"gereksinim duyar. %dMBlık takas alanınınız var ama dosya sisteminizde başka "
+"gereksinim duyar. %dMB'lık takas alanınınız var ama dosya sisteminizde başka "
 "takas alanlarıda oluşturulabilir."
 
 #: ../iw/upgrade_swap_gui.py:108
@@ -4603,8 +4589,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Bir takas dosyası 1-2000 MB arasında olabilir."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Takas bölümünün seçildiği aygıtta yeterli yer yok."
 
 #: ../iw/welcome_gui.py:20
@@ -4660,13 +4645,12 @@ msgid "Please choose your login type:"
 msgstr "Sisteme giriş türünü seçin:"
 
 #: ../iw/xconfig_gui.py:395
-#, fuzzy
 msgid "_Text"
-msgstr "Metin"
+msgstr "_Metin"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Graphical"
-msgstr "_Grafiksel"
+msgstr "_Grafik"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:397
 msgid "Monitor Configuration"
@@ -4674,22 +4658,23 @@ msgstr "Monitör Yapılandırması"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:448
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "Monitör Belirtilmemiş"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:449
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"Bir monitör türü seçmediniz. Sizinkine en yakın kaliteye sahip bir monitör "
+"türünü seçebilirsiniz."
 
 #: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:454
 msgid "Proceed"
-msgstr ""
+msgstr "Sürüyor"
 
 #: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:454
-#, fuzzy
 msgid "Choose monitor type"
-msgstr "Monitör türü için algılama: "
+msgstr "Monitör türünü seçiniz "
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4737,7 +4722,7 @@ msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
-"Ekran kartı %s seçildiğinde bir hata oluştu. Lütfen bu hatayı bugzilla."
+"Ekran kartı %s seçilirken bir hata oluştu. Lütfen bu hatayı bugzilla."
 "redhat.com adresinde bildiriniz."
 
 #: ../iw/xconfig_gui.py:833 ../textw/xconfig_text.py:669
@@ -4750,7 +4735,7 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
-"X yapılandırmanız devam edebilmek içim bir ekran kartı seçmeniz gerekiyor. X "
+"X yapılandırmanıza devam edebilmek içim bir ekran kartı seçmeniz gerekiyor. X "
 "yapılandırmasını kurulumdan sonra kendiniz yapmak isterseniz 'X "
 "yapılandırmasını Atla' düğmesine tıklayınız."
 
@@ -4760,12 +4745,15 @@ msgid ""
 "System.  If you do not want to setup the X Window System , choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"X Pencere Sistemi kare tamponu sürücüsüyle çalışmaya ayarlanacak. X "
+"yapılandırılmadan kuruluma devam etmek isterseniz 'X Yapılandırmasını Atla' "
+"düğmesine tıklayınız."
 
 #: ../iw/xconfig_gui.py:978
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr "Ekran kartı bellek miktarı bulunamadı. Lütfen listeden seçim yapınız:"
+msgstr "Ekran kartı bellek miktarı saptanamadı. Lütfen listeden seçim yapınız:"
 
 #: ../iw/xconfig_gui.py:985
 msgid ""
@@ -4789,9 +4777,8 @@ msgid "z/IPL Boot Loader Configuration"
 msgstr "z/IPL Önyükleyici Yapılandırması"
 
 #: ../iw/zipl_gui.py:75
-#, fuzzy
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "%s önyükleyicisi /dev/%s üzerine kurulacak."
+msgstr "z/IPL önyükleyicisi sisteminize kurulacak."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4820,7 +4807,7 @@ msgstr ""
 "Değişiklik yapmak isterseniz kurulum bittikten sonra /etc/zipl.conf "
 "yapılandırma dosyasında bu değişiklikleri yapabilirsiniz.\n"
 "\n"
-"Şimdilik, makinanız ya da ayarlarınızın gerektirdiği ek çekirdek "
+"Şimdilik, sadece makinanız ya da ayarlarınızın gerektirdiği ek çekirdek "
 "parametrelerini girebilirsiniz."
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
@@ -4828,12 +4815,11 @@ msgid "Kernel Parameters"
 msgstr "Çekirdek Parametreleri"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
-#, fuzzy
 msgid "Chandev Parameters"
-msgstr "Çekirdek Parametreleri"
+msgstr "Chandev Parametreleri"
 
 #: ../textw/bootdisk_text.py:24
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
 "A boot diskette allows you to boot your system in the event your bootloader "
@@ -4851,7 +4837,6 @@ msgstr ""
 "Bir açılış disketi oluşturulmasını ister misiniz?"
 
 #: ../textw/bootdisk_text.py:31
-#, fuzzy
 msgid "Boot Diskette"
 msgstr "Açılış Disketi"
 
@@ -4904,7 +4889,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:120
 msgid "Force use of LBA32 (not normally required)"
-msgstr "LBA32 kullanımına zorla (normalde gerekmez)"
+msgstr "LBA32 mutlaka kullanılsın (normalde gerekmez)"
 
 #: ../textw/bootloader_text.py:186
 msgid "Where do you want to install the boot loader?"
@@ -4917,25 +4902,25 @@ msgstr "Sil"
 
 #: ../textw/bootloader_text.py:226 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "Açılış etiketini değiştir:"
+msgstr "Önyükleyici Etiketinin Düzenlenmesi"
 
 #: ../textw/bootloader_text.py:244 ../textw/bootloader_text.py:249
 msgid "Invalid Boot Label"
-msgstr "Geçersiz Açılış Etiketi:"
+msgstr "Geçersiz Önyükleme Etiketi"
 
 #: ../textw/bootloader_text.py:245
 msgid "Boot label may not be empty."
-msgstr "Açılış etiketi boş olamaz."
+msgstr "Önyükleme etiketi boş olamaz."
 
 #: ../textw/bootloader_text.py:250
 msgid "Boot label contains illegal characters."
-msgstr "Açılış etiketinde geçersiz karakterler."
+msgstr "Önyükleme etiketinde geçersiz karakterler."
 
 #: ../textw/bootloader_text.py:299 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1124 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
-msgstr "Değiştir"
+msgstr "Düzenle"
 
 #: ../textw/bootloader_text.py:303 ../textw/silo_text.py:219
 msgid ""
@@ -4948,10 +4933,8 @@ msgstr ""
 "etiketlerini belirtin."
 
 #: ../textw/bootloader_text.py:316
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"  <Boşluk> seçer  |  <F2>  Öntanımlı sistemi seçer  |  <F12>  sonraki ekran "
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Boşluk> düğme seçer | <F2>  Öntanımlı sistemi seçer  |  <F12>  sonraki ekran "
 
 #: ../textw/bootloader_text.py:395
 msgid ""
@@ -4974,7 +4957,7 @@ msgstr "Önyükleyici Parolası: "
 
 #: ../textw/bootloader_text.py:418
 msgid "Confirm:"
-msgstr "Onayla :"
+msgstr "Onayla: "
 
 #: ../textw/bootloader_text.py:447
 msgid "Passwords Do Not Match"
@@ -4993,18 +4976,16 @@ msgid "<Enter> to reboot"
 msgstr "Yeniden başlatmak için <Enter>"
 
 #: ../textw/complete_text.py:36
-#, fuzzy
 msgid ""
 "Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Sisteminizi yeniden başlatmak için <enter> tuşuna basınız.\n"
 "\n"
-"\n"
-"Sisteminizi yeniden başlatmak için 'Tamam' düğmesine tıklayınız."
 
 #: ../textw/complete_text.py:44
 msgid "Complete"
-msgstr "Bitti"
+msgstr "Tamamlandı"
 
 #: ../textw/complete_text.py:45
 #, python-format
@@ -5017,13 +4998,13 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs."
 msgstr ""
-"Kutlarız, %s yapılandırma işlemi sona erdi.\n"
+"Kutlarız, %s kurulumu tamamlandı.\n"
 "\n"
 "%s%s için yapabileceğiniz tüm düzeltme ve güncelleme işlemleri için http://"
 "www.redhat.com/errata adresine göz atabilirsiniz.\n"
 "\n"
 "Sisteminizin kullanımı ve ayarları hakkında bilgi almak için http://www."
-"redhat.com/docs adresindeki %s Kullanıcı Kılavuzu'na bakabiliriniz."
+"redhat.com/docs adresindeki %s kılavuzlarına bakabiliriniz."
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -5054,7 +5035,7 @@ msgstr "Geri"
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"
-msgstr "Güncellemeye başla"
+msgstr "Güncellemeye başlangıç"
 
 #: ../textw/confirm_text.py:33
 #, python-format
@@ -5077,25 +5058,24 @@ msgid ""
 "selection of software installed if you want."
 msgstr ""
 "Kişisel masaüstü ve İşistasyonu seçenekleri, %s sisteminizde belgeleri "
-"düzenleme ve oluşturma, eposta alma ve gönderme, web istemcisi kullanabilme "
-"gibi imkanlarla bir kurulum sunar. İşistasyonu seçeneği ek olarak geliştirme "
-"ve yönetim amaçlı araçları da içerir.\n"
+"düzenleme ve oluşturma, eposta alma ve gönderme, sanaldoku istemcisi "
+"kullanabilme gibi imkanlarla bir kurulum sunar. İşistasyonu seçeneği ek "
+"olarak yazılım geliştirme ve yönetim amaçlı araçları da içerir.\n"
 "\n"
 "%s bir çok uygulama ile gelir ve isterseniz kurulacak yazılım paketlerini "
 "kendiniz de seçebilirsiniz."
 
 #: ../textw/desktop_choice_text.py:39
 msgid "Customize software selection"
-msgstr "yazılım seçimini özelleştir"
+msgstr "Yazılım seçimini özelleştir"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "fdasd ya da dasdfmt çalıştırılacak diski seçin"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "İ_leri"
+msgstr "İleri"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5103,7 +5083,7 @@ msgstr "Bölümleri Düzenle"
 
 #: ../textw/fdasd_text.py:33
 msgid "Format DASD"
-msgstr "DASD Biçemle"
+msgstr "DASD Biçimle"
 
 #: ../textw/fdasd_text.py:50 ../textw/fdisk_text.py:39
 msgid "Disk Setup"
@@ -5147,7 +5127,7 @@ msgstr "fdisk çalıştırılacak sürücüyü seçin"
 
 #: ../textw/firewall_text.py:24
 msgid "Customize"
-msgstr "Özelleştir"
+msgstr "Kişiselleştir"
 
 #: ../textw/firewall_text.py:28
 msgid ""
@@ -5204,7 +5184,7 @@ msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:98
 msgid "Mail (SMTP)"
-msgstr "E-posta (SMTP)"
+msgstr "Posta (SMTP)"
 
 #: ../textw/firewall_text.py:100
 msgid "FTP"
@@ -5225,7 +5205,7 @@ msgstr "İptal edilmiş bir güvenlik duvarı özelleştirilemez."
 
 #: ../textw/firewall_text.py:136
 msgid "Firewall Configuration - Customize"
-msgstr "Güvenlik Duvarı Ayarları - Özelleştir"
+msgstr "Güvenlik Duvarı Yapılandırması - Özelleştir"
 
 #: ../textw/firewall_text.py:138
 msgid ""
@@ -5251,11 +5231,11 @@ msgstr "Ne tür bir sistem kurmak istiyorsunuz?"
 
 #: ../textw/keyboard_text.py:36
 msgid "Keyboard Selection"
-msgstr "Tuştakımı Seçimi"
+msgstr "Klavye Seçimi"
 
 #: ../textw/keyboard_text.py:37
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Ne tip bir klavye kullanıyorsunuz?"
+msgstr "Ne tür bir klavye kullanıyorsunuz?"
 
 #: ../textw/language_text.py:107
 msgid "Select All"
@@ -5283,7 +5263,7 @@ msgstr "Öntanımlı Dil"
 
 #: ../textw/language_text.py:189
 msgid "Choose the default language for this system: "
-msgstr "Öntanımlı dili seçin: "
+msgstr "Bu sistem için öntanımlı dili seçin: "
 
 #: ../textw/mouse_text.py:39
 msgid "What device is your mouse located on?"
@@ -5291,30 +5271,28 @@ msgstr "Fare hangi aygıt üzerinde bulunuyor?"
 
 #: ../textw/mouse_text.py:71
 msgid "Which model mouse is attached to this computer?"
-msgstr "Ne tip bir fare kullanıyorsunuz?"
+msgstr "Ne tür fare kullanıyorsunuz?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "3 Tuş Emülasyonu"
+msgstr "3. Tuş Taklit Edilsin mi?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
 msgstr "Fare Seçimi"
 
 #: ../textw/network_text.py:29
-#, fuzzy
 msgid "Invalid IP string"
-msgstr "Geçersiz IP Bilgisi"
+msgstr "Geçersiz IP dizgesi"
 
 #: ../textw/network_text.py:30
-#, fuzzy, python-format
+#, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "Girilen değer geçerli bir sayı değil."
+msgstr "Girilen IP %s geçerli bir IP değil."
 
 #: ../textw/network_text.py:62
-#, fuzzy
 msgid "IP Address"
-msgstr "_IP Adresi"
+msgstr "IP Adresi"
 
 #: ../textw/network_text.py:63
 msgid "Netmask"
@@ -5330,13 +5308,12 @@ msgid "Network Device: %s"
 msgstr "Ağ aygıtı: %s"
 
 #: ../textw/network_text.py:75
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "_DHCP kullanarak yapılandır"
+msgstr "DHCP kullanarak yapılandırılsın"
 
 #: ../textw/network_text.py:85
 msgid "Activate on boot"
-msgstr "Açılış sırasında etkinleştir"
+msgstr "Açılışta etkinleştir"
 
 #: ../textw/network_text.py:110
 #, python-format
@@ -5345,50 +5322,43 @@ msgstr "%s Ağ Ayarları"
 
 #: ../textw/network_text.py:141
 msgid "Invalid information"
-msgstr "Hatalı bilgi"
+msgstr "Geçersiz bilgi"
 
 #: ../textw/network_text.py:142
 msgid "You must enter valid IP information to continue"
 msgstr "Devam etmek için geçerli bir IP adresi girmelisiniz."
 
 #: ../textw/network_text.py:220
-#, fuzzy
 msgid "Gateway:"
-msgstr "Geçit"
+msgstr "Ağ geçidi:"
 
 #: ../textw/network_text.py:230
-#, fuzzy
 msgid "Primary DNS:"
-msgstr "Birincil DNS"
+msgstr "Birincil DNS: "
 
 #: ../textw/network_text.py:235
-#, fuzzy
 msgid "Secondary DNS:"
-msgstr "İkincil DNS"
+msgstr "İkincil DNS: "
 
 #: ../textw/network_text.py:240
-#, fuzzy
 msgid "Tertiary DNS:"
-msgstr "Üçüncül DNS"
+msgstr "Üçüncül DNS: "
 
 #: ../textw/network_text.py:247
-#, fuzzy
 msgid "Miscellaneous Network Settings"
-msgstr "Çeşitli Ayarlar"
+msgstr "Çeşitli Ağ Ayarları"
 
 #: ../textw/network_text.py:314
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "_DHCP üzerinden kendiliğinden"
+msgstr "DHCP üzerinden kendiliğinden"
 
 #: ../textw/network_text.py:318
-#, fuzzy
 msgid "manually"
-msgstr "_elle"
+msgstr "elle"
 
 #: ../textw/network_text.py:337
 msgid "Hostname Configuration"
-msgstr "Makina Adı Yapılandırması"
+msgstr "Konak Adı Yapılandırması"
 
 #: ../textw/network_text.py:340
 msgid ""
@@ -5397,15 +5367,18 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Sisteminiz, konak isimlerinin DHCP üzerinden atandığı büyük bir ağın üyesi ise, "
+"DHCP üzerinden kendiliğinden seçimini yapın. Aksi takdirde, elle ayar seçimi yapın "
+"ve sisteminiz için bir konak ismi girin. Konak ismi belirtmezseniz sisteminiz "
+"'localhost' olarak bilinecektir."
 
 #: ../textw/network_text.py:366 ../textw/network_text.py:372
-#, fuzzy
 msgid "Invalid Hostname"
-msgstr "Geçersiz Açılış Etiketi:"
+msgstr "Geçersiz Konak Adı"
 
 #: ../textw/network_text.py:367
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "Bir konak ismi belirtmediniz."
 
 #: ../textw/packages_text.py:50
 msgid "Select individual packages"
@@ -5413,31 +5386,28 @@ msgstr "Tek tek paket seçimi"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
-msgstr "Paket   :"
+msgstr "Paket:   "
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Boy     :"
+msgstr "Boy:     "
 
 #: ../textw/packages_text.py:97
 #, python-format
 msgid "%.1f KBytes"
-msgstr "%.1f KBayt"
+msgstr "%.1f kB"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
 msgstr "Toplam boyut"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"    <Boşluk>,<+>,<-> seçim yap   |   <F1> yardım   |   <F2> paket "
-"tanımı      "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "  seçim için <Boşluk>,<+>,<->   |   <F1> yardım   |   <F2> paket açıklaması      "
 
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
-msgstr "Paket Bağımlılığı"
+msgstr "Paket Bağımlılıkları"
 
 #: ../textw/packages_text.py:295
 msgid ""
@@ -5451,11 +5421,11 @@ msgstr ""
 
 #: ../textw/packages_text.py:316
 msgid "Install packages to satisfy dependencies"
-msgstr "gereklilikleri gözönüne alarak kur"
+msgstr "Bağımlı paketler de kurulsun"
 
 #: ../textw/packages_text.py:317
 msgid "Do not install packages that have dependencies"
-msgstr "Bağımlılıkları olan paketleri kurma"
+msgstr "Bağımlı paketleri kurma"
 
 #: ../textw/packages_text.py:318
 msgid "Ignore package dependencies"
@@ -5513,7 +5483,7 @@ msgstr "Bu boyuta genişlet (MB):"
 
 #: ../textw/partition_text.py:372
 msgid "Fill all available space:"
-msgstr "Tüm mümkün alanı kullan:"
+msgstr "Mümkün alanın tümünü kullan:"
 
 #: ../textw/partition_text.py:395
 msgid "Start Cylinder:"
@@ -5551,18 +5521,18 @@ msgstr "Dosya Sistemi Seçeneği:"
 #: ../textw/partition_text.py:985
 #, python-format
 msgid "Format as %s"
-msgstr "%s olarak biçemle"
+msgstr "%s olarak biçimle"
 
 #: ../textw/partition_text.py:512 ../textw/partition_text.py:750
 #: ../textw/partition_text.py:987
 #, python-format
 msgid "Migrate to %s"
-msgstr "%s e yansıla"
+msgstr "%s'e dönüştür"
 
 #: ../textw/partition_text.py:514 ../textw/partition_text.py:752
 #: ../textw/partition_text.py:989
 msgid "Leave unchanged"
-msgstr "Değiştirmeden bırak"
+msgstr "Olduğu gibi bırak"
 
 #: ../textw/partition_text.py:530 ../textw/partition_text.py:725
 #: ../textw/partition_text.py:965
@@ -5587,11 +5557,11 @@ msgstr "Olduğu gibi bırak (veriler korunur)"
 
 #: ../textw/partition_text.py:554
 msgid "Format as:"
-msgstr "Böyle biçemle:"
+msgstr "Böyle biçimle:"
 
 #: ../textw/partition_text.py:574
 msgid "Migrate to:"
-msgstr "Buna yansıla:"
+msgstr "Buna dönüştür:"
 
 #: ../textw/partition_text.py:686
 msgid "Force to be a primary partition"
@@ -5631,7 +5601,7 @@ msgstr "En az iki yazılımsal RAID bölümü gerekiyor."
 
 #: ../textw/partition_text.py:951
 msgid "Format partition?"
-msgstr "Bölüm biçemlendirilsin mi?"
+msgstr "Bölüm biçimlendirilsin mi?"
 
 #: ../textw/partition_text.py:1013
 msgid "Invalid Entry for RAID Spares"
@@ -5658,10 +5628,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1129
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Yardım    F2-Yeni    F3-Düzenle   F4-Sil    F5-Baştan     F12-Tamam    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Yardım    F2-Yeni    F3-Düzenle   F4-Sil    F5-Baştan     F12-Tamam    "
 
 #: ../textw/partition_text.py:1158
 msgid "No Root Partition"
@@ -5677,7 +5645,7 @@ msgstr "Sistemi nereye kurmak istiyorsunuz?"
 
 #: ../textw/partmethod_text.py:26
 msgid "Autopartition"
-msgstr "Otomatik Bölümlendirme"
+msgstr "Otomatik Bölümleme"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -5689,15 +5657,15 @@ msgstr "Paket Kurulumu"
 
 #: ../textw/progress_text.py:99
 msgid " Name   : "
-msgstr " İsim   : "
+msgstr " İsim:     "
 
 #: ../textw/progress_text.py:100
 msgid " Size   : "
-msgstr " Boy    : "
+msgstr " Boy:     "
 
 #: ../textw/progress_text.py:101
 msgid " Summary: "
-msgstr " Özet   : "
+msgstr " Özet:    "
 
 #: ../textw/progress_text.py:146
 msgid "    Packages"
@@ -5713,7 +5681,7 @@ msgstr "       Zaman"
 
 #: ../textw/progress_text.py:150
 msgid "Total    :"
-msgstr "Toplam   :"
+msgstr "Toplam:   "
 
 #: ../textw/progress_text.py:157
 msgid "Completed:   "
@@ -5734,11 +5702,11 @@ msgstr "'linux' PROM kaydı yarat"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr "Öntanımlı olarak PROM açılış aygıtını etkinleştir"
+msgstr "PROM önyükleme aygıtını öntanımlı yap"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
-msgstr "Sistem yükleyiciyi nereye kurmak istiyorsunuz?"
+msgstr "Önyükleyiciyi nereye kurmak istiyorsunuz?"
 
 #: ../textw/timezone_text.py:77
 msgid "What time zone are you located in?"
@@ -5799,9 +5767,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Girilen değer geçerli bir sayı değil."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Sistemde Kurulum"
+msgstr "Sistemin Yeniden Kur"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -5814,6 +5781,10 @@ msgid ""
 "Please choose one to upgrade, or select 'Reinstall System' to freshly "
 "install your system."
 msgstr ""
+"Sisteminizde bir ya da birden fazla Linux kurulumu saptandı.\n"
+"\n"
+"Birini güncellemek için seçebilir ya da \"Sistemi Yeniden Kur\" seçeneği ile "
+"temiz bir sistem kurabilirsiniz."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -5831,7 +5802,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
-msgstr "root Parolası"
+msgstr "Root Parolası"
 
 #: ../textw/userauth_text.py:31
 msgid ""
@@ -5869,7 +5840,7 @@ msgstr "Verdiğiniz parolalar birbirini tutmuyor. Lütfen yeniden deneyin."
 
 #: ../textw/userauth_text.py:102
 msgid "Edit User"
-msgstr "Kullanıcı Değiştir"
+msgstr "Kullanıcıyı Düzenle"
 
 #: ../textw/userauth_text.py:105
 msgid "Add User"
@@ -5898,7 +5869,8 @@ msgstr "Hatalı Kullanıcı Adı"
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
 msgstr ""
-"Kullanıcı isimleri A-Z, a-z ve 0-9 aralığındaki karakterleri içermelidir."
+"Kullanıcı isimleri A-Z, a-z ve 0-9 aralığındaki karakterleri içermelidir. "
+"(Türkçe karakter kullanmayın)."
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
@@ -5918,14 +5890,11 @@ msgid "User Exists"
 msgstr "Kullanıcı Zaten Var"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
-msgstr ""
-"Root kullanıcısı daha önce tanımlandı. Yeniden tanımlamaya gerek yoktur."
+msgid "The root user is already configured. You don't need to add this user here."
+msgstr "Root kullanıcısı daha önce tanımlandı. Burada yeniden tanımlamaya gerek yoktur."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "Sistem kullanıcısı daha önce tanımlandı. Buraya eklemeye gerek yok."
 
 #: ../textw/userauth_text.py:171
@@ -5939,7 +5908,7 @@ msgid ""
 "your system's configuration."
 msgstr ""
 "Sistemdeki güncel işlemleriniz için normal bir kullanıcı hesabı seçmeniz "
-"gerekiyor. Eğer root hesabını sürekli kullanmazsanız, yapacağını olası bir "
+"gerekiyor. Eğer root hesabını sürekli kullanmazsanız, yapacağınız olası bir "
 "yanlışlık sonucunda sistemin çökmesini de engellemiş olursunuz."
 
 #: ../textw/userauth_text.py:209
@@ -5975,19 +5944,19 @@ msgstr "Kullanıcı bilgilerini değiştirin."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
-msgstr "Gölge Parola Kullan"
+msgstr "Gölge Parola Kullanılsın"
 
 #: ../textw/userauth_text.py:341
 msgid "Enable MD5 Passwords"
-msgstr "MD5 Parolaları Etkinleştir"
+msgstr "MD5 Parolalar kullanılsın"
 
 #: ../textw/userauth_text.py:346
 msgid "Enable NIS"
-msgstr "NIS'i Etkinleştir"
+msgstr "NIS Kullanılsın"
 
 #: ../textw/userauth_text.py:352
 msgid "NIS Domain:"
-msgstr "NIS Alan Adı:"
+msgstr "NIS Alanı:"
 
 #: ../textw/userauth_text.py:354
 msgid "NIS Server:"
@@ -6003,7 +5972,7 @@ msgstr "Yayın ağı üzerinden sunucu isteği"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
-msgstr "LDAP'ı Etkinleştir"
+msgstr "LDAP kulllanılsın"
 
 #: ../textw/userauth_text.py:386
 msgid "LDAP Server:"
@@ -6011,7 +5980,7 @@ msgstr "LDAP Sunucu:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr "LDAP DN:"
+msgstr "LDAP Temel DN:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
@@ -6019,7 +5988,7 @@ msgstr "TLS bağlantıları kullanılsın"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr "Kerberos'u etkinleştir"
+msgstr "Kerberos kullanılsın"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
@@ -6050,10 +6019,10 @@ msgid ""
 "If you have purchased Official %s, be sure to register your purchase through "
 "our web site, http://www.redhat.com/."
 msgstr ""
-"%s'a Hoşgeldiniz!\n"
+"%s'a Hoş Geldiniz!\n"
 "\n"
-"Kurulum konusunda ayrıntılı bilgiyi Red Hat Inc'den edinebileceğiniz %s "
-"Kurulum Kılavuzu'nda bulabilirsiniz. Bu belgeye erişebiliyorsanız devam "
+"Kurulum konusunda ayrıntılı bilgiyi Red Hat, Inc'den edinebileceğiniz %s "
+"Kurulum Kılavuzunda bulabilirsiniz. Bu belgeye erişebiliyorsanız devam "
 "etmeden önce kurulumla ilgili bölümleri okumanız yararlı olacaktır.\n"
 "\n"
 "Kutulu %s ürünü satın aldıysanız kaydetmek için lütfen http://www.redhat.com "
@@ -6080,11 +6049,8 @@ msgid "X Customization"
 msgstr "X Özelleştirmesi"
 
 #: ../textw/xconfig_text.py:134
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"Sisteminizde kullanmak istediğiniz renk derinliği ve çözünürlüğü seçiniz. '%"
-"s' düğmesi ile seçimlerinizi test edebilirsiniz."
+msgstr "Sisteminizde kullanmak istediğiniz renk derinliğini ve çözünürlüğü seçiniz."
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6181,15 +6147,15 @@ msgstr ""
 "Lütfen monitörünüzün eşzamanlama frekanslarını giriniz.\n"
 "\n"
 "NOT: Bu bilgileri monitörünüzün kullanım kitapçığında bulabilirsiniz. Ancak "
-"bu değerlerin elle girilmesi hatta çok da doğru girilmesi gerekmiyor."
+"bu değerlerin elle girilmesi gerekmese de doğru girilmesi gerekiyor."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
-msgstr "HSync Frekansı: "
+msgstr "Yatay Tazeleme Frekansı: "
 
 #: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
-msgstr "VSync Frekansı: "
+msgstr "Düşey Tazeleme Frekansı: "
 
 #: ../textw/xconfig_text.py:400
 #, python-format
@@ -6206,11 +6172,11 @@ msgstr "Monitör:"
 
 #: ../textw/xconfig_text.py:411
 msgid "HSync Rate:"
-msgstr "HSync Frk.(kHz):"
+msgstr "Yatay Taz. Frk.(kHz):"
 
 #: ../textw/xconfig_text.py:421
 msgid "VSync Rate:"
-msgstr "VSync Frk.(Hz):"
+msgstr "Düşey Taz Frk.(Hz):"
 
 #: ../textw/xconfig_text.py:524
 msgid "Video Card"
@@ -6236,15 +6202,15 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Lütfen ekran kartınızın belleğini seçiniz. Kurulum programı tarafından "
-"algılananbellek miktarını seçimden kaldırmak için '%s' seçiniz."
+"algılanan bellek miktarını seçimden kaldırmak için '%s' seçiniz."
 
 #: ../textw/xconfig_text.py:610
 msgid "Skip X Configuration"
-msgstr "X Ayarlamalarını Atla"
+msgstr "X Yapılandırmasını Atla"
 
 #: ../textw/xconfig_text.py:613
 msgid "Video Card Configuration"
-msgstr "Ekran Kartı Ayarları"
+msgstr "Ekran Kartı Yapılandırması"
 
 #: ../textw/xconfig_text.py:619
 msgid ""
@@ -6252,6 +6218,9 @@ msgid ""
 "System.  If you do not want setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"X Pencere Sistemi kare tamponu sürücüsüyle çalışmaya ayarlanacak. X "
+"yapılandırılmadan kuruluma devam etmek isterseniz 'X Yapılandırmasını Atla' "
+"düğmesine tıklayınız."
 
 #: ../textw/xconfig_text.py:627
 msgid "Select the video card and video RAM for your system."
@@ -6275,6 +6244,9 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"Kurulum tamamlandıktan sonra z/IPL Önyükleyicisi sisteminize kurulmuş olacak. "
+"Makinenizin veya yapılandırmanızın gerektirdiği ek çekirdek ve chandev "
+"parametrelerini şimdi girebilirsiniz."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -6282,12 +6254,11 @@ msgstr "z/IPL Yapılandırması"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev Satırı"
 
 #: ../installclasses/custom.py:12
-#, fuzzy
 msgid "_Custom"
-msgstr "Özel"
+msgstr "_Özel"
 
 #: ../installclasses/custom.py:14
 msgid ""
@@ -6299,9 +6270,8 @@ msgstr ""
 "uzman kullanıcılara yönelik yapılandırmalara olanak sağlanmıştır."
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid "_Personal Desktop"
-msgstr "Kişisel Masaüstü"
+msgstr "_Kişisel Masaüstü"
 
 #: ../installclasses/personal_desktop.py:14
 msgid ""
@@ -6313,9 +6283,8 @@ msgstr ""
 "kurulumunu da içeren bu kurulum türü en idealidir. "
 
 #: ../installclasses/server.py:12
-#, fuzzy
 msgid "_Server"
-msgstr "Sunucu"
+msgstr "_Sunucu"
 
 #: ../installclasses/server.py:14
 msgid ""
@@ -6328,9 +6297,8 @@ msgstr ""
 "bir masaüstü ortamı isteyip istemediğinizi de belirtebilirsiniz."
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid "_Workstation"
-msgstr "İşistasyonu"
+msgstr "_İşistasyonu"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -6375,7 +6343,7 @@ msgid ""
 "\"."
 msgstr ""
 "Diğer CD'yi de kontrol etmek isterseniz, o CD'yi yerleştirdikten sonra \"%s"
-"\" tuşuna basınız. Tüm CD'leri kontrol etmek istemeseniz de hiç olmazsa "
+"\" tuşuna basınız. Tüm CD'leri kontrol etmek istemezseniz hiç olmazsa "
 "ilkini kontrol etmelisiniz.\n"
 "\n"
 "Kuruluma başlamak için 1. CD'yi sürücüye yerleştirip \"%s\" tuşuna basınız."
@@ -6405,55 +6373,50 @@ msgstr ""
 "CD kontrolünü atlayıp doğrudan kuruluma başlamak için %s tuşlayınız."
 
 #: ../loader2/cdinstall.c:345
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"CD sürücülerinizde %s CD'si bulunamadı. Lütfen %s CD'sini sürücüye "
+"Önyükleme için %s CD'si bulunamadı. Lütfen %s CD'sini sürücüye "
 "yerleştirin ve tekrar %s tuşuna basın."
 
 #: ../loader2/cdinstall.c:355
-#, fuzzy
 msgid "CD Not Found"
-msgstr "CD Bulundu"
+msgstr "CD Bulunamadı"
 
 #: ../loader2/cdinstall.c:427
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "CD üzerinde kickstart dosyası bulunamadı."
 
 #: ../loader2/driverdisk.c:93 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Yükleniyor"
 
 #: ../loader2/driverdisk.c:93
-#, fuzzy
 msgid "Reading driver disk..."
-msgstr "Sürücü disketi bağlanamadı."
+msgstr "Sürücü diski okunuyor..."
 
 #: ../loader2/driverdisk.c:207
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Sürücü Disketi"
+msgstr "Sürücü Diski"
 
 #: ../loader2/driverdisk.c:208
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Sistemde birden fazla ağ aygıtı bulunuyor. Hangisi üzerinden kurulum yapmak "
-"istiyorsunuz?"
+"Bir sürücü diski için kaynak olabilecek çok sayıda aygıtınız var. Hangisini "
+"kullanmak istiyorsunuz?"
 
 #: ../loader2/driverdisk.c:226
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Sürücü disketini takıp \"Tamam\" düğmesine tıklayın."
+msgstr "Sürücü diskini /dev/%s aygıtına takıp \"Tamam\" düğmesine tıklayın."
 
 #: ../loader2/driverdisk.c:228
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Sürücü Disketi"
+msgstr "Sürücü Diskini Yerleştirin"
 
 #: ../loader2/driverdisk.c:241
 msgid "Failed to mount driver disk."
@@ -6461,11 +6424,11 @@ msgstr "Sürücü disketi bağlanamadı."
 
 #: ../loader2/driverdisk.c:312
 msgid "Manually choose"
-msgstr ""
+msgstr "Elle seç"
 
 #: ../loader2/driverdisk.c:313
 msgid "Load another disk"
-msgstr ""
+msgstr "Diğer diski yükle"
 
 #: ../loader2/driverdisk.c:314
 msgid ""
@@ -6473,25 +6436,24 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"Bu sürücü diski için uyumlu bir aygıt bulunamadı. Bir sürücü seçebilir, başka bir "
+"sürücü diski yüklemek isteyebilir ya da bir sürücü yüklemeden devam edebilirsiniz."
 
 #: ../loader2/driverdisk.c:357
-#, fuzzy
 msgid "Driver disk"
-msgstr "Sürücü Disketi"
+msgstr "Sürücü diski"
 
 #: ../loader2/driverdisk.c:358
 msgid "Do you have a driver disk?"
 msgstr "Bir sürücü disketiniz var mı?"
 
 #: ../loader2/driverdisk.c:368
-#, fuzzy
 msgid "More Driver Disks?"
-msgstr "Sürücü Disketi"
+msgstr "Başka Sürücü Diski?"
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Do you wish to load any more driver disks?"
-msgstr "Bir sürücü disketiniz var mı?"
+msgstr "Yüklemek istediğiniz başka sürücü diskiniz var mı?"
 
 #: ../loader2/driverdisk.c:393 ../loader2/hdinstall.c:592
 #: ../loader2/kickstart.c:107 ../loader2/kickstart.c:117
@@ -6503,62 +6465,56 @@ msgid "Kickstart Error"
 msgstr "Kickstart Hatası"
 
 #: ../loader2/driverdisk.c:394
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to driver disk kickstart method command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "Sürücü diskli kickstart yönteminin komutu %s için hatalı argüman: %s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"Bu modül, çalışmasını ekleyecek parametreler alabilir. Eğer hangi "
-"parametreleri kullanacağınızı bilmiyorsanız, \"Tamam\" düğmesine basarak bu "
-"adımı geçebilirsiniz."
+"Lütfen %s modülüne aktarılacak parametreleri boşluklarla ayırarak giriniz. "
+"Hangi parametreleri vereceğinizi bilmiyorsanız \"Tamam\" düğmesine basarak bu "
+"adımı geçebilirsiniz. Seçeneklerin listesini F1 tuşuna basarak alabilirsiniz."
 
 #: ../loader2/driverselect.c:83
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Modül Parametreleri"
+msgstr "Modül Parametrelerini Girin"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
-msgstr "Hiç Sürücü Bulunamadı"
+msgstr "Hiç sürücü bulunamadı"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Bir sürücü disketiniz var mı?"
+msgstr "Sürücü diskini yükle"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
+msgstr "Yerleştireceğiniz bir sürücü bulunamadı. Bir sürücü diski kullanmak istermisiniz?"
 
 #: ../loader2/driverselect.c:206
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Hangi sürücü denensin? Eğer listede bulunmayan bir sürücüye ihtiyacınız "
-"varsa, ve elinizde ayrı bir sürücü disketi bulunuyorsa, lütfen F2 tuşuna "
-"basın."
+"Yüklemek istediğiniz sürücüyü aşağıdaki listeden seçin. Eğer listede bulunmayan "
+"bir sürücüye ihtiyacınız varsa, ve elinizde ayrı bir sürücü disketi bulunuyorsa, "
+"lütfen F2 tuşuna basın."
 
 #: ../loader2/driverselect.c:214
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Modül parametrelerini belirtin"
+msgstr "İstemlik modül parametrelerini belirtin"
 
 #: ../loader2/driverselect.c:234
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "fdasd çalıştırılacak sürücüyü seçin"
+msgstr "Yüklenecek Aygıt Sürücüsünü Seçin"
 
 #: ../loader2/firewire.c:50 ../loader2/windows.c:65
 #, c-format
@@ -6571,7 +6527,7 @@ msgstr "%s sürücüsü yükleniyor..."
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "Bu dizindeki %s kurulum ağacı sizin önyükleme ortamınıza uygun görünmüyor."
 
 #: ../loader2/hdinstall.c:340
 msgid ""
@@ -6596,13 +6552,13 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"Bu diskteki hangi bölüm ve dizin %s dizinlerini içeriyor? Eğer kullandığınız "
-"diski bu listede göremiyorsanız, F2 tuşuna basıp ek aygıt sürücülerini "
+"Bu diskteki hangi bölüm ve dizin %s için CD (iso9660) imgelerini içeriyor? "
+"Eğer kullandığınız diski bu listede göremiyorsanız, F2 tuşuna basıp ek aygıt "
 "yapılandırabilirsiniz."
 
 #: ../loader2/hdinstall.c:495
 msgid "Directory holding images:"
-msgstr "Görüntülerin bulunduğu dizin:"
+msgstr "İmgelerin bulunduğu dizin:"
 
 #: ../loader2/hdinstall.c:522
 msgid "Select Partition"
@@ -6611,40 +6567,39 @@ msgstr "Bölümü seçin"
 #: ../loader2/hdinstall.c:562
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "%s aygıtında bir Red Hat Linux kurulum ağacı bulunamadı."
+msgstr "%s aygıtı Red Hat CDROM imgelerini içeriyor gibi görünmüyor."
 
 #: ../loader2/hdinstall.c:593
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "Sabit diskli kickstart yönteminin komutu %s için hatalı argüman: %s"
 
 #: ../loader2/hdinstall.c:643
-#, fuzzy
 msgid "Cannot find kickstart file on hard drive."
-msgstr "Kurulum dosyaları sabit diske aktarılıyor.."
+msgstr "Sabit disk üzerinde kickstart dosyası bulunamıyor."
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
-msgstr "Klavye Tipi"
+msgstr "Klavye Türü"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
-msgstr "Klavyenizin tipi nedir?"
+msgstr "Klavyenizin türü nedir?"
 
 #: ../loader2/kickstart.c:108
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "kickstart %s dosyası açılamadı: %s"
+msgstr "%s kickstart dosyası açılırken hata: %s"
 
 #: ../loader2/kickstart.c:118
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "kickstart %s dosyasının içeriği okunamadı: %s"
+msgstr "%s kickstart dosyasının içeriği okunurken hata: %s"
 
 #: ../loader2/kickstart.c:161
-#, fuzzy, c-format
+#, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "%d numaralı satırda hata (kickstart dosyası %s)"
+msgstr "%3$s dosyasının %2$d. satırındaki %1$s hatalı"
 
 #: ../loader2/kickstart.c:261
 msgid "Cannot find ks.cfg on boot floppy."
@@ -6656,10 +6611,8 @@ msgid "Welcome to %s"
 msgstr "%s'a Hoş Geldiniz"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:171
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> ileri-geri  |   <Boşluk> işaretle   |   <F12> sonraki ekran"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  Gezinmek için <Tab>/<Alt-Tab>  |  <Boşluk> seçer  |  <F12> sonraki ekran"
 
 #: ../loader2/lang.c:370
 msgid "Choose a Language"
@@ -6678,32 +6631,29 @@ msgid "NFS image"
 msgstr "NFS görüntüsü"
 
 #: ../loader2/loader.c:297
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Güncelleme Disketi"
+msgstr "Güncelleme Diski"
 
 #: ../loader2/loader.c:298
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"Sistemde birden fazla ağ aygıtı bulunuyor. Hangisi üzerinden kurulum yapmak "
+"Bir güncelleme diski olabilecek çok sayıda aygıt bulunuyor. Hangisini kullanmak "
 "istiyorsunuz?"
 
 #: ../loader2/loader.c:313
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Güncelleme disketini takıp \"Tamam\" düğmesine tıklayın."
+msgstr "Güncelleme diskini /dev/%s aygıtına takıp \"Tamam\" düğmesine tıklayın."
 
 #: ../loader2/loader.c:315
 msgid "Updates Disk"
-msgstr "Güncelleme Disketi"
+msgstr "Güncelleme Diski"
 
 #: ../loader2/loader.c:327
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Sürücü disketi bağlanamadı."
+msgstr "Güncelleme diski bağlanamadı."
 
 #: ../loader2/loader.c:330
 msgid "Updates"
@@ -6714,14 +6664,13 @@ msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
 #: ../loader2/loader.c:352
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-"Bir sabit disk bulunamadı. Kurulum yapılacak diski kendiniz belirteceksiniz. "
-"Bir disk seçmek ister misiniz?"
+"Bir sabit disk bulunamadı. Kurulumun başarılı olabilmesi için kurulum yapılacak "
+"diski kendiniz belirteceksiniz. Bir disk seçmek ister misiniz?"
 
 #: ../loader2/loader.c:635
 #, c-format
@@ -6738,46 +6687,41 @@ msgstr "Kurulum Yöntemi"
 
 #: ../loader2/loader.c:755
 msgid "What type of media contains the rescue image?"
-msgstr "Kurtarma görüntüsü nerede bulunuyor?"
+msgstr "Kurtarma imgesini içeren ortamın türü nedir?"
 
 #: ../loader2/loader.c:757
 msgid "What type of media contains the packages to be installed?"
-msgstr "Kurulacak paketler nerede bulunuyor?"
+msgstr "Kurulacak paketleri içeren ortamın türü nedir?"
 
 #: ../loader2/loader.c:788
-#, fuzzy
 msgid "No driver found"
-msgstr "Hiç Sürücü Bulunamadı"
+msgstr "Hiç sürücü bulunamadı"
 
 #: ../loader2/loader.c:788
-#, fuzzy
 msgid "Select driver"
-msgstr "fdasd çalıştırılacak sürücüyü seçin"
+msgstr "Sürücüyü seçin"
 
 #: ../loader2/loader.c:789
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Bir sürücü disketiniz var mı?"
+msgstr "Bir sürücü diski kullanılsın"
 
 #: ../loader2/loader.c:790
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"Bu kurulum türünün gerektirdiği bir aygıt bulunamıyor. Sürücüyü kendiniz seçmek "
+"ya da bir sürücü diski kullanmak ister misiniz?"
 
 #: ../loader2/loader.c:884
-#, fuzzy
 msgid "The following devices have been found on your system."
-msgstr "Sisteminizde aşağıdaki aygıtlar bulundu:"
+msgstr "Sisteminizde aşağıdaki aygıtlar bulundu."
 
 #: ../loader2/loader.c:886
-#, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Sistemde yüklü herhangi bir özel aygıt sürücüsü yok. Bunları şimdi yüklemek "
-"ister misiniz?"
+msgstr "Sistemde yüklü bir aygıt sürücüsü yok. Bunları şimdi yüklemek ister misiniz?"
 
 #: ../loader2/loader.c:890
 msgid "Devices"
@@ -6793,13 +6737,12 @@ msgstr "Aygıt Ekle"
 
 #: ../loader2/loader.c:992
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "yükleyici zaten çalışıyor. Kabuk başlatılıyor."
 
 #: ../loader2/loader.c:1313
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s sistem kurulum programı, anaconda çalıştırılıyor - lütfen bekleyiniz...\n"
+msgstr "%s sistem kurulum programı, anaconda çalıştırılıyor - lütfen bekleyiniz...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -6832,6 +6775,11 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"OLMADI.\n"
+"\n"
+"Sınanan imge bazı hatalar içeriyor. Bu indirme sırasındaki kayıplardan ya da "
+"hatalı bir diske kaydın sonucunda olabilir. Mümkünse diski temizledikten sonra "
+"tekrar deneyin. Bu sınama hala başarısız oluyorsa kuruluma devam etmemelisiniz."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6893,12 +6841,12 @@ msgstr ""
 
 #: ../loader2/method.c:401
 msgid "Checksum Test"
-msgstr "Toplama sağlaması Testi"
+msgstr "Sağlama Testi"
 
 #: ../loader2/modules.c:922
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "Aygıtlı kickstart yönteminin komutu %s için hatalı argüman: %s"
 
 #: ../loader2/net.c:43
 #, c-format
@@ -6930,10 +6878,9 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"Dinamik IP isteği bir IP bilgisi geri çevirdi. Ancak geri dönen bilgi içinde "
-"DNS IP numarası bulunamadı. Eğer DNS IP sunucu numarasını biliyorsanız "
-"lütfen girin. Eğer bilmiyorsanız boş bırakabilir ve daha sonra "
-"girebilirsiniz."
+"Dinamik IP isteği bir IP bilgisi ile döndü. Ancak geri dönen bilgi içinde "
+"DNS sunucusu yok. Eğer DNS sunucusunu biliyorsanız, lütfen girin. Eğer "
+"bilmiyorsanız boş bırakabilir ve kuruluma devam edebilirsiniz."
 
 #: ../loader2/net.c:175
 msgid "Invalid IP Information"
@@ -6945,20 +6892,20 @@ msgstr "Geçersiz bir IP adresi girdiniz."
 
 #: ../loader2/net.c:222 ../loader2/net.c:431
 msgid "Dynamic IP"
-msgstr "Değişken IP"
+msgstr "Dinamik IP"
 
 #: ../loader2/net.c:223 ../loader2/net.c:432
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "IP bilgi istekleri gönderiliyor..."
+msgstr "%s IP bilgisi için istek gönderiliyor..."
 
 #: ../loader2/net.c:321
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Bu makina için ağ ayarlarını girin. Gireceğiniz değerler nokta ile ayrılmış "
-"dört sayı şeklinde tanımlanmalı (mesela 1.2.3.4)."
+"Bu makina için IP yapılandırmasını girin. Gireceğiniz değerler nokta ile ayrılmış "
+"dört sayı şeklinde olmalı (mesela 1.2.3.4)."
 
 #: ../loader2/net.c:327
 msgid "IP address:"
@@ -6970,19 +6917,19 @@ msgstr "Ağ maskesi:"
 
 #: ../loader2/net.c:333
 msgid "Default gateway (IP):"
-msgstr "Yönlendirici (IP):"
+msgstr "Öntanımlı ağgeçidi (IP):"
 
 #: ../loader2/net.c:336
 msgid "Primary nameserver:"
-msgstr "Birinci DNS sunucusu:"
+msgstr "Birinci isim sunucusu:"
 
 #: ../loader2/net.c:363
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Değişken IP ayarlarını kullan (BOOTP/DHCP)"
+msgstr "Dinamik IP yapılandırması kullan (BOOTP/DHCP)"
 
 #: ../loader2/net.c:391
 msgid "Configure TCP/IP"
-msgstr "TCP/IP Ayarları"
+msgstr "TCP/IP Yapılandırması"
 
 #: ../loader2/net.c:422
 msgid "Missing Information"
@@ -6994,17 +6941,17 @@ msgstr "Devam etmek için geçerli bir IP adresi ve ağ maskesi girmelisiniz."
 
 #: ../loader2/net.c:588
 msgid "Determining host name and domain..."
-msgstr "Makina ve alan adı belirleniyor..."
+msgstr "Konak ismi ve alan adı belirleniyor..."
 
 #: ../loader2/net.c:663
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "kickstart ağ komutu %s için hatalı argüman: %s"
 
 #: ../loader2/net.c:686
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "ağ komutunda hatalı IP numarası: %s"
+msgstr "ağ komutunda hatalı bootproto %s belirtilmiş"
 
 #: ../loader2/net.c:744
 msgid "Networking Device"
@@ -7024,26 +6971,25 @@ msgstr "NFS sunucu adı:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:276
 msgid "Red Hat directory:"
-msgstr "Red Hat Linux dizini:"
+msgstr "Red Hat dizini:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
 msgstr "NFS Ayarları"
 
 #: ../loader2/nfsinstall.c:221
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Bu dizinde Red Hat Linux kurulum ağacı bulunamadı."
+msgstr "Bu dizin %s kurulum ağacını içeriyor gibi görünmüyor."
 
 #: ../loader2/nfsinstall.c:229
-#, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Bu dizin sunucudan bağlanamadı."
 
 #: ../loader2/nfsinstall.c:267
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "NFS'li kickstart yönteminin komutu %s için hatalı argüman: %s"
 
 #: ../loader2/telnetd.c:82
 msgid "Waiting for telnet connection..."
@@ -7054,42 +7000,40 @@ msgid "Running anaconda via telnet..."
 msgstr "Anaconda telnet üzerinden çalıştırılıyor..."
 
 #: ../loader2/urlinstall.c:61
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "%s alınamadı: %s"
+msgstr "%s alınamadı: //%s/%s/%s."
 
 #: ../loader2/urlinstall.c:111
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Birinci kısım kurulum dosyası alınamıyor"
+msgstr "Kurulum imgesi alınamıyor"
 
 #: ../loader2/urlinstall.c:283
-#, fuzzy
 msgid "Media Detected"
-msgstr "Fare Seçilmedi"
+msgstr "Ortam saptandı"
 
 #: ../loader2/urlinstall.c:284
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Yerel kurulum ortamı saptandı..."
 
 #: ../loader2/urlinstall.c:399
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "kickstart ağ komutu için hatalı argüman %s: %s"
+msgstr "URL'li kickstart yönteminin komutu %s için hatalı argüman : %s"
 
 #: ../loader2/urlinstall.c:408
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "URL'li kickstart yöntemi için bir --url seçeneğine bir argüman vermelisiniz."
 
 #: ../loader2/urlinstall.c:419
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Bilinmeyen Kart"
+msgstr "URL yöntemi %s bilinmiyor"
 
 #: ../loader2/urls.c:169
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "%s makinasına girilemedi: %s"
+msgstr "%s e günlük kaydedilemedi: %s"
 
 #: ../loader2/urls.c:179 ../loader2/urls.c:187
 #, c-format
@@ -7106,11 +7050,11 @@ msgstr "FTP makina adı:"
 
 #: ../loader2/urls.c:273
 msgid "Web site name:"
-msgstr "Web sayfası adı:"
+msgstr "Web sitesi adı:"
 
 #: ../loader2/urls.c:290
 msgid "Use non-anonymous ftp"
-msgstr "Kullanıcı adıyla ftp ya da vekil (proxy) sunucu kullan"
+msgstr "Kullanıcı adıyla ftp kullan"
 
 #: ../loader2/urls.c:299
 msgid "FTP Setup"
@@ -7130,28 +7074,24 @@ msgstr "Bir dizin adı girmelisiniz"
 
 #: ../loader2/urls.c:320
 msgid "Unknown Host"
-msgstr "Bilinmeyen Makina"
+msgstr "Bilinmeyen Konak"
 
 #: ../loader2/urls.c:321
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s tanımlı bir makina adı değil."
+msgstr "%s tanımlı bir konak ismi değil."
 
 #: ../loader2/urls.c:394
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr ""
-"Anonim olmayan FTP yapılacaksa kullanıcı adı ve parolayı belirtin. Vekil "
-"(proxy) sunucu kullanılacaksa bu sunucunun adını belirtin."
+msgstr "Anonim olmayan FTP yapılacaksa kullanıcı adı ve parolayı aşağıda belirtin. "
 
 #: ../loader2/urls.c:399
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Eğer bir HTTP vekil (proxy) sunucu kullanılacaksa bu sunucunun adını "
-"belirtin."
+msgstr "Eğer bir HTTP vekil sunucu kullanılacaksa bu sunucunun adını belirtin."
 
 #: ../loader2/urls.c:420
 msgid "Account name:"
@@ -7210,8 +7150,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Zamanı - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr "Atlantik Zamanı - Nova Scotia, NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
@@ -7391,8 +7330,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Doğu Zamanı - Ontario ve Quebec - çoğu yerleri"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Doğu Zamanı - Ontario ve Quebec - bazı yerleri"
 
 #. generated from zone.tab
@@ -7568,10 +7506,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Dağ Standart Zamanı - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Dağ Standart Zamanı - Dawson Creek ve Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Dağ Standart Zamanı - Dawson Creek ve Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7690,9 +7626,8 @@ msgid "Roraima"
 msgstr "Roraima"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rothera Station, Adelaide Island"
-msgstr "Palmer İstasyonu, Anvers Adası"
+msgstr "Rothera İstasyonu, Adelaide Adası"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7820,7 +7755,7 @@ msgstr "Danca"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "Dutch"
 
 #. generated from lang-table
 msgid "English"
@@ -7859,9 +7794,8 @@ msgid "Portuguese"
 msgstr "Portekizce"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brazilian)"
-msgstr "Brezilya Portekizcesi"
+msgstr "Portekizce (Brezilya)"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8918,3 +8852,4 @@ msgstr "Türkçe"
 #~ msgstr ""
 #~ "Çince(Geleneksel)      zh_TW.Big5      Yok     Yok             zh_TW."
 #~ "Big5              us              Asya/Taipei"
+

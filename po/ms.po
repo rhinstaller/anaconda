@@ -1,30 +1,31 @@
 # Anaconda Bahasa Melayu (ms)
 # Jika takut risiko, Jangan bicara tentang Perjuangan
 # Hasbullah Bin Pit (sebol) <sebol@ikhlas.com>, 2002
+# Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>, 2003
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-05-28 21:50-0400\n"
-"PO-Revision-Date: 2003-03-17 12:38+0800\n"
-"Last-Translator: Hasbullah Bin Pit <sebol@ikhlas.com>\n"
-"Language-Team: Projek Gabai <gabai-penyumbang@lists.sourceforge.org>\n"
+"PO-Revision-Date: 2003-06-27 18:36+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
+"Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:92 ../anaconda:174
 msgid "Starting VNC..."
-msgstr ""
+msgstr "Memulakan VNC..."
 
 #: ../anaconda:104 ../anaconda:186
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "Tidak dapat menetapkan katalaluan vnc - tidak menggunakan katalaluan!"
 
 #: ../anaconda:105 ../anaconda:187
-#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Katalaluan root mestilah sekurang-kurangnya 6 aksara panjang."
+msgstr "Pastikan katalaluan anda sekurang-kurangnya 6 aksara panjang."
 
 #: ../anaconda:125 ../anaconda:207
 msgid ""
@@ -32,30 +33,34 @@ msgid ""
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!"
 msgstr ""
+"\n"
+"\n"
+"AMARAN!!! Pelayan VNC dilaksanakan dengan TANPA KATALALUAN!"
 
 #: ../anaconda:126 ../anaconda:208
 msgid "You can use the vncpasswd=<password> boot option"
-msgstr ""
+msgstr "Anda boleh menggunakan pilihan boot vncpasswd=<password>"
 
 #: ../anaconda:127 ../anaconda:209
 msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"jika anda hendak meningkatkan keselamatan pelayan.\n"
+"\n"
 
 #: ../anaconda:129 ../anaconda:211
 msgid "VNC server now running - please connect to install..."
-msgstr ""
+msgstr "Pelayan VNC telah dilaksanakan - sila sambung untuk memasang..."
 
 #: ../anaconda:571
-#, fuzzy
 msgid "Unknown Error"
-msgstr "Kad tidak dikenali"
+msgstr "Ralat Tidak Diketahui"
 
 #: ../anaconda:574
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Ralat membaca fail '%s': %s"
+msgstr "Ralat mengambil bahagian kedua konfigurasi kickstart: %s!"
 
 #: ../anaconda:667
 msgid ""
@@ -106,16 +111,15 @@ msgstr "OK"
 
 #: ../anaconda:739
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Tiada perkakasan video dijumpai, menganggap tanpa paparan"
 
 #: ../anaconda:750 ../anaconda:984 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Tidak dapat memulakan objek keadaan perkakasan X."
 
 #: ../anaconda:774
-#, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Pemasangan grafik tidak ada bagi pemasangan %s. Memulakan mod teks."
+msgstr "Pemasangan grafik tidak ada...  Memulakan mod teks."
 
 #: ../anaconda:787
 msgid ""
@@ -181,12 +185,12 @@ msgstr ""
 "daripada partisyen ini."
 
 #: ../autopart.py:996
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s isn't a PPC PReP boot partition.  OpenFirmware won't be "
 "able to boot from this partition."
 msgstr ""
-"Partisyen boot %s bukan partisyen VFAT.  EFI tidak akan boleh memboot "
+"Partisyen boot %s bukan partisyen boot PPC PReP.  OpenFirmware tidak akan boleh memboot "
 "daripada partisyen ini."
 
 #: ../autopart.py:999
@@ -223,56 +227,53 @@ msgstr ""
 "Tekan OK untuk ulangboot sistem anda."
 
 #: ../autopart.py:1215
-#, fuzzy
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Partisyen Dipinta Tidak Wujud"
+msgstr "Peranti Raid Yang Diminta Tidak Wujud"
 
 #: ../autopart.py:1216
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Tak dapat menjumpai partisyen %s untuk digunakan bagi %s.\n"
+"Tidak dapat mencari peranti raid %s untuk digunakan bagi %s.\n"
 "\n"
-"Tekan OK untuk ulangboot sistem anda."
+"Tekan 'OK' untuk ulangboot sistem anda."
 
 #: ../autopart.py:1245
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Partisyen Dipinta Tidak Wujud"
+msgstr "Kumpulan Volume Diminta Tidak Wujud"
 
 #: ../autopart.py:1246
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Tak dapat menjumpai partisyen %s untuk digunakan bagi %s.\n"
+"Tidak dapat mencari kumpulan volume %s untuk digunakan bagi %s.\n"
 "\n"
-"Tekan OK untuk ulangboot sistem anda."
+"Tekan 'OK' untuk ulangboot sistem anda."
 
 #: ../autopart.py:1281
-#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Partisyen Dipinta Tidak Wujud"
+msgstr "Volume Logikal Yang Diminta Tidak Wujud"
 
 #: ../autopart.py:1282
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Tak dapat menjumpai partisyen %s untuk digunakan bagi %s.\n"
+"Tidak dapat mencari volume logikal %s untuk digunakan bagi %s.\n"
 "\n"
-"Tekan OK untuk ulangboot sistem anda."
+"Tekan 'OK' untuk ulangboot sistem anda."
 
 #: ../autopart.py:1314 ../autopart.py:1355
 msgid "Automatic Partitioning Errors"
-msgstr "Ralat pempartisyenan automatik"
+msgstr "Ralat Pempartisyenan Automatik"
 
 #: ../autopart.py:1315
 #, python-format
@@ -355,12 +356,11 @@ msgstr ""
 
 #: ../autopart.py:1370
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Ralat Tidak Dapat Diselamatkan"
 
 #: ../autopart.py:1371
-#, fuzzy
 msgid "Your system will now be rebooted."
-msgstr "Sistem anda akan diulangbut..."
+msgstr "Sistem anda akan diulang boot sekarang."
 
 #: ../autopart.py:1451 ../bootloader.py:139 ../gui.py:949 ../image.py:387
 #: ../partedUtils.py:252 ../partedUtils.py:747 ../upgrade.py:304
@@ -405,16 +405,15 @@ msgid "Remove all partitions on this system"
 msgstr "Buang semua partisyen pada sistem ini"
 
 #: ../autopart.py:1474
-#, fuzzy
 msgid "Remove all Linux partitions on this system"
-msgstr "Buang semua Partisyen Linux pada sistem ini"
+msgstr "Buang semua partisyen Linux pada sistem ini"
 
 #: ../autopart.py:1475
 msgid "Keep all partitions and use existing free space"
 msgstr "Kekalkan semua partisyen dan gunakan ruang bebas yang ada"
 
 #: ../autopart.py:1477
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
@@ -422,18 +421,18 @@ msgid ""
 msgstr ""
 "Anda telah memilih untuk membuang semua partisyen (SEMUA DATA) pada pemacu "
 "berikut: %s\n"
-"Anda pasti untuk melakukannya?"
+"Adakah anda pasti untuk melakukannya?"
 
 #: ../autopart.py:1481
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Anda telah memilih untuk membuang semua partisyen Linux (dan SEMUA data "
+"Anda telah memilih untuk membuang semua partisyen Linux (dan SEMUA DATA "
 "didalamnya) pada pemacu berikut:%s\n"
-"Anda pasti untuk melakukannya?"
+"Adakah anda pasti untuk melakukannya?"
 
 #: ../bootloader.py:99
 msgid "Bootloader"
@@ -457,27 +456,26 @@ msgstr "Selesai"
 
 # libgnomeui/gnome-app-util.c:687
 #: ../cmdline.py:47
-#, fuzzy
 msgid "In progress...   "
-msgstr "Jumlah Progres:  "
+msgstr "Sedang dilaksanakan...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Tidak boleh mempunyai soalan dalam mod baris arahan!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Pengecualian Parted tidak boleh dikendalikan dalam mod baris arahan!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Selesai [%d/%d]"
 
 #: ../cmdline.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Memasang  %s-%s-%s.\n"
+msgstr "Memasang %s-%s-%s... "
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:556
 msgid "Everything"
@@ -671,11 +669,11 @@ msgstr "Peranti RAID"
 
 #: ../fsset.py:1107 ../fsset.py:1113
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Bootstrap Apple"
 
 #: ../fsset.py:1119
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "Boot PPC PReP"
 
 #: ../fsset.py:1122 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -926,9 +924,8 @@ msgid "Release notes are missing.\n"
 msgstr "Nota keluaran hilang.\n"
 
 #: ../gui.py:950
-#, fuzzy
 msgid "The release notes are missing."
-msgstr "Nota keluaran hilang.\n"
+msgstr "Nota keluaran tidak dijumpai."
 
 #: ../gui.py:1045
 msgid "Error!"
@@ -1011,15 +1008,16 @@ msgid "Install Window"
 msgstr "Tetingkap Pemasangan"
 
 #: ../harddrive.py:103 ../image.py:433
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
 "\n"
 "%s\n"
 "The system will now reboot."
 msgstr ""
-"Kehilangan imej ISO untuk CD #%d, yang diperlukan untuk pemasangan.\n"
+"Imej ISO berikut tidak dijumpai tetapi diperlukan untuk pemasangan:\n"
 "\n"
+"%s\n"
 "Sistem akan mengulang boot sekarang."
 
 #: ../image.py:78
@@ -1694,8 +1692,7 @@ msgid "Confirm Reset"
 msgstr "Kepastian Ulangtetap"
 
 #: ../partIntfHelpers.py:525
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Adakah anda pasti untuk ulangtetap jadual partisyen ke keadaan asal?"
 
 #: ../partitioning.py:76
@@ -1745,10 +1742,8 @@ msgstr ""
 "untuk memasang %s."
 
 #: ../partitions.py:784
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
 
 #: ../partitions.py:792
 #, python-format
@@ -1808,10 +1803,8 @@ msgstr "partisyen yang menjadi ahli kepada Kumpulan Volum LVM."
 
 #: ../partRequests.py:218
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
 
 #: ../partRequests.py:221
 #, fuzzy, python-format
@@ -1901,8 +1894,7 @@ msgstr "Dibatal"
 
 #: ../rescue.py:190 ../text.py:458
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Saya tak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
+msgstr "Saya tak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
 
 #: ../rescue.py:206 ../rescue.py:241 ../rescue.py:394
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2024,8 +2016,7 @@ msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:348
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:350
@@ -2197,9 +2188,8 @@ msgid "The passwords you entered were different.  Please try again."
 msgstr ""
 
 #: ../iw/account_gui.py:51
-#, fuzzy
 msgid "The root password must be at least six characters long."
-msgstr "Katalaluan root mestilah sekurang-kurangnya 6 aksara panjang."
+msgstr "Katalaluan root mestilah sekurang-kurangnya sepanjang enam aksara."
 
 #: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
@@ -2504,8 +2494,7 @@ msgstr "Tak dapat Menukar Turutan Pemacu bagi LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"Kami tidak menyokong penukaran turutan pemacu untuk digunakan dgn LILO."
+msgstr "Kami tidak menyokong penukaran turutan pemacu untuk digunakan dgn LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -2724,9 +2713,8 @@ msgid "Upgrade Examine"
 msgstr "Pemeriksaan Tingkatupaya"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "_Upgrade an existing installation"
-msgstr "TIngkatupaya pemasangan sedia ada"
+msgstr "_Naiktaraf pemasangan sedia ada"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2736,9 +2724,9 @@ msgid ""
 msgstr ""
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "_Install %s"
-msgstr "_Pasang BETA"
+msgstr "_Pasang %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -3326,9 +3314,8 @@ msgid "Net_mask"
 msgstr "Net_mask"
 
 #: ../iw/network_gui.py:229
-#, fuzzy
 msgid "_Point to Point (IP)"
-msgstr "Titik ke Titik (IP):"
+msgstr "_Titik ke Titik (IP)"
 
 #: ../iw/network_gui.py:252
 #, python-format
@@ -3644,14 +3631,12 @@ msgid "Partitioning"
 msgstr "Pempartisyenan"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:648
@@ -3897,9 +3882,8 @@ msgid "Summary"
 msgstr "Ringkasan"
 
 #: ../iw/progress_gui.py:270 ../textw/progress_text.py:129
-#, fuzzy
 msgid "Status: "
-msgstr "Status"
+msgstr "Status: "
 
 # libgnomeui/gnome-app-util.c:687
 #: ../iw/progress_gui.py:280
@@ -4150,9 +4134,8 @@ msgid "System clock uses _UTC"
 msgstr ""
 
 #: ../iw/timezone_gui.py:73
-#, fuzzy
 msgid "Please select the nearest city in your timezone:"
-msgstr "Pilih Produk untuk pepijat yang hendak dilapor."
+msgstr "Sila pilih bandar terdekat dalam zonmasa anda:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4176,8 +4159,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4290,10 +4272,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Fail swap mestilah bersaiz diantara 1 dan 2000 MB "
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Tak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Tak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
@@ -4599,8 +4579,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:316
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:395
@@ -4640,14 +4619,12 @@ msgid "<Enter> to reboot"
 msgstr "<Enter> untuk ulangbut"
 
 #: ../textw/complete_text.py:36
-#, fuzzy
 msgid ""
 "Press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
+"Tekan <Enter> untuk mengulang boot sistem anda.\n"
 "\n"
-"\n"
-"Tekan 'OK' untuk ulangbut sistem anda."
 
 #: ../textw/complete_text.py:44
 msgid "Complete"
@@ -4928,14 +4905,12 @@ msgid "The entered IP '%s' is not a valid IP."
 msgstr "Nilai yang and amasukkan bukan nombor yang sah."
 
 #: ../textw/network_text.py:62
-#, fuzzy
 msgid "IP Address"
-msgstr "Alamat _IP"
+msgstr "Alamat IP"
 
 #: ../textw/network_text.py:63
-#, fuzzy
 msgid "Netmask"
-msgstr "Net_mask"
+msgstr "Netmask"
 
 #: ../textw/network_text.py:65
 msgid "Point to Point (IP)"
@@ -4947,9 +4922,8 @@ msgid "Network Device: %s"
 msgstr "Peranti rangkaian: %s"
 
 #: ../textw/network_text.py:75
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Konfigurasi mengguna _DHCP"
+msgstr "Konfigurasi menggunakan DHCP"
 
 #: ../textw/network_text.py:85
 msgid "Activate on boot"
@@ -4970,24 +4944,20 @@ msgid "You must enter valid IP information to continue"
 msgstr "anda mesti masukkan nama sambungan."
 
 #: ../textw/network_text.py:220
-#, fuzzy
 msgid "Gateway:"
-msgstr "Gateway"
+msgstr "Gateway:"
 
 #: ../textw/network_text.py:230
-#, fuzzy
 msgid "Primary DNS:"
-msgstr "DNS Utama"
+msgstr "DNS Utama:"
 
 #: ../textw/network_text.py:235
-#, fuzzy
 msgid "Secondary DNS:"
-msgstr "DNS Sekunder"
+msgstr "DNS Sekunder:"
 
 #: ../textw/network_text.py:240
-#, fuzzy
 msgid "Tertiary DNS:"
-msgstr "DNS ketiga"
+msgstr "DNS ketiga:"
 
 #: ../textw/network_text.py:247
 #, fuzzy
@@ -4995,14 +4965,12 @@ msgid "Miscellaneous Network Settings"
 msgstr "Tetapan Lain-lain"
 
 #: ../textw/network_text.py:314
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "_automatik dengan DHCP"
+msgstr "secara automatik melalui DHCP"
 
 #: ../textw/network_text.py:318
-#, fuzzy
 msgid "manually"
-msgstr "_manual"
+msgstr "secara manual"
 
 #: ../textw/network_text.py:337
 msgid "Hostname Configuration"
@@ -5047,8 +5015,7 @@ msgid "Total size"
 msgstr "Jumlah saiz"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> pilihan   |   <F1> bantuan   |   <F2> huraian pakej"
 
 #: ../textw/packages_text.py:293
@@ -5186,8 +5153,7 @@ msgstr "Opsyen Sistem Fail"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
+msgstr "Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
 
 #: ../textw/partition_text.py:541
 msgid "Check for bad blocks"
@@ -5271,10 +5237,8 @@ msgid "RAID"
 msgstr "RAD"
 
 #: ../textw/partition_text.py:1129
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
 
 #: ../textw/partition_text.py:1158
 msgid "No Root Partition"
@@ -5524,15 +5488,13 @@ msgid "User Exists"
 msgstr "Penguna Wujud"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna root sudah dikonfigurasikan. Anda tidak perlu menambah pengguna itu "
 "di sini."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna sistem telah dikonfigurasikan. Anda tidak perlu menambah pengguna "
 "itu di sini."
@@ -5879,9 +5841,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid "_Personal Desktop"
-msgstr "Desktop Peribadi"
+msgstr "Desktop _Peribadi"
 
 #: ../installclasses/personal_desktop.py:14
 msgid ""
@@ -5891,9 +5852,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/server.py:12
-#, fuzzy
 msgid "_Server"
-msgstr "Pelayan"
+msgstr "_Pelayan"
 
 #: ../installclasses/server.py:14
 msgid ""
@@ -5903,9 +5863,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid "_Workstation"
-msgstr "StesyenKerja"
+msgstr "_StesyenKerja"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -6201,8 +6160,7 @@ msgid "Welcome to %s"
 msgstr "Selamat datang ke %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:171
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
 "seterusnya "
@@ -6736,8 +6694,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Masa Atlantik - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 
 #. generated from zone.tab
@@ -6829,9 +6786,8 @@ msgid "Ceuta & Melilla"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Chatham Islands"
-msgstr "Kepulauan Cayman"
+msgstr "Kepulauan Chatham"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -6920,8 +6876,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6938,42 +6893,36 @@ msgid "east Uzbekistan"
 msgstr "Uzbekistan"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Galapagos Islands"
-msgstr "Kepulauan Saipan"
+msgstr "Kepulauan Galapagos"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gambier Islands"
-msgstr "Kepulauan Faeroe"
+msgstr "Kepulauan Gambier"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gilbert Islands"
-msgstr "Kepulauan Faeroe"
+msgstr "Kepulauan Gilbert"
 
 #. generated from zone.tab
 msgid "Great Britain"
 msgstr "Britain"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Hawaii"
-msgstr "Haiti"
+msgstr "Hawaii"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Heilongjiang"
-msgstr "Georgia"
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Jan Mayen"
-msgstr "Menu Utama"
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
@@ -6996,29 +6945,24 @@ msgid "Kwajalein"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Line Islands"
-msgstr "Kepulauan Fiji"
+msgstr "Kepulauan Line"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Lord Howe Island"
-msgstr "Kepulauan Norfolk"
+msgstr "Kepulauan Lord Howe"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Madeira Islands"
-msgstr "Kepulauan Marshall"
+msgstr "Kepulauan Madeira"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Baki"
+msgstr "tanah besar"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Marquesas Islands"
-msgstr "Kepulauan Marshall"
+msgstr "Kepulauan Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
@@ -7037,9 +6981,8 @@ msgid "Mendoza (MZ)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Midway Islands"
-msgstr "Kepulauan Cayman"
+msgstr "Kepulauan Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7098,22 +7041,19 @@ msgid "Moscow+10 - Bering Sea"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "StesyenKerja"
+msgstr "kebanyakan lokasi"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-"hampir semua lokasi (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "hampir semua lokasi (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Masa Piawai Gunung - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -7121,9 +7061,8 @@ msgid "Mountain Standard Time - Sonora"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time"
-msgstr "/mengandungi fail"
+msgstr "Masa Pergunungan"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
@@ -7158,9 +7097,8 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Newfoundland Island"
-msgstr "Kepulauan Reunion"
+msgstr "Kepulauan Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
@@ -7231,22 +7169,16 @@ msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Roraima"
-msgstr "Romania"
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ruthenia"
-msgstr ""
-"#-#-#-#-#  ms-besar.po (besar)  #-#-#-#-#\n"
-"Authentikasi\n"
-"#-#-#-#-#  ms-besar.po (besar)  #-#-#-#-#\n"
-"Autentikasi"
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
@@ -7296,30 +7228,26 @@ msgstr ""
 msgid "Tibet & most of Xinjiang Uyghur"
 msgstr ""
 
-# #-#-#-#-#  ms-besar.po (besar)  #-#-#-#-#
 # ui/galeon.glade.h:247
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "Lokasi"
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Victoria"
-msgstr "Faktorial"
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Wake Island"
-msgstr "Kepulauan Rota"
+msgstr "Kepulauan Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
@@ -7335,29 +7263,24 @@ msgid "west Dem. Rep. of Congo"
 msgstr "Republik Congo"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Western Australia"
-msgstr "Australia"
+msgstr "Australia Barat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "West Kazakhstan"
-msgstr "Kazakhstan"
+msgstr "Kazakhstan Barat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "west Uzbekistan"
-msgstr "Uzbekistan"
+msgstr "Uzbekistan Timur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "W Para, Rondonia"
-msgstr "Paranoid"
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Yap"
-msgstr "Rap"
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
@@ -7439,57 +7362,3 @@ msgstr "Swedish"
 msgid "Turkish"
 msgstr ""
 
-#~ msgid "DASD partitions can only be deleted with fdasd"
-#~ msgstr "Partisyen DASD hanya boleh dipadam dengan fdasd"
-
-#~ msgid "You must go back and use fdasd to inititalize this partition"
-#~ msgstr ""
-#~ "Anda mesti untuk dah guna fdasd untuk menginitialisasikan partisyen ini"
-
-#~ msgid "Root password accepted."
-#~ msgstr "Katalaluan Root diterima."
-
-#~ msgid "Root password is too short."
-#~ msgstr "Katalaluan Root terlalu pendek."
-
-#~ msgid "Root passwords do not match."
-#~ msgstr "Katalaluan root tidak sepadan."
-
-#, fuzzy
-#~ msgid "Perform a new %s installation"
-#~ msgstr "Mencari  pemasang %s ..."
-
-#~ msgid "_Customize packages to be upgraded"
-#~ msgstr "_Personalisasikan pakej untuk dikemaskini"
-
-#~ msgid "Check for _bad blocks"
-#~ msgstr "Memeriksa blok _teruk"
-
-#~ msgid "_Reset"
-#~ msgstr "_Ulangtetap"
-
-#~ msgid "Make _RAID"
-#~ msgstr "Buat _RAID"
-
-# ui/galeon.glade.h:247
-#~ msgid "Location"
-#~ msgstr "Lokasi"
-
-#~ msgid "UTC Offset"
-#~ msgstr "Offset UTC"
-
-#~ msgid "Use bootp/dhcp"
-#~ msgstr "Guna bootp/dhcp"
-
-#~ msgid "Secondary nameserver:"
-#~ msgstr "Pelayan nama sekunder:"
-
-#~ msgid "Tertiary nameserver:"
-#~ msgstr "Pelayan nama ketiga:"
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-"
-#~ "OK    "
