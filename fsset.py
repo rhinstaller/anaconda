@@ -850,7 +850,7 @@ class SwapFileDevice(Device):
     def __init__(self, file):
         Device.__init__(self)
         self.device = file
-        self.device.size = 0
+        self.size = 0
 
     def setSize (self, size):
         self.size = size
