@@ -1,4 +1,4 @@
-# Install method for disk image installs (CD & NFS)
+# Install method for hard drive installs
 
 from comps import ComponentSet, HeaderList, HeaderListFromFile
 from installmethod import InstallMethod
@@ -71,7 +71,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 	# since we read headers from the disk, we don't need to do this
 	pass
 
-    def systemMounted(self, fstab, mntPoint, selected):
+    def systemMounted(self, fsset, chroot, selected):
 	self.mountMedia()
 	    
     def filesDone(self):
@@ -102,18 +102,18 @@ class HardDriveInstallMethod(InstallMethod):
 
 	isoImage = self.isoDir + '/' + self.path + '/' + self.discImages[cdNum]
 
-	isys.makeDevInode("loop2", "/tmp/loop2")
-	isys.losetup("/tmp/loop2", isoImage, readOnly = 1)
+	isys.makeDevInode("loop3", "/tmp/loop3")
+	isys.losetup("/tmp/loop3", isoImage, readOnly = 1)
 	
-	isys.mount("loop2", "/tmp/hdimage", fstype = 'iso9660', readOnly = 1);
-	self.tree = "/tmp/hdimage/"
+	isys.mount("loop3", "/tmp/isomedia", fstype = 'iso9660', readOnly = 1);
+	self.tree = "/tmp/isomedia/"
 	self.mediaIsMounted = cdNum
 
     def umountMedia(self):
 	if self.mediaIsMounted:
 	    isys.umount(self.tree)
-	    isys.makeDevInode("loop2", "/tmp/loop2")
-	    isys.unlosetup("/tmp/loop2")
+	    isys.makeDevInode("loop3", "/tmp/loop3")
+	    isys.unlosetup("/tmp/loop3")
 	    self.umountDirectory()
 	    self.tree = None
 	    self.mediaIsMounted = 0
@@ -180,7 +180,7 @@ class HardDriveInstallMethod(InstallMethod):
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 	self.umountMedia()
 
-    def systemMounted(self, fstab, mntPoint, selected):
+    def systemMounted(self, fsset, mntPoint, selected):
 	self.mountMedia(1)
 	    
     def filesDone(self):
