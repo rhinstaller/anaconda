@@ -1,6 +1,6 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = loader.o log.o windows.o modules.o devices.o net.o
+OBJS = loader.o log.o windows.o modules.o devices.o net.o cdrom.o
 SOURCES = $(subst .o,.c,$(OBJS))
 BINS = loader init
 
