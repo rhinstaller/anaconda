@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.6
+Version: 10.0.3.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -23,10 +23,10 @@ The anaconda package contains the program which was used to install your
 system.  These files are of little use on an already installed system.
 
 %package runtime
-Summary: Red Hat Linux installer portions needed only for fresh installs.
+Summary: Graphical system installer portions needed only for fresh installs.
 Group: Applications/System
 AutoReqProv: false
-Requires: libxml2-python
+Requires: libxml2-python, python, rpm-python >= 4.2-0.61
 
 %description runtime
 The anaconda-runtime package contains parts of the installation system which 
@@ -74,6 +74,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 29 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.7-1
+- Don't ask about mouse type on remote X display (#133902)
+- Label swap filesystems (#127892)
+- Fix possible crash on hd kickstart installs (#133996)
+- Improve multiarch upgrade (#133045)
+- Avoid changing the default language when selecting additional 
+  language support (#134040)
+- Remove spurious blank option in upgrade combo (#134058)
+- Fix driver disk hang (#131112, #122952)
+- Fix detection of unformatted dasd (#130123)
+
 * Mon Sep 27 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.6-1
 - Fix traceback from auto-partitioning if you don't have enough space (#131325)
 - Update FCP config for adding SCSI LUNs (#133290)
