@@ -437,7 +437,8 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    kernelList.append(kernelLabel, version)
 	    plainLabelUsed = 1
 
-    bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
+    if not flags.test:
+	bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
 	     justConfigFile)
 
     w.pop()
