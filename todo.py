@@ -346,8 +346,12 @@ class ToDo:
     def writeTimezone(self):
 	if (self.timezone):
 	    (timezone, asUtc, asArc) = self.timezone
-	    iutil.copyFile(self.instPath + "/usr/share/zoneinfo/" + timezone, 
-		       self.instPath + "/etc/localtime")
+            try:
+                iutil.copyFile(self.instPath + "/usr/share/zoneinfo/" + timezone, 
+                               self.instPath + "/etc/localtime")
+            except OSError, (errno, msg):
+                self.intf.messageWindow(_("Error"),
+                                        _("Error copying file: %s") % msg)
 	else:
 	    asUtc = 0
 	    asArc = 0
