@@ -25,14 +25,16 @@ class LiloWindow (InstallWindow):
         else:
             self.type = self.list.selection[0]
             if self.list.selection[0] == 0:
-                self.todo.setLiloLocation (self.boothd)
+                self.todo.setLiloLocation ("mbr")
             else:
-                self.todo.setLiloLocation (self.bootpart)
+                self.todo.setLiloLocation ("partition")
 
         if self.bootdisk.get_active ():
             self.todo.bootdisk = 1
         else:
             self.todo.bootdisk = 0
+
+	self.todo.setLiloImages(self.images)
 
     def typeName(self, type):
 	if (type == 2):
@@ -100,24 +102,16 @@ class LiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
         if '/' not in self.todo.mounts.keys (): return None
-
-        if self.todo.mounts.has_key ('/boot'):
-            self.bootpart = self.todo.mounts['/boot'][0]
-        else:
-            self.bootpart = self.todo.mounts['/'][0]
-        i = len (self.bootpart) - 1
-        while i < 0 and self.bootpart[i] in digits:
-            i = i - 1
-        self.boothd = self.bootpart[0:i]
+	(bootpart, boothd) = self.todo.getLiloOptions()
             
         format = "/dev/%s"
 
         self.radioBox = GtkVBox (FALSE, 10)
         group = GtkRadioButton(None, 
-	    ("/dev/%s %s" % (self.boothd, _("Master Boot Record (MBR)"))))
+	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
 	self.radioBox.pack_start(group, FALSE)
         group = GtkRadioButton(group, 
-	    ("/dev/%s %s" % (self.bootpart, 
+	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
 	self.radioBox.pack_start(group, FALSE)
 	

@@ -857,14 +857,14 @@ class LiloWindow:
     def __call__(self, screen, todo):
         if '/' not in todo.mounts.keys (): return INSTALL_NOOP
 
-        if todo.mounts.has_key ('/boot'):
-            bootpart = todo.mounts['/boot'][0]
-        else:
-            bootpart = todo.mounts['/'][0]
-        i = len (bootpart) - 1
-        while i < 0 and bootpart[i] in digits:
-            i = i - 1
-        boothd = bootpart[0:i]
+	(bootpart, boothd) = todo.getLiloOptions()
+
+	if (todo.getLiloLocation == "mbr"):
+	    default = boothd
+	elif (todo.getLiloLocation == "partition"):
+	    default = bootpart
+	else:
+	    default = None
             
         format = "/dev/%-11s %s" 
         locations = []
@@ -874,13 +874,13 @@ class LiloWindow:
         # XXX fixme restore state
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
                                          _("Where do you want to install the bootloader?"),
-                                         locations,
+                                         locations, default = default,
                                          buttons = [ _("OK"), _("Back") ])
 
         if sel == 0:
-            todo.setLiloLocation(boothd)
+            todo.setLiloLocation("mbr")
         else:
-            todo.setLiloLocation(bootpart)
+            todo.setLiloLocation("partition")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
@@ -938,7 +938,7 @@ class LiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-	images = todo.liloImages
+	images = todo.getLiloImages()
 	if not images: return
 
 	sortedKeys = images.keys()
@@ -947,6 +947,8 @@ class LiloImagesWindow:
 	listboxLabel = Label("%-10s  %-25s %-7s %-10s" % 
 		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
+
+	default = ""
 
 	foundDos = 0
 	for n in sortedKeys:
@@ -958,7 +960,8 @@ class LiloImagesWindow:
 		images[n] = (label, type)
 	    listbox.append(self.formatDevice(type, label, n, default), n)
 
-	buttons = ButtonBar(screen, [ _("Ok"), _("Edit"), _("Back") ] )
+	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
+				      (_("Back"), "back") ] )
 
 	text = TextboxReflowed(55, _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
@@ -973,7 +976,7 @@ class LiloImagesWindow:
 	g.addHotKey("F2")
 
 	result = None
-	while (result != string.lower(_("Ok")) and result != string.lower(_("Back"))):
+	while (result != "ok" and result != "back"):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
@@ -1002,7 +1005,12 @@ class LiloImagesWindow:
 
 	screen.popWindow()
 
-	return INSTALL_NOOP
+	if (result == "back"):
+	    return INSTALL_BACK
+
+	todo.setLiloImages(images)
+
+	return INSTALL_OK
 
 class BeginInstallWindow:
     def __call__ (self, screen, todo):

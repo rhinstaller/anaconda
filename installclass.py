@@ -72,7 +72,7 @@ class Workstation(InstallClass):
 	self.setLiloInformation("mbr")
 	self.setHostname("localhost.localdomain")
 	self.setGroups(["Workstation"])
-	self.addToSkipList("lilo")
+	#self.addToSkipList("lilo")
 	self.addToSkipList("hostname")
 	self.addToSkipList("network")
 	self.addToSkipList("package-selection")

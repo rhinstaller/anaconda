@@ -6,7 +6,6 @@ import string
 import socket
 import crypt
 import whrandom
-import _balkan
 import pcmcia
 from simpleconfig import SimpleConfigFile
 from mouse import Mouse
@@ -289,11 +288,12 @@ class ToDo:
         self.badBlockCheck = 0
         self.log = LogFile ()
         self.bootdisk = 0
+	self.liloImages = {}
         self.liloDevice = None
         self.upgrade = 0
 	self.lilo = LiloConfiguration()
 	self.initrdsMade = {}
-	self.liloImages = {} 
+	self.liloImages = []
 	if (not instClass):
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
@@ -313,40 +313,51 @@ class ToDo:
                     # XXX
                     pass
 
+    def getLiloOptions(self):
+        if self.mounts.has_key ('/boot'):
+            bootpart = self.mounts['/boot'][0]
+        else:
+            bootpart = self.mounts['/'][0]
+        i = len (bootpart) - 1
+        while i < 0 and bootpart[i] in digits:
+            i = i - 1
+	drives = self.drives.available().keys()
+	drives.sort()
+        boothd = drives[0]
+
+	return (bootpart, boothd)
+
+    def setLiloImages(self, images):
+	self.liloImages = images
+
     def getLiloImages(self):
-	if self.liloImages:
-	    return self.liloImages
+	drives = self.ddruid.partitionList()
 
-        drives = self.drives.available ().keys ()
-	images = {}
-        for drive in drives:
-	    try:
-		table = _balkan.readTable ('/tmp/' + drive)
-	    except SystemError:
-		pass
-	    else:
-                for i in range (len (table)):
-		    (type, sector, size) = table[i]
-		    if size and (type == 1 or type == 2):
-			dev = drive + str (i + 1)
-			images[dev] = ("", type)
-
-	if (not images): return None
-
+	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
 	for loc in self.mounts.keys():
 	    (device, fsystem, reformat) = self.mounts[loc]
 	    mountsByDev[device] = loc
 
-	for dev in images.keys():
+	oldImages = {}
+	for dev in self.liloImages.keys():
+	    oldImages[dev] = self.liloImages[dev]
+
+	self.liloImages = {}
+	for dev in drives:
+	    # ext2 partitions get listed if 
+	    #	    1) they're /
+	    #	    2) they're not mounted
+
 	    if (mountsByDev.has_key(dev)):
 		if mountsByDev[dev] == '/':
-		    default = dev
-		    images[dev] = ("linux", 2)
+		    self.liloImages[dev] = ("linux", 2)
+	    else:
+		if not oldImages.has_key(dev):
+		    self.liloImages[dev] = ("", 2)
 		else:
-		    del images[dev]
+		    self.liloImages[dev] = oldImages[dev]
 
-	self.liloImages = images
 	return self.liloImages
 
     def mountFilesystems(self):
@@ -500,6 +511,12 @@ class ToDo:
             self.lilo.read (self.instPath + '/etc/lilo.conf')
         elif not self.liloDevice: return
 
+	(bootpart, boothd) = todo.getLiloOptions()
+	if (self.liloDevice == "mbr")
+	    self.liloDevice = boothd
+	else
+	    self.liloDevice = bootpart
+
         if self.liloDevice:
             self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
 	self.lilo.addEntry("map", "/boot/map")
@@ -570,8 +587,8 @@ class ToDo:
 	    w.pop()
 	return self.hdList
 
-    def setLiloLocation(self, device):
-	self.liloDevice = device
+    def setLiloLocation(self, location):
+	self.liloDevice = location
 
     def getLiloLocation (self):
         return self.liloDevice
