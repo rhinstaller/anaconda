@@ -290,14 +290,16 @@ def findtz(basepath, relpath):
 
 def rmrf (path):
     # this is only the very simple case.
+    # NOTE THAT THIS IS RACY IF USED ON AN INSTALLED SYSTEM
+    # IT IS ONLY SAFE FOR ANACONDA AS A CONTAINED ENVIRONMENT
     if os.path.isdir(path):
         files = os.listdir (path)
     else:
         os.unlink(path)
         return
     for file in files:
-        if os.path.isdir(path + '/' + file):
-            rmrf (path + '/' + file)
+        if (not os.path.islink(path + '/' + file) and
+            os.path.isdir(path + '/' + file)):
         else:
             os.unlink (path + '/' + file)
     os.rmdir (path)
