@@ -555,6 +555,46 @@ class FileSystemSet:
 		 (bootDev.device,	  N_("First sector of boot partition"))
 	       ]
 
+    # set active partition on disks
+    # if an active partition is set, leave it alone; if none set
+    # set either our boot partition or the first partition on the drive active
+    def setActive(self, diskset):
+        bootDev = self.bootloaderChoices(diskset)[1][0]
+        
+        for drive in diskset.disks.keys():
+            foundActive = 0
+            bootPart = None
+            disk = diskset.disks[drive]
+            part = disk.next_partition()
+            while part:
+                if not part.is_active():
+                    part = disk.next_partition(part)
+                    continue
+
+                if not part.is_flag_available(parted.PARTITION_BOOT):
+                    foundActive = 1
+                    part = None
+                    continue
+
+                if part.get_flag(parted.PARTITION_BOOT):
+                    foundActive = 1
+                    part = None
+                    continue
+
+                if not bootPart:
+                    bootPart = part
+
+                if partitioning.get_partition_name(part) == bootDev:
+                    bootPart = part
+                
+                part = disk.next_partition(part)
+
+            if bootPart and not foundActive:
+                bootPart.set_flag(parted.PARTITION_BOOT, 1)
+
+            if bootPart:
+                del bootPart
+
     def formatSwap (self, chroot):
         for entry in self.entries:
             if (not entry.fsystem or not entry.fsystem.getName() == "swap"
