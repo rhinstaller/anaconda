@@ -312,7 +312,7 @@ class ext2FileSystem(extFileSystem):
         self.migratetofs = ['ext3']
 
 
-    def migrateFileSystem(self, entry, progress, chroot='/'):
+    def migrateFileSystem(self, entry, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
         if not entry.fsystem or not entry.origfsystem:
@@ -334,6 +334,23 @@ class ext2FileSystem(extFileSystem):
 
         if rc:
             raise SystemError
+
+        # XXX this should never happen, but appears to have done
+        # so several times based on reports in bugzilla.
+        # At least we can avoid leaving them with a system which won't boot
+        if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
+            log("Migration of %s attempted but no journal exists after "
+                "running tune2fs.\n" % (devicePath))
+            if message:
+                rc = message(_("Error"),
+                        _("An error occurred migrating %s to ext3.  It is "
+                          "possible to continue without migrating this "
+                          "filesystem if desired.\n\n"
+                          "Would you like to continue without migrating %s?")
+                             % (devicePath, devicePath), type = "yesno")
+                if rc == 0:
+                    sys.exit(0)
+                entry.fsystem = entry.origfsystem
 
 
 fileSystemTypeRegister(ext2FileSystem())
@@ -845,7 +862,7 @@ class FileSystemSet:
             if not entry.origfsystem.isMigratable() or not entry.getMigrate():
                 continue
             try: 
-                entry.origfsystem.migrateFileSystem(entry, self.progressWindow,
+                entry.origfsystem.migrateFileSystem(entry, self.messageWindow,
                                                     chroot)
             except SystemError:
                 if self.messageWindow:
