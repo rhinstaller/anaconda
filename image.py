@@ -1,7 +1,7 @@
 #
 # image.py - Install method for disk image installs (CD & NFS)
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -54,6 +54,30 @@ def presentRequiredMediaMessage(intf, grpset):
     # if only one CD required no need to pop up a message
     if len(reqcds) < 2:
 	return
+
+    # check what discs our currently mounted one provides
+    if os.access("/mnt/source/.discinfo", os.R_OK):
+        discNums = []
+        try:
+            f = open("/mnt/source/.discinfo")
+            stamp = f.readline().strip()
+            descr = f.readline().strip()
+            arch = f.readline().strip()
+            discNums = getDiscNums(f.readline().strip())
+            f.close()
+        except Exception, e:
+            log("Exception reading discinfo: %s" %(e,))
+
+        log("discNums is %s" %(discNums,))
+        haveall = 1
+        for cd in reqcds:
+            if cd not in discNums:
+                log("don't have %s" %(cd,))
+                haveall = 0
+                break
+
+        if haveall == 1:
+            return
 
     reqcds.sort()
     reqcdstr = ""
