@@ -10,6 +10,7 @@
 #include "loader.h"
 #include "log.h"
 #include "net.h"
+#include "windows.h"
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
@@ -225,8 +226,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	    newCfg.isDynamic = 0;
 	} else {
 	    if (!FL_TESTING(flags)) {
+		winStatus(50, 3, _("Dynamic IP"), 
+			  _("Sending request for IP information..."),
+			    0);
 		chptr = pumpDhcpRun(device, 0, 0, NULL, &newCfg.dev, NULL);
 		logMessage("pump told us: %s", chptr);
+		newtPopWindow();
 	    } else {
 	    	chptr = NULL;
 	    }
