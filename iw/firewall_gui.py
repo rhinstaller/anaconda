@@ -159,8 +159,6 @@ class FirewallWindow (InstallWindow):
 
         self.devices = self.network.available().keys()
         self.devices.sort()
-
-        self.devices = [ self.devices[-1] ]
         
 	self.netCBs = {}
 
