@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-08-03 14:18-0400\n"
+"POT-Creation-Date: 1999-08-06 23:05-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,68 +14,78 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../text.py:24 ../text.py:545
+#: ../text.py:26 ../text.py:568
 msgid "Language Selection"
 msgstr ""
 
-#: ../text.py:25
+#: ../text.py:27
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: ../text.py:27 ../text.py:95 ../text.py:345 ../text.py:513
+#: ../text.py:29 ../text.py:48 ../text.py:115 ../text.py:353 ../text.py:368
+#: ../text.py:536
 msgid "Ok"
 msgstr ""
 
-#: ../text.py:39 ../text.py:549
+#: ../text.py:46 ../text.py:569
+msgid "Keyboard Selection"
+msgstr ""
+
+#: ../text.py:47
+msgid "Which model keyboard is attached to this computer?"
+msgstr ""
+
+#: ../text.py:48 ../text.py:51 ../text.py:76 ../text.py:115 ../text.py:117
+#: ../text.py:196 ../text.py:256 ../text.py:320 ../text.py:353 ../text.py:356
+#: ../text.py:368 ../text.py:369
+msgid "Back"
+msgstr ""
+
+#: ../text.py:59 ../text.py:576
 msgid "Root Password"
 msgstr ""
 
-#: ../text.py:41
+#: ../text.py:61
 msgid ""
 "Pick a root password. You must type it twice to ensure you know what it is "
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
 
-#: ../text.py:50
+#: ../text.py:70
 msgid "Password:"
 msgstr ""
 
-#: ../text.py:51
+#: ../text.py:71
 msgid "Password (again):"
 msgstr ""
 
-#: ../text.py:56 ../text.py:72 ../text.py:77 ../text.py:176 ../text.py:230
-#: ../text.py:252 ../text.py:316
+#: ../text.py:76 ../text.py:92 ../text.py:97 ../text.py:196 ../text.py:256
+#: ../text.py:320
 msgid "OK"
 msgstr ""
 
-#: ../text.py:56 ../text.py:95 ../text.py:97 ../text.py:176 ../text.py:230
-#: ../text.py:232 ../text.py:252 ../text.py:316 ../text.py:345 ../text.py:346
-msgid "Back"
-msgstr ""
-
-#: ../text.py:69
+#: ../text.py:89
 msgid "Password Length"
 msgstr ""
 
-#: ../text.py:70
+#: ../text.py:90
 msgid "The root password must be at least 6 characters long."
 msgstr ""
 
-#: ../text.py:74
+#: ../text.py:94
 msgid "Password Mismatch"
 msgstr ""
 
-#: ../text.py:75
+#: ../text.py:95
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
-#: ../text.py:86
+#: ../text.py:106
 msgid "Red Hat Linux"
 msgstr ""
 
-#: ../text.py:87
+#: ../text.py:107
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -87,134 +97,138 @@ msgid ""
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
 
-#: ../text.py:148
+#: ../text.py:168
 msgid "Use bootp/dhcp"
 msgstr ""
 
-#: ../text.py:153
+#: ../text.py:173
 msgid "IP address:"
 msgstr ""
 
-#: ../text.py:154
+#: ../text.py:174
 msgid "Netmask:"
 msgstr ""
 
-#: ../text.py:155
+#: ../text.py:175
 msgid "Default gateway (IP):"
 msgstr ""
 
-#: ../text.py:156
+#: ../text.py:176
 msgid "Primary nameserver:"
 msgstr ""
 
-#: ../text.py:178
+#: ../text.py:198
 msgid "Network Configuration"
 msgstr ""
 
-#: ../text.py:227
-msgid "Root Partition"
-msgstr ""
-
-#: ../text.py:228
-msgid "What partition would you like to use for your root partition?"
-msgstr ""
-
-#: ../text.py:250
+#: ../text.py:254
 msgid "Select individual packages"
 msgstr ""
 
-#: ../text.py:254 ../text.py:318
+#: ../text.py:258 ../text.py:322
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../text.py:341
+#: ../text.py:351
+msgid "Mouse Selection"
+msgstr ""
+
+#: ../text.py:352
+msgid "Which model mouse is attached to this computer?"
+msgstr ""
+
+#: ../text.py:364
 msgid "Installation to begin"
 msgstr ""
 
-#: ../text.py:342
+#: ../text.py:365
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 
-#: ../text.py:399 ../text.py:400 ../text.py:406 ../text.py:407
+#: ../text.py:422 ../text.py:423 ../text.py:429 ../text.py:430
 msgid "Package Installation"
 msgstr ""
 
-#: ../text.py:409
+#: ../text.py:432
 msgid "Name   : "
 msgstr ""
 
-#: ../text.py:410
+#: ../text.py:433
 msgid "Size   : "
 msgstr ""
 
-#: ../text.py:411
+#: ../text.py:434
 msgid "Summary: "
 msgstr ""
 
-#: ../text.py:437
+#: ../text.py:460
 msgid "    Packages"
 msgstr ""
 
-#: ../text.py:438
+#: ../text.py:461
 msgid "       Bytes"
 msgstr ""
 
-#: ../text.py:439
+#: ../text.py:462
 msgid "        Time"
 msgstr ""
 
-#: ../text.py:441
+#: ../text.py:464
 msgid "Total    :"
 msgstr ""
 
-#: ../text.py:448
+#: ../text.py:471
 msgid "Completed:   "
 msgstr ""
 
-#: ../text.py:458
+#: ../text.py:481
 msgid "Remaining:  "
 msgstr ""
 
-#: ../text.py:527
+#: ../text.py:550
 msgid "Exception occured"
 msgstr ""
 
-#: ../text.py:528
+#: ../text.py:551
 msgid "Exit"
 msgstr ""
 
-#: ../text.py:534
+#: ../text.py:557
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:536
+#: ../text.py:559
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 
-#: ../text.py:546
+#: ../text.py:570
 msgid "Welcome"
 msgstr ""
 
-#: ../text.py:547
+#: ../text.py:571
 msgid "Partition"
 msgstr ""
 
-#: ../text.py:548
+#: ../text.py:572
 msgid "Network Setup"
 msgstr ""
 
-#: ../text.py:550
+#: ../text.py:573
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:551
+#: ../text.py:574
 msgid "Individual Packages"
 msgstr ""
 
-#: ../text.py:552
+#: ../text.py:575
+msgid "Mouse Configuration"
+msgstr ""
+
+#: ../text.py:577
 msgid "Installation Begins"
 msgstr ""

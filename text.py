@@ -18,13 +18,15 @@ _ = cat.gettext
 class LanguageWindow:
     def run(self, screen, todo):
         languages = todo.language.available ()
-        current = todo.language.get ()
+        descriptions = languages.keys ()
+        locales = languages.values ()
+        default = locales.index (todo.language.get ())
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
                                 _("What language would you like to use during the "
-                                  "installation process?"), languages.keys (), 
-                                buttons = [_("Ok")], width = 30)
+                                  "installation process?"), descriptions, 
+                                buttons = [_("Ok")], width = 30, default = default)
         langs = gettext.getlangs ()
         langs = [languages [languages.keys()[choice]]] + langs
         gettext.setlangs (langs)
@@ -38,12 +40,13 @@ class KeyboardWindow:
     def run(self, screen, todo):
         keyboards = todo.keyboard.available ()
         keyboards.sort ()
-        current = todo.keyboard.get ()
+        default = keyboards.index (todo.keyboard.get ())
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
                                 _("Which model keyboard is attached to this computer?"), keyboards, 
-                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8)
+                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8,
+                                default = default)
         
         if button == string.lower (_("Back")):
             return INSTALL_BACK
@@ -223,17 +226,15 @@ class NetworkWindow:
 
 class PartitionWindow:
     def run(self, screen, todo):
-	if (not todo.setupFilesystems): return INSTALL_NOOP
-
-        sys.path.append('libfdisk')
+#	if (not todo.setupFilesystems): return INSTALL_NOOP
         from newtpyfsedit import fsedit        
 
         fstab = []
         for (dev, dir, reformat) in todo.mounts:
             fstab.append ((dev, dir))
         
-        (dir, res) = fsedit(1, ['hda'], fstab)
-
+        ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
+        (dir, res) = ddruid.edit ()
         for (partition, mount, size) in res:
             todo.addMount(partition, mount)
 
@@ -344,18 +345,18 @@ class MouseWindow:
     def run(self, screen, todo):
         mice = todo.mouse.available ()
         mice.sort ()
-        current = todo.mouse.get ()
+        default = mice.index (todo.mouse.get ())
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Mouse Selection"),
                                 _("Which model mouse is attached to this computer?"), mice, 
-                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8)
+                                buttons = [_("Ok"), _("Back")], width = 30, scroll = 1, height = 8,
+                                default = default)
         
         if button == string.lower (_("Back")):
             return INSTALL_BACK
         todo.mouse.set (mice[choice])
         return INSTALL_OK
-
 
 
 class BeginInstallWindow:

@@ -132,13 +132,16 @@ class Language (SimpleConfigFile):
         return self.langs
     
     def set (self, lang):
-        self.lang = lang
+        self.lang = self.langs[lang]
         self.info["LANG"] = self.langs[lang]
         self.info["LINGUAS"] = self.langs[lang]
         self.info["LC_ALL"] = self.langs[lang]
         
     def get (self):
-        return self.lang
+        if self.lang:
+            return self.lang
+        else:
+            return "C"
 
 class Mouse (SimpleConfigFile):
     # XXX fixme - externalize
@@ -210,7 +213,9 @@ class Mouse (SimpleConfigFile):
 
     def get (self):
         if self.info.has_key ("FULLNAME"):
-            return self.info ("FULLNAME")
+            return self.info ["FULLNAME"]
+        else:
+            return "PS/2"
 
     def set (self, mouse):
         (gpm, x11, dev) = self.mice[mouse]
@@ -313,7 +318,8 @@ class Keyboard (SimpleConfigFile):
     def get (self):
         if self.info.has_key ("KEYTABLE"):
             return self.info["KEYTABLE"]
-
+        else:
+            return "us"
 
 class Authentication:
     def __init__ (self):
@@ -323,6 +329,10 @@ class Authentication:
         self.useNis = 0
         self.useShadow = 1
         self.useMD5 = 1
+
+class Drives:
+    def available (self):
+        return isys.hardDriveList ()
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
@@ -341,6 +351,8 @@ class ToDo:
         self.mouse = Mouse ()
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
+        self.ddruid = None;
+        self.drives = Drives ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -534,8 +546,9 @@ class ToDo:
             if comp.selected:
                 comp.select(1)
 
-	self.makeFilesystems()
-	self.mountFilesystems()
+        self.ddruid.save ()
+	self.makeFilesystems ()
+	self.mountFilesystems ()
 
 	if not self.installSystem: 
 	    return

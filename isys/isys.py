@@ -10,7 +10,7 @@ def umount(what):
 def smpAvailable():
     return _isys.smpavailable()
 
-def probeDevices():
+def probePciDevices():
     # probes all probeable buses and returns a list of 
     # ( driver, major, minor, description, args ) tuples, where args is a
     # list of (argName, argDescrip) tuples
@@ -25,6 +25,17 @@ def probeDevices():
 	result.append(info)
 
     return result
+
+def hardDriveList ():
+    p = _isys.ProbedList()
+    p.updateIde()
+    p.updateScsi()
+
+    dict = {}
+    for (klass, dev, descr) in p:
+        if (klass == "disk"):
+            dict[dev] = descr
+    return dict
 
 def moduleListByType(type):
     return _isys.modulelist(type)

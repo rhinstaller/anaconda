@@ -13,6 +13,7 @@ from iw.mouse import *
 from iw.keyboard import *
 import sys
 import GdkImlib
+from gnomepyfsedit import fsedit
 
 import isys
 import sys
@@ -93,6 +94,9 @@ class InstallInterface:
         import traceback
         traceback.print_exception (type, value, tb)
 
+    def getDDruid (self, drives):
+        return fsedit (1, drives)
+
     def run (self, todo):
         start_new_thread (GtkMainThread ().run, ())
         
@@ -101,7 +105,7 @@ class InstallInterface:
 
         windows = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
                    PackageSelectionWindow, AuthWindow, AccountWindow, IndividualPackageSelectionWindow,
-                   InstallProgressWindow]
+                   InstallProgressWindow, ConfirmPartitionWindow]
                  
         icw = InstallControlWindow (self, steps, windows, todo)
 	

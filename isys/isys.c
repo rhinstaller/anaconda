@@ -56,7 +56,7 @@ static PyObject * probedListNet(probedListObject * s, PyObject * args);
 static PyObject * probedListScsi(probedListObject * s, PyObject * args);
 static PyObject * probedListIde(probedListObject * s, PyObject * args);
 static int probedListLength(PyObject * o);
-static PyObject * probedListSubscript(PyObject * o, int item);
+static PyObject * probedListSubscript(probedListObject * o, int item);
 
 static PyMethodDef probedListObjectMethods[] = {
     { "updateNet", (PyCFunction) probedListNet, METH_VARARGS, NULL },
@@ -413,11 +413,18 @@ static int probedListLength(PyObject * o) {
     return ((probedListObject *) o)->list.numKnown;
 }
 
-static PyObject * probedListSubscript(PyObject * o, int item) {
+static PyObject *indexerr;
+
+static PyObject * probedListSubscript(probedListObject * o, int item) {
     probedListObject * po = (probedListObject *) o;
     char * model = "";
     char * class;
 
+    if (item > o->list.numKnown - 1) {
+	indexerr = PyString_FromString("list index out of range");
+	PyErr_SetObject(PyExc_IndexError, indexerr);
+	return NULL;
+    }
     if (po->list.known[item].model) model = po->list.known[item].model;
 
     switch (po->list.known[item].class) {

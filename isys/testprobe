@@ -9,6 +9,11 @@ p.updateScsi()
 
 i = 0
 print "found devices:"
-while (i < len(p)):
-    print "\t", p[i]
-    i = i + 1
+#while (i < len(p)):
+#    print "\t", p[i]
+#    i = i + 1
+
+print len (p)
+
+for i in p:
+    print "\t", i
