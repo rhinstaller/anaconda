@@ -198,23 +198,92 @@ void loadLanguage (char * file, int flags) {
 }
 
 
+/* give the index of the language to set to -- sets the appropriate
+ * lang variables if we have a font.
+ *
+ * ASSUMPTION: languages exists
+ */
+static void setLangEnv (int i, int flags) {
+    if (i > numLanguages)
+        return;
+
+    logMessage("setting language to %s", languages[i].lc_all);
+    if (!strcmp(languages[i].font, "None"))
+        return;
+
+    setenv("LANG", languages[i].lc_all, 1);
+    setenv("LANGKEY", languages[i].key, 1);
+    setenv("LC_ALL", languages[i].lc_all, 1);
+    setenv("LINGUAS", languages[i].lc_all, 1);
+    loadLanguage (NULL, flags);
+}
+
+/* this is pretty simple.  we want to break down the language specifier
+ * into its short form (eg, en_US)
+ */
+static char * getLangShortForm(char * oldLang) {
+    char * lang;
+    char * c;
+    
+    lang = strdup(oldLang);
+
+    c = strchr(lang, '@');
+    if (c) {
+        *c = '\0';
+    }
+
+    c = strchr(lang, '.');
+    if (c) {
+        *c = '\0';
+    }
+
+    return lang;
+}
+
+/* return the nick of a language -- eg en_US -> en */
+static char * getLangNick(char * oldLang) {
+    char * lang;
+    char * c;
+    
+    lang = strdup(oldLang);
+
+    c = strchr(lang, '_');
+    if (c) {
+        *c = '\0';
+    }
+
+    return lang;
+}
+
 void setLanguage (char * key, int flags) {
     int i;
 
     if (!languages) loadLanguageList(flags);
 
     for (i = 0; i < numLanguages; i++) {
-        if (!strcmp(languages[i].key, key)) {
-            if (!strcmp(languages[i].font, "None"))
-                break;
-            setenv("LANG", languages[i].lc_all, 1);
-            setenv("LANGKEY", languages[i].key, 1);
-            setenv("LC_ALL", languages[i].lc_all, 1);
-            setenv("LINGUAS", languages[i].lc_all, 1);
-            loadLanguage (NULL, flags);
-            break;
+        if (!strcmp(languages[i].lc_all, key)) {
+            setLangEnv(i, flags);
+            return;
         }
     }
+
+    /* we didn't specify anything that's exactly in the lang-table.  check
+     * against short forms and nicks */
+    for (i = 0; i < numLanguages; i++) {
+        if (!strcmp(getLangShortForm(languages[i].lc_all), key)) {
+            setLangEnv(i, flags);
+            return;
+        }
+    }
+
+    for (i = 0; i < numLanguages; i++) {
+        if (!strcmp(getLangNick(languages[i].lc_all), key)) {
+            setLangEnv(i, flags);
+            return;
+        }
+    }
+
+    logMessage("unable to set to requested language %s", key);
 }
 
 /* returns 0 on success, 1 on failure */
@@ -299,7 +368,7 @@ int chooseLanguage(char ** lang, int flags) {
 		       languages[choice].lang);
 	return 0;
     }
-    setLanguage (languages[choice].key, flags);
+    setLanguage (languages[choice].lc_all, flags);
 
     /* clear out top line */
     buf = alloca(80);
