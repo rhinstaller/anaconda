@@ -67,7 +67,7 @@ static int ethCount(const char * type) {
         chptr = strchr(chptr, '\n');
         if (chptr) chptr++;
     }
-    
+
     return count;
 }
 
@@ -248,6 +248,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
         }
 
         if (mi->major == DRIVER_SCSI) {
+            deviceCount = scsiCount();
             startNewt(flags);
             scsiWindow(modName);
             popWindow = 1;
@@ -573,9 +574,9 @@ static int writeModulesConf(moduleList list, int fd) {
                         strcat(buf2, lm->name);
                         strcat(buf2, "\nalias ");
                     }
+                    strcat(buf, buf2);
                 }
 
-                strcat(buf, buf2);
                 break;
 
             default:
