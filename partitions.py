@@ -141,8 +141,13 @@ class Partitions:
         mdList = diskset.mdList
         for raidDev in mdList:
             (theDev, devices, level, numActive) = raidDev
-
             level = "RAID%s" %(level,)
+
+            if level not in fsset.availRaidLevels:
+                log("raid level %s not supported, skipping %s" %(level,
+                                                                  theDev))
+                continue
+
             try:
                 chunk = isys.getRaidChunkFromDevice(theDev)
             except Exception, e:
