@@ -3,4 +3,4 @@
 
 int dospReadTable(int fd, struct partitionTable * table);
 
-#endif;
+#endif

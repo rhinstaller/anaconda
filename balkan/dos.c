@@ -39,7 +39,7 @@ static int readSingleTable(int fd, struct singlePartitionTable * table,
     unsigned char sector[SECTOR_SIZE];
     unsigned short magic;
 
-    if (lseek64(fd, ((off64_t) SECTOR_SIZE * (off64_t) partSector),
+    if (lseek(fd, ((off64_t) SECTOR_SIZE * (off64_t) partSector),
 	       SEEK_SET) < 0)
 	return BALKAN_ERROR_ERRNO;
 

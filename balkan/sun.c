@@ -99,7 +99,7 @@ int sunpReadTable(int fd, struct partitionTable * table) {
 
 	  default:
 	    if (table->parts[i].type != WHOLE_DISK &&
-		lseek64(fd, (8192 + 0x55c + SECTOR_SIZE *
+		lseek(fd, (8192 + 0x55c + SECTOR_SIZE *
 			    (off64_t) table->parts[i].startSector),
 		       SEEK_SET) >= 0 &&
 		read(fd, &magic, 4) == 4 &&
