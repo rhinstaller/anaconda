@@ -572,8 +572,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
    if (!strncmp(dev->dev.device, "ctc", 3)) {
-     if (dev->dev.set & PUMP_NETINFO_HAS_BROADCAST)
-       fprintf(f, "REMIP=%s\n", dev->dev.broadcast);
+	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+		fprintf(f, "REMIP=%s\n", dev->dev.broadcast);
    } else {
        fprintf(f, "BROADCAST=%s\n", dev->dev.broadcast);
    }
