@@ -11,6 +11,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import os
+
 # A lot of effort, but it only allows a limited set of flags to be referenced
 class Flags:
 
@@ -35,6 +37,16 @@ class Flags:
 	self.__dict__['flags']['autostep'] = 0
 	self.__dict__['flags']['autoscreenshot'] = 0
 	self.__dict__['flags']['usevnc'] = 0
+	self.__dict__['flags']['selinux'] = 0
+
+
+        # determine if selinux is enabled or not
+        f = open("/proc/cmdline", "r")
+        line = f.readline()
+        f.close()
+        if os.path.exists("/selinux/load") and line.find(" selinux=0") == -1:
+            self.__dict__['flags']['selinux'] = 1            
+        
 
 global flags
 flags = Flags()
