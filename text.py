@@ -1005,6 +1005,14 @@ class InstallInterface:
 		dir = 1
 
 	    self.step = self.step + dir
+            if self.step < 0:
+                ButtonChoiceWindow(self.screen, _("Cancelled"),
+                                   _("I can't go to the previous step"
+                                     " from here. You will have to try again."),
+                                   buttons = [ _("OK") ])
+                                   
+                self.step = 0
+                dir = 1
         self.screen.finish ()
 
 def killSelf(screen):

@@ -1,7 +1,8 @@
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
-from silo import SiloInstall
+if iutil.getArch () == "sparc":
+    from silo import SiloInstall
 import string
 import socket
 import crypt

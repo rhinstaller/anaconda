@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-27 13:20-0400\n"
+"POT-Creation-Date: 1999-09-29 11:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,16 +26,16 @@ msgstr ""
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 #: ../loader/lang.c:246 ../loader/lang.c:506 ../loader/loader.c:243
-#: ../loader/loader.c:459 ../loader/loader.c:469 ../loader/loader.c:615
-#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
-#: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
-#: ../loader/loader.c:1555 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/loader.c:459 ../loader/loader.c:469 ../loader/loader.c:627
+#: ../loader/loader.c:685 ../loader/loader.c:730 ../loader/loader.c:863
+#: ../loader/loader.c:868 ../loader/loader.c:954 ../loader/loader.c:1087
+#: ../loader/loader.c:1577 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:560 ../loader/urls.c:124 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:52 ../text.py:103
 #: ../text.py:154 ../text.py:199 ../text.py:242 ../text.py:287 ../text.py:378
 #: ../text.py:398 ../text.py:429 ../text.py:478 ../text.py:500 ../text.py:565
 #: ../text.py:586 ../text.py:598 ../text.py:610 ../text.py:788 ../text.py:860
-#: ../text.py:864 ../textw/lilo.py:21 ../textw/lilo.py:66
+#: ../text.py:864 ../text.py:1012 ../textw/lilo.py:21 ../textw/lilo.py:66
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/partitioning.py:202 ../textw/silo.py:21 ../textw/silo.py:66
 #: ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48
@@ -60,7 +60,7 @@ msgstr ""
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:174 ../iw/silo.py:168 ../text.py:85 ../textw/lilo.py:79
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../text.py:85 ../textw/lilo.py:79
 #: ../textw/lilo.py:138 ../textw/silo.py:79 ../textw/silo.py:136
 msgid "Device"
 msgstr ""
@@ -71,9 +71,9 @@ msgid "What device is your mouse located on? %s %i"
 msgstr ""
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619 ../libfdisk/fsedit.c:626
-#: ../libfdisk/fsedit.c:635 ../libfdisk/fsedit.c:647 ../libfdisk/fsedit.c:657
-#: ../libfdisk/fsedit.c:686 ../libfdisk/fsedit.c:702 ../libfdisk/fsedit.c:1056
+#: ../libfdisk/fsedit.c:614 ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:637 ../libfdisk/fsedit.c:649 ../libfdisk/fsedit.c:659
+#: ../libfdisk/fsedit.c:688 ../libfdisk/fsedit.c:704 ../libfdisk/fsedit.c:1070
 #: ../libfdisk/gnomefsedit.c:676 ../libfdisk/gnomefsedit.c:1030
 #: ../libfdisk/gnomefsedit.c:1056 ../libfdisk/gnomefsedit.c:1092
 #: ../libfdisk/gnomefsedit.c:1297 ../libfdisk/gnomefsedit.c:1391
@@ -94,12 +94,12 @@ msgstr ""
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:257 ../gui.py:469 ../libfdisk/fsedit.c:963
+#: ../gui.py:257 ../gui.py:469 ../libfdisk/fsedit.c:977
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168
 #: ../loader/devices.c:218 ../loader/lang.c:506 ../loader/loader.c:243
-#: ../loader/loader.c:579 ../loader/loader.c:615 ../loader/loader.c:715
-#: ../loader/loader.c:1072 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/loader.c:591 ../loader/loader.c:627 ../loader/loader.c:730
+#: ../loader/loader.c:1087 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:87 ../text.py:88
 #: ../text.py:103 ../text.py:126 ../text.py:154 ../text.py:157 ../text.py:199
 #: ../text.py:228 ../text.py:242 ../text.py:244 ../text.py:263 ../text.py:265
@@ -167,8 +167,8 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:459 ../loader/loader.c:469
-#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
-#: ../loader/loader.c:853 ../loader/loader.c:1555 ../loader/urls.c:201
+#: ../loader/loader.c:685 ../loader/loader.c:730 ../loader/loader.c:863
+#: ../loader/loader.c:868 ../loader/loader.c:1577 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:225 ../text.py:606
 msgid "Error"
 msgstr ""
@@ -201,7 +201,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2326 ../libfdisk/gnomefsedit.c:2379
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:701
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:591 ../loader/net.c:701
 #: ../text.py:263 ../text.py:450 ../text.py:453 ../textw/partitioning.py:165
 msgid "Yes"
 msgstr ""
@@ -431,7 +431,7 @@ msgstr ""
 msgid "Welcome"
 msgstr ""
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:196 ../iw/silo.py:92 ../iw/silo.py:191
+#: ../iw/lilo.py:94 ../iw/lilo.py:196 ../iw/silo.py:119 ../iw/silo.py:243
 #: ../text.py:905 ../text.py:911
 msgid "Partition"
 msgstr ""
@@ -497,7 +497,7 @@ msgstr ""
 msgid "Package Dependencies"
 msgstr ""
 
-#: ../iw/xconfig.py:107 ../text.py:945 ../text.py:953
+#: ../iw/xconfig.py:110 ../text.py:945 ../text.py:953
 msgid "X Configuration"
 msgstr ""
 
@@ -536,6 +536,14 @@ msgstr ""
 
 #: ../text.py:979
 msgid "Upgrade Complete"
+msgstr ""
+
+#: ../text.py:1009
+msgid "Cancelled"
+msgstr ""
+
+#: ../text.py:1010
+msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
 #: ../gui.py:256 ../gui.py:470
@@ -770,7 +778,7 @@ msgstr ""
 msgid "Lilo Configuration"
 msgstr ""
 
-#: ../iw/lilo.py:99 ../iw/lilo.py:197 ../iw/silo.py:97 ../iw/silo.py:192
+#: ../iw/lilo.py:99 ../iw/lilo.py:197 ../iw/silo.py:124 ../iw/silo.py:244
 msgid "Type"
 msgstr ""
 
@@ -778,11 +786,11 @@ msgstr ""
 msgid "Install LILO boot record on:"
 msgstr ""
 
-#: ../iw/lilo.py:133 ../iw/silo.py:134
+#: ../iw/lilo.py:133 ../iw/silo.py:163
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../iw/lilo.py:137
+#: ../iw/lilo.py:137 ../iw/silo.py:161
 msgid "First sector of boot partition"
 msgstr ""
 
@@ -790,11 +798,11 @@ msgstr ""
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr ""
 
-#: ../iw/lilo.py:144 ../iw/silo.py:138
+#: ../iw/lilo.py:144 ../iw/silo.py:186
 msgid "Kernel parameters"
 msgstr ""
 
-#: ../iw/lilo.py:159 ../iw/silo.py:153
+#: ../iw/lilo.py:159 ../iw/silo.py:201
 msgid "Create boot disk"
 msgstr ""
 
@@ -802,17 +810,17 @@ msgstr ""
 msgid "Do not install LILO"
 msgstr ""
 
-#: ../iw/lilo.py:174 ../iw/silo.py:168 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../textw/lilo.py:138
 #: ../textw/silo.py:136
 msgid "Default"
 msgstr ""
 
-#: ../iw/lilo.py:174 ../iw/silo.py:168 ../textw/lilo.py:138
+#: ../iw/lilo.py:174 ../iw/silo.py:220 ../textw/lilo.py:138
 #: ../textw/silo.py:136
 msgid "Partition type"
 msgstr ""
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:208 ../iw/silo.py:168 ../iw/silo.py:203
+#: ../iw/lilo.py:174 ../iw/lilo.py:208 ../iw/silo.py:220 ../iw/silo.py:255
 #: ../textw/lilo.py:80 ../textw/lilo.py:138 ../textw/silo.py:80
 #: ../textw/silo.py:136
 msgid "Boot label"
@@ -975,15 +983,19 @@ msgstr ""
 msgid "Silo Configuration"
 msgstr ""
 
-#: ../iw/silo.py:126
+#: ../iw/silo.py:155
 msgid "Install SILO boot record on:"
 msgstr ""
 
-#: ../iw/silo.py:132
-msgid "First sector of boot partition (recommended)"
+#: ../iw/silo.py:170
+msgid "Create PROM alias"
 msgstr ""
 
-#: ../iw/silo.py:157
+#: ../iw/silo.py:182
+msgid "Set default PROM boot device to linux"
+msgstr ""
+
+#: ../iw/silo.py:209
 msgid "Do not install SILO"
 msgstr ""
 
@@ -1031,38 +1043,38 @@ msgstr ""
 msgid "Test failed"
 msgstr ""
 
-#: ../iw/xconfig.py:22 ../iw/xconfig.py:214
+#: ../iw/xconfig.py:22 ../iw/xconfig.py:219
 msgid "Customize X Configuration"
 msgstr ""
 
-#: ../iw/xconfig.py:79
+#: ../iw/xconfig.py:80
 msgid "Bits per Pixel"
 msgstr ""
 
-#: ../iw/xconfig.py:89 ../iw/xconfig.py:210
+#: ../iw/xconfig.py:90 ../iw/xconfig.py:215
 msgid "Test this configuration"
 msgstr ""
 
-#: ../iw/xconfig.py:165
+#: ../iw/xconfig.py:169
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
 
-#: ../iw/xconfig.py:173
+#: ../iw/xconfig.py:177
 msgid "Autoprobe results:"
 msgstr ""
 
-#: ../iw/xconfig.py:187
+#: ../iw/xconfig.py:191
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
 
-#: ../iw/xconfig.py:217
+#: ../iw/xconfig.py:222
 msgid "Use Graphical Login"
 msgstr ""
 
-#: ../iw/xconfig.py:219
+#: ../iw/xconfig.py:224
 msgid "Skip X Configuration"
 msgstr ""
 
@@ -1259,17 +1271,17 @@ msgstr ""
 msgid "Request server via broadcast"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619 ../libfdisk/fsedit.c:626
-#: ../libfdisk/fsedit.c:635 ../libfdisk/fsedit.c:647 ../libfdisk/fsedit.c:657
+#: ../libfdisk/fsedit.c:614 ../libfdisk/fsedit.c:621 ../libfdisk/fsedit.c:628
+#: ../libfdisk/fsedit.c:637 ../libfdisk/fsedit.c:649 ../libfdisk/fsedit.c:659
 msgid "Bad Mount Point"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:613
+#: ../libfdisk/fsedit.c:615
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:620
+#: ../libfdisk/fsedit.c:622
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1277,7 +1289,7 @@ msgid ""
 "Mount points must begin with a leading /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:627
+#: ../libfdisk/fsedit.c:629
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1285,7 +1297,7 @@ msgid ""
 "Mount points may not end with a /."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:636
+#: ../libfdisk/fsedit.c:638
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1293,7 +1305,7 @@ msgid ""
 "Mount points may only printable characters."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:648
+#: ../libfdisk/fsedit.c:650
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1301,7 +1313,7 @@ msgid ""
 "System partitions must be on Linux Native partitions."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:658
+#: ../libfdisk/fsedit.c:660
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -1309,28 +1321,28 @@ msgid ""
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:686
+#: ../libfdisk/fsedit.c:688
 msgid "Too Many Drives"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:687
+#: ../libfdisk/fsedit.c:689
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:702
+#: ../libfdisk/fsedit.c:704
 msgid "No Drives Found"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:703
+#: ../libfdisk/fsedit.c:705
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:958
+#: ../libfdisk/fsedit.c:972
 #, c-format
 msgid ""
 "A disk with a corrupt Sun disklabel has been found while reading block "
@@ -1338,58 +1350,58 @@ msgid ""
 "device."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:962
+#: ../libfdisk/fsedit.c:976
 msgid "Corrupt Sun disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:963 ../libfdisk/fsedit.c:1019
-#: ../libfdisk/fsedit.c:1044
+#: ../libfdisk/fsedit.c:977 ../libfdisk/fsedit.c:1033
+#: ../libfdisk/fsedit.c:1058
 msgid "Skip Drive"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:1040
+#: ../libfdisk/fsedit.c:986 ../libfdisk/fsedit.c:1054
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1013
+#: ../libfdisk/fsedit.c:1027
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1018
+#: ../libfdisk/fsedit.c:1032
 msgid "Bad Partition Table"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1019
+#: ../libfdisk/fsedit.c:1033
 msgid "Initialize"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1044 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1058 ../loader/net.c:329
 msgid "Retry"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1056
+#: ../libfdisk/fsedit.c:1070
 msgid "BSD Disklabel"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1056
+#: ../libfdisk/fsedit.c:1070
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1086
+#: ../libfdisk/fsedit.c:1100
 #, c-format
 msgid "System error %d"
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1095 ../libfdisk/fsedit.c:1097
+#: ../libfdisk/fsedit.c:1109 ../libfdisk/fsedit.c:1111
 msgid "Fdisk Error"
 msgstr ""
 
@@ -1926,83 +1938,83 @@ msgstr ""
 msgid "Error loading ramdisk."
 msgstr ""
 
-#: ../loader/loader.c:579
+#: ../loader/loader.c:591
 msgid "Hard Drives"
 msgstr ""
 
-#: ../loader/loader.c:580
+#: ../loader/loader.c:592
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
 
-#: ../loader/loader.c:593
+#: ../loader/loader.c:605
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 
-#: ../loader/loader.c:607
+#: ../loader/loader.c:619
 msgid "Directory holding Red Hat:"
 msgstr ""
 
-#: ../loader/loader.c:627
+#: ../loader/loader.c:639
 msgid "Select Partition"
 msgstr ""
 
-#: ../loader/loader.c:671
+#: ../loader/loader.c:686
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:716
+#: ../loader/loader.c:731
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
-#: ../loader/loader.c:849
+#: ../loader/loader.c:864
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr ""
 
-#: ../loader/loader.c:854
+#: ../loader/loader.c:869
 msgid "I could not mount that directory from the server"
 msgstr ""
 
-#: ../loader/loader.c:939
+#: ../loader/loader.c:954
 msgid "FTP"
 msgstr ""
 
-#: ../loader/loader.c:940
+#: ../loader/loader.c:955
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1064
+#: ../loader/loader.c:1079
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1065
+#: ../loader/loader.c:1080
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1067
+#: ../loader/loader.c:1082
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1069
+#: ../loader/loader.c:1084
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1556
+#: ../loader/loader.c:1578
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1675
+#: ../loader/loader.c:1733
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1675
+#: ../loader/loader.c:1733
 msgid "Initializing PC Card Devices..."
 msgstr ""
 
