@@ -83,13 +83,14 @@ Iconv_iconv(IconvObject *self, PyObject *args, PyObject* kwargs)
 		/* we ran out of space in outbuf, it needs to be bigger */
 		char *newbuf;
 		/* a guess at how much more we need */
-		size_t curpos, extra = inleft * 2;
+		size_t cursize, curpos, extra = inleft * 2;
 
 		/* calculate the current position in the output buffer
 		   so we can move outptr to the correct place in the realloced
 		   space */
+		cursize = outptr - outbuf + outleft;
 		curpos = outptr - outbuf;
-		newbuf = realloc(outbuf, outptr - outbuf + extra);
+		newbuf = realloc(outbuf, cursize + extra);
 		if (newbuf == NULL) {
 		    free(outbuf);
 		    /* XXX set exception */
