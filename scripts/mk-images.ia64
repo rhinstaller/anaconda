@@ -1,6 +1,6 @@
 # LATEUSBMODS go in the second stage
 # FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="usb-uhci usb-ohci hid keybdev usb-storage sd_mod"
+USBMODS="usb-uhci usb-ohci ehci-hcd hid keybdev usb-storage sd_mod"
 LATEUSBMODS="mousedev"
 
 BTERMMODULES="vga16fb"
