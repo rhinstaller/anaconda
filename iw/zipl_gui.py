@@ -15,6 +15,7 @@
 import gtk
 import gui
 import iutil
+import string
 from iw_gui import *
 from rhpl.translate import _, N_
 from package_gui import queryUpgradeContinue
@@ -54,7 +55,7 @@ class ZiplWindow (InstallWindow):
                 #sys.exit(0)
 
     def getNext (self):
-        self.bl.args.set(self.appendEntry.get_text())
+        self.bl.args.set(self.kernelEntry.get_text())
 
 
     # ZiplWindow tag="zipl"
@@ -98,12 +99,34 @@ class ZiplWindow (InstallWindow):
 
         label = gtk.Label(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
-        self.appendEntry = gtk.Entry()
+        self.kernelEntry = gtk.Entry()
+        clabel1 = gtk.Label(_("Chandev Parameters") + ":")
+        clabel1.set_alignment(0.0, 0.5)
+        self.chandeventry1 = gtk.Entry()
+        clabel2 = gtk.Label(_("Chandev Parameters") + ":")
+        clabel2.set_alignment(0.0, 0.5)
+        self.chandeventry2 = gtk.Entry()
         if bl.args and bl.args.get():
-            self.appendEntry.set_text(bl.args.get())
+            self.kernelEntry.set_text(bl.args.get())
+        if bl.args and bl.args.chandevget():
+            cdevs = bl.args.chandevget()
+            self.chandeventry1.set_text('')
+            self.chandeventry2.set_text('')
+            if len(cdevs) > 0:
+                self.chandeventry1.set_text(cdevs[0])
+            if len(cdevs) > 1:
+                self.chandeventry2.set_text(string.join(cdevs[1:],';'))
         hbox = gtk.HBox(gtk.FALSE, 5)
         hbox.pack_start(label, gtk.FALSE)
-        hbox.pack_start(self.appendEntry)
+        hbox.pack_start(self.kernelEntry)
         box.pack_start(hbox, gtk.FALSE)
+        hbox1 = gtk.HBox(gtk.FALSE, 5)
+        hbox1.pack_start(clabel1, gtk.FALSE)
+        hbox1.pack_start(self.chandeventry1)
+        box.pack_start(hbox1, gtk.FALSE)
+        hbox2 = gtk.HBox(gtk.FALSE, 5)
+        hbox2.pack_start(clabel2, gtk.FALSE)
+        hbox2.pack_start(self.chandeventry2)
+        box.pack_start(hbox2, gtk.FALSE)
 
         return box
