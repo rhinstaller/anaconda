@@ -314,6 +314,9 @@ class AccountWindow (InstallWindow):
     def setFocus (self, area, data):
         self.pw.grab_focus ()
 
+    def userlistActivateCb(self, view, path, col):
+        self.editUser(view)
+
     # AccountWindow tag="accts"
     def getScreen (self, rootPw, accounts):
 	self.accounts = accounts
@@ -401,6 +404,7 @@ class AccountWindow (InstallWindow):
 	column = gtk.TreeViewColumn(_("Full Name"),
 				    gtk.CellRendererText(), text = 1)
 	self.userlist.append_column(column)
+        self.userlist.connect('row-activated', self.userlistActivateCb)
 
 	selection = self.userlist.get_selection()
 	selection.connect("changed", self.userSelected)
