@@ -73,10 +73,8 @@ class ToDo:
 	p = self.intf.packageProgessWindow()
 	ts.run(0, 0, instCallback, p)
 
+	self.writeFstab()
 	self.installLilo()
-
-	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
-				"-r", self.instPath ], stdout = None)
 
     def installLilo(self):
 	if not self.liloDevice: return
@@ -105,6 +103,25 @@ class ToDo:
 	    
 	l.addImage(kernelFile, sl)
 	l.write(self.instPath + "/etc/lilo.conf")
+
+	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
+				"-r", self.instPath ], stdout = None)
+
+    def writeFstab(self):
+	format = "%-23s %-23s %-7s %-15s %d %d\n";
+
+	f = open(self.instPath + "/etc/fstab", "w")
+	self.mounts.sort(mountListCmp)
+	for n in self.mounts: 
+	    (dev, fs, reformat) = n
+	    if (fs == '/'):
+		f.write(format % (dev, fs, 'ext2', 'defaults', 1, 1))
+	    else:
+		f.write(format % (dev, fs, 'ext2', 'defaults', 1, 2))
+	f.write(format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
+	f.write(format % ("none", "/proc", 'proc', 'defaults', 0, 0))
+	f.write(format % ("none", "/dev/pts", 'devpts', 'mode=0622', 0, 0))
+	f.close()
 
     def addMount(self, device, location, reformat = 1):
 	self.mounts.append((device, location, reformat))
