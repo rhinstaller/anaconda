@@ -172,6 +172,7 @@ class InstallPathWindow:
 
 	if (todo.upgrade):
 	    default = 4
+	    orig = None
 	else:
 	    instClass = todo.getClass()
 	    orig = None
