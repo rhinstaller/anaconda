@@ -1359,7 +1359,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char ** ksArgv;
     int ksArgc;
     int ksType;
-    int i, rc;
+    int i, rc, fd;
     int flags = *flagsPtr;
     enum deviceClass ksDeviceType;
     struct poptOption * table;
@@ -1367,6 +1367,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char * dir = NULL;
     char * imageUrl;
 #ifdef INCLUDE_NETWORK
+    struct iurlinfo ui;
+    char * chptr;
     static struct networkDeviceConfig netDev;
     char * host = NULL, * url = NULL, * proxy = NULL, * proxyport = NULL;
     char * fullPath;
@@ -1385,7 +1387,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	};
 #endif
 #ifdef INCLUDE_LOCAL
-    int partNum, fd;
+    int partNum;
     char * partname = NULL;
     struct partitionTable partTable;
     struct poptOption ksHDOptions[] = {
@@ -1465,8 +1467,6 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	startNewt(flags);
 	if (kickstartNetwork(&netDevice, &netDev, NULL, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
-    } else if (ksType == KS_CMD_URL) {
-	abort();
     }
 #endif
 
@@ -1487,6 +1487,63 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
 	imageUrl = "dir://mnt/source/.";
+    } else if (ksType == KS_CMD_URL) {
+	memset(&ui, 0, sizeof(ui));
+
+	imageUrl = strdup(url);
+
+	if (!strncmp("ftp://", url, 6)) {
+	    ui.protocol = URL_METHOD_FTP;
+	    url += 6;
+
+	    /* There could be a username/password on here */
+	    if ((chptr = strchr(url, '@'))) {
+		if ((chptr = strchr(url, ':'))) {
+		    *chptr = '\0';
+		    ui.login = strdup(url);
+		    url = chptr + 1;
+
+		    chptr = strchr(url, '@');
+		    *chptr = '\0';
+		    ui.password = strdup(url);
+		    url = chptr + 1;
+		} else {
+		    *chptr = '\0';
+		    ui.login = strdup(url);
+		    url = chptr + 1;
+		}
+	    }
+	} else if (!strncmp("http://", url, 7)) {
+	    ui.protocol = URL_METHOD_HTTP;
+	    url +=7;
+	} else {
+	    logMessage("unknown url protocol '%s'", url);
+	    return NULL;
+	}
+
+	/* url is left pointing at the hostname */
+	chptr = strchr(url, '/');
+	*chptr = '\0';
+	ui.address = strdup(url);
+	url = chptr;
+	*url = '/';
+	ui.prefix = strdup(url);
+
+	logMessage("url address %s", ui.address);
+	logMessage("url prefix %s", ui.prefix);
+
+	fd = urlinstStartTransfer(&ui, "base/netstg2.img");
+	if (fd < 0) {
+	    logMessage("failed to open url");
+	    return NULL;
+	}
+	rc = loadStage2Ramdisk(fd, 0, flags);
+	urlinstFinishTransfer(&ui, fd);
+
+	if (rc) {
+	    logMessage("failed to retrieve second stage");
+	    return NULL;
+	}
     }
 #endif
 
