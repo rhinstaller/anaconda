@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-30 15:49+0530\n"
+"PO-Revision-Date: 2004-08-02 15:46+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -6155,11 +6155,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
-msgstr ""
+msgstr "HSync દર: "
 
 #: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
-msgstr ""
+msgstr "VSync દર: "
 
 #: ../textw/xconfig_text.py:419
 #, python-format
@@ -6167,30 +6167,32 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
+"તમારી સિસ્ટમ માટે મોનિટર પસંદ કરો. પ્રોબ થયેલ કિંમતો ફરીથી સુયોજિત કરવા "
+"માટે '%s' બટન વાપરો."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
-msgstr ""
+msgstr "મોનિટર:"
 
 #: ../textw/xconfig_text.py:430
 msgid "HSync Rate:"
-msgstr ""
+msgstr "HSync દર:"
 
 #: ../textw/xconfig_text.py:440
 msgid "VSync Rate:"
-msgstr ""
+msgstr "VSync દર:"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
-msgstr ""
+msgstr "મોનિટરનો પ્રકાર પસંદ કરો"
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
-msgstr ""
+msgstr "પ્રક્રિયા કરો"
 
 #: ../textw/xconfig_text.py:543
 msgid "Video Card"
-msgstr ""
+msgstr "વિડીયો કાર્ડ"
 
 #: ../textw/xconfig_text.py:544
 #, python-format
@@ -6198,10 +6200,12 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
+"મહેરબાની કરીને તમારી સિસ્ટમમાં હોય તે વિડીયો કાર્ડ પસંદ કરો. સ્થાપકે "
+"તમારી સિસ્ટમ પર શોધી કાઢેલને ફરીથી સુયોજિત કરવા માટે '%s' પસંદ કરો."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
-msgstr ""
+msgstr "વિડીયો RAM"
 
 #: ../textw/xconfig_text.py:563
 #, python-format
@@ -6209,30 +6213,33 @@ msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
+"મહેરબાની કરીને તમારા વિડીયો કાર્ડ પર હાજર વિડીયો RAM ને પસંદ કરો. "
+"પસંદગી ફરીથી સુયોજિત કરવા માટે '%s' પસંદ કરો કે જે સ્થાપકે તમારા કાર્ડ "
+"પર શોધી કાઢ્યું છે."
 
 #: ../textw/xconfig_text.py:629
 msgid "Skip X Configuration"
-msgstr ""
+msgstr "X રુપરેખાંકન અવગણો"
 
 #: ../textw/xconfig_text.py:631
 msgid "Video Card Configuration"
-msgstr ""
+msgstr "વિડીયો કાર્ડ રુપરેખાંકન"
 
 #: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
-msgstr ""
+msgstr "તમારી સિસ્ટમ માટે વિડીયો કાર્ડ અને વિડીયો RAM પસંદ કરો."
 
 #: ../textw/xconfig_text.py:647
 msgid "Video Card:"
-msgstr ""
+msgstr "વિડીયો કાર્ડ:"
 
 #: ../textw/xconfig_text.py:652
 msgid "Unknown card"
-msgstr ""
+msgstr "અજ્ઞાત કાર્ડ"
 
 #: ../textw/xconfig_text.py:660
 msgid "Video RAM:"
-msgstr ""
+msgstr "વિડીયો RAM:"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6240,28 +6247,33 @@ msgid ""
 "complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"સ્થાપન પૂર્ણ થાય પછી z/IPL બુટ લોડર તમારી સિસ્ટમ પર સ્થાપિત થશે. "
+"તમે કોઈ વધારાના કર્નલ અને ચાન્ડેલ પરિમાણો દાખલ કરી શકો છો કે જે "
+"તમારુ મશીન અથવા તમારુ સુયોજન માટે જરુરી છે."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
-msgstr ""
+msgstr "z/IPL રુપરેખાંકન"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
-msgstr ""
+msgstr "ચાન્ડેવ લાઈન"
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr ""
+msgstr "કસ્ટમ (_C)"
 
 #: ../installclasses/custom.py:13
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
+"સ્થાપનની પૂર્ણ પ્રક્રિયા પર નિયંત્રણ મેળવવા માટે સ્થાપનનો આ પ્રકાર પસંદ "
+"કરો, સોફ્ટવેર પેકેજો પસંદ કરવા અને પાર્ટીશન કરવા સહિત."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr ""
+msgstr "ખાનગી ડેસ્કટોપ (_P)"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -6269,6 +6281,9 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
+"ખાનગી કમ્પ્યુટરો અથવા લેપટોપ માટે યોગ્ય છે, ગ્રાફિકલ ડેસ્કટોપ પર્યાવરણ "
+"સ્થાપિત કરવા માટે અને તમારા ઘર વપરાશ માટે સિસ્ટમ યોગ્ય બનાવવા માટે "
+"સ્થાપનનો આ પ્રકાર પસંદ કરો."
 
 #: ../installclasses/personal_desktop.py:18
 msgid ""
@@ -6280,10 +6295,17 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tડેસ્કટોપ શેલ (જીનોમ)\n"
+"\tઓફિસ સેવા (ઓપનઓફિસ)\n"
+"\tવેબ બ્રાઉઝર (મોઝિલ્લા) \n"
+"\tઈ-મેઈલ (ઈવોલ્યુશન)\n"
+"\tતુરંત સંદેશાવ્યવહાર\n"
+"\tઓડિયો અને વિડીયો કાર્યક્રમો\n"
+"\tરમતો\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr ""
+msgstr "સર્વર (_S)"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -6291,16 +6313,22 @@ msgid ""
 "print sharing, and Web services. Additional services can also be enabled, "
 "and you can choose whether or not to install a graphical environment."
 msgstr ""
+"સ્થાપનનો આ પ્રકાર પસંદ કરો જો તમે સેટઅપ ફાઈલ વહેંચવા માંગતા હોય, "
+"છાપન વહેંચવા માંગતા હોય, અને વેબ સેવાઓ વાપરવા માંગતા હોય. "
+"વધારાની સેવાઓ પણ સક્રિય કરેલ હોય અને તમે શું ગ્રાફિકવાળું "
+"પર્યાવરણ સ્થાપિત કરવું કે નહિં તે પણ પસંદ કરી શકો છો."
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr ""
+msgstr "વર્કસ્ટેશન (_W)"
 
 #: ../installclasses/workstation.py:10
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
+"આ વિકલ્પ ગ્રાફિકવાળુ ડેસ્કટોપ પર્યાવરણ સોફ્ટવેર વિકાસ માટે અને સિસ્ટમ "
+"સંચાલન માટે સાધનો સાથે સ્થાપિત કરે છે."
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -6314,21 +6342,30 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tડેસ્કટોપ શેલ (જીનોમ)\n"
+"\tઓફિસ સેવા (ઓપનઓફિસ)\n"
+"\tવેબ બ્રાઉઝર (મોઝિલ્લા) \n"
+"\tઈ-મેઈલ (ઈવોલ્યુશન)\n"
+"\tતુરંત સંદેશાવ્યવહાર\n"
+"\tઓડિયો અને વિડીયો કાર્યક્રમો\n"
+"\tરમતો\n"
+"\tસોફ્ટવેર વિકાસ સાધનો\n"
+"\tસંચાલન સાધનો\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
-msgstr ""
+msgstr "મિડીયા ચકાસણી"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
 #: ../loader2/method.c:406
 msgid "Test"
-msgstr ""
+msgstr "ચકાસણી"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
 msgid "Eject CD"
-msgstr ""
+msgstr "CD બહાર કાઢો"
 
 #: ../loader2/cdinstall.c:89
 #, c-format
@@ -6336,6 +6373,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
+"CD કે જે ડ્રાઈવમાં છે તેને ચકાસવા માટે \"%s\" પસંદ કરો, અથવા CD ને બહાર "
+"કાઢવા માટે \"%s\" પસંદ કરો અને બીજી ચકાસણી માટે દાખલ કરો."
 
 #: ../loader2/cdinstall.c:110
 #, c-format
@@ -6347,6 +6386,11 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
+"જો તમે વધારાના મિડીયા ચકાસવા માંગતા હોય, તો પછીની CD દાખલ કરો "
+"અને \"%s\" દબાવો. તમારે બધી CDs ચકાસવાની જરુર નથી, તેમછતાં પણ એવો"
+"આગ્રહ રાખવામં આવે છે ઓછામાં ઓછી એક વખત કરવું જોઈએ.\n"
+"\n"
+"સ્થાપનની પ્રક્રિયા શરુ કરવા માટે CD #1 ડ્રાઈવમાં દાખલ કરો અને \"%s\" દબાવો."
 
 #: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:376
 #, c-format
@@ -6354,10 +6398,12 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"%s CD તમારી કોઈપણ CDROM ડ્રાઈવ પર મળી નથી. મહેરબાની કરીને %s CD "
+"દાખલ કરો અને ફરીથી પ્રયત્ન કરવા માટે %s દબાવો."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
-msgstr ""
+msgstr "CD મળી નથી"
 
 #: ../loader2/cdinstall.c:255
 #, c-format
@@ -6366,6 +6412,9 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
+"%s ના સ્થાપનની પ્રક્રિયા પહેલા CD મિડીયા ચકાસણી શરુ કરવા માટે.\n"
+"\n"
+"મિડીયા ચકાસણી રદ કરવા માટે %s પસંદ કરો અને સ્થાપન શરુ કરો."
 
 #: ../loader2/cdinstall.c:371
 #, c-format
@@ -6373,75 +6422,83 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
+"કોઈ %s CD મળી નથી કે જે તમારી બુટ મિડીયા સાથે બંધબેસે. મહેરબાની કરીને "
+"%s CD દાખલ કરો અને ફરીથી પ્રયત્ન કરવા માટે %s દબાવો."
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
-msgstr ""
+msgstr "CD મળી નથી"
 
 #: ../loader2/cdinstall.c:448
 msgid "Cannot find kickstart file on CDROM."
-msgstr ""
+msgstr "CDROM પર કિકસ્ટાર્ટ ફાઈલ શોધી શકતા નથી."
 
 #: ../loader2/driverdisk.c:122 ../loader2/firewire.c:50
 msgid "Loading"
-msgstr ""
+msgstr "લાવી રહ્યા છીએ"
 
 #: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક વાંચી રહ્યા છીએ..."
 
 #: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
 msgid "Driver Disk Source"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક સ્રોત"
 
 #: ../loader2/driverdisk.c:257
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
+"તમારી પાસે ઘણા બધા ઉપકરણો છે કે જે સ્રોત તરીકે ડ્રાઈવર ડિસ્ક માટે સેવા "
+"આપે છે. તમે કયા પ્રકારનું વાપરવા માંગો છો?"
 
 #: ../loader2/driverdisk.c:289
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
+"ત્યાં આ ઉપકરણ પર ઘણા બધા પાર્ટીશનો છે કે જે ડ્રાઈવર ડિસ્ક ઈમેજ "
+"સમાવે છે. તમે કયું વાપરવા માંગો છો?"
 
 #: ../loader2/driverdisk.c:331
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "પાર્ટીશન માઉન્ટ કરવામાં નિષ્ફળ."
 
 #: ../loader2/driverdisk.c:339
 msgid "Select driver disk image"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક ઈમેજ પસંદ કરો"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "ફાઈલ પસંદ કરો કે જે તમારી ડ્રાઈવર ડિસ્ક ઈમેજ છે."
 
 #: ../loader2/driverdisk.c:369
 msgid "Failed to load driver disk from file."
-msgstr ""
+msgstr "ફાઈલમાંથી ડ્રાઈવર ડિસ્ક લાવવામાં નિષ્ફળ."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
+"તમારી ડ્રાઈવર ડિસ્ક /dev/%s માં દાખલ કરો અને ચાલુ રાખવા માટે "
+"\"બરાબર\" બટન દબાવો."
 
 #: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક દાખલ કરો"
 
 #: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક માઉન્ટ કરવામાંં નિષ્ફળ."
 
 #: ../loader2/driverdisk.c:462
 msgid "Manually choose"
-msgstr ""
+msgstr "જાતે પસંદ કરો"
 
 #: ../loader2/driverdisk.c:463
 msgid "Load another disk"
-msgstr ""
+msgstr "બીજી ડિસ્ક લાવો"
 
 #: ../loader2/driverdisk.c:464
 msgid ""
@@ -6449,22 +6506,25 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"આ ડ્રાઈવર ડિસ્ક પર કોઈ યોગ્ય પ્રકારના ઉપકરણો મળી આવ્યા નથી. શું "
+"તમે જાતે ડ્રાઈવર પસંદ કરવા માંગો છો, કોઈપણ રીતે ચાલુ રાખવા માંગો છો, "
+"અથવા બીજી ડ્રાઈવર ડિસ્ક લાવવા માંગો છો?"
 
 #: ../loader2/driverdisk.c:506
 msgid "Driver disk"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક"
 
 #: ../loader2/driverdisk.c:507
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "શું તમારી પાસે ડ્રાઈવર ડિસ્ક છે?"
 
 #: ../loader2/driverdisk.c:517
 msgid "More Driver Disks?"
-msgstr ""
+msgstr "વધુ ડ્રાઈવર ડિસ્ક?"
 
 #: ../loader2/driverdisk.c:518
 msgid "Do you wish to load any more driver disks?"
-msgstr ""
+msgstr "શું તમે કોઈપણ વધુ ડ્રાઈવર ડિસ્ક લાવવા માંગો છો?"
 
 #: ../loader2/driverdisk.c:570 ../loader2/driverdisk.c:603
 #: ../loader2/hdinstall.c:463 ../loader2/kickstart.c:118
@@ -6474,19 +6534,19 @@ msgstr ""
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ ભૂલ"
 
 #: ../loader2/driverdisk.c:571
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr ""
+msgstr "અજ્ઞાત ડ્રાઈવર ડિસ્ક કિકસ્ટાર્ટ સ્રોત: %s"
 
 #: ../loader2/driverdisk.c:604
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr ""
+msgstr "નીચેની અયોગ્ય દલીલો કિકસ્ટાર્ટ ડ્રાઈવર ડિસ્ક આદેશ દ્વારા સ્પષ્ટ કરાયેલ છે: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6496,43 +6556,50 @@ msgid ""
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
+"મહેરબાની કરીને કોઈપણ પરિમાણો દાખલ કરો કે જે તમે %s મોડ્યુલને પસાર "
+"કરવા માંગો છો. જો તમે પરિમાણો જાણતા ના હોય, તો એ \"બરાબર\" બટન "
+"દબાવીને રદ કરો. ઉપ્લબ્ધ વિકલ્પોની યાદી F1 કી દબાવીને મેળવી શકાય છે."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
-msgstr ""
+msgstr "મોડ્યુલ પરિમાણો દાખલ કરો"
 
 #: ../loader2/driverselect.c:186
 msgid "No drivers found"
-msgstr ""
+msgstr "કોઈ ડ્રાઈવરો મળ્યા નથી"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક લાવો"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"કોઈ ડ્રાઈવરો જાતે દાખલ કરવા માટે મળ્યા નથી. શું તમે ડ્રાઈવર ડિસ્ક "
+"વાપરવા માંગો છો?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
+"નીચેનામાંથી ડ્રાઈવર પસંદ કરો કે જે તમે લાવવા માંગતા હોય. જો તે નહિં "
+"દેખાય અને તમારી પાસે ડ્રાઈવર ડિસ્ક હોય, તો F2 દબાવો."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
-msgstr ""
+msgstr "વૈકલ્પિક મોડ્યુલ દલીલો સ્પષ્ટ કરો"
 
 #: ../loader2/driverselect.c:234
 msgid "Select Device Driver to Load"
-msgstr ""
+msgstr "લાવવા માટે ઉપકરણ ડ્રાઈવર પસંદ કરો"
 
 #: ../loader2/firewire.c:50 ../loader2/windows.c:65
 #, c-format
 msgid "Loading %s driver..."
-msgstr ""
+msgstr "%s ડ્રાઈવર લાવી રહ્યા છીએ..."
 
 #: ../loader2/hdinstall.c:102 ../loader2/hdinstall.c:155
 #: ../loader2/nfsinstall.c:193 ../loader2/urlinstall.c:145
@@ -6540,19 +6607,23 @@ msgstr ""
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "તે ડિરેક્ટરીમાંનુ %s સ્થાપન ટ્રી તમારુ બુટ મિડીયા સરખાવે એમ લાગતું નથી."
 
 #: ../loader2/hdinstall.c:219
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
+"ISO ઈમેજોમાંથી સ્થાપન વાંચવામાં ભૂલ ઉદ્ભવી. મહેરબાની કરીને તમારી"
+"ISO ઈમેજો ચકાસો અને ફરીથી પ્રયત્ન કરો."
 
 #: ../loader2/hdinstall.c:327
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
+"તમારી સિસ્ટમ પર તમારી પાસે હાર્ડ ડ્રાઈવ હોય એમ લાગતું નથી! શું તમે"
+"વધારાના ઉપકરણો રુપરેખાંકિત કરવા માંગો છો?"
 
 #: ../loader2/hdinstall.c:343
 #, c-format
@@ -6561,116 +6632,121 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
+"તે પાર્ટીશન પરનો કયો પાર્ટીશન અને ડિરેક્ટરી CD (iso9660) ઈમેજો"
+"%s માટે રાખે છે? જો તમે અંહિ તમે વાપરી રહેલ ડિસ્ક ડ્રાઈવ નીચેની યાદીમાં "
+"નહિં જોતા હોય, તો વધારાના ઉપકરણો રુપરેખાંકિત કરવા માટે F2 દબાવો."
 
 #: ../loader2/hdinstall.c:365
 msgid "Directory holding images:"
-msgstr ""
+msgstr "ડિરેક્ટરીને સમાવતી ઈમેજો:"
 
 #: ../loader2/hdinstall.c:392
 msgid "Select Partition"
-msgstr ""
+msgstr "પાર્ટીશન પસંદ કરો"
 
 #: ../loader2/hdinstall.c:432
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "ઉપકરણ %s એ %s CDROM ઈમેજો સમાવે એમ લાગતું નથી."
 
 #: ../loader2/hdinstall.c:464
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "HD કિકસ્ટાર્ટ પદ્ધતિ આદેશ %s ને ખરાબ દલીલ: %s"
 
 #: ../loader2/hdinstall.c:514
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "હાર્ડ ડ્રાઈવ પર કિકસ્ટાર્ટ ફાઈલ શોધી શકતા નથી."
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
-msgstr ""
+msgstr "કીબોર્ડનો પ્રકાર"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "તમારી પાસે કયા પ્રકારનું કીબોર્ડ છે?"
 
 #: ../loader2/kickstart.c:119
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ ફાઈલ %s ખોલવામાં ભૂલ: %s"
 
 #: ../loader2/kickstart.c:129
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ ફાઈલ %s ના સમાવિષ્ટો વાંચવામાં ભૂલ: %s"
 
 #: ../loader2/kickstart.c:172
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "%s મા લીટી %d પર કિકસ્ટાર્ટ ફાઈલ %s માં ભૂલ છે."
 
 #: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "બુટ ફ્લોપી પર ks.cfg શોધી શકતા નથી."
 
 #: ../loader2/kickstart.c:402
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ પદ્ધતિ આદેશ %s માટે બંધ કરવાની ખરાબ દલીલ: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "%s માં તમારુ સ્વાગત છે"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> વસ્તુઓ વચ્ચે  | <Space> પસંદ કરે છે | <F12> પછીની સ્ક્રીન "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
-msgstr ""
+msgstr "ભાષા પસંદ કરો"
 
 #: ../loader2/loader.c:105
 msgid "Local CDROM"
-msgstr ""
+msgstr "સ્થાનિક CDROM"
 
 #: ../loader2/loader.c:107
 msgid "Hard drive"
-msgstr ""
+msgstr "હાર્ડ ડ્રાઈવ"
 
 #: ../loader2/loader.c:108
 msgid "NFS image"
-msgstr ""
+msgstr "NFS ઈમેજ"
 
 #: ../loader2/loader.c:319
 msgid "Update Disk Source"
-msgstr ""
+msgstr "સુધારા ડિસ્ક સ્રોત"
 
 #: ../loader2/loader.c:320
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
+"તમારી પાસે ઘણા બધા ઉપકરણો છે કે જે સુધારા ડિસ્ક માટે સ્રોત તરીકે વર્તે છે. "
+"તમે કઈ વાપરવા માંગો છો?"
 
 #: ../loader2/loader.c:335
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
+msgstr "તમારી સુધારેલ ડિસ્ક /dev/%s માં દાખલ કરો અને \"બરાબર\" પર ક્લિક કરીને ચાલુ રાખો."
 
 #: ../loader2/loader.c:337
 msgid "Updates Disk"
-msgstr ""
+msgstr "ડિસ્ક સુધારે છે"
 
 #: ../loader2/loader.c:349
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "સુધારા ડિસ્ક માઉન્ટ કરવામાં નિષ્ફળ"
 
 #: ../loader2/loader.c:352
 msgid "Updates"
-msgstr ""
+msgstr "સુધારાઓ"
 
 #: ../loader2/loader.c:352
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "એનાકોન્ડા સુધારા વાંચી રહ્યા છીએ..."
 
 #: ../loader2/loader.c:380
 msgid ""
@@ -6678,103 +6754,111 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
+"કોઈ હાર્ડ ડ્રાઈવ મળી નથી. તમને કદાચ સ્થાપનની સફળતા માટે જાતે ઉપકરણ "
+"ડ્રાઈવરો પસંદ કરવાની જરુર છે. શું તમે ડ્રાઈવરો હમણાં પસંદ કરવા માંગો છો?"
 
 #: ../loader2/loader.c:649
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "તમારી પાસે આ મશીન પર %s સ્થાપિત કરવા માટે પૂરતી RAM નથી."
 
 #: ../loader2/loader.c:822
 msgid "Rescue Method"
-msgstr ""
+msgstr "રીસ્ક પદ્ધતિ"
 
 #: ../loader2/loader.c:823
 msgid "Installation Method"
-msgstr ""
+msgstr "સ્થાપન પદ્ધતિ"
 
 #: ../loader2/loader.c:825
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "કયા પ્રકારની મિડીયા રીસ્ક ઈમેજને સમાવે છે?"
 
 #: ../loader2/loader.c:827
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "કયા પ્રકારના મિડીયા સ્થાપન કરવા માટેના પેકેજો સમાવે છે?"
 
 #: ../loader2/loader.c:851
 msgid "No driver found"
-msgstr ""
+msgstr "કોઈ ડ્રાઈવર મળ્યા નથી"
 
 #: ../loader2/loader.c:851
 msgid "Select driver"
-msgstr ""
+msgstr "ડ્રાઈવર પસંદ કરો"
 
 #: ../loader2/loader.c:852
 msgid "Use a driver disk"
-msgstr ""
+msgstr "ડ્રાઈવર ડિસ્ક વાપરો"
 
 #: ../loader2/loader.c:853
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"આ સ્થાપન પ્રકાર માટે જરુરી પ્રકારનાં કોઈ ઉપકરણો શોધવામાં અસમર્થ. "
+"શું તમે જાતે તમારા ડ્રાઈવરો પસંદ કરવા માંગો છો અથવા ડ્રાઈવર ડિસ્ક?"
 
 #: ../loader2/loader.c:1013
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "તમારી સિસ્ટમ પર નીચેના ઉપકરણો મળી આવ્યા છે."
 
 #: ../loader2/loader.c:1015
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
+"તમારી સિસ્ટમ માટે કોઈ ઉપકરણ ડ્રાઈવરો લવાયા હતા. શું તમે કોઈપણ "
+"હમણાં લાવવા માંગો છો?"
 
 #: ../loader2/loader.c:1019
 msgid "Devices"
-msgstr ""
+msgstr "ઉપકરણો"
 
 #: ../loader2/loader.c:1020
 msgid "Done"
-msgstr ""
+msgstr "થઈ ગયું"
 
 #: ../loader2/loader.c:1021
 msgid "Add Device"
-msgstr ""
+msgstr "ઉપકરણ ઉમેરો"
 
 #: ../loader2/loader.c:1136
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "લોડર પહેલાથી જ ચાલી રહ્યું છે. શેલ શરુ કરી રહ્યા છીએ.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
+msgstr "એનાકોન્ડા ચલાવી રહ્યા છીએ, %s રીસ્ક સ્થિતિ - મહેરબાની કરીને રાહ જુઓ...\n"
 
 #: ../loader2/loader.c:1486
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
+msgstr "એનાકોન્ડા ચલાવી રહ્યા છીએ, %s સિસ્ટમ સ્થાપક - મહેરબાની કરીને રાહ જુઓ...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"પ્રાથમિક વોલ્યુમ ડિસ્ક્રિપ્ટરમાંથી ડિસ્ક ચેકસમ વાંચવામાં અસમર્થ. આનો "
+"અર્થ કદાચ એ થાય કે ડિસ્ક ચેકસમ ઉમેર્યા વગર બનાવાઈ હતી."
 
 #: ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "\"%s\" ચકાસી રહ્યા છીએ..."
 
 #: ../loader2/mediacheck.c:266
 #, c-format
 msgid "Checking media now..."
-msgstr ""
+msgstr "મિડીયા હમણાં ચકાસી રહ્યા છીએ..."
 
 #: ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "સ્થાપન ઈમેજ %s શોધવામાં અસમર્થ"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -6784,6 +6868,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"FAIL.\n"
+"\n"
+"ઈમેજ કે જે હમણાં જ ચકાસાઈ છે તેમાં ભૂલો છે. આ બગડેલા ડાઉનલોડ અથવા"
+"ખરાબ ડિસ્કને લીધે હોઈ શકે. જો લાગુ પાડી શકાય એમ હોય, તો મહેરબાની"
+"કરીને ડિસ્ક ચોખ્ખી કરો અને ફરીથી પ્રયત્ન કરો. જો આ ચકાસણી નિષ્ફળતા "
+"આવે ત્યાં સુધી ચાલુ રહી તો તમે સ્થાપન ચાલુ રાખી શકો છો."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6791,6 +6881,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"PASS.\n"
+"\n"
+"આ મિડીયામાંથી સ્થાપિત કરવું એ બરાબર છે."
 
 #: ../loader2/mediacheck.c:337
 msgid ""
@@ -6798,10 +6891,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"NA.\n"
+"\n"
+"કોઈ ચેકસમ જાણકારી ઉપ્લબ્ધ નથી, મિડીયા ચકાસવા માટે અસમર્થ."
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
-msgstr ""
+msgstr "મિડીયા ચકાસણી પરિણામ"
 
 #: ../loader2/mediacheck.c:345
 #, c-format
@@ -6811,16 +6907,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"ઈમેજનું:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "મિડીયા ચકાસણી %sis પૂર્ણ થઈ, અને પરિણામ છે: %s\n"
 
 #: ../loader2/method.c:151 ../loader2/method.c:360 ../loader2/method.c:445
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr ""
+msgstr "ડિરેક્ટરી %s વાંચવામાં નિષ્ફળ: %s"
 
 #: ../loader2/method.c:403
 #, c-format
@@ -6829,15 +6929,18 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"શું તમે ISO ઈમેજનું ચેકસમ કરવા માંગો છો:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:406
 msgid "Checksum Test"
-msgstr ""
+msgstr "ચેકસમ ચકાસણી"
 
 #: ../loader2/modules.c:920
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr ""
+msgstr "ઉપકરણ કિકસ્ટાર્ટ પદ્ધતિ આદેશ માટે %s ખરાબ દલીલ: %s"
 
 #: ../loader2/net.c:46
 #, c-format
@@ -6848,6 +6951,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"મહેરબાની કરીને નીચેની જાણકારી દાખલ કરો:\n"
+"\n"
+"    o તમારા %s સર્વરનું નામ અથવા IP નંબર\n"
+"    o તે સર્વર પરની ડિરેક્ટરી\n"
+"      %s તમારા આર્કીટેક્ચર માટે\n"
 
 #: ../loader2/net.c:180
 #, c-format
@@ -6856,18 +6964,20 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s એ વાયરલેસ નેટવર્ક એડેપ્ટર છે. મહેરબાની કરીને ESSID ાડો એનક્રિપ્શન કી કે જે તમારા વાયરલેસ નેટવર્કને ચલાવવા માટે જરુરી છે તે પૂરુ પાડોwoજો કોઈ કી "
+"જરુરી ના હોય, તો આ ક્ષેત્ર ખાલી છોડો અને સ્થાપન ચાલુ રહેશે.nue."
 
 #: ../loader2/net.c:190
 msgid "Wireless Settings"
-msgstr ""
+msgstr "વાયરલેસ સુયોજનો"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
-msgstr ""
+msgstr "નામસર્વર IP"
 
 #: ../loader2/net.c:207
 msgid "Nameserver"
-msgstr ""
+msgstr "નામસર્વર"
 
 #: ../loader2/net.c:208
 msgid ""
@@ -6876,374 +6986,388 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"તમારી ઉમદા IP માંગણીએ IP રુપરેખાંકન જાણકારી આપી છે, પરંતુ તે DNS "
+"નામસર્વર સમાવતું નથી. જો તમે જાણતા હોય તો, મહેરબાની કરીને હમણાં જ "
+"તે દાખલ કરો. જો તમારી પાસે આ જાણકારી ના હોય, તો તમે આ ક્ષેત્ર છોડી "
+"શકો છો અને સ્થાપન ચાલુ રાખી શકો છો."
 
 #: ../loader2/net.c:218
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "અમાન્ય IP જાણકારી"
 
 #: ../loader2/net.c:219
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "તમે અમાન્ય IP સરનામુ દાખલ કરેલ છે."
 
 #: ../loader2/net.c:282 ../loader2/net.c:558
 msgid "Dynamic IP"
-msgstr ""
+msgstr "ઉમદા IP"
 
 #: ../loader2/net.c:283 ../loader2/net.c:559
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr ""
+msgstr "%s માટે IP જાણકારીની માંગણી મોકલી રહ્યા છીએ..."
 
 #: ../loader2/net.c:448
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
+"મહેરબાની કરીને આ મશીન માટે IP રુપરેખાંકન દાખલ કરો. દરેક વસ્તુ IP "
+"સરનામા તરીકે પૂર્ણાંક ટપકાંવાળી પદ્ધતિમાં હોવી જોઈએ (ઉદાહરણ તરીકે, 1.2.3.4)."
 
 #: ../loader2/net.c:454
 msgid "IP address:"
-msgstr ""
+msgstr "IP સરનામુ:"
 
 #: ../loader2/net.c:457
 msgid "Netmask:"
-msgstr ""
+msgstr "નેટમાસ્ક:"
 
 #: ../loader2/net.c:460
 msgid "Default gateway (IP):"
-msgstr ""
+msgstr "મૂળભુત ગેટવે (IP):"
 
 #: ../loader2/net.c:463
 msgid "Primary nameserver:"
-msgstr ""
+msgstr "પ્રાથમિક નામસર્વર:"
 
 #: ../loader2/net.c:490
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "ઉમદા IP રુપરેખાંકન વાપરો (BOOTP/DHCP)"
 
 #: ../loader2/net.c:518
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "TCP/IP રુપરેખાંકિત કરો"
 
 #: ../loader2/net.c:549
 msgid "Missing Information"
-msgstr ""
+msgstr "ખોવાયેલ જાણકારી"
 
 #: ../loader2/net.c:550
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
+msgstr "તમારે માન્ય IP સરનામુ અને નેટમાસ્ક દાખલ કરવા જ જોઈએ."
 
 #: ../loader2/net.c:773
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "યજમાન નામ અને ડોમેઈન નક્કી કરી રહ્યા છીએ..."
 
 #: ../loader2/net.c:858
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ નેટવર્ક આદેશ %s માટે ખરાબ દલીલ: %s"
 
 #: ../loader2/net.c:881
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "નેટવર્ક આદેશમાં ખરાબ બુટપ્રોટો %s સ્પષ્ટ કરેલ છે"
 
 #: ../loader2/net.c:1010
 msgid "Networking Device"
-msgstr ""
+msgstr "નેટવર્કીંગ ઉપકરણ"
 
 #: ../loader2/net.c:1011
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
+"તમારી પાસે આ સિસ્ટમ પર ઘણી બધા નેટવર્ક ઉપકરણો છે. કયા તેના દ્વાર "
+"સ્થાપિત કરવા માંગો છો?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
-msgstr ""
+msgstr "NFS સર્વર નામ:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
 #, c-format
 msgid "%s directory:"
-msgstr ""
+msgstr "%s ડિરેક્ટરી:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
-msgstr ""
+msgstr "NFS સુયોજન"
 
 #: ../loader2/nfsinstall.c:197
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "તે ડિરેક્ટરી %s સ્થાપન ટ્રી સમાવે એમ લાગતું નથી."
 
 #: ../loader2/nfsinstall.c:210
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "સર્વરમાંથી તે ડિરેક્ટરી માઉન્ટ કરી શકાઈ નથી."
 
 #: ../loader2/nfsinstall.c:248
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "NFS કિકસ્ટાર્ટ પદ્ધતિને આદેશ %s ની ખોટી દલીલ: %s"
 
 #: ../loader2/telnetd.c:80 ../loader2/telnetd.c:122
 msgid "Telnet"
-msgstr ""
+msgstr "ટેલનેટ"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "ટેલનેટના સંપર્ક માટે રાહ જોઈ રહ્યા છીએ..."
 
 #: ../loader2/telnetd.c:122
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "એનાકોન્ડાને ટેલનેટ દ્વારા ચલાવી રહ્યા છીએ..."
 
 #: ../loader2/urlinstall.c:67
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "%s મેળવવા સમર્થ નથી://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:137
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "સ્થાપન ઈમેજ મેળવવા માટે સમર્થ નથી."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
-msgstr ""
+msgstr "મિડીયા મળી આવી"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "સ્થાનિક સ્થાપન માધ્યમ મળી આવ્યું..."
 
 #: ../loader2/urlinstall.c:432
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Url કિકસ્ટાર્ટ પદ્ધતિના આદેશને ખોટી દલીલ %s: %s"
 
 #: ../loader2/urlinstall.c:441
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Url કિકસ્ટાર્ટ પદ્ધતિને --url દલીલ પૂરી પાડો જ."
 
 #: ../loader2/urlinstall.c:452
 #, c-format
 msgid "Unknown Url method %s"
-msgstr ""
+msgstr "અજ્ઞાત Url પદ્ધતિ %s"
 
 #: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr ""
+msgstr "%s માં પ્રવેશ મેળવવામાં નિષ્ફળ: %s"
 
 #: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr ""
+msgstr "%s મેળવવામાં નિષ્ફળ: %s"
 
 #: ../loader2/urls.c:196
 msgid "Retrieving"
-msgstr ""
+msgstr "મેળવી રહ્યા છીએ"
 
 #: ../loader2/urls.c:280
 msgid "FTP site name:"
-msgstr ""
+msgstr "FTP સાઈટનું નામ:"
 
 #: ../loader2/urls.c:281
 msgid "Web site name:"
-msgstr ""
+msgstr "વેબ સાઈટનું નામ:"
 
 #: ../loader2/urls.c:300
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "બિન નામ વગરનું ftp વાપરો"
 
 #: ../loader2/urls.c:309
 msgid "FTP Setup"
-msgstr ""
+msgstr "FTP સુયોજન"
 
 #: ../loader2/urls.c:310
 msgid "HTTP Setup"
-msgstr ""
+msgstr "HTTP સુયોજન"
 
 #: ../loader2/urls.c:320
 msgid "You must enter a server name."
-msgstr ""
+msgstr "તમારે સર્વર નામ દાખલ કરવું જ જોઈએ."
 
 #: ../loader2/urls.c:325
 msgid "You must enter a directory."
-msgstr ""
+msgstr "તમારે ડિરેક્ટરી દાખલ કરવી જ જોઈએ."
 
 #: ../loader2/urls.c:330
 msgid "Unknown Host"
-msgstr ""
+msgstr "અજ્ઞાત યજમાન"
 
 #: ../loader2/urls.c:331
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s એ માન્ય યજમાન નામ નથી."
 
 #: ../loader2/urls.c:404
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
+"જો તમે કોઈ બિન નામ વગરનું ftp વાપરી રહ્યા હોય, તો ખાતા નામ અને "
+"તેની નીચે વાપરવાનો પાસવર્ડ દાખલ કરો."
 
 #: ../loader2/urls.c:409
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
+"જો તમે HTTP પ્રોક્સી સર્વર વાપરી રહ્યા હોય તો વાપરવા માટેના HTTP "
+"પ્રોક્સી સર્વરનું નામ દાખલ કરો."
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
-msgstr ""
+msgstr "ખાતા નામ:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "SCSI ડ્રાઈવર લાવી રહ્યા છીએેે"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "એકર"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "અલાગોઆસ, સર્જીપે"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "અલસ્કા સમય"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "અલસ્કા સમય - અલાસ્કા પેનહેન્ડલ"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "અલસ્કા સમય - અલાસ્કા પેનહેન્ડલ નેક"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "અલાસ્કા સમય - પશ્ચિમ અલાસ્કા"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "એલ્યુટિઅન ટાપુઓ"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "અમાપા, ઈ પેરા"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "અમુન્ડસેન-સ્કોટ સ્ટેશન, દક્ષિણ ધ્રુવ"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "એક્ટોબ (એક્તોબે)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "એટલાન્ટિક ટાપુઓ"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "એટલાન્ટિક સમય - ઈ લેબરાડોર"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
+msgstr "એટલાન્ટિક સમય - નોવા સ્કોટિઆ (મોટા ભાગની જગ્યાઓ), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
+"એટલાન્ટિક સમય - નોવા સ્કોટિઆ - જગ્યાઓ કે જે DST 1966-1971 ને "
+"ધ્યાન આપતી નહોતી"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "અત્યરઉ (અતિરાઉ, ગુર્યેવ), મંગીસ્તાઉ (મનકિસ્તાઉ)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "અઝોર્સ"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "બાહિયા"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "બયાન-ઓલ્ગી, ગોવી-અલ્ટાઈ, હોવ્ડ, યુવ્સ, ઝાવખાન"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "કેનેરી ટાપુઓ"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "કેસે સ્ટેશન, બેઈલે પેનિન્સ્યુલા"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "કાટામાર્કા (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "કેન્દ્રીય ચીન - ગાન્સુ, ગ્યુઈઝો, સિશુઆન, યુન્નાન, વગેરે."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "કેન્દ્ર ક્રિમીઆ"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "કેન્દ્ર પ્રમાણભૂત સમય - સસ્કાચેવાન - મધ્યપશ્ચિમ"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "કેન્દ્ર પ્રમાણભૂત સમય - સસ્કાચેવાન - મોટા ભાગની જગ્યાઓ"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "કેન્દ્ર સમય"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "કેન્દ્ર સમય - કેમ્પેક, યુકાટાન"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "કેન્દ્ર સમય - કોઆહુઈલા, ડુરાન્ગો, ન્યુએવો લીઓન, ટામૌલિપાસ"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "કેન્દ્ર સમય - માનીટોબા અને પશ્ચિમ ઓન્ટારિયો"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "કેન્દ્ર સમય - મિકિગન - વિસ્કોન્સીન કિનારી"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "કેન્દ્ર સમય - મોટા ભાગની જગ્યાઓ"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "કેન્દ્ર સમય - ઉત્તર ડાકોટા - ઓલિવર દેશ"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "કેન્દ્ર સમય - ક્વિન્ટાના રુ"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "કેન્દ્ર સમય - વરસાદી નદી અને ફ્રાંસિસ કિલ્લો, ઓન્ટારીઓ"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "કેન્દ્ર સમય - પશ્ચિમ નુનાવુટ"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "સેઉટા અને મેલિલા"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "ચથ્થામ ટાપુઓ"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
