@@ -27,17 +27,11 @@ class LanguageWindow (InstallWindow):
             self.icw.setLanguage (self.languages[self.lang])
             self.todo.language.setSupported(self.lang)
 
-            print self.languages[self.lang]
-
-
             #--Go ahead and pull the release notes into memory.  This allows them to be viewed
             #--during package installation
             self.icw.buff = ""
-
-
             try:
                 filename = "/mnt/source/RELEASE-NOTES." + self.languages[self.lang]
-                print filename
                 file = open(filename, "r")
                 for line in file.readlines():
                     self.icw.buff = self.icw.buff + line
@@ -46,7 +40,6 @@ class LanguageWindow (InstallWindow):
             except:
                 try:
                     filename = "/RELEASE-NOTES." + self.languages[self.lang]
-                    print filename
                     file = open(filename, "r")
                     for line in file.readlines():
                         self.icw.buff = self.icw.buff + line
@@ -54,15 +47,12 @@ class LanguageWindow (InstallWindow):
                 except:
                     try:
                         filename = "/RELEASE-NOTES"
-                        print filename
                         file = open(filename, "r")
                         for line in file.readlines():
                             self.icw.buff = self.icw.buff + line
                         file.close()
                     except:
                         pass
-
-
 
         return None
 
