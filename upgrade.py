@@ -290,9 +290,9 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 
         if badLinks: 
 	    message = _("The following are directories which should instead "
-                        "be symbolic link, which will cause problems with the "
+                        "be symbolic links, which will cause problems with the "
                         "upgrade.  Please return them to their original state "
-                        "as a symbolic link and restart the upgrade.\n\n")
+                        "as symbolic links and restart the upgrade.\n\n")
             for n in badLinks:
                 message = message + '\t' + n + '\n'
 	    intf.messageWindow(_("Invalid Directories"), message)
