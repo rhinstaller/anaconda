@@ -24,9 +24,30 @@ MAX_LV_SLOTS=256
 
 output = "/tmp/lvmout"
 
+lvmDevicePresent = 0
+
+def has_lvm():
+    global lvmDevicePresent
+    
+    f = open("/proc/devices", "r")
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        try:
+            (dev, name) = line[:-1].split(' ', 2)
+        except:
+            continue
+        if name == "lvm":
+            lvmDevicePresent = 1
+            break
+# now check to see if lvm is available
+has_lvm()
+        
+
 def vgscan():
     """Runs vgscan."""
-    if flags.test:
+    if flags.test or lvmDevicePresent == 0:
         return
 
     rc = iutil.execWithRedirect("vgscan",
@@ -42,7 +63,7 @@ def vgactivate(volgroup = None):
 
     volgroup - optional single volume group to activate
     """
-    if flags.test:
+    if flags.test or lvmDevicePresent == 0:
         return
 
     args = ["vgchange", "-ay", "-An"]
@@ -60,7 +81,7 @@ def vgdeactivate(volgroup = None):
 
     volgroup - optional single volume group to deactivate
     """
-    if flags.test:
+    if flags.test or lvmDevicePresent == 0:
         return
 
     args = ["vgchange", "-an", "-An"]
@@ -80,7 +101,7 @@ def lvremove(lvname, vgname):
     lvname - name of logical volume to remove.
     vgname - name of volume group lv is in.
     """
-    if flags.test:
+    if flags.test or lvmDevicePresent == 0:
         return
 
     args = ["lvremove", "-f", "-An"]
@@ -100,7 +121,7 @@ def vgremove(vgname):
 
     vgname - name of volume group.
     """
-    if flags.test:
+    if flags.test or lvmDevicePresent == 0:
         return
 
     # we'll try to deactivate... if it fails, we'll probably fail on
