@@ -569,6 +569,9 @@ int main(int argc, char **argv) {
 	}
     }
 
+    if (testing)
+	exit(0);
+
     dup2(fd, 0);
     dup2(fd, 1);
     dup2(fd, 2);
