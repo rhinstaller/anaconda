@@ -64,7 +64,7 @@ gzip -9 $TOPDESTPATH/kernels/vmlinux64
 
 SCSIMODULES="qlogicpti sg st pluto fcal soc socal
              fc4 aic7xxx sym53c8xx qlogicisp"
-NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5 " 
+NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5" 
 
 makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
 	   --initrdsize 2000 \
@@ -77,8 +77,7 @@ maketftp --kernel $KERNELROOT/boot/vmlinux-* \
 
 makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
 	     --imagename boot64.img \
-	     --initrdflags '--initrdto $TOPDESTPATH/boot/initrd64.img \
-			    --initrdsize 2000 \
+	     --initrdflags '--initrdsize 2000 \
 			    --loaderbin loader \
 			    --modules "$SCSIMODULES"'
 
