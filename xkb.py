@@ -1,6 +1,7 @@
 import _xkb
 import tree
 import string
+import os
 
 class XKB:
     def __init__ (self):
@@ -31,7 +32,26 @@ class XKB:
 	if variant == None: variant = ""
 	if options == None: options = ""
 
+	args = ()
+
+	if (model):
+            args = args + ("-model", model)
+        if (layout):
+            args = args + ("-layout", layout)
+        if (variant):
+            args = args + ("-variant", variant)
+
+	path = ("/usr/X11R6/bin/setxkbmap",)
+	if (os.fork () == 0):
+            os.execv (path[0], path + args)
+
+        return
+
+        # don't use any of our code, since it seems to corrupt
+        # lots of memory
         return _xkb.set_rule (model, layout, variant, options)
+
+
 
     def getRulesBase (self):
         return _xkb.get_rulesbase ()
