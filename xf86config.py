@@ -1271,7 +1271,7 @@ Section "Screen"
 	# only works when starting X server in real install environment
 	displaySizeOpts = ""
 	fdpi = self.getForcedDPI()
-	if fdpi and self.res and (carddata.has_key("DRIVER") and carddata["DRIVER"] != "vesa"):
+        if fdpi and self.res and carddata.has_key("DRIVER"):
 	    try:
 		idx = string.find(self.res, 'x')
 		if idx >= 0:
