@@ -419,7 +419,8 @@ Section "Screen"
     Device      "Generic VGA Card"
     Monitor     "%(monitorID)s"
     Subsection  "Display"
-        Depth       16
+#        Depth       16
+        Depth      %(fbDepth)s
         Modes       "default"
     EndSubsection
 EndSection
@@ -589,9 +590,10 @@ class XF86Config:
 #        time.sleep(3)
 
         if self.res == "640x480":
-             self.modes = { "8" :  ["640x480"] }
+            self.modes = { "8" :  ["640x480"] }
         else:
             self.modes = { "16" :  ["800x600"] }
+
 
 #        print "self.modes"
 #        print self.modes
@@ -610,6 +612,15 @@ class XF86Config:
         self.keyOptions = ""
         self.monlist = {}
         self.monids = {}
+
+        if isys.fbinfo() != None:
+            x, y, depth = isys.fbinfo()
+            self.fbDepth = depth
+#            print "here"
+        else:
+            self.fbDepth = 16
+#            print "nofb"
+
         self.files = """
 # The location of the RGB database.  Note, this is the name of the
 # file minus the extension (like ".txt" or ".db").  There is normally
@@ -656,12 +667,12 @@ class XF86Config:
 #        print x.res
 #        time.sleep (5)
 
-        if self.res == "640x480":
-            modes = { "8" :  ["640x480"] }
-        else:
-            modes = { "16" :  ["800x600"] }
+#        if self.res == "640x480":
+#            modes = { "8" :  ["640x480"] }
+#        else:
+#            modes = { "16" :  ["800x600"] }
             
-#        modes = { "8" : [ "640x480" ] }
+        modes = { "8" : [ "640x480" ] }
 #        modes = { "16" : [ "800x600" ] }
 
         if not self.vidRam:
@@ -700,6 +711,7 @@ class XF86Config:
             modes["32"] = []
             return modes
         elif string.atoi(self.vidRam) >= 256:
+            print "256k of memory"
             modes["8"] = ["640x480"]
             return modes
 
@@ -1124,6 +1136,7 @@ Section "Device"
             else:
                 monitor = self.monID
 
+
             for driver in [ "svga", "accel" ]:
                 tmp["driver"] = driver
                 tmp["devID"] = self.devID
@@ -1138,7 +1151,9 @@ Section "Screen"
 
                 # see if 16 bpp is available, and if it should be the
                 # default depth
-                if maxdepth > 0:
+                if self.res == "640x480":
+                    screens = screens + "    DefaultColorDepth 8\n"
+                elif maxdepth > 0:
                     if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                         screens = screens + "    DefaultColorDepth 16\n"
                     else:
@@ -1184,6 +1199,7 @@ Section "Screen"
                  "monitorVert"        : self.monVert,
                  "fbProbedMonitor"    : self.monSect,
                  "files"              : self.files,
+                 "fbDepth"            : self.fbDepth,
                  }
         if self.keyVariant:
             info["enableVariant"] = ""
