@@ -25,7 +25,9 @@ class InstallClass(BaseInstallClass):
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
-	self.showGroups(comps, [ "KDE", ("GNOME", 1), "Games and Entertainment" ] )
+	self.showGroups(comps, [ "KDE", ("GNOME", 1),
+                                 "Software Development",
+                                 "Games and Entertainment" ] )
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
