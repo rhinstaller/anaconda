@@ -177,22 +177,21 @@ class MonitorInfo:
         # VESA probe for monitor/videoram, etc.
         if not skipDDCProbe:
 	    try:
-		probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
-		for line in probe:
-		    if line and line[:8] == "EISA ID:":
-			self.monEisa = string.lower(line[9:])
-			self.monID = line[9:]
+                monitor = kudzu.probe(kudzu.CLASS_MONITOR, kudzu.BUS_DDC,
+                                      kudzu.PROBE_ALL)
+                if monitor:
+                    self.monEisa = monitor[0].id
+                    self.monID = monitor[0].id
 
-		    if line and line[:6] == "\tName:":
-			if not self.monName or len (self.monName) < len (line[7:]):
-			    self.monName = line[7:]
-
-		    if line and line[:15] == "\tTiming ranges:":
-			ranges = string.split (line, ',')
-			self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
-			self.monVert = string.strip (string.split (ranges[1], '=')[1])
-                        self.monHoriz = string.replace(self.monHoriz, " " , "")
-                        self.monVert =  string.replace(self.monVert, " ", "")
+                    # only guess the timings if something is non-zero
+                    if (monitor[0].horizSyncMin != 0 or
+                        monitor[0].horizSyncMax != 0 or
+                        monitor[0].vertRefreshMin != 0 or
+                        monitor[0].vertRefreshMax != 0):
+                        self.monHoriz = "%d-%d" % (monitor[0].horizSyncMin,
+                                                   monitor[0].horizSyncMax)
+                        self.monVert = "%d-%d" % (monitor[0].vertRefreshMin,
+                                                  monitor[0].vertRefreshMax)
                         
                 if self.monEisa:
                     # read the monitor DB

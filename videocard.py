@@ -368,7 +368,7 @@ class VideoCardInfo:
     def __init__ (self, skipDDCProbe = 0):
 
         cards = kudzu.probe (kudzu.CLASS_VIDEO,
-                             kudzu.BUS_UNSPEC,
+                             kudzu.BUS_PCI | kudzu.BUS_SBUS,
                              kudzu.PROBE_ALL);
 
         # just use first video card we recognize
@@ -429,19 +429,14 @@ class VideoCardInfo:
         # VESA probe for videoram, etc.
         # for now assume fb corresponds to primary video card
         if not skipDDCProbe:
-            try:
-                probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
-                for line in probe:
-                    if line and line[:9] == "OEM Name:":
-                        cardManf = string.strip (line[10:])
-                        self.primaryCard().setCardManf(cardManf)
-                        self.primaryCard().getCardData()["VENDOR"] = cardManf
-                    if line and line[:16] == "Memory installed":
-                        memory = string.split (line, '=')
-                        self.primaryCard().setVideoRam(string.strip (memory[2][:-2]))
-            except:
-                log("ddcprobe failed")
-                pass
+            probe = kudzu.probe(kudzu.CLASS_VIDEO, kudzu.BUS_DDC,
+                                kudzu.PROBE_ALL)
+            if probe:
+                # XXX should we use this description?
+                #self.primaryCard().setDescription(probe[0].desc)
+                
+                if mem != 0:
+                    self.primaryCard().setVideoRam(probe[0].mem)
 
         # try to get frame buffer information if we don't know video ram
         if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
