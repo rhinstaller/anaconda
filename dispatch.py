@@ -31,6 +31,7 @@ from flags import flags
 from upgrade import upgradeFindPackages, upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 from upgrade import findRootParts
+from network import networkDeviceCheck
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -82,6 +83,7 @@ installSteps = [
                                                  "dir")),
     ("bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset")),
     ("bootloaderpassword", ("id.bootloader", "intf")),
+    ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
     ("network", ("id.network",)),
     ("firewall", ("id.network", "id.firewall")),
     ("languagesupport", ("id.langSupport",)),

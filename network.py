@@ -4,6 +4,7 @@
 # Matt Wilson <ewt@redhat.com>
 # Erik Troan <ewt@redhat.com>
 # Mike Fulbright <msf@redhat.com>
+# Brent Fox <bfox@redhat.com>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -21,6 +22,11 @@ import isys
 import socket
 import os
 from log import log
+
+def networkDeviceCheck(network, dispatch):
+    devs = network.available()
+    if not devs:
+        dispatch.skipStep("network")
 
 class NetworkDevice(SimpleConfigFile):
     def __str__(self):

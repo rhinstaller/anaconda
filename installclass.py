@@ -80,6 +80,7 @@ class BaseInstallClass:
 		 "bootloadersetup",                 
 		 "bootloader",
                  "bootloaderpassword",
+                 "networkdevicecheck",
 		 "network",
 		 "firewall",
 		 "languagesupport",
