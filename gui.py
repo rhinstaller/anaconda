@@ -50,7 +50,7 @@ class WelcomeWindow:
 
         window.add(hbox)
         window.set_position(WIN_POS_CENTER)
-        window.set_default_size(640, 480)
+#        window.set_default_size(640, 480)
         window.show_all()
         mainloop()
         window.destroy()
@@ -119,14 +119,30 @@ class PartitionWindow:
 
         window.add(vbox)
         window.set_position(WIN_POS_CENTER)
-        window.set_default_size(640, 480)
+#        window.set_default_size(640, 480)
         window.show_all()
         mainloop()
         window.destroy()
         return self.rc
 
 class InstallInterface:
-    def run(self):
+    def waitWindow(self, title, text):
+        window = GtkWindow()
+        window.set_border_width(10)
+        window.set_title(title)
+        window.set_position(WIN_POS_CENTER)
+        label = GtkLabel(text)
+        label.set_line_wrap (TRUE)
+	window.add(label)
+	window.show_all()
+	while events_pending():
+	    mainiteration(TRUE)
+        return window
+
+    def popWaitWindow(self, window):
+	window.destroy()
+
+    def run(self, hdlist):
         rc_parse("gtkrc")
 
         steps = [
