@@ -340,6 +340,8 @@ def getRedHatReleaseString(mountpoint):
         lines = f.readlines()
         f.close()
         # return the first line with the newline at the end stripped
+        if len(lines) == 0:
+            return ""
 	relstr = string.strip(lines[0][:-1])
 
 	# clean it up some
@@ -350,14 +352,14 @@ def getRedHatReleaseString(mountpoint):
 	#
 	#
 
-	if relstr[:13] == 'Red Hat Linux':
+        if relstr.startswith(productName):
 	    try:
 		# look for version string
 		vers = string.split(relstr[14:])[1]
 		for a in string.split(vers, '.'):
 		    anum = string.atof(a)
 
-		relstr = "Red Hat Linux " + vers
+		relstr = productName + " " + vers
 	    except:
 		# didnt pass test dont change relstr
 		pass
@@ -500,8 +502,13 @@ class DiskSet:
                         part = disk.next_partition(part)
 			continue
 		    if os.access (mountpoint + '/etc/fstab', os.R_OK):
-			rootparts.append ((node, part.fs_type.name,
-                                           getRedHatReleaseString(mountpoint)))
+                        relstr = getRedHatReleaseString(mountpoint)
+                        cmdline = open('/proc/cmdline', 'r').read()
+                        
+                        if (relstr.startswith(productName) or
+                            cmdline.find("upgradeany") != -1):
+                            rootparts.append ((node, part.fs_type.name,
+                                               relstr))
 		    isys.umount(mountpoint)
                     
                 part = disk.next_partition(part)
