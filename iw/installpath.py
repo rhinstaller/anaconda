@@ -19,6 +19,7 @@ from timezone import *
 from xconfig import *
 from fdisk import *
 from rootpartition import *
+from confirm import *
 from gui import _
 import installclass
 
@@ -50,6 +51,7 @@ class InstallPathWindow (InstallWindow):
 		     ( PackageSelectionWindow, "package-selection" ), 
 		     ( UnresolvedDependenciesWindow, "dependencies" ),
                      ( XConfigWindow, "xconfig" ),
+                     ( ConfirmWindow, "confirm" ),
 		     InstallProgressWindow,
 		     ( BootdiskWindow, "bootdisk" ),
 		     ( CongratulationWindow, "complete" )
