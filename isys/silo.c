@@ -265,9 +265,9 @@ scan_walk_callback(int node) {
 		if (!nextnode)
 		    continue;
 		if (prop[0] == 'a')
-		    sprintf (prop, "/ata@%d,0/cmdk@%d,0", hd[disk].hi, hd[disk].lo);
+		    sprintf (prop, "/ata@%x,0/cmdk@%x,0", hd[disk].hi, hd[disk].lo);
 		else
-		    sprintf (prop, "/disk@%d,0", hd[disk].hi * 2 + hd[disk].lo);
+		    sprintf (prop, "/disk@%x,0", hd[disk].hi * 2 + hd[disk].lo);
 		break;
 	    case SDSK_TYPE_SD:
 		for (nextnode = prom_getchild(node); nextnode; nextnode = prom_getsibling(nextnode)) {
@@ -289,19 +289,19 @@ scan_walk_callback(int node) {
 			strcpy (name, "sd");
 		    if (!prop)
 			prop = ((struct openpromio *)buf)->oprom_array;
-		    sprintf (prop, "/%s@%d,%d", name, hd[disk].mid, hd[disk].lo);
+		    sprintf (prop, "/%s@%x,%x", name, hd[disk].mid, hd[disk].lo);
 		} else
 		    sprintf (prop, "sd(%d,%d,", v0ctrl, hd[disk].mid);
 		break;
 	    case SDSK_TYPE_PLN:
 		prop = ((struct openpromio *)buf)->oprom_array;
-		sprintf (prop, "/SUNW,pln@%x,%x/SUNW,ssd@%d,%d",
+		sprintf (prop, "/SUNW,pln@%x,%x/SUNW,ssd@%x,%x",
 			 hd[disk].lo & 0xf0000000, hd[disk].lo & 0xffffff,
 			 hd[disk].hi, hd[disk].mid);
 		break;
 	    case SDSK_TYPE_FC:
 		prop = ((struct openpromio *)buf)->oprom_array;
-		sprintf (prop, "/sf@0,0/ssd@w%08x%08x,%d", hd[disk].hi, hd[disk].mid, hd[disk].lo);
+		sprintf (prop, "/sf@0,0/ssd@w%08x%08x,%x", hd[disk].hi, hd[disk].mid, hd[disk].lo);
 		break;
 	    default:
 		continue;
