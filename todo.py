@@ -877,6 +877,7 @@ class ToDo:
         todo.auth.server = nisServer
 	todo.timezone = instClass.getTimezoneInfo()
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
+	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
 	todo.liloDevice = where
 	todo.users = []
