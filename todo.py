@@ -715,9 +715,13 @@ class ToDo:
             args.append (self.auth.hesiodRhs)
 
 #        log ("running authentication cmd |%s|" % args)
-        iutil.execWithRedirect(args[0], args,
-                              stdout = None, stderr = None, searchPath = 1,
-                              root = self.instPath)
+        try:
+            iutil.execWithRedirect(args[0], args,
+                                   stdout = None, stderr = None,
+                                   searchPath = 1,
+                                   root = self.instPath)
+        except RuntimeError, msg:
+            log ("Error running %s: %s", args, msg)
 
     def copyConfModules (self):
         try:
