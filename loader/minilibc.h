@@ -1,5 +1,7 @@
 #include <stdarg.h>
 
+#define _LOOSE_KERNEL_NAMES 1
+
 #define NULL ((void *) 0)
 
 #define	WIFSTOPPED(status)	(((status) & 0xff) == 0x7f)
@@ -17,12 +19,12 @@ extern char ** _environ;
 
 extern int errno;
 
-#include <linux/if.h>
-#include <linux/un.h>
 #include <linux/socket.h>
 #include <linux/types.h>
-#include <linux/net.h>
 #include <linux/time.h>
+#include <linux/if.h>
+#include <linux/un.h>
+#include <linux/net.h>
 #include <asm/posix_types.h>
 #include <asm/termios.h>
 #include <asm/ioctls.h>
@@ -79,7 +81,7 @@ static inline int fork(void) {
 static inline _syscall0(int,fork)
 #endif
 static inline _syscall0(pid_t,setsid)
-static inline _syscall1(int,exit,int,exitcode)
+extern inline _syscall1(int,exit,int,exitcode)
 static inline _syscall3(int,syslog,int, type, char *, buf, int, len);
 #else
 static inline _syscall5(int,_newselect,int,n,fd_set *,rd,fd_set *,wr,fd_set *,ex,struct timeval *,timeval);
@@ -97,7 +99,7 @@ inline int listen(int a, int b);
 inline int accept(int a, void * addr, void * addr2);
 int strlen(const char * string);
 char * strcpy(char * dst, const char * src);
-void * memcpy(void * dst, const void * src, int count);
+void * memcpy(void * dst, const void * src, size_t count);
 void sleep(int secs);
 int strcmp(const char * a, const char * b);
 int strncmp(const char * a, const char * b, int len);
@@ -105,5 +107,38 @@ void printint(int i);
 void printf(char * fmt, ...);
 char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, int len);
+
+#ifndef __FD_SET
+#define __FD_SET(fd,fdsetp) \
+		__asm__ __volatile__("btsl %1,%0": \
+			"=m" (*(__kernel_fd_set *) (fdsetp)):"r" ((int) (fd)))
+#endif
+
+#ifndef	__FD_CLR
+#define __FD_CLR(fd,fdsetp) \
+		__asm__ __volatile__("btrl %1,%0": \
+			"=m" (*(__kernel_fd_set *) (fdsetp)):"r" ((int) (fd)))
+#endif
+
+#ifndef	__FD_ISSET
+#define __FD_ISSET(fd,fdsetp) (__extension__ ({ \
+		unsigned char __result; \
+		__asm__ __volatile__("btl %1,%2 ; setb %0" \
+			:"=q" (__result) :"r" ((int) (fd)), \
+			"m" (*(__kernel_fd_set *) (fdsetp))); \
+		__result; }))
+#endif
+
+#ifndef	__FD_ZERO
+#define __FD_ZERO(fdsetp) \
+do { \
+	int __d0, __d1; \
+	__asm__ __volatile__("cld ; rep ; stosl" \
+			:"=m" (*(__kernel_fd_set *) (fdsetp)), \
+			  "=&c" (__d0), "=&D" (__d1) \
+			:"a" (0), "1" (__FDSET_LONGS), \
+			"2" ((__kernel_fd_set *) (fdsetp)) : "memory"); \
+} while (0)
+#endif
 
 void printstr(char * string);
