@@ -23,6 +23,7 @@ import time
 
 from rhpl.log import log
 from rhpl.translate import _, N_
+import rhpl.comps
 
 ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'XFree86-AGX' : None, 	'XFree86-I128' : None,
@@ -329,19 +330,35 @@ class Component:
     def setState(self, state):
 	(self.manuallySelected, self.selectionCount) = state
 
-    def __init__(self, set, name, selected, hidden = 0, conditionalKey = "",
-                 parent=None):
+    def __init__(self, set, compgroup, packages,
+                 conditionalKey = "", parent=None):
+
         self.set = set
-	self.name = name
-	self.hidden = hidden
-	self.default = selected
+        self.name = compgroup.name
+        self.hidden = not compgroup.user_visible
+        self.default = compgroup.default
+        self.comp = compgroup
+        self.id = compgroup.id
+
+        # do we use these anymore?
         self.conditionalKey = conditionalKey
         self.parent = parent
-	self.pkgs = []
-	self.pkgDict = {}
-	self.includes = []
-	self.manuallySelected = 0
-	self.selectionCount = 0
+
+        self.pkgs = []
+        self.pkgDict = {}
+        self.includes = []
+        self.manuallySelected = 0
+        self.selectionCount = 0
+
+        # FIXME: we need to properly go through and use the dependency
+        # lists
+        for pkg in compgroup.packages.keys():
+            if not packages.has_key(pkg):
+                log("%s references package %s which doesn't exist"
+                    %(self.name, pkg))
+                continue
+            self.addPackage(packages[pkg])
+                
 
 class ComponentSet:
     def __len__(self):
@@ -401,6 +418,10 @@ class ComponentSet:
 	return self.compsDict.keys()
 
     def exprMatch(self, expr, tags = [ "lang", "arch" ]):
+        # FIXME: okay, we don't have this nonsense right now at least...
+        # always assume true
+        return 1
+        
         theTags = []
         for tag in tags:
             theTags.append(tag)
@@ -478,106 +499,97 @@ class ComponentSet:
             else:
                 connected = 1
 
-	lines = file.readlines()
+        self.compsxml = rhpl.Comps(file)
+        file.close()
 
-	file.close()
-	top = lines[0]
-	lines = lines[1:]
-	if (top != "3\n" and top != "4\n"):
-	    raise TypeError, "comp file version 3 or 4 expected"
-	
-	comp = None
-	self.comps = []
-	self.compsDict = {}
-        self.expressions = {}
-        state = [ None ]
-	for l in lines:
-	    l = strip (l)
-	    if (not l): continue
-            expression = None
+        self.comps = []
+        self.compsDict = {}
+        self.compsById = {}
 
-	    if (find(l, ":") > -1):
-		(expression, l) = split(l, ":", 1)
-                expression = strip (expression)
-                l = strip(l)
-                if expression and not expression[0] == '(':
-                    # normalize expressions to all be of () type
-                    expression = "(arch %s)" % (expression,)
-                if not self.exprMatch (expression, tags = [ "arch" ]):
+        groups = self.compsxml.groups.keys()
+        groups.sort()
+
+        # be leet and construct an everything group
+        everything = rhpl.Group(self.compsxml)
+        everything.name = _("Everything")
+        everything.id = "everything"
+        for pkg in packages.keys():
+            if ExcludePackages.has_key(packages[pkg]['name']):
+                continue
+            everything.packages[pkg] = (None, pkg)
+        self.compsxml.groups['Everything'] = everything
+        groups.append('Everything')
+
+        # we have to go through first and make Comp objects for all
+        # of the groups.  then we can go through and set up the includes
+        for group in groups:
+            group = self.compsxml.groups[group]
+            comp = Component(self, group, packages)
+            self.comps.append(comp)
+            self.compsDict[comp.name] = comp
+            self.compsById[comp.id] = comp
+
+        for group in groups:
+            group = self.compsxml.groups[group]            
+            comp = self.compsDict[group.name]
+            for id in group.groups.keys():
+                if not self.compsById.has_key(id):
+                    log("%s references component %s which doesn't exist"
+                        %(group.name, id))
                     continue
+                comp.addInclude(self.compsById[id].name)
 
-	    if (find(l, "?") > -1):
-                (trash, cond) = split (l, '?', 1)
-                (cond, trash) = split (cond, '{', 1)
-                cond = strip(cond)
-                conditional = "%s/%s" % (comp.name, cond)
-                # push our parent onto the stack, we'll need to restore
-                # it when this subcomp comes to a close.
-                parent = comp
-                state.append(parent)
-                comp = Component(self, conditional, 0, 1, cond, parent)
+        # now, let's set up all of the dependencies
+        for comp in self.comps:
+            # kind of pointless for everything since it's all packages
+            if comp.name == _("Everything"):
                 continue
+#            print "looking at %s" %(comp.name)
+            pkgs = comp.packages()
+#            print "packages is", pkgs
+            while len(pkgs) > 0:
+                tocheck = pkgs
+                pkgs = []
+                for pkg in tocheck:
+                    pkg = pkg.name
+                    # make sure the package is in the package list
+                    if not self.compsxml.packages.has_key(pkg):
+                        log("Component %s needs package %s which doesn't exist"
+                            %(comp.name, pkg))
+                        continue
+                    deps = self.compsxml.packages[pkg].dependencies
+                    for dep in deps:
+                        # really needs to be in the hdlist
+                        if not packages.has_key(dep):
+                            log("Package %s requires %s which we don't have"
+                                %(tocheck, dep))
+                            continue
+                        # if the package is already in this group, don't
+                        # worry about it
+                        if comp.includesPackage(packages[dep]):
+                            continue
+#                        print "adding %s as depedency of %s in %s" % (dep, pkg, comp.name)
+                        comp.addPackage(packages[dep])
+                        pkgs.append(packages[dep])
+            
 
-	    if (comp == None):
-		(default, l) = split(l, None, 1)
-		hidden = 0
-                if (l.startswith('--hide')):
-		    hidden = 1
-		    (foo, l) = split(l, None, 1)
-                (l, trash) = split(l, '{', 1)
-                l = strip (l)
-                if l == "Base" and expression == None:
-                    hidden = 1
-		comp = Component(self, l, default == '1', hidden)
-	    elif (l == "}"):
-                parent = state.pop()
-                if parent == None:
-                    # toplevel, add it to the set
-                    self.comps.append(comp)
-                    self.compsDict[comp.name] = comp
-                    comp = None
-                    state.append(None)
-                else:
-                    # end of a subcomp group, restore state
-                    comp = parent
-	    else:
-		if (l[0] == "@"):
-		    (at, l) = split(l, None, 1)
-		    comp.addInclude(l)
-		else:
-                    if expression:
-                        # this is a package with some qualifier prefixing it
-
-                        list = self.expressions.get(packages[l])
-                        if type(list) == type([]):
-                            list.append(expression)
-                        else:
-                            self.expressions[packages[l]] = [ expression ]
-                        comp.addPackageWithExpression (expression, packages[l])
-                    else:
-                        # if this package is listed anywhere without an
-                        # expression, it can go in Everything.
-                        self.expressions[packages[l]] = None
-                        # this is a package.
-                        comp.addPackage(packages[l])
-
-        everything = Component(self, N_("Everything"), 0, 0)
-        for package in packages.keys ():
-	    if ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
-                continue
-            if self.expressions.has_key (packages[package]): 
-                expressions = self.expressions[packages[package]]
-                if expressions == None:
-                    everything.addPackageWithExpression (None,
-                                                         packages[package])
-                else:
-                    for expression in expressions:
-                        everything.addPackageWithExpression (expression,
-                                                             packages[package])
-            else:
-                everything.addPackage (packages[package])
-        self.comps.append (everything)
-        self.compsDict["Everything"] = everything
+##         everything = Component(self, N_("Everything"), 0, 0)
+##         for package in packages.keys ():
+## 	    if ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
+##                 continue
+##             if self.expressions.has_key (packages[package]): 
+##                 expressions = self.expressions[packages[package]]
+##                 if expressions == None:
+##                     everything.addPackageWithExpression (None,
+##                                                          packages[package])
+##                 else:
+##                     for expression in expressions:
+##                         everything.addPackageWithExpression (expression,
+##                                                              packages[package])
+##             else:
+##                 everything.addPackage (packages[package])
+##         self.comps.append (everything)
+##         self.compsDict["Everything"] = everything
 
 	for comp in self.comps:
 	    comp.setDefaultSelection()
