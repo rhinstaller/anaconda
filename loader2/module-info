@@ -840,3 +840,13 @@ sonycd535
 agpart
 	video
 	"Intel i810 Graphics Controller"
+
+# drivers/ieee1394
+sbp2
+	scsi_hostadapter
+	"IEEE-1394 SBP-2 protocol driver"
+
+# drivers/usb
+usb-storage
+	scsi_hostadapter
+	"USB Mass Storage driver for Linux"
