@@ -2,7 +2,7 @@
 
 ORIGDIR=`pwd`
 COMPONENT=""
-DEBUG=1
+DEBUG=""
 
 if [ "$1" == "--debug" ]; then
     DEBUG="--debug"
@@ -60,8 +60,7 @@ prunePackageList() {
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
 	    PATTERN="${PATTERN:+${PATTERN}|}(^$PKG )"
-	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm 2>/dev/null)"
-	    echo "pkg is $PKG, pattern is $PATTERN, packagefiles is $PACKAGEFILES"
+	    PACKAGEFILES="$PACKAGEFILES $(ls $PACKAGEPATH/$PKG*{$ARCH,noarch}.rpm 2>/dev/null)"
 	done
 
 	# gtk+, enough said
