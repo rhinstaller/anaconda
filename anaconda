@@ -102,6 +102,13 @@ if traceOnly:
     import image
     import harddrive
     import urlinstall
+    for module in sys.__dict__['modules'].keys ():
+        if module not in [ "__builtin__", "__main__" ]:
+            foo = repr (sys.__dict__['modules'][module])
+            bar = string.split (foo, "'")
+            if len (bar) > 3:
+                print bar[3]
+        
     sys.exit(0)
 
 # imports after setting up the path
