@@ -75,16 +75,7 @@ def runRescue(instPath, mountroot, id):
 	os.execv("/bin/sh", [ "-/bin/sh" ])
 
     # lets create some devices
-    for drive in isys.hardDriveDict().keys():
-	isys.makeDevInode(drive, "/dev/" + drive)
-	
-	for i in range(16):
-	    if drive [:3] == "rd/" or drive [:4] == "ida/" or drive [:6] == "cciss/":
-		dev = drive + 'p' + str (i + 1)
-	    else:
-		dev = drive + str (i + 1)
-
-	    isys.makeDevInode(dev, "/dev/" + dev)
+    iutil.makeDriveDeviceNodes()
 
     # need loopback devices too
     for lpminor in range(8):
