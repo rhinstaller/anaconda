@@ -849,6 +849,9 @@ def setPreexistParts(diskset, requests, newParts):
     for request in requests:
         if request.type != REQUEST_PREEXIST:
             continue
+        if not diskset.disks.has_key(request.drive):
+            log("pre-existing partition on non-native disk %s, ignoring" %(request.drive,))
+            continue
         disk = diskset.disks[request.drive]
         part = disk.next_partition()
         while part:
