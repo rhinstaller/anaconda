@@ -766,7 +766,7 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/losetup-stub $p/usr/bin/losetup
 	cp $p/usr/lib/anaconda/pump-stub $p/usr/bin/pump
 	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
-	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/list-harddrives
+	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
