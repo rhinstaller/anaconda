@@ -24,6 +24,7 @@ import os, sys
 
 from constants import *
 from rhpl.translate import _
+from rhpl.log import log
 
 import fsset
 import raid
@@ -128,6 +129,9 @@ class RequestSpec:
         self.protected = 0
         """Is this partitiion 'protected', ie does it contain install media."""
 
+        self.dev = None
+        """A Device() as defined in fsset.py to correspond to this request."""
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -178,7 +182,7 @@ class RequestSpec:
 
         if self.badblocks:
             entry.setBadblocks(self.badblocks)
-            
+
         return entry
 
     def setProtected(self, val):
@@ -401,9 +405,13 @@ class PartitionSpec(RequestSpec):
 
 
     def getDevice(self, partitions):
-        """Return a device to solidify."""        
-        dev = fsset.PartitionDevice(self.device)
-        return dev
+        """Return a device to solidify."""
+        if self.dev:
+            # FIXME: this warning can probably be removed post-beta
+            log("WARNING: getting self.dev more than once for %s" %(self,))
+            return self.dev
+        self.dev = fsset.PartitionDevice(self.device)
+        return self.dev
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
@@ -544,13 +552,17 @@ class RaidRequestSpec(RequestSpec):
     
     def getDevice(self, partitions):
         """Return a device which can be solidified."""
+        if self.dev:
+            # FIXME: this warning can probably be removed post-beta
+            log("WARNING: getting self.dev more than once for %s" %(self,))
+            return self.dev
         raidmems = []
         for member in self.raidmembers:
             raidmems.append(partitions.getRequestByID(member).device)
-        dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
-                               raidmems, minor = self.raidminor,
-                               spares = self.raidspares)
-        return dev
+        self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
+                                    raidmems, minor = self.raidminor,
+                                    spares = self.raidspares)
+        return self.dev
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
@@ -659,11 +671,16 @@ class VolumeGroupRequestSpec(RequestSpec):
     
     def getDevice(self, partitions):
         """Return a device which can be solidified."""
+        if self.dev:
+            # FIXME: this warning can probably be removed post-beta            
+            log("WARNING: getting self.dev more than once for %s" %(self,))
+            return self.dev
+        
         pvs = []
         for pv in self.physicalVolumes:
             pvs.append(partitions.getRequestByID(pv).getDevice(partitions))
-        dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs, self.pesize)
-        return dev
+        self.dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs, self.pesize)
+        return self.dev
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
@@ -732,11 +749,16 @@ class LogicalVolumeRequestSpec(RequestSpec):
     
     def getDevice(self, partitions):
         """Return a device which can be solidified."""
+        if self.dev:
+            # FIXME: this warning can probably be removed post-beta            
+            log("WARNING: getting self.dev more than once for %s" %(self,))
+            return self.dev
+        
         vg = partitions.getRequestByID(self.volumeGroup)
         vgname = vg.volumeGroupName
-        dev = fsset.LogicalVolumeDevice(vgname, self.size,
+        self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
                                         self.logicalVolumeName)
-        return dev
+        return self.dev
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
