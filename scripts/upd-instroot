@@ -102,10 +102,11 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
-         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf glib2"
+         hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf 
+         glib2 libstdc++"
 
 if [ $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES libgcc libstdc++"
+    PACKAGES="$PACKAGES libgcc"
 fi
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
@@ -173,7 +174,7 @@ if [ $ARCH = alpha ]; then
 fi
 
 if [ $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES libgcc libstdc++"
+    PACKAGES="$PACKAGES libgcc"
 fi
 
 if [ $ARCH = ia64 ]; then
