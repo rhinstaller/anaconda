@@ -568,6 +568,10 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->dns = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "ethtool=", 8))
             loaderData->ethtool = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "essid=", 6))
+            loaderData->essid = strdup(argv[i] + 6);
+        else if (!strncasecmp(argv[i], "wepkey=", 7))
+            loaderData->wepkey = strdup(argv[i] + 7);
         else if (!strncasecmp(argv[i], "linksleep=", 10))
             num_link_checks = atoi(argv[i] + 10);
         else if (!strncasecmp(argv[i], "allowcddma", 10))
