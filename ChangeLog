@@ -1,5 +1,8 @@
 2004-10-15  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/driveorderwidget.py: Remove empty row leading 
+	to traceback (#135944)
+
 	* urlinstall.py: Replace "%" in urls with "%%" to avoid format
 	string problems (#135929)
 

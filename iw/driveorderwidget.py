@@ -114,8 +114,8 @@ class DriveOrderWidget:
         disks = self.diskset.disks
         
         self.driveOrderStore.clear()
-        iter = self.driveOrderStore.append()
         for drive in self.driveOrder:
+            iter = self.driveOrderStore.append()
             self.driveOrderStore.set_value(iter, 0, "/dev/%s" % (drive,))
             # if we have it in the diskset, get the size and type of drive
             if disks.has_key(drive):
@@ -124,6 +124,3 @@ class DriveOrderWidget:
                 
                 self.driveOrderStore.set_value(iter, 1, sizestr)
                 self.driveOrderStore.set_value(iter, 2, disks[drive].dev.model)
-                
-            
-            iter = self.driveOrderStore.append()
