@@ -42,7 +42,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
     fi
 
     if [ "$BUILDARCH" = "ia64" ]; then
-	KERNELDIR="/boot/efi/efi/redhat"
+	KERNELDIR="/boot/efi/EFI/redhat"
     else
 	KERNELDIR="/boot"
     fi
