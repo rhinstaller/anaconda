@@ -441,7 +441,7 @@ EndSection
 Section "Module"
         Load  "dbe"
         Load  "extmod"
-	%(nonSparcMods)s
+	Load %(nonSparcMods)s
         Load  "pex5"
         Load  "record"
         Load  "xie"
