@@ -1,12 +1,12 @@
 #
 # Stanislav Meduna <stano@eunet.sk>, 2000.
-# Marcel Telka <marcel@telka.sk>, 2003.
+# Marcel Telka <marcel@telka.sk>, 2003, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-19 21:10+0200\n"
+"PO-Revision-Date: 2004-01-24 14:19+0100\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -276,40 +276,38 @@ msgstr ""
 "Stlačte 'Ok' pre reštart vášho systému."
 
 #: ../autopart.py:1251
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Požadovaná oblasť neexistuje"
+msgstr "Požadovaná skupina zväzkov neexistuje"
 
 #: ../autopart.py:1252
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nepodarilo sa nájsť oblasť %s pre použitie s %s.\n"
+"Nepodarilo sa nájsť skupinu zväzkov %s pre použitie s %s.\n"
 "\n"
 "Stlačte 'Ok' pre reštart vášho systému."
 
 #: ../autopart.py:1287
-#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Požadované raid zariadenie neexistuje"
+msgstr "Požadovaný logický zväzok zariadenie neexistuje"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Nepodarilo sa nájsť raid zariadenie %s pre použitie s %s.\n"
+"Nepodarilo sa nájsť logický zväzok %s pre použitie s %s.\n"
 "\n"
 "Stlačte 'Ok' pre reštart vášho systému."
 
 #: ../autopart.py:1320 ../autopart.py:1368
 msgid "Automatic Partitioning Errors"
-msgstr "Chyby automatické rozdeľovania disku"
+msgstr "Chyby automatického rozdeľovania disku"
 
 #: ../autopart.py:1321
 #, python-format
@@ -378,7 +376,7 @@ msgid ""
 msgstr ""
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -391,11 +389,11 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Stlačte 'Ok' pre reštart vášho systému."
+"Toto sa mohlo stať ak nie je dostatok miesta na vašom pevnom disku pre inštaláciu.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Nezotaviteľná chyba"
 
 #: ../autopart.py:1381
 msgid "Your system will now be rebooted."
@@ -443,24 +441,24 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Zachovať všetky oddiely a použiť existujúce voľné miesto"
 
 #: ../autopart.py:1490
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Nakonfigurovali ste RAID oddiel bez jeho obmedzenia na jeden disk.\n"
-" Určite to tak chcete?"
+"Zvolili ste si odstrániť všetky oblasti (VŠETKY ÚDATE) na nasledujúcich zariadeniach:%s\n"
+"Ste si istý, že to chcete urobiť?"
 
 #: ../autopart.py:1494
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Nakonfigurovali ste RAID oddiel bez jeho obmedzenia na jeden disk.\n"
-" Určite to tak chcete?"
+"Zvolili ste si odstrániť všetky Linuxové oblasti (a VŠETKY ÚDATE na nich) na nasledujúcich zariadeniach:%s\n"
+"Ste si istý, že to chcete urobiť?"
 
 #: ../bootloader.py:99
 msgid "Bootloader"
@@ -1105,30 +1103,28 @@ msgid "Reading package information..."
 msgstr "Čítanie informácií o balíkoch..."
 
 #: ../packages.py:151
-#, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Nepodarilo sa načítať ssúbor comps. To môže byť spôsobené chýbajúcim súborom "
-"alebo alebo zlým médiom. Stlačte <enter> pre nový pokus."
+"Nepodarilo sa načítať zoznam hlavičiek. To môže byť spôsobené chýbajúcim súborom "
+"alebo zlým médiom. Stlačte <enter> pre nový pokus."
 
 #: ../packages.py:164
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"Nepodarilo sa načítať ssúbor comps. To môže byť spôsobené chýbajúcim súborom "
-"alebo alebo zlým médiom. Stlačte <enter> pre nový pokus."
+"Nepodarilo sa načítať súbor comps. To môže byť spôsobené chýbajúcim súborom "
+"alebo zlým médiom. Stlačte <enter> pre nový pokus."
 
 #: ../packages.py:176 ../packages.py:660 ../upgrade.py:342
-#, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Nepodarilo sa načítať ssúbor comps. To môže byť spôsobené chýbajúcim súborom "
-"alebo alebo zlým médiom. Stlačte <enter> pre nový pokus."
+"Nepodarilo sa spojiť zoznam hlavičiek. To môže byť spôsobené chýbajúcim súborom "
+"alebo zlým médiom. Stlačte <enter> pre nový pokus."
 
 #: ../packages.py:183 ../packages.py:580
 #, python-format
@@ -1356,7 +1352,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"Tabuľka rozdelenia na zariadení %s je poškodená. Pre vytvorenie nových "
+"Tabuľka rozdelenia na zariadení /dev/%s je poškodená. Pre vytvorenie nových "
 "oddielov musí byť inicializovaná, čo spôsobí stratu VŠETKÝCH ÚDAJOV na tomto "
 "disku."
 
@@ -5357,10 +5353,8 @@ msgid "No Root Partition"
 msgstr "Chýba koreňový oddiel"
 
 #: ../textw/partition_text.py:1166
-#, fuzzy
 msgid "Must have a / partition to install on."
-msgstr ""
-"Musíte prideliť odkladací priestor, aby bolo možné pokračovať v inštalácii."
+msgstr "Musíte mať / oblasť, na ktorú budete inštalovať."
 
 #: ../textw/partition_text.py:1233
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5474,9 +5468,8 @@ msgid "Swap file size (MB):"
 msgstr "Veľkosť odkladacieho súboru (MB):"
 
 #: ../textw/upgrade_text.py:141
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr "Pridať odkladací priestor"
 
 #: ../textw/upgrade_text.py:166
 msgid "The value you entered is not a valid number."
@@ -5710,9 +5703,8 @@ msgid "KDC:"
 msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
-#, fuzzy
 msgid "Admin Server:"
-msgstr "LDAP server:"
+msgstr "Správa servera:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
@@ -5762,9 +5754,8 @@ msgid "X Customization"
 msgstr "Prispôsobenie X"
 
 #: ../textw/xconfig_text.py:134
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "Zvoľte grafickú kartu a video RAM pre váš systém."
+msgstr "Zvoľte farebnú hĺbku a grafický režim, ktoré chcete použiť pre váš systém. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -5811,9 +5802,8 @@ msgid "Monitor"
 msgstr "Monitor"
 
 #: ../textw/xconfig_text.py:229
-#, fuzzy
 msgid "Please select the monitor attached to your system."
-msgstr "Adresár %s sa musí nachádzať v koreňovom súborovom systéme."
+msgstr "Prosím vyberte monitor, pripojený k vášmu systému."
 
 #: ../textw/xconfig_text.py:254
 msgid "horizontal"
@@ -5824,9 +5814,8 @@ msgid "vertical"
 msgstr "vertikálna"
 
 #: ../textw/xconfig_text.py:261
-#, fuzzy
 msgid "Invalid Sync Rates"
-msgstr "Neplatné adresáre"
+msgstr "Neplatné synchronizačné frekvencie"
 
 #: ../textw/xconfig_text.py:262
 #, python-format
@@ -5844,7 +5833,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "Synchronizačné frekvencie monitora"
 
 #: ../textw/xconfig_text.py:281
 msgid ""
@@ -5853,14 +5842,18 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"Prosím zadajte synchronizačné frekvencie pre váš monitor. \n"
+"\n"
+"Poznámka: Väčšinou nie je nutné upravovať synchronizačné frekvencie ručne. "
+"Ak to však budete robiť, dajte pozor, aby ste zadali správne hodnoty."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
-msgstr ""
+msgstr "Horizontálna synchronizačná frekvencia: "
 
 #: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
-msgstr ""
+msgstr "Vertikálna synchronizačná frekvencia: "
 
 #: ../textw/xconfig_text.py:419
 #, python-format
@@ -5875,11 +5868,11 @@ msgstr "Monitor:"
 
 #: ../textw/xconfig_text.py:430
 msgid "HSync Rate:"
-msgstr ""
+msgstr "Horizontálna synchronizačná frekvencia:"
 
 #: ../textw/xconfig_text.py:440
 msgid "VSync Rate:"
-msgstr ""
+msgstr "Vertikálna synchronizačná frekvencia:"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
@@ -5961,9 +5954,8 @@ msgid ""
 msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
-#, fuzzy
 msgid "_Personal Desktop"
-msgstr "Predvoľba"
+msgstr "_Osobná pracovná plocha"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -5982,6 +5974,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tPracovné prostredie (GNOME)\n"
+"\tKancelársky balík (OpenOffice)\n"
+"\tWWW prehliadač (Mozilla)\n"
+"\tElektronická pošta (Evolution)\n"
+"\tPriamy prenos správ\n"
+"\tZvukové a grafické aplikácie\n"
+"\tHry\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6016,6 +6015,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tPracovné prostredie (GNOME)\n"
+"\tKancelársky balík (OpenOffice)\n"
+"\tWWW prehliadač (Mozilla)\n"
+"\tElektronická pošta (Evolution)\n"
+"\tPriamy prenos správ\n"
+"\tZvukové a grafické aplikácie\n"
+"\tHry\n"
+"\tNástroje na vývoj softvéru\n"
+"\tNástroje na správu\n"
 
 #: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:110
 #: ../loader2/mediacheck.c:272
@@ -6081,9 +6089,8 @@ msgstr ""
 "CD a stlačte %s pre nový pokus."
 
 #: ../loader2/cdinstall.c:388
-#, fuzzy
 msgid "CD Not Found"
-msgstr "CD nájdené"
+msgstr "CD nenájdené"
 
 #: ../loader2/cdinstall.c:461
 msgid "Cannot find kickstart file on CDROM."
@@ -6126,9 +6133,8 @@ msgid "Manually choose"
 msgstr "Manuálny výber"
 
 #: ../loader2/driverdisk.c:354
-#, fuzzy
 msgid "Load another disk"
-msgstr "Zaviesť disk s ovládačmi"
+msgstr "Zaviesť iný disk"
 
 #: ../loader2/driverdisk.c:355
 msgid ""

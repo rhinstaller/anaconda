@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-19 00:35+0200\n"
+"PO-Revision-Date: 2003-10-26 21:08+0100\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -42,6 +42,12 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"ADVARSEL!!! VNC-tjeneren kjører UTEN PASSORD!\n"
+"Du kan bruke vncpassword=<passord> some oppstartsflagg\n"
+"hvis du ønsker å sikre tjeneren.\n"
+"\n"
 
 #: ../anaconda:179
 msgid "The VNC server is now running."
@@ -59,11 +65,11 @@ msgstr "Gir opp forsøk på å koble til etter 50 forsøk!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "Venligst koble din vnc-klient til %s manuelt for å starte installasjonen."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
+msgstr "Vennligst koble til din vnc-klient manuelt for å starte installasjonen."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -368,7 +374,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -377,15 +382,11 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Følgende feil oppstod med din partisjonering:\n"
 "\n"
-"%s\n"
 "\n"
-"Dette kan skje hvis det ikke er nok plass på harddisken(e) for "
-"installeringen. Du kan velge et annet partisjoneringsalternativ, eller "
-"trykke 'Tilbake' for å velge manuell partisjonering.\n"
+"Du kan velge et annet alternativ for automatisk partisjonering eller trykke «Tilbake» for å velge manuell partisjonering.\n"
 "\n"
-"Press 'OK' for å fortsette."
+"Trykk «OK» for å fortsette."
 
 #: ../autopart.py:1369
 #, python-format
@@ -401,8 +402,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Dette kan skje hvis det ikke er nok plass på harddisken(e) for "
-"installasjonen.%s"
+"Dette kan skje hvis det ikke er nok plass på harddisken(e) for installasjonen.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -869,6 +869,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Flere enheter på ditt system har etiketten %s. Etiketter på kryss av enheter må være unike for at systemet skal fungere korrekt.\n"
+"\n"
+"Vennligst rett opp dette problemet og start installasjonen på nytt."
 
 #: ../fsset.py:2018 ../gui.py:1092 ../image.py:72 ../packages.py:1372
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
@@ -1086,6 +1089,10 @@ msgid ""
 "Please have these ready before proceeding with the installation.  If you "
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
+"Programvaren du har valgt for installasjon vil kreve følgende CDer:\n"
+"\n"
+"%s\n"
+"Vennligst ha disse klar før du fortsetter med installasjonen. Hvis du må avbryte installasjonen og starte på nytt trykker du på «Start på nytt»."
 
 #: ../image.py:72 ../kickstart.py:1284 ../kickstart.py:1311
 #: ../iw/partition_gui.py:1012
@@ -1427,7 +1434,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Advarsel! Dette er en ikke ferdig utprøvet programvare!"
 
 #: ../packages.py:1353
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1441,11 +1448,9 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Takk for at du lastet ned denne betautgaven av %s.\n"
+"Takk for at du lastet ned denne testversjonen av %s.\n"
 "\n"
-"Dette er ikke en ferdig versjon og er ikke ment for bruk på systemer som "
-"står i produksjon. Målet med denne versjonen er å samle tilbakemeldinger fra "
-"testere, og den er ikke passende for daglig bruk.\n"
+"Dette er ikke en ferdig versjon og er ikke ment for bruk på systemer som står i produksjon. Målet med denne versjonen er å samle tilbakemeldinger fra testere, og den er ikke passende for daglig bruk.\n"
 "\n"
 "For å rapportere tilbake gå til:\n"
 "\n"
@@ -1462,7 +1467,7 @@ msgid "Foreign"
 msgstr "Utenlandsk"
 
 #: ../partedUtils.py:274
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1471,11 +1476,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Partisjonstabellen på enhet /dev/%s er av en uventet type, %s, for din "
-"arkitektur. For å bruke denne disken med en installasjon av %s må den re-"
-"initieres. Dette medfører tap av ALLE DATA på denne disken.\n"
+"Enheten %s er LDL-formatert i stedet for CDL-formatert. LDL-formaterte DASDer er ikke støttet under installasjon av %s. Hvis du ønsker å bruke denne disken under installasjonen må den initieres på nytt. Dette medfører tap av ALLE DATA på denne disken.\n"
 "\n"
-"Ønsker du å initiere denne stasjonen?"
+"Vil du reformattere denne DASDen med CDL-format?"
 
 #: ../partedUtils.py:304
 #, python-format
@@ -2305,17 +2308,12 @@ msgid "Absolute Symlinks"
 msgstr "Absolutte symbolske lenker"
 
 #: ../upgrade.py:299
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as symbolic links and restart the upgrade.\n"
 "\n"
-msgstr ""
-"Følgende filer er absolutte symbolske lenker, noe som ikke støttes under "
-"oppgradering. Du må endre dem til relative symbolske lenker, og starte "
-"oppgraderingen på nytt.\n"
-"\n"
+msgstr "Følgende kataloger skulle ha vært symbolske lenker og dette kan skape problemer under oppgradering. Du må endre dem tilbake til symbolske lenker og starte oppgraderingen på nytt.\n\n"
 
 #: ../upgrade.py:305
 msgid "Invalid Directories"
@@ -2354,10 +2352,9 @@ msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Arkitekturen for utgaven av %s du oppgraderer til ser ut til å være %s hvilket ikke stemmer overens med din tidligere installerte arkitektur %s. Dette vil sannsynligvis ikke fungere. Er du sikker på at du ønsker å fortsette oppgraderingen?"
 
 #: ../upgrade.py:475
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2367,11 +2364,9 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Dette systemet ser ut til å ha tredjeparts-pakker installert som overlapper "
-"med pakker inkludert i Red Hat Linux. Da disse pakkene overlapper er det "
-"mulig at du vil oppleve at disse ikke fungerer eller at systemet blir "
-"ustabilt hvis du fortsetter med oppgraderingen. Vil du fortsette med "
-"oppgraderingsprosessen?"
+"Dette systemet ser ut til å ha tredjeparts-pakker installert som overlapper med pakker inkludert i Red Hat Linux. Da disse pakkene overlapper er det mulig at du vil oppleve at disse ikke fungerer eller at systemet blir ustabilt hvis du fortsetter med oppgraderingen. Vennligst les merknadene for denne utgaven for mer informasjon.\n"
+"\n"
+"Vil du fortsette med oppgraderingsprosessen?"
 
 #: ../upgrade.py:498
 msgid ""
@@ -2582,7 +2577,7 @@ msgstr "Oppgi passord for oppstartslaster"
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
-msgstr ""
+msgstr "Oppgi et passord for oppstartslasteren og bekreft dette. (Merk at tastaturkartet kan være forskjellig i BIOS.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2841,14 +2836,11 @@ msgid "Reboo_t"
 msgstr "S_tart på nytt"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Fjern installasjonsmedie (disketter eller CD-ROM) som ble brukt under "
-"installasjonen og trykk <Linjeskift> for å starte systemet på nytt.\n"
+msgstr "Fjern installasjonsmedie (disketter eller CD-ROM) som ble brukt under installasjonen og trykk på knappen «Start på nytt» for å starte systemet på nytt.\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -2862,7 +2854,6 @@ msgstr ""
 "%s%s"
 
 #: ../iw/congrats_gui.py:64
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2878,26 +2869,19 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Gratulerer, installeringen er ferdig.\n"
+"For informasjon om Errata (oppdateringer og feilrettinger), besøk\n"
+"\thttp://www.redhat.com/errata/\n"
 "\n"
-"Fjern alle instelleringsmedier (diskett og CD-ROMer) brukt  under "
-"installeringen.\n"
-"\n"
-"%sFor informasjon om Errata (oppdateringer og feilrettinger), besøk\n"
-"   http://www.redhat.com/errata/\n"
-"\n"
-"For informasjon om automatiske oppdateringer gjennom Red Hat Network, "
-"besøk:\n"
-"    http://rhn.redhat.com/\n"
+"For informasjon om automatiske oppdateringer gjennom Red Hat Network, besøk:\n"
+"\thttp://rhn.redhat.com/\n"
 "\n"
 "For informasjon om bruk og konfigurasjon om systemet, besøk:\n"
-"    http://www.redhat.com/docs/\n"
-"    http://www.redhat.com/apps/support/\n"
+"\thttp://www.redhat.com/docs/\n"
+"\thttp://www.redhat.com/apps/support/\n"
 "\n"
 "For å registrere systemet for support, besøk:\n"
-"    http://www.redhat.com/apps/activate/\n"
+"\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Trykk 'Avslutt' for å starte systemet på nytt."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -2940,10 +2924,10 @@ msgid ""
 "The default installation environment includes our recommended package "
 "selection, including:\n"
 "\n"
-msgstr ""
+msgstr "Forvalgt installasjonsmiljø inneholder vårt anbefalte pakkeutvalg, inklusive:\n\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2954,23 +2938,11 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
-"Forvalgt oppsett for personlig skrivebord inkluderer våre anbefalinger for "
-"nye brukere, deriblant:\n"
 "\n"
-"\tSkrivebordsmiljø (GNOME)\n"
-"\tKontorstøtteprogramvare (OpenOffice)\n"
-"\tNettleser (Mozilla)\n"
-"\tE-post (Evolution)\n"
-"\tInstant Messging\n"
-"\tLyd- og bildeprogrammer\n"
-"\tSpill\n"
 "\n"
-"Etter installasjonen kan du legge til eller fjerne pakker ved å bruke "
-"verktøyet «redhat-config-package».\n"
+"Etter installasjonen kan du legge til eller fjerne pakker ved å bruke verktøyet «redhat-config-package».\n"
 "\n"
-"Hvis du er kjent med %s er det mulig at du har spesifikke pakker du ønsker å "
-"installere eller unngå at blir installert. Kryss av i boksen under for å "
-"tilpasse din installasjon."
+"Hvis du er kjent med %s er det mulig at du har spesifikke pakker du ønsker å installere eller unngå at blir installert. Kryss av i boksen under for å tilpasse din installasjon."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -3027,7 +2999,7 @@ msgstr "_Installer %s"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
+msgstr "Velg dette alternativet for å installere systemet på nytt. Eksisterende programvare og data kan bli overskrevet avhengig av dine valg for konfigurasjonen."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following Red Hat product will be upgraded:"
@@ -3075,7 +3047,7 @@ msgid ""
 "network, it is recommended that a firewall be configured to help prevent "
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
-msgstr ""
+msgstr "Hvis dette systemet er knyttet direkte til Internett eller er på et stort offentlig nettverk anbefales det å konfigurere en brannvegg for å hindre uautorisert tilgang. Det ser likevel ut til at du ikke har valgt å konfigurere en brannvegg. Velg «Fortsett» for å gå videre uten en brannvegg."
 
 #: ../iw/firewall_gui.py:39
 msgid "_Configure Firewall"
@@ -3107,7 +3079,7 @@ msgstr "Advarsel: ugyldig tegn"
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
-msgstr ""
+msgstr "En brannvegg kan hjelpe å avverge uautorisert tilgang til din datamaskin fra utsiden. Vil du aktivere en brannvegg?"
 
 #: ../iw/firewall_gui.py:166
 msgid "N_o firewall"
@@ -3807,13 +3779,11 @@ msgid "Cannot Delete"
 msgstr "Kan ikke slette"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"Dette oppstartsmålet kan ikke slettes fordi det er Red Hat Linux-systemet du "
-"er i ferd med å installere."
+msgstr "Dette oppstartsmålet kan ikke slettes fordi det er for %s-systemet du er i ferd med å installere."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4894,7 +4864,7 @@ msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
-msgstr ""
+msgstr "Systemet vil bli satt opp til å bruke frame-buffer driveren for X-vindussystemet. Hvis du ikke ønsker å konfigurere X-vindussystemet kan du velge «Hopp over konfigurasjon av X» under."
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
@@ -5160,7 +5130,7 @@ msgstr ""
 "%s%s"
 
 #: ../textw/complete_text.py:41
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5168,13 +5138,9 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Gratulerer, %s-installasjonen er fullført.\n"
+"For informasjon om errata (oppdateringer og feilrettinger), besøk http://www.redhat.com/errata.\n"
 "\n"
-"%s%sFor informasjon om errata (oppdateringer og feilrettinger), besøk http://"
-"www.redhat.com/errata.\n"
-"\n"
-"Informasjon om bruk av systemet er tilgjengelig brukerhåndbøkene for %s på "
-"http://www.redhat.com/docs."
+"Informasjon om bruk av systemet er tilgjengelig i brukerhåndbøkene for %s på http://www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
@@ -5230,7 +5196,7 @@ msgid "Workstation Defaults"
 msgstr "Forvalg for arbeidsstasjon"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5239,14 +5205,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Alternativene Personlig skrivebord og Arbeidsstasjon installerer et forvalgt "
-"sett med programmer som vil la deg lese internettsider, sende og motta e-"
-"post, og opprette og redigere dokumenter på ditt %s-system. Arbeidsstasjon-"
-"valget inkluderer i tillegg verktøy for programvareutvikling og "
-"systemadministrasjon.\n"
+"Forvalgt installasjonsmiljø inneholder vårt anbefalte pakkeutvalg. Du kan legge til eller fjerne programvare etter installasjonen med verktøyet «redhat-config-packages».\n"
 "\n"
-"Men %s inneholder også mange flere programmer, og du kan tilpasse hvilke "
-"programmer som skal installeres, hvis du ønsker det."
+"Men %s inneholder også mange flere programmer, og du kan tilpasse hvilke programmer som skal installeres, hvis du ønsker det."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5529,7 +5490,7 @@ msgid ""
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr ""
+msgstr "Hvis ditt system er del av et større nettverk hvor vertsnavn tildeles via DHCP må du velge automatisk tildeling via DHCP. Ellers velg manuell tildeling og oppgi et vertsnavn for ditt system. Hvis du ikke gjør dette får systemet navnet «localhost»."
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
@@ -6462,6 +6423,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tKontorstøtte (OpenOffice.org)\n"
+"\tNettleser (Mozilla)\n"
+"\tE-post (Evolution)\n"
+"\tSanntidsprat\n"
+"\tProgrammer for lyd og bildebehandling\n"
+"\tSpill\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6501,6 +6469,15 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
+"\tSkrivebordsmiljø (GNOME)\n"
+"\tKontorstøtte (OpenOffice.org)\n"
+"\tNettleser (Mozilla)\n"
+"\tE-post (Evolution)\n"
+"\tSanntidsprat\n"
+"\tProgrammer for lyd og bildebehandling\n"
+"\tSpill\n"
+"\tVerktøy for programvareutvikling\n"
+"\tAdministrasjonsverktøy\n"
 
 #: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:110
 #: ../loader2/mediacheck.c:272

@@ -1,8 +1,11 @@
+# Translation of anaconda to Croatian
+# Copyright (C) Croatian team
+# Translators: Automatski Prijevod <>,Denis Lackovic <delacko@fly.srk.fer.hr>,Robert Sedak <robert.sedak@sk.tel.hr>,
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 0\n"
 "POT-Creation-Date: 2003-10-15 14:38-0400\n"
-"PO-Revision-Date: 2003-10-18 12:17+CEST\n"
+"PO-Revision-Date: 2003-12-15 00:16+CET\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -838,7 +841,7 @@ msgstr ""
 #: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "_Ponovo pokreni"
+msgstr "_Ponovo pokretanje"
 
 #: ../fsset.py:2250
 msgid "Formatting"
@@ -913,11 +916,11 @@ msgstr "Ne"
 
 #: ../gui.py:239 ../text.py:326 ../loader2/net.c:178 ../loader2/net.c:474
 msgid "Retry"
-msgstr "Ponovi"
+msgstr "Pokušaj ponovno"
 
 #: ../gui.py:240 ../text.py:327
 msgid "Ignore"
-msgstr "Ignoriraj"
+msgstr "Zanemari"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
 #: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
@@ -983,7 +986,7 @@ msgstr "_Nazad"
 
 #: ../gui.py:1182
 msgid "_Next"
-msgstr "_Sljedeće"
+msgstr "_Sljedeći"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
@@ -999,7 +1002,7 @@ msgstr "Sakrij _pomoć"
 
 #: ../gui.py:1190
 msgid "_Debug"
-msgstr "_Otkrij greške"
+msgstr "_Debug"
 
 #: ../gui.py:1272
 msgid "%s Installer"
@@ -1605,7 +1608,7 @@ msgstr "_Obriši"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
-msgstr "Primjeti"
+msgstr "Napomena"
 
 #: ../partIntfHelpers.py:291
 msgid ""
@@ -2003,7 +2006,7 @@ msgstr "Nastavi"
 
 #: ../rescue.py:267 ../rescue.py:276
 msgid "Read-Only"
-msgstr "Samo čitaj"
+msgstr "Samo za čitanje"
 
 #: ../rescue.py:267 ../rescue.py:269 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:255
@@ -2102,7 +2105,7 @@ msgstr "Spremi"
 
 #: ../text.py:303 ../text.py:306 ../text.py:309
 msgid "Debug"
-msgstr "Otkrij greške"
+msgstr "Pronalaženje grešaka"
 
 #: ../text.py:346
 msgid "%s (C) 2003 Red Hat, Inc."
@@ -2124,7 +2127,7 @@ msgstr "Nadogradi postojeći sustav"
 
 #: ../upgradeclass.py:12
 msgid "Upgrade"
-msgstr "Nadogradi"
+msgstr "Nadogradnja"
 
 #: ../upgrade.py:62
 msgid "Searching"
@@ -2289,7 +2292,7 @@ msgstr ""
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
-msgstr "Povezujem se..."
+msgstr "Spajanje..."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2864,7 +2867,7 @@ msgstr "_Prilagodi programske pakete koji će biti instalirani"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
-msgstr "Disk"
+msgstr "Pogon"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:600
 #: ../iw/progress_gui.py:683 ../textw/partition_text.py:1126
@@ -3058,7 +3061,7 @@ msgstr "Odaberite _dodatne jezike za instalaciju na sustav:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "Odaberite _sve"
+msgstr "_Odaberi sve"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
@@ -3185,7 +3188,7 @@ msgstr "Originalna vrsta datotečnog sustava:"
 #: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:313
 #: ../iw/raid_dialog_gui.py:315
 msgid "Unknown"
-msgstr "Nepoznato"
+msgstr "Napoznato"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
@@ -3422,7 +3425,7 @@ msgstr "Odaberite pogodnog miša za sustav."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:571
 msgid "Gateway"
-msgstr "Pristupnik"
+msgstr "Gateway"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:573
 msgid "Primary DNS"
@@ -3616,7 +3619,7 @@ msgstr "Uobičajeno"
 
 #: ../iw/osbootwidget.py:66
 msgid "Label"
-msgstr "Naziv"
+msgstr "Oznaka"
 
 #: ../iw/osbootwidget.py:132
 msgid "Image"
@@ -3709,7 +3712,7 @@ msgstr "_Veličina (MB)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
-msgstr "Ukupna veličina: "
+msgstr "Ukupna veličina:"
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
@@ -3725,7 +3728,7 @@ msgstr "Označavanje grupe paketa"
 
 #: ../iw/package_gui.py:677
 msgid "Minimal"
-msgstr "Najmanje"
+msgstr "Minimalno"
 
 #: ../iw/package_gui.py:739
 msgid "Details for '%s'"
@@ -3822,15 +3825,15 @@ msgstr "Inzistiraj da bude _primarna particija"
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1126
 msgid "Type"
-msgstr "Vrsta"
+msgstr "Tip"
 
 #: ../iw/partition_gui.py:362
 msgid "Format"
-msgstr "Oblik"
+msgstr "Oblikovanje"
 
 #: ../iw/partition_gui.py:364 ../textw/partition_text.py:1126
 msgid "Start"
-msgstr "Početak"
+msgstr "Započni"
 
 #: ../iw/partition_gui.py:365 ../textw/partition_text.py:1126
 msgid "End"
@@ -3899,7 +3902,7 @@ msgstr "RAID uređaji"
 #: ../iw/partition_gui.py:786 ../iw/partition_gui.py:907
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 msgid "None"
-msgstr "Ništa"
+msgstr "Nijedan"
 
 #: ../iw/partition_gui.py:804 ../loader2/hdinstall.c:464
 msgid "Hard Drives"
@@ -4427,11 +4430,11 @@ msgstr "Sat sustava koristi _UTC"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
-msgstr "Molim, odaberite najbliži grad u vašoj zoni:"
+msgstr "Molim, odaberite najbliži grad u vašoj vremenskoj zoni:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
-msgstr "_Položaj"
+msgstr "_Lokacija"
 
 #: ../iw/timezone_map_gui.py:128
 msgid "Description"
@@ -4903,7 +4906,7 @@ msgstr "Naziv pokretačke particije sadrži neispravne znakove."
 #: ../textw/partition_text.py:1131 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 msgid "Edit"
-msgstr "Uredi"
+msgstr "Uređivanje"
 
 #: ../textw/bootloader_text.py:300 ../textw/silo_text.py:219
 msgid ""
@@ -5006,11 +5009,11 @@ msgstr ""
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
-msgstr "Završeno"
+msgstr "Završi"
 
 #: ../textw/complete_text.py:48
 msgid "Reboot"
-msgstr "Ponovno pokreni"
+msgstr "Ponovno pokretanje sustava"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -5080,7 +5083,7 @@ msgstr "Odaberite disk na kojem će se pokrenuti program fdasd ili dasdfmt"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
-msgstr "Sljedeće"
+msgstr "Dalje"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5221,7 +5224,7 @@ msgstr "Označi sve"
 
 #: ../textw/language_text.py:108
 msgid "Reset"
-msgstr "Ponovo pokreni"
+msgstr "Vrati izvorno"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
@@ -5599,7 +5602,7 @@ msgstr "Najveći broj zaštitnih particija s RAID0 poljem je 0."
 
 #: ../textw/partition_text.py:1130
 msgid "New"
-msgstr "Novo"
+msgstr "Novi"
 
 #: ../textw/partition_text.py:1132 ../textw/userauth_text.py:236
 msgid "Delete"
@@ -5688,7 +5691,7 @@ msgstr "Postavi uobičajeni uređaj PROM pokretanja"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
-msgstr "Gdje želite instalirati učitavanje pokretanja sustava?"
+msgstr "Gdje želite instalirati bootloader?"
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
@@ -5901,7 +5904,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
-msgstr "Ime korisnika"
+msgstr "Korisničko ime"
 
 #: ../textw/userauth_text.py:236
 msgid "Add"
@@ -6031,7 +6034,7 @@ msgstr "Dubina boja:"
 #: ../textw/xconfig_text.py:427 ../textw/xconfig_text.py:438
 #: ../textw/xconfig_text.py:657 ../textw/xconfig_text.py:664
 msgid "Change"
-msgstr "Promjeni"
+msgstr "Promijeni"
 
 #: ../textw/xconfig_text.py:145
 msgid "Resolution:"
@@ -6059,7 +6062,7 @@ msgstr "Grafičko"
 
 #: ../textw/xconfig_text.py:180
 msgid "Text"
-msgstr "Tekstualno"
+msgstr "Tekst"
 
 #: ../textw/xconfig_text.py:228
 msgid "Monitor"
@@ -6324,7 +6327,7 @@ msgstr "Provjera media"
 #: ../loader2/cdinstall.c:110 ../loader2/cdinstall.c:118
 #: ../loader2/method.c:405
 msgid "Test"
-msgstr "Probaj"
+msgstr "Test"
 
 #: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:93
 msgid "Eject CD"
@@ -6393,7 +6396,7 @@ msgstr "Ne mogu naći datoteku kickstart-a na CDROM-u."
 
 #: ../loader2/driverdisk.c:120 ../loader2/firewire.c:50
 msgid "Loading"
-msgstr "Učitavam"
+msgstr "Učitavanje"
 
 #: ../loader2/driverdisk.c:120
 msgid "Reading driver disk..."
@@ -7758,7 +7761,7 @@ msgstr "Danski"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "Holandski"
+msgstr "Nizozemski"
 
 #. generated from lang-table
 msgid "English"
