@@ -1,10 +1,23 @@
-from snack import *
-from constants_text import *
-from translate import _
-from log import *
+#
+# language_text.py: text mode language selection dialog
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import os
 import isys
 import iutil
+from snack import *
+from constants_text import *
+from log import *
+from translate import _
 from flags import flags
 
 class LanguageWindow:
