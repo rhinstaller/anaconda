@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PATH=$PATH:/sbin:/usr/sbin
+
 usage () {
 	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch>"
     exit 0
@@ -110,7 +112,7 @@ rundepmod () {
 
     exclpattern="tc90x|FPT|BusLogic|Pci2000|Pci2220i"
 
-    depmod -e -i -m $KERNELROOT/boot/System.map-$version \
+    /sbin/depmod -e -i -m $KERNELROOT/boot/System.map-$version \
 	    $what > $final.foo 2>&1 | 
 	    egrep -v "modprobe: (${exclpattern}) multiply defined"
 
