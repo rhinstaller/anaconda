@@ -550,8 +550,8 @@ static int intelDetectSMP(void)
 static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
 {
     __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
-	    : "=a"(*eax), "=g"(*ebx), "=&c"(*ecx), "=&d"(*edx)
-	    : "a" (op));
+	    : "=a"(*eax), "=r"(*ebx), "=c"(*ecx), "=d"(*edx)
+	    : "0" (op));
 }
 
 /* XXX: rewrite using /proc/cpuinfo info if it there.  Only fall
