@@ -410,7 +410,7 @@ void unmountFilesystems(void) {
 }
 
 void readargs(int * isRescue, int * isSerial, int * isExpert, int * isKick,
-	      int * forceSupp, int * isNetwork) {
+	      int * forceSupp, int * isNetwork, int *isText) {
     char buf[512];
     char * arg;
     int fd;
@@ -475,6 +475,8 @@ void readargs(int * isRescue, int * isSerial, int * isExpert, int * isKick,
 	    *isNetwork = 0;
 	} else if (!strcmp(start, "network")) {
 	    *isNetwork = 1;
+	} else if (!strcmp(start, "text")) {
+	    *isText = 1;
 	} else if (!strncmp(start, "kickstart", 9) || 
                    !strncmp(start, "ks", 2)) {
 	    arg = strchr(start, '=');
@@ -508,6 +510,7 @@ int main(void) {
     int isExpert = 0;
     int isKick = 0;
     int isNetwork = 0;
+    int isText = 0;
     int doReboot = 0;
     int doShutdown =0;
     int forceSupp = 0;
@@ -539,7 +542,8 @@ int main(void) {
 
     printf("done\n");
 
-    readargs(&isRescue, &isSerial, &isExpert, &isKick, &forceSupp, &isNetwork);
+    readargs(&isRescue, &isSerial, &isExpert, &isKick, &forceSupp, &isNetwork,
+	     &isText);
 
     if (isSerial) {
 	fd = open("/dev/ttyS0", O_RDWR, 0);
@@ -674,6 +678,9 @@ int main(void) {
 	    *argvp++ = "--local";
 #endif
 	
+	if (isText)
+	    *argvp++ = "--text";
+
 	*argvp++ = NULL;
 
 	printf("running %s\n", argv[0]);

@@ -733,6 +733,7 @@ int main(int argc, char ** argv) {
     moduleList modLoaded;
     moduleDeps modDeps;
     int local = 0;
+    int text = 0;
     int i, rc;
     int testing = 0;
     moduleInfoSet modInfo;
@@ -741,6 +742,7 @@ int main(int argc, char ** argv) {
 	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
+	    { "text", '\0', POPT_ARG_NONE, &text, 0 },
 	    POPT_AUTOHELP
 	    { 0, 0, 0, 0, 0 }
     };
@@ -842,6 +844,9 @@ int main(int argc, char ** argv) {
     *argptr++ = "-p";
     *argptr++ = "/mnt/source";
 
+    if (text)
+	*argptr++ = "-T";
+    
     if (!FL_TESTING(flags)) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
