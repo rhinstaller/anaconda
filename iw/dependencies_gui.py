@@ -10,6 +10,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.readHTML ("depend")
         self.dependRB = None
+        self.causeRB = None
 
     def getNext (self):
         if (self.dependRB and self.dependRB.get_active ()
