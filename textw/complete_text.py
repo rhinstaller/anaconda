@@ -43,7 +43,7 @@ class FinishedWindow:
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
                "system is available in the Red Hat Linux manuals at "
-               "http://www.redhat.com/support/manuals.") % bootstr,
+               "http://www.redhat.com/docs.") % bootstr,
 		[ _("OK") ], help = "finished", width=60)
 
         return INSTALL_OK
@@ -74,7 +74,7 @@ class ReconfigFinishedWindow:
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using your "
                   "system is available in the Red Hat Linux manuals at "
-                  "http://www.redhat.com/support/manuals."),
+                  "http://www.redhat.com/docs."),
                    [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK
