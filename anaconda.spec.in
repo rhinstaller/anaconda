@@ -2,7 +2,7 @@ Name: anaconda
 Version: @@VERSION@@
 Release: 1
 Copyright: GPL
-Summary: The Red Hat Linux first time booting configuration tool.
+Summary: The Red Hat Linux installer.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.gz
 Obsoletes: anaconda-reconfig
@@ -12,10 +12,7 @@ Requires: rpm-python
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
 %description
-anaconda is usually run the first-time a pre-installed computer
-is booted. It allows the first-time user to configure localized
-attributes like timezone and root password.
-
+The anaconda package contains the Red Hat Linux installer.
 
 %prep
 

@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 6.2.1.3
+VERSION = 6.2.1.4
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
