@@ -22,6 +22,7 @@ from rhpl.translate import _, N_
 import network
 import checklist
 import ipwidget
+import iutil
 
 global_options = [_("Gateway"), _("Primary DNS"),
 		  _("Secondary DNS"), _("Tertiary DNS")]
@@ -225,6 +226,12 @@ class NetworkWindow(InstallWindow):
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
 
+        if ((iutil.getArch() == "s390") and (
+            (len(dev) >= 3 and dev[:3] == 'ctc') or
+            (len(dev) >= 5 and dev[:5] == 'escon') or
+            (len(dev) >= 4 and dev[:4] == 'iucv'))):
+            newopt = (_("Point to Point (IP)"), "remip")
+            options.append(newopt)
         ipTable = gtk.Table(len(options), 2)
         iptable = None
 	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
