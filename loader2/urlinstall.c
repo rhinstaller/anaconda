@@ -330,7 +330,6 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
         *host = '/';
         ui.prefix = strdup(host);
     }
-    logMessage("address: %s, prefix: %s", ui.address, ui.prefix);
 
     fd = urlinstStartTransfer(&ui, file, 1);
     if (fd < 0) {
@@ -382,7 +381,7 @@ void setKickstartUrl(struct loaderData_s * loaderData, int argc,
     if (strstr(url, "http://"))
 	loaderData->method = strdup("http");
     else if (strstr(url, "ftp://"))
-	loaderData->method = strdup("http");
+	loaderData->method = strdup("ftp");
     else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown Url method %s"), url);
