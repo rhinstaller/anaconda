@@ -27,11 +27,13 @@ class InstallClass(BaseInstallClass):
 			  [ "KDE", 
 			    ("GNOME", 0),
 			    ("X Window System", 0),
-			    "News Server",
-                            "NFS Server",
+                            "NFS File Server",
+                            "Windows File Server",
                             "Web Server",
-                            "SMB (Samba) Server",
+                            "SQL Database Server"
+			    "News Server",
                             "DNS Name Server" ])
+
 	comps["Server"].select()
 
     def setInstallData(self, id):
