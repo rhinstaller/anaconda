@@ -242,6 +242,8 @@ if traceOnly:
     import mimetools
     import mimetypes
     import syslogd
+    if display_mode == 't':
+        from newtpyfsedit import fsedit        
     for module in sys.__dict__['modules'].keys ():
         if module not in [ "__builtin__", "__main__" ]:
             foo = repr (sys.__dict__['modules'][module])
