@@ -510,7 +510,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 "Os pacotes que você instalou, e quaisquer outros pacotes que sejam "
-"necessários para satisfazer a suas dependências, foram seleccionados para "
+"necessários para satisfazer as suas dependências, foram seleccionados para "
 "instalação. Deseja escolher o conjunto de pacotes a ser actualizado?"
 
 #: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
@@ -606,7 +606,7 @@ msgstr "Selecção da Placa Gráfica"
 
 #: ../text.py:512
 msgid "Which video card do you have?"
-msgstr "Qual é a placa gráfica possui?"
+msgstr "Qual é a placa gráfica que possui?"
 
 #: ../text.py:525
 msgid "X Server Selection"
@@ -987,7 +987,7 @@ msgid ""
 "\n"
 msgstr ""
 "Os seguintes ficheiros são ligações simbólicas absolutas, as quais não são "
-"suportadas durante uma actualização. Por favor substitutas-las por ligações "
+"suportadas durante uma actualização. Por favor substitua-las por ligações "
 "simbólicas relativas e reinicie a actualização.\n"
 "\n"
 
@@ -1274,7 +1274,7 @@ msgstr "Activar LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr "Utilizar procurar TLS"
+msgstr "Utilizar pesquisas TLS"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
@@ -1697,11 +1697,11 @@ msgstr "Tamanho total: "
 
 #: ../iw/package_gui.py:416
 msgid "Select all in group"
-msgstr "Escolher todos no grupo"
+msgstr "Seleccionar todos no grupo"
 
 #: ../iw/package_gui.py:420
 msgid "Unselect all in group"
-msgstr "Deseleccionar todos no grupo"
+msgstr "Desseleccionar todos no grupo"
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
@@ -1737,7 +1737,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
-msgstr "Seleccionar pacotes individuais"
+msgstr "Seleccionar pacotes individualmente"
 
 #: ../iw/progress_gui.py:51
 msgid "Installing Packages"
@@ -2080,7 +2080,7 @@ msgstr "Configuração do Monitor"
 
 #: ../iw/xconfig_gui.py:853 ../iw/xconfig_gui.py:1649
 msgid "Restore original values"
-msgstr "Restaurar valores originais"
+msgstr "Repor valores originais"
 
 #: ../iw/xconfig_gui.py:861
 msgid "Horizontal Sync:"
@@ -2638,7 +2638,7 @@ msgstr "Alterar as informações deste utilizador."
 
 #: ../textw/userauth_text.py:301
 msgid "Use Shadow Passwords"
-msgstr "Utilizador senhas \"shadow\""
+msgstr "Utilizar senhas \"shadow\""
 
 #: ../textw/userauth_text.py:303
 msgid "Enable MD5 Passwords"
@@ -2967,7 +2967,7 @@ msgstr "Editar Partição"
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
-msgstr "Mount Point:"
+msgstr "Montar em:"
 
 #: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
@@ -3004,21 +3004,21 @@ msgstr "Drives Permitidas:"
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
-msgstr "Nenhum Mount Point"
+msgstr "Nenhum Ponto de Montagem"
 
 #: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"Você não seleccionou um mount point para esta partição. Tem certeza que quer "
-"fazer isso?"
+"Você não seleccionou um ponto de montagem point para esta partição. Tem "
+"certeza que quer fazer isso?"
 
 #: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
-msgstr "Erro no Mount Point"
+msgstr "Erro no Ponto de Montagem"
 
 #: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
@@ -3028,7 +3028,7 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 "Tentou atribuir o ponto de montagem '/' para uma partição do tipo FAT. Não o "
-"pode fazer porque alguns dos pronto de montagem foram atribuídos a partições "
+"pode fazer porque alguns dos pontos de montagem foram atribuídos a partições "
 "ext2. Retire esses pontos de montagem e poderá atribuir a '/' a esta "
 "partição."
 
@@ -3418,7 +3418,7 @@ msgstr "_Reiniciar"
 
 #: ../libfdisk/gnomefsedit.c:3699
 msgid "_Delete"
-msgstr "Apa_gar"
+msgstr "A_pagar"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3712
