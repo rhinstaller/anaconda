@@ -19,7 +19,7 @@ class InstallClass(BaseInstallClass):
 	self.setMakeBootdisk(1)
 
         self.showgroups = [ "KDE",
-                            "GNOME",
+                            (1, "GNOME"),
                             "Games" ]
 
 	if os.uname ()[4] != 'sparc64':
