@@ -325,7 +325,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                     speed = ETHTOOL_SPEED_1000;
                 else if (!strncmp(option + 6, "100", 3))
                     speed = ETHTOOL_SPEED_100;
-                else if (!strncmp(option + 6, "10", 4))
+                else if (!strncmp(option + 6, "10", 2))
                     speed = ETHTOOL_SPEED_10;
                 else
                     logMessage("Unknown speed setting: %s", option + 6);
