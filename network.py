@@ -95,6 +95,11 @@ class Network:
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
 
+	# this is only currently used in GUI
+	# elsewhere we test if the hostname is localhost.localdomain
+	# to see if its been override. Need some consolidation in future.
+	self.overrideDHCPhostname = 0
+
         try:
             f = open("/tmp/netinfo", "r")
         except:
