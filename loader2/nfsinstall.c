@@ -105,6 +105,9 @@ char * mountNfsImage(struct installMethod * method,
                     free(loaderData->method);
                     loaderData->method = NULL;
                     break;
+                } else {
+                    host = strdup(host);
+                    directory = strdup(directory);
                 }
             } else if (nfsGetSetup(&host, &directory) == LOADER_BACK) {
                 return NULL;
