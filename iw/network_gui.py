@@ -168,7 +168,7 @@ class NetworkWindow(InstallWindow):
 
     def handleIPMissing(self, field):
 	self.intf.messageWindow(_("Error With Data"),
-				_("An value is required for the field \"%s\"." % (field,)))
+				_("A value is required for the field \"%s\"." % (field,)))
 
     def handleBroadCastError(self):
 	self.intf.messageWindow(_("Error With Data"),
