@@ -11,6 +11,7 @@ import _balkan
 from simpleconfig import SimpleConfigFile
 from mouse import Mouse
 from xf86config import XF86Config
+import errno
 
 def _(x):
     return x
@@ -445,6 +446,7 @@ class ToDo:
 	self.expert = expert
         self.progressWindow = None
 	self.swapCreated = 0
+	self.fdDevice = None
 	if (not instClass):
 	    raise TypeError, "installation class expected"
         if x:
@@ -457,6 +459,19 @@ class ToDo:
 
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
+
+    def setFdDevice(self):
+	if self.fdDevice:
+	    return
+	self.fdDevice = "/dev/fd0"
+	if iutil.getArch() == "sparc":
+	    try:
+		f = open(self.fdDevice, "r")
+	    except Exception, (errnum, msg):
+		if errno.errorcode[errnum] == 'ENXIO':
+		    self.fdDevice = "/dev/fd1"
+	    else:
+		f.close()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -726,6 +741,7 @@ class ToDo:
 	f = open (self.instPath + "/etc/fstab", "w")
         keys = self.mounts.keys ()
 	keys.sort ()
+	self.setFdDevice ()
 	for mntpoint in keys: 
 	    (dev, fs, reformat) = self.mounts[mntpoint]
 	    if (mntpoint == '/'):
@@ -737,7 +753,7 @@ class ToDo:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
+	f.write (format % (self.fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 	f.close ()
@@ -801,11 +817,12 @@ class ToDo:
 
         self.makeInitrd (kernelTag)
         w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
+	self.setFdDevice ()
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
                                     [ "/sbin/mkbootdisk",
                                       "--noprompt",
                                       "--device",
-                                      "/dev/fd0",
+                                      self.fdDevice,
                                       kernelTag[1:] ],
                                     stdout = None, stderr = None, 
 				    searchPath = 1, root = self.instPath)
@@ -1565,9 +1582,17 @@ class ToDo:
                 pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
-                self.x.write (self.instPath + "/etc/X11/XF86Config")
-                os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
-                            self.instPath + "/etc/X11/X")
+		if len (self.x.server) >= 3 and self.x.server[0:3] == 'Sun':
+		    os.unlink(self.instPath + "/etc/X11/X")
+		    script = open(self.instPath + "/etc/X11/X","w")
+		    script.write("#!/bin/bash\n")
+		    script.write("exec /usr/X11R6/bin/Xs%s -fp unix/:-1 $@\n" % self.x.server[1:])
+		    script.close()
+		    os.chmod(self.instPath + "/etc/X11/X", 0755)
+		else:
+		    self.x.write (self.instPath + "/etc/X11/XF86Config")
+		    os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
+				self.instPath + "/etc/X11/X")
             self.setDefaultRunlevel ()
             argv = [ "/usr/sbin/kudzu", "-q" ]
 	    devnull = os.open("/dev/null", os.O_RDWR)

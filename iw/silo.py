@@ -21,6 +21,7 @@ class SiloWindow (InstallWindow):
         self.bootdisk = None
         self.silo = None
 	self.linuxAlias = None
+	self.linuxAliasLabel = None
 	self.bootDevice = None
 
     def getNext (self):
@@ -42,6 +43,15 @@ class SiloWindow (InstallWindow):
 
 	self.todo.setLiloImages(self.images)
 
+	linuxAlias = 0
+	bootDevice = 0
+	if self.linuxAlias.get_active ():
+	    linuxAlias = 1
+	if self.bootDevice.get_active ():
+	    bootDevice = 1
+	    
+	self.todo.silo.setPROM(linuxAlias, bootDevice)
+
     def typeName(self, type):
 	if (type == 2):
 	    return "Linux Native"
@@ -58,6 +68,21 @@ class SiloWindow (InstallWindow):
 
 	for n in [self.radioBox, self.editBox, self.imageList ]:
             n.set_sensitive (state)
+
+    def mbr_toggled (self, widget, *args):
+	if widget.get_active ():
+	    part = self.boothd
+	else:
+	    part = self.bootpart
+	prompath = self.todo.silo.disk2PromPath(part)
+	if prompath and len(prompath) > 0:
+	    self.linuxAliasLabel.set_text ("linux " + prompath)
+	    if self.todo.silo.hasAliases():
+		self.linuxAliasLabel.set_sensitive (TRUE)
+		self.linuxAlias.set_sensitive (TRUE)
+		return
+	self.linuxAliasLabel.set_sensitive (FALSE)
+	self.linuxAlias.set_sensitive (FALSE)
 
     def labelUpdated(self, *args):
 	index = self.imageList.selection[0]
@@ -115,6 +140,8 @@ class SiloWindow (InstallWindow):
 
         if '/' not in self.todo.mounts.keys (): return None
 	(bootpart, boothd) = self.todo.silo.getSiloOptions()
+	self.bootpart = bootpart
+	self.boothd = boothd
             
         format = "/dev/%s"
 
@@ -136,21 +163,24 @@ class SiloWindow (InstallWindow):
 	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
 	self.radioBox.attach(part, 1, 2, 2, 3)
 	self.radioBox.attach(self.mbr, 1, 2, 3, 4)
-
-	print "bootpart ", bootpart, " ", self.todo.silo.disk2PromPath(bootpart)
+	self.mbr.connect("toggled", self.mbr_toggled)
 
 	# FIXME: Position this correctly
         self.linuxAlias = GtkCheckButton(
-	    ("%s: linux %s" % (_("Create PROM alias"), self.todo.silo.disk2PromPath(bootpart))))
-        self.radioBox.attach(self.linuxAlias, 0, 2, 4, 5)
+	    _("Create PROM alias") + ":")
 	if (self.todo.silo.hasAliases()):
 	    self.linuxAlias.set_active (TRUE)
 	else:
 	    self.linuxAlias.set_active (FALSE)
-	    self.linuxAlias.set_sensitive (FALSE)
+	self.linuxAliasLabel = GtkLabel("")
+	self.mbr_toggled(self.mbr)
+	tempBox = GtkHBox (FALSE, 5)
+	tempBox.pack_start(self.linuxAlias)
+	tempBox.pack_start(self.linuxAliasLabel)
+        self.radioBox.attach(tempBox, 0, 2, 4, 5)
 
         self.bootDevice = GtkCheckButton(_("Set default PROM boot device to linux"))
-        self.radioBox.attach(self.bootDevice, 0, 2, 4, 6)
+        self.radioBox.attach(self.bootDevice, 0, 2, 5, 6)
 	self.bootDevice.set_active (TRUE)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
@@ -162,7 +192,7 @@ class SiloWindow (InstallWindow):
 	alignment = GtkAlignment()
 	alignment.set(0.0, 0.5, 0, 1.0)
 	alignment.add(box)
-	self.radioBox.attach(alignment, 0, 2, 5, 7)
+	self.radioBox.attach(alignment, 0, 2, 6, 7)
 	
         box = GtkVBox (FALSE, 0)
 

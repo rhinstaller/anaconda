@@ -6,8 +6,8 @@ import _silo
 class SiloInstall:
     def __init__ (self, todo):
 	self.todo = todo
-	self.linuxalias = None
-	self.bootdevice = None
+	self.linuxAlias = None
+	self.bootBevice = None
 
     def getSiloImages(self):
 	todo = self.todo
@@ -79,11 +79,15 @@ class SiloInstall:
 		return 1
 	return 0
 
+    def setPROM(self, linuxAlias, bootDevice):
+	self.linuxAlias = linuxAlias
+	self.bootDevice = bootDevice
+
     def hasAliases(self):
-	return _silo.has_aliases()
+	return _silo.hasAliases()
 
     def disk2PromPath(self,dev):
-	return _silo.disk2prompath(dev)
+	return _silo.disk2PromPath(dev)
 
     def installSilo (self):
 	todo = self.todo
@@ -95,19 +99,19 @@ class SiloInstall:
 	# OK - for this release we need to just blow away the old silo.conf
 	# just like we used to.
 ##	 # on upgrade read in the silo config file
-##	 if os.access (self.instPath + '/etc/silo.conf', os.R_OK):
-##	     silo.read (self.instPath + '/etc/silo.conf')
+##	 if os.access (todo.instPath + '/etc/silo.conf', os.R_OK):
+##	     silo.read (todo.instPath + '/etc/silo.conf')
 ##	 elif not todo.liloDevice: return
 
 	(bootpart, boothd) = self.getSiloOptions()
-	smpInstalled = (self.hdList.has_key('kernel-smp') and 
-			self.hdList['kernel-smp'].selected)
+	smpInstalled = (self.todo.hdList.has_key('kernel-smp') and 
+			self.todo.hdList['kernel-smp'].selected)
 
-	if self.mounts.has_key ('/'):
-	    (dev, fstype, format) = self.mounts['/']
+	if self.todo.mounts.has_key ('/'):
+	    (dev, fstype, format) = self.todo.mounts['/']
 	    rootDev = dev
 	else:
-	    raise RuntimeError, "Installing lilo, but there is no root device"
+	    raise RuntimeError, "Installing silo, but there is no root device"
 
 	args = [ "silo", "-r", todo.instPath ]
 
@@ -138,10 +142,10 @@ class SiloInstall:
 
 	label = main
 	if (smpInstalled):
-	    kernelList.append((main, self.hdList['kernel-smp'], "smp"))
+	    kernelList.append((main, self.todo.hdList['kernel-smp'], "smp"))
 	    label = main + "-up"
 
-	kernelList.append((label, self.hdList['kernel'], ""))
+	kernelList.append((label, self.todo.hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
@@ -156,7 +160,7 @@ class SiloInstall:
 	    sl = LiloConfiguration()
 
 	    sl.addEntry("label", label)
-	    if os.access (self.instPath + initrd, os.R_OK):
+	    if os.access (todo.instPath + initrd, os.R_OK):
 		sl.addEntry("initrd", initrdFile)
 
 	    silo.addImage ("image", kernelFile, sl)
@@ -169,7 +173,7 @@ class SiloInstall:
 	# for (siloType, name, config) in silo.images:
 	#    # remove entries for missing kernels (upgrade)
 	#    if siloType == "image":
-	#	if not os.access (self.instPath + name, os.R_OK):
+	#	if not os.access (todo.instPath + name, os.R_OK):
 	#	    silo.delImage (name)
 	#    # remove entries for unbootable partitions
 	#    elif siloType == "other":
@@ -188,7 +192,7 @@ class SiloInstall:
 	    else: # duplicate entry, first entry wins
 		silo.delImage (name)
 
-	silo.write(self.instPath + "/etc/silo.conf")
+	silo.write(todo.instPath + "/etc/silo.conf")
 
 	# XXX make me "not test mode"
 	if todo.setupFilesystems:

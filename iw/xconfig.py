@@ -24,6 +24,7 @@ class XCustomWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
         
         self.didTest = 0
+	self.sunServer = 0
 
     def getNext (self):
         newmodes = {}
@@ -104,6 +105,8 @@ class XConfigWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
 
         self.todo = ics.getToDo ()
+	if self.todo.x.server and len (self.todo.x.server) >= 3 and self.todo.x.server[0:3] == 'Sun':
+	    self.sunServer = 1
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
@@ -118,8 +121,9 @@ class XConfigWindow (InstallWindow):
                 setting = self.monlist.get_row_data (row)
                 self.todo.x.setMonitor (setting)
 
-        if self.custom.get_active () and not self.skip.get_active ():
-            return XCustomWindow
+	if not self.sunServer:
+	    if self.custom.get_active () and not self.skip.get_active ():
+		return XCustomWindow
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -183,7 +187,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-        if self.todo.x.monID == "Generic Monitor":
+	if ( not self.sunServer ) and self.todo.x.monID == "Generic Monitor":
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))
@@ -206,21 +210,23 @@ class XConfigWindow (InstallWindow):
             sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
             self.autoBox.pack_start (sw, TRUE, TRUE)
 
-        test = GtkAlignment ()
-        button = GtkButton (_("Test this configuration"))
-        button.connect ("clicked", self.testPressed)
-        test.add (button)
+	if not self.sunServer:
+	    test = GtkAlignment ()
+	    button = GtkButton (_("Test this configuration"))
+	    button.connect ("clicked", self.testPressed)
+	    test.add (button)
         
-        self.custom = GtkCheckButton (_("Customize X Configuration"))
-        self.custom.connect ("toggled", self.customToggled) 
+	    self.custom = GtkCheckButton (_("Customize X Configuration"))
+	    self.custom.connect ("toggled", self.customToggled)
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
 
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-        self.autoBox.pack_start (test, FALSE)
-        self.autoBox.pack_start (self.custom, FALSE)
+	if not self.sunServer:
+	    self.autoBox.pack_start (test, FALSE)
+	    self.autoBox.pack_start (self.custom, FALSE)
         self.autoBox.pack_start (self.xdm, FALSE)
 
         box.pack_start (self.autoBox, TRUE, TRUE)

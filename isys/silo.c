@@ -91,6 +91,31 @@ prom_getproperty(char *prop, int *lenp) {
     return op->oprom_array;
 }
 
+static char *
+prom_getopt(char *var, int *lenp) {
+    DECL_OP(MAX_VAL);
+
+    strcpy (op->oprom_array, var);
+    if (ioctl (promfd, OPROMGETOPT, op) < 0)
+        return 0;
+    if (lenp) *lenp = op->oprom_size;
+    return op->oprom_array;
+}
+
+static void
+prom_setopt(char *var, char *value) {
+    DECL_OP(MAX_VAL);
+    
+    strcpy (op->oprom_array, var);
+    strcpy (op->oprom_array + strlen (var) + 1, value);
+    if (ioctl (promfd, OPROMSETOPT, op) < 0) {
+    	printf ("in %s\n", var);
+	perror ("opepromsetopt");
+	printf ("%d\n", errno);
+	return;
+    }
+}
+
 static int
 prom_getbool(char *prop) {
     DECL_OP(0);
@@ -186,10 +211,10 @@ prom_walk(char *path, int parent, int node, int type) {
 }
 
 static int
-prom_init(void) {    
+prom_init(int mode) {    
     struct utsname u;
 
-    promfd = open(promdev, O_RDONLY);
+    promfd = open(promdev, mode);
     if (promfd == -1)
 	return -1;
     prom_root_node = prom_getsibling(0);
@@ -482,7 +507,7 @@ scan_scsi(void) {
     return 0;
 }
 
-int get_prom_ver(void)
+static int get_prom_ver(void)
 {
     FILE *f = fopen ("/proc/cpuinfo","r");
     int ver = 0;
@@ -507,7 +532,7 @@ int get_prom_ver(void)
     return ver;
 }
 
-void check_aliases(void) {
+static void check_aliases(void) {
     int nextnode, len;
     char *prop;
     hasaliases = 0;
@@ -518,11 +543,24 @@ void check_aliases(void) {
     }
 }
 
+char *prom_root_name = NULL;
+
+static void get_root_name(void) {
+    int len;
+    char *prop;
+    
+    prom_getsibling(0);
+    prop = prom_getproperty("name", &len);
+    if (prop && len > 0 && !strcmp (prop, "aliases"))
+	prom_root_name = strdup(prop);
+}
+
 int init_sbusdisk(void) {
-    if (prom_init())
+    if (prom_init(O_RDONLY))
 	return -1;
     promvers = get_prom_ver();
     check_aliases();
+    get_root_name();
     scan_ide();
     scan_scsi();
     prom_walk_callback = scan_walk_callback;
@@ -531,12 +569,80 @@ int init_sbusdisk(void) {
     return 0;
 }
 
+void set_prom_vars(char *linuxAlias, char *bootDevice) {
+    int len;
+    if (prom_init(O_RDWR))
+	return;
+    if (linuxAlias && hasaliases) {
+	char *use_nvramrc;
+	char nvramrc[2048];
+	char *p, *q, *r;
+	int enabled = -1;
+	use_nvramrc = prom_getopt ("use-nvramrc?", &len);
+	if (len > 0) {
+	    if (!strcasecmp (use_nvramrc, "false"))
+		enabled = 0;
+	    else if (!strcasecmp (use_nvramrc, "true"))
+		enabled = 1;
+	    printf ("use_nvramrc `%s' %d\n", use_nvramrc, len);
+	}
+	if (enabled != -1) {
+	    p = prom_getopt ("nvramrc", &len);
+	    if (p) {
+		memcpy (nvramrc, p, len);
+		nvramrc [len] = 0;
+		q = p;
+		while (q) {
+		    /* If there is already `devalias linux /some/ugly/prom/path'
+		       make sure we fully understand that and remove it. */
+		    if (!strncmp (q, "devalias", 8) && (q[8] == ' ' || q[8] == '\t')) {
+			for (r = q + 9; *r == ' ' || *r == '\t'; r++);
+			if (!strncmp (r, "linux", 5) && (r[5] == ' ' || r[8] == '\t')) {
+			    for (r += 6; *r == ' ' || *r == '\t'; r++);
+			    for (; *r && *r != ' ' && *r != '\t' && *r != '\n'; r++);
+			    for (; *r == ' ' || *r == '\t'; r++);
+			    if (*r == '\n') {
+				r++;
+				memmove (q, r, strlen(r) + 1);
+				continue;
+			    }
+			}
+		    }
+		    q = strchr (q, '\n');
+		}
+		len = strlen (nvramrc);
+		if (len && nvramrc [len-1] != '\n')
+		    strcat (nvramrc, "\n");
+		strcat (nvramrc, "devalias linux ");
+		strcat (nvramrc, linuxAlias);
+		strcat (nvramrc, "\n");
+		prom_setopt ("nvramrc", nvramrc);
+		if (!enabled)
+		    prom_setopt ("use-nvramrc?", "true");
+	    }
+	}
+    }
+    if (bootDevice) {
+	char *p;
+	p = prom_getopt ("boot-device", &len);
+	if (p) {
+	    prom_setopt ("boot-device", bootDevice);
+	    prom_setopt ("boot-file", "");
+	} else {
+	    p = prom_getopt ("boot-from", &len);
+	    if (p)
+		prom_setopt ("boot-from", bootDevice);
+	}
+    }
+}
+
 #ifdef STANDALONE_SILO
 
 int main(void) {
     int i;
 
     init_sbusdisk();
+    set_prom_vars ("/sbus@2,0/SUNW,fas@1,8800000/sd@0,0", "linux");
     for (i = 0; i < hdlen; i++) {
 	if (hd[i].type)
 		printf ("hd%c %x %d %d %d\n", i + 'a', hd[i].prom_node,
@@ -554,16 +660,21 @@ int main(void) {
 	if (sd[i].prom_name) printf ("%s\n", sd[i].prom_name);
     }
 }
+
 #else
 
 #include <Python.h>
 
-PyObject *disk2prompath (PyObject *, PyObject *);
-PyObject *has_aliases (void);
+static PyObject *disk2PromPath (PyObject *, PyObject *);
+static PyObject *hasAliases (void);
+static PyObject *promRootName (void);
+static PyObject *setPromVars (PyObject *, PyObject *);
 
 static PyMethodDef _siloMethods[] = {
-    { "disk2prompath", disk2prompath, 1 },
-    { "has_aliases", has_aliases, 1 },
+    { "disk2PromPath", disk2PromPath, 1 },
+    { "hasAliases", hasAliases, 1 },
+    { "promRootName", promRootName, 1 },
+    { "setPromVars", setPromVars, 1 },
     { NULL, NULL }
 };
 
@@ -579,8 +690,8 @@ init_silo ()
 	Py_FatalError ("can't initialize module _silo");
 }
 
-PyObject *
-disk2prompath (PyObject *self, PyObject *args)
+static PyObject *
+disk2PromPath (PyObject *self, PyObject *args)
 {
     unsigned char *disk, prompath[1024];
     int diskno = -1, part;
@@ -627,10 +738,29 @@ disk2prompath (PyObject *self, PyObject *args)
     return Py_BuildValue ("s", prompath);
 }
           
-PyObject *
-has_aliases (void)
+static PyObject *
+hasAliases (void)
 {
     return Py_BuildValue ("i", hasaliases);
-}          
+}
+
+static PyObject *
+promRootName (void)
+{
+    return Py_BuildValue ("s", prom_root_name ? prom_root_name : "");
+}
+
+static PyObject *
+setPromVars (PyObject *self, PyObject *args)
+{
+    char *linuxAlias, *bootDevice;
+    if (!PyArg_ParseTuple (args, "ss", &linuxAlias, &bootDevice))
+	return NULL;
+    if (linuxAlias && !*linuxAlias) linuxAlias = NULL;
+    if (bootDevice && !*bootDevice) bootDevice = NULL;
+    set_prom_vars (linuxAlias, bootDevice);
+    Py_INCREF(Py_None);
+    return Py_None;
+}
 
 #endif

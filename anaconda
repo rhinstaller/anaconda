@@ -217,6 +217,15 @@ if keymap:
     instClass.addToSkipList("keyboard")
     instClass.setKeyboard(keymap)
 
+if iutil.getArch() == "sparc":
+    import kudzu
+    mice = kudzu.probe (kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, kudzu.PROBE_ONE);
+    if mice:
+	(mouseDev, driver, descr) = mice[0]
+	if mouseDev == 'sunmouse':
+	    instClass.addToSkipList("mouse")
+	    instClass.setMouseType("Sun - Mouse", "sunmouse")
+
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
