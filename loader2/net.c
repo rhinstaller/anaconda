@@ -253,6 +253,9 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
             cfg->preset = 1;
+        } else { /* invalid ip information, disable the setting of ip info */
+            loaderData->ipinfo_set = 0;
+            loaderData->ip = NULL;
         }
     }
 
