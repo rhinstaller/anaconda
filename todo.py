@@ -396,7 +396,7 @@ class ToDo:
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
-        mounts = self.mounts.keys ()
+        keys = self.mounts.keys ()
 	keys.sort()
 	keys.reverse()
 	for n in keys:
