@@ -1,7 +1,10 @@
 #
 # network_text.py: text mode network configuration dialogs
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Jeremy Katz <katzj@redhat.com>
+# Michael Fulbright <msf@redhat.com>
+#
+# Copyright 2000-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,174 +17,149 @@
 import iutil
 import os
 import isys
+import string
+from network import isPtpDev, anyUsingDHCP, sanityCheckIPString
+from network import sanityCheckHostname
 from snack import *
 from constants_text import *
 from rhpl.translate import _
 
-class NetworkWindow:
-    def setsensitive (self):
-        if self.cb.selected ():
+
+def badIPDisplay(screen, the_ip):
+    ButtonChoiceWindow(screen, _("Invalid IP string"),
+                       _("The entered IP '%s' is not a valid IP.") %(the_ip,),
+                       buttons = [ _("OK") ])
+    return
+
+class NetworkDeviceWindow:
+    def setsensitive(self):
+        if self.dhcpCb.selected ():
             sense = FLAGS_SET
         else:
             sense = FLAGS_RESET
 
-        for n in self.ip, self.nm, self.gw, self.ns, self.ns2, self.ns3:
+        for n in self.entries.values():
             n.setFlags (FLAG_DISABLED, sense)
 
-    def calcNM (self):
-        ip = self.ip.value ()
-        if ip and not self.nm.value ():
+    def calcNM(self):
+        ip = self.entries["ipaddr"].value()
+        if ip and not self.entries["netmask"].value ():
             try:
                 mask = "255.255.255.0"
             except ValueError:
                 return
 
-            self.nm.set (mask)
-
-    def calcGW (self):
-        ip = self.ip.value ()
-        nm = self.nm.value ()
-        if ip and nm:
-            try:
-                (net, bcast) = isys.inet_calcNetBroad (ip, nm)
-            except ValueError:
-                return
-
-            if not self.gw.value ():
-                gw = isys.inet_calcGateway (bcast)
-                self.gw.set (gw)
-            if not self.ns.value ():
-                ns = isys.inet_calcNS (net)
-                self.ns.set (ns)
-
-    def runScreen(self, screen, network, dev):
-
-        firstg = Grid (1, 3)
-        boot = dev.get ("bootproto")
-        onboot = dev.get('onboot')
-        onbootIsOn = ((dev == network.available().values()[0] and not onboot)
-                      or onboot == 'yes')
+            self.entries["netmask"].set (mask)
         
+    def runScreen(self, screen, network, dev):
+        boot = dev.get("bootproto")
+        onboot = dev.get("onboot")
+        onbootIsOn = ((dev == network.available().values()[0] and not onboot)
+                      or onboot == "yes")
         if not boot:
             boot = "dhcp"
-        firstg.setField (Label (_("Network Device: %s") %
-                                (dev.info['DEVICE'],)),
-                         0, 0, padding = (0, 0, 0, 1), anchorLeft = 1)
-        self.cb = Checkbox (_("Use bootp/dhcp"),
-                            isOn = (boot == "dhcp"))
-        firstg.setField (self.cb, 0, 1, anchorLeft = 1)
-        self.onboot = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
-        firstg.setField (self.onboot, 0, 2, anchorLeft = 1)
 
-        ask_ptp = None
-        if len(dev.info["DEVICE"]) >= 3 and dev.info["DEVICE"][:3] == "ctc":
-            ask_ptp = 1
-            secondg = Grid (2, 7)
-        else:
-            secondg = Grid (2, 6)
-            
-        secondg.setField (Label (_("IP address:")), 0, 0, anchorLeft = 1)
-	secondg.setField (Label (_("Netmask:")), 0, 1, anchorLeft = 1)
-	secondg.setField (Label (_("Default gateway (IP):")), 0, 2,
-                          anchorLeft = 1)
-        secondg.setField (Label (_("Primary nameserver:")), 0, 3,
-                          anchorLeft = 1)
-        secondg.setField (Label (_("Secondary nameserver:")), 0, 4,
-                          anchorLeft = 1)
-        secondg.setField (Label (_("Tertiary nameserver:")), 0, 5,
-                          anchorLeft = 1)
-        if ask_ptp:            
-            secondg.setField (Label (_("Point to Point (IP):")), 0, 6,
-                              anchorLeft = 1)
+	options = [(_("IP Address"), "ipaddr"),
+		   (_("Netmask"),    "netmask")]
+        if (isPtpDev(dev.info["DEVICE"])):
+	    newopt = (_("Point to Point (IP)"), "remip")
+	    options.append(newopt)
+
+        thegrid = Grid(2, 3 + len(options))
+
+        thegrid.setField(Label (_("Network Device: %s")
+                                %(dev.info['DEVICE'],)),
+                         0, 0, padding = (0, 0, 0, 1), anchorLeft = 1,
+                         growx = 1)
+
+        self.dhcpCb = Checkbox(_("Configure using DHCP"),
+                               isOn = (boot == "dhcp"))
+        thegrid.setField(self.dhcpCb, 0, 1, anchorLeft = 1, growx = 1)
         
-        self.ip = Entry (16)
-        self.ip.set (dev.get ("ipaddr"))
-        self.nm = Entry (16)
-        self.nm.set (dev.get ("netmask"))
-        self.gw = Entry (16)
-        self.gw.set (network.gateway)
-        self.ns = Entry (16)
-        self.ns.set (network.primaryNS)
-        self.ns2 = Entry (16)
-        self.ns2.set (network.secondaryNS)
-        self.ns3 = Entry (16)
-        self.ns3.set (network.ternaryNS)
-        if ask_ptp:            
-            self.ptp = Entry(16)
-            self.ptp.set (dev.get ("remip"))
+        self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
+        thegrid.setField(self.onbootCb, 0, 2, anchorLeft = 1, growx = 1,
+                         padding = (0, 0, 0, 1))
 
-            
-        self.cb.setCallback (self.setsensitive)
-        self.ip.setCallback (self.calcNM)
-        self.nm.setCallback (self.calcGW)
+        row = 3
+        self.entries = {}
+        for (name, opt) in options:
+            thegrid.setField(Label(name), 0, row, anchorLeft = 1)
 
-        secondg.setField (self.ip, 1, 0, (1, 0, 0, 0))
-	secondg.setField (self.nm, 1, 1, (1, 0, 0, 0))        
-	secondg.setField (self.gw, 1, 2, (1, 0, 0, 0))
-        secondg.setField (self.ns, 1, 3, (1, 0, 0, 0))
-        secondg.setField (self.ns2, 1, 4, (1, 0, 0, 0))
-        secondg.setField (self.ns3, 1, 5, (1, 0, 0, 0))
-	if ask_ptp:
-            secondg.setField (self.ptp, 1, 6, (1, 0, 0, 0))
+            entry = Entry (16)
+            entry.set(dev.get(opt))
+            thegrid.setField(entry, 1, row, padding = (1, 0, 0, 0))
 
-        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+            self.entries[opt] = entry
 
-        toplevel = GridFormHelp (screen, _("Network Configuration for %s") %
-                                 (dev.info['DEVICE']), 
-				 "network", 1, 3)
-        toplevel.add (firstg, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-        toplevel.add (secondg, 0, 1, (0, 0, 0, 1))
-        toplevel.add (bb, 0, 2, growx = 1)
+            row = row + 1
 
-        self.setsensitive ()
+        self.dhcpCb.setCallback(self.setsensitive)
+        self.entries["ipaddr"].setCallback(self.calcNM)
 
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        toplevel = GridFormHelp(screen, _("Network Configuration for %s") %
+                                (dev.info['DEVICE']), 
+                                "networkdev", 1, 3)
+        toplevel.add(thegrid, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        toplevel.add(bb, 0, 2, growx = 1)
+
+        self.setsensitive()
+        
         while 1:
-            result = toplevel.run ()
-            if self.onboot.selected() != 0:
-                dev.set (('onboot', 'yes'))
-            else:
-                dev.unset ('onboot')
-            if self.cb.selected ():
-                dev.set (("bootproto", "dhcp"))
-                dev.unset ("ipaddr", "netmask", "network", "broadcast", "remip")
-            else:
-                try:
-                    (net, bc) = isys.inet_calcNetBroad (self.ip.value (),
-                                                        self.nm.value ())
-                except:
-                    ButtonChoiceWindow(screen, _("Invalid information"),
-                                       _("You must enter valid IP information to continue"),
-                                       buttons = [ _("OK") ])
-                    continue
-
-                dev.set (("bootproto", "static"))
-                dev.set (("ipaddr", self.ip.value ()), ("netmask",
-                                                        self.nm.value ()),
-                         ("network", net), ("broadcast", bc))
-                if ask_ptp:
-                    dev.set (("remip", self.ptp.value()))
-                network.gateway = self.gw.value ()
-                network.primaryNS = self.ns.value ()
-                network.secondaryNS = self.ns2.value()
-                network.ternaryNS = self.ns3.value()
-
+            result = toplevel.run()
+            rc = bb.buttonPressed (result)
             screen.popWindow()
-            break
-                     
-        rc = bb.buttonPressed (result)
 
-        if rc == TEXT_BACK_CHECK:
-            return INSTALL_BACK
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+
+            if self.onbootCb.selected() != 0:
+                dev.set(("onboot", "yes"))
+            else:
+                dev.unset("onboot")
+
+            if self.dhcpCb.selected() != 0:
+                dev.set(("bootproto", "dhcp"))
+                dev.unset("ipaddr", "netmask", "network", "broadcast", "remip")
+            else:
+                ip = self.entries["ipaddr"].value()
+                nm = self.entries["netmask"].value()
+                try:
+                    (net, bc) = isys.inet_calcNetBroad(ip, nm)
+                except:
+                    if self.onbootCb.selected() != 0:
+                        ButtonChoiceWindow(screen, _("Invalid information"),
+                                           _("You must enter valid IP "
+                                             "information to continue"),
+                                           buttons = [ _("OK") ])
+                        continue
+                    else:
+                        net = ""
+                        bc = ""
+
+                dev.set(("bootproto", "static"))
+
+                for val in self.entries.keys():
+                    if self.entries[val].value():
+                        dev.set((val, self.entries[val].value()))
+                        
+                if bc and net:
+                    dev.set(("broadcast", bc), ("network", net))
+
+            break
+
         return INSTALL_OK
+
 
     def __call__(self, screen, network, dir, intf):
 
-        devices = network.available ()
+        devices = network.available()
         if not devices:
             return INSTALL_NOOP
 
-	list = devices.keys ()
-	list.sort()
+        list = devices.keys()
+        list.sort()
         devLen = len(list)
         if dir == 1:
             currentDev = 0
@@ -200,33 +178,202 @@ class NetworkWindow:
         else:
             return INSTALL_OK
 
+class NetworkGlobalWindow:
+    def getFirstGatewayGuess(self, devices):
+        list = devices.keys()
+        list.sort()
+        for dev in list:
+            thedev = devices[dev]
+            bootproto = thedev.get("bootproto")
+            if bootproto and bootproto == "dhcp":
+                continue
+            onboot = thedev.get("onboot")
+            if onboot and onboot == "no":
+                continue
+            bcast = thedev.get("broadcast")
+            if not bcast:
+                continue
+            return isys.inet_calcGateway(bcast)
+        return ""
+            
+    def __call__(self, screen, network, dir, intf):
+        devices = network.available()
+        if not devices:
+            return INSTALL_NOOP
+
+        # we don't let you set gateway/dns if you've got any interfaces
+        # using dhcp (for better or worse)
+        if anyUsingDHCP(devices):
+            return INSTALL_NOOP
+
+        thegrid = Grid(2, 4)
+
+        thegrid.setField(Label(_("Gateway:")), 0, 0, anchorLeft = 1)
+        gwEntry = Entry(16)
+        # if it's set already, use that... otherwise, get the first
+        # non-dhcp and active device and use it to guess the gateway
+        if network.gateway:
+            gwEntry.set(network.gateway)
+        else:
+            gwEntry.set(self.getFirstGatewayGuess(devices))
+        thegrid.setField(gwEntry, 1, 0, padding = (1, 0, 0, 0))
+        
+        thegrid.setField(Label(_("Primary DNS:")), 0, 1, anchorLeft = 1)
+        ns1Entry = Entry(16)
+        ns1Entry.set(network.primaryNS)
+        thegrid.setField(ns1Entry, 1, 1, padding = (1, 0, 0, 0))
+        
+        thegrid.setField(Label(_("Secondary DNS:")), 0, 2, anchorLeft = 1)
+        ns2Entry = Entry(16)
+        ns2Entry.set(network.secondaryNS)
+        thegrid.setField(ns2Entry, 1, 2, padding = (1, 0, 0, 0))
+        
+        thegrid.setField(Label(_("Tertiary DNS:")), 0, 3, anchorLeft = 1)
+        ns3Entry = Entry(16)
+        ns3Entry.set(network.ternaryNS)
+        thegrid.setField(ns3Entry, 1, 3, padding = (1, 0, 0, 0))
+
+        bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+
+        toplevel = GridFormHelp (screen, _("Miscellaneous Network Settings"),
+				 "miscnetwork", 1, 3)
+        toplevel.add (thegrid, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        toplevel.add (bb, 0, 2, growx = 1)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed (result)
+            screen.popWindow()
+
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+
+            val = gwEntry.value()
+            if val and sanityCheckIPString(val) is None:
+                badIPDisplay(screen, val)
+                continue
+            network.gateway = val
+
+            val = ns1Entry.value()
+            if val and sanityCheckIPString(val) is None:
+                badIPDisplay(screen, val)
+                continue
+            network.primaryNS = val
+
+            val = ns2Entry.value()
+            if val and sanityCheckIPString(val) is None:
+                badIPDisplay(screen, val)
+                continue
+            network.secondaryNS = val
+
+            val = ns3Entry.value()
+            if val and sanityCheckIPString(val) is None:
+                badIPDisplay(screen, val)
+                continue
+            network.ternaryNS = val
+            break
+        
+        return INSTALL_OK
+        
+
 class HostnameWindow:
+    def hostTypeCb(self, (radio, hostEntry)):
+        if radio.getSelection() != "manual":
+            sense = FLAGS_SET
+        else:
+            sense = FLAGS_RESET
+
+        hostEntry.setFlags(FLAG_DISABLED, sense)
+            
     def __call__(self, screen, network, dir, intf):
         devices = network.available ()
         if not devices:
             return INSTALL_NOOP
 
-	list = devices.keys ()
-	list.sort()
-        dev = devices[list[0]]
-        if dev.get ("bootproto") == "dhcp":
-            return INSTALL_NOOP
-        
-        entry = Entry (24)
+        # figure out if the hostname is currently manually set
+        if anyUsingDHCP(devices):
+            if (network.hostname != "localhost.localdomain" and
+                network.overrideDHCPhostname):
+                manual = 1
+            else:
+                manual = 0
+        else:
+            manual = 1
 
+        thegrid = Grid(2, 2)
+        radio = RadioGroup()
+        autoCb = radio.add(_("automatically via DHCP"), "dhcp",
+                                not manual)
+        thegrid.setField(autoCb, 0, 0, growx = 1, anchorLeft = 1)
+
+        manualCb = radio.add(_("manually"), "manual", manual)
+        thegrid.setField(manualCb, 0, 1, anchorLeft = 1)
+        hostEntry = Entry(24)
         if network.hostname != "localhost.localdomain":
-            entry.set (network.hostname)
+            hostEntry.set(network.hostname)
+        thegrid.setField(hostEntry, 1, 1, padding = (1, 0, 0, 0),
+                         anchorLeft = 1)            
 
-        rc, values = EntryWindow(screen, _("Hostname Configuration"),
-             _("The hostname is the name of your computer.  If your "
-               "computer is attached to a network, this may be "
-               "assigned by your network administrator."),
-             [(_("Hostname"), entry)], buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
-	     help = "hostname")
+        # disable the dhcp if we don't have any dhcp
+        if anyUsingDHCP(devices):
+            autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_RESET)            
+        else:
+            autoCb.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
 
-        if rc == TEXT_BACK_CHECK:
-            return INSTALL_BACK
+        self.hostTypeCb((radio, hostEntry))
 
-        network.hostname = entry.value ()
+        autoCb.setCallback(self.hostTypeCb, (radio, hostEntry))
+        manualCb.setCallback(self.hostTypeCb, (radio, hostEntry))
+
+        toplevel = GridFormHelp(screen, _("Hostname Configuration"),
+                                "hostname", 1, 4)
+        text = TextboxReflowed(55,
+                               _("If your system is part of a larger network "
+                                 "where hostnames are assigned by DHCP, "
+                                 "select automatically via DHCP. Otherwise, "
+                                 "select manually and enter in a hostname for "
+                                 "your system. If you do not, your system "
+                                 "will be known as 'localhost.'"))
+        toplevel.add(text, 0, 0, (0, 0, 0, 1))
+
+        bb = ButtonBar(screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        toplevel.add(thegrid, 0, 1, padding = (0, 0, 0, 1))
+        toplevel.add(bb, 0, 2, growx = 1)
+
+        while 1:
+            result = toplevel.run()
+            rc = bb.buttonPressed(result)
+            screen.popWindow()
+            
+            if rc == TEXT_BACK_CHECK:
+                return INSTALL_BACK
+
+            if radio.getSelection != "manual":
+                network.overrideDHCPhostname = 0
+                network.hostname = "localhost.localdomain"
+            else:
+                hname = string.strip(hostEntry.value())
+                if len(hname) == 0:
+                    ButtonChoiceWindow(_("Invalid Hostname"),
+                                       _("You have not specified a hostname."),
+                                       buttons = [ _("OK") ])
+                    continue
+                neterrors = sanityCheckHostname(hname)
+                if neterrors is not None:
+                    ButtonChoiceWindow(_("Invalid Hostname"),
+                                       _("The hostname \"%s\" is not valid "
+                                         "for the following reason:\n\n%s")
+                                       %(hname, neterrors),
+                                       buttons = [ _("OK") ])
+                    continue
+
+                network.overrideDHCPhostname = 1
+                network.hostname = hname
+            break
 
         return INSTALL_OK
+            
+
+            
+
+        

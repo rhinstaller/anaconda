@@ -225,8 +225,8 @@ class NetworkWindow(InstallWindow):
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
 
-	if len(dev) >= 3 and dev[:3] == 'ctc':
-	    newopt = (_("Point to Point (IP)"), "remip")
+        if (isPtpDev(dev)):
+	    newopt = (_("_Point to Point (IP)"), "remip")
 	    options.append(newopt)
             
         ipTable = gtk.Table(len(options), 2)
