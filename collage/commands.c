@@ -310,19 +310,17 @@ int chmodCommand(int argc, char ** argv) {
 
 int uncpioCommand(int argc, char ** argv) {
     int rc;
-    char * fail;
-    CFD_t cfd;
+    const char * fail;
+    FD_t cfd;
 
     if (argc != 1) {
 	fprintf(stderr, "uncpio reads from stdin");
 	return 1;
     }
 
-    cfd.cpioPos = 0;
-    cfd.cpioIoType = cpioIoTypeGzFd;
-    cfd.cpioGzFd = gzdFdopen(fdDup(0), "r");
+    cfd = Fdopen(fdDup(0), "r.gzdio");
 
-    rc = cpioInstallArchive(&cfd, NULL, 0, NULL, NULL, &fail);
+    rc = cpioInstallArchive(cfd, NULL, 0, NULL, NULL, &fail);
 
     if (rc) {
 	fprintf(stderr, "cpio failed on %s: ", fail);
