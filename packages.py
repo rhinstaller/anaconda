@@ -64,8 +64,8 @@ def writeKSConfiguration(id, instPath):
     id.writeKS(fn)
 
 def writeXConfiguration(id, instPath):
-##     if flags.test:
-##         return
+    if flags.test:
+        return
 
     if id.xconfig.skipx:
         return
@@ -74,7 +74,6 @@ def writeXConfiguration(id, instPath):
     if not xserver:
         return
 
-    print "would symlink " + xserver
     log("Writing X configuration")
     if not flags.test:
         fn = instPath
