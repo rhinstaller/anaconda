@@ -183,7 +183,7 @@ class ExceptionWindow:
         info = GtkLabel (_("An exceptional condition has occured.  This "
                            "is most likely a bug.  Please copy the "
                            "full text of this exception and file a bug "
-                           "report at "
+                           "report against anaconda at "
                            "http://bugzilla.redhat.com/bugzilla"))
         info.set_line_wrap (TRUE)
         info.set_usize (400, -1)
