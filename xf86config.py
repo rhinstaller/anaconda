@@ -540,6 +540,7 @@ class XF86Config:
         self.monVert = "60"
 	self.monSect = ""
         self.monID = "Unprobed Monitor"
+        self.state = ""
         self.devID = None
         self.probed = 0
         self.skip = 0
