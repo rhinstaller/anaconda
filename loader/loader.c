@@ -344,7 +344,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
 			mlLoadModule(modList[i]->moduleName, modLoaded, 
-				     modDeps, flags);
+				     modDeps, FL_TESTING(flags));
 		    }
 		}
 	    }
@@ -554,7 +554,7 @@ int main(int argc, char ** argv) {
     startNewt();
 
     doMountImage("/mnt/source", kd.numKnown, kd.known, 
-    		 modLoaded, modDeps, flags);
+    		 modLoaded, modDeps, FL_TESTING(flags));
 
     if (!FL_TESTING(flags)) {
      
