@@ -33,6 +33,7 @@
 static int hasaliases;
 static char *promdev = "/dev/openprom";
 static int promfd;
+static char sd_targets[10] = "31204567";
 static int p1275 = 0;
 static int prom_root_node, prom_current_node;
 static int promvers;
@@ -290,8 +291,15 @@ scan_walk_callback(int node) {
 		    if (!prop)
 			prop = ((struct openpromio *)buf)->oprom_array;
 		    sprintf (prop, "/%s@%x,%x", name, hd[disk].mid, hd[disk].lo);
-		} else
-		    sprintf (prop, "sd(%d,%d,", v0ctrl, hd[disk].mid);
+		} else {
+		    int i;
+		    for (i = 0; sd_targets[i]; i++)
+			if (sd_targets[i] == '0' + hd[disk].mid)
+			    break;
+		    if (!sd_targets[i])
+			i = hd[disk].mid;
+		    sprintf (prop, "sd(%d,%d,", v0ctrl, i);
+		}
 		break;
 	    case SDSK_TYPE_PLN:
 		prop = ((struct openpromio *)buf)->oprom_array;
@@ -551,6 +559,12 @@ static int get_prom_ver(void)
 	    }
 	}
 	fclose(f);
+    }
+    if (!ver) {
+	int len;
+        p = prom_getopt("sd-targets", &len);
+        if (p && len > 0 && len <= 8)
+	    strcpy(sd_targets, p);
     }
     return ver;
 }
