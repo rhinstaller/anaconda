@@ -337,3 +337,6 @@ def driveIsRemovable(device):
         os.unlink("/tmp/disk")
 
     return rc
+
+def vtActivate (num):
+    _isys.vtActivate (num)

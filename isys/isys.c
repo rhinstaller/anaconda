@@ -25,6 +25,7 @@
 #include <pump.h>
 #include <scsi/scsi.h>
 #include <scsi/scsi_ioctl.h>
+#include <sys/vt.h>
 
 #include "Python.h"
 
@@ -83,6 +84,7 @@ static PyObject * doExt2Dirty(PyObject * s, PyObject * args);
 static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
+static PyObject * doVtActivate(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -127,6 +129,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { "isScsiRemovable", (PyCFunction) doIsScsiRemovable, METH_VARARGS, NULL},
     { "isIdeRemovable", (PyCFunction) doIsIdeRemovable, METH_VARARGS, NULL},
+    { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1320,3 +1323,18 @@ static PyObject * doEjectCdrom(PyObject * s, PyObject * args) {
     Py_INCREF(Py_None);
     return Py_None;
 }
+
+static PyObject * doVtActivate(PyObject * s, PyObject * args) {
+    int vtnum;
+
+    if (!PyArg_ParseTuple(args, "i", &vtnum)) return NULL;
+
+    if (ioctl(0, VT_ACTIVATE, vtnum)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
