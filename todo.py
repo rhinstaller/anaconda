@@ -382,6 +382,8 @@ class ToDo:
         self.monitorOriginalName = ""
         self.monitorOriginalNode = ""
         self.probedFlag = ""
+        self.resState = ""
+        self.depthState = ""
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
