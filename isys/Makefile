@@ -28,6 +28,12 @@ PYMODULES += _silo.so
 SOURCES += silo.c
 endif
 
+ifeq ($(ARCH),ppc)
+OBJECTS += minifind.o
+SOURCES += minifind.c
+DIETLIB=libisys-diet.a
+endif
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
 else

@@ -21,6 +21,7 @@ typedef unsigned long u_long;
 typedef unsigned int u_int;
 #endif
 
+
 #ifdef __alpha__
 int alphaDetectSMP(void)
 {
@@ -98,11 +99,41 @@ int sparcDetectSMP(void)
 #endif /* __sparc__ */
 
 #ifdef __powerpc__
-/* FIXME: placeholder */
-int ppcDetectSMP(void) {
-    return 0;
+#include "minifind.h"
+
+/* FIXME: this won't work on iSeries */
+int powerpcDetectSMP(void)
+{
+    int issmp = -1;
+    FILE *f;
+    struct findNode *list = (struct findNode *) malloc(sizeof(struct findNode));
+    struct pathNode *n;
+        
+    list->result = (struct pathNode *) malloc(sizeof(struct pathNode));
+    list->result->path = NULL;
+    list->result->next = list->result;
+        
+    minifind("/proc/device-tree/cpus", "device_type", list);
+              
+    for (n = list->result->next; n != list->result; n = n->next)
+        {
+            f = fopen(n->path, "r");
+            if (f) {
+                char buff[1024];
+                while (fgets (buff, 1024, f) !=  NULL) {
+                    if (!strncmp (buff, "cpu", 3))
+                        {
+                            issmp++;
+                            break;
+                        }
+                }
+                fclose(f);
+            }
+        }
+
+    return issmp;
 }
-#endif
+#endif /* __powerpc__ */
 
 #ifdef __i386__
 /*
@@ -601,7 +632,7 @@ int detectSMP(void)
 #elif __x86_64__
     return isSMP = 1;
 #elif __powerpc__
-    return isSMP = ppcDetectSMP();
+    return isSMP = powerpcDetectSMP();
 #else
     #error unknown architecture
 #endif
