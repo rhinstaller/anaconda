@@ -100,7 +100,7 @@ if [ $BUILDARCH = "sparc" ]; then
     BUILDARCH=sparc64
 fi
 
-if [ -n "$PKGORDER" -a -x $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder ]; then
+if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
 	runroot $COMPNAME --onlyone --arch $BUILDARCH \
