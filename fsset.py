@@ -1448,8 +1448,8 @@ class FileSystemSet:
         root = self.getEntryByMountPoint("/")
         if isinstance(root.device, LogicalVolumeDevice):
             # now make sure all of the device nodes exist.  *sigh*
-            rc = iutil.execWithRedirect("/usr/sbin/vgmknodes",
-                                        ["vgmknodes", "-v"],
+            rc = iutil.execWithRedirect("/usr/sbin/lvm",
+                                        ["lvm", "vgmknodes", "-v"],
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
@@ -1458,8 +1458,11 @@ class FileSystemSet:
             rootdir = instPath + rootDev[:string.rfind(rootDev, "/")]
             if not os.path.isdir(rootdir):
                 os.makedirs(rootdir)
-            iutil.copyDeviceNode(rootDev, instPath + rootDev)
-
+            if not os.path.isdir(instPath + "/dev/mapper"):
+                os.makedirs(instPath + "/dev/mapper")
+            dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
+            iutil.copyDeviceNode(dmdev, instPath + dmdev)
+            os.symlink(dmdev, instPath + rootDev)
 #        raise RuntimeError
 
     def filesystemSpace(self, chroot='/'):
@@ -1837,8 +1840,8 @@ class VolumeGroupDevice(Device):
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
-                rc = iutil.execWithRedirect("/usr/sbin/pvcreate",
-                                            ["pvcreate", "-ff", "-y",
+                rc = iutil.execWithRedirect("/usr/sbin/lvm",
+                                            ["lvm", "pvcreate", "-ff", "-y",
                                              "-v", node],
                                             stdout = "/tmp/lvmout",
                                             stderr = "/tmp/lvmout",
@@ -1852,7 +1855,7 @@ class VolumeGroupDevice(Device):
             # rescan now that we've recreated pvs.  ugh.
             lvm.vgscan()
 
-            args = [ "/usr/sbin/vgcreate", "-v", "-An",
+            args = [ "/usr/sbin/lvm", "vgcreate", "-v", "-An",
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
@@ -1894,8 +1897,8 @@ class LogicalVolumeDevice(Device):
 
     def setupDevice(self, chroot="/", devPrefix='/tmp'):
         if not self.isSetup:
-            rc = iutil.execWithRedirect("/usr/sbin/lvcreate",
-                                        ["lvcreate", "-L",
+            rc = iutil.execWithRedirect("/usr/sbin/lvm",
+                                        ["lvm", "lvcreate", "-L",
                                          "%dM" % (self.size,),
                                          "-n", self.name, "-An",
                                          self.volumeGroup],
