@@ -509,7 +509,7 @@ char * validIsoImages(char * dirName) {
     while ((ent = readdir(dir))) {
 	sprintf(isoImage, "%s/%s", dirName, ent->d_name);
 
-	if (fileIsIso(isoImage)) {
+	if (!fileIsIso(isoImage)) {
 	    errno = 0;
 	    continue;
 	}
@@ -950,7 +950,7 @@ static char * mediaCheckISODir(char *path) {
     while ((ent = readdir(dir))) {
 	sprintf(isoImage, "%s/%s", path, ent->d_name);
 
-	if (fileIsIso(isoImage)) {
+	if (!fileIsIso(isoImage)) {
 	    errno = 0;
 	    continue;
 	}
