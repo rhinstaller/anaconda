@@ -53,6 +53,7 @@ class UpgradeExamineWindow (InstallWindow):
             vbox.pack_start (sw, TRUE)
         else:
             # if there is only one partition, go on.
+            self.ics.setNextEnabled (TRUE)
             self.root = parts[0]
             
         self.individualPackages = GtkCheckButton (_("Customize packages to be upgraded"))
