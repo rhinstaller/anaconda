@@ -44,9 +44,9 @@ class PartitionWindow (InstallWindow):
             window.window = bin
             return window
 
-        fstab = todo.ddruid.getFstab ()
+        fstab = self.todo.ddruid.getFstab ()
         for (partition, mount, size) in fstab:
-            todo.addMount(partition, mount)
+            self.todo.addMount(partition, mount)
 
         return None
 
