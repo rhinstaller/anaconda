@@ -346,7 +346,6 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 
 		    compressFilelist(h);
 		    while (newFileListCount--) {
-			printf("f: %s\n", newFileList[newFileListCount]);
 			free(newFileList[newFileListCount]);
 		    }
 		    free(newFileList);
