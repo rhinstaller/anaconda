@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-11 17:54+0300\n"
+"PO-Revision-Date: 2004-11-24 19:47+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
@@ -2984,7 +2984,7 @@ msgstr "Et ole määritellyt konenimeä."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 #, fuzzy
@@ -3029,6 +3029,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Pääkäyttäjän root-tunnusta käytetään järjestelmän ylläpitoon. Anna salasana "
+"root-käyttäjälle."
 
 # ../iw/account_gui.py:289
 #: ../iw/account_gui.py:110
@@ -5902,7 +5904,7 @@ msgstr "Ohita X-a_setukset"
 #: ../iw/zfcp_gui.py:23
 #, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC-asetukset"
+msgstr "ZFCP-asetukset"
 
 #: ../iw/zfcp_gui.py:102
 msgid "_Remove"
@@ -6943,15 +6945,14 @@ msgid ""
 msgstr ""
 
 #: ../textw/partition_text.py:1362
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Muokkaa loogista taltiota"
+msgstr "Uusi osio vai looginen taltio?"
 
 # ../partitioning.py:524 ../partitioning.py:605
 #: ../textw/partition_text.py:1363
 #, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Käynnistysosio ei voi olla taltioryhmässä."
+msgstr "Haluatko luoda uuden osion vai uuden loogisen taltion?"
 
 # ../iw/bootloader_gui.py:242 ../iw/bootloader_gui.py:432
 # ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
@@ -6961,9 +6962,8 @@ msgid "partition"
 msgstr "osio"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "logical volume"
-msgstr "Loogiset taltiot"
+msgstr "looginen taltio"
 
 # ../textw/partition_text.py:989
 #: ../textw/partition_text.py:1439
@@ -7772,7 +7772,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -7784,7 +7783,7 @@ msgid ""
 msgstr ""
 "\tTyöpöytä (Gnome)\n"
 "\tToimisto-ohjelmisto (OpenOffice.org)\n"
-"\tWWW-selain (Mozilla) \n"
+"\tWWW-selain \n"
 "\tSähköposti (Evolution)\n"
 "\tPikaviestintä\n"
 "\tÄäni- ja videosovellukset\n"
@@ -7792,7 +7791,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Redhat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -7805,18 +7804,17 @@ msgstr ""
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -7830,12 +7828,12 @@ msgid ""
 msgstr ""
 "\tTyöpöytä (Gnome)\n"
 "\tToimisto-ohjelmisto (OpenOffice.org)\n"
-"\tWWW-selain (Mozilla) \n"
+"\tWWW-selain \n"
 "\tSähköposti (Evolution)\n"
 "\tPikaviestintä\n"
 "\tÄäni- ja videosovellukset\n"
 "\tPelit\n"
-"\tSovelluskehitystyökalut\n"
+"\tOhjelmistokehitystyökalut\n"
 "\tYlläpitotyökalut\n"
 
 # ../installclasses/server.py:9
@@ -9550,16 +9548,15 @@ msgstr "Zaporozh'ye, Itä-Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "arabia"
 
 #. generated from lang-table
 msgid "Bengali"
 msgstr "bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "bengali"
+msgstr "bengali (Intia)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -9616,7 +9613,7 @@ msgstr "saksa"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "gudžarati"
 
 # ../upgrade.py:262
 #. generated from lang-table
@@ -9645,7 +9642,7 @@ msgstr "korea"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "makedonia"
 
 #. generated from lang-table
 msgid "Malay"
@@ -9673,7 +9670,7 @@ msgstr "portugali (brasilian-)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "pandžabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -9705,7 +9702,7 @@ msgstr "ukraina"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "vietnam"
 
 #. generated from lang-table
 msgid "Welsh"
