@@ -329,7 +329,8 @@ class InstallInterface:
 
 	self.dispatch = dispatch
 
-        if flags.setupFilesystems:
+        # XXX users complain when the keypad doesn't work for input.
+        if 0 and flags.setupFilesystems:
             try:
                 kb.setMouseKeys (1)
             except SystemError:
