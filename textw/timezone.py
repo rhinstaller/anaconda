@@ -76,6 +76,7 @@ class TimezoneWindow:
 
 	self.l.setCurrent(default)
 	self.l.setCallback(self.updateClock)
+	self.updateClock()
 
 	self.c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
 	self.c.setCallback(self.updateSysClock)
