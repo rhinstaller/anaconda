@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-23 01:26+0200\n"
+"PO-Revision-Date: 2004-10-05 00:53+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2507,15 +2507,14 @@ msgstr ""
 "uppgraderingsprocessen?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Den arkitektur för den utgåva av %s som du uppgraderar till verkar vara %s, "
-"som inte stämmer överens med din tidigare installerade arkitektur %s. Detta "
-"kommer sannolikt inte att lyckas. Är du säker på att du vill fortsätta "
-"uppgraderingen?"
+"Du verkar uppgradera från ett system som är för gammalt för att kunna "
+"uppgraderas till denna version av %s. Är du säker på att du vill fortsätta "
+"uppgraderingsprocessen?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -6759,7 +6758,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6771,15 +6769,20 @@ msgid ""
 msgstr ""
 "\tSkrivbordsskal (GNOME)\n"
 "\tKontorsprogramvara (OpenOffice.org)\n"
-"\tWebbläsare (Mozilla) \n"
+"\tWebbläsare \n"
 "\tE-post (Evolution)\n"
 "\tSnabbmeddelanden\n"
 "\tProgram för ljud och video\n"
 "\tSpel\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux AS"
+msgstr "Red Hat Enterprise Linux AS"
+
+msgid "Red Hat Enterprise Linux"
+msgstr "Red Hat Enterprise Linux"
+
+msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
@@ -6790,23 +6793,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tSkrivbordsskal (GNOME)\n"
+"\tAdministrationsverktyg\n"
+"\tServerkonfigurationsverktyg\n"
+"\tWebbserver\n"
+"\tWindows-filserver (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux ES"
-msgstr "Red Hat Linux"
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
-#, fuzzy
 msgid "Red Hat Enterprise Linux WS"
-msgstr "Red Hat Linux"
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6820,7 +6825,7 @@ msgid ""
 msgstr ""
 "\tSkrivbordsskal (GNOME)\n"
 "\tKontorsprogramvara (OpenOffice.org)\n"
-"\tWebbläsare (Mozilla) \n"
+"\tWebbläsare \n"
 "\tE-post (Evolution)\n"
 "\tSnabbmeddelanden\n"
 "\tProgram för ljud och video\n"
