@@ -4,52 +4,52 @@ import isys
 import iutil
 import rpm
 
-class EliConfiguration:
+class EliloConfiguration:
 
-    def setEliImages(self, images):
-	self.eliImages = images
+    def setEliloImages(self, images):
+	self.eliloImages = images
 
-    def getEliImages(self, fstab):
+    def getEliloImages(self, fstab):
 	for (mntpoint, device, fsystem, doFormat, size) in \
 		    fstab.mountList():
 
 	    if mntpoint == '/':
-		self.eliImages[device] = ("linux", 2)
+		self.eliloImages[device] = ("linux", 2)
 		self.default = "linux"
 
-	return (self.eliImages, self.default)
+	return (self.eliloImages, self.default)
 
     def install(self, fstab, instRoot, hdList, upgrade):
 	# If the root partition is on a loopback device, lilo won't work!
 	if fstab.rootOnLoop():
 	    return 
 
-	if not self.eliImages:
-	    (images, default) = self.getEliImages(fstab)
-	    self.setEliImages(images)
+	if not self.eliloImages:
+	    (images, default) = self.getEliloImages(fstab)
+	    self.setEliloImages(images)
 
-        # on upgrade read in the eli config file
-	eli = LiloConfigFile ()
+        # on upgrade read in the elilo config file
+	elilo = LiloConfigFile ()
 	perms = 0644
-        if os.access (instRoot + '/boot/efi/eli.cfg', os.R_OK):
-	    perms = os.stat(instRoot + '/boot/efi/eli.cfg')[0] & 0777
-	    #eli.read (instRoot + '/boot/efi/eli.cfg')
-	    os.rename(instRoot + '/boot/efi/eli.cfg',
-		      instRoot + '/boot/efi/eli.cfg.rpmsave')
+        if os.access (instRoot + '/boot/efi/elilo.conf', os.R_OK):
+	    perms = os.stat(instRoot + '/boot/efi/elilo.conf')[0] & 0777
+	    #elilo.read (instRoot + '/boot/efi/elilo.conf')
+	    os.rename(instRoot + '/boot/efi/elilo.conf',
+		      instRoot + '/boot/efi/elilo.conf.rpmsave')
 
 	# Remove any invalid entries that are in the file; we probably
 	# just removed those kernels. 
-	for label in eli.listImages():
-	    (fsType, sl) = eli.getImage(label)
+	for label in elilo.listImages():
+	    (fsType, sl) = elilo.getImage(label)
 	    if fsType == "other": continue
 
 	    if not os.access(instRoot + sl.getPath(), os.R_OK):
-		eli.delImage(label)
+		elilo.delImage(label)
 
 	bootpart = fstab.getBootDevice()
 	boothd = fstab.getMbrDevice()
 
-	eli.addEntry("timeout", "50", replace = 0)
+	elilo.addEntry("timeout", "50", replace = 0)
 
 	smpInstalled = (hdList.has_key('kernel-smp') and 
                         hdList['kernel-smp'].selected)
@@ -66,7 +66,7 @@ class EliConfiguration:
 
         main = self.default
 
-        for (drive, (label, eliType)) in self.eliImages.items ():
+        for (drive, (label, eliloType)) in self.eliloImages.items ():
             if (drive == rootDev) and label:
                 main = label
             elif label:
@@ -87,8 +87,8 @@ class EliConfiguration:
 	    kernelFile = "vmlinux" + kernelTag
 
 	    try:
-		(fsType, sl) = eli.getImage(label)
-		eli.delImage(label)
+		(fsType, sl) = elilo.getImage(label)
+		elilo.delImage(label)
 	    except IndexError, msg:
 		sl = LiloConfigFile(imageType = "image", path = kernelFile)
 		
@@ -101,12 +101,12 @@ class EliConfiguration:
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 
-	    if self.eliAppend:
-		sl.addEntry('append', '"%s"' % (self.eliAppend,))
+	    if self.eliloAppend:
+		sl.addEntry('append', '"%s"' % (self.eliloAppend,))
 		
-	    eli.addImage (sl)
+	    elilo.addImage (sl)
 
-	eli.write(instRoot + "/boot/efi/eli.cfg", perms = perms)
+	elilo.write(instRoot + "/boot/efi/elilo.conf", perms = perms)
 	
     def makeInitrd (self, kernelTag, instRoot):
 	initrd = "initrd%s.img" % (kernelTag, )
@@ -122,20 +122,20 @@ class EliConfiguration:
 	return initrd
 
     def __init__(self):
-	self.eliImages = {}
+	self.eliloImages = {}
 	self.initrdsMade = {}
-	self.eliAppend = None
+	self.eliloAppend = None
 	self.default = None
 
 if __name__ == "__main__":
     config = LiloConfigFile ()
-    config.read ('/boot/efi/eli.cfg')
+    config.read ('/boot/efi/elilo.conf')
     print config
     print "image list", config.listImages()
     config.delImage ('vmlinux-2.4.0-0.32')
     print '----------------------------------'
     config = LiloConfigFile ()
-    config.read ('/boot/efi/eli.cfg')
+    config.read ('/boot/efi/elilo.conf')
     print config
     print '----------------------------------'    
     print config.getImage('vmlinux-2.4.0-0.32')
