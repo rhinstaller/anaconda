@@ -163,11 +163,12 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 		read SUBCHANNELS
    done
 	if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
+      QETH="yes"
 		if [ -z "$PORTNAME" ]; then
-			echo $"Each OSA-Express feature in QDIO mode must be associated with a port name"
-			echo $"Enter additional parameters for your QETH device"
-			echo $"(e.g. \"add_parms,0x10,{lo_devno,hi_devno},portname:port_name\")"
-			echo $"Press enter if you don't want to enter additional parameters"
+			echo $"Portname of the OSA-Express feature in QDIO mode and z/VM Guest LAN"
+			echo $"This parameter is optional with z/VM 4.4.0 or z/VM 4.3.0 with"
+			echo $"APARs VM63308 and PQ73878"
+			echo $"Press enter if you don't want to enter a portname"
 			read PORTNAME
 		fi
       DIRNAME="qeth"
@@ -366,6 +367,7 @@ BROADCAST=$BROADCAST
 HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
+QETH=$QETH
 EOF
 
 # so that the vars get propagated into the sshd shells
