@@ -282,40 +282,43 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     win = intf.waitWindow(_("Finding"),
                           _("Finding packages to upgrade..."))
 
-    id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
-    rpm.addMacro("_dbpath", "/var/lib/rpm")
-    rpm.addMacro("_dbpath_rebuild", id.dbpath)
-    rpm.addMacro("_dbapi", "-1")
-
     # now, set the system clock so the timestamps will be right:
     if flags.setupFilesystems:
         iutil.setClock(instPath)
-    
-    # and rebuild the database so we can run the dependency problem
-    # sets against the on disk db
 
-    rebuildpath = instPath + id.dbpath
+    # we should only have to rebuild for upgrades of pre rpm 4.0.x systems
+    # according to jbj
+    if os.access(instPath + "/var/lib/rpm/packages.rpm", os.R_OK):
+        id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
+        rpm.addMacro("_dbpath", "/var/lib/rpm")
+        rpm.addMacro("_dbpath_rebuild", id.dbpath)
+        rpm.addMacro("_dbapi", "-1")
 
-    try:
-        iutil.rmrf(rebuildpath)
-    except:
-        pass
+        rebuildpath = instPath + id.dbpath
 
-    rc = rpm.rebuilddb(instPath)
-    if rc:
         try:
             iutil.rmrf(rebuildpath)
         except:
             pass
-        
-	win.pop()
-	intf.messageWindow(_("Error"),
-                           _("Rebuild of RPM database failed. "
-                             "You may be out of disk space?"))
-	sys.exit(0)
 
-    rpm.addMacro("_dbpath", id.dbpath)
-    rpm.addMacro("_dbapi", "3")
+        rc = rpm.rebuilddb(instPath)
+        if rc:
+            try:
+                iutil.rmrf(rebuildpath)
+            except:
+                pass
+        
+            win.pop()
+            intf.messageWindow(_("Error"),
+                               _("Rebuild of RPM database failed. "
+                                 "You may be out of disk space?"))
+            sys.exit(0)
+
+        rpm.addMacro("_dbpath", id.dbpath)
+        rpm.addMacro("_dbapi", "3")
+    else:
+        id.dbpath = None
+        
     try:
         import findpackageset
 	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)

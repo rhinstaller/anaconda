@@ -812,7 +812,7 @@ def doPostInstall(method, id, intf, instPath):
 
 	w.set(4)
 
-	if upgrade:
+        if upgrade and id.dbpath is not None:
 	    # move the rebuilt db into place.
 	    try:
 		iutil.rmrf (instPath + "/var/lib/rpm.rpmsave")
@@ -836,6 +836,7 @@ def doPostInstall(method, id, intf, instPath):
 	    except OSError:
 		pass
 
+        if upgrade:
 	    # needed for prior systems which were not xinetd based
 	    migrateXinetd(instPath, instLogName)
 
