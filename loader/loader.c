@@ -1661,6 +1661,8 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
     int done = 0;
     int rc;
 
+    startNewt(flags);
+
     do { 
 	rc = newtWinChoice(_("Devices"), _("OK"), _("Cancel"),
 		_("Insert your updates disk and press \"OK\" to continue."));
