@@ -418,6 +418,7 @@ int main(void) {
     int cdRoot = 0;
     int doReboot = 0;
     int doShutdown =0;
+    int isSerial = 0;
 #ifdef __alpha__
     char * kernel;
 #endif
@@ -446,33 +447,39 @@ int main(void) {
 
     printf("done\n");
 
-#if 0
     if (isSerial) {
-	fd = open("/dev/ttyS0", O_RDWR, 0);
-	if (fd < 0) {
-	    printf("failed to open /dev/ttyS0");
-	    fatal_error(1);
-	}
-	write(fd, "Switching to serial console...", 29);
-
-	/* gulp */
-	dup2(fd, 0);
-	dup2(fd, 1);
-	dup2(fd, 2);
-	
-	printf("done\n\n");
-
 	printf("Red Hat install init version %s using a serial console\n", 
 		VERSION);
 
 	printf("remember, cereal is an important part of a nutritionally "
 	       "balanced breakfast.\n\n");
 
-	setupTerminal(0);
+	fd = open("/dev/ttyS0", O_RDWR, 0);
+	if (fd < 0) {
+	    printf("failed to open /dev/ttyS0");
+	    fatal_error(1);
+	}
+
+	setupTerminal(fd);
 
 	close(fd);
+    } else {
+	fd = open("/dev/tty1", O_RDWR, 0);
+	if (fd < 0) {
+	    printf("failed to open /dev/tty1");
+	    fatal_error(1);
+	}
     }
-#endif
+
+    dup2(fd, 0);
+    dup2(fd, 1);
+    dup2(fd, 2);
+    close(fd);
+
+    setsid();
+    if (ioctl(0, TIOCSCTTY, NULL)) {
+	printf("could not set new controlling tty");
+    }
 
     if (!testing) {
 	sethostname("localhost.localdomain", 21);
@@ -547,28 +554,6 @@ int main(void) {
 
     if (!(installpid = fork())) {
 	/* child */
-#if 0
-	if (!isSerial) {
-	    fd = open("/dev/tty1", O_RDWR, 0);
-	    if (fd < 0) {
-		printf("failed to open /dev/tty1");
-		fatal_error(1);
-	    }
-	    
-	    dup2(fd, 0);
-	    dup2(fd, 1);
-	    dup2(fd, 2);
-
-	    setsid();
-	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		printf("could not set new controlling tty");
-	    }
-	    
-	    setsid();
-	    close(fd);
-	}
-#endif
-	
 	*argvp++ = "/sbin/loader";
 
 	printf("running %s\n", argv[0]);
