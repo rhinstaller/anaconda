@@ -942,6 +942,9 @@ class ToDo:
 	self.getHeaderList()
 	self.getCompsList()
 
+        if self.x.server:
+            self.selectPackage ('XFree86-' + self.x.server)
+
         # make sure that all comps that include other comps are
         # selected (i.e. - recurse down the selected comps and turn
         # on the children

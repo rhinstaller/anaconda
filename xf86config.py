@@ -100,6 +100,12 @@ class XF86Config:
             monitors.append (string.split (line, ';', 1)[0])
         return monitors
 
+    def setVidcard (self, card):
+        self.vidCards.append (card)
+
+        if self.vidCards:
+            self.devID = self.vidCards[0]["NAME"]
+            self.server = self.vidCards[0]["SERVER"]
 
     def probe (self):
         if self.probed:
@@ -159,6 +165,8 @@ class XF86Config:
                 probe = probe + "\t" + _("Video Ram") + ": " + self.vidRam + " kb\n"
         if self.server:
             probe = probe + "\t" + _("X server") + ": " + self.server + "\n"
+        if not self.server:
+            probe = probe + "\t" + _("Unable to detect video card")
 
         probe = probe + "\n"
 
