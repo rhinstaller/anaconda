@@ -1,28 +1,24 @@
 #!/usr/bin/python
 
 import sys
+#sys.path.append('/usr/lib/anaconda')
 import os
 import os.path
 import rpm
 import string
-
-rpmFD = None
-
 import comps
 
 def cmpHeaderByName(h1, h2):
     n1 = string.lower(h1['name'])
     n2 = string.lower(h2['name'])
-
     if n1 < n2:
 	return -1
     elif n1 == n2:
 	return 0;
-
     return 1
 
 if len(sys.argv) != 3:
-    print "splitdistro <toppath> <arch>"
+    print "pkgorder <toppath> <arch>"
     sys.exit(1)
 
 arch = sys.argv[2]
@@ -32,82 +28,58 @@ if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
     sys.exit(1)
 
-disc1Dir = distDir + "-disc1"
-disc1SrcDir = distDir + "-srpms"
-disc2Dir = distDir + "-disc2"
-
 hdlist = comps.HeaderListFromFile(distDir + "/RedHat/base/hdlist", noscore = 1)
 comps = comps.ComponentSet(distDir + "/RedHat/base/comps", hdlist, 
-			    arch = arch, matchAllLang = 1)
+		arch = arch, matchAllLang = 1)
 
-filenamesByPkgName = {}
-for p in hdlist.hdlist:
-    n = p[rpm.RPMTAG_NAME]
-    if filenamesByPkgName.has_key(n):
-	filenamesByPkgName[n].append(p[1000000] )
-    else:
-	filenamesByPkgName[n] = [ p[1000000] ]
-
-# work out the order we'd like to install everything in
 pkgOrder = []
-list = []
 pkgHash = {}
 
-for package in hdlist.keys():
-    if ((len(package) >= 7 and package[:7] == "kernel-")
-        and not (len(package) >= 10 and package[:10] == "kernel-doc")
-        and not (len(package) >= 13 and package[:13] == "kernel-source")
-        and not (len(package) >= 11 and package[:11] == "kernel-BOOT")):
-        hdlist[package].selected = 1
-        pkgOrder.append(hdlist[package].h)
-        pkgHash[hdlist[package].h] = None
+# add kernels
+for p in hdlist.keys():
+    if ((len(p) >= 7 and p[:7] == "kernel-")
+	and not (len(p) >= 10 and p[:10] == "kernel-doc")
+	and not (len(p) >= 13 and p[:13] == "kernel-source")
+	and not (len(p) >= 11 and p[:11] == "kernel-BOOT")):
+	hdlist[p].selected = 1
+	pkgOrder.append(hdlist[p].h)
+	pkgHash[hdlist[p].h] = None
 
-# for each comp, staring with base, list the packages
+# for each comp, starting with base, list the packages
 # in alphabetical order.
 for comp in comps:
     list = []
     if comp.name != 'Everything':
-        comp.select(1)
+	comp.select(1)
     for p in hdlist.selected():
-        list.append(p.h)
-
+	if not pkgHash.has_key (p.h):
+	    list.append(p.h)
     list.sort(cmpHeaderByName)
-
-    for item in list:
-        if not pkgHash.has_key (item):
-            pkgOrder.append(item)
-            pkgHash[item] = None
-
+    for p in list:
+	pkgOrder.append(p)
+	pkgHash[p] = None
     comp.unselect(1)
 
+# add all rpms not in the comps file at the end
 list = []
 for p in hdlist.packages.values():
-    if not pkgHash.has_key (p.h):
+    if not pkgHash.has_key(p.h):
         list.append(p.h)
-
 list.sort(cmpHeaderByName)
+for p in list:
+    pkgOrder.append(p)
 
-for item in list:
-    pkgOrder.append(item)
+# not needed anymore
+pkgHash = {}
 
-testpath = '/tmp/splitdistro-' + str (os.getpid ())
+testpath = '/tmp/splitdistro-' + str(os.getpid())
 os.system ("mkdir -p " + testpath + "/var/lib/rpm")
-
 db = rpm.opendb(1, testpath)
-
 ts = rpm.TransactionSet(testpath, db)
 for h in pkgOrder:
-    #print h[1000000]
     ts.add(h, h, 'i')
-pkgOrder = []
-
 ts.order()
-
-try:
-    pkgOrder = ts.getKeys()
-except AttributeError:
-    print "you don't have the latest RPM!"
-
-for p in pkgOrder:
+for p in ts.getKeys():
     print p[1000000]
+os.system ("rm -rf " + testpath)
 
