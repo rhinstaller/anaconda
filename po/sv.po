@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2001-08-10 12:18-0400\n"
+"POT-Creation-Date: 2001-08-13 10:39-0400\n"
 "PO-Revision-Date: 2001-07-27 00:36+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -42,9 +42,9 @@ msgstr ""
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:158 ../loader/urls.c:236 ../loader/urls.c:241
-#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:280 ../rescue.py:34
+#: ../loader/urls.c:247 ../loader/urls.c:387 ../mouse.py:281 ../rescue.py:34
 #: ../rescue.py:130 ../rescue.py:151 ../rescue.py:168 ../rescue.py:174
-#: ../text.py:282 ../text.py:399 ../textw/bootdisk_text.py:65
+#: ../text.py:283 ../text.py:400 ../textw/bootdisk_text.py:65
 #: ../textw/bootdisk_text.py:67 ../textw/complete_text.py:47
 #: ../textw/complete_text.py:62 ../textw/complete_text.py:78
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
@@ -192,7 +192,7 @@ msgstr ""
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1275
 #: ../iw/partition_gui.py:1598 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
-#: ../partitioning.py:691 ../partitioning.py:1398
+#: ../partitioning.py:694 ../partitioning.py:1401
 #: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:424
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 #: ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
@@ -289,7 +289,7 @@ msgstr "Allt"
 msgid "no suggestion"
 msgstr "inget förslag"
 
-#: ../exception.py:83 ../text.py:218
+#: ../exception.py:83 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Ett undantagsfel inträffade"
 
@@ -305,9 +305,9 @@ msgstr ""
 "Systemets tillstånd har skrivits till disketten. Ditt system kommer nu att "
 "startas om."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:345 ../fsset.py:751
-#: ../fsset.py:770 ../fsset.py:815 ../fsset.py:835 ../fsset.py:869
-#: ../fsset.py:912 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:358 ../fsset.py:764
+#: ../fsset.py:783 ../fsset.py:828 ../fsset.py:848 ../fsset.py:882
+#: ../fsset.py:925 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -317,7 +317,7 @@ msgstr ""
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:236
-#: ../partitioning.py:1255 ../partitioning.py:1286
+#: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
 #: ../upgrade.py:305
@@ -350,7 +350,7 @@ msgstr "Sök efter skadade block"
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Sök efter skadade block"
 
-#: ../fsset.py:346
+#: ../fsset.py:359
 #, c-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -359,15 +359,15 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:692 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:705 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
-#: ../fsset.py:693 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:706 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Första sektorn av startpartitionen"
 
-#: ../fsset.py:752
+#: ../fsset.py:765
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -380,7 +380,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:771
+#: ../fsset.py:784
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -395,7 +395,7 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:816
+#: ../fsset.py:829
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -408,7 +408,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:836
+#: ../fsset.py:849
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -421,7 +421,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:870
+#: ../fsset.py:883
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -434,12 +434,12 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:890 ../fsset.py:899
+#: ../fsset.py:903 ../fsset.py:912
 #, fuzzy
 msgid "Invalid mount point"
 msgstr "Felaktig monteringspunkt"
 
-#: ../fsset.py:891
+#: ../fsset.py:904
 #, fuzzy, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -452,7 +452,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:900
+#: ../fsset.py:913
 #, fuzzy, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -465,7 +465,7 @@ msgstr ""
 "\n"
 "Tryck på Retur för att för att starta om ditt system."
 
-#: ../fsset.py:913
+#: ../fsset.py:926
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -480,22 +480,22 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:1453
+#: ../fsset.py:1466
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:1454
+#: ../fsset.py:1467
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formaterar %s-filsystem..."
 
-#: ../gui.py:108 ../text.py:279
+#: ../gui.py:108 ../text.py:280
 msgid "Fix"
 msgstr "Fixa"
 
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
-#: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:280
+#: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
 #: ../textw/bootdisk_text.py:25 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
@@ -503,33 +503,33 @@ msgstr "Ja"
 
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
-#: ../loader/net.c:889 ../text.py:281 ../textw/bootdisk_text.py:25
+#: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:25
 #: ../textw/bootdisk_text.py:54 ../textw/bootloader_text.py:76
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
 msgstr "Nej"
 
-#: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
+#: ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
 msgid "Retry"
 msgstr "Försök igen"
 
-#: ../gui.py:113 ../text.py:284
+#: ../gui.py:113 ../text.py:285
 msgid "Ignore"
 msgstr "Ignorera"
 
 #: ../gui.py:114 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:848 ../iw/partition_gui.py:1318
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
-#: ../loader/pcmcia.c:104 ../text.py:114 ../text.py:115 ../text.py:249
-#: ../text.py:251 ../text.py:285 ../textw/bootloader_text.py:197
+#: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
+#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 #: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:196 ../text.py:257
+#: ../gui.py:196 ../text.py:258
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
@@ -540,7 +540,7 @@ msgstr ""
 "sannolikhet ett fel. Var vänlig och kopiera hela texten från detta "
 "undantagsfel och skapa en felrapport på http://bugzilla.redhat.com/"
 
-#: ../gui.py:317 ../text.py:247
+#: ../gui.py:317 ../text.py:248
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -663,11 +663,11 @@ msgstr "Installera"
 msgid "Unable to probe"
 msgstr "Kan inte testa"
 
-#: ../mouse.py:273 ../xserver.py:44
+#: ../mouse.py:274 ../xserver.py:44
 msgid "Mouse Not Detected"
 msgstr "Ingen mus upptäcktes"
 
-#: ../mouse.py:274 ../xserver.py:45
+#: ../mouse.py:275 ../xserver.py:45
 msgid ""
 "Your mouse was not automatically detected.  To proceed in the graphical "
 "installation mode, please proceed to the next screen and provide your mouse "
@@ -679,7 +679,7 @@ msgstr ""
 "din mus. Du kan också använda textlägesinstallationen, som inte kräver någon "
 "mus."
 
-#: ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
+#: ../mouse.py:281 ../mouse.py:282 ../xserver.py:51 ../xserver.py:52
 msgid "Use text mode"
 msgstr "Använd textläge"
 
@@ -824,7 +824,7 @@ msgstr "Monteringspunkten är ogiltig. Katalogen måste vara på /-filsystemet."
 msgid "This mount point must be on a linux filesystem."
 msgstr "Monteringspunkten måste vara på ett Linuxfilsystem."
 
-#: ../partitioning.py:451
+#: ../partitioning.py:454
 #, c-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
@@ -833,7 +833,7 @@ msgstr ""
 "Storleken på %s-partitionen (storlek = %s MB) överskrider maxstorleken på %s "
 "MB."
 
-#: ../partitioning.py:458
+#: ../partitioning.py:461
 #, c-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
@@ -842,33 +842,33 @@ msgstr ""
 "Storleken på den begärda partitionen (storlek = %s MB) överskrider "
 "maxstorleken på %s MB."
 
-#: ../partitioning.py:463
+#: ../partitioning.py:466
 #, c-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "Storleken på den begärda partitionen är negativ! (storlek = %s MB)"
 
-#: ../partitioning.py:467
+#: ../partitioning.py:470
 msgid "Partitions can't start below the first cylinder."
 msgstr "Partitioner kan inte börja innan den första cylindern."
 
-#: ../partitioning.py:470
+#: ../partitioning.py:473
 msgid "Partitions can't end on a negative cylinder."
 msgstr "Partitioner kan inte sluta på en negativ cylinder."
 
-#: ../partitioning.py:503
+#: ../partitioning.py:506
 msgid "No members in RAID request, or not RAID level specified."
 msgstr "Inga medlemmar i RAID-begäran, eller ingen RAID-nivå angiven."
 
-#: ../partitioning.py:521 ../partitioning.py:602
+#: ../partitioning.py:524 ../partitioning.py:605
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
 
-#: ../partitioning.py:525
+#: ../partitioning.py:528
 #, c-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "En RAID-enhet av typ %s kräver minst %s medlemmar."
 
-#: ../partitioning.py:531
+#: ../partitioning.py:534
 #, c-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
@@ -877,7 +877,7 @@ msgstr ""
 "Denna RAID-enhet kan maximalt ha %s reserver. För att lägga till reserver "
 "måste du lägga till medlemmar i RAID-enheten."
 
-#: ../partitioning.py:563
+#: ../partitioning.py:566
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of Red Hat Linux to continue."
@@ -885,7 +885,7 @@ msgstr ""
 "Du har inte angivit någon rotpartition (/). Detta krävs för att "
 "installationen av Red Hat Linux ska kunna fortsätta."
 
-#: ../partitioning.py:566
+#: ../partitioning.py:569
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install Red Hat Linux."
@@ -893,14 +893,14 @@ msgstr ""
 "Din rotpartition är mindre än 250 megabyte, vilket normalt är för litet för "
 "att installera Red Hat Linux."
 
-#: ../partitioning.py:571
+#: ../partitioning.py:574
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Du måste skapa en /boot/efi-partition av FAT-typ och med en storlek på 50 "
 "megabyte."
 
-#: ../partitioning.py:579
+#: ../partitioning.py:582
 #, c-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -909,7 +909,7 @@ msgstr ""
 "Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
 "för en normal installation av Red Hat Linux."
 
-#: ../partitioning.py:606
+#: ../partitioning.py:609
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -918,7 +918,7 @@ msgstr ""
 "alla lägen kommer det att markant förbättra prestanda för de flesta "
 "installationer."
 
-#: ../partitioning.py:610
+#: ../partitioning.py:613
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for Red Hat Linux "
 "only supports 32 swap devices."
@@ -926,7 +926,7 @@ msgstr ""
 "Du har angivit mer än 32 växlingsenheter. Kärnan i Red Hat Linux stöder "
 "endast 32 växlingsenheter."
 
-#: ../partitioning.py:619
+#: ../partitioning.py:622
 #, c-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -935,7 +935,7 @@ msgstr ""
 "Du har allokerat mindre växlingsutrymme (%d MB) än tillgängligt arbetsminne "
 "(%d MB) på ditt system. Detta kan påverka prestanda negativt."
 
-#: ../partitioning.py:692
+#: ../partitioning.py:695
 #, fuzzy, c-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
@@ -949,12 +949,12 @@ msgstr ""
 "\n"
 "Vill du initiera denna enhet?"
 
-#: ../partitioning.py:1256 ../partitioning.py:1287
+#: ../partitioning.py:1259 ../partitioning.py:1290
 #, c-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Fel vid montering av filsystem på %s: %s"
 
-#: ../partitioning.py:1399
+#: ../partitioning.py:1402
 #, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -967,11 +967,11 @@ msgstr ""
 "\n"
 "Vill du initiera denna enhet?"
 
-#: ../partitioning.py:1485
+#: ../partitioning.py:1488
 msgid "No Drives Found"
 msgstr "Inga hårddiskar hittades"
 
-#: ../partitioning.py:1486
+#: ../partitioning.py:1489
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -980,7 +980,7 @@ msgstr ""
 "nya filsystem kunde hittas. Undersök din hårdvara för orsaken till detta "
 "problem."
 
-#: ../partitioning.py:1568
+#: ../partitioning.py:1571
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -990,7 +990,7 @@ msgstr ""
 "\n"
 "Är du säker?"
 
-#: ../partitioning.py:1571
+#: ../partitioning.py:1574
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -1001,47 +1001,47 @@ msgstr ""
 "\n"
 "Är du säker?"
 
-#: ../partitioning.py:1575
+#: ../partitioning.py:1578
 msgid "Are you sure you want to delete this partition?"
 msgstr "Är du säker på att du vill ta bort denna partition?"
 
-#: ../partitioning.py:1577
+#: ../partitioning.py:1580
 msgid "Confirm Delete"
 msgstr "Bekräfta borttagning"
 
-#: ../partitioning.py:1581
+#: ../partitioning.py:1584
 msgid "Confirm Reset"
 msgstr "Bekräfta återställning"
 
-#: ../partitioning.py:1582
+#: ../partitioning.py:1585
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Är du säker på att du vill återställa partitionstabellen till dess "
 "ursprungliga tillstånd?"
 
-#: ../partitioning.py:1606
+#: ../partitioning.py:1609
 msgid "the partition in use by the installer."
 msgstr "partitionen som används av installationsprogrammet."
 
-#: ../partitioning.py:1609
+#: ../partitioning.py:1612
 msgid "a partition which is a member of a RAID array."
 msgstr "en partition som är medlem i en RAID-kedja."
 
-#: ../partitioning.py:1618 ../partitioning.py:1624 ../partitioning.py:1632
-#: ../partitioning.py:1643 ../partitioning.py:1650
+#: ../partitioning.py:1621 ../partitioning.py:1627 ../partitioning.py:1635
+#: ../partitioning.py:1646 ../partitioning.py:1653
 msgid "Unable To Remove"
 msgstr "Kan inte ta bort"
 
-#: ../partitioning.py:1619
+#: ../partitioning.py:1622
 msgid "You must first select a partition to remove."
 msgstr "Du måste först välja en partition att ta bort."
 
-#: ../partitioning.py:1625
+#: ../partitioning.py:1628
 msgid "You cannot remove free space."
 msgstr "Du kan inte ta bort ledigt utrymme."
 
-#: ../partitioning.py:1633
+#: ../partitioning.py:1636
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1050,7 +1050,7 @@ msgstr ""
 "Du kan inte ta bort denna partition eftersom det är en utökad partition som "
 "innehåller %s"
 
-#: ../partitioning.py:1644
+#: ../partitioning.py:1647
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1058,20 +1058,20 @@ msgstr ""
 "Du kan inte ta bort denna partition eftersom den innehåller data för "
 "hårddiskinstallationen."
 
-#: ../partitioning.py:1651
+#: ../partitioning.py:1654
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "Du kan inte ta bort denna partition eftersom den är en del av en RAID-enhet."
 
-#: ../partitioning.py:1682 ../partitioning.py:1704
+#: ../partitioning.py:1685 ../partitioning.py:1707
 msgid "Unable To Edit"
 msgstr "Kan inte redigera"
 
-#: ../partitioning.py:1683
+#: ../partitioning.py:1686
 msgid "You must select a partition to edit"
 msgstr "Du måste välja en partition att redigera"
 
-#: ../partitioning.py:1705
+#: ../partitioning.py:1708
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1080,26 +1080,26 @@ msgstr ""
 "Du kan inte redigera denna partition eftersom den är en utökad partition som "
 "innehåller %s"
 
-#: ../partitioning.py:1713 ../partitioning.py:1718
+#: ../partitioning.py:1716 ../partitioning.py:1721
 msgid "Unable to Edit"
 msgstr "Kan inte redigera"
 
-#: ../partitioning.py:1714
+#: ../partitioning.py:1717
 msgid "You cannot edit this partition, as it is in use by the installer."
 msgstr ""
 "Du kan inte redigera denna partition eftersom den används av "
 "installationsprogrammet."
 
-#: ../partitioning.py:1719
+#: ../partitioning.py:1722
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Du kan inte redigera denna partition eftersom den är en del av en RAID-enhet"
 
-#: ../partitioning.py:1731
+#: ../partitioning.py:1734
 msgid "Installation cannot continue."
 msgstr "Installationen kan inte fortsätta."
 
-#: ../partitioning.py:1732
+#: ../partitioning.py:1735
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1109,11 +1109,11 @@ msgstr ""
 "längre gå tillbaka till diskredigeringsskärmen. Vill du fortsätta med "
 "installationen?"
 
-#: ../partitioning.py:1752
+#: ../partitioning.py:1755
 msgid "Low Memory"
 msgstr "Ont om minne"
 
-#: ../partitioning.py:1753
+#: ../partitioning.py:1756
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1123,11 +1123,11 @@ msgstr ""
 "växlingsutrymmet (swap) direkt. För att göra detta måste vi omedelbart "
 "skriva din nya partitionstabell till hårddisken. Är det okej?"
 
-#: ../partitioning.py:1765 ../partitioning.py:1783
+#: ../partitioning.py:1768 ../partitioning.py:1786
 msgid "Format?"
 msgstr "Formatera?"
 
-#: ../partitioning.py:1766
+#: ../partitioning.py:1769
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1139,7 +1139,7 @@ msgstr ""
 "\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../partitioning.py:1774
+#: ../partitioning.py:1777
 #, fuzzy
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
@@ -1157,11 +1157,11 @@ msgstr ""
 "\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1793
 msgid "Error with Partitioning"
 msgstr "Fel vid partitionering"
 
-#: ../partitioning.py:1791
+#: ../partitioning.py:1794
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1176,11 +1176,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1804
+#: ../partitioning.py:1807
 msgid "Partitioning Warning"
 msgstr "Partitioneringsvarning"
 
-#: ../partitioning.py:1805
+#: ../partitioning.py:1808
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1195,19 +1195,19 @@ msgstr ""
 "\n"
 "Vill du fortsätta med ditt begärda partitioneringsschema?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1817
+#: ../iw/partition_gui.py:576 ../partitioning.py:1820
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1820
+#: ../iw/partition_gui.py:579 ../partitioning.py:1823
 msgid ""
 "Selected 'Yes' to continue and format these partitions, or 'No' to go back "
 "and change these settings."
 msgstr ""
 
-#: ../partitioning.py:1826
+#: ../partitioning.py:1829
 #, fuzzy
 msgid "Format Warning"
 msgstr "Formaterar"
@@ -1315,38 +1315,38 @@ msgstr ""
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "Ditt system är monterat under katalogen /mnt/sysimage."
 
-#: ../text.py:174
+#: ../text.py:175
 msgid "Help not available"
 msgstr "Hjälp inte tillgänglig"
 
-#: ../text.py:175
+#: ../text.py:176
 msgid "No help is available for this step of the install."
 msgstr "Ingen hjälp finns tillgänglig för detta steg i installationen."
 
-#: ../text.py:246
+#: ../text.py:247
 msgid "Save Crash Dump"
 msgstr "Spara kraschdump"
 
-#: ../text.py:265 ../text.py:268
+#: ../text.py:266 ../text.py:269
 msgid "Save"
 msgstr "Spara"
 
-#: ../text.py:265 ../text.py:266
+#: ../text.py:266 ../text.py:267
 msgid "Debug"
 msgstr "Felsökning"
 
-#: ../text.py:300
+#: ../text.py:301
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux © 2001 Red Hat, Inc."
 
-#: ../text.py:303
+#: ../text.py:304
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> för hjälp | <Tab> mellan element | <Blanksteg> väljer | <F12> nästa "
 "skärm"
 
-#: ../text.py:305
+#: ../text.py:306
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -1354,11 +1354,11 @@ msgstr ""
 "  <Tab>/<Alt-Tab> mellan element   |  <Blanksteg> väljer  |  <F12> nästa "
 "skärm"
 
-#: ../text.py:395
+#: ../text.py:396
 msgid "Cancelled"
 msgstr "Avbruten"
 
-#: ../text.py:396
+#: ../text.py:397
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
