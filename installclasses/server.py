@@ -32,7 +32,7 @@ class InstallClass(BaseInstallClass):
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
 
-        autorequests = [ ("/", None, 1100, None, 0, 1) ]
+        autorequests = [ ("/", None, 1100, None, 1, 1) ]
 
         bootreq = getAutopartitionBoot()
         if bootreq:
