@@ -611,6 +611,11 @@ static int writeModulesConf(moduleList list, int fd) {
                     strcpy(buf2, "scsi_hostadapter ");
                 scsiNum++;
                 strcat(buf, buf2);
+
+                strcat(buf, lm->name);
+                strcat(buf, "\n");
+                write(fd, buf, strlen(buf));
+
                 break;
 
             case DRIVER_NET:
@@ -636,15 +641,16 @@ static int writeModulesConf(moduleList list, int fd) {
                     strcat(buf, buf2);
                 }
 
+                strcat(buf, lm->name);
+                strcat(buf, "\n");
+                write(fd, buf, strlen(buf));
+
                 break;
 
             default:
                 break;
             }
 
-            strcat(buf, lm->name);
-            strcat(buf, "\n");
-            write(fd, buf, strlen(buf));
         }
             
         if (lm->args) {
