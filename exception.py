@@ -80,10 +80,17 @@ def handleException(todo, (type, value, tb)):
         todo.rootpassword = None
         todo.users = None
 
-	p.dump(todo)
+	try:
+	    p.dump(todo)
+	except:
+	    out.write("\n<failed>\n")
 
 	out.close()
 	isys.umount("/tmp/crash")
+
+	intf.messageWindow(_("Dump Written"),
+	    _("Your system's state has been successfully written to the "
+	      "floppy. Your system will now be reset."))
 
 	intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
