@@ -631,6 +631,8 @@ class RaidRequestSpec(RequestSpec):
             return smallest
         elif raid.isRaid5(self.raidlevel):
             return (nummembers-1) * smallest
+        elif raid.isRaid6(self.raidlevel):
+            return (nummembers-2) * smallest
         else:
             raise ValueError, "Invalid raidlevel in RaidRequest.getActualSize"
         
