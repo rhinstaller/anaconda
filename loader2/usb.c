@@ -71,7 +71,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("looking for usb controllers");
 
-    devices = probeDevices(CLASS_USB, BUS_PCI, PROBE_ALL);
+    devices = probeDevices(CLASS_USB, BUS_PCI, 0);
 
     if (!devices) {
 	logMessage("no usb controller found");

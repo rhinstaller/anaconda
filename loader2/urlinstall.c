@@ -366,7 +366,7 @@ int getFileFromUrl(char * url, char * dest,
         struct device ** devices;
 
 	hdrlen = 0;
-        devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL);
+        devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, 0);
 	for (i = 0; devices && devices[i]; i++) {
 	    dev = devices[i]->device;
 	    mac = getMacAddr(dev);

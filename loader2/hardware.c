@@ -125,7 +125,7 @@ int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("looking for video cards requiring agpgart module");
     
-    devices = probeDevices(CLASS_VIDEO, BUS_UNSPEC, PROBE_ALL);
+    devices = probeDevices(CLASS_VIDEO, BUS_UNSPEC, 0);
     
     if (!devices) {
         logMessage("no video cards found");
@@ -167,7 +167,7 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("looking for scsi tape devices");
     
-    devices = probeDevices(CLASS_TAPE, BUS_SCSI, PROBE_ALL);
+    devices = probeDevices(CLASS_TAPE, BUS_SCSI, 0);
     
     if (!devices) {
         logMessage("no scsi tape devices found");
@@ -319,7 +319,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
      */
     if (FL_ENABLECDDMA(flags))
         return;
-    devices = probeDevices(CLASS_CDROM, BUS_IDE, PROBE_ALL);
+    devices = probeDevices(CLASS_CDROM, BUS_IDE, 0);
     if (!devices)
         return;
 

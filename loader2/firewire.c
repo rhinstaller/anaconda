@@ -33,7 +33,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_NOIEEE1394(flags)) return 0;
 
-    devices = probeDevices(CLASS_FIREWIRE, BUS_PCI, PROBE_ALL);
+    devices = probeDevices(CLASS_FIREWIRE, BUS_PCI, 0);
 
     if (!devices) {
 	logMessage("no firewire controller found");
@@ -66,7 +66,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     sleep(3);
 
     logMessage("probing for firewire scsi devices");
-    devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, PROBE_ALL);
+    devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, 0);
 
     if (!devices) {
 	logMessage("no firewire scsi devices found");

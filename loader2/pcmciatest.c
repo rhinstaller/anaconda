@@ -145,12 +145,12 @@ char * getPcicController() {
     if (!probed) {
         probed = 1;
  
-        devices = probeDevices(CLASS_SOCKET, BUS_PCI, PROBE_ALL);
+        devices = probeDevices(CLASS_SOCKET, BUS_PCI, 0);
         if (devices) {
             logMessage("found cardbus pci adapter");
             pcic = "yenta_socket";
         } else {
-            devices = probeDevices(CLASS_SOCKET, BUS_MISC, PROBE_ALL);
+            devices = probeDevices(CLASS_SOCKET, BUS_MISC, 0);
             if (devices && strcmp (devices[0]->driver, "ignore") &&
                 strcmp(devices[0]->driver, "unknown") && 
                 strcmp(devices[0]->driver, "disabled")) {

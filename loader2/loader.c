@@ -362,7 +362,7 @@ static void checkForHardDrives(int * flagsPtr) {
     int i;
     struct device ** devices;
     
-    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_ALL);
+    devices = probeDevices(CLASS_HD, BUS_UNSPEC, 0);
     if (devices)
         return;
 
@@ -633,7 +633,7 @@ static void checkForRam(int flags) {
 static int haveDeviceOfType(int type) {
     struct device ** devices;
 
-    devices = probeDevices(type, BUS_UNSPEC, PROBE_ALL);
+    devices = probeDevices(type, BUS_UNSPEC, 0);
     if (devices)
         return 1;
     return 0;

@@ -225,8 +225,7 @@ int kickstartFromFloppy(char *kssrc, int flags) {
     int i, rc;
 
     logMessage("doing kickstart from floppy");
-    devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, 
-                           PROBE_ALL);
+    devices = probeDevices(CLASS_FLOPPY, BUS_MISC | BUS_IDE | BUS_SCSI, 0);
     if (!devices) {
         logMessage("no floppy devices");
         return 1;

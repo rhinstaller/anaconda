@@ -92,13 +92,13 @@ static int scsiDiskCount(void) {
     struct device ** devices;
     int i = 0;
 
-    devices = probeDevices(CLASS_HD, BUS_SCSI, PROBE_ALL);
+    devices = probeDevices(CLASS_HD, BUS_SCSI, 0);
     if (devices) {
         for (; devices[i]; i++);
         free(devices);
     }
     /* have to probe for usb floppies too */
-    devices = probeDevices(CLASS_FLOPPY, BUS_SCSI, PROBE_ALL);
+    devices = probeDevices(CLASS_FLOPPY, BUS_SCSI, 0);
     if (devices) {
         for (; devices[i]; i++);
         free(devices);
