@@ -25,10 +25,11 @@ def fsSpaceAvailable(fsystem):
     return _isys.devSpaceFree(fsystem)
 
 def raidstop(mdDevice):
-    if raidCount[mdDevice] > 1:
-	raidCount[mdDevice] = raidCount[mdDevice] - 1
-	return
-    del raidCount[mdDevice]
+    if raidCount.has_key (mdDevice):
+        if raidCount[mdDevice] > 1:
+            raidCount[mdDevice] = raidCount[mdDevice] - 1
+            return
+        del raidCount[mdDevice]
 
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
