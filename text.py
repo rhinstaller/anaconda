@@ -464,7 +464,7 @@ class XConfigWindow:
 		    rc = INSTALL_BACK
 		else:
 		    rc = INSTALL_OK
-		    server = "XF86_" + servers[choice]
+		    server = servers[choice]
 	    else:
 		todo._cardindex = choice
 		rc = INSTALL_OK
