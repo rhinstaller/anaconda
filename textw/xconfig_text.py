@@ -377,7 +377,7 @@ class MonitorWindow:
                                      "monitor", 1, 5)
 
             text = _("Select the monitor for your system.  Use the '%s' "
-                     "button to reset to the probed values." % (_("Default")))
+                     "button to reset to the probed values.") % (_("Default"))
 
             videogrid = Grid(3, 3)
             label = Label(_("Monitor:"))

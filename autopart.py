@@ -672,16 +672,16 @@ def processPartitioning(diskset, requests, newParts):
     # run through with primary only constraints first
     ret = fitConstrained(diskset, requests, 1, newParts)
     if ret == PARTITION_FAIL:
-        return (ret, "Could not allocate cylinder-based partitions as primary partitions")
+        return (ret, _("Could not allocate cylinder-based partitions as primary partitions"))
     ret = fitSized(diskset, requests, 1, newParts)
     if ret == PARTITION_FAIL:
-        return (ret, "Could not allocate partitions as primary partitions")
+        return (ret, _("Could not allocate partitions as primary partitions"))
     ret = fitConstrained(diskset, requests, 0, newParts)
     if ret == PARTITION_FAIL:
-        return (ret, "Could not allocate cylinder-based partitions")
+        return (ret, _("Could not allocate cylinder-based partitions"))
     ret = fitSized(diskset, requests, 0, newParts)
     if ret == PARTITION_FAIL:
-        return (ret, "Could not allocate partitions")
+        return (ret, _("Could not allocate partitions"))
     for request in requests.requests:
         # set the unique identifier for raid devices
         if request.type == REQUEST_RAID and not request.device:

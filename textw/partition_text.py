@@ -969,11 +969,11 @@ class PartitionWindow:
                            col_widths=[17,5,5,7,10,12],
                            scroll=1, returnExit = 1,
                            width=70, col_pad=2,
-                           col_labels=['Device', 'Start', 'End', 'Size', 'Type', 'Mount Point'],
+                           col_labels=[_('Device'), _('Start'), _('End'), _('Size'), _('Type'), _('Mount Point')],
                            col_label_align=[CENTER, CENTER,CENTER,CENTER,CENTER,CENTER])
         self.g.add(self.lb, 0, 1)
 
-        self.bb = ButtonBar (screen, ((_("New"), "new", "F2"), (_("Edit"), "edit", "F3"), (("Delete"), "delete", "F4"), (_("RAID"), "raid", "F11"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
+        self.bb = ButtonBar (screen, ((_("New"), "new", "F2"), (_("Edit"), "edit", "F3"), (_("Delete"), "delete", "F4"), (_("RAID"), "raid", "F11"), TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
         self.g.add(self.bb, 0, 2, (0, 1, 0, 0))
         self.g.addHotKey("F5")
         screen.pushHelpLine( _("    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "))
@@ -1054,12 +1054,12 @@ class AutoPartitionWindow:
 
         # listbox for types of removal
         subgrid = Grid(1, 2)
-        subgrid.setField(TextboxReflowed(55, AUTOPART_DISK_CHOICE_DESCR_TEXT),
+        subgrid.setField(TextboxReflowed(55, _(AUTOPART_DISK_CHOICE_DESCR_TEXT)),
                          0, 0, padding=(0,0,0,1))
         typebox = Listbox(height=3, scroll=0)
-        typebox.append(CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_LINUX)
-        typebox.append(CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_ALL)
-        typebox.append(CLEARPART_TYPE_NONE_DESCR_TEXT, CLEARPART_TYPE_NONE)
+        typebox.append(_(CLEARPART_TYPE_LINUX_DESCR_TEXT), CLEARPART_TYPE_LINUX)
+        typebox.append(_(CLEARPART_TYPE_ALL_DESCR_TEXT), CLEARPART_TYPE_ALL)
+        typebox.append(_(CLEARPART_TYPE_NONE_DESCR_TEXT), CLEARPART_TYPE_NONE)
         if partitions.autoClearPartType == CLEARPART_TYPE_LINUX:
             typebox.setCurrent(CLEARPART_TYPE_LINUX)
         elif partitions.autoClearPartType == CLEARPART_TYPE_ALL:
