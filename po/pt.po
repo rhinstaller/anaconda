@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-01 14:57+0100\n"
+"PO-Revision-Date: 2004-07-02 09:46+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -1598,7 +1598,7 @@ msgstr ""
 "Quer reformatar este DASD utilizando o formato CDL?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1606,12 +1606,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"A tabela de partições do dispositivo /dev/%s é do tipo inesperado %s para a "
-"sua arquitectura.  Para utilizar este disco para instalar o %s, este terá "
-"que ser reinicializado, o que provocará a perda de TODOS OS DADOS que ele "
-"contém.\n"
+"/dev/%s tem uma disposição de partições %s.  Para utilizar este disco para instalar o %s, este terá que ser reinicializado, o que provocará a perda de TODOS OS DADOS que ele contém.\n"
 "\n"
-"Quer inicializar este disco?"
+"Quer formatar este disco?"
 
 #: ../partedUtils.py:313
 msgid "_Ignore drive"
@@ -1636,7 +1633,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Por favor aguarde enquanto é formatada a unidade %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1647,12 +1644,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Não foi possível ler a tabela de partições do dispositivo %s. Para criar "
-"novas partições ela precisa ser inicializada, o que causará a perda de TODOS "
-"OS DADOS neste disco.\n"
+"Não foi possível ler a tabela de partições do dispositivo %s (%s). Para criar novas partições ela precisa ser inicializada, o que causará a perda de TODOS OS DADOS neste disco.\n"
 "\n"
-"Esta operação sobrepõe quaisquer escolhas de prévias de quais unidades de "
-"armazenamento ignorar.\n"
+"Esta operação sobrepõe quaisquer escolhas de prévias de quais unidades de armazenamento ignorar.\n"
 "\n"
 "Quer inicializar esta unidade, apagando TODOS OS DADOS?"
 
@@ -3329,7 +3323,7 @@ msgstr "Activar a 'fir_ewall'"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Com uma 'firewall' pode desejar permitir o acesso a serviços específicos no seu computador.  Permitir o acesso a quais serviços?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3337,7 +3331,7 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
+msgstr "O 'Security Enhanced Linux' (SELinux) fornece um controlo de segurança mais refinado do que o presente nos sistemas Linux tradicionais.  Pode ficar desactivado, num estado em que apenas avisa o que seria negado ou completamente activo."
 
 #: ../iw/firewall_gui.py:155
 msgid "Enable _SELinux?:"
