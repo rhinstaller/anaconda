@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.1
+Version: 9.1.5.2
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb 08 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.2-1.RHEL
+- Only configure ksdevice if no --device (#138852)
+- backport changes from Kristian Høgsberg <krh@redhat.com> 
+  for usb mouse crashes (#139568)
+
 * Thu Jan  6 2005 Jeremy Katz <katzj@redhat.com> - 9.1.5.1-1.RHEL
 - Support parsing of pxelinux IPAPPEND (bnocera, #134054)
 - Load ibmvscsic late (#137920)
