@@ -13,6 +13,7 @@ from translate import _
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
 
+
 def mouseWindow(mouse):
     screen = SnackScreen()
 
@@ -123,7 +124,10 @@ def startX(resolution):
 
         testx(mouse, x)
     except (RuntimeError, IOError):
-#        print "Can't open /dev/fb0"
+        from log import log
+        log.open(0, 0, 0)
+	log ("can't open /dev/fb0")
+        log.close()
     
 	x.server = probedServer
 
