@@ -1387,7 +1387,7 @@ class AutoPartitionWindow(InstallWindow):
             dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
                                     gtk.BUTTONS_OK,
                                     _("You need to select at least one "
-                                      "drive to have %s installed "
+                                      "hard drive to have %s installed "
                                       "onto.") % (productName,))
             gui.addFrame(dlg)
             dlg.show_all()
