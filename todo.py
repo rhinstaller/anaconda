@@ -1412,6 +1412,8 @@ class ToDo:
             pass
 
     def kernelVersionList(self):
+	kernelVersions = []
+
 	for ktag in [ 'kernel-smp', 'kernel-enterprise' ]:
 	    tag = string.split(ktag, '-')[1]
 	    if (self.hdList.has_key(ktag) and 
