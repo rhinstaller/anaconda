@@ -6,6 +6,7 @@
 import rpm, os
 import util, isys
 from lilo import LiloConfiguration
+from syslog import Syslog
 
 def instCallback(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
@@ -70,8 +71,21 @@ class ToDo:
 	    ts.add(p.h, (p.h, self.method))
 
 	ts.order()
+
+	instLog = open(self.instPath + '/tmp/install.log', "w+")
+	syslog = Syslog(root = self.instPath, output = instLog)
+
+	instLogFd = os.open(self.instPath + '/tmp/install.log',
+			    os.O_RDWR)
+	ts.scriptFd = instLogFd
+	# the transaction set dup()s the file descriptor and will close the
+	# dup'd when we go out of scope
+	os.close(instLogFd)	
+
 	p = self.intf.packageProgessWindow()
 	ts.run(0, 0, instCallback, p)
+
+	syslog.kill()
 
 	self.writeFstab()
 	self.installLilo()
@@ -156,7 +170,7 @@ class ToDo:
 	return self.comps
 
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1, create):
+		 installSystem = 1):
 	self.intf = intf
 	self.method = method
 	self.mounts = []
@@ -165,7 +179,6 @@ class ToDo:
 	self.instPath = rootPath
 	self.setupFilesystems = setupFilesystems
 	self.installSystem = installSystem
-	pass
 
 def mountListCmp(first, second):
     mnt1 = first[1]
