@@ -126,7 +126,7 @@ class NetworkWindow:
 
         rc = bb.buttonPressed (result)
 
-        todo.log ("\"" + dev.get ("device") + "\"")
+        log ("\"" + dev.get ("device") + "\"")
 
         if rc == "back":
             return INSTALL_BACK
