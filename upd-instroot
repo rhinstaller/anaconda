@@ -362,6 +362,8 @@ rm -rf $DEST/usr/share/locale
 make install DESTDIR=$DESTGR > /dev/null
 
 for p in $DESTGR $DEST; do
+	rm $p/usr/lib/anaconda/lang-table
+
 	find $p -type d | xargs chmod 755
 
 	if [ -f $p/bin/bash ]; then
