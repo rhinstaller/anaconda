@@ -98,6 +98,7 @@ class LiloImagesWindow:
 		result = buttons.buttonPressed(result)
 
 	    if (result == string.lower(_("Cancel"))):
+		screen.popWindow ()
 		return itemLabel
 	    elif (result == string.lower(_("Clear"))):
 		newLabel.set("")
