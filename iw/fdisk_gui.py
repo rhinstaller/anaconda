@@ -2,6 +2,7 @@ from gtk import *
 from iw_gui import *
 from gnome.zvt import *
 from translate import _
+from dispatch import DISPATCH_NOOP
 import isys
 import os
 
@@ -10,6 +11,14 @@ class FDiskWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("fdisk"))
         ics.readHTML ("fdisk")
+
+    def getNext(self):
+
+        # reread partitions
+        self.partrequests.setFromDisk(self.diskset)
+
+        return None
+        
 
     def child_died (self, widget, button):
         self.windowContainer.remove (self.windowContainer.children ()[0])
@@ -54,8 +63,10 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     # FDiskWindow tag="fdisk"
-    def getScreen (self, diskset):
+    def getScreen (self, useFdisk, diskset, partrequests):
+        
         self.diskset = diskset
+        self.partrequests = partrequests
         
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)

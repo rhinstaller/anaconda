@@ -21,8 +21,8 @@ import timezone
 import desktop
 import users
 import fsset
-import partitioning
 import bootloader
+
 from simpleconfig import SimpleConfigFile
 
 class Boolean:
@@ -59,8 +59,12 @@ class InstallData:
 	self.comps = None
 	self.upgrade = Boolean()
 	self.fsset.reset()
-        self.diskset = partitioning.DiskSet()
-        self.partrequests = partitioning.PartitionRequests(self.diskset)
+#
+# delay setting these until we know the partition method        
+#        self.diskset = partitioning.DiskSet()
+#        self.partrequests = partitioning.PartitionRequests(self.diskset)
+        self.diskset = None
+        self.partrequests = None
         self.autoPartitionRequests = []
         self.autoClearPartType = None
         self.autoClearPartDrives = []

@@ -36,7 +36,7 @@ class fdiskPartitionWindow:
             (button, choice) = \
                      ListboxChoiceWindow(screen, _("Disk Setup"),
                      _("Choose a disk to run fdisk on"), choices,
-                     [ (_("Done"), "done"), (_("Edit"), "edit"),
+                     [ (_("Ok"), "done"), (_("Edit"), "edit"),
                        TEXT_BACK_BUTTON ], width = 50, help = "fdisk")
 
             if button != "done" and button != TEXT_BACK_CHECK:

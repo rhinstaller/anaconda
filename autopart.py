@@ -530,9 +530,10 @@ def doClearPartAction(id, type, cleardrives):
             id.partrequests.addDelete(delete)
             continue
     
-def doAutoPartition(id):
-    if not id.useAutopartitioning:
-        return DISPATCH_NOOP
+def doAutoPartition(dir, id):
+
+    if dir == DISPATCH_BACK:
+        return
     
     # if no auto partition info in instclass we bail
     if len(id.autoPartitionRequests) < 1:

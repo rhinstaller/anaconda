@@ -21,6 +21,7 @@ from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import queryUpgradeContinue
 from autopart import doAutoPartition
+from partitioning import partitionMethodSetup
 from floppy import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
@@ -50,8 +51,9 @@ installSteps = [
     ( "upgradecontinue", queryUpgradeContinue, ("intf", "dir")),
     ( "addswap", ("dispatch", "intf", "id.fsset", "id.diskset", "instPath") ),
     ( "partitionmethod", ("id",) ),
+    ( "partitionmethodsetup", partitionMethodSetup, ("id", "dispatch") ),
     ( "autopartition", ("id", "intf") ),
-    ( "autopartitionexecute", doAutoPartition, ("id",)),
+    ( "autopartitionexecute", doAutoPartition, ("dir", "id",)),
     ( "fdisk", ("id.useFdisk", "id.diskset", "id.partrequests")),
     ( "partition", ("id.fsset", "id.diskset", "id.partrequests", "intf")),
     ( "partitiondone", partitioningComplete, ("dispatch", "id.bootloader",

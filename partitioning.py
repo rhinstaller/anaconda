@@ -814,3 +814,19 @@ class DiskSet:
                               flags))
                 part = disk.next_partition(part)
         return rc
+
+def partitionMethodSetup(id, dispatch):
+
+    # turn on/off step based on 3 paths:
+    #  - use fdisk, then set mount points
+    #  - use autopartitioning, then set mount points
+    #  - use interactive partitioning tool, continue
+
+    dispatch.skipStep("autopartition", skip = not id.useAutopartitioning)
+    dispatch.skipStep("autopartitionexecute",skip = not id.useAutopartitioning)
+    dispatch.skipStep("fdisk", skip = not id.useFdisk)
+        
+    # read in drive info
+    id.diskset = DiskSet()
+    id.partrequests = PartitionRequests(id.diskset)
+    

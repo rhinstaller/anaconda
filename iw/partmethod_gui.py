@@ -23,24 +23,64 @@ class PartitionMethodWindow(InstallWindow):
         ics.setTitle (_("Automatic Partitioning"))
 
     def getNext(self):
+        
         if self.useFdisk.get_active():
-	    self.dispatch.skipStep("fdisk", skip = 0)
-	else:
-	    self.dispatch.skipStep("fdisk")
+            self.id.useAutopartitioning = 0
+            self.id.useFdisk = 1
+        elif self.useAuto.get_active():
+            self.id.useAutopartitioning = 1
+            self.id.useFdisk = 0
+        else:
+            self.id.useAutopartitioning = 0
+            self.id.useFdisk = 0
+            
 	return None
 
-    def getScreen (self, dispatch):
-        self.dispatch = dispatch
+    def getScreen (self, id):
+
+        # XXX Change to not use id in (use more specific components of id)
+        self.id = id
         
         box = GtkVBox (FALSE)
         box.set_border_width (5)
 
+        label = GtkLabel(
+             _("Autopartitioning sets up your partitioning in a reasonable "
+               "way depending on your installation type and then gives you a "
+               "chance to customize this setup.\n"
+               "\n"
+               "Disk Shaman is a tool designed for partitioning and setting "
+               "up mount points.  It is designed to be easier to use than "
+               "Linux's traditional disk partitioning software, fdisk, as "
+               "well as more powerful.  However, there are some cases where "
+               "fdisk may be preferred.\n"
+               "\n"
+               "Which tool would you like to use?"))
+
+        label.set_line_wrap(1)
+        label.set_alignment(0.0, 0.0)
+        label.set_usize(400, -1)
+
+        box.pack_start(label)
+
         radioBox = GtkVBox (FALSE)
 
+        self.useAuto = GtkRadioButton(
+            None, _("Have the installer autopartition for you"))
+	radioBox.pack_start(self.useAuto, FALSE)
+        self.useDS = GtkRadioButton(
+            self.useAuto, _("Manually partition with Disk Shaman"))
+	radioBox.pack_start(self.useDS, FALSE)
         self.useFdisk = GtkRadioButton(
-            None, _("Manually partition with fdisk [experts only]"))
+            self.useAuto, _("Manually partition with fdisk [experts only]"))
 	radioBox.pack_start(self.useFdisk, FALSE)
-        self.useFdisk.set_active (not dispatch.stepInSkipList("fdisk"))
+
+        if id.useAutopartitioning:
+            self.useAuto.set_active(1)
+        elif id.useFdisk:
+            self.useFdisk.set_active(1)
+        else:
+            self.useDS.set_active(1)
             
 	align = GtkAlignment()
 	align.add(radioBox)

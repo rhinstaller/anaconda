@@ -17,6 +17,7 @@ from iw_gui import *
 from gtk import *
 from GDK import *
 from gnome.ui import *
+from dispatch import DISPATCH_NOOP
 from translate import _, N_
 from partitioning import *
 from fsset import *
@@ -1267,8 +1268,6 @@ class PartitionWindow(InstallWindow):
         box.pack_start (sw, TRUE)
 
 	return box
-
-
 
 class AutoPartitionWindow(InstallWindow):
     def __init__(self, ics):
