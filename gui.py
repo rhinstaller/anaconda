@@ -728,7 +728,7 @@ class InstallControlWindow:
             image = gtk.Image()
             image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
             box.pack_start(image, gtk.FALSE, gtk.FALSE)
-            label = gtk.Label(text)
+            label = gtk.Label(_(text))
             label.set_property("use-underline", gtk.TRUE)
             box.pack_start(label, gtk.TRUE, gtk.TRUE)
             button.add(box)
@@ -740,7 +740,7 @@ class InstallControlWindow:
     def updateStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
-            button.label.set_text_with_mnemonic(text)
+            button.label.set_text_with_mnemonic(_(text))
             button.queue_resize()
 
     def setup_window (self, runres):
