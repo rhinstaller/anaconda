@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-12 23:31+0200\n"
+"PO-Revision-Date: 2004-07-15 23:21+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -1104,7 +1104,7 @@ msgstr "Nem sikerült betölteni a címsort"
 
 #: ../gui.py:1432
 msgid "Install Window"
-msgstr "Telepőablak"
+msgstr "Telepítőablak"
 
 #: ../harddrive.py:166 ../image.py:524
 #, python-format
@@ -1166,7 +1166,7 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Hiba történt a telepítő image merevlemezre írásakor. Valószínüleg kevés a "
+"Hiba történt a telepítési képmásnak a merevlemezre írásakor. Valószínűleg kevés a "
 "szabad lemezterülete."
 
 #: ../image.py:283
@@ -1663,7 +1663,7 @@ msgid ""
 msgstr ""
 "Hiba történt - a logikai kötetnév érvénytelen karaktert vagy szóközt "
 "tartalmaz.  Csak angol betűk, számjegyek, továbbá a pont ('.') és az "
-"alaáhúzás ('_') használható."
+"aláhúzás ('_') használható."
 
 #: ../partIntfHelpers.py:94
 msgid ""
@@ -2366,7 +2366,7 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Az /etc/fstab fájlban felsorolt partíciók közül legalább egy ikonzisztens "
+"Az /etc/fstab fájlban felsorolt partíciók közül legalább egy inkonzisztens "
 "állapotú, ezért nem csatlakoztatható. Javítsa ki a hibát, majd próbálja meg "
 "újra a frissítést."
 
@@ -2672,7 +2672,7 @@ msgstr "SMB-k_iszolgáló:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr "SMB m&unkacsoport:"
+msgstr "SMB m_unkacsoport:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2791,7 +2791,7 @@ msgid ""
 msgstr ""
 "Ha az LBA32 opciót akkor is érvényesíteni szeretné, ha azt a BIOS nem "
 "támogatja, akkor a gépet esetleg nem lehet majd elindítani. Mindenképpen azt "
-"ajánljuk, hogy készítsen rendszerinbdító floppyt, amikor a telepítő ezt majd "
+"ajánljuk, hogy készítsen rendszerindító floppyt, amikor a telepítő ezt majd "
 "rövidesen felajánlja.\n"
 "\n"
 "Mégis ki szeretné kényszeríteni az LBA32-es mód használatát?"
@@ -7265,8 +7265,8 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
-"A dinamikus IP kérelmére érkezett IP konigurációs válaszinformáció, de ez "
-"nem tartalmazta a DNS névszervert. Ha tudja mi a návszervere, adja meg most. "
+"A dinamikus IP-kérelmére érkezett IP-konfigurációs válaszinformáció, de ez "
+"nem tartalmazta a DNS névszervert. Ha tudja mi a névszervere, adja meg most. "
 "Ha nem rendelkezik ezzel az információval, üresen is hagyhatja ezt a mezőt, "
 "a telepítés folytatódik."
 
@@ -7399,7 +7399,7 @@ msgstr "Nem sikerült letölteni: %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:137
 msgid "Unable to retrieve the install image."
-msgstr "Nem sikerült letölteni a telepítési képfájlt."
+msgstr "Nem sikerült letölteni a telepítési képmást."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
@@ -7463,7 +7463,7 @@ msgstr "Meg kell adnia egy kiszolgálónevet."
 
 #: ../loader2/urls.c:325
 msgid "You must enter a directory."
-msgstr "Meg kell adnia egy konyvtárat."
+msgstr "Meg kell adnia egy könyvtárat."
 
 #: ../loader2/urls.c:330
 msgid "Unknown Host"
@@ -7882,7 +7882,7 @@ msgstr "Moszkva+06 - Léna"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr "Moszkva+07 - Amúr"
+msgstr "Moszkva+07 - Amur"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
@@ -8252,7 +8252,7 @@ msgstr "portugál (brazil)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr "pandzsabi"
+msgstr "pandzsábi"
 
 #. generated from lang-table
 msgid "Russian"
