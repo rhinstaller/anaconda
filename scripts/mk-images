@@ -204,9 +204,10 @@ expandModuleSet() {
 	    # all of the modules of this type
 	    $MODLIST --modinfo-file $MODINFO $NAME > /tmp/emsAll.$$
 	    # the modules used that are of this type
-	    cat $MODULESUSED /tmp/emsAll.$$ | sort | uniq -d > /tmp/emsUsed.$$
+	    sort -u $MODULESUSED | cat - /tmp/emsAll.$$ | sort | 
+		    uniq -d > /tmp/emsUsed.$$
 	    # the modules that are of this type, but not used
-	    SET=$(cat /tmp/emsAll.$$ /tmp/emsUsed.$$ | sort | uniq -u)
+	    SET="$SET $(cat /tmp/emsAll.$$ /tmp/emsUsed.$$ | sort | uniq -u)"
 
 	    rm -f /tmp/emsAll.$$ /tmp/emsUsed.$$
 	else
