@@ -12,6 +12,7 @@ FILENAME = 1000000
 class InstallMethod:
 
     def readComps(self, hdlist):
+	isys.makeDevInode(self.device, '/tmp/' + self.device)
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
 	cs = ComponentSet('i386', "/tmp/hdimage/" + self.path + 
 		'/RedHat/base/comps', hdlist)
@@ -22,6 +23,7 @@ class InstallMethod:
 	return self.tree + "/RedHat/RPMS/" + self.fnames[h]
 
     def readHeaders(self):
+	isys.makeDevInode(self.device, '/tmp/' + self.device)
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage");
 	hl = []
 	path = "/tmp/hdimage" + self.path + "/RedHat/RPMS"
@@ -59,5 +61,4 @@ class InstallMethod:
     def __init__(self, device, path):
 	self.device = device
 	self.path = path
-	isys.makeDevInode(device, '/tmp/' + device)
 	self.fnames = {}
