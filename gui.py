@@ -743,10 +743,6 @@ class InstallControlWindow:
         self.reloadRcQueued = 1
 
 	self.updateStockButtons()
-#        self.helpFrame.set_label (_("Online Help"))
-        l = gtk.Label()
-        l.set_markup("<b>%s</b>" %(_("Language Selection"),))
-        self.installFrame.set_label_widget(l)
 	self.loadReleaseNotes()
         self.refreshHelp(recreate = 1)
 
@@ -1108,9 +1104,6 @@ class InstallControlWindow:
 
         self.update (ics)
 
-        l = gtk.Label()
-#        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
-        self.installFrame.set_label_widget(l)
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
 
@@ -1132,12 +1125,6 @@ class InstallControlWindow:
 	self.currentWindow = None
 
     def update (self, ics):
-        l = gtk.Label()
-        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
-        self.installFrame.set_label_widget(l)
-        
-        self.installFrame.set_label (ics.getTitle ())
-
 	prevButton = self.prevButtonStock
 	nextButton = self.nextButtonStock
 
@@ -1378,8 +1365,6 @@ class InstallControlWindow:
         self.displayHelp = gtk.TRUE
         self.helpState = gtk.TRUE
 
-#        label = gtk.Label()
-#        label.set_markup("<b>%s</b>" %(_("Online Help")))
         self.helpFrame = gtk.Frame () 
         self.box = gtk.VBox (gtk.FALSE, 0)
         self.box.set_spacing(0)
