@@ -93,6 +93,10 @@ int sunpReadTable(int fd, struct partitionTable * table) {
 	    table->parts[i].type = BALKAN_PART_SWAP;
 	    break;
 
+	  case 0xfd:
+	    table->parts[i].type = BALKAN_PART_RAID;
+	   break;
+
 	  default:
 	    if (table->parts[i].type != WHOLE_DISK &&
 		llseek(fd, (8192 + 0x55c + SECTOR_SIZE *
