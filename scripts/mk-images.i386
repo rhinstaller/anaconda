@@ -207,6 +207,7 @@ if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;
 
 	# links for the autoboot bits
 	rm -f $TOPDESTPATH/dosutils/autoboot/*
+	mkdir -p $TOPDESTPATH/dosutils/autoboot/
 	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
 	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
 fi
