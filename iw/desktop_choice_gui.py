@@ -59,7 +59,7 @@ class DesktopChoiceWindow (InstallWindow):
                    "customize your installation.") %(productName,)
 
         if len(instclass.pkgstext) > 0:
-            labeltxt = header + instclass.pkgstext + footer
+            labeltxt = header + _(instclass.pkgstext) + footer
         else:
 	    labeltxt = _(
 		"If you would like to change the default package set to be "

@@ -15,13 +15,13 @@ class InstallClass(BaseInstallClass):
 		     "environment and create a system ideal for home "
 		     "or desktop use.")
     
-    pkgstext = _("\tDesktop shell (GNOME)\n"
-                 "\tOffice suite (OpenOffice)\n"
-                 "\tWeb browser (Mozilla) \n"
-                 "\tEmail (Evolution)\n"
-                 "\tInstant messaging\n"
-                 "\tSound and video applications\n"
-                 "\tGames\n")
+    pkgstext = N_("\tDesktop shell (GNOME)\n"
+                  "\tOffice suite (OpenOffice)\n"
+                  "\tWeb browser (Mozilla) \n"
+                  "\tEmail (Evolution)\n"
+                  "\tInstant messaging\n"
+                  "\tSound and video applications\n"
+                  "\tGames\n")
     
 
     showLoginChoice = 0
