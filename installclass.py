@@ -211,7 +211,8 @@ class BaseInstallClass:
                           useKrb5 = 0, krb5Realm = "", krb5Kdc = "",
                           krb5Admin = "",
                           useHesiod = 0, hesiodLhs = "", hesiodRhs = "",
-                          useSamba = 0, sambaServer= "", sambaWorkgroup = ""):
+                          useSamba = 0, sambaServer= "", sambaWorkgroup = "",
+                          enableCache = 0):
 
         id.auth.useShadow = useShadow
         id.auth.useMD5 = useMd5
@@ -238,6 +239,8 @@ class BaseInstallClass:
         id.auth.useSamba = useSamba
         id.auth.sambaServer = sambaServer
         id.auth.sambaWorkgroup = sambaWorkgroup
+
+        id.auth.enableCache = enableCache
 
     def setNetwork(self, id, bootProto, ip, netmask, gateway, nameserver,
 		   device = None):

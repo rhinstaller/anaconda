@@ -122,7 +122,8 @@ class KickstartBase(BaseInstallClass):
                   'enableldaptls', 
                   'enablekrb5', 'krb5realm=', 'krb5kdc=', 'krb5adminserver=',
                   'enablehesiod', 'hesiodlhs=', 'hesiodrhs=',
-                  'enablesmbauth', 'smbservers=', 'smbworkgroup='])
+                  'enablesmbauth', 'smbservers=', 'smbworkgroup=',
+                  'enablecache'])
 
 	useShadow = 0
 
@@ -151,6 +152,8 @@ class KickstartBase(BaseInstallClass):
         useSamba = 0
         smbServers = ""
         smbWorkgroup = ""
+
+        enableCache = 0
 	
 	for n in args:
 	    (str, arg) = n
@@ -194,6 +197,8 @@ class KickstartBase(BaseInstallClass):
                 smbServers = arg
             elif (str == '--smbworkgroup'):
                 smbWorkgroup = arg
+            elif (str == '--enablecache'):
+                enableCache = 1
                 
 
 	if useNis and not nisServer: nisBroadcast = 1
@@ -204,7 +209,8 @@ class KickstartBase(BaseInstallClass):
                                ldapBasedn, useLdaptls,
                                useKrb5, krb5Realm, krb5Kdc, krb5Admin,
                                useHesiod, hesiodLhs, hesiodRhs,
-                               useSamba, smbServers, smbWorkgroup)
+                               useSamba, smbServers, smbWorkgroup,
+                               enableCache)
         
 	self.skipSteps.append("authentication")
 

@@ -155,6 +155,8 @@ class Authentication:
         self.sambaServer = ""
         self.sambaWorkgroup = ""
 
+        self.enableCache = 0
+
     def writeKS(self, f):
 	f.write("authconfig")
 	for arg in self.getArgList():
@@ -170,6 +172,9 @@ class Authentication:
 
         if self.useMD5:
             args.append ("--enablemd5")
+
+        if self.enableCache:
+            args.append("--enablecache")
 
         if self.useNIS:
             args.append ("--enablenis")
