@@ -828,6 +828,9 @@ class Partitions:
                     if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                         found = 1
                         break
+            if iutil.getPPCMachine() == "iSeries" and iutil.hasIbmSis():
+                found = 1
+                
             if not found:
                 errors.append(_("You must create a PPC PReP Boot partition."))
 

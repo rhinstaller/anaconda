@@ -456,6 +456,21 @@ def isUSBDevFSMounted():
 
     return 0
 
+# this is disgusting and I feel very dirty
+def hasIbmSis():
+    if getArch() != "ppc":
+        return
+
+    f = open("/proc/modules", "r")
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+        if line.startswith("ibmsis"):
+            return 1
+
+    return 0
+
 # return the ppc machine variety type
 def getPPCMachine():
     machine = None
