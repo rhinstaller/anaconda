@@ -73,6 +73,9 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag = self.buffer.create_tag('i')
         tag.set_property('style', pango.STYLE_ITALIC)
 
+        tag = self.buffer.create_tag('em')
+        tag.set_property('style', pango.STYLE_ITALIC)
+
         tag = self.buffer.create_tag('ul')
         tag.set_property('left-margin', 20)
 
@@ -163,9 +166,12 @@ class HTMLBuffer(HTMLParser.HTMLParser):
                 self.lastDataEmpty = 1
 
     def handle_charref(self, name):
-        self.buffer.insert(self.iter, unichr(int(name)))
+        if self.ignoreData == 0:
+            self.buffer.insert(self.iter, unichr(int(name)))
 
     def handle_entityref(self, name):
+        if self.ignoreData != 0:
+            return
         if name == 'copy':
             # (c) is unicode 00A9
             self.buffer.insert(self.iter, unichr(0xA9))
