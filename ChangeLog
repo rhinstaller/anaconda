@@ -1,5 +1,9 @@
 2005-01-13  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py (InstallControlWindow.prevClicked): Allow programatically
+	going back even if prev isn't active.
+	(InstallControlWindow.nextClicked): Likewise.
+
 	* gui.py (InstallControlState.findPixmap): Fix warning syntax.
 	(InstallControlState.readPixmap): Likewise.
 	(InstallControlState.readPixmapDithered): Likewise.

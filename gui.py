@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Michael Fulbright <msf@redhat.com>
 #
-# Copyright 1999-2003 Red Hat, Inc.
+# Copyright 1999-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -852,10 +852,6 @@ class InstallControlWindow:
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
         
     def prevClicked (self, *args):
-        ics = self.currentWindow.getICS()
-        if not ics.getPrevEnabled():
-            return
-        
 	try:
 	    self.currentWindow.getPrev ()
 	except StayOnScreen:
@@ -866,11 +862,7 @@ class InstallControlWindow:
 
         self.setScreen ()
 
-    def nextClicked (self, widget, *args):
-        ics = self.currentWindow.getICS()
-        if not ics.getNextEnabled():
-            return
-        
+    def nextClicked (self, *args):
 	try:
 	    rc = self.currentWindow.getNext ()
 	except StayOnScreen:
@@ -1124,6 +1116,10 @@ class InstallControlWindow:
             pass
         
     def refreshHelp(self):
+        # make sure we're refreshing the help for an actual screen
+        if self.currentWindow is None:
+            return
+        
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
@@ -1364,12 +1360,12 @@ class InstallControlState:
         return self.nextEnabled
 
     def setHelpButtonEnabled (self, value):
-        if value == self.helpButtonEnabled: return
-        self.helpButtonEnabled = value
+        if value == self.helpEnabled: return
+        self.helpEnabled = value
         self.cw.update (self)
 
     def getHelpButtonEnabled (self):
-        return self.helpButtonEnabled
+        return self.helpEnabled
 
     def findPixmap(self, file):
         warnings.warn("ics.findPixmap is deprecated, use gui.findPixmap instead", DeprecationWarning, stacklevel=2)
