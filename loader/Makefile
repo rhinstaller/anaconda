@@ -4,7 +4,7 @@ VERSION = 7.2
 
 DESTDIR = ../../trees/initrd
 
-OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
+OBJS = log.o windows.o modules.o devices.o cdrom.o kickstart.o lang.o \
        misc.o ftp.o md5.o mediacheck.o moduledeps.o
 
 SLANGLIB = -lslang
@@ -19,7 +19,7 @@ LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 BINS = init
 DIRS = 
-NETOBJS = net.o telnet.o telnetd.o
+NETOBJS = net.o urls.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -Os
 DEBUG = -g

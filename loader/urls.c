@@ -17,6 +17,7 @@
 #include "log.h"
 #include "windows.h"
 #include "misc.h"
+#include "net.h"
 
 #if 0
 static const char * urlfilter(const char * u)
@@ -180,11 +181,6 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     newtGrid entryGrid, buttons, grid;
     char * chptr;
     char * buf;
-    char *msg = N_("Please enter the following information:\n"
-		   "\n"
-		   "    o the name or IP number of your %s server\n" 
-		   "    o the directory on that server containing\n" 
-		   "      %s for your architecture\n");
 
     if (ui->address) {
 	site = ui->address;
@@ -203,12 +199,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     
     switch (protocol) {
     case URL_METHOD_FTP:
-	buf = sdupprintf(msg, "FTP", PRODUCTNAME);
+	buf = sdupprintf(netServerPrompt, "FTP", PRODUCTNAME);
 	reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
 	free(buf);
 	break;
     case URL_METHOD_HTTP:
-	buf = sdupprintf(msg, "Web", PRODUCTNAME);
+	buf = sdupprintf(netServerPrompt, "Web", PRODUCTNAME);
 	reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
 	free(buf);
 	break;

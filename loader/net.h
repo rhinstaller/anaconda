@@ -22,6 +22,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
 int writeResolvConf(struct networkDeviceConfig * net);
 #ifndef __STANDALONE__
+extern char *netServerPrompt;
 int nfsGetSetup(char ** hostptr, char ** dirptr);
 int kickstartNetwork(char ** devicePtr, struct networkDeviceConfig * netDev, 
 		     char * bootProto, int flags);

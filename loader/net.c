@@ -53,8 +53,18 @@
 #include "log.h"
 #include "net.h"
 #include "windows.h"
+#include "misc.h"
 
 #endif /* __STANDALONE__ */
+
+#ifndef __STANDALONE__
+char *netServerPrompt = \
+    N_("Please enter the following information:\n"
+       "\n"
+       "    o the name or IP number of your %s server\n" 
+       "    o the directory on that server containing\n" 
+       "      %s for your architecture\n");
+#endif
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
@@ -176,11 +186,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    buf = sdupprintf(_("Please enter the following information:\n"
-		       "\n"
-		       "    o the name or IP number of your NFS server\n"
-		       "    o the directory on that server containing\n"
-		       "      %s for your architecture"), PRODUCTNAME);
+    buf = sdupprintf(_(netServerPrompt), "NFS", PRODUCTNAME);
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
 			24, entries, _("OK"), _("Back"), NULL);
     free(buf);
@@ -297,7 +303,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     struct in_addr addr;
     char dhcpChoice;
     char * chptr;
-    char * env;
 
 #if !defined(__s390__) && !defined(__s390x__)
     text = newtTextboxReflowed(-1, -1, 
@@ -441,6 +446,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     } while (i != 2);
 
 #else /* s390 now */
+   char * env;
    /* quick and dirty hack by opaukstadt@millenux.com for s390 */
    /* ctc stores remoteip in broadcast-field until pump.h is changed */
    memset(&newCfg, 0, sizeof(newCfg));
