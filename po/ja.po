@@ -47,19 +47,16 @@ msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux インストール プログラム"
 
 #: ../gui.py:479
-#, fuzzy
 msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux インストール プログラム"
+msgstr ""
 
 #: ../gui.py:490
-#, fuzzy, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux インストール プログラム"
+msgstr ""
 
 #: ../gui.py:491
-#, fuzzy, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux インストール プログラム"
+msgstr ""
 
 #: ../installclass.py:248
 msgid "You are about to erase any preexisting Linux installations on your system."
@@ -250,7 +247,6 @@ msgid "Hostname"
 msgstr "ホスト名"
 
 #: ../text.py:447
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without depending on the normal bootloader. This is useful if you don't want to install lilo on your system, another operating system removes lilo, or lilo doesn't work with your hardware configuration. A custom boot disk can also be used with the Red Hat rescue image, making it much easier to recover from severe system failures.\n"
 "\n"
@@ -486,9 +482,8 @@ msgid "Installation Complete"
 msgstr "インストールの完了"
 
 #: ../text.py:994 ../text.py:997 ../text.py:1000 ../textw/silo.py:24 ../textw/silo.py:79 ../textw/silo.py:183
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "LILO の設定"
+msgstr "SILO の設定"
 
 #: ../text.py:1005
 msgid "Examine System"
@@ -507,7 +502,6 @@ msgid "Upgrade Complete"
 msgstr "アップグレードの完了"
 
 #: ../text.py:1039
-#, fuzzy
 msgid "Cancelled"
 msgstr "キャンセル"
 
@@ -516,26 +510,22 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
 #: ../todo.py:363
-#, fuzzy, c-format
 msgid "Error unmounting %s: %s"
-msgstr "オープン エラー: キックスタート ファイル %s: %s"
+msgstr ""
 
 #: ../todo.py:504
-#, fuzzy, c-format
 msgid "Error mounting %s: %s"
-msgstr "オープン エラー: キックスタート ファイル %s: %s"
+msgstr ""
 
 #: ../todo.py:525 ../todo.py:714
 msgid "Creating"
 msgstr ""
 
 #: ../todo.py:526
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "RAID デバイスを削除しますか?"
+msgstr ""
 
 #: ../todo.py:575 ../todo.py:588
-#, fuzzy
 msgid "Formatting"
 msgstr "ファイルシステムのフォーマット"
 
@@ -545,19 +535,16 @@ msgid "Formatting %s filesystem..."
 msgstr ""
 
 #: ../todo.py:714
-#, fuzzy
 msgid "Creating boot disk..."
 msgstr "ブート ディスクを作成する"
 
 #: ../todo.py:845
-#, fuzzy
 msgid "Reading"
-msgstr "残り"
+msgstr ""
 
 #: ../todo.py:846
-#, fuzzy
 msgid "Reading package information..."
-msgstr "IP 情報の要求を送信しています..."
+msgstr ""
 
 #: ../todo.py:1000 ../todo.py:1010
 msgid "no suggestion"
@@ -572,19 +559,16 @@ msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
 #: ../todo.py:1044
-#, fuzzy, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "オープン エラー: キックスタート ファイル %s: %s"
+msgstr ""
 
 #: ../todo.py:1063
-#, fuzzy
 msgid "Finding"
-msgstr "残り"
+msgstr ""
 
 #: ../todo.py:1064
-#, fuzzy
 msgid "Finding packages to upgrade..."
-msgstr "アップグレードするパッケージをカスタマイズする"
+msgstr ""
 
 #: ../todo.py:1252
 msgid "Processing"
@@ -595,9 +579,8 @@ msgid "Preparing to install..."
 msgstr ""
 
 #: ../todo.py:1357
-#, fuzzy
 msgid "Rebuilding"
-msgstr "残り"
+msgstr ""
 
 #: ../todo.py:1358
 msgid "Rebuilding RPM database..."
@@ -613,9 +596,8 @@ msgid "Upgrading %s.\n"
 msgstr ""
 
 #: ../todo.py:1415
-#, fuzzy, c-format
 msgid "Installing %s.\n"
-msgstr "パッケージのインストール"
+msgstr ""
 
 #: ../todo.py:1436
 msgid ""
@@ -624,7 +606,6 @@ msgid ""
 msgstr ""
 
 #: ../todo.py:1439
-#, fuzzy
 msgid "Mount Point"
 msgstr "マウント ポイント:"
 
@@ -633,19 +614,16 @@ msgid "Space Needed"
 msgstr ""
 
 #: ../todo.py:1453
-#, fuzzy
 msgid "Disk Space"
-msgstr "ディスク セットアップ"
+msgstr ""
 
 #: ../todo.py:1476
-#, fuzzy
 msgid "Post Install"
-msgstr "インストール"
+msgstr ""
 
 #: ../todo.py:1477
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "この設定をテストする"
+msgstr ""
 
 #: ../iw/xconfig.py:10 ../xf86config.py:235
 msgid "Video Card"
@@ -656,14 +634,12 @@ msgid "Video Ram"
 msgstr "ビデオ RAM"
 
 #: ../xf86config.py:239
-#, fuzzy
 msgid "X server"
-msgstr "サーバ"
+msgstr ""
 
 #: ../xf86config.py:241
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "第 2 ステージ用の RAM ディスクが見つかりませんでした。"
+msgstr ""
 
 #: ../iw/xconfig.py:11 ../xf86config.py:246 ../xf86config.py:248
 msgid "Monitor"
@@ -674,12 +650,10 @@ msgid "Plug and Play Monitor"
 msgstr ""
 
 #: ../xf86config.py:250
-#, fuzzy
 msgid "Horizontal frequency range"
 msgstr "水平同期周波数の範囲"
 
 #: ../xf86config.py:252
-#, fuzzy
 msgid "Vertical frequency range"
 msgstr "垂直同期周波数の範囲"
 
@@ -764,9 +738,9 @@ msgid "Skip boot disk creation"
 msgstr "ブート ディスクを作成しない"
 
 #: ../iw/confirm.py:11
-#, fuzzy
+#
 msgid "About to Install"
-msgstr "インストール"
+msgstr ""
 
 #: ../iw/confirm.py:27
 msgid "Click next to begin installation of Red Hat Linux."
@@ -857,9 +831,8 @@ msgid "Upgrade"
 msgstr "アップグレード"
 
 #: ../iw/installpath.py:214
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr ""
 
 #: ../iw/keyboard.py:13
 msgid "Keyboard Configuration"
@@ -878,9 +851,8 @@ msgid "Variant"
 msgstr "種類"
 
 #: ../iw/keyboard.py:108
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "キーボードの選択"
+msgstr ""
 
 #: ../iw/language.py:16 ../loader/lang.c:269
 msgid "What language should be used during the installation process?"
@@ -935,7 +907,6 @@ msgid "Boot label"
 msgstr "ブート ラベル"
 
 #: ../iw/mouse.py:134
-#, fuzzy
 msgid "Emulate 3 Buttons"
 msgstr "3 ボタン マウスのエミュレーションを設定しますか?"
 
@@ -1087,28 +1058,24 @@ msgid "Manually partition"
 msgstr "パーティションを自分で設定する"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "LILO の設定"
+msgstr "Silo の設定"
 
 #: ../iw/silo.py:160
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "LILO ブート レコードをインストールする場所:"
+msgstr "SILO ブート レコードをインストールする場所:"
 
 #: ../iw/silo.py:173
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "ブート ディスクを作成する"
+msgstr ""
 
 #: ../iw/silo.py:191
 msgid "Set default PROM boot device to linux"
 msgstr ""
 
 #: ../iw/silo.py:221
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "LILO をインストールしない"
+msgstr "SILO をインストールしない"
 
 #: ../iw/timezone.py:154
 msgid "View:"
@@ -1119,7 +1086,6 @@ msgid "System clock uses UTC"
 msgstr "システム クロックで UTC を使用"
 
 #: ../iw/timezone.py:211
-#, fuzzy
 msgid "Use Daylight Saving Time (US only)"
 msgstr "夏時間を使用する"
 
@@ -1149,7 +1115,7 @@ msgstr "X 設定のカスタマイズ"
 
 #: ../iw/xconfig.py:80
 msgid "Bits per Pixel"
-msgstr "ピクセルあたりのビット数"
+msgstr "bpp"
 
 #: ../iw/xconfig.py:90 ../iw/xconfig.py:227
 msgid "Test this configuration"
