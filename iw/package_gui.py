@@ -1,6 +1,10 @@
 #
 # package_gui.py: package group and individual package selection screens
 #
+# Brent Fox <bfox@redhat.com>
+# Matt Wilson <msw@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+#
 # Copyright 2001 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
@@ -17,6 +21,7 @@ import string
 import sys
 import checklist
 import gtk
+import gobject
 from iw_gui import *
 from string import *
 from thread import *
@@ -54,39 +59,125 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.ics.setHelpEnabled (gtk.TRUE)
         return None
     
-    def build_tree (self, x):
-        if (x == ()): return ()
-        if (len (x) == 1): return (x[0],)
-        else: return (x[0], self.build_tree (x[1:]))
 
-    def merge (self, a, b):
-        if a == (): return self.build_tree (b)
-        if b == (): return a
-        if b[0] == a[0]:
-            if len (a) > 1 and isinstance (a[1], type (())):
-                return (a[0],) + (self.merge (a[1], b[1:]),) + a[2:]
-            elif b[1:] == (): return a
-            else: return (a[0],) + (self.build_tree (b[1:]),) + a[1:]
-        else:
-            return (a[0],) + self.merge (a[1:], b)
+    def build_packagelists(self, groups):
+        toplevels = {}
+        self.packageGroupStore = gtk.TreeStore(gobject.TYPE_STRING,
+                                               gobject.TYPE_STRING)
 
-    def build_ctree (self, list, cur_parent = None, prev_node = None, path = ""):
-        if (list == ()): return
+        keys = groups.keys()
+        keys.sort()
+
+        # allpkgs is the special toplevel group
+        keys.remove("allpkgs")
+        allpkg = self.packageGroupStore.append(None)
+        self.packageGroupStore.set_value(allpkg, 0, _("All Packages"))
+        self.packageGroupStore.set_value(allpkg, 1, "allpkgs")
+
+        # go through and make parent nodes for all of the groups
+        for key in keys:
+            fields = string.split(key, '/')
+            main = fields[0]
+            if len(fields) > 1:
+                subgroup = fields[1]
+            
+            if toplevels.has_key(main):
+                continue
+
+            iter = self.packageGroupStore.append(allpkg)
+            self.packageGroupStore.set_value(iter, 0, main)
+            self.packageGroupStore.set_value(iter, 1, main)
+            toplevels[main] = iter
+
+        # now make the children
+        for key in keys:
+            fields = string.split(key, '/')
+            main = fields[0]
+            if len(fields) > 1:
+                subgroup = fields[1]
+            else:
+                continue
+            
+            if not toplevels.has_key(main):
+                raise RuntimeError, "Got unexpected key building tree"
+
+            parent = toplevels[main]
+            iter = self.packageGroupStore.append(parent)
+            self.packageGroupStore.set_value(iter, 0, subgroup)
+            self.packageGroupStore.set_value(iter, 1,
+                                             "%s/%s" % (main, subgroup))
+
+
+    def add_packages(self, packages):
+        """Adds the packages provided (list of headers) to the package
+           list"""
         
-        if (len (list) > 1 and isinstance (list[1], type (()))): leaf = gtk.FALSE
-        else: leaf = gtk.TRUE
-    
-        if isinstance (list[0], type (())):
-            self.build_ctree (list[0], prev_node, None, self.ctree.node_get_row_data (prev_node))
-            self.build_ctree (list[1:], cur_parent, None, path)
+        for header in packages:
+            name = header[rpm.RPMTAG_NAME]
+            size = header[rpm.RPMTAG_SIZE]
+
+            # get size in MB
+            size = size / (1024 * 1024)
+
+            # don't show as < 1 MB
+            if size < 1:
+                size = 1
+                    
+            self.packageList.append_row((name, size), header.isSelected())
+        
+
+    def select_group(self, selection):
+        rc = selection.get_selected()
+        if rc:
+            model, iter = rc
+            currentGroup = model.get_value(iter, 1)
+
+            self.packageList.clear()
+
+            if not self.flat_groups.has_key(currentGroup):
+                self.selectAllButton.set_sensitive(gtk.FALSE)
+                self.unselectAllButton.set_sensitive(gtk.FALSE)
+                return
+
+            self.selectAllButton.set_sensitive(gtk.TRUE)
+            self.unselectAllButton.set_sensitive(gtk.TRUE)
+            
+            packages = self.flat_groups[currentGroup]
+            self.add_packages(packages)
+            
+
+    def toggled_package(self, data, row):
+        row = int(row)
+        package = self.packageList.get_text(row, 1)
+
+        if not self.pkgs.has_key(package):
+            raise RuntimeError, "Toggled a non-existent package %s" % (package)
+
+        val = self.packageList.get_active(row)
+        if val:
+            self.pkgs[package].select()
         else:
-##             node = self.ctree.insert_node (cur_parent, None, (list[0],), 2,
-##                                            self.closed_p, self.closed_b, self.open_p, self.open_b, leaf)
-            node = self.ctree.insert_node (cur_parent, None, (list[0],), 2,
-                                           is_leaf=leaf)
-            cur_path = path + "/" + list[0]
-            self.ctree.node_set_row_data (node, cur_path)
-            self.build_ctree (list[1:], cur_parent, node, path)
+            self.pkgs[package].unselect()
+
+        self.updateSize()
+
+    def select_package(self, selection):
+        rc = selection.get_selected()
+        if rc:
+            model, iter = rc
+            package = model.get_value(iter, 1)
+
+            if not self.pkgs.has_key(package):
+                raise RuntimeError, "Selected a non-existent package %s" % (package)
+
+            buffer = self.packageDesc.get_buffer()
+            description = self.get_rpm_desc(self.pkgs[package])
+            buffer.set_text(description)
+
+        else:
+            buffer = self.packageDesc.get_buffer()
+            buffer.set_text("")
+        
 
     def get_rpm_desc (self, header):
         desc = replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
@@ -94,341 +185,159 @@ class IndividualPackageSelectionWindow (InstallWindow):
         desc = replace (desc, "\x00", "\n\n")
         return desc
 
-    def clear_package_desc (self):
-        self.currentPackage = None
-        self.packageDesc.freeze ()
-        self.packageDesc.delete_text (0, -1)
-        self.packageDesc.thaw ()
-    
-    def sort_list (self, args, col):
-        self.packageList.freeze ()
-        if col == 2:         #sort by column #2
-            self.bubblesort(args, col)
-            self.sortType = "Size"
-        elif col == 1:       #sort by column #1
-            self.packageList.set_sort_column (col)
-            self.packageList.sort ()
-            self.sortType = "Package"
-        elif col == 0:       #sort by column #0
-            self.bubblesort(args, col)
-            self.sortType = "Selected"            
-        self.packageList.thaw () 
+    def make_group_list(self, hdList, comps, displayBase = 0):
+        """Go through all of the headers and get group names, placing
+           packages in the dictionary.  Also have in the upper level group"""
+        
+        groups = {}
 
-    def bubblesort (self, args, col):
-        count = 0
+        # special group for listing all of the packages (aka old flat view)
+        groups["allpkgs"] = []
+        
+        for key in hdList.packages.keys():
+            header = hdList.packages[key]
 
-        #--For empty groups, don't sort.  Just return.
-        if self.rownum == 0:
-            return
+            group = header[rpm.RPMTAG_GROUP]
+            toplevel = string.split(group, '/')[0]
 
-        for i in range(self.rownum):
-            for j in range(self.rownum-i):
-                currow = j
-                nextrow = j + 1
+            # make sure the dictionary item exists for group and toplevel
+            # note that if group already exists, toplevel must also exist
+            if not groups.has_key (group):
+                groups[group] = []
 
-                #--depending on which column we're sorting by, we extract different data to compare
-                if col == 0:                
-                    (curr, row_data, header) = self.packageList.get_row_data (currow)
-                    (next, row_data, header) = self.packageList.get_row_data (nextrow)
+                if not groups.has_key(toplevel):
+                    groups[toplevel] = []
 
-                elif col == 2:
-                    curr = self.packageList.get_text(currow, col)
-                    curr = string.atoi(curr)
-                    next = self.packageList.get_text(nextrow, col)
-                    next = string.atoi(next)
+            # don't display package if it is in the Base group
+            if not comps["Base"].includesPackage(header) or displayBase:
+#                print "adding %s to %s and %s" % (header, group, toplevel)
+                groups[group].append(header)
+                groups[toplevel].append(header)
+                groups["allpkgs"].append(header)
 
-                if curr < next:
-                    self.packageList.swap_rows(currow, nextrow)
-                    count = count + 1
-                    self.packageList._update_row(currow)
-                    self.packageList._update_row(nextrow)
-
+        return groups
+        
 
     def select_all (self, rownum, select_all):
-        self.packageDesc.freeze ()
-        self.packageDesc.delete_text (0, -1)
-        self.packageDesc.thaw ()
-        
-        for i in range(self.rownum + 1):
-             (val, row_data, header) = self.packageList.get_row_data (i)
-             if select_all == 1:
-                 header.select ()
-                 self.packageList.set_row_data (i, (gtk.TRUE, row_data, header)) 
-             elif select_all == 0:
-                 header.unselect()
-                 self.packageList.set_row_data (i, (gtk.FALSE, row_data, header)) 
-             self.packageList._update_row (i)
+        for row in range(self.packageList.num_rows):
+            package = self.packageList.get_text(row, 1)
+            if not self.pkgs.has_key(package):
+                raise RuntimeError, "Attempt to toggle non-existent package"
+
+            if select_all:
+                self.pkgs[package].select()
+            else:
+                self.pkgs[package].unselect()
+            self.packageList.set_active(row, select_all)
 
         self.updateSize()
 
-    def button_press (self, packageList, event):
-        try:
-            row, col  = self.packageList.get_selection_info (event.x, event.y)
-            if row != None:
-                if col == 0:   #--If click on checkbox, then toggle
-                    self.toggle_row (row)
-                elif col == 1 or col == 2:  #--If click pkg name, show description
-
-                    (val, row_data, header) = self.packageList.get_row_data(row)
-                    description = header[rpm.RPMTAG_DESCRIPTION]
-                
-                    self.packageDesc.freeze ()
-                    self.packageDesc.delete_text (0, -1)
-
-                    #-- Remove various end of line characters
-                    description = string.replace (description, "\n\n", "\x00")
-                    description = string.replace (description, "\n", " ")
-                    description = string.replace (description, "\x00", "\n\n")
-                    
-                    self.packageDesc.insert_defaults (description)
-                    self.packageDesc.thaw ()
-        except:
-            pass
-
-    def toggle_row (self, row):
-        (val, row_data, header) = self.packageList.get_row_data(row)
-
-        val = not val
-        self.packageList.set_row_data(row, (val, row_data, header))
-        self.packageList._update_row (row)
-
-        description = header[rpm.RPMTAG_DESCRIPTION]
-
-        self.packageDesc.freeze ()
-        self.packageDesc.delete_text (0, -1)
-
-        #-- Remove various end of line characters
-        description = string.replace (description, "\n\n", "\x00")
-        description = string.replace (description, "\n", " ")
-        description = string.replace (description, "\x00", "\n\n")
-
-        self.packageDesc.insert_defaults (description)
-        self.packageDesc.thaw ()
-
-        if val == 0:
-            header.unselect()
-        else:
-            header.select()
-        
-        if self.packageList.toggled_func != None:
-            self.packageList.toggled_func(val, row_data)
-
-        self.updateSize()
-
-    def key_press_cb (self, clist, event):
-        if event.keyval == ord(" ") and self.packageList.focus_row != -1:
-            self.toggle_row (self.packageList.focus_row)
-
-    def select (self, ctree, node, *args):
-        self.pkgTreeNode = node
-        self.clear_package_desc ()
-        self.packageList.freeze ()
-        self.packageList.clear ()
-
-        self.maxrows = 0
-        self.rownum = 0
-
-        for x in node.children:
-            dirName = ctree.get_node_info (x)[0]
-            self.packageList.column_titles_passive ()
-                
-        try:
-            # drop the leading slash off the package namespace
-            for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
-                dirName = header[rpm.RPMTAG_NAME] 
-                dirSize = header[rpm.RPMTAG_SIZE]
-                dirDesc = header[rpm.RPMTAG_DESCRIPTION]
-
-                dirSize = dirSize/1000000
-                if dirSize > 1:
-                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), gtk.TRUE, dirDesc)
-                else:
-                    row = [ "", dirName, "1"]
-                    self.rownum = self.packageList.append_row((dirName, "1"), gtk.TRUE, dirDesc)
-
-                if header.isSelected():
-                    self.packageList.set_row_data(self.rownum, (1, dirDesc, header))
-                    self.maxrows = self.maxrows + 1
-                else:
-                    self.packageList._toggle_row(self.rownum)
-                    self.packageList.set_row_data(self.rownum, (0, dirDesc, header))
-                    self.maxrows = self.maxrows + 1
-
-            if self.sortType == "Package":
-                pass
-            elif self.sortType == "Size":
-                self.sort_list (args, 2)
-            elif self.sortType == "Selected":
-                self.sort_list (args, 0)
-
-            self.packageList.column_titles_active ()
-            self.selectAllButton.set_sensitive (gtk.TRUE)
-            self.unselectAllButton.set_sensitive (gtk.TRUE)
-            
-        except:
-            self.selectAllButton.set_sensitive (gtk.FALSE)
-            self.unselectAllButton.set_sensitive (gtk.FALSE)
-            pass
-
-        self.packageList.thaw ()
-        self.packageList.show_all ()
 
     def updateSize(self):
-        self.totalSizeLabel.set_text(_("Total install size: ")+ str(self.comps.sizeStr()))
+        text = _("Total install size: %s") % (self.comps.sizeStr(),)
+        self.totalSizeLabel.set_text(text)
 
+
+    # FIXME -- if this is kept instead of the All Packages in the tree
+    # it needs to properly handle keeping the tree expanded to the same
+    # state as opposed to having it default back to collapsed and no
+    # selection; I personally like the All Packages in the tree better
+    # but that seems to look weird with gtk 1.3.11
     def changePkgView(self, widget):
         if self.treeRadio.get_active():
-            self.packageList.clear()
-            self.packageList.column_title_active (0)
-            self.packageList.column_title_active (1)
-            self.packageList.column_title_active (2)
-            list = self.sw.children()
-            if list != []:
-                self.sw.remove(self.ctreeAllPkgs)
-                self.sw.add(self.ctree)
-                try:   #If there was already a selected node in the self.ctree, we want to select it again
-                    self.ctree.select(self.pkgTreeNode)
-                except:  #If the self.ctree has no selected nodes, do nothing
-                    pass
-                
-        elif self.flatRadio.get_active():
-            list = self.sw.children()
-            self.packageList.column_titles_passive ()
-            
-            if list != []:
-                self.sw.remove(self.ctree)
-                self.sw.add(self.ctreeAllPkgs)
-                self.ctreeAllPkgs.show()
+            packages = []
 
-                self.packageList.clear()
-                self.packageList.freeze()
-                pkgList = self.pkgs.packages.keys()
-                pkgList.sort()
+            self.packageTreeView.set_model(self.packageGroupStore)
+        else:
+            # cache the full package list
+            if not self.allPkgs:
+                self.allPkgs = []
+                for key in self.pkgs.keys():
+                    self.allPkgs.append(self.pkgs[key])
+            packages = self.allPkgs
 
-                for key in pkgList:
-                    header = self.pkgs.packages[key]
-                    name = header[rpm.RPMTAG_NAME]
-                    size = header[rpm.RPMTAG_SIZE]
-                    size = size/1000000
-                    if size < 1:   #We don't want packages with > 1MB to appear as 0 MB in the list
-                        size = 1
+            self.packageTreeView.set_model(gtk.ListStore(gobject.TYPE_STRING))
 
-                    desc = header[rpm.RPMTAG_DESCRIPTION]
-                    
-                    if header.isSelected():
-                        self.rownum = self.packageList.append_row((name, "%s" %size), gtk.TRUE, desc)
-                        self.packageList.set_row_data(self.rownum, (1, desc, header))
-                    else:
-                        self.rownum = self.packageList.append_row((name, "%s" %size), gtk.FALSE, desc)
-                        self.packageList.set_row_data(self.rownum, (0, desc, header))
-            self.packageList.thaw()
+
+        self.packageList.clear()
+        self.add_packages(packages)
+
             
     # IndividualPackageSelectionWindow tag="sel-indiv"
     def getScreen (self, comps, hdList):
 	self.comps = comps
-
         self.pkgs = hdList
+        self.allPkgs = None
         
-        self.path_mapping = {}
-        self.ctree = gtk.CTree()
-        self.ctree.set_selection_mode (gtk.SELECTION_BROWSE)
+        self.packageTreeView = gtk.TreeView()
 
-        self.ctreeAllPkgs = gtk.CTree()
-        self.ctreeAllPkgs.set_selection_mode (gtk.SELECTION_BROWSE)
+        renderer = gtk.CellRendererText()
+        column = gtk.TreeViewColumn('Groups', renderer, text=0)
+        column.set_clickable(gtk.TRUE)
+        self.packageTreeView.append_column(column)
+        self.packageTreeView.set_headers_visible(gtk.FALSE)
+        self.packageTreeView.set_rules_hint(gtk.FALSE)
+        self.packageTreeView.set_enable_search(gtk.FALSE)
+        
+        self.flat_groups = self.make_group_list(hdList, comps)
+        self.build_packagelists(self.flat_groups)
 
-        # Kludge to get around CTree s extremely broken focus behavior
-        # self.ctree.unset_flags (CAN_FOCUS)     
+        selection = self.packageTreeView.get_selection()
+        selection.connect("changed", self.select_group)
 
-##         if (not self.__dict__.has_key ("open_p")):
-##             fn = self.ics.findPixmap("directory-open.png")
-##             p = gdkpixbuf.new_from_file (fn)
-##             if p:
-##                 self.open_p, self.open_b = p.render_pixmap_and_mask()
-##             fn = self.ics.findPixmap("directory-closed.png")
-##             p = gdkpixbuf.new_from_file (fn)
-##             if p:
-##                 self.closed_p, self.closed_b = p.render_pixmap_and_mask()
-            
-        groups = {}
-
-        # go through all the headers and grok out the group names, placing
-        # packages in lists in the groups dictionary.        
-        for key in hdList.packages.keys():
-            header = hdList.packages[key]
-            if not groups.has_key (header[rpm.RPMTAG_GROUP]):
-                groups[header[rpm.RPMTAG_GROUP]] = []
-            # don't display package if it is in the Base group
-            if not comps["Base"].includesPackage (header):
-                groups[header[rpm.RPMTAG_GROUP]].append (header)
-
-        keys = groups.keys ()
-        keys.sort ()
-        self.flat_groups = groups
-
-        # now insert the groups into the list, then each group's packages
-        # after sorting the list
-        def cmpHdrName(first, second):
-            if first[rpm.RPMTAG_NAME] < second[rpm.RPMTAG_NAME]:
-                return -1
-            elif first[rpm.RPMTAG_NAME] == second[rpm.RPMTAG_NAME]:
-                return 0
-            return 1
-
-        groups = ()
-        for key in keys:
-            self.flat_groups[key].sort (cmpHdrName)
-            groups = self.merge (groups, split (key, "/"))
-        self.ctree.freeze ()
-        self.build_ctree (groups)
-
-        for base_node in self.ctree.base_nodes ():
-            self.ctree.expand_recursive (base_node)
-        self.ctree.columns_autosize ()
-        for base_node in self.ctree.base_nodes ():
-            self.ctree.collapse_recursive (base_node)
-        self.ctree.thaw ()
-
-        self.ctree.connect ("tree_select_row", self.select)
+        self.packageTreeView.set_model(self.packageGroupStore)
+        self.packageTreeView.expand_all()
+        
         self.sw = gtk.ScrolledWindow ()
         self.sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-
-        self.sw.add(self.ctree)
+        self.sw.set_shadow_type(gtk.SHADOW_IN)
+        self.sw.add(self.packageTreeView)
+        
         packageHBox = gtk.HBox()
 
         self.leftVBox = gtk.VBox(gtk.FALSE)
-        optionHBox = gtk.HBox()
 
+        # FIXME should these stay or go?
+        # tree/flat radio buttons... 
+        optionHBox = gtk.HBox()
         self.treeRadio = gtk.RadioButton(None, (_("Tree View")))
         self.treeRadio.connect("clicked", self.changePkgView)
         self.flatRadio = gtk.RadioButton(self.treeRadio, (_("Flat View")))
-
         optionHBox.pack_start(self.treeRadio)
         optionHBox.pack_start(self.flatRadio)
-        
         self.leftVBox.pack_start(optionHBox, gtk.FALSE)
+        
         self.leftVBox.pack_start(self.sw, gtk.TRUE)
         packageHBox.pack_start(self.leftVBox, gtk.FALSE)
 
-        self.packageList = checklist.CheckList(2)
+        self.packageList = PackageCheckList(2)
+        self.packageList.checkboxrenderer.connect("toggled",
+                                                  self.toggled_package)
+
+        self.packageList.set_enable_search(gtk.TRUE)
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("Package")))
-        self.packageList.set_column_auto_resize (1, gtk.TRUE)
+        self.packageList.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_AUTOSIZE)
         self.packageList.set_column_title (2, (_("Size (MB)")))
-        self.packageList.set_column_auto_resize (2, gtk.TRUE)
-        self.packageList.column_titles_show ()
+        self.packageList.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.packageList.set_headers_visible(gtk.TRUE)
 
         self.packageList.set_column_min_width(0, 16)
-        self.packageList.column_title_active (0)
-        self.packageList.column_title_active (1)
-        self.packageList.column_title_active (2)
-        self.packageList.connect ('click-column', self.sort_list)
-        self.packageList.connect ('button_press_event', self.button_press)
-        self.packageList.connect ("key_press_event", self.key_press_cb)
+        self.packageList.set_column_clickable(0, gtk.FALSE)
+        
+        self.packageList.set_column_clickable(1, gtk.TRUE)
+        self.packageList.set_column_sort_id(1, 1)
+        self.packageList.set_column_clickable(2, gtk.TRUE)
+        self.packageList.set_column_sort_id(2, 2)
+
+        selection = self.packageList.get_selection()
+        selection.connect("changed", self.select_package)
 
         self.packageListSW = gtk.ScrolledWindow ()
         self.packageListSW.set_border_width (5)
         self.packageListSW.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.packageListSW.set_shadow_type(gtk.SHADOW_IN)
         self.packageListSW.add(self.packageList)
 
         self.packageListVAdj = self.packageListSW.get_vadjustment ()
@@ -443,7 +352,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         hbox = gtk.HBox ()
         bb = gtk.HButtonBox ()
-        bb.set_layout (BUTTONBOX_END)
+        bb.set_layout (gtk.BUTTONBOX_END)
 
         self.totalSizeLabel = gtk.Label (_("Total size: "))
         hbox.pack_start (self.totalSizeLabel, gtk.FALSE, gtk.FALSE, 0)
@@ -466,11 +375,15 @@ class IndividualPackageSelectionWindow (InstallWindow):
         descSW = gtk.ScrolledWindow ()
         descSW.set_border_width (5)
         descSW.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        descSW.set_shadow_type(gtk.SHADOW_IN)
 
-        self.packageDesc = gtk.Text ()
-        self.packageDesc.set_word_wrap (gtk.TRUE)
-        self.packageDesc.set_line_wrap (gtk.TRUE)
-        self.packageDesc.set_editable (gtk.FALSE)
+        self.packageDesc = gtk.TextView()
+
+        buffer = gtk.TextBuffer(None)
+        self.packageDesc.set_buffer(buffer)
+        self.packageDesc.set_editable(gtk.FALSE)
+        self.packageDesc.set_cursor_visible(gtk.FALSE)
+        self.packageDesc.set_wrap_mode(gtk.TRUE)
         descSW.add (self.packageDesc)
         descSW.set_usize (-1, 100)
 
@@ -585,3 +498,41 @@ class PackageSelectionWindow (InstallWindow):
 
         return vbox
 
+
+class PackageCheckList(checklist.CheckList):
+    def __init__(self, columns = 2):
+        self.store = gtk.ListStore(gobject.TYPE_BOOLEAN,
+                                   gobject.TYPE_STRING, gobject.TYPE_INT)
+        gtk.TreeView.__init__ (self, self.store)
+        
+        self.checkboxrenderer = gtk.CellRendererToggle()
+        column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
+        column.set_fixed_width(50)
+        column.set_clickable(gtk.TRUE)
+        self.checkboxrenderer.connect ("toggled", self.toggled_item)        
+        self.append_column(column)
+
+        if columns != 2:
+            raise RuntimeError, "Invalid column specification"
+        self.columns = columns
+
+        # add the string columns to the tree view widget
+        renderer = gtk.CellRendererText()
+        column = gtk.TreeViewColumn('Text', renderer, text = 1)
+        column.set_clickable(gtk.FALSE)
+        self.append_column(column)
+
+        renderer = gtk.CellRendererText()
+        column = gtk.TreeViewColumn('Size', renderer, text = 2)
+        column.set_clickable(gtk.FALSE)
+        self.append_column(column)
+
+        self.set_rules_hint(gtk.FALSE)
+        self.set_headers_visible(gtk.FALSE)
+        self.columns_autosize()
+        self.set_enable_search(gtk.FALSE)
+
+        # keep track of the number of rows we have so we can
+        # iterate over them all
+        self.num_rows = 0
