@@ -240,3 +240,40 @@ def validUser (user):
 
     return 1
 
+def setClock (root):
+    # eeeeew, inline shell. ;)
+    args = ("bash", "-c", """
+if [ -f /etc/sysconfig/clock ]; then
+   . /etc/sysconfig/clock
+   
+   # convert old style clock config to new values
+   if [ "${CLOCKMODE}" = "GMT" ]; then
+      UTC=true
+   elif [ "${CLOCKMODE}" = "ARC" ]; then
+      ARC=true
+   fi
+fi
+
+CLOCKFLAGS="--hctosys"
+
+case "$UTC" in
+   yes|true)
+    CLOCKFLAGS="$CLOCKFLAGS -u";
+     ;;
+esac
+
+case "$ARC" in
+     yes|true)
+        CLOCKFLAGS="$CLOCKFLAGS -A";
+     ;;
+esac
+case "$SRM" in
+     yes|true)
+        CLOCKFLAGS="$CLOCKFLAGS -S";
+     ;;
+esac
+/sbin/hwclock $CLOCKFLAGS
+""")
+    execWithRedirect('/bin/sh', args, stdin = None,
+                     stdout = None, stderr = None,
+                     root = root)

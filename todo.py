@@ -733,7 +733,14 @@ class ToDo:
 
         self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
         rpm.addMacro("_rebuilddbpath", self.dbpath);
+
+        # now, set the system clock so the timestamps will be right:
+        iutil.setClock (self.instPath)
+        
+        # and rebuild the database so we can run the dependency problem
+        # sets against the on disk db
         rc = rpm.rebuilddb (self.instPath)
+        # XXX handle rc
 
         # open up the database to check dependencies
         rpm.addMacro("_dbpath", self.dbpath);
