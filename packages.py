@@ -178,7 +178,7 @@ def readPackages(intf, method, id):
                                  "Press <return> to try again."))
 
     # this is a crappy hack, but I don't want bug reports from these people
-    if (arch == "i386") and (not grpset.hdrlist.has_key("kernel")):
+    if (iutil.getArch() == "i386") and (not grpset.hdrlist.has_key("kernel")):
         intf.messageWindow(_("Error"),
                            _("You are trying to install on a machine "
                              "which isn't supported by this release of "
