@@ -55,7 +55,7 @@ class InstallProgressWindow (InstallWindow):
 #        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize)
         threads_leave ()
 
-    def completePackage(self, header):
+    def completePackage(self, header, timer):
         def formatTime(amt):
             hours = amt / 60 / 60
             amt = amt % (60 * 60)
