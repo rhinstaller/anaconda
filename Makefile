@@ -91,14 +91,14 @@ install: all
 
 create-archive:
 	@rm -rf /tmp/anaconda
-	@rm -rf /tmp/anaconda-reconfig-$(VERSION)
+	@rm -rf /tmp/anaconda-$(VERSION)
 	@echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
 	@cd /tmp ; cvs -Q -d $(CVSROOT) export -r HEAD anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda-reconfig.spec.in > anaconda-reconfig.spec
-	@mv /tmp/anaconda /tmp/anaconda-reconfig-$(VERSION)
-	@cd /tmp ; tar -czSpf anaconda-reconfig-$(VERSION).tar.gz anaconda-reconfig-$(VERSION)
-	@rm -rf /tmp/anaconda-reconfig-$(VERSION)
-	@cp /tmp/anaconda-reconfig-$(VERSION).tar.gz .
-	@rm -f /tmp/anaconda-reconfig-$(VERSION).tar.gz
+	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" < anaconda.spec.in > anaconda.spec
+	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
+	@cd /tmp ; tar -czSpf anaconda-$(VERSION).tar.gz anaconda-$(VERSION)
+	@rm -rf /tmp/anaconda-$(VERSION)
+	@cp /tmp/anaconda-$(VERSION).tar.gz .
+	@rm -f /tmp/anaconda-$(VERSION).tar.gz
 	@echo ""
-	@echo "The final archive is in anaconda-reconfig-$(VERSION).tar.gz"
+	@echo "The final archive is in anaconda-$(VERSION).tar.gz"

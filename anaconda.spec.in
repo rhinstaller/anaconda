@@ -1,16 +1,16 @@
-Name: anaconda-reconfig
+Name: anaconda
 Version: @@VERSION@@
-Release: 2
+Release: 5
 Copyright: GPL
 Summary: The Red Hat Linux first time booting configuration tool.
 Group: Applications/System
-Source: anaconda-reconfig-%{PACKAGE_VERSION}.tar.gz
+Source: anaconda-%{PACKAGE_VERSION}.tar.gz
 Obsoletes: rhs-hwdiag setconsole
 Prereq: chkconfig
-BuildRoot: /var/tmp/anaconda-reconfig-%{PACKAGE_VERSION}
+BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
 %description
-anaconda-reconfig is usually run the first-time a pre-installed computer
+anaconda is usually run the first-time a pre-installed computer
 is booted. It allows the first-time user to configure localized
 attributes like timezone and root password.
 
@@ -41,7 +41,7 @@ fi
 %files
 %defattr(-,root,root)
 %doc COPYING
-/usr/sbin/anaconda-reconfig
+/usr/sbin/anaconda
 #/usr/sbin/ddcprobe
 /usr/share/anaconda/*
 /usr/share/locale/*/*/*
@@ -51,6 +51,9 @@ fi
 
 
 %changelog
+
+* Mon Dec 06 1999 Michael Fulbright <drmike@redhat.com>
+- rename to 'anaconda' instead of 'anaconda-reconfig'
 
 * Fri Dec 03 1999 Michael Fulbright <drmike@redhat.com>
 - remove ddcprobe since we don't do X configuration in reconfig now
