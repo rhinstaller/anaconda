@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
 "POT-Creation-Date: 2000-07-16 14:00-0400\n"
-"PO-Revision-Date: 2000-07-26 17:06+0100\n"
+"PO-Revision-Date: 2000-07-26 17:43+0100\n"
 "Last-Translator: Milan Kerslager <milan.kerslager@spsselib.hiedu.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -81,12 +81,17 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
+"Byla zachycena vyjímka. Obvykle to znamená, ¾e v programu je chyba. "
+"Zkopírujte prosím plné znìní této vyjímky a ohla¹te chybu na adrese "
+"http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:271 ../text.py:783
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Vlo¾te prosím disketu. Celý obsah diskety bude smazán, proto vybírejte "
+"disketu pozornì."
 
 #: ../gui.py:361 ../gui.py:601
 msgid "Next"
@@ -523,15 +528,15 @@ msgstr "Zbývá:      "
 
 #: ../text.py:726
 msgid "Help not available"
-msgstr ""
+msgstr "Nápovìda není k dispozici"
 
 #: ../text.py:727
 msgid "No help is available for this install."
-msgstr ""
+msgstr "Pro tuto instalaci není dostupná ¾ádná nápovìda."
 
 #: ../text.py:782
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "Ulo¾it záznam havárie"
 
 #: ../text.py:793
 msgid ""
@@ -541,10 +546,15 @@ msgid ""
 "will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
+"Byla zachycena vyjímka v instalaèním programu. Obvykle to znamená, ¾e v "
+"programu je chyba. Oznamte prosím tuto chybu firmì Red Hat, Inc pomocí "
+"http://bugzilla.redhat.com/bugzilla. Va¹e hlá¹ení pomù¾e pøi odstraòování "
+"chyby, zejména pokud zprávu o chybì nahrajete na disketu.\n"
+"\n"
 
 #: ../text.py:800 ../text.py:803
 msgid "Save"
-msgstr ""
+msgstr "Ulo¾it"
 
 #: ../text.py:800 ../text.py:801
 msgid "Debug"
@@ -713,11 +723,12 @@ msgstr "Ètení informací o balíècích..."
 
 #: ../todo.py:702
 msgid "Dependency Check"
-msgstr ""
+msgstr "Kontrola závislostí"
 
 #: ../todo.py:703
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
+"Kontroluji závislosti mezi balíèky, které byly zvoleny pro instalaci..."
 
 #: ../todo.py:730 ../todo.py:769 ../todo.py:775 ../todo.py:792
 msgid "no suggestion"
@@ -750,12 +761,18 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
+"Jeden nebo více systémù souborù ve va¹em Linuxu nebylo správnì odpojeno. "
+"Spus»te prosím svùj linux a nechte jej, aby disky opravil. Pak korektnì "
+"systém ukonèete a proveïte èistou aktualizaci."
 
 #: ../todo.py:872
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
+"Jeden nebo více systémù souboru zaznamenaných v /etc/fstab na va¹em "
+"Linuxovém systému nemù¾e být pøipojeno. Opravte prosím tento problém a "
+"zkuste opìt spustit aktualizaci."
 
 #: ../todo.py:893
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -1080,7 +1097,7 @@ msgstr "Nevyøe¹ené závislosti"
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr ""
+msgstr "Celkem k instalaci: %s"
 
 #: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:161
 #: ../textw/packages_text.py:312
@@ -1322,7 +1339,7 @@ msgstr "Výbìr balíèku pro instalaci"
 
 #: ../iw/package_gui.py:353
 msgid "Total install size: "
-msgstr ""
+msgstr "Celkem k instalaci: "
 
 #: ../iw/package_gui.py:390 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
@@ -1446,6 +1463,12 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Na va¹ich discích není dostatek místa pro provedení automatického rozdìlení "
+"disku. Budete muset své disky rozdìlit ruènì, abyste mohli Red Hat Linux "
+"nainstalovat.\n"
+"\n"
+"Zvolte si prosím nástroj, kterým provedete rozdìlení disku."
 
 #: ../iw/rootpartition_gui.py:283
 msgid "Manual Partitioning"
@@ -1457,6 +1480,9 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Zvolte prosím nástroj, kterým provedete dìlení systému na oddíly pro vá¹ Red "
+"Hat Linux."
 
 #: ../iw/rootpartition_gui.py:298
 msgid "Automatically partition and REMOVE DATA"
@@ -1677,7 +1703,7 @@ msgstr "Jméno systému nesmí být prázdné."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
-msgstr ""
+msgstr "Jméno systému obsahuje nedovolené znaky."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1884,6 +1910,8 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
+"Ani koøenový systém ani odkládací prostor nemù¾e být vìt¹í, ne¾ 2000 MB "
+"(megabajtù)"
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -1993,6 +2021,8 @@ msgstr "U¾ivatel ji¾ existuje"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"Správce systému (root) je ji¾ vytvoøen. Tento u¾ivatel zde nemusí být "
+"zakládán."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -2056,7 +2086,7 @@ msgstr "Dotazovat server v¹esmìrovým vysíláním"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr ""
+msgstr "dìlení na oddíly nesplnilo po¾adavky"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2129,6 +2159,7 @@ msgstr ""
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
+"Na této platformì musí být /boot na DOS kompatibilním systému souborù %x."
 
 #: ../libfdisk/fsedit.c:1039
 #, c-format
@@ -2333,6 +2364,9 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
+"Pokusili jste se pøipojit koøen '/' na oddíl s FAT. To nelze teï udìlat, "
+"proto¾e jiná místa jsou pøipojena k oddílùm s ext2. Sma¾te tyto pøípojná "
+"místa a pak budete moci pøipojit oddíl s FAT jako koøen '/'."
 
 #: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
 msgid ""
@@ -2449,13 +2483,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "Nelze mìnit RAID"
 
 #: ../libfdisk/gnomefsedit.c:1878
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"Definovali jste koøen systému souborù (/) na oddílu, který není typu ext2. Z "
+"tohoto dùvodu nemù¾ete mìnit RAID zaøízení."
 
 #: ../libfdisk/gnomefsedit.c:1915
 msgid "<Swap Partition"
@@ -2492,6 +2528,10 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"RAID zaøízení, ze kterého lze zavádìt systém, mù¾e obsahovat pouze oddíly z "
+"prvních dvou diskù ve va¹em systému\n"
+"\n"
+"Jsou to disky: "
 
 #: ../libfdisk/gnomefsedit.c:2176
 msgid "Booting From RAID Warning"
@@ -2630,11 +2670,11 @@ msgstr "<nepou¾ito>"
 
 #: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
-msgstr ""
+msgstr "Po¾adovaná"
 
 #: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
-msgstr ""
+msgstr "Aktuální"
 
 #: ../libfdisk/gnomefsedit.c:3151
 msgid "Drive"
@@ -2737,6 +2777,7 @@ msgstr "Aktuální diskové oddíly"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"    F1-Nápovìda F2-Pøidat   F3-Zmìnit F4-Smazat    F5-Reset    F12-Ok        "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
@@ -2744,7 +2785,7 @@ msgstr "Souhrny jednotek"
 
 #: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Disk       Geom [C/H/S]      Celkem   Vyu¾ito Volno"
 
 #: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
@@ -3160,6 +3201,9 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Odpovìï na ¾ádost o pøidìlení IP adresy neobsahuje jméno DNS serveru. Pokud "
+"víte, jaká je IP adresa DNS serveru, vlo¾te ji. Pokud tuto adresu neznáte, "
+"ponechte políèko prázné a instalace bude pokraèovat."
 
 #: ../loader/net.c:254
 msgid "Invalid IP Information"
