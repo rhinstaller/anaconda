@@ -342,12 +342,6 @@ pcnet32
 # not modularized
 #pi2
 
-plip
-	plip
-	"Parallel Link Internet Protocal"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-
 #ppp
 #	ppp
 #	"Point-to-Point Protocol"
