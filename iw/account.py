@@ -229,10 +229,6 @@ class AccountWindow (InstallWindow):
         bb.pack_start (delete)
         bb.pack_start (new)
         
-##         table.attach (self.add,    0, 1, 1, 2, xoptions = FILL)
-##         table.attach (self.edit,   1, 2, 1, 2, xoptions = FILL)
-##         table.attach (delete, 2, 3, 1, 2, xoptions = FILL)
-##         table.attach (new, 3, 4, 1, 2, xoptions = FILL)
         box.pack_start (table, FALSE)
         box.pack_start (bb, FALSE)
         self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
