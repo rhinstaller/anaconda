@@ -379,7 +379,8 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
             }
         }
         fclose(fd);
-        free(line);
+        /* FIXME: we leak now, but otherwise we lose the parm */
+        /*        free(line);*/  
     }
     if(!parms || (strlen(parms) == 5)) {
         parms = NULL;
