@@ -123,7 +123,7 @@ class BaseInstallClass:
     def getHostname(self):
 	return self.hostname
     
-    def setFirewall(self, enable = -1, policy = 0, trusts = [], ports = "",
+    def setFirewall(self, enable = -1, policy = 1, trusts = [], ports = "",
 		    dhcp = 0, ssh = 0, telnet = 0, smtp = 0, http = 0,
 		    ftp = 0):
 	self.firewall = (enable, policy, trusts, ports, dhcp, ssh, telnet,
