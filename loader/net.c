@@ -508,6 +508,7 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    { "nameserver", '\0', POPT_ARG_STRING, NULL, 'n' },
 	    { "netmask", '\0', POPT_ARG_STRING, NULL, 'm' },
 	    { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
+	    { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -546,9 +547,14 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 		parseAddress = &netDev->dev.netmask;
 		netSet = PUMP_INTFINFO_HAS_NETMASK;
 		break;
+
+              /* ignore hostname for now, just don't barf on it! */
+ 	      case 'h':
+		parseAddress = NULL;
+   	        break;
 	    }
 
-	    if (!inet_aton(arg, parseAddress)) {
+	    if (parseAddress && !inet_aton(arg, parseAddress)) {
 		logMessage("bad ip number in network command: %s", arg);
 		return -1;
 	    }
