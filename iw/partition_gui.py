@@ -570,7 +570,6 @@ class PartitionWindow(InstallWindow):
                 commentstr = commentstr + \
                         "/dev/%s         %s         %s\n" % (dev,type,mntpt)
 
-            commentstr = string.join(formatWarnings, "\n")
             rc = self.presentPartitioningComments("yesno",
                                                   _("Format Warnings"),
                                                   labelstr1, labelstr2,
