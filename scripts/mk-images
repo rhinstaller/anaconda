@@ -422,6 +422,8 @@ EOF
 	$MBD_DIR tty5 c 4 5 600 root:tty
 	$MBD_DIR tty6 c 4 6 600 root:tty
 	$MBD_DIR tty7 c 4 7 600 root:tty
+	$MBD_DIR tty8 c 4 8 600 root:tty
+	$MBD_DIR tty9 c 4 9 600 root:tty
 	$MBD_DIR fb0 c 29 0 600 root:tty
 	$MBD_DIR fb1 c 29 32 600 root:tty
 	$MBD_DIR fb2 c 29 64 600 root:tty
