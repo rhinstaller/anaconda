@@ -21,9 +21,9 @@ class Mouse (SimpleConfigFile):
 	"Generic - 3 Button Mouse (PS/2)" :
 		("ps/2", "PS/2", "psaux", 0),
 	"Generic - 2 Button Mouse (USB)" :
-		("ps/2", "PS/2", "input/mice", 1),
+		("imps2", "IMPS/2", "input/mice", 1),
 	"Generic - 3 Button Mouse (USB)" :
-		("ps/2", "PS/2", "input/mice", 0),
+		("imps2", "IMPS/2", "input/mice", 0),
 	"Genius - NetMouse (serial)" :
 	       ("ms3", "IntelliMouse", "ttyS", 1),
 	"Genius - NetMouse (PS/2)" :
