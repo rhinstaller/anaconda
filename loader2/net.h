@@ -16,6 +16,8 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
+
+    /* s390 settings */
     int mtu;
     int is_qeth;
     struct in_addr ptpaddr;

@@ -698,6 +698,11 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "PORTNAME=%s\n", dev->portname);
     if (dev->is_qeth)
         fprintf(f, "QETH=yes\n");
+
+    if (dev->essid)
+        fprintf(f, "ESSID=%s\n", dev->essid);
+    if (dev->wepkey)
+        fprintf(f, "KEY=%s\n", dev->wepkey);
     
     fclose(f);
 
