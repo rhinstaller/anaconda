@@ -151,6 +151,11 @@ class AutoPartitionWindow(InstallWindow):
 
     def getScreen (self):   
         from gnomepyfsedit import fsedit
+        from installpath import InstallPathWindow
+
+        if (InstallPathWindow.fdisk and
+            InstallPathWindow.fdisk.get_active ()):
+		return None
         
         # XXX hack
         if self.todo.instClass.clearType:

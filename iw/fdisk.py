@@ -56,6 +56,8 @@ class FDiskWindow (InstallWindow):
             (not InstallPathWindow.fdisk.get_active ())):
                return None
 
+	self.ddruid = None
+
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
