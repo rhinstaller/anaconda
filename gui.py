@@ -287,7 +287,7 @@ class MessageWindow:
     def getrc (self):
         return self.rc
     
-    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None):
+    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None):
         if flags.autostep:
             print title, text, type
             self.rc = 1
@@ -309,7 +309,13 @@ class MessageWindow:
 	elif type == 'custom':
 	    docustom = 1
 	    buttons = gtk.BUTTONS_NONE
-	    style = gtk.MESSAGE_QUESTION
+
+	    if custom_icon == "warning":
+		style = gtk.MESSAGE_WARNING
+	    elif custom_icon == "question":
+		style = gtk.MESSAGE_QUESTION
+	    else:
+		style = gtk.MESSAGE_QUESTION
 
 	dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
@@ -376,8 +382,10 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text, type="ok", default = None, custom_buttons=None):
-        rc = MessageWindow (title, text, type, default, custom_buttons).getrc()
+    def messageWindow(self, title, text, type="ok", default = None,
+		     custom_buttons=None,  custom_icon=None):
+        rc = MessageWindow (title, text, type, default,
+			    custom_buttons, custom_icon).getrc()
         return rc
 
     def exceptionWindow(self, title, text):
