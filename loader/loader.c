@@ -139,8 +139,10 @@ static struct installMethod installMethods[] = {
     { "FTP", 1, CLASS_NETWORK, mountUrlImage },
     { "HTTP", 1, CLASS_NETWORK, mountUrlImage },
 #endif
+#if !defined(__ia64__)
 #if defined(INCLUDE_LOCAL)
     { N_("Hard drive"), 0, CLASS_HD, mountHardDrive },
+#endif
 #endif
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
