@@ -7,7 +7,6 @@ class WelcomeWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle ("Welcome to Red Hat Linux!")
-        ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.setHTML("<HTML><BODY><CENTER><H2>Welcome to<br>Red Hat Linux!</H2></CENTER>"
                     ""

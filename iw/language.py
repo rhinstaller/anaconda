@@ -7,6 +7,7 @@ class LanguageWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle ("Language Selection")
+        ics.setPrevEnabled (0)
         ics.setNextEnabled (1)
         ics.setHTML ("<HTML><BODY>Select which language you would like"
                      "to use for the system default.</BODY></HTML>")
