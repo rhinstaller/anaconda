@@ -119,6 +119,25 @@ if [ -n "$HOST" ]; then
                 echo $4 | grep -q "\." && MTU=$4 || echo "Invalid MTU $4, skipping"
         fi
 fi
+if [ -n "$MTU" ]; then
+	MMTU="mtu $MTU"
+else
+	if [ "$NETTYPE" = "ctc" ]; then
+		MMTU="mtu 4096"
+		MTU="4096"
+		IMTU="1"
+	fi
+fi
+if [ -n "$NETWORK" ]; then
+	set -- `echo $NETWORK | sed 's/:/ /g'`
+	NETWORKIP=$1
+	NETMASK=$2
+	BROADCAST=$3
+	if [ ":$NETTYPE" != ":ctc" -a ":$NETTYPE" != ":iucv" -a ":$NETTYPE" != ":escon" ]; then
+		GATEWAY=$4
+	fi
+fi
+
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
@@ -168,22 +187,24 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
    [ -n "$QETHPARM" ] && echo "$QETHPARM" >/proc/chandev
 	[ -n "$CHANDEV" ]  && echo "reprobe" >/proc/chandev
 fi
-while [ -z "$IPADDR" ]; do
-	echo $"Please enter the IP address of your new Linux guest:"
-	read IPADDR
-done
-while [ -z "$NETWORK" ]; do
-   echo $"Enter the network address of the new Linux guest:"
-   read NETWORK
-done
-while [ -z "$NETMASK" ]; do
-   echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
-   read NETMASK
-done
-while [ -z "$BROADCAST" ]; do
-   echo $"Enter the broadcast address for the new Linux guest:"
-   read BROADCAST
-done
+if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ]; then
+	 while [ -z "$IPADDR" ]; do
+		  echo $"Please enter the IP address of your new Linux guest:"
+		  read IPADDR
+	 done
+	 while [ -z "$NETWORK" ]; do
+		  echo $"Enter the network address of the new Linux guest:"
+		  read NETWORK
+	 done
+	 while [ -z "$NETMASK" ]; do
+		  echo $"Enter the netmask for the new Linux guest (e.g. 255.255.255.0):"
+		  read NETMASK
+	 done
+	 while [ -z "$BROADCAST" ]; do
+		  echo $"Enter the broadcast address for the new Linux guest:"
+		  read BROADCAST
+	 done
+fi
 
 if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ]; then
 	while [ -z "$GATEWAY" ]; do
@@ -311,7 +332,6 @@ if [ -n "$DNS" ]; then
 	for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
 fi
 
- 
 grep -q ext3 /proc/filesystems
 if [ "$?" != "0" ]; then
   insmod jbd$LO
