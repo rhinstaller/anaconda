@@ -259,7 +259,7 @@ static void	ProcessArgs(int argc, const char *argv[])
 	const char	*arg;
 
 	if (argv[i][0] != '-') {
-	    warn("bad arg `%s'; assumed `-%s'\r\n", argv[i]);
+	    kon_warn("bad arg `%s'; assumed `-%s'\r\n", argv[i]);
 	    arg = (char *) argv[i];
 	} else
 	    arg = (char *) argv[i] + 1;
@@ -271,7 +271,7 @@ static void	ProcessArgs(int argc, const char *argv[])
 	if (!strcasecmp(arg, "e"))
 	    ConfigExecProg(argv[i]);
 	else if (SetCapArg(arg, argv[i]) < 0)
-	    warn("invalid capability `%s' ignored\r\n", arg);
+	    kon_warn("invalid capability `%s' ignored\r\n", arg);
 	i++;
     }
 }

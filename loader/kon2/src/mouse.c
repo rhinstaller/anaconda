@@ -144,7 +144,7 @@ static int	ConfigMouseBaud(const char *config)
 		mouseBaud = B2400;
 		break;
 	default:
-		warn("invalid mouse baud rate %d; set to default (1200)\r\n", baud);
+		kon_warn("invalid mouse baud rate %d; set to default (1200)\r\n", baud);
 	case 1200:
 		mouseBaud = B1200;
 		break;
@@ -201,7 +201,7 @@ static int	ConfigMouse(const char *config)
 			return SUCCESS;
 		}
 	}
-	warn("unknown mouse type `%s' ignored; assuming no mouse\r\n", name);
+	kon_warn("unknown mouse type `%s' ignored; assuming no mouse\r\n", name);
 	return SUCCESS;
 }
 
@@ -254,7 +254,7 @@ int	MouseStart(void)
     int	mfd;
     
     if ((mfd = open(mouseDev, O_RDWR|O_NONBLOCK)) < 0) {
-	warn("couldn't open mouse device; mouse disabled\n");
+	kon_warn("couldn't open mouse device; mouse disabled\n");
 	Perror(mouseDev);
 	free(mouseDev);
 	mouseDev = NULL;

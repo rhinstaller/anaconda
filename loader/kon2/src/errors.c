@@ -69,7 +69,7 @@ void fatal(const char *format, ...)
 	exit(EXIT_FAILURE);
 }
 
-void warn(const char *format, ...)
+void kon_warn(const char *format, ...)
 {
 	va_list args;
 
