@@ -1,4 +1,4 @@
-# Dansish translation of / Dansk oversættelse af RH Install
+# Danish translation of / Dansk oversættelse af RH Install
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # Kenneth Christiansen <kenneth@ripen.dk>, 1999.
 #
@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
 "POT-Creation-Date: 1999-10-08 15:48-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 1999-10-12 23:38+02:00\n"
 "Last-Translator: Kenneth Christiansen <kenneth@ripen.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -68,12 +68,16 @@ msgstr "Red Hat Linux installerer"
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
+"Du er på vej til at slette enhver eksisterende Linux installation på dit "
+"system."
 
 #: ../installclass.py:288
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
+"Du er på vej til at slette ALLE DATA på din harddisk for at gøre plads til "
+"din Linux installation."
 
 #: ../text.py:50
 msgid "What language would you like to use during the installation process?"
@@ -641,62 +645,57 @@ msgstr ""
 
 #: ../todo.py:521 ../todo.py:710
 msgid "Creating"
-msgstr ""
+msgstr "Opretter"
 
 #: ../todo.py:522
 msgid "Creating RAID devices..."
-msgstr ""
+msgstr "Opretter raid enheder"
 
 #: ../todo.py:571 ../todo.py:584
-#, fuzzy
 msgid "Formatting"
-msgstr "Filsystems formatering"
+msgstr "Formaterer"
 
 #: ../todo.py:572 ../todo.py:585
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr ""
+msgstr "Formaterer %s filsystem..."
 
 #: ../todo.py:710
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Opret boot diskette"
+msgstr "Opretter boot diskette..."
 
 #: ../todo.py:841
-#, fuzzy
 msgid "Reading"
-msgstr "Tilbage"
+msgstr "Læser"
 
 #: ../todo.py:842
 msgid "Reading package information..."
-msgstr ""
+msgstr "Læser pakke information..."
 
 #: ../todo.py:996 ../todo.py:1006
 msgid "no suggestion"
-msgstr ""
+msgstr "ingen forslag"
 
 #: ../todo.py:1012
 msgid "Searching"
-msgstr ""
+msgstr "Søger"
 
 #: ../todo.py:1013
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Søger efter Red Hat Linux installationer..."
 
 #: ../todo.py:1040
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr ""
+msgstr "Fejl under montering af ext2 filsystem på %s: %s"
 
 #: ../todo.py:1059
-#, fuzzy
 msgid "Finding"
-msgstr "Tilbage"
+msgstr "Finder"
 
 #: ../todo.py:1060
-#, fuzzy
 msgid "Finding packages to upgrade..."
-msgstr "Vælg pakker som skal opgraderes"
+msgstr "Finder pakker som skal opgraderes"
 
 #: ../todo.py:1248
 msgid "Processing"
@@ -704,25 +703,25 @@ msgstr ""
 
 #: ../todo.py:1249
 msgid "Preparing to install..."
-msgstr ""
+msgstr "Gør parat til at installerer..."
 
 #: ../todo.py:1343
-#, fuzzy
 msgid "Rebuilding"
-msgstr "Tilbage"
+msgstr "Genbygger"
 
 #: ../todo.py:1344
 msgid "Rebuilding RPM database..."
-msgstr ""
+msgstr "Genbygger rpm database..."
 
 #: ../todo.py:1349
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
+"Genbygning af rpm databasen fejlede. Du er måske løbet tør for diskplads?"
 
 #: ../todo.py:1399
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "Opgraderer %s.\n"
 
 #: ../todo.py:1401
 #, fuzzy, c-format
@@ -738,20 +737,19 @@ msgstr ""
 
 #: ../todo.py:1425
 msgid "Mount Point"
-msgstr ""
+msgstr "Monterings punkt"
 
 #: ../todo.py:1425
 msgid "Space Needed"
-msgstr ""
+msgstr "Diskplads krævet"
 
 #: ../todo.py:1439
 msgid "Disk Space"
-msgstr ""
+msgstr "Diskplads"
 
 #: ../todo.py:1462
-#, fuzzy
 msgid "Post Install"
-msgstr "Installér"
+msgstr ""
 
 #: ../todo.py:1463
 msgid "Performing post install configuration..."
@@ -759,28 +757,27 @@ msgstr ""
 
 #: ../iw/xconfig.py:10 ../xf86config.py:231
 msgid "Video Card"
-msgstr ""
+msgstr "Video kort"
 
 #: ../iw/xconfig.py:12 ../xf86config.py:233
 msgid "Video Ram"
-msgstr ""
+msgstr "Video ram"
 
 #: ../xf86config.py:235
-#, fuzzy
 msgid "X server"
-msgstr "Tjener"
+msgstr "X tjener"
 
 #: ../xf86config.py:237
 msgid "Unable to detect video card"
-msgstr ""
+msgstr "Kunne ikke bestemme videokort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:242 ../xf86config.py:244
 msgid "Monitor"
-msgstr ""
+msgstr "Skærm"
 
 #: ../xf86config.py:244
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Plug and Play skærm"
 
 #: ../xf86config.py:246
 msgid "Horizontal frequency range"
@@ -1206,7 +1203,7 @@ msgstr ""
 
 #: ../iw/silo.py:18
 msgid "Silo Configuration"
-msgstr ""
+msgstr "Silo konfiguration"
 
 #: ../iw/silo.py:160
 msgid "Install SILO boot record on:"
@@ -1214,7 +1211,7 @@ msgstr ""
 
 #: ../iw/silo.py:173
 msgid "Create PROM alias"
-msgstr ""
+msgstr "Opret PROM alias"
 
 #: ../iw/silo.py:191
 msgid "Set default PROM boot device to linux"
@@ -1222,15 +1219,15 @@ msgstr ""
 
 #: ../iw/silo.py:221
 msgid "Do not install SILO"
-msgstr ""
+msgstr "Installér ikke SILO"
 
 #: ../iw/timezone.py:154
 msgid "View:"
-msgstr ""
+msgstr "Vis:"
 
 #: ../iw/timezone.py:162 ../iw/timezone.py:163
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "System klokke benytter UTC"
 
 #: ../iw/timezone.py:211
 msgid "Use Daylight Saving Time (US only)"
@@ -1254,7 +1251,7 @@ msgstr ""
 
 #: ../iw/xconfig.py:15
 msgid "Test failed"
-msgstr ""
+msgstr "Test fejlet"
 
 #: ../iw/xconfig.py:23 ../iw/xconfig.py:228
 msgid "Customize X Configuration"
@@ -1262,11 +1259,11 @@ msgstr ""
 
 #: ../iw/xconfig.py:80
 msgid "Bits per Pixel"
-msgstr ""
+msgstr "Bit per pixel"
 
 #: ../iw/xconfig.py:90 ../iw/xconfig.py:224
 msgid "Test this configuration"
-msgstr ""
+msgstr "Test denne konfiguration"
 
 #: ../iw/xconfig.py:172
 msgid ""
@@ -1285,11 +1282,11 @@ msgstr ""
 
 #: ../iw/xconfig.py:231
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "Brug grafisk logind"
 
 #: ../iw/xconfig.py:233
 msgid "Skip X Configuration"
-msgstr ""
+msgstr "Spring X konfigurationen over"
 
 #: ../textw/lilo.py:13 ../textw/silo.py:14
 msgid ""
@@ -1301,7 +1298,7 @@ msgstr ""
 
 #: ../textw/lilo.py:64 ../textw/silo.py:81
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "Hvor vil du installere bootindlæseren"
 
 #: ../textw/lilo.py:84 ../textw/lilo.py:105 ../textw/silo.py:114
 #: ../textw/silo.py:135
@@ -1314,11 +1311,11 @@ msgstr ""
 #: ../textw/lilo.py:102 ../textw/silo.py:114 ../textw/silo.py:132
 #: ../textw/userauth.py:62
 msgid "Cancel"
-msgstr ""
+msgstr "Anullér"
 
 #: ../textw/lilo.py:92 ../textw/silo.py:122
 msgid "Edit Boot Label"
-msgstr ""
+msgstr "Redigér boot etikette"
 
 #: ../textw/lilo.py:150 ../textw/silo.py:178
 msgid ""
@@ -1336,7 +1333,7 @@ msgstr ""
 
 #: ../textw/partitioning.py:16 ../textw/partitioning.py:57
 msgid "Disk Setup"
-msgstr ""
+msgstr "Disk opsætning"
 
 #: ../textw/partitioning.py:17
 msgid ""
@@ -1357,11 +1354,11 @@ msgstr ""
 
 #: ../loader/loader.c:293 ../loader/loader.c:318 ../textw/partitioning.py:63
 msgid "Done"
-msgstr ""
+msgstr "Færdig"
 
 #: ../textw/partitioning.py:128 ../textw/partitioning.py:129
 msgid "Continue"
-msgstr ""
+msgstr "Fortsæt"
 
 #: ../textw/partitioning.py:180
 msgid ""
@@ -1373,11 +1370,11 @@ msgstr ""
 
 #: ../textw/partitioning.py:200
 msgid "Check for bad blocks during format"
-msgstr ""
+msgstr "Tjek for dårlige blokke under formatering"
 
 #: ../textw/partitioning.py:204
 msgid "Choose Partitions to Format"
-msgstr ""
+msgstr "Vælg partitioner som skal formateres"
 
 #: ../textw/silo.py:53
 msgid "Create PROM alias `linux'"
@@ -1396,19 +1393,19 @@ msgstr ""
 
 #: ../loader/urls.c:298 ../textw/userauth.py:23
 msgid "Password:"
-msgstr ""
+msgstr "Adgangskode:"
 
 #: ../textw/userauth.py:24
 msgid "Password (again):"
-msgstr ""
+msgstr "Adgangskode (igen):"
 
 #: ../textw/userauth.py:40 ../textw/userauth.py:91
 msgid "Password Length"
-msgstr ""
+msgstr "Adgangskode længde"
 
 #: ../textw/userauth.py:41
 msgid "The root password must be at least 6 characters long."
-msgstr ""
+msgstr "Root adgangskoden skal være mindst 6 bogstaver lang."
 
 #: ../textw/userauth.py:45 ../textw/userauth.py:99
 msgid "Password Mismatch"
@@ -1420,15 +1417,15 @@ msgstr ""
 
 #: ../textw/userauth.py:71
 msgid "Edit User"
-msgstr ""
+msgstr "Redigér bruger"
 
 #: ../textw/userauth.py:73
 msgid "Add User"
-msgstr ""
+msgstr "Tilføj bruger"
 
 #: ../textw/userauth.py:78
 msgid "User ID"
-msgstr ""
+msgstr "Bruger ID"
 
 #: ../textw/userauth.py:92
 msgid "The password must be at least 6 characters long."
@@ -1436,7 +1433,7 @@ msgstr ""
 
 #: ../textw/userauth.py:109
 msgid "User Exists"
-msgstr ""
+msgstr "Bruger eksisterer"
 
 #: ../textw/userauth.py:110
 msgid "This user id already exists.  Choose another."
@@ -1474,15 +1471,15 @@ msgstr ""
 
 #: ../textw/userauth.py:249
 msgid "Enable MD5 Passwords"
-msgstr ""
+msgstr "Slå MD5 adgangskoder til"
 
 #: ../textw/userauth.py:256
 msgid "NIS Domain:"
-msgstr ""
+msgstr "NIS domæne"
 
 #: ../textw/userauth.py:258
 msgid "NIS Server:"
-msgstr ""
+msgstr "NIS tjener"
 
 #: ../textw/userauth.py:260
 msgid "or use:"
@@ -1495,7 +1492,7 @@ msgstr ""
 #: ../libfdisk/fsedit.c:615 ../libfdisk/fsedit.c:622 ../libfdisk/fsedit.c:629
 #: ../libfdisk/fsedit.c:638 ../libfdisk/fsedit.c:650 ../libfdisk/fsedit.c:660
 msgid "Bad Mount Point"
-msgstr ""
+msgstr "Forkert monterings punkt"
 
 #: ../libfdisk/fsedit.c:616
 #, c-format
@@ -1587,7 +1584,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1026 ../libfdisk/fsedit.c:1051
 msgid "Skip Drive"
-msgstr ""
+msgstr "Spring drev over"
 
 #: ../libfdisk/fsedit.c:1051 ../loader/net.c:329
 msgid "Retry"
@@ -1611,19 +1608,19 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:1102 ../libfdisk/fsedit.c:1104
 msgid "Fdisk Error"
-msgstr ""
+msgstr "Fdisk fejl"
 
 #: ../libfdisk/gnomefsedit.c:519 ../libfdisk/gnomefsedit.c:715
 msgid "<Swap Partition>"
-msgstr ""
+msgstr "<Swap partition>"
 
 #: ../libfdisk/gnomefsedit.c:527 ../libfdisk/gnomefsedit.c:717
 msgid "<RAID Partition>"
-msgstr ""
+msgstr "<Raid partition>"
 
 #: ../libfdisk/gnomefsedit.c:601 ../libfdisk/newtfsedit.c:691
 msgid "Delete Partition"
-msgstr ""
+msgstr "Slet partition"
 
 #: ../libfdisk/gnomefsedit.c:602 ../libfdisk/newtfsedit.c:692
 msgid "Are you sure you want to delete this partition?"
