@@ -133,7 +133,7 @@ int main(int argc, char **argv) {
     total = 0;
     /* read up to 15 sectors from end, due to problems reading last few */
     /* sectors on burned CDs                                            */
-    tally_inc = 50*1000*1000;
+    tally_inc = 64*1024*1024;
     tally = 0;
     while (total < isosize - SKIPSECTORS*2048) {
 	nread = read(isofd, buf, 2048);
@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
 	total = total + nread;
 
 	if (total >= tally) {
-	    printf("Read %5d MB\n", tally/1000/1000);
+	    printf("Read %5d MB\n", tally/1024/1024);
 	    tally += tally_inc;
 	}
     }
@@ -167,16 +167,21 @@ int main(int argc, char **argv) {
     memcpy(new_appdata+47, "THIS IS NOT THE SAME AS RUNNING MD5SUM ON THIS ISO!!", 51);
 
     i = lseek(isofd, pvd_offset + APPDATA_OFFSET, SEEK_SET);
-    if (i<0)
+    if (i<0) {
 	printf("seek failed\n");
+	perror();
+	exit(1);
+    }
 
     i = write(isofd, new_appdata, 512);
     if (i<0) {
 	printf("write failed %d\n", i);
 	perror("");
+	exit(1);
     }
 
     close(isofd);
 
     printf("Done!\n");
+    exit(0)
 }

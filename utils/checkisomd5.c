@@ -156,6 +156,7 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum) {
 int main(int argc, char **argv) {
     int isofd;
     int rc;
+    int retval;
     unsigned char mediasum[33], computedsum[33];
 
     if (argc < 2) {
@@ -180,5 +181,6 @@ int main(int argc, char **argv) {
 	printf("No checksum information in iso, check skipped.\n");
 
     close(isofd);
+    exit(0);
 }
 
