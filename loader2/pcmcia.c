@@ -68,22 +68,13 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_NOPCMCIA(flags))
 	return 0;
-    
+
     pcic = getPcicController();
     if (!pcic)
         return 0;
 
-    for (i = 0; i < modInfo->numModules ; i++) {
-        if (strcmp(pcic, modInfo->moduleList[i].moduleName)) {
-            mods = sdupprintf("pcmcia_core:%s:ds", pcic);
-            logMessage("going to insert %s", mods);
-            /* JKFIXME: this depends on a hack until pcmcia has module-info */
-            mlLoadModuleSetLocation(mods, modLoaded, modDeps, modInfo, 
-                                    flags, modInfo->moduleList[i].locationID);
-            free(mods);
-            break;
-        }
-    }
+    mods = sdupprintf("pcmcia_core:%s:ds", pcic);
+    mlLoadModuleSet(mods, modLoaded, modDeps, modInfo, flags);
 
     return 0;
 }

@@ -885,3 +885,16 @@ fdomain_cs
 qlogic_cs
         scsi_hostadapter
         "Qlogic PCMCIA SCSI driver"
+
+# pcmcia host controllers
+yenta_socket
+	pcmcia
+	"Cardbus PCMCIA Controller"
+
+i82365
+	pcmcia
+	"i82365 PCMCIA socket driver"
+
+tcic
+	pcmcia
+	"Databook TCIC-2 PCMCIA socket driver"
