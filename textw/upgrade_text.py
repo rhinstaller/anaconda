@@ -19,8 +19,8 @@ class UpgradeSwapWindow:
 
 	(fsList, suggSize, suggMntPoint) = rc
 
-	text = _("The 2.4 kernel needs significantly more swap then older "
-		 "ones, as much as twice as much swap space as RAM on the "
+	text = _("The 2.4 kernel needs significantly more swap than older "
+		 "kernels, as much as twice as much swap space as RAM on the "
 		 "system. You currently have %dMB of swap configured, but "
 		 "you may create additional swap space on one of your "
 		 "file systems now.") % (iutil.swapAmount() / 1024)
