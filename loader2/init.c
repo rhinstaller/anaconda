@@ -526,7 +526,7 @@ int main(int argc, char **argv) {
         if ((fd = open(consoles[i], O_RDWR)) >= 0) {
             printf("anaconda installer init version %s using %s as console\n",
                    VERSION, consoles[i]);
-            isSerial = 0;
+            isSerial = 3;
             break;
         }
     }
@@ -538,7 +538,7 @@ int main(int argc, char **argv) {
         }
     }
     
-    if (isSerial) {
+    if (isSerial && (isSerial != 3)) {
 	char *device = "/dev/ttyS0";
 
 	printf("anaconda installer init version %s using a serial console\n", 
@@ -558,6 +558,8 @@ int main(int argc, char **argv) {
 	    fatal_error(1);
 	}
 
+	setupTerminal(fd);
+    } else if (isSerial == 3) {
 	setupTerminal(fd);
     } else if (fd < 0)  {
 	fd = open("/dev/tty1", O_RDWR, 0);
