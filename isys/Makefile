@@ -6,6 +6,7 @@ CFLAGS = -I/usr/include/python1.5 -I.. -g -Wall
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o
+SOURCES = $(patsubst %.o,%.c,$(OBJECTS))
 STATICOBJS = otherinsmod.o
 STATICLIBS = /usr/lib/python1.5/site-packages/kudzumodule.so
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
@@ -18,7 +19,16 @@ endif
 
 ifeq ($(ARCH),sparc)
 PYMODULES += _silo.so
+SOURCSE += silo.c
 endif
+
+ifeq (.depend,$(wildcard .depend))
+TARGET=all
+else
+TARGET=depend all
+endif
+
+everything: $(TARGET)
 
 all: subdirs $(PYMODULES) libisys.a
 
@@ -39,3 +49,10 @@ install: all
 
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; done
+
+depend:
+	$(CPP) -M $(CFLAGS) $(SOURCES) > .depend
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif                                           
