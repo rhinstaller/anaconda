@@ -115,6 +115,96 @@ class LanguageWindow:
 	    
         return INSTALL_OK
 
+class LanguageSupportWindow:
+    def __call__(self, screen, todo):
+
+
+        languages = todo.language.available ()
+        descriptions = languages.keys ()
+        descriptions.sort ()
+        current = todo.language.get ()
+
+
+        ct = CheckboxTree(height = 8, scroll = 1)
+
+        for lang in descriptions:
+            if languages[lang] == current:
+                #                default = descriptions.index (lang)
+                ct.append(lang, lang, 1)
+            else:
+                ct.append(lang, lang, 0)
+
+#        cb = Checkbox (_("Select individual packages"), individual.get ())
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+#	la = Label(_("Hello"))
+
+        message = (_("Choose the languages to be installed:"))
+        width = len(message)
+        tb = Textbox (width, 2, message)
+
+#	ct.setCallback(self.updateSize, (la, todo, ct))
+
+        g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
+
+        g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        g.add (ct, 0, 1, (0, 0, 0, 1))
+#        g.add (cb, 0, 2, (0, 0, 0, 1))
+        g.add (bb, 0, 3, growx = 1)
+
+        result = g.runOnce()
+
+        rc = bb.buttonPressed (result)
+
+        if rc == "back":
+            return INSTALL_BACK
+
+        return INSTALL_OK
+
+class LanguageDefaultWindow:
+    def __call__(self, screen, todo):
+
+
+        languages = todo.language.available ()
+        descriptions = languages.keys ()
+        descriptions.sort ()
+        current = todo.language.get ()
+
+
+        ct = CheckboxTree(height = 8, scroll = 1)
+
+        for lang in descriptions:
+            if languages[lang] == current:
+                #                default = descriptions.index (lang)
+                ct.append(lang, lang, 1)
+            else:
+                ct.append(lang, lang, 0)
+
+#        cb = Checkbox (_("Select individual packages"), individual.get ())
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+#	la = Label(_("Hello"))
+
+        message = (_("Choose the default language:"))
+        width = len(message)
+        tb = Textbox (width, 2, message)
+
+#	ct.setCallback(self.updateSize, (la, todo, ct))
+
+        g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
+
+        g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        g.add (ct, 0, 1, (0, 0, 0, 1))
+#        g.add (cb, 0, 2, (0, 0, 0, 1))
+        g.add (bb, 0, 3, growx = 1)
+
+        result = g.runOnce()
+
+        rc = bb.buttonPressed (result)
+
+        if rc == "back":
+            return INSTALL_BACK
+
+        return INSTALL_OK
+    
 class KeyboardWindow:
     beenRun = 0
 
@@ -935,6 +1025,10 @@ class InstallInterface:
             self.commonSteps = [
                 [N_("Language Selection"), LanguageWindow, 
                  (self.screen, todo, self), "language" ],
+                [N_("Language Support"), LanguageSupportWindow, 
+                 (self.screen, todo), "lanugagesupport" ],
+                [N_("Language Default"), LanguageDefaultWindow, 
+                 (self.screen, todo), "lanugagedefault" ],
                 [N_("Keyboard Selection"), KeyboardWindow, 
                  (self.screen, todo), "keyboard" ],
                 [N_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
