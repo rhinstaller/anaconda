@@ -467,9 +467,12 @@ class XconfiguratorWindow:
 	    f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
         f.close ()
 
+	args = ["xconfigurator", "--continue"],
+	if todo.expert:
+	    args = args + [ '--noddcprobe' ]
+
         screen.suspend ()
-        iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator",
-                                ["xconfigurator", "--continue"],
+        iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator", args
                                 root = todo.instPath)
         screen.resume ()
 	todo.x.skip = 1
