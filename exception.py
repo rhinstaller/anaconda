@@ -72,6 +72,8 @@ def handleException(todo, (type, value, tb)):
 	todo.fstab = None
 	todo.comps = None
 	todo.hdList = None
+        todo.rootpassword = None
+        todo.users = None
 
 	p.dump(todo)
 
