@@ -128,6 +128,7 @@ class Network:
             dev = string.strip(line[0:6])
             if dev != "lo" and not self.netdevices.has_key(dev):
                 self.netdevices[dev] = NetworkDevice(dev)
+
         return self.netdevices
 
     def setHostname(self, hn):
