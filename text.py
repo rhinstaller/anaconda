@@ -856,23 +856,11 @@ class ProgressWindow:
 	self.screen.refresh()
 
 class InstallInterface:
-
     def helpWindow(self, screen, key, firstTime = 1):
 	try:
-	    lang = cat.getlangs()
-	    if not lang or lang[0] == "en_US":
-		lang = 'C'
-	    else:
-		lang = lang[0]
-
-            # stolen from gettext.py
-            langs = [lang]
-            # remove charset ...
-            if '.' in lang:
-                    langs.append(string.split(lang, '.')[0])
-            # also add 2 character language code ...
-            if len(lang) > 2:
-                    langs.append(lang[:2])
+	    langs = cat.getlangs()
+	    if not langs or langs[0] == "en_US":
+		langs = [ 'C' ]
 
             f = None
             for lang in langs:
