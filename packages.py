@@ -380,7 +380,7 @@ def doInstall(method, id, intf, instPath):
 
     if method.systemMounted (id.fsset, instPath, id.hdList.selected()):
 	id.fsset.umountFilesystems(instPath)
-	return 1
+	return dispatch.DISPATCH_BACK
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
