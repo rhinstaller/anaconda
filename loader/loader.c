@@ -744,8 +744,6 @@ int main(int argc, char ** argv) {
         perror("exec");
     }
 
-while (1);
-
     return 1;
 }
 
