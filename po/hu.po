@@ -1,12 +1,14 @@
+# translation of hu.po to Hungarian
 # Arpad Biro <biro_arpad@yahoo.com>, 2004.
+# Széll Tamás <tomi@digiflex.hu>, 2004.
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda\n"
+"Project-Id-Version: hu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-07-15 23:21+0200\n"
-"Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
-"Language-Team: Hungarian\n"
+"PO-Revision-Date: 2004-09-05 14:42+0200\n"
+"Last-Translator: Széll Tamás <tomi@digiflex.hu>\n"
+"Language-Team: Hungarian <hu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -186,12 +188,11 @@ msgstr "A használt egértípus: %s"
 #: ../anaconda:966
 #, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Telepített %s rendszerek keresése..."
+msgstr "Grafikus telepítés indítása..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
+msgstr "Nem sikerült cilinder-alapú partíciókat lefoglalni elsődleges partíciónak"
 
 #: ../autopart.py:949
 msgid "Could not allocate partitions as primary partitions"
@@ -245,11 +246,11 @@ msgstr ""
 "OpenFirmware így nem tudja elindítani a rendszert."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+#, python-format
+#, fuzzy
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"A(z) %s rendszerindítási partíció nem tesz eleget az architektúra "
+"A %s rendszerindítási partíció nem tesz eleget az architektúra "
 "rendszerindítási követelményeinek. Erősen ajánlott rendszerindító lemezt "
 "készíteni."
 
@@ -1064,8 +1065,9 @@ msgid "_Retry"
 msgstr "Újr_a"
 
 #: ../gui.py:1116 ../packages.py:1493
+#, fuzzy
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "A telepítő most kilép..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1692,8 +1694,7 @@ msgstr "Adjon meg egy csatlakoztatási (mount) pontot a partíciónak."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
-msgstr ""
-"Ezt a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
+msgstr "Ezt a partíció tartalmazza a merevlemezes telepítéshez szükséges adatokat."
 
 #: ../partIntfHelpers.py:115
 #, python-format
@@ -1941,8 +1942,7 @@ msgid "Confirm Reset"
 msgstr "Az alapállapotba hozás megerősítése"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Biztosan alapállapotba szeretné hozni a partíciós táblát?"
 
 #: ../partitioning.py:77
@@ -1977,8 +1977,7 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
+msgstr "Nem adta meg a gyökérpartíciót (/), amely nélkül nem telepíthető a(z) %s."
 
 #: ../partitions.py:766
 #, python-format
@@ -1990,8 +1989,7 @@ msgstr ""
 "telepítéséhez."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Létre kell hozni egy FAT típusú, kb. 50 MB-os /boot/efi partíciót."
 
 #: ../partitions.py:796
@@ -2055,8 +2053,7 @@ msgstr "egy olyan partíció, mely egy LVM-kötetcsoport része."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Ez a csatlakoztatási pont érvénytelen. A(z) %s könyvtárnak a gyökér-"
 "fájlrendszeren (/) kell lennie."
@@ -2156,8 +2153,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:224 ../text.py:482
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:240 ../rescue.py:275 ../rescue.py:432
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2311,10 +2307,8 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) Red Hat, Inc., 2004."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> Segítség |<Tab> Váltás |<Space> Kiválasztás |<F12> Következő képernyő"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> Segítség |<Tab> Váltás |<Space> Kiválasztás |<F12> Következő képernyő"
 
 #: ../text.py:369
 msgid ""
@@ -2573,58 +2567,63 @@ msgid "DDC Probed Monitor"
 msgstr "DDC-vel detektált monitor"
 
 #: ../zfcp.py:27
+#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "A zSeries számítógépek Fibre Channel-en (FCP) keresztül tudnak hozzáférni a szabványos SCSI eszközökhöz. 5 tulajdonságát kell megadnod minden eszköznek: egy 16 bites eszköz szám, egy 16 bites SCSI ID, egy 64 bites World Wide Port Szám (WWPN), egy 16 bites SCSI LUN és egy 64 bites FCP LUN."
 
 #: ../zfcp.py:29
 #, fuzzy
 msgid "Device number"
-msgstr "Eszköz"
+msgstr "Eszköz szám"
 
 #: ../zfcp.py:30
 #, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Nem adott meg gépnevet."
+msgstr "Nem adott meg eszköz számot, vagy a szám érvénytelen"
 
 #: ../zfcp.py:32
+#, fuzzy
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI ID"
 
 #: ../zfcp.py:33
 #, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Nem adott meg gépnevet."
+msgstr "Nem adott meg SCSI ID-t, vagy az ID érvénytelen"
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
+#, fuzzy
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 #, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Nem adott meg gépnevet."
+msgstr "Nem adott meg worldwide port nevet, vagy a név érvénytelen"
 
 #: ../zfcp.py:38
+#, fuzzy
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 #, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Nem adott meg gépnevet."
+msgstr "Nem adott meg SCSI LUN számot, vagy a szám érvénytelen."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
+#, fuzzy
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 #, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Nem adott meg gépnevet."
+msgstr "Nem adott meg FCP LUN számot, vagy a szám érvénytelen"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3031,8 +3030,7 @@ msgstr "A frissítés megkezdése"
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr ""
-"Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
+msgstr "Kattintson a Tovább gombra a(z) %s rendszer frissítésének elkezdéséhez."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
@@ -3337,9 +3335,9 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
-"Az SELinux (Security Enhanced Linux) komponens a hagyományos linuxos "
-"jogosultságoknál sokkal finomabb biztonsági előírásokat tesz lehetővé. A "
-"komponens ki- vagy bekapcsolt állapotban lehet (az előbbi esetben csak "
+"Az SELinux (Security Enhanced Linux) a hagyományos linuxos "
+"rendszerben megszokottaknál sokkal finomabb biztonsági előírásokat tesz lehetővé. A "
+"komponens kikapcsolt állapotban is működhet (ekkor csak "
 "figyelmeztetéseket ad a hozzáférés megtagadása helyett)."
 
 #: ../iw/firewall_gui.py:157
@@ -3558,8 +3556,7 @@ msgstr "Használt csatlakoztatási pont"
 #: ../iw/lvm_dialog_gui.py:532
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
+msgstr "A(z) \"%s\" csatlakoztatási pont már le van foglalva, válasszon egy másikat."
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1258
 msgid "Illegal Logical Volume Name"
@@ -4219,14 +4216,12 @@ msgid "Partitioning"
 msgstr "Partícionálás"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "A következő kritikus hibák találhatók a partícionálási sémában."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Ezeket a hibákat ki kell javítani, mielőtt folytatná a(z) %s rendszer "
 "telepítését."
@@ -4386,8 +4381,7 @@ msgstr "Nem sikerült meghajtóklónozási szerkesztőt létrehozni"
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
+msgstr "Valamilyen ok miatt nem sikerült meghajtóklónozási szerkesztőt létrehozni."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4863,8 +4857,7 @@ msgstr "Ez felfrissíti az aktuális rendszerbetöltőt."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "A telepítő %s rendszerbetöltőt talált a(z) %s rendszeren."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4997,8 +4990,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "A lapozási fájl méretének 1 és 2000 MB közé kell esnie."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nincs elég hely az eszközön a lapozási partíció létrehozásához."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5174,32 +5166,35 @@ msgstr "Az X beállításának k_ihagyása"
 #: ../iw/zfcp_gui.py:23
 #, fuzzy
 msgid "ZFCP Configuration"
-msgstr "A VNC beállításai"
+msgstr "ZFCP beállításai"
 
 #: ../iw/zfcp_gui.py:99
+#, fuzzy
 msgid "_Remove"
-msgstr ""
+msgstr "_Törlés"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
 #, fuzzy
 msgid "FCP Devices"
-msgstr "Eszközök"
+msgstr "FCP eszközök"
 
 #: ../iw/zfcp_gui.py:118
 #, fuzzy
 msgid "Add FCP device"
-msgstr "Eszköz hozzáadása"
+msgstr "FCP eszköz hozzáadása"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
+#, fuzzy
 msgid "Edit FCP device %s"
-msgstr "RAID-eszköz módosítása"
+msgstr "A következő FCP eszköz szerkesztése: %s"
 
 #: ../iw/zfcp_gui.py:237
+#, fuzzy
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Azt választotta, hogy eltávolít egy FCP lemezt a konfigurációból. Biztos benne hogy folytatni kívánja?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5363,8 +5358,7 @@ msgstr ""
 "néven szeretné azokat megjeleníteni."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Szóköz>: választás | <F2>: az alapértelmezett bejegyzés kiválasztása | "
 "<F12>: következő képernyő>"
@@ -5528,8 +5522,7 @@ msgstr "A telepítendő szoftverek egyéni kiválasztása"
 
 #: ../textw/fdasd_text.py:31
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr ""
-"Válassza ki, melyik meghajtón kell futtatni az fdasd-t vagy a dasdfmt-t"
+msgstr "Válassza ki, melyik meghajtón kell futtatni az fdasd-t vagy a dasdfmt-t"
 
 #: ../textw/fdasd_text.py:32
 msgid "Next"
@@ -5804,10 +5797,8 @@ msgid "Select individual packages"
 msgstr "Csomagok egyéni kiválasztása"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<->: kiválasztás | <F2>: a csoport jellemzői | <F12>: tovább"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5831,10 +5822,8 @@ msgid "Total size"
 msgstr "Teljes méret"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"      <Space>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "      <Space>,<+>,<-> kiválasztás |   <F1> Súgó   |   <F2> csomagleírás"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5925,7 +5914,6 @@ msgid "End Cylinder:"
 msgstr "Zárócilinder:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
 msgstr "A kötetcsoport neve:"
 
@@ -6073,30 +6061,31 @@ msgstr ""
 
 #: ../textw/partition_text.py:1310
 #, python-format
+#, fuzzy
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"A kért méret (%10.2f MB) nagyobb, mint a kötetcsoportban elérhető rész (%"
+"10.2f MB)."
 
 #: ../textw/partition_text.py:1364
 #, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "A logikai kötet szerkesztése"
+msgstr "Új partíció vagy logikai kötet?"
 
 #: ../textw/partition_text.py:1365
 #, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "A rendszerindítási partíció nem lehet logikai köteten."
+msgstr "Egy új partíciót vagy logikai kötetet kíván létrehozni?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partíció"
+msgstr "partíció"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Logikai kötetek"
+msgstr "logikai kötet"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6111,10 +6100,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6358,15 +6345,12 @@ msgid "User Exists"
 msgstr "A felhasználó már létezik"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "A \"root\" felhasználónév már be van állítva, nem kell itt felvenni."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"Ez a rendszerfelhasználói név már be van állítva, nem kell itt felvenni."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "Ez a rendszerfelhasználói név már be van állítva, nem kell itt felvenni."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6698,38 +6682,42 @@ msgstr "Videomemória:"
 #: ../textw/zfcp_text.py:32
 #, fuzzy
 msgid "Device number:"
-msgstr "Eszköz"
+msgstr "Eszköz szám:"
 
 #: ../textw/zfcp_text.py:34
 #, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
+#, fuzzy
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
+#, fuzzy
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
+#, fuzzy
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
 #, fuzzy
 msgid "FCP Device"
-msgstr "Eszköz"
+msgstr "FCP eszköz"
 
 #: ../textw/zfcp_text.py:105
 #, fuzzy
 msgid "Device #"
-msgstr "Eszköz"
+msgstr "Eszköz #"
 
 #: ../textw/zfcp_text.py:113
+#, fuzzy
 msgid "Remove"
-msgstr ""
+msgstr "Törlés"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7069,8 +7057,7 @@ msgstr "Meghajtólemez használata"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
+msgstr "Nem található kézzel beszúrható meghajtó. Meghajtólemezt szeretne használni?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -7154,8 +7141,9 @@ msgstr "Nem található Kickstart-fájl a merevlemezen."
 
 #: ../loader2/hdinstall.c:578
 #, c-format
+#, fuzzy
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Nincs merevlemez találat a(z) %s BIOS lemezre"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7195,10 +7183,8 @@ msgid "Welcome to %s"
 msgstr "Üdvözöljük - %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következő képernyő "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következő képernyő "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7331,8 +7317,7 @@ msgstr "A betöltő már lefutott. Elindul a parancsértelmező.\n"
 #: ../loader2/loader.c:1496
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
+msgstr "Az Anaconda elindult (%s helyreállítási módban) - egy kis türelmet kérek...\n"
 
 #: ../loader2/loader.c:1498
 #, c-format
@@ -7771,10 +7756,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlanti idő - K-Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlanti idő - Nova Scotia (nagy része), NB, Ny-Labrador, K-Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlanti idő - Nova Scotia (nagy része), NB, Ny-Labrador, K-Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7798,7 +7781,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7878,7 +7861,7 @@ msgstr "Chatham-szigetek"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7961,10 +7944,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Keleti idő - Ontario (a legtöbb hely)"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Keleti idő - Ontario és Quebec - a DST 1967-1973-hoz nem tartozó területek"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
@@ -8036,7 +8017,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8143,17 +8124,15 @@ msgid "most locations"
 msgstr "a legtöbb rész"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "a legnagyobb rész (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "a legtöbb rész (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Sziklás-hegységi idő (MST) - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Sziklás-hegységi idő - Dawson Creek, Fort Saint John, Brit-Kolumbia"
 
 #. generated from zone.tab
@@ -8288,11 +8267,11 @@ msgstr "Sabah és Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8340,7 +8319,7 @@ msgstr "Tibet és Xinjiang-Ujgur nagy része"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8352,7 +8331,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8411,9 +8390,8 @@ msgid "Bengali"
 msgstr "bengáli"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "magyar"
+msgstr "bolgár"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8504,9 +8482,8 @@ msgid "Persian"
 msgstr "perzsa"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "angol"
+msgstr "lengyel"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8560,5 +8537,3 @@ msgstr "velszi"
 msgid "Zulu"
 msgstr "zulu"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "K-Argentína (BA, DF, SC, TF)"
