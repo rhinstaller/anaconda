@@ -73,10 +73,10 @@ class BootloaderPasswordWidget:
 
     # set the label on the button for the bootloader password
     def setPassLabel(self):
+        self.passButton.set_label(_("Change _password"))        
         if not self.usePassCb.get_active() or not self.password:
-            self.passButton.set_label(_("No password"))
+            self.passButton.set_sensitive(gtk.FALSE)
         else:
-            self.passButton.set_label(_("Change _Password"))
             self.passButton.set_sensitive(gtk.TRUE)
 
     # callback for when the password checkbox is clicked
@@ -113,15 +113,17 @@ class BootloaderPasswordWidget:
         table = gtk.Table(2, 2)
         table.set_row_spacings(5)
         table.set_col_spacings(5)
-        table.attach(gtk.Label(_("Password:")), 0, 1, 2, 3,
-                              gtk.FILL, 0, 10)
+        label = gui.MnemonicLabel(_("_Password:"))
+        table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
         pwEntry = gtk.Entry (16)
         pwEntry.set_visibility (gtk.FALSE)
+        label.set_mnemonic_widget(pwEntry)
         table.attach(pwEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
-        table.attach(gtk.Label(_("Confirm:")), 0, 1, 3, 4,
-                              gtk.FILL, 0, 10) 
+        label = gui.MnemonicLabel(_("Con_firm:"))        
+        table.attach(label, 0, 1, 3, 4, gtk.FILL, 0, 10) 
         confirmEntry = gtk.Entry (16)
         confirmEntry.set_visibility (gtk.FALSE)
+        label.set_mnemonic_widget(confirmEntry)
         table.attach(confirmEntry, 1, 2, 3, 4, gtk.FILL, 0, 10)
         dialog.vbox.pack_start(table)
 

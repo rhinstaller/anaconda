@@ -24,26 +24,21 @@ from rhpl.translate import _, N_
 class OSBootWidget:
     """Widget to display OSes to boot and allow adding new ones."""
     
-    def __init__(self, bl, fsset, diskset, parent, intf):
+    def __init__(self, bl, fsset, diskset, parent, intf, blname):
         self.bl = bl
         self.fsset = fsset
         self.diskset = diskset
         self.parent = parent
         self.intf = intf
-
-        # illegal characters for boot loader labels
-        if self.bl.useGrub():
-            self.illegalChars = [ "$", "=" ]
+        if blname is not None:
+            self.blname = blname
         else:
-            self.illegalChars = [ "$", "=", " " ]
+            self.blname = "GRUB"
 
-        if self.bl.useGrub():
-            blname = "GRUB"
-        else:
-            blname = "LILO"
-
+        self.setIllegalChars()
+        
         self.vbox = gtk.VBox(gtk.FALSE, 5)
-        label = gui.WrappingLabel(_("You can configure the %s boot loader to boot other operating systems.  Additional operating systems can be added to the below list to choose between them on boot.") % (blname,))
+        label = gui.WrappingLabel(_("You can configure the boot loader to boot other operating systems.  Additional operating systems can be added to the below list to choose between them on boot."))
         self.vbox.pack_start(label, gtk.FALSE)
 
         spacer = gtk.Label("")
@@ -110,6 +105,21 @@ class OSBootWidget:
         alignment.add(self.vbox)
         self.widget = alignment
 
+    def setIllegalChars(self):
+        # illegal characters for boot loader labels
+        if self.blname == "GRUB":
+            self.illegalChars = [ "$", "=" ]
+        else:
+            self.illegalChars = [ "$", "=", " " ]
+
+    def changeBootLoader(self, blname):
+        if blname is not None:
+            self.blname = blname
+        else:
+            self.blname = "GRUB"
+        self.setIllegalChars()
+        self.fillOSList()
+
     # adds/edits a new "other" os to the boot loader config
     def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
         dialog = gtk.Dialog(_("Image"), self.parent)
@@ -131,13 +141,16 @@ class OSBootWidget:
         table.set_row_spacings(5)
         table.set_col_spacings(5)
 
-        table.attach(gtk.Label(_("Label")), 0, 1, 1, 2, gtk.FILL, 0, 10)
+        label = gui.MnemonicLabel(_("_Label"))
+        table.attach(label, 0, 1, 1, 2, gtk.FILL, 0, 10)
         labelEntry = gtk.Entry(32)
+        label.set_mnemonic_widget(labelEntry)
         table.attach(labelEntry, 1, 2, 1, 2, gtk.FILL, 0, 10)
         if oldLabel:
             labelEntry.set_text(oldLabel)
 
-        table.attach(gtk.Label(_("Device")), 0, 1, 2, 3, gtk.FILL, 0, 10)
+        label = gui.MnemonicLabel(_("_Device"))
+        table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
         if not isRoot:
             # XXX should potentially abstract this out into a function
             pedparts = []
@@ -168,10 +181,11 @@ class OSBootWidget:
                 deviceOption.set_history(defindex)
             
             table.attach(deviceOption, 1, 2, 2, 3, gtk.FILL, 0, 10)
+            label.set_mnemonic_widget(deviceOption)
         else:
             table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
 
-        default = gtk.CheckButton(_("Default Boot Target"))
+        default = gtk.CheckButton(_("Default Boot _Target"))
         table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
         if isDefault != 0:
             default.set_active(gtk.TRUE)
@@ -222,7 +236,7 @@ class OSBootWidget:
             for key in self.imagelist.keys():
                 if dev == key:
                     continue
-                if self.bl.useGrub():
+                if self.blname == "GRUB":
                     thisLabel = self.imagelist[key][1]
                 else:
                     thisLabel = self.imagelist[key][0]
@@ -266,7 +280,7 @@ class OSBootWidget:
                 del self.imagelist[oldDevice]
                 
             # go ahead and add it
-            if self.bl.useGrub():
+            if self.blname == "GRUB":
                 self.imagelist[dev] = (oldshort, label, isRoot)
             else:
                 self.imagelist[dev] = (label, oldlong, isRoot)
@@ -345,7 +359,7 @@ class OSBootWidget:
 
         for dev in keys:
             (label, longlabel, fstype) = self.imagelist[dev]
-            if self.bl.useGrub():
+            if self.blname == "GRUB":
                 theLabel = longlabel
             else:
                 theLabel = label

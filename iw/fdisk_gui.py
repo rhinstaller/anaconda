@@ -58,6 +58,7 @@ class FDiskWindow (InstallWindow):
         term = vte.Terminal()
         term.set_encoding("UTF-8")
         term.set_font_from_string("monospace")
+
         term.connect("child_exited", self.child_died, widget)
         self.drive = drive
 
