@@ -2249,7 +2249,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
       "for this release of Red Hat Linux.")
 #endif
 
-logMessage("UPDATES floppy evice is %s", floppyDevice);
+logMessage("UPDATES floppy device is %s", floppyDevice);
 
 	devMakeInode(floppyDevice, "/tmp/floppy");
 	if (doPwMount("/tmp/floppy", "/tmp/update-disk", "ext2", 1, 0, NULL, 
