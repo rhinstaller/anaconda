@@ -12,6 +12,7 @@
 #include "linux/kd.h"
 
 #include "cpio.h"
+#include "isys.h"
 #include "lang.h"
 #include "stubs.h"
 
@@ -85,6 +86,9 @@ int loadKeymap(gzFile stream) {
 #if defined (__s390__) || defined (__s390x__)
     return 0;
 #endif
+    if (isVioConsole())
+        return 0;
+
     if (gunzip_read(stream, &magic, sizeof(magic)) != sizeof(magic))
 	return -EIO;
 
