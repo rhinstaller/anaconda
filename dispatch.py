@@ -171,7 +171,7 @@ class Dispatcher:
 	else:
 	    self.step = self.step + self.dir
 
-	if self.step == len(installSteps):
+	if self.step >= len(installSteps):
 	    return None
 
 	while ((self.step >= self.firstStep
@@ -218,7 +218,7 @@ class Dispatcher:
     def currentStep(self):
 	if self.step == None:
 	    self.gotoNext()
-	elif self.step == len(installSteps):
+	elif self.step >= len(installSteps):
 	    return (None, None)
 
 	stepInfo = installSteps[self.step]
