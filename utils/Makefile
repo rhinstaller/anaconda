@@ -7,7 +7,7 @@ ISYSLIB=isys
 
 LOADERDIR = ../loader2
 LOADLIBES =  -lpopt
-CFLAGS = -Wall -g -I.. -I$(LOADERDIR) -Werror
+CFLAGS = -Wall -g -I.. -I$(LOADERDIR) -Werror -D_FORTIFY_SOURCE=2
 RPMCFLAGS = $(CFLAGS) -I/usr/include/rpm
 LDFLAGS = -g
 
@@ -37,10 +37,18 @@ moddeps: moddeps.o moduledeps.o
             $(LOADLIBES) -lresolv -lpopt -lbz2
 
 md5.o: md5.c md5.h
-	gcc -c -O -g md5.c
+	gcc -c -O -g md5.c -D_FORTIFY_SOURCE=2
 
-genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c \
+hash.o : hash.c
+	$(CC) $(RPMCFLAGS) -c -o $@ $<
+
+# XXX rpm needs to be fixed not to have const functions.  Until then,
+# -Wno-return-type
+genhdlist.o : genhdlist.c
+	$(CC) $(RPMCFLAGS) -Wno-return-type -c -o $@ $<
+
+genhdlist: genhdlist.o hash.o
+	$(CC) $(LDFLAGS) -o genhdlist $^ \
 	-lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt -lelf -lpthread -lbeecrypt
 
 depends:

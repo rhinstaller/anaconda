@@ -36,8 +36,8 @@ HWLIBS += -lpci
 endif
 
 DEBUG = -ggdb
-COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror
-CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H 
+COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror -D_FORTIFY_SOURCE=2
+CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H
 STATIC = -static
 REALCC=gcc
 
@@ -148,7 +148,7 @@ install: all
 	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 dirbrowser: dirbrowser.c
-	gcc -DSTANDALONE -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang
+	gcc -DSTANDALONE -D_FORTIFY_SOURCE=2 -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang
 
 ifeq (.depend,$(wildcard .depend))
 include .depend

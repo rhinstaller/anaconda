@@ -1,6 +1,7 @@
 include ../Makefile.inc
 
-CFLAGS = -g -fPIC -D_FILE_OFFSET_BITS=64 -I$(PYTHONINCLUDE) -O -Wall -Werror
+CFLAGS = -g -fPIC -D_FILE_OFFSET_BITS=64 -I$(PYTHONINCLUDE) -O -Wall -Werror \
+	-D_FORTIFY_SOURCE=2
 OBJECTS = md5.o libimplantisomd5.o checkisomd5.o pyisomd5sum.c \
 	  implantisomd5 checkisomd5
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS))

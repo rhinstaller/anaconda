@@ -29,14 +29,14 @@ locale-list:
 	PYTHONPATH="." $(PYTHON) scripts/genlocalelist.py > locale-list
 
 mini-wm: mini-wm.c
-	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs` -Wall -Werror
+	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs` -Wall -Werror -D_FORTIFY_SOURCE=2
 
 xmouse.so: xmouse.c
-	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c -Wall -Werror
+	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c -Wall -Werror -D_FORTIFY_SOURCE=2
 	gcc -o xmouse.so -shared xmouse.o -L/usr/X11R6/$(LIBDIR) -lXxf86misc -lX11 -lXext
 
 xutils.so: xutils.c
-	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c -Wall -Werror
+	gcc -ggdb -Wall -o xutils.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xutils.c -Wall -Werror -D_FORTIFY_SOURCE=2
 	gcc -o xutils.so -shared xutils.o -ggdb -L/usr/X11R6/$(LIBDIR) -lX11
 
 depend:

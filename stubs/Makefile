@@ -7,7 +7,7 @@ TARGETS= $(LIBUTF8)
 all:	$(TARGETS)
 
 $(LIBUTF8): unicode-lite.c
-	gcc -fPIC -shared -o $@ $< -lwlite
+	gcc -fPIC -shared -o $@ $< -lwlite -D_FORTIFY_SOURCE=2
 
 clean:
 	rm -f *.so.* *.o
