@@ -25,7 +25,7 @@ product.py: product.py.in Makefile.inc
 	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
 
 lang-names: lang-table
-	PYTHONPATH="iconvmodule:." $(PYTHON) scripts/getlangnames.py > lang-names
+	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names
 
 mini-wm: mini-wm.c
 	gcc -o mini-wm mini-wm.c `pkg-config gtk+-x11-2.0 --cflags --libs`
@@ -124,10 +124,10 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
+	PYTHONPATH=isys:balkan:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
 
 pycheck-file:
-	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
+	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
 
 PKGNAME=anaconda
 local:
