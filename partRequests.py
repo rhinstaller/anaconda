@@ -49,6 +49,50 @@ class DeleteSpec:
         return "drive: %s  start: %s  end: %s" %(self.drive, self.start,
                                                  self.end)
 
+class DeleteLogicalVolumeSpec:
+    """Defines a preexisting logical volume which is intended to be removed."""
+
+    def __init__(self, name, vg):
+        """Initializes a DeleteLogicalVolumeSpec.
+
+        name is the name of the lv
+        vg is the name of the volume group
+        """
+
+        self.name = name
+        self.vg = vg
+
+    def __str__(self):
+        return "lvname: %s  vgname: %s" %(self.name, self.vg)
+
+class DeleteVolumeGroupSpec:
+    """Defines a preexisting volume group which is intended to be removed."""
+
+    def __init__(self, name):
+        """Initializes a DeleteVolumeGroupSpec
+
+        name is the name of the volume group
+        """
+
+        self.name = name
+
+    def __str__(self):
+        return "vgname: %s" %(self.name,)
+
+class DeleteRAIDSpec:
+    """Defines a preexisting RAID device which is intended to be removed."""
+
+    def __init__(self, minor):
+        """Initializes a DeleteRAIDSpec.
+
+        minor is the minor of the RAID device being removed
+        """
+
+        self.minor = minor
+
+    def __str__(self):
+        return "minor: %s" %(self.minor,)
+
 class RequestSpec:
     """Generic Request specification."""
     def __init__(self, fstype, size = None, mountpoint = None, format = None,
