@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.10
+Version: 10.2.0.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Jan 13 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.11-1
+- Fix some tracebacks with the new glade code
+- Use busybox ash instead of ash for netstg2.img/hdstg2.img
+- Initialize terminals to avoid color palette change from 
+  bterm (pjones, #137849)
+
 * Thu Jan 13 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.10-1
 - Handle /sbin/lvm not existing anymore
 - Allow installclasses to turn off showing the upgrade option
