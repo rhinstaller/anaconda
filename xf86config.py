@@ -677,3 +677,4 @@ if __name__ == "__main__":
     x.modes["16"] = [ "640x480" ]
     x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
+
