@@ -305,6 +305,8 @@ def upgradeFindPackages (intf, method, id, instPath):
 	    hasFileManager = 1
 	if package[rpm.RPMTAG_NAME] == "kdebase":
 	    hasFileManager = 1
+	if package[rpm.RPMTAG_NAME] == "nautilus":
+	    hasFileManager = 1
 
     # open up the database to check dependencies
     db = rpm.opendb (0, instPath)
@@ -312,7 +314,7 @@ def upgradeFindPackages (intf, method, id, instPath):
     # check the installed system to see if the packages just
     # are not newer in this release.
     if hasX and not hasFileManager:
-        for name in ("gmc", "kdebase"):
+        for name in ("gmc", "nautilus", "kdebase"):
             try:
                 recs = db.findbyname (name)
                 if recs:
@@ -350,6 +352,25 @@ def upgradeFindPackages (intf, method, id, instPath):
                     "selecting GRUB")
                 id.hdList["grub"].select()
 	
+    if (id.hdList.has_key("nautilus")
+        and not id.hdList["nautilus"].isSelected()):
+        log ("Upgrade: nautilus is not currently selected to be upgraded")
+        recs = None
+        try:
+            recs = db.findbyname ("gnome-core")
+        except rpm.error:
+            pass
+        if not recs:
+            recs = None
+            try:
+                recs = db.findbyname ("nautilus")
+            except rpm.error:
+                pass
+            if not recs:
+                log("Upgrade: gnome-core is on the system, but nautilus isn't."
+                    "Selecting nautilus to be installed")
+                id.hdList["nautilus"].select()
+
     del db
 
     # new package dependency fixup
