@@ -45,10 +45,11 @@ class MiloInstall:
             try:
                 os.mkdir (confprefix)
 		os.remove(todo.instPath + "/etc/aboot.conf")
-                os.symlink("../boot/etc/aboot.conf",
-                           self.todo.instPath + "/etc/aboot.conf")
             except:
 		pass
+            os.symlink("../boot/etc/aboot.conf",
+                       self.todo.instPath + "/etc/aboot.conf")
+
         else:
             confprefix = self.todo.instPath + "/etc"
             kernelprefix = '/boot/'
@@ -81,13 +82,13 @@ class MiloInstall:
         iutil.execWithRedirect('/sbin/swriteboot',
                                args,
                                stdout = None,
-                               root = todo.instPath)
+                               root = self.todo.instPath)
         
         args = ("abootconf", ("/dev/%s" % abootdev), str (partition))
         iutil.execWithRedirect('/sbin/abootconf',
                                args,
                                stdout = None,
-                               root = todo.instPath)
+                               root = self.todo.instPath)
     def writeMilo (self):
         if self.todo.mounts.has_key ('/boot'):
             hasboot = 1
