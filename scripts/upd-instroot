@@ -104,6 +104,10 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
          hdparm lvm librpm404 rhpl libxml2 libxml2-python rdate"
 
+if [ $ARCH = x86_64 ]; then
+    PACKAGES="$PACKAGES libgcc libstdc++"
+fi
+
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
 fi
@@ -166,6 +170,10 @@ fi
 if [ $ARCH = alpha ]; then
     PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mono XFree86-P9000
                 XFree86-S3 XFree86-SVGA aboot"
+fi
+
+if [ $ARCH = x86_64 ]; then
+    PACKAGES="$PACKAGES libgcc libstdc++"
 fi
 
 if [ $ARCH = ia64 ]; then
