@@ -1,0 +1,8 @@
+2000-11-20  Michael Fulbright  <msf@avatar.devel.redhat.com>
+
+	* Enabled edd support in libfdisk. Required passing new flag when
+	creating a fsedit object, and to several routines in alloc.c so
+	that the autoallocation routines would know whether to try to use
+	edd or not.
+	
+
