@@ -192,7 +192,7 @@ class DependencyChecker:
             else:
                 hdr = None
                 
-            if hdr is not None:
+            if hdr is not None and not hdr.isSelected():
                 if evr:
                     nevr = "%s-%s" %(name, evr)
                 else:
@@ -926,7 +926,7 @@ def orderPackageGroups(grpset):
     return (retlist, retdict)
 
 if __name__ == "__main__":
-    tree = "/mnt/redhat/test/katzj/x86_64/"
+    tree = "/mnt/redhat/test/katzj2/i386/i386/"
     
     def simpleInstallCallback(what, amount, total, h, (param)):
         global rpmfd
@@ -984,8 +984,6 @@ if __name__ == "__main__":
     hdrlist = HeaderList(hdrs)
     hdrlist.mergeFullHeaders(tree + "/RedHat/base/hdlist2")
     showMem()
-    hdrlist.mergePackageDeps(comps.packages)
-    showMem()    
     groups = GroupSet(comps, hdrlist)
     showMem()
 
