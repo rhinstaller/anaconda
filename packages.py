@@ -1244,8 +1244,9 @@ def setFileCons(instPath):
         rpmfiles = os.listdir(instPath + "/var/lib/rpm")
         rpmfiles = map(addpath, rpmfiles)
 
-        files = ["/etc/rpm/platform", "/etc/lilo.conf",
-                 "/etc/lilo.conf.anaconda", "/etc/mtab", "/etc/resolv.conf",
+        files = ["/etc/rpm/platform", "/etc/rpm/macros",
+                 "/etc/lilo.conf", "/etc/lilo.conf.anaconda",
+                 "/etc/mtab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/lib/rpm", "/"] + rpmfiles
 
