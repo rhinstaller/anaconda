@@ -92,7 +92,7 @@ find_location (GPtrArray *Locations, gchar *locname)
     for (i=0; i < Locations->len; i++) {
 	loc = g_ptr_array_index (Locations, i);
 
-	if (!strcmp (loc->zone, locname))
+	if (!strcmp (_(loc->zone), locname))
 	    return i;
     }
 
@@ -344,15 +344,15 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 
     /* keep status bar from flickering */
     gtk_label_get (GTK_LABEL (GTK_STATUSBAR (mapdata->statusbar)->label), &status_text);
-    if (strncmp (status_text, loc->zone, strlen (loc->zone)) != 0)
+    if (strncmp (status_text, _(loc->zone), strlen (loc->zone)) != 0)
       {
 	char *newstr;
 	char *sep = " - ";
 
 	gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
-	newstr = (char *) malloc (strlen (loc->zone) + strlen (sep) + 
+	newstr = (char *) malloc (strlen (_(loc->zone)) + strlen (sep) + 
 				  ((loc->comment) ? strlen (loc->comment) : 0) + 1);
-	strcpy (newstr, loc->zone);
+	strcpy (newstr, _(loc->zone));
 	if (loc->comment)
 	  {
 	    strcat (newstr, sep);
@@ -658,7 +658,7 @@ create_location_list (MapData *mapdata)
 	if (!gnome_map_is_loc_in_view (WorldMap, loc->longitude, loc->latitude))
 	    continue;
 
-	row[0] = loc->zone;
+	row[0] = _(loc->zone);
 	row[1] = loc->comment;
 	newrow = gtk_clist_append (GTK_CLIST (mapdata->locationlist), row);
 	gtk_clist_set_row_data (GTK_CLIST (mapdata->locationlist), newrow, 
@@ -763,8 +763,9 @@ main (int argc, char **argv)
     gtk_widget_show_all (mainwindow);
 
     /* pick New York City as default */
+    printf ("%s\n", _("America/New_York"));
     set_selection (mapdata,
-		   find_location (mapdata->Locations, "America/New_York"),
+		   find_location (mapdata->Locations, _("America/New_York")),
 		   TRUE);
 
     gtk_main ();
@@ -780,9 +781,11 @@ typedef struct tzObject_t {
 } tzObject;
 
 static PyObject * setcurrent (tzObject * o, PyObject * args);
+static PyObject * getzone (tzObject * o, PyObject * args);
 
 static PyMethodDef tzObjectMethods[] = {
     { "setcurrent", (PyCFunction) setcurrent, METH_VARARGS, NULL },
+    { "getzone", (PyCFunction) getzone, METH_VARARGS, NULL },
     { NULL }
 };
 
@@ -826,7 +829,21 @@ static PyObject * setcurrent (tzObject * o, PyObject * args) {
     return Py_BuildValue("i", index);
 }
 
+static PyObject * getzone (tzObject * o, PyObject * args) {
+    char * loc;
+    TimeZoneLocation *zone;
+    int index;
 
+    if (!PyArg_ParseTuple(args, "s", &loc))
+	return NULL;
+
+    index = find_location (o->mapdata->Locations, loc);
+    if (index == -1)
+	return NULL;
+    
+    zone = g_ptr_array_index (o->mapdata->Locations, index);
+    return Py_BuildValue("s", zone->zone);
+}
 
 static PyObject * tzGetAttr(tzObject * o, char * name) {
     if (!strncmp (name, "map", 3)) {
