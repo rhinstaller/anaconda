@@ -595,7 +595,7 @@ void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv, int * flagsPtr) {
     char * fstype = NULL;
     char * dev = NULL;
-    char * src;
+    char * src = NULL;
     poptContext optCon;
     int rc;
     int flags = *flagsPtr;
