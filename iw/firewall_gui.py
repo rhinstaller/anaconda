@@ -84,9 +84,13 @@ class FirewallWindow (InstallWindow):
                             #- if there's a colon in the token, it's valid
                             if string.index(token,':'):         
                                 parts = string.split(token, ':')
+				portnum = int(parts[0])
                                 if len(parts) > 2: # more than one colon
                                     bad_token_found = 1
                                     bad_token = token
+				elif portnum < 1 or portnum > 65535:
+				    bad_token_found = 1
+				    bad_token = token
                                 else:
                                     # udp and tcp are the only valid protos
                                     if parts[1] == 'tcp' or parts[1] == 'udp':
@@ -100,17 +104,25 @@ class FirewallWindow (InstallWindow):
                                         pass
                         except:
                             if token != "":
-                                if portlist == "":
-                                    portlist = token + ":tcp"
-                                else:
-                                    portlist = portlist + ',' + token + ':tcp'
-
+				try:
+				    portnum = int(token)
+				    if portnum < 1 or portnum > 65535:
+					bad_token_found = 1
+					bad_token = token
+				    else:
+					if portlist == "":
+					    portlist = token + ":tcp"
+					else:
+					    portlist = portlist + ',' + token + ':tcp'
+				except:
+				    bad_token_found = 1
+				    bad_token = token
                 else:
                     pass
 
                 if bad_token_found == 1: # raise a warning
                     text = _("Invalid port given: %s.  The proper format is "
-                             "'port:protocol'.  For example, "
+                             "'port:protocol', where port is between 1 and 65535, and port is either 'tcp' or 'udp'.\n\nFor example, "
                              "'1234:udp'") % (bad_token,)
 
                     self.intf.messageWindow(_("Warning: Bad Token"),
