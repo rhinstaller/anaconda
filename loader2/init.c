@@ -428,7 +428,7 @@ static int getInitPid(void) {
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
-    int fd; 
+    int fd = -1;
     int doReboot = 0;
     int doShutdown =0;
     int isSerial = 0;
@@ -509,12 +509,29 @@ int main(int argc, char **argv) {
     noKill = getNoKill();
 
 #if !defined(__s390__) && !defined(__s390x__)
-    if (ioctl (0, TIOCLINUX, &twelve) < 0) {
-	isSerial = 2;
-    }
 
-    if ((isSerial == 2) && (ioctl(0, TIOCGSERIAL, &si) == -1)) {
-        isSerial = 0;
+#ifdef __powerpc__
+    /* ppc has some weird consoles.  so, let's be smart and
+     * check if the consoles exist */
+    char *consoles[] = { "/dev/hvc0", /* hvc for JS20 */
+                         "/dev/hvsi0", "/dev/hvsi1", 
+                         "/dev/hvsi2", /* hvsi for POWER5 */
+                         NULL };
+    for (i = 0; consoles[i] != NULL; i++) {
+        if ((fd = open(consoles[i], O_RDONLY)) >= 0) {
+            printf("anaconda installer init version %s using %s as console\n",
+                   VERSION, consoles[i]);
+            isSerial = 0;
+            break;
+        }
+    }
+#endif
+
+    if ((fd < 0) && (ioctl (0, TIOCLINUX, &twelve) < 0)) {
+	isSerial = 2;
+        if (ioctl(0, TIOCGSERIAL, &si) == -1) {
+            isSerial = 0;
+        }
     }
     
     if (isSerial) {
