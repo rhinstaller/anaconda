@@ -71,30 +71,26 @@ int simpleStringCmp(const void * a, const void * b) {
 char * sdupprintf(const char *format, ...) {
     char *buf = NULL;
     char c;
-    va_list args;
+    va_list ap1, ap2;
     size_t size = 0;
 
-    va_start(args, format);
+    va_start(ap1, format);
+    va_copy(ap1, ap2);
     
     /* XXX requires C99 vsnprintf behavior */
-    size = vsnprintf(&c, 1, format, args) + 1;
+    size = vsnprintf(&c, 1, format, ap1) + 1;
     if (size == -1) {
 	printf("ERROR: vsnprintf behavior is not C99\n");
 	abort();
     }
 
-    /* 
-     * according to C99, 7.15 #3, the value of ap is now indeterminate
-     * so we need to call va_end/va_start again.
-     */
-    va_end(args);
-    va_start(args, format);	
+    va_end(ap1);
 
     buf = malloc(size);
     if (buf == NULL)
 	return NULL;
-    vsnprintf(buf, size, format, args);
-    va_end (args);
+    vsnprintf(buf, size, format, ap2);
+    va_end (ap2);
 
     return buf;
 }
