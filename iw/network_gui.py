@@ -57,7 +57,7 @@ class NetworkWindow(InstallWindow):
 		    raise gui.StayOnScreen
 
 	    newHostname = hname
-	    override = self.anyUsingDHCP()
+            override = 1
 	else:
 	    newHostname = "localhost.localdomain"
 	    override = 0
@@ -525,10 +525,10 @@ class NetworkWindow(InstallWindow):
 
 
         # figure out if they have overridden using dhcp for hostname
-	# print self.anyUsingDHCP()
 	if self.anyUsingDHCP():
 	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 		self.hostnameManual.set_active(1)
+		self.hostnameManual.set_sensitive(1)
 	    else:
 		self.hostnameUseDHCP.set_active(1)
 	else:
@@ -583,7 +583,8 @@ class NetworkWindow(InstallWindow):
 
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())
 	self.setIPTableSensitivity()
-	self.setHostOptionsSensitivity()
+
+        self.hostnameUseDHCP.set_sensitive(self.anyUsingDHCP())
 
 	return box
 
