@@ -82,6 +82,9 @@ rm -rf $RPM_BUILD_ROOT
 - Include pesize in the ks.cfg (#141370)
 - Loop less on shutdown
 - Improved handling of VGs that aren't completely present (#139058)
+- Disable read-ahead for the last meg of the CD to try to fix mediacheck 
+  problems.  Disable this behavior with "nocdhack" on the boot 
+  command line. (#131051, ...)
 - Turn off beta nag
 
 * Tue Nov 30 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.7-1
