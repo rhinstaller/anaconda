@@ -18,6 +18,8 @@ class AccountWindow (InstallWindow):
                      "</BODY></HTML>")
 
     def getNext (self):
+	if not self.__dict__.has_key("pw"): return None
+
         self.todo.rootpassword.set (self.pw.get_text ())
 	accounts = []
 	for n in range(len(self.passwords.keys())):
