@@ -8,7 +8,7 @@ COMMONMODULES="nfs fat vfat cramfs loop floppy $BTERMMODULES"
 FSMODS="msdos vfat ext3 reiserfs jfs xfs"
 SECSTAGE="nfs fat vfat md raid0 raid1 raid5 raid6 dm-mod $FSMODS $LATEUSBMODS"
 NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
-SCSIMODULES="sd_mod sg sr_mod st scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx sym53c8xx_2 mptscsih mptbase ips"
+SCSIMODULES="sd_mod sg sr_mod st scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid_mbox qla1280 qla2200 qla2300 sym53c8xx mptscsih mptbase ips"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
