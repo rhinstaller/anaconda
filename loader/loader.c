@@ -239,7 +239,8 @@ int main(int argc, char ** argv) {
     }
     argptr = anacondaArgs;
     *argptr++ = testing ? "../anaconda" : "/usr/bin/anaconda";
-    *argptr++ = "-p /mnt/source";
+    *argptr++ = "-p";
+    *argptr++ = "/mnt/source";
 
     printf("Launching anaconda (%s), please wait...\n", anacondaArgs[0]);
     
