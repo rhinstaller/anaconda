@@ -361,7 +361,7 @@ rm -rf $DEST/usr/share/locale
 make install DESTDIR=$DESTGR > /dev/null
 
 for p in $DESTGR $DEST; do
-	rm $p/usr/lib/anaconda/lang-table
+	rm -f $p/usr/lib/anaconda/lang-table
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 
@@ -398,10 +398,12 @@ for p in $DESTGR $DEST; do
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
 
-	for i in `find $p/usr/share/locale -name anaconda.mo`; do
-	    gzip -9 $i
-	    mv -f $i.gz $i
-	done
+	if [ -d $p/usr/share/locale ]; then
+	    for i in `find $p/usr/share/locale -name anaconda.mo`; do
+		gzip -9 $i
+		mv -f $i.gz $i
+	    done
+	fi
 done
 
 # always use passive mode for ftp installs
