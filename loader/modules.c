@@ -173,11 +173,12 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 }
 
 int mlLoadModule(char * modName, moduleList modLoaded,
-	         moduleDeps modDeps, int testing) {
+	         moduleDeps modDeps, char ** args, int testing) {
     moduleDeps dep;
     char ** nextDep;
     char fileName[80];
-    int rc;
+    int rc, i;
+    char ** arg, ** newArgs;
 
     if (mlModuleInList(modName, modLoaded)) {
 	return 0;
@@ -189,7 +190,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    mlLoadModule(*nextDep, modLoaded, modDeps, testing);
+	    mlLoadModule(*nextDep, modLoaded, modDeps, NULL, testing);
 
 	    nextDep++;
 	}
@@ -199,11 +200,22 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 
     sprintf(fileName, "%s.o", modName);
 
-    rc = insmod(fileName, NULL);
+    rc = insmod(fileName, args);
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
-	modLoaded->mods[modLoaded->numModules].args = NULL;
-	modLoaded->mods[modLoaded->numModules++].weLoaded = 1;
+	modLoaded->mods[modLoaded->numModules].weLoaded = 1;
+
+	if (args) {
+	    for (i = 0, arg = args; *arg; arg++, i++);
+	    newArgs = malloc(sizeof(*newArgs) * (i + 1));
+	    for (i = 0, arg = args; *arg; arg++, i++)
+		newArgs[i] = *arg;
+	    newArgs[i] = NULL;
+	} else {
+	    newArgs = NULL;
+	}
+
+	modLoaded->mods[modLoaded->numModules++].args = newArgs;
     }
 
     return rc;
@@ -237,6 +249,7 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
     struct moduleInfo * mi;
     int scsiNum = 0;
     int ethNum = 0;
+    char ** arg;
 
     if (!list) return 0;
 
@@ -270,6 +283,17 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 	    }
 
 	    strcat(buf, lm->name);
+	    strcat(buf, "\n");
+	    write(fd, buf, strlen(buf));
+	}
+
+	if (lm->args) {
+	    strcpy(buf, "options ");
+	    strcat(buf, lm->name);
+	    for (arg = lm->args; *arg; arg++) {
+		strcat(buf, " ");
+		strcat(buf, *arg);
+	    }
 	    strcat(buf, "\n");
 	    write(fd, buf, strlen(buf));
 	}
