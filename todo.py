@@ -424,8 +424,19 @@ class ToDo:
 	    w = self.intf.waitWindow("Formatting", 
 			"Formatting %s filesystem..." % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
-	    util.execWithRedirect("/usr/sbin/mke2fs", [ "mke2fs", '/tmp/' + device ],
-				  stdout = None, stderr = None, searchPath = 1)
+            if fsystem == "ext2":
+                util.execWithRedirect("/usr/sbin/mke2fs",
+                                      [ "mke2fs", '/tmp/' + device ],
+                                      stdout = None, stderr = None,
+                                      searchPath = 1)
+            elif fsystem == "swap":
+                util.execWithRedirect("/usr/sbin/mkswap",
+                                      [ "mkswap", '/tmp/' + device ],
+                                      stdout = None, stderr = None,
+                                      searchPath = 1)
+            else:
+                pass
+
             os.remove('/tmp/' + device)
 	    w.pop()
 
@@ -678,7 +689,8 @@ class ToDo:
             else:
                 pass
 
-	ts.run(0, 0, instCallback, p)
+        # XXX FIXME FIXME: -1 IGNORES all problems
+        ts.run(0, -1, instCallback, p)
 
 	del syslog
         del p
