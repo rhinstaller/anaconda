@@ -398,7 +398,8 @@ if (progmode == 'reconfig'):
     else:
         display_mode = 't'
 
-if (method and ((len (method) >= 6 and method[:6] == "ftp://")
+if (display_mode != 't' and method and
+    ((len (method) >= 6 and method[:6] == "ftp://")
     or (len (method) >= 7 and method[:7] == "http://")
     or (len (method) >= 5 and method[:5] == "hd://"))):
     print _("Graphical installation not available for %s installs.  "
@@ -408,7 +409,7 @@ if (method and ((len (method) >= 6 and method[:6] == "ftp://")
 
 # if no mouse we force text mode
 mousedev = mousehw.get()
-if mousedev[0] == "None - None":
+if display_mode != 't' and mousedev[0] == "None - None":
     print _("No mouse was detected.  A mouse is required for graphical "
             "installation.  Starting text mode.")
     display_mode = 't'
