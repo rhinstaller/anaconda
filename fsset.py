@@ -1804,17 +1804,6 @@ def readFstab (path):
 
 	if not fields: continue
 
-        # pick up the magic comment in fstab that tells us which
-        # device is the loop host in a partionless upgrade
-        if fields[0] == "#" and fields[1].startswith("LOOP"):
-	    device = string.lower(fields[1])
-	    if device[len(device) - 1] == ":":
-		device = device[:len(device) - 1]
-	    realDevice = fields[2]
-            if realDevice.startswith('/dev/'):
-		realDevice = realDevice[5:]
-	    loopIndex[device] = (realDevice, fields[3])
-
 	if line[0] == "#":
 	    # skip all comments
 	    continue
