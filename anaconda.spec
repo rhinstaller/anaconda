@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Apr 06 2005 Peter Jones <pjones@redhat.com> - 10.2.0.43-1
+- Don't remove libraries in stage2 that don't match the one from linuxthreads/
+
 * Tue Apr 05 2005 Peter Jones <pjones@redhat.com> - 10.2.0.42-1
 - Use linuxthreads libraries even if they're not the default, unless
   explicitly told to use nptl

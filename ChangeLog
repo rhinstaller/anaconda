@@ -1,3 +1,10 @@
+2005-04-06  Peter Jones  <pjones@redhat.com>
+
+	* anaconda.spec: bump version
+
+	* scripts-upd-instroot: avoid removing libraries that aren't the ones
+	in obsolete/linuxthreads/
+
 2005-04-05  Peter Jones  <pjones@redhat.com>
 
 	* anaconda.spec:  Bump version.
