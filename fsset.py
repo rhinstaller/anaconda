@@ -622,7 +622,7 @@ class swapFileSystem(FileSystemType):
         self.partedFileSystemType = parted.file_system_type_get("linux-swap")
         self.formattable = 1
         self.name = "swap"
-        self.maxSizeMB = 2 * 1024
+        self.maxSizeMB = 2 * 1024 * 1024
         self.linuxnativefs = 1
         self.supported = 1
 
