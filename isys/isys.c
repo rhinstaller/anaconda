@@ -7,12 +7,15 @@
 #include "Python.h"
 
 #include "imount.h"
+#include "smp.h"
 
 static PyObject * doMount(PyObject * s, PyObject * args);
 static PyObject * doUMount(PyObject * s, PyObject * args);
+static PyObject * smpAvailable(PyObject * s, PyObject * args);
 
-static PyMethodDef balkanModuleMethods[] = {
+static PyMethodDef isysModuleMethods[] = {
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
+    { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
     { NULL }
 } ;
@@ -47,9 +50,20 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+static PyObject * smpAvailable(PyObject * s, PyObject * args) {
+    int result;
+
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+    result = detectSMP();
+
+    return Py_BuildValue("i", detectSMP());
+}
+
 void init_isys(void) {
-    Py_InitModule("_isys", balkanModuleMethods);
+    Py_InitModule("_isys", isysModuleMethods);
 }
 
 static void emptyDestructor(PyObject * s) {
 }
+
