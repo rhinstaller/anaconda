@@ -9,13 +9,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.3\n"
 "POT-Creation-Date: 2002-04-15 17:42-0400\n"
-"PO-Revision-Date: 2002-04-15 17:55-0400\n"
-"Last-Translator: Nuria Soriano <nuria@redhat.es>\n"
-"Language-Team: Spanish <es@li.org>\n"
+"PO-Revision-Date: 2002-04-15 19:41+0000\n"
+"Last-Translator: Josep L. Guallar-Esteve <jguallar@redhat.com>\n"
+"Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.9.5\n"
+"X-Generator: KBabel 0.9.6\n"
 
 # ../anaconda:313
 # ../anaconda:313
@@ -121,35 +121,35 @@ msgstr "OK"
 # ../anaconda:375
 #: ../anaconda:381
 msgid "Probing for video card:   "
-msgstr "Prueba de la tarjeta de vídeo: "
+msgstr "Detectando la tarjeta de vídeo: "
 
 # ../anaconda:383
 # ../anaconda:383
 # ../anaconda:383
 #: ../anaconda:389
 msgid "Unable to probe\n"
-msgstr "Imposible probarlo\n"
+msgstr "Detección imposible\n"
 
 # ../anaconda:385
 # ../anaconda:385
 # ../anaconda:385
 #: ../anaconda:391
 msgid "Probing for monitor type: "
-msgstr "Prueba del tipo de monitor: "
+msgstr "Detectando el tipo de monitor: "
 
 # ../anaconda:392
 # ../anaconda:392
 # ../anaconda:392
 #: ../anaconda:398
 msgid "Probing for mouse type:   "
-msgstr "Prueba del tipo de ratón: "
+msgstr "Detectando el tipo de ratón: "
 
 # ../anaconda:396
 # ../anaconda:396
 # ../anaconda:396
 #: ../anaconda:402
 msgid "Skipping mouse probe.\n"
-msgstr "Saltar la prueba del ratón.\n"
+msgstr "Saltar la detección del ratón.\n"
 
 # ../anaconda:410
 # ../anaconda:410
@@ -219,7 +219,7 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"La partición %s de arranque podría no escontrar el modo de arranque para su "
+"La partición %s de arranque podría no satisfacer el modo de arranque de su "
 "arquitectura. Se le aconseja que cree un disco de arranque."
 
 # ../autopart.py:846
@@ -248,7 +248,7 @@ msgstr ""
 # ../autopart.py:887
 #: ../autopart.py:935
 msgid "Partition Request Sanity Check Errors"
-msgstr "El test de validez de la partición requerida controla los errores"
+msgstr "Errores de integridad en la petición de particionado"
 
 # ../autopart.py:881
 # ../autopart.py:888
@@ -266,14 +266,14 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Pulse OK para rearrancar su sistema."
+"Pulse OK para reiniciar su sistema."
 
 # ../autopart.py:890
 # ../autopart.py:897
 # ../autopart.py:897
 #: ../autopart.py:945
 msgid "Warnings During Automatic Partitioning"
-msgstr "Aviso durante la partición automática"
+msgstr "Avisos durante el particionamiento automático"
 
 # ../autopart.py:891
 # ../autopart.py:898
@@ -366,14 +366,14 @@ msgid ""
 "fdisk is the traditional, text-based partitioning tool offered by Red Hat. "
 "Although it is not as easy to use, there are cases where fdisk is preferred."
 msgstr ""
-"El particionamiento automático configura su particionamiento basándose en el "
-"tipo de instalación. También puede personalizar las particiones restantes y "
-"adecuarlas de este modo a sus necesidades.\n"
+"El particionamiento automático configura sus particiones basándose en el "
+"tipo de instalación. También puede personalizar las particiones resultantes, "
+"adecuándolas de este modo a sus necesidades.\n"
 "\n"
 "La herramienta de particionamiento manual del disco, Disk Druid, le permite "
 "configurar las particiones en un entorno interactivo. Puede configurar los "
 "tipos de sistemas de ficheros, puntos de montaje, tamaño y mucho más con "
-"esta interfaz sencilla y potente.\n"
+"esta sencilla y potente interfaz.\n"
 "\n"
 "fdisk es la herramienta de particionamiento tradicional en modo texto "
 "ofrecida por Red Hat. Aunque no es tan sencilla de utilizar, se la prefiere "
@@ -497,7 +497,7 @@ msgstr "Ha ocurrido una excepción"
 # ../exception.py:150
 #: ../exception.py:230
 msgid "Dump Written"
-msgstr "Escrito vacío"
+msgstr "Se ha escrito la excepción"
 
 # ../exception.py:151
 # ../exception.py:151
@@ -507,8 +507,8 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"El estado de su sistema se ha grabado con éxito en el disco. Su sistema "
-"reinicializará ahora. "
+"El estado de su sistema se ha grabado con éxito al disquete. Ahora se "
+"reinicializará su sistema."
 
 # ../floppy.py:62 ../floppy.py:85 ../fsset.py:714 ../fsset.py:733
 # ../fsset.py:778 ../fsset.py:798 ../fsset.py:827 ../fsset.py:847
@@ -586,7 +586,7 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Se ha producido un error durante la preparación del disco de arranque. "
+"Se ha producido un error durante la preparación del disquete de arranque. "
 "Asegúrese de que hay un disco formateado en la primera disquetera."
 
 # ../floppy.py:73
@@ -645,7 +645,7 @@ msgstr "Master Boot Record (MBR)"
 # ../fsset.py:725 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 #: ../fsset.py:881 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr "Primer sector de partición de inicio "
+msgstr "Primer sector de la partición de inicio "
 
 # ../fsset.py:715
 # ../fsset.py:752
@@ -678,9 +678,9 @@ msgstr ""
 "Error al habilitar el dispositivo swap %s: %s\n"
 "\n"
 "Es probable que el error se deba a que esta partición swap no ha sido "
-"iniciada\n"
+"inicializada\n"
 "\n"
-"Pulse OK para volver a arrancar su sistema"
+"Pulse OK para reiniciar su sistema"
 
 # ../fsset.py:779
 # ../fsset.py:816
@@ -696,7 +696,7 @@ msgstr ""
 "Se ha producido un error grave en la búsqueda de bloques dañados en %s. "
 "Constituye un problema serio que impide continuar con la instalación.\n"
 "\n"
-"Pulse Intro para arrancar su sistema."
+"Pulse Intro para reiniciar su sistema."
 
 # ../fsset.py:799
 # ../fsset.py:836
@@ -712,7 +712,7 @@ msgstr ""
 "Se ha producido un error grave al intentar formatear %s. El problema es "
 "serio y la instalación no se puede llevar a cabo.\n"
 "\n"
-"Pulse Intro para arrancar su sistema."
+"Pulse Intro para reiniciar su sistema."
 
 # ../fsset.py:828
 # ../fsset.py:870
@@ -728,7 +728,7 @@ msgstr ""
 "Se ha producido un error grave al migrar %s. Debido a la gravedad del "
 "problema no se puede llevar a cabo la instalación.\n"
 "\n"
-"Pulse Intro para volver a arrancar su sistema."
+"Pulse Intro para reiniciar su sistema."
 
 # ../textw/network_text.py:132
 # ../fsset.py:890 ../fsset.py:899
@@ -752,7 +752,7 @@ msgstr ""
 "no es un directorio.  Este es un error fatal, y la instalación no puede "
 "continuar.\n"
 "\n"
-"Pulse Intro para volver a arrancar su sistema."
+"Pulse Intro para reiniciar su sistema."
 
 # ../fsset.py:828
 # ../fsset.py:900
@@ -768,7 +768,7 @@ msgstr ""
 "Se ha producido un error al intentar crear %s: %s.  Este es un error fatal, "
 "y la instalación no puede continuar.\n"
 "\n"
-"Pulse Intro para volver a arrancar su sistema."
+"Pulse Intro para reiniciar su sistema."
 
 # ../fsset.py:848
 # ../fsset.py:913
@@ -784,7 +784,7 @@ msgid ""
 msgstr ""
 "Error al montar el dispositivo %s como %s: %s\n"
 "\n"
-"Es probable que el error se deba a que esta partición no hay sido "
+"Es probable que el error se deba a que esta partición no haya sido "
 "formateada\n"
 "\n"
 "Pulse OK para volver a arrancar su sistema"
@@ -922,10 +922,10 @@ msgid ""
 "a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
-"Se ha producido una situación excepcional. Se trata probablemente de un "
-"error. Por favor copie el texto completo de esta excepción o guarde un "
-"borrador en un disquette, a continuación registre un informe detallado del "
-"error de anaconda en http://bugzilla.redhat.com/bugzilla"
+"Se ha producido una situación excepcional. Seguramente se trata de un bug. "
+"Por favor copie el texto completo de esta excepción o bien guarde el "
+"volcadodel programa en un disquete, a continuación registre un informe "
+"detallado del error de anaconda en http://bugzilla.redhat.com/bugzilla"
 
 # ../gui.py:317 ../text.py:247
 # ../gui.py:317 ../text.py:247
@@ -935,7 +935,7 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Por favor, introduzca un disco. El contenido de éste será borrado, de modo "
+"Por favor, introduzca un disquete. El contenido de éste será borrado, así "
 "que, por favor, elija el disco cuidadosamente."
 
 # ../gui.py:381 ../gui.py:743
@@ -1057,7 +1057,7 @@ msgstr "Programa de instalación %s"
 #: ../gui.py:697
 #, python-format
 msgid "%s Installer on %s"
-msgstr "%sInstalador de Red Hat Linux en %s"
+msgstr "%s Instalador de Red Hat Linux en %s"
 
 # ../gui.py:706
 # ../gui.py:706
@@ -1071,7 +1071,7 @@ msgstr "¡Ha sido imposible cargar la barra del título!"
 # ../gui.py:791
 #: ../gui.py:824
 msgid "Install Window"
-msgstr "Instalar ventana"
+msgstr "Ventana del instalador"
 
 # ../harddrive.py:172
 # ../harddrive.py:172
@@ -1079,7 +1079,7 @@ msgstr "Instalar ventana"
 #: ../harddrive.py:173
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "Falta el CD #%d, requerido para la instalación. "
+msgstr "Falta el CD num. %d, imprescindible para la instalación. "
 
 # ../image.py:62
 # ../image.py:62
@@ -1105,14 +1105,14 @@ msgid ""
 "probably out of disk space."
 msgstr ""
 "Se ha producido un error al transferir la imagen del programa de instalación "
-"a su disco duro. Probablemente no tenga espacio en el disco: "
+"a su disco duro. Probablemente no tenga espacio suficiente en el disco: "
 
 # ../image.py:119
 # ../image.py:119
 # ../image.py:119
 #: ../image.py:120
 msgid "Change CDROM"
-msgstr "Cambie CDROM"
+msgstr "Cambie el CDROM"
 
 # ../image.py:120
 # ../image.py:120
@@ -1141,7 +1141,7 @@ msgstr "Éste no es el CDROM correcto de Red Hat"
 # ../image.py:143
 #: ../image.py:146
 msgid "The CDROM could not be mounted."
-msgstr "No se puede instalar el CDROM."
+msgstr "No se puede montar el CDROM."
 
 # ../installclass.py:27
 # ../installclass.py:27
@@ -1155,7 +1155,7 @@ msgstr "Instalación"
 # ../monitor.py:152 ../mouse.py:184 ../videocard.py:135
 #: ../monitor.py:155 ../mouse.py:183 ../videocard.py:152
 msgid "Unable to probe"
-msgstr "¡Ha sido imposible probarlo!"
+msgstr "Detección imposible"
 
 # ../mouse.py:273 ../xserver.py:44
 # ../mouse.py:273 ../xserver.py:44
@@ -1176,8 +1176,8 @@ msgid ""
 msgstr ""
 "No se ha detectado el ratón automáticamente.  Para pasar al modo de "
 "instalación gráfica, por favor pase a la siguiente pantalla y especifique el "
-"tipo de ratón. Puede también utilizar la instalación en modo texto sin "
-"necesidad de ratón."
+"tipo de ratón. También puede utilizar la instalación en modo texto, la cual "
+"no necesita ratón."
 
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
@@ -1203,8 +1203,7 @@ msgid ""
 "\n"
 msgstr ""
 "Los sistemas de ficheros de la instalación de Linux que ha escogido para "
-"actualizar ya han sido montados. Llegado a este punto ya no podrá "
-"retroceder.\n"
+"actualizar ya han sido montados. Pasado este punto ya no podrá retroceder.\n"
 "\n"
 
 # ../iw/package_gui.py:35 ../packages.py:42
@@ -1212,7 +1211,7 @@ msgstr ""
 # ../iw/package_gui.py:35 ../packages.py:43
 #: ../packages.py:43 ../iw/package_gui.py:35
 msgid "Would you like to continue with the upgrade?"
-msgstr "¿Le gustaría continuar con la actualización?"
+msgstr "¿Quiere continuar con la actualización?"
 
 # ../packages.py:96
 # ../packages.py:96
@@ -1267,7 +1266,7 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
-"Este archivo %s no se puede abrir. Ésto puede deberse a la falta de un "
+"El archivo %s no se puede abrir. Ésto puede deberse a la falta de un "
 "archivo, un paquete dañado o un soporte defectuoso. Pulse <Intro> para "
 "reintentarlo."
 
@@ -1276,7 +1275,7 @@ msgstr ""
 # ../iw/progress_gui.py:28
 #: ../packages.py:284
 msgid "Error Installing Package"
-msgstr "Error en la instalación de paquetes"
+msgstr "Error en la instalación del paquete"
 
 #: ../packages.py:285
 #, python-format
@@ -1288,12 +1287,12 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Se ha producido un error al hacer la instalación %s. Puede deberse a un "
-"fallo de los medios, falta de espacio en disco y/o problemas con el "
-"hardware. Dicho error es fatal y se abortará la instalación. Verifique sus "
-"medios e intente instalarlo de nuevo.\n"
+"Se ha producido un error durante la instalación %s. Puede deberse a un fallo "
+"del medio, falta de espacio en disco y/o problemas con el hardware. Este "
+"error es fatal y se abortará la instalación. Verifique su soporte de "
+"instalación e intente instalarlo de nuevo.\n"
 "\n"
-"Pulse el botón de OK para rearrancar su sistema."
+"Pulse el botón de OK para reiniciar su sistema."
 
 # ../packages.py:467
 # ../packages.py:474
@@ -1352,7 +1351,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Los siguientes paquetes se han seleccionado directamente para ser "
+"Los siguientes paquetes se han seleccionado automáticamente para ser "
 "instalados:\n"
 "%s\n"
 "\n"
@@ -1362,7 +1361,7 @@ msgstr ""
 # ../gui.py:791
 #: ../packages.py:607
 msgid "Install Starting"
-msgstr "Instalar Startling"
+msgstr "Inicio de la instalación"
 
 #: ../packages.py:608
 msgid "Starting install process, this may take several minutes..."
@@ -1377,8 +1376,8 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"No tiene suficiente espacio en el disco para instalar los paquetes "
-"seleccionados. Necesita más espacio en los siguientes sistemas de archivo:\n"
+"No tiene espacio suficiente en el disco para instalar los paquetes "
+"seleccionados. Necesita más espacio en los siguientes sistemas de ficheros:\n"
 "\n"
 
 # ../iw/partition_gui.py:1533 ../iw/upgrade_swap_gui.py:121
@@ -1410,8 +1409,8 @@ msgid ""
 "\n"
 msgstr ""
 "No tiene suficiente nodos de archivo en el disco para instalar los paquetes "
-"seleccionados. Necesita más nodos de arhivo en los siguientes sistemas de "
-"archivo:\n"
+"seleccionados. Necesita más nodos de archivo en los siguientes sistemas de "
+"ficheros:\n"
 "\n"
 
 # ../packages.py:586
@@ -1436,8 +1435,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Los siguientes paquetes están disponibles para esta versión pero NO "
-"actualizados:\n"
+"Los siguientes paquetes estban disponibles para esta versión pero NO se han "
+"actualizado:\n"
 
 # ../packages.py:630
 # ../packages.py:646
@@ -1469,8 +1468,8 @@ msgid ""
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "El punto de montaje no es válido. Los puntos de montaje deben empezar por "
-"'/', no pueden acabar en '/', deben contener caracteres imprimibles sin "
-"ningún espacio."
+"'/', deben contener caracteres imprimibles, no pueden acabar en '/',  ni "
+"contener ningún espacio."
 
 # ../partitioning.py:345
 # ../partitioning.py:360
@@ -1506,7 +1505,7 @@ msgstr ""
 # ../partitioning.py:441
 #: ../partitioning.py:444
 msgid "This mount point must be on a linux filesystem."
-msgstr "Este punto de montaje debe esta en un sistema de ficheros linux."
+msgstr "Este punto de montaje debe estar en un sistema de ficheros linux."
 
 # ../partitioning.py:436
 # ../partitioning.py:451
@@ -1621,7 +1620,8 @@ msgstr ""
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
-"Debe crear una partición /boot/efi del tipo FAT y un tamaño de 50 megabytes."
+"Debe crear una partición /boot/efi del tipo FAT y de un tamaño de 50 "
+"megabytes."
 
 # ../partitioning.py:564
 # ../partitioning.py:579
@@ -1684,7 +1684,7 @@ msgid ""
 msgstr ""
 "La tabla de particiones del dispositivo /dev/%s es de tipo no esperado para "
 "su arquitectura.  Si quiere usar este disco para la instalación de %s, "
-"deberá volver a iniciarlo y como consecuencia perderà TODOS LOS DATOS de la "
+"deberá reiniciarlo y como consecuencia perderá TODOS LOS DATOS de la "
 "unidad.\n"
 "\n"
 "¿Desea inicializar esta unidad?"
@@ -1729,7 +1729,7 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Se ha producido un error, se han encontrado dispositivos no válidos para "
+"Se ha producido un error, no se han encontrado dispositivos válidos para "
 "crear nuevos sistemas de archivo. Chequee su hardware para averiguar la "
 "causa del problema."
 
@@ -1978,10 +1978,10 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Ha escogido formatear una partición ya existente. Esto borrará todos los "
-"datos que se encontrasen en ésta previamente.\n"
+"Ha escogido formatear una partición ya existente. Esta acción borrará todos "
+"los datos que se encontrasen en previamente en la partición.\n"
 "\n"
-"¿Está seguro que quiere hacerlo"
+"¿Está seguro que quiere hacerlo?"
 
 #: ../partitioning.py:1866
 msgid ""
@@ -1994,10 +1994,10 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 "Ha escogido no formatear una partición ya existente que está siendo montada "
-"bajo un directorio de sistemas. A menos que tenga necesidades particulares "
-"en el almacenamiento de datos de esta partición, se le recomienda que la "
-"formatee para garantizar los datos ya existentes en la partición no dañan su "
-"nueva instalación.\n"
+"bajo un directorio del sistema. A menos que tenga la particular necesidad "
+"de  preservar los datos de esta partición, se le recomienda que la formatee "
+"para garantizar que los datos existentes en la partición no dañan su nueva "
+"instalación.\n"
 "\n"
 "¿Está seguro de que desea hacerlo?"
 
@@ -2019,7 +2019,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Los siguientes errores críticos existen con el esquema de particionamiento. "
+"Con el esquema de particionamiento actual, existen los siguientes errores. "
 "Estos errores deben ser corregidos antes de continuar con su instalación \n"
 "de %s\n"
 "\n"
@@ -2084,7 +2084,7 @@ msgstr "Aviso de formateo"
 # ../rescue.py:68 ../rescue.py:104 ../rescue.py:184
 #: ../rescue.py:69 ../rescue.py:112 ../rescue.py:206
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr "Cuando haya acabado salga de la shell y su sistema rearrancará."
+msgstr "Cuando haya acabado salga de la shell y su sistema reiniciará."
 
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
 # ../rescue.py:90 ../rescue.py:145 ../rescue.py:163
@@ -2110,9 +2110,9 @@ msgid ""
 msgstr ""
 "El entorno de rescate intentará encontrar su instalación Red Hat Linux y "
 "montarla bajo el directorio /mnt/sysimage. Podrá hacer cualquier cambio que "
-"requiera su sistema. Si desea proceder con este paso escoja  'Continuar'. "
+"requiera su sistema. Si desea proseguir con este paso escoja  'Continuar'. "
 "También puede escoger montar su sistemas de ficheros solo en modo lectura en "
-"lugar de en modo escritura escogiendo'Read-Only'.\n"
+"lugar de en modo escritura escogiendo 'Read-Only'.\n"
 "\n"
 "\n"
 "Si este proceso falla por cualquier motivo, escoja 'Saltar' y saltará este "
@@ -2161,7 +2161,7 @@ msgstr "Sistema a rescatar"
 # ../rescue.py:128 ../textw/upgrade_text.py:209
 #: ../rescue.py:140 ../textw/upgrade_text.py:211
 msgid "What partition holds the root partition of your installation?"
-msgstr "¿Qué partición contiene la partición root de su instalación?"
+msgstr "¿Qué partición contiene la partición raíz de su instalación?"
 
 # ../iw/congrats_gui.py:27 ../iw/congrats_gui.py:77 ../rescue.py:130
 # ../rescue.py:134
@@ -2183,9 +2183,9 @@ msgid ""
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
-"Su sistema contiene sistemas de ficheros no válidos que ha escogido no "
+"Su sistema contiene sistemas de ficheros inconsistentes que ha escogido no "
 "montar. Pulse enter para obtener una shell que pueda hacer fsck y montar sus "
-"particiónes. El sistema rearrancará automáticamente cuando salga de la shell."
+"particiones. El sistema rearrancará automáticamente cuando salga de la shell."
 
 # ../rescue.py:146
 # ../rescue.py:146
@@ -2361,9 +2361,9 @@ msgid ""
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 "Uno o más de los sistemas de ficheros de su sistema Linux no han sido "
-"desmontados corectamente. Le aconsejamos iniciar la instalación de Linux, "
-"chequear el sistema de archivos y cerrar el sistema correctamente para "
-"actualizarlo."
+"desmontados corectamente. Le aconsejamos iniciar la instalación existente de "
+"Linux, chequear el sistema de archivos y cerrar el sistema correctamente "
+"para actualizarlo."
 
 # ../upgrade.py:78
 # ../upgrade.py:78
@@ -2373,9 +2373,8 @@ msgid ""
 "One or more filesystems for your Linux system was not unmounted cleanly.  "
 "Would you like to mount them anyway?"
 msgstr ""
-"No se han desmontado correctamente uno o más sistemas de ficheros de su\n"
-"sistema Linux no han sido desmontados corectamente. ¿Desea montarlos de\n"
-"todas formas?"
+"No se han desmontado correctamente uno o más sistemas de ficheros de "
+"susistema Linux. ¿Desea montarlos detodas formas?"
 
 # ../upgrade.py:214
 #: ../upgrade.py:225 ../upgrade.py:231
@@ -2390,9 +2389,8 @@ msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Uno o más sistemas de archivos de la lista de /etc/fstab no han podido "
-"sermontados. Trate de resolver el problema e intente la actualización de "
-"nuevo."
+"Uno o más sistemas de archivos especificados en /etc/fstab no han podido ser "
+"montados. Trate de resolver el problema e intente la actualización de nuevo."
 
 # ../upgrade.py:210
 # ../upgrade.py:215
@@ -2403,7 +2401,7 @@ msgid ""
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
 msgstr ""
-"No se ha podido montar uno o más sistemas de ficheros de la lista de /etc/"
+"No se ha podido montar uno o más sistemas de ficheros especificados en /etc/"
 "fstab. Trate de resolver el problema y vuelva a intentar la actualización."
 
 # ../upgrade.py:225
@@ -2449,8 +2447,8 @@ msgstr "Búsqueda de los paquetes a actualizar..."
 #: ../upgrade.py:312
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"Reconstrucción de la base de datos RPM errónea. ¿Hay suficiente epacio en el "
-"disco?"
+"La reconstrucción de la base de datos RPM ha fallado. ¿Hay suficiente epacio "
+"en el disco?"
 
 # ../upgrade.py:292
 # ../upgrade.py:306
@@ -2470,10 +2468,11 @@ msgid ""
 "or may cause other system instability.  Do you wish to continue the upgrade "
 "process?"
 msgstr ""
-"Este sistema parece tener paquetes de un tercer propietario instalados que "
+"Este sistema parece tener paquetes instalados hechos por terceros que "
 "solapan paquetes incluidos en Red Hat Linux.  Por ello, continuar el proceso "
-"de actualización puede causar que no funcione apropiadamente el sistema o "
-"causar alguna otra inestabilidad. ¿Desea continuar con la actualización?."
+"de actualización puede causar que dichos paquetes no funcionen "
+"apropiadamente o causar alguna otra inestabilidad al sistema. ¿Desea "
+"continuar con la actualización?."
 
 # ../upgrade.py:346
 # ../upgrade.py:360
@@ -3321,7 +3320,7 @@ msgstr ""
 # ../iw/congrats_gui.py:55
 # ../iw/congrats_gui.py:55
 #: ../iw/congrats_gui.py:56
-#, python-format
+#, fuzzy, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3343,7 +3342,7 @@ msgstr ""
 "disponibles, visite http://www.redhat.com/errata.\n"
 " \n"
 "Encontrará información sobre el uso y la configuración de su sistema en los "
-"manuales %s en http://www.redhat.com/docs."
+"manuales % en http://www.redhat.com/docs."
 
 # ../iw/congrats_gui.py:94
 # ../iw/congrats_gui.py:102
@@ -3506,7 +3505,7 @@ msgstr "no es un puerto válido."
 # ../iw/firewall_gui.py:132
 #: ../iw/firewall_gui.py:132
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr "El formato es 'port:protocol'.  Por ejemplo, '1234:udp'"
+msgstr "El formato es 'puetoprotocolo'.  Por ejemplo, '1234:udp'"
 
 # ../iw/firewall_gui.py:219
 # ../iw/firewall_gui.py:219
@@ -3651,7 +3650,7 @@ msgstr "¿Qué idioma le gustaría usar durante el proceso de instalación?"
 # ../iw/language_support_gui.py:23
 #: ../iw/language_support_gui.py:23
 msgid "Additional Language Support"
-msgstr "Soporte adicional para el idioma"
+msgstr "Soporte para idiomas adicionales "
 
 # ../iw/language_support_gui.py:141
 # ../iw/language_support_gui.py:141
@@ -3942,7 +3941,8 @@ msgstr "Configuración del disco"
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
-"Existen los siguientes errores graves con su esquema de particionamiento."
+"Con el esquema de particionamiento requerido existen los siguientes errores "
+"graves."
 
 # ../iw/partition_gui.py:546
 # ../iw/partition_gui.py:546
@@ -3967,7 +3967,8 @@ msgstr "Errores de particionamiento"
 # ../iw/partition_gui.py:559
 #: ../iw/partition_gui.py:569
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "Los siguientes avisos existen con su esquema de particionamiento."
+msgstr ""
+"Con el esquema de particionamiento requerido existen los siguientes avisos."
 
 # ../iw/partition_gui.py:561
 # ../iw/partition_gui.py:561
@@ -4342,7 +4343,7 @@ msgstr "_Reiniciar"
 # ../iw/partition_gui.py:1527
 #: ../iw/partition_gui.py:1546
 msgid "Make _RAID"
-msgstr "Crear _RAID"
+msgstr "Crear RAI_D"
 
 # ../iw/partition_gui.py:1532
 # ../iw/partition_gui.py:1534
@@ -4584,7 +4585,7 @@ msgstr "Vista:"
 # ../iw/timezone_gui.py:181 ../iw/timezone_gui.py:182
 #: ../iw/timezone_gui.py:195 ../iw/timezone_gui.py:196
 msgid "System clock uses UTC"
-msgstr "Sistema horario usará UTC"
+msgstr "El reloj del sistema usará UTC"
 
 # ../iw/timezone_gui.py:228
 # ../iw/timezone_gui.py:228
@@ -4721,10 +4722,10 @@ msgid ""
 "\n"
 "Which of these partitions would you like to migrate?"
 msgstr ""
-"Esta versión de Red Hat Linux soporta el sistema de ficheros journaling "
+"Esta versión de Red Hat Linux soporta el sistema de ficheros transaccional "
 "ext3. Esto conlleva algunas ventajas sobre el sistema de ficheros ext2 que "
-"incluía tradicionalmente %s. Es posible migrar de particiones ext2 a ext3 "
-"sin ninguna pérdida de datos.\n"
+"tradicionalmente incluía %s. Es posible migrar particiones ext2 a ext3 sin "
+"ninguna pérdida de datos.\n"
 "\n"
 "¿A cuál de estas particiones le gustaría migrar?"
 
@@ -4748,7 +4749,7 @@ msgid ""
 msgstr ""
 "El Kernel 2.4 necesita más swap que los kernels anteriores, el doble de "
 "espacio swap que de la RAM en el sistema.  Actualmente tiene %dMB de swap "
-"configurado, no obstante debería crear espacio swap adicional en uno de sus "
+"configurado, aunque debería crear espacio swap adicional en uno de sus "
 "sistemas de ficheros."
 
 # ../iw/upgrade_swap_gui.py:95
@@ -4851,7 +4852,7 @@ msgstr "Bienvenido"
 
 #: ../iw/welcome_gui.py:62
 msgid "Exiting anaconda now"
-msgstr "Modificar anaconda"
+msgstr "Salir de anaconda"
 
 # ../iw/package_gui.py:35 ../packages.py:42
 # ../iw/package_gui.py:35 ../packages.py:42
@@ -4987,14 +4988,14 @@ msgstr "Genérico"
 # ../iw/xconfig_gui.py:581
 #: ../iw/xconfig_gui.py:601
 msgid "DDC Probed Monitor"
-msgstr "Monitor probado DDC"
+msgstr "Monitor DDC detectado"
 
 # ../iw/xconfig_gui.py:575
 # ../iw/xconfig_gui.py:583
 # ../iw/xconfig_gui.py:583
 #: ../iw/xconfig_gui.py:603
 msgid "Unprobed Monitor"
-msgstr "Monitor no probado"
+msgstr "Monitor no detectado"
 
 # ../iw/xconfig_gui.py:622 ../iw/xconfig_gui.py:960
 # ../iw/xconfig_gui.py:630 ../iw/xconfig_gui.py:989
@@ -5051,9 +5052,9 @@ msgid ""
 "This video card has no suitable X server in the database.  You will need to "
 "choose a different card or choose the 'Skip X Configuration' button."
 msgstr ""
-"Esta tarjeta de vídeo no cuenta en la base de datos con un servidor X "
-"adecuado. Necesitará una tarjeta diferente o pulsar el botón 'Skip X "
-"Configuration'"
+"Esta tarjeta de vídeo no cuenta con un servidor X adecuado en la base de "
+"datos . Necesitará una tarjeta diferente o pulsar el botón 'Saltar la "
+"configuración de las X'"
 
 # ../textw/xconfig_text.py:592
 # ../iw/xconfig_gui.py:702 ../textw/xconfig_text.py:604
@@ -5083,8 +5084,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"El tamaño de la ram del vídeo no se puede detectar.  Elija su tamaño de ram "
-"vídeo entre las posibilidades que siguen a continuación:"
+"No se puede detectar el tamaño de la ram del vídeo.  Elija su tamaño de ram "
+"vídeo entre las posibilidades siguientes:"
 
 # ../iw/xconfig_gui.py:819
 # ../iw/xconfig_gui.py:843
@@ -5094,8 +5095,8 @@ msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
-"En la mayoría de los casos su hardware vídeo puede probarse para determinar "
-"automáticamente la mejor configuración de su pantalla."
+"En la mayoría de los casos su hardware de vídeo puede ser autodetectado para "
+"determinar la mejor configuración de su pantalla."
 
 # ../iw/xconfig_gui.py:825
 # ../iw/xconfig_gui.py:849
@@ -5105,8 +5106,8 @@ msgid ""
 "If the probed settings do not match your hardware, select the correct "
 "hardware settings below:"
 msgstr ""
-"Si las pruebas de configuración no encuentran su hardware, seleccione el "
-"correcto entre las configuraciones siguientes: "
+"Si la configuración por detección automatica no coincide consu hardware, "
+"seleccione el correcto entre las siguientes configuraciones: "
 
 # ../comps/comps-master:151
 # ../textw/firewall_text.py:109
@@ -5121,7 +5122,7 @@ msgstr "Otro"
 # ../iw/xconfig_gui.py:967
 #: ../iw/xconfig_gui.py:985
 msgid "Video card RAM: "
-msgstr "Tarjeta de Vídeo: "
+msgstr "RAM de la Tarjeta de Vídeo: "
 
 # ../iw/xconfig_gui.py:964 ../textw/xconfig_text.py:550
 # ../iw/xconfig_gui.py:993 ../textw/xconfig_text.py:562
@@ -5144,12 +5145,12 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Un disco de arranque personalizado permite iniciar el sistema operativo "
-"Linux sin depender del gestor normal de arranque. Esto es útil si no quiere "
-"instalar uno en su sistema, o si otro sistema operativo lo ha eliminado. Un "
-"disco de arranque personalizado puede también ser usado con la imagen de "
-"rescate Red Hat, facilitando su recuperación en caso de fallos graves del "
-"sistema.\n"
+"Un disco de arranque personalizado permite iniciar el Linux sin depender del "
+"gestor de arranque normal . Esto es útil si no quiere instalar lilo en su "
+"sistema, o si otro sistema operativo ha eliminado el lilo, o si lilo no "
+"funciona con su configuracion de hardware. Un disco de arranque "
+"personalizado también puede usarse con la imagen de rescate Red Hat, "
+"facilitando la recuperación en caso de fallos graves del sistema.\n"
 "\n"
 "¿Desea crear un disco de arranque para su sistema?"
 
@@ -5209,8 +5210,8 @@ msgid ""
 msgstr ""
 "Ha optado por no instalar ningún gestor de arranque. Se le recomienda que "
 "instale un gestor de arranque a menos que tenga unas exigencias muy "
-"particulares. Se le pedirá casi siempre un gestor de arranque para "
-"rearrancar su sistema con Linux directamente desde el disco duro.\n"
+"particulares. Casi siempre es necesario un gestor de arranque para iniciar "
+"directamente con Linux su sistema desde el disco duro.\n"
 "\n"
 "¿Está seguro de que desea saltar la instalación del gestor de arranque?"
 
@@ -5251,7 +5252,7 @@ msgstr "Borrar"
 # ../textw/bootloader_text.py:205
 #: ../textw/bootloader_text.py:209
 msgid "Edit Boot Label Please"
-msgstr "Modificar una etiqueta de inicio"
+msgstr "Modifique la etiqueta de inicio"
 
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
 # ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
@@ -5283,7 +5284,7 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"El gestor de arranque de Red Hat puede iniciar también otros sistemas "
+"El gestor de arranque de Red Hat también puede iniciar otros sistemas "
 "operativos. Necesita especificar qué particiones le gustaría poder iniciar y "
 "qué etiquetas quiere utilizar para cada una de ellas."
 
@@ -5341,7 +5342,7 @@ msgstr "Contraseña del gestor de arranque demasiado corta."
 # ../textw/complete_text.py:25
 #: ../textw/complete_text.py:26
 msgid "<Enter> to reboot"
-msgstr "<Intro> para reinicializar"
+msgstr "<Intro> para reiniciar"
 
 # ../textw/complete_text.py:28 ../textw/complete_text.py:50
 # ../textw/complete_text.py:65
@@ -5376,7 +5377,7 @@ msgstr ""
 "Extraiga cualquier CD-ROM o disquete que haya usado durante el proceso de "
 "instalación y pulse <Intro> para reiniciar el sistema.\n"
 "\n"
-"%sPara mayor información sobre las erratas (actualizaciones y parches) "
+"%sPara más información sobre las erratas (actualizaciones y parches) "
 "disponibles, visite http://www.redhat.com/errata.\n"
 " \n"
 "Encontrará información sobre el uso y la configuración de su sistema en "
@@ -5429,7 +5430,7 @@ msgid ""
 msgstr ""
 "Enhorabuena, la configuración ha sido completada. \n"
 "\n"
-"Para mayor información sobre las erratas (actualizaciones y parches) "
+"Para más información sobre las erratas (actualizaciones y parches) "
 "disponibles, visite http://www.redhat.com/errata.\n"
 "\n"
 "Encontrará información sobre el uso del sistema en los manuales %s en http://"
@@ -5480,7 +5481,7 @@ msgstr ""
 "Un firewall protege contra intrusiones no autorizadas de red. Una seguridad "
 "alta bloquea todos los accesos de entrada. Una seguridad media bloquea el "
 "acceso a servicios del sistema (tales como telnet o impresión), pero permite "
-"otras conexiones. Ningún firewall permite todas las conexiones y esto no es "
+"otras conexiones. Ningún firewall permite todas las conexiones y ésto no es "
 "recomendable. "
 
 # ../textw/firewall_text.py:43
@@ -5584,9 +5585,9 @@ msgid ""
 msgstr ""
 "Puede personalizar su firewall de dos maneras. Primera, permitiendo el "
 "tráfico proveniente de ciertas interfaces de red. Segunda, permitiendo "
-"ciertos protocolos explícitamente a través del firewall. Especifique puertos "
-"adicionales en una lista separada por comas, de la forma siguiente: "
-"'servicio:protocolo', tal como 'imap:tcp'."
+"explícitamente a ciertos protocolos el paso a través del firewall. "
+"Especifique puertos adicionales en una lista separada por comas, de la forma "
+"siguiente: 'servicio:protocolo', tal como 'imap:tcp'."
 
 # ../textw/firewall_text.py:200
 # ../textw/firewall_text.py:200
@@ -5694,7 +5695,7 @@ msgstr "Selección del ratón"
 #: ../textw/network_text.py:67
 #, python-format
 msgid "Network Device: %s"
-msgstr "Dispositivo de red:%s"
+msgstr "Dispositivo de red: %s"
 
 # ../textw/network_text.py:77
 # ../textw/network_text.py:77
@@ -5987,14 +5988,14 @@ msgstr "Valor no válido para el tamaño máximo"
 # ../textw/partition_text.py:722
 #: ../textw/partition_text.py:723
 msgid "Invalid Entry for Starting Cylinder"
-msgstr "Valor no válido para el cilindro de comienzo"
+msgstr "Valor no válido para el cilindro inicial"
 
 # ../textw/partition_text.py:731
 # ../textw/partition_text.py:731
 # ../textw/partition_text.py:732
 #: ../textw/partition_text.py:733
 msgid "Invalid Entry for End Cylinder"
-msgstr "Valor no válido para el cilindro de final"
+msgstr "Valor no válido para el cilindro final"
 
 # ../textw/partition_text.py:819
 # ../textw/partition_text.py:819
@@ -6008,7 +6009,7 @@ msgstr "Ninguna partición RAID"
 # ../textw/partition_text.py:880
 #: ../textw/partition_text.py:881
 msgid "Invalid Entry for RAID Spares"
-msgstr "Entrada no válida para reservas de Raid"
+msgstr "Entrada no válida para reservas de RAID"
 
 # ../textw/partition_text.py:883
 # ../textw/partition_text.py:883
@@ -6261,8 +6262,7 @@ msgstr "El valor que ha introducido no es un número válido."
 # ../textw/upgrade_text.py:191
 #: ../textw/upgrade_text.py:193
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr ""
-"No tiene ningún tipo de partición Linux. No puede actualizar el sistema"
+msgstr "No tiene ninguna partición Linux. ¡No puede actualizar el sistema!"
 
 # ../textw/upgrade_text.py:207
 # ../textw/upgrade_text.py:207
@@ -6294,9 +6294,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Los paquetes que ha instalado y cualquier otro paquete que necesite para "
+"Los paquetes que tiene instalados y cualquier otro paquete que necesite para "
 "satisfacer sus dependencias, han sido seleccionados para la instalación. ¿Le "
-"gustaría personalizar el grupo de paquetes que deben ser actualizados?"
+"gustaría personalizar la lista de paquetes que serán actualizados?"
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
@@ -6398,8 +6398,8 @@ msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, a-"
 "z, and 0-9."
 msgstr ""
-"Los ISs de usuario deben constar de menos de 8 caracteres y contienen "
-"caracteres de la A-Z, a-z y del 0-9."
+"Los IDs de usuario deben constar de menos de 8 caracteres y contener "
+"únicamente caracteres de la A-Z, a-z y del 0-9."
 
 # ../textw/userauth_text.py:115
 # ../textw/userauth_text.py:123
@@ -6435,9 +6435,7 @@ msgstr "El usuario existe"
 #: ../textw/userauth_text.py:146
 msgid ""
 "The root user is already configured. You don't need to add this user here."
-msgstr ""
-"El usuario de root ya ha sido configurado. No necesita añadir este usuario "
-"aquí."
+msgstr "El usuario de root ya ha sido configurado. No lo necesita añadir aquí."
 
 # ../textw/userauth_text.py:146
 # ../textw/userauth_text.py:154
@@ -6456,8 +6454,8 @@ msgid ""
 "your system's configuration."
 msgstr ""
 "Debería usar una cuenta de usuario normal para la mayoría de las actividades "
-"en su sistema. No utilice la cuenta de root sin motivo, reducirá la "
-"probabilidad de alterar la configuración de su sistema."
+"en su sistema. No utilice la cuenta de root sin motivo, de este modo "
+"reducirá la probabilidad de alterar la configuración de su sistema."
 
 # ../textw/userauth_text.py:184
 # ../textw/userauth_text.py:192
@@ -6477,7 +6475,7 @@ msgid ""
 msgstr ""
 "¿Qué cuenta usuario le gustaría tener en el sistema? Debería tener al menos "
 "una cuenta que no sea root para trabajo normal, pero en sistemas "
-"multiusuario puede haber cualquier número de cuentas."
+"multiusuario puede tener cualquier número de cuentas."
 
 # ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:204
@@ -6576,7 +6574,7 @@ msgstr ""
 "lea la sección sobre la instalación antes de continuar.\n"
 "\n"
 "Si ha adquirido el producto %s oficial, asegúrese de registrar su compra a "
-"través de nuestro sitio web, http://www.redhat.com/."
+"través de nuestra web, http://www.redhat.com/."
 
 #: ../textw/welcome_text.py:43
 #, python-format
@@ -6590,11 +6588,10 @@ msgid ""
 msgstr ""
 "¡Bienvenido a  %s!\n"
 "\n"
-"Ha introducido el modo de reconfiguración que le permitirá configurar las "
-"opciones explícitas de cada sitio de su ordenador.\n"
+"Ha entrado en el modo de reconfiguración que le permitirá configurar las "
+"opciones de su ordenador específias a su ubicación.\n"
 "\n"
-"Para salir sin cambiar su configuración seleccione el botón inferior "
-"Cancelar."
+"Para salir sin cambiar la configuración seleccione el botón Cancelar."
 
 # ../textw/xconfig_text.py:22
 # ../textw/xconfig_text.py:23
@@ -6631,7 +6628,7 @@ msgstr "Seleccione la resolución que le gustaría utilizar:"
 #: ../loader/loader.c:916 ../loader/loader.c:1206 ../loader/loader.c:1209
 #: ../loader/loader.c:1227 ../loader/loader.c:1235
 msgid "Test"
-msgstr "Test"
+msgstr "Prueba"
 
 # ../textw/xconfig_text.py:158
 # ../textw/xconfig_text.py:162
@@ -6721,8 +6718,9 @@ msgid ""
 msgstr ""
 "Introduzca los ratios de sincronización para su monitor. \n"
 "\n"
-"NOTA - Habitualmente no es necesario modificar el ratio de sincronización, "
-"por lo que debe asegurarse de que los valores introducidos son apropiados."
+"NOTA - Habitualmente no es necesario modificar a mano el ratio de "
+"sincronización, por lo que debe asegurarse que los valores introducidos son "
+"precisos."
 
 # ../textw/xconfig_text.py:283
 # ../textw/xconfig_text.py:287
@@ -6794,8 +6792,8 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
-"Seleccione el monitor para su sistema.  Utilice el botón '%s' para reiniciar "
-"con los valores probados."
+"Seleccione el monitor para su sistema.  Utilice el botón '%s' para volver a "
+"los valores detectados."
 
 # ../textw/xconfig_text.py:383
 # ../textw/xconfig_text.py:387
@@ -6835,7 +6833,7 @@ msgid ""
 "the selection to the card the installer detected in your system."
 msgstr ""
 "Seleccione la tarjeta de vídeo presente en su sistema.  Escoja '%s' para "
-"reiniciar la selección de la tarjeta que el instalador ha detectado en su "
+"volver a la selección de la tarjeta que el instalador ha detectó en su "
 "sistema."
 
 # ../textw/xconfig_text.py:488
@@ -6855,8 +6853,8 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Seleccione la cantidad de RAM de vídeo presente en su tarjeta de vídeo. "
-"Escoja '%s' para reiniciar la selección hasta la cantidad que el instalador "
-"ha detectado en su tarjeta."
+"Escoja '%s' para volver a la cantidad que el instalador detectó en su "
+"tarjeta."
 
 # ../textw/xconfig_text.py:553
 # ../textw/xconfig_text.py:565
@@ -6980,9 +6978,8 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Este módulo puede llevar parámetros que afecten a su funcionamiento. Si no "
-"sabe qué parámetros darle, saltese esta pantalla pulsando el botón \"OK\" "
-"ahora."
+"Este módulo puede aceptar parámetros que afecten a su funcionamiento. Si no "
+"sabe qué parámetros darle, sáltese esta pantalla pulsando el botón \"OK\" ."
 
 # ../loader/devices.c:91
 # ../loader/devices.c:91
@@ -7007,21 +7004,21 @@ msgstr "Dispositivos"
 # ../loader/devices.c:232
 #: ../loader/devices.c:234
 msgid "Do you have a driver disk?"
-msgstr "¿Tiene un disco de drivers?"
+msgstr "¿Tiene un disco de controladores?"
 
 # ../loader/devices.c:239
 # ../loader/devices.c:239
 # ../loader/devices.c:239
 #: ../loader/devices.c:241
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Introduzca su disco de drivers y pulse \"OK\" para continuar."
+msgstr "Introduzca su disco de controladores y pulse \"OK\" para continuar."
 
 # ../loader/devices.c:260
 # ../loader/devices.c:260
 # ../loader/devices.c:260
 #: ../loader/devices.c:259
 msgid "Failed to mount driver disk."
-msgstr "Fallo al montar el disco de drivers."
+msgstr "Fallo al montar el disco de controladores."
 
 # ../loader/devices.c:267
 # ../loader/devices.c:267
@@ -7041,15 +7038,15 @@ msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"¿Qué driver debo probar?. Si el driver que necesita no aparece en esta lista "
-"y si tiene un disco de drivers aparte, por favor pulse F2."
+"¿Qué controlador debo probar?. Si el controlador que necesita no aparece en "
+"esta lista y tiene un disco de controladores aparte, por favor pulse F2."
 
 # ../loader/devices.c:336
 # ../loader/devices.c:336
 # ../loader/devices.c:336
 #: ../loader/devices.c:335
 msgid "Specify module parameters"
-msgstr "Especifica los parámetros de los módulos"
+msgstr "Especifique los parámetros de los módulos"
 
 # ../loader/devices.c:435
 # ../loader/devices.c:435
@@ -7192,8 +7189,8 @@ msgid ""
 "No special device drivers have been loaded for your system. Would you like "
 "to load any now?"
 msgstr ""
-"No se han cargado drivers de dispositivo para su sistema. ¿Desearía cargar "
-"alguno en este momento?"
+"No se han cargado controladores de dispositivo para su sistema. ¿Desearía "
+"cargar alguno en este momento?"
 
 # ../loader/loader.c:536 ../loader/loader.c:2238
 # ../loader/loader.c:536 ../loader/loader.c:2238
@@ -7257,9 +7254,9 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"¿Qué partición y directorio de esa partición soportan las imágenes del CD "
-"(iso9660) para %s?  Si no ve el driver del disco que está usando, pulse F2 "
-"para configurar los dispositivos adicionales."
+"¿Qué partición y directorio de esa partición contienen las imágenes del CD "
+"(iso9660) para %s?  Si en esta lista no ve el disco que contiene las "
+"imágenes, pulse F2 para configurar los dispositivos adicionales."
 
 # ../loader/loader.c:845
 # ../loader/loader.c:845
@@ -7285,11 +7282,11 @@ msgstr "El dispositivo %s no contiene las imágenes de los CDROM de Red Hat."
 
 #: ../loader/loader.c:1206 ../loader/loader.c:1227 ../loader/mediacheck.c:209
 msgid "Media Check"
-msgstr "Control de medios"
+msgstr "Prueba de dispositivo"
 
 #: ../loader/loader.c:1206 ../loader/loader.c:1210
 msgid "Eject CD"
-msgstr "Extraer el CD"
+msgstr "Expulsar el CD"
 
 #: ../loader/loader.c:1207
 #, c-format
@@ -7297,8 +7294,8 @@ msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
-"Escoja \"%s\" para probar el CD que está en la unidad, o \"%s\" para extraer "
-"el CD e introducir otro para probarlo."
+"Escoja \"%s\" para comprobar el CD que está en la unidad, o \"%s\" para "
+"extraer el CD e introducir otro para comprobarlo."
 
 #: ../loader/loader.c:1228
 #, c-format
@@ -7310,9 +7307,9 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
-"Si quiere probar otros medios, introduzca el CD y pulse \"%s\". No debe "
-"comprobar todos los CDs, aunque se le recomienda de lo haga al menos una "
-"vez.\n"
+"Si quiere probar otros medios, introduzca el CD y pulse \"%s\". No es "
+"obligatorio comprobar todos los CDs, aunque se le recomienda que lo haga al "
+"menos una vez.\n"
 "\n"
 "Para iniciar el proceso de instalación introduzca el CD #1 en la unidad y "
 "pulse \"%s\"."
@@ -7343,8 +7340,7 @@ msgid ""
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-"Para empezar con la prueba de los medios del CD antes de la instalación "
-"pulse %s\n"
+"Para empezar la comprobación de CDs antes de la instalación pulse %s\n"
 "\n"
 "Escoja %s para saltar el test de medios e iniciar la instalación."
 
@@ -7363,8 +7359,8 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Tiene múltiples dispositivos de red en el sistema. ¿Cuáles le gustaría "
-"instalar?"
+"Tiene múltiples dispositivos de red en el sistema. ¿Cuáles le gustaría usar "
+"para lainstalación?"
 
 # ../loader/loader.c:1141
 # ../loader/loader.c:1141
@@ -7378,7 +7374,7 @@ msgstr "Este directorio no parece contener un árbol de instalación de Red Hat."
 # ../loader/loader.c:1146
 #: ../loader/loader.c:1582
 msgid "That directory could not be mounted from the server"
-msgstr "Este directorio no podría ser montado desde el servidor"
+msgstr "Este directorio no pudo ser montado desde el servidor"
 
 # ../loader/loader.c:1186
 # ../loader/loader.c:1186
@@ -7400,7 +7396,7 @@ msgstr "HTTP"
 # ../loader/loader.c:1214
 #: ../loader/loader.c:1663
 msgid "Unable to retrieve the first install image"
-msgstr "No se puede recuperar la primera imágen de la instalación "
+msgstr "No se puede acceder a la primera imágen de la instalación "
 
 # ../loader/loader.c:1244
 # ../loader/loader.c:1244
@@ -7508,7 +7504,7 @@ msgid ""
 msgstr ""
 "La segunda etapa de la instalación que ha seleccionado no coincide con el "
 "disco de arranque en uso. Esto no debería suceder, se procederá a "
-"reinicializará el sistema."
+"reinicializar el sistema."
 
 #: ../loader/loader.c:3479
 msgid ""
@@ -7516,9 +7512,9 @@ msgid ""
 "drivers for the installation to succeed. Would you like to select drivers "
 "now?"
 msgstr ""
-"No se ha encontrado ninguna unidad. Deberá escoger los drivers de "
+"No se ha encontrado ningun disco. Deberá escoger los controladores de "
 "dispositivo de forma manual para que la instalación llegue a buen fin. "
-"¿Desea seleccionar los drivers en este momento?"
+"¿Desea seleccionar los controladores en este momento?"
 
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
@@ -7532,14 +7528,13 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-"Incapaz de leer el total de control del descriptor de volument primario. "
-"Estosignifica probablemente que el disco ha sido creado sin añadir el total "
-"de control. "
+"Incapaz de leer el checksum del descriptor de volumen primario. Ésto "
+"significa que probablemente el disco ha sido creado sin añadir el checksum ."
 
 #: ../loader/mediacheck.c:201
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr "Comprobar \"%s\"..."
+msgstr "Comprobando \"%s\"..."
 
 #: ../loader/mediacheck.c:203
 msgid "Checking media now..."
@@ -7561,7 +7556,7 @@ msgid ""
 msgstr ""
 "ERROR.\n"
 "\n"
-"Le desaconsejamos que no use este medio."
+"Le aconsejamos que no use este medio."
 
 #: ../loader/mediacheck.c:263
 msgid ""
@@ -7571,7 +7566,7 @@ msgid ""
 msgstr ""
 "CORRECTO.\n"
 "\n"
-"Es correcto que instale este medio."
+"Medio correcto. Puede utilizarlo para instalar."
 
 #: ../loader/mediacheck.c:265
 msgid ""
@@ -7581,12 +7576,11 @@ msgid ""
 msgstr ""
 "NA.\n"
 "\n"
-"La información de total de control no está disponible, imposible verificar "
-"el medio."
+"La información del checksum no está disponible, imposible verificar el medio."
 
 #: ../loader/mediacheck.c:267
 msgid "Media Check Result"
-msgstr "Resultado de control del medio"
+msgstr "Resultado de  verificar el medio"
 
 #: ../loader/mediacheck.c:271
 #, c-format
@@ -7604,7 +7598,8 @@ msgstr ""
 #: ../loader/mediacheck.c:275
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "El control de los medios %s se ha completado, el resultado es: %s\n"
+msgstr ""
+"La verificación de los medios %s se ha completado, el resultado es: %s\n"
 
 # ../loader/devices.c:481
 # ../loader/devices.c:481
@@ -7612,14 +7607,14 @@ msgstr "El control de los medios %s se ha completado, el resultado es: %s\n"
 #: ../loader/modules.c:390
 #, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Fallo al montar el disco de drivers: %s."
+msgstr "Fallo al montar el disco de controladores: %s."
 
 # ../loader/devices.c:501
 # ../loader/devices.c:501
 # ../loader/devices.c:501
 #: ../loader/modules.c:410
 msgid "The wrong diskette was inserted."
-msgstr "Ha sido introducido el disco erróneo."
+msgstr "Se ha introducido el disco erróneo."
 
 # ../loader/devices.c:513
 # ../loader/devices.c:513
@@ -7634,14 +7629,14 @@ msgstr "Cargando"
 #: ../loader/modules.c:423 ../loader/windows.c:47
 #, c-format
 msgid "Loading %s driver..."
-msgstr "Carga del driver %s..."
+msgstr "Carga del controlador %s..."
 
 # ../loader/devices.c:532
 # ../loader/devices.c:532
 # ../loader/devices.c:532
 #: ../loader/modules.c:442
 msgid "Driver Disk"
-msgstr "Disco de drivers"
+msgstr "Disco de controladores"
 
 # ../loader/devices.c:533
 # ../loader/devices.c:533
@@ -7649,7 +7644,7 @@ msgstr "Disco de drivers"
 #: ../loader/modules.c:443
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "Por favor, introduzca el disco de drivers %s."
+msgstr "Por favor, introduzca el disco de controladores %s."
 
 # ../loader/net.c:180
 # ../loader/net.c:180
@@ -7667,7 +7662,7 @@ msgstr ""
 "\n"
 "    o el nombre o número IP de su servidor %s\n"
 "    o el directorio del servidor que contiene\n"
-".......%s para su arquitectura\n"
+"      %s para su arquitectura\n"
 
 # ../loader/net.c:170
 # ../loader/net.c:170
@@ -7741,7 +7736,7 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Introduzca la configuración IP para este ordenador. Cada IP debería ser "
+"Introduzca la configuración IP para este ordenador. Cada IP debe de ser "
 "introducida como una dirección IP en notación decimal separada por puntos "
 "(por ejemplo, 1.2.3.4)."
 
@@ -7764,7 +7759,7 @@ msgstr "Configurar TCP/IP"
 # ../loader/net.c:404
 #: ../loader/net.c:400
 msgid "Missing Information"
-msgstr "Falta de información"
+msgstr "Falta información"
 
 # ../loader/net.c:405
 # ../loader/net.c:405
@@ -7778,7 +7773,7 @@ msgstr "Debe introducir una dirección IP y una máscara de red válidas."
 # ../loader/net.c:413 ../loader/net.c:738
 #: ../loader/net.c:409 ../loader/net.c:746
 msgid "Dynamic IP"
-msgstr "IP Dinámico"
+msgstr "IP Dinámica"
 
 # ../loader/net.c:414 ../loader/net.c:739
 # ../loader/net.c:414 ../loader/net.c:739
@@ -7792,7 +7787,7 @@ msgstr "Enviando petición de información IP..."
 # ../loader/net.c:611
 #: ../loader/net.c:623
 msgid "Determining host name and domain..."
-msgstr "Determinando nombre de host y dominio..."
+msgstr "Determinando nombre de host y de dominio..."
 
 # ../loader/net.c:722 ../loader/net.c:755
 # ../loader/net.c:722 ../loader/net.c:755
@@ -7822,7 +7817,7 @@ msgstr "bootproto erróneo %s especificado en el comando de red"
 # ../loader/net.c:798
 #: ../loader/net.c:806
 msgid "Boot protocol to use"
-msgstr "Protocolo de inicio a utilizar"
+msgstr "Protocolo de aranque a utilizar"
 
 # ../loader/net.c:800
 # ../loader/net.c:800
@@ -7896,7 +7891,7 @@ msgstr "Tarjeta PC"
 # ../loader/pcmcia.c:35
 #: ../loader/pcmcia.c:36
 msgid "Initializing PC Card Devices..."
-msgstr "Inicio de los dispositivos de tarjeta PC"
+msgstr "Inicio de los dispositivos de PC Card"
 
 # ../loader/pcmcia.c:104
 # ../loader/pcmcia.c:104
@@ -7910,7 +7905,7 @@ msgstr "PCMCIA"
 # ../loader/pcmcia.c:105
 #: ../loader/pcmcia.c:105
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Por favor, introduzca el disco de su controlador PCMCIA."
+msgstr "Por favor, introduzca el disco de controladores de su PCMCIA."
 
 # ../loader/pcmcia.c:114
 # ../loader/pcmcia.c:114
@@ -7924,7 +7919,7 @@ msgstr "Fallo al montar el disco."
 # ../loader/pcmcia.c:132
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr "Este disco no parece un disco de drivers PCMCIA Red Hat."
+msgstr "Este disco no parece un disco de controladores PCMCIA de Red Hat."
 
 #: ../loader/telnetd.c:64
 msgid "Waiting for telnet connection..."
@@ -7965,14 +7960,14 @@ msgstr "Recuperando"
 # ../loader/urls.c:190
 #: ../loader/urls.c:222
 msgid "FTP site name:"
-msgstr "Nombre del sitio FTP:"
+msgstr "Nombre del servidor FTP:"
 
 # ../loader/urls.c:191
 # ../loader/urls.c:191
 # ../loader/urls.c:191
 #: ../loader/urls.c:223
 msgid "Web site name:"
-msgstr "Nombre del sitio web:"
+msgstr "Nombre del servidor web:"
 
 # ../loader/urls.c:209
 # ../loader/urls.c:209
@@ -8093,15 +8088,15 @@ msgstr "Puerto del Proxy HTTP:"
 # ../loader/windows.c:46
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Carga del driver SCSI"
+msgstr "Carga del controlador SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr "Imagen de mapa a visualizar"
+msgstr "Imagen del mapa a visualizar"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr "Anchura de mapa (en pixels)"
+msgstr "Anchura del mapa (en pixels)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
@@ -8173,7 +8168,7 @@ msgstr "Soporte multimedia y de sonido"
 
 # ../comps/comps-master:555
 msgid "Network Support"
-msgstr "Soporte de la red"
+msgstr "Soporte de red"
 
 # ../comps/comps-master:151
 msgid "Dialup Support"
@@ -8189,7 +8184,7 @@ msgstr "Manipulación de gráficos e imágenes"
 
 # ../comps/comps-master:509
 msgid "News Server"
-msgstr "Servidor News"
+msgstr "Servidor de News"
 
 # ../comps/comps-master:515
 msgid "NFS File Server"
@@ -8201,7 +8196,7 @@ msgstr "Servidor de archivos Windows"
 
 # ../comps/comps-master:535
 msgid "Anonymous FTP Server"
-msgstr "Servidor anónimo FTP"
+msgstr "Servidor FTP anónimo"
 
 # ../comps/comps-master:515
 msgid "SQL Database Server"
@@ -8225,7 +8220,7 @@ msgstr "Estación de trabajo administrada por red"
 
 # ../comps/comps-master:577
 msgid "Authoring and Publishing"
-msgstr "Edición y procesamiento"
+msgstr "Edición y publicación"
 
 # ../comps/comps-master:600
 msgid "Emacs"
@@ -8289,7 +8284,7 @@ msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr "Estación Amundsen-Scott, Polo del Sur"
+msgstr "Estación Amundsen-Scott, Polo Sur"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
@@ -8433,11 +8428,11 @@ msgstr "costa este, norte de Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "República democrática del Congo del Este"
+msgstr "Este de la República democrática del Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr "Isla de Pascua & Sala y Gómez"
+msgstr "Isla de Pascua y Sala y Gómez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
@@ -8461,7 +8456,7 @@ msgstr "Eastern Standard Time - Indiana - Condado de Starke"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr "Eastern Standard Time - Indiana - Condado de Suiza"
+msgstr "Eastern Standard Time - Indiana - Condado de Switzerland "
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
@@ -8499,12 +8494,11 @@ msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-"Borneo del Este y del Sur, Celebes, Bali, Nusa Tengarra, Timor del Este"
+msgstr "Este y Sur de Borneo, Celebes, Bali, Nusa Tengarra, Timor occidental"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr "Uzbekistan del Este"
+msgstr "Este de Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -8524,7 +8518,7 @@ msgstr "Gran Bretaña"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr "Hawai"
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
@@ -8532,7 +8526,7 @@ msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr "Iriana Jaya & las Moluccas"
+msgstr "Iriana Jaya y las Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -8540,7 +8534,7 @@ msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr "Java & Sumatra"
+msgstr "Java y Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -8560,7 +8554,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Line Islands"
+msgstr "Islas Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -8592,11 +8586,11 @@ msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Midway Islands"
+msgstr "Islas de Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr "Moscú+00 - Rusia del oeste "
+msgstr "Moscú+00 - Rusia occidental "
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
@@ -8616,7 +8610,7 @@ msgstr "Moscú+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr "Moscú+03 - Siberia del Oeste"
+msgstr "Moscú+03 - Siberia occidental"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
@@ -8662,8 +8656,8 @@ msgstr "Hora de las montañas Rocayosas - Arizona"
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
-"Hora de las montañas Rocayosas - Dawson Creek & Fort Saint John, British "
-"Columbia"
+"Hora de las montañas Rocayosas - Dawson Creek y Fort Saint John, Columbia "
+"Británica"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8676,11 +8670,11 @@ msgstr "Mountain Time"
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
-"Mountain Time - Alberta, British Columbia del Este & Skatchewan del Oeste"
+"Mountain Time - Alberta, Columbia Británica oriental y Skatchewan occidental"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - Territorios del Noroeste Central"
+msgstr "Mountain Time - Territorios del Noroeste centrales"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -8696,11 +8690,11 @@ msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Mountain Time - Idaho del Sur & Oregón del Este"
+msgstr "Mountain Time - Idaho del Sur y Oregón oriental"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Mountain Time - Territorios del Noroeste del Oeste"
+msgstr "Mountain Time - Territorios del Noroeste occidental"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -8712,11 +8706,11 @@ msgstr "Isla de Terranova"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "New South Wales - gran parte de las localidades"
+msgstr "Nueva Gales del Sur - gran parte de las localidades"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
+msgstr "Nueva Gales del Sur  - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -8732,15 +8726,15 @@ msgstr "Territorio del Norte"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Pacific Time - Yukon del Norte"
+msgstr "Pacific Time - norte de Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "Pacific Time - Yukon del Sur"
+msgstr "Pacific Time - sur de Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "Pacific Time - British Columbia del oeste"
+msgstr "Pacific Time - Columbia Britanica occidental"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
@@ -8784,7 +8778,7 @@ msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr "Sabah & Sarawak"
+msgstr "Sabah y Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8808,7 +8802,7 @@ msgstr "suroeste Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S y SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -8828,7 +8822,7 @@ msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr "Tíbet & la mayor parte de Xinjiang Uyghur"
+msgstr "Tíbet y la mayor parte de Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8844,35 +8838,35 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr "Base de Vostok, Polo Magnético Sur"
+msgstr "Base de Vostok, Polo Sur Magnético "
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Wake Island"
+msgstr "Isla de Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr "W Amazonas"
+msgstr "Amazonas occidental"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr "Borneo oeste & central"
+msgstr "Borneo occidental y central"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "Oeste de la República democrática del Congo"
+msgstr "República democrática del Congo occidental"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "Australia del Oeste"
+msgstr "Australia occidental"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr "Kazajstán del oeste"
+msgstr "Kazajstán occidental"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr "Uzbekistan del este"
+msgstr "Uzbekistan del occidental"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -8960,3 +8954,31 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
+
+#~ msgid "%s  %s"
+#~ msgstr "%s  %s"
+
+# ../loader/net.c:180
+# ../loader/net.c:180
+# ../loader/net.c:180
+#~ msgid ""
+#~ "Please enter the following information:\n"
+#~ "\n"
+#~ "    o the name or IP number of your NFS server\n"
+#~ "    o the directory on that server containing\n"
+#~ "      %s for your architecture"
+#~ msgstr ""
+#~ "Por favor introduzca la siguiente información:\n"
+#~ "\n"
+#~ "    o el nombre o número IP de su servidor NFS \n"
+#~ "    o el directorio del servidor que contiene\n"
+#~ "       %s para su arquitectura"
+
+#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+
+#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+#~ msgstr "Argentina occidental (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#~ msgid "Portuguese(Brasilian) pt"
+#~ msgstr "Portugués(brasileño) pt"
