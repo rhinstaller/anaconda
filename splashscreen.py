@@ -20,6 +20,11 @@ os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 from gtk import *
 from gtk import _root_window
+try:
+    from gtk import _disable_gdk_threading
+    _disable_gdk_threading()
+except ImportError:
+    pass
 from flags import flags
 import GDK
 import gdkpixbuf
