@@ -16,7 +16,7 @@ int ourInsmodCommand(int argc, char ** argv) {
     char * file;
     char finalName[100];
     char * chptr;
-    int fd;
+    gzFile fd;
     int rc, rmObj = 0;
     int sparc64 = 0, i;
     char * ballPath = NULL;
