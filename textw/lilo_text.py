@@ -3,8 +3,10 @@ from snack import *
 from constants_text import *
 from translate import _
 import string
-import edd
-
+import iutil
+if iutil.getArch() == 'i386':
+    import edd
+    
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 #_ = cat.gettext
 

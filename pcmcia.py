@@ -7,7 +7,10 @@ def pcicType(test = 0):
     if not os.access(loc, os.X_OK):
 	loc = "/usr/sbin/probe"
 
-    result = iutil.execWithCapture(loc, [ loc ])
+    try:
+        result = iutil.execWithCapture(loc, [ loc ])
+    except RuntimeError:
+        return None
 
     if (string.find(result, "TCIC-2 probe: not found") != -1):
 	return None

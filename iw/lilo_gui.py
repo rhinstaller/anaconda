@@ -5,7 +5,9 @@ from gtk import *
 from translate import _
 from xpms_gui import SMALL_CHECK
 import GdkImlib
-import edd
+import iutil
+if iutil.getArch() == 'i386':
+    import edd
 
 class LiloWindow (InstallWindow):
     foo = GdkImlib.create_image_from_xpm (SMALL_CHECK)
