@@ -1113,23 +1113,35 @@ class ToDo:
         if deps:
             for (who, dep) in deps:
                 if dep != _("no suggestion"):
-                    self.hdList[dep].select ()
+                    try:
+                        self.hdList[dep].select ()
+                    except KeyError:
+                        pass
 
     def unselectDeps (self, deps):
         if deps:
             for (who, dep) in deps:
                 if dep != _("no suggestion"):
-                    self.hdList[dep].unselect ()
+                    try:
+                        self.hdList[dep].unselect ()
+                    except KeyError:
+                        pass
 
     def selectDepCause (self, deps):
         if deps:
             for (who, dep) in deps:
-                self.hdList[who].select ()
+                try:
+                    self.hdList[who].select ()
+                except KeyError:
+                    pass
 
     def unselectDepCause (self, deps):
         if deps:
             for (who, dep) in deps:
-                self.hdList[who].unselect ()
+                try:
+                    self.hdList[who].unselect ()
+                except KeyError:
+                    pass
 
     def canResolveDeps (self, deps):
         canresolve = 0
