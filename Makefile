@@ -62,8 +62,6 @@ install:
 	cp -a reconfig.init $(DESTDIR)/etc/rc.d/init.d/reconfig
 	install -m 755 anaconda $(DESTDIR)/usr/sbin/anaconda
 	install -m 755 anaconda-stub $(DESTDIR)/$(RUNTIMEDIR)
-# seems to have been replaced
-#	install -m 755 anaconda-runrescue $(DESTDIR)/usr/sbin/anaconda-runrescue
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
