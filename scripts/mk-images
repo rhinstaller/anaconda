@@ -736,7 +736,9 @@ makedriverdisk () {
 	    sed 's/\.o//g')
     fi
 
-    rundepmod "$KERNELROOT/lib/modules/$version/*/*.o" $MODDEPS
+    allmods=$(find $KERNELROOT/lib/modules/$version -name *.o)
+
+    rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
 
 . $TOPDIR/mk-images.${BUILDARCH}
