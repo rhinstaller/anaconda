@@ -1,6 +1,7 @@
 import gettext
 import iutil
 import os
+import isys
 from snack import *
 from textw.constants import *
 from newtpyfsedit import fsedit        
