@@ -393,7 +393,7 @@ MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
 [ "$QETH" != "" ] && echo "QETH=$QETH" >> /tmp/netinfo
-[ "$PEERID" != "" ] && echo "PEERID="$PEERID" >> /tmp/netinfo
+[ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
