@@ -338,7 +338,10 @@ class VideoCardInfo:
             if len (line) > 3 and line[0:3] == 'SEE':
                 info = string.splitfields (line, ' ')
                 seecard = string.joinfields(info[1:], ' ')
-                refcard = Video_cardslist[seecard]
+                try:
+                    refcard = Video_cardslist[seecard]
+                except:
+                    continue
 
                 for k in ["CHIPSET", "SERVER", "RAMDAC", "CLOCKCHIP",
                           "DACSPEED", "DRIVER", "UNSUPPORTED", "NOCLOCKPROBE"]:
