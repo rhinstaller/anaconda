@@ -1,5 +1,6 @@
 import gettext_rh
 import os
+os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
 from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
@@ -126,11 +127,55 @@ class ProgressWindow:
         self.window.destroy ()
 	threads_leave ()
 
+def ExceptionWindow():
+    import sys, traceback
+    (type, value, tb) = sys.exc_info()
+    from string import joinfields
+    list = traceback.format_exception (type, value, tb)
+    text = joinfields (list, "")
+    print text
+
+    win = GnomeDialog ("Exception Occured", STOCK_BUTTON_OK)
+    textbox = GtkText()
+    textbox.insert_defaults (text)
+    sw = GtkScrolledWindow ()
+    sw.add (textbox)
+    sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+
+    hbox = GtkHBox (FALSE)
+    # XXX fix me, use util function when we upgrade pygnome
+    # s = unconditional_pixmap_file ("gnome-error.png")
+    if s:
+        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-error.png'),
+                         FALSE)
+
+    info = GtkLabel (_("An exceptional condition has occured.  This "
+                       "is most likely a bug.  Please copy the "
+                       "full text of this exception and file a bug "
+                       "report at "
+                       "http://bugzilla.redhat.com/bugzilla"))
+    info.set_line_wrap (TRUE)
+    info.set_usize (350, -1)
+
+    hbox.pack_start (sw, TRUE)
+    win.vbox.pack_start (info, FALSE)            
+    win.vbox.pack_start (hbox, TRUE)
+    win.set_usize (400, 300)
+    win.set_position (WIN_POS_CENTER)
+    win.show_all ()
+    win.run ()
+
+    # welcome to the land of threads where sys.exit() doesn't.
+    os.kill (os.getpid(), 9)    
+
 class GtkMainThread (Thread):
     def run (self):
         self.setName ("gtk_main")
         threads_enter ()
-        mainloop ()
+        try:
+            mainloop ()
+        except:
+            ExceptionWindow ()
         threads_leave ()
 
 class MessageWindow:
@@ -502,8 +547,7 @@ class InstallControlWindow (Thread):
             and (event.state & (CONTROL_MASK | MOD1_MASK))):
             os.kill (os.getpid(), 9)
 
-    def run (self):
-        threads_enter ()
+    def main (self):
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
@@ -623,7 +667,16 @@ class InstallControlWindow (Thread):
         threads_leave ()
 
         self.mutex.acquire ()
-        
+
+    def run (self):
+        threads_enter ()
+        try:
+            self.main ()
+        except:
+            threads_leave()
+            mainquit()
+            ExceptionWindow ()
+            
 class InstallControlState:
     def __init__ (self, cw, ii, todo, title = _("Install Window"),
                   prevEnabled = 1, nextEnabled = 0, html = ""):
