@@ -886,10 +886,10 @@ def doInstall(method, id, intf, instPath):
         for p in id.grpset.hdrlist.values():
             if not p.isSelected():
                 lines.append("%s-%s-%s.%s.rpm\n" %
-                             (p.h[rpm.RPMTAG_NAME],
-                              p.h[rpm.RPMTAG_VERSION],
-                              p.h[rpm.RPMTAG_RELEASE],
-                              p.h[rpm.RPMTAG_ARCH]))
+                             (p.hdr[rpm.RPMTAG_NAME],
+                              p.hdr[rpm.RPMTAG_VERSION],
+                              p.hdr[rpm.RPMTAG_RELEASE],
+                              p.hdr[rpm.RPMTAG_ARCH]))
         lines.sort()
         for line in lines:
             instLog.write(line)
