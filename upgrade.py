@@ -77,14 +77,14 @@ def mountRootPartition(rootInfo, theFstab, instPath, allowDirty = 0):
     mdList = raid.startAllRaid(theFstab.driveList())
 
     if rootFs == "vfat":
-	theFstab.mountLoopbackRoot(root)
+	fstab.mountLoopbackRoot(root)
     else:
 	isys.mount(root, '/mnt/sysimage')
 
     fstab.readFstab('/mnt/sysimage/etc/fstab', theFstab)
 
     if rootFs == "vfat":
-	theFstab.unmountLoopbackRoot()
+	fstab.unmountLoopbackRoot()
     else:
 	isys.umount('/mnt/sysimage')        
 
