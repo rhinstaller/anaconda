@@ -198,7 +198,7 @@ static int getISOStatusFromCDROM(char *cddriver, char *mediasum) {
 /* get support status */
 /* if returns 1 we found status, and mediasum will be checksum */
 static int getISOStatusFromFD(int isofd, char *mediasum) {
-    unsigned char tmpsum[33];
+    char tmpsum[33];
     int skipsectors, isostatus;
     long long isosize, pvd_offset;
 
