@@ -291,6 +291,13 @@ def sniffFilesystemType(device):
     except:
         return None
 
+    if len(buf) < pagesize:
+	try:
+	    log("Tried to read pagesize for %s in sniffFilesystemType and only read %s", dev, len(buf))
+	except:
+	    pass
+	return None
+
     # ext2 check
     if struct.unpack("H", buf[1080:1082]) == (0xef53,):
         if isys.ext2HasJournal(dev, makeDevNode = 0):
