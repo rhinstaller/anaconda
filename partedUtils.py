@@ -452,6 +452,7 @@ def getRedHatReleaseString(mountpoint):
 def productMatches(oldproduct, newproduct):
     """Determine if this is a reasonable product to upgrade old product"""
     if oldproduct.startswith(newproduct):
+        log("old matches new (%s:%s)" %(oldproduct, newproduct))
         return 1
 
     productUpgrades = {
@@ -472,8 +473,12 @@ def productMatches(oldproduct, newproduct):
 
     for p in acceptable:
         if oldproduct.startswith(p):
+            log("old matches acceptable (%s:%s - %s:%s)" %(oldproduct,
+                                                           newproduct, p,
+                                                           acceptable))
             return 1
 
+    log("old doesn't match: (%s:%s)" %(oldproduct,newproduct))
     return 0
 
 class DiskSet:
