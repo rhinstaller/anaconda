@@ -22,7 +22,6 @@ class CongratulationWindow (InstallWindow):
                          "Information on configuring your system is available in the post "
                          "install chapter of the Official Red Hat Linux User's Guide."))
         label.set_line_wrap (TRUE)
-        label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
 
         box = GtkVBox (FALSE, 10)

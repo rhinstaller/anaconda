@@ -18,6 +18,7 @@ from lilo import *
 from examine import *
 from bootdisk import *
 from timezone import *
+from xconfig import *
 from gui import _
 import installclass
 
@@ -45,6 +46,7 @@ class InstallPathWindow (InstallWindow):
 		     ( AuthWindow, "authentication" ),
 		     ( PackageSelectionWindow, "package-selection" ), 
 		     ( UnresolvedDependenciesWindow, "dependencies" ),
+                     ( XConfigWindow, "xconfig" ),
 		     InstallProgressWindow,
 		     ( BootdiskWindow, "bootdisk" ),
 		     ( CongratulationWindow, "complete" )
