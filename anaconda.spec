@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.28
+Version: 10.2.0.29
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar 21 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.29-1
+- Fix beta nag translation
+- Fix button growing (clumens, #151208)
+- Add libstdc++ for images (clumens)
+- Clean up congrats screen (clumens, #149526)
+- Fix CD ejecting in loader (pnasrat, #151232)
+- Exclude Xen kernels from everything install (#151490)
+- Add reserve_size for ppc to leave room on disc1 (#151234)
+- Add some more locales 
+
 * Mon Mar 14 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.28-1
 - fix swap detection on upgrade (pjones)
 - don't use os.read to make a buffer of '\x00' (pjones)
