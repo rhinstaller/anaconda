@@ -1,0 +1,35 @@
+#ifndef H_ISYS
+#define H_ISYS
+
+enum driverMajor { DRIVER_NONE = 0, DRIVER_SCSI, DRIVER_NET, DRIVER_CDROM,
+		   DRIVER_PCMCIA, DRIVER_FS, DRIVER_OTHER = 1000};
+enum driverMinor { DRIVER_MINOR_NONE = 0, DRIVER_MINOR_ETHERNET,
+		   DRIVER_MINOR_PLIP, DRIVER_MINOR_TR };
+
+struct moduleArg {
+    char * arg;
+    char * description;
+};
+
+struct moduleInfo {
+    char * moduleName;
+    char * description;
+    enum driverMajor major;
+    enum driverMinor minor;
+    int numArgs;
+    struct moduleArg * args;
+};
+
+int isysReadModuleInfo(const char * filename);
+struct moduleInfo * isysFindModuleInfo(const char * moduleName);
+
+/* NULL moduleName indicates the end of the list; the list must be freed() */
+struct moduleInfo * isysGetModuleList(enum driverMajor major);
+
+/* returns -2 for errno, -1 for unknown device */
+int devMakeInode(char * devName, char * path);
+
+int insmod(char * modName, char ** args);
+int rmmod(char * modName);
+
+#endif
