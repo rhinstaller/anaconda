@@ -68,3 +68,28 @@ strong_alias (__gconv_NOCONV,
 
 strong_alias (__gconv_OK,
 	      __gconv_transliterate);
+
+int RETURNZERO() { return 0; }
+
+int getlogin_r ( char * name, int size ) {
+    strdup(name, "root");
+}
+
+int __get_nprocs_conf() { return 1024; }
+int __get_nprocs() { return 1; }
+int __get_phys_pages() { return 4096; }
+int __get_avphys_pages() { return 4096; }
+int __getdtablesize() { return 100; }
+int _nl_current_LC_TELEPHONE() { return 0; }
+int _nl_current_LC_MEASUREMENT() { return 0; }
+int _nl_current_LC_PAPER() { return 0; }
+int _nl_current_LC_ADDRESS() { return 0; }
+int __mpn_extract_long_double() { return 0; }
+int __mpn_extract_double() { return 0; }
+int __getgroups() { return -1; }
+int _nl_C_LC_TELEPHONE() { return 0; }
+int _nl_C_LC_MEASUREMENT() { return 0; }
+int _nl_C_LC_PAPER() { return 0; }
+int _nl_C_LC_ADDRESS() { return 0; }
+
+
