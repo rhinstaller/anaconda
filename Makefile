@@ -14,9 +14,6 @@ SUBDIRS += fonts
 endif
 endif
 
-# DESTDIR        - destination for install image for install purposes
-DESTDIR = ../../../RedHat/instimage
-
 CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)

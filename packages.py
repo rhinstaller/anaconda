@@ -1550,9 +1550,9 @@ def betaNagScreen(intf, dir):
 				   "from testers, and it is not suitable "
 				   "for day to day usage.\n\n"
 				   "To report feedback, please visit:\n\n"
-				   "   http://bugzilla.redhat.com/bugzilla\n\n"
+				   "   %s\n\n"
 				   "and file a report against '%s'.\n")
-                                   %(productName, fileagainst),
+                                   %(productName, bugzillaUrl, fileagainst),
 				   type="custom", custom_icon="warning",
 				   custom_buttons=[_("_Exit"), _("_Install anyway")])
 

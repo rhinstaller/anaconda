@@ -68,16 +68,17 @@ import product
 productName = product.productName
 productVersion = product.productVersion
 productPath = product.productPath
+bugzillaUrl = "https://bugzilla.redhat.com/bugzilla/"
 
-exceptionText = N_("An unhandled exception has occurred.  This "
-                   "is most likely a bug.  Please copy the "
-                   "full text of this exception or save the crash "
-                   "dump to a floppy then file a detailed bug "
-                   "report against anaconda at "
-                   "http://bugzilla.redhat.com/bugzilla/")
+exceptionText = _("An unhandled exception has occurred.  This "
+                  "is most likely a bug.  Please copy the "
+                  "full text of this exception or save the crash "
+                  "dump to a floppy then file a detailed bug "
+                  "report against anaconda at "
+                  "%s") %(bugzillaUrl,)
 
-exceptionTextNoFloppy = N_("An unhandled exception has occurred.  This "
-                           "is most likely a bug.  Please copy the "
-                           "full text of this exception and file a detailed "
-                           "bug report against anaconda at "
-                           "http://bugzilla.redhat.com/bugzilla/")
+exceptionTextNoFloppy = _("An unhandled exception has occurred.  This "
+                          "is most likely a bug.  Please copy the "
+                          "full text of this exception and file a detailed "
+                          "bug report against anaconda at "
+                          "%s") %(bugzillaUrl,)

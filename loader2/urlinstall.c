@@ -46,7 +46,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     char * newFile = NULL;
     char filepath[1024];
 
-    /* BNFIXME: hack - all callers want RedHat/<foo>, so add prefix here */
+    /* BNFIXME: hack - all callers want product/<foo>, so add prefix here */
     snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
 
     fd = urlinstStartTransfer(ui, filepath, NULL, silentErrors, flags);

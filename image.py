@@ -455,7 +455,7 @@ def findIsoImages(path, messageWindow):
                     if num not in discNum or discArch != arch:
                         continue
 
-                    # if it's disc1, it needs to have RedHat/base/stage2.img
+                    # if it's disc1, it needs to have product/base/stage2.img
                     if (num == 1 and not
                         os.access("/mnt/cdimage/%s/base/stage2.img" % (productPath,),
                                   os.R_OK)):

@@ -22,6 +22,7 @@ import gui
 import gobject
 import gtk
 from iw_gui import *
+from constants import *
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -811,8 +812,8 @@ class XConfigWindow (InstallWindow):
 		self.intf.messageWindow(_("Unknown video card"),
 					_("An error has occurred selecting "
 					  "the video card %s. Please report "
-					  "this error to bugzilla.redhat.com.")
-					%self.currentCard)
+					  "this error to %s.")
+                                        %(self.currentCard, bugzillaUrl,))
 		raise gui.StayOnScreen
 
             primary_card = self.videocard.primaryCard()

@@ -1,5 +1,15 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* constants.py: Make bugzilla URL more changeable.
+	* iw/xconfig_gui.py (XConfigWindow.getNext): Likewise.
+	* packages.py (betaNagScreen): Likewise.
+
+	* hdrlist.py (GroupSet.__main__): Nuke some dead code.
+	* Makefile (DESTDIR): Likewise.
+
+	* image.py (findIsoImages): Genericize comment.
+	* loader2/urlinstall.c: Likewise.
+
 	* loader2/cdinstall.c (findRedHatCD): Change function to
 	findAnacondaCD to be more general.
 	* loader2/cdinstall.h: Likewise.
