@@ -19,6 +19,7 @@ import isys
 import time
 import kudzu
 import string
+from constants import *
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -153,7 +154,8 @@ class CdromInstallMethod(ImageInstallMethod):
 
 		    if not done:
 			self.messageWindow(_("Wrong CDROM"),
-				_("That's not the correct Red Hat CDROM."))
+				_("That's not the correct %s CDROM.")
+                                           % (productName,))
 			isys.umount("/mnt/source")
 			isys.ejectCdrom(self.device)
 		except:
