@@ -233,7 +233,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     char typebuf[10];
     int i, state = SCSISCSI_TOP;
     char * start, * chptr, * next, *end;
-    char driveName = 'a';
+    int driveNum = 0;
     char cdromNum = '0';
     char tapeNum = '0';
     struct kddevice device;
@@ -357,7 +357,12 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	    }
 	    *typebuf = '\0';
 	    if (strstr(start, "Direct-Access")) {
-		sprintf(typebuf, "sd%c", driveName++);
+		if (driveNum < 26)
+		    sprintf(typebuf, "sd%c", driveNum + 'a');
+		else
+		    sprintf(typebuf, "sd%c%c", (driveNum / 26 - 1) + 'a',
+			    (driveNum % 26) + 'a');
+		driveNum++;
 		device.class = CLASS_HD;
 	    } else if (strstr(start, "Sequential-Access")) {
 		sprintf(typebuf, "st%c", tapeNum++);
