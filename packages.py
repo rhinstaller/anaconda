@@ -399,7 +399,11 @@ class InstallCallback:
 			    pass
 			self.rpmFD = -1
 			raise FileCopyException
-		except:
+		except Exception, e:
+                    log("exception was %s for %s-%s-%s" %(e, h['name'],
+                                                          h['version'],
+                                                          h['release']))
+                                                          
                     self.method.unmountCD()
 		    self.messageWindow(_("Error"),
 			_("The package %s-%s-%s cannot be opened. This is due "
@@ -1270,7 +1274,7 @@ def setFileCons(instPath, partitions):
                 continue
             dirfiles = os.listdir(instPath + dir)
             files.extend(map(addpath, dirfiles))
-
+            files.append(dir)
 
         # blah, to work in a chroot, we need to actually be inside so the
         # regexes will work
