@@ -339,7 +339,6 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
         while (fgets (line, 199, fd) != NULL) {
             if((parms = strstr(line, "dasd=")) ||
                (parms = strstr(line, "DASD="))) {
-                parms++;
                 strncpy(parms, "dasd", 4);
                 parms_end = parms;
                 while(*parms_end && !(isspace(*parms_end))) parms_end++;
