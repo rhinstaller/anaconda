@@ -36,5 +36,16 @@ def vgactivate():
                                 searchPath = 1)
     if rc:
         raise SystemError, "vgchange failed"
+
+def vgdeactivate():
+    """Deactivate volume groups by running vgchange -an."""
+
+    rc = iutil.execWithRedirect("/usr/sbin/vgchange",
+                                ["vgchange", "-an"],
+                                stdout = "/tmp/lvmout",
+                                stderr = "/tmp/lvmout",
+                                searchPath = 1)
+    if rc:
+        raise SystemError, "vgchange failed"
     
     
