@@ -1,22 +1,22 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install\n"
+"Project-Id-Version: specspo $Revision$\n"
 "POT-Creation-Date: 2000-03-01 17:24-0500\n"
-"PO-Revision-Date: 2000-03-06 23:44+0100\n"
+"PO-Revision-Date: 2000-05-15 18:18+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit\n"
 
 #: ../fstab.py:233 ../fstab.py:396
 msgid "Formatting"
-msgstr "Formaterar"
+msgstr ""
 
 #: ../fstab.py:234
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formaterar växlingsutrymme (swap) på /dev/%s..."
+msgstr ""
 
 #: ../fstab.py:244 ../fstab.py:328 ../fstab.py:462
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:184
@@ -28,47 +28,47 @@ msgstr "Formaterar växlingsutrymme (swap) på /dev/%s..."
 #: ../loader/urls.c:228 ../text.py:286 ../text.py:770 ../todo.py:343
 #: ../todo.py:662 ../todo.py:693 ../todo.py:748
 msgid "Error"
-msgstr "Fel"
+msgstr ""
 
 #: ../fstab.py:244
 msgid "Error creating swap on device "
-msgstr "Fel vid skapande av växlingsfil (swap) på enhet "
+msgstr ""
 
 #: ../fstab.py:329
 #, c-format
 msgid "Error unmounting %s: %s"
-msgstr "Fel vid avmontering av %s: %s"
+msgstr ""
 
 #: ../fstab.py:351 ../todo.py:426
 msgid "Creating"
-msgstr "Skapar"
+msgstr ""
 
 #: ../fstab.py:351
 msgid "Creating RAID devices..."
-msgstr "Skapar RAID-enheter..."
+msgstr ""
 
 #: ../fstab.py:397
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Formaterar %s-filsystem..."
+msgstr ""
 
 #: ../fstab.py:419
 msgid "Loopback"
-msgstr "Loopback"
+msgstr ""
 
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "Skapar loopback-filsystem på enhet /dev/%s..."
+msgstr ""
 
 #: ../fstab.py:463
 #, c-format
 msgid "Error mounting %s: %s"
-msgstr "Fel vid montering av %s: %s"
+msgstr ""
 
 #: ../gui.py:269 ../gui.py:520
 msgid "Next"
-msgstr "Nästa"
+msgstr ""
 
 #: ../gui.py:270 ../gui.py:519 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:68
@@ -91,61 +91,57 @@ msgstr "Nästa"
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
-msgstr "Tillbaka"
+msgstr ""
 
 #: ../gui.py:271 ../gui.py:524
 msgid "Show Help"
-msgstr "Visa hjälp"
+msgstr ""
 
 #: ../gui.py:272 ../gui.py:523
 msgid "Hide Help"
-msgstr "Göm hjälp"
+msgstr ""
 
 #: ../gui.py:273 ../gui.py:522
 msgid "Finish"
-msgstr "Slutför"
+msgstr ""
 
 #: ../gui.py:276 ../gui.py:550
 msgid "Online Help"
-msgstr "Online-hjälp"
+msgstr ""
 
 #: ../gui.py:277 ../iw/language.py:10 ../text.py:54 ../text.py:1012
 #: ../text.py:1041
 msgid "Language Selection"
-msgstr "Språkval"
+msgstr ""
 
 #: ../gui.py:486
 msgid "Red Hat Linux Installer"
-msgstr "Red Hat Linux installationsprogram"
+msgstr ""
 
 #: ../gui.py:490
 msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux installationsskal"
+msgstr ""
 
 #: ../gui.py:501
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux installationsprogram på %s"
+msgstr ""
 
 #: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux installationsskal på %s"
+msgstr ""
 
 #: ../installclass.py:250
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-"Du står i begrepp att radera eventuella tidigare Linuxinstallationer på ditt "
-"system."
 
 #: ../installclass.py:287
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
-"Du står i begrepp att radera ALL DATA på din hårddisk för att göra plats åt "
-"din Linuxinstallation."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
@@ -171,37 +167,37 @@ msgstr ""
 #: ../textw/lilo.py:177 ../textw/silo.py:135 ../textw/silo.py:148
 #: ../textw/silo.py:204
 msgid "Ok"
-msgstr "Ok"
+msgstr ""
 
 #: ../text.py:55
 msgid "What language would you like to use during the installation process?"
-msgstr "Vilket språk vill du använda under installationen?"
+msgstr ""
 
 #: ../text.py:80
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr "/dev/ttyS0 (COM1 i DOS)"
+msgstr ""
 
 #: ../text.py:81
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr "/dev/ttyS1 (COM2 i DOS)"
+msgstr ""
 
 #: ../text.py:82
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr "/dev/ttyS2 (COM3 i DOS)"
+msgstr ""
 
 #: ../text.py:83
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr "/dev/ttyS4 (COM4 i DOS)"
+msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:254 ../text.py:98 ../textw/lilo.py:100
 #: ../textw/lilo.py:168 ../textw/silo.py:130 ../textw/silo.py:195
 msgid "Device"
-msgstr "Enhet"
+msgstr ""
 
 #: ../text.py:99
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr "På vilken enhet finns din mus? %s %i"
+msgstr ""
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:171
 #: ../loader/devices.c:184 ../loader/devices.c:189 ../loader/devices.c:251
@@ -228,71 +224,71 @@ msgstr "På vilken enhet finns din mus? %s %i"
 #: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "OK"
-msgstr "OK"
+msgstr ""
 
 #: ../text.py:122
 msgid "Which model mouse is attached to this computer?"
-msgstr "Vilken typ av mus är ansluten till denna dator?"
+msgstr ""
 
 #: ../text.py:131
 msgid "Emulate 3 Buttons?"
-msgstr "Emulera 3 knappar?"
+msgstr ""
 
 #: ../text.py:133
 msgid "Mouse Selection"
-msgstr "Musval"
+msgstr ""
 
 #: ../text.py:171 ../text.py:1014 ../text.py:1043
 msgid "Keyboard Selection"
-msgstr "Tangentbordsval"
+msgstr ""
 
 #: ../text.py:172
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Vilken typ av tangentbord är ansluten till denna dator?"
+msgstr ""
 
 #: ../text.py:228
 msgid "Install GNOME Workstation"
-msgstr "Installera GNOME-arbetsstation"
+msgstr ""
 
 #: ../text.py:229
 msgid "Install KDE Workstation"
-msgstr "Installera KDE-arbetsstation"
+msgstr ""
 
 #: ../text.py:230
 msgid "Install Server System"
-msgstr "Installera serversystem"
+msgstr ""
 
 #: ../text.py:231
 msgid "Install Custom System"
-msgstr "Installera anpassat system"
+msgstr ""
 
 #: ../text.py:232
 msgid "Upgrade Existing Installation"
-msgstr "Uppgradera befintlig installation"
+msgstr ""
 
 #: ../text.py:233 ../text.py:1046
 msgid "Installation Type"
-msgstr "Installationstyp"
+msgstr ""
 
 #: ../text.py:234
 msgid "What type of system would you like to install?"
-msgstr "Vilken typ av system vill du installera?"
+msgstr ""
 
 #: ../text.py:287
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Du har inga Linuxpartitioner. Du kan inte uppgradera systemet!"
+msgstr ""
 
 #: ../text.py:300
 msgid "System to Upgrade"
-msgstr "System som skall uppgraderas"
+msgstr ""
 
 #: ../text.py:301
 msgid "What partition holds the root partition of your installation?"
-msgstr "Vilken partition innehåller rotpartitionen i din installation?"
+msgstr ""
 
 #: ../text.py:316
 msgid "Customize Packages to Upgrade"
-msgstr "Välj paket som skall uppgraderas"
+msgstr ""
 
 #: ../text.py:317
 msgid ""
@@ -300,9 +296,6 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Paketen du har installerat, och alla andra paket som krävs för att "
-"installera dessa, har blivit utvalda för uppgradering. Vill du modifiera "
-"valet av paket som ska uppgraderas?"
 
 #: ../iw/welcome.py:88 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
@@ -313,7 +306,7 @@ msgstr ""
 #: ../loader/loader.c:612 ../loader/net.c:719 ../text.py:324 ../text.py:522
 #: ../text.py:540 ../text.py:547 ../textw/partitioning.py:194
 msgid "Yes"
-msgstr "Ja"
+msgstr ""
 
 #: ../iw/welcome.py:91 ../libfdisk/fsedit.c:772 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
@@ -324,11 +317,11 @@ msgstr "Ja"
 #: ../loader/net.c:719 ../text.py:324 ../text.py:329 ../text.py:522
 #: ../text.py:540 ../text.py:550 ../textw/partitioning.py:194
 msgid "No"
-msgstr "Nej"
+msgstr ""
 
 #: ../text.py:339 ../text.py:357
 msgid "Red Hat Linux"
-msgstr "Red Hat Linux"
+msgstr ""
 
 #: ../text.py:340
 msgid ""
@@ -341,15 +334,6 @@ msgid ""
 "If you have purchased Official Red Hat Linux, be sure to register your "
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
-"Välkommen till Red Hat Linux!\n"
-"\n"
-"Denna installation är beskriven i detalj i \"Official Red Hat Linux "
-"Installation Guide\", som finns tillgänglig från Red Hat Software. Om du har "
-"tillgång till denna manual bör du läsa igenom sektionen om installation "
-"innan du fortsätter.\n"
-"\n"
-"Om du har köpt \"Official Red Hat Linux\", kom ihåg att registera dig på vår "
-"websida, http://www.redhat.com/."
 
 #: ../text.py:358
 msgid ""
@@ -360,13 +344,6 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
-"Välkommen till Red Hat Linux!\n"
-"\n"
-"Du har kommit in i omkonfigurationsläget, som kommer att låta dig göra "
-"lokala inställningar av din dator.\n"
-"\n"
-"Använd knappen Avbryt nedan för att avsluta utan att ändra dina "
-"inställningar."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
@@ -374,55 +351,53 @@ msgstr ""
 #: ../loader/loader.c:1804 ../text.py:365 ../text.py:367 ../textw/lilo.py:106
 #: ../textw/silo.py:135 ../textw/silo.py:153 ../textw/userauth.py:63
 msgid "Cancel"
-msgstr "Avbryt"
+msgstr ""
 
 #: ../text.py:429
 msgid "Use bootp/dhcp"
-msgstr "Använd bootp/dhcp"
+msgstr ""
 
 #: ../loader/net.c:234 ../text.py:434
 msgid "IP address:"
-msgstr "IP-adress:"
+msgstr ""
 
 #: ../loader/net.c:237 ../text.py:435
 msgid "Netmask:"
-msgstr "Nätmask:"
+msgstr ""
 
 #: ../loader/net.c:240 ../text.py:436
 msgid "Default gateway (IP):"
-msgstr "Standard gateway (IP):"
+msgstr ""
 
 #: ../loader/net.c:243 ../text.py:437
 msgid "Primary nameserver:"
-msgstr "Primär namnserver:"
+msgstr ""
 
 #: ../iw/network.py:11 ../text.py:459
 msgid "Network Configuration"
-msgstr "Nätverkskonfiguration"
+msgstr ""
 
 #: ../text.py:475
 msgid "Invalid information"
-msgstr "Ogiltig information"
+msgstr ""
 
 #: ../text.py:476
 msgid "You must enter valid IP information to continue"
-msgstr "Du måste skriva in giltig IP-information för att fortsätta"
+msgstr ""
 
 #: ../text.py:503
 msgid "Hostname Configuration"
-msgstr "Värdnamnskonfiguration"
+msgstr ""
 
 #: ../text.py:504
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"Värdnamnet är din dators namn. Om din dator är ansluten till ett nätverk kan "
-"din nätverksadministratör vara ansvarig för tilldelningen av detta namn."
 
 #: ../iw/network.py:207 ../loader/net.c:459 ../loader/net.c:638 ../text.py:507
 msgid "Hostname"
-msgstr "Värdnamn"
+msgstr ""
 
 #: ../text.py:523
 msgid ""
@@ -435,14 +410,6 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"En bootdiskett låter dig starta ditt Linuxsystem utan att vara beroende av "
-"den vanliga bootladdaren. Detta är användbart om du inte vill installera "
-"lilo på ditt system, om något annat operativsystem tar bort lilo, eller om "
-"lilo inte fungerar med din hårdvara. En anpassad bootdiskett kan också "
-"användas tillsammans med Red Hat-räddningsdisketten, vilket gör det enklare "
-"att återställa systemet efter allvarliga fel.\n"
-"\n"
-"Vill du skapa en bootdiskett för ditt system?"
 
 #: ../text.py:542
 msgid ""
@@ -450,54 +417,48 @@ msgid ""
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
-"\n"
-"På Ultra-maskiner från SMCC fungerar troligen inte bootande från diskett\n"
-"\n"
 
 #: ../text.py:545 ../text.py:758
 msgid "Bootdisk"
-msgstr "Bootdiskett"
+msgstr ""
 
 #: ../text.py:588
 msgid "X probe results"
-msgstr "X-testresutat"
+msgstr ""
 
 #: ../text.py:607 ../text.py:626
 msgid "Unlisted Card"
-msgstr "Olistat kort"
+msgstr ""
 
 #: ../text.py:615
 msgid "Video Card Selection"
-msgstr "Grafikkortsval"
+msgstr ""
 
 #: ../text.py:616
 msgid "Which video card do you have?"
-msgstr "Vilket grafikkort har du?"
+msgstr ""
 
 #: ../text.py:628
 msgid "X Server Selection"
-msgstr "Val av X-server"
+msgstr ""
 
 #: ../text.py:628
 msgid "Choose a server"
-msgstr "Välj en server"
+msgstr ""
 
 #: ../text.py:686
 msgid "Installation to begin"
-msgstr "Installationen startar"
+msgstr ""
 
 #: ../iw/confirm.py:33 ../text.py:687
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplett logg av din installation kommer att finnas i /tmp/install.log "
-"efter omstart av systemet. Denna fil kan vara bra att använda som referens "
-"senare."
 
 #: ../text.py:704 ../text.py:719 ../text.py:739
 msgid "Complete"
-msgstr "Färdig"
+msgstr ""
 
 #: ../iw/congrats.py:32 ../text.py:705
 msgid ""
@@ -511,16 +472,6 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
-"Gratulerar, installationen är färdig.\n"
-"\n"
-"Tryck enter för att starta om, och se till att ta bort ditt bootmedia när "
-"systemet startar om, annars kommer installationsprogrammet att startas igen. "
-"För information om vilka uppdateringar som finns för denna utgåva av Red Hat "
-"Linux, ta en titt på fellistan som du finner på "
-"http://www.redhat.com/errata.\n"
-"\n"
-"Information om konfigurering och användning av ditt Red Hat Linux-system "
-"finns i Red Hat Linux-manualerna."
 
 #: ../text.py:720 ../text.py:740
 msgid ""
@@ -532,284 +483,268 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulerar, installationen är färdig.\n"
-"\n"
-" För information om vilka uppdateringar som finns för denna utgåva av Red "
-"Hat Linux, ta en titt på fellistan som du finner på http://www.redhat.com.\n"
-"\n"
-"Information om vidare konfigurering av ditt system kan du hitta i kapitlet "
-"som behandlar åtgärder efter installationen i \"The Official Red Hat Linux "
-"User's Guide\"."
 
 #: ../iw/bootdisk.py:57 ../text.py:759
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
-"Sätt in en tom diskett i den första diskettstationen. All data på denna "
-"diskett kommer att raderas när bootdisketten skapas."
 
 #: ../text.py:762 ../text.py:763 ../text.py:774 ../text.py:775
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
-msgstr "Hoppa över"
+msgstr ""
 
 #: ../iw/bootdisk.py:61 ../text.py:771
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Ett fel uppstod under skapandet av bootdisketten. Kontrollera att det finns "
-"en formaterad diskett i den första diskettstationen."
 
 #: ../text.py:833
 msgid "Package Installation"
-msgstr "Paketinstallation"
+msgstr ""
 
 #: ../text.py:835
 msgid "Name   : "
-msgstr "Namn   : "
+msgstr ""
 
 #: ../text.py:836
 msgid "Size   : "
-msgstr "Storlek: "
+msgstr ""
 
 #: ../text.py:837
 msgid "Summary: "
-msgstr "Sammanf: "
+msgstr ""
 
 #: ../text.py:863
 msgid "    Packages"
-msgstr "       Paket"
+msgstr ""
 
 #: ../text.py:864
 msgid "       Bytes"
-msgstr "        Byte"
+msgstr ""
 
 #: ../text.py:865
 msgid "        Time"
-msgstr "         Tid"
+msgstr ""
 
 #: ../text.py:867
 msgid "Total    :"
-msgstr "Totalt   :"
+msgstr ""
 
 #: ../text.py:874
 msgid "Completed:   "
-msgstr "Färdigt:     "
+msgstr ""
 
 #: ../text.py:884
 msgid "Remaining:  "
-msgstr "Återstår:   "
+msgstr ""
 
 #: ../text.py:973 ../text.py:974
 msgid "Debug"
-msgstr "Felsökning"
+msgstr ""
 
 #: ../text.py:986
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux © 2000 Red Hat, Inc."
+msgstr ""
 
 #: ../text.py:988
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> mellan element   |  <Blanksteg> väljer  |  <F12> nästa "
-"skärm"
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1010 ../text.py:1045
 msgid "Welcome"
-msgstr "Välkommen"
+msgstr ""
 
 #: ../text.py:1016 ../text.py:1084
 msgid "Hostname Setup"
-msgstr "Värdnamnskonfiguration"
+msgstr ""
 
 #: ../text.py:1018 ../text.py:1086
 msgid "Network Setup"
-msgstr "Nätverkskonfiguration"
+msgstr ""
 
 #: ../text.py:1024 ../text.py:1092
 msgid "Time Zone Setup"
-msgstr "Tidszonskonfiguration"
+msgstr ""
 
 #: ../text.py:1026 ../text.py:1094 ../textw/userauth.py:9
 msgid "Root Password"
-msgstr "Rootlösenord"
+msgstr ""
 
 #: ../text.py:1028 ../text.py:1096 ../textw/userauth.py:161
 msgid "User Account Setup"
-msgstr "Konfiguration av användarkonton"
+msgstr ""
 
 #: ../text.py:1030 ../text.py:1098
 msgid "Authentication"
-msgstr "Autentisering"
+msgstr ""
 
 #: ../text.py:1036
 msgid "Configuration Complete"
-msgstr "Konfigurationen är färdig"
+msgstr ""
 
 #: ../text.py:1054 ../textw/silo.py:28 ../textw/silo.py:100
 #: ../textw/silo.py:212
 msgid "SILO Configuration"
-msgstr "SILO-konfiguration"
+msgstr ""
 
 #: ../text.py:1060 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
 msgid "LILO Configuration"
-msgstr "LILO-konfiguration"
+msgstr ""
 
 #: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:277
 #: ../text.py:1064 ../text.py:1070
 msgid "Partition"
-msgstr "Partition"
+msgstr ""
 
 #: ../text.py:1066
 msgid "Manually Partition"
-msgstr "Manuell partitionering"
+msgstr ""
 
 #: ../text.py:1068
 msgid "Automatic Partition"
-msgstr "Automatisk partitionering"
+msgstr ""
 
 #: ../text.py:1072 ../textw/partitioning.py:274
 msgid "Root Filesystem Size"
-msgstr "Storlek på rotfilsystem"
+msgstr ""
 
 #: ../text.py:1074
 msgid "Swap"
-msgstr "Swap"
+msgstr ""
 
 #: ../text.py:1076
 msgid "Filesystem Formatting"
-msgstr "Formaterar filsystem"
+msgstr ""
 
 #: ../iw/mouse.py:55 ../text.py:1088 ../text.py:1090
 msgid "Mouse Configuration"
-msgstr "Muskonfiguration"
+msgstr ""
 
 #: ../text.py:1100
 msgid "Package Groups"
-msgstr "Paketgrupper"
+msgstr ""
 
 #: ../text.py:1102 ../text.py:1130
 msgid "Individual Packages"
-msgstr "Enstaka paket"
+msgstr ""
 
 #: ../text.py:1104 ../textw/packages.py:122
 msgid "Package Dependencies"
-msgstr "Paketberoenden"
+msgstr ""
 
 #: ../iw/xconfig.py:250 ../text.py:1106 ../text.py:1114
 msgid "X Configuration"
-msgstr "X-konfiguration"
+msgstr ""
 
 #: ../text.py:1108
 msgid "Installation Begins"
-msgstr "Installationen startar"
+msgstr ""
 
 #: ../text.py:1110
 msgid "Install System"
-msgstr "Installera system"
+msgstr ""
 
 #: ../text.py:1111 ../text.py:1113 ../text.py:1132 ../text.py:1134
 msgid "Boot Disk"
-msgstr "Bootdiskett"
+msgstr ""
 
 #: ../text.py:1116
 msgid "Installation Complete"
-msgstr "Installationen är färdig"
+msgstr ""
 
 #: ../text.py:1121
 msgid "Examine System"
-msgstr "Granska system"
+msgstr ""
 
 #: ../text.py:1128
 msgid "Customize Upgrade"
-msgstr "Anpassa uppgraderingen"
+msgstr ""
 
 #: ../text.py:1131
 msgid "Upgrade System"
-msgstr "Uppgradera system"
+msgstr ""
 
 #: ../text.py:1135
 msgid "Upgrade Complete"
-msgstr "Uppgradering färdig"
+msgstr ""
 
 #: ../text.py:1169
 msgid "Cancelled"
-msgstr "Avbruten"
+msgstr ""
 
 #: ../text.py:1170
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
-"Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
 #: ../todo.py:344
 #, c-format
 msgid "Error copying file: %s"
-msgstr "Fel vid kopiering av fil: %s"
+msgstr ""
 
 #: ../todo.py:426
 msgid "Creating boot disk..."
-msgstr "Skapar bootdiskett..."
+msgstr ""
 
 #: ../todo.py:446
 msgid "Reading"
-msgstr "Läser"
+msgstr ""
 
 #: ../todo.py:447
 msgid "Reading package information..."
-msgstr "Läser paketinformation..."
+msgstr ""
 
 #: ../todo.py:631 ../todo.py:644
 msgid "no suggestion"
-msgstr "inget förslag"
+msgstr ""
 
 #: ../todo.py:650
 msgid "Searching"
-msgstr "Söker"
+msgstr ""
 
 #: ../todo.py:651
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Söker efter Red Hat Linux-installationer..."
+msgstr ""
 
 #: ../todo.py:663 ../todo.py:694
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Fel vid montering av ext2-filsystem på %s: %s"
+msgstr ""
 
 #: ../todo.py:705
 msgid "Finding"
-msgstr "Hittar"
+msgstr ""
 
 #: ../todo.py:706
 msgid "Finding packages to upgrade..."
-msgstr "Hittar paket att uppgradera..."
+msgstr ""
 
 #: ../todo.py:749
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
 #: ../todo.py:967
 msgid "Processing"
-msgstr "Bearbetar"
+msgstr ""
 
 #: ../todo.py:968
 msgid "Preparing to install..."
-msgstr "Förbereder installation..."
+msgstr ""
 
 #: ../todo.py:1165
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr "Uppgraderar %s.\n"
+msgstr ""
 
 #: ../todo.py:1167
 #, c-format
 msgid "Installing %s.\n"
-msgstr "Installerar %s.\n"
+msgstr ""
 
 #: ../todo.py:1188
 msgid ""
@@ -817,174 +752,171 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Du verkar inte ha tillräckligt med diskutrymme för att installera de paket "
-"du valt. Du behöver mer utrymme på följande filsystem:\n"
-"\n"
 
 #: ../todo.py:1191
 msgid "Mount Point"
-msgstr "Monteringspunkt"
+msgstr ""
 
 #: ../todo.py:1191
 msgid "Space Needed"
-msgstr "Utrymme som krävs"
+msgstr ""
 
 #: ../todo.py:1204
 msgid "Disk Space"
-msgstr "Diskutrymme"
+msgstr ""
 
 #: ../todo.py:1228
 msgid "Post Install"
-msgstr "Postinstallation"
+msgstr ""
 
 #: ../todo.py:1229
 msgid "Performing post install configuration..."
-msgstr "Utför postinstallationskonfiguration..."
+msgstr ""
 
 #: ../iw/xconfig.py:10 ../xf86config.py:256
 msgid "Video Card"
-msgstr "Grafikkort"
+msgstr ""
 
 #: ../iw/xconfig.py:12 ../xf86config.py:258
 msgid "Video Ram"
-msgstr "Grafikminne"
+msgstr ""
 
 #: ../xf86config.py:260
 msgid "X server"
-msgstr "X-server"
+msgstr ""
 
 #: ../xf86config.py:262
 msgid "Unable to detect video card"
-msgstr "Kan inte hitta grafikkort"
+msgstr ""
 
 #: ../iw/xconfig.py:11 ../xf86config.py:269 ../xf86config.py:271
 msgid "Monitor"
-msgstr "Bildskärm"
+msgstr ""
 
 #: ../xf86config.py:271
 msgid "Plug and Play Monitor"
-msgstr "Plug and Play-bildskärm"
+msgstr ""
 
 #: ../xf86config.py:273
 msgid "Horizontal frequency range"
-msgstr "Horisontellt frekvensintervall"
+msgstr ""
 
 #: ../xf86config.py:275
 msgid "Vertical frequency range"
-msgstr "Vertikalt frekvensintervall"
+msgstr ""
 
 #: ../iw/account.py:15
 msgid "Account Configuration"
-msgstr "Kontokonfiguration"
+msgstr ""
 
 #: ../iw/account.py:36
 msgid "Root password accepted."
-msgstr "Rootlösenordet accepterat."
+msgstr ""
 
 #: ../iw/account.py:39
 msgid "Root password is too short."
-msgstr "Rootlösenordet är för kort."
+msgstr ""
 
 #: ../iw/account.py:41
 msgid "Root password does not match."
-msgstr "Rootlösenorden stämmer inte överens."
+msgstr ""
 
 #: ../iw/account.py:168
 msgid "Root Password: "
-msgstr "Rootlösenord: "
+msgstr ""
 
 #: ../iw/account.py:171
 msgid "Confirm: "
-msgstr "Bekräfta: "
+msgstr ""
 
 #: ../iw/account.py:229 ../iw/account.py:268
 msgid "Account Name"
-msgstr "Kontonamn"
+msgstr ""
 
 #: ../iw/account.py:233 ../textw/userauth.py:80
 msgid "Password"
-msgstr "Lösenord"
+msgstr ""
 
 #: ../iw/account.py:237 ../textw/userauth.py:81
 msgid "Password (confirm)"
-msgstr "Lösenord (bekräfta)"
+msgstr ""
 
 #: ../iw/account.py:241 ../iw/account.py:268 ../textw/userauth.py:79
 #: ../textw/userauth.py:173
 msgid "Full Name"
-msgstr "Fullständigt namn"
+msgstr ""
 
 #: ../iw/account.py:250 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:184
 msgid "Add"
-msgstr "Lägg till"
+msgstr ""
 
 #: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
 #: ../textw/partitioning.py:63 ../textw/silo.py:204 ../textw/silo.py:226
 #: ../textw/userauth.py:185
 msgid "Edit"
-msgstr "Redigera"
+msgstr ""
 
 #: ../iw/account.py:254 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:184
 msgid "Delete"
-msgstr "Ta bort"
+msgstr ""
 
 #: ../iw/account.py:256
 msgid "New"
-msgstr "Nytt"
+msgstr ""
 
 #: ../iw/auth.py:11 ../textw/userauth.py:259
 msgid "Authentication Configuration"
-msgstr "Autentiseringskonfiguration"
+msgstr ""
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr "Aktivera MD5-lösenord"
+msgstr ""
 
 #: ../iw/auth.py:51
 msgid "Enable shadow passwords"
-msgstr "Aktivera skugglösenord"
+msgstr ""
 
 #: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
-msgstr "Aktivera NIS"
+msgstr ""
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr "Använd broadcast för att hitta NIS-server"
+msgstr ""
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr "NIS-domän: "
+msgstr ""
 
 #: ../iw/auth.py:68
 msgid "NIS Server: "
-msgstr "NIS-server: "
+msgstr ""
 
 #: ../iw/bootdisk.py:11
 msgid "Bootdisk Creation"
-msgstr "Skapande av bootdiskett"
+msgstr ""
 
 #: ../iw/bootdisk.py:68
 msgid "Skip boot disk creation"
-msgstr "Hoppa över skapandet av bootdiskett"
+msgstr ""
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
-msgstr "Redo att installera"
+msgstr ""
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Klicka på Nästa för att starta installationen av Red Hat Linux."
+msgstr ""
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
 msgid "Congratulations"
-msgstr "Gratulerar"
+msgstr ""
 
 #: ../iw/congrats.py:13 ../iw/congrats.py:60
 msgid "Exit"
-msgstr "Avsluta"
+msgstr ""
 
 #: ../iw/congrats.py:80
 msgid ""
@@ -996,303 +928,293 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulerar, konfigureringen är färdig.\n"
-"\n"
-"För information om vilka uppdateringar som finns för denna utgåva av Red Hat "
-"Linux, ta en titt på fellistan som du finner på http://www.redhat.com.\n"
-"\n"
-"Information om vidare konfigurering av ditt system kan du hitta i kapitlet "
-"som behandlar åtgärder efter installationen i \"The Official Red Hat Linux "
-"User's Guide\"."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
-msgstr "Olösta paketberoenden"
+msgstr ""
 
 #: ../iw/dependencies.py:30 ../iw/progress.py:127 ../textw/packages.py:129
 msgid "Package"
-msgstr "Paket"
+msgstr ""
 
 #: ../iw/dependencies.py:30 ../textw/packages.py:129
 msgid "Requirement"
-msgstr "Krav"
+msgstr ""
 
 #: ../iw/dependencies.py:38 ../textw/packages.py:141
 msgid "Install packages to satisfy dependencies"
-msgstr "Installera paket för att tillfredsställa beroenden"
+msgstr ""
 
 #: ../iw/examine.py:10
 msgid "Upgrade Examine"
-msgstr "Granskning av uppgradering"
+msgstr ""
 
 #: ../iw/examine.py:35
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"Du har inga Linuxpartitioner.\n"
-" Du kan inte uppgradera detta system!"
 
 #: ../iw/examine.py:60
 msgid "Customize packages to be upgraded"
-msgstr "Välj paket som skall uppgraderas"
+msgstr ""
 
 #: ../iw/fdisk.py:12 ../textw/partitioning.py:22
 msgid "fdisk"
-msgstr "fdisk"
+msgstr ""
 
 #: ../iw/fdisk.py:87
 msgid "Select drive to run fdisk on"
-msgstr "Välj den enhet som fdisk skall användas på"
+msgstr ""
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
-msgstr "Välj partitioner som skall formateras"
+msgstr ""
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
-msgstr "Sök efter skadade block under formateringen"
+msgstr ""
 
 #: ../iw/installpath.py:38
 msgid "GNOME Workstation"
-msgstr "GNOME-arbetsstation"
+msgstr ""
 
 #: ../iw/installpath.py:40
 msgid "KDE Workstation"
-msgstr "KDE-arbetsstation"
+msgstr ""
 
 #: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346
 #: ../libfdisk/gnomefsedit.c:2366
 msgid "Server"
-msgstr "Server"
+msgstr ""
 
 #: ../iw/installpath.py:43
 msgid "Custom"
-msgstr "Anpassad"
+msgstr ""
 
 #: ../iw/installpath.py:93
 msgid "Install Type"
-msgstr "Installationstyp"
+msgstr ""
 
 #: ../iw/installpath.py:187
 msgid "Install"
-msgstr "Installera"
+msgstr ""
 
 #: ../iw/installpath.py:189
 msgid "Upgrade"
-msgstr "Uppgradera"
+msgstr ""
 
 #: ../iw/installpath.py:242
 msgid "Use fdisk"
-msgstr "Använd fdisk"
+msgstr ""
 
 #: ../iw/keyboard.py:13
 msgid "Keyboard Configuration"
-msgstr "Tangentbordskonfiguration"
+msgstr ""
 
 #: ../iw/keyboard.py:56
 msgid "Model"
-msgstr "Modell"
+msgstr ""
 
 #: ../iw/keyboard.py:75
 msgid "Layout"
-msgstr "Layout"
+msgstr ""
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr "Stumma tangenter"
+msgstr ""
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr "Aktivera stumma tangenter"
+msgstr ""
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr "Deaktivera stumma tangenter"
+msgstr ""
 
 #: ../iw/keyboard.py:113
 msgid "Test your selection here:"
-msgstr "Testa ditt val här:"
+msgstr ""
 
 #: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
-msgstr "Vilket språk skall användas under installationen?"
+msgstr ""
 
 #: ../iw/lilo.py:18
 msgid "Lilo Configuration"
-msgstr "Lilo-konfiguration"
+msgstr ""
 
 #: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:278
 msgid "Type"
-msgstr "Typ"
+msgstr ""
 
 #: ../iw/lilo.py:164
 msgid "Install LILO boot record on:"
-msgstr "Installera LILO-bootpost på:"
+msgstr ""
 
 #: ../iw/lilo.py:171 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "Master Boot Record (MBR)"
-msgstr "Huvudbootpost (MBR)"
+msgstr ""
 
 #: ../iw/lilo.py:175 ../iw/silo.py:173 ../textw/silo.py:64
 msgid "First sector of boot partition"
-msgstr "Första sektorn av bootpartitionen"
+msgstr ""
 
 #: ../iw/lilo.py:179 ../textw/lilo.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Använd linjärt läge (vissa SCSI-diskar kräver detta)"
+msgstr ""
 
 #: ../iw/lilo.py:189 ../iw/silo.py:205
 msgid "Kernel parameters"
-msgstr "Parametrar till kärnan"
+msgstr ""
 
 #: ../iw/lilo.py:206 ../iw/silo.py:223
 msgid "Create boot disk"
-msgstr "Skapa bootdisk"
+msgstr ""
 
 #: ../iw/lilo.py:210
 msgid "Do not install LILO"
-msgstr "Installera inte LILO"
+msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
 #: ../textw/silo.py:195
 msgid "Default"
-msgstr "Standard"
+msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
 #: ../textw/silo.py:195
 msgid "Partition type"
-msgstr "Partitionstyp"
+msgstr ""
 
 #: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:254 ../iw/silo.py:289
 #: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:131
 #: ../textw/silo.py:195
 msgid "Boot label"
-msgstr "Bootetikett"
+msgstr ""
 
 #: ../iw/mouse.py:141
 msgid "Emulate 3 Buttons"
-msgstr "Emulera 3 knappar"
+msgstr ""
 
 #: ../iw/network.py:146
 msgid "Configure using DHCP"
-msgstr "Använd DHCP för konfigureringen"
+msgstr ""
 
 #: ../iw/network.py:152
 msgid "Activate on boot"
-msgstr "Aktivera vid boot"
+msgstr ""
 
 #: ../iw/network.py:161
 msgid "IP Address"
-msgstr "IP-adress:"
+msgstr ""
 
 #: ../iw/network.py:162 ../loader/net.c:636
 msgid "Netmask"
-msgstr "Nätmask"
+msgstr ""
 
 #: ../iw/network.py:163 ../loader/loader.c:244
 msgid "Network"
-msgstr "Nätverk"
+msgstr ""
 
 #: ../iw/network.py:164
 msgid "Broadcast"
-msgstr "Broadcast"
+msgstr ""
 
 #: ../iw/network.py:208
 msgid "Gateway"
-msgstr "Gateway"
+msgstr ""
 
 #: ../iw/network.py:208
 msgid "Primary DNS"
-msgstr "Primär DNS"
+msgstr ""
 
 #: ../iw/network.py:208
 msgid "Secondary DNS"
-msgstr "Sekundär DNS"
+msgstr ""
 
 #: ../iw/network.py:208
 msgid "Ternary DNS"
-msgstr "Tertiär DNS"
+msgstr ""
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr "Val av enstaka paket"
+msgstr ""
 
 #: ../iw/package.py:176
 msgid "Up"
-msgstr "Upp"
+msgstr ""
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr "Namn: "
+msgstr ""
 
 #: ../iw/package.py:329
 msgid "Package Details"
-msgstr "Paketdetaljer"
+msgstr ""
 
 #: ../iw/package.py:335
 msgid "Size: "
-msgstr "Storlek: "
+msgstr ""
 
 #: ../iw/package.py:341
 msgid "Select Package For Installation"
-msgstr "Välj paket för installation"
+msgstr ""
 
 #: ../iw/package.py:376 ../textw/packages.py:22 ../textw/packages.py:87
 msgid "Package Group Selection"
-msgstr "Val av paketgrupper"
+msgstr ""
 
 #: ../iw/package.py:454 ../textw/packages.py:18
 msgid "Select individual packages"
-msgstr "Välj enstaka paket"
+msgstr ""
 
 #: ../iw/progress.py:29
 msgid "Installing Packages"
-msgstr "Installerar paket"
+msgstr ""
 
 #: ../iw/progress.py:128 ../iw/progress.py:163
 msgid "Size"
-msgstr "Storlek"
+msgstr ""
 
 #: ../iw/progress.py:129
 msgid "Summary"
-msgstr "Sammanfattning"
+msgstr ""
 
 #: ../iw/progress.py:163
 msgid "Status"
-msgstr "Status"
+msgstr ""
 
 #: ../iw/progress.py:163
 msgid "Packages"
-msgstr "Paket"
+msgstr ""
 
 #: ../iw/progress.py:163
 msgid "Time"
-msgstr "Tid"
+msgstr ""
 
 #: ../iw/progress.py:168
 msgid "Total"
-msgstr "Totalt"
+msgstr ""
 
 #: ../iw/progress.py:169
 msgid "Completed"
-msgstr "Färdigt"
+msgstr ""
 
 #: ../iw/progress.py:170
 msgid "Remaining"
-msgstr "Återstår"
+msgstr ""
 
 #: ../iw/rootpartition.py:16
 msgid "Confirm Partitioning Selection"
-msgstr "Bekräfta val av partitionering"
+msgstr ""
 
 #: ../iw/rootpartition.py:32 ../textw/partitioning.py:22
 msgid "Disk Druid"
-msgstr "Disk Druid"
+msgstr ""
 
 #: ../iw/rootpartition.py:43 ../textw/partitioning.py:189
 msgid "Low Memory"
-msgstr "Ont om minne"
+msgstr ""
 
 #: ../iw/rootpartition.py:44 ../textw/partitioning.py:190
 msgid ""
@@ -1300,9 +1222,6 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Eftersom du inte har mycket minne i den här maskinen måste vi aktivera "
-"växlingsutrymmet (swap) direkt. För att göra detta måste vi omedelbart "
-"skriva din nya partitionstabell till hårddisken. Är det okej?"
 
 #: ../iw/rootpartition.py:115 ../textw/partitioning.py:275
 #, c-format
@@ -1312,22 +1231,18 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"Du har valt att lägga ditt rotfilsystem i en fil på ett redan existerande "
-"DOS- eller Windows-filsystem. Hur stort, i megabyte, vill du att ditt "
-"rotfilsystem ska vara, och hur mycket växlingsutrymme (swap) vill du ha? De "
-"måste tillsammans vara mindre än %d megabyte stora."
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
-msgstr "Storlek på rotfilsystem:"
+msgstr ""
 
 #: ../iw/rootpartition.py:140
 msgid "Swap space size:"
-msgstr "Storlek på växlingsutrymme (swap):"
+msgstr ""
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:126
 msgid "Automatic Partitioning"
-msgstr "Automatisk partitionering"
+msgstr ""
 
 #: ../iw/rootpartition.py:235 ../textw/partitioning.py:127
 #, c-format
@@ -1338,139 +1253,128 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"%s\n"
-"\n"
-"Om du inte vill göra detta kan du fortsätta installationen genom att "
-"partitionera manuellt, eller gå tillbaka och utföra en helt anpassad "
-"installation."
 
 #: ../iw/rootpartition.py:249
 msgid "Remove data"
-msgstr "Ta bort data"
+msgstr ""
 
 #: ../iw/rootpartition.py:252 ../textw/partitioning.py:131
 msgid "Manually partition"
-msgstr "Partitionera manuellt"
+msgstr ""
 
 #: ../iw/silo.py:18
 msgid "Silo Configuration"
-msgstr "Silo-konfiguration"
+msgstr ""
 
 #: ../iw/silo.py:161
 msgid "Install SILO boot record on:"
-msgstr "Installera SILO-bootposten på:"
+msgstr ""
 
 #: ../iw/silo.py:178
 msgid "Create PROM alias"
-msgstr "Skapa PROM-alias"
+msgstr ""
 
 #: ../iw/silo.py:201
 msgid "Set default PROM boot device to linux"
-msgstr "Sätt standard bootenhet i PROM till linux"
+msgstr ""
 
 #: ../iw/silo.py:233
 msgid "Do not install SILO"
-msgstr "Installera inte SILO"
+msgstr ""
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:83
 msgid "Time Zone Selection"
-msgstr "Tidszonsval"
+msgstr ""
 
 #: ../iw/timezone.py:147
 msgid "View:"
-msgstr "Visa:"
+msgstr ""
 
 #: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
-msgstr "Systemklockan använder UTC"
+msgstr ""
 
 #: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Använd sommartid (endast USA)"
+msgstr ""
 
 #: ../iw/timezone.py:218
 msgid "Location"
-msgstr "Plats"
+msgstr ""
 
 #: ../iw/timezone.py:219
 msgid "UTC Offset"
-msgstr "Avstånd till UTC"
+msgstr ""
 
 #: ../iw/welcome.py:80
 msgid "Would you like to configure your system?"
-msgstr "Vill du konfigurera ditt system?"
+msgstr ""
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
-msgstr "Horisontellt frekvensintervall"
+msgstr ""
 
 #: ../iw/xconfig.py:14
 msgid "Vertical Frequency Range"
-msgstr "Vertikalt frekvensintervall"
+msgstr ""
 
 #: ../iw/xconfig.py:15
 msgid "Test failed"
-msgstr "Test misslyckades"
+msgstr ""
 
 #: ../iw/xconfig.py:23 ../iw/xconfig.py:427
 msgid "Customize X Configuration"
-msgstr "Anpassa X-konfiguration"
+msgstr ""
 
 #: ../iw/xconfig.py:87
 msgid "Bits per Pixel"
-msgstr "Bitar per pixel"
+msgstr ""
 
 #: ../iw/xconfig.py:97 ../iw/xconfig.py:423
 msgid "Test this configuration"
-msgstr "Testa denna konfiguration"
+msgstr ""
 
 #: ../iw/xconfig.py:112
 msgid "Monitor Configuration"
-msgstr "Konfiguration av bildskärm"
+msgstr ""
 
 #: ../iw/xconfig.py:216
 msgid "Horizontal Sync"
-msgstr "Horisontell synk"
+msgstr ""
 
 #: ../iw/xconfig.py:225
 msgid "Vertical Sync"
-msgstr "Vertikal synk"
+msgstr ""
 
 #: ../iw/xconfig.py:331
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Storleken på ditt grafikminne kan inte upptäckas automatiskt. Välj storleken "
-"på ditt grafikminne från alternativen nedan:"
 
 #: ../iw/xconfig.py:342 ../iw/xconfig.py:363
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
-"I de flesta fallen kan din grafikhårdvara automatiskt ange de bästa värdena "
-"för din skärm."
 
 #: ../iw/xconfig.py:351
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
-"Om de funna inställningarna inte passar med din hårdvara kan du välja de "
-"rätta nedan:"
 
 #: ../iw/xconfig.py:372
 msgid "Autoprobe results:"
-msgstr "X-testresutat"
+msgstr ""
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
-msgstr "Använd grafisk inloggning"
+msgstr ""
 
 #: ../iw/xconfig.py:433
 msgid "Skip X Configuration"
-msgstr "Hoppa över konfiguration av X"
+msgstr ""
 
 #: ../textw/lilo.py:18 ../textw/silo.py:14
 msgid ""
@@ -1479,22 +1383,18 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Några system behöver skicka speciella flaggor till kärnan vid uppstart för "
-"att systemet skall fungera ordentligt. Om du behöver skicka sådana flaggor, "
-"skriv in dem nu. Om du inte behöver några, eller om du inte är säker, låt "
-"fältet vara tomt."
 
 #: ../textw/lilo.py:85 ../textw/silo.py:102
 msgid "Where do you want to install the bootloader?"
-msgstr "Var vill du installera bootladdaren?"
+msgstr ""
 
 #: ../textw/lilo.py:105 ../textw/silo.py:135 ../textw/silo.py:156
 msgid "Clear"
-msgstr "Nollställ"
+msgstr ""
 
 #: ../textw/lilo.py:114 ../textw/silo.py:143
 msgid "Edit Boot Label"
-msgstr "Ändra bootetikett"
+msgstr ""
 
 #: ../textw/lilo.py:181 ../textw/silo.py:207
 msgid ""
@@ -1502,9 +1402,6 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Boothanteraren Red Hat använder kan också starta andra operativsystem. Du "
-"måste berätta vilka andra partitioner du vill kunna boota och vilka "
-"bootetiketter du vill använda för att boota dem."
 
 #: ../textw/packages.py:123
 msgid ""
@@ -1512,12 +1409,10 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"Vissa paket du har valt att installera kräver paket som du inte har valt. Om "
-"du bara väljer Ok kommer även alla dessa paket att installeras."
 
 #: ../textw/partitioning.py:14 ../textw/partitioning.py:57
 msgid "Disk Setup"
-msgstr "Hårddiskkonfiguration"
+msgstr ""
 
 #: ../textw/partitioning.py:15
 msgid ""
@@ -1528,12 +1423,6 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk Druid är ett verktyg för att partitionera och konfigurera "
-"monteringspunkter. Det är utvecklat för att vara enklare än Linux "
-"traditionella partitioneringsprogram, fdisk, och samtidigt vara mer "
-"kraftfullt. Det finns emellertid situationer där fdisk passar bättre.\n"
-"\n"
-"Vilket verktyg vill du använda?"
 
 #: ../textw/partitioning.py:58
 msgid ""
@@ -1541,17 +1430,14 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"För att installera Red Hat Linux måste du ha minst en partition på 150 MB "
-"dedikerad till Linux. Vi föreslår att du placerar den partitionen på en av "
-"de första två hårddiskarna i ditt system så att du kan starta Linux med LILO."
 
 #: ../loader/loader.c:307 ../loader/loader.c:332 ../textw/partitioning.py:63
 msgid "Done"
-msgstr "Färdig"
+msgstr ""
 
 #: ../textw/partitioning.py:131 ../textw/partitioning.py:132
 msgid "Continue"
-msgstr "Fortsätt"
+msgstr ""
 
 #: ../textw/partitioning.py:209
 msgid ""
@@ -1560,34 +1446,30 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"Vilka partitioner vill du formatera? Vi rekommenderar varmt att samtliga "
-"systempartitioner, inkluderandes /, /usr och /var, formateras. Du behöver "
-"inte formatera /home eller /usr/local om de redan har konfigurerats under en "
-"tidigare installation."
 
 #: ../textw/partitioning.py:230
 msgid "Check for bad blocks during format"
-msgstr "Sök efter skadade block under formateringen"
+msgstr ""
 
 #: ../textw/partitioning.py:235
 msgid "Choose Partitions to Format"
-msgstr "Välj partitioner som ska formateras"
+msgstr ""
 
 #: ../textw/partitioning.py:280
 msgid "Root filesystem size"
-msgstr "Storlek på rotfilsystem"
+msgstr ""
 
 #: ../textw/partitioning.py:281
 msgid "Swap space"
-msgstr "Växlingsutrymme (swap)"
+msgstr ""
 
 #: ../textw/partitioning.py:290 ../textw/partitioning.py:296
 msgid "Bad Size"
-msgstr "Felaktig storlek"
+msgstr ""
 
 #: ../textw/partitioning.py:291
 msgid "The size you enter must be a number."
-msgstr "Storleken du anger måste vara ett tal."
+msgstr ""
 
 #: ../textw/partitioning.py:297
 #, c-format
@@ -1595,24 +1477,22 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
-"Den totala storleken måste vara mindre än mängden ledigt utrymme på disken, "
-"som är %d megabyte."
 
 #: ../textw/silo.py:65
 msgid "Create PROM alias `linux'"
-msgstr "Skapa PROM-aliaset \"linux\""
+msgstr ""
 
 #: ../textw/silo.py:66
 msgid "Set default PROM boot device"
-msgstr "Sätt standard PROM-bootenhet"
+msgstr ""
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
-msgstr "Vilken tidszon befinner du dig i?"
+msgstr ""
 
 #: ../textw/timezone.py:80
 msgid "Hardware clock set to GMT?"
-msgstr "Hårdvaruklockan satt till GMT?"
+msgstr ""
 
 #: ../textw/userauth.py:11
 msgid ""
@@ -1620,77 +1500,72 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Välj ett rootlösenord. Du måste skriva det två gånger för att säkerställa "
-"att du vet vad det var och att du inte skrev fel. Kom ihåg att "
-"rootlösenordet är en kritisk del av systemets säkerhet!"
 
 #: ../loader/urls.c:337 ../textw/userauth.py:24
 msgid "Password:"
-msgstr "Lösenord:"
+msgstr ""
 
 #: ../textw/userauth.py:25
 msgid "Password (again):"
-msgstr "Lösenord (en gång till):"
+msgstr ""
 
 #: ../textw/userauth.py:41 ../textw/userauth.py:104
 msgid "Password Length"
-msgstr "Lösenordslängd"
+msgstr ""
 
 #: ../textw/userauth.py:42
 msgid "The root password must be at least 6 characters long."
-msgstr "Rootlösenordet måste vara minst 6 tecken långt."
+msgstr ""
 
 #: ../textw/userauth.py:46 ../textw/userauth.py:112
 msgid "Password Mismatch"
-msgstr "Olika lösenord"
+msgstr ""
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:113
 msgid "The passwords you entered were different. Please try again."
-msgstr "Lösenorden du skrev in var olika. Försök igen."
+msgstr ""
 
 #: ../textw/userauth.py:72
 msgid "Edit User"
-msgstr "Ändra användare"
+msgstr ""
 
 #: ../textw/userauth.py:74
 msgid "Add User"
-msgstr "Lägg till användare"
+msgstr ""
 
 #: ../textw/userauth.py:78
 msgid "User ID"
-msgstr "Användarid"
+msgstr ""
 
 #: ../textw/userauth.py:91
 msgid "Bad User ID"
-msgstr "Användarid"
+msgstr ""
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
-"Användarid måste innehålla färre än 8 tecken, och endast tecknen A-Z, a-z "
-"och 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
-msgstr "Användarid saknas"
+msgstr ""
 
 #: ../textw/userauth.py:100
 msgid "You must provide a user ID"
-msgstr "Du måste ange ett användarid"
+msgstr ""
 
 #: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
-msgstr "Lösenordet måste vara minst 6 tecken långt."
+msgstr ""
 
 #: ../textw/userauth.py:122
 msgid "User Exists"
-msgstr "Användaren existerar"
+msgstr ""
 
 #: ../textw/userauth.py:123
 msgid "This user id already exists.  Choose another."
-msgstr "Detta användarid finns redan. Välj ett annat."
+msgstr ""
 
 #: ../textw/userauth.py:150
 msgid ""
@@ -1698,9 +1573,6 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Du bör använda ett normalt användarkonto för det mesta arbetet på ditt "
-"system. Genom att inte använda rootkontot slentrianmässigt kan du minska "
-"risken för att förstöra konfigurationen av ditt system."
 
 #: ../textw/userauth.py:163
 msgid ""
@@ -1708,55 +1580,53 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"Vilka användarkonton vill du ha på systemet? Du bör ha minst ett konto "
-"(förutom root) för vanligt arbete, men fleranvändarsystem kan ha hur många "
-"konton som helst konfigurerade."
 
 #: ../textw/userauth.py:173
+#, fuzzy
 msgid "User name"
-msgstr "Användarnamn"
+msgstr "Användargränssnitt/X"
 
 #: ../textw/userauth.py:197
 msgid "Enter the information for the user."
-msgstr "Ange användarens information."
+msgstr ""
 
 #: ../textw/userauth.py:209
 msgid "Change the information for this user."
-msgstr "Ändra denna användares information."
+msgstr ""
 
 #: ../textw/userauth.py:260
 msgid "Use Shadow Passwords"
-msgstr "Använd skugglösenord"
+msgstr ""
 
 #: ../textw/userauth.py:262
 msgid "Enable MD5 Passwords"
-msgstr "Aktivera MD5-lösenord"
+msgstr ""
 
 #: ../textw/userauth.py:269
 msgid "NIS Domain:"
-msgstr "NIS-domän:"
+msgstr ""
 
 #: ../textw/userauth.py:271
 msgid "NIS Server:"
-msgstr "NIS-server:"
+msgstr ""
 
 #: ../textw/userauth.py:273
 msgid "or use:"
-msgstr "eller använd:"
+msgstr ""
 
 #: ../textw/userauth.py:276
 msgid "Request server via broadcast"
-msgstr "Begär server via broadcast"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
 #: ../libfdisk/fsedit.c:762 ../libfdisk/fsedit.c:789 ../libfdisk/fsedit.c:799
 msgid "Bad Mount Point"
-msgstr "Felaktig monteringspunkt"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:740
 #, c-format
 msgid "The %s directory must be on the root filesystem."
-msgstr "Katalogen %s måste finnas på rotfilsystemet."
+msgstr ""
 
 #: ../libfdisk/fsedit.c:747
 #, c-format
@@ -1765,9 +1635,6 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"Monteringspunkten %s är ogiltig.\n"
-"\n"
-"Monteringspunkter måste börja med ett inledande /."
 
 #: ../libfdisk/fsedit.c:754
 #, c-format
@@ -1776,9 +1643,6 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"Monteringspunkten %s är ogiltig.\n"
-"\n"
-"Monteringspunkter kan inte sluta med ett /."
 
 #: ../libfdisk/fsedit.c:763
 #, c-format
@@ -1787,9 +1651,6 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"Monteringspunkten %s är ogiltig.\n"
-"\n"
-"Monteringspunkter kan bara innehålla skrivbara tecken."
 
 #: ../libfdisk/fsedit.c:773
 msgid ""
@@ -1798,10 +1659,6 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Du har begärt att ditt rotfilsystem (/) ska läggas på en FAT-partition av "
-"DOS-typ. Du kan göra detta, men du kan inte använda några andra filsystem "
-"för ditt Linuxsystem. Dessutom innebär det en prestandaförsämring att inte "
-"använda Linuxpartitioner. Vill du fortsätta?"
 
 #: ../libfdisk/fsedit.c:790
 #, c-format
@@ -1810,9 +1667,6 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"Monteringpunkten %s är ogiltig.\n"
-"\n"
-"Systempartitioner måste vara på \"Linux Native\"-partitioner."
 
 #: ../libfdisk/fsedit.c:800
 #, c-format
@@ -1821,13 +1675,10 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"Monteringspunkten %s är ogiltig.\n"
-"\n"
-"/usr måste vara på en \"Linux Native\"-partition eller en NFS-volym."
 
 #: ../libfdisk/fsedit.c:828
 msgid "Too Many Drives"
-msgstr "För många hårddiskar"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:829
 msgid ""
@@ -1835,22 +1686,16 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Du har för fler hårddiskar än detta program stöder. Använd programmet fdisk "
-"för att konfigurera hårddiskarna och vänligen skicka en notis (på engelska) "
-"till Red Hat Software om att du fick detta meddelande."
 
 #: ../libfdisk/fsedit.c:845
 msgid "No Drives Found"
-msgstr "Inga hårddiskar funna"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:846
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
-"Ett fel har uppstått - inga giltiga enheter, som kan användas för att skapa "
-"nya filsystem, kunde hittas. Vänligen undersök din hårdvara för orsaken till "
-"problemet."
 
 #: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
 #, c-format
@@ -1858,8 +1703,6 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
-"Det uppstog ett fel vid läsning av partitionstabellen för blockenhet %s.  "
-"Felet var"
 
 #: ../libfdisk/fsedit.c:1199
 #, c-format
@@ -1867,28 +1710,26 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
-"Partitionstabellen på enhet %s är trasig. För att skapa nya partitioner "
-"måste den initialiseras, vilket kommer att förstöra ALL DATA på denna enhet."
 
 #: ../libfdisk/fsedit.c:1204
 msgid "Bad Partition Table"
-msgstr "Felaktig partitionstabell"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1205
 msgid "Initialize"
-msgstr "Initialiserar"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1205 ../libfdisk/fsedit.c:1226
 msgid "Skip Drive"
-msgstr "Hoppa över hårddisk"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1226 ../loader/net.c:329
 msgid "Retry"
-msgstr "Försök igen"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1238
 msgid "BSD Disklabel"
-msgstr "BSD-hårddisketikett"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1238
 msgid ""
@@ -1896,121 +1737,111 @@ msgid ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
-"En disk med en BSD-hårddisketikett har upptäcks. Red Hat-installationen "
-"stöder endast BSD-etiketter i skrivskyddat läge, så du måste använda en "
-"anpassad installation och fdisk (istället för Disk Druid) för maskiner med "
-"BSD-etiketter."
 
 #: ../libfdisk/fsedit.c:1268
 #, c-format
 msgid "System error %d"
-msgstr "Systemfel %d"
+msgstr ""
 
 #: ../libfdisk/fsedit.c:1277 ../libfdisk/fsedit.c:1279
 msgid "Fdisk Error"
-msgstr "Fdisk-fel"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:537 ../libfdisk/gnomefsedit.c:827
 msgid "<Swap Partition>"
-msgstr "<Växlingspartition (swap)>"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
 msgid "<RAID Partition>"
-msgstr "<RAID-partition>"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:713 ../libfdisk/newtfsedit.c:692
 msgid "Delete Partition"
-msgstr "Radera partition"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:714 ../libfdisk/newtfsedit.c:693
 msgid "Are you sure you want to delete this partition?"
-msgstr "Är du säker på att du vill radera denna partition?"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:772 ../libfdisk/gnomefsedit.c:778
 #: ../libfdisk/gnomefsedit.c:782 ../libfdisk/gnomefsedit.c:784
 #: ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266
 #: ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
 msgid "Edit Partition"
-msgstr "Ändra partition"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
 msgid "Mount Point:"
-msgstr "Monteringspunkt:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:842
 msgid "Size (Megs):"
-msgstr "Storlek (MB):"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:873
 msgid "Grow to fill disk?"
-msgstr "Öka så disken fylls?"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
 msgid "Allocation Status:"
-msgstr "Allokeringsstatus:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:896 ../libfdisk/newtfsedit.c:334
 msgid "Successful"
-msgstr "Lyckades"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:899 ../libfdisk/newtfsedit.c:336
 msgid "Failed"
-msgstr "Misslyckades"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:911 ../libfdisk/newtfsedit.c:341
 msgid "Failure Reason:"
-msgstr "Felorsak:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:1813
 msgid "Partition Type:"
-msgstr "Partitionstyp:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1008
 msgid "Allowable Drives:"
-msgstr "Tillåtna enheter:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005
 #: ../libfdisk/newtfsedit.c:499
 msgid "No Mount Point"
-msgstr "Ingen monteringspunkt"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1115 ../libfdisk/newtfsedit.c:500
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"Du har inte valt någon monteringspunkt för denna partition. Är du säker på "
-"att det är det du vill?"
 
 #: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013
 #: ../libfdisk/newtfsedit.c:540
 msgid "Mount Point Error"
-msgstr "Monteringspunktsfel"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1159 ../libfdisk/newtfsedit.c:541
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
-"Monteringspunkten du bad om är antingen ogiltig eller redan i bruk. Välj en "
-"giltig monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
 msgid "Size Error"
-msgstr "Felaktig storlek"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Storleken du bad om är inte tillåten. Försäkra dig om att den är större än "
-"0, och angiven i decimalt heltalsformat (bas 10)."
 
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
 #: ../libfdisk/newtfsedit.c:576
 msgid "Swap Size Error"
-msgstr "Felaktig växlingsfilsstorlek (swap)"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
 #: ../libfdisk/newtfsedit.c:577
@@ -2019,12 +1850,10 @@ msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
-"Du har skapat en växlingspartition (swap) som är för stor. Den maximala "
-"storleken på en växlingspartition är %ld megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
-msgstr "Ingen restriktion på RAID-enhet"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1221
 msgid ""
@@ -2032,27 +1861,22 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Du har konfigurerat en RAID-partition utan att binda partitionen till en "
-"enda disk.\n"
-" Är du säker på att det är det du vill?"
 
 #: ../libfdisk/gnomefsedit.c:1227
 msgid "Close"
-msgstr "Stäng"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1228
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
-"Du har konfigurerat en RAID-partition utan att binda partitionen till en "
-"enda disk. Välj en disk att binda denna partition till."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1414
 msgid "RAID Entry Incomplete"
-msgstr "RAID-information inkomplett"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1415
 #, c-format
@@ -2061,15 +1885,12 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"Raidenheten /dev/%s innehåller nu partitioner som inte har allokerats. "
-"Raidenheten /dev/%s kommer nu att delas upp i de partitioner den består av. "
-"Vänligen bygg ihop raidenheten igen med allokerade partitioner."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
 #: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
-msgstr "Oallokerade partitioner"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
 #: ../libfdisk/newtfsedit.c:85
@@ -2078,60 +1899,54 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
-"Det finns för närvarande en eller flera oallokerade partitioner i listan "
-"över begärda partitioner. Dessa oallokerade partitioner visas nedan, "
-"tillsammans med anledningen till varför de inte blev allokerade."
 
 #: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
-msgstr "<Swappartition"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1857
 msgid "RAID Device: /dev/"
-msgstr "RAID-enhet: /dev/"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "RAID Type:"
-msgstr "RAID-typ:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1917
 msgid "Partitions For RAID Array:"
-msgstr "Partitioner för RAID-kedja:"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2006
 msgid "You have not selected a mount point. A mount point is required."
-msgstr "Du har inte valt någon monteringspunkt. En monteringspunkt krävs."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2014
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"Monteringspunkten du bad om används redan. Välj en giltig monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
-msgstr "Bootning från RAID-varning"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2028
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
-"Du har monterat denna raidenhet som en bootpartition. Kontrollera att alla "
-"delpartitioner är bootbara."
 
 #: ../libfdisk/gnomefsedit.c:2038
 msgid "No RAID Device"
-msgstr "Ingen RAID-enhet"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2039
 msgid "You need to selected a RAID device."
-msgstr "Du måste välja en RAID-enhet."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
-msgstr "Använd RAID-enhet"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
@@ -2139,36 +1954,32 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"Raidenheten \"/dev/%s\" är redan konfigurerad som en raidenhet. Vänligen "
-"välj en annan."
 
 #: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
-msgstr "Inte tillräckligt med partitioner"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2061
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
-"Du har inte konfigurerat tillräckligt med partitioner för den RAID-typ du "
-"har valt."
 
 #: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
-msgstr "Ogiltig RAID-typ för /boot"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2070
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "Bootpartitioner (/boot) är endast tillåtna på RAID-1."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2077
 msgid "Illegal RAID mountpoint"
-msgstr "Ogiltig RAID-monteringspunkt"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "RAID-partitioner kan inte monteras som rot (/) på Alpha."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2177,145 +1988,136 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"Partitionen %s är en redan existerande partition i gruppen av partitioner "
-"för denna RAID-enhet. Monteringspunkten är satt till /boot. Är du säker på "
-"att det är möjligt att boota från denna partition?"
 
 #: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
-msgstr "Använd redan existerande partition?"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2278
 msgid "Auto-Partition"
-msgstr "Paritionera automatiskt"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2285
 msgid "Using Existing Disk Space"
-msgstr "Använd existerande diskutrymme"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2304
 msgid "Remove Linux partitions"
-msgstr "Ta bort Linuxpartitioner"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2315
 msgid "Use existing free space"
-msgstr "Använd existerande ledigt utrymme"
+msgstr ""
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2327
 msgid "Intended Use"
-msgstr "Avsedd användning"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2366
 msgid "Workstation"
-msgstr "Arbetsstation"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2440
 msgid "Delete RAID Device?"
-msgstr "Radera RAID-enhet?"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2441
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Är du säker på att du vill radera denna RAID-enhet?"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
-msgstr "Återställ partitionstabellen"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
-msgstr "Återställ partitionstabellen till originalinnehållet? "
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
-msgstr "<Swap>"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2532
 msgid "<RAID>"
-msgstr "<RAID>"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2534
 msgid "<not set>"
-msgstr "<inte angiven>"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3198
 msgid "Unallocated Partitions Exist..."
-msgstr "Det finns oallokerade partitioner..."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Du måste knyta en rotpartition (/) till en \"Linux native\"-partition (ext2) "
-"eller en RAID-partition innan du kan fortsätta."
 
 #: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
-msgstr "Partitioner"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3319
 msgid "_Add..."
-msgstr "_Lägg till..."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3326
 msgid "_Edit..."
-msgstr "_Ändra..."
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3327
 msgid "_Reset"
-msgstr "_Återställ"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3332
 msgid "_Delete"
-msgstr "_Radera"
+msgstr ""
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3345
 msgid "_Make RAID Device"
-msgstr "_Skapa RAID-enhet"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3355
 msgid "Auto Partition"
-msgstr "Partitionera automatiskt"
+msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3364
 msgid "Drive Summary"
-msgstr "Hårddisköversikt"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:139
 msgid "Swap Partition"
-msgstr "Växlingspartition (swap)"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1277
 msgid "Current Disk Partitions"
-msgstr "Nuvarande diskpartitioner"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1310
 msgid "Drive Summaries"
-msgstr "Hårddisköversikter"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1426
 msgid "No Root Partition"
-msgstr "Ingen rotpartition"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1427
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Du måste knyta en rotpartition (/) till en \"Linux native\"-partition (ext2) "
-"innan du kan fortsätta."
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
-msgstr "Ingen växlingspartition"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
 msgstr ""
-"Du måste skapa en växlingspartition (swappartition) för att kunna fortsätta "
-"installationen."
 
 #: ../libfdisk/newtfsedit.c:1480
 msgid ""
@@ -2324,42 +2126,38 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Det finns oallokerade partitioner kvar. Om du avslutar nu kommer de inte att "
-"skrivas till disk.\n"
-"\n"
-"Är du säker på att du vill avsluta?"
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "Save Changes"
-msgstr "Spara ändringar"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1498
 msgid "Save changes to partition table(s)?"
-msgstr "Spara ändringar av partitionstabell(er)?"
+msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1542
 msgid "You may only delete NFS mounts."
-msgstr "Du kan endast radera NFS-monteringar."
+msgstr ""
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Annan CDROM"
+msgstr ""
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "CDROM-typ"
+msgstr ""
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Vilken typ av CDROM har du?"
+msgstr ""
 
 #: ../loader/cdrom.c:88
 msgid "Initializing CDROM..."
-msgstr "Initialiserar CDROM..."
+msgstr ""
 
 #: ../loader/devices.c:52
 msgid "Miscellaneous"
-msgstr "Diverse"
+msgstr ""
 
 #: ../loader/devices.c:61
 msgid ""
@@ -2367,151 +2165,139 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Denna modul kan ta parametrar som påverkar dess funktion. Om du inte vet "
-"vilka parametrar du ska ange så bara hoppa över denna skärm genom att trycka "
-"på knappen \"OK\"."
 
 #: ../loader/devices.c:66
 msgid "Module Parameters"
-msgstr "Modulparametrar"
+msgstr ""
 
 #: ../loader/devices.c:171 ../loader/devices.c:274 ../loader/loader.c:257
 #: ../loader/loader.c:316 ../loader/loader.c:332 ../loader/loader.c:1804
 msgid "Devices"
-msgstr "Enheter"
+msgstr ""
 
 #: ../loader/devices.c:173
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Sätt in din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
+msgstr ""
 
 #: ../loader/devices.c:185 ../loader/loader.c:1813
 msgid "Failed to mount floppy disk."
-msgstr "Montering av disketten misslyckades."
+msgstr ""
 
 #: ../loader/devices.c:190
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Disketten som du satte i är ingen giltig drivrutinsdiskett för denna version "
-"av Red Hat Linux."
 
 #: ../loader/devices.c:239
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"Vilken drivrutin ska jag prova? Om drivrutinen du behöver inte finns i denna "
-"lista och du har en separat drivrutinsdiskett, tryck F2."
 
 #: ../loader/devices.c:244
 msgid "Which driver should I try?"
-msgstr "Vilken drivrutin skall jag prova?"
+msgstr ""
 
 #: ../loader/devices.c:252
 msgid "Specify module parameters"
-msgstr "Ange modulparametrar"
+msgstr ""
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
-msgstr "Kickstart-fel"
+msgstr ""
 
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Fel vid öppning: kickstart-fil %s: %s"
+msgstr ""
 
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Fel vid läsning av innehållet i kickstart-fil %s: %s"
+msgstr ""
 
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Fel på rad %d i kickstart-fil %s."
+msgstr ""
 
 #: ../loader/lang.c:275
 msgid "Choose a Language"
-msgstr "Välj ett språk"
+msgstr ""
 
 #: ../loader/lang.c:546
 msgid "Keyboard Type"
-msgstr "Tangentbordstyp"
+msgstr ""
 
 #: ../loader/lang.c:547
 msgid "What type of keyboard do you have?"
-msgstr "Vilken typ av tangentbord har du?"
+msgstr ""
 
 #: ../loader/loader.c:102
 msgid "Local CDROM"
-msgstr "Lokal CDROM"
+msgstr ""
 
 #: ../loader/loader.c:105
 msgid "NFS image"
-msgstr "NFS-bild"
+msgstr ""
 
 #: ../loader/loader.c:110
 msgid "Hard drive"
-msgstr "Hårddisk"
+msgstr ""
 
 #: ../loader/loader.c:129
 msgid "Welcome to Red Hat Linux"
-msgstr "Välkommen till Red Hat Linux"
+msgstr ""
 
 #: ../loader/loader.c:131
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-"  <Tab>/<Alt-Tab> mellan element | <Blanksteg> väljer | <F12> nästa skärm "
 
 #: ../loader/loader.c:244
 msgid "SCSI"
-msgstr "SCSI"
+msgstr ""
 
 #: ../loader/loader.c:258
 msgid "What kind of device would you like to add"
-msgstr "Vilken typ av enhet vill du lägga till"
+msgstr ""
 
 #: ../loader/loader.c:305
 msgid "I have found the following devices in your system:"
-msgstr "Jag har hittat följande enheter i ditt system:"
+msgstr ""
 
 #: ../loader/loader.c:307 ../loader/loader.c:332
 msgid "Add Device"
-msgstr "Lägg till enhet"
+msgstr ""
 
 #: ../loader/loader.c:333
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
-"Jag har inga särskilda drivrutiner laddade för ditt system. Vill du ladda "
-"några nu?"
 
 #: ../loader/loader.c:417 ../loader/loader.c:419
 msgid "Loading"
-msgstr "Laddar"
+msgstr ""
 
 #: ../loader/loader.c:471
 msgid "Loading second stage ramdisk..."
-msgstr "Laddar andra stegets ramdisk..."
+msgstr ""
 
 #: ../loader/loader.c:475
 msgid "Error loading ramdisk."
-msgstr "Fel vid laddande av ramdisk."
+msgstr ""
 
 #: ../loader/loader.c:612
 msgid "Hard Drives"
-msgstr "Hårddiskar"
+msgstr ""
 
 #: ../loader/loader.c:613
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Du verkar inte ha några hårddiskar på ditt system! Vill du konfigurera "
-"ytterligare enheter?"
 
 #: ../loader/loader.c:626
 msgid ""
@@ -2519,106 +2305,101 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"Vilken partition, och katalog på den partitionen, innehåller katalogerna "
-"RedHat/RPMS och RedHat/base? Tryck F2 för att konfigurera ytterligare "
-"enheter, om du inte ser den disk du använder i listan här."
 
 #: ../loader/loader.c:640
 msgid "Directory holding Red Hat:"
-msgstr "Katalog som innehåller Red Hat:"
+msgstr ""
 
 #: ../loader/loader.c:660
 msgid "Select Partition"
-msgstr "Välj partition"
+msgstr ""
 
 #: ../loader/loader.c:706
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Enhet %s ser inte ut att innehålla ett Red Hat-installationsträd."
+msgstr ""
 
 #: ../loader/loader.c:758
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Jag kunde inte hitta en Red Hat Linux-CDROM i någon av dina CDROM-enheter. "
-"Sätt in Red Hat-CD:n och tryck \"OK\" för att försöka igen."
 
 #: ../loader/loader.c:915
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
+msgstr ""
 
 #: ../loader/loader.c:920
 msgid "I could not mount that directory from the server"
-msgstr "Jag kunde inte montera den katalogen från servern"
+msgstr ""
 
 #: ../loader/loader.c:1007
 msgid "FTP"
-msgstr "FTP"
+msgstr ""
 
 #: ../loader/loader.c:1008
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Misslyckades med att hämta andra stegets ramdisk"
+msgstr ""
 
 #: ../loader/loader.c:1155
 msgid "Rescue Method"
-msgstr "Räddningsmetod"
+msgstr ""
 
 #: ../loader/loader.c:1156
 msgid "Installation Method"
-msgstr "Installationsmetod"
+msgstr ""
 
 #: ../loader/loader.c:1158
 msgid "What type of media contains the rescue image?"
-msgstr "Vilket medium innehåller räddningsbilden?"
+msgstr ""
 
 #: ../loader/loader.c:1160
 msgid "What type of media contains the packages to be installed?"
-msgstr "Vilket medium innehåller paketen som skall installeras?"
+msgstr ""
 
 #: ../loader/loader.c:1696
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Hittade inte ks.cfg på bootdisketten."
+msgstr ""
 
 #: ../loader/loader.c:1742
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Kunde inte läsa katalogen %s: %s"
+msgstr ""
 
 #: ../loader/loader.c:1805
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Sätt in din uppdateringsdisk och tryck \"OK\" för att fortsätta."
+msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
 #: ../loader/loader.c:1818
 msgid "Updates"
-msgstr "Uppdateringar"
+msgstr ""
 
 #: ../loader/loader.c:1818
 msgid "Reading anaconda updates..."
-msgstr "Läser anaconda-uppdateringar..."
+msgstr ""
 
 #: ../loader/loader.c:1972
 msgid "PC Card"
-msgstr "PC Card"
+msgstr ""
 
 #: ../loader/loader.c:1972
 msgid "Initializing PC Card Devices..."
-msgstr "Initialiserar PC Card-enheter..."
+msgstr ""
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
-msgstr "Namn på NFS-server:"
+msgstr ""
 
 #: ../loader/net.c:150 ../loader/urls.c:182
 msgid "Red Hat directory:"
-msgstr "Red Hat-katalog:"
+msgstr ""
 
 #: ../loader/net.c:156
 msgid "NFS Setup"
-msgstr "NFS-konfiguration"
+msgstr ""
 
 #: ../loader/net.c:157
 msgid ""
@@ -2628,120 +2409,111 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecture"
 msgstr ""
-"Skriv in följande information:\n"
-"\n"
-"    o din NFS-servers namn eller IP-nummer\n"
-"    o katalogen på servern som innehåller\n"
-"      Red Hat Linux för din plattform"
 
 #: ../loader/net.c:228
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Skriv in IP-konfigurationen för denna maskin. Varje adress ska skrivas som "
-"en IP-adress i form av tal åtskilda med punkter (t.ex. 1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr "Använd dynamisk IP-konfiguration (BOOTP/DHCP)"
+msgstr ""
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
-msgstr "Konfigurera TCP/IP"
+msgstr ""
 
 #: ../loader/net.c:329
 msgid "Missing Information"
-msgstr "Information saknas"
+msgstr ""
 
 #: ../loader/net.c:330
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Du måste skriva in både en giltig IP-adress och en nätmask."
+msgstr ""
 
 #: ../loader/net.c:338 ../loader/net.c:574
 msgid "Dynamic IP"
-msgstr "Dynamisk IP"
+msgstr ""
 
 #: ../loader/net.c:339 ../loader/net.c:575
 msgid "Sending request for IP information..."
-msgstr "Sänder förfrågan om IP-information..."
+msgstr ""
 
 #: ../loader/net.c:460
 msgid "Determining host name and domain..."
-msgstr "Undersöker värdnamn och domän..."
+msgstr ""
 
 #: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
-msgstr "kickstart"
+msgstr ""
 
 #: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommando %s : %s"
+msgstr ""
 
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "Felaktigt bootprotokoll %s angivet i nätverkskommando"
+msgstr ""
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
-msgstr "Bootprotokoll som ska användas"
+msgstr ""
 
 #: ../loader/net.c:630
 msgid "Network gateway"
-msgstr "Gateway"
+msgstr ""
 
 #: ../loader/net.c:632
 msgid "IP address"
-msgstr "IP-adress"
+msgstr ""
 
 #: ../loader/net.c:634
 msgid "Nameserver"
-msgstr "Namnserver"
+msgstr ""
 
 #: ../loader/net.c:641
 msgid "Domain name"
-msgstr "Domännamn"
+msgstr ""
 
 #: ../loader/net.c:644
 msgid "Network device"
-msgstr "Nätverksenhet"
+msgstr ""
 
 #: ../loader/net.c:716
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
-" <Tab>/<Alt-Tab> mellan element   |  <Blanksteg> väljer   |  <F12> nästa "
-"skärm"
 
 #: ../loader/net.c:717
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "netconfig %s  © 1999 Red Hat, Inc."
+msgstr ""
 
 #: ../loader/net.c:719
 msgid "Network configuration"
-msgstr "Nätverkskonfiguration"
+msgstr ""
 
 #: ../loader/net.c:720
 msgid "Would you like to set up networking?"
-msgstr "Vill du konfigurera nätverksinställningar?"
+msgstr ""
 
 #: ../loader/urls.c:71
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Misslyckades att logga till %s: %s"
+msgstr ""
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Misslyckades med att hämta %s: %s"
+msgstr ""
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
-msgstr "Hämtar"
+msgstr ""
 
 #: ../loader/urls.c:151
 msgid ""
@@ -2751,11 +2523,6 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Skriv in följande information:\n"
-"\n"
-"     o din FTP-servers namn eller IP-nummer\n"
-"     o katalogen på servern som innehåller\n"
-"       Red Hat Linux för din plattform\n"
 
 #: ../loader/urls.c:160
 msgid ""
@@ -2765,52 +2532,47 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Skriv in följande information:\n"
-"\n"
-"     o din webbservers namn eller IP-nummer\n"
-"     o katalogen på servern som innehåller\n"
-"       Red Hat Linux för din plattform\n"
 
 #: ../loader/urls.c:178
 msgid "FTP site name:"
-msgstr "FTP-serverns namn:"
+msgstr ""
 
 #: ../loader/urls.c:179
 msgid "Web site name:"
-msgstr "Webbserverns namn:"
+msgstr ""
 
 #: ../loader/urls.c:198
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Använd icke-anonym ftp eller en proxy-server"
+msgstr ""
 
 #: ../loader/urls.c:202
 msgid "Use proxy server"
-msgstr "Använd proxy-server"
+msgstr ""
 
 #: ../loader/urls.c:213
 msgid "FTP Setup"
-msgstr "FTP-konfiguration"
+msgstr ""
 
 #: ../loader/urls.c:214
 msgid "HTTP Setup"
-msgstr "HTTP-konfiguration"
+msgstr ""
 
 #: ../loader/urls.c:224
 msgid "You must enter a server name."
-msgstr "Du måste ange ett servernamn."
+msgstr ""
 
 #: ../loader/urls.c:229
 msgid "You must enter a directory."
-msgstr "Du måste ange en katalog."
+msgstr ""
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr "Okänd värd"
+msgstr ""
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s är inget giltigt värdnamn."
+msgstr ""
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2818,38 +2580,437 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
-"Om du använder icke-anonym ftp, skriv in användarnamnet och lösenordet som "
-"du vill använda nedan. Om du använder en FTP-proxy, skriv in namnet på den "
-"FTP-proxyserver som ska användas."
 
 #: ../loader/urls.c:313
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"Om du använder en HTTP-proxy, skriv in namnet på den HTTP-proxyserver som "
-"skall användas."
 
 #: ../loader/urls.c:334
 msgid "Account name:"
-msgstr "Användarnamn:"
+msgstr ""
 
 #: ../loader/urls.c:342
 msgid "FTP Proxy:"
-msgstr "FTP-proxy:"
+msgstr ""
 
 #: ../loader/urls.c:343
 msgid "HTTP Proxy:"
-msgstr "HTTP-proxy:"
+msgstr ""
 
 #: ../loader/urls.c:347
 msgid "FTP Proxy Port:"
-msgstr "FTP-proxyport:"
+msgstr ""
 
 #: ../loader/urls.c:348
 msgid "HTTP Proxy Port:"
-msgstr "HTTP-proxyport:"
+msgstr ""
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Laddar SCSI-drivrutin"
+msgstr ""
+
+#~ msgid ""
+#~ "The AfterStep window manager combines convenient, useful features \n"
+#~ "with the attractive look of the NEXTSTEP(R) interface. NEXTSTEP(R)-style \n"
+#~ "features include the the title bar, title buttons, borders, icons and \n"
+#~ "menus.  The most prominent addition to the interface is AfterStep's \n"
+#~ "Wharf, a customized version of the GoodStuff panel (an fvwm window \n"
+#~ "manager bar of application icons).  AfterStep's Wharf is a free-floating \n"
+#~ "application loader which can swallow running programs and contain \n"
+#~ "folders of more applications.  AfterStep also includes easy to use\n"
+#~ "'look' files, so you can share your desktop appearance.\n"
+#~ "\n"
+#~ "You need to install AfterStep if you want to use the AfterStep window\n"
+#~ "manager.  You should also install AfterStep and try it out if you haven't\n"
+#~ "decided which X Window System window manager you want to use, or just to\n"
+#~ "keep your window management options open."
+#~ msgstr ""
+#~ "Fönsterhanteraren AfterStep kombinerar praktiska och nyttiga finesser\n"
+#~ "med det tilltalande utseendet hos NEXTSTEP(R)-gränssnittet. NEXTSTEP(R)-\n"
+#~ "aktiga finesser inkluderar titelraden, titelradsknapparna, kanter, ikoner\n"
+#~ "och menyer. Det mest utmärkande bidraget till gränssnittet är AfterSteps\n"
+#~ "Wharf, en modifierad version av GoodStuff-panelen (en rad med program-\n"
+#~ "ikoner hos fönsterhanteraren fvwm). AfterSteps Wharf är en friflytande\n"
+#~ "programstartare som kan svälja körande program och innehålla kataloger med\n"
+#~ "fler program. AfterStep innehåller också lättanvända \"look\"-filer, som\n"
+#~ "gör att du kan dela ditt skrivbordsutseende med andra.\n"
+#~ "\n"
+#~ "Du måste installera AfterStep om du vill använda fönsterhanteraren \n"
+#~ "AfterStep. Du bör också installera AfterStep och prova det om du inte har\n"
+#~ "beslutat dig för vilken fönsterhanterare du vill använda tillsammans med\n"
+#~ "X-fönstersystemet, eller bara för att ha flera alternativa fönsterhanterare."
+
+#~ msgid "User Interface/Desktops"
+#~ msgstr "Användargränssnitt/Skrivbord"
+
+#~ msgid "An X window manager which emulates the look and feel of NEXTSTEP(R)."
+#~ msgstr ""
+#~ "En X-fönsterhanterare som efterliknar utseendet och känslan hos NEXTSTEP(R)."
+
+#~ msgid ""
+#~ "The AfterStep-APPS package includes a group of applications for use\n"
+#~ "with the AfterStep window manager. Applications in this package\n"
+#~ "include an Advanced Power Management system monitor for laptops\n"
+#~ "(asapm), a CPU load monitor (ascpu), a simple state machine (asexec),\n"
+#~ "a filesystem monitor (asfsm), a CPU load monitor for use with the PROC\n"
+#~ "filesystem (asload), a mail checker (asmail), a memory utilization\n"
+#~ "monitor (asmem), a volume controller knob for the /dev/mixer device\n"
+#~ "(asmix), a volume controller for various sound inputs (asmixer), a\n"
+#~ "modem status monitor (asmodem), an analog clock (astime), a color\n"
+#~ "VT102 emulator (aterm), an audio CD player (ascd), a clock (asclock),\n"
+#~ "and a control panel for configuring AfterStep (ascp).\n"
+#~ "\n"
+#~ "Install AfterStep-APPS if you're planning to use the AfterStep window\n"
+#~ "manager."
+#~ msgstr ""
+#~ "Paketet AfterStep-APPS innehåller en samling program som kan användas \n"
+#~ "tillsammans med fönsterhanteraren AfterStep. Program som finns i detta \n"
+#~ "paket inkluderar en Advanced Power Management-övervakare för \n"
+#~ "strömförsörjning (asapm), en CPU-lastmätare som kan användas tillsammans \n"
+#~ "med PROC-filsystemet (asload), en e-postkontroll (asmail), en övervakare \n"
+#~ "för minnesutnyttjande (asmem), ett volymkontrollsreglage för \n"
+#~ "/dev/mixer-enheten (asmix), en volymkontroll för diverse ljudingångar \n"
+#~ "(asmixer), en modemstatusövervakare (asmodem), en analog klocka (astime), \n"
+#~ "en VT102-emulator med färg (aterm), en cd-spelare för ljud-cd (ascd), en \n"
+#~ "klocka (asclock) och en kontrollpanel för konfigurering av AfterStep \n"
+#~ "(ascp).\n"
+#~ "\n"
+#~ "Installera AfterStep-APPS om du tänker använda fönsterhanteraren AfterStep."
+
+#~ msgid ""
+#~ "Various applets for use with AfterStep and compatible window managers."
+#~ msgstr "Diverse appletprogram som kan användas med AfterStep."
+
+#~ msgid ""
+#~ "AnotherLevel is a custom configuration of the fvwm2 window manager.  \n"
+#~ "AnotherLevel is based on TheNextLevel, a desktop configuration which \n"
+#~ "won the 1996 Red Hat Desktop Contest, and is designed to be easily\n"
+#~ "configured by the user.  Most attributes may be redefined by copying the\n"
+#~ "file /etc/X11/AnotherLevel/fvwm2rc.defines to a user's home directory,\n"
+#~ "renaming it to .fvwm2rc.defines and modifying the copied file as \n"
+#~ "necessary.\n"
+#~ "\n"
+#~ "Install AnotherLevel if you've used the AnotherLevel window manager before\n"
+#~ "and you liked it, or if you haven't decided which X window manager to use,\n"
+#~ "or if you want to keep your window management options open."
+#~ msgstr ""
+#~ "AnotherLevel är en anpassad konfiguration av fönsterhanteraren fvwm2. \n"
+#~ "AnotherLevel är baserat på TheNextLevel, en skrivbordskonfiguration som\n"
+#~ "vann 1996 års Red Hat Desktop Contest, och är gjord för att vara enkelt\n"
+#~ "anpassningsbar av användaren. De flesta inställningar kan ändras genom att\n"
+#~ "kopiera filen /etc/X11/AnotherLevel/fvwm2rc.defines till användarens hem-\n"
+#~ "katalog, byta namn på den till .fvwm2rc.defines och sedan ändra den\n"
+#~ "kopierade filen efter behov.\n"
+#~ "\n"
+#~ "Installera AnotherLevel om du tidigare har använt fönsterhanteraren \n"
+#~ "AnotherLevel och gillade den, eller om du inte har bestämt dig för vilken \n"
+#~ "X-fönsterhanterare du vill använda, eller bara för att ha flera \n"
+#~ "alternativa fönsterhanterare."
+
+#~ msgid "A customized configuration of the fvwm2 window manager."
+#~ msgstr "En anpassad konfiguration av fönsterhanteraren fvwm2."
+
+#~ msgid ""
+#~ "ElectricFence is a utility for C programming and\n"
+#~ "debugging. ElectricFence uses the virtual memory hardware of your\n"
+#~ "system to detect when software overruns malloc() buffer boundaries,\n"
+#~ "and/or to detect any accesses of memory released by\n"
+#~ "free(). ElectricFence will then stop the program on the first\n"
+#~ "instruction that caused a bounds violation and you can use your\n"
+#~ "favorite debugger to display the offending statement.\n"
+#~ "\n"
+#~ "Install ElectricFence if you need a debugger to find malloc()\n"
+#~ "violations."
+#~ msgstr ""
+#~ "ElectricFence är ett verktyg för programmering och avlusning i C.\n"
+#~ "ElectricFence använder hårdvaran för virtuellt minne i ditt system för\n"
+#~ "att upptäcka när mjukvaran överskrider buffertgränserna för malloc(),\n"
+#~ "och/eller för att upptäcka åtkomster av minne som har frigjorts med\n"
+#~ "free(). ElectricFence kommer då att stoppa programmet vid den första\n"
+#~ "instruktionen som orsakade ett gränsfel, och du kan använda ditt\n"
+#~ "favoritavlusningsprogram för att visa koden som ställer till besvär.\n"
+#~ "\n"
+#~ "Installera ElectricFence om du behöver en avlusare för att hitta malloc()-\n"
+#~ "överträdelser."
+
+#~ msgid "Development/Tools"
+#~ msgstr "Utveckling/Verktyg"
+
+#~ msgid "A debugger which detects memory allocation violations."
+#~ msgstr "Ett avlusningsprogram som upptäcker minnesallokeringsfel."
+
+#~ msgid ""
+#~ "GXedit is a fast, easy-to-use editor which is both network-\n"
+#~ "oriented and very secure. GXedit is a graphical text editor\n"
+#~ "which features a toolbar, network bar and tooltips, spell\n"
+#~ "checking, inline help, the ability to send text as e-mail, \n"
+#~ "macros and more. GXedit was designed to balance these and\n"
+#~ "many other features without becoming too bloated.\n"
+#~ "\n"
+#~ "You'll need GTK+ to use GXedit."
+#~ msgstr ""
+#~ "GXedit är en snabb och lättanvänd editor som är både nätverksinriktad och\n"
+#~ "mycket säker. GXedit är en grafisk texteditor som har en verktygsrad,\n"
+#~ "en nätverksrad och vertygstips, stavningskontroll, inbyggd hjälp,\n"
+#~ "möjlighet att skicka e-post, makron och mycket annat. GXedit konstruerades\n"
+#~ "för att innehålla dessa och många andra finesser utan att samtidigt bli\n"
+#~ "för stort och klumpigt.\n"
+#~ "\n"
+#~ "Du behöver GTK+ för att kunna använda GXedit."
+
+#~ msgid "Applications/Editors"
+#~ msgstr "Program/Editorer"
+
+#~ msgid "A multi-function text editor which uses GTK+."
+#~ msgstr "En multifunktionell texteditor som använder GTK+."
+
+#~ msgid ""
+#~ "ImageMagick(TM) is an image display and manipulation tool for the X \n"
+#~ "Window System.  ImageMagick can read and write JPEG, TIFF, PNM, GIF\n"
+#~ "and Photo CD image formats.  It can resize, rotate, sharpen, color \n"
+#~ "reduce or add special effects to an image, and when finished you can \n"
+#~ "either save the completed work in the original format or a different \n"
+#~ "one.  ImageMagick also includes command line programs for creating \n"
+#~ "animated or transparent .gifs, creating composite images, creating \n"
+#~ "thumbnail images, and more.  \n"
+#~ "\n"
+#~ "ImageMagick is one of your choices if you need a program to manipulate \n"
+#~ "and display images. If you'd also like to develop your own applications \n"
+#~ "which use ImageMagick code or APIs, you'll need to install \n"
+#~ "ImageMagick-devel as well."
+#~ msgstr ""
+#~ "ImageMagick(TM) är ett bildvisnings- och bildredigeringsverktyg för\n"
+#~ "X-fönstersystemet. ImageMagick kan läsa och skriva JEPG, TIFF, PNM, GIF\n"
+#~ "och PhotoCD-bildformat. Det kan skala om, rotera, ändra skärpan, minska\n"
+#~ "antalet färger eller lägga till specialeffekter hos en bild, och när du\n"
+#~ "är färdig kan du antingen spara arbetet i orginalformatet eller ett annat\n"
+#~ "format. ImageMagick innehåller också kommandoradsprogram för att skapa\n"
+#~ "animerade eller transparenta .gif-filer, sammanfogade bilder, miniatyr-\n"
+#~ "bilder och mycket annat.\n"
+#~ "\n"
+#~ "ImageMagick är ett av dina alternativ om du behöver ett program för att\n"
+#~ "visa och redigera bilder. Om du även vill utveckla egna program som\n"
+#~ "använder ImageMagicks programkod eller API:er måste du dessutom installera\n"
+#~ "ImageMagick-devel."
+
+#~ msgid "Applications/Multimedia"
+#~ msgstr "Program/Multimedia"
+
+#~ msgid "An X application for displaying and manipulating images."
+#~ msgstr "Ett X-program för att visa och redigera bilder."
+
+#~ msgid ""
+#~ "Image-Magick-devel contains the static libraries and header files you'll\n"
+#~ "need to develop ImageMagick applications.  ImageMagick is an image\n"
+#~ "manipulation program.\n"
+#~ "\n"
+#~ "If you want to create applications that will use ImageMagick code\n"
+#~ "or APIs, you'll need to install ImageMagick-devel as well as ImageMagick.\n"
+#~ "You don't need to install it if you just want to use ImageMagick, \n"
+#~ "however."
+#~ msgstr ""
+#~ "ImageMagick-devel innehåller de statiska bibliotek och header-filer som\n"
+#~ "du behöver för att utveckla ImageMagick-program. ImageMagick är ett\n"
+#~ "bildredigeringsprogram.\n"
+#~ "\n"
+#~ "Om du vill skapa program som använder programkod från ImageMagick, eller\n"
+#~ "ImageMagicks API:er, måste du förutom ImageMagick även installera\n"
+#~ "ImageMagick-devel. Du behöver dock inte installera det om du bara vill\n"
+#~ "använda ImageMagick."
+
+#~ msgid "Development/Libraries"
+#~ msgstr "Utveckling/Bibliotek"
+
+#~ msgid "Static libraries and header files for ImageMagick app development."
+#~ msgstr ""
+#~ "Statiska bibliotek och header-filer för utveckling av ImageMagick-program."
+
+#~ msgid ""
+#~ "This package contains the MAKEDEV script, which makes it easier to create\n"
+#~ "and maintain the files in the /dev directory.  /dev directory files \n"
+#~ "correspond to a particular device supported by Linux (serial or printer \n"
+#~ "ports, scanners, sound cards, tape drives, CD-ROM drives, hard drives, \n"
+#~ "etc.) and interface with the drivers in the kernel.\n"
+#~ "\n"
+#~ "You should install the MAKEDEV package because the MAKEDEV utility makes \n"
+#~ "it easy to manage the /dev directory device files."
+#~ msgstr ""
+#~ "Detta paket innehåller MAKEDEV-skriptet, som gör det lättare att skapa och\n"
+#~ "underhålla filerna i /dev-katalogen. Filer i /dev-katalogen representerar\n"
+#~ "en enhet som stöds av Linux (serieportar, parallellportar, bildläsare,\n"
+#~ "ljudkort, bandstationer, CDROM-enheter, hårddiskar osv) och fungerar som\n"
+#~ "ett gränssnitt för drivrutinerna i kärnan.\n"
+#~ "\n"
+#~ "Du bör installera MAKEDEV-paketet eftersom MAKEDEV-verktyget gör det\n"
+#~ "enkelt att hålla ordning på enhetsfilerna i /dev-katalogen."
+
+#~ msgid "System Environment/Base"
+#~ msgstr "System/Bas"
+
+#~ msgid "A script for creating the device files in /dev."
+#~ msgstr "Ett skript för att skapa enhetsfilerna i /dev."
+
+#~ msgid ""
+#~ "ORBit is a high-performance CORBA (Common Object Request Broker \n"
+#~ "Architecture) ORB (object request broker). It allows programs to \n"
+#~ "send requests and receive replies from other programs, regardless \n"
+#~ "of the locations of the two programs. CORBA is an architecture that \n"
+#~ "enables communication between program objects, regardless of the \n"
+#~ "programming language they're written in or the operating system they\n"
+#~ "run on.\n"
+#~ "\n"
+#~ "You will need to install this package and ORBIT-devel if you want to \n"
+#~ "write programs that use CORBA technology."
+#~ msgstr ""
+#~ "ORBit är en CORBA (Common Object Request Broker Architecture) ORB (Object\n"
+#~ "Request Broker) med hög prestanda. Den gör det möjligt för program att\n"
+#~ "skicka förfrågningar och ta emot svar från andra program oavsett var de\n"
+#~ "två programmen finns installerade. CORBA är ett ramverk som möjliggör\n"
+#~ "kommunikation mellan programobjekt, oavsett vilket språk programmen är\n"
+#~ "skrivna i eller vilket operativsystem de kör på.\n"
+#~ "\n"
+#~ "Du måste installera detta paket och ORBit-devel om du vill skriva program\n"
+#~ "som använder CORBA-tekniken."
+
+#~ msgid "System Environment/Daemons"
+#~ msgstr "System/Demoner"
+
+#~ msgid "A high-performance CORBA Object Request Broker."
+#~ msgstr "En CORBA Object Request Broker med hög prestanda."
+
+#~ msgid ""
+#~ "ORBit is a high-performance CORBA (Common Object Request Broker\n"
+#~ "Architecture) ORB (object request broker) with support for the \n"
+#~ "C language.\n"
+#~ "\n"
+#~ "This package contains the header files, libraries and utilities \n"
+#~ "necessary to write programs that use CORBA technology. If you want to\n"
+#~ "write such programs, you'll also need to install the ORBIT package."
+#~ msgstr ""
+#~ "ORBit är en CORBA (Common Object Request Broker Architecture) ORB (Object\n"
+#~ "Request Broker) med stöd för språket C.\n"
+#~ "\n"
+#~ "Detta paket innehåller header-filerna, biblioteken och verktygen som\n"
+#~ "behövs för att skriva program som använder CORBA-tekniken. Om du vill\n"
+#~ "skriva sådana program måste du även installera ORBit-paketet."
+
+#~ msgid "Development libraries, header files and utilities for ORBit."
+#~ msgstr "Utvecklingsbibliotek, header-filer och verktyg för ORBit."
+
+#~ msgid ""
+#~ "SVGATextMode is a utility for reprogramming (S)VGA hardware, to improve\n"
+#~ "the appearance of text consoles. SVGATextMode uses a configuration file \n"
+#~ "(the default is /etc/TextConfig) with a syntax similar to X Window \n"
+#~ "System's configuration file (Xconfig or XF86Config) to set up textmodes \n"
+#~ "with higher resolution, larger font sizes, higher display refresh rates, \n"
+#~ "etc.  Theoretically, SVGATextMode can be used to program any text mode \n"
+#~ "size, but your results will depend upon your VGA card.\n"
+#~ "\n"
+#~ "Install SVGATextMode if you want to alter the appearance of your text \n"
+#~ "consoles."
+#~ msgstr ""
+#~ "SVGATextMode är ett verktyg för att programmera om (S)VGA-hårdvara för\n"
+#~ "att förbättra utseendet hos textkonsoller. SVGATextMode använder en\n"
+#~ "konfigurationsfil (standard är /etc/TextConfig) med en syntax som liknar\n"
+#~ "X-fönstersystemets konfigurationsfiler (Xconfig eller XF86Config) för att\n"
+#~ "ställa in textlägen med högre upplösning, större typsnittsstorlekar,\n"
+#~ "högre uppdateringsfrekvenser med mera. I teorin kan SVGATextMode användas\n"
+#~ "för att programmera alla möjliga storlekar på textläget, men resultatet\n"
+#~ "kommer att bero på ditt VGA-kort.\n"
+#~ "Installera SVGATextMode om du vill ändra utseendet på dina textkonsoller."
+
+#~ msgid "Applications/System"
+#~ msgstr "Applikationer/System"
+
+#~ msgid "A utility for improving the appearance of text consoles."
+#~ msgstr "Ett verktyg för att förbättra utseendet hos textkonsoller."
+
+#~ msgid ""
+#~ "The SysVinit package contains a group of processes that control \n"
+#~ "the very basic functions of your system. SysVinit includes the init \n"
+#~ "program, the first program started by the Linux kernel when the \n"
+#~ "system boots.  Init then controls the startup, running and shutdown\n"
+#~ "of all other programs."
+#~ msgstr ""
+#~ "SysVinit-paketet innehåller en grupp processer som styr de mest\n"
+#~ "grundläggande funktionerna i ditt system. SysVinit innehåller programmet\n"
+#~ "init som är det första program som startas av Linuxkärnan när systemet\n"
+#~ "startar. Init kontrollerar sedan starten, körandet och stängandet av alla\n"
+#~ "andra program."
+
+#~ msgid "Programs which control basic system processes."
+#~ msgstr "Program som styr grundläggande systemfunktioner."
+
+#~ msgid ""
+#~ "Window Maker is an X11 window manager which emulates the look\n"
+#~ "and feel of the NeXTSTEP (TM) graphical user interface. It is\n"
+#~ "relatively fast, feature rich and easy to configure and use. \n"
+#~ "Window Maker is part of the official GNU project, which means that \n"
+#~ "Window Maker can interoperate with other GNU projects, such as\n"
+#~ "GNOME.\n"
+#~ "\n"
+#~ "Window Maker allows users to switch themes 'on the fly,' to place\n"
+#~ "favorite applications on either an application dock, similar to\n"
+#~ "AfterStep's Wharf or on a workspace dock, a 'clip' which extends\n"
+#~ "the application dock's usefulness.\n"
+#~ "\n"
+#~ "You should install the WindowMaker package if you use Window\n"
+#~ "Maker as your window manager or if you'd like to try using it.\n"
+#~ "If you do install the WindowMaker package, you may also want\n"
+#~ "to install the AfterStep-APPS package, which includes\n"
+#~ "applets that will work with both the AfterStep and Window Maker\n"
+#~ "window managers."
+#~ msgstr ""
+#~ "Window Maker är en fönsterhanterare för X11 som efterliknar utseendet och\n"
+#~ "känslan hos det grafiska gränssnittet NeXTSTEP(TM). Det är ganska snabbt,\n"
+#~ "innehåller många finesser och är enkelt att konfigurera och använda.\n"
+#~ "WindowMaker är en del av det officiella GNU-projektet, vilket innebär att\n"
+#~ "WindowMaker fungerar tillsammans med andra GNU-projekt som exempelvis\n"
+#~ "GNOME.\n"
+#~ "\n"
+#~ "WindowMaker gör det möjligt för användare att enkelt byta teman, placera\n"
+#~ "favoritprogram på antingen en programdockningslist, liknande AfterSteps\n"
+#~ "\"Wharf\", eller på en dockningslist för arbetsytor, ett \"clip\" som\n"
+#~ "gör programdockningslisten ännu mer användbar.\n"
+#~ "\n"
+#~ "Du bör installera WindowMaker-paketet om du använder WindowMaker som din\n"
+#~ "fönsterhanterare eller om du vill prova att använda det. Om du installerar\n"
+#~ "WindowMaker-paketet vill du kanske också installera paketet AfterStep-APPS\n"
+#~ "som innehåller appletprogram som fungerar både med AfterStep- och\n"
+#~ "WindowMaker-fönsterhanteraren."
+
+#~ msgid "A window manager for the X Window System."
+#~ msgstr "En fönsterhanterare för X-fönstersystemet."
+
+#~ msgid ""
+#~ "X11R6 contains many useful programs  from the X Window System, \n"
+#~ "version 11, release 6 contrib tape. The programs, contributed by \n"
+#~ "various users, include listres, xbiff, xedit, xeyes, xcalc, xload \n"
+#~ "and xman, among others.\n"
+#~ "\n"
+#~ "If you're using X, you should install X11R6-contrib.  You will also \n"
+#~ "need to install the XFree86 package, the XFree86 package which \n"
+#~ "corresponds to your video card, one of the XFree86 fonts packages, the \n"
+#~ "Xconfigurator package and the XFree86-libs package.\n"
+#~ "\n"
+#~ "Finally, if you are going to develop applications that run as X clients, \n"
+#~ "you will also need to install XFree86-devel."
+#~ msgstr ""
+#~ "X11R6 innehåller många praktiska program från bandet med programbidrag\n"
+#~ "till fönstersystemet X, version 11, utgåva 6. Programmen, som diverse\n"
+#~ "användare har bidragit med, inkluderar bland annat listres, xbiff, xedit,\n"
+#~ "xeyes, xcalc, xload och xman.\n"
+#~ "\n"
+#~ "Om du använder X bör du installera X11R6-contrib. Du kommer också att\n"
+#~ "behöva installera XFree86-peketet, XFree86-paketet som motsvarar ditt\n"
+#~ "grafikkort, ett av typsnittspaketen som följer med XFree86, Xconfigurator-\n"
+#~ "paketet och XFree86-libs-paketet.\n"
+#~ "\n"
+#~ "Slutligen måste du även installera paketet XFree86-devel om du vill\n"
+#~ "utveckla program som ska köra som X-klienter."
+
+#~ msgid "A collection of user-contributed X Window System programs."
+#~ msgstr ""
+#~ "En samling av program till fönstersystemet X som är bidrag från användare."
