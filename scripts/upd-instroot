@@ -532,6 +532,7 @@ for p in $DEST $DESTGR; do
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
 	ln -s ../lib/anaconda/losetup-stub $p/usr/bin/losetup
+	ln -s ../lib/anaconda/pump-stub $p/usr/bin/pump
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/lib
