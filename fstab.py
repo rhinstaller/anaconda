@@ -994,7 +994,7 @@ def readFstab (path, fstab):
 
 	    fstab.addMount(device, fields[1], fsystem)
 
-	log("got mount list %s", fstab.mountList())
+#	log("got mount list %s", fstab.mountList())
 
 def createLabel(labels, newLabel):
     if len(newLabel) > 16:
