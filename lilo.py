@@ -330,6 +330,7 @@ class LiloConfiguration:
 	    try:
 		(fsType, sl) = lilo.getImage(device)
 		lilo.delImage(device)
+		lilo.addImage(device + '-old')
 	    except IndexError:
 		sl = LiloConfigFile(imageType = "other", path = device)
 
