@@ -522,7 +522,12 @@ class ToDo:
         f = open (self.instPath + "/etc/sysconfig/network", "w")
         f.write ("NETWORKING=yes\n"
                  "HOSTNAME=")
-	if self.network.hostname:
+
+
+        # use instclass hostname if set (kickstart) to override
+        if self.instClass.getHostname():
+              f.write(self.instClass.getHostname() + "\n")
+        elif self.network.hostname:
 	    f.write(self.network.hostname + "\n")
 	else:
 	    f.write("localhost.localdomain" + "\n")
