@@ -456,7 +456,9 @@ class InstallControlWindow:
             text.source("<HTML><BODY BGCOLOR=white></BODY></HTML>")
             text.source(self.buff)
 
-            vbox1.pack_start(text)
+	    framehtml = GtkFrame()
+	    framehtml.add(text)
+            vbox1.pack_start(framehtml)
 
             a = GtkAlignment ()
             a.add (frame)
