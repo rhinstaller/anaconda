@@ -254,6 +254,9 @@ class Fstab:
 	self.supplementalRaid.append((mountPoint, raidDevice, fileSystem,
 				  raidLevel, deviceList))
 
+    def clearExistingRaid(self):
+	self.existingRaid = []
+
     def addExistingRaidDevice(self, raidDevice, mntPoint, fsystem, deviceList):
         self.existingRaid.append(raidDevice, mntPoint, fsystem, deviceList)
 
@@ -506,6 +509,9 @@ class Fstab:
 
 	self.createRaidTab(prefix + "/etc/raidtab", "/dev")
 
+    def clearMounts(self):
+	self.extraFilesystems = []
+
     def addMount(self, partition, mount, fsystem, doFormat = 0, size = 0):
 	self.extraFilesystems.append(mount, partition, fsystem, doFormat,
 				     size)
@@ -665,6 +671,9 @@ def readFstab (path, fstab):
     f = open (path, "r")
     lines = f.readlines ()
     f.close
+
+    fstab.clearExistingRaid()
+    fstab.clearMounts()
 
     drives = fstab.driveList()
     raidList = raid.scanForRaid(drives)

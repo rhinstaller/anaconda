@@ -24,7 +24,7 @@ class BootdiskWindow (InstallWindow):
         threads_leave ()
         try:
             self.todo.makeBootdisk ()
-        except:
+        except RuntimeError, message:
             threads_enter ()
             BootdiskWindow.initial = 0
             return BootdiskWindow
