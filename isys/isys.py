@@ -349,3 +349,7 @@ def driveIsRemovable(device):
 
 def vtActivate (num):
     _isys.vtActivate (num)
+
+def isPsudoTTY (fd):
+    return _isys.isPsudoTTY (fd)
+

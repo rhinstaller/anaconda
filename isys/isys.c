@@ -18,6 +18,7 @@
 #include <sys/ioctl.h>
 #include <sys/mount.h>
 #include <sys/stat.h>
+#include <sys/sysmacros.h>
 #include <sys/time.h>
 #include <sys/vfs.h>
 #include <unistd.h>
@@ -85,6 +86,7 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args);
 static PyObject * doIsIdeRemovable(PyObject * s, PyObject * args);
 static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doVtActivate(PyObject * s, PyObject * args);
+static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -130,6 +132,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "isScsiRemovable", (PyCFunction) doIsScsiRemovable, METH_VARARGS, NULL},
     { "isIdeRemovable", (PyCFunction) doIsIdeRemovable, METH_VARARGS, NULL},
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
+    { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1369,3 +1372,13 @@ static PyObject * doVtActivate(PyObject * s, PyObject * args) {
     return Py_None;
 }
 
+static PyObject * doisPsudoTTY(PyObject * s, PyObject * args) {
+    int fd;
+    struct stat sb;
+
+    if (!PyArg_ParseTuple(args, "i", &fd)) return NULL;
+    fstat(fd, &sb);
+
+    /* XXX close enough for now */
+    return Py_BuildValue("i", (major(sb.st_rdev) == 3));
+}
