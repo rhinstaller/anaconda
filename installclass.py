@@ -140,7 +140,9 @@ class BaseInstallClass:
 	    dispatch.skipStep("betanag")
 
         # XXX ugh, this badly needs some clean up
-        if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
+        if iutil.getArch() == "x86_64":
+            dispatch.skipStep("bootdisk")
+        elif (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
             iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
