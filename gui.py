@@ -961,9 +961,27 @@ class InstallControlWindow:
     def updateStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
-            button.label.set_text_with_mnemonic(_(text))
+
+            for child in button.get_children():
+                button.remove(child)
+
+            # FIXME: this is cut and pasted from above; make a nicer
+            # function that knows how to replace the contents in the
+            # button for a future release
+            box = gtk.HBox(gtk.FALSE, 0)
+            image = gtk.Image()
+            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
+            box.pack_start(image, gtk.FALSE, gtk.FALSE)
+            label = gtk.Label(_(text))
+            label.set_property("use-underline", gtk.TRUE)
+            box.pack_start(label, gtk.TRUE, gtk.TRUE)
+            button.add(box)
+            button.connect("clicked", action)
+            button.show_all()
+            button.label = label
             button.queue_resize()
 
+                
     def setup_window (self, runres):
         self.window = gtk.Window ()
         global mainWindow
