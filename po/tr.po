@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-16 16:21+0300\n"
+"PO-Revision-Date: 2004-07-16 17:02+0300\n"
 "Last-Translator: Onur Gungor <onurgu@boun.edu.tr>\n"
 "Language-Team: Turkish <fedora-trans-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1575,7 +1575,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "%s sürücüsü biçimlendiriliyor. Lütfen bekleyiniz...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1586,14 +1586,12 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"%s aygıtındaki bölümlendirme tablosunda hata var. Yeni disk bölümleri "
-"yaratmak için bu tablonun yeniden düzenlenmesi gerekiyor. Bu durumda DİSK "
-"ÜZERİNDE BULUNAN TÜM BİLGİLER SİLİNECEKTİR.\n"
+"%s (%s) aygıtındaki bölümlendirme tablosu okunamadı. Yeni bölümleri "
+"yaratmak için bu tablonun ilk haline getirilmesi gerekiyor, bu da bu disk üzerindeki BÜTÜN VERİLERİN kaybına yol açar.\n"
 "\n"
-"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinize "
-"uygun olmayabilir.\n"
+"Bu işlem gözardı edilecek sürücülerle ilgili olarak önceki seçimlerinizi görmezden gelecek.\n"
 "\n"
-"Bunun yine de yapılmasını (TÜM BİLGİLERİN SİLİNMESİNİ) istiyor musunuz?"
+"Diskin ilk haline getirilmesini ister misiniz, BÜTÜN VERİLERİN silineceğini bilerek?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -3216,7 +3214,7 @@ msgstr "Güvenlik duvarını _etkinleştir"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Bir ateşduvarıyla, başkalarının sizin bilgisayarınızdaki sadece belirli servislere erişimine izin verebilirsiniz. Hangi servislere izin verelim?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3224,12 +3222,11 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
+msgstr "Security Enhanced Linux, güçlendirilmiş güvenlikli linux, (SELinux) geleneksel bir Linux sisteminde mevcut olanlardan daha kullanışlı güvenlik denetimleri sağlar. Etkisiz durumda (disabled state), reddedilecek şeyler hakkında sadece uyaran bir durum, çalışabilecek biçimde da ayarlanabilir, veya tam olarak etkin bir biçimde de (fully active state)."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "SELinux'u kapat"
+msgstr "SELinux'u etkinleştir?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3788,11 +3785,11 @@ msgstr "_Uçtan uca (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Şifreleme _Anahtarı"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5450,9 +5447,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "İptal edilmiş bir güvenlik duvarı özelleştirilemez."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Grafik Yapılandırmasını Özelleştir"
+msgstr "Ateşduvarı Yapılandırmasını Özelleştir"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5555,11 +5551,11 @@ msgstr "Uçtan uca (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Şifreleme Anahtarı"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6697,32 +6693,28 @@ msgstr ""
 "kullanmak istiyorsunuz?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Bir sürücü diski için kaynak olabilecek çok sayıda aygıtınız var. Hangisini "
-"kullanmak istiyorsunuz?"
+"Bu aygıt üzerinde sürücü diski imgesini içerebilecek çok sayıda bölüm var. Hangisini "
+"kullanmak istersiniz?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Güncelleme diski bağlanamadı."
+msgstr "Bölüm bağlanamadı."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Sürücüyü seçin"
+msgstr "Sürücü disk imgesini seçin"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Disk sürücüsü imgesi olan dosyayı seçin."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Sürücü disketi bağlanamadı."
+msgstr "Sürücü disk dosyadan yüklenemedi."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6933,9 +6925,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Açılış disketinde ks.cfg dosyası bulunamadı."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Sabit diskli kickstart yönteminin komutu %s için hatalı argüman: %s"
+msgstr "kickstart yönteminin kapatılması için hatalı argüman %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7068,9 +7060,9 @@ msgid "Add Device"
 msgstr "Aygıt Ekle"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "yükleyici zaten çalışıyor. Kabuk başlatılıyor."
+msgstr "yükleyici zaten çalıştırıldı. Kabuk başlatılıyor.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7209,12 +7201,11 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s bir kablosuz ağ adaptörüdür. Lütfen kablosuz ağınıza erişmek için gereken ESSID ve şifreleme anahtarını girin. Eğer şifre gerekmiyorsa, bu alanı boş bırakın, kurulum devam edecektir."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Çeşitli Ayarlar"
+msgstr "Kablosuz Ayarlar"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8109,11 +8100,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arapça"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengalce"
 
 #. generated from lang-table
 #, fuzzy
@@ -8165,9 +8156,8 @@ msgid "German"
 msgstr "Almanca"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Bulunuyor"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8191,7 +8181,7 @@ msgstr "Korece"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonca"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8202,9 +8192,8 @@ msgid "Norwegian"
 msgstr "Norveççe"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Almanca"
+msgstr "Persçe"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8216,7 +8205,7 @@ msgstr "Portekizce (Brezilya)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8235,9 +8224,8 @@ msgid "Swedish"
 msgstr "İsveççe"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tazmanya"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8249,11 +8237,11 @@ msgstr "Ukraynaca"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamca"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Gallerce"
 
 #. generated from lang-table
 msgid "Zulu"
