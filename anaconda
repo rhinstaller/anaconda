@@ -20,7 +20,7 @@ _ = gettext.gettext
 (args, extra) = isys.getopt(sys.argv[1:], 'GTtdr:fm:', 
           [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
-            'lang=', 'keymap=', 'kbdtype=',
+            'lang=', 'keymap=', 'kbdtype=', 'module=',
 	    'expert'])
 
 # remove the arguments - gnome_init doesn't understand them
@@ -44,6 +44,7 @@ expert = 0
 lang = None
 keymap = None
 kbdtpye = None
+extraModules = []
 
 for n in args:
     (str, arg) = n
@@ -54,6 +55,9 @@ for n in args:
 	mode = 't'
     elif (str == '-t' or str == '--test'):
 	test = 1
+    elif (str == '--module'):
+	(path, subdir, name) = string.split(arg, ":")
+	extraModules.append((path, subdir, name))
     elif (str == '-m' or str == '--method'):
 	method = arg
     elif (str == '-d' or str == '--debug'):
@@ -205,7 +209,8 @@ if keymap:
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass, x = x, expert = expert)
+		instClass = instClass, x = x, expert = expert,
+		extraModules = extraModules)
     intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()
