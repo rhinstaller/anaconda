@@ -84,6 +84,7 @@ expandPackageSet() {
 
 PACKAGEDIR=$1
 
+DEST=/tmp/hd-image
 if [ -z "$2" ]; then
     DESTGR=/tmp/upd-instroot
 elif [ -d "$2" ]; then
@@ -92,7 +93,6 @@ else
     echo "$2 is not a directory!"
     exit 1
 fi
-DEST=$DESTGR/hd-image
 
 rm -rf $DEST $DESTGR
 mkdir -p $DEST
