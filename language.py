@@ -199,10 +199,10 @@ class Language:
 	    self.default = None
 	    return
 
-	self.default = self.getLangNameByNick(nick)
+	self.default = self.getLangNameByNick(canonNick)
 
-	self.info['LANG'] = nick
-	self.info['SYSFONT'] = self.localeInfo[nick][2]
+	self.info['LANG'] = canonNick
+	self.info['SYSFONT'] = self.localeInfo[canonNick][2]
         self.info['SYSFONTACM'] = "utf8"
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
