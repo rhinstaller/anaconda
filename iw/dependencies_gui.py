@@ -3,7 +3,7 @@ from gtk import *
 from translate import _
 
 class UnresolvedDependenciesWindow (InstallWindow):
-
+    moredeps = None
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("Unresolved Dependencies"))
@@ -14,14 +14,23 @@ class UnresolvedDependenciesWindow (InstallWindow):
     def getNext (self):
         if self.dependCB and self.dependCB.get_active ():
             self.todo.selectDeps (self.deps)
+            threads_leave ()
+            moredeps = self.todo.verifyDeps ()
+            threads_enter ()
+            if moredeps and self.todo.canResolveDeps (moredeps):
+                UnresolvedDependenciesWindow.moredeps = moredeps
+                return UnresolvedDependenciesWindow
         return None
     
     def getScreen (self):
-	threads_leave ()
-        self.deps = self.todo.verifyDeps ()
-	threads_enter ()
-        if not self.deps:
-            return None
+        if not UnresolvedDependenciesWindow.moredeps:
+            threads_leave ()
+            self.deps = self.todo.verifyDeps ()
+            threads_enter ()
+            if not self.deps:
+                return None
+        else:
+            self.deps = UnresolvedDependenciesWindow.moredeps
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -45,5 +54,3 @@ class UnresolvedDependenciesWindow (InstallWindow):
         box.pack_start (align, FALSE)
 
         return box
-
-
