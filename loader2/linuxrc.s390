@@ -367,6 +367,15 @@ HOME=$HOME
 PYTHONPATH=$PYTHONPATH
 EOF
 
+cat >> /etc/profile <<EOF
+LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+PATH=$PATH
+HOME=$HOME
+PYTHONPATH=$PYTHONPATH
+export LD_LIBRARY_PATH PATH HOME PYTHONPATH
+EOF
+
+
 if [ "$NETTYPE" = "ctc" ]; then
    echo "REMIP=$GATEWAY" >> /tmp/netinfo 
    echo "export REMIP=$GATEWAY" >> /etc/profile
