@@ -148,20 +148,19 @@ msgstr "A utilizar o tipo de rato: %s"
 
 #: ../autopart.py:891
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Não consegui alocar partições baseadas em cilindros como partições primárias"
+msgstr "Não foi possível alocar partições baseadas em cilindros como partições primárias"
 
 #: ../autopart.py:894
 msgid "Could not allocate partitions as primary partitions"
-msgstr "Não consegui alocar partições como partições primárias"
+msgstr "Não foi possível alocar partições como partições primárias"
 
 #: ../autopart.py:897
 msgid "Could not allocate cylinder-based partitions"
-msgstr "Não consegui alocar partições baseadas em cilindros"
+msgstr "Não foi possível alocar partições baseadas em cilindros"
 
 #: ../autopart.py:900
 msgid "Could not allocate partitions"
-msgstr "Não consegui alocar partições"
+msgstr "Não foi possível alocar partições"
 
 #: ../autopart.py:962
 #, python-format
@@ -286,7 +285,7 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
-"Não consegui alocar as partições pedidas: \n"
+"Não foi possível alocar as partições pedidas: \n"
 "\n"
 "%s.%s"
 
@@ -3720,7 +3719,7 @@ msgstr "Livre"
 #: ../iw/partition_gui.py:981 ../textw/partition_text.py:214
 #, python-format
 msgid "Could not allocate requested partitions: %s."
-msgstr "Não consegui alocar as partições requisitadas: %s."
+msgstr "Não foi possível alocar as partições requisitadas: %s."
 
 #: ../iw/partition_gui.py:990
 #, python-format
@@ -6076,9 +6075,7 @@ msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
-msgstr ""
-"Este módulo pode receber parâmetros que afectam a sua operação. Se sabe que "
-"parâmetros deve passar, ignore este ecrã e carregue no botão \"OK\" agora."
+msgstr "Este módulo pode receber parâmetros que afectam a sua operação. Se não sabe que parâmetros deve passar, ignore este ecrã e carregue no botão \"OK\" agora."
 
 #: ../loader/devices.c:97
 msgid "Module Parameters"
@@ -6099,7 +6096,7 @@ msgstr "Insira o disco com controladores e carregue em \"OK\" para continuar."
 
 #: ../loader/devices.c:283 ../loader2/driverdisk.c:226
 msgid "Failed to mount driver disk."
-msgstr "Não consegui montar disquete de controladores."
+msgstr "Não foi possível montar disquete de controladores."
 
 #: ../loader/devices.c:290
 #, c-format
@@ -6126,7 +6123,7 @@ msgstr "Especifique parâmetros do módulo"
 #: ../loader/devices.c:453
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Não consegui inserir o módulo %s"
+msgstr "Não foi possível inserir o módulo %s"
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 #: ../loader2/hdinstall.c:503 ../loader2/kickstart.c:97
@@ -6225,7 +6222,7 @@ msgstr ""
 #: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Não conseguir ler directoria %s: %s"
+msgstr "Não foi possível ler directoria %s: %s"
 
 #: ../loader/loader.c:611 ../loader2/hdinstall.c:255
 msgid ""
@@ -6382,7 +6379,7 @@ msgstr "HTTP"
 
 #: ../loader/loader.c:1796
 msgid "Unable to retrieve the first install image"
-msgstr "Não consegui obter a primeira imagem de instalação"
+msgstr "Não foi possível obter a primeira imagem de instalação"
 
 #: ../loader/loader.c:1857
 msgid "FTP and HTTP installs require 20MB or more of system memory."
@@ -6406,7 +6403,7 @@ msgstr "Em que tipo de formato estão os pacotes que vão ser instalados?"
 
 #: ../loader/loader.c:2894 ../loader2/kickstart.c:247
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Não consegui encontrar o ficheiro ks.cfg na disquete de arranque."
+msgstr "Não foi possível encontrar o ficheiro ks.cfg na disquete de arranque."
 
 #: ../loader/loader.c:2986 ../loader2/loader.c:262
 msgid "Updates Disk"
@@ -6428,7 +6425,7 @@ msgstr ""
 
 #: ../loader/loader.c:3002
 msgid "Failed to mount floppy disk."
-msgstr "Não consegui montar disquete."
+msgstr "Não foi possível montar disquete."
 
 #: ../loader/loader.c:3007 ../loader2/loader.c:277
 msgid "Updates"
@@ -6487,7 +6484,7 @@ msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
-"Não consegui ler o 'checksum' do disco do descritor primário do volume.  "
+"Não foi possível ler o 'checksum' do disco do descritor primário do volume.  "
 "Isto provavelmente significa que o disco foi criado sem o 'checksum'."
 
 #: ../loader/mediacheck.c:264 ../loader2/mediacheck.c:264
@@ -6502,7 +6499,7 @@ msgstr "A verificar o suporte físico..."
 #: ../loader/mediacheck.c:312 ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "Não consegui obter a imagem de instalação %s"
+msgstr "Não foi possível obter a imagem de instalação %s"
 
 #: ../loader/mediacheck.c:322 ../loader2/mediacheck.c:322
 msgid ""
@@ -6560,7 +6557,7 @@ msgstr "A verificação ao suporte físico%s está completa, o resultado foi: %s
 #: ../loader/modules.c:391
 #, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Não consegui montar a disquete de controladores: %s."
+msgstr "Não foi possível montar a disquete de controladores: %s."
 
 #: ../loader/modules.c:411
 msgid "The wrong diskette was inserted."
@@ -6750,7 +6747,7 @@ msgstr ""
 
 #: ../loader/pcmcia.c:117
 msgid "Failed to mount disk."
-msgstr "Não consegui montar disco."
+msgstr "Não foi possível montar disco."
 
 #: ../loader/pcmcia.c:135
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
@@ -6768,13 +6765,13 @@ msgstr "A executar o anaconda através do telnet..."
 #: ../loader/urls.c:82 ../loader2/urls.c:169
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Não consegui ligar-me a %s: %s"
+msgstr "Não foi possível estabelecer a ligação a %s: %s"
 
 #: ../loader/urls.c:92 ../loader/urls.c:100 ../loader2/urls.c:179
 #: ../loader2/urls.c:187
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Não consegui obter %s: %s"
+msgstr "Não foi possível obter %s: %s"
 
 #: ../loader/urls.c:105 ../loader2/urls.c:192
 msgid "Retrieving"
@@ -6857,219 +6854,186 @@ msgstr "Porta do \"Proxy\" HTTP:"
 
 #: ../loader/windows.c:46 ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr "A carregar controlador SCSI"
+msgstr "A carregar o controlador SCSI"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"O CD do %s não foi encontrado em nenhum dos leitores de CDROM. Por favor "
-"insira o CD com o %s e carregue em %s para voltar a tentar."
+msgstr "Não foi encontrado nenhum CD do %s que condiza com o disco utilizado para arranque. Por favor insira o CD com o %s e carregue em %s para voltar a tentar."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
-msgstr "CD Encontrado"
+msgstr "CD Não Encontrado"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Não consegui montar disquete de controladores."
+msgstr "A ler a disquete de controladores"
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Disquete de Controladores"
+msgstr "Localização da Disquete de Controladores"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr ""
-"Tem vários dispositivos de rede neste computador. Através de qual é que "
-"deseja realizar a instalação?"
+msgstr "Tem vários dispositivos que podem servidor de origem para um disco de controladores. Qual é que deseja actualizar?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Insira o disco com controladores e carregue em \"OK\" para continuar."
+msgstr "Insira o disco com controladores em /dev/%s e carregue em \"OK\" para continuar."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Disquete de Controladores"
+msgstr "Inseria a Disquete de Controladores"
 
 #: ../loader2/driverdisk.c:286
 msgid "Manually choose"
-msgstr ""
+msgstr "Escolher manualmente"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "Carregar outra disquete"
 
 #: ../loader2/driverdisk.c:288
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr ""
+msgstr "Não foi possível encontrar qualquer dispositivo do tipo necessário nesta disquete de controladores.  Quer seleccionar manualmente um controlador, continuar mesmo assim ou utilizar outra disquete de controladores?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
-msgstr ""
-"Este módulo pode receber parâmetros que afectam a sua operação. Se sabe que "
-"parâmetros deve passar, ignore este ecrã e carregue no botão \"OK\" agora."
+msgstr "Insira os parâmetros que quer passar ao módulo %s separados por espaços.  Se não sabe que parâmetros deve passar ignore este ecrã, carregando no botão \"OK\".  Pode obter uma lista das opções diponíveis carregando na tecla F1."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Parâmetros do Módulo"
+msgstr "Indique os Parâmetros do Módulo"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
-"Que controlador devo tentar utilizar? Se o controlador que precisa não "
-"aparecer nesta lista, e tiver uma disquete de controladores adicional, "
-"carregue em F2."
+msgstr "Por favor seleccione o controlador que deseja carregar.  Se este não aparecer e você tiver uma disquete de controladores, carregue em F2."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Especifique parâmetros do módulo"
+msgstr "Indique os parâmetros opcionais do módulo"
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "Escolha a unidade onde quer correr o fdasd"
+msgstr "Escolha o Controlador de Dispositivo a Carregar"
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "argumento inválido para o comando network do kickstart %s: %s"
+msgstr "Argumento inválido para o método HD do kickstart %s: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Erro ao abrir ficheiro de kickstart %s: %s"
+msgstr "Erro ao abrir o ficheiro kickstart %s: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Disquete de Actualizações"
+msgstr "Localização da Disquete de Actualizações"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr ""
-"Tem vários dispositivos de rede neste computador. Através de qual é que "
-"deseja realizar a instalação?"
+msgstr "Tem vários dispositivos que podem servidor de origem para um disco de actualizações. Qual é que deseja actualizar?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Insira a disquete com as actualizações e carregue em \"OK\" para continuar."
+msgstr "Insira a disquete com as actualizações em /dev/%s e carregue em \"OK\" para continuar."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Não consegui montar disquete de controladores."
+msgstr "Não foi possível montar disquete de actualizações"
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
-msgstr ""
-"Nenhum disco rígido encontrado. Provavelmente necessita de seleccionar "
-"manualmente controladores de dispositivos para continuar com a instalação.  "
-"Deseja seleccionar controladores de dispositivos agora?"
+msgstr "Nenhum disco rígido encontrado. Provavelmente necessita de seleccionar manualmente controladores de dispositivos para continuar com a instalação.  Deseja seleccionar controladores de dispositivos agora?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "Nenhuma Drive Encontrada"
+msgstr "Nenhum controlador encontrado"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "Escolha a unidade onde quer correr o fdasd"
+msgstr "Escolha o controlador"
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Tem uma disquete com controladores?"
+msgstr "Utilizar uma disquete de controladores"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "Não foi possível encontrar qualquer dispositivo do tipo necessário para este tipo de instalação.  Quer seleccionar manualmente um controlador ou utilizar uma disquete de controladores?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "A enviar pedido para informações sobre IP..."
+msgstr "A enviar pedido para informações sobre IP para %s"
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "argumento inválido para o comando network do kickstart %s: %s"
+msgstr "Argumento inválido para o comando network do kickstart %s: %s"
 
 #: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "A árvore de instalação do %s nessa directoria parece não condizer com o disco utilizado para arranque."
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Essa directoria não parece conter uma distribuição de Red Hat."
+msgstr "Essa directoria não parece conter uma árvore de instalação do %s."
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
-msgstr "Não foi possível montar essa directoria do servidor"
+msgstr "Não foi possível montar essa directoria do servidor."
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "argumento inválido para o comando network do kickstart %s: %s"
+msgstr "Argumento inválido para método NFS do kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Não consegui obter a primeira imagem de instalação"
+msgstr "Não foi possível obter a imagem de instalação."
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "argumento inválido para o comando network do kickstart %s: %s"
+msgstr "Argumento inválido para o método Url do kickstart %s: %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Tem que indicar um parâmetro --url ao método de kickstart Url."
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Placa desconhecida"
+msgstr "Método da Url desconhecido %s"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7727,7 +7691,7 @@ msgstr "Checo"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr "Holandês"
+msgstr "Dinamarquês"
 
 #. generated from lang-table
 msgid "English"

@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2002-12-11 12:29-0500\n"
-"PO-Revision-Date: 2002-12-05 20:01+0100\n"
+"PO-Revision-Date: 2002-12-12 21:50+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -5977,7 +5977,7 @@ msgstr "Vlo¾te disketu s ovladaèi a stisknìte \"OK\"."
 
 #: ../loader/devices.c:283 ../loader2/driverdisk.c:226
 msgid "Failed to mount driver disk."
-msgstr "Nelze pøipojit disketu s ovladaèi."
+msgstr "Nelze pøipojit disketu s aktualizací."
 
 #: ../loader/devices.c:290
 #, c-format
@@ -5991,9 +5991,7 @@ msgstr ""
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
-msgstr ""
-"Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v "
-"tomto seznamu a máte dal¹í disk s ovladaèi, prosím stisknìte F2."
+msgstr "Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v tomto seznamu a máte dal¹í disketu s ovladaèi, stisknìte prosím F2."
 
 #: ../loader/devices.c:359
 msgid "Specify module parameters"
@@ -6016,12 +6014,12 @@ msgstr "Chyba kickstartu"
 #: ../loader/kickstart.c:60
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Chyba pøi otevírání kickstart souboru %s: %s"
+msgstr "Chyba pøi otevírání souboru kickstart %s: %s"
 
 #: ../loader/kickstart.c:70 ../loader2/kickstart.c:107
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Chyba pøi ètení obsahu kickstart souboru %s: %s"
+msgstr "Chyba pøi ètení obsahu souboru kickstart %s: %s"
 
 #: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
 #, c-format
@@ -6540,7 +6538,7 @@ msgstr "kickstart"
 #: ../loader/net.c:737
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "kickstart: chybný argument pøíkazu network %s: %s"
+msgstr "chybný argument kickstart pøíkazu network %s: %s"
 
 #: ../loader/net.c:770 ../loader2/net.c:661
 #, c-format
@@ -6722,209 +6720,183 @@ msgid "Loading SCSI driver"
 msgstr "Zavádím SCSI ovladaè"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
-msgstr ""
-"Nemohu nalézt CD-ROM %s v ¾ádné jednotce CD-ROM. Prosím vlo¾te CD-ROM s "
-"distribucí %s a stisknìte tlaèítko %s pro opakování."
+msgstr "Nemohu nalézt CD-ROM %s odpovídající va¹emu zavádìcímu médiu. Vlo¾te prosím CD-ROM %s a opakujte stisknutím %s."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
 msgstr "CD nalezeno"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Nelze pøipojit disketu s ovladaèi."
+msgstr "Ètu disketu s ovladaèi"
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Disketa s ovladaèi"
+msgstr "Zdroj diskety s ovladaèi"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "V systému je více sí»ových zaøízení. Pomocí kterého chcete instalovat?"
+msgstr "Máte více zaøízení, která by mohla být pou¾ita jako zdroj diskety s ovladaèi. Které chcete pou¾ít?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Vlo¾te disketu s ovladaèi a stisknìte \"OK\"."
+msgstr "Vlo¾te svou disketu s ovladaèi do /dev/%s a pokraèujte stisknutím \"OK\"."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Disketa s ovladaèi"
+msgstr "Vlo¾te disketu s ovladaèi"
 
 #: ../loader2/driverdisk.c:286
 msgid "Manually choose"
-msgstr ""
+msgstr "Zvolit ruènì"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "Naèíst jinou disketu"
 
 #: ../loader2/driverdisk.c:288
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
-msgstr ""
+msgstr "Na této disketì s ovladaèi nebyla nalezena ¾ádná zaøízení potøebného typu. Chcete vybrat ovladaè ruènì, i pøesto pokraèovat, nebo naèíst jinou disketu s ovladaèi?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
-msgstr ""
-"Tomuto modulu mù¾ete zadat parametry, které ovlivòují jeho funkci. Pokud "
-"nevíte, jaké parametry zadat, pokraèujte dále stisknutím tlaèítka \"OK\"."
+msgstr "Zadejte prosím parametry, které chcete pøedat modulu %s, oddìlené mezerami. Pokud nevíte, jaké parametry zadat, pøeskoète tuto obrazovku stisknutím tlaèítka \"OK\". Seznam dostupných voleb mù¾ete získat stisknutím klávesy F1."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Parametry modulù"
+msgstr "Zadejte parametry modulu"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
-"Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v "
-"tomto seznamu a máte dal¹í disk s ovladaèi, prosím stisknìte F2."
+msgstr "Zadejte prosím ní¾e ovladaè, který si pøejete naèíst. Pokud není uveden a máte disketu s ovladaèi, stisknìte F2."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Zadání parametrù modulu"
+msgstr "Zadejte volitelné parametry modulu"
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "Vyberte jednotku, na kterou spustit fdasd"
+msgstr "Vyberte ovladaè zaøízení, který naèíst"
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "kickstart: chybný argument pøíkazu network %s: %s"
+msgstr "Chybný argument kickstart pøíkazu metody HD %s: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Chyba pøi otevírání kickstart souboru %s: %s"
+msgstr "Chyba pøi otevírání souboru kickstart %s: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Disk s aktualizací"
+msgstr "Zdroj disku s aktualizací"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
-msgstr "V systému je více sí»ových zaøízení. Pomocí kterého chcete instalovat?"
+msgstr "Máte více zaøízení, která by mohla být pou¾ita jako zdroj diskety s aktualizací. Které chcete pou¾ít?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Pro pokraèování vlo¾te disk s aktualizacemi a stisknìte \"OK\"."
+msgstr "Vlo¾te svou disketu s aktualizací do /dev/%s a pokraèujte stisknutím \"OK\"."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Nelze pøipojit disketu s ovladaèi."
+msgstr "Nelze pøipojit disketu s aktualizací"
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
-msgstr ""
-"Nebyly nalezeny ¾ádné pevné disky. Bude potøeba ruènì zvolit zaøízení pro "
-"instalaci. Chcete ho nyní vybrat?"
+msgstr "Nebyly nalezeny ¾ádné pevné disky. Pravdìpodobnì budete muset pro úspì¹nou instalaci ruènì zvolit ovladaèe zaøízení. Chcete nyní vybrat ovladaèe?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "Nenalezeny ¾ádné jednotky"
+msgstr "Nenalezen ¾ádný ovladaè"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "Vyberte jednotku, na kterou spustit fdasd"
+msgstr "Vyberte ovladaè"
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Máte disketu s ovladaèi?"
+msgstr "Pou¾ít disketu s ovladaèi"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
-msgstr ""
+msgstr "emohu najít ¾ádná zaøízení typu potøebného pro tento typ instalace. Chcete ruènì vybrat vá¹ ovladaè nebo pou¾ít disketu s ovladaèi?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "Odesílám dotaz o nastavení IP..."
+msgstr "Odesílám dotaz o nastavení IP pro %s..."
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "kickstart: chybný argument pøíkazu network %s: %s"
+msgstr "Chybný argument kickstart pøíkazu network %s: %s"
 
 #: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "Instalaèní strom %s v tomto adresáøi zøejmì neodpovídá va¹emu zavádìcímu médiu."
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Zadaný adresáø zøejmì neobsahuje instalaèní strom distribuce Red Hat."
+msgstr "Tento adresáø zøejmì neobsahuje instalaèní strom %s."
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
-msgstr "Zadaný adresáø na serveru nelze pøipojit"
+msgstr "Tento adresáø na serveru nelze pøipojit."
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "kickstart: chybný argument pøíkazu network %s: %s"
+msgstr "Chybný argument kickstart pøíkazu metody NFS %s: %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Nelze získat první instalaèní obraz"
+msgstr "Nemohu získat instalaèní obraz."
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "kickstart: chybný argument pøíkazu network %s: %s"
+msgstr "Chybný argument kickstart pøíkazu metody Url %s: %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Kickstart metodì Url musíte zadat argument --url."
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Neznámá karta"
+msgstr "Neznámá metoda Url %s"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7640,21 +7612,6 @@ msgstr "©véd¹tina"
 msgid "Ukrainian"
 msgstr "Ukrajin¹tina"
 
-#~ msgid "Resolution requested %s is not supported."
-#~ msgstr "Po¾adované rozli¹ení %s není podporováno."
-
-#~ msgid "Falling back to %s."
-#~ msgstr "Pou¾ívám %s."
-
-#~ msgid "To avoid this you may need to specify the videocard and "
-#~ msgstr "Abyste se tomu vyhnuli, mo¾ná budete muset zadat popis videokarty "
-
-#~ msgid "monitor specs on the xconfig ks directive if they were "
-#~ msgstr "a monitoru v ks direktivì xconfig, jestli¾e nebyly "
-
-#~ msgid "not probed correctly."
-#~ msgstr "správnì detekovány."
-
 #~ msgid "Unable to probe"
 #~ msgstr "Nemohu detekovat"
 
@@ -7703,17 +7660,11 @@ msgstr "Ukrajin¹tina"
 #~ msgid "   _Test Setting   "
 #~ msgstr "   _Otestovat nastavení   "
 
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
 #~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
 #~ msgstr "Neexistují ¾ádné linuxové oddíly. Tento systém nelze aktualizovat!"
 
 #~ msgid "Upgrade Partition"
 #~ msgstr "Aktualizovat oddíl"
-
-#~ msgid "Romanian"
-#~ msgstr "Rumun¹tina"
 
 #~ msgid "No password"
 #~ msgstr "Bez hesla"
@@ -7729,90 +7680,6 @@ msgstr "Ukrajin¹tina"
 
 #~ msgid "Edit Boot Label Please"
 #~ msgstr "Zmìòte prosím jmenovku systému"
-
-#~ msgid "Base"
-#~ msgstr "Základ"
-
-#~ msgid "Printing Support"
-#~ msgstr "Podpora tisku"
-
-#~ msgid "Classic X Window System"
-#~ msgstr "Klasický X Window System"
-
-#~ msgid "X Window System"
-#~ msgstr "X Window System"
-
-#~ msgid "Laptop Support"
-#~ msgstr "Podpora pro Laptop"
-
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "Podpora zvuku a multimédií"
-
-#~ msgid "Network Support"
-#~ msgstr "Podpora pro sí»"
-
-#~ msgid "Dialup Support"
-#~ msgstr "Podpora pro dialup"
-
-# ../comps/comps-master:577
-#~ msgid "Messaging and Web Tools"
-#~ msgstr "Po¹ta a programy pro WWW"
-
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "Nástroje pro práci s grafikou"
-
-#~ msgid "News Server"
-#~ msgstr "News server"
-
-#~ msgid "NFS File Server"
-#~ msgstr "NFS server"
-
-#~ msgid "Windows File Server"
-#~ msgstr "Souborový server pro Windows"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "Anonymní FTP server"
-
-#~ msgid "SQL Database Server"
-#~ msgstr "Databázový SQL server"
-
-#~ msgid "Web Server"
-#~ msgstr "WWW Server"
-
-#~ msgid "Router / Firewall"
-#~ msgstr "Router / Firewall"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "DNS server"
-
-#~ msgid "Network Managed Workstation"
-#~ msgstr "Workstation spravovaná po síti"
-
-#~ msgid "Authoring and Publishing"
-#~ msgstr "Publikování a sazba"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "Utilities"
-#~ msgstr "Pomocné nástroje"
-
-#~ msgid "Legacy Application Support"
-#~ msgstr "Podpora star¹ích aplikací"
-
-#~ msgid "Software Development"
-#~ msgstr "Vývoj software"
-
-#~ msgid "Kernel Development"
-#~ msgstr "Vývoj jádra"
-
-# ../comps/comps-master:1055
-#~ msgid "Windows Compatibility / Interoperability"
-#~ msgstr "Kompatibilita a spolupráce s Windows"
-
-# ../comps/comps-master:1073
-#~ msgid "Games and Entertainment"
-#~ msgstr "Hry a zábava"
 
 #~ msgid "Attempting to start VGA16 X server"
 #~ msgstr "Zkou¹ím spustit VGA16 X server"
@@ -7867,9 +7734,6 @@ msgstr "Ukrajin¹tina"
 #~ "Pokud zji¹tìné hodnoty neodpovídají va¹emu hardware, vlo¾te sami správné "
 #~ "hodnoty:"
 
-#~ msgid "Laptop"
-#~ msgstr "Laptop"
-
 #~ msgid "Close"
 #~ msgstr "Zavøít"
 
@@ -7916,15 +7780,6 @@ msgstr "Ukrajin¹tina"
 
 #~ msgid "Attempting to start framebuffer based X server"
 #~ msgstr "Zkou¹ím se spustit X server s podporou framebuffer"
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "A boot disk is REQUIRED to boot a partitionless install."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Pro bezoddílovou instalaci je NUTNÉ vytvoøit zavádìcí disketu."
 
 #~ msgid "Skip boot disk creation"
 #~ msgstr "Pøeskoèit vytváøení zavádìcí diskety"
@@ -8063,55 +7918,5 @@ msgstr "Ukrajin¹tina"
 #~ msgid "Enable antialias"
 #~ msgstr "Povolit antialiasing"
 
-#~ msgid "World"
-#~ msgstr "Svìt"
-
-#~ msgid "North America"
-#~ msgstr "Severní Amerika"
-
-#~ msgid "South America"
-#~ msgstr "Ji¾ní Amerika"
-
-#~ msgid "Indian Rim"
-#~ msgstr "Indian Rim"
-
-#~ msgid "Europe"
-#~ msgstr "Evropa"
-
-#~ msgid "Africa"
-#~ msgstr "Afrika"
-
-#~ msgid "Asia"
-#~ msgstr "Asie"
-
-#~ msgid "Cannot load timezone data"
-#~ msgstr "Nelze naèíst informace o èasových zónách"
-
-#~ msgid "gglobe-canvas"
-#~ msgstr "gglobe-canvas"
-
 #~ msgid "View: "
 #~ msgstr "Zobrazit: "
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "Západní Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-
-#~ msgid "Portuguese(Brasilian) pt"
-#~ msgstr "Portugal¹tina (brazilská) pt"

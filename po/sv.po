@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-12-11 12:29-0500\n"
-"PO-Revision-Date: 2002-12-11 01:32+0100\n"
+"PO-Revision-Date: 2002-12-11 02:39+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2391,7 +2391,7 @@ msgstr ""
 "En komplett logg av installationen kan hittas i filen %s efter omstart av "
 "systemet.\n"
 "\n"
-"En kickstart-fil som innehåller de installationsalternativ som valdes kan "
+"En kickstartfil som innehåller de installationsalternativ som valdes kan "
 "hittas i filen %s efter omstart av systemet."
 
 #: ../iw/confirm_gui.py:68
@@ -6067,22 +6067,22 @@ msgstr "Misslyckades med att läsa in %s-modulen."
 #: ../loader2/urlinstall.c:385 ../loader2/urlinstall.c:394
 #: ../loader2/urlinstall.c:405
 msgid "Kickstart Error"
-msgstr "Kickstart-fel"
+msgstr "Kickstartfel"
 
 #: ../loader/kickstart.c:60
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Fel vid öppning: kickstart-fil %s: %s"
+msgstr "Fel vid öppning: kickstartfil %s: %s"
 
 #: ../loader/kickstart.c:70 ../loader2/kickstart.c:107
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Fel vid läsning av innehållet i kickstart-fil %s: %s"
+msgstr "Fel vid läsning av innehållet i kickstartfil %s: %s"
 
 #: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Fel i %s på rad %d i kickstart-filen %s."
+msgstr "Fel i %s på rad %d i kickstartfilen %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
 #: ../loader2/loader.c:166
@@ -6270,7 +6270,7 @@ msgstr ""
 
 #: ../loader/loader.c:1421 ../loader2/cdinstall.c:251
 msgid "CD Found"
-msgstr "CD hittades"
+msgstr "Cd hittades"
 
 #: ../loader/loader.c:1423 ../loader2/cdinstall.c:253
 #, c-format
@@ -6296,7 +6296,7 @@ msgstr ""
 
 #: ../loader/loader.c:1710
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
+msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationsträd."
 
 #: ../loader/loader.c:1715
 msgid "That directory could not be mounted from the server"
@@ -6590,7 +6590,7 @@ msgstr "Dynamisk IP"
 
 #: ../loader/net.c:410 ../loader/net.c:753 ../loader2/net.c:369
 msgid "Sending request for IP information..."
-msgstr "Sänder förfrågan om IP-information..."
+msgstr "Skickar förfrågan om IP-information..."
 
 #: ../loader/net.c:625 ../loader2/net.c:563
 msgid "Determining host name and domain..."
@@ -6603,7 +6603,7 @@ msgstr "kickstart"
 #: ../loader/net.c:737
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+msgstr "felaktigt argument till kickstartnätverkskommandot %s: %s"
 
 #: ../loader/net.c:770 ../loader2/net.c:661
 #, c-format
@@ -6788,55 +6788,51 @@ msgid "Loading SCSI driver"
 msgstr "Läser in SCSI-drivrutin"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt i cd-"
-"skivan med %s och tryck %s för att försöka igen."
+"Ingen cd-skiva med %s kunde hittas som stämmer överens med ditt startmedium. "
+"Sätt i cd-skivan med %s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
-msgstr "CD hittades"
+msgstr "Cd hittades inte"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Montering av drivrutinsdisketten misslyckades."
+msgstr "Läser drivrutinsdisketten"
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Drivrutinsdiskett"
+msgstr "Källa för drivrutinsdiskett"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
+"Du har flera enheter som kan tjäna som källor för en drivrutinsdiskett. "
+"Vilken vill du använda?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Sätt i din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
+msgstr ""
+"Sätt i din drivrutinsdiskett i /dev/%s och tryck på \"OK\" för att fortsätta."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Drivrutinsdiskett"
+msgstr "Sätt i drivrutinsdiskett"
 
 #: ../loader2/driverdisk.c:286
-#, fuzzy
 msgid "Manually choose"
-msgstr "Manuell partitionering"
+msgstr "Välj manuellt"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "Läs in en annan diskett"
 
 #: ../loader2/driverdisk.c:288
 msgid ""
@@ -6844,78 +6840,76 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"Inga enheter av rätt typ hittades på denna drivrutinsdiskett. Vill du välja "
+"drivrutinen manuellt, fortsätta ändå, eller läsa in en annan "
+"drivrutinsdiskett?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"Denna modul kan ta parametrar som påverkar dess funktion. Om du inte vet "
-"vilka parametrar du bör ange hoppar du bara över denna skärm genom att "
-"trycka på knappen \"OK\"."
+"Ange alla modulparametrar som du vill skicka till modulen %s, åtskilda med "
+"blanksteg. Om du inte vet vilka parametrar du bör ange hoppar du bara över "
+"denna skärm genom att trycka på knappen \"OK\". En lista med de tillgängliga "
+"alternativen kan fås genom att trycka på F1-tangenten."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Modulparametrar"
+msgstr "Ange modulparametrar"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Vilken drivrutin ska jag prova? Om drivrutinen du behöver inte finns i denna "
-"lista och du har en separat drivrutinsdiskett, tryck F2."
+"Välj den drivrutin nedan som du vill läsa in. Om den inte finns i denna "
+"lista och du har en drivrutinsdiskett, tryck F2."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Ange modulparametrar"
+msgstr "Ange valfria modulparametrar"
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "Välj hårddisk att köra fdasd på"
+msgstr "Välj enhetsdrivrutin att läsa in"
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Fel vid öppning: kickstart-fil %s: %s"
+msgstr "Fel vid öppnande av kickstartfilen %s: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Uppdateringsdiskett"
+msgstr "Källa för uppdateringsdiskett"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"Du har flera nätverksenheter i detta system. Vilken vill du installera via?"
+"Du har flera enheter som kan tjäna som källor för en uppdateringsdiskett. "
+"Vilken vill du använda?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Sätt i din uppdateringsdiskett och tryck \"OK\" för att fortsätta."
+msgstr ""
+"Sätt i din uppdateringsdiskett i /dev/%s och tryck \"OK\" för att fortsätta."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Montering av drivrutinsdisketten misslyckades."
+msgstr "Montering av uppdateringsdisketten misslyckades."
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6926,35 +6920,35 @@ msgstr ""
 "drivrutiner nu?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "Inga hårddiskar hittades"
+msgstr "Ingen drivrutin hittades"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "Välj hårddisk att köra fdasd på"
+msgstr "Välj drivrutin"
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Har du en drivrutinsdiskett?"
+msgstr "Använd en drivrutinsdiskett"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"Kan inte hitta några enheter av den typ som behövs för denna "
+"installationstyp. Vill du välja din drivrutin manuellt eller använda en "
+"drivrutinsdiskett?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "Sänder förfrågan om IP-information..."
+msgstr "Skickar förfrågan om IP-information för %s"
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+msgstr "Felaktigt argument till kickstartnätverkskommandot %s: %s"
 
 #: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
 #, c-format
@@ -6962,40 +6956,40 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
+"%s-installationsträdet i den katalogen verkar inte stämma överens med ditt "
+"startmedium."
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Den katalogen verkar inte innehålla ett Red Hat-installationssträd."
+msgstr "Den katalogen verkar inte innehålla ett %s-installationsträd."
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
-msgstr "Den katalogen kunde inte monteras från servern"
+msgstr "Den katalogen kunde inte monteras från servern."
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+msgstr "Felaktigt argument till NFS-kickstartmetodkommandot %s: %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Misslyckades med att hämta första installationsavbilden"
+msgstr "Kan inte hämta installationsavbilden."
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "felaktigt argument till kickstart-nätverkskommandot %s: %s"
+msgstr "Felaktigt argument till Url-kickstartmetodkommandot %s: %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Okänt kort"
+msgstr "Url-metoden %s är okänd"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -8087,7 +8081,7 @@ msgstr "Ukrainska"
 #~ msgstr ""
 #~ "En komplett logg av din installation kommer att finnas i /root/install."
 #~ "log efter omstart av systemet. Denna fil kan vara bra att spara och "
-#~ "använda som referens senare. En kickstart-fil som visar de val du har "
+#~ "använda som referens senare. En kickstartfil som visar de val du har "
 #~ "gjort kommer att finnas i /root/anaconda-ks.cfg."
 
 #~ msgid ""
@@ -8097,7 +8091,7 @@ msgstr "Ukrainska"
 #~ msgstr ""
 #~ "En komplett logg av din installation kommer att finnas i %s efter omstart "
 #~ "av systemet. Denna fil kan vara bra att spara och använda som referens "
-#~ "senare. En kickstart-fil som visar de val du har gjort kommer att finnas "
+#~ "senare. En kickstartfil som visar de val du har gjort kommer att finnas "
 #~ "i %s."
 
 #~ msgid ""
@@ -8786,7 +8780,7 @@ msgstr "Ukrainska"
 #~ msgstr ""
 #~ "Sätt in ytterligare media som du vill testa och tryck %s.\n"
 #~ "\n"
-#~ "Sätt annars in CD 1 i din enhet och tryck %s för att fortsätta."
+#~ "Sätt annars in cd 1 i din enhet och tryck %s för att fortsätta."
 
 #~ msgid ""
 #~ "We will now test your media before installing.\n"

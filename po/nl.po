@@ -83,12 +83,11 @@ msgstr "OK"
 
 #: ../anaconda:474 ../anaconda:683
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Er ging wat mis in de X installatie"
 
 #: ../anaconda:491
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
 "Grafische installatie niet beschikbaar voor %s installaties.  Tekstmodus "
 "wordt nu opgestart."
@@ -102,9 +101,9 @@ msgstr ""
 "vereist. Tekstmodus wordt nu opgestart."
 
 #: ../anaconda:510
-#, fuzzy, c-format
+#, c-format
 msgid "Using mouse type: %s"
-msgstr "Muistype dat nu wordt gebruikt: "
+msgstr "Muistype dat nu wordt gebruikt: %s "
 
 #: ../autopart.py:891
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -137,13 +136,16 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Opstart partitie %s is niet op een harddisk met voldoende vrije ruimte aan het begin om het "
+"opstart systeem te installeren. Vergewis U er van dat er minimaal 5 Megabyte vrije ruimte aan "
+"het begin van de disk is die de /boot map gaat bevatten. "
 
 #: ../autopart.py:966
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
+msgstr "Opstart partitie %s is niet van het VFAT type. Uw systeem zal niet instaat zijn om hiervandaan op te starten."
 
 #: ../autopart.py:969
 #, python-format
@@ -276,7 +278,6 @@ msgstr "Waarschuwing"
 
 # mount point->aankoppelpunt? of onvertaald
 #: ../autopart.py:1297
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -291,11 +292,7 @@ msgstr ""
 "\n"
 "Het handmatige partitie-programma 'Disk Druid', biedt de mogelijkheid op "
 "interactieve wijze partities aan te maken. U kunt zelf bestandssysteemtypes, "
-"koppelpunten en partitiegroottes instellen.\n"
-"\n"
-"Het partitie-programma, fdisk, is een tekstgebaseerd programma dat alleen "
-"wordt aanbevolen aan gevorderde gebruikers die gespecialiseerde taken hebben "
-"uit te voeren."
+"koppelpunten en partitiegroottes instellen."
 
 #: ../autopart.py:1308
 msgid ""
@@ -750,14 +747,15 @@ msgid "Error!"
 msgstr "Fout!"
 
 #: ../gui.py:814
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
 msgstr ""
 "Bij het laden van een component van de installatie-omgeving is een fout "
-"opgetreden."
+"opgetreden. \n"
+"className = %s"
 
 #: ../gui.py:818 ../packages.py:1152 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -881,8 +879,7 @@ msgstr "Installeren op Systeem"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
+msgstr "Computernaam moet beginnen met een geldig teken in het bereik 'a-z' of 'A-Z'"
 
 #: ../network.py:44
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -916,24 +913,22 @@ msgstr "Pakket-informatie wordt nu gelezen..."
 
 # return? moet dit niet enter zijn?
 #: ../packages.py:129
-#, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-"bestand, een misvormd pakket, of een beschadigde mediadrager.  Geef <return> "
-"om opnieuw te proberen."
+"Het was niet mogelijk om de zogenaamde \"header list\" te lezen. Dit kan veroorzaakt worden "
+"door een ontbrekend bestand of door een beschadigde media-drager. Kies <Enter> om het "
+"installatie programma een nieuwe poging te laten doen."
 
 # return? moet dit niet enter zijn?
 #: ../packages.py:143
-#, fuzzy
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-"bestand, een misvormd pakket, of een beschadigde mediadrager.  Geef <return> "
+"Het \"comps\" bestand kon niet worden geopend. Dit komt door een ontbrekend "
+"bestand of een beschadigde mediadrager.  Geef <return> "
 "om opnieuw te proberen."
 
 #: ../packages.py:217
@@ -962,6 +957,11 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"Het pakket %s-%s-%s kon niet geopent worden. Dit kan veroorzaakt zijn door een "
+"ontbrekend of verminkt bestand. Indien U vanaf een CD-Rom installeerd wordt dit meestal "
+"veroorzaakt door een defect op de CD of een CD-Rom speler die de CD niet goed kan lezen. "
+"\n"
+"Met <Enter> zal het installatie programma nogmaals proberen het bestand te lezen."
 
 #: ../packages.py:372
 msgid "Error Installing Package"
@@ -986,13 +986,12 @@ msgstr ""
 
 # return? moet dit niet enter zijn?
 #: ../packages.py:545
-#, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Het bestand %s kan niet worden geopend. Dit komt door een ontbrekend "
-"bestand, een misvormd pakket, of een beschadigde mediadrager.  Geef <return> "
+"Het was niet mogelijk on de \"header list\" te aktiveren. Dit komt door een ontbrekend "
+"bestand of een beschadigde mediadrager.  Geef <return> "
 "om opnieuw te proberen."
 
 #: ../packages.py:664
@@ -2052,17 +2051,15 @@ msgstr "Er wordt nu getracht de VESA-driver van de X-server op te starten."
 
 #: ../xserver.py:180
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
-"Wachten op het opstarten van de X-server... logboek gevonden in /tmp/X.log\n"
+msgstr "Wachten op het opstarten van de X-server... logboek gevonden in /tmp/X.log\n"
 
 #: ../xserver.py:207
 msgid " X server started successfully."
 msgstr " X-server met succes opgestart."
 
 #: ../iw/account_gui.py:25
-#, fuzzy
 msgid "Set Root Password"
-msgstr "Root Wachtwoord"
+msgstr "Geef Root Wachtwoord"
 
 #: ../iw/account_gui.py:40
 msgid "Root password accepted."
@@ -2672,11 +2669,10 @@ msgid "Upgrade Examine"
 msgstr "Upgrade Onderzoek"
 
 #: ../iw/examine_gui.py:72
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system.  FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "De volgende apparaten zijn op uw systeem gevonden:"
+msgstr "De volgende parities met een linux installatie zijn op uw systeem gevonden:"
 
 #: ../iw/examine_gui.py:91
 msgid "_Customize packages to be upgraded"
@@ -5553,11 +5549,10 @@ msgid "System to Upgrade"
 msgstr "Systeem om te upgraden"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system. FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "De volgende apparaten zijn op uw systeem gevonden:"
+msgstr "De volgende aankoppel punten met een Linux installatie zijn op uw systeem gevonden:"
 
 #: ../textw/upgrade_text.py:239
 msgid "Customize Packages to Upgrade"
@@ -5828,11 +5823,10 @@ msgid "X Customization"
 msgstr "X Configuratie"
 
 #: ../textw/xconfig_text.py:136
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
 msgstr ""
-"De kleurdiepte en de videomodus die u voor uw systeem wilt gebruiken. "
-"Gebruik de '%s'-knop om de videokaart-instellingen te testen."
+"Kies kleurdiepte en de videomodus die u voor uw systeem wilt gebruiken. "
+"."
 
 #: ../textw/xconfig_text.py:140
 msgid "Color Depth:"
@@ -6151,9 +6145,9 @@ msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Fout bij het lezen van de inhoud van het kickstart-bestand %s: %s"
 
 #: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Fout op regel %d van het kickstart-bestand %s."
+msgstr "Fout in %s (regel %d) van het kickstart-bestand %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
 #: ../loader2/loader.c:166
@@ -6863,55 +6857,50 @@ msgid "Loading SCSI driver"
 msgstr "SCSI driver wordt geladen"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"De %s CD werd niet in een van uw CDROM-stations gevonden. Voer alstublieft "
+"De %s CD werd niet in uw CDROM-station gevonden. Voer alstublieft "
 "de %s CD in en klik op %s om opnieuw te proberen."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
-msgstr "CD Gevonden"
+msgstr "CD Niet gevonden"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Aankoppelen driver-diskette mislukt"
+msgstr "Inlezen van de stuurprogramma diskette"
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Driver-diskette"
+msgstr "Bron voor een stuurprogramma diskette"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"U heeft meerdere netwerkapparaten op dit systeem. Welke wilt u gebruiken "
-"voor de installatie?"
+"U heeft meerdere apparaten die gebruikt kunnen worden voor het invoeren van extra "
+"stuurprogrammas. Welke wilt U gebruiken ?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "Voer uw driver-diskette in en geef \"OK\" om door te gaan."
+msgstr "Voer uw stuurprogramma-diskette in apparaat %s en geef \"OK\" om door te gaan."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Driver-diskette"
+msgstr "Voor de stuurprogramma diskette in"
 
 #: ../loader2/driverdisk.c:286
 msgid "Manually choose"
-msgstr ""
+msgstr "Kies handmatig"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "Een andere diskette inladen"
 
 #: ../loader2/driverdisk.c:288
 msgid ""
@@ -6919,159 +6908,152 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"Er zijn geen stuurprogrammas van een geschikt type gevonden op de stuurprogramma diskette. "
+"Wilt U handmatig een stuurprogramma selecteren, doorgaan of een andere diskette met "
+"stuurprogramma's proberen ?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"Deze module kan parameters meekrijgen die de werking beïnvloeden.  Als u "
+"Deze module (%s) kan parameters meekrijgen die de werking beïnvloeden.  Als u "
 "niet weet welke parameters u moet opgeven, kunt u dit scherm gewoon "
-"overslaan door nu op \"OK\" te klikken."
+"overslaan door nu op \"OK\" te klikken. Een lijst met beschikbare parameters kan verkregen "
+"worden via de F1 funktie toets."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Module-parameters"
+msgstr "Module-parameters ingeven"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Welke driver zal ik proberen? Als de benodigde driver niet in de lijst "
+"Welk stuurprogramma zal ik proberen? Als de benodigde driver niet in de lijst "
 "voorkomt, en u heeft een aparte driver-diskette, druk dan op F2."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Module-parameters opgeven"
+msgstr "Optionele Module-parameters opgeven"
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "Kies een station waar fdasd op uitgevoerd moet worden."
+msgstr "Kies een stuurprogramma "
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "foutief argument om netwerkopdracht %s op te starten: %s"
+msgstr "foutief argument voor harde schijf kickstart: %s: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Fout bij openen: kickstart-bestand %s: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
 msgstr "Updates Diskette"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"U heeft meerdere netwerkapparaten op dit systeem. Welke wilt u gebruiken "
+"U heeft meerdere apparaten op dit systeem die voor stuurprogramma diskettes gebruikt kunnen worden: . Welke wilt u gebruiken "
 "voor de installatie?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "Voer uw updates-diskette in en klik op \"OK\" om door te gaan."
+msgstr "Voer uw updates-diskette in apparaat %s en klik op \"OK\" om door te gaan."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Aankoppelen driver-diskette mislukt"
+msgstr "Aankoppelen update-diskette mislukt"
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
-"Er zijn geen harde schijven gevonden. U moet waarschijnlijk handmatig device-"
-"drivers kiezen om door te kunnen gaan met de installatie. Wilt u nu drivers "
+"Er zijn geen harde schijven gevonden. U moet waarschijnlijk handmatig stuurprogramma's"
+"kiezen om door te kunnen gaan met de installatie. Wilt u nu stuurprogramma's "
 "selecteren?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "Geen stations gevonden"
+msgstr "Geen stuurprogramma's gevonden"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "Kies een station waar fdasd op uitgevoerd moet worden."
+msgstr "Kies stuurprogramma"
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Heeft u een driver-diskette?"
+msgstr "Heeft u een stuurprogramma diskette?"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"Er zijn geen apparaten gevonden die voor dit installatie type nodig zijn. "
+"Wilt U handmatig een stuurprogramma kiezen of een diskette met stuurprogramma's invoeren?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "Verzoek om IP-informatie wordt verzonden..."
+msgstr "Verzoek om IP-informatie wordt verzonden voor %s"
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr "foutief argument om netwerkopdracht %s op te starten: %s"
+msgstr "foutief argument voor het kickstart commando: %s: %s"
 
 #: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "De %s installatie bestanden in de folder komen niet overeen met de versie van de opstart bestanden"
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Die map bevat kennelijk geen Red Hat installatie-boom."
+msgstr "Die map bevat kennelijk geen %s Red Hat installatie-mappen"
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "Die map kon niet van de server worden aangekoppeld"
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "foutief argument om netwerkopdracht %s op te starten: %s"
+msgstr "foutief argument voor het NFS kickstart  commando: %s %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Niet in staat om het eerste instalatie-image binnen te halen"
+msgstr "Niet in staat om het  instalatie-image binnen te halen"
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "foutief argument om netwerkopdracht %s op te starten: %s"
+msgstr "foutief argument voor het URL kickstart commando: %s %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "U moet een --url argument meegeven voor de kickstart URL methode"
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Onbekende kaart"
+msgstr "Onbekende URL methode: %s"
 
 #. generated from zone.tab
 msgid "Acre"

@@ -80,7 +80,7 @@ msgstr "Í lagi"
 
 #: ../anaconda:474 ../anaconda:683
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Get ekki ræst vélbúnaðarþátt X."
 
 #: ../anaconda:491
 #, c-format
@@ -98,9 +98,9 @@ msgstr ""
 "textaham."
 
 #: ../anaconda:510
-#, fuzzy, c-format
+#, c-format
 msgid "Using mouse type: %s"
-msgstr "Nota þessa músartegund: "
+msgstr "Músartegund: %s"
 
 #: ../autopart.py:891
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -125,6 +125,9 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"Ræsisneiðin %s tilheyrir ekki BSD diskamerki. SRM mun ekki geta ræst af "
+"þessari disksneið.  Notaðu disksneið sem tilheyrir BSD diskmerki eða "
+"breyttu þessu tæki í BSD diskmerki."
 
 #: ../autopart.py:964
 #, python-format
@@ -133,6 +136,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"Ræsisneiðin %s tilheyrir ekki disk sem hefur nægjanlegt laust pláss fremst "
+"fyrir ræsistjórann.  Gaktu úr skugga um að það eru  að minnsta kosti 5MB "
+"laus fremst á disknum sem hefur /boot skráarkerfið"
 
 #: ../autopart.py:966
 #, python-format
@@ -140,6 +146,8 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Ræsisneiðin %s er ekki VFAT disksneið. EFI mun ekki geta ræst úr þessari "
+"sneið."
 
 #: ../autopart.py:969
 #, python-format
@@ -271,7 +279,6 @@ msgid "Warning"
 msgstr "Aðvörun"
 
 #: ../autopart.py:1297
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -286,10 +293,7 @@ msgstr ""
 "\n"
 "Handvirka sneiðingatólið Diskadrúídinn gerir þér kleyft að sneiða diskinn í "
 "gagnvirku umhverfi. Þú getur einnig stillt tegundir skráarkerfa, "
-"tengipunkta, stærðir og fleira í þessu handhæga og einfalda tóli.\n"
-"\n"
-"fdisk er hefðbundið tól með textaskilum sem er öflugast sneiðingatóla. Þó "
-"það sé ekki auðveldast í notkun eru tilfelli þar sem fdisk er nauðsynlegt."
+"tengipunkta, stærðir og fleira í þessu handhæga og einfalda tóli."
 
 #: ../autopart.py:1308
 msgid ""
@@ -736,12 +740,15 @@ msgid "Error!"
 msgstr "Villa!"
 
 #: ../gui.py:814
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
 "\n"
 "className = %s"
-msgstr "Villa kom upp við að ræsa upp undirhluta uppsetningarforritsins."
+msgstr ""
+"Villa kom upp við að ræsa upp undirhluta uppsetningarforritsins.\n"
+"\n"
+"className = %s"
 
 #: ../gui.py:818 ../packages.py:1152 ../iw/congrats_gui.py:29
 msgid "_Exit"
@@ -897,21 +904,19 @@ msgid "Reading package information..."
 msgstr "Les upplýsingar um pakkana..."
 
 #: ../packages.py:129
-#, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
+"Get ekki lesið hausalistann. þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:143
-#, fuzzy
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
+"Get ekki lesið comps skrána. Þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:217
@@ -939,6 +944,11 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"Ekki var hægt að opna pakkann %s-%s-%s. Þetta orsakast af skrá sem vantar eða "
+"skemmds pakka. Ef þú ert að setja upp af geisladisk þýðir þetta oftast að hann "
+"sé skemmdur eða að geisladrifið getur ekki lesið hann.\n"
+"\n"
+"Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:372
 msgid "Error Installing Package"
@@ -962,12 +972,11 @@ msgstr ""
 "Veldu Í lagi hnappinn til að endurræsa."
 
 #: ../packages.py:545
-#, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
 msgstr ""
-"Ekki er hægt að opna skrána %s. Þetta orsakast af skrá sem vantar, skemmdum "
+"Get ekki flutt inn hausalistann. Þetta orsakast af skrá sem vantar, skemmdum "
 "pakka eða ónýtum diski. Sláðu á <return> til að reyna aftur."
 
 #: ../packages.py:664
@@ -2002,9 +2011,8 @@ msgid " X server started successfully."
 msgstr " X þjónninn ræsti vandræðalaust."
 
 #: ../iw/account_gui.py:25
-#, fuzzy
 msgid "Set Root Password"
-msgstr "Rótarlykilorð"
+msgstr "Setja rótarlykilorðið"
 
 #: ../iw/account_gui.py:40
 msgid "Root password accepted."
@@ -2596,11 +2604,11 @@ msgid "Upgrade Examine"
 msgstr "Skoða uppfærslu"
 
 #: ../iw/examine_gui.py:72
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system.  FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
+msgstr ""
+"Eftirfarandi rótarsneiðar hafa fundist í vélinni þinni. LAGAMIG: bla"
 
 #: ../iw/examine_gui.py:91
 msgid "_Customize packages to be upgraded"
@@ -5432,11 +5440,11 @@ msgid "System to Upgrade"
 msgstr "Kerfi sem á að uppfæra"
 
 #: ../textw/upgrade_text.py:204
-#, fuzzy
 msgid ""
 "The following root partitions have been found on your system. FIXME: I NEED "
 "BETTER TEXT HERE."
-msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
+msgstr ""
+"Eftirfarandi rótarsneiðar hafa fundist í vélinni þinni. LAGAMIG: blabla"
 
 #: ../textw/upgrade_text.py:239
 msgid "Customize Packages to Upgrade"
@@ -5704,11 +5712,8 @@ msgid "X Customization"
 msgstr "Stillingar X"
 
 #: ../textw/xconfig_text.py:136
-#, fuzzy
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni. Notaðu '%"
-"s' hnappinn til að prófa."
+msgstr "Veldu litadýptina og upplausnina sem þú villt nota á vélinni þinni."
 
 #: ../textw/xconfig_text.py:140
 msgid "Color Depth:"
@@ -6002,7 +6007,7 @@ msgstr "Gefðu upp viðföng kjarnarekla"
 #: ../loader/devices.c:453
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Gat ekki lesið inn eininguna %s."
+msgstr "Gat ekki lesið inn rekilinn %s."
 
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
 #: ../loader2/hdinstall.c:503 ../loader2/kickstart.c:97
@@ -6024,9 +6029,9 @@ msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Villa við lestur hraðuppsetningarskráar %s: %s"
 
 #: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
-#, fuzzy, c-format
+#, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr "Villa í línu %d í hraðuppsetningarskrá %s."
+msgstr "Villa í %s á línu %d í hraðuppsetningarskrá %s."
 
 #: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
 #: ../loader2/loader.c:166
@@ -6728,56 +6733,51 @@ msgid "Loading SCSI driver"
 msgstr "Les inn SCSI rekil"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"%s geisladiskurinn fannst ekki í neinu gf geisladrifunum þínum. Vinsamlegast "
+"%s geisladiskurinn sem passar við ræsidiskinn fannst ekki. Vinsamlegast "
 "settu %s geisladiskinn í viðeigandi drif og veldu %s til að reyna aftur."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
-msgstr "Geisladiskur fundinn"
+msgstr "Geisladiskur fanst ekki"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "Gat ekki tengt rekladisklinginn."
+msgstr "Les rekladiskinn."
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "Rekladisklingur"
+msgstr "Staðsetning rekladisk"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Þú hefur fleiri en eitt netkort í vélinni þinni. Hvert þeirra viltu nota við "
-"uppsetninguna?"
+"Þú hefur fleiri en eitt drif í vélinni þinni sem nota má fyrir rekladiskling. "
+"Hvert þeirra viltu nota við uppsetninguna?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Settu rekladisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
+"Settu rekladisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Rekladisklingur"
+msgstr "Settu rekladiskinn í drifið"
 
 #: ../loader2/driverdisk.c:286
 msgid "Manually choose"
-msgstr ""
+msgstr "Velja handvirkt"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "Setja annan disk í"
 
 #: ../loader2/driverdisk.c:288
 msgid ""
@@ -6785,80 +6785,74 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"Engin tæki af réttri tegund fundust á þessum rekladisk. Viltu velja rekil "
+"handvirkt, halda áfram eða lesa inn annann rekladisk?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"Þessi kjarnarekill getur tekið við viðföngum sem hafa áhrif á hvernig hann "
-"vinnur. Ef þú veist ekki hvaða viðföng á að nota getur þú sleppt þessum skjá "
-"með því að velja \"Í lagi\" hnappinn."
+"Vinsamlegast sláðu inn hér þau viðföng sem þú vilt hafa með %s reklinum "
+"aðskilin með orðabilum. Ef þú veist ekki hvaða viðföng á að nota getur þú "
+"sleppt þessum skjá með því að velja \"Í lagi\" hnappinn. Þú getur fengið "
+"lista yfir þekkt viðföng með því að slá á F1 hnappinn."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Viðföng kjarnarekla"
+msgstr "Skáðu inn viðföng kjarnarekla"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"Hvaða rekil viltu reyna?. Ef rekillinn sem þú þarft er ekki á þessum lista "
+"Hvaða rekil viltu reyna? Ef rekillinn sem þú þarft er ekki á þessum lista "
 "og þú ert með sérstakann rekladiskling veldu þá F2."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "Gefðu upp viðföng kjarnarekla"
+msgstr "Gefðu upp viðföng kjarnarekla ef þarf"
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "Veldu disk til að keyra fdasd á"
+msgstr "Veldu rekil til að lesa inn"
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
+msgstr "Óleyfilegt viðfang við HD skipun hraðuppsetningar %s: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "Villa við opnun: hraðuppsetningarskrá %s: %s"
+msgstr "Villa við opnun hraðuppsetningarskrár %s: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Uppfærsludiskur"
+msgstr "Staðsetning uppfærsludisks"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"Þú hefur fleiri en eitt netkort í vélinni þinni. Hvert þeirra viltu nota við "
-"uppsetninguna?"
+"Þú hefur fleiri en eitt tæki í vélinni þinni sem gætu hentað fyrir uppfærsludisk.  "
+"Hvert þeirra viltu nota?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
+msgstr "Settu uppfærsludisklinginn í /dev/%s og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Gat ekki tengt rekladisklinginn."
+msgstr "Gat ekki tengt uppfærsludisklinginn"
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6868,33 +6862,32 @@ msgstr ""
 "handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá núna ?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "Engin drif fundust"
+msgstr "Engin rekill fannst"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "Veldu disk til að keyra fdasd á"
+msgstr "Veldu rekil"
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Ertu með rekladiskling?"
+msgstr "Nota rekladisklin?"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"Engin tæki fundust til að framkvæma þessa tegund af uppsetningu.  "
+"Viltu velja rekil handvirkt eða nota rekladiskling?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "Sendi beiðni um IP stillingar..."
+msgstr "Sendi beiðni um IP stillingar fyrir %s"
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
 
@@ -6904,40 +6897,39 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
+"%s uppsetningartréið í þessari möppu virðist ekki passa við ræsidisklinginn "
+"þinn."
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
+msgstr "Þetta skráakerfi virðist ekki innihalda %s uppsetningartré."
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
-msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
+msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum."
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
+msgstr "óleyfilegt viðfang við NFS skipun hraðuppsetningar %s: %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
+msgstr "Get ekki sótt uppsetningardiskmyndina"
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
+msgstr "óleyfilegt viðfang við Url skipun hraðuppsetningar %s: %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Þú verður að gefa upp --url viðfangið við Url hraðuppsetningaraðferðina."
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "Óþekkt kort"
+msgstr "Óþekkt Url skipun %s"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -7652,112 +7644,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "Unable to probe"
-#~ msgstr "Get ekki leitað"
-
-#~ msgid "Probing for video card:   "
-#~ msgstr "Leita að skjákorti:   "
-
-#~ msgid "Probing for video card:   %s"
-#~ msgstr "Leita að skjákorti:       %s"
-
-#~ msgid "Probing for monitor type: "
-#~ msgstr "Leita að skjá: "
-
-#~ msgid "Probing for monitor type: %s"
-#~ msgstr "Leita að skjá:            %s"
-
-#~ msgid "Probing for mouse type:   "
-#~ msgstr "Leita að tegund músar:   "
-
-#~ msgid "Probing for mouse type:   %s"
-#~ msgstr "Leita að tegund músar:    %s"
-
-#~ msgid "Skipping mouse probe."
-#~ msgstr "Sleppi músarleit."
-
-#~ msgid "DISPLAY variable not set. Starting text mode!"
-#~ msgstr "DISPLAY breytan er ekki skilgreind. Ræsi í textaham!"
-
-#~ msgid "Account Configuration"
-#~ msgstr "Stillingar notanda"
-
-#~ msgid "User password accepted."
-#~ msgstr "Lykilorð notanda móttekið."
-
-#~ msgid "Root account can not be added here."
-#~ msgstr "Það er ekki hægt að búa til rótarnotandann hér."
-
-#~ msgid "System accounts can not be added here."
-#~ msgstr "Það er ekki hægt að búa til kerfisnotendur hér."
-
-#~ msgid "Please enter user password."
-#~ msgstr "Vinsamlegast sláðu inn aðgangsorð notandans."
-
-#~ msgid "User password is too short."
-#~ msgstr "Lykilorðið er of stutt."
-
-#~ msgid "User passwords do not match."
-#~ msgstr "Lykilorðin stemma ekki."
-
-#~ msgid "Add a New User"
-#~ msgstr "Bæta við nýjum notanda"
-
-#~ msgid "Add a User Account"
-#~ msgstr "Búa til notanda"
-
-#~ msgid "Enter a user _name:"
-#~ msgstr "Vinsamlegast sláðu inn _notandanafn:"
-
-#~ msgid "Enter a user _password:"
-#~ msgstr "Vinsamlegast sláðu inn _aðgangsorð:"
-
-#~ msgid "Pass_word (confirm):"
-#~ msgstr "Lykil_orð (staðfesta):"
-
-#~ msgid "_Full Name:"
-#~ msgstr "_Fullt nafn:"
-
-#~ msgid "Please enter user name"
-#~ msgstr "Vinsamlegast sláðu inn notandanafn"
-
-#~ msgid "Account Name"
-#~ msgstr "Notandanafn"
-
-#~ msgid ""
-#~ "It is recommended that you create a personal account for normal (non-"
-#~ "administrative) use. Accounts can also be created for additional users."
-#~ msgstr ""
-#~ "Við mælum með því að þú búir til notanda fyrir þig (sem er ekki til "
-#~ "kerfisstjórnunar). Þú getur líka búið til notandaaðganga fyrir fleiri "
-#~ "notendur."
-
-#~ msgid ""
-#~ "You don't have any Linux partitions.\n"
-#~ "You can't upgrade this sytem!"
-#~ msgstr ""
-#~ "Þú ert ekki með neinar Linux disksneiðar.\n"
-#~ "Þú getur ekki uppfært þessa vél!"
-
-#~ msgid "Please select the device containing the root filesystem: "
-#~ msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
-
-#~ msgid "Upgrading the %s installation on partition /dev/%s"
-#~ msgstr "Uppfæri %s kerfið á disksneið /dev/%s"
-
-#~ msgid "Manually partition with _fdisk (experts only)"
-#~ msgstr "Sneiða handvirkt með _fdisk (fyrir sérfræðinga)"
-
-#~ msgid "   _Test Setting   "
-#~ msgstr " _Prófa stillingar "
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
-#~ msgstr ""
-#~ "Þú ert ekki með neinar Linux disksneiðar. Það er ekki hægt að uppfæra!"
-
-#~ msgid "Upgrade Partition"
-#~ msgstr "Uppfæra disksneið"

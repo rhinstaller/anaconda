@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ko\n"
 "POT-Creation-Date: 2002-12-11 12:29-0500\n"
-"PO-Revision-Date: 2002-12-05 15:54+1000\n"
+"PO-Revision-Date: 2002-12-12 10:07+1000\n"
 "Last-Translator: Michelle Kim <mkim@redhat.com>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -83,10 +83,8 @@ msgstr "X 하드웨어 상태 객체를 인스턴스화하지 못했습니다."
 
 #: ../anaconda:491
 #, c-format
-msgid ""
-"Graphical installation not available for %s installs.  Starting text mode."
-msgstr ""
-"그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
+msgid "Graphical installation not available for %s installs.  Starting text mode."
+msgstr "그래픽 모드 설치로는 %s (을)를 설치할 수 없습니다.  텍스트 모드로 설치합니다."
 
 #: ../anaconda:505
 msgid ""
@@ -814,8 +812,7 @@ msgstr "설치 화면"
 #: ../harddrive.py:209
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
-"#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
+msgstr "#%d 번 CD를 찾을 수 없습니다. 설치를 위해서는 반드시 이 CD가 필요합니다."
 
 #: ../image.py:69
 #, python-format
@@ -1441,8 +1438,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
+msgstr "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
 #: ../partIntfHelpers.py:458
 msgid ""
@@ -1490,8 +1486,7 @@ msgid "Confirm Reset"
 msgstr "재설정 확인"
 
 #: ../partIntfHelpers.py:536
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "확실히 이 파티션 정보를 초기의 상태로 재설정 하시겠습니까?"
 
 #: ../partitioning.py:83
@@ -1540,8 +1535,7 @@ msgstr ""
 "설정된 용량이 너무 적습니다."
 
 #: ../partitions.py:749
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "반드시 FAT 유형의 /boot/efi 파티션을 생성해야 하며, 용량은 50 MB 이어야 합니"
 "다."
@@ -1604,8 +1598,7 @@ msgstr "LVM 볼륨 그룹의 요소(Member) 파티션 입니다."
 
 #: ../partRequests.py:215
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "마운트할 지점이 올바르지 않습니다.   %s 디렉토리는 반드시 루트(/) 파일시스템 "
 "상에 위치해야 합니다."
@@ -1619,8 +1612,7 @@ msgstr "이 마운트할 지점은 반드시 리눅스 파일시스템 상에 �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr "\"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../partRequests.py:249
 #, python-format
@@ -1651,14 +1643,12 @@ msgstr "파티션은 절대 실린더 값 밖에서 끝날 수 없습니다."
 
 #: ../partRequests.py:610
 msgid "No members in RAID request, or not RAID level specified."
-msgstr ""
-"RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
+msgstr "RAID 요소(member)가 구성되지 않았거나, RAID 레벨이 지정되지 않았습니다."
 
 #: ../partRequests.py:622
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
-"%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
+msgstr "%s 유형의 RAID 장치는 최소한 %s 정도의 요소(member)로 구성되어야 합니다."
 
 #: ../partRequests.py:628
 #, python-format
@@ -1818,17 +1808,14 @@ msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
 #: ../text.py:339
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-"     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr "     <F1> 도움말  |  <Tab> 항목 이동  |  <Space> 선택  |  <F12> 다음 화면"
 
 #: ../text.py:341
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../text.py:439
 msgid "Cancelled"
@@ -2880,8 +2867,7 @@ msgstr "부적절한 용량"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
+msgstr "여러분이 입력하신 값은 0 이하의 부적절한 숫자이므로 사용될 수 없습니다."
 
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
@@ -2890,8 +2876,7 @@ msgstr "마운트 지점이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-" \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
+msgstr " \"%s\" 마운트 지점은 이미 사용되고 있습니다. 다른 곳으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -2904,8 +2889,7 @@ msgstr "부적절한 논리 볼륨명"
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr ""
-" \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr " \"%s\" 논리 볼륨명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -2973,8 +2957,7 @@ msgstr "이름이 사용되고 있습니다."
 #: ../iw/lvm_dialog_gui.py:861
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
+msgstr "\"%s\" 볼륨 그룹명은 이미 사용되고 있습니다. 다른 이름으로 지정해 주십시오."
 
 #: ../iw/lvm_dialog_gui.py:905
 msgid "Not enough physical volumes"
@@ -3547,16 +3530,14 @@ msgid "Partitioning"
 msgstr "파티션 설정"
 
 #: ../iw/partition_gui.py:625
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "여러분이 요청하신 파티션 설정 내용에서 다음과 같은 중대한 오류가 발생하였습니"
 "다."
 
 #: ../iw/partition_gui.py:628
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "%s를 설치하기에 앞서 현재 발생된 오류의 문제점을 모두 해결해 주시기 바랍니"
 "다. "
@@ -3567,8 +3548,7 @@ msgstr "파티션 설정의 오류"
 
 #: ../iw/partition_gui.py:640
 msgid "The following warnings exist with your requested partition scheme."
-msgstr ""
-"여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
+msgstr "여러분이 요청하신 파티션 설정 내용에 다음과 같은 주의할 사항이 있습니다."
 
 #: ../iw/partition_gui.py:642
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4157,10 +4137,8 @@ msgstr "이것은 현재의 부트 로더를 업데이트 시킬 것입니다."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "설치 프로그램이  %s부트 로더가 현재 %s에 설치되어있는 것을 발견했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4170,8 +4148,7 @@ msgstr "이 옵션을 사용하시길 권장합니다."
 msgid ""
 "The installer is unable to detect the boot loader currently in use on your "
 "system."
-msgstr ""
-"설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
+msgstr "설치 프로그램이 시스템상 현재 사용되고 있는 부트 로더를 찾는데 실패했습니다."
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
@@ -4294,8 +4271,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "스왑 파일은 '2 GB' 용량 내에서 지정해 주셔야 합니다."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "여러분이 선택하신 장치에 스왑 파티션을 생성하기에는 공간이 부족합니다."
 
 #: ../iw/welcome_gui.py:20
@@ -4605,8 +4581,7 @@ msgstr ""
 "정해 주십시오."
 
 #: ../textw/bootloader_text.py:309
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> 는 버튼 선택 | <F2> 는 기본 부트 엔트리 선택 | <F12> 는 다음 화면으"
 "로 가기>"
@@ -5056,8 +5031,7 @@ msgid "Total size"
 msgstr "총 용량"
 
 #: ../textw/packages_text.py:245
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "        <Space>,<+>,<-> 선택   |   <F1> 도움말   |   <F2> 패키지 정보"
 
 #: ../textw/packages_text.py:293
@@ -5282,20 +5256,16 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1123
-msgid ""
-"    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말                 F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말                 F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1125
 msgid "New"
 msgstr "새로생성"
 
 #: ../textw/partition_text.py:1131
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "     F1-도움말   F2-새로생성   F3-편집   F4-삭제   F5-재설정   F12-확인      "
 
 #: ../textw/partition_text.py:1160
 msgid "No Root Partition"
@@ -5545,15 +5515,13 @@ msgid "User Exists"
 msgstr "사용자가 존재함"
 
 #: ../textw/userauth_text.py:144
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Root 사용자는 이미 설정되어 있습니다. Root 사용자를 이곳에 추가하실 필요는 없"
 "습니다."
 
 #: ../textw/userauth_text.py:151
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "이 시스템 사용자는 이미 설정되어 있습니다. 이사용자를 이곳에 추가하실 필요는 "
 "없습니다."
@@ -6034,10 +6002,8 @@ msgstr "%s에 오신것을 환영합니다 "
 
 #: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:50
 #: ../loader2/loader.c:172
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/lang.c:305 ../loader2/lang.c:260
 msgid "Choose a Language"
@@ -6258,8 +6224,7 @@ msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
 
 #: ../loader/loader.c:1857
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
-"FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
+msgstr "FTP 와 HTTP 를 통해 설치하시려면, 최소한 '20 MB' 이상의 메모리가 필요합니다."
 
 #: ../loader/loader.c:2091 ../loader2/loader.c:637
 msgid "Rescue Method"
@@ -6345,8 +6310,7 @@ msgstr ""
 #: ../loader/loader.c:3950 ../loader2/loader.c:1078
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
+msgstr "%s 시스템 설치 프로그램인 anaconda를 실행 중 - 잠시만 기다려 주십시오...\n"
 
 #: ../loader/mediacheck.c:256 ../loader2/mediacheck.c:256
 msgid ""
@@ -6579,8 +6543,7 @@ msgstr "DNS 검색 사용하지 않음"
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr ""
-"      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
+msgstr "      <Tab>/<Alt-Tab> 항목 이동   |   <Space> 선택   |   <F12> 다음 화면"
 
 #: ../loader/net.c:905
 #, c-format
@@ -6724,55 +6687,50 @@ msgid "Loading SCSI driver"
 msgstr "SCSI 드라이버 로딩 중"
 
 #: ../loader2/cdinstall.c:331
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"여러분의 CDROM 드라이브에서 %s CD를 찾을 수 없습니다.%s CD를 넣고 %s를 눌러 "
+"여러분의 부팅 메체에 적합한 %s CD를 찾을 수 없습니다.  %s CD를 넣고 %s를 눌러 "
 "다시 시도해 주십시오."
 
 #: ../loader2/cdinstall.c:341
-#, fuzzy
 msgid "CD Not Found"
-msgstr "드라이브를 찾았습니다"
+msgstr "CD를 찾을 수 없습니다"
 
 #: ../loader2/driverdisk.c:88
-#, fuzzy
 msgid "Reading driver disk"
-msgstr "드라이버 디스켓을 마운트하는데 실패했습니다."
+msgstr "드라이버 디스켓을 읽는 중입니다."
 
 #: ../loader2/driverdisk.c:193
-#, fuzzy
 msgid "Driver Disk Source"
-msgstr "드라이버 디스켓"
+msgstr "드라이버 디스켓 소스"
 
 #: ../loader2/driverdisk.c:194
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치를 "
-"통해 설치하시겠습니까?"
+"여러분의 시스템에서 하나 이상의 드라이버 디스켓 소스를 발견했습니다. "
+"어떤 장치를 사용하시겠습니까?"
 
 #: ../loader2/driverdisk.c:212
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr "드라이버 디스켓을 넣으신 후 [확인] 버튼을 눌러주십시오."
+msgstr "드라이버 디스켓을 /dev/%s에 넣으신 후 \"확인\" 버튼을 눌러주십시오."
 
 #: ../loader2/driverdisk.c:214
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "드라이버 디스켓"
+msgstr "드라이버 디스켓을 넣어 주십시오."
 
 #: ../loader2/driverdisk.c:286
 msgid "Manually choose"
-msgstr ""
+msgstr "직접 선택"
 
 #: ../loader2/driverdisk.c:287
 msgid "Load another disk"
-msgstr ""
+msgstr "다른 디스켓을 읽어 들입니다."
 
 #: ../loader2/driverdisk.c:288
 msgid ""
@@ -6780,79 +6738,76 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+"이 드라이브 디스켓에서 적절한 유형의 장치를 찾지 못했습니다.  "
+"직접 드라이브를 선택하시거나 상관없이 계속 진행하시겠습니까? 또는 "
+"다른 드라이버 디스켓을 읽어들이는 방법을 선택하시겠습니까?"
 
 #: ../loader2/driverselect.c:59
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
 msgstr ""
-"이 모듈에 필요한 매개변수 값을 설정하실 수 있습니다. 매개변수로 전달할 값을 "
-"정확히 모르신다면, 지금 [확인] 버튼을 눌러 다음 화면으로 진행해 주십시오."
+"%s 모듈에 전달할 매개변수 값을 빈 공간으로 구분하여 입력해 주십시오.  "
+"매개변수로 전달할 값을 정확히 모르신다면, 지금 \"확인\" 버튼을 눌러 "
+"다음 화면으로 진행하시기 바랍니다.  사용 가능한 옵션을 보시려면 "
+"F1 키를 누르시면 됩니다."
 
 #: ../loader2/driverselect.c:82
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "모듈 매개변수"
+msgstr "모듈 매개변수를 입력해 주십시오"
 
 #: ../loader2/driverselect.c:191
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
-"어떤 드라이버를 사용하시겠습니까? 여러분에게 필요한 드라이버가 이 목록에는 없"
-"는 것 같습니다. 만일, 별도의 드라이버 디스켓을 갖고 계시다면, [F2] 키를 누르"
-"십시오."
+"아래에서 사용하실 드라이버를 선택해 주십시오.  여러분에게 필요한 "
+"드라이버가 이 목록에는 없는 경우 별도의 드라이버 디스켓을 가지고 계시다면, "
+"F2를 누르십시오."
 
 #: ../loader2/driverselect.c:199
-#, fuzzy
 msgid "Specify optional module arguments"
-msgstr "모듈 매개변수 지정"
+msgstr "옵션인 모듈 인자를 지정해 주십시오."
 
 #: ../loader2/driverselect.c:219
-#, fuzzy
 msgid "Select Device Driver to Load"
-msgstr "fdasd를 실행할 드라이브를 선택해 주십시오."
+msgstr "실행할 장치 드라이버를 선택해 주십시오."
 
 #: ../loader2/hdinstall.c:504
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
+msgstr "HD 킥스타트 방식 명령 %s에 잘못된 인수 값이 지정되었습니다: %s"
 
 #: ../loader2/kickstart.c:98
-#, fuzzy, c-format
+#, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr "킥스타트 파일 %s (을)를 여는 도중 오류가 발생되었습니다: %s"
+msgstr "%s 킥스타트 파일을 여는 도중 오류가 발생했습니다: %s"
 
 #: ../loader2/loader.c:245
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "업데이트 디스켓"
+msgstr "업데이트 디스켓 소스"
 
 #: ../loader2/loader.c:246
-#, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
-"여러분의 시스템에서 하나 이상의 네트워크 장치가 발견되었습니다. 어떤 장치를 "
-"통해 설치하시겠습니까?"
+"업데이트 디스켓 소스로 사용 가능한 장치가 한 개 이상 발견되었습니다. "
+"어떤 장치를 사용하시겠습니까?"
 
 #: ../loader2/loader.c:260
-#, fuzzy, c-format
+#, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr "업데이트 디스켓을 넣으신 후, [확인] 버튼을 눌러주십시오."
+msgstr "업데이트 디스켓을 /dev/%s에 넣으신 후, \"확인\" 버튼을 눌러주십시오."
 
 #: ../loader2/loader.c:274
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "드라이버 디스켓을 마운트하는데 실패했습니다."
+msgstr "업데이트 디스켓을 마운트하는데 실패했습니다."
 
 #: ../loader2/loader.c:299
-#, fuzzy
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -6862,33 +6817,32 @@ msgstr ""
 "치 드라이버를 선택하셔야 합니다. 드라이버를 지금 선택하시겠습니까?"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "No driver found"
-msgstr "드라이브를 찾을 수 없음"
+msgstr "드라이버를 찾을 수 없음"
 
 #: ../loader2/loader.c:672
-#, fuzzy
 msgid "Select driver"
-msgstr "fdasd를 실행할 드라이브를 선택해 주십시오."
+msgstr "드라이버를 선택해 주십시오."
 
 #: ../loader2/loader.c:673
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "드라이버 디스켓을 갖고 계십니까?"
+msgstr "드라이버 디스켓을 사용"
 
 #: ../loader2/loader.c:674
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"이 설치 타입에 필요한 장치 유형에 맞는 장치를 찾을 수 없습니다.  "
+"직접 드라이버를 선택하시겠습니까? 아니면 드라이버 디스켓을 사용할까요?"
 
 #: ../loader2/net.c:189
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s"
-msgstr "IP 주소를 요청하고 있습니다..."
+msgstr "%s에 데힌 IP 정보를 요청하고 있습니다."
 
 #: ../loader2/net.c:638
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
 
@@ -6897,41 +6851,39 @@ msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정�
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
-msgstr ""
+msgstr "해당 디렉토리에서 %s 설치에 사용될 경로가 여러분의 부팅 메체와 일치하지 않습니다."
 
 #: ../loader2/nfsinstall.c:213
-#, fuzzy, c-format
+#, c-format
 msgid "That directory does not seem to contain a %s installation tree."
 msgstr "해당 디렉토리에서 %s 설치에 관련된 파일을 찾을 수 없습니다."
 
 #: ../loader2/nfsinstall.c:220
-#, fuzzy
 msgid "That directory could not be mounted from the server."
 msgstr "서버의 해당 디렉토리를 마운트할 수 없습니다 "
 
 #: ../loader2/nfsinstall.c:258
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
+msgstr "NFS 킥스타트 방식 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
 
 #: ../loader2/urlinstall.c:96
-#, fuzzy
 msgid "Unable to retrieve the install image."
-msgstr "첫번째 설치 이미지를 읽어올 수 없습니다"
+msgstr "설치 이미지를 읽어올 수 없습니다"
 
 #: ../loader2/urlinstall.c:386
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr "킥스타트 네트워크 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
+msgstr "Url 킥스타트 방식 명령 %s 에 잘못된 인수 값이 지정되었습니다: %s"
 
 #: ../loader2/urlinstall.c:395
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Url 킥스타트 방식 명령에 --url 인자를 지정하셔야 합니다."
 
 #: ../loader2/urlinstall.c:406
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown Url method %s"
-msgstr "알 수 없는 카드"
+msgstr "알 수 없는 Url 방식 %s"
 
 #. generated from zone.tab
 msgid "Acre"
@@ -6982,10 +6934,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "대서양 시간 - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "대서양 시간 - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7164,8 +7114,7 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "동부시 - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "동부시 - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
@@ -7341,10 +7290,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8377,3 +8324,4 @@ msgstr "우크라니아어"
 
 #~ msgid "Portuguese(Brasilian) pt"
 #~ msgstr "포루투칼어(브리질) pt"
+
