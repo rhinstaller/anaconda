@@ -30,6 +30,7 @@ import sys
 import string
 import iutil
 import partedUtils
+import raid
 from translate import _
 from log import log
 from constants import *
@@ -125,9 +126,9 @@ def get_available_raid_partitions(diskset, requests, request):
                     break
 
             if not used:
-                rc.append((partname, getPartSizeMB(part), 0))
+                rc.append((partname, partedUtils.getPartSizeMB(part), 0))
             elif used == 2:
-                rc.append((partname, getPartSizeMB(part), 1))
+                rc.append((partname, partedUtils.getPartSizeMB(part), 1))
     return rc
 
 # returns a list of tuples of lvm partitions which can be used or are used
@@ -155,9 +156,9 @@ def get_available_lvm_partitions(diskset, requests, request):
 		    break
 
 	    if used == 0:
-		rc.append((partname, getPartSizeMB(part), 0))
+		rc.append((partname, partedUtils.getPartSizeMB(part), 0))
             elif used == 2:
-                rc.append((partname, getPartSizeMB(part), 1))
+                rc.append((partname, partedUtils.getPartSizeMB(part), 1))
     return rc
 
 def get_lvm_volume_group_size(request, requests, diskset):
@@ -173,54 +174,6 @@ def get_lvm_volume_group_size(request, requests, diskset):
 
 	return totalspace
     
-# set of functions to determine if the given level is RAIDX or X
-def isRaid5(raidlevel):
-    if raidlevel == "RAID5":
-        return 1
-    elif raidlevel == 5:
-        return 1
-    elif raidlevel == "5":
-        return 1
-    return 0
-
-def isRaid1(raidlevel):
-    if raidlevel == "RAID1":
-        return 1
-    elif raidlevel == 1:
-        return 1
-    elif raidlevel == "1":
-        return 1
-    return 0
-
-def isRaid0(raidlevel):
-    if raidlevel == "RAID0":
-        return 1
-    elif raidlevel == 0:
-        return 1
-    elif raidlevel == "0":
-        return 1
-    return 0
-
-
-# return minimum numer of raid members required for a raid level
-def get_raid_min_members(raidlevel):
-    if isRaid0(raidlevel):
-        return 2
-    elif isRaid1(raidlevel):
-        return 2
-    elif isRaid5(raidlevel):
-        return 3
-    else:
-        raise ValueError, "invalid raidlevel in get_raid_min_members"
-
-# return max num of spares available for raidlevel and total num of members
-def get_raid_max_spares(raidlevel, nummembers):
-    if isRaid0(raidlevel):
-        return 0
-    elif isRaid1(raidlevel) or isRaid5(raidlevel):
-        return max(0, nummembers - get_raid_min_members(raidlevel))
-    else:
-        raise ValueError, "invalid raidlevel in get_raid_max_spares"
 
 def get_raid_device_size(raidrequest, partitions, diskset):
     if not raidrequest.raidmembers or not raidrequest.raidlevel:
@@ -236,7 +189,7 @@ def get_raid_device_size(raidrequest, partitions, diskset):
         part = partedUtils.get_partition_by_name(diskset.disks, device)
         partsize =  part.geom.length * part.geom.disk.dev.sector_size
 
-        if isRaid0(raidlevel):
+        if raid.isRaid0(raidlevel):
             sum = sum + partsize
         else:
             if not smallest:
@@ -244,11 +197,11 @@ def get_raid_device_size(raidrequest, partitions, diskset):
             elif partsize < smallest:
                 smallest = partsize
 
-    if isRaid0(raidlevel):
+    if raid.isRaid0(raidlevel):
         return sum
-    elif isRaid1(raidlevel):
+    elif raid.isRaid1(raidlevel):
         return smallest
-    elif isRaid5(raidlevel):
+    elif raid.isRaid5(raidlevel):
         return (nummembers-1) * smallest
     else:
         raise ValueError, "Invalid raidlevel in get_raid_device_size()"
@@ -503,10 +456,10 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     if not bootreq and newraid.mountpoint:
         # XXX 390 can't have boot on raid
         if ((newraid.mountpoint == "/boot" or newraid.mountpoint == "/")
-            and not isRaid1(newraid.raidlevel)):
+            and not raid.isRaid1(newraid.raidlevel)):
             return _("Bootable partitions can only be on RAID1 devices.")
 
-    minmembers = get_raid_min_members(newraid.raidlevel)
+    minmembers = raid.get_raid_min_members(newraid.raidlevel)
     if len(newraid.raidmembers) < minmembers:
         return _("A RAID device of type %s "
                  "requires at least %s members.") % (newraid.raidlevel,
@@ -599,7 +552,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     bootreq = requests.getBootableRequest()
     # XXX 390 can't have boot on RAID
     if (bootreq and (bootreq.type == REQUEST_RAID) and
-        (not isRaid1(bootreq.raidlevel))):
+        (not raid.isRaid1(bootreq.raidlevel))):
         errors.append(_("Bootable partitions can only be on RAID1 devices."))
 
     # can't have bootable partition on LV
@@ -664,7 +617,7 @@ def deleteAllLogicalPartitions(part, requests):
         request = requests.getRequestByDeviceName(partedUtils.get_partition_name(partition))
         requests.removeRequest(request)
         if request.type == REQUEST_PREEXIST:
-            drive = get_partition_drive(partition)
+            drive = partedUtils.get_partition_drive(partition)
             delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
             requests.addDelete(delete)
 
@@ -1879,7 +1832,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         return 0
 
     if iutil.getArch() == "s390" and type(partition) != type("RAID"):
-	self.intf.messageWindow(_("Error"),
+	intf.messageWindow(_("Error"),
 				_("DASD partitions can only be deleted "
 				  "with fdasd"))
 	return

@@ -7,6 +7,7 @@ from autopart import *
 from fsset import *
 from flags import flags
 import sys
+import raid
 import string
 
 class Script:
@@ -647,11 +648,11 @@ class KickstartBase(BaseInstallClass):
             raidmems.append(self.ksRaidMapping[member])
 
         # XXX this shouldn't have to happen =\
-        if isRaid0(level):
+        if raid.isRaid0(level):
             level = "RAID0"
-        elif isRaid1(level):
+        elif raid.isRaid1(level):
             level = "RAID1"
-        elif isRaid5(level):
+        elif raid.isRaid5(level):
             level = "RAID5"
 
         if not level:

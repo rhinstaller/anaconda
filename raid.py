@@ -4,7 +4,7 @@
 #
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -13,6 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
+"""Raid probing control."""
 
 import parted
 import isys
@@ -22,6 +23,12 @@ import partedUtils
 from log import log
 
 def scanForRaid(drives):
+    """Scans for raid devices on drives.
+
+    drives is a list of device names.
+    Returns a list of (mdMinor, devices, level, totalDisks) tuples.
+    """
+    
     raidSets = {}
     raidDevices = {}
 
@@ -88,6 +95,7 @@ def scanForRaid(drives):
     return raidList
 		
 def startAllRaid(driveList):
+    """Do a raid start on raid devices and return a list like scanForRaid."""
     rc = []
     mdList = scanForRaid(driveList)
     for mdDevice, deviceList, level, numActive in mdList:
@@ -97,5 +105,58 @@ def startAllRaid(driveList):
     return rc
 
 def stopAllRaid(mdList):
+    """Do a raid stop on each of the raid device tuples given."""
     for dev, devices, level, numActive in mdList:
 	isys.raidstop(dev)
+
+
+def isRaid5(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID5."""
+    if raidlevel == "RAID5":
+        return 1
+    elif raidlevel == 5:
+        return 1
+    elif raidlevel == "5":
+        return 1
+    return 0
+
+def isRaid1(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID1."""
+    if raidlevel == "RAID1":
+        return 1
+    elif raidlevel == 1:
+        return 1
+    elif raidlevel == "1":
+        return 1
+    return 0
+
+def isRaid0(raidlevel):
+    """Return whether raidlevel is a valid descriptor of RAID0."""
+    if raidlevel == "RAID0":
+        return 1
+    elif raidlevel == 0:
+        return 1
+    elif raidlevel == "0":
+        return 1
+    return 0
+
+def get_raid_min_members(raidlevel):
+    """Return the minimum number of raid members required for raid level"""
+    if isRaid0(raidlevel):
+        return 2
+    elif isRaid1(raidlevel):
+        return 2
+    elif isRaid5(raidlevel):
+        return 3
+    else:
+        raise ValueError, "invalid raidlevel in get_raid_min_members"
+
+def get_raid_max_spares(raidlevel, nummembers):
+    """Return the maximum number of raid spares for raidlevel."""
+    if isRaid0(raidlevel):
+        return 0
+    elif isRaid1(raidlevel) or isRaid5(raidlevel):
+        return max(0, nummembers - get_raid_min_members(raidlevel))
+    else:
+        raise ValueError, "invalid raidlevel in get_raid_max_spares"
+

@@ -25,6 +25,7 @@ import string
 import copy
 import types
 import checklist
+import raid
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
@@ -661,7 +662,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
 def raidlevelchangeCB(widget, sparesb):
     raidlevel = widget.get_data("level")
     numparts = sparesb.get_data("numparts")
-    maxspares = get_raid_max_spares(raidlevel, numparts)
+    maxspares = raid.get_raid_max_spares(raidlevel, numparts)
     if maxspares > 0 and raidlevel != "RAID0":
         sparesb.set_sensitive(1)
         adj = sparesb.get_adjustment()
@@ -821,9 +822,9 @@ class PartitionWindow(InstallWindow):
 # XXX this breaks when we try to refresh tree after a refresh
 #
 # XXX - this breaks self.refresh calls!!!	
-	    lvmparent = self.tree.append(None)
-	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
-#            lvmparent = None
+#	    lvmparent = self.tree.append(None)
+#	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+            lvmparent = None
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
@@ -858,9 +859,9 @@ class PartitionWindow(InstallWindow):
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
 # XXX - this breaks self.refresh calls!!!	
-	    raidparent = self.tree.append(None)
-	    self.tree[raidparent]['Device'] = _("RAID Devices")
-#            raidparent = None
+#	    raidparent = self.tree.append(None)
+#	    self.tree[raidparent]['Device'] = _("RAID Devices")
+            raidparent = None
             for request in raidrequests:
                 iter = self.tree.append(raidparent)
 
@@ -890,9 +891,9 @@ class PartitionWindow(InstallWindow):
                 
 	# now normal partitions
 # XXX - this breaks self.refresh calls!!!	
-	drvparent = self.tree.append(None)
-	self.tree[drvparent]['Device'] = _("Hard Drives")
-#	drvparent=None
+#	drvparent = self.tree.append(None)
+#	self.tree[drvparent]['Device'] = _("Hard Drives")
+	drvparent=None
         for drive in drives:
             disk = self.diskset.disks[drive]
 
@@ -1650,7 +1651,7 @@ class PartitionWindow(InstallWindow):
             nspares = 0
             
         if raidrequest.raidlevel:
-            maxspares = get_raid_max_spares(raidrequest.raidlevel, numparts)
+            maxspares = raid.get_raid_max_spares(raidrequest.raidlevel, numparts)
         else:
             maxspares = 0
 
