@@ -373,8 +373,8 @@ msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
-"Вставьте отформатированную дискету в первый дисковод. Все данные на этой при "
-"создании загрузочного диска будут уничтожены."
+"Вставьте отформатированную дискету в первый дисковод. Все данные на этой "
+"дискете при создании загрузочного диска будут уничтожены."
 
 #: ../text.py:563 ../text.py:564 ../text.py:575 ../text.py:576
 #: ../textw/lilo.py:20
@@ -386,7 +386,7 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Произошла ошибка при создании загрузочного диска. Убедитесь, что "
+"При создании загрузочного диска произошла ошибка. Убедитесь, что "
 "отформатированная дискета вставлена в первый дисковод."
 
 #: ../text.py:634
@@ -667,11 +667,11 @@ msgstr "Пропустить создание загрузочного диска"
 
 #: ../iw/confirm.py:10
 msgid "About to Install"
-msgstr ""
+msgstr "Начало инсталляции"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Нажмите \"Next\" для начала инсталляции Red Hat Linux."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -699,7 +699,7 @@ msgstr "Установить пакеты для удовлетворения зависимостей"
 
 #: ../iw/examine.py:10
 msgid "Upgrade Examine"
-msgstr ""
+msgstr "Обновление проверяет"
 
 #: ../iw/examine.py:34
 msgid ""
@@ -1074,7 +1074,7 @@ msgstr ""
 
 #: ../textw/lilo.py:63
 msgid "Where do you want to install the bootloader?"
-msgstr ""
+msgstr "Куда вы хотите установить начальный загрузчик?"
 
 #: ../textw/lilo.py:83 ../textw/lilo.py:104
 msgid "Clear"
@@ -1113,7 +1113,7 @@ msgstr ""
 
 #: ../textw/partitioning.py:18 ../textw/partitioning.py:57
 msgid "Disk Setup"
-msgstr ""
+msgstr "Разбиение диска"
 
 #: ../textw/partitioning.py:19
 msgid ""
@@ -1160,6 +1160,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Поскольку на вашей магине недостаточно ОЗУ, необходимо подключить "
+"пространство свопинга немедленно. Для этого нужно записать на диск вновь "
+"созданную таблицу разделов. Вы согласны?"
 
 #: ../textw/partitioning.py:162
 msgid ""
@@ -1245,6 +1248,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Для постоянной работы в системе вы должны создать учетную запись "
+"пользователя, отличного от root. Не работая под именем root постоянно, вы "
+"снизите риск случайного разрушения конфигурации системы."
 
 #: ../textw/userauth.py:152
 msgid ""
@@ -1252,6 +1258,9 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"какую учетную запись вы хотите иметь в системе? Для нормальной работы "
+"достаточно одной учетной записи, отличной от root, но многопользовательская "
+"система может иметь любое количество учетных записей."
 
 #: ../textw/userauth.py:162
 msgid "User name"
@@ -1259,11 +1268,11 @@ msgstr "Имя пользователя"
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Введите информацию о пользователе."
 
 #: ../textw/userauth.py:198
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Изменить информацию о пользователе"
 
 #: ../textw/userauth.py:249
 msgid "Use Shadow Passwords"
@@ -1568,7 +1577,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Устройство RAID не сконфигурировано"
 
 #: ../libfdisk/gnomefsedit.c:1081
 msgid ""
@@ -1576,6 +1585,9 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
+"Вы сконфигурировали раздел RAID, но не приписали его к единому устройству "
+"RAID.\n"
+" Вы уверены?"
 
 #: ../libfdisk/gnomefsedit.c:1087
 msgid "Close"
@@ -1586,12 +1598,14 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
+"Вы сконфигурировали раздел RAID, но не приписали его к единому устройству "
+"RAID. Выберите устройство, к которому будет принадлежать этот раздел."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1267
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "Описание RAID не завершено"
 
 #: ../libfdisk/gnomefsedit.c:1268
 #, c-format
@@ -1600,6 +1614,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"Устройство RAID /dev/%s содержит нераспределенные разделы. Оно будет разбито "
+"на разделы-компоненты. Пересоздайте устройство RAID с распределенными "
+"разделами."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
@@ -1654,6 +1671,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"Вы сконфигурировали это устройство RAID как загрузочный раздел. Убедитесь, "
+"что все его компоненты могут быть загружаемыми."
 
 #: ../libfdisk/gnomefsedit.c:1879
 msgid "No RAID Device"
@@ -1661,11 +1680,11 @@ msgstr "Не является устройством RAID"
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Устройство RAID должно быть выбрано."
 
 #: ../libfdisk/gnomefsedit.c:1886
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Использованное устройство RAID"
 
 #: ../libfdisk/gnomefsedit.c:1887
 #, c-format
@@ -1673,6 +1692,7 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
+"Устройство RAID \"/dev/%s\" уже сконфигурировано. Выберите другое устройство."
 
 #: ../libfdisk/gnomefsedit.c:1900
 msgid "Not Enough Partitions"
@@ -1682,7 +1702,7 @@ msgstr "Не достаточно разделов"
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
-msgstr ""
+msgstr "Сконфигурировано недостаточно разделов для выбранного типа RAID."
 
 #: ../libfdisk/gnomefsedit.c:1909
 msgid "Illegal /boot RAID Type"
@@ -1699,6 +1719,9 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"Раздел %s - существующий раздел в наборе разделов этого устройства RAID. "
+"Точка монтирования установлена в /boot. Вы уверены что возможна загрузка "
+"сэтого раздела?"
 
 #: ../libfdisk/gnomefsedit.c:2019
 msgid "Use Pre-existing Partition?"
@@ -1723,7 +1746,7 @@ msgstr "Использовать имеющееся свободное пространство"
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2177
 msgid "Intended Use"
-msgstr ""
+msgstr "Использование по назначению"
 
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Workstation"
@@ -1893,7 +1916,7 @@ msgstr "Инициализация CD-ROM..."
 
 #: ../loader/devices.c:50
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Разное"
 
 #: ../loader/devices.c:59
 msgid ""
@@ -1901,6 +1924,8 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Этот модуль может воспринимать параметры, влияют на на его работу. Если вы "
+"не знаете, какие параметры передать, пропустите этот экран, нажав \"OK\"."
 
 #: ../loader/devices.c:64
 msgid "Module Parameters"
@@ -1913,23 +1938,27 @@ msgstr "Устройства"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Вставьте диск драйверов и нажмите \"OK\" для продолжения."
 
 #: ../loader/devices.c:175
 msgid "Failed to mount floppy disk."
-msgstr ""
+msgstr "Ошибка монтирования дискеты."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Вставленная вами дискета не является диском драйверов от этой версии Red Hat "
+"Linux."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Какой драйвер необходимо попробовать? Если необходимого драйвера нет в "
+"списке и имеется дополнительный диск драйверов, нажмите F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
