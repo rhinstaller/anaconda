@@ -192,12 +192,15 @@ def copyFile(source, to, pw = None):
 def getDirSize(dir):
     def getSubdirSize(dir):
 	# returns size in bytes
+        mydev = os.lstat(dir)[stat.ST_DEV]
+
         dsize = 0
         for f in os.listdir(dir):
 	    curpath = '%s/%s' % (dir, f)
 	    sinfo = os.lstat(curpath)
             if stat.S_ISDIR(sinfo[stat.ST_MODE]):
-                dsize += getSubdirSize(curpath)
+                if mydev == sinfo[stat.ST_DEV]:
+                    dsize += getSubdirSize(curpath)
             elif stat.S_ISREG(sinfo[stat.ST_MODE]):
                 dsize += sinfo[stat.ST_SIZE]
             else:
@@ -211,6 +214,8 @@ def memAvailable():
     tram = memInstalled()
 
     ramused = getDirSize("/tmp")
+    if os.path.isdir("/tmp/ramfs"):
+        ramused += getDirSize("/tmp/ramfs")
 
     return tram - ramused
 
