@@ -105,7 +105,7 @@ class TimezoneMap(gtk.VBox):
         selection = self.listView.get_selection()
         selection.connect("changed", self.selectionChanged)
         self.listView.set_property("headers-visible", gtk.TRUE)
-        col = gtk.TreeViewColumn(_("Location"), gtk.CellRendererText(), text=0)
+        col = gtk.TreeViewColumn(_("_Location"), gtk.CellRendererText(), text=0)
         self.listView.append_column(col)
         col = gtk.TreeViewColumn(_("Description"), gtk.CellRendererText(), text=1)
         self.listView.append_column(col)

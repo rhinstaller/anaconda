@@ -143,8 +143,8 @@ class TimezoneWindow(InstallWindow):
         self.nb.connect("realize", lambda widget, self=self:
                         self.nb.set_current_page(self.old_page))
 
-        systemUTCCopy = gtk.CheckButton(_("System clock uses UTC"))
-        self.systemUTC = gtk.CheckButton(_("System clock uses UTC"))
+        systemUTCCopy = gtk.CheckButton(_("System clock uses _UTC"))
+        self.systemUTC = gtk.CheckButton(_("System clock uses _UTC"))
 
         systemUTCCopy.connect("toggled", self.copy_toggled, self.systemUTC)
         self.systemUTC.connect("toggled", self.copy_toggled, systemUTCCopy)
@@ -215,7 +215,7 @@ class TimezoneWindow(InstallWindow):
         tzBox.pack_start(sw)
         box = gtk.HBox(gtk.FALSE)
         align = gtk.Alignment(0.5, 0.5)
-        self.daylightCB = gtk.CheckButton(_("Use Daylight Saving Time (US only)"))
+        self.daylightCB = gtk.CheckButton(_("Use _Daylight Saving Time (US only)"))
         self.daylightCB.set_active(self.old_use_dst)
         align.add(self.daylightCB)
         box.pack_start(align, gtk.FALSE)
