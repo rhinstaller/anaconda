@@ -1,6 +1,8 @@
 import os
 os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
+# msw says this is a good idea
+os.environ["LC_ALL"] = "C"
 from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
@@ -374,28 +376,20 @@ class InstallControlWindow:
         return self.lang
     
     def setLanguage (self, lang):
-        newlangs = [lang]
-        
-        if len(lang) > 2:
-            newlangs.append(lang[:2])
-        self.lang = lang
-        
-        os.environ["LC_ALL"] = lang
-        os.environ["LANG"] = lang
-        self.locale = lang[:2]
-
-        cat.setlangs (newlangs)
+	self.todo.instTimeLanguage.setRuntimeLanguage(lang)
 
         gtk_set_locale ()
         gtk_rc_init ()
 
         found = 0
-        for l in newlangs:
+        for l in self.todo.instTimeLanguage.getCurrentLangSearchList():
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
                 found = 1
         if not found:
             rc_parse("/etc/gtk/gtkrc")
+
+	if not self.__dict__.has_key('window'): return
 
         self.window.reset_rc_styles ()
 
@@ -654,12 +648,7 @@ class InstallControlWindow:
         self.ii = ii
         self.todo = todo
         self.steps = steps
-        if os.environ.has_key ("LC_ALL"):
-            self.locale = os.environ["LC_ALL"][:2]
-            self.lang = os.environ["LC_ALL"]
-        else:
-            self.locale = "C"
-            self.lang = "en_US"
+	self.setLanguage(todo.instTimeLanguage.getCurrent())
 
     def keyRelease (self, window, event):
         if ((event.keyval == KP_Delete or event.keyval == Delete)
@@ -937,12 +926,9 @@ class InstallControlState:
         text = None
         if self.htmlFile:
             file = self.htmlFile
-	    langs = cat.getlangs()
-	    if not langs or langs[0] == "en_US":
-		langs = [ 'C' ]
             
             for path in self.searchPath:
-                for lang in langs:
+                for lang in self.todo.instTimeLanguage.getCurrentLangSearchList():
                     try:
                         text = open("%s/help/%s/s1-help-screens-%s.html" %
                                     (path, lang, file)).read ()

@@ -72,7 +72,6 @@ class LanguageWindow:
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
         choice = languages[choice]
-	lang = todo.instTimeLanguage.getLangNick(choice)
         
         if (todo.setupFilesystems
             and choice == "Japanese" and not isys.isPsudoTTY(0)):
@@ -91,12 +90,7 @@ class LanguageWindow:
             screen.finish()
             os.execv ("/sbin/loader", args)
 
-        os.environ["LC_ALL"] = lang
-        os.environ["LANG"] = lang
-        newlangs = [lang]
-	if len(lang) > 2:
-            newlangs.append(lang[:2])
-        cat.setlangs (newlangs)
+	todo.instTimeLanguage.setRuntimeLanguage(choice)
                 
 	if not todo.serial:
 	    map = todo.instTimeLanguage.getFontMap(choice)
@@ -857,12 +851,8 @@ class ProgressWindow:
 class InstallInterface:
     def helpWindow(self, screen, key, firstTime = 1):
 	try:
-	    langs = cat.getlangs()
-	    if not langs or langs[0] == "en_US":
-		langs = [ 'C' ]
-
             f = None
-            for lang in langs:
+            for lang in self.todo.instTimeLanguage.getCurrentLangSearchList():
                 fn = "/usr/share/anaconda/help/%s/s1-help-screens-%s.txt" \
                      % (lang, key)
                 try:
@@ -877,7 +867,7 @@ class InstallInterface:
 
             if not f:
 		if firstTime:	
-		    return self.helpWindow(screen, "helponhelp", firstTime = 0)
+		    return self.helpWindow(screen, "helponhelp", todo, firstTime = 0)
 		else:
 		    ButtonChoiceWindow(screen, _("Help not available"), 
 				_("No help is available for this install."),
@@ -997,8 +987,6 @@ class InstallInterface:
         self.dir = 1
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
-        if os.environ.has_key ("LC_ALL"):
-            cat.setlangs ([os.environ["LC_ALL"][:2]])
 
     def __del__(self):
         self.screen.finish()
@@ -1006,6 +994,8 @@ class InstallInterface:
     def run(self, todo, test = 0):
 	if todo.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
+
+	self.todo = todo
 
         if todo.reconfigOnly:
             self.commonSteps = [

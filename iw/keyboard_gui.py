@@ -100,6 +100,7 @@ class KeyboardWindow (InstallWindow):
         self.modelList.connect_after ("draw", moveto)
 	self.modelList.thaw ()
         sw.add (self.modelList)
+        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
 	box.pack_start (sw, TRUE)
 
 	box.pack_start (GtkLabel (_("Layout")), FALSE)
@@ -119,6 +120,7 @@ class KeyboardWindow (InstallWindow):
 	self.layoutList.connect_after ("draw", moveto)
 	self.layoutList.thaw ()
         sw.add (self.layoutList)
+        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
 	box.pack_start (sw, TRUE)
 
 	box.pack_start (GtkLabel (_("Dead Keys")), FALSE)

@@ -24,7 +24,7 @@ class LanguageWindow (InstallWindow):
 
     def getNext (self):
         if self.lang:
-            self.icw.setLanguage (self.todo.instTimeLanguage.getLangNick(self.lang))
+            self.icw.setLanguage (self.lang)
 
             #--Go ahead and pull the release notes into memory.  This allows them to be viewed
             #--during package installation
@@ -77,8 +77,7 @@ class LanguageWindow (InstallWindow):
         n = 0
         for locale in self.languages:
             row = self.language.append ((locale,))
-	    nick = self.todo.instTimeLanguage.getLangNick(locale)
-            if nick == self.icw.getLanguage ():
+            if locale == self.todo.instTimeLanguage.getCurrent():
                 self.lang = locale
                 default = n
             n = n + 1

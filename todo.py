@@ -25,6 +25,7 @@ from mouse import Mouse
 from xf86config import XF86Config
 import errno
 import raid
+from translate import cat
 import timer
 import fstab
 import time
@@ -213,6 +214,18 @@ class Desktop (SimpleConfigFile):
     def set (self, desktop):
         self.info ['DESKTOP'] = desktop
 
+def expandLangs(str):
+    langs = [str]
+    # remove charset ...
+    if '.' in str:
+	langs.append(string.split(str, '.')[0])
+
+    # also add 2 character language code ...
+    if len(str) > 2:
+	langs.append(str[:2])
+
+    return langs
+
 class InstallTimeLanguage:
 
     def __init__ (self):
@@ -279,6 +292,9 @@ class InstallTimeLanguage:
     def available (self):
         return self.langList
 
+    def getCurrentLangSearchList(self):
+	return expandLangs(self.langNicks[self.getCurrent()]) + ['C']
+
     def getCurrent(self):
 	if os.environ.has_key('LANG'):
 	    what = os.environ['LANG']
@@ -286,19 +302,19 @@ class InstallTimeLanguage:
 	    what = 'en_US'
 	return self.getLangNameByNick(what)
 
+    def setRuntimeLanguage(self, name):
+	lang = self.langNicks[name]
+
+        #os.environ["LC_ALL"] = lang
+        os.environ["LANG"] = lang
+        os.environ["LC_NUMERIC"] = 'C'
+
+        newlangs = [lang]
+	if len(lang) > 2:
+            newlangs.append(lang[:2])
+        cat.setlangs (newlangs)
+
 class Language (SimpleConfigFile):
-
-    def rpmifyLang(self, str):
-	langs = [str]
-	# remove charset ...
-	if '.' in str:
-	    langs.append(string.split(str, '.')[0])
-
-	# also add 2 character language code ...
-	if len(str) > 2:
-	    langs.append(str[:2])
-
-	return langs
 
     def __init__ (self):
         self.info = {}
@@ -365,11 +381,11 @@ class Language (SimpleConfigFile):
             self.info["SUPPORTED"] = None
 	    self.supported = langlist
             rpm.delMacro ("_install_langs")
-        if langlist:
+        elif langlist:
 	    rpmNickList = []
 	    for name in langlist:
 		(lang, map, font) = self.langInfoByName[name]
-		rpmNickList = rpmNickList + self.rpmifyLang(lang)
+		rpmNickList = rpmNickList + expandLangs(lang)
 
             linguas = string.join (rpmNickList, ':')
             self.info["SUPPORTED"] = linguas
@@ -381,6 +397,12 @@ class Language (SimpleConfigFile):
             self.info["SUPPORTED"] = None
             rpm.delMacro ("_install_langs")
 	    self.supported = None
+	
+	if self.info["SUPPORTED"]:
+	    os.environ ["LINGUAS"] = self.info["SUPPORTED"]
+	    print os.environ["LINGUAS"]
+	else:
+	    del os.environ ["LINGUAS"]
     
 class Firewall:
     def __init__ (self):
@@ -1244,9 +1266,7 @@ class ToDo:
 	    langName = todo.language.getLangNameByNick(todo.instClass.language)
 	    todo.language.setSupported([langName])
 	    todo.language.setDefault(langName)
-	    os.environ['LANG'] = todo.instClass.language
-	    os.environ['LC_ALL'] = todo.instClass.language
-	    os.environ['LC_NUMERIC'] = 'C'
+	    todo.instTimeLanguage.setRuntimeLanguage(langName)
 
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)

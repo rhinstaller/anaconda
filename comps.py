@@ -350,6 +350,7 @@ class ComponentSet:
                 if tags and "lang" not in tags:
                     newTruth = 1
                 else:
+		    #print "check", l, "in", langs
                     if len(l) != 2:
                         raise ValueError, "too many arguments for lang"
                     if l[1] and l[1][0] == "!":
