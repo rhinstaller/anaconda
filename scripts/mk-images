@@ -127,11 +127,31 @@ rundepmod () {
 	    $what > $final.foo 2>&1 | 
 	    egrep -v "modprobe: (${exclpattern}) multiply defined"
 
+    # For paride we need to change this:
+    # aten: paride
+    # ...
+    # paride: parport
+    # imm: parport
+    # ppa: parport
+    # parport_pc: parport
+    # pcd: paride
+    #
+    # into this:
+    # aten: paride
+    # ...
+    # paride: parport_pc
+    # imm: parport_pc
+    # ppa: parport_pc
+    # parport_pc: parport
+    # pcd: aten ...
+    #
+    # So we use an ugly hack. :-(
+
     PARIDE="aten bpck comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
-    cat $final.foo | sed -e 's/\.o//g' \
+    cat $final.foo | $FILTERMODDEPS | sed -e 's/\.o//g' \
 	  -e 's/: parport$/: parport_pc/g' \
 	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
-	  -e "s/^pcd:.*/pcd: $PARIDE/" | $FILTERMODDEPS > $final 
+	  -e "s/^pcd:.*/pcd: $PARIDE/" > $final 
     rm -f $final.foo
 }
 
