@@ -7,6 +7,13 @@ usage () {
 
 if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
 
+TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
+if [ $TOPDIR = $0 ]; then
+    $TOPDIR="."
+fi
+
+TOPDIR=$(cd $TOPDIR; pwd)
+
 # Set, verify, and create paths
     KERNELPATH=$1
     IMAGEPATH=$2
@@ -355,6 +362,6 @@ makedriverdisk () {
     rundepmod "$KERNELROOT/lib/modules/$version/*/*.o" $MODDEPS
     rm -f $MODDEPS.foo
 
-. mk-images.${ARCH}
+. $TOPDIR/mk-images.${ARCH}
 
 rm -rf $KERNELROOT
