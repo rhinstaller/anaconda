@@ -541,12 +541,11 @@ def doPreInstall(method, id, intf, instPath, dir):
     try:
         os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
     except:
-        intf.messageWindow(_("Error"),
-                           _("Unable to create symlink for /var/tmp.  This "
-                             "should only happen if there were errors "
-                             "creating your filesystems.\n\n"
-                             "Press the OK button to reboot your system."))
-        sys.exit(0)
+        # could be a problem later, but the most likely cause is that
+        # they've had to go deselect packages and then try again
+        # FIXME: maybe we should verify it's the symlink we want and
+        # iutil.rmrf it if not?
+        log("unable to create symlink for /var/tmp.  assuming already created")
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
