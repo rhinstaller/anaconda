@@ -869,6 +869,13 @@ def doInstall(method, id, intf, instPath):
     
     method.filesDone ()
 
+    # rpm environment files go bye-bye
+    for file in ["__db.001", "__db.002", "__db.003"]:
+        try:
+            os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
+        except Exception, e:
+            log("failed to unlink /var/lib/rpm/%s: %s" %(file,e))
+
     if upgrade:
         instLog.write(_("\n\nThe following packages were available in "
                         "this version but NOT upgraded:\n"))
@@ -1043,6 +1050,7 @@ def doPostInstall(method, id, intf, instPath):
                                             stderr = "/dev/tty5",
                                             root = instPath)
                 ts = rpm.TransactionSet()
+                ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
                 ts.closeDB()
                 fd = os.open(id.compspkg, os.O_RDONLY)
                 h = ts.hdrFromFdno(fd)
