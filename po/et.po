@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: et\n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-02 12:05+0200\n"
+"PO-Revision-Date: 2004-09-09 08:54+0200\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2414,54 +2414,49 @@ msgstr "Automaatselt tuvastatud monitor"
 
 #: ../zfcp.py:27
 msgid "zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "zSeries masinad pääsevad tööstuse-standardi SCSI seadmetele ligi Fiiber Kanali (FCP) kaudu.Sul on vaja anda 5 parameetrid igale seadmele: 16 bitti seadme number, 16 bitti SCSI ID, 64 pitti ülemaailmne pordi number (WWPN), 16 bitti SCSI LUN ja 64 bitti FCP LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
 msgstr "Seadme number"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Hostinimi määramata"
+msgstr "Sul on seadme number määramata või number on vigane."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Hostinimi määramata"
+msgstr "Sul on määramata SCSI ID või ID on vigane."
 
 #: ../zfcp.py:35
 #: ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Hostinimi määramata"
+msgstr "Sul on määramata ülemaailmse pordi nimi või siis nimi on vigane."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Hostinimi määramata"
+msgstr "Sul on määramata SCSI LUN (loogilise üksuse number) või number on vigane."
 
 #: ../zfcp.py:41
 #: ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Hostinimi määramata"
+msgstr "Sul on määramata FCP (fiiber kanali protokoll) LUN (loogilise üksuse number) või number on vigane."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -6240,15 +6235,15 @@ msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
 msgid "FCP Device"
@@ -7279,7 +7274,7 @@ msgstr "Chatham'i saared"
 
 #  generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7435,7 +7430,7 @@ msgstr "Kwajalein"
 
 #  generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -7681,13 +7676,13 @@ msgstr "Ruteenia"
 msgid "Sabah & Sarawak"
 msgstr "Sabah & Sarawak"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7733,9 +7728,9 @@ msgstr "Thule / Pituffik"
 msgid "Tibet & most of Xinjiang Uyghur"
 msgstr "Tiibet & enamus Xinjiang Uiguurist"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7745,9 +7740,9 @@ msgstr "Tocantins"
 msgid "Truk (Chuuk)"
 msgstr "Truk (Chuuk)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
