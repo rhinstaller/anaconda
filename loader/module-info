@@ -433,6 +433,10 @@ sunqe
 	eth
 	"Sun Quad Ethernet"
 
+tg3
+	eth
+	"Broadcom Tigon3 ethernet driver"
+
 tlan
 	eth
 	"ThunderLAN"
@@ -563,6 +567,10 @@ aic7xxx_mod
 	scsi_hostadapter
 	"New (experimental) Adaptec 28xx, 29xx, 39xx"
 
+aic7xxx_old
+	scsi_hostadapter
+	"Old Adaptec 28xx, 29xx, 39xx"
+
 atp870u
 	scsi_hostadapter
 	"ACARD ATP870U PCI scsi controller"
@@ -654,6 +662,14 @@ ips
 megaraid
 	scsi_hostadapter
 	"MegaRAID 418, 428, 438, 466, 762"
+
+mptbase
+	scsi_hostadapter
+	"LSI Logic Fusion MPT Base Driver"
+
+mptscsih
+	scsi_hostadapter
+	"LSI Logic Fusion MPT SCSI Driver"
 
 ncr53c8xx
 	scsi_hostadapter

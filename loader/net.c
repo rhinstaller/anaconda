@@ -53,8 +53,18 @@
 #include "log.h"
 #include "net.h"
 #include "windows.h"
+#include "misc.h"
 
 #endif /* __STANDALONE__ */
+
+#ifndef __STANDALONE__
+char *netServerPrompt = \
+    N_("Please enter the following information:\n"
+       "\n"
+       "    o the name or IP number of your %s server\n" 
+       "    o the directory on that server containing\n" 
+       "      %s for your architecture\n");
+#endif
 
 struct intfconfig_s {
     newtComponent ipEntry, nmEntry, gwEntry, nsEntry;
@@ -131,12 +141,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 	if (strlen(data->ip) && !strlen(data->nm)) {
 	    if (inet_aton(data->ip, &ipaddr)) {
 		ipaddr.s_addr = ntohl(ipaddr.s_addr);
-		if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 127)
-		    ascii = "255.0.0.0";
-		else if (((ipaddr.s_addr & 0xFF000000) >> 24) <= 191)
-		    ascii = "255.255.0.0";
-		else 
-		    ascii = "255.255.255.0";
+		ascii = "255.255.255.0";
 		newtEntrySet(data->nmEntry, ascii, 1);
 	    }
 	}
@@ -163,6 +168,7 @@ static void ipCallback(newtComponent co, void * dptr) {
 #ifndef __STANDALONE__
 int nfsGetSetup(char ** hostptr, char ** dirptr) {
     struct newtWinEntry entries[3];
+    char * buf;
     char * newServer = *hostptr ? strdup(*hostptr) : NULL;
     char * newDir = *dirptr ? strdup(*dirptr) : NULL;
     int rc;
@@ -175,14 +181,10 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    
-    rc = newtWinEntries(_("NFS Setup"), 
-		_("Please enter the following information:\n"
-		  "\n"
-		  "    o the name or IP number of your NFS server\n"
-		  "    o the directory on that server containing\n"
-		  "      Red Hat Linux for your architecture"), 60, 5, 15,
-		24, entries, _("OK"), _("Back"), NULL);
+    buf = sdupprintf(_(netServerPrompt), "NFS", PRODUCTNAME);
+    rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
+			24, entries, _("OK"), _("Back"), NULL);
+    free(buf);
 
     if (rc == 2) {
 	if (newServer) free(newServer);
@@ -206,12 +208,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     if (!(cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)) {
 	i = (int32 *) &cfg->dev.ip;
 
-	if (((*i & 0xFF000000) >> 24) <= 127)
-	    nm = "255.0.0.0";
-	else if (((*i & 0xFF000000) >> 24) <= 191)
-	    nm = "255.255.0.0";
-	else 
-	    nm = "255.255.255.0";
+	nm = "255.255.255.0";
 
 	inet_aton(nm, &cfg->dev.netmask);
 	cfg->dev.set |= PUMP_INTFINFO_HAS_NETMASK;
@@ -296,7 +293,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     struct in_addr addr;
     char dhcpChoice;
     char * chptr;
-    char * env;
 
 #if !defined(__s390__) && !defined(__s390x__)
     text = newtTextboxReflowed(-1, -1, 
@@ -440,6 +436,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     } while (i != 2);
 
 #else /* s390 now */
+   char * env;
    /* quick and dirty hack by opaukstadt@millenux.com for s390 */
    /* ctc stores remoteip in broadcast-field until pump.h is changed */
    memset(&newCfg, 0, sizeof(newCfg));

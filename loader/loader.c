@@ -42,6 +42,7 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 #include <sys/vt.h>
+#include <linux/fb.h>
 
 #if defined(__i386__) || defined(__ia64__) || defined(__alpha__)
 #include <linux/cdrom.h>
@@ -88,6 +89,7 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device);
 static int umountLoopback(char * mntpoint, char * device);
 int copyDirectory(char * from, char * to);
 static char * mediaCheckISODir(char *path);
+static void useMntSourceUpdates(char * path);
 
 #if defined(__ia64__)
 static char * floppyDevice = "hda";
@@ -192,9 +194,11 @@ static int setupRamdisk(void) {
 
 void startNewt(int flags) {
     if (!newtRunning) {
+	char *buf = sdupprintf(_("Welcome to %s"), PRODUCTNAME);
 	newtInit();
 	newtCls();
-	newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
+	newtDrawRootText(0, 0, buf);
+	free(buf);
 
 	newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 
@@ -525,7 +529,7 @@ char * validIsoImages(char * dirName) {
 #ifdef INCLUDE_LOCAL
 static int loadLocalImages(char * prefix, char * dir, int flags, 
 			   char * device, char * mntpoint) {
-    int fd, rc, fd2;
+    int fd, rc;
     char * path;
 
     /* In a kind world, this would do nothing more then mount a ramfs
@@ -545,15 +549,7 @@ static int loadLocalImages(char * prefix, char * dir, int flags,
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
-    if ((fd2 = open(path, O_RDONLY)) >= 0) {
-      if (!setupStage2Image(fd2, "/tmp/ramfs/updates-disk.img", flags,
-			    "loop7", "/tmp/update-disk")) {
-	copyDirectory("/tmp/update-disk", "/tmp/updates");
-	umountLoopback("/tmp/update-disk", "loop7");
-	unlink("/tmp/ramfs/updates-disk.img");
-      }
-      close(fd2);
-    }
+    useMntSourceUpdates(path);
 
     rc = setupStage2Image(fd, "/tmp/ramfs/hdstg1.img", flags, device, mntpoint);
 
@@ -584,6 +580,14 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	path = validIsoImages(filespec);
 
 	if (path) {
+	    char * updatesPath;
+
+	    /* handle updates.img now before we copy stage2 over... this allows
+	     * us to keep our ramdisk size as small as possible */
+	    updatesPath = alloca(50 + strlen(filespec));
+	    sprintf(updatesPath, "%s/updates.img", filespec);
+	    useMntSourceUpdates(updatesPath);
+
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
 	    if (!rc) {
 		rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
@@ -596,7 +600,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 		}
 	    }
 
-	    umount("/tmp/loopimage");
+	    umountLoopback("/tmp/loopimage", "loop0");
 
 	    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
 		mediaCheckISODir("/mnt/source");
@@ -777,16 +781,14 @@ static int totalMemory(void) {
     return total;
 }
 
-/* try to grab an updates.img from /mnt/source/RedHat/base/
- * XXX hard coded locations suck.  oh well
+/* try to use the provided updates.img at path
  */
-static void useMntSourceUpdates() {
-  if (!access("/mnt/source/RedHat/base/updates.img", R_OK)) {
-    if (!mountLoopback("/mnt/source/RedHat/base/updates.img",
+static void useMntSourceUpdates(char * path) {
+  if (!access(path, R_OK)) {
+    if (!mountLoopback(path,
 		       "/tmp/update-disk", "loop7")) {
 	copyDirectory("/tmp/update-disk", "/tmp/updates");
 	umountLoopback("/tmp/update-disk", "loop7");
-	unlink("/tmp/ramfs/update-disk.img");
     }
   }
 }
@@ -963,6 +965,7 @@ static char * mountHardDrive(struct installMethod * method,
     char * tmpDir;
     char * type;
     char * url = NULL;
+    char * buf;
     int numPartitions;
     #ifdef __sparc__
     static int ufsloaded;
@@ -1066,16 +1069,17 @@ static char * mountHardDrive(struct installMethod * method,
 
 #endif
 
-	text = newtTextboxReflowed(-1, -1,
-		_("What partition and directory on that partition hold the "
-		  "CD (iso9660) images for Red Hat Linux? If you don't "
-		  "see the disk drive you're using listed here, press F2 "
-		  "to configure additional devices."), 62, 5, 5, 0);
-
+	buf = sdupprintf(_("What partition and directory on that "
+			   "partition hold the CD (iso9660) images "
+			   "for %s? If you don't see the disk drive "
+			   "you're using listed here, press F2 "
+			   "to configure additional devices."), PRODUCTNAME);
+	text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
+	free(buf);
+	
 	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
 			      NEWT_FLAG_RETURNEXIT | 
-				(numPartitions > 5 ? NEWT_FLAG_SCROLL : 0)
-			    );
+			      (numPartitions > 5 ? NEWT_FLAG_SCROLL : 0));
 	
 	for (i = 0; i < numPartitions; i++) 
 	    newtListboxAppendEntry(listbox, partitions[i].name, 
@@ -1191,10 +1195,7 @@ static char * mediaCheckCdrom(char *cddriver) {
 
     first = 1;
     do {
-	char *descr;
-
-	descr = getReleaseDescriptorFromIso("/tmp/cdrom");
-
+	char *descr=NULL;
 	/* if first time through, see if they want to eject the CD      */
 	/* currently in the drive (most likely the CD they booted from) */
 	/* and test a different disk.  Otherwise just test the disk in  */
@@ -1208,10 +1209,13 @@ static char * mediaCheckCdrom(char *cddriver) {
 				 "insert another for testing."), _("Test"),
 			       _("Eject CD"));
 
-	    if (rc == 1)
+	    if (rc == 1) {
+		descr = getReleaseDescriptorFromIso("/tmp/cdrom");
 		mediaCheckFile("/tmp/cdrom", descr);
+	    }
 
 	} else {
+	    descr = getReleaseDescriptorFromIso("/tmp/cdrom");
 	    mediaCheckFile("/tmp/cdrom", descr);
 	}
 
@@ -1242,10 +1246,12 @@ static char * mediaCheckCdrom(char *cddriver) {
 }
 
 static void wrongCDMessage(void) {
-    newtWinMessage(_("Error"), _("OK"),
-		   _("The Red Hat Linux CD was not found "
-		     "in any of your CDROM drives. Please insert "
-		     "the Red Hat Linux CD and press %s to retry."), _("OK"));
+    char *buf = sdupprintf(_("The %s CD was not found "
+			     "in any of your CDROM drives. Please insert "
+			     "the %s CD and press %s to retry."), PRODUCTNAME,
+			   PRODUCTNAME, _("OK"));
+    newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
+    free(buf);
 }
 
 /* put mounts back and continue */
@@ -1328,7 +1334,7 @@ static char * setupCdrom(struct installMethod * method,
 			  NULL)) {
 		/* if probe quickly, then we're looking for a kickstart config
 		 * and should just return if we can mount it */
-		if (probeQuickly) {
+		if (probeQuickly && !needRedHatCD) {
 		    buf = malloc(200);
 		    sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
 		    return buf;
@@ -1338,7 +1344,7 @@ static char * setupCdrom(struct installMethod * method,
 		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
-		        useMntSourceUpdates();
+		        useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 		      
 			buf = malloc(200);
 			sprintf(buf, "cdrom://%s/mnt/source", kd->known[i].name);
@@ -1354,10 +1360,12 @@ static char * setupCdrom(struct installMethod * method,
 	if (probeQuickly) return NULL;
 
 	if (hasCdrom) {
-	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
-			_("The Red Hat Linux CD was not found "
-			  "in any of your CDROM drives. Please insert "
-			  "the Red Hat Linux CD and press %s to retry."), _("OK"));
+	    char *buf = sdupprintf(_("The %s CD was not found in any of your "
+				     "CDROM drives. Please insert the %s CD "
+				     "and press %s to retry."), PRODUCTNAME,
+				   PRODUCTNAME, _("OK"));
+	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), buf, _("OK"));
+	    free(buf);
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, 
@@ -1541,12 +1549,12 @@ static char * mountNfsImage(struct installMethod * method,
 				       "/mnt/runtime", "loop0")) {
 			rmdir("/mnt/source");
 			symlink("/mnt/source", "/mnt/source");
-		        useMntSourceUpdates();
+		        useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 			stage = NFS_STAGE_DONE;
 			url = "nfs://mnt/source/.";
 		    }
 		} else if ((path = validIsoImages("/mnt/source"))) {
-		    useMntSourceUpdates();
+		    useMntSourceUpdates("/mnt/source/updates.img");
 
 		    if (mountLoopback(path, "/mnt/source2", "loop1"))
 			logMessage("failed to mount iso loopback!");
@@ -1555,6 +1563,7 @@ static char * mountNfsImage(struct installMethod * method,
 				         "/mnt/runtime", "loop0")) {
 			    logMessage("failed to mount install loopback!");
 			} else {
+			    useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
 			    stage = NFS_STAGE_DONE;
 			    url = "nfsiso:/mnt/source";
 			    if (!FL_KICKSTART(flags) && FL_MEDIACHECK(flags))
@@ -2139,7 +2148,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char * chptr;
     static struct networkDeviceConfig netDev;
     char * host = NULL, * url = NULL, * proxy = NULL, * proxyport = NULL;
-    char * fullPath;
+    char * fullPath, *isopath;
 
     struct poptOption ksNfsOptions[] = {
 	    { "server", '\0', POPT_ARG_STRING, &host, 0 },
@@ -2259,13 +2268,37 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	if (count == 3)
 	    return NULL;
 
-	if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
-			   "/mnt/runtime", "loop0")) {
+	if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+	    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
+			       "/mnt/runtime", "loop0")) {
+		rmdir("/mnt/source");
+		symlink("/mnt/source", "/mnt/source");
+		useMntSourceUpdates("/mnt/source/RedHat/base/updates.img");
+		imageUrl = "nfs://mnt/source/.";
+	    }
+	} else if ((isopath = validIsoImages("/mnt/source"))) {
+	    useMntSourceUpdates("/mnt/source/updates.img");
+
+	    if (mountLoopback(isopath, "/mnt/source2", "loop1"))
+		logMessage("failed to mount iso loopback!");
+	    else {
+		if (mountLoopback("/mnt/source2/RedHat/base/stage2.img",
+				  "/mnt/runtime", "loop0"))
+		    logMessage("failed to mount install loopback!");
+		else {
+		    useMntSourceUpdates("/mnt/source2/RedHat/base/updates.img");
+		    imageUrl = "nfsiso:/mnt/source";
+		}
+	    }
+	} else {
+	    logMessage("No valid tree or isos found in %s", fullPath);
 	    umount("/mnt/source");
 	    return NULL;
 	}
-	    
-	imageUrl = "nfs://mnt/source/.";
+
+	if (!imageUrl)
+	    return NULL;
+
     } else if (ksType == KS_CMD_URL) {
 	memset(&ui, 0, sizeof(ui));
 
@@ -2323,26 +2356,42 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, 
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
+	char *hdfstypes[]={"ext2", "vfat", "ufs", NULL};
+	int i;
+
 	if (!strncmp(partname, "/dev/", 5))
 	    partname += 5;
 
 	logMessage("partname is %s", partname);
 
-	imageUrl = setupOldHardDrive(partname, "ext2", dir, flags);
-	if (!imageUrl)
-	    imageUrl = setupOldHardDrive(partname, "vfat", dir, flags);
-	if (!imageUrl)	
-	    imageUrl = setupOldHardDrive(partname, "ufs", dir, flags);
+	for (i=0; hdfstypes[i]; i++) {
+	    logMessage("Trying to find hdtree %s %s %s", partname, hdfstypes[i], dir);
+	    imageUrl = setupOldHardDrive(partname, hdfstypes[i], dir, flags);
+	    if (imageUrl)
+		break;
+	}
+
+	if (!imageUrl) {
+	    for (i=0; hdfstypes[i]; i++) {
+		logMessage("Trying to find hdiso %s %s %s", partname, hdfstypes[i], dir);
+		imageUrl = setupIsoImages(partname, hdfstypes[i], dir, flags);
+		if (imageUrl) {
+		    logMessage("returned imageUrl = %s", imageUrl);
+		    break;
+		}
+	    }
+	}
+
 	if (!imageUrl)
 	    logMessage ("Failed to mount hd kickstart media");
     }
 #endif
 
-    return imageUrl;
+   return imageUrl;
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
-			     char ** ksDevice, char ** instClass) {
+			     char ** ksDevice, char ** instClass, char **xres) {
     int fd;
     char buf[500];
     int len;
@@ -2438,6 +2487,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    setLanguage (argv[i] + 5, flags);
 	    defaultLang = 1;
 #endif
+	} else if (!strncasecmp(argv[i], "resolution=", 11)) {
+	    *xres = argv[i]+11;
 	}
     }
 
@@ -2658,6 +2709,7 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps * modDepsPtr, int flags) {
+
     if (devMakeInode(floppyDevice, "/tmp/floppy"))
 	return 1;
 
@@ -2768,7 +2820,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
 
 #if 0
     _("The floppy disk you inserted is not a valid update disk "
-      "for this release of Red Hat Linux.")
+      "for this release of %s."), PRODUCTNAME
 #endif
 
 logMessage("UPDATES floppy device is %s", floppyDevice);
@@ -2995,9 +3047,12 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 
 static void checkForRam(int flags) {
     if (!FL_EXPERT(flags) && (totalMemory() < MIN_RAM)) {
+	char *buf;
+	buf = sdupprintf(_("You do not have enough RAM to install %s "
+			   "on this machine."), PRODUCTNAME);
 	startNewt(flags);
-	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
-					      "RAM to install Red Hat Linux on this machine."));
+	newtWinMessage(_("Error"), _("OK"), buf);
+	free(buf);
 	stopNewt();
 	exit(0);
     }
@@ -3038,6 +3093,22 @@ static void verifyImagesMatched() {
     }
 }
 
+static int checkFrameBuffer() {
+    int fd;
+    int rc = 0;
+    struct fb_fix_screeninfo fix;
+
+    if ((fd = open("/dev/fb0", O_RDONLY)) == -1) {
+	return 0;
+    }
+
+    if (ioctl(fd, FBIOGET_FSCREENINFO, &fix) >= 0) {
+	rc = 1;
+    }
+    close(fd);
+    return rc;
+}
+
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -3066,10 +3137,12 @@ int main(int argc, char ** argv) {
     char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
     char * ksNetDevice = NULL;
+    char * xres = NULL;
     struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
+	    { "resolution", '\0', POPT_ARG_STRING, &xres, 0},
 	    { "probe", '\0', POPT_ARG_NONE, &probeOnly, 0 },
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
@@ -3146,13 +3219,16 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
+    /* we can't do kon on fb console (#60844) */
+    if (checkFrameBuffer() == 1)  haveKon = 0;
+
 #if defined (__s390__) && !defined (__s390x__)
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
 
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource, &ksNetDevice,
-			      &instClass);
+			      &instClass, &xres);
 
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
@@ -3531,6 +3607,11 @@ int main(int argc, char ** argv) {
 	    *argptr = malloc(20);
 	    sprintf(*argptr, "%d", memoryOverhead);
 	    argptr++;
+	}
+
+	if (xres) {
+	    *argptr++ = "--resolution";
+	    *argptr++ = xres;
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {

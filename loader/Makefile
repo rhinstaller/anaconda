@@ -4,7 +4,7 @@ VERSION = 7.2
 
 DESTDIR = ../../trees/initrd
 
-OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o lang.o \
+OBJS = log.o windows.o modules.o devices.o cdrom.o kickstart.o lang.o \
        misc.o ftp.o md5.o mediacheck.o moduledeps.o
 
 SLANGLIB = -lslang
@@ -19,7 +19,7 @@ LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 BINS = init
 DIRS = 
-NETOBJS = net.o telnet.o telnetd.o
+NETOBJS = net.o urls.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -Os
 DEBUG = -g
@@ -28,7 +28,7 @@ MODULELINKAGE :=-lmodutils -lmodutilutil -lmodutilobj
 
 COPTS = $(DEBUG) -Wall -DVERSION='"$(VERSION)"' 
 
-CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DGZLIB=1
+CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DHAVE_LIBIO_H -ggdb -DPRODUCTNAME='$(PRODUCTNAME)' -DGZLIB=1
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
@@ -135,9 +135,6 @@ install: all
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
-	for n in $(S390FILES); do \
-	   install -m 755 s390/$$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
-	done
 	install -m 644 kon.cfg $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 minikon.fnt $(DESTDIR)/$(RUNTIMEDIR)/loader
 

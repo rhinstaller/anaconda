@@ -38,7 +38,7 @@ struct aString {
 struct aString * strings = NULL;
 int numStrings = 0, allocedStrings = 0;
 
-static char * topLineWelcome = N_("Welcome to Red Hat Linux");
+static char * topLineWelcome = N_("Welcome to %s");
 static char * bottomHelpLine = N_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen ");
 
 static int aStringCmp(const void * a, const void * b) {
@@ -272,6 +272,7 @@ int chooseLanguage(char ** lang, int flags) {
     char * currentLangName = getenv("LANG");
     int numLangs = 0;
     char * langPicked;
+    char * buf;
 
     if (!languages) loadLanguageList(flags);
 
@@ -281,8 +282,6 @@ int chooseLanguage(char ** lang, int flags) {
 	/* If we're running in kon, only offer languages which use the
 	   Kon or default8x16 fonts. Don't display languages which require
 	   Kon font if we have no way of providing it. */
-	if (!haveKon && !strcmp(languages[i].font, "Kon"))
-	    continue;
 	if (continuing && strcmp(languages[i].font, "Kon") &&
 	    continuing && strcmp(languages[i].font, "default8x16"))
 	    continue;
@@ -303,8 +302,9 @@ int chooseLanguage(char ** lang, int flags) {
     else
 	choice = english;
 
-    newtWinMenu(_("Choose a Language"), _("What language should be used "
-		"during the installation process?"), 40, 5, 5, 8,
+    newtWinMenu(_("Choose a Language"),
+		_("What language would you like to use during the "
+		  "installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
 
     langPicked = langs[choice];
@@ -320,6 +320,7 @@ int chooseLanguage(char ** lang, int flags) {
     if (i == numLanguages) abort();
 
     if (!strncmp(languages[choice].key, "en", 2)) {
+	char *buf;
 	/* stick with the default (English) */
 	unsetenv("LANG");
 	unsetenv("LANGKEY");
@@ -329,8 +330,9 @@ int chooseLanguage(char ** lang, int flags) {
             free(strings), strings = NULL;
             numStrings = allocedStrings = 0;
         }
-
-	newtDrawRootText(0, 0, _(topLineWelcome));
+	buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+	newtDrawRootText(0, 0, buf);
+	free(buf);
 	newtPushHelpLine(_(bottomHelpLine));
 
 	return 0;
@@ -371,20 +373,24 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* If we need kon and have it, or if it's not kon or none, load the lang */
-    if ((strcmp(languages[choice].font, "None"))) {
-	loadLanguage (NULL, flags);
-    } else {
+    if ((!strcmp(languages[choice].font, "None")) ||
+	((!strcmp(languages[choice].font, "Kon")) && (!haveKon))) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
+    } else {
+	loadLanguage (NULL, flags);
     }
 
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
-    newtDrawRootText(0, 0, _(topLineWelcome));
+    
+    buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+    newtDrawRootText(0, 0, buf);
+    free(buf);
     newtPushHelpLine(_(bottomHelpLine));
 
     return 0;

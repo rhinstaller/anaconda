@@ -475,7 +475,6 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
 	free(ballPath);
 	return NULL;
     }
-    free(ballPath);
 
     for (m = modNames, i = 0; *m; i++, m++);
     
@@ -501,6 +500,7 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
     /* nothing to do */
     if (!numMaps) {
 	gunzip_close(fd);
+	free(ballPath);
 	return oldPaths;
     }
 
@@ -526,6 +526,7 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
 	}
     }
 
+    free(ballPath);
     return oldPaths;
 }
 
@@ -597,6 +598,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     i = 0;
     if (!paths) {
 	logMessage("no modules found -- aborting insertion");
+	return i;
 	i++;
     } else {
 	*items = '\0';
@@ -684,7 +686,7 @@ int mlModuleInList(const char * modName, moduleList list) {
 int mlWriteConfModules(moduleList list, int fd) {
     int i;
     struct loadedModuleInfo * lm;
-    char buf[16384], buf2[1024];
+    char buf[16384], buf2[512];
     int scsiNum;
     int ethNum;
     int trNum = 0;

@@ -13,6 +13,7 @@
 #include <sys/mman.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/types.h>
 
 #ifdef DIET
 typedef unsigned short u_short;
@@ -255,28 +256,7 @@ static int intelDetectSMP(void)
     mpfps_t     mpfps;
     int		rc = 0;
     int		ncpus = 0;
-    FILE	*f;
-    
-    f = fopen("/proc/cpuinfo", "r");
-    if (f) {     
-	char buff[1024];
-	
-	while (fgets (buff, 1024, f) != NULL) {
-	    if (!strncmp (buff, "flags\t\t:", 8)) {
-		if (strstr(buff, " ht ") ||
-		    /* buff includes \n, so back up 4 bytes from the end
-		       and check there too to catch the end case */
-		    !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
-		    rc = 1;
-		}
-		break;
-	    }
-	}
-	fclose(f);
-    }
-    if (rc)
-	return 1;
-    
+        
     /* open physical memory for access to MP structures */
     if ( (pfd = open( "/dev/mem", O_RDONLY )) < 0 ) {
 	return 0;
@@ -510,6 +490,58 @@ readEntry( void* entry, int size )
     }
 }
 
+#endif /* __i386__ */
+
+#ifdef __i386__
+
+static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
+{
+    __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
+	    : "=a"(*eax), "=g"(*ebx), "=&c"(*ecx), "=&d"(*edx)
+	    : "a" (op));
+}
+
+int detectHT(void)
+{
+    FILE *f;
+    int htflag = 0;
+    unsigned int eax = 0, ebx = 0, ecx = 0, edx = 0;
+    int smp_num_siblings = 0;
+    
+    f = fopen("/proc/cpuinfo", "r");
+    if (f) {
+	char buff[1024];
+	
+	while (fgets (buff, 1024, f) != NULL) {
+	    if (!strncmp (buff, "flags\t\t:", 8)) {
+		if (strstr(buff, " ht ") ||
+		    /* buff includes \n, so back up 4 bytes from the end
+		       and check there too to catch the end case */
+		    !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
+		    htflag = 1;
+		}
+		break;
+	    }
+	}
+	fclose(f);
+    }
+    if (!htflag)
+	return 0;
+
+    cpuid(1, &eax, &ebx, &ecx, &edx);
+    smp_num_siblings = (ebx & 0xff0000) >> 16;
+    
+    if (smp_num_siblings == 2)
+	return 1;
+    return 0;
+}
+
+#else /* ndef __i386__ */
+
+int detectHT(void)
+{
+    return 0;
+}
 
 #endif /* __i386__ */
 

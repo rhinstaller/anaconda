@@ -102,12 +102,6 @@ void __assert_fail (__const char *__assertion, __const char *__file,
     abort();
 }
 
-long long llseek(int fd, long long offest, int whence);
-
-long long lseek64(int fd, long long offset, int whence) {
-    return llseek(fd, offset, whence);
-}
-
 int _setjmp(jmp_buf buf) {
     return setjmp(buf);
 }
