@@ -301,11 +301,11 @@ int mediaCheckFile(char *file, char *descr) {
     int isostatus;
     char *result;
     unsigned char mediasum[33], computedsum[33];
-    char tmpstr[256];
+    char tmpstr[512];
     char descrstr[256];
     long long isosize;
     newtComponent t, f;
-    
+
     isofd = open(file, O_RDONLY);
 
     if (isofd < 0) {
@@ -319,7 +319,14 @@ int mediaCheckFile(char *file, char *descr) {
     close(isofd);
 
     if (rc == 0) {
-	result = _("FAIL.\n\nIt is not recommended to use this media.");
+	result = _("FAIL.\n\n"
+		   "The image which was just tested has errors. "
+		   "This could be due to a "
+		   "corrupt download or a bad disc.  "
+		   "If applicable, please clean the disc "
+		   "and try again.  If this test continues to fail you "
+		   "should not continue the install.");
+
 	logMessage("mediacheck: %s (%s) FAILED", file, descr);
 	logMessage("value of isostatus iso flag is %d", isostatus);
     } else if (rc > 0) {
@@ -331,8 +338,8 @@ int mediaCheckFile(char *file, char *descr) {
 	logMessage("mediacheck: %s (%s) has no checksum info", file, descr);
     }
 
-    newtCenteredWindow(60, 13, _("Media Check Result"));
-    t = newtTextbox(4, 1, 52, 8, NEWT_TEXTBOX_WRAP);
+    newtCenteredWindow(60, 20, _("Media Check Result"));
+    t = newtTextbox(4, 1, 56, 18, NEWT_TEXTBOX_WRAP);
     if (descr)
 	snprintf(descrstr, sizeof(descrstr),
 		 _("of the image:\n\n%s\n\n"), descr);
@@ -344,7 +351,7 @@ int mediaCheckFile(char *file, char *descr) {
     newtTextboxSetText(t, tmpstr);
     f = newtForm(NULL, NULL, 0);
     newtFormAddComponent(f, t);
-    newtFormAddComponent(f, newtButton(26, 9, _("OK")));
+    newtFormAddComponent(f, newtButton(26, 15, _("OK")));
 
     newtRunForm(f);
     newtFormDestroy(f);
@@ -364,7 +371,7 @@ int main(int argc, char **argv) {
 
     newtInit();
     newtCls();
-    rc = mediaCheckFile(argv[1]);
+    rc = mediaCheckFile(argv[1], "TESTING");
     newtFinished();
 }
 #endif
