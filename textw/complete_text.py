@@ -67,7 +67,7 @@ class ReconfigFinishedWindow:
                   "For information on errata (updates and bug fixes), visit "
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using your "
-                  "system is available in the Red Hat Linux manuals."
+                  "system is available in the Red Hat Linux manuals at "
                   "http://www.redhat.com/support/manuals."),
                    [ _("OK") ], help = "reconfigfinished")
 
