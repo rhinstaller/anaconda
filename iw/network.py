@@ -114,12 +114,14 @@ class NetworkWindow (InstallWindow):
             nm.set_text (new_nm)
 
     def DHCPtoggled (self, widget, (dev, table)):
-        if widget.get_active ():
-            dev.set (("bootproto", "dhcp"))
-        else:
-            dev.set (("bootproto", "static"))
-        table.set_sensitive (not widget.get_active ())
-        self.ipTable.set_sensitive (not widget.get_active ())
+	active = widget.get_active ()
+        table.set_sensitive (not active)
+        self.ipTable.set_sensitive (not active)
+	
+	bootproto = "dhcp"
+	if not active:
+            bootproto = "static"
+	dev.set (("bootproto", bootproto))
 
     def getScreen (self):
         box = GtkVBox ()
