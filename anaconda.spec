@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.6
+Version: 10.1.1.7
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,17 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 30 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.7-1
+- More iiimf upgrade fun (#129218)
+- Disable the linuxconf removal stuff.  Has caused sporadic problems and 
+  won't trigger on RHEL3 -> RHEL4 upgrades
+- CTCPROT fix (karsten, #133088)
+- Fix removal and editing of zfcp devices in GUI (#140559)
+- Fix LVM size becoming negative (nasrat, #141268)
+- Fix segfault better (#140876, #140541)
+- Fix traceback with pre-existing partitions on drives which don't have a 
+  partition type we let you use (#131333)
+
 * Mon Nov 22 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.6-1
 - Fix serial console magic to work with console= and not just 
   explicit serial again (#137971)
