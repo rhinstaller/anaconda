@@ -38,7 +38,8 @@ class FDiskWindow (InstallWindow):
         for mntpoint, (dev, fstype, reformat) in self.todo.mounts.items ():
             fstab.append ((dev, mntpoint))
 
-	self.todo.ddruid = fsedit(0, drives, fstab, self.todo.zeroMbr)
+	self.todo.ddruid = fsedit(0, drives, fstab, self.todo.zeroMbr,
+				  self.todo.ddruidReadOnly)
 	return None
 
     def button_clicked (self, widget, drive):
@@ -48,6 +49,7 @@ class FDiskWindow (InstallWindow):
 
 	# free the file descriptors
 	self.todo.ddruid = None
+	self.todo.ddruidReadOnly = 1
 
         if os.access("/sbin/fdisk", os.X_OK):
             path = "/sbin/fdisk"

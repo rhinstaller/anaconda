@@ -377,7 +377,8 @@ class ToDo:
             self.mouse = Mouse ()
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
-        self.ddruid = None;
+        self.ddruid = None
+        self.ddruidReadOnly = 0
         self.drives = Drives ()
         self.badBlockCheck = 0
         self.bootdisk = 0

@@ -144,7 +144,8 @@ class AutoPartitionWindow(InstallWindow):
 		self.manuallyPartition.get_active()):
             drives = self.todo.drives.available ().keys ()
             drives.sort (isys.compareDrives)
-            self.todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr)
+            self.todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr,
+				      self.todo.ddruidReadOnly)
 	    self.todo.manuallyPartition()
 	    
 	return None
@@ -171,7 +172,8 @@ class AutoPartitionWindow(InstallWindow):
         if not todo.ddruid:
             drives = todo.drives.available ().keys ()
             drives.sort (isys.compareDrives)
-            todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr)
+            todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr,
+				  self.todo.ddruidReadOnly)
             if not todo.instClass.finishPartitioning(todo.ddruid):
                 self.todo.log ("Autopartitioning FAILED\n")
 
