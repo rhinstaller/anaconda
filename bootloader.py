@@ -96,8 +96,9 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     plainLabelUsed = 0
     for (version, nick) in comps.kernelVersionList():
 	if plainLabelUsed:
-	    kernelList = kernelList + ["%s-%s" % (kernelLabel, nick),
-                              "%s-%s" % (kernelLongLabel, nick), version]
+            kernelList.append(("%s-%s" %(kernelLabel, nick),
+                               "%s-%s" %(kernelLongLabel, nick),
+                               version))
 	else:
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
 	    plainLabelUsed = 1
