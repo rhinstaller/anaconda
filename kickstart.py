@@ -784,23 +784,24 @@ class KickstartBase(BaseInstallClass):
             if recommended:
                 (size, maxSize) = iutil.swapSuggestion()
                 grow = 1
+        elif extra[0].startswith("raid."):
+            filesystem = fileSystemTypeGet("software RAID")
+            
+            if self.ksRaidMapping.has_key(extra[0]):
+                raise RuntimeError, "Defined RAID partition %s multiple times" % (extra[0],)
+            
+            # XXX use the hackish raid unique ID
+            thisRaidID = self.raidID
+            self.ksRaidMapping[extra[0]] = thisRaidID
+            self.raidID = self.raidID + 1
+        # XXX should we let people not do this for some reason?
+        elif extra[0] == "/boot/efi":
+            filesystem = fileSystemTypeGet("vfat")
+            mountpoint = extra[0]
         else:
             if fstype:
                 filesystem = fileSystemTypeGet(fstype)
                 mountpoint = extra[0]                
-            elif extra[0][:5] == "raid.":
-                filesystem = fileSystemTypeGet("software RAID")
-
-                if self.ksRaidMapping.has_key(extra[0]):
-                    raise RuntimeError, "Defined RAID partition %s multiple times" % (extra[0],)
-
-                # XXX use the hackish raid unique ID
-                thisRaidID = self.raidID
-                self.ksRaidMapping[extra[0]] = thisRaidID
-                self.raidID = self.raidID + 1
-            elif extra[0:9] == "/boot/efi":
-                filesystem = fileSystemTypeGet("vfat")
-                mountpoint = extra[0]
             else:
                 filesystem = fileSystemTypeGetDefault()
                 mountpoint = extra[0]
