@@ -37,13 +37,31 @@ class CdromInstallMethod(ImageInstallMethod):
     def getFilename(self, h):
 	if h[1000002] != self.currentDisc:
 	    self.currentDisc = h[1000002]
-	    isys.makeDevInode(self.device, "/tmp/cdrom")
 	    isys.umount("/mnt/source")
-	    #isys.eject("/tmp/cdrom")
-	    self.messageWindow(_("Change CDROM"), 
+	    isys.ejectCdrom(self.device)
+
+	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
+
+	    done = 0
+	    while not done:
+		self.messageWindow(_("Change CDROM"), 
 		    _("Please insert disc %d to continue.") % self.currentDisc)
-	    isys.mount("/tmp/cdrom", "/mnt/source", fstype = "iso9660",
-		       readOnly = 1)
+		isys.makeDevInode(self.device, "/tmp/cdrom")
+
+		try:
+		    isys.mount("/tmp/cdrom", "/mnt/source", fstype = "iso9660",
+			       readOnly = 1)
+		    
+		    if os.access("/mnt/source/%s" % key, os.O_RDONLY):
+			done = 1
+		    else:
+			self.messageWindow(_("Wrong CDROM"),
+				_("That's not the correct Red Hat CDROM."))
+			isys.umount("/mnt/source")
+			isys.ejectCdrom(self.device)
+		except:
+		    self.messageWindow(_("Error"), 
+			    _("The CDROM could not be mounted."))
 
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
