@@ -19,6 +19,8 @@ options.
 %package runtime
 Summary: Portions of the Red Hat Linux installer only needed for fresh installations.
 Group: Applications/System
+AutoReqProv: false
+Requires: anaconda = %{version}-%{release}
 
 %description runtime
 The anaconda-runtime package contains parts of the Red Hat Linux install
