@@ -891,6 +891,7 @@ elif [ "$BUILDARCH" = "i386" ]; then
 else
     arches="$BUILDARCH"
 fi
+foundakernel=""
 for KERNELARCH in $arches; do
   for kernelvers in $vertag; do
     KERNELROOT=$KERNELBASE/$KERNELARCH
@@ -906,6 +907,8 @@ for KERNELARCH in $arches; do
 	echo "kernel doesn't exist for $KERNELARCH.  skipping arch"
 	continue
     fi
+
+    foundakernel="yes"
 
     ppackage=$($LATEST $KERNELPATH hwdata)
     if [ ! -f "$ppackage" ]; then
@@ -952,9 +955,11 @@ for KERNELARCH in $arches; do
   done
 done
 
-# make the second stage
-find $KERNELBASE/*/lib/modules/ > $CACHE
-makeSecondStage
-rm -rf $KERNELBASE
+if [ -n "$foundakernel"]; then
+  # make the second stage
+  find $KERNELBASE/*/lib/modules/ > $CACHE
+  makeSecondStage
+  rm -rf $KERNELBASE
+fi
 
 cd $TOPDIR
