@@ -1430,6 +1430,7 @@ class ToDo:
 		    netDevice = list[0]
 		dev = devices[netDevice]
                 dev.set (("bootproto", bootProto))
+                dev.set (("onboot", "yes"))
                 if bootProto == "static":
                     if (ip):
                         dev.set (("ipaddr", ip))
