@@ -15,7 +15,6 @@
 
 import os
 os.environ["PYGTK_DISABLE_THREADS"] = "1"
-#os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
 os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 
 import gtk

@@ -617,6 +617,9 @@ instClass.setSteps(dispatch)
 #	    instClass.addToSkipList("mouse")
 #	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
+# comment out the next line to make exceptions non-fatal
+sys.excepthook = lambda type, value, tb, dispatch=dispatch, intf=intf: handleException(dispatch, intf, (type, value, tb))
+
 try:
     intf.run(id, dispatch, configFileData)
 except SystemExit, code:
