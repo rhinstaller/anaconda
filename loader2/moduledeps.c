@@ -49,6 +49,7 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
     int i, numItems;
     moduleDeps nextDep;
     moduleDeps moduleDepList = *moduleDepListPtr;
+    int ret;
 
     fd = open(path, O_RDONLY);
     if (fd < 0) {
@@ -57,7 +58,7 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 
     fstat(fd, &sb);
     buf = alloca(sb.st_size + 1);
-    read(fd, buf, sb.st_size);
+    ret = read(fd, buf, sb.st_size);
     buf[sb.st_size] = '\0';
     close(fd);
 
