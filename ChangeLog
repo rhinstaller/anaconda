@@ -1,5 +1,11 @@
 2004-11-30  Jeremy Katz  <katzj@redhat.com>
 
+	* network.py (Network.write): Write WEPKEY in
+	/etc/sysconfig/network-scripts/keys-$DEVNAME with mode 0600 (#140645)
+
+	* iw/network_gui.py (NetworkWindow.editDevice): KEY, not 
+	WEPKEY (#140645)	
+	
 	* iw/network_gui.py (NetworkWindow.editDevice): Get rid of 
 	warning from pygtk (merge from HEAD)
 
