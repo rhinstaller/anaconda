@@ -56,14 +56,13 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
         } else {
             found++;
         }
-        newtPopWindow();
     }
 
-    if (found == 0) 
+    if (found == 0) {
+        newtPopWindow();
         return 1;
+    }
 
-    /* JKFIXME: don't really want to pop the window until after the sleep */
-    /* sleep to wait for firewire to become stable. */
     sleep(3);
 
     logMessage("probing for firewire scsi devices");
@@ -71,6 +70,7 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (!devices) {
 	logMessage("no firewire scsi devices found");
+        newtPopWindow();
 	return 0;
     }
 
@@ -81,6 +81,8 @@ int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 			    modInfo, flags);
 	}
     }
+
+    newtPopWindow();
 
     return 0;
 }
