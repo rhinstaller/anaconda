@@ -49,7 +49,7 @@ TOPDIR=$(cd $TOPDIR; pwd)
 
     # explicit block size setting for some arches (FIXME: we compose 
     # ppc64-ish trees as ppc, so we have to set the "wrong" block size)
-    if [ "$BUILDARCH" = "sparc64" -o "$BUILDARCH" = "ppc64" -o "$BUILDARCH" = "ppc" ]; then
+    if [ "$BUILDARCH" = "sparc64" ]; then
 	CRAMBS="--blocksize 8192"
     elif [ "$BUILDARCH" = "sparc" ]; then
 	CRAMBS="--blocksize 4096"
