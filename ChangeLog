@@ -1,6 +1,8 @@
 2005-04-01  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (PACKAGESGR): Add missing indic font packages
+	(LC_ALL): Use build-locale-archive to try to reduce the amount of
+	space needed for stage2
 
 2005-03-31  Elliot Lee  <sopwith@redhat.com>
 

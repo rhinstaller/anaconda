@@ -394,6 +394,7 @@ usr/sbin/ofpath
 usr/sbin/ybin
 usr/sbin/load_policy
 usr/sbin/lvm
+usr/sbin/build-locale-archive
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/b/bterm
@@ -893,6 +894,20 @@ LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
 }
 ); done
 rm -f $DESTGR/locales $DESTGR/locales.list
+
+# now, create a locale archive and nuke the locale dirs since 
+# that ends up taking less space
+for p in $DEST $DESTGR; do
+    echo "Building locale archive"
+    if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    	runroot $COMPONENT --onlyone --arch $ARCH "/usr/sbin/chroot $p /usr/sbin/build-locale-archive"
+    else
+	chroot $p /usr/sbin/build-locale-archive
+    fi
+    mv $p/usr/lib/locale/locale-archive $p/usr/lib/locale-archive
+    rm -rf $p/usr/lib/locale/*
+    mv $p/usr/lib/locale-archive $p/usr/lib/locale/locale-archive 
+done
 
 # Remove unneeded XFree86 modules
 rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
