@@ -270,10 +270,27 @@ class InstallCallback:
 	elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
 	    os.close (self.rpmFD)
 	    self.progress.completePackage(h, self.pkgTimer)
+        elif ((what == rpm.RPMCALLBACK_UNPACK_ERROR) or
+              (what == rpm.RPMCALLBACK_CPIO_ERROR)):
+            # we may want to make this error more fine-grained at some
+            # point
+            pkg = "%s-%s-%s" % (h[rpm.RPMTAG_NAME],
+                                h[rpm.RPMTAG_VERSION],
+                                h[rpm.RPMTAG_RELEASE])
+            self.messageWindow(_("Error Installing Package"),
+                               _("There was an error installing %s.  This "
+                                 "can indicate media failure, lack of disk "
+                                 "space, and/or hardware problems.  This is "
+                                 "a fatal error and your install will be "
+                                 "aborted.  Please verify your media and try "
+                                 "your install again.\n\n"
+                                 "Press the OK button to reboot "
+                                 "your system.") % (pkg,))
+            sys.exit(0)
 	else:
-	    pass
+            pass
 
-	self.progress.processEvents()
+        self.progress.processEvents()
 
     def __init__(self, messageWindow, progress, pkgTimer, method,
 		 progressWindowClass, instLog, modeText):
