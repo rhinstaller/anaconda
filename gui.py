@@ -1,5 +1,3 @@
-print "GUI mode init..."
-
 import gettext
 
 cat = gettext.Catalog ("anaconda", "/usr/share/locale")
@@ -105,8 +103,6 @@ class InstallInterface:
     def run (self, todo):
         gtkThread = GtkMainThread ()
         gtkThread.start ()
-
-        print "GUI mode run"
 
         commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow,
                        WelcomeWindow, InstallPathWindow]
