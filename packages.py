@@ -1302,12 +1302,14 @@ def selectLanguageSupportGroups(comps, langSupport):
                     # depsDict.  if the req is PKGTYPE_DEFAULT, add it
                     # as DEFAULT
                     pkg = comps.packages[package]
+                    reqp = comps.packages[req]
                     for comp in comps.packages[req].comps:
-                        if comp.newpkgDict.has_key(req):
-                            if comp.newpkgDict[req][0] == PKGTYPE_MANDATORY:
+                        if comp.newpkgDict.has_key(reqp):
+                            if comp.newpkgDict[reqp][0] == PKGTYPE_MANDATORY:
                                 comp.addDependencyPackage(pkg)
                             else:
                                 comp.addPackage(pkg, PKGTYPE_DEFAULT)
                         elif comp.depsDict.has_key(req):
                             comp.addDependencyPackage(pkg)
+                        else:
     comps.updateSelections()
