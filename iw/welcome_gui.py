@@ -14,9 +14,7 @@ class WelcomeWindow (InstallWindow):
         ics.setGrabNext (1)
 
     def load_image(self, file):
-        print file
         try:
-            print ("/usr/share/anaconda/" + file)
             im = GdkImlib.Image("/usr/share/anaconda/" + file)
         except:
             try:
