@@ -495,7 +495,7 @@ EOF
 
     rm -f $MBD_FSIMAGE
     dd if=/dev/zero of=$MBD_FSIMAGE bs=1k count=$INITRDSIZE 2> /dev/null
-    echo y | /sbin/mke2fs -i 8096 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
+    echo y | /sbin/mke2fs -i 1024 -q $MBD_FSIMAGE $INITRDSIZE > /dev/null 2>/dev/null
 
     rm -rf $MBD_MNTPOINT
     mkdir $MBD_MNTPOINT

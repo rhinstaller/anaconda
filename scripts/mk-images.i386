@@ -94,12 +94,12 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
-	   --initrdsize 2250 \
+	   --initrdsize 2750 \
 	   --loaderbin loader-local \
 	   --modules "$LOCALMODULES"
 
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-	   --initrdsize 2250 \
+	   --initrdsize 2750 \
 	   --loaderbin loader-network \
 	   --modules "$NETWORKMODULES"
 
@@ -126,7 +126,7 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
-	   --initrdsize 2350 \
+	   --initrdsize 2750 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMAINMODULES"
 
