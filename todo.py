@@ -407,6 +407,8 @@ class ToDo:
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
+	isys.umount(self.instPath + '/proc')
+
         keys = self.mounts.keys ()
 	keys.sort()
 	keys.reverse()
@@ -414,8 +416,9 @@ class ToDo:
             (device, fsystem, format) = self.mounts[n]
             if fsystem != "swap":
 		try:
-		    self.log("unmounting /mnt/sysimage/" + n)
-                    isys.umount('/mnt/sysimage/' + n)
+		    mntPoint = self.instPath + n
+		    self.log("unmounting " + mntPoint)
+                    isys.umount(mntPoint)
 		except SystemError, (errno, msg):
 		    self.intf.messageWindow(_("Error"), 
 			_("Error unmounting %s: %s") % (device, msg))
@@ -561,6 +564,9 @@ class ToDo:
 		    self.intf.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))
 		os.remove( '/tmp/' + device);
+
+	os.mkdir (self.instPath + '/proc')
+	isys.mount('/proc', self.instPath + '/proc', 'proc')
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
         if not self.setupFilesystems: return
