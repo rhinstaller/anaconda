@@ -54,8 +54,8 @@ makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
 makemainmodules "$SECSTAGE $SCSIMODULES"
-makeinstimage --size1 3800 --size2 4352 "netstg" "$SECSTAGE $SCSIMODULES"
-makeinstimage --size1 3800 --size2 4352 "hdstg" "$SECSTAGE $NETMODULES"
+makeinstimage --size1 6144 --size2 6144 "netstg" "$SECSTAGE $SCSIMODULES"
+makeinstimage --size1 6144 --size2 6144 "hdstg" "$SECSTAGE $NETMODULES"
 makemainimage "stage2" "cramfs"
 
 if [ -f $TOPDESTPATH/preview/RPMS/kernel-2.4.0-*.alpha.rpm ]; then
