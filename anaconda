@@ -150,10 +150,6 @@ textdomain("anaconda")
 # reset python's default SIGINT handler
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
-# XXX: this is to work around the problems with packages not ending
-# up in the rpmdb and is intended as a temporary workaround
-#os.environ["LD_ASSUME_KERNEL"] = "2.2.5"
-
 # Silly GNOME stuff
 if os.environ.has_key('HOME'):
     os.environ['XAUTHORITY'] = os.environ['HOME'] + '/.Xauthority'
