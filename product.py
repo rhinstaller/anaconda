@@ -12,11 +12,18 @@
 
 import os
 
-if not os.access("/.buildstamp", os.R_OK):
+if os.access("/tmp/product/.buildstamp", os.R_OK):
+    path = "/tmp/product/.buildstamp"
+elif os.access("/.buildstamp", os.R_OK):
+    path = "/.buildstamp"
+else:
+    path = None
+    
+if path is None:
     productName = "anaconda"
     productVersion = "bluesky"
 else:
-    f = open("/.buildstamp", "r")
+    f = open(path, "r")
     lines = f.readlines()
     if len(lines) < 3:
         productName = "anaconda"
