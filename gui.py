@@ -597,7 +597,7 @@ class InstallControlWindow:
 	# entirely, we continue advancing in direction given
 	if (self.stateTagByWindow.has_key(screen)
             and self.todo.instClass.skipStep(self.stateTagByWindow[screen])):
-            log("skipping step screen %s", screen)
+#            log("skipping step screen %s", screen)
             direction ()
             return
 
