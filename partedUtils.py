@@ -533,11 +533,12 @@ class DiskSet:
             del disk
         self.refreshDevices()
 
-    def refreshDevices (self, intf = None, initAll = 0, zeroMbr = 0):
+    def refreshDevices (self, intf = None, initAll = 0,
+                        zeroMbr = 0, clearDevs = []):
         """Reread the state of the disks as they are on disk."""
         self.closeDevices()
         self.disks = {}
-        self.openDevices(intf, initAll, zeroMbr)
+        self.openDevices(intf, initAll, zeroMbr, clearDevs)
 
     def closeDevices (self):
         """Close all of the disks which are open."""
@@ -624,7 +625,8 @@ class DiskSet:
 
         return 1
 
-    def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
+    def openDevices (self, intf = None, initAll = 0,
+                     zeroMbr = 0, clearDevs = []):
         """Open the disks on the system and skip unopenable devices."""
         if self.disks:
             return
@@ -640,7 +642,8 @@ class DiskSet:
             except parted.error, msg:
                 DiskSet.skippedDisks.append(drive)
                 continue
-            if initAll and not flags.test:
+            if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
+                             or drive in clearDevs) and not flags.test):
                 try:
                     dev.disk_create(getDefaultDiskType())
                     disk = parted.PedDisk.open(dev)
