@@ -523,24 +523,14 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
 	if not upgrade.get():
             partitions.doMetaDeletes(diskset)
             thefsset.setActive(diskset)
-            log("going to save")
             if not thefsset.isActive():
                 diskset.savePartitions ()
-            log("bad blocks")
             thefsset.checkBadblocks(instPath)
-            log("create lvm")
             if not thefsset.volumesCreated:
-                log("creating")
                 thefsset.createLogicalVolumes(instPath)
-            else:
-                log("already made")
-            log("swap")
             thefsset.formatSwap(instPath)
-            log("turn on")
             thefsset.turnOnSwap(instPath)
-            log("mkfs")
 	    thefsset.makeFilesystems (instPath)
-            log("mounting filesystems")
             thefsset.mountFilesystems (instPath)
 
 def setupTimezone(timezone, upgrade, instPath, dir):
