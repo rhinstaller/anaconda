@@ -3,7 +3,7 @@
 #
 # Bill Nottingham <notting@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.

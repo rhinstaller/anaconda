@@ -2,8 +2,9 @@
 # gui.py - Graphical front end for anaconda
 #
 # Matt Wilson <msw@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.

@@ -2,8 +2,11 @@
 # packages.py: package management - mainly package installation
 #
 # Erik Troan <ewt@redhat.com>
+# Matt Wilson <msw@redhat.com>
+# Michael Fulbright <msf@redhat.com>
+# Jeremy Katzj <katzj@redhat.com>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.

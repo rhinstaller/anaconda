@@ -1,7 +1,7 @@
 #
 # kickstart.py: kickstart install support
 #
-# Copyright 1999-2002 Red Hat, Inc.
+# Copyright 1999-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
