@@ -15,7 +15,10 @@ import iutil
 import os,sys
 import string
 import math
+
 from flags import flags
+
+from constants import *
 
 MAX_LV_SLOTS=256
 
@@ -226,3 +229,17 @@ def createSuggestedLVName(logreqs):
 
     return tmpname
 	    
+def getVGUsedSpace(vgreq, requests, diskset):
+    vgused = 0
+    for request in requests.requests:
+	if request.type == REQUEST_LV and request.volumeGroup == vgreq.uniqueID:
+	    size = int(request.getActualSize(requests, diskset))
+	    vgused = vgused + size
+
+
+    return vgused
+
+def getVGFreeSpace(vgreq, requests, diskset):
+    used = getVGUsedSpace(vgreq, requests, diskset)
+    
+    return vgreq.getActualSize(requests, diskset) - used
