@@ -109,6 +109,11 @@ class ToDo:
 	    self.headerList()
 	    self.comps = self.method.readComps(self.hdList)
 	self.comps['Base'].select(1)
+
+	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
+	    self.hdList['kernel'].selected = 0
+	    self.hdList['kernel-smp'].selected = 1
+
 	return self.comps
 
     def __init__(self, intf, method, rootPath, runLive):
