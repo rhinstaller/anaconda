@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-04-03 18:40-0400\n"
-"PO-Revision-Date: 2000-03-16 19:00+0200\n"
+"PO-Revision-Date: 2001-04-16 14:00+0100\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -136,6 +136,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"Med poskusom formatiranja %s je pri¹lo do napake. To je resna te¾ava, zato "
+"se namestitev ne more veè nadaljevati.\n"
+"\n"
+"Pritisnite Enter za vnovièen zagon sistema."
 
 #: ../fstab.py:796 ../fstab.py:1255
 #, c-format
@@ -961,9 +965,8 @@ msgid "no suggestion"
 msgstr "ni predloga"
 
 #: ../todo.py:1188 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Velikost korenskega datoteènega sistema"
+msgstr "Umazani datoteèni sistemi"
 
 #: ../todo.py:1189
 msgid ""
@@ -1178,11 +1181,11 @@ msgstr "Ugotavlja se vrsta mi¹ke..."
 
 #: ../xserver.py:189
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
+msgstr "Èaka se zagon stre¾nika X ... dnevnik je v /tmp/X.log\n"
 
 #: ../xserver.py:211
 msgid " X server started successfully."
-msgstr ""
+msgstr " Stre¾nik X je uspe¹no zagnan."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1447,9 +1450,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Imenik %s mora biti v korenskem datoteènem sistemu"
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy, c-format
+#, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
-msgstr "I¹èemo namestitve Red Hat Linuxa..."
+msgstr "Nadgrajuje se namestitev Red Hat Linuxa na razdelku /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1943,7 +1946,7 @@ msgid "Disk Partitioning"
 msgstr "Razdelitev diska"
 
 #: ../iw/rootpartition_gui.py:384
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
@@ -1953,7 +1956,7 @@ msgid ""
 msgstr ""
 "Prosimo, izberite ¾eleni naèin razdeljevanja diska.\n"
 "\n"
-"Samodejno razdeljevanje bo zbrisalo %s\n"
+"%s\n"
 "\n"
 "Èe izberete roèno razdelitev, lahko sami roèno dodate razdelke."
 
@@ -2151,9 +2154,8 @@ msgstr ""
 "preprièani, da ¾elite nadaljevati?"
 
 #: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:118
-#, fuzzy
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Velikost izmenjevalne datoteke mora biti med 0 in 2000 MB."
+msgstr "Velikost izmenjevalne datoteke mora biti med 1 in 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:192 ../textw/upgrade_text.py:114
 msgid ""
@@ -2436,9 +2438,8 @@ msgstr ""
 "polje prazno."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Preskoèi"
+msgstr "Preskoèi LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2449,6 +2450,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Izbrali ste, da ne nameravate namestiti nalagalnika LILO. Moèno vam "
+"priporoèamo, da ga namestite, razen, èe veste, kaj delate. LILO je skoraj "
+"vedno potreben za neposreden zagon sistema z diska v Linux.\n"
+"\n"
+"Ste preprièani, da ¾elite preskoèiti namestitev LILO?"
 
 #: ../textw/lilo_text.py:108 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -2618,7 +2624,7 @@ msgid "Done"
 msgstr "Opravljeno"
 
 #: ../textw/partitioning_text.py:151
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2626,7 +2632,7 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"Samodejna razdelitev bo zbrisala %s\n"
+"%s\n"
 "\n"
 "Èe ne ¾elite storiti tega, lahko nadaljujete z namestitvijo tako, da roèno "
 "razdelite disk, ali pa se lahko vrnete in izberete popolnoma prilagojeno "
@@ -2913,11 +2919,11 @@ msgid "Custom System"
 msgstr "Namestitev sistema po meri"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
-msgstr "vse obstojeèe namestitve Linuxa v sistemu."
+msgstr ""
+"Samodejna razdelitev bo zbrisala vse obstojeèe namestitve Linuxa v sistemu."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2928,12 +2934,12 @@ msgid "Server System"
 msgstr "Stre¾ni¹ki sistem"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
-"VSE PODATKE na va¹em disku, da boste napravili prostor za namestitev Linuxa."
+"Samodejna razdelitev bo zbrisala VSE PODATKE na va¹em disku, da bo dovolj "
+"prostora za namestitev Linuxa."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -3150,6 +3156,12 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
+"Do te napake je pri¹lo, ker v pogonu obstaja logièni razdelek, ki ima vrsto "
+"razdelka enako niè (0). Razdelek vrste niè pomeni, da razdelitev diska ni "
+"popolnoma definirana in da jo je lahko naredil program za razdelitev diska v "
+"kak¹nem drugem operacijskem sistemu. Tega primera name¹èevalnik anaconda ne "
+"podpira. Morda lahko popravite vrsto razdelka s programom za razdeljevanje "
+"diska v drugem operacijskem sistemu."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -4986,9 +4998,8 @@ msgid "New South Wales - most locations"
 msgstr "Novi Ju¾ni Wales - veèina krajev"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
-msgstr "Novi Ju¾ni Wales - Broken Hill"
+msgstr "Novi Ju¾ni Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -5112,7 +5123,7 @@ msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Postaja Vostok, J magnetni pol"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5171,9 +5182,8 @@ msgid "French"
 msgstr "franco¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "srb¹èina"
+msgstr "nem¹èina"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5234,20 +5244,3 @@ msgstr "tur¹èina"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ukrajin¹èina"
-
-#, fuzzy
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "I¹èemo namestitve Red Hat Linuxa..."
-
-#~ msgid "Transdniestria"
-#~ msgstr "Podnjestrje"
-
-#~ msgid ""
-#~ "German          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-#~ msgstr ""
-#~ "nem¹èina          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Gremo na nadgrajevani razdelek /dev/"
