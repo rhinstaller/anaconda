@@ -18,6 +18,10 @@
  * in this Software without prior written authorization from Red Hat.
  *
  */
+/*
+#define DB logMessage("%s: %d\n", __FILE__, __LINE__);
+*/
+#define DB
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -447,47 +451,45 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    newCfg.isDynamic = 0;
    env = getenv("IPADDR");
    if (env) {
-      inet_aton(env, &newCfg.dev.ip);
+     if(inet_aton(env, &newCfg.dev.ip))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
    }
    env = getenv("NETMASK");
    if (env) {
-      inet_aton(env, &newCfg.dev.netmask);
+     if(inet_aton(env, &newCfg.dev.netmask))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
    }
    env = getenv("GATEWAY");
    if (env) {
-      inet_aton(env, &newCfg.dev.gateway);
+     if(inet_aton(env, &newCfg.dev.gateway))
       newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
    }
    env = getenv("NETWORK");
    if (env) {
-      inet_aton(env, &newCfg.dev.network);
+     if(inet_aton(env, &newCfg.dev.network))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
    }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-      env = getenv("REMIP");
-      if (env) {
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
-   } else {
-      env = getenv("BROADCAST");
-      if (env) {
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
+   env = getenv("DNS");
+   if (env) {
+     if(inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]))
+      newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
+   }
+   env = getenv("BROADCAST");
+   if (env && strlen(env)) {
+     if(inet_aton(env, &newCfg.dev.broadcast))
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
 #endif   /* s390 */
 
 #ifdef __STANDALONE__
     if (!newCfg.isDynamic)
 #endif	  
-    cfg->dev = newCfg.dev;
     cfg->isDynamic = newCfg.isDynamic;
+    memcpy(&cfg->dev,&newCfg.dev,sizeof(newCfg.dev));
 
     fillInIpInfo(cfg);
 
+#if !defined(__s390__) && !defined(__s390x__)
     if (!(cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)) {
 	if (*c.gw && inet_aton(c.gw, &addr)) {
 	    cfg->dev.gateway = addr;
@@ -502,7 +504,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	}
     }
 
-#if !defined(__s390__) && !defined(__s390x__)
     newtPopWindow();
 #endif
     if (!FL_TESTING(flags)) {
@@ -518,11 +519,13 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 }
 
 int configureNetwork(struct networkDeviceConfig * dev) {
+#if !defined(__s390__) && !defined(__s390x__)
     pumpSetupInterface(&dev->dev);
 
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	pumpSetupDefaultGateway(&dev->dev.gateway);
 
+#endif
     return 0;
 }
 
@@ -532,7 +535,6 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 #ifndef __STANDALONE__
     int i;
 #endif
-
 #ifndef __STANDALONE__
     for (i = 0; i < kd->numKnown; i++)
 	if (!strcmp(kd->known[i].name, dev->dev.device)) break;
@@ -563,6 +565,10 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
+     if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+       fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
+    if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+	fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
 
     fclose(f);
 
@@ -573,6 +579,9 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     char * filename = "/etc/resolv.conf";
     FILE * f;
     int i;
+#if defined(__s390__) || defined(__s390x__)
+    return 0;
+#endif
 
     if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && !net->dev.numDns)
     	return LOADER_ERROR;

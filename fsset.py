@@ -338,6 +338,7 @@ class ext2FileSystem(extFileSystem):
         self.partedFileSystemType = parted.file_system_type_get("ext2")
         self.migratetofs = ['ext3']
 
+
     def migrateFileSystem(self, entry, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
 
@@ -428,7 +429,8 @@ class raidMemberDummyFileSystem(FileSystemType):
         # mkraid did all we need to format this partition...
         pass
     
-fileSystemTypeRegister(raidMemberDummyFileSystem())
+if not (iutil.getArch() == "s390" or iutil.getArch() == "s390x"):
+    fileSystemTypeRegister(raidMemberDummyFileSystem())
 
 class swapFileSystem(FileSystemType):
     enabledSwaps = {}
@@ -712,7 +714,10 @@ class FileSystemSet:
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
 
-        if iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
+	    return [ ( "/dev/dasda", "DASD" ) ]
+        
+        elif iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
             bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
 	    bootDev = mntDict['/boot']

@@ -365,10 +365,10 @@ def doPreInstall(method, id, intf, instPath, dir):
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
 	if arch == "s390" or arch == "s390x":
-	    if (string.find(os.uname()[2], "vrdr") > -1):
-		select(id.hdList, 'kernel-vrdr')
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
+	    else:
+		select(id.hdList, 'kernel')
 	elif isys.smpAvailable():
             select(id.hdList, 'kernel-smp')
 
@@ -404,27 +404,28 @@ def doPreInstall(method, id, intf, instPath, dir):
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
 
-        xserver = id.videocard.primaryCard().getXServer()
-        if (xserver and id.comps.packages.has_key('XFree86')
-            and id.comps.packages['XFree86'].selected
-            and xserver != "XFree86"):
-            try:
-                id.hdList['XFree86-' + xserver[5:]].selected = 1
-            except ValueError, message:
-                log ("Error selecting XFree86 server package: %s", message)
-            except KeyError:
-                log ("Error selecting XFree86 server package, "
-                     "package not available")
+        if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+            xserver = id.videocard.primaryCard().getXServer()
+            if (xserver and id.comps.packages.has_key('XFree86')
+                and id.comps.packages['XFree86'].selected
+                and xserver != "XFree86"):
+                try:
+                    id.hdList['XFree86-' + xserver[5:]].selected = 1
+                except ValueError, message:
+                    log ("Error selecting XFree86 server package: %s", message)
+                except KeyError:
+                    log ("Error selecting XFree86 server package, "
+                         "package not available")
 
-            # XXX remove me once we have dependency resolution after
-            # videocard selection
-            try:
-                id.hdList['XFree86-compat-modules'].selected = 1
-            except ValueError, message:
-                log ("Error selecting XFree86-compat-modules package")
-            except KeyError:
-                log ("Error selecting XFree86-compat-modules, "
-                     "package not available")
+                # XXX remove me once we have dependency resolution after
+                # videocard selection
+                try:
+                    id.hdList['XFree86-compat-modules'].selected = 1
+                except ValueError, message:
+                    log ("Error selecting XFree86-compat-modules package")
+                except KeyError:
+                    log ("Error selecting XFree86-compat-modules, "
+                         "package not available")
                 
                 
     # make sure that all comps that include other comps are

@@ -16,7 +16,6 @@ from iw_gui import *
 
 from gtk import *
 from translate import _
-from xpms_gui import SMALL_CHECK
 import gdkpixbuf
 
 class SiloWindow (InstallWindow):

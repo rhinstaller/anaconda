@@ -53,7 +53,10 @@ install: all
 subdirs:
 	for d in $(SUBDIRS); do make -C $$d; done
 
+
 nfsmount.o: nfs_mountversion.h
+
+nfsmount.lo: nfs_mountversion.h
 
 nfs_mountversion.h: /usr/include/linux/nfs_mount.h
 	grep NFS_MOUNT_VERSION $< | sed -e 's/NFS/KERNEL_NFS/' > $@

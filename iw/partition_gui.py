@@ -1318,7 +1318,11 @@ class PartitionWindow(InstallWindow):
             if type == "RAID":
                 self.editRaidRequest(request)
             elif type == "NEW":
-                self.editPartitionRequest(request, isNew = 1)
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    self.intf.messageWindow(_("Error"),
+                        _("You must go back and use fdasd to inititalize this partition"))
+                else:
+                    self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
 
@@ -1529,11 +1533,14 @@ class PartitionWindow(InstallWindow):
 
         self.accelgroup = GtkAccelGroup()
 
-        ops = ((_("_New"), self.newCB),
-               (_("_Edit"), self.editCb),
-               (_("_Delete"), self.deleteCb),
-               (_("_Reset"), self.resetCb),
-               (_("Make _RAID"), self.makeraidCB))
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            ops = ((_("_Edit"), self.editCb),)
+        else:
+            ops = ((_("_New"), self.newCB),
+                   (_("_Edit"), self.editCb),
+                   (_("_Delete"), self.deleteCb),
+                   (_("_Reset"), self.resetCb),
+                   (_("Make _RAID"), self.makeraidCB))
         
         for label, cb in ops:
             labelwid = GtkLabel(label)

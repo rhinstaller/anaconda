@@ -48,6 +48,7 @@ stepToClass = {
     "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_gui", "FDiskWindow"),
+    "fdasd" : ("fdasd_gui", "FDasdWindow"),
     "format" : ("format_gui", "FormatWindow"),
     "bootloader": ("bootloader_gui", "BootloaderWindow"), 
     "bootloaderpassword" : ("bootloaderpassword_gui", "BootloaderPasswordWindow"),
@@ -76,6 +77,8 @@ stepToClass = {
 
 if iutil.getArch() == 'sparc':
     stepToClass["bootloader"] = ("silo_gui", "SiloWindow")
+elif iutil.getArch() == 's390' or iutil.getArch() == 's390x':
+    stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 else:
     stepToClass["bootloader"] = ("bootloader_gui", "BootloaderWindow")
 
@@ -333,7 +336,7 @@ class InstallInterface:
             except SystemError:
                 pass
 
-        if id.keyboard:
+        if id.keyboard and not id.x_already_set:
 	    info = id.keyboard.getXKB()
 	    if info:
                 (rules, model, layout, variant, options) = info

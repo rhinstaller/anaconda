@@ -21,7 +21,11 @@ mkdir $p/proc
 mount -t proc proc $p/proc
 [ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib > $p/etc/ld.so.conf
 (cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
-rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
+
+if [ $ARCH != s390 -a $ARCH != s390x ]; then
+    rm -f $p/usr/sbin/ldconfig 
+fi
+rm $p/etc/ld.so.conf
 
 (cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
 

@@ -19,12 +19,16 @@ from dispatch import DISPATCH_NOOP
 import partitioning
 import isys
 import os
+import iutil
 
 class FDiskWindow (InstallWindow):		
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("fdisk"))
-        ics.readHTML ("fdisk")
+        self.fdisk_name = ("fdisk")
+        self.selectlabel = _("Select drive to run fdisk on")
+
+        ics.setTitle (self.fdisk_name)
+        ics.readHTML (self.fdisk_name)
 
     def getNext(self):
         # reread partitions
@@ -45,7 +49,7 @@ class FDiskWindow (InstallWindow):
             # XXX fixme
             pass
 
-        self.ics.readHTML ("fdisk")
+        self.ics.readHTML (self.fdisk_name)
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
 #        self.ics.setHelpEnabled (1)
@@ -57,13 +61,13 @@ class FDiskWindow (InstallWindow):
         zvt.connect ("child_died", self.child_died, widget)
         self.drive = drive
 
-	# free our fd's to the hard drive -- we have to 
-	# fstab.rescanDrives() after this or bad things happen!
+        # free our fd's to the hard drive -- we have to 
+        # fstab.rescanDrives() after this or bad things happen!
         if os.access("/sbin/fdisk", os.X_OK):
             path = "/sbin/fdisk"
         else:
             path = "/usr/sbin/fdisk"
-        
+            
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
         if zvt.forkpty() == 0:
@@ -74,14 +78,12 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.remove (self.buttonBox)
         self.windowContainer.pack_start (zvt)
 
-#        self.ics.setHelpEnabled (0)
         self.ics.readHTML ("fdiskpart")
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
     # FDiskWindow tag="fdisk"
     def getScreen (self, diskset, partrequests, intf):
-        
         self.diskset = diskset
         self.partrequests = partrequests
         self.intf = intf
@@ -90,7 +92,7 @@ class FDiskWindow (InstallWindow):
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
         box = GtkVButtonBox ()
-        label = GtkLabel (_("Select drive to run fdisk on"))
+        label = GtkLabel (self.selectlabel)
 
         drives =  self.diskset.driveList()
         

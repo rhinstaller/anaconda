@@ -43,5 +43,5 @@ srpm:	tgz
 
 rpm:	srpm
 	rpm --rebuild $(VERNAME)-1.src.rpm
-	cp /usr/src/redhat/RPMS/`uname -m`/$(VERNAME)-1.*.rpm ../
+	cp ~/rpms/s390/$(VERNAME)-1.*.rpm ../
 

@@ -24,8 +24,14 @@
 #
 
 # This toplevel file is a little messy at the moment...
-
 import sys, os
+
+#import pdb
+#
+#def cleanup(last_exit):
+#    pdb.set_trace()
+#
+#sys.exitfunc = cleanup
 
 # For anaconda in test mode
 if (os.path.exists('isys')):
@@ -246,11 +252,12 @@ if (debug):
     import pdb
     pdb.set_trace()
 
-# don't let folks do anything stupid
-if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
-    sys.stderr.write(
-	"You're running me on a live system! that's incredibly stupid.\n")
-    sys.exit(1)
+if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+    # don't let folks do anything stupid
+    if (not flags.test and os.getpid() > 90 and flags.setupFilesystems):
+        sys.stderr.write(
+            "You're running me on a live system! that's incredibly stupid.\n")
+        sys.exit(1)
 
 import isys
 import instdata
@@ -316,8 +323,8 @@ if (not flags.test):
         time.sleep(2)
 
 # Force text mode on IBM s390/s390x
-if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-	display_mode = 't'
+#if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+#	display_mode = 't'
         
 
 if iutil.memInstalled() < isys.MIN_RAM:
@@ -365,7 +372,11 @@ if instClass.forceTextMode:
 #
 # find out what video hardware is available to run installer 
 #
+if os.environ.has_key('DISPLAY') and display_mode == 'g':
+    x_already_set = 1
+else: x_already_set = 0
 
+    
 mousehw    = mouse.Mouse(skipProbe = 1)
 #if display_mode == 'g':
 
@@ -412,18 +423,25 @@ if (display_mode != 't' and method and
     display_mode = 't'
     time.sleep(2)
 
-# if no mouse we force text mode
-mousedev = mousehw.get()
-if display_mode != 't' and mousedev[0] == "None - None":
-    # ask for the mouse type
-    if mouse.mouseWindow(mousehw) == 0:
-        print _("No mouse was detected.  A mouse is required for graphical "
+if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+    # if no mouse we force text mode
+    mousedev = mousehw.get()
+    if display_mode != 't' and mousedev[0] == "None - None":
+        # ask for the mouse type
+        if mouse.mouseWindow(mousehw) == 0:
+            print _("No mouse was detected.  A mouse is required for graphical "
                 "installation.  Starting text mode.")
+            display_mode = 't'
+            time.sleep(2)
+        else:
+            sys.stdout.write(_("Using mouse type: "))
+            sys.stdout.write(mousehw.shortDescription()+'\n')
+else: # s390 checks
+    if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+        print _("DISPLAY variable not set. Starting text mode!")
         display_mode = 't'
         time.sleep(2)
-    else:
-        sys.stdout.write(_("Using mouse type: "))
-        sys.stdout.write(mousehw.shortDescription()+'\n')
+
 
 #
 # startup X server is we're not already running under an X session
@@ -448,14 +466,18 @@ if display_mode == 'g':
             display_mode = 't'
             time.sleep(2)            
     else:
-        xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                     monitorhw, mousehw, runres)
+        if x_already_set: card = videocard.VideoCard()
+        else: card = videohw.primaryCard()
+        xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+
 elif progmode != 'reconfig':
-    # only probe X related stuff if we're doing an install
-    
     import xf86config
-    xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                 monitorhw, mousehw, runres)
+
+    # only probe X related stuff if we're doing an install
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        card = videocard.VideoCard()
+    else: card = videohw.primaryCard()
+    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
 
 import configFileData
 configFile = configFileData.configFileData()
@@ -573,6 +595,8 @@ floppyDevice = floppy.probeFloppyDevice()
 
 id = instClass.installDataClass(extraModules, floppyDevice, configFileData)
 #id = instClass.installDataClass(extraModules, floppyDevice)
+
+id.x_already_set = x_already_set
 
 if mousehw:
     id.setMouse(mousehw)

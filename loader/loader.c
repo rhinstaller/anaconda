@@ -618,6 +618,7 @@ static int umountLoopback(char * mntpoint, char * device) {
     devMakeInode(device, "/tmp/loop");
     loopfd = open("/tmp/loop", O_RDONLY);
 
+
     ioctl(loopfd, LOOP_CLR_FD, 0);
 
     close(loopfd);
@@ -1188,7 +1189,6 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 	    return 1;
 	}
     }
-
     rc = setupStage2Image(fd, dest, flags, device, mntpoint);
 
     urlinstFinishTransfer(ui, fd);
@@ -1264,6 +1264,9 @@ static char * mountUrlImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+#endif
 	    stage = URL_STAGE_MAIN;
 
 	  case URL_STAGE_MAIN:
@@ -1369,6 +1372,7 @@ static char * doMountImage(char * location,
     }
 
 #if defined(__alpha__) || defined(__ia64__)
+    /* || defined (__s390__) || defined (__s390x__) */
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
@@ -1404,12 +1408,14 @@ static char * doMountImage(char * location,
     }
 #endif
 
+
     installNames[numValidMethods] = NULL;
 
     if (!numValidMethods) {
 	logMessage("no install methods have the required devices!\n");
 	exit(1);
     }
+
 
     /* This is a check for NFS or CD-ROM rooted installs */
     if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
@@ -1498,9 +1504,11 @@ static char * doMountImage(char * location,
 	    break;
 	case STEP_URL:
 logMessage("starting to STEP_URL");
+
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDepsPtr, flags);
+
 	    logMessage("got url %s", url);
 	    if (!url) {
 		step = STEP_METHOD;
@@ -1847,12 +1855,15 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	logMessage("url address %s", ui.address);
 	logMessage("url prefix %s", ui.prefix);
 
+
 	if (loadUrlImages(&ui, flags)) {
 	    logMessage("failed to retrieve second stage");
 	    return NULL;
 	}
+
     }
 #endif
+
 
 #ifdef INCLUDE_LOCAL
     if (ksType == KS_CMD_CDROM) {
@@ -1873,6 +1884,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    logMessage ("Failed to mount hd kickstart media");
     }
 #endif
+
 
     return imageUrl;
 }
@@ -2402,6 +2414,7 @@ void setFloppyDevice(int flags) {
     logMessage("system floppy device is %s", floppyDevice);
 }
 
+#if !defined (__s390__) && !defined (__s390x__)
 static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 			 moduleInfoSet modInfo, int flags) {
     struct device ** devices;
@@ -2438,7 +2451,9 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     return 0;
 }
+#endif
 
+#if !defined (__s390__) && !defined (__s390x__)
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
@@ -2456,6 +2471,7 @@ static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 	}
     }
 }
+#endif
 
 
 static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
@@ -2537,7 +2553,7 @@ int main(int argc, char ** argv) {
     moduleList modLoaded;
     char * cmdLine = NULL;
     moduleDeps modDeps;
-    int i, rc;
+    int i, rc,fd;
     int flags = 0;
     int testing = 0;
     char * lang = NULL;
@@ -2596,6 +2612,23 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
+
+	fd = open("/dev/tty", O_RDWR, 0);    
+	if (fd < 0) {
+	    printf("failed to open /dev/tty\n");
+	    exit(1);
+	}
+
+    dup2(fd, 0);
+    dup2(fd, 1);
+    dup2(fd, 2);
+    close(fd);
+
+    setsid();
+
+#else
+
     if (!FL_TESTING(flags)) {
         int fd;
 
@@ -2613,7 +2646,9 @@ int main(int argc, char ** argv) {
 	    close(fd);
 	}
     }
-    
+
+#endif
+
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -2645,7 +2680,11 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    openLog(FL_TESTING(flags));
+#if !defined (__s390__) && !defined (__s390x__)
+    openLog(FL_TESTING(flags)+1);
+#else
+    openLog(1);
+#endif
 
     checkForRam(flags);
 
@@ -2659,6 +2698,12 @@ int main(int argc, char ** argv) {
     mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
+
+#if defined (__s390__) || defined (__s390x__)
+    mlLoadModule("loop", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
+
+#if !defined (__s390__) && !defined (__s390x__)
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
@@ -2667,6 +2712,7 @@ int main(int argc, char ** argv) {
 	   a system w/o USB keyboard support, which would be bad. */
 	usbInitialize(modLoaded, modDeps, modInfo, flags);
     }
+#endif
 
     setFloppyDevice(flags);
 
@@ -2706,6 +2752,7 @@ int main(int argc, char ** argv) {
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
 #endif
 
+#if !defined (__s390__) && !defined (__s390x__)
     if (!continuing) {
 	if ((access("/proc/bus/pci/devices", R_OK) &&
 	      access("/proc/openprom", R_OK)) || FL_MODDISK(flags)) { 
@@ -2717,6 +2764,7 @@ int main(int argc, char ** argv) {
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
     }
+#endif
 
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
@@ -2787,13 +2835,23 @@ int main(int argc, char ** argv) {
 			   flags);
     }
 
+
     if (!FL_TESTING(flags)) {
-     
+      int fd;
 	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
+#if !defined (__s390__) && !defined (__s390x__)
 	unlink("/lib");
-	symlink("mnt/runtime/lib", "/lib");
-
+#else
+	fd = open("/etc/ld.so.conf", O_WRONLY|O_CREAT, 0644);
+        if (fd >= 0) {
+#define LD_SO_CONF_STR "/lib/\n/mnt/runtime/lib\n/usr/lib\n/usr/X11R6/lib\n"
+	  const char *buf = LD_SO_CONF_STR;
+	  write(fd, buf, sizeof(LD_SO_CONF_STR));
+	  close(fd);
+	}
+	system("/sbin/ldconfig 2>/dev/null >/dev/null");
+#endif
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/pcitable");
@@ -2820,16 +2878,23 @@ int main(int argc, char ** argv) {
 #endif
     }
 
+#if !defined (__s390__) && !defined (__s390x__)
     logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
+#endif
+
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
+
+#if !defined (__s390__) && !defined (__s390x__)
     /* merge in any new pci ids */
     pciReadDrivers("/modules/pcitable");
+#endif
+
 
     /* We reinit this from the beginning because we could have lost drivers
        when we switched media, and we don't want to list ones that don't
@@ -2838,18 +2903,24 @@ int main(int argc, char ** argv) {
        kudzu won't reprobe! */
     modInfo = isysNewModuleInfoSet();
 
+
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
 
+
+#if !defined (__s390__) && !defined (__s390x__)
     /* merge in drivers we know about from a driver disk so we probe things
        properly */
     ddReadDriverDiskModInfo(modInfo);
+#endif
+
 
     if (ksFile)
 	kickstartDevices(&kd, modInfo, modLoaded, &modDeps, flags);
+
 
     /* We may already have these modules loaded, but trying again won't
        hurt. */
@@ -2858,20 +2929,49 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
+
+
+#if !defined (__s390__) && !defined (__s390x__)
     if (((access("/proc/bus/pci/devices", R_OK) &&
 	  access("/proc/openprom", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
+#endif
+
 
     if (FL_UPDATES(flags))
         loadUpdates(&kd, modLoaded, &modDeps, flags);
 
+
     loadUfs(&kd, modLoaded, &modDeps, flags);
+
+
+#if !defined (__s390__) && !defined (__s390x__)
+    if (!FL_TESTING(flags)) {
+        int fd;
+
+	fd = open("/tmp/modules.conf", O_WRONLY | O_CREAT, 0666);
+	if (fd < 0) {
+	    logMessage("error creating /tmp/modules.conf: %s\n", 
+	    	       strerror(errno));
+	} else {
+	    mlWriteConfModules(modLoaded, fd);
+	    /* HACK - notting */
+#ifdef __sparc__
+	    write(fd,"alias parport_lowlevel parport_ax\n",34);
+#else
+	    write(fd,"alias parport_lowlevel parport_pc\n",34);
+#endif
+	    close(fd);
+	}
+    }
+
 
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
+#endif
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
@@ -2881,7 +2981,11 @@ int main(int argc, char ** argv) {
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
+
+#if !defined (__s390__) && !defined (__s390x__)
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
+#endif
+
 
 #if 0
     for (i = 0; i < kd.numKnown; i++) {
@@ -2899,6 +3003,7 @@ int main(int argc, char ** argv) {
     }
 #endif
 
+
     /* Just in case */
     setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
 
@@ -2910,6 +3015,7 @@ int main(int argc, char ** argv) {
 	*argptr++ = "/mnt/source/RHupdates/anaconda";
     else
 	*argptr++ = "/usr/bin/anaconda";
+
 
     *argptr++ = "-m";
     if (strncmp(url, "ftp:", 4)) {
@@ -2923,6 +3029,7 @@ int main(int argc, char ** argv) {
 	close(fd);
 	*argptr++ = "@/tmp/method";
     }
+
 
     if (FL_RESCUE(flags)) {
 	startNewt(flags);
@@ -2988,6 +3095,7 @@ int main(int argc, char ** argv) {
 	    argptr++;
 	}
 
+
 	for (i = 0; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].path) continue;
 
@@ -3008,17 +3116,21 @@ int main(int argc, char ** argv) {
 	    argptr++;
 	}
     }
+
     
     *argptr = NULL;
 
+
     stopNewt();
     closeLog();
+
 
     if (!FL_TESTING(flags)) {
 	printf(_("Running anaconda - please wait...\n"));
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
+
 
     return 1;
 }

@@ -38,19 +38,17 @@ IDEMODS=""
 SCSIMODS=""
 
 #SECSTAGE="raid0 raid1 raid5 ext3 $IDEMODS $SCSIMODS "
-SECSTAGE="$IDEMODS $SCSIMODS "
+SECSTAGE="$IDEMODS $SCSIMODS ext3"
 
-COMMONMODULES="vfat"
+COMMONMODULES="vfat loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
-
 makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 6000 \
+	   --initrdsize 7900 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
 
-#for I in $BOOTDISKDIR; do
 for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
     BOOTDIR=`basename $I | cut -d'_' -f1`
@@ -69,6 +67,7 @@ unset BOOTDIR
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
+
 #makeinstimage "hdstg" "=net $SECSTAGE"
-#makemainimage "stage2" "cramfs"
-makemainimage "stage2" "ext2"
+makemainimage "stage2" "cramfs"
+#makemainimage "stage2" "ext2"
