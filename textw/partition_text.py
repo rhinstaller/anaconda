@@ -57,7 +57,10 @@ class PartitionWindow:
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = _("software RAID component")
                 elif part.fs_type:
-                    ptype = part.fs_type.name
+                    if request.fstype != None:
+                        ptype = request.fstype.getName()
+                    else:
+                        ptype = part.fs_type.name
                 else:
                     ptype = _("None")
 
