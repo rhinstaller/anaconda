@@ -6,7 +6,6 @@ from progress import *
 from package import *
 from network import *
 from account import *
-from rootpartition import *
 from auth import *
 from mouse import *
 from keyboard import *
@@ -18,6 +17,8 @@ from examine import *
 from bootdisk import *
 from timezone import *
 from xconfig import *
+from fdisk import *
+from rootpartition import *
 from gui import _
 import installclass
 
@@ -77,13 +78,14 @@ class InstallPathWindow (InstallWindow):
 	if not self.__dict__.has_key("upgradeButton"):
 	    return
 
+	icw = self.ics.getICW ()
 	if self.upgradeButton.get_active():
 	    self.todo.upgrade = 1
-            self.ics.getICW ().setStateList (self.commonSteps + 
-				self.upgradeSteps, len (self.commonSteps)-1)
+            icw.setStateList (self.commonSteps + 
+                              self.upgradeSteps, len (self.commonSteps)-1)
 	else:
-            self.ics.getICW ().setStateList (self.commonSteps + 
-				self.installSteps, len (self.commonSteps)-1)
+            icw.setStateList (self.commonSteps + 
+                              self.installSteps, len (self.commonSteps)-1)
 	    self.todo.upgrade = 0
 
 	    for (button, type) in self.installClasses:
@@ -158,6 +160,14 @@ class InstallPathWindow (InstallWindow):
         table.attach(self.upgradeButton, 0, 2, 2, 3)
 
 	box.pack_start(table, FALSE)
+
+        if self.todo.expert:
+            InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk to format drives"))
+            line = GtkHSeparator ()
+            box.pack_start (line, FALSE)
+            box.pack_start (InstallPathWindow.fdisk, FALSE)
+        else:
+            InstallPathWindow.fdisk = None
 
         self.toggled (installButton, INSTALL)
         box.set_border_width (5)
