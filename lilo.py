@@ -373,6 +373,7 @@ class LiloConfiguration:
 		lilo.delImage(label)
 	    except IndexError:
 		sl = LiloConfigFile(imageType = "other", path = device)
+		sl.addEntry("optional")
 
 	    sl.addEntry("label", label)
 	    lilo.addImage (sl)
