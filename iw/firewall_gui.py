@@ -210,32 +210,40 @@ class FirewallWindow (InstallWindow):
         hbox = gtk.HBox(gtk.FALSE, 10)
         self.label1 = gtk.Label (_("Trusted devices:"))
         self.label1.set_alignment (0.2, 0.0)
+
         self.trusted = checklist.CheckList(1)
+
+        trustedSW = gtk.ScrolledWindow()
+        trustedSW.set_border_width(5)
+        trustedSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        trustedSW.set_shadow_type(gtk.SHADOW_IN)
+        trustedSW.add(self.trusted)
 
         if self.devices != []:
             table.attach (self.label1, 0, 1, 0, 1, gtk.FILL, gtk.FILL, 5, 5)
-            table.attach (self.trusted, 1, 2, 0, 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
+            table.attach (trustedSW, 1, 2, 0, 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
-            count = 0
             for device in self.devices:
-                if self.firewall.trustdevs == []:
-                    self.trusted.append_row ((device, device), gtk.FALSE)
+                if device in self.firewall.trustdevs:
+                    self.trusted.append_row ((device, device), gtk.TRUE)
                 else:
-                    if device in self.firewall.trustdevs:
-                        self.trusted.append_row ((device, device), gtk.TRUE)
-                    else:
-                        self.trusted.append_row ((device, device), gtk.FALSE)
+                    self.trusted.append_row ((device, device), gtk.FALSE)
                 if self.network.netdevices[device].get('bootproto') == 'dhcp':
                     self.firewall.dhcp = 1
-
-            count = count + 1
 
         hbox = gtk.HBox(gtk.FALSE, 10)        
         self.label2 = gtk.Label (_("Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
+
+        incomingSW = gtk.ScrolledWindow()
+        incomingSW.set_border_width(5)
+        incomingSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        incomingSW.set_shadow_type(gtk.SHADOW_IN)
+        incomingSW.add(self.incoming)
+        
         table.attach (self.label2, 0, 1, 1, 2, gtk.FILL, gtk.FILL, 5, 5)
-        table.attach (self.incoming, 1, 2, 1, 2, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
+        table.attach (incomingSW, 1, 2, 1, 2, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
         self.knownPorts = {"DHCP": self.firewall.dhcp,
                            "SSH": self.firewall.ssh,
@@ -244,10 +252,8 @@ class FirewallWindow (InstallWindow):
                            "Mail (SMTP)": self.firewall.smtp,
                            "FTP": self.firewall.ftp}
 
-        count = 0
         for item in self.knownPorts.keys():
             self.incoming.append_row ((item, ""), self.knownPorts[item])
-            count = count + 1
 
         self.label3 = gtk.Label (_("Other ports:"))
         self.ports = gtk.Entry ()
