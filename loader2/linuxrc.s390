@@ -188,10 +188,10 @@ else  # ctc0, escon0, iucv0
 	 done
 
 	 if [ "$NETTYPE" = "ctc" ]; then
-		 if [ -z "$MTU" ]; then
-			   echo $"Enter the maximal transfer unit (MTU) for this connection or leave empty:"
-			   read MTU
-		 fi
+# 		 if [ -z "$MTU" ]; then
+#			   echo $"Enter the maximal transfer unit (MTU) for this connection or leave empty:"
+#			   read MTU
+#		 fi
 		 if [ -z "$MTU" ]; then
 			   MTU="1500"
 		 fi
