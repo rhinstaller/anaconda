@@ -121,7 +121,7 @@ class KickstartBase(BaseInstallClass):
                 krb5Kdc = arg
             elif (str == '--krb5adminserver'):
                 krb5Admin = arg
-            elif (str == '--enablehesdiod'):
+            elif (str == '--enablehesiod'):
                 useHesiod = 1
             elif (str == '--hesiodlhs'):
                 hesiodLhs = arg
