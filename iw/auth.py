@@ -93,6 +93,6 @@ class AuthWindow (InstallWindow):
         box.pack_start (self.md5, FALSE)
         box.pack_start (self.shadow, FALSE)
         box.pack_start (table, FALSE)
-
+	box.set_border_width (5)
         return box
 
