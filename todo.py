@@ -9,6 +9,7 @@ import whrandom
 import pcmcia
 from simpleconfig import SimpleConfigFile
 from mouse import Mouse
+from xf86config import XF86Config
 
 def _(x):
     return x
@@ -273,7 +274,7 @@ class Drives:
 
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1, mouse = None, instClass = None):
+		 installSystem = 1, mouse = None, instClass = None, x = None):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -297,12 +298,16 @@ class ToDo:
         self.liloDevice = None
 	self.timezone = None
         self.upgrade = 0
-	self.lilo = LiloConfiguration()
+	self.lilo = LiloConfiguration ()
 	self.initrdsMade = {}
 	self.liloImages = {}
 	if (not instClass):
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
+        if x:
+            self.x = x
+        else:
+            self.x = XF86Config ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
