@@ -931,30 +931,22 @@ class ToDo:
 		self.fstab.umountFilesystems (self.instPath)
 	    sys.exit(0)
 
-### XXXXXXXXXXXXXXXXXXXXXXXXXXX fix me - move the replace back down to
-#                               doInstall        
-#        rpm.addMacro("_dbpath", self.dbpath);
+        rpm.addMacro("_dbpath", self.dbpath)
+        rpm.addMacro("_dbapi", "3")
+        try:
+            packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
+        except rpm.error:
+            self.intf.messageWindow(_("Error"),
+                                    _("An error occured when finding the packages to "
+                                      "upgrade."))
+	    if self.setupFilesystems:
+		self.fstab.umountFilesystems (self.instPath)
+	    sys.exit(0)
+                
 
-        # move the rebuilt db into place.
-        os.rename (self.instPath + "/var/lib/rpm",
-                   self.instPath + "/var/lib/anaconda-oldrpm" + str(int(time.time())))
-        os.rename (self.instPath + self.dbpath,
-                   self.instPath + "/var/lib/rpm")
-        rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-#        iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-
-        # flag this so we only do it once.
-        self.dbpath = None
-
-        packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         # unselect all packages
         for package in self.hdList.packages.values ():
             package.selected = 0
-
-        # always upgrade all packages in Base package group
-        # XXX, well - people say this isn't a good idea, so we won't
-        # do it anymore.
-#	self.comps['Base'].select()
 
         hasX = 0
         hasgmc = 0
@@ -1429,16 +1421,17 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
-#        if self.upgrade and self.dbpath:
+        if self.upgrade and self.dbpath:
             # move the rebuilt db into place.
-#              os.rename (self.instPath + "/var/lib/rpm",
-#                         self.instPath + "/var/lib/rpm-old")
-#              os.rename (self.instPath + self.dbpath,
-#                         self.instPath + "/var/lib/rpm")
-#              rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-#              iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-#              # flag this so we only do it once.
-#              self.dbpath = None
+            iutil.rmrf (self.instPath + "/var/lib/rpm.rpmsave")
+            os.rename (self.instPath + "/var/lib/rpm",
+                       self.instPath + "/var/lib/rpm.rpmsave")
+            os.rename (self.instPath + self.dbpath,
+                       self.instPath + "/var/lib/rpm")
+            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
+            rpm.addMacro ("_dbapi", "3")
+            # flag this so we only do it once.
+            self.dbpath = None
 
         self.method.systemMounted (self.fstab, self.instPath, self.hdList.selected())
 
