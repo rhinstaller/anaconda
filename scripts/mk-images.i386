@@ -6,7 +6,7 @@ makebootdisk boot.img loader-local "vfat
 
 makebootdisk bootnet.img loader-network "3c59x ac3200 at1700 de4x5 
 	de600 de620 depca dgrs eepro eexpress hp-plus hp 
-	hp100 ibmtr ni52 tulip wavelan wd nfs"
+	hp100 ibmtr ni52 old_tulip tulip wavelan wd nfs"
 
 makedriverdisk "drivers" "+scsi -net"
 
