@@ -27,6 +27,8 @@ for line in comps:
     count = count + 1
 
 for (comp, line) in list:
+    if comp == "GNOME" or comp == "KDE":
+        continue
     print
     print '# %s:%d' % (sys.argv[1], line)
     print 'msgid "%s"' % comp
