@@ -145,7 +145,7 @@ class InstallProgressWindow:
         # grid code gets unhappy
 	overall.setField (Label (" " * 19), 0, 0, anchorLeft = 1)
 	overall.setField (Label (_("    Packages")), 1, 0, anchorLeft = 1)
-	overall.setField (Label (_("       Bytes")), 2, 0, anchorLeft = 1)
+	overall.setField (Label (_("      Bytes")), 2, 0, anchorLeft = 1)
 	overall.setField (Label (_("        Time")), 3, 0, anchorLeft = 1)
 
 	overall.setField (Label (_("Total    :")), 0, 1, anchorLeft = 1)
