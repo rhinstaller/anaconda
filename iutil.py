@@ -396,3 +396,23 @@ def copyDeviceNode(src, dest):
         raise RuntimeError, "Tried to copy %s which isn't a device node" % (src,)
 
     isys.mknod(dest, mode | type, filestat.st_rdev)
+
+# make the device nodes for all of the drives on the system
+def makeDriveDeviceNodes():
+    hardDrives = isys.hardDriveDict()
+    for drive in hardDrives.keys():
+        isys.makeDevInode(drive, "/dev/%s" % (drive,))
+
+        if drive.startswith("hd"):
+            num = 64
+        else:
+            num = 16
+
+        for i in range(1, num):
+            dev = "%s%d" % (drive, i)
+            isys.makeDevInode(dev, "/dev/%s" % (dev,))
+
+    cdroms = isys.cdromList()
+    for drive in cdroms:
+        isys.makeDevInode(drive, "/dev/%s" % (drive,))
+    
