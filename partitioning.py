@@ -532,7 +532,7 @@ class PartitionSpec:
                "  start: %s   end: %s   partnum: %s\n" %(self.start, self.end, self.partnum) +\
                "  drive: %s   primary: %s  \n" %(self.drive, self.primary) +\
                "  format: %s, options: %s" %(self.format, self.options) +\
-               "  device: %s, realDevice: %s\n" %(self.device, self.realDevice)+\
+               "  device: %s, currentDrive: %s\n" %(self.device, self.currentDrive)+\
                "  raidlevel: %s" % (self.raidlevel)+\
                "  raidspares: %s" % (self.raidspares)+\
                "  raidmembers: %s" % (raidmem)
