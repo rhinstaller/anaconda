@@ -149,14 +149,14 @@ Section "Monitor"
 #    HorizSync   31.5
 #    VertRefresh 60
     HorizSync   35.15
-    VertRefresh 56
+    VertRefresh 55-65
 
 #    ModeLine  "640x480"   25.175  640 664 760 800
 #                                  480 491 493 525
 
 # 800x600 @ 56 Hz, 35.15 kHz hsync
-    ModeLine "800x600"     36     800  824  896 1024
-                                  600  601  603  625
+#    ModeLine "800x600"     36     800  824  896 1024
+#                                  600  601  603  625
 
 EndSection
 
