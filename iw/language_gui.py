@@ -24,7 +24,6 @@ class LanguageWindow (InstallWindow):
 
     def getNext (self):
         if self.lang:
-            self.todo.language.set (self.lang)
             self.icw.setLanguage (self.languages[self.lang])
         return None
 
@@ -53,7 +52,7 @@ class LanguageWindow (InstallWindow):
         n = 0
         for locale in language_keys:
             row = self.language.append ((locale,))
-            if self.languages[locale] == self.todo.language.get ():
+            if self.languages[locale] == self.icw.getLanguage ():
                 default = n
             n = n + 1
 

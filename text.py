@@ -86,6 +86,7 @@ class LanguageWindow:
             screen.finish()
             os.execv ("/sbin/loader", args)
 
+        os.environ["LC_ALL"] = lang
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])

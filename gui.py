@@ -67,6 +67,7 @@ from translate import cat, _
 from gnome.ui import *
 from gnome.xmhtml import *
 from language_gui import *
+from language_support_gui import *
 from welcome_gui import *
 from mouse_gui import *
 from keyboard_gui import *
@@ -337,12 +338,14 @@ class InstallInterface:
 
         else:
             if todo.serial:
-                commonSteps = [ ( LanguageWindow, "language" ), 
+                commonSteps = [ ( LanguageWindow, "language" ),
+                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( WelcomeWindow, "welcome" ),
                                 ( InstallPathWindow, "installtype" ),
                                 ]
             else:
                 commonSteps = [ ( LanguageWindow, "language" ), 
+                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( KeyboardWindow, "keyboard" ),
                                 ( MouseWindow, "mouse" ),
                                 ( WelcomeWindow, "welcome" ),
@@ -365,11 +368,17 @@ class InstallInterface:
         self.icw.run ()
 
 class InstallControlWindow:
+    def getLanguage (self):
+        return self.lang
+    
     def setLanguage (self, lang):
         newlangs = [lang]
         
         if len(lang) > 2:
             newlangs.append(lang[:2])
+        self.lang = lang
+        
+        os.environ["LC_ALL"] = lang        
         self.locale = lang[:2]
 
         cat.setlangs (newlangs)
@@ -691,8 +700,10 @@ class InstallControlWindow:
         self.steps = steps
         if os.environ.has_key ("LC_ALL"):
             self.locale = os.environ["LC_ALL"][:2]
+            self.lang = os.environ["LC_ALL"]
         else:
             self.locale = "C"
+            self.lang = "en_US"
 
     def keyRelease (self, window, event):
         if ((event.keyval == KP_Delete or event.keyval == Delete)

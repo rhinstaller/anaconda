@@ -1,6 +1,6 @@
 import rpm
 import os
-rpm.addMacro("_i18ndomains", "redhat-dist");
+rpm.addMacro("_i18ndomains", "redhat-dist")
 
 import iutil, isys
 from lilo import LiloConfiguration
@@ -214,6 +214,7 @@ class Desktop (SimpleConfigFile):
 class Language (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
+        self.info["SUPPORTED"] = None
 
 	if os.access("lang-table", os.R_OK):
 	    f = open("lang-table", "r")
@@ -252,17 +253,32 @@ class Language (SimpleConfigFile):
 
     def setByAbbrev(self, lang):
 	self.set(self.abbrevMap[lang])
+
+    def getSupported (self):
+        if self.info["SUPPORTED"]:
+            return string.split (self.info["SUPPORTED"], ':')
+        return []
+
+    def setSupported (self, langlist):
+        if langlist:
+            linguas = string.join (langlist, ':')
+            os.environ["LINGUAS"] = linguas
+            rpm.addMacro("_install_langs", linguas)
+            self.info["SUPPORTED"] = linguas
+        else:
+            self.info["SUPPORTED"] = None
+            rpm.delMacro ("_install_langs")
     
     def set (self, lang):
         self.lang = self.langs[lang]
         os.environ["LANG"] = self.langs[lang]
         if self.japanesehack:
             self.info["LANG"] = "ja_JP.eucJP"
-            rpm.addMacro("_install_langs", "ja_JP.eucJP");
+            rpm.addMacro("_install_langs", "ja_JP.eucJP")
             os.environ["LINGUAS"] = "ja_JP.eucJP"
         else:
             self.info["LANG"] = self.langs[lang]
-            rpm.addMacro("_install_langs", self.langs[lang]);
+            rpm.addMacro("_install_langs", self.langs[lang])
             os.environ["LINGUAS"] = self.langs[lang]
 
 	if self.font[lang] != "None":
@@ -1019,8 +1035,8 @@ class ToDo:
                                     _("Finding packages to upgrade..."))
 
         self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
-        rpm.addMacro("_dbpath_rebuild", self.dbpath);
-        rpm.addMacro("_dbapi", "-1");
+        rpm.addMacro("_dbpath_rebuild", self.dbpath)
+        rpm.addMacro("_dbapi", "-1")
 
         # now, set the system clock so the timestamps will be right:
         iutil.setClock (self.instPath)
@@ -1712,7 +1728,7 @@ class ToDo:
                 self.createRemovable("zip", partNum = 4)
                 self.createRemovable("jaz", partNum = 4)
 
-		w.set(1);
+		w.set(1)
 
                 self.copyExtraModules()
                 self.fstab.write (self.instPath)
@@ -1722,7 +1738,7 @@ class ToDo:
                     self.initlevel = self.instClass.defaultRunlevel
                     self.setDefaultRunlevel ()
 
-		w.set(2);
+		w.set(2)
 
                 # pcmcia is supported only on i386 at the moment
                 if arch == "i386":
@@ -1742,7 +1758,7 @@ class ToDo:
                     self.x.write (self.instPath + "/etc/X11")
                 self.setDefaultRunlevel ()
 
-		w.set(3);
+		w.set(3)
 
                 # blah.  If we're on a serial mouse, and we have X, we need to
                 # close the mouse device, then run kudzu, then open it again.
@@ -1797,7 +1813,7 @@ class ToDo:
                 if unmountUSB:
                     isys.umount(self.instPath + '/proc/bus/usb', removeDir = 0)
 
-	    w.set(4);
+	    w.set(4)
 
             if self.upgrade:
                 # move the rebuilt db into place.
@@ -1829,18 +1845,18 @@ class ToDo:
                 else:
                     raise RuntimeError, "What kind of machine is this, anyway?!"
 
-		w.set(5);
+		w.set(5)
 
 
                 # go ahead and depmod modules as modprobe in rc.sysinit
                 # will complain loaduly if we don't do it now.
                 self.depmodModules()
 
-	    w.set(6);
+	    w.set(6)
 
             self.instClass.postAction(self.instPath, self.serial)
 
-	    w.set(7);
+	    w.set(7)
 
             if self.setupFilesystems:
                 f = open("/tmp/cleanup", "w")
@@ -1848,7 +1864,7 @@ class ToDo:
                 self.fstab.writeCleanupPath(f)
                 f.close()
 
-	    w.set(8);
+	    w.set(8)
 
             del syslog
 
