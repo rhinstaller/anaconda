@@ -6,7 +6,10 @@ DESTDIR = $(TOPDIR)/RedHat/instimage/usr/bin
 CATALOGS = po/anaconda-text.pot
 ALLSUBDIRS = $(SUBDIRS) $(BUILDONLYSUBDIRS)
 
-all: subdirs $(CATALOGS)
+all: subdirs _xkb.so $(CATALOGS)
+
+_xkb.so: xkb.c
+	gcc -o _xkb.so -shared -I/usr/include/python1.5 xkb.c
 
 clean: 
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
