@@ -397,13 +397,14 @@ esac
 
 def swapAmount():
     f = open("/proc/meminfo", "r")
-    mem = f.readlines()[2]
-    del f
+    lines = f.readlines()
+    f.close()
 
-    fields = string.split(mem)
-    mem = int(long (fields[1]) / 1024)
-
-    return mem
+    for l in lines:
+        if l.startswith("SwapTotal:"):
+            fields = string.split(l)
+            return int(fields[1])
+    return 0
         
 def copyDeviceNode(src, dest):
     """Copies the device node at src to dest by looking at the type of device,
