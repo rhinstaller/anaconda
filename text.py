@@ -950,11 +950,11 @@ class InstallInterface:
             BootloaderSkipName = "lilo"            
 
         self.installSteps = [
+            [N_("Automatic Partition"), AutoPartitionWindow, 
+		    (self.screen, todo), "partition" ],
             [N_("Partition"), PartitionMethod,
 		    (self.screen, todo), "partition" ],
             [N_("Manually Partition"), ManualPartitionWindow, 
-		    (self.screen, todo), "partition" ],
-            [N_("Automatic Partition"), AutoPartitionWindow, 
 		    (self.screen, todo), "partition" ],
             [N_("Partition"), PartitionWindow, (self.screen, todo),
 		    "partition" ],
