@@ -111,8 +111,9 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     
     swap = iutil.swapAmount() / 1024
 
-    # if we have twice as much swap as ram, we're safe
-    if swap >= (mem * 2):
+    # if we have twice as much swap as ram and at least 192 megs
+    # total, we're safe 
+    if (swap >= (mem * 1.75)) and (swap + mem >= 192):
         dispatch.skipStep("addswap", 1)
 	return
 
@@ -140,6 +141,8 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
                     fsList.append(info)
 
     suggestion = mem * 2 - swap
+    if (swap + mem + suggestion) < 192:
+        suggestion = 192 - (swap + mem)
     if suggestion < 32:
         suggestion = 32
     suggSize = 0
