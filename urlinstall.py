@@ -3,6 +3,7 @@
 from comps import ComponentSet, HeaderList
 import os
 import rpm
+import time
 import urllib
 import string
 import struct
@@ -33,17 +34,35 @@ class InstallMethod:
 		break
 
 	file = tmppath + h[FILENAME]
-	  
-	urllib.urlretrieve(self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
-			file)
+
+        connected = 0
+        while not connected:
+            try:
+                urllib.urlretrieve(self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
+                                   file)
+            except IOError, (errnum, msg):
+#                print "IOError occurred, trying again"
+                time.sleep(5)
+            else:
+                connected = 1
+                
 	return file
 
     def unlinkFilename(self, fullName):
 	os.remove(fullName)
 
     def readHeaders(self):
-	url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
 
+        connected = 0
+        while not connected:
+            try:
+                url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
+            except IOError, (errnum, msg):
+#                print "IOError occurred, trying again"
+                time.sleep(5)
+            else:
+                connected = 1
+                
 	raw = url.read(16)
 	hl = []
 	while (raw):
@@ -68,7 +87,7 @@ class InstallMethod:
 	    
     def filesDone(self):
 	pass
-	    
+
     def __init__(self, url):
 	i = string.index(url, '://') + 2
 	self.baseUrl = url[0:i]
