@@ -285,12 +285,16 @@ class AccountWindow (InstallWindow):
         
         box.pack_start (table, FALSE)
         box.pack_start (bb, FALSE)
+        sw = GtkScrolledWindow ()
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+
         self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
         for x in range (2):
             self.userList.set_selectable (x, FALSE)
 
 	self.userList.connect("select_row", self.userSelected)
-        box.pack_start (self.userList, TRUE)
+        sw.add (self.userList)
+        box.pack_start (sw, TRUE)
 
         index = 0
 	for (user, name, password) in self.todo.getUserList():
