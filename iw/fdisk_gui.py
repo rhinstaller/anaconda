@@ -13,7 +13,7 @@
 
 import gtk
 from iw_gui import *
-#from gnome.zvt import *
+from gnome import zvt
 from translate import _
 from dispatch import DISPATCH_NOOP
 import partitioning
@@ -52,34 +52,31 @@ class FDiskWindow (InstallWindow):
 
 
     def button_clicked (self, widget, drive):
-        self.intf.messageWindow("zvt no workie", "zvt2 no workie yet, so no fdisk yet")
-        # XXX zvt doesn't work with gnome-python2 yet
-##         zvt = ZvtTerm (80, 24)
-##         zvt.set_del_key_swap(TRUE)
-##         zvt.connect ("child_died", self.child_died, widget)
-##         self.drive = drive
+        term = zvt.Term(80, 24)
+        term.set_del_key_swap(gtk.TRUE)
+        term.connect("child_died", self.child_died, widget)
+        self.drive = drive
 
-## 	# free our fd's to the hard drive -- we have to 
-## 	# fstab.rescanDrives() after this or bad things happen!
-##         if os.access("/sbin/fdisk", os.X_OK):
-##             path = "/sbin/fdisk"
-##         else:
-##             path = "/usr/sbin/fdisk"
+	# free our fd's to the hard drive -- we have to 
+	# fstab.rescanDrives() after this or bad things happen!
+        if os.access("/sbin/fdisk", os.X_OK):
+            path = "/sbin/fdisk"
+        else:
+            path = "/usr/sbin/fdisk"
         
-## 	isys.makeDevInode(drive, '/tmp/' + drive)
+	isys.makeDevInode(drive, '/tmp/' + drive)
 
-##         if zvt.forkpty() == 0:
-##             env = os.environ
-##             os.execve (path, (path, '/tmp/' + drive), env)
-##         zvt.show ()
+        if term.forkpty() == 0:
+            env = os.environ
+            os.execve (path, (path, '/tmp/' + drive), env)
+        term.show()
 
-##         self.windowContainer.remove (self.buttonBox)
-##         self.windowContainer.pack_start (zvt)
+        self.windowContainer.remove(self.buttonBox)
+        self.windowContainer.pack_start(term)
 
-##         self.ics.readHTML ("fdiskpart")
-##         self.ics.setPrevEnabled (0)
-##         self.ics.setNextEnabled (0)
-
+        self.ics.readHTML("fdiskpart")
+        self.ics.setPrevEnabled(0)
+        self.ics.setNextEnabled(0)
 
     # FDiskWindow tag="fdisk"
     def getScreen (self, diskset, partrequests, intf):
