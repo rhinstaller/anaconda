@@ -7,7 +7,7 @@ ifneq (ia64, $(ARCH))
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader po \
+SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader2 po \
 	    textw utils scripts bootdisk installclasses \
 	    fonts iw pixmaps $(STUBS) isomd5sum command-stubs
 SUBDIRS = $(SUBDIRSHD)
