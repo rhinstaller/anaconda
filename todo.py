@@ -1491,7 +1491,9 @@ class ToDo:
                 os.symlink ("../../usr/X11R6/bin/XF86_" + self.x.server,
                             self.instPath + "/etc/X11/X")
             self.setDefaultRunlevel ()
-        
+            argv = [ "/usr/sbin/kudzu", "-q" ]
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath,
+				   stdout = devnull)
 	self.installLilo ()
 
 	if self.instClass.postScript:
