@@ -333,6 +333,29 @@ class ToDo:
 
 	return (bootpart, boothd)
 
+    def writeTimezone(self):
+	if (self.timezone):
+	    (timezone, asUtc, asArc) = self.timezone
+	    os.symlink("../usr/share/zoneinfo/" + timezone, 
+		       self.instPath + "/etc/localtime")
+	else:
+	    asUtc = 0
+	    asArc = 0
+
+	f = open(self.instPath + "/etc/sysconfig/clock", "w")
+	f.write("UTC=")
+	if (asUtc):
+	    f.write("true\n")
+	else:
+	    f.write("false\n")
+
+	f.write("ARC=")
+	if (asArc):
+	    f.write("true\n")
+	else:
+	    f.write("false\n")
+	f.close()
+
     def getTimezoneInfo(self):
 	return self.timezone
 
@@ -979,6 +1002,7 @@ class ToDo:
             self.writeRootPassword ()
             self.setupAuthentication ()
 	    self.createAccounts ()
+	    #self.writeTimezone()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
 	self.installLilo ()
