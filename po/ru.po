@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2000-02-16 14:35-0500\n"
+"POT-Creation-Date: 2000-02-17 18:41-0500\n"
 "PO-Revision-Date: 1999-04-03 12:20+0200\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Black Cat Linux Team <blackcat-support@blackcatlinux.com>\n"
@@ -26,8 +26,8 @@ msgstr "Форматирование раздела свопинга на /dev/%s..."
 #: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1692
 #: ../loader/loader.c:1738 ../loader/loader.c:1809 ../loader/urls.c:70
 #: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
-#: ../loader/urls.c:228 ../text.py:281 ../text.py:766 ../todo.py:328
-#: ../todo.py:658 ../todo.py:689
+#: ../loader/urls.c:228 ../text.py:281 ../text.py:765 ../todo.py:336
+#: ../todo.py:654 ../todo.py:685
 msgid "Error"
 msgstr "Ошибка"
 
@@ -40,7 +40,7 @@ msgstr "Ошибка создания свопинга на устройстве "
 msgid "Error unmounting %s: %s"
 msgstr "Ошибка отмонтирования %s: %s"
 
-#: ../fstab.py:349 ../todo.py:411
+#: ../fstab.py:349 ../todo.py:419
 msgid "Creating"
 msgstr "Создание"
 
@@ -80,15 +80,15 @@ msgstr "Далее"
 #: ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143
 #: ../text.py:173 ../text.py:176 ../text.py:230 ../text.py:284 ../text.py:298
 #: ../text.py:300 ../text.py:319 ../text.py:321 ../text.py:343 ../text.py:345
-#: ../text.py:452 ../text.py:503 ../text.py:505 ../text.py:518 ../text.py:536
-#: ../text.py:549 ../text.py:586 ../text.py:588 ../text.py:614 ../text.py:617
-#: ../text.py:626 ../text.py:686 ../text.py:687 ../textw/constants.py:10
+#: ../text.py:452 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
+#: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
+#: ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10
 #: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
 #: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:64
 #: ../textw/partitioning.py:231 ../textw/partitioning.py:280
-#: ../textw/silo.py:26 ../textw/silo.py:88 ../textw/silo.py:195
+#: ../textw/silo.py:26 ../textw/silo.py:98 ../textw/silo.py:205
 #: ../textw/timezone.py:66 ../textw/userauth.py:30 ../textw/userauth.py:154
 #: ../textw/userauth.py:185 ../textw/userauth.py:257
 msgid "Back"
@@ -110,8 +110,8 @@ msgstr "Готово"
 msgid "Online Help"
 msgstr "Помощь"
 
-#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1006
-#: ../text.py:1035
+#: ../gui.py:285 ../iw/language.py:10 ../text.py:59 ../text.py:1005
+#: ../text.py:1034
 msgid "Language Selection"
 msgstr "Выбор языка"
 
@@ -166,9 +166,9 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:626 ../textw/constants.py:10 ../textw/lilo.py:105
-#: ../textw/lilo.py:177 ../textw/silo.py:125 ../textw/silo.py:138
-#: ../textw/silo.py:194
+#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
+#: ../textw/lilo.py:177 ../textw/silo.py:135 ../textw/silo.py:148
+#: ../textw/silo.py:204
 msgid "Ok"
 msgstr "Ok"
 
@@ -192,8 +192,8 @@ msgstr "/dev/ttyS1 (COM2 в DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS1 (COM2 в DOS)"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
-#: ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:185
+#: ../iw/lilo.py:221 ../iw/silo.py:254 ../text.py:98 ../textw/lilo.py:100
+#: ../textw/lilo.py:168 ../textw/silo.py:130 ../textw/silo.py:195
 msgid "Device"
 msgstr "Устройство"
 
@@ -215,13 +215,13 @@ msgstr "К какому устройству подключена ваша мышь? %s %i"
 #: ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228
 #: ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:230
 #: ../text.py:298 ../text.py:343 ../text.py:360 ../text.py:452 ../text.py:472
-#: ../text.py:503 ../text.py:586 ../text.py:614 ../text.py:686 ../text.py:711
-#: ../text.py:725 ../text.py:745 ../text.py:758 ../text.py:770 ../text.py:965
-#: ../text.py:969 ../text.py:1166 ../textw/lilo.py:30 ../textw/lilo.py:87
+#: ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710
+#: ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964
+#: ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87
 #: ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:231 ../textw/partitioning.py:280
 #: ../textw/partitioning.py:290 ../textw/partitioning.py:298
-#: ../textw/silo.py:25 ../textw/silo.py:88 ../textw/timezone.py:66
+#: ../textw/silo.py:25 ../textw/silo.py:98 ../textw/timezone.py:66
 #: ../textw/userauth.py:30 ../textw/userauth.py:44 ../textw/userauth.py:49
 #: ../textw/userauth.py:82 ../textw/userauth.py:95 ../textw/userauth.py:101
 #: ../textw/userauth.py:107 ../textw/userauth.py:115 ../textw/userauth.py:124
@@ -241,7 +241,7 @@ msgstr "Эмулировать 3 кнопки?"
 msgid "Mouse Selection"
 msgstr "Выбор мыши"
 
-#: ../text.py:171 ../text.py:1008 ../text.py:1037
+#: ../text.py:171 ../text.py:1007 ../text.py:1036
 msgid "Keyboard Selection"
 msgstr "Тип клавиатуры"
 
@@ -269,7 +269,7 @@ msgstr "Установить систему по выбору"
 msgid "Upgrade Existing Installation"
 msgstr "Обновить существующую инсталляцию"
 
-#: ../text.py:228 ../text.py:1040
+#: ../text.py:228 ../text.py:1039
 msgid "Installation Type"
 msgstr "Тип инсталляции"
 
@@ -308,8 +308,8 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:319 ../text.py:518
-#: ../text.py:536 ../text.py:543 ../textw/partitioning.py:192
+#: ../loader/loader.c:608 ../loader/net.c:719 ../text.py:319 ../text.py:517
+#: ../text.py:535 ../text.py:542 ../textw/partitioning.py:192
 msgid "Yes"
 msgstr "Да"
 
@@ -319,8 +319,8 @@ msgstr "Да"
 #: ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499
 #: ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479
 #: ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582
-#: ../loader/net.c:719 ../text.py:319 ../text.py:324 ../text.py:518
-#: ../text.py:536 ../text.py:546 ../textw/partitioning.py:192
+#: ../loader/net.c:719 ../text.py:319 ../text.py:324 ../text.py:517
+#: ../text.py:535 ../text.py:545 ../textw/partitioning.py:192
 msgid "No"
 msgstr "Нет"
 
@@ -368,7 +368,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:171
 #: ../loader/loader.c:1801 ../text.py:360 ../text.py:362 ../textw/lilo.py:106
-#: ../textw/silo.py:125 ../textw/silo.py:143 ../textw/userauth.py:63
+#: ../textw/silo.py:135 ../textw/silo.py:153 ../textw/userauth.py:63
 msgid "Cancel"
 msgstr "Отмена"
 
@@ -404,11 +404,11 @@ msgstr "Неверная информация"
 msgid "You must enter valid IP information to continue"
 msgstr "Необходимо ввести правильные параметры IP для продолжения"
 
-#: ../text.py:499
+#: ../text.py:498
 msgid "Hostname Configuration"
 msgstr "Имя компьютера"
 
-#: ../text.py:500
+#: ../text.py:499
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -416,11 +416,11 @@ msgstr ""
 "Необходимо указать имя вашего компьютера. Если компьютер подключен к сети, "
 "имя компьютера может быть уже назначено вашим сетевым администратором."
 
-#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:503
+#: ../iw/network.py:207 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
 msgid "Hostname"
 msgstr "Имя хоста"
 
-#: ../text.py:519
+#: ../text.py:518
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -440,7 +440,7 @@ msgstr ""
 "\n"
 "Хотите создать загрузочный диск сейчас?"
 
-#: ../text.py:538
+#: ../text.py:537
 msgid ""
 "\n"
 "On SMCC made Ultra machines floppy booting probably does not work\n"
@@ -450,39 +450,39 @@ msgstr ""
 "На машинах Ultra производства SMCC загрузка с дискет возжно не работает\n"
 "\n"
 
-#: ../text.py:541 ../text.py:754
+#: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
 msgstr "Загрузочный диск"
 
-#: ../text.py:584
+#: ../text.py:583
 msgid "X probe results"
 msgstr "Результаты проверки Х"
 
-#: ../text.py:603 ../text.py:622
+#: ../text.py:602 ../text.py:621
 msgid "Unlisted Card"
 msgstr "Неуказанная карта"
 
-#: ../text.py:611
+#: ../text.py:610
 msgid "Video Card Selection"
 msgstr "Выбор видеокарты"
 
-#: ../text.py:612
+#: ../text.py:611
 msgid "Which video card do you have?"
 msgstr "Укажите тип видеокарты"
 
-#: ../text.py:624
+#: ../text.py:623
 msgid "X Server Selection"
 msgstr "Выбор Х-сервера"
 
-#: ../text.py:624
+#: ../text.py:623
 msgid "Choose a server"
 msgstr "Выберите сервер"
 
-#: ../text.py:682
+#: ../text.py:681
 msgid "Installation to begin"
 msgstr "Начало инсталляции"
 
-#: ../iw/confirm.py:33 ../text.py:683
+#: ../iw/confirm.py:33 ../text.py:682
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -490,11 +490,11 @@ msgstr ""
 "Полный протокол инсталляции вашей системы после перезагрузки будет "
 "находиться в /tmp/install.log. Возможно вам понадобится к нему обратиться."
 
-#: ../text.py:700 ../text.py:715 ../text.py:735
+#: ../text.py:699 ../text.py:714 ../text.py:734
 msgid "Complete"
 msgstr "Готово"
 
-#: ../iw/congrats.py:32 ../text.py:701
+#: ../iw/congrats.py:32 ../text.py:700
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -515,7 +515,7 @@ msgstr ""
 "Информацию о настойке и использовании вашей системы содержится в "
 "руководствах по пользователя Red Hat Linux."
 
-#: ../text.py:716 ../text.py:736
+#: ../text.py:715 ../text.py:735
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -533,7 +533,7 @@ msgstr ""
 "Информацию о дальнейшей настройке вашей системы можно почерпнуть в разделе "
 "\"post install\" Официального руководства пользователя Red Hat Linux."
 
-#: ../iw/bootdisk.py:57 ../text.py:755
+#: ../iw/bootdisk.py:57 ../text.py:754
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -541,12 +541,12 @@ msgstr ""
 "Вставьте отформатированную дискету в первый дисковод. Все данные на этой "
 "дискете при создании загрузочного диска будут уничтожены."
 
-#: ../text.py:758 ../text.py:759 ../text.py:770 ../text.py:771
+#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
 #: ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Пропустить"
 
-#: ../iw/bootdisk.py:61 ../text.py:767
+#: ../iw/bootdisk.py:61 ../text.py:766
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -554,251 +554,251 @@ msgstr ""
 "При создании загрузочного диска произошла ошибка. Убедитесь, что "
 "отформатированная дискета вставлена в первый дисковод."
 
-#: ../text.py:829
+#: ../text.py:828
 msgid "Package Installation"
 msgstr "Инсталляция пакета"
 
-#: ../text.py:831
+#: ../text.py:830
 msgid "Name   : "
 msgstr "Имя    :"
 
-#: ../text.py:832
+#: ../text.py:831
 msgid "Size   : "
 msgstr "Размер :"
 
-#: ../text.py:833
+#: ../text.py:832
 msgid "Summary: "
 msgstr "Сведения:"
 
-#: ../text.py:859
+#: ../text.py:858
 msgid "    Packages"
 msgstr "      Пакеты"
 
-#: ../text.py:860
+#: ../text.py:859
 msgid "       Bytes"
 msgstr "        Байт"
 
-#: ../text.py:861
+#: ../text.py:860
 msgid "        Time"
 msgstr "       Время"
 
-#: ../text.py:863
+#: ../text.py:862
 msgid "Total    :"
 msgstr "Всего    :"
 
-#: ../text.py:870
+#: ../text.py:869
 msgid "Completed:   "
 msgstr "Завершено:   "
 
-#: ../text.py:880
+#: ../text.py:879
 msgid "Remaining:  "
 msgstr " Осталось:  "
 
-#: ../text.py:969 ../text.py:970
+#: ../text.py:968 ../text.py:969
 msgid "Debug"
 msgstr "Отладка"
 
-#: ../text.py:982
+#: ../text.py:981
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:984
+#: ../text.py:983
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1004 ../text.py:1039
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
 msgid "Welcome"
 msgstr "Welcome"
 
-#: ../text.py:1010 ../text.py:1078
+#: ../text.py:1009 ../text.py:1077
 msgid "Hostname Setup"
 msgstr "Имя компьютера"
 
-#: ../text.py:1012 ../text.py:1080
+#: ../text.py:1011 ../text.py:1079
 msgid "Network Setup"
 msgstr "Настройка сети"
 
-#: ../text.py:1018 ../text.py:1086
+#: ../text.py:1017 ../text.py:1085
 msgid "Time Zone Setup"
 msgstr "Выбор часового пояса"
 
-#: ../text.py:1020 ../text.py:1088 ../textw/userauth.py:9
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:9
 msgid "Root Password"
 msgstr "Пароль пользователя root"
 
-#: ../text.py:1022 ../text.py:1090 ../textw/userauth.py:161
+#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:161
 msgid "User Account Setup"
 msgstr "Создание учетной записи пользователя"
 
-#: ../text.py:1024 ../text.py:1092
+#: ../text.py:1023 ../text.py:1091
 msgid "Authentication"
 msgstr "Аутентификация"
 
-#: ../text.py:1030
+#: ../text.py:1029
 msgid "Configuration Complete"
 msgstr "Настройка завершена"
 
-#: ../text.py:1048 ../textw/silo.py:28 ../textw/silo.py:90
-#: ../textw/silo.py:202
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:100
+#: ../textw/silo.py:212
 msgid "SILO Configuration"
 msgstr "Конфигурация SILO"
 
-#: ../text.py:1054 ../textw/lilo.py:33 ../textw/lilo.py:84
+#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr "Конфигурация LILO"
 
-#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269
-#: ../text.py:1058 ../text.py:1064
+#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:277
+#: ../text.py:1057 ../text.py:1063
 msgid "Partition"
 msgstr "Разбиение"
 
-#: ../text.py:1060
+#: ../text.py:1059
 msgid "Manually Partition"
 msgstr "Ручное разбиение"
 
-#: ../text.py:1062
+#: ../text.py:1061
 msgid "Automatic Partition"
 msgstr "Автоматическое разбиение"
 
-#: ../text.py:1066 ../textw/partitioning.py:272
+#: ../text.py:1065 ../textw/partitioning.py:272
 msgid "Root Filesystem Size"
 msgstr "Размер корневой файловой системы"
 
-#: ../text.py:1068
+#: ../text.py:1067
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1070
+#: ../text.py:1069
 msgid "Filesystem Formatting"
 msgstr "Форматирование файловых систем"
 
-#: ../iw/mouse.py:55 ../text.py:1082 ../text.py:1084
+#: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
 msgid "Mouse Configuration"
 msgstr "Выбор мыши"
 
-#: ../text.py:1094
+#: ../text.py:1093
 msgid "Package Groups"
 msgstr "Группы пакетов"
 
-#: ../text.py:1096 ../text.py:1124
+#: ../text.py:1095 ../text.py:1123
 msgid "Individual Packages"
 msgstr "Индивидуальный выбор пакетов"
 
-#: ../text.py:1098 ../textw/packages.py:122
+#: ../text.py:1097 ../textw/packages.py:122
 msgid "Package Dependencies"
 msgstr "Зависимости пакетов"
 
-#: ../iw/xconfig.py:250 ../text.py:1100 ../text.py:1108
+#: ../iw/xconfig.py:250 ../text.py:1099 ../text.py:1107
 msgid "X Configuration"
 msgstr "Настройка Х"
 
-#: ../text.py:1102
+#: ../text.py:1101
 msgid "Installation Begins"
 msgstr "Начало инсталляции"
 
-#: ../text.py:1104
+#: ../text.py:1103
 msgid "Install System"
 msgstr "Инсталляция системы"
 
-#: ../text.py:1105 ../text.py:1107 ../text.py:1126 ../text.py:1128
+#: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
 msgid "Boot Disk"
 msgstr "Загрузочный диск"
 
-#: ../text.py:1110
+#: ../text.py:1109
 msgid "Installation Complete"
 msgstr "Инсталляция завершена"
 
-#: ../text.py:1115
+#: ../text.py:1114
 msgid "Examine System"
 msgstr "Проверка системы"
 
-#: ../text.py:1122
+#: ../text.py:1121
 msgid "Customize Upgrade"
 msgstr "Уточнить обновление"
 
-#: ../text.py:1125
+#: ../text.py:1124
 msgid "Upgrade System"
 msgstr "Обновление системы"
 
-#: ../text.py:1129
+#: ../text.py:1128
 msgid "Upgrade Complete"
 msgstr "Обновление завершено"
 
-#: ../text.py:1163
+#: ../text.py:1162
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: ../text.py:1164
+#: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "С этого места невозможно вернуться к предыдущему этапу. Вам придется "
 "повторить попытку."
 
-#: ../todo.py:329
+#: ../todo.py:337
 #, c-format
 msgid "Error copying file: %s"
 msgstr "Ошибка копирования файла: %s"
 
-#: ../todo.py:411
+#: ../todo.py:419
 msgid "Creating boot disk..."
 msgstr "Создание загрузочного диск..."
 
-#: ../todo.py:431
+#: ../todo.py:439
 msgid "Reading"
 msgstr "Чтение"
 
-#: ../todo.py:432
+#: ../todo.py:440
 msgid "Reading package information..."
 msgstr "Чтение информации о пакете..."
 
-#: ../todo.py:628 ../todo.py:641
+#: ../todo.py:624 ../todo.py:637
 msgid "no suggestion"
 msgstr "нет вариантов"
 
-#: ../todo.py:647
+#: ../todo.py:643
 msgid "Searching"
 msgstr "Поиск"
 
-#: ../todo.py:648
+#: ../todo.py:644
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Поиск инсталляций Red Hat Linux..."
 
-#: ../todo.py:659 ../todo.py:690
+#: ../todo.py:655 ../todo.py:686
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Ошибка монтирования файловой системы ext2 на %s: %s"
 
-#: ../todo.py:701
+#: ../todo.py:697
 msgid "Finding"
 msgstr "Поиск"
 
-#: ../todo.py:702
+#: ../todo.py:698
 msgid "Finding packages to upgrade..."
 msgstr "Поиск пакетов для обновления..."
 
-#: ../todo.py:958
+#: ../todo.py:954
 msgid "Processing"
 msgstr "Обработка"
 
-#: ../todo.py:959
+#: ../todo.py:955
 msgid "Preparing to install..."
 msgstr "Подготовка к инсталляции..."
 
-#: ../todo.py:1132
+#: ../todo.py:1134
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Обновление %s.\n"
 
-#: ../todo.py:1134
+#: ../todo.py:1136
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Инсталляция %s.\n"
 
-#: ../todo.py:1155
+#: ../todo.py:1157
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -808,23 +808,23 @@ msgstr ""
 "Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../todo.py:1158
+#: ../todo.py:1160
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: ../todo.py:1158
+#: ../todo.py:1160
 msgid "Space Needed"
 msgstr "Мало места"
 
-#: ../todo.py:1171
+#: ../todo.py:1173
 msgid "Disk Space"
 msgstr "Дисковое пространство"
 
-#: ../todo.py:1195
+#: ../todo.py:1197
 msgid "Post Install"
 msgstr "Post Install"
 
-#: ../todo.py:1196
+#: ../todo.py:1198
 msgid "Performing post install configuration..."
 msgstr "выполняется настройка после инсталляции..."
 
@@ -907,7 +907,7 @@ msgstr "Добавить"
 
 #: ../iw/account.py:252 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
-#: ../textw/partitioning.py:63 ../textw/silo.py:194 ../textw/silo.py:216
+#: ../textw/partitioning.py:63 ../textw/silo.py:204 ../textw/silo.py:226
 #: ../textw/userauth.py:185
 msgid "Edit"
 msgstr "Редактировать"
@@ -1108,7 +1108,7 @@ msgstr "Какой язык должен использоваться в процессе инсталляции?"
 msgid "Lilo Configuration"
 msgstr "Конфигурация LILO"
 
-#: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:270
+#: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:278
 msgid "Type"
 msgstr "Тип"
 
@@ -1116,11 +1116,11 @@ msgstr "Тип"
 msgid "Install LILO boot record on:"
 msgstr "Установить загрузчик LILO на:"
 
-#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:62
+#: ../iw/lilo.py:171 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:63
+#: ../iw/lilo.py:175 ../iw/silo.py:173 ../textw/silo.py:64
 msgid "First sector of boot partition"
 msgstr "Первый сектор загрузочного раздела"
 
@@ -1128,11 +1128,11 @@ msgstr "Первый сектор загрузочного раздела"
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Включить линейный режим (для некоторых дисков SCSI)"
 
-#: ../iw/lilo.py:189 ../iw/silo.py:197
+#: ../iw/lilo.py:189 ../iw/silo.py:205
 msgid "Kernel parameters"
 msgstr "Параметры модуля"
 
-#: ../iw/lilo.py:206 ../iw/silo.py:215
+#: ../iw/lilo.py:206 ../iw/silo.py:223
 msgid "Create boot disk"
 msgstr "Создать загрузочный диск"
 
@@ -1140,63 +1140,63 @@ msgstr "Создать загрузочный диск"
 msgid "Do not install LILO"
 msgstr "Не устанавливать LILO"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:185
+#: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
+#: ../textw/silo.py:195
 msgid "Default"
 msgstr "По умолчанию"
 
-#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
-#: ../textw/silo.py:185
+#: ../iw/lilo.py:221 ../iw/silo.py:254 ../textw/lilo.py:168
+#: ../textw/silo.py:195
 msgid "Partition type"
 msgstr "Тип раздела"
 
-#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
-#: ../textw/silo.py:185
+#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:254 ../iw/silo.py:289
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:131
+#: ../textw/silo.py:195
 msgid "Boot label"
 msgstr "Метка загрузки"
 
-#: ../iw/mouse.py:132
+#: ../iw/mouse.py:141
 msgid "Emulate 3 Buttons"
 msgstr "Эмулировать 3 кнопки?"
 
-#: ../iw/network.py:148
+#: ../iw/network.py:146
 msgid "Configure using DHCP"
 msgstr "Использовать DHCP"
 
-#: ../iw/network.py:154
+#: ../iw/network.py:152
 msgid "Activate on boot"
 msgstr "Активизировать при загрузке"
 
-#: ../iw/network.py:163
+#: ../iw/network.py:161
 msgid "IP Address"
 msgstr "Адрес IP"
 
-#: ../iw/network.py:164 ../loader/net.c:636
+#: ../iw/network.py:162 ../loader/net.c:636
 msgid "Netmask"
 msgstr "Маска подсети"
 
-#: ../iw/network.py:165 ../loader/loader.c:240
+#: ../iw/network.py:163 ../loader/loader.c:240
 msgid "Network"
 msgstr "Сеть"
 
-#: ../iw/network.py:166
+#: ../iw/network.py:164
 msgid "Broadcast"
 msgstr "Бродкаст"
 
-#: ../iw/network.py:211
+#: ../iw/network.py:208
 msgid "Gateway"
 msgstr "Шлюз"
 
-#: ../iw/network.py:211
+#: ../iw/network.py:208
 msgid "Primary DNS"
 msgstr "Первичный DNS"
 
-#: ../iw/network.py:211
+#: ../iw/network.py:208
 msgid "Secondary DNS"
 msgstr "Вторичный DNS"
 
-#: ../iw/network.py:211
+#: ../iw/network.py:208
 msgid "Ternary DNS"
 msgstr "Третичный DNS"
 
@@ -1342,19 +1342,19 @@ msgstr "Ручное разбиение"
 msgid "Silo Configuration"
 msgstr "Конфигурация SILO"
 
-#: ../iw/silo.py:162
+#: ../iw/silo.py:161
 msgid "Install SILO boot record on:"
 msgstr "Установить загрузчик SILO на:"
 
-#: ../iw/silo.py:175
+#: ../iw/silo.py:178
 msgid "Create PROM alias"
 msgstr "Создать загрузочный диск"
 
-#: ../iw/silo.py:193
+#: ../iw/silo.py:201
 msgid "Set default PROM boot device to linux"
 msgstr "Сделать linux загрузочным устройством PROM по умолчанию"
 
-#: ../iw/silo.py:225
+#: ../iw/silo.py:233
 msgid "Do not install SILO"
 msgstr "Не устанавливать SILO"
 
@@ -1447,9 +1447,8 @@ msgstr ""
 "правильные установки из списка ниже:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Результаты проверки Х"
+msgstr "Результаты автоматического определения"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1471,19 +1470,19 @@ msgstr ""
 "указывать дополнительные параметры не требуется или вы не знаете, что это "
 "такое, оставьте это поле пустым."
 
-#: ../textw/lilo.py:85 ../textw/silo.py:92
+#: ../textw/lilo.py:85 ../textw/silo.py:102
 msgid "Where do you want to install the bootloader?"
 msgstr "Куда вы хотите установить начальный загрузчик?"
 
-#: ../textw/lilo.py:105 ../textw/silo.py:125 ../textw/silo.py:146
+#: ../textw/lilo.py:105 ../textw/silo.py:135 ../textw/silo.py:156
 msgid "Clear"
 msgstr "Очистить"
 
-#: ../textw/lilo.py:114 ../textw/silo.py:133
+#: ../textw/lilo.py:114 ../textw/silo.py:143
 msgid "Edit Boot Label"
 msgstr "Изменить метку загрузки"
 
-#: ../textw/lilo.py:181 ../textw/silo.py:197
+#: ../textw/lilo.py:181 ../textw/silo.py:207
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1587,11 +1586,11 @@ msgstr ""
 "Общий размер должен быть меньшим, чем свободное место на диске, которое "
 "составляет %d мегабайт."
 
-#: ../textw/silo.py:64
+#: ../textw/silo.py:65
 msgid "Create PROM alias `linux'"
 msgstr "Создать PROM алиас `linux'"
 
-#: ../textw/silo.py:65
+#: ../textw/silo.py:66
 msgid "Set default PROM boot device"
 msgstr "Установить загрузочное устройство PROM по умолчанию"
 
