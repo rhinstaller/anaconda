@@ -91,7 +91,7 @@ class MiloInstall:
                 kernel = self.todo.hdList[package]
                 initrd = self.makeInitrd (tag, self.todo.instPath)
                 extra=""
-                if os.access (instRoot + initrd, os.R_OK):
+                if os.access (self.todo.instPath + initrd, os.R_OK):
                     extra=" initrd=%s/%s" % (kernelprefix, initrd)
                 version = "%s-%s" % (kernel['version'], kernel['release'])
                 f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s%s\n" %
