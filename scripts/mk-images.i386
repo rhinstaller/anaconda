@@ -1,7 +1,11 @@
 
-makebootdisk boot.img loader-local "+scsi vfat"
-makebootdisk bootnet.img loader-network "+net"
+#makebootdisk boot.img loader-local "+scsi vfat"
+makebootdisk bootnet.img loader-network "3c59x ac3200 at1700 de4x5 
+    de600 de620 depca dgrs eepro eexpress hp-plus hp 
+    hp100 ibmtr ni52 tulip wavelan wd nfs"
 
-makedriverdisk "gdth" "gdth"
+#makedriverdisk "gdth" "gdth"
 #makedriverdisk "eata_dma" "eata_dma"
 #makedriverdisk "paride" "parport_pc parport pcd paride aten bpck comm dstr epat fit2 fit3 friq frpw kbic ktti on20 on26 epia ppa imm"
+
+makemainmodules "+scsi +net vfat"

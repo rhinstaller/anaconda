@@ -15,12 +15,14 @@ if [ $(uname -m) = ia64 ]; then
     STRIP=echo
 fi
 
-LATEST="latest --arch $ARCH"
-
 if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 <packagedir>"
+	echo "usage:        $0 <packagedir> [<targetdir>]"
 	exit 1
+fi
+
+if [ ! -d $1 ]; then
+	LATEST="latest --arch $ARCH"
 fi
 
 HOMEDIR=`pwd`
@@ -84,25 +86,34 @@ expandPackageSet() {
 
 PACKAGEDIR=$1
 
-rm -rf /tmp/upd-instroot
 DEST=/tmp/upd-instroot/hd
-mkdir -p $DEST
+if [ -z "$2" ]; then
+    DESTGR=/tmp/upd-instroot/gr
+elif [ -d "$2" ]; then
+    DESTGR=$2/RedHat/instimage
+else
+    echo "$2 is not a directory!"
+    exit 1
+fi
 
-DESTGR=/tmp/upd-instroot/gr
+rm -rf $DEST $DESTGR
+mkdir -p $DEST
 mkdir -p $DESTGR
 
 PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash e2fsprogs
 	  util-linux raidtools locale-ja popt mount procps rpm XFree86
 	  Xconfigurator anaconda anaconda-runtime kudzu-devel kudzu db3
-	  rpm-python"
+	  rpm-python syslinux"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
 fi
 
+# xpm is missing
+
 # Some packages are listed twice, but that's okay
-PACKAGESGR="XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
-      XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
+PACKAGESGR="XFree86-libs imlib libpng libtiff libjpeg
+      XFree86-S3 XFree86-S3V 
       XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
       XFree86-75dpi-fonts XFree86-ISO8859-2-75dpi-fonts glib gtk+
       XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
@@ -111,7 +122,7 @@ PACKAGESGR="XFree86-libs XFree86-SVGA imlib libpng libtiff libjpeg
       popt specspo util-linux
       rpm rpm-devel open grep net-tools traceroute 
       tar procps textutils sed ncurses bash cpio mt-st iputils sh-utils
-      XFree86-cyrillic-fonts XFree86 xpm Xconfigurator pygnome pygtk
+      XFree86-cyrillic-fonts XFree86 Xconfigurator pygnome pygtk
       pygtk-libglade pygnome-libglade pygnome-applet pygnome-capplet"
 
 if [ $ARCH != ia64 ]; then
@@ -157,6 +168,7 @@ etc/protocols
 etc/services
 usr/bin/python*
 usr/lib/python*
+usr/bin/syslinux
 usr/lib/libnewt*
 lib/libtermcap*
 usr/lib/libz.*

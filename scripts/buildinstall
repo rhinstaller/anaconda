@@ -1,0 +1,35 @@
+#!/bin/bash
+
+if [ ! -d $1/RedHat/RPMS ]; then
+    echo $1 is not a Red Hat image >&2
+    exit 1
+fi
+
+BUILDINSTDIR=/tmp/buildinstall
+
+rm -rf $BUILDINSTDIR
+mkdir -p $BUILDINSTDIR
+
+UPD_INSTROOT=./upd-instroot
+MK_IMAGES=./mk-images
+
+if [ ! -f $UPD_INSTROOT ]; then
+    cd $BUILDINSTDIR
+    rpm2cpio < $1/RedHat/RPMS/anaconda-runtime[0-9]* | cpio -ivumd usr/lib/anaconda-runtime/upd-instroot
+    mv usr/lib/anaconda-runtime/upd-instroot .
+    rm -rf usr
+    UPD_INSTROOT=$BUILDINSTDIR/upd-instroot
+fi
+
+if [ ! -f $MK_IMAGES ]; then
+    cd $BUILDINSTDIR
+    rpm2cpio < $1/RedHat/RPMS/anaconda-runtime[0-9]* | cpio -ivumd usr/lib/anaconda-runtime/mk-images
+    mv usr/lib/anaconda-runtime/mk-images .
+    rm -rf usr
+    UPD_INSTROOT=$MK_IMAGES/mk-images
+fi
+
+$UPD_INSTROOT $1/RedHat/RPMS $1
+$MK_IMAGES dist-7.0 /mnt/redhat/test/oot/i386/images /mnt/redhat/test/oot/i386/RedHat/instimage/modules
+
+

@@ -31,12 +31,13 @@ if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
     LOADERBINDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/boot
     LANGTABLE=$FULLMODPATH/../usr/lib/anaconda/lang-table
+    SYSLINUX=$FULLMODPATH/../usr/bin/syslinux
     PCITABLE=$FULLMODPATH/../usr/share/kudzu/pcitable
     CACHE=$KERNELROOT/lib/modules/.cache
 
     dieLater=
     for n in $TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO $FILTERMODDEPS \
-	     $LANGTABLE; do
+	     $LANGTABLE $SYSLINUX; do
 	if [ ! -f $n ]; then
 	    echo "$n doesn't exist"
 	    dieLater=1
@@ -65,7 +66,7 @@ rundepmod () {
     final=$2
 
     exclpattern="tc90x|FPT|BusLogic|Pci2000|Pci2220i"
-    
+
     depmod -e -i -m $KERNELROOT/boot/System.map-$version \
 	    $what > $final.foo 2>&1 | 
 	    egrep -v "modprobe: (${exclpattern}) multiply defined"
@@ -76,6 +77,13 @@ rundepmod () {
 	  -e 's/^\(parport_pc: parport\)_pc$/\1/' \
 	  -e "s/^pcd:.*/pcd: $PARIDE/" | $FILTERMODDEPS > $final 
     rm -f $final.foo
+}
+
+getmoddeps () {
+    what=$1
+    final=$2
+
+    egrep $(echo $what | sed 's/\.o  */|^/g;s/\.o$//') $MODDEPS > $final
 }
 
 intcopymodules () {
@@ -137,7 +145,7 @@ makemoduleball() {
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
 
-    rundepmod "*.o" ../modules.dep
+    getmoddeps "*.o" ../modules.dep
 
     # create the pcitable
     $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
@@ -153,6 +161,16 @@ makemoduleball() {
     cd ..
     rm -rf modules
     popd  > /dev/null
+}
+
+makemainmodules() {
+set -x
+    modlist=`expandModuleSet "$1"`
+
+    rm -rf $FULLMODPATH
+
+    makemoduleball $FULLMODPATH "$modlist"
+set +x
 }
 
 makebootdisk() {
@@ -237,7 +255,6 @@ EOF
     if [ $ARCH = "i386" ]; then
 	INITRDSIZE=2000
 	FLOPPYSIZE=1440
-	SYSLINUX=../../trees/syslinux-1.45
     else
 	echo "I don't know how big to make the image!" >&2
 	exit 1
@@ -265,9 +282,9 @@ EOF
     # $MBD_FSIMAGE (the initrd) to it, add a kernel, umount it. It should be
     # left as $MBD_TMPIMAGE, with no side affects.
     if [ $ARCH = "i386" ]; then
-	gunzip < ../../trees/syslinux-1.45/img1440k.gz | 
+	gunzip < $BOOTDISKDIR/template.img.gz |
 	    dd of=$MBD_TMPIMAGE conv=notrunc > /dev/null 2> /dev/null
-	../../trees/syslinux-1.45/syslinux $MBD_TMPIMAGE
+	$SYSLINUX $MBD_TMPIMAGE
 	mkdir -p $MBD_BOOTTREE
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
