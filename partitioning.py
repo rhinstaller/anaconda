@@ -1423,6 +1423,7 @@ class DiskSet:
 
         num = ''
         sync = 0
+        s = 'a'
         while s:
             try:
                 s = os.read(p[0], 1)
