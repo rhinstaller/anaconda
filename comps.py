@@ -106,12 +106,15 @@ class HeaderList:
     def list(self):
 	return self.packages.values()
 
-    def __init__(self, hdlist, compatPackages = None):
+    def __init__(self, hdlist, compatPackages = None, noscore = 0):
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
+            if noscore:
+                self.packages[name] = Package(h)
+                continue
 	    score1 = rpm.archscore(h['arch'])
 	    if (score1):
 		if self.packages.has_key(name):
@@ -135,9 +138,10 @@ class HeaderList:
 
 class HeaderListFromFile (HeaderList):
 
-    def __init__(self, path, compatPackages = None):
+    def __init__(self, path, compatPackages = None, noscore = 0):
 	hdlist = rpm.readHeaderListFromFile(path)
-	HeaderList.__init__(self, hdlist, compatPackages = compatPackages)
+	HeaderList.__init__(self, hdlist, compatPackages = compatPackages,
+			    noscore = noscore)
 
 class HeaderListFD (HeaderList):
     def __init__(self, fd):
