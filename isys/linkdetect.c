@@ -20,6 +20,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/ioctl.h>
+#include <string.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -61,7 +63,6 @@ static void mdio_write(int skfd, int location, int value)
 
 
 int get_link_status(char *ifname) {
-    struct mii_data *mii = (struct mii_data *)&ifr.ifr_data;
     int sock, i, mii_val[32];
 
     if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
