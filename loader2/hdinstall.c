@@ -521,7 +521,7 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
 
 int kickstartFromHD(char *kssrc, int flags) {
     int rc;
-    char *p, *q, *tmpstr, *ksdev, *kspath;
+    char *p, *q = NULL, *tmpstr, *ksdev, *kspath;
 
     logMessage("getting kickstart file from harddrive");
 
