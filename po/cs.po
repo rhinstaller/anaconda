@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-05 13:21+0100\n"
+"PO-Revision-Date: 2005-03-31 10:35+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -536,26 +536,20 @@ msgid "Installing %s-%s-%s... "
 msgstr "Instaluji %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
-msgstr ""
-"Byla zachycena výjimka. Obvykle to znamená, že v programu je chyba. "
-"Zkopírujte prosím plné znění této výjimky nebo uložte výpis na disketu a "
-"ohlaste chybu na adrese http://bugzilla.redhat.com/bugzilla/"
+msgstr "Došlo k neobsloužené výjimce. To pravděpodobně znamená, že v programu je chyba. Zkopírujte prosím plné znění této výjimky nebo uložte výpis na disketu a podrobně vyplňte hlášení o chybě programu anaconda na %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
-msgstr ""
-"Došlo k neobsloužené výjimce. To pravděpodobně znamená, že v programu je "
-"chyba. Zkopírujte prosím plné znění této výjimky a podrobně vyplňte hlášení "
-"o chybě programu anaconda na http://bugzilla.redhat.com/bugzilla/"
+msgstr "Došlo k neobsloužené výjimce. To pravděpodobně znamená, že v programu je chyba. Zkopírujte prosím plné znění této výjimky a podrobně vyplňte hlášení o chybě programu anaconda na %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1000,9 +994,8 @@ msgid "Cancel"
 msgstr "Zrušit"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "Nastala výjimka"
+msgstr "Došlo k výjimce"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -1010,7 +1003,7 @@ msgstr "_Ladění"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Uložit na disketu"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1537,7 +1530,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Varování! Toto není konečná verze software!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1553,12 +1546,11 @@ msgid ""
 msgstr ""
 "Děkujeme vám, že jste si stáhli tuto předběžnou verzi %s.\n"
 "\n"
-"Toto není konečná verze a není určena pro nasazení na důležitých počítačích. "
-"Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
+"Toto není konečná verze a není určena pro nasazení na důležitých počítačích. Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
 "\n"
 "Pro nahlášení svých poznatků prosím navštivte:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "a založte zprávu pro '%s'.\n"
 
@@ -3069,14 +3061,11 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Vyjměte všechna instalační média používaná při instalaci a restartujte svůj "
-"systém stisknutím tlačítka \"Restartovat\".\n"
+msgstr "Vyjměte všechna instalační média používaná při instalaci a restartujte svůj systém stisknutím tlačítka \"Restartovat\".\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5001,13 +4990,11 @@ msgid "Unknown video card"
 msgstr "Neznámá videokarta"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"Při výběru videokarty %s došlo k chybě. Prosím nahlaste tuto chybu na "
-"bugzilla.redhat.com."
+msgstr "Při výběru videokarty %s došlo k chybě. Nahlaste prosím tuto chybu na %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6052,9 +6039,8 @@ msgid "What time zone are you located in?"
 msgstr "Ve které časové zóně jste?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Hardwarové hodiny používají _UTC"
+msgstr "Hardwarové hodiny používají UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8282,12 +8268,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabština"
+msgstr "Amharic"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8370,9 +8355,8 @@ msgid "Icelandic"
 msgstr "Islandština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Makedonština"
+msgstr "Indonéština"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8399,9 +8383,8 @@ msgid "Norwegian"
 msgstr "Norština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Northern Territory"
+msgstr "Northern Sotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8428,9 +8411,8 @@ msgid "Russian"
 msgstr "Ruština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slovinština"
+msgstr "Slovenština"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8449,9 +8431,8 @@ msgid "Tamil"
 msgstr "Tamilština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamilština"
+msgstr "Thajština"
 
 #. generated from lang-table
 msgid "Turkish"
