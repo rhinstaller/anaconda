@@ -70,7 +70,7 @@ def getUsableLinuxFs():
     default = fileSystemTypeGetDefault()
     if default in rc:
         del rc[rc.index(default)]
-        rc = [ default ] + rc
+	rc.insert(0, default)
     return rc
 
 def mountCompare(a, b):
