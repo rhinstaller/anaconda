@@ -1388,11 +1388,9 @@ class DiskSet:
             del self.disks[disk]
 
     def dasdFmt (self, intf = None, drive = None):
-        w = intf.waitWindow (_("Initializing"),
-                             _("Running dasdfmt on drive %s...\n"
-                               "This can take quite a while!\n\n"
-                               "Get yourself a coffee...\n"
-                               ) % (drive,))
+        w = intf.progressWindow (_("Initializing"),
+                             _("Please wait while formatting drive %s...\n"
+                               ) % (drive,), 100)
         try:
             isys.makeDevInode(drive, '/tmp/' + drive)
         except:
@@ -1435,15 +1433,16 @@ class DiskSet:
                     except:
                         pass
                 else:
-                    if num and len(num) >= 26:
-                        # printf("cyl %5d of %5d |  %3d%%\n",
+                    if num:
                         val = string.split(num)
-                        val = int(val[5][:-1])
-                        w and w.set(val)
-                        # sync every 10%
-                        if sync + 10 < val:
-                            isys.sync()
-                            sync = val
+                        if (val[0] == 'cyl'):
+                            # printf("cyl %5d of %5d |  %3d%%\n",
+                            val = int(val[5][:-1])
+                            w and w.set(val)
+                            # sync every 10%
+                            if sync + 10 < val:
+                                isys.sync()
+                                sync = val
                     num = ''
             except OSError, args:
                 (errno, str) = args

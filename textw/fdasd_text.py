@@ -29,8 +29,8 @@ class fdasdPartitionWindow:
 
         fdisk_name = "fdasd"
         listboxtext = _("Choose a disk to run fdasd or dasdfmt on")
-        buttons = [ (_("OK"), "done"), (_("Edit"), "edit"),
-                    (_("DasdFormat"), "dasdfmt"),
+        buttons = [ (_("OK"), "done"), (_("Edit Partitions"), "edit"),
+                    (_("Format DASD"), "dasdfmt"),
                     TEXT_BACK_BUTTON ]        
         drives =  diskset.driveList()        
         
@@ -71,7 +71,7 @@ class fdasdPartitionWindow:
                 
                 if rc:
                     intf.messageWindow( _("Error"),
-                                        _("An error occured while running %s on drive %s.") % (path, drive))
+                                        _("An error occured while running %s on drive %s.") % (path, device))
                     
                 try:
                     os.remove('/tmp/' + device)
@@ -79,15 +79,16 @@ class fdasdPartitionWindow:
                     pass
 
             elif button == "dasdfmt":
+                device = choices[choice]
+
                 rc = intf.messageWindow(_("Warning"),
                                         _("Running dasdfmt means the loss of \n"
                                           "ALL DATA on drive %s.\n\n"
                                           "Do you really want this?")
-                                        % (drive,), type = "yesno")
+                                        % (device,), type = "yesno")
                 if rc == 0:
                     continue
                 
-                device = choices[choice]
                 diskset.dasdFmt(intf, device)
 
             elif button == "done" or button == TEXT_BACK_CHECK:
