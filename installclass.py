@@ -188,15 +188,14 @@ class GNOMEWorkstation(Workstation):
 
     def __init__(self):
 	Workstation.__init__(self)
-
-	self.setGroups(["Base"])
+	self.setGroups(["GNOME Workstation"])
 	self.addToSkipList("package-selection")
 
 class KDEWorkstation(Workstation):
 
     def __init__(self):
 	Workstation.__init__(self)
-	self.setGroups(["Base"])
+	self.setGroups(["KDE Workstation"])
 
 class Server(InstallClass):
 
