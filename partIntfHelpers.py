@@ -511,15 +511,15 @@ def confirmDeleteRequest(intf, request):
     if request.type == REQUEST_VG:
 	errmsg = _("You are about to delete the volume group \"%s\"."
 		   "\n\nALL logical volumes in this volume group "
-		   "will be lost!" % (request.volumeGroupName,))
+		   "will be lost!") % (request.volumeGroupName,)
     elif request.type == REQUEST_LV:
-	errmsg = _("You are about to delete the logical volume \"%s\"."
-		   % (request.logicalVolumeName,))
+	errmsg = _("You are about to delete the logical volume \"%s\".")
+		   % (request.logicalVolumeName,)
     elif request.type == REQUEST_RAID:
 	errmsg = _("You are about to delete a RAID device.")
     else:
 	if request.device:
-	    errmsg = _("You are about to delete the /dev/%s partition." % (request.device,))
+	    errmsg = _("You are about to delete the /dev/%s partition.") % (request.device,)
 	else:
 	    # XXX can this ever happen?
 	    errmsg = _("The partition you selected will be deleted.")
