@@ -461,23 +461,26 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 	logMessage("no modules found -- aborting insertion\n");
 	i++;
     } else {
+	*items = '\0';
+
 	/* if any modules weren't found, holler */
 	for (l = list, p = paths; *l && p; l++, p++) {
 	    if (!*p) {
-		logMessage("module %s not found -- aborting insertion",
-			   *l);
+		if (*items) strcat(items, " ");
+		strcat(items, *l);
 		i++;
 	    }
 	}
+
+	if (*items) logMessage("modules %s not found", items);
     }
 
     /* insert the modules now */
-    for (l = list, p = paths; !i && *l; l++, p++) {
-	if (loadModule(*l, *p, modLoaded, 
+    for (l = list, p = paths; *l; l++, p++) {
+	if (*p && loadModule(*l, *p, modLoaded, 
 		       (argModule && !strcmp(argModule, *l)) ? args : NULL, 
 		       modInfo, flags)) {
 	    logMessage("failed to insert %s\n", *p);
-	    i++;
 	}
     }
 
@@ -495,8 +498,6 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 	}
     }
 
-    logMessage("wrote modules.conf");
-    
     for (p = paths; *p; p++) {
 	unlink(*p);
 	free(*p);
