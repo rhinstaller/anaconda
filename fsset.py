@@ -305,7 +305,8 @@ class extFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
         if rc:
             raise SystemError
-        entry.setLabel(label)
+        if entry.device.getName() != "RAIDDevice":
+            entry.setLabel(label)
         
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -1240,6 +1241,9 @@ class RAIDDevice(Device):
         return node
 
     def getDevice (self, asBoot = 0):
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
+            return self.device
+            
         if not asBoot:
             return self.device
         else:
