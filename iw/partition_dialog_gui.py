@@ -464,12 +464,12 @@ class PartitionEditor:
                 maintable.attach(self.migraterb, 0, 1, row, row + 1)
                 (self.migfstype, self.migfstypeMenu)=createFSTypeMenu(ofstype,
 								      None, None,
-								      availablefstypes = migtypes)
+								      availablefstypes = self.migtypes)
                 self.migfstype.set_sensitive(self.migraterb.get_active())
                 maintable.attach(self.migfstype, 1, 2, row, row + 1)
                 row = row + 1
 
-                self.migraterb.connect("toggled", formatOptionCB,
+                self.migraterb.connect("toggled", self.formatOptionCB,
 				       (self.migfstype, self.migfstypeMenu,
 					self.mountCombo, ofstype))
             else:

@@ -67,7 +67,7 @@ class RaidEditor:
 	    leveloptionmenu.add(item)
 	    if reqlevel and lev == reqlevel:
 		defindex = i
-	    if self.raidlevelchangeCB and self.sparesb:
+	    if self.sparesb:
 		item.connect("activate", self.raidlevelchangeCB, self.sparesb)
 	    i = i + 1
 

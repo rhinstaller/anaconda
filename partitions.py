@@ -232,7 +232,7 @@ class Partitions:
 
             # now we need to find out about the logical volumes
             if not os.path.isdir("/proc/lvm/VGs/%s/LVs" %(vg,)):
-                log("Unable to find LVs for %s" % (lv,))
+                log("Unable to find LVs for %s" % (vg,))
                 continue
             lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
             for lv in lvs:

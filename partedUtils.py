@@ -311,7 +311,7 @@ def sniffFilesystemType(device):
         return "swap"
 
     try:
-        raidsbFromDevice(dev)
+        isys.raidsbFromDevice(dev)
         return "software RAID"
     except:
         pass
@@ -406,7 +406,7 @@ class DiskSet:
             vgs = os.listdir("/proc/lvm/VGs")
         for vg in vgs:
             if not os.path.isdir("/proc/lvm/VGs/%s/LVs" %(vg,)):
-                log("Unable to find LVs for %s" % (lv,))
+                log("Unable to find LVs for %s" % (vg,))
                 continue
             lvs = os.listdir("/proc/lvm/VGs/%s/LVs" % (vg,))
             for lv in lvs:
