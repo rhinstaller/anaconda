@@ -485,7 +485,7 @@ class ToDo:
 	f.write(str (self.keyboard))
 	rc = iutil.execWithRedirect("/usr/bin/loadkeys",
 				    [ "/usr/bin/loadkeys", self.keyboard.layout ],
-				    stdout = None, stderr, = None,
+				    stdout = None, stderr = None,
 				    searchPath = 0, root = self.instPath)
 	mapfile = open(self.instPath + "/etc/sysconfig/console/default.kmap", "w")
 	rc = iutil.execWithRedirect("/usr/bin/dumpkeys",
@@ -550,6 +550,7 @@ class ToDo:
 	if (not self.comps): return
 
 	group = self.instClass.getGroups()
+        optional = self.instClass.getOptionalGroups()
 	packages = self.instClass.getPackages()
 	if (group == None and packages == None): return 0
 	for n in self.comps.keys():
@@ -560,6 +561,10 @@ class ToDo:
 	    for n in group:
 		self.comps[n].select()
 
+        if optional:
+            for n in optional:
+		self.comps[n].setDefaultSelection()
+                
 	if packages:
 	    for n in packages:
 		self.selectPackage(n)
@@ -882,9 +887,6 @@ class ToDo:
 
     def upgradeFindPackages (self, rootInfo):
 	(root, rootFs) = rootInfo
-        win = self.intf.waitWindow (_("Finding"),
-                                    _("Finding packages to upgrade..."))
-
         if self.setupFilesystems:
 	    mdList = raid.startAllRaid(self.fstab.driveList())
 
@@ -903,7 +905,6 @@ class ToDo:
 	    raid.stopAllRaid(mdList)
 
 	    if self.fstab.hasDirtyFilesystems():
-		win.pop()
 		self.intf.messageWindow(("Dirty Filesystems"),
 		    _("One or more of the filesystems for your Linux system "
 		      "was not unmounted cleanly. Please boot your Linux "
@@ -927,6 +928,9 @@ class ToDo:
 
         self.getCompsList ()
 	self.getHeaderList ()
+
+        win = self.intf.waitWindow (_("Finding"),
+                                    _("Finding packages to upgrade..."))
 
         self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
         rpm.addMacro("_dbpath_rebuild", self.dbpath);
@@ -1439,22 +1443,7 @@ class ToDo:
 
             self.fstab.mountFilesystems (self.instPath)
 
-        if self.upgrade and self.dbpath:
-            # move the rebuilt db into place.
-            try:
-                iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-            except OSError:
-                pass
-            os.rename (self.instPath + "/var/lib/rpm",
-                       self.instPath + "/var/lib/rpm-old")
-            os.rename (self.instPath + self.dbpath,
-                       self.instPath + "/var/lib/rpm")
-            iutil.rmrf (self.instPath + "/var/lib/rpm-old")
-            rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-            rpm.addMacro ("_dbapi", "3")
-            # flag this so we only do it once.
-            self.dbpath = None
-
+        if self.upgrade:
 	    # An old mtab can cause confusion (esp if loop devices are
 	    # in it)
 	    f = open(self.instPath + "/etc/mtab", "w+")
@@ -1474,10 +1463,6 @@ class ToDo:
                 # self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
                 pass
 
-        # XXX in case we started out in Upgrade land, we need to
-        # reset this macro to point to the right place.
-        rpm.addMacro ("_dbpath", "%{_var}/lib/rpm")
-#        rpm.addMacro ("_dbi_config", "hash perms=0644")
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
@@ -1691,8 +1676,18 @@ class ToDo:
 
 	    w.set(4);
 
-            # needed for prior systems which were not xinetd based
             if self.upgrade:
+                # move the rebuilt db into place.
+                try:
+                    iutil.rmrf (self.instPath + "/var/lib/rpm.rpmsave")
+                except OSError:
+                    pass
+                os.rename (self.instPath + "/var/lib/rpm",
+                           self.instPath + "/var/lib/rpm.rpmsave")
+                os.rename (self.instPath + self.dbpath,
+                           self.instPath + "/var/lib/rpm")
+
+                # needed for prior systems which were not xinetd based
                 self.migrateXinetd()
 
             # XXX make me "not test mode"
