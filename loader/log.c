@@ -12,6 +12,9 @@ static int logfd;
 static int logDebugMessages = 0;
 #endif
 
+static FILE * logfile2 = NULL;
+static int logfd2 = 0;
+
 static void doLogMessage(const char * s, va_list args);
 
 void logMessage(const char * s, ...) {
@@ -28,17 +31,31 @@ void logMessage(const char * s, ...) {
 
     va_end(args);
 
+    if (!logfile2) return;
+
+    va_start(args, s);
+
+    fprintf(logfile2, "* ");
+    vfprintf(logfile2, s, args);
+    fprintf(logfile2, "\n");
+    fflush(logfile2);
+
+    va_end(args);
+
     return;
 }
 
 void openLog(int useLocal) {
     if (!useLocal) {
 	logfile = fopen("/dev/tty3", "w");
-	if (logfile)
+	if (logfile) {
 	    logfd = open("/dev/tty3", O_WRONLY);
-	else {
-	    logfile = fopen("/tmp/install.log", "w");
-	    logfd = open("/tmp/install.log", O_WRONLY| O_APPEND);
+	    logfile2 = fopen("/tmp/anaconda.log", "w");
+	    if (logfile2)
+		logfd2 = open("/tmp/anaconda.log", O_WRONLY | O_APPEND);
+	} else {
+	    logfile = fopen("/tmp/anaconda.log", "w");
+	    logfd = open("/tmp/anaconda.log", O_WRONLY| O_APPEND);
 	}
     } else {
 	logfile = fopen("debug.log", "w");
@@ -53,6 +70,10 @@ void closeLog(void) {
     if (logfile) {
 	fclose(logfile);
 	close(logfd);
+    }
+    if (logfile2) {
+	fclose(logfile2);
+	close(logfd2);
     }
 }
 
