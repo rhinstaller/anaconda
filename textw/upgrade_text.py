@@ -79,6 +79,7 @@ class UpgradeSwapWindow:
 		screen.popWindow()
 		return INSTALL_BACK
 	    elif result == "skip":
+		todo.upgradeFindPackages ()
 		screen.popWindow()
 		return INSTALL_OK
 
