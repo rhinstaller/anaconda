@@ -60,124 +60,6 @@ void ejectCdrom(void) {
   }
 }
 
-/* get description of ISO image from stamp file */
-char *getReleaseDescriptorFromIso(char *file) {
-    DIR * dir;
-    FILE *f;
-    struct dirent * ent;
-    struct stat sb;
-    char *stampfile;
-    char *descr;
-    char tmpstr[1024];
-    int  filetype;
-
-    lstat(file, &sb);
-    if (S_ISBLK(sb.st_mode)) {
-	filetype = 1;
-	if (doPwMount(file, "/tmp/testmnt",
-		      "iso9660", 1, 0, NULL, NULL)) {
-	    logMessage("Failed to mount device %s to get description", file);
-	    return NULL;
-	}
-    } else if (S_ISREG(sb.st_mode)) {
-	filetype = 2;
-	if (mountLoopback(file, "/tmp/testmnt", "loop6")) {
-	    logMessage("Failed to mount iso %s to get description", file);
-	    return NULL;
-	}
-    } else {
-	    logMessage("Unknown type of file %s to get description", file);
-	    return NULL;
-    }
-
-    if (!(dir = opendir("/tmp/testmnt"))) {
-	umount("/tmp/testmnt");
-	if (filetype == 2)
-	    umountLoopback("tmp/testmnt", "loop6");
-	return NULL;
-    }
-
-    errno = 0;
-    stampfile = NULL;
-    while ((ent = readdir(dir))) {
-	if (!strncmp(ent->d_name, ".discinfo", 9)) {
-	    stampfile = strdup(".discinfo");
-	    break;
-	}
-    }
-
-    closedir(dir);
-    descr = NULL;
-    if (stampfile) {
-	snprintf(tmpstr, sizeof(tmpstr), "/tmp/testmnt/%s", stampfile);
-	f = fopen(tmpstr, "r");
-	if (f) {
-	    char *tmpptr;
-
-	    /* skip over time stamp line */
-	    tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-	    /* now read OS description line */
-	    if (tmpptr)
-		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-
-	    if (tmpptr)
-		descr = strdup(tmpstr);
-
-	    /* skip over arch */
-	    if (tmpptr)
-		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-
-	    /* now get the CD number */
-	    if (tmpptr) {
-		unsigned int len;
-		char *p, *newstr;
-
-		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
-		
-		/* nuke newline from end of descr, stick number on end*/
-		for (p=descr+strlen(descr); p != descr && !isspace(*p); p--);
-
-		*p = '\0';
-		len = strlen(descr) + strlen(tmpstr) + 10;
-		newstr = malloc(len);
-		strncpy(newstr, descr, len-1);
-		strncat(newstr, " ", len-1);
-
-		/* is this a DVD or not?  If disc id has commas, like */
-		/* "1,2,3", its a DVD                                 */
-		if (strchr(tmpstr, ','))
-		    strncat(newstr, "DVD\n", len-1);
-		else {
-		    strncat(newstr, "disc ", len-1);
-		    strncat(newstr, tmpstr, len-1);
-		}
-
-		free(descr);
-		descr = newstr;
-	    }
-
-	    fclose(f);
-	}
-    }
-
-    free(stampfile);
-
-    umount("/tmp/testmnt");
-    if (filetype == 2)
-	umountLoopback("tmp/testmnt", "loop6");
-
-    if (descr) {
-	char *dupdescr;
-	
-	dupdescr = strdup(descr);
-	dupdescr[strlen(dupdescr)-1] = '\0';
-        return dupdescr;
-    } else {
-	return descr;
-    }
-}
-
-
 /*
  * Given cd device cddriver, this function will attempt to check its internal checksum.
  *
@@ -190,7 +72,14 @@ static char * mediaCheckCdrom(char *cddriver) {
 
     first = 1;
     do {
-	char *descr=NULL;
+	char *descr;
+	char *tstamp;
+	int ejectcd;
+
+	/* init every pass */
+	ejectcd = 0;
+	descr = NULL;
+
 	/* if first time through, see if they want to eject the CD      */
 	/* currently in the drive (most likely the CD they booted from) */
 	/* and test a different disk.  Otherwise just test the disk in  */
@@ -204,18 +93,18 @@ static char * mediaCheckCdrom(char *cddriver) {
 				 "insert another for testing."), _("Test"),
 			       _("Eject CD"));
 
-	    if (rc == 1) {
-		descr = getReleaseDescriptorFromIso("/tmp/cdrom");
-		mediaCheckFile("/tmp/cdrom", descr);
-	    }
-
-	} else {
-	    descr = getReleaseDescriptorFromIso("/tmp/cdrom");
-	    mediaCheckFile("/tmp/cdrom", descr);
+	    if (rc == 2)
+		ejectcd = 1;
 	}
 
-	if (descr)
-	    free(descr);
+	if (!ejectcd) {
+	    /* XXX MSFFIXME: should check return code for error */
+	    readStampFileFromIso("/tmp/cdrom", &tstamp, &descr);
+	    mediaCheckFile("/tmp/cdrom", descr);
+
+	    if (descr)
+		free(descr);
+	}
 
 	ejectCdrom();
 	
