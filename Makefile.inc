@@ -1,6 +1,8 @@
 #
 # define destination locations
 #
+VERSION=$(shell awk '/Version:/ { print $$2 }' anaconda.spec)
+RELEASE=$(shell awk '/Release:/ { print $$2 }' anaconda.spec)
 VERSION = 9.1.3
 RELEASE = 3.RHEL
 TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")

@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: @@VERSION@@
-Release: @@RELEASE@@
+Version: 9.1.3
+Release: 3.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
@@ -71,12 +71,7 @@ rm -rf $RPM_BUILD_ROOT
 %triggerun -- anaconda < 8.0-1
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
-%define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
-
 %changelog
-* %{date} Anaconda team <bugzilla@redhat.com>
-- built new version from CVS
-
 * Tue Oct  8 2002 Jeremy Katz <katzj@redhat.com>
 - back to mainstream rpm instead of rpm404
 

@@ -96,33 +96,16 @@ tag:
 
 archive: create-archive
 
-PWDIR=$(shell pwd)
-beehive-srpm: create-snapshot
-	@rpmbuild --define "_sourcedir $(PWDIR)" --define "_srcrpmdir $(PWDIR)" --define "_builddir $(PWDIR)" --define "_rpmdir $(PWDIR)" --define "_specdir $(PWDIR)" --nodeps -ts anaconda-$(VERSION).tar.bz2
-	@mv anaconda-$(VERSION)-$(SNAPRELEASE).src.rpm src.rpm
-
 src: create-archive
-	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
+	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2 || exit 1
+	@rm -f anaconda-$(VERSION).tar.bz2
 
-snapsrc: create-snapshot
-	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
-
-do-beehive-build:
-	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
-	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
-	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root |cut -d @ -f 2-` 2>/dev/null; \
-	host=`echo $$cvsroot |cut -d : -f 1`; \
-	root=`echo $$cvsroot |cut -d : -f 2`; \
-	cvsroot=$$host$$root ;\
-	echo "*** Building $$tag from $$cvsroot!"; \
-	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
-
-build: 
-	make TAG=$(CVSTAG) do-beehive-build
-
-snapbuild: 
-	make do-beehive-build
+build: src
+	@rm -rf /tmp/anaconda
+	@mkdir /tmp/anaconda
+	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh -b RHEL-3 $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+	@rm -rf /tmp/anaconda
+	bhc $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?devel/anaconda#$(CVSTAG)'
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
@@ -132,8 +115,7 @@ create-snapshot:
 	[ x"$$TAG" != x ] && tag=$$TAG; \
 	cvsroot=`cat CVS/Root` 2>/dev/null; \
         echo "*** Pulling off $$tag from $$cvsroot!"; \
-	cd /tmp ; cvs -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
+	cd /tmp ; cvs -z3 -Q -d $$cvsroot export -r $$tag anaconda || echo "Um... export aborted."
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
 	@rm -rf /tmp/anaconda-$(VERSION)
@@ -143,7 +125,7 @@ create-snapshot:
 	@echo "The final archive is in anaconda-$(VERSION).tar.bz2"
 
 create-archive:
-	make SNAPRELEASE=$(RELEASE) create-snapshot
+	make create-snapshot
 
 pycheck:
 	PYTHONPATH=isys:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
