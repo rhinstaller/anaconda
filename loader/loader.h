@@ -21,6 +21,7 @@
 #define LOADER_FLAGS_KSNFS		(1 << 15)
 #define LOADER_FLAGS_NOUSB              (1 << 16)
 #define LOADER_FLAGS_NOSHELL            (1 << 17)
+#define LOADER_FLAGS_LOWRES             (1 << 18)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -40,6 +41,7 @@
 #define FL_KSNFS(a)	    ((a) & LOADER_FLAGS_KSNFS)
 #define FL_NOUSB(a)	    ((a) & LOADER_FLAGS_NOUSB)
 #define FL_NOSHELL(a)	    ((a) & LOADER_FLAGS_NOSHELL)
+#define FL_LOWRES(a)	    ((a) & LOADER_FLAGS_LOWRES)
 
 #define CODE_PCMCIA	1
 

@@ -1933,6 +1933,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 		     LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "noshell"))
 	    flags |= LOADER_FLAGS_NOSHELL;
+        else if (!strcasecmp(argv[i], "lowres"))
+	    flags |= LOADER_FLAGS_LOWRES;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
@@ -2796,6 +2798,8 @@ logMessage("found url image %s", url);
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))
 	    *argptr++ = "--expert";
+	if (FL_LOWRES(flags))
+	    *argptr++ = "--lowres";
 
 	if (FL_KICKSTART(flags)) {
 	    *argptr++ = "--kickstart";
