@@ -1447,7 +1447,7 @@ class ToDo:
 	for p in l:
             ts.add(p.h, p.h, how)
             total = total + 1
-            totalSize = totalSize + p['size']
+            totalSize = totalSize + (p['size'] / 1024 / 1024)
 
 	ts.order()
 

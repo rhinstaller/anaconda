@@ -279,7 +279,7 @@ class ComponentSet:
 	    pkg.setState(state)
 	    
     def sizeStr(self):
-	megs = self.size() / 1024 / 1024
+	megs = self.size()
 	if (megs >= 1000):
 	    big = megs / 1000
 	    little = megs % 1000
@@ -290,13 +290,13 @@ class ComponentSet:
     def totalSize(self):
 	total = 0
 	for pkg in self.packages.list():
-	    total = total + pkg['size']
+	    total = total + (pkg['size'] / 1024 / 1024)
 	return total
 
     def size(self):
 	size = 0
 	for pkg in self.packages.list():
-	    if pkg.isSelected(): size = size + pkg['size']
+	    if pkg.isSelected(): size = size + (pkg['size'] / 1024 / 1024)
 
 	return size
 

@@ -550,9 +550,9 @@ class InstallProgressWindow:
        	self.numComplete = self.numComplete + 1
 	self.sizeComplete = self.sizeComplete + header[rpm.RPMTAG_SIZE]
 	self.numCompleteW.setText("%12d" % self.numComplete)
-	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete / (1024 * 1024)))
+	self.sizeCompleteW.setText("%10dM" % (self.sizeComplete))
 	self.numRemainingW.setText("%12d" % (self.numTotal - self.numComplete))
-	self.sizeRemainingW.setText("%10dM" % ((self.sizeTotal - self.sizeComplete) / (1024 * 1024)))
+	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal - self.sizeComplete))
 	self.total.set(self.sizeComplete)
 
 	elapsedTime = time.time() - self.timeStarted 
@@ -622,7 +622,7 @@ class InstallProgressWindow:
 
 	overall.setField (Label (_("Total    :")), 0, 1, anchorLeft = 1)
 	overall.setField (Label ("%12d" % total), 1, 1, anchorLeft = 1)
-	overall.setField (Label ("%10dM" % (totalSize / (1024 * 1024))),
+	overall.setField (Label ("%10dM" % (totalSize)),
                           2, 1, anchorLeft = 1)
 	self.timeTotalW = Label("")
 	overall.setField(self.timeTotalW, 3, 1, anchorLeft = 1)
@@ -632,14 +632,14 @@ class InstallProgressWindow:
 	self.numCompleteW = Label("%12d" % self.numComplete)
 	overall.setField(self.numCompleteW, 1, 2, anchorLeft = 1)
 	self.sizeComplete = 0
-        self.sizeCompleteW = Label("%10dM" % (self.sizeComplete / (1024 * 1024)))
+        self.sizeCompleteW = Label("%10dM" % (self.sizeComplete))
 	overall.setField(self.sizeCompleteW, 2, 2, anchorLeft = 1)
 	self.timeCompleteW = Label("")
 	overall.setField(self.timeCompleteW, 3, 2, anchorLeft = 1)
 
 	overall.setField (Label (_("Remaining:  ")), 0, 3, anchorLeft = 1)
 	self.numRemainingW = Label("%12d" % total)
-        self.sizeRemainingW = Label("%10dM" % (totalSize / (1024 * 1024)))
+        self.sizeRemainingW = Label("%10dM" % (totalSize))
 	overall.setField(self.numRemainingW, 1, 3, anchorLeft = 1)
 	overall.setField(self.sizeRemainingW, 2, 3, anchorLeft = 1)
 	self.timeRemainingW = Label("")

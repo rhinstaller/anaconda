@@ -63,13 +63,13 @@ class InstallProgressWindow (InstallWindow):
 
 	self.sizeComplete = self.sizeComplete + header[rpm.RPMTAG_SIZE]
         apply (self.clist.set_text, self.status["completed"]["size"] +
-                                    ("%d M" % (self.sizeComplete / (1024 * 1024)),))
+               ("%d M" % (self.sizeComplete)))
 
         apply (self.clist.set_text, self.status["remaining"]["packages"] +
-                                    ("%d" % (self.numTotal - self.numComplete),))
+               ("%d" % (self.numTotal - self.numComplete)))
 
         apply (self.clist.set_text, self.status["remaining"]["size"] +
-                                    ("%d M" % ((self.totalSize - self.sizeComplete) / (1024 * 1024)),))
+               ("%d M" % (self.totalSize - self.sizeComplete)))
 
         # check to see if we've started yet
         if (self.timeStarted == -1):
@@ -131,7 +131,7 @@ class InstallProgressWindow (InstallWindow):
         apply (self.clist.set_text, self.status["total"]["packages"] + ("%d" % total,))
         
         apply (self.clist.set_text, self.status["total"]["size"] +
-                                    ("%d M" % (totalSize / (1024 * 1024)),))
+                                    ("%d M" % totalSize,))
         threads_leave ()
 
     def allocate (self, widget, *args):
