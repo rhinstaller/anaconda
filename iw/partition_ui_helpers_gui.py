@@ -317,4 +317,20 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	rc[var] = eval("%s" % (var,))
 
     return (row, rc)
+
+# do tests we just want in UI for now, not kickstart
+def doUIRAIDLVMChecks(request):
+    fstype = request.fstype
     
+    if fstype and fstype.getName() == "physical volume (LVM)":
+	if request.grow:
+	    return (_("Partitions of type '%s' must be of fixed size, and "
+		     "cannot be marked to fill to use available space.")) % (fstype.getName(),)
+
+    if fstype and fstype.getName() in ["physical volume (LVM)", "software RAID"]:
+	if request.drive is None or len(request.drive) > 1:
+	    return (_("Partitions of type '%s' must be constrained to "
+		      "a single drive.  This is done by selecting the "
+		      "drive in the 'Allowed Drives' checklist.")) % (fstype.getName(),)
+    
+    return None
