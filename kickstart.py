@@ -742,6 +742,11 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGetDefault()
                 mountpoint = extra[0]
 
+        if (not size) and (not start and not end):
+            raise ValueError, "partition command requires a size specification"
+        if start and not disk:
+            raise ValueError, "partition command with start cylinder requires a drive specification"
+        
         # XXX bytes per inode is the only per fs option at the moment
         # and we can assume that it works like this since it only works
         # with ext[23]
