@@ -147,7 +147,7 @@ int vioGetDasdDevs(struct knownDevices * devices) {
 	    *ptr = '\0';
 	    ctlNum = atoi(chptr);
 
-	    if (ctlNum <= 26) {
+	    if (ctlNum < 26) {
 		snprintf(ctl, 63, "iseries/vd%c", 'a' + ctlNum);
 	    } else {
 		snprintf(ctl, 63, "iseries/vda%c", 'a' + ctlNum - 26);
