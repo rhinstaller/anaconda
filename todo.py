@@ -8,6 +8,8 @@ if arch == "sparc":
     from silo import SiloInstall
 elif arch == "alpha":
     from milo import MiloInstall, onMILO
+elif arch == "ia64":
+    from eli import EliConfiguration
 import string
 import socket
 import crypt
@@ -315,6 +317,8 @@ class ToDo:
 	    self.silo = SiloInstall (self.serial)
         elif arch == "alpha":
             self.milo = MiloInstall (self)
+        elif arch == "ia64":
+            self.eli = EliConfiguration ()
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
@@ -1330,6 +1334,9 @@ class ToDo:
 				   self.upgrade)
 	    elif arch == "i386":
 		self.lilo.install (self.fstab, self.instPath, self.hdList, 
+				   self.upgrade)
+	    elif arch == "ia64":
+		self.eli.install (self.fstab, self.instPath, self.hdList, 
 				   self.upgrade)
 	    elif arch == "alpha":
 		self.milo.write ()
