@@ -973,7 +973,8 @@ class ComponentSet:
 # this is a temporary way to set order of packages
 def orderPackageGroups(curgroups):
     compsParents = ["Desktops", "Applications", "Servers", "Development", "System"]
-    compsHierarchy = { "Desktops" : ["GNOME Desktop Environment",
+    compsHierarchy = { "Desktops" : ["X Window System",
+				     "GNOME Desktop Environment",
 				     "KDE Desktop Environment"],
 		       "Applications" : ["Editors",
 					 "Engineering and Scientific",
@@ -1003,8 +1004,8 @@ def orderPackageGroups(curgroups):
 					 "KDE Software Development"],
 		       "System" : [ "Administration Tools",
 	                            "System Tools",
-				    "Printing Support",
-				    "X Window System"] }
+				    "Printing Support"
+				    ] }
 
     curgrpnames = []
     for grp in curgroups:
@@ -1046,6 +1047,10 @@ def getCompGroupDescription(comp):
 	return _("This group includes all the packages available.  Note that "
 		 "this is substantially more packages than just the ones "
 		 "in all the other package groups on this page.")
+    elif comp.name == u"Base":
+	return _("Choose this group to get the minimal possible set of "
+		 "packages.  Useful for creating small router/firewall "
+		 "boxes, for example.")
     
     descr = comp.description
     if descr:
