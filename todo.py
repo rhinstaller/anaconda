@@ -925,6 +925,15 @@ class ToDo:
                 f.write ("%s\t\t%s\n" % (ip, dev.hostname))
         f.close ()
 
+	# If the hostname was not looked up, but typed in by the user,
+	# domain might not be computed, so do it now.
+	if self.network.domains == [ "localdomain" ] or not self.network.domains:
+	    if self.network.hostname != "localhost.localdomain":
+		if '.' in self.network.hostname:
+		    # chop off everything before the leading '.'
+		    domain = self.network.hostname[(string.find(self.network.hostname, '.') + 1):]
+		    self.network.domains = [ domain ]
+
         # /etc/resolv.conf
         f = open (self.instPath + "/etc/resolv.conf", "w")
         f.write ("search " + string.joinfields (self.network.domains, ' ') + "\n")
