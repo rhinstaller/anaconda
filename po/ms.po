@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-23 23:02+0800\n"
-"Last-Translator: Mohd Nawawi Mohamad Jamili <nawawi@ronggeng.net>\n"
+"PO-Revision-Date: 2004-06-24 11:52+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -720,7 +720,7 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"Ralat berlaku bila memigrasikan %s ke ext3. Anda boleh meneruskan tanpa "
+"Ralat berlaku bila memindahkan %s ke ext3.  Anda boleh meneruskan tanpa "
 "migrasi sistemfail ini jika mahu.\n"
 "\n"
 "Adakah anda ingin meneruskan tanpa migrasi %s?"
@@ -753,7 +753,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Ralat berlaku bila cuba menginitialisasi swap pada peranti %s. Masalah ini "
+"Ralat berlaku bila cuba menginitialisasi swap pada peranti %s.  Masalah ini "
 "serious, dan pemasangan tidak dapat diteruskan.\n"
 "\n"
 "Tekan <Enter> untuk ulangbut sistem anda."
@@ -794,7 +794,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Ralat berlaku bila mencari blok teruk pada %s. Masalah ini serius, dan "
+"Ralat berlaku bila mencari blok teruk pada %s.  Masalah ini serius, dan "
 "pemasangan tidak dapat diteruskan.\n"
 "\n"
 "Tekan <enter> untuk ulangbut sistem anda"
@@ -807,7 +807,7 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Ralat berlaku bila cuba memformat %s. Masalah ini serius, dan pemasangan "
+"Ralat berlaku bila cuba memformat %s.  Masalah ini serius, dan pemasangan "
 "tidak dapat diteruskan.\n"
 "\n"
 "Tekan <enter> untuk ulangbut sistem anda"
@@ -995,7 +995,8 @@ msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
-msgstr "Beberapa ralat telah dijumpai semasa melaksana konfigurasi kickstart"
+msgstr ""
+"Beberapa ralat telah dijumpai semasa melaksana konfigurasi kickstart"
 "\n"
 "%s"
 
@@ -1044,7 +1045,7 @@ msgstr "_Keluar"
 
 #: ../gui.py:1096
 msgid "_Retry"
-msgstr "_Ulangi"
+msgstr "_Ulang"
 
 #: ../gui.py:1098 ../packages.py:1482
 msgid "Rebooting System"
@@ -2449,7 +2450,8 @@ msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr "X gagal untuk dilaksanakan pada mesin anda. Adakah anda ingin untuk melaksanakan VNC dengan "
+msgstr ""
+"X gagal untuk dilaksanakan pada mesin anda. Adakah anda ingin untuk melaksanakan VNC dengan "
 "menyambungkan komputer ini kepada komputer lain dan menggunakan paparan grafik semasa install atau sambung dengan "
 "menggunakan mod paparan teks install?"
 
@@ -2474,7 +2476,8 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr "katalaluan akan menghalang pengguna yang tidak memberi katalaluan dari membuat "
+msgstr ""
+"katalaluan akan menghalang pengguna yang tidak memberi katalaluan dari membuat "
 "sambungan dan melihat proses installasi anda. Tolong taip katalaluan untuk digunakan semasa "
 "installasi dijalankan"
 
@@ -3205,18 +3208,16 @@ msgid "_Enable firewall"
 msgstr "_Hidupkan firewall"
 
 #: ../iw/firewall_gui.py:179
-#, fuzzy
 msgid "Allow others on the internet to access these services."
-msgstr "Benarkan on kepada."
+msgstr "Benarkan orang lain di Internet untuk akses servis ini."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
 msgstr "_Izinkan masukan:"
 
 #: ../iw/firewall_gui.py:203
-#, fuzzy
 msgid "Remote Login (SSH)"
-msgstr "Jauh Logmasuk SSH"
+msgstr "Logmasuk Jauh (SSH)"
 
 #: ../iw/firewall_gui.py:205
 msgid "Web Server"
@@ -6764,26 +6765,24 @@ msgstr ""
 "jurupacu. Yang mana anda ingin guna?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr "on kepada?"
+msgstr ""
+"Terdapat beberapa partisyen pada peranti ini yang mungkin mengandungi imej cakera "
+"pemandu.  Yang mana anda hendak gunakan?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Gagal kepada."
+msgstr "Gagal untuk melekapkan partisyen."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Pilih"
+msgstr "Pilih imej cakera pemandu"
 
 #: ../loader2/driverdisk.c:340
-#, fuzzy
 msgid "Select the file which is your driver disk image."
-msgstr "Pilih fail."
+msgstr "Pilih fail yang merupakan imej cakera pemandu anda."
 
 #: ../loader2/driverdisk.c:369
 msgid "Failed to load driver disk from file."
@@ -7279,12 +7278,14 @@ msgstr ""
 
 #: ../loader2/net.c:177
 #, c-format
-#, fuzzy
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr "s dan kepada Jika tidak dan."
+msgstr ""
+"%s adalah adapter rangkaian wireless.  Sila berikan ESSID dan kekunci enkripsi "
+"yang diperlukan untuk mengakses rangkaian wireless anda.  Jika tiada kekunci diperlukan, "
+"biarkan medan ini kosong dan pemasangan akan diteruskan."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
@@ -7300,7 +7301,7 @@ msgstr "Tetapan Wireless"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
-msgstr "IP Pelayan nama"
+msgstr "IP Pelayan Nama"
 
 #: ../loader2/net.c:204
 msgid "Nameserver"
@@ -7399,7 +7400,7 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"Anda mempunyai banyak peranti rangkaian pada sistem ini. Melalaui yang mana "
+"Anda mempunyai banyak peranti rangkaian pada sistem ini. Melalui yang mana "
 "anda ingin pasang?"
 
 #: ../loader2/nfsinstall.c:44
@@ -7468,7 +7469,7 @@ msgstr "Mesti membekalkan hujah --url untuk kaedah kickstart Url."
 #: ../loader2/urlinstall.c:452
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "Kaedah Url  tidak diketahui %s"
+msgstr "Kaedah Url tidak diketahui %s"
 
 #: ../loader2/urls.c:172
 #, c-format
@@ -7548,7 +7549,7 @@ msgstr "Memuatkan jurupacu SCSI"
 # libgnomeui/gnome-scores.c:102
 #. generated from zone.tab
 msgid "Acre"
-msgstr "Ekar"
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
@@ -7596,9 +7597,7 @@ msgstr "Waktu Atlantik - E Labrador"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Waktu Atlantik - Nova Scotia (kebanyakan tempat), NB, W Labrador, E Quebec & "
-"PEI"
+msgstr "Waktu Atlantik - Nova Scotia (kebanyakan tempat), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7626,11 +7625,11 @@ msgstr "Kepulauan Canary"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr "Stesyen casey, Semenanjung Bailey"
+msgstr "Stesyen Casey, Semenanjung Bailey"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr "Catamara (CT)"
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
@@ -7814,7 +7813,7 @@ msgstr "Kepulauan Gilbert"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr "Britain"
+msgstr "Great Britain"
 
 #. generated from zone.tab
 msgid "Hawaii"
@@ -7982,7 +7981,7 @@ msgstr "Waktu Gunung - Alberta, British Columbia timur & Saskatchewan barat"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Waktu Gunung - jajalan Northwest tengah"
+msgstr "Waktu Gunung - jajahan Northwest tengah"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
@@ -8074,7 +8073,7 @@ msgstr "Queensland - Pulau Holiday"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Queensland - kebanyakkan lokasi"
+msgstr "Queensland - kebanyakan lokasi"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
