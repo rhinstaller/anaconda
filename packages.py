@@ -528,6 +528,8 @@ def doPreInstall(method, id, intf, instPath, dir):
 		select(id.hdList, 'kernel-tape')
         elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
             select(id.hdList, 'kernel-pseries')
+        elif arch == "ppc" and iutil.getPPCMachine() == "iSeries":
+            select(id.hdList, "kernel-iseries")
                 
 	if isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')

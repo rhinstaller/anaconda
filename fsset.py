@@ -758,7 +758,8 @@ class prepbootFileSystem(FileSystemType):
         self.name = "PPC PReP Boot"
 
         # supported for use on the pseries
-        if iutil.getPPCMachine() == "pSeries":
+        if (iutil.getPPCMachine() == "pSeries" or
+            iutil.getPPCMachine() == "iSeries"):
             self.supported = 1
             self.formattable = 1
         else:
@@ -1072,7 +1073,8 @@ class FileSystemSet:
             for entry in self.entries:
                 if entry.fsystem.getName() == "Apple Bootstrap":
                     bootDev = entry.device
-        elif iutil.getPPCMachine() == "pSeries":
+        elif (iutil.getPPCMachine() == "pSeries" or
+              iutil.getPPCMachine() == "iSeries"):
             for entry in self.entries:
                 if entry.fsystem.getName() == "PPC PReP Boot":
                     bootDev = entry.device
@@ -1109,7 +1111,8 @@ class FileSystemSet:
                     n = n + 1
             return ret
         # FIXME: is this right?
-        elif iutil.getPPCMachine() == "pSeries":
+        elif (iutil.getPPCMachine() == "pSeries" or
+              iutil.getPPCMachine() == "iSeries"):
             ret['boot'] = (bootDev.device, N_("PPC PReP Boot"))
             return ret
                 
@@ -1130,7 +1133,8 @@ class FileSystemSet:
 
         # on ia64, *only* /boot/efi should be marked bootable
         # similarly, on pseries, we really only want the PReP partition active
-        if iutil.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries":
+        if (iutil.getArch() == "ia64" or iutil.getPPCMachine() == "pSeries"
+            or iutil.getPPCMachine() == "iSeries"):
             part = partedUtils.get_partition_by_name(diskset.disks, bootDev)
             if part and part.is_flag_available(parted.PARTITION_BOOT):
                 part.set_flag(parted.PARTITION_BOOT, 1)

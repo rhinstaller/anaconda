@@ -60,7 +60,8 @@ def bootRequestCheck(requests, diskset):
             return BOOT_ABOVE_1024
     elif iutil.getArch() == "alpha":
         return bootAlphaCheckRequirements(part, diskset)
-    elif iutil.getPPCMachine() == "pSeries":
+    elif (iutil.getPPCMachine() == "pSeries" or
+          iutil.getPPCMachine() == "iSeries"):
         # FIXME: does this also have to be at the beginning of the disk
 ##         if part.native_type != 0x41:
 ##             return BOOTPSERIES_NOT_PREP
@@ -1102,7 +1103,9 @@ def doClearPartAction(partitions, diskset):
                         if request:
                             partitions.autoPartitionRequests.remove(request)
             # hey, what do you know, pseries is weird too.  *grumble*
-            elif ((iutil.getPPCMachine() == "pSeries") and (linuxOnly == 1)
+            elif (((iutil.getPPCMachine() == "pSeries") or
+                   (iutil.getPPCMachine() == "iSeries"))
+                  and (linuxOnly == 1)
                   and (not partitions.isKickstart) and
                   part.is_flag_available(parted.PARTITION_BOOT) and
                   (part.native_type == 0x41) and
@@ -1397,8 +1400,9 @@ def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if iutil.getArch() == "ia64":
         return ("/boot/efi", "vfat", 100, None, 0, 1)
-    elif iutil.getPPCMachine() == "pSeries":
-        return(None, "PPC PReP Boot", 10, None, 0, 1)
+    elif (iutil.getPPCMachine() == "pSeries" or
+          iutil.getPPCMachine() == "iSeries"):
+        return(None, "PPC PReP Boot", 8, None, 0, 1)
     else:
         return ("/boot", None, 100, None, 0, 1)
 
