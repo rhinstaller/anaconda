@@ -17,6 +17,8 @@ from iw_gui import *
 from flags import flags
 from rhpl.translate import _, N_
 
+from gui import setupTreeViewFixupIdleHandler
+
 class LanguageSupportWindow (InstallWindow):
     windowTitle = _("Additional Language Support")
     htmlTag = "langsupport"
@@ -113,9 +115,7 @@ class LanguageSupportWindow (InstallWindow):
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self, langs):
 	self.langs = langs
-
-        self.languages = self.langs.getAllSupported ()
-
+        self.languages = a + self.langs.getAllSupported ()
         self.supportedLangs = self.langs.getSupported()
 	self.origLangs = []
         for i in self.supportedLangs:
@@ -216,5 +216,10 @@ class LanguageSupportWindow (InstallWindow):
 	# connect CB for when they change selected langs
         self.languageList.checkboxrenderer.connect("toggled",
 					       self.toggled_language)
+
+	store = self.languageList.get_model()
+
+	setupTreeViewFixupIdleHandler(self.languageList,
+				      self.languageList.get_model())
 
         return vbox

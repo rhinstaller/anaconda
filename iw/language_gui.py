@@ -102,7 +102,6 @@ class LanguageWindow (InstallWindow):
         sw.add (self.listView)
 
 	setupTreeViewFixupIdleHandler(self.listView, self.listStore)
-
         
         mainBox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 10)
         mainBox.pack_start (sw, gtk.TRUE, gtk.TRUE)
