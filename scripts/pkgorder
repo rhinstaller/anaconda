@@ -6,9 +6,6 @@ import os.path
 import rpm
 import string
 
-# set up rpm dependency whiteouts
-import whiteout
-
 # FIXME: we really want this information somewhere, but not in the pkgorder
 # file itself.
 from rhpl.log import log
@@ -16,6 +13,8 @@ from anaconda_log import anaconda_log
 anaconda_log.open("/dev/null")
 log.handler = anaconda_log
 
+# set up rpm dependency whiteouts
+import whiteout
 
 rpmFD = None
 
