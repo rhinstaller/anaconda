@@ -34,6 +34,11 @@ DIRS += pcmcia-install
 OBJS += stubs.o 
 endif
 
+ifeq (ia64, $(ARCH))
+BINS += loader
+OBJS += modstubs.o 
+endif
+
 ifeq (alpha, $(ARCH))
 BINS += loader
 endif
