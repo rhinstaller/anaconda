@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-16 21:25+0200\n"
+"PO-Revision-Date: 2004-09-25 09:52+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -243,7 +243,7 @@ msgid ""
 msgstr ""
 "Opstartpartitie %s staat niet op een schijf met voldoende vrije ruimte aan "
 "het begin om de bootloader te installeren. Zorg dat er minimaal 5 Megabyte "
-"vrije ruimte is aan het begin van de schijf die de map /boot bevat."
+"vrije ruimte is aan het begin van de schijf die de map /boot bevat"
 
 #: ../autopart.py:1021
 #, python-format
@@ -658,7 +658,7 @@ msgstr ""
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
-msgstr "Voer een diskette in."
+msgstr "Voer een diskette in"
 
 #: ../floppy.py:114
 msgid ""
@@ -746,7 +746,7 @@ msgstr ""
 
 #: ../fsset.py:178
 msgid "Checking for Bad Blocks"
-msgstr "Er wordt nu gecontroleerd op schijffouten."
+msgstr "Er wordt nu gecontroleerd op schijffouten"
 
 #: ../fsset.py:179
 #, python-format
@@ -827,7 +827,7 @@ msgstr ""
 "Er zijn schijffouten gevonden op device /dev/%s. We raden u af om deze "
 "device te gebruiken.\n"
 "\n"
-"Geef <Enter> om uw systeem te herstarten."
+"Geef <Enter> om uw systeem te herstarten"
 
 #: ../fsset.py:1356
 #, python-format
@@ -1148,7 +1148,7 @@ msgstr "%s Installatie op %s"
 
 #: ../gui.py:1354
 msgid "Unable to load title bar"
-msgstr "Titelbalk kon niet worden geladen."
+msgstr "Titelbalk kon niet worden geladen"
 
 #: ../gui.py:1461
 msgid "Install Window"
@@ -1185,7 +1185,7 @@ msgstr ""
 "\n"
 "%s\n"
 "Zorg er voor dat u deze CDs heeft klaarliggen voordat u verder gaat met de "
-"installatie.  Als u de installatie wilt afbreken en rebooten selecteer dan "
+"installatie.  Als u de installatie wilt afbreken en herstarten selecteer dan "
 "\"Herstarten\"."
 
 #: ../image.py:96 ../image.py:477 ../kickstart.py:1407 ../kickstart.py:1435
@@ -1287,7 +1287,7 @@ msgstr ""
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten."
+"Computernamen mogen alleen de tekens 'a-z', 'A-Z', '-' of '.' bevatten"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
@@ -1333,7 +1333,7 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 "Het \"comps\" bestand kon niet worden geopend. Dit komt door een ontbrekend "
-"bestand of een beschadigde mediadrager.  Geef <return> om opnieuw te "
+"bestand of een beschadigde mediadrager.  Geef <Enter> om opnieuw te "
 "proberen."
 
 # return? moet dit niet enter zijn?
@@ -1343,7 +1343,7 @@ msgid ""
 "media.  Press <return> to try again."
 msgstr ""
 "Het was niet mogelijk on de \"header list\" te activeren. Dit komt door een "
-"ontbrekend bestand of een beschadigde mediadrager.  Geef <return> om opnieuw "
+"ontbrekend bestand of een beschadigde mediadrager.  Geef <Enter> om opnieuw "
 "te proberen."
 
 #: ../packages.py:183 ../packages.py:596
@@ -1793,7 +1793,7 @@ msgid ""
 "contains %s"
 msgstr ""
 "U kunt deze partitie niet verwijderen omdat het een uitgebreide partitie is "
-"die %s bevat."
+"die %s bevat"
 
 #: ../partIntfHelpers.py:184
 msgid ""
@@ -1843,7 +1843,7 @@ msgstr "Niet in staat te bewerken"
 
 #: ../partIntfHelpers.py:308
 msgid "You must select a partition to edit"
-msgstr "De te bewerken partitie moet eerst worden geselecteerd."
+msgstr "De te bewerken partitie moet eerst worden geselecteerd"
 
 #: ../partIntfHelpers.py:320 ../partIntfHelpers.py:358
 msgid ""
@@ -1860,7 +1860,7 @@ msgid ""
 "contains %s"
 msgstr ""
 "U kunt deze partitie niet bewerken omdat het een uitgebreide partitie is die "
-"%s bevat."
+"%s bevat"
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
@@ -2293,7 +2293,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 "Uw systeem had beschadigde bestandssystemen. U heeft ervoor gekozen deze "
-"niet aan te koppelen.  Geef <enter> om een shellprompt te krijgen waarin u "
+"niet aan te koppelen.  Geef <Enter> om een shellprompt te krijgen waarin u "
 "de partities kunt controleren met fsck en vervolgens kunt aankoppelen. Het "
 "systeem zal automatisch opnieuw worden opgestart wanneer u de shell verlaat."
 
@@ -2311,7 +2311,7 @@ msgid ""
 msgstr ""
 "Uw systeem is aangekoppeld onder %s.\n"
 "\n"
-"Geef <return> om een shellprompt te krijgen. Als u uw systeem in de root-"
+"Geef <Enter> om een shellprompt te krijgen. Als u uw systeem in de root-"
 "omgeving wilt zetten, geef dan de opdracht:\n"
 "\n"
 "\tchroot %s\n"
@@ -2331,7 +2331,7 @@ msgstr ""
 "Een fout is opgetreden tijdens het aankoppelen van (een deel van) uw "
 "systeem. Een deel is mogelijk aangekoppeld onder %s.\n"
 "\n"
-"Geef <enter> om een shellprompt te krijgen. Het systeem zal automatisch "
+"Geef <Enter> om een shellprompt te krijgen. Het systeem zal automatisch "
 "herstarten als u de shell verlaat."
 
 #: ../rescue.py:414
@@ -2344,7 +2344,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"U heeft geen Linux-partities. Geef <enter> om een shellprompt te krijgen. "
+"U heeft geen Linux-partities. Geef <Enter> om een shellprompt te krijgen. "
 "Het systeem zal automatisch herstarten als u de shell verlaat."
 
 #: ../rescue.py:429
@@ -2381,14 +2381,14 @@ msgstr "%s (C) 2004 Red Hat, Inc."
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
-" <F1> hulp | <Tab> tussen items | <Space> selecteren | <F12> volgend scherm"
+" <F1> hulp | <Tab> tussen items | <Spatie> selecteren | <F12> volgend scherm"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> tussen items  |  <Space> selecteren  |  <F12> volgend "
+"  <Tab>/<Alt-Tab> tussen items  |  <Spatie> selecteren  |  <F12> volgend "
 "scherm"
 
 #: ../upgradeclass.py:8
@@ -2665,7 +2665,7 @@ msgstr "Apparaatnummer"
 
 #: ../zfcp.py:30
 msgid "You have not specified a device number or the number is invalid"
-msgstr "U heeft geen apparaatnummer opgegeven of het nummer is ongeldig."
+msgstr "U heeft geen apparaatnummer opgegeven of het nummer is ongeldig"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
@@ -2882,11 +2882,11 @@ msgstr "Be_vestigen:"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
-msgstr "De wachtwoorden komen niet overeen."
+msgstr "De wachtwoorden komen niet overeen"
 
 #: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:447
 msgid "Passwords do not match"
-msgstr "De wachtwoorden komen niet overeen."
+msgstr "De wachtwoorden komen niet overeen"
 
 #: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:457
 msgid ""
@@ -3003,7 +3003,7 @@ msgid ""
 msgstr ""
 "Selecteer de bootloader die de computer zal gebruiken. GRUB is de standaard "
 "bootloader. Als u echter uw huidige bootloader niet wilt overschrijven, "
-"selecteer dan: \"Geen bootloader installeren\"."
+"selecteer dan: \"Geen bootloader installeren.\"  "
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
@@ -3127,7 +3127,7 @@ msgstr ""
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
-msgstr "Gefeliciteerd!"
+msgstr "Gefeliciteerd"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
@@ -3715,7 +3715,7 @@ msgid ""
 msgstr ""
 "Er is in de volumegroep geen ruimte vrij om nieuwe logische volumes maken. "
 "Om een logische volume toe te voegen moet u de grootte van een of meer van "
-"de huidige logische volumes verkleinen."
+"de huidige logische volumes verkleinen"
 
 #: ../iw/lvm_dialog_gui.py:730
 #, python-format
@@ -4477,7 +4477,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1306
 msgid "Couldn't Create Drive Clone Editor"
-msgstr "Kon de 'stationskloon-editor' niet aanmaken."
+msgstr "Kon de 'stationskloon-editor' niet aanmaken"
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
@@ -4741,7 +4741,7 @@ msgstr ""
 "'softwarematig RAID' zijn.\n"
 "\n"
 "Deze partities zullen moeten worden verwijderd voordat dit station kan "
-"worden gekloond."
+"worden gekloond. "
 
 #: ../iw/raid_dialog_gui.py:497
 #, python-format
@@ -4756,7 +4756,7 @@ msgstr ""
 "station /dev/%s.\n"
 "\n"
 "Deze partities zullen moeten worden verwijderd of worden beperkt tot dit "
-"station voordat dit station kan worden gekloond."
+"station voordat dit station kan worden gekloond. "
 
 #: ../iw/raid_dialog_gui.py:510
 msgid ""
@@ -5487,7 +5487,7 @@ msgstr ""
 msgid ""
 " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
-" <Space> selecteert knop | <F2> opstart-standaard kiezen| <F12> volgend "
+" <Spatie> selecteert knop | <F2> opstart-standaard kiezen| <F12> volgend "
 "scherm>"
 
 #: ../textw/bootloader_text.py:394
@@ -5925,7 +5925,7 @@ msgstr "Individuele pakketten kiezen"
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"<Space>,<+>,<-> selectie   |   <F2> Groep Details   |   <F12> volgend scherm"
+"<Spatie>,<+>,<-> selectie   |   <F2> Groep Details   |   <F12> volgend scherm"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5952,7 +5952,7 @@ msgstr "Totale grootte"
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
-"   <Space>,<+>,<-> selectie   |   <F1> hulp   |   <F2> pakket-beschrijving"
+"   <Spatie>,<+>,<-> selectie   |   <F1> hulp   |   <F2> pakket-beschrijving"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -6173,7 +6173,7 @@ msgstr "Geen Volumegroepen"
 
 #: ../textw/partition_text.py:1175
 msgid "No volume groups in which to create a logical volume"
-msgstr "Er zijn geen volumegroepen om een logisch volume in aan te maken."
+msgstr "Er zijn geen volumegroepen om een logisch volume in aan te maken"
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -6182,7 +6182,7 @@ msgid ""
 "size (%10.2f MB). "
 msgstr ""
 "De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de maximum "
-"logische volume-grootte (%10.2f MB)."
+"logische volume-grootte (%10.2f MB). "
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6885,7 +6885,7 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\tBureaublad schil (GNOME)\n"
-"\tKantoor pakket (OpenOffice.org)\n"
+"\tKantoorpakket (OpenOffice.org)\n"
 "\tWeb browser (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
@@ -6894,7 +6894,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6904,13 +6904,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tBureaublad schil (GNOME)\n"
+"\tHulpmiddelen voor beheer\n"
+"\tHulpmiddelen voor serverconfiguratie\n"
+"\tWeb-server\n"
+"\tWindows fileserver (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6922,23 +6926,23 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tBureaublad schil (GNOME)\n"
-"\tKantoor pakket (OpenOffice.org)\n"
+"\tKantoorpakket (OpenOffice)\n"
 "\tWeb browser (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tGeluid en video applicaties\n"
 "\tSpelletjes\n"
+"\tHulpmiddelen voor beheer\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6951,14 +6955,14 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tBureaublad schil (GNOME)\n"
-"\tKantoor pakket (OpenOffice.org)\n"
+"\tKantoorpakket (OpenOffice)\n"
 "\tWeb browser (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tGeluid en video applicaties\n"
 "\tSpelletjes\n"
-"\tHulpmiddelen voor software ontwikkeling\n"
-"\tBeheer hulpmiddelen\n"
+"\tHulpmiddelen voor software-ontwikkeling\n"
+"\tHulpmiddelen voor beheer\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
@@ -6988,7 +6992,7 @@ msgid ""
 "development and system administration. "
 msgstr ""
 "Met deze optie wordt er een grafische desktop geïnstalleerd met tools voor "
-"software-ontwikkeling en systeembeheer."
+"software-ontwikkeling en systeembeheer. "
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -7003,14 +7007,14 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tBureaublad schil (GNOME)\n"
-"\tKantoor pakket (OpenOffice.org)\n"
+"\tKantoorpakket (OpenOffice.org)\n"
 "\tWeb browser (Mozilla) \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tGeluid en video applicaties\n"
 "\tSpelletjes\n"
-"\tHulpmiddelen voor software ontwikkeling\n"
-"\tBeheer hulpmiddelen\n"
+"\tHulpmiddelen voor software-ontwikkeling\n"
+"\tHulpmiddelen voor beheer\n"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -7606,7 +7610,7 @@ msgstr "De medium-controle %s is compleet en het resultaat is: %s\n"
 #: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Lezen van map %s: %s is mislukt."
+msgstr "Lezen van map %s: %s is mislukt"
 
 #: ../loader2/method.c:408
 #, c-format
@@ -7701,8 +7705,8 @@ msgid ""
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
 "Voer de IP-configuratie voor deze machine in. Elk item moet worden ingevoerd "
-"als een IP-adres in decimale notatie, gescheiden door punten, bijvoorbeeld: "
-"1.2.3.4"
+"als een IP-adres in decimale notatie, gescheiden door punten (bijvoorbeeld: "
+"1.2.3.4)."
 
 #: ../loader2/net.c:474
 msgid "IP address:"
