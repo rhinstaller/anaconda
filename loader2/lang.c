@@ -36,6 +36,8 @@
 #include "../isys/stubs.h"
 #include "../isys/cpio.h"
 
+static int startBterm(int flags);
+
 struct aString {
     unsigned int hash;
     short length;
@@ -218,6 +220,42 @@ static void setLangEnv (int i, int flags) {
     loadLanguage (NULL, flags);
 }
 
+/* choice is the index of the chosen language in languages */
+static int setupLanguage(int choice, int flags) {
+    char * buf;
+    int i;
+
+    logMessage("going to set language to %s", languages[choice].lc_all);
+    /* load the language only if it is displayable */
+    if (!strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
+        if (FL_KICKSTART(flags)) return 0;
+
+	newtWinMessage("Language Unavailable", "OK", 
+		       "%s display is unavailable in text mode.  The "
+		       "installation will continue in English until the "
+		       "display of %s is possible.", languages[choice].lang,
+		       languages[choice].lang);
+	return 0;
+    }
+    
+    setLangEnv (choice, flags);
+
+    /* clear out top line */
+    buf = alloca(80);
+    for (i=0; i < 80; i++)
+	buf[i] = ' ';
+    newtDrawRootText(0, 0, buf);
+
+    buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+    newtDrawRootText(0, 0, buf);
+    free(buf);
+    newtPopHelpLine();
+    newtPushHelpLine(_(bottomHelpLine));
+
+    return 0;
+
+}
+
 /* this is pretty simple.  we want to break down the language specifier
  * into its short form (eg, en_US)
  */
@@ -255,15 +293,14 @@ static char * getLangNick(char * oldLang) {
     return lang;
 }
 
-void setLanguage (char * key, int flags) {
+int setLanguage (char * key, int flags) {
     int i;
 
     if (!languages) loadLanguageList(flags);
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(languages[i].lc_all, key)) {
-            setLangEnv(i, flags);
-            return;
+            return setupLanguage(i, flags);
         }
     }
 
@@ -271,25 +308,24 @@ void setLanguage (char * key, int flags) {
      * against short forms and nicks */
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangShortForm(languages[i].lc_all), key)) {
-            setLangEnv(i, flags);
-            return;
+            return setupLanguage(i, flags);
         }
     }
 
     for (i = 0; i < numLanguages; i++) {
         if (!strcmp(getLangNick(languages[i].lc_all), key)) {
-            setLangEnv(i, flags);
-            return;
+            return setupLanguage(i, flags);
         }
     }
 
     logMessage("unable to set to requested language %s", key);
+    return -1;
 }
 
 /* returns 0 on success, 1 on failure */
 extern int bterm_main(int argc, char **argv);
 
-int startBterm(int flags) {
+static int startBterm(int flags) {
     char *args[4] = { "bterm", "-s", "-f", NULL };
     int rc;
     struct stat sb;
@@ -319,7 +355,6 @@ int chooseLanguage(char ** lang, int flags) {
     char * currentLangName = getenv("LANG");
     int numLangs = 0;
     char * langPicked;
-    char * buf;
 
     if (!languages) loadLanguageList(flags);
 
@@ -368,20 +403,8 @@ int chooseLanguage(char ** lang, int flags) {
 		       languages[choice].lang);
 	return 0;
     }
-    setLanguage (languages[choice].lc_all, flags);
 
-    /* clear out top line */
-    buf = alloca(80);
-    for (i=0; i < 80; i++)
-	buf[i] = ' ';
-    newtDrawRootText(0, 0, buf);
-
-    buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
-    newtDrawRootText(0, 0, buf);
-    free(buf);
-    newtPopHelpLine();
-    newtPushHelpLine(_(bottomHelpLine));
-
+    setupLanguage(choice, flags);
     return 0;
 }
 

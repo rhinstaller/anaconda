@@ -13,7 +13,7 @@ struct langInfo {
 
 int chooseLanguage(char ** lang, int flags);
 char * translateString(char * str);
-void setLanguage (char * key, int flags);
+int setLanguage (char * key, int flags);
 int getLangInfo(struct langInfo **langs, int flags);
 
 void setKickstartLanguage(struct loaderData_s * loaderData, int argc, 
