@@ -110,7 +110,7 @@ forceMount = 0
 localInstall = 0
 reconfigOnly = 0
 nofallback = 0
-lowres = 0
+runres = '800x600'
 
 #
 # x          - xserver info (?)
@@ -190,7 +190,7 @@ for n in args:
     elif (str == '--class'):
         customClass = arg
     elif (str == '--lowres'):
-        lowres = '640x480'
+        runres = '640x480'
 
 #
 # must specify install or reconfig mode
@@ -372,7 +372,7 @@ if xmode:
             pass
         sys.exit (0)
 
-intf = InstallInterface()
+intf = InstallInterface(runres = runres)
 
 # imports after setting up the path
 if not reconfigOnly:
@@ -460,7 +460,7 @@ todo = ToDo(intf, method, rootPath, installSystem = installPackages,
 	    setupFilesystems = setupFilesystems, mouse = mouseInfo,
 	    instClass = instClass, x = x, expert = expert,
 	    serial = serial, reconfigOnly = reconfigOnly, test = test,
-	    extraModules = extraModules, lowres = lowres)
+	    extraModules = extraModules)
 
 try:
     intf.run(todo, test = test)
