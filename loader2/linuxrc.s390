@@ -120,10 +120,12 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
    while [ -z "$CHANDEV" ]; do
 		echo $"Enter parameters you need to pass to the channel device layer."
 		echo $"This includes the I/O ports of your ctc, escon, qeth, hsi and lcs devices."
+		echo $"(e.g. \"ctc0,0x600,0x601\" will activate the ctc0 interface at I/O"
+		echo $"ports 0x600,0x601)"
+		echo $"Hipersocket interfaces need to be configured like qeth devices,"
+		echo $"p.e. qeth0,0x3000,0x3001,0x3002"
 		echo $"Additional parameters for QETH devices such as the portname"
 		echo $"should be entered at the next prompt, not here !"
-		echo $"(e.g. \"ctc0,0x600,0x601\" will activate the ctc0 interface at I/O"
-		echo $"ports 0x600,0x601):"
 		read CHANDEV
    done
    echo "$CHANDEV" |grep -q "qeth"
