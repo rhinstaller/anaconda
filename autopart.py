@@ -229,7 +229,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             continue
         if request.device:
             continue
-        if primOnly and not request.primary:
+        if primOnly and not request.primary and request != bootreq:
             continue
         if request == bootreq:
             drives = getDriveList(request, diskset)
