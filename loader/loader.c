@@ -39,28 +39,38 @@
 #define LOADER_BACK 1
 #define LOADER_ERROR -1
 
-static int welcomeScreen(void);
-static int detectHardware(void);
-static int selectMedia(void);
 
-typedef int (*installStepFn)(void);
+struct loaderState {
+    enum {
+	INTERFACE_TEXT,
+	INTERFACE_GUI,
+    } interface;
+};
 
-struct installStep {
+typedef int (*loaderStepFn)(struct loaderState *);
+
+struct loaderStep {
     char * name;
-    installStepFn fn;
+    loaderStepFn fn;
     int skipOnLocal;
 };
 
-static struct installStep installSteps[] = { 
+static int welcomeScreen(struct loaderState * state);
+static int detectHardware(struct loaderState * state);
+static int selectMedia(struct loaderState * state);
+static int selectInterface(struct loaderState * state);
+
+static struct loaderStep loaderSteps[] = { 
     { N_("Welcome"), welcomeScreen, 0 },
     { N_("Hardware Detection"), detectHardware, 1 },
     { N_("Select Media"), selectMedia, 0 },
+    { N_("Select Interface"), selectInterface, 0 },
 };
 
-static int numSteps = sizeof(installSteps) / sizeof(struct installStep);
+static int numSteps = sizeof(loaderSteps) / sizeof(struct loaderStep);
 int testing;
 
-static int welcomeScreen(void) {
+static int welcomeScreen(struct loaderState *state) {
     newtWinMessage(_("Red Hat Linux"), _("OK"), 
 		   _("Welcome to Red Hat Linux!\n\n"
 		     "This short process is outlined in detail in the "
@@ -74,7 +84,7 @@ static int welcomeScreen(void) {
     return LOADER_OK;
 }
 
-static int detectHardware(void) {
+static int detectHardware(struct loaderState *state) {
     char ** modules, *module;
 
     if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
@@ -102,7 +112,18 @@ static int detectHardware(void) {
     return LOADER_OK;
 }
 
-static int selectMedia(void) {
+static int selectMedia(struct loaderState *state) {
+    return LOADER_OK;
+}
+
+static int selectInterface(struct loaderState *state) {
+    newtWinChoice(_("Install Interface"), _("Text"), _("Graphical"),
+		   _("You can install Red Hat Linux using one of two "
+		     "interfaces, Text or Graphical.  The text mode "
+		     "is similar to older Red Hat Linux installers. "
+		     "The Graphical installer is new and offers point "
+		     "and click installation of Red Hat Linux."));
+
     return LOADER_OK;
 }
 
@@ -113,6 +134,7 @@ int main(int argc, char ** argv) {
     poptContext optCon;
     int network, local, rc;
     struct intfInfo eth0;    
+    struct loaderState state;
     struct poptOption optionTable[] = {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
@@ -144,7 +166,7 @@ int main(int argc, char ** argv) {
     newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 
     while (step < numSteps) {
-	rc = installSteps[step].fn();
+	rc = loaderSteps[step].fn(&state);
 	switch (rc) {
 	case LOADER_OK:
 	    step++;
@@ -155,7 +177,7 @@ int main(int argc, char ** argv) {
 	case LOADER_ERROR:
 	    newtWinMessage(_("Error"), _("OK"),
 			   _("An error occured while running the '%s' step"),
-			   installSteps[step].name);
+			   loaderSteps[step].name);
 	    break;
 	}
     }
@@ -194,11 +216,12 @@ int main(int argc, char ** argv) {
     *argptr++ = testing ? "../anaconda" : "/usr/bin/anaconda";
     *argptr++ = "-p";
     *argptr++ = "/mnt/source";
+    *argptr++ = (state.interface == INTERFACE_GUI) ? "-g" : "-T";
 
     newtFinished();
     
     printf("Launching anaconda (%s), please wait...\n", anacondaArgs[0]);
-    
+
     execv(anacondaArgs[0], anacondaArgs);
     perror("exec");
  
