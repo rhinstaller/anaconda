@@ -74,6 +74,9 @@ class Component:
 
     def addInclude(self, component):
 	self.includes.append(component)
+	
+    def addRequires(self, component):
+	self.requires = component
 
     def select(self, recurse = 1):
         self.selected = 1
@@ -81,7 +84,16 @@ class Component:
 	    self.items[n].selected = 1
 	if recurse:
 	    for n in self.includes:
-		n.select(recurse)
+		if n.requires:
+		    if n.requires.selected:
+			n.select(recurse)
+	        else:
+		    n.select(recurse)
+		if n.requires:
+		    if n.requires.selected:
+			n.select(recurse)
+	        else:
+		    n.select(recurse)
 
     def unselect(self, recurse = 1):
         self.selected = 0
@@ -96,6 +108,7 @@ class Component:
 	self.hidden = hidden
 	self.selected = selected
 	self.items = {}
+	self.requires = None
 	self.includes = []
 
 class ComponentSet:
@@ -112,15 +125,15 @@ class ComponentSet:
 	return self.compsDict.keys()
 
     def readCompsFile(self, filename, packages):
-        arch = iutil.getArch ()
+	arch = iutil.getArch()
 	file = urllib.urlopen(filename)
 	lines = file.readlines()
 
 	file.close()
 	top = lines[0]
 	lines = lines[1:]
-	if (top != "2\n" and top != "0.1\n"):
-	    raise TypeError, "comp file version 2 expected"
+	if (top != "2.1\n" and top != "2\n" and top != "0.1\n"):
+	    raise TypeError, "comp file version 2.1 expected"
 	
 	comp = None
 	self.comps = []
@@ -146,7 +159,7 @@ class ComponentSet:
 		if ((found and skipIfFound) or 
 				(not found and not skipIfFound)):
 		    continue
-
+	    
 	    if (comp == None):
 		(default, l) = split(l, None, 1)
 		hidden = 0
@@ -164,6 +177,12 @@ class ComponentSet:
 		if (l[0] == "@"):
 		    (at, l) = split(l, None, 1)
 		    comp.addInclude(self.compsDict[l])
+		elif (find(l, "?") > -1):
+		    (reqComp, l) = split(l, "?", 1)
+		    reqComp = reqComp[:-1]
+		    while (l[0] == " "): l = l[1:]
+		    comp.addInclude(self.compsDict[l])
+		    self.compsDict[l].addRequires(self.compsDict[reqComp])
 		else:
 		    comp.addPackage(packages[l])
                     
