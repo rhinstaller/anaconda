@@ -70,13 +70,13 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 
 # make this into the appropriate product
 %if %{_ws_var}
-sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/workstation.py.hidden
-mv installclasses/workstation.py.hidden installclasses/workstation.py
-echo "helptag         ws" >> anaconda.conf
-%endif
-%if %{_as_var}
 sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/server.py.hidden
 mv installclasses/server.py.hidden installclasses/server.py
+echo "helptag         aw" >> anaconda.conf
+%endif
+%if %{_as_var}
+sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/workstation.py > installclasses/workstation.py.hidden
+mv installclasses/workstation.py.hidden installclasses/workstation.py
 echo "helptag         as" >> anaconda.conf
 %endif
 
@@ -125,6 +125,9 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
+* Thu Dec 11 2003 Jeremy Katz <katzj@redhat.com> 7.3-14
+- fix installclasses (#111823)
+
 * Thu Nov 20 2003 Jeremy Katz <katzj@redhat.com> 7.3-13.1
 - fix typo for building AS
 
