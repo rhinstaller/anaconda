@@ -15,22 +15,26 @@ from snack import *
 from constants_text import *
 from rhpl.translate import _
 from constants import productName
-from installclass import DEFAULT_DESKTOP_LABEL_1, DEFAULT_DESKTOP_LABEL_2
 
 class DesktopChoiceWindow:
-    def __call__(self, screen, intf, dispatch):
+    def __call__(self, screen, intf, instclass, dispatch):
 
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, TEXT_BACK_BUTTON))
 	
 	toplevel = GridFormHelp (screen, _("Workstation Defaults"),
 				 "wsdefaults", 1, 5)
 	
-	label1 = DEFAULT_DESKTOP_LABEL_1
-	label2 = "    GNOME Desktop shell             Nautilus file manager\n"+"    Mozilla web browser             Evolution mail client\n"+"    CD authoring software           Multimedia applications\n"+"    Open Office(tm) office suite"
-	
-	label3 = DEFAULT_DESKTOP_LABEL_2 % (productName, productName)
-
-	toplevel.add (TextboxReflowed(55, label1+"\n\n"+label2+"\n\n"+label3), 0, 0, (0, 0, 0, 1))
+	labeltxt = N_("The Personal Desktop and Workstation options "
+		      "install a default set of applications that will "
+		      "allow you to browse the Internet, send and receive "
+		      "email, and create and edit documents on your %s "
+		      "system. The Workstation option includes development "
+		      "and administration tools as well.\n\n"
+		      "However %s ships with many more applications, and "
+		      "you may customize the selection of software "
+		      "installed if you want.")
+			  
+	toplevel.add (TextboxReflowed(55, _(labeltxt) % (productName, productName)), 0, 0, (0, 0, 0, 1))
 	custom = not dispatch.stepInSkipList("package-selection")
 	customize = Checkbox (_("Customize software selection"), custom)
 	toplevel.add (customize, 0, 3, (0, 0, 0, 1))	 
