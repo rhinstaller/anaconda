@@ -1,3 +1,14 @@
+# this is the prototypical class for upgrades
+#
+# Copyright 2001-2004 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
 from installclass import BaseInstallClass
 from rhpl.translate import N_, _
 
@@ -55,7 +66,7 @@ class InstallClass(BaseInstallClass):
 
     def setInstallData(self, id):
         BaseInstallClass.setInstallData(self, id)
-        id.upgrade.set(1)
+        id.setUpgrade(True)
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

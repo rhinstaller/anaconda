@@ -8,6 +8,10 @@
 	* language.py (setDefault):  Check all forms of the language nick in
 	case someone's specified a shorter one.
 
+	* instdata.py:  Remove the Boolean class.  We have a type for that.
+	* kickstart.py, packages.py, upgradeclass.py:  Don't use the old
+	accessors made obsolete by the boolean type.
+
 2005-03-28  Peter Jones  <pjones@redhat.com>
 
 	* lvm.py (lvlist,vglist,pvlist): make lvm list functions use

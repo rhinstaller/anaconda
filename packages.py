@@ -313,7 +313,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     # FIXME: we really don't need to build up a ts more than once
     # granted, this is better than before still
-    if id.upgrade.get():
+    if id.getUpgrade():
         ts = getAnacondaTS(instPath)
         how = "u"
     else:
@@ -561,7 +561,7 @@ def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
     thefsset.migrateFilesystems (instPath)
 
     # if we're upgrading, we may need to do lvm device node hackery
-    if upgrade.get():
+    if upgrade:
         thefsset.makeLVMNodes(instPath, trylvm1 = 1)
     
 
@@ -572,7 +572,7 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
 	return
 
     if flags.setupFilesystems:
-	if not upgrade.get():
+	if not upgrade:
             partitions.doMetaDeletes(diskset)
             thefsset.setActive(diskset)
             if not thefsset.isActive():
@@ -587,7 +587,7 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
 
 def setupTimezone(timezone, upgrade, instPath, dir):
     # we don't need this on an upgrade or going backwards
-    if upgrade.get() or (dir == DISPATCH_BACK):
+    if upgrade or (dir == DISPATCH_BACK):
         return
 
     # dont do this in test mode!
@@ -636,7 +636,7 @@ def handleMiscPackages(intf, id, dir):
         sys.exit(0)
 
     # shorthand
-    upgrade = id.upgrade.get()
+    upgrade = id.getUpgrade()
 
     def select(hdrlist, name):
         if hdrlist.has_key(name):
@@ -721,7 +721,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 	return
 
     # shorthand
-    upgrade = id.upgrade.get()
+    upgrade = id.getUpgrade()
 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
@@ -843,7 +843,7 @@ def doInstall(method, id, intf, instPath):
     # set up dependency white outs
     import whiteout
     
-    upgrade = id.upgrade.get()
+    upgrade = id.getUpgrade()
     ts = getAnacondaTS(instPath)
 
     total = 0
@@ -1117,7 +1117,7 @@ def doPostInstall(method, id, intf, instPath):
     w = intf.progressWindow(_("Post Install"),
                             _("Performing post install configuration..."), 6)
 
-    upgrade = id.upgrade.get()
+    upgrade = id.getUpgrade()
     arch = iutil.getArch ()
 
     if upgrade:

@@ -374,7 +374,7 @@ class KickstartBase(BaseInstallClass):
         elif location == "partition":
             location = "boot"
 
-        if upgrade and not id.upgrade.get():
+        if upgrade and not id.getUpgrade():
             raise KickstartError, "Selected upgrade mode for bootloader but not doing an upgrade"
 
         if upgrade:
@@ -513,7 +513,7 @@ class KickstartBase(BaseInstallClass):
 
     def doUpgrade(self, id, args):
 	self.installType = "upgrade"
-        id.upgrade.set(1)
+        id.setUpgrade(True)
 
     def doNetwork(self, id, args):
 	# nodns is only used by the loader
