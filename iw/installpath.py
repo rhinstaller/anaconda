@@ -42,11 +42,18 @@ class InstallPathWindow (InstallWindow):
                     (SERVER, _("Server"), "server.png"),
                     (CUSTOM, _("Custom"), "custom.png"))
 
-    installSteps = [ ( AutoPartitionWindow, "partition" ),
+    def __init__ (self, ics):
+	if iutil.getArch() == 'sparc':
+	    BootloaderWindow = SiloWindow
+	else:
+	    BootloaderWindow = LiloWindow
+
+	self.installSteps = [
+		     ( AutoPartitionWindow, "partition" ),
                      FDiskWindow,
 		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
-		     ( LiloWindow, "lilo" ),
+		     ( BootloaderWindow, "lilo" ),
 		     ( NetworkWindow, "network" ),
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
@@ -60,22 +67,14 @@ class InstallPathWindow (InstallWindow):
 		     ( CongratulationWindow, "complete" )
 		   ]
 
-    upgradeSteps = [ UpgradeExamineWindow,
-		     LiloWindow,
+	self.upgradeSteps = [
+		     UpgradeExamineWindow,
+		     BootloaderWindow,
 		     UnresolvedDependenciesWindow,
 		     InstallProgressWindow,
 		     BootdiskWindow,
 		     CongratulationWindow
 		   ]
-
-    def __init__ (self, ics):
-	if iutil.getArch() == 'sparc':
-	    for i in range(len(self.installSteps)):
-		if type(self.installSteps[i]) == type((1,)):
-		    (x, string) = self.installSteps[i]
-		    if string == 'lilo':
-			self.installSteps[i] = ( SiloWindow, "silo" )
-			break
 
 	InstallWindow.__init__ (self, ics)
 
