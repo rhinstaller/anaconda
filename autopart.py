@@ -33,6 +33,8 @@ PARTITION_SUCCESS = 0
 
 BOOT_ABOVE_1024 = -1
 BOOTEFI_NOT_VFAT = -2
+BOOTALPHA_NOT_BSD = -3
+BOOTALPHA_NO_RESERVED_SPACE = -4
 
 DEBUG_LVM_GROW = 0
 
@@ -54,8 +56,43 @@ def bootRequestCheck(requests, diskset):
     elif iutil.getArch() == "i386":
         if partedUtils.end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
+    elif iutil.getArch() == "alpha":
+        return bootAlphaCheckRequirements(part, diskset)
         
     return PARTITION_SUCCESS
+
+# Alpha requires a BSD partition to boot. Since we can be called after:
+#
+#   - We re-attached an existing /boot partition (existing dev.drive)
+#   - We create a new one from a designated disk (no dev.drive)
+#   - We auto-create a new one from a designated set of disks (dev.drive
+#     is a list)
+#
+# it's simpler to get disk the partition belong to through dev.device
+# Some other tests pertaining to a partition where /boot resides are:
+#
+#   - There has to be at least 1 MB free at the begining of the disk
+#     (or so says the aboot manual.)
+
+def bootAlphaCheckRequirements(part, diskset):
+    disk = part.geom.disk
+
+    # Disklabel check
+    if not disk.type.name == "bsd":
+        return BOOTALPHA_NOT_BSD
+
+    # The first free space should start at the begining of the drive
+    # and span for a megabyte or more.
+    free = disk.next_partition()
+    while free:
+        if free.type & parted.PARTITION_FREESPACE:
+            break
+        free = disk.next_partition(free)
+    if not free or free.geom.start != 1L or getPartSizeMB(free) < 1:
+        return BOOTALPHA_NO_RESERVED_SPACE
+
+    return PARTITION_SUCCESS
+
 
 def printNewRequestsCyl(diskset, newRequest):
     for req in newRequest.requests:
@@ -920,7 +957,11 @@ def doPartitioning(diskset, requests, doRefresh = 1):
 
     ret = bootRequestCheck(requests, diskset)
 
-    if ret != PARTITION_SUCCESS:
+    if ret == BOOTALPHA_NOT_BSD:
+        raise PartitioningWarning, _("Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this paritition. Use a partition belonging to a BSD disk label or change this device disk label to BSD.") %(requests.getBootableRequest().mountpoint)
+    elif ret == BOOTALPHA_NO_RESERVED_SPACE:
+        raise PartitioningWarning, _("Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot") %(requests.getBootableRequest().mountpoint)
+    elif ret != PARTITION_SUCCESS:
         # more specific message?
         raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
 

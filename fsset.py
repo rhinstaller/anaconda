@@ -661,7 +661,8 @@ class swapFileSystem(FileSystemType):
         file = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
                                      [ "mkswap", '-v1', file ],
-                                     stdout = None, stderr = None,
+                                     stdout = "/dev/tty5",
+                                     stderr = "/dev/tty5",
                                      searchPath = 1)
         if rc:
             raise SystemError
