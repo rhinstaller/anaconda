@@ -211,7 +211,7 @@ class LoopSizeWindow(InstallWindow):
 	(size, swapSize) = self.todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
-	    swapSize = 32
+	    swapSize = 128
 
         vbox = GtkVBox (FALSE, 5)
         
@@ -228,6 +228,7 @@ class LoopSizeWindow(InstallWindow):
 	self.upper = avail
 	if avail > 2000:
 	    self.upper = 2000
+            size = 2000
 
 
         # XXX lower is 150
