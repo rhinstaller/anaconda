@@ -1,5 +1,5 @@
  
-                  09Bienvenido a 0cRed Hat09 Linux 7.207
+                  09Bienvenido a 0cRed Hat09 Linux @VERSION@07
 
  -  Para instalar o actualizar 0cRed Hat07 Linux en modo gr fico, pulse 0f<ENTER>07.
 
