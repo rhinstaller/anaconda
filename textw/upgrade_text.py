@@ -91,7 +91,7 @@ class UpgradeSwapWindow:
 
 	    if type(val) == type(1):
 		(mnt, part, size) = fsList[listbox.current()]
-		if size < val:
+		if size < (val - 16):
 		    todo.intf.messageWindow(_("Error"),
 			_("There is not enough space on the device you "
 			  "selected for the swap partition."))
