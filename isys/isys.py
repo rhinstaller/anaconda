@@ -82,6 +82,8 @@ def ddfile(file, megs, pw = None):
     os.close(fd)
 
 def mount(device, location, fstype = "ext2", readOnly = 0):
+    location = os.path.normpath(location)
+
     if device != "/proc":
 	devName = "/dev/%s" % device
 	makeDevInode(device, devName)
@@ -102,6 +104,8 @@ def mount(device, location, fstype = "ext2", readOnly = 0):
     return rc
 
 def umount(what, removeDir = 1):
+    what = os.path.normpath(what)
+
     if not os.path.isdir(what):
 	raise ValueError, "isys.umount() can only umount by mount point"
 
