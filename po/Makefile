@@ -1,7 +1,7 @@
 INSTALL= /usr/bin/install -c
 INSTALL_PROGRAM= ${INSTALL}
 INSTALL_DATA= ${INSTALL} -m 644
-INSTALLNLSDIR=$(TOPDIR)/usr/share/locale
+INSTALLNLSDIR=$(TOPDIR)/RedHat/instimage/usr/share/locale
 
 MSGMERGE = msgmerge
 
