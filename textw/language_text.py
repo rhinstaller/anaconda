@@ -14,6 +14,7 @@
 import os
 import isys
 import iutil
+import time
 from snack import *
 from constants_text import *
 from flags import flags
@@ -27,7 +28,7 @@ class LanguageWindow:
 
         current = instLanguage.getCurrent()
 
-        height = min((screen.height - 16, len(languages)))
+        height = min((8, len(languages)))
 	buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON]
 
         translated = []
@@ -45,8 +46,7 @@ class LanguageWindow:
 
         choice = languages[choice]
         
-        if ((instLanguage.getFontFile(choice) == "bterm") or
-            instLanguage.getFontFile(choice) == "None"):
+        if ((instLanguage.getFontFile(choice) == "None")):
             ButtonChoiceWindow(screen, "Language Unavailable",
                                "%s display is unavailable in text mode.  The "
                                "installation will continue in English." % (choice,),
@@ -55,22 +55,31 @@ class LanguageWindow:
             return INSTALL_OK
             
         if (flags.setupFilesystems and
-            instLanguage.getFontFile(choice) == "Kon"
+            instLanguage.getFontFile(choice) == "bterm"
             and not isys.isPsudoTTY(0)):
-            # we're not running KON yet, lets fire it up
-            os.environ["ANACONDAARGS"] = (os.environ["ANACONDAARGS"] +
-                                          " --lang ja_JP.eucJP")
-            os.environ["TERM"] = "kon"
-            os.environ["LANG"] = "ja_JP.eucJP"
-            os.environ["LC_ALL"] = "ja_JP.eucJP"
-            os.environ["LC_NUMERIC"] = "C"
-            if os.access("/tmp/updates/anaconda", os.X_OK):
-                prog = "/tmp/updates/anaconda"
-            else:
-                prog = "/usr/bin/anaconda"
-            args = [ "kon", "-e", prog ]
-            screen.finish()
-            os.execv ("/sbin/loader", args)
+            # bterm to the rescue...  have to shut down the screen and
+            # create a new one, though (and do a sleep)
+            log("starting bterm")
+            try:
+                screen.finish()
+                rc = isys.startBterm()
+                time.sleep(1)
+            except Exception, e:
+                log("got an exception starting bterm: %s" %(e,))
+                rc = 1
+            newscreen = SnackScreen()
+            textInterface.setScreen(newscreen)
+            screen = newscreen
+
+            if rc == 1:
+                ButtonChoiceWindow(screen, "Language Unavailable",
+                                   "%s display is unavailable in text mode.  "
+                                   "The installation will continue in "
+                                   "English." % (choice,),
+                                   buttons=[TEXT_OK_BUTTON])
+                instLanguage.setRuntimeDefaults(choice)
+                return INSTALL_OK
+                
 
 	instLanguage.setRuntimeLanguage(choice)
                 
