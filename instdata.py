@@ -59,8 +59,7 @@ class InstallData:
         self.rootPassword = users.RootPassword ()
 	self.auth = users.Authentication()
 	self.desktop = desktop.Desktop()
-	self.hdList = None
-	self.comps = None
+        self.grpset = None
 	self.upgrade = Boolean()
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
@@ -149,6 +148,7 @@ class InstallData:
 	self.accounts.writeKScommands(f, self.auth)
 
     def writePackagesKS(self, f):
+        return
 	f.write("\n%packages")
         if self.handleDeps == IGNORE_DEPS:
             f.write(" --ignoredeps\n")

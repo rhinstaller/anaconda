@@ -19,11 +19,11 @@ log.handler = anaconda_log
 
 rpmFD = None
 
-import comps
+import hdrlist
 
 def cmpHeaderByName(h1, h2):
-    n1 = string.lower(h1['name'])
-    n2 = string.lower(h2['name'])
+    n1 = string.lower(h1.nevra())
+    n2 = string.lower(h2.nevra())
 
     if n1 < n2:
 	return -1
@@ -68,20 +68,14 @@ disc2Dir = distDir + "-disc2"
 # pull in the hdlist
 f = distDir + "/RedHat/base/hdlist"
 try:
-    hdlist = comps.HeaderListFromFile(f, noscore = 1, prunePPCKernels = 0)
+    hdlist = hdrlist.HeaderListFromFile(f)
     hdlist.mergeFullHeaders(distDir + "/RedHat/base/hdlist2")    
 except rpm.error:
     print "Failed to read header list", f
     sys.exit(1)
 # and read the comps file
-comps = comps.ComponentSet("file://%s/RedHat/base/comps.xml" %(distDir,),
-                           hdlist, arch = arch, matchAllLang = 0)
-
-# FIXME: HACK SO THAT PPC TREES WILL SPLIT.  MUST BE REMOVED
-# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-import iutil
-if iutil.getArch() == "ppc" and hdlist.packages.has_key("kernel"):
-    del hdlist.packages["kernel"]
+grpset = hdrlist.groupSetFromCompsFile("file://%s/RedHat/base/comps.xml"
+                                       %(distDir,), hdlist)
 
 # work out the order we'd like to install everything in
 pkgOrder = []
@@ -93,112 +87,75 @@ for package in hdlist.keys():
         not package.startswith("kernel-doc") and
         not package.startswith("kernel-source") and
         not package.startswith("kernel-debug")):
-        hdlist[package].selected = 1
-        pkgOrder.append(hdlist[package].h)
-        pkgHash[hdlist[package].h] = None
+        hdlist[package].select()
+        pkgOrder.append(hdlist[package].nevra())
+        pkgHash[hdlist[package].name] = None
 
 # Tier 1 language packages get priority.
 tier1langs = ("en:en_US:de:de_DE:es:es_ES:fr:fr_FR:it:it_IT:ja:ja_JP:"
               "ko:ko_KR:zh:zh_CN:zh_TW:pt:pt_BR:en_GB:en_CA")
 
-# Form a dictionary of _all_ the components, even sub comps
-compsDict = {}
-subComps = {}
-for h in hdlist.keys():
-    hdlist[h].selected = 0
-    for comp in hdlist[h].comps:
-        compsDict[comp.name] = comp
 
-# make a list of all the names of all the components.
-allComps = compsDict.values()
-
-# go through all our toplevel components and add children to it.
-for comp in comps:
-    compsDict[comp.name] = comp
-    subComps[comp] = []
-    for c in allComps:
-        if isParent(comp, c):
-            subComps[comp].append(c)
-#print subComps
-#print compsDict
-
+grpids = grpset.groups.keys()
+grpids.sort()
+    
 # FIXME: this is a hack to get things we want to be first on the CDs earlier
 # in a more perfect world, we'd read the installclasses to do this
-complist = ["Core", "Base", "Text-based Internet", "Web Server",
-            "Windows File Server", "Printing Support",
-            "Dialup Networking Support", "Server Configuration Tools",
-            "Administration Tools"]
+complist = ["core", "base", "text-internet", "web-server",
+            "smb-server", "printing", "dialup", "server-cfg",
+            "admin-tools"]
 # now let's pull in all of workstation common
-if comps.has_key("Workstation Common"):
-    comp = comps["Workstation Common"]
-    complist.append("Workstation Common")
-    for name in comp.includes:
+if grpset.groups.has_key("workstation-common"):
+    comp = grpset.groups["workstation-common"]
+    complist.append("workstation-common")
+    for name in comp.groupreqs:
         if name not in complist:
             complist.append(name)
 # a couple more that make sense to have early
-complist.extend(["GNOME Desktop Environment", "Emacs", "Development Tools",
-                 "Development Libraries", "X Software Development",
-                 "GNOME Software Development", "KDE Desktop Environment",
-                 "KDE Software Development"])
+complist.extend(["gnome-desktop", "emacs", "development-tools",
+                 "development-libs", "x-software-development",
+                 "gnome-software-development", "kde-desktop",
+                 "kde-software-development"])
         
 latelangs = []
-for name in comps:
-    if comp.name in complist:
+for id in grpids:
+    if id in complist:
         continue
-    if ((comp.lang is not None) and
-        (string.find(tier1langs, comp.lang) == -1)):
-        latelangs.append(comp.name)
+    if ((grpset.groups[id].langonly is not None) and
+        (tier1langs.find(grpset.groups[id].langonly) == -1)):
+        latelangs.append(id)
     else:
-        complist.append(comp.name)
+        complist.append(id)
 complist.extend(latelangs)
 
 # for each comp, staring with base, list the packages
 # in alphabetical order.
-for name in complist:
-    if not comps.has_key(name):
+for id in complist:
+    if not grpset.groups.has_key(id):
         continue
-    comp = comps[name]
+    group = grpset.groups[id]
     list = []
 
-    # don't update the hdlist selection state yet, we're going to do
-    # a lot of toggling here.
-    comps.freeze()
-    # make sure all the components are off
-    for n in compsDict.values():
-        n.unselect ()
-
-    # turn on this component, and anything that this component needs
-    # to have on in order to be on.
-    selectComp(comp)
-    if comp.conditionalKey:
-    	selectComp(comps[comp.conditionalKey])
-
-    # Do the same for each subcomponent
-    for c in subComps[comp]:
-        selectComp(c)
-        if c.conditionalKey:
-            selectComp(compsDict[c.conditionalKey])
-    # update the hdlist selection states
-    comps.thaw()
+    group.select()
 
     # append what got turned on to our order.
-
-    for p in hdlist.selected():
-        list.append(p.h)
+    for p in hdlist.pkgs.values():
+        if p.isSelected():
+            list.append(p)
     list.sort(cmpHeaderByName)
     for item in list:
-        if not pkgHash.has_key (item):
-            pkgOrder.append(item)
-            pkgHash[item] = None
+        if not pkgHash.has_key (item.name):
+            pkgOrder.append(item.nevra())
+            pkgHash[item.name] = None
 
 # add all of the packages that haven't been added yet.
 list = []
-for p in hdlist.packages.values():
-    if not pkgHash.has_key (p.h):
-        list.append(p.h)
+for p in hdlist.pkgs.values():
+    if not pkgHash.has_key (p.name):
+        list.append(p)
 list.sort(cmpHeaderByName)
 for item in list:
-    pkgOrder.append(item)
+    pkgOrder.append(item.nevra())
 
 # Now set up rpm to run the transaction deporder
 testpath = '/tmp/pkgorder-' + str (os.getpid ())
@@ -209,7 +166,7 @@ ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5|rpm.RPMTRANS_FLAG_ANACONDA)
 for h in pkgOrder:
     #print "in:", h[1000000]
-    ts.addInstall(h, h, 'i')
+    ts.addInstall(hdlist[h].hdr, hdlist[h].hdr, 'i')
 pkgOrder = []
 
 # we have to run ts.check() before ts.order() now to set up the

@@ -12,12 +12,12 @@ class InstallClass(personal_desktop.InstallClass):
 
     sortPriority = 2
 
-    def setGroupSelection(self, comps, intf):
-        personal_desktop.InstallClass.setGroupSelection(self, comps, intf)
-        comps["Emacs"].select()
-        comps["GNOME Software Development"].select()
-	comps["X Software Development"].select()
-        comps["Development Tools"].select()
+    def setGroupSelection(self, grpset, intf):
+        personal_desktop.InstallClass.setGroupSelection(self, grpset, intf)
+        grpset.selectGroup("emacs")
+        grpset.selectGroup("gnome-software-development")
+	grpset.selectGroup("x-software-development")
+        grpset.selectGroup("development-tools")
 
     def __init__(self, expert):
 	personal_desktop.InstallClass.__init__(self, expert)

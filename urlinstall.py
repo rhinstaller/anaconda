@@ -13,7 +13,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from comps import ComponentSet, HeaderList
+from hdrlist import groupSetFromCompsFile, HeaderList
 from installmethod import InstallMethod, FileCopyException
 import os
 import rpm
@@ -57,7 +57,7 @@ class UrlInstallMethod(InstallMethod):
 	if fname is None:
 	    fname = self.baseUrl + '/RedHat/base/comps.xml'
 	    log("Comps not in update dirs, using %s",fname)
-	return ComponentSet(fname, hdlist)
+        return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, h, timer):
         tmppath = self.getTempPath()

@@ -4,8 +4,9 @@
 # Brent Fox <bfox@redhat.com>
 # Matt Wilson <msw@redhat.com>
 # Jeremy Katz <katzj@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -27,9 +28,11 @@ from string import *
 from thread import *
 from examine_gui import *
 from rhpl.translate import _, N_
-from comps import orderPackageGroups, getCompGroupDescription
-from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
-from comps import Package, Component
+from hdrlist import orderPackageGroups, getGroupDescription
+from hdrlist import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
+from hdrlist import ON, MANUAL_ON, OFF, MANUAL_OFF, MANUAL_NONE
+from hdrlist import ON_STATES, OFF_STATES
+from hdrlist import Package, Group
 from rhpl.log import log
 import packages
 
@@ -48,20 +51,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     windowTitle = N_("Individual Package Selection")
     htmlTag = "sel-indiv"
-
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-        self.ics = ics
-        self.DIR = 0
-        self.DIR_UP = 1
-        self.RPM = 2
-        self.rownum = 0
-        self.maxrows = 0
-        self.updatingIcons = gtk.FALSE
-
-    def getPrev (self):
-        return None
-    
 
     def build_packagelists(self, groups):
         toplevels = {}
@@ -210,7 +199,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         desc = replace (desc, "\x00", "\n\n")
         return desc
 
-    def make_group_list(self, hdList, comps, displayBase = 0):
+    def make_group_list(self, grpset, displayBase = 0):
         """Go through all of the headers and get group names, placing
            packages in the dictionary.  Also have in the upper level group"""
         
@@ -219,8 +208,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         # special group for listing all of the packages (aka old flat view)
         groups["allpkgs"] = []
         
-        for key in hdList.packages.keys():
-            header = hdList.packages[key]
+        for key in grpset.hdrlist.pkgs.keys():
+            header = grpset.hdrlist.pkgs[key]
 
             group = header[rpm.RPMTAG_GROUP]
 	    hier = string.split(group, '/')
@@ -235,7 +224,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     groups[toplevel] = []
 
             # don't display package if it is in the Base group
-            if not comps["Core"].includesPackage(header) or displayBase:
+            if not grpset.groups["core"].includesPackage(header) or displayBase:
                 groups[group].append(header)
 		if len(hier) > 1:
 		    groups[toplevel].append(header)
@@ -260,7 +249,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 
     def updateSize(self):
-        text = _("Total install size: %s") % (self.comps.sizeStr(),)
+        text = _("Total install size: %s") % (self.grpset.sizeStr(),)
         self.totalSizeLabel.set_text(text)
 
 
@@ -280,7 +269,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
             if not self.allPkgs:
                 self.allPkgs = []
                 for pkg in self.pkgs.values():
-                    if not self.comps["Core"].includesPackage(pkg):
+                    if not self.grpset.groups["core"].includesPackage(pkg):
                         self.allPkgs.append(pkg)
             packages = self.allPkgs
             self.packageTreeView.set_model(gtk.ListStore(gobject.TYPE_STRING))
@@ -328,9 +317,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 	    
 		
     # IndividualPackageSelectionWindow tag="sel-indiv"
-    def getScreen (self, comps, hdList):
-	self.comps = comps
-        self.pkgs = hdList
+    def getScreen (self, grpset):
+        self.grpset = grpset
+        self.pkgs = self.grpset.hdrlist
         self.allPkgs = None
         
         self.packageTreeView = gtk.TreeView()
@@ -343,7 +332,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageTreeView.set_rules_hint(gtk.FALSE)
         self.packageTreeView.set_enable_search(gtk.FALSE)
         
-        self.flat_groups = self.make_group_list(hdList, comps)
+        self.flat_groups = self.make_group_list(grpset)
         self.build_packagelists(self.flat_groups)
 
         selection = self.packageTreeView.get_selection()
@@ -488,7 +477,7 @@ class PackageSelectionWindow (InstallWindow):
         self.files_found = "gtk.FALSE"
         
     def getPrev (self):
-	self.comps.setSelectionState(self.origSelection)
+	self.grpset.setSelectionState(self.origSelection)
 
     def getNext (self):
 	if self.individualPackages.get_active():
@@ -504,7 +493,7 @@ class PackageSelectionWindow (InstallWindow):
 
     def setSize(self):
         self.sizelabel.set_text (_("Total install size: %s") % 
-					self.comps.sizeStr())
+					self.grpset.sizeStr())
 
     # given a value, set all components except Everything and Base to
     # that value.  Handles restoring state if it exists
@@ -512,13 +501,13 @@ class PackageSelectionWindow (InstallWindow):
 	tmpval = self.ignoreComponentToggleEvents
 	self.ignoreComponentToggleEvents = 1
 	for (cb, lbl, al, ebutton, cbox, cbox2, cbcomp) in self.checkButtons:
-	    if cbcomp.name == comp.name:
+	    if cbcomp.id == comp.id:
 		continue
 
 	    if value:
-		if cbcomp.name not in [u"Everything", u"Base"]:
+		if cbcomp.id not in ["everything", "base"]:
 #		    print "restoring checkbutton for ",cbcomp.name," at state ",self.savedStateDict[cbcomp.name]
-		    if self.savedStateFlag and self.savedStateDict[cbcomp.name]:
+		    if self.savedStateFlag and self.savedStateDict[cbcomp.id]:
 			cb.set_active(1)
 		    else:
 			cb.set_active(0)
@@ -565,16 +554,15 @@ class PackageSelectionWindow (InstallWindow):
 
 	    # dont turn off Base, and if we're turning off everything
 	    # we need to be sure language support stuff is on
-	    if comp.name != u"Base":
+	    if comp.id != "base":
 		comp.unselect ()
-		if comp.name == u"Everything":
-		    packages.selectLanguageSupportGroups(self.comps, self.langSupport)
+		if comp.id == "everything":
+		    packages.selectLanguageSupportGroups(self.grpset, self.langSupport)
 
         if count:
             self.setCompCountLabel(comp, count)
 
-        ### XXX - need to i18n??
-        if comp.name == u"Everything" or comp.name == u"Base":
+        if comp.id == "everything" or comp.id == "base":
 	    
 	    self.ignoreComponentToggleEvents = 1
 	    # save state of buttons if they hit everything or minimal
@@ -586,25 +574,25 @@ class PackageSelectionWindow (InstallWindow):
 	    else:
 		savestate = 0
 
-	    for c in self.comps:
-		if c.name in [u"Everything", u"Base"]:
+	    for c in self.grpset.groups.values():
+		if c.id in ["everything", "base"]:
 		    continue
 		
 		if newstate:
 			sel = c.isSelected()			
 #			print "saving ",c.name," at state ",sel
 			if savestate:
-			    self.savedStateDict[c.name] = sel
+			    self.savedStateDict[c.id] = sel
 			if sel:
 			    c.unselect()
 		else:
 #		    print "restoring ",c.name," at state ",self.savedStateDict[c.name]
-		    if self.savedStateFlag and self.savedStateDict[c.name]:
+		    if self.savedStateFlag and self.savedStateDict[c.id]:
 			c.select()
 
 	    # turn on lang support if we're minimal and enabling
-	    if comp.name == u"Base" and newstate:
-		packages.selectLanguageSupportGroups(self.comps, self.langSupport)
+	    if comp.id == "base" and newstate:
+		packages.selectLanguageSupportGroups(self.grpset, self.langSupport)
 
 	    self.setComponentsSensitive(comp, not newstate)
 
@@ -619,48 +607,34 @@ class PackageSelectionWindow (InstallWindow):
 
     def pkgGroupMemberToggled(self, widget, data):
 	(comp, sizeLabel, pkg) = data
-	(ptype, sel) = self.getFullInfo(pkg, comp)
+	(ptype, sel) = comp.packageInfo()[pkg]
 
 	# dont select or unselect if its already in that state
 	if widget.get_active():
-	    if not sel:
-		if ptype == PKGTYPE_OPTIONAL:
-		    comp.selectOptionalPackage(pkg)
-		else:
-		    log("Got callback with mandatory pkg %s!!", pkg.name)
+            if sel not in ON_STATES:
+                comp.selectPackage(pkg)
 	    else:
-		log("already selected, not selecting!")
+		log("%s already selected, not selecting!" %(pkg,))
 	else:
-	    if sel:
-		if ptype == PKGTYPE_OPTIONAL:
-		    comp.unselectOptionalPackage(pkg)
-		else:
-		    log("Got callback with mandatory pkg %s!!", pkg.name)
+            if sel in ON_STATES:
+                comp.unselectPackage(pkg)
 	    else:
-		log("already unselected, not unselecting!")
+		log("%s already unselected, not unselecting!" %(pkg,))
 
 	if sizeLabel:
 	    self.setDetailSizeLabel(comp, sizeLabel)
 
-    def getFullInfo(self, obj, comp):
-	if isinstance(obj, Package):
-	    return comp.packagesFullInfo()[obj]
-	elif isinstance(obj, Component):
-	    return comp.metapackagesFullInfo()[obj]
-	else:
-	    return None
-
     # have to do magic to handle 'Minimal'
     def setCheckButtonState(self, cb, comp):
 	state = 0
-	if comp.name != u"Base":
+	if comp.id != "base":
 	    state = comp.isSelected(justManual = 1)	    
 	    cb.set_active (state)
 	else:
 	    state = 1
-	    for c in self.comps:
+	    for c in self.grpset.groups.values():
 		# ignore base and langsupport files pulled in by 'minimal'
-		if c.name == u"Base" or self.comps.compsxml.groups[c.name].langonly is not None:
+		if c.id == "base" or self.grpset.groups[c.id].langonly is not None:
 		    continue
 		
 		if c.isSelected(justManual = 1):
@@ -672,10 +646,12 @@ class PackageSelectionWindow (InstallWindow):
 	return state
 	
     def getStats(self, comp):
-	allpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
+        # FIXME: metapkgs
+#	allpkgs = comp.packageInfo().keys() + comp.metapackagesFullInfo().keys()
+	allpkgs = comp.packageInfo()
 	
-	if comp.name == u"Everything":
-	    total = len(allpkgs)
+	if comp.id == "everything":
+	    total = len(allpkgs.keys())
 	    if comp.isSelected(justManual = 1):
 		selected = total
 	    else:
@@ -684,23 +660,23 @@ class PackageSelectionWindow (InstallWindow):
 	
 	total = 0
 	selected = 0
-	for pkg in allpkgs:
+	for pkg in allpkgs.values():
 	    total = total + 1
-	    (ptype, sel) = self.getFullInfo(pkg, comp)
-	    if sel:
+	    (ptype, sel) = pkg
+            if sel in ON_STATES:
 		selected = selected + 1
 
         return (selected, total)
 
     def setDetailSizeLabel(self, comp, sizeLabel):
-        text = _("Total install size: %s") % (self.comps.sizeStr(),)
+        text = _("Total install size: %s") % (self.grpset.sizeStr(),)
 	sizeLabel.set_text(text)
 
     def setCompLabel(self, comp, label):
-	if comp.name == u"Base":
+        if comp.id == "base":
 	    nm = _("Minimal")
 	else:
-	    nm = comp.displayName
+	    nm = comp.name
 	label.set_markup("<b>%s</b>" % (nm,))
 
     def setCompCountLabel(self, comp, label):
@@ -708,7 +684,7 @@ class PackageSelectionWindow (InstallWindow):
         if not comp.isSelected(justManual = 1):
             selpkg = 0
 
-	if comp.name == u"Everything" or comp.name == u"Base":
+	if comp.id == "everything" or comp.id == "base":
 	    txt = ""
 	else:
 	    txt = "<b>[%d/%d]</b>" % (selpkg, totpkg)
@@ -716,15 +692,13 @@ class PackageSelectionWindow (InstallWindow):
 	label.set_markup(txt)
 
     def editDetails(self, button, data):
-
 	# do all magic for packages and metapackages
 	def getDescription(obj, comp):
-	    if isinstance(obj, Package):
-		basedesc = obj.h[rpm.RPMTAG_SUMMARY]
-	    elif isinstance(obj, Component):
-		basedesc = getCompGroupDescription(obj)
-	    else:
-		return None
+            if self.grpset.hdrlist.pkgs.has_key(obj):
+                obj = self.grpset.hdrlist.pkgs[obj]
+            elif self.grpset.groups.has_key(obj):
+                obj = self.grpset.groups[obj]
+            basedesc = obj.getDescription()
 
 	    if basedesc is not None:
 		desc = replace (basedesc, "\n\n", "\x00")
@@ -738,15 +712,14 @@ class PackageSelectionWindow (InstallWindow):
 	def getNextMember(goodpkgs, comp, domandatory = 0):
 	    curpkg = None
 	    for pkg in goodpkgs:
-
 		if domandatory:
-		    (ptype, sel) = self.getFullInfo(pkg, comp)
+		    (ptype, sel) = comp.packageInfo()[pkg]
 		    if ptype != PKGTYPE_MANDATORY:
 			continue
 
 		foundone = 1
 		if curpkg is not None:
-		    if pkg.name < curpkg.name:
+		    if pkg < curpkg:
 			curpkg = pkg
 		else:
 		    curpkg = pkg
@@ -760,16 +733,10 @@ class PackageSelectionWindow (InstallWindow):
 	# backup state
 	(comp, hdrlbl, countlbl, compcb) = data
 	origpkgselection = {}
-	for pkg in comp.packagesFullInfo().keys():
-	    val = comp.packagesFullInfo()[pkg]
+	for (pkg, val) in comp.packageInfo().items():
 	    origpkgselection[pkg] = val
 	    
-	origmetapkgselection = {}
-	for pkg in comp.metapackagesFullInfo().keys():
-	    val = comp.metapackagesFullInfo()[pkg]
-	    origmetapkgselection[pkg] = val
-	
-        self.dialog = gtk.Dialog(_("Details for '%s'") % (comp.displayName,))
+        self.dialog = gtk.Dialog(_("Details for '%s'") % (comp.name,))
         gui.addFrame(self.dialog)
         self.dialog.add_button('gtk-cancel', 2)
         self.dialog.add_button('gtk-ok', 1)
@@ -810,8 +777,10 @@ class PackageSelectionWindow (InstallWindow):
         sizeLabel = gtk.Label("")
 	self.setDetailSizeLabel(comp, sizeLabel)
 
-	
-        goodpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
+        goodpkgs = comp.packageInfo().keys()
+        # FIXME
+#        goodpkgs = comp.packagesFullInfo().keys() + comp.metapackagesFullInfo().keys()
+
 
 	# first show default members, if any
 	haveBase = 0
@@ -865,8 +834,8 @@ class PackageSelectionWindow (InstallWindow):
 		lbl.set_property("use-underline", gtk.FALSE)
 		cb = gtk.CheckButton()
 		cb.add(lbl)
-		(ptype, sel) = self.getFullInfo(next, comp)
-		cb.set_active(sel)
+		(ptype, sel) = comp.packageInfo()[next]
+		cb.set_active((sel in ON_STATES))
 		cb.connect("toggled", self.pkgGroupMemberToggled,
 			   (comp, sizeLabel, next))
 
@@ -903,31 +872,17 @@ class PackageSelectionWindow (InstallWindow):
 
 	    # they hit cancel, restore original state and quit
 	    if rc == 2:
-		allpkgs = comp.packagesFullInfo().keys()
+		allpkgs = comp.packageInfo().keys()
 		for pkg in allpkgs:
-		    (ptype, sel) = comp.packagesFullInfo()[pkg]
+		    (ptype, sel) = comp.packageInfo()[pkg]
 		    (optype, osel) = origpkgselection[pkg]
 
-		    if ptype == PKGTYPE_OPTIONAL:
-			if osel:
-			    if not sel:
-				comp.selectOptionalPackage(pkg)
-			else:
-			    if sel:
-				comp.unselectOptionalPackage(pkg)
-		allpkgs = comp.metapackagesFullInfo().keys()
-		for pkg in allpkgs:
-		    (ptype, sel) = comp.metapackagesFullInfo()[pkg]
-		    (optype, osel) = origmetapkgselection[pkg]
-
-		    if ptype == PKGTYPE_OPTIONAL:
-			if osel:
-			    if not sel:
-				comp.selectOptionalPackage(pkg)
-			else:
-			    if sel:
-				comp.unselectOptionalPackage(pkg)
-
+                    if (osel == sel):
+                        pass
+                    elif (osel not in OFF_STATES) and (sel not in ON_STATES):
+                        comp.selectPackage(pkg)
+                    elif (osel not in ON_STATES) and (sel not in OFF_STATES):
+                        comp.unselectPackage(pkg)
 	    break
 	
         self.dialog.destroy()
@@ -965,16 +920,16 @@ class PackageSelectionWindow (InstallWindow):
 	
 	
 
-    def getScreen(self, comps, langSupport, instClass, dispatch):
+    def getScreen(self, grpset, langSupport, instClass, dispatch):
 
     # PackageSelectionWindow tag="sel-group"
         ICON_SIZE = 32
         
-	self.comps = comps
+	self.grpset = grpset
 	self.langSupport = langSupport
 	self.dispatch = dispatch
 
-	self.origSelection = self.comps.getSelectionState()
+	self.origSelection = self.grpset.getSelectionState()
 
         self.checkButtons = []
 
@@ -983,7 +938,7 @@ class PackageSelectionWindow (InstallWindow):
 	self.savedStateFlag = 0
 	self.ignoreComponentToggleEvents = 0
 
-	(parlist, pardict) = orderPackageGroups(self.comps)
+	(parlist, pardict) = orderPackageGroups(self.grpset)
 
         topbox = gtk.VBox(gtk.FALSE, 3)
         topbox.set_border_width(3)
@@ -1015,7 +970,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	    for comp in pardict[par]:
 		if comp.hidden:
-		    if comp.name != u"Base":
+                    if comp.id != "base":
 			continue
 		    else:
 			if not instClass.showMinimal:
@@ -1065,7 +1020,7 @@ class PackageSelectionWindow (InstallWindow):
                 compbox.pack_start(buttonal, gtk.FALSE, gtk.FALSE)
 
 		# now make the url looking button for details
-		if comp.name != u"Everything" and comp.name != u"Base":
+		if comp.id != "everything" and comp.id != "base":
 		    nlbl = gtk.Label("")
                     selected = comp.isSelected(justManual = 1)
                     nlbl.set_markup('<span foreground="#3030c0"><u>'
@@ -1095,7 +1050,7 @@ class PackageSelectionWindow (InstallWindow):
                     detailbox.pack_start(al, gtk.FALSE, gtk.FALSE, 10)
                     
 		# add description if it exists
-		descr = getCompGroupDescription(comp)
+		descr = getGroupDescription(comp)
 		if descr is not None:
 		    label=gtk.Label("")
 		    label.set_alignment (0.0, 0.0)
@@ -1112,11 +1067,11 @@ class PackageSelectionWindow (InstallWindow):
                 topbox.pack_start(detailbox)
 
 		state = self.setCheckButtonState(checkButton, comp)
-		if comp.name == u"Base":
+                if comp.id == "base":
 		    minimalActive = state
 		    minimalComp = comp
 		    minimalCB = checkButton
-		elif comp.name == u"Everything":
+		elif comp.id == "everything":
 		    everythingActive = state
 		    everythingComp = comp
 		    everythingCB = checkButton
@@ -1166,7 +1121,7 @@ class PackageSelectionWindow (InstallWindow):
 		_("_Select individual packages"))
         self.individualPackages.set_active (
 		not dispatch.stepInSkipList("indivpackage"))
-        hbox.pack_start (self.individualPackages, gtk.FALSE)
+#        hbox.pack_start (self.individualPackages, gtk.FALSE)
 
         self.sizelabel = gtk.Label ("")
         self.setSize()

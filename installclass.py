@@ -184,32 +184,8 @@ class BaseInstallClass:
     # This is called after the comps is read in (after setPackageSelection()).
     # It can both select groups, change the default selection for groups, and
     # change which groups are hidden.
-    def setGroupSelection(self, comps, intf):
+    def setGroupSelection(self, grpset, intf):
 	pass
-
-    # this is a utility function designed to be called from setGroupSelection()
-    # it hides all of the groups not in the "groups" list
-    def showGroups(self, comps, groups):
-	groupSet = {}
-
-	for group in groups:
-	    if type(group) == type("a"):
-		groupSet[group] = None
-	    else:
-		(group, val) = group
-		groupSet[group] = val
-	    
-	for comp in comps:
-	    if groupSet.has_key(comp.name):
-		comp.hidden = 0
-
-		# do nothing if groupSet[comp.name] == None
-		if groupSet[comp.name] == 1:
-		    comp.select()
-		elif groupSet[comp.name] == 0:
-		    comp.unselect(0)
-	    else:
-		comp.hidden = 1
 
     def getMakeBootdisk(self):
 	return self.makeBootdisk

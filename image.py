@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from comps import ComponentSet, HeaderListFromFile
+from hdrlist import groupSetFromCompsFile, HeaderListFromFile
 from installmethod import InstallMethod, FileCopyException
 import iutil
 import os
@@ -30,11 +30,9 @@ class ImageInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
 	fname = self.findBestFileMatch(self.tree, 'comps.xml')
-	#
-	# XXX - we dont handle case where file wasnt found
-	#       instead we fail down in ComponentSet!!!
-	#
-	return ComponentSet(fname, hdlist)
+        if fname is None:
+            raise FileCopyException
+	return groupSetFromCompsFile(fname, hdlist)
 
     def getFilename(self, h, timer):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
@@ -99,7 +97,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			"%s/RedHat/base/stage2.img" % self.tree)
 	    self.loopbackFile = None
 
-    def systemMounted(self, fsset, chroot, selected):
+    def systemMounted(self, fsset, chroot):
 	self.loopbackFile = "%s%s%s" % (chroot,
                                         fsset.filesystemSpace(chroot)[0][0],
                                         "/rhinstall-stage2.img")
