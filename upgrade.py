@@ -31,6 +31,8 @@ from constants import *
 from rhpl.log import log
 from rhpl.translate import _
 
+upgrade_remove_blacklist = ["linuxconf", "linuxconf-devel", "gnome-linuxconf"]
+
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
         return
@@ -104,7 +106,6 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 
     dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
     if not allowDirty and dirtyDevs != []:
-        import sys
         diskset.stopAllRaid()
         lvm.vgdeactivate()
 	intf.messageWindow(_("Dirty File Systems"),
@@ -584,6 +585,18 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["rhn-applet"].select()
+
+    # now some upgrade removal black list checking... there are things that
+    # if they were installed in the past, we want to remove them because
+    # they'll screw up the upgrade otherwise
+    for pkg in upgrade_remove_blacklist:
+        h = ts.dbMatch('name', pkg).next()
+        if h is not None:
+            text = ("Upgrade: %s is on the system but will cause problems "
+                    "with the upgrade transaction.  Removing." %(pkg,))
+            log(text)
+            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+            id.upgradeRemove.append(pkg)
 
     # new package dependency fixup
     deps = id.comps.verifyDeps(instPath, 1)

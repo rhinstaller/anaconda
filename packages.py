@@ -696,6 +696,28 @@ def doInstall(method, id, intf, instPath):
                                    _("Setting up RPM transaction..."),
                                    len(l))
 
+
+    # this is kind of a hack, but has to be done so we can have a chance
+    # with broken triggers
+    if upgrade and len(id.upgradeRemove) > 0:
+        # simple rpm callback since erasure doesn't need anything
+        def install_callback(what, bytes, total, h, user):
+            pass
+
+        for pkg in id.upgradeRemove:
+            ts.addErase(pkg)
+
+        # if we hit problems, it's not like there's anything we can
+        # do about it
+        ts.run(install_callback, 0)
+
+        # new transaction set
+        ts.dbClose()
+        del ts
+        ts = rpm.TransactionSet(instPath)
+        ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
+        ts.setFlags(rpm.RPMTRANS_FLAG_CHAINSAW)
+
     i = 0
     for p in l:
 	ts.addInstall(p.h, p.h, how)
