@@ -715,15 +715,18 @@ char * getModuleLocation(int version) {
         struct stat sb;
         int fd;
 
-        stat(archfile, &sb);
-        arch = malloc(sb.st_size + 1);
+        if (!stat(archfile, &sb)) {
+            arch = malloc(sb.st_size + 1);
 
-        fd = open(archfile, O_RDONLY);
-        read(fd, arch, sb.st_size);
-        if (arch[sb.st_size -1 ] == '\n')
-            sb.st_size--;
-        arch[sb.st_size] = '\0';
-        close(fd);
+            fd = open(archfile, O_RDONLY);
+            read(fd, arch, sb.st_size);
+            if (arch[sb.st_size -1 ] == '\n')
+                sb.st_size--;
+            arch[sb.st_size] = '\0';
+            close(fd);
+        } else {
+            arch = strdup(u.machine);
+        }
     }
 
     if (version == 1) {
