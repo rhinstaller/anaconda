@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 1999-09-12 13:09-0400\n"
-"PO-Revision-Date: 1999-09-13 18:45+0900\n"
+"PO-Revision-Date: 1999-09-13 23:05+0900\n"
 "Last-Translator: Byeong-Chan Kim <redhands@linux.sarang.net>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -157,15 +157,15 @@ msgstr "리눅스 파티션이 없습니다. 시스템 업그레이드를 할 수 없습니다!"
 
 #: ../text.py:205
 msgid "System to Upgrade"
-msgstr ""
+msgstr "업그레이드 할 시스템"
 
 #: ../text.py:206
 msgid "What partition holds the root partition of your installation?"
-msgstr ""
+msgstr "설치된 시스템의 루트 파티션은 무엇입니까?"
 
 #: ../text.py:221
 msgid "Customize Packages to Upgrade"
-msgstr ""
+msgstr "업그레이드 할 패키지 선택"
 
 #: ../text.py:222
 msgid ""
@@ -173,6 +173,8 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
+"설치된 패키지나, 설치하기 위해 선택된 패키지는 의존성을 만족 해야 "
+"합니다.업그레이드 할 패키지를 직접 선택 하시겠습니까?"
 
 #: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:956
 #: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:2020
@@ -209,6 +211,13 @@ msgid ""
 "If you have purchased Official Red Hat Linux, be sure to register your "
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
+"레드햇 리눅스에 오신것을 환영합니다.\n"
+"\n"
+"설치 절차는 공식 레드햇 리눅스 설치 가이드에 자세히 안내되어 있으며 레드햇 "
+"소프트웨어를 통해 구할 수 있습니다. 매뉴얼을 가지고 있으시면 지금 설치부분을 "
+"읽으시고 설치를 계속해 주십시요\n"
+"공식 레드햇 리눅스를 구입하셨다면 레드햇 리눅스 웹 사이트 "
+"http://www.redhat.com/에서 사용자 등록을 해 주시기 바랍니다."
 
 #: ../text.py:315
 msgid "Use bootp/dhcp"
@@ -236,7 +245,7 @@ msgstr "네트워크 설정"
 
 #: ../text.py:361
 msgid "Invalid information"
-msgstr "부족한 정보"
+msgstr "부정확한 정보"
 
 #: ../text.py:362
 msgid "You must enter valid IP information to continue"
@@ -251,7 +260,7 @@ msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"호스트명은 사용하시는 컴퓨터의 이름입니다. 시스템이 네트웍에 물려 있다면 "
+"호스트명은 사용하시는 컴퓨터의 이름입니다. 시스템이 네트웍에 연결되어 있다면 "
 "네트워크 관리자에게 이름을 부여 받도록 하십시오."
 
 #: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
@@ -273,6 +282,12 @@ msgid ""
 "\n"
 "Would you like to create a bootdisk for your system?"
 msgstr ""
+"부트 디스크는 일반적인 부트 로더와는 별도로 리눅스 시스템으로 부팅 할 수 "
+"있게 해 줍니다. 이 방법은 시스템에 LILO의 설치를 원치 않거나, 다른 OS가 "
+"LILO를 지울때, 또는 LILO가 현 시스템 하드웨어 설정에서 동작하지 않을 때 "
+"유용합니다. 부트 디스크는 레드햇 응급 디스크와 함께 시스템 복구를 쉽게 해줄 "
+"수 있습니다.\n"
+"이 시스템을 위한 부트 디스크를 만들겠습니까?"
 
 #: ../text.py:433
 msgid "X probe results"
@@ -307,6 +322,8 @@ msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
+"설치에 대한 기록은 재부팅 후 /tmp/install.log 를 참고하시기 바랍니다.추후 "
+"참고하기 위해 이 파일을 보관 하실 수 있습니다."
 
 #: ../text.py:534
 msgid "Complete"
@@ -323,6 +340,14 @@ msgid ""
 "Information on configuring your system is available in the post install "
 "chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
+"축하합니다. 설치가 끝났습니다.\n"
+"\n"
+"부트 디스크와 시디를 제거하고 엔터키를 누르시기 바랍니다. 이 버전의 레드햇 "
+"리눅스 오류 데이타와 업데이트에 대해서는 http://www.redhat.com/의 Errata를 "
+"참고 하시기 바랍니다.\n"
+"\n"
+"설치 후의 시스템 설정에 대해서는 공식 레드햇 리눅스 사용자 안내서를 참고 "
+"하십시오"
 
 #: ../iw/bootdisk.py:40 ../text.py:551
 msgid ""
@@ -341,6 +366,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
+"부트 디스크를 만드는 과정에서 오류가 발생했습니다. 첫번째 플로피 "
+"드라이브에포맷된 플로피 디스크가 있는지 확인해 주십시요."
 
 #: ../text.py:625
 msgid "Package Installation"
@@ -384,7 +411,7 @@ msgstr "남음:       "
 
 #: ../text.py:746
 msgid "What time zone are you located in?"
-msgstr "사용하는 표준 시간대는 무엇입니까?"
+msgstr "사용하는 지역 시간대가 무엇입니까?"
 
 #: ../text.py:754
 msgid "Hardware clock set to GMT?"
@@ -392,7 +419,7 @@ msgstr "하드웨어 시간을 GMT로 지정"
 
 #: ../iw/timezone.py:29 ../text.py:756
 msgid "Time Zone Selection"
-msgstr "타임존 선택"
+msgstr "지역 시간대 선택"
 
 #: ../text.py:791 ../text.py:792
 msgid "Debug"
@@ -400,7 +427,7 @@ msgstr "디버그"
 
 #: ../text.py:804
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:806
 msgid ""
@@ -411,7 +438,7 @@ msgstr ""
 
 #: ../text.py:822
 msgid "Welcome"
-msgstr ""
+msgstr "환엽합니다."
 
 #: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
 msgid "Partition"
@@ -451,7 +478,7 @@ msgstr "마우스 설정"
 
 #: ../text.py:854
 msgid "Time Zone Setup"
-msgstr "타임존 설정"
+msgstr "지역 시간대 설정"
 
 #: ../text.py:856
 msgid "Root Password"
@@ -471,7 +498,7 @@ msgstr "패키지 그룹"
 
 #: ../text.py:864 ../text.py:885
 msgid "Individual Packages"
-msgstr ""
+msgstr "개별 패키지"
 
 #: ../text.py:866
 msgid "Package Dependencies"
@@ -597,7 +624,7 @@ msgstr "NIS 사용"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr "브로드캐스트를 NIS 서버를 찾는데 사용"
+msgstr "NIS 서버를 찾는데 브로드캐스트를 사용"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
@@ -613,7 +640,7 @@ msgstr "부트디스크 제작"
 
 #: ../iw/bootdisk.py:51
 msgid "Skip boot disk creation"
-msgstr "부트디스크 제작 생량"
+msgstr "부트디스크 제작 생략"
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -625,7 +652,7 @@ msgstr "종료"
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
-msgstr ""
+msgstr "확인되지 않은 의존성"
 
 #: ../iw/dependencies.py:29 ../iw/progress.py:113
 msgid "Package"
@@ -633,11 +660,11 @@ msgstr "패키지"
 
 #: ../iw/dependencies.py:29
 msgid "Requirement"
-msgstr ""
+msgstr "필요한 파일"
 
 #: ../iw/dependencies.py:36
 msgid "Install packages to satisfy dependencies"
-msgstr ""
+msgstr "의존성을 만족 시키기 위한 패키시 설치"
 
 #: ../iw/examine.py:11
 msgid "Upgrade Examine"
@@ -653,7 +680,7 @@ msgstr ""
 
 #: ../iw/examine.py:53
 msgid "Customize packages to be upgraded"
-msgstr ""
+msgstr "업그레이드할 패키지 선택"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -702,11 +729,11 @@ msgstr "모델"
 
 #: ../iw/keyboard.py:39
 msgid "Layout"
-msgstr ""
+msgstr "배열"
 
 #: ../iw/keyboard.py:53
 msgid "Variant"
-msgstr ""
+msgstr "기타 설정"
 
 #: ../iw/language.py:14 ../loader/lang.c:232
 msgid "What language should be used during the installation process?"
@@ -802,11 +829,11 @@ msgstr "세번째 DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "개별 패키지 선택"
 
 #: ../iw/package.py:178
 msgid "Up"
-msgstr ""
+msgstr "위로"
 
 #: ../iw/package.py:324
 msgid "Name: "
@@ -830,7 +857,7 @@ msgstr "패키지 그룹 선택"
 
 #: ../iw/package.py:445
 msgid "Select individual packages"
-msgstr ""
+msgstr "개별 패키지 선택"
 
 #: ../iw/progress.py:26
 msgid "Installing Packages"
@@ -846,7 +873,7 @@ msgstr "설명"
 
 #: ../iw/progress.py:149
 msgid "Status"
-msgstr ""
+msgstr "상태"
 
 #: ../iw/progress.py:149
 msgid "Packages"
@@ -889,6 +916,10 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"이 설정을 원하지 않는다면, 파티션을 직접 설정하여 설치를 계속 하거나,뒤로 "
+"가서 사용자 설치를 할 수 있습니다."
 
 #: ../iw/rootpartition.py:137
 msgid "Remove data"
@@ -904,7 +935,7 @@ msgstr "보기:"
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
-msgstr ""
+msgstr "섬머 타임 사용"
 
 #: ../iw/timezone.py:147
 msgid "Location"
@@ -912,7 +943,7 @@ msgstr "위치"
 
 #: ../iw/timezone.py:148
 msgid "UTC Offset"
-msgstr ""
+msgstr "협정 세계 표준시 차이"
 
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
@@ -920,7 +951,7 @@ msgstr "시스템 시간이 UTC를 사용함"
 
 #: ../iw/welcome.py:11
 msgid "Welcome to Red Hat Linux!"
-msgstr ""
+msgstr "레드햇 리눅스에 오신것을 환영합니다."
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
@@ -963,6 +994,8 @@ msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
+"대부분의 경우에 사용중인 비디오 카드에 가장 잘 맞는 디스플레이 설정을 "
+"자동으로 결졍합니다."
 
 #: ../iw/xconfig.py:157
 msgid "Autoprobe results:"
@@ -1057,6 +1090,9 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
+"이 프로그램이 지원하는 것보다 더 많은 드라이브가 있습니다. 기존의 fdisk를 "
+"사용해서 설정을 하시기 바랍니다. 그리고 레드햇 소프트웨어에 이 메세지에 "
+"대해서 알려 주시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:695
 msgid "No Drives Found"
@@ -1067,6 +1103,8 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
+"오류 발생 - 파일 시스템을 만들 수 있는 장치가 없습니다. 이 문제의발생 원인을 "
+"찾기 위해서 하드웨어를 확인해 보시기 바랍니다."
 
 #: ../libfdisk/fsedit.c:950
 #, c-format
@@ -1075,6 +1113,8 @@ msgid ""
 "device %s.  You must use fdisk to create and write a new label to this "
 "device."
 msgstr ""
+"블럭 장치 %s를 읽는중에 잘못된 선 디스크레이블이 발견 되었습니다.이 장치에 "
+"새로운 레이블을 만들고 쓰기 위해서는 fdisk를 사용해야 합니다."
 
 #: ../libfdisk/fsedit.c:954
 msgid "Corrupt Sun disklabel"
@@ -1090,7 +1130,7 @@ msgstr "드라이브 생략"
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
-msgstr ""
+msgstr "블럭 장치 %s를 읽는중 오류 발생. 오류는 다음과 같습니다:"
 
 #: ../libfdisk/fsedit.c:1005
 #, c-format
@@ -1098,6 +1138,8 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
+"디바이스 %s의  파티션 테이블이 잘못됨. 새로은 파티션을 만들기 위해서는 "
+"초기화가 필요하며 모든 데이타는 소실됩니다."
 
 #: ../libfdisk/fsedit.c:1010
 msgid "Bad Partition Table"
@@ -1729,7 +1771,7 @@ msgstr "FTP"
 
 #: ../loader/loader.c:935
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr ""
+msgstr "두번째 단계의 렘 디스크를 읽지 못함"
 
 #: ../loader/loader.c:1038
 msgid "Rescue Method"
@@ -1790,6 +1832,8 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
+"IP 설정을 입력 하여 주십시요. 각 항목은 숫자와 .의 IP 주소입니다.(예 "
+"1.2.3.4)."
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -1874,7 +1918,7 @@ msgstr "네트워크 설정을 하시겠습니까?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
-msgstr ""
+msgstr "읽는 중"
 
 #: ../loader/urls.c:129
 msgid ""
