@@ -1,3 +1,22 @@
+/*
+ * devnodes.c - device inode creation functions
+ * 
+ * Erik Troan <ewt@redhat.com>
+ * Matt Wilson <msw@redhat.com>
+ *
+ * Copyright 1998-2001 Red Hat, Inc.
+ * Copyright 1996-1998 Red Hat Software, Inc.
+ *
+ * This software may be freely redistributed under the terms of the GNU
+ * public license.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+ *
+ */
+
+#include <stdio.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -145,32 +164,38 @@ int devMakeInode(char * devName, char * path) {
 	    minor += devName[3] - '1';
     } else if (!strncmp(devName, "rd/", 3)) {
 	/* dac 960 "/rd/c0d0{p1}" */
+	int rc, c, d, p;
+	c = d = p = 0;
+	rc = sscanf(devName + 4, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
-	major = 48 + devName[4] - '0';   /* controller */
-	minor = (devName[6] - '0') * 8;  /* disk */
-	if (strlen(devName) > 7)         /* partition */
-	    minor += devName[8] - '0';
+	major = 48 + c;     /* controller */
+	minor = d * 8;      /* disk */
+	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "ida/", 4)) {
 	/* Compaq Smart Array "ida/c0d0{p1} */
+	int rc, c, d, p;
+	c = d = p = 0;
+	rc = sscanf(devName + 4, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
-	major = 72 + devName[5] - '0';    /* controller */
-	minor = (devName[7] - '0') * 16;  /* disk */
-	if (strlen(devName) > 8)          /* partition */
-	    minor += atoi(devName + 9);
+	major = 72 + c;     /* controller */
+	minor = d * 16;     /* disk */
+	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "cciss/", 6)) {
 	/* Compaq Smart Array 5300 "cciss/c0d0{p1} */
+	int rc, c, d, p;
+	c = d = p = 0;
+	rc = sscanf(devName + 6, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
-	major = 104 + devName[7] - '0';    /* controller */
-	minor = (devName[9] - '0') * 16;  /* disk */
-	if (strlen(devName) > 10)          /* partition */
-	    minor += atoi(devName + 11);
+	major = 104 + c;    /* controller */
+	minor = d * 16;     /* disk */
+	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "ataraid/", 8)) {
 	type = S_IFBLK;
 	major = 114;    /* controller */
 	minor = (devName[9] - '0') * 16;  /* disk */
 	if (strlen(devName) > 10)          /* partition */
 	    minor += atoi(devName + 11);
- } else if (!strncmp(devName, "i2o/", 4)) {
+    } else if (!strncmp(devName, "i2o/", 4)) {
         /* I2O Block Device "i2o/hda */
         type = S_IFBLK;
         major = 80;    /* controller */
