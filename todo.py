@@ -131,6 +131,15 @@ class Network:
 
     def lookupHostname (self):
 	# can't look things up if they don't exist!
+	if not self.isConfigured:
+	    for dev in self.netdevices.values():
+		if dev.get('bootproto'):
+		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
+		elif dev.get('ipaddr') and dev.get('netmask'):
+		    isys.configNetDevice(dev.get('device'),
+			    dev.get('ipaddr'), dev.get('netmask'),
+			    self.gateway)
+
 	if not self.primaryNS: return
 
 	f = open("/etc/resolv.conf", "w")
