@@ -1,7 +1,22 @@
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdarg.h>
 
 #include "cpio.h"
+
+void warn() {
+}
+
+void logMessage(char * text, ...) {
+    va_list args;
+    
+    va_start(args, text);
+    
+    vfprintf(stderr, text, args);
+    fprintf(stderr, "\n");
+
+    va_end(args);
+}
 
 int main(int argc, char ** argv) {
     gzFile in, out; 
@@ -20,7 +35,6 @@ int main(int argc, char ** argv) {
     out = gzip_dopen(1);
 
     rc = myCpioFilterArchive(in, out, argv + 2);
-    fprintf(stderr, "returned %d\n", rc);
 
     gzip_close(out);
 
