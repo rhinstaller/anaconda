@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-14 20:17-0400\n"
-"PO-Revision-Date: 2003-10-03 10:59+0100\n"
+"PO-Revision-Date: 2003-10-15 11:35+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2946,15 +2946,11 @@ msgid "Congratulations"
 msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Se utilizou alguma disquete ou CD-ROM no processo de instalação, retire-o da "
-"unidade de leitura e carregue na tecla <Enter> para reiniciar o computador.\n"
-"\n"
+msgstr "Se utilizou alguma disquete ou CD-ROM no processo de instalação, retire-o da unidade de leitura e carregue no botão \"Reiniciar\" para reiniciar o computador.\n"
 
 #: ../iw/congrats_gui.py:62
 #, python-format
@@ -4349,33 +4345,33 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Particionar manualmente com o _Disk Druid"
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr " MB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "%s KB"
-msgstr " KB"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr " Byte"
+msgstr "%s Byte"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr " Bytes"
+msgstr "%s Bytes"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:395
 msgid "Installing Packages"
 msgstr "A Instalar os Pacotes"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Falta:      "
+msgstr "Tempo restante: %s minutos"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5309,9 +5305,8 @@ msgid "Complete"
 msgstr "Instalação Terminada com Sucesso"
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "Reboot"
-msgstr "_Reiniciar"
+msgstr "Reiniciar"
 
 #: ../textw/confirm_text.py:21
 msgid "Installation to begin"
@@ -7545,7 +7540,7 @@ msgstr "Açores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Baía"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
@@ -7708,9 +7703,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - maior parte dos locais"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario & Quebec - maior parte dos locais"
+msgstr "Eastern Time - Ontário - maior parte dos locais"
 
 #. generated from zone.tab
 msgid ""
@@ -7719,9 +7713,8 @@ msgstr ""
 "Eastern Time - Ontario & Quebec - locais que não se regem pelo DST 1966-1971"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Eastern Time - Ontario & Quebec - maior parte dos locais"
+msgstr "Eastern Time - Quebec - maior parte dos locais"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7809,12 +7802,11 @@ msgstr "Ilhas Marquesas"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso, Mato Grosso do Sul"
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7945,9 +7937,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - Territórios do Noroeste ocidentais"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Brasil NE (MA, PI, CE, RN, PR)"
+msgstr "Brasil NE (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -8058,9 +8049,8 @@ msgid "southwest Xinjiang Uyghur"
 msgstr "Xinjiang Uyghur sudoeste"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "Brasil S & SE (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "Brasil S & SE (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"

@@ -2852,14 +2852,13 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:56
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
 "Vinsamlegast fjarlægðu uppsetningardiska úr drifunum (disklinga eða "
-"geisladiska) og sláðu á <Enter> til að endurræsa vélina.\n"
+"geisladiska) og sláðu á \"Endurræsa\" hnappinn til að endurræsa vélina.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:62
@@ -4240,33 +4239,33 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Sneiða handvirkt með _Diska Drúídanum"
 
 #: ../iw/progress_gui.py:41
-#, fuzzy, python-format
+#, python-format
 msgid "%s MB"
-msgstr " MB"
+msgstr "%s MB"
 
 #: ../iw/progress_gui.py:44
-#, fuzzy, python-format
+#, python-format
 msgid "%s KB"
-msgstr " KB"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:47
-#, fuzzy, python-format
+#, python-format
 msgid "%s Byte"
-msgstr " Bæti"
+msgstr "%s Bæti"
 
 #: ../iw/progress_gui.py:49
-#, fuzzy, python-format
+#, python-format
 msgid "%s Bytes"
-msgstr " Bæti"
+msgstr "%s Bæti"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:395
 msgid "Installing Packages"
 msgstr "Set inn pakka"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Eftir    :  "
+msgstr "Áætlaður tími: %s mínútur"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5184,9 +5183,8 @@ msgid "Complete"
 msgstr "Lokið"
 
 #: ../textw/complete_text.py:48
-#, fuzzy
 msgid "Reboot"
-msgstr "En_durræsa"
+msgstr "Endurræsa"
 
 #: ../textw/confirm_text.py:21
 msgid "Installation to begin"
@@ -7405,7 +7403,7 @@ msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
@@ -7568,9 +7566,8 @@ msgid "Eastern Time - Michigan - most locations"
 msgstr "Eastern Time - Michigan - flestir staðir"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Eastern Time - Ontario & Quebec - flestir staðir"
+msgstr "Eastern Time - Ontario - flestir staðir"
 
 #. generated from zone.tab
 msgid ""
@@ -7579,9 +7576,8 @@ msgstr ""
 "Eastern Time - Ontario & Quebec - staðir sem fóru ekki eftir DST 1967-1973"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Eastern Time - Ontario & Quebec - flestir staðir"
+msgstr "Eastern Time - Quebec - flestir staðir"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7669,12 +7665,11 @@ msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mato Grosso do Sul"
-msgstr "Mato Grosso, Mato Grosso do Sul"
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
@@ -7803,9 +7798,8 @@ msgid "Mountain Time - west Northwest Territories"
 msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "NE Brazil (MA, PI, CE, RN, PR)"
+msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
@@ -7916,9 +7910,8 @@ msgid "southwest Xinjiang Uyghur"
 msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -8079,13 +8072,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
-
-#~ msgid ""
-#~ "If you created a boot diskette during this installation as your primary "
-#~ "means of booting %s, insert it before rebooting your newly installed "
-#~ "system.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Ef þú bjóst til ræsidiskling til að ræsa %s og settir ekki upp "
-#~ "ræsistjóra, settu hann í núna áður en þú endurræsir.\n"
-#~ "\n"
