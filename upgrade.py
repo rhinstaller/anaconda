@@ -326,6 +326,14 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         
     try:
         import findpackageset
+
+        # FIXME: make sure that the rpmdb doesn't have stale locks :/
+        for file in ["__db.001", "__db.002", "__db.003"]:
+            try:
+                os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
+            except:
+                log("failed to unlink /var/lib/rpm/%s" %(file,))
+
 	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
     except rpm.error:
         if rebuildpath is not None:
@@ -351,7 +359,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # open up the database to check dependencies and currently
     # installed packages
     ts = rpm.TransactionSet(instPath)
-    ts.seVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
+    ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
     ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
 
     mi = ts.dbMatch()
@@ -378,13 +386,12 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             found = 1
         if h[rpm.RPMTAG_NAME] == "XFree86":
             hasX = 1
-	if h[rpm.RPMTAG_NAME] == "gmc":
+	if h[rpm.RPMTAG_NAME] == "nautilus":
 	    hasFileManager = 1
 	if h[rpm.RPMTAG_NAME] == "kdebase":
 	    hasFileManager = 1
-	if h[rpm.RPMTAG_NAME] == "nautilus":
+	if h[rpm.RPMTAG_NAME] == "gmc":
 	    hasFileManager = 1
-        h = i.next()
 
     if found:
         rc = intf.messageWindow(_("Warning"),
