@@ -688,7 +688,7 @@ class MonitorWindow (InstallWindow):
 	# now insert rest of monitors, unless we match the ddc probed id
         for man in keys:
             models = monitorslist[man]
-	    if man in ["Generic LCD Display", "Generic CRT Display"]:
+	    if man in ["Generic LCD Display", "Generic CRT Display", "Generic"]:
                 title = _(man)
 		# dont sort generic, present in order in file
             else:
