@@ -656,6 +656,11 @@ class PartitionWindow:
                 request.badblocks = badblocksCB.selected()
 
                 if origrequest.start == None:
+                    if size.value() == "":
+                        self.intf.messageWindow(_("Must Specify Size"),
+                                                _("Must specify a base size "
+                                                  "for the partition."))
+                        continue
                     request.size = int(size.value())
                 
                     growtype = sizeopts.getSelection()
@@ -664,6 +669,12 @@ class PartitionWindow:
                     else:
                         grow = TRUE
                     if growtype == "limit":
+                        if limitentry.value() == "":
+                            self.intf.messageWindow(_("Specify Maximum Size"),
+                                                _("Please specify a maximum "
+                                                  "size for the partition."))
+                            continue
+                            
                         maxsize = int(limitentry.value())
                     else:
                         maxsize = None
@@ -678,14 +689,32 @@ class PartitionWindow:
                             allowdrives.append(i) 
                     request.drive = allowdrives
                 else:
+                    if start.value() == "":
+                        self.intf.messageWindow(_("Specify Start"),
+                                                _("Please specify a starting "
+                                                  "cylinder for the "
+                                                  "partition."))
+                        continue
                     request.start = int(start.value())
                     request.badblocks = badblocksCB.selected()
 
                     cyltype = cylopts.getSelection()
                     if cyltype == "end":
+                        if end.value() == "":
+                            self.intf.messageWindow(_("Specify End"),
+                                                    _("Please specify the end "
+                                                      "cylinder for the "
+                                                      "partition."))
+                            continue
                         request.end = int(end.value())
                         request.size = None
                     elif cyltype == "size":
+                        if size.value() == "":
+                            self.intf.messageWindow(_("Specify Size"),
+                                                    _("Please specify the  "
+                                                      "size for the "
+                                                      "partition."))
+                            continue
                         request.end = None
                         request.size = int(size.value())
                     else: # can't ever get here
