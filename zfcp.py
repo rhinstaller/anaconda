@@ -24,7 +24,6 @@ from rhpl.log import log
 
 class ZFCP:
     def __init__(self):
-        self.readConfig()
         self.options = [
             (_("Device number"), 1,
              _("You have not specified a device number or the number is invalid"),
@@ -41,6 +40,7 @@ class ZFCP:
             (_("FCP LUN"), 1,
              _("You have not specified a FCP LUN or the number is invalid."),
              self.sanitizeFCPLInput, self.checkValid64BitHex)]
+        self.readConfig()
 
     def hextest(self, hex):
         try:
@@ -242,15 +242,18 @@ class ZFCP:
             lines = f.readlines()
             f.close()
             for line in lines:
+                invalid = 0
                 line = string.lower(string.strip(line))
                 fcpconf = string.split(line)
-                if len(line) > 0  and (len(fcpconf) != 5 or fcpconf[0][:1] == "#"):   # nonempty but invalid line or comment
+                if len(fcpconf) != 5 or fcpconf[0][:1] == "#":
                     continue
-                for i in range(1,5):
-                    if fcpconf[i][:2] != "0x":
-                        fcpconf[i] = "0x" + fcpconf[i]
-                fcpconf[4] = self.sanitizeFCPLInput(fcpconf[4])
-                self.fcpdevices.append(fcpconf)
+                for i in range(len(self.options)):
+                    fcpconf[i] = self.options[i][3](fcpconf[i])
+                    if self.options[i][4](fcpconf[i]) == -1:
+                        invalid = 1
+                        break
+                if not invalid:
+                    self.fcpdevices.append(fcpconf)
 
 
 # vim:tw=78:ts=4:et:sw=4
