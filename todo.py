@@ -671,12 +671,12 @@ class ToDo:
 	    for n in group:
 		self.comps[n].select(1)
 
-	if packages:
-	    for n in packages:
-		self.hdlist[n].selected = 1
+	#if packages:
+	    #for n in packages:
+		#self.selectPackage(n)
 
 	if self.x.server:
-	    self.hdlist['XFree86-' + self.x.server].selected = 1
+	    self.selectPackage('XFree86-' + self.x.server)
 
     def selectPackage(self, package):
 	self.hdList.packages[package].selected = 1
