@@ -11,7 +11,7 @@ BuildPreReq: pump-devel >= 0.8.15, kudzu-devel >= 1.1.0, pciutils-devel, bzip2-d
 BuildRequires: dietlibc
 %endif
 Prereq: chkconfig /etc/init.d
-Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7
+Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty
 Url: http://rhlinux.redhat.com/anaconda/
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
@@ -76,6 +76,9 @@ rm -rf $RPM_BUILD_ROOT
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Thu Nov  6 2003 Jeremy Katz <katzj@redhat.com>
+- require booty (#109272)
 
 * Tue Oct  8 2002 Jeremy Katz <katzj@redhat.com>
 - back to mainstream rpm instead of rpm404
