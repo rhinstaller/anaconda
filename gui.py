@@ -21,12 +21,13 @@ import sys
 import parted
 import gtk
 import htmlbuffer
-from rhpl.translate import _, N_, utf8
 from language import expandLangs
 from splashscreen import splashScreenPop
-from log import log
 from flags import flags
 from constants import *
+
+from rhpl.log import log
+from rhpl.translate import _, N_, utf8
 
 StayOnScreen = "stayOnScreen"
 mainWindow = None

@@ -19,11 +19,12 @@ from constants import *
 import string
 import isys 
 import iutil
-from log import log
 import upgrade
 from fsset import *
 import gui
 import gtk
+
+from rhpl.log import log
 
 class UpgradeMigrateFSWindow (InstallWindow):		
     windowTitle = N_("Migrate Filesystems")

@@ -66,11 +66,14 @@ if len(sys.argv) > 1:
 	# this never returns
 
 import signal, traceback, string, isys, iutil, time
-from log import log
-from rhpl.translate import _
+
 from exception import handleException
 import dispatch
 from flags import flags
+from anaconda_log import anaconda_log
+
+from rhpl.log import log
+from rhpl.translate import _
 
 # reset python's default SIGINT handler
 signal.signal(signal.SIGINT, signal.SIG_DFL)
@@ -239,7 +242,9 @@ if (progmode == 'rescue'):
 
     import rescue, instdata, configFileData
     
-    log.open (logFile)
+    anaconda_log.open (logFile)
+    log.handler=anaconda_log
+    
     configFile = configFileData.configFileData()
     configFileData = configFile.getConfigData()
     
@@ -253,7 +258,8 @@ else:
 	sys.stderr.write('no install method specified\n')
 	sys.exit(1)
 
-log.open (logFile)
+anaconda_log.open (logFile)
+log.handler = anaconda_log
 
 if (debug):
     import pdb

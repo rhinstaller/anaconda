@@ -30,12 +30,13 @@ import string
 import iutil
 import partedUtils
 import raid
-from rhpl.translate import _
-from log import log
 from constants import *
 from flags import flags
 from partErrors import *
 import partRequests
+
+from rhpl.translate import _
+from rhpl.log import log
 
 def get_lvm_volume_group_size(request, requests, diskset):
 	# got to add up all of physical volumes to get total size

@@ -404,8 +404,6 @@ def ejectCdrom(device):
 def driveIsRemovable(device):
     # assume ide if starts with 'hd', and we don't have to create
     # device beforehand since it just reads /proc/ide
-    from log import log
-
     if device[:2] == "hd":
         rc = (_isys.isIdeRemovable("/dev/"+device) == 1)
     else:

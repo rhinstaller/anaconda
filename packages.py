@@ -23,11 +23,12 @@ import sys
 import string
 import pcmcia
 import fsset
-from log import log
 from flags import flags
 from constants import *
-from rhpl.translate import _
 from syslogd import syslog
+
+from rhpl.log import log
+from rhpl.translate import _
 
 rpm.addMacro("_i18ndomains", "redhat-dist")
 

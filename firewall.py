@@ -16,8 +16,9 @@
 import os
 import iutil
 import string
-from log import log
 from flags import flags
+
+from rhpl.log import log
 
 class Firewall:
     def __init__ (self):

@@ -19,9 +19,10 @@ import os
 from string import *
 import types
 import urllib
-from rhpl.translate import _, N_
-from log import log
 import time
+
+from rhpl.log import log
+from rhpl.translate import _, N_
 
 ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'XFree86-AGX' : None, 	'XFree86-I128' : None,

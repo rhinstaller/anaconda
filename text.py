@@ -24,12 +24,13 @@ import gettext_rh
 import signal
 import parted
 import string
-from rhpl.translate import _, cat, N_
 from language import expandLangs
-from log import log
 from flags import flags
 from constants_text import *
 from constants import *
+
+from rhpl.log import log
+from rhpl.translate import _, cat, N_
 
 stepToClasses = {
     "language" : ("language_text", "LanguageWindow"),

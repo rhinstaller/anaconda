@@ -16,7 +16,8 @@
 import kudzu
 import string
 from simpleconfig import SimpleConfigFile
-from log import log
+
+from rhpl.log import log
 
 class Keyboard (SimpleConfigFile):
     # the *first* item in each of these wins conflicts

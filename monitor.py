@@ -15,8 +15,9 @@
 
 import string
 import kudzu
+
+from rhpl.log import log
 from rhpl.translate import _
-from log import log
 
 def isValidSyncRange(syncrange):
 

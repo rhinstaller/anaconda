@@ -19,8 +19,9 @@ import isys
 import time
 import kudzu
 import string
+
+from rhpl.log import log
 from rhpl.translate import _
-from log import log
 
 class ImageInstallMethod(InstallMethod):
 

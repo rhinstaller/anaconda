@@ -20,7 +20,7 @@ import string
 import kudzu
 import os
 
-from log import log
+from rhpl.log import log
 from rhpl.translate import _
 
 Videocard_blacklist = ["Generic VGA compatible",

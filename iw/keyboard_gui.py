@@ -19,8 +19,9 @@ import gobject
 import gtk
 from iw_gui import *
 from kbd import Keyboard
-from log import log
 from flags import flags
+
+from rhpl.log import log
 from rhpl.translate import _, N_
 
 class KeyboardWindow (InstallWindow):

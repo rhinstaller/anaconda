@@ -21,8 +21,9 @@ import os
 import rpm
 import kudzu
 from constants import *
-from log import log
 from flags import flags
+
+from rhpl.log import log
 from rhpl.translate import _
 
 def probeFloppyDevice():

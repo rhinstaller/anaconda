@@ -22,9 +22,10 @@ import gobject
 import gtk
 from iw_gui import *
 from package_gui import queryUpgradeContinue
-from rhpl.translate import _, N_
-from log import log
 from flags import flags
+
+from rhpl.log import log
+from rhpl.translate import _, N_
 
 class UpgradeSwapWindow (InstallWindow):		
     windowTitle = N_("Upgrade Swap Partition")

@@ -15,7 +15,7 @@
 
 import types, os, sys, isys, select, string, stat, signal
 import os.path
-from log import log
+from rhpl.log import log
 
 memoryOverhead = 0
 

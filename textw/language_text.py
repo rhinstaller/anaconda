@@ -16,9 +16,10 @@ import isys
 import iutil
 from snack import *
 from constants_text import *
-from log import *
-from rhpl.translate import _
 from flags import flags
+
+from rhpl.log import *
+from rhpl.translate import _
 
 class LanguageWindow:
     def __call__(self, screen, textInterface, instLanguage):

@@ -2,8 +2,9 @@
 # log.py - persistent debugging log service
 #
 # Matt Wilson <msw@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2000-2001 Red Hat, Inc.
+# Copyright 2000-2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -15,11 +16,11 @@
 
 import sys
 
-class LogFile:
+class Anaconda_LogFile:
     def __init__ (self):
         self.logFile = None
         self.logFile2 = None
-    
+
     def close (self):
         try:
             self.logFile.close ()
@@ -61,4 +62,4 @@ class LogFile:
     def getFile (self):
         return self.logFile.fileno ()
             
-log = LogFile()
+anaconda_log = Anaconda_LogFile()

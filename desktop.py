@@ -15,7 +15,8 @@
 
 import string
 from simpleconfig import SimpleConfigFile
-from log import log
+
+from rhpl.log import log
 
 class Desktop (SimpleConfigFile):
 #

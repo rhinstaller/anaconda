@@ -24,8 +24,9 @@ import language
 import iutil
 import string
 from flags import flags
-from log import log
 from constants import *
+
+from rhpl.log import log
 from rhpl.translate import _
 
 from booty import *

@@ -17,12 +17,13 @@ import upgrade
 from snack import *
 from constants_text import *
 from text import WaitWindow, OkCancelWindow
-from rhpl.translate import _
 import sys
 import os
-from log import log
 import isys
 import fsset
+
+from rhpl.log import log
+from rhpl.translate import _
 
 class RescueInterface:
 

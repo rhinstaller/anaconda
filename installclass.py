@@ -17,10 +17,11 @@
 import gettext_rh, os, iutil
 import string
 from xf86config import XF86Config
-from rhpl.translate import _
 from instdata import InstallData
 from partitioning import *
-from log import log
+
+from rhpl.log import log
+from rhpl.translate import _
 
 class BaseInstallClass:
     # default to not being hidden

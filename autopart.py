@@ -22,9 +22,10 @@ from partitioning import *
 import partedUtils
 import partRequests
 from constants import *
-from rhpl.translate import _, N_
 from partErrors import *
-from log import log
+
+from rhpl.translate import _, N_
+from rhpl.log import log
 
 PARTITION_FAIL = -1
 PARTITION_SUCCESS = 0

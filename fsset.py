@@ -25,7 +25,8 @@ import partitioning
 import partedUtils
 import raid
 import types
-from log import log
+
+from rhpl.log import log
 from rhpl.translate import _, N_
 
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var']

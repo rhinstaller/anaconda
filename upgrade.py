@@ -25,9 +25,10 @@ import string
 from flags import flags
 from fsset import *
 from partitioning import *
-from log import log
-from rhpl.translate import _
 from constants import *
+
+from rhpl.log import log
+from rhpl.translate import _
 
 def findRootParts(intf, id, dir, chroot):
     if dir == DISPATCH_BACK:

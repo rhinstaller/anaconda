@@ -23,8 +23,6 @@ import string
 import os, sys
 
 from constants import *
-from rhpl.translate import _
-from log import log
 
 import fsset
 import raid
@@ -32,6 +30,9 @@ import partedUtils
 import partRequests
 
 from partitioning import requestSize
+
+from rhpl.translate import _
+from rhpl.log import log
 
 class Partitions:
     """Defines all of the partition requests and delete requests."""

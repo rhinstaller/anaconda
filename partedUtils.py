@@ -23,9 +23,10 @@ import os, sys, string
 import fsset
 import iutil, isys
 import raid
-from log import log
 from flags import flags
 from partErrors import *
+
+from rhpl.log import log
 from rhpl.translate import _
 
 fsTypes = {}

@@ -20,7 +20,8 @@ import crypt
 import os
 import string
 from flags import flags
-from log import log
+
+from rhpl.log import log
 
 class Accounts:
 

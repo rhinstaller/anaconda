@@ -22,10 +22,11 @@ import gui
 import gobject
 import gtk
 from iw_gui import *
-from rhpl.translate import _, N_
 from monitor import isValidSyncRange
 from videocard import Videocard_blacklist
-from log import log
+
+from rhpl.log import log
+from rhpl.translate import _, N_
 
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")

@@ -22,13 +22,14 @@ import urllib
 import string
 import struct
 import socket
-from log import log
 
 # we import these explicitly because urllib loads them dynamically, which
 # stinks -- and we need to have them imported for the --traceonly option
 import ftplib
 import httplib
 import StringIO
+
+from rhpl.log import log
 
 FILENAME = 1000000
 DISCNUM  = 1000002

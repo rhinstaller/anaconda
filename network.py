@@ -21,7 +21,8 @@ import string
 import isys
 import socket
 import os
-from log import log
+
+from rhpl.log import log
 from rhpl.translate import _, N_
 
 def inStrRange(v, s):

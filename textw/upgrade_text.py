@@ -18,10 +18,11 @@ import upgrade
 from constants_text import *
 from snack import *
 from fsset import *
-from log import log
 from flags import flags
-from rhpl.translate import _
 from constants import *
+
+from rhpl.log import log
+from rhpl.translate import _
 
 class UpgradeMigrateFSWindow:
     def __call__ (self, screen, thefsset):

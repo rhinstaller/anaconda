@@ -20,7 +20,8 @@ import isys
 import os
 import partitioning
 import partedUtils
-from log import log
+
+from rhpl.log import log
 
 def scanForRaid(drives):
     """Scans for raid devices on drives.

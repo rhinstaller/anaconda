@@ -12,7 +12,8 @@
 #
 
 import iutil
-from log import log
+
+from rhpl.log import log
 
 def bool(val):
     if val: return "true"

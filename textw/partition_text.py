@@ -27,8 +27,9 @@ from fsset import *
 from autopart import *
 from snack import *
 from constants_text import *
+
+from rhpl.log import log
 from rhpl.translate import _
-from log import log
 
 
 # sanity checking for various numeric input boxes
