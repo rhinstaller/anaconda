@@ -119,6 +119,10 @@ class Kickstart(InstallClass):
 		nameserver = arg
 	self.setNetwork(bootProto, ip, netmask, gateway, nameserver)
 
+    def doZeroMbr(self, args):
+	if args[0] == "yes":
+	    self.setZeroMbr(1)
+
     def readKickstart(self, file):
 	handlers = { 
 		     "authconfig"	: self.doAuthconfig	,
@@ -136,6 +140,7 @@ class Kickstart(InstallClass):
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
 		     "xdisplay"		: None			,
+		     "zerombr"		: self.doZeroMbr	,
 		   }
 
 	for n in open(file).readlines():
