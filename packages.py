@@ -1143,16 +1143,26 @@ def migrateXinetd(instPath, instLog):
 def copyExtraModules(instPath, grpset, extraModules):
     kernelVersions = grpset.kernelVersionList()
 
+    try:
+        f = open("/etc/arch")
+        arch = f.readline().strip()
+        del f
+    except IOError:
+        arch = os.uname()[2]
+
     for (path, subdir, name) in extraModules:
         if not path:
             path = "/modules.cgz"
 	pattern = ""
 	names = ""
 	for (n, tag) in kernelVersions:
-	    pattern = pattern + " " + n + "/" + name + ".o"
-	    names = names + " " + name + ".o"
+            # version 1 path
+            pattern = pattern + " %s/%s/%s.o " % (n, arch, name)
+            # version 0 path
+            pattern = pattern + " %s/%s.o " % (n, name)
+            names = names + " %s.o" % (name,)
 	command = ("cd %s/lib/modules; gunzip < %s | "
-                   "%s/bin/cpio  --quiet -iumd %s" % 
+                   "%s/bin/cpio --quiet -iumd %s" % 
                    (instPath, path, instPath, pattern))
 	log("running: '%s'" % (command, ))
 	os.system(command)
@@ -1180,17 +1190,11 @@ def copyExtraModules(instPath, grpset, extraModules):
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
     log("recreating initrd for %s" % (kernelTag,))
-    if iutil.getArch() == 'ia64':
-        initrd = "/boot/efi/EFI/redhat/initrd-%s.img" % (kernelTag, )
-    else:
-        initrd = "/boot/initrd-%s.img" % (kernelTag, )
-
-    iutil.execWithRedirect("/sbin/mkinitrd",
-                           [ "/sbin/mkinitrd", "--ifneeded", "-f",
-                             initrd, kernelTag ],
+    iutil.execWithRedirect("/sbin/new-kernel-pkg",
+                           [ "/sbin/new-kernel-pkg", "--mkinitrd",
+                             "--depmod", "--install", kernelTag ],
                            stdout = None, stderr = None,
                            searchPath = 1, root = instRoot)
-                
 
 # XXX Deprecated.  Is this ever called anymore?
 def depmodModules(comps, instPath):
