@@ -483,6 +483,22 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["grub"].select()
+    if iutil.getArch() == "i386" and not id.bootloader.useGrub():
+        log("Upgrade: User selected to use LILO for bootloader")
+        if id.hdList.has_key("lilo") and not id.hdList["lilo"].isSelected():
+            log("Upgrade: lilo is not currently selected to be upgraded")
+            recs = None
+            try:
+                recs = db.findbyname("lilo")
+            except rpm.error:
+                pass
+            if not recs:
+                text = ("Upgrade: LILO is not already installed on the "
+                        "system, selecting LILO")
+                id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
+                log(text)
+                id.hdList["lilo"].select()
+                
 	
     if (id.hdList.has_key("nautilus")
         and not id.hdList["nautilus"].isSelected()):
