@@ -49,7 +49,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     return LOADER_NOOP;
 #endif
 
-    if (FL_SERIAL (flags)) return LOADER_NOOP;
+    if (FL_SERIAL (flags) || FL_VIRTPCONSOLE(flags)) return LOADER_NOOP;
 
 #ifdef __sparc__
     {

@@ -35,6 +35,7 @@
 #define LOADER_FLAGS_GRAPHICAL		(1 << 29)
 #define LOADER_FLAGS_HALT       	(1 << 13)
 #define LOADER_FLAGS_SELINUX            (1 << 14)
+#define LOADER_FLAGS_VIRTPCONSOLE       (1 << 15)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -66,7 +67,7 @@
 #define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
 #define FL_HALT(a)          ((a) & LOADER_FLAGS_HALT)
 #define FL_SELINUX(a)       ((a) & LOADER_FLAGS_SELINUX)
-
+#define FL_VIRTPCONSOLE(a)  ((a) & LOADER_FLAGS_VIRTPCONSOLE)
 
 void startNewt(int flags);
 void stopNewt();

@@ -1102,15 +1102,14 @@ int main(int argc, char ** argv) {
     char * ksFile = NULL;
     int testing = 0;
     int mediacheck = 0;
-    int physcon = 0;
+    char * virtpcon = NULL;
     poptContext optCon;
     struct poptOption optionTable[] = {
 	{ "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
         { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
         { "test", '\0', POPT_ARG_NONE, &testing, 0 },
         { "mediacheck", '\0', POPT_ARG_NONE, &mediacheck, 0},
-        /* FIXME: this is a temporary hack to work around #130906 */
-        { "physconsole", '\0', POPT_ARG_NONE, &physcon, 0 },
+        { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0 },
         { 0, 0, 0, 0, 0 }
     };
 
@@ -1154,7 +1153,8 @@ int main(int argc, char ** argv) {
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
-    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136 && (physcon != 1)){
+    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136 && 
+        (virtpcon != NULL)){
         if ((ioctl (0, TIOCLINUX, &twelve) < 0) && 
             (ioctl(0, TIOCGSERIAL, &si) != -1))
             flags |= LOADER_FLAGS_SERIAL;
@@ -1163,6 +1163,7 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
     if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
+    if (virtpcon) flags |= LOADER_FLAGS_VIRTPCONSOLE;
 
     /* uncomment to send mac address in ks=http:/ header by default*/
     flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
@@ -1458,6 +1459,11 @@ int main(int argc, char ** argv) {
         if (FL_KICKSTART(flags)) {
             *argptr++ = "--kickstart";
             *argptr++ = loaderData.ksFile;
+        }
+
+        if (FL_VIRTPCONSOLE(flags)) {
+            *argptr++ = "--virtpconsole";
+            *argptr++ = virtpcon;
         }
 
         if ((loaderData.lang) && !FL_NOPASS(flags)) {

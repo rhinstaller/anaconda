@@ -22,7 +22,7 @@ from rhpl.translate import _
 
 class KeyboardWindow:
     def __call__(self, screen, defaultByLang, kbd):
-	if flags.serial:
+        if flags.serial or flags.virtpconsole:
 	    return INSTALL_NOOP
         keyboards = kbd.modelDict.keys()
         keyboards.sort ()

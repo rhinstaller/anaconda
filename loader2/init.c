@@ -433,6 +433,7 @@ int main(int argc, char **argv) {
     int doReboot = 0;
     int doShutdown =0;
     int isSerial = 0;
+    char * console = NULL;
     int noKill = 0;
     char * argvc[15];
     char ** argvp = argvc;
@@ -527,6 +528,7 @@ int main(int argc, char **argv) {
             printf("anaconda installer init version %s using %s as console\n",
                    VERSION, consoles[i]);
             isSerial = 3;
+            console = strdup(consoles[i]);
             break;
         }
     }
@@ -659,7 +661,8 @@ int main(int argc, char **argv) {
 	/* child */
 	*argvp++ = "/sbin/loader";
         if (isSerial == 3) {
-            *argvp++ = "--physconsole";
+            *argvp++ = "--virtpconsole";
+            *argvp++ = console;
         }
 	*argvp++ = NULL;
 

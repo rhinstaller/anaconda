@@ -395,7 +395,8 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc', 'noselinux', 'selinux',
-	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless'])
+	    'vnc', 'vncconnect=', 'vnc=', 'cmdline', 'headless',
+            'virtpconsole='])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -538,6 +539,8 @@ for n in args:
         display_mode = 'c'
     elif (str == '--kbdtype'):
         kbdtype = arg
+    elif (str == '--virtpconsole'):
+        flags.virtpconsole = arg
     elif (str == '--headless'):
         isHeadless = 1
     elif (str == '--vnc'):
