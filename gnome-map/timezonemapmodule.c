@@ -382,6 +382,8 @@ canvas_event (GtkWidget *canvas, GdkEvent *event, gpointer data)
 				    "fill_color", CITY_COLOR, 
 				    NULL);
 
+	gtk_statusbar_pop ( GTK_STATUSBAR (mapdata->statusbar), 1);
+	gtk_statusbar_push ( GTK_STATUSBAR (mapdata->statusbar), 1, "" );
     }
     return FALSE;
 }
