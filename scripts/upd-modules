@@ -4,7 +4,6 @@ export PATH=/sbin:$PATH
 q=--quiet
 
 KERNELROOT=/tmp/updboot.kernel-$$
-KERNELROOT=/tmp/updboot.kernel
 MODLIST=$PWD/../anaconda/utils/modlist
 PCITABLE=$PWD/../anaconda/kudzu/pcitable
 TRIMPCITABLE=$PWD/../anaconda/utils/trimpcitable
