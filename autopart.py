@@ -86,12 +86,13 @@ def findFreespace(diskset):
 
 def bestPartType(disk, request):
     numPrimary = len(get_primary_partitions(disk))
-    if numPrimary == 4:
+    maxPrimary = disk.max_primary_partition_count
+    if numPrimary == maxPrimary:
         # raise an error?
         return PARTITION_FAIL
     if request.primary:
         return parted.PARTITION_PRIMARY
-    if numPrimary == 3 and not disk.extended_partition:
+    if (numPrimary == (maxPrimary - 1)) and not disk.extended_partition:
         return parted.PARTITION_EXTENDED
     return parted.PARTITION_PRIMARY
 
