@@ -29,6 +29,9 @@ from constants import *
 
 class VolumeGroupEditor:
 
+    def numAvailableLVSlots(self):
+	return max(0, lvm.MAX_LV_SLOTS - len(self.logvolreqs))
+
     def computeSpaceValues(self, usepe=None):
 	if usepe is None:
 	    pesize = self.peOptionMenu.get_active().get_data("value")
@@ -598,6 +601,12 @@ class VolumeGroupEditor:
 	self.editLogicalVolume(logrequest)
 
     def addLogicalVolumeCB(self, widget):
+	if self.numAvailableLVSlots() < 1:
+	    self.intf.messageWindow(_("No free slots"),
+				    "You cannot create more than %s logical "
+				    "volumes per volume group." % (lvm.MAX_LV_SLOTS,))
+	    return
+	
         (tspace, uspace, fspace) = self.computeSpaceValues()
         request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
 					   size = fspace/2)
