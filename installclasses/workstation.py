@@ -44,6 +44,7 @@ class InstallClass(BaseInstallClass):
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
+	dispatch.skipStep("partition")
 	dispatch.skipStep("authentication")
 
         dispatch.skipStep("desktopchoice", skip = 0)
