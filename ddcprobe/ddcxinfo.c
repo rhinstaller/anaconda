@@ -44,7 +44,6 @@ int main(int argc, char **argv)
 					       modelines[j].refresh,
 					       modelines[j].interlaced?"i":"",
 					       modelines[j].modeline);
-					free(modelines[j].modeline);
 				}
 			}
 			if(modelines) {
