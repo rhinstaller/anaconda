@@ -184,8 +184,21 @@ prom_walk(char *path, int parent, int node, int type) {
 		sprintf (regstr, "@%x", (reg[0] >> 11) & 0x1f);
         } else if (len == 4)
 	    sprintf (regstr, "@%x", reg[0]);
-        else
-	    sprintf (regstr, "@%x,%x", reg[0] >> 4, reg[1]);
+        else {
+	    unsigned int regs[2];
+
+	    /* Things get more complicated on UPA. If upa-portid exists,
+	       then address is @upa-portid,second-int-in-reg, otherwise
+	       it is @first-int-in-reg/16,second-int-in-reg (well, probably
+	       upa-portid always exists, but just to be safe). */
+	    memcpy (regs, reg, sizeof(regs));
+	    prop = prom_getproperty("upa-portid", &len);
+	    if (prop && len == 4) {
+		reg = (unsigned int *)prop;
+		sprintf (regstr, "@%x,%x", reg[0], regs[1]); 
+	    } else
+	        sprintf (regstr, "@%x,%x", regs[0] >> 4, regs[1]);
+	}
         for (nextnode = prom_getchild(parent); nextnode; nextnode = prom_getsibling(nextnode)) {
 	    prop = prom_getproperty("name", &len);
 	    if (prop && len > 0 && !strcmp (path + 1, prop))
@@ -491,7 +504,7 @@ scan_scsi(void) {
 			    sd[disk].prom_node = prom_node;
 			    if (p[1] == 'e') {
 				sd[disk].type = SDSK_TYPE_PLN;
-				sd[disk].lo = (id << 28) | lun;
+				sd[disk].lo = (lun << 28) | id;
 			    } else if (!strcmp (ent->d_name, "fcal"))
 				sd[disk].type = SDSK_TYPE_FC;
 			}
