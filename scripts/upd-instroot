@@ -103,11 +103,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help booty
          hdparm lvm rhpl pyxf86config libxml2 libxml2-python rdate libelf 
-         glib2 libstdc++"
-
-if [ $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES libgcc"
-fi
+         glib2"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -173,10 +169,6 @@ if [ $ARCH = alpha ]; then
                 XFree86-S3 XFree86-SVGA aboot"
 fi
 
-if [ $ARCH = x86_64 ]; then
-    PACKAGES="$PACKAGES libgcc"
-fi
-
 if [ $ARCH = ia64 ]; then
     PACKAGESGR="$PACKAGESGR elilo slang"
 fi
@@ -215,7 +207,6 @@ $LIBDIR/libdb1*
 $LIBDIR/libdl*
 $LIBDIR/libe2p*
 $LIBDIR/libext2fs*
-$LIBDIR/libgcc*
 $LIBDIR/liblvm-10.so*
 $LIBDIR/libm[-.]*
 $LIBDIR/libnsl*
@@ -316,7 +307,6 @@ usr/$LIBDIR/librpm-*4.?.so*
 usr/$LIBDIR/librpmdb*4.?.so*
 usr/$LIBDIR/librpmio*4.?.so*
 usr/$LIBDIR/libslang*
-usr/$LIBDIR/libstdc++*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
 usr/$LIBDIR/python2.2/*
