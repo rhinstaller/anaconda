@@ -2,11 +2,12 @@ include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
-CFLAGS = -ffunction-sections -I/usr/include/python1.5 -I.. -Wall -O2 -g -fPIC -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
+CFLAGS = -ffunction-sections -I/usr/include/python1.5 -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
 
 OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
 	  lang.o isofs.o pdc.o
+SOBJECTS = $(patsubst %.o,%.so,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs
@@ -30,8 +31,11 @@ everything: $(TARGET)
 
 all: subdirs $(PYMODULES) libisys.a
 
-_isys.so: isys.o $(OBJECTS)
-	gcc -shared -g -o $@ isys.o $(OBJECTS) $(LOADLIBES)
+%.so: %.c
+	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
+
+_isys.so: isys.so $(SOBJECTS)
+	gcc -shared -g -o $@ isys.so $(SOBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
@@ -39,7 +43,7 @@ _silo.so: silo.c
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
-	rm -f *.o *.so *.a *.pyc $(TARGET) $(OBJECTS) $(GENERATED)
+	rm -f *.o *.so *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
