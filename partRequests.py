@@ -362,7 +362,8 @@ class PartitionSpec(RequestSpec):
                  preexist = 0, migrate = None, 
                  grow = 0, maxSizeMB = None,
                  start = None, end = None,
-                 drive = None, primary = None, format = None):
+                 drive = None, primary = None, format = None,
+                 multidrive = None):
         """Create a new PartitionSpec object.
 
         fstype is the fsset filesystem type.
@@ -377,6 +378,8 @@ class PartitionSpec(RequestSpec):
         format is whether or not the partition should be formatted.
         preexist is whether this partition is preexisting.
         migrate is whether or not the partition should be migrated.
+        multidrive specifies if this is a request that should be replicated
+            across _all_ of the drives in drive
         """
 
         # if it's preexisting, the original fstype should be set
@@ -399,6 +402,7 @@ class PartitionSpec(RequestSpec):
 
         self.drive = drive
         self.primary = primary
+        self.multidrive = multidrive
 
         # should be able to map this from the device =\
         self.currentDrive = None
@@ -728,7 +732,11 @@ class VolumeGroupRequestSpec(RequestSpec):
         
         pvs = []
         for pv in self.physicalVolumes:
-            pvs.append(partitions.getRequestByID(pv).getDevice(partitions))
+            r = partitions.getRequestByID(pv)
+            # a size of zero implies we did autopartitioning of
+            # pvs everywhere we could
+            if (r.size > 0) or (r.device is not None):
+                pvs.append(r.getDevice(partitions))
         self.dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs,
                                            self.pesize,
                                            existing = self.preexist)

@@ -295,6 +295,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             continue
         if primOnly and not request.primary and not requests.isBootable(request):
             continue
+        if request.size == 0 and request.requestSize == 0:
+            request.requestSize = 1
         if requests.isBootable(request):
             drives = getDriveList(request, diskset)
             numDrives = 0 # allocate bootable requests first
@@ -362,7 +364,14 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                                 break
 
             if not largestPart[1]:
-                return PARTITION_FAIL
+                # if the request has a size of zero, it can be allowed to not
+                # exist without any problems
+                if request.size > 0:
+                    return PARTITION_FAIL
+                else:
+                    request.device = None
+                    request.currentDrive = None
+                    continue
 #                raise PartitioningError, "Can't fulfill request for partition: \n%s" %(request)
 
 #            log( "largestPart is %s" % (largestPart,))
@@ -1180,6 +1189,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
         partitions.setProtected(dispatch)
+        partitions.autoPartitionRequests = []
         return
     
     # if no auto partition info in instclass we bail
@@ -1323,6 +1333,36 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             req = copy.copy(request)
             if req.type == REQUEST_NEW and not req.drive:
                 req.drive = drives
+            # if this is a multidrive request, we need to create one per drive
+            if req.type == REQUEST_NEW and req.multidrive:
+                if req.drive is None:
+                    req.drive = diskset.disks.keys()
+                    
+                for drive in req.drive:
+                    r = copy.copy(req)
+                    r.drive = [ drive ]
+                    partitions.addRequest(r)
+                continue
+
+            if (isinstance(req, partRequests.VolumeGroupRequestSpec)):
+                # if the number of physical volumes requested is zero, then
+                # add _all_ physical volumes we can find
+                if ((len(req.physicalVolumes) == 0)
+                    or (req.physicalVolumes is None)):
+                    for r in partitions.requests:
+                        if isinstance(r.fstype,
+                                      fsset.lvmPhysicalVolumeDummyFileSystem):
+                            req.physicalVolumes.append(r.uniqueID)
+            if (isinstance(req, partRequests.LogicalVolumeRequestSpec)):
+                # if the volgroup is set to a string, we probably need
+                # to find that volgroup and use it's id
+                if type(req.volumeGroup) == type(""):
+                    r = partitions.getRequestByVolumeGroupName(req.volumeGroup)
+                    if r is not None:
+                        req.volumeGroup = r.uniqueID
+                    else:
+                        raise RuntimeError, "we got screwed"
+                        
             partitions.addRequest(req)
 
     # sanity checks for the auto partitioning requests; mostly only useful
@@ -1426,22 +1466,83 @@ def autoCreatePartitionRequests(autoreq):
 
     return requests
 
+def autoCreateLVMPartitionRequests(autoreq):
+    """Return a list of requests created with a shorthand notation using LVM.
+
+    Mainly used by installclasses; make a list of tuples of the form
+    (mntpt, fstype, minsize, maxsize, grow, format)
+    mntpt = None for non-mountable, otherwise is mount point
+    fstype = None to use default, otherwise a string
+    minsize = smallest size
+    maxsize = max size, or None means no max
+    grow = 0 or 1, should partition be grown
+    format = 0 or 1, whether to format
+    asvol = 0 or 1, whether or not it should be a logical volume
+    """
+
+    requests = []
+    nr = partRequests.PartitionSpec(fsset.fileSystemTypeGet("physical volume (LVM)"),
+                                    mountpoint = None,
+                                    size = 0,
+                                    maxSizeMB = None,
+                                    grow = 1,
+                                    format = 1,
+                                    multidrive = 1)
+    requests.append(nr)
+    # FIXME: need to make this name change since they could have an existing
+    # VolGroup00
+    nr = partRequests.VolumeGroupRequestSpec(fstype = None,
+                                             vgname = "VolGroup00",
+                                             physvols = [],
+                                             format = 1)
+    requests.append(nr)
+
+    volnum = 0
+    for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
+        if fstype:
+            ptype = fsset.fileSystemTypeGet(fstype)
+        else:
+            ptype = fsset.fileSystemTypeGetDefault()
+
+        if not asvol:
+            newrequest = partRequests.PartitionSpec(ptype,
+                                                    mountpoint = mntpt,
+                                                    size = minsize,
+                                                    maxSizeMB = maxsize,
+                                                    grow = grow,
+                                                    format = format)
+        else:
+            newrequest = partRequests.LogicalVolumeRequestSpec(ptype,
+                                                               mountpoint = mntpt,
+                                                               size = minsize,
+                                                               maxSizeMB = maxsize,
+                                                               grow = grow,
+                                                               format = format,
+                                                               lvname = "LogVol%02d" %(volnum,),
+                                                               volgroup = "VolGroup00")
+            volnum += 1
+
+        
+        requests.append(newrequest)
+
+    return requests
+
 def getAutopartitionBoot():
     """Return the proper shorthand for the boot dir (arch dependent)."""
     if iutil.getArch() == "ia64":
-        return [ ("/boot/efi", "vfat", 100, None, 0, 1) ]
+        return [ ("/boot/efi", "vfat", 100, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "pSeries"):
-        return [ (None, "PPC PReP Boot", 4, None, 0, 1),
-                 ("/boot", None, 100, None, 0, 1) ]
+        return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
+                 ("/boot", None, 100, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasIbmSis():
-        return [ (None, "PPC PReP Boot", 16, None, 0, 1) ]
+        return [ (None, "PPC PReP Boot", 16, None, 0, 1, 0) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasIbmSis():
         return []
     elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen == "NewWorld":
-        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1) , 
-                 ("/boot", None, 100, None, 0, 1) ]
+        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0) , 
+                 ("/boot", None, 100, None, 0, 1, 0) ]
     else:
-        return [ ("/boot", None, 100, None, 0, 1) ]
+        return [ ("/boot", None, 100, None, 0, 1, 0) ]
 
 def queryAutoPartitionOK(intf, diskset, partitions):
     type = partitions.autoClearPartType

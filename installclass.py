@@ -20,7 +20,7 @@ import language
 
 from instdata import InstallData
 from partitioning import *
-from autopart import getAutopartitionBoot, autoCreatePartitionRequests
+from autopart import getAutopartitionBoot, autoCreatePartitionRequests, autoCreateLVMPartitionRequests
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -512,19 +512,19 @@ class BaseInstallClass:
 
     def setDefaultPartitioning(self, partitions, clear = CLEARPART_TYPE_LINUX,
                                doClear = 1):
-        autorequests = [ ("/", None, 1024, None, 1, 1) ]
+        autorequests = [ ("/", None, 1024, None, 1, 1, 1) ]
 
         bootreq = getAutopartitionBoot()
         if bootreq:
             autorequests.extend(bootreq)
 
         (minswap, maxswap) = iutil.swapSuggestion()
-        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
+        autorequests.append((None, "swap", minswap, maxswap, 1, 1, 1))
 
         if doClear:
             partitions.autoClearPartType = clear
             partitions.autoClearPartDrives = []
-        partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        partitions.autoPartitionRequests = autoCreateLVMPartitionRequests(autorequests)
         
 
     def setInstallData(self, id, intf = None):
