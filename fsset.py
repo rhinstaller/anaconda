@@ -136,13 +136,23 @@ class FileSystemType:
     def registerDeviceArgumentFunction(self, klass, function):
         self.deviceArguments[klass] = function
 
-    def badblocksDevice(self, entry, progress, chroot='/'):
+    def badblocksDevice(self, entry, windowCreator, chroot='/'):
+        if windowCreator:
+            w = windowCreator(_("Checking for Bad Blocks"),
+                              _("Checking for bad blocks on /dev/%s...")
+                         % (entry.device.getDevice(),))
+        else:
+            w = None
+        
         devicePath = entry.device.setupDevice(chroot)
         args = [ "badblocks", "-vv", devicePath ]
         
         rc = iutil.execWithRedirect("/usr/sbin/badblocks", args,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
+
+        w and w.pop()
+        
         if rc:
             raise SystemError        
         
@@ -464,6 +474,7 @@ class FileSystemSet:
     def __init__(self):
         self.messageWindow = None
         self.progressWindow = None
+        self.waitWindow = None
         self.mountcount = 0
         self.reset()
 
@@ -475,6 +486,9 @@ class FileSystemSet:
         
     def registerProgressWindow(self, method):
         self.progressWindow = method
+
+    def registerWaitWindow(self, method):
+        self.waitWindow = method
 
     def reset (self):
         self.entries = []
@@ -734,7 +748,7 @@ class FileSystemSet:
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
 
     def badblocksEntry(self, entry, chroot):
-        entry.fsystem.badblocksDevice(entry, self.progressWindow, chroot)
+        entry.fsystem.badblocksDevice(entry, self.waitWindow, chroot)
         
     def getMigratableEntries(self):
         retval = []

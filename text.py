@@ -341,6 +341,7 @@ class InstallInterface:
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
+        id.fsset.registerWaitWindow(self.waitWindow)        
         parted.exception_set_handler(self.partedExceptionWindow)        
         
 	lastrc = INSTALL_OK
