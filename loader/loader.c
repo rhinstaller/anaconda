@@ -1016,7 +1016,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 static char * setupKickstart(char * location, struct knownDevices * kd,
     		             moduleInfoSet modInfo,
 			     moduleList modLoaded,
-		             moduleDeps modDeps, int flags) {
+		             moduleDeps modDeps, int * flagsPtr) {
     static struct networkDeviceConfig netDev;
     char * host = NULL, * dir = NULL, * partname = NULL;
     char * url = NULL, * proxy = NULL, * proxyport = NULL;
@@ -1026,6 +1026,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     int ksArgc;
     int ksType;
     int i, rc, fd, partNum;
+    int flags = *flagsPtr;
     enum deviceClass ksDeviceType;
     struct poptOption * table;
     poptContext optCon;
@@ -1087,6 +1088,9 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     if (!ksGetCommand(KS_CMD_XDISPLAY, NULL, &ksArgc, &ksArgv)) {
 	setenv("DISPLAY", ksArgv[1], 1);
     }
+
+    if (!ksGetCommand(KS_CMD_TEXT, NULL, &ksArgc, &ksArgv))
+	(*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TESTING;
 
     if (table) {
 	ksGetCommand(ksType, NULL, &ksArgc, &ksArgv);
@@ -1408,7 +1412,7 @@ logMessage("Flags are 0x%x\n", flags);
     if (ksFile) {
 	ksReadCommands(ksFile);
 	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
-			     flags);
+			     &flags);
     }
 
     if (!url) {
