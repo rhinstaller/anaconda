@@ -642,13 +642,30 @@ Section "Screen"
     EndSubsection
 EndSection
 
-# The accelerated server
-    Section "Screen"
-    Driver      "%(DRIVER)s"
+# The accelerated svga server
+Section "Screen"
+    Driver      "svga"
     Device      "%(DEVICE)s"
     Monitor     "%(MONITOR)s"
 """ % info
-#    for depth in self.depths:
+        for depth in self.modes.keys ():
+            section = section + """
+    Subsection "Display"
+        Depth       %s
+        Modes       """ % depth
+            for res in self.modes[depth]:
+                section = section + '"' + res + '" '
+            section = section + """
+        ViewPort    0 0
+    EndSubsection
+"""
+        section = section + """
+# Other accelerated servers
+Section "Screen"
+    Driver      "accel"
+    Device      "%(DEVICE)s"
+    Monitor     "%(MONITOR)s"
+""" % info
         for depth in self.modes.keys ():
             section = section + """
     Subsection "Display"
