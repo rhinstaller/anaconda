@@ -13,6 +13,10 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import os
+os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
+os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
+
 from gtk import *
 from gtk import _root_window
 import GDK

@@ -477,8 +477,8 @@ class PartitionRequests:
         self.deletes = []
         # identifier used for raid partitions
         self.nextUniqueID = 1
-#        if diskset:
-#            self.setFromDisk(diskset)
+        if diskset:
+            self.setFromDisk(diskset)
 
 
     def setFromDisk(self, diskset):

@@ -14,8 +14,6 @@
 #
 
 import os
-os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
-os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 # msw says this is a good idea
 os.environ["LC_ALL"] = "C"
 
