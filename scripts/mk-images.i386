@@ -38,7 +38,7 @@ LOCALMODULES="$COMMONMODULES AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray
 	    aacraid aic7xxx BusLogic qlogicisp advansys eata_dma"
 NETWORKMODULES="$COMMONMODULES 3c59x 3c90x ac3200 at1700 de4x5 de600 de620
 	       depca dgrs eepro100 eepro hp-plus hp hp100 ibmtr ni52
-	       old_tulip tulip ne nfs vfat"
+	       old_tulip tulip rtl8139 ne nfs vfat"
 
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2000 \
