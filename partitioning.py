@@ -90,6 +90,20 @@ def get_partition_name(partition):
     return "%s%d" % (partition.geom.disk.dev.path[5:],
                      partition.num)
 
+def get_partition_file_system_type(part):
+    if part.fs_type.name == "linux-swap":
+        ptype = fileSystemTypeGet("swap")
+    elif part.fs_type.name == "FAT":
+        ptype = fileSystemTypeGet("vfat")
+    else:
+        try:
+            ptype = fileSystemTypeGet(part.fs_type.name)
+        except:
+            ptype = fileSystemTypeGet("foreign")
+
+    return ptype
+    
+
 def get_partition_drive(partition):
     return "%s" %(partition.geom.disk.dev.path[5:])
 
@@ -257,13 +271,14 @@ def isMountPointInUse(reqpartitions, newrequest):
                 if used:
                     return _("The mount point %s is already in use, please "
                              "choose a different mount point." %(mntpt))
-
-
     return None
 
 def doMountPointLinuxFSChecks(newrequest):
     mustbeonroot = ['/bin','/dev','/sbin','/etc','/lib','/root','/mnt']
     mustbeonlinuxfs = ['/', '/boot', '/var', '/tmp', '/usr', '/home']
+
+    if not newrequest.mountpoint:
+        return None
 
     if newrequest.fstype.isLinuxNativeFS():
         if newrequest.mountpoint in mustbeonroot:
@@ -365,7 +380,7 @@ class DeleteSpec:
 
 class PartitionSpec:
     def __init__(self, fstype, requesttype = REQUEST_NEW,
-                 size = None, grow = 0, maxSize = 0,
+                 size = None, grow = 0, maxSize = None,
                  mountpoint = None,
                  start = None, end = None, partnum = None,
                  drive = None, primary = None, secondary = None,
@@ -410,6 +425,9 @@ class PartitionSpec:
         # there has to be a way to go from device -> drive... but for now
         self.currentDrive = None
 
+        # unique id for each request
+        self.uniqueID = None
+
     def __str__(self):
         if self.fstype:
             fsname = self.fstype.getName()
@@ -420,7 +438,7 @@ class PartitionSpec:
             for i in self.raidmembers:
                 raidmem.append(get_partition_name(i.partition))
                 
-        return "mountpoint: %s   type: %s\n" %(self.mountpoint, fsname) +\
+        return "mountpoint: %s   type: %s   uniqueID:%s\n" %(self.mountpoint, fsname, self.uniqueID) +\
                "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSize) +\
                "  start: %s   end: %s   partnum: %s\n" %(self.start, self.end, self.partnum) +\
                "  drive: %s   primary: %s  secondary: %s\n" %(self.drive, self.primary, self.secondary) +\
@@ -455,12 +473,11 @@ class PartitionRequests:
     def __init__ (self, diskset = None):
         self.requests = []
         self.deletes = []
+        # identifier used for raid partitions
+        self.nextUniqueID = 1
         if diskset:
             self.setFromDisk(diskset)
 
-        # identifier used for raid partitions
-        self.maxcontainer = 1
-            
 
     def setFromDisk(self, diskset):
         self.deletes = []
@@ -483,17 +500,10 @@ class PartitionRequests:
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = None
                 elif part.fs_type:
+                    ptype = get_partition_file_system_type(part)
                     if part.fs_type.name == "linux-swap":
-                        ptype = fileSystemTypeGet("swap")
                         # XXX this is a hack
                         format = 1
-                    elif part.fs_type.name == "FAT":
-                        ptype = fileSystemTypeGet("vfat")
-                    else:
-                        try:
-                            ptype = fileSystemTypeGet(part.fs_type.name)
-                        except:
-                            ptype = fileSystemTypeGet("foreign")
                 else:
                     ptype = None
                     
@@ -511,6 +521,8 @@ class PartitionRequests:
                 part = disk.next_partition(part)
 
     def addRequest (self, request):
+        request.uniqueID = self.nextUniqueID + 1
+        self.nextUniqueID = self.nextUniqueID + 1
         self.requests.append(request)
         self.requests.sort()
 
