@@ -1,3 +1,24 @@
+2005-03-01  Peter Jones  <pjones@redhat.com>
+	* anaconda/isys/gzlib/binding.c anaconda/isys/devnodes.c
+	  anaconda/isys/lang.c anaconda/isys/isys.c anaconda/isys/pdc.c
+	  anaconda/isys/smp.c anaconda/isys/wireless.c
+	  anaconda/isys/eddsupport.c anaconda/loader2/loader.c
+	  anaconda/loader2/loadermisc.c anaconda/loader2/modules.c
+	  anaconda/loader2/moduledeps.c anaconda/loader2/lang.c
+	  anaconda/loader2/driverdisk.c anaconda/loader2/mediacheck.c
+	  anaconda/loader2/method.c anaconda/loader2/cdinstall.c
+	  anaconda/loader2/telnet.c anaconda/loader2/telnetd.c
+	  anaconda/loader2/init.c anaconda/utils/snarffont.c
+	  anaconda/isomd5sum/libimplantisomd5.c
+	  anaconda/isomd5sum/libcheckisomd5.c anaconda/xutils.c:
+	silence some gcc4 warnings that stop the build
+	* anaconda/isys/Makefile anaconda/isys/Makefile anaconda/Makefile
+	  anaconda/utils/Makefile anaconda/loader2/Makefile
+	  anaconda/stubs/Makefile anaconda/isomd5sum/Makefile:
+	use -D_FORTIFY_SOURCE=2, build genhdlist.o with -Wno-return-type
+	as a temporary fix for a gcc4 warning
+	* anaconda.spec: Bump version
+	
 2005-03-01  Chris Lumens  <clumens@redhat.com>
 
 	* loader2/driverdisk.c:  Fix nested case statements in a switch to
