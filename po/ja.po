@@ -910,7 +910,7 @@ msgstr "マウスタイプを検出中..."
 
 #: ../xserver.py:189
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
+msgstr "Xサーバの起動を待ち中...ログは/tmp/X.logに置かれます\n"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1987,9 +1987,8 @@ msgid "A few systems will need to pass special options to the kernel at boot tim
 msgstr "システムが正しく機能するためには、起動時にカーネルに対して特別なオプションを渡す必要がある場合があります。カーネルにブートオプションを渡す必要がある場合には、ここで入力して下さい。オプションが必要ないか、または不明な場合には、空白にしておいて下さい。"
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "スキップ"
+msgstr "LILOをスキップ"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -1997,6 +1996,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"あなたはLILOをインストールしないように選択しましたが、何らかの理由がない限り、LILOをインストールすることを強く推奨します。LILOはハードディスクからLinuxを直接起動するほとんどの場合に必要となります。\n"
+"\n"
+"本当にLILOインストールを省略しますか?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -3763,7 +3765,7 @@ msgstr "ユーティリティ"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 #, fuzzy
