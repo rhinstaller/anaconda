@@ -13,7 +13,10 @@ class UpgradeExamineWindow (InstallWindow):
             self.root = part
 
     def getNext (self):
+        threads_leave ()
         self.todo.upgradeFindPackages (self.root)
+        threads_enter ()
+        
         if self.individualPackages.get_active ():
             return IndividualPackageSelectionWindow
         return None
@@ -23,7 +26,7 @@ class UpgradeExamineWindow (InstallWindow):
         parts = self.todo.upgradeFindRoot ()
         threads_enter ()
 
-	box = GtkHBox (FALSE)
+	box = GtkVBox (FALSE)
         if not parts:
             box.pack_start (GtkLabel ("You don't have any Linux partitions.\n You can't upgrade this sytem!"),
                             FALSE)
@@ -38,10 +41,12 @@ class UpgradeExamineWindow (InstallWindow):
             box.pack_start (group, FALSE)
 
         sw = GtkScrolledWindow ()
+        sw.set_border_width (5)
+        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
         sw.add_with_viewport (box)
 
         vbox = GtkVBox (FALSE, 5)
-        self.individualPackages = GtkCheckButton ("Customized packages to be upgraded")
+        self.individualPackages = GtkCheckButton ("Customize packages to be upgraded")
         self.individualPackages.set_active (FALSE)
         align = GtkAlignment (0.5, 0.5)
         align.add (self.individualPackages)
