@@ -90,8 +90,8 @@ class MouseWindow (InstallWindow):
         # XXX
         # IntelliMouse requires a full mouse reinit - X does not
         # handle this properly from the mouse extention at this time
-        # so leave it a PS/2.
-        if not xdev == "IMPS/2":
+        # so leave it alone
+        if not xdev == "IMPS/2" and not xdev == "IntelliMouse":
             curmouse[1] = xdev
         curmouse[6] = emulate
         apply (xmouse.set, curmouse)
