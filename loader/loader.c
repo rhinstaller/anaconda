@@ -2473,6 +2473,7 @@ logMessage("getting ready to spawn shell now");
 	    } while (rc);
 	}
 	*argptr++ = "/bin/sh";
+	printf("Loading rescue command shell on VC2 - use ALT-F2 to use\n");
     } else {
 	if (!access("./anaconda", X_OK))
 	    *argptr++ = "./anaconda";
