@@ -977,7 +977,8 @@ class ToDo:
                         try:
                             isys.mount('/tmp/' + dev, '/mnt/sysimage')
                         except SystemError, (errno, msg):
-                            self.intf.messageWindow(_("Error"), _("Error mounting %s: %s") % (device, msg))
+                            self.intf.messageWindow(_("Error"),
+                                                    _("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
                         if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
                             rootparts.append (dev)
                         isys.umount('/mnt/sysimage')
