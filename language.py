@@ -88,7 +88,8 @@ class InstallTimeLanguage:
 	    if (nick == lang) or (nick == lang[0:len(nick)]):
 		return langName
 
-	raise KeyError, "language %s not found" % lang
+        #raise KeyError, "language %s not found" % lang
+        return self.getLangNameByNick("en_US")
 
     def getDefaultKeyboard(self):
 	return self.kbd[self.getCurrent()]
@@ -205,7 +206,8 @@ class Language (SimpleConfigFile):
 	    if (nick == lang) or (nick == lang[0:len(nick)]):
 		return langName
 
-	raise KeyError, "language %s not found" % nick
+#	raise KeyError, "language %s not found" % nick
+        return self.getLangNameByNick("en_US")
 
     def getLangNickByName(self, name):
 	(lang, map, font) = self.langInfoByName[name]
