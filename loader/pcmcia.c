@@ -1,16 +1,23 @@
+#include <fcntl.h>
+#include <newt.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/wait.h>
 #include <unistd.h>
 
+#include "../isys/imount.h"
 #include "../isys/isys.h"
 
+#include "lang.h"
+#include "loader.h"
 #include "log.h"
 #include "modules.h"
+#include "windows.h"
 
 int probe_main (int argc, char ** argv);
 int cardmgr_main (int argc, char ** argv);
 
-void startPcmcia(moduleList modLoaded, moduleDeps modDeps,
+int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 		 moduleInfoSet modInfo, int flags) {
     pid_t child;
     char * probeArgs[] = { "/sbin/probe", NULL };
@@ -21,6 +28,9 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps,
     int i, status;
     char * pcic = NULL;
     char * line = NULL;
+    int rc;
+    char * title = _("PC Card"); 
+    char * text = _("Initializing PC Card Devices...");
 
     logMessage("in startPcmcia()");
 
@@ -62,24 +72,77 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps,
     if (!pcic)
     {
 	logMessage("no pcic controller found");
-	return;
+	return 0;
     }
+
     logMessage("need to load %s", pcic);
 
+    winStatus(40, 3, title, text);
     if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, 
 		     NULL, modInfo, flags)) {
-	logMessage("failed to load pcmcia_core");
-	return;
+	logMessage("failed to load pcmcia_core -- ask for pcmciadd");
+	rc = 1;
+	newtPopWindow();
+    } else {
+	rc = 0;
     }
+
+    while (rc) {
+	rc = newtWinChoice(_("PCMCIA"), _("OK"), _("Cancel"),
+		      _("Please insert your PCMCIA driver disk "
+			"into your floppy drive now."));
+	if (rc == 2) return LOADER_BACK;
+
+	devMakeInode(floppyDevice, "/tmp/floppy");
+
+	rc = 1;
+	if (doPwMount("/tmp/floppy", "/modules", "ext2", 1, 0, NULL, 
+		      NULL)) {
+	    newtWinMessage(_("Error"), _("OK"), _("Failed to mount disk."));
+	} else {
+	    int fd;
+
+	    fd = open("/modules/rhdd-6.1", O_RDONLY);
+	    if (fd >= 0) {
+		char buf[20];
+		int i;
+
+		i = read(fd, buf, 20);
+		buf[9] = '\0';
+		logMessage("read %s", buf);
+		if (i == 9 && !strcmp(buf, "rhpcmcia\n")) {
+		    winStatus(40, 3, title, text);
+		    if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, 
+				     NULL, modInfo, flags)) {
+			newtPopWindow();
+			newtWinMessage(_("Error"), _("OK"),
+				_("That floppy does not look like a "
+				  "Red Hat PCMCIA driver disk."));
+		    }
+
+		    rc = 0;
+		}
+
+		close(fd);
+	    }
+
+	    if (rc)
+		umount("/modules");
+	}
+    }
+
     if (mlLoadModule(pcic, NULL, modLoaded, modDeps, NULL, 
 		     modInfo, flags)) {
 	logMessage("failed to load pcic");
-	return;
+	umount("/modules");
+	return LOADER_ERROR;
     }
+
     if (mlLoadModule("ds", NULL, modLoaded, modDeps, NULL, 
 		     modInfo, flags)) {
 	logMessage("failed to load ds");
-	return;
+	umount("/modules");
+	return LOADER_ERROR;
     }
 
     if (!(child = fork())) {
@@ -91,4 +154,9 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps,
     waitpid(child, &status, 0);
 
     logMessage("cardmgr returned 0x%x", status);
+
+    newtPopWindow();
+    umount("/modules");
+    
+    return 0;
 }
