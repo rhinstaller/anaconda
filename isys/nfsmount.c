@@ -67,6 +67,7 @@ static char *nfs_strerror(int stat);
 
 #define ERROR_CONNECT -50
 #define ERROR_HOSTNAME -51
+#define HAVE_NFSV3 1
 
 static int myerror = 0;
 

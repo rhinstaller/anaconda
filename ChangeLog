@@ -1,5 +1,10 @@
 2004-10-01  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/nfsmount.c (HAVE_NFSV3): Let's use NFSv3.  Will fix using
+	the DVD iso via nfsiso (#122032)
+
+	* loader2/module-info: Fix megaraid_mbox module name (#134369)
+
 	* loader2/driverdisk.c: Another uninitialized variable (#133996)
 
 	* scripts/upd-instroot (PACKAGESGR): Actually add the zh_CN fonts
