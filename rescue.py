@@ -26,9 +26,6 @@ from rhpl.log import log
 from rhpl.translate import _
 
 class RescueInterface:
-    def progressWindow(self, title, text, total):
-        return ProgressWindow(self.screen, title, text, total)
-
     def waitWindow(self, title, text):
 	return WaitWindow(self.screen, title, text)
 
