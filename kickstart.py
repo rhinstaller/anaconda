@@ -629,6 +629,7 @@ class KickstartBase(BaseInstallClass):
                         id.handleDeps = IGNORE_DEPS
                 
 		where = "packages"
+                self.skipSteps.append("package-selection")
 	    else:
                 # if we're parsing the %pre and not in the pre, continue
                 if parsePre and where != "pre":
@@ -1081,7 +1082,6 @@ class KickstartBase(BaseInstallClass):
 	dispatch.skipStep("bootdisk")
         dispatch.skipStep("welcome")
         dispatch.skipStep("betanag")
-        dispatch.skipStep("package-selection")
         dispatch.skipStep("confirminstall")
         dispatch.skipStep("confirmupgrade")
         dispatch.skipStep("network")
