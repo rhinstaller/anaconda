@@ -53,9 +53,9 @@ mkdir -p $TOPDESTPATH/images
 cat > $TOPDESTPATH/images/README <<EOF
 
 The files in this directory are raw disk images.  Some are boot disks
-for booting into the Red Hat Linux Installation Program.  The others
-are driver disks to support loading the Installation Program from less
-common hardware.
+for booting the Red Hat Linux installation program.  Others are driver
+disks to support loading the installation program from less common
+hardware.
 
 Follow the instructions in the Red Hat Linux Installation Guide,
 Chapter 2, section "Making Installation Disks" to create the disks.
