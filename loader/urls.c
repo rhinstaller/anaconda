@@ -161,7 +161,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	      "\n"
 	      "    o the name or IP number of your FTP server\n" 
 	      "    o the directory on that server containing\n" 
-	      "      Red Hat Linux for your architecure\n"),
+	      "      Red Hat Linux for your architecture\n"),
 	    47, 5, 5, &width, &height);
 	break;
     case URL_METHOD_HTTP:
@@ -170,7 +170,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	      "\n"
 	      "    o the name or IP number of your web server\n" 
 	      "    o the directory on that server containing\n" 
-	      "      Red Hat Linux for your architecure\n"), 
+	      "      Red Hat Linux for your architecture\n"), 
 	    47, 5, 5, &width, &height);
 	break;
     }
