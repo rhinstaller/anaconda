@@ -30,7 +30,7 @@ class LiloAppendWindow:
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
 
-	grid = GridForm(screen, _("LILO Configuration"), "kernelopts", 1, 4)
+	grid = GridFormHelp(screen, _("LILO Configuration"), "kernelopts", 1, 4)
 	grid.add(t, 0, 0)
 	grid.add(cb, 0, 1, padding = (0, 1, 0, 1))
 	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
