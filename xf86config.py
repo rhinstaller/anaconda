@@ -42,6 +42,8 @@ class XF86Config:
 	    self.keyLayout = kbd.layout
         self.keyVariant = ""
         self.keyOptions = ""
+        self.monlist = {}
+        self.monids = {}
         
     def setKeyboard (self, rules, model, layout, variant, options):
         self.keyRules = rules
@@ -126,7 +128,8 @@ class XF86Config:
         return cards
 
     def monitors (self, lines = None):
-        monitors = {}
+        if self.monlist:
+            return self.monlist
         if not lines:
             db = open ('/usr/X11R6/share/Xconfigurator/MonitorsDB')
             lines = db.readlines ()
@@ -144,11 +147,12 @@ class XF86Config:
             eisa = string.strip(fields[2])
             vert = string.strip(fields[3])
             horiz = string.strip(fields[4])
-            if monitors.has_key(man):
-                monitors[man].append((model, eisa, vert, horiz))
+            if self.monlist.has_key(man):
+                self.monlist[man].append((model, eisa, vert, horiz))
             else:
-                monitors[man] = [(model, eisa, vert, horiz)]
-        return monitors
+                self.monlist[man] = [(model, eisa, vert, horiz)]
+            self.monids[eisa] = (man, model, eisa, vert, horiz)
+        return self.monlist
 
     def setMonitor (self, (monitor, (hrange, vrange))):
         self.monName = monitor
@@ -196,6 +200,7 @@ class XF86Config:
 
         # VESA probe for monitor/videoram, etc.
         if probeMonitor:
+            self.monitors()
 	    try:
 		probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
 		for line in probe:
@@ -221,6 +226,15 @@ class XF86Config:
 
 		    if self.vidCards and self.cardMan:
 			self.vidCards[self.primary]["VENDOR"] = self.cardMan
+                if self.monEisa:
+                    # read the monitor DB
+                    self.monitors()
+                    if self.monids.has_key (self.monEisa):
+                        (man, model, eisa, vert, horiz) = self.monids[self.monEisa]
+                        self.monName = model
+                        self.monID = model
+                        self.monHoriz = horiz
+                        self.monVert = vert
 	    except:
 		pass
 	    if not self.vidRam and self.device:
