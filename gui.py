@@ -1,6 +1,6 @@
 import os
 os.environ["PYGTK_FATAL_EXCEPTIONS"] = "1"
-os.environ["GNOME_DISABLE_CRASH_DIALOG=1"] = "1"
+os.environ["GNOME_DISABLE_CRASH_DIALOG"] = "1"
 from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
