@@ -46,9 +46,8 @@ int main(int argc, char ** argv) {
     while ((mod = poptGetArg(optCon))) {
         list = mlGetDeps(ml, mod);
 	if (list) {
-	    printf("%s: ", mod);
 	    for (l = list; *l; l++)
-	        printf("%s", *l);
+	        printf("%s%s", l == list ? "" : " ", *l);
 	    printf("\n");
 	}
     }
