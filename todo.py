@@ -1185,9 +1185,9 @@ class ToDo:
 	    return -1
 	elif one > two:
 	    return 1
-	elif first['name'] < second['name']:
+	elif string.tolower(first['name']) < string.tolower(second['name']):
 	    return -1
-	elif first['name'] > second['name']:
+	elif string.tolower(first['name']) > string.tolower(second['name']):
 	    return 1
 
 	return 0
