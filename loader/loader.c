@@ -1012,8 +1012,7 @@ static char * mountNfsImage(struct installMethod * method,
 	    stage = NFS_STAGE_NFS;
 
 	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
-		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
-			    X_OK)) {
+		if (!access("/mnt/source/RedHat/base/stage2.img", X_OK)) {
 		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
 				       "/mnt/runtime", "loop0")) {
 			stage = NFS_STAGE_DONE;
