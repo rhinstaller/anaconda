@@ -94,7 +94,8 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
     for (i = 0; i < 4; i++) {
 	if (!singleTable.parts[i].size) continue;
 
-	if (singleTable.parts[i].type == DOSP_TYPE_EXTENDED) {
+	if (singleTable.parts[i].type == DOSP_TYPE_EXTENDED ||
+	    singleTable.parts[i].type == WINP_TYPE_EXTENDED) {
 	    if (gotExtended) return BALKAN_ERROR_BADTABLE;
 	    gotExtended = 1;
 

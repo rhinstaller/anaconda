@@ -107,6 +107,7 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     char * reflowedText = NULL;
     int width, height, len;
     newtGrid entryGrid, buttons, grid;
+    char * chptr;
 
     if (ui->address) {
 	site = ui->address;
@@ -207,7 +208,14 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 			       _("You must enter a directory."));
 		continue;
 	    }
+
+	    if (!addrToIp(site)) {
+		newtWinMessage(_("Unknown Host"), _("Ok"),
+			_("%s is not a valid hostname."), site);
+		continue;
+	    }
 	}
+
 	break;
     } while (1);
     
@@ -223,6 +231,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 
     if (ui->prefix) free(ui->prefix);
     ui->prefix = strdup(dir);
+
+    /* Get rid of trailing /'s */
+    chptr = ui->prefix + strlen(ui->prefix) - 1;
+    while (chptr > ui->prefix && *chptr == '/') chptr--;
+    chptr++;
+    *chptr = '\0';
 
     if (ui->urlprefix) free(ui->urlprefix);
     len = strlen(ui->address);
