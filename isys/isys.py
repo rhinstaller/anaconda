@@ -463,9 +463,30 @@ def parseArgv(str):
 def getopt(*args):
     return apply(_isys.getopt, args)
 
+def doProbeBiosDisks():
+    return _isys.biosDiskProbe()
+
+def doGetBiosDisk(mbrSig):
+    return _isys.getbiosdisk(mbrSig)
+
+biosdisks = {}
+for d in range(80, 80 + 15):
+    disk = doGetBiosDisk("%d" %(d,))
+    print "biosdisk of %s is %s" %(d, disk)
+    if disk is not None:
+        biosdisks[disk] = d
+
 def compareDrives(first, second):
     type1 = first[0:2]
     type2 = second[0:2]
+
+    if biosdisks.has_key(first) and biosdisks.has_key(second):
+        one = biosdisks[first]
+        two = biosdisks[second]
+        if (one < two):
+            return -1
+        elif (one > two):
+            return 1
 
     if type1 == "hd":
 	type1 = 0
@@ -724,13 +745,6 @@ def resetFileContext(fn):
 
 def startBterm():
     return _isys.startBterm()
-
-def doProbeBiosDisks():
-    return _isys.biosDiskProbe()
-
-def doGetBiosDisk(mbrSig):
-    return _isys.getbiosdisk(mbrSig)
-
 
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset
