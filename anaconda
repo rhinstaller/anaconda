@@ -44,7 +44,7 @@ setverPath = None
 
 try:
     (args, extra) = isys.getopt(sys.argv[1:], 'GTRxtdr:fm:', 
-          [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug',
+          [ 'gui', 'text', 'reconfig', 'xmode', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
@@ -86,6 +86,7 @@ if iutil.getArch() == 'ia64':
 # forceMount     - ? used ?
 # localInstall   - install to chroot
 # reconfigOnly   - allow user to reconfig installed box w/o reinstall
+# nofallback     - don't fall back to text mode on gui startup failure
 test = 0
 xmode = 0
 debug = 0
@@ -95,6 +96,7 @@ traceOnly = 0
 forceMount = 0
 localInstall = 0
 reconfigOnly = 0
+nofallback = 0
 
 #
 # x          - xserver info (?)
@@ -133,6 +135,8 @@ for n in args:
 	xmode = 1
     elif (str == '-t' or str == '--test'):
 	test = 1
+    elif (str == '--nofallback'):
+	nofallback = 1
     elif (str == '--module'):
 	(path, subdir, name) = string.split(arg, ":")
 	extraModules.append((path, subdir, name))
@@ -276,11 +280,14 @@ if (display_mode == 'g'):
                 os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
-    try:
+    if nofallback:
         from gui import InstallInterface
-    except:
-        print "GUI installer startup failed, falling back to text mode."
-        from text import InstallInterface
+    else:
+        try:
+            from gui import InstallInterface
+        except:
+            print "GUI installer startup failed, falling back to text mode."
+            from text import InstallInterface
 elif (display_mode == 't'):
     from text import InstallInterface
 else:

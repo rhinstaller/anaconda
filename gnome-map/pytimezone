@@ -1,9 +1,12 @@
 #!/usr/bin/python
 
+import sys
+sys.path.append ("../isys")
+from gnome.ui import *
+import isys
 import timezonemap
 from gtk import *
 import GdkImlib
-from gnome.ui import *
 
 class Map (GnomeCanvas):
     def __init__ (self, map):

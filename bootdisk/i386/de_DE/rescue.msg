@@ -1,17 +1,15 @@
 
 
-                      09Hilfe zum Rettungsmodus07
+                        09Hilfe zum Rettungsmodus07
 
-Die 0cRed Hat07 Linux CD-ROM beinhaltet einen Rettungsmodus, welcher 
-benutzt werden kann, wenn das System nicht mehr ordentlich hochfährt
-Der Rettungsmodus enthält viele nützliche Dienstprogramme (Editor, Festplatten
-und Raid Tools, etc.), die Ihnen erlauben das System wieder in einen 
-arbeitsfähigen Zustand zu versetzen.
+Die 0cRed Hat07 Linux CD-ROM stellt Ihnen einen Rettungsmodus zur Verfgung,
+der dann verwendet werden sollte, wenn Ihr System nicht richtig bootet. Der
+Rettungsmodus stellt Ihnen viele ntzliche Dienstprogramme zur Verfgung
+(Editor, Tools fr Festplatte und RAID-Ger„te usw.), mit denen Sie Ihr System
+wieder in einen funktionierenden Zustand versetzen k”nnen.
 
-Um den Rettungsmodus zu aktivieren, booten Sie Ihr System von der 
-0cRed Hat07 Linux CDROM und geben Sie 0flinux rescue <ENTER>07 ein.
-
-
+Um den Rettungsmodus aufzurufen, booten Sie Ihr System von der
+0cRed Hat07 Linux CD-ROM und geben 0flinux rescue <EINGABETASTE>07 ein.
 
 
 
@@ -21,4 +19,6 @@ Um den Rettungsmodus zu aktivieren, booten Sie Ihr System von der
 
 
 
-05[F1-Hauptmen] [F2-Generelles] [F3-Experten] [F4-Kernel] [F5-Rettung]07
+
+
+05[F1-Hauptbildschirm] [F2-Allgemein] [F3-Expertenmodus] [F4-Kernel] [F5-Rettung]07

@@ -1,24 +1,24 @@
 
+                      09Hilfe zu Kernel-Parametern07
 
-                     09Kernel-Parameter-Hilfe07
+Sie k”nnen einige Kernel-Parameter von der Befehlszeile aus eingeben. Diese
+Parameter werden dann an den zu startenden Kernel bergeben. Hierzu z„hlen
+jedoch keine Optionen fr Module wie Ethernet-Karten oder Ger„te wie
+CD-ROM-Laufwerke.
 
-Einige Kernel-Parameter k”nnen an der Kommandozeile angegeben werden, die
-dann dem laufenden Kernel bergeben werden. Parameter fr Module (wie z.B.
-Ethernet-Karten oder CD-ROM-Laufwerke) k”nnen nicht bergeben werden.
+Um eine Option an den Kernel zu bergeben, verwenden Sie das folgende Format:
+     0flinux <Optionen>07
+Wenn Sie einen anderen Installationsmodus verwenden m”chten, geben Sie diesen
+nach den Optionen an.
 
-Um den Kernel mit Parametern zu starten, benutzen Sie das folgende Format:
-     0flinux <Parameter>07
-Wenn ein anderer Modus gebraucht wird, geben Sie ihn nach den Parametern
-an.
-
-Um zum Beispiel ein System mit 128 MB RAM im Expertenmodus zu starten,
-verwenden Sie:
+Um beispielsweise auf einem System mit 128 MB RAM eine Installation im
+Expertenmodus durchzufhren, geben Sie folgenden Befehl ein:
      0flinux mem=128M expert07
 
-Um Parameter an Module zu bergeben, mssen Sie den Expertenmodus verwenden,
-um die PCI Hardwareerkennung abzuschalten. Wenn die Installation nach dem 
-Ger„tetyp fragt, der einen Parameter braucht, k”nnen die Parameter 
-dann eingegeben werden.
+Um Optionen an Module zu bergeben, mssen Sie den Expertenmodus verwenden,
+da in diesem Modus die automatische Erkennung von Ger„ten am PCI-Bus nicht
+aktiviert ist. Wenn Sie vom Installationsprogramm nach dem Ger„tetyp gefragt
+werden, dem Sie Optionen oder Parameter bergeben m”chten, geben Sie diese
+einfach in das hierfr vorgesehene Feld ein. 
 
-
-05[F1-Hauptmen] [F2-Generelles] [F3-Experten] [F4-Kernel] [F5-Rettung]07
+05[F1-Hauptbildschirm] [F2-Allgemein] [F3-Expertenmodus] [F4-Kernel] [F5-Rettung]07

@@ -35,7 +35,7 @@ class XCustomWindow (InstallWindow):
                 if button.get_active ():
                     newmodes[depth].append (res)
 
-        self.todo.x.modes = newmodes
+        self.todo.x.setModes(newmodes)
         
     def testPressed (self, widget, *args):
         newmodes = {}
@@ -77,19 +77,23 @@ class XCustomWindow (InstallWindow):
              self.todo.x.monName == 'Sony GDM-W900')):
 	    self.todo.x.modes["8"].append("1920x1200")
 
+        available = self.todo.x.availableModes()
+        availableDepths = available.keys()
+        availableDepths.sort (self.numCompare)        
         depths = self.todo.x.modes.keys ()
         depths.sort (self.numCompare)
 
         self.toggles = {}
-        for depth in depths:
+        for depth in availableDepths:
             self.toggles[depth] = []
             vbox = GtkVBox (FALSE, 5)
             vbox.pack_start (GtkLabel (depth + _("Bits per Pixel")), FALSE)
-            for res in self.todo.x.modes[depth]:
+            for res in available[depth]:
                 button = GtkCheckButton (res)
                 self.toggles[depth].append (res, button)
                 vbox.pack_start (button, FALSE)
-                
+                if self.todo.x.modes.has_key(depth) and res in self.todo.x.modes[depth]:
+                    button.set_active(1)
             hbox.pack_start (vbox)
 
         

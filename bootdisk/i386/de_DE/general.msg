@@ -1,24 +1,24 @@
 
 
-                   09Generelle Hilfe zum Booten07
+                        09Allgemeine Hilfe zum Booten07
 
-Sie k”nnen das 0cRed Hat07 Linux-Installationsprogramm von dieser
-Eingabeaufforderung aus laden, und die Installation beginnen.  In den
-meisten F„llen ist es der beste Weg, einfach die 0f<ENTER>07-Taste
-zu drcken.
+Sie k”nnen das 0cRed Hat07 Linux Installationsprogramm von diesem Prompt
+aus laden und mit der Installation beginnen. In den meisten F„llen mssen
+Sie zum Starten lediglich die 0f<EINGABETASTE>07 drcken.
 
-Manche Hardwarekonfigurationen k”nnen w„hrend der Installation Probleme mit
-der automatischen Hardwareerkennung verursachen. Das ist selten, aber kommt
-gelegentlich vor. Falls Sie w„hrend der Installation Probleme haben,
-starten Sie die Installation im Expertenmodus neu. Drcken Sie 05<F3>07
-fr mehr Informationen zum Expertenmodus.
+Bei bestimmten Hardware-Konfigurationen k”nnen mit der automatischen Hardware-
+Erkennung bei der Installation Probleme auftreten. Dies ist zwar selten, kann
+aber mitunter vorkommen. Wenn Sie bei der Installation Probleme feststellen,
+mssen Sie die Installation im Expertenmodus neu starten. Drcken Sie 05<F3>07
+fr weitere Informationen ber den Expertenmodus.
 
-Es gibt viele Parameter, die dem Linux-Kernel beim Booten bergeben werden
-k”nnen. Parameter fr Ger„te wie CD-ROM-Laufwerke oder Ethernet-Karten
-geh”ren nicht dazu.
-Drcken Sie 05<F4>07 fr mehr Informationen.
+Beim Booten kann eine ganze Reihe von Parametern an den Linux-Kernel bergeben
+werden. Dazu z„hlen allerdings nicht Parameter fr Ger„te wie CD-ROM-Laufwerke
+oder Ethernet-Karten. Drcken Sie 05<F4>07 fr weitere Informationen. 
 
 
 
 
-05[F1-Hauptmen] [F2-Generelles] [F3-Experten] [F4-Kernel] [F5-Rettung]07
+
+
+05[F1-Hauptbildschirm] [F2-Allgemein] [F3-Expertenmodus] [F4-Kernel] [F5-Rettung]07

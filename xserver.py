@@ -155,13 +155,15 @@ def start_existing_X():
 	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
 	args.append("-fp")
 	args.append("/usr/X11R6/lib/X11/fonts/misc/,"
-	 		"/usr/X11R6/lib/X11/fonts/75dpi/,"
-			"/usr/X11R6/lib/X11/fonts/100dpi/,"
-			"/usr/X11R6/lib/X11/fonts/cyrillic/,"
-			"/usr/share/fonts/ISO8859-2/misc/,"
-			"/usr/share/fonts/ISO8859-2/75dpi/,"
-			"/usr/share/fonts/ISO8859-2/100dpi/")
-
+                    "/usr/X11R6/lib/X11/fonts/75dpi/,"
+                    "/usr/X11R6/lib/X11/fonts/100dpi/,"
+                    "/usr/X11R6/lib/X11/fonts/cyrillic/,"
+                    "/usr/share/fonts/ISO8859-2/misc/,"
+                    "/usr/share/fonts/ISO8859-2/75dpi/,"
+                    "/usr/share/fonts/ISO8859-2/100dpi/,"
+                    "/usr/share/fonts/KOI8-R/misc/,"
+                    "/usr/share/fonts/KOI8-R/75dpi/")
+                    
         print args
 	os.execv(serverPath, args)
 

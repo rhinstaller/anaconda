@@ -1,24 +1,25 @@
 
+ 
+              09Willkommen bei 0cRed Hat09 Linux 6.9!07
 
-               09Wilkommen bei 0cRed Hat09 Linux 6.2!07
+ o  Um eine grafische Installation oder Aktualisierung auf einem System
+    vorzunehmen, auf dem 0cRed Hat07 Linux 2.0 oder sp„ter ausgefhrt
+    wird, drcken Sie die 0f<EINGABETASTE>07.
+ o  Um eine textbasierte Installation oder Aktualisierung auf einem System
+    vorzunehmen, auf dem 0cRed Hat07 Linux 2.0 oder sp„ter ausgefhrt
+    wird, geben Sie Folgendes ein: 0ftext <EINGABETASTE>07.
+ o  Um den Expertenmodus zu aktivieren, geben Sie ein:
+0fexpert <EINGABETASTE>07.  Drcken Sie 05<F3>07, um weitere
+    Informationen ber den Expertenmodus zu erhalten.
+ o  Um den Rettungsmodus zu aktivieren, geben Sie ein:
+0flinux rescue <EINGABETASTE>07.  Drcken Sie 05<F5>07
+    fr weitere Informationen ber den Rettungsmodus.
+ o  Wenn Sie ber eine Treiberdiskette verfgen, geben Sie ein:
+0flinux dd <EINGABETASTE>07.
+ o  Durch Drcken der unten aufgefhrten Funktionstasten erhalten Sie
+    weitere Informationen.
 
- o  Um ein neues System im Grafikmodus zu installieren oder ein System,
-    auf dem 0cRed Hat07 Linux 2.0 oder h”her l„uft, im Grafikmodus
-    zu aktualisieren, drcken Sie die 0f<ENTER>07-Taste.
 
- o  Um ein System zu im Textmodus zu installieren oder ein System, auf dem
-    0cRed Hat07 Linux 2.0 oder h”her l„uft, im Textmodus zu aktualisieren,
-    geben Sie 0ftext <ENTER>07 ein.
 
- o  Um den Expertenmodus zu verwenden, geben Sie 0fexpert <ENTER>07 ein.
-    Drcken Sie 05<F3>07 fr mehr Informationen zum Expertenmodus.
+05[F1-Hauptbildschirm] [F2-Allgemein] [F3-Expertenmodus] [F4-Kernel] [F5-Rettung]07
 
- o  Um den Rettungsmodus zu verwenden, geben Sie 0frescue <ENTER>07 ein.
-    Drcken Sie 05<F5>07 fr mehr Informationen zum Rettungsmodus.
-
- o  Wenn Sie eine Treiberdiskette haben, geben Sie 0flinux dd <ENTER>07 ein.
-
- o  Benutzen Sie die unten aufgefhrten Funktionstasten, um mehr Informationen
-    zu erhalten.
-
-05[F1-Hauptmen] [F2-Generelles] [F3-Experten] [F4-Kernel] [F5-Rettung]07
