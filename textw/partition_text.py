@@ -400,6 +400,7 @@ class PartitionWindow:
                 
 
             # primary
+            # XXX need to see if cylinder range is in extended or not
             row = row + 1
             primary = Checkbox(_("Force to be a primary partition"))
             poplevel.add(primary, 0, row, (0,1,0,0))
