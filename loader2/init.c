@@ -478,7 +478,7 @@ int main(int argc, char **argv) {
 
     printstr("Greetings.\n");
 
-    printf("anaconda install init version %s starting\n", VERSION);
+    printf("anaconda installer init version %s starting\n", VERSION);
 
     printf("mounting /proc filesystem... "); 
     if (!testing) {
@@ -518,7 +518,7 @@ int main(int argc, char **argv) {
     if (isSerial) {
 	char *device = "/dev/ttyS0";
 
-	printf("anaconda install init version %s using a serial console\n", 
+	printf("anaconda installer init version %s using a serial console\n", 
 		VERSION);
 
 	printf("remember, cereal is an important part of a nutritionally "
