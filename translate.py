@@ -1,5 +1,5 @@
 #
-# translate.py - resistant global gettext service for anaconda
+# translate.py - persistent global gettext service for anaconda
 #
 # Matt Wilson <msw@redhat.com>
 #
