@@ -108,7 +108,7 @@ if __name__ == "__main__":
     textWin.connect("response", relnotes_closed)
     vbox1 = gtk.VBox ()        
     vbox1.set_border_width (10)
-    frame = gtk.Frame (_("Release Notes"))
+    frame = gtk.Frame ("")
     frame.add(vbox1)
     frame.set_label_align (0.5, 0.5)
     frame.set_shadow_type (gtk.SHADOW_NONE)
