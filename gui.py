@@ -394,15 +394,8 @@ class InstallControlWindow:
 
         self.window.reset_rc_styles ()
 
-        # XXX recreate html widget to set new locale
-        # there has to be a better way to do this, but I
-        # can't find it.  I try html.set_font_charset, but
-        # it screws everything up.
-        self.box.remove(self.html)
-        self.html = GtkXmHTML()
-        self.box.add (self.html)
-        self.html.show ()
-        self.html.source (self.currentScreen.getICS ().getHTML ())
+        locale = self.todo.instTimeLanguage.getLangNick(lang)
+        self.html.set_font_charset (locale)
 
         # get the labels
         for (button, text) in [ (self.nextButtonStock, _("Next")),
