@@ -1,14 +1,30 @@
 include ../Makefile.inc
 
-all:	
-	gcc -c -O -g -fPIC  -D_FILE_OFFSET_BITS=64 md5.c
-	gcc -c -O -g -fPIC -D_FILE_OFFSET_BITS=64 libimplantisomd5.c
-	gcc -O -g -D_FILE_OFFSET_BITS=64 -o  implantisomd5 implantisomd5.c libimplantisomd5.o  md5.o -lm -lpopt
-	gcc -c -O -g -fPIC -D_FILE_OFFSET_BITS=64 libcheckisomd5.c
-	gcc -O -g -D_FILE_OFFSET_BITS=64 -o checkisomd5 checkisomd5.c libcheckisomd5.o md5.o -lm
+CFLAGS = -g -fPIC -D_FILE_OFFSET_BITS=64 -I$(PYTHONINCLUDE) -O
+OBJECTS = md5.o libimplantisomd5.o checkisomd5.o pyisomd5sum.c \
+	  implantisomd5 checkisomd5
+SOURCES = $(patsubst %.o,%.c,$(OBJECTS))
+LDFLAGS = -lpopt
 
-	gcc -c -O -g -fPIC -o pyisomd5sum.lo pyisomd5sum.c -I$(PYTHONINCLUDE)
-	gcc -shared -g -o pyisomd5sum.so -fpic pyisomd5sum.lo libcheckisomd5.o libimplantisomd5.o md5.o
+PYOBJS = pyisomd5sum.o libcheckisomd5.o libimplantisomd5.o md5.o
+
+ifeq (.depend,$(wildcard .depend))
+TARGET=all
+else
+TARGET=depend all
+endif
+
+all: implantisomd5 checkisomd5 pyisomd5sum.so	
+
+%.o: %.c
+	gcc -c -O $(CFLAGS) -o $@ $<
+
+implantisomd5: implantisomd5.o md5.o libimplantisomd5.o
+
+checkisomd5: checkisomd5.o md5.o libcheckisomd5.o
+
+pyisomd5sum.so: $(PYOBJS)
+	gcc -shared -g -o pyisomd5sum.so -fpic $(PYOBJS)
 
 install:
 	install -m 755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
@@ -16,7 +32,13 @@ install:
 	install -s pyisomd5sum.so $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:
-	rm -f *.o *.lo *.so *.pyc
+	rm -f *.o *.lo *.so *.pyc .depend *~
 	rm -f implantisomd5 checkisomd5 
 
 depend:
+	$(CPP) -M $(CFLAGS) -I$(PYTHONINCLUDE) *.c > .depend
+
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif
