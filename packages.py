@@ -773,12 +773,17 @@ def doInstall(method, id, intf, instPath):
 	pass
 
     instLog = open(instLogName, "w+")
-    syslogname = "%s%s.syslog" % (instPath, logname)
-    try:
-        iutil.rmrf (syslogname)
-    except OSError:
-        pass
-    syslog.start (instPath, syslogname)
+
+    # dont start syslogd if we arent creating filesystems
+    if flags.setupFilesystems:
+	syslogname = "%s%s.syslog" % (instPath, logname)
+	try:
+	    iutil.rmrf (syslogname)
+	except OSError:
+	    pass
+	syslog.start (instPath, syslogname)
+    else:
+	syslogname = None
 
     if id.compspkg is not None:
         num = i + 1
@@ -903,7 +908,9 @@ def doInstall(method, id, intf, instPath):
         ts.closeDB()
 	del ts
 	instLog.close()
-	syslog.stop()
+
+	if syslogname:
+	    syslog.stop()
 
 	method.systemUnmounted ()
 
@@ -1166,7 +1173,9 @@ def doPostInstall(method, id, intf, instPath):
     w.pop ()
 
     sys.stdout.flush()
-    syslog.stop()
+    
+    if flags.setupFilesystems:
+	syslog.stop()
 
 def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
