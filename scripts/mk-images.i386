@@ -160,7 +160,8 @@ makebootdisk --imagename ja/pcmcia.img \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "$PCMCIAMAINMODULES"'
 
-makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
+makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "+scsi"
+makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
 
 makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
 
