@@ -488,14 +488,14 @@ def doInstall(method, id, intf, instPath):
 
     instLogName = instPath + logname
     try:
-	os.unlink (instLogName)
+	iutil.rmrf (instLogName)
     except OSError:
 	pass
 
     instLog = open(instLogName, "w+")
     syslogname = "%s%s.syslog" % (instPath, logname)
     try:
-        os.unlink (syslogname)
+        iutil.rmrf (syslogname)
     except OSError:
         pass
     syslog.start (instPath, syslogname)
