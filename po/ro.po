@@ -12,14 +12,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../fstab.py:234 ../fstab.py:390
-#, fuzzy
 msgid "Formatting"
-msgstr "Formatare filesystem"
+msgstr "Formatare sistem fiºiere"
 
 #: ../fstab.py:235
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formatare spatiu pentru memoria swap in partitia %s..."
+msgstr "Formatare spaþiu pentru memoria swap în partiþia /dev/%s..."
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
@@ -33,28 +32,26 @@ msgid "Error"
 msgstr "Eroare"
 
 #: ../fstab.py:245
-#, fuzzy
 msgid "Error creating swap on device "
-msgstr "Formatare spatiu pentru memoria swap in partitia %s..."
+msgstr "Eroare la activarea memoriei swap pe partiþia "
 
 #: ../fstab.py:323
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "Eroare la scriere în fiºierul %s: %s"
+msgstr "Eroare la deactivarea %s: %s"
 
 #: ../fstab.py:345 ../todo.py:410
 msgid "Creating"
 msgstr ""
 
 #: ../fstab.py:345
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "Creare bootdisk..."
+msgstr "Creare sisteme RAID..."
 
 #: ../fstab.py:391
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Se iniþializeazã /dev/%s cu un sistem ext2..."
+msgstr "Se iniþializeazã %s cu un sistem ext2..."
 
 #: ../fstab.py:413
 msgid "Loopback"
@@ -66,9 +63,9 @@ msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
 #: ../fstab.py:457
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "Eroare la scriere în fiºierul %s: %s"
+msgstr "Eroare la activarea %s: %s"
 
 #: ../gui.py:270 ../gui.py:516
 msgid "Next"
@@ -123,19 +120,18 @@ msgid "Red Hat Linux Installer"
 msgstr "Program de Instalare Red Hat Linux"
 
 #: ../gui.py:486
-#, fuzzy
 msgid "Red Hat Linux Install Shell"
-msgstr "Program de Instalare Red Hat Linux"
+msgstr "Shell Instalare Red Hat Linux"
 
 #: ../gui.py:497
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Program de Instalare Red Hat Linux"
+msgstr "Program de Instalare Red Hat Linux pe %s"
 
 #: ../gui.py:498
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Program de Instalare Red Hat Linux"
+msgstr "Shell de Instalare Red Hat Linux pe %s"
 
 #: ../installclass.py:251
 msgid ""
@@ -143,13 +139,10 @@ msgid ""
 msgstr ""
 
 #: ../installclass.py:289
-#, fuzzy
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
-msgstr ""
-"Sînteti pe cale de a sterge irevocabil date de pe hard disk! Sînteþi sigur "
-"cã doriþi sã continuaþi?"
+msgstr "Sînteti pe cale de a ºterge irevocabil TOATE datele de pe hard disk pentru a face loc acestei instalari Linux."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
@@ -499,7 +492,6 @@ msgid "Complete"
 msgstr "Complet"
 
 #: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -513,16 +505,11 @@ msgid ""
 msgstr ""
 "Felicitãri, instalarea s-a terminat cu succes.\n"
 "\n"
-"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter "
-"pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi "
-"actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam "
-"sã consultaþi Errata din pagina noastrã de web - http://www.redhat.com.\n"
+"Asiguraþi-vã ca nu aveþi nici un disc în unitatea de floppy ºi tastaþi Enter pentru a reiniþializa sistemul. Pentru informaþii despre corecþii ºi actualizãri disponibile pentru aceastã versiune de Red Hat Linux, vã rugam sã consultaþi Errata din pagina noastrã de web aflatã pe Internet la adresa http://www.redhat.com/errata.\n"
 "\n"
-"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
-"capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
+"Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în capitolul dedicat post-instalãrii din manualele Red Hat Linux."
 
 #: ../text.py:715 ../text.py:735
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -608,9 +595,8 @@ msgid "Debug"
 msgstr "Debug"
 
 #: ../text.py:981
-#, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
 msgid ""
@@ -649,9 +635,8 @@ msgid "Authentication"
 msgstr "Configurare Autentificare"
 
 #: ../text.py:1029
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "Configurare X Windows"
+msgstr "Sfîrºit Configurare"
 
 #: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
 #: ../textw/silo.py:193
@@ -677,9 +662,8 @@ msgid "Automatic Partition"
 msgstr "Partiþionare automatã"
 
 #: ../text.py:1065 ../textw/partitioning.py:255
-#, fuzzy
 msgid "Root Filesystem Size"
-msgstr "Spaþiu necesar total:"
+msgstr "Marime Root Filesystem"
 
 #: ../text.py:1067
 msgid "Swap"
@@ -750,47 +734,42 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Nu se poate sãri la o etapã anterioarã de aici. Încercaþi din nou."
 
 #: ../todo.py:329
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying file: %s"
-msgstr "eroare la deschiderea descrierii fiºierului: %s"
+msgstr "Eroare la copierea fiºierului: %s"
 
 #: ../todo.py:410
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Creare bootdisk..."
+msgstr "Creare disk boot..."
 
 #: ../todo.py:430
-#, fuzzy
 msgid "Reading"
-msgstr "Rãmas"
+msgstr "Citire"
 
 #: ../todo.py:431
-#, fuzzy
 msgid "Reading package information..."
-msgstr "Detectare configuraþie IP..."
+msgstr "Se încarcã informaþiile despre pachete..."
 
 #: ../todo.py:627 ../todo.py:640
 msgid "no suggestion"
 msgstr "nici o sugestie"
 
 #: ../todo.py:646
-#, fuzzy
 msgid "Searching"
-msgstr "Totul"
+msgstr "Cãutare"
 
 #: ../todo.py:647
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
 #: ../todo.py:658 ../todo.py:689
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Eroare la scriere în fiºierul %s: %s"
+msgstr "Eroare la activarea filesuystem de tip ext2 pe %s: %s"
 
 #: ../todo.py:700
-#, fuzzy
 msgid "Finding"
-msgstr "Rãmas"
+msgstr "Incãrcare"
 
 #: ../todo.py:701
 msgid "Finding packages to upgrade..."
@@ -801,9 +780,8 @@ msgid "Processing"
 msgstr "Procesare"
 
 #: ../todo.py:945
-#, fuzzy
 msgid "Preparing to install..."
-msgstr "Examinare fisiere pentru instalare..."
+msgstr "Pregãtire pentru instalare..."
 
 #: ../todo.py:1112
 #, c-format
@@ -811,9 +789,9 @@ msgid "Upgrading %s.\n"
 msgstr ""
 
 #: ../todo.py:1114
-#, fuzzy, c-format
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Instalare Aplicaþii"
+msgstr "Instalare %s.\n"
 
 #: ../todo.py:1135
 msgid ""
@@ -827,9 +805,8 @@ msgstr ""
 "\n"
 
 #: ../todo.py:1138
-#, fuzzy
 msgid "Mount Point"
-msgstr "Mount Point:"
+msgstr "Mount Point"
 
 #: ../todo.py:1138
 msgid "Space Needed"
@@ -840,14 +817,12 @@ msgid "Disk Space"
 msgstr "Spaþiu pe Disc"
 
 #: ../todo.py:1175
-#, fuzzy
 msgid "Post Install"
-msgstr "Instalare"
+msgstr "Post Instalare"
 
 #: ../todo.py:1176
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "Testeazã aceastã configuraþie"
+msgstr "Se ruleazã procesul de configurare post-instalare..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:243
 msgid "Video Card"
@@ -858,14 +833,12 @@ msgid "Video Ram"
 msgstr "Memorie Video"
 
 #: ../xf86config.py:247
-#, fuzzy
 msgid "X server"
-msgstr "Server"
+msgstr "X Server"
 
 #: ../xf86config.py:249
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Nu s-a putut obþine ramdisk-ul pentru etapa a doua"
+msgstr "Nu s-a putut detecta placa video"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
 msgid "Monitor"
@@ -876,33 +849,28 @@ msgid "Plug and Play Monitor"
 msgstr ""
 
 #: ../xf86config.py:260
-#, fuzzy
 msgid "Horizontal frequency range"
-msgstr "Plaja Frecvenþelor Orizontale"
+msgstr "Domeniul frecvenþelor orizontale"
 
 #: ../xf86config.py:262
-#, fuzzy
 msgid "Vertical frequency range"
-msgstr "Plaja Frecvenþelor Verticale"
+msgstr "Domeniul frecvenþelor verticale"
 
 #: ../iw/account.py:14
 msgid "Account Configuration"
 msgstr "Configurare Conturi Utilizator"
 
 #: ../iw/account.py:35
-#, fuzzy
 msgid "Root password accepted."
-msgstr "Parola de root:"
+msgstr "Parola de root acceptatã"
 
 #: ../iw/account.py:38
-#, fuzzy
 msgid "Root password is too short."
-msgstr "Parola de root:"
+msgstr "Parola de root este prea scurtã."
 
 #: ../iw/account.py:40
-#, fuzzy
 msgid "Root password does not match."
-msgstr "Parolele sînt diferite"
+msgstr "Parolele introduse sînt diferite."
 
 #: ../iw/account.py:138
 msgid "Root Password: "
@@ -1002,7 +970,6 @@ msgid "Exit"
 msgstr "Exit"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1333,14 +1300,12 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition.py:135
-#, fuzzy
 msgid "Root filesystem size:"
 msgstr "Spaþiu necesar total:"
 
 #: ../iw/rootpartition.py:140
-#, fuzzy
 msgid "Swap space size:"
-msgstr "Dimensiunile hirtiei:"
+msgstr "Dimensiunea memoriei swap:"
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
 msgid "Automatic Partitioning"
@@ -1414,9 +1379,8 @@ msgid "UTC Offset"
 msgstr "Differenþa pînã la zona 0 (GMT)"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Doriþi sã configuraþi o imprimantã?"
+msgstr "Doriþi sã vã configuraþi sistemul acum?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
@@ -1443,27 +1407,22 @@ msgid "Test this configuration"
 msgstr "Testeazã aceastã configuraþie"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "Configurare LILO"
+msgstr "Configurare Monitoare"
 
 #: ../iw/xconfig.py:215
-#, fuzzy
 msgid "Horizontal Sync"
-msgstr "Plaja Frecvenþelor Orizontale"
+msgstr "Domeniul Frecvenþelor Orizontale"
 
 #: ../iw/xconfig.py:224
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Domeniul Frecvenþelor Verticale"
 
 #: ../iw/xconfig.py:329
-#, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr ""
-"Acest monitor nu a putut fi autodetectat. Selectaþi monitorul ataºat acestui "
-"calculator din lista de mai jos:"
+msgstr "Mãrimea memoriei video pentru aceastã placã nu poate fi detectatã în mod automat. Selectaþi mãrimea memoriei video din opþiunile de mai jos:"
 
 #: ../iw/xconfig.py:340
 msgid ""
@@ -1594,24 +1553,20 @@ msgid "Choose Partitions to Format"
 msgstr "Alegaþi Partiþiile pentru Formatare"
 
 #: ../textw/partitioning.py:261
-#, fuzzy
 msgid "Root filesystem size"
-msgstr "Setare sisteme de fiºiere"
+msgstr "Marimea Root filesystem"
 
 #: ../textw/partitioning.py:262
-#, fuzzy
 msgid "Swap space"
-msgstr "Memoria swap nu este definita"
+msgstr "Memoria swap"
 
 #: ../textw/partitioning.py:271 ../textw/partitioning.py:277
-#, fuzzy
 msgid "Bad Size"
-msgstr "Mãrime"
+msgstr "Mãrime Invalidã"
 
 #: ../textw/partitioning.py:272
-#, fuzzy
 msgid "The size you enter must be a number."
-msgstr "eroare: portul %s trebuis sa fie un numar\n"
+msgstr "Mãrimea introdusã trebuie sã fie un numãr."
 
 #: ../textw/partitioning.py:278
 #, c-format
@@ -1621,14 +1576,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/silo.py:63
-#, fuzzy
 msgid "Create PROM alias `linux'"
-msgstr "Creare PROM alias"
+msgstr "Creare PROM alias `linux'"
 
 #: ../textw/silo.py:64
-#, fuzzy
 msgid "Set default PROM boot device"
-msgstr "Seteazã imaginea implicitã de boot în PROM pentru Linux"
+msgstr "Seteazã imaginea implicitã de boot în PROM"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
@@ -1688,14 +1641,12 @@ msgid "User ID"
 msgstr "ID Utilizator"
 
 #: ../textw/userauth.py:90
-#, fuzzy
 msgid "Missing User ID"
-msgstr "Lipseºte parola"
+msgstr "Lipseºte identificatorul de cont"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "You must provide a user ID"
-msgstr "Trebuie introdus un nume server."
+msgstr "Trebuie introdus un identificator de cont."
 
 #: ../textw/userauth.py:96
 msgid "The password must be at least 6 characters long."
@@ -2183,9 +2134,8 @@ msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Partiþiile de boot (/boot) sînt permise numai pe sisteme RAID-1"
 
 #: ../libfdisk/gnomefsedit.c:2077
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Partiþia /boot are tip RAID invalid."
+msgstr "Partiþia RAID nu poate fi montatã în directorul specificat."
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
@@ -2606,12 +2556,11 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
 
 #: ../loader/loader.c:1712
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Nu se poate crea %s"
+msgstr "Nu se poate citi directorul %s: %s"
 
 #: ../loader/loader.c:1775
-#, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
 
@@ -2706,9 +2655,9 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "argument eronat pentru comanda network în kickstart %s: %s "
 
 #: ../loader/net.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "adresã de ip incorecta în comanda: %s"
+msgstr "Valoare invalidã pentru comanda bootproto specificatã: %s"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
@@ -2756,14 +2705,14 @@ msgid "Would you like to set up networking?"
 msgstr "Doriþi sã configuraþi accesul la reþea pentru acest calculator?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Nu se poate crea %s"
+msgstr "Nu se poate autentifica în %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Nu se poate crea %s"
+msgstr "Nu se poate citi %s: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
@@ -2881,1206 +2830,3 @@ msgstr "HTTP Proxy Port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Încãrcare Driver SCSI..."
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Rãmas"
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Reconstruire baza de date RPM..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "Reconstructia bazei de date RPM a esuat. Aveti destul spatiu pe hard disc?"
-
-#~ msgid "Variant"
-#~ msgstr "Variantã"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Rezultatele autodetecþiei:"
-
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "S-a gãsit un disc avînd un identificator de volum (disklabel) corupt citind "
-#~ "device-ul %s. Trebuie sã folosiþi fdisk pentru a crea un nou identificator "
-#~ "de volum pentru acest disc."
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "Identificator de volum Sun corupt"
-
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "O partiþie de tip Linux Native (ext2) sau RAID-1 trebuie asignatã partiþiei "
-#~ "de boot (/boot) înainte ca procesul de instalare sã continue."
-
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Întrucît aþi asignat partiþia de root (/) unui sistem RAID, trebuie sã "
-#~ "asignaþi o directorul de boot (/boot) unei partiþii de tip Linux native "
-#~ "(ext2) sau unui alt sistem de tip RAID-1 Inainte ca procesul de instalare sã "
-#~ "poatã continua."
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "Foloseºte fdisk pentru partiþionare discuri"
-
-#~ msgid "Root Partition Selection"
-#~ msgstr "Selectare Partiþia de Root"
-
-#~ msgid "Welcome to Red Hat Linux!"
-#~ msgstr "Bun venit la Red Hat Linux!"
-
-#~ msgid "Warning"
-#~ msgstr "Atenþie"
-
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Spaþiul pe disc este insuficient pentru acest tip de instalare."
-
-#~ msgid "No BOOTP reply received"
-#~ msgstr "Nu s-a recepþionat nici un rãspuns de la serverul BOOTP"
-
-#~ msgid "No DHCP reply received"
-#~ msgstr "Nu s-a recepþionat nici un rãspuns de la serverul DHCP"
-
-#~ msgid "Base IO port:"
-#~ msgstr "Adresa IO Port:"
-
-#~ msgid "IRQ level:"
-#~ msgstr "Nivel IRQ:"
-
-#~ msgid "IO base, IRQ:"
-#~ msgstr "Baza IO, IRQ:"
-
-#~ msgid "Use other options"
-#~ msgstr "Foloseºte alte opþiuni"
-
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Nivel întrerupere (IRQ):"
-
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "IO base, IRQ, label:"
-
-#~ msgid "Specify options"
-#~ msgstr "Specificã opþiuni"
-
-#~ msgid "mknod() failed: %s"
-#~ msgstr "eroare in mknod(): %s"
-
-#~ msgid "Load module"
-#~ msgstr "Încarcã modul"
-
-#~ msgid "Probe"
-#~ msgstr "Detecþie"
-
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "Un adaptor de reþea %s a fost gasit în acest calculator."
-
-#~ msgid "device command"
-#~ msgstr "device command"
-
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "argument invalid pentru kickstart device command %s: %s"
-
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "argument invalid pentru kickstart device command"
-
-#~ msgid "No module exists for %s"
-#~ msgstr "Nu existã nici un modul pentru %s"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Nu se poate identifica adaptorul în acest calculator!"
-
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "În unele cazuri, driverul %s are nevoie de informaþii în plus pentru a "
-#~ "funcþiona corect, deºi în majoritatea cazurilor nu este nevoie de extra "
-#~ "parametri. Doriþi sã specificaþi opþiuni cãtre driver sau sã lãsaþi driverul "
-#~ "sã detecteze informaþia de care are nevoie ? În unele cazuri, detecþia poate "
-#~ "bloca un calculator, dar nu poate cauza nici un fel de pierderi de date."
-
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "În unele cazuri, driverul %s are nevoie de extra informaþii despre "
-#~ "configuraþia hardware a acestui sistem. Dacã doriþi, citeva valori comune "
-#~ "pentru acei parametri vor fi încercate. Acest proces poate bloca "
-#~ "calculatorul, ºi nu poate cauza pierderi de date."
-
-#~ msgid "Module options:"
-#~ msgstr "Opþiuni pentru Modul:"
-
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "Nu se poate citi /proc/filesystems: %d"
-
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "Nu s-a putut deschide %s. Logul de upgrade nu va fi creat."
-
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "Eroare la deschiderea bazei de date RPM"
-
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "Eroare la ordonarea listei de pachete: %s"
-
-#~ msgid "Install anyway"
-#~ msgstr "Instalare fortata"
-
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "Eroare la redeschiderea bazei de date RPM"
-
-#~ msgid "Examining packages to install..."
-#~ msgstr "Determinare componente pentru instalare..."
-
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Identificare fiºiere comune..."
-
-#~ msgid "Removing old files..."
-#~ msgstr "ªtergere fiºiere vechi..."
-
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr ""
-#~ "Eroare la instalarea pachetului: fiºierul RPM pentru %s nu existã: %s"
-
-#~ msgid "Force supplemental disk"
-#~ msgstr "Force supplemental disk"
-
-#~ msgid "Note"
-#~ msgstr "Notã"
-
-#~ msgid "Insert your Red Hat CD into your CD drive now"
-#~ msgstr "Puneþi CD-ul conþinînd Red Hat Linux în unitatea CDROM"
-
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "Nu s-a putut citi CD-ul din /dev/%s"
-
-#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-#~ msgstr "Aceastã unitate CDROM nu conþine un CD cu Red Hat Linux"
-
-#~ msgid "nfs command"
-#~ msgstr "comanda nfs"
-
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "argument invalid pentru comanda nfs kickstart %s: %s"
-
-#~ msgid "nfs command incomplete"
-#~ msgstr "comanda nfs incompletã"
-
-#~ msgid "PCMCIA Disk"
-#~ msgstr "PCMCIA Disk"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Discul nu a putut fi citit. Introduceþi discul pentru Red Hat PCMCIA "
-#~ "install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
-#~ "diferitã."
-
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "Se încarcã suportul pentru PCMCIA..."
-
-#~ msgid "Supplemental Disk"
-#~ msgstr "Supplemental Disk"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Supplementary "
-#~ "Install, sau selectaþi Abandon pentru a selecta o metodã de instalare "
-#~ "diferitã."
-
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Încãrcare Supplemental Disk..."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Driver Disk"
-
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Aceastã metodã de instalare necesitã un Driver Disk. Schimbaþi Supplemental "
-#~ "Disk aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
-#~ "Modules Disk."
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Discul nu a putut fi citit. Introduceþi discul denumit Red Hat Modules Disk, "
-#~ "sau selectaþi Abandon pentru a selecta o metodã de instalare diferitã."
-
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Aceastã metodã de instalare necesitã douã floppy-discuri adiþionale. "
-#~ "Schimbaþi discul de boot aflat în acest moment în unitatea de floppy cu "
-#~ "discul denumit Red Hat Supplementary Install."
-
-#~ msgid "hd command"
-#~ msgstr "hd command"
-
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "argument invalid pentru comanda hd kickstart %s: %s"
-
-#~ msgid "hd command incomplete"
-#~ msgstr "comandã hd incompletã"
-
-#~ msgid "HD device %s not found"
-#~ msgstr "Hard drive %s inexistent"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "Eroare la crearea symlink /tmp/rhimage: %s"
-
-#~ msgid "url command"
-#~ msgstr "comanda url"
-
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "argument invalid pentru comanda url %s: %s"
-
-#~ msgid "url command incomplete"
-#~ msgstr "comandã url incompletã"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Directorul de montare trebuie sã înceapã cu /."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Directorul de montare nu se poate termina în /."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "Un director valid trebuie sã conþinã numai caractere din alfabet."
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Partiþiile sistemului trebuie sã fie de tip Linux Native."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr ""
-#~ "Directorul /usr trebuie sã fie pe o partiþie Linux Native sau un director NFS"
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Editare director de montare în reþea"
-
-#~ msgid "Running"
-#~ msgstr "Rulare"
-
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "eroare mount NFS: %s"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "eroare montare: %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Tabela de partiþii de pe discul %s este invalidã. Pentru a crea noi partiþii "
-#~ "aceasta trebuie initializata. Puteþi specifica \"zerombr yes\" în fiºierul "
-#~ "de configurare kickstart pentru iniþializarea automatã de catre programul de "
-#~ "instalare."
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Initializare Tabela de partiþii"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "parametru invalid pentru comanda zerombr în mod kickstart: %s.\n"
-#~ "Parametrul valid este 'on', '1', sau 'yes' pentru activare, 'off', '0', sau "
-#~ "'no' pentru dezactivare."
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Comanda Iniþializare partitie"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr ""
-#~ "parametru %s este invalid pentru comanda clearpart în mod kickstart: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Comanda de Partiþionare"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "parametrul %s este invalid pentru comanda part în mod kickstart: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Opþiune Ignoratã"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Opþiunea --maxsize pentru partiþia %s a fost ignoratã. Verificaþi dacã este "
-#~ "mai mare decît valoarea specificatã la optiunea --size."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "Directorul de montare %s este folosit deja."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "Alocare eºuatã"
-
-# msgid "Add NFS"
-# msgstr "Adaugare NFS"
-# 
-# msgid "Bits Per Pixel:"
-# msgstr "Biti per Pixel:"
-# 
-# msgid "Remove queue:"
-# msgstr "Nume coada partajata:"
-# 
-# msgid "There are currently unallocated partiton(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
-# msgstr "Pe acest sistem exista partitii nealocate prezente in lista de partitii cerute. partitiile nealocate sint prezentate mai jos impreuna cu motivul pentru care nu au fost alocate."
-# 
-# msgid "Okay"
-# msgstr "Okay"
-# 
-# msgid "Reset"
-# msgstr "Din nou"
-# 
-# msgid "Format Partitions"
-# msgstr "Formatare Partitii"
-# 
-#~ msgid "The partition %s could not be allocated."
-#~ msgstr "Partiþia %s nu a putut fi alocatã."
-
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Pe acest sistem exista partitii care pot fi redimensionate pentru a face loc "
-#~ "pentru instalarea Red Hat Linux. Doriti sa redimensionati aceste partitii "
-#~ "acum?"
-
-#~ msgid "Success"
-#~ msgstr "Succes"
-
-#~ msgid "Bad server response"
-#~ msgstr "Raspuns eronat de la server"
-
-#~ msgid "Server IO error"
-#~ msgstr "Eroare I/O la transfer"
-
-#~ msgid "Server timeout"
-#~ msgstr "Serverul nu rãspunde"
-
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Nu s-a putut determina adresa de IP a serverului"
-
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Nu s-a putut determina numele serverului"
-
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "Nu s-a putut stabili o conexiune cu serverul"
-
-#~ msgid "IO error to local file"
-#~ msgstr "Eroare IO la acesul fiºierului local"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "Eroare la setarea serverului în mod pasiv"
-
-#~ msgid "File not found on server"
-#~ msgstr "Fiºierul nu s-a gasit pe server"
-
-#~ msgid "Abort in progress"
-#~ msgstr "Abandon in progres"
-
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Eroare necunoscutã"
-
-#~ msgid "Whole disk"
-#~ msgstr "Întregul disc"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux swap"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid "Scanning hard drives..."
-#~ msgstr "Inspectare hard discuri..."
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Nu aveþi nici un hard disc disponibil! Probabil aþi uitat sã configuraþi o "
-#~ "placã SCSI."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "Pentru instalarea Red Hat Linux trebuie sã aveþi cel puþin o partiþie de "
-#~ "minim 150 MB dedicatã Linux."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Partiþionare discuri"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Resetare Necesara"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
-#~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
-#~ msgstr ""
-#~ "Kernel-ul nu poate citi noua tabelã de partiþii, probabil din cauzã cã aþi "
-#~ "modificat structura partiþiilor extinse. Aceastã eroare nu este fatalã, însã "
-#~ "calculatorul trebuie resetat înainte de a continua cu instalarea. Încãrcaþi "
-#~ "acum Red Hat boot disk în unitatea floppy ºi apãsaþi Enter pentru a reseta "
-#~ "systemul.\n"
-#~ "\n"
-#~ "Dacã aveþi un drive ZIP sau JAZ asiguraþi-vã ca în unitate este un disk; un "
-#~ "drive SCSI fãrã disk poate de asemenea cauza aceastã problemã"
-
-#~ msgid "lilo command"
-#~ msgstr "comanda lilo"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "argument invalid pentru comanda lilo %s: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "Suport pentru PCMCIA"
-
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Aveþi nevoie de suport pentru PCMCIA în timpul instalãrii? Rãspundeþi Nu la "
-#~ "aceastã întrebare numai dacã aveþi nevoie de suport pentru PCMCIA dupã "
-#~ "instalare. Nu aveþi nevoie de suport pentru PCMCIA în timpul instalãrii dacã "
-#~ "instalaþi Red Hat Linux pe un laptop care are o unitate CD-ROM internã."
-
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "Suport pentru PCMCIA"
-
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "Aceastã metodã de instalare necesitã un disc secundar. Schimbaþi discul de "
-#~ "boot aflat în acest moment în unitatea de floppy cu discul denumit Red Hat "
-#~ "PCMCIA support disk."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Se iniþializeazã  serviciile PCMCIA..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Folosiþi comanda <exit> pentru a vã întoarce în programul de instalare.\n"
-
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Nu s-a detectat nici un server pentru configurarea kickstart."
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Nu s-a putut activa directorul kickstart %s.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Nu s-a putut citi discheta de boot."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "Eroare la deschiderea fiºierelor pentru copierea kickstart: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "Eroare la copierea fiºierelor kickstart de pe dischetã."
-
-#~ msgid "Select installation path"
-#~ msgstr "Selectaþi calea de instalare"
-
-#~ msgid "Select installation class"
-#~ msgstr "Selectaþi tipul de instalare"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "Setare SCSI"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Setare spaþiu swap"
-
-#~ msgid "Find installation files"
-#~ msgstr "Identificare fiºiere de instalare"
-
-#~ msgid "Choose packages to install"
-#~ msgstr "Selectaþi pachetele care vor fi instalate"
-
-#~ msgid "Configure networking"
-#~ msgstr "Configurare reþea"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Configurare zona de timp"
-
-#~ msgid "Configure services"
-#~ msgstr "Configurare servicii"
-
-#~ msgid "Configure printer"
-#~ msgstr "Configurare imprimantã"
-
-#~ msgid "Exit install"
-#~ msgstr "Exit install"
-
-#~ msgid "Find current installation"
-#~ msgstr "Identificare instalare curentã"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Inspectare componente pentru instalare..."
-
-#~ msgid "Install log"
-#~ msgstr "Log instalare"
-
-#~ msgid "Upgrade log"
-#~ msgstr "Log actualizare"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "Un istoric complet al acestei actualizãri se va gasi în /tmp/upgrade.log la "
-#~ "sfîrºitul procesului de actualizare. Dupa reiniþializarea sistemului "
-#~ "consultaþi acest fiºier pentru a fi sigur cã fiºierele de configurare a "
-#~ "sistemului au fost actualizate corect."
-
-#~ msgid "rootpw command"
-#~ msgstr "rootpw command"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "parametru invalid pentru comanda rootpw în mod kickstart: %s: %s"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Parametri invalizi"
-
-#~ msgid "Installation Path"
-#~ msgstr "Directorul de instalare"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Doriþi sã instalaþi un nou sistem sau sã actualizaþi un sistem care conþine "
-#~ "deja Red Hat Linux versiunea 2.0 sau mai recentã?"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Ce tip de calculator instalaþi? Pentru flexibilitate maximã în configurare, "
-#~ "alegeþi \"Custom\"."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "Baza de date RPM se actualizeazã..."
-
-#~ msgid "Previous"
-#~ msgstr "Precedent"
-
-#~ msgid "Menu"
-#~ msgstr "Meniu"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "A apãrut o eroare în timpul pasului \"%s\" al programului de instalare\n"
-#~ "\n"
-#~ "Puteþi reîncerca aceastã etapã, sã vã întoarceþi la o etapã anterioarã în "
-#~ "procesul de instalare, sau sã obþineþi un menu cu toate etapele de instalare "
-#~ "care vã va permite sã executaþi diferite etape din procesul de instalare la "
-#~ "alegerea dumneavoastrã. Nu este recomandat lucrul cu meniul etapelor de "
-#~ "instalare decît dacã sînteþi familiar cu Red Hat Linux. Care este opþiunea "
-#~ "dumneavoastrã?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "Continuarea instalãrii"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr ""
-#~ "Ce anume doriþi sã executaþi? Etapele marcate cu * au fost deja executate."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "Incãrcaþi un floppy disc în prima unitate de disc (/dev/fd0)."
-
-#~ msgid "file %s missing from source directory"
-#~ msgstr "fiºierul %s lipseºte din directorul sursã"
-
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "eroare la citirea din fiºierul %s: %s"
-
-#~ msgid "Kernel"
-#~ msgstr "Kernel"
-
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr "Introduceþi diskul de boot în drive dacã nu este deja prezent"
-
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "Se copie imaginea kernel de pe dischetã..."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "Comanda %s la linia %d în fiºierul kickstart %s este invalidã."
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "Eroare la crearea /mnt/tmp/ks.script: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr ""
-#~ "Eroare la scrierea fiºierului de comenzi pentru post-instalarea kickstart: %s"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "Eroare la crearea symlink pentru sursa de pachete."
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "Nu se poate obþine %s. Doriþi sã reîncercaþi?"
-
-#~ msgid "SILO"
-#~ msgstr "SILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "Creare ramdisk iniþial..."
-
-#~ msgid "Device:"
-#~ msgstr "Disc:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Eticheta boot:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Instalare manager de încãrcare..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Partiþii valide"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Ce partiþii doriþi sã utilizaþi ca spaþiu pentru memoria swap? Informatþia "
-#~ "existentã în partiþiile selectate va fi pierdutã în urma acestei selecþii."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Spaþiu de Swap Activ"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Nu s-a putut accesa partiþia selectatã."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "Nu s-a putut citi /mnt/etc/fstab: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "Linie invalidã în /mnt/etc/fstab -- abandon"
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Detecþie Ethernet"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Detecþia Ethernet nu a identificat un adaptor de reþea în acest calculator. "
-#~ "Apãsaþi <Enter> pentru a configurare manualã."
-
-#~ msgid "Static IP address"
-#~ msgstr "Adresã IP staticã"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "comenzii network în kickstart îi lipseºte adresa de ip"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Cum trebuie setatã adresa de IP? Dacã administratorul de reþea v-a furnizat "
-#~ "o adresã de IP, selectaþi IP static."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "Trimitere cerere BOOTP..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "Nu se poate crea %s: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr ""
-#~ "nu s-a putu crea fiºierul de configurare pentru adaptorul de reþea: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "nu s-a putut deschide fiºierul: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Nu s-a putut determina numele de host automat. Apasaþi <Enter> pentru a "
-#~ "introduce informaþiile despre numele de host."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Introduceti numele de domeniu, numele de host, adresele de IP ale serverelor "
-#~ "DNS adiþionale. Numele de host trebuie sã fie în forma completã, ca de "
-#~ "exemplu mybox.mylab.myco.com. Dacã nu aveþi nevoie de servere de DNS "
-#~ "adiþionale, nu introduceþi nimic în cîmpurile de editare."
-
-#~ msgid "Host name:"
-#~ msgstr "Nume host:"
-
-#~ msgid "Secondary nameserver (IP):"
-#~ msgstr "Server DNS secundar (IP):"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Server DNS terþiar (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Configurare Reþea"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Pãstreazã configuraþia IP curentã"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Reconfigureazã reþeaua LAN"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "Reþeaua LAN a fost deja configuratã. Cum doriþi sã continuaþi?"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr "Doriþi sã configuraþi reþeau LAN (nu dialup!) pentru acest sistem?"
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Nu s-a putut gãsi lista de coponente în fiºierul: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Fiºierul %s conþinînd lista de componente este inaccesibil."
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "Fiºierul de componente nu are versiunea 0.1"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "fiºier de componente invalid la linia %d"
-
-#~ msgid "comps Error"
-#~ msgstr "Eroare la procesarea componentelor"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "numele de componenta lipseºte la linia %d"
-
-#~ msgid "Ignore all"
-#~ msgstr "Ignora tot"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "pachetul %s la linia %d nu existã"
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "Componenta %s nu existã.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "Pachetul %s nu existã.\n"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "Doriþi sã instalaþi interfaþa graficã GNOME? GNOME este o interfaþã graficã "
-#~ "uºor de folosit cu facilitãþi de drag and drop ºi documentaþie integratã."
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Selectaþi componentele pentru instalare:"
-
-#~ msgid "Choose a group to examine"
-#~ msgstr "Selectaþi un grup de componente pentru examinare"
-
-#~ msgid "Press F1 for a package description"
-#~ msgstr "Tasta F1 pentru informatii despre un package"
-
-#~ msgid "Select Group"
-#~ msgstr "Selectare Group"
-
-#~ msgid "(none available)"
-#~ msgstr "(nimic disponibil)"
-
-#~ msgid "Package:"
-#~ msgstr "Pachet:"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Actualizare Pachete"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr ""
-#~ "<F1> va produce informaþii auxiliare despre un model anume de imprimantã"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Configurare Imprimantã"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr "<F1> va produce informaþii despre driverul de imprimantã selectat."
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr ""
-#~ "Acum puteþi configura dimensiunile paginii standard si rezoluþia acestei "
-#~ "imprimante."
-
-#~ msgid "Paper Size"
-#~ msgstr "Dimensiunile paginei"
-
-#~ msgid "Resolution"
-#~ msgstr "Rezoluþie"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Corecþie a efectului de imprimare în scarã?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr ""
-#~ "Acum puteþi configura opþiunile de culoare pentru aceastã imprimantã."
-
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Acum puteþi configura opþiunile uniprint pentru aceastã imprimantã."
-
-#~ msgid "Configure Color Depth"
-#~ msgstr "Configurare numãr de culori"
-
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Configurare Driver Uniprint"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "Pe ce port este imprimanta dumneavoastrã conectatã (atenþie, /dev/lp0 este "
-#~ "echivalent cu LPT1:)?"
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Porturi auto-detectate:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Nu"
-
-#~ msgid "Detected\n"
-#~ msgstr "Detectat\n"
-
-#~ msgid "Printer Device:"
-#~ msgstr "Portul de imprimantã"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Imprimanta localã"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Server de imprimantã:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Nume coadã:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Opþiuni pentru serverul lpd"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Pentru a folosi o imprimantã de pe un server lpd va trebui sã introduceþi "
-#~ "numele serverului ºi numele cozii de imprimare disponibilã pe acel server "
-#~ "pentru acest calculator."
-
-#~ msgid "Printer Server:"
-#~ msgstr "Server imprimantã:"
-
-#~ msgid "Print Queue Name:"
-#~ msgstr "Coada de imprimanta:"
-
-#~ msgid "NetWare Printer Options"
-#~ msgstr "Opþiuni imprimantã Netware"
-
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Pentru a folosi o imprimantã accesibilã pe un server Netware, va trebui sã "
-#~ "introduceþi numele serverului Netware care pune la dispoziþie aceastã "
-#~ "imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
-#~ "serverului), adresa de IP a serverului, numele imprimantei partajate în "
-#~ "reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
-#~ "cont ºi parola care vã permit accesul la aceastã imprimantã."
-
-#~ msgid "SMB server host:"
-#~ msgstr "Nume server SMB:"
-
-#~ msgid "SMB server IP:"
-#~ msgstr "Adresa IP server SMB:"
-
-#~ msgid "Share name:"
-#~ msgstr "Numele resursei reþea:"
-
-#~ msgid "Workgroup:"
-#~ msgstr "Workgroup:"
-
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "Opþiuni pentru imprimantã SMB/Windows 95/NT"
-
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Pentru a folosi o imprimantã accesibilã prin protocolul de reþea SMB, va "
-#~ "trebui sã introduceþi numele serverului SMB care pune la dispoziþie aceastã "
-#~ "imprimantã (nume care nu este întotdeauna acelaºi cu adresa de IP a "
-#~ "serverului), adresa de IP a serverului, numele imprimantei partajate în "
-#~ "reþea pe care doriþi sã o accesaþi de pe acest calculator ca ºi numele de "
-#~ "cont ºi parola care vã permit accesul la aceastã imprimantã."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Director pentru fiºiere temporare"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Opþiuni standard pentru imprimantã"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Fiecare coadã de imprimare (care primeºte documente în vederea printãrii) "
-#~ "are nevoie de un nume (de cele mai mute ori lp) ºi de un director în care se "
-#~ "vor pãstra fiºiere temporare în timpul printãrii. Ce nume ºi ce director "
-#~ "doriþi sã folosiþi pentru aceastã coadã de imprimare?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Doriþi sã configuraþi o altã imprimantã?"
-
-#~ msgid "SMB/Windows 95/NT"
-#~ msgstr "SMB/Windows 95/NT"
-
-#~ msgid "NetWare"
-#~ msgstr "NetWare"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Cum este conectatã aceastã imprimantã?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Tip de imprimantã:"
-
-#~ msgid "Queue:"
-#~ msgstr "Coada de imprimare:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Portul de conectare:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Nume server:"
-
-#~ msgid "Share:"
-#~ msgstr "Resursa partajatã:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Driver imprimantã:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Rezoluþie"
-
-#~ msgid "Uniprint driver:"
-#~ msgstr "Driver uniprint:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Verificati dacã urmãtoarele informaþii despre aceastã imprimantã sînt "
-#~ "corecte:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Port imprimanta"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Verificare configurare imprimantã"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Mai aveþi ºi alte modele de adaptoare SCSI în acest sistem?"
-
-#~ msgid "Do you have any SCSI adapters?"
-#~ msgstr "Aveþi adaptoare SCSI în sistem?"
-
-#~ msgid "SMB server name  :"
-#~ msgstr "Numele serverului SMB :"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Nume share SMB        :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Nume cont             :"
-
-#~ msgid "Password         :"
-#~ msgstr "Parola de access      :"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Introduceþi urmãtoarele informaþii:\n"
-#~ "\n"
-#~ "    o numele sau adresa de IP a serverului SMB\n"
-#~ "    o numele directorului de reþea de pe acel server conþinînd\n"
-#~ "      distribuþia Red Hat Linux pentru sistemul dumneavoastrã"
-
-#~ msgid "Password for %s@%s: "
-#~ msgstr "Parola pentru %s@%s: "
-
-#~ msgid "url port must be a number\n"
-#~ msgstr "portul pentru url trebuie sa fie un numar\n"
-
-#~ msgid "logging into %s as %s, pw %s\n"
-#~ msgstr "autentificare petru %s ca %s, parola %s\n"
-
-#~ msgid "failed to open %s\n"
-#~ msgstr "nu s-a putut deschide %s\n"
-
-#~ msgid "failed to create %s\n"
-#~ msgstr "Nu se poate crea %s\n"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "eroare la deschiderea %s: %s\n"
-
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Eroare la transferul fiºierului %s:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr ""
-#~ "Eroare la citirea tabelei de partiþii de pe discul %s. Mesajul de eroare "
-#~ "este:"
-
-#~ msgid "LAN manager host:"
-#~ msgstr "Nume Server LAN manager:"
-
-#~ msgid "LAN manager IP:"
-#~ msgstr "Adresa IP LAN manager:"
-
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "Opþiuni imprimantã LAN manager"
-
-#~ msgid "RPM install of %s failed: %s"
-#~ msgstr "Instalarea pachetului %s a eºuat: %s"
-
-#~ msgid "<F1> will show you a size and description of a package"
-#~ msgstr "<F1> aratã mãrimea ºi descrierea fiecãrui pachet"
-
-#~ msgid "Size of all selected packages:"
-#~ msgstr "Mãrimea pachetelor selectate:"
-
-#~ msgid "Select Packages"
-#~ msgstr "Selectaþi Pachetele"
-
-#~ msgid "I cannot get file %s: %s\n"
-#~ msgstr "Nu se poate identifica fiºierul %s: %s\n"
-
-#~ msgid "I cannot log into machine: %s\n"
-#~ msgstr "Autentificarea a eºuat: %s\n"
-
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
-#~ msgstr "Doriþi sã instalaþi ºi/sau configuraþi SILO pe acest sistem?"
-
-#~ msgid "Other"
-#~ msgstr "Alt tip"
-
-#~ msgid ""
-#~ "You cancelled step \"%s\".\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Aþi abandonat etapa \"%s\".\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "O eroare a aparut la instalare în timpul execuþiei etapei \"%s\".\n"
-#~ "\n"
