@@ -134,7 +134,8 @@ class ComponentSet:
 		if (l[0:6] == "--hide"):
 		    hidden = 1
 		    (foo, l) = split(l, None, 1)
-		    
+                if l == "Base":
+                    hidden = 1
 		comp = Component(l, default == '1', hidden)
 	    elif (l == "end"):
 		self.comps.append(comp)
