@@ -16,6 +16,7 @@
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
 #include <newt.h>
+#include <popt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -355,4 +356,65 @@ int loadDriverDisks(int class, moduleList modLoaded,
     } while (1);
 
     return LOADER_OK;
+}
+
+void useKickstartDD(struct loaderData_s * loaderData, int argc, 
+                    char ** argv, int * flagsPtr) {
+    char * fstype = NULL;
+    char * dev = NULL;
+    poptContext optCon;
+    int rc;
+    int flags = *flagsPtr;
+    struct poptOption ksDDOptions[] = {
+        { "type", '\0', POPT_ARG_STRING, &fstype, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+    
+    optCon = poptGetContext(NULL, argc, (const char **) argv, ksDDOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to driver disk kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+    dev = (char *) poptGetArg(optCon);
+
+    if (!dev) {
+        logMessage("bad arguments to kickstart driver disk command");
+        return;
+    }
+
+    /* JKFIXME: this duplicated a bit more code than I'd like but I don't 
+     * want to change the main driver disk code at this point */
+    devMakeInode(dev, "/tmp/dddev");
+    if (fstype) {
+        if (!doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
+                       NULL, NULL)) {
+            logMessage("unable to mount %s as %s", dev, fstype);
+            return;
+        }
+    }
+
+    if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL)) {
+        if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL)) {
+            if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL)) {
+                logMessage("unable to mount driver disk %s", dev);
+                return;
+            }
+        }
+    }
+
+    rc = verifyDriverDisk("/tmp/drivers", flags);
+    if (rc == LOADER_BACK) {
+        logMessage("not a valid driver disk");
+        umount("/tmp/drivers");
+        return;
+    }
+
+    rc = loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
+                        loaderData->modDepsPtr, "/tmp/drivers", flags);
+    umount("/tmp/drivers");
 }

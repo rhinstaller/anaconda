@@ -75,6 +75,8 @@ void stopNewt();
 char * getProductName(void);
 
 
+#include "modules.h"
+#include "moduledeps.h"
 /* JKFIXME: I don't like all of the _set attribs, but without them,
  * we can't tell if it was explicitly set by kickstart/cmdline or 
  * if we just got it going through the install.   */
@@ -91,6 +93,10 @@ struct loaderData_s {
     char * ksFile;
     char * method;
     void * methodData;
+
+    moduleList modLoaded;
+    moduleDeps * modDepsPtr;
+    moduleInfoSet modInfo;
 };
 
 #endif

@@ -36,6 +36,7 @@
 #include "kickstart.h"
 
 #include "kbd.h"
+#include "driverdisk.h"
 #include "net.h"
 #include "method.h"
 
@@ -72,13 +73,14 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_NETWORK, "network", setKickstartNetwork },
     { KS_CMD_KEYBOARD, "keyboard", setKickstartKeyboard },
     { KS_CMD_LANG, "lang", setKickstartLanguage },
+    { KS_CMD_DD, "driverdisk", useKickstartDD },
     { KS_CMD_NONE, NULL, NULL }
 };
 
 struct ksCommand * commands = NULL;
 int numCommands = 0;
 
-int ksReadCommands(char * cmdFile) {
+int ksReadCommands(char * cmdFile, int flags) {
     int fd;
     char * buf;
     struct stat sb;
@@ -91,9 +93,8 @@ int ksReadCommands(char * cmdFile) {
     struct ksCommandNames * cmd;
     int commandsAlloced = 5;
 
-    logMessage("reading kickstart file");
-
     if ((fd = open(cmdFile, O_RDONLY)) < 0) {
+        startNewt(flags);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Error opening kickstart file %s: %s"),
                        cmdFile, strerror(errno));
@@ -103,6 +104,7 @@ int ksReadCommands(char * cmdFile) {
     fstat(fd, &sb);
     buf = alloca(sb.st_size + 1);
     if (read(fd, buf, sb.st_size) != sb.st_size) {
+        startNewt(flags);
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Error reading contents of kickstart file %s: %s"),
                        cmdFile, strerror(errno));
