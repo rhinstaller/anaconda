@@ -1378,15 +1378,18 @@ class DiskSet:
     def savePartitions (self):
         for disk in self.disks.values():
             disk.write()
+            disk.close()
             del disk
         self.refreshDevices()
 
     def refreshDevices (self, intf = None, initAll = 0, zeroMbr = 0):
+        self.closeDevices()
         self.disks = {}
         self.openDevices(intf, initAll, zeroMbr)
 
     def closeDevices (self):
         for disk in self.disks.keys():
+            self.disks[disk].close()
             del self.disks[disk]
 
     def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
