@@ -193,6 +193,13 @@ class UpgradeExamineWindow:
 
         todo.upgradeMountFilesystems (root)
 
+        # if root is on vfat we want to always display boot floppy screen
+        # otherwise they can't boot!
+        # This check is required for upgradeonly installclass to work so
+        # we only show boot floppy screen in partitonless install case
+        if root[1] == "vfat":
+            todo.instClass.removeFromSkipList("bootdisk")
+
 class CustomizeUpgradeWindow:
     def __call__ (self, screen, todo, indiv):
         rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
