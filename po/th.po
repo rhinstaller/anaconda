@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-28 23:58+0700\n"
+"PO-Revision-Date: 2004-07-30 17:34+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <l10n@opentle.org>\n"
+"Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -143,7 +143,7 @@ msgstr "ตกลง"
 
 #: ../anaconda:614
 msgid "Unknown Error"
-msgstr "ข้อผิดพลาดที่ไม่คุ้น"
+msgstr "ข้อผิดพลาดที่ไม่รู้จัก"
 
 #: ../anaconda:617
 #, c-format
@@ -411,7 +411,7 @@ msgstr "เกิดข้อผิดพลาดที่ไม่สามา
 
 #: ../autopart.py:1394
 msgid "Your system will now be rebooted."
-msgstr "ระบบของคุณจะถูกรีบูตโดยพลัน"
+msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
 #: ../autopart.py:1477 ../bootloader.py:155 ../gui.py:989 ../image.py:466
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:812
@@ -717,7 +717,7 @@ msgstr ""
 
 #: ../fsset.py:1182
 msgid "RAID Device"
-msgstr "RAID Device"
+msgstr "อุปกรณ์ RAID"
 
 #: ../fsset.py:1186 ../fsset.py:1192
 msgid "Apple Bootstrap"
@@ -1000,11 +1000,11 @@ msgstr "ค่าปริยาย:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr "ไม่พบรีลีสโน้ต\n"
+msgstr "ไม่พบบันทึกการออกรุ่น\n"
 
 #: ../gui.py:990
 msgid "The release notes are missing."
-msgstr "ไม่พบรีลีสโน้ต"
+msgstr "ไม่พบบันทึกการออกรุ่น"
 
 #: ../gui.py:1090
 msgid "Error!"
@@ -4813,7 +4813,7 @@ msgstr "เกิดข้อผิดพลาดขณะเลือกกา
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr "ไม่ระบุชนิดของการ์ดแสดงผล XXX"
+msgstr "การ์ดแสดงผลที่ยังไม่ระบุ"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4821,42 +4821,40 @@ msgid ""
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
-"คุณจะต้องระบุชนิดของการ์ดแสดงผลของคุณเอง ก่อนที่จะดำเนินการกำหนดค่าให้ระบบ X-Window "
-"หากคุณต้องการข้ามการกำหนดค่าให้ระบบ X-Window ให้เลือกที่ 'ข้ามการกำหนดค่าให้ X-Window'"
+"คุณจะต้องเลือกการ์ดแสดงผล ก่อนที่จะดำเนินการกำหนดค่าให้ระบบ X-Window "
+"หากคุณต้องการข้ามการกำหนดค่าให้ระบบ X-Window ให้เลือกปุ่ม 'ข้ามการกำหนดค่าให้ X'"
 
 #: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
-msgstr "ระบบจะตั้งค่าให้ X Window ใช้เฟรมบัฟเฟอร์ ถ้าคุณไม่ต้องการให้เลือก 'ข้ามการปรับแต่ง'"
+msgstr "ระบบจะตั้งค่าให้ระบบ X Window ใช้ไดรเวอร์เฟรมบัฟเฟอร์ ถ้าคุณไม่ต้องการตั้งค่าระบบ X Windowให้เลือก 'ข้ามการกำหนดค่าให้ X' ข้างล่างนี้"
 
 #: ../iw/xconfig_gui.py:983
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
-msgstr "ขนาดแรมวิดีโอของคุณไม่สามารถถูกตรวจพบอัตโนมัติ  เลือกขนาดแรมวิดีโอของคุณจากตัวเลือกข้างล่างนี้:"
+msgstr "ขนาดแรมวิดีโอของคุณไม่สามารถตรวจสอบได้โดยอัตโนมัติ  เลือกขนาดแรมวิดีโอของคุณจากตัวเลือกข้างล่างนี้:"
 
 #: ../iw/xconfig_gui.py:990
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
 "settings."
-msgstr ""
-"โดยส่วนใหญ่แล้วโปรแกรมการติดตั้งจะสามารถระบุชนิดของการ์ดแสดงผลของคุณให้ได้อยู่แล้ว "
-"ซึ่งจะเป็นค่าที่ดีที่สุดสำหรับการแสดงผลของ X-Window"
+msgstr "โดยส่วนใหญ่แล้วโปรแกรมติดตั้งจะสามารถตรวจสอบการ์ดแสดงผลได้อยู่แล้ว  ถ้าค่าที่ตรวจสอบได้ไม่ถูกต้อง ให้เลือกค่าที่ถูกต้องใหม่"
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr "ขนาดของหน่วยความจำบนการ์ด: "
+msgstr "_หน่วยความจำบนการ์ดวิดีโอ: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "ข้ามการกำหนดค่าให้ X-Window"
+msgstr "_ข้ามการกำหนดค่าให้ X"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
-msgstr "การกำหนดค่าให้ z/IPL บูตโหลดเดอร์"
+msgstr "การกำหนดค่าให้บูตโหลดเดอร์ z/IPL"
 
 #: ../iw/zipl_gui.py:75
 msgid "The z/IPL boot loader will be installed on your system."
@@ -4878,6 +4876,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"บูตโหลดเดอร์ z/IPL จะถูกติดตั้งบนระบบของคุณ\n"
+"\n"
+"พาร์ทิชัน root จะเป็นอันที่คุณเลือกไว้แล้วในขั้นตอนการติดตั้งพาร์ทิชัน\n"
+"\n"
+"เคอร์เนลที่ใช้บูตเครื่อง จะเป็นตัวที่ติดตั้งโดยปริยาย\n"
+"\n"
+"ถ้าคุณต้องการแก้ไขในภายหลัง ให้แก้ที่ไฟล์ /etc/zipl.conf\n"
+"\n"
+"คุณสามารถป้อนพารามิเตอร์เพิ่มเติมที่คุณหรือเครื่องของคุณต้องการ"
 
 #: ../iw/zipl_gui.py:104 ../textw/zipl_text.py:60
 msgid "Kernel Parameters"
@@ -4885,7 +4892,7 @@ msgstr "พารามิเตอร์สำหรับเคอร์เน
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
 msgid "Chandev Parameters"
-msgstr ""
+msgstr "พารามิเตอร์ Chandev"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -4898,8 +4905,7 @@ msgid ""
 "\n"
 "Would you like to create a boot diskette?"
 msgstr ""
-"แผ่นบูตสามารถบูตระบบ %s ของคุณได้โดยใช้แผ่นดิสก์ แผ่นบูตสามารถบูตระบบ ถ้า "
-"การปรับแต่งค่าบูตโหลดเดอร์ล้มเหลวขณะทำงาน\n"
+"แผ่นบูตสามารถบูตระบบ %s ของคุณได้โดยใช้แผ่นดิสก์  แผ่นบูตทำให้คุณบูตระบบได้ ในกรณีที่บูตโหลดเดอร์ไม่ทำงาน\n"
 "\n"
 "ขอแนะนำอย่างยิ่งว่าคุณควรสร้างแผ่นบูต\n"
 "\n"
@@ -4971,19 +4977,19 @@ msgstr "ล้าง"
 
 #: ../textw/bootloader_text.py:225 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "แก้ไขชื่อที่ใช้บูต"
+msgstr "แก้ไขชื่อรายการบูต"
 
 #: ../textw/bootloader_text.py:243 ../textw/bootloader_text.py:248
 msgid "Invalid Boot Label"
-msgstr "ชื่อที่ใช้บูตไม่ถูกต้อง"
+msgstr "ชื่อรายการบูตไม่ถูกต้อง"
 
 #: ../textw/bootloader_text.py:244
 msgid "Boot label may not be empty."
-msgstr "ชื่อที่ใช้บูตจะปล่อยให้ว่างไม่ได้"
+msgstr "ชื่อรายการบูตจะปล่อยให้ว่างไม่ได้"
 
 #: ../textw/bootloader_text.py:249
 msgid "Boot label contains illegal characters."
-msgstr "ชื่อที่ใช้บูตมีอักษรที่ไม่ถูกต้อง"
+msgstr "ชื่อรายการบูตมีอักษรที่ไม่ถูกต้อง"
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1135 ../textw/silo_text.py:216
@@ -4992,15 +4998,15 @@ msgid "Edit"
 msgstr "แก้ไข"
 
 #: ../textw/bootloader_text.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"ตัวจัดการการบูตของลินุกซ์ทะเล สามารถบูตระบบปฏิบัติการอื่นได้ดีเช่นกัน \n"
-"คุณจำเป็นต้องบอกเราว่าพาร์ทิชันใดบ้างที่ต้องการให้บูต \n"
-"และบอกชื่อที่คุณต้องการใช้สำหรับแต่ละพาร์ทิชัน"
+"ตัวจัดการการบูต %s สามารถบูตระบบปฏิบัติการอื่นได้เป็นอย่างดี "
+"คุณจำเป็นต้องบอกเราว่าพาร์ทิชันใดบ้างที่ต้องการให้บูต "
+"และบอกชื่อที่คุณต้องการใช้สำหรับแต่ละรายการ"
 
 #: ../textw/bootloader_text.py:315
 msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
@@ -5012,9 +5018,9 @@ msgid ""
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
 msgstr ""
-"รหัสผ่านของบูตโหลดเดอร์นั้นจะทำหน้าที่ป้องกันผู้ใช้มิให้ส่งผ่านตัวเลือกต่างๆ\n"
-"ให้แก่เคอร์เนล เพื่อความปลอดภัยสูงสุดขอแนะนำให้ตั้งรหัสผ่าน\n"
-" แต่ไม่จำเป็นสำหรับผู้ใช้ทั่วๆ ไป"
+"รหัสผ่านของบูตโหลดเดอร์นั้นจะทำหน้าที่ป้องกันผู้ใช้มิให้ส่งผ่านตัวเลือกต่างๆ "
+"ให้แก่เคอร์เนล เพื่อความปลอดภัยสูงสุด ขอแนะนำให้ตั้งรหัสผ่าน "
+"แต่ไม่จำเป็นสำหรับผู้ใช้ทั่วๆ ไป"
 
 #: ../textw/bootloader_text.py:404
 msgid "Use a GRUB Password"
@@ -5026,7 +5032,7 @@ msgstr "รหัสผ่านสำหรับบูตโหลดเดอ
 
 #: ../textw/bootloader_text.py:417
 msgid "Confirm:"
-msgstr "ยืนยันรหัสผ่าน: "
+msgstr "ยืนยันรหัสผ่าน:"
 
 #: ../textw/bootloader_text.py:446
 msgid "Passwords Do Not Match"
@@ -5063,7 +5069,7 @@ msgstr ""
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr "กด<Enter> เพื่อรีบูต"
+msgstr "กด <Enter> เพื่อรีบูต"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -5087,11 +5093,9 @@ msgid ""
 msgstr ""
 "ขอแสดงความยินดี การติดตั้งลินุกซ์ทะเลของคุณเสร็จสมบูรณ์แล้ว\n"
 "\n"
-"สำหรับข้อมูลเกี่ยวกับการแก้ไขข้อผิดพลาดและการอัพเกรด กรุณาเยี่ยมชมที่ http://www.opentle."
-"org/linuxtle/\n"
+"สำหรับข้อมูลเกี่ยวกับการแก้ไขข้อผิดพลาดและการอัพเกรด กรุณาเยี่ยมชมที่ http://www.redhat.com/errata/\n"
 "\n"
-"รายละเอียดเกี่ยวกับการใช้งาน และการปรับแต่งระบบของคุณ มีอยู่ในคู่มือ %s ซึ่งมีทั้งเป็นหนังสือ "
-"และบนเว็บ http://www.opentle.org"
+"รายละเอียดเกี่ยวกับการใช้งานระบบของคุณ มีอยู่ในคู่มือ %s ซึ่งอยู่บนเว็บ http://www.redhat.com/docs/"
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
@@ -5099,7 +5103,7 @@ msgstr "เสร็จสมบูรณ์"
 
 #: ../textw/complete_text.py:48
 msgid "Reboot"
-msgstr "รีบูต "
+msgstr "รีบูต"
 
 #: ../textw/confirm_text.py:22
 msgid "Installation to begin"
@@ -5111,7 +5115,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-"บันทึกการปฏิบัติการอย่างสมบูรณ์ของการติดตั้งของคุณ จะอยู่ที่ %s หลังจากที่รีบูตระบบของคุณแล้ว "
+"บันทึกการปฏิบัติการอย่างสมบูรณ์ของการติดตั้งของคุณ จะอยู่ที่ %s หลังจากที่รีบูตระบบของคุณแล้ว  "
 "คุณอาจจะต้องการเก็บไฟล์นี้ไว้ สำหรับอ้างอิงในภายหลัง"
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
@@ -5139,7 +5143,7 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
-"บันทึกการอัพเกรดอย่างสมบูรณ์จะอยู่ที่ %s หลังจากที่รีบูตระบบ "
+"บันทึกการอัพเกรดอย่างสมบูรณ์จะอยู่ที่ %s หลังจากที่รีบูตระบบ  "
 "คุณอาจจะต้องการเก็บไฟล์นี้ไว้ใช้อ้างอิงในภายหลัง"
 
 #: ../textw/desktop_choice_text.py:27
@@ -5152,6 +5156,9 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
+"XXX\n"
+"\n"
+"XXX %s XXX"
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
