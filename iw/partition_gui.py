@@ -24,8 +24,6 @@ from fsset import *
 from autopart import doPartitioning, queryAutoPartitionOK
 from autopart import CLEARPART_TYPE_LINUX_DESCR_TEXT, CLEARPART_TYPE_ALL_DESCR_TEXT, CLEARPART_TYPE_NONE_DESCR_TEXT
 from autopart import AUTOPART_DISK_CHOICE_DESCR_TEXT
-from xpms_gui import CHECKBOX_ON_XPM
-from xpms_gui import CHECKBOX_OFF_XPM
 
 import gui
 import parted

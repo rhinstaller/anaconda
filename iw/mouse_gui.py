@@ -204,10 +204,8 @@ class MouseWindow (InstallWindow):
 
         hbox = GtkHBox(FALSE, 5)
 
-        im = self.ics.readPixmap ("gnome-mouse.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("gnome-mouse.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)

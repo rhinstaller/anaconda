@@ -260,10 +260,8 @@ class AccountWindow (InstallWindow):
         box = GtkVBox ()
 
         hbox = GtkHBox()
-        im = self.ics.readPixmap ("root-password.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("root-password.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)
@@ -343,10 +341,8 @@ class AccountWindow (InstallWindow):
         bb.pack_start (self.delete)
 
         hbox = GtkHBox()
-        im = self.ics.readPixmap ("users.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("users.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 0, 0)

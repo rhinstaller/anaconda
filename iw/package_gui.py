@@ -6,12 +6,11 @@ from thread import *
 from examine_gui import *
 import rpm
 import gui
-import GdkImlib
 import string
 import sys
-import xpms_gui
 from translate import _, N_
 import checklist
+import gdkpixbuf
 
 def queryUpgradeContinue(intf):
     rc = intf.messageWindow(_("Proceed with upgrade?"),
@@ -330,10 +329,14 @@ class IndividualPackageSelectionWindow (InstallWindow):
         # self.ctree.unset_flags (CAN_FOCUS)     
 
         if (not self.__dict__.has_key ("open_p")):
-            self.open_p, self.open_b = create_pixmap_from_xpm_d (self.ctree,
-                                                                 None, xpms_gui.DIRECTORY_OPEN_XPM)
-            self.closed_p, self.closed_b = create_pixmap_from_xpm_d (self.ctree,
-                                                                     None, xpms_gui.DIRECTORY_CLOSE_XPM)
+            fn = self.ics.findPixmap("directory-open.png")
+            p = gdkpixbuf.new_from_file (fn)
+            if p:
+                self.open_p, self.open_b = p.render_pixmap_and_mask()
+            fn = self.ics.findPixmap("directory-closed.png")
+            p = gdkpixbuf.new_from_file (fn)
+            if p:
+                self.closed_p, self.closed_b = p.render_pixmap_and_mask()
             
         groups = {}
 
@@ -530,10 +533,8 @@ class PackageSelectionWindow (InstallWindow):
                 pixname = string.replace (pixname, ')', '-')
                 pixname = string.lower (pixname) + ".png"
                 checkButton = None
-                im = self.ics.readPixmap (pixname)
-                if im:
-                    im.render ()
-                    pix = im.make_pixmap ()
+                pix = self.ics.readPixmap (pixname)
+                if pix:
                     hbox = GtkHBox (FALSE, 5)
                     hbox.pack_start (pix, FALSE, FALSE, 0)
                     label = GtkLabel (_(comp.name))

@@ -87,13 +87,12 @@ class InstallProgressWindow (InstallWindow):
                 num = self.pixcurnum + 1
                 if num >= len(self.pixmaps):
                     num = min(1, len(self.pixmaps))
-                im = self.ics.readPixmap (self.pixmaps[num])
-                im.render ()
-                pix = im.make_pixmap ()
-                self.adbox.remove (self.adpix)
-                pix.set_alignment (0.5, 0.5)
-                self.adbox.add (pix)
-                self.adpix = pix
+                pix = self.ics.readPixmap (self.pixmaps[num])
+                if pix:
+                    self.adbox.remove (self.adpix)
+                    pix.set_alignment (0.5, 0.5)
+                    self.adbox.add (pix)
+                    self.adpix = pix
                 self.adbox.show_all()
                 self.pixcurnum = num
                 self.pixtimer.reset()
@@ -261,14 +260,12 @@ class InstallProgressWindow (InstallWindow):
         hbox.pack_start (clist, TRUE)
         vbox.pack_start (hbox, FALSE)
         
-        im = self.ics.readPixmap ("progress_first.png")
-        
-        if im:
+        pix = self.ics.readPixmap ("progress_first.png")
+        if pix:
             frame = GtkFrame()
             frame.set_shadow_type (SHADOW_IN)
-            im.render ()
             box = GtkEventBox ()
-            self.adpix = im.make_pixmap ()
+            self.adpix = pix
             style = box.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             box.set_style (style)

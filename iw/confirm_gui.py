@@ -11,10 +11,8 @@ class ConfirmWindow (InstallWindow):
         hbox = GtkHBox (TRUE, 5)
         box = GtkVBox (FALSE, 5)
 
-        im = self.ics.readPixmap ("about-to-install.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("about-to-install.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)

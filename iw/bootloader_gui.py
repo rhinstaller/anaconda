@@ -17,23 +17,14 @@ from iw_gui import *
 from gtk import *
 from gnome.ui import *
 from translate import _, N_
-from xpms_gui import CHECKBOX_ON_XPM
-from xpms_gui import CHECKBOX_OFF_XPM
-import GdkImlib
+import gdkpixbuf
 import iutil
 from package_gui import queryUpgradeContinue
 import gui
 
 class BootloaderWindow (InstallWindow):
-    foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
-    foo.render()
-    checkMark = foo.make_pixmap()
-    del foo
-
-    foo = GdkImlib.create_image_from_xpm (CHECKBOX_OFF_XPM)
-    foo.render()
-    checkMark_Off = foo.make_pixmap()
-    del foo
+    checkMark = None
+    checkMark_Off = None
 
     windowTitle = N_("Boot Loader Configuration")
     htmlTag = "bootloader"
@@ -288,6 +279,11 @@ class BootloaderWindow (InstallWindow):
 
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
+        if not BootloaderWindow.checkMark:
+            BootloaderWindow.checkMark = self.ics.readPixmap("checkbox-on.png")
+        if not BootloaderWindow.checkMark_Off:
+            BootloaderWindow.checkMark_Off = self.ics.readPixmap("checkbox-off.png")            
+
 	self.dispatch = dispatch
 	self.bl = bl
         self.intf = dispatch.intf

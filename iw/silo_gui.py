@@ -4,14 +4,9 @@ from iw_gui import *
 from gtk import *
 from translate import _
 from xpms_gui import SMALL_CHECK
-import GdkImlib
+import gdkpixbuf
 
 class SiloWindow (InstallWindow):
-    foo = GdkImlib.create_image_from_xpm (SMALL_CHECK)
-    foo.render()
-    checkMark = foo.make_pixmap()
-    del foo
-
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
@@ -239,10 +234,8 @@ class SiloWindow (InstallWindow):
 	optionBox.pack_start (self.silo, FALSE)
 	topBox.pack_start (optionBox)
 
-	im = self.ics.readPixmap ("silo.png")
-	if im:
-	    im.render ()
-	    pix = im.make_pixmap ()
+	pix = self.ics.readPixmap ("silo.png")
+	if pix:
 	    a = GtkAlignment ()
 	    a.add (pix)
 	    a.set (1.0, 0.0, 0.0, 0.0)

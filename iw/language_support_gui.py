@@ -3,25 +3,15 @@ from iw_gui import *
 from translate import _, N_
 from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
-import GdkImlib
+import gdkpixbuf
 from gnome.ui import *
 from flags import flags
 import checklist
 
 class LanguageSupportWindow (InstallWindow):
-    foo = GdkImlib.create_image_from_xpm (CHECKBOX_ON_XPM)
-    foo.render()
-    checkMark = foo.make_pixmap()
-    del foo
-
-    foo = GdkImlib.create_image_from_xpm (CHECKBOX_OFF_XPM)
-    foo.render()
-    checkMark_Off = foo.make_pixmap()
-    del foo
-
     windowTitle = _("Additional Language Support")
     htmlTag = "langsupport"
-
+    
     def getNext (self):
         self.supportedLangs = []
 

@@ -1,24 +1,28 @@
-from gtk import *
-from iw_gui import *
-from translate import _, N_
+#
+# xconfig_gui: gui X configuration
+#
+# Brent Fox <bfox@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
 
 import copy
 import string
 import sys
 import iutil
-import xpms_gui
 import glob
-
+import gdkpixbuf
+from gtk import *
+from iw_gui import *
+from translate import _, N_
 from monitor import isValidSyncRange
-
-"""
-_("Video Card")
-_("Monitor")
-_("Video Ram")
-_("Horizontal Frequency Range")
-_("Vertical Frequency Range")
-_("Test failed")
-"""
 
 class XCustomWindow (InstallWindow):
 
@@ -94,13 +98,12 @@ class XCustomWindow (InstallWindow):
         if self.monitor_align:
             self.hbox.remove (self.monitor_align)
 
-        im = self.ics.readPixmap (file)
-        im.render ()
-        pix = im.make_pixmap ()
-        self.monitor_align = GtkAlignment ()
-        self.monitor_align.add (pix)
-        self.monitor_align.set (0.5, 0.5, 1.0, 1.0)
-        self.hbox.pack_start (self.monitor_align, TRUE, TRUE)
+        pix = self.ics.readPixmap (file)
+        if pix:
+            self.monitor_align = GtkAlignment ()
+            self.monitor_align.add (pix)
+            self.monitor_align.set (0.5, 0.5, 1.0, 1.0)
+            self.hbox.pack_start (self.monitor_align, TRUE, TRUE)
         self.hbox.show_all()
 
     def swap_monitor (self, num):
@@ -131,13 +134,11 @@ class XCustomWindow (InstallWindow):
         self.vbox4 = GtkVBox ()
 
         if desktop == "GNOME":
-            im = self.ics.readPixmap("gnome.png")
+           pix = self.ics.readPixmap("gnome.png")
         elif desktop == "KDE":
-            im = self.ics.readPixmap("kde.png")
+            pix = self.ics.readPixmap("kde.png")
 
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
@@ -512,7 +513,10 @@ class MonitorWindow (InstallWindow):
         self.hEntry = GtkEntry ()
         self.vEntry = GtkEntry () 
 
-        (self.monitor_p, self.monitor_b) = create_pixmap_from_xpm_d (self.ctree, None, xpms_gui.MONITOR_XPM)
+        fn = self.ics.findPixmap("monitor-small.png")
+        p = gdkpixbuf.new_from_file (fn)
+        if p:
+            self.monitor_p, self.monitor_b = p.render_pixmap_and_mask()
 
         # load monitor list and insert into tree
         self.orig_name = self.monitor.getMonitorID(useProbed=1)
@@ -833,8 +837,11 @@ class XConfigWindow (InstallWindow):
         self.ctree.set_selection_mode (SELECTION_BROWSE)
         self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
         self.ctree.set_line_style(CTREE_LINES_NONE)
-        
-        (self.videocard_p, self.videocard_b) = create_pixmap_from_xpm_d (self.ctree, None, xpms_gui.VIDEOCARD_XPM)
+
+        fn = self.ics.findPixmap("videocard.png")
+        p = gdkpixbuf.new_from_file (fn)
+        if p:
+            self.videocard_p, self.videocard_b = p.render_pixmap_and_mask()
 
         self.manufacturer_nodes = {}
 

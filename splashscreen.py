@@ -22,7 +22,7 @@ from gtk import *
 from gtk import _root_window
 from flags import flags
 import GDK
-import GdkImlib
+import gdkpixbuf
 
 splashwindow = None
 
@@ -46,38 +46,35 @@ def splashScreenShow(configFileData):
 
     def load_image(file):
         try:
-#            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
-            im = GdkImlib.Image("/usr/share/anaconda/" + file)
+            p = gdkpixbuf.new_from_file("/usr/share/anaconda/" + file)
         except:
             try:
-                im = GdkImlib.Image("" + file)
+                p = gdkpixbuf.new_from_file("" + file)
             except:
-                im = None
+                p = None
                 print "Unable to load", file
 
-        return im
+        return p
 
     global splashwindow
     
     width = screen_width()
-    im = None
+    p = None
 
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
-#        im = load_image('first.png')
         image = configFileData["Splashscreen"]
 
-        im = load_image(image)
+        p = load_image(image)
     else:
-        im = load_image('pixmaps/first-lowres.png')
+        p = load_image('pixmaps/first-lowres.png')
                         
-    if im:
-        im.render ()
+    if p:
+        pix = apply (GtkPixmap, p.render_pixmap_and_mask())
         splashwindow = GtkWindow ()
         splashwindow.set_position (WIN_POS_CENTER)
         box = GtkEventBox ()
-        pix = im.make_pixmap ()
         style = box.get_style ().copy ()
         style.bg[STATE_NORMAL] = style.white
         box.set_style (style)

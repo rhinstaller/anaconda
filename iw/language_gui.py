@@ -26,10 +26,8 @@ class LanguageWindow (InstallWindow):
         mainBox = GtkVBox (FALSE, 10)
 
         hbox = GtkHBox(FALSE, 5)
-        im = self.ics.readPixmap ("gnome-globe.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("gnome-globe.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)

@@ -177,10 +177,8 @@ class TimezoneWindow (InstallWindow):
         align.add (self.systemUTC)
         hbox.pack_start (align, FALSE)
 
-        im = self.ics.readPixmap ("timezone.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("timezone.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (1.0, 0.0, 0.0, 0.0)

@@ -2,7 +2,6 @@ from gtk import *
 from gnome.ui import *
 from iw_gui import *
 from translate import _, N_
-import GdkImlib
 
 class WelcomeWindow (InstallWindow):		
 
@@ -13,30 +12,17 @@ class WelcomeWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         ics.setGrabNext (1)
 
-    def load_image(self, file):
-        try:
-            im = GdkImlib.Image("/usr/share/anaconda/" + file)
-        except:
-            try:
-                im = GdkImlib.Image("" + file)
-            except:
-                print "Unable to load", file
-
-        return im
-
     # WelcomeWindow tag="wel"
     def getScreen (self, configFileData):
         frame = GtkFrame ()
         frame.set_shadow_type (SHADOW_IN)
 
         image = configFileData["WelcomeScreen"]
-
-        im = self.load_image(image)
+        print "try to load", image
+        pix = self.ics.readPixmap(image)
         
-        if im:
-            im.render ()
+        if pix:
             box = GtkEventBox ()
-            pix = im.make_pixmap ()
             style = box.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             box.set_style (style)
@@ -78,12 +64,10 @@ class ReconfigWelcomeWindow (InstallWindow):
         box.set_border_width (5)
         frame.add (box)
 
-        im = self.ics.readPixmap ("first-375.png")
+        pix = self.ics.readPixmap ("first-375.png")
         
-        if im:
-            im.render ()
+        if pix:
             ebox = GtkEventBox ()
-            pix = im.make_pixmap ()
             style = ebox.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             ebox.set_style (style)

@@ -18,7 +18,7 @@ import os
 os.environ["LC_ALL"] = "C"
 
 import GDK
-import GdkImlib
+import gdkpixbuf
 import iutil
 import string
 import isys
@@ -681,19 +681,18 @@ class InstallControlWindow:
 
         # Create header at the top of the installer
         if runres != '640x480':
-            for dir in ["/usr/share/anaconda/",
-                      "",
-                      "/tmp/updates"]:
+            for dir in ("/usr/share/anaconda/",
+                        "",
+                        "/tmp/updates"):
                 try:
-                    im = GdkImlib.Image (dir + image)
+                    p = gdkpixbuf.new_from_file(dir + image)
                 except:
-                    im = None
+                    p = None
                 else:
                     break
                 
-            if im:
-                im.render ()
-                pix = im.make_pixmap ()
+            if p:
+                pix = apply(GtkPixmap, p.render_pixmap_and_mask())
                 a = GtkAlignment ()
                 a.add (pix)
                 a.set (0.5, 0.5, 1.0, 1.0)
@@ -826,16 +825,32 @@ class InstallControlState:
     def getHelpButtonEnabled (self):
         return self.helpButtonEnabled
 
+    def findPixmap(self, file):
+        for path in ("/usr/share/anaconda/pixmaps/", "pixmaps/",
+                     "/usr/share/anaconda/", "",
+                     "/mnt/source/RHupdates/pixmaps/",
+                     "/mnt/source/RHupdates/"):
+            fn = path + file
+            if os.access(fn, os.R_OK):
+                return fn
+        return None
+        
     def readPixmap (self, file):
+        fn = self.findPixmap(file)
+        if not fn:
+            log("unable to load %s", file)
+            return None
         try:
-            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/" + file)
-        except:
-            try:
-                im = GdkImlib.Image ("pixmaps/" + file)
-            except:
-                print "Unable to load", file
-                return None
-        return im
+            p = gdkpixbuf.new_from_file (fn)
+        except RuntimeError:
+            log("unable to read %s", file)
+            return None
+        if p:
+            pix = apply (GtkPixmap, p.render_pixmap_and_mask())
+            return pix
+        else:
+            log("unable to read %s", file)
+        return None
 
     def readHTML (self, file):
         self.htmlFile = file

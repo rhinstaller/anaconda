@@ -22,10 +22,8 @@ class CongratulationWindow (InstallWindow):
 
         hbox = GtkHBox (TRUE, 5)
         
-        im = self.ics.readPixmap ("done.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("done.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
@@ -73,10 +71,8 @@ class ReconfigCongratulationWindow (InstallWindow):
 
         hbox = GtkHBox (TRUE, 5)
         
-        im = self.ics.readPixmap ("done.png")
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap ("done.png")
+        if pix:
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)

@@ -50,10 +50,8 @@ class InstallPathWindow (InstallWindow):
 	    box.set_sensitive(sensitive)
 
     def pixRadioButton (self, group, label, pixmap):
-        im = self.ics.readPixmap (pixmap)
-        if im:
-            im.render ()
-            pix = im.make_pixmap ()
+        pix = self.ics.readPixmap (pixmap)
+        if pix:
             hbox = GtkHBox (FALSE, 5)
             hbox.pack_start (pix, FALSE, FALSE, 0)
             label = GtkLabel (label)
