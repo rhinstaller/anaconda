@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-08-20 11:30-0400\n"
+"POT-Creation-Date: 2001-08-22 16:24-0400\n"
 "PO-Revision-Date: 2001-08-18 12:21EDT\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -180,14 +180,15 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
-#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
-#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
-#: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:434
-#: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
+#: ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
+#: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
+#: ../iw/partition_gui.py:1280 ../iw/partition_gui.py:1608
+#: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
+#: ../iw/upgrade_swap_gui.py:186 ../partitioning.py:694
+#: ../partitioning.py:1406 ../textw/bootloader_text.py:133
+#: ../textw/bootloader_text.py:434 ../textw/partition_text.py:167
+#: ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
+#: ../upgrade.py:376
 msgid "Warning"
 msgstr "Advarsel"
 
@@ -265,11 +266,17 @@ msgstr ""
 "følgende stasjoner:%s\n"
 "Er du sikker på at du ønsker å gjøre dette?"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:281
+msgid ""
+"No kernel packages were installed on your system.  Your boot loader "
+"configuration will not be changed."
+msgstr ""
+
+#: ../bootloader.py:737
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:737
 msgid "Installing bootloader..."
 msgstr "Installerer bootloader..."
 
@@ -281,15 +288,15 @@ msgstr "Alt"
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../exception.py:112 ../text.py:219
+#: ../exception.py:147 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Uventet hendelse oppstod"
 
-#: ../exception.py:179
+#: ../exception.py:214
 msgid "Dump Written"
 msgstr "Dump skrevet"
 
-#: ../exception.py:180
+#: ../exception.py:215
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -309,7 +316,7 @@ msgstr ""
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
-#: ../partitioning.py:1258 ../partitioning.py:1289
+#: ../partitioning.py:1263 ../partitioning.py:1294
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 #: ../upgrade.py:304
@@ -945,12 +952,12 @@ msgstr ""
 "\n"
 "Ønsker du å initiere denne stasjonen?"
 
-#: ../partitioning.py:1259 ../partitioning.py:1290
+#: ../partitioning.py:1264 ../partitioning.py:1295
 #, c-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Feil under montering av filsystem på %s: %s"
 
-#: ../partitioning.py:1402
+#: ../partitioning.py:1407
 #, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -964,11 +971,11 @@ msgstr ""
 "\n"
 "Ønsker du å initiere denne stasjonen?"
 
-#: ../partitioning.py:1488
+#: ../partitioning.py:1493
 msgid "No Drives Found"
 msgstr "Ingen stasjoner funnet"
 
-#: ../partitioning.py:1489
+#: ../partitioning.py:1494
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -976,7 +983,7 @@ msgstr ""
 "En feil har oppstått - ingen gyldige enheter for oppretting av filsystemer "
 "ble funnet. Sjekk maskinvaren din for å finne årsaken til problemet."
 
-#: ../partitioning.py:1576
+#: ../partitioning.py:1581
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -986,7 +993,7 @@ msgstr ""
 "\n"
 "Er du sikker?"
 
-#: ../partitioning.py:1579
+#: ../partitioning.py:1584
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -997,47 +1004,47 @@ msgstr ""
 "\n"
 "Er du sikker?"
 
-#: ../partitioning.py:1583
+#: ../partitioning.py:1588
 msgid "Are you sure you want to delete this partition?"
 msgstr "Er du sikker på at du vil slette denne partisjonen?"
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1590
 msgid "Confirm Delete"
 msgstr "Bekreft sletting"
 
-#: ../partitioning.py:1589
+#: ../partitioning.py:1594
 msgid "Confirm Reset"
 msgstr "Bekreft nullstilling"
 
-#: ../partitioning.py:1590
+#: ../partitioning.py:1595
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nullstille partisjonstabellen til opprinnelig "
 "tilstand?"
 
-#: ../partitioning.py:1614
+#: ../partitioning.py:1619
 msgid "the partition in use by the installer."
 msgstr "partisjonen er i bruk av installasjonsprogrammet."
 
-#: ../partitioning.py:1617
+#: ../partitioning.py:1622
 msgid "a partition which is a member of a RAID array."
 msgstr "en partisjon som er medlem av et RAID-array."
 
-#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
-#: ../partitioning.py:1651 ../partitioning.py:1658
+#: ../partitioning.py:1631 ../partitioning.py:1637 ../partitioning.py:1645
+#: ../partitioning.py:1656 ../partitioning.py:1663
 msgid "Unable To Remove"
 msgstr "Kan ikke fjerne"
 
-#: ../partitioning.py:1627
+#: ../partitioning.py:1632
 msgid "You must first select a partition to remove."
 msgstr "Du må først velge en partisjon som skal fjernes."
 
-#: ../partitioning.py:1633
+#: ../partitioning.py:1638
 msgid "You cannot remove free space."
 msgstr "Du kan ikke fjerne ledig plass."
 
-#: ../partitioning.py:1641
+#: ../partitioning.py:1646
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1046,7 +1053,7 @@ msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den er en utvidet partisjon som "
 "inneholder %s"
 
-#: ../partitioning.py:1652
+#: ../partitioning.py:1657
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1054,20 +1061,20 @@ msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den inneholder data for harddisk "
 "installasjonen."
 
-#: ../partitioning.py:1659
+#: ../partitioning.py:1664
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "Du kan ikke fjerne denne partisjonen siden den er en del av en RAID-enhet."
 
-#: ../partitioning.py:1690 ../partitioning.py:1712
+#: ../partitioning.py:1695 ../partitioning.py:1717
 msgid "Unable To Edit"
 msgstr "Kan ikke redigere"
 
-#: ../partitioning.py:1691
+#: ../partitioning.py:1696
 msgid "You must select a partition to edit"
 msgstr "Du må velge en partisjon for redigering"
 
-#: ../partitioning.py:1713
+#: ../partitioning.py:1718
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1076,20 +1083,20 @@ msgstr ""
 "Du kan ikke redigere denne partisjonen siden den er en utvidet partisjon som "
 "inneholder %s"
 
-#: ../partitioning.py:1721
+#: ../partitioning.py:1726
 msgid "Unable to Edit"
 msgstr "Kan ikke redigere"
 
-#: ../partitioning.py:1722
+#: ../partitioning.py:1727
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Du kan ikke redigere denne partisjonen da den er en del av en RAID-enhet"
 
-#: ../partitioning.py:1734
+#: ../partitioning.py:1739
 msgid "Installation cannot continue."
 msgstr "Installasjonen kan ikke fortsette."
 
-#: ../partitioning.py:1735
+#: ../partitioning.py:1740
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1099,11 +1106,11 @@ msgstr ""
 "kunne gå tilbake til skjermen for redigering av disker. Vil du fortsette "
 "installasjonsprosessen?"
 
-#: ../partitioning.py:1755
+#: ../partitioning.py:1760
 msgid "Low Memory"
 msgstr "Lite minne"
 
-#: ../partitioning.py:1756
+#: ../partitioning.py:1761
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1113,11 +1120,11 @@ msgstr ""
 "med en gang. For å gjøre dette må vi skrive den nye partisjonstabellen til "
 "disken nå. Er dette ok?"
 
-#: ../partitioning.py:1774
+#: ../partitioning.py:1779
 msgid "Format as Swap?"
 msgstr "Formater som swap?"
 
-#: ../partitioning.py:1775
+#: ../partitioning.py:1780
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1130,11 +1137,11 @@ msgstr ""
 "\n"
 "Ønsker du å formatere denne partisjonen som en swappartisjon?"
 
-#: ../partitioning.py:1794 ../partitioning.py:1812
+#: ../partitioning.py:1799 ../partitioning.py:1817
 msgid "Format?"
 msgstr "Formatere?"
 
-#: ../partitioning.py:1795
+#: ../partitioning.py:1800
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1146,7 +1153,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil gjøre dette?"
 
-#: ../partitioning.py:1803
+#: ../partitioning.py:1808
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1164,11 +1171,11 @@ msgstr ""
 "\n"
 "Er du sikker på at du ikke ønsker å formatere?"
 
-#: ../partitioning.py:1819
+#: ../partitioning.py:1824
 msgid "Error with Partitioning"
 msgstr "Feil under partisjonering"
 
-#: ../partitioning.py:1820
+#: ../partitioning.py:1825
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1183,11 +1190,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1833
+#: ../partitioning.py:1838
 msgid "Partitioning Warning"
 msgstr "Advarsel fra partisjonering"
 
-#: ../partitioning.py:1834
+#: ../partitioning.py:1839
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1202,7 +1209,7 @@ msgstr ""
 "\n"
 "Vil du fortsette med det forespurte partisjoneringsopplegget?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1846
+#: ../iw/partition_gui.py:576 ../partitioning.py:1851
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1210,7 +1217,7 @@ msgstr ""
 "Disse eksisterende partisjonene er merket for formatering, som vil ødelegge "
 "alle data."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1849
+#: ../iw/partition_gui.py:579 ../partitioning.py:1854
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1218,7 +1225,7 @@ msgstr ""
 "Velg 'Ja' for å fortsette med formatering av disse partisjonene, eller 'Nei' "
 "for å tilbake og endre disse innstillingene."
 
-#: ../partitioning.py:1855
+#: ../partitioning.py:1860
 msgid "Format Warning"
 msgstr "Formateringsadvarsel"
 
@@ -1573,40 +1580,40 @@ msgstr "Vennligst oppgi brukernavn"
 msgid "Enter the password for the root user (administrator) of this system."
 msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
 
-#: ../iw/account_gui.py:286
+#: ../iw/account_gui.py:289
 msgid "Root Password: "
 msgstr "Root-passord: "
 
-#: ../iw/account_gui.py:289
+#: ../iw/account_gui.py:292
 msgid "Confirm: "
 msgstr "Bekreft: "
 
-#: ../iw/account_gui.py:323
+#: ../iw/account_gui.py:326
 msgid "Account Name"
 msgstr "Kontonavn"
 
-#: ../iw/account_gui.py:323 ../textw/userauth_text.py:103
+#: ../iw/account_gui.py:326 ../textw/userauth_text.py:103
 #: ../textw/userauth_text.py:204
 msgid "Full Name"
 msgstr "Fullt navn"
 
-#: ../iw/account_gui.py:330 ../textw/userauth_text.py:218
+#: ../iw/account_gui.py:333 ../textw/userauth_text.py:218
 msgid "Add"
 msgstr "Legg til"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:282
+#: ../iw/account_gui.py:335 ../textw/bootloader_text.py:282
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Redigér"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
+#: ../iw/account_gui.py:338 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Slett"
 
-#: ../iw/account_gui.py:355
+#: ../iw/account_gui.py:358
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
 "accounts could be for a personal login account, or for other non-"

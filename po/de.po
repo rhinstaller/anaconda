@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: installer 7.2\n"
-"POT-Creation-Date: 2001-08-20 11:30-0400\n"
+"POT-Creation-Date: 2001-08-22 16:24-0400\n"
 "PO-Revision-Date: 2001-08-10 12:00+0100\n"
 "Last-Translator: Claudia Krug <fhonig@redhat.it>\n"
 "Language-Team: German <de@li.org>\n"
@@ -187,14 +187,15 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:948 ../harddrive.py:236 ../iw/bootloader_gui.py:58
-#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1280
-#: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
-#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
-#: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:434
-#: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
+#: ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
+#: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
+#: ../iw/partition_gui.py:1280 ../iw/partition_gui.py:1608
+#: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
+#: ../iw/upgrade_swap_gui.py:186 ../partitioning.py:694
+#: ../partitioning.py:1406 ../textw/bootloader_text.py:133
+#: ../textw/bootloader_text.py:434 ../textw/partition_text.py:167
+#: ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
+#: ../upgrade.py:376
 msgid "Warning"
 msgstr "Warnung"
 
@@ -274,11 +275,17 @@ msgstr ""
 "DATEN) auf folgenden Laufwerken gelöscht werden sollen:%s\n"
 "Möchten Sie dies wirklich?"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:281
+msgid ""
+"No kernel packages were installed on your system.  Your boot loader "
+"configuration will not be changed."
+msgstr ""
+
+#: ../bootloader.py:737
 msgid "Bootloader"
 msgstr "Bootloader"
 
-#: ../bootloader.py:716
+#: ../bootloader.py:737
 msgid "Installing bootloader..."
 msgstr "Bootloader wird installiert..."
 
@@ -290,16 +297,16 @@ msgstr "Alles"
 msgid "no suggestion"
 msgstr "keine Vorschläge"
 
-#: ../exception.py:112 ../text.py:219
+#: ../exception.py:147 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Ein außergewöhnlicher Fehler ist aufgetreten"
 
 # ../comps/comps-master:483
-#: ../exception.py:179
+#: ../exception.py:214
 msgid "Dump Written"
 msgstr "Ein Dump wurde geschrieben"
 
-#: ../exception.py:180
+#: ../exception.py:215
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -319,7 +326,7 @@ msgstr ""
 #: ../loader/loader.c:2524 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:79 ../loader/urls.c:89 ../loader/urls.c:97
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
-#: ../partitioning.py:1258 ../partitioning.py:1289
+#: ../partitioning.py:1263 ../partitioning.py:1294
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
 #: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
 #: ../upgrade.py:304
@@ -968,12 +975,12 @@ msgstr ""
 "\n"
 "Möchten Sie das Laufwerk initialisieren?"
 
-#: ../partitioning.py:1259 ../partitioning.py:1290
+#: ../partitioning.py:1264 ../partitioning.py:1295
 #, c-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Fehler beim Mounten des Dateisystems auf %s: %s"
 
-#: ../partitioning.py:1402
+#: ../partitioning.py:1407
 #, c-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -987,11 +994,11 @@ msgstr ""
 "\n"
 "Möchten Sie das Laufwerk initialisieren?"
 
-#: ../partitioning.py:1488
+#: ../partitioning.py:1493
 msgid "No Drives Found"
 msgstr "Keine Laufwerke gefunden"
 
-#: ../partitioning.py:1489
+#: ../partitioning.py:1494
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -1000,7 +1007,7 @@ msgstr ""
 "darauf neue Dateisysteme zu erstellen. Bitte überprüfen Sie Ihre Hardware-"
 "Konfiguration auf mögliche Fehler und falsche Einstellungen."
 
-#: ../partitioning.py:1576
+#: ../partitioning.py:1581
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -1010,7 +1017,7 @@ msgstr ""
 "\n"
 "Sind Sie sicher?"
 
-#: ../partitioning.py:1579
+#: ../partitioning.py:1584
 #, c-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -1021,47 +1028,47 @@ msgstr ""
 "\n"
 "Sind Sie sicher?"
 
-#: ../partitioning.py:1583
+#: ../partitioning.py:1588
 msgid "Are you sure you want to delete this partition?"
 msgstr "Sind Sie sicher, dass Sie diese Partition löschen möchten?"
 
-#: ../partitioning.py:1585
+#: ../partitioning.py:1590
 msgid "Confirm Delete"
 msgstr "Löschen bestätigen"
 
-#: ../partitioning.py:1589
+#: ../partitioning.py:1594
 msgid "Confirm Reset"
 msgstr "Zurücksetzen bestätigen"
 
-#: ../partitioning.py:1590
+#: ../partitioning.py:1595
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Sind Sie sicher, dass Sie die Partitionstabelle in den "
 "Originalzustandzurücksetzenn möchten?"
 
-#: ../partitioning.py:1614
+#: ../partitioning.py:1619
 msgid "the partition in use by the installer."
 msgstr "Die Partition wird vom Installer verwendet."
 
-#: ../partitioning.py:1617
+#: ../partitioning.py:1622
 msgid "a partition which is a member of a RAID array."
 msgstr "eine Partition, die ein Teil des RAID Bereichs ist."
 
-#: ../partitioning.py:1626 ../partitioning.py:1632 ../partitioning.py:1640
-#: ../partitioning.py:1651 ../partitioning.py:1658
+#: ../partitioning.py:1631 ../partitioning.py:1637 ../partitioning.py:1645
+#: ../partitioning.py:1656 ../partitioning.py:1663
 msgid "Unable To Remove"
 msgstr "Kann nicht entfernt werden"
 
-#: ../partitioning.py:1627
+#: ../partitioning.py:1632
 msgid "You must first select a partition to remove."
 msgstr "Wählen Sie zuerst die zu entfernende Partition aus."
 
-#: ../partitioning.py:1633
+#: ../partitioning.py:1638
 msgid "You cannot remove free space."
 msgstr "Sie können keinen freien Speicherplatz entfernen."
 
-#: ../partitioning.py:1641
+#: ../partitioning.py:1646
 #, c-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
@@ -1070,7 +1077,7 @@ msgstr ""
 "Sie können diese Partition nicht entfernen, da es eine erweiterte Partition "
 "ist, die %s enthält"
 
-#: ../partitioning.py:1652
+#: ../partitioning.py:1657
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
@@ -1078,21 +1085,21 @@ msgstr ""
 "Sie können diese Partition nicht entfernen, da sie Daten für die "
 "'Installation von Festplatte' enthält."
 
-#: ../partitioning.py:1659
+#: ../partitioning.py:1664
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 "Sie können diese Partition nicht entfernen, da sie ein Teil des RAID-Gerätes "
 "ist."
 
-#: ../partitioning.py:1690 ../partitioning.py:1712
+#: ../partitioning.py:1695 ../partitioning.py:1717
 msgid "Unable To Edit"
 msgstr "Kann nicht bearbeitet werden"
 
-#: ../partitioning.py:1691
+#: ../partitioning.py:1696
 msgid "You must select a partition to edit"
 msgstr "Wählen Sie die zu bearbeitende Partition aus."
 
-#: ../partitioning.py:1713
+#: ../partitioning.py:1718
 #, c-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
@@ -1101,21 +1108,21 @@ msgstr ""
 "Sie können diese Partition nicht bearbeiten, da es eine erweiterte Partition "
 "ist, die %s enthält"
 
-#: ../partitioning.py:1721
+#: ../partitioning.py:1726
 msgid "Unable to Edit"
 msgstr "Kann nicht bearbeitet werden"
 
-#: ../partitioning.py:1722
+#: ../partitioning.py:1727
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 "Sie können diese Partition nicht bearbeiten, da sie ein Teil eines RAID-"
 "Geräts ist."
 
-#: ../partitioning.py:1734
+#: ../partitioning.py:1739
 msgid "Installation cannot continue."
 msgstr "Installation kann nicht fortfahren."
 
-#: ../partitioning.py:1735
+#: ../partitioning.py:1740
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
@@ -1125,11 +1132,11 @@ msgstr ""
 "aktiviert. Sie können nicht mehr zum Bearbeitungsbildschirm der Platte "
 "zurückkehren. Möchten Sie mit dem Installationsprozess fortfahren?"
 
-#: ../partitioning.py:1755
+#: ../partitioning.py:1760
 msgid "Low Memory"
 msgstr "Wenig Speicher"
 
-#: ../partitioning.py:1756
+#: ../partitioning.py:1761
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1139,11 +1146,11 @@ msgstr ""
 "Bereich sofort aktivieren. Hierzu muss jetzt die neue Partitionstabelle auf "
 "die Festplatte geschrieben werden. Sind Sie damit einverstanden?"
 
-#: ../partitioning.py:1774
+#: ../partitioning.py:1779
 msgid "Format as Swap?"
 msgstr "Als Swap formatieren"
 
-#: ../partitioning.py:1775
+#: ../partitioning.py:1780
 #, c-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1156,11 +1163,11 @@ msgstr ""
 "\n"
 "Möchten Sie diese Partition als Swap-Partition formatieren?"
 
-#: ../partitioning.py:1794 ../partitioning.py:1812
+#: ../partitioning.py:1799 ../partitioning.py:1817
 msgid "Format?"
 msgstr "Formatieren?"
 
-#: ../partitioning.py:1795
+#: ../partitioning.py:1800
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1172,7 +1179,7 @@ msgstr ""
 "\n"
 "Möchten Sie dies wirklich?"
 
-#: ../partitioning.py:1803
+#: ../partitioning.py:1808
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1190,11 +1197,11 @@ msgstr ""
 "\n"
 "Möchten Sie dies wirklich tun?"
 
-#: ../partitioning.py:1819
+#: ../partitioning.py:1824
 msgid "Error with Partitioning"
 msgstr "Fehler bei der Partitionierung"
 
-#: ../partitioning.py:1820
+#: ../partitioning.py:1825
 #, c-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1209,11 +1216,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1833
+#: ../partitioning.py:1838
 msgid "Partitioning Warning"
 msgstr "Partitionierwarnung"
 
-#: ../partitioning.py:1834
+#: ../partitioning.py:1839
 #, c-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1228,7 +1235,7 @@ msgstr ""
 "\n"
 "Möchten Sie mit dem geforderten Partitionsschema fortfahren?"
 
-#: ../iw/partition_gui.py:576 ../partitioning.py:1846
+#: ../iw/partition_gui.py:576 ../partitioning.py:1851
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1236,7 +1243,7 @@ msgstr ""
 "Die folgenden, bereits existierenden Partitionen wurden für die Formatierung "
 "ausgewählt. Hierbei gehen alle Daten verloren."
 
-#: ../iw/partition_gui.py:579 ../partitioning.py:1849
+#: ../iw/partition_gui.py:579 ../partitioning.py:1854
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -1244,7 +1251,7 @@ msgstr ""
 "Wählen Sie 'Ja', um fortzufahren und diese Partitionen zu formatieren, oder "
 "'Nein', um zurückzugehen und diese Einstellungen zu ändern."
 
-#: ../partitioning.py:1855
+#: ../partitioning.py:1860
 msgid "Format Warning"
 msgstr "Formatierwarnung"
 
@@ -1611,40 +1618,40 @@ msgid "Enter the password for the root user (administrator) of this system."
 msgstr ""
 "Geben Sie das Passwort für den Root-Benutzer (Administrator) des Systems ein."
 
-#: ../iw/account_gui.py:286
+#: ../iw/account_gui.py:289
 msgid "Root Password: "
 msgstr "Root-Passwort: "
 
-#: ../iw/account_gui.py:289
+#: ../iw/account_gui.py:292
 msgid "Confirm: "
 msgstr "Bestätigen: "
 
-#: ../iw/account_gui.py:323
+#: ../iw/account_gui.py:326
 msgid "Account Name"
 msgstr "Accountname"
 
-#: ../iw/account_gui.py:323 ../textw/userauth_text.py:103
+#: ../iw/account_gui.py:326 ../textw/userauth_text.py:103
 #: ../textw/userauth_text.py:204
 msgid "Full Name"
 msgstr "Vollständiger Name"
 
-#: ../iw/account_gui.py:330 ../textw/userauth_text.py:218
+#: ../iw/account_gui.py:333 ../textw/userauth_text.py:218
 msgid "Add"
 msgstr "Hinzufügen"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:282
+#: ../iw/account_gui.py:335 ../textw/bootloader_text.py:282
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: ../iw/account_gui.py:335 ../textw/partition_text.py:989
+#: ../iw/account_gui.py:338 ../textw/partition_text.py:989
 #: ../textw/userauth_text.py:218
 msgid "Delete"
 msgstr "Löschen"
 
-#: ../iw/account_gui.py:355
+#: ../iw/account_gui.py:358
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
 "accounts could be for a personal login account, or for other non-"
