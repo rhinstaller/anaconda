@@ -157,9 +157,8 @@ int getRemovableDevices(char *** devNames) {
     int numDevices = 0;
     int i = 0, j = 0;
 
-    floppies = probeDevices(CLASS_FLOPPY, 
-                            BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
-    cdroms = probeDevices(CLASS_CDROM, BUS_IDE | BUS_SCSI, PROBE_ALL);
+    floppies = probeDevices(CLASS_FLOPPY, BUS_UNSPEC, PROBE_ALL);
+    cdroms = probeDevices(CLASS_CDROM, BUS_UNSPEC, PROBE_ALL);
 
     /* we should probably take detached into account here, but it just
      * means we use a little bit more memory than we really need to */
