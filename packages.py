@@ -221,17 +221,21 @@ def handleX11Packages(dir, intf, disp, id, instPath):
 # END BLOCK
 
     # set default runlevel based on packages
-    gnomeSelected = (id.grpset.hdrlist.has_key('gnome-session')
-                     and id.grpset.hdrlist['gnome-session'].isSelected())
+    gnomeSelected = (id.grpset.hdrlist.has_key('gdm')
+                     and id.grpset.hdrlist['gdm'].isSelected())
     kdeSelected = (id.grpset.hdrlist.has_key('kdebase')
                    and id.grpset.hdrlist['kdebase'].isSelected())
+    xinstalled = ((id.grpset.hdrlist.has_key('xorg-x11')
+                   and id.grpset.hdrlist['xorg-x11'].isSelected()) or
+                  (id.grpset.hdrlist.has_key('XFree86')
+                   and id.grpset.hdrlist['XFree86'].isSelected()))
 
     if gnomeSelected:
         id.desktop.setDefaultDesktop("GNOME")
     elif kdeSelected:
         id.desktop.setDefaultDesktop("KDE")
 
-    if (gnomeSelected or kdeSelected) and (not flags.serial):
+    if (gnomeSelected or kdeSelected) and (xinstalled) and (not flags.serial):
         id.desktop.setDefaultRunLevel(5)
 
 # verifies that monitor is not Unprobed, and if so we can skip monitor question
