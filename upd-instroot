@@ -167,10 +167,6 @@ usr/bin/chattr*
 usr/bin/lsattr*
 EOF
 
-for I in $DESTGR/usr/X11R6/lib/X11/fonts/*; do
-    mkfontdir $I
-done
-
 for I in $PACKAGES; do
     for J in `ls $SRC/$I*`; do
 	if [ "$I" != "rpm-devel" ]; then
@@ -190,6 +186,10 @@ for n in $RPMS; do
     echo "expanding $n"
     rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
     rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
+done
+
+for I in $DESTGR/usr/X11R6/lib/X11/fonts/*; do
+    mkfontdir $I
 done
 
 rm -f $KEEPFILE $KEEPFILEGR
