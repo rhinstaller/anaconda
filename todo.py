@@ -74,6 +74,9 @@ class Network:
                 self.gateway = info["GATEWAY"]
             if info.has_key ("NS1"):
                 self.primaryNS = info["NS1"]
+            if info.has_key ("HOSTNAME"):
+                self.hostname = info["HOSTNAME"]
+            
             self.readData = 1
     
     def available (self):
