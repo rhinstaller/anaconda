@@ -62,7 +62,7 @@ int main(int argc, char ** argv) {
 
     unlink(buf);
     
-    outfd = fdio->open(buf, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+    outfd = fdio->_open(buf, O_WRONLY | O_TRUNC | O_CREAT, 0644);
     if (!outfd) {
 	fprintf(stderr,"error creating file %s: %s\n", buf, strerror(errno));
 	return 1;
@@ -78,14 +78,14 @@ int main(int argc, char ** argv) {
     while (ent) {
        int i = strlen (ent->d_name);
        if (i > 4 && strcasecmp (&ent->d_name [i - 4], ".rpm") == 0) {
-	    fd = fdio->open(ent->d_name, O_RDONLY, 0666);
+	    fd = fdio->_open(ent->d_name, O_RDONLY, 0666);
 
 	    if (!fd) {
 		perror("open");
 		exit(1);
 	    }
 
-	    fstat(fdio->fileno(fd), &sb);
+	    fstat(fdio->_fileno(fd), &sb);
 	    size = sb.st_size;
 
 	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
