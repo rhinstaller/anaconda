@@ -121,7 +121,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	    f.close()
 
 	    needed = h[1000002]
-	    isys.umount("/mnt/source")
+            self.unmountCD()
 
 	    done = 0
 
