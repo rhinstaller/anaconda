@@ -320,7 +320,13 @@ def ext2IsDirty(device):
 def ejectCdrom(device):
     makeDevInode(device, "/tmp/cdrom")
     fd = os.open("/tmp/cdrom", os.O_RDONLY)
-    _isys.ejectcdrom(fd)
+
+    # this is a best effort
+    try:
+	_isys.ejectcdrom(fd)
+    except SystemError:
+	pass
+
     os.close(fd)
     os.unlink("/tmp/cdrom")
 
