@@ -12,8 +12,8 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-11 13:09+0200\n"
-"Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
+"PO-Revision-Date: 2004-07-04 04:02+0200\n"
+"Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -622,7 +622,7 @@ msgstr "Entrada remota (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Servidor web (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -1565,7 +1565,7 @@ msgstr ""
 "Voleu formatar aquest DASD amb el format CDL?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1573,22 +1573,19 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"La taula de particions del dispositiu /dev/%s és del tipus %s. No és "
-"apropiat per a aquesta arquitectura. Per poder fer servir aquest disc per a "
-"la instal·lació de %s, caldrà reninicialitzar-lo, causant-ne la pèrdua de "
+"Actualment /dev/%s té un format de particions %s. Per utilitzar aquest disc "
+"per a la instal·lació de %s, s'ha de reinicialitzar, causant-ne la pèrdua de "
 "totes les dades.\n"
 "\n"
-"Voleu inicialitzar aquest dispositiu?"
+"Voleu formatar aquesta unitat?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Omet"
+msgstr "Omet la un_itat"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formata"
+msgstr "_Formata la unitat"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1605,7 +1602,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Espereu mentre es formata el disc %s...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1616,7 +1613,7 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"No s'ha pogut llegir la taula de particions del dispositiu %s. Caldrà "
+"No s'ha pogut llegir la taula de particions del dispositiu %s (%s). Caldrà "
 "inicialitzar-lo per poder-hi crear noves particions, causant-ne la pèrdua de "
 "totes les dades.\n"
 "\n"
@@ -3287,6 +3284,9 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"És possible que vulgueu permetre l'accés exterior a serveis específics "
+"d'aquest ordinador a través del tallafoc. A quins serveis voleu permetre "
+"l'accés?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3295,11 +3295,14 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"El Linux amb millores de seguretat (SELinux, Sexurity Enhanced Linux) "
+"proporciona uns controls de seguretat millors que aquells disponibles en un "
+"sistema Linux tradicional. Es pot configurar en un estat inhabilitat, en el "
+"qual només avisa d'allò que no estaria permès, o en estat totalment actiu."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Inhabilita SELinux"
+msgstr "Voleu habilitar _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3858,14 +3861,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Punt a punt (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Clau de xifratge"
+msgstr "_Clau de xifratge"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5549,9 +5550,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "No podeu personalitzar el tallafoc si està deshabilitat."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Personalitza la configuració gràfica"
+msgstr "Personalitza la configuració del tallafoc"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -7044,9 +7044,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "No s'ha pogut trobar ks.cfg en el disquet d'arrencada."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Argument erroni per a l'ordre HD d'inici ràpid %s: %s"
+msgstr "Argument erroni per aturar l'ordre del mètode d'inici ràpid %s: %s"
 
 # He utilitzat el plural per no afavorir el masculí
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
@@ -8246,7 +8246,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Àrab"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8301,9 +8301,8 @@ msgid "German"
 msgstr "Alemany"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "S'està cercant"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8327,7 +8326,7 @@ msgstr "Coreà"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedoni"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8351,7 +8350,7 @@ msgstr "Protuguès (Brasiler)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8370,9 +8369,8 @@ msgid "Swedish"
 msgstr "Suec"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmània"
+msgstr "Tàmil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8384,7 +8382,7 @@ msgstr "Ucraïnès"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamita"
 
 #. generated from lang-table
 msgid "Welsh"
