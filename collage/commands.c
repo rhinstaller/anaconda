@@ -121,8 +121,10 @@ int mountCommand(int argc, char ** argv) {
 	dev = buf;
     }
 
-    if (doPwMount(dev, dir, fs, 0, 1, NULL, NULL))
+    if (doPwMount(dev, dir, fs, 0, 1, NULL, NULL)) {
+	fprintf(strerror, "mount failed: %s\n", strerror(errno));
 	return 1;
+    }
 
     return 0;
 }
