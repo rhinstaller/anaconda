@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-13 18:03+0200\n"
+"PO-Revision-Date: 2004-07-21 11:19+0200\n"
 "Last-Translator: Eduard Pech <kongretkrassescheissendreck@simstim.net>\n"
 "Language-Team: Deutsch <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -630,20 +630,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Fernanmeldung (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "WWW Server (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Dateiübertragung (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Mail (SMTP)"
+msgstr "Mail Server (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1043,11 +1042,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Bei der syntaktischen Analyse der Schnellstart-Konfiguration ('kickstart') trat folgender Fehler auf:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Fehler beim Öffnen der Kickstart-Datei %s: %s"
+msgstr "Fehler bei der syntaktischen Analyse der Schnellstart-Konfiguration ('kickstart')"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1214,9 +1215,9 @@ msgid "Change CDROM"
 msgstr "CD-ROM wechseln"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Legen Sie zum Fortfahren den Datenträger %d ein."
+msgstr "Legen Sie zum Fortfahren bitte %s Datenträger %d ein."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1605,12 +1606,11 @@ msgstr ""
 #: ../partedUtils.py:313
 #, fuzzy
 msgid "_Ignore drive"
-msgstr "Übergehen"
+msgstr "Laufwerk übergehen (_ignorieren)"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formatieren"
+msgstr "Laufwerk _formatieren"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -2576,11 +2576,15 @@ msgid "Unable to Start X"
 msgstr "Kann X nicht starten"
 
 #: ../vnc.py:37
+#, fuzzy
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X konnte nicht gestartet werden. Möchten Sie VNC starten, um \n"
+"zu diesem Rechner von einem anderen Rechner zu verbinden und eine \n"
+"grafische Installation durchführen oder mit einer Text basierten Installation fortfahren?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
@@ -2603,7 +2607,7 @@ msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Ein Kennwort verhindert Lauschangriffe während des Installationsvorgangs. Bitte geben Sie ein Kennwort für die Installation ein"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2674,7 +2678,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "'root' ist das Konto für die Systemverwaltung. Geben Sie ein Kennwort für den Benutzer 'root' ein."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3327,7 +3331,7 @@ msgstr "Aktivi_ere Firewall"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Bei einer Firewall können Sie einzelne Dienste auf Ihrem Rechner von aussen erreichbar machen. Welche Dienste möchten Sie entsprechend freischalten?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3335,12 +3339,11 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
+msgstr "SicherheitsErweitertes Linux (SELinux) erweitert das traditionelle Linux um feinere Sicherheitsmechanismen. Es kann vollständig aktiviert oder in einen 'abgeschalteten' Zustand versetzt werden, in welchem Warnungen die sonst üblichen Sperren ersetzen."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "SELinux deaktivieren"
+msgstr "_SELinux aktivieren?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3910,13 +3913,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "SCSI"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "_Kryptoschlüssel"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5622,9 +5624,8 @@ msgstr ""
 "Eine deaktivierte Firewall kann nicht benutzerdefiniert konfiguriert werden."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Grafik-Einstellungen benutzerdefiniert konfigurieren"
+msgstr "Firewall individuell einrichten"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5729,13 +5730,12 @@ msgid "Point to Point (IP)"
 msgstr "Point to Point (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
-#, fuzzy
 msgid "ESSID"
-msgstr "SCSI"
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Kryptoschlüssel"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6899,23 +6899,20 @@ msgstr ""
 "dienen könnten. Welches Gerät möchten Sie verwenden?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Diskette konnte nicht gemountet werden."
+msgstr "Fehler beim Montieren der Partition."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Treiber auswählen"
+msgstr "Wählen Sie das Abbild der Treiberdiskette"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Wählen Sie die Datei mit dem Abbild Ihrer Treiberdiskette."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Treiberdiskette konnte nicht gemountet werden."
+msgstr "Fehler beim Laden der Treiberdiskette aus der Datei."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7281,7 +7278,7 @@ msgstr "Gerät hinzufügen"
 #: ../loader2/loader.c:1136
 #, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Loader wurde bereits ausgeführt.  Starte Shell."
+msgstr "Loader wurde bereits ausgeführt. Starte jetzt das Befehlsfenster.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7423,12 +7420,11 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s ist ein Funknetzwerkgerät. Bitte geben Sie die ESSID und den Kyptoschlüssel Ihres Funknetzes an. Falls dieses keinen Schlüssel benötigt, lassen Sie das Feld frei und die Installation fährt fort."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Verschiedene Einstellungen"
+msgstr "Einstellungen für das Funknetz"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8340,18 +8336,16 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporozh'ye, Ost Lugansk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Arabic"
-msgstr "Afrika"
+msgstr "Arabisch"
 
 #. generated from lang-table
 msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "Italienisch"
+msgstr "Katalanisch"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8398,9 +8392,8 @@ msgid "German"
 msgstr "Deutsch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Suchen"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8435,9 +8428,8 @@ msgid "Norwegian"
 msgstr "Norwegisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Deutsch"
+msgstr "Persisch"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8468,9 +8460,8 @@ msgid "Swedish"
 msgstr "Schwedisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmanien"
+msgstr "Tamilisch"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8519,7 +8510,7 @@ msgstr "Zulu"
 
 #, fuzzy
 #~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_Security Enhanced Linux (SELinux) Erweiterungen:"
+#~ msgstr "_SicherheitsErweitertes Linux (SELinux) Erweiterungen:"
 
 #~ msgid "Trusted Devices:"
 #~ msgstr "Sichere Geräte:"
