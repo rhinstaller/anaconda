@@ -4,7 +4,7 @@ VERSION = 7.0
 
 SUBDIRSHD = balkan isys libfdisk collage loader po text-help \
 	    minislang textw utils scripts bootdisk installclasses \
-	    keymaps
+	    keymaps fonts
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
