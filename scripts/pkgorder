@@ -93,7 +93,7 @@ def runTsAndOutput(pkglist):
         # make sure we don't double add package names
         if item.hdr['name'] in done:
             continue
-        done.append(item.hdr['name']
+        done.append(item.hdr['name'])
 #        print >> sys.stderr, "adding %s" %(item.name,)
         ts.addInstall(item.hdr, item.hdr, "i")
 
