@@ -237,12 +237,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             }
             
             cfg->isDynamic = 1;
+            cfg->preset = 1;
         } else if (inet_aton(loaderData->ip, &addr)) {
             cfg->dev.ip = addr;
             cfg->dev.set |= PUMP_INTFINFO_HAS_IP;
             cfg->isDynamic = 0;
+            cfg->preset = 1;
         }
-        cfg->preset = 1;
     }
 
     if (loaderData->netmask && (inet_aton(loaderData->netmask, &addr))) {
@@ -445,6 +446,12 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 #else /* s390 now */
    char * env;
+
+   /* JKFIXME: this is something of a hack... will go away better once
+    * we start just reading this into the ip info in loaderdata */
+   winStatus(50, 3, _("Setting up networking"), 
+             _("Setting up networking for %s..."), device, 0);
+
    memset(&newCfg, 0, sizeof(newCfg));
    strcpy(newCfg.dev.device, device);
    newCfg.isDynamic = 0;
@@ -475,11 +482,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
      if(inet_aton((t? t : s), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   env = getenv("REMIP");
-   if (env && *env) {
-     if (inet_aton(env, &newCfg.dev.ptpaddr))
-       newCfg.dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
-   }
    env = getenv("BROADCAST");
    if (env && *env) {
      if(inet_aton(env, &newCfg.dev.broadcast))
@@ -490,6 +492,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
        newCfg.dev.mtu = atoi(env);
        newCfg.dev.set |= PUMP_INTFINFO_HAS_MTU;
    }
+
+   sleep(1);
 #endif   /* s390 */
 
     /* preserve extra dns servers for the sake of being nice */
@@ -566,8 +570,6 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
         fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
         if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
             fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-        if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
-            fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
         if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
           fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));    
     }
