@@ -1,3 +1,8 @@
+2004-12-09  Jeremy Katz  <katzj@redhat.com>
+
+	* fsset.py (getDevFD): Better error handling if we can't create
+	the device (#142273)
+
 2004-12-08  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

@@ -2313,8 +2313,8 @@ def getDevFD(device):
         fd = os.open(device, os.O_RDONLY)
     except:
         file = '/tmp/' + device
-        isys.makeDevInode(device, file)
         try:
+            isys.makeDevInode(device, file)
             fd = os.open(file, os.O_RDONLY)
         except:
             return -1
