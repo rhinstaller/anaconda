@@ -16,3 +16,24 @@
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
+
+
+# different types of partition requests
+# REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
+# REQUEST_NEW is a request for a partition which will be automatically
+#              created based on various constraints on size, drive, etc
+# REQUEST_RAID is a request for a raid device
+# REQUEST_PROTECTED is a preexisting partition which can't change
+#              (harddrive install, harddrive with the isos on it)
+#
+REQUEST_PREEXIST = 1
+REQUEST_NEW = 2
+REQUEST_RAID = 4
+REQUEST_PROTECTED = 8
+REQUEST_VG = 16 # volume group
+REQUEST_LV = 32 # logical volume
+
+# when clearing partitions, what do we clear
+CLEARPART_TYPE_LINUX = 1
+CLEARPART_TYPE_ALL   = 2
+CLEARPART_TYPE_NONE  = 3

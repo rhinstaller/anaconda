@@ -660,8 +660,7 @@ class KickstartBase(BaseInstallClass):
         if len(raidmems) == 0:
             raise ValueError, "RAID Partition defined without any RAID members"
 
-        request = PartitionSpec(filesystem, REQUEST_RAID,
-                                mountpoint = mountpoint,
+        request = RaidRequestSpec(filesystem, mountpoint = mountpoint,
                                 raidmembers = raidmems, raidlevel = level,
                                 raidspares = spares, format = format,
                                 raidminor = raidDev)
@@ -771,7 +770,8 @@ class KickstartBase(BaseInstallClass):
         if fsopts:
             filesystem.extraFormatArgs.extend(fsopts)
 
-        request = PartitionSpec(filesystem, mountpoint = mountpoint, format=1)
+        request = PartitionRequestSpec(filesystem, mountpoint = mountpoint,
+                                       format = 1)
         if size:
             request.size = size
         if start:

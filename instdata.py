@@ -22,7 +22,7 @@ import desktop
 import users
 import fsset
 import bootloader
-import partitioning
+import partitions
 import partedUtils
 from flags import *
 
@@ -64,7 +64,7 @@ class InstallData:
         # XXX move fsset and/or diskset into Partitions object?
 	self.fsset.reset()
         self.diskset = partedUtils.DiskSet()
-        self.partitions = partitioning.Partitions()
+        self.partitions = partitions.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
         self.dbpath = None

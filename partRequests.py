@@ -1,0 +1,425 @@
+#
+# partRequests.py: partition request objects and management thereof
+#
+# Matt Wilson <msw@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+# Mike Fulbright <msf@redhat.com>
+# Harald Hoyer <harald@redhat.de>
+#
+# Copyright 2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+"""Partition request objects and management thereof."""
+
+import parted
+import iutil
+import string
+import os, sys
+
+from constants import *
+
+import fsset
+import partedUtils
+
+class DeleteSpec:
+    """Defines a preexisting partition which is intended to be removed."""
+    
+    def __init__(self, drive, start, end):
+        """Initializes a DeleteSpec.
+
+        drive is the text form of the drive
+        start is the start sector of the deleted partition
+        end is the end sector of the deleted partition
+        """
+        
+        self.drive = drive
+        self.start = start
+        self.end = end
+
+    def __str__(self):
+        return "drive: %s  start: %s  end: %s" %(self.drive, self.start,
+                                                 self.end)
+
+class RequestSpec:
+    """Generic Request specification."""
+    def __init__(self, fstype, size = None, mountpoint = None, format = None,
+                 badblocks = None, preexist = 0,
+                 migrate = None, origfstype = None):
+        """Create a generic RequestSpec.
+
+        This should probably never be externally used.
+        """
+
+        self.fstype = fstype
+        self.mountpoint = mountpoint
+        self.size = size
+        self.format = format
+        self.badblocks = badblocks
+
+        self.migrate = migrate
+        self.origfstype = origfstype
+        self.fslabel = None
+
+        self.device = None
+        """what we currently think the device is"""
+
+        self.uniqueID = None
+        """uniqueID is an integer and *MUST* be unique."""
+
+        self.ignoreBootConstraints = 0
+        """Booting constraints should be ignored for this request."""
+
+        self.preexist = preexist
+        """Did this partition exist before we started playing with things?"""
+
+        self.protected = 0
+        """Is this partitiion 'protected', ie does it contain install media."""
+
+    def __str__(self):
+        if self.fstype:
+            fsname = self.fstype.getName()
+        else:
+            fsname = "None"
+
+        str = ("Generic Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
+               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  device: %(dev)s  migrate: %(migrate)s" % 
+               {"mount": self.mountpoint, "id": self.uniqueID,
+                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "dev": self.device, "migrate": self.migrate})
+        return str
+        
+    def getDevice(self, partitions):
+        """Return a device to solidify."""
+
+        sys.stderr.write("WARNING: Abstract RequestSpec.getDevice() called\n")
+        import traceback
+        traceback.print_stack()
+
+    def toEntry(self, partitions):
+        """Turn a request into a fsset entry and return the entry."""
+        device = self.getDevice(partitions)
+
+        # pin down our partitions so that we can reread the table
+        device.solidify()
+        
+        if self.fstype.getName() == "swap":
+            mountpoint = "swap"
+        else:
+            mountpoint = self.mountpoint
+
+        entry = fsset.FileSystemSetEntry(device, mountpoint, self.fstype,
+                                         origfsystem=self.origfstype)
+        if self.format:
+            entry.setFormat(self.format)
+
+        if self.migrate:
+            entry.setMigrate(self.migrate)
+
+        if self.badblocks:
+            entry.setBadblocks(self.badblocks)
+            
+        return entry
+
+    def setProtected(self, val):
+        """Set the protected value for this partition."""
+        self.protected = val
+
+    def getProtected(self):
+        """Return the protected value for this partition."""
+        return self.protected
+
+    def getPreExisting(self):
+        """Return whether the partition existed before we started playing."""
+        return self.preexist
+
+# XXX preexistings store start/end as sectors, new store as cylinders. ICK
+class PartitionSpec(RequestSpec):
+    """Object to define a requested partition."""
+
+    # XXX eep, still a few too many options but a lot better
+    def __init__(self, fstype, size = None, mountpoint = None,
+                 preexist = 0, migrate = None, 
+                 grow = 0, maxSizeMB = None,
+                 start = None, end = None,
+                 drive = None, primary = None, format = None):
+        """Create a new PartitionSpec object.
+
+        fstype is the fsset filesystem type.
+        size is the requested size (in megabytes).
+        mountpoint is the mountpoint.
+        grow is whether or not the partition is growable.
+        maxSizeMB is the maximum size of the partition in megabytes.
+        start is the starting cylinder/sector (new/preexist).
+        end is the ending cylinder/sector (new/preexist).
+        drive is the drive the partition goes on.
+        primary is whether or not the partition should be forced as primary.
+        format is whether or not the partition should be formatted.
+        preexist is whether this partition is preexisting.
+        migrate is whether or not the partition should be migrated.
+        """
+
+        # if it's preexisting, the original fstype should be set
+        if preexist == 1:
+            origfs = fstype
+        else:
+            origfs = None
+        
+        RequestSpec.__init__(self, fstype = fstype, size = size,
+                             mountpoint = mountpoint, format = format,
+                             preexist = preexist, migrate = None,
+                             origfstype = origfs)
+        self.type = REQUEST_NEW
+
+        self.grow = grow
+        self.maxSizeMB = maxSizeMB
+        self.requestSize = size
+        self.start = start
+        self.end = end
+
+        self.drive = drive
+        self.primary = primary
+
+        # should be able to map this from the device =\
+        self.currentDrive = None
+        """Drive that this request will currently end up on."""        
+
+
+    def __str__(self):
+        if self.fstype:
+            fsname = self.fstype.getName()
+        else:
+            fsname = "None"
+
+        if self.origfstype:
+            oldfs = self.origfstype.getName()
+        else:
+            oldfs = "None"
+
+        if self.preexist == 0:
+            pre = "New"
+        else:
+            pre = "Existing"
+
+        str = ("%(n)s Part Request -- mountpoint: %(mount)s uniqueID: %(id)s\n"
+               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  device: %(dev)s drive: %(drive)  primary: %(primary)s\n"
+               "  size: %(size)s  grow: %(grow)s  maxsize: %(max)s\n"
+               "  start: %(start)s  end: %(end)s"
+               "  migrate: %(migrate)s  origfstype: %(origfs)s" % 
+               {"n": pre, "mount": self.mountpoint, "id": self.uniqueID,
+                "fstype": fsname, "format": self.format,
+                "dev": self.device, "drive": self.drive,
+                "primary": self.primary, "size": self.size,
+                "grow": self.grow, "max": self.maxSizeMB,
+                "start": self.start, "end": self.end, "bb": self.badblocks,
+                "migrate": self.migrate, "origfs": oldfs})
+        return str
+
+
+    def getDevice(self, partitions):
+        """Return a device to solidify."""        
+        dev = fsset.PartitionDevice(self.device)
+        return dev
+
+class NewPartitionSpec(PartitionSpec):
+    """Object to define a NEW requested partition."""
+
+    # XXX eep, still a few too many options but a lot better
+    def __init__(self, fstype, size = None, mountpoint = None,
+                 grow = 0, maxSizeMB = None,
+                 start = None, end = None,
+                 drive = None, primary = None, format = None):
+        """Create a new NewPartitionSpec object.
+
+        fstype is the fsset filesystem type.
+        size is the requested size (in megabytes).
+        mountpoint is the mountpoint.
+        grow is whether or not the partition is growable.
+        maxSizeMB is the maximum size of the partition in megabytes.
+        start is the starting cylinder.
+        end is the ending cylinder.
+        drive is the drive the partition goes on.
+        primary is whether or not the partition should be forced as primary.
+        format is whether or not the partition should be formatted.
+        """
+
+        PartitionSpec.__init__(self, fstype = fstype, size = size,
+                               mountpoint = mountpoint, grow = grow,
+                               maxSizeMB = maxSizeMB, start = start,
+                               end = end, drive = drive, primary = primary,
+                               format = format, preexist = 0)
+        self.type = REQUEST_NEW
+
+class PreexistingPartitionSpec(PartitionSpec):
+    """Request to represent partitions which already existed."""
+    
+    def __init__(self, fstype, size = None, start = None, end = None,
+                 drive = None, format = None, migrate = None,
+                 mountpoint = None):
+        """Create a new PreexistingPartitionSpec object.
+
+        fstype is the fsset filesystem type.
+        size is the size (in megabytes).
+        start is the starting sector.
+        end is the ending sector.
+        drive is the drive which the partition is on.
+        format is whether or not the partition should be formatted.
+        migrate is whether or not the partition fs should be migrated.
+        mountpoint is the mountpoint.
+        """
+
+        PartitionSpec.__init__(self, fstype = fstype, size = size,
+                               start = start, end = end, drive = drive,
+                               format = format, migrate = migrate,
+                               mountpoint = mountpoint, preexist = 1)
+        self.type = REQUEST_PREEXIST
+
+class RaidRequestSpec(RequestSpec):
+    """Request to represent RAID devices."""
+    
+    def __init__(self, fstype, format = None, mountpoint = None,
+                 raidlevel = None, raidmembers = None,
+                 raidspares = None, raidminor = None):
+        """Create a new RaidRequestSpec object.
+
+        fstype is the fsset filesystem type.
+        format is whether or not the partition should be formatted.
+        mountpoint is the mountpoint.
+        raidlevel is the raidlevel (as 'RAID0', 'RAID1', 'RAID5').
+        raidmembers is list of ids corresponding to the members of the RAID.
+        raidspares is the number of spares to setup.
+        raidminor is the minor of the device which should be used.
+        """
+
+        RequestSpec.__init__(self, fstype = fstype, format = format,
+                             mountpoint = mountpoint)
+        self.type = REQUEST_RAID
+        
+
+        self.raidlevel = raidlevel
+        self.raidmembers = raidmembers
+        self.raidspares = raidspares
+        self.raidminor = raidminor
+
+    def __str__(self):
+        if self.fstype:
+            fsname = self.fstype.getName()
+        else:
+            fsname = "None"
+        raidmem = []
+        if self.raidmembers:
+            for i in self.raidmembers:
+                raidmem.append(i)
+                
+        str = ("RAID Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
+               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  raidlevel: %(level)s  raidspares: %(spares)s\n"
+               "  raidmembers: %(members)s" % 
+               {"mount": self.mountpoint, "id": self.uniqueID,
+                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "level": self.raidlevel, "spares": self.raidspares,
+                "members": self.raidmembers})
+        return str
+    
+    def getDevice(self, partitions):
+        """Return a device which can be solidified."""
+        raidmems = []
+        for member in self.raidmembers:
+            raidmems.append(partitions.getRequestByID(member).device)
+        dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
+                               raidmems, minor = self.raidminor,
+                               spares = self.raidspares)
+        return dev
+
+class VolumeGroupRequestSpec(RequestSpec):
+    """Request to represent volume group devices."""
+    
+    def __init__(self, fstype =None, format = None,
+                 vgname = None, physvols = None):
+        """Create a new VolumeGroupRequestSpec object.
+
+        fstype is the fsset filesystem type.
+        format is whether or not the volume group should be created.
+        vgname is the name of the volume group.
+        physvols is a list of the ids for the physical volumes in the vg.
+        """
+
+        if not fstype:
+            fsset.fileSystemTypeGet("volume group (LVM)")
+        RequestSpec.__init__(self, fstype = fstype, format = format)
+        self.type = REQUEST_LV
+
+        self.volumeGroupName = vgname
+        self.physicalVolumes = physvols
+
+    def __str__(self):
+        physvols = []
+        if self.physicalVolumes:
+            for i in self.physicalVolumes:
+                physvols.append(i)
+                
+        str = ("VG Request -- name: %(vgname)s  uniqueID: %(id)s\n"
+               "  format: %(format)s  physvols: %(physvol)s" %
+               {"vgname": self.volumeGroupName, "id": self.uniqueID,
+                "format": self.format, "physvol": physvols})
+        return str
+    
+    def getDevice(self, partitions):
+        """Return a device which can be solidified."""
+        pvs = []
+        for pv in self.physicalVolumes:
+            pvs.append(partitions.getRequestByID(pv).device)
+        dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs)
+        return dev
+
+class LogicalVolumeRequestSpec(RequestSpec):
+    """Request to represent logical volume devices."""
+    
+    def __init__(self, fstype, format = None, mountpoint = None,
+                 size = None, volgroup = None, lvname = None):
+        """Create a new VolumeGroupRequestSpec object.
+
+        fstype is the fsset filesystem type.
+        format is whether or not the volume group should be created.
+        mountpoint is the mountpoint for the request.
+        size is the size of the request in MB.
+        volgroup is the request ID of the volume group.
+        lvname is the name of the logical volume.
+        """
+
+        RequestSpec.__init__(self, fstype = fstype, format = format,
+                             mountpoint = mountpoint, size = size)
+        self.type = REQUEST_VG
+
+        self.logicalVolumeName = lvname
+        self.volumeGroup = volgroup
+
+    def __str__(self):
+        if self.fstype:
+            fsname = self.fstype.getName()
+        else:
+            fsname = "None"
+        
+        str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
+               "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
+               "  size: %(size)s  lvname: %(lvname)s  volgroup: %(vgid)s" %
+               {"mount": self.mountpoint, "id": self.uniqueID,
+                "fstype": fsname, "format": self.format, "bb": self.badblocks,
+                "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
+                "size": self.size})
+        return str
+    
+    def getDevice(self, partitions):
+        """Return a device which can be solidified."""
+        vg = partitions.getRequestByID(self.volumeGroup)
+        vgname = vg.volumeGroupName
+        dev = fsset.LogicalVolumeDevice(vgname, self.size,
+                                        self.logicalVolumeName)
+        return dev

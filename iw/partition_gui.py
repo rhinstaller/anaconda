@@ -32,6 +32,7 @@ from partitioning import *
 from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
+from partRequests import *
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
@@ -1003,7 +1004,7 @@ class PartitionWindow(InstallWindow):
 
     def newCB(self, widget):
         # create new request of size 1M
-        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
+        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 1)
 
         self.editPartitionRequest(request, isNew = 1)
 
@@ -1922,8 +1923,8 @@ class PartitionWindow(InstallWindow):
 	    iter = self.getCurrentLogicalVolume()
 	    self.logvolstore.remove(iter)
 	    
-        request = PartitionSpec(fsystem, REQUEST_LV, mountpoint = mntpt,
-                                volname = lvname, size = size)
+        request = LogicalVolumeRequestSpec(fsystem, mountpoint = mntpt,
+                                           lvname = lvname, size = size)
         self.logvolreqs.append(request)
 
 	iter = self.logvolstore.append()
@@ -2148,9 +2149,8 @@ class PartitionWindow(InstallWindow):
 		origname = None
 
 	    if origvname != volname:
-		tmpreq =  PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
-					REQUEST_VG, physvolumes = pv,
-					vgname = volname)
+		tmpreq = VolumeGroupRequestSpec(physvols = pv,
+                                                vgname = volname)
 		if isVolumeGroupNameInUse(self.partitions, tmpreq):
 		    self.intf.messageWindow(_("Name in use"),
 					    _("The volume group name %s is "
@@ -2172,14 +2172,8 @@ class PartitionWindow(InstallWindow):
 	    self.partitions.removeRequest(origvgrequest)
 
 
-	request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
-				REQUEST_VG, physvolumes = pv,
-				vgname = volname)
-
-        self.partitions.addRequest(request)
-
-        # this is an evil hack for now.  should addRequest return the id?
-        vgID = self.partitions.nextUniqueID - 1
+	request = VolumeGroupRequestSpec(physvols = pv, vgname = volname)
+        vgID = self.partitions.addRequest(request)
 
         # now add the logical volumes
         for lv in self.logvolreqs:
@@ -2203,14 +2197,13 @@ class PartitionWindow(InstallWindow):
     
     def makeLvmCB(self, widget):
 
-        request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
-                                REQUEST_VG)
+        request = VolumeGroupRequestSpec()
         self.editLVMVolumeGroup(request, isNew = 1)
 
 	return
 
     def makeraidCB(self, widget):
-        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
+        request = RaidRequestSpec(fileSystemTypeGetDefault())
         self.editRaidRequest(request, isNew = 1)
 
     def getScreen(self, fsset, diskset, partitions, intf):

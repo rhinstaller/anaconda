@@ -20,6 +20,7 @@ import string, sys
 import fsset
 from partitioning import *
 import partedUtils
+import partRequests
 from constants import *
 from translate import _, N_
 from partErrors import *
@@ -812,7 +813,8 @@ def doClearPartAction(partitions, diskset):
                 partitions.removeRequest(old)
 
                 drive = partedUtils.get_partition_drive(part)
-                delete = DeleteSpec(drive, part.geom.start, part.geom.end)
+                delete = partRequests.DeleteSpec(drive, part.geom.start,
+                                                 part.geom.end)
                 partitions.addDelete(delete)
 
             # ia64 autopartitioning is strange as /boot/efi is vfat --
@@ -847,8 +849,10 @@ def doClearPartAction(partitions, diskset):
 
         disk = diskset.disks[drive]
         ext = disk.extended_partition
+        # if the extended is empty, blow it away
         if ext and len(partedUtils.get_logical_partitions(disk)) == 0:
-            delete = DeleteSpec(drive, ext.geom.start, ext.geom.end)
+            delete = partRequests.DeleteSpec(drive, ext.geom.start,
+                                             ext.geom.end)
             old = partitions.getRequestByDeviceName(partedUtils.get_partition_name(ext))
             partitions.removeRequest(old)
             partitions.addDelete(delete)

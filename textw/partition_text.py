@@ -22,6 +22,7 @@ import parted
 from partitioning import *
 from partedUtils import *
 from partIntfHelpers import *
+from partRequests import *
 from fsset import *
 from autopart import *
 from snack import *
@@ -928,12 +929,12 @@ class PartitionWindow:
         self.screen.popWindow()
         
     def newCb(self):
-        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
+        request = NewPartitionSpec(fileSystemTypeGetDefault(), 1)
         self.editPartitionRequest(request, isNew = 1)
 
 
     def makeraidCb(self):
-        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
+        request = RaidRequestSpec(fileSystemTypeGetDefault())
         self.editRaidRequest(request, isNew = 1)
 
 

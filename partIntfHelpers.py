@@ -19,15 +19,14 @@
 
 import string
 from translate import _
+from constants import *
 import partedUtils
 import parted
 import fsset
 import iutil
+import partRequests
 
-from partitioning import REQUEST_PROTECTED, REQUEST_PREEXIST, REQUEST_RAID
-from partitioning import REQUEST_VG, REQUEST_LV, REQUEST_NEW
-from partitioning import containsImmutablePart, DeleteSpec, PartitionSpec
-from partitioning import deleteAllLogicalPartitions
+from partitioning import containsImmutablePart, deleteAllLogicalPartitions
 
 def sanityCheckVolumeGroupName(volname):
     """Make sure that the volume group name doesn't contain invalid chars."""
@@ -148,8 +147,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             if partition.type & parted.PARTITION_EXTENDED:
                 deleteAllLogicalPartitions(partition, requestlist)
 
-            delete = DeleteSpec(drive, partition.geom.start,
-                                partition.geom.end)
+            delete = partRequests.DeleteSpec(drive, partition.geom.start,
+                                             partition.geom.end)
             requestlist.addDelete(delete)
     else: # is this a extended partition we made?
         if partition.type & parted.PARTITION_EXTENDED:
@@ -192,12 +191,12 @@ def doEditPartitionByRequest(intf, requestlist, part):
 				  "inititalize this partition"))
 	return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
-        request = PartitionSpec(fsset.fileSystemTypeGetDefault(), REQUEST_NEW,
-                  start = partedUtils.start_sector_to_cyl(part.geom.disk.dev,
-                                                          part.geom.start),
-                  end = partedUtils.end_sector_to_cyl(part.geom.disk.dev,
-                                                      part.geom.end),
-                  drive = [ partedUtils.get_partition_drive(part) ])
+        request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
+            start = partedUtils.start_sector_to_cyl(part.geom.disk.dev,
+                                                    part.geom.start),
+            end = partedUtils.end_sector_to_cyl(part.geom.disk.dev,
+                                                part.geom.end),
+            drive = [ partedUtils.get_partition_drive(part) ])
 
         return ("NEW", request)
     elif part.type & parted.PARTITION_EXTENDED:
