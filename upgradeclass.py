@@ -45,6 +45,9 @@ class InstallClass(BaseInstallClass):
 		    "complete"
 		)
 
+        if iutil.getPPCMachine() == "iSeries":
+            dispatch.skipStep("bootloadersetup", skip = 0)
+
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderadvanced")
