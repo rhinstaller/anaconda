@@ -912,8 +912,6 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
 
-    if (checkFrameBuffer() == 1) haveKon = 0;
-
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
 #if defined(__s390__) && !defined(__s390x__)
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;

@@ -144,6 +144,13 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 
     if (!rc) rc = loadKeymap(f);
 
+    /* normalize the error condition */
+    /* MSWFIXME - do we want to warn the user that setting the
+       keyboard didn't work?
+    */
+    if (rc != 0)
+	rc = LOADER_ERROR;
+    
     gunzip_close(f);
 
     if (keymap) *keymap = strdup(infoTable[num].name);
