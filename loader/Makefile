@@ -18,7 +18,7 @@ endif
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 OPTS = -O2 -g
 
-CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H
+CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
@@ -31,7 +31,7 @@ endif
 ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
-OBJS += stubs.o 
+#OBJS += stubs.o 
 endif
 
 ifeq (alpha, $(ARCH))
