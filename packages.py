@@ -514,7 +514,8 @@ def doPreInstall(method, id, intf, instPath, dir):
                            _("You are trying to install on a machine "
                              "which isn't supported by this release of "
                              "%s.") %(productName,),
-                           type = "error")
+                           type="custom", custom_icon="error",
+                           custom_buttons=[_("_Exit")])
         sys.exit(0)
 
     # shorthand
