@@ -68,7 +68,7 @@ from translate import cat, _
 from gnome.ui import *
 from gnome.xmhtml import *
 from language_gui import *
-from language_support_gui import *
+#from language_support_gui import *
 from welcome_gui import *
 from mouse_gui import *
 from keyboard_gui import *
@@ -340,13 +340,13 @@ class InstallInterface:
         else:
             if todo.serial:
                 commonSteps = [ ( LanguageWindow, "language" ),
-                                ( LanguageSupportWindow, "languagesupport" ), 
+#                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( WelcomeWindow, "welcome" ),
                                 ( InstallPathWindow, "installtype" ),
                                 ]
             else:
                 commonSteps = [ ( LanguageWindow, "language" ), 
-                                ( LanguageSupportWindow, "languagesupport" ), 
+#                                ( LanguageSupportWindow, "languagesupport" ), 
                                 ( KeyboardWindow, "keyboard" ),
                                 ( MouseWindow, "mouse" ),
                                 ( WelcomeWindow, "welcome" ),
