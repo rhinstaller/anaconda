@@ -1126,6 +1126,7 @@ class KickstartBase(BaseInstallClass):
         request = partRequests.PartitionSpec(filesystem,
                                              mountpoint = mountpoint,
                                              format = 1)
+        
         if size:
             request.size = size
         if start:
@@ -1148,6 +1149,9 @@ class KickstartBase(BaseInstallClass):
             request.badblocks = badblocks
         if onPart:
             request.device = onPart
+            for areq in id.partitions.autoPartitionRequests:
+                if areq.device is not None and areq.devce == onPart:
+		    raise ValueError, "Partition %s already used" %(onPart,)
 
         self.addPartRequest(id.partitions, request)
         id.partitions.isKickstart = 1
