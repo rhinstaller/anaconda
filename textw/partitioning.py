@@ -35,7 +35,8 @@ class ManualPartitionWindow:
     def __call__(self, screen, todo):
 	from newtpyfsedit import fsedit        
 
-	if todo.skipFdisk: return INSTALL_NOOP
+	if todo.skipFdisk:
+            return INSTALL_NOOP
 	
 	driveNames = todo.fstab.driveList()
 	drives = todo.fstab.drivesByName()
@@ -160,6 +161,8 @@ class AutoPartitionWindow:
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 
+        return INSTALL_OK
+        
 class PartitionWindow:
     def __call__(self, screen, todo):
 	dir = INSTALL_NOOP

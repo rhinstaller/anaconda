@@ -182,6 +182,7 @@ class InstallPathWindow:
     def __call__ (self, screen, todo, intf):
 	from fstab import NewtFstab
 
+        # see if kickstart specified install type
 	showScreen = 1
 	if (todo.instClass.installType == "install"):
             intf.steps = intf.commonSteps + intf.installSteps
