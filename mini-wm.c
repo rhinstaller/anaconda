@@ -18,7 +18,25 @@
 #include <stdio.h>
 
 #include <gdk/gdkx.h>
-#include <gdk/gdkx.h>
+#include <gtk/gtk.h>
+
+static gboolean
+is_focusable (Window window)
+{
+  Display *xdisplay = GDK_DISPLAY ();
+  XWindowAttributes xwa;
+  gboolean result = FALSE;
+
+  gdk_error_trap_push ();
+  if (XGetWindowAttributes (xdisplay, window, &xwa))
+    {
+      if (!xwa.override_redirect && xwa.map_state == IsViewable)
+	result = TRUE;
+    }
+  gdk_error_trap_pop ();
+
+  return result;
+}
 
 static void
 check_focus ()
@@ -31,13 +49,16 @@ check_focus ()
   XQueryTree (GDK_DISPLAY(), GDK_ROOT_WINDOW(),
 	      &root, &parent, &children, &n_children);
 
-  if (n_children > 0) {
-      gdk_error_trap_push ();
-      XSetInputFocus (GDK_DISPLAY(), children[n_children-1], 
-		      RevertToPointerRoot, CurrentTime);
-      XSync (GDK_DISPLAY(), 0);
-      if (gdk_error_trap_pop () != 0)
-	  printf("Failed on XSetInputFocus()");
+  while (n_children > 0) {
+      if (is_focusable (children[n_children-1])) {
+	  gdk_error_trap_push ();
+	  XSetInputFocus (GDK_DISPLAY(), children[n_children-1], 
+			  RevertToPointerRoot, CurrentTime);
+	  XSync (GDK_DISPLAY(), 0);
+	  if (gdk_error_trap_pop () == 0)
+	    break;
+      }
+      n_children--;
   }
 
   XFree (children);
@@ -52,8 +73,11 @@ mini_wm_root_filter (GdkXEvent *xevent,
 
   if (xev->xany.type == MapNotify ||
       xev->xany.type == UnmapNotify ||
-      xev->xany.type == ConfigureNotify)
-    check_focus ();
+      xev->xany.type == ConfigureNotify ||
+      xev->xany.type == DestroyNotify)
+    {
+      check_focus ();
+    }
     
   return GDK_FILTER_CONTINUE;
 }
@@ -68,6 +92,8 @@ mini_wm_start (void)
 		attrs.your_event_mask | SubstructureNotifyMask);
 
   gdk_window_add_filter (GDK_ROOT_PARENT (), mini_wm_root_filter, NULL);
+
+  check_focus ();
 }
 
 int main( int   argc,
