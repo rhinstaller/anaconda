@@ -291,15 +291,18 @@ def doMountPointLinuxFSChecks(newrequest):
     if not newrequest.mountpoint:
         return None
 
-    if newrequest.fstype.isLinuxNativeFS():
+    if newrequest.fstype == None:
+        return None
+
+    if newrequest.fstype.isMountable():    
         if newrequest.mountpoint in mustbeonroot:
             return _("This mount point is invalid.  This directory must "
                      "be on the / filesystem.")
-
-    else:
+        
+    if not newrequest.fstype.isLinuxNativeFS():
         if newrequest.mountpoint in mustbeonlinuxfs:
             return _("This mount point must be on a linux filesystem.")
-        
+
     return None
     
 def doPartitionSizeCheck(newrequest):
@@ -839,3 +842,39 @@ def partitionMethodSetup(id, dispatch):
         for device in protected:
             request = id.partrequests.getRequestByDeviceName(device)
             request.type = REQUEST_PROTECTED
+
+    
+# shorthand mainly for installclasses
+#
+# make a list of tuples of the form:
+#    (mntpt, fstype, minsize, maxsize, grow, format)
+#
+# mntpt = None for non-mountable, otherwise is mount point
+# fstype = None to use default, otherwise a string
+# minsize = smallest size
+# maxsize = max size, or None means no max
+# grow = 0 or 1, should partition be grown
+# format = 0 or 1, whether to format
+#
+def autoCreatePartitionRequests(autoreq):
+    requests = []
+    for (mntpt, fstype, minsize, maxsize, grow, format) in autoreq:
+        if fstype:
+            ptype = fsset.fileSystemTypeGet(fstype)
+        else:
+            ptype = fsset.fileSystemTypeGetDefault()
+            
+        newrequest = PartitionSpec(ptype,
+                                   mountpoint = mntpt,
+                                   size = minsize,
+                                   maxSize = maxsize,
+                                   grow = grow,
+                                   requesttype = REQUEST_NEW,
+                                   format = format)
+        
+        requests.append(newrequest)
+
+    for r in requests:
+        print r
+
+    return requests

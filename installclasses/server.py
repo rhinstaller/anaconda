@@ -2,6 +2,10 @@ from installclass import BaseInstallClass
 from translate import *
 import os
 import iutil
+from partitioning import autoCreatePartitionRequests
+from autopart import CLEARPART_TYPE_LINUX
+from autopart import CLEARPART_TYPE_ALL
+from autopart import CLEARPART_TYPE_NONE
 
 class InstallClass(BaseInstallClass):
 
@@ -34,6 +38,19 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
 
+        autorequests = [ ("/", None,256, None, 1, 1),
+                         ("/boot", None, 50, None, 0, 1),
+                         ("/usr", None, 512, None, 0, 1),
+                         ("/var", None, 256, None, 0, 1),
+                         ("/home", None, 512, None, 1, 1) ]
+        
+        (minswap, maxswap) = iutil.swapSuggestion()
+        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
+
+        id.autoClearPartType = CLEARPART_TYPE_ALL
+        id.autoClearPartDrives = []
+        id.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
@@ -41,4 +58,3 @@ class InstallClass(BaseInstallClass):
 	    self.skipLilo = 1
 	else:
 	    self.skipLilo = 0
-

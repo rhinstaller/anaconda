@@ -31,30 +31,14 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
 
-        rootrequest = PartitionSpec(fileSystemTypeGetDefault(),
-                                    mountpoint = "/",
-                                    size = 800,
-                                    grow = 1,
-                                    requesttype = REQUEST_NEW,
-                                    format = 1)
+        autorequests = [ ("/", None, 1100, None, 1, 1),
+                         ("/boot", None, 50, None, 0, 1) ]
 
-        bootrequest = PartitionSpec(fileSystemTypeGetDefault(),
-                                    mountpoint = "/boot",
-                                    size = 100,
-                                    grow = 0,
-                                    requesttype = REQUEST_NEW,
-                                    format = 1)
-
-        swaprequest = PartitionSpec(fileSystemTypeGet("swap"),
-                                    size = 128,
-                                    grow = 0,
-                                    requesttype = REQUEST_NEW,
-                                    format = 1)
-
+        (minswap, maxswap) = iutil.swapSuggestion()
+        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
         id.autoClearPartType = CLEARPART_TYPE_LINUX
         id.autoClearPartDrives = []
-        id.autoPartitionRequests = [rootrequest, bootrequest, swaprequest]
-
+        id.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
