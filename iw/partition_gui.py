@@ -808,6 +808,83 @@ class PartitionWindow(InstallWindow):
 
         self.tree.resetSelection()
         
+	# first do LVM
+        lvmrequests = self.partitions.getLVMRequests()
+	print 'in populate: ',lvmrequests
+        if lvmrequests:
+	    lvmparent = self.tree.append(None)
+	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+            for vgname in lvmrequests.keys():
+                vgparent = self.tree.append(lvmparent)
+		self.tree[vgparent]['Device'] = vgname
+
+		for lvrequest in lvmrequests[vgname]:
+		    iter = self.tree.append(vgparent)
+		    print 'in populate lvrequest:', lvrequest
+		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
+		    self.tree[iter]['Mount Point'] = lvrequest.mountpoint
+		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size)
+
+		continue
+		
+                if request and request.mountpoint:
+                    self.tree[iter]["Mount Point"] = request.mountpoint
+                if request.fstype:
+                    ptype = request.fstype.getName()
+                    
+                    self.tree[iter]['Format'] = request.format
+                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
+                else:
+                    ptype = _("None")
+                    self.tree[iter]['IsFormattable'] = gtk.FALSE
+
+                device = _("RAID Device %s"  % (str(raidcounter)))
+                self.tree[iter]['IsLeaf'] = gtk.TRUE
+                self.tree[iter]['Device'] = device
+                self.tree[iter]['Type'] = ptype
+		self.tree[iter]['Start'] = _("N/A")
+		self.tree[iter]['End'] = _("N/A")
+#                self.tree[iter]['Start'] = ""
+#                self.tree[iter]['End'] = ""
+                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
+                self.tree[iter]['PyObject'] = request.device
+
+                raidcounter = raidcounter + 1
+
+        # handle RAID next
+        raidcounter = 0
+        raidrequests = self.partitions.getRaidRequests()
+        if raidrequests:
+	    raidparent = self.tree.append(None)
+	    self.tree[raidparent]['Device'] = _("RAID Devices")
+            for request in raidrequests:
+                iter = self.tree.append(raidparent)
+
+                if request and request.mountpoint:
+                    self.tree[iter]["Mount Point"] = request.mountpoint
+                if request.fstype:
+                    ptype = request.fstype.getName()
+                    
+                    self.tree[iter]['Format'] = request.format
+                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
+                else:
+                    ptype = _("None")
+                    self.tree[iter]['IsFormattable'] = gtk.FALSE
+
+                device = _("RAID Device %s"  % (str(raidcounter)))
+                self.tree[iter]['IsLeaf'] = gtk.TRUE
+                self.tree[iter]['Device'] = device
+                self.tree[iter]['Type'] = ptype
+		self.tree[iter]['Start'] = _("N/A")
+		self.tree[iter]['End'] = _("N/A")
+#                self.tree[iter]['Start'] = ""
+#                self.tree[iter]['End'] = ""
+                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
+                self.tree[iter]['PyObject'] = request.device
+
+                raidcounter = raidcounter + 1
+                
+	# now normal partitions
         for drive in drives:
             disk = self.diskset.disks[drive]
 
@@ -896,35 +973,6 @@ class PartitionWindow(InstallWindow):
                 
                 part = disk.next_partition(part)
 
-        # handle RAID next
-        raidcounter = 0
-        raidrequests = self.partitions.getRaidRequests()
-        if raidrequests:
-            for request in raidrequests:
-                iter = self.tree.append(None)
-
-                if request and request.mountpoint:
-                    self.tree[iter]["Mount Point"] = request.mountpoint
-                if request.fstype:
-                    ptype = request.fstype.getName()
-                    
-                    self.tree[iter]['Format'] = request.format
-                    self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
-                else:
-                    ptype = _("None")
-                    self.tree[iter]['IsFormattable'] = gtk.FALSE
-
-                device = _("RAID Device %s"  % (str(raidcounter)))
-                self.tree[iter]['IsLeaf'] = gtk.TRUE
-                self.tree[iter]['Device'] = device
-                self.tree[iter]['Type'] = ptype
-                self.tree[iter]['Start'] = ""
-                self.tree[iter]['End'] = ""
-                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
-                self.tree[iter]['PyObject'] = request.device
-
-                raidcounter = raidcounter + 1
-                
         canvas = self.diskStripeGraph.getCanvas()
         apply(canvas.set_scroll_region, canvas.root().get_bounds())
         self.treeView.expand_all()
@@ -1768,7 +1816,7 @@ class PartitionWindow(InstallWindow):
                                 volname = lvname, size = size)
         self.logvolreqs.append(request)
         self.logvollist.append((mntpt,))
-        
+
         dialog.destroy()
 
     def makeLvmCB(self, widget):
@@ -1855,6 +1903,11 @@ class PartitionWindow(InstallWindow):
         for req in self.partitions.requests:
             print req
 
+	# XXX - probably shouldn't do this here - trying to force refresh of ui
+        self.diskStripeGraph.shutDown()
+        self.tree.clear()
+        self.populate()
+	
         dialog.destroy()
             
 
