@@ -1474,7 +1474,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 
 		args[0] = "kon";
 		args[1] = "-e";
-		args[2] = "/sbin/loader-continue";
+		args[2] = "/sbin/continue";
 		args[3] = NULL;
 		
 		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
@@ -1707,7 +1707,7 @@ int main(int argc, char ** argv) {
 #ifdef INCLUDE_KON
     else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
 	return kon_main(argc, argv);
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 15, "loader-continue"))
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
 	startKon = 0;
 #endif
 
