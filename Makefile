@@ -92,9 +92,9 @@ tag:
 
 archive: create-archive
 
+PWDIR=$(shell pwd)
 beehive-srpm: create-snapshot
-	DIR = $(shell pwd)
-	@rpmbuild --define "_sourcedir $(DIR)" --define "_srcrpmdir $(DIR)" --define "_builddir $(BUILDDIR)" --define "_rpmdir $(RPMDIR)" --nodeps -ts anaconda-$(VERSION).tar.bz2
+	@rpmbuild --define "_sourcedir $(PWDIR)" --define "_srcrpmdir $(PWDIR)" --define "_builddir $(PWDIR)" --define "_rpmdir $(PWDIR)" --nodeps -ts anaconda-$(VERSION).tar.bz2
 	@mv anaconda-$(VERSION)-$(RELEASE).src.rpm src.rpm
 
 src: create-archive
