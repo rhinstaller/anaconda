@@ -150,6 +150,12 @@ class Package:
 	self.size = header[rpm.RPMTAG_SIZE]
 
 class HeaderList:
+    def __str__(self):
+	return "<Type HeaderList>"
+
+    def __reptr(self):
+	return "<Type HeaderList>"
+
     def selected(self):
 	l = []
  	keys = self.packages.keys()

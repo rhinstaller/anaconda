@@ -24,9 +24,13 @@ from flags import flags
 from rhpl.log import log
 
 class Accounts:
+    def __repr__(self):
+	return "<Type Accounts>"
+
+    def __str__(self):
+	return "<Type Accounts>"
 
     # List of (accountName, fullName, password) tupes
-
     def setUserList(self, users):
 	self.users = users
 
@@ -86,6 +90,11 @@ class Password:
 	return self.crypt
 
 class RootPassword(Password):
+    def __repr__(self):
+	return "<Type RootPassword>"
+
+    def __str__(self):
+	return "<Type RootPassword>"
 
     def write(self, instPath, auth):
 	pure = self.getPure()
