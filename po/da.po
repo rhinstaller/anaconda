@@ -592,11 +592,11 @@ msgstr "Hvilket grafikkort har du?"
 
 #: ../text.py:519
 msgid "X Server Selection"
-msgstr "Valg af X-tjener"
+msgstr "Valg af X Server"
 
 #: ../text.py:519
 msgid "Choose a server"
-msgstr "Vælg en tjener"
+msgstr "Vælg en server"
 
 #: ../text.py:590
 msgid "Installation to begin"
@@ -1088,7 +1088,7 @@ msgstr "Video-hukommelse"
 
 #: ../xf86config.py:934
 msgid "X server"
-msgstr "X-tjener"
+msgstr "X server"
 
 #: ../xf86config.py:937
 msgid "Unable to detect video card"
@@ -1235,7 +1235,7 @@ msgstr "Anvend NIS"
 
 #: ../iw/auth_gui.py:83
 msgid "Use broadcast to find NIS server"
-msgstr "Benyt rundkastning til at finde NIS-tjener"
+msgstr "Benyt rundkastning til at finde NIS-server"
 
 #: ../iw/auth_gui.py:95
 msgid "NIS Domain: "
@@ -1243,7 +1243,7 @@ msgstr "NIS-domæne: "
 
 #: ../iw/auth_gui.py:97
 msgid "NIS Server: "
-msgstr "NIS-tjener: "
+msgstr "NIS-Server: "
 
 #: ../iw/auth_gui.py:136 ../textw/userauth_text.py:342
 msgid "Enable LDAP"
@@ -1255,7 +1255,7 @@ msgstr "Brug TLS opslag."
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 msgid "LDAP Server:"
-msgstr "LDAP-tjener:"
+msgstr "LDAP-Server:"
 
 #: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
 msgid "LDAP Base DN:"
@@ -1275,7 +1275,7 @@ msgstr "KDC:"
 
 #: ../iw/auth_gui.py:181 ../textw/userauth_text.py:382
 msgid "Admin Server:"
-msgstr "Admin-tjener:"
+msgstr "Admin-Server:"
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
@@ -2653,7 +2653,7 @@ msgstr "NIS-domæne:"
 
 #: ../textw/userauth_text.py:316
 msgid "NIS Server:"
-msgstr "NIS-tjener:"
+msgstr "NIS-Server:"
 
 #: ../textw/userauth_text.py:318
 msgid "or use:"
@@ -2661,7 +2661,7 @@ msgstr "eller brug:"
 
 #: ../textw/userauth_text.py:321
 msgid "Request server via broadcast"
-msgstr "Spørg efter tjener via rundkastning"
+msgstr "Spørg efter server via rundkastning"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
@@ -2683,7 +2683,7 @@ msgstr "Bærbar"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
-msgstr "Tjenersystem (server)"
+msgstr "Server System"
 
 #: ../installclasses/server.py:38
 msgid ""
@@ -3284,7 +3284,7 @@ msgstr "Forventet brug"
 
 #: ../libfdisk/gnomefsedit.c:2555 ../libfdisk/gnomefsedit.c:2575
 msgid "Server"
-msgstr "Tjener"
+msgstr "Server"
 
 #: ../libfdisk/gnomefsedit.c:2655
 msgid "Delete RAID Device?"
@@ -3747,7 +3747,7 @@ msgstr "Det katalog ser ikke ud til at indeholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:1137
 msgid "I could not mount that directory from the server"
-msgstr "Jeg kunne ikke montere dette katalog fra tjeneren"
+msgstr "Jeg kunne ikke montere dette katalog fra server"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 msgid "HTTP"
@@ -3818,7 +3818,7 @@ msgstr "Læser anaconda-opdateringer..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
-msgstr "NFS-tjenernavn:"
+msgstr "NFS-server navn:"
 
 #: ../loader/net.c:152 ../loader/urls.c:191
 msgid "Red Hat directory:"
@@ -3838,17 +3838,17 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navn eller IP nummer på din NFS-tjener\n"
-"    o navnet på kataloget til den tjener der indeholder\n"
+"    o navn eller IP nummer på din NFS-server\n"
+"    o navnet på kataloget til den server der indeholder\n"
 "      Red Hat Linux til din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:241
 msgid "Nameserver IP"
-msgstr "Navnetjener-IP"
+msgstr "Navnetserver-IP"
 
 #: ../loader/net.c:245 ../loader/net.c:727
 msgid "Nameserver"
-msgstr "Navnetjener"
+msgstr "Navnetserver"
 
 #: ../loader/net.c:246
 msgid ""
@@ -3858,7 +3858,7 @@ msgid ""
 "blank and the install will continue."
 msgstr ""
 "Din dynamiske IP-anmodning returnerede IP-konfigurationsinformation, men "
-"dette indeholdt ikke en DNS navnetjener. Hvis du véd hvor din navneserver "
+"dette indeholdt ikke en DNS navnetserver. Hvis du véd hvor din navneserver "
 "er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
 "felt være blankt, og installationen vil fortsætte."
 
@@ -4008,8 +4008,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din ftp-tjener\n"
-"    o kataloget på tjeneren som indeholder\n"
+"    o navnet eller IP-nummeret på din ftp-tserver\n"
+"    o kataloget på tserveren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:169
@@ -4022,8 +4022,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din Web-tjener\n"
-"    o kataloget på tjeneren som indeholder\n"
+"    o navnet eller IP-nummeret på din Web-tserver\n"
+"    o kataloget på tserveren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:187
@@ -4040,7 +4040,7 @@ msgstr "Benyt ikke-anonym ftp"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
-msgstr "Benyt proxytjener"
+msgstr "Benyt proxytserver"
 
 #: ../loader/urls.c:223
 msgid "FTP Setup"
@@ -4052,7 +4052,7 @@ msgstr "Http-opsætning"
 
 #: ../loader/urls.c:234
 msgid "You must enter a server name."
-msgstr "Du skal indtaste et tjenernavn."
+msgstr "Du skal indtaste et tservernavn."
 
 #: ../loader/urls.c:239
 msgid "You must enter a directory."
@@ -4080,7 +4080,7 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"Hvis du bruger en Http-proxytjener så indtast navnet på den proxytjener du "
+"Hvis du bruger en Http-proxytserver så indtast navnet på den proxytserver du "
 "vil benytte."
 
 #: ../loader/urls.c:342
@@ -4193,28 +4193,28 @@ msgid "Dialup Workstation"
 msgstr "opkalds-arbejdsstation"
 
 msgid "News Server"
-msgstr "Nyhedstjener"
+msgstr "Nyhedstserver"
 
 msgid "NFS Server"
-msgstr "NFS-tjener"
+msgstr "NFS-tserver"
 
 msgid "SMB (Samba) Server"
-msgstr "Samba SMB-tjener"
+msgstr "Samba SMB-tserver"
 
 msgid "IPX/Netware(tm) Connectivity"
 msgstr "IPX/Netware(tm)-forbindelse"
 
 msgid "Anonymous FTP Server"
-msgstr "Anonym ftp-tjener"
+msgstr "Anonym ftp-tserver"
 
 msgid "SQL Server"
-msgstr "NFS-tjener"
+msgstr "SQL-server"
 
 msgid "Web Server"
-msgstr "Webtjener"
+msgstr "Web-Server"
 
 msgid "DNS Name Server"
-msgstr "DNS-navnetjener"
+msgstr "DNS-navnet Server"
 
 msgid "Network Management Workstation"
 msgstr "Arbejdsstation til netværksbetjening"
