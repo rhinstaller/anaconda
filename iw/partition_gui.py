@@ -291,7 +291,7 @@ def createMountPointCombo(request):
 
     mountpoint = request.mountpoint
 
-    if request.fstype.isMountable():
+    if request.fstype and request.fstype.isMountable():
         mountCombo.set_sensitive(1)
         if mountpoint:
             mountCombo.entry.set_text(mountpoint)
