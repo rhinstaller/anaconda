@@ -1,13 +1,13 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install\n"
+"Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-01-27 23:51-0500\n"
-"PO-Revision-Date: 2000-08-17 11:34+0200\n"
-"Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
+"PO-Revision-Date: 2003-01-28 11:34+0200\n"
+"Last-Translator: Tamas Szanto <tszanto@mol.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8-bit\n"
+"Content-Transfer-Encoding: 8bit\n"
 
 #: ../anaconda:401
 msgid ""
@@ -1988,19 +1988,16 @@ msgid "LDAP _Base DN:"
 msgstr "LDAP Base DN:"
 
 #: ../iw/auth_gui.py:177
-#, fuzzy
 msgid "Enable _Kerberos"
-msgstr "Kerberos engedélyezése"
+msgstr "A Ker_beros engedélyezése"
 
 #: ../iw/auth_gui.py:181
-#, fuzzy
 msgid "R_ealm:"
-msgstr "Realm:"
+msgstr "R_ealm:"
 
 #: ../iw/auth_gui.py:184
-#, fuzzy
 msgid "K_DC:"
-msgstr "KDC:"
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 #, fuzzy
@@ -2013,30 +2010,28 @@ msgid "Enable SMB _Authentication"
 msgstr "Azonosítás"
 
 #: ../iw/auth_gui.py:219
-#, fuzzy
 msgid "SMB _Server:"
-msgstr "NIS szerver:"
+msgstr "SMB-k_iszolgáló:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr ""
+msgstr "SMB m&unkacsoport:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:251
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:252
-#, fuzzy
 msgid "Kerberos 5"
-msgstr "Kerberos engedélyezése"
+msgstr "Kerberos 5"
 
 #: ../iw/auth_gui.py:253
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1401
 #: ../textw/partition_text.py:1205
@@ -2846,9 +2841,8 @@ msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:686
-#, fuzzy
 msgid "No free space"
-msgstr "Lemez terület"
+msgstr "Nincs szabad lemezterület"
 
 #: ../iw/lvm_dialog_gui.py:687
 msgid ""
@@ -2926,48 +2920,42 @@ msgid "Physical Volumes to _Use:"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:981
-#, fuzzy
 msgid "Used Space:"
-msgstr "Lemez terület"
+msgstr "Használt lemezterület:"
 
 #: ../iw/lvm_dialog_gui.py:998
-#, fuzzy
 msgid "Free Space:"
-msgstr "Lemez terület"
+msgstr "Szabad lemezterület:"
 
 #: ../iw/lvm_dialog_gui.py:1016
-#, fuzzy
 msgid "Total Space:"
-msgstr "Teljes méret"
+msgstr "Teljes méret:"
 
 #: ../iw/lvm_dialog_gui.py:1045
 msgid "Logical Volume Name"
 msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Méret (MB) :"
+msgstr "Méret (MB)"
 
 #: ../iw/lvm_dialog_gui.py:1065 ../iw/osbootwidget.py:94
-#, fuzzy
 msgid "_Add"
-msgstr "Hozzáad"
+msgstr "_Hozzáadás"
 
 #: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
 #: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
 #: ../iw/partition_gui.py:1343
-#, fuzzy
 msgid "_Edit"
-msgstr "Szerkesztés"
+msgstr "_Szerkesztés"
 
 #: ../iw/lvm_dialog_gui.py:1082
 msgid "Logical Volumes"
-msgstr ""
+msgstr "Logikai kötetek"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr "Egér beállítás"
+msgstr "Egérbeállítás"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -2986,19 +2974,16 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM1 DOS alatt)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:158
-#, fuzzy
 msgid "_Device"
-msgstr "Eszköz"
+msgstr "Esz_köz"
 
 #: ../iw/mouse_gui.py:136
-#, fuzzy
 msgid "_Model"
-msgstr "Típus"
+msgstr "Típ_us"
 
 #: ../iw/mouse_gui.py:234
-#, fuzzy
 msgid "_Emulate 3 buttons"
-msgstr "3 gomb emulálása"
+msgstr "3 gombos egér _emulálása"
 
 #: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
@@ -3017,29 +3002,24 @@ msgid "Secondary DNS"
 msgstr "Másodlagos DNS"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:575
-#, fuzzy
 msgid "Tertiary DNS"
 msgstr "Harmadlagos DNS"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Gateway"
-msgstr "Átjáró"
+msgstr "Át_járó"
 
 #: ../iw/network_gui.py:29
-#, fuzzy
 msgid "_Primary DNS"
-msgstr "Elsődleges DNS"
+msgstr "Első_dleges DNS"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Secondary DNS"
-msgstr "Másodlagos DNS"
+msgstr "Más_odlagos DNS"
 
 #: ../iw/network_gui.py:30
-#, fuzzy
 msgid "_Tertiary DNS"
-msgstr "Harmadlagos DNS"
+msgstr "Harmad_lagos DNS"
 
 #: ../iw/network_gui.py:34
 msgid "Network Configuration"
@@ -3103,31 +3083,27 @@ msgstr ""
 #: ../iw/network_gui.py:200
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "A(z) %s csatoló módosítása"
 
 #: ../iw/network_gui.py:210
-#, fuzzy
 msgid "Configure using _DHCP"
-msgstr "Beállítás DHCP-vel"
+msgstr "Beállítás _DHCP-vel"
 
 #: ../iw/network_gui.py:216
-#, fuzzy
 msgid "_Activate on boot"
-msgstr "Bootoláskor aktiválja"
+msgstr "Akti_válás rendszerindításkor"
 
 #: ../iw/network_gui.py:225
-#, fuzzy
 msgid "_IP Address"
-msgstr "IP cím"
+msgstr "_IP-cím"
 
 #: ../iw/network_gui.py:226
-#, fuzzy
 msgid "Net_mask"
-msgstr "Alhálózati maszk"
+msgstr "Hálózati mas_zk"
 
 #: ../iw/network_gui.py:229
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "Point-to-point (IP)"
 
 #: ../iw/network_gui.py:252
 #, fuzzy, python-format
@@ -5122,18 +5098,16 @@ msgid "Invalid Entry for End Cylinder"
 msgstr ""
 
 #: ../textw/partition_text.py:924
-#, fuzzy
 msgid "No RAID partitions"
-msgstr "<RAID-partíció>"
+msgstr "Nincs RAID-partíció"
 
 #: ../textw/partition_text.py:925
 msgid "At least two software RAID partitions are needed."
 msgstr ""
 
 #: ../textw/partition_text.py:937
-#, fuzzy
 msgid "Format partition?"
-msgstr "Nincs root-partíció"
+msgstr "Le szeretné formázni a partíciót?"
 
 #: ../textw/partition_text.py:999
 #, fuzzy
@@ -5141,9 +5115,8 @@ msgid "Invalid Entry for RAID Spares"
 msgstr "Érvénytelen információ"
 
 #: ../textw/partition_text.py:1012
-#, fuzzy
 msgid "Too many spares"
-msgstr "Túl sok meghajtó"
+msgstr "Túl sok tartalék (spare) meghajtó"
 
 #: ../textw/partition_text.py:1013
 msgid "The maximum number of spares with a RAID0 array is 0."
@@ -5156,12 +5129,11 @@ msgstr ""
 #: ../textw/partition_text.py:1120 ../textw/partition_text.py:1127
 #: ../textw/userauth_text.py:236
 msgid "Delete"
-msgstr "Töröl"
+msgstr "Törlés"
 
 #: ../textw/partition_text.py:1121 ../textw/partition_text.py:1128
-#, fuzzy
 msgid "RAID"
-msgstr "<RAID>"
+msgstr "RAID"
 
 #: ../textw/partition_text.py:1123
 #, fuzzy
@@ -5175,11 +5147,10 @@ msgid "New"
 msgstr "Új"
 
 #: ../textw/partition_text.py:1131
-#, fuzzy
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"   F1-Súgó  F2-Hozzáad  F3-Szerkeszt  F4-Töröl  F5-Alaphelyzet  F12-Ok       "
+"   F1-Segítség  F2-Új  F3-Módosítás  F4-Törlés  F5-Alapállapot  F12-OK       "
 
 #: ../textw/partition_text.py:1160
 msgid "No Root Partition"
@@ -5196,9 +5167,8 @@ msgid "Which drive(s) do you want to use for this installation?"
 msgstr "Hová akarja telepíteni a boot betöltőt?"
 
 #: ../textw/partmethod_text.py:26
-#, fuzzy
 msgid "Autopartition"
-msgstr "Automatikus particionálás"
+msgstr "Automatikus partícionálás"
 
 #: ../textw/partmethod_text.py:27
 msgid "Disk Druid"
@@ -5209,27 +5179,24 @@ msgid "Package Installation"
 msgstr "Csomagok telepítése"
 
 #: ../textw/progress_text.py:81
-#, fuzzy
 msgid " Name   : "
-msgstr "Név    : "
+msgstr " Név    : "
 
 #: ../textw/progress_text.py:82
-#, fuzzy
 msgid " Size   : "
-msgstr "Méret  : "
+msgstr " Méret  : "
 
 #: ../textw/progress_text.py:83
-#, fuzzy
 msgid " Summary: "
-msgstr "Leírás : "
+msgstr " Leírás : "
 
 #: ../textw/progress_text.py:109
 msgid "    Packages"
-msgstr "    Csomagok"
+msgstr "    Csomag"
 
 #: ../textw/progress_text.py:110
 msgid "       Bytes"
-msgstr "     Byte-ok"
+msgstr "     Bájt"
 
 #: ../textw/progress_text.py:111
 msgid "        Time"
@@ -5237,15 +5204,15 @@ msgstr "         Idő"
 
 #: ../textw/progress_text.py:113
 msgid "Total    :"
-msgstr "Összes   :"
+msgstr "Összesen    :"
 
 #: ../textw/progress_text.py:120
 msgid "Completed:   "
-msgstr "Kész     :   "
+msgstr "Kész        :"
 
 #: ../textw/progress_text.py:130
 msgid "Remaining:  "
-msgstr "Hátralévő:  "
+msgstr "Hátralévő   :"
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
@@ -5298,28 +5265,24 @@ msgid ""
 msgstr ""
 
 #: ../textw/upgrade_text.py:112
-#, fuzzy
 msgid "Free Space"
-msgstr "Lemez terület"
+msgstr "Szabad lemezterület"
 
 #: ../textw/upgrade_text.py:127
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "Detektált memória (MB):"
 
 #: ../textw/upgrade_text.py:130
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Méret (MB) :"
+msgstr "javasolt méret (MB):"
 
 #: ../textw/upgrade_text.py:133
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Swap terület méret:"
+msgstr "A lapozási fájl mérete (MB):"
 
 #: ../textw/upgrade_text.py:141
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr "Lapozási terület hozzáadása"
 
 #: ../textw/upgrade_text.py:166
 #, fuzzy
@@ -5327,13 +5290,12 @@ msgid "The value you entered is not a valid number."
 msgstr "A megadott méretnek számnak kell lennie."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "A telepítendő rendszer típusa"
+msgstr "A rendszer újratelepítése"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
-msgstr "Frissítendő rendszer"
+msgstr "A frissítendő rendszer"
 
 #: ../textw/upgrade_text.py:208
 msgid ""
@@ -5494,11 +5456,11 @@ msgstr ""
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
-msgstr "Felhasználó név"
+msgstr "Felhasználónév"
 
 #: ../textw/userauth_text.py:236
 msgid "Add"
-msgstr "Hozzáad"
+msgstr "Hozzáadás"
 
 #: ../textw/userauth_text.py:249
 msgid "Enter the information for the user."
@@ -5510,23 +5472,23 @@ msgstr "A felhasználó adatainak módosítása."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
-msgstr "Shadow jelszók használata"
+msgstr "Árnyékjelszavak használata"
 
 #: ../textw/userauth_text.py:341
 msgid "Enable MD5 Passwords"
-msgstr "MD5 jelszók engedélyezése"
+msgstr "MD5-ös jelszókódolás használata"
 
 #: ../textw/userauth_text.py:346
 msgid "Enable NIS"
-msgstr "NIS engedélyezése"
+msgstr "A NIS engedélyezése"
 
 #: ../textw/userauth_text.py:352
 msgid "NIS Domain:"
-msgstr "NIS domain:"
+msgstr "NIS-tartomány:"
 
 #: ../textw/userauth_text.py:354
 msgid "NIS Server:"
-msgstr "NIS szerver:"
+msgstr "NIS-kiszolgáló:"
 
 #: ../textw/userauth_text.py:356
 msgid "or use:"
@@ -5534,27 +5496,27 @@ msgstr "vagy:"
 
 #: ../textw/userauth_text.py:359
 msgid "Request server via broadcast"
-msgstr "Szerver kérése broadcast-tal"
+msgstr "Kiszolgálókeresés broadcasttal"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
-msgstr "LDAP engedélyezése"
+msgstr "Az LDAP engedélyezése"
 
 #: ../textw/userauth_text.py:386
 msgid "LDAP Server:"
-msgstr "LDAP szerver:"
+msgstr "LDAP-kiszolgáló:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr "LDAP Base DN:"
+msgstr "LDAP alap-DN:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
-msgstr ""
+msgstr "A TLS használata"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
-msgstr "Kerberos engedélyezése"
+msgstr "A Kerberos engedélyezése"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
@@ -5566,12 +5528,12 @@ msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
 msgid "Admin Server:"
-msgstr "Admin szerver:"
+msgstr "Adminisztrációs kiszolgáló:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
-msgstr ""
+msgstr "%s"
 
 #: ../textw/welcome_text.py:23
 #, fuzzy, python-format
@@ -5596,7 +5558,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:37
 msgid "Color Depth"
-msgstr ""
+msgstr "Színmélység"
 
 #: ../textw/xconfig_text.py:38
 msgid "Please select the color depth you would like to use:"
@@ -5604,16 +5566,15 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:61
 msgid "Resolution"
-msgstr ""
+msgstr "Felbontás"
 
 #: ../textw/xconfig_text.py:62
 msgid "Please select the resolution you would like to use:"
 msgstr ""
 
 #: ../textw/xconfig_text.py:133
-#, fuzzy
 msgid "X Customization"
-msgstr "X beállítás"
+msgstr "Az X beállításai"
 
 #: ../textw/xconfig_text.py:136
 msgid "Select the color depth and video mode you want to use for your system. "
@@ -5621,18 +5582,17 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:140
 msgid "Color Depth:"
-msgstr ""
+msgstr "Színmélység:"
 
 #: ../textw/xconfig_text.py:144 ../textw/xconfig_text.py:151
 #: ../textw/xconfig_text.py:409 ../textw/xconfig_text.py:420
 #: ../textw/xconfig_text.py:614 ../textw/xconfig_text.py:621
-#, fuzzy
 msgid "Change"
-msgstr "Cseréljen CDROM-ot"
+msgstr "Módosítás"
 
 #: ../textw/xconfig_text.py:147
 msgid "Resolution:"
-msgstr ""
+msgstr "Felbontás:"
 
 #: ../textw/xconfig_text.py:157
 msgid "Default Desktop:"
@@ -5647,19 +5607,16 @@ msgid "KDE"
 msgstr "KDE"
 
 #: ../textw/xconfig_text.py:178
-#, fuzzy
 msgid "Default Login:"
-msgstr "Válasszon egy nyelvet"
+msgstr "Bejelentkezési mód:"
 
 #: ../textw/xconfig_text.py:180
-#, fuzzy
 msgid "Graphical"
-msgstr "Grafikus bejelentkező képernyő"
+msgstr "grafikus"
 
 #: ../textw/xconfig_text.py:182
-#, fuzzy
 msgid "Text"
-msgstr "Következő"
+msgstr "karakteres"
 
 #: ../textw/xconfig_text.py:230
 msgid "Monitor"
@@ -5671,19 +5628,16 @@ msgid "Please select the monitor attached to your system."
 msgstr "Válassza ki a root filerendszert tartalmazó eszközt: "
 
 #: ../textw/xconfig_text.py:256
-#, fuzzy
 msgid "horizontal"
-msgstr "Vízszintes szinkron"
+msgstr "vízszintes"
 
 #: ../textw/xconfig_text.py:259
-#, fuzzy
 msgid "vertical"
-msgstr "Függőleges szinkron"
+msgstr "függőleges"
 
 #: ../textw/xconfig_text.py:263
-#, fuzzy
 msgid "Invalid Sync Rates"
-msgstr "Érvénytelen boot címke"
+msgstr "Érvénytelen frissítési frekvenciák"
 
 #: ../textw/xconfig_text.py:264
 #, python-format
@@ -5701,7 +5655,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:278
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "Monitorfrissítési frekvenciák"
 
 #: ../textw/xconfig_text.py:283
 msgid ""
@@ -5764,31 +5718,27 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:595
 msgid "Skip X Configuration"
-msgstr "X beállítás kihagyása"
+msgstr "Az X beállításának kihagyása"
 
 #: ../textw/xconfig_text.py:598
-#, fuzzy
 msgid "Video Card Configuration"
-msgstr "Billentyűzet beállítás"
+msgstr "Videokártya-beállítás"
 
 #: ../textw/xconfig_text.py:601
 msgid "Select the video card and video RAM for your system."
 msgstr ""
 
 #: ../textw/xconfig_text.py:604
-#, fuzzy
 msgid "Video Card:"
-msgstr "Videokártya"
+msgstr "Videokártya:"
 
 #: ../textw/xconfig_text.py:609
-#, fuzzy
 msgid "Unknown card"
-msgstr "Ismeretlen"
+msgstr "Ismeretlen kártya"
 
 #: ../textw/xconfig_text.py:617
-#, fuzzy
 msgid "Video RAM:"
-msgstr "Videokártya"
+msgstr "Videomemória:"
 
 #: ../textw/zipl_text.py:22
 msgid ""
@@ -5798,18 +5748,16 @@ msgid ""
 msgstr ""
 
 #: ../textw/zipl_text.py:47
-#, fuzzy
 msgid "z/IPL Configuration"
-msgstr "SILO beállítás"
+msgstr "z/IPL-beállítások"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev-sor "
 
 #: ../installclasses/custom.py:10
-#, fuzzy
 msgid "Custom"
-msgstr "Egyéni frissítés"
+msgstr "Egyéni"
 
 #: ../installclasses/custom.py:14
 msgid ""
@@ -5826,7 +5774,7 @@ msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "Server"
-msgstr "Szerver"
+msgstr "Kiszolgáló"
 
 #: ../installclasses/server.py:13
 msgid ""
@@ -5844,18 +5792,17 @@ msgstr ""
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:116
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
-msgstr ""
+msgstr "Adathordozó ellenőrzése"
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:98
 #: ../loader2/cdinstall.c:116 ../loader2/cdinstall.c:124
 #: ../loader2/method.c:413
-#, fuzzy
 msgid "Test"
-msgstr "Következő"
+msgstr "Próba"
 
 #: ../loader2/cdinstall.c:95 ../loader2/cdinstall.c:99
 msgid "Eject CD"
-msgstr ""
+msgstr "A CD kilökése"
 
 #: ../loader2/cdinstall.c:96
 #, c-format
@@ -5945,22 +5892,20 @@ msgstr ""
 "Helyezze be a driver lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
 
 #: ../loader2/driverdisk.c:216
-#, fuzzy
 msgid "Insert Driver Disk"
-msgstr "Driver lemez"
+msgstr "Helyezze be a meghajtólemezt"
 
 #: ../loader2/driverdisk.c:228
 msgid "Failed to mount driver disk."
-msgstr "Nem sikerült mount-olni a driver lemezt."
+msgstr "Nem sikerült csatlakoztatni a meghajtólemezt."
 
 #: ../loader2/driverdisk.c:291
-#, fuzzy
 msgid "Manually choose"
-msgstr "Kézi particionálás"
+msgstr "Kézi kiválasztás"
 
 #: ../loader2/driverdisk.c:292
 msgid "Load another disk"
-msgstr ""
+msgstr "Másik lemez betöltése"
 
 #: ../loader2/driverdisk.c:293
 msgid ""
@@ -5992,19 +5937,16 @@ msgstr ""
 "gomb megnyomásával."
 
 #: ../loader2/driverselect.c:83
-#, fuzzy
 msgid "Enter Module Parameters"
-msgstr "Modul paraméterek"
+msgstr "Modulparaméterek"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
-msgstr "Nem találtam meghajtókat"
+msgstr "Nem található meghajtó"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Rendelkezik driver lemezzel?"
+msgstr "Meghajtót tartalmazó lemez használata"
 
 #: ../loader2/driverselect.c:187
 msgid ""
@@ -6063,18 +6005,17 @@ msgstr ""
 "az F2-t további eszközök beállításához."
 
 #: ../loader2/hdinstall.c:407
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "A Red Hat könyvtár:"
+msgstr "A telepítőkészletet tartalmazó könyvtár:"
 
 #: ../loader2/hdinstall.c:434
 msgid "Select Partition"
 msgstr "Válasszon partíciót"
 
 #: ../loader2/hdinstall.c:474
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "A(z) %s eszköz nem tartalmaz Red Hat telepítőkészletet."
+msgstr "A(z) %s eszköz nem tartalmaz Red Hat CD-ROM-os telepítőkészletet."
 
 #: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
 #: ../loader2/kickstart.c:106 ../loader2/kickstart.c:149 ../loader2/net.c:658
@@ -6122,9 +6063,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nem találom a ks.cfg file-t a boot floppyn."
 
 #: ../loader2/lang.c:50 ../loader2/loader.c:166
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s"
-msgstr "Üdvözöljük"
+msgstr "Üdvözöljük - %s"
 
 #: ../loader2/lang.c:51 ../loader2/loader.c:172
 msgid ""
@@ -6138,20 +6079,19 @@ msgstr "Válasszon egy nyelvet"
 
 #: ../loader2/loader.c:97
 msgid "Local CDROM"
-msgstr "Helyi CDROM"
+msgstr "Helyi CD-ROM"
 
 #: ../loader2/loader.c:98
 msgid "Hard drive"
-msgstr "Merevlemezes meghajtó"
+msgstr "helyi merevlemez"
 
 #: ../loader2/loader.c:101
 msgid "NFS image"
-msgstr "NFS image"
+msgstr "NFS-megosztás"
 
 #: ../loader2/loader.c:292
-#, fuzzy
 msgid "Update Disk Source"
-msgstr "Updates lemez"
+msgstr "Az Update lemez forrása"
 
 #: ../loader2/loader.c:293
 #, fuzzy
@@ -6170,16 +6110,15 @@ msgstr ""
 
 #: ../loader2/loader.c:309
 msgid "Updates Disk"
-msgstr "Updates lemez"
+msgstr "Frissítések (Updates) lemez"
 
 #: ../loader2/loader.c:321
-#, fuzzy
 msgid "Failed to mount updates disk"
-msgstr "Nem sikerült mount-olni a driver lemezt."
+msgstr "Nem sikerült csatlakoztatni a Frissítések (Updates) lemezt."
 
 #: ../loader2/loader.c:324
 msgid "Updates"
-msgstr "Updates"
+msgstr "Frissítések (Updates)"
 
 #: ../loader2/loader.c:324
 msgid "Reading anaconda updates..."
@@ -6214,19 +6153,16 @@ msgid "What type of media contains the packages to be installed?"
 msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
 
 #: ../loader2/loader.c:723
-#, fuzzy
 msgid "No driver found"
-msgstr "Nem találtam meghajtókat"
+msgstr "Nem található meghajtó"
 
 #: ../loader2/loader.c:723
-#, fuzzy
 msgid "Select driver"
-msgstr "Válassza ki melyik meghajtón futtassam az fdisk-et"
+msgstr "Válassza ki a meghajtót"
 
 #: ../loader2/loader.c:724
-#, fuzzy
 msgid "Use a driver disk"
-msgstr "Rendelkezik driver lemezzel?"
+msgstr "Meghajtót tartalmazó lemez használata"
 
 #: ../loader2/loader.c:725
 msgid ""
@@ -6274,16 +6210,16 @@ msgstr ""
 #: ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "\"%s\" ellenőrzése..."
 
 #: ../loader2/mediacheck.c:266
 msgid "Checking media now..."
-msgstr ""
+msgstr "Az adathordozó ellenőrzése..."
 
 #: ../loader2/mediacheck.c:312
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to find install image %s"
-msgstr "Nem tudom beolvasni a második telepítő image-et"
+msgstr "Nem található ez az adathordozó: %s"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -6300,6 +6236,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"RENDBEN.\n"
+"\n"
+"Lehet telepíteni az adathordozóról."
 
 #: ../loader2/mediacheck.c:337
 msgid ""
@@ -6852,11 +6791,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -6864,48 +6803,47 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Jáva és Szumátra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston-atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line-szigetek"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe-szigetek"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "mainland"
-msgstr "Hátralévő"
+msgstr "szárazföld"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas-szigetek"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
@@ -6921,80 +6859,79 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway-szigetek"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moszkva+00 - Nyugat-Oroszország"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moszkva+01 - Kaszpi-tenger"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moszkva-01 - Kalinyingrád"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moszkva+02 - Urál"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moszkva+03 - Novoszibirszk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moszkva+03 - Nyugat-Szibéria"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moszkva+04 - Jenyiszej"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moszkva+05 - Bajkál-tó"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moszkva+06 - Léna"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moszkva+07 - Amúr"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Moszkva+07 - Szahalin"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Moszkva+08 - Magadán"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moszkva+09 - Kamcsatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moszkva+10 - Bering-tenger"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations"
-msgstr "Munkaállomás"
+msgstr "a legnagyobb rész"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
+msgstr "a legnagyobb rész (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Sziklás-hegységi idő (MST) - Arizona"
 
 #. generated from zone.tab
 msgid ""
@@ -7066,17 +7003,16 @@ msgid "Northern Territory"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time"
-msgstr "Csendes-óceáni part"
+msgstr "Csendes-óceáni idő"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Csendes-óceáni idő - Észak-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Csendes-óceáni idő - Dél-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
@@ -7084,31 +7020,31 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer állomás, Anvers-szigetek"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "Malajzia félszigeti része"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Főnix-szigetek"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday-szigetek"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland nagy része"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
@@ -7119,13 +7055,12 @@ msgid "Roraima"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ruthenia"
-msgstr "Azonosítás"
+msgstr "Ruténia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah és Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -7133,16 +7068,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society-szigetek"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "South Australia"
-msgstr "Dél-Amerika"
+msgstr "Dél-Ausztrália"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "Délnyugat-Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
@@ -7154,1966 +7088,158 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa állomás, Kelet-Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmánia"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule/Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Tibet és Xinjiang-Ujgur nagy része"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "Hely"
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vosztok állomás, Déli Mágneses Sark"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake-szigetek"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "Nyugat-Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "Nyugat- és Közép-Borneó"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "Nyugat-Kongói Demokratikus Köztársaság"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Nyugat-Ausztrália"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "Nyugat-Kazahsztán"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "Nyugat-Üzbegisztán"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "Nyugat-Para, Rondónia"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozsje (Luganszk)"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "kínai (egyszerűsített)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "kínai (hagyományos)"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "cseh"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Befejezés"
+msgstr "dán"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "holland"
 
 #. generated from lang-table
-#, fuzzy
 msgid "English"
-msgstr "Befejezés"
+msgstr "angol"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "francia"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "Keresés"
+msgstr "német"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "izlandi"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "olasz"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "japán"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "koreai"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "norvég"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese"
-msgstr "vagy:"
+msgstr "portugál"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian)"
-msgstr "vagy:"
+msgstr "brazil portugál"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "orosz"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "szlovén"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Spanish"
-msgstr "Befejezés"
+msgstr "spanyol"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "svéd"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ukrán"
 
-#, fuzzy
-#~ msgid "T_ext"
-#~ msgstr "Következő"
 
-#~ msgid "CDROM type"
-#~ msgstr "CDROM típus"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Milyen típusú CDROM-ot használ?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "CDROM inicializálása..."
-
-#, fuzzy
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "Ehhez a modulhoz a működését befolyásoló paramétereket adhat meg. Ha nem "
-#~ "tudja milyen paramétereket kell megadni, ugorja át ezt a képernyőt az \"OK"
-#~ "\" gomb megnyomásával."
-
-#~ msgid "Module Parameters"
-#~ msgstr "Modul paraméterek"
-
-#~ msgid "Do you have a driver disk?"
-#~ msgstr "Rendelkezik driver lemezzel?"
-
-#, fuzzy
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr ""
-#~ "Helyezze be a driver lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
-
-#, fuzzy
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid driver disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "A behelyezett floppy nem a megfelelő driver lemez ehhez a Red Hat Linux "
-#~ "verzióhoz."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "Melyik meghajtót próbáljam? Ha a szükséges meghajtó nem szerepel ezen a "
-#~ "listán, és van külön driver lemeze, akkor nyomja meg az F2-t."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Adja meg a modul-paramétereket"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "Hiba a %s modul beillesztésénél."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Hiba a %s kickstart file megnyitásakor: %s"
-
-#~ msgid "SCSI"
-#~ msgstr "SCSI"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "Milyen típusú eszközt szeretne hozzáadni?"
-
-#, fuzzy
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "A következő eszközöket találtam a rendszerben:"
-
-#, fuzzy
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "A rendszerhez nincsenek speciális eszközmeghajtók betöltve. Akar most "
-#~ "ilyeneket betölteni?"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "A könyvtár nem tartalmaz Red Hat telepítő készletet"
-
-#, fuzzy
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "Nem tudom mountolni a megadott könyvtárat a szerverről"
-
-#~ msgid "HTTP"
-#~ msgstr "HTTP"
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "Nem tudom beolvasni az első telepító image-et"
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr ""
-#~ "Helyezze be az updates lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
-
-#, fuzzy
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "A behelyezett floppy nem a megfelelő driver lemez ehhez a Red Hat Linux "
-#~ "verzióhoz."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "Nem sikerült mount-olni a floppyt."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "Nem sikerült mount-olni a driver lemezt: %s"
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "Rossz lemezt helyezett be."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Driver lemez"
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Kérem most helyezze be a %s driver lemezt."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "IP információ kérelem küldése..."
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "hibás argumentum a kickstart network parancsban %s: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "Használni kívánt boot protokol"
-
-#~ msgid "Network gateway"
-#~ msgstr "Hálózati átjáró"
-
-#~ msgid "IP address"
-#~ msgstr "IP cím"
-
-#~ msgid "Netmask"
-#~ msgstr "Alhálózati maszk"
-
-#~ msgid "Domain name"
-#~ msgstr "Domain név"
-
-#~ msgid "Network device"
-#~ msgstr "Hálózati eszköz"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ " <Tab>/<AltTab> elemek között |<Space> kiválaszt |<F12> következő "
-#~ "képernyő "
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "Hálózat beállítás"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "Szeretne hálózatot beállítani?"
-
-#~ msgid "PC Card"
-#~ msgstr "PC Card"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "PC Card eszközök inicializálása..."
-
-#, fuzzy
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Kérem most helyezze be a %s driver lemezt."
-
-#, fuzzy
-#~ msgid "Failed to mount disk."
-#~ msgstr "Nem sikerült mount-olni a driver lemezt."
-
-#~ msgid "Use proxy server"
-#~ msgstr "Proxy szerver használata"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP proxy:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP proxy:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "FTP proxy port:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "HTTP proxy port:"
-
-#~ msgid "Mouse Not Detected"
-#~ msgstr "Egér nem detektálható"
-
-#~ msgid ""
-#~ "Your mouse was not automatically detected.  To proceed in the graphical "
-#~ "installation mode, please proceed to the next screen and provide your "
-#~ "mouse information. You may also use text mode installation which does not "
-#~ "require a mouse."
-#~ msgstr ""
-#~ "Az egér nem lett automatikusan detektálva. A grafikus telpítés "
-#~ "folytatásához lépjen a következő képernyőre, és adja meg az egérrel "
-#~ "kapcsolatos információkat. Választhatja a szöveges üzemmódú telepítést "
-#~ "is, amelyhez nincs szükség egérre."
-
-#~ msgid "Use text mode"
-#~ msgstr "Szöveges mód használata"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following root partitions have been found on your system.  FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "A következő eszközöket találtam a rendszerben:"
-
-#, fuzzy
-#~ msgid ""
-#~ "The following root partitions have been found on your system. FIXME: I "
-#~ "NEED BETTER TEXT HERE."
-#~ msgstr "A következő eszközöket találtam a rendszerben:"
-
-#, fuzzy
-#~ msgid "Unable to probe"
-#~ msgstr "Nem találok videokártyát"
-
-#~ msgid "Account Configuration"
-#~ msgstr "Account beállítás"
-
-#~ msgid "User password accepted."
-#~ msgstr "Felhasználói jelszó elfogadva."
-
-#~ msgid "Root account can not be added here."
-#~ msgstr "A root accountot itt nem adhatja meg."
-
-#, fuzzy
-#~ msgid "System accounts can not be added here."
-#~ msgstr "A root accountot itt nem adhatja meg."
-
-#~ msgid "Please enter user password."
-#~ msgstr "Adja meg a felhasználói jelszót."
-
-#~ msgid "User password is too short."
-#~ msgstr "Felhasználói jelszó túl rövid."
-
-#~ msgid "User passwords do not match."
-#~ msgstr "Felhasználói jelszók nem egyeznek."
-
-#, fuzzy
-#~ msgid "Add a New User"
-#~ msgstr "Felhasználó hozzáadás"
-
-#, fuzzy
-#~ msgid "Add a User Account"
-#~ msgstr "Felhasználó account beállítás"
-
-#, fuzzy
-#~ msgid "Enter a user _name:"
-#~ msgstr "Adja meg a felhasználói jelszót."
-
-#, fuzzy
-#~ msgid "Enter a user _password:"
-#~ msgstr "Adja meg a felhasználói jelszót."
-
-#, fuzzy
-#~ msgid "Pass_word (confirm):"
-#~ msgstr "Jelszó (újra)"
-
-#, fuzzy
-#~ msgid "_Full Name:"
-#~ msgstr "Teljes név"
-
-#, fuzzy
-#~ msgid "Please enter user name"
-#~ msgstr "Adja meg a felhasználói jelszót."
-
-#~ msgid "Account Name"
-#~ msgstr "Account név"
-
-#, fuzzy
-#~ msgid ""
-#~ "You don't have any Linux partitions.\n"
-#~ "You can't upgrade this sytem!"
-#~ msgstr ""
-#~ "Nincsenek Linux partíciók.\n"
-#~ " Ez a rendszer nem frissíthető!"
-
-#~ msgid "Please select the device containing the root filesystem: "
-#~ msgstr "Válassza ki a root filerendszert tartalmazó eszközt: "
-
-#, fuzzy
-#~ msgid "Upgrading the %s installation on partition /dev/%s"
-#~ msgstr "Red Hat Linux rendszerek keresése..."
-
-#, fuzzy
-#~ msgid "Manually partition with _fdisk (experts only)"
-#~ msgstr "Kézi particionálás fdisk-kel [csak haladóknak]"
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid "You don't have any Linux partitions. You can't upgrade this system!"
-#~ msgstr "Nincsenek Linux partíciók. Ez a rendszer nem frissíthető!"
-
-#, fuzzy
-#~ msgid "Upgrade Partition"
-#~ msgstr "Raid partíció"
-
-#, fuzzy
-#~ msgid "Romanian"
-#~ msgstr "Hátralévő"
-
-#, fuzzy
-#~ msgid "No password"
-#~ msgstr "Root jelszó"
-
-#, fuzzy
-#~ msgid "Change _Password"
-#~ msgstr "Adja meg a felhasználói jelszót."
-
-#, fuzzy
-#~ msgid "_Use a Boot Loader Password"
-#~ msgstr "Root jelszó  : "
-
-#, fuzzy
-#~ msgid "Set _Password"
-#~ msgstr "Root jelszó"
-
-#, fuzzy
-#~ msgid "General kernel parameters"
-#~ msgstr "Kernel paraméterek"
-
-#, fuzzy
-#~ msgid "Default Boot Target"
-#~ msgstr "Alapértelmezett PROM boot device beállítása"
-
-#~ msgid "Edit Boot Label Please"
-#~ msgstr "Kérem irja be a boot címkét"
-
-#~ msgid "Base"
-#~ msgstr "Alap"
-
-#, fuzzy
-#~ msgid "Printing Support"
-#~ msgstr "Nyomtató támogatás"
-
-#, fuzzy
-#~ msgid "Classic X Window System"
-#~ msgstr "X Window rendszer"
-
-#~ msgid "X Window System"
-#~ msgstr "X Window rendszer"
-
-#~ msgid "Laptop Support"
-#~ msgstr "Laptop támogatás"
-
-#, fuzzy
-#~ msgid "Sound and Multimedia Support"
-#~ msgstr "Multimédia támogatás"
-
-#, fuzzy
-#~ msgid "Network Support"
-#~ msgstr "Hálózat beállítás"
-
-#, fuzzy
-#~ msgid "Dialup Support"
-#~ msgstr "Laptop támogatás"
-
-#, fuzzy
-#~ msgid "Graphics and Image Manipulation"
-#~ msgstr "Grafikai műveletek"
-
-#~ msgid "News Server"
-#~ msgstr "News szerver"
-
-#, fuzzy
-#~ msgid "NFS File Server"
-#~ msgstr "NFS szerver"
-
-#, fuzzy
-#~ msgid "Windows File Server"
-#~ msgstr "Web szerver"
-
-#~ msgid "Anonymous FTP Server"
-#~ msgstr "Anonymous FTP szerver"
-
-#, fuzzy
-#~ msgid "SQL Database Server"
-#~ msgstr "NFS szerver"
-
-#~ msgid "Web Server"
-#~ msgstr "Web szerver"
-
-#~ msgid "DNS Name Server"
-#~ msgstr "DNS névszerver"
-
-#, fuzzy
-#~ msgid "Network Managed Workstation"
-#~ msgstr "Hálózat felügyeleti munkaállomás"
-
-#, fuzzy
-#~ msgid "Authoring and Publishing"
-#~ msgstr "Kiadványkészítés"
-
-#~ msgid "Emacs"
-#~ msgstr "Emacs"
-
-#~ msgid "Utilities"
-#~ msgstr "Segédeszközök"
-
-#, fuzzy
-#~ msgid "Legacy Application Support"
-#~ msgstr "Laptop támogatás"
-
-#, fuzzy
-#~ msgid "Software Development"
-#~ msgstr "Kernel fejlesztés"
-
-#~ msgid "Kernel Development"
-#~ msgstr "Kernel fejlesztés"
-
-#, fuzzy
-#~ msgid "delete"
-#~ msgstr "Töröl"
-
-#, fuzzy
-#~ msgid "Make LVM Device"
-#~ msgstr "_RAID Eszköz létrehozás"
-
-#, fuzzy
-#~ msgid "Edit LVM Device"
-#~ msgstr "Eszköz hozzáadás"
-
-#, fuzzy
-#~ msgid "Developer Workstation"
-#~ msgstr "Telefonos munkaállomás"
-
-#~ msgid "Install"
-#~ msgstr "Telepítés"
-
-#, fuzzy
-#~ msgid "User _Name:"
-#~ msgstr "Felhasználó név"
-
-#, fuzzy
-#~ msgid "Do not install a boot loader"
-#~ msgstr "Rendszer telepítése"
-
-#, fuzzy
-#~ msgid ""
-#~ "A complete log of your installation will be in /root/install.log after "
-#~ "rebooting your system. You may want to keep this file for later "
-#~ "reference. A kickstart file representing the choices you have made will "
-#~ "be in /root/anaconda-ks.cfg."
-#~ msgstr ""
-#~ "A telepítés teljes jegyzőkönyve megtalálható lesz a /tmp/install.log file-"
-#~ "ban a rendszer újraindítása után. Később esetleg szüksége lehet erre a "
-#~ "file-ra."
-
-#, fuzzy
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulálunk, a beállítás kész.\n"
-#~ "\n"
-#~ "A Red Hat Linux rendszerhez tartozó hibajavításokról további információt "
-#~ "talál a http://www.redhat.com címen, az Errata oldalon.\n"
-#~ "\n"
-#~ "A rendszer további beállításáról az Official Red Hat Linux User's Guide "
-#~ "című könyv \"post install\" fejezetében olvashat."
-
-#, fuzzy
-#~ msgid "_Select all"
-#~ msgstr "Válasszon partíciót"
-
-#, fuzzy
-#~ msgid "Which _model mouse is attached to the computer?"
-#~ msgstr "Milyen típusú egér van a számítógéphez kötve?"
-
-#, fuzzy
-#~ msgid ""
-#~ "If the probed settings do not match your hardware, select the correct "
-#~ "hardware settings below:"
-#~ msgstr ""
-#~ "Ha a detektált beállítások nem felelnek meg a hardware-nek, akkor "
-#~ "válassza ki a megfelelőt az alábbi listából:"
-
-#~ msgid "Close"
-#~ msgstr "Bezár"
-
-#, fuzzy
-#~ msgid ""
-#~ "You cannot remove this partition, as it is an extended partition which "
-#~ "contains %s"
-#~ msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
-
-#, fuzzy
-#~ msgid "Unable to Edit"
-#~ msgstr "Nem találok videokártyát"
-
-#, fuzzy
-#~ msgid ""
-#~ "You have chosen to format a pre-existing partition.  This will destroy "
-#~ "all data that was previously on it.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Beállított egy RAID partíciót anélkül, hogy a partíciót egy bizonyos "
-#~ "meghajtóhoz hozzárendelte volna.\n"
-#~ " Biztos, hogy ezt akarja?"
-
-#, fuzzy
-#~ msgid "Unknown Card"
-#~ msgstr "Ismeretlen"
-
-#~ msgid "Video Ram"
-#~ msgstr "Video RAM"
-
-#~ msgid "X server"
-#~ msgstr "X szerver"
-
-#~ msgid "Unable to detect video card"
-#~ msgstr "Nem találok videokártyát"
-
-#~ msgid "Skip boot disk creation"
-#~ msgstr "Boot lemez létrehozásának kihagyása"
-
-#, fuzzy
-#~ msgid "Boot Loader Password Configuration"
-#~ msgstr "Monitor beállítás"
-
-#, fuzzy
-#~ msgid "Password accepted."
-#~ msgstr "Root jelszó elfogadva."
-
-#, fuzzy
-#~ msgid "Password is too short."
-#~ msgstr "Root jelszó túl rövid."
-
-#, fuzzy
-#~ msgid "Passwords do not match."
-#~ msgstr "Root jelszók nem egyeznek."
-
-#, fuzzy
-#~ msgid "Use a GRUB Password?"
-#~ msgstr "Shadow jelszók használata"
-
-#, fuzzy
-#~ msgid ""
-#~ "Congratulations, configuration is complete.\n"
-#~ "\n"
-#~ "For information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulálunk, a beállítás kész.\n"
-#~ "\n"
-#~ "A Red Hat Linux rendszerhez tartozó hibajavításokról további információt "
-#~ "talál a http://www.redhat.com címen, az Errata oldalakon.\n"
-#~ "\n"
-#~ "A rendszer további beállításáról az Official Red Hat Linux User's Guide "
-#~ "című könyv \"post install\" fejezetében olvashat."
-
-#, fuzzy
-#~ msgid " is an invalid port."
-#~ msgstr "%s nem érvényes host név."
-
-#~ msgid "Choose partitions to Format"
-#~ msgstr "Válassza ki a formázandó partíciókat"
-
-#~ msgid "Keyboard Configuration"
-#~ msgstr "Billentyűzet beállítás"
-
-#, fuzzy
-#~ msgid "Which model keyboard is attached to the computer?"
-#~ msgstr "Milyen típusú billentyűzet van a géphez kötve?"
-
-#~ msgid "Layout"
-#~ msgstr "Elrendezés"
-
-#~ msgid "Dead Keys"
-#~ msgstr "Dead keys"
-
-#~ msgid "Enable dead keys"
-#~ msgstr "Dead keys engedélyezése"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Dead keys tiltása"
-
-#~ msgid "Test your selection here:"
-#~ msgstr "Itt próbálhatja ki a beállítást:"
-
-#~ msgid "Broadcast"
-#~ msgstr "Broadcast"
-
-#~ msgid "Total install size: "
-#~ msgstr "Teljes telepítési méret: "
-
-#, fuzzy
-#~ msgid "_New"
-#~ msgstr "Új"
-
-#~ msgid "View:"
-#~ msgstr "Nézet:"
-
-#~ msgid "Would you like to configure your system?"
-#~ msgstr "Szeretné beállítani a rendszert?"
-
-#, fuzzy
-#~ msgid "Unknown server"
-#~ msgstr "Ismeretlen host"
-
-#, fuzzy
-#~ msgid "Other"
-#~ msgstr "Nyomtató támogatás"
-
-#, fuzzy
-#~ msgid ""
-#~ "A custom boot disk provides a way of booting into your Linux system "
-#~ "without depending on the normal boot loader. This is useful if you don't "
-#~ "want to install lilo on your system, another operating system removes "
-#~ "lilo, or lilo doesn't work with your hardware configuration. A custom "
-#~ "boot disk can also be used with the Red Hat rescue image, making it much "
-#~ "easier to recover from severe system failures.\n"
-#~ "\n"
-#~ "Would you like to create a boot disk for your system?"
-#~ msgstr ""
-#~ "A boot lemez segítségével a normál boot betöltőtől függetlenül "
-#~ "elindíthatja a Linux rendszert. Ez akkor hasznos, ha nem akarja "
-#~ "telepíteni a lilo-t, vagy egy másik operációs rendszer felülírja azt, "
-#~ "esetleg a lilo nem működik együtt a hardverrel. A saját boot lemez "
-#~ "használható a Red Hat rescue lemezzel is, így sokkal egyszerűbb a súlyos "
-#~ "rendszerproblémák utáni helyreállítás.\n"
-#~ "\n"
-#~ "Akar boot lemezt készíteni a rendszerhez?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using your system is available in the Red Hat Linux "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Gratulálunk, a beállítás kész.\n"
-#~ "\n"
-#~ "A Red Hat Linux rendszerhez tartozó hibajavításokról további információt "
-#~ "talál a http://www.redhat.com címen, az Errata oldalon.\n"
-#~ "\n"
-#~ "A rendszer további beállításáról az Official Red Hat Linux User's Guide "
-#~ "című könyv \"post install\" fejezetében olvashat."
-
-#~ msgid "Bad User ID"
-#~ msgstr "Hibás felhasználó azonosító"
-
-#, fuzzy
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "You have entered reconfiguration mode, which will allow you to configure "
-#~ "site-specific options of your computer.\n"
-#~ "\n"
-#~ "To exit without changing your setup select the Cancel button below."
-#~ msgstr ""
-#~ "Üdvözli a Red Hat Linux!\n"
-#~ "\n"
-#~ "Belépett az újra-beállítási üzemmódba, amely lehetővé teszi, hogy "
-#~ "megváltoztassa a számítógép egyéni beállításait.\n"
-#~ "\n"
-#~ "Változtatás nélküli kilépéshez válassza a Mégsem gombot."
-
-#~ msgid "Other CDROM"
-#~ msgstr "Más CDROM"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture"
-#~ msgstr ""
-#~ "Kérem adja meg a következő információt:\n"
-#~ "\n"
-#~ "    o az NFS szerver neve vagy IP címe\n"
-#~ "    o a rendszernek megfelelő Red Hat Linux-ot\n"
-#~ "      tartalmazó könyvtár a szerveren"
-
-#~ msgid "Map Image to display"
-#~ msgstr "Megjelenítendő térkép"
-
-#~ msgid "Width of map (in pixels)"
-#~ msgstr "Térkép szélessége (pixelekben)"
-
-#~ msgid "Enable antialias"
-#~ msgstr "Antialias engedélyezése"
-
-#~ msgid "World"
-#~ msgstr "Világ"
-
-#~ msgid "North America"
-#~ msgstr "Észak-Amerika"
-
-#~ msgid "South America"
-#~ msgstr "Dél-Amerika"
-
-#~ msgid "Europe"
-#~ msgstr "Európa"
-
-#~ msgid "Africa"
-#~ msgstr "Afrika"
-
-#~ msgid "Asia"
-#~ msgstr "Ázsia"
-
-#~ msgid "Cannot load timezone data"
-#~ msgstr "Nem tudom betölteni az időzóna-adatokat"
-
-#~ msgid "gglobe-canvas"
-#~ msgstr "gglobe-canvas"
-
-#~ msgid "View: "
-#~ msgstr "Nézet:"
-
-#~ msgid "What language should be used during the installation process?"
-#~ msgstr "Milyen nyelvet használjon a telepítő?"
-
-#, fuzzy
-#~ msgid "Welcome to "
-#~ msgstr "Üdvözöljük"
-
-#, fuzzy
-#~ msgid ""
-#~ "? If you don't see the disk drive you're using listed here, press F2 to "
-#~ "configure additional devices."
-#~ msgstr ""
-#~ "Úgy néz ki, nincsen egyetlen merevlemezes meghajtó sem a rendszerben. "
-#~ "Kíván további eszközöket beállítani?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      "
-#~ msgstr ""
-#~ "Kérem adja meg a következő információkat:\n"
-#~ "\n"
-#~ "    o az FTP szerver neve vagy IP címe\n"
-#~ "    o a rendszernek megfelelő Red Hat Linux-ot\n"
-#~ "      tartalmazó könyvtár a szerveren\n"
-
-#~ msgid "Red Hat Linux Installer"
-#~ msgstr "Red Hat Linux Telepítő"
-
-#~ msgid "Password (again):"
-#~ msgstr "Jelszó (újra):"
-
-#~ msgid "User ID"
-#~ msgstr "Felhasználó azonosító"
-
-#~ msgid "Red Hat Linux"
-#~ msgstr "Red Hat Linux"
-
-#~ msgid "Welcome to Red Hat Linux"
-#~ msgstr "Üdvözli a Red Hat Linux"
-
-#, fuzzy
-#~ msgid "Serbian"
-#~ msgstr "Keresés"
-
-#~ msgid "Ok"
-#~ msgstr "Ok"
-
-#~ msgid "partitioning did not meet requirements"
-#~ msgstr "a partícionálás nem felel meg a követelményeknek"
-
-#~ msgid "The %s directory must be on the root filesystem."
-#~ msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points must begin with a leading /."
-#~ msgstr ""
-#~ "A(z) %s mount-pont hibás.\n"
-#~ "\n"
-#~ "A mount-pontok nevének bevezető / jellel kell kezdődni."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may not end with a /."
-#~ msgstr ""
-#~ "A(z) %s mount-pont hibás.\n"
-#~ "\n"
-#~ "A mount-pontok neve nem végződhet / jellel."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may only printable characters."
-#~ msgstr ""
-#~ "A(z) %s mount-pont hibás.\n"
-#~ "\n"
-#~ "A mount-pontok neve csak nyomtatható karakterekből állhat."
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
-#~ "partition. You can do this, but you may not use any other filesystems for "
-#~ "your Linux system. Additionally, there will be a speed penalty for not "
-#~ "using Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Azt kérte, hogy a root (/) filerendszer egy DOS stílusú FAT partíción "
-#~ "legyen. Ezt megteheti, de nem használhat más filerendszereket a Linux "
-#~ "rendszerhez. Emellett sebesség-csökkenéssel is számolnia kell, ha nem "
-#~ "natív Linux partíciókat használ. Akarja folytatni?"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "System partitions must be on Linux Native partitions."
-#~ msgstr ""
-#~ "A(z) %s mount pont hibás.\n"
-#~ "\n"
-#~ "A rendszer-partícióknak Linux Native partíciókon kell lenniük."
-
-#~ msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-#~ msgstr ""
-#~ "Ezen a platformon a /boot -nak DOS kompatibilis filerendszeren (%x) kell "
-#~ "lennie."
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr ""
-#~ "A(z) %s mount pont hibás.\n"
-#~ "\n"
-#~ "A /usr-nek Linux Native partíción vagy egy NFS köteten kell lenni."
-
-#~ msgid "Too Many Drives"
-#~ msgstr "Túl sok meghajtó"
-
-#~ msgid ""
-#~ "You have more drives than this program supports. Please use the standard "
-#~ "fdisk program to setup your drives and please notify Red Hat Software "
-#~ "that you saw this message."
-#~ msgstr ""
-#~ "Több meghajtóval rendelkezik, mint amennyit ez a program támogat. Kérem,"
-#~ "használja a hagyományos fdisk programot a meghajtók beállításához, és "
-#~ "értesítse a Red Hat Software-t erről az üzenetről."
-
-#~ msgid "Error Creating Device Nodes"
-#~ msgstr "Hiba az eszköz node-ok létrehozásánál"
-
-#, fuzzy
-#~ msgid ""
-#~ "An error has occurred while trying to create device nodes for the hard "
-#~ "drives in your system.  This may be because you have run out of disk "
-#~ "space on the /tmp partition."
-#~ msgstr ""
-#~ "Hiba történt a merevelemezek eszköz node-jainak létrehozásánál. Ennek az "
-#~ "lehet az oka, hogy megtelt a /tmp partíció."
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems.  Please check your hardware for the cause of this "
-#~ "problem."
-#~ msgstr ""
-#~ "Hiba történt - nincsenek érvényes eszközök, amiken létre lehetne hozni új "
-#~ "file-rendszereket. Ellenőrizze a hardvert a probléma okának kiderítéséhez."
-
-#~ msgid "Skip Drive"
-#~ msgstr "Meghajtó kihagyása"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive."
-#~ msgstr ""
-#~ "A %s eszköz partíciós táblája hibás. Új partíciók létrehozása előtt "
-#~ "inicializálnia kell, ami a meghajtón lévő ÖSSZES ADAT elvesztését jelenti."
-
-#~ msgid "Bad Partition Table"
-#~ msgstr "Hibás partíciós tábla"
-
-#~ msgid "BSD Disklabel"
-#~ msgstr "BSD Disklabel"
-
-#~ msgid ""
-#~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
-#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
-#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
-#~ "Disklabels."
-#~ msgstr ""
-#~ "BSD disklabel-t tartalmazó lemezt találtam. A Red Hat telepítő csak "
-#~ "olvasni tudja a BSD disklabel-t, így egy saját telepítőre és (a Disk "
-#~ "Druid helyett) az fdisk programra lesz szüksége BSD disklabel-t használó "
-#~ "gépeken."
-
-#~ msgid "System error %d"
-#~ msgstr "Rendszerhiba %d"
-
-#~ msgid "Fdisk Error"
-#~ msgstr "Fdisk hiba"
-
-#~ msgid "<Swap Partition>"
-#~ msgstr "<Swap partíció>"
-
-#, fuzzy
-#~ msgid "Root partition"
-#~ msgstr "Nincs root-partíció"
-
-#~ msgid "Delete Partition"
-#~ msgstr "Partíció-törlés"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit other partitions."
-#~ msgstr ""
-#~ "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud más "
-#~ "partíciókat szerkeszteni."
-
-#~ msgid "Size (Megs):"
-#~ msgstr "Méret (MB) :"
-
-#~ msgid "Use remaining space?"
-#~ msgstr "Maradék terület használata?"
-
-#~ msgid "Allocation Status:"
-#~ msgstr "Lekötöttség:"
-
-#~ msgid "Successful"
-#~ msgstr "Eredményes"
-
-#~ msgid "Failed"
-#~ msgstr "Hibás"
-
-#~ msgid "Failure Reason:"
-#~ msgstr "A hiba oka:"
-
-#~ msgid "Partition Type:"
-#~ msgstr "Partíció-típus:"
-
-#~ msgid "No Mount Point"
-#~ msgstr "Nincs mount-pont"
-
-#~ msgid ""
-#~ "You have not selected a mount point for this partition. Are you sure you "
-#~ "want to do this?"
-#~ msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
-
-#~ msgid "Mount Point Error"
-#~ msgstr "Mount-pont hiba"
-
-#~ msgid ""
-#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
-#~ "You cannot do this now because mount points have been assigned to ext2 "
-#~ "partitions also.  Clear those mount points and then you will be able to "
-#~ "assign '/' to this partition."
-#~ msgstr ""
-#~ "Megpróbálta a '/' mount pontot egy FAT-stílusú partícióhoz hozzárendelni. "
-#~ "Ezt most nem teheti meg, mivel ext2 partíciókhoz is vannak rendelve mount "
-#~ "pontok. Ha azokat kitörli, hozzárendelheti a '/'-ot ehhez a partícióhoz."
-
-#~ msgid ""
-#~ "The mount point requested is either an illegal path or is already in use. "
-#~ "Please select a valid mount point."
-#~ msgstr ""
-#~ "A kért mount-pont érvénytelen útvonal, vagy már használatban van. "
-#~ "Válasszon egy érvényes mount-pontot."
-
-#~ msgid ""
-#~ "The size requested is illegal. Make sure the size is greater and zero "
-#~ "(0), and is specified int decimal (base 10) format."
-#~ msgstr ""
-#~ "A kért méret hibás. Győződjön meg, hogy a méret nagyobb nullánál (0), és "
-#~ "tízes számrendszerben, egész számként van megadva."
-
-#~ msgid ""
-#~ "You have created a swap partition which is too large. The maximum size of "
-#~ "a swap partition is %ld Megabytes."
-#~ msgstr ""
-#~ "Túlságosan nagy swap-partíciót hozott létre. A swap-partíció legnagyobb "
-#~ "mérete %ld Megabyte."
-
-#~ msgid "No Drives Specified"
-#~ msgstr "Nincsenek meghajtók kijelölve"
-
-#~ msgid "You must constrain this partition to at least one drive."
-#~ msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
-
-#~ msgid "No RAID Drive Constraint"
-#~ msgstr "Nincs RAID meghajtó hozzárendelés"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive.\n"
-#~ " Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Beállított egy RAID partíciót anélkül, hogy a partíciót egy bizonyos "
-#~ "meghajtóhoz hozzárendelte volna.\n"
-#~ " Biztos, hogy ezt akarja?"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive. Please select one drive to constrain this partition to."
-#~ msgstr ""
-#~ "Beállított egy RAID partíciót anélkül, hogy a partíciót egy bizonyos "
-#~ "meghajtóhoz hozzárendelte volna. Válasszon egy meghajtót, amelyhez "
-#~ "hozzárendeli ezt a partíciót."
-
-#~ msgid "Cannot Add Partitions"
-#~ msgstr "Nem lehet partíciókat hozzáadni"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add other partitions."
-#~ msgstr ""
-#~ "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud más "
-#~ "partíciókat szerkeszteni."
-
-#~ msgid "RAID Entry Incomplete"
-#~ msgstr "RAID meghajtó nem teljes"
-
-#~ msgid ""
-#~ "The raid device /dev/%s now contains partitions which are unallocated. "
-#~ "The raid device /dev/%s will now be decomposed into its component "
-#~ "partitions. Please recompose the raid device with allocated partitions."
-#~ msgstr ""
-#~ "A RAID eszköz (/dev/%s) lekötetlen partíciókat is tartalmaz. A /dev/%s "
-#~ "RAID eszköz szét lesz bontva összetevő partícióira. Kérem állítsa össze a "
-#~ "RAID eszközt lekötött partíciókból."
-
-#~ msgid "Unallocated Partitions"
-#~ msgstr "Lekötetlen partíciók"
-
-#~ msgid ""
-#~ "There are currently unallocated partition(s) present in the list of "
-#~ "requested partitions. The unallocated partition(s) are shown below, along "
-#~ "with the reason they were not allocated."
-#~ msgstr ""
-#~ "Egy vagy több lekötetlen partíció van a használni kívánt partíciók "
-#~ "között. A lekötetlen partíciók listája a következő:"
-
-#~ msgid "Cannot Edit Raid"
-#~ msgstr "Raid nem szerkeszthető"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit RAID devices."
-#~ msgstr ""
-#~ "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
-#~ "eszközöket szerkeszteni."
-
-#~ msgid "RAID Type:"
-#~ msgstr "RAID típus:"
-
-#~ msgid "Partitions For RAID Array:"
-#~ msgstr "Partíciók RAID array-hez:"
-
-#~ msgid "You have not selected a mount point. A mount point is required."
-#~ msgstr "Nem adott meg mount-pontot. Mount pontra szükség van."
-
-#~ msgid ""
-#~ "The bootable raid device can only include partitions from the first two "
-#~ "drives on your system.\n"
-#~ "\n"
-#~ "These drives are: "
-#~ msgstr ""
-#~ "A bootolható RAID eszköz csak a rendszer első két meghajtójáról "
-#~ "tartalmazhat partíciókat.\n"
-#~ "\n"
-#~ "Ezek a meghajtók: "
-
-#~ msgid "Booting From RAID Warning"
-#~ msgstr "Figyelem, bootolás RAID-röl"
-
-#~ msgid "You need to selected a RAID device."
-#~ msgstr "Ki kell választania egy RAID eszközt."
-
-#~ msgid "Used Raid Device"
-#~ msgstr "Alkalmazott RAID eszköz"
-
-#~ msgid "Not Enough Partitions"
-#~ msgstr "Nincs elegendő partíció"
-
-#~ msgid ""
-#~ "You have not configured enough partitions for the RAID type you have "
-#~ "selected."
-#~ msgstr ""
-#~ "Nem választott ki elegendő számú partíciót a kiválasztott RAID típushoz."
-
-#~ msgid "Illegal /boot RAID Type"
-#~ msgstr "Illegális /boot RAID típus"
-
-#~ msgid "Boot partitions (/boot) are only allowed on RAID-1."
-#~ msgstr "Boot partíciót (/boot) csak RAID-1 meghajtón lehet létrehozni."
-
-#~ msgid "Illegal RAID mountpoint"
-#~ msgstr "Illegális RAID mount-pont"
-
-#, fuzzy
-#~ msgid ""
-#~ "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-#~ "partition (non-RAID) as well."
-#~ msgstr ""
-#~ "Alpha rendszereken nem lehet RAID partíciót root-ként (/) mountolni."
-
-#~ msgid ""
-#~ "The partition %s is a pre-existing partition in the set of partitions for "
-#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
-#~ "is possible to boot from this partition?"
-#~ msgstr ""
-#~ "A %s partíció ennek a RAID eszköznek egy meglévő partíciója. A mount-"
-#~ "pont /boot. Biztos benne, hogy lehet erről a partícióról bootolni?"
-
-#~ msgid "Use Pre-existing Partition?"
-#~ msgstr "Meglévő partíció használata?"
-
-#~ msgid "Cannot Add RAID Devices"
-#~ msgstr "Nem lehet RAID eszközt hozzáadni"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add RAID devices."
-#~ msgstr ""
-#~ "A '/' filerendszert nem ext2 partíción jelölte ki, igy nem tud RAID "
-#~ "eszközöket hozzáadni."
-
-#~ msgid "Auto-Partition"
-#~ msgstr "Automatikus particionálás"
-
-#~ msgid "Using Existing Disk Space"
-#~ msgstr "Meglévő lemezterület felhasználása"
-
-#~ msgid "Remove Linux partitions"
-#~ msgstr "Linux partíciók eltávolítása"
-
-#~ msgid "Use existing free space"
-#~ msgstr "Meglévő szabad terület használata"
-
-#~ msgid "Intended Use"
-#~ msgstr "Felhasználási terület"
-
-#~ msgid "Are you sure you want to remove this RAID device?"
-#~ msgstr "Biztosan el akarja távolítani ezt a RAID eszközt?"
-
-#~ msgid "Reset Partition Table"
-#~ msgstr "Partíciós tábla alaphelyzetbe állítása"
-
-#~ msgid "Reset partition table to original contents? "
-#~ msgstr "Visszaállítsam a partíciós táblát az eredeti tartalmára?"
-
-#~ msgid "<Swap>"
-#~ msgstr "<Swap>"
-
-#~ msgid "<RAID>"
-#~ msgstr "<RAID>"
-
-#~ msgid "<not set>"
-#~ msgstr "<nincs beállítva>"
-
-#~ msgid "Requested"
-#~ msgstr "Igényelt"
-
-#~ msgid "Actual"
-#~ msgstr "Valós"
-
-#~ msgid "Geom [C/H/S]"
-#~ msgstr "Geom [C/H/S]"
-
-#~ msgid "Total (M)"
-#~ msgstr "Összes (M)"
-
-#~ msgid "Free (M)"
-#~ msgstr "Szabad (M)"
-
-#~ msgid "Used (M)"
-#~ msgstr "Használt (M)"
-
-#~ msgid "Used (%)"
-#~ msgstr "Használt (%)"
-
-#~ msgid "Unallocated Partitions Exist..."
-#~ msgstr "Lekötetlen partíciók találhatók..."
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "or a RAID partition for the install to proceed."
-#~ msgstr ""
-#~ "A telepítés folytatásához hozzá kell rendelnie egy root (/) partíciót "
-#~ "valamelyik Linux Native (ext2) vagy RAID partícióhoz."
-
-#~ msgid "Partitions"
-#~ msgstr "Partíciók"
-
-#~ msgid "_Add..."
-#~ msgstr "_Hozzáad..."
-
-#~ msgid "_Edit..."
-#~ msgstr "_Szerkesztés..."
-
-#~ msgid "_Make RAID Device"
-#~ msgstr "_RAID Eszköz létrehozás"
-
-#~ msgid "Auto Partition"
-#~ msgstr "Automatikus particionálás"
-
-#~ msgid "Drive Summary"
-#~ msgstr "Meghajtók összefoglalása"
-
-#~ msgid "Swap Partition"
-#~ msgstr "Swap partíció"
-
-#~ msgid "Raid Partition"
-#~ msgstr "Raid partíció"
-
-#~ msgid "Edit New Partition"
-#~ msgstr "Új partíció szerkesztés"
-
-#~ msgid "Use remaining space?:"
-#~ msgstr "Maradék terület használata?:"
-
-#~ msgid "Type:"
-#~ msgstr "Típus:"
-
-#~ msgid "Current Disk Partitions"
-#~ msgstr "Jelenlegi lemez-partíciók"
-
-#~ msgid ""
-#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "Ok        "
-#~ msgstr ""
-#~ "   F1-Súgó  F2-Hozzáad  F3-Szerkeszt  F4-Töröl  F5-Alaphelyzet  F12-"
-#~ "Ok       "
-
-#~ msgid "Drive Summaries"
-#~ msgstr "Meghajtók összefoglalása"
-
-#~ msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-#~ msgstr "  Meghajtó   Geom [C/H/S]      Össz     Tele    Szabad"
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "for the install to proceed."
-#~ msgstr ""
-#~ "A telepítés folytatásához hozzá kell rendelnie egy root (/) partíciót "
-#~ "valamelyik Linux Native (ext2) partícióhoz."
-
-#~ msgid "No Swap Partition"
-#~ msgstr "Nincs swap-partíció"
-
-#~ msgid "You must assign a swap partition for the install to proceed."
-#~ msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
-
-#~ msgid "No /boot/efi Partition"
-#~ msgstr "Nincs /boot/efi partíció"
-
-#~ msgid ""
-#~ "You must assign the mount point /boot/efi to a FAT-style primary "
-#~ "partition for the install to proceed."
-#~ msgstr ""
-#~ "A telepítés folytatásához a /boot/efi mount-pontot hozzá kell rendelnie "
-#~ "egy FAT stílusú elsődleges partícióhoz."
-
-#~ msgid ""
-#~ "There are unallocated partitions left. If you quit now they will not be "
-#~ "written to the disk.\n"
-#~ "\n"
-#~ "Are you sure you want to exit?"
-#~ msgstr ""
-#~ "Lekötetlen partíciók maradtak a lemezen. Ha most kilép, ezek nem íródnak "
-#~ "lemezre.\n"
-#~ "Biztosan ki akar lépni?"
-
-#~ msgid "Save Changes"
-#~ msgstr "Változások mentése"
-
-#~ msgid "Save changes to partition table(s)?"
-#~ msgstr "Mentsem a partíciós tábla változásait?"
-
-#~ msgid "You may only delete NFS mounts."
-#~ msgstr "Csak NFS mountokat törölhet."
-
-#, fuzzy
-#~ msgid "Passwords do not match.asdfasdfdsafasdfdf"
-#~ msgstr "Root jelszók nem egyeznek."
-
-#~ msgid "Horizontal Frequency Range"
-#~ msgstr "Vízszintes eltérítési frekvencia-tartomány"
-
-#~ msgid "Vertical Frequency Range"
-#~ msgstr "Függőleges eltérítési frekvencia-tartomány"
-
-#, fuzzy
-#~ msgid "Make Raid Device"
-#~ msgstr "Alkalmazott RAID eszköz"
-
-#, fuzzy
-#~ msgid "Could not allocated requested partitions: %s."
-#~ msgstr "Lekötetlen partíciók találhatók..."
-
-#, fuzzy
-#~ msgid "Samba Server:"
-#~ msgstr "SMB (Samba) szerver"
-
-#, fuzzy
-#~ msgid "GRUB Password"
-#~ msgstr "Root jelszó"
-
-#, fuzzy
-#~ msgid "Bootloader Password: "
-#~ msgstr "Root jelszó  : "
-
-#~ msgid ""
-#~ "An internal error occurred in the installation program. Please report "
-#~ "this error to Red Hat (through the bugzilla.redhat.com web site) as soon "
-#~ "as possible. The information on this failure may be saved to a floppy "
-#~ "disk, and will help Red Hat in fixing the problem.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "A telepítő programban belső hiba lépett fel. Kérem jelezze ezt a hibát a "
-#~ "Red Hat-nek (a bugzilla.redhat.com web lapon keresztül) amint módja van "
-#~ "rá. A hibát leíró információ floppy lemezre menthető, ez a Red Hat "
-#~ "segítségére lesz a hiba kijavításában.\n"
-
-#, fuzzy
-#~ msgid "Filesystem Missing"
-#~ msgstr "Filerendszer Formázás"
-
-#, fuzzy
-#~ msgid "You cannot edit partitions without a filesystem type."
-#~ msgstr "Ezt a partíciót legalább egy meghajtóhoz hozzá kell rendelnie."
-
-#, fuzzy
-#~ msgid "Navigation"
-#~ msgstr "Partíció"
-
-#, fuzzy
-#~ msgid "Please enter a password for the root user."
-#~ msgstr "Adja meg a root jelszót."
-
-#, fuzzy
-#~ msgid ""
-#~ "Congratulations, installation is complete.\n"
-#~ "\n"
-#~ "Press return to reboot, and be sure to remove your boot medium after the "
-#~ "system reboots, or your system will rerun the install. For information on "
-#~ "fixes which are available for this release of Red Hat Linux, consult the "
-#~ "Errata available from http://www.redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the Red Hat Linux manuals."
-#~ msgstr ""
-#~ "Gratulálunk, a telepítés kész.\n"
-#~ "\n"
-#~ "Távolítsa el a bootoláshoz használt lemezt és nyomja meg a Return gombot "
-#~ "a rendszer újraindításához. Ha nem távolítja el a lemezt, a telepítő "
-#~ "újraindul. A Red Hat Linux rendszerhez tartozó hibajavításokról további "
-#~ "információt talál a http://www.redhat.com címen, az Errata oldalon.\n"
-#~ "\n"
-#~ "A Red Hat Linux rendszer beállításáról és használatáról a Red Hat Linux "
-#~ "kézikönyvekben olvashat."
-
-#, fuzzy
-#~ msgid "You must first select an existing partition or free space to edit."
-#~ msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
-
-#, fuzzy
-#~ msgid "Automatic Disk Setup"
-#~ msgstr "Lemez beállítás"
-
-#, fuzzy
-#~ msgid ""
-#~ "Autopartitioning sets up your partitioning in a reasonable way depending "
-#~ "on your installation type and then gives you a chance to customize this "
-#~ "setup.\n"
-#~ "\n"
-#~ "Disk Druid is a tool designed for partitioning and setting up mount "
-#~ "points.  It is designed to be easier to use than Linux's traditional disk "
-#~ "partitioning software, fdisk, as well as more powerful.  However, there "
-#~ "are some cases where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "A Disk Druid egy partícionáló és mount-pont beállító segédprogram. "
-#~ "Egyszerűbben használható és hatékonyabb, mint a Linux hagyományos "
-#~ "lemezpartícionáló programja, az fdisk. Néhány esetben mégis az fdisk "
-#~ "használata lehet előnyösebb.\n"
-#~ "\n"
-#~ "Melyik programot szeretné használni?"
-
-#~ msgid "X Configuration"
-#~ msgstr "X beállítás"
-
-#~ msgid ""
-#~ "\n"
-#~ "On SMCC made Ultra machines floppy booting probably does not work\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "SMCC gyártmányú Ultra gépeken valószínüleg nem lehet floppyról bootolni\n"
-#~ "\n"
-
-#~ msgid "Bootdisk"
-#~ msgstr "Boot lemez"
-
-#~ msgid ""
-#~ "If you have the install floppy in your drive, first remove it. Then "
-#~ "insert a blank floppy in the first floppy drive. All data on this disk "
-#~ "will be erased during creation of the boot disk."
-#~ msgstr ""
-#~ "Ha a telepítő floppy a meghajtóban van, távolítsa el, majd helyezzen be "
-#~ "egy üres floppyt az első floppy meghajtóba. Ezen a lemezen minden adat el "
-#~ "fog veszni a boot lemez létrehozása során."
-
-#, fuzzy
-#~ msgid "Choose the languages to be installed:"
-#~ msgstr "Milyen típusú médián vannak a telepítendő csomagok?"
-
-#, fuzzy
-#~ msgid "Choose the default language: "
-#~ msgstr "Válasszon egy nyelvet"
-
-#, fuzzy
-#~ msgid "Add partition"
-#~ msgstr "Nincs root-partíció"
-
-#, fuzzy
-#~ msgid "Not a Partition"
-#~ msgstr "Nincs swap-partíció"
-
-#, fuzzy
-#~ msgid "Remove no partitions"
-#~ msgstr "Linux partíciók eltávolítása"
-
-#~ msgid "Custom System"
-#~ msgstr "Egyedi rendszer"
-
-#~ msgid "Server System"
-#~ msgstr "Szerver rendszer"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk "
-#~ "now and press \"Ok\" to reboot your system.\n"
-#~ msgstr ""
-#~ "A kernel nem tudja olvasni az új partíciós táblát, valószínűleg azért, "
-#~ "mert extended partíciókat is módosított. Ez nem kritikus hiba, azonban a "
-#~ "folytatáshoz újra kell indítania a számítógépet. Helyezze be a Red Hat "
-#~ "boot lemezt, és nyomja meg az \"Ok\" gombot az újraindításhoz.\n"
-
-#, fuzzy
-#~ msgid "Swap Space"
-#~ msgstr "Swap terület"
-
-#, fuzzy
-#~ msgid "Creating swap space..."
-#~ msgstr "Swap terület formázása /dev/%s-en..."
-
-#, fuzzy
-#~ msgid "Formatting swap space..."
-#~ msgstr "Swap terület formázása /dev/%s-en..."
-
-#~ msgid "Error creating swap on device "
-#~ msgstr "Hiba a swap létrehozásánál a köv. eszközön: "
-
-#~ msgid "Error unmounting %s: %s"
-#~ msgstr "Hiba %s unmount-olásánál: %s"
-
-#~ msgid "Creating RAID devices..."
-#~ msgstr "RAID eszközök létrehozása..."
-
-#~ msgid "Loopback"
-#~ msgstr "Loopback"
-
-#~ msgid "Creating loopback filesystem on device /dev/%s..."
-#~ msgstr "Loopback filerendszer létrehozása a /dev/%s eszközön..."
-
-#~ msgid "Finish"
-#~ msgstr "Befejezés"
-
-#~ msgid "Red Hat Linux Install Shell"
-#~ msgstr "Red Hat Linux Telepítő Shell"
-
-#~ msgid "Red Hat Linux Install Shell on %s"
-#~ msgstr "Red Hat Linux Telepítő Shell: %s"
-
-#~ msgid "X probe results"
-#~ msgstr "X keresés eredménye:"
-
-#~ msgid "Unlisted Card"
-#~ msgstr "Ismeretlen kártya"
-
-#~ msgid "Video Card Selection"
-#~ msgstr "Videokártya kiválasztás"
-
-#~ msgid "Which video card do you have?"
-#~ msgstr "Milyen videokártyája van?"
-
-#~ msgid "X Server Selection"
-#~ msgstr "X szerver kiválasztás"
-
-#~ msgid "Choose a server"
-#~ msgstr "Válasszon egy szervert"
-
-#~ msgid "Hostname Setup"
-#~ msgstr "Host név beállítás"
-
-#, fuzzy
-#~ msgid "Language Default"
-#~ msgstr "Nyelv kiválasztás"
-
-#~ msgid "Time Zone Setup"
-#~ msgstr "Időzóna beállítás"
-
-#~ msgid "Configuration Complete"
-#~ msgstr "Beállítás kész"
-
-#~ msgid "LILO Configuration"
-#~ msgstr "LILO beállítás"
-
-#~ msgid "Swap"
-#~ msgstr "Swap"
-
-#~ msgid "Package Groups"
-#~ msgstr "Csomag csoportok"
-
-#~ msgid "Individual Packages"
-#~ msgstr "Különálló csomagok"
-
-#~ msgid "Installation Complete"
-#~ msgstr "Telepítés kész"
-
-#~ msgid "Examine System"
-#~ msgstr "Rendszer vizsgálata"
-
-#, fuzzy
-#~ msgid "System Swap Space"
-#~ msgstr "Swap terület"
-
-#~ msgid "Customize Upgrade"
-#~ msgstr "Egyéni frissítés"
-
-#~ msgid "Upgrade Begins"
-#~ msgstr "Frissítés kezdése"
-
-#~ msgid "Upgrade Complete"
-#~ msgstr "Frissítés kész"
-
-#~ msgid "Plug and Play Monitor"
-#~ msgstr "Plug and Play monitor"
-
-#~ msgid "Horizontal frequency range"
-#~ msgstr "Vízszintes eltérítési frekvencia-tartomány"
-
-#~ msgid "Vertical frequency range"
-#~ msgstr "Függőleges eltérítési frekvencia-tartomány"
-
-#, fuzzy
-#~ msgid "Aborting upgrade"
-#~ msgstr "A frissítés megkezdése"
-
-#~ msgid "Check for bad blocks while formatting"
-#~ msgstr "Hibás blokkok keresése formázás közben"
-
-#~ msgid "Lilo Configuration"
-#~ msgstr "LILO beállítás"
-
-#~ msgid "Use linear mode (needed for some SCSI drives)"
-#~ msgstr "Linear mód használata (néhány SCSI meghajtóhoz szükséges)"
-
-#, fuzzy
-#~ msgid "Install LILO"
-#~ msgstr "Telepítés"
-
-#~ msgid ""
-#~ "You've chosen to put your root filesystem in a file on an already-"
-#~ "existing DOS or Windows filesystem. How large, in megabytes, should would "
-#~ "you like the root filesystem to be, and how much swap space would you "
-#~ "like? They must total less then %d megabytes in size."
-#~ msgstr ""
-#~ "Azt választotta, hogy egy meglévő DOS vagy Windows filerendszeren levő "
-#~ "file-ba kerüljön a root filerendszer. Megabyte-ban kifejezve, mekkora "
-#~ "legyen a root filerendszer, és mennyi swap területet szeretne? Ezek "
-#~ "együttes méretének %d Megabyte-nál kevesebbnek kell lennie."
-
-#~ msgid "Root filesystem size:"
-#~ msgstr "Root filerendszer méret:"
-
-#~ msgid "Swap space size:"
-#~ msgstr "Swap terület méret:"
-
-#~ msgid "Automatic Partitioning Failed"
-#~ msgstr "Automatikus particionálás nem sikerült"
-
-#~ msgid ""
-#~ "\n"
-#~ "There is not sufficient disk space in order to automatically partition "
-#~ "your disk. You will need to manually partition your disks for Red Hat "
-#~ "Linux to install.\n"
-#~ "\n"
-#~ "Please choose the tool you would like to use to partition your system for "
-#~ "Red Hat Linux."
-#~ msgstr ""
-#~ "\n"
-#~ "Nincs elegendő lemezterület az automatikus partícionáláshoz. Kézzel kell "
-#~ "partícionálnia a lemezeit a Red Hat Linux telepítéséhez.\n"
-#~ "\n"
-#~ "Válassza ki az önnek megfelelő eszközt a partícionáláshoz."
-
-#~ msgid "Manual Partitioning"
-#~ msgstr "Kézi particionálás"
-
-#~ msgid "Automatically partition and REMOVE DATA"
-#~ msgstr "Automatikus particionálás, és az ADATOK ELTÁVOLÍTÁSA"
-
-#~ msgid "Bits per Pixel"
-#~ msgstr "Bit / pixel"
-
-#~ msgid "Autoprobe results:"
-#~ msgstr "Automatikus keresés eredménye:"
-
-#, fuzzy
-#~ msgid "Skip LILO"
-#~ msgstr "Kihagy"
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "A Red Hat Linux telepítéséhez legalább egy önálló 150MB-os Linux "
-#~ "partícióra van szükség. Ajánlatos ezt a partíciót az első két merevlemez "
-#~ "valamelyikén elhelyezni, így a Linux rendszer LILO-val indítható lesz."
-
-#, fuzzy
-#~ msgid ""
-#~ "%s\n"
-#~ "\n"
-#~ "If you don't want to do this, you can continue with this install by "
-#~ "partitioning manually, or you can go back and perform a fully customized "
-#~ "installation."
-#~ msgstr ""
-#~ "%s\n"
-#~ "\n"
-#~ "Ha ezt nem akarja, akkor folytathatja a telepítést kézi particionálással, "
-#~ "vagy visszaléphet, és választhatja a teljesen egyéni telepítést."
-
-#~ msgid "Manually partition"
-#~ msgstr "Kézi particionálás"
-
-#~ msgid ""
-#~ "What partitions would you like to format? We strongly suggest formatting "
-#~ "all of the system partitions, including /, /usr, and /var. There is no "
-#~ "need to format /home or /usr/local if they have already been configured "
-#~ "during a previous install."
-#~ msgstr ""
-#~ "Melyik partíciókat akarja formázni? Ajánljuk, hogy valamennyi "
-#~ "rendszerpartíciót formázza meg, beleértve a /, /usr, és /var partíciókat. "
-#~ "Nem szükséges formázni a /home és /usr/local partíciókat, ha egy előző "
-#~ "telepítés során már létre lettek hozva."
-
-#~ msgid "Choose Partitions to Format"
-#~ msgstr "Válassza ki a formázandó partíciókat"
-
-#~ msgid "Root filesystem size"
-#~ msgstr "Root filerendszer méret"
-
-#~ msgid "Swap space"
-#~ msgstr "Swap terület"
-
-#~ msgid "The size you enter must be a number."
-#~ msgstr "A megadott méretnek számnak kell lennie."
-
-#~ msgid ""
-#~ "The total size must be smaller then the amount of free space on the disk, "
-#~ "which is %d megabytes."
-#~ msgstr ""
-#~ "A teljes méretnek kisebbnek kell lennie, mint a lemezen lévő szabad "
-#~ "terület, ami %d Megabyte."
-
-#~ msgid ""
-#~ "Neither the root file system size nor the swap space size may be greater "
-#~ "then 2000 megabytes."
-#~ msgstr ""
-#~ "Sem a root filerendszer, sem a swap mérete nem haladhatja meg a 2000 "
-#~ "megabyte-ot."
-
-#, fuzzy
-#~ msgid ""
-#~ "Automatic partitioning will erase any preexisting Linux installations on "
-#~ "your system."
-#~ msgstr ""
-#~ "Arra készül, hogy minden meglévő Linux rendszert eltávolítson a "
-#~ "számítógépről."
-
-#, fuzzy
-#~ msgid ""
-#~ "Automatic partitioning will erase ALL DATA on your hard drive to make "
-#~ "room for your Linux installation."
-#~ msgstr ""
-#~ "Arra készül, hogy minden adatot eltávolítson a merevlemezes meghajtóról, "
-#~ "így szabadítva fel helyet a Linux rendszer telepítéséhez."
-
-#~ msgid "Loading %s ramdisk..."
-#~ msgstr "%s ramdisk betöltése..."
-
-#~ msgid "Error loading ramdisk."
-#~ msgstr "Hiba a ramdisk betöltésekor."
-
-#~ msgid "Mail/WWW/News Tools"
-#~ msgstr "Levelzés/WWW/News eszközök"
-
-#~ msgid "DOS/Windows Connectivity"
-#~ msgstr "DOS/Windows kapcsolat"
-
-#~ msgid "Games"
-#~ msgstr "Játékok"
-
-#~ msgid "Networked Workstation"
-#~ msgstr "Hálózatos munkaállomás"
-
-#~ msgid "IPX/Netware(tm) Connectivity"
-#~ msgstr "IPX/Netware(tm) kapcsolat"
-
-#~ msgid "Development"
-#~ msgstr "Fejlesztés"
-
-#, fuzzy
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Red Hat Linux rendszerek keresése..."
-
-#, fuzzy
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Raid partíció"
-
-#~ msgid "America/New_York"
-#~ msgstr "Amerika/New_York"
-
-#, fuzzy
-#~ msgid "IDE"
-#~ msgstr "KDE"
-
-#, fuzzy
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "CDROM inicializálása..."
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Swap partíció"
-
-#~ msgid "Test this configuration"
-#~ msgstr "A beállítás tesztelése"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Hiba %s mountolásánál: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Ne telepítse a LILO-t"
-
-#~ msgid "Up"
-#~ msgstr "Fel"
-
-#~ msgid "Name: "
-#~ msgstr "Név: "
-
-#~ msgid "Size: "
-#~ msgstr "Méret:"
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Válassza ki a telepítendő csomagot"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Erősítse meg a partícionálás beállításait"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "A Red Hat által használt boot betöltő más operációs rendszerek indítására "
-#~ "is képes. Adja meg, melyik partíciókról akar bootolni, és milyen címkét "
-#~ "akar használni hozzájuk.\n"
-#~ "\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres (SQL) szerver"

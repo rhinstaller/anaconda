@@ -905,12 +905,15 @@ msgid "Install Window"
 msgstr "Janela de Instalação"
 
 #: ../harddrive.py:209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Missing ISO image for CD #%d, which is required for the install.\n"
 "\n"
 "The system will now reboot."
-msgstr "Falta o CD #%d, o qual é necessário para a instalação."
+msgstr ""
+"Falta a image ISO do CD #%d, a qual é necessária para a instalação.\n"
+"\n"
+"O sistema vai agora ser reiniciado."
 
 #: ../image.py:69
 #, python-format
@@ -2103,25 +2106,19 @@ msgstr ""
 
 #: ../upgrade.py:279
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Ligações Simbólicas Absolutas"
 
 #: ../upgrade.py:290
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic link, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as a symbolic link and restart the upgrade.\n"
 "\n"
-msgstr ""
-"Os seguintes ficheiros são ligações simbólicas absolutas, as quais não são "
-"suportadas durante uma actualização. Por favor substitua-las por ligações "
-"simbólicas relativas e reinicie a actualização.\n"
-"\n"
+msgstr "As seguintes directorias deviam ser ligações simbólicas; isto irá causar problemas durante a actualização. Por favor coloqueas no estado original como ligações simbólicas e reinicie a actualização.\n\n"
 
 #: ../upgrade.py:296
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "Escolha Inválida"
+msgstr "Directorias Inválidas"
 
 #: ../upgrade.py:302
 #, python-format
@@ -2185,15 +2182,14 @@ msgid "Set Root Password"
 msgstr "Escolher a Senha de Root"
 
 #: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
-#, fuzzy
 msgid "Error with Password"
-msgstr "Senha de 'Root'"
+msgstr "Erro com a Senha"
 
 #: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr ""
+msgstr "A senha indicada contém caracteres não-ascii, e estes não são permitidos em senhas."
 
 #: ../iw/account_gui.py:51
 msgid "Root password accepted."
@@ -2826,23 +2822,20 @@ msgid "Upgrade Examine"
 msgstr "Examinar a Actualização"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "Perform an upgrade of an existing installation"
-msgstr "Actualizar uma instalação existente"
+msgstr "Efectuar a actualização de uma instalação existente"
 
 #: ../iw/examine_gui.py:61
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
-"Escolha esta opção se quer actualizar o seu sistema Red Hat Linux actual.  "
-"Esta opção preserva os dados presentes nas unidades de armazenamento."
+msgstr "Escolha esta opção se quer actualizar o seu sistema %s actual.  Esta opção preserva os dados presentes nas unidades de armazenamento."
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Perform a new %s installation"
-msgstr "Efectuar uma instalação completamente nova do %s"
+msgstr "Efectuar uma instalação do %s nova"
 
 #: ../iw/examine_gui.py:69
 msgid ""

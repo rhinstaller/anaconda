@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-01-27 23:51-0500\n"
-"PO-Revision-Date: 2003-01-14 18:58+0100\n"
+"PO-Revision-Date: 2003-01-29 23:15+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -856,12 +856,15 @@ msgid "Install Window"
 msgstr "Installationsfönster"
 
 #: ../harddrive.py:209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Missing ISO image for CD #%d, which is required for the install.\n"
 "\n"
 "The system will now reboot."
-msgstr "Cd %d, som behövs för installationen, saknas."
+msgstr ""
+"ISO-avbild saknas för cd %d, som behövs för installationen.\n"
+"\n"
+"Systemet kommer nu att startas om."
 
 #: ../image.py:69
 #, python-format
@@ -2042,25 +2045,37 @@ msgstr ""
 
 #: ../upgrade.py:279
 msgid "Absolute Symlinks"
-msgstr ""
+msgstr "Absoluta symboliska länkar"
+
+msgid "Absolute Symbolic Links"
+msgstr "Absoluta symboliska länkar"
 
 #: ../upgrade.py:290
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic link, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as a symbolic link and restart the upgrade.\n"
 "\n"
 msgstr ""
-"Följande filer är absoluta symboliska länkar, och dessa stöds inte under en "
-"uppgradering. Var vänlig och ändra dem till relativa symboliska länkar och "
-"starta om uppgraderingen.\n"
+"Följande är kataloger som istället skulle vara symbolisk länk, och dessa "
+"kommer att orsaka problem vid uppgraderingen. Var vänlig och återställ dem "
+"till deras ursprungliga tillstånd och starta om uppgraderingen.\n"
+"\n"
+
+msgid ""
+"The following are directories which should instead be symbolic links, which "
+"will cause problems with the upgrade.  Please return them to their original "
+"state as a symbolic link and restart the upgrade.\n"
+"\n"
+msgstr ""
+"Följande är kataloger som istället skulle vara symboliska länkar, och dessa "
+"kommer att orsaka problem vid uppgraderingen. Var vänlig och återställ dem "
+"till deras ursprungliga tillstånd och starta om uppgraderingen.\n"
 "\n"
 
 #: ../upgrade.py:296
-#, fuzzy
 msgid "Invalid Directories"
-msgstr "Ogiltigt val"
+msgstr "Ogiltiga kataloger"
 
 #: ../upgrade.py:302
 #, python-format
@@ -2126,15 +2141,23 @@ msgid "Set Root Password"
 msgstr "Ställ in rootlösenord"
 
 #: ../iw/account_gui.py:35 ../textw/userauth_text.py:71
-#, fuzzy
 msgid "Error with Password"
-msgstr "Rootlösenord"
+msgstr "Fel i lösenord"
 
 #: ../iw/account_gui.py:36 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
+"Det begärda lösenordet innehåller tecken som inte är ascii och som inte är "
+"tillåtna för användning i lösenord."
+
+msgid ""
+"Requested password contains non-ascii characters which are not allowed for "
+"use in passwords."
+msgstr ""
+"Det begärda lösenordet innehåller tecken som inte är ascii och som inte är "
+"tillåtna för användning i lösenord."
 
 #: ../iw/account_gui.py:51
 msgid "Root password accepted."
@@ -2763,9 +2786,8 @@ msgid "Upgrade Examine"
 msgstr "Granskning av uppgradering"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "Perform an upgrade of an existing installation"
-msgstr "Uppgradera en befintlig installation"
+msgstr "Utför en uppgradering av en befintlig installation"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -2777,7 +2799,7 @@ msgstr ""
 "alternativ kommer att bevara befintlig data på dina hårddiskar."
 
 #: ../iw/examine_gui.py:67
-#, fuzzy, python-format
+#, python-format
 msgid "Perform a new %s installation"
 msgstr "Utför en nyinstallation av %s"
 
