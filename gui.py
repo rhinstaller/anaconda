@@ -164,7 +164,7 @@ def takeScreenShot():
     except:
 	window = MessageWindow(_("Error Saving Screenshot"), 
 			       _("An error occurred while saving "
-				 "the screenshot.  If this occurred"
+				 "the screenshot.  If this occurred "
 				 "during package installation, you may need "
 				 "to try several times for it to succeed."),
 			       type="warning")
