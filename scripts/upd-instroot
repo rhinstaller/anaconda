@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm jfsutils librpm404 rhpl libxml2 libxml2-python"
+         hdparm lvm librpm404 rhpl libxml2 libxml2-python"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
