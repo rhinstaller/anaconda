@@ -17,6 +17,7 @@ import sys, os
 import string
 from socket import *
 from select import select
+from rhpl.log import log
 
 class Syslogd:
     def goSyslog(self, output, sockName):
