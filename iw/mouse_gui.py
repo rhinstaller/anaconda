@@ -155,8 +155,9 @@ class MouseWindow(InstallWindow):
                 continue
             # if it's not a parent node and the mouse matches, select it.
             elif self.mousestore.get_value(iter, 1) == currentMouse:
-                path = self.mousestore.get_path(parent)
-                self.mouseview.expand_row(path, gtk.TRUE)
+		if parent:
+		    path = self.mousestore.get_path(parent)
+		    self.mouseview.expand_row(path, gtk.TRUE)
                 selection = self.mouseview.get_selection()
                 selection.unselect_all()
                 selection.select_iter(iter)
