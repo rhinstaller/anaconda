@@ -316,7 +316,20 @@ class extFileSystem(FileSystemType):
                                   entry.mountpoint)
         if rc:
             raise SystemError
-    
+
+    # this is only for ext3 filesystems, but migration is a method
+    # of the ext2 fstype
+    def removeForcedFsck(self, entry, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+
+        # if no journal, don't turn off the fsck
+        if not isys.ext2HasJournal(devicePath, makeDevNode = 0):
+            return
+
+        rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
+                                    ["tunefs", "-c0", "-i0", devicePath],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
 
 class ext2FileSystem(extFileSystem):
     def __init__(self):
@@ -324,7 +337,6 @@ class ext2FileSystem(extFileSystem):
         self.name = "ext2"
         self.partedFileSystemType = parted.file_system_type_get("ext2")
         self.migratetofs = ['ext3']
-
 
     def migrateFileSystem(self, entry, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -365,6 +377,8 @@ class ext2FileSystem(extFileSystem):
                 if rc == 0:
                     sys.exit(0)
                 entry.fsystem = entry.origfsystem
+        else:
+            extFileSystem.removeForcedFsck(self, entry, message, chroot)
 
 
 fileSystemTypeRegister(ext2FileSystem())
@@ -388,6 +402,10 @@ class ext3FileSystem(extFileSystem):
         except OSError:
             isys.mount(device, mountpoint, fstype = "ext3", 
                        readOnly = readOnly)
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        extFileSystem.formatDevice(self, entry, progress, chroot)
+        extFileSystem.removeForcedFsck(self, entry, progress, chroot)
 
 fileSystemTypeRegister(ext3FileSystem())
 
