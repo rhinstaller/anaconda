@@ -389,9 +389,7 @@ class ToDo:
 		f.close()
 	elif iutil.getArch() == "alpha":
 	    pass
-	elif iutil.getArch() == "ia64":
-	    fdDevice = "hda"
-	elif iutil.getArch() == "i386":
+	elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
 	    # Look for the first IDE floppy device
 	    drives = isys.floppyDriveDict().keys()
 	    if not drives:
@@ -405,6 +403,13 @@ class ToDo:
 
 	    # No IDE floppy's -- we're fine w/ /dev/fd0
 	    if not floppyDrive: return
+
+	    # on ia64, use the first partition (hack)
+	    if iutil.getArch() == "ia64":
+		floppyDrive = '%s1' % floppyDrive
+		self.fdDevice = floppyDrive
+		log("anaconda floppy device is %s", self.fdDevice)
+		return
 
 	    # Look in syslog for a real fd0 (which would take precedence)
             try:
