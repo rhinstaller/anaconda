@@ -1,50 +1,52 @@
 from installclass import BaseInstallClass
-from rhpl.translate import *
+from rhpl.translate import N_
 from constants import *
 import os
 import iutil
 from autopart import getAutopartitionBoot, autoCreatePartitionRequests
+from fsset import *
 
 class InstallClass(BaseInstallClass):
+    name = N_("Personal Desktop")
+    pixmap = "workstation.png"
+    description = N_("Perfect for peronal computers or laptops, select this "
+		     "installation type to install a graphical desktop "
+		     "environment and create a system ideal for home "
+		     "or desktop use.")
 
-    name = N_("Server")
-    pixmap = "server.png"
-    description = N_("Select this installation type if you would like to "
-		     "set up file sharing, print sharing, and Web services. "
-		     "Additional services can also be enabled, and you "
-		     "can choose whether or not to install a graphical "
-		     "environment.")
-    
-    sortPriority = 10
+    sortPriority = 1
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
+	dispatch.skipStep("partition")
 	dispatch.skipStep("authentication")
+
+        dispatch.skipStep("desktopchoice", skip = 0)
+        dispatch.skipStep("package-selection", skip = 1)
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
 
         for comp in comps.comps:
             comp.unselect()
-	comps["Server"].includeMembers()
+
+        comps["Workstation Common"].includeMembers()
+        comps["GNOME Desktop Environment"].select()
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
 
-        autorequests = [ ("/", None, 512, None, 0, 1),
-                         ("/usr", None, 1400, None, 1, 1),
-                         ("/var", None, 384, 1024, 1, 1),
-                         ("/home", None, 512, None, 1, 1) ]
+        autorequests = [ ("/", None, 1100, None, 1, 1) ]
 
         bootreq = getAutopartitionBoot()
         if bootreq:
             autorequests.append(bootreq)
-        
+
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append((None, "swap", minswap, maxswap, 1, 1))
 
-        id.partitions.autoClearPartType = CLEARPART_TYPE_ALL
-        id.partitions.autoClearPartDrives = []
+        id.partitions.autoClearPartType = CLEARPART_TYPE_LINUX
+        id.partitions.autoClearPartDrives = None
         id.partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
 
     def __init__(self, expert):
