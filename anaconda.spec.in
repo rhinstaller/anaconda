@@ -1,4 +1,4 @@
-ExclusiveArch: i386 ia64 alpha
+ExclusiveArch: i386
 Name: anaconda
 Version: @@VERSION@@
 Release: @@RELEASE@@
@@ -7,7 +7,7 @@ Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
 Obsoletes: anaconda-reconfig
-BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel db3-devel gtk+-devel gnome-libs-devel rpm-python, newt-devel, rpm-devel, gettext
+BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel db3-devel gtk+-devel gnome-libs-devel rpm-python, newt-devel, rpm-devel, gettext, modutils-devel
 Prereq: chkconfig /etc/init.d
 Requires: rpm-python
 Excludearch: sparc sparc64
@@ -79,6 +79,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Wed Feb 20 2002 Jeremy Katz <katzj@redhat.com>
+- buildrequires modutils-devel
 
 * Wed Jul 18 2001 Jeremy Katz <katzj@redhat.com>
 - own /usr/lib/anaconda and /usr/share/anaconda
