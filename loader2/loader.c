@@ -466,6 +466,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 }
 
 
+#if 0
 /* determine if we are using a framebuffer console.  return 1 if so */
 static int checkFrameBuffer() {
     int fd;
@@ -482,6 +483,7 @@ static int checkFrameBuffer() {
     close(fd);
     return rc;
 }
+#endif
 
 /* look for available memory.  note: won't ever report more than the 
  * 900 megs or so supported by the -BOOT kernel due to not using e820 */
@@ -1042,6 +1044,9 @@ int main(int argc, char ** argv) {
         setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
     else
         setenv("PYTHONPATH", "/tmp/updates", 1);
+
+    if (!access("/mnt/runtime/usr/lib/libunicode-lite.so.1", R_OK))
+        setenv("LD_PRELOAD", "/mnt/runtime/usr/lib/libunicode-lite.so.1", 1);
 
     argptr = anacondaArgs;
 
