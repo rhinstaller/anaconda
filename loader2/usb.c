@@ -64,6 +64,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     struct device ** devices;
     char * buf;
     int i;
+    int loadUsbStorage = 0;
 
     if (FL_NOUSB(flags)) return 0;
 
@@ -102,9 +103,23 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
        the device is ready for use */
     sleepUntilUsbIsStable();
 
+    if (FL_NOUSBSTORAGE(flags))
+        loadUsbStorage = 0;
+    else {
+        devices = probeDevices(CLASS_UNSPEC, BUS_USB, PROBE_ALL);
+        if (devices) {
+            for (i = 0; devices[i]; i++) {
+                if (!strcmp(devices[i]->driver, "usb-storage")) {
+                    loadUsbStorage = 1;
+                    break;
+                }
+            }
+            free(devices);
+        }
+    }
+
     buf = alloca(40);
-    sprintf(buf, "hid:keybdev%s", 
-		  (FL_NOUSBSTORAGE(flags) ? "" : ":usb-storage"));
+    sprintf(buf, "hid:keybdev%s", (loadUsbStorage ? ":usb-storage" : ""));
     mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
     sleep(1);
 
