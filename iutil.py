@@ -17,7 +17,6 @@ import types, os, sys, isys, select, string, stat, signal
 import os.path
 from rhpl.log import log
 from flags import flags
-from rhpl.storage.constructors import *
 
 def getArch ():
     arch = os.uname ()[4]
@@ -191,12 +190,13 @@ def copyFile(source, to, pw = None):
 	if pw:
 	    win.pop()
 
-# return size of directory (and subdirs)
+# return size of directory (and subdirs) in kilobytes
 def getDirSize(dir):
     def getSubdirSize(dir):
+	# returns size in bytes
         mydev = os.lstat(dir)[stat.ST_DEV]
 
-        dsize = Bytes(0)
+        dsize = 0
         for f in os.listdir(dir):
 	    curpath = '%s/%s' % (dir, f)
 	    sinfo = os.lstat(curpath)
@@ -209,9 +209,9 @@ def getDirSize(dir):
                 pass
 
         return dsize
-    return getSubdirSize(dir)
+    return getSubdirSize(dir)/1024
 
-# returns amount of RAM not used by /tmp
+# this is in kilobytes - returns amount of RAM not used by /tmp
 def memAvailable():
     tram = memInstalled()
 
@@ -221,6 +221,7 @@ def memAvailable():
 
     return tram - ramused
 
+# this is in kilobytes
 def memInstalled():
     if not os.access('/proc/e820info', os.R_OK):
         f = open("/proc/meminfo", "r")
@@ -230,37 +231,39 @@ def memInstalled():
         for l in lines:
             if l.startswith("MemTotal:"):
                 fields = string.split(l)
-                mem = kBytes(long(fields[1]))
+                mem = fields[1]
                 break
     else:
         f = open("/proc/e820info", "r")
         lines = f.readlines()
-        mem = Bytes(0)
+        mem = 0
         for line in lines:
             fields = string.split(line)
             if fields[3] == "(usable)":
-                mem += kBytes(long(string.atol(fields[0], 16)))
+                mem = mem + (string.atol(fields[0], 16) / 1024)
 
-    return mem
+    return int(mem)
 
 # try to keep 2.4 kernel swapper happy!
 def swapSuggestion(quiet=0):
-    mem = memInstalled()
-    mem = ((mem/16)+MBytes(1))*16
+    mem = memInstalled()/1024
+    mem = ((mem/16)+1)*16
     if not quiet:
-	log("Detected %s of memory", mem)
+	log("Detected %sM of memory", mem)
 	
-    minswap = MBytes(1000)
-    maxswap = MBytes(2000)
-    if mem < MBytes(128):
-        minswap.setMBytes(96)
-        maxswap.setMBytes(192)
-    elif mem <= MBytes(1000):
-        minswap.setMBytes(mem)
-        maxswap.setMBytes(2*mem)
+    if mem < 128:
+        minswap = 96
+        maxswap = 192
+    else:
+        if mem > 1000:
+            minswap = 1000
+            maxswap = 2000
+        else:
+            minswap = mem
+            maxswap = 2*mem
 
     if not quiet:
-	log("Swap attempt of %s to %s", minswap, maxswap)
+	log("Swap attempt of %sM to %sM", minswap, maxswap)
 
     return (minswap, maxswap)
 
@@ -400,9 +403,9 @@ def swapAmount():
     for l in lines:
         if l.startswith("SwapTotal:"):
             fields = string.split(l)
-            return kBytes(long(fields[1]))
-    return Bytes(0)
-
+            return int(fields[1])
+    return 0
+        
 def copyDeviceNode(src, dest):
     """Copies the device node at src to dest by looking at the type of device,
     major, and minor of src and doing a new mknod at dest"""

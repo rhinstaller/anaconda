@@ -25,7 +25,6 @@ import kudzu
 import iutil
 
 from rhpl.log import log
-from rhpl.storage.constructors import *
 
 mountCount = {}
 raidCount = {}
@@ -35,16 +34,16 @@ MIN_GUI_RAM = _isys.MIN_GUI_RAM
 EARLY_SWAP_RAM = _isys.EARLY_SWAP_RAM
 
 def pathSpaceAvailable(path, fsystem = "ext2"):
-    return MBytes(_isys.devSpaceFree(path))
+    return _isys.devSpaceFree(path)
 
 def spaceAvailable(device, fsystem = "ext2"):
     mount(device, "/mnt/space", fstype = fsystem)
-    space = MBytes(_isys.devSpaceFree("/mnt/space/."))
+    space = _isys.devSpaceFree("/mnt/space/.")
     umount("/mnt/space")
     return space
 
 def fsSpaceAvailable(fsystem):
-    return MBytes(_isys.devSpaceFree(fsystem))
+    return _isys.devSpaceFree(fsystem)
 
 def raidstop(mdDevice):
     if raidCount.has_key (mdDevice):
