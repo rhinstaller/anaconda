@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: bg\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-10 18:02-0500\n"
+"POT-Creation-Date: 2004-03-09 18:09-0500\n"
 "PO-Revision-Date: 2003-12-05 12:05+0200\n"
 "Last-Translator: Yovko Lambrev <yovko@yovko.net>\n"
 "Language-Team: Bulgarian <dict@linux.zonebg.com>\n"
@@ -114,13 +114,13 @@ msgstr "Моля, направете връзка за да започне ин�
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
 #: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:106
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/lang.c:374
-#: ../loader2/loader.c:328 ../loader2/loader.c:341 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/loader.c:796 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
+#: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
-#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:867
+#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:868
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
@@ -424,7 +424,7 @@ msgstr "Системата ще бъде рестартирана."
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:376
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
 msgid "Warning"
 msgstr "Предупреждение"
 
@@ -533,7 +533,7 @@ msgstr "Готови [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Инсталиране на %s-%s-%s..."
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:751
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
 msgid "Everything"
 msgstr "Всичко"
 
@@ -541,11 +541,11 @@ msgstr "Всичко"
 msgid "no suggestion"
 msgstr "няма предложения"
 
-#: ../comps.py:1098 ../hdrlist.py:974
+#: ../comps.py:1098 ../hdrlist.py:970
 msgid "Miscellaneous"
 msgstr "Други"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:921
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -555,7 +555,7 @@ msgstr ""
 "значителен набор пакети спрямо броя на пакетите във всички останали групи на "
 "тази страница."
 
-#: ../comps.py:1118 ../hdrlist.py:925
+#: ../comps.py:1118 ../hdrlist.py:921
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -641,11 +641,11 @@ msgid "_Make boot disk"
 msgstr "_Направи стартираща дискета"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:583 ../fsset.py:1229 ../fsset.py:1248 ../fsset.py:1298
-#: ../fsset.py:1309 ../fsset.py:1344 ../fsset.py:1394 ../fsset.py:1438
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:481
+#: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
+#: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
 #: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:659
+#: ../packages.py:404 ../packages.py:579 ../packages.py:664
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -655,8 +655,8 @@ msgstr "_Направи стартираща дискета"
 #: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -700,16 +700,16 @@ msgstr ""
 "Стартиращата дискета е повредена. Вероятна причина е лоша дискета. Уверете "
 "се, че дискетата е във флопидисковото устройство е добра."
 
-#: ../fsset.py:174
+#: ../fsset.py:178
 msgid "Checking for Bad Blocks"
 msgstr "Проверяване за лоши сектори"
 
-#: ../fsset.py:175
+#: ../fsset.py:179
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Проверяване за лоши сектори на устройство /dev/%s..."
 
-#: ../fsset.py:584
+#: ../fsset.py:593
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -722,27 +722,27 @@ msgstr ""
 "\n"
 "Желаете ли да продължите без конвертиране на %s?"
 
-#: ../fsset.py:1144
+#: ../fsset.py:1158
 msgid "RAID Device"
 msgstr "RAID устройство"
 
-#: ../fsset.py:1148 ../fsset.py:1154
+#: ../fsset.py:1162 ../fsset.py:1168
 msgid "Apple Bootstrap"
 msgstr ""
 
-#: ../fsset.py:1159 ../partitions.py:802
+#: ../fsset.py:1173 ../partitions.py:802
 msgid "PPC PReP Boot"
 msgstr ""
 
-#: ../fsset.py:1162 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1176 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Първи сектор на дяла за първоначално зареждане"
 
-#: ../fsset.py:1163 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1177 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../fsset.py:1230
+#: ../fsset.py:1244
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -755,7 +755,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1249
+#: ../fsset.py:1263
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -770,7 +770,7 @@ msgstr ""
 "устройството.\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1299
+#: ../fsset.py:1314
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -783,7 +783,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1310
+#: ../fsset.py:1325
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -796,7 +796,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1345
+#: ../fsset.py:1360
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -809,7 +809,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1395
+#: ../fsset.py:1410
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -822,11 +822,11 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1416 ../fsset.py:1425
+#: ../fsset.py:1431 ../fsset.py:1440
 msgid "Invalid mount point"
 msgstr "Невалидна точка на свързване"
 
-#: ../fsset.py:1417
+#: ../fsset.py:1432
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -839,7 +839,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1426
+#: ../fsset.py:1441
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -852,7 +852,7 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:1439
+#: ../fsset.py:1454
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -867,11 +867,11 @@ msgstr ""
 "\n"
 "Натиснете <Enter> за рестартиране на системата."
 
-#: ../fsset.py:2053
+#: ../fsset.py:2068
 msgid "Duplicate Labels"
 msgstr "Повтарящи се етикети"
 
-#: ../fsset.py:2054
+#: ../fsset.py:2069
 #, fuzzy, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -884,17 +884,17 @@ msgstr ""
 "\n"
 "Моля отстранете проблема и започнете отново процеса на инсталация."
 
-#: ../fsset.py:2061 ../gui.py:1092 ../image.py:72 ../packages.py:1378
-#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
+#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_Рестартиране"
 
-#: ../fsset.py:2314
+#: ../fsset.py:2329
 msgid "Formatting"
 msgstr "Форматиране"
 
-#: ../fsset.py:2315
+#: ../fsset.py:2330
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Форматиране на файлова система %s..."
@@ -943,7 +943,7 @@ msgstr "Коригиране"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "Yes"
 msgstr "Да"
 
@@ -952,7 +952,7 @@ msgstr "Да"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "No"
 msgstr "Не"
 
@@ -970,7 +970,7 @@ msgstr "Пренебрегване"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:341
+#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Отказ"
 
@@ -1006,7 +1006,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1372
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
 msgid "_Exit"
 msgstr "_Изход"
 
@@ -1014,15 +1014,15 @@ msgstr "_Изход"
 msgid "_Retry"
 msgstr "_Отново"
 
-#: ../gui.py:1088 ../packages.py:1375
+#: ../gui.py:1088 ../packages.py:1418
 msgid "Rebooting System"
 msgstr "Рестартиране на системата"
 
-#: ../gui.py:1089 ../packages.py:1376
+#: ../gui.py:1089 ../packages.py:1419
 msgid "Your system will now be rebooted..."
 msgstr "Системата ще бъде рестартирана сега..."
 
-#: ../gui.py:1180 ../packages.py:1378 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
 msgid "_Back"
@@ -1066,7 +1066,7 @@ msgstr "Грешка при зареждане на заглавната лен�
 msgid "Install Window"
 msgstr "Инсталационен прозорец"
 
-#: ../harddrive.py:166 ../image.py:482
+#: ../harddrive.py:166 ../image.py:487
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1093,7 +1093,7 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:72 ../kickstart.py:1319 ../kickstart.py:1346
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr ""
@@ -1141,26 +1141,26 @@ msgstr ""
 msgid "Install on System"
 msgstr ""
 
-#: ../kickstart.py:1311
+#: ../kickstart.py:1314
 msgid "Missing Package"
 msgstr ""
 
-#: ../kickstart.py:1312
+#: ../kickstart.py:1315
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1318 ../kickstart.py:1345
+#: ../kickstart.py:1321 ../kickstart.py:1348
 msgid "_Abort"
 msgstr ""
 
-#: ../kickstart.py:1337
+#: ../kickstart.py:1340
 msgid "Missing Group"
 msgstr ""
 
-#: ../kickstart.py:1338
+#: ../kickstart.py:1341
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1214,7 +1214,7 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:176 ../packages.py:660 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1235,7 +1235,7 @@ msgstr ""
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../packages.py:349 ../packages.py:761
+#: ../packages.py:349 ../packages.py:763
 msgid "Processing"
 msgstr ""
 
@@ -1272,35 +1272,35 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:762
+#: ../packages.py:764
 msgid "Preparing RPM transaction..."
 msgstr ""
 
-#: ../packages.py:845
+#: ../packages.py:847
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:847
+#: ../packages.py:849
 #, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:855 ../packages.py:1151
+#: ../packages.py:857 ../packages.py:1153
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr ""
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:859 ../packages.py:1155
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr ""
 
-#: ../packages.py:873
+#: ../packages.py:875
 #, python-format
 msgid ""
 "\n"
@@ -1311,73 +1311,73 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:879
+#: ../packages.py:881
 msgid "Install Starting"
 msgstr ""
 
-#: ../packages.py:880
+#: ../packages.py:882
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:920
+#: ../packages.py:922
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:924 ../packages.py:945 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr ""
 
-#: ../packages.py:925
+#: ../packages.py:927
 msgid "Space Needed"
 msgstr ""
 
-#: ../packages.py:941
+#: ../packages.py:943
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:946
+#: ../packages.py:948
 msgid "Nodes Needed"
 msgstr ""
 
-#: ../packages.py:957
+#: ../packages.py:959
 msgid "Disk Space"
 msgstr ""
 
-#: ../packages.py:1006
+#: ../packages.py:1008
 msgid "Post Install"
 msgstr ""
 
-#: ../packages.py:1007
+#: ../packages.py:1009
 msgid "Performing post install configuration..."
-msgstr ""
-
-#: ../packages.py:1176
-msgid ""
-"\n"
-"\n"
-"The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
 #: ../packages.py:1179
 msgid ""
 "\n"
 "\n"
+"The following packages were available in this version but NOT upgraded:\n"
+msgstr ""
+
+#: ../packages.py:1182
+msgid ""
+"\n"
+"\n"
 "The following packages were available in this version but NOT installed:\n"
 msgstr ""
 
-#: ../packages.py:1358
+#: ../packages.py:1401
 msgid "Warning! This is pre-release software!"
 msgstr ""
 
-#: ../packages.py:1359
+#: ../packages.py:1402
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1393,7 +1393,7 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: ../packages.py:1372
+#: ../packages.py:1415
 msgid "_Install anyway"
 msgstr ""
 
@@ -4673,9 +4673,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:328
-#: ../loader2/loader.c:796 ../loader2/loader.c:818 ../loader2/net.c:174
-#: ../loader2/net.c:433 ../loader2/net.c:867 ../loader2/nfsinstall.c:54
+#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
+#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
 msgstr ""
@@ -6141,16 +6141,16 @@ msgstr ""
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader2/kickstart.c:260
+#: ../loader2/kickstart.c:259
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:174
+#: ../loader2/lang.c:52 ../loader2/loader.c:168
 #, c-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: ../loader2/lang.c:53 ../loader2/loader.c:180
+#: ../loader2/lang.c:53 ../loader2/loader.c:174
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6159,122 +6159,128 @@ msgstr ""
 msgid "Choose a Language"
 msgstr ""
 
-#: ../loader2/loader.c:101
+#: ../loader2/loader.c:103
 msgid "Local CDROM"
 msgstr ""
 
-#: ../loader2/loader.c:103
+#: ../loader2/loader.c:105
 msgid "Hard drive"
 msgstr ""
 
-#: ../loader2/loader.c:104
+#: ../loader2/loader.c:106
 msgid "NFS image"
 msgstr ""
 
-#: ../loader2/loader.c:323
+#: ../loader2/loader.c:317
 msgid "Update Disk Source"
 msgstr ""
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:318
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
 
-#: ../loader2/loader.c:339
+#: ../loader2/loader.c:333
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:335
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader2/loader.c:353
+#: ../loader2/loader.c:347
 msgid "Failed to mount updates disk"
 msgstr ""
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Updates"
 msgstr ""
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader2/loader.c:377
+#: ../loader2/loader.c:371
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:631
+#: ../loader2/loader.c:623
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:785
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader2/loader.c:789
+#: ../loader2/loader.c:786
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader2/loader.c:791
+#: ../loader2/loader.c:788
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:790
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "No driver found"
 msgstr ""
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "Select driver"
 msgstr ""
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:815
 msgid "Use a driver disk"
 msgstr ""
 
-#: ../loader2/loader.c:819
+#: ../loader2/loader.c:816
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:979
+#: ../loader2/loader.c:976
 msgid "The following devices have been found on your system."
 msgstr ""
 
-#: ../loader2/loader.c:981
+#: ../loader2/loader.c:978
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: ../loader2/loader.c:985
+#: ../loader2/loader.c:982
 msgid "Devices"
 msgstr ""
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:983
 msgid "Done"
 msgstr ""
 
-#: ../loader2/loader.c:987
+#: ../loader2/loader.c:984
 msgid "Add Device"
 msgstr ""
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1084
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
-#: ../loader2/loader.c:1456
+#: ../loader2/loader.c:1440
+#, c-format
+msgid "Running anaconda, the %s rescue mode - please wait...\n"
+msgstr ""
+
+#: ../loader2/loader.c:1442
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6291,6 +6297,7 @@ msgid "Checking \"%s\"..."
 msgstr ""
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr ""
 
@@ -6457,11 +6464,11 @@ msgstr ""
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader2/net.c:863
+#: ../loader2/net.c:864
 msgid "Networking Device"
 msgstr ""
 
-#: ../loader2/net.c:864
+#: ../loader2/net.c:865
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7284,12 +7291,25 @@ msgid "English"
 msgstr "Английски"
 
 #. generated from lang-table
+msgid "Estonian"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Finnish"
+msgstr "Датски"
+
+#. generated from lang-table
 msgid "French"
 msgstr "Френски"
 
 #. generated from lang-table
 msgid "German"
 msgstr "Немски"
+
+#. generated from lang-table
+msgid "Hungarian"
+msgstr ""
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -7306,6 +7326,10 @@ msgstr "Японски"
 #. generated from lang-table
 msgid "Korean"
 msgstr "Корейски"
+
+#. generated from lang-table
+msgid "Malay"
+msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7338,3 +7362,7 @@ msgstr "Шведски"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Турски"
+
+#. generated from lang-table
+msgid "Ukrainian"
+msgstr ""

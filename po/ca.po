@@ -2,15 +2,17 @@
 # Copyright (C) 2003 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Jordi Jover <jordijn@softcatala.org>, 2003.
-# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
+# Mireia Farrús <mifarrus@softcatala.org>, 2003.
+# Jordi Mas <jmas@softcatala.org>, 2003.
 # Josep Puigdemont <baldrick@terra.es>, 2003, 2004.
+# Xavier Conde Rueda <xaviconde@eresmas.com>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-10 18:02-0500\n"
-"PO-Revision-Date: 2004-01-03 02:48+0100\n"
+"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"PO-Revision-Date: 2004-03-07 14:59+0100\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -19,7 +21,7 @@ msgstr ""
 
 #: ../anaconda:94
 msgid "Starting VNC..."
-msgstr "S'està iniciant VNC..."
+msgstr "S'està iniciant el VNC..."
 
 #: ../anaconda:129
 #, c-format
@@ -34,12 +36,12 @@ msgstr "Instal·lació %s %s"
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
 msgstr ""
-"No s'ha pogut especificar la contrasenya per vnc - no es farà servir "
+"No s'ha pogut especificar la contrasenya per al vnc - no es farà servir cap "
 "contrasenya."
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Assegureu-vos que la contrasenya conté almenys 6 caràctes."
+msgstr "Assegureu-vos que la contrasenya conté almenys 6 caràcters."
 
 #: ../anaconda:175
 msgid ""
@@ -52,8 +54,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"AVÍS! El servidor VNC s'executa SENSE PASSWORD!\n"
-"Podeu ser servir la opció d'arrencada vncpassword=<contrasenya>\n"
+"AVÍS: S'executarà el servidor VNC sense cap contrasenya.\n"
+"Podeu fer servir la opció d'arrencada vncpassword=<contrasenya>\n"
 "si voleu tenir més seguretat.\n"
 "\n"
 
@@ -85,7 +87,7 @@ msgstr "Es tornarà a intentar la connexió d'aquí a 15 segons..."
 
 #: ../anaconda:208
 msgid "Connected!"
-msgstr "Connectat!"
+msgstr "Connectat."
 
 #: ../anaconda:212
 #, c-format
@@ -117,13 +119,13 @@ msgstr "Connecteu-vos per iniciar la instal·lació..."
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
 #: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:106
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/lang.c:374
-#: ../loader2/loader.c:328 ../loader2/loader.c:341 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/loader.c:796 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
+#: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
-#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:867
+#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:868
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
@@ -142,15 +144,16 @@ msgstr "Error desconegut"
 #: ../anaconda:611
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Hi ha hagut un error extraient la segona part de l'arxiu kickstart: %s"
+msgstr ""
+"Hi ha hagut un error en extreure la segona part del fitxer kickstart: %s"
 
 #: ../anaconda:723
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"No teniu suficient memòria RAM per utilitzar la instal·lació gràfica. S'està "
-"iniciant en mode text."
+"L'ordinador no té suficient memòria RAM per utilitzar la instal·lació "
+"gràfica. S'està iniciant en mode text."
 
 #: ../anaconda:775
 msgid "Install class forcing text mode installation"
@@ -158,7 +161,9 @@ msgstr "El tipus d'instal.lació força la instal·lació en mode text."
 
 #: ../anaconda:802
 msgid "No video hardware found, assuming headless"
-msgstr "No s'ha trobat cp dispositiu de vídeo, considerant sense cap"
+msgstr ""
+"No s'ha trobat cap dispositiu de vídeo, per tant es considerarà que no n'hi "
+"ha cap"
 
 #: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
@@ -226,8 +231,8 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 "La partició d'arrencada %s no pertany a un disc amb prou espai lliure a "
-"l'inici per encabir-hi el carregador d'arrencada. Assegureu-vos que hi ha "
-"almenys 5 MB de disc lliure a l'inici del disc que conté /boot"
+"l'inici per encabir-hi el carregador de l'arrencada. Assegureu-vos que hi ha "
+"almenys 5 MB lliures a l'inici del disc que conté /boot"
 
 #: ../autopart.py:1008
 #, python-format
@@ -252,8 +257,8 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"La partició d'arrencada %s no cumpleix les limitacions d'arrencada de la "
-"vostra màquina. Us recomanem crear un disc d'arrencada."
+"La partició d'arrencada %s no cumpleix les limitacions d'arrencada d'aquesta "
+"màquina. Us recomanem crear un disc d'arrencada."
 
 #: ../autopart.py:1038
 #, python-format
@@ -275,7 +280,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No es pot localitzar la partició %s per usar-la per %s.\n"
+"No es pot localitzar la partició %s per usar-la per a %s.\n"
 "\n"
 "Premeu 'D'acord' per arrencar de nou el sistema."
 
@@ -305,7 +310,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No s'ha pogut localitzar el grup de volum %s per usar-lo per %s.\n"
+"No s'ha pogut localitzar el grup de volum %s per usar-lo per a %s.\n"
 "\n"
 "Premeu 'D'acord' per arrencar de nou el sistema."
 
@@ -320,7 +325,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No s'ha pogut localitzar el volum lògic %s per utilitzar-lo per %s.\n"
+"No s'ha pogut localitzar el volum lògic %s per utilitzar-lo per a %s.\n"
 "\n"
 "Premeu 'D'acord' per arrencar de nou el sistema."
 
@@ -337,11 +342,11 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"S'han produït els següents errors amb les vostres particions:\n"
+"S'han produït els següents errors amb les particions:\n"
 "\n"
 "%s\n"
 "\n"
-"Premeu 'D'acord' per arremcar de nou el sistema."
+"Premeu 'D'acord' per arrencar de nou el sistema."
 
 #: ../autopart.py:1331
 msgid "Warnings During Automatic Partitioning"
@@ -371,7 +376,7 @@ msgstr ""
 #: ../autopart.py:1346 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:219
 msgid "Error Partitioning"
-msgstr "Error al fer particions"
+msgstr "Error en fer particions"
 
 #: ../autopart.py:1347
 #, python-format
@@ -395,7 +400,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Podeu seleccionar una opció de particionament diferent, o fer click a "
+"Podeu seleccionar una opció de particionament diferent, o fer clic a "
 "'Endarrere' per seleccionar la partició manual.\n"
 "\n"
 "Premeu 'D'acord' per continuar."
@@ -410,12 +415,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"S'han produït els següents errors fent les particions:\n"
+"S'han produït els següents errors en fer les particions:\n"
 "\n"
 "%s\n"
 "\n"
-"Això pot passar si no hi ha prou espai als(s) disc(s) dur(s) per a la "
-"instal·lació.%s"
+"Això pot passar si no hi ha prou espai als discos durs per a la instal·lació."
+"%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -434,7 +439,7 @@ msgstr "S'arrencarà de nou el sistema."
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:376
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
 msgid "Warning"
 msgstr "Avís"
 
@@ -447,13 +452,13 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"La partició automàtica defineix les particion s basant-se en el tipus "
+"La partició automàtica defineix les particion basant-se en el tipus "
 "d'instal·lació seleccionada. Es poden personalitzar les particions un cop "
 "creades.\n"
 "\n"
 "L'eina de partició manual, Disk Druid, us permet crear particions en un "
 "entorn interactiu. Hi podeu seleccionar el tipus de sistema de fitxers, els "
-"punts de muntatge, la mida de les particions, entre d'altres."
+"punts de muntatge, i la mida de les particions, entre d'altres."
 
 #: ../autopart.py:1481
 msgid ""
@@ -461,7 +466,7 @@ msgid ""
 "must choose how to use the space on your hard drives."
 msgstr ""
 "Abans que el programa d'instal·lació pugui fer les particions "
-"automàticament, heu d'indicar com fer servir l'espai del(s) disc(s) dur(s)."
+"automàticament, heu d'indicar com fer servir l'espai dels discs durs."
 
 #: ../autopart.py:1486
 msgid "Remove all partitions on this system"
@@ -469,7 +474,7 @@ msgstr "Suprimeix totes les particions d'aquest sistema"
 
 #: ../autopart.py:1487
 msgid "Remove all Linux partitions on this system"
-msgstr "Suprimeix totes les particions Linux d'quest sistema"
+msgstr "Suprimeix totes les particions Linux d'aquest sistema"
 
 #: ../autopart.py:1488
 msgid "Keep all partitions and use existing free space"
@@ -482,8 +487,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Heu escollit suprimir totes les particions (TOTES LES DADES) de les unitats "
-"seg'üents: %s\n"
+"Heu escollit suprimir totes les particions (totes les dades) de les unitats "
+"següents: %s\n"
 "Esteu segur que ho voleu fer?"
 
 #: ../autopart.py:1494
@@ -493,8 +498,8 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
-"Heu escollit suprimir totes les particions Linux (TOTES LES DADES) de les "
-"unitats següents:%s\n"
+"Heu escollit suprimir totes les particions Linux (i totesles seves dades) de "
+"les unitats següents:%s\n"
 "Esteu segur que ho voleu fer?"
 
 #: ../bootloader.py:108
@@ -510,7 +515,7 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"No s'han instal·lat paquets pel nucli en el sistema. No es modificarà la "
+"No s'han instal·lat paquets per al nucli en el sistema. No es modificarà la "
 "configuració del carregador de l'arrencada."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
@@ -523,12 +528,12 @@ msgstr "En progrés....   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr "No es poden fer reguntes en el mode de línia d'ordres!"
+msgstr "No es poden fer preguntes en el mode de línia d'ordres."
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr ""
-"Excepcions parcials no es poden gestionar en el mode de línia d'ordres!"
+"Excepcions parcials no es poden gestionar en el mode de línia d'ordres."
 
 #: ../cmdline.py:131
 #, python-format
@@ -540,7 +545,7 @@ msgstr "Fet [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "S'està instal·lant %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:751
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
 msgid "Everything"
 msgstr "Tot"
 
@@ -548,26 +553,26 @@ msgstr "Tot"
 msgid "no suggestion"
 msgstr "sense comentaris"
 
-#: ../comps.py:1098 ../hdrlist.py:974
+#: ../comps.py:1098 ../hdrlist.py:970
 msgid "Miscellaneous"
 msgstr "Miscel·lània"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:921
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"Aquest grup inclou tots els paquets disponibles. Fixeu-vos que inclou molts "
-"més paquets que en tots els altres grups d'aquesta pàgina junts."
+"Aquest grup inclou tots els paquets disponibles. Tingueu en compte que "
+"inclou molts més paquets que en tots els altres grups d'aquesta pàgina junts."
 
-#: ../comps.py:1118 ../hdrlist.py:925
+#: ../comps.py:1118 ../hdrlist.py:921
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
 "Esolliu aquest grup per instal·lar el mínim nombre possible de paquets. És "
-"útil per crear configuracions mínimes per encaminadors/tallafocs, per "
+"útil per crear configuracions mínimes per a encaminadors/tallafocs, per "
 "exemple."
 
 #: ../constants.py:70
@@ -599,15 +604,15 @@ msgstr "S'ha produït una excepció"
 
 #: ../exception.py:295
 msgid "Dump Written"
-msgstr "S'ha escrit el volcat"
+msgstr "S'ha escrit el bolcat"
 
 #: ../exception.py:296
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"L'estat sistema s'ha escrit correctament al disquet. S'arrencarà de nou el "
-"sistema."
+"L'estat del sistema s'ha escrit correctament al disquet. S'arrencarà de nou "
+"el sistema."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -618,8 +623,8 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
-"Els mòduls pel nucli de la vostra màquina tenen una mida massa gran com per "
-"encabir-los en un disquet."
+"Els mòduls del nucli per a aquesta màquina són massa grans i no cabran en un "
+"disquet."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -635,7 +640,7 @@ msgstr ""
 "Esborreu qualsevol disquet de la unitat de disc, i inseriu el disquet que "
 "contindrà el disc d'arrencada.\n"
 "\n"
-"S'ESBORRARAN totes les dades durant la creació del disquet d'arrencada."
+"S'esborraran totes les dades durant la creació del disquet d'arrencada."
 
 #: ../floppy.py:118
 msgid "_Cancel"
@@ -643,14 +648,14 @@ msgstr "_Cancel·la"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr "Crea _disc d'arrencada"
+msgstr "Crea un _disc d'arrencada"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:583 ../fsset.py:1229 ../fsset.py:1248 ../fsset.py:1298
-#: ../fsset.py:1309 ../fsset.py:1344 ../fsset.py:1394 ../fsset.py:1438
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:481
+#: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
+#: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
 #: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:659
+#: ../packages.py:404 ../packages.py:579 ../packages.py:664
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -660,8 +665,8 @@ msgstr "Crea _disc d'arrencada"
 #: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -676,8 +681,8 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"S'ha produït un error mentre es creava el disquet d'arrencada. Assegureu-vos "
-"que hi ha un disquet formatat en la primera unitat de disc."
+"S'ha produït un error quan es creava el disquet d'arrencada. Assegureu-vos "
+"que hi ha un disquet formatat en la primera unitat de disquet."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -692,8 +697,8 @@ msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"S'ha produït un error intentant verificar el disc d'arrencada. Assegureu-vos "
-"que el disquet de la primera unitat de disc està en bones condicions."
+"S'ha produït un error en intentar verificar el disc d'arrencada. Assegureu-"
+"vos que el disquet de la primera unitat de disc està en bones condicions."
 
 #: ../floppy.py:201
 msgid ""
@@ -701,20 +706,20 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"El disquet d'arrencada sembla no ser vàlid. El més pribable és que es tracti "
+"El disquet d'arrencada sembla no ser vàlid. El més probable és que es tracti "
 "d'un disquet defectuós. Assegureu-vos que que el disquet de la primera "
-"unitat de disc està en bones condicions."
+"unitat de disquet està en bones condicions."
 
-#: ../fsset.py:174
+#: ../fsset.py:178
 msgid "Checking for Bad Blocks"
 msgstr "S'està verificant si hi ha blocs malmesos"
 
-#: ../fsset.py:175
+#: ../fsset.py:179
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "S'està verificant si hi ha blocs malmesos a /dev/%s..."
 
-#: ../fsset.py:584
+#: ../fsset.py:593
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -722,32 +727,32 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
-"S'ha produït un error migrant %s a ext3. És possible continuar sense migrar "
-"aquest fitxer si ho voleu.\n"
+"S'ha produït un error en migrar %s a ext3. És possible continuar sense "
+"migrar aquest fitxer si ho voleu.\n"
 "\n"
 "Voleu continuar sense migrar %s?"
 
-#: ../fsset.py:1144
+#: ../fsset.py:1158
 msgid "RAID Device"
 msgstr "Dispositiu RAID"
 
-#: ../fsset.py:1148 ../fsset.py:1154
+#: ../fsset.py:1162 ../fsset.py:1168
 msgid "Apple Bootstrap"
 msgstr "Bootstrap Apple"
 
-#: ../fsset.py:1159 ../partitions.py:802
+#: ../fsset.py:1173 ../partitions.py:802
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1162 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1176 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Primer sector de la partició d'arrencada"
 
-#: ../fsset.py:1163 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1177 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1230
+#: ../fsset.py:1244
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -760,7 +765,7 @@ msgstr ""
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1249
+#: ../fsset.py:1263
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -775,7 +780,7 @@ msgstr ""
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
-#: ../fsset.py:1299
+#: ../fsset.py:1314
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -783,12 +788,12 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"S'han detectat blocs defectuosos el el dispositiu /dev/%s. No us recomenem "
+"S'han detectat blocs defectuosos el el dispositiu /dev/%s. No us recomanem "
 "que feu servir aquest dispositiu.\n"
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema"
 
-#: ../fsset.py:1310
+#: ../fsset.py:1325
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -801,7 +806,7 @@ msgstr ""
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1345
+#: ../fsset.py:1360
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -814,7 +819,7 @@ msgstr ""
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1395
+#: ../fsset.py:1410
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -827,11 +832,11 @@ msgstr ""
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1416 ../fsset.py:1425
+#: ../fsset.py:1431 ../fsset.py:1440
 msgid "Invalid mount point"
 msgstr "El punt de muntatge no és vàlid"
 
-#: ../fsset.py:1417
+#: ../fsset.py:1432
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -839,12 +844,12 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"S'ha produït un error intentant crear %s. Algun element del camí no és un "
+"S'ha produït un error en intentar crear %s. Algun element del camí no és un "
 "directori. Aquest és un error fatal i la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1426
+#: ../fsset.py:1441
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -852,12 +857,12 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"S'ha produït un error intentant crear %s: %s. Aquest és un error fatal i la "
-"instal·lació no pot continuar.\n"
+"S'ha produït un error en intentar crear %s: %s. Aquest és un error fatal i "
+"la instal·lació no pot continuar.\n"
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema."
 
-#: ../fsset.py:1439
+#: ../fsset.py:1454
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -866,17 +871,17 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"S'ha produït un error muntant el dispositiu %s com a %s: %s\n"
+"S'ha produït un error en muntar el dispositiu %s com a %s: %s\n"
 "\n"
 "El més probable és que aquesta partició no hagi estat formatada.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
-#: ../fsset.py:2053
+#: ../fsset.py:2068
 msgid "Duplicate Labels"
 msgstr "Duplica etiquetes"
 
-#: ../fsset.py:2054
+#: ../fsset.py:2069
 #, fuzzy, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -887,30 +892,30 @@ msgstr ""
 "Més d'un dispositiu del sistema té l'etiqueta %s. Les etiquetes en diferents "
 "dispositius han de ser úniques pel bon funcionament del sistema.\n"
 "\n"
-"Arregleu aquest problema i arrenquey de nou el procés d'instal·lació."
+"Arregleu aquest problema i arrenqueu de nou el procés d'instal·lació."
 
-#: ../fsset.py:2061 ../gui.py:1092 ../image.py:72 ../packages.py:1378
-#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
+#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "A_rrenca de nou"
 
-#: ../fsset.py:2314
+#: ../fsset.py:2329
 msgid "Formatting"
 msgstr "S'està formatant"
 
-#: ../fsset.py:2315
+#: ../fsset.py:2330
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "S'està formatant el sistema de fitxers %s..."
 
 #: ../gui.py:105
 msgid "An error occurred copying the screenshots over."
-msgstr "S'ha produït un error compiant la captura de pantalla a sobre."
+msgstr "S'ha produït un error en copiar la captura de pantalla a sobre."
 
 #: ../gui.py:117
 msgid "Screenshots Copied"
-msgstr "S'ha copiat la captura de pantalla"
+msgstr "S'han copiat les captures de pantalla"
 
 #: ../gui.py:118
 msgid ""
@@ -922,7 +927,7 @@ msgid ""
 msgstr ""
 "S'ha desat la captura de pantalla en el directori:\n"
 "\n"
-"\\t/root/anaconda-screenshots/\n"
+"\t/root/anaconda-screenshots/\n"
 "\n"
 "Hi podeu accedir quan arrenqueu de nou i entreu com a root."
 
@@ -937,15 +942,15 @@ msgstr "S'ha desat la captura de pantalla '%s'."
 
 #: ../gui.py:166
 msgid "Error Saving Screenshot"
-msgstr "S'ha produït un error desant la captura de pantalla"
+msgstr "S'ha produït un error en desar la captura de pantalla"
 
 #: ../gui.py:167
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
-"S'ha produït un error desant la captura de pantalla. Si això s'ha produït "
-"duramt la instal·lació d'un paquet, és possible que hagueu d'intentar-ho "
+"S'ha produït un error en desar la captura de pantalla. Si això s'ha produït "
+"durant la instal·lació d'un paquet, és possible que hagueu d'intentar-ho "
 "diverses vegades per tal d'aconseguir-ho."
 
 #: ../gui.py:235 ../text.py:322
@@ -956,7 +961,7 @@ msgstr "Arregla"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "Yes"
 msgstr "Si"
 
@@ -965,7 +970,7 @@ msgstr "Si"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "No"
 msgstr "No"
 
@@ -983,7 +988,7 @@ msgstr "Ignora"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:341
+#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Cancel·la"
 
@@ -992,8 +997,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Inserteu in disquet. Escolliu el disquet amb cura ja que se n'esborraran "
-"tots els seus continguts."
+"Inseriu un disquet. Escolliu el disquet amb cura ja que se n'esborraran tots "
+"els seus continguts."
 
 #: ../gui.py:810 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1005,7 +1010,7 @@ msgstr "No hi ha les notes del llançament."
 
 #: ../gui.py:1080
 msgid "Error!"
-msgstr "Error!"
+msgstr "Error"
 
 #: ../gui.py:1081
 #, python-format
@@ -1014,12 +1019,12 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"S'ha produït un error intentant carregar un component de l'interfície de "
+"S'ha produït un error en intentar carregar un component de la interfície de "
 "l'instal·lador.\n"
 "\n"
 "className = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1372
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
 msgid "_Exit"
 msgstr "_Surt"
 
@@ -1027,19 +1032,19 @@ msgstr "_Surt"
 msgid "_Retry"
 msgstr "_Reintenta"
 
-#: ../gui.py:1088 ../packages.py:1375
+#: ../gui.py:1088 ../packages.py:1418
 msgid "Rebooting System"
 msgstr "S'esta arrencant de nou el sistema"
 
-#: ../gui.py:1089 ../packages.py:1376
+#: ../gui.py:1089 ../packages.py:1419
 msgid "Your system will now be rebooted..."
 msgstr "S'arrencarà de nou el sistema..."
 
-#: ../gui.py:1180 ../packages.py:1378 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
 msgid "_Back"
-msgstr "_Endarrera"
+msgstr "_Endarrere"
 
 #: ../gui.py:1182
 msgid "_Next"
@@ -1051,11 +1056,11 @@ msgstr "N_otes del llançament"
 
 #: ../gui.py:1186
 msgid "Show _Help"
-msgstr "Mostra _ajuda"
+msgstr "Mostra l'_ajuda"
 
 #: ../gui.py:1188
 msgid "Hide _Help"
-msgstr "Amaga _ajuda"
+msgstr "Amaga l'_ajuda"
 
 #: ../gui.py:1190
 msgid "_Debug"
@@ -1077,9 +1082,9 @@ msgstr "No s'ha pogut carregar el títol de la barra"
 
 #: ../gui.py:1421
 msgid "Install Window"
-msgstr "Instal·la finestra"
+msgstr "Finestra d'instal·lació"
 
-#: ../harddrive.py:166 ../image.py:482
+#: ../harddrive.py:166 ../image.py:487
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1087,7 +1092,7 @@ msgid ""
 "%s\n"
 "The system will now reboot."
 msgstr ""
-"No s'ha trobat les imatges ISO següents que calen per a la instal·lació:\n"
+"No s'han trobat les següents imatges ISO que calen per a la instal·lació:\n"
 "\n"
 "%s\n"
 "S'arrencarà de nou el sistema."
@@ -1108,10 +1113,10 @@ msgstr ""
 "El programari que heu seleccionat per instal·lar requereix els següents CD:\n"
 "\n"
 "%s\n"
-"Tingueu-los a punt abans de tirar endavant la instal·lació. Si heu d'abortar "
+"Tingueu-los a punt abans de continuar amb la instal·lació. Si heu d'avortar "
 "la instal·lació i arrencar de nou, seleccioneu \"Arrenca de nou\"."
 
-#: ../image.py:72 ../kickstart.py:1319 ../kickstart.py:1346
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Continua"
@@ -1122,8 +1127,9 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"S'ha produït un error desmuntant el CD. Assegureu-vos que no esteu accedint "
-"a %s des de la la línia d'ordres a tty2 i feu clic a D'acord per renintentar."
+"S'ha produït un error en desmuntar el CD. Assegureu-vos que no esteu "
+"accedint a %s des de la la línia d'ordres a tty2 i feu clic a D'acord per "
+"reintentar."
 
 #: ../image.py:164
 msgid "Copying File"
@@ -1163,11 +1169,11 @@ msgstr "Inseriu el disc %d per continuar."
 msgid "Install on System"
 msgstr "Instal·la al sistema"
 
-#: ../kickstart.py:1311
+#: ../kickstart.py:1314
 msgid "Missing Package"
 msgstr "Paquet absent"
 
-#: ../kickstart.py:1312
+#: ../kickstart.py:1315
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1176,15 +1182,15 @@ msgstr ""
 "Heu indicat que s'havia d'instal·lar el paquet '%s'. Aquest paquet no "
 "existeix. Voleu continuar o abortar la instal·lació?"
 
-#: ../kickstart.py:1318 ../kickstart.py:1345
+#: ../kickstart.py:1321 ../kickstart.py:1348
 msgid "_Abort"
-msgstr "_Aborta"
+msgstr "_Avorta"
 
-#: ../kickstart.py:1337
+#: ../kickstart.py:1340
 msgid "Missing Group"
 msgstr "Grup absent"
 
-#: ../kickstart.py:1338
+#: ../kickstart.py:1341
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1206,12 +1212,12 @@ msgstr ""
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Els noms d'ordinador només poden contenir els caràcters 'a-z', 'A-Z'. '-', o "
+"Els noms d'ordinador només poden contenir els caràcters 'a-z', 'A-Z', '-', o "
 "'.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
-msgstr "Continuo amb l'actualització?"
+msgstr "Voleu continuar amb l'actualització?"
 
 #: ../packages.py:47 ../iw/package_gui.py:42
 msgid ""
@@ -1220,7 +1226,7 @@ msgid ""
 "\n"
 msgstr ""
 "S'ha muntat el sistema de fitxers de la instal·lació Linux que heu escollit "
-"per a actualitzar. A partir d'aquest punt ja no us podeu fer enrera. \n"
+"actualitzar. A partir d'aquest punt ja no us podeu fer enrere. \n"
 "\n"
 
 #: ../packages.py:51 ../iw/package_gui.py:46
@@ -1249,10 +1255,10 @@ msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
 "Press <return> to try again."
 msgstr ""
-"No s'ha pogut llegir el fitxer comps. Això pot ser deguta l'absència d'un "
-"fitxer o medi defectuós. Premeu <retorn> i torneu-ho a intentar."
+"No s'ha pogut llegir el fitxer comps. Això pot ser degut a l'absència d'un "
+"fitxer, o a medi defectuós. Premeu <retorn> i torneu-ho a intentar."
 
-#: ../packages.py:176 ../packages.py:660 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1267,8 +1273,8 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
-"Esteu intentant instal·lar en una màquina que el paquet %s no implementa en "
-"aquesta versió."
+"Esteu intentant instal·lar en una màquina que no està implementa en aquesta "
+"versió de %s."
 
 #: ../packages.py:289
 msgid "Dependency Check"
@@ -1277,9 +1283,9 @@ msgstr "Comprova les dependències"
 #: ../packages.py:290
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
-"Comprova les dependències en els paquets escollits per a la instal·lació..."
+"Comprova les dependències dels paquets escollits per a la instal·lació..."
 
-#: ../packages.py:349 ../packages.py:761
+#: ../packages.py:349 ../packages.py:763
 msgid "Processing"
 msgstr "S'està processant"
 
@@ -1296,7 +1302,7 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
-"No s'ha pogut obrir el paquet %s-%s-%s, Això pot ser degut a l'absència "
+"No s'ha pogut obrir el paquet %s-%s-%s. Això pot ser degut a l'absència "
 "d'algun fitxer o paquet corrumput. Si esteu instal·lant des d'un CD això "
 "normalment vol dir que el medi del CD està corromput, o que el dispositiu "
 "del CD no pot llegir el medi.\n"
@@ -1309,7 +1315,7 @@ msgstr "S'està instal·lant..."
 
 #: ../packages.py:434
 msgid "Error Installing Package"
-msgstr "S'ha produït un error instal·lant un paquet"
+msgstr "S'ha produït un error en instal·lar un paquet"
 
 #: ../packages.py:435
 #, python-format
@@ -1321,46 +1327,46 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"S'ha produït un error instal·lant %s. Això pot indicar una falla del medi, "
-"falta de d'espai al disc, i/o problemes de maquinari. Aquest és un error "
-"fatal i s'abortarà la instal·lació. Verifiqueu el medi i intenteu tornar a "
-"fer la instal·lació.\n"
+"S'ha produït un error en instal·lar %s. Això pot indicar una falla del medi, "
+"falta d'espai al disc, i/o problemes de maquinari. Aquest és un error fatal "
+"i s'abortarà la instal·lació. Verifiqueu el medi i intenteu tornar a fer la "
+"instal·lació.\n"
 "\n"
 "Premeu D'acord per arrencar de nou el sistema."
 
-#: ../packages.py:762
+#: ../packages.py:764
 msgid "Preparing RPM transaction..."
 msgstr "S'està preparant la transacció d'RPM..."
 
-#: ../packages.py:845
+#: ../packages.py:847
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
-"S'està actualitzant els paquets %s\n"
+"S'estan actualitzant els paquets %s\n"
 "\n"
 
-#: ../packages.py:847
+#: ../packages.py:849
 #, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr ""
-"S'està instal·lant els paquets %s\n"
+"S'estan instal·lant els paquets %s\n"
 "\n"
 
-#: ../packages.py:855 ../packages.py:1151
+#: ../packages.py:857 ../packages.py:1153
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "S'està actualitzant %s-%s-%s.%s.\n"
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:859 ../packages.py:1155
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "S'està instal·lant %s-%s-%s.%s.\n"
 
-#: ../packages.py:873
+#: ../packages.py:875
 #, python-format
 msgid ""
 "\n"
@@ -1372,41 +1378,42 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Els paquets següents han estat seleccionats\n"
-"automàticament per ser instal·lats:\n"
+"S'han seleccionat automàticament els\n"
+"següents paquets per ser instal·lats:\n"
 "%s\n"
 "\n"
 
-#: ../packages.py:879
+#: ../packages.py:881
 msgid "Install Starting"
 msgstr "S'està iniciant la instal·lació"
 
-#: ../packages.py:880
+#: ../packages.py:882
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
-"S'està iniciant el procés d'instal·lació, això pot trigar diversos minuts..."
+"S'està iniciant el procés d'instal·lació, això pot trigar uns minuts..."
 
-#: ../packages.py:920
+#: ../packages.py:922
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
 "Sembla que no hi ha suficient espai de disc dur per instal·lar els paquets "
-"que heu escollit. Necessiteu més espai pels sistemes de fitxers següents:\n"
+"que heu escollit. Necessiteu més espai per als sistemes de fitxers "
+"següents:\n"
 "\n"
 
-#: ../packages.py:924 ../packages.py:945 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Punt de muntatge"
 
-#: ../packages.py:925
+#: ../packages.py:927
 msgid "Space Needed"
 msgstr "Espai necessari"
 
-#: ../packages.py:941
+#: ../packages.py:943
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1417,23 +1424,23 @@ msgstr ""
 "següents:\n"
 "\n"
 
-#: ../packages.py:946
+#: ../packages.py:948
 msgid "Nodes Needed"
 msgstr "Nodes necessaris"
 
-#: ../packages.py:957
+#: ../packages.py:959
 msgid "Disk Space"
 msgstr "Espai del disc"
 
-#: ../packages.py:1006
+#: ../packages.py:1008
 msgid "Post Install"
 msgstr "Instal·lació posterior"
 
-#: ../packages.py:1007
+#: ../packages.py:1009
 msgid "Performing post install configuration..."
 msgstr "S'està realitzant la configuració de la instal·lació posterior..."
 
-#: ../packages.py:1176
+#: ../packages.py:1179
 msgid ""
 "\n"
 "\n"
@@ -1444,7 +1451,7 @@ msgstr ""
 "Els paquets següents estaven disponibles en aquesta versió però NO han estat "
 "actualitzats:\n"
 
-#: ../packages.py:1179
+#: ../packages.py:1182
 msgid ""
 "\n"
 "\n"
@@ -1455,11 +1462,11 @@ msgstr ""
 "Els paquets següents estaven disponibles en aquesta versió però NO han estat "
 "instal·lats:\n"
 
-#: ../packages.py:1358
+#: ../packages.py:1401
 msgid "Warning! This is pre-release software!"
-msgstr "Avís! Això és programari pre-llançament!"
+msgstr "Avís! Això és programari pre-llançament."
 
-#: ../packages.py:1359
+#: ../packages.py:1402
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1487,7 +1494,7 @@ msgstr ""
 "\n"
 "i feu un informe sobre '%s'.\n"
 
-#: ../packages.py:1372
+#: ../packages.py:1415
 msgid "_Install anyway"
 msgstr "_Instal·la'l igualment"
 
@@ -1505,10 +1512,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"El dispositiu %s està formatat LDL enlloc de CDL. Durant la instal·lació de %"
-"s, els DASD amb format LDL no estan implementats. Si voleu fer servir aquest "
-"disc per a la instal·lació, haureu de reinicialitzar-lo, causant-ne la "
-"pèrdua de TOTES LES DADES.\n"
+"El dispositiu %s està formatat LDL enlloc de CDL. No es poden fer servir els "
+"DASD formatats amb LDL durant la instal·lació de %s. Si voleu fer servir "
+"aquest disc per a la instal·lació, haureu de reinicialitzar-lo, causant-ne "
+"la pèrdua de totes les dades.\n"
 "\n"
 "Voleu formatar aquest DASD amb el format CDL?"
 
@@ -1521,10 +1528,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"La taula de particions del dispositiu /dev/%s és del tipus inesperat per a "
-"la vostra arquitectura %s. Per poder fer servir aquest disc per a la "
-"instal·lació de %s, caldrà reninicialitzar-lo causant-ne la pèrdua de TOTES "
-"LES DADES.\n"
+"La taula de particions del dispositiu /dev/%s és del tipus %s, inesperat per "
+"aquesta arquitectura. Per poder fer servir aquest disc per a la instal·lació "
+"de %s, caldrà reninicialitzar-lo causant-ne la pèrdua de totes les dades.\n"
 "\n"
 "Voleu inicialitzar aquest dispositiu?"
 
@@ -1554,13 +1560,13 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "No s'ha pogut llegir la taula de particions del dispositiu %s. Caldrà "
-"inicialitzar-lo per a poder-hi crear noves particions, causant-ne la pèrdua "
-"de TOTES LES DADES.\n"
+"inicialitzar-lo per poder-hi crear noves particions, causant-ne la pèrdua de "
+"totes les dades.\n"
 "\n"
 "Aquesta operació ignorarà qualsevol opció d'instal·lació prèvia referent a "
 "quins dispositius ignorar.\n"
 "\n"
-"Voleu inicialitzar aquest dispositiu, esborrant-ne TOTES LES DADES?"
+"Voleu inicialitzar aquest dispositiu, esborrant-ne totes les dades?"
 
 #: ../partedUtils.py:977 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -1571,7 +1577,7 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"S'ha produït un error - s'han trobat dispositius no vàlid en crear el nou "
+"S'ha produït un error : s'han trobat dispositius no vàlids en crear el nou "
 "sistema de fitxers. Comproveu que el maquinari per trobar la causa del "
 "problema."
 
@@ -1586,14 +1592,14 @@ msgstr "El nom del grup de volum ha de tenir menys de 128 caràcters"
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr "Error- el nom del grup de volum %s no és vàlid."
+msgstr "Error : el nom del grup de volum %s no és vàlid."
 
 #: ../partIntfHelpers.py:47
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Error - El nom del grup de volum conté caràcters il·legals o espais. "
+"Error : El nom del grup de volum conté caràcters il·legals o espais. "
 "Lletres, dígits, '.' o '_' són caràcters acceptables."
 
 #: ../partIntfHelpers.py:57
@@ -1607,14 +1613,14 @@ msgstr "Els noms de volum lògic han de tenir menys de 128 caràcters"
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "Error - el nom de volum lògic %s no és vàlid."
+msgstr "Error : el nom de volum lògic %s no és vàlid."
 
 #: ../partIntfHelpers.py:71
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
-"Error - El nom del volum lògic conté caràcters il·legals o espais. Lletres, "
+"Error : El nom del volum lògic conté caràcters il·legals o espais. Lletres, "
 "dígits, '.' o '_' són caràcters acceptables."
 
 #: ../partIntfHelpers.py:94
@@ -1627,7 +1633,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
-msgstr "Indiqueu el punt de muntatge per aquesta partició."
+msgstr "Indiqueu el punt de muntatge per a aquesta partició."
 
 #: ../partIntfHelpers.py:109
 msgid "This partition is holding the data for the hard drive install."
@@ -1645,7 +1651,7 @@ msgstr "Aquesta partició és part d'un dispositiu RAID."
 #: ../partIntfHelpers.py:123
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Aques partició és part del grup de volum LVM '%s'."
+msgstr "Aquesta partició és part del grup de volum LVM '%s'."
 
 #: ../partIntfHelpers.py:126
 msgid "This partition is part of a LVM volume group."
@@ -1705,7 +1711,7 @@ msgstr "_Suprimeix"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
-msgstr "Nota"
+msgstr "Atenció"
 
 #: ../partIntfHelpers.py:291
 #, python-format
@@ -1745,7 +1751,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
-msgstr "Formatar com a memòria d'intercanvi?"
+msgstr "Voleu formatar-la com a memòria d'intercanvi?"
 
 #: ../partIntfHelpers.py:380
 #, python-format
@@ -1771,15 +1777,15 @@ msgid ""
 "you should continue without formatting this partition."
 msgstr ""
 "Heu escollit fer ús d'una partició ja existent per a la instal·lació sense "
-"formatar-la. Red Hat us recomana que formateu aquesta partició per assegurar "
-"que fitxers d'altres sistemes operatius instal·lats no causen problemes amb "
+"formatar-la. Us recomanem que formateu aquesta partició per assegurar que "
+"fitxers d'altres sistemes operatius instal·lats no causen problemes amb "
 "aquesta instal·lació Linux. De tota manera, si aquesta partició conté "
-"fitxers que voleu mantenir, com ara directoris arrel d'usuaris, aleshores "
-"continueu sense formatar aquesta partició."
+"fitxers que voleu mantenir, com ara directoris personals dels usuaris, "
+"aleshores continueu sense formatar aquesta partició."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
-msgstr "Formatar?"
+msgstr "Voleu formatar?"
 
 #: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1010
 msgid "_Modify Partition"
@@ -1791,7 +1797,7 @@ msgstr "_No formatis"
 
 #: ../partIntfHelpers.py:417
 msgid "Error with Partitioning"
-msgstr "Error al particionar"
+msgstr "Error en particionar"
 
 #: ../partIntfHelpers.py:418
 #, python-format
@@ -1809,7 +1815,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:432
 msgid "Partitioning Warning"
-msgstr "Avís fent particions"
+msgstr "Avís en particionar"
 
 #: ../partIntfHelpers.py:433
 #, python-format
@@ -1820,7 +1826,8 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"L'esquema de particions que heu demanat conté els següents avisos.\n"
+"DEgut a l'esquema de particionat demanat, s'han produït els següents "
+"avisos:\n"
 "\n"
 "%s\n"
 "\n"
@@ -1831,16 +1838,16 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"S'han seleccionat les següents particions, que prèviament existien, per a "
-"formatar, destruïnt-ne totes les dades."
+"Es destruiran les dades de les particions existents que heu seleccionat per "
+"formatar."
 
 #: ../partIntfHelpers.py:450
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Escolliu 'Si' per continuar i formatar aquestes particions, o 'No' per "
-"tornar enrera i canviar aquests paràmetres."
+"Escolliu 'Sí' per continuar i formatar aquestes particions, o 'No' per "
+"tornar enrere i canviar aquests paràmetres."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -1855,7 +1862,7 @@ msgid ""
 msgstr ""
 "Esteu a punt d'eliminar el grup de volum \"%s\".\n"
 "\n"
-"TOTS els volums lògics d'aquest grup de volum es perdran!"
+"Tots els volums lògics d'aquest grup de volum es perdran."
 
 #: ../partIntfHelpers.py:508
 #, python-format
@@ -1908,9 +1915,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
 msgstr ""
-"Com que no teniu més memòria en aquesta màquina, necessiteu anar ara mateix "
-"a l'espai de l'intercanviador (swap). Feu-ho i us escriurem, al moment, una "
-"nova taula de particions al disc. D'acord?"
+"Com que aquesta màquina no té gaire memòria, cal activar l'espai de "
+"l'intercanvi immediatament. Per tal de fer-ho, s'ha d'escriure la nova taula "
+"de particions al disc immediatament. Hi esteu d'acord?"
 
 #: ../partitions.py:756
 #, python-format
@@ -1927,8 +1934,8 @@ msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
-"La vostra partició arrel és menor que 250 MB, que normalment és massa petita "
-"per instal·lar %s."
+"La partició arrel té menys de 250 MB, normalment massa petita per instal·lar-"
+"hi %s."
 
 #: ../partitions.py:768
 msgid ""
@@ -1946,7 +1953,7 @@ msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
-"La partició %s és menor que %s MB, la qual és menor que la recomenada per a "
+"La partició %s té menys de %s MB, la qual és menor que la recomenada per a "
 "una instal·lació normal de %s."
 
 #: ../partitions.py:839 ../partRequests.py:649
@@ -1962,9 +1969,9 @@ msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"No s'ha especificat cap partició d'intercanvi (swap). Tot i que no és "
-"estrictament necessària en tots els casos, milloraria significativament "
-"l'execució en la majoria d'instal·lacions."
+"No s'ha especificat cap partició d'intercanvi. Tot i que no és estrictament "
+"necessària en tots els casos, milloraria significativament el rendiment en "
+"la majoria d'instal·lacions."
 
 #: ../partitions.py:864
 #, python-format
@@ -1972,8 +1979,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Heu especificat més de 32 dispositius d'intercanvi (swap). El nucli de %s "
-"només implementa 32 dispositius d'intercanvi."
+"Heu especificat més de 32 dispositius d'intercanvi. El nucli de %s només "
+"implementa 32 dispositius d'intercanvi."
 
 #: ../partitions.py:875
 #, python-format
@@ -1981,9 +1988,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Heu assignat menys espai d'intercanvi (swap)(%dM) del que teniu disponible a "
-"la memòria RAM (%dM) del sistema. Això podria afectar negativament la "
-"presentació."
+"Heu assignat menys espai d'intercanvi (%dM) del que teniu disponible a la "
+"memòria RAM (%dM) del sistema. Això podria afectar negativament el rendiment."
 
 #: ../partitions.py:1159
 msgid "the partition in use by the installer."
@@ -2002,7 +2008,7 @@ msgstr "una partició que és membre d'un grup de volum LVM."
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
-"Aquest punt de muntatge no és vàlid. El directori %s ha däestar en el "
+"Aquest punt de muntatge no és vàlid. El directori %s ha d'estar en el "
 "sistema de fitxers /."
 
 #: ../partRequests.py:236
@@ -2011,8 +2017,8 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"No es pot fer servir el punt de muntatge %s. Ha de ser un enllç simbòlic per "
-"tal que el sistema funcioni degudament. Seleccioneu un altre punt de "
+"No es pot fer servir el punt de muntatge %s. Ha de ser un enllaç simbòlic "
+"per tal que el sistema funcioni correctament. Seleccioneu un altre punt de "
 "muntatge."
 
 #: ../partRequests.py:243
@@ -2041,13 +2047,13 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-"La mida de la partició indiada (mida = %s MB) excedeix la mida màxima de %s "
+"La mida de la partició indicada (mida = %s MB) excedeix la mida màxima de %s "
 "MB."
 
 #: ../partRequests.py:470
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
-msgstr "La mida de la partició sol·licitada és negativa! (mida = %s MB)"
+msgstr "La mida de la partició sol·licitada és negativa. (mida = %s MB)"
 
 #: ../partRequests.py:474
 msgid "Partitions can't start below the first cylinder."
@@ -2074,8 +2080,8 @@ msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
-"Aquest dispositiu RAID pot tenir un màxim de %s sobrers. Per tenir-ne més "
-"sobrers, necessitareu afegir més membres al dispositiu RAID."
+"Aquest dispositiu RAID pot tenir un màxim de %s discs de recanvi. Per tenir-"
+"ne més, necessitareu afegir més membres al dispositiu RAID."
 
 #: ../rescue.py:123
 msgid "Starting Interface"
@@ -2106,7 +2112,8 @@ msgstr ""
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
-"Quan estigueu sortiu de l'intèrpret d'ordres i el sistema arrencarà de nou."
+"Quan acabeu, sortiu des de l'intèrpret d'ordres i el sistema arrencarà de "
+"nou."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 msgid "Rescue"
@@ -2125,14 +2132,14 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"L'entorn de rescat intentarà trobar la instal·lació de Red Hat Linux i "
-"muntar-la sota el directori %s. Un cop fet això podreu fer tots els canvis "
-"necessaris en el sistema. Si voleu continuar amb aquest pas escolliu "
-"'Continua'. Escolliu 'Només lectura' si voleu muntar el sistema de fitxers "
-"només de lectura enlloc de lectura-escriptura.\n"
+"L'entorn de rescat intentarà trobar la instal·lació de Linux i muntar-la "
+"sota el directori %s. Un cop fet això podreu fer tots els canvis necessaris "
+"en el sistema. Si voleu continuar amb aquest pas escolliu 'Continua'. "
+"Escolliu 'Només lectura' si voleu muntar el sistema de fitxers només de "
+"lectura enlloc de lectura-escriptura.\n"
 "\n"
-"Si el procés falla, podeu escollir 'Omet' i aques pas s'ometrà, anant al la "
-"l'intèrpret d'ordre.\n"
+"Si el procés falla, podeu escollir 'Omet': aquest pas s'ometrà i s'anirà a "
+"l'intèrpret d'ordres.\n"
 "\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
@@ -2156,7 +2163,7 @@ msgstr "Sistema per rescatar"
 
 #: ../rescue.py:300
 msgid "What partition holds the root partition of your installation?"
-msgstr "Quina partició conté el diretori arrel de la instal·lació?"
+msgstr "Quina partició conté el directori arrel de la instal·lació?"
 
 #: ../rescue.py:302 ../rescue.py:306
 msgid "Exit"
@@ -2203,8 +2210,8 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
-"S'ha produït un error intentant muntar algun o totes els sistemes de "
-"fitxers. Pot ser que n'hi algun de muntat sota %s.\n"
+"S'ha produït un error en intentar muntar algun o tots els sistemes de "
+"fitxers. Pot ser que se n'hagi muntat algun sota %s.\n"
 "\n"
 "Premeu <retorn> per anar a l'intèrpret d'ordres. El sistema arrencarà de nou "
 "quan en sortiu."
@@ -2232,11 +2239,11 @@ msgstr "No hi ha ajuda disponible"
 
 #: ../text.py:193
 msgid "No help is available for this step of the install."
-msgstr "No hi ha ajuda dispobible per aquest pas de la instal·lació."
+msgstr "No hi ha ajuda disponible per a aquest pas de la instal·lació."
 
 #: ../text.py:282
 msgid "Save Crash Dump"
-msgstr "Desa el volcat de la fallada"
+msgstr "Desa el bolcat de la fallada"
 
 #: ../text.py:303 ../text.py:311
 msgid "Save"
@@ -2249,7 +2256,7 @@ msgstr "Depura"
 #: ../text.py:346
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:353
 msgid ""
@@ -2295,9 +2302,9 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"Els següents sistemes de fitxers pel sistema Linux no s'han muntat netament. "
-"Arrenqueu la instal·lació Linux, deixeu que es revisi el sistema de fitxers "
-"i atureu l'ordinador netament per a poder actualizar.\n"
+"Els següents sistemes de fitxers per al sistema Linux no s'han muntat "
+"netament. Arrenqueu la instal·lació Linux, deixeu que es revisi el sistema "
+"de fitxers i atureu l'ordinador netament per poder actualizar.\n"
 "%s"
 
 #: ../upgrade.py:124
@@ -2307,7 +2314,7 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"Els sistemes de fitxers següents pel sistema Linux no han estat netament "
+"Els sistemes de fitxers següents per al sistema Linux no han estat netament "
 "desmnuntats.  Voleu muntar-los de tota manera?\n"
 "%s"
 
@@ -2329,7 +2336,7 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Un o més dels sistemes de fitxers llistats a /etc/fstab són inconsistens i "
+"Un o més dels sistemes de fitxers llistats a /etc/fstab són inconsistents i "
 "no s'han pogut muntar.  Resoleu el problema i intenteu actualitzar de nou."
 
 #: ../upgrade.py:282
@@ -2389,7 +2396,7 @@ msgstr ""
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
-msgstr "S'ha produït un error cercant els fitxers per actualitzar."
+msgstr "S'ha produït un error en cercar els fitxers per actualitzar."
 
 #: ../upgrade.py:422
 #, python-format
@@ -2399,9 +2406,9 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "L'arquitectura del llançament de %s que esteu actualitzant sembla ser %s, "
-"que no coincideix amb l'arquitectura prèviament instal·lada %s.  "
-"L'actualització és molt probable que no funcioni.  Esteu segur que voleu "
-"continuar el procés d'actualització?"
+"que no coincideix amb l'arquitectura prèviament instal·lada %s.  És molt "
+"probable que no funcioni l'actualització.  Esteu segur que voleu continuar "
+"el procés d'actualització?"
 
 #: ../upgrade.py:475
 #, fuzzy, python-format
@@ -2414,10 +2421,10 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Aquest sistema sembla tenir instal·lats paquets de tercers que s'encavalqun "
-"amb paquets inclosos dins de Red Hat Linux. Donat aquest fet, si continueu "
-"amb el procés d'actualització pot ser que deixin de funcionar degudament o "
-"causin inestabilitat al sistema.  Llegiu les notes del llançament per a més "
+"Aquest sistema sembla tenir instal·lats paquets de tercers que s'encavalquen "
+"amb paquets inclosos a %s. Donat aquest fet, si continueu amb el procés "
+"d'actualització pot ser que deixin de funcionar degudament o causin "
+"inestabilitat al sistema.  Llegiu les notes del llançament per a més "
 "informació.\n"
 "\n"
 "Voleu continuar amb l'actualització?"
@@ -2430,8 +2437,8 @@ msgid ""
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
 "Aquest sistema no té un fiter /etc/redhat-release.  És possible que no es "
-"tracti d'un sistema Red Hat Linux. Continuant amb l'actualització pot deixar "
-"el sistema en un estat en que no es pugui utilitzar.  Voleu continuar amb "
+"tracti d'un sistema %s. Continuant amb l'actualització pot deixar el sistema "
+"en un estat en que no es pugui utilitzar.  Voleu continuar amb "
 "l'actualització?"
 
 #: ../upgrade.py:544
@@ -2441,9 +2448,9 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
-"Actualitzacions per a aquesta versió de %s només estan implementades des de "
-"Red Hat Linux 6.2 o posteriors.  Aquest sembla ser un sistema antic.  Voleu "
-"continuar amb el procés d'actualització?"
+"Només es pot actualitzar aquesta versió de %s des de la Red Hat Linux 6.2 o "
+"superior. Aquest sembla ser un sistema antic.  Voleu continuar amb el procés "
+"d'actualització?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2455,7 +2462,7 @@ msgstr "Monitor probat DDC"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr "Especificar la contrasenya del superusuari"
+msgstr "Especifiqueu la contrasenya del superusuari"
 
 #: ../iw/account_gui.py:35 ../iw/account_gui.py:43 ../iw/account_gui.py:50
 #: ../iw/account_gui.py:59 ../textw/userauth_text.py:71
@@ -2476,7 +2483,7 @@ msgstr "Les contrasenyes que heu introduït són diferents. Intenteu-ho de nou."
 
 #: ../iw/account_gui.py:51
 msgid "The root password must be at least six characters long."
-msgstr "La constrasenya del superusuari ha de tenir com a mínim sis caràcters."
+msgstr "La contrasenya del superusuari ha de tenir com a mínim sis caràcters."
 
 #: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
@@ -2484,7 +2491,7 @@ msgid ""
 "use in password."
 msgstr ""
 "La contrasenya sol·litada conté caràctes no ascii, que no es poden fer "
-"servir per a la constrasenya."
+"servir per a la contrasenya."
 
 #: ../iw/account_gui.py:87
 msgid "Enter the root (administrator) password for the system."
@@ -2548,7 +2555,7 @@ msgstr "Habilita _Kerberos"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
-msgstr "R_eialme:"
+msgstr "R_egne:"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
@@ -2556,7 +2563,7 @@ msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "Servidor _admin:"
+msgstr "Servidor d'_admininstració:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
@@ -2598,12 +2605,11 @@ msgstr "Heu de seleccionar almenys un disc dur on tenir instal·lat %s."
 
 #: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
 msgid "I want to have automatic partitioning:"
-msgstr "Vull la partició automàtica:"
+msgstr "Fes servir la partició automàtica:"
 
 #: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
 msgid "Select the drive(s) to use for this installation:"
-msgstr ""
-"Seleccioneu la(es) unitat(s) que s'utilitzarà(n) per aquesta instal·lació:"
+msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació:"
 
 #: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
 msgid "Re_view (and modify if needed) the partitions created"
@@ -2615,13 +2621,13 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
-"La contrasenya del carregador de l'arrencada prevé que qualsevol usuari "
+"La contrasenya del carregador de l'arrencada evita que qualsevol usuari "
 "canviï opcions que es passen al nucli. Per a una millor seguretat del "
 "sistema, es recomana que utilitzeu una contrasenya."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "_Utilitza una contrasenya pel carregador de l'arrencada"
+msgstr "_Utilitza una contrasenya per al carregador de l'arrencada"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
@@ -2636,13 +2642,13 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Intriduïu la contrasenya pel carregador de l'arrencada i després confirmeu-"
-"la. (Tingueu en compte que el mapa de tecles de la BIOS podria ser diferent "
-"al que esteu normalment acostumat)."
+"Introduïu la contrasenya per al carregador de l'arrencada i després "
+"confirmeu-la. (Tingueu en compte que el mapa de tecles de la BIOS podria ser "
+"diferent al que esteu normalment acostumat)."
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
-msgstr "Contrasenya:"
+msgstr "_Contrasenya:"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
@@ -2692,11 +2698,11 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "Sí, vull crear un disquet d'arrencada"
+msgstr "_Sí, crea un disquet d'arrencada"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
-msgstr "No, no vull crear cap disquet d'arrencada"
+msgstr "_No, no creis cap disquet d'arrencada"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2710,9 +2716,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Forçant l'ús de LBA32 en el carregador de l'arrencada quan la BIOS no ho "
-"implementa pot fer que la vostra màquina no pugui arrencar. Us recomanem que "
-"creeu un disquet d'arrencada quan se us pregunti més endavant durant la "
+"Forçar l'ús de LBA32 en el carregador de l'arrencada quan la BIOS no ho "
+"implementa pot fer que la màquina no pugui arrencar. Us recomanem que creeu "
+"un disquet d'arrencada quan se us pregunti més endavant durant la "
 "instal·lació.\n"
 "\n"
 "Voleu continuar i forçar el mode LBA32?"
@@ -2723,19 +2729,19 @@ msgstr "Força LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Força LBA31 (normalment no cal)"
+msgstr "_Força LBA32 (normalment no cal)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
 msgstr ""
-"Si voleu afefir opcions per defecte a l'ordre d'arrencada, entreu-les en el "
-"camp 'Paràmetres generals pel nucli'."
+"Si voleu afegir opcions per defecte a l'ordre d'arrencada, entreu-les en el "
+"camp 'Paràmetres generals per al nucli'."
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr "Paràmetres _generals pel nucli"
+msgstr "Paràmetres _generals per al nucli"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
@@ -2814,11 +2820,11 @@ msgstr "_Canvia l'ordre de les unitats"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
-msgstr "No s'ha pogut canviar l'ordre de les unitats pel LILO"
+msgstr "No s'ha pogut canviar l'ordre de les unitats per al LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr "No està implementat el canvi de l'ordre de les unitats pel LILO."
+msgstr "No està implementat el canvi de l'ordre de les unitats per al LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -2833,11 +2839,11 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Organitzeu les unitats en el mateix ordre usat per la BIOS. Canviant l'ordre "
+"Organitzeu les unitats en el mateix ordre usat per la BIOS. Canviar l'ordre "
 "de les unitats pot ser útil si teniu diversos adaptadors SCSI, o tant "
 "adaptadors SCSI com IDE i voleu arrencar des d'una unitat SCSI.\n"
 "\n"
-"Canviant l'ordre de les unitats canviarà el lloc on el programa "
+"En canviar l'ordre de les unitats es canviarà el lloc on el programa "
 "d'instal·lació localitzarà el Master Boot Record (MBR)."
 
 #: ../iw/confirm_gui.py:57
@@ -2847,7 +2853,7 @@ msgstr "Ara s'instal·larà"
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
 msgid "Reboot?"
-msgstr "Arrencar de nou?"
+msgstr "Voleu arrencar de nou?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:62
@@ -2868,7 +2874,7 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Podeu trobar el fitxer de registre de la instal·lació a '%s* després "
+"Podeu trobar el fitxer de registre de la instal·lació a '%s' després "
 "d'arrencar de nou el sistema.\n"
 "\n"
 "Podeu trobar un fitxer d'inici ràpid que conté les opcions d'instal·lació "
@@ -2898,7 +2904,7 @@ msgstr "Felicitats"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
-msgstr "Arrenca de nou"
+msgstr "_Arrenca de nou"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -2907,7 +2913,7 @@ msgid ""
 "\n"
 msgstr ""
 "Extraieu qualsevol medi (disquet o CD-ROM) que hagueu utilitzat durant el "
-"procés d'instal·lació i premeu el botó \"Arrenca de nou\" per a arrencar de "
+"procés d'instal·lació i premeu el botó \"Arrenca de nou\" per arrencar de "
 "nou el sistema.\n"
 "\n"
 
@@ -2949,7 +2955,7 @@ msgstr ""
 "    http://www.redhat.com/docs/\n"
 "    http://www.redhat.com/apps/support/\n"
 "\n"
-"Per a registrar el producte per suport, visiteu:\n"
+"Per a registrar el producte pe a suport, visiteu:\n"
 "    http://www.redhat.com/apps/activate/\n"
 "\n"
 
@@ -3014,7 +3020,7 @@ msgstr ""
 "\n"
 "\n"
 "Després de la instal·lació podreu afegir o suprimir programari addicional "
-"utilitzant l'eina 'redhat-config-packages'.\n"
+"utilitzant l'eina 'system-config-packages'.\n"
 "\n"
 "Si esteu familiaritzat amb %s, és possible que hi hagi paquets que vulgueu o "
 "no instal·lar. Activeu el quadre de verificació de sota per a personalitzar "
@@ -3026,7 +3032,7 @@ msgid ""
 "choose to customize this below."
 msgstr ""
 "Si voleu canviar el conjunt de paquets predeterminats que s'instal·laran "
-"escolliu personalitzar-ho més avall."
+"escolliu personalitzar-ho més abaix."
 
 #: ../iw/desktop_choice_gui.py:73
 msgid "_Install default software packages"
@@ -3055,7 +3061,7 @@ msgstr "Examineu l'actualització"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
-msgstr "Act_ualitzar una instal·lació existent"
+msgstr "Act_ualitza una instal·lació existent"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -3083,7 +3089,7 @@ msgstr ""
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 #, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "S'actualitzaran els següents productes de Red Hat:"
+msgstr "S'actualitzaran els següents productes instal·lats:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -3129,7 +3135,7 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 "Si l'ordinador està connectat directament a Internet o a una xarxa pública "
-"gran, es recomana hi configureu un tallafoc per a prevenir-hi accessos no "
+"gran, se us recomana hi configureu un tallafoc per prevenir-hi accessos no "
 "autoritzats. De tota manera heu escollit no configurar cap tallafoc. "
 "Escolliu \"Procedeix\" per a continuar sense un tallafoc."
 
@@ -3173,7 +3179,7 @@ msgstr "Sense tallaf_oc"
 
 #: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
-msgstr "Habilita tallafoc"
+msgstr "_Habilita tallafoc"
 
 #: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
@@ -3194,11 +3200,11 @@ msgstr "Altres _ports:"
 #: ../iw/firewall_gui.py:231
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
-"Si voleu permetre tot el trànsit d'un dispositiu, seleccioneu-lo aquí baix."
+"Si voleu permetre tot el trànsit d'un dispositiu, seleccioneu-lo aquí abaix."
 
 #: ../iw/firewall_gui.py:240
 msgid "_Trusted devices:"
-msgstr "Disposi_tius fiables:"
+msgstr "Disposi_tius confiables:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3210,11 +3216,11 @@ msgstr "Falta l'adreça IP"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr "Les addreces IP han de contenir números entre l'1 i el 255"
+msgstr "Les adreces IP han de contenir números entre l'1 i el 255"
 
 #: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr "Les addreces IP han de contenir números entre el 0 i el 255"
+msgstr "Les adreces IP han de contenir números entre el 0 i el 255"
 
 #: ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
@@ -3226,7 +3232,7 @@ msgstr "Quin idioma voleu fer servir durant el procés d'instal·lació?"
 
 #: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
-msgstr "Suport per a idiomes addicionals"
+msgstr "Disponibilitat d'idiomes addicionals"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
@@ -3238,15 +3244,15 @@ msgstr "Seleccioneu quins idiomes _addicionals voleu instal·lar al sistema:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "_Seleccioneu-los tots"
+msgstr "_Selecciona'ls tots"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "Selecci_oneu només quell per defecte"
+msgstr "Selecci_ona només aquell per defecte"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "Reiniciar"
+msgstr "Reini_cia"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3261,7 +3267,7 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"No es pot canviar la mida d'extensió física ja que l'espai necessari pels "
+"No es pot canviar la mida d'extensió física ja que l'espai necessari per als "
 "volums lògics actualment definits s'incrementaria més enllà de l'espai "
 "realment disponible."
 
@@ -3277,8 +3283,8 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
-"El canvi en el valor de l'extensió física farà que les midies requerides pel "
-"volum lògic s'arrodoneiexin per amunt a un número enter múltiple de "
+"El canvi en el valor de l'extensió física farà que les mides requerides pel "
+"volum lògic s'arrodoneixin per amunt a un número enter múltiple de "
 "l'extensió física.\n"
 "\n"
 "Aquest canvi tindrà efecte tot seguit."
@@ -3295,7 +3301,7 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"No es pot canviar l'extensió física ja qe el valor seleccionat (%10.2f MB) "
+"No es pot canviar l'extensió física ja que el valor seleccionat (%10.2f MB) "
 "és més gran que el menor volum físic (%10.2f MB) dins el grup de volum."
 
 #: ../iw/lvm_dialog_gui.py:165
@@ -3328,8 +3334,8 @@ msgid ""
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
 msgstr ""
-"No es pot canviar l'extensió física ja que la mida màxima resultat del volum "
-"lògic (%10.2f MB) és menor que un o més dels volums lògics definits "
+"No es pot canviar l'extensió física ja que la mida màxima resultant del "
+"volum lògic (%10.2f MB) és menor que un o més dels volums lògics definits "
 "actualment."
 
 #: ../iw/lvm_dialog_gui.py:287
@@ -3410,7 +3416,7 @@ msgstr "El punt de muntatge ja està en ús."
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "El punt de muntatge \"%s\" ja està en us, escolliu-ne un altre."
+msgstr "El punt de muntatge \"%s\" ja està en ús, escolliu-ne un altre."
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -3441,7 +3447,7 @@ msgstr ""
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:850
 #: ../textw/partition_text.py:872 ../textw/partition_text.py:1045
 msgid "Error With Request"
-msgstr "Error amb la sol·licitut"
+msgstr "Error amb la sol·licitud"
 
 #: ../iw/lvm_dialog_gui.py:645 ../iw/lvm_dialog_gui.py:852
 #, python-format
@@ -3451,8 +3457,8 @@ msgid ""
 "logical volume(s) smaller."
 msgstr ""
 "Els volums lògics que heu configurat requereixen %g MB, però el grup de "
-"volum només té %g MB. Feu el grup de volum més gran o el(s) volum(s) lògic"
-"(s) més petits."
+"volum només té %g MB. Feu el grup de volum més gran o els volums lògics més "
+"petits."
 
 #: ../iw/lvm_dialog_gui.py:695
 msgid "No free slots"
@@ -3473,8 +3479,8 @@ msgid ""
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
 msgstr ""
-"No hi ha espai lliure en el grup de volum per a crear més volums lògics. Per "
-"afefir un volum lògic necessitareu reduir la mida d'un o més dels volums "
+"No hi ha espai lliure en el grup de volum per crear més volums lògics. Per "
+"afegir un volum lògic necessitareu reduir la mida d'un o més dels volums "
 "lògics actualment existents."
 
 #: ../iw/lvm_dialog_gui.py:731
@@ -3510,7 +3516,7 @@ msgstr ""
 "Cal almenys una partició de volum física que no estigui en us per a crear un "
 "grup de volum LVM.\n"
 "\n"
-"Creeu una partició o una matriu RAID del tipus \"volum física (LVM)\" i "
+"Creeu una partició o una matriu RAID del tipus \"volum físic (LVM)\" i "
 "després seleccioneu la opció \"LVM\" de nou."
 
 #: ../iw/lvm_dialog_gui.py:933
@@ -3536,7 +3542,7 @@ msgstr "Nom del grup de volum:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "Extenció _física:"
+msgstr "Extensió _física:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
@@ -3609,11 +3615,11 @@ msgstr "_Model"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "_Emulació de clic de 3 botons"
+msgstr "_Emulació de 3 botons"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr "Escolliu el ratolí adequat pel sistema"
+msgstr "Escolliu el ratolí adequat per al sistema"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:571
 msgid "Gateway"
@@ -3633,7 +3639,7 @@ msgstr "DNS terciari"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "Passarel·la"
+msgstr "P_assarel·la"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
@@ -3691,7 +3697,7 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
-"S'ha produït un error convertint el valor entrat per a \"%s\":\n"
+"S'ha produït un error en convertir el valor entrat per a \"%s\":\n"
 "%s"
 
 #: ../iw/network_gui.py:175
@@ -3701,7 +3707,7 @@ msgstr "Es requereix un valor en el camp \"%s\"."
 
 #: ../iw/network_gui.py:179
 msgid "The IP information you have entered is invalid."
-msgstr "La informació IP que heu introduït no és vàlida."
+msgstr "La informació sobre IP que heu introduït no és vàlida."
 
 #: ../iw/network_gui.py:183
 msgid ""
@@ -3715,7 +3721,7 @@ msgstr ""
 "No teniu cap dispositiu de xarxa actiu.  Per defecte, aquest sistema no "
 "podrà comunicar-se per xarxa si no hi ha almenys un dispositiu actiu.\n"
 "\n"
-"NOTA: Si teniu un adaptador de xarxa PCMCIA, en aquest punt l'heu de "
+"Atenció: si teniu un adaptador de xarxa PCMCIA, en aquest punt l'heu de "
 "mantenir inactiu. Quan arrenqueu de nou el sistema l'adaptador s'activarà "
 "automàticament."
 
@@ -4212,7 +4218,7 @@ msgstr "Què voleu fer?"
 
 #: ../iw/partition_gui.py:1264
 msgid "Create a software RAID _partition."
-msgstr "Crea una par_tició RAID de programari."
+msgstr "Crea una _partició RAID de programari."
 
 #: ../iw/partition_gui.py:1267
 #, python-format
@@ -4223,7 +4229,7 @@ msgstr "Crea un _dispositiu RAID [predeterminat=/dev/md%s]."
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
-"_Clona una unitat per crear un dispositiu RAID [predeterminat=/dev/md%s]."
+"Clona una unitat per crear un _dispositiu RAID [predeterminat=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1310
 msgid "Couldn't Create Drive Clone Editor"
@@ -4323,7 +4329,7 @@ msgstr "%s bytes"
 
 #: ../iw/progress_gui.py:53 ../iw/progress_gui.py:397
 msgid "Installing Packages"
-msgstr "S'està instal·lant els paquets"
+msgstr "S'estan instal·lant els paquets"
 
 #: ../iw/progress_gui.py:167
 #, python-format
@@ -4369,11 +4375,11 @@ msgstr "S'està instal·lant %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
-msgstr "Progrès del paquet: "
+msgstr "Progrés del paquet: "
 
 #: ../iw/progress_gui.py:658
 msgid "Total Progress:   "
-msgstr "Progrès total:   "
+msgstr "Progrés total:   "
 
 #: ../iw/progress_gui.py:685
 msgid "Status"
@@ -4398,7 +4404,7 @@ msgstr ""
 "Es necessiten almenys dues particions RAID de programari per crear un "
 "dispositiu RAID.\n"
 "Primer creeu almenys dues particions de tipus \"RAID de programari\", i "
-"escolliu la opció \"RAID\" una altra vegada."
+"escolliu l'opció \"RAID\" una altra vegada."
 
 #: ../iw/raid_dialog_gui.py:275 ../iw/raid_dialog_gui.py:680
 #: ../textw/partition_text.py:907
@@ -4428,7 +4434,7 @@ msgstr "Membres del _RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr ""
+msgstr "Número de di_scs de recanvi:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
@@ -4691,7 +4697,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
-msgstr "Aquesta és la opció recomanada."
+msgstr "Aquesta és l'opció recomanada."
 
 #: ../iw/upgrade_bootloader_gui.py:80 ../textw/upgrade_bootloader_text.py:57
 msgid ""
@@ -4805,7 +4811,7 @@ msgstr "_Mida del fitxer d'intercanvi (MB):"
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr "No creis un fitxer _d'intercanvi"
+msgstr "No creïs un fitxer _d'intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4819,7 +4825,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "El fitxer d'intercanvi ha de tenir una mida entre 1 2000 MB."
+msgstr "El fitxer d'intercanvi ha de tenir una mida entre 1 i 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
 msgid ""
@@ -4915,7 +4921,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr "Restauta els valors _originals"
+msgstr "Restaura els valors _originals"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
@@ -4939,7 +4945,7 @@ msgstr "Configuració de la interfície gràfica (X)"
 
 #: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
-msgstr "Targeta de video desconeguda"
+msgstr "Targeta de vídeo desconeguda"
 
 #: ../iw/xconfig_gui.py:812
 #, python-format
@@ -4947,12 +4953,12 @@ msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
-"S'ha produït un error en seleccionar la targeta de video %s. Informeu "
+"S'ha produït un error en seleccionar la targeta de vídeo %s. Informeu "
 "d'aquest error a bugzilla.redhat.com."
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
-msgstr "Targeta de video no especificada"
+msgstr "Targeta de vídeo no especificada"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
@@ -4979,7 +4985,7 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"No es pot detectar automàticament la quantitat de memòria de video. Escolliu "
+"No es pot detectar automàticament la quantitat de memòria de vídeo. Escolliu "
 "la quantitat de memòria:"
 
 #: ../iw/xconfig_gui.py:990
@@ -4994,7 +5000,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr "Memòria RAM de la targeta de _video: "
+msgstr "Memòria RAM de la targeta de _vídeo: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
@@ -5152,15 +5158,15 @@ msgid "Edit"
 msgstr "Edita"
 
 #: ../textw/bootloader_text.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Amb el gestor d'arrencada de Red Hat també podeu arrencar altres sistemes "
-"operatius. Heu d'indicar en quines particions voleu arrencar i quina "
-"etiqueta voleu assignar a cadascuna d'elles."
+"Amb el gestor d'arrencada %s també podeu arrencar altres sistemes operatius. "
+"Heu d'indicar en quines particions voleu arrencar i quina etiqueta voleu "
+"assignar a cadascuna d'elles."
 
 #: ../textw/bootloader_text.py:315
 msgid ""
@@ -5207,12 +5213,12 @@ msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Premeu <tecla d'entrar> per finalitzar el procés d'instal·lació.\n"
+"Premeu <retorn> per finalitzar el procés d'instal·lació.\n"
 "\n"
 
 #: ../textw/complete_text.py:28
 msgid "<Enter> to exit"
-msgstr "Surt amb <tecla d'entrar>"
+msgstr "Sortiu prement <retorn>"
 
 #: ../textw/complete_text.py:30
 msgid ""
@@ -5221,13 +5227,13 @@ msgid ""
 "\n"
 msgstr ""
 "Traieu els mitjans d'instal·lació usats durant el procés d'instal·lació "
-"(disquets i discos CD-ROM) i premeu <tecla d'entrar> per reiniciar el vostre "
+"(disquets i discos CD-ROM) i premeu <retorn> per reiniciar el vostre "
 "sistema.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
-msgstr "Torna a arrencar amb <tecla d'entrar>"
+msgstr "Torna a arrencar amb <retorn>"
 
 #: ../textw/complete_text.py:38
 #, python-format
@@ -5252,8 +5258,8 @@ msgstr ""
 "Visiteu http://www.redhat.com/errata/ per obtenir informació quant a les "
 "actualitzacions i les correccions d'errors.\n"
 "\n"
-"Podeu trobar la informació quant a l'ús del vostre sistema en els manuals de "
-"%s a http://www.redhat.com/docs/."
+"Podeu trobar la informació quant a l'ús del sistema en els manuals de %s a "
+"http://www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:47
 msgid "Complete"
@@ -5284,9 +5290,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:328
-#: ../loader2/loader.c:796 ../loader2/loader.c:818 ../loader2/net.c:174
-#: ../loader2/net.c:433 ../loader2/net.c:867 ../loader2/nfsinstall.c:54
+#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
+#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
 msgstr "Endarrere"
@@ -5317,7 +5323,7 @@ msgid ""
 msgstr ""
 "L'entorn de la instal·lació predeterminada inclou la nostra selecció de "
 "paquets recomanada. Després de la instal·lació podreu afegir o esborrar "
-"programari addicional fent servir l'eina 'redhat-config-packages'.\n"
+"programari addicional fent servir l'eina 'system-config-packages'.\n"
 "\n"
 "Atès que %s disposa de moltes més aplicacions, podreu personalitzar la "
 "selecció del programari instal·lat si ho voleu."
@@ -5361,7 +5367,7 @@ msgid ""
 "Do you really want this?"
 msgstr ""
 "Executar el dasdfmt significa la pèrdua de \n"
-"TOTES LES DADES de la unitat %s.\n"
+"Totes les dades de la unitat %s.\n"
 "\n"
 "Esteu segur que voleu fer això?"
 
@@ -5373,7 +5379,7 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"S'ha produït un error - no s'ha trobat cap dispositiu vàlid on crear nous "
+"S'ha produït un error: no s'ha trobat cap dispositiu vàlid on crear nous "
 "sistemes de fitxers. Comproveu el maquinari per saber la causa del problema "
 "o utilitzeu dasdfmt.\n"
 "\n"
@@ -5449,9 +5455,9 @@ msgid ""
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
 "Podeu personalitzar el tallafoc de dues maneres. Primer, podeu seleccionar "
-"que es permeti tot el trafic des d'una determinada interfície de xarxa. "
+"que es permeti tot el tràfic des d'una determinada interfície de xarxa. "
 "Segon, podeu seleccionar que es permeti només l'accés de determinats "
-"protocols a través del tallafoc. Especifiqueu els ports adicionals de la "
+"protocols a través del tallafoc. Especifiqueu els ports addicionals de la "
 "forma 'servei:protocol', com ara 'imap:tcp', en una llista separada per "
 "comes."
 
@@ -5486,7 +5492,7 @@ msgstr "Escolliu idiomes addicionals que vulgueu utilitzar en aquest sistema:"
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
-msgstr ""
+msgstr "Disponibilitat d'idiomes"
 
 #: ../textw/language_text.py:146
 msgid "You must select at least one language to install."
@@ -5510,7 +5516,7 @@ msgstr "Quin model de ratolí està connectat a aquest ordinador?"
 
 #: ../textw/mouse_text.py:82
 msgid "Emulate 3 Buttons?"
-msgstr "Fer servir l'emulació de 3 botons?"
+msgstr "Voleu fer servir l'emulació de 3 botons?"
 
 #: ../textw/mouse_text.py:85
 msgid "Mouse Selection"
@@ -5566,7 +5572,7 @@ msgstr "Informació no vàlida"
 
 #: ../textw/network_text.py:164
 msgid "You must enter valid IP information to continue"
-msgstr "Heu d'indicar informació vàlida de la IP per continuar"
+msgstr "Heu d'indicar informació sobre IP vàlida per poder continuar"
 
 #: ../textw/network_text.py:245
 msgid "Gateway:"
@@ -5614,11 +5620,11 @@ msgstr ""
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
-msgstr "Nom de l'ordinador no vàlid"
+msgstr "El nom de l'ordinador no és vàlid"
 
 #: ../textw/network_text.py:393
 msgid "You have not specified a hostname."
-msgstr "No heu indicat cap nom per l'ordinador."
+msgstr "No heu indicat cap nom per a l'ordinador."
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
@@ -5668,12 +5674,12 @@ msgid ""
 "installed."
 msgstr ""
 "Alguns dels paquets que heu seleccionat necessiten que hi hagi altres "
-"paquets instal·lats que no heu seleccionat. Is premeu D'acord tots aquests "
+"paquets instal·lats que no heu seleccionat. Si premeu D'acord tots aquests "
 "paquets s'instal·laran."
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
-msgstr "Instal·la paquets per a satisfer les dependències"
+msgstr "Instal·la paquets per satisfer les dependències"
 
 #: ../textw/packages_text.py:398
 msgid "Do not install packages that have dependencies"
@@ -5723,7 +5729,7 @@ msgstr "Tipus de sistema de fitxers:"
 
 #: ../textw/partition_text.py:317
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Unitats permeses:"
 
 #: ../textw/partition_text.py:373
 msgid "Fixed Size:"
@@ -5755,7 +5761,7 @@ msgstr "Membres del RAID:"
 
 #: ../textw/partition_text.py:476
 msgid "Number of spares?"
-msgstr ""
+msgstr "Nombre de discs de recanvi?"
 
 #: ../textw/partition_text.py:490
 msgid "File System Type:"
@@ -5807,7 +5813,7 @@ msgstr "Deixa sense canviar (mantingues les dades)"
 
 #: ../textw/partition_text.py:561
 msgid "Format as:"
-msgstr "Formata com:"
+msgstr "Formata com a:"
 
 #: ../textw/partition_text.py:581
 msgid "Migrate to:"
@@ -5847,23 +5853,24 @@ msgstr "No hi ha particions RAID"
 
 #: ../textw/partition_text.py:946
 msgid "At least two software RAID partitions are needed."
-msgstr ""
+msgstr "Calen almenys dues particions RAID de programari."
 
 #: ../textw/partition_text.py:958
 msgid "Format partition?"
-msgstr "Formatar partició?"
+msgstr "Voleu formatar la partició?"
 
 #: ../textw/partition_text.py:1020
 msgid "Invalid Entry for RAID Spares"
-msgstr ""
+msgstr "Entrada no vàlida per a discs de recanvi RAID"
 
 #: ../textw/partition_text.py:1033
 msgid "Too many spares"
-msgstr ""
+msgstr "Hi ha massa discs de recanvi"
 
 #: ../textw/partition_text.py:1034
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
+"La quantitat màxima de discs de recanvi per a una matriu RAID0 és de 0."
 
 #: ../textw/partition_text.py:1130
 msgid "New"
@@ -5889,7 +5896,7 @@ msgstr "No hi ha partició arrel"
 
 #: ../textw/partition_text.py:1166
 msgid "Must have a / partition to install on."
-msgstr "Hi ha d'haver una partició / on instal·lar."
+msgstr "Hi ha d'haver una partició / per instal·lar-hi."
 
 #: ../textw/partition_text.py:1233
 msgid "Which drive(s) do you want to use for this installation?"
@@ -5905,7 +5912,7 @@ msgstr "Disk druid"
 
 #: ../textw/progress_text.py:98
 msgid "Package Installation"
-msgstr "Instal·lació del paquet informàtic"
+msgstr "Instal·lació del paquet"
 
 #: ../textw/progress_text.py:100
 msgid " Name   : "
@@ -5921,7 +5928,7 @@ msgstr " Resum: "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
-msgstr "    Paquets informàtics"
+msgstr "    Paquets"
 
 #: ../textw/progress_text.py:148
 msgid "      Bytes"
@@ -5954,7 +5961,7 @@ msgstr "Crea un àlias PROM 'linux'"
 
 #: ../textw/silo_text.py:78
 msgid "Set default PROM boot device"
-msgstr "Especificar dispositiu PROM d'arrencada predeterminat"
+msgstr "Especifiqueu dispositiu PROM d'arrencada predeterminat"
 
 #: ../textw/silo_text.py:114
 msgid "Where do you want to install the bootloader?"
@@ -5985,7 +5992,7 @@ msgstr "Omet l'actualització del carregador de l'arrencada"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr "Crea una nova configuració pel carregador de l'arrencada"
+msgstr "Crea una nova configuració per al carregador de l'arrencada"
 
 #: ../textw/upgrade_text.py:94
 #, python-format
@@ -6046,7 +6053,7 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
-msgstr "Personalitzeu els paquets informàtics a actualitzar"
+msgstr "Personalitzeu els paquets a actualitzar"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -6054,9 +6061,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Els paquets informàtics qe heu instal·lat, i altres paquets que són "
-"necessaris per a satisfer les seves dependències, han estat seleccionats per "
-"a instal·lar. Voleu personalitzar el conjunt de paquets que s'actualitzaran?"
+"Els paquets informàtics que heu instal·lat, i altres paquets que són "
+"necessaris per satisfer les seves dependències, han estat seleccionats per "
+"instal·lar. Voleu personalitzar el conjunt de paquets que s'actualitzaran?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -6068,7 +6075,7 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Escolliu una contrasenya pel superusuari (root). Heu d'escriure-la dues "
+"Escolliu una contrasenya per al superusuari (root). Heu d'escriure-la dues "
 "vegades per assegurar-vos que no heu comès cap error. Recordeu que la "
 "contrasenya del superusuari és una part crítica per a la seguretat del "
 "sistema."
@@ -6160,7 +6167,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
-msgstr "Aquest id d'usuari ja existeix. Ecolliu-ne un altre."
+msgstr "Aquest identificador d'usuari ja existeix. Escolliu-ne un altre."
 
 #: ../textw/userauth_text.py:198
 msgid ""
@@ -6168,9 +6175,10 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Cal que feu servir un compte d'un usuari normal per a la majoria d'activitat "
-"al vostre sistema. Fent servir el compte del superusuari esporàdicament "
-"disminuirà les possibilitat de trencar la configuració del sistema."
+"Cal que feu servir el compte d'un usuari normal per a la majoria "
+"d'activitats en el sistema. Fer servir el compte del superusuari "
+"esporàdicament disminuirà les possibilitat de trencar la configuració del "
+"sistema."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
@@ -6182,9 +6190,9 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
-"Quins altres comptes voldrieu tenir al sistema? Heu de tenir almenys un "
+"Quins altres comptes voldríeu tenir al sistema? Heu de tenir almenys un "
 "compte que no sigui el del superusuari per a tasques normals, però en "
-"sistemes multiusiari n'hi pot haver tants com es vulgui."
+"sistemes multiusuari n'hi pot haver tants com es vulgui."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -6204,7 +6212,7 @@ msgstr "Canvieu la informació d'aquest usuari."
 
 #: ../textw/userauth_text.py:339
 msgid "Use Shadow Passwords"
-msgstr ""
+msgstr "Utilitza contrasenyes shadow"
 
 #: ../textw/userauth_text.py:341
 msgid "Enable MD5 Passwords"
@@ -6240,11 +6248,11 @@ msgstr "Servidor LDAP:"
 
 #: ../textw/userauth_text.py:388
 msgid "LDAP Base DN:"
-msgstr ""
+msgstr "Bade DN d'LDAP:"
 
 #: ../textw/userauth_text.py:398
 msgid "Use TLS connections"
-msgstr "Utilitza conneccions TLS"
+msgstr "Utilitza connexions TLS"
 
 #: ../textw/userauth_text.py:409
 msgid "Enable Kerberos"
@@ -6252,7 +6260,7 @@ msgstr "Habilita Kerberos"
 
 #: ../textw/userauth_text.py:416
 msgid "Realm:"
-msgstr "Realme:"
+msgstr "Regne:"
 
 #: ../textw/userauth_text.py:418
 msgid "KDC:"
@@ -6260,19 +6268,22 @@ msgstr "KDC:"
 
 #: ../textw/userauth_text.py:420
 msgid "Admin Server:"
-msgstr "Servidor admin:"
+msgstr "Servidor d'administració:"
 
 #: ../textw/welcome_text.py:22
 #, python-format
 msgid "%s"
 msgstr "%s"
 
+# He fet servir el plural per no afavorir el masculí
 #: ../textw/welcome_text.py:23
 #, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
 msgstr ""
+"Benvinguts a %s!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6356,7 +6367,7 @@ msgstr "vertical"
 
 #: ../textw/xconfig_text.py:261
 msgid "Invalid Sync Rates"
-msgstr "Velocitat de sincronització no vàlids"
+msgstr "Velocitats de sincronització no vàlides"
 
 #: ../textw/xconfig_text.py:262
 #, python-format
@@ -6392,19 +6403,19 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
-"Indiqueu les velocitats de sincronització pel monitor. \n"
+"Indiqueu les velocitats de sincronització per al monitor. \n"
 "\n"
-"NOTA - Normalment no és necessari editar les velocitats de sincronització "
+"Atenció: normalment no és necessari editar les velocitats de sincronització "
 "manualment, s'ha de tenir especial cura i assegurar-se que els valors "
 "indicats són precisos."
 
 #: ../textw/xconfig_text.py:286
 msgid "HSync Rate: "
-msgstr "Velocitat HSync: "
+msgstr "Velocitat de sincronització horitzontal: "
 
 #: ../textw/xconfig_text.py:291
 msgid "VSync Rate: "
-msgstr "Velocitat VSync: "
+msgstr "Velocitat de sincronització vertical: "
 
 #: ../textw/xconfig_text.py:419
 #, python-format
@@ -6412,7 +6423,7 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
-"Seleccioneu el monitor del sistema.  Useu el botó '%s' per a reiniciar als "
+"Seleccioneu el monitor del sistema.  Useu el botó '%s' per reiniciar als "
 "valors trobats."
 
 #: ../textw/xconfig_text.py:423
@@ -6421,11 +6432,11 @@ msgstr "Monitor:"
 
 #: ../textw/xconfig_text.py:430
 msgid "HSync Rate:"
-msgstr "Velocitat HSync:"
+msgstr "Velocitat de sincronització horitzontal:"
 
 #: ../textw/xconfig_text.py:440
 msgid "VSync Rate:"
-msgstr "Velocitat VSync:"
+msgstr "Velocitat de sincronització vertical:"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
@@ -6445,8 +6456,8 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
-"Seleccioneu la targeta de vídeo d'aquest sistema. Escolliu '%s' per a "
-"reiniciar amb els valors que ha detectat l'instal·lador per aquest sistema."
+"Seleccioneu la targeta de vídeo d'aquest sistema. Escolliu '%s' per "
+"reiniciar amb els valors que ha detectat l'instal·lador per a aquest sistema."
 
 #: ../textw/xconfig_text.py:562
 msgid "Video RAM"
@@ -6459,7 +6470,7 @@ msgid ""
 "s' to reset the selection to the amount the installer detected on your card."
 msgstr ""
 "Indiqueu la quantitat de memòria de vídeo RAM que hi ha a la targeta de "
-"vídeo. Escolliu '%s' per a reiniciar la selecció amb la quantitat que "
+"vídeo. Escolliu '%s' per reiniciar la selecció amb la quantitat que "
 "l'instal·lador ha detectat per a la targeta."
 
 #: ../textw/xconfig_text.py:629
@@ -6493,8 +6504,8 @@ msgid ""
 "which your machine or your setup may require."
 msgstr ""
 "S'instal·larà el carregador de l'arrencada z/IPL un cop s'hagi completat la "
-"instal·lació. Ara podeu indicar paràmetres addicionals pel nucli i chandev "
-"que aquesta màquina o la seva configuració puguin necessitar."
+"instal·lació. Ara podeu indicar paràmetres addicionals per al nucli i "
+"chandev que aquesta màquina o la seva configuració puguin necessitar."
 
 #: ../textw/zipl_text.py:56
 msgid "z/IPL Configuration"
@@ -6514,12 +6525,12 @@ msgid ""
 "process, including software package selection and partitioning."
 msgstr ""
 "Seleccioneu aquest tipus d'instal·lació per obtenir un control complet sobre "
-"el procés d'instal·lació, incloent la selecció de paquets informàtics i "
-"partir el disc dur."
+"el procés d'instal·lació, incloent la selecció de paquets informàtics i el "
+"particionat."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "_Escriptori personal"
+msgstr "Escriptori _personal"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -6527,8 +6538,8 @@ msgid ""
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Perfecrte per a ordinadors personals i portàtils, seleccioneu aquest tipus "
-"d'instal·lació per a instal·lar un entorn d'escriptori gràfic i crear un "
+"Perfecte per a ordinadors personals i portàtils, seleccioneu aquest tipus "
+"d'instal·lació per instal·lar un entorn d'escriptori gràfic i crear un "
 "sistema ideal per a ús casolà i d'escriptori."
 
 #: ../installclasses/personal_desktop.py:18
@@ -6542,10 +6553,10 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-"\tEscriptori base (GNOME)\n"
-"\tConjunt de programes d'oficina (OpenOffice)\n"
+"\tEntorn d'escriptori (GNOME)\n"
+"\tConjunt de programes d'oficina (OpenOffice.org)\n"
 "\tNavegador web (Mozilla)\n"
-"\tCorreu (Evolution)\n"
+"\tCorreu electrònic (Evolution)\n"
 "\tMissatgeria instantània\n"
 "\tAplicacions d'àudio i vídeo\n"
 "\tJocs\n"
@@ -6589,10 +6600,10 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tEscriptori base (GNOME)\n"
-"\tConjunt de programes d'oficina (OpenOffice)\n"
+"\tEntorn d'escriptori base (GNOME)\n"
+"\tConjunt de programes d'oficina (OpenOffice.org)\n"
 "\tNavegador web (Mozilla)\n"
-"\tCorreu (Evolution)\n"
+"\tCorreu electrònic (Evolution)\n"
 "\tMissatgeria instantània\n"
 "\tAplicacions d'àudio i vídeo\n"
 "\tJocs\n"
@@ -6633,9 +6644,9 @@ msgid ""
 "To begin the installation process insert CD #1 into the drive and press \"%s"
 "\"."
 msgstr ""
-"Si voleu comprovar medis adicionals, inseriu el següent CD i premeu \"%s\". "
-"No cal que comproveu tots els CD, tot i que és remonable que ho feu almenys "
-"una vegada.\n"
+"Si voleu comprovar medis addicionals, inseriu el següent CD i premeu \"%s\". "
+"No cal que comproveu tots els CD, tot i que és recomanable que ho feu "
+"almenys una vegada.\n"
 "\n"
 "Per començar la instal·lació inseriu el primer CD a la unitat i premeu \"%s"
 "\"."
@@ -6647,7 +6658,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "No s'ha pogut trobar el CD %s en cap de les unitats del sistema. Inseriu el "
-"CD %s i premeu %s per intentar de nou."
+"CD %s i premeu %s per intentar-ho de nou."
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6698,7 +6709,7 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
-"Hi ha diversos dispositius que poden servir com a fonts pel disquet de "
+"Hi ha diversos dispositius que poden servir com a fonts per al disquet de "
 "controladors. Quin voleu fer servir?"
 
 #: ../loader2/driverdisk.c:263
@@ -6730,7 +6741,7 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"No s'han trobat dispositius del tipus adequat en aques disquet de "
+"No s'han trobat dispositius del tipus adequat en aquest disquet de "
 "controladors. Voleu seleccionar-ne un manualment, continuar de tota manera, "
 "o carregar un altre disquet de controladors?"
 
@@ -6744,7 +6755,7 @@ msgstr "Teniu un disquet de controladors?"
 
 #: ../loader2/driverdisk.c:391
 msgid "More Driver Disks?"
-msgstr "Més disquets de controladors?"
+msgstr "Teniu més disquets de controladors?"
 
 #: ../loader2/driverdisk.c:392
 msgid "Do you wish to load any more driver disks?"
@@ -6762,7 +6773,7 @@ msgstr "Error de l'inici ràpid"
 #: ../loader2/driverdisk.c:443
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Disc de controladors de l'inici ràpid descunegut font: %s"
+msgstr "La font de l'inici ràpid de discos de controladors és desconeguda: %s"
 
 #: ../loader2/driverdisk.c:476
 #, c-format
@@ -6770,7 +6781,7 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"S'havia especificat el següent argument invàlid de la comanda pel disc de "
+"S'havia especificat el següent argument invàlid de la comanda per al disc de "
 "controladors de l'inici ràpid: %s:%s"
 
 #: ../loader2/driverselect.c:60
@@ -6783,7 +6794,7 @@ msgid ""
 msgstr ""
 "Indiqueu els paràmetres que vulgueu passar al mòdul %s separats per espais. "
 "Si no sabeu quins paràmetres proporcionar, deixeu-ho en blanc i premeu el "
-"botó \"D'acord\". Es pot obtenir una llista d'opions disponibles prement la "
+"botó \"D'acord\". Es pot obtenir una llista d'opcions disponibles prement la "
 "tecla F1."
 
 #: ../loader2/driverselect.c:83
@@ -6796,14 +6807,14 @@ msgstr "No s'han trobat controladors"
 
 #: ../loader2/driverselect.c:186
 msgid "Load driver disk"
-msgstr "Carrega disquet de controladors"
+msgstr "Carrega el disquet de controladors"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
-"No s'han trobat controladors per a poder inserir manualment.  Voleu usar un "
+"No s'han trobat controladors per poder inserir manualment.  Voleu usar un "
 "disquet de controladors?"
 
 #: ../loader2/driverselect.c:206
@@ -6812,7 +6823,7 @@ msgid ""
 "appear and you have a driver disk, press F2."
 msgstr ""
 "Seleccioneu el controlador que vulgueu carregar.  Si no hi apareix i teniu "
-"un disquet de controldors, premeu F2."
+"un disquet de controladors, premeu F2."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
@@ -6834,7 +6845,7 @@ msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
 "media."
 msgstr ""
-"L'àrbre d'instal·lació %s en aquell directori no sembla conincidir amb el "
+"L'arbre d'instal·lació %s en aquell directori no sembla coincidir amb el "
 "medi d'arrencada."
 
 #: ../loader2/hdinstall.c:355
@@ -6842,7 +6853,7 @@ msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
-"S'ha produït un error al llegir la instal·lació de les imatges ISO. "
+"S'ha produït un error en llegir la instal·lació de les imatges ISO. "
 "Comproveu les imatges ISO de nou."
 
 #: ../loader2/hdinstall.c:463
@@ -6860,209 +6871,238 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
+"Quina partició i directori en aquella partició conté les imatges de CD "
+"(iso9660) per a %s? Si no veieu la unitat de disc que feu servir llistada "
+"aquí, premeu F2 per configurar dispositius addicionals."
 
 #: ../loader2/hdinstall.c:501
 msgid "Directory holding images:"
-msgstr ""
+msgstr "Directori que conté les imatges:"
 
 #: ../loader2/hdinstall.c:528
 msgid "Select Partition"
-msgstr ""
+msgstr "Seleccioneu la partició"
 
 #: ../loader2/hdinstall.c:568
-#, c-format
+#, fuzzy, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "El dispositiu %s no sembla que contingui imatges de CDROM de %s."
 
 #: ../loader2/hdinstall.c:600
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "Argument erroni per a l'ordre HD d'inici ràpid %s: %s"
 
 #: ../loader2/hdinstall.c:650
 msgid "Cannot find kickstart file on hard drive."
-msgstr ""
+msgstr "No s'ha pogut trobar el fitxer d'inici ràpid al disc dur."
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
-msgstr ""
+msgstr "Tipus de teclat"
 
 #: ../loader2/kbd.c:124
 msgid "What type of keyboard do you have?"
-msgstr ""
+msgstr "Quin tipus de teclat teniu?"
 
 #: ../loader2/kickstart.c:107
 #, c-format
 msgid "Error opening kickstart file %s: %s"
-msgstr ""
+msgstr "S'ha produït un error en obrir el fitxer d'inici ràpid %s: %s"
 
 #: ../loader2/kickstart.c:117
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr ""
+"S'ha produït un error en llegir els continguts del fitxer d'inici ràpid %s: %"
+"s"
 
 #: ../loader2/kickstart.c:160
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "Hi ha un error a %s a la línia %d del fitxer d'inici ràpid %s."
 
-#: ../loader2/kickstart.c:260
+#: ../loader2/kickstart.c:259
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr ""
+msgstr "No s'ha pogut trobar ks.cfg en el disquet d'arrencada."
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:174
+# He utilitzat el plural per no afavorir el masculí
+#: ../loader2/lang.c:52 ../loader2/loader.c:168
 #, c-format
 msgid "Welcome to %s"
-msgstr ""
+msgstr "Benvinguts a %s"
 
-#: ../loader2/lang.c:53 ../loader2/loader.c:180
+#: ../loader2/lang.c:53 ../loader2/loader.c:174
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
+msgstr "  <Tab>/<Alt-Tab> entre elements | <Espai> selecciona | <F12> següent "
 
 #: ../loader2/lang.c:371
 msgid "Choose a Language"
-msgstr ""
-
-#: ../loader2/loader.c:101
-msgid "Local CDROM"
-msgstr ""
+msgstr "Escolliu l'idioma"
 
 #: ../loader2/loader.c:103
+msgid "Local CDROM"
+msgstr "CDROM local"
+
+#: ../loader2/loader.c:105
 msgid "Hard drive"
-msgstr ""
+msgstr "Unitat de disc dur"
 
-#: ../loader2/loader.c:104
+#: ../loader2/loader.c:106
 msgid "NFS image"
-msgstr ""
+msgstr "Imatge NFS"
 
-#: ../loader2/loader.c:323
+#: ../loader2/loader.c:317
 msgid "Update Disk Source"
-msgstr ""
+msgstr "Actualitza el disc font"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:318
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
 msgstr ""
+"Teniu diversos dispositius que poden servir de fonts per a un disc "
+"d'actualització. Quin voleu fer servir?"
 
-#: ../loader2/loader.c:339
+#: ../loader2/loader.c:333
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
+"Inseriu el disc d'actualitzacions a /dev/%s i premeu \"D'acord\" per "
+"continuar."
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:335
 msgid "Updates Disk"
-msgstr ""
+msgstr "Disc d'actualitzacions"
 
-#: ../loader2/loader.c:353
+#: ../loader2/loader.c:347
 msgid "Failed to mount updates disk"
-msgstr ""
+msgstr "S'ha produït un error en muntar el disc d'actualitzacions"
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Updates"
-msgstr ""
+msgstr "Actualitzacions"
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "S'estan llegint les actualitzacions de l'anaconda..."
 
-#: ../loader2/loader.c:377
+#: ../loader2/loader.c:371
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
+"No s'ha trobat cap disc dur. Segurament cal que escolliu manualment els "
+"controladors per fer una instal·lació correcta. Voleu seleccionar els "
+"dispositius ara mateix?"
 
-#: ../loader2/loader.c:631
+#: ../loader2/loader.c:623
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
+msgstr "Aquest ordinador no té prou memòria RAM com per instal·lar-hi %s."
+
+#: ../loader2/loader.c:785
+msgid "Rescue Method"
+msgstr "Mètode de rescat"
+
+#: ../loader2/loader.c:786
+msgid "Installation Method"
+msgstr "Mètode d'instal·lació"
 
 #: ../loader2/loader.c:788
-msgid "Rescue Method"
-msgstr ""
-
-#: ../loader2/loader.c:789
-msgid "Installation Method"
-msgstr ""
-
-#: ../loader2/loader.c:791
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Quin tipus de medi conté la imatge de rescat?"
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:790
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "Quin tipus de medi conté els paquets per instal·lar?"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "No driver found"
-msgstr ""
+msgstr "No s'ha trobat el controlador"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "Select driver"
-msgstr ""
+msgstr "Seleccioneu el controlador"
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:815
 msgid "Use a driver disk"
-msgstr ""
+msgstr "Utilitza un disc de controladors"
 
-#: ../loader2/loader.c:819
+#: ../loader2/loader.c:816
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+"No s'ha pogut trobar cap dispositiu adequat per a aquest tipus "
+"d'instal·lació. Voleu seleccionar manualment el controlador o utilitzar un "
+"disc?"
 
-#: ../loader2/loader.c:979
+#: ../loader2/loader.c:976
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "S'han trobat els següents dispositius en aquest sistema."
 
-#: ../loader2/loader.c:981
+#: ../loader2/loader.c:978
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
+"No s'ha carregat cap controlador al sistema. Voleu carregar-ne algun ara?"
 
-#: ../loader2/loader.c:985
+#: ../loader2/loader.c:982
 msgid "Devices"
-msgstr ""
+msgstr "Dispositius"
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:983
 msgid "Done"
-msgstr ""
+msgstr "Fet"
 
-#: ../loader2/loader.c:987
+#: ../loader2/loader.c:984
 msgid "Add Device"
-msgstr ""
+msgstr "Afegeix dispositiu"
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1084
+#, c-format
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "ja s'ha executat el carregador. S'està iniciant l'intèrpret d'ordres."
 
-#: ../loader2/loader.c:1456
+#: ../loader2/loader.c:1440
+#, fuzzy, c-format
+msgid "Running anaconda, the %s rescue mode - please wait...\n"
+msgstr ""
+"S'està executant l'anaconda, l'instal·lador del sistema %s. Espereu...\n"
+
+#: ../loader2/loader.c:1442
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
+"S'està executant l'anaconda, l'instal·lador del sistema %s. Espereu...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
 "Unable to read the disc checksum from the primary volume descriptor.  This "
 "probably means the disc was created without adding the checksum."
 msgstr ""
+"No s'ha pogut llegir la suma de verificació del disc des del descriptor de "
+"volum primari. Molt probablement això indica que el disc es va crear sense "
+"afegir la suma de verificació."
 
 #: ../loader2/mediacheck.c:264
 #, c-format
 msgid "Checking \"%s\"..."
-msgstr ""
+msgstr "S'està comprovant \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
-msgstr ""
+msgstr "S'està comprovant el medi..."
 
 #: ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "No s'ha pogut trobar la imatge d'instal·lació %s"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -7072,6 +7112,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"S'ha produït un error.\n"
+"\n"
+"La imatge que s'ha acabat de comprovar conté errors. Això pot ser degut a "
+"una descàrrega corrupte o a un disc dolent. Si s'escau, netegeu el disc i "
+"proveu-ho de nou. Si aquest test continua fallant no hauríeu de continuar la "
+"instal·lació."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -7079,6 +7125,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"Correcte.\n"
+"\n"
+"Es pot instal·lar des d'aquest medi."
 
 #: ../loader2/mediacheck.c:337
 msgid ""
@@ -7086,10 +7135,13 @@ msgid ""
 "\n"
 "No checksum information available, unable to verify media."
 msgstr ""
+"No està disponible.\n"
+"\n"
+"No hi ha informació sobre sumes de verifiació, no es pot verificar el medi."
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
-msgstr ""
+msgstr "Resultat de la comprovació del medi"
 
 #: ../loader2/mediacheck.c:345
 #, c-format
@@ -7099,16 +7151,20 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"de la imatge:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "S'ha completat la comprovació del medi %s, el resultat és: %s\n"
 
 #: ../loader2/method.c:151 ../loader2/method.c:360 ../loader2/method.c:445
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr ""
+msgstr "S'ha produït un error en llegir el directori %s: %s"
 
 #: ../loader2/method.c:403
 #, c-format
@@ -7117,15 +7173,19 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Voleu comprovar les sumes de verificació de la imatge ISO:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:406
 msgid "Checksum Test"
-msgstr ""
+msgstr "Test de les sumes de verificació"
 
 #: ../loader2/modules.c:920
 #, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
 msgstr ""
+"Argument erroni al dispositu de l'ordre del mètode d'inici ràpid %s: %s"
 
 #: ../loader2/net.c:45
 #, c-format
@@ -7136,14 +7196,19 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"Indiqueu la següent informació:\n"
+"\n"
+"    o el nom o l'adreça IP del vostre servidor %s\n"
+"    o el directori en aquest servidor que conté\n"
+"      %s per a aquesta arquitectura\n"
 
 #: ../loader2/net.c:164
 msgid "Nameserver IP"
-msgstr ""
+msgstr "IP del servidor de noms"
 
 #: ../loader2/net.c:168
 msgid "Nameserver"
-msgstr ""
+msgstr "Servidor de noms"
 
 #: ../loader2/net.c:169
 msgid ""
@@ -7152,956 +7217,993 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"La sol·licitut d'IP dinàmica ha retornat informació sobre la configuració "
+"IP, però no incloïa cap servidor de noms DNS. Si sabeu quin és el servidor "
+"de noms, indiqueu-lo ara. Si no disposeu d'aquesta informació, podeu deixar "
+"aquest camp en blanc i la instal·lació continuarà."
 
 #: ../loader2/net.c:179
 msgid "Invalid IP Information"
-msgstr ""
+msgstr "La informació sobre IP no és vàlida"
 
 #: ../loader2/net.c:180
 msgid "You entered an invalid IP address."
-msgstr ""
+msgstr "Heu indicat una adreça IP no vàlida."
 
 #: ../loader2/net.c:229 ../loader2/net.c:487
 msgid "Dynamic IP"
-msgstr ""
+msgstr "IP dinàmica"
 
 #: ../loader2/net.c:230 ../loader2/net.c:488
 #, c-format
 msgid "Sending request for IP information for %s..."
-msgstr ""
+msgstr "S'està enviant sol·licitud d'informació sobre IP per a %s..."
 
 #: ../loader2/net.c:377
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
+"Indiqueu la configuració IP per a aquesta màquina. S'ha d'entrar cada "
+"element com una adreça IP en decimal puntuada (per exemple, 1.2.3.4)."
 
 #: ../loader2/net.c:383
 msgid "IP address:"
-msgstr ""
+msgstr "Adreça IP:"
 
 #: ../loader2/net.c:386
 msgid "Netmask:"
-msgstr ""
+msgstr "Màscara de xarxa:"
 
 #: ../loader2/net.c:389
 msgid "Default gateway (IP):"
-msgstr ""
+msgstr "Pasarel·la predeterminada (IP):"
 
 #: ../loader2/net.c:392
 msgid "Primary nameserver:"
-msgstr ""
+msgstr "Servidor de noms primari:"
 
 #: ../loader2/net.c:419
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Fes servir una configuració d'IP dinàmica (BOOTP/DHCP)"
 
 #: ../loader2/net.c:447
 msgid "Configure TCP/IP"
-msgstr ""
+msgstr "Configureu TCP/IP"
 
 #: ../loader2/net.c:478
 msgid "Missing Information"
-msgstr ""
+msgstr "Informació pendent"
 
 #: ../loader2/net.c:479
 msgid "You must enter both a valid IP address and a netmask."
-msgstr ""
+msgstr "Heu d'indicar una adreça IP vàöida i una màscara de xarxa."
 
 #: ../loader2/net.c:648
 msgid "Determining host name and domain..."
-msgstr ""
+msgstr "S'està determinant el nom de la màquina i el domini..."
 
 #: ../loader2/net.c:730
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
-msgstr ""
+msgstr "Argument erroni per a l'ordre de xarxa de l'inici ràpid %s: %s"
 
 #: ../loader2/net.c:753
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
-
-#: ../loader2/net.c:863
-msgid "Networking Device"
-msgstr ""
+msgstr "Protocol d'arrencada %s erroni especificat en l'ordre de xarxa"
 
 #: ../loader2/net.c:864
+msgid "Networking Device"
+msgstr "Dispositius de xarxa"
+
+#: ../loader2/net.c:865
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
+"Hi ha diversos dispositius de xarxa en aquest sistema. Per quin voleu "
+"continuar la instal·lació?"
 
 #: ../loader2/nfsinstall.c:44
 msgid "NFS server name:"
-msgstr ""
+msgstr "Nom del servidor NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, c-format
+#, fuzzy, c-format
 msgid "%s directory:"
-msgstr ""
+msgstr "Directori %s:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
-msgstr ""
+msgstr "Configuració de l'NFS"
 
 #: ../loader2/nfsinstall.c:197
 #, c-format
 msgid "That directory does not seem to contain a %s installation tree."
-msgstr ""
+msgstr "Aquell directori no sembla contenir un arbre d'instal·lació %s."
 
 #: ../loader2/nfsinstall.c:210
 msgid "That directory could not be mounted from the server."
-msgstr ""
+msgstr "No s'ha pogut muntar aquell directori des del servidor."
 
 #: ../loader2/nfsinstall.c:248
 #, c-format
 msgid "Bad argument to NFS kickstart method command %s: %s"
-msgstr ""
+msgstr "Argument erroni per a l'ordre d'inici ràpid NFS %s: %s"
 
 #: ../loader2/telnetd.c:80
 msgid "Waiting for telnet connection..."
-msgstr ""
+msgstr "S'està esperant la connexió telnet..."
 
 #: ../loader2/telnetd.c:122
 msgid "Running anaconda via telnet..."
-msgstr ""
+msgstr "S'està executant anaconda via telnet..."
 
+#  Traducció "retrieve" per "descarregar" enlloc de "recuperar"
+#  Feta a posta, ja que en aquest cas s'hi escau millor.
 #: ../loader2/urlinstall.c:67
 #, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr ""
+msgstr "No s'ha pogut descarregar %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:137
 msgid "Unable to retrieve the install image."
-msgstr ""
+msgstr "No s'ha pogut descarregar la imatge d'instal·lació."
 
 #: ../loader2/urlinstall.c:272
 msgid "Media Detected"
-msgstr ""
+msgstr "S'ha detectat el medi"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "S'ha detectat el medi per a la instal·lació local..."
 
 #: ../loader2/urlinstall.c:432
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "Argument erroni per a l'ordre d'inici ràpid Url %s: %s"
 
 #: ../loader2/urlinstall.c:441
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "Cal indicar l'argument --url al mètode d'arrencada ràpida Url."
 
 #: ../loader2/urlinstall.c:452
 #, c-format
 msgid "Unknown Url method %s"
-msgstr ""
+msgstr "Mètoda Url %s desconegut"
 
 #: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr ""
+msgstr "S'ha produït un error en registrar a %s: %s"
 
 #: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr ""
+msgstr "No s'ha pogut descarregar %s: %s"
 
 #: ../loader2/urls.c:196
 msgid "Retrieving"
-msgstr ""
+msgstr "Descarregant"
 
 #: ../loader2/urls.c:280
 msgid "FTP site name:"
-msgstr ""
+msgstr "Nom del lloc FTP:"
 
 #: ../loader2/urls.c:281
 msgid "Web site name:"
-msgstr ""
+msgstr "Nom del lloc web:"
 
 #: ../loader2/urls.c:300
 msgid "Use non-anonymous ftp"
-msgstr ""
+msgstr "Fes servir ftp no-anònim"
 
 #: ../loader2/urls.c:309
 msgid "FTP Setup"
-msgstr ""
+msgstr "Configuració d'FTP"
 
 #: ../loader2/urls.c:310
 msgid "HTTP Setup"
-msgstr ""
+msgstr "Configuracio d'HTTP"
 
 #: ../loader2/urls.c:320
 msgid "You must enter a server name."
-msgstr ""
+msgstr "Heu d'indicar el nom d'un servidor."
 
 #: ../loader2/urls.c:325
 msgid "You must enter a directory."
-msgstr ""
+msgstr "Heu d'indicar un directori."
 
 #: ../loader2/urls.c:330
 msgid "Unknown Host"
-msgstr ""
+msgstr "Màquina desconeguda"
 
 #: ../loader2/urls.c:331
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s no és cap nom de màquina vàlid."
 
 #: ../loader2/urls.c:404
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
+"Si feu servir ftp no-anònim, indiqueu el nom del compte i la contrasenya que "
+"vulgueu fer servir aquí sota."
 
 #: ../loader2/urls.c:409
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
+msgstr "Si feu servir un servidor intermediari HTTP indiqueu-ne el nom."
 
 #: ../loader2/urls.c:431
 msgid "Account name:"
-msgstr ""
+msgstr "Nom del compte:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr ""
+msgstr "S'està carregant el controlador SCSI"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alaska Time"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alaska Time - west Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutian Islands"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
+"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Illes Canàries"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "Xina Central - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Central Time"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Central Time - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Central Time - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Central Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta i Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - central Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Eastern Time"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Louisville area"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Eastern Time - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Eastern Time - Ontario - most locations"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Eastern Time - Quebec - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "east Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Illes Galapagos"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert Islands"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Great Britain"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscow+00 - west Russia"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moscow+01 - Caspian Sea"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscow+02 - Urals"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscow+03 - west Siberia"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscow+04 - Yenisei River"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscow+05 - Lake Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscow+06 - Lena River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Moscow+07 - Sakhalin Island"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "most locations"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
+msgstr "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain Standard Time - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain Time - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain Time - south Idaho & east Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "northeast Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Northern Ireland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "Pacific Time"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Pacific Time - north Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Pacific Time - south Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacific Time - west British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - most locations"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Rothera Station, Adelaide Island"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "South Australia"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "west & central Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Western Australia"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "West Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "west Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Xinès (simplificat)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Xinés (tradicional)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "Croat"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Txec"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "Danès"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "Holandès"
 
 #. generated from lang-table
 msgid "English"
+msgstr "Anglès"
+
+#. generated from lang-table
+msgid "Estonian"
 msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Finnish"
+msgstr "Danès"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Francès"
 
 #. generated from lang-table
 msgid "German"
+msgstr "Alemany"
+
+#. generated from lang-table
+msgid "Hungarian"
 msgstr ""
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Islandès"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Italià"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Japonès"
 
 #. generated from lang-table
 msgid "Korean"
+msgstr "Coreà"
+
+#. generated from lang-table
+msgid "Malay"
 msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Noruec"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguès"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "Protuguès (Brasiler)"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Rus"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Eslovè"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "Espanyol"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Suec"
 
 #. generated from lang-table
 msgid "Turkish"
+msgstr "Turc"
+
+#. generated from lang-table
+msgid "Ukrainian"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

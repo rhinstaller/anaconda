@@ -4,17 +4,18 @@
 # Originated from the Portuguese translation by
 # Pedro Morais <morais@kde.org>
 # José Nuno Pires <jncp@netcabo.pt>
-# David Barzilay <barzilay@redhat.com>, 2003.
+# David Barzilay <barzilay@redhat.com>, 2003,2004.
 # Djeizon Barros <djeizon@gmx.net>, 2003.
 # Hugo Cisneiros <hugo@devin.com.br>, 2003.
+# Daniel Brooke Peig <daniel@brookepeig.com>, 2004
 msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-10 18:02-0500\n"
-"PO-Revision-Date: 2003-12-03 21:31-0300\n"
-"Last-Translator: Hugo Cisneiros <hugo@devin.com.br>\n"
-"Language-Team: Brazilian Portuguese <fedora-i18n-br@devin.com.br>\n"
+"POT-Creation-Date: 2004-03-09 18:09-0500\n"
+"PO-Revision-Date: 2004-02-16 13:23-0300\n"
+"Last-Translator: Daniel Brooke Peig <daniel@brookepeig.com>\n"
+"Language-Team: Brazilian Portuguese <fedora-trans-pt_br@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -63,7 +64,7 @@ msgstr ""
 "X-Spell-Extra: GMT DST EUA UTC PEI Eastern\n"
 "X-Spell-Extra: BA GO DF MG ES RJ SP PR SC RS TF CB CC MZ NB LP LR JY CE\n"
 "X-Spell-Extra: SJ SL SA CH CN CT TM NQ RN FM NE ER MN SF\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -165,13 +166,13 @@ msgstr "Por favor, conecte para iniciar a instalação..."
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:599
 #: ../loader2/hdinstall.c:649 ../loader2/kbd.c:125 ../loader2/kickstart.c:106
 #: ../loader2/kickstart.c:116 ../loader2/kickstart.c:159
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/lang.c:374
-#: ../loader2/loader.c:328 ../loader2/loader.c:341 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/loader.c:796 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/lang.c:374
+#: ../loader2/loader.c:322 ../loader2/loader.c:335 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/loader.c:793 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
 #: ../loader2/method.c:150 ../loader2/method.c:359 ../loader2/method.c:444
 #: ../loader2/modules.c:919 ../loader2/net.c:174 ../loader2/net.c:433
-#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:867
+#: ../loader2/net.c:729 ../loader2/net.c:752 ../loader2/net.c:868
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/nfsinstall.c:247
 #: ../loader2/telnetd.c:84 ../loader2/urlinstall.c:66
@@ -479,7 +480,7 @@ msgstr "Seu sistema será reiniciado agora."
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:141 ../textw/bootloader_text.py:456
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:223
-#: ../textw/upgrade_text.py:177 ../loader2/loader.c:376
+#: ../textw/upgrade_text.py:177 ../loader2/loader.c:370
 msgid "Warning"
 msgstr "Aviso"
 
@@ -584,7 +585,7 @@ msgstr "Pronto [%d/%d]"
 msgid "Installing %s-%s-%s... "
 msgstr "Instalando %s-%s-%s... "
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:751
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:747
 msgid "Everything"
 msgstr "Tudo"
 
@@ -592,11 +593,11 @@ msgstr "Tudo"
 msgid "no suggestion"
 msgstr "sem sugestão"
 
-#: ../comps.py:1098 ../hdrlist.py:974
+#: ../comps.py:1098 ../hdrlist.py:970
 msgid "Miscellaneous"
 msgstr "Vários"
 
-#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:921
+#: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
@@ -606,7 +607,7 @@ msgstr ""
 "corresponde a um número muito maior de pacotes do que apenas aqueles em "
 "todos os outros grupos de pacotes nesta página."
 
-#: ../comps.py:1118 ../hdrlist.py:925
+#: ../comps.py:1118 ../hdrlist.py:921
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -689,11 +690,11 @@ msgid "_Make boot disk"
 msgstr "Criar _disquete de inicialização"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:583 ../fsset.py:1229 ../fsset.py:1248 ../fsset.py:1298
-#: ../fsset.py:1309 ../fsset.py:1344 ../fsset.py:1394 ../fsset.py:1438
-#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:481
+#: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
+#: ../fsset.py:1324 ../fsset.py:1359 ../fsset.py:1409 ../fsset.py:1453
+#: ../harddrive.py:165 ../image.py:130 ../image.py:168 ../image.py:486
 #: ../packages.py:150 ../packages.py:163 ../packages.py:175 ../packages.py:182
-#: ../packages.py:404 ../packages.py:579 ../packages.py:659
+#: ../packages.py:404 ../packages.py:579 ../packages.py:664
 #: ../partedUtils.py:627 ../upgrade.py:341 ../upgrade.py:366 ../upgrade.py:393
 #: ../iw/osbootwidget.py:223 ../iw/osbootwidget.py:232
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
@@ -703,8 +704,8 @@ msgstr "Criar _disquete de inicialização"
 #: ../loader2/driverdisk.c:336 ../loader2/hdinstall.c:242
 #: ../loader2/hdinstall.c:295 ../loader2/hdinstall.c:354
 #: ../loader2/hdinstall.c:567 ../loader2/hdinstall.c:649
-#: ../loader2/kickstart.c:259 ../loader2/lang.c:102 ../loader2/loader.c:352
-#: ../loader2/loader.c:634 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:258 ../loader2/lang.c:102 ../loader2/loader.c:346
+#: ../loader2/loader.c:626 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:150 ../loader2/method.c:359
 #: ../loader2/method.c:444 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
@@ -748,16 +749,16 @@ msgstr ""
 "Por favor certifique-se de ter um disquete em perfeito estado inserido na "
 "unidade de disco flexível."
 
-#: ../fsset.py:174
+#: ../fsset.py:178
 msgid "Checking for Bad Blocks"
 msgstr "Verificando por Blocos Defeituosos"
 
-#: ../fsset.py:175
+#: ../fsset.py:179
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Verificando por Blocos Defeituosos em /dev/%s..."
 
-#: ../fsset.py:584
+#: ../fsset.py:593
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -770,27 +771,27 @@ msgstr ""
 "\n"
 "Deseja continuar sem migrar o %s?"
 
-#: ../fsset.py:1144
+#: ../fsset.py:1158
 msgid "RAID Device"
 msgstr "Dispositivo RAID"
 
-#: ../fsset.py:1148 ../fsset.py:1154
+#: ../fsset.py:1162 ../fsset.py:1168
 msgid "Apple Bootstrap"
 msgstr "Inicialização Apple"
 
-#: ../fsset.py:1159 ../partitions.py:802
+#: ../fsset.py:1173 ../partitions.py:802
 msgid "PPC PReP Boot"
 msgstr "Inicialização PPC PReP"
 
-#: ../fsset.py:1162 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1176 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "Primeiro setor da partição de inicialização."
 
-#: ../fsset.py:1163 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1177 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Registro Mestre de Inicialização (MBR)"
 
-#: ../fsset.py:1230
+#: ../fsset.py:1244
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -803,7 +804,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1249
+#: ../fsset.py:1263
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -818,7 +819,7 @@ msgstr ""
 "\n"
 "Clique OK para reiniciar o sistema."
 
-#: ../fsset.py:1299
+#: ../fsset.py:1314
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -831,7 +832,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar seu sistema"
 
-#: ../fsset.py:1310
+#: ../fsset.py:1325
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -844,7 +845,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1345
+#: ../fsset.py:1360
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -857,7 +858,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1395
+#: ../fsset.py:1410
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -870,11 +871,11 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1416 ../fsset.py:1425
+#: ../fsset.py:1431 ../fsset.py:1440
 msgid "Invalid mount point"
 msgstr "Ponto de montagem inválido"
 
-#: ../fsset.py:1417
+#: ../fsset.py:1432
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -887,7 +888,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1426
+#: ../fsset.py:1441
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -900,7 +901,7 @@ msgstr ""
 "\n"
 "Pressione <Enter> para reiniciar o sistema."
 
-#: ../fsset.py:1439
+#: ../fsset.py:1454
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -915,11 +916,11 @@ msgstr ""
 "\n"
 "Pressione OK para reiniciar o sistema."
 
-#: ../fsset.py:2053
+#: ../fsset.py:2068
 msgid "Duplicate Labels"
 msgstr "Etiquetas Duplicadas"
 
-#: ../fsset.py:2054
+#: ../fsset.py:2069
 #, fuzzy, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -932,17 +933,17 @@ msgstr ""
 "\n"
 "Por favor conserte este problema e reinicie o processo de instalação."
 
-#: ../fsset.py:2061 ../gui.py:1092 ../image.py:72 ../packages.py:1378
-#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64
+#: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
+#: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
+#: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_Reiniciar"
 
-#: ../fsset.py:2314
+#: ../fsset.py:2329
 msgid "Formatting"
 msgstr "Formatando"
 
-#: ../fsset.py:2315
+#: ../fsset.py:2330
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formatando sistema de arquivos %s..."
@@ -1000,7 +1001,7 @@ msgstr "Corrigir"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "Yes"
 msgstr "Sim"
 
@@ -1009,7 +1010,7 @@ msgstr "Sim"
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
 #: ../loader2/driverdisk.c:380 ../loader2/driverdisk.c:391
-#: ../loader2/loader.c:376
+#: ../loader2/loader.c:370
 msgid "No"
 msgstr "Não"
 
@@ -1027,7 +1028,7 @@ msgstr "Ignorar"
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
-#: ../loader2/driverdisk.c:250 ../loader2/loader.c:341
+#: ../loader2/driverdisk.c:250 ../loader2/loader.c:335
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -1063,7 +1064,7 @@ msgstr ""
 "\n"
 "nome da classe = %s"
 
-#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1372
+#: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
 msgid "_Exit"
 msgstr "_Sair"
 
@@ -1071,15 +1072,15 @@ msgstr "_Sair"
 msgid "_Retry"
 msgstr "_Repetir"
 
-#: ../gui.py:1088 ../packages.py:1375
+#: ../gui.py:1088 ../packages.py:1418
 msgid "Rebooting System"
 msgstr "Reiniciando o Sistema"
 
-#: ../gui.py:1089 ../packages.py:1376
+#: ../gui.py:1089 ../packages.py:1419
 msgid "Your system will now be rebooted..."
 msgstr "O seu sistema será reiniciado agora..."
 
-#: ../gui.py:1180 ../packages.py:1378 ../iw/confirm_gui.py:68
+#: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
 msgid "_Back"
@@ -1123,7 +1124,7 @@ msgstr "Não foi possível carregar a barra de título"
 msgid "Install Window"
 msgstr "Janela de Instalação"
 
-#: ../harddrive.py:166 ../image.py:482
+#: ../harddrive.py:166 ../image.py:487
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -1156,7 +1157,7 @@ msgstr ""
 "Por favor tenha-os preparados antes de continuar com a instalação.  Se você "
 "precisa cancelar a instalação e reiniciar, por favor selecione \"Reinicar\"."
 
-#: ../image.py:72 ../kickstart.py:1319 ../kickstart.py:1346
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Continuar"
@@ -1208,11 +1209,11 @@ msgstr "Por favor insira o disco %d para continuar."
 msgid "Install on System"
 msgstr "Instalar no Sistema"
 
-#: ../kickstart.py:1311
+#: ../kickstart.py:1314
 msgid "Missing Package"
 msgstr "Pacote Faltando"
 
-#: ../kickstart.py:1312
+#: ../kickstart.py:1315
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1221,15 +1222,15 @@ msgstr ""
 "Você especificou que o pacote '%s' deve ser instalado.  Este pacote não "
 "existe. Você quer continuar ou cancelar a instalação?"
 
-#: ../kickstart.py:1318 ../kickstart.py:1345
+#: ../kickstart.py:1321 ../kickstart.py:1348
 msgid "_Abort"
 msgstr "_Cancelar"
 
-#: ../kickstart.py:1337
+#: ../kickstart.py:1340
 msgid "Missing Group"
 msgstr "Grupo Faltando"
 
-#: ../kickstart.py:1338
+#: ../kickstart.py:1341
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1295,7 +1296,7 @@ msgstr ""
 "Não foi possível ler o arquivo comps.  Provavelmente devido a um arquivo "
 "faltando ou a um erro na mídia. Pressione <Enter> para tentar novamente."
 
-#: ../packages.py:176 ../packages.py:660 ../upgrade.py:342
+#: ../packages.py:176 ../packages.py:665 ../upgrade.py:342
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1320,7 +1321,7 @@ msgstr "Verificação de Dependências"
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Verificando dependências dos pacotes selecionados para instalação..."
 
-#: ../packages.py:349 ../packages.py:761
+#: ../packages.py:349 ../packages.py:763
 msgid "Processing"
 msgstr "Processando"
 
@@ -1369,11 +1370,11 @@ msgstr ""
 "\n"
 "Pressione o botão OK para reiniciar seu computador."
 
-#: ../packages.py:762
+#: ../packages.py:764
 msgid "Preparing RPM transaction..."
 msgstr "Preparando transação RPM..."
 
-#: ../packages.py:845
+#: ../packages.py:847
 #, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1382,7 +1383,7 @@ msgstr ""
 "Atualizando pacotes %s\n"
 "\n"
 
-#: ../packages.py:847
+#: ../packages.py:849
 #, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1391,17 +1392,17 @@ msgstr ""
 "Instalando pacotes %s\n"
 "\n"
 
-#: ../packages.py:855 ../packages.py:1151
+#: ../packages.py:857 ../packages.py:1153
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Atualizando %s-%s-%s.%s.\n"
 
-#: ../packages.py:857 ../packages.py:1153
+#: ../packages.py:859 ../packages.py:1155
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Instalando %s-%s-%s.%s.\n"
 
-#: ../packages.py:873
+#: ../packages.py:875
 #, python-format
 msgid ""
 "\n"
@@ -1418,16 +1419,16 @@ msgstr ""
 "%s\n"
 "\n"
 
-#: ../packages.py:879
+#: ../packages.py:881
 msgid "Install Starting"
 msgstr "Iniciando Instalação"
 
-#: ../packages.py:880
+#: ../packages.py:882
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 "Iniciando o processo de instalação, isto poderá demorar vários minutos..."
 
-#: ../packages.py:920
+#: ../packages.py:922
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
@@ -1436,17 +1437,17 @@ msgstr ""
 "Não há espaço suficiente em disco para instalar os pacotes selecionados. "
 "Você precisa de mais espaço nas seguintes unidades:\n"
 
-#: ../packages.py:924 ../packages.py:945 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:926 ../packages.py:947 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Ponto de Montagem"
 
-#: ../packages.py:925
+#: ../packages.py:927
 msgid "Space Needed"
 msgstr "Espaço Necessário"
 
-#: ../packages.py:941
+#: ../packages.py:943
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
@@ -1456,23 +1457,23 @@ msgstr ""
 "selecionados. Você precisa de mais agrupamentos nas seguintes partições:\n"
 "\n"
 
-#: ../packages.py:946
+#: ../packages.py:948
 msgid "Nodes Needed"
 msgstr "Agrupamentos Necessários"
 
-#: ../packages.py:957
+#: ../packages.py:959
 msgid "Disk Space"
 msgstr "Espaço em Disco"
 
-#: ../packages.py:1006
+#: ../packages.py:1008
 msgid "Post Install"
 msgstr "Pós-Instalação"
 
-#: ../packages.py:1007
+#: ../packages.py:1009
 msgid "Performing post install configuration..."
 msgstr "Executando configuração da pós-instalação..."
 
-#: ../packages.py:1176
+#: ../packages.py:1179
 msgid ""
 "\n"
 "\n"
@@ -1483,7 +1484,7 @@ msgstr ""
 "Os seguintes pacotes estavam disponíveis nesta versão mas NÃO foram "
 "atualizados:\n"
 
-#: ../packages.py:1179
+#: ../packages.py:1182
 msgid ""
 "\n"
 "\n"
@@ -1494,11 +1495,11 @@ msgstr ""
 "Os seguintes pacotes estavam disponíveis nesta versão mas NÃO foram "
 "instalados:\n"
 
-#: ../packages.py:1358
+#: ../packages.py:1401
 msgid "Warning! This is pre-release software!"
 msgstr "Aviso! Esta é uma versão beta!"
 
-#: ../packages.py:1359
+#: ../packages.py:1402
 #, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
@@ -1525,7 +1526,7 @@ msgstr ""
 "\n"
 "e envie um relatório sobre o '%s'.\n"
 
-#: ../packages.py:1372
+#: ../packages.py:1415
 msgid "_Install anyway"
 msgstr "_Instalar mesmo assim"
 
@@ -2009,8 +2010,8 @@ msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"Você especificou mais de 32 partições de troca (swap).  O kernel do % "
-"suporta no máximo 32 dispositivos deste tipo."
+"Você especificou mais de 32 dispositivos swap.  O kernel do %s suporta no "
+"máximo 32 dispositivos deste tipo."
 
 #: ../partitions.py:875
 #, python-format
@@ -2290,7 +2291,7 @@ msgstr "Depurar"
 #: ../text.py:346
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:353
 msgid ""
@@ -2459,8 +2460,8 @@ msgid ""
 "Do you wish to continue the upgrade process?"
 msgstr ""
 "Este sistema parece ter pacotes de terceiros instalados que substituem os "
-"pacotes inclusos no Red Hat Linux. Devido a esta substituição, a continuação "
-"do processo de atualização pode fazer com que estes deixem de funcionar ou "
+"pacotes inclusos em %s. Devido a esta substituição, a continuação do "
+"processo de atualização pode fazer com que estes deixem de funcionar ou "
 "causar outras instabilidades no sistema.  Por favor, consulte as notas da "
 "versão para mais informações.\n"
 "\n"
@@ -2474,8 +2475,8 @@ msgid ""
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
 "O seu sistema não tem um arquivo /etc/redhat-release.  É possível que este "
-"não seja um sistema Red Hat Linux. Continuar o processo de atualização "
-"poderá inutilizar o sistema.  Deseja continuar com a atualização?"
+"não seja um sistema %s. Continuar o processo de atualização poderá "
+"inutilizar o sistema.  Deseja continuar com a atualização?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -3052,7 +3053,7 @@ msgstr ""
 "\n"
 "\n"
 "Após a instalação, outros software podem ser adicionados ou removidos "
-"utilizando a ferramenta 'redhat-config-packages'.\n"
+"utilizando a ferramenta 'system-config-packages'.\n"
 "\n"
 "Se você estiver familiarizado com %s, poderá ter pacotes específicos que "
 "deseja instalar ou não. Selecione a caixa abaixo para personalizar sua "
@@ -3121,7 +3122,7 @@ msgstr ""
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 #, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "O seguinte produto Red Hat será atualizado:"
+msgstr "O seguinte seguinte sistema instalado será atualizado:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -4366,9 +4367,9 @@ msgid "Installing Packages"
 msgstr "Instalando Pacotes"
 
 #: ../iw/progress_gui.py:167
-#, fuzzy, python-format
+#, python-format
 msgid "Remaining time: %s minutes"
-msgstr "Restando:  "
+msgstr "Tempo Restante: %s minutos"
 
 #: ../iw/progress_gui.py:183
 #, python-format
@@ -5194,15 +5195,15 @@ msgid "Edit"
 msgstr "Editar"
 
 #: ../textw/bootloader_text.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"O gestor de início usado pelo Red Hat também pode carregar outros sistemas "
-"operacionais. Aponte quais partições residem outros sistemas e quais nomes "
-"deseja usar para sua inicialização."
+"O gestor de início usado pelo %s também pode carregar outros sistemas "
+"operacionais. Aponte em quais partições residem outros sistemas e quais "
+"nomes deseja usar para sua inicialização."
 
 #: ../textw/bootloader_text.py:315
 msgid ""
@@ -5325,9 +5326,9 @@ msgstr ""
 #: ../loader2/driverdisk.c:250 ../loader2/driverdisk.c:265
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:462
-#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:328
-#: ../loader2/loader.c:796 ../loader2/loader.c:818 ../loader2/net.c:174
-#: ../loader2/net.c:433 ../loader2/net.c:867 ../loader2/nfsinstall.c:54
+#: ../loader2/hdinstall.c:516 ../loader2/kbd.c:125 ../loader2/loader.c:322
+#: ../loader2/loader.c:793 ../loader2/loader.c:815 ../loader2/net.c:174
+#: ../loader2/net.c:433 ../loader2/net.c:868 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:444
 msgid "Back"
 msgstr "Voltar"
@@ -5357,7 +5358,7 @@ msgid ""
 msgstr ""
 "O ambiente de instalação padrão inclui nossa seleção de pacotes "
 "recomendados. Após a instalação, é possível adicionar ou remover programas "
-"usando a ferramenta 'redhat-config-packages'.\n"
+"usando a ferramenta 'system-config-packages'.\n"
 "\n"
 "Entretanto, o %s é distribuído com muito mais aplicações, e você pode "
 "personalizar a seleção dos programas que deseja instalar."
@@ -6309,11 +6310,13 @@ msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "Bem-vindo ao %s"
+msgstr ""
+"Bem-vindo ao %s\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6916,7 +6919,7 @@ msgstr "Selecione a Partição"
 #: ../loader2/hdinstall.c:568
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Dispositivo %s não parece conter as imagens dos CDROMs do Red Hat."
+msgstr "Dispositivo %s não parece conter as imagens dos CDROMs do %s."
 
 #: ../loader2/hdinstall.c:600
 #, c-format
@@ -6950,16 +6953,16 @@ msgstr "Erro lendo conteúdos do arquivo kickstart %s: %s"
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Erro em %s na linha %d do arquivo kickstart %s."
 
-#: ../loader2/kickstart.c:260
+#: ../loader2/kickstart.c:259
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Não foi possível encontrar ks.cfg no disquete de inicialização."
 
-#: ../loader2/lang.c:52 ../loader2/loader.c:174
+#: ../loader2/lang.c:52 ../loader2/loader.c:168
 #, c-format
 msgid "Welcome to %s"
 msgstr "Bem-vindo ao %s"
 
-#: ../loader2/lang.c:53 ../loader2/loader.c:180
+#: ../loader2/lang.c:53 ../loader2/loader.c:174
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
@@ -6969,23 +6972,23 @@ msgstr ""
 msgid "Choose a Language"
 msgstr "Escolha um Idioma"
 
-#: ../loader2/loader.c:101
+#: ../loader2/loader.c:103
 msgid "Local CDROM"
 msgstr "CDROM Local"
 
-#: ../loader2/loader.c:103
+#: ../loader2/loader.c:105
 msgid "Hard drive"
 msgstr "Disco rígido"
 
-#: ../loader2/loader.c:104
+#: ../loader2/loader.c:106
 msgid "NFS image"
 msgstr "Imagem NFS"
 
-#: ../loader2/loader.c:323
+#: ../loader2/loader.c:317
 msgid "Update Disk Source"
 msgstr "Origem do Disquete de Atualizações"
 
-#: ../loader2/loader.c:324
+#: ../loader2/loader.c:318
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
 "Which would you like to use?"
@@ -6993,30 +6996,30 @@ msgstr ""
 "Você tem vários dispositivos que podem servir de origem para um disco de "
 "atualizações. Qual você deseja utilizar?"
 
-#: ../loader2/loader.c:339
+#: ../loader2/loader.c:333
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Insira o disquete de atualizações em /dev/%s e pressione \"OK\" para "
 "continuar."
 
-#: ../loader2/loader.c:341
+#: ../loader2/loader.c:335
 msgid "Updates Disk"
 msgstr "Disco de Atualizações"
 
-#: ../loader2/loader.c:353
+#: ../loader2/loader.c:347
 msgid "Failed to mount updates disk"
 msgstr "Falha ao montar disco de atualizações."
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Updates"
 msgstr "Atualizações"
 
-#: ../loader2/loader.c:356
+#: ../loader2/loader.c:350
 msgid "Reading anaconda updates..."
 msgstr "Lendo atualizações do instalador..."
 
-#: ../loader2/loader.c:377
+#: ../loader2/loader.c:371
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -7026,40 +7029,40 @@ msgstr ""
 "os drivers dos dispositivos manualmente para efetuar a instalação com "
 "sucesso.  Você gostaria de selecionar os drivers agora?"
 
-#: ../loader2/loader.c:631
+#: ../loader2/loader.c:623
 #, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Não há memória RAM suficiente para instalar o %s nesta máquina."
 
-#: ../loader2/loader.c:788
+#: ../loader2/loader.c:785
 msgid "Rescue Method"
 msgstr "Método de Recuperação"
 
-#: ../loader2/loader.c:789
+#: ../loader2/loader.c:786
 msgid "Installation Method"
 msgstr "Método de Instalação"
 
-#: ../loader2/loader.c:791
+#: ../loader2/loader.c:788
 msgid "What type of media contains the rescue image?"
 msgstr "Que tipo de mídia contém a imagem de recuperação?"
 
-#: ../loader2/loader.c:793
+#: ../loader2/loader.c:790
 msgid "What type of media contains the packages to be installed?"
 msgstr "Que tipo de mídia contém os pacotes a serem instalados?"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "No driver found"
 msgstr "Nenhum driver encontrado"
 
-#: ../loader2/loader.c:817
+#: ../loader2/loader.c:814
 msgid "Select driver"
 msgstr "Selecione o driver"
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:815
 msgid "Use a driver disk"
 msgstr "Utilizar um disco de drivers"
 
-#: ../loader2/loader.c:819
+#: ../loader2/loader.c:816
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -7068,11 +7071,11 @@ msgstr ""
 "instalação.  Você gostaria de selecionar seu driver manualmente ou usar um "
 "disco de drivers?"
 
-#: ../loader2/loader.c:979
+#: ../loader2/loader.c:976
 msgid "The following devices have been found on your system."
 msgstr "Os seguintes dispositivos foram encontrados em seu sistema:"
 
-#: ../loader2/loader.c:981
+#: ../loader2/loader.c:978
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -7080,23 +7083,30 @@ msgstr ""
 "Nenhum driver de dispositivo foi carregado para o seu computador.  Você "
 "deseja carregar algum agora?"
 
-#: ../loader2/loader.c:985
+#: ../loader2/loader.c:982
 msgid "Devices"
 msgstr "Dispositivos"
 
-#: ../loader2/loader.c:986
+#: ../loader2/loader.c:983
 msgid "Done"
 msgstr "Concluído"
 
-#: ../loader2/loader.c:987
+#: ../loader2/loader.c:984
 msgid "Add Device"
 msgstr "Adicionar Dispositivo"
 
-#: ../loader2/loader.c:1087
+#: ../loader2/loader.c:1084
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "carregador já foi executado.  Iniciando janela de comandos."
 
-#: ../loader2/loader.c:1456
+#: ../loader2/loader.c:1440
+#, fuzzy, c-format
+msgid "Running anaconda, the %s rescue mode - please wait...\n"
+msgstr ""
+"Executando Anaconda, o instalador do sistema %s - por favor aguarde...\n"
+
+#: ../loader2/loader.c:1442
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -7116,6 +7126,7 @@ msgid "Checking \"%s\"..."
 msgstr "Verificando \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Verificando mídia..."
 
@@ -7312,11 +7323,11 @@ msgstr "Argumento inválido para o comando de rede kickstart %s: %s"
 msgid "Bad bootproto %s specified in network command"
 msgstr "Protocolo de inicialização %s inválido especificado no comando de rede"
 
-#: ../loader2/net.c:863
+#: ../loader2/net.c:864
 msgid "Networking Device"
 msgstr "Dispositivo de Rede"
 
-#: ../loader2/net.c:864
+#: ../loader2/net.c:865
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7331,7 +7342,7 @@ msgstr "Nome do servidor NFS:"
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
 #, fuzzy, c-format
 msgid "%s directory:"
-msgstr "Diretório do Red Hat:"
+msgstr "Diretório do %s:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -8155,12 +8166,25 @@ msgid "English"
 msgstr "Inglês"
 
 #. generated from lang-table
+msgid "Estonian"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Finnish"
+msgstr "Dinamarquês"
+
+#. generated from lang-table
 msgid "French"
 msgstr "Francês"
 
 #. generated from lang-table
 msgid "German"
 msgstr "Alemão"
+
+#. generated from lang-table
+msgid "Hungarian"
+msgstr ""
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8177,6 +8201,10 @@ msgstr "Japonês"
 #. generated from lang-table
 msgid "Korean"
 msgstr "Coreano"
+
+#. generated from lang-table
+msgid "Malay"
+msgstr ""
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8209,6 +8237,10 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Turco"
+
+#. generated from lang-table
+msgid "Ukrainian"
+msgstr "Ucraniano"
 
 #~ msgid "The CDROM could not be mounted."
 #~ msgstr "Não foi possível montar o CDROM."
@@ -8480,9 +8512,6 @@ msgstr "Turco"
 #~ msgstr ""
 #~ "    F1-Ajuda                F3-Editar   F4-Apagar    F5-Restaurar    F12-"
 #~ "OK        "
-
-#~ msgid "Ukrainian"
-#~ msgstr "Ucraniano"
 
 #~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 #~ msgstr ""
