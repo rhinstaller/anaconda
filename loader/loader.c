@@ -1861,6 +1861,8 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	}
     }
 
+    chooseKeyboard(NULL, NULL, flags);
+
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
 	startNewt(flags);

@@ -22,6 +22,7 @@
 #include "misc.h"
 #include "windows.h"
 #include "isys/gzlib/gzlib.h"
+#include "kickstart.h"
 
 #define errorWindow(String) \
 	newtWinMessage(_("Error"), _("OK"), String, strerror (errno));
@@ -448,6 +449,8 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     int i;
     char * defkbd = keymap ? *keymap : NULL;
     char *lang;
+    int argc;
+    char **argv;
 
 #ifdef __sparc__
 #define KBDTYPE_SUN            0
@@ -477,7 +480,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	    }
 	}
     } else
-#endif
+#endif /* kickstart sparc crap */
     {
         char twelve = 12;
         int fd;
@@ -494,7 +497,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
             }
         }
     }
-#endif
+#endif /* sparc */
 
     if (!languages) loadLanguageList(flags);
 
@@ -514,14 +517,14 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	       strcmp(kbdEntry->lang, getenv("LANG")))
 	     kbdEntry++;
 	if (kbdEntry->keyboard) defkbd = kbdEntry->keyboard;
-#endif
+#endif /* more sparc drain bamage */
     }
     if (!defkbd)
 #ifdef __sparc__
 	if (kbdtype == KBDTYPE_SUN)
 	    defkbd = "sunkeymap";
 	else
-#endif
+#endif /* sparc drain bamage */
 	    defkbd = "us";
 
     f = gunzip_open("/etc/keymaps.gz");
@@ -546,8 +549,7 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	return LOADER_ERROR;
     }
 
-#if 0
-    if (kickstart) {
+    if (FL_KICKSTART(flags)) {
 	if (!ksGetCommand(KS_CMD_KEYBOARD, NULL, &argc, &argv)) {
 	    if (argc < 2) {
 		logMessage("no argument passed to keyboard "
@@ -572,7 +574,6 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	    }
 	}
     }
-#endif
     
     if (num == -1 ) {
 #ifdef __sparc__
