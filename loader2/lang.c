@@ -297,9 +297,8 @@ int chooseLanguage(char ** lang, int flags) {
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
 	return 0;
-    } else {
-	setLanguage (languages[choice].key, flags);
     }
+    setLanguage (languages[choice].key, flags);
 
     /* clear out top line */
     buf = alloca(80);
