@@ -389,6 +389,10 @@ class ToDo:
 	    mountsByDev[device] = mntpoint
 	    drives.append(device, "", 2, 0, 0)
 
+	for (device, mntpoint, fsystem, makeup) in self.fstab.existingRaidList():
+	    mountsByDev[device] = mntpoint
+	    drives.append(device, "", 2, 0, 0)
+	    
 	oldImages = {}
 	for dev in self.liloImages.keys():
 	    oldImages[dev] = self.liloImages[dev]
