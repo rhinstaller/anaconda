@@ -60,10 +60,6 @@ class PartitionWindow (InstallWindow):
     def getScreen (self):
         self.todo.ddruid.setCallback (self.enableCallback)
 
-	if self.skippedScreen:
-	    # if we skipped it once, skip it again
-	    return None
-
 	if self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
 	    return None
