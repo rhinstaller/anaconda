@@ -501,6 +501,18 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
                                             - minmembers )
     return None
 
+# return the actual size being used by the request in megabytes
+def requestSize(req, diskset):
+    if req.type == REQUEST_RAID:
+        thissize = req.size
+    else:
+        part = get_partition_by_name(diskset.disks, req.device)
+        if not part:
+            thissize = req.size
+        else:
+            thissize = getPartSizeMB(part)
+    return thissize
+
 # this function is called at the end of partitioning so that we
 # can make sure you don't have anything silly (like no /, a really small /,
 # etc).  returns (errors, warnings) where each is a list of strings or None
@@ -517,22 +529,20 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     if not slash:
         errors.append(_("You have not defined a root partition (/), which is required for installation of Red Hat Linux to continue."))
 
-    if slash and slash.size < 250:
+    if slash and requestSize(slash, diskset) < 250:
         warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install Red Hat Linux."))
+
+    if iutil.getArch() == "ia64":
+        bootreq = requests.getRequestByMountPoint("/boot/efi")
+        if not bootreq or requestSize(bootreq, diskset) < 50:
+            errors.append(_("You must create a /boot/efi partition of type "
+                            "FAT and a size of 50 megabytes."))
 
     for (mount, size) in checkSizes:
         req = requests.getRequestByMountPoint(mount)
         if not req:
             continue
-        if req.type == REQUEST_RAID:
-            thissize = req.size
-        else:
-            part = get_partition_by_name(diskset.disks, req.device)
-            if not part:
-                thissize = req.size
-            else:
-                thissize = getPartSizeMB(part)
-        if thissize < size:
+        if requestSize(req, diskset) < size:
             warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
 
     foundSwap = 0
@@ -540,7 +550,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     for request in requests.requests:
         if request.fstype and request.fstype.getName() == "swap":
             foundSwap = foundSwap + 1
-            swapSize = swapSize + request.size
+            swapSize = swapSize + requestSize(request, diskset)
             break
         if baseChecks:
             rc = doPartitionSizeCheck(request)
