@@ -20,6 +20,7 @@ import string
 import isys
 import socket
 import os
+import re
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -50,6 +51,44 @@ def networkDeviceCheck(network, dispatch):
     devs = network.available()
     if not devs:
         dispatch.skipStep("network")
+
+
+# return if the device is of a type that requires a ptpaddr to be specified
+def isPtpDev(devname):
+    if (devname.startswith("ctc") or devname.startswith("escon") or
+        devname.startswith("iucv")):
+        return 1
+    return 0
+
+# determine whether any active at boot devices are using dhcp
+def anyUsingDHCP(devices):
+    for dev in devices.keys():
+        bootproto = devices[dev].get("bootproto")
+        if bootproto and bootproto == "dhcp":
+            onboot = devices[dev].get("onboot")
+            if onboot and onboot != "no":
+                return 1
+    return 0
+
+# sanity check an IP string.  if valid, returns octets, if invalid, return None
+def sanityCheckIPString(ip_string):
+    ip_re = re.compile('^([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])\\.([0-2]?[0-9]?[0-9])$')
+    
+    #Sanity check the string
+    m = ip_re.match (ip_string)
+    try:
+        if not m:
+            return None
+        octets = m.groups()
+        if len(octets) != 4:
+            return None
+        for octet in octets:
+            if (int(octet) < 0) or (int(octet) > 255):
+                return None
+    except TypeError:
+        return None
+
+    return octets
 
 class NetworkDevice(SimpleConfigFile):
     def __str__(self):
@@ -113,7 +152,8 @@ class Network:
                 netinf = string.splitfields(line, '=')
                 info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
-            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU"):
+            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
+                        "REMIP"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             if info.has_key("GATEWAY"):
