@@ -30,7 +30,7 @@ makeBootImages() {
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
-	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
+        cp $BOOTDISKDIR/yaboot.conf.pseries $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
 	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
@@ -77,27 +77,27 @@ EOF
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     elif [ "$KERNELARCH" = "ppc" ]; then
+	mkdir -p $TOPDESTPATH/ppc/mac
+
         echo "Building ppc initrd"
-        makeinitrd --initrdto $TOPDESTPATH/images/ppcmac/ramdisk.image.gz \
+        makeinitrd --initrdto $TOPDESTPATH/ppc/mac/ramdisk.image.gz \
             --initrdsize 8192 \
             --loaderbin loader \
             --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
 
-	# FIXME: this will overwrite some of the pseries stuff
-        mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc
-        cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/vmlinux
-        cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
-        cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
-        cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc
-        $IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/yaboot
+        mkdir -p $TOPDESTPATH/ppc/mac
+        cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/mac/vmlinux
+        cp $BOOTDISKDIR/yaboot.conf.mac $TOPDESTPATH/ppc/mac/yaboot.conf
+        cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
+        cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/
 
         # we also want to make a boot.iso here 
-        mkdir -p $TOPDESTPATH/isopath/ppc $TOPDESTPATH/isopath/etc
-        cp $TOPDESTPATH/etc/* $TOPDESTPATH/isopath/etc/
-        cp $TOPDESTPATH/ppc/* $TOPDESTPATH/isopath/ppc/
+        mkdir -p $TOPDESTPATH/isopath/ppc/mac
+        cp $TOPDESTPATH/ppc/mac/* $TOPDESTPATH/isopath/ppc/mac/
 
-	# need a proper mkisofs command for mac
-#        mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/boot.iso $TOPDESTPATH/isopath
+        # Create the boot.iso
+	mkdir -p $TOPDESTPATH/images/mac/
+	mkisofs -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 2 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
         rm -rf $TOPDESTPATH/isopath/
     else
         echo "Unknown kernel arch: $KERNELARCH"
