@@ -3,7 +3,7 @@
 
                         09Rescue Mode Help07
 
-The 02Red Hat07 Linux CD-ROM includes a rescue mode which can be used
+The 02Red Hat07 Linux installer includes a rescue mode which can be used
 when a system does not boot properly.  The rescue mode includes many
 useful utilities (editor, hard drive and RAID tools, etc.) which will allow
 one to restore a system to a working state.
