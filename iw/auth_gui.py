@@ -192,12 +192,12 @@ class AuthWindow (InstallWindow):
         self.krb5.connect ("toggled", self.setSensitivities)
 
         # samba
-        self.samba = GtkCheckButton (_("Enable Samba Authentication"))
+        self.samba = GtkCheckButton (_("Enable SMB Authentication"))
         self.sambaServer = GtkEntry ()
         self.sambaWorkgroup = GtkEntry ()
-        self.sambaLabel1 = GtkLabel (_("Samba Server:"))
+        self.sambaLabel1 = GtkLabel (_("SMB Server:"))
         self.sambaLabel1.set_alignment (0, 0)
-        self.sambaLabel2 = GtkLabel (_("Samba Workgroup:"))
+        self.sambaLabel2 = GtkLabel (_("SMB Workgroup:"))
         self.sambaLabel2.set_alignment (0, 0)
 
  	# restore ldap settings
@@ -227,7 +227,7 @@ class AuthWindow (InstallWindow):
         nisLabel = GtkLabel (_("NIS"))
         ldapLabel = GtkLabel (_("LDAP"))
         krb5Label = GtkLabel (_("Kerberos 5"))
-        sambaLabel = GtkLabel (_("Samba"))
+        sambaLabel = GtkLabel (_("SMB"))
 
         nb.append_page(nistable, nisLabel)
         nb.append_page(ldaptable, ldapLabel)
