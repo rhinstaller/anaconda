@@ -973,10 +973,10 @@ class XF86Config:
             return None
         # PCI descr, (horiz, vert), modes
         laptops = (("ATI|Rage Mobility",
-                    ("30-60", "60-90"),
-                    { "8" : ["800x600", "1024x768"],
-                      "16" : ["800x600", "1024x768"],
-                      "32" : ["800x600", "1024x768"]}),
+                    ("30-110", "60-110"),
+                    { "8" : ["800x600", "1024x768", "1400x1050"],
+                      "16" : ["800x600", "1024x768", "1400x1050"],
+                      "32" : ["800x600", "1024x768", "1400x1050"]}),
                    )
         for (card, (horiz, vert), modes) in laptops:
             if (len(self.descr) >= len (card)
@@ -991,7 +991,6 @@ class XF86Config:
         if not self.server:
 #            print "self.server was None, doing nothing in test"
             return
-
 
         files = self.files
         modes = self.modes
