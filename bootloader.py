@@ -123,7 +123,7 @@ class BootImages:
 	if not self.images.has_key(self.default):
 	    entry = fsset.getEntryByMountPoint('/')
 	    self.default = entry.device.getDevice()
-	    (label, type) = self.images[self.default]
+	    (label, longlabel, type) = self.images[self.default]
 	    if not label:
 		self.images[self.default] = ("linux", "Red Hat Linux", type)
 
@@ -270,6 +270,28 @@ class bootloaderInfo:
         self.useGrubVal = 0      # only used on x86
         self.configfile = None
         self.kernelLocation = "/boot/"
+
+class ia64BootloaderInfo(bootloaderInfo):
+    def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
+                  chainList, defaultDev, justConfig):
+        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+                                          kernelList, chainList, defaultDev)
+	config.write(instRoot + self.configfile, perms = self.perms)
+
+	return ""
+        
+    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+		  defaultDev, justConfig):
+        str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev, justConfig)
+
+
+    def __init__(self):
+        bootloaderInfo.__init__(self)
+	self.useGrubVal = 1
+        self.kernelLocation = "/boot/efi"
+        self.configfile = "/boot/efi/elilo.conf"
+    
 	
 class x86BootloaderInfo(bootloaderInfo):
     def setUseGrub(self, val):
@@ -494,7 +516,10 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 def makeInitrd (kernelTag, instRoot):
     global initrdsMade
 
-    initrd = "/boot/initrd%s.img" % (kernelTag, )
+    if iutil.getArch() == 'ia64':
+	initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
+    else:
+	initrd = "/boot/initrd%s.img" % (kernelTag, )
     
     if not initrdsMade.has_key(initrd) and flags.setupFilesystems:
 	iutil.execWithRedirect("/sbin/mkinitrd",
@@ -531,3 +556,12 @@ def grubbyPartitionName(dev):
 		break
 
     return "(%s,%d)" % (grubbyDiskName(name), partNum)
+
+# return instance of the appropriate bootloader for our arch
+def getBootloader():
+    if iutil.getArch() == 'i386':
+        return x86BootloaderInfo()
+    elif iutil.getArch() == 'ia64':
+        return ia64BootloaderInfo()
+    else:
+        return bootloaderInfo()
