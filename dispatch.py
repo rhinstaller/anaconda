@@ -122,7 +122,7 @@ installSteps = [
                                          "id.comps")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
-                                    "id.hdList", "instPath")),
+                                    "id.hdList", "instPath", "id.bootloader")),
     ("monitor", ("id.xconfig", "id.monitor")),
     ("xcustom", ("id.xconfig", "id.monitor", "id.videocard",
                  "id.desktop", "id.comps")),
