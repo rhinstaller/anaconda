@@ -1,5 +1,10 @@
 2004-09-24  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/partition_gui.py (PartitionWindow.populate): 
+	* textw/partition_text.py (PartitionWindow.populate): 
+	Free space isn't active, so we can't just ignore it.  Instead,
+	just ignore non-active partitions of < 1 MB (#133425)
+
 	* installclasses/rhel_as.py: 
 	* installclasses/rhel_desktop.py: 
 	* installclasses/rhel_es.py: 

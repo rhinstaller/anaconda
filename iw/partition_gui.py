@@ -809,13 +809,11 @@ class PartitionWindow(InstallWindow):
                 if part.type & parted.PARTITION_METADATA:
                     part = disk.next_partition(part)
                     continue
-                if not part.is_active():
-                    part = disk.next_partition(part)
-                    continue
                 # ignore the tiny < 1 MB partitions (#119479)
-                if getPartSizeMB(part) <= 1.0 and not part.get_flag(parted.PARTITION_BOOT):
-                    part = disk.next_partition(part)                    
-                    continue
+                if getPartSizeMB(part) <= 1.0:
+                    if not part.is_active() or not part.get_flag(parted.PARTITION_BOOT):
+                        part = disk.next_partition(part)                    
+                        continue
 
                 stripe.add(part)
                 device = get_partition_name(part)
