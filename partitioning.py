@@ -98,7 +98,8 @@ def getPartSize(partition):
     return partition.geom.length 
 
 def getPartSizeMB(partition):
-    return partition.geom.length * partition.geom.disk.dev.sector_size / 1024.0 / 1024.0
+    return (partition.geom.length * partition.geom.disk.dev.sector_size
+            / 1024.0 / 1024.0)
 
 def getDeviceSizeMB(dev):
     return (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
@@ -109,10 +110,6 @@ def get_partition_by_name(disks, partname):
         disk = disks[diskname]
         part = disk.next_partition()
         while part:
-            if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
-                part = disk.next_partition(part)
-                continue
-
             if get_partition_name(part) == partname:
                return part
 
@@ -164,7 +161,8 @@ def get_logical_partitions(disk):
     rc = []
     part = disk.next_partition ()
     while part:
-        if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+        if (part.type & parted.PARTITION_FREESPACE
+            or part.type & parted.PARTITION_METADATA):
             part = disk.next_partition(part)
             continue
         if part.type & parted.PARTITION_LOGICAL:
@@ -177,9 +175,6 @@ def get_primary_partitions(disk):
     rc = []
     part = disk.next_partition()
     while part:
-        if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
-            part = disk.next_partition(part)
-            continue
         if part.type == parted.PARTITION_PRIMARY:
             rc.append(part)
         part = disk.next_partition(part)
@@ -191,11 +186,6 @@ def get_raid_partitions(disk):
     rc = []
     part = disk.next_partition()
     while part:
-
-        if part.type & (parted.PARTITION_METADATA | parted.PARTITION_FREESPACE | parted.PARTITION_EXTENDED):
-            part = disk.next_partition(part)
-            continue
-
         if part.get_flag(parted.PARTITION_RAID) == 1:
             rc.append(part)
         part = disk.next_partition(part)
@@ -349,7 +339,8 @@ def isMountPointInUse(reqpartitions, newrequest):
         for request in reqpartitions.requests:
             if request.mountpoint == mntpt:
                 used = 0
-                if not newrequest.device or request.device != newrequest.device:
+                if (not newrequest.device
+                    or request.device != newrequest.device):
                         used = 1                
 
                 if used:
@@ -407,13 +398,20 @@ def doPartitionSizeCheck(newrequest):
 
     # XXX need to figure out the size for partitions specified by cyl range
     if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
-        return _("The size of the %s partition (size = %s MB) exceeds the maximum size of %s MB.") %(newrequest.fstype.getName(), newrequest.size, newrequest.fstype.getMaxSize())
+        return (_("The size of the %s partition (size = %s MB) "
+                  "exceeds the maximum size of %s MB.")
+                % (newrequest.fstype.getName(), newrequest.size,
+                   newrequest.fstype.getMaxSize()))
 
-    if newrequest.size and newrequest.maxSize and (newrequest.size > newrequest.maxSize):
-        return _("The size of the requested partition (size = %s MB) exceeds the maximum size of %s MB.") %(newrequest.size, newrequest.maxSize)
+    if (newrequest.size and newrequest.maxSize
+        and (newrequest.size > newrequest.maxSize)):
+        return (_("The size of the requested partition (size = %s MB) "
+                 "exceeds the maximum size of %s MB.")
+                % (newrequest.size, newrequest.maxSize))
 
     if newrequest.size and newrequest.size < 0:
-        return _("The size of the requested partition is negative! (size = %s MB)") %(newrequest.size)
+        return _("The size of the requested partition is "
+                 "negative! (size = %s MB)") % (newrequest.size)
 
     if newrequest.start and newrequest.start < 1:
         return _("Partitions can't start below the first cylinder.")
@@ -467,18 +465,22 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
     if not bootreq and newraid.mountpoint:
-        if (newraid.mountpoint == "/boot" or newraid.mountpoint == "/") and not isRaid1(newraid.raidlevel):
+        if ((newraid.mountpoint == "/boot" or newraid.mountpoint == "/")
+            and not isRaid1(newraid.raidlevel)):
             return _("Bootable partitions can only be on RAID1 devices.")
 
     minmembers = get_raid_min_members(newraid.raidlevel)
     if len(newraid.raidmembers) < minmembers:
-        return _("A RAID device of type %s requires at least %s members.") % (newraid.raidlevel, minmembers)
+        return _("A RAID device of type %s "
+                 "requires at least %s members.") % (newraid.raidlevel,
+                                                     minmembers)
 
     if newraid.raidspares:
         if (len(newraid.raidmembers) - newraid.raidspares) < minmembers:
             return _("This RAID device can have a maximum of %s spares. "
                      "To have more spares you will need to add members to "
-                     "the RAID device.") % (len(newraid.raidmembers) - minmembers )
+                     "the RAID device.") % (len(newraid.raidmembers)
+                                            - minmembers )
     return None
 
 
@@ -1028,8 +1030,10 @@ def partitionMethodSetup(partitions, dispatch):
     #  - use autopartitioning, then set mount points
     #  - use interactive partitioning tool, continue
 
-    dispatch.skipStep("autopartition", skip = not partitions.useAutopartitioning)
-    dispatch.skipStep("autopartitionexecute",skip = not partitions.useAutopartitioning)
+    dispatch.skipStep("autopartition",
+                      skip = not partitions.useAutopartitioning)
+    dispatch.skipStep("autopartitionexecute",
+                      skip = not partitions.useAutopartitioning)
     dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
 
     protected = dispatch.method.protectedPartitions()
@@ -1083,9 +1087,11 @@ def getAutopartitionBoot():
 def confirmDeleteRequest(intf, request):
     if request.device:
         if request.type == REQUEST_RAID:
-            errmsg = _("You are about to delete a RAID device.\n\nAre you sure?")
+            errmsg = _("You are about to delete a RAID device.\n\n"
+                       "Are you sure?")
         else:
-            errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
+            errmsg = _("You are about to delete the /dev/%s partition.\n\n"
+                       "Are you sure?" % request.device)
             
     else:
         errmsg = _("Are you sure you want to delete this partition?")
@@ -1146,7 +1152,8 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
             if partition.type & parted.PARTITION_EXTENDED:
                 deleteAllLogicalPartitions(partition, requestlist)
 
-            delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
+            delete = DeleteSpec(drive, partition.geom.start,
+                                partition.geom.end)
             requestlist.addDelete(delete)
     else: # shouldn't happen
         raise ValueError, "Deleting a non-existent partition"
@@ -1167,8 +1174,10 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return ("RAID", request)
     elif part.type & parted.PARTITION_FREESPACE:
         request = PartitionSpec(fsset.fileSystemTypeGetDefault(), REQUEST_NEW,
-                                start = start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
-                                end = end_sector_to_cyl(part.geom.disk.dev, part.geom.end),
+                                start = start_sector_to_cyl(part.geom.disk.dev,
+                                                            part.geom.start),
+                                end = end_sector_to_cyl(part.geom.disk.dev,
+                                                        part.geom.end),
                                 drive = [ get_partition_drive(part) ])
 
         return ("PARTITION", request)
@@ -1195,14 +1204,16 @@ def doEditPartitionByRequest(intf, requestlist, part):
 
         return ("PARTITION", request)
     else: # shouldn't ever happen
-        raise ValueError, "Trying to edit non-existent partition %s" %(get_partition_name(part))
+        raise ValueError, ("Trying to edit non-existent partition %s"
+                           % (get_partition_name(part))
     
     
 def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
     fsset.reset()
     for request in partitions.requests:
         # XXX improve sanity checking
-        if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
+        if (not request.fstype or (request.fstype.isMountable()
+                                   and not request.mountpoint)):
             continue
         entry = request.toEntry(partitions)
         fsset.add (entry)
