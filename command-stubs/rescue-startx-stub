@@ -9,7 +9,7 @@ import rhpl.xserver as xserver
 import rhpl.keyboard as keyboard
 
 # see if its even possible
-if not os.access("/mnt/sysimage/usr/X11R6/bin/xterm", os.X_OK) or not os.access("/mnt/sysimage/usr/X11R6/bin/twm", os.X_OK):
+if not os.access("/mnt/sysimage/usr/bin/xterm", os.X_OK) or not os.access("/mnt/sysimage/usr/X11R6/bin/twm", os.X_OK):
     print "Must have mounted an existing installation in rescue mode to work."
     sys.exit(0)
 
