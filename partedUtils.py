@@ -672,7 +672,11 @@ class DiskSet:
                              _("The partition table on device %s was unreadable. "
                                "To create new partitions it must be initialized, "
                                "causing the loss of ALL DATA on this drive.\n\n"
-                               "Would you like to initialize this drive?")
+			       "This operation will override any previous "
+			       "installation choices about which drives to "
+			       "ignore.\n\n"
+                               "Would you like to initialize this drive, "
+			       "erasing ALL DATA?")
                                            % (drive,), type = "yesno")
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
