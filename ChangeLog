@@ -1,3 +1,9 @@
+2005-01-13  Peter Jones  <pjones@redhat.com>
+
+	* loader2/loader.c: Initialize terminals 0 to 9 before we start
+	bterm, so fbcon won't mess our color palette up when we need them.
+	Make the shell on tty2 use LANG=C so the error messages work.
+
 2005-01-13  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot: Use busybox for our shell instead of ash

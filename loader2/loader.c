@@ -42,6 +42,7 @@
 
 #include <linux/fb.h>
 #include <linux/serial.h>
+#include <linux/vt.h>
 
 #include "loader.h"
 #include "loadermisc.h" /* JKFIXME: functions here should be split out */
@@ -210,36 +211,47 @@ void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
         isysSetUnicodeKeymap();
 }
 
-static int getShellTty(int flags) {
-    int fd;
+/* fbcon is buggy and resets our color palette if we allocate a terminal
+ * after initializing it, so we initialize 9 of them before we need them.
+ * If it doesn't work, the user gets to suffer through having an ugly palette,
+ * but things are still usable. */
+static void initializeTtys(void) {
+    int fd, n;
+    char dev[] = "/dev/ttyX";
+
+    for (n = 9; n > 0; n--) {
+	sprintf(dev, "/dev/tty%d", n);
+	fd = open(dev, O_RDWR|O_NOCTTY);
+	if (fd >= 0) {
+	    ioctl(fd, VT_ACTIVATE, n);
+	    if (n == 1)
+		ioctl(fd, VT_WAITACTIVE, n);
+	    close(fd);
+	} else
+	    logMessage("failed to initialize %s", dev);
+    }
+}
+
+static void spawnShell(int flags) {
+    pid_t pid;
 
     if (FL_SERIAL(flags) || FL_NOSHELL(flags)) {
         logMessage("not spawning a shell");
-        return -1;
-    }
-
-    fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
-    if (fd < 0) {
-        logMessage("cannot open /dev/tty2 -- no shell will be provided");
-        return -1;
-    }
-
-    return fd;
-}
-
-static void spawnShell(int fd, int flags) {
-    pid_t pid;
-
-    /* getShellTty() reported the error for us already */
-    if (fd < 0)
-	return;
-
-    if (access("/bin/sh",  X_OK))  {
+        return;
+    } else if (access("/bin/sh",  X_OK))  {
         logMessage("cannot open shell - /bin/sh doesn't exist");
         return;
     }
 
     if (!(pid = fork())) {
+	int fd;
+
+    	fd = open("/dev/tty2", O_RDWR|O_NOCTTY);
+    	if (fd < 0) {
+            logMessage("cannot open /dev/tty2 -- no shell will be provided");
+	    return;
+	}
+
         dup2(fd, 0);
         dup2(fd, 1);
         dup2(fd, 2);
@@ -266,8 +278,6 @@ static void spawnShell(int fd, int flags) {
         logMessage("exec of /bin/sh failed: %s", strerror(errno));
         exit(1);
     }
-    
-    close(fd);
 
     return;
 }
@@ -1133,7 +1143,6 @@ int main(int argc, char ** argv) {
         { "virtpconsole", '\0', POPT_ARG_STRING, &virtpcon, 0 },
         { 0, 0, 0, 0, 0 }
     };
-    int tty2;
 
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
@@ -1313,7 +1322,7 @@ int main(int argc, char ** argv) {
 
     /* We have to do this before we init bogl(), which doLoaderMain will do
      * when setting fonts for different languages. */
-    tty2 = getShellTty(flags);
+    initializeTtys();
 
     if (!FL_TESTING(flags)) {
         /* unlink dirs and link to the ones in /mnt/runtime */
@@ -1342,7 +1351,7 @@ int main(int argc, char ** argv) {
 
     logMessage("getting ready to spawn shell now");
     
-    spawnShell(tty2, flags);  /* we can attach gdb now :-) */
+    spawnShell(flags);  /* we can attach gdb now :-) */
 
     /* setup the second stage modules; don't over-ride any already existing
      * modules because that would be rude 
