@@ -280,6 +280,9 @@ class Package:
         else:
             return 0
 
+    def keys(self):
+        return self.hdr.keys()
+
     def __getitem__(self, item):
         return self.hdr[item]
 
