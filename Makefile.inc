@@ -25,6 +25,6 @@ endif
 
 # diet defines
 USEDIET=0
-ifeq (xxi386, $(ARCH))
+ifeq (i386, $(ARCH))
 USEDIET=1
 endif
