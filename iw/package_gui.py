@@ -804,7 +804,7 @@ class PackageSelectionWindow (InstallWindow):
 	self.origSelection = self.comps.getSelectionState()
 
         sw = gtk.ScrolledWindow ()
-        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 
         box = gtk.VBox (gtk.FALSE, 10)
 	box.set_border_width(5)
@@ -858,7 +858,9 @@ class PackageSelectionWindow (InstallWindow):
 		    editbutton = gtk.Button()
 		    editbutton.add(nlbl)
 		    editbutton.set_relief(gtk.RELIEF_NONE)
-		    hdrhbox.pack_start(editbutton, gtk.FALSE, gtk.FALSE, 15)
+		    al = gtk.Alignment(1.0, 0.0)
+		    al.add(editbutton)
+		    hdrhbox.pack_start(al, gtk.TRUE, gtk.TRUE, 50)
 		    editbutton.connect("clicked", self.editDetails,
 				       (comp, hdrlabel))
 		    editbutton.set_sensitive(comp.isSelected(justManual = 1))
