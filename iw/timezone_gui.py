@@ -14,6 +14,7 @@
 import string
 import iutil
 import gtk
+import gobject
 from timezone_map_gui import TimezoneMap, ZoneTab
 from iw_gui import *
 from translate import _
@@ -26,7 +27,6 @@ class TimezoneWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.readHTML ("timezone")
         self.old_page = 0
-        self.old_ulist_row = 9 # default to UTC row
         self.old_use_dst = 0
 
 	self.timeZones = ((("-14", ""), ("Etc/GMT-14", "Etc/GMT-14")),
@@ -66,13 +66,31 @@ class TimezoneWindow (InstallWindow):
             newzone = self.tz.getCurrent().tz
             self.timezone.setTimezoneInfo (newzone, self.systemUTC.get_active ())
         else:
-            timezone = self.timeZones[self.ulist.selection[0]][1]
+	    selection = self.uview.get_selection()
+	    rc = selection.get_selected()
+	    if rc:
+		model, iter = rc
+		val = model.get_value(iter, 0)
+		timezone = None
+		for zone in self.timeZones:
+		    if val[3:] == zone[0][0]:
+			timezone=zone[1]
+			break
+
+		if not timezone:
+		    print "unknown utc selected!!"
+		    timezone = self.timeZones[12][1]
+		    
+	    else:
+		print "unknown utc selected!!"
+		timezone = self.timeZones[12][1]
+		
             if self.daylightCB.get_active ():
                 timezone = timezone[1]
             else:
                 timezone = timezone[0]
-            self.timezone.setTimezoneInfo (timezone, self.systemUTC.get_active ())
 
+            self.timezone.setTimezoneInfo (timezone, self.systemUTC.get_active ())
         return None
 
     def copy_toggled (self, cb1, cb2):
@@ -126,13 +144,6 @@ class TimezoneWindow (InstallWindow):
         self.old_page = timezone.utcOffset
         self.old_use_dst = timezone.dst
         self.langDefault = instLang.getDefaultTimeZone()
-        if self.old_page:
-            i = 0
-            for ((offset, descr), (file, daylight)) in self.timeZones:
-                if self.default == daylight or self.default == file:
-                    break
-                i = i + 1
-            self.old_ulist_row = i
 	if self.default:
             self.default = _(self.default)
 	else:
@@ -175,17 +186,45 @@ class TimezoneWindow (InstallWindow):
 	tzBox = gtk.VBox (gtk.FALSE)
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-	self.ulist = gtk.CList (2)
-##         self.ulist.connect ("expose-event", lambda widget, area, self=self:
-##                             self.ulist.moveto (self.old_ulist_row))
-        self.ulist.set_selection_mode (gtk.SELECTION_BROWSE)
-        self.ulist.freeze ()
+	self.ustore = gtk.ListStore(gobject.TYPE_STRING,
+				    gobject.TYPE_STRING)
+
+	# default to US/Eastern
+	utc_match = "Etc/GMT-5"
+        if self.old_page:
+            i = 0
+            for ((offset, descr), (file, daylight)) in self.timeZones:
+                if self.default == daylight or self.default == file:
+		    utc_match = file
+                    break
+                i = i + 1
+
+	self.utc_default_iter = None
         for zone in self.timeZones:
-            self.ulist.append (("UTC%s" % (zone[0][0],), zone[0][1]))
-        self.ulist.columns_autosize ()
-        self.ulist.thaw ()
-        self.ulist.select_row (self.old_ulist_row, 0)
-        sw.add (self.ulist)
+	    iter=self.ustore.append()
+	    if not self.utc_default_iter:
+		self.utc_default_iter = iter
+		
+	    self.ustore.set_value(iter, 0, "UTC%s" % (zone[0][0],))
+	    self.ustore.set_value(iter, 1, zone[0][1])
+	    if utc_match and utc_match == zone[1][0]:
+		self.utc_default_iter = iter
+
+#        self.ulist.select_row (self.old_ulist_row, 0)
+
+        self.uview = gtk.TreeView(self.ustore)
+
+	self.uview.get_selection().select_iter(self.utc_default_iter)
+
+	renderer = gtk.CellRendererText()
+	col = gtk.TreeViewColumn("", renderer, text=0)
+	self.uview.append_column(col)
+	renderer = gtk.CellRendererText()
+	col = gtk.TreeViewColumn("", renderer, text=1)
+	self.uview.append_column(col)
+	self.uview.set_headers_visible(gtk.FALSE)
+
+        sw.add (self.uview)
         tzBox.pack_start (sw)
         box = gtk.HBox (gtk.FALSE)
         align = gtk.Alignment (0.5, 0.5)
