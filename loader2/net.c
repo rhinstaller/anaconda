@@ -56,6 +56,8 @@ struct intfconfig_s {
 
 typedef int int32;
 
+static int setupWireless(struct networkDeviceConfig *dev);
+
 static void ipCallback(newtComponent co, void * dptr) {
     struct intfconfig_s * data = dptr;
     struct in_addr ipaddr, nmaddr, addr;
@@ -253,6 +255,20 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 #endif
 
     if (loaderData->ip) {
+        if (is_wireless_interface(loaderData->netDev)) {
+            if (loaderData->essid) {
+                logMessage("setting specified essid of %s", loaderData->essid);
+                cfg->essid = strdup(loaderData->essid);
+            }
+            if (loaderData->wepkey) {
+                logMessage("setting specified wepkey");
+                cfg->wepkey = strdup(loaderData->wepkey);
+            }
+            /* go ahead and set up the wireless interface in case 
+             * we're using dhcp */
+            setupWireless(cfg);
+        }
+
         /* this is how we specify dhcp */
         if (!strncmp(loaderData->ip, "dhcp", 4)) {
             char * chptr;
@@ -791,6 +807,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL, * class = NULL;
+    char * essid = NULL, * wepkey = NULL;
     int noDns = 0, rc;
     poptContext optCon;
 
@@ -805,6 +822,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
         { "nodns", '\0', POPT_ARG_NONE, &noDns, 0 },
         { "hostname", '\0', POPT_ARG_STRING, NULL, 'h'},
         { "ethtool", '\0', POPT_ARG_STRING, &ethtool, 0 },
+        { "essid", '\0', POPT_ARG_STRING, &essid, 0 },
+        { "wepkey", '\0', POPT_ARG_STRING, &wepkey, 0 },
         { 0, 0, 0, 0, 0 }
     };
     
@@ -878,6 +897,20 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
             free(loaderData->ethtool);
         loaderData->ethtool = strdup(ethtool);
         free(ethtool);
+    }
+
+    if (essid) {
+        if (loaderData->essid)
+            free(loaderData->essid);
+        loaderData->essid = strdup(essid);
+        free(essid);
+    }
+
+    if (wepkey) {
+        if (loaderData->wepkey)
+            free(loaderData->wepkey);
+        loaderData->wepkey = strdup(wepkey);
+        free(wepkey);
     }
 
     if (noDns) {
