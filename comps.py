@@ -1026,6 +1026,3 @@ def getCompGroupDescription(comp):
 	return _(descr)
     else:
 	return None
-    
-#    return ("This is the group %s. Its got stuff in it that you probably want."
-#	    " If not you can turn off the optional stuff.  Anyhow, enjoy %s!") % (compname, compname)
