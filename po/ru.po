@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
 "POT-Creation-Date: 2001-08-14 18:40-0400\n"
-"PO-Revision-Date: 2001-08-12 13:16EET\n"
+"PO-Revision-Date: 2001-08-15 09:52EET\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1110,9 +1110,8 @@ msgstr ""
 "таблицу разделов. Вы согласны?"
 
 #: ../partitioning.py:1769
-#, fuzzy
 msgid "Format as Swap?"
-msgstr "Форматировать как %s"
+msgstr "Форматировать как Swap?"
 
 #: ../partitioning.py:1770
 #, c-format
@@ -1122,6 +1121,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s имеет тип 0x82 (Linux swap), но он не отформатирован как раздел "
+"Linux swap. \n"
+"Отформатировать этот раздел как разел свопинга?"
 
 #: ../partitioning.py:1789 ../partitioning.py:1807
 msgid "Format?"
@@ -1202,13 +1204,12 @@ msgstr ""
 "всех данных."
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
-#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Нажмите 'Да' для форматирования этих разделов. Нажатие кнопки 'Нет' позволит "
-"вернуться и изменить эти установки."
+"Нажмите 'Да' для продолжения и форматирования этих разделов. Нажатие кнопки "
+"'Нет' позволит вернуться и изменить эти установки."
 
 #: ../partitioning.py:1850
 msgid "Format Warning"
@@ -1383,9 +1384,8 @@ msgstr ""
 "завершите работу, после чего повторите попытку обновления."
 
 #: ../upgrade.py:214
-#, fuzzy
 msgid "Mount failed"
-msgstr "Mountain Time"
+msgstr "Ошибка монтирования"
 
 #: ../upgrade.py:215
 msgid ""
@@ -3457,7 +3457,6 @@ msgid "No RAID partitions"
 msgstr "Нет разделов RAID"
 
 #: ../textw/partition_text.py:880
-#, fuzzy
 msgid "Invalid Entry for RAID Spares"
 msgstr "Неверная запись для резервных устройств RAID"
 
@@ -5463,31 +5462,3 @@ msgstr "Испанский"
 #. generated from lang-table
 msgid "Swedish"
 msgstr "Шведский"
-
-#~ msgid "Danish"
-#~ msgstr "Датский"
-
-#~ msgid "Hungarian"
-#~ msgstr "Венгерский"
-
-#~ msgid "Portuguese"
-#~ msgstr "Португальский"
-
-#~ msgid "Romanian"
-#~ msgstr "Румынский"
-
-#~ msgid "Serbian"
-#~ msgstr "Сербский"
-
-#~ msgid "Slovak"
-#~ msgstr "Словацкий"
-
-#~ msgid "Turkish"
-#~ msgstr "Турецкий"
-
-#~ msgid "Ukrainian"
-#~ msgstr "Украинский"
-
-#~ msgid "You cannot edit this partition, as it is in use by the installer."
-#~ msgstr ""
-#~ "Правка этого раздела невозможна, поскольку он используется установщиком."

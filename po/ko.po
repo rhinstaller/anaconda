@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.2\n"
 "POT-Creation-Date: 2001-08-14 18:40-0400\n"
-"PO-Revision-Date: 2001-08-14 15:16+0900\n"
+"PO-Revision-Date: 2001-08-15 10:56+0900\n"
 "Last-Translator: Jong-Hoon Ryu <redhat4u@netian.com>\n"
 "Language-Team: GNU Translation project <ko@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1113,9 +1113,8 @@ msgstr ""
 "야 합니다. 그렇게 하시겠습니까?"
 
 #: ../partitioning.py:1769
-#, fuzzy
 msgid "Format as Swap?"
-msgstr "%s (으)로 포맷"
+msgstr "스왑 포맷"
 
 #: ../partitioning.py:1770
 #, c-format
@@ -1125,6 +1124,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%s 에는 0x82 (Linux swap) 과 같은 파티션 유형이 존재하지만, 리눅스 스왑 "
+"파티션으로 포맷되어 있지 않은 것 같습니다.\n"
+"\n"
+"이 파티션을 스왑 파티션으로 포맷하시겠습니까?"
 
 #: ../partitioning.py:1789 ../partitioning.py:1807
 msgid "Format?"
@@ -1204,7 +1207,6 @@ msgstr ""
 "다음의 기존-파티션이 포맷되기 위해 선택되었으며, 모든 자료는 삭제됩니다."
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
-#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
@@ -5474,32 +5476,3 @@ msgstr "스페인어"
 #. generated from lang-table
 msgid "Swedish"
 msgstr "스웨덴어"
-
-#~ msgid "Danish"
-#~ msgstr "덴마크어"
-
-#~ msgid "Hungarian"
-#~ msgstr "헝가리어"
-
-#~ msgid "Portuguese"
-#~ msgstr "포르투갈어"
-
-#~ msgid "Romanian"
-#~ msgstr "루마니아어"
-
-#~ msgid "Serbian"
-#~ msgstr "세르비아어"
-
-#~ msgid "Slovak"
-#~ msgstr "슬로바키아어"
-
-#~ msgid "Turkish"
-#~ msgstr "터키어"
-
-#~ msgid "Ukrainian"
-#~ msgstr "우크라이나어"
-
-#~ msgid "You cannot edit this partition, as it is in use by the installer."
-#~ msgstr ""
-#~ "이 파티션은 현재 설치 프로그램에 의해 사용되고 있기 때문에 편집하실 수 없"
-#~ "습니다."

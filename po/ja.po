@@ -1099,9 +1099,8 @@ msgstr ""
 "ため新しいパーティションテーブルをディスクに書き込みます。よろしいですか?"
 
 #: ../partitioning.py:1769
-#, fuzzy
 msgid "Format as Swap?"
-msgstr "%s でフォーマット"
+msgstr "スワップパーティションとしてフォーマットしますか?"
 
 #: ../partitioning.py:1770
 #, c-format
@@ -1111,6 +1110,10 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"/dev/%sはパーティションタイプ 0x82(Linuxスワップ)となっていますが、Linuxス"
+"ワップパーティションとしてフォーマットされているようには見えません\n"
+"\n"
+"このパーティションをスワップパーティションとしてフォーマットしますか?"
 
 #: ../partitioning.py:1789 ../partitioning.py:1807
 msgid "Format?"
@@ -1191,13 +1194,12 @@ msgstr ""
 "されています"
 
 #: ../iw/partition_gui.py:579 ../partitioning.py:1844
-#, fuzzy
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 "'はい'を選択すると処理を続け、これらのパーティションをフォーマットします。'い"
-"いえ'なら戻ってこれらの設定を変更できます"
+"いえ'なら前に戻ってこれらの設定を変更できます"
 
 #: ../partitioning.py:1850
 msgid "Format Warning"
@@ -1370,9 +1372,8 @@ msgstr ""
 "てから正常にシャットダウンして下さい"
 
 #: ../upgrade.py:214
-#, fuzzy
 msgid "Mount failed"
-msgstr "テストに失敗しました"
+msgstr "マウント失敗"
 
 #: ../upgrade.py:215
 msgid ""
@@ -3436,7 +3437,6 @@ msgid "No RAID partitions"
 msgstr "RAIDパーティションなし"
 
 #: ../textw/partition_text.py:880
-#, fuzzy
 msgid "Invalid Entry for RAID Spares"
 msgstr "不適切なRAIDスペアエントリ"
 
