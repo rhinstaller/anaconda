@@ -218,4 +218,19 @@ def rmrf (path):
             os.unlink (path + '/' + file)
     os.rmdir (path)
 
+def validUser (user):
+    if len (user) > 8:
+        return 0
     
+    if not user[0] in string.letters:
+        return 0
+
+    for letter in user:
+        if (letter == ':'
+            or letter == ','
+            or letter == '\n'
+            or ord (letter) < 33):
+            return 0
+
+    return 1
+

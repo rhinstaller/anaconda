@@ -2,7 +2,8 @@
 from snack import *
 from textw.constants import *
 from text import _
-        
+import iutil
+
 class RootPasswordWindow:
     def __call__ (self, screen, todo):
         toplevel = GridForm (screen, _("Root Password"), 1, 3)
@@ -86,6 +87,14 @@ class UsersWindow:
 	       not len(userid.value()) and not len(fullname.value()):
                 return INSTALL_OK
 
+            if (not iutil.validUser(userid.value())):
+		ButtonChoiceWindow(self.screen, _("Bad User ID"),
+                                   _("User IDs must be less than 8 "
+                                     "characters and contain only characters "
+                                     "A-Z, a-z, and 0-9."),
+                                   buttons = [ _("OK") ], width = 50)
+		continue
+                
 	    if not userid.value ():
 		ButtonChoiceWindow(self.screen, _("Missing User ID"),
                                    _("You must provide a user ID"),
