@@ -90,7 +90,7 @@ class FDasdWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     def dasdfmt_button_clicked (self, widget):
-       rc = self.intf.messageWindow(_("Warning"), _("Formating the selected "
+       rc = self.intf.messageWindow(_("Warning"), _("Formatting the selected "
             "DASD device will destroy all contents of the device. Do you "
             "really want to format the selected DASD device?"), "yesno")
        if rc == 1:
