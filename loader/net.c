@@ -609,14 +609,14 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 #endif
 
 #ifdef __STANDALONE__
-int main(int argc, char **argv) {
+int main(int argc, const char **argv) {
     int netSet, rc;
     int x;
     char * bootProto = NULL;
     char * device = NULL;
     char * hostname = NULL;
     char * domain = NULL;
-    char * arg;
+    const char * arg;
     char path[256];
     char roottext[80];
     poptContext optCon;
