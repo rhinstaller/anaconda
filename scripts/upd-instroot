@@ -152,7 +152,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump
-                findutils ftp gzip iputils joe krb5-libs less 
+                findutils ftp gzip iputils joe krb5-libs less man
                 modutils mtools mt-st mtr net-tools open 
                 openssh openssh-clients pciutils rsh traceroute tar"
 
@@ -465,6 +465,7 @@ etc/fb.modes
 etc/gtk-2.0/gtkrc*
 etc/im_palette.pal
 etc/imrc
+etc/man.config
 etc/pango/*
 etc/fonts/*
 $LIBDIR/libnss_dns*
@@ -812,6 +813,14 @@ aliases:    files
 EOF
 
 cp $DEST/etc/nsswitch.conf $DESTGR/etc/nsswitch.conf
+
+# fixup man.config to point into /mnt/sysimage for rescue
+echo "Fixing up /etc/man.config to point into /mnt/sysimage"
+if [ -n "$NEEDGR" ];
+    mv $DESTGR/etc/man.config $DESTGR/etc/man.config-old
+    cat $DESTGR/etc/man.config-old | sed 's^/usr/bin^/mnt/sysimage/usr/bin^' | sed 's^/bin/cat^/mnt/sysimage/usr/bin/cat^' | sed 's^/bin/gunzip^/mnt/sysimage/usr/bin/gunzip^' > $DESTGR/etc/man.config
+    rm -f $DESTGR/etc/man.config-old
+fi
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then

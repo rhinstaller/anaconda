@@ -270,7 +270,32 @@ def runRescue(instPath, mountroot, id):
 
 		# set a library path to use mounted fs
 		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/kerberos/lib:/mnt/sysimage/usr/X11R6/lib"
+
+		# get man pages to work
+		os.environ["MANPATH"] = "/mnt/sysimage/usr/share/man:/mnt/sysimage/usr/local/share/man"
+
+		# find groff data dir
+		try:
+		    glst = os.listdir["/mnt/sysimage/usr/share/groff"]
+
+		    # find a directory which is a numeral, its where
+		    # data files are
+		    for gdir in glst:
+			try:
+			    gversion = float(gdir)
+			except:
+			    gversion = None
+			    continue
+		except:
+		    gversion = None
+
+		if gversion is not None:
+		    gpath = "/mnt/sysimage/usr/share/groff/"+gversion
+		    os.environ["GROFF_FONT_PATH"] = gpath + '/font'
+		    os.environ["GROFF_TMAC_PATH"] = gpath + '/tmac'
 		    
+		    
+			
 	except:
 	    # This looks horrible, but all it does is catch every exception,
 	    # and reraise those in the tuple check. This lets programming
