@@ -2,6 +2,13 @@
 
 p=$1
 
+STRIP=strip
+ARCH=`uname -m | sed -e 's/i.86/i386/'`
+
+if [ $ARCH = ia64 ]; then
+    STRIP=echo
+fi
+
 # Must create ld.so.conf, because ldconfig does not cache
 # dirs specified on the command line.
 touch $p/etc/ld.so.conf
