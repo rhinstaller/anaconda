@@ -265,6 +265,16 @@ class InstallControlWindow (Thread):
 
         gtk_set_locale ()
         self.window.reset_rc_styles ()
+        # XXX recreate html widget to set new locale
+        # there has to be a better way to do this, but I
+        # can't find it.  I try html.set_font_charset, but
+        # it screws everything up.
+        self.box.remove(self.html)
+        self.html = GtkXmHTML()
+        self.box.add (self.html)
+        self.html.show ()
+        self.html.source (self.currentScreen.getICS ().getHTML ())
+
         # get the labels
         for (button, text) in [ (self.nextButtonStock, _("Next")),
                                 (self.prevButtonStock, _("Back")),
@@ -548,11 +558,11 @@ class InstallControlWindow (Thread):
         self.helpState = TRUE
 
         self.helpFrame = GtkFrame (_("Online Help"))
-        box = GtkVBox (FALSE, 0)
+        self.box = GtkVBox (FALSE, 0)
         
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start (self.html, TRUE)
-        self.helpFrame.add (box)
+        self.box.pack_start (GtkHSeparator (), FALSE)
+        self.box.pack_start (self.html, TRUE)
+        self.helpFrame.add (self.box)
 
         table = GtkTable (1, 3, TRUE)
         table.attach (self.helpFrame, 0, 1, 0, 1)
