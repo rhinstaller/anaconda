@@ -90,18 +90,18 @@ fi
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
-PACKAGESGR="anaconda
-           XFree86-libs imlib libpng libtiff libjpeg XFree86-S3
-           XFree86-I128 XFree86-75dpi-fonts
+
+PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
+           XFree86-S3 XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts glib gtk+
            XFree86-ISO8859-9-75dpi-fonts esound audiofile gnome-libs
            XFree86-100dpi-fonts XFree86-ISO8859-2 XFree86-ISO8859-9
-           XFree86-xfs e2fsprogs fileutils glibc rsh less ftp
-           readline gzip popt specspo util-linux rpm rpm-devel open
-           grep net-tools traceroute tar procps textutils sed ncurses
-           bash cpio mt-st iputils sh-utils XFree86-cyrillic-fonts
-           XFree86 Xconfigurator pygnome pygtk pygtk-libglade
-           pygnome-libglade pygnome-applet pygnome-capplet"
+           XFree86-xfs e2fsprogs fileutils glibc rsh less ftp readline
+           gzip popt specspo util-linux rpm rpm-devel open grep
+           net-tools traceroute tar procps textutils sed ncurses bash
+           cpio mt-st iputils sh-utils XFree86-cyrillic-fonts XFree86
+           Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
+           pygnome-applet pygnome-capplet"
 
 if [ $ARCH != ia64 ]; then
     PACKAGESGR="$PACKAGESGR mtools pine modutils"
@@ -109,6 +109,10 @@ fi
 
 if [ $ARCH = sparc ]; then
     PACKAGESGR="$PACKAGESGR XFree86-Sun"
+fi
+
+if [ $ARCH = i386 ]; then
+    PACKAGESGR="$PACKAGESGR XFree86-I128"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
