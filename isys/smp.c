@@ -13,6 +13,7 @@
 #include <sys/mman.h>
 #include <string.h>
 #include <errno.h>
+#include <stdint.h>
 #include <sys/types.h>
 
 #ifdef DIET
@@ -135,7 +136,7 @@ int powerpcDetectSMP(void)
 }
 #endif /* __powerpc__ */
 
-#ifdef __i386__
+#if defined(__i386__) || defined(__x86_64__)
 /*
  * Copyright (c) 1996, by Steve Passe
  * All rights reserved.
@@ -190,7 +191,7 @@ int powerpcDetectSMP(void)
 
 #define LINUX 1
 #if LINUX
-typedef unsigned int vm_offset_t;
+typedef uint32_t vm_offset_t;
 #else
 #include <machine/types.h>
 #endif
@@ -215,7 +216,7 @@ typedef unsigned int vm_offset_t;
 /* MP Floating Pointer Structure */
 typedef struct MPFPS {
     char        signature[ 4 ];
-    void*       pap;
+    int32_t     pap;
     u_char      length;
     u_char      spec_rev;
     u_char      checksum;
@@ -224,35 +225,35 @@ typedef struct MPFPS {
     u_char      mpfb3;
     u_char      mpfb4;
     u_char      mpfb5;
-} mpfps_t;
+} mpfps_t __attribute__ ((__packed__));
 
 /* MP Configuration Table Header */
 typedef struct MPCTH {
     char        signature[ 4 ];
-    u_short     base_table_length;
+    uint16_t    base_table_length;
     u_char      spec_rev;
     u_char      checksum;
     u_char      oem_id[ 8 ];
     u_char      product_id[ 12 ];
-    void*       oem_table_pointer;
-    u_short     oem_table_size;
-    u_short     entry_count;
-    void*       apic_address;
-    u_short     extended_table_length;
+    int32_t     oem_table_pointer;
+    uint16_t    oem_table_size;
+    uint16_t    entry_count;
+    int32_t     apic_address;
+    uint16_t    extended_table_length;
     u_char      extended_table_checksum;
     u_char      reserved;
-} mpcth_t;
+} mpcth_t __attribute__ ((__packed__));
 
 typedef struct PROCENTRY {
     u_char      type;
     u_char      apicID;
     u_char      apicVersion;
     u_char      cpuFlags;
-    u_long      cpuSignature;
-    u_long      featureFlags;
-    u_long      reserved1;
-    u_long      reserved2;
-} ProcEntry;
+    uint32_t    cpuSignature;
+    uint32_t    featureFlags;
+    uint32_t    reserved1;
+    uint32_t    reserved2;
+} ProcEntry __attribute__ ((__packed__));
 
 #define PROCENTRY_FLAG_EN       0x01
 
@@ -369,9 +370,9 @@ apic_probe( vm_offset_t* paddr, int* where )
      */
 
     int         x;
-    u_short     segment;
+    uint16_t     segment;
     vm_offset_t target;
-    u_int       buffer[ BIOS_SIZE / sizeof( int ) ];
+    uint32_t       buffer[ BIOS_SIZE / sizeof( int32_t ) ];
 
     if ( verbose )
         printf( "\n" );
@@ -396,13 +397,14 @@ apic_probe( vm_offset_t* paddr, int* where )
 	}
         readEntry( buffer, ONE_KBYTE );
 
-        for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+        for ( x = 0; x < ONE_KBYTE / sizeof ( uint32_t ); NEXT(x) ) {
             if ( buffer[ x ] == MP_SIG ) {
                 *where = 1;
-                *paddr = (x * sizeof( unsigned int )) + target;
+                *paddr = (x * sizeof( uint32_t )) + target;
                 return;
             }
         }
+
     }
     else {
         if ( verbose )
@@ -424,10 +426,10 @@ apic_probe( vm_offset_t* paddr, int* where )
     seekEntry( target );
     readEntry( buffer, ONE_KBYTE );
 
-    for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+    for ( x = 0; x < ONE_KBYTE / sizeof ( uint32_t ); NEXT(x) ) {
         if ( buffer[ x ] == MP_SIG ) {
             *where = 2;
-            *paddr = (x * sizeof( unsigned int )) + target;
+            *paddr = (x * sizeof( uint32_t )) + target;
             return;
         }
     }
@@ -441,10 +443,10 @@ apic_probe( vm_offset_t* paddr, int* where )
         seekEntry( target );
         readEntry( buffer, ONE_KBYTE );
 
-        for ( x = 0; x < ONE_KBYTE / sizeof ( unsigned int ); NEXT(x) ) {
+        for ( x = 0; x < ONE_KBYTE / sizeof ( uint32_t ); NEXT(x) ) {
             if ( buffer[ x ] == MP_SIG ) {
                 *where = 3;
-                *paddr = (x * sizeof( unsigned int )) + target;
+                *paddr = (x * sizeof( uint32_t )) + target;
                 return;
             }
         }
@@ -456,10 +458,10 @@ apic_probe( vm_offset_t* paddr, int* where )
     seekEntry( BIOS_BASE );
     readEntry( buffer, BIOS_SIZE );
 
-    for ( x = 0; x < BIOS_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+    for ( x = 0; x < BIOS_SIZE / sizeof( uint32_t ); NEXT(x) ) {
         if ( buffer[ x ] == MP_SIG ) {
             *where = 4;
-            *paddr = (x * sizeof( unsigned int )) + BIOS_BASE;
+            *paddr = (x * sizeof( uint32_t )) + BIOS_BASE;
             return;
         }
     }
@@ -470,10 +472,10 @@ apic_probe( vm_offset_t* paddr, int* where )
     seekEntry( BIOS_BASE2 );
     readEntry( buffer, BIOS_SIZE );
 
-    for ( x = 0; x < BIOS_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+    for ( x = 0; x < BIOS_SIZE / sizeof( uint32_t ); NEXT(x) ) {
         if ( buffer[ x ] == MP_SIG ) {
             *where = 5;
-            *paddr = (x * sizeof( unsigned int )) + BIOS_BASE2;
+            *paddr = (x * sizeof( uint32_t )) + BIOS_BASE2;
             return;
         }
     }
@@ -486,10 +488,10 @@ apic_probe( vm_offset_t* paddr, int* where )
         seekEntry( target );
         readEntry( buffer, GROPE_SIZE );
 
-        for ( x = 0; x < GROPE_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+        for ( x = 0; x < GROPE_SIZE / sizeof( uint32_t ); NEXT(x) ) {
             if ( buffer[ x ] == MP_SIG ) {
                 *where = 6;
-                *paddr = (x * sizeof( unsigned int )) + GROPE_AREA1;
+                *paddr = (x * sizeof( uint32_t )) + GROPE_AREA1;
                 return;
             }
         }
@@ -500,10 +502,10 @@ apic_probe( vm_offset_t* paddr, int* where )
         seekEntry( target );
         readEntry( buffer, GROPE_SIZE );
 
-        for ( x = 0; x < GROPE_SIZE / sizeof( unsigned int ); NEXT(x) ) {
+        for ( x = 0; x < GROPE_SIZE / sizeof( uint32_t ); NEXT(x) ) {
             if ( buffer[ x ] == MP_SIG ) {
                 *where = 7;
-                *paddr = (x * sizeof( unsigned int )) + GROPE_AREA2;
+                *paddr = (x * sizeof( uint32_t )) + GROPE_AREA2;
                 return;
             }
         }
@@ -546,7 +548,9 @@ static int intelDetectSMP(void)
 }
 
 /* ---- end mptable mess ---- */
+#endif /* __i386__ || __x86_64__ */
 
+#ifdef __i386__
 static inline void cpuid(int op, int *eax, int *ebx, int *ecx, int *edx)
 {
     __asm__("pushl %%ebx; cpuid; movl %%ebx,%1; popl %%ebx"
@@ -560,7 +564,7 @@ int detectHT(void)
 {
     FILE *f;
     int htflag = 0;
-    unsigned int eax = 0, ebx = 0, ecx = 0, edx = 0;
+    uint32_t eax = 0, ebx = 0, ecx = 0, edx = 0;
     int smp_num_siblings = 0;
     
     f = fopen("/proc/cpuinfo", "r");
@@ -617,7 +621,7 @@ int detectSMP(void)
     if (isSMP != -1)
 	return isSMP;
 
-#if defined (__i386__)
+#if defined (__i386__) || defined(__x86_64__)
     return isSMP = intelDetectSMP();
 #elif defined (__sparc__)
     return isSMP = sparcDetectSMP();
