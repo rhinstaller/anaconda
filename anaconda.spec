@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.4.1
+Version: 9.1.5.0
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Jan 04 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.0-1.RHEL
+- Backport ignoredisk (#140464)
+- Fix quoting for ETHTOOL_OPTS (#142041)
+- U5 backport n.arch support (#139824)
+
 * Wed Nov 10 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.1-1.RHEL
 - Don't ask about manually loading devices if we have all 
   virtual hardware (#135108)
