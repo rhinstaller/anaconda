@@ -455,7 +455,8 @@ class RaidRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  raidlevel = None, raidmembers = None,
-                 raidspares = None, raidminor = None):
+                 raidspares = None, raidminor = None,
+                 preexist = 0):
         """Create a new RaidRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -468,7 +469,7 @@ class RaidRequestSpec(RequestSpec):
         """
 
         RequestSpec.__init__(self, fstype = fstype, format = format,
-                             mountpoint = mountpoint)
+                             mountpoint = mountpoint, preexist = preexist)
         self.type = REQUEST_RAID
         
 
