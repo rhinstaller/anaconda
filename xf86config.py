@@ -106,10 +106,15 @@ class XF86Config:
             if line and line[0] == '#':
                 continue
             fields = string.split (line, ';')
-            print fields
             monitors [fields[0]] = (fields[2], fields[3])
         return monitors
 
+    def setMonitor (self, (monitor, (hrange, vrange))):
+        self.monName = monitor
+        self.monID = monitor
+        self.monHoriz = hrange
+        self.monVert = vrange
+        
     def setVidcard (self, card):
         self.vidCards.append (card)
 

@@ -94,6 +94,12 @@ class XConfigWindow (InstallWindow):
         self.didTest = 0
 
     def getNext (self):
+        if self.monlist:
+            if self.monlist.selection:
+                row = self.monlist.selection[0]
+                setting = self.monlist.get_row_data (row)
+                self.todo.x.setMonitor (setting)
+
         if self.custom.get_active () and not self.skip.get_active ():
             return XCustomWindow
         return None
@@ -151,6 +157,31 @@ class XConfigWindow (InstallWindow):
         result.set_alignment (0.2, 0.5)
         result.set_justify (JUSTIFY_LEFT)
         self.autoBox.pack_start (result, FALSE)
+
+        self.todo.x.monName = None
+        self.monlist = None
+        if not self.todo.x.monName:
+            label = GtkLabel (_("Your monitor could not be "
+                                "autodetected. Please choose it "
+                                "from the list below:"))
+            label.set_alignment (0.0, 0.5)
+            label.set_justify (JUSTIFY_LEFT)
+            label.set_line_wrap (TRUE)        
+            self.autoBox.pack_start (label, FALSE)
+
+            monitors = self.todo.x.monitors ()
+            keys = monitors.keys ()
+            keys.sort ()
+            self.monlist = GtkCList ()
+            self.monlist.set_selection_mode (SELECTION_BROWSE)
+                    
+            for monitor in keys:
+                index = self.monlist.append ((monitor,))
+                self.monlist.set_row_data (index, (monitor, monitors[monitor]))
+            sw = GtkScrolledWindow ()
+            sw.add (self.monlist)
+            sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+            self.autoBox.pack_start (sw, TRUE)
 
         test = GtkAlignment ()
         button = GtkButton (_("Test this configuration"))
