@@ -1,3 +1,8 @@
+2004-11-02  Jeremy Katz  <katzj@redhat.com>
+
+	* rescue.py (runRescue): Fix traceback with going back in the
+	network config (#137844)
+
 2004-11-02  Karsten Hopp  <karsten@redhat.com>
 
 	* loader2/linuxrc.s390: Ask for CTCPROT even if MTU is already

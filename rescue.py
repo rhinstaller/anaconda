@@ -226,6 +226,8 @@ def runRescue(instPath, mountroot, id):
 					     "from here. You will have to try "
 					     "again."),
 					   buttons=[_("OK")])
+                        dir = 1
+                        step = 0
 		    elif step >= len(classNames):
 			break
 
