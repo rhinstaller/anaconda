@@ -1,3 +1,9 @@
+2004-12-21  Chris Lumens  <clumens@redhat.com>
+
+        * fsset.py (turnOnSwap): Print out a more descriptive error
+        message if swap partition cannot be mounted (#143000).
+        * upgrade.py (createSwapFile,upgradeMountFilesystems): Likewise.
+
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/mk-images (makeinitrd): Just create /dev

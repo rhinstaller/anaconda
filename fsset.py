@@ -1341,7 +1341,7 @@ MAILADDR root
             if label:
                 entry.setLabel(label)
                 
-    def turnOnSwap (self, chroot):
+    def turnOnSwap (self, chroot, upgrading=False):
         for entry in self.entries:
             if (entry.fsystem and entry.fsystem.getName() == "swap"
                 and not entry.isMounted()):
@@ -1350,16 +1350,27 @@ MAILADDR root
                     self.mountcount = self.mountcount + 1
                 except SystemError, (num, msg):
                     if self.messageWindow:
-                        self.messageWindow(_("Error"), 
-                                           _("Error enabling swap device %s: "
-                                             "%s\n\n"
-                                             "This most likely means this "
-                                             "swap partition has not been "
-                                             "initialized."
-                                             "\n\n"
-                                             "Press OK to reboot your "
-                                             "system.")
-                                           % (entry.device.getDevice(), msg))
+                        if upgrading:
+                            self.messageWindow(_("Error"),
+                                               _("Error enabling swap device "
+                                                 "%s: %s\n\n"
+                                                 "The /etc/fstab on your "
+                                                 "upgrade partition does not "
+                                                 "reference a valid swap "
+                                                 "partition.\n\n"
+                                                 "Press OK to reboot your "
+                                                 "system.")
+                                               % (entry.device.getDevice(), msg))
+                        else:
+                            self.messageWindow(_("Error"),
+                                               _("Error enabling swap device "
+                                                 "%s: %s\n\n"
+                                                 "This most likely means this "
+                                                 "swap partition has not been "
+                                                 "initialized.\n\n"
+                                                 "Press OK to reboot your "
+                                                 "system.")
+                                               % (entry.device.getDevice(), msg))
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):

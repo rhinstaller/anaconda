@@ -246,7 +246,7 @@ def createSwapFile(instPath, theFsset, mntPoint, size):
     entry.setFormat(1)
     theFsset.add(entry)
     theFsset.formatEntry(entry, instPath)
-    theFsset.turnOnSwap(instPath)
+    theFsset.turnOnSwap(instPath, upgrading=True)
 
     # XXX generalize fstab modification
     f = open(fstabPath, "a")
@@ -326,7 +326,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
             oldfsset.add(entry)
         
     if flags.setupFilesystems:
-        oldfsset.turnOnSwap(instPath)
+        oldfsset.turnOnSwap(instPath, upgrading=True)
 
 # move the old pre-convert db back in case of problems
 def resetRpmdb(olddb, instPath):
