@@ -175,7 +175,7 @@ set_flag_marker (MapData *mapdata, gchar *color,
 
         setup_item (gnome_canvas_item_new (GNOME_CANVAS_GROUP (group),
 					   gnome_canvas_text_get_type (),
-					   "font", "-adobe-helvetica-bold-r-normal--12-*-*-*-p-*-*-*",
+					   "font", "-adobe-helvetica-bold-r-normal--12-*-*-*-p-*-iso8859-1",
 					   "anchor", GTK_ANCHOR_CENTER,
 					   "fill_color", "red",
 					   "text", "x",
@@ -332,10 +332,11 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 		gnome_canvas_item_set (mapdata->markers[mapdata->hiliteindex], 
 				       "fill_color", SELECTED_COLOR, 
 				       NULL);
+	    
+	    gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
+	    gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, loc->zone );
 	}
 	mapdata->hiliteindex = index;
-	gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
-	gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, loc->zone );
     }
     
     gnome_canvas_points_free (points);
