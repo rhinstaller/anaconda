@@ -446,12 +446,14 @@ int main(void) {
     }
     printf("done\n");
 
+#ifndef __alpha__
     printf("mounting /dev/pts (unix89 pty) filesystem... "); 
     if (!testing) {
 	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
 	    fatal_error(1);
     }
     printf("done\n");
+#endif
     
     if (isSerial) {
 	printf("Red Hat install init version %s using a serial console\n", 
