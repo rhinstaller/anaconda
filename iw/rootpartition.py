@@ -187,8 +187,8 @@ class AutoPartitionWindow(InstallWindow):
 	if not todo.getPartitionWarningText(): 
 	    return None
 
-	label = GtkLabel(
-	    _("%s\n\nIf you don't want to do this, you can continue with "
+	label = \
+           GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
 	      "this install by partitioning manually, or you can go back "
 	      "and perform a fully customized installation.") % 
 		    (todo.getPartitionWarningText(), ))
