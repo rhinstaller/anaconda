@@ -633,9 +633,15 @@ class ToDo:
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
         if self.auth.useShadow:
-            args.append ("--useshadow")
+            args.append ("--enableshadow")
+	else:
+            args.append ("--disableshadow")
+
         if self.auth.useMD5:
             args.append ("--enablemd5")
+	else:
+            args.append ("--disablemd5")
+	
 
         if self.auth.useNIS:
             args.append ("--enablenis")
