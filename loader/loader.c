@@ -1090,7 +1090,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     if (!ksGetCommand(KS_CMD_TEXT, NULL, &ksArgc, &ksArgv))
-	(*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TESTING;
+	(*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_TEXT;
 
     if (table) {
 	ksGetCommand(ksType, NULL, &ksArgc, &ksArgv);
