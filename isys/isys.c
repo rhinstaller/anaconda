@@ -59,7 +59,6 @@ static PyObject * htAvailable(PyObject * s, PyObject * args);
 static PyObject * summitAvailable(PyObject * s, PyObject * args);
 static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
-static PyObject * doCheckUFS(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
 static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doPoptParse(PyObject * s, PyObject * args);
@@ -121,7 +120,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
     { "pumpnetdevice", (PyCFunction) doPumpNetDevice, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
-    { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
@@ -520,26 +518,6 @@ static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
     close (fd);
     
     return Py_BuildValue("i", magic == BOOT_SIGNATURE);
-}
-
-#define UFS_SUPER_MAGIC		0x00011954
-
-static PyObject * doCheckUFS (PyObject * s, PyObject * args) {
-    char * path;
-    int fd, magic;
-    
-    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
-
-    if ((fd = open (path, O_RDONLY)) == -1) {
-	PyErr_SetFromErrno(PyExc_SystemError);
-	return NULL;
-    }
-    
-    return Py_BuildValue("i", (lseek64(fd, (off64_t) (8192 + 0x55c),
-				       SEEK_SET) >= 0 &&
-			       read(fd, &magic, 4) == 4 &&
-			       (magic == UFS_SUPER_MAGIC ||
-				swab32(magic) == UFS_SUPER_MAGIC)));
 }
 
 int swapoff(const char * path);
