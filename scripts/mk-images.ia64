@@ -5,7 +5,7 @@ LATEUSBMODS="mousedev"
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 $LATEUSBMODS"
 NETMODULES="3c59x acenic e100 e1000 eepro100 sk98lin starfire tulip yellowfin"
 SCSIMODULES="DAC960 cciss cpqarray aic7xxx megaraid qla1280 qla2x00 sym53c8xx"
-
+IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
 	gunzip < $BOOTDISKDIR/bootfs.gz > $MBD_TMPIMAGE
@@ -20,9 +20,9 @@ makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \
-			    --modules "nfs fat vfat $USBMODS $NETMODULES $SCSIMODULES"' 
+			    --modules "nfs fat vfat $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES"' 
 
-makeinstimage --size1 8192 --size2 8192 "netstg" "$SECSTAGE $SCSIMODULES"
-makeinstimage --size1 8192 --size2 8192 "hdstg" "$SECSTAGE $NETMODULES"
-makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES"
+makeinstimage --size1 8192 --size2 8192 "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
+makeinstimage --size1 8192 --size2 8192 "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
+makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
 makemainimage "stage2"
