@@ -67,6 +67,9 @@ def chroot (path):
 def checkBoot (path):
     return _isys.checkBoot (path)
 
+def swapoff (path):
+    return _isys.swapoff (path)
+
 def swapon (path):
     return _isys.swapon (path)
 

@@ -49,6 +49,7 @@ static PyObject * doChroot(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doCheckUFS(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
+static PyObject * doSwapoff(PyObject * s, PyObject * args);
 static PyObject * doPoptParse(PyObject * s, PyObject * args);
 static PyObject * doFbconProbe(PyObject * s, PyObject * args);
 static PyObject * doLoSetup(PyObject * s, PyObject * args);
@@ -91,6 +92,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
     { "swapon",  (PyCFunction) doSwapon, METH_VARARGS, NULL },
+    { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
     { NULL }
 } ;
@@ -673,6 +675,19 @@ static PyObject * doCheckUFS (PyObject * s, PyObject * args) {
 				swab32(magic) == UFS_SUPER_MAGIC)));
 }
 
+static PyObject * doSwapoff (PyObject * s, PyObject * args) {
+    char * path;
+
+    if (!PyArg_ParseTuple(args, "s", &path)) return NULL;
+
+    if (swapoff (path)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
 
 static PyObject * doSwapon (PyObject * s, PyObject * args) {
     char * path;
