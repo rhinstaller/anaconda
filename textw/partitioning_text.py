@@ -7,9 +7,7 @@ from translate import _
 
 class PartitionMethod:
     def __call__(self, screen, todo):
-        # if instClass has new or old partition info we're in ks so skip
-	if not todo.getPartitionWarningText() and \
-		(todo.instClass.partitions or todo.instClass.fstab):
+	if not todo.fstab.getRunDruid():
 	    todo.skipFdisk = 1
 	    return INSTALL_NOOP
 
