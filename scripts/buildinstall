@@ -8,12 +8,11 @@ usage() {
 COMPNAME=dist-7.0
 RUN=1
 
-ARGS=$*
-
 while [ $# -gt 0 ]; do
     case $1 in
 	--pkgorder)
 	    PKGORDER=$2
+	    PKGORDERSTR="--pkgorder $2"
 	    shift; shift
 	    ;;
 	--comp)
@@ -116,9 +115,9 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $ARGS"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\""
 else
-    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $ARGS
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\"
 fi
 }
 
