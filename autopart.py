@@ -27,7 +27,8 @@ CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
 
-BOOT_ABOVE_1024 = 1
+BOOT_ABOVE_1024 = -1
+BOOTEFI_NOT_VFAT = -2
 
 
 # check that our "boot" partition meets necessary constraints unless
@@ -42,7 +43,8 @@ def bootRequestCheck(requests, diskset):
 
     
     if iutil.getArch() == "ia64":
-        # XXX do ia64 boot checks here after checking with bill about specifics
+        if part.fs_type.name != "FAT":
+            return BOOTEFI_NOT_VFAT
         pass
     elif iutil.getArch() == "i386":
         if end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:

@@ -765,9 +765,10 @@ class Partitions:
     # return name of boot mount point in current requests
     def getBootableRequest(self):
         bootreq = None
-        
-        if not bootreq and iutil.getArch() == "ia64":
+
+        if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
+            return bootreq
         if not bootreq:
             bootreq = self.getRequestByMountPoint("/boot")
         if not bootreq:
