@@ -449,13 +449,8 @@ rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zo
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
 rm -rf $TZDIR
 
-chown -R root:root $DEST $DESGTR
-
-# XXX kludge, fix me
-#rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
-#rm -f $DESTGR/usr/lib/python1.5/site-packages/rpmmodule.so
-rm -f $DEST/usr/lib/anaconda/rpmmodule.so
-rm -f $DESTGR/usr/lib/anaconda/rpmmodule.so
+chown -R root:root $DEST $DESTGR
+chmod -R a+r a-w $DEST $DESTGR
 
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
