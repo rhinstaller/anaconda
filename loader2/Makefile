@@ -66,7 +66,7 @@ BINS += init
 endif
 
 # translation stuff
-LANGS = $(shell awk '{ print $$2 }' ../lang-table | egrep -v '(^en$$)')
+LANGS = $(shell cut -f 2 ../lang-table | egrep -v '(^en$$)')
 
 TR = $(patsubst %,tr/%.tr,$(LANGS))
 TRFILES = $(patsubst %,%.tr,$(LANGS))
