@@ -1,0 +1,40 @@
+#!/usr/bin/python
+
+import timezonemap
+from gtk import *
+import GdkImlib
+from gnome.ui import *
+
+class Map (GnomeCanvas):
+    def __init__ (self, map):
+        self._o = map
+
+class List (GtkScrolledWindow):
+    def __init__ (self, list):
+        self._o = list
+
+class Status (GtkStatusbar):
+    def __init__ (self, bar):
+        self._o = bar
+
+class Option (GtkOptionMenu):
+    def __init__ (self, option):
+        self._o = option
+
+win = GtkWindow()
+vbox = GtkVBox (FALSE, 10)
+
+tz = timezonemap.new ()
+map = Map (tz.map)
+list = List (tz.citylist)
+option = Option (tz.views)
+status = Status (tz.statusbar)
+vbox.pack_start (option, FALSE)
+vbox.pack_start (map, FALSE)
+vbox.pack_start (status, FALSE)
+vbox.pack_start (list)
+win.add (vbox)
+win.show_all ()
+
+mainloop ()
+
