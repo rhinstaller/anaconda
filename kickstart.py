@@ -365,6 +365,13 @@ class Kickstart(BaseInstallClass):
 			scriptInterp = arg
 
 	    elif args[0] == "%packages":
+		if where =="pre" or where == "post":
+		    s = Script(script, scriptInterp, scriptChroot)
+		    if where == "pre":
+			self.preScripts.append(s)
+		    else:
+			self.postScripts.append(s)
+
 		where = "packages"
 	    else:
 		if where == "packages":
