@@ -288,7 +288,11 @@ class XConfigWindow (InstallWindow):
     def memory_cb (self, widget, size):
         self.todo.x.vidRam = size[:-1]
         self.todo.x.filterModesByMemory ()
-    
+
+    def moveto (self, clist, area, row):
+        clist.select_row (row, 0)
+        clist.moveto (row, 0, 0.5, 0.0)
+
     def getScreen (self):
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
@@ -304,7 +308,7 @@ class XConfigWindow (InstallWindow):
 
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
- 
+
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
@@ -335,14 +339,14 @@ class XConfigWindow (InstallWindow):
             label.set_alignment (0.0, 0.5)
             self.autoBox.pack_start (label, FALSE)
 
-            report = self.todo.x.probeReport ()
-            report = string.replace (report, '\t', '       ')
+#              report = self.todo.x.probeReport ()
+#              report = string.replace (report, '\t', '       ')
 
-            result = GtkLabel (report)
-            result.set_alignment (0.2, 0.5)
-            result.set_justify (JUSTIFY_LEFT)
-            self.autoBox.pack_start (result, FALSE)
-            box.pack_start (self.autoBox, FALSE)
+#              result = GtkLabel (report)
+#              result.set_alignment (0.2, 0.5)
+#              result.set_justify (JUSTIFY_LEFT)
+#              self.autoBox.pack_start (result, FALSE)
+#              box.pack_start (self.autoBox, FALSE)
 
             label = GtkLabel (_("If the probed settings do not match your hardware "
                                 "select the correct setting below:"))
@@ -351,6 +355,21 @@ class XConfigWindow (InstallWindow):
             label.set_alignment (0.0, 0.5)
             label.set_usize (400, -1)
             self.autoBox.pack_start (label, FALSE)
+
+        # card configuration
+        self.cardList = GtkCList ()
+        self.cardList.set_selection_mode (SELECTION_BROWSE)
+        cards = self.todo.x.cards ().keys ()
+        cards.sort ()
+        select = 0
+        for card in cards:
+            row = self.cardList.append ((card,))
+            if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
+                select = row
+        self.cardList.connect ("draw", self.moveto, select)
+        sw = GtkScrolledWindow ()
+        sw.add (self.cardList)
+        box.pack_start (sw, TRUE)
 
         # Memory configuration table
         table = GtkTable()
@@ -364,8 +383,8 @@ class XConfigWindow (InstallWindow):
                 button.set_active (1)
             if not group:
                 group = button
-            table.attach (button, count % 3, (count % 3) + 1,
-                          count / 3, (count / 3) + 1)
+            table.attach (button, count % 4, (count % 4) + 1,
+                          count / 4, (count / 4) + 1)
             count = count + 1
         box.pack_start (table, FALSE)
 
