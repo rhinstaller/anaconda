@@ -250,6 +250,8 @@ def isRaid5(raidlevel):
         return 1
     elif raidlevel == 5:
         return 1
+    elif raidlevel == "5":
+        return 1
     return 0
 
 def isRaid1(raidlevel):
@@ -257,12 +259,16 @@ def isRaid1(raidlevel):
         return 1
     elif raidlevel == 1:
         return 1
+    elif raidlevel == "1":
+        return 1
     return 0
 
 def isRaid0(raidlevel):
     if raidlevel == "RAID0":
         return 1
     elif raidlevel == 0:
+        return 1
+    elif raidlevel == "0":
         return 1
     return 0
 
@@ -924,6 +930,139 @@ class Partitions:
         new.useFdisk = self.useFdisk
         new.reinitializeDisks = self.reinitializeDisks
         return new
+
+    def getClearPart(self):
+        clearpartargs = []
+        if self.autoClearPartType == CLEARPART_TYPE_LINUX:
+            clearpartargs.append('--linux')
+        elif self.autoClearPartType == CLEARPART_TYPE_ALL:
+            clearpartargs.append('--all')
+        else:
+            return None
+
+        if self.reinitializeDisks:
+            clearpartargs.append('--initlabel')
+
+        if self.autoClearPartDrives:
+            drives = string.join(self.autoClearPartDrives, ',')
+            clearpartargs.append('--drives=%s' % (drives))
+
+        return "#clearpart %s\n" %(string.join(clearpartargs))
+    
+    def writeKS(self, f):
+        f.write("# The following is the partition information you requested\n")
+        f.write("# Note that any partitions you deleted are not expressed\n")
+        f.write("# here so unless you clear all partitions first, this is\n")
+        f.write("# not guaranteed to work\n")
+        clearpart = self.getClearPart()
+        if clearpart:
+            f.write(clearpart)
+
+        # two passes here, once to write out parts, once to write out raids
+        # XXX what do we do with deleted partitions?
+        for request in self.requests:
+            args = []
+            if request.type == REQUEST_RAID:
+                continue
+
+            # no fstype, no deal (same with foreigns)
+            if not request.fstype or request.fstype.getName() == "foreign":
+                continue
+
+            # first argument is mountpoint, which can also be swap or
+            # the unique RAID identifier.  I hate kickstart partitioning
+            # syntax.  a lot.  too many special cases 
+            if request.fstype.getName() == "swap":
+                args.append("swap")
+            elif request.fstype.getName() == "software RAID":
+                if request.uniqueID[0:5] != "raid.":
+                    args.append("raid.%s" % (request.uniqueID))
+                else:
+                    args.append("%s" % (request.uniqueID))
+            elif request.mountpoint:
+                args.append(request.mountpoint)
+                args.append("--fstype")
+                args.append(request.fstype.getName())
+            else:
+                continue
+
+            # generic options
+            if not request.format:
+                args.append("--noformat")
+            if request.badblocks:
+                args.append("--badblocks")
+
+            # preexisting only
+            if request.type == REQUEST_PREEXIST and request.device:
+                args.append("--onpart")
+                args.append(request.device)
+            # we have a billion ways to specify new partitions
+            elif request.type == REQUEST_NEW:
+                if request.size:
+                    args.append("--size=%s" % (request.size))
+                if request.grow:
+                    args.append("--grow")
+                if request.start:
+                    args.append("--start=%s" % (request.start))
+                if request.end:
+                    args.append("--end=%s" % (request.end))
+                if request.maxSize:
+                    args.append("--maxsize=%s" % (request.maxSize))
+                if request.drive:
+                    args.append("--ondisk=%s" % (request.drive[0]))
+                if request.primary:
+                    args.append("--asprimary")
+            else: # how the hell did we get this?
+                continue
+
+            f.write("#part %s\n" % (string.join(args)))
+                
+                
+        for request in self.requests:
+            args = []
+            if request.type != REQUEST_RAID:
+                continue
+
+            # no fstype, no deal (same with foreigns)
+            if not request.fstype or request.fstype.getName() == "foreign":
+                continue
+
+            # also require a raidlevel and raidmembers for raid
+            if (request.raidlevel == None) or not request.raidmembers:
+                continue
+
+            # first argument is mountpoint, which can also be swap
+            if request.fstype.getName() == "swap":
+                args.append("swap")
+            elif request.mountpoint:
+                args.append(request.mountpoint)
+            else:
+                continue
+
+            # generic options
+            if not request.format:
+                args.append("--noformat")
+            if request.fstype:
+                args.append("--fstype")
+                args.append(request.fstype.getName())
+            if request.badblocks:
+                args.append("--badblocks")
+
+            args.append("--level=%s" % (request.raidlevel))
+
+            if request.raidspares:
+                args.append("--spares=%s" % (request.raidspares))
+
+            # silly raid member syntax
+            raidmems = []
+            for member in request.raidmembers:
+                if member[0:5] != "raid.":
+                    raidmems.append("raid.%s" % (member))
+                else:
+                    raidmems.append(member)
+            args.append("%s" % (string.join(raidmems)))
+
+            f.write("#raid %s\n" % (string.join(args)))
 
 class DiskSet:
     skippedDisks = []
