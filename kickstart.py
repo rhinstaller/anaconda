@@ -152,8 +152,10 @@ class Kickstart(InstallClass):
 	self.installType = "upgrade"
 
     def doNetwork(self, args):
+	# nodns is only used by the loader
 	(args, extra) = isys.getopt(args, '',
-		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=' ])
+		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
+		  'nodns'])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
