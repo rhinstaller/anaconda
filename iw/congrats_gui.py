@@ -26,7 +26,7 @@ class CongratulationWindow (InstallWindow):
 	InstallWindow.__init__(self, ics)
 
         ics.setPrevEnabled(gtk.FALSE)
-        ics.setNextButton(gtk.STOCK_QUIT, _("_Reboot"))
+        ics.setNextButton(gtk.STOCK_QUIT, _("Reboo_t"))
         ics.setHelpButtonEnabled(gtk.FALSE)
         ics.setHelpEnabled(gtk.FALSE)
 	ics.setGrabNext(1)
