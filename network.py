@@ -399,7 +399,7 @@ class Network:
         f.write(localline)
 
 	if ip:
-            nameline = "%s\t\t%s" % (ip, self.hostname))
+            nameline = "%s\t\t%s" % (ip, self.hostname)
             n = string.split(self.hostname, ".")
             if len(n) > 1:
                 nameline = nameline + " " + n[0]
