@@ -34,6 +34,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 
+#include "balkan/balkan.h"
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
@@ -61,13 +62,17 @@ struct installMethod {
 static int mountCdromImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
+static int mountHardDrive(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags);
 static int mountNfsImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), 0, mountCdromImage },
-    { N_("NFS image"), 1, mountNfsImage }
+    { N_("Hard drive"), 1, mountHardDrive },
+    { N_("NFS image"), 0, mountNfsImage }
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -326,6 +331,136 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	    kdFindNetList(kd);
 	} else 
 	    logMessage("found nothing");
+    }
+
+    return 0;
+}
+
+static int mountHardDrive(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags) {
+    int rc;
+    int fd;
+    int i, j;
+    struct {
+	char name[20];
+	int type;
+    } partitions[1024], * part;
+    int numPartitions = 0;
+    struct partitionTable table;
+    newtComponent listbox, label, dirEntry, form, answer, okay, back, text;
+    newtGrid entryGrid, grid, buttons;
+    int done = 0;
+    char * dir = NULL;
+    char * type;
+
+    /* XXX load scsi devices here */
+
+    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+
+    for (i = 0; i < kd->numKnown; i++) {
+	if (kd->known[i].class == DEVICE_DISK) {
+	    devMakeInode(kd->known[i].name, "/tmp/hddevice");
+	    if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
+		if ((rc = balkanReadTable(fd, &table))) {
+		    logMessage("failed to read partition table for "
+			       "device %s: %d", kd->known[i].name, rc);
+		} else {
+		    for (j = 0; j < table.maxNumPartitions; j++) {
+			if (table.parts[j].type != -1) {
+			    sprintf(partitions[numPartitions].name, 
+				    "/dev/%s%d", kd->known[i].name, j + 1);
+			    partitions[numPartitions].type = 
+				    table.parts[j].type;
+			    numPartitions++;
+			}
+		    }
+		}
+
+		close(fd);
+	    } else {
+		/* XXX ignore errors on removable drives? */
+	    }
+
+	    unlink("/tmp/hddevice");
+	}
+    }
+
+    if (!numPartitions) {
+	newtWinMessage(_("Error"), _("Ok"), 
+			_("You don't seem to have any hard drives on "
+			  "your system!"));
+	return LOADER_BACK;
+    }
+
+    while (!done) {
+	text = newtTextboxReflowed(-1, -1,
+		_("What partition and directory on that partition hold the "
+		  "RedHat/RPMS and RedHat/base directories?"), 62, 5, 5, 0);
+
+	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
+			      numPartitions > 5 ? NEWT_FLAG_SCROLL : 0);
+	
+	for (i = 0; i < numPartitions; i++) 
+	    newtListboxAppendEntry(listbox, partitions[i].name, 
+				   partitions + i);
+	
+	label = newtLabel(-1, -1, _("Directory holding Red Hat:"));
+	dirEntry = newtEntry(28, 11, dir, 28, &dir, NEWT_ENTRY_SCROLL);
+	
+	entryGrid = newtGridHStacked(NEWT_GRID_COMPONENT, label,
+				     NEWT_GRID_COMPONENT, dirEntry,
+				     NEWT_GRID_EMPTY);
+
+	buttons = newtButtonBar(_("Ok"), &okay, _("Back"), &back, NULL);
+	
+	grid = newtCreateGrid(1, 4);
+	newtGridSetField(grid, 0, 0, NEWT_GRID_COMPONENT, text,
+			 0, 0, 0, 1, 0, 0);
+	newtGridSetField(grid, 0, 1, NEWT_GRID_COMPONENT, listbox,
+			 0, 0, 0, 1, 0, 0);
+	newtGridSetField(grid, 0, 2, NEWT_GRID_SUBGRID, entryGrid,
+			 0, 0, 0, 1, 0, 0);
+	newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
+			 0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
+	
+	newtGridWrappedWindow(grid, _("Select Partition"));
+	
+	form = newtForm(NULL, NULL, 0);
+	newtGridAddComponentsToForm(grid, form, 1);
+	newtGridFree(grid, 1);
+	
+	answer = newtRunForm(form);
+	part = newtListboxGetCurrent(listbox);
+	
+	newtFormDestroy(form);
+	newtPopWindow();
+	
+	if (answer == back) return LOADER_BACK;
+	
+	switch (part->type) {
+	  case BALKAN_PART_EXT2:    type = "ext2"; 		break;
+	  case BALKAN_PART_DOS:	    type = "vfat"; 		break;
+	  default:	continue;
+	}
+
+	if (!FL_TESTING(flags)) {
+	    if (doPwMount(part->name, "/tmp/hdimage", type, 1, 0, NULL, NULL))
+		continue;
+
+	    if (access("/tmp/rhimage/RedHat/base/stage2.img", R_OK)) {
+		newtWinMessage(_("Error"), _("Ok"), 
+			    _("Device %s does not appear to contain "
+			      "a Red Hat installation tree."), part->name);
+		umount("/tmp/hdimage");
+		continue;
+	    } 
+	}
+
+	done = 1; 
+
+	umount("/tmp/hdimage");
+	rmdir("/tmp/hdimage");
     }
 
     return 0;

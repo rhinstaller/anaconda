@@ -42,19 +42,11 @@ install: all
 
 loader: $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \
-        ../isys/pci/libpciprobe.a ../isys/libisys.a \
+        ../isys/pci/libpciprobe.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
-
-devices: devices.o modules.o
-	$(CC) -g -o $@ devices.o modules.o -lpopt     \
-        ../isys/pci/libpciprobe.a ../isys/libisys.a \
-        ../isys/modutils/insmod/libmodutils.a    \
-        ../isys/modutils/util/libutil.a          \
-        ../isys/modutils/obj/libobj.a            \
-        -lrpm -lz -lresolv -lnewt -lslang -lpci
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
