@@ -9,6 +9,7 @@ import isys
 import time
 import os
 from kbd import Keyboard
+from mouse import Mouse
 
 def _(x):
     return x
@@ -398,6 +399,8 @@ EndSection
 """
 
     def mouseSection (self):
+        if not self.mouse:
+            self.mouse = Mouse(mouseType = ("none", "none", "null"))
         return """
 # **********************************************************************
 # Pointer section

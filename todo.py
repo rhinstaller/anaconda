@@ -834,13 +834,14 @@ class ToDo:
                     if (netmask):
                         dev.set (("netmask", netmask))
 
-	if (todo.instClass.mouse):
-	    (type, device, emulateThreeButtons) = todo.instClass.mouse
-	    todo.mouse.set(type, emulateThreeButtons, thedev = device)
-
 	if (todo.instClass.x):
 	    todo.x = todo.instClass.x
 
+	if (todo.instClass.mouse):
+	    (type, device, emulateThreeButtons) = todo.instClass.mouse
+	    todo.mouse.set(type, emulateThreeButtons, thedev = device)
+            todo.x.setMouse(todo.mouse)
+            
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)
 

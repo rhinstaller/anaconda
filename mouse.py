@@ -135,11 +135,14 @@ class Mouse (SimpleConfigFile):
     def setDevice(self, device):
 	self.device = device
 
-    def set (self, mouse, emulateThreeButtons, thedev = None):
+    def set (self, mouse, emulateThreeButtons = -1, thedev = None):
         (gpm, x11, dev, em) = self.mice[mouse]
         self.info["MOUSETYPE"] = gpm
         self.info["XMOUSETYPE"] = x11
         self.info["FULLNAME"] = mouse
-	self.emulate = emulateThreeButtons
+        if emulateThreeButtons != -1:
+            self.emulate = emulateThreeButtons
+        else:
+            self.emu = em
         if not self.device and thedev: self.device = thedev
 	if not self.device: self.device = dev
