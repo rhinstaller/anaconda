@@ -330,6 +330,8 @@ static PyObject * doMount(PyObject * s, PyObject * args) {
     else if (rc)
 	PyErr_SetString(PyExc_SystemError, "mount failed");
 
+    if (rc) return NULL;
+
     Py_INCREF(Py_None);
     return Py_None;
 }
