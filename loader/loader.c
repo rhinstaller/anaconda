@@ -1954,8 +1954,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
-	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE |
-		     LOADER_FLAGS_MODDISK;
+	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "noshell"))
 	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "lowres"))
