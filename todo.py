@@ -26,7 +26,7 @@ class LogFile:
         else:
             self.logFile.write (format)
 
-    def getFile:
+    def getFile (self):
         return self.logFile
             
 class SimpleConfigFile:
