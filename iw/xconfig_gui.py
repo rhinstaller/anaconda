@@ -366,13 +366,38 @@ class XCustomWindow (InstallWindow):
 
         self.box.pack_start (hbox1, FALSE)
 
-        test = GtkAlignment (.9, 0, 0, 0)
-        button = GtkButton (_("   Test Setting   "))
-        button.connect ("clicked", self.testPressed)
-        test.add (button)
-        
-#        self.box.pack_start (hbox, FALSE)
-        self.box.pack_start (test, FALSE)
+
+
+
+	self.sunServer = 0
+	if self.todo.x.server and len (self.todo.x.server) >= 3 and self.todo.x.server[0:3] == 'Sun':
+	    self.sunServer = 1
+        else:
+	    self.sunServer = 0   
+
+        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
+        # need it since they are fixed resolution
+
+        self.cantprobe = 0
+        if not self.sunServer and self.todo.x.vidCards:
+            if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
+                curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
+                noprobedriverList = ("i810", "tdfx")
+                for adriver in noprobedriverList:
+                    if curdriver == adriver:
+                        self.cantprobe = 1
+        else:
+            self.cantprobe = 1
+
+        if not self.cantprobe:
+            test = GtkAlignment (.9, 0, 0, 0)
+            button = GtkButton (_("   Test Setting   "))
+            button.connect ("clicked", self.testPressed)
+            test.add (button)
+            self.box.pack_start (test, FALSE)
+
+
+
 
         #--If both KDE and GNOME are selected
         if ((self.todo.hdList.has_key('gnome-core')
