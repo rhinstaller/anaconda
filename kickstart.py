@@ -351,6 +351,7 @@ class KickstartBase(BaseInstallClass):
 		     "cdrom"		: None			,
 		     "clearpart"	: self.doClearPart	,
 		     "device"		: None			,
+		     "deviceprobe"	: None			,
 		     "driverdisk"	: None			,
 		     "harddrive"	: None			,
 		     "install"		: self.doInstall	,
