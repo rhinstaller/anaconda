@@ -6,6 +6,7 @@ import string
 import sys
 import iutil
 import xpms_gui
+import glob
 
 """
 _("Video Card")
@@ -123,8 +124,26 @@ class XCustomWindow (InstallWindow):
     
     def res_cb (self, widget, data):
         self.currentRes = self.res_combo.list.child_position (data)
-        print self.currentRes
+#        print self.currentRes
         self.selectedRes = self.res_list[self.currentRes]
+
+
+        self.swap_monitor (self.currentRes)
+
+
+    def swap_monitor (self, num):
+        self.hbox.remove (self.pix_align)
+        
+        im = self.ics.readPixmap (self.pixmaps[num])
+        im.render ()
+        self.pix = im.make_pixmap ()
+
+        self.pix_align = GtkAlignment ()
+        self.pix_align.add (self.pix)
+        self.pix_align.set (0.5, 0.5, 1.0, 1.0)
+        self.hbox.pack_start (self.pix_align, TRUE, TRUE)
+        self.hbox.show_all ()
+        
 
     def desktop_cb (self, widget, desktop):
         self.newDesktop = desktop
@@ -153,23 +172,43 @@ class XCustomWindow (InstallWindow):
     def getScreen (self):
         self.oldmodes = self.todo.x.modes
         
-        box = GtkVBox (FALSE)
-        box.set_border_width (5)
+        self.box = GtkVBox (FALSE)
+        self.box.set_border_width (5)
 
+        self.hbox = GtkHBox (FALSE, 5)
         hbox1 = GtkHBox (FALSE, 5)
         hbox2 = GtkHBox (FALSE, 5)
         hbox3 = GtkHBox (FALSE, 5)
         hbox4 = GtkHBox (FALSE, 5)
 
+	files = []
+#        pixmaps = []
+                
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/monitor_*")
+        pixmaps2 = glob.glob("pixmaps/monitor_*")
+        if len(pixmaps1) < len(pixmaps2):
+            files = pixmaps2
+        else:
+            files = pixmaps1
+
+        pixmaps = []
+        for pixmap in files:
+            pixmaps.append(pixmap[string.find(pixmap, "monitor_"):])
+        self.pixmaps = pixmaps
+        self.pixmaps.sort ()
+    
+
         im = self.ics.readPixmap ("monitor.png")
         if im:
             im.render ()
-            pix = im.make_pixmap ()
-            a = GtkAlignment ()
-            a.add (pix)
-            a.set (0.5, 0.5, 1.0, 1.0)
-            box.pack_start (a, TRUE, TRUE)
+            self.pix = im.make_pixmap ()
+            self.pix_align = GtkAlignment ()
+            self.pix_align.add (self.pix)
+            self.pix_align.set (0.5, 0.5, 1.0, 1.0)
+            self.hbox.pack_start (self.pix_align, TRUE, TRUE)
 
+        self.box.pack_start (self.hbox)
+        
         available = self.todo.x.availableModes()
         availableDepths = available.keys()
         availableDepths.sort (self.numCompare)        
@@ -280,6 +319,7 @@ class XCustomWindow (InstallWindow):
             if self.depth_count == 1:
                 self.res_combo.set_popdown_strings (self.res_list1)
                 self.selectedDepth = "8"
+                self.swap_monitor (1)
 
             elif self.depth_count >= 2:
                 #--If they can do 16 bit color, default to 16 bit at 1024x768
@@ -294,16 +334,22 @@ class XCustomWindow (InstallWindow):
                     self.res_combo.list.select_item (2)
                     self.currentRes = 2
                     self.selectedRes = "1024x768"
+                    self.swap_monitor (2)
+
                 elif len (self.res_list2) == 2:
 #                    print "try2"
                     self.res_combo.list.select_item (1)
                     self.currentRes = 1
                     self.selectedRes = "800x600"
+                    self.swap_monitor (1)
+
                 elif len (self.res_list2) == 1:
 #                    print "try3"
                     self.res_combo.list.select_item (0)
                     self.currentRes = 0
                     self.selectedRes = "640x480"
+                    self.swap_monitor (0)
+
 
         frame2.add (self.res_combo)
 
@@ -312,15 +358,15 @@ class XCustomWindow (InstallWindow):
 
         self.res_combo.list.connect ("select-child", self.res_cb)
 
-        box.pack_start (hbox1, FALSE)
+        self.box.pack_start (hbox1, FALSE)
 
         test = GtkAlignment (.9, 0, 0, 0)
         button = GtkButton (_("   Test Setting   "))
         button.connect ("clicked", self.testPressed)
         test.add (button)
         
-#        box.pack_start (hbox, FALSE)
-        box.pack_start (test, FALSE)
+#        self.box.pack_start (hbox, FALSE)
+        self.box.pack_start (test, FALSE)
 
 
 
@@ -331,7 +377,7 @@ class XCustomWindow (InstallWindow):
                  and self.todo.hdList['kdebase'].selected)):
 
             hsep = GtkHSeparator ()
-            box.pack_start (hsep)
+            self.box.pack_start (hsep)
 
             frame3 = GtkFrame (_("Please choose your default desktop environment:"))
             frame3.set_shadow_type (SHADOW_NONE)
@@ -363,7 +409,7 @@ class XCustomWindow (InstallWindow):
 
             self.hbox4.pack_start (vbox3)
             self.hbox4.pack_start (self.vbox4)
-            box.pack_start (hbox3, FALSE, TRUE, 2)
+            self.box.pack_start (hbox3, FALSE, TRUE, 2)
             
         elif ((self.todo.hdList.has_key('gnome-core')
              and self.todo.hdList['gnome-core'].selected)
@@ -371,7 +417,7 @@ class XCustomWindow (InstallWindow):
                  and self.todo.hdList['kdebase'].selected)):
 
             hsep = GtkHSeparator ()
-            box.pack_start (hsep)
+            self.box.pack_start (hsep)
 
             frame3 = GtkFrame (_("Your desktop environment is:"))
             frame3.set_shadow_type (SHADOW_NONE)
@@ -413,7 +459,7 @@ class XCustomWindow (InstallWindow):
 
 #            self.hbox4.pack_start (vbox3)
 #            self.hbox4.pack_start (self.vbox4)
-            box.pack_start (hbox3, FALSE, TRUE, 2)
+            self.box.pack_start (hbox3, FALSE, TRUE, 2)
 
             
 
@@ -422,7 +468,7 @@ class XCustomWindow (InstallWindow):
             pass
 
         hsep = GtkHSeparator ()
-        box.pack_start (hsep)
+        self.box.pack_start (hsep)
 
 #        self.xdm = GtkCheckButton (_("Please Choose Your Login Type"))
         frame4 = GtkFrame (_("Please choose your login type:"))
@@ -446,7 +492,7 @@ class XCustomWindow (InstallWindow):
         self.hbox5.pack_start (self.text, FALSE, 2)
         self.hbox5.pack_start (self.graphical, FALSE, 2)
         
-        box.pack_start (hbox4, FALSE, TRUE, 2)
+        self.box.pack_start (hbox4, FALSE, TRUE, 2)
 #        self.xdm.set_active (TRUE)
 
 
@@ -486,7 +532,7 @@ class XCustomWindow (InstallWindow):
 #            hbox.pack_start (vbox)
 
         
-        return box
+        return self.box
 
     def getPrev (self):
         return XConfigWindow
