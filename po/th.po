@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-27 15:30+0700\n"
+"PO-Revision-Date: 2004-07-27 23:21+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <L10N@OpenTLE.org>\n"
+"Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3342,14 +3342,14 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can increase the Physical "
 "Extent size for this Volume Group."
-msgstr "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) XXX"
+msgstr "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) ถ้าต้องการเพิ่มอีก คุณต้องเพิ่มขนาดของส่วนยืดขยายทางกายภาพสำหรับ volume group นี้"
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:173
 #: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
 #: ../iw/raid_dialog_gui.py:221 ../textw/partition_text.py:854
 #: ../textw/partition_text.py:876 ../textw/partition_text.py:1049
 msgid "Error With Request"
-msgstr "ความผิดพลาดเกี่ยวกับการกำหนด"
+msgstr "ความผิดพลาดเกี่ยวกับการร้องขอ"
 
 #: ../iw/lvm_dialog_gui.py:645 ../iw/lvm_dialog_gui.py:852
 #, python-format
@@ -3357,7 +3357,7 @@ msgid ""
 "The logical volumes you have configured require %g MB, but the volume group "
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
-msgstr ""
+msgstr "logical volume ที่คุณปรับแต่งไว้ต้องการ %g MB แต่ volume group มีแค่ %g MB  กรุณาขยาย volume group ให้ใหญ่ขึ้น หรือไม่ก็ลดขนาด logical volume"
 
 #: ../iw/lvm_dialog_gui.py:695
 msgid "No free slots"
@@ -3366,18 +3366,18 @@ msgstr "ไม่มีสล็อตว่าง"
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "คุณไม่สามารถสร้าง logical volume มากกว่า %s ตัวต่อ volume group ได้"
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
-msgstr "ไม่มีพื้นที่ว่างเหลือ"
+msgstr "ไม่มีพื้นที่ว่าง"
 
 #: ../iw/lvm_dialog_gui.py:703
 msgid ""
 "There is no room left in the volume group to create new logical volumes. To "
 "add a logical volume you will need to reduce the size of one or more of the "
 "currently existing logical volumes"
-msgstr ""
+msgstr "XXX"
 
 #: ../iw/lvm_dialog_gui.py:731
 #, python-format
