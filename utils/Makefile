@@ -12,7 +12,7 @@ moddeps: moddeps.o
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c
-	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt
+	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt -ldb
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
