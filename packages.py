@@ -256,8 +256,11 @@ class InstallCallback:
                         if not hdr:
                             raise SystemError
 		    except:
+			try:
+			    os.close(self.rpmFD)
+			except:
+			    pass
 			self.rpmFD = -1
-			os.close(self.rpmFD)
 			raise SystemError
 		except:
 		    self.messageWindow(_("Error"),
