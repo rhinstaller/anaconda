@@ -132,7 +132,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            libgnomecanvas libart_lgpl libzvt gnome-python2-zvt
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           redhat-config-keyboard Xft fontconfig expat"
+           redhat-config-keyboard Xft fontconfig expat redhat-artwork"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -278,7 +278,6 @@ usr/lib/anaconda/textw/*
 usr/lib/booty/*
 usr/lib/gconv/ISO8859-1.so
 usr/lib/gconv/gconv-modules
-usr/lib/gtk/themes/engines/libraleigh.so
 usr/lib/libssl*
 usr/lib/libcrypto*
 usr/lib/libbz2*
@@ -551,6 +550,7 @@ usr/lib/gconv/*
 usr/lib/gdk-pixbuf/loaders/*png*
 usr/lib/gdk-pixbuf/loaders/*la*
 usr/lib/gdkimlib*
+usr/lib/gtk-2.0/*/engines/libwonderland.so
 usr/lib/gtk-2.0/*/loaders/*png*
 usr/lib/gtk-2.0/*/loaders/*la*
 usr/lib/gtk-2.0/immodules/
@@ -623,6 +623,7 @@ usr/share/redhat-config-keyboard/*
 usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
 usr/share/terminfo/k/kon
+usr/share/themes/Wonderland/gtk-2.0
 usr/share/zoneinfo/zone.tab
 EOF
 
