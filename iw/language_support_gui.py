@@ -1,6 +1,6 @@
 from gtk import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
@@ -19,30 +19,22 @@ class LanguageSupportWindow (InstallWindow):
     checkMark_Off = foo.make_pixmap()
     del foo
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Language Selection"))
-
-        ics.setNextEnabled (1)
-        ics.readHTML ("langsupport")
-        self.ics = ics
-        self.icw = ics.getICW ()
-        self.languages = self.todo.language.getAllSupported ()
+    windowTitle = _("Language Selection")
+    htmlTag = "langsupport"
 
     def getNext (self):
-        self.langs = []
+        self.supportedLangs = []
 
         for row in range(self.maxrows):
             (val, row_data, header) = self.language.get_row_data (row)
             
             if val == 1:
                 selected = self.language.get_text (row, 1)
-                self.langs.append (selected)
+                self.supportedLangs.append (selected)
 
         self.defaultLang = self.combo.entry.get_text()
-        self.todo.language.setSupported (self.langs)
-        self.todo.language.setDefault (self.defaultLang)
+        self.langs.setSupported (self.supportedLangs)
+        self.langs.setDefault (self.defaultLang)
 
         return None
 
@@ -122,16 +114,20 @@ class LanguageSupportWindow (InstallWindow):
 	    self.rebuild_combo_box()
 
     # LanguageSupportWindow tag="langsupport"
-    def getScreen (self):
+    def getScreen (self, langs):
+	self.langs = langs
+
+        self.languages = self.langs.getAllSupported ()
+
 	def moveto (widget, event, item):
             widget.moveto (item, 0, 0.5, 0.5)
 
-        self.langs = self.todo.language.getSupported()
+        self.supportedLangs = self.langs.getSupported()
 	self.origLangs = []
-        for i in self.langs:
+        for i in self.supportedLangs:
             self.origLangs.append(i)
             
-	self.defaultLang = self.todo.language.getDefault()
+	self.defaultLang = self.langs.getDefault()
 	self.oldDefaultLang = self.defaultLang
 
         # first time we hit this point in install this is not initialized
@@ -151,10 +147,14 @@ class LanguageSupportWindow (InstallWindow):
 
         sep = GtkHSeparator ()
         vbox.pack_start (sep, FALSE, 15)
-        if self.todo.reconfigOnly:
-            label = GtkLabel (_("Currently installed languages:"))
-        else:
-            label = GtkLabel (_("Choose the languages to install:"))
+
+	# XXX
+        #if self.flags.reconfigOnly():
+            #label = GtkLabel (_("Currently installed languages:"))
+        #else:
+
+	label = GtkLabel (_("Choose the languages to install:"))
+
         label.set_alignment (0.0, 0.5)
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE)
@@ -173,7 +173,7 @@ class LanguageSupportWindow (InstallWindow):
         sel = 0
 
         for locale in self.languages:
-	    if locale == self.defaultLang or (locale in self.langs):
+	    if locale == self.defaultLang or (locale in self.supportedLangs):
 		self.language.append_row((locale, ""), TRUE)
 		list.append(locale)
 
@@ -223,9 +223,11 @@ class LanguageSupportWindow (InstallWindow):
         button = GtkButton (_("Select as default"))
         alignment.add (button)
 
+	# XXX
+	#
         # in reconfig mode make some widgets unchangable
-        if self.todo.reconfigOnly:
-            self.language.set_sensitive(FALSE)
-            all_button.set_sensitive(FALSE)
+        #if self.todo.reconfigOnly:
+            #self.language.set_sensitive(FALSE)
+            #all_button.set_sensitive(FALSE)
 
         return vbox

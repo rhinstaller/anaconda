@@ -1,42 +1,13 @@
 from gtk import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 from package_gui import queryUpgradeContinue
 import gui
 
 class ConfirmWindow (InstallWindow):
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-        ics.setNextEnabled (1)
-        ics.setPrevEnabled (1)
-
-        if self.ics.todo.upgrade:
-            ics.setTitle (_("About to Upgrade"))
-            ics.readHTML ("aboutupgrade")
-        else:
-            ics.setTitle (_("About to Install"))
-            ics.readHTML ("aboutinstall")
-
-    def getPrev (self):
-        #
-        # if this is a partitionless upgrade, and they did NOT choose
-        # individual package selection, we cannot let them go back as
-        # they will go back too far (we can't leave the upgrade path
-        # and return to the install path once its started).
-        #
-        if self.todo.fstab.rootOnLoop():
-            if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
-                rc = queryUpgradeContinue(self.todo.intf)
-                if not rc:
-                    raise gui.StayOnScreen
-                else:
-                    import sys
-                    print _("Aborting upgrade")
-                    sys.exit(0)
-
     # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
-    def getScreen (self):
+    def getScreen (self, labelText, longText):
         hbox = GtkHBox (TRUE, 5)
         box = GtkVBox (FALSE, 5)
 
@@ -49,22 +20,11 @@ class ConfirmWindow (InstallWindow):
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox.pack_start (a, FALSE)
 
-        if self.ics.todo.upgrade:
-            label = GtkLabel (_("Click next to begin upgrade of Red Hat Linux."))
-        else:
-            label = GtkLabel (_("Click next to begin installation of Red Hat Linux."))
+	label = GtkLabel (labelText)
         label.set_line_wrap (TRUE)
         label.set_usize(190, -1)
 
-        if self.ics.todo.upgrade:
-            label2 = GtkLabel (_("A complete log of your upgrade will be in "
-                              "/tmp/upgrade.log after rebooting your system. You "
-                              "may want to keep this file for later reference."))
-        else:
-            label2 = GtkLabel (_("A complete log of your installation will be in "
-                              "/tmp/install.log after rebooting your system. You "
-                              "may want to keep this file for later reference."))
-            
+	label2 = GtkLabel (longText)
         label2.set_line_wrap (TRUE)
         label2.set_usize(190, -1)
         
@@ -78,5 +38,26 @@ class ConfirmWindow (InstallWindow):
 
         hbox.pack_start (a)
         return hbox
-    
         
+class InstallConfirmWindow (ConfirmWindow):
+    windowTitle = N_("About to Install")
+    htmlTag = "aboutinstall"
+
+    def getScreen(self):
+	return ConfirmWindow.getScreen(self,
+	    _("Click next to begin installation of Red Hat Linux."),
+	    _("A complete log of your installation will be in "
+	      "/tmp/install.log after rebooting your system. You "
+	      "may want to keep this file for later reference."))
+
+class UpgradeConfirmWindow (ConfirmWindow):
+    windowTitle = N_("About to Upgrade")
+    htmlTag = "aboutupgrade"
+
+    def getScreen(self):
+	return ConfirmWindow.getScreen(self,
+            _("Click next to begin upgrade of Red Hat Linux."),
+            _("A complete log of your upgrade will be in "
+	      "/tmp/upgrade.log after rebooting your system. You "
+	      "may want to keep this file for later reference."))
+

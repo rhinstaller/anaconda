@@ -47,7 +47,6 @@ class PartitionWindow (InstallWindow):
 					isys.EARLY_SWAP_RAM):
 	    return 1
 
-        threads_leave ()
 	message = gui.MessageWindow(_("Low Memory"),
 		   _("As you don't have much memory in this machine, we "
 		     "need to turn on swap space immediately. To do this "
@@ -55,15 +54,12 @@ class PartitionWindow (InstallWindow):
 		     "disk immediately. Is that okay?"), "okcancel")
 
 	if (message.getrc () == 1):
-	    threads_enter ()
 	    return 0
 
 	self.todo.fstab.savePartitions()
 	self.todo.fstab.turnOnSwap(self.todo.instPath)
 	self.todo.ddruidAlreadySaved = 1
 	PartitionWindow.swapon = 1
-
-        threads_enter ()
 
         return 1
 
@@ -126,9 +122,7 @@ class PartitionWindow (InstallWindow):
 	bootPartition = None
 	rootPartition = None
 
-        threads_leave()
         rc = self.lba32Check ()
-        threads_enter()
         if rc:
             raise gui.StayOnScreen
 

@@ -5,9 +5,13 @@ from iw_gui import *
 from string import *
 from re import *
 import tree
-from translate import _
+from translate import _, N_
+from flags import flags
 
 class MouseWindow (InstallWindow):
+
+    windowTitle = N_("Mouse Configuration")
+    htmlTag = "mouse"
 
     def reduce_leafs (self, a):
         if a == (): return a
@@ -50,13 +54,6 @@ class MouseWindow (InstallWindow):
         else:
             self.selectMouse (ctreeNode[1:], mouseNode)
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Mouse Configuration"))
-        ics.readHTML ("mouse")
-        ics.setNextEnabled (TRUE)
-
     def getCurrentKey (self):
         if not len (self.ctree.selection): return
         name = ""
@@ -76,16 +73,16 @@ class MouseWindow (InstallWindow):
     def getNext (self):
 	if not self.__dict__.has_key("availableMice"): return
 	cur = self.getCurrentKey()
-	(gpm, xdev, device, emulate) = self.availableMice[cur]
-        self.todo.mouse.set (cur, self.emulate3.get_active ())
+	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
+        self.mouse.set (cur, self.emulate3.get_active ())
 
-	if self.todo.setupFilesystems:
+	if self.flags.setupFilesystems:
 	    if (device == "ttyS"):
-		self.todo.mouse.setDevice(self.serialDevice)
+		self.mouse.setDevice(self.serialDevice)
 	    else:
-		self.todo.mouse.setDevice(device)
+		self.mouse.setDevice(device)
 
-	    self.todo.mouse.setXProtocol ()
+	    self.mouse.setXProtocol ()
 
         return None
     
@@ -106,7 +103,7 @@ class MouseWindow (InstallWindow):
 	    return
 
         self.emulate3.set_sensitive (TRUE)
-	(gpm, xdev, device, emulate) = self.availableMice[cur]
+	(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
         self.emulate3.set_active (emulate)
 	if device == "ttyS":
 	    if (self.serialDevice):
@@ -123,13 +120,16 @@ class MouseWindow (InstallWindow):
 	    self.ics.setNextEnabled (TRUE)
 
     # MouseWindow tag="mouse"
-    def getScreen (self):
-	self.availableMice = self.todo.mouse.available()
+    def getScreen (self, mouse):
+	self.mouse = mouse
+	self.flags = flags
+
+	self.availableMice = mouse.available()
         sorted_mice_keys = self.availableMice.keys()
         sorted_mice_keys.sort ()
 
-        currentDev = self.todo.mouse.getDevice ()
-	(currentMouse, emulate3) = self.todo.mouse.get ()
+        currentDev = mouse.getDevice ()
+	(currentMouse, emulate3) = mouse.get ()
 
 	deviceList = [ (_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
     		       (_("/dev/ttyS1 (COM2 under DOS)"), "ttyS1" ),

@@ -3,69 +3,35 @@ from iw_gui import *
 import string
 import rpm
 import os
+import gui
 from threading import *
-from translate import _
+from translate import _, N_
 import sys
+from packages import doInstall
+import dispatch
 
-class DoInstall (Thread):
-    def __init__ (self, icw, todo):
-        self.todo = todo
-        self.icw = icw
-        Thread.__init__ (self)
-
-    def run (self):
-        from exception import handleException
-        try:
-            rc = self.todo.doInstall ()
-        except SystemError, code:
-            import os, signal
-
-            print "shutting down"
-            self.todo.intf.shutdown()
-            print "shut down"
-            os.kill(os.getpid(), signal.SIGTERM)
-
-        except SystemExit, code:
-            import os, signal
-
-            print "shutting down"
-            self.todo.intf.shutdown()
-            print "shut down"
-            os.kill(os.getpid(), signal.SIGTERM)
-
-        except:
-            import traceback
-            list = apply(traceback.format_exception, sys.exc_info())
-            text = string.joinfields (list, "")
-            print text
-            threads_enter ()
-            handleException(self.todo, sys.exc_info())
-        threads_enter ()
-        if rc:
-            self.icw.prevClicked ()
-        else:
-            self.icw.nextClicked ()
-        threads_leave ()
-                
 class InstallProgressWindow (InstallWindow):
+
+    windowTitle = N_("Installing Packages")
+    htmlTag = "installing"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Installing Packages"))
-        ics.readHTML ("installing")
         ics.setPrevEnabled (FALSE)
+        ics.setNextEnabled (FALSE)
+        
         ics.setHelpButtonEnabled (FALSE)
 
-        self.todo = ics.getToDo ()
 	self.numComplete = 0
 	self.sizeComplete = 0
+
+    def processEvents(self):
+	gui.processEvents()
         
     def setPackageScale (self, amount, total):
-        threads_enter ()
 	self.progress.update (float (amount) / total)
 #        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize)
-        threads_leave ()
 
     def completePackage(self, header, timer):
         def formatTime(amt):
@@ -77,7 +43,6 @@ class InstallProgressWindow (InstallWindow):
 
             return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
 
-        threads_enter ()
         self.numComplete = self.numComplete + 1
 
         apply (self.clist.set_text, self.status["completed"]["packages"] + ("%d" % self.numComplete,))
@@ -112,12 +77,10 @@ class InstallProgressWindow (InstallWindow):
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
         self.totalProgress.update (float (self.sizeComplete) / self.totalSize)
-        threads_leave ()
         
         return
 
     def setPackage(self, header):
-        threads_enter ()
         if len(self.pixmaps):
             pkgsPerImage = self.numTotal / len(self.pixmaps)
             if pkgsPerImage < 1:
@@ -147,10 +110,8 @@ class InstallProgressWindow (InstallWindow):
 	if (summary == None):
             summary = "(none)"
         self.curPackage["summary"].set_text (summary)
-        threads_leave ()
 
     def setSizes (self, total, totalSize):
-        threads_enter ()
         self.numTotal = total
         self.totalSize = totalSize
         self.timeStarted = -1
@@ -158,7 +119,9 @@ class InstallProgressWindow (InstallWindow):
         apply (self.clist.set_text, self.status["total"]["packages"] + (("%d" % total),))
         apply (self.clist.set_text, self.status["total"]["size"] +
                                     (("%d M" % (totalSize/1024)),))
-        threads_leave ()
+
+    def renderCallback(self):
+	self.intf.icw.nextClicked()
 
     def allocate (self, widget, *args):
         if self.frobnicatingClist: return
@@ -169,11 +132,19 @@ class InstallProgressWindow (InstallWindow):
             widget.set_column_width (x, width / 4)
 
     # InstallProgressWindow tag="installing"
-    def getScreen (self):
+    def getScreen (self, dir, intf, id):
         import glob
+
+	self.intf = intf
+
+	if dir == dispatch.DISPATCH_BACK:
+	    intf.icw.prevClicked()
+
+	    return
 
 	files = []
 
+	# XXX this ought to search the lang path like everything else
         if (os.environ.has_key('LANG')):
             try:
                 shortlang = string.split(os.environ['LANG'], '_')[0]
@@ -193,7 +164,7 @@ class InstallProgressWindow (InstallWindow):
                 files = ["progress_first.png"]
 
         #--Need to merge with if statement above...don't show ads in lowres
-        if self.todo.intf.runres != '800x600':
+        if intf.runres != '800x600':
             files = ["progress_first.png"]
 
         pixmaps = []
@@ -306,15 +277,9 @@ class InstallProgressWindow (InstallWindow):
             frame.add (box)
             vbox.pack_start (frame);
 
-	self.ics.getInstallInterface ().setPackageProgressWindow (self)
-        ii = self.ics.getInstallInterface ()
-        icw = ii.icw
-        worker = DoInstall (icw, self.todo)
-        worker.start ()
+	intf.setPackageProgressWindow (self)
+	id.setInstallProgressClass(self)
 
 	vbox.set_border_width (5)
+
 	return vbox
-
-
-
-

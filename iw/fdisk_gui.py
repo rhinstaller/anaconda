@@ -6,7 +6,6 @@ import isys
 import os
 
 class FDiskWindow (InstallWindow):		
-
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("fdisk"))
@@ -25,29 +24,6 @@ class FDiskWindow (InstallWindow):
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
 #        self.ics.setHelpEnabled (1)
-
-    def getPrev(self):
-	self.todo.fstab.rescanPartitions()
-
-    def getNext(self):
-#        from installpath_gui import InstallPathWindow
-###
-###  msf - 05-11-2000 - change how we determine if we should be run
-###        
-#        if ((not InstallPathWindow.fdisk) or
-#            (not InstallPathWindow.fdisk.get_active ())):
-#               return None
-#
-### here is fix
-#
-        from rootpartition_gui import AutoPartitionWindow
-
-        if not AutoPartitionWindow.manuallyPartitionfdisk.get_active():
-           return None
-
-	self.todo.fstab.rescanPartitions()
-
-	return None
 
     def button_clicked (self, widget, drive):
         zvt = ZvtTerm (80, 24)
@@ -78,33 +54,16 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     # FDiskWindow tag="fdisk"
-    def getScreen (self):
-#        from installpath_gui import InstallPathWindow
-#
-###
-###  msf - 05-11-2000 - change how we determine if we should be run
-###        
-#        if ((not InstallPathWindow.fdisk) or
-#            (not InstallPathWindow.fdisk.get_active ())):
-#               return None
-#
-# 
-###  here is fix
-#
-        from rootpartition_gui import AutoPartitionWindow
-
-        if not AutoPartitionWindow.manuallyPartitionfdisk.get_active():
-           return None
-
-	self.todo.fstab.closeDrives()
-
+    def getScreen (self, diskset):
+        self.diskset = diskset
+        
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)
         self.buttonBox.set_border_width (5)
         box = GtkVButtonBox ()
         label = GtkLabel (_("Select drive to run fdisk on"))
 
-        for drive in self.todo.fstab.driveList():
+        for drive in self.diskset.driveList():
             button = GtkButton (drive)
             button.connect ("clicked", self.button_clicked, drive)
             box.add (button)

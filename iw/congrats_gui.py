@@ -1,17 +1,17 @@
 from gtk import *
 from gnome.ui import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 
 class CongratulationWindow (InstallWindow):		
+
+    windowTitle = N_("Congratulations")
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Congratulations"))
         ics.setPrevEnabled (FALSE)
         ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
-        ics.setNextEnabled (TRUE)
         ics.setHelpButtonEnabled (FALSE)
 	ics.setGrabNext (1)
 

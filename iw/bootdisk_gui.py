@@ -1,47 +1,31 @@
 from iw_gui import *
 from gtk import *
-from translate import _
+from translate import _, N_
 import iutil
+import dispatch
 
 class BootdiskWindow (InstallWindow):
 
+    htmlTag = "bootdisk"
+    windowTitle =  N_("Bootdisk Creation")
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Bootdisk Creation"))
-        ics.setPrevEnabled (0)
-        ics.setNextEnabled (1)
-        ics.readHTML ("bootdisk")
-        BootdiskWindow.initial = 1
-        self.bootdisk = None
 
     def getNext (self):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
             return None
         
-        if not self.todo.needBootdisk():
-            return None
-        
-        if self.bootdisk and self.bootdisk.get_active ():
-            return None
+        if self.skipBootdisk.get_active ():
+	    self.dispatch.skipStep("makebootdisk")
+	else:
+	    self.dispatch.skipStep("makebootdisk", skip = 0)
 
-        threads_leave ()
-        try:
-            self.todo.makeBootdisk ()
-        except RuntimeError, message:
-            threads_enter ()
-            BootdiskWindow.initial = 0
-            return BootdiskWindow
-
-        threads_enter ()
         return None
 
     # BootdiskWindow tag="bootdisk"
-    def getScreen (self):
-        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
-            return None
-
-        if not self.todo.needBootdisk(): return None
+    def getScreen (self, dir, disp):
+	self.dispatch = disp
 
         box = GtkVBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-floppy.png")
@@ -54,24 +38,28 @@ class BootdiskWindow (InstallWindow):
             box.pack_start (a, FALSE)
         
         label = None
-        if BootdiskWindow.initial:
-            label = GtkLabel (_("Please remove the install floppy (if used) and insert a blank floppy in the first floppy drive. "
-                                "All data on this disk will be erased during creation "
-                                "of the boot disk."))
-        else:
-            label = GtkLabel (_("An error occured while making the boot disk. "
-                                "Please make sure that there is a formatted floppy "
-                                "in the first floppy drive."))
+
+	if dir == dispatch.DISPATCH_FORWARD:
+	    label = GtkLabel (
+		_("Please remove the install floppy (if used) and insert a "
+		  "blank floppy in the first floppy drive. All data on this "
+		  "disk will be erased during creation of the boot disk."))
+	else:
+            label = GtkLabel (
+		_("An error occured while making the boot disk. "
+		  "Please make sure that there is a formatted floppy "
+		  "in the first floppy drive."))
 
         label.set_line_wrap (TRUE)
         box.pack_start (label, FALSE)
         
-        self.bootdisk = GtkCheckButton (_("Skip boot disk creation"))
-        self.bootdisk.set_active (FALSE)
+        self.skipBootdisk = GtkCheckButton (_("Skip boot disk creation"))
+        self.skipBootdisk.set_active (FALSE)
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
-        box.pack_start (self.bootdisk, FALSE)
+        box.pack_start (self.skipBootdisk, FALSE)
 
-	if self.todo.fstab.rootOnLoop():
-	    self.bootdisk.set_sensitive(FALSE)
+	# XXX root-on-loop should require bootdisk
+	#if self.todo.fstab.rootOnLoop():
+	    #self.skipBootdisk.set_sensitive(FALSE)
 
         return box

@@ -2,7 +2,7 @@
 from iw_gui import *
 
 from gtk import *
-from translate import _
+from translate import _, N_
 from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
@@ -24,24 +24,17 @@ class LiloWindow (InstallWindow):
     checkMark_Off = foo.make_pixmap()
     del foo
 
-
-    def __init__ (self, ics):
-        InstallWindow.__init__ (self, ics)
-
-        ics.readHTML ("lilo")
-
-        ics.setTitle (_("Lilo Configuration"))
-        ics.setNextEnabled (1)
-        self.ics = ics
-        self.type = None
-        self.bootdisk = None
-        self.lilo = None
+    windowTitle = N_("Lilo Configuration")
+    htmlTag = "lilo"
 
     def getPrev (self):
         # avoid coming back in here if the user backs past and then tries
         # to skip this screen
-        self.bootdisk = None
+        #self.bootdisk = None
+	pass
 
+	# XXX
+	#
         # if doing an upgrade, offer choice of aborting upgrade.
         # we can't allow them to go back in install, since we've
         # started swap and mounted the systems filesystems
@@ -50,62 +43,60 @@ class LiloWindow (InstallWindow):
         # if we are skipping indivual package selection, must stop it here
         # very messy.
         #
-        if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
-            rc = queryUpgradeContinue(self.todo.intf)
-            if not rc:
-                raise gui.StayOnScreen
-            else:
-                import sys
-                print _("Aborting upgrade")
-                sys.exit(0)
+        #if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
+            #rc = queryUpgradeContinue(self.todo.intf)
+            #if not rc:
+                #raise gui.StayOnScreen
+            #else:
+                #import sys
+                #print _("Aborting upgrade")
+                #sys.exit(0)
 
     def getNext (self):
         if not self.bootdisk: return None
 
         if self.bootdisk.get_active ():
-            self.todo.bootdisk = 1
-            self.todo.bdstate = "TRUE"
+	    self.dispatch.skipStep("bootdisk", skip = 0)
         else:
-            self.todo.bootdisk = 0
-            self.todo.bdstate = "FALSE"
+	    self.dispatch.skipStep("bootdisk")
 
-        if not self.lilo.get_active ():
-            self.todo.lilo.setDevice(None)
-            self.todo.lilostate = "FALSE"
-        elif self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-            self.todo.lilostate = "TRUE"
-            if self.mbr.get_active ():
-                self.todo.lilo.setDevice("mbr")
-            else:
-                self.todo.lilo.setDevice("partition")
+        if not self.bootloader.get_active ():
+	    self.dispatch.skipStep("instbootloader")
+        elif len(self.bootDevice.keys()) > 0:
+	    self.dispatch.skipStep("instbootloader", skip = 0)
 
-        images = {}
+	    for (widget, device) in self.bootDevice.items():
+		if widget.get_active():
+		    self.bl.setDevice(device)
+
         default = None
         linuxDevice = None
         for index in range(self.numImages):
             device = self.imageList.get_text(index, 1)[5:]
             type = self.types[index]
             label = self.imageList.get_text(index, 3)
-            images[device] = (label, type)
+
+	    self.bl.images.setImageLabel(device, label)
+
             if self.default == index:
-                default = label
+                default = device
             if type == 2:
-                linuxDevice = label
+                linuxDevice = device
 
         if not default:
             default = linuxDevice
 
-        self.todo.lilo.setLiloImages(images)
-        self.todo.lilo.setLinear(self.linearCheck.get_active())
-        self.todo.lilo.setAppend(self.appendEntry.get_text())
-        self.todo.lilo.setDefault(default)
+
+        self.bl.setUseGrub(not self.grubCheck.get_active())
+        self.bl.args.set(self.appendEntry.get_text())
+        self.bl.images.setDefault(default)
 
     def typeName(self, type):
-        if (type == 2):
+        if (type == "ext2"):
             return "Linux Native"
-        elif (type == 1):
+        elif (type == "FAT"):
             return "DOS/Windows"
-        elif (type == 4):       
+        elif (type == "hpfs"):       
             return "OS/2 / Windows NT"
         else:
             return "Other"
@@ -147,15 +138,15 @@ class LiloWindow (InstallWindow):
         else:
             state = FALSE
 
-        for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
-                  self.imageList, self.liloLocationBox, self.radioBox, self.sw ]:
+        for n in self.bootDevice.keys() + [self.appendEntry, self.editBox, 
+		self.imageList, self.liloLocationBox, self.radioBox, self.sw ]:
             n.set_sensitive (state)
 
-        if state and not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
+        if state and not len(self.bootDevice.keys()) < 2:
             self.liloLocationBox.set_sensitive(0)
-            self.mbr.set_sensitive(0)
-            self.part.set_sensitive(0)
-            self.linearCheck.set_sensitive(0)
+            self.grubCheck.set_sensitive(0)
+	    for n in self.bootDevice.keys():
+		n.set_sensitive(0)
 
     def labelInsertText(self, entry, text, len, data):
         i = 0
@@ -241,33 +232,20 @@ class LiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
     # LiloWindow tag="lilo"
-    def getScreen (self):
-        (self.rootdev, rootfs) = self.todo.fstab.getRootDevice()
+    def getScreen(self, dispatch, bl, fsset, diskSet):
+	self.dispatch = dispatch
+	self.bl = bl
 
-        if self.todo.fstab.rootOnLoop():
-            self.todo.bootdisk = 1
-            return None
+	self.rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
 
-#       cant go back past this screen in upgrades
-#        if self.todo.upgrade:
-#            self.ics.setPrevEnabled (0)
-
-# comment these two lines to get lilo screen in test mode
-#        if not self.todo.fstab.setupFilesystems:
-#            return None
-        
-        (imageList, defaultLabel) = \
-                self.todo.lilo.getLiloImages(self.todo.fstab)
+	imageList = bl.images.getImages()
+	defaultDevice = bl.images.getDefault()
         self.ignoreSignals = 0
 
-        if self.todo.fstab.mountList()[0][0] != '/': return None
-
-        bootpart = self.todo.fstab.getBootDevice()
-        boothd = self.todo.fstab.getMbrDevice()
-            
         format = "/dev/%s"
 
         self.radioBox = GtkTable(2, 6)
+	self.bootDevice = {}
         self.radioBox.set_border_width (5)
         
         spacer = GtkLabel("")
@@ -280,31 +258,32 @@ class LiloWindow (InstallWindow):
         self.liloLocationBox.pack_start(label)
         self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
 
-        self.mbr = GtkRadioButton(None, 
-            ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
-        self.radioBox.attach(self.mbr, 1, 2, 2, 3)
-        self.part = GtkRadioButton(self.mbr, 
-            ("/dev/%s %s" % (bootpart, 
-                _("First sector of boot partition"))))
-        self.radioBox.attach(self.part, 1, 2, 3, 4)
+	choices = fsset.bootloaderChoices(diskSet)
+	if choices:
+	    radio = None
+	    count = 0
+	    for (device, desc) in choices:
+		radio = GtkRadioButton(radio,  
+				("/dev/%s %s" % (device, _(desc))))
+		self.radioBox.attach(radio, 1, 2, count + 2, count + 3)
+		self.bootDevice[radio] = device
 
-        self.linearCheck = GtkCheckButton(
-            _("Use linear mode (needed for some SCSI drives)"))
-        self.linearCheck.set_active(self.todo.lilo.getLinear())
+		if bl.getDevice() == device:
+		    radio.set_active(1)
 
-        self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
+		count = count + 1
 
-        if not self.todo.lilo.allowLiloLocationConfig(self.todo.fstab):
-            self.liloLocationBox.set_sensitive(0)
-            self.mbr.set_sensitive(0)
-            self.part.set_sensitive(0)
-            self.linearCheck.set_sensitive(0)
+        self.grubCheck = GtkCheckButton(
+	    _("Use LILO bootloader (instead of Grub)"))
+        self.grubCheck.set_active(not bl.useGrub())
+
+        self.radioBox.attach(self.grubCheck, 0, 2, 4, 5)
 
         label = GtkLabel(_("Kernel parameters") + ":")
         label.set_alignment(0.0, 0.5)
         self.appendEntry = GtkEntry()
-        if self.todo.lilo.getAppend():
-            self.appendEntry.set_text(self.todo.lilo.getAppend())
+        if bl.args.get():
+            self.appendEntry.set_text(bl.args.get())
         box = GtkHBox(FALSE, 5)
         box.pack_start(label)
         box.pack_start(self.appendEntry)
@@ -319,38 +298,24 @@ class LiloWindow (InstallWindow):
         optionBox.set_border_width (5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
 
-        # If this screen hasn't been reached before, then activate self.bootdisk
-        if self.todo.bdstate == "":
-            self.todo.bdstate = "TRUE"
-
-        # If first time or self.bootdisk was activated in the past, activate now.  Else deactivate
-        if self.todo.bdstate == "TRUE":
-            self.bootdisk.set_active (TRUE)
-        else:
-            self.bootdisk.set_active (FALSE)
+	self.bootdisk.set_active(not dispatch.stepInSkipList("bootdisk"))
 
         optionBox.pack_start (self.bootdisk)
 
-        self.lilo = GtkCheckButton (_("Install LILO"))
+        self.bootloader = GtkCheckButton (_("Install Bootloader"))
 
-        if self.todo.lilostate == "":
-            self.todo.lilostate = "TRUE"
-            
-
-        # If first time or self.lilo was activated in the past, activate now.  Else deactivate
-        if self.todo.lilostate == "TRUE":
-            self.lilo.set_active (TRUE)
-        else:
-            self.lilo.set_active (FALSE)
-            self.toggled (self.lilo)
+	if not dispatch.stepInSkipList("instbootloader"):
+	    self.bootloader.set_active (TRUE)
+	else:
+            self.bootloader.set_active (FALSE)
+            self.toggled (self.bootloader)
 
             for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
                       self.imageList, self.liloLocationBox, self.radioBox ]:
                 n.set_sensitive (FALSE)
 
-
-        self.lilo.connect ("toggled", self.toggled)
-        optionBox.pack_start (self.lilo, FALSE)
+        self.bootloader.connect ("toggled", self.toggled)
+        optionBox.pack_start (self.bootloader, FALSE)
 
         box.pack_start (optionBox, FALSE)
 
@@ -370,9 +335,12 @@ class LiloWindow (InstallWindow):
         for n in sortedKeys:
             (label, type) = imageList[n]
             self.types.append(type)
+            if label == None:
+                print "label is None!!"
+                label = ""
             self.imageList.append(("", "/dev/" + n, self.typeName(type), 
                                     label))
-            if (label == defaultLabel):
+            if (n == defaultDevice):
                 self.default = self.count
                 self.imageList.set_pixmap(self.count, 0, self.checkMark)
             else:
@@ -423,20 +391,11 @@ class LiloWindow (InstallWindow):
         self.sw.add (self.imageList)
         box.pack_start (self.sw, TRUE)
 
-        where = self.todo.lilo.getDevice()
-
-        if self.todo.lilostate == "TRUE":
+	if not dispatch.stepInSkipList("instbootloader"):
             self.editBox.set_sensitive(TRUE)
             tempBox2.set_sensitive(TRUE)
             self.radioBox.set_sensitive(TRUE)
             self.sw.set_sensitive(TRUE)
-
-            if not where:
-                self.lilo.set_active(1)
-            elif where == "mbr":
-                self.mbr.set_active(1)
-            else:
-                self.part.set_active(1)
         else:
             self.editBox.set_sensitive(FALSE)
             self.radioBox.set_sensitive(FALSE)

@@ -1,66 +1,48 @@
 from iw_gui import *
 from gtk import *
-from translate import _
+from translate import _, N_
 
 class UnresolvedDependenciesWindow (InstallWindow):
-    moredeps = None
+
+    windowTitle = N_("Unresolved Dependencies")
+    htmlTag = "depend"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("Unresolved Dependencies"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("depend")
         self.dependRB = None
         self.causeRB = None
 
-    def getNext (self):
-        if (self.dependRB and self.dependRB.get_active ()
-            or self.causeRB and self.causeRB.get_active ()):
-            threads_leave ()
-            moredeps = self.todo.verifyDeps ()
-            threads_enter ()
-            if moredeps and self.todo.canResolveDeps (moredeps):
-                UnresolvedDependenciesWindow.moredeps = moredeps
-                return UnresolvedDependenciesWindow
-
-        return None
-
     def getPrev (self):
-	self.todo.comps.setSelectionState(self.origSelection)
+	self.comps.setSelectionState(self.origSelection)
     
     def updateSize (self, *args):
-        self.sizelabel.set_text (_("Total install size: %s") % self.todo.comps.sizeStr())
+        self.sizelabel.set_text (_("Total install size: %s") % self.comps.sizeStr())
 
     def installToggled (self, widget, *args):
-        self.todo.selectDepCause (self.deps)
+        self.comps.selectDepCause (self.deps)
         if widget.get_active ():
-            self.todo.selectDeps (self.deps)
+            self.comps.selectDeps (self.deps)
         else:
-            self.todo.unselectDeps (self.deps)
+            self.comps.unselectDeps (self.deps)
         self.updateSize ()
 
     def causeToggled (self, widget, *args):
         if widget.get_active ():
-            self.todo.unselectDepCause (self.deps)
+            self.comps.unselectDepCause (self.deps)
         else:
-            self.todo.selectDepCause (self.deps)            
+            self.comps.selectDepCause (self.deps)            
         self.updateSize ()
 
     def ignoreToggled (self, widget, *args):
         if widget.get_active ():
-            self.todo.selectDepCause (self.deps)
-            self.todo.unselectDeps (self.deps)            
+            self.comps.selectDepCause (self.deps)
+            self.comps.unselectDeps (self.deps)            
         self.updateSize ()
 
     #UnresolvedDependenciesWindow tag="depend"
-    def getScreen (self):
-        if not UnresolvedDependenciesWindow.moredeps:
-            threads_leave ()
-            self.deps = self.todo.verifyDeps ()
-            threads_enter ()
-            if not self.deps:
-                return None
-        else:
-            self.deps = UnresolvedDependenciesWindow.moredeps
+    def getScreen (self, comps, deps):
+	self.deps = deps
+	self.comps = comps
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -74,10 +56,9 @@ class UnresolvedDependenciesWindow (InstallWindow):
         list.thaw ()
         sw.add (list)
 
-        # save the way things were when we came in, then turn on
-        # the packages so we get the right size.
-	self.origSelection = self.todo.comps.getSelectionState()
-        self.todo.selectDeps (self.deps)
+	# assume things will be selected -- that matches our default
+	self.origSelection = self.comps.getSelectionState()
+        self.comps.selectDeps (self.deps)
 
         self.sizelabel = GtkLabel()
         self.sizelabel.set_alignment (1, .5)

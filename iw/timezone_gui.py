@@ -76,14 +76,14 @@ class TimezoneWindow (InstallWindow):
                 newzone = self.tz.getzone (self.list.get_text (self.list.selection[0], 0))
             except:
                 pass
-            self.todo.setTimezoneInfo (newzone, self.systemUTC.get_active ())
+            self.timezone.setTimezoneInfo (newzone, self.systemUTC.get_active ())
         else:
             timezone = self.timeZones[self.ulist.selection[0]][1]
             if self.daylightCB.get_active ():
                 timezone = timezone[1]
             else:
                 timezone = timezone[0]
-            self.todo.setTimezoneInfo (timezone, self.systemUTC.get_active ())
+            self.timezone.setTimezoneInfo (timezone, self.systemUTC.get_active ())
 
         return None
 
@@ -108,7 +108,9 @@ class TimezoneWindow (InstallWindow):
         widget.disconnect (self.id)
 
     # TimezoneWindow tag="timezone"
-    def getScreen (self):
+    def getScreen (self, instLang, timezone):
+	self.timezone = timezone
+
         try:
             f = open ("/usr/share/anaconda/pixmaps/map480.png")
             f.close ()
@@ -128,12 +130,12 @@ class TimezoneWindow (InstallWindow):
         swList = List (tz.citylist)
         self.list = swList.children ()[0]
 
-	rc = self.todo.getTimezoneInfo()
-	if rc:
-	    (self.default, asUTC, asArc) = rc
+	(self.default, asUTC, asArc) = rc = self.timezone.getTimezoneInfo()
+
+	if self.default:
             self.default = _(self.default)
 	else:
-            self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
+            self.default = _(instLang.getDefaultTimeZone())
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):

@@ -1,18 +1,11 @@
 from gtk import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 
 class AuthWindow (InstallWindow):
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        self.todo = ics.getToDo ()
-        ics.setTitle (_("Authentication Configuration"))
-##         ics.setHTML ("<HTML><BODY>Select authentication methods"
-##                      "</BODY></HTML>")
-        ics.readHTML ("authconf")
-	ics.setNextEnabled (TRUE)
+    htmlTag = "authconf"
+    windowTitle = N_("Authentication Configuration")
 
     def setSensitivities (self, *args):
 	if (not self.nis.get_active()):
@@ -53,27 +46,28 @@ class AuthWindow (InstallWindow):
 	if not self.__dict__.has_key("md5"):
 	    return None
 
-        self.todo.auth.useMD5 = self.md5.get_active ()
-        self.todo.auth.useShadow = self.shadow.get_active ()
+        self.auth.useMD5 = self.md5.get_active ()
+        self.auth.useShadow = self.shadow.get_active ()
 
-        self.todo.auth.useNIS = self.nis.get_active ()
-        self.todo.auth.nisuseBroadcast = self.nisBroadcast.get_active ()
-        self.todo.auth.nisDomain = self.nisDomain.get_text ()
-        self.todo.auth.nisServer = self.nisServer.get_text ()
+        self.auth.useNIS = self.nis.get_active ()
+        self.auth.nisuseBroadcast = self.nisBroadcast.get_active ()
+        self.auth.nisDomain = self.nisDomain.get_text ()
+        self.auth.nisServer = self.nisServer.get_text ()
 
-        self.todo.auth.useLdap = self.ldap.get_active ()
-        self.todo.auth.useLdapauth = self.ldap.get_active ()
-        self.todo.auth.ldapServer = self.ldapServer.get_text ()
-        self.todo.auth.ldapBasedn = self.ldapBasedn.get_text ()
-        self.todo.auth.ldapTLS = self.ldapTLS.get_active ()
+        self.auth.useLdap = self.ldap.get_active ()
+        self.auth.useLdapauth = self.ldap.get_active ()
+        self.auth.ldapServer = self.ldapServer.get_text ()
+        self.auth.ldapBasedn = self.ldapBasedn.get_text ()
+        self.auth.ldapTLS = self.ldapTLS.get_active ()
 
-        self.todo.auth.useKrb5 = self.krb5.get_active ()
-        self.todo.auth.krb5Realm = self.krb5Realm.get_text ()
-        self.todo.auth.krb5Kdc = self.krb5Kdc.get_text ()
-        self.todo.auth.krb5Admin = self.krb5Admin.get_text ()
+        self.auth.useKrb5 = self.krb5.get_active ()
+        self.auth.krb5Realm = self.krb5Realm.get_text ()
+        self.auth.krb5Kdc = self.krb5Kdc.get_text ()
+        self.auth.krb5Admin = self.krb5Admin.get_text ()
 
-    # AuthWindow tag="authconf"
-    def getScreen (self):
+    def getScreen (self, auth):
+	self.auth = auth
+
         box = GtkVBox (FALSE, 10)
         self.md5 = GtkCheckButton (_("Enable MD5 passwords"))
         self.shadow = GtkCheckButton (_("Enable shadow passwords"))
@@ -84,13 +78,13 @@ class AuthWindow (InstallWindow):
         self.nisDomain = GtkEntry ()
         self.nisServer = GtkEntry ()
 
-        self.md5.set_active (self.todo.auth.useMD5)
-        self.shadow.set_active (self.todo.auth.useShadow)
+        self.md5.set_active (self.auth.useMD5)
+        self.shadow.set_active (self.auth.useShadow)
 
-        self.nis.set_active (self.todo.auth.useNIS)
-        self.nisDomain.set_text (self.todo.auth.nisDomain)
-        self.nisBroadcast.set_active (self.todo.auth.nisuseBroadcast)
-        self.nisServer.set_text (self.todo.auth.nisServer )
+        self.nis.set_active (self.auth.useNIS)
+        self.nisDomain.set_text (self.auth.nisDomain)
+        self.nisBroadcast.set_active (self.auth.nisuseBroadcast)
+        self.nisServer.set_text (self.auth.nisServer )
 
         self.nisDomainLabel = GtkLabel (_("NIS Domain: "))
         self.nisDomainLabel.set_alignment (0, 0)
@@ -143,9 +137,9 @@ class AuthWindow (InstallWindow):
         self.ldapBasednLabel.set_alignment (0, 0)
 
 	# restore ldap settings
-        self.ldap.set_active (self.todo.auth.useLdap)
-	self.ldapServer.set_text (self.todo.auth.ldapServer)
-        self.ldapBasedn.set_text (self.todo.auth.ldapBasedn)
+        self.ldap.set_active (self.auth.useLdap)
+	self.ldapServer.set_text (self.auth.ldapServer)
+        self.ldapBasedn.set_text (self.auth.ldapBasedn)
          
         ldaptable = GtkTable (10, 4)
 
@@ -182,10 +176,10 @@ class AuthWindow (InstallWindow):
         self.krb5AdminLabel.set_alignment (0, 0)
 
         # restore krb5 settings
-        self.krb5.set_active (self.todo.auth.useKrb5)
-        self.krb5Realm.set_text (self.todo.auth.krb5Realm)
-        self.krb5Kdc.set_text (self.todo.auth.krb5Kdc)
-        self.krb5Admin.set_text (self.todo.auth.krb5Admin)
+        self.krb5.set_active (self.auth.useKrb5)
+        self.krb5Realm.set_text (self.auth.krb5Realm)
+        self.krb5Kdc.set_text (self.auth.krb5Kdc)
+        self.krb5Admin.set_text (self.auth.krb5Admin)
         
         krb5table = GtkTable (10, 4)
 

@@ -1,48 +1,46 @@
 from gtk import *
 from iw_gui import *
 from isys import *
-from translate import _
+from translate import _, N_
 import checklist
 
 class FirewallWindow (InstallWindow):		
 
+    windowTitel = N_("Firewall Configuration")
+    htmlTag = "securitylevel"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Firewall Configuration"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("securitylevel")
-        self.todo = ics.getToDo ()
 
     def getNext (self):
         if not self.__dict__.has_key("radio3"):
             return None
 
         if self.radio3.get_active ():
-            self.todo.firewall.enabled = 0
-            self.todo.firewall.policy = 1
+            self.firewall.enabled = 0
+            self.firewall.policy = 1
         else:
 
             if self.radio1.get_active ():
-                self.todo.firewall.policy = 0
-                self.todo.firewall.enabled = 1
+                self.firewall.policy = 0
+                self.firewall.enabled = 1
             elif self.radio2.get_active ():
-                self.todo.firewall.policy = 1
-                self.todo.firewall.enabled = 1
+                self.firewall.policy = 1
+                self.firewall.enabled = 1
 
             if self.radio4.get_active ():
-                self.todo.firewallState = 0
+                self.firewallState = 0
 
             if self.radio5.get_active ():
-                self.todo.firewallState = 1
+                self.firewallState = 1
                 count = 0
-                self.todo.firewall.trustdevs = []
+                self.firewall.trustdevs = []
 
                 for device in self.devices:
                     (val, row_data, header) = self.trusted.get_row_data (count)
 
                     if val == 1:
-                        self.todo.firewall.trustdevs.append(device)
+                        self.firewall.trustdevs.append(device)
 
                     count = count + 1
 
@@ -50,17 +48,17 @@ class FirewallWindow (InstallWindow):
                     (val, row_data, header) = self.incoming.get_row_data (i)
 
                     if row_data == "DHCP":
-                        self.todo.firewall.dhcp = val
+                        self.firewall.dhcp = val
                     elif row_data == "SSH":
-                        self.todo.firewall.ssh = val
+                        self.firewall.ssh = val
                     elif row_data == "Telnet":
-                        self.todo.firewall.telnet = val
+                        self.firewall.telnet = val
                     elif row_data == "WWW (HTTP)":
-                        self.todo.firewall.http = val
+                        self.firewall.http = val
                     elif row_data == "Mail (SMTP)":
-                        self.todo.firewall.smtp = val
+                        self.firewall.smtp = val
                     elif row_data == "FTP":
-                        self.todo.firewall.ftp = val
+                        self.firewall.ftp = val
                     
                 portstring = string.strip(self.ports.get_text())
                 portlist = ""
@@ -127,8 +125,8 @@ class FirewallWindow (InstallWindow):
                     self.textWin.show_all()
 
                     raise gui.StayOnScreen
-                else:                             #-all the port data looks good.  Pass it on to todo.
-                    self.todo.firewall.portlist = portlist
+                else:                           # all the port data looks good
+                    self.firewall.portlist = portlist
         
 
     def activate_firewall (self, widget):
@@ -192,8 +190,11 @@ class FirewallWindow (InstallWindow):
         list.set_row_data(row, (val, row_data, header))
         list._update_row (row)
             
-    def getScreen (self):
-        self.devices = self.todo.network.available().keys()
+    def getScreen (self, network, firewall):
+	self.firewall = firewall
+	self.network = network
+
+        self.devices = self.network.available().keys()
         self.devices.sort()
         
 	self.netCBs = {}
@@ -254,15 +255,15 @@ class FirewallWindow (InstallWindow):
 
             count = 0
             for device in self.devices:
-                if self.todo.firewall.trustdevs == []:
+                if self.firewall.trustdevs == []:
                     self.trusted.append_row ((device, device), FALSE)
                 else:
-                    if device in self.todo.firewall.trustdevs:
+                    if device in self.firewall.trustdevs:
                         self.trusted.append_row ((device, device), TRUE)
                     else:
                         self.trusted.append_row ((device, device), FALSE)
-                if self.todo.network.netdevices[device].get('bootproto') == 'dhcp':
-                    self.todo.firewall.dhcp = 1
+                if self.network.netdevices[device].get('bootproto') == 'dhcp':
+                    self.firewall.dhcp = 1
 
             count = count + 1
 
@@ -282,17 +283,17 @@ class FirewallWindow (InstallWindow):
             self.incoming.append_row ((item, ""), FALSE)
 
             if item == "DHCP":
-                self.incoming.set_row_data (count, (self.todo.firewall.dhcp, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.dhcp, item, item)) 
             elif item == "SSH":
-                self.incoming.set_row_data (count, (self.todo.firewall.ssh, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.ssh, item, item)) 
             elif item == "Telnet":
-                self.incoming.set_row_data (count, (self.todo.firewall.telnet, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.telnet, item, item)) 
             elif item == "WWW (HTTP)":
-                self.incoming.set_row_data (count, (self.todo.firewall.http, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.http, item, item)) 
             elif item == "Mail (SMTP)":
-                self.incoming.set_row_data (count, (self.todo.firewall.smtp, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.smtp, item, item)) 
             elif item == "FTP":
-                self.incoming.set_row_data (count, (self.todo.firewall.ftp, item, item)) 
+                self.incoming.set_row_data (count, (self.firewall.ftp, item, item)) 
 
             count = count + 1
 
@@ -302,25 +303,26 @@ class FirewallWindow (InstallWindow):
         table.attach (self.label3, 0, 1, 2, 3, FILL, FILL, 5, 5)
         table.attach (self.ports, 1, 2, 2, 3, EXPAND|FILL, FILL, 5, 5)
 
-        if self.todo.firewall.enabled == 0:
+        if self.firewall.enabled == 0:
             self.radio3.set_active (TRUE)
-        elif self.todo.firewall.policy == 0:
+        elif self.firewall.policy == 0:
             self.radio1.set_active (TRUE)
-        elif self.todo.firewall.policy == 1:
+        elif self.firewall.policy == 1:
             self.radio2.set_active (TRUE)
 
-        if self.todo.firewall.portlist != "":
-            self.ports.set_text (self.todo.firewall.portlist)
+        if self.firewall.portlist != "":
+            self.ports.set_text (self.firewall.portlist)
 
-        if self.todo.firewallState == 1:
-            self.radio5.set_active(TRUE)
-        else:
-            self.trusted.set_sensitive(FALSE)
-            self.incoming.set_sensitive(FALSE)
-            self.ports.set_sensitive(FALSE)
-            self.label1.set_sensitive(FALSE)
-            self.label2.set_sensitive(FALSE)
-            self.label3.set_sensitive(FALSE)
+	# XXX
+        #if self.firewallState == 1:
+	self.radio5.set_active(TRUE)
+        #else:
+            #self.trusted.set_sensitive(FALSE)
+            #self.incoming.set_sensitive(FALSE)
+            #self.ports.set_sensitive(FALSE)
+            #self.label1.set_sensitive(FALSE)
+            #self.label2.set_sensitive(FALSE)
+            #self.label3.set_sensitive(FALSE)
 
         return box
 

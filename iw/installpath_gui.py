@@ -1,32 +1,8 @@
 from gtk import *
-from iw_gui import *
-from language_gui import *
-from language_support_gui import *
-from welcome_gui import *
-from progress_gui import *
-from package_gui import *
-from network_gui import *
-from account_gui import *
-from auth_gui import *
-from mouse_gui import *
-from keyboard_gui import *
-from format_gui import *
-from congrats_gui import *
-from dependencies_gui import *
-from lilo_gui import *
-from silo_gui import *
-from examine_gui import *
-from bootdisk_gui import *
-from firewall_gui import *
-from timezone_gui import *
-from xconfig_gui import *
-from fdisk_gui import *
-from rootpartition_gui import *
-from confirm_gui import *
-import iutil
-from translate import _
-from upgrade_swap_gui import *
+from translate import _, N_
 import installclass
+from iw_gui import InstallWindow
+from flags import flags
 
 UPGRADE = 0
 INSTALL = 1
@@ -42,111 +18,39 @@ def D_(x):
 class InstallPathWindow (InstallWindow):		
 
     installTypes = installclass.availableClasses()
-
-    def __init__ (self, ics):
-	if iutil.getArch() == 'sparc':
-	    BootloaderWindow = SiloWindow
-            BootloaderSkipname = "silo"
-	else:
-	    BootloaderWindow = LiloWindow
-            BootloaderSkipname = "lilo"            
-
-	self.installSteps = [
-		     ( AutoPartitionWindow, "partition" ),
-                     FDiskWindow,
-		     ( PartitionWindow, "partition" ),
-		     ( FormatWindow, "format" ),
-		     ( BootloaderWindow, BootloaderSkipname ),
-		     ( NetworkWindow, "network" ),
-                     ( FirewallWindow, "firewall" ),
-                     ( LanguageSupportWindow, "languagesupport" ),
-		     ( TimezoneWindow, "timezone" ),
-		     ( AccountWindow, "accounts" ),
-		     ( AuthWindow, "authentication" ),
-		     ( PackageSelectionWindow, "package-selection" ), 
-		     ( UnresolvedDependenciesWindow, "dependencies" ),
-                     ( XConfigWindow, "xconfig" ),
-                     ( MonitorWindow, "monitor" ),
-                     ( ConfirmWindow, "confirm" ),
-		     InstallProgressWindow,
-		     ( BootdiskWindow, "bootdisk" ),
-		     ( CongratulationWindow, "complete" )
-		   ]
-
-	self.upgradeSteps = [
-		     ( UpgradeExamineWindow, "custom-upgrade"),
-                     ( UpgradeSwapWindow, "System Swap Space"),
-                     ( IndividualPackageSelectionWindow, "indivpackage"),
-		     ( BootloaderWindow, BootloaderSkipname ),
-		     UnresolvedDependenciesWindow,
-                     ( ConfirmWindow, "confirm" ),
-		     InstallProgressWindow,
-		     ( BootdiskWindow, "bootdisk" ),
-		     CongratulationWindow
-		   ]
-
-	InstallWindow.__init__ (self, ics)
-
-        ics.readHTML ("instpath")
-
-	self.commonSteps = [ ( LanguageWindow, "language" ), 
-			     ( KeyboardWindow, "keyboard" ),
-			     ( MouseWindow, "mouse" ),
-			     ( WelcomeWindow, "welcome" ),
-			     ( InstallPathWindow, "installtype" ),
-			   ]
-
-        ics.setTitle (_("Install Type"))
-        ics.setNextEnabled (1)
-        self.ics = ics
+    htmlTag = "instpath"
+    windowTitle = N_("Install Type")
 
     def getNext(self):
-	from fstab import GuiFstab
-
-	if not self.__dict__.has_key("upgradeButton"):
-	    return
-
 	# Hack to let backing out of upgrades work properly
-	if self.todo.setupFilesystems and self.todo.fstab:
-	    self.todo.fstab.turnOffSwap()
+	#if self.flags.setupFilesystems() and self.id.fstab:
+	    #self.id.fstab.turnOffSwap()
 
 	needNewDruid = 0
 	icw = self.ics.getICW ()
-	if self.upgradeButton.get_active():
-	    self.todo.upgrade = 1
-            icw.setStateList (self.commonSteps + 
-                              self.upgradeSteps, len (self.commonSteps)-1)
-            self.todo.instClass.addToSkipList("indivpackage")
-	else:
-            icw.setStateList (self.commonSteps + 
-                              self.installSteps, len (self.commonSteps)-1)
-	    self.todo.upgrade = 0
 
-	    for (button, object) in self.installClasses:
-		if button.get_active():
-		    break
-	    if not isinstance (self.orig, object):
-                self.todo.setClass (object(self.todo.expert))
-		needNewDruid = 1
+	for (button, box, buttons) in self.topLevelButtonList:
+	    if not button.get_active(): continue
 
-	# This makes the error message delivery come at a sane place
-	if needNewDruid or not self.todo.fstab:
-	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
-				       self.todo.serial, 0, 0,
-				       self.todo.intf.waitWindow,
-				       self.todo.intf.messageWindow,
-				       self.todo.intf.progressWindow,
-                                       not self.todo.expert,
-                                       self.todo.method.protectedPartitions(),
-                                       self.todo.expert,
-                                       self.todo.upgrade)
+	    if buttons:
+		for b in buttons:
+		    if b.get_active(): selection = self.buttonToObject[b]
+	    else:
+		selection = self.buttonToObject[button]
 
-    def toggled (self, widget, type):
+	if not isinstance (self.id.instClass, selection):
+	    c = selection(self.flags.expert)
+	    c.setSteps(self.dispatch)
+	    c.setInstallData(self.id)
+	    needNewDruid = 1
+
+    def toggled (self, widget):
         if not widget.get_active (): return
-        if type == INSTALL:
-	    self.installBox.set_sensitive(1)
-        elif type == UPGRADE:
-	    self.installBox.set_sensitive(0)
+
+	for (button, box, buttons) in self.topLevelButtonList:
+	    if not box: continue
+	    sensitive = (button == widget)
+	    box.set_sensitive(sensitive)
 
     def pixRadioButton (self, group, label, pixmap):
         im = self.ics.readPixmap (pixmap)
@@ -165,72 +69,98 @@ class InstallPathWindow (InstallWindow):
         return button
 
     # InstallPathWindow tag="instpath"
-    def getScreen (self):
-	if (self.todo.instClass.installType == "install"):
-            self.ics.getICW ().setStateList (self.commonSteps + 
-				self.installSteps, len (self.commonSteps)-1)
-            self.todo.upgrade = 0
-	    return None
-	elif (self.todo.instClass.installType == "upgrade"):
-            self.ics.getICW ().setStateList (self.commonSteps + 
-				self.upgradeSteps, len (self.commonSteps)-1)
-            self.todo.upgrade = 1
-	    return None
+    def getScreen (self, dispatch, id, method, intf):
+	self.dispatch = dispatch
+	self.id = id
+	self.flags = flags
+	self.method = method
+	self.intf = intf
 
-	box = GtkVBox (FALSE, 5)
+	topButtons = {}
 
-	installButton = self.pixRadioButton (None, _("Install"), "install.png")
-        installButton.connect ("toggled", self.toggled, INSTALL)
-	self.upgradeButton = self.pixRadioButton (installButton, _("Upgrade"), "upgrade.png")
-        self.upgradeButton.connect ("toggled", self.toggled, UPGRADE)
-
-	if (self.todo.upgrade):
-	    self.upgradeButton.set_active(1)
-            self.toggled (self.upgradeButton, UPGRADE)
-	else:
-	    instClass = self.todo.getClass()
-	    installButton.set_active(1)
-
-        self.installBox = GtkVBox (FALSE, 0)
-
-        group = None
-	self.installClasses = []
-        
-        self.orig = self.todo.getClass()
-	haveSetDefault = 0
-	defaultGroup = None
+	defaultClass = None
+	# this points to the class for the current install class object
+	currentClass = None
 
 	for (name, object, pixmap) in self.installTypes:
-            group = self.pixRadioButton (group, _(name), pixmap)
-            self.installBox.pack_start (group, FALSE)
-	    self.installClasses.append ((group, object))
-            if isinstance(self.orig, object):
-		group.set_active (1)
-		haveSetDefault = 1
+	    (parentName, parentPixmap) = object.parentClass
+	    if not topButtons.has_key(parentName):
+		topButtons[parentName] = []
+
+	    topButtons[parentName].append(object)
+
+	    if isinstance(id.instClass, object):
+		currentClass = object
 	    if object.default:
-		defaultGroup = group
+		defaultClass = object
 
-	if not haveSetDefault and defaultGroup:
-	    defaultGroup.set_active(1)
+	if not currentClass:
+	    currentClass = defaultClass
 
-	spacer = GtkLabel("")
-	spacer.set_usize(60, 1)
+	names = topButtons.keys()
+	names.sort()
+	topLevelGroup = None
+	tableRows = 0
+	# tuples of (button, box) (box may be None)
+	self.topLevelButtonList = []
+	self.buttonToObject = {}
 
-	align = GtkAlignment ()
-	align.set (0.0, 0.0, 0.0, 0.0)
+	for item in names:
+	    buttons = []
+	    if len(topButtons[item]) == 1:
+		name = topButtons[item][0].name
+		pixmap = topButtons[item][0].pixmap
+		topLevelGroup = self.pixRadioButton(topLevelGroup,
+				    _(name), pixmap)
+		self.buttonToObject[topLevelGroup] = topButtons[item][0]
+		box = None
 
-	table = GtkTable(2, 4)
-        table.attach(installButton, 0, 2, 0, 1, xoptions = FILL | EXPAND)
-	table.attach(align, 2, 3, 0, 1, xoptions = FALSE)
-	self.installBox.set_usize(300, -1)
-        table.attach(self.installBox, 1, 3, 1, 2)
-        table.attach(self.upgradeButton, 0, 3, 2, 3)
+		if currentClass == topButtons[item][0]:
+		    topLevelGroup.set_active(1)
+	    else:
+		(parentName, parentPixmap) = topButtons[item][0].parentClass
 
+		topLevelGroup = self.pixRadioButton(topLevelGroup,
+		    _(parentName), parentPixmap)
+
+		box = GtkVBox (FALSE, 0)
+		box.set_usize(300, -1)
+		group = None
+
+		for obj in topButtons[item]:
+		    name = obj.name
+		    pixmap = obj.pixmap
+		    group = self.pixRadioButton(group, _(name), pixmap)
+		    self.buttonToObject[group] = obj
+		    buttons.append(group)
+		    box.pack_start (group, FALSE)
+
+		    if currentClass == obj:
+			group.set_active(1)
+			topLevelGroup.set_active(1)
+
+	    self.topLevelButtonList.append((topLevelGroup, box, buttons))
+	    topLevelGroup.connect("toggled", self.toggled)
+
+	    tableRows = tableRows + 1
+	    if box:
+		tableRows = tableRows + 1
+
+	table = GtkTable(2, tableRows + 1)
+	row = 0
+
+	for (button, box, buttons) in self.topLevelButtonList:
+	    table.attach(button, 0, 3, row, row + 1, xoptions = FILL | EXPAND)
+
+	    #table.attach(align, 2, 3, row, row + 1, xoptions = FALSE)
+	    row = row + 1
+
+	    if box:
+		table.attach(box, 1, 3, row, row + 1)
+		row = row + 1
+
+	box = GtkVBox (FALSE, 5)
 	box.pack_start(table, FALSE)
-
-	hbox = GtkHBox (FALSE)
-
-        self.toggled (installButton, INSTALL)
-        self.toggled (self.upgradeButton, UPGRADE)
         box.set_border_width (5)
+
         return box

@@ -1,17 +1,16 @@
 from gtk import *
 from gnome.ui import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 
 class WelcomeWindow (InstallWindow):		
 
+    windowTitle = N_("Welcome")
+    htmlTag = "wel"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Welcome"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("wel")
-        self.ics = ics
+        ics.setGrabNext (1)
 
     # WelcomeWindow tag="wel"
     def getScreen (self):
@@ -33,15 +32,13 @@ class WelcomeWindow (InstallWindow):
 
 class ReconfigWelcomeWindow (InstallWindow):		
 
+    windowTitle = N_("Welcome")
+    htmlTag = "welreconfig"
+
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Welcome"))
         ics.setNextEnabled (1)
-        ics.readHTML ("welreconfig")
-        ics.setGrabNext (1)
 	self.beingDisplayed = 0
-        self.ics = ics
 
     def getNext (self):
         if not self.beingDisplayed: return

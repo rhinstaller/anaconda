@@ -1,34 +1,35 @@
 from gtk import *
 from iw_gui import *
 from isys import *
-from translate import _
+from translate import _, N_
 
 class NetworkWindow (InstallWindow):		
+
+    windowTitle = N_("Network Configuration")
+    htmlTag = "netconf"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Network Configuration"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("netconf")
-        self.todo = ics.getToDo ()
         self.calcNMHandler = None
 
-        for dev in self.todo.network.available ().values ():
-	    if not dev.get('onboot'):
-		dev.set (("onboot", "yes"))
+	# XXX
+	#
+        #for dev in self.network.available ().values ():
+	    #if not dev.get('onboot'):
+		#dev.set (("onboot", "yes"))
 
     def getNext (self):
 	if not self.__dict__.has_key("gw"):
 	    return None
-        self.todo.network.gateway = self.gw.get_text ()
-        self.todo.network.primaryNS = self.ns.get_text ()
-        self.todo.network.secondaryNS = self.ns2.get_text ()
-        self.todo.network.ternaryNS = self.ns3.get_text ()
+        self.network.gateway = self.gw.get_text ()
+        self.network.primaryNS = self.ns.get_text ()
+        self.network.secondaryNS = self.ns2.get_text ()
+        self.network.ternaryNS = self.ns3.get_text ()
 
 
         if (self.hostname.get_text () != ""):
-            self.todo.network.hostname = self.hostname.get_text ()
+            self.network.hostname = self.hostname.get_text ()
             
         return None
 
@@ -40,9 +41,9 @@ class NetworkWindow (InstallWindow):
         
     def focusOutIP (self, widget, event, ip):
         if (self.hostname.get_text () == ""
-            and self.todo.network.hostname != "localhost.localdomain"):
+            and self.network.hostname != "localhost.localdomain"):
 
-            hs = self.todo.network.hostname
+            hs = self.network.hostname
             tmp = string.split(hs, ".")
 
             self.hostname.set_text (tmp[0])
@@ -59,7 +60,7 @@ class NetworkWindow (InstallWindow):
 
             self.domainname.set_text (domain)
 
-#            self.hostname.set_text (self.todo.network.hostname)
+#            self.hostname.set_text (self.network.hostname)
 
         if ip.calcNMHandler != None:
             ip.disconnect (ip.calcNMHandler)
@@ -105,8 +106,8 @@ class NetworkWindow (InstallWindow):
                     self.dev.set (("bootproto", "static"))
                     self.dev.set (("ipaddr", self.ip.get_text ()), ("netmask", self.nm.get_text ()),
                                   ("network", network), ("broadcast", broadcast), ("onboot", "yes"))
-                    self.todo.network.gateway = self.gw.get_text ()
-                    self.todo.network.primaryNS = self.dns1.get_text ()
+                    self.network.gateway = self.gw.get_text ()
+                    self.network.primaryNS = self.dns1.get_text ()
                 except:
                     pass
             
@@ -140,9 +141,12 @@ class NetworkWindow (InstallWindow):
         if dots != 3: return
 
         if valid_ip == TRUE:
-            new_nm = inet_calcNetmask (ip)
-            if (new_nm != nm.get_text ()):
-                nm.set_text (new_nm)
+            try:
+                new_nm = inet_calcNetmask (ip)
+                if (new_nm != nm.get_text ()):
+                    nm.set_text (new_nm)
+            except:
+                pass
 
     def DHCPtoggled (self, widget, (dev, table)):
 	active = widget.get_active ()
@@ -163,12 +167,13 @@ class NetworkWindow (InstallWindow):
 
 
     # NetworkWindow tag="netconf"
-    def getScreen (self):
+    def getScreen (self, network):
         box = GtkVBox ()
         box.set_border_width (5)
+	self.network = network
         
         notebook = GtkNotebook ()
-        devs = self.todo.network.available ()
+        devs = self.network.available ()
         if not devs: return None
 
         devs.keys ().sort ()
@@ -268,20 +273,20 @@ class NetworkWindow (InstallWindow):
         self.hostname = options[0]
 
         # bring over the value from the loader
-        if (self.todo.network.hostname != "localhost.localdomain"):
-            self.hostname.set_text (self.todo.network.hostname)
+        if (self.network.hostname != "localhost.localdomain"):
+            self.hostname.set_text (self.network.hostname)
 
         self.gw = options[1]
-        self.gw.set_text (self.todo.network.gateway)
+        self.gw.set_text (self.network.gateway)
 
         self.ns = options[2]
-        self.ns.set_text (self.todo.network.primaryNS)
+        self.ns.set_text (self.network.primaryNS)
 
         self.ns2 = options[3]
-        self.ns2.set_text (self.todo.network.secondaryNS)
+        self.ns2.set_text (self.network.secondaryNS)
 
         self.ns3 = options[4]
-        self.ns3.set_text (self.todo.network.ternaryNS)
+        self.ns3.set_text (self.network.ternaryNS)
         box.pack_start (self.ipTable, FALSE, FALSE, 5)
         return box
 

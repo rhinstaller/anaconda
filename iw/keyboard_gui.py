@@ -2,49 +2,51 @@ from gtk import *
 from iw_gui import *
 import xkb
 import string
-from translate import _
+from translate import _, N_
 from kbd import Keyboard
 import iutil
 import isys
 from log import log
+from flags import flags
+
+# XXX
+# State preservation is fucked. We need to get the X data store working
+# properly before fixing it.
+#
 
 class KeyboardWindow (InstallWindow):
+
+    hasrun = 0
+
+    windowTitle = N_("Keyboard Configuration")
+    htmlTag = "kybd"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Keyboard Configuration"))
-        ics.readHTML ("kybd")
-        ics.setNextEnabled (TRUE)
 	self.kb = xkb.XKB ()
 	self.rules = self.kb.getRules ()
 	rules = self.kb.getRulesBase ()
 	self.rulesbase = rules[string.rfind (rules, "/")+1:]
         self.model = "pc101"
         self.layout = "en_US"
-	if self.todo.keyboard.type == "Sun":
-	    self.model = self.todo.keyboard.model
-	    self.layout = self.todo.keyboard.layout
         self.variant = ""
-        self.hasrun = 0
-
-        self.ics = ics
-        self.icw = ics.getICW ()
 
     def getNext (self):
         if self.hasrun:
-            if self.todo.setupFilesystems:
+            if self.flags.setupFilesystems:
                 self.kb.setRule (self.model, self.layout, self.variant, "complete")
             
-            self.todo.x.setKeyboard (self.rulesbase, self.model,
-                                     self.layout, self.variant, "")
-            self.todo.keyboard.setfromx (self.model, self.layout, self.variant)
+	    # XXX
+            #self.x.setKeyboard (self.rulesbase, self.model,
+                                     #self.layout, self.variant, "")
+
+            self.kbd.setfromx (self.model, self.layout, self.variant)
+
 	    try:
-	    	isys.loadKeymap(self.todo.keyboard.get())
+	    	isys.loadKeymap(self.kbd.get())
 	    except:
 		log("failed to load keymap")
-
-            self.todo.deadkeyState = self.variant
 
         return None
 
@@ -53,23 +55,33 @@ class KeyboardWindow (InstallWindow):
 	self.layout = self.layoutList.get_row_data (self.layoutList.selection[0])
 	self.variant = self.variantList.get_row_data (self.variantList.selection[0])
 
-#        if self.todo.setupFilesystems:
-#            self.kb.setRule (self.model, self.layout, self.variant, "complete")
-
     def setMap (self, data):
-        if self.todo.setupFilesystems:
+        if self.flags.setupFilesystems:
             self.kb.setRule (self.model, self.layout, self.variant, "complete")
 
     # KeyboardWindow tag="kybd"
-    def getScreen (self):
+    def getScreen (self, instLang, kbd):
+	self.flags = flags
+	self.kbd = kbd
+
+	cur = kbd.getXKB()
+	self.model = cur[1]
+	self.layout = cur[2]
+	self.variant == cur[3]
+
         if not self.hasrun:
-            default = self.todo.instTimeLanguage.getDefaultKeyboard()
+            default = instLang.getDefaultKeyboard()
             
             if Keyboard.console2x.has_key (default):
                 self.model = Keyboard.console2x[default][0]
                 self.layout = Keyboard.console2x[default][1]
-                if self.todo.setupFilesystems:
-                    self.kb.setRule (self.model, self.layout, self.variant, "complete")
+                if flags.setupFilesystems:
+                    self.kb.setRule (self.model, self.layout, self.variant, 
+				     "complete")
+		elif kbd.type == "Sun":
+		    self.model = kbd.model
+		    self.layout = kbd.layout
+
 
 	box = GtkVBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-keyboard.png")
@@ -138,7 +150,7 @@ class KeyboardWindow (InstallWindow):
                                ("nodeadkeys", (_("Disable dead keys")))):
             loc = self.variantList.append ((variant,))
 	    self.variantList.set_row_data (loc, key)
-            if self.todo.deadkeyState == "nodeadkeys":
+            if self.variant == "nodeadkeys":
                 self.variantList.select_row(count, 0)
             count = count + 1
             

@@ -1,0 +1,1060 @@
+#
+# partition_gui.py: allows the user to choose how to partition their disks
+#
+# Matt Wilson <msw@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+from iw_gui import *
+from gtk import *
+from GDK import *
+from gnome.ui import *
+from translate import _, N_
+from partitioning import *
+from fsset import *
+from autopart import doPartitioning
+import parted
+import string
+import copy
+
+STRIPE_HEIGHT = 32.0
+LOGICAL_INSET = 3.0
+CANVAS_WIDTH = 500
+CANVAS_HEIGHT = 200
+TREE_SPACING = 2
+
+MODE_ADD = 1
+MODE_EDIT = 2
+
+# max partition size in kB
+# XXX these are just made up, need to get real values from parted!
+MAX_PART_SIZE = 1024*1024*1024
+MAX_SWAP_PART_SIZE_KB = 2147483640/1024
+
+class DiskStripeSlice:
+    def eventHandler(self, widget, event):
+        if event.type == GDK.BUTTON_PRESS:
+            if event.button == 1:
+                self.parent.selectSlice(self.partition, 1)
+
+        return TRUE
+
+    def shutDown(self):
+        self.parent = None
+        if self.group:
+            self.group.destroy()
+            self.group = None
+        del self.partition
+
+    def select(self):
+        if self.partition.type != parted.PARTITION_EXTENDED:
+            self.group.raise_to_top()
+        self.box.set(outline_color="red")
+        self.box.set(fill_color=self.selectColor())
+
+    def deselect(self):
+        self.box.set(outline_color="black", fill_color=self.fillColor())
+
+    def getPartition(self):
+        return self.partition
+
+    def fillColor(self):
+        if self.partition.type & parted.PARTITION_FREESPACE:
+            return "grey88"
+        return "white"
+
+    def selectColor(self):
+        if self.partition.type & parted.PARTITION_FREESPACE:
+            return "cornsilk2"
+        return "cornsilk1"
+
+    def hideOrShowText(self):
+        if self.box.get_bounds()[2] < self.text.get_bounds()[2]:
+            self.text.hide()
+        else:
+            self.text.show()
+
+    def sliceText(self):
+        if self.partition.type & parted.PARTITION_EXTENDED:
+            return ""
+        if self.partition.type & parted.PARTITION_FREESPACE:
+            rc = "Free\n"
+        else:
+            rc = "%s\n" % (get_partition_name(self.partition),)
+        rc = rc + "%d MB" % (self.partition.geom.length
+                             * self.parent.getDisk().dev.sector_size
+                             / 1024.0 / 1024.0,)
+        return rc
+
+    def getDeviceName(self):
+        return get_partition_name(self.partition)
+
+    def update(self):
+        disk = self.parent.getDisk()
+        totalSectors = float(disk.dev.heads
+                             * disk.dev.sectors
+                             * disk.dev.cylinders)
+        xoffset = self.partition.geom.start / totalSectors * CANVAS_WIDTH
+        xlength = self.partition.geom.length / totalSectors * CANVAS_WIDTH
+        if self.partition.type & parted.PARTITION_LOGICAL:
+            yoffset = 0.0 + LOGICAL_INSET
+            yheight = STRIPE_HEIGHT - (LOGICAL_INSET * 2)
+            texty = 0.0
+        else:
+            yoffset = 0.0
+            yheight = STRIPE_HEIGHT
+            texty = LOGICAL_INSET
+        self.group.set(x=xoffset, y=yoffset)
+        self.box.set(x1=0.0, y1=0.0, x2=xlength,
+                     y2=yheight, fill_color=self.fillColor(),
+                     outline_color='black', width_units=1.0)
+        self.text.set(x=2.0, y=texty + 2.0, text=self.sliceText(),
+                      fill_color='black',
+                      anchor=ANCHOR_NW, clip=TRUE,
+                      clip_width=xlength-1, clip_height=yheight-1)
+        self.hideOrShowText()
+        
+    def __init__(self, parent, partition):
+        self.text = None
+        self.partition = partition
+        self.parent = parent
+        pgroup = parent.getGroup()
+
+        self.group = pgroup.add("group")
+        self.box = self.group.add ("rect")
+        self.group.connect("event", self.eventHandler)
+        self.text = self.group.add ("text",
+                                    fontset="-*-helvetica-medium-r-*-*-8-*")
+        self.update()
+
+class DiskStripe:
+    def __init__(self, drive, disk, group, ctree, canvas):
+        self.disk = disk
+        self.group = group
+        self.tree = ctree
+        self.drive = drive
+        self.canvas = canvas
+        self.slices = []
+        self.hash = {}
+        self.selected = None
+        group.add ("rect", x1=0.0, y1=0.0, x2=CANVAS_WIDTH,
+                   y2=STRIPE_HEIGHT, fill_color='white',
+                   outline_color='grey71', width_units=1.0)
+        group.lower_to_bottom()
+
+    def shutDown(self):
+        while self.slices:
+            slice = self.slices.pop()
+            slice.shutDown()
+        if self.group:
+            self.group.destroy()
+            self.group = None
+        del self.disk
+
+    def holds(self, partition):
+        return self.hash.has_key (partition)
+
+    def getSlice(self, partition):
+        return self.hash[partition]
+   
+    def getDisk(self):
+        return self.disk
+
+    def getDrive(self):
+        return self.drive
+
+    def getGroup (self):
+        return self.group
+
+    def getCanvas (self):
+        return self.canvas
+
+    def selectSlice(self, partition, updateTree=0):
+        self.deselect()
+        slice = self.hash[partition]
+        slice.select()
+
+        # update selection of the tree
+        if updateTree:
+            self.tree.unselect(self.tree.selection[0])
+            nodes = self.tree.base_nodes()
+            for node in nodes:
+                row = self.tree.find_by_row_data (node, partition)
+                self.tree.select(row)
+                break
+        self.selected = slice
+
+    def deselect(self):
+        if self.selected:
+            self.selected.deselect ()
+        self.selected = None
+    
+    def add (self, partition):
+        stripe = DiskStripeSlice(self, partition)
+        self.slices.append(stripe)
+        self.hash[partition] = stripe
+
+class DiskStripeGraph:
+    def __init__(self, diskset, ctree):
+        self.canvas = GnomeCanvas()
+        self.diskStripes = []
+        self.ctree = ctree
+
+    def __del__(self):
+        self.shutDown()
+        
+    def shutDown(self):
+        # remove any circular references so we can clean up
+        while self.diskStripes:
+            stripe = self.diskStripes.pop()
+            stripe.shutDown()
+
+    def getCanvas(self):
+        return self.canvas
+
+    def selectSlice(self, partition):
+        for stripe in self.diskStripes:
+            stripe.deselect()
+            if stripe.holds(partition):
+                stripe.selectSlice(partition)
+
+    def getSlice(self, partition):
+        for stripe in self.diskStripes:
+            if stripe.holds(partition):
+                return stripe.getSlice(partition)
+
+    def getDisk(self, partition):
+        for stripe in self.diskStripes:
+            if stripe.holds(partition):
+                return stripe.getDisk()
+
+    def add (self, drive, disk):
+        yoff = len(self.diskStripes) * (STRIPE_HEIGHT + 5)
+        group = self.canvas.root().add("group", x=0, y=yoff)
+        stripe = DiskStripe (drive, disk, group, self.ctree, self.canvas)
+        self.diskStripes.append(stripe)
+        return stripe
+
+
+# this should probably go into a class
+# some helper functions for build UI components
+def createAlignedLabel(text):
+    label = GtkLabel(text)
+    label.set_alignment(0.0, 0.0)
+
+    return label
+
+def createMountPointCombo(request):
+    mountCombo = GtkCombo()
+    mountCombo.set_popdown_strings (defaultMountPoints)
+
+    mountpoint = request.mountpoint
+
+    if request.fstype.isMountable():
+        mountCombo.set_sensitive(1)
+        if mountpoint:
+            mountCombo.entry.set_text(mountpoint)
+        else:
+            mountCombo.entry.set_text("")
+    else:
+        mountCombo.entry.set_text(_("<Not Applicable>"))
+        mountCombo.set_sensitive(0)
+
+    mountCombo.set_data("saved_mntpt", None)
+
+    return mountCombo
+
+def fstypechangeCB(widget, mountCombo):
+    fstype = widget.get_data("type")
+    mountpoint = mountCombo.get_data("saved_mntpt")
+    if fstype.isMountable():
+        mountCombo.set_sensitive(1)
+        if mountpoint:
+            mountCombo.entry.set_text(mountpoint)
+        else:
+            mountCombo.entry.set_text("")
+    else:
+        if mountCombo.entry.get_text() != _("<Not Applicable>"):
+            mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
+        mountCombo.entry.set_text(_("<Not Applicable>"))
+        mountCombo.set_sensitive(0)
+
+def createAllowedDrivesClist(drives, reqdrives):
+    driveclist = GtkCList()
+    driveclist.set_selection_mode (SELECTION_MULTIPLE)
+
+    driverow = 0
+    for drive in drives:
+        driveclist.append((drive,))
+
+        if reqdrives:
+            if drive in reqdrives:
+                driveclist.select_row(driverow, 0)
+        else:
+            driveclist.select_row(driverow, 0)
+        driverow = driverow + 1
+
+    return driveclist
+
+def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
+    partclist = GtkCList()
+    partclist.set_selection_mode (SELECTION_MULTIPLE)
+
+    partrow = 0
+    for part in allraidparts:
+        partname = get_partition_name(part)
+        partclist.append((partname,))
+
+        if reqraidpart:
+            if partname in reqraidpart:
+                partclist.select_row(partrow, 0)
+        else:
+            partclist.select_row(partrow, 0)
+        partrow = partrow + 1
+
+    return partclist
+
+def createRaidLevelMenu(levels, reqlevel):
+    leveloption = GtkOptionMenu()
+    leveloptionmenu = GtkMenu()
+    defindex = None
+    i = 0
+    for lev in levels:
+        item = GtkMenuItem(lev)
+        item.set_data ("level", lev)
+        leveloptionmenu.add(item)
+        if reqlevel and lev == reqlevel:
+            defindex = i
+        i = i + 1
+
+    leveloption.set_menu (leveloptionmenu)
+    
+    if defindex:
+        leveloption.set_history(defindex)
+        
+    return (leveloption, leveloptionmenu)
+
+# pass in callback for when fs changes because of python scope issues
+def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
+    fstypeoption = GtkOptionMenu ()
+    fstypeoptionMenu = GtkMenu ()
+    types = fileSystemTypeGetTypes()
+    names = types.keys()
+    names.sort()
+    defindex = None
+    i = 0
+    for name in names:
+        if fileSystemTypeGet(name).isFormattable():
+            item = GtkMenuItem(name)
+            item.set_data ("type", types[name])
+            fstypeoptionMenu.add(item)
+            if fstype and fstype.getName() == name:
+                defindex = i
+            if fstypechangeCB and mountCombo:
+                item.connect("activate", fstypechangeCB, mountCombo)
+            i = i + 1
+
+    fstypeoption.set_menu (fstypeoptionMenu)
+
+    if defindex:
+        fstypeoption.set_history(defindex)
+
+    return (fstypeoption, fstypeoptionMenu)
+
+
+
+class PartitionWindow(InstallWindow):
+    def __init__(self, ics):
+	InstallWindow.__init__(self, ics)
+        ics.setTitle (_("Disk Setup"))
+        ics.setNextEnabled (FALSE)
+        self.parent = ics.getICW().window
+        
+    def getNext(self):
+        self.diskStripeGraph.shutDown()    
+        self.clearTree()
+        for request in self.partitions.requests:
+            # XXX improve sanity checking
+            if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
+                continue
+            entry = request.toEntry()
+            self.fsset.add (entry)
+
+        print self.fsset.fstab()
+        print self.fsset.raidtab()
+        del self.parent
+        return None
+
+    def checkNextConditions(self):
+        request = self.partitions.getRequestByMountPoint("/")
+        if request:
+            self.ics.setNextEnabled(TRUE)
+        else:
+            self.ics.setNextEnabled(FALSE)
+        
+    def populate (self, initial = 0):
+        drives = self.diskset.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            text = [""] * self.numCols
+            text[self.titleSlot["Device"]] = '/dev/' + drive
+            disk = self.diskset.disks[drive]
+            sectorsPerCyl = disk.dev.heads * disk.dev.sectors
+
+            # add a disk stripe to the graph
+            stripe = self.diskStripeGraph.add (drive, disk)
+
+            # add a parent node to the tree
+            parent = self.tree.insert_node (None, None, text,
+                                            is_leaf = FALSE, expanded = TRUE,
+                                            spacing = TREE_SPACING)
+            extendedParent = None
+            part = disk.next_partition ()
+            while part:
+                if part.type & parted.PARTITION_METADATA:
+                    part = disk.next_partition (part)
+                    continue
+                stripe.add (part)
+
+                text = [""] * self.numCols
+                device = get_partition_name(part)
+
+                request = self.partitions.getRequestByDeviceName(device)
+                if request and request.mountpoint:
+                    text[self.titleSlot["Mount Point"]] = request.mountpoint
+                
+                if part.type & parted.PARTITION_FREESPACE:
+                    ptype = _("Free space")
+                elif part.type == parted.PARTITION_EXTENDED:
+                    ptype = _("Extended")
+                elif part.get_flag(parted.PARTITION_RAID) == 1:
+                    ptype = _("software RAID component")
+                elif part.fs_type:
+                    ptype = part.fs_type.name
+                else:
+                    ptype = _("None")
+                if part.type & parted.PARTITION_FREESPACE:
+                    text[self.titleSlot["Device"]] = _("Free")
+                else:
+                    text[self.titleSlot["Device"]] = '/dev/' + device
+                text[self.titleSlot["Type"]] = ptype
+                text[self.titleSlot["Start"]] = "%d" % \
+                             (start_sector_to_cyl(disk.dev, part.geom.start),)
+                text[self.titleSlot["End"]] = "%d" % \
+                                (end_sector_to_cyl(disk.dev, part.geom.end),)
+                text[self.titleSlot["Size (MB)"]] = \
+                                          "%g" % (part.geom.length
+                                                  * disk.dev.sector_size
+                                                  / 1024.0 / 1024.0)
+                if part.type == parted.PARTITION_EXTENDED:
+                    if extendedParent:
+                        raise RuntimeError, ("can't handle more than "
+                                             "one extended partition per disk")
+                    extendedParent = \
+                                   self.tree.insert_node (parent,
+                                                          None, text,
+                                                          is_leaf=FALSE,
+                                                          expanded=TRUE,
+                                                          spacing=TREE_SPACING)
+                    node = extendedParent
+                                        
+                elif part.type & parted.PARTITION_LOGICAL:
+                    if not extendedParent:
+                        raise RuntimeError, ("crossed logical partition "
+                                             "before extended")
+                    node = self.tree.insert_node (extendedParent, None, text,
+                                                  spacing = TREE_SPACING)
+                else:
+                    node = self.tree.insert_node (parent, None, text,
+                                                  spacing = TREE_SPACING)
+                
+                self.tree.node_set_row_data (node, part)
+
+                part = disk.next_partition (part)
+
+        canvas = self.diskStripeGraph.getCanvas()
+        apply(canvas.set_scroll_region, canvas.root().get_bounds())
+        self.tree.columns_autosize()
+
+    def treeSelectCb(self, tree, node, column):
+        partition = tree.node_get_row_data (node)
+        if partition:
+            self.diskStripeGraph.selectSlice(partition)
+
+
+    def newCB(self, widget):
+        # create new request of size 1M
+        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
+
+        self.editPartitionRequest(request)
+
+    # edit a partition request
+    def editPartitionRequest(self, origrequest):
+
+        def sizespinchangedCB(widget, fillmaxszsb):
+            size = widget.get_value_as_int()
+            maxsize = fillmaxszsb.get_value_as_int()
+            if size > maxsize:
+                fillmaxszsb.set_value(size)
+
+            # ugly got to be better way
+            adj = fillmaxszsb.get_adjustment()
+            adj.set_all(adj.value, size, adj.upper,
+                        adj.step_increment, adj.page_increment,
+                        adj.page_size)
+            fillmaxszsb.set_adjustment(adj)
+
+        def fillmaxszCB(widget, spin):
+            spin.set_sensitive(widget.get_active())
+
+        # pass in CB defined above because of two scope limitation of python!
+        def createSizeOptionsFrame(request, fillmaxszCB):
+            frame = GtkFrame (_("Additional Size Options"))
+            sizeoptiontable = GtkTable()
+            sizeoptiontable.set_row_spacings(5)
+            sizeoptiontable.set_border_width(4)
+            
+            fixedrb     = GtkRadioButton(label=_("Fixed size"))
+            fillmaxszrb = GtkRadioButton(group=fixedrb, label=_("Fill all space up to (MB):"))
+            maxsizeAdj = GtkAdjustment (value = 1, lower = 1,
+                                        upper = MAX_PART_SIZE, step_incr = 1)
+            fillmaxszsb = GtkSpinButton(maxsizeAdj, digits = 0)
+            fillmaxszhbox = GtkHBox()
+            fillmaxszhbox.pack_start(fillmaxszrb)
+            fillmaxszhbox.pack_start(fillmaxszsb)
+            fillunlimrb = GtkRadioButton(group=fixedrb,
+                                         label=_("Fill to maximum allowable size"))
+
+            fillmaxszrb.connect("toggled", fillmaxszCB, fillmaxszsb)
+
+            # default to fixed, turn off max size spinbutton
+            fillmaxszsb.set_sensitive(0)
+            if request.grow:
+                if request.maxSize != None:
+                    fillmaxszrb.set_active(1)
+                    fillmaxszsb.set_sensitive(1)
+                    fillmaxszsb.set_value(request.maxSize)
+                else:
+                    fillunlimrb.set_active(1)
+            else:
+                fixedrb.set_active(1)
+
+            sizeoptiontable.attach(fixedrb, 0, 1, 0, 1)
+            sizeoptiontable.attach(fillmaxszhbox, 0, 1, 1, 2)
+            sizeoptiontable.attach(fillunlimrb, 0, 1, 2, 3)
+            
+            frame.add(sizeoptiontable)
+
+            return (frame, fixedrb, fillmaxszrb, fillmaxszsb)
+
+        #
+        # start of editPartitionRequest
+        #
+        dialog = GnomeDialog(_("Add Partition"))
+        dialog.set_parent(self.parent)
+        dialog.append_button (_("OK"))
+        dialog.append_button (_("Cancel"))
+        dialog.set_position(WIN_POS_CENTER)
+        dialog.close_hides(TRUE)
+        
+        maintable = GtkTable()
+        maintable.set_row_spacings (5)
+        maintable.set_col_spacings (5)
+        row = 0
+
+        # see if we are creating a floating request or by cylinder
+        if origrequest.type == REQUEST_NEW:
+            newbycyl = origrequest.start != None
+
+        # Mount Point entry
+        maintable.attach(createAlignedLabel(_("Mount Point:")),
+                                            0, 1, row, row + 1)
+        mountCombo = createMountPointCombo(origrequest)
+        maintable.attach(mountCombo, 1, 2, row, row + 1)
+        row = row + 1
+
+        # Partition Type
+        maintable.attach(createAlignedLabel(_("Filesystem type:")),
+                                            0, 1, row, row + 1)
+
+        if origrequest.type == REQUEST_NEW:
+            (fstypeoption, fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype, fstypechangeCB, mountCombo)
+            maintable.attach(fstypeoption, 1, 2, row, row + 1)
+        else:
+            fstypelabel = GtkLabel(origrequest.fstype.getName())
+            maintable.attach(fstypelabel, 1, 2, row, row + 1)
+            fstypeoption = None
+            fstypeoptionMenu = None
+            
+        row = row + 1
+
+        # allowable drives
+        if origrequest.type == REQUEST_NEW:
+            maintable.attach(createAlignedLabel(_("Allowable Drives:")),
+                             0, 1, row, row + 1)
+
+            driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),
+                                                  origrequest.drive)
+
+            maintable.attach(driveclist, 1, 2, row, row + 1)
+            row = row + 1
+
+        # Size specification
+        maintable.attach(createAlignedLabel(_("Size (MB):")),
+                         0, 1, row, row + 1)
+        if origrequest.type == REQUEST_NEW:
+            if not newbycyl:
+                sizeAdj = GtkAdjustment (value = 1, lower = 1,
+                                         upper = MAX_PART_SIZE, step_incr = 1)
+                sizespin = GtkSpinButton(sizeAdj, digits = 0)
+
+                if origrequest.size:
+                    sizespin.set_value(origrequest.size)
+
+            else:
+                # XXX put part by cyl code here
+                pass
+
+            maintable.attach(sizespin, 1, 2, row, row + 1)
+        else:
+            sizelabel = GtkLabel("%d" % (origrequest.size))
+            maintable.attach(sizelabel, 1, 2, row, row + 1)
+            sizespin = None
+            
+        row = row + 1
+
+        if origrequest.type == REQUEST_PREEXIST:
+            if origrequest.fstype and origrequest.fstype.isFormattable():
+                formatButton = GtkCheckButton (_("Format partition?"))
+                formatButton.set_active(0)
+                maintable.attach(formatButton, 0, 2, row, row + 1)
+                row = row + 1
+            else:
+                formatButton = None
+
+        # size options
+        if origrequest.type == REQUEST_NEW:
+            if not newbycyl:
+                (sizeframe, fixedrb, fillmaxszrb, fillmaxszsb) = createSizeOptionsFrame(origrequest, fillmaxszCB)
+                sizespin.connect("changed", sizespinchangedCB, fillmaxszsb)
+
+                maintable.attach(sizeframe, 0, 2, row, row + 1)
+            else:
+                # XXX need new by cyl options (if any)
+                pass
+            row = row + 1
+        else:
+            sizeoptiontable = None
+
+        # create only as primary
+        if origrequest.type == REQUEST_NEW and not newbycyl:
+            primonlycheckbutton = GtkCheckButton(_("Force to be a primary partition"))
+            maintable.attach(primonlycheckbutton, 0, 2, row, row+1)
+            row = row + 1
+            
+        # put main table into dialog
+        dialog.vbox.pack_start(maintable)
+
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+
+            # user hit cancel, do nothing
+            if rc == 1:
+                dialog.close()
+                return
+
+            if origrequest.type == REQUEST_NEW:
+                # read out UI into a partition specification
+                filesystem = fstypeoptionMenu.get_active().get_data("type")
+
+                print filesystem.getName()
+
+                if not newbycyl:
+                    if fixedrb.get_active():
+                        grow = None
+                    else:
+                        grow = TRUE
+
+                    if fillmaxszrb.get_active():
+                        maxsize = fillmaxszsb.get_value_as_int()
+                    else:
+                        maxsize = None
+
+                    if len(driveclist.selection) == len(self.diskset.disks.keys()):
+                        allowdrives = None
+                    else:
+                        allowdrives = []
+                        for i in driveclist.selection:
+                            allowdrives.append(self.diskset.disks.keys()[i])
+
+                    if primonlycheckbutton.get_active():
+                        primonly = TRUE
+                    else:
+                        primonly = None
+                    request = copy.copy(origrequest)
+                    request.fstype = filesystem
+                    request.size = sizespin.get_value_as_int()
+                    if request.fstype.isMountable():
+                        request.mountpoint = mountCombo.entry.get_text()
+                    else:
+                        request.mountpoint = None
+                    request.drive = allowdrives
+                    request.format = TRUE
+                    request.grow = grow
+                    request.primary = primonly
+                    request.maxSize = maxsize
+                else:
+                    # put code for partitioning by cyl here
+                    pass
+
+                print "new requests:"
+                print request
+
+                err = sanityCheck(self.partitions, request)
+                if err:
+                    self.intf.messageWindow(_("Error With Request"),
+                                            "%s" % (err))
+                    continue
+
+            else:
+                # preexisting partition, just set mount point and format flag
+                request = copy.copy(origrequest)
+                if origrequest.fstype.isMountable():
+                    request.mountpoint =  mountCombo.entry.get_text()
+
+    #            filesystem = fstypeoptionMenu.get_active().get_data("type")
+    #            origrequest.fstype = filesystem
+
+                if formatButton:
+                    request.format = formatButton.get_active()
+                else:
+                    request.format = 0
+
+                err = sanityCheck(self.partitions, request)
+                if err:
+                    self.intf.messageWindow(_("Error With Request"),
+                                            "%s" % (err))
+                    continue
+            
+            # backup current (known working) configuration
+            backpart = self.partitions.copy()
+            if origrequest.device or origrequest.type != REQUEST_NEW:
+                self.partitions.removeRequest(origrequest)
+
+            self.partitions.addRequest(request)
+            if self.refresh():
+                print "request failed, backing out and trying again"
+                self.partitions = backpart
+                self.refresh()
+            else:
+                print "request suceeded"
+                break
+
+        dialog.close()
+
+    def deleteCb(self, widget):
+        node = self.tree.selection[0]
+        partition = self.tree.node_get_row_data (node)
+        if partition == None:
+            dialog = GnomeWarningDialog(_("You must first select a partition"),
+                                        parent=self.parent)
+            dialog.set_position(WIN_POS_CENTER)            
+            dialog.run()
+        elif partition.type & parted.PARTITION_FREESPACE:
+            dialog = GnomeWarningDialog(_("You cannot remove free space."),
+                                        parent=self.parent)
+            dialog.set_position(WIN_POS_CENTER)
+            dialog.run()
+        else:
+            # see if device is in our partition requests, remove
+            request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
+
+            if request:
+                self.partitions.removeRequest(request)
+                if request.type == REQUEST_PREEXIST:
+                    # get the drive
+                    drive = partition.geom.disk.dev.path[5:]
+                    delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
+                    self.partitions.addDelete(delete)                    
+            else: # shouldn't happen
+                raise ValueError, "Deleting a non-existenent partition"
+
+        # cheating
+        self.refresh()
+            
+    def clearTree(self):
+        node = self.tree.node_nth(0)
+        while node:
+            self.tree.remove_node(node)
+            node = self.tree.node_nth(0)
+        self.tree.set_selection_mode (SELECTION_SINGLE)
+        self.tree.set_selection_mode (SELECTION_BROWSE)
+
+    def resetCb(self, *args):
+        self.diskStripeGraph.shutDown()
+        self.newFsset = self.fsset.copy()
+        self.tree.freeze()
+        self.clearTree()
+        self.diskset.refreshDevices()
+        self.partitions.setFromDisk(self.diskset)
+        self.populate()
+        self.tree.thaw()
+
+    def refresh(self):
+        self.diskStripeGraph.shutDown()
+        self.tree.freeze()
+        self.clearTree()
+        try:
+            doPartitioning(self.diskset, self.partitions)
+            rc = 0
+        except PartitioningError, msg:
+            self.intf.messageWindow(_("Error Partitioning"), _("Could not allocated requested partitions: %s.") % (msg))
+            rc = -1
+        self.populate()
+        self.tree.thaw()
+        self.checkNextConditions()
+
+        return rc
+
+    def editCb(self, widget):
+        node = self.tree.selection[0]
+        partition = self.tree.node_get_row_data (node)
+        if partition == None:
+            dialog = GnomeWarningDialog(_("You must first select an existing "
+                                          "partition to edit."),
+                                        parent=self.parent)
+            dialog.set_position(WIN_POS_CENTER)            
+            dialog.run()
+            return
+        elif partition.type & parted.PARTITION_FREESPACE:
+            dialog = GnomeWarningDialog (_("You may only add partitions to "
+                                           "free spaces.  You can only add "
+                                           "new partitions within them."),
+                                         parent=self.parent)
+            dialog.set_position(WIN_POS_CENTER)            
+            dialog.run()
+            return
+        elif partition.type & parted.PARTITION_EXTENDED:
+            return
+        
+        request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
+        print request
+
+        self.editPartitionRequest(request)
+
+    def editRaidDevice(self, raidrequest):
+        #
+        # start of editPartitionRequest
+        #
+        dialog = GnomeDialog(_("Make Raid Device"))
+        dialog.set_parent(self.parent)
+        dialog.append_button (_("OK"))
+        dialog.append_button (_("Cancel"))
+        dialog.set_position(WIN_POS_CENTER)
+        dialog.close_hides(TRUE)
+        
+        maintable = GtkTable()
+        maintable.set_row_spacings (5)
+        maintable.set_col_spacings (5)
+        row = 0
+
+        # Mount Point entry
+        maintable.attach(createAlignedLabel(_("Mount Point:")),
+                                            0, 1, row, row + 1)
+        mountCombo = createMountPointCombo(raidrequest)
+        maintable.attach(mountCombo, 1, 2, row, row + 1)
+        row = row + 1
+
+        # Filesystem Type
+        maintable.attach(createAlignedLabel(_("Filesystem type:")),
+                                            0, 1, row, row + 1)
+
+        (fstypeoption, fstypeoptionMenu) = createFSTypeMenu(raidrequest.fstype,
+                                                            fstypechangeCB,
+                                                            mountCombo)
+        maintable.attach(fstypeoption, 1, 2, row, row + 1)
+            
+        row = row + 1
+
+        # raid level
+        maintable.attach(createAlignedLabel(_("RAID Level:")),
+                                            0, 1, row, row + 1)
+        (leveloption, leveloptionmenu) = createRaidLevelMenu(availRaidLevels, raidrequest.raidlevel)
+        maintable.attach(leveloption, 1, 2, row, row + 1)
+            
+        row = row + 1
+
+        # raid members
+        maintable.attach(createAlignedLabel(_("Raid Members:")),
+                         0, 1, row, row + 1)
+
+        availraidparts = []
+        for drive in self.diskset.disks.keys():
+            availraidparts.extend(get_raid_partitions(self.diskset.disks[drive]))
+
+        # XXX need to pass in currently used partitions for this device
+        raidclist = createAllowedRaidPartitionsClist(availraidparts,
+                                                     raidrequest.raidmembers)
+        maintable.attach(raidclist, 1, 2, row, row + 1)
+        row = row + 1
+
+        # number of spares
+        maintable.attach(createAlignedLabel(_("Number of spares?:")),
+                         0, 1, row, row + 1)
+        spareAdj = GtkAdjustment (value = 0, lower = 0,
+                               upper = len(availraidparts), step_incr = 1)
+        sparesb = GtkSpinButton(spareAdj, digits = 0)
+        maintable.attach(sparesb, 1, 2, row, row + 1)
+        row = row + 1
+
+        # format or not?
+        if raidrequest.fstype and raidrequest.fstype.isFormattable():
+            formatButton = GtkCheckButton (_("Format partition?"))
+            formatButton.set_active(0)
+            maintable.attach(formatButton, 0, 2, row, row + 1)
+            row = row + 1
+        else:
+            formatButton = None
+            
+        # put main table into dialog
+        dialog.vbox.pack_start(maintable)
+
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+
+            # user hit cancel, do nothing
+            if rc == 1:
+                dialog.close()
+                return
+
+            # read out UI into a partition specification
+            request = copy.copy(raidrequest)
+
+            filesystem = fstypeoptionMenu.get_active().get_data("type")
+            request.fstype = filesystem
+
+            if request.fstype.isMountable():
+                request.mountpoint = mountCombo.entry.get_text()
+            else:
+                request.mountpoint = None
+
+            raidmembers = []
+            for i in raidclist.selection:
+                raidmembers.append(PartedPartitionDevice(availraidparts[i]))
+
+            request.raidmembers = raidmembers
+            request.raidspares = sparesb.get_value_as_int()
+            request.raidlevel = leveloptionmenu.get_active().get_data("level")
+            
+            if formatButton:
+                request.format = formatButton.get_active()
+            else:
+                request.format = 0
+
+            print request
+
+            err = sanityCheck(self.partitions, request)
+            if err:
+                self.intf.messageWindow(_("Error With Request"),
+                                        "%s" % (err))
+                continue
+            
+            # backup current (known working) configuration
+            backpart = self.partitions.copy()
+
+            # XXX should only remove if we know we put it in before
+            try:
+                self.partitions.removeRequest(raidrequest)
+            except:
+                print "failed to remove request"
+            self.partitions.addRequest(request)
+            
+            if self.refresh():
+                print "request failed, backing out and trying again"
+                self.partitions = backpart
+                self.refresh()
+            else:
+                print "request suceeded"
+                break
+
+        dialog.close()
+
+    def makeraidCB(self, widget):
+        request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
+        self.editRaidDevice(request)
+
+    
+    def getScreen (self, fsset, diskset, partitions, intf):
+        self.fsset = fsset
+        self.diskset = diskset
+        self.intf = intf
+        
+        self.diskset.openDevices()
+        self.partitions = partitions
+        # XXX PartitionRequests() should already exist and
+        # if upgrade or going back, have info filled in
+#        self.newFsset = self.fsset.copy()
+
+        # operational buttons
+        buttonBox = GtkHButtonBox()
+        buttonBox.set_layout (BUTTONBOX_SPREAD)
+
+        ops = ((_("New"), self.newCB),
+               (_("Edit"), self.editCb),
+               (_("Delete"), self.deleteCb),
+               (_("Reset"), self.resetCb),
+               (_("Make Raid"), self.makeraidCB))
+        for label, cb in ops:
+            button = GtkButton (label)
+            buttonBox.add (button)
+            button.connect ("clicked", cb)
+        
+        # set up the tree
+        titles = [N_("Device"), N_("Start"), N_("End"),
+                  N_("Size (MB)"), N_("Type"), N_("Mount Point")]
+        
+        # do two things: enumerate the location of each field and translate
+        self.titleSlot = {}
+        i = 0
+        for title in titles:
+            self.titleSlot[title] = i
+            titles[i] = _(title)
+            i = i + 1
+
+        self.numCols = len(titles)
+        self.tree = GtkCTree (self.numCols, 0, titles)
+        self.tree.set_selection_mode (SELECTION_BROWSE)
+        self.tree.connect ("tree_select_row", self.treeSelectCb)        
+
+        # set up the canvas
+        self.diskStripeGraph = DiskStripeGraph(diskset, self.tree)
+        
+        # do the initial population of the tree and the graph
+        self.populate (initial = 1)
+        self.checkNextConditions()
+
+        box = GtkVBox(FALSE, 5)
+        sw = GtkScrolledWindow()
+        sw.add (self.diskStripeGraph.getCanvas())
+        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+        box.pack_start (sw, TRUE)
+        box.pack_start (buttonBox, FALSE)
+        sw = GtkScrolledWindow()
+        sw.add (self.tree)
+        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+        box.pack_start (sw, TRUE)
+
+	return box

@@ -1,23 +1,19 @@
 from gtk import *
 from iw_gui import *
 from package_gui import *
-from translate import _
+from translate import _, N_
 
 class UpgradeExamineWindow (InstallWindow):		
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-        ics.setTitle (_("Upgrade Examine"))
-        ics.readHTML ("upgrade")
+    windowTitle = N_("Upgrade Examine")
+    htmlTag = "upgrade"
 
     def toggled (self, widget, newPart):
         if widget.get_active ():
 	    self.root = newPart
 
     def getNext (self):
-        threads_leave ()
         self.todo.upgradeMountFilesystems (self.root)
-        threads_enter ()
 
 # do this via skiplist, made individialpackageselectionwindow a member
 # of upgrade steps.
@@ -36,9 +32,7 @@ class UpgradeExamineWindow (InstallWindow):
 
     #UpgradeExamineWindow tag = "upgrade"
     def getScreen (self):
-        threads_leave ()
         self.parts = self.todo.upgradeFindRoot ()
-        threads_enter ()
 
 	box = GtkVBox (FALSE)
         if not self.parts:

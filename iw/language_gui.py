@@ -1,30 +1,18 @@
 from gtk import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 
 class LanguageWindow (InstallWindow):
+
+    windowTitle = N_("Language Selection")
+    htmlTag = "lang"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setTitle (_("Language Selection"))
-
-        if self.todo.reconfigOnly:
-            ics.setPrevEnabled (1)
-        else:
-            ics.setPrevEnabled (0)
-
-        ics.setNextEnabled (1)
-        ics.readHTML ("lang")
-        self.ics = ics
-        self.icw = ics.getICW ()
-        self.languages = self.todo.instTimeLanguage.available()
-        self.running = 0
-        self.lang = None
-
     def getNext (self):
-        if self.lang:
-            self.icw.setLanguage (self.lang)
+	self.instLang.setRuntimeLanguage(self.lang)
+	self.ics.getICW().setLanguage (self.instLang.getLangNick(self.lang))
 
         return None
 
@@ -33,7 +21,7 @@ class LanguageWindow (InstallWindow):
             self.lang = clist.get_row_data (clist.selection[0])
 
     # LanguageWindow tag="lang"
-    def getScreen (self):
+    def getScreen (self, intf, instLang):
         self.running = 0
         mainBox = GtkVBox (FALSE, 10)
         label = GtkLabel (_("What language should be used during the "
@@ -44,14 +32,15 @@ class LanguageWindow (InstallWindow):
         self.language = GtkCList ()
         self.language.set_selection_mode (SELECTION_BROWSE)
         self.language.connect ("select_row", self.select_row)
+	self.instLang = instLang
 
         default = -1
         n = 0
-        for locale in self.languages:
+        for locale in instLang.available():
             row = self.language.append ((_(locale),))
             self.language.set_row_data (row, locale)
 
-            if locale == self.todo.instTimeLanguage.getCurrent():
+            if locale == instLang.getCurrent():
                 self.lang = locale
                 default = n
             n = n + 1

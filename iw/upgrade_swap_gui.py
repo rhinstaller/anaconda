@@ -1,6 +1,6 @@
 from gtk import *
 from iw_gui import *
-from translate import _
+from translate import _, N_
 import string
 import isys 
 import iutil
@@ -12,13 +12,8 @@ import gui
 
 class UpgradeSwapWindow (InstallWindow):		
 
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
-
-        ics.setTitle (_("Upgrade Swap Partition"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("upswapfile")
-
+    windowTitle = N_("Upgrade Swap Partition")
+    htmlTag = "upswapfile"
 
     def getPrev (self):
         # we're doing an upgrade, offer choice of aborting upgrade.
@@ -45,38 +40,28 @@ class UpgradeSwapWindow (InstallWindow):
         val = int(val)
 
         if self.option2.get_active():
-            threads_leave()
             rc = self.warning()
-            threads_enter()
 
             if rc == 1:
                 raise gui.StayOnScreen
             else:
                 # proceed because they decided not to have swapfile created
-                threads_leave()
                 self.todo.upgradeFindPackages()
-                threads_enter()
                 return None
         elif val > 2000 or val < 1:
-            threads_leave()
             rc = self.swapWrongSize()
-            threads_enter()
             raise gui.StayOnScreen
 
         elif (val+16) > size:
-            threads_leave()
             rc = self.swapTooBig()
-            threads_enter()
             raise gui.StayOnScreen            
 
         else:
-            threads_leave()
             if self.todo.setupFilesystems:
                 upgrade.createSwapFile(self.todo.instPath, self.todo.fstab,
                                        mnt, val)
                                        
             self.todo.upgradeFindPackages()
-            threads_enter()
         return None
 
     def toggle (self, data):
@@ -89,9 +74,7 @@ class UpgradeSwapWindow (InstallWindow):
         self.neededSwap = 0
         rc = upgrade.swapSuggestion(self.todo.instPath, self.todo.fstab)
 	if not rc:
-            threads_leave()
 	    self.todo.upgradeFindPackages ()
-            threads_enter()
             return None
 
         self.neededSwap = 1
