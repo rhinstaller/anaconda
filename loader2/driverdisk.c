@@ -521,14 +521,12 @@ static void getDDFromDev(struct knownDevices * kd,
                         char * fstype, int flags) {
     devMakeInode(dev, "/tmp/dddev");
     if (fstype) {
-        if (!doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
+        if (doPwMount("/tmp/dddev", "/tmp/drivers", fstype, 1, 0, 
                        NULL, NULL, 0, 0)) {
             logMessage("unable to mount %s as %s", dev, fstype);
             return;
         }
-    }
-
-    if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
+    } else if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL, 0, 0)) {
         if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL, 0, 0)) {
             if (doPwMount("/tmp/dddev", "/tmp/drivers", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
                 logMessage("unable to mount driver disk %s", dev);
