@@ -124,8 +124,8 @@ class MonitorWindow (InstallWindow):
                 self.vEntry.set_editable (FALSE)
         else:
             self.ics.setNextEnabled (TRUE)
-            self.hEntry.set_text (monitor[2])            
-            self.vEntry.set_text (monitor[3])
+            self.hEntry.set_text (monitor[3])
+            self.vEntry.set_text (monitor[2])
             self.hEntry.set_editable (TRUE)
             self.vEntry.set_editable (TRUE)
             self.monitor = monitor
