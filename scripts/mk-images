@@ -461,6 +461,7 @@ EOF
 	$MBD_DIR mem c 1 1 600 root:root
 	$MBD_DIR ram b 1 1 640 root:root
 	$MBD_DIR ptmx c 5 2 666 root:root
+	$MBD_DIR tty  c 5 0 666 root:root
 	$MBD_DIR tty0 c 4 0 600 root:tty
 	$MBD_DIR tty1 c 4 1 600 root:tty
 	$MBD_DIR tty2 c 4 2 600 root:tty
