@@ -290,11 +290,11 @@ class ToDo:
             else:
                 self.x = XF86Config ()
 
-	# This absolutely, positively MUST BE LAST
-	self.setClass(instClass)
         if iutil.getArch () == "alpha":
             instClass.addToSkipList("lilo")
             instClass.addToSkipList("silo")
+	# This absolutely, positively MUST BE LAST
+	self.setClass(instClass)
 
     def setFdDevice(self):
 	if self.fdDevice:
