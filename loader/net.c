@@ -320,6 +320,10 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
 	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
 	if (dev->dev.numDns) 
 	    fprintf(f, "NS1=%s\n", inet_ntoa(dev->dev.dnsServers[0]));
+	if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
+	    fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
+	if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
+	    fprintf(f, "HOSTNAME=%s\n", dev->dev.domain);
     }
 
     fclose(f);
