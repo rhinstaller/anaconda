@@ -26,6 +26,7 @@ import copy
 import types
 import raid
 from iw_gui import *
+from flags import flags
 
 import lvm_dialog_gui
 import raid_dialog_gui
@@ -451,6 +452,10 @@ class PartitionWindow(InstallWindow):
 
     def presentPartitioningComments(self,title, labelstr1, labelstr2, comments,
 				    type="ok", custom_buttons=None):
+
+        if flags.autostep:
+            return 1
+
         win = gtk.Dialog(title)
         gui.addFrame(win)
         
