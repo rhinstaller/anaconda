@@ -1511,15 +1511,16 @@ class ToDo:
             size = 12
             for (descr, (type, mount, need)) in problems:
                 idx = string.find (mount, "/mnt/sysimage")
-                if idx != -1:
-                    # 13 chars in /mnt/sysimage
+		if mount[0:13] == "/mnt/sysimage":
                     mount = mount[13:]
+		    if not mount:
+			mount = '/'
 
                 if needed.has_key (mount) and needed[mount] < need:
                     needed[mount] = need
                 else:
                     needed[mount] = need
-                    
+
             probs = _("You don't appear to have enough disk space to install "
                       "the packages you've selected. You need more space on the "
                       "following filesystems:\n\n")
@@ -1535,7 +1536,7 @@ class ToDo:
 
                 prob = "%-15s %d %c\n" % (mount, need, suffix)
                 probs = probs + prob
-                
+
             self.intf.messageWindow (_("Disk Space"), probs)
 
 	    del ts
