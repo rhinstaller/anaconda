@@ -713,6 +713,45 @@ class NTFSFileSystem(FileSystemType):
 
 fileSystemTypeRegister(NTFSFileSystem())
 
+class hfsFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_sysstem_type_get("hfs")
+        self.formattable = 1
+        self.checked = 0
+        self.name = "hfs"
+        self.supported = 0
+
+    def isMountable(self):
+        return 0
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        devArgs = self.getDeviceArgs(entry.device)
+        args = [ "hformat", devicePath ]
+        args.extend(devArgs)
+        
+        rc = iutil.execWithRedirect("/usr/bin/hformat", args,
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+
+fileSystemTypeRegister(hfsFileSystem())
+
+class applebootstrapFileSystem(hfsFileSystem):
+    def __init__(self):
+        hfsFileSystem.__init__(self)
+        self.partedPartitionFlags = [ parted.PARTITION_BOOT ]
+        self.maxSizeMB = 1
+        self.name = "Apple Bootstrap"
+        if iutil.getPPCMacGen() == "NewWorld":
+            self.supported = 1
+        else:
+            self.supported = 0
+
+fileSystemTypeRegister(applebootstrapFileSystem())
+
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -959,11 +998,17 @@ class FileSystemSet:
     # return the "boot" devicce
     def getBootDev(self):
 	mntDict = {}
+        bootDev = None
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
 
-        if iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
-            bootDev = mntDict['/boot/efi']
+        if iutil.getPPCMacGen() == "NewWorld":
+            for entry in self.entries:
+                if entry.fsystem.getName() == "Apple Bootstrap":
+                    bootDev = entry.device
+        elif iutil.getArch() == "ia64":
+            if mntDict.has_key("/boot/efi"):
+                bootDev = mntDict['/boot/efi']
 	elif mntDict.has_key("/boot"):
 	    bootDev = mntDict['/boot']
 	else:
@@ -975,10 +1020,24 @@ class FileSystemSet:
         ret = {}
         bootDev = self.getBootDev()
 
+        if bootDev is None:
+            log("no boot device set")
+            return ret
+
 	if bootDev.getName() == "RAIDDevice":
             ret['boot'] = (bootDev.device, N_("RAID Device"))
             return ret
 
+        if iutil.getPPCMacGen() == "NewWorld":
+            ret['boot'] = (bootDev.device, N_("Apple Bootstrap"))
+            n = 1
+            if ((entry.fsystem.getName() == "Apple Bootstrap") and (
+                entry.device.getDevice() != bootDev.device)):
+                ret['boot%d' %(n,)] = (entry.device.getDevice(),
+                                       N_("Apple Bootstrap"))
+                n = n + 1
+            return ret
+                
 	ret['boot'] = (bootDev.device, N_("First sector of boot partition"))
         ret['mbr'] = (bl.drivelist[0], N_("Master Boot Record (MBR)"))
         return ret
@@ -988,10 +1047,11 @@ class FileSystemSet:
     # set either our boot partition or the first partition on the drive active
     def setActive(self, diskset):
         dev = self.getBootDev()
-        if dev.getName() != "LoopbackDevice":
-            bootDev = dev.device
-        else:
-            bootDev = None
+
+        if dev is None:
+            return
+        
+        bootDev = dev.device
 
         # stupid itanium
         if iutil.getArch() == "ia64":
