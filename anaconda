@@ -457,6 +457,19 @@ if display_mode == 'g':
         else:
             card = videohw.primaryCard()
         xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+else:
+    # text mode
+    import xf86config
+
+    # only probe X related stuff if we're doing an install
+    if iutil.getArch() == "s390":
+        # XXX why doesn't videohw.primaryCard() dtrt on s390?
+        card = videocard.VideoCard()
+    else:
+        card = videohw.primaryCard()
+    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+
+
 
 import configFileData
 configFile = configFileData.configFileData()
