@@ -1426,9 +1426,11 @@ class FileSystemSetEntry:
             mntpt = self.mountpoint
             
         str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
-               "           fsystem: %(fsystem)s format: %(format)s\n" %
+               "           fsystem: %(fsystem)s format: %(format)s\n"
+               "           ismounted: %(mounted)s \n"%
                {"device": self.device.getDevice(), "mountpoint": mntpt,
-                "fsystem": self.fsystem.getName(), "format": self.format})
+                "fsystem": self.fsystem.getName(), "format": self.format,
+                "mounted": self.mountcount})
         return str
         
 
