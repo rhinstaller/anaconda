@@ -1,3 +1,5 @@
+VERSION = 6.0
+
 DESTDIR = ../../trees/initrd
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
@@ -11,6 +13,9 @@ DIRS =
 NETOBJS = net.o
 KON = 1
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
+OPTS = -O2 -g
+
+CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"'
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
@@ -21,7 +26,9 @@ OBJS += stubs.o
 endif
 
 ifeq (1, $(KON))
+DIRS += kon2
 OBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+CFLAGS += -DINCLUDE_KON=1
 endif
 
 ifeq (alpha, $(ARCH))
@@ -38,10 +45,6 @@ TARGET=$(PROGS)
 else
 TARGET=depend $(PROGS)
 endif
-
-OPTS = -O2 -g
-
-CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"'
 
 STATIC = -static
 
@@ -62,13 +65,11 @@ STATIC=-static
 endif
 endif
 
-VERSION = 6.0
-
 all: dirs $(BINS)
 
 dirs:
 	for n in $(DIRS); do \
-	    cd $$n; make; \
+	    (cd $$n; make -n) \
 	done
 
 install: all

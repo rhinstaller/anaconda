@@ -7,7 +7,7 @@ endif
 INCDIR  = $(shell pwd)/include
 LIB     = $(shell pwd)/lib/libgon.a
 
-MAKEFLAGS = INCDIR=$(INCDIR) LIB=$(LIB)
+MFLAGS = INCDIR=$(INCDIR) LIB=$(LIB)
 
 ifdef	MINI_KON
 SUBDIRS = lib src
@@ -29,8 +29,9 @@ config:
 	cp Makefile.linux Makefile
 
 subdirs:
+	echo $(MFLAGS)
 	@for i in $(SUBDIRS);\
-	do (cd $$i && echo making all in $$i && $(MAKE) $(MAKEFLAGS)) || exit;\
+	do (cd $$i && echo making all in $$i && $(MAKE) $(MFLAGS)) || exit;\
 	done
 
 depend:

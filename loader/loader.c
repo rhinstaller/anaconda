@@ -1386,12 +1386,12 @@ int main(int argc, char ** argv) {
 	return ourInsmodCommand(argc, argv);
 
 #ifdef INCLUDE_KON
-    if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
 	return kon_main(argc, argv);
 #endif
 
 #ifdef INCLUDE_PCMCIA
-    if (!strcmp(argv[0] + strlen(argv[0]) - 7, "cardmgr"))
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 7, "cardmgr"))
 	return cardmgr_main(argc, argv);
     else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "probe"))
 	return probe_main(argc, argv);
