@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.45\n"
+"Project-Id-Version: install 1.47\n"
 "POT-Creation-Date: 2000-01-20 18:40-0500\n"
-"PO-Revision-Date: 2000-01-25 16:40+0000\n"
+"PO-Revision-Date: 2000-01-27 10:14+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -73,7 +73,7 @@ msgstr "Villa við tengingu %s: %s"
 
 #: ../gui.py:270 ../gui.py:516
 msgid "Next"
-msgstr "Næsta"
+msgstr "Áfram"
 
 #: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
@@ -125,12 +125,12 @@ msgstr "Red Hat Linux uppsetningarforritið"
 
 #: ../gui.py:486
 msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux uppsetningaskél"
+msgstr "Red Hat Linux uppsetningaskel"
 
 #: ../gui.py:497
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux uppsetningaforritið á %s"
+msgstr "Red Hat Linux uppsetningarforritið á %s"
 
 #: ../gui.py:498
 #, c-format
@@ -141,8 +141,8 @@ msgstr "Red Hat Linux uppsetningaskél á %s"
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-"Þú ert við það að eyða öllum Linux uppsetningum sem þegar gætu verið til "
-"staðar á kerfinu þínu."
+"Öllum Linux uppsetningum sem gætu verið til staðar á tölvunni verður núna "
+"eytt."
 
 #: ../installclass.py:282
 msgid ""
@@ -293,7 +293,7 @@ msgstr "Kerfi sem á að uppfæra"
 
 #: ../text.py:295
 msgid "What partition holds the root partition of your installation?"
-msgstr "Á hvaða disksneið er rót skráakerfis þíns?"
+msgstr "Á hvaða disksneið er rót skráarkerfisins?"
 
 #: ../text.py:310
 msgid "Customize Packages to Upgrade"
@@ -307,7 +307,7 @@ msgid ""
 msgstr ""
 "Pakkarnir sem þegar eru á vélinni og aðrir pakkar sem þeir eru háðir til að "
 "uppfylla skilyrði þeirra hafa verið valdir til uppsetningar. Viltu skoða "
-"listann og kanski breyta honum?"
+"listann og kannski breyta honum?"
 
 #: ../iw/welcome.py:88 ../libfdisk/fsedit.c:702 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
@@ -352,8 +352,8 @@ msgstr ""
 "bókinni sem er fáanleg frá Red Hat Software. Ef þú hefur aðgang að þessari "
 "bók ættir þú að lesa um uppsetninguna áður en þú heldur áfram.\n"
 "\n"
-"Ef þú hefur keypt opinbera Red Hat Linux mundu þá að skrá eintakið þitt á "
-"vefsíðunni okkar á http://www.redhat.com."
+"Ef þú hefur keypt opinbert eintak Red Hat Linux mundu þá að skrá það á "
+"vefsíðu okkar á http://www.redhat.com."
 
 #: ../text.py:352
 msgid ""
@@ -864,7 +864,7 @@ msgstr "X þjónn"
 
 #: ../xf86config.py:254
 msgid "Unable to detect video card"
-msgstr "Get ekki fundið skjákort"
+msgstr "Finn ekki skjákort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:261 ../xf86config.py:263
 msgid "Monitor"
@@ -888,7 +888,7 @@ msgstr "Stillingar notanda"
 
 #: ../iw/account.py:35
 msgid "Root password accepted."
-msgstr "Rótarlykilorðið er í lagi."
+msgstr "Rótarlykilorð móttekið."
 
 #: ../iw/account.py:38
 msgid "Root password is too short."
@@ -1141,7 +1141,7 @@ msgstr "Setja LILO ræsifærsluna á:"
 
 #: ../iw/lilo.py:151 ../iw/silo.py:167 ../textw/silo.py:61
 msgid "Master Boot Record (MBR)"
-msgstr "Aðalræsifærsla (MBR)"
+msgstr "Aðalræsifærsluna (MBR)"
 
 #: ../iw/lilo.py:155 ../iw/silo.py:170 ../textw/silo.py:62
 msgid "First sector of boot partition"
@@ -1309,9 +1309,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Þar sem þú ert ekki nægjanlegt vinnsluminni í vélinni verðum við að setja "
-"diskminni í gang strax. Svo það sé hægt verður að vista disksneiðatöfluna á "
-"diskinn núna.  Er það í lagi?"
+"Þar sem þú ert ekki með nægjanlegt vinnsluminni í vélinni verðum við að "
+"setja diskminni í gang strax. Svo það sé hægt verður að vista "
+"disksneiðatöfluna á diskinn núna.  Er það í lagi?"
 
 #: ../iw/rootpartition.py:114 ../textw/partitioning.py:253
 #, c-format
@@ -1574,7 +1574,7 @@ msgstr ""
 
 #: ../textw/partitioning.py:208
 msgid "Check for bad blocks during format"
-msgstr "Athuga hvort diskurinn hafi gallaðar blokkir um leið og forsniðið er"
+msgstr "Athuga með gallaðar blokkir um leið og forsniðið er"
 
 #: ../textw/partitioning.py:213
 msgid "Choose Partitions to Format"
@@ -1594,7 +1594,7 @@ msgstr "Ólögleg stærð"
 
 #: ../textw/partitioning.py:269
 msgid "The size you enter must be a number."
-msgstr "þú verður að slá inn tölu."
+msgstr "Þú verður að slá inn tölu."
 
 #: ../textw/partitioning.py:275
 #, c-format
@@ -1762,7 +1762,7 @@ msgid ""
 msgstr ""
 "Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
-"Heiti tengipunkta verður að byrja á /."
+"Heiti tengipunkta verða að byrja á /."
 
 #: ../libfdisk/fsedit.c:684
 #, c-format
@@ -1773,7 +1773,7 @@ msgid ""
 msgstr ""
 "Tengipunkturinn %s er óleyfilegur.\n"
 "\n"
-"Heiti tengipunkta má ekki enda á /."
+"Heiti tengipunkta mega ekki enda á /."
 
 #: ../libfdisk/fsedit.c:693
 #, c-format
@@ -1795,7 +1795,7 @@ msgid ""
 msgstr ""
 "Þú ætlar að setja rótina (/) á DOS FAT disksneið. Það er allt í lagi að gera "
 "þetta en þá getur þ.ú ekki notað aðrar gerðir skráarkerfa fyrir Linux og það "
-"mun einnih koma þér illa því það er ekki eins hraðvirkt og að nota Linux "
+"mun einnig koma þér illa því það er ekki eins hraðvirkt og að nota Linux "
 "skráarkerfi. Viltu halda áfram ?"
 
 #: ../libfdisk/fsedit.c:720
@@ -1998,7 +1998,7 @@ msgid ""
 "and is specified int decimal (base 10) format."
 msgstr ""
 "Stærðin sem þú valdir er óleyfileg. Gakktu úr skugga um að stærðin sé stærri "
-"núll (0), og sé talin fram í tugakerfistölu (base 10)."
+"núll (0) og sé talin fram í tugakerfistölu (base 10)."
 
 #: ../libfdisk/gnomefsedit.c:1091 ../libfdisk/gnomefsedit.c:1993
 #: ../libfdisk/newtfsedit.c:576
@@ -2161,7 +2161,7 @@ msgstr "Óleyfilegur tengipunktur fyrir RAID"
 
 #: ../libfdisk/gnomefsedit.c:1955
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "RAID disksneiðar geta ekki verið rót (/) á Ölfum."
+msgstr "RAID disksneiðar geta ekki verið rót (/) á Alpha vélum."
 
 #: ../libfdisk/gnomefsedit.c:2038
 #, c-format
@@ -2404,7 +2404,7 @@ msgstr "Hvaða rekil viltu reyna?"
 
 #: ../loader/devices.c:219
 msgid "Specify module parameters"
-msgstr "Gefðu upp viðföng kjarnaeininga"
+msgstr "Gefðu upp viðföng kjarnarekla"
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -2627,7 +2627,7 @@ msgstr ""
 "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
 "\n"
 "    o heiti eða IP vistfang NFS þjónsins þíns\n"
-"    o mappan á þjóninum sem inniheldur\n"
+"    o nafn möppunnar á þjóninum sem inniheldur\n"
 "      Red Hat Linux fyrir vélina þína"
 
 #: ../loader/net.c:228
