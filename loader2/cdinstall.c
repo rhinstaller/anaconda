@@ -378,6 +378,7 @@ char * setupCdrom(char * location,
                                    "and press %s to retry."), getProductName(),
                                  getProductName(), _("OK"));
 
+            ejectCdrom();
             rc = newtWinChoice(_("CD Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));
             free(buf);
