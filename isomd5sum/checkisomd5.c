@@ -8,20 +8,42 @@
 #include "libcheckisomd5.h"
 
 int main(int argc, char **argv) {
+    int i;
     int rc;
+    int verbose;
+    int md5only;
+    int filearg;
 
     if (argc < 2) {
-	printf("Usage: checkisomd5 [--md5sumonly] <isofilename>|<blockdevice>\n\n");
+	printf("Usage: checkisomd5 [--md5sumonly] [--verbose] <isofilename>|<blockdevice>\n\n");
 	exit(1);
     }
 
-    /* see if they just want md5sum */
-    if (strcmp(argv[1], "--md5sumonly") == 0) {
-	printMD5SUM(argv[2]);
-	exit(0);
+    md5only = 0;
+    verbose = 0;
+    filearg = 1;
+    for (i=1; i < argc; i++) {
+	if (strcmp(argv[i], "--md5sumonly") == 0) {
+	    md5only = 1;
+	    filearg++;
+	} else if (strcmp(argv[i], "--verbose") == 0) {
+	    filearg++;
+	    verbose = 1;
+	} else 
+	    break;
     }
 
-    rc = mediaCheckFile(argv[1], 1);
+    if (md5only|verbose)
+	printMD5SUM(argv[filearg]);
 
-    exit(rc ? 0 : 1);
+    if (md5only)
+	exit(0);
+
+    rc = mediaCheckFile(argv[filearg], !verbose);
+
+    if (rc == 0)
+	exit(0);
+    else
+	exit(1);
 }
+ 

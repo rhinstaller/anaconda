@@ -237,7 +237,7 @@ static int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long 
 
     if (parsepvd(isofd, mediasum, &skipsectors, isosize, supported) < 0) {
 	fprintf(stderr, "Unable to read the disc checksum from the "
-			 "primary volume descriptor.  This probably "
+			 "primary volume descriptor.\nThis probably "
 			 "means the disc was created without adding the "
 			 "checksum.");
 	return -1;
@@ -274,7 +274,7 @@ int mediaCheckFile(char *file, int quiet) {
     if (!quiet)
 	fprintf(stderr, "The supported flag value is %d\n", supported);
 
-    if ( rc == 0)
+    if (rc == 0)
 	result = "FAIL.\n\nIt is not recommended to use this media.";
     else if (rc > 0)
 	result = "PASS.\n\nIt is OK to install from this media.";
@@ -307,6 +307,10 @@ int printMD5SUM(char *file) {
 
     if (parsepvd(isofd, mediasum, &skipsectors, &isosize, &supported) < 0) {
 	fprintf(stderr, "%s: Could not get pvd data", file);
+	fprintf(stderr, "\nUnable to read the disc checksum from the "
+			 "primary volume descriptor.\nThis probably "
+			 "means the disc was created without adding the "
+			 "checksum.");
 	exit(1);
     }
 
