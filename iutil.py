@@ -1,5 +1,5 @@
 
-import types, os, sys, isys
+import types, os, sys, isys, select
 
 def getfd(filespec, readOnly = 0):
     if type(filespec) == types.IntType:
@@ -40,3 +40,34 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     (pid, status) = os.waitpid(childpid, 0)
 
     return status
+
+def execWithCapture(command, argv, searchPath = 0, root = '/'):
+
+    (read, write) = os.pipe()
+
+    childpid = os.fork()
+    if (not childpid):
+        if (root != '/'): isys.chroot (root)
+	os.dup2(write, 1)
+
+	if (searchPath):
+	    os.execvp(command, argv)
+	else:
+	    os.execv(command, argv)
+
+	sys.exit(1)
+
+    os.close(write)
+
+    rc = ""
+    s = "1"
+    while (s):
+	select.select([read], [], [])
+	s = os.read(read, 1000)
+	rc = rc + s
+
+    os.close(read)
+
+    os.waitpid(childpid, 0)
+
+    return rc
