@@ -207,6 +207,9 @@ int isysStartBterm(void) {
 	btermargs[3] = "font.bgf.gz";
     else
         return 1;
+
+    /* FIXME: bterm is busted.  bail */
+    return 1;
     
     rc = bterm_main(4, btermargs);
 
