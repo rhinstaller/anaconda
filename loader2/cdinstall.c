@@ -276,6 +276,8 @@ static void queryCDMediaCheck(char *dev, int flags) {
  *
  * loaderData is the kickstart info, can be NULL meaning no info
  *
+ * requirepkgs=1 means CD should have packages, otherwise we just find stage2
+ *
  * side effect: found cdrom is mounted as /mnt/source.  stage2 mounted
  * as /mnt/runtime.
  */
@@ -286,7 +288,8 @@ char * setupCdrom(char * location,
                   moduleList modLoaded, 
                   moduleDeps modDeps, 
                   int flags,
-                  int interactive) {
+                  int interactive, 
+		  int requirepkgs) {
     int i, rc;
     int foundinvalid = 0;
     char * buf;
@@ -312,7 +315,7 @@ char * setupCdrom(char * location,
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL, 0)) {
                 if (!access("/mnt/source/RedHat/base/stage2.img", R_OK) &&
-		    (FL_RESCUE(flags) || !access("/mnt/source/.discinfo", R_OK))) {
+		    (!requirepkgs || !access("/mnt/source/.discinfo", R_OK))) {
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
@@ -367,8 +370,9 @@ char * findRedHatCD(char * location,
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
-                    int flags) {
-    return setupCdrom(location, kd, NULL, modInfo, modLoaded, modDeps, flags, 0);
+                    int flags,
+		    int requirepkgs) {
+    return setupCdrom(location, kd, NULL, modInfo, modLoaded, modDeps, flags, 0, requirepkgs);
 }
 
 
@@ -380,7 +384,7 @@ char * mountCdromImage(struct installMethod * method,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags) {
 
-    return setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1);
+    return setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1, 1);
 }
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc,

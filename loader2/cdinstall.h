@@ -14,7 +14,8 @@ char * findRedHatCD(char * location,
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
-                    int flags);
+                    int flags,
+		    int requirepkgs);
 
 
 void setKickstartCD(struct loaderData_s * loaderData, int argc,
