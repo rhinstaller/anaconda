@@ -89,10 +89,9 @@ class XCustomWindow (InstallWindow):
         return 0
 
     def depth_cb (self, widget, data):
-	print "in depth_cb"
 	self.ignore_res_cb = 1
         loc = self.depth_combo.list.child_position (data)
-	print "seldepth, loc, avail[loc] = ",self.selectedDepth, loc, self.avail_depth[loc]
+
         if self.selectedDepth == self.avail_depth[loc]:
 	    self.ignore_res_cb = 0
             return
@@ -113,7 +112,6 @@ class XCustomWindow (InstallWindow):
 
     def res_cb (self, widget, data):
 	if self.ignore_res_cb:
-	    print "ignored"
 	    return
 	
         newres = self.res_combo.list.child_position (data)
@@ -198,6 +196,10 @@ class XCustomWindow (InstallWindow):
         self.videocard = videocard
         self.desktop = desktop
 
+	if not xsetup.imposed_sane_default:
+	    xsetup.xhwstate.choose_sane_default()
+	    xsetup.imposed_sane_default = 1
+
 	# save so we can restore if necessary going back
 	self.origres = self.xsetup.xhwstate.get_resolution()
 	self.origdepth = self.xsetup.xhwstate.get_colordepth()
@@ -281,20 +283,6 @@ class XCustomWindow (InstallWindow):
         self.res_combo.list.connect ("select-child", self.res_cb)
 
         self.box.pack_start (hbox1, gtk.FALSE)
-
-        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
-        # need it since they are fixed resolution
-        self.cantprobe = not self.videocard.primaryCard().canTestSafely()
-        # just disable X testing altogether -- too many combinations of
-        # videocards not wanting to run multiple servers and mice
-        # not liking protocol changes to reliably do this 
-#        if not self.cantprobe:
-        if 0:
-            test = gtk.Alignment (.9, 0, 0, 0)
-            button = gtk.Button (_("   _Test Setting   "))
-            button.connect ("clicked", self.testPressed)
-            test.add (button)
-            self.box.pack_start (test, gtk.FALSE)
 
         #--If both KDE and GNOME are selected
         if comps:
