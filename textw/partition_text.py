@@ -678,7 +678,7 @@ class PartitionWindow:
 	elif origrequest.type == REQUEST_VG:
 	    self.intf.messageWindow(_("Not Supported"),
 				    _("LVM Volume Groups can only be "
-				      "editted in the graphical installer."))
+				      "edited in the graphical installer."))
 	    return
 
         elif (origrequest.type == REQUEST_LV or origrequest.type == REQUEST_PREEXIST) and origrequest.fstype:
