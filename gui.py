@@ -76,17 +76,16 @@ root.set_cursor (cursor)
 
 splashwindow = None
 
-def display_splash_screen(configFileData):
+def display_splash_screen():
 
     def load_image(file):
         try:
-            im = GdkImlib.Image(file)
+            im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
         except:
             try:
-                im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)
+                im = GdkImlib.Image("pixmaps/" + file)
             except:
                 print "Unable to load", file
-                raise RuntimeError, "Cannot find file %s" % file
 
         return im
 
@@ -98,9 +97,7 @@ def display_splash_screen(configFileData):
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
-        splashscreen = configFileData.getSplashscreen()
-#        splashscreen = "pixmaps/first.png"
-        im = load_image(splashscreen)
+        im = load_image('first.png')
     else:
         im = load_image('first-lowres.png')
                         
@@ -277,10 +274,9 @@ class MessageWindow:
         win.keyboard_ungrab()
     
 class InstallInterface:
-    def __init__ (self, runres, nofbmode, configFileData):
+    def __init__ (self, runres, nofbmode):
         self.runres = runres
         self.nofbmode = nofbmode
-        self.configFileData = configFileData
 
     def __del__ (self):
         pass
@@ -348,7 +344,7 @@ class InstallInterface:
 
 	lang = id.instLanguage.getCurrent()
 	lang = id.instLanguage.getLangNick(lang)
-        self.icw = InstallControlWindow (self, self.dispatch, lang, self.configFileData)
+        self.icw = InstallControlWindow (self, self.dispatch, lang)
         self.icw.run (self.runres)
 
 class InstallControlWindow:
@@ -528,7 +524,7 @@ class InstallControlWindow:
 	s = "from %s import %s; newScreenClass = %s" % (file, className, className)
 	exec s
 
-	ics = InstallControlState (self, self.configFileData)
+	ics = InstallControlState (self)
 
 	self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
@@ -587,7 +583,7 @@ class InstallControlWindow:
         if (ics.getGrabNext ()):
             nextButton.grab_focus ()
 
-    def __init__ (self, ii, dispatch, locale, configFileData):
+    def __init__ (self, ii, dispatch, locale):
 	self.stockButtons = [ 
 	    ( STOCK_BUTTON_PREV, "prevButtonStock",
 		    _("Back"), self.prevClicked ),
@@ -606,7 +602,6 @@ class InstallControlWindow:
         self.dispatch = dispatch
 	self.setLanguage(locale)
         self.helpWin = None
-        self.configFileData = configFileData
 
     def keyRelease (self, window, event):
         if ((event.keyval == GDK.KP_Delete or event.keyval == GDK.Delete)
@@ -645,9 +640,7 @@ class InstallControlWindow:
 
         self.window.set_border_width (10)
 
-#	title = _("Red Hat Linux Installer")
-        title = _(self.configFileData.getTitle())
-        
+	title = _("Red Hat Linux Installer")
 	if os.environ["DISPLAY"][:1] != ':':
 	    # from gnome.zvt import *
 	    # zvtwin = GtkWindow ()
@@ -685,8 +678,7 @@ class InstallControlWindow:
                       "pixmaps/",
                       "/tmp/updates"]:
                 try:
-                    im = GdkImlib.Image (self.configFileData.getTitleBar())
-#                    im = GdkImlib.Image (dir + "anaconda_header.png")
+                    im = GdkImlib.Image (dir + "anaconda_header.png")
                 except:
                     im = None
                 else:
@@ -776,10 +768,9 @@ class InstallControlWindow:
         mainloop ()
             
 class InstallControlState:
-    def __init__ (self, cw, configFileData):
+    def __init__ (self, cw):
         self.searchPath = [ "./", "/usr/share/anaconda/", "./" ]
         self.cw = cw
-        self.configFileData = configFileData
         self.prevEnabled = 1
         self.nextEnabled = 0
 	self.nextButtonInfo = None
@@ -827,15 +818,12 @@ class InstallControlState:
 
     def readPixmap (self, file):
         try:
-            im =  GdkImlib.Image (file)
-#            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/" + file)
+            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/" + file)
         except:
-#            raise RuntimeError, "Unable to load file %d"% file
             try:
                 im = GdkImlib.Image ("pixmaps/" + file)
             except:
                 print "Unable to load", file
-                raise RuntimeError, "Unable to load file %d"% file
                 return None
         return im
 
