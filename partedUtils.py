@@ -563,8 +563,13 @@ class DiskSet:
 
             if found:
                 if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                    rootparts.append ((dev, fs,
-                                       getRedHatReleaseString(mountpoint)))
+                    relstr = getRedHatReleaseString(mountpoint)
+                    cmdline = open('/proc/cmdline', 'r').read()
+                    
+                    if ((cmdline.find("upgradeany") != -1) or
+                        (upgradeany == 1) or
+                        (productMatches(relstr, productName))):
+                        rootparts.append ((dev, fs, relstr))
                 isys.umount(mountpoint)
 
         # now, look for candidate lvm roots
@@ -592,8 +597,13 @@ class DiskSet:
 
                 if found:
                     if os.access (mountpoint + '/etc/fstab', os.R_OK):
-                        rootparts.append ((dev, fs,
-                                           getRedHatReleaseString(mountpoint)))
+                        relstr = getRedHatReleaseString(mountpoint)
+                        cmdline = open('/proc/cmdline', 'r').read()
+
+                        if ((cmdline.find("upgradeany") != -1) or
+                            (upgradeany == 1) or
+                            (productMatches(relstr, productName))):
+                            rootparts.append ((dev, fs, relstr))
                     isys.umount(mountpoint)
 
 	lvm.vgdeactivate()
