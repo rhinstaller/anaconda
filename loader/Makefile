@@ -1,6 +1,6 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = loader.o log.o windows.o modules.o devices.o net.o cdrom.o
+OBJS = loader.o log.o windows.o modules.o devices.o net.o cdrom.o urls.o
 SOURCES = $(subst .o,.c,$(OBJS))
 BINS = loader init
 
@@ -32,13 +32,13 @@ VERSION = 6.0
 all: $(BINS)
 
 install: all
-	mkdir -p $(DESTDIR)/sbin
-	mkdir -p $(DESTDIR)/etc
-	rm -f $(DESTDIR)/sbin/loader
-	rm -f $(DESTDIR)/sbin/init
-	install -s loader $(DESTDIR)/sbin/loader
-	install -s init $(DESTDIR)/sbin/init
-	install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
+	#mkdir -p $(DESTDIR)/sbin
+	#mkdir -p $(DESTDIR)/etc
+	#rm -f $(DESTDIR)/sbin/loader
+	#rm -f $(DESTDIR)/sbin/init
+	#install -s loader $(DESTDIR)/sbin/loader
+	#install -s init $(DESTDIR)/sbin/init
+	#install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
 
 loader: $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \

@@ -280,9 +280,11 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     newtPopWindow();
 
-    configureNetwork(cfg);
-    findHostAndDomain(cfg, flags);
-    writeResolvConf(cfg);
+    if (!FL_TESTING(flags)) {
+	configureNetwork(cfg);
+	findHostAndDomain(cfg, flags);
+	writeResolvConf(cfg);
+    }
 
     return 0;
 }

@@ -28,6 +28,7 @@
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
+#include <rpmio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -48,6 +49,7 @@
 #include "log.h"
 #include "modules.h"
 #include "net.h"
+#include "urls.h"
 #include "windows.h"
 
 struct knownDevices devices;
@@ -69,11 +71,15 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 static int mountNfsImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
+static int mountFtpImage(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), 0, mountCdromImage },
+    { N_("NFS image"), 1, mountNfsImage },
     { N_("Hard drive"), 0, mountHardDrive },
-    { N_("NFS image"), 1, mountNfsImage }
+    { "FTP", 1, mountFtpImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -424,7 +430,7 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags) {
 
     if (devMakeInode("ram3", "/tmp/ram3")) return 1;
     
-    if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 1, 0, NULL, NULL)) {
+    if (doPwMount("/tmp/ram3", "/mnt/runtime", "ext2", 0, 0, NULL, NULL)) {
 logMessage("mount error %s", strerror(errno));
 	newtWinMessage(_("Error"), _("Ok"),
 		"Error mounting ramdisk. This shouldn't "
@@ -694,6 +700,8 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     char * fullPath;
     int stage = NFS_STAGE_IP;
 
+    memset(&netDev, 0, sizeof(netDev));
+
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return i;
 
@@ -702,7 +710,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	  case NFS_STAGE_IP:
 	    rc = readNetConfig(devName, &netDev, flags);
 	    if (rc) {
-		pumpDisableInterface(devName);
+		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return rc;
 	    }
 	    stage = NFS_STAGE_NFS;
@@ -755,6 +763,79 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     free(dir);
 
     return 0;
+}
+
+#define URL_STAGE_IP			1
+#define URL_STAGE_MAIN			2
+#define URL_STAGE_SECOND		3
+#define URL_STAGE_FETCH			4
+#define URL_STAGE_DONE			20
+
+static int mountFtpImage(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags) {
+    int i, rc;
+    int stage = URL_STAGE_IP;
+    char * devName;
+    struct iurlinfo ui;
+    char needsSecondary = ' ';
+    static struct networkDeviceConfig netDev;
+    FD_t fd;
+    char buf[1024];
+
+    i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
+    if (i) return i;
+
+    memset(&ui, 0, sizeof(ui));
+    memset(&netDev, 0, sizeof(netDev));
+
+
+    while (stage != URL_STAGE_DONE) {
+        switch (stage) {
+	  case URL_STAGE_IP:
+	    rc = readNetConfig(devName, &netDev, flags);
+	    if (rc) {
+		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
+		return rc;
+	    }
+	    stage = NFS_STAGE_NFS;
+
+	  case URL_STAGE_MAIN:
+	    rc = urlMainSetupPanel(&ui, URL_METHOD_FTP, &needsSecondary);
+	    if (rc) 
+		stage = URL_STAGE_IP;
+	    else
+		stage = needsSecondary != ' ' ? 
+			URL_STAGE_SECOND : URL_STAGE_FETCH;
+	    break;
+
+	  case URL_STAGE_SECOND:
+	    rc = urlSecondarySetupPanel(&ui, URL_METHOD_FTP);
+	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
+	    break;
+
+	  case URL_STAGE_FETCH:
+	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
+	    
+	    if (fd == NULL || fdFileno(fd) < 0) {
+		newtPopWindow();
+		snprintf(buf, sizeof(buf), "%s/RedHat/base/stage2.img",
+			 ui.urlprefix);
+		newtWinMessage(_("FTP"), _("Ok"), 
+		       _("Unable to retrieve the second stage ramdisk"));
+		/*XXX ufdClose(fd);*/
+		stage = URL_STAGE_MAIN;
+		break;
+	    }
+	    
+	    rc = loadStage2Ramdisk(fdFileno(fd), 0, flags);
+	    urlinstFinishTransfer(fd);
+
+	    break;
+        }
+    }
+
+    return LOADER_BACK;
 }
     
 static int doMountImage(char * location, struct knownDevices * kd,
@@ -931,6 +1012,8 @@ int main(int argc, char ** argv) {
     }
 
     spawnShell(flags);			/* we can attach gdb now :-) */
+
+newtWinMessage("Wait", _("Ok"), "Press return to continue");
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
