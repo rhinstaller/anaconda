@@ -1224,6 +1224,17 @@ class ToDo:
             self.hdList['yp-tools'].selected = 1
             self.hdList['portmap'].selected = 1
 
+        if self.auth.useLdap:
+            self.hdlist['nss_ldap'].selected = 1
+            self.hdlist['openldap'].selected = 1
+            self.hdlist['perl'].selected = 1
+
+        if self.auth.useKrb5:
+            self.hdlist['pam_krb5'].selected = 1
+            self.hdlist['krb5-workstation'].selected = 1
+            self.hdlist['krbafs'].selected = 1
+            self.hdlist['krb5-libs'].selected = 1
+
         if self.x.server and not self.x.server == "XFree86":
             # trim off the XF86_
             try:
