@@ -94,7 +94,7 @@ install: all
 	install raidstop-stub $(DESTDIR)/$(PYTHONLIBDIR)
 	install $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	install lang-table $(DESTDIR)/$(PYTHONLIBDIR)
-	./py-compile --basedir $(DESTDIR)/$(PYHTONLIBDIR) $(PYFILES)
+	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
