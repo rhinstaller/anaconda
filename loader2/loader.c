@@ -767,7 +767,7 @@ static char *doLoaderMain(char * location,
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        url = findRedHatCD(location, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
+        url = findAnacondaCD(location, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
 	/* if we found a CD and we're not in rescue or vnc mode return */
 	/* so we can short circuit straight to stage 2 from CD         */
 	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))

@@ -268,7 +268,7 @@ char * mountUrlImage(struct installMethod * method,
 
 	    /* ok messy - see if we have a stage2 on local CD */
 	    /* before trying to pull one over network         */
-	    cdurl = findRedHatCD(location, modInfo, modLoaded, 
+	    cdurl = findAnacondaCD(location, modInfo, modLoaded, 
 				 *modDeps, flags, 0);
 	    if (cdurl && 
                 (loadSingleUrlImage(&ui, "base/hdlist", flags, NULL, 

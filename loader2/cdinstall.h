@@ -8,7 +8,7 @@ char * mountCdromImage(struct installMethod * method,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags);
 
-char * findRedHatCD(char * location, 
+char * findAnacondaCD(char * location, 
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 

@@ -391,8 +391,8 @@ char * setupCdrom(char * location,
     return NULL;
 }
 
-/* try to find a Red Hat CD non-interactively */
-char * findRedHatCD(char * location, 
+/* try to find a install CD non-interactively */
+char * findAnacondaCD(char * location, 
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 

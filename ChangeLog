@@ -1,5 +1,11 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/cdinstall.c (findRedHatCD): Change function to
+	findAnacondaCD to be more general.
+	* loader2/cdinstall.h: Likewise.
+	* loader2/urlinstall.c: Likewise.
+	* loader2/loader.c: Likewise.
+
 	* loader2/lang.c: Fix for removed instlang line.  Require tabs for
 	spacing language information.
 	* loader2/lang.h: Remove instlang.
