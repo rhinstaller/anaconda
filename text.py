@@ -42,7 +42,7 @@ stepToClasses = {
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow" ),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod") ),
     "partition": ("partition_text", ("PartitionWindow") ),
-    "findinstall" : ( "upgrade_text", "UpgradeExamineWindow" ),
+    "findinstall" : ( "upgrade_text", ("UpgradeExamineWindow", "CustomizeUpgradeWindow") ),
     "addswap" : ( "upgrade_text", "UpgradeSwapWindow" ),
     "bootloader" : ("bootloader_text", ("BootloaderChoiceWindow",
                                   "BootloaderAppendWindow",

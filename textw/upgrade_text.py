@@ -166,7 +166,7 @@ class UpgradeExamineWindow:
         return INSTALL_OK
 
 class CustomizeUpgradeWindow:
-    def __call__ (self, screen, dispatch):
+    def __call__ (self, screen, dispatch, intf, id, chroot):
         rc = ButtonChoiceWindow (screen, _("Customize Packages to Upgrade"),
                                  _("The packages you have installed, "
                                    "and any other packages which are "
