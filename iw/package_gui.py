@@ -158,27 +158,30 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.updateSize()
 
     def button_press (self, packageList, event):
-        row, col  = self.packageList.get_selection_info (event.x, event.y)
-        if row != None:
-            if col == 0:   #--If click on checkbox, then toggle
-                self.toggle_row (row)
-            elif col == 1 or col == 2:  #--If click pkg name, show description
+        try:
+            row, col  = self.packageList.get_selection_info (event.x, event.y)
+            if row != None:
+                if col == 0:   #--If click on checkbox, then toggle
+                    self.toggle_row (row)
+                elif col == 1 or col == 2:  #--If click pkg name, show description
 
-                packageName = self.packageList.get_text(row, col)
+                    packageName = self.packageList.get_text(row, col)
 
-                (val, row_data, header) = self.packageList.get_row_data(row)
-                description = header[rpm.RPMTAG_DESCRIPTION]
+                    (val, row_data, header) = self.packageList.get_row_data(row)
+                    description = header[rpm.RPMTAG_DESCRIPTION]
                 
-                self.packageDesc.freeze ()
-                self.packageDesc.delete_text (0, -1)
+                    self.packageDesc.freeze ()
+                    self.packageDesc.delete_text (0, -1)
 
-                #-- Remove various end of line characters
-                description = string.replace (description, "\n\n", "\x00")
-                description = string.replace (description, "\n", " ")
-                description = string.replace (description, "\x00", "\n\n")
-
-                self.packageDesc.insert_defaults (description)
-                self.packageDesc.thaw ()
+                    #-- Remove various end of line characters
+                    description = string.replace (description, "\n\n", "\x00")
+                    description = string.replace (description, "\n", " ")
+                    description = string.replace (description, "\x00", "\n\n")
+                    
+                    self.packageDesc.insert_defaults (description)
+                    self.packageDesc.thaw ()
+        except:
+            pass
 
 
     def toggle_row (self, row):
