@@ -1,11 +1,16 @@
 import rpm
 from string import *
+import types
 
 class Package:
+
+    def __repr__(self):
+	return self.name
 
     def __init__(self, header):
 	self.h = header
 	self.name = header[rpm.RPMTAG_NAME]
+	self.selected = 0
 
 class Component:
 
@@ -21,6 +26,13 @@ class Component:
     def addInclude(self, component):
 	self.includes.append(component)
 
+    def select(self, recurse = 1):
+	for n in self.items:
+	    n.selected = 1
+	if recurse:
+	    for n in self.includes:
+		n.select(recurse)
+
     def __init__(self, name, selected, hidden = 0):
 	self.name = name
 	self.hidden = hidden
@@ -29,7 +41,24 @@ class Component:
 	self.includes = []
 
 class ComponentSet:
-    def readCompsFile(self, arch, filename):
+
+    def __len__(self):
+	return len(self.comps)
+
+    def __getitem__(self, key):
+	if (type(key) == types.IntType):
+	    return self.comps[key]
+	return self.compsDict[key]
+
+    def selected(self):
+	l = []
+ 	keys = self.packages.keys()
+	keys.sort()
+	for name in keys:
+	    if self.packages[name].selected: l.append(self.packages[name])
+	return l
+
+    def readCompsFile(self, arch, filename, packages):
 	file = open(filename, "r")
 	lines = file.readlines()
 	file.close()
@@ -63,7 +92,6 @@ class ComponentSet:
 		    hidden = 1
 		    (foo, l) = split(l, None, 1)
 		    
-		print "item is '%s'" % (l,)
 		comp = Component(l, default, hidden)
 	    elif (l == "end"):
 		self.comps.append(comp)
@@ -75,7 +103,7 @@ class ComponentSet:
 		    (at, l) = split(l, None, 1)
 		    comp.addInclude(self.compsDict[l])
 		else:
-		    comp.addPackage(l)
+		    comp.addPackage(packages[l])
 
     def __repr__(self):
 	s = ""
@@ -90,6 +118,9 @@ class ComponentSet:
 	    
 	return s
 
-    def __init__(self, arch, file):
+    def __init__(self, arch, file, hdlist):
 	self.list = []
-	self.readCompsFile(arch, file)
+	self.packages = {}
+	for h in hdlist:
+	    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	self.readCompsFile(arch, file, self.packages)
