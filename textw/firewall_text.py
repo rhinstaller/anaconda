@@ -55,22 +55,26 @@ class FirewallWindow:
 		rows = 1
 	    self.devGrid = Grid(cols, rows)
 
-	    bigGrid.setField (Label(_("Trusted Devices:")), 0, currentRow, (0, 0, 0, 1),
-	    		anchorLeft = 1)
-	    curcol = 0
-	    currow = 0
-	    for dev in devices:
-		if todo.network.netdevices[dev].get('bootproto') == 'dhcp':
-		    todo.firewall.dhcp = 1
-		cb = Checkbox (dev, dev in todo.firewall.trustdevs)
-		self.devGrid.setField(cb, curcol, currow, (0, 0, 1, 0), anchorLeft = 1)
- 		self.netCBs[dev] = cb
-		curcol = curcol + 1
-		if curcol >= cols:
-		    currow = currow + 1
-		    curcol = 1
-	    bigGrid.setField (self.devGrid, 1, currentRow, (1, 0, 0, 1), anchorLeft = 1)
-	    currentRow = currentRow + 1
+            if devices != []:
+                bigGrid.setField (Label(_("Trusted Devices:")), 0, currentRow, (0, 0, 0, 1),
+                            anchorLeft = 1)
+                curcol = 0
+                currow = 0
+                for dev in devices:
+                    if todo.network.netdevices[dev].get('bootproto') == 'dhcp':
+                        todo.firewall.dhcp = 1
+                    cb = Checkbox (dev, dev in todo.firewall.trustdevs)
+                    self.devGrid.setField(cb, curcol, currow, (0, 0, 1, 0), anchorLeft = 1)
+                    self.netCBs[dev] = cb
+                    curcol = curcol + 1
+                    if curcol >= cols:
+                        currow = currow + 1
+                        curcol = 1
+                bigGrid.setField (self.devGrid, 1, currentRow, (1, 0, 0, 1), anchorLeft = 1)
+                currentRow = currentRow + 1
+
+
+
 	
 	bigGrid.setField (Label(_("Allow incoming:")), 0, currentRow, (0, 0, 0, 0),
 		anchorTop = 1)
