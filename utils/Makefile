@@ -1,3 +1,5 @@
+include ../Makefile.inc
+
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
@@ -24,6 +26,10 @@ genhdlist: genhdlist.c
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 #	install -m755 -s genhdlist $(DESTDIR)/usr/bin
+	install -m755 -s trimpcitable $(RUNTIMEDIR)
+	install -m755 -s moddeps $(RUNTIMEDIR)
+	install -m755 -s filtermoddeps $(RUNTIMEDIR)
+	install -m755 -s modlist $(RUNTIMEDIR)
 
 #
 # removed genhdlist from clean line so it will be distributed on CDROM image
