@@ -739,7 +739,7 @@ def doInstall(method, id, intf, instPath):
 
 	# HACK - dont overload progress bar with useless requests
 	updcount = updcount + 1
-	if updcount > updintv
+	if updcount > updintv:
 	    progress.set(i)
 	    updcount = 0
 
