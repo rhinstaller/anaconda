@@ -44,13 +44,38 @@ class PartitionWindow (InstallWindow):
 		return window
 
         fstab = self.todo.ddruid.getFstab ()
+
+	bootPartition = None
+	rootPartition = None
+
         for (partition, mount, fsystem, size) in fstab:
             self.todo.addMount(partition, mount, fsystem)
+	    if mount == "/":
+		rootPartition = partition
+	    elif mount == "/boot":
+		bootPartition = partition
+		
 
         (drives, raid) = self.todo.ddruid.partitionList()
 
-	for (mount, device, type, other) in raid:
-	    self.todo.addMount(device, mount, "ext2")
+	liloBoot = None
+
+	for (mount, device, type, raidType, other) in raid:
+	    self.todo.addMount(device, mount, type)
+
+	    if mount == "/":
+		rootPartition = partition
+	    elif mount == "/boot":
+		bootPartition = partition
+
+	if (bootPartition):
+	    liloBoot = bootPartition
+	else:
+	    liloBoot = rootPartition
+
+	if liloBoot[0:2] == "md":
+	    self.todo.setLiloLocation(("raid", liloBoot))
+	    self.todo.instClass.addToSkipList("lilo")
 
         return None
 
