@@ -907,7 +907,8 @@ class GroupSet:
 
 def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
     import urllib2
-    
+
+    file = None
     tries = 0
     while tries < 5:
         try:
@@ -928,6 +929,9 @@ def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
         time.sleep(5)
         tries = tries + 1
 
+    if file is None:
+        raise FileCopyException
+        
     compsxml = rhpl.comps.Comps(file)
     file.close()
     grpset = GroupSet(compsxml, hdrlist)
