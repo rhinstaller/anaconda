@@ -1057,8 +1057,8 @@ class ToDo:
 		    self.fstab.makeFilesystems ()
 		else:
 		    self.fstab.savePartitions ()
-		    self.fstab.turnOnSwap()
 		    self.fstab.makeFilesystems ()
+		    self.fstab.turnOnSwap()
 
             self.fstab.mountFilesystems (self.instPath)
 

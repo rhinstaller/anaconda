@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-01 10:59-0500\n"
+"POT-Creation-Date: 2000-02-01 16:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,59 +14,58 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../fstab.py:224 ../fstab.py:379
+#: ../fstab.py:233 ../fstab.py:389
 msgid "Formatting"
 msgstr ""
 
-#: ../fstab.py:225
+#: ../fstab.py:234
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:235 ../fstab.py:312 ../fstab.py:445
+#: ../fstab.py:244 ../fstab.py:321 ../fstab.py:455
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481
 #: ../loader/loader.c:696 ../loader/loader.c:743 ../loader/loader.c:881
 #: ../loader/loader.c:886 ../loader/loader.c:1638 ../loader/loader.c:1684
 #: ../loader/loader.c:1755 ../loader/urls.c:70 ../loader/urls.c:79
 #: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
-#: ../text.py:280 ../text.py:763 ../todo.py:334 ../todo.py:663 ../todo.py:694
-#: ../todo.py:1064
+#: ../text.py:280 ../text.py:763 ../todo.py:335 ../todo.py:664 ../todo.py:695
 msgid "Error"
 msgstr ""
 
-#: ../fstab.py:235
+#: ../fstab.py:244
 msgid "Error creating swap on device "
 msgstr ""
 
-#: ../fstab.py:313
+#: ../fstab.py:322
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:335 ../todo.py:416
+#: ../fstab.py:344 ../todo.py:417
 msgid "Creating"
 msgstr ""
 
-#: ../fstab.py:335
+#: ../fstab.py:344
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../fstab.py:380
+#: ../fstab.py:390
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../fstab.py:402
+#: ../fstab.py:412
 msgid "Loopback"
 msgstr ""
 
-#: ../fstab.py:403
+#: ../fstab.py:413
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:446
+#: ../fstab.py:456
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
@@ -87,8 +86,8 @@ msgstr ""
 #: ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535
 #: ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616
 #: ../text.py:625 ../text.py:683 ../text.py:684 ../textw/constants.py:10
-#: ../textw/lilo.py:31 ../textw/lilo.py:86 ../textw/lilo.py:93
-#: ../textw/lilo.py:177 ../textw/packages.py:20 ../textw/packages.py:85
+#: ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94
+#: ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85
 #: ../textw/packages.py:144 ../textw/packages.py:153
 #: ../textw/partitioning.py:23 ../textw/partitioning.py:63
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
@@ -137,12 +136,12 @@ msgstr ""
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
 
-#: ../installclass.py:247
+#: ../installclass.py:251
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
-#: ../installclass.py:284
+#: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
@@ -168,8 +167,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541
 #: ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86
 #: ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100
-#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:104
-#: ../textw/lilo.py:176 ../textw/silo.py:124 ../textw/silo.py:137
+#: ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105
+#: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
 #: ../textw/silo.py:185
 msgid "Ok"
 msgstr ""
@@ -194,8 +193,8 @@ msgstr ""
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/lilo.py:219 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:99
-#: ../textw/lilo.py:167 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../iw/lilo.py:222 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
+#: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
 msgid "Device"
 msgstr ""
 
@@ -219,7 +218,7 @@ msgstr ""
 #: ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585
 #: ../text.py:613 ../text.py:683 ../text.py:708 ../text.py:722 ../text.py:742
 #: ../text.py:755 ../text.py:767 ../text.py:962 ../text.py:966 ../text.py:1163
-#: ../textw/lilo.py:30 ../textw/lilo.py:86 ../textw/packages.py:20
+#: ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20
 #: ../textw/packages.py:85 ../textw/packages.py:144
 #: ../textw/partitioning.py:214 ../textw/partitioning.py:263
 #: ../textw/partitioning.py:273 ../textw/partitioning.py:281
@@ -353,7 +352,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646
 #: ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1747 ../text.py:359 ../text.py:361 ../textw/lilo.py:105
+#: ../loader/loader.c:1747 ../text.py:359 ../text.py:361 ../textw/lilo.py:106
 #: ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr ""
@@ -597,12 +596,12 @@ msgstr ""
 msgid "SILO Configuration"
 msgstr ""
 
-#: ../text.py:1051 ../textw/lilo.py:33 ../textw/lilo.py:83
-#: ../textw/lilo.py:185
+#: ../text.py:1051 ../textw/lilo.py:33 ../textw/lilo.py:84
+#: ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr ""
 
-#: ../iw/lilo.py:123 ../iw/lilo.py:243 ../iw/silo.py:125 ../iw/silo.py:269
+#: ../iw/lilo.py:123 ../iw/lilo.py:246 ../iw/silo.py:125 ../iw/silo.py:269
 #: ../text.py:1055 ../text.py:1061
 msgid "Partition"
 msgstr ""
@@ -647,16 +646,16 @@ msgstr ""
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:1099 ../text.py:1104 ../text.py:1122 ../text.py:1125
-msgid "Boot Disk"
-msgstr ""
-
-#: ../text.py:1101
+#: ../text.py:1099
 msgid "Installation Begins"
 msgstr ""
 
-#: ../text.py:1103
+#: ../text.py:1101
 msgid "Install System"
+msgstr ""
+
+#: ../text.py:1102 ../text.py:1104 ../text.py:1123 ../text.py:1125
+msgid "Boot Disk"
 msgstr ""
 
 #: ../text.py:1107
@@ -671,7 +670,7 @@ msgstr ""
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1124
+#: ../text.py:1122
 msgid "Upgrade System"
 msgstr ""
 
@@ -687,102 +686,90 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:335
+#: ../todo.py:336
 #, c-format
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../todo.py:416
+#: ../todo.py:417
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:436
+#: ../todo.py:437
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:437
+#: ../todo.py:438
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:633 ../todo.py:646
+#: ../todo.py:634 ../todo.py:647
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:652
+#: ../todo.py:653
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:653
+#: ../todo.py:654
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:664 ../todo.py:695
+#: ../todo.py:665 ../todo.py:696
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
 
-#: ../todo.py:706
+#: ../todo.py:707
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:707
+#: ../todo.py:708
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:944
+#: ../todo.py:951
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:945
+#: ../todo.py:952
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1059
-msgid "Rebuilding"
-msgstr ""
-
-#: ../todo.py:1060
-msgid "Rebuilding RPM database..."
-msgstr ""
-
-#: ../todo.py:1065
-msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr ""
-
-#: ../todo.py:1115
+#: ../todo.py:1119
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1117
+#: ../todo.py:1121
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1138
+#: ../todo.py:1142
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1141
+#: ../todo.py:1145
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1141
+#: ../todo.py:1145
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1154
+#: ../todo.py:1158
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1178
+#: ../todo.py:1182
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1179
+#: ../todo.py:1183
 msgid "Performing post install configuration..."
 msgstr ""
 
@@ -864,7 +851,7 @@ msgid "Add"
 msgstr ""
 
 #: ../iw/account.py:220 ../libfdisk/newtfsedit.c:1291
-#: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:176 ../textw/lilo.py:198
+#: ../libfdisk/newtfsedit.c:1299 ../textw/lilo.py:177 ../textw/lilo.py:199
 #: ../textw/partitioning.py:62 ../textw/silo.py:185 ../textw/silo.py:207
 #: ../textw/userauth.py:176
 msgid "Edit"
@@ -1057,50 +1044,50 @@ msgstr ""
 msgid "Lilo Configuration"
 msgstr ""
 
-#: ../iw/lilo.py:126 ../iw/lilo.py:244 ../iw/silo.py:130 ../iw/silo.py:270
+#: ../iw/lilo.py:126 ../iw/lilo.py:247 ../iw/silo.py:130 ../iw/silo.py:270
 msgid "Type"
 msgstr ""
 
-#: ../iw/lilo.py:162
+#: ../iw/lilo.py:165
 msgid "Install LILO boot record on:"
 msgstr ""
 
-#: ../iw/lilo.py:169 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:172 ../iw/silo.py:167 ../textw/silo.py:61
 msgid "Master Boot Record (MBR)"
 msgstr ""
 
-#: ../iw/lilo.py:173 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:176 ../iw/silo.py:170 ../textw/silo.py:62
 msgid "First sector of boot partition"
 msgstr ""
 
-#: ../iw/lilo.py:177 ../textw/lilo.py:24
+#: ../iw/lilo.py:180 ../textw/lilo.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr ""
 
-#: ../iw/lilo.py:187 ../iw/silo.py:197
+#: ../iw/lilo.py:190 ../iw/silo.py:197
 msgid "Kernel parameters"
 msgstr ""
 
-#: ../iw/lilo.py:204 ../iw/silo.py:215
+#: ../iw/lilo.py:207 ../iw/silo.py:215
 msgid "Create boot disk"
 msgstr ""
 
-#: ../iw/lilo.py:208
+#: ../iw/lilo.py:211
 msgid "Do not install LILO"
 msgstr ""
 
-#: ../iw/lilo.py:219 ../iw/silo.py:246 ../textw/lilo.py:167
+#: ../iw/lilo.py:222 ../iw/silo.py:246 ../textw/lilo.py:168
 #: ../textw/silo.py:176
 msgid "Default"
 msgstr ""
 
-#: ../iw/lilo.py:219 ../iw/silo.py:246 ../textw/lilo.py:167
+#: ../iw/lilo.py:222 ../iw/silo.py:246 ../textw/lilo.py:168
 #: ../textw/silo.py:176
 msgid "Partition type"
 msgstr ""
 
-#: ../iw/lilo.py:219 ../iw/lilo.py:255 ../iw/silo.py:246 ../iw/silo.py:281
-#: ../textw/lilo.py:100 ../textw/lilo.py:167 ../textw/silo.py:120
+#: ../iw/lilo.py:222 ../iw/lilo.py:258 ../iw/silo.py:246 ../iw/silo.py:281
+#: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
 #: ../textw/silo.py:176
 msgid "Boot label"
 msgstr ""
@@ -1236,7 +1223,7 @@ msgid ""
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../iw/rootpartition.py:114 ../textw/partitioning.py:256
+#: ../iw/rootpartition.py:115 ../textw/partitioning.py:256
 #, c-format
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
@@ -1245,19 +1232,19 @@ msgid ""
 "total less then %d megabytes in size."
 msgstr ""
 
-#: ../iw/rootpartition.py:134
+#: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
 msgstr ""
 
-#: ../iw/rootpartition.py:139
+#: ../iw/rootpartition.py:140
 msgid "Swap space size:"
 msgstr ""
 
-#: ../iw/rootpartition.py:158 ../textw/partitioning.py:124
+#: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:224 ../textw/partitioning.py:125
+#: ../iw/rootpartition.py:225 ../textw/partitioning.py:125
 #, c-format
 msgid ""
 "%s\n"
@@ -1267,11 +1254,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:238
+#: ../iw/rootpartition.py:239
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:241 ../textw/partitioning.py:129
+#: ../iw/rootpartition.py:242 ../textw/partitioning.py:129
 msgid "Manually partition"
 msgstr ""
 
@@ -1393,19 +1380,19 @@ msgid ""
 "blank."
 msgstr ""
 
-#: ../textw/lilo.py:84 ../textw/silo.py:91
+#: ../textw/lilo.py:85 ../textw/silo.py:91
 msgid "Where do you want to install the bootloader?"
 msgstr ""
 
-#: ../textw/lilo.py:104 ../textw/silo.py:124 ../textw/silo.py:145
+#: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
 msgid "Clear"
 msgstr ""
 
-#: ../textw/lilo.py:113 ../textw/silo.py:132
+#: ../textw/lilo.py:114 ../textw/silo.py:132
 msgid "Edit Boot Label"
 msgstr ""
 
-#: ../textw/lilo.py:180 ../textw/silo.py:188
+#: ../textw/lilo.py:181 ../textw/silo.py:188
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "

@@ -196,6 +196,12 @@ class Fstab:
 
 	    fstab.append((partition, 1))
 
+	# Add raid mounts to mount list
+        (devices, raid) = self.raidList()
+	for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
+	    if fsType != "swap": continue
+	    fstab.append((device, 1))
+
 	for n in self.extraFilesystems:
 	    (mntpoint, device, fsType, doFormat, size) = n
 	    if fsType != "swap": continue
@@ -214,6 +220,8 @@ class Fstab:
 	# we could be smarter about this
 	if self.swapOn: return
 	self.swapOn = 1
+
+	print "turning on swap", self.swapList()
 
 	iutil.mkdirChain('/tmp/swap')
 
@@ -344,6 +352,7 @@ class Fstab:
 	    w.pop()
         
 	    # XXX remove extraneous inodes here
+	    print "created raid"
 
         if not self.setupFilesystems: return
 
