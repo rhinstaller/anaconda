@@ -1,12 +1,12 @@
 # anaconda zh_CN.GB2312.po
 # Copyright (C) 2001, Red Hat, Inc.
-# Bill Huang <bhuang@redhat.com>, 2001.
+# Sarah Smith <sarahs@Redhat.com>, 2002.
 #
 #: ../gettext_rh.py:340
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2002-03-25 17:27-0500\n"
+"Project-Id-Version: anaconda 7.3\n"
+"POT-Creation-Date: 2002-03-21 16:48-0500\n"
 "PO-Revision-Date: 2002-03-25 09:18GMT+10:00\n"
 "Last-Translator: Sarah Smith <sarahs@redhat.com>\n"
 "Language-Team: Simplified Chinese <zh@li.org>\n"
@@ -21,39 +21,39 @@ msgid ""
 "mode."
 msgstr "你没有足够的 RAM 来使用图形化安装程序，开始使用文本方式安装。"
 
-#: ../anaconda:332 ../gui.py:110 ../mouse.py:282 ../rescue.py:35
+#: ../anaconda:332 ../gui.py:110 ../iw/account_gui.py:150
+#: ../iw/account_gui.py:161 ../iw/partition_gui.py:506
+#: ../iw/partition_gui.py:860 ../iw/partition_gui.py:1342 ../loader/cdrom.c:34
+#: ../loader/devices.c:94 ../loader/devices.c:239 ../loader/devices.c:258
+#: ../loader/devices.c:265 ../loader/devices.c:334 ../loader/devices.c:429
+#: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
+#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/lang.c:309
+#: ../loader/lang.c:631 ../loader/loader.c:329 ../loader/loader.c:471
+#: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
+#: ../loader/loader.c:1096 ../loader/loader.c:1155 ../loader/loader.c:1253
+#: ../loader/loader.c:1292 ../loader/loader.c:1295 ../loader/loader.c:1367
+#: ../loader/loader.c:1463 ../loader/loader.c:1575 ../loader/loader.c:1580
+#: ../loader/loader.c:1622 ../loader/loader.c:1661 ../loader/loader.c:1693
+#: ../loader/loader.c:1964 ../loader/loader.c:2718 ../loader/loader.c:2748
+#: ../loader/loader.c:2811 ../loader/loader.c:2826 ../loader/loader.c:3049
+#: ../loader/loader.c:3081 ../loader/mediacheck.c:192
+#: ../loader/mediacheck.c:248 ../loader/mediacheck.c:280
+#: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/modules.c:442
+#: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
+#: ../loader/net.c:734 ../loader/net.c:767 ../loader/pcmcia.c:104
+#: ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/telnetd.c:68
+#: ../loader/urls.c:80 ../loader/urls.c:90 ../loader/urls.c:98
+#: ../loader/urls.c:202 ../loader/urls.c:272 ../loader/urls.c:277
+#: ../loader/urls.c:283 ../loader/urls.c:423 ../mouse.py:282 ../rescue.py:35
 #: ../rescue.py:145 ../rescue.py:168 ../rescue.py:177 ../rescue.py:193
-#: ../rescue.py:199 ../text.py:303 ../text.py:424 ../xserver.py:51
-#: ../iw/account_gui.py:150 ../iw/account_gui.py:161
-#: ../iw/partition_gui.py:506 ../iw/partition_gui.py:860
-#: ../iw/partition_gui.py:1342 ../textw/bootdisk_text.py:66
+#: ../rescue.py:199 ../text.py:303 ../text.py:424 ../textw/bootdisk_text.py:66
 #: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:48
 #: ../textw/complete_text.py:63 ../textw/complete_text.py:79
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
-#: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
+#: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:195 ../textw/network_text.py:139
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160 ../loader/cdrom.c:34 ../loader/devices.c:94
-#: ../loader/devices.c:239 ../loader/devices.c:258 ../loader/devices.c:265
-#: ../loader/devices.c:334 ../loader/devices.c:429 ../loader/kickstart.c:59
-#: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
-#: ../loader/lang.c:96 ../loader/lang.c:309 ../loader/lang.c:631
-#: ../loader/loader.c:329 ../loader/loader.c:471 ../loader/loader.c:488
-#: ../loader/loader.c:594 ../loader/loader.c:895 ../loader/loader.c:1096
-#: ../loader/loader.c:1155 ../loader/loader.c:1253 ../loader/loader.c:1292
-#: ../loader/loader.c:1295 ../loader/loader.c:1367 ../loader/loader.c:1463
-#: ../loader/loader.c:1575 ../loader/loader.c:1580 ../loader/loader.c:1622
-#: ../loader/loader.c:1661 ../loader/loader.c:1693 ../loader/loader.c:1964
-#: ../loader/loader.c:2718 ../loader/loader.c:2748 ../loader/loader.c:2811
-#: ../loader/loader.c:2826 ../loader/loader.c:3049 ../loader/loader.c:3081
-#: ../loader/mediacheck.c:192 ../loader/mediacheck.c:248
-#: ../loader/mediacheck.c:280 ../loader/modules.c:389 ../loader/modules.c:409
-#: ../loader/modules.c:442 ../loader/net.c:185 ../loader/net.c:273
-#: ../loader/net.c:360 ../loader/net.c:734 ../loader/net.c:767
-#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
-#: ../loader/telnetd.c:68 ../loader/urls.c:80 ../loader/urls.c:90
-#: ../loader/urls.c:98 ../loader/urls.c:202 ../loader/urls.c:272
-#: ../loader/urls.c:277 ../loader/urls.c:283 ../loader/urls.c:423
+#: ../textw/silo_text.py:160 ../xserver.py:51
 msgid "OK"
 msgstr "确定"
 
@@ -110,7 +110,6 @@ msgid "Could not allocate partitions"
 msgstr "无法拨发分区"
 
 #: ../autopart.py:769
-#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
@@ -122,7 +121,6 @@ msgid "Requested Partition Does Not Exist"
 msgstr "所申请的分区不存在"
 
 #: ../autopart.py:902
-#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
@@ -137,7 +135,6 @@ msgid "Partition Request Sanity Check Errors"
 msgstr "分区申请的完整性查验出错"
 
 #: ../autopart.py:936
-#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -156,7 +153,6 @@ msgid "Warnings During Automatic Partitioning"
 msgstr "进行自动分区时出现警告"
 
 #: ../autopart.py:946
-#, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
 "\n"
@@ -172,7 +168,6 @@ msgid "Error Partitioning"
 msgstr "分区出错"
 
 #: ../autopart.py:960
-#, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
 "\n"
@@ -183,14 +178,14 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
-#: ../partitioning.py:706 ../partitioning.py:1455 ../upgrade.py:258
-#: ../upgrade.py:378 ../upgrade.py:397 ../iw/bootloader_gui.py:58
-#: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1296
-#: ../iw/partition_gui.py:1625 ../iw/upgrade_swap_gui.py:171
-#: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
+#: ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
+#: ../iw/partition_gui.py:1296 ../iw/partition_gui.py:1625
+#: ../iw/upgrade_swap_gui.py:171 ../iw/upgrade_swap_gui.py:179
+#: ../iw/upgrade_swap_gui.py:186 ../loader/loader.c:3456
+#: ../partitioning.py:706 ../partitioning.py:1452
 #: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:436
 #: ../textw/partition_text.py:168 ../textw/upgrade_text.py:174
-#: ../loader/loader.c:3456
+#: ../upgrade.py:258 ../upgrade.py:378 ../upgrade.py:397
 msgid "Warning"
 msgstr "警告"
 
@@ -233,7 +228,6 @@ msgid "Keep all partitions and use existing free space"
 msgstr "保存所有的分区，使用现有的空闲空间"
 
 #: ../autopart.py:1027
-#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -247,7 +241,6 @@ msgstr ""
 "是否确信要执行此操作？"
 
 #: ../autopart.py:1032
-#, python-format
 msgid ""
 "WARNING!!\tWARNING!!\n"
 "\n"
@@ -299,9 +292,6 @@ msgstr "你的系统状态已被成功地写入软盘，系统将被重设。"
 #: ../floppy.py:62 ../floppy.py:85 ../fsset.py:522 ../fsset.py:928
 #: ../fsset.py:947 ../fsset.py:992 ../fsset.py:1014 ../fsset.py:1059
 #: ../fsset.py:1102 ../harddrive.py:172 ../image.py:63 ../image.py:143
-#: ../packages.py:259 ../partitioning.py:1332 ../upgrade.py:311
-#: ../upgrade.py:323 ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
-#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434
 #: ../loader/devices.c:258 ../loader/devices.c:265 ../loader/devices.c:429
 #: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:471
 #: ../loader/loader.c:488 ../loader/loader.c:594 ../loader/loader.c:895
@@ -313,7 +303,10 @@ msgstr "你的系统状态已被成功地写入软盘，系统将被重设。"
 #: ../loader/modules.c:389 ../loader/modules.c:409 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/telnetd.c:68 ../loader/urls.c:80
 #: ../loader/urls.c:90 ../loader/urls.c:98 ../loader/urls.c:272
-#: ../loader/urls.c:277
+#: ../loader/urls.c:277 ../packages.py:259 ../partitioning.py:1332
+#: ../textw/upgrade_text.py:162 ../textw/upgrade_text.py:169
+#: ../textw/upgrade_text.py:192 ../textw/xconfig_text.py:434 ../upgrade.py:311
+#: ../upgrade.py:323
 msgid "Error"
 msgstr "错误"
 
@@ -336,12 +329,10 @@ msgid "Checking for Bad Blocks"
 msgstr "正在检查磁盘坏块"
 
 #: ../fsset.py:162
-#, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "正在检查/dev/%s上的磁盘坏块……"
 
 #: ../fsset.py:523
-#, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
 "migrating this filesystem if desired.\n"
@@ -362,7 +353,6 @@ msgid "First sector of boot partition"
 msgstr "引导分区的第一个扇区"
 
 #: ../fsset.py:929
-#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -374,7 +364,6 @@ msgstr ""
 "请按回车键重新引导系统。"
 
 #: ../fsset.py:948
-#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -389,7 +378,6 @@ msgstr ""
 "请按确定键来重新引导系统。"
 
 #: ../fsset.py:993
-#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -401,7 +389,6 @@ msgstr ""
 "请按回车键来重新引导系统。"
 
 #: ../fsset.py:1015
-#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -413,7 +400,6 @@ msgstr ""
 "请按回车键来重新引导系统。"
 
 #: ../fsset.py:1060
-#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -429,7 +415,6 @@ msgid "Invalid mount point"
 msgstr "挂载点无效"
 
 #: ../fsset.py:1081
-#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -441,7 +426,6 @@ msgstr ""
 "请按回车键来重新引导系统。"
 
 #: ../fsset.py:1090
-#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -453,7 +437,6 @@ msgstr ""
 "请按回车键来重新引导系统。"
 
 #: ../fsset.py:1103
-#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -472,7 +455,6 @@ msgid "Formatting"
 msgstr "正在格式化"
 
 #: ../fsset.py:1694
-#, python-format
 msgid "Formatting %s filesystem..."
 msgstr "正在格式化 %s 文件系统……"
 
@@ -480,26 +462,24 @@ msgstr "正在格式化 %s 文件系统……"
 msgid "Fix"
 msgstr "修理"
 
-#: ../gui.py:108 ../text.py:301 ../iw/partition_gui.py:508
-#: ../iw/partition_gui.py:665 ../iw/partition_gui.py:730
-#: ../iw/welcome_gui.py:97 ../textw/bootdisk_text.py:26
-#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:254 ../loader/devices.c:232
+#: ../gui.py:108 ../iw/partition_gui.py:508 ../iw/partition_gui.py:665
+#: ../iw/partition_gui.py:730 ../iw/welcome_gui.py:97 ../loader/devices.c:232
 #: ../loader/loader.c:1026 ../loader/loader.c:3456 ../loader/net.c:901
+#: ../text.py:301 ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
+#: ../textw/constants_text.py:32 ../textw/upgrade_text.py:254
 msgid "Yes"
 msgstr "是"
 
-#: ../gui.py:109 ../text.py:302 ../iw/partition_gui.py:509
-#: ../iw/partition_gui.py:667 ../iw/partition_gui.py:732
-#: ../iw/welcome_gui.py:100 ../textw/bootdisk_text.py:26
-#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
-#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:254
-#: ../textw/upgrade_text.py:261 ../loader/devices.c:233
-#: ../loader/loader.c:3456 ../loader/net.c:901
+#: ../gui.py:109 ../iw/partition_gui.py:509 ../iw/partition_gui.py:667
+#: ../iw/partition_gui.py:732 ../iw/welcome_gui.py:100 ../loader/devices.c:233
+#: ../loader/loader.c:3456 ../loader/net.c:901 ../text.py:302
+#: ../textw/bootdisk_text.py:26 ../textw/bootdisk_text.py:55
+#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:36
+#: ../textw/upgrade_text.py:254 ../textw/upgrade_text.py:261
 msgid "No"
 msgstr "否"
 
-#: ../gui.py:111 ../text.py:304 ../loader/net.c:278 ../loader/net.c:405
+#: ../gui.py:111 ../loader/net.c:278 ../loader/net.c:405 ../text.py:304
 msgid "Retry"
 msgstr "重试"
 
@@ -507,14 +487,14 @@ msgstr "重试"
 msgid "Ignore"
 msgstr "忽略"
 
-#: ../gui.py:113 ../text.py:117 ../text.py:118 ../text.py:270 ../text.py:272
-#: ../text.py:306 ../iw/account_gui.py:151 ../iw/account_gui.py:162
+#: ../gui.py:113 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:861 ../iw/partition_gui.py:1343
-#: ../textw/bootloader_text.py:202 ../textw/constants_text.py:40
-#: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:76 ../textw/welcome_text.py:51
-#: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2811
-#: ../loader/modules.c:442 ../loader/pcmcia.c:104
+#: ../loader/devices.c:240 ../loader/loader.c:2811 ../loader/modules.c:442
+#: ../loader/pcmcia.c:104 ../text.py:117 ../text.py:118 ../text.py:270
+#: ../text.py:272 ../text.py:306 ../textw/bootloader_text.py:202
+#: ../textw/constants_text.py:24 ../textw/silo_text.py:147
+#: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
+#: ../textw/welcome_text.py:51 ../textw/welcome_text.py:54
 msgid "Cancel"
 msgstr "取消"
 
@@ -559,15 +539,15 @@ msgstr "无法载入文件！"
 msgid "Release notes are missing.\n"
 msgstr "缺少发行注记。\n"
 
-#: ../gui.py:628 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
-#: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
-#: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:185 ../loader/cdrom.c:34 ../loader/devices.c:95
+#: ../gui.py:628 ../loader/cdrom.c:34 ../loader/devices.c:95
 #: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
 #: ../loader/loader.c:329 ../loader/loader.c:1026 ../loader/loader.c:1096
 #: ../loader/loader.c:1367 ../loader/loader.c:1463 ../loader/loader.c:1964
 #: ../loader/net.c:185 ../loader/net.c:273 ../loader/net.c:360
-#: ../loader/urls.c:202 ../loader/urls.c:423
+#: ../loader/urls.c:202 ../loader/urls.c:423 ../textw/confirm_text.py:24
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:36
+#: ../textw/confirm_text.py:38 ../textw/constants_text.py:28
+#: ../textw/silo_text.py:110 ../textw/userauth_text.py:185
 msgid "Back"
 msgstr "上一步"
 
@@ -584,12 +564,10 @@ msgid "Hide Help"
 msgstr "隐藏帮助"
 
 #: ../gui.py:678
-#, python-format
 msgid "%s Installer"
 msgstr "%s 安装程序"
 
 #: ../gui.py:693
-#, python-format
 msgid "%s Installer on %s"
 msgstr "用于 %s 的 %s 安装程序"
 
@@ -602,7 +580,6 @@ msgid "Install Window"
 msgstr "安装窗口 "
 
 #: ../harddrive.py:173
-#, python-format
 msgid "Missing CD #%d, which is required for the install."
 msgstr "缺少安装用光盘#%d。"
 
@@ -625,7 +602,6 @@ msgid "Change CDROM"
 msgstr "更换光盘"
 
 #: ../image.py:121
-#, python-format
 msgid "Please insert disc %d to continue."
 msgstr "请插入光盘#%d再继续。"
 
@@ -667,11 +643,11 @@ msgstr ""
 msgid "Use text mode"
 msgstr "使用文本模式"
 
-#: ../packages.py:38 ../iw/package_gui.py:30
+#: ../iw/package_gui.py:30 ../packages.py:38
 msgid "Proceed with upgrade?"
 msgstr "继续升级吗？"
 
-#: ../packages.py:39 ../iw/package_gui.py:31
+#: ../iw/package_gui.py:31 ../packages.py:39
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -680,7 +656,7 @@ msgstr ""
 "你所选择要升级的文件系统已经被挂载，过了此步便不能返回。\n"
 "\n"
 
-#: ../packages.py:43 ../iw/package_gui.py:35
+#: ../iw/package_gui.py:35 ../packages.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "是否要继续升级？"
 
@@ -709,7 +685,6 @@ msgid "Preparing to install..."
 msgstr "正在进行安装准备……"
 
 #: ../packages.py:260
-#, python-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
@@ -721,7 +696,6 @@ msgid "Error Installing Package"
 msgstr "安装软件包出错"
 
 #: ../packages.py:281
-#, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
 "disk space, and/or hardware problems.  This is a fatal error and your "
@@ -740,7 +714,6 @@ msgid "Setting up RPM transaction..."
 msgstr "正在建立RPM传输……"
 
 #: ../packages.py:567
-#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
@@ -749,7 +722,6 @@ msgstr ""
 "\n"
 
 #: ../packages.py:569
-#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
@@ -758,17 +730,14 @@ msgstr ""
 "\n"
 
 #: ../packages.py:576
-#, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "正在升级 %s-%s-%s。\n"
 
 #: ../packages.py:578
-#, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "正在安装 %s-%s-%s。\n"
 
 #: ../packages.py:594
-#, python-format
 msgid ""
 "\n"
 "\n"
@@ -802,8 +771,8 @@ msgstr ""
 "统：\n"
 "\n"
 
-#: ../packages.py:650 ../packages.py:670 ../iw/partition_gui.py:1562
-#: ../iw/upgrade_swap_gui.py:123 ../textw/partition_text.py:986
+#: ../iw/partition_gui.py:1562 ../iw/upgrade_swap_gui.py:123
+#: ../packages.py:650 ../packages.py:670 ../textw/partition_text.py:986
 #: ../textw/upgrade_text.py:108
 msgid "Mount Point"
 msgstr "挂载点"
@@ -865,7 +834,6 @@ msgid "Please specify a mount point for this partition."
 msgstr "请为此分区指定一个挂载点。"
 
 #: ../partitioning.py:382
-#, python-format
 msgid ""
 "The mount point %s is already in use, please choose a different mount point."
 msgstr "挂载点%s已被使用，请另选一个。"
@@ -880,21 +848,18 @@ msgid "This mount point must be on a linux filesystem."
 msgstr "这个挂载点必须位于Linux文件系统上。"
 
 #: ../partitioning.py:457
-#, python-format
 msgid ""
 "The size of the %s partition (size = %s MB) exceeds the maximum size of %s "
 "MB."
 msgstr "%s分区的大小（%sMB）已超过了最大值 %sMB。"
 
 #: ../partitioning.py:464
-#, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr "所申请分区的大小（%sMB）超过最大值 %sMB。"
 
 #: ../partitioning.py:469
-#, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr "所申请的分区大小是负数！（%sMB）"
 
@@ -915,12 +880,10 @@ msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "可引导分区（/boot）仅允许指定在 RAID-1 上。"
 
 #: ../partitioning.py:531
-#, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr "%s 类型的 RAID 设备至少需要 %s 个成员。"
 
 #: ../partitioning.py:537
-#, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
@@ -928,14 +891,12 @@ msgstr ""
 "这个 RAID 设备至多可有 %s 个备件。要增加备件，你需要增加 RAID 设备的成员。"
 
 #: ../partitioning.py:578
-#, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr "你还没有指定继续安装 %s 所需的根分区（/）。"
 
 #: ../partitioning.py:581
-#, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
@@ -947,7 +908,6 @@ msgid ""
 msgstr "你必须创建一个 /boot/efl 分区，类型为 FAT，大小为 50MB。"
 
 #: ../partitioning.py:594
-#, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
@@ -962,21 +922,18 @@ msgstr ""
 "的话，系统性能会显著提高。"
 
 #: ../partitioning.py:625
-#, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr "你指定的交换设备已超过32个。%s 的内核只支持32个交换设备。"
 
 #: ../partitioning.py:634
-#, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr "你分配的交换空间（%d）M小于系统内的可用 RAM（%dM），这可能会影响性能。"
 
 #: ../partitioning.py:707
-#, python-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type for your "
 "architecture.  To use this disk for installation of %s, it must be re-"
@@ -990,12 +947,10 @@ msgstr ""
 "你想初始化这个驱动器吗？"
 
 #: ../partitioning.py:1333
-#, python-format
 msgid "Error mounting filesystem on %s: %s"
 msgstr "在 %s 上挂载文件系统时出现错误： %s"
 
-#: ../partitioning.py:1456
-#, python-format
+#: ../partitioning.py:1453
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1007,11 +962,11 @@ msgstr ""
 "\n"
 "你想要初始化这个驱动器吗？"
 
-#: ../partitioning.py:1551
+#: ../partitioning.py:1541
 msgid "No Drives Found"
 msgstr "未找到任何驱动器"
 
-#: ../partitioning.py:1552
+#: ../partitioning.py:1542
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
@@ -1019,7 +974,7 @@ msgstr ""
 "出现错误 - 未找到用于创建新文件系统的有效设备。请检查你的硬件以找到问题的起"
 "因。"
 
-#: ../partitioning.py:1645
+#: ../partitioning.py:1630
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
@@ -1029,8 +984,7 @@ msgstr ""
 "\n"
 "你确定吗？"
 
-#: ../partitioning.py:1648
-#, python-format
+#: ../partitioning.py:1633
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
 "\n"
@@ -1040,100 +994,98 @@ msgstr ""
 "\n"
 "你确定吗？"
 
-#: ../partitioning.py:1652
+#: ../partitioning.py:1637
 msgid "Are you sure you want to delete this partition?"
 msgstr "是否确信要删除此分区？"
 
-#: ../partitioning.py:1654
+#: ../partitioning.py:1639
 msgid "Confirm Delete"
 msgstr "确认删除 "
 
-#: ../partitioning.py:1658
+#: ../partitioning.py:1643
 msgid "Confirm Reset"
 msgstr "确认重设 "
 
-#: ../partitioning.py:1659
+#: ../partitioning.py:1644
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "是否确信要将分区表还原至其最初状态？"
 
-#: ../partitioning.py:1683
+#: ../partitioning.py:1668
 msgid "the partition in use by the installer."
 msgstr "安装程序在使用此分区。"
 
-#: ../partitioning.py:1686
+#: ../partitioning.py:1671
 msgid "a partition which is a member of a RAID array."
 msgstr "此分区是 RAID 成员之一。"
 
-#: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
-#: ../partitioning.py:1720 ../partitioning.py:1727
+#: ../partitioning.py:1680 ../partitioning.py:1686 ../partitioning.py:1694
+#: ../partitioning.py:1705 ../partitioning.py:1712
 msgid "Unable To Remove"
 msgstr "无法删除"
 
-#: ../partitioning.py:1696
+#: ../partitioning.py:1681
 msgid "You must first select a partition to remove."
 msgstr "你必须首先选择一个要删除的分区。"
 
-#: ../partitioning.py:1702
+#: ../partitioning.py:1687
 msgid "You cannot remove free space."
 msgstr "你不能删除空闲空间。"
 
-#: ../partitioning.py:1710
-#, python-format
+#: ../partitioning.py:1695
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr "你不能删除此分区，因为这是一个包含 %s 的扩展分区。"
 
-#: ../partitioning.py:1721
+#: ../partitioning.py:1706
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr "你不能删除此分区，因为此分区含有硬盘安装的信息。"
 
-#: ../partitioning.py:1728
+#: ../partitioning.py:1713
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr "你不能删除此分区，因为这是 RAID 设备的一部分。"
 
-#: ../partitioning.py:1759 ../partitioning.py:1781
+#: ../partitioning.py:1744 ../partitioning.py:1766
 msgid "Unable To Edit"
 msgstr "无法编辑"
 
-#: ../partitioning.py:1760
+#: ../partitioning.py:1745
 msgid "You must select a partition to edit"
 msgstr "你必须选择一个分区来编辑"
 
-#: ../partitioning.py:1782
-#, python-format
+#: ../partitioning.py:1767
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr "你不能编辑这个分区，因为这是一个包含 %s 的扩展分区。"
 
-#: ../partitioning.py:1790
+#: ../partitioning.py:1775
 msgid "Unable to Edit"
 msgstr "无法编辑"
 
-#: ../partitioning.py:1791
+#: ../partitioning.py:1776
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr "你不能编辑此分区，因为它是 RAID 设备的一部分。"
 
-#: ../partitioning.py:1803
+#: ../partitioning.py:1788
 msgid "Installation cannot continue."
 msgstr "安装无法继续。"
 
-#: ../partitioning.py:1804
+#: ../partitioning.py:1789
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr "你选择的分区选项已被激活，再不能返回到磁盘编辑屏幕，你想继续安装吗？"
 
-#: ../partitioning.py:1827
+#: ../partitioning.py:1812
 msgid "Low Memory"
 msgstr "内存不足"
 
-#: ../partitioning.py:1828
+#: ../partitioning.py:1813
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
@@ -1142,12 +1094,11 @@ msgstr ""
 "因为本机内存不足，你必须立即打开交换空间。要执行此操作，必须将新分区表立即写"
 "入磁盘。是否执行？"
 
-#: ../partitioning.py:1849
+#: ../partitioning.py:1834
 msgid "Format as Swap?"
 msgstr "格式化成交换区？"
 
-#: ../partitioning.py:1850
-#, python-format
+#: ../partitioning.py:1835
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
@@ -1159,11 +1110,11 @@ msgstr ""
 "\n"
 "你想把这一分区格式化成交换分区吗？"
 
-#: ../partitioning.py:1869 ../partitioning.py:1887
+#: ../partitioning.py:1854 ../partitioning.py:1872
 msgid "Format?"
 msgstr "格式化？"
 
-#: ../partitioning.py:1870
+#: ../partitioning.py:1855
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1174,7 +1125,7 @@ msgstr ""
 "\n"
 "是否确定要执行此操作？"
 
-#: ../partitioning.py:1878
+#: ../partitioning.py:1863
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1190,12 +1141,11 @@ msgstr ""
 "\n"
 "你确信要这样做吗？"
 
-#: ../partitioning.py:1894
+#: ../partitioning.py:1879
 msgid "Error with Partitioning"
 msgstr "分区出错"
 
-#: ../partitioning.py:1895
-#, python-format
+#: ../partitioning.py:1880
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
@@ -1206,12 +1156,11 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../partitioning.py:1908
+#: ../partitioning.py:1893
 msgid "Partitioning Warning"
 msgstr "分区警告"
 
-#: ../partitioning.py:1909
-#, python-format
+#: ../partitioning.py:1894
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
 "\n"
@@ -1225,19 +1174,19 @@ msgstr ""
 "\n"
 "确信要继续吗？"
 
-#: ../partitioning.py:1921 ../iw/partition_gui.py:586
+#: ../iw/partition_gui.py:586 ../partitioning.py:1906
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr "下列先前已存在的分区将被格式化，正在破坏所有数据。"
 
-#: ../partitioning.py:1924 ../iw/partition_gui.py:589
+#: ../iw/partition_gui.py:589 ../partitioning.py:1909
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr "选择‘是’来继续格式化这些分区，或‘否’来返回修改这些设置。"
 
-#: ../partitioning.py:1930
+#: ../partitioning.py:1915
 msgid "Format Warning"
 msgstr "格式化警告"
 
@@ -1268,7 +1217,7 @@ msgstr ""
 "态。\n"
 "\n"
 
-#: ../rescue.py:110 ../loader/loader.c:1227 ../loader/loader.c:1235
+#: ../loader/loader.c:1227 ../loader/loader.c:1235 ../rescue.py:110
 msgid "Continue"
 msgstr "继续"
 
@@ -1276,10 +1225,10 @@ msgstr "继续"
 msgid "Read-Only"
 msgstr "只读"
 
+#: ../loader/loader.c:916 ../loader/loader.c:1293 ../loader/loader.c:1295
 #: ../rescue.py:110 ../rescue.py:112 ../textw/bootdisk_text.py:68
 #: ../textw/bootdisk_text.py:90 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:120 ../loader/loader.c:916 ../loader/loader.c:1293
-#: ../loader/loader.c:1295
+#: ../textw/upgrade_text.py:120
 msgid "Skip"
 msgstr "跳过"
 
@@ -1291,8 +1240,8 @@ msgstr "要援救的系统"
 msgid "What partition holds the root partition of your installation?"
 msgstr "哪个分区包含安装的根分区？"
 
-#: ../rescue.py:145 ../rescue.py:149 ../iw/congrats_gui.py:29
-#: ../iw/congrats_gui.py:87
+#: ../iw/congrats_gui.py:29 ../iw/congrats_gui.py:87 ../rescue.py:145
+#: ../rescue.py:149
 msgid "Exit"
 msgstr "退出"
 
@@ -1373,7 +1322,6 @@ msgid "Debug"
 msgstr "调试"
 
 #: ../text.py:321
-#, python-format
 msgid "%s (C) 2002 Red Hat, Inc."
 msgstr "%s (C) 2002 Red Hat, Inc."
 
@@ -1401,7 +1349,6 @@ msgid "Searching"
 msgstr "正在搜寻"
 
 #: ../upgrade.py:44
-#, python-format
 msgid "Searching for %s installations..."
 msgstr "正在搜寻 %s 安装……"
 
@@ -1458,7 +1405,6 @@ msgstr ""
 "\n"
 
 #: ../upgrade.py:259
-#, python-format
 msgid "%s not found"
 msgstr "没有发现 %s "
 
@@ -1503,7 +1449,7 @@ msgstr ""
 msgid "Unknown Card"
 msgstr "未知卡"
 
-#: ../xf86config.py:847 ../textw/xconfig_text.py:488
+#: ../textw/xconfig_text.py:488 ../xf86config.py:847
 msgid "Video Card"
 msgstr "视频卡"
 
@@ -1592,7 +1538,7 @@ msgid "Full Name:"
 msgstr "全称："
 
 #: ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
-#: ../textw/userauth_text.py:37 ../loader/urls.c:393
+#: ../loader/urls.c:393 ../textw/userauth_text.py:37
 msgid "Password:"
 msgstr "口令："
 
@@ -1745,7 +1691,6 @@ msgid "Boot Disk Creation"
 msgstr "引导盘创建"
 
 #: ../iw/bootdisk_gui.py:54 ../textw/bootdisk_text.py:75
-#, python-format
 msgid ""
 "The boot disk allows you to boot your %s system from a floppy diskette.\n"
 "\n"
@@ -1916,7 +1861,6 @@ msgid "About to Install"
 msgstr "即将安装"
 
 #: ../iw/confirm_gui.py:60
-#, python-format
 msgid "Click next to begin installation of %s."
 msgstr "点击“下一步”以开始安装 %s。"
 
@@ -1936,7 +1880,6 @@ msgid "About to Upgrade"
 msgstr "即将升级"
 
 #: ../iw/confirm_gui.py:73
-#, python-format
 msgid "Click next to begin upgrade of %s."
 msgstr "点击“下一步”以开始升级 %s。"
 
@@ -1953,7 +1896,6 @@ msgid "Congratulations"
 msgstr "祝贺你"
 
 #: ../iw/congrats_gui.py:48 ../textw/complete_text.py:30
-#, python-format
 msgid ""
 "If you created a boot disk to use to boot your %s system, insert it before "
 "you press <Enter> to reboot.\n"
@@ -1964,7 +1906,6 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:56
-#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -1987,7 +1928,6 @@ msgstr ""
 "中查阅。"
 
 #: ../iw/congrats_gui.py:104
-#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2008,13 +1948,12 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "未解决的依赖关系"
 
-#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:524
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
-#, python-format
 msgid "Total install size: %s"
 msgstr "总安装大小: %s"
 
-#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:430
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:192 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "软件包"
@@ -2052,7 +1991,6 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "请选择包含根文件系统的设备："
 
 #: ../iw/examine_gui.py:89 ../textw/upgrade_text.py:225
-#, python-format
 msgid "Upgrading the %s installation on partition /dev/%s"
 msgstr "/dev/%s 分区正在升级 %s……"
 
@@ -2160,7 +2098,7 @@ msgstr "禁用死键"
 msgid "Test your selection here:"
 msgstr "在此处测试你的选择："
 
-#: ../iw/language_gui.py:49 ../textw/language_text.py:39 ../loader/lang.c:307
+#: ../iw/language_gui.py:49 ../loader/lang.c:307 ../textw/language_text.py:39
 msgid "What language would you like to use during the installation process?"
 msgstr "你要在安装过程中使用何种语言？"
 
@@ -2252,8 +2190,8 @@ msgstr "网络"
 msgid "Broadcast"
 msgstr "广播"
 
-#: ../iw/network_gui.py:251 ../textw/network_text.py:207 ../loader/net.c:626
-#: ../loader/net.c:820
+#: ../iw/network_gui.py:251 ../loader/net.c:626 ../loader/net.c:820
+#: ../textw/network_text.py:207
 msgid "Hostname"
 msgstr "主机名"
 
@@ -2277,39 +2215,39 @@ msgstr "第三 DNS"
 msgid "Individual Package Selection"
 msgstr "选择单个软件包"
 
-#: ../iw/package_gui.py:280
+#: ../iw/package_gui.py:277
 msgid "Total install size: "
 msgstr "总安装大小："
 
-#: ../iw/package_gui.py:416
+#: ../iw/package_gui.py:409
 msgid "Tree View"
 msgstr "树形视图"
 
-#: ../iw/package_gui.py:418
+#: ../iw/package_gui.py:411
 msgid "Flat View"
 msgstr "平面视图"
 
-#: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
+#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
 msgstr "大小（MB）"
 
-#: ../iw/package_gui.py:463
+#: ../iw/package_gui.py:456
 msgid "Total size: "
 msgstr "合计："
 
-#: ../iw/package_gui.py:466
+#: ../iw/package_gui.py:459
 msgid "Select all in group"
 msgstr "选择全组"
 
-#: ../iw/package_gui.py:470
+#: ../iw/package_gui.py:463
 msgid "Unselect all in group"
 msgstr "取消选择全组"
 
-#: ../iw/package_gui.py:503 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:496 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr "选择软件包组"
 
-#: ../iw/package_gui.py:587 ../textw/packages_text.py:50
+#: ../iw/package_gui.py:580 ../textw/packages_text.py:50
 msgid "Select individual packages"
 msgstr "选择单个软件包"
 
@@ -2330,7 +2268,6 @@ msgid ""
 msgstr "你所申请的分区方案存在下列严重错误。"
 
 #: ../iw/partition_gui.py:556
-#, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr "在继续安装 %s 之前，你一定要先更正这些错误。"
@@ -2378,7 +2315,6 @@ msgid "Free"
 msgstr "空闲"
 
 #: ../iw/partition_gui.py:736 ../textw/partition_text.py:147
-#, python-format
 msgid "RAID Device %s"
 msgstr "RAID 设备 %s"
 
@@ -2482,7 +2418,6 @@ msgid "Error With Request"
 msgstr "请求错误"
 
 #: ../iw/partition_gui.py:1292 ../textw/partition_text.py:165
-#, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "无法分配所申请分区: %s"
 
@@ -2495,7 +2430,6 @@ msgid "Add anyway"
 msgstr "添加"
 
 #: ../iw/partition_gui.py:1303
-#, python-format
 msgid "Warning: %s."
 msgstr "警告： %s"
 
@@ -2564,7 +2498,6 @@ msgid "Automatic Partitioning"
 msgstr "自动分区"
 
 #: ../iw/partition_gui.py:1626
-#, python-format
 msgid "You need to select at least one drive to have %s installed onto."
 msgstr "你至少要在一个驱动器上安装 %s"
 
@@ -2602,7 +2535,6 @@ msgid "Installing Packages"
 msgstr "正在安装软件包"
 
 #: ../iw/progress_gui.py:119
-#, python-format
 msgid "%s KBytes"
 msgstr "%s KB"
 
@@ -2705,22 +2637,19 @@ msgstr "升级引导装载程序配置"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-#, fuzzy
-msgid "Update boot loader configuration"
-msgstr "升级引导装载程序配置"
+msgid "Update current settings"
+msgstr "更新目前的设置"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
 msgstr "这将会更新你目前的引导装载程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:73 ../textw/upgrade_bootloader_text.py:49
-#, python-format
 msgid ""
 "The installer has detected the %s boot loader currently installed on %s."
 msgstr "安装程序检测到 %s 引导安装程序目前安装在 %s 上。"
 
 #: ../iw/upgrade_bootloader_gui.py:76
-#, python-format
 msgid "%s  %s"
 msgstr "%s  %s"
 
@@ -2735,8 +2664,7 @@ msgid ""
 msgstr "安装程序无法在你的系统上检测到目前使用的引导安装程序。"
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
-#, fuzzy
-msgid "Create new boot loader configuration"
+msgid "Customize new boot loader configuration"
 msgstr "定制新的引导装载程序配置"
 
 #: ../iw/upgrade_bootloader_gui.py:91
@@ -2748,9 +2676,8 @@ msgstr ""
 "项。"
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-#, fuzzy
-msgid "Skip boot loader updating"
-msgstr "跳过引导装载程序"
+msgid "Do nothing"
+msgstr "什么都不做"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -2769,7 +2696,6 @@ msgid "Migrate Filesystems"
 msgstr "移植文件系统"
 
 #: ../iw/upgrade_migratefs_gui.py:55 ../textw/upgrade_text.py:33
-#, python-format
 msgid ""
 "This release of %s supports the ext3 journalling filesystem.  It has several "
 "benefits over the ext2 filesystem traditionally shipped in %s.  It is "
@@ -2788,7 +2714,6 @@ msgid "Upgrade Swap Partition"
 msgstr "升级交换分区"
 
 #: ../iw/upgrade_swap_gui.py:90
-#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
@@ -2799,7 +2724,6 @@ msgstr ""
 "MB 交换区，但现在你可以在任何一个文件系统中创建额外的交换区。"
 
 #: ../iw/upgrade_swap_gui.py:97
-#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2822,7 +2746,6 @@ msgid "Free Space (MB)"
 msgstr "空闲磁盘空间（MB）"
 
 #: ../iw/upgrade_swap_gui.py:138
-#, python-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
@@ -3160,7 +3083,6 @@ msgid "Complete"
 msgstr "完成"
 
 #: ../textw/complete_text.py:37
-#, python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
@@ -3187,7 +3109,6 @@ msgid "<Enter> to continue"
 msgstr "按回车键来继续"
 
 #: ../textw/complete_text.py:58
-#, python-format
 msgid ""
 "Congratulations, package installation is complete.\n"
 "\n"
@@ -3207,7 +3128,6 @@ msgid "<Enter> to exit"
 msgstr "按回车键退出"
 
 #: ../textw/complete_text.py:73
-#, python-format
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -3271,7 +3191,7 @@ msgstr "DHCP"
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:93 ../loader/telnetd.c:64 ../loader/telnetd.c:106
+#: ../loader/telnetd.c:64 ../loader/telnetd.c:106 ../textw/firewall_text.py:93
 msgid "Telnet"
 msgstr "Telnet"
 
@@ -3283,7 +3203,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "邮件（SMTP）"
 
-#: ../textw/firewall_text.py:99 ../loader/loader.c:1661
+#: ../loader/loader.c:1661 ../textw/firewall_text.py:99
 msgid "FTP"
 msgstr "FTP"
 
@@ -3316,7 +3236,6 @@ msgstr ""
 "务：协议’的形式指定额外的端口，如：‘imap：tcp’"
 
 #: ../textw/firewall_text.py:194
-#, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "警告： %s 不是一个有效的端口。"
 
@@ -3373,7 +3292,6 @@ msgid "Mouse Selection"
 msgstr "选择鼠标"
 
 #: ../textw/network_text.py:67
-#, python-format
 msgid "Network Device: %s"
 msgstr "网络设备： %s"
 
@@ -3381,19 +3299,19 @@ msgstr "网络设备： %s"
 msgid "Use bootp/dhcp"
 msgstr "使用 bootp/dhcp"
 
-#: ../textw/network_text.py:77 ../loader/net.c:310
+#: ../loader/net.c:310 ../textw/network_text.py:77
 msgid "IP address:"
 msgstr "IP 地址："
 
-#: ../textw/network_text.py:78 ../loader/net.c:313
+#: ../loader/net.c:313 ../textw/network_text.py:78
 msgid "Netmask:"
 msgstr "网络掩码："
 
-#: ../textw/network_text.py:79 ../loader/net.c:316
+#: ../loader/net.c:316 ../textw/network_text.py:79
 msgid "Default gateway (IP):"
 msgstr "默认网关 (IP)："
 
-#: ../textw/network_text.py:81 ../loader/net.c:319
+#: ../loader/net.c:319 ../textw/network_text.py:81
 msgid "Primary nameserver:"
 msgstr "主要名称服务器："
 
@@ -3406,7 +3324,6 @@ msgid "Tertiary nameserver:"
 msgstr "第三名称服务器："
 
 #: ../textw/network_text.py:114
-#, python-format
 msgid "Network Configuration for %s"
 msgstr "%s 的网络配置"
 
@@ -3439,7 +3356,6 @@ msgid "Size    :"
 msgstr "大小："
 
 #: ../textw/packages_text.py:97
-#, python-format
 msgid "%.1f KBytes"
 msgstr "%.1f KB"
 
@@ -3478,7 +3394,6 @@ msgid "Requested value is too large"
 msgstr "申请值太大"
 
 #: ../textw/partition_text.py:168
-#, python-format
 msgid "Warning: %s"
 msgstr "警告： %s"
 
@@ -3524,12 +3439,10 @@ msgid "Filesystem Option:"
 msgstr "文件系统选项："
 
 #: ../textw/partition_text.py:629 ../textw/partition_text.py:663
-#, python-format
 msgid "Format as %s"
 msgstr "格式化成 %s"
 
 #: ../textw/partition_text.py:631 ../textw/partition_text.py:665
-#, python-format
 msgid "Migrate to %s"
 msgstr "移植到 %s"
 
@@ -3673,7 +3586,6 @@ msgid "Hardware clock set to GMT?"
 msgstr "是否将硬件时钟设置为 GMT？"
 
 #: ../textw/upgrade_text.py:91
-#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
@@ -3875,12 +3787,10 @@ msgid "Use TLS connections"
 msgstr "使用 TLS 连接"
 
 #: ../textw/welcome_text.py:22 ../textw/welcome_text.py:42
-#, python-format
 msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -3901,7 +3811,6 @@ msgstr ""
 "记此产品。"
 
 #: ../textw/welcome_text.py:43
-#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
@@ -3932,9 +3841,9 @@ msgstr "分辨率"
 msgid "Please select the resolution you would like to use:"
 msgstr "请选择你想使用的分辨率："
 
-#: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
 #: ../loader/loader.c:916 ../loader/loader.c:1209 ../loader/loader.c:1212
 #: ../loader/loader.c:1227 ../loader/loader.c:1235
+#: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:180
 msgid "Test"
 msgstr "测试"
 
@@ -3943,7 +3852,6 @@ msgid "X Customization"
 msgstr "X 配置"
 
 #: ../textw/xconfig_text.py:177
-#, python-format
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
@@ -4011,7 +3919,6 @@ msgid "Invalid Sync Rates"
 msgstr "频率无效"
 
 #: ../textw/xconfig_text.py:341
-#, python-format
 msgid ""
 "The %s sync rate is invalid:\n"
 "\n"
@@ -4033,7 +3940,6 @@ msgstr ""
 "31.5, 35.0, 39.3-40.0       一系列数字/范围\n"
 
 #: ../textw/xconfig_text.py:395
-#, python-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
@@ -4056,7 +3962,6 @@ msgid "You cannot go back from this step."
 msgstr "你无法从这一步骤返回。"
 
 #: ../textw/xconfig_text.py:489
-#, python-format
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
@@ -4069,7 +3974,6 @@ msgid "Video RAM"
 msgstr "视频 RAM"
 
 #: ../textw/xconfig_text.py:508
-#, python-format
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
@@ -5058,14 +4962,6 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
-msgid "Aqtobe (Aktobe)"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Atlantic islands"
-msgstr "Atlantic islands"
-
-#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
@@ -5081,8 +4977,8 @@ msgstr ""
 "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
-msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgid "Atlantic islands"
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5103,14 +4999,6 @@ msgstr "Casey Station, Bailey Peninsula"
 #. generated from zone.tab
 msgid "Catamarca (CT)"
 msgstr "Catamarca (CT)"
-
-#. generated from zone.tab
-msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -5141,21 +5029,16 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
-msgid "Central Time - most locations"
-msgstr "Central Time - most locations"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Central Time - North Dakota - Oliver County"
-msgstr "Central Time - most locations"
-
-#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
 msgstr "Central Time - Rainy River & Fort Frances, Ontario"
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -5170,12 +5053,19 @@ msgid "Chatham Islands"
 msgstr "Chatham Islands"
 
 #. generated from zone.tab
+msgid "China coast"
+msgstr "China coast"
+
+#. generated from zone.tab
+msgid "China mountains"
+msgstr "China mountains"
+
+#. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
 msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "Dornod, Sukhbaatar"
+msgid "Dornod, Sukhbaatar (unsure about this)"
 msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
@@ -5191,36 +5081,12 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
-msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
-
-#. generated from zone.tab
-msgid "east coast, north of Scoresbysund"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr "east Dem. Rep. of Congo"
-
-#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr "Eastern Standard Time - central Nunavut"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
-msgstr "Eastern Standard Time - east Nunavut"
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
 msgstr "Eastern Standard Time - Indiana - Crawford County"
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -5231,8 +5097,20 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr "Eastern Standard Time - Indiana - most locations"
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
 msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr "Eastern Standard Time - central Nunavut"
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
@@ -5265,12 +5143,8 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr "east Uzbekistan"
+msgid "Eastern Turkestan"
+msgstr "Eastern Turkestan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
@@ -5291,10 +5165,6 @@ msgstr "Great Britain"
 #. generated from zone.tab
 msgid "Hawaii"
 msgstr "Hawaii"
-
-#. generated from zone.tab
-msgid "Heilongjiang"
-msgstr ""
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5369,10 +5239,6 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "Moscow+01 - Caspian Sea"
 
 #. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
-msgstr "Moscow-01 - Kaliningrad"
-
-#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr "Moscow+02 - Urals"
 
@@ -5401,13 +5267,7 @@ msgid "Moscow+07 - Amur River"
 msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
-#, fuzzy
-msgid "Moscow+07 - Sakhalin Island"
-msgstr "Moscow+08 - Magadan & Sakhalin"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Moscow+08 - Magadan"
+msgid "Moscow+08 - Magadan & Sakhalin"
 msgstr "Moscow+08 - Magadan & Sakhalin"
 
 #. generated from zone.tab
@@ -5417,6 +5277,10 @@ msgstr "Moscow+09 - Kamchatka"
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
 msgstr "Moscow+10 - Bering Sea"
+
+#. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -5441,10 +5305,6 @@ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
-msgstr "Mountain Time - central Northwest Territories"
-
-#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr "Mountain Time - Chihuahua"
 
@@ -5455,6 +5315,10 @@ msgstr "Mountain Time - Navajo"
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
 msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
@@ -5473,20 +5337,16 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "NE Brazil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
-msgstr "Newfoundland Island"
+msgid "New South Wales - Yancowinna"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
 msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
-msgstr "New South Wales - Yancowinna"
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr "northeast Mali"
+msgid "Newfoundland Island"
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
@@ -5513,10 +5373,6 @@ msgid "Palmer Station, Anvers Island"
 msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr "peninsular Malaysia"
-
-#. generated from zone.tab
 msgid "Pernambuco"
 msgstr "Pernambuco"
 
@@ -5537,10 +5393,6 @@ msgid "Queensland - most locations"
 msgstr "Queensland - most locations"
 
 #. generated from zone.tab
-msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Roraima"
 msgstr "Roraima"
 
@@ -5549,12 +5401,12 @@ msgid "Ruthenia"
 msgstr "Ruthenia"
 
 #. generated from zone.tab
-msgid "Sabah & Sarawak"
-msgstr "Sabah & Sarawak"
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
-msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgid "Sabah & Sarawak"
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5563,18 +5415,6 @@ msgstr "Society Islands"
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "South Australia"
-
-#. generated from zone.tab
-msgid "southwest Mali"
-msgstr "southwest Mali"
-
-#. generated from zone.tab
-msgid "southwest Xinjiang Uyghur"
-msgstr ""
-
-#. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5589,12 +5429,7 @@ msgid "Tasmania"
 msgstr "Tasmania"
 
 #. generated from zone.tab
-msgid "Thule / Pituffik"
-msgstr ""
-
-#. generated from zone.tab
-#, fuzzy
-msgid "Tibet & most of Xinjiang Uyghur"
+msgid "Tibet & Xinjiang"
 msgstr "Tibet & Xinjiang"
 
 #. generated from zone.tab
@@ -5614,16 +5449,84 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
-msgid "Wake Island"
-msgstr "Wake Island"
-
-#. generated from zone.tab
 msgid "W Amazonas"
 msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr "W Para, Rondonia"
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr "Wake Island"
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr "Western Australia"
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr "Yap"
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr "Zaporozh'ye, E Lugansk"
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr "central Crimea"
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr "central Kazakhstan"
+
+#. generated from zone.tab
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr "east Dem. Rep. of Congo"
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr "east Greenland"
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr "east Kazakhstan"
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr "east Uzbekistan"
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr "north Manchuria"
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr "northeast Mali"
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr "northwest Greenland"
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr "peninsular Malaysia"
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr "southwest Greenland"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5634,29 +5537,12 @@ msgid "west Dem. Rep. of Congo"
 msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
-msgid "Western Australia"
-msgstr "Western Australia"
-
-#. generated from zone.tab
-#, fuzzy
-msgid "West Kazakhstan"
-msgstr "east Kazakhstan"
+msgid "west Kazakhstan"
+msgstr "west Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
 msgstr "west Uzbekistan"
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr "W Para, Rondonia"
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr "Yap"
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid ""
@@ -5741,36 +5627,3 @@ msgstr "瑞典语"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "乌克兰语"
-
-#~ msgid "Update current settings"
-#~ msgstr "更新目前的设置"
-
-#~ msgid "Do nothing"
-#~ msgstr "什么都不做"
-
-#~ msgid "China coast"
-#~ msgstr "China coast"
-
-#~ msgid "China mountains"
-#~ msgstr "China mountains"
-
-#~ msgid "Eastern Turkestan"
-#~ msgstr "Eastern Turkestan"
-
-#~ msgid "central Kazakhstan"
-#~ msgstr "central Kazakhstan"
-
-#~ msgid "east Greenland"
-#~ msgstr "east Greenland"
-
-#~ msgid "north Manchuria"
-#~ msgstr "north Manchuria"
-
-#~ msgid "northwest Greenland"
-#~ msgstr "northwest Greenland"
-
-#~ msgid "southwest Greenland"
-#~ msgstr "southwest Greenland"
-
-#~ msgid "west Kazakhstan"
-#~ msgstr "west Kazakhstan"
