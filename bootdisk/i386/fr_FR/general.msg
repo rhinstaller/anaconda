@@ -1,23 +1,27 @@
 
 
-                             09Aide g‚n‚rale07
+                        09Aide générale au démarrage07
 
-Vous pouvez lancer le programme d'installation de 0cRed Hat07 Linux et d‚marrer 
-le processus d'installation … partir de l'invite. Dans la plupart des cas,
-la meilleure fa‡on de faire est de presser la touche 0f<Entr‚e>07.
+Vous pouvez charger le programme d'installation de 0cRed Hat07 Linux,
+puis commencer le processus d'installation à partir de l'invite. Le plus
+souvent, la meilleure manière de démarrer consiste simplement à appuyer sur
+la touche 0f<ENTREE>07.
 
-Certaines configurations mat‚rielles peuvent avoir des problŠmes avec la 
-d‚tection automatique du mat‚riel pendant l'installation. Bien que ce soit 
-rare, cela arrive occasionnellement. Si vous avez des problŠmes pendant 
-l'installation, relancez-la en mode expert. Pressez 05<F3>07 pour obtenir des
-informations sur ce mode.
+Certaines configurations matérielles posent problème lors de la détection
+automatique durant l'installation. Bien que ce soit rare, cela peut arriver.
+En cas de problème en cours d'installation, redémarrez l'installation en
+mode expert. Appuyez sur 05<F3>07 pour plus d'informations sur le mode
+expert.
 
-Un certain nombre de paramŠtres peuvent ˆtre pass‚s au noyau Linux au moment 
-du d‚marrage. Cela ne comprend pas les paramŠtres de p‚riph‚riques comme les 
-lecteurs de CD-ROM ou les cartes Ethernet. Pressez 05<F4>07 pour plus 
-d'information. 
-
-
+Plusieurs paramètres peuvent être transmis au noyau Linux au démarrage. Ceux-ci
+ne comprennent pas les paramètres appropriés pour des périphériques tels que
+des unités de CD-ROM ou des cartes ethernet. Appuyez sur 05<F4>07 pour plus
+d'informations. 
 
 
-05[F1-Principal] [F2-G‚n‚ral] [F3-Expert] [F4-Noyau] [F5-Secours]07
+
+
+
+
+05[F1-Principal] [F2-Général] [F3-Expert] [F4-Noyau] [F5-Secours]07
+

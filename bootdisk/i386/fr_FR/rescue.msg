@@ -1,16 +1,14 @@
 
 
-                       09Mode Secours de 0cRed Hat07
+                        09Aide sur le mode de secours07
 
-Le programme d'installation de 0cRed Hat07 comprend un mode de secours qui peut
-ˆtre utilis‚ lorsque votre systŠme ne d‚marre pas correctement. Ce mode donne
-accŠs … de nombreux utilitaires (‚diteur de texte, outils disques durs et RAID,
-etc.) qui doivent permettre de rendre … nouveau le systŠme op‚rationnel.
+Le CD-ROM 0cRed Hat07 Linux comprend un mode de secours qui peut être
+utilisé lorsqu'un système ne démarre pas correctement. Le mode de secours
+comprend de nombreux utilitaires pratiques (éditeur, disque dur, outils RAID,
+etc.) qui permettent de restaurer un système en état de fonctionnement.
 
-Pour acc‚der au mode de secours, d‚marrez votre systŠme depuis le CDROM 0cRed Hat07
-et tapez : 0flinux rescue <Entr‚e>07.
-
-
+Pour entrer en mode de secours, démarrez le système à partir du
+CD-ROM 0cRed Hat07 Linux et entrez 0flinux rescue <ENTREE>07.
 
 
 
@@ -20,4 +18,8 @@ et tapez : 0flinux rescue <Entr‚e>07.
 
 
 
-05[F1-Principal] [F2-G‚n‚ral] [F3-Expert] [F4-Noyau] [F5-Secours]07
+
+
+
+05[F1-Principal] [F2-Général] [F3-Expert] [F4-Noyau] [F5-Secours]07
+
