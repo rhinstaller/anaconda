@@ -13,7 +13,6 @@ FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
 POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
-           ../loader/*.c \
            ../loader2/*.c
 
 NONPOTFILES = /usr/share/zoneinfo/zone.tab \

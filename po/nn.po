@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1.94\n"
-"POT-Creation-Date: 2002-12-18 00:10-0500\n"
+"POT-Creation-Date: 2003-01-08 20:15-0500\n"
 "PO-Revision-Date: 2001-08-15 10:37+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian (nynorsk)\n"
@@ -13,75 +13,53 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:394
+#: ../anaconda:397
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 "Du har ikkje nok RAM til å bruka grafisk installasjon. Startar i tekstmodus."
 
-#: ../anaconda:409 ../gui.py:237 ../rescue.py:39 ../rescue.py:137
-#: ../rescue.py:165 ../rescue.py:175 ../rescue.py:191 ../rescue.py:197
+#: ../anaconda:412 ../gui.py:237 ../rescue.py:39 ../rescue.py:216
+#: ../rescue.py:244 ../rescue.py:254 ../rescue.py:281 ../rescue.py:287
 #: ../text.py:314 ../text.py:443 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
-#: ../textw/constants_text.py:36 ../textw/fdasd_text.py:32
-#: ../textw/fdisk_text.py:41 ../textw/network_text.py:154
-#: ../textw/silo_text.py:110 ../textw/silo_text.py:147
-#: ../textw/silo_text.py:160 ../loader/cdrom.c:33 ../loader/devices.c:98
-#: ../loader/devices.c:244 ../loader/devices.c:282 ../loader/devices.c:289
-#: ../loader/devices.c:358 ../loader/devices.c:453 ../loader/kickstart.c:59
-#: ../loader/kickstart.c:69 ../loader/kickstart.c:108 ../loader/lang.c:28
-#: ../loader/lang.c:96 ../loader/lang.c:308 ../loader/lang.c:634
-#: ../loader/loader.c:342 ../loader/loader.c:484 ../loader/loader.c:501
-#: ../loader/loader.c:610 ../loader/loader.c:942 ../loader/loader.c:1215
-#: ../loader/loader.c:1274 ../loader/loader.c:1371 ../loader/loader.c:1372
-#: ../loader/loader.c:1421 ../loader/loader.c:1424 ../loader/loader.c:1495
-#: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:1709
-#: ../loader/loader.c:1714 ../loader/loader.c:1756 ../loader/loader.c:1795
-#: ../loader/loader.c:1857 ../loader/loader.c:2099 ../loader/loader.c:2893
-#: ../loader/loader.c:2923 ../loader/loader.c:2986 ../loader/loader.c:3001
-#: ../loader/loader.c:3323 ../loader/loader.c:3361 ../loader/mediacheck.c:255
-#: ../loader/mediacheck.c:312 ../loader/mediacheck.c:347
-#: ../loader/modules.c:390 ../loader/modules.c:410 ../loader/modules.c:450
-#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
-#: ../loader/net.c:736 ../loader/net.c:769 ../loader/pcmcia.c:107
-#: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
-#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
-#: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
-#: ../loader/urls.c:279 ../loader/urls.c:419 ../loader2/cdinstall.c:139
-#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:252
-#: ../loader2/cdinstall.c:255 ../loader2/cdinstall.c:346
-#: ../loader2/cdinstall.c:351 ../loader2/cdinstall.c:354
-#: ../loader2/cdinstall.c:423 ../loader2/driverdisk.c:200
-#: ../loader2/driverdisk.c:216 ../loader2/driverdisk.c:227
-#: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
-#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
-#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
-#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:97
-#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148
-#: ../loader2/kickstart.c:248 ../loader2/lang.c:100 ../loader2/lang.c:383
-#: ../loader2/loader.c:268 ../loader2/loader.c:280 ../loader2/loader.c:291
-#: ../loader2/loader.c:551 ../loader2/loader.c:667 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:347
-#: ../loader2/method.c:145 ../loader2/method.c:353 ../loader2/method.c:438
-#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:637
-#: ../loader2/net.c:660 ../loader2/net.c:723 ../loader2/nfsinstall.c:53
-#: ../loader2/nfsinstall.c:216 ../loader2/nfsinstall.c:219
-#: ../loader2/nfsinstall.c:257 ../loader2/telnetd.c:86
-#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
-#: ../loader2/urlinstall.c:107 ../loader2/urlinstall.c:386
-#: ../loader2/urlinstall.c:395 ../loader2/urlinstall.c:406
-#: ../loader2/urls.c:168 ../loader2/urls.c:178 ../loader2/urls.c:186
-#: ../loader2/urls.c:248 ../loader2/urls.c:309 ../loader2/urls.c:314
-#: ../loader2/urls.c:320 ../loader2/urls.c:433
+#: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
+#: ../textw/network_text.py:154 ../textw/silo_text.py:110
+#: ../textw/silo_text.py:147 ../textw/silo_text.py:160
+#: ../loader2/cdinstall.c:139 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:252 ../loader2/cdinstall.c:255
+#: ../loader2/cdinstall.c:346 ../loader2/cdinstall.c:351
+#: ../loader2/cdinstall.c:354 ../loader2/cdinstall.c:423
+#: ../loader2/driverdisk.c:200 ../loader2/driverdisk.c:216
+#: ../loader2/driverdisk.c:227 ../loader2/driverselect.c:73
+#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:255
+#: ../loader2/hdinstall.c:422 ../loader2/hdinstall.c:473
+#: ../loader2/hdinstall.c:504 ../loader2/hdinstall.c:554 ../loader2/kbd.c:125
+#: ../loader2/kickstart.c:97 ../loader2/kickstart.c:106
+#: ../loader2/kickstart.c:149 ../loader2/kickstart.c:249 ../loader2/lang.c:100
+#: ../loader2/lang.c:383 ../loader2/loader.c:268 ../loader2/loader.c:280
+#: ../loader2/loader.c:291 ../loader2/loader.c:551 ../loader2/loader.c:667
+#: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:154 ../loader2/method.c:362
+#: ../loader2/method.c:447 ../loader2/net.c:170 ../loader2/net.c:334
+#: ../loader2/net.c:658 ../loader2/net.c:681 ../loader2/net.c:744
+#: ../loader2/nfsinstall.c:53 ../loader2/nfsinstall.c:216
+#: ../loader2/nfsinstall.c:219 ../loader2/nfsinstall.c:257
+#: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:57
+#: ../loader2/urlinstall.c:97 ../loader2/urlinstall.c:109
+#: ../loader2/urlinstall.c:388 ../loader2/urlinstall.c:397
+#: ../loader2/urlinstall.c:408 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urls.c:186 ../loader2/urls.c:248 ../loader2/urls.c:309
+#: ../loader2/urls.c:314 ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "OK"
 
-#: ../anaconda:474 ../anaconda:721
+#: ../anaconda:477 ../anaconda:696
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:491
+#: ../anaconda:494
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
@@ -89,46 +67,46 @@ msgstr ""
 "Grafisk installasjon er ikkje tilgjengeleg for %s-installasjoner. Startar "
 "tekstmodus."
 
-#: ../anaconda:505
+#: ../anaconda:508
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:510
+#: ../anaconda:513
 #, fuzzy, c-format
 msgid "Using mouse type: %s"
 msgstr "Bruker mustype: "
 
-#: ../autopart.py:891
+#: ../autopart.py:892
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions as primary partitions"
 msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../autopart.py:894
+#: ../autopart.py:895
 #, fuzzy
 msgid "Could not allocate partitions as primary partitions"
 msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../autopart.py:897
+#: ../autopart.py:898
 #, fuzzy
 msgid "Could not allocate cylinder-based partitions"
 msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../autopart.py:900
+#: ../autopart.py:901
 #, fuzzy
 msgid "Could not allocate partitions"
 msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../autopart.py:962
+#: ../autopart.py:963
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
@@ -136,7 +114,7 @@ msgid ""
 "change this device disk label to BSD."
 msgstr ""
 
-#: ../autopart.py:964
+#: ../autopart.py:965
 #, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
@@ -144,33 +122,33 @@ msgid ""
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
 
-#: ../autopart.py:966
+#: ../autopart.py:967
 #, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
 
-#: ../autopart.py:969
+#: ../autopart.py:970
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
 
-#: ../autopart.py:994
+#: ../autopart.py:995
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:1140
+#: ../autopart.py:1141
 #, fuzzy
 msgid "Requested Partition Does Not Exist"
 msgstr "Katalogen finst ikkje"
 
-#: ../autopart.py:1141
+#: ../autopart.py:1142
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -178,12 +156,12 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1172 ../autopart.py:1212
+#: ../autopart.py:1173 ../autopart.py:1213
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Automatisk innlogging"
 
-#: ../autopart.py:1173
+#: ../autopart.py:1174
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -193,11 +171,11 @@ msgid ""
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1182
+#: ../autopart.py:1183
 msgid "Warnings During Automatic Partitioning"
 msgstr ""
 
-#: ../autopart.py:1183
+#: ../autopart.py:1184
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -205,20 +183,20 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../autopart.py:1196
+#: ../autopart.py:1197
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1197 ../iw/partition_gui.py:980
+#: ../autopart.py:1198 ../iw/partition_gui.py:981
 #: ../textw/partition_text.py:213
 #, fuzzy
 msgid "Error Partitioning"
 msgstr "Feil ved utskrift"
 
-#: ../autopart.py:1198
+#: ../autopart.py:1199
 #, fuzzy, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -228,7 +206,7 @@ msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../autopart.py:1213
+#: ../autopart.py:1214
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -242,20 +220,20 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1291 ../bootloader.py:123 ../image.py:371
-#: ../partedUtils.py:247 ../partedUtils.py:693 ../upgrade.py:282
-#: ../upgrade.py:418 ../upgrade.py:437 ../upgrade.py:478
+#: ../autopart.py:1292 ../bootloader.py:123 ../image.py:372
+#: ../partedUtils.py:247 ../partedUtils.py:700 ../upgrade.py:282
+#: ../upgrade.py:426 ../upgrade.py:445 ../upgrade.py:486
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
-#: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
-#: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
-#: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
-#: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
-#: ../textw/upgrade_text.py:177 ../loader/loader.c:3762
+#: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
+#: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
+#: ../iw/upgrade_swap_gui.py:215 ../textw/bootloader_text.py:135
+#: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
+#: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:316
 msgid "Warning"
 msgstr "Åtvaring"
 
-#: ../autopart.py:1297
+#: ../autopart.py:1298
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -265,25 +243,25 @@ msgid ""
 "mount points, partition sizes, and more."
 msgstr ""
 
-#: ../autopart.py:1308
+#: ../autopart.py:1309
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
-"must choose how to use the space on hard drives."
-msgstr ""
-
-#: ../autopart.py:1313
-msgid "Remove all partitions on this system"
+"must choose how to use the space on your hard drives."
 msgstr ""
 
 #: ../autopart.py:1314
-msgid "Remove all Linux Partitions on this system"
+msgid "Remove all partitions on this system"
 msgstr ""
 
 #: ../autopart.py:1315
+msgid "Remove all Linux Partitions on this system"
+msgstr ""
+
+#: ../autopart.py:1316
 msgid "Keep all partitions and use existing free space"
 msgstr ""
 
-#: ../autopart.py:1317
+#: ../autopart.py:1318
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -296,7 +274,7 @@ msgstr ""
 "\n"
 "Er du sikker på at du vil gjera det?"
 
-#: ../autopart.py:1321
+#: ../autopart.py:1322
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -323,29 +301,44 @@ msgid ""
 "configuration will not be changed."
 msgstr ""
 
-#: ../comps.py:724 ../comps.py:752
+#: ../comps.py:721 ../comps.py:749
 msgid "Everything"
 msgstr "Alt"
 
-#: ../comps.py:892 ../comps.py:957 ../upgrade.py:583
+#: ../comps.py:890 ../comps.py:955 ../upgrade.py:591
 msgid "no suggestion"
 msgstr "ikkje noko forslag"
 
-#: ../comps.py:1052 ../loader/devices.c:83
+#: ../comps.py:1050
 msgid "Miscellaneous"
 msgstr "Ymse"
 
-#: ../comps.py:1068
+#: ../comps.py:1066
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1072
+#: ../comps.py:1070
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
+msgstr ""
+
+#: ../constants.py:64
+msgid ""
+"An unhandled exception has occurred.  This is most likely a bug.  Please "
+"copy the full text of this exception or save the crash dump to a floppy then "
+"file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
+"bugzilla/"
+msgstr ""
+
+#: ../constants.py:71
+msgid ""
+"An unhandled exception has occurred.  This is most likely a bug.  Please "
+"copy the full text of this exception and file a detailed bug report against "
+"anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 
 #: ../exception.py:167 ../text.py:235
@@ -396,66 +389,69 @@ msgstr "Avbryt"
 msgid "_Make boot disk"
 msgstr "Opprett heimekatalog"
 
-#: ../floppy.py:118 ../floppy.py:143 ../fsset.py:555 ../fsset.py:1027
-#: ../fsset.py:1046 ../fsset.py:1093 ../fsset.py:1104 ../fsset.py:1140
-#: ../fsset.py:1190 ../fsset.py:1233 ../harddrive.py:208 ../image.py:68
-#: ../image.py:98 ../image.py:234 ../packages.py:129 ../packages.py:143
-#: ../packages.py:332 ../packages.py:501 ../packages.py:573
-#: ../partedUtils.py:497 ../partIntfHelpers.py:147 ../partIntfHelpers.py:332
-#: ../upgrade.py:338 ../upgrade.py:364 ../iw/osbootwidget.py:222
-#: ../iw/osbootwidget.py:231 ../iw/raid_dialog_gui.py:616
-#: ../iw/raid_dialog_gui.py:655 ../textw/fdasd_text.py:73
-#: ../textw/partition_text.py:1066 ../textw/partition_text.py:1077
-#: ../textw/upgrade_text.py:165 ../textw/upgrade_text.py:172
-#: ../loader/devices.c:282 ../loader/devices.c:289 ../loader/devices.c:453
-#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:484
-#: ../loader/loader.c:501 ../loader/loader.c:610 ../loader/loader.c:942
-#: ../loader/loader.c:1274 ../loader/loader.c:1372 ../loader/loader.c:1496
-#: ../loader/loader.c:1709 ../loader/loader.c:1714 ../loader/loader.c:1756
-#: ../loader/loader.c:1857 ../loader/loader.c:2893 ../loader/loader.c:2923
-#: ../loader/loader.c:3001 ../loader/loader.c:3323 ../loader/loader.c:3361
-#: ../loader/mediacheck.c:255 ../loader/mediacheck.c:312
-#: ../loader/modules.c:390 ../loader/modules.c:410 ../loader/pcmcia.c:117
-#: ../loader/pcmcia.c:134 ../loader/telnetd.c:68 ../loader/urls.c:81
-#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
-#: ../loader/urls.c:273 ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:423
-#: ../loader2/driverdisk.c:227 ../loader2/driverdisk.c:289
-#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:473
-#: ../loader2/hdinstall.c:554 ../loader2/kickstart.c:248 ../loader2/lang.c:100
-#: ../loader2/loader.c:291 ../loader2/loader.c:551 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:145 ../loader2/method.c:353
-#: ../loader2/method.c:438 ../loader2/nfsinstall.c:216
+#: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
+#: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
+#: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
+#: ../harddrive.py:208 ../image.py:68 ../image.py:99 ../image.py:235
+#: ../packages.py:129 ../packages.py:143 ../packages.py:330 ../packages.py:501
+#: ../packages.py:573 ../partedUtils.py:499 ../partIntfHelpers.py:147
+#: ../partIntfHelpers.py:332 ../upgrade.py:346 ../upgrade.py:372
+#: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
+#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
+#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
+#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:140
+#: ../loader2/cdinstall.c:423 ../loader2/driverdisk.c:227
+#: ../loader2/driverdisk.c:291 ../loader2/hdinstall.c:255
+#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
+#: ../loader2/kickstart.c:249 ../loader2/lang.c:100 ../loader2/loader.c:291
+#: ../loader2/loader.c:551 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:154 ../loader2/method.c:362
+#: ../loader2/method.c:447 ../loader2/nfsinstall.c:216
 #: ../loader2/nfsinstall.c:219 ../loader2/telnetd.c:86
-#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
-#: ../loader2/urlinstall.c:107 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:97
+#: ../loader2/urlinstall.c:109 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:309 ../loader2/urls.c:314
 msgid "Error"
 msgstr "Feil"
 
-#: ../floppy.py:119 ../floppy.py:144
+#: ../floppy.py:118 ../floppy.py:143
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
 
-#: ../floppy.py:130
+#: ../floppy.py:129
 msgid "Creating"
 msgstr "Lagar"
 
-#: ../floppy.py:130
+#: ../floppy.py:129
 msgid "Creating boot disk..."
 msgstr "Lagar oppstartsdiskett..."
 
-#: ../fsset.py:172
+#: ../floppy.py:158
+msgid ""
+"An error occurred while attempting to verify the boot disk.  Please make "
+"sure that you have a good floppy in the first floppy drive."
+msgstr ""
+
+#: ../floppy.py:189
+msgid ""
+"Your boot floppy appears to be invalid.  This is likely due to a bad "
+"floppy.  Please make sure that you have a good floppy in the first floppy "
+"drive."
+msgstr ""
+
+#: ../fsset.py:176
 msgid "Checking for Bad Blocks"
 msgstr "Sjekker etter dårlige blokker"
 
-#: ../fsset.py:173
+#: ../fsset.py:177
 #, python-format
 msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Ser etter dårlige blokker på /dev/%s..."
 
-#: ../fsset.py:556
+#: ../fsset.py:560
 #, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
@@ -464,20 +460,20 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 
-#: ../fsset.py:960
+#: ../fsset.py:964
 #, fuzzy
 msgid "RAID Device"
 msgstr "CD-eining"
 
-#: ../fsset.py:963 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:967 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr ""
 
-#: ../fsset.py:964 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:968 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../fsset.py:1028
+#: ../fsset.py:1032
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -486,7 +482,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1047
+#: ../fsset.py:1051
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -496,7 +492,7 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1094
+#: ../fsset.py:1098
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -505,7 +501,7 @@ msgid ""
 "Press <Enter> to reboot your system"
 msgstr ""
 
-#: ../fsset.py:1105
+#: ../fsset.py:1109
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -514,7 +510,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1141
+#: ../fsset.py:1145
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -523,7 +519,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1191
+#: ../fsset.py:1195
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -532,11 +528,11 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1211 ../fsset.py:1220
+#: ../fsset.py:1215 ../fsset.py:1224
 msgid "Invalid mount point"
 msgstr ""
 
-#: ../fsset.py:1212
+#: ../fsset.py:1216
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -545,7 +541,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1221
+#: ../fsset.py:1225
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -554,7 +550,7 @@ msgid ""
 "Press <Enter> to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1234
+#: ../fsset.py:1238
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -564,11 +560,11 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../fsset.py:1981
+#: ../fsset.py:1986
 msgid "Formatting"
 msgstr "Formaterer"
 
-#: ../fsset.py:1982
+#: ../fsset.py:1987
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterer %s-filsystem..."
@@ -606,7 +602,7 @@ msgstr ""
 
 #: ../gui.py:166
 msgid ""
-"An error occurred while saving the screenshot.  If this occurredduring "
+"An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
@@ -614,26 +610,22 @@ msgstr ""
 msgid "Fix"
 msgstr "Rett opp"
 
-#: ../gui.py:235 ../text.py:312 ../textw/bootdisk_text.py:22
+#: ../gui.py:235 ../rescue.py:139 ../text.py:312 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader/devices.c:237
-#: ../loader/loader.c:1145 ../loader/loader.c:3762 ../loader/net.c:907
-#: ../loader2/driverdisk.c:337 ../loader2/hdinstall.c:368
-#: ../loader2/loader.c:316
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:339
+#: ../loader2/hdinstall.c:368 ../loader2/loader.c:316
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:236 ../text.py:313 ../textw/bootdisk_text.py:22
-#: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
-#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:253
-#: ../textw/upgrade_text.py:260 ../loader/devices.c:238
-#: ../loader/loader.c:3762 ../loader/net.c:907 ../loader2/driverdisk.c:337
-#: ../loader2/loader.c:316
+#: ../gui.py:236 ../rescue.py:139 ../rescue.py:141 ../text.py:313
+#: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
+#: ../textw/bootloader_text.py:79 ../textw/constants_text.py:52
+#: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
+#: ../loader2/driverdisk.c:339 ../loader2/loader.c:316
 msgid "No"
 msgstr "Nei"
 
-#: ../gui.py:238 ../text.py:315 ../loader/net.c:274 ../loader/net.c:400
-#: ../loader2/net.c:156 ../loader2/net.c:359
+#: ../gui.py:238 ../text.py:315 ../loader2/net.c:175 ../loader2/net.c:379
 msgid "Retry"
 msgstr "Prøv igjen"
 
@@ -641,58 +633,49 @@ msgstr "Prøv igjen"
 msgid "Ignore"
 msgstr "Ignorer"
 
-#: ../gui.py:240 ../gui.py:540 ../partIntfHelpers.py:231
+#: ../gui.py:240 ../gui.py:542 ../partIntfHelpers.py:231
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:115
 #: ../text.py:116 ../text.py:281 ../text.py:283 ../text.py:317
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:212 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:76 ../loader/devices.c:245
-#: ../loader/loader.c:2986 ../loader/modules.c:450 ../loader/pcmcia.c:107
-#: ../loader2/driverdisk.c:201 ../loader2/loader.c:280
+#: ../textw/userauth_text.py:76 ../loader2/driverdisk.c:201
+#: ../loader2/loader.c:280
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:463 ../text.py:289
-msgid ""
-"An unhandled exception has occurred.  This is most likely a bug.  Please "
-"copy the full text of this exception or save the crash dump to a floppy then "
-"file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
-"bugzilla/"
-msgstr ""
-
-#: ../gui.py:622 ../text.py:279
+#: ../gui.py:624 ../text.py:279
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:730 ../gui.py:1218
+#: ../gui.py:732 ../gui.py:1220
 msgid "Online Help"
 msgstr "Hjelp"
 
-#: ../gui.py:731 ../iw/language_gui.py:23 ../textw/language_text.py:37
+#: ../gui.py:733 ../iw/language_gui.py:23 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "Språkval"
 
-#: ../gui.py:831 ../gui.py:860
+#: ../gui.py:833 ../gui.py:862
 msgid "Release Notes"
 msgstr "Notat"
 
-#: ../gui.py:865
+#: ../gui.py:867
 msgid "Unable to load file!"
 msgstr "Kan ikkje lasta fil!"
 
-#: ../gui.py:902
+#: ../gui.py:904
 msgid "Release notes are missing.\n"
 msgstr ""
 
-#: ../gui.py:933
+#: ../gui.py:935
 #, fuzzy
 msgid "Error!"
 msgstr "Feil"
 
-#: ../gui.py:934
+#: ../gui.py:936
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -700,75 +683,75 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:938 ../packages.py:1185 ../iw/congrats_gui.py:29
+#: ../gui.py:940 ../packages.py:1198 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Avslutt"
 
-#: ../gui.py:939
+#: ../gui.py:941
 #, fuzzy
 msgid "_Retry"
 msgstr "Prøv igjen"
 
-#: ../gui.py:941 ../packages.py:1188
+#: ../gui.py:943 ../packages.py:1201
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Operativsystem"
 
-#: ../gui.py:942 ../packages.py:1189
+#: ../gui.py:944 ../packages.py:1202
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:945 ../packages.py:1191
+#: ../gui.py:947 ../packages.py:1204
 #, fuzzy
 msgid "_Reboot"
 msgstr "Tilbakestill"
 
-#: ../gui.py:1036 ../packages.py:1191
+#: ../gui.py:1038 ../packages.py:1204
 #, fuzzy
 msgid "_Back"
 msgstr "Tilbake"
 
-#: ../gui.py:1038
+#: ../gui.py:1040
 #, fuzzy
 msgid "_Next"
 msgstr "Neste"
 
-#: ../gui.py:1040
+#: ../gui.py:1042
 #, fuzzy
 msgid "_Release Notes"
 msgstr "Notat"
 
-#: ../gui.py:1042
+#: ../gui.py:1044
 #, fuzzy
 msgid "Show _Help"
 msgstr "Vis hjelp"
 
-#: ../gui.py:1044
+#: ../gui.py:1046
 #, fuzzy
 msgid "Hide _Help"
 msgstr "Gøym hjelp"
 
-#: ../gui.py:1046
+#: ../gui.py:1048
 #, fuzzy
 msgid "_Debug"
 msgstr "Avlusing"
 
-#: ../gui.py:1122
+#: ../gui.py:1124
 #, fuzzy, python-format
 msgid "%s Installer"
 msgstr "Etter installasjon"
 
-#: ../gui.py:1137
+#: ../gui.py:1139
 #, fuzzy, python-format
 msgid "%s Installer on %s"
 msgstr "Red Hat Linux installasjon på %s"
 
-#: ../gui.py:1176
+#: ../gui.py:1178
 msgid "Unable to load title bar"
 msgstr "Kan ikkje lasta tittelline"
 
-#: ../gui.py:1279
+#: ../gui.py:1281
 msgid "Install Window"
 msgstr "Installasjonsvindauge"
 
@@ -784,39 +767,39 @@ msgid ""
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:95
+#: ../image.py:96
 msgid "Copying File"
 msgstr "Kopierer fil"
 
-#: ../image.py:96
+#: ../image.py:97
 msgid "Transferring install image to hard drive..."
 msgstr ""
 
-#: ../image.py:99
+#: ../image.py:100
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:192
+#: ../image.py:193
 msgid "Change CDROM"
 msgstr "Byt CDROM"
 
-#: ../image.py:193
+#: ../image.py:194
 #, fuzzy, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Trykk linjeskift for å fortsetja."
 
-#: ../image.py:228
+#: ../image.py:229
 msgid "Wrong CDROM"
 msgstr "Feil CDROM"
 
-#: ../image.py:229
+#: ../image.py:230
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr ""
 
-#: ../image.py:235
+#: ../image.py:236
 msgid "The CDROM could not be mounted."
 msgstr "CDROMen kunne ikkje monteras."
 
@@ -824,6 +807,40 @@ msgstr "CDROMen kunne ikkje monteras."
 #, fuzzy
 msgid "Install on System"
 msgstr "Installasjon"
+
+#: ../kickstart.py:1140
+#, fuzzy
+msgid "Missing Package"
+msgstr "Installer pakke"
+
+#: ../kickstart.py:1141
+#, python-format
+msgid ""
+"You have specified that the package '%s' should be installed.  This package "
+"does not exist. Would you like to continue or abort your installation?"
+msgstr ""
+
+#: ../kickstart.py:1147 ../kickstart.py:1173
+#, fuzzy
+msgid "_Abort"
+msgstr "Tilbakestill"
+
+#: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
+#, fuzzy
+msgid "_Continue"
+msgstr "Fortset"
+
+#: ../kickstart.py:1166
+#, fuzzy
+msgid "Missing Group"
+msgstr "Rekningsinformasjon"
+
+#: ../kickstart.py:1167
+#, python-format
+msgid ""
+"You have specified that the group '%s' should be installed.  This package "
+"does not exist. Would you like to continue or abort your installation?"
+msgstr ""
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -833,18 +850,18 @@ msgstr ""
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
-#: ../packages.py:42 ../iw/package_gui.py:37
+#: ../packages.py:42 ../iw/package_gui.py:38
 msgid "Proceed with upgrade?"
 msgstr "Fortset med oppgradering?"
 
-#: ../packages.py:43 ../iw/package_gui.py:38
+#: ../packages.py:43 ../iw/package_gui.py:39
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 
-#: ../packages.py:47 ../iw/package_gui.py:42
+#: ../packages.py:47 ../iw/package_gui.py:43
 msgid "Would you like to continue with the upgrade?"
 msgstr "Vil du fortsetta med oppgraderinga?"
 
@@ -868,23 +885,23 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:218
+#: ../packages.py:216
 msgid "Dependency Check"
 msgstr "Avhengighetssjekk"
 
-#: ../packages.py:219
+#: ../packages.py:217
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../packages.py:284 ../packages.py:692
+#: ../packages.py:282 ../packages.py:692
 msgid "Processing"
 msgstr "Arbeider"
 
-#: ../packages.py:285
+#: ../packages.py:283
 msgid "Preparing to install..."
 msgstr "Førebuar installasjon..."
 
-#: ../packages.py:333
+#: ../packages.py:331
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -894,12 +911,12 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:362
+#: ../packages.py:360
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Installer pakke"
 
-#: ../packages.py:363
+#: ../packages.py:361
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -927,31 +944,31 @@ msgstr ""
 msgid "Setting up RPM transaction..."
 msgstr "Set opp RPM-transaksjon..."
 
-#: ../packages.py:732
+#: ../packages.py:737
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../packages.py:734
+#: ../packages.py:739
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Installer pakke"
 
-#: ../packages.py:741 ../packages.py:1026
+#: ../packages.py:746 ../packages.py:1037
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../packages.py:743 ../packages.py:1028
+#: ../packages.py:748 ../packages.py:1039
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../packages.py:760
+#: ../packages.py:765
 #, python-format
 msgid ""
 "\n"
@@ -962,69 +979,69 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../packages.py:766
+#: ../packages.py:771
 #, fuzzy
 msgid "Install Starting"
 msgstr "Installasjon"
 
-#: ../packages.py:767
+#: ../packages.py:772
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
-#: ../packages.py:811
+#: ../packages.py:816
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:815 ../packages.py:835 ../iw/lvm_dialog_gui.py:1048
-#: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
+#: ../packages.py:820 ../packages.py:840 ../iw/lvm_dialog_gui.py:1048
+#: ../iw/partition_gui.py:349 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Monteringsstad"
 
-#: ../packages.py:816
+#: ../packages.py:821
 msgid "Space Needed"
 msgstr "Kravd plass"
 
-#: ../packages.py:831
+#: ../packages.py:836
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:836
+#: ../packages.py:841
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Ingen forfallsdato"
 
-#: ../packages.py:842
+#: ../packages.py:852
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../packages.py:863
+#: ../packages.py:873
 msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr ""
 
-#: ../packages.py:880
+#: ../packages.py:890
 msgid "Post Install"
 msgstr "Etter installasjon"
 
-#: ../packages.py:881
+#: ../packages.py:891
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Sjekkar for oppsett ..."
 
-#: ../packages.py:1171
+#: ../packages.py:1184
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1172
+#: ../packages.py:1185
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1039,7 +1056,7 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1185
+#: ../packages.py:1198
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Installer"
@@ -1058,22 +1075,22 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 
-#: ../partedUtils.py:498
+#: ../partedUtils.py:500
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "Feil ved opning av fila '%1': %2"
 
-#: ../partedUtils.py:576
+#: ../partedUtils.py:583
 #, fuzzy
 msgid "Initializing"
 msgstr "Initier"
 
-#: ../partedUtils.py:577
+#: ../partedUtils.py:584
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr ""
 
-#: ../partedUtils.py:694
+#: ../partedUtils.py:701
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -1085,11 +1102,11 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 
-#: ../partedUtils.py:810 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:817 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Ingen disker funne"
 
-#: ../partedUtils.py:811
+#: ../partedUtils.py:818
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
@@ -1221,8 +1238,8 @@ msgstr ""
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:717 ../iw/lvm_dialog_gui.py:1071
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1336
-#: ../iw/partition_gui.py:1342
+#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
+#: ../iw/partition_gui.py:1344
 #, fuzzy
 msgid "_Delete"
 msgstr "Slett"
@@ -1324,7 +1341,7 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:657
+#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:658
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1400,85 +1417,94 @@ msgid ""
 "disk immediately. Is that OK?"
 msgstr ""
 
-#: ../partitions.py:737
+#: ../partitions.py:746
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
 msgstr ""
 
-#: ../partitions.py:742
+#: ../partitions.py:751
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
 msgstr ""
 
-#: ../partitions.py:749
+#: ../partitions.py:758
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
-#: ../partitions.py:757
+#: ../partitions.py:766
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
 msgstr ""
 
-#: ../partitions.py:784 ../partRequests.py:618
+#: ../partitions.py:793 ../partRequests.py:627
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
 
-#: ../partitions.py:790
+#: ../partitions.py:799
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "&Skriv inn namnet ditt:"
 
-#: ../partitions.py:794
+#: ../partitions.py:803
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitions.py:801
+#: ../partitions.py:810
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
 
-#: ../partitions.py:812
+#: ../partitions.py:821
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
 
-#: ../partitions.py:1093
+#: ../partitions.py:1102
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Vel posisjonen i toppblokka."
 
-#: ../partitions.py:1096
+#: ../partitions.py:1105
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitions.py:1099
+#: ../partitions.py:1108
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
-#: ../partRequests.py:215
+#: ../partRequests.py:219
 #, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
-#: ../partRequests.py:220
+#: ../partRequests.py:222
+#, fuzzy, python-format
+msgid ""
+"The mount point %s cannot be used.  It must be a symbolic link for proper "
+"system operation.  Please select a different mount point."
+msgstr ""
+"Eit filter med dette namnet finst alt.\n"
+"Bruk eit anna namn."
+
+#: ../partRequests.py:229
 msgid "This mount point must be on a linux file system."
 msgstr ""
 
-#: ../partRequests.py:235
+#: ../partRequests.py:244
 #, fuzzy, python-format
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
@@ -1487,58 +1513,67 @@ msgstr ""
 "Eit filter med dette namnet finst alt.\n"
 "Bruk eit anna namn."
 
-#: ../partRequests.py:249
+#: ../partRequests.py:258
 #, python-format
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
 msgstr ""
 
-#: ../partRequests.py:437
+#: ../partRequests.py:446
 #, python-format
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
 
-#: ../partRequests.py:442
+#: ../partRequests.py:451
 #, python-format
 msgid "The size of the requested partition is negative! (size = %s MB)"
 msgstr ""
 
-#: ../partRequests.py:446
+#: ../partRequests.py:455
 msgid "Partitions can't start below the first cylinder."
 msgstr ""
 
-#: ../partRequests.py:449
+#: ../partRequests.py:458
 msgid "Partitions can't end on a negative cylinder."
 msgstr ""
 
-#: ../partRequests.py:610
+#: ../partRequests.py:619
 msgid "No members in RAID request, or not RAID level specified."
 msgstr ""
 
-#: ../partRequests.py:622
+#: ../partRequests.py:631
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
 msgstr ""
 
-#: ../partRequests.py:628
+#: ../partRequests.py:637
 #, python-format
 msgid ""
 "This RAID device can have a maximum of %s spares. To have more spares you "
 "will need to add members to the RAID device."
 msgstr ""
 
-#: ../rescue.py:73 ../rescue.py:107 ../rescue.py:207
+#: ../rescue.py:137
+#, fuzzy
+msgid "Setup Networking"
+msgstr "Nettverk"
+
+#: ../rescue.py:138
+msgid "Do you want to start the network interfaces on this system?"
+msgstr ""
+
+#: ../rescue.py:152 ../rescue.py:186 ../rescue.py:297
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: ../rescue.py:91 ../rescue.py:160 ../rescue.py:168 ../rescue.py:186
+#: ../rescue.py:170 ../rescue.py:239 ../rescue.py:247 ../rescue.py:276
 msgid "Rescue"
 msgstr "Redning"
 
-#: ../rescue.py:92
+#: ../rescue.py:171
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1552,45 +1587,43 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../rescue.py:102 ../iw/partition_gui.py:559 ../loader/loader.c:1346
-#: ../loader/loader.c:1354 ../loader2/cdinstall.c:112
-#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:290
+#: ../rescue.py:181 ../iw/partition_gui.py:560 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:292
 msgid "Continue"
 msgstr "Fortset"
 
-#: ../rescue.py:102 ../rescue.py:111
+#: ../rescue.py:181 ../rescue.py:190
 #, fuzzy
 msgid "Read-Only"
 msgstr "Les"
 
-#: ../rescue.py:102 ../rescue.py:104 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader/loader.c:963 ../loader/loader.c:1422
-#: ../loader/loader.c:1424 ../loader2/cdinstall.c:253
-#: ../loader2/cdinstall.c:255 ../loader2/method.c:400
+#: ../rescue.py:181 ../rescue.py:183 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:253
+#: ../loader2/cdinstall.c:255 ../loader2/method.c:409
 msgid "Skip"
 msgstr "Hopp over"
 
-#: ../rescue.py:134
+#: ../rescue.py:213
 msgid "System to Rescue"
 msgstr "System som skal reddast"
 
-#: ../rescue.py:135
+#: ../rescue.py:214
 #, fuzzy
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kan ikkje oppretta finn-delen. Kontroller installasjonen."
 
-#: ../rescue.py:137 ../rescue.py:141
+#: ../rescue.py:216 ../rescue.py:220
 msgid "Exit"
 msgstr "Avslutt"
 
-#: ../rescue.py:161
+#: ../rescue.py:240
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:169
+#: ../rescue.py:248
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1603,7 +1636,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:187
+#: ../rescue.py:277
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1613,17 +1646,17 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:193
+#: ../rescue.py:283
 msgid "Rescue Mode"
 msgstr "Redningsmodus"
 
-#: ../rescue.py:194
+#: ../rescue.py:284
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:204
+#: ../rescue.py:294
 #, fuzzy, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Du må skriva eit namn"
@@ -1640,17 +1673,17 @@ msgstr "Inga hjelp er tilgjengeleg for dette steget av installasjonen."
 msgid "Save Crash Dump"
 msgstr "Lagra dump av krasj"
 
-#: ../text.py:297 ../text.py:300
+#: ../text.py:292 ../text.py:300
 msgid "Save"
 msgstr "Lagra"
 
-#: ../text.py:297 ../text.py:298
+#: ../text.py:292 ../text.py:295 ../text.py:298
 msgid "Debug"
 msgstr "Avlusing"
 
 #: ../text.py:332
 #, python-format
-msgid "%s (C) 2002 Red Hat, Inc."
+msgid "%s (C) 2003 Red Hat, Inc."
 msgstr ""
 
 #: ../text.py:339
@@ -1742,24 +1775,24 @@ msgstr ""
 msgid "%s not found"
 msgstr "%s ikkje funnen"
 
-#: ../upgrade.py:305
+#: ../upgrade.py:313
 msgid "Finding"
 msgstr "Finn"
 
-#: ../upgrade.py:306
+#: ../upgrade.py:314
 msgid "Finding packages to upgrade..."
 msgstr "Finn pakkar som skal oppgraderast..."
 
-#: ../upgrade.py:339
+#: ../upgrade.py:347
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../upgrade.py:365
+#: ../upgrade.py:373
 #, fuzzy
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Ein feil oppsto ved lasting av bakgrunnsbiletet\n"
 
-#: ../upgrade.py:419
+#: ../upgrade.py:427
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1768,7 +1801,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:438
+#: ../upgrade.py:446
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1776,7 +1809,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:479
+#: ../upgrade.py:487
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -1924,27 +1957,27 @@ msgstr ""
 msgid "SMB"
 msgstr "MB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1399
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1401
 #: ../textw/partition_text.py:1205
 #, fuzzy
 msgid "Automatic Partitioning"
 msgstr "Automatisk innlogging"
 
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1427
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1429
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Du må velja minst ein skrivar."
 
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1469
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1471
 msgid "I want to have automatic partitioning:"
 msgstr ""
 
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1500
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1502
 #, fuzzy
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Vel felta som skal visast"
 
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1524
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1526
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
@@ -2235,8 +2268,8 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "avhengig"
 
-#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:262
-#: ../iw/package_gui.py:505 ../iw/package_gui.py:695
+#: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:263
+#: ../iw/package_gui.py:506 ../iw/package_gui.py:696
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, fuzzy, python-format
 msgid "Total install size: %s"
@@ -2415,6 +2448,12 @@ msgstr "filer"
 msgid "Select drive to run fdasd on"
 msgstr "Vel felta som skal visast"
 
+#: ../iw/fdasd_gui.py:93
+msgid ""
+"Formating the selected DASD device will destroy all contents of the device. "
+"Do you really want to format the selected DASD device?"
+msgstr ""
+
 #: ../iw/fdisk_gui.py:26
 #, fuzzy
 msgid "Partitioning with fdisk"
@@ -2506,8 +2545,7 @@ msgstr ""
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
-#: ../iw/language_gui.py:61 ../textw/language_text.py:38 ../loader/lang.c:306
-#: ../loader2/lang.c:381
+#: ../iw/language_gui.py:61 ../textw/language_text.py:38 ../loader2/lang.c:381
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
@@ -2854,7 +2892,7 @@ msgstr "Total tid:"
 msgid "Logical Volume Name"
 msgstr "Ugyldig datoområde."
 
-#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:353
+#: ../iw/lvm_dialog_gui.py:1051 ../iw/partition_gui.py:354
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Storleik (KB)"
@@ -2865,8 +2903,8 @@ msgid "_Add"
 msgstr "Legg til"
 
 #: ../iw/lvm_dialog_gui.py:1068 ../iw/network_gui.py:488
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1335
-#: ../iw/partition_gui.py:1341
+#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
+#: ../iw/partition_gui.py:1343
 #, fuzzy
 msgid "_Edit"
 msgstr "Rediger"
@@ -2875,43 +2913,43 @@ msgstr "Rediger"
 msgid "Logical Volumes"
 msgstr ""
 
-#: ../iw/mouse_gui.py:26
+#: ../iw/mouse_gui.py:24
 #, fuzzy
 msgid "Mouse Configuration"
 msgstr "P&enseloppsett"
 
-#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:20
+#: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
 msgstr ""
 
-#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:21
+#: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
 msgstr ""
 
-#: ../iw/mouse_gui.py:82 ../textw/mouse_text.py:22
+#: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
 msgstr ""
 
-#: ../iw/mouse_gui.py:83 ../textw/mouse_text.py:23
+#: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr ""
 
-#: ../iw/mouse_gui.py:93 ../iw/osbootwidget.py:158
+#: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:158
 #, fuzzy
 msgid "_Device"
 msgstr "Eining"
 
-#: ../iw/mouse_gui.py:138
+#: ../iw/mouse_gui.py:136
 #, fuzzy
 msgid "_Model"
 msgstr "Modell"
 
-#: ../iw/mouse_gui.py:236
+#: ../iw/mouse_gui.py:234
 #, fuzzy
 msgid "_Emulate 3 buttons"
 msgstr "Gøymeknappar"
 
-#: ../iw/mouse_gui.py:251
+#: ../iw/mouse_gui.py:249
 msgid "Select the appropriate mouse for the system."
 msgstr ""
 
@@ -3055,7 +3093,7 @@ msgid "Active on Boot"
 msgstr "Aktiver og senk"
 
 #: ../iw/network_gui.py:396 ../iw/osbootwidget.py:65
-#: ../iw/partition_gui.py:347 ../iw/silo_gui.py:263
+#: ../iw/partition_gui.py:348 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:206 ../textw/bootloader_text.py:277
 #: ../textw/mouse_text.py:38 ../textw/partition_text.py:1114
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
@@ -3068,8 +3106,7 @@ msgid "IP/Netmask"
 msgstr "maske"
 
 #: ../iw/network_gui.py:421 ../iw/network_gui.py:522
-#: ../textw/network_text.py:224 ../loader/net.c:624 ../loader/net.c:823
-#: ../loader2/net.c:562
+#: ../textw/network_text.py:224 ../loader2/net.c:583
 msgid "Hostname"
 msgstr "Vertsnamn"
 
@@ -3185,73 +3222,73 @@ msgid ""
 "system you are about to install."
 msgstr ""
 
-#: ../iw/package_gui.py:48 ../textw/packages_text.py:237
+#: ../iw/package_gui.py:49 ../textw/packages_text.py:237
 #, fuzzy
 msgid "Individual Package Selection"
 msgstr "Redigerar for individuelle fargar"
 
-#: ../iw/package_gui.py:76
+#: ../iw/package_gui.py:77
 #, fuzzy
 msgid "All Packages"
 msgstr "Pakkar"
 
-#: ../iw/package_gui.py:196
+#: ../iw/package_gui.py:197
 #, python-format
 msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
 
-#: ../iw/package_gui.py:366
+#: ../iw/package_gui.py:367
 #, fuzzy
 msgid "_Tree View"
 msgstr "&Trevising"
 
-#: ../iw/package_gui.py:368
+#: ../iw/package_gui.py:369
 #, fuzzy
 msgid "_Flat View"
 msgstr "Del vising"
 
-#: ../iw/package_gui.py:383
+#: ../iw/package_gui.py:384
 #, fuzzy
 msgid "_Package"
 msgstr "Pakke"
 
-#: ../iw/package_gui.py:385
+#: ../iw/package_gui.py:386
 #, fuzzy
 msgid "_Size (MB)"
 msgstr "Storleik (KB)"
 
-#: ../iw/package_gui.py:436
+#: ../iw/package_gui.py:437
 #, fuzzy
 msgid "Total size: "
 msgstr "Total tid:"
 
-#: ../iw/package_gui.py:439
+#: ../iw/package_gui.py:440
 #, fuzzy
 msgid "Select _all in group"
 msgstr "Vel ei gruppe først."
 
-#: ../iw/package_gui.py:443
+#: ../iw/package_gui.py:444
 #, fuzzy
 msgid "_Unselect all in group"
 msgstr "Fjern all merking"
 
-#: ../iw/package_gui.py:480 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:481 ../textw/packages_text.py:57
 #, fuzzy
 msgid "Package Group Selection"
 msgstr "Sideval"
 
-#: ../iw/package_gui.py:700
+#: ../iw/package_gui.py:701
 msgid "Minimal"
 msgstr ""
 
-#: ../iw/package_gui.py:771
+#: ../iw/package_gui.py:772
 #, python-format
 msgid "Details for '%s'"
 msgstr ""
 
-#: ../iw/package_gui.py:780
+#: ../iw/package_gui.py:781
 msgid ""
 "A package group can have both Base and Optional package members.  Base "
 "packages are always selected as long as the package group is selected.\n"
@@ -3259,22 +3296,22 @@ msgid ""
 "Select the optional packages to be installed:"
 msgstr ""
 
-#: ../iw/package_gui.py:821
+#: ../iw/package_gui.py:822
 #, fuzzy
 msgid "Base Packages"
 msgstr "Pakkar"
 
-#: ../iw/package_gui.py:851
+#: ../iw/package_gui.py:852
 #, fuzzy
 msgid "Optional Packages"
 msgstr "Pakkar"
 
-#: ../iw/package_gui.py:1071
+#: ../iw/package_gui.py:1072
 #, fuzzy
 msgid "Details"
 msgstr "Dansk"
 
-#: ../iw/package_gui.py:1165
+#: ../iw/package_gui.py:1166
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Vel pakke"
@@ -3358,172 +3395,166 @@ msgstr ""
 msgid "Check for _bad blocks"
 msgstr "Sjå etter nye grupper:"
 
-#: ../iw/partition_gui.py:349 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
+#: ../iw/partition_gui.py:350 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1114
 msgid "Type"
 msgstr "Type"
 
-#: ../iw/partition_gui.py:352
+#: ../iw/partition_gui.py:353
 msgid "Format"
 msgstr ""
 
-#: ../iw/partition_gui.py:354 ../textw/partition_text.py:1114
+#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1114
 msgid "Start"
 msgstr "Start"
 
-#: ../iw/partition_gui.py:355 ../textw/partition_text.py:1114
+#: ../iw/partition_gui.py:356 ../textw/partition_text.py:1114
 msgid "End"
 msgstr "End"
 
-#: ../iw/partition_gui.py:392
+#: ../iw/partition_gui.py:393
 #, fuzzy
 msgid ""
 "Mount Point/\n"
 "RAID/Volume"
 msgstr "Monteringsstad"
 
-#: ../iw/partition_gui.py:394
+#: ../iw/partition_gui.py:395
 #, fuzzy
 msgid ""
 "Size\n"
 "(MB)"
 msgstr "Storleik (KB)"
 
-#: ../iw/partition_gui.py:533 ../textw/partition_text.py:1108
+#: ../iw/partition_gui.py:534 ../textw/partition_text.py:1108
 #, fuzzy
 msgid "Partitioning"
 msgstr "Partisjonar"
 
-#: ../iw/partition_gui.py:625
+#: ../iw/partition_gui.py:626
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:628
+#: ../iw/partition_gui.py:629
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
-#: ../iw/partition_gui.py:634
+#: ../iw/partition_gui.py:635
 #, fuzzy
 msgid "Partitioning Errors"
 msgstr "Skriv ut: %1"
 
-#: ../iw/partition_gui.py:640
+#: ../iw/partition_gui.py:641
 msgid "The following warnings exist with your requested partition scheme."
 msgstr ""
 
-#: ../iw/partition_gui.py:642
+#: ../iw/partition_gui.py:643
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../iw/partition_gui.py:647
+#: ../iw/partition_gui.py:648
 #, fuzzy
 msgid "Partitioning Warnings"
 msgstr "Pixie-åtvaring"
 
-#: ../iw/partition_gui.py:669
+#: ../iw/partition_gui.py:670
 #, fuzzy
 msgid "Format Warnings"
 msgstr "Format:"
 
-#: ../iw/partition_gui.py:674
+#: ../iw/partition_gui.py:675
 #, fuzzy
 msgid "_Format"
 msgstr "Formater?"
 
-#: ../iw/partition_gui.py:709
+#: ../iw/partition_gui.py:710
 #, fuzzy
 msgid "LVM Volume Groups"
 msgstr "Ugyldig datoområde."
 
-#: ../iw/partition_gui.py:744
+#: ../iw/partition_gui.py:745
 #, fuzzy
 msgid "RAID Devices"
 msgstr "CD-eining"
 
-#: ../iw/partition_gui.py:772 ../iw/partition_gui.py:889
+#: ../iw/partition_gui.py:773 ../iw/partition_gui.py:890
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 msgid "None"
 msgstr "Ingen"
 
-#: ../iw/partition_gui.py:790 ../loader/loader.c:1145
-#: ../loader2/hdinstall.c:368
+#: ../iw/partition_gui.py:791 ../loader2/hdinstall.c:368
 #, fuzzy
 msgid "Hard Drives"
 msgstr "Harddisk"
 
-#: ../iw/partition_gui.py:852 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:853 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 #, fuzzy
 msgid "Free space"
 msgstr "Ledig plass på %1:"
 
-#: ../iw/partition_gui.py:854 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr "Utvida"
 
-#: ../iw/partition_gui.py:856 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:857 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr ""
 
-#: ../iw/partition_gui.py:891
+#: ../iw/partition_gui.py:892
 msgid "Free"
 msgstr "Ledig"
 
-#: ../iw/partition_gui.py:981 ../textw/partition_text.py:214
+#: ../iw/partition_gui.py:982 ../textw/partition_text.py:214
 #, fuzzy, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr ""
 "\n"
 "Kunne ikkje laga påkravd røyr %1."
 
-#: ../iw/partition_gui.py:990
+#: ../iw/partition_gui.py:991
 #, fuzzy, python-format
 msgid "Warning: %s."
 msgstr "Åtvaringar"
 
-#: ../iw/partition_gui.py:992
+#: ../iw/partition_gui.py:993
 #, fuzzy
 msgid "_Modify Partition"
 msgstr "Partisjonar"
 
-#: ../iw/partition_gui.py:994
-#, fuzzy
-msgid "_Continue"
-msgstr "Fortset"
-
-#: ../iw/partition_gui.py:1169 ../iw/partition_gui.py:1183
+#: ../iw/partition_gui.py:1171 ../iw/partition_gui.py:1185
 #, fuzzy
 msgid "Not supported"
 msgstr "Inga ISDN-støtte"
 
-#: ../iw/partition_gui.py:1170
+#: ../iw/partition_gui.py:1172
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1184
+#: ../iw/partition_gui.py:1186
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1191
+#: ../iw/partition_gui.py:1193
 #, fuzzy
 msgid "No RAID minor device numbers available"
 msgstr "Hjelp ikkje tilgjengeleg"
 
-#: ../iw/partition_gui.py:1192
+#: ../iw/partition_gui.py:1194
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1206
+#: ../iw/partition_gui.py:1208
 #, fuzzy
 msgid "RAID Options"
 msgstr "Partisjonar"
 
-#: ../iw/partition_gui.py:1217
+#: ../iw/partition_gui.py:1219
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3535,7 +3566,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1228
+#: ../iw/partition_gui.py:1230
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3543,68 +3574,68 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1234
+#: ../iw/partition_gui.py:1236
 #, fuzzy
 msgid "What do you want to do now?"
 msgstr ""
 " er endra.\n"
 "Vil du lagra den?"
 
-#: ../iw/partition_gui.py:1243
+#: ../iw/partition_gui.py:1245
 #, fuzzy
 msgid "Create a software RAID _partition."
 msgstr "Partisjonar"
 
-#: ../iw/partition_gui.py:1246
+#: ../iw/partition_gui.py:1248
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1250
+#: ../iw/partition_gui.py:1252
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1289
+#: ../iw/partition_gui.py:1291
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1290
+#: ../iw/partition_gui.py:1292
 #, fuzzy
 msgid "The drive clone editor could not be created for some reason."
 msgstr ""
 "Protokollen %1\n"
 "implementerar ikkje ei katalogteneste"
 
-#: ../iw/partition_gui.py:1337
+#: ../iw/partition_gui.py:1339
 #, fuzzy
 msgid "_Reset"
 msgstr "Tilbakestill"
 
-#: ../iw/partition_gui.py:1338
+#: ../iw/partition_gui.py:1340
 #, fuzzy
 msgid "Make _RAID"
 msgstr "Lag API-dok"
 
-#: ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:1342
 #, fuzzy
 msgid "Ne_w"
 msgstr "Ny"
 
-#: ../iw/partition_gui.py:1343
+#: ../iw/partition_gui.py:1345
 #, fuzzy
 msgid "Re_set"
 msgstr "Tilbakestill"
 
-#: ../iw/partition_gui.py:1344
+#: ../iw/partition_gui.py:1346
 msgid "R_AID"
 msgstr ""
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1347
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1384
+#: ../iw/partition_gui.py:1386
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
@@ -4198,7 +4229,7 @@ msgstr "&Skriv inn namnet ditt:"
 
 #: ../iw/xconfig_gui.py:393
 #, fuzzy
-msgid "T_ext"
+msgid "_Text"
 msgstr "Neste"
 
 #: ../iw/xconfig_gui.py:394
@@ -4297,12 +4328,12 @@ msgstr "Skjermkort"
 msgid "_Skip X configuration"
 msgstr "kppp-oppsett"
 
-#: ../iw/zipl_gui.py:33
+#: ../iw/zipl_gui.py:32
 #, fuzzy
 msgid "z/IPL Boot Loader Configuration"
 msgstr "Sideoppsett"
 
-#: ../iw/zipl_gui.py:75 ../textw/zipl_text.py:22
+#: ../iw/zipl_gui.py:74
 msgid ""
 "The z/IPL Boot Loader will now be installed on your system.\n"
 "\n"
@@ -4319,7 +4350,7 @@ msgid ""
 "your setup may require."
 msgstr ""
 
-#: ../iw/zipl_gui.py:102 ../textw/zipl_text.py:54
+#: ../iw/zipl_gui.py:101 ../textw/zipl_text.py:51
 #, fuzzy
 msgid "Kernel Parameters"
 msgstr "Parametrar"
@@ -4523,18 +4554,14 @@ msgstr ""
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:190 ../loader/cdrom.c:33 ../loader/devices.c:99
-#: ../loader/devices.c:245 ../loader/devices.c:358 ../loader/lang.c:634
-#: ../loader/loader.c:342 ../loader/loader.c:1145 ../loader/loader.c:1215
-#: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:2099
-#: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
-#: ../loader/urls.c:198 ../loader/urls.c:419 ../loader2/cdinstall.c:354
+#: ../textw/userauth_text.py:190 ../loader2/cdinstall.c:354
 #: ../loader2/driverdisk.c:201 ../loader2/driverdisk.c:216
-#: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
-#: ../loader2/hdinstall.c:368 ../loader2/hdinstall.c:422 ../loader2/kbd.c:125
-#: ../loader2/loader.c:268 ../loader2/loader.c:667 ../loader2/loader.c:695
-#: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:723
-#: ../loader2/nfsinstall.c:53 ../loader2/urls.c:248 ../loader2/urls.c:433
+#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
+#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
+#: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:268
+#: ../loader2/loader.c:667 ../loader2/loader.c:695 ../loader2/net.c:170
+#: ../loader2/net.c:334 ../loader2/net.c:744 ../loader2/nfsinstall.c:53
+#: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
 msgstr "Tilbake"
 
@@ -4571,6 +4598,11 @@ msgstr "kISDN Tilpassing"
 #, fuzzy
 msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Vel distribusjonen din"
+
+#: ../textw/fdasd_text.py:32
+#, fuzzy
+msgid "Next"
+msgstr "Neste"
 
 #: ../textw/fdasd_text.py:32
 #, fuzzy
@@ -4665,8 +4697,8 @@ msgstr "KDCOP"
 msgid "SSH"
 msgstr "SSL"
 
-#: ../textw/firewall_text.py:94 ../loader/telnetd.c:64 ../loader/telnetd.c:106
-#: ../loader2/telnetd.c:82 ../loader2/telnetd.c:124
+#: ../textw/firewall_text.py:94 ../loader2/telnetd.c:82
+#: ../loader2/telnetd.c:124
 #, fuzzy
 msgid "Telnet"
 msgstr "Telex"
@@ -4680,7 +4712,7 @@ msgstr ""
 msgid "Mail (SMTP)"
 msgstr "E-posttenar (SMTP)"
 
-#: ../textw/firewall_text.py:100 ../loader/loader.c:1795
+#: ../textw/firewall_text.py:100
 msgid "FTP"
 msgstr "FTP"
 
@@ -4802,22 +4834,22 @@ msgstr ""
 msgid "Activate on boot"
 msgstr "Aktiver og senk"
 
-#: ../textw/network_text.py:83 ../loader/net.c:305 ../loader2/net.c:264
+#: ../textw/network_text.py:83 ../loader2/net.c:284
 #, fuzzy
 msgid "IP address:"
 msgstr "IP-adresse:"
 
-#: ../textw/network_text.py:84 ../loader/net.c:308 ../loader2/net.c:267
+#: ../textw/network_text.py:84 ../loader2/net.c:287
 #, fuzzy
 msgid "Netmask:"
 msgstr "maske"
 
-#: ../textw/network_text.py:85 ../loader/net.c:311 ../loader2/net.c:270
+#: ../textw/network_text.py:85 ../loader2/net.c:290
 #, fuzzy
 msgid "Default gateway (IP):"
 msgstr "Standard gateway"
 
-#: ../textw/network_text.py:87 ../loader/net.c:314 ../loader2/net.c:273
+#: ../textw/network_text.py:87 ../loader2/net.c:293
 #, fuzzy
 msgid "Primary nameserver:"
 msgstr "Primær telefon"
@@ -5309,6 +5341,11 @@ msgstr "Veksleminne"
 msgid "The value you entered is not a valid number."
 msgstr "Passordteksten du oppgav er ugyldig."
 
+#: ../textw/upgrade_text.py:205
+#, fuzzy
+msgid "Reinstall System"
+msgstr "Installasjon"
+
 #: ../textw/upgrade_text.py:207
 #, fuzzy
 msgid "System to Upgrade"
@@ -5346,7 +5383,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 
-#: ../textw/userauth_text.py:37 ../loader/urls.c:389 ../loader2/urls.c:423
+#: ../textw/userauth_text.py:37 ../loader2/urls.c:423
 msgid "Password:"
 msgstr "Passord:"
 
@@ -5781,10 +5818,21 @@ msgstr "ukjend korttype"
 msgid "Video RAM:"
 msgstr "Video"
 
-#: ../textw/zipl_text.py:50
+#: ../textw/zipl_text.py:22
+msgid ""
+"The z/IPL Boot Loader will be installed on your system after installations "
+"is complete. You can now enter any additional kernel and chandev parameters "
+"which your machine or your setup may require."
+msgstr ""
+
+#: ../textw/zipl_text.py:47
 #, fuzzy
 msgid "z/IPL Configuration"
 msgstr "Oppsett"
+
+#: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
+msgid "Chandev line "
+msgstr ""
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -5820,259 +5868,29 @@ msgid ""
 "development and system administration. "
 msgstr ""
 
-#: ../loader/cdrom.c:31
-#, fuzzy
-msgid "CDROM type"
-msgstr "CD-ROM-spelar"
-
-#: ../loader/cdrom.c:31
-msgid "What type of CDROM do you have?"
-msgstr ""
-
-#: ../loader/cdrom.c:88
-#, fuzzy
-msgid "Initializing CDROM..."
-msgstr " Startar opp ..."
-
-#: ../loader/devices.c:92
-msgid ""
-"This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"OK\" "
-"button now."
-msgstr ""
-
-#: ../loader/devices.c:97
-#, fuzzy
-msgid "Module Parameters"
-msgstr "Parametrar"
-
-#: ../loader/devices.c:237 ../loader/devices.c:244 ../loader/devices.c:381
-#: ../loader/loader.c:340 ../loader/loader.c:401 ../loader/loader.c:417
-#: ../loader2/loader.c:796
-msgid "Devices"
-msgstr "Einingar"
-
-#: ../loader/devices.c:239
-#, fuzzy
-msgid "Do you have a driver disk?"
-msgstr " Vil du prøva ein gong til?"
-
-#: ../loader/devices.c:246
-msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
-
-#: ../loader/devices.c:283 ../loader2/driverdisk.c:228
-#, fuzzy
-msgid "Failed to mount driver disk."
-msgstr "Kunne ikkje lasta biletefil."
-
-#: ../loader/devices.c:290
-#, fuzzy, c-format
-msgid ""
-"The floppy disk you inserted is not a valid driver disk for this release of %"
-"s."
-msgstr ""
-"Stien du oppga er ikkje ein gyldig katalog.\n"
-"Rett opp dette."
-
-#: ../loader/devices.c:350
-msgid ""
-"Which driver should I try?. If the driver you need does not appear in this "
-"list, and you have a separate driver disk, please press F2."
-msgstr ""
-
-#: ../loader/devices.c:359
-#, fuzzy
-msgid "Specify module parameters"
-msgstr "Parametrar"
-
-#: ../loader/devices.c:453
-#, fuzzy, c-format
-msgid "Failed to insert %s module."
-msgstr "Kunne ikkje lagra %1."
-
-#: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
-#: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
-#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148 ../loader2/net.c:637
-#: ../loader2/net.c:660 ../loader2/nfsinstall.c:257
-#: ../loader2/urlinstall.c:386 ../loader2/urlinstall.c:395
-#: ../loader2/urlinstall.c:406
-#, fuzzy
-msgid "Kickstart Error"
-msgstr "Kicker-feil!"
-
-#: ../loader/kickstart.c:60
-#, fuzzy, c-format
-msgid "Error opening: kickstart file %s: %s"
-msgstr "Feil ved opning av fila '%1': %2"
-
-#: ../loader/kickstart.c:70 ../loader2/kickstart.c:107
-#, fuzzy, c-format
-msgid "Error reading contents of kickstart file %s: %s"
-msgstr "feil ved lesing frå fila %1"
-
-#: ../loader/kickstart.c:109 ../loader2/kickstart.c:149
-#, fuzzy, c-format
-msgid "Error in %s on line %d of kickstart file %s."
-msgstr "feil ved lesing frå fila %1"
-
-#: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:50
-#: ../loader2/loader.c:166
-#, fuzzy, c-format
-msgid "Welcome to %s"
-msgstr "Velkomen til KDE!"
-
-#: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:51
-#: ../loader2/loader.c:172
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-
-#: ../loader/lang.c:305 ../loader2/lang.c:380
-#, fuzzy
-msgid "Choose a Language"
-msgstr "Nytt språk"
-
-#: ../loader/lang.c:632 ../loader2/kbd.c:123
-#, fuzzy
-msgid "Keyboard Type"
-msgstr "Tastaturrepetisjon"
-
-#: ../loader/lang.c:633 ../loader2/kbd.c:124
-msgid "What type of keyboard do you have?"
-msgstr ""
-
-#: ../loader/loader.c:144 ../loader2/loader.c:97
-#, fuzzy
-msgid "Local CDROM"
-msgstr "Lokal"
-
-#: ../loader/loader.c:147 ../loader2/loader.c:101
-#, fuzzy
-msgid "NFS image"
-msgstr "Nytt bilete"
-
-#: ../loader/loader.c:153 ../loader2/loader.c:98
-#, fuzzy
-msgid "Hard drive"
-msgstr "Harddisk"
-
-#: ../loader/loader.c:327
-msgid "SCSI"
-msgstr "SCSI"
-
-#: ../loader/loader.c:327
-msgid "Network"
-msgstr "Nettverk"
-
-#: ../loader/loader.c:341
-#, fuzzy
-msgid "What kind of device would you like to add"
-msgstr ""
-" er endra.\n"
-"Vil du lagra den?"
-
-#: ../loader/loader.c:390
-msgid "The following devices have been found on your system:"
-msgstr ""
-
-#: ../loader/loader.c:392 ../loader/loader.c:417 ../loader2/loader.c:797
-msgid "Done"
-msgstr "Ferdig"
-
-#: ../loader/loader.c:392 ../loader/loader.c:417 ../loader2/loader.c:798
-#, fuzzy
-msgid "Add Device"
-msgstr "Eining"
-
-#: ../loader/loader.c:418
-msgid ""
-"No special device drivers have been loaded for your system. Would you like "
-"to load any now?"
-msgstr ""
-
-#: ../loader/loader.c:502 ../loader/loader.c:943 ../loader/loader.c:2924
-#: ../loader2/method.c:146 ../loader2/method.c:354 ../loader2/method.c:439
-#, fuzzy, c-format
-msgid "Failed to read directory %s: %s"
-msgstr "Kunne ikkje lesa katalog."
-
-#: ../loader/loader.c:611 ../loader2/hdinstall.c:256
-msgid ""
-"An error occured reading the install from the ISO images. Please check your "
-"ISO images and try again."
-msgstr ""
-
-#: ../loader/loader.c:960 ../loader2/method.c:397
-#, fuzzy, c-format
-msgid ""
-"Would you like to perform a checksum test of the ISO image:\n"
-"\n"
-"   %s?"
-msgstr "Vil du fortsetta med oppgraderinga?"
-
-#: ../loader/loader.c:963 ../loader2/method.c:400
-msgid "Checksum Test"
-msgstr ""
-
-#: ../loader/loader.c:963 ../loader/loader.c:1325 ../loader/loader.c:1328
-#: ../loader/loader.c:1346 ../loader/loader.c:1354 ../loader2/cdinstall.c:91
-#: ../loader2/cdinstall.c:94 ../loader2/cdinstall.c:112
-#: ../loader2/cdinstall.c:120 ../loader2/method.c:400
-msgid "Test"
-msgstr "Test"
-
-#: ../loader/loader.c:1146 ../loader2/hdinstall.c:369
-#, fuzzy
-msgid ""
-"You don't seem to have any hard drives on your system! Would you like to "
-"configure additional devices?"
-msgstr ""
-"Du ser ikkje ut til å ha brukt KOrn før.\n"
-"Vil du ha eit standardoppsett laga for deg?"
-
-#: ../loader/loader.c:1191 ../loader2/hdinstall.c:385
-#, c-format
-msgid ""
-"What partition and directory on that partition hold the CD (iso9660) images "
-"for %s? If you don't see the disk drive you're using listed here, press F2 "
-"to configure additional devices."
-msgstr ""
-
-#: ../loader/loader.c:1207 ../loader2/hdinstall.c:407
-#, fuzzy
-msgid "Directory holding images:"
-msgstr "Katalogar ..."
-
-#: ../loader/loader.c:1227 ../loader2/hdinstall.c:434
-#, fuzzy
-msgid "Select Partition"
-msgstr "Vel mønster:"
-
-#: ../loader/loader.c:1275 ../loader2/hdinstall.c:474
-#, fuzzy, c-format
-msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "%1 ser ikkje ut til å vera ein RPM-pakke"
-
-#: ../loader/loader.c:1325 ../loader/loader.c:1346 ../loader/mediacheck.c:272
 #: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr ""
 
-#: ../loader/loader.c:1325 ../loader/loader.c:1329 ../loader2/cdinstall.c:91
-#: ../loader2/cdinstall.c:95
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:94
+#: ../loader2/cdinstall.c:112 ../loader2/cdinstall.c:120
+#: ../loader2/method.c:409
+msgid "Test"
+msgstr "Test"
+
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:95
 msgid "Eject CD"
 msgstr ""
 
-#: ../loader/loader.c:1326 ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:92
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
 
-#: ../loader/loader.c:1347 ../loader2/cdinstall.c:113
+#: ../loader2/cdinstall.c:113
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -6083,553 +5901,25 @@ msgid ""
 "\"."
 msgstr ""
 
-#: ../loader/loader.c:1368 ../loader/loader.c:1492 ../loader2/cdinstall.c:136
-#: ../loader2/cdinstall.c:348
+#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:348
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
 
-#: ../loader/loader.c:1421 ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:252
 #, fuzzy
 msgid "CD Found"
 msgstr "Ingen disker funne"
 
-#: ../loader/loader.c:1423 ../loader2/cdinstall.c:254
+#: ../loader2/cdinstall.c:254
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
 "\n"
 "Choose %s to skip the media test and start the installation."
 msgstr ""
-
-#: ../loader/loader.c:1588 ../loader2/net.c:719
-#, fuzzy
-msgid "Networking Device"
-msgstr "Nettverk"
-
-#: ../loader/loader.c:1589 ../loader2/net.c:720
-msgid ""
-"You have multiple network devices on this system. Which would you like to "
-"install through?"
-msgstr ""
-
-#: ../loader/loader.c:1710
-#, fuzzy
-msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr ""
-"Den katalogen finst ikkje.\n"
-"Vil du laga den?"
-
-#: ../loader/loader.c:1715
-#, fuzzy
-msgid "That directory could not be mounted from the server"
-msgstr ""
-"Protokollen %1\n"
-"implementerar ikkje ei katalogteneste"
-
-#: ../loader/loader.c:1757 ../loader2/urlinstall.c:58
-#, fuzzy, c-format
-msgid "File %s/%s not found on server."
-msgstr "Fann ikkje fil"
-
-#: ../loader/loader.c:1795
-#, fuzzy
-msgid "HTTP"
-msgstr "For HTTP"
-
-#: ../loader/loader.c:1796
-#, fuzzy
-msgid "Unable to retrieve the first install image"
-msgstr "Kunne ikkje motta fil"
-
-#: ../loader/loader.c:1857
-msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr ""
-
-#: ../loader/loader.c:2091 ../loader2/loader.c:659
-#, fuzzy
-msgid "Rescue Method"
-msgstr "Mottaksmetode"
-
-#: ../loader/loader.c:2092 ../loader2/loader.c:660
-#, fuzzy
-msgid "Installation Method"
-msgstr "Installasjonskatalog"
-
-#: ../loader/loader.c:2094 ../loader2/loader.c:662
-msgid "What type of media contains the rescue image?"
-msgstr ""
-
-#: ../loader/loader.c:2096 ../loader2/loader.c:664
-#, fuzzy
-msgid "What type of media contains the packages to be installed?"
-msgstr "teljer pakkar som skal installerast"
-
-#: ../loader/loader.c:2894 ../loader2/kickstart.c:249
-#, fuzzy
-msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Finn ikkje skrifttype"
-
-#: ../loader/loader.c:2986 ../loader2/loader.c:280
-#, fuzzy
-msgid "Updates Disk"
-msgstr "Oppdater"
-
-#: ../loader/loader.c:2987
-msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr ""
-
-#: ../loader/loader.c:2992
-#, fuzzy, c-format
-msgid ""
-"The floppy disk you inserted is not a valid update disk for this release of %"
-"s."
-msgstr ""
-"Stien du oppga er ikkje ein gyldig katalog.\n"
-"Rett opp dette."
-
-#: ../loader/loader.c:3002
-#, fuzzy
-msgid "Failed to mount floppy disk."
-msgstr "Kunne ikkje lasta %1."
-
-#: ../loader/loader.c:3007 ../loader2/loader.c:295
-#, fuzzy
-msgid "Updates"
-msgstr "Oppdater"
-
-#: ../loader/loader.c:3007 ../loader2/loader.c:295
-#, fuzzy
-msgid "Reading anaconda updates..."
-msgstr "Les side på nytt ..."
-
-#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader2/driverdisk.c:90
-#: ../loader2/firewire.c:50
-#, fuzzy
-msgid "Loading"
-msgstr "lastar"
-
-#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader/windows.c:47
-#: ../loader2/firewire.c:50 ../loader2/windows.c:65
-#, fuzzy, c-format
-msgid "Loading %s driver..."
-msgstr "Lastar grupper ..."
-
-#: ../loader/loader.c:3320 ../loader2/loader.c:548
-#, fuzzy, c-format
-msgid "You do not have enough RAM to install %s on this machine."
-msgstr ""
-"Du har ikkje nok RAM til å bruka grafisk installasjon. Startar i tekstmodus."
-
-#: ../loader/loader.c:3362
-msgid ""
-"The second stage of the install which you have selected does not match the "
-"boot disk which you are using.  This shouldn't happen, and I'm rebooting "
-"your system now."
-msgstr ""
-
-#: ../loader/loader.c:3763
-msgid ""
-"No hard drives have been found. You probably need to manually choose device "
-"drivers for the installation to succeed. Would you like to select drivers "
-"now?"
-msgstr ""
-
-#: ../loader/loader.c:3950 ../loader2/loader.c:1149
-#, fuzzy, c-format
-msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Køyrer autoconf/automake ..."
-
-#: ../loader/mediacheck.c:256 ../loader2/mediacheck.c:256
-msgid ""
-"Unable to read the disc checksum from the primary volume descriptor.  This "
-"probably means the disc was created without adding the checksum."
-msgstr ""
-
-#: ../loader/mediacheck.c:264 ../loader2/mediacheck.c:264
-#, c-format
-msgid "Checking \"%s\"..."
-msgstr ""
-
-#: ../loader/mediacheck.c:266 ../loader2/mediacheck.c:266
-msgid "Checking media now..."
-msgstr ""
-
-#: ../loader/mediacheck.c:312 ../loader2/mediacheck.c:312
-#, fuzzy, c-format
-msgid "Unable to find install image %s"
-msgstr "Kunne ikkje motta fil"
-
-#: ../loader/mediacheck.c:322 ../loader2/mediacheck.c:322
-msgid ""
-"FAIL.\n"
-"\n"
-"It is not recommended to use this media."
-msgstr ""
-
-#: ../loader/mediacheck.c:326 ../loader2/mediacheck.c:326
-msgid ""
-"PASS.\n"
-"\n"
-"It is OK to install from this media."
-msgstr ""
-
-#: ../loader/mediacheck.c:330 ../loader2/mediacheck.c:330
-msgid ""
-"NA.\n"
-"\n"
-"No checksum information available, unable to verify media."
-msgstr ""
-
-#: ../loader/mediacheck.c:334 ../loader2/mediacheck.c:334
-msgid "Media Check Result"
-msgstr ""
-
-#: ../loader/mediacheck.c:338 ../loader2/mediacheck.c:338
-#, c-format
-msgid ""
-"of the image:\n"
-"\n"
-"%s\n"
-"\n"
-msgstr ""
-
-#: ../loader/mediacheck.c:342 ../loader2/mediacheck.c:342
-#, c-format
-msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
-
-#: ../loader/modules.c:391
-#, fuzzy, c-format
-msgid "Failed to mount driver disk: %s."
-msgstr "Kunne ikkje lagra %1."
-
-#: ../loader/modules.c:411
-msgid "The wrong diskette was inserted."
-msgstr ""
-
-#: ../loader/modules.c:450
-#, fuzzy
-msgid "Driver Disk"
-msgstr "&Drivarar"
-
-#: ../loader/modules.c:451
-#, fuzzy, c-format
-msgid "Please insert the %s driver disk now."
-msgstr "Vel filterradiusen."
-
-#: ../loader/net.c:62 ../loader2/net.c:41
-#, c-format
-msgid ""
-"Please enter the following information:\n"
-"\n"
-"    o the name or IP number of your %s server\n"
-"    o the directory on that server containing\n"
-"      %s for your architecture\n"
-msgstr ""
-
-#: ../loader/net.c:176 ../loader2/nfsinstall.c:43
-#, fuzzy
-msgid "NFS server name:"
-msgstr "&Tenarnamn:"
-
-#: ../loader/net.c:179 ../loader/urls.c:226 ../loader2/nfsinstall.c:46
-#: ../loader2/urls.c:276
-#, fuzzy
-msgid "Red Hat directory:"
-msgstr "Rotkatalog:"
-
-#: ../loader/net.c:185 ../loader2/nfsinstall.c:52
-#, fuzzy
-msgid "NFS Setup"
-msgstr "DNS-oppsett"
-
-#: ../loader/net.c:259 ../loader2/net.c:141
-#, fuzzy
-msgid "Nameserver IP"
-msgstr "Name=X-tenar"
-
-#: ../loader/net.c:263 ../loader/net.c:819 ../loader2/net.c:145
-#, fuzzy
-msgid "Nameserver"
-msgstr "Name=X-tenar"
-
-#: ../loader/net.c:264 ../loader2/net.c:146
-msgid ""
-"Your dynamic IP request returned IP configuration information, but it did "
-"not include a DNS nameserver. If you know what your nameserver is, please "
-"enter it now. If you don't have this information, you can leave this field "
-"blank and the install will continue."
-msgstr ""
-
-#: ../loader/net.c:274 ../loader2/net.c:156
-#, fuzzy
-msgid "Invalid IP Information"
-msgstr "Ugyldig format"
-
-#: ../loader/net.c:275 ../loader2/net.c:157
-#, fuzzy
-msgid "You entered an invalid IP address."
-msgstr "Oppgi ei gyldig e-postadresse."
-
-#: ../loader/net.c:299 ../loader2/net.c:258
-msgid ""
-"Please enter the IP configuration for this machine. Each item should be "
-"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr ""
-
-#: ../loader/net.c:341 ../loader2/net.c:300
-msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
-
-#: ../loader/net.c:369 ../loader2/net.c:328
-#, fuzzy
-msgid "Configure TCP/IP"
-msgstr "Set opp AI"
-
-#: ../loader/net.c:400 ../loader2/net.c:359
-#, fuzzy
-msgid "Missing Information"
-msgstr "Rekningsinformasjon"
-
-#: ../loader/net.c:401 ../loader2/net.c:360
-#, fuzzy
-msgid "You must enter both a valid IP address and a netmask."
-msgstr "Du må oppgi ei skrivaradresse."
-
-#: ../loader/net.c:409 ../loader/net.c:752 ../loader2/net.c:188
-#: ../loader2/net.c:368
-#, fuzzy
-msgid "Dynamic IP"
-msgstr "Dynamisk IP-adresse"
-
-#: ../loader/net.c:410 ../loader/net.c:753 ../loader2/net.c:369
-#, fuzzy
-msgid "Sending request for IP information..."
-msgstr "Les brukarinformasjon ..."
-
-#: ../loader/net.c:625 ../loader2/net.c:563
-#, fuzzy
-msgid "Determining host name and domain..."
-msgstr "Avgjer suspenderingsstatus ..."
-
-#: ../loader/net.c:736 ../loader/net.c:769
-#, fuzzy
-msgid "kickstart"
-msgstr "startar"
-
-#: ../loader/net.c:737
-#, c-format
-msgid "bad argument to kickstart network command %s: %s"
-msgstr ""
-
-#: ../loader/net.c:770 ../loader2/net.c:661
-#, c-format
-msgid "Bad bootproto %s specified in network command"
-msgstr ""
-
-#: ../loader/net.c:813
-#, fuzzy
-msgid "Boot protocol to use"
-msgstr "Delen som skal brukast"
-
-#: ../loader/net.c:815
-#, fuzzy
-msgid "Network gateway"
-msgstr "Nettverk-adapter"
-
-#: ../loader/net.c:817
-#, fuzzy
-msgid "IP address"
-msgstr "IP-adresse:"
-
-#: ../loader/net.c:821
-#, fuzzy
-msgid "Netmask"
-msgstr "maske"
-
-#: ../loader/net.c:826
-#, fuzzy
-msgid "Domain name"
-msgstr "Domenenamn:"
-
-#: ../loader/net.c:829
-#, fuzzy
-msgid "Network device"
-msgstr "Ny teneste"
-
-#: ../loader/net.c:832
-#, fuzzy
-msgid "No DNS lookups"
-msgstr "Bruk lydar"
-
-#: ../loader/net.c:904
-msgid ""
-" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-"screen"
-msgstr ""
-
-#: ../loader/net.c:905
-#, c-format
-msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr ""
-
-#: ../loader/net.c:907
-#, fuzzy
-msgid "Network configuration"
-msgstr "Name=Talk-oppsett"
-
-#: ../loader/net.c:908
-#, fuzzy
-msgid "Would you like to set up networking?"
-msgstr "Vil du lagra endringane?"
-
-#: ../loader/pcmcia.c:38
-msgid "PC Card"
-msgstr ""
-
-#: ../loader/pcmcia.c:39
-#, fuzzy
-msgid "Initializing PC Card Devices..."
-msgstr "Initierer systemtenester."
-
-#: ../loader/pcmcia.c:107
-#, fuzzy
-msgid "PCMCIA"
-msgstr "Name=PCMCIA"
-
-#: ../loader/pcmcia.c:108
-msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr ""
-
-#: ../loader/pcmcia.c:117
-#, fuzzy
-msgid "Failed to mount disk."
-msgstr "Kunne ikkje kopla til."
-
-#: ../loader/pcmcia.c:135
-msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
-
-#: ../loader/telnetd.c:64 ../loader2/telnetd.c:82
-msgid "Waiting for telnet connection..."
-msgstr ""
-
-#: ../loader/telnetd.c:106 ../loader2/telnetd.c:124
-#, fuzzy
-msgid "Running anaconda via telnet..."
-msgstr "Køyrer autoconf/automake ..."
-
-#: ../loader/urls.c:82 ../loader2/urls.c:169
-#, fuzzy, c-format
-msgid "Failed to log into %s: %s"
-msgstr ""
-"Feil ved lasting av bilete:\n"
-"%1"
-
-#: ../loader/urls.c:92 ../loader/urls.c:100 ../loader2/urls.c:179
-#: ../loader2/urls.c:187
-#, fuzzy, c-format
-msgid "Failed to retrieve %s: %s"
-msgstr "Kunne ikkje motta fil"
-
-#: ../loader/urls.c:105 ../loader2/urls.c:192
-#, fuzzy
-msgid "Retrieving"
-msgstr "Omstartar"
-
-#: ../loader/urls.c:222 ../loader2/urls.c:272
-#, fuzzy
-msgid "FTP site name:"
-msgstr "Filnamn:"
-
-#: ../loader/urls.c:223 ../loader2/urls.c:273
-#, fuzzy
-msgid "Web site name:"
-msgstr "Namn på visingselement:"
-
-#: ../loader/urls.c:241 ../loader2/urls.c:290
-#, fuzzy
-msgid "Use non-anonymous ftp"
-msgstr "Bruk anonym tilgang"
-
-#: ../loader/urls.c:246
-msgid "Use proxy server"
-msgstr "Bruk proxy-tenar"
-
-#: ../loader/urls.c:258 ../loader2/urls.c:299
-#, fuzzy
-msgid "FTP Setup"
-msgstr "SMTP-oppsett"
-
-#: ../loader/urls.c:259 ../loader2/urls.c:300
-#, fuzzy
-msgid "HTTP Setup"
-msgstr "SMTP-oppsett"
-
-#: ../loader/urls.c:269 ../loader2/urls.c:310
-#, fuzzy
-msgid "You must enter a server name."
-msgstr "Du må skriva eit namn"
-
-#: ../loader/urls.c:274 ../loader2/urls.c:315
-#, fuzzy
-msgid "You must enter a directory."
-msgstr "Du må skriva eit namn"
-
-#: ../loader/urls.c:279 ../loader2/urls.c:320
-msgid "Unknown Host"
-msgstr "Ukjend vert"
-
-#: ../loader/urls.c:280 ../loader2/urls.c:321
-#, fuzzy, c-format
-msgid "%s is not a valid hostname."
-msgstr "Dette er ikkje eit gyldig filnamn.\n"
-
-#: ../loader/urls.c:360 ../loader2/urls.c:394
-msgid ""
-"If you are using non anonymous ftp, enter the account name and password you "
-"wish to use below."
-msgstr ""
-
-#: ../loader/urls.c:365 ../loader2/urls.c:399
-#, fuzzy
-msgid ""
-"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-"to use."
-msgstr "Dersom du vil bruka ein HTTP-proxytenar, oppgi adressa her."
-
-#: ../loader/urls.c:386 ../loader2/urls.c:420
-#, fuzzy
-msgid "Account name:"
-msgstr "Konto:"
-
-#: ../loader/urls.c:395
-#, fuzzy
-msgid "FTP Proxy:"
-msgstr "&FTP-proxy:"
-
-#: ../loader/urls.c:396
-#, fuzzy
-msgid "HTTP Proxy:"
-msgstr "&HTTP-proxy:"
-
-#: ../loader/urls.c:400
-#, fuzzy
-msgid "FTP Proxy Port:"
-msgstr "&FTP-proxy:"
-
-#: ../loader/urls.c:401
-#, fuzzy
-msgid "HTTP Proxy Port:"
-msgstr "&HTTP-proxy:"
-
-#: ../loader/windows.c:46 ../loader2/windows.c:64
-#, fuzzy
-msgid "Loading SCSI driver"
-msgstr "&Last drivar"
 
 #: ../loader2/cdinstall.c:343
 #, c-format
@@ -6646,6 +5936,11 @@ msgstr "Ingen disker funne"
 #: ../loader2/cdinstall.c:424
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
+
+#: ../loader2/driverdisk.c:90 ../loader2/firewire.c:50
+#, fuzzy
+msgid "Loading"
+msgstr "lastar"
 
 #: ../loader2/driverdisk.c:90
 #, fuzzy
@@ -6673,32 +5968,37 @@ msgstr ""
 msgid "Insert Driver Disk"
 msgstr "&Drivarar"
 
-#: ../loader2/driverdisk.c:289
+#: ../loader2/driverdisk.c:228
+#, fuzzy
+msgid "Failed to mount driver disk."
+msgstr "Kunne ikkje lasta biletefil."
+
+#: ../loader2/driverdisk.c:291
 msgid "Manually choose"
 msgstr ""
 
-#: ../loader2/driverdisk.c:290
+#: ../loader2/driverdisk.c:292
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:291
+#: ../loader2/driverdisk.c:293
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:339
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "&Drivarar"
 
-#: ../loader2/driverdisk.c:338
+#: ../loader2/driverdisk.c:340
 #, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr " Vil du prøva ein gong til?"
 
-#: ../loader2/driverselect.c:59
+#: ../loader2/driverselect.c:60
 #, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
@@ -6707,26 +6007,94 @@ msgid ""
 "obtained by pressing the F1 key."
 msgstr ""
 
-#: ../loader2/driverselect.c:82
+#: ../loader2/driverselect.c:83
 #, fuzzy
 msgid "Enter Module Parameters"
 msgstr "Parametrar"
 
-#: ../loader2/driverselect.c:191
+#: ../loader2/driverselect.c:186
+#, fuzzy
+msgid "No drivers found"
+msgstr "Ingen disker funne"
+
+#: ../loader2/driverselect.c:186
+#, fuzzy
+msgid "Load driver disk"
+msgstr " Vil du prøva ein gong til?"
+
+#: ../loader2/driverselect.c:187
+msgid ""
+"No drivers were found to manually insert.  Would you like to use a driver "
+"disk?"
+msgstr ""
+
+#: ../loader2/driverselect.c:206
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
 msgstr ""
 
-#: ../loader2/driverselect.c:199
+#: ../loader2/driverselect.c:214
 #, fuzzy
 msgid "Specify optional module arguments"
 msgstr "Parametrar"
 
-#: ../loader2/driverselect.c:219
+#: ../loader2/driverselect.c:234
 #, fuzzy
 msgid "Select Device Driver to Load"
 msgstr "Vel felta som skal visast"
+
+#: ../loader2/firewire.c:50 ../loader2/windows.c:65
+#, fuzzy, c-format
+msgid "Loading %s driver..."
+msgstr "Lastar grupper ..."
+
+#: ../loader2/hdinstall.c:256
+msgid ""
+"An error occured reading the install from the ISO images. Please check your "
+"ISO images and try again."
+msgstr ""
+
+#: ../loader2/hdinstall.c:369
+#, fuzzy
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"Du ser ikkje ut til å ha brukt KOrn før.\n"
+"Vil du ha eit standardoppsett laga for deg?"
+
+#: ../loader2/hdinstall.c:385
+#, c-format
+msgid ""
+"What partition and directory on that partition hold the CD (iso9660) images "
+"for %s? If you don't see the disk drive you're using listed here, press F2 "
+"to configure additional devices."
+msgstr ""
+
+#: ../loader2/hdinstall.c:407
+#, fuzzy
+msgid "Directory holding images:"
+msgstr "Katalogar ..."
+
+#: ../loader2/hdinstall.c:434
+#, fuzzy
+msgid "Select Partition"
+msgstr "Vel mønster:"
+
+#: ../loader2/hdinstall.c:474
+#, fuzzy, c-format
+msgid "Device %s does not appear to contain Red Hat CDROM images."
+msgstr "%1 ser ikkje ut til å vera ein RPM-pakke"
+
+#: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
+#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:149 ../loader2/net.c:658
+#: ../loader2/net.c:681 ../loader2/nfsinstall.c:257
+#: ../loader2/urlinstall.c:388 ../loader2/urlinstall.c:397
+#: ../loader2/urlinstall.c:408
+#, fuzzy
+msgid "Kickstart Error"
+msgstr "Kicker-feil!"
 
 #: ../loader2/hdinstall.c:505
 #, c-format
@@ -6737,10 +6105,64 @@ msgstr ""
 msgid "Cannot find kickstart file on hard drive."
 msgstr ""
 
+#: ../loader2/kbd.c:123
+#, fuzzy
+msgid "Keyboard Type"
+msgstr "Tastaturrepetisjon"
+
+#: ../loader2/kbd.c:124
+msgid "What type of keyboard do you have?"
+msgstr ""
+
 #: ../loader2/kickstart.c:98
 #, fuzzy, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Feil ved opning av fila '%1': %2"
+
+#: ../loader2/kickstart.c:107
+#, fuzzy, c-format
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "feil ved lesing frå fila %1"
+
+#: ../loader2/kickstart.c:150
+#, fuzzy, c-format
+msgid "Error in %s on line %d of kickstart file %s."
+msgstr "feil ved lesing frå fila %1"
+
+#: ../loader2/kickstart.c:250
+#, fuzzy
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Finn ikkje skrifttype"
+
+#: ../loader2/lang.c:50 ../loader2/loader.c:166
+#, fuzzy, c-format
+msgid "Welcome to %s"
+msgstr "Velkomen til KDE!"
+
+#: ../loader2/lang.c:51 ../loader2/loader.c:172
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+
+#: ../loader2/lang.c:380
+#, fuzzy
+msgid "Choose a Language"
+msgstr "Nytt språk"
+
+#: ../loader2/loader.c:97
+#, fuzzy
+msgid "Local CDROM"
+msgstr "Lokal"
+
+#: ../loader2/loader.c:98
+#, fuzzy
+msgid "Hard drive"
+msgstr "Harddisk"
+
+#: ../loader2/loader.c:101
+#, fuzzy
+msgid "NFS image"
+msgstr "Nytt bilete"
 
 #: ../loader2/loader.c:263
 #, fuzzy
@@ -6758,10 +6180,25 @@ msgstr ""
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 
+#: ../loader2/loader.c:280
+#, fuzzy
+msgid "Updates Disk"
+msgstr "Oppdater"
+
 #: ../loader2/loader.c:292
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Kunne ikkje lasta biletefil."
+
+#: ../loader2/loader.c:295
+#, fuzzy
+msgid "Updates"
+msgstr "Oppdater"
+
+#: ../loader2/loader.c:295
+#, fuzzy
+msgid "Reading anaconda updates..."
+msgstr "Les side på nytt ..."
 
 #: ../loader2/loader.c:317
 msgid ""
@@ -6769,6 +6206,31 @@ msgid ""
 "drivers for the installation to succeed.  Would you like to select drivers "
 "now?"
 msgstr ""
+
+#: ../loader2/loader.c:548
+#, fuzzy, c-format
+msgid "You do not have enough RAM to install %s on this machine."
+msgstr ""
+"Du har ikkje nok RAM til å bruka grafisk installasjon. Startar i tekstmodus."
+
+#: ../loader2/loader.c:659
+#, fuzzy
+msgid "Rescue Method"
+msgstr "Mottaksmetode"
+
+#: ../loader2/loader.c:660
+#, fuzzy
+msgid "Installation Method"
+msgstr "Installasjonskatalog"
+
+#: ../loader2/loader.c:662
+msgid "What type of media contains the rescue image?"
+msgstr ""
+
+#: ../loader2/loader.c:664
+#, fuzzy
+msgid "What type of media contains the packages to be installed?"
+msgstr "teljer pakkar som skal installerast"
 
 #: ../loader2/loader.c:694
 #, fuzzy
@@ -6804,17 +6266,217 @@ msgstr ""
 "Du ser ikkje ut til å ha brukt KOrn før.\n"
 "Vil du ha eit standardoppsett laga for deg?"
 
-#: ../loader2/net.c:189
+#: ../loader2/loader.c:796
+msgid "Devices"
+msgstr "Einingar"
+
+#: ../loader2/loader.c:797
+msgid "Done"
+msgstr "Ferdig"
+
+#: ../loader2/loader.c:798
+#, fuzzy
+msgid "Add Device"
+msgstr "Eining"
+
+#: ../loader2/loader.c:1149
 #, fuzzy, c-format
-msgid "Sending request for IP information for %s"
+msgid "Running anaconda, the %s system installer - please wait...\n"
+msgstr "Køyrer autoconf/automake ..."
+
+#: ../loader2/mediacheck.c:256
+msgid ""
+"Unable to read the disc checksum from the primary volume descriptor.  This "
+"probably means the disc was created without adding the checksum."
+msgstr ""
+
+#: ../loader2/mediacheck.c:264
+#, c-format
+msgid "Checking \"%s\"..."
+msgstr ""
+
+#: ../loader2/mediacheck.c:266
+msgid "Checking media now..."
+msgstr ""
+
+#: ../loader2/mediacheck.c:312
+#, fuzzy, c-format
+msgid "Unable to find install image %s"
+msgstr "Kunne ikkje motta fil"
+
+#: ../loader2/mediacheck.c:322
+msgid ""
+"FAIL.\n"
+"\n"
+"The image which was just tested has errors. This could be due to a corrupt "
+"download or a bad disc.  If applicable, please clean the disc and try "
+"again.  If this test continues to fail you should not continue the install."
+msgstr ""
+
+#: ../loader2/mediacheck.c:333
+msgid ""
+"PASS.\n"
+"\n"
+"It is OK to install from this media."
+msgstr ""
+
+#: ../loader2/mediacheck.c:337
+msgid ""
+"NA.\n"
+"\n"
+"No checksum information available, unable to verify media."
+msgstr ""
+
+#: ../loader2/mediacheck.c:341
+msgid "Media Check Result"
+msgstr ""
+
+#: ../loader2/mediacheck.c:345
+#, c-format
+msgid ""
+"of the image:\n"
+"\n"
+"%s\n"
+"\n"
+msgstr ""
+
+#: ../loader2/mediacheck.c:349
+#, c-format
+msgid "The media check %sis complete, and the result is: %s\n"
+msgstr ""
+
+#: ../loader2/method.c:155 ../loader2/method.c:363 ../loader2/method.c:448
+#, fuzzy, c-format
+msgid "Failed to read directory %s: %s"
+msgstr "Kunne ikkje lesa katalog."
+
+#: ../loader2/method.c:406
+#, fuzzy, c-format
+msgid ""
+"Would you like to perform a checksum test of the ISO image:\n"
+"\n"
+"   %s?"
+msgstr "Vil du fortsetta med oppgraderinga?"
+
+#: ../loader2/method.c:409
+msgid "Checksum Test"
+msgstr ""
+
+#: ../loader2/net.c:43
+#, c-format
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your %s server\n"
+"    o the directory on that server containing\n"
+"      %s for your architecture\n"
+msgstr ""
+
+#: ../loader2/net.c:160
+#, fuzzy
+msgid "Nameserver IP"
+msgstr "Name=X-tenar"
+
+#: ../loader2/net.c:164
+#, fuzzy
+msgid "Nameserver"
+msgstr "Name=X-tenar"
+
+#: ../loader2/net.c:165
+msgid ""
+"Your dynamic IP request returned IP configuration information, but it did "
+"not include a DNS nameserver. If you know what your nameserver is, please "
+"enter it now. If you don't have this information, you can leave this field "
+"blank and the install will continue."
+msgstr ""
+
+#: ../loader2/net.c:175
+#, fuzzy
+msgid "Invalid IP Information"
+msgstr "Ugyldig format"
+
+#: ../loader2/net.c:176
+#, fuzzy
+msgid "You entered an invalid IP address."
+msgstr "Oppgi ei gyldig e-postadresse."
+
+#: ../loader2/net.c:207 ../loader2/net.c:388
+#, fuzzy
+msgid "Dynamic IP"
+msgstr "Dynamisk IP-adresse"
+
+#: ../loader2/net.c:208 ../loader2/net.c:389
+#, fuzzy, c-format
+msgid "Sending request for IP information for %s..."
 msgstr "Les brukarinformasjon ..."
 
-#: ../loader2/net.c:638
+#: ../loader2/net.c:278
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+
+#: ../loader2/net.c:320
+msgid "Use dynamic IP configuration (BOOTP/DHCP)"
+msgstr ""
+
+#: ../loader2/net.c:348
+#, fuzzy
+msgid "Configure TCP/IP"
+msgstr "Set opp AI"
+
+#: ../loader2/net.c:379
+#, fuzzy
+msgid "Missing Information"
+msgstr "Rekningsinformasjon"
+
+#: ../loader2/net.c:380
+#, fuzzy
+msgid "You must enter both a valid IP address and a netmask."
+msgstr "Du må oppgi ei skrivaradresse."
+
+#: ../loader2/net.c:584
+#, fuzzy
+msgid "Determining host name and domain..."
+msgstr "Avgjer suspenderingsstatus ..."
+
+#: ../loader2/net.c:659
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr ""
 
-#: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:104
+#: ../loader2/net.c:682
+#, c-format
+msgid "Bad bootproto %s specified in network command"
+msgstr ""
+
+#: ../loader2/net.c:740
+#, fuzzy
+msgid "Networking Device"
+msgstr "Nettverk"
+
+#: ../loader2/net.c:741
+msgid ""
+"You have multiple network devices on this system. Which would you like to "
+"install through?"
+msgstr ""
+
+#: ../loader2/nfsinstall.c:43
+#, fuzzy
+msgid "NFS server name:"
+msgstr "&Tenarnamn:"
+
+#: ../loader2/nfsinstall.c:46 ../loader2/urls.c:276
+#, fuzzy
+msgid "Red Hat directory:"
+msgstr "Rotkatalog:"
+
+#: ../loader2/nfsinstall.c:52
+#, fuzzy
+msgid "NFS Setup"
+msgstr "DNS-oppsett"
+
+#: ../loader2/nfsinstall.c:209 ../loader2/urlinstall.c:106
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6840,24 +6502,122 @@ msgstr ""
 msgid "Bad argument to NFS kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/urlinstall.c:96
+#: ../loader2/telnetd.c:82
+msgid "Waiting for telnet connection..."
+msgstr ""
+
+#: ../loader2/telnetd.c:124
+#, fuzzy
+msgid "Running anaconda via telnet..."
+msgstr "Køyrer autoconf/automake ..."
+
+#: ../loader2/urlinstall.c:58
+#, fuzzy, c-format
+msgid "Unable to retrieve %s://%s/%s/%s."
+msgstr "Kunne ikkje motta fil"
+
+#: ../loader2/urlinstall.c:98
 #, fuzzy
 msgid "Unable to retrieve the install image."
 msgstr "Kunne ikkje motta fil"
 
-#: ../loader2/urlinstall.c:387
+#: ../loader2/urlinstall.c:389
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/urlinstall.c:396
+#: ../loader2/urlinstall.c:398
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:407
+#: ../loader2/urlinstall.c:409
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "ukjend korttype"
+
+#: ../loader2/urls.c:169
+#, fuzzy, c-format
+msgid "Failed to log into %s: %s"
+msgstr ""
+"Feil ved lasting av bilete:\n"
+"%1"
+
+#: ../loader2/urls.c:179 ../loader2/urls.c:187
+#, fuzzy, c-format
+msgid "Failed to retrieve %s: %s"
+msgstr "Kunne ikkje motta fil"
+
+#: ../loader2/urls.c:192
+#, fuzzy
+msgid "Retrieving"
+msgstr "Omstartar"
+
+#: ../loader2/urls.c:272
+#, fuzzy
+msgid "FTP site name:"
+msgstr "Filnamn:"
+
+#: ../loader2/urls.c:273
+#, fuzzy
+msgid "Web site name:"
+msgstr "Namn på visingselement:"
+
+#: ../loader2/urls.c:290
+#, fuzzy
+msgid "Use non-anonymous ftp"
+msgstr "Bruk anonym tilgang"
+
+#: ../loader2/urls.c:299
+#, fuzzy
+msgid "FTP Setup"
+msgstr "SMTP-oppsett"
+
+#: ../loader2/urls.c:300
+#, fuzzy
+msgid "HTTP Setup"
+msgstr "SMTP-oppsett"
+
+#: ../loader2/urls.c:310
+#, fuzzy
+msgid "You must enter a server name."
+msgstr "Du må skriva eit namn"
+
+#: ../loader2/urls.c:315
+#, fuzzy
+msgid "You must enter a directory."
+msgstr "Du må skriva eit namn"
+
+#: ../loader2/urls.c:320
+msgid "Unknown Host"
+msgstr "Ukjend vert"
+
+#: ../loader2/urls.c:321
+#, fuzzy, c-format
+msgid "%s is not a valid hostname."
+msgstr "Dette er ikkje eit gyldig filnamn.\n"
+
+#: ../loader2/urls.c:394
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below."
+msgstr ""
+
+#: ../loader2/urls.c:399
+#, fuzzy
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr "Dersom du vil bruka ein HTTP-proxytenar, oppgi adressa her."
+
+#: ../loader2/urls.c:420
+#, fuzzy
+msgid "Account name:"
+msgstr "Konto:"
+
+#: ../loader2/windows.c:64
+#, fuzzy
+msgid "Loading SCSI driver"
+msgstr "&Last drivar"
 
 #. generated from zone.tab
 #, fuzzy
@@ -7597,6 +7357,11 @@ msgid "Portuguese"
 msgstr "Portugisisk"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Portuguese (Brasilian)"
+msgstr "Portugisisk"
+
+#. generated from lang-table
 msgid "Russian"
 msgstr "Russisk"
 
@@ -7616,6 +7381,178 @@ msgstr "Svensk"
 #, fuzzy
 msgid "Ukrainian"
 msgstr "Brasiliansk"
+
+#, fuzzy
+#~ msgid "T_ext"
+#~ msgstr "Neste"
+
+#, fuzzy
+#~ msgid "CDROM type"
+#~ msgstr "CD-ROM-spelar"
+
+#, fuzzy
+#~ msgid "Initializing CDROM..."
+#~ msgstr " Startar opp ..."
+
+#, fuzzy
+#~ msgid "Module Parameters"
+#~ msgstr "Parametrar"
+
+#, fuzzy
+#~ msgid "Do you have a driver disk?"
+#~ msgstr " Vil du prøva ein gong til?"
+
+#, fuzzy
+#~ msgid ""
+#~ "The floppy disk you inserted is not a valid driver disk for this release "
+#~ "of %s."
+#~ msgstr ""
+#~ "Stien du oppga er ikkje ein gyldig katalog.\n"
+#~ "Rett opp dette."
+
+#, fuzzy
+#~ msgid "Specify module parameters"
+#~ msgstr "Parametrar"
+
+#, fuzzy
+#~ msgid "Failed to insert %s module."
+#~ msgstr "Kunne ikkje lagra %1."
+
+#, fuzzy
+#~ msgid "Error opening: kickstart file %s: %s"
+#~ msgstr "Feil ved opning av fila '%1': %2"
+
+#~ msgid "SCSI"
+#~ msgstr "SCSI"
+
+#, fuzzy
+#~ msgid "What kind of device would you like to add"
+#~ msgstr ""
+#~ " er endra.\n"
+#~ "Vil du lagra den?"
+
+#, fuzzy
+#~ msgid "That directory does not seem to contain a Red Hat installation tree."
+#~ msgstr ""
+#~ "Den katalogen finst ikkje.\n"
+#~ "Vil du laga den?"
+
+#, fuzzy
+#~ msgid "That directory could not be mounted from the server"
+#~ msgstr ""
+#~ "Protokollen %1\n"
+#~ "implementerar ikkje ei katalogteneste"
+
+#, fuzzy
+#~ msgid "File %s/%s not found on server."
+#~ msgstr "Fann ikkje fil"
+
+#, fuzzy
+#~ msgid "HTTP"
+#~ msgstr "For HTTP"
+
+#, fuzzy
+#~ msgid "Unable to retrieve the first install image"
+#~ msgstr "Kunne ikkje motta fil"
+
+#, fuzzy
+#~ msgid ""
+#~ "The floppy disk you inserted is not a valid update disk for this release "
+#~ "of %s."
+#~ msgstr ""
+#~ "Stien du oppga er ikkje ein gyldig katalog.\n"
+#~ "Rett opp dette."
+
+#, fuzzy
+#~ msgid "Failed to mount floppy disk."
+#~ msgstr "Kunne ikkje lasta %1."
+
+#, fuzzy
+#~ msgid "Failed to mount driver disk: %s."
+#~ msgstr "Kunne ikkje lagra %1."
+
+#, fuzzy
+#~ msgid "Driver Disk"
+#~ msgstr "&Drivarar"
+
+#, fuzzy
+#~ msgid "Please insert the %s driver disk now."
+#~ msgstr "Vel filterradiusen."
+
+#, fuzzy
+#~ msgid "Sending request for IP information..."
+#~ msgstr "Les brukarinformasjon ..."
+
+#, fuzzy
+#~ msgid "kickstart"
+#~ msgstr "startar"
+
+#, fuzzy
+#~ msgid "Boot protocol to use"
+#~ msgstr "Delen som skal brukast"
+
+#, fuzzy
+#~ msgid "Network gateway"
+#~ msgstr "Nettverk-adapter"
+
+#, fuzzy
+#~ msgid "IP address"
+#~ msgstr "IP-adresse:"
+
+#, fuzzy
+#~ msgid "Netmask"
+#~ msgstr "maske"
+
+#, fuzzy
+#~ msgid "Domain name"
+#~ msgstr "Domenenamn:"
+
+#, fuzzy
+#~ msgid "Network device"
+#~ msgstr "Ny teneste"
+
+#, fuzzy
+#~ msgid "No DNS lookups"
+#~ msgstr "Bruk lydar"
+
+#, fuzzy
+#~ msgid "Network configuration"
+#~ msgstr "Name=Talk-oppsett"
+
+#, fuzzy
+#~ msgid "Would you like to set up networking?"
+#~ msgstr "Vil du lagra endringane?"
+
+#, fuzzy
+#~ msgid "Initializing PC Card Devices..."
+#~ msgstr "Initierer systemtenester."
+
+#, fuzzy
+#~ msgid "PCMCIA"
+#~ msgstr "Name=PCMCIA"
+
+#, fuzzy
+#~ msgid "Failed to mount disk."
+#~ msgstr "Kunne ikkje kopla til."
+
+#~ msgid "Use proxy server"
+#~ msgstr "Bruk proxy-tenar"
+
+#, fuzzy
+#~ msgid "FTP Proxy:"
+#~ msgstr "&FTP-proxy:"
+
+#, fuzzy
+#~ msgid "HTTP Proxy:"
+#~ msgstr "&HTTP-proxy:"
+
+#, fuzzy
+#~ msgid "FTP Proxy Port:"
+#~ msgstr "&FTP-proxy:"
+
+#, fuzzy
+#~ msgid "HTTP Proxy Port:"
+#~ msgstr "&HTTP-proxy:"
 
 #~ msgid "Mouse Not Detected"
 #~ msgstr "Ikkje noko mus funne"
