@@ -96,7 +96,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu hwdata db3 bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda rpm404-python anaconda-help booty
-         hdparm lvm librpm404 rhpl libxml2 libxml2-python"
+         hdparm lvm librpm404 rhpl libxml2 libxml2-python rdate"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -133,7 +133,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
            redhat-config-keyboard Xft fontconfig expat redhat-artwork
-           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts"
+           ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts rdate"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -271,6 +271,7 @@ usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/bin/python
 usr/bin/python2.2
+usr/bin/rdate
 usr/lib/anaconda-runtime/*
 usr/lib/anaconda/*
 usr/lib/anaconda/installclasses/*
@@ -339,6 +340,7 @@ usr/bin/mountpoint
 usr/bin/netsetup
 usr/bin/pkgselect
 usr/bin/pkgsrc
+usr/bin/rdate
 usr/sbin/chroot
 usr/sbin/sshd
 usr/sbin/glibc_post_upgrade
