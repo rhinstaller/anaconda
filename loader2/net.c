@@ -222,7 +222,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             logMessage("sending dhcp request through device %s", loaderData->netDev);
 
             startNewt(flags);
-            winStatus(50, 3, _("Dynamic IP"), 
+            winStatus(55, 3, _("Dynamic IP"), 
                       _("Sending request for IP information for %s..."), 
                       loaderData->netDev, 0);
 
@@ -468,7 +468,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
             newCfg.isDynamic = 0;
         } else {
             if (!FL_TESTING(flags)) {
-                winStatus(50, 3, _("Dynamic IP"), 
+                winStatus(55, 3, _("Dynamic IP"), 
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
