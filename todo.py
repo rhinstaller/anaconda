@@ -762,23 +762,28 @@ class ToDo:
 		    port = '%s:tcp' % port
 		self.firewall.ports.append(port)
 	for port in self.firewall.ports:
-	    args.append ("--port", port)
+	    args = args + [ "--port", port ]
 	if self.firewall.smtp:
-	    args.append ("--port","smtp:tcp")
+	    args = args + [ "--port","smtp:tcp" ]
 	if self.firewall.http:
-	    args.append ("--port","http:tcp")
+	    args = args + [ "--port","http:tcp" ]
 	if self.firewall.ftp:
-	    args.append ("--port","ftp:tcp")
+	    args = args + [ "--port","ftp:tcp" ]
 	if self.firewall.ssh:
-	    args.append ("--port","ssh:tcp")
+	    args = args + [ "--port","ssh:tcp" ]
 	if self.firewall.telnet:
-	    args.append ("--port","telnet:tcp")
+	    args = args + [ "--port","telnet:tcp" ]
 	for dev in self.firewall.trustdevs:
-	    args.append ("--trust", dev)
+	    args = args + [ "--trust", dev ]
 	if self.firewall.enabled > 0:
-	  iutil.execWithRedirect(args[0], args, root = self.instPath,
-			       stdout = None, stderr = None)
-
+            try:
+                iutil.execWithRedirect(args[0], args, root = self.instPath,
+                                       stdout = None, stderr = None)
+            except RuntimeError, msg:
+                log ("lokkit run failed: %s", msg)
+            except OSError, (errno, msg):
+                log ("lokkit run failed: %s", msg)
+                
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
         if self.auth.useShadow:
