@@ -118,10 +118,9 @@ class HardDriveInstallMethod(InstallMethod):
         except:
             log("unable to unmount media")
 
+    # we cannot remove the partition we are hosting hard drive install from
     def protectedPartitions(self):
-        rc = []
-        rc.append(self.device)
-        return rc
+	return [self.device]
     
     def __init__(self, device, type, path, messageWindow, rootPath):
 	InstallMethod.__init__(self, rootPath)
