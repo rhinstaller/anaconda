@@ -367,6 +367,7 @@ EOF
 	$MBD_DIR tty5 c 4 5 600 root:tty
 	$MBD_DIR tty6 c 4 6 600 root:tty
 	$MBD_DIR tty7 c 4 7 600 root:tty
+	$MBD_DIR kbd c 11 0 600 root:root
 EOF
 
 cat > $MBD_DIR/.profile <<EOF
