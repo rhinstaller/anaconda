@@ -9,7 +9,7 @@ OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
 	  lang.o isofs.o
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
-LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
+LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -lpump -lext2fs
 PYMODULES = _isys.so
 SUBDIRS = modutils
 
