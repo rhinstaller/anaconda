@@ -35,7 +35,6 @@ def raidsb(mdDevice):
     os.close(fd)
     return rc
 
->>>>>>> 1.24
 def losetup(device, file):
     loop = os.open(device, os.O_RDONLY)
     targ = os.open(file, os.O_RDWR)
