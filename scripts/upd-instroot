@@ -311,6 +311,8 @@ usr/share/hwdata/pcitable
 usr/share/hwdata/pci.ids
 usr/share/hwdata/Cards
 usr/share/hwdata/MonitorsDB
+usr/share/rhpl/extramodes
+usr/share/rhpl/vesamodes
 EOF
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
