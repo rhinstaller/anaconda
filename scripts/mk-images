@@ -820,7 +820,7 @@ makedriverdisk () {
 # Find the kernel, unpack it, and verify it
 vertag="BOOT"
 if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-    vertag="BOOT BOOTtape"
+    vertag="dummyvar tape"
 fi
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
     vertag="pseries"

@@ -440,7 +440,7 @@ LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
 echo "In mk-images.s390: kernelvers is $kernelvers"
-if [ "$kernelvers" = "BOOT" ]; then
+if [ "$kernelvers" = "" ]; then
     makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
 	   --initrdsize 15000 \
 	   --loaderbin loader \
@@ -448,7 +448,7 @@ if [ "$kernelvers" = "BOOT" ]; then
     cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
 fi
 
-if [ "$kernelvers" = "BOOTtape" ]; then
+if [ "$kernelvers" = "tape" ]; then
     makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
 	   --initrdsize 15000 \
 	   --loaderbin loader \
@@ -469,7 +469,7 @@ done
 unset BOOTLANG
 unset BOOTDIR
 
-if [ "$kernelvers" = "BOOT" ]; then
+if [ "$kernelvers" = "" ]; then
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
