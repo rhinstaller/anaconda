@@ -128,9 +128,9 @@ def startX(resolution, nofbmode, video, monitor, mouse):
         if not probedServer:
             print "Unknown card"
             raise RuntimeError, "Unable to start X for unknown card"
-                        
-        x.getVideoCard().setXServer(probedServer)
-        serverPath = '/usr/X11R6/bin/' + x.getVideoCard().getXServer()
+
+        video.primaryCard().setXServer(probedServer)
+        serverPath = '/usr/X11R6/bin/' + video.primaryCard().getXServer()
         
 	# if this fails, we want the exception to go back to anaconda to
 	# it knows that this didn't work
