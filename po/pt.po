@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-01-17 09:35+0000\n"
+"PO-Revision-Date: 2005-03-04 10:12+0000\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -273,7 +273,7 @@ msgid "Could not allocate partitions"
 msgstr "Não foi possível alocar partições"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -1279,20 +1279,17 @@ msgstr "Instalar no Sistema"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Falha no 'Scriptlet'"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Ocorreu um erro ao instalar %s.  Isto pode indicar um erro no CD, falta de "
-"espaço em disco e/ou problemas de hardware.  Este erro é fatal e a "
-"instalação vai ser abortada.  Por favor verifique os CDs e tente instalar "
-"novamente.\n"
+"Ocorreu um erro ao executar o 'scriptlet'.  Pode examinar o resultado em %s.  Este erro é fatal e a instalação vai ser abortada.\n"
 "\n"
 "Carregue no botão OK para reiniciar o seu computador."
 
@@ -2126,9 +2123,8 @@ msgstr ""
 "Tem de criar uma partição /boot/efi do tipo FAT e com o tamanho de 50 MB."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Deve criar um partição de arranque PPC PReP."
+msgstr "Deve criar um partição de arranque Apple Bootstrap."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3177,15 +3173,11 @@ msgid "Congratulations"
 msgstr "Parabéns"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Se utilizou alguma disquete ou CD-ROM no processo de instalação, retire-o da "
-"unidade de leitura e carregue no botão \"Reiniciar\" para reiniciar o "
-"computador.\n"
+msgstr "Retire qualquer suporte físico utilizado no processo de instalação e carregue no botão \"Reiniciar\" para reiniciar o computador.\n\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5513,15 +5505,11 @@ msgid "<Enter> to exit"
 msgstr "<Enter> para sair"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
-msgstr ""
-"Se utilizou alguma disquete ou CD-ROM no processo de instalação, retire-o da "
-"unidade de leitura e carregue na tecla <Enter> para reiniciar o computador.\n"
-"\n"
+msgstr "Retire qualquer suporte físico utilizado no processo de instalação e carregue em <Enter> para reiniciar o computador.\n\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
