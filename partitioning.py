@@ -1269,23 +1269,24 @@ class DiskSet:
         self.startAllRaid()
 
         for dev, devices, level, numActive in self.mdList:
-            # XXX multifsify.
-            # XXX NOTE!  reiserfs isn't supported on software raid devices.
-            if not fsset.isValidExt2 (dev):
+            (errno, msg) = (None, None)
+            found = 0
+            for fs in fsset.getFStoTry(dev):
+                try:
+                    isys.mount(dev, '/mnt/sysimage', fs, readOnly = 1)
+                    found = 1
+                    break
+                except SystemError, (errno, msg):
+                    pass
+
+            if not found:
+                intf.messageWindow(_("Error"),
+                                   _("Error mounting filesystem "
+                                     "on %s: %s") % (dev, msg))
                 continue
 
-            try:
-                isys.mount(dev, '/mnt/sysimage', readOnly = 1)
-            except SystemError, (errno, msg):
-                try:
-                    isys.mount(dev, '/mnt/sysimage', "ext3", readOnly = 1)
-                except SystemError, (errno, msg):
-                    intf.messageWindow(_("Error"),
-                                       _("Error mounting filesystem "
-                                         "on %s: %s") % (dev, msg))
-                    continue
             if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-                rootparts.append ((dev, "ext2"))
+                rootparts.append ((dev, fs))
             isys.umount('/mnt/sysimage')
 
         self.stopAllRaid()
@@ -1304,9 +1305,7 @@ class DiskSet:
                     # XXX check for raid superblocks on non-autoraid partitions
                     #  (#32562)
                     pass
-                elif part.fs_type and (part.fs_type.name == "ext2"
-                                     or part.fs_type.name == "ext3"
-                                     or part.fs_type.name == "reiserfs"):
+                elif part.fs_type in fsset.getUsableLinuxFs():
                     node = get_partition_name(part)
 		    try:
 			isys.mount(node, '/mnt/sysimage', part.fs_type.name)

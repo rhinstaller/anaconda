@@ -135,9 +135,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
 	    fsList.append(info)
     else:
         for entry in id.fsset.entries:
-            # XXX multifsify
-            if (entry.fsystem.getName() == "ext2"
-                or entry.fsystem.getName() == "ext3"):
+            if entry.fsystem.getName() in fsset.getUsableLinuxFs():
                 if flags.setupFilesystems and not entry.isMounted():
                     continue
                 space = isys.pathSpaceAvailable(instPath + entry.mountpoint)

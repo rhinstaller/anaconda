@@ -55,6 +55,19 @@ def fileSystemTypeRegister(klass):
 def fileSystemTypeGetTypes():
     return fileSystemTypes.copy()
 
+def getUsableLinuxFs():
+    rc = []
+    for fsType in fileSystemTypes.keys():
+        if fileSystemTypes[fsType].isMountable() and \
+               fileSystemTypes[fsType].isLinuxNativeFS():
+            rc.append(fsType)
+
+    # make sure the default is first in the list, kind of ugly
+    default = fileSystemTypeGetDefault()
+    if default in rc:
+        rc = [ default ] + rc.remove(default)
+    return rc
+
 def mountCompare(a, b):
     one = a.mountpoint
     two = b.mountpoint
@@ -73,7 +86,7 @@ class LabelFactory:
     def __init__(self):
         self.labels = None
 
-    def createLabel(self, mountpoint):
+    def createLabel(self, mountpoint, maxLabelChars):
         if self.labels == None:
 
             self.labels = {}
@@ -85,16 +98,16 @@ class LabelFactory:
             del diskset
             self.reserveLabels(labels)
         
-        if len(mountpoint) > 16:
-            mountpoint = mountpoint[0:16]
+        if len(mountpoint) > maxLabelChars:
+            mountpoint = mountpoint[0:maxLabelChars]
         count = 0
         while self.labels.has_key(mountpoint):
             count = count + 1
             s = "%s" % count
-            if (len(mountpoint) + len(s)) <= 16:
+            if (len(mountpoint) + len(s)) <= maxLabelChars:
                 mountpoint = mountpoint + s
             else:
-                strip = len(mountpoint) + len(s) - 16
+                strip = len(mountpoint) + len(s) - maxLabelChars
                 mountpoint = mountpoint[0:len(mountpoint) - strip] + s
         self.labels[mountpoint] = 1
 
@@ -123,6 +136,7 @@ class FileSystemType:
         self.defaultOptions = "defaults"
         self.migratetofs = None
         self.extraFormatArgs = []
+        self.maxLabelChars = 16
 
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -239,6 +253,7 @@ class FileSystemType:
             return 1
         else:
             return 0
+
 
 class reiserfsFileSystem(FileSystemType):
     def __init__(self):
@@ -376,7 +391,7 @@ class extFileSystem(FileSystemType):
 
     def labelDevice(self, entry, chroot):
         devicePath = entry.device.setupDevice(chroot)
-        label = labelFactory.createLabel(entry.mountpoint)
+        label = labelFactory.createLabel(entry.mountpoint, self.maxLabelChars)
         rc = iutil.execWithRedirect("/usr/sbin/e2label",
                                     ["e2label", devicePath, label],
                                     stdout = "/dev/tty5",
@@ -1526,6 +1541,40 @@ def isValidExt2(device):
 	return 1
 
     return 0
+
+def isValidXFS(device):
+    file = '/tmp/' + device
+    isys.makeDevInode(device, file)
+    try:
+        fd = os.open(file, os.O_RDONLY)
+    except:
+        return 0
+    
+    buf = os.read(fd, 4)
+    os.close(fd)
+    
+    if len(buf) != 4:
+        return 0
+    
+    if buf == "XFSB":
+        return 1
+    
+    return 0
+
+# this will return a list of types of filesystems which device
+# looks like it could be to try mounting as
+def getFStoTry(device):
+    rc = []
+
+    if isValidXFS(device):
+        rc.append("xfs")
+
+    if isValidExt2(device):
+        rc.append("ext2")
+        rc.append("ext3")
+
+    # XXX check for reiserfs signature, jfs signature, and others ?
+    return rc
 
 def allocateLoopback(file):
     found = 1
