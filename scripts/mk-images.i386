@@ -141,18 +141,6 @@ makeBootImages() {
 
     rm -f $TOPDESTPATH/images/pxeboot/initrd.img
 
-    echo "Building $KERNELARCH drvblock.img"
-    makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "=scsi"
-    # JKFIXME: was exit 1
-    [ $? = 0 ] || echo "ERROR: failed to write drvblock" 
-    echo "Building drvnet.img"
-    makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "=net"
-    [ $? = 0 ] || echo "ERROR: failed to write drvnet"
-
-    echo "Building $KERNELARCH pcmciadd.img"
-    makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$BOOTPCMCIAMODULES $PCMCIAMODULES"
-    [ $? = 0 ] || echo "ERROR: failed to write pcmciadd" 
-
   fi
 
   # FIXME: this is so that we can switch back and forth.  if we want both
