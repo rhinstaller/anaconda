@@ -75,6 +75,9 @@ class ToDo:
 
 	self.installLilo()
 
+	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
+				"-r " + self.instPath ], stdout = None)
+
     def installLilo(self):
 	if not self.liloDevice: return
 
@@ -89,7 +92,11 @@ class ToDo:
 
 	sl = LiloConfiguration()
 	sl.addEntry("label", "linux")
-	sl.addEntry("root", "/dev/hda8")
+
+	for n in self.mounts:
+	    (dev, fs, reformat) = n
+	    if fs == '/':
+		sl.addEntry("root", dev)
 	sl.addEntry("read-only")
 
 	kernelFile = '/boot/vmlinuz-' +  \
