@@ -195,7 +195,7 @@ class Mouse (SimpleConfigFile):
             self.emulate = emulateThreeButtons
         else:
             self.emu = em
-        if not self.device and thedev:
+        if thedev:
             self.device = thedev
 	if not self.device:
             self.device = dev
