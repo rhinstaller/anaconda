@@ -44,7 +44,13 @@ whiteout="""
 	xemacs>apel-xemacs \
 	gstreamer-tools>gstreamer \
 	gimp>gimp-print-plugin \
-        redhat-lsb>redhat-lsb
+        redhat-lsb>redhat-lsb \
+        info>ncurses \
+        aspell>aspell-en \
+        dbus>dbus-glib \
+        openjade>docbook-dtds \
+        xemacs>xemacs-sumo \
+        ncurses>gpm
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
