@@ -369,6 +369,10 @@ PYTHONPATH=$PYTHONPATH
 export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
+if [ -n "$DISPLAY" ]; then
+	 echo "export DISPLAY=$DISPLAY" >> /etc/profile
+fi
+
 
 if [ "$NETTYPE" = "ctc" -o "$NETTYPE" = "escon" -o "$NETTYPE" = "iucv" ]; then
    echo "REMIP=$GATEWAY" >> /tmp/netinfo 
