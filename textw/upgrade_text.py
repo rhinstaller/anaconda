@@ -10,7 +10,23 @@ import upgrade
 class UpgradeSwapWindow:
     def __call__ (self, dir, screen, todo):
 	if dir == -1:
-	    raise ValueError, "this can't happen"
+            # msf dont go back!
+            rc = ButtonChoiceWindow(screen, _("Proceed with upgrade?"),
+                            _("The filesystems of the Linux installation "
+                              "you have chosen to upgrade have already been "
+                              "mounted. You cannot go back past this point. "
+                              "\n\n") +
+                              _("If you would like to exit the upgrade select "
+                              "Exit, or choose Ok to continue with the "
+                              "upgrade."),
+                               [ _("Ok"), _("Exit") ], width = 50)
+
+            if rc == 'ok':
+                return INSTALL_OK
+            else:
+                import sys
+                sys.exit(0)
+           
 
 	rc = upgrade.swapSuggestion(todo.instPath, todo.fstab)
 	if not rc:
@@ -129,21 +145,6 @@ class UpgradeExamineWindow:
             else:
                 import sys
                 sys.exit(0)
-           
-	    # Hack to let backing out of upgrades work properly
-	    from fstab import NewtFstab
-	    if todo.fstab:
-		todo.fstab.turnOffSwap()
-	    todo.fstab = NewtFstab(todo.setupFilesystems, 
-                                   todo.serial, 0, 0,
-                                   todo.intf.waitWindow,
-                                   todo.intf.messageWindow,
-                                   todo.intf.progressWindow,
-                                   not todo.expert,
-                                   todo.method.protectedPartitions(),
-                                   todo.expert, 1)
-
-	    return INSTALL_NOOP
 
         parts = todo.upgradeFindRoot ()
 
