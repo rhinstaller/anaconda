@@ -195,6 +195,14 @@ class HeaderList:
         self.hasFullHeaders = 0
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
+
+            # we should only keep kernel-pseries and kernel-iseries on
+            # the appropriate machine
+            if name == "kernel-pseries" and iutil.getPPCMachine() != "pSeries":
+                continue
+            if name == "kernel-iseries" and iutil.getPPCMachine() != "iSeries":
+                continue
+            
             if noscore:
                 self.packages[name] = Package(h)
                 continue
