@@ -315,8 +315,7 @@ int chooseLanguage(char ** lang, int flags) {
 	extern int continuing;
 	extern void stopNewt(void);
 
-	if (!strcmp (languages[choice].key, "ja") && !continuing
-	    && !FL_TESTING(flags)) {
+	if (!strcmp (languages[choice].key, "ja") && !continuing) {
 	    char * args[4];
 
 	    stopNewt();

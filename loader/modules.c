@@ -80,6 +80,7 @@ int mlReadLoadedList(moduleList * mlp) {
 	*end = '\0';
 	ml->mods[ml->numModules].name = strdup(start);
 	ml->mods[ml->numModules].args = NULL;
+	ml->mods[ml->numModules].path = NULL;
 	ml->mods[ml->numModules].weLoaded = 0;
 	*end = ' ';
 	ml->numModules++;
