@@ -224,6 +224,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 
     def select (self, ctree, node, *args):
+#        print "select"
         self.clear_package_desc ()
         self.packageList.freeze ()
         self.packageList.clear ()
@@ -270,8 +271,13 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
             self.packageList.column_titles_active ()
             
+            self.selectAllButton.set_sensitive (TRUE)
+            self.unselectAllButton.set_sensitive (TRUE)
+            
         except:
 #            print "Except called"
+            self.selectAllButton.set_sensitive (FALSE)
+            self.unselectAllButton.set_sensitive (FALSE)
             pass
 
         self.packageList.thaw ()
@@ -389,13 +395,16 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.totalSizeLabel = GtkLabel(_("Total size: "))
         hbox.pack_start(self.totalSizeLabel, FALSE, FALSE, 0)
 
-        selectAllButton = GtkButton(_("Select all in group"))
-        hbox.pack_start(selectAllButton, FALSE)
-        selectAllButton.connect('clicked', self.select_all)
+        self.selectAllButton = GtkButton(_("Select all in group"))
+        hbox.pack_start(self.selectAllButton, FALSE)
+        self.selectAllButton.connect('clicked', self.select_all)
 
-        unselectAllButton = GtkButton(_("Unselect all in group"))
-        hbox.pack_start(unselectAllButton, FALSE)
-        unselectAllButton.connect('clicked', self.unselect_all)        
+        self.unselectAllButton = GtkButton(_("Unselect all in group"))
+        hbox.pack_start(self.unselectAllButton, FALSE)
+        self.unselectAllButton.connect('clicked', self.unselect_all)        
+
+        self.selectAllButton.set_sensitive (FALSE)
+        self.unselectAllButton.set_sensitive (FALSE)
 
         descVBox.pack_start (hbox, FALSE)
 
