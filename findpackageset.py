@@ -89,6 +89,9 @@ def findpackageset(hdrlist, dbPath='/'):
     availNames = {}
     instNames = {}
 
+    ts = rpm.TransactionSet(dbPath)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA|rpm.RPMVSF_NOMD5))
+
     (availDict, availNames)  = getAvailPackages(hdrlist)
     (instDict, instNames) =  getInstalledPackages(dbPath=dbPath)
 
