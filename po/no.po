@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2002-08-22 02:05-0400\n"
-"PO-Revision-Date: 2002-08-24 12:35+0200\n"
+"PO-Revision-Date: 2002-08-30 16:38-0400\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -232,6 +232,13 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"Følgende feil oppstod med din partisjonering:\n"
+"\n"
+"%s\n"
+"\n"
+"Dette kan skje hvis det ikke er nok plass på harddisken(e) for installeringen. Du kan velge et annet partisjoneringsalternativ eller trykke 'Tilbake' for å velge manuell partisjonering.\n"
+"\n"
+"Press 'OK' for å fortsette."
 
 #: ../autopart.py:1221 ../bootloader.py:123 ../image.py:330
 #: ../partedUtils.py:240 ../partedUtils.py:668 ../upgrade.py:260
@@ -775,7 +782,7 @@ msgstr "Mangler CD #%d, som kreves for å fullføre installasjonen."
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
-msgstr ""
+msgstr "En feil oppstod ved avmontering av CDen. Sjekk at du ikke aksesserer %s fra skallet på tty2 og trykk deretter 'OK' for å forsøke på nytt."
 
 #: ../image.py:99
 msgid "Copying File"
@@ -1290,7 +1297,7 @@ msgid ""
 "problems with this installation of Linux. However, if this partition "
 "contains files that you need to keep, such as a users home directories, then "
 "you should continue without formatting this partition."
-msgstr ""
+msgstr "Du har valgt å bruke en eksisterende partisjonen for denne installeringen uten å formatere den. Red Hat anbefaler at du formaterer denne partisjonen for å unngå at eksisterende filer skaper problemer under installering/bruk av Linux. Hvis denne partsjonen inneholder filer du ønsker å behold, som hjemmekateloger for bruker, bør du velge å fortsette uten å formatere denne partisjonen."
 
 #: ../partIntfHelpers.py:417
 msgid "Format?"
@@ -1864,7 +1871,7 @@ msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
-msgstr ""
+msgstr "Oppgraderinger til denne versjonen av %s er bare støttet for Red Hat Linux 6.2 og nyere. Dette synes å være et eldre system. Ønsker du å fortsette oppgraderingsprosssen?"
 
 #: ../xserver.py:48
 msgid "Mouse Not Detected"
@@ -2168,6 +2175,9 @@ msgid ""
 "\n"
 "It is highly recommended you create a boot disk.\n"
 msgstr ""
+"En oppstartsdiskett lar deg starte %s fra en diskett hvis oppstartslasterkonfigurasjonen slutter å birker, du velger ikke å installere en oppstartslaster eller hvis din tredjeparts oppstartslaster ikke støtter Linux.\n"
+"\n"
+"Det anbefales varmt at du lager en oppstartsdiskett.\n"
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot disk"
@@ -2232,6 +2242,9 @@ msgid ""
 "\n"
 "Would you like to continue and not install a boot loader?"
 msgstr ""
+"Du har valgt ikke å installere en oppstartslaster på ditt system. Du vil måtte lage en oppstartsdiskett for å kunne starte ditt system.\n"
+"\n"
+"Ønsker du å fortsette og ikke installere en oppstartslaster?"
 
 #: ../iw/bootloader_main_gui.py:101
 msgid "C_ontinue with no boot loader"
@@ -2324,10 +2337,13 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the %s file after rebooting the system."
 msgstr ""
+"En full logg av installeringen vil finnes i filen %s etter omstart av systemet.\n"
+"\n"
+"En kickstart-fil som inneholder de valgte installeringsopsjonene vil finnes i %s."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
-msgstr "I ferd med å oppgradere"
+msgstr "Klar til å oppgradere"
 
 #: ../iw/confirm_gui.py:73
 #, python-format
@@ -2380,6 +2396,24 @@ msgid ""
 "\n"
 "Click 'Exit' to reboot the system."
 msgstr ""
+"Gratulerer, installeringen er ferdig.\n"
+"\n"
+"Fjern alle instelleringsmedier (diskett og CD-ROMer) brukt  under installeringen.\n"
+"\n"
+"%sFor informasjon om Errata (oppdateringer og feilrettinger), besøk\n"
+"   http://www.redhat.com/errata/\n"
+"\n"
+"For informasjon om automatiske oppdateringer gjennom Red Hat Network, besøk:\n"
+"    http://rhn.redhat.com/\n"
+"\n"
+"For informasjon om bruk og konfigurasjon om systemet, besøk:\n"
+"    http://www.redhat.com/docs/\n"
+"    http://www.redhat.com/apps/support/\n"
+"\n"
+"For å registrere systemet for support, besøk:\n"
+"    http://www.redhat.com/apps/activate/\n"
+"\n"
+"Trykk 'Avslutt' for å starte systemet på nytt."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -6107,7 +6141,7 @@ msgstr ""
 #: ../loader/loader.c:3786
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr "Kjører anaconda, systeminstallasjonen for %s - vennligst vent...\n"
+msgstr "Kjører anaconda, installeringsprogrammet for %s...\n"
 
 #: ../loader/mediacheck.c:246
 msgid ""
