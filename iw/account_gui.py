@@ -334,29 +334,26 @@ class AccountWindow (InstallWindow):
         self.users = 0
 
         box = gtk.VBox ()
+        box.set_border_width(5)
 
         hbox = gtk.HBox()
         pix = self.ics.readPixmap ("root-password.png")
         if pix:
-            a = gtk.Alignment ()
-            a.add (pix)
-            a.set (0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start (a, gtk.FALSE)
+            hbox.pack_start (pix, gtk.FALSE)
 
         label = gtk.Label (_("Enter the root (administrator) password "
                              "for the system."))
         label.set_line_wrap(gtk.TRUE)
         label.set_size_request(350, -1)
+        label.set_alignment(0.0, 0.5)
+        hbox.pack_start(label, gtk.FALSE)
 
-        a = gtk.Alignment ()
-        a.add (label)
-        a.set (0.0, 0.5, 0.0, 0.0)
-        hbox.pack_start(a, gtk.FALSE, 20)
         box.pack_start(hbox, gtk.FALSE)
        
         self.forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
         
         table = gtk.Table (2, 2)
+        table.set_size_request(365, -1)
         table.set_row_spacings (5)
 	table.set_col_spacings (5)
 
@@ -381,7 +378,9 @@ class AccountWindow (InstallWindow):
         table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
         table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
 
-        box.pack_start (table, gtk.FALSE)
+        hbox = gtk.HBox()
+        hbox.pack_start(table, gtk.FALSE)
+        box.pack_start (hbox, gtk.FALSE)
 
         # root password statusbar
         self.rootStatus = gtk.Label ("")
@@ -466,7 +465,5 @@ class AccountWindow (InstallWindow):
 
             # XXX hack
             self.users = self.users + 1
-
-	box.set_border_width (5)
 
         return box
