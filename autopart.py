@@ -1362,7 +1362,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
             extra = _("\n\nPress 'OK' to reboot your system.")
         else:
             extra = _("\n\nYou can choose a different automatic partitioning "
-                      "options or click 'Back' to select manual partitioning."
+                      "option, or click 'Back' to select manual partitioning."
                       "\n\nPress 'OK' to continue.")
             
         intf.messageWindow(_("Automatic Partitioning Errors"),
