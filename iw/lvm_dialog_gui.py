@@ -383,10 +383,7 @@ class VolumeGroupEditor:
             maxlv = min(lvm.getMaxLVSize(pesize), fspace)
 
             maxlabel = createAlignedLabel(_("(Max size is %s MB)") % (maxlv,))
-            labelalign = gtk.Alignment()
-            labelalign.set(0.5, 0.5, 0.0, 0.0)
-            labelalign.add(maxlabel)
-            maintable.attach(labelalign, 1, 2, row, row + 1)
+            maintable.attach(maxlabel, 1, 2, row, row + 1)
 
         dialog.vbox.pack_start(maintable)
         dialog.show_all()
@@ -820,11 +817,9 @@ class VolumeGroupEditor:
         row = 0
 
         # volume group name
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Volume Group Name:")))
-
-        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+	maintable.attach(createAlignedLabel(_("Volume Group Name:")), 0, 1,
+					    row, row + 1, gtk.EXPAND|gtk.FILL,
+					    gtk.SHRINK)
         if not origvgrequest.getPreExisting():
             self.volnameEntry = gtk.Entry(16)
             if not self.isNew:
@@ -837,10 +832,8 @@ class VolumeGroupEditor:
         maintable.attach(self.volnameEntry, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	row = row + 1
 
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Physical Extent:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+        maintable.attach(createAlignedLabel(_("Physical Extent:")), 0, 1, row,
+			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 
         if not origvgrequest.getPreExisting():
             (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)
@@ -863,10 +856,8 @@ class VolumeGroupEditor:
         maintable.attach(sw, 1, 2, row, row + 1)
         row = row + 1
 
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Used Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+        maintable.attach(createAlignedLabel(_("Used Space:")), 0, 1, row,
+			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	lbox = gtk.HBox()
 	self.usedSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
@@ -882,10 +873,8 @@ class VolumeGroupEditor:
 	maintable.set_row_spacing(row, 0)
         row = row + 1
 
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Free Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+        maintable.attach(createAlignedLabel(_("Free Space:")), 0, 1, row,
+			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	lbox = gtk.HBox()
 	self.freeSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
@@ -902,10 +891,8 @@ class VolumeGroupEditor:
 	maintable.set_row_spacing(row, 0)
         row = row + 1
 
-	labelalign = gtk.Alignment()
-	labelalign.set(0.0, 0.5, 0.0, 0.0)
-	labelalign.add(createAlignedLabel(_("Total Space:")))
-        maintable.attach(labelalign, 0, 1, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+        maintable.attach(createAlignedLabel(_("Total Space:")), 0, 1, row,
+			 row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	self.totalSpaceLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
 	labelalign.set(0.0, 0.5, 0.0, 0.0)
