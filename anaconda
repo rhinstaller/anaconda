@@ -959,6 +959,7 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe", "selinux"):
 # setup links required by graphical mode if installing and verify display mode
 #
 if (display_mode == 'g'):
+    print _("Starting graphical installation...")
     if not flags.test and flags.setupFilesystems:
         for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
                    "fb.modes"):
