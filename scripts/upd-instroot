@@ -175,7 +175,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-xorg-ISO8859-2-75dpi fonts-xorg-ISO8859-15-75dpi
            fonts-xorg-ISO8859-9-75dpi fonts-xorg-100dpi
            fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
-           xorg-x11-base xorg-x11-ISO8859-15-75dpi 
+           xorg-x11-base xorg-x11-ISO8859-15-75dpi bogl-bterm
            xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
            ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa bogl-devel"
 
@@ -940,7 +940,7 @@ echo "Creating bogl font..."
 OLDLANG=$LANG
 export LANG=en_US.UTF-8
 zcat $DESTGR/usr/lib/bogl/font.bdf.gz > $DESTGR/usr/lib/bogl/font.bdf
-(cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; find $DESTGR/usr/share/locale -name '*.mo' -exec msgunfmt {} \;) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
+(cat $DESTGR/usr/lib/anaconda-runtime/loader/unicode-linedraw-chars.txt ; find $DESTGR/usr/share/locale -name '*.mo' -exec msgunfmt {} \; | msguniq -t utf-8) | $DESTGR/usr/bin/reduce-font $DESTGR/usr/lib/bogl/font.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf
 $DESTGR/usr/bin/bdftobogl -b $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf > $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
 rm -f $DESTGR/usr/lib/anaconda-runtime/loader/font-reduced.bdf $DESTGR/usr/lib/bogl/font.bdf $DESTGR/usr/bin/reduce-font $DESTGR/usr/bin/bdftobogl
 gzip -9 -f $DESTGR/usr/lib/anaconda-runtime/loader/font.bgf
