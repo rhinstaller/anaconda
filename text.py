@@ -8,7 +8,6 @@ import rpm
 import time
 import gettext_rh
 import glob
-from fstab import NewtFstab
 
 cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
@@ -181,6 +180,8 @@ class KeyboardWindow:
     
 class InstallPathWindow:
     def __call__ (self, screen, todo, intf):
+	from fstab import NewtFstab
+
 	if (todo.instClass.installType == "install"):
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
@@ -221,6 +222,9 @@ class InstallPathWindow:
 
         if button == "back":
             return INSTALL_BACK
+
+	needNewDruid = 0
+
 	if (choice == 4):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
@@ -229,12 +233,23 @@ class InstallPathWindow:
             todo.upgrade = 0
 	    if (choice == 0 and orig != 0):
 		todo.setClass(installclass.GNOMEWorkstation(todo.expert))
+		needNewDruid = 1
 	    elif (choice == 1 and orig != 1):
 		todo.setClass(installclass.KDEWorkstation(todo.expert))
+		needNewDruid = 1
 	    elif (choice == 2 and orig != 2):
 		todo.setClass(installclass.Server(todo.expert))
+		needNewDruid = 1
 	    elif (choice == 3 and orig != 3):
 		todo.setClass(installclass.CustomInstall(todo.expert))
+		needNewDruid = 1
+
+	if needNewDruid or not todo.fstab:
+	    todo.fstab = NewtFstab(todo.setupFilesystems, 
+				       todo.serial, 0, 0,
+				       todo.intf.waitWindow,
+				       todo.intf.messageWindow)
+
         return INSTALL_OK
 
 class UpgradeExamineWindow:
@@ -960,10 +975,6 @@ class InstallInterface:
     def run(self, todo, test = 0):
 	if todo.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
-
-        if not todo.reconfigOnly:
-            todo.fstab = NewtFstab(todo.setupFilesystems, todo.serial, 0, 0,
-                                   self.waitWindow, self.messageWindow)
 
         if todo.reconfigOnly:
             self.commonSteps = [
