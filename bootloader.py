@@ -73,6 +73,11 @@ class KernelArguments:
     def set(self, args):
 	self.args = args
 
+    def append(self, args):
+        if self.args:
+            self.args = self.args + " "
+        self.args = self.args + "%s" % (args,)
+
     def __init__(self):
 	cdrw = isys.ideCdRwList()
 	str = ""
@@ -336,10 +341,10 @@ class bootloaderInfo:
             cmdlineargs = string.split(cmdline, " ")
             for arg in cmdlineargs:
                 # found a console argument
-                if arg.startswith("console="):
+                if arg[:8] == "console":
                     (foo, console) = string.aplit(arg, "=")
                     # the options are everything after the comma
-                    comma = console.find(",")
+                    comma = string.find(console, ",")
                     if comma != -1:
                         options = console[comma:]
                         device = console[:comma]
