@@ -192,6 +192,9 @@ EOF
     cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
     cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
     cp -f $IMGPATH/usr/bin/mknod $MBD_DIR/sbin/mknod
+    cp -df $IMGPATH/usr/X11R6/lib/libX11* $MBD_DIR/lib/
+    cp -df $IMGPATH/usr/X11R6/lib/libXmuu* $MBD_DIR/lib/
+    cp -df $IMGPATH/usr/X11R6/lib/libXext* $MBD_DIR/lib/
     cp -df $IMGPATH/lib/libtermcap* $MBD_DIR/lib/
     install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
