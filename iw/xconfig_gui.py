@@ -427,7 +427,7 @@ class XCustomWindow (InstallWindow):
 
 
             #--Set the desktop GUI widget to what the user has selected
-            if self.todo.instClass.getDesktop () == "GNOME":
+            if self.todo.instClass.getDesktop () == "GNOME" or self.todo.instClass.getDesktop () == "":
                 self.newDesktop = "GNOME"
                 gnome_radio.set_active (TRUE)
                 im = self.ics.readPixmap ("gnome.png")
@@ -991,11 +991,6 @@ class MonitorWindow (InstallWindow):
         self.synctable.attach(align, 3, 4, 1, 2)
         
         box.pack_start (self.synctable, FALSE, FALSE)
-
-
-
-
-
         
         return box
 
@@ -1018,15 +1013,15 @@ class XConfigWindow (InstallWindow):
         if self.skipme:
             return None
 
-        self.todo.instClass.setDesktop(self.newDesktop)
+#        self.todo.instClass.setDesktop(self.newDesktop)
 
-        if not self.skip.get_active ():
-            if self.xdm.get_active ():
-                self.todo.initlevel = 5
-            else:
-                self.todo.initlevel = 3
-        else:
-            self.todo.initlevel = 3
+#        if not self.skip.get_active ():
+#            if self.xdm.get_active ():
+#                self.todo.initlevel = 5
+#            else:
+#                self.todo.initlevel = 3
+#        else:
+#            self.todo.initlevel = 3
 
         return None
 
@@ -1099,7 +1094,6 @@ class XConfigWindow (InstallWindow):
             pass
             
     def restorePressed (self, ramMenu):
-        print "restorePressed"
         try:
             current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
             original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
@@ -1719,7 +1713,6 @@ class XConfigWindow (InstallWindow):
             self.ramMenu.add(mem8)
 
             count = 0
-
             for size in ("256k", "512k", "1024k", "2048k", "4096k",
                          "8192k", "16384k", "32768k"):
                 if size[:-1] == self.todo.x.vidRam:
@@ -1737,129 +1730,14 @@ class XConfigWindow (InstallWindow):
             self.ramOption.set_menu (self.ramMenu)
             box.pack_start (hbox, FALSE)
 
-                
-            # Memory configuration table
-            table = GtkTable()
-            group = None
-            count = 0
-            for size in ("256k", "512k", "1024k", "2048k", "4096k",
-                         "8192k", "16384k", "32768k"):
-                button = GtkRadioButton (group, size)
-#                button.connect ('clicked', self.memory_cb, size)
-                if size[:-1] == self.todo.x.vidRam:
-                    button.set_active (1)
-                if not group:
-                    group = button
-                table.attach (button, count % 4, (count % 4) + 1,
-                              count / 4, (count / 4) + 1)
-                count = count + 1
-#            box.pack_start (table, FALSE)
-        optbox = GtkVBox (FALSE, 5)
+        restore = GtkButton (_("Restore original values"))
+        restore.connect ("clicked", self.restorePressed)
+        hbox.pack_start(restore, FALSE, 25)
 
-
-
-        
-
-
-        # cannot reliably test on i810 or Voodoo driver, or on Suns who dont
-        # need it since they are fixed resolution
-
-        self.cantprobe = 0
-        if not self.sunServer and self.todo.x.vidCards:
-            if self.todo.x.vidCards[self.todo.x.primary].has_key("DRIVER"):
-                curdriver = self.todo.x.vidCards[self.todo.x.primary]["DRIVER"]
-                noprobedriverList = ("i810", "tdfx")
-                for adriver in noprobedriverList:
-                    if curdriver == adriver:
-                        self.cantprobe = 1
-        else:
-            self.cantprobe = 1
-
-
-        if not self.cantprobe:
-            test = GtkAlignment ()
-            button = GtkButton (_("Test this configuration"))
-            button.connect ("clicked", self.testPressed)
-
-#            hbox = GtkHBox ()
-
-            buttonBox = GtkHButtonBox ()
-            buttonBox.set_layout (BUTTONBOX_EDGE)
-#            buttonBox.pack_start (button)
-
-            restore = GtkButton (_("Restore original values"))
-            restore.connect ("clicked", self.restorePressed)
-#            buttonBox.pack_start (restore)
-#            hbox.pack_start(restore, FALSE, 25)
-
-
-
-#            test.add (button)
-#            test.add (restore)
-            test.add (buttonBox)
-
-#            box.pack_start (hbox, FALSE) 
-            box.pack_start (test, FALSE)
-
-            self.custom = GtkCheckButton (_("Customize X Configuration"))
-            self.custom.connect ("toggled", self.customToggled)
-#            optbox.pack_start (self.custom, FALSE)
-
-        self.xdm = GtkCheckButton (_("Use Graphical Login"))
         self.skip = GtkCheckButton (_("Skip X Configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
 
-#        optbox.pack_start (self.xdm, FALSE)
-
         hbox = GtkHBox (TRUE, 5)
-        hbox.pack_start (optbox, FALSE)
-
-        self.desktop = None
-        if ((self.todo.hdList.has_key('gnome-core')
-             and self.todo.hdList['gnome-core'].selected)
-            and (self.todo.hdList.has_key('kdebase')
-                 and self.todo.hdList['kdebase'].selected)):
-            def pixlabel (ics, label, pixmap):
-                im = ics.readPixmap (pixmap)
-                if im:
-                    im.render ()
-                    pix = im.make_pixmap ()
-                    hbox = GtkHBox (FALSE, 5)
-                    hbox.pack_start (pix, FALSE, FALSE, 0)
-                    label = GtkLabel (label)
-                    label.show()
-                    label.set_alignment (0.0, 0.5)
-                    hbox.pack_start (label, TRUE, TRUE, 15)
-                    hbox.show()
-                    return hbox
-                else:
-                    return GtkLabel (label)
-            
-            option = GtkOptionMenu()
-            menu = GtkMenu()
-            gnome = GtkMenuItem()
-            gnome.add (pixlabel (self.ics, "GNOME", "gnome-mini.png"))
-            gnome.connect ("activate", self.desktopCb, "GNOME")
-            kde = GtkMenuItem()
-            kde.add (pixlabel (self.ics, "KDE", "kde-mini.png"))
-            kde.connect ("activate", self.desktopCb, "KDE")            
-            menu.add (gnome)
-            menu.add (kde)
-            if self.todo.instClass.getDesktop() == "KDE":
-                self.newDesktop = "KDE"
-                menu.set_active (1)
-            else:
-                self.newDesktop = "GNOME"
-                menu.set_active (0)
-            option.set_menu (menu)
-            v = GtkVBox (FALSE, 5)
-            l = GtkLabel (_("Default Desktop:"))
-            l.set_alignment (0.0, 0.5)
-            v.pack_start (l, FALSE)
-            v.pack_start (option, TRUE)
-            hbox.pack_start (v, FALSE)
-
-#        box.pack_start (hbox, FALSE)
 
         self.topbox = GtkVBox (FALSE, 5)
         self.topbox.set_border_width (5)
