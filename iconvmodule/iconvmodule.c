@@ -76,7 +76,8 @@ Iconv_iconv(IconvObject *self, PyObject *args, PyObject* kwargs)
 
     /* Perform the conversion. */
     do {
-	result = iconv(self->handle, (char **) &inptr, &inleft, &outptr, &outleft);
+	result = iconv(self->handle,
+		       (char **) &inptr, &inleft, &outptr, &outleft);
 	if (result == (size_t) -1) {
 	    if (errno == E2BIG) {
 		/* we ran out of space in outbuf, it needs to be bigger */
@@ -84,6 +85,9 @@ Iconv_iconv(IconvObject *self, PyObject *args, PyObject* kwargs)
 		/* a guess at how much more we need */
 		size_t curpos, extra = inleft * 2;
 
+		/* calculate the current position in the output buffer
+		   so we can move outptr to the correct place in the realloced
+		   space */
 		curpos = outptr - outbuf;
 		newbuf = realloc(outbuf, outptr - outbuf + extra);
 		if (newbuf == NULL) {
@@ -109,6 +113,7 @@ Iconv_iconv(IconvObject *self, PyObject *args, PyObject* kwargs)
 	}
     } while (inleft > 0);
 
+    /* create a new string object from the converted buffer */
     ret = PyString_FromStringAndSize(outbuf, outptr - outbuf);
     free(outbuf);
 
