@@ -61,11 +61,13 @@ def createAlignedLabel(text):
     return label
 
 def createMountPointCombo(request, excludeMountPoints=[]):
-    mountCombo = gtk.Combo()
+    mountCombo = gtk.combo_box_entry_new_text()
 
     mntptlist = []
+
     if request.type != REQUEST_NEW and request.fslabel:
 	mntptlist.append(request.fslabel)
+        idx = 0
     
     for p in defaultMountPoints:
 	if p in excludeMountPoints:
@@ -73,19 +75,19 @@ def createMountPointCombo(request, excludeMountPoints=[]):
 	
 	if not p in mntptlist and (p[0] == "/"):
 	    mntptlist.append(p)
-	
-    mountCombo.set_popdown_strings (mntptlist)
+
+    map(mountCombo.append_text, mntptlist)
 
     mountpoint = request.mountpoint
 
     if request.fstype and request.fstype.isMountable():
         mountCombo.set_sensitive(1)
         if mountpoint:
-            mountCombo.entry.set_text(mountpoint)
+            mountCombo.get_children()[0].set_text(mountpoint)
         else:
-            mountCombo.entry.set_text("")
+            mountCombo.get_children()[0].set_text("")
     else:
-        mountCombo.entry.set_text(_("<Not Applicable>"))
+        mountCombo.get_children()[0].set_text(_("<Not Applicable>"))
         mountCombo.set_sensitive(0)
 
     mountCombo.set_data("saved_mntpt", None)
@@ -102,13 +104,13 @@ def setMntPtComboStateFromType(fstype, mountCombo):
     if fstype.isMountable():
         mountCombo.set_sensitive(1)
         if mountpoint != None:
-            mountCombo.entry.set_text(mountpoint)
+            mountCombo.get_children()[0].set_text(mountpoint)
         else:
-            mountCombo.entry.set_text("")
+            mountCombo.get_children()[0].set_text("")
     else:
-        if mountCombo.entry.get_text() != _("<Not Applicable>"):
-            mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
-        mountCombo.entry.set_text(_("<Not Applicable>"))
+        if mountCombo.get_children()[0].get_text() != _("<Not Applicable>"):
+            mountCombo.set_data("saved_mntpt", mountCombo.get_children()[0].get_text())
+        mountCombo.get_children()[0].set_text(_("<Not Applicable>"))
         mountCombo.set_sensitive(0)
 
     mountCombo.set_data("prevmountable", fstype.isMountable())

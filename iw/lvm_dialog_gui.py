@@ -372,7 +372,7 @@ class VolumeGroupEditor:
         lbl = createAlignedLabel(_("_Mount Point:"))
 	maintable.attach(lbl, 0, 1, row,row+1)
         mountCombo = createMountPointCombo(logrequest, excludeMountPoints=["/boot"])
-        lbl.set_mnemonic_widget(mountCombo.entry)
+        lbl.set_mnemonic_widget(mountCombo)
         maintable.attach(mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
@@ -483,7 +483,7 @@ class VolumeGroupEditor:
                 if not format and not migrate:
                     fsystem = origfstype
 
-            mntpt = string.strip(mountCombo.entry.get_text())
+            mntpt = string.strip(mountCombo.get_children()[0].get_text())
 
             if not logrequest or not logrequest.getPreExisting():
                 # check size specification

@@ -136,7 +136,7 @@ class RaidEditor:
                 request.fstype = filesystem
 
 		if request.fstype.isMountable():
-		    request.mountpoint = self.mountCombo.entry.get_text()
+		    request.mountpoint = self.mountCombo.get_children()[0].get_text()
 		else:
 		    request.mountpoint = None
 
@@ -200,7 +200,7 @@ class RaidEditor:
                     request.fstype = origfstype
 
                 if request.fstype.isMountable():
-                    request.mountpoint =  self.mountCombo.entry.get_text()
+                    request.mountpoint =  self.mountCombo.get_children()[0].get_text()
                 else:
                     request.mountpoint = None
 
@@ -282,7 +282,7 @@ class RaidEditor:
 	lbl = createAlignedLabel(_("_Mount Point:"))
 	maintable.attach(lbl, 0, 1, row, row + 1)
 	self.mountCombo = createMountPointCombo(origrequest)
-	lbl.set_mnemonic_widget(self.mountCombo.entry)
+	lbl.set_mnemonic_widget(self.mountCombo)
 	maintable.attach(self.mountCombo, 1, 2, row, row + 1)
 	row = row + 1
 
