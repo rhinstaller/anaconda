@@ -167,7 +167,6 @@ def testx(x):
     # FIXME: Should find out if X server is already running
     # otherwise with NFS installs the X server may be still being
     # fetched from the network while we already continue to run
-
     if not server:
         sys.stderr.write("X SERVER FAILED");
         raise RuntimeError, "X server failed to start"
@@ -176,6 +175,13 @@ def testx(x):
 
     sys.stdout.write(_("Waiting for X server to start...log located in /tmp/X.log\n"))
     sys.stdout.flush()
+
+    for i in range(5):
+        time.sleep(1)
+        sys.stdout.write("%s..." % i+1)
+        sys.stdout.flush()
+        
+    sys.stdout.write("\n")
 
     while count < 60:
 	sys.stdout.write(".")
@@ -197,7 +203,7 @@ def testx(x):
 	count = count + 1
 
     print _(" X server started successfully.")
-
+    
     child = os.fork()
     if (child):
 	try:
