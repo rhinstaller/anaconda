@@ -25,11 +25,6 @@ class ImageInstallMethod(InstallMethod):
     def mergeFullHeaders(self, hdlist):
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 
-    def writeCleanupPath(self, f):
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
-
     def __init__(self, tree):
 	InstallMethod.__init__(self)
 	self.tree = tree
@@ -155,14 +150,6 @@ class CdromInstallMethod(ImageInstallMethod):
 	except SystemError:
 	    pass
 
-    def writeCleanupPath(self, f):
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	isys.makeDevInode(self.device, "/tmp/cdrom")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
-	f.write("umount /mnt/source\n")
-	f.write("eject /tmp/cdrom\n")
-
     def __init__(self, url, messageWindow, progressWindow):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow
@@ -258,14 +245,6 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 
     def filesDone(self):
 	self.umountImage()
-
-    def writeCleanupPath(self, f):
-	isys.makeDevInode("loop0", "/tmp/loop0")
-	isys.makeDevInode("loop1", "/tmp/loop0")
-	f.write("umount /mnt/runtime\n")
-	f.write("lounsetup /tmp/loop0\n")
-	f.write("umount /mnt/source2\n")
-	f.write("lounsetup /tmp/loop1\n")
 
     def __init__(self, tree, messageWindow):
 	self.imageMounted = None
