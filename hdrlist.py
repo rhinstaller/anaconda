@@ -826,6 +826,7 @@ class GroupSet:
 	# nick is used to generate the lilo name
 	for (ktag, nick) in [ ('kernel-summit', 'summit'),
                               ('kernel-bigmem', 'bigmem'),
+                              ('kernel-hugemem', 'hugemem'),
 			      ('kernel-smp', 'smp'),
 			      ('kernel-tape', 'tape'),
                               ('kernel-pseries', ''),
