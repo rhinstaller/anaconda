@@ -11,31 +11,60 @@ import glob
 import signal
 from translate import _, cat
 
-from textw.constants import *
-from textw.lilo import LiloWindow
-from textw.lilo import LiloAppendWindow
-from textw.lilo import LiloImagesWindow
-from textw.silo import SiloWindow
-from textw.silo import SiloAppendWindow
-from textw.silo import SiloImagesWindow
-from textw.network import NetworkWindow
-from textw.network import HostnameWindow
-from textw.userauth import RootPasswordWindow
-from textw.userauth import UsersWindow
-from textw.userauth import AuthConfigWindow
-from textw.partitioning import PartitionMethod
-from textw.partitioning import LoopSizeWindow
-from textw.partitioning import ManualPartitionWindow
-from textw.partitioning import AutoPartitionWindow
-from textw.partitioning import PartitionWindow
-from textw.partitioning import TurnOnSwapWindow
-from textw.partitioning import FormatWindow
-from textw.packages import PackageGroupWindow
-from textw.packages import IndividualPackageWindow
-from textw.packages import PackageDepWindow
-from textw.timezone import TimezoneWindow
-from textw.bootdisk import BootDiskWindow
-from textw.bootdisk import MakeBootDiskWindow
+# dont do this anymore, makes update disk hard
+#from textw.constants import *
+#from textw.lilo import LiloWindow
+#from textw.lilo import LiloAppendWindow
+#from textw.lilo import LiloImagesWindow
+#from textw.silo import SiloWindow
+#from textw.silo import SiloAppendWindow
+#from textw.silo import SiloImagesWindow
+#from textw.network import NetworkWindow
+#from textw.network import HostnameWindow
+#from textw.userauth import RootPasswordWindow
+#from textw.userauth import UsersWindow
+#from textw.userauth import AuthConfigWindow
+#from textw.partitioning import PartitionMethod
+#from textw.partitioning import LoopSizeWindow
+#from textw.partitioning import ManualPartitionWindow
+#from textw.partitioning import AutoPartitionWindow
+#from textw.partitioning import PartitionWindow
+#from textw.partitioning import TurnOnSwapWindow
+#from textw.partitioning import FormatWindow
+#from textw.packages import PackageGroupWindow
+#from textw.packages import IndividualPackageWindow
+#from textw.packages import PackageDepWindow
+#from textw.timezone import TimezoneWindow
+#from textw.bootdisk import BootDiskWindow
+#from textw.bootdisk import MakeBootDiskWindow
+#
+# instead we do
+#
+import constants
+from lilo_text import LiloWindow
+from lilo_text import LiloAppendWindow
+from lilo_text import LiloImagesWindow
+from silo_text import SiloWindow
+from silo_text import SiloApeendWindow
+from silo_text import SiloImagesWindow
+from network_text import NetworkWindow
+from network_text import HostnameWindow
+from userauth_text import RootPasswordWindow
+from userauth_text import UsersWindow
+from userauth_text import AuthConfigWindow
+from partitioning_text import PartitionMethod
+from partitioning_text import LoopSizeWindow
+from partitioning_text import ManualPartitionWindow
+from partitioning_text import AutoPartitionWindow
+from partitioning_text import TurnOnSwapWindow
+from partitioning_text import FormatWindow
+from packages_text import PackageGroupWindow
+from packages_text import IndividualPackageWindow
+from packages_text import PackageDepWindow
+from timezone_text import TimezoneWindow
+from bootdisk_text import BootDiskWindow
+from bootdisk_text import MakeBootDiskWindow
+
 import installclass
 
 class LanguageWindow:

@@ -38,11 +38,20 @@ if im:
 
 from gnome.ui import *
 from gnome.xmhtml import *
-from iw.language import *
-from iw.welcome import *
-from iw.mouse import *
-from iw.keyboard import *
-from iw.installpath import *
+#don't want to do this now because it makes update disk hard
+#from iw.language import *
+#from iw.welcome import *
+#from iw.mouse import *
+#from iw.keyboard import *
+#from iw.installpath import *
+#
+# instead we do (assuming pythonpath set correctly)
+#
+import language_gui
+import welcome_gui
+import mouse_gui
+import keyboard_gui
+import installpath_gui
 
 import isys
 import sys
