@@ -365,7 +365,6 @@ class ToDo:
 	self.comps = None
 	self.instPath = rootPath
 	self.setupFilesystems = setupFilesystems
-        self.madeFilesystems = 0
 	self.installSystem = installSystem
         self.language = Language ()
         self.log = LogFile ()
@@ -565,7 +564,6 @@ class ToDo:
 
     def makeFilesystems(self, createSwap = 1, createFs = 1):
         if not self.setupFilesystems: return
-        if self.madeFilesystems: return
 
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
@@ -636,9 +634,6 @@ class ToDo:
                 pass
 
             os.remove('/tmp/' + device)
-
-	if createFs:
-	    self.madeFilesystems = 1
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
@@ -1429,6 +1424,8 @@ class ToDo:
                 
             self.intf.messageWindow (_("Disk Space"), probs)
 
+	    del ts
+	    del db
 	    self.instLog.close()
 	    del syslog
 
