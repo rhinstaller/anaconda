@@ -1,8 +1,8 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = loader.o log.o windows.o modules.o
+OBJS = loader.o log.o windows.o modules.o devices.o
 SOURCES = $(subst .o,.c,$(OBJS))
-BINS = devices loader init
+BINS = loader init
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
