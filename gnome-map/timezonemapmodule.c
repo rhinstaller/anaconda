@@ -70,7 +70,7 @@ ViewDefinition Views[] = {
     { "World",         LONGITUDE_CONSTRAINT, -180.0, 180.0, 0.0 },
     { "North America", LONGITUDE_CONSTRAINT, -171.0, -21.0, 40.0 },
     { "South America", LATITUDE_CONSTRAINT,   15.0,   -70.0, -70.0 },
-    { "Pacific Rim",   LATITUDE_CONSTRAINT,    -47.0, 47.0, 155.0},
+    { "Indian Rim",    LATITUDE_CONSTRAINT,    -47.0, 47.0, 155.0},
     { "Europe",        LONGITUDE_CONSTRAINT,  -25.0, 70.0, 45.0 },
     { "Africa",        LATITUDE_CONSTRAINT,   40.0,   -40.0, 15.0},
     { "Asia",          LONGITUDE_CONSTRAINT,  20.0, 165.0, 40.0}
