@@ -611,6 +611,44 @@ static int writeModulesConf(moduleList list, int fd) {
     return 0;
 }
 
+/* writes out /tmp/scsidisks with a scsi disk / module correspondence.
+ * format is sd%c  adapter
+ */
+void writeScsiDisks(moduleList list) {
+    int i, fd, num;
+    struct loadedModuleInfo * lm;
+    char buf[512];
+
+    if (!list) return;
+
+    if ((fd = open("/tmp/scsidisks", O_WRONLY | O_CREAT, 0666)) == -1) {
+        logMessage("error opening /tmp/scsidisks: %s", strerror(errno));
+        return;
+    }
+
+    for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
+        if (!lm->weLoaded) continue;
+        if (lm->major != DRIVER_SCSI) continue;
+
+        for (num = lm->firstDevNum; num <= lm->lastDevNum; num++) {
+            if (num < 26)
+                sprintf(buf, "sd%c\t%s\n", 'a' + num, lm->name);
+            else {
+                unsigned int one, two;
+                one = num / 26;
+                two = num % 26;
+
+                sprintf(buf, "sd%c%c\t%s\n", 'a' + one - 1, 
+                        'a' + two, lm->name);
+            }
+            write(fd, buf, strlen(buf));
+        }
+    }
+     
+    close(fd);
+    return;
+}
+
 /* JKFIXME: needs a way to know about module locations.  also, we should
  * extract them to a ramfs instead of /tmp */
 static struct extractedModule * extractModules (char * const * modNames,

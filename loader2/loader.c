@@ -1010,6 +1010,10 @@ int main(int argc, char ** argv) {
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
+    /* we've loaded all the modules we're going to.  write out a file
+     * describing which scsi disks go with which scsi adapters */
+    writeScsiDisks(modLoaded);
+
     /* we only want to use RHupdates on nfs installs.  otherwise, we'll 
      * use files on the first iso image and not be able to umount it */
     if (!strncmp(url, "nfs:", 4)) {

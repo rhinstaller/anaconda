@@ -42,5 +42,7 @@ int mlLoadModuleSetLocation(const char * modNames,
 			    struct moduleBallLocation * location);
 
 int mlModuleInList(const char * modName, moduleList list);
+void writeScsiDisks(moduleList list);
+
 
 #endif
