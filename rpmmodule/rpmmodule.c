@@ -42,6 +42,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 
 void initrpm(void);
 static PyObject * doAddMacro(PyObject * self, PyObject * args);
+static PyObject * doDelMacro(PyObject * self, PyObject * args);
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
 static PyObject * hdrLoad(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
@@ -71,6 +72,7 @@ static PyObject * doFopen(PyObject * self, PyObject * args);
 static PyMethodDef rpmModuleMethods[] = {
     { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
     { "addMacro", (PyCFunction) doAddMacro, METH_VARARGS, NULL },
+    { "delMacro", (PyCFunction) doDelMacro, METH_VARARGS, NULL },
     { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
     { "findUpgradeSet", (PyCFunction) findUpgradeSet, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
@@ -1471,6 +1473,18 @@ static PyObject * doAddMacro(PyObject * self, PyObject * args) {
 	return NULL;
 
     addMacro(NULL, name, NULL, val, RMIL_DEFAULT);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doDelMacro(PyObject * self, PyObject * args) {
+    char * name;
+
+    if (!PyArg_ParseTuple(args, "s", &name))
+	return NULL;
+
+    delMacro(NULL, name);
 
     Py_INCREF(Py_None);
     return Py_None;
