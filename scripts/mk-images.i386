@@ -129,6 +129,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --initrdsize 2750 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMAINMODULES"
+[ $? = 0 ] || exit 1
 
 #for I in $BOOTDISKDIR; do
 TIER1LANGS="de_DE|fr_FR|it_IT|es_ES|ja_JP"
@@ -145,25 +146,32 @@ for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
 		 --bootdisksize 1440 \
 		 --imagename $BOOTDIR/boot.img \
 		 --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
+    [ $? = 0 ] || exit 1
 
     makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
 		 --bootdisksize 1440 \
 		 --imagename $BOOTDIR/bootnet.img \
 		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
+    [ $? = 0 ] || exit 1
 
     makebootdisk --imagename $BOOTDIR/pcmcia.img \
 	         --bootdisksize 1440 \
 		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
+    [ $? = 0 ] || exit 1
 done
 
 rm -f $TOPDESTPATH/images/initrd-pcmcia.img
 
 makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "+scsi"
+[ $? = 0 ] || exit 1
 makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "+net"
+[ $? = 0 ] || exit 1
 
 makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
+[ $? = 0 ] || exit 1
 
 makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
+[ $? = 0 ] || exit 1
 
 unset BOOTLANG
 unset BOOTDIR
@@ -174,23 +182,30 @@ makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --loaderbin loader-pcmcia \
 	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
 		      $SCSIMODS"
+[ $? = 0 ] || exit 1
 
 makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --bootdisksize 2880 \
 	     --imagename ../dosutils/autoboot/cdboot.img \
 	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
+[ $? = 0 ] || exit 1
 
 makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
 	   --pcmcia \
 	   --initrdsize 4000 \
 	   --loaderbin loader-pcmcia \
 	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES =scsi =net"
+[ $? = 0 ] || exit 1
 
 makemainmodules "=scsi =net $SECSTAGE"
+[ $? = 0 ] || exit 1
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
+[ $? = 0 ] || exit 1
 makeinstimage "hdstg" "=net $SECSTAGE"
+[ $? = 0 ] || exit 1
 makemainimage "stage2" "cramfs"
+[ $? = 0 ] || exit 1
 
 
 cat > $TOPDESTPATH/images/pxeboot/README <<EOF
