@@ -12,8 +12,6 @@ Requires: rpm-python
 
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
-ExcludeArch: alpha
-
 %description
 The anaconda package contains portions of the Red Hat Linux installer which
 may be run be the user for reconfiguration and advanced installation
@@ -78,9 +76,11 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Thu Aug 10 2000 Matt Wilson <msw@redhat.com>
+- build on alpha again now that I've fixed the stubs
 
 * Wed Aug  9 2000 Michael Fulbright <drmike@redhat.com>
 - new build
