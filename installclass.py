@@ -118,7 +118,6 @@ class BaseInstallClass:
 		 "languagesupport",
 		 "timezone",
 		 "accounts",
-		 "authentication",
 		 "readcomps",
                  "selectlangpackages",
 		 "package-selection",
@@ -142,7 +141,6 @@ class BaseInstallClass:
                  "dopostaction",
 		 "writexconfig",
 		 "writeksconfig",
-		 "bootdisk",
                  "methodcomplete",
 		 "complete"
 		)
