@@ -31,8 +31,3 @@ class InstallClass(BaseInstallClass):
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
-
-	if expert:
-	    self.skipLilo = 1
-	else:
-	    self.skipLilo = 0
