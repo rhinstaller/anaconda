@@ -113,9 +113,9 @@ def startX(resolution):
     try:        
         fbdevice = open("/dev/fb0", "r")   #-- If can't access /dev/fb0, we're not in framebuffer mode
         fbdevice.close()
-        
+
         testx(mouse, x)
-    except:
+    except (RuntimeError, IOError):
         print "Can't open /dev/fb0"
     
 	x.server = probedServer
