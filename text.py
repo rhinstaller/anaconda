@@ -1136,7 +1136,7 @@ class LiloImagesWindow:
 
 class XConfigWindow:
     def __call__(self, screen, todo):
-        todo.x.probe ()
+        todo.x.probe (probeMonitor = 0)
 
         if todo.x.server:
             rc = ButtonChoiceWindow (screen, _("X probe results"),

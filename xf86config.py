@@ -122,7 +122,7 @@ class XF86Config:
             self.devID = self.vidCards[0]["NAME"]
             self.server = self.vidCards[0]["SERVER"]
 
-    def probe (self):
+    def probe (self, probeMonitor = 1):
         if self.probed:
             return
         self.probed = 1
@@ -147,31 +147,32 @@ class XF86Config:
             self.server = self.vidCards[0]["SERVER"]
 
         # VESA probe for monitor/videoram, etc.
-        probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
+        if probeMonitor:
+            probe = string.split (iutil.execWithCapture ("/usr/sbin/ddcprobe", ['ddcprobe']), '\n')
 
-        for line in probe:
-            if line and line[:9] == "OEM Name:":
-                self.cardMan = string.strip (line[10:])
-                
-            if line and line[:16] == "Memory installed":
-                memory = string.split (line, '=')
-                self.vidRam = string.strip (memory[2][:-2])
+            for line in probe:
+                if line and line[:9] == "OEM Name:":
+                    self.cardMan = string.strip (line[10:])
 
-            if line and line[:8] == "EISA ID:":
-                self.monEisa = line[9:]
-                self.monID = line[9:]
+                if line and line[:16] == "Memory installed":
+                    memory = string.split (line, '=')
+                    self.vidRam = string.strip (memory[2][:-2])
 
-            if line and line[:6] == "\tName:":
-                if not self.monName or len (self.monName) < len (line[7:]):
-                    self.monName = line[7:]
+                if line and line[:8] == "EISA ID:":
+                    self.monEisa = line[9:]
+                    self.monID = line[9:]
 
-            if line and line[:15] == "\tTiming ranges:":
-                ranges = string.split (line, ',')
-                self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
-                self.monVert = string.strip (string.split (ranges[1], '=')[1])
+                if line and line[:6] == "\tName:":
+                    if not self.monName or len (self.monName) < len (line[7:]):
+                        self.monName = line[7:]
 
-        if self.vidCards and self.cardMan:
-            self.vidCards[0]["VENDOR"] = self.cardMan
+                if line and line[:15] == "\tTiming ranges:":
+                    ranges = string.split (line, ',')
+                    self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
+                    self.monVert = string.strip (string.split (ranges[1], '=')[1])
+
+            if self.vidCards and self.cardMan:
+                self.vidCards[0]["VENDOR"] = self.cardMan
 
     def probeReport (self):
         probe = ""
