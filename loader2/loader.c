@@ -875,6 +875,8 @@ int main(int argc, char ** argv) {
     extraArgs[0] = NULL;
     flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
 
+    initializeConsole();
+    
     if (FL_SERIAL(flags) && !getenv("DISPLAY"))
         flags |= LOADER_FLAGS_TEXT;
 
@@ -948,8 +950,6 @@ int main(int argc, char ** argv) {
     if (FL_TELNETD(flags))
         startTelnetd(&kd, &loaderData, modInfo, modLoaded, modDeps, flags);
 
-    initializeConsole();
-    
     url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
