@@ -120,7 +120,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.makeDevInode("loop0", "/tmp/loop")
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
-    def getFilename(self, h, timer):
+    def getFilename(self, h, timer, callback=None):
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
                  "on the current CD", h[1000000])
@@ -406,7 +406,7 @@ def findIsoImages(path, messageWindow):
     return discImages
 
 class NfsIsoInstallMethod(NfsInstallMethod):
-    def getFilename(self, h, timer):
+    def getFilename(self, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
 	    self.umountImage()
 	    self.mountImage(h[1000002])
