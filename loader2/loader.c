@@ -412,6 +412,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_NOPCMCIA;
         else if (!strcasecmp(argv[i], "text"))
             flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "graphical"))
+            flags |= LOADER_FLAGS_GRAPHICAL;
         else if (!strcasecmp(argv[i], "updates"))
             flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
@@ -614,7 +616,7 @@ static char *doLoaderMain(char * location,
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags);
+        url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
         if (url && !FL_RESCUE(flags)) return url;
     }
 
@@ -1164,6 +1166,8 @@ int main(int argc, char ** argv) {
             *argptr++ = "--serial";
         if (FL_TEXT(flags))
             *argptr++ = "-T";
+        else if (FL_GRAPHICAL(flags))
+            *argptr++ = "--graphical";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
         
