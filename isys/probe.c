@@ -175,27 +175,12 @@ int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
 }
 
 int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
-	volume_label_t tmp;
 	unsigned long  pos;
-	int ret;
 
 	pos = dasd_info->label_block * blksize;
 
 	memset(vlabel, 0, sizeof(volume_label_t));
-	if ((strncmp(dasd_info->type, "ECKD", 4) == 0) &&
-			(!dasd_info->FBA_layout)) {
-		/* OS/390 and zOS compatible disk layout */
-		return vtoc_read_volume_label(fd, pos, vlabel);
-	}
-	else {
-		/* standard LINUX disk layout */
-		ret = vtoc_read_volume_label(fd, pos, &tmp);
-		if(!ret) {
-			memcpy(vlabel->vollbl, &tmp, sizeof(tmp)-4);
-			return 0;
-		}
-		return ret;
-	}
+	return vtoc_read_volume_label(fd, pos, vlabel);
 }
 #endif
 
@@ -246,12 +231,18 @@ int isUsableDasd(char *device) {
 	memset(v4_hex, 0, 9);
 	strncpy(label, vlabel.volkey, 4);
 	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
-	if(!strncmp(v4_hex, v4ebcdic_hex, 9) || !strncmp(v4_hex, l4ebcdic_hex, 9)) {
-		/* fprintf(stderr, "Found a usable device: %s\n", devname); */
+	if(!strncmp(v4_hex, v4ebcdic_hex, 9)) {
 		return 1;
+	}
+	if(!strncmp(v4_hex, l4ebcdic_hex, 9)) {
+		return 2;
 	}
         return 0;
 #endif
+}
+
+int isLdlDasd(char * device) {
+   return (isUsableDasd(device) == 2);
 }
 
 char *getDasdPorts() {

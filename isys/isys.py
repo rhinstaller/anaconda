@@ -310,6 +310,9 @@ def getDasdPorts():
 def isUsableDasd(device):
     return _isys.isUsableDasd(device)
 
+def isLdlDasd(device):
+    return _isys.isLdlDasd(device)
+
 def makeDevInode(name, fn=None):
     if fn:
         _isys.mkdevinode(name, fn)

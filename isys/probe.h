@@ -86,6 +86,7 @@ void kdFree(struct knownDevices * devices);
 void kdAddDevice(struct knownDevices * devices, enum deviceClass devClass, 
 		 char * devName, char * devModel);
 char *getDasdPorts();
+int isLdlDasd(char * dev);
 
 int vioGetDasdDevs(struct knownDevices * devices);
 int vioGetCdDevs(struct knownDevices * devices);
