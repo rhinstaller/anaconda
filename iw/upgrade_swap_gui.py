@@ -18,6 +18,29 @@ class UpgradeSwapWindow (InstallWindow):
         ics.setNextEnabled (1)
         ics.readHTML ("upswapfile")
 
+
+    def getPrev (self):
+        # we're doing an upgrade, offer choice of aborting upgrade.
+        # we can't allow them to go back in install, since we've
+        # started swap and mounted the systems filesystems
+        # if we've already started an upgrade, cannot back out
+        threads_leave()
+        rc = self.todo.intf.messageWindow(_("Proceed with upgrade?"),
+                            _("The filesystems of the Linux installation "
+                              "you have chosen to upgrade have already been "
+                              "mounted. You cannot go back past this point. "
+                              "\n\n") + 
+                           _( "Would you like to continue with the upgrade?"),
+                           type = "yesno").getrc()
+        threads_enter()
+
+        if not rc:
+            raise gui.StayOnScreen
+        else:
+            import sys
+            print _("Aborting upgrade")
+            sys.exit(0)
+
     def getNext (self):
         #-If the user doesn't need to add swap, we don't do anything
         if not self.neededSwap:
@@ -55,7 +78,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             threads_leave()
-            if not self.todo.setupFilesystems:
+            if self.todo.setupFilesystems:
                 upgrade.createSwapFile(self.todo.instPath, self.todo.fstab, mnt, val,
                                        self.todo.intf.progressWindow)
             self.todo.upgradeFindPackages()
