@@ -24,6 +24,7 @@ import fsset
 import bootloader
 import partitioning
 from flags import *
+from constants import *
 
 from simpleconfig import SimpleConfigFile
 
@@ -66,6 +67,7 @@ class InstallData:
         self.partitions = partitioning.Partitions()
         self.bootloader = bootloader.getBootloader()
         self.dependencies = []
+        self.handleDeps = CHECK_DEPS
         self.dbpath = None
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
@@ -125,7 +127,13 @@ class InstallData:
         self.bootloader.writeKS(f)
         self.partitions.writeKS(f)
 
-	f.write("\n%packages\n")
+	f.write("\n%packages")
+        if self.handleDeps == IGNORE_DEPS:
+            f.write(" --ignoredeps\n")
+        elif self.handleDeps == RESOLVE_DEPS:
+            f.write(" --resolvedeps\n")
+        else:
+            f.write("\n")
 	packages = {}
 	for comp in self.comps:
 	    if comp.isSelected():

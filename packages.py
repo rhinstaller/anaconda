@@ -161,10 +161,21 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     win.pop()
 
-    if id.dependencies and id.comps.canResolveDeps(id.dependencies):
+    if (id.dependencies and id.comps.canResolveDeps(id.dependencies)
+        and id.handleDeps == CHECK_DEPS):
 	disp.skipStep("dependencies", skip = 0)
     else:
 	disp.skipStep("dependencies")
+
+    # this is kind of hackish, but makes kickstart happy
+    if id.handleDeps == CHECK_DEPS:
+        pass
+    elif id.handleDeps == IGNORE_DEPS:
+        id.comps.selectDepCause(id.dependencies)
+        id.comps.unselectDeps(id.dependencies)
+    elif id.handleDeps == RESOLVE_DEPS:
+        id.comps.selectDepCause(id.dependencies)        
+        id.comps.selectDeps(id.dependencies)
 
 #XXX
 #try:

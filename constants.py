@@ -16,3 +16,8 @@
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
+
+# these are used for kickstart
+CHECK_DEPS = 0
+IGNORE_DEPS = 1
+RESOLVE_DEPS = 2

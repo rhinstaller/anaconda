@@ -6,6 +6,7 @@ from partitioning import *
 from autopart import *
 from fsset import *
 from flags import flags
+from constants import *
 import sys
 import string
 
@@ -523,6 +524,12 @@ class KickstartBase(BaseInstallClass):
 			scriptInterp = arg
 
 	    elif args and args[0] == "%packages":
+                if len(args) > 1:
+                    if args[1] == "--resolvedeps":
+                        id.handleDeps = RESOLVE_DEPS
+                    elif args[1] == "--ignoredeps":
+                        id.handleDeps = IGNORE_DEPS
+                
 		if where =="pre" or where == "post":
 		    s = Script(script, scriptInterp, scriptChroot)
 		    if where == "pre":
