@@ -3,20 +3,21 @@
 # translation of zh_CN.po to Simplified Chinese
 # Simplified Chinese Verstion of anaconda file
 # Copyright (C) 2002, Red Hat, Inc.
-# Sarah Wang <sarahs@redhat.com>, 2003,2004
+# Sarah Wang <sarahs@redhat.com>, 2003,2004.
+# Yusuf Ma <yusufma77@yahoo.com>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda.anaconda-po\n"
+"Project-Id-Version: zh_CN\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-02-11 16:03+1000\n"
-"Last-Translator: Sarah Wang <sarahs@redhat.com>\n"
-"Language-Team: Simplified Chinese <i18n@redhat.com>\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-09 15:57-1000\n"
+"Last-Translator: Yusuf Ma <yusufma77@yahoo.com>\n"
+"Language-Team: Simplified Chinese <fedora-trans-zh_cn@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -97,7 +98,7 @@ msgstr "请连接来开始安装..."
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -157,7 +158,7 @@ msgstr "安装类别强制使用文本模式安装"
 msgid "No video hardware found, assuming headless"
 msgstr "没有找到视频硬件，假定为无头机器"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "无法实例化 X 硬件状态对象。"
 
@@ -559,7 +560,7 @@ msgstr ""
 "来，然后向 http://bugzilla.redhat.com/bugzilla/ 提交一份详细的 anaconda 错误"
 "报告。"
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "出现异常"
 
@@ -827,16 +828,16 @@ msgid "Duplicate Labels"
 msgstr "标签重复"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"您的系统上有多个设备被标为 %s。设备标签必须独特，系统才能正确运行。\n"
+"您的系统上有多个设备被标为 %s。设备标签必须唯一，系统才能正确运行。\n"
 "\n"
-"请修正这个问题后再重新启动安装进程。"
+"请解决这个问题后重新启动安装过程。"
 
 #: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
 #: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
@@ -895,11 +896,11 @@ msgid ""
 msgstr ""
 "保存屏幕快照时出错。如果它在软件包安装过程中出现，您可能要多试几次才能成功。"
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "修复"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -907,7 +908,7 @@ msgstr "修复"
 msgid "Yes"
 msgstr "是"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -916,17 +917,17 @@ msgstr "是"
 msgid "No"
 msgstr "否"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "重试"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "忽略"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -934,7 +935,7 @@ msgstr "忽略"
 msgid "Cancel"
 msgstr "取消"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -980,7 +981,7 @@ msgstr "您的系统现在将会被重新引导..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "上一步(_B)"
 
@@ -1054,7 +1055,7 @@ msgstr ""
 "请在继续安装前准备好这些光盘。如果您需要中止安装并重新引导，请选择“重新引"
 "导”。"
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "继续(_C)"
@@ -1104,26 +1105,26 @@ msgstr "请插入第 %d 张光盘后再继续。"
 msgid "Install on System"
 msgstr "在系统上安装"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "缺少软件包"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr "您已指定要安装“%s”软件包。该软件包不存在。您想要继续还是中止安装？"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "中止(_A)"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "缺少组群"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1675,9 +1676,10 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"您已选定要在本次安装中使用预存的分区而不进行格式化。Red Hat 建议您格式化该分"
-"区，以便确定前次操作系统安装的文件不会在这次安装 Linux 中导致问题。然而，如果"
-"该分区包含您要保留的文件，如用户的主目录等，那么您应该不格式化该分区而继续。"
+"您选择了在本次安装中使用已有的分区而不进行格式化。我们建议您格式化该分区，以"
+"确保以前安装的操作系统的文件不会在这次 Linux 的安装中导致问题。可是，如果该分"
+"区包含您需要保留的文件，例如用户的主目录，那么您应该继续，而无需格式化该分"
+"区。"
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -1962,11 +1964,11 @@ msgstr "设置联网"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "您想在这个系统上启动网络接口吗？"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "已取消"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "无法从这里返回上一步，您只能重试。"
 
@@ -1979,7 +1981,7 @@ msgid "Rescue"
 msgstr "救援"
 
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -1991,12 +1993,12 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"救援环境会试图搜寻所安装的红帽Linux，并将之挂载到 %s 目录下，然后您便可以按照"
-"系统需求进行更改。您若想执行这一步骤，请选择“继续”按钮。您也可以选择“只读”，"
-"将文件系统挂载成“只读”模式而不是“读写”模式。\n"
+"救援环境现在将要开始寻找您所安装的Linux，并将它挂载到 %s 目录下，然后您便可以"
+"对系统进行必要的更改。如果您想开始执行这一步骤，请选择“继续”。您也可以选择“只"
+"读”，将文件系统挂载成“只读”模式而不是“读写”模式。\n"
 "\n"
-"如果由于某种原因，这一步骤失败，您可以选择“跳过”按钮，该步骤就会被跳过，您会"
-"直接进入命令状态。\n"
+"如果由于某种原因，这一过程失败，您可以选择“跳过”按钮，该步骤就会被跳过，您会"
+"直接进入命令行状态。\n"
 "\n"
 
 #: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
@@ -2085,37 +2087,37 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "您的系统被挂载在 %s 目录之下。"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "无帮助信息"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "这一安装步骤没有帮助信息。"
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "保存崩溃组合码"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "保存"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "调试"
 
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr "<F1>求助 | <Tab> 元素间切换   |  <Space> 选择   |  <F12> 下一屏幕"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2252,7 +2254,7 @@ msgstr ""
 "能不能够成功。您肯定要继续升级进程吗？"
 
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2262,20 +2264,20 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"这个系统内似乎存在第三方软件包，与红帽 Linux 所提供的软件包重复。由于软件包重"
-"复，继续升级可能会导致功能不正常或系统不稳定。详情请参考发行注记。\n"
+"这个系统似乎存在第三方软件包，与 %s 中所包含的软件包重复。由于软件包重复，继"
+"续升级可能会导致功能不正常或系统不稳定。详情请参考发行注记。\n"
 "\n"
 "您想继续升级吗？"
 
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
-"该系统中没有 /etc/redhat-release 这一文件，这很可能不是红帽 Linux 系统，若继"
-"续升级可能会导致系统处于无法使用状态。您想继续升级吗？"
+"该系统中没有 /etc/redhat-release 这一文件，这很可能不是一个 %s 系统。若继续升"
+"级可能会导致系统处于无法使用状态。您想继续升级吗？"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2423,6 +2425,28 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "自动分区"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "您至少要在一个硬盘驱动器上安装 %s。"
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "我想自动分区："
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "选择本次安装中使用的驱动器："
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "评审(并按需要修改)创建的分区(_V)"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2796,7 +2820,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2809,9 +2833,9 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"安装后，您可以使用“redhat-config-package”工具来添加或删除软件。\n"
+"安装后，您可以使用“system-config-packages”工具来添加或删除软件。\n"
 "\n"
-"如果您熟悉 %s，您可能想安装或避免安装指定的软件包。使用下面的复选箱来定制您的"
+"如果您熟悉 %s，您可能想安装或避免安装特定的软件包。使用下面的复选箱来定制您的"
 "安装。"
 
 #: ../iw/desktop_choice_gui.py:65
@@ -2870,9 +2894,8 @@ msgstr ""
 "选择该选项来重新安装系统。根据您的配置选择而定，现存软件和数据可能会被覆盖。"
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "下列红帽产品将会被升级："
+msgstr "下列安装的系统将会被升级："
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -2902,15 +2925,15 @@ msgstr "使用 fdisk 分区"
 msgid "Select a drive to partition with fdisk:"
 msgstr "选择要使用 fdisk 分区的驱动器："
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "防火墙"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "警告 - 无防火墙"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -2921,16 +2944,16 @@ msgstr ""
 "进入。不过，如果您选择要不配置防火墙，请点击“继续”来继续。"
 
 # ../comps/comps-master:719
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "配置防火墙(_C)"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "继续(_P)"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -2943,11 +2966,11 @@ msgstr ""
 "\n"
 " 譬如：“1234:udp”"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "警告：权标不对"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -2955,54 +2978,53 @@ msgstr ""
 "防火墙可以帮助您防御来自外界的对您的计算机系统的未经授权的访问。您想启用防火"
 "墙吗？"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "无防火墙(_O)"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "启用防火墙(_E)"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "定制防火墙(_C)"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "哪些服务应该被允许通过防火墙？"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "允许进入(_A)："
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "其它端口(_P)："
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr "如果您想来自某个设备的所有交通，请从下面选择。"
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "信任的设备(_T)："
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "阿克里"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "警告"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4021,27 +4043,6 @@ msgstr "LVM(_L)"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "隐藏 RAID 设备/LVM 卷组成员(_G)"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "自动分区"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "您至少要在一个硬盘驱动器上安装 %s。"
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "我想自动分区："
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "选择本次安装中使用的驱动器："
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "评审(并按需要修改)创建的分区(_V)"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -4903,14 +4904,14 @@ msgid "Edit"
 msgstr "编辑"
 
 #: ../textw/bootloader_text.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Red Hat 使用的引导管理程序也可以引导其它操作系统。您必须输入希望能够引导的分"
-"区，以及每一个分区使用的标签。"
+"引导管理程序 %s 也可以引导其它操作系统。您必须输入希望能够引导的分区，以及每"
+"一个分区使用的标签。"
 
 #: ../textw/bootloader_text.py:315
 msgid ""
@@ -5049,7 +5050,7 @@ msgstr ""
 "参考。"
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5058,9 +5059,10 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"默认安装环境包括我们推荐的软件包组。安装后，您可以使用“redhat-config-"
-"package”工具来添加或删除软件。\n"
-"可是，%s 中包含了许多应用程序。如果您需要，您可以定制选择要安装的软件。"
+"默认安装环境包括我们推荐的软件包组。安装后，您可以使用“system-config-"
+"packages”工具来添加或删除软件。\n"
+"\n"
+"可是，%s 中包含了许多其他应用程序。如果您需要，您可以定制选择要安装的软件。"
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5121,65 +5123,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "选择要在其中运行 fdisk 命令的磁盘"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "定制"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "启用防火墙"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "无防火墙"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "信任的设备："
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "允许进入："
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "邮件(SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "其它端口"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "选择无效"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "您不能定制已被禁用的防火墙。"
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "防火墙配置 - 定制"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5190,10 +5192,29 @@ msgstr ""
 "通；其次，您可以明确标明允许通过防火墙的协议，在用逗号分开的列表中用“服务:协"
 "议”的格式指定额外的端口，如：“imap:tcp”"
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "警告： %s 不是一个有效的端口。"
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5988,11 +6009,13 @@ msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "欢迎使用 %s"
+msgstr ""
+"欢迎使用 %s！\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6238,7 +6261,6 @@ msgstr ""
 "桌面环境和系统。"
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6249,7 +6271,7 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\t桌面外壳（GNOME）\n"
-"\t办公套件（OpenOffice）\n"
+"\t办公套件（OpenOffice.org）\n"
 "\t万维网浏览器（Mozilla）\n"
 "\t电子邮件（Evolution）\n"
 "\t即时消息接发\n"
@@ -6280,7 +6302,6 @@ msgid ""
 msgstr "该选项安装带有软件开发和系统管理工具的图形化桌面环境。"
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6293,7 +6314,7 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\t桌面外壳（GNOME）\n"
-"\t办公套件（OpenOffice）\n"
+"\t办公套件（OpenOffice.org）\n"
 "\t万维网浏览器（Mozilla）\n"
 "\t电子邮件（Evolution）\n"
 "\t即时消息接发\n"
@@ -6552,9 +6573,9 @@ msgid "Select Partition"
 msgstr "选择分区"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "设备 %s 似乎不包含红帽光盘映像。"
+msgstr "设备 %s 似乎不包含 %s 光盘映像。"
 
 #: ../loader2/hdinstall.c:600
 #, c-format
@@ -6723,13 +6744,14 @@ msgid "Add Device"
 msgstr "添加设备"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "装载程序已经被运行。正在启动 shell。"
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "正在运行 %s 的 anaconda 系统安装程序 - 请稍候...\n"
+msgstr "正在运行 anaconda，%s 救援模式 - 请稍候...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -6748,6 +6770,7 @@ msgid "Checking \"%s\"..."
 msgstr "正在检查“%s”..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "正在检查介质..."
 
@@ -6955,9 +6978,9 @@ msgid "NFS server name:"
 msgstr "NFS 服务器名称："
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "Red Hat 目录："
+msgstr "%s 目录："
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -7768,12 +7791,11 @@ msgstr "英语"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "爱沙尼亚语"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "丹麦语"
+msgstr "芬兰语"
 
 #. generated from lang-table
 msgid "French"
@@ -7785,7 +7807,7 @@ msgstr "德语"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "匈牙利语"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -7805,7 +7827,7 @@ msgstr "韩语"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "马来语"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -7841,6 +7863,10 @@ msgstr "土耳其语"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "乌克兰语"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

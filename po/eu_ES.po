@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
@@ -133,7 +133,7 @@ msgstr ""
 # ../textw/userauth_text.py:287 ../xserver.py:33
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -196,7 +196,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
@@ -604,7 +604,7 @@ msgstr ""
 "com/bugzilla -ra mamorro honi buruzko txozten bat bidal ezazu mesedez."
 
 # ../exception.py:13 ../text.py:795
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Ezbeharra Gertatu da"
 
@@ -1006,7 +1006,7 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr ""
 
@@ -1020,7 +1020,7 @@ msgstr ""
 # ../loader/loader.c:656 ../loader/net.c:810 ../text.py:291
 # ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 # ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -1038,7 +1038,7 @@ msgstr "Bai"
 # ../text.py:291 ../text.py:297 ../textw/bootdisk_text.py:12
 # ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 # ../textw/partitioning_text.py:218
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -1048,11 +1048,11 @@ msgid "No"
 msgstr "Ez"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Saiatu Berriz"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr ""
 
@@ -1064,8 +1064,8 @@ msgstr ""
 # ../textw/silo_text.py:136 ../textw/silo_text.py:154
 # ../textw/userauth_text.py:63
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -1074,7 +1074,7 @@ msgid "Cancel"
 msgstr "Etsi"
 
 # ../gui.py:275 ../text.py:810
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1163,7 +1163,7 @@ msgstr ""
 # ../textw/userauth_text.py:287
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 #, fuzzy
 msgid "_Back"
 msgstr "Atzera"
@@ -1246,7 +1246,7 @@ msgid ""
 msgstr ""
 
 # ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:155
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 #, fuzzy
 msgid "_Continue"
@@ -1307,12 +1307,12 @@ msgid "Install on System"
 msgstr "Ezarketa Mota"
 
 # ../iw/progress_gui.py:36
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 #, fuzzy
 msgid "Missing Package"
 msgstr "Sortak Ezartzen"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1320,18 +1320,18 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 #, fuzzy
 msgid "_Abort"
 msgstr "_Garbitu"
 
 # ../loader/net.c:379
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 #, fuzzy
 msgid "Missing Group"
 msgstr "Azalpenak Galdu dira"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -2248,12 +2248,12 @@ msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
 # ../text.py:1039
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Ezeztatua"
 
 # ../text.py:1040
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Aurreko urratsera joatea ezinezkoa da. Berriz saiatu beharko duzu."
 
@@ -2367,39 +2367,39 @@ msgid "Your system is mounted under the %s directory."
 msgstr "Direktorio bat idatzi behar duzu."
 
 # ../text.py:753
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Laguntza Eskuragarririk ez dago"
 
 # ../text.py:754
-#: ../text.py:193
+#: ../text.py:194
 #, fuzzy
 msgid "No help is available for this step of the install."
 msgstr "Aukera honentzako Laguntza eskuragarririk ez dago."
 
 # ../text.py:809
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Akats Iraulketa Gorde"
 
 # ../text.py:827 ../text.py:830
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Gorde"
 
 # ../text.py:827 ../text.py:828
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Akats-Azterketa"
 
 # ../text.py:841
-#: ../text.py:346
+#: ../text.py:347
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 # ../text.py:844
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -2407,7 +2407,7 @@ msgstr ""
 "<F12> hurrengo pantaila "
 
 # ../text.py:846
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2784,6 +2784,36 @@ msgstr "Kerberos  Baimendu"
 
 #: ../iw/auth_gui.py:253
 msgid "SMB"
+msgstr ""
+
+# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
+# ../textw/partitioning_text.py:149
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Berekasakako Disko Zatiketa"
+
+# ../loader/lang.c:287
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Hizkuntza bat Hautatu"
+
+# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
+# ../textw/partitioning_text.py:149
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+#, fuzzy
+msgid "I want to have automatic partitioning:"
+msgstr "Berekasakako Disko Zatiketa"
+
+# ../textw/lilo_text.py:85 ../textw/silo_text.py:103
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Abiagailua non ezartzea nahi duzu?"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
 #: ../iw/blpasswidget.py:37
@@ -3294,15 +3324,15 @@ msgstr "Disko Zatiketa"
 msgid "Select a drive to partition with fdisk:"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr ""
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr ""
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3311,17 +3341,17 @@ msgid ""
 msgstr ""
 
 # ../loader/net.c:34
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 #, fuzzy
 msgid "_Configure Firewall"
 msgstr "TCP/IP Egokitu"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr ""
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3331,78 +3361,76 @@ msgid ""
 msgstr ""
 
 # ../todo.py:857
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 #, fuzzy
 msgid "Warning: Bad Token"
 msgstr "Bilatzen"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr ""
 
 # ../gnome-map/gglobe-canvas.c:26
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "Antialias-a baimendu"
 
 # ../text.py:997
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 #, fuzzy
 msgid "_Custom firewall"
 msgstr "Eguneraketa Norberekatua"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr ""
 
 # ../comps/comps-master:140
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 #, fuzzy
 msgid "Other _ports:"
 msgstr "Inprimaketa Sistema"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2206
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 #, fuzzy
 msgid "_Trusted devices:"
 msgstr "RAID tramankulua beste batek darabil"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-# ../iw/network_gui.py:154
-#: ../iw/firewall_gui.py:288
+# ../iw/keyboard_gui.py:120
+#: ../iw/firewall_gui.py:283
 #, fuzzy
-msgid "Active"
-msgstr "Abiatzerakoan Piztu"
+msgid "Disabled"
+msgstr "Tekla Hilak Eragotzi"
 
 # ../todo.py:857
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Bilatzen"
 
-# ../iw/keyboard_gui.py:120
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Disabled"
-msgstr "Tekla Hilak Eragotzi"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
+msgstr ""
 
 # ../text.py:194 ../text.py:915
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4619,35 +4647,6 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
-
-# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
-# ../textw/partitioning_text.py:149
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Berekasakako Disko Zatiketa"
-
-# ../loader/lang.c:287
-#: ../iw/partition_gui.py:1444
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Hizkuntza bat Hautatu"
-
-# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
-# ../textw/partitioning_text.py:149
-#: ../iw/partition_gui.py:1486
-#, fuzzy
-msgid "I want to have automatic partitioning:"
-msgstr "Berekasakako Disko Zatiketa"
-
-# ../textw/lilo_text.py:85 ../textw/silo_text.py:103
-#: ../iw/partition_gui.py:1517
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Abiagailua non ezartzea nahi duzu?"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
@@ -5898,80 +5897,80 @@ msgid "Choose a disk to run fdisk on"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
 # ../text.py:997
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 #, fuzzy
 msgid "Customize"
 msgstr "Eguneraketa Norberekatua"
 
 # ../gnome-map/gglobe-canvas.c:26
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 #, fuzzy
 msgid "Enable firewall"
 msgstr "Antialias-a baimendu"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2206
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 #, fuzzy
 msgid "Trusted Devices:"
 msgstr "RAID tramankulua beste batek darabil"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr ""
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr ""
 
 # ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
 # ../textw/userauth_text.py:195
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 #, fuzzy
 msgid "Telnet"
 msgstr "Ezabatu"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr ""
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr ""
 
 # ../loader/loader.c:1126 ../loader/loader.c:1135
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
 # ../comps/comps-master:140
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 #, fuzzy
 msgid "Other ports"
 msgstr "Inprimaketa Sistema"
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Abiaketaren Izena Erabilkaitza"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr ""
 
 # ../text.py:905
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 #, fuzzy
 msgid "Firewall Configuration - Customize"
 msgstr "Egokitzaketa Osatua"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5980,10 +5979,29 @@ msgid ""
 msgstr ""
 
 # ../loader/urls.c:245
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, fuzzy, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "%s Ostalariaren izena baliogabea da."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 # ../text.py:195
 #: ../textw/installpath_text.py:49
@@ -7871,6 +7889,7 @@ msgid "Add Device"
 msgstr "Tramankulua Gehitu"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
@@ -7898,6 +7917,7 @@ msgid "Checking \"%s\"..."
 msgstr ""
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr ""
 
@@ -9069,6 +9089,10 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 # ../image.py:97

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
 "PO-Revision-Date: 2004-02-18 13:19+0200\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
@@ -93,7 +93,7 @@ msgstr "Підключіться, щоб розпочати встановлен
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -155,7 +155,7 @@ msgstr "Перехід до встановлення у текстовому р�
 msgid "No video hardware found, assuming headless"
 msgstr "Не знайдено відеокарту, вона вважатиметься відсутньою"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Не вдається ініціалізувати об'єкт стану обладнання системи X."
 
@@ -579,7 +579,7 @@ msgstr ""
 "ласка, скопіюйте повний текст цього виключення та складіть докладний звіт "
 "про помилку в anaconda на http://bugzilla.redhat.com/bugzilla/"
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Виникла виключна ситуація"
 
@@ -861,7 +861,7 @@ msgid "Duplicate Labels"
 msgstr "Однакові позначки"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
@@ -931,11 +931,11 @@ msgstr ""
 "При збереженні знімку екрану виникла помилка. Якщо ще сталося при "
 "встановленні пакетів, необхідно зробити ще декілька спроб отримання знімку."
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Виправити"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -943,7 +943,7 @@ msgstr "Виправити"
 msgid "Yes"
 msgstr "Так"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -952,17 +952,17 @@ msgstr "Так"
 msgid "No"
 msgstr "Ні"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Повторити"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Ігнорувати"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -970,7 +970,7 @@ msgstr "Ігнорувати"
 msgid "Cancel"
 msgstr "Скасувати"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1020,7 +1020,7 @@ msgstr "Ваша система зараз буде перезавантажен
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Назад"
 
@@ -1095,7 +1095,7 @@ msgstr ""
 "диски. Якщо необхідно перервати встановлення та перезавантажити систему, "
 "натисніть кнопку \"Перезавантаження\"."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "П_родовжити"
@@ -1147,11 +1147,11 @@ msgstr "Будь ласка, вставте диск %d для продовже�
 msgid "Install on System"
 msgstr "Встановлення системи"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Відсутній пакет"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1160,15 +1160,15 @@ msgstr ""
 "Ви вказали, що необхідно встановити пакет '%s', але такий пакет не існує. "
 "Продовжити встановлення чи перервати його?"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "_Перервати"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Відсутня група"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1740,11 +1740,10 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 "Ви вирішили для цього встановлення використовувати раніше створений розділ "
-"без його форматування. Red Hat рекомендує відформатувати цей розділ, щоб "
-"файли з попереднього встановлення не викликали проблем з цим встановленням "
-"Linux. Проте, якщо розділ містить файли, які необхідно зберегти, наприклад "
-"домашні каталоги користувачів, ви можете продовжити без форматування цього "
-"розділу."
+"без його форматування. Ми рекомендуємо відформатувати цей розділ, щоб файли "
+"з попереднього встановлення не викликали проблем з цим встановленням Linux. "
+"Проте, якщо розділ містить файли, які необхідно зберегти, наприклад домашні "
+"каталоги користувачів, ви можете продовжити без форматування цього розділу."
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -2057,11 +2056,11 @@ msgstr "Настройка мережі"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Активувати мережні інтерфейси цієї системи?"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Скасовано"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Повернутися до попереднього етапу неможливо. Потрібно повторити спробу."
@@ -2077,7 +2076,7 @@ msgid "Rescue"
 msgstr "Відновлення"
 
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2089,11 +2088,11 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Оболонка рятування спробує знайти ваше встановлення Red Hat Linux та "
-"підключити її у каталозі %s.  Після чого ви зможете зробити будь-які "
-"необхідні зміни у вашій системі.  Натисніть клавішу 'Продовжити'. Також "
-"виможете підключити ваші файлові системи в режимі \"лише читання\" замість"
-"\"читання-запис\", натиснувши кнопку \"Лише для читання\".\n"
+"Оболонка рятування спробує знайти ваше встановлення Linux та підключити її у "
+"каталозі %s.  Після чого ви зможете зробити будь-які необхідні зміни у вашій "
+"системі.  Натисніть клавішу 'Продовжити'. Також ви можете підключити ваші "
+"файлові системи в режимі \"лише читання\" замість\"читання-запис\", "
+"натиснувши кнопку \"Лише для читання\".\n"
 "\n"
 "Якщо з певної причини це не вдається, ви можете натиснути \"Пропустити\", і "
 "тоді ви попадете безпосередньо у командну оболонку.\n"
@@ -2191,38 +2190,38 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Систему підключено у каталог %s."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Довідка недоступна"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Для цього кроку встановлення довідка недоступна."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Збереження аварійного образу"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Зберегти"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Налагодження"
 
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> довідка | <Tab> між елементами | <Пробіл> вибір | <F12> наступний екран"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2368,7 +2367,7 @@ msgstr ""
 "невелика. Ви дійсно бажаєте продовжити оновлення?"
 
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2379,23 +2378,23 @@ msgid ""
 "Do you wish to continue the upgrade process?"
 msgstr ""
 "Схоже, що в системі встановлені пакети, які конфліктують с пакетами, зі "
-"складу Red Hat Linux. Оскільки ці пакети конфліктують, продовження оновлення "
-"може призвести до того, що ці пакети або перестануть робити, або з'являться "
-"інші проблеми зі стабільністю системи. Докладнішу інформацію шукайте у "
-"примітках до випуску.\n"
+"складу %s. Оскільки ці пакети конфліктують, продовження оновлення може "
+"призвести до того, що ці пакети або перестануть робити, або з'являться інші "
+"проблеми зі стабільністю системи. Докладнішу інформацію шукайте у примітках "
+"до випуску.\n"
 "\n"
 "Ви дійсно бажаєте продовжити оновлення?"
 
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
-"Ця система не має файлу /etc/redhat-release. Можливо вона не є системою Red "
-"Hat Linux. Продовження процесу оновлення може привести систему до "
-"непрацездатного стану. Продовжити процес поновлення?"
+"Ця система не має файлу /etc/redhat-release. Можливо вона не є системою %s."
+"Продовження процесу оновлення може привести систему до непрацездатного "
+"стану. Продовжити процес поновлення?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2404,7 +2403,7 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
-"Ця версія %s підтримує оновлення Red Hat Linux 6.2 та більш стрших версій. "
+"Ця версія %s підтримує оновлення Red Hat Linux 6.2 та більш старших версій. "
 "Схоже, що ця система є більш ранньою. Ви дійсно бажаєте продовжити оновлення?"
 
 #: ../urlinstall.py:46
@@ -2547,6 +2546,28 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Автоматичний розподіл"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Необхідно вибрати хоча б один жорсткий диск для встановлення %s."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Мені потрібний автоматичний розподіл:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Вкажіть пристрої для цього встановлення:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2933,7 +2954,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -2947,7 +2968,7 @@ msgstr ""
 "\n"
 "\n"
 "Після встановлення можна додавати чи видаляти окремі пакети використовуючи "
-"утиліту 'redhat-config-packages'.\n"
+"утиліту 'system-config-packages'.\n"
 "\n"
 "Якщо ви знайомі з %s, ви можете казати окремі пакети, які ви хочете "
 "встановити чи які не повинні встановлюватись. Для цього необхідно відмітити "
@@ -3013,9 +3034,8 @@ msgstr ""
 "вибраних параметрів можуть бути перезаписані існуюче ПЗ та дані."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "Наступний продукт Red Hat буде обновлений:"
+msgstr "Наступна встановлена система буде оновлена:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -3045,15 +3065,15 @@ msgstr "Розподіл програмою fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Виберіть пристрій для роботи з fdisk"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Брандмауер"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Увага - брандмауер не настроєний"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3065,16 +3085,16 @@ msgstr ""
 "несанкціонованого доступу. Але ви вирішили пропустить настройку брандмауера. "
 "Натисніть \"Продовжити\", щоб продовжити установку без брандмауера."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Налаштувати брандмауер"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Продовжити"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3087,11 +3107,11 @@ msgstr ""
 "\n"
 "Наприклад, '1234:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Увага: неправильний елемент"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3099,56 +3119,55 @@ msgstr ""
 "Брандмауер може запобігти несанкціонованому доступу до вашого комп'ютера із "
 "зовнішнього світу. Ввімкнути брандмауер?"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "_Без брандмауера"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "_Ввімкнути брандмауер"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "В_ибірковий брандмауер"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Вкажіть служби, яким буде дозволений доступ через брандмауер."
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "Дозволити в_хідні:"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "Інші _порти:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Якщо хочете дозволити весь трафік через певний пристрій, відмітьте його "
 "нижче."
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "_Довірені пристрої:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Увага"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4194,27 +4213,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Сховати пристрої RAID/учасників _групи LVM"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Автоматичний розподіл"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Необхідно вибрати хоча б один жорсткий диск для встановлення %s."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Мені потрібний автоматичний розподіл:"
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Вкажіть пристрої для цього встановлення:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Пере_гляд (та модифікація) автоматично створених розділів"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5097,15 +5095,15 @@ msgid "Edit"
 msgstr "Правка"
 
 #: ../textw/bootloader_text.py:302
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The boot manager %s uses can boot other operating systems as well. You need "
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Менеджер завантаження Red Hat також може завантажувати інші операційні "
-"системи. Вкажіть завантажувальні розділи та позначки, які "
-"використовуватимуться при звертанні до них."
+"Менеджер завантаження %s також може завантажувати інші операційні системи. "
+"Вкажіть завантажувальні розділи та позначки, які використовуватимуться при "
+"звертанні до них."
 
 #: ../textw/bootloader_text.py:315
 msgid ""
@@ -5248,7 +5246,7 @@ msgstr ""
 "знаходились у %s. Можливо вам знадобиться до нього звернутись."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5259,7 +5257,7 @@ msgid ""
 msgstr ""
 "Типовий варіант встановлення включає рекомендований набір пакетів.  Після "
 "встановлення додаткові програмні пакети можна додати або видалити за "
-"допомогою утиліти \"redhat-config-packages\"\n"
+"допомогою утиліти \"system-config-packages\"\n"
 "\n"
 "Проте у склад %s входить багато інших програм. При потребі ви можете змінити "
 "перелік встановлюваного ПЗ."
@@ -5323,65 +5321,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Виберіть пристрій для роботи fdisk"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Доповнення"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Ввімкнути брандмауер"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Немає брандмауера"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Довірені пристрої:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Дозволити вхідні:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Пошта (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Інші порти"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Недопустимий вибір"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "Не можна налаштовувати вимкнений брандмауер."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Настройка брандмауера - Доповнення"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5393,10 +5391,29 @@ msgstr ""
 "протоколів. Вкажіть додаткові порти у розділеному комами переліку у формі "
 "'служба:протокол', наприклад 'imap:tcp'. "
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Увага: %s не є допустимим портом."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6205,11 +6222,13 @@ msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "Ласкаво просимо до %s"
+msgstr ""
+"Ласкаво просимо до %s!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6466,7 +6485,6 @@ msgstr ""
 "офісного використання."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6511,7 +6529,6 @@ msgstr ""
 "системного адміністрування."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6804,9 +6821,9 @@ msgid "Select Partition"
 msgstr "Вибір розділу"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Пристрій %s не містить образи Red Hat CDROM"
+msgstr "Пристрій %s не містить образи %s CDROM."
 
 #: ../loader2/hdinstall.c:600
 #, c-format
@@ -6981,14 +6998,15 @@ msgid "Add Device"
 msgstr "Додати пристрій"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "Завантажувач вже виконується. Запускається оболонка."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
 msgstr ""
-"Запускається anaconda, програма встановлення %s - зачекайте, будь ласка...\n"
+"Запускається anaconda, режим відновлення %s - зачекайте, будь ласка...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7010,6 +7028,7 @@ msgid "Checking \"%s\"..."
 msgstr "Перевіряється \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Перевіряється носій..."
 
@@ -7222,9 +7241,9 @@ msgid "NFS server name:"
 msgstr "Назва сервера NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "Каталог Red Hat:"
+msgstr "Каталог %s:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -8046,12 +8065,11 @@ msgstr "Англійська"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Естонська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Датська"
+msgstr "Фінська"
 
 #. generated from lang-table
 msgid "French"
@@ -8063,7 +8081,7 @@ msgstr "Німецька"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Угорська"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8083,7 +8101,7 @@ msgstr "Корейська"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Малайська"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8119,6 +8137,10 @@ msgstr "Турецька"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "Українська"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

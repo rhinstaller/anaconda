@@ -9,14 +9,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-02-24 10:39+0200\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-15 23:12+0200\n"
 "Last-Translator: Bahadir Yagan <bahadir.yagan@mentorsystem.com>\n"
 "Language-Team: Turkish <fedora-trans-tr@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -97,7 +97,7 @@ msgstr "Kuruluma başlamak için lütfen bağlanın..."
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -159,7 +159,7 @@ msgid "No video hardware found, assuming headless"
 msgstr ""
 "Ekran ile ilgili donanım bilgileri bulunamadı, monitörsüz olduğu varsayılacak"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Bir X donanım durum nesnesi gerçeklenemedi."
 
@@ -585,7 +585,7 @@ msgstr ""
 "redhat.com/bugzilla adresinden anaconda hakkında ayrıntılı bir hata raporu "
 "gönderiniz."
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Bir sorun oluştu"
 
@@ -869,14 +869,14 @@ msgid "Duplicate Labels"
 msgstr "Etiket Tekrarı"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Sisteminizde %s etiketi birden fazla aygıt için kullanılmış. Sisteminizin "
+"Sisteminizde %s etiketi birden fazla aygıt için kullanılmış.  Sisteminizin "
 "düzgün çalışması için aygıt isimleri farklı olmalıdır.\n"
 "\n"
 "Bu sorunu hallettikten sonra kurulumu tekrar başlatın."
@@ -941,11 +941,11 @@ msgstr ""
 "ortaya çıkmışsa, bu hata oluşmayana kadar işlemi defalarca tekrarlamanız "
 "gerekebilir."
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Düzelt"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -953,7 +953,7 @@ msgstr "Düzelt"
 msgid "Yes"
 msgstr "Evet"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -962,17 +962,17 @@ msgstr "Evet"
 msgid "No"
 msgstr "Hayır"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Tekrar dene"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Yoksay"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -980,7 +980,7 @@ msgstr "Yoksay"
 msgid "Cancel"
 msgstr "İptal"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1029,7 +1029,7 @@ msgstr "Sisteminiz şimdi yeniden başlatılacak..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Geri"
 
@@ -1103,7 +1103,7 @@ msgstr ""
 "Kuruluma başlamadan önce bu CD'leri hazır tutun.  Eğer kurulumu iptal etmek "
 "ve bilgisayarınızı yeniden başlatmanız gerekiyorsa \"Yeniden Başlat\"ı seçin."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Devam"
@@ -1156,11 +1156,11 @@ msgstr "Lütfen %d. diski yerleştirin."
 msgid "Install on System"
 msgstr "Sistemde Kurulum"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Paket Eksik"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1169,15 +1169,15 @@ msgstr ""
 "'%s' paketinin kurulması gerektiğini belirtmişsiniz. Bu paket yok. Kuruluma "
 "devam etmek mi yoksa kurulumdan çıkmak mı istersiniz?"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "Çı_k"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Grup Eksik"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -2063,11 +2063,11 @@ msgstr "Ağ Ayarları"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Bu sistemde ağ bağdaştırıcılarını başlatmak ister misiniz?"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Vazgeçildi"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adımdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
@@ -2080,7 +2080,7 @@ msgid "Rescue"
 msgstr "Kurtar"
 
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2092,7 +2092,7 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Kurtarma kipi, Red Hat Linux kurulumunuzu bulmaya çalışacak ve bulduğunda "
+"Kurtarma ortamı, Red Hat Linux kurulumunuzu bulmaya çalışacak ve bulduğunda "
 "sistemi %s dizini altına bağlayacaktır. Bundan sonra sisteminizde gerekli "
 "düzeltmeleri yapabilirsiniz. Bu işlemin yapılmasını istiyorsanız, 'Devam et' "
 "seçiniz. Ayrıca isterseniz sistemi oku-yaz kipinde bağlamak yerine salt-"
@@ -2194,38 +2194,38 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Dosya sisteminiz %s altına bağlandı."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Bu konuda yardım yok"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Kurulumun bu adımı için yardım bulunmuyor."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Bellekteki Bilgiyi Kaydet"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Kaydet"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Hata Ayıklama"
 
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s © 2004 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "<F1> yardım  |  Gezinmek için <Tab>  |  <Boşluk> seçer  | <F12> sonraki ekran"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2371,7 +2371,7 @@ msgstr ""
 "musunuz?"
 
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2382,14 +2382,14 @@ msgid ""
 "Do you wish to continue the upgrade process?"
 msgstr ""
 "Bu sistemde kurulu bazı üçüncü parti paketler %s içindeki başka paketlerle "
-"örtüşüyor. Güncelleme işlemi bu paketlerin üzerine yazacağından, bahsi geçen "
-"uygulamalar düzgün çalışmayabilir yada sisteminiz bu işlemden sonra kararsız "
-"duruma gelebilir. Daha fazla bilgi için dağıtım notlarına bakınız.\n"
+"örtüşüyor. Bu örtüşme, bahsi geçen uygulamaların düzgün çalışmamasına yada "
+"sisteminiz bu işlemden sonra kararsız duruma gelmesine neden olabilir. Daha "
+"fazla bilgi için dağıtım notlarına bakınız.\n"
 "\n"
 "Yine de güncelleme işlemine devam edilsin mi?"
 
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
@@ -2549,6 +2549,29 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Otomatik Bölümleme"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"%s kurulumunun yapılabilmesi için en azından bir aygıt belirtmelisiniz."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Otomatik bölümlendirme yapılsın:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Kurulumun yapılacağı yeri belirtiniz:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Oluşturulan bölümler _izlenebilsin (hatta gerekirse değiştirilebilsin)"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2938,7 +2961,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -3018,7 +3041,6 @@ msgstr ""
 "veriler sizin seçimlerinize bağlı olarak değiştirilecektir."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
 msgstr "Aşağıdaki kurulu sistem güncellenecek:"
 
@@ -3050,15 +3072,15 @@ msgstr "fdisk ile bölümlendirme"
 msgid "Select a drive to partition with fdisk:"
 msgstr "fdisk ile bölümlendirilecek diski seçin:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Güvenlik duvarı"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Uyarı - Güvenlik duvarı yok"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3070,16 +3092,16 @@ msgstr ""
 "yapılandırmanız önerilir.  Fakat siz güvenlik duvarını yapılandırmamayı "
 "seçtiniz.  Güvenlik duvarı kullanmadan devam etmek için \"Devam et\"i seçin."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "Güvenlik Duvarını _Yapılandır"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Devam"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3093,11 +3115,11 @@ msgstr ""
 "\n"
 "Örneğin: '1234:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Uyarı: Dizgecik Hatalı"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3105,55 +3127,54 @@ msgstr ""
 "Güvenlik duvarı sisteminize dışarıdan gelebilecek izinsiz erişimi engellemek "
 "yardımcı olabilir.  Bir güvenlik duvarı etkinleştirmek istiyor musunuz?"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "Güvenlik duvarı yo_k"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "Güvenlik duvarını _etkinleştir"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "_Kişisel güvenlik duvarı"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Hangi hizmetlerin güvenlik duvarını geçmesine izin veriyorsunuz?"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "Gelene _izin ver:"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "_Diğer portlar:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Eğer bir aygıtın tüm trafiğine izin vermek istiyorsanız aşağıdan seçiniz."
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "_Güvenilir aygıtlar:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Uyarı"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4202,28 +4223,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "RAID aygıtı/LVM Oylum _Grubu üyelerini gizle"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Otomatik Bölümleme"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"%s kurulumunun yapılabilmesi için en azından bir aygıt belirtmelisiniz."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Otomatik bölümlendirme yapılsın:"
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Kurulumun yapılacağı yeri belirtiniz:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Oluşturulan bölümler _izlenebilsin (hatta gerekirse değiştirilebilsin)"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5261,7 +5260,7 @@ msgstr ""
 "sonra %s dosyasında bulabilirsiniz."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5273,7 +5272,7 @@ msgstr ""
 "Öntanımlı kurulum ortamı önerilen paket kurulumunu içerir.  Kurulumdan sonra "
 "ek yazılımlar 'system-config-packages' aracı ile kurulup kaldırılabilir.\n"
 "\n"
-"Ancak %s bir çok uygulama ile gelir ve isterseniz kurulacak yazılım "
+"Ancak %s başka bir çok uygulama ile gelir ve isterseniz kurulacak yazılım "
 "paketlerini kendiniz de seçebilirsiniz."
 
 #: ../textw/desktop_choice_text.py:37
@@ -5336,65 +5335,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "fdisk çalıştırılacak sürücüyü seçin"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Kişiselleştir"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Güvenlik duvarını etkinleştir"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Güvenlik duvarı yok"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Güvenilir Aygıtlar:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Gelene izin ver:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Posta (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Diğer portlar"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Geçersiz Seçim"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "İptal edilmiş bir güvenlik duvarı özelleştirilemez."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Güvenlik Duvarı Yapılandırması - Özelleştir"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5407,10 +5406,29 @@ msgstr ""
 "belirtmek isterseniz 'hizmet:protokol' ('imap:tcp' gibi) çiftlerini "
 "virgüllerle ayırarak belirtebilirsiniz. "
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Uyarı: %s geçerli port değil."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6486,7 +6504,6 @@ msgstr ""
 "kurulumunu da içeren bu kurulum türü en idealidir. "
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6531,7 +6548,6 @@ msgstr ""
 "ortamı kurar."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6822,7 +6838,7 @@ msgid "Select Partition"
 msgstr "Bölümü seçin"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "%s aygıtı %s CDROM imgelerini içeriyor gibi görünmüyor."
 
@@ -6997,14 +7013,14 @@ msgid "Add Device"
 msgstr "Aygıt Ekle"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "yükleyici zaten çalışıyor. Kabuk başlatılıyor."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"%s sistem kurulum programı, anaconda çalıştırılıyor - lütfen bekleyiniz...\n"
+msgstr "Anaconda çalıştırılıyor, %s kurtarma kipi - lütfen bekleyiniz...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7027,6 +7043,7 @@ msgid "Checking \"%s\"..."
 msgstr "\"%s\" sınanıyor..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Ortam şimdi sınanıyor..."
 
@@ -7239,7 +7256,7 @@ msgid "NFS server name:"
 msgstr "NFS sunucu adı:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
 msgstr "%s dizini:"
 
@@ -8055,10 +8072,9 @@ msgstr "İngilizce"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estonya Dili"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
 msgstr "Danca"
 
@@ -8072,7 +8088,7 @@ msgstr "Almanca"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Macarca"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8092,7 +8108,7 @@ msgstr "Korece"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malay"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8128,6 +8144,10 @@ msgstr "Türkçe"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "Ukraynaca"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

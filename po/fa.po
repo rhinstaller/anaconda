@@ -1,21 +1,20 @@
-# translation of fa_IR.po to Persian
-# translation of anaconda.po to Persian
-# This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Persian translation of anaconda to Persian
+# This file is distributed under the same license as the anaconda package.
+# Copyright (C) 2004.
 # Abbas Izad <abbasizad@hotmail.com>, 2003, 2004.
+# Hedayat Vatankhah <hedavat@mail15.com>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-01-10 17:25+0330\n"
-"Last-Translator: Abbas Izad <abbasizad@hotmail.com>\n"
-"Language-Team: Persian <fa@li.org>\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-12 17:54+0330\n"
+"Language-Team: Farsi\n"
+"Last-Translator: Hedayat Vatankhah <hedavat@mail15.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -95,7 +94,7 @@ msgstr "لطفا برای شروع به نصب ارتباط برقرار کنی�
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -157,7 +156,7 @@ msgstr "رده‌ی نصب حالت نصب متنی را اجباری می‌ک�
 msgid "No video hardware found, assuming headless"
 msgstr "هیچ سخت‌افزار ویدیو یافت نشد. فرض بر بی‌سر گذاشته می‌شود"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "ناتوان در بوجود آوردن یک شیئ وضعیت سخت‌افزار اکس."
 
@@ -581,7 +580,7 @@ msgstr ""
 "تمام متن این استثنا را کپی کرده و یک اشکال مشروح را برای آناکوندا  به http://"
 "bugzilla.redhat.com/bugzilla/ گزارش دهید"
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "استثنا رخ داد"
 
@@ -627,11 +626,11 @@ msgstr ""
 
 #: ../floppy.py:118
 msgid "_Cancel"
-msgstr "ـ‌لغو"
+msgstr "_لغو"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr "ـ‌ساختن دیسک آغازگری"
+msgstr "_ساختن دیسک آغازگری"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1243 ../fsset.py:1262 ../fsset.py:1313
@@ -863,23 +862,23 @@ msgid "Duplicate Labels"
 msgstr "تکثیر برچسب‌ها"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"چندین دستگاه بر سیستم شما دارای برچسب %s هستند. برای کارآرایی درست "
-"سیستم‌تانبرچسب دستگاه‌ها بایستی یگانه باشند.\n"
+"چندین دستگاه بر سیستم شما دارای برچسب %s هستند. برای کارآرایی درست سیستم خود "
+"برچسب دستگاه‌ها بایستی یگانه باشند.\n"
 "\n"
-"لطفا این اشکال را برطرف کرده و پردازش نصب را راه‌اندازی مجدد کنید."
+"لطفا این اشکال را برطرف کرده و روند نصب را از اول شروع کنید."
 
 #: ../fsset.py:2076 ../gui.py:1092 ../image.py:72 ../image.py:439
 #: ../packages.py:1421 ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98
 #: ../textw/confirm_text.py:38 ../textw/confirm_text.py:64
 msgid "_Reboot"
-msgstr "ـ‌آغازگری مجدد"
+msgstr "_آغازگری مجدد"
 
 #: ../fsset.py:2329
 msgid "Formatting"
@@ -933,11 +932,11 @@ msgstr ""
 "خطایی هنگام ذخیره‌ی عکس‌صفحه رخ داد.  اگر این هنگام نصب بسته رخ داد، شما نیاز "
 "به چندین تکرار برای موفق شدن آن دارید."
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "ترمیم"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -945,7 +944,7 @@ msgstr "ترمیم"
 msgid "Yes"
 msgstr "بله"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -954,17 +953,17 @@ msgstr "بله"
 msgid "No"
 msgstr "نه"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "تلاش مجدد"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "نادیده‌گیری"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -972,7 +971,7 @@ msgstr "نادیده‌گیری"
 msgid "Cancel"
 msgstr "لغو"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1005,11 +1004,11 @@ msgstr ""
 
 #: ../gui.py:1085 ../packages.py:187 ../packages.py:584 ../packages.py:1415
 msgid "_Exit"
-msgstr "ـ‌خروج"
+msgstr "_خروج"
 
 #: ../gui.py:1086
 msgid "_Retry"
-msgstr "ـ‌تلاش مجدد"
+msgstr "_تلاش مجدد"
 
 #: ../gui.py:1088 ../packages.py:1418
 msgid "Rebooting System"
@@ -1021,29 +1020,29 @@ msgstr "سیستم شما اکنون آغازگری مجدد خواهد شد..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
-msgstr "ـ‌برگشت"
+msgstr "_برگشت"
 
 #: ../gui.py:1182
 msgid "_Next"
-msgstr "ـ‌بعدی"
+msgstr "_بعدی"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
-msgstr "ـ‌یادداشت‌های انتشار"
+msgstr "_یادداشت‌های انتشار"
 
 #: ../gui.py:1186
 msgid "Show _Help"
-msgstr "نشان دادن ـ‌راهنما"
+msgstr "نشان دادن _راهنما"
 
 #: ../gui.py:1188
 msgid "Hide _Help"
-msgstr "پنهان کردن ـ‌راهنما"
+msgstr "پنهان کردن _راهنما"
 
 #: ../gui.py:1190
 msgid "_Debug"
-msgstr "ـ‌اشکال‌زدایی"
+msgstr "_اشکال‌زدایی"
 
 #: ../gui.py:1272
 #, python-format
@@ -1096,10 +1095,10 @@ msgstr ""
 "لطفا قبل از پیشروی برای نصب اینها را آماده داشته باشید.  اگر شما احتیاج به "
 "قطع کردن نصب و آغازگری مجدد دارید لطفا \"آغازگری مجدد\" را انتخاب کنید."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
-msgstr "ـ‌ادامه"
+msgstr "_ادامه"
 
 #: ../image.py:131
 #, python-format
@@ -1148,11 +1147,11 @@ msgstr "لطفا سی‌دی %d را برای ادامه داخل کنید."
 msgid "Install on System"
 msgstr "نصب بر سیستم"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "فقدان بسته"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1161,15 +1160,15 @@ msgstr ""
 "شما مشخص کرده‌اید که بسته‌ی '%s' باید نصب گردد. این بسته وجود ندارد. آیا مایل "
 "هستید ادامه دهید یا نصب خود را قطع می‌کنید؟"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
-msgstr "ـ‌قطع کردن"
+msgstr "_قطع کردن"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "فقدان گروه"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1671,7 +1670,7 @@ msgstr "شما دارید همه‌ی قسمت‌بندی‌های بر روی �
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1357
 msgid "_Delete"
-msgstr "ـ‌حذف کردن"
+msgstr "_حذف کردن"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
@@ -1754,11 +1753,11 @@ msgstr "قالب‌بندی؟"
 
 #: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1010
 msgid "_Modify Partition"
-msgstr "ـ‌تغییر دادن قسمت‌بندی"
+msgstr "_تغییر دادن قسمت‌بندی"
 
 #: ../partIntfHelpers.py:409
 msgid "Do _Not Format"
-msgstr "قالب‌بندی ـ‌نشود"
+msgstr "قالب‌بندی _نشود"
 
 #: ../partIntfHelpers.py:417
 msgid "Error with Partitioning"
@@ -2059,11 +2058,11 @@ msgstr "برپاسازی شبکه‌کاری"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "آیا می‌خواهید واسط‌های شبکه‌ را بر روی این سیستم راه‌اندازی کنید؟"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "لغو شده"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "نمی‌توانم از اینجا به مرحله‌ی قبلی بروم. شما مجبور خواهید بود دوباره آزمایش "
@@ -2192,37 +2191,37 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "سیستم شما در شاخه‌ی %s سوار شده است."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "راهنما در دسترس نمی‌باشد"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "هیچ راهنمایی برای این مرحله از نصب در دسترس نمی‌باشد."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "ذخیره‌ی تخلیه‌ی حافظه‌ی فروپاشی"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "ذخیره"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "اشکال‌زدایی"
 
-#: ../text.py:346
+#: ../text.py:347
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) ۲۰۰۳ شرکت ردهت."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> برای راهنما | <Tab> بین اجزا | <Space> گزینش | <F12> صفحه‌ی بعدی"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2452,11 +2451,11 @@ msgstr "گذرواژه‌ی ریشه (مدیر) را برای سیستم وار�
 
 #: ../iw/account_gui.py:103
 msgid "Root _Password: "
-msgstr "ـ‌گذرواژه‌ی مدیر:"
+msgstr "_گذرواژه‌ی مدیر:"
 
 #: ../iw/account_gui.py:106
 msgid "_Confirm: "
-msgstr "ـ‌تصدیق: "
+msgstr "_تصدیق: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
@@ -2464,47 +2463,47 @@ msgstr "پیکربندی تأیید هویت"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr "بکار ـ‌اندازی گذرواژه‌های MD5"
+msgstr "بکار _اندازی گذرواژه‌های MD5"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr "بکار اندازی گذرواژه‌های ـ‌سایه"
+msgstr "بکار اندازی گذرواژه‌های _سایه"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr "ـ‌بکار اندازی NIS"
+msgstr "_بکار اندازی NIS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr "استفاده از ـ‌پخش‌همگانی برای یافتن کارگزار NIS"
+msgstr "استفاده از _پخش‌همگانی برای یافتن کارگزار NIS"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
-msgstr "ـ‌دامنه‌ی NIS:"
+msgstr "_دامنه‌ی NIS:"
 
 #: ../iw/auth_gui.py:118
 msgid "NIS _Server: "
-msgstr "ـ‌کارگزار NIS:"
+msgstr "_کارگزار NIS:"
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
-msgstr "بکار اـ‌ندازی LDAP"
+msgstr "بکار ا_ندازی LDAP"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr "استفاده از ـ‌جستجوی TLS"
+msgstr "استفاده از _جستجوی TLS"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
-msgstr "کاـ‌رگزار LDAP:"
+msgstr "کا_رگزار LDAP:"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr "LDAP ـپایه DN:"
+msgstr "LDAP _پایه DN:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr "به کار انداـختن Kerberos"
+msgstr "به کار اندا_ختن Kerberos"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
@@ -2516,19 +2515,19 @@ msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "کارگزار ـ‌مدیریت:"
+msgstr "کارگزار _مدیریت:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr "به کار انداختن ـتأیید هویت SMB"
+msgstr "به کار انداختن _تأیید هویت SMB"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
-msgstr "ـکارگزار SMB:"
+msgstr "_کارگزار SMB:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr "ـگروه‌کاری SMB:"
+msgstr "_گروه‌کاری SMB:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2546,6 +2545,29 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "قسمت‌بندی خودکار"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"شما نیاز به انتخاب کردن حداقل یک دیسک‌سخت برای نصب کردن %s بر رویش دارید."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "قسمت‌بندی خودکار را می‌خواهم:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "انتخاب کردن دیسک‌(های) برای استفاده در این نصب:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "_بازنگری (و تغییر در صورت نیاز) قسمت‌بندی‌های ایجاد شده"
+
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2557,11 +2579,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr "ـ‌استفاده از گذرواژه‌ی بارگذار آغازگری"
+msgstr "_استفاده از گذرواژه‌ی بارگذار آغازگری"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "تغییر دادن ـ‌گذرواژه"
+msgstr "تغییر دادن _گذرواژه"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2578,11 +2600,11 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
-msgstr "ـگذرواژه:"
+msgstr "_گذرواژه:"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr "تصدـ‌یق:"
+msgstr "تصد_یق:"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
@@ -2628,7 +2650,7 @@ msgstr ""
 
 #: ../iw/bootdisk_gui.py:70
 msgid "_Yes, I would like to create a boot diskette"
-msgstr "ـ‌بله، می‌خواهم دیسکچه‌ی آغازگری ایجاد کنم"
+msgstr "_بله، می‌خواهم دیسکچه‌ی آغازگری ایجاد کنم"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
@@ -2671,7 +2693,7 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr "پاـرامترهای عمومی هسته"
+msgstr "پا_رامترهای عمومی هسته"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
@@ -2698,7 +2720,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr "اـدامه بدون بارگذار آغازگری"
+msgstr "ا_دامه بدون بارگذار آغازگری"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
@@ -2712,15 +2734,15 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
-msgstr "اـستفاده از GRUB برای بارگذار آغازگری"
+msgstr "ا_ستفاده از GRUB برای بارگذار آغازگری"
 
 #: ../iw/bootloader_main_gui.py:143
 msgid "Use _LILO as the boot loader"
-msgstr "استفاده از LILO برای بارگذار آـ‌غازگری"
+msgstr "استفاده از LILO برای بارگذار آ_غازگری"
 
 #: ../iw/bootloader_main_gui.py:147
 msgid "_Do not install a boot loader"
-msgstr "بارگذار ـ‌آغازگری نصب نشود"
+msgstr "بارگذار _آغازگری نصب نشود"
 
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
@@ -2733,11 +2755,11 @@ msgstr "هیچ بارگذار آغازگری نصب نخواهد شد."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "ـ‌تغییر دادن بارگذار آغازگری"
+msgstr "_تغییر دادن بارگذار آغازگری"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
-msgstr "پیکربندی پیشرفته‌ی ـ‌گزینه‌های بارگذار آغازگری"
+msgstr "پیکربندی پیشرفته‌ی _گزینه‌های بارگذار آغازگری"
 
 #: ../iw/bootlocwidget.py:39
 msgid "Install Boot Loader record on:"
@@ -2745,7 +2767,7 @@ msgstr "نصب کردن ضبط بارگذار آغازگری بر روی:"
 
 #: ../iw/bootlocwidget.py:70
 msgid "_Change Drive Order"
-msgstr "تغییر ـدادن ترتیب دستگاه"
+msgstr "تغییر _دادن ترتیب دستگاه"
 
 #: ../iw/bootlocwidget.py:84
 msgid "Unable to Change Drive Order for LILO"
@@ -2833,7 +2855,7 @@ msgstr "تبریک می‌گوییم"
 
 #: ../iw/congrats_gui.py:29
 msgid "Reboo_t"
-msgstr "آغازگری ـ‌مجدد"
+msgstr "آغازگری _مجدد"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -2908,15 +2930,15 @@ msgstr "نیازمندی"
 
 #: ../iw/dependencies_gui.py:90
 msgid "_Install packages to satisfy dependencies"
-msgstr "ـ‌نصب کردن بسته‌های لازم برای ارضای وابستگی‌ها"
+msgstr "_نصب کردن بسته‌های لازم برای ارضای وابستگی‌ها"
 
 #: ../iw/dependencies_gui.py:93
 msgid "_Do not install packages that have dependencies"
-msgstr "نـصب نکردن بسته‌هایی که دارای وابستگی‌ها هستند"
+msgstr "ن_صب نکردن بسته‌هایی که دارای وابستگی‌ها هستند"
 
 #: ../iw/dependencies_gui.py:97
 msgid "I_gnore package dependencies"
-msgstr "ناـدیده‌گیری وابستگی‌های بسته"
+msgstr "نا_دیده‌گیری وابستگی‌های بسته"
 
 #: ../iw/desktop_choice_gui.py:25 ../textw/desktop_choice_text.py:24
 msgid "Package Defaults"
@@ -2965,7 +2987,7 @@ msgstr "_نصب کردن بسته‌های نرم‌افزار پیش‌فرض"
 
 #: ../iw/desktop_choice_gui.py:74
 msgid "_Customize software packages to be installed"
-msgstr "ـ‌سفارشی‌سازی بسته‌های نرم‌افزار برای نصب شدن"
+msgstr "_سفارشی‌سازی بسته‌های نرم‌افزار برای نصب شدن"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -2986,7 +3008,7 @@ msgstr "آزمایش ارتقا"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
-msgstr "ـ‌ارتقا دادن یک نصب موجود"
+msgstr "_ارتقا دادن یک نصب موجود"
 
 #: ../iw/examine_gui.py:61
 #, python-format
@@ -3000,7 +3022,7 @@ msgstr ""
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "_Install %s"
-msgstr "ـ‌نصب کردن %s"
+msgstr "_نصب کردن %s"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -3011,9 +3033,8 @@ msgstr ""
 "ممکن است با بستگی به پیکربندی مورد انتخاب شما بازنگاری شوند."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "محصول ردهت بدنبال آمده ارتقا داده خواهد شد:"
+msgstr "سیستم نصب‌شده‌ی زیر ارتقا داده خواهد شد:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -3043,15 +3064,15 @@ msgstr "قسمت‌بندی با fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "دیسکی را برای قسمت‌بندی با fdisk انتخاب کنید:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "دیوارآتش"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "هشدار - بدون دیوارآتش"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3063,16 +3084,16 @@ msgstr ""
 "پیکربندی گردد.  هر چند، شما پیکربندی یک دیوارآتش را انتخاب نکرده‌اید.  "
 "\"پیشروی\" را برای ادامه دادن بدون یک دیوارآتش انتخاب کنید."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
-msgstr "ـ‌پیکربندی کردن دیوارآتش"
+msgstr "_پیکربندی کردن دیوارآتش"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
-msgstr "ـ‌پیشروی"
+msgstr "_پیشروی"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3085,11 +3106,11 @@ msgstr ""
 "\n"
 "برای مثال، '1234:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "هشدار: نشان بد"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3097,56 +3118,55 @@ msgstr ""
 "دیوارآتش می‌تواند از دستیابی غیرمجاز از دنیای بیرون جلوگیری کند. آیا می‌خواهید "
 "دیوارآتش را بکار بیاندازید؟"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
-msgstr "ـ‌بدون دیوارآتش"
+msgstr "_بدون دیوارآتش"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
-msgstr "به ـ‌کار انداختن دیوارآتش"
+msgstr "به _کار انداختن دیوارآتش"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
-msgstr "ـ‌سفارشی‌سازی دیوارآتش"
+msgstr "_سفارشی‌سازی دیوارآتش"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "چه سرویس‌هایی باید اجازه‌ی عبور از میان دیوارآتش را داشته باشند؟"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
-msgstr "اجازه دادن به آمدنی::"
+msgstr "_اجازه دادن به آمدنی::"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
-msgstr "ـدرگاه‌های دیگر:"
+msgstr "_درگاه‌های دیگر:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "اگر می‌خواهید همه‌ی عبور و مرورها را از دستگاهی اجازه دهید، آن را در پایین "
 "انتخاب کنید."
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
-msgstr "دستگاه‌های ـ‌مورد اعتماد:"
+msgstr "دستگاه‌های _مورد اعتماد:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "آکره"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "هشدار"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -3179,23 +3199,23 @@ msgstr "پشتیبانی از زبان اضافی"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "انتخاب کردن زبان ـپیش‌فرض برای سیستم..."
+msgstr "انتخاب کردن زبان _پیش‌فرض برای سیستم..."
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "انتخاب کردن زبان‌های اـضافی برای نصب بر سیستم:"
+msgstr "انتخاب کردن زبان‌های ا_ضافی برای نصب بر سیستم:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "ـ‌انتخاب همه"
+msgstr "_انتخاب همه"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "انتخاب پیش‌فرض ـفقط"
+msgstr "انتخاب پیش‌فرض _فقط"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "ـبازنشانی"
+msgstr "_بازنشانی"
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3234,7 +3254,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:183
 msgid "C_ontinue"
-msgstr "اـدامه"
+msgstr "ا_دامه"
 
 #: ../iw/lvm_dialog_gui.py:154
 #, python-format
@@ -3303,11 +3323,11 @@ msgstr "ویرایش حجم منطقی"
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr "ـنقطه‌ی سوارسازی: "
+msgstr "_نقطه‌ی سوارسازی: "
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "نوع ـپرونده سیستم:"
+msgstr "نوع _پرونده سیستم:"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
@@ -3320,7 +3340,7 @@ msgstr "ناشناس"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr "نام حجم ـمنطقی:"
+msgstr "نام حجم _منطقی:"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
@@ -3328,7 +3348,7 @@ msgstr "نام حجم منطقی:"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
-msgstr "ـاندازه (مگابایت):"
+msgstr "_اندازه (مگابایت):"
 
 #: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:379
 #: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:339
@@ -3475,7 +3495,7 @@ msgstr "ویرایش گروه حجمی LVM"
 
 #: ../iw/lvm_dialog_gui.py:954
 msgid "_Volume Group Name:"
-msgstr "نام گروه ـحجم:"
+msgstr "نام گروه _حجم:"
 
 #: ../iw/lvm_dialog_gui.py:962
 msgid "Volume Group Name:"
@@ -3483,7 +3503,7 @@ msgstr "نام گروه حجم:"
 
 #: ../iw/lvm_dialog_gui.py:971
 msgid "_Physical Extent:"
-msgstr "گسترش ـفیزیکی:"
+msgstr "گسترش _فیزیکی:"
 
 #: ../iw/lvm_dialog_gui.py:978
 msgid "Physical Extent:"
@@ -3491,7 +3511,7 @@ msgstr "گسترش فیزیکی:"
 
 #: ../iw/lvm_dialog_gui.py:991
 msgid "Physical Volumes to _Use:"
-msgstr "حجم‌های فیزیکی برای ـاستفاده:"
+msgstr "حجم‌های فیزیکی برای _استفاده:"
 
 #: ../iw/lvm_dialog_gui.py:997
 msgid "Used Space:"
@@ -3515,12 +3535,12 @@ msgstr "اندازه (مگابایت)"
 
 #: ../iw/lvm_dialog_gui.py:1081 ../iw/osbootwidget.py:95
 msgid "_Add"
-msgstr "ـافزودن"
+msgstr "_افزودن"
 
 #: ../iw/lvm_dialog_gui.py:1084 ../iw/network_gui.py:481
 #: ../iw/osbootwidget.py:99 ../iw/partition_gui.py:1356
 msgid "_Edit"
-msgstr "ـویرایش"
+msgstr "_ویرایش"
 
 #: ../iw/lvm_dialog_gui.py:1099
 msgid "Logical Volumes"
@@ -3548,15 +3568,15 @@ msgstr "/dev/ttyS3 (COM4 در DOS)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:159
 msgid "_Device"
-msgstr "ـدستگاه"
+msgstr "_دستگاه"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr "ـمدل"
+msgstr "_مدل"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr "ـشبیه‌سازی ۳ دکمه‌ای"
+msgstr "_شبیه‌سازی ۳ دکمه‌ای"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
@@ -3580,19 +3600,19 @@ msgstr "DNS ثالثیه"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr "ـدروازه"
+msgstr "_دروازه"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "DNS ـاولیه"
+msgstr "DNS _اولیه"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "DNS ـثانویه"
+msgstr "DNS _ثانویه"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "DNS ـثالثیه"
+msgstr "DNS _ثالثیه"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -3673,23 +3693,23 @@ msgstr "ویرایش کردن واسط %s"
 
 #: ../iw/network_gui.py:213
 msgid "Configure using _DHCP"
-msgstr "ـپیکربندی با استفاده از DHCP"
+msgstr "_پیکربندی با استفاده از DHCP"
 
 #: ../iw/network_gui.py:219
 msgid "_Activate on boot"
-msgstr "ـفعال‌سازی در آغازگری"
+msgstr "_فعال‌سازی در آغازگری"
 
 #: ../iw/network_gui.py:228
 msgid "_IP Address"
-msgstr "ـنشانی IP"
+msgstr "_نشانی IP"
 
 #: ../iw/network_gui.py:229
 msgid "Net_mask"
-msgstr "نقاب‌ـ‌شبکه"
+msgstr "نقاب‌_شبکه"
 
 #: ../iw/network_gui.py:232
 msgid "_Point to Point (IP)"
-msgstr "ـنقطه به نقطه (آی‌پی)"
+msgstr "_نقطه به نقطه (آی‌پی)"
 
 #: ../iw/network_gui.py:256
 #, python-format
@@ -3722,11 +3742,11 @@ msgstr "گذاردن نام‌میزبان:"
 
 #: ../iw/network_gui.py:502
 msgid "_automatically via DHCP"
-msgstr "بطور ـخودکار از طریق DHCP"
+msgstr "بطور _خودکار از طریق DHCP"
 
 #: ../iw/network_gui.py:508
 msgid "_manually"
-msgstr "ـدستی"
+msgstr "_دستی"
 
 #: ../iw/network_gui.py:514
 msgid "(ex. \"host.domain.com\")"
@@ -3780,11 +3800,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:151
 msgid "_Label"
-msgstr "برـچسب"
+msgstr "بر_چسب"
 
 #: ../iw/osbootwidget.py:195
 msgid "Default Boot _Target"
-msgstr "هدف آغازگری ـپیش‌فرض"
+msgstr "هدف آغازگری _پیش‌فرض"
 
 #: ../iw/osbootwidget.py:224
 msgid "You must specify a label for the entry"
@@ -3842,19 +3862,19 @@ msgstr ""
 
 #: ../iw/package_gui.py:356
 msgid "_Tree View"
-msgstr "ـدرخت نما"
+msgstr "_درخت نما"
 
 #: ../iw/package_gui.py:358
 msgid "_Flat View"
-msgstr "نمای ـپهن"
+msgstr "نمای _پهن"
 
 #: ../iw/package_gui.py:373
 msgid "_Package"
-msgstr "ـبسته"
+msgstr "_بسته"
 
 #: ../iw/package_gui.py:375
 msgid "_Size (MB)"
-msgstr "ـاندازه (مگابایت)"
+msgstr "_اندازه (مگابایت)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
@@ -3862,11 +3882,11 @@ msgstr "اندازه‌ی کل: "
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
-msgstr "انتخاب کردن همگی ـدر گروه"
+msgstr "انتخاب کردن همگی _در گروه"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "اـنتخاب نکردن همگی در گروه"
+msgstr "ا_نتخاب نکردن همگی در گروه"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
@@ -3907,7 +3927,7 @@ msgstr "جزئیات"
 
 #: ../iw/package_gui.py:1125
 msgid "_Select individual packages"
-msgstr "اـنتخاب کردن بسته‌های تکی"
+msgstr "ا_نتخاب کردن بسته‌های تکی"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3915,15 +3935,15 @@ msgstr "گزینه‌های اضافی اندازه"
 
 #: ../iw/partition_dialog_gui.py:63
 msgid "_Fixed size"
-msgstr "اندازه‌ی ـثابت"
+msgstr "اندازه‌ی _ثابت"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
-msgstr "پر کردن همه‌ی فضا ـتا (مگابایت):"
+msgstr "پر کردن همه‌ی فضا _تا (مگابایت):"
 
 #: ../iw/partition_dialog_gui.py:75
 msgid "Fill to maximum _allowable size"
-msgstr "پر کردن تا حداکثر اندازه‌ی ـمجاز"
+msgstr "پر کردن تا حداکثر اندازه‌ی _مجاز"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
@@ -3944,11 +3964,11 @@ msgstr "ویرایش کردن قسمت‌بندی"
 
 #: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "ـنوع پرونده سیستم:"
+msgstr "_نوع پرونده سیستم:"
 
 #: ../iw/partition_dialog_gui.py:328
 msgid "Allowable _Drives:"
-msgstr "دیسک‌های ـمجاز:"
+msgstr "دیسک‌های _مجاز:"
 
 #: ../iw/partition_dialog_gui.py:341
 msgid "Drive:"
@@ -3960,15 +3980,15 @@ msgstr "برچسب اصلی سیستم پرونده:"
 
 #: ../iw/partition_dialog_gui.py:385
 msgid "_Start Cylinder:"
-msgstr "سیلندر ـآغازی:"
+msgstr "سیلندر _آغازی:"
 
 #: ../iw/partition_dialog_gui.py:403
 msgid "_End Cylinder:"
-msgstr "ـسیلندر آخر:"
+msgstr "_سیلندر آخر:"
 
 #: ../iw/partition_dialog_gui.py:454
 msgid "Force to be a _primary partition"
-msgstr "اجبار به قسمت‌بندی اوـلیه بودن"
+msgstr "اجبار به قسمت‌بندی او_لیه بودن"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
 #: ../textw/partition_text.py:1126
@@ -4040,7 +4060,7 @@ msgstr "هشدارهای قالب‌بندی"
 
 #: ../iw/partition_gui.py:688
 msgid "_Format"
-msgstr "ـقالب‌بندی"
+msgstr "_قالب‌بندی"
 
 #: ../iw/partition_gui.py:723
 msgid "LVM Volume Groups"
@@ -4156,12 +4176,12 @@ msgstr "ایجاد کردن یک _قسمت‌بندی نرم‌افزار RAID."
 #: ../iw/partition_gui.py:1267
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
-msgstr "ایجاد کردن یک ـدستگاه RAID [پیش‌فرض=/dev/md%s]."
+msgstr "ایجاد کردن یک _دستگاه RAID [پیش‌فرض=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1271
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
-msgstr "کلون کردن یک گرداننده برای ایجاد یک دستگاه RAID [پیش‌فرض=/dev/md%s]."
+msgstr "کلون کردن یک _گرداننده برای ایجاد یک دستگاه RAID [پیش‌فرض=/dev/md%s]."
 
 #: ../iw/partition_gui.py:1310
 msgid "Couldn't Create Drive Clone Editor"
@@ -4173,11 +4193,11 @@ msgstr "ویرایشگر کلون گرداننده‌ی دیسک بدلایلی 
 
 #: ../iw/partition_gui.py:1355
 msgid "Ne_w"
-msgstr "ـجدید"
+msgstr "_جدید"
 
 #: ../iw/partition_gui.py:1358
 msgid "Re_set"
-msgstr "باـزنشاندن"
+msgstr "با_زنشانی"
 
 #: ../iw/partition_gui.py:1359
 msgid "R_AID"
@@ -4189,29 +4209,7 @@ msgstr "_LVM"
 
 #: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr "پنهان کردن دستگاه RAID/اعضای ـگروه حجمی LVM"
-
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "قسمت‌بندی خودکار"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"شما نیاز به انتخاب کردن حداقل یک دیسک‌سخت برای نصب کردن %s بر رویش دارید."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "قسمت‌بندی خودکار را می‌خواهم:"
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "انتخاب کردن دیسک‌(های) برای استفاده در این نصب:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "بازنگری (و تغییر در صورت نیاز) قسمت‌بندی‌های ایجاد شده"
+msgstr "پنهان کردن دستگاه RAID/اعضای _گروه حجمی LVM"
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
@@ -4226,15 +4224,15 @@ msgstr "چگونه می‌خواهید سیستم پرونده بر این قس�
 
 #: ../iw/partition_ui_helpers_gui.py:249
 msgid "Leave _unchanged (preserve data)"
-msgstr "بدون ـتغییر باقی بماند (نگهداری داده‌ها)"
+msgstr "بدون _تغییر باقی بماند (نگهداری داده‌ها)"
 
 #: ../iw/partition_ui_helpers_gui.py:255
 msgid "_Format partition as:"
-msgstr "ـقالب‌بندی کردن قسمت‌بندی مانند:"
+msgstr "_قالب‌بندی کردن قسمت‌بندی مانند:"
 
 #: ../iw/partition_ui_helpers_gui.py:278
 msgid "Mi_grate partition to:"
-msgstr "جااندازـی قسمت‌بندی به:"
+msgstr "جاانداز_ی قسمت‌بندی به:"
 
 #: ../iw/partition_ui_helpers_gui.py:301
 msgid "Check for _bad blocks?"
@@ -4256,11 +4254,11 @@ msgstr "برپاسازی قسمت‌بندی دیسک"
 
 #: ../iw/partmethod_gui.py:53
 msgid "_Automatically partition"
-msgstr "قسمت‌بندی بطور ـخودکار"
+msgstr "قسمت‌بندی بطور _خودکار"
 
 #: ../iw/partmethod_gui.py:56
 msgid "Manually partition with _Disk Druid"
-msgstr "قسمت‌بندی کردن دستی با ـدیسک دروئید"
+msgstr "قسمت‌بندی کردن دستی با _دیسک دروئید"
 
 #: ../iw/progress_gui.py:41
 #, python-format
@@ -4378,19 +4376,19 @@ msgstr "ویرایش دستگاه RAiD"
 
 #: ../iw/raid_dialog_gui.py:321
 msgid "RAID _Device:"
-msgstr "ـدستگاه RAID:"
+msgstr "_دستگاه RAID:"
 
 #: ../iw/raid_dialog_gui.py:339
 msgid "RAID _Level:"
-msgstr "ـسطح RAID:"
+msgstr "_سطح RAID:"
 
 #: ../iw/raid_dialog_gui.py:381
 msgid "_RAID Members:"
-msgstr "ـاعضای RAID:"
+msgstr "_اعضای RAID:"
 
 #: ../iw/raid_dialog_gui.py:398
 msgid "Number of _spares:"
-msgstr "تعداد ـیدکی‌ها:"
+msgstr "تعداد _یدکی‌ها:"
 
 #: ../iw/raid_dialog_gui.py:408
 msgid "_Format partition?"
@@ -4618,7 +4616,7 @@ msgstr "انتخاب منطقه‌ی زمانی"
 
 #: ../iw/timezone_gui.py:67 ../textw/timezone_text.py:96
 msgid "System clock uses _UTC"
-msgstr "ـساعت سیستم از UTC استفاده می‌کند"
+msgstr "_ساعت سیستم از UTC استفاده می‌کند"
 
 #: ../iw/timezone_gui.py:75
 msgid "Please select the nearest city in your timezone:"
@@ -4626,7 +4624,7 @@ msgstr "لطفا نزدیکترین شهر را در منطقه‌ی زمانی 
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
-msgstr "ـمکان"
+msgstr "_مکان"
 
 #: ../iw/timezone_map_gui.py:128
 msgid "Description"
@@ -4664,7 +4662,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:89
 msgid "_Create new boot loader configuration"
-msgstr "ـایجاد کردن پیکربندی بارگذاری آغازگری جدید"
+msgstr "_ایجاد کردن پیکربندی بارگذاری آغازگری جدید"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -4677,7 +4675,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
-msgstr "ـپرش از روی به‌روزسازی بارگذار آغازگری"
+msgstr "_پرش از روی به‌روزسازی بارگذار آغازگری"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4742,7 +4740,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
-msgstr "ـمی‌خواهم یک پرونده‌ی حافظه‌ی مبادله ایجاد کنم"
+msgstr "_می‌خواهم یک پرونده‌ی حافظه‌ی مبادله ایجاد کنم"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
@@ -4767,7 +4765,7 @@ msgstr "اندازه‌ی پرونده‌ی حافظه‌ی مبادله(مگا�
 
 #: ../iw/upgrade_swap_gui.py:191
 msgid "I _don't want to create a swap file"
-msgstr "ـنمی خواهم پرونده‌ی حافظه‌ی مبادله را ایجاد کنم"
+msgstr "_نمی خواهم پرونده‌ی حافظه‌ی مبادله را ایجاد کنم"
 
 #: ../iw/upgrade_swap_gui.py:201
 msgid ""
@@ -4800,7 +4798,7 @@ msgstr "سفارشی‌سازی پیکربندی گرافیکی"
 
 #: ../iw/xconfig_gui.py:251
 msgid "_Color Depth:"
-msgstr "عمق ـرنگ:"
+msgstr "عمق _رنگ:"
 
 #: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:106
 msgid "256 Colors (8 Bit)"
@@ -4816,7 +4814,7 @@ msgstr "رنگ حقیقی (۲۴ بیتی)"
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr "تفکیک‌پذیری ـصفحه:"
+msgstr "تفکیک‌پذیری _صفحه:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
@@ -4828,7 +4826,7 @@ msgstr "محیط رومیزی شما:"
 
 #: ../iw/xconfig_gui.py:355
 msgid "GNO_ME"
-msgstr "ـگنوم"
+msgstr "_گنوم"
 
 #: ../iw/xconfig_gui.py:357
 msgid "_KDE"
@@ -4840,11 +4838,11 @@ msgstr "لطفا نوع ثبت‌ورود خود را انتخاب کنید:"
 
 #: ../iw/xconfig_gui.py:395
 msgid "_Text"
-msgstr "ـمتن"
+msgstr "_متن"
 
 #: ../iw/xconfig_gui.py:396
 msgid "_Graphical"
-msgstr "ـگرافیکی"
+msgstr "_گرافیکی"
 
 #: ../iw/xconfig_gui.py:413 ../textw/xconfig_text.py:416
 msgid "Monitor Configuration"
@@ -4864,7 +4862,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr "ـانتخاب کردن نوع نمایشگر"
+msgstr "_انتخاب کردن نوع نمایشگر"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4876,15 +4874,15 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
-msgstr "ذخیره‌ی مجدد مقدارهای اـصلی"
+msgstr "ذخیره‌ی مجدد مقدارهای ا_صلی"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr "همگام‌سازی اـفقی:"
+msgstr "همگام‌سازی ا_فقی:"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
-msgstr "ـهمگامی عمودی:"
+msgstr "_همگامی عمودی:"
 
 #: ../iw/xconfig_gui.py:758
 msgid "kHz"
@@ -4954,11 +4952,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr "ـحافظه موقت کارت ویدیو: "
+msgstr "_حافظه موقت کارت ویدیو: "
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "ـنادیده گرفتن پیکربندی اکس"
+msgstr "_نادیده گرفتن پیکربندی اکس"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5337,65 +5335,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "دیسکی را برای اجرای fdisk بر رویش انتخاب کنید"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "سفارشی‌سازی"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "به کار انداختن دیوارآتش"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "بدون دیوارآتش"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "دستگاه‌های مورد اعتماد:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "اجازه دادن به آمدنی‌ها:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "تل‌نت"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "پست (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "درگاه های دیگر"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "گزینش نامعتبر"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "شما نمی‌توانید یک دیوارآتش ازکارافتاده را سفارشی‌سازی کنید."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "پیکربندی دیوارآتش - سفارشی‌سازی"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5408,10 +5406,29 @@ msgstr ""
 "با کوما، درگاه‌های اضافی را در قالب 'سرویس:پایان‌نامه' مانند 'imap:tcp' مشخص "
 "کنید. "
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "هشدار: %s یک درگاه معتبر نیست."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5431,7 +5448,7 @@ msgstr "گزینش همه"
 
 #: ../textw/language_text.py:108
 msgid "Reset"
-msgstr "بازنشاندن"
+msgstr "بازنشانی"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
@@ -5834,7 +5851,7 @@ msgstr "RAID"
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
-"    F1-راهنما     F2-جدید      F3-ویرایش   F4-حذف    F5-بازنشاندن    F12-"
+"    F1-راهنما     F2-جدید      F3-ویرایش   F4-حذف    F5-بازنشانی    F12-"
 "تایید        "
 
 #: ../textw/partition_text.py:1165
@@ -6223,11 +6240,13 @@ msgid "%s"
 msgstr "%s"
 
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "به %s خوش آمدید"
+msgstr ""
+"به %s خوش آمدید!\n"
+"\n"
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
@@ -6460,7 +6479,7 @@ msgstr "خط Chandev "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "ـسفارشی"
+msgstr "_سفارشی"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -6472,7 +6491,7 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
-msgstr "ـرومیزی شخصی"
+msgstr "_رومیزی شخصی"
 
 #: ../installclasses/personal_desktop.py:13
 msgid ""
@@ -6485,7 +6504,6 @@ msgstr ""
 "کنید."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6496,11 +6514,11 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\t پوسته رومیزی (گنوم)\n"
-"\tنرم‌افزار دفتری (دفتر باز)\n"
+"\tمجموعه‌ی اداری (اپن‌آفیس.ارگ)\n"
 "\tمرورگر وب (موزیلا)\n"
-"\tدوربر (تکامل)\n"
-"\tپیام‌رسانی درجا\n"
-"\tبرنامه‌های ویدیو و صوت\n"
+"\tپیام‌نگار (اوولوشن)\n"
+"\tپیام‌رسانی فوری\n"
+"\tبرنامه‌های صوتی و تصویری\n"
 "\tبازی‌ها\n"
 
 #: ../installclasses/server.py:11
@@ -6519,7 +6537,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr "ـپایگاه‌کاری"
+msgstr "_پایگاه‌کاری"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -6530,7 +6548,6 @@ msgstr ""
 "سیستم نصب می‌کند."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6543,11 +6560,11 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\t پوسته رومیزی (گنوم)\n"
-"\tنرم‌افزار دفتری (دفتر باز)\n"
+"\tمجموعه‌ی اداری (اپن‌آفیس.ارگ)\n"
 "\tمرورگر وب (موزیلا)\n"
-"\tدوربر (تکامل)\n"
-"\tپیام‌رسانی درجا\n"
-"\tبرنامه‌های ویدیو و صوت\n"
+"\tپیام‌نگار (اوولوشن)\n"
+"\tپیام‌رسانی فوری\n"
+"\tبرنامه‌های صوتی و تصویری\n"
 "\tبازی‌ها\n"
 "\tابزارهای تولید نرم‌افزار\n"
 "\tابزارهای مدیریت\n"
@@ -6825,9 +6842,9 @@ msgid "Select Partition"
 msgstr "انتخاب کردن قسمت‌بندی"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "دستگاه %s بنظر نمی‌رسد دارای تصاویر سی‌دی ردهت باشد."
+msgstr "دستگاه %s بنظر نمی‌رسد که تصاویر سی‌دی %s را داشته باشد."
 
 #: ../loader2/hdinstall.c:600
 #, c-format
@@ -7003,13 +7020,14 @@ msgid "Add Device"
 msgstr "افزودن دستگاه"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "بارگذار از قبل اجرا شده است.  راه‌اندازی پوسته."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "در حال اجرای آناکوندا، نصب کننده‌ی سیستم %s - لطفا صبر کنید...\n"
+msgstr "در حال اجرای آناکوندا، حالت نجات %s - لطفا صبر کنید...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7030,6 +7048,7 @@ msgid "Checking \"%s\"..."
 msgstr "در حال کنترل \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "در حال کنترل کردن رسانه..."
 
@@ -7242,9 +7261,9 @@ msgid "NFS server name:"
 msgstr "نام کارگزار NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "شاخه‌ی ردهت:"
+msgstr "شاخه‌ی %s:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -8060,12 +8079,11 @@ msgstr "انگلیسی"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "استونی"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "دانمارکی"
+msgstr "فنلاندی"
 
 #. generated from lang-table
 msgid "French"
@@ -8077,7 +8095,7 @@ msgstr "آلمانی"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "مجارستانی"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8097,7 +8115,7 @@ msgstr "کره‌ای"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "مالایا"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8133,6 +8151,10 @@ msgstr "ترکی"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "اوکراینی"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

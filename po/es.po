@@ -1,10 +1,5 @@
 # translation of es.po to 
-# translation of es.po to
-# translation of es.po to
-# translation of es.po to
 # translation of es.po to Español
-# translation of es.po to
-# translation of es.po to
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
 # Núria Soriano <nsoriano@redhat.es>,2001.
@@ -17,8 +12,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-03-08 13:15+1000\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-15 09:43+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -167,7 +162,7 @@ msgstr "Por favor conecte para iniciar la instalacin..."
 # ../textw/silo_text.py:160 ../xserver.py:51
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -238,7 +233,7 @@ msgstr "La clase de instalación forza a la instalación en modo texto."
 msgid "No video hardware found, assuming headless"
 msgstr "No se encontró hardware de vídeo, se asume sin cabezales"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "No se pudo iniciar una instancia del estado del objeto de hardware X."
 
@@ -825,7 +820,7 @@ msgstr ""
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:218
 # ../exception.py:83 ../text.py:219
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Ha ocurrido una excepción"
 
@@ -1262,7 +1257,7 @@ msgid "Duplicate Labels"
 msgstr "Duplicar Etiquetas"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
@@ -1346,7 +1341,7 @@ msgstr ""
 # ../gui.py:108 ../text.py:279
 # ../gui.py:108 ../text.py:279
 # ../gui.py:108 ../text.py:280
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Fijar"
 
@@ -1365,7 +1360,7 @@ msgstr "Fijar"
 # ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
 # ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
 # ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -1391,7 +1386,7 @@ msgstr "Si"
 # ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
 # ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 # ../textw/upgrade_text.py:259
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -1403,14 +1398,14 @@ msgstr "No"
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:283
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Volver a intentar"
 
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:284
 # ../gui.py:113 ../text.py:285
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Ignorar"
 
@@ -1439,8 +1434,8 @@ msgstr "Ignorar"
 # ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 # ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -1451,7 +1446,7 @@ msgstr "Cancelar"
 # ../gui.py:317 ../text.py:247
 # ../gui.py:317 ../text.py:247
 # ../gui.py:317 ../text.py:248
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1593,7 +1588,7 @@ msgstr "Se rearrancará su sistema..."
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Anterior"
 
@@ -1702,7 +1697,7 @@ msgstr ""
 # ../rescue.py:99
 # ../rescue.py:99
 # ../rescue.py:99
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Continuar"
@@ -1782,11 +1777,11 @@ msgstr "Instalación en el sistema"
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
 # ../iw/progress_gui.py:28
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Paquete ausente"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1798,18 +1793,18 @@ msgstr ""
 # ../iw/partition_gui.py:1516
 # ../iw/partition_gui.py:1518
 # ../iw/partition_gui.py:1526
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "_Abortar"
 
 # ../loader/net.c:404
 # ../loader/net.c:404
 # ../loader/net.c:404
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Grupo ausente"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -2604,8 +2599,8 @@ msgid ""
 "continue without formatting this partition."
 msgstr ""
 "Ha escogido usar una partición pre-existente para esta instalación sin "
-"formatearla. Red Hat recomienda  que formatee esta partición para asegurarse "
-"de que los archivos provenientes de una instalación previa de un sistema "
+"formatearla. Le recomendamos  que formatee esta partición para asegurarse de "
+"que los archivos provenientes de una instalación previa de un sistema "
 "operativo no causen problemas  con esta instalación de Linux. Sin embargo, "
 "si esta partición contiene archivos que necesita mantener, tales como "
 "directorios principales de usuarios, entonces deberia continuar sin "
@@ -3069,14 +3064,14 @@ msgstr "Desea arrancar las tarjetas de red en el sistema?"
 # ../text.py:389
 # ../text.py:395
 # ../text.py:396
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Cancelada"
 
 # ../text.py:390
 # ../text.py:396
 # ../text.py:397
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "No puede retroceder desde aquí. Tendrá que intentarlo de nuevo. "
 
@@ -3098,7 +3093,7 @@ msgstr "Rescatar"
 # ../rescue.py:91
 # ../rescue.py:91
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -3110,9 +3105,9 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"El entorno de rescate intentará encontrar su instalación Red Hat Linux y "
-"montarla bajo el directorio %s. Podrá hacer cualquier cambio que requiera a "
-"su sistema. Si desea proceder con este paso seleccione 'Continuar'. También "
+"El entorno de rescate intentará encontrar su instalación de Linux y montarla "
+"bajo el directorio %s. Podrá hacer cualquier cambio que requiera a su "
+"sistema. Si desea proceder con este paso seleccione 'Continuar'. También "
 "puede escoger montar sus sistemas de archivos  en modo de solo-lectura en "
 "lugar de en modo lectura-escritura escogiendo 'Solo-lectura'.\n"
 "\n"
@@ -3258,50 +3253,50 @@ msgstr "El sistema está montado bajo el directorio %s."
 # ../text.py:174
 # ../text.py:174
 # ../text.py:175
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Ayuda no disponible"
 
 # ../text.py:175
 # ../text.py:175
 # ../text.py:176
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Ayuda no disponible para este paso de la instalación."
 
 # ../text.py:246
 # ../text.py:246
 # ../text.py:247
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Guardar el volcado del fallo"
 
 # ../text.py:265 ../text.py:268
 # ../text.py:265 ../text.py:268
 # ../text.py:266 ../text.py:269
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Guardar"
 
 # ../text.py:265 ../text.py:266
 # ../text.py:265 ../text.py:266
 # ../text.py:266 ../text.py:267
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Depurar"
 
 # ../text.py:300
 # ../text.py:300
 # ../text.py:301
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s (C) 2004 Red Hat, Inc."
 
 # ../text.py:303
 # ../text.py:303
 # ../text.py:304
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -3311,7 +3306,7 @@ msgstr ""
 # ../text.py:305
 # ../text.py:305
 # ../text.py:306
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -3514,7 +3509,7 @@ msgstr ""
 # ../upgrade.py:343
 # ../upgrade.py:350
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -3525,10 +3520,10 @@ msgid ""
 "Do you wish to continue the upgrade process?"
 msgstr ""
 "Este sistema parece tener paquetes de un tercero instalados que solapan "
-"paquetes incluidos en  Red Hat Linux. Debido a que estos paquetes se "
-"solapan, continuar el proceso de actualización puede causar que no funcione "
-"apropiadamente el sistema o causar alguna otra inestabilidad. Por favor, lea "
-"las notas de última hora para más información.\n"
+"paquetes incluidos en  %s. Debido a que estos paquetes se solapan, continuar "
+"el proceso de actualización puede causar que no funcione apropiadamente el "
+"sistema o causar alguna otra inestabilidad. Por favor, lea las notas de "
+"última hora para más información.\n"
 "\n"
 "¿Desea continuar con la actualización?."
 
@@ -3536,15 +3531,15 @@ msgstr ""
 # ../upgrade.py:360
 # ../upgrade.py:367
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
 "Este sistema no tiene un archivo /etc/redhat-release.  Es posible que este "
-"no sea un sistema  Red Hat Linux.  Continuar con el proceso de actualización "
-"puede dejar el sistema inutilizable.  ¿Desea continuar con la actualización?."
+"no sea un sistema  %s.  Continuar con el proceso de actualización puede "
+"dejar el sistema inutilizable.  ¿Desea continuar con la actualización?."
 
 #: ../upgrade.py:544
 #, python-format
@@ -3789,6 +3784,42 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+# ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
+# ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
+# ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Particionamiento Automático"
+
+# ../iw/partition_gui.py:1597
+# ../iw/partition_gui.py:1599
+# ../iw/partition_gui.py:1607
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"Es necesario que seleccione al menos una unidad de disco duro en la que "
+"tener instalado %s."
+
+# ../iw/partition_gui.py:1636
+# ../iw/partition_gui.py:1638
+# ../iw/partition_gui.py:1646
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Quiero un particionamiento automático:"
+
+# ../iw/partition_gui.py:1667 ../textw/partition_text.py:1075
+# ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
+# ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Seleccione la(s) unidad(es) a usar para esta instalación:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Re_vise (y modifique si lo necesita) las particiones que ha creado"
 
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:362
@@ -4329,7 +4360,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -4343,7 +4374,7 @@ msgstr ""
 "\n"
 "\n"
 "Tras la instalación, se puede añadir o eliminar software adicional mediante "
-"la herramienta 'redhat-config-packages'.\n"
+"la herramienta 'system-config-packages'.\n"
 "\n"
 "Si esta familiarizado con %s, quizás tendrá paquetes específicos que le "
 "gustaría instalar o evitar su instalación. Compruebe la casilla en la parte "
@@ -4434,9 +4465,8 @@ msgstr ""
 "selecciones de configuración."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "El siguiente producto Red Hat será actualizado:"
+msgstr "Se actualizará el siguiente producto:"
 
 # ../loader/urls.c:247
 # ../loader/urls.c:247
@@ -4485,18 +4515,18 @@ msgstr "Seleccione una unidad para particionar con fdisk:"
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Cortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Advertencia - Ningún cortafuegos"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -4512,16 +4542,16 @@ msgstr ""
 # ../loader/net.c:373
 # ../loader/net.c:373
 # ../loader/net.c:373
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Configurar cortafuegos"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Proceder"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -4537,11 +4567,11 @@ msgstr ""
 # ../textw/partition_text.py:167
 # ../textw/partition_text.py:167
 # ../textw/partition_text.py:167
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Aviso: Token erróneo"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -4552,43 +4582,43 @@ msgstr ""
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "N_ingún cortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "_Habilitar cortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "_Cortafuegos personalizado"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "¿Qué servicios deben permitirse que pasen por el cortafuegos?"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "_Permitir la entrada:"
 
 # ../iw/firewall_gui.py:314
 # ../iw/firewall_gui.py:314
 # ../iw/firewall_gui.py:314
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "Otros _puertos:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Si quieres permitir todo el tráfico de un dispositivo, seleccionalo abajo."
@@ -4596,18 +4626,17 @@ msgstr ""
 # ../iw/firewall_gui.py:260
 # ../iw/firewall_gui.py:260
 # ../iw/firewall_gui.py:260
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "_Dispositivos certificados:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
 # ../autopart.py:938 ../harddrive.py:233 ../iw/bootloader_gui.py:58
 # ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1273
@@ -4633,13 +4662,13 @@ msgstr "Acre"
 # ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
 # ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
 # ../upgrade.py:240 ../upgrade.py:349 ../upgrade.py:366
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Aviso"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
@@ -6198,41 +6227,6 @@ msgstr "_LVM"
 #: ../iw/partition_gui.py:1401
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Esconder el dispositivo RAID/los miembros del _grupo de volumen LVM"
-
-# ../iw/partition_gui.py:1578 ../textw/partition_text.py:1052
-# ../iw/partition_gui.py:1580 ../textw/partition_text.py:1052
-# ../iw/partition_gui.py:1588 ../textw/partition_text.py:1063
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Particionamiento Automático"
-
-# ../iw/partition_gui.py:1597
-# ../iw/partition_gui.py:1599
-# ../iw/partition_gui.py:1607
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Es necesario que seleccione al menos una unidad de disco duro en la que "
-"tener instalado %s."
-
-# ../iw/partition_gui.py:1636
-# ../iw/partition_gui.py:1638
-# ../iw/partition_gui.py:1646
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Quiero un particionamiento automático:"
-
-# ../iw/partition_gui.py:1667 ../textw/partition_text.py:1075
-# ../iw/partition_gui.py:1669 ../textw/partition_text.py:1075
-# ../iw/partition_gui.py:1677 ../textw/partition_text.py:1086
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Seleccione la(s) unidad(es) a usar para esta instalación:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Re_vise (y modifique si lo necesita) las particiones que ha creado"
 
 # ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
 # ../iw/partition_gui.py:336 ../textw/partition_text.py:186
@@ -7834,7 +7828,7 @@ msgstr ""
 "reiniciado su sistema. Puede que lo necesite más tarde. "
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -7845,7 +7839,7 @@ msgid ""
 msgstr ""
 "El entorno de instalación predeterminado incluye nuestra selección de  "
 "paquetes recomendados. Después de la instalación, puede añadir o eliminar "
-"software utilizando la herramienta   'redhat-config-packages'.\n"
+"software utilizando la herramienta   'system-config-packages'.\n"
 "\n"
 "Sin embargo, %s se entrega con muchas otras aplicaciones y puede "
 "personalizar la selección de software instalado si lo desea."
@@ -7940,49 +7934,49 @@ msgstr "Seleccione un disco en el que ejecutar fdisk"
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Personalizar"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Habilitar cortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Ningún cortafuegos"
 
 # ../textw/firewall_text.py:73
 # ../textw/firewall_text.py:73
 # ../textw/firewall_text.py:73
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Dispositivos certificados:"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Permitir la entrada:"
 
 # ../textw/firewall_text.py:97
 # ../textw/firewall_text.py:97
 # ../textw/firewall_text.py:97
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
 # ../textw/firewall_text.py:99
 # ../textw/firewall_text.py:99
 # ../textw/firewall_text.py:99
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
@@ -7990,21 +7984,21 @@ msgstr "Telnet"
 # ../textw/firewall_text.py:101
 # ../textw/firewall_text.py:101
 # ../textw/firewall_text.py:101
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
 # ../textw/firewall_text.py:103
 # ../textw/firewall_text.py:103
 # ../textw/firewall_text.py:103
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Correo (SMTP)"
 
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
@@ -8012,7 +8006,7 @@ msgstr "FTP"
 # ../textw/firewall_text.py:109
 # ../textw/firewall_text.py:109
 # ../textw/firewall_text.py:109
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Otros puertos"
 
@@ -8022,7 +8016,7 @@ msgstr "Otros puertos"
 # ../textw/language_text.py:157
 # ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
 # ../textw/language_text.py:157
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Elección incorrecta"
@@ -8030,21 +8024,21 @@ msgstr "Elección incorrecta"
 # ../textw/firewall_text.py:136
 # ../textw/firewall_text.py:136
 # ../textw/firewall_text.py:136
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "No puede personalizar un cortafuegos inhabilitado."
 
 # ../textw/firewall_text.py:141
 # ../textw/firewall_text.py:141
 # ../textw/firewall_text.py:141
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Configuración del cortafuegos- Personalización"
 
 # ../textw/firewall_text.py:143
 # ../textw/firewall_text.py:143
 # ../textw/firewall_text.py:143
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -8060,10 +8054,29 @@ msgstr ""
 # ../textw/firewall_text.py:200
 # ../textw/firewall_text.py:200
 # ../textw/firewall_text.py:200
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Aviso: %s no es un puerto válido."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 # ../textw/installpath_text.py:46
 # ../textw/installpath_text.py:46
@@ -9851,7 +9864,6 @@ msgstr ""
 "sistema ideal para el uso del directorio principal o del escritorio."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -9862,7 +9874,7 @@ msgid ""
 "\tGames\n"
 msgstr ""
 "\tShell de escritorio (GNOME)\n"
-" \tPaquete de Ofimática (OppenOffice)\n"
+" \tPaquete de Ofimática (OppenOffice.org)\n"
 "\tNavegador Web (Mozilla)\n"
 "\tCorreo electrónico (Evolution)\n"
 "\tMensajería instantánea\n"
@@ -9903,7 +9915,6 @@ msgstr ""
 "el desarrollo del software y la administración del sistema. "
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -9916,7 +9927,7 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 "\tShell de escritorio (GNOME)\n"
-"\tPaquete de Ofimática (OppenOffice)\n"
+"\tPaquete de Ofimática (OppenOffice.org)\n"
 "\tNavegador Web (Mozilla)\n"
 "\tCorreo electrónico (Evolution)\n"
 "\tMensajería instantánea\n"
@@ -10297,9 +10308,9 @@ msgstr "Selección de la Partición"
 # ../loader/loader.c:913
 # ../loader/loader.c:913
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "El dispositivo %s no contiene las imágenes de los CDROM de Red Hat."
+msgstr "El dispositivo %s no contiene las imágenes de los CDROM de %s."
 
 # ../loader/net.c:723
 # ../loader/net.c:723
@@ -10581,6 +10592,7 @@ msgid "Add Device"
 msgstr "Añadir dispositivo"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "el cargador ya ha sido ejecutado. Arrancando el shell."
 
@@ -10588,9 +10600,9 @@ msgstr "el cargador ya ha sido ejecutado. Arrancando el shell."
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Ejecución de la instalación del sistema %s - por favor espere...\n"
+msgstr "Ejecutando anaconda, el modo de rescate %s - por favor espere...\n"
 
 # ../loader/loader.c:3019
 # ../loader/loader.c:3019
@@ -10615,6 +10627,7 @@ msgid "Checking \"%s\"..."
 msgstr "Comprobar \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Se están comprobando los medios..."
 
@@ -10915,9 +10928,9 @@ msgstr "Nombre del servidor NFS:"
 # ../loader/net.c:173 ../loader/urls.c:194
 # ../loader/net.c:173 ../loader/urls.c:194
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "Directorio Red Hat:"
+msgstr "Directorio %s:"
 
 # ../loader/net.c:179
 # ../loader/net.c:179
@@ -11826,12 +11839,11 @@ msgstr "Inglés"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estonio"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Danés"
+msgstr "Finlandés"
 
 #. generated from lang-table
 msgid "French"
@@ -11843,7 +11855,7 @@ msgstr "Alemán"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Húngaro"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -11863,7 +11875,7 @@ msgstr "Coreano"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malayo"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -11906,6 +11918,10 @@ msgstr "Turco"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ucraniano"
+
+#. generated from lang-table
+msgid "Zulu"
+msgstr ""
 
 # ../image.py:143
 # ../image.py:143

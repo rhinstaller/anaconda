@@ -1,21 +1,24 @@
+# translation of pl.po to Polish
 # translation of pl.po to POLISH
-# Plik z zasobami dla polskiego uÅ¼ytkownika.
+# Plik z zasobami dla polskiego użytkownika.
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998.
-# RafaÅ Maszkowski <rzm@icm.edu.pl>, 1999, 2000.
+# Rafał Maszkowski <rzm@icm.edu.pl>, 1999, 2000.
 # Bartosz Sapijaszko <bartosz@sapek.net>, 2002.
-# RadosÅaw Zawartko <radzaw@radzaw.one.pl>, 2004.
+# Radosław Zawartko <radzaw@radzaw.one.pl>, 2004.
+# Pawel Szopinski <pawel@szopinski.co.uk>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: pl\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-03-07 14:10+0100\n"
-"Last-Translator: Radosław Zawartko <radzaw@radzaw.one.pl>\n"
-"Language-Team:  <PL@li.org>\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-16 23:44+0000\n"
+"Last-Translator: Pawel Szopinski <pawel@szopinski.co.uk>\n"
+"Language-Team: Polish <pl@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -33,7 +36,7 @@ msgstr "Instalacja %s %s"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "Nie można ustalić hasła dla vnc - hasło nie zostanie użyte!"
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
@@ -62,20 +65,22 @@ msgstr "Serwer VNC jest uruchomiony."
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "Próba połączenia z klientem vnc na %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "Zarzucono połączenie po 50 próbach!\n"
 
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
 msgstr ""
+"Proszę połącz się ręcznie klientem vnc do %s, celem rozpoczęcia instalacji."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
 msgstr ""
+"Proszę polącz ręcznie twojego klienta vnc celem rozpoczęcia instalacji."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -96,7 +101,7 @@ msgstr "Połącz się aby rozpocząć instalację..."
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -152,13 +157,13 @@ msgstr ""
 
 #: ../anaconda:775
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Wymuszenie klasy instalacji, instalacja w trybie tekstowym."
 
 #: ../anaconda:802
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Urządzenia wideo nie zostały znalezione, pomyłka."
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 #, fuzzy
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Nie można utworzyć instancji obiektu stanu sprzętowego X."
@@ -211,7 +216,7 @@ msgid ""
 msgstr ""
 
 #: ../autopart.py:1006
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
@@ -219,16 +224,16 @@ msgid ""
 msgstr ""
 "Partycja startowa %s należy do dysku mającego na początku zbyt mało wolnego "
 "miejsca, aby można było umieścić na nim program uruchomieniowy. Zapewnij co "
-"najmniej 5MB wolnego miejsca na początku dysku zawierającego /boot"
+"najmniej 5MB wolnego miejsca na początku dysku zawierającego /boot."
 
 #: ../autopart.py:1008
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
-"Partycja startowa %s nie jest partycją VFAT.  EFI nie będzie startować z "
-"tej  partycji."
+"Partycja startowa %s nie jest partycją VFAT.  EFI nie będzie startować z tej "
+"partycji."
 
 #: ../autopart.py:1010
 msgid ""
@@ -285,9 +290,8 @@ msgstr ""
 "Naciśnij 'OK' w celu ponownego uruchomienia komputera."
 
 #: ../autopart.py:1251
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "grupa %s nie istnieje - użyto grupy root\n"
+msgstr "Rządana Grupa Woluminium nie istnieje."
 
 #: ../autopart.py:1252
 #, python-format
@@ -386,7 +390,7 @@ msgstr ""
 "Naciśnij 'OK' aby kontynuować."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -395,23 +399,20 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"TwÃ³j podziaÅ na partycje zawiera nastÄpujÄce bÅÄdy:\n"
+"Twój podział na partycje zawiera następujące błędy:\n"
 "\n"
 "%s\n"
 "\n"
-"To moÅ¼e zdarzyÄ siÄ w przypadku, gdy dyski(i) nie majÄ wystarczajÄcej iloÅci miejsca na istalacjÄ. MoÅ¼esz wybraÄ innÄ opcjÄ automatycznego podziaÅu na partycje lub nacisnÄÄ 'Back' i wybraÄ opcjÄ rÄcznego podziaÅu dysku.\n"
-"\n"
-"NaciÅnij 'OK' aby kontynuowaÄ."
+"Sytuacja ta, może mieć miejsce, gdy ilość wolnego miejsca na twoich "
+"partycjach jest niewystarczająca.%s"
 
 #: ../autopart.py:1380
-#, fuzzy
 msgid "Unrecoverable Error"
-msgstr "Nieodwracalny błąd podczas czytania %1"
+msgstr "Nieodwracalny Błąd"
 
 #: ../autopart.py:1381
-#, fuzzy
 msgid "Your system will now be rebooted."
-msgstr "System zostanie zrestartowany..."
+msgstr "Twój system zostanie teraz zrestartowany."
 
 #: ../autopart.py:1464 ../bootloader.py:148 ../gui.py:979 ../image.py:429
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:806
@@ -427,7 +428,6 @@ msgid "Warning"
 msgstr "Ostrzeżenie"
 
 #: ../autopart.py:1470
-#, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -441,11 +441,10 @@ msgstr ""
 "wymagań.\n"
 "\n"
 "Narzędzie do ręcznego partycjonowania dysku, Disk Druid, umożliwia tworzenie "
-"partycji w sposób interaktywny. Możesz wybrać typy systemów plików,  punkty "
+"partycji w sposób interaktywny. Możesz wybrać typy systemów plików, punkty "
 "montowania, rozmiary partycji i wiele, wiele więcej."
 
 #: ../autopart.py:1481
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -542,27 +541,24 @@ msgid "Miscellaneous"
 msgstr "Różne"
 
 #: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:917
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"Ta grupa zawiera wszystkie dostępne pakiety.  Weź pod uwagę, że jest to "
+"Ta grupa zawiera wszystkie dostępne pakiety. Weź pod uwagę, że jest to "
 "znacznie więcej pakietów niż pakiety ze wszystkich pozostałych grup na tej "
 "stronie razem wzięte."
 
 #: ../comps.py:1118 ../hdrlist.py:921
-#, fuzzy
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
 "Wybierz tę grupę aby uzyskać najmniejszy możliwy zbiór pakietów. Jest to "
-"przydatne na przykład do tworzenia małych ruterów/firewalli."
+"przydatne na przykład do tworzenia małych ruterów/zapór ogniowych."
 
 #: ../constants.py:70
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -570,51 +566,47 @@ msgid ""
 "bugzilla/"
 msgstr ""
 "Wystąpił nieobsługiwany wyjątek. Prawdopodobnie jest to błąd w programie. "
-"Proszę, skopiuj cały tekst z opisem wyjątku lub zapisz zrzut na dyskietkę a "
+"Proszę, skopiuj cały tekst z opisem wyjątku lub zapisz zrzut na dyskietkę, a "
 "następnie złóż szczegółowy raport o błędzie w programie anaconda pod adresem "
 "http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:77
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Wystąpił nieobsługiwany wyjątek. Prawdopodobnie jest to błąd w programie. "
-"Proszę, skopiuj cały tekst z opisem wyjątku i złóż szczegółowy raport o "
-"błędzie w programie anaconda pod adresem http://bugzilla.redhat.com/bugzilla/"
+"Proszę, skopiuj cały tekst z opisem wyjątku oraz złóż szczegółowy raport o "
+"błędzie w programie anaconda, pod adresem http://bugzilla.redhat.com/"
+"bugzilla/"
 
-#: ../exception.py:227 ../text.py:239
-#, fuzzy
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
-msgstr "Wystąpił wyjątek"
+msgstr "Wystąpił Wyjątek"
 
 #: ../exception.py:295
-#, fuzzy
 msgid "Dump Written"
 msgstr "Zapisano zrzut pamięci"
 
 #: ../exception.py:296
-#, fuzzy
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
-"Stan Twojego systemu został zapisany na dyskietkę. System zostanie teraz "
-"zrestartowany."
+"Stan Twojego systemu został zapisany z powodzeniem na dyskietkę. Twój system "
+"zostanie teraz zrestartowany."
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
 msgstr "Nie można utworzyć dyskietki startowej"
 
 #: ../floppy.py:104
-#, fuzzy
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
-"Moduły jądra Linuksa potrzebne dla Twojej maszyny nie mieszczą się na "
+"Moduły jądra Linuksa niezbędne dla Twojej maszyny nie mieszczą się na "
 "dyskietce startowej."
 
 #: ../floppy.py:113
@@ -668,7 +660,6 @@ msgid "Error"
 msgstr "Błąd"
 
 #: ../floppy.py:130 ../floppy.py:155
-#, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
@@ -685,22 +676,20 @@ msgid "Creating boot disk..."
 msgstr "Tworzenie dyskietki startowej"
 
 #: ../floppy.py:170
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
 "Podczas sprawdzania dyskietki startowej wystąpił błąd.  Upewnij się, że "
-"dyskietka jest w pierwszym napędzie nie jest uszkodzona."
+"dyskietka jest w pierwszym napędzie, nie jest uszkodzona."
 
 #: ../floppy.py:201
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Twoja dyskietka startowa zawiera błędy.  Najprawdopodobniej jest towina "
+"Twoja dyskietka startowa zawiera błędy.  Najprawdopodobniej jest to wina "
 "błędów nośnika.  Sprawdź, czy dyskietka w pierwszym napędzie jest sprawna."
 
 #: ../fsset.py:178
@@ -713,7 +702,7 @@ msgid "Checking for bad blocks on /dev/%s..."
 msgstr "Wyszukiwanie błędnych bloków na /dev/%s..."
 
 #: ../fsset.py:593
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred migrating %s to ext3.  It is possible to continue without "
 "migrating this file system if desired.\n"
@@ -721,9 +710,9 @@ msgid ""
 "Would you like to continue without migrating %s?"
 msgstr ""
 "Podczas migracji %s do ext3 wystąpił błąd. Jeśli chcesz, możesz kontynuować "
-"bez migrowania tego systemu plików.\n"
+"bez zmiany obecnego systemu plików.\n"
 "\n"
-"Czy chcesz kontynuować bez migrowania %s?"
+"Czy chcesz kontynuować bez zmian %s?"
 
 #: ../fsset.py:1158
 msgid "RAID Device"
@@ -746,20 +735,20 @@ msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
 #: ../fsset.py:1244
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Wystąpił błąd podczas inicjalizacji swapa na urządzeniu %s.  Problem jest "
-"poważny i instalacja nie może być kontynuowana.\n"
+"Wystąpił błąd podczas inicjalizacji pamięci swap na urządzeniu %s.  Problem "
+"jest poważny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1263
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -774,33 +763,33 @@ msgstr ""
 "Naciśnij OK aby zrestartować system."
 
 #: ../fsset.py:1314
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Na urządzeniu /dev/%s.  wykryto błędne bloki. Używanie tego urządzenia nie "
+"Na urządzeniu /dev/%s wykryto błędne bloki. Używanie tego urządzenia nie "
 "jest zalecane.\n"
 "\n"
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1325
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas szukania błędnych bloków na %s wystąpił błąd. Jest to poważny "
+"Podczas poszukania błędnych bloków na %s wystąpił błąd. Jest to poważny "
 "problem i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1360
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -813,38 +802,37 @@ msgstr ""
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1410
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas migracji %s wystąpił błąd. Jest to poważny problem i instalacja nie "
+"Podczas migracji %s wystąpił błąd.  Jest to poważny problem i instalacja nie "
 "może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1431 ../fsset.py:1440
-#, fuzzy
 msgid "Invalid mount point"
 msgstr "Błędny punkt montowania"
 
 #: ../fsset.py:1432
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Podczas tworzenia %s wystąpił błąd. Pewien składnik ścieżki nie jest "
-"katalogiem Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
+"Podczas tworzenia %s wystąpił błąd. Pewien element. ścieżki nie jest "
+"katalogiem. Jest to błąd krytyczny i instalacja nie może być kontynuowana.\n"
 "\n"
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1441
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -857,7 +845,7 @@ msgstr ""
 "Naciśnij <Enter> aby zrestartować system."
 
 #: ../fsset.py:1454
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
 "\n"
@@ -869,12 +857,11 @@ msgstr ""
 "\n"
 "Prawdopodobnie ta partycja nie została sformatowana.\n"
 "\n"
-"Naciśnij OK aby zrestartować system."
+"Naciśnij OK aby twój zrestartować system."
 
 #: ../fsset.py:2068
-#, fuzzy
 msgid "Duplicate Labels"
-msgstr "_Etykiety"
+msgstr "Zdublowane Etykiety"
 
 #: ../fsset.py:2069
 #, python-format
@@ -896,19 +883,17 @@ msgid "Formatting"
 msgstr "Formatowanie"
 
 #: ../fsset.py:2330
-#, fuzzy, python-format
+#, python-format
 msgid "Formatting %s file system..."
 msgstr "Formatowanie systemu plików %s..."
 
 #: ../gui.py:105
-#, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr "Podczas kopiowania zrzutów ekranu wystąpił błąd."
+msgstr "Wystąpił błąd podczas kopiowania zrzutów ekranu."
 
 #: ../gui.py:117
-#, fuzzy
 msgid "Screenshots Copied"
-msgstr "Skopiowano zrzuty ekranu"
+msgstr "Skopiowano Zrzuty Ekranu"
 
 #: ../gui.py:118
 #, fuzzy
@@ -949,12 +934,12 @@ msgstr ""
 "podczas instalowania pakietu, może być konieczne kilkukrotne ponowienie "
 "próby."
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 #, fuzzy
 msgid "Fix"
 msgstr "Napraw"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -962,7 +947,7 @@ msgstr "Napraw"
 msgid "Yes"
 msgstr "Tak"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -971,17 +956,17 @@ msgstr "Tak"
 msgid "No"
 msgstr "Nie"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Ponów"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Zignoruj"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -989,7 +974,7 @@ msgstr "Zignoruj"
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 #, fuzzy
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
@@ -1044,7 +1029,7 @@ msgstr "System zostanie zrestartowany..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Wstecz"
 
@@ -1113,7 +1098,7 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Kontynuuj"
@@ -1168,12 +1153,12 @@ msgstr "Proszę włożyć płytę %d aby kontynuować."
 msgid "Install on System"
 msgstr "Zainstaluj system"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 #, fuzzy
 msgid "Missing Package"
 msgstr "Brak pakietu"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, fuzzy, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1182,16 +1167,16 @@ msgstr ""
 "Podałeś, że powinien zostać zainstalowany pakiet '%s'.  Takiego pakietu nie "
 "ma. Czy chcesz kontynuować, czy przerwać instalację?"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "_Przerwij"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 #, fuzzy
 msgid "Missing Group"
 msgstr "Brak grupy"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, fuzzy, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1470,7 +1455,7 @@ msgstr ""
 
 #: ../packages.py:1401
 msgid "Warning! This is pre-release software!"
-msgstr ""
+msgstr "Uwaga! To oprogramowanie jest w wersji pre-release!"
 
 #: ../packages.py:1402
 #, python-format
@@ -2124,11 +2109,11 @@ msgstr "Ustawienia sieci"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Czy chcesz uruchomić interfejsy sieciowe w tym systemie?"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Anulowane"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Nie mogę cofnąć się do poprzedniego kroku. Możesz spróbować jeszcze raz."
@@ -2249,41 +2234,41 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Twój system jest zamontowany pod katalogiem %s."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Pomoc nie jest dostępna"
 
-#: ../text.py:193
+#: ../text.py:194
 #, fuzzy
 msgid "No help is available for this step of the install."
 msgstr "Dla tego kroku instalacji nie jest dostępna pomoc."
 
-#: ../text.py:282
+#: ../text.py:283
 #, fuzzy
 msgid "Save Crash Dump"
 msgstr "Zapisz zrzut z programu"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Zapisz"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: ../text.py:346
+#: ../text.py:347
 #, fuzzy, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> pomoc | <Tab> pomiędzy elementami | <Spacja> wybór | <F12> następny "
 "ekran"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2405,7 +2390,7 @@ msgstr "%s nie znaleziono"
 
 #: ../upgrade.py:354
 msgid "Finding"
-msgstr ""
+msgstr "Szukam"
 
 #: ../upgrade.py:355
 msgid "Finding packages to upgrade..."
@@ -2619,6 +2604,32 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Automatyczne partycjonowanie"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr ""
+"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+#, fuzzy
+msgid "I want to have automatic partitioning:"
+msgstr "Tak, chcę automatycznie podzielić dysk na partycje:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Wybierz dysk(i) dla tej instalacji:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+#, fuzzy
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Przejrzyj (i w razie potrzeby zmień) utworzone partycje"
 
 #: ../iw/blpasswidget.py:37
 #, fuzzy
@@ -3087,7 +3098,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr ""
+msgstr "Następujący zainstalowany system zostanie zaktualizowany:"
 
 #: ../iw/examine_gui.py:136
 #, fuzzy
@@ -3118,15 +3129,15 @@ msgstr "Partycjonowanie przy pomocy fdisku"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Wybierz dysk do partycjonowania fdiskiem"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Firewall"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Ostrzeżenie - brak firewall'a"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3134,16 +3145,16 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Konfiguracja Firewall'a"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Kontynuuj"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, fuzzy, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3156,65 +3167,64 @@ msgstr ""
 "\n"
 "Na przykład, '1234:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Ostrzeżenie: zły token"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "_Bez firewalla"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "_Włącz firewall"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "_Dostosuj firewall"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
+"Które serwisy powinny mieć możliwość przechodzenia poprzez zaporę ogniową?"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "_Zezwól na przychodzące:"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "Inne _porty:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "_Zaufane urządzenia:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#  generated from zone.tab
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Brazil/Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Ostrzeżenie"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4347,31 +4357,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Ukryj składniki urządzeń RAID/_grup wolumenów LVM"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Automatyczne partycjonowanie"
-
-#: ../iw/partition_gui.py:1444
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Musisz wybrać co najmniej jeden dysk twardy, aby zainstalować na nim %s."
-
-#: ../iw/partition_gui.py:1486
-#, fuzzy
-msgid "I want to have automatic partitioning:"
-msgstr "Tak, chcę automatycznie podzielić dysk na partycje:"
-
-#: ../iw/partition_gui.py:1517
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Wybierz dysk(i) dla tej instalacji:"
-
-#: ../iw/partition_gui.py:1541
-#, fuzzy
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Przejrzyj (i w razie potrzeby zmień) utworzone partycje"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -4786,7 +4771,7 @@ msgstr "Typ partycji"
 #: ../textw/bootloader_text.py:283 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr ""
+msgstr "Etykieta startu"
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
@@ -5412,6 +5397,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gratulacje, twoja instalacja na %s została ukończona.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:41
 #, fuzzy, python-format
@@ -5557,65 +5545,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Wybierz dysk dla fdisku"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Dostosuj"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Włącz firewall"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Bez firewalla"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Zaufane urządzenia:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Dozwolone przychodzące:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Poczta (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Inne porty"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Błędny wybór"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "Nie możesz dostosować wyłączonego firewalla."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Konfiguracja firewalla - dostosowanie"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 #, fuzzy
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
@@ -5628,10 +5616,29 @@ msgstr ""
 "przepuścić przez firewall wskazane protokoły. Podaj dodatkowe porty jako "
 "rozdzieloną przecinkami listę par 'usługa:protokół', np. 'imap:tcp'."
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, fuzzy, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Ostrzeżenie: %s nie jest poprawnym portem."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -7287,8 +7294,9 @@ msgid "Add Device"
 msgstr "Dodanie urządzenia"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "narzędzie ładowania zostało już uruchomione.  Uruchamiam powłokę."
 
 #: ../loader2/loader.c:1448
 #, fuzzy, c-format
@@ -7316,6 +7324,7 @@ msgid "Checking \"%s\"..."
 msgstr "Sprawdzanie \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Sprawdzanie nośnika..."
 
@@ -7579,7 +7588,7 @@ msgstr "Automatycznie wykryte"
 
 #: ../loader2/urlinstall.c:273
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Znaleziono lokalne medium instalacji..."
 
 #: ../loader2/urlinstall.c:432
 #, fuzzy, c-format
@@ -8518,6 +8527,10 @@ msgstr "Turecki"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

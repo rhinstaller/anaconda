@@ -7,13 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-03-07 01:33+0730\n"
-"Last-Translator: Hasbullah Bin Pit <sebol@my-penguin.org>\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-15 19:56+0800\n"
+"Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -96,7 +97,7 @@ msgstr "Sila sambung untuk memulakan pemasangan..."
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -158,7 +159,7 @@ msgstr "Kelas pemasangan memaksa pemasangan mod teks"
 msgid "No video hardware found, assuming headless"
 msgstr "Tiada perkakasan video dijumpai, menganggap tanpa paparan"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Tidak dapat memulakan objek keadaan perkakasan X."
 
@@ -588,7 +589,7 @@ msgstr ""
 "adalah pepijat.  Sila salin teks penuh pengecualian ini dan laporkan pepijat "
 "secara terperinci terhadap anaconda di http://bugzilla.redhat.com/bugzilla/"
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Pengecualian Berlaku"
 
@@ -945,11 +946,11 @@ msgstr ""
 "pemasangan pakej, anda mungkin perlu mencuba beberapa kali untuk ia berjaya."
 
 # bermaksud repair?
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Tetap"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -957,7 +958,7 @@ msgstr "Tetap"
 msgid "Yes"
 msgstr "Ya"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -966,17 +967,17 @@ msgstr "Ya"
 msgid "No"
 msgstr "Tidak"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Ulangi"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Abaikan"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -984,7 +985,7 @@ msgstr "Abaikan"
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1033,7 +1034,7 @@ msgstr "Sistem anda akan diulangbut..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Undur"
 
@@ -1109,7 +1110,7 @@ msgstr ""
 "Sila pastikan ianya tersedia sebelum meneruskan dengan pemasangan.  Jika "
 "anda hendak membatalkan pemasangan dan memboot semula sila pilih \"Reboot\"."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Teruskan"
@@ -1161,11 +1162,11 @@ msgstr "Sila masukkan cakera %d untuk meneruskan."
 msgid "Install on System"
 msgstr "Pasang pada Sistem"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Pakej Hilang"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1174,15 +1175,15 @@ msgstr ""
 "Anda telah menyatakan yang pakej '%s' mesti dipasang.  Pakej ini tidak "
 "wujud. Adakah anda hendak meneruskan atau membatalkan pemasangan anda?"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "B_atal"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Kumpulan Hilang"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1205,7 +1206,7 @@ msgstr "Namahos hanya boleh mengandungi 'a-z', 'A-Z', '-', atau '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
 msgid "Proceed with upgrade?"
-msgstr "Teruskan Tingkatupaya?"
+msgstr "Teruskan Naiktaraf?"
 
 #: ../packages.py:47 ../iw/package_gui.py:42
 msgid ""
@@ -1326,7 +1327,7 @@ msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr ""
-"Meningkatupaya pakej %s\n"
+"Menaiktaraf pakej %s\n"
 "\n"
 
 #: ../packages.py:849
@@ -1341,7 +1342,7 @@ msgstr ""
 #: ../packages.py:857 ../packages.py:1153
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "Meningkatupaya %s-%s-%s.%s.\n"
+msgstr "Mennaiktaraf %s-%s-%s.%s.\n"
 
 #: ../packages.py:859 ../packages.py:1155
 #, python-format
@@ -1427,7 +1428,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Pakej berikut terdapat pada versi ini tetapi TIDAK ditingkatupaya:\n"
+"Pakej berikut terdapat pada versi ini tetapi TIDAK dinaiktaraf:\n"
 
 #: ../packages.py:1182
 msgid ""
@@ -1755,7 +1756,7 @@ msgstr ""
 "Anda telah memilih untuk menggunakan partisyen sedia ada untuk pemasangan "
 "ini tanpa mengformatnya. Kami mencadangkan anda memformat partisyen ini "
 "untuk memastikan fail drpd pemasangan sistem pengoperasian terdahulu "
-"menyebabkang masalah kepasan pemasangan Linux ini. Walaubagaimanapun, jika "
+"menyebabkan masalah kepada pemasangan Linux ini. Walaubagaimanapun, jika "
 "partisyen ini mengandungi fail yang anda ingin simpan, seperti direktori "
 "rumah pengguna, maka anda patut teruskan tanpa mengformat partisyen ini."
 
@@ -2066,11 +2067,11 @@ msgstr "Tetapan Rangkaian"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Adakah anda ingin memulakan antaramuka rangkaian pada sistem ini"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Dibatal"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Saya tak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
@@ -2096,12 +2097,12 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Persekitaran menyelamat sekarang akan mencuba untuk mencari pemasangan Linux "
-"anda dan melekapkannya dibawah direktori %s.  Anda kemudian boleh membuat "
-"sebarang perubahan yang diperlukan pada sistem anda.  Jika anda hendak "
-"meneruskan dengan langkah ini pilih 'Teruskan'.  Anda juga boleh memilih "
-"untuk melekapkan sistem fail anda baca-sahaja selain dari baca-tulis dengan "
-"memilih 'Baca-Sahaja'.\n"
+"Persekitaran menyelamat sekarang akan mencuba untuk mencari pemasangan Red "
+"Hat Linux anda dan melekapkannya dibawah direktori %s.  Anda kemudian boleh "
+"membuat sebarang perubahan yang diperlukan pada sistem anda.  Jika anda "
+"hendak meneruskan dengan langkah ini pilih 'Teruskan'.  Anda juga boleh "
+"memilih untuk melekapkan sistem fail anda baca-sahaja selain dari baca-tulis "
+"dengan memilih 'Baca-Sahaja'.\n"
 "\n"
 "Jika atas sebarang sebab proses ini gagal anda boleh memilih 'Langkau' dan "
 "langkah ini akan dilangkau dan anda akan pergi terus ke shell arahan.\n"
@@ -2199,39 +2200,39 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Sistem anda dilekapkan dibawah direktori %s ."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Bantuan tidak ada"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Tiada bantuan yang ada bagi langkah pemasangan ini."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Simpan Longgokan Musnah"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Simpan"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Nyahpepijat"
 
-#: ../text.py:346
+#: ../text.py:347
 #, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> untuk bantuan | <Tab> antara unsur | <Space> pilih | <F12> skrin "
 "berikutnya"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2245,7 +2246,7 @@ msgstr "TIngkatupaya Sistem Pengoperasian"
 
 #: ../upgradeclass.py:12
 msgid "Upgrade"
-msgstr "Tingkatupaya"
+msgstr "Naiktaraf"
 
 #: ../upgrade.py:62
 msgid "Searching"
@@ -2295,7 +2296,7 @@ msgid ""
 msgstr ""
 "Satu atau lebih sistem fail tersenarai di  /etc/fstab pada sistem  Linux "
 "anda tak dapat dilekapkan. Sila perbetulkan masalah ini dan cuba untuk "
-"tingkatupaya semula."
+"naiktaraf semula."
 
 #: ../upgrade.py:265
 msgid ""
@@ -2305,7 +2306,7 @@ msgid ""
 msgstr ""
 "Satu atau lebih sistem fail yg tersenarai di /etc/fstab pada sistem linux "
 "anda adalah tak konsisten dan tak dapat dilekapkan. Sila perbetulkan masalah "
-"ini dan cuba untuk tingkat upaya semula."
+"ini dan cuba untuk naiktaraf semula."
 
 #: ../upgrade.py:282
 msgid ""
@@ -2315,8 +2316,7 @@ msgid ""
 "\n"
 msgstr ""
 "Fail berikut adalah pautan simbolik mutlak, dimana kami tidak sokong semasa "
-"tingkat upaya. Sila tukar ia ke lautan simbolik relatif dan ulangi tingkat "
-"upaya.\n"
+"naiktaraf. Sila tukar ia ke lautan simbolik relatif dan ulangi naiktaraf.\n"
 "\n"
 
 #: ../upgrade.py:288
@@ -2350,7 +2350,7 @@ msgstr "Mencari"
 
 #: ../upgrade.py:355
 msgid "Finding packages to upgrade..."
-msgstr "Cari pakej untuk ditingkatupaya..."
+msgstr "Cari pakej untuk dinaiktaraf..."
 
 #: ../upgrade.py:367
 msgid ""
@@ -2358,13 +2358,13 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Program pemasangan tak dapat mengingkatupaya sistem dengan pangkalandata pra-"
-"rpm 4.x. Sila pasang pakej errata rpm bagi keluaran anda seperti dinyatakan "
-"pada nota keluaran dan laksana prosedure peningkatupayaan."
+"Program pemasangan tak dapat menaiktaraf sistem dengan pangkalandata pra-rpm "
+"4.x. Sila pasang pakej errata rpm bagi keluaran anda seperti dinyatakan pada "
+"nota keluaran dan laksana prosedure penaiktarafan."
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
-msgstr "Ralat berlaku bila mencari pakej untuk ditingkatupaya."
+msgstr "Ralat berlaku bila mencari pakej untuk dinaiktaraf."
 
 #: ../upgrade.py:422
 #, python-format
@@ -2389,11 +2389,11 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
-"Sistem ini kelihatan mempunyai pakej pihak ketiga dipasang yang bertindih "
-"dengan pakej disertakan dalam %s. Oleh kerana pakej ini bertindih, "
-"meneruskan proses naiktaraf akan menyebabkan mereka berhenti berfungsi "
-"dengan sempurna atau mungkin menyebabkan ketidakstabilan lain sistem.  Sila "
-"lihat nota pengeluaran untuk maklumat lanjut.\n"
+"Sistem ini nampaknya mempunyai pakej pihak ketiga dipasang yang bertindih "
+"dengan pakej disertakan dalam %s. Oleh kerana pakej ini bertindih, penerusan "
+"proses naiktaraf akan menyebabkan mereka berhenti berfungsi dengan sempurna "
+"atau mungkin menyebabkan ketidakstabilan lain sistem.  Sila lihat nota "
+"pengeluaran untuk maklumat lanjut.\n"
 "\n"
 "Adakah anda hendak meneruskan proses naiktaraf?"
 
@@ -2405,9 +2405,9 @@ msgid ""
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
 "Sistem ini tidak mempunyai fail /etc/redhat-release.  Ada kemungkinan ini "
-"bukan sistem %s. Meneruskan dengan proses naiktaraf mungkin menyebabkan "
-"sistem didalam keadaan tidak boleh digunakan.  Adakah anda hendak meneruskan "
-"proses naiktaraf?"
+"bukan sistem %s. Penerusan proses naiktaraf mungkin menyebabkan sistem "
+"didalam keadaan tidak boleh digunakan.  Adakah anda hendak meneruskan proses "
+"naiktaraf?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2418,7 +2418,7 @@ msgid ""
 msgstr ""
 "Pengemaskinian bagi versi  %s hanya disokong drpd  Red Hat Linux 6.2 ke "
 "atas. Nampaknya ini sistem lebih tua.  Adakah anda ingin meneruskan proses "
-"tingkatupaya?"
+"naiktaraf?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2560,6 +2560,28 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Pempartisyenan Automatik"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Anda mesti pilih sekurang-kurangnya 1 cakera keras supaya %s dipasang."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Saya mahu pempartisyenan automatik:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Pilih pemacu untuk digunakan pada pemasangan ini:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "_Perhati (dan ubahsuai jika perlu) partisyen yg dicipta"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2826,12 +2848,12 @@ msgstr ""
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
-msgstr "Perihal Tingkatupaya"
+msgstr "Perihal Naiktaraf"
 
 #: ../iw/confirm_gui.py:108
 #, python-format
 msgid "Click next to begin upgrade of %s."
-msgstr "Klik maju untuk mula meningkat upaya %s."
+msgstr "Klik berikutnya untuk mula naiktaraf bagi %s."
 
 #: ../iw/confirm_gui.py:109
 #, python-format
@@ -2839,7 +2861,7 @@ msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"Log lengkap bagi peningkatupayaan boleh didapati pada fail '%s' selepas "
+"Log lengkap bagi penaiktarafan boleh didapati pada fail '%s' selepas "
 "ulangbut sistem anda.."
 
 #: ../iw/congrats_gui.py:23
@@ -3001,7 +3023,7 @@ msgstr "Model"
 
 #: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
-msgstr "Pemeriksaan Tingkatupaya"
+msgstr "Pemeriksaan Naiktaraf"
 
 #: ../iw/examine_gui.py:59
 msgid "_Upgrade an existing installation"
@@ -3013,7 +3035,7 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Pilih opesyen ini jika anda ingin tingkatupaya sistem %s sedia ada anda.  "
+"Pilih opesyen ini jika anda ingin naiktaraf sistem %s sedia ada anda.  "
 "Opsyen ini akan kengekalkan data pada pemacu anda."
 
 #: ../iw/examine_gui.py:67
@@ -3031,7 +3053,7 @@ msgstr ""
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
-msgstr "Sistem yang dipasang berikut akan ditingkatupaya:"
+msgstr "Sistem yang dipasang berikut akan dinaiktaraf:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -3061,15 +3083,15 @@ msgstr "Mempartisyen dengan fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Sila pilih pemacu untuk dipartisyen dengan fdisk:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Firewall"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "AMARAN: Tiada Firewall"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3081,16 +3103,16 @@ msgstr ""
 "mencegah akses tanpa izin. Bagaimanapun, anda telah memilih untuk tidak "
 "mengkonfigurasikan . Pilih \"Teruskan\" untuk teruskan tanpa firewall."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Konfigurasikan Firewall"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Teruskan"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3104,11 +3126,11 @@ msgstr ""
 "\n"
 "Sebagai contoh, '4910:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Amaran: Token Teruk"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3116,57 +3138,55 @@ msgstr ""
 "Firewall bolehmembantu mencegah akses tanpa izin ke komputer anda drpd dunia "
 "luar. Adakah anda ingin menghidupkan firewall?"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "_Tiada firewall"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "_Hidupkan fiewall"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "Firewall _Tersendiri"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Servis apa yang anda izinkan untuk melepasi firewall?"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "_Izinkan Masukan:"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "_Lain-lain liang:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Jika anda ingin izinkan semua traffik daripada satu peranti, pilih ia "
 "dibawah."
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "_Peranti dipercayai:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-# libgnomeui/gnome-scores.c:102
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Ekar"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Amaran"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4230,27 +4250,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Sorok ahli peranti RAID/ _Kumulan Volum LVM"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Pempartisyenan Automatik"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Anda mesti pilih sekurang-kurangnya 1 cakera keras supaya %s dipasang."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Saya mahu pempartisyenan automatik:"
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Pilih pemacu untuk digunakan pada pemasangan ini:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_Perhati (dan ubahsuai jika perlu) partisyen yg dicipta"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -4554,7 +4553,6 @@ msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "terdapat ralat mengkosongkan pemacu sasaran.  Pengklonan gagal."
 
 #: ../iw/raid_dialog_gui.py:690
-#, fuzzy
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4568,7 +4566,20 @@ msgid ""
 "Other partition types are not allowed.\n"
 "\n"
 "EVERYTHING on the target drive(s) will be destroyed by this process."
-msgstr "Pemacu RAD dan RAD on dan RAD Lain-lain on s."
+msgstr ""
+"Alat Penklonan Pemacu\n"
+"\n"
+"Alat ini membolehkan anda untuk mengurangkan jumlah usaha yang diperlukan "
+"untuk menetapkan array RAID.  Ideanya adalah untuk mengambil pemacu sumber "
+"yang telah disediakan dengan susunatur partisyen yang diingini, dan klon "
+"susunatur ini ke dalam pemacu lain yang sama saiz.  Kemudian peranti RAID "
+"boleh dihasilkan.\n"
+"\n"
+"NOTA: Pemacu sumber mesti mempunyai partisyen yang dihadkan untuk berada "
+"pada pemacu tersebut sahaja, dan hanya boleh mengandungi partisyen RAID "
+"perisian yang tidak digunakan.  Jenis partisyen lain tidak dibenarkan.\n"
+"\n"
+"SEMUA maklumat pada pemacu sasaran akan termusnah oleh proses ini."
 
 #: ../iw/raid_dialog_gui.py:710
 msgid "Source Drive:"
@@ -4659,7 +4670,7 @@ msgstr "Huraian"
 
 #: ../iw/upgrade_bootloader_gui.py:27 ../textw/upgrade_bootloader_text.py:72
 msgid "Upgrade Boot Loader Configuration"
-msgstr "Tingkatupaya Konfigurasi Pemuat But"
+msgstr "Naiktaraf Konfigurasi Pemuat But"
 
 #: ../iw/upgrade_bootloader_gui.py:68
 msgid "_Update boot loader configuration"
@@ -4737,7 +4748,7 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:31
 msgid "Upgrade Swap Partition"
-msgstr "Tingkatupaya Partisyen Swap"
+msgstr "Naiktaraf Partisyen Swap"
 
 #: ../iw/upgrade_swap_gui.py:101
 #, python-format
@@ -5142,7 +5153,7 @@ msgid ""
 "to tell me what partitions you would like to be able to boot and what label "
 "you want to use for each of them."
 msgstr ""
-"Pemuat but %s boleh mengbut sistem pengoperasian lain juga. Anda perlu "
+"Pengurus but %s boleh mengbut sistem pengoperasian lain juga. Anda perlu "
 "beritahu saya partisyen apa yang anda ingin boleh but dan label apa yang "
 "digunakan bagi setiap daripadanya."
 
@@ -5275,7 +5286,7 @@ msgstr "Undur"
 
 #: ../textw/confirm_text.py:48
 msgid "Upgrade to begin"
-msgstr "Tingkatupaya untuk dimulakan"
+msgstr "Naiktaraf untuk dimulakan"
 
 #: ../textw/confirm_text.py:49
 #, python-format
@@ -5283,7 +5294,7 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
-"Log lengkap bagi peningkatupayaan anda akan berda di %s selepas mengulangbut "
+"Log lengkap bagi penaiktarafan anda akan berda di %s selepas mengulangbut "
 "sistem anda. Anda boleh simpan fail ini untuk rujukan akan datang."
 
 #: ../textw/desktop_choice_text.py:27
@@ -5363,77 +5374,100 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Pilih cakera dimana fdisk dilaksanakan"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Personalisasi"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Hidupkan firewall"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Tiada firewall"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Peranti Dipercayai:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Izinkan Masukan:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Mel (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Liang Lain"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Pilihan tidak sah"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "Anda tak boleh mempersolalisasi firewall yang dimatikan."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Konfigurasi Firewall - Personalisasi"
 
-#: ../textw/firewall_text.py:128
-#, fuzzy
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
-msgstr "dalam protokol Masuk port dalam "
+msgstr ""
+"Anda boleh customize firewall anda dalam dua cara. Pertama, anda boleh pilih "
+"untuk membenarkan semua trafik daripada antaramuka rangkaian tertentu. "
+"Kedua, anda boleh membenarkan protokol tertentu melalui firewall. Dalam "
+"senarai diselang koma, nyatakan port tambahan dalam bentuk 'servis:protokol' "
+"seperti 'imap:tcp'. "
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Amaran:%s adalah liang yang tidak sah."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -5576,13 +5610,16 @@ msgid "Hostname Configuration"
 msgstr "Konfigurasi Namahos"
 
 #: ../textw/network_text.py:366
-#, fuzzy
 msgid ""
 "If your system is part of a larger network where hostnames are assigned by "
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr "DHCP DHCP secara manual dan dalam for hos setempat"
+msgstr ""
+"Jika sistem anda adalah sebahagian daripada rangkain yang lebih besar dimana "
+"namahos diberikan oleh DHCP, pilih automatik melalui DHCP. Jika tidak, pilih "
+"secara manual dan masukkan namahos untuk sistem anda. Jika anda tidak "
+"masukkan, sistem anda akan dikenali sebagai 'localhost.'"
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
@@ -5961,13 +5998,17 @@ msgid "Create new boot loader configuration"
 msgstr "Cipta konfigurasi pemuat but baru"
 
 #: ../textw/upgrade_text.py:94
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system. You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr "on on fail."
+msgstr ""
+"Kernel 2.4 memerlukan lebih banyak swap berbanding dengan kernel lama, "
+"sebanyak dua kali ganda ruang swap berbanding RAM pada sistem. Anda sekarang "
+"mempunyai %dMB swap ditetapkan, tetapi anda boleh menambah ruang swap pada "
+"salah satu sistem fail anda sekarang."
 
 #: ../textw/upgrade_text.py:112
 msgid "Free Space"
@@ -5999,7 +6040,7 @@ msgstr "Ulangpasang  Sistem"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
-msgstr "Sistem untuk ditingkatupaya"
+msgstr "Sistem untuk dinaiktaraf"
 
 #: ../textw/upgrade_text.py:208
 msgid ""
@@ -6010,12 +6051,12 @@ msgid ""
 msgstr ""
 "Satu atau lebih pemasangan Linux sedia ada dijumpai pada sistem anda.\n"
 "\n"
-"Sila pilih satu untuk tingkatupaya, atau pilih 'Ulangpasang Sistem' untuk "
+"Sila pilih satu untuk naiktaraf, atau pilih 'Ulangpasang Sistem' untuk "
 "memasang sistem baru anda."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
-msgstr "Personalisasikan Pakej untuk ditingkatupaya"
+msgstr "Personalisasikan Pakej untuk dinaiktaraf"
 
 #: ../textw/upgrade_text.py:246
 msgid ""
@@ -6025,7 +6066,7 @@ msgid ""
 msgstr ""
 "Pakej yg anda pasang, dan sebarang pakej lain yang perlu dipuaskan "
 "kebergantungannya telah dipilih untuk pemasangan. Adakah anda ingin "
-"mempersonalisasikan set pakej yg akan ditingkatupayakan?"
+"mempersonalisasikan set pakej yg akan dinaiktarafkan?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -6147,12 +6188,15 @@ msgid "User Account Setup"
 msgstr "Tetapan Akaun Pengguna"
 
 #: ../textw/userauth_text.py:211
-#, fuzzy
 msgid ""
 "What other user accounts would you like to have on the system? You should "
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
-msgstr "pengguna on for normal pengguna."
+msgstr ""
+"Akaun pengguna siapa lagi yang anda hendak adakan pada sistem? Anda "
+"sepatutnya mempunyai sekurang-kurangnya satu akaun bukan-root untuk kerja "
+"biasa, tetapi sistem pelbagai-pengguna boleh mempunyai banyak akaun "
+"ditetapkan."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -6195,9 +6239,8 @@ msgid "or use:"
 msgstr "atau digunakan:"
 
 #: ../textw/userauth_text.py:359
-#, fuzzy
 msgid "Request server via broadcast"
-msgstr "Meminta data servis yang ketinggalan zaman"
+msgstr "Minta pelayan melalui broadcast"
 
 #: ../textw/userauth_text.py:380
 msgid "Enable LDAP"
@@ -6741,13 +6784,17 @@ msgstr ""
 "%s"
 
 #: ../loader2/driverselect.c:60
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please enter any parameters which you wish to pass to the %s module "
 "separated by spaces.  If you don't know what parameters to supply, skip this "
 "screen by pressing the \"OK\" button.  A list of available options can be "
 "obtained by pressing the F1 key."
-msgstr "s OK A."
+msgstr ""
+"Sila masukkan sebarang parameter yang anda hendak berikan kepada modul %s "
+"diselang dengan ruang.  Jika anda tidak tahu parameter apa untuk diberikan, "
+"langkau skrin ini dengan menekan butang \"OK\".  Senarai pilihan yang ada "
+"boleh diperolehi dengan menekan kekunci F1."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
@@ -6838,7 +6885,7 @@ msgstr "Pilih Partisyen"
 #: ../loader2/hdinstall.c:568
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Peranti %s nampaknya tak mengendungi imej CDROM %s."
+msgstr "Peranti %s nampaknya tak mengandungi imej CDROM %s."
 
 # lom
 #: ../loader2/hdinstall.c:600
@@ -7018,13 +7065,14 @@ msgid "Add Device"
 msgstr "Tambah Peranti"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "Pemuat sudah dilaksanakan. Memulakan shell."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Melaksanakan anaconda, pemasang sistem %s  - sila tunggu...\n"
+msgstr "Melaksanakan anaconda, mod menyelamat %s  - sila tunggu...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7045,6 +7093,7 @@ msgid "Checking \"%s\"..."
 msgstr "Memeriksa \"%s\" ..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Memeriksa media sekarang..."
 
@@ -7159,13 +7208,16 @@ msgid "Nameserver"
 msgstr "Pelayan Nama"
 
 #: ../loader2/net.c:169
-#, fuzzy
 msgid ""
 "Your dynamic IP request returned IP configuration information, but it did "
 "not include a DNS nameserver. If you know what your nameserver is, please "
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
-msgstr "IP IP dan."
+msgstr ""
+"Permintaan IP dinamik anda memulangkan maklumat konfigurasi IP, tetapi ia "
+"tidak menyertakan pelayannama DNS. Jika anda tahu apa pelayannama anda, sila "
+"masukkan sekarang. Jika anda tidak mempunyai maklumat ini, anda boleh "
+"membiarkan medan ini kosong dan pemasangan akan diteruskan."
 
 #: ../loader2/net.c:179
 msgid "Invalid IP Information"
@@ -8080,12 +8132,11 @@ msgstr "English"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estonia"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Danish"
+msgstr "Finn"
 
 #. generated from lang-table
 msgid "French"
@@ -8097,7 +8148,7 @@ msgstr "Jerman"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungary"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8117,7 +8168,7 @@ msgstr "Korea"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "B. Melayu"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8153,4 +8204,8 @@ msgstr "Turki"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "Ukraine"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""

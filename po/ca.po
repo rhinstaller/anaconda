@@ -11,8 +11,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-03-07 14:59+0100\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-10 04:01+0100\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -100,7 +100,7 @@ msgstr "Connecteu-vos per iniciar la instal·lació..."
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -165,7 +165,7 @@ msgstr ""
 "No s'ha trobat cap dispositiu de vídeo, per tant es considerarà que no n'hi "
 "ha cap"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "No s'ha pogut instanciar l'objecte d'estat per al maquinari X"
 
@@ -598,7 +598,7 @@ msgstr ""
 "excepció i informeu de l'error produït a l'anaconda a http://bugzilla.redhat."
 "com/bugzilla/"
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "S'ha produït una excepció"
 
@@ -882,15 +882,15 @@ msgid "Duplicate Labels"
 msgstr "Duplica etiquetes"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Més d'un dispositiu del sistema té l'etiqueta %s. Les etiquetes en diferents "
-"dispositius han de ser úniques pel bon funcionament del sistema.\n"
+"Més d'un dispositiu del sistema té l'etiqueta %s. Pel bon funcionament del "
+"sistema, les etiquetes en diferents dispositius han de ser úniques.\n"
 "\n"
 "Arregleu aquest problema i arrenqueu de nou el procés d'instal·lació."
 
@@ -953,11 +953,11 @@ msgstr ""
 "durant la instal·lació d'un paquet, és possible que hagueu d'intentar-ho "
 "diverses vegades per tal d'aconseguir-ho."
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Arregla"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -965,7 +965,7 @@ msgstr "Arregla"
 msgid "Yes"
 msgstr "Si"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -974,17 +974,17 @@ msgstr "Si"
 msgid "No"
 msgstr "No"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Intenta de nou"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Ignora"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -992,7 +992,7 @@ msgstr "Ignora"
 msgid "Cancel"
 msgstr "Cancel·la"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1042,7 +1042,7 @@ msgstr "S'arrencarà de nou el sistema..."
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Endarrere"
 
@@ -1116,7 +1116,7 @@ msgstr ""
 "Tingueu-los a punt abans de continuar amb la instal·lació. Si heu d'avortar "
 "la instal·lació i arrencar de nou, seleccioneu \"Arrenca de nou\"."
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Continua"
@@ -1169,11 +1169,11 @@ msgstr "Inseriu el disc %d per continuar."
 msgid "Install on System"
 msgstr "Instal·la al sistema"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Paquet absent"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1182,15 +1182,15 @@ msgstr ""
 "Heu indicat que s'havia d'instal·lar el paquet '%s'. Aquest paquet no "
 "existeix. Voleu continuar o abortar la instal·lació?"
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "_Avorta"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Grup absent"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -2100,11 +2100,11 @@ msgstr "Configura la xarxa"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Voleu iniciar les interfícies de xarxa del sistema?"
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Cancel·lat"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Des d'aquí no es pot anar al pas anterior. Ho haureu de tornar a provar."
@@ -2120,7 +2120,7 @@ msgid "Rescue"
 msgstr "Rescat"
 
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2233,39 +2233,39 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "S'ha muntat el sistema sota el directori %s."
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "No hi ha ajuda disponible"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "No hi ha ajuda disponible per a aquest pas de la instal·lació."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Desa el bolcat de la fallada"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Desa"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Depura"
 
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> Ajuda | <Tab> entre elements | <espai> selecciona | <F12> següent "
 "pantalla"
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2411,7 +2411,7 @@ msgstr ""
 "el procés d'actualització?"
 
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2430,15 +2430,15 @@ msgstr ""
 "Voleu continuar amb l'actualització?"
 
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
-"Aquest sistema no té un fiter /etc/redhat-release.  És possible que no es "
+"Aquest sistema no té un fitxer /etc/redhat-release. És possible que no es "
 "tracti d'un sistema %s. Continuant amb l'actualització pot deixar el sistema "
-"en un estat en que no es pugui utilitzar.  Voleu continuar amb "
+"en un estat en que no es pugui utilitzar. Voleu continuar amb "
 "l'actualització?"
 
 #: ../upgrade.py:544
@@ -2592,6 +2592,28 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Partició automàtica"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Heu de seleccionar almenys un disc dur on tenir instal·lat %s."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Fes servir la partició automàtica:"
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació:"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "Re_viseu (i modifiqueu si cal) les particions creades"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2984,7 +3006,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -3001,8 +3023,8 @@ msgstr ""
 "utilitzant l'eina 'system-config-packages'.\n"
 "\n"
 "Si esteu familiaritzat amb %s, és possible que hi hagi paquets que vulgueu o "
-"no instal·lar. Activeu el quadre de verificació de sota per a personalitzar "
-"la instal·lació."
+"no instal·lar. Activeu el quadre de verificació de sota per personalitzar la "
+"instal·lació."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -3065,9 +3087,8 @@ msgstr ""
 "opcions de configuració."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "S'actualitzaran els següents productes instal·lats:"
+msgstr "S'actualitzarà el següent sistema ja instal·lat:"
 
 #: ../iw/examine_gui.py:136
 msgid "Unknown Linux system"
@@ -3097,15 +3118,15 @@ msgstr "S'està partint amb fdisk"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Seleccioneu una unitat a partir amb fdisk:"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Tallafoc"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Avís - No hi ha tallafoc"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3117,16 +3138,16 @@ msgstr ""
 "autoritzats. De tota manera heu escollit no configurar cap tallafoc. "
 "Escolliu \"Procedeix\" per a continuar sense un tallafoc."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Configura el tallafoc"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Procedeix"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3139,11 +3160,11 @@ msgstr ""
 "\n"
 "Per exemple, '1234:udp'"
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Avís: testimoni incorrecte"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3151,55 +3172,54 @@ msgstr ""
 "Un tallafoc pot prevenir l'accés no autoritzat des de l'exterior al vostre "
 "ordinador. Voleu habilitar un tallafoc?"
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "Sense tallaf_oc"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "_Habilita tallafoc"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "Tallafo_c personalitzat"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Quins serveis s'ha de permetre que atravessin el tallafoc?"
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "Permet entr_ant:"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "Altres _ports:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 "Si voleu permetre tot el trànsit d'un dispositiu, seleccioneu-lo aquí abaix."
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "Disposi_tius confiables:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Avís"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
@@ -4255,27 +4275,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Oculta el dispositiu RAID/Membres del _grup de volum LVM"
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Partició automàtica"
-
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Heu de seleccionar almenys un disc dur on tenir instal·lat %s."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Fes servir la partició automàtica:"
-
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Seleccioneu les unitats que s'utilitzaran per a aquesta instal·lació:"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "Re_viseu (i modifiqueu si cal) les particions creades"
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5329,7 +5328,7 @@ msgstr ""
 "referència per a més endavant."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -5406,65 +5405,65 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Escolliu el disc on executar fdisk"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Personalitzat"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Habilita el tallafoc"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Sense tallafoc"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Dispositius confiables:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Permet entrant:"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Correu (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Altres ports"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Opció invàlida"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "No podeu personalitzar el tallafoc si està deshabilitat."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Configuració del tallafoc - Personalització"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5478,10 +5477,29 @@ msgstr ""
 "forma 'servei:protocol', com ara 'imap:tcp', en una llista separada per "
 "comes."
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Avís: %s no és un port vàlid."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 msgid "What type of system would you like to install?"
@@ -6560,7 +6578,6 @@ msgstr ""
 "sistema ideal per a ús casolà i d'escriptori."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6605,7 +6622,6 @@ msgstr ""
 "desenvolupament de programari i administració del sistema."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6901,7 +6917,7 @@ msgid "Select Partition"
 msgstr "Seleccioneu la partició"
 
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "El dispositiu %s no sembla que contingui imatges de CDROM de %s."
 
@@ -7081,14 +7097,14 @@ msgid "Add Device"
 msgstr "Afegeix dispositiu"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "ja s'ha executat el carregador. S'està iniciant l'intèrpret d'ordres."
 
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"S'està executant l'anaconda, l'instal·lador del sistema %s. Espereu...\n"
+msgstr "S'està executant l'anaconda, el mode de rescat de %s. Espereu...\n"
 
 #: ../loader2/loader.c:1450
 #, c-format
@@ -7111,6 +7127,7 @@ msgid "Checking \"%s\"..."
 msgstr "S'està comprovant \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "S'està comprovant el medi..."
 
@@ -7325,7 +7342,7 @@ msgid "NFS server name:"
 msgstr "Nom del servidor NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
 msgstr "Directori %s:"
 
@@ -8146,12 +8163,11 @@ msgstr "Anglès"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Estonià"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "Danès"
+msgstr "Finès"
 
 #. generated from lang-table
 msgid "French"
@@ -8163,7 +8179,7 @@ msgstr "Alemany"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Hongarès"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8183,7 +8199,7 @@ msgstr "Coreà"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malai"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -8219,6 +8235,10 @@ msgstr "Turc"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "Ucraïnès"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 #~ msgid "The CDROM could not be mounted."

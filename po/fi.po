@@ -1,16 +1,14 @@
 # Finnish translation of Anaconda.
-# Updated by Raimo Koski <rk@raimokoski.com> 2002.
-# Revised by Raimo Koski <rkoski@pp.weppi.fi>, 1998.
 # Updated by Tomi Kajala <tomi@iki.fi>, 2000, 2001.
-# Raimo Koski <rk@raimokoski.com>, 2003.
+# Raimo Koski <rk@raimokoski.com>, 1998, 2002, 2003.
 # Lauri Nurmi <lanurmi@iki.fi>, 2004.
 # Mikko Ikola <ikola@iki.fi>, 2004.
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
-"PO-Revision-Date: 2004-02-22 15:00+0200\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
+"PO-Revision-Date: 2004-03-15 19:06+0200\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <translation-team-fi@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -129,7 +127,7 @@ msgstr "Muodosta yhteys, jotta asennus voi alkaa..."
 # ../textw/silo_text.py:160 ../xserver.py:51
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -194,7 +192,7 @@ msgstr "Asennusluokka pakottaa tekstitila-asennuksen"
 msgid "No video hardware found, assuming headless"
 msgstr "Näytönohjainta ei löytynyt, oletetaan kortiton"
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "X-laitteistotilaolion ilmentymää ei voida luoda."
 
@@ -523,8 +521,8 @@ msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
-"Sinun pitää valita, miten kiintolevyjen tila käytetään, ennen kuin "
-"asennusohjelma voi tehdä automaattisen osioinnin."
+"Ennen kuin asennusohjelma voi tehdä automaattisen osioinnin, on valittava, "
+"miten kiintolevyjen tila käytetään."
 
 # ../autopart.py:975
 #: ../autopart.py:1486
@@ -673,7 +671,7 @@ msgstr ""
 "bugzilla.redhat.com/"
 
 # ../exception.py:147 ../text.py:219
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Syntyi poikkeus"
 
@@ -1006,15 +1004,16 @@ msgid "Duplicate Labels"
 msgstr "Kahdenna nimiöt"
 
 #: ../fsset.py:2069
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
 "be unique for your system to function properly.\n"
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
-"Useampi kuin yksi järjestelmän nimiöistä esiintyy nimellä %s. Kaikkien "
-"laitteiden nimiöt pitää olla uniikkeja, jotta järjestelmä toimisi oikein.\n"
+"Useampi kuin yksi järjestelmän laitteista esiintyy nimiöllä %s. Kaikkien "
+"laitteiden nimiöiden on oltava ainutkertaisia, jotta järjestelmä toimisi "
+"oikein.\n"
 "\n"
 "Korjaa tämä ongelma ja käynnistä asennus uudelleen."
 
@@ -1081,7 +1080,7 @@ msgstr ""
 "onnistuu."
 
 # ../gui.py:108 ../text.py:280
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Korjaa"
 
@@ -1090,7 +1089,7 @@ msgstr "Korjaa"
 # ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
 # ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
 # ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -1104,7 +1103,7 @@ msgstr "Kyllä"
 # ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 # ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 # ../textw/upgrade_text.py:259
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -1114,12 +1113,12 @@ msgid "No"
 msgstr "Ei"
 
 # ../gui.py:112 ../loader/net.c:277 ../loader/net.c:404 ../text.py:284
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Uudelleen"
 
 # ../gui.py:113 ../text.py:285
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Jätä huomiotta"
 
@@ -1132,8 +1131,8 @@ msgstr "Jätä huomiotta"
 # ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 # ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -1142,7 +1141,7 @@ msgid "Cancel"
 msgstr "Peruuta"
 
 # ../gui.py:317 ../text.py:248
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -1222,7 +1221,7 @@ msgstr "Järjestelmä käynnistetään uudelleen..."
 # ../textw/silo_text.py:110 ../textw/userauth_text.py:185
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 msgid "_Back"
 msgstr "_Takaisin"
 
@@ -1309,7 +1308,7 @@ msgstr ""
 "uudelleen\""
 
 # ../rescue.py:99
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 msgid "_Continue"
 msgstr "_Jatka"
@@ -1369,11 +1368,11 @@ msgid "Install on System"
 msgstr "Asenna järjestelmä"
 
 # ../iw/progress_gui.py:28
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 msgid "Missing Package"
 msgstr "Puuttuva paketti"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1383,16 +1382,16 @@ msgstr ""
 "Halautko jatkaa vai keskeyttää asennuksen?"
 
 # ../iw/partition_gui.py:1528
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 msgid "_Abort"
 msgstr "_Keskeytä"
 
 # ../loader/net.c:404
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 msgid "Missing Group"
 msgstr "Puuttuva ryhmä"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -2018,10 +2017,10 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"Olet valinnut vanhan osion asennuksen kohteeksi ilman alustusta. Red Hat "
-"suosittelee, että osio alustetaan, jotta edellisen asennuksen tiedostot "
-"eivät häiritse uutta asennusta. Jos osiolla kuitenkin on tiedostoja, jotka "
-"haluat säilyttää, jatka alustamatta osiota (esimerkiksi kotihakemistot)."
+"Olet valinnut vanhan osion asennuksen kohteeksi ilman alustusta. On "
+"suositeltavaa alustaa osio, jotta edellisen asennuksen tiedostot eivät "
+"häiritse uutta asennusta. Jos osiolla kuitenkin on tiedostoja, jotka "
+"halutaan säilyttää (esimerkiksi kotihakemistot), jatka alustamatta osiota."
 
 # ../partitioning.py:1799 ../partitioning.py:1817
 #: ../partIntfHelpers.py:409
@@ -2198,12 +2197,11 @@ msgstr ""
 #: ../partitions.py:768
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Sinun pitää luoda /boot/efi-osio, jonka tyyppi on FAT ja koko 50 megatavua."
+msgstr "On luotava /boot/efi-osio, jonka tyyppi on FAT ja koko 50 megatavua."
 
 #: ../partitions.py:791
 msgid "You must create a PPC PReP Boot partition."
-msgstr "Sinun pitää luoda PPC PReP -käynnistysosio."
+msgstr "On luotava PPC PReP -käynnistysosio."
 
 # ../partitioning.py:582
 #: ../partitions.py:799 ../partitions.py:810
@@ -2373,12 +2371,12 @@ msgid "Do you want to start the network interfaces on this system?"
 msgstr "Haluatko käynnistää lähiverkon järjestelmälle?"
 
 # ../text.py:396
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Peruutettu"
 
 # ../text.py:397
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Ei voida siirtyä tästä aikaisempaan vaiheeseen. Yritä uudelleen."
 
@@ -2395,7 +2393,7 @@ msgstr "Pelasta"
 
 # ../rescue.py:91
 #: ../rescue.py:257
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The rescue environment will now attempt to find your Linux installation and "
 "mount it under the directory %s.  You can then make any changes required to "
@@ -2407,10 +2405,10 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
-"Pelastusympäristö yrittää nyt löytää Red Hat Linux -asennuksen ja liittää "
-"sen %s-hakemistoon. Sen jälkeen voit tehdä järjestelmään tarvittavat "
-"muutokset. Jos haluat käynnistää tämän vaiheen, valitse \"Jatka\". Voit "
-"valita osioidesi liittämisen kirjoitussuojattuna valitsemalla \"Vain luku\"\n"
+"Pelastusympäristö yrittää nyt löytää Linux-asennuksen ja liittää sen "
+"hakemistoon %s. Sen jälkeen voit tehdä järjestelmään tarvittavat muutokset. "
+"Jos haluat käynnistää tämän vaiheen, valitse \"Jatka\". Voit valita "
+"osioidesi liittämisen kirjoitussuojattuna valitsemalla \"Vain luku\"\n"
 "\n"
 "Jos tämä prosessi jostain syystä epäonnistuu, voit valita \"Ohita\", jolloin "
 "tämä vaihe ohitetaan ja pääset suoraan komentoriville.\n"
@@ -2525,46 +2523,46 @@ msgid "Your system is mounted under the %s directory."
 msgstr "Järjestelmäsi on liitetty %s-hakemistoon."
 
 # ../text.py:175
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Ohjeita ei ole"
 
 # ../text.py:176
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Tälle asennusvaiheelle ei ole saatavissa ohjeita."
 
 # ../text.py:247
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Tallenna kaatumisvedos"
 
 #
 # ../text.py:266 ../text.py:269
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Tallenna"
 
 # ../text.py:266 ../text.py:267
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Vianjäljitys"
 
 # ../text.py:301
-#: ../text.py:346
-#, fuzzy, python-format
+#: ../text.py:347
+#, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
-msgstr "%s (C) 2003 Red Hat, Inc."
+msgstr "%s © 2004 Red Hat, Inc."
 
 # ../text.py:304
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> ohje | <Tab> vaihtaa elementtiä | <Välil.> valitsee | <F12> seuraava   "
 
 # ../text.py:306
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2728,7 +2726,7 @@ msgstr ""
 
 # ../upgrade.py:358
 #: ../upgrade.py:475
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in %s. Because these packages overlap, continuing the "
@@ -2739,23 +2737,24 @@ msgid ""
 "Do you wish to continue the upgrade process?"
 msgstr ""
 "Järjestelmään on asennettu muiden osapuolten paketteja, jotka menevät "
-"päällekkäin Red Hat Linuxin mukana tulevien pakettien kanssa. Tästä syystä "
-"päivityksen jatkaminen voi saada näiden pakettien ohjelmat toimimaan "
-"virheellisesti tai aiheuttaa järjestelmään muuta epävakautta.\n"
+"päällekkäin %sn mukana tulevien pakettien kanssa. Tästä syystä päivityksen "
+"jatkaminen voi saada näiden pakettien ohjelmat toimimaan virheellisesti tai "
+"aiheuttaa järjestelmään muuta epävakautta. Katso lisätietoja "
+"julkaisutiedoista.\n"
 "\n"
 "Haluatko jatkaa päivitystä?"
 
 # ../upgrade.py:377
 #: ../upgrade.py:498
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
-"Järjestelmässä ei ole /etc/redhat-release-tiedostoa. On mahdollista, ettei "
-"tämä ole Red Hat Linux -järjestelmä. Päivityksen jatkaminen voi saattaa "
-"järjestelmän käyttökelvottomaan tilaan. Haluatko jatkaa päivitystä?"
+"Järjestelmässä ei ole tiedostoa /etc/redhat-release. On mahdollista, ettei "
+"tämä ole %s -järjestelmä. Päivityksen jatkaminen voi saattaa järjestelmän "
+"käyttökelvottomaan tilaan. Haluatko jatkaa päivitystä?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2764,8 +2763,8 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
-"Päivitykset %s tälle versiolle on tuettu vain Red Hat 6.2:ssa tai "
-"uudemmassa. Tämä järjestelmä on vanhempi. Haluatko jatkaa päivitystä?"
+"Päivitykset tälle %sn versiolle ovat tuettuja vain Red Hat 6.2:sta tai "
+"uudemmasta. Tämä järjestelmä on vanhempi. Haluatko jatkaa päivitystä?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2934,6 +2933,32 @@ msgstr "Kerberos 5"
 #: ../iw/auth_gui.py:253
 msgid "SMB"
 msgstr "SMB"
+
+# ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+msgid "Automatic Partitioning"
+msgstr "Automaattinen osiointi"
+
+# ../iw/partition_gui.py:1609
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "On valittava ainakin yksi levy, jolle %s asennetaan."
+
+# ../iw/partition_gui.py:1648
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr "Haluan automaattisen osioinnin:"
+
+# ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Mitä levyä tai levyjä haluat käyttää asennukseen?"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
 
 # ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
 #: ../iw/blpasswidget.py:37
@@ -3366,7 +3391,7 @@ msgstr ""
 "\n"
 
 #: ../iw/desktop_choice_gui.py:53
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "\n"
@@ -3379,11 +3404,11 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Asennuksen jälkeen paketteja voidaan asentaa tai poistaa \"redhat-config-"
+"Asennuksen jälkeen paketteja voidaan asentaa tai poistaa \"system-config-"
 "packages\"-ohjelmalla.\n"
 "\n"
-"Jos %s on sinulle tuttu, haluat ehkä asentaa tiettyjä paketteja tai poistaa "
-"niitä. Valitse alla oleva ruutu, jos haluat mukauttaa asennusta."
+"Jos %s on ennestään tuttu, haluat ehkä asentaa tiettyjä paketteja tai "
+"poistaa niitä. Valitse alla oleva ruutu, jos haluat mukauttaa asennusta."
 
 #: ../iw/desktop_choice_gui.py:65
 msgid ""
@@ -3451,9 +3476,8 @@ msgstr ""
 "tiedot saatetaan ylikirjoittaa riippuen asetusvalinnoistasi."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
-#, fuzzy
 msgid "The following installed system will be upgraded:"
-msgstr "Seuraava Red Hat -tuote päivitetään:"
+msgstr "Seuraava asennettu järjestelmä päivitetään:"
 
 # ../loader/urls.c:247
 #: ../iw/examine_gui.py:136
@@ -3488,16 +3512,16 @@ msgid "Select a drive to partition with fdisk:"
 msgstr "Valitse asema, jota varten fdisk käynnistetään"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 msgid "Firewall"
 msgstr "Palomuuri"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 msgid "Warning - No Firewall"
 msgstr "Varoitus - Ei palomuuria"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -3509,16 +3533,16 @@ msgstr ""
 "Palomuuria ei ole kuitenkaan asetettu. Valitse \"Hyväksy\" jatkaaksesi ilman "
 "palomuuria."
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 msgid "_Configure Firewall"
 msgstr "_Aseta palomuuri"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr "_Hyväksy"
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -3532,11 +3556,11 @@ msgstr ""
 "Esimerkiksi: \"1234:udp\""
 
 # ../iw/firewall_gui.py:129
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 msgid "Warning: Bad Token"
 msgstr "Varoitus: väärä syöte"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
@@ -3545,51 +3569,50 @@ msgstr ""
 "käyttöön?"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 msgid "N_o firewall"
 msgstr "Ei pal_omuuria"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 msgid "_Enable firewall"
 msgstr "Ota palomuuri käyttöön"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 msgid "_Custom firewall"
 msgstr "Mukauta pal_omuuria"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr "Mitkä palvelut pitäisi päästää palomuurin läpi?"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 msgid "_Allow incoming:"
 msgstr "S_alli sisääntuleva:"
 
 # ../iw/firewall_gui.py:314
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 msgid "Other _ports:"
 msgstr "Muut _portit:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr "Jos haluat sallia kaiken liikenteen tietystä laitteesta, valitse se."
 
 # ../iw/firewall_gui.py:260
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 msgid "_Trusted devices:"
 msgstr "Luo_tetut laitteet:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Active"
-msgstr "Acre"
+#: ../iw/firewall_gui.py:283
+msgid "Disabled"
+msgstr ""
 
 # ../autopart.py:948 ../bootloader.py:280 ../harddrive.py:236
 # ../iw/bootloader_gui.py:58 ../iw/bootloaderpassword_gui.py:29
@@ -3600,13 +3623,13 @@ msgstr "Acre"
 # ../textw/bootloader_text.py:434 ../textw/partition_text.py:167
 # ../textw/upgrade_text.py:172 ../upgrade.py:239 ../upgrade.py:357
 # ../upgrade.py:376
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Varoitus"
 
-#: ../iw/firewall_gui.py:288
-msgid "Disabled"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
 msgstr ""
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
@@ -4828,31 +4851,6 @@ msgstr "_LVM"
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "_Piilota RAID-laitteet/loogiset taltioryhmät"
 
-# ../iw/partition_gui.py:1590 ../textw/partition_text.py:1065
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-msgid "Automatic Partitioning"
-msgstr "Automaattinen osiointi"
-
-# ../iw/partition_gui.py:1609
-#: ../iw/partition_gui.py:1444
-#, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Sinun pitää valita ainakin yksi levy, jolle %s asennetaan."
-
-# ../iw/partition_gui.py:1648
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr "Haluan automaattisen osioinnin:"
-
-# ../iw/partition_gui.py:1679 ../textw/partition_text.py:1088
-#: ../iw/partition_gui.py:1517
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Mitä levyä tai levyjä haluat käyttää asennukseen?"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr "_Tarkista (ja tarvittaessa muuta) luodut osiot"
-
 # ../iw/partition_gui.py:313 ../iw/partition_gui.py:334
 # ../iw/partition_gui.py:336 ../textw/partition_text.py:186
 # ../textw/partition_text.py:188 ../textw/partition_text.py:190
@@ -6061,7 +6059,7 @@ msgstr ""
 "säilyttää sen myöhempää tarkistusta varten."
 
 #: ../textw/desktop_choice_text.py:27
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The default installation environment includes our recommended package "
 "selection.  After installation, additional software can be added or removed "
@@ -6071,7 +6069,7 @@ msgid ""
 "selection of software installed if you want."
 msgstr ""
 "Oletusasennus sisältää suositellut paketit. Asennuksen jälkeen paketteja voi "
-"asentaa ja poistaa \"redhat-config-packages\"-työkalulla.\n"
+"asentaa ja poistaa \"system-config-packages\"-työkalulla.\n"
 "\n"
 "%s sisältää kuitenkin paljon enemmän sovelluksia, joten haluat ehkä muokata "
 "asennettavien pakettien valikoimaa."
@@ -6143,81 +6141,81 @@ msgid "Choose a disk to run fdisk on"
 msgstr "Valitse levy, jolle fdisk käynnistetään"
 
 # ../iw/firewall_gui.py:247 ../textw/firewall_text.py:23
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Mukauta"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 msgid "Enable firewall"
 msgstr "Ota palomuuri käyttöön"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 msgid "No firewall"
 msgstr "Ei palomuuria"
 
 # ../textw/firewall_text.py:73
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 msgid "Trusted Devices:"
 msgstr "Luotetut laitteet:"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 msgid "Allow incoming:"
 msgstr "Salli sisääntuleva:"
 
 # ../textw/firewall_text.py:97
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 msgid "SSH"
 msgstr "SSH"
 
 # ../textw/firewall_text.py:99
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 msgid "Telnet"
 msgstr "Telnet"
 
 # ../textw/firewall_text.py:101
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr "WWW (HTTP)"
 
 #
 # ../textw/firewall_text.py:103
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 msgid "Mail (SMTP)"
 msgstr "Sähköposti (SMTP)"
 
 # ../loader/loader.c:1213 ../textw/firewall_text.py:105
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
 # ../textw/firewall_text.py:109
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 msgid "Other ports"
 msgstr "Muut portit"
 
 # ../textw/firewall_text.py:135 ../textw/firewall_text.py:199
 # ../textw/language_text.py:157
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 msgid "Invalid Choice"
 msgstr "Virheellinen valinta"
 
 # ../textw/firewall_text.py:136
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 msgid "You cannot customize a disabled firewall."
 msgstr "Et voi mukauttaa pois kytkettyä palomuuria."
 
 # ../textw/firewall_text.py:141
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 msgid "Firewall Configuration - Customize"
 msgstr "Palomuuriasetukset - mukauta"
 
 # ../textw/firewall_text.py:143
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -6230,10 +6228,29 @@ msgstr ""
 "muodossa \"palvelu:protokolla\". Esimerkki: \"imap:tcp\"."
 
 # ../textw/firewall_text.py:200
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Varoitus: %s ei kelpaa portiksi."
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 # ../textw/installpath_text.py:46
 #: ../textw/installpath_text.py:49
@@ -7222,11 +7239,13 @@ msgstr "%s"
 
 # ../iw/welcome_gui.py:21 ../iw/welcome_gui.py:48
 #: ../textw/welcome_text.py:23
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Welcome to %s!\n"
 "\n"
-msgstr "%s - tervetuloa"
+msgstr ""
+"%s - tervetuloa!\n"
+"\n"
 
 # ../textw/xconfig_text.py:23
 #: ../textw/xconfig_text.py:35
@@ -7533,7 +7552,6 @@ msgstr ""
 "työpöytäkäyttöön."
 
 #: ../installclasses/personal_desktop.py:18
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -7580,7 +7598,6 @@ msgstr ""
 "sovelluskehitykseen ja järjestelmän ylläpitoon."
 
 #: ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -7754,7 +7771,7 @@ msgstr "Ajurilevyke"
 # ../loader/devices.c:232
 #: ../loader2/driverdisk.c:381
 msgid "Do you have a driver disk?"
-msgstr "Onko sinulla ajurilevyke?"
+msgstr "Onko Teillä ajurilevyke?"
 
 # ../loader/devices.c:532
 #: ../loader2/driverdisk.c:391
@@ -7901,9 +7918,9 @@ msgstr "Valitse osio"
 
 # ../loader/loader.c:913
 #: ../loader2/hdinstall.c:568
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr "Laite %s ei näytä sisältävän Red Hatin CD-levykuvatiedostoja."
+msgstr "Laite %s ei näytä sisältävän %s -levykuvatiedostoja."
 
 # ../loader/net.c:723
 #: ../loader2/hdinstall.c:600
@@ -8111,14 +8128,15 @@ msgid "Add Device"
 msgstr "Lisää laite"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr "latain on jo ajettu. Käynnistetään kuori."
 
 # ../loader/loader.c:3019
 #: ../loader2/loader.c:1448
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Käynnistän anacondaa, %sn asennusohjelmaa - odota hetki...\n"
+msgstr "Käynnistetään anaconda, %sn pelastustila - odota hetki...\n"
 
 # ../loader/loader.c:3019
 #: ../loader2/loader.c:1450
@@ -8140,6 +8158,7 @@ msgid "Checking \"%s\"..."
 msgstr "Tarkastetaan \"%s\"..."
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr "Tarkastetaan tallennetta..."
 
@@ -8376,9 +8395,9 @@ msgstr "NFS-palvelimen nimi:"
 
 # ../loader/net.c:173 ../loader/urls.c:194
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:285
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "Red Hat -hakemisto:"
+msgstr "%s -hakemisto:"
 
 # ../loader/net.c:179
 #: ../loader2/nfsinstall.c:53
@@ -9229,12 +9248,11 @@ msgstr "englanti"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "viro"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "tanska"
+msgstr "suomi"
 
 #. generated from lang-table
 msgid "French"
@@ -9246,7 +9264,7 @@ msgstr "saksa"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "unkari"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -9266,7 +9284,7 @@ msgstr "korea"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "malaiji"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -9302,6 +9320,10 @@ msgstr "turkki"
 
 #. generated from lang-table
 msgid "Ukrainian"
+msgstr "ukraina"
+
+#. generated from lang-table
+msgid "Zulu"
 msgstr ""
 
 # ../image.py:143
@@ -9311,23 +9333,3 @@ msgstr ""
 # ../installclasses/workstation.py:9
 #~ msgid "Workstation Defaults"
 #~ msgstr "Työaseman oletukset"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Tervetuloa %siin!\n"
-#~ "\n"
-#~ "Asennuksen vaiheet käydään tarkasti läpi virallisessa %sn "
-#~ "asennusoppaassa, joka on saatavilla Red Hatiltä. Jos sinulla on "
-#~ "saatavilla tämä opas, sinun tulisi lukea asennuskappale ennen kuin "
-#~ "jatkat.\n"
-#~ "\n"
-#~ "Jos olet ostanut virallisen %sn, muista rekisteröidä ostoksesi "
-#~ "osoitteessa http://www.redhat.com/."

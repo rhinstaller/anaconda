@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1.94\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-12 17:04-0500\n"
+"POT-Creation-Date: 2004-03-17 01:34-0500\n"
 "PO-Revision-Date: 2001-08-15 10:37+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian (nynorsk)\n"
@@ -89,7 +89,7 @@ msgstr ""
 
 #: ../anaconda:557 ../anaconda:738 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
-#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:326 ../text.py:472
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
@@ -151,7 +151,7 @@ msgstr ""
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:813 ../anaconda:1060
+#: ../anaconda:813 ../anaconda:1060 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
@@ -529,7 +529,7 @@ msgid ""
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 
-#: ../exception.py:227 ../text.py:239
+#: ../exception.py:227 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Unntak oppsto"
 
@@ -823,11 +823,11 @@ msgid ""
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 
-#: ../gui.py:235 ../text.py:322
+#: ../gui.py:235 ../text.py:323
 msgid "Fix"
 msgstr "Rett opp"
 
-#: ../gui.py:236 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../rescue.py:176 ../text.py:324 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:380
 #: ../loader2/driverdisk.c:391 ../loader2/hdinstall.c:462
@@ -835,7 +835,7 @@ msgstr "Rett opp"
 msgid "Yes"
 msgstr "Ja"
 
-#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:324
+#: ../gui.py:237 ../rescue.py:176 ../rescue.py:178 ../text.py:325
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -844,17 +844,17 @@ msgstr "Ja"
 msgid "No"
 msgstr "Nei"
 
-#: ../gui.py:239 ../text.py:326 ../loader2/net.c:179 ../loader2/net.c:478
+#: ../gui.py:239 ../text.py:327 ../loader2/net.c:179 ../loader2/net.c:478
 msgid "Retry"
 msgstr "Prøv igjen"
 
-#: ../gui.py:240 ../text.py:327
+#: ../gui.py:240 ../text.py:328
 msgid "Ignore"
 msgstr "Ignorer"
 
 #: ../gui.py:241 ../gui.py:556 ../partIntfHelpers.py:232
-#: ../partIntfHelpers.py:520 ../text.py:115 ../text.py:116 ../text.py:285
-#: ../text.py:287 ../text.py:328 ../iw/bootloader_advanced_gui.py:50
+#: ../partIntfHelpers.py:520 ../text.py:116 ../text.py:117 ../text.py:286
+#: ../text.py:288 ../text.py:329 ../iw/bootloader_advanced_gui.py:50
 #: ../iw/bootloader_main_gui.py:104 ../textw/bootloader_text.py:218
 #: ../textw/constants_text.py:40 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:88
@@ -862,7 +862,7 @@ msgstr "Ignorer"
 msgid "Cancel"
 msgstr "Avbryt"
 
-#: ../gui.py:638 ../text.py:283
+#: ../gui.py:638 ../text.py:284
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -910,7 +910,7 @@ msgstr ""
 
 #: ../gui.py:1180 ../packages.py:1421 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
-#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:202
 #, fuzzy
 msgid "_Back"
 msgstr "Tilbake"
@@ -981,7 +981,7 @@ msgid ""
 "need to abort the installation and reboot please select \"Reboot\"."
 msgstr ""
 
-#: ../image.py:72 ../image.py:440 ../kickstart.py:1322 ../kickstart.py:1349
+#: ../image.py:72 ../image.py:440 ../kickstart.py:1340 ../kickstart.py:1367
 #: ../iw/partition_gui.py:1012
 #, fuzzy
 msgid "_Continue"
@@ -1031,29 +1031,29 @@ msgstr "Trykk linjeskift for å fortsetja."
 msgid "Install on System"
 msgstr "Installasjon"
 
-#: ../kickstart.py:1314
+#: ../kickstart.py:1332
 #, fuzzy
 msgid "Missing Package"
 msgstr "Installer pakke"
 
-#: ../kickstart.py:1315
+#: ../kickstart.py:1333
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1321 ../kickstart.py:1348
+#: ../kickstart.py:1339 ../kickstart.py:1366
 #, fuzzy
 msgid "_Abort"
 msgstr "Tilbakestill"
 
-#: ../kickstart.py:1340
+#: ../kickstart.py:1358
 #, fuzzy
 msgid "Missing Group"
 msgstr "Rekningsinformasjon"
 
-#: ../kickstart.py:1341
+#: ../kickstart.py:1359
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1828,11 +1828,11 @@ msgstr "Nettverk"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: ../rescue.py:220 ../text.py:467
+#: ../rescue.py:220 ../text.py:468
 msgid "Cancelled"
 msgstr "Avbroten"
 
-#: ../rescue.py:221 ../text.py:468
+#: ../rescue.py:221 ../text.py:469
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -1932,37 +1932,37 @@ msgstr ""
 msgid "Your system is mounted under the %s directory."
 msgstr "Du må skriva eit namn"
 
-#: ../text.py:192
+#: ../text.py:193
 msgid "Help not available"
 msgstr "Hjelp ikkje tilgjengeleg"
 
-#: ../text.py:193
+#: ../text.py:194
 msgid "No help is available for this step of the install."
 msgstr "Inga hjelp er tilgjengeleg for dette steget av installasjonen."
 
-#: ../text.py:282
+#: ../text.py:283
 msgid "Save Crash Dump"
 msgstr "Lagra dump av krasj"
 
-#: ../text.py:303 ../text.py:311
+#: ../text.py:304 ../text.py:312
 msgid "Save"
 msgstr "Lagra"
 
-#: ../text.py:303 ../text.py:306 ../text.py:309
+#: ../text.py:304 ../text.py:307 ../text.py:310
 msgid "Debug"
 msgstr "Avlusing"
 
-#: ../text.py:346
+#: ../text.py:347
 #, python-format
 msgid "%s (C) 2004 Red Hat, Inc."
 msgstr ""
 
-#: ../text.py:353
+#: ../text.py:354
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
-#: ../text.py:355
+#: ../text.py:356
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -2273,6 +2273,30 @@ msgstr ""
 #, fuzzy
 msgid "SMB"
 msgstr "MB"
+
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1416
+#: ../textw/partition_text.py:1210
+#, fuzzy
+msgid "Automatic Partitioning"
+msgstr "Automatisk innlogging"
+
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1444
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Du må velja minst ein skrivar."
+
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1486
+msgid "I want to have automatic partitioning:"
+msgstr ""
+
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1517
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Vel felta som skal visast"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr ""
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2727,17 +2751,17 @@ msgstr "Partisjonar"
 msgid "Select a drive to partition with fdisk:"
 msgstr "Vel felta som skal visast"
 
-#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
+#: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:27
 #, fuzzy
 msgid "Firewall"
 msgstr "Ingen fyll"
 
-#: ../iw/firewall_gui.py:31 ../textw/firewall_text.py:193
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:194
 #, fuzzy
 msgid "Warning - No Firewall"
 msgstr "Ingen fyll"
 
-#: ../iw/firewall_gui.py:32 ../textw/firewall_text.py:194
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:195
 msgid ""
 "If this system is attached directly to the Internet or is on a large public "
 "network, it is recommended that a firewall be configured to help prevent "
@@ -2745,17 +2769,17 @@ msgid ""
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
 
-#: ../iw/firewall_gui.py:39
+#: ../iw/firewall_gui.py:41
 #, fuzzy
 msgid "_Configure Firewall"
 msgstr "Set opp AI"
 
-#: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
-#: ../textw/firewall_text.py:201
+#: ../iw/firewall_gui.py:41 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:202
 msgid "_Proceed"
 msgstr ""
 
-#: ../iw/firewall_gui.py:127
+#: ../iw/firewall_gui.py:129
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -2764,73 +2788,72 @@ msgid ""
 "For example, '1234:udp'"
 msgstr ""
 
-#: ../iw/firewall_gui.py:131
+#: ../iw/firewall_gui.py:133
 #, fuzzy
 msgid "Warning: Bad Token"
 msgstr "Åtvaring"
 
-#: ../iw/firewall_gui.py:163 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:159 ../textw/firewall_text.py:29
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:171
+#: ../iw/firewall_gui.py:167
 #, fuzzy
 msgid "N_o firewall"
 msgstr "Ingen fyll"
 
-#: ../iw/firewall_gui.py:173
+#: ../iw/firewall_gui.py:169
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "Ingen fyll"
 
-#: ../iw/firewall_gui.py:175
+#: ../iw/firewall_gui.py:171
 #, fuzzy
 msgid "_Custom firewall"
 msgstr "Ingen fyll"
 
-#: ../iw/firewall_gui.py:193
+#: ../iw/firewall_gui.py:189
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:201
+#: ../iw/firewall_gui.py:197
 #, fuzzy
 msgid "_Allow incoming:"
 msgstr "Vis innkommande samtalar"
 
-#: ../iw/firewall_gui.py:226
+#: ../iw/firewall_gui.py:222
 #, fuzzy
 msgid "Other _ports:"
 msgstr "Andre ikon:"
 
-#: ../iw/firewall_gui.py:234
+#: ../iw/firewall_gui.py:230
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
-#: ../iw/firewall_gui.py:243
+#: ../iw/firewall_gui.py:239
 #, fuzzy
 msgid "_Trusted devices:"
 msgstr "Bandeining:"
 
-#: ../iw/firewall_gui.py:282
+#: ../iw/firewall_gui.py:277
 msgid "_Security Enhanced Linux (SELinux) Extentions:"
 msgstr ""
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
-msgid "Active"
-msgstr "Område"
+msgid "Disabled"
+msgstr "Ikkje bruk tastaturoppsett"
 
-#: ../iw/firewall_gui.py:288
+#: ../iw/firewall_gui.py:283
 #, fuzzy
 msgid "Warn"
 msgstr "Åtvaring"
 
-#: ../iw/firewall_gui.py:288
-#, fuzzy
-msgid "Disabled"
-msgstr "Ikkje bruk tastaturoppsett"
+#: ../iw/firewall_gui.py:283 ../textw/firewall_text.py:260
+msgid "Active"
+msgstr ""
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 #, fuzzy
@@ -3926,29 +3949,6 @@ msgstr ""
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
-#: ../iw/partition_gui.py:1416 ../textw/partition_text.py:1210
-#, fuzzy
-msgid "Automatic Partitioning"
-msgstr "Automatisk innlogging"
-
-#: ../iw/partition_gui.py:1444
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Du må velja minst ein skrivar."
-
-#: ../iw/partition_gui.py:1486
-msgid "I want to have automatic partitioning:"
-msgstr ""
-
-#: ../iw/partition_gui.py:1517
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Vel felta som skal visast"
-
-#: ../iw/partition_gui.py:1541
-msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
-
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
 #: ../iw/partition_ui_helpers_gui.py:110 ../textw/partition_text.py:243
 #: ../textw/partition_text.py:245 ../textw/partition_text.py:247
@@ -5030,76 +5030,76 @@ msgstr ""
 msgid "Choose a disk to run fdisk on"
 msgstr "Vel distribusjonen din"
 
-#: ../textw/firewall_text.py:24
+#: ../textw/firewall_text.py:25
 msgid "Customize"
 msgstr "Tilpass"
 
-#: ../textw/firewall_text.py:45
+#: ../textw/firewall_text.py:46
 #, fuzzy
 msgid "Enable firewall"
 msgstr "Ingen fyll"
 
-#: ../textw/firewall_text.py:48
+#: ../textw/firewall_text.py:49
 #, fuzzy
 msgid "No firewall"
 msgstr "Ingen fyll"
 
-#: ../textw/firewall_text.py:67
+#: ../textw/firewall_text.py:68
 #, fuzzy
 msgid "Trusted Devices:"
 msgstr "Skrivareining:"
 
-#: ../textw/firewall_text.py:77
+#: ../textw/firewall_text.py:78
 #, fuzzy
 msgid "Allow incoming:"
 msgstr "Vis innkommande samtalar"
 
-#: ../textw/firewall_text.py:82
+#: ../textw/firewall_text.py:83
 #, fuzzy
 msgid "SSH"
 msgstr "SSL"
 
-#: ../textw/firewall_text.py:84 ../loader2/telnetd.c:80
+#: ../textw/firewall_text.py:85 ../loader2/telnetd.c:80
 #: ../loader2/telnetd.c:122
 #, fuzzy
 msgid "Telnet"
 msgstr "Telex"
 
-#: ../textw/firewall_text.py:86
+#: ../textw/firewall_text.py:87
 msgid "WWW (HTTP)"
 msgstr ""
 
-#: ../textw/firewall_text.py:88
+#: ../textw/firewall_text.py:89
 #, fuzzy
 msgid "Mail (SMTP)"
 msgstr "E-posttenar (SMTP)"
 
-#: ../textw/firewall_text.py:90
+#: ../textw/firewall_text.py:91
 msgid "FTP"
 msgstr "FTP"
 
-#: ../textw/firewall_text.py:94
+#: ../textw/firewall_text.py:95
 #, fuzzy
 msgid "Other ports"
 msgstr "Andre val"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:183
+#: ../textw/firewall_text.py:121 ../textw/firewall_text.py:184
 #: ../textw/language_text.py:145
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Ugyldig miksar"
 
-#: ../textw/firewall_text.py:121
+#: ../textw/firewall_text.py:122
 #, fuzzy
 msgid "You cannot customize a disabled firewall."
 msgstr "Du kan ikkje gøyma den siste synlege tabellen."
 
-#: ../textw/firewall_text.py:126
+#: ../textw/firewall_text.py:127
 #, fuzzy
 msgid "Firewall Configuration - Customize"
 msgstr "Oppsett ferdig"
 
-#: ../textw/firewall_text.py:128
+#: ../textw/firewall_text.py:129
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
@@ -5107,10 +5107,29 @@ msgid ""
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
 
-#: ../textw/firewall_text.py:184
+#: ../textw/firewall_text.py:185
 #, fuzzy, python-format
 msgid "Warning: %s is not a valid port."
 msgstr "Dette er ikkje eit gyldig filnamn.\n"
+
+#: ../textw/firewall_text.py:246
+msgid "Security Enhanced Linux"
+msgstr ""
+
+#: ../textw/firewall_text.py:248
+msgid ""
+"Security Enhanced Linux (SELinux) provides stricter access controls to "
+"improve the security of your system.  How would you like this support "
+"enabled?"
+msgstr ""
+
+#: ../textw/firewall_text.py:256
+msgid "Disable SELinux"
+msgstr ""
+
+#: ../textw/firewall_text.py:258
+msgid "Warn on violations"
+msgstr ""
 
 #: ../textw/installpath_text.py:49
 #, fuzzy
@@ -6756,6 +6775,7 @@ msgid "Add Device"
 msgstr "Eining"
 
 #: ../loader2/loader.c:1092
+#, c-format
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
@@ -6781,6 +6801,7 @@ msgid "Checking \"%s\"..."
 msgstr ""
 
 #: ../loader2/mediacheck.c:266
+#, c-format
 msgid "Checking media now..."
 msgstr ""
 
@@ -7936,6 +7957,10 @@ msgstr ""
 #, fuzzy
 msgid "Ukrainian"
 msgstr "Brasiliansk"
+
+#. generated from lang-table
+msgid "Zulu"
+msgstr ""
 
 #~ msgid "The CDROM could not be mounted."
 #~ msgstr "CDROMen kunne ikkje monteras."
