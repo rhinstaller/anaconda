@@ -110,8 +110,3 @@ def inet_calcNS (net):
         netaddr = net
 
     return inet_ntoa (netaddr + 1)
-
-try:
-    _isys.readmoduleinfo("/modules/module-info")
-except IOError:
-    _isys.readmoduleinfo("/boot/module-info")
