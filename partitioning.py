@@ -117,6 +117,8 @@ def get_partition_name(partition):
                      partition.num)
 
 def get_partition_file_system_type(part):
+    if part.fs_type == None:
+        return None
     if part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif part.fs_type.name == "FAT":
