@@ -592,7 +592,7 @@ class XconfiguratorWindow:
             log("Could not find Xconfigurator, skipping X configuration.")
             return INSTALL_NOOP
 
-        f = open (todo.instPath + "/tmp/SERVER", "w")
+        f = open (todo.instPath + "/var/run/SERVER", "w")
 	if todo._cardindex == -1:
 	    f.write ("%d\n" % todo._cardindex)
 	else:
@@ -608,7 +608,7 @@ class XconfiguratorWindow:
                                 root = todo.instPath)
         screen.resume ()
 	todo.x.skip = 1
-	os.unlink("/tmp/SERVER");
+	os.unlink("/var/run/SERVER");
         return INSTALL_NOOP
         
 class BeginInstallWindow:
