@@ -1729,7 +1729,7 @@ class RAIDDevice(Device):
             i = i + 1
         return entry
 
-    def setupDevice (self, chroot, devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/tmp'):
         node = "%s/%s" % (devPrefix, self.device)
         isys.makeDevInode(self.device, node)
 
@@ -1785,7 +1785,7 @@ class VolumeGroupDevice(Device):
 
         self.physicalextentsize = pesize
 
-    def setupDevice (self, chroot, devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/tmp'):
         nodes = []
         for volume in self.physicalVolumes:
             # XXX the lvm tools are broken and will only work for /dev
@@ -1852,7 +1852,7 @@ class LogicalVolumeDevice(Device):
         # self.extents
         # self.readaheadsectors
 
-    def setupDevice(self, chroot, devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/tmp'):
         if not self.isSetup:
             rc = iutil.execWithRedirect("/usr/sbin/lvcreate",
                                         ["lvcreate", "-L",
@@ -1883,7 +1883,7 @@ class PartitionDevice(Device):
             raise ValueError, "partition must be a string"
         self.device = partition
 
-    def setupDevice(self, chroot, devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/tmp'):
         path = '%s/%s' % (devPrefix, self.getDevice(),)
         isys.makeDevInode(self.getDevice(), path)
         return path
@@ -1911,7 +1911,7 @@ class BindMountDevice(Device):
         Device.__init__(self)
         self.device = directory
 
-    def setupDevice(self, chroot, devPrefix="/tmp"):
+    def setupDevice(self, chroot="/", devPrefix="/tmp"):
         return chroot + self.device
 
     
@@ -1925,7 +1925,7 @@ class SwapFileDevice(Device):
     def setSize (self, size):
         self.size = size
 
-    def setupDevice (self, chroot, devPrefix='/tmp'):
+    def setupDevice (self, chroot="/", devPrefix='/tmp'):
         file = os.path.normpath(chroot + self.getDevice())
         if not os.access(file, os.R_OK):
             if self.size:
@@ -1947,7 +1947,7 @@ class PiggybackSwapFileDevice(SwapFileDevice):
         SwapFileDevice.__init__(self, file)
         self.piggypath = piggypath
         
-    def setupDevice(self, chroot, devPrefix='/tmp'):
+    def setupDevice(self, chroot="/", devPrefix='/tmp'):
         return SwapFileDevice.setupDevice(self, self.piggypath, devPrefix)
 
 class LoopbackDevice(Device):
@@ -1957,7 +1957,7 @@ class LoopbackDevice(Device):
         self.hostfs = hostFs
         self.device = "loop1"
 
-    def setupDevice(self, chroot, devPrefix='/tmp/'):
+    def setupDevice(self, chroot="/", devPrefix='/tmp/'):
         if not self.isSetup:
             isys.mount(self.host[5:], "/mnt/loophost", fstype = "vfat")
             self.device = allocateLoopback("/mnt/loophost/redhat.img")
