@@ -449,7 +449,7 @@ class ComponentSet:
         for package in packages.keys ():
 	    if (packages[package][rpm.RPMTAG_NAME] != 'kernel' and
                 packages[package][rpm.RPMTAG_NAME] != 'kernel-BOOT' and
-                packages[package][rpm.RPMTAG_NAME] != 'kernel-enterprise' and
+#                packages[package][rpm.RPMTAG_NAME] != 'kernel-enterprise' and
                 packages[package][rpm.RPMTAG_NAME] != 'kernel-smp' and
 		  not XFreeServerPackages.has_key(packages[package][rpm.RPMTAG_NAME])):
 		everything.addPackage (packages[package])
