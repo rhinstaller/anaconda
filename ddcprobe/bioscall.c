@@ -15,6 +15,12 @@
 #include "bioscall.h"
 #ident "$Id$"
 
+#ifndef SYS_vm86old
+#ifdef SYS_vm86
+#define SYS_vm86old SYS_vm86
+#endif
+#endif
+
 /* Dump some of the interesting parts of a register struct to stdout. */
 void dump_regs(struct vm86_regs *regs)
 {
