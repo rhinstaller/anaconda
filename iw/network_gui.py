@@ -450,6 +450,8 @@ class NetworkWindow(InstallWindow):
 # use this for now
             self.ethdevices.append_row((device, ip), active)
 
+            num += 1
+
 	self.ethdevices.set_column_title(0, (_("Active on Boot")))
         self.ethdevices.set_column_sizing (0, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 	self.ethdevices.set_column_title(1, (_("Device")))

@@ -58,7 +58,7 @@ class NetworkDeviceWindow:
 
         devnames = self.devices.keys()
         devnames.sort()
-        if devnames.index(dev.get("DEVICE")) == 0:
+        if devnames.index(dev.get("DEVICE")) == 0 and not onboot:
             onbootIsOn = 1
         else:
             onbootIsOn = (onboot == "yes")
