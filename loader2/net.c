@@ -326,7 +326,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
             }
             option = strtok(NULL, " ");
         }
-            setEthtoolSettings(loaderData->netDev, speed, duplex);
+        setEthtoolSettings(loaderData->netDev, speed, duplex);
         free(buf);
     }
 
