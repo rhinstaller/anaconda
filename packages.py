@@ -1003,6 +1003,30 @@ def doPostInstall(method, id, intf, instPath):
                                     stderr = "/dev/tty5",
                                     root = instPath,
                                     searchPath = 1)
+
+    # write out info on install method used
+    try:
+	if id.methodstr is not None:
+	    if os.access (instPath + "/etc/sysconfig/installinfo", os.R_OK):
+		os.rename (instPath + "/etc/sysconfig/installinfo",
+			   instPath + "/etc/sysconfig/installinfo.rpmsave")
+
+	    f = open(instPath + "/etc/sysconfig/installinfo", "w+")
+	    f.write("INSTALLMETHOD=%s\n" % (string.split(id.methodstr, ':')[0],))
+
+	    try:
+		ii = open("/tmp/isoinfo", "r")
+		il = ii.readlines()
+		ii.close()
+		for line in il:
+		    f.write(line)
+	    except:
+		pass
+	    f.close()
+	else:
+	    log("methodstr not set for some reason")
+    except:
+	log("Failed to write out installinfo")
         
     w.pop ()
 
