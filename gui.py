@@ -622,6 +622,7 @@ class InstallControlWindow:
         self.releaseButton = None
         self.showHelpButton = None
         self.hideHelpButton = None
+        self.abortButton = None
 
 	self.stockButtons = (('gtk-go-back', "prevButtonStock",
                               N_("_Back"), self.prevClicked),
