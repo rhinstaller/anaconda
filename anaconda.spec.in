@@ -7,6 +7,8 @@ Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.gz
 Obsoletes: anaconda-reconfig
 Prereq: chkconfig
+Requires: rpm-python
+
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
 %description
@@ -51,6 +53,9 @@ fi
 
 
 %changelog
+
+* Wed Jan 05 1999 Michael Fulbright <drmike@redhat.com>
+- added requirement for rpm-python
 
 * Mon Dec 06 1999 Michael Fulbright <drmike@redhat.com>
 - rename to 'anaconda' instead of 'anaconda-reconfig'
