@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 2000-02-05 14:42-0500\n"
-"PO-Revision-Date: 2000-02-07 22:15+01:00\n"
+"PO-Revision-Date: 2000-02-07 22:21+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1653,15 +1653,16 @@ msgid "User ID"
 msgstr "Bruker-ID:"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Bruker-ID:"
+msgstr "Ugyldig bruker-ID"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"Bruker-IDer må være mindre enn 8 tegn og kan kun inneholde tegnene A-Z, a-z "
+"og 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
