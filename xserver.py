@@ -59,9 +59,10 @@ def mouseWindow(mouse):
     screen.finish()
     return 1
     
-def startX(resolution):
+def startX(resolution, nofbmode):
 #    print "Inside startX"
 #    print resolution
+    print nofbmode
 #    time.sleep (5)
 
     global serverPath
@@ -118,24 +119,37 @@ def startX(resolution):
 #            print serverPath, "missing.  Falling back to text mode"
             raise RuntimeError, "No X server binaries found to run"
 
-    try:        
-        fbdevice = open("/dev/fb0", "r")   #-- If can't access /dev/fb0, we're not in framebuffer mode
-        fbdevice.close()
+#    try:
+    if nofbmode == 0:
+        try:
+            fbdevice = open("/dev/fb0", "r")   #-- If can't access /dev/fb0, we're not in framebuffer mode
+            fbdevice.close()
 
-        testx(mouse, x)
-    except (RuntimeError, IOError):
-        from log import log
-        log.open(0, 0, 0, 0)
-	log ("can't open /dev/fb0")
-        log.close()
+            testx(mouse, x)
+
+        except (RuntimeError, IOError):
+            from log import log
+            log.open(0, 0, 0, 0)
+            log ("can't open /dev/fb0")
+            log.close()
     
+            x.server = probedServer
+
+            if not x.server:
+                print "Unknown card"
+                raise RuntimeError, "Unable to start X for unknown card"
+                        
+            # if this fails, we want the exception to go back to anaconda to
+            # it knows that this didn't work
+            testx(mouse, x)
+
+    else:  #-We're in nofb mode
 	x.server = probedServer
 
         if not x.server:
             print "Unknown card"
             raise RuntimeError, "Unable to start X for unknown card"
                         
-
 	# if this fails, we want the exception to go back to anaconda to
 	# it knows that this didn't work
 	testx(mouse, x)
