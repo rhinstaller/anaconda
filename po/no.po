@@ -492,7 +492,7 @@ msgstr "Hvilken installeringstype ønsker du?"
 
 #: ../iw/lilo_gui.py:50 ../text.py:340
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Gå videre med oppgradering?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:341
 msgid ""
@@ -500,12 +500,15 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Filsystememe på Linux-systemet du har valgt å oppgradere er allerede montert.\n"
+"Du kan ikke gå lengre tilbake enn dette.\n"
+"\n"
 
 #: ../text.py:345
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
-msgstr ""
+msgstr "Hvis du vil avslutte oppgraderingen, velg \"Avslutt\". Vil du fortsette, velg \"Ok\"."
 
 #: ../text.py:375
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -516,13 +519,12 @@ msgid "System to Upgrade"
 msgstr "System som skal oppgraderes"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "RAID-partisjon"
+msgstr "Oppgradér partisjon"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
-msgstr ""
+msgstr "Skal oppgradere \"/dev\"-partisjonen."
 
 #: ../text.py:415
 msgid "Customize Packages to Upgrade"
@@ -1179,7 +1181,7 @@ msgstr "Bruk tekstmodus"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Leter etter mus..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1572,14 +1574,12 @@ msgid "Lilo Configuration"
 msgstr "LILO-konfigurasjon"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Vil du konfigurere systemet ditt?"
+msgstr "Vil du fortsette med oppgradering?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "I ferd med å oppgradere"
+msgstr "Avbryter oppgradering"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -3897,9 +3897,8 @@ msgstr ""
 "Du har ikke nok systemminne til å installere Red Hat på denne maskinen."
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Leser anaconda-oppdateringer..."
+msgstr "Kjører anaconda - snart tilbake...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
