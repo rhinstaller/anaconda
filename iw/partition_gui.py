@@ -465,17 +465,74 @@ class PartitionWindow(InstallWindow):
         ics.setNextEnabled (FALSE)
         ics.readHTML("partition")
         self.parent = ics.getICW().window
+
+    def quit(self):
+        pass
+
+    def presentPartitioningComments(self, type, comments):
+        if type == "errors":
+            win = GnomeDialog(_("Partitioning Errors"))
+            win.append_button(_("OK"))
+
+            labelstr1 =  _("The following critical errors exist "
+                           "with your requested partitioning "
+                           "scheme.")
+            labelstr2 = _("These errors must be corrected prior "
+                          "to continuing with your install of "
+                          "Red Hat Linux.")
+        else:
+            win = GnomeDialog(_("Partitioning Warnings"))
+            win.append_button(_("Yes"))
+            win.append_button(_("No"))
+
+            labelstr1 = _("The following warnings exist with "
+                         "your requested partition scheme.")
+            labelstr2 = _("Would you like to continue with "
+                         "your requested partitioning "
+                         "scheme?")
+            
+        win.connect ("clicked", self.quit)
+        commentstr = string.join(comments, "\n\n")
+        textbox = GtkText()
+        textbox.insert_defaults (commentstr)
+        textbox.set_word_wrap(1)
+        textbox.set_editable(0)
+        
+        sw = GtkScrolledWindow()
+        sw.add(textbox)
+        sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+
+        info1 = GtkLabel(labelstr1)
+        info1.set_line_wrap(TRUE)
+        info1.set_usize(300, -1)
+
+        info2 = GtkLabel(labelstr2)
+        info2.set_line_wrap(TRUE)
+        info2.set_usize(300, -1)
+        
+        win.vbox.pack_start(info1, FALSE)
+        win.vbox.pack_start(sw, TRUE)
+        win.vbox.pack_start(info2, FALSE)
+
+        win.set_usize(350,300)
+        win.set_position(WIN_POS_CENTER)
+        win.show_all()
+        rc = win.run()
+        win.close()
+        return not rc
         
     def getNext(self):
         (errors, warnings) = sanityCheckAllRequests(self.partitions, self.diskset)
-        rc = partitionSanityErrors(self.intf, errors)
-        if rc != 1:
+
+        if errors:
+            rc = self.presentPartitioningComments("errors", errors)
             raise gui.StayOnScreen
         
-        rc = partitionSanityWarnings(self.intf, warnings)
-        if rc != 1:
-            raise gui.StayOnScreen
-                                      
+        if warnings:
+            rc = self.presentPartitioningComments("warnings", warnings)
+            if rc != 1:
+                raise gui.StayOnScreen
+        
         self.diskStripeGraph.shutDown()
         self.tree.freeze()
         self.clearTree()
