@@ -69,7 +69,7 @@ class LanguageWindow:
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
 			  "installation process?"), translated, 
-			buttons, width = 30, default = current, scroll = 1,
+			buttons, width = 30, default = _(current), scroll = 1,
                                 height = height, help = "lang")
 
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
