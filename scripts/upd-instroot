@@ -696,17 +696,6 @@ patch -p0 > /dev/null <<EOF
 EOF
 cd -
 
-# XXX this removes our dependency on bonobo and other crap like that :)
-echo "Patching gnome-python __init__.py"
-if [ -n "$NEEDGR" ]; then
-    cd $DESTGR/usr/lib/python2.2/site-packages/gnome
-    mv __init__.py oldinit.py
-    rm -f __init__.py*
-    grep -v _gnome oldinit.py > __init__.py
-    rm -f oldinit.py
-fi
-cd -
-
 echo -n -e "Removing unused python files in hdimage... "
 
 if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
