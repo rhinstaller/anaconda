@@ -309,8 +309,9 @@ class InstallControlWindow (Thread):
             self.bin.remove (self.installFrame)
             self.table.attach (self.installFrame, 1, 3, 0, 1)
             self.bin.add (self.table)
+            # fix to set the bgcolor to white (xmhtml sucks)
+            self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
             self.html.source (self.currentScreen.getICS ().getHTML ())
-
             self.hideHelpButton.show ()
             self.showHelpButton.set_state (STATE_NORMAL)
             self.hbox.pack_start (self.hideHelpButton, FALSE)
