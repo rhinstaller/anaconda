@@ -1,5 +1,9 @@
 2004-11-07  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/bootloader_main_gui.py: Don't reference boot 
+	disks anymore (#135851)
+	* textw/bootloader_text.py: Likewise.
+
 	* iw/network_gui.py (NetworkWindow.editDevice): Add hardware
 	address as another way to figure out which device is which (#131814)
 	* textw/network_text.py (NetworkDeviceWindow.runScreen): Likewise.
