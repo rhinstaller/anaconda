@@ -2934,7 +2934,7 @@ int main(int argc, char ** argv) {
 		chooseLanguage(&lang, flags);
 		defaultLang = 0;
 		rc = chooseKeyboard (&keymap, &kbdtype, flags);
-	    } while (rc);
+	    } while ((rc) && (rc != LOADER_NOOP));
 	}
 	*argptr++ = "--rescue";
 	if (FL_RESCUE_NOMOUNT(flags))
