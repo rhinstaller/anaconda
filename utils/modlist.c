@@ -9,8 +9,8 @@ int main(int argc, char ** argv) {
     poptContext optCon;
     char * modInfoFile = "/boot/module-info";
     enum driverMajor major;
-    char * type;
-    char * mod;
+    const char * type;
+    const char * mod;
     struct moduleInfo * list, * m;
     int rc, i;
     int showModInfo = 0;
@@ -28,7 +28,7 @@ int main(int argc, char ** argv) {
 	    { 0, 0, 0, 0, 0 }
     };
 
-    optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
+    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
 	fprintf(stderr, "bad option %s: %s\n",
@@ -38,7 +38,7 @@ int main(int argc, char ** argv) {
     }
 
     mis = isysNewModuleInfoSet();
-    if (isysReadModuleInfo(modInfoFile, mis, MI_LOCATION_NONE, NULL)) {
+    if (isysReadModuleInfo(modInfoFile, mis, NULL)) {
         fprintf(stderr, "Failed to read %s\n", modInfoFile);
 	exit(1);
     }
