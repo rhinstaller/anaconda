@@ -13,8 +13,8 @@ typedef struct ht_iterator htIterator;
 
 struct hash_table *htNewTable(int size);
 void htFreeHashTable(struct hash_table *ht);
-char *htInTable(struct hash_table *t, char *s);
-void htAddToTable(struct hash_table *t, char *s);
+char *htInTable(struct hash_table *t, const char *s);
+void htAddToTable(struct hash_table *t, const char *s);
 void htPrintHashStats(struct hash_table *t);
 int htNumEntries(struct hash_table *t);
 
