@@ -6,7 +6,7 @@
 # Mike Fulbright <msf@redhat.com>
 # Harald Hoyer <harald@redhat.de>
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -98,8 +98,8 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         else:
             raise RuntimeError, ("Managed to not get an entry back from "
                                  "request.toEntry")
-        
-    if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
+
+    if iutil.memAvailable() > isys.EARLY_SWAP_RAM:
         return
     
     # XXX this attribute is probably going away
