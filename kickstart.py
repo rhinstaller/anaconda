@@ -1204,6 +1204,8 @@ class KickstartBase(BaseInstallClass):
                                 
 
     def setGroupSelection(self, grpset, intf):
+        grpset.unselectAll()
+        
 	grpset.selectGroup("base")
 	for n in self.groupList:
             try:
