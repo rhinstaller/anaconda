@@ -42,6 +42,9 @@ class KeyboardWindow (InstallWindow):
             a.set (0.0, 0.0, 0.0, 0.0)
             box.pack_start (a, FALSE)
 
+	def moveto (widget, *args):
+            widget.moveto (widget.selection[0], 0, 0.5, 0.5)
+
 	box.pack_start (GtkLabel (_("Model")), FALSE)
         sw = GtkScrolledWindow ()
 #        sw.set_border_width (5)
@@ -56,6 +59,7 @@ class KeyboardWindow (InstallWindow):
         self.modelList.sort ()
         self.modelList.connect ("select_row", self.select_row)
         self.modelList.columns_autosize ()
+        self.modelList.connect_after ("draw", moveto)
         sw.add (self.modelList)
 	box.pack_start (sw, TRUE)
 
@@ -73,6 +77,7 @@ class KeyboardWindow (InstallWindow):
         self.layoutList.sort ()
         self.layoutList.connect ("select_row", self.select_row)
         self.layoutList.columns_autosize ()
+	self.layoutList.connect_after ("draw", moveto)
         sw.add (self.layoutList)
 	box.pack_start (sw, TRUE)
 
