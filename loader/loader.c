@@ -1363,7 +1363,7 @@ static char * setupCdrom(struct installMethod * method,
 	    char *buf = sdupprintf(_("The %s CD was not found in any of your "
 				     "CDROM drives. Please insert the %s CD "
 				     "and press %s to retry."), PRODUCTNAME,
-				   PRODUCTNAME);
+				   PRODUCTNAME, _("OK"));
 	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), buf, _("OK"));
 	    free(buf);
 	    if (rc == 2) return NULL;
