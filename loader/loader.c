@@ -70,29 +70,41 @@ int deviceKnown(char * dev) {
 }
 
 static int findNetList(void) {
-    struct ifconf ifc;
-    struct ifreq intfs[50];		/* should be enough <shrug> */
-    int s;
+    int fd;
+    char buf[1024];
+    char * start, * end;
 
-    ifc.ifc_req = intfs;
-    ifc.ifc_len = sizeof(intfs);
-    s = socket(AF_INET, SOCK_DGRAM, 0);
-
-    if (ioctl(s, SIOCGIFCONF, &ifc)) {
-        logMessage("failed to get list of networking interfaces");
-	close(s);
+    if ((fd = open("/proc/net/dev", O_RDONLY)) < 0) {
+	fprintf(stderr, "failed to open /proc/net/dev!\n");
 	return 1;
     }
 
-    close(s);
+    read(fd, buf, sizeof(buf));
+    close(fd);
 
-    for (s = 0; s < ifc.ifc_len / sizeof(struct ifreq); s++) {
-    	if (!strcmp(intfs[s].ifr_name, "lo")) continue;
-	if (deviceKnown(intfs[s].ifr_name)) continue;
+    /* skip the first two lines */
+    start = strchr(buf, '\n');
+    if (!start) return 0;
+    start = strchr(start + 1, '\n');
+    if (!start) return 0;
 
-	knownDevices[numKnownDevices].name = strdup(intfs[s].ifr_name);
-	knownDevices[numKnownDevices].model = NULL;
-	knownDevices[numKnownDevices++].class = DEVICE_NET;
+    start++;
+    while (start && *start) {
+	while (isspace(*start)) start++;
+	end = strchr(start, ':');
+	if (!end) return 0;
+	*end = '\0';
+	
+    	if (strcmp(start, "lo")) {
+	    if (deviceKnown(start)) continue;
+
+	    knownDevices[numKnownDevices].name = strdup(start);
+	    knownDevices[numKnownDevices].model = NULL;
+	    knownDevices[numKnownDevices++].class = DEVICE_NET;
+	}
+
+	start = strchr(end + 1, '\n');
+	if (start) start++;
     }
 
     return 0;
@@ -402,7 +414,7 @@ int main(int argc, char ** argv) {
 	} else if (modList) {
 	    for (i = 0; modList[i]; i++) {
 	    	if (modList[i]->major == DRIVER_NET) {
-		    mlLoadModule(modList[i], modLoaded, modDeps);
+		    mlLoadModule(modList[i], modLoaded, modDeps, testing);
 		}
 	    }
 
