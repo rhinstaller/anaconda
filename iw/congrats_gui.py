@@ -79,8 +79,8 @@ class CongratulationWindow (InstallWindow):
 	       "\thttp://www.redhat.com/docs/\n"
 	       "\thttp://www.redhat.com/apps/support/\n\n"
 	       "To register the product for support, visit:\n"
-	       "\thttp://www.redhat.com/apps/activate/\n\n"
-	       "Click 'Exit' to reboot the system.") % (floppystr, bootstr,))
+	       "\thttp://www.redhat.com/apps/activate/\n\n") % (floppystr,
+                                                                bootstr,))
 
         hbox.pack_start (label, gtk.TRUE, gtk.TRUE)
         return hbox
