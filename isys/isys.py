@@ -155,7 +155,7 @@ def mount(device, location, fstype = "ext2", readOnly = 0):
     if not rc:
 	mountCount[location] = 1
 
-    if device != "none":
+    if device != "none" and not device.startswith("/dev"):
 	os.unlink(device)
 
     return rc
