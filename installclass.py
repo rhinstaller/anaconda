@@ -92,7 +92,8 @@ class InstallClass:
 	[ "lilo", "mouse", "network", "authentication", "complete", "complete",
 	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard", "xconfig",
-	  "welcome", "installtype", "mouse", "confirm-install" ].index(type)
+	  "welcome", "custom-upgrade", "installtype", "mouse", 
+	  "confirm-install" ].index(type)
 	self.skipSteps[type] = 1
 
     def setHostname(self, hostname):
