@@ -65,7 +65,9 @@ class AccountWindow (InstallWindow):
 	    self.userAccountMatch.search(accountName) and
 	    len(accountName) <= 8 and len(password1) > 5) and accountName != "root":
 	    self.userPwLabel.set_text(_("User password accepted."))
+            self.win.set_sensitive(0, TRUE)
 	else:
+            self.win.set_sensitive(0, FALSE)
 	    if not accountName:
 		self.userPwLabel.set_text("")
 	    elif accountName == "root":
@@ -148,6 +150,7 @@ class AccountWindow (InstallWindow):
         self.win.append_button_with_pixmap(_("Cancel"), STOCK_BUTTON_CANCEL)
         self.win.button_connect(0, self.addUser_cb)
         self.win.button_connect(1, self.win.destroy)
+        self.win.set_sensitive(0, FALSE)
         self.win.show_all()
 
     def editUser (self, widget):
@@ -272,7 +275,7 @@ class AccountWindow (InstallWindow):
         a.set (0.0, 0.5, 0.0, 0.0)
         hbox.pack_start(a, FALSE, 20)
         box.pack_start(hbox, FALSE)
-        
+       
         self.forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
         table = GtkTable (2, 2)
