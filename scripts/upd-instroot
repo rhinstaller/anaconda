@@ -800,6 +800,7 @@ for p in $DEST $DESTGR; do
 	cp $p/usr/lib/anaconda/pump-stub $p/usr/bin/pump
 	cp $p/usr/lib/anaconda/list-harddrives-stub $p/usr/bin/list-harddrives
 	cp $p/usr/lib/anaconda/kudzu-probe-stub $p/usr/bin/kudzu-probe
+	cp $p/usr/lib/anaconda/loadkeys-stub $p/usr/bin/loadkeys
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/lib/anaconda-runtime/lib* $p/usr/$LIBDIR
