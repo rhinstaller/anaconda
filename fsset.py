@@ -889,6 +889,7 @@ class FileSystemSet:
         self.mountcount = 0
         self.migratedfs = 0
         self.reset()
+        self.volumesCreated = 0
 
     def isActive(self):
         return self.mountcount != 0
@@ -1294,8 +1295,7 @@ class FileSystemSet:
         for entry in self.entries:
             if isinstance(entry.device, LogicalVolumeDevice):
                 entry.device.setupDevice(chroot)
-
-        
+        self.volumesCreated = 1
 
 
     def makeFilesystems (self, chroot='/'):

@@ -116,6 +116,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
     if rc:
         fsset.setActive(diskSet)
         diskSet.savePartitions ()
+        fsset.createLogicalVolumes(instPath)        
         fsset.formatSwap(instPath)
         fsset.turnOnSwap(instPath)
 
