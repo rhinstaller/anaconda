@@ -680,7 +680,7 @@ class PartitionWindow(InstallWindow):
         row = row + 1
 
         # Partition Type
-        maintable.attach(createAlignedLabel(_("Filesystem type:")),
+        maintable.attach(createAlignedLabel(_("Filesystem Type:")),
                                             0, 1, row, row + 1)
 
         if origrequest.type == REQUEST_NEW:
