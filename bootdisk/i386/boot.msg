@@ -7,7 +7,6 @@
  -  To install or upgrade 0cRed Hat07 Linux in text mode, type: 0ftext <ENTER>07.
 
  -  To enable low resolution mode, type: 0flowres <ENTER>07.  
-    To disable framebuffer mode, type: 0fnofb <ENTER>07.  
     Press 05<F2>07 for more information.
 
  -  To disable hardware probing, type: 0flinux noprobe <ENTER>07.  
