@@ -49,26 +49,21 @@
 
 typedef int int32;
 
-int flags = 0;
-
 struct knownDevices devices;
 
 struct installMethod {
     char * name;
     int network;
-    int (*mountImage)(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleInfoSet
-		      modInfo, moduleList modLoaded,
+    int (*mountImage)(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 };
 
-static int mountCdromImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleInfoSet
-		      modInfo, moduleList modLoaded,
+static int mountCdromImage(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static int mountNfsImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleInfoSet
-		      modInfo, moduleList modLoaded,
+static int mountNfsImage(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
@@ -99,7 +94,7 @@ static void stopNewt(void) {
     if (newtRunning) newtFinished();
 }
 
-static void spawnShell(void) {
+static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
@@ -281,7 +276,7 @@ int readNetConfig(char * device, struct intfInfo * dev) {
 }
 
 static int detectHardware(moduleInfoSet modInfo, 
-			  struct moduleInfo *** modules) {
+			  struct moduleInfo *** modules, int flags) {
     struct pciDevice **devices, **device;
     struct moduleInfo * mod, ** modList;
     int numMods, i;
@@ -307,8 +302,9 @@ static int detectHardware(moduleInfoSet modInfo,
     numMods = 0;
 
     for (device = devices; *device; device++) {
-	logMessage("found %s device", (*device)->driver);
+	logMessage("found suggestion of %s", (*device)->driver);
 	if ((mod = isysFindModuleInfo(modInfo, (*device)->driver))) {
+	    logMessage("found %s device", (*device)->driver);
 	    for (i = 0; i < numMods; i++) 
 	        if (modList[i] == mod) break;
 	    if (i == numMods) 
@@ -330,17 +326,17 @@ static int detectHardware(moduleInfoSet modInfo,
 }
 
 int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-	     int justProbe, struct knownDevices * kd) {
+	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
     struct moduleInfo ** modList;
 
     if (!access("/proc/bus/pci/devices", R_OK)) {
         /* autodetect whatever we can */
-        if (detectHardware(modInfo, &modList)) {
+        if (detectHardware(modInfo, &modList, flags)) {
 	    logMessage("failed to scan pci bus!");
 	    return 0;
 	} else if (modList) {
-	    logMessage("found devices");
+	    logMessage("found devices justProbe is %d", justProbe);
 
 	    for (i = 0; modList[i]; i++) {
 		if (justProbe) {
@@ -360,7 +356,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 flags);
+				 FL_TESTING(flags));
 		    newtPopWindow();
 		}
 	    }
@@ -374,52 +370,64 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
-static int mountCdromImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleInfoSet
-		      modInfo, moduleList modLoaded,
+static int mountCdromImage(char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i;
+    int rc;
 
-    /* XXX we might need to look for SCSI devices here, we definitely
-       need to look for non-SCSI, non-IDE ones */
+    do {
+	for (i = 0; i < kd->numKnown; i++) {
+	    if (kd->known[i].class != DEVICE_CDROM) continue;
 
-    for (i = 0; i < numKnownDevices; i++) {
-	if (knownDevices[i].class != DEVICE_CDROM) continue;
-
-	logMessage("trying to mount device %s", knownDevices[i].name);
-	devMakeInode(knownDevices[i].name, "/tmp/cdrom");
-	if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
-		      NULL)) {
-	    return 0;
+	    logMessage("trying to mount device %s", kd->known[i].name);
+	    devMakeInode(kd->known[i].name, "/tmp/cdrom");
+	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
+			  NULL)) {
+		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
+			    X_OK)) 
+		    return 0;
+		umount("/mnt/source");
+	    }
 	}
-    }
+
+	rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
+			_("I could not find a Red Hat Linux "
+			  "CDROM in any of your CDROM drives. Please insert "
+			  "the Red Hat CD and press \"Ok\" to retry."));
+	if (rc == 2) break;
+    } while (1);
 
     return LOADER_BACK;
 }
 
-static int mountNfsImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleInfoSet modInfo,
-		      moduleList modLoaded,
-		      moduleDeps modDeps, int flags) {
+static int mountNfsImage(char * location, struct knownDevices * kd,
+    		         moduleInfoSet modInfo, moduleList modLoaded,
+		         moduleDeps modDeps, int flags) {
     struct intfInfo netDev;
     char * devName = NULL;
     int i;
 
-    for (i = 0; i < numKnownDevices; i++) {
-	if (knownDevices[i].class == DEVICE_NET) {
-	    devName = knownDevices[i].name;
+    for (i = 0; i < kd->numKnown; i++) {
+	if (kd->known[i].class == DEVICE_NET) {
+	    devName = kd->known[i].name;
 	    break;
 	}
     }
 
-    if (!devName) {
-	devDeviceMenu(modInfo, modLoaded, modDeps, flags);
-    }
+    logMessage("in mountNfsImage devName is %s", devName);
 
     if (!devName) {
-	for (i = 0; i < numKnownDevices; i++) {
-	    if (knownDevices[i].class == DEVICE_NET) {
-		devName = knownDevices[i].name;
+	devDeviceMenu(DRIVER_NET, modInfo, modLoaded, modDeps, flags);
+	kdFindNetList(kd);
+    }
+
+    logMessage("in mountNfsImage (2) devName is %s", devName);
+
+    if (!devName) {
+	for (i = 0; i < kd->numKnown; i++) {
+	    if (kd->known[i].class == DEVICE_NET) {
+		devName = kd->known[i].name;
 		break;
 	    }
 	}
@@ -447,8 +455,8 @@ static int mountNfsImage(char * location, int numKnownDevices,
     return 0;
 }
     
-static int doMountImage(char * location, int numKnownDevices, 
-    		        struct device * knownDevices, moduleInfoSet modInfo,
+static int doMountImage(char * location, struct knownDevices * kd,
+    		        moduleInfoSet modInfo,
 			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
@@ -457,9 +465,13 @@ static int doMountImage(char * location, int numKnownDevices,
     int numValidMethods = 0;
     char * installNames[10];
     int methodNum = 0;
-    int networkAvailable;
+    int networkAvailable = 0;
+    void * class;
 
-    networkAvailable = (isysFindModuleInfo(modInfo, "nfs") != NULL);
+    if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
+	networkAvailable = 1;
+	free(class);
+    }
 
     for (i = 0; i < numMethods; i++) {
 	if ((networkAvailable && installMethods[i].network) ||
@@ -478,16 +490,19 @@ static int doMountImage(char * location, int numKnownDevices,
 	return LOADER_ERROR;
     }
 
-    rc = newtWinMenu(_("Installation Method"), 
-    		     _("What type of media contains the packages to be "
-    		       "installed?"), 30, 10, 20, 6, installNames, &methodNum,
-		     _("Ok"), _("Back"), NULL);
+    do { 
+	rc = newtWinMenu(_("Installation Method"), 
+			 _("What type of media contains the packages to be "
+			   "installed?"), 30, 10, 20, 6, installNames, 
+			 &methodNum, _("Ok"), _("Back"), NULL);
 
-    if (rc == 2) return LOADER_BACK;
+	if (rc == 2) return LOADER_BACK;
 
-    return installMethods[validMethods[methodNum]].mountImage(location,
-    		numKnownDevices, knownDevices, modInfo, modLoaded, modDeps, 
-		flags);
+    	rc = installMethods[validMethods[methodNum]].mountImage(location,
+    		   kd, modInfo, modLoaded, modDeps, flags);
+    } while (rc == 2);
+
+    return 0;
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine) {
@@ -531,6 +546,7 @@ int main(int argc, char ** argv) {
     moduleDeps modDeps;
     int local = 0;
     int i, rc;
+    int flags = 0;
     int testing = 0;
     struct knownDevices kd;
     moduleInfoSet modInfo;
@@ -581,13 +597,13 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd);
+    pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
     startNewt();
 
-    doMountImage("/mnt/source", kd.numKnown, kd.known, 
-    		 modInfo, modLoaded, modDeps, FL_TESTING(flags));
+    doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
+		 FL_TESTING(flags));
 
     if (!FL_TESTING(flags)) {
      
@@ -609,7 +625,7 @@ int main(int argc, char ** argv) {
 		"/modules/pcitable");
     }
 
-    spawnShell();			/* we can attach gdb now :-) */
+    spawnShell(flags);			/* we can attach gdb now :-) */
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
@@ -621,7 +637,7 @@ int main(int argc, char ** argv) {
 	sleep(5);
 	exit(1);
     }
-    pciProbe(modInfo, modLoaded, modDeps, 0, &kd);
+    pciProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
     if (!FL_TESTING(flags)) {
         int fd;
