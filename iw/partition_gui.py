@@ -820,6 +820,9 @@ class PartitionWindow(InstallWindow):
                 if part.type & parted.PARTITION_METADATA:
                     part = disk.next_partition(part)
                     continue
+                # ignore the tiny < 1 MB partitions (#119479)
+                if getPartSizeMB(part) <= 1.0:
+                    continue
 
                 stripe.add(part)
                 device = get_partition_name(part)

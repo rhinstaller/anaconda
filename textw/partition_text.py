@@ -121,6 +121,9 @@ class PartitionWindow:
 #                    print "partition %s has type %d" %(get_partition_name(part), part.type)
                     part = disk.next_partition(part)
                     continue
+                # ignore the tiny < 1 MB partitions (#119479)
+                if getPartSizeMB(part) <= 1.0:
+                    continue                
 
                 device = get_partition_name(part)
                 request = self.partitions.getRequestByDeviceName(device)
