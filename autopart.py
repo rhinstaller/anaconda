@@ -1490,7 +1490,7 @@ def autoCreatePartitionRequests(autoreq):
     """
     
     requests = []
-    for (mntpt, fstype, minsize, maxsize, grow, format, asvol) in autoreq:
+    for (mntpt, fstype, minsize, maxsize, grow, format) in autoreq:
         if fstype:
             ptype = fsset.fileSystemTypeGet(fstype)
         else:
