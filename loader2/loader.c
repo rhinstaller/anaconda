@@ -364,6 +364,10 @@ static void checkForHardDrives(int * flagsPtr) {
     int i;
     struct device ** devices;
 
+    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
+    if (devices)
+        return;
+
     /* If they're using kickstart, assume they might know what they're doing.
      * Worst case is we fail later */
     if (FL_KICKSTART(flags)) {
@@ -371,10 +375,6 @@ static void checkForHardDrives(int * flagsPtr) {
         return;
     }
     
-    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_LOADED);
-    if (devices)
-        return;
-
     startNewt(flags);
     i = newtWinChoice(_("Warning"), _("Yes"), _("No"),
                       _("No hard drives have been found.  You probably need "
