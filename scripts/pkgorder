@@ -40,31 +40,53 @@ hdlist = comps.HeaderListFromFile(distDir + "/RedHat/base/hdlist", noscore = 1)
 comps = comps.ComponentSet(distDir + "/RedHat/base/comps", hdlist, 
 			    arch = arch, matchAllLang = 1)
 
-for comp in comps:
-    if comp.name != 'Everything':
-	comp.select(1)
-
-for package in hdlist.keys():
-    if len(package) >= 7 and package[:7] == "kernel-":
-        hdlist[package].selected = 1
+filenamesByPkgName = {}
+for p in hdlist.hdlist:
+    n = p[rpm.RPMTAG_NAME]
+    if filenamesByPkgName.has_key(n):
+	filenamesByPkgName[n].append(p[1000000] )
+    else:
+	filenamesByPkgName[n] = [ p[1000000] ]
 
 # work out the order we'd like to install everything in
 pkgOrder = []
-
 list = []
-for p in hdlist.selected():
-    list.append(p.h)
-list.sort(cmpHeaderByName)
+pkgHash = {}
 
-for item in list:
-    pkgOrder.append(item)
+for package in hdlist.keys():
+    if ((len(package) >= 7 and package[:7] == "kernel-")
+        and not (len(package) >= 10 and package[:10] == "kernel-doc")
+        and not (len(package) >= 13 and package[:13] == "kernel-source")
+        and not (len(package) >= 11 and package[:11] == "kernel-BOOT")):
+        hdlist[package].selected = 1
+        pkgOrder.append(hdlist[package].h)
+        pkgHash[hdlist[package].h] = None
+
+# for each comp, staring with base, list the packages
+# in alphabetical order.
+for comp in comps:
+    list = []
+    if comp.name != 'Everything':
+        comp.select(1)
+    for p in hdlist.selected():
+        list.append(p.h)
+
+    list.sort(cmpHeaderByName)
+
+    for item in list:
+        if not pkgHash.has_key (item):
+            pkgOrder.append(item)
+            pkgHash[item] = None
+
+    comp.unselect(1)
 
 list = []
 for p in hdlist.packages.values():
-    if not p.selected:
-	list.append(p.h)
+    if not pkgHash.has_key (p.h):
+        list.append(p.h)
 
 list.sort(cmpHeaderByName)
+
 for item in list:
     pkgOrder.append(item)
 
@@ -75,6 +97,7 @@ db = rpm.opendb(1, testpath)
 
 ts = rpm.TransactionSet(testpath, db)
 for h in pkgOrder:
+    #print h[1000000]
     ts.add(h, h, 'i')
 pkgOrder = []
 
