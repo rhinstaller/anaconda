@@ -350,6 +350,12 @@ class InstallInterface:
 		lastrc = rc
 
 	    if step == -1:
+                if not dispatch.canGoBack():
+                    ButtonChoiceWindow(self.screen, _("Cancelled"),
+                                       _("I can't go to the previous step "
+                                         "from here. You will have to try "
+                                         "again."),
+                                       buttons = [ _("OK") ])
 		dispatch.gotoPrev()
 	    else:
 		dispatch.gotoNext()
