@@ -2437,7 +2437,8 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 }
 
 static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-			      moduleInfoSet modInfo, int flags) {
+			      moduleInfoSet modInfo, int flags,
+			      struct knownDevices * kd) {
     startNewt(flags);
 
     winStatus(40, 3, _("IDE"), _("Initializing IDE modules..."));
@@ -2451,7 +2452,7 @@ static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 
     newtPopWindow();
 
-    kdFindIdeList(&kd, CODE_PCMCIA);
+    kdFindIdeList(kd, CODE_PCMCIA);
 }
 
 int main(int argc, char ** argv) {
@@ -2613,7 +2614,7 @@ int main(int argc, char ** argv) {
    
 	/* Load the ide modules after letting the user specify a driver disk.
 	   This let's them override the ide drivers if they like. */
-	ideSetup(modLoaded, modDeps, modInfo, flags);
+	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
@@ -2752,7 +2753,7 @@ int main(int argc, char ** argv) {
 
     /* We may already have these modules loaded, but trying again won't
        hurt. */
-    ideSetup(modLoaded, modDeps, modInfo, flags);
+    ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
