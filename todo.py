@@ -977,7 +977,8 @@ class ToDo:
         # do this again.
         if self.verifiedState == self.comps.getSelectionState()[1]:
             return
-        self.verifiedState = self.comps.getSelectionState()[1]
+
+        self.verifiedState = None
         
 	win = self.intf.waitWindow(_("Dependency Check"),
 	  _("Checking dependencies in packages selected for installation..."))
@@ -1041,6 +1042,9 @@ class ToDo:
             self.fstab.umountFilesystems (self.instPath)            
 
 	win.pop()
+
+        if not rc: 
+            self.verifiedState = self.comps.getSelectionState()[1]
 
         return rc
 
