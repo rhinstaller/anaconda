@@ -24,7 +24,7 @@ class Option (GtkOptionMenu):
 win = GtkWindow()
 vbox = GtkVBox (FALSE, 10)
 
-tz = timezonemap.new ()
+tz = timezonemap.new ("map480.png")
 map = Map (tz.map)
 list = List (tz.citylist)
 option = Option (tz.views)

@@ -805,6 +805,7 @@ static tzObject * doNewTZ (PyObject * s, PyObject * args) {
     char * path;
     
     if (!PyArg_ParseTuple(args, "s", &path))
+	return NULL;
         
     o = (tzObject *) PyObject_NEW(tzObject, &tzType);
     
