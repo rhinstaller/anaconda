@@ -51,6 +51,7 @@ class NetworkWindow(InstallWindow):
 	    if not rc:
 		raise gui.StayOnScreen
 
+	override = 0
 	if self.hostnameManual.get_active():
 	    hname = string.strip(self.hostnameEntry.get_text())
 	    neterrors =  network.sanityCheckHostname(hname)
@@ -62,8 +63,10 @@ class NetworkWindow(InstallWindow):
 		    raise gui.StayOnScreen
 
 	    newHostname = hname
+	    override = self.anyUsingDHCP()
 	else:
 	    newHostname = "localhost.localdomain"
+	    override = 0
 
 	if not self.anyUsingDHCP():
 	    tmpvals = {}
@@ -116,6 +119,7 @@ class NetworkWindow(InstallWindow):
             next = self.ethdevices.store.iter_next(iter)
 
 	self.network.hostname = newHostname
+	self.network.overrideDHCPhostname = override
 
         return None
         
@@ -484,7 +488,7 @@ class NetworkWindow(InstallWindow):
 
         # figure out if they have overridden using dhcp for hostname
 	if self.anyUsingDHCP():
-	    if self.hostname != "localhost.localdomain":
+	    if self.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 		self.hostnameManual.set_active(1)
 	    else:
 		self.hostnameUseDHCP.set_active(1)
@@ -512,7 +516,7 @@ class NetworkWindow(InstallWindow):
 	    self.globals[global_options[t]] = options[t]
 
 	# bring over the value from the loader
-	if(self.network.hostname != "localhost.localdomain"):
+	if self.network.hostname != "localhost.localdomain" and self.network.overrideDHCPhostname:
 	    self.hostnameEntry.set_text(self.network.hostname)
 
 	if not self.anyUsingDHCP():
