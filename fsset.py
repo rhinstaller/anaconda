@@ -493,11 +493,6 @@ class extFileSystem(FileSystemType):
         devArgs = self.getDeviceArgs(entry.device)
         args = [ "/usr/sbin/mke2fs", devicePath]
 
-        # JKFIXME: this *MUST* be fixed before the final
-        # workaround for #87639
-        if iutil.getArch() == "s390":
-            args.extend(["-b", "4096"])
-        
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
 
