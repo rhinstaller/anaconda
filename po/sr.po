@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install $Revision$\n"
-"POT-Creation-Date: 2000-02-01 16:03-0500\n"
+"POT-Creation-Date: 2000-02-02 17:43-0500\n"
 "PO-Revision-Date: 1999-09-09 10:00-0500\n"
 "Last-Translator: Zoltan Èala <zolika@sezampro.yu>\n"
 "Language-Team: Serbian <sr@li.org>\n"
@@ -19,13 +19,13 @@ msgstr ""
 # ../text.py:838
 # ../text.py:838
 # ../text.py:838
-#: ../fstab.py:233 ../fstab.py:389
+#: ../fstab.py:234 ../fstab.py:390
 #, fuzzy
 msgid "Formatting"
 msgstr "Formatiranje sistema datoteka"
 
 # ../mkswap.c:93
-#: ../fstab.py:234
+#: ../fstab.py:235
 #, fuzzy, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Formatiranje swap prostora na ureðaju %s..."
@@ -51,49 +51,49 @@ msgstr "Formatiranje swap prostora na ureðaju %s..."
 # ../loader/loader.c:663 ../loader/loader.c:708 ../loader/loader.c:841
 # ../loader/loader.c:846 ../loader/loader.c:1387 ../loader/urls.c:201
 # ../loader/urls.c:206 ../text.py:191 ../text.py:562
-#: ../fstab.py:244 ../fstab.py:321 ../fstab.py:455 ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:743 ../loader/loader.c:881 ../loader/loader.c:886 ../loader/loader.c:1638 ../loader/loader.c:1684 ../loader/loader.c:1755 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228 ../text.py:280 ../text.py:763 ../todo.py:335 ../todo.py:664 ../todo.py:695
+#: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456 ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1782 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228 ../text.py:280 ../text.py:765 ../todo.py:328 ../todo.py:657 ../todo.py:688
 msgid "Error"
 msgstr "Gre¹ka"
 
 # ../mkswap.c:93
-#: ../fstab.py:244
+#: ../fstab.py:245
 #, fuzzy
 msgid "Error creating swap on device "
 msgstr "Formatiranje swap prostora na ureðaju %s..."
 
 # ../kickstart.c:74
-#: ../fstab.py:322
+#: ../fstab.py:323
 #, fuzzy, c-format
 msgid "Error unmounting %s: %s"
 msgstr "gre¹ka upisa u datoteku %s: %s"
 
-#: ../fstab.py:344 ../todo.py:417
+#: ../fstab.py:345 ../todo.py:410
 msgid "Creating"
 msgstr ""
 
 # ../lilo.c:667
-#: ../fstab.py:344
+#: ../fstab.py:345
 #, fuzzy
 msgid "Creating RAID devices..."
 msgstr "Pravljenje startnog diska..."
 
 # ../fs.c:314
-#: ../fstab.py:390
+#: ../fstab.py:391
 #, fuzzy, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Pravim ext2 fajl-sistem na /dev/%s..."
 
-#: ../fstab.py:412
+#: ../fstab.py:413
 msgid "Loopback"
 msgstr ""
 
-#: ../fstab.py:413
+#: ../fstab.py:414
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 
 # ../kickstart.c:74
-#: ../fstab.py:456
+#: ../fstab.py:457
 #, fuzzy, c-format
 msgid "Error mounting %s: %s"
 msgstr "gre¹ka upisa u datoteku %s: %s"
@@ -161,7 +161,7 @@ msgstr "Sledeæe"
 # ../textw/partitioning.py:63 ../textw/partitioning.py:172
 # ../textw/userauth.py:31 ../textw/userauth.py:143 ../textw/userauth.py:174
 # ../textw/userauth.py:246
-#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639 ../loader/loader.c:743 ../loader/loader.c:1115 ../loader/net.c:162 ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54 ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143 ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297 ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344 ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535 ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616 ../text.py:625 ../text.py:683 ../text.py:684 ../textw/constants.py:10 ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94 ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/packages.py:153 ../textw/partitioning.py:23 ../textw/partitioning.py:63 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145 ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:603 ../loader/loader.c:639 ../loader/loader.c:748 ../loader/loader.c:1139 ../loader/net.c:162 ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:54 ../text.py:65 ../text.py:100 ../text.py:101 ../text.py:120 ../text.py:143 ../text.py:173 ../text.py:176 ../text.py:229 ../text.py:283 ../text.py:297 ../text.py:299 ../text.py:318 ../text.py:320 ../text.py:342 ../text.py:344 ../text.py:451 ../text.py:502 ../text.py:504 ../text.py:517 ../text.py:535 ../text.py:548 ../text.py:585 ../text.py:587 ../text.py:613 ../text.py:616 ../text.py:625 ../text.py:685 ../text.py:686 ../textw/constants.py:10 ../textw/lilo.py:31 ../textw/lilo.py:87 ../textw/lilo.py:94 ../textw/lilo.py:178 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/packages.py:153 ../textw/partitioning.py:23 ../textw/partitioning.py:63 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/silo.py:26 ../textw/silo.py:87 ../textw/silo.py:186 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:145 ../textw/userauth.py:176 ../textw/userauth.py:248
 msgid "Back"
 msgstr "Natrag"
 
@@ -189,14 +189,14 @@ msgstr "Zavr¹i"
 # ../gui.py:338
 # ../gui.py:343
 # ../gui.py:343
-#: ../gui.py:277 ../gui.py:541
+#: ../gui.py:277 ../gui.py:545
 msgid "Online Help"
 msgstr "'Online' pomoæ"
 
 # ../iw/language.py:10 ../text.py:39 ../text.py:818
 # ../iw/language.py:10 ../text.py:39 ../text.py:818
 # ../iw/language.py:10 ../text.py:39 ../text.py:818
-#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1003 ../text.py:1032
+#: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005 ../text.py:1034
 msgid "Language Selection"
 msgstr "Izbor jezika"
 
@@ -342,7 +342,7 @@ msgstr "Izgubiæete podatke! Da li ste sigurni da ¾elite ovo da uradite?"
 # ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
 # ../textw/lilo.py:150
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:676 ../libfdisk/fsedit.c:683 ../libfdisk/fsedit.c:692 ../libfdisk/fsedit.c:719 ../libfdisk/fsedit.c:729 ../libfdisk/fsedit.c:758 ../libfdisk/fsedit.c:774 ../libfdisk/fsedit.c:1163 ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1047 ../libfdisk/gnomefsedit.c:1073 ../libfdisk/gnomefsedit.c:1091 ../libfdisk/gnomefsedit.c:1296 ../libfdisk/gnomefsedit.c:1390 ../libfdisk/gnomefsedit.c:1408 ../libfdisk/gnomefsedit.c:1646 ../libfdisk/gnomefsedit.c:1881 ../libfdisk/gnomefsedit.c:1889 ../libfdisk/gnomefsedit.c:1903 ../libfdisk/gnomefsedit.c:1914 ../libfdisk/gnomefsedit.c:1921 ../libfdisk/gnomefsedit.c:1936 ../libfdisk/gnomefsedit.c:1945 ../libfdisk/gnomefsedit.c:1954 ../libfdisk/gnomefsedit.c:1993 ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:462 ../libfdisk/newtfsedit.c:540 ../libfdisk/newtfsedit.c:558 ../libfdisk/newtfsedit.c:576 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426 ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100 ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105 ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137 ../textw/silo.py:185
+#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742 ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788 ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:833 ../libfdisk/fsedit.c:1224 ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:1184 ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:1414 ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1532 ../libfdisk/gnomefsedit.c:1770 ../libfdisk/gnomefsedit.c:2005 ../libfdisk/gnomefsedit.c:2013 ../libfdisk/gnomefsedit.c:2027 ../libfdisk/gnomefsedit.c:2038 ../libfdisk/gnomefsedit.c:2045 ../libfdisk/gnomefsedit.c:2060 ../libfdisk/gnomefsedit.c:2069 ../libfdisk/gnomefsedit.c:2078 ../libfdisk/gnomefsedit.c:2117 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:113 ../libfdisk/newtfsedit.c:462 ../libfdisk/newtfsedit.c:540 ../libfdisk/newtfsedit.c:558 ../libfdisk/newtfsedit.c:576 ../libfdisk/newtfsedit.c:1292 ../libfdisk/newtfsedit.c:1300 ../libfdisk/newtfsedit.c:1426 ../libfdisk/newtfsedit.c:1447 ../libfdisk/newtfsedit.c:1541 ../loader/urls.c:70 ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:234 ../text.py:54 ../text.py:56 ../text.py:100 ../text.py:625 ../textw/constants.py:10 ../textw/lilo.py:105 ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137 ../textw/silo.py:185
 msgid "Ok"
 msgstr "U redu"
 
@@ -386,7 +386,7 @@ msgstr "/dev/ttyS3 (COM4 pod MS-DOSom)"
 # ../iw/lilo.py:174 ../text.py:72
 # ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
 # ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
-#: ../iw/lilo.py:222 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100 ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100 ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
 msgid "Device"
 msgstr "Ureðaj"
 
@@ -438,7 +438,7 @@ msgstr "Na kom ureðaju se nalazi mi¹? %s %i"
 # ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
 # ../textw/userauth.py:96 ../textw/userauth.py:104 ../textw/userauth.py:113
 # ../textw/userauth.py:174 ../textw/userauth.py:246
-#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:743 ../loader/loader.c:881 ../loader/loader.c:886 ../loader/loader.c:971 ../loader/loader.c:1115 ../loader/loader.c:1638 ../loader/loader.c:1684 ../loader/loader.c:1747 ../loader/loader.c:1755 ../loader/net.c:162 ../loader/net.c:284 ../loader/net.c:558 ../loader/net.c:589 ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:683 ../text.py:708 ../text.py:722 ../text.py:742 ../text.py:755 ../text.py:767 ../text.py:962 ../text.py:966 ../text.py:1163 ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/partitioning.py:273 ../textw/partitioning.py:281 ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98 ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176 ../textw/userauth.py:248
+#: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167 ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:255 ../loader/loader.c:471 ../loader/loader.c:481 ../loader/loader.c:639 ../loader/loader.c:696 ../loader/loader.c:748 ../loader/loader.c:905 ../loader/loader.c:910 ../loader/loader.c:995 ../loader/loader.c:1139 ../loader/loader.c:1665 ../loader/loader.c:1711 ../loader/loader.c:1774 ../loader/loader.c:1782 ../loader/net.c:162 ../loader/net.c:284 ../loader/net.c:560 ../loader/net.c:591 ../loader/urls.c:146 ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361 ../text.py:120 ../text.py:173 ../text.py:229 ../text.py:297 ../text.py:342 ../text.py:359 ../text.py:451 ../text.py:471 ../text.py:502 ../text.py:585 ../text.py:613 ../text.py:685 ../text.py:710 ../text.py:724 ../text.py:744 ../text.py:757 ../text.py:769 ../text.py:964 ../text.py:968 ../text.py:1165 ../textw/lilo.py:30 ../textw/lilo.py:87 ../textw/packages.py:20 ../textw/packages.py:85 ../textw/packages.py:144 ../textw/partitioning.py:214 ../textw/partitioning.py:263 ../textw/partitioning.py:273 ../textw/partitioning.py:281 ../textw/silo.py:25 ../textw/silo.py:87 ../textw/timezone.py:66 ../textw/userauth.py:29 ../textw/userauth.py:43 ../textw/userauth.py:48 ../textw/userauth.py:81 ../textw/userauth.py:92 ../textw/userauth.py:98 ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176 ../textw/userauth.py:248
 msgid "OK"
 msgstr "U redu"
 
@@ -468,7 +468,7 @@ msgstr "Izbor mi¹a"
 # ../text.py:139 ../text.py:820
 # ../text.py:139 ../text.py:820
 # ../text.py:139 ../text.py:820
-#: ../text.py:171 ../text.py:1005 ../text.py:1034
+#: ../text.py:171 ../text.py:1007 ../text.py:1036
 msgid "Keyboard Selection"
 msgstr "Izbor tastature"
 
@@ -523,7 +523,7 @@ msgstr "A¾uriranje postojeæe instalacije"
 # ../text.py:165 ../text.py:823
 # ../text.py:165 ../text.py:823
 # ../text.py:165 ../text.py:823
-#: ../text.py:227 ../text.py:1037
+#: ../text.py:227 ../text.py:1039
 msgid "Installation Type"
 msgstr "Tip instalacije"
 
@@ -600,7 +600,7 @@ msgstr "Instalirani paketi, kao i oni koji su potrebni da zadovolje meðuzavisnos
 # ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 # ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:572 ../loader/net.c:698
 # ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:135
-#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:702 ../libfdisk/gnomefsedit.c:602 ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109 ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316 ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/loader.c:603 ../loader/net.c:712 ../text.py:318 ../text.py:517 ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
+#: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713 ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220 ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440 ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/loader.c:603 ../loader/net.c:719 ../text.py:318 ../text.py:517 ../text.py:535 ../text.py:542 ../textw/partitioning.py:175
 msgid "Yes"
 msgstr "Da"
 
@@ -629,7 +629,7 @@ msgstr "Da"
 # ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
 # ../libfdisk/newtfsedit.c:1586 ../loader/net.c:698 ../text.py:229
 # ../text.py:234 ../text.py:415 ../text.py:421 ../textw/partitioning.py:135
-#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:702 ../libfdisk/gnomefsedit.c:602 ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109 ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316 ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/net.c:712 ../text.py:318 ../text.py:323 ../text.py:517 ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
+#: ../iw/welcome.py:91 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713 ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220 ../libfdisk/gnomefsedit.c:2170 ../libfdisk/gnomefsedit.c:2440 ../libfdisk/gnomefsedit.c:2493 ../libfdisk/newtfsedit.c:499 ../libfdisk/newtfsedit.c:692 ../libfdisk/newtfsedit.c:1479 ../libfdisk/newtfsedit.c:1497 ../libfdisk/newtfsedit.c:1582 ../loader/net.c:719 ../text.py:318 ../text.py:323 ../text.py:517 ../text.py:535 ../text.py:545 ../textw/partitioning.py:175
 msgid "No"
 msgstr "Ne"
 
@@ -681,7 +681,7 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
 # ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
 # ../textw/userauth.py:64
-#: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646 ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463 ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168 ../loader/loader.c:1747 ../text.py:359 ../text.py:361 ../textw/lilo.py:106 ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
+#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770 ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463 ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168 ../loader/loader.c:1774 ../text.py:359 ../text.py:361 ../textw/lilo.py:106 ../textw/silo.py:124 ../textw/silo.py:142 ../textw/userauth.py:62
 msgid "Cancel"
 msgstr "Obustavi"
 
@@ -767,7 +767,7 @@ msgstr "'Hostname' je ime va¹eg raèunara. Ako je va¹ kompjuter umre¾en, ime vam 
 # ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 # ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 # ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
-#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:631 ../text.py:502
+#: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
 msgid "Hostname"
 msgstr "Ime raèunara"
 
@@ -797,7 +797,7 @@ msgstr ""
 # ../text.py:405 ../text.py:550 ../text.py:875
 # ../text.py:405 ../text.py:550 ../text.py:875
 # ../text.py:405 ../text.py:550 ../text.py:875
-#: ../text.py:540 ../text.py:751
+#: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
 msgstr "Startni disk"
 
@@ -852,7 +852,7 @@ msgstr "Izaberite server"
 # ../text.py:518
 # ../text.py:518
 # ../text.py:518
-#: ../text.py:679
+#: ../text.py:681
 msgid "Installation to begin"
 msgstr "Poèetna instalacija"
 
@@ -860,7 +860,7 @@ msgstr "Poèetna instalacija"
 # ../text.py:519
 # ../text.py:519
 # ../text.py:519
-#: ../iw/confirm.py:31 ../text.py:680
+#: ../iw/confirm.py:31 ../text.py:682
 msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
 msgstr "Potpun dnevnik instalacije naæi æete u datoteci /tmp/install.log po¹to resetujete sistem. Èuvajte ga jer vam mo¾e zatrebati."
 
@@ -868,7 +868,7 @@ msgstr "Potpun dnevnik instalacije naæi æete u datoteci /tmp/install.log po¹to r
 # ../text.py:534
 # ../text.py:534
 # ../text.py:534
-#: ../text.py:697 ../text.py:712 ../text.py:732
+#: ../text.py:699 ../text.py:714 ../text.py:734
 msgid "Complete"
 msgstr "Uraðeno"
 
@@ -876,7 +876,7 @@ msgstr "Uraðeno"
 # ../iw/congrats.py:17 ../text.py:535
 # ../iw/congrats.py:17 ../text.py:535
 # ../iw/congrats.py:17 ../text.py:535
-#: ../iw/congrats.py:32 ../text.py:698
+#: ../iw/congrats.py:32 ../text.py:700
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -895,7 +895,7 @@ msgstr ""
 # ../iw/congrats.py:17 ../text.py:535
 # ../iw/congrats.py:17 ../text.py:535
 # ../iw/congrats.py:17 ../text.py:535
-#: ../text.py:713 ../text.py:733
+#: ../text.py:715 ../text.py:735
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -913,7 +913,7 @@ msgstr ""
 # ../iw/bootdisk.py:40 ../text.py:551
 # ../iw/bootdisk.py:40 ../text.py:551
 # ../iw/bootdisk.py:40 ../text.py:551
-#: ../iw/bootdisk.py:50 ../text.py:752
+#: ../iw/bootdisk.py:50 ../text.py:754
 msgid "Insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
 msgstr "Ubacite disketu u prvi flopi-ureðaj. Svi podaci na ovoj disketi biæe obrisani tokom kreiranja startnog diska."
 
@@ -923,14 +923,14 @@ msgstr "Ubacite disketu u prvi flopi-ureðaj. Svi podaci na ovoj disketi biæe obr
 # ../textw/lilo.py:20
 # ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
 # ../textw/lilo.py:20
-#: ../text.py:755 ../text.py:756 ../text.py:767 ../text.py:768 ../textw/lilo.py:30 ../textw/silo.py:25
+#: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770 ../textw/lilo.py:30 ../textw/silo.py:25
 msgid "Skip"
 msgstr "Preskoèi"
 
 # ../iw/bootdisk.py:44 ../text.py:563
 # ../iw/bootdisk.py:44 ../text.py:563
 # ../iw/bootdisk.py:44 ../text.py:563
-#: ../iw/bootdisk.py:54 ../text.py:764
+#: ../iw/bootdisk.py:54 ../text.py:766
 msgid "An error occured while making the boot disk. Please make sure that there is a formatted floppy in the first floppy drive."
 msgstr "Dogodila se gre¹ka prilikom pravljenja startnog diska. Proverite da li je disketa u prvom flopi-drajvu formatirana."
 
@@ -938,7 +938,7 @@ msgstr "Dogodila se gre¹ka prilikom pravljenja startnog diska. Proverite da li j
 # ../text.py:625
 # ../text.py:625
 # ../text.py:625
-#: ../text.py:826
+#: ../text.py:828
 msgid "Package Installation"
 msgstr "Instalacija paketa"
 
@@ -946,7 +946,7 @@ msgstr "Instalacija paketa"
 # ../text.py:627
 # ../text.py:627
 # ../text.py:627
-#: ../text.py:828
+#: ../text.py:830
 msgid "Name   : "
 msgstr "Ime     : "
 
@@ -954,14 +954,14 @@ msgstr "Ime     : "
 # ../text.py:628
 # ../text.py:628
 # ../text.py:628
-#: ../text.py:829
+#: ../text.py:831
 msgid "Size   : "
 msgstr "Velièina: "
 
 # ../text.py:629
 # ../text.py:629
 # ../text.py:629
-#: ../text.py:830
+#: ../text.py:832
 msgid "Summary: "
 msgstr "Pregled : "
 
@@ -969,28 +969,28 @@ msgstr "Pregled : "
 # ../text.py:655
 # ../text.py:655
 # ../text.py:655
-#: ../text.py:856
+#: ../text.py:858
 msgid "    Packages"
 msgstr "       Paketa"
 
 # ../text.py:656
 # ../text.py:656
 # ../text.py:656
-#: ../text.py:857
+#: ../text.py:859
 msgid "       Bytes"
 msgstr "      Bajtova"
 
 # ../text.py:657
 # ../text.py:657
 # ../text.py:657
-#: ../text.py:858
+#: ../text.py:860
 msgid "        Time"
 msgstr "        Vreme"
 
 # ../text.py:659
 # ../text.py:659
 # ../text.py:659
-#: ../text.py:860
+#: ../text.py:862
 msgid "Total    :"
 msgstr "Ukupno   :"
 
@@ -998,28 +998,28 @@ msgstr "Ukupno   :"
 # ../text.py:666
 # ../text.py:666
 # ../text.py:666
-#: ../text.py:867
+#: ../text.py:869
 msgid "Completed:   "
 msgstr "Dovr¹eno:   "
 
 # ../text.py:676
 # ../text.py:676
 # ../text.py:676
-#: ../text.py:877
+#: ../text.py:879
 msgid "Remaining:  "
 msgstr "Ostalo  :   "
 
 # ../text.py:791 ../text.py:792
 # ../text.py:791 ../text.py:792
 # ../text.py:791 ../text.py:792
-#: ../text.py:966 ../text.py:967
+#: ../text.py:968 ../text.py:969
 msgid "Debug"
 msgstr "Tra¾enje gre¹aka"
 
 # ../text.py:804
 # ../text.py:804
 # ../text.py:804
-#: ../text.py:979
+#: ../text.py:981
 #, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
@@ -1027,14 +1027,14 @@ msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 # ../text.py:806
 # ../text.py:806
 # ../text.py:806
-#: ../text.py:981
+#: ../text.py:983
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
 msgstr " <Tab>/<Alt-Tab> kretanje kroz stavke | <Space> za izbor | <F12> za sledeæi ekran"
 
 # ../text.py:822
 # ../text.py:822
 # ../text.py:822
-#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1001 ../text.py:1036
+#: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
 msgid "Welcome"
 msgstr "Dobrodo¹li"
 
@@ -1042,7 +1042,7 @@ msgstr "Dobrodo¹li"
 # ../text.py:846
 # ../text.py:846
 # ../text.py:846
-#: ../text.py:1007 ../text.py:1075
+#: ../text.py:1009 ../text.py:1077
 msgid "Hostname Setup"
 msgstr "Pode¹avanje imena hosta"
 
@@ -1050,14 +1050,14 @@ msgstr "Pode¹avanje imena hosta"
 # ../text.py:848
 # ../text.py:848
 # ../text.py:848
-#: ../text.py:1009 ../text.py:1077
+#: ../text.py:1011 ../text.py:1079
 msgid "Network Setup"
 msgstr "Pode¹avanje mre¾e"
 
 # ../text.py:854
 # ../text.py:854
 # ../text.py:854
-#: ../text.py:1015 ../text.py:1083
+#: ../text.py:1017 ../text.py:1085
 msgid "Time Zone Setup"
 msgstr "Pode¹avanje vremenske zone"
 
@@ -1065,14 +1065,14 @@ msgstr "Pode¹avanje vremenske zone"
 # ../text.py:856
 # ../text.py:856 ../textw/userauth.py:10
 # ../text.py:856 ../textw/userauth.py:10
-#: ../text.py:1017 ../text.py:1085 ../textw/userauth.py:8
+#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
 msgid "Root Password"
 msgstr "Root lozinka"
 
 # ../text.py:858
 # ../text.py:858 ../textw/userauth.py:150
 # ../text.py:858 ../textw/userauth.py:150
-#: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:152
+#: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
 msgid "User Account Setup"
 msgstr "Pode¹avanje korisnièkog naloga"
 
@@ -1080,7 +1080,7 @@ msgstr "Pode¹avanje korisnièkog naloga"
 # ../text.py:860
 # ../text.py:860
 # ../text.py:860
-#: ../text.py:1021 ../text.py:1089
+#: ../text.py:1023 ../text.py:1091
 msgid "Authentication"
 msgstr "Provera identiteta"
 
@@ -1088,7 +1088,7 @@ msgstr "Provera identiteta"
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
-#: ../text.py:1027
+#: ../text.py:1029
 #, fuzzy
 msgid "Configuration Complete"
 msgstr "Pode¹avanje X-Windows-a"
@@ -1099,7 +1099,7 @@ msgstr "Pode¹avanje X-Windows-a"
 # ../textw/lilo.py:61 ../textw/lilo.py:158
 # ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
 # ../textw/lilo.py:61 ../textw/lilo.py:158
-#: ../text.py:1045 ../textw/silo.py:28 ../textw/silo.py:89 ../textw/silo.py:193
+#: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89 ../textw/silo.py:193
 #, fuzzy
 msgid "SILO Configuration"
 msgstr "LILO pode¹avanje"
@@ -1110,7 +1110,7 @@ msgstr "LILO pode¹avanje"
 # ../textw/lilo.py:61 ../textw/lilo.py:158
 # ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
 # ../textw/lilo.py:61 ../textw/lilo.py:158
-#: ../text.py:1051 ../textw/lilo.py:33 ../textw/lilo.py:84 ../textw/lilo.py:186
+#: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84 ../textw/lilo.py:186
 msgid "LILO Configuration"
 msgstr "LILO pode¹avanje"
 
@@ -1118,7 +1118,7 @@ msgstr "LILO pode¹avanje"
 # ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
 # ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
 # ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
-#: ../iw/lilo.py:123 ../iw/lilo.py:246 ../iw/silo.py:125 ../iw/silo.py:269 ../text.py:1055 ../text.py:1061
+#: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269 ../text.py:1057 ../text.py:1063
 msgid "Partition"
 msgstr "Particija"
 
@@ -1126,7 +1126,7 @@ msgstr "Particija"
 # ../text.py:830
 # ../text.py:830
 # ../text.py:830
-#: ../text.py:1057
+#: ../text.py:1059
 msgid "Manually Partition"
 msgstr "Ruèno particionisanje"
 
@@ -1134,12 +1134,12 @@ msgstr "Ruèno particionisanje"
 # ../text.py:832
 # ../text.py:832
 # ../text.py:832
-#: ../text.py:1059
+#: ../text.py:1061
 msgid "Automatic Partition"
 msgstr "Automatsko particionisanje"
 
 # ../install2.c:176
-#: ../text.py:1063 ../textw/partitioning.py:255
+#: ../text.py:1065 ../textw/partitioning.py:255
 #, fuzzy
 msgid "Root Filesystem Size"
 msgstr "Velièina instaliranog sistema:"
@@ -1147,7 +1147,7 @@ msgstr "Velièina instaliranog sistema:"
 # ../text.py:836
 # ../text.py:836
 # ../text.py:836
-#: ../text.py:1065
+#: ../text.py:1067
 msgid "Swap"
 msgstr "Swap"
 
@@ -1155,7 +1155,7 @@ msgstr "Swap"
 # ../text.py:838
 # ../text.py:838
 # ../text.py:838
-#: ../text.py:1067
+#: ../text.py:1069
 msgid "Filesystem Formatting"
 msgstr "Formatiranje sistema datoteka"
 
@@ -1163,7 +1163,7 @@ msgstr "Formatiranje sistema datoteka"
 # ../text.py:850 ../text.py:852
 # ../text.py:850 ../text.py:852
 # ../text.py:850 ../text.py:852
-#: ../iw/mouse.py:55 ../text.py:1079 ../text.py:1081
+#: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
 msgid "Mouse Configuration"
 msgstr "Pode¹avanje mi¹a"
 
@@ -1171,7 +1171,7 @@ msgstr "Pode¹avanje mi¹a"
 # ../text.py:862
 # ../text.py:862
 # ../text.py:862
-#: ../text.py:1091
+#: ../text.py:1093
 msgid "Package Groups"
 msgstr "Grupe paketa"
 
@@ -1179,7 +1179,7 @@ msgstr "Grupe paketa"
 # ../text.py:864 ../text.py:885
 # ../text.py:864 ../text.py:885
 # ../text.py:864 ../text.py:885
-#: ../text.py:1093 ../text.py:1121
+#: ../text.py:1095 ../text.py:1123
 msgid "Individual Packages"
 msgstr "Pojedinaèni paketi"
 
@@ -1187,7 +1187,7 @@ msgstr "Pojedinaèni paketi"
 # ../text.py:866
 # ../text.py:866 ../textw/packages.py:116
 # ../text.py:866 ../textw/packages.py:116
-#: ../text.py:1095 ../textw/packages.py:122
+#: ../text.py:1097 ../textw/packages.py:122
 msgid "Package Dependencies"
 msgstr "Paketske meðuzavisnosti"
 
@@ -1195,7 +1195,7 @@ msgstr "Paketske meðuzavisnosti"
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
 # ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
-#: ../iw/xconfig.py:249 ../text.py:1097 ../text.py:1105
+#: ../iw/xconfig.py:249 ../text.py:1099 ../text.py:1107
 msgid "X Configuration"
 msgstr "Pode¹avanje X-Windows-a"
 
@@ -1203,7 +1203,7 @@ msgstr "Pode¹avanje X-Windows-a"
 # ../text.py:872
 # ../text.py:872
 # ../text.py:872
-#: ../text.py:1099
+#: ../text.py:1101
 msgid "Installation Begins"
 msgstr "Instalacija poèinje"
 
@@ -1211,7 +1211,7 @@ msgstr "Instalacija poèinje"
 # ../text.py:874
 # ../text.py:874
 # ../text.py:874
-#: ../text.py:1101
+#: ../text.py:1103
 msgid "Install System"
 msgstr "Instaliraj sistem"
 
@@ -1219,7 +1219,7 @@ msgstr "Instaliraj sistem"
 # ../text.py:870
 # ../text.py:870
 # ../text.py:870
-#: ../text.py:1102 ../text.py:1104 ../text.py:1123 ../text.py:1125
+#: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
 msgid "Boot Disk"
 msgstr "Startni disk"
 
@@ -1227,21 +1227,21 @@ msgstr "Startni disk"
 # ../text.py:878
 # ../text.py:878
 # ../text.py:878
-#: ../text.py:1107
+#: ../text.py:1109
 msgid "Installation Complete"
 msgstr "Instalacija zavr¹ena"
 
 # ../text.py:883
 # ../text.py:883
 # ../text.py:883
-#: ../text.py:1112
+#: ../text.py:1114
 msgid "Examine System"
 msgstr "Ispitaj sistem"
 
 # ../text.py:884
 # ../text.py:884
 # ../text.py:884
-#: ../text.py:1119
+#: ../text.py:1121
 msgid "Customize Upgrade"
 msgstr "Podesi a¾uriranje po volji"
 
@@ -1249,7 +1249,7 @@ msgstr "Podesi a¾uriranje po volji"
 # ../text.py:886
 # ../text.py:886
 # ../text.py:886
-#: ../text.py:1122
+#: ../text.py:1124
 msgid "Upgrade System"
 msgstr "A¾uriraj sistem"
 
@@ -1257,28 +1257,28 @@ msgstr "A¾uriraj sistem"
 # ../text.py:887
 # ../text.py:887
 # ../text.py:887
-#: ../text.py:1126
+#: ../text.py:1128
 msgid "Upgrade Complete"
 msgstr "A¾uriranje zavr¹eno"
 
 # ../install2.c:1044
-#: ../text.py:1160
+#: ../text.py:1162
 msgid "Cancelled"
 msgstr "Obustavljeno"
 
 # ../install2.c:1045
-#: ../text.py:1161
+#: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Ne mogu da se vratim na prethodni korak. Moraæete opet da poku¹ate."
 
 # ../pkgs.c:940
-#: ../todo.py:336
+#: ../todo.py:329
 #, fuzzy, c-format
 msgid "Error copying file: %s"
 msgstr "gre¹ka kod otvaranja fajla zaglavlja: %s"
 
 # ../lilo.c:667
-#: ../todo.py:417
+#: ../todo.py:410
 #, fuzzy
 msgid "Creating boot disk..."
 msgstr "Pravljenje startnog diska..."
@@ -1288,7 +1288,7 @@ msgstr "Pravljenje startnog diska..."
 # ../iw/progress.py:156
 # ../iw/progress.py:156
 # ../iw/progress.py:156
-#: ../todo.py:437
+#: ../todo.py:430
 #, fuzzy
 msgid "Reading"
 msgstr "Preostalo"
@@ -1297,28 +1297,28 @@ msgstr "Preostalo"
 # ../loader/net.c:339 ../loader/net.c:570
 # ../loader/net.c:339 ../loader/net.c:570
 # ../loader/net.c:339 ../loader/net.c:570
-#: ../todo.py:438
+#: ../todo.py:431
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Slanje zahteva za IP podacima..."
 
 # ../pkgs.c:668
-#: ../todo.py:634 ../todo.py:647
+#: ../todo.py:627 ../todo.py:640
 msgid "no suggestion"
 msgstr "nemam ¹ta da ka¾em"
 
 # ../pkgs.c:775
-#: ../todo.py:653
+#: ../todo.py:646
 #, fuzzy
 msgid "Searching"
 msgstr "Sve"
 
-#: ../todo.py:654
+#: ../todo.py:647
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
 # ../kickstart.c:74
-#: ../todo.py:665 ../todo.py:696
+#: ../todo.py:658 ../todo.py:689
 #, fuzzy, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "gre¹ka upisa u datoteku %s: %s"
@@ -1328,27 +1328,27 @@ msgstr "gre¹ka upisa u datoteku %s: %s"
 # ../iw/progress.py:156
 # ../iw/progress.py:156
 # ../iw/progress.py:156
-#: ../todo.py:707
+#: ../todo.py:700
 #, fuzzy
 msgid "Finding"
 msgstr "Preostalo"
 
 # ../install2.c:940
-#: ../todo.py:708
+#: ../todo.py:701
 msgid "Finding packages to upgrade..."
 msgstr "Pronalazim pakete za a¾uriranje..."
 
-#: ../todo.py:951
+#: ../todo.py:944
 msgid "Processing"
 msgstr ""
 
 # ../install2.c:940
-#: ../todo.py:952
+#: ../todo.py:945
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Pronalazim pakete za a¾uriranje..."
 
-#: ../todo.py:1119
+#: ../todo.py:1112
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
@@ -1357,12 +1357,12 @@ msgstr ""
 # ../iw/progress.py:26
 # ../iw/progress.py:26
 # ../iw/progress.py:26
-#: ../todo.py:1121
+#: ../todo.py:1114
 #, fuzzy, c-format
 msgid "Installing %s.\n"
 msgstr "Instaliranje paketa"
 
-#: ../todo.py:1142
+#: ../todo.py:1135
 msgid ""
 "You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
@@ -1372,17 +1372,17 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
-#: ../todo.py:1145
+#: ../todo.py:1138
 #, fuzzy
 msgid "Mount Point"
 msgstr "Taèka montiranja:"
 
-#: ../todo.py:1145
+#: ../todo.py:1138
 msgid "Space Needed"
 msgstr ""
 
 # ../fsedit.c:2695
-#: ../todo.py:1158
+#: ../todo.py:1151
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
@@ -1390,7 +1390,7 @@ msgstr "Prostor na disku"
 # ../iw/installpath.py:122
 # ../iw/installpath.py:142
 # ../iw/installpath.py:142
-#: ../todo.py:1182
+#: ../todo.py:1175
 #, fuzzy
 msgid "Post Install"
 msgstr "Instalacija"
@@ -1399,7 +1399,7 @@ msgstr "Instalacija"
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#: ../todo.py:1183
+#: ../todo.py:1176
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Testiraj ove parametre"
@@ -1407,14 +1407,14 @@ msgstr "Testiraj ove parametre"
 # ../iw/xconfig.py:9
 # ../iw/xconfig.py:9
 # ../iw/xconfig.py:9
-#: ../iw/xconfig.py:10 ../xf86config.py:248
+#: ../iw/xconfig.py:10 ../xf86config.py:243
 msgid "Video Card"
 msgstr "Video-kartica"
 
 # ../iw/xconfig.py:11
 # ../iw/xconfig.py:11
 # ../iw/xconfig.py:11
-#: ../iw/xconfig.py:12 ../xf86config.py:250
+#: ../iw/xconfig.py:12 ../xf86config.py:245
 msgid "Video Ram"
 msgstr "Video-RAM"
 
@@ -1425,7 +1425,7 @@ msgstr "Video-RAM"
 # ../libfdisk/gnomefsedit.c:2216
 # ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 # ../libfdisk/gnomefsedit.c:2216
-#: ../xf86config.py:252
+#: ../xf86config.py:247
 #, fuzzy
 msgid "X server"
 msgstr "Server"
@@ -1434,7 +1434,7 @@ msgstr "Server"
 # ../loader/loader.c:935
 # ../loader/loader.c:933
 # ../loader/loader.c:933
-#: ../xf86config.py:254
+#: ../xf86config.py:249
 #, fuzzy
 msgid "Unable to detect video card"
 msgstr "Preuzimanje ramdisk-a druge faze nije uspelo"
@@ -1442,18 +1442,18 @@ msgstr "Preuzimanje ramdisk-a druge faze nije uspelo"
 # ../iw/xconfig.py:10
 # ../iw/xconfig.py:10
 # ../iw/xconfig.py:10
-#: ../iw/xconfig.py:11 ../xf86config.py:261 ../xf86config.py:263
+#: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:263
+#: ../xf86config.py:258
 msgid "Plug and Play Monitor"
 msgstr ""
 
 # ../iw/xconfig.py:12
 # ../iw/xconfig.py:12
 # ../iw/xconfig.py:12
-#: ../xf86config.py:265
+#: ../xf86config.py:260
 #, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Opseg horizontalne frekvencije"
@@ -1461,7 +1461,7 @@ msgstr "Opseg horizontalne frekvencije"
 # ../iw/xconfig.py:13
 # ../iw/xconfig.py:13
 # ../iw/xconfig.py:13
-#: ../xf86config.py:267
+#: ../xf86config.py:262
 #, fuzzy
 msgid "Vertical frequency range"
 msgstr "Opseg vertikalne frekvencije"
@@ -1813,7 +1813,7 @@ msgstr "KDE radna stanica"
 # ../libfdisk/gnomefsedit.c:2216
 # ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 # ../libfdisk/gnomefsedit.c:2216
-#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2222 ../libfdisk/gnomefsedit.c:2242
+#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346 ../libfdisk/gnomefsedit.c:2366
 msgid "Server"
 msgstr "Server"
 
@@ -1918,7 +1918,7 @@ msgstr "Pode¹avanje LILO-a"
 # ../iw/lilo.py:99 ../iw/lilo.py:198
 # ../iw/lilo.py:99 ../iw/lilo.py:198
 # ../iw/lilo.py:99 ../iw/lilo.py:198
-#: ../iw/lilo.py:126 ../iw/lilo.py:247 ../iw/silo.py:130 ../iw/silo.py:270
+#: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:270
 msgid "Type"
 msgstr "Tip"
 
@@ -1926,7 +1926,7 @@ msgstr "Tip"
 # ../iw/lilo.py:128
 # ../iw/lilo.py:128
 # ../iw/lilo.py:128
-#: ../iw/lilo.py:165
+#: ../iw/lilo.py:164
 msgid "Install LILO boot record on:"
 msgstr "Instaliraj LILO startni slog na:"
 
@@ -1934,7 +1934,7 @@ msgstr "Instaliraj LILO startni slog na:"
 # ../iw/lilo.py:133
 # ../iw/lilo.py:133
 # ../iw/lilo.py:133
-#: ../iw/lilo.py:172 ../iw/silo.py:167 ../textw/silo.py:61
+#: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
 msgid "Master Boot Record (MBR)"
 msgstr "Glavni startni zapis (MBR)"
 
@@ -1942,7 +1942,7 @@ msgstr "Glavni startni zapis (MBR)"
 # ../iw/lilo.py:137
 # ../iw/lilo.py:137
 # ../iw/lilo.py:137
-#: ../iw/lilo.py:176 ../iw/silo.py:170 ../textw/silo.py:62
+#: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
 msgid "First sector of boot partition"
 msgstr "Prvi sektor startne particije"
 
@@ -1950,7 +1950,7 @@ msgstr "Prvi sektor startne particije"
 # ../iw/lilo.py:141
 # ../iw/lilo.py:141 ../textw/lilo.py:18
 # ../iw/lilo.py:141 ../textw/lilo.py:18
-#: ../iw/lilo.py:180 ../textw/lilo.py:24
+#: ../iw/lilo.py:179 ../textw/lilo.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Koristi linearni re¾im (potreban nekim SCSI diskovima)"
 
@@ -1958,7 +1958,7 @@ msgstr "Koristi linearni re¾im (potreban nekim SCSI diskovima)"
 # ../iw/lilo.py:144
 # ../iw/lilo.py:144
 # ../iw/lilo.py:144
-#: ../iw/lilo.py:190 ../iw/silo.py:197
+#: ../iw/lilo.py:189 ../iw/silo.py:197
 msgid "Kernel parameters"
 msgstr "Parametri kernela"
 
@@ -1966,14 +1966,14 @@ msgstr "Parametri kernela"
 # ../iw/lilo.py:159
 # ../iw/lilo.py:159
 # ../iw/lilo.py:159
-#: ../iw/lilo.py:207 ../iw/silo.py:215
+#: ../iw/lilo.py:206 ../iw/silo.py:215
 msgid "Create boot disk"
 msgstr "Napravi startni disk"
 
 # ../iw/lilo.py:163
 # ../iw/lilo.py:163
 # ../iw/lilo.py:163
-#: ../iw/lilo.py:211
+#: ../iw/lilo.py:210
 msgid "Do not install LILO"
 msgstr "Nemoj da instalira¹ LILO"
 
@@ -1981,7 +1981,7 @@ msgstr "Nemoj da instalira¹ LILO"
 # ../iw/lilo.py:174
 # ../iw/lilo.py:174 ../textw/lilo.py:135
 # ../iw/lilo.py:174 ../textw/lilo.py:135
-#: ../iw/lilo.py:222 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
 msgid "Default"
 msgstr "Podrazumevano"
 
@@ -1989,7 +1989,7 @@ msgstr "Podrazumevano"
 # ../iw/lilo.py:174
 # ../iw/lilo.py:174 ../textw/lilo.py:135
 # ../iw/lilo.py:174 ../textw/lilo.py:135
-#: ../iw/lilo.py:222 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168 ../textw/silo.py:176
 msgid "Partition type"
 msgstr "Tip particije"
 
@@ -1999,7 +1999,7 @@ msgstr "Tip particije"
 # ../textw/lilo.py:135
 # ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
 # ../textw/lilo.py:135
-#: ../iw/lilo.py:222 ../iw/lilo.py:258 ../iw/silo.py:246 ../iw/silo.py:281 ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:176
+#: ../iw/lilo.py:221 ../iw/lilo.py:257 ../iw/silo.py:246 ../iw/silo.py:281 ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120 ../textw/silo.py:176
 msgid "Boot label"
 msgstr "Startna oznaka"
 
@@ -2037,7 +2037,7 @@ msgstr "IP adresa"
 # ../iw/network.py:142 ../loader/net.c:615
 # ../iw/network.py:147 ../loader/net.c:615
 # ../iw/network.py:147 ../loader/net.c:615
-#: ../iw/network.py:164 ../loader/net.c:629
+#: ../iw/network.py:164 ../loader/net.c:636
 msgid "Netmask"
 msgstr "Mre¾na maska"
 
@@ -2338,7 +2338,7 @@ msgstr "Nemoj da instalira¹ LILO"
 # ../iw/timezone.py:29 ../text.py:756
 # ../iw/timezone.py:29 ../text.py:756
 # ../iw/timezone.py:29 ../text.py:756
-#: ../iw/timezone.py:30 ../textw/timezone.py:83
+#: ../iw/timezone.py:30 ../textw/timezone.py:84
 msgid "Time Zone Selection"
 msgstr "Izbor vremenske zone"
 
@@ -2410,7 +2410,7 @@ msgstr "Test nije uspeo"
 # ../iw/xconfig.py:22 ../iw/xconfig.py:198
 # ../iw/xconfig.py:22 ../iw/xconfig.py:198
 # ../iw/xconfig.py:22 ../iw/xconfig.py:198
-#: ../iw/xconfig.py:23 ../iw/xconfig.py:398
+#: ../iw/xconfig.py:23 ../iw/xconfig.py:413
 msgid "Customize X Configuration"
 msgstr "Pode¹avanje X-Windows-a"
 
@@ -2426,7 +2426,7 @@ msgstr "Bitova po pikselu"
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
 # ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#: ../iw/xconfig.py:97 ../iw/xconfig.py:394
+#: ../iw/xconfig.py:97 ../iw/xconfig.py:409
 msgid "Test this configuration"
 msgstr "Testiraj ove parametre"
 
@@ -2454,7 +2454,7 @@ msgstr ""
 # ../iw/xconfig.py:171
 # ../iw/xconfig.py:171
 # ../iw/xconfig.py:171
-#: ../iw/xconfig.py:318
+#: ../iw/xconfig.py:329
 #, fuzzy
 msgid "Your video ram size can not be autodetected.  Choose your video ram size from the choices below:"
 msgstr "Va¹ monitor nije moguæe automatski odrediti. Molimo izaberite ga sa spiska:"
@@ -2462,18 +2462,18 @@ msgstr "Va¹ monitor nije moguæe automatski odrediti. Molimo izaberite ga sa spis
 # ../iw/xconfig.py:149
 # ../iw/xconfig.py:149
 # ../iw/xconfig.py:149
-#: ../iw/xconfig.py:329
+#: ../iw/xconfig.py:340
 msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
 msgstr "U najveæem broju sluèajeva va¹ video-hardver mo¾e biti automatski ispitan kako bi se odredili parametri koji najbolje odgovaraju va¹em monitoru."
 
-#: ../iw/xconfig.py:350
+#: ../iw/xconfig.py:361
 msgid "If the probed settings do not match your hardware select the correct setting below:"
 msgstr ""
 
 # ../iw/xconfig.py:201
 # ../iw/xconfig.py:201
 # ../iw/xconfig.py:201
-#: ../iw/xconfig.py:403
+#: ../iw/xconfig.py:418
 msgid "Use Graphical Login"
 msgstr "Koristi grafièki login"
 
@@ -2481,7 +2481,7 @@ msgstr "Koristi grafièki login"
 # ../iw/xconfig.py:203
 # ../iw/xconfig.py:203
 # ../iw/xconfig.py:203
-#: ../iw/xconfig.py:404
+#: ../iw/xconfig.py:419
 msgid "Skip X Configuration"
 msgstr "Preskoèi pode¹avanje X-Windows-a"
 
@@ -2643,7 +2643,7 @@ msgstr "U kojoj ste vremenskoj zoni?"
 # ../text.py:754
 # ../text.py:754
 # ../text.py:754
-#: ../textw/timezone.py:80
+#: ../textw/timezone.py:81
 msgid "Hardware clock set to GMT?"
 msgstr "Da li je sat u ma¹ini pode¹en na GMT?"
 
@@ -2830,7 +2830,7 @@ msgstr "Zahtevaj server preko 'broadcast'-a"
 # ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
 # ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
 # ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
-#: ../libfdisk/fsedit.c:669 ../libfdisk/fsedit.c:676 ../libfdisk/fsedit.c:683 ../libfdisk/fsedit.c:692 ../libfdisk/fsedit.c:719 ../libfdisk/fsedit.c:729
+#: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742 ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
 msgid "Bad Mount Point"
 msgstr "Lo¹a taèka montiranja"
 
@@ -2838,7 +2838,7 @@ msgstr "Lo¹a taèka montiranja"
 # ../libfdisk/fsedit.c:606
 # ../libfdisk/fsedit.c:606
 # ../libfdisk/fsedit.c:606
-#: ../libfdisk/fsedit.c:670
+#: ../libfdisk/fsedit.c:729
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "Direktorijum %s mora biti na 'root' sistemu datoteka."
@@ -2847,7 +2847,7 @@ msgstr "Direktorijum %s mora biti na 'root' sistemu datoteka."
 # ../libfdisk/fsedit.c:613
 # ../libfdisk/fsedit.c:613
 # ../libfdisk/fsedit.c:613
-#: ../libfdisk/fsedit.c:677
+#: ../libfdisk/fsedit.c:736
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2862,7 +2862,7 @@ msgstr ""
 # ../libfdisk/fsedit.c:620
 # ../libfdisk/fsedit.c:620
 # ../libfdisk/fsedit.c:620
-#: ../libfdisk/fsedit.c:684
+#: ../libfdisk/fsedit.c:743
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2877,7 +2877,7 @@ msgstr ""
 # ../libfdisk/fsedit.c:629
 # ../libfdisk/fsedit.c:629
 # ../libfdisk/fsedit.c:629
-#: ../libfdisk/fsedit.c:693
+#: ../libfdisk/fsedit.c:752
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2888,7 +2888,7 @@ msgstr ""
 "\n"
 "Taèke montiranja smeju da imaju samo znake koji se mogu od¹tampati."
 
-#: ../libfdisk/fsedit.c:703
+#: ../libfdisk/fsedit.c:762
 msgid "You've asked to put your root (/) filesystem on a DOS-style FAT partition. You can do this, but you may not use any other filesystems for your Linux system. Additionally, there will be a speed penalty for not using Linux-native partitions. Do you want to continue?"
 msgstr ""
 
@@ -2896,7 +2896,7 @@ msgstr ""
 # ../libfdisk/fsedit.c:641
 # ../libfdisk/fsedit.c:641
 # ../libfdisk/fsedit.c:641
-#: ../libfdisk/fsedit.c:720
+#: ../libfdisk/fsedit.c:779
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2911,7 +2911,7 @@ msgstr ""
 # ../libfdisk/fsedit.c:651
 # ../libfdisk/fsedit.c:651
 # ../libfdisk/fsedit.c:651
-#: ../libfdisk/fsedit.c:730
+#: ../libfdisk/fsedit.c:789
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2926,7 +2926,7 @@ msgstr ""
 # ../libfdisk/fsedit.c:679
 # ../libfdisk/fsedit.c:679
 # ../libfdisk/fsedit.c:679
-#: ../libfdisk/fsedit.c:758
+#: ../libfdisk/fsedit.c:817
 msgid "Too Many Drives"
 msgstr "Previ¹e drajvova"
 
@@ -2934,7 +2934,7 @@ msgstr "Previ¹e drajvova"
 # ../libfdisk/fsedit.c:680
 # ../libfdisk/fsedit.c:680
 # ../libfdisk/fsedit.c:680
-#: ../libfdisk/fsedit.c:759
+#: ../libfdisk/fsedit.c:818
 msgid "You have more drives than this program supports. Please use the standard fdisk program to setup your drives and please notify Red Hat Software that you saw this message."
 msgstr "Imate vi¹e drajvova nego ¹to ovaj program podr¾ava. Molim koristite standardni fdisk program da podesite va¹e drajvove i molim vas da obavestite Red Hat Software da ste videli ovu poruku."
 
@@ -2942,7 +2942,7 @@ msgstr "Imate vi¹e drajvova nego ¹to ovaj program podr¾ava. Molim koristite stan
 # ../libfdisk/fsedit.c:695
 # ../libfdisk/fsedit.c:695
 # ../libfdisk/fsedit.c:695
-#: ../libfdisk/fsedit.c:774
+#: ../libfdisk/fsedit.c:833
 msgid "No Drives Found"
 msgstr "Nijedan drajv nije pronaðen"
 
@@ -2950,7 +2950,7 @@ msgstr "Nijedan drajv nije pronaðen"
 # ../libfdisk/fsedit.c:696
 # ../libfdisk/fsedit.c:696
 # ../libfdisk/fsedit.c:696
-#: ../libfdisk/fsedit.c:775
+#: ../libfdisk/fsedit.c:834
 msgid "An error has occurred - no valid devices were found on which to create new filesystems.  Please check your hardware for the cause of this problem."
 msgstr "Dogodila se gre¹ka - nije pronaðen ispravan ureðaj na kojem se mogu kreirati novi sistemi datoteka. Proverite va¹ hardver da utvrdite uzrok ovog problema."
 
@@ -2958,7 +2958,7 @@ msgstr "Dogodila se gre¹ka - nije pronaðen ispravan ureðaj na kojem se mogu krei
 # ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:1032
 # ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:1032
 # ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:1032
-#: ../libfdisk/fsedit.c:1085 ../libfdisk/fsedit.c:1147
+#: ../libfdisk/fsedit.c:1146 ../libfdisk/fsedit.c:1208
 #, c-format
 msgid "An error occurred reading the partition table for the block device %s.  The error was"
 msgstr "Gre¹ka kod èitanja tabele particija za bloèni ureðaj %s. Gre¹ka je"
@@ -2967,7 +2967,7 @@ msgstr "Gre¹ka kod èitanja tabele particija za bloèni ureðaj %s. Gre¹ka je"
 # ../libfdisk/fsedit.c:1005
 # ../libfdisk/fsedit.c:1005
 # ../libfdisk/fsedit.c:1005
-#: ../libfdisk/fsedit.c:1124
+#: ../libfdisk/fsedit.c:1185
 #, c-format
 msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized, causing the loss of ALL DATA on this drive."
 msgstr "Tabela particija na ureðaju %s je o¹teæena. Da biste kreirali novu particiju ona mora biti inicijalizovana, ¹to æe prouzrokovati gubitak SVIH PODATAKA na ovom drajvu."
@@ -2976,7 +2976,7 @@ msgstr "Tabela particija na ureðaju %s je o¹teæena. Da biste kreirali novu parti
 # ../libfdisk/fsedit.c:1010
 # ../libfdisk/fsedit.c:1010
 # ../libfdisk/fsedit.c:1010
-#: ../libfdisk/fsedit.c:1129
+#: ../libfdisk/fsedit.c:1190
 msgid "Bad Partition Table"
 msgstr "Lo¹a tabela particija"
 
@@ -2984,7 +2984,7 @@ msgstr "Lo¹a tabela particija"
 # ../libfdisk/fsedit.c:1011
 # ../libfdisk/fsedit.c:1011
 # ../libfdisk/fsedit.c:1011
-#: ../libfdisk/fsedit.c:1130
+#: ../libfdisk/fsedit.c:1191
 msgid "Initialize"
 msgstr "Inicijalizuj"
 
@@ -2995,7 +2995,7 @@ msgstr "Inicijalizuj"
 # ../libfdisk/fsedit.c:1036
 # ../libfdisk/fsedit.c:955 ../libfdisk/fsedit.c:1011
 # ../libfdisk/fsedit.c:1036
-#: ../libfdisk/fsedit.c:1130 ../libfdisk/fsedit.c:1151
+#: ../libfdisk/fsedit.c:1191 ../libfdisk/fsedit.c:1212
 msgid "Skip Drive"
 msgstr "Preskoèi drajv"
 
@@ -3003,7 +3003,7 @@ msgstr "Preskoèi drajv"
 # ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 # ../libfdisk/fsedit.c:1036 ../loader/net.c:329
 # ../libfdisk/fsedit.c:1036 ../loader/net.c:329
-#: ../libfdisk/fsedit.c:1151 ../loader/net.c:329
+#: ../libfdisk/fsedit.c:1212 ../loader/net.c:329
 msgid "Retry"
 msgstr "Ponovo"
 
@@ -3011,7 +3011,7 @@ msgstr "Ponovo"
 # ../libfdisk/fsedit.c:1048
 # ../libfdisk/fsedit.c:1048
 # ../libfdisk/fsedit.c:1048
-#: ../libfdisk/fsedit.c:1163
+#: ../libfdisk/fsedit.c:1224
 msgid "BSD Disklabel"
 msgstr "BSD oznaka diska"
 
@@ -3019,7 +3019,7 @@ msgstr "BSD oznaka diska"
 # ../libfdisk/fsedit.c:1048
 # ../libfdisk/fsedit.c:1048
 # ../libfdisk/fsedit.c:1048
-#: ../libfdisk/fsedit.c:1163
+#: ../libfdisk/fsedit.c:1224
 msgid "A disk with a BSD disklabel has been found. The Red Hat installation only supports BSD Disklabels in read-only mode, so you must use a custom install and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr "Pronaðen je disk sa BSD oznakom. Red Hat instalacija podr¾ava BSD oznake diska samo kod èitanja (read-only). Zato morate da koristite prilagoðenu (custom) instalaciju i fdisk (umesto Disk-èarobnjaka) za raèunare sa BSD oznakom diska."
 
@@ -3027,7 +3027,7 @@ msgstr "Pronaðen je disk sa BSD oznakom. Red Hat instalacija podr¾ava BSD oznake
 # ../libfdisk/fsedit.c:1078
 # ../libfdisk/fsedit.c:1078
 # ../libfdisk/fsedit.c:1078
-#: ../libfdisk/fsedit.c:1193
+#: ../libfdisk/fsedit.c:1254
 #, c-format
 msgid "System error %d"
 msgstr "Sistemska gre¹ka %d"
@@ -3036,7 +3036,7 @@ msgstr "Sistemska gre¹ka %d"
 # ../libfdisk/fsedit.c:1087 ../libfdisk/fsedit.c:1089
 # ../libfdisk/fsedit.c:1087 ../libfdisk/fsedit.c:1089
 # ../libfdisk/fsedit.c:1087 ../libfdisk/fsedit.c:1089
-#: ../libfdisk/fsedit.c:1202 ../libfdisk/fsedit.c:1204
+#: ../libfdisk/fsedit.c:1263 ../libfdisk/fsedit.c:1265
 msgid "Fdisk Error"
 msgstr "Fdisk gre¹ka"
 
@@ -3044,7 +3044,7 @@ msgstr "Fdisk gre¹ka"
 # ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
 # ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
 # ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
-#: ../libfdisk/gnomefsedit.c:520 ../libfdisk/gnomefsedit.c:716
+#: ../libfdisk/gnomefsedit.c:537 ../libfdisk/gnomefsedit.c:827
 msgid "<Swap Partition>"
 msgstr "<'Swap' particija>"
 
@@ -3052,7 +3052,7 @@ msgstr "<'Swap' particija>"
 # ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
 # ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
 # ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
-#: ../libfdisk/gnomefsedit.c:528 ../libfdisk/gnomefsedit.c:718
+#: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
 msgid "<RAID Partition>"
 msgstr "<'Raid' particija>"
 
@@ -3060,7 +3060,7 @@ msgstr "<'Raid' particija>"
 # ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
 # ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
 # ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
-#: ../libfdisk/gnomefsedit.c:602 ../libfdisk/newtfsedit.c:692
+#: ../libfdisk/gnomefsedit.c:713 ../libfdisk/newtfsedit.c:692
 msgid "Delete Partition"
 msgstr "Uklanjanje particije"
 
@@ -3068,7 +3068,7 @@ msgstr "Uklanjanje particije"
 # ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
 # ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
 # ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
-#: ../libfdisk/gnomefsedit.c:603 ../libfdisk/newtfsedit.c:693
+#: ../libfdisk/gnomefsedit.c:714 ../libfdisk/newtfsedit.c:693
 msgid "Are you sure you want to delete this partition?"
 msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 
@@ -3085,7 +3085,7 @@ msgstr "Da li ste sigurni da hoæete da uklonite ovu particiju?"
 # ../libfdisk/gnomefsedit.c:649 ../libfdisk/gnomefsedit.c:651
 # ../libfdisk/newtfsedit.c:263 ../libfdisk/newtfsedit.c:269
 # ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
-#: ../libfdisk/gnomefsedit.c:661 ../libfdisk/gnomefsedit.c:667 ../libfdisk/gnomefsedit.c:671 ../libfdisk/gnomefsedit.c:673 ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266 ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
+#: ../libfdisk/gnomefsedit.c:772 ../libfdisk/gnomefsedit.c:778 ../libfdisk/gnomefsedit.c:782 ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266 ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
 msgid "Edit Partition"
 msgstr "Uredi particiju"
 
@@ -3093,7 +3093,7 @@ msgstr "Uredi particiju"
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 # ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
-#: ../libfdisk/gnomefsedit.c:688 ../libfdisk/gnomefsedit.c:1655
+#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
 msgid "Mount Point:"
 msgstr "Taèka montiranja:"
 
@@ -3101,14 +3101,14 @@ msgstr "Taèka montiranja:"
 # ../libfdisk/gnomefsedit.c:701
 # ../libfdisk/gnomefsedit.c:701
 # ../libfdisk/gnomefsedit.c:701
-#: ../libfdisk/gnomefsedit.c:731
+#: ../libfdisk/gnomefsedit.c:842
 msgid "Size (Megs):"
 msgstr "Velièina (MB):"
 
 # ../libfdisk/gnomefsedit.c:732
 # ../libfdisk/gnomefsedit.c:732
 # ../libfdisk/gnomefsedit.c:732
-#: ../libfdisk/gnomefsedit.c:762
+#: ../libfdisk/gnomefsedit.c:873
 msgid "Grow to fill disk?"
 msgstr "Rast do popune diska?"
 
@@ -3116,7 +3116,7 @@ msgstr "Rast do popune diska?"
 # ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
 # ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
 # ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
-#: ../libfdisk/gnomefsedit.c:781 ../libfdisk/newtfsedit.c:332
+#: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
 msgid "Allocation Status:"
 msgstr "Status alokacije:"
 
@@ -3124,7 +3124,7 @@ msgstr "Status alokacije:"
 # ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
 # ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
 # ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
-#: ../libfdisk/gnomefsedit.c:785 ../libfdisk/newtfsedit.c:334
+#: ../libfdisk/gnomefsedit.c:896 ../libfdisk/newtfsedit.c:334
 msgid "Successful"
 msgstr "Uspe¹no"
 
@@ -3132,7 +3132,7 @@ msgstr "Uspe¹no"
 # ../libfdisk/gnomefsedit.c:758 ../libfdisk/newtfsedit.c:339
 # ../libfdisk/gnomefsedit.c:758 ../libfdisk/newtfsedit.c:339
 # ../libfdisk/gnomefsedit.c:758 ../libfdisk/newtfsedit.c:339
-#: ../libfdisk/gnomefsedit.c:788 ../libfdisk/newtfsedit.c:336
+#: ../libfdisk/gnomefsedit.c:899 ../libfdisk/newtfsedit.c:336
 msgid "Failed"
 msgstr "Neuspe¹no"
 
@@ -3140,7 +3140,7 @@ msgstr "Neuspe¹no"
 # ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
 # ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
 # ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
-#: ../libfdisk/gnomefsedit.c:800 ../libfdisk/newtfsedit.c:341
+#: ../libfdisk/gnomefsedit.c:911 ../libfdisk/newtfsedit.c:341
 msgid "Failure Reason:"
 msgstr "Razlog neuspeha:"
 
@@ -3148,14 +3148,14 @@ msgstr "Razlog neuspeha:"
 # ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
 # ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
 # ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
-#: ../libfdisk/gnomefsedit.c:814 ../libfdisk/gnomefsedit.c:1689
+#: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:1813
 msgid "Partition Type:"
 msgstr "Tip particije:"
 
 # ../libfdisk/gnomefsedit.c:851
 # ../libfdisk/gnomefsedit.c:851
 # ../libfdisk/gnomefsedit.c:851
-#: ../libfdisk/gnomefsedit.c:897
+#: ../libfdisk/gnomefsedit.c:1008
 msgid "Allowable Drives:"
 msgstr "Dozvoljeni diskovi:"
 
@@ -3166,7 +3166,7 @@ msgstr "Dozvoljeni diskovi:"
 # ../libfdisk/newtfsedit.c:486
 # ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
 # ../libfdisk/newtfsedit.c:486
-#: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1881 ../libfdisk/newtfsedit.c:499
+#: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005 ../libfdisk/newtfsedit.c:499
 msgid "No Mount Point"
 msgstr "Nema taèke montiranja"
 
@@ -3174,7 +3174,7 @@ msgstr "Nema taèke montiranja"
 # ../libfdisk/gnomefsedit.c:957 ../libfdisk/newtfsedit.c:487
 # ../libfdisk/gnomefsedit.c:957 ../libfdisk/newtfsedit.c:487
 # ../libfdisk/gnomefsedit.c:957 ../libfdisk/newtfsedit.c:487
-#: ../libfdisk/gnomefsedit.c:1004 ../libfdisk/newtfsedit.c:500
+#: ../libfdisk/gnomefsedit.c:1115 ../libfdisk/newtfsedit.c:500
 msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
 msgstr "Niste izabrali taèku montiranja za ovu particiju. Da li ste sigurni da ¾elite to da uradite?"
 
@@ -3185,7 +3185,7 @@ msgstr "Niste izabrali taèku montiranja za ovu particiju. Da li ste sigurni da ¾
 # ../libfdisk/newtfsedit.c:527
 # ../libfdisk/gnomefsedit.c:1000 ../libfdisk/gnomefsedit.c:1854
 # ../libfdisk/newtfsedit.c:527
-#: ../libfdisk/gnomefsedit.c:1047 ../libfdisk/gnomefsedit.c:1889 ../libfdisk/newtfsedit.c:540
+#: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013 ../libfdisk/newtfsedit.c:540
 msgid "Mount Point Error"
 msgstr "Gre¹ka taèke montiranja"
 
@@ -3193,7 +3193,7 @@ msgstr "Gre¹ka taèke montiranja"
 # ../libfdisk/gnomefsedit.c:1001 ../libfdisk/newtfsedit.c:528
 # ../libfdisk/gnomefsedit.c:1001 ../libfdisk/newtfsedit.c:528
 # ../libfdisk/gnomefsedit.c:1001 ../libfdisk/newtfsedit.c:528
-#: ../libfdisk/gnomefsedit.c:1048 ../libfdisk/newtfsedit.c:541
+#: ../libfdisk/gnomefsedit.c:1159 ../libfdisk/newtfsedit.c:541
 msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
 msgstr "Zahtevana taèka montiranja je ili lo¹a, ili se veæ koristi. Molim da navedete ispravnu taèku montiranja."
 
@@ -3201,7 +3201,7 @@ msgstr "Zahtevana taèka montiranja je ili lo¹a, ili se veæ koristi. Molim da nav
 # ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
 # ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
 # ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
-#: ../libfdisk/gnomefsedit.c:1073 ../libfdisk/newtfsedit.c:558
+#: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
 msgid "Size Error"
 msgstr "Gre¹ka u velièini"
 
@@ -3209,7 +3209,7 @@ msgstr "Gre¹ka u velièini"
 # ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
 # ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
 # ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
-#: ../libfdisk/gnomefsedit.c:1074 ../libfdisk/newtfsedit.c:559
+#: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
 msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
 msgstr "Zahtevana velièina nije dobra. Proverite da li je velièina veæa od nule (0) i da je navedena u dekadnom formatu (osnova 10)."
 
@@ -3220,7 +3220,7 @@ msgstr "Zahtevana velièina nije dobra. Proverite da li je velièina veæa od nule 
 # ../libfdisk/newtfsedit.c:581
 # ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
 # ../libfdisk/newtfsedit.c:581
-#: ../libfdisk/gnomefsedit.c:1091 ../libfdisk/gnomefsedit.c:1993 ../libfdisk/newtfsedit.c:576
+#: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117 ../libfdisk/newtfsedit.c:576
 msgid "Swap Size Error"
 msgstr "Gre¹ka u velièini swap-a"
 
@@ -3231,7 +3231,7 @@ msgstr "Gre¹ka u velièini swap-a"
 # ../libfdisk/newtfsedit.c:582
 # ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
 # ../libfdisk/newtfsedit.c:582
-#: ../libfdisk/gnomefsedit.c:1092 ../libfdisk/gnomefsedit.c:1994 ../libfdisk/newtfsedit.c:577
+#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118 ../libfdisk/newtfsedit.c:577
 #, c-format
 msgid "You have created a swap partition which is too large. The maximum size of a swap partition is %ld Megabytes."
 msgstr "Napravili ste preveliku swap particiju. Maksimalna velièina swap particije je %ld megabajta."
@@ -3239,7 +3239,7 @@ msgstr "Napravili ste preveliku swap particiju. Maksimalna velièina swap partici
 # ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 # ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 # ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
-#: ../libfdisk/gnomefsedit.c:1108 ../libfdisk/gnomefsedit.c:1115
+#: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
 msgstr "Nema ogranièenja za RAID disk"
 
@@ -3247,7 +3247,7 @@ msgstr "Nema ogranièenja za RAID disk"
 # ../libfdisk/gnomefsedit.c:1081
 # ../libfdisk/gnomefsedit.c:1081
 # ../libfdisk/gnomefsedit.c:1081
-#: ../libfdisk/gnomefsedit.c:1110
+#: ../libfdisk/gnomefsedit.c:1221
 msgid ""
 "You have configured a RAID partition without constraining the partition to a single drive.\n"
 " Are you sure you want to do this?"
@@ -3259,14 +3259,14 @@ msgstr ""
 # ../libfdisk/gnomefsedit.c:1087
 # ../libfdisk/gnomefsedit.c:1087
 # ../libfdisk/gnomefsedit.c:1087
-#: ../libfdisk/gnomefsedit.c:1116
+#: ../libfdisk/gnomefsedit.c:1227
 msgid "Close"
 msgstr "Zatvori"
 
 # ../libfdisk/gnomefsedit.c:1088
 # ../libfdisk/gnomefsedit.c:1088
 # ../libfdisk/gnomefsedit.c:1088
-#: ../libfdisk/gnomefsedit.c:1117
+#: ../libfdisk/gnomefsedit.c:1228
 msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
 msgstr "Podesili ste RAID particiju bez njenog ogranièavanja na jedan disk. Molim da izaberete jedan disk na koji æete ogranièiti ovu particiju."
 
@@ -3275,14 +3275,14 @@ msgstr "Podesili ste RAID particiju bez njenog ogranièavanja na jedan disk. Moli
 # ../libfdisk/gnomefsedit.c:1267
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1296
+#: ../libfdisk/gnomefsedit.c:1414
 msgid "RAID Entry Incomplete"
 msgstr "RAID stavka nekompletna"
 
 # ../libfdisk/gnomefsedit.c:1268
 # ../libfdisk/gnomefsedit.c:1268
 # ../libfdisk/gnomefsedit.c:1268
-#: ../libfdisk/gnomefsedit.c:1297
+#: ../libfdisk/gnomefsedit.c:1415
 #, c-format
 msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
 msgstr "RAID ureðaj /dev/%s sadr¾i particije koje nisu alocirane. Ovaj ureðaj æe sada biti razlo¾en na sastavne particije. Molim da ponovo sastavite ovaj RAID ureðaj sa alociranim particijama."
@@ -3295,7 +3295,7 @@ msgstr "RAID ureðaj /dev/%s sadr¾i particije koje nisu alocirane. Ovaj ureðaj æe
 # ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
 # ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1482
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1390 ../libfdisk/gnomefsedit.c:1409 ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
+#: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533 ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
 msgstr "Nealocirane particije"
 
@@ -3306,7 +3306,7 @@ msgstr "Nealocirane particije"
 # ../libfdisk/newtfsedit.c:88
 # ../libfdisk/gnomefsedit.c:1365 ../libfdisk/gnomefsedit.c:1375
 # ../libfdisk/newtfsedit.c:88
-#: ../libfdisk/gnomefsedit.c:1394 ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:85
+#: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528 ../libfdisk/newtfsedit.c:85
 msgid "There are currently unallocated partition(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
 msgstr "Postoje neke nealocirane particije na listi tra¾enih particija. Nealocirane particije su prikazane dole, zajedno sa razlogom zbog koga nisu alocirane."
 
@@ -3314,21 +3314,21 @@ msgstr "Postoje neke nealocirane particije na listi tra¾enih particija. Nealocir
 # ../libfdisk/gnomefsedit.c:1640
 # ../libfdisk/gnomefsedit.c:1640
 # ../libfdisk/gnomefsedit.c:1640
-#: ../libfdisk/gnomefsedit.c:1675
+#: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
 msgstr "<Swap particija"
 
 # ../libfdisk/gnomefsedit.c:1698
 # ../libfdisk/gnomefsedit.c:1698
 # ../libfdisk/gnomefsedit.c:1698
-#: ../libfdisk/gnomefsedit.c:1733
+#: ../libfdisk/gnomefsedit.c:1857
 msgid "RAID Device: /dev/"
 msgstr "RAID ureðaj: /dev/"
 
 # ../libfdisk/gnomefsedit.c:1721
 # ../libfdisk/gnomefsedit.c:1721
 # ../libfdisk/gnomefsedit.c:1721
-#: ../libfdisk/gnomefsedit.c:1756
+#: ../libfdisk/gnomefsedit.c:1880
 msgid "RAID Type:"
 msgstr "RAID tip:"
 
@@ -3336,7 +3336,7 @@ msgstr "RAID tip:"
 # ../libfdisk/gnomefsedit.c:1758
 # ../libfdisk/gnomefsedit.c:1758
 # ../libfdisk/gnomefsedit.c:1758
-#: ../libfdisk/gnomefsedit.c:1793
+#: ../libfdisk/gnomefsedit.c:1917
 msgid "Partitions For RAID Array:"
 msgstr "Particije za RAID niz:"
 
@@ -3344,7 +3344,7 @@ msgstr "Particije za RAID niz:"
 # ../libfdisk/gnomefsedit.c:1847
 # ../libfdisk/gnomefsedit.c:1847
 # ../libfdisk/gnomefsedit.c:1847
-#: ../libfdisk/gnomefsedit.c:1882
+#: ../libfdisk/gnomefsedit.c:2006
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Niste izabrali taèku montiranja. Potrebno je da to uèinite."
 
@@ -3352,21 +3352,21 @@ msgstr "Niste izabrali taèku montiranja. Potrebno je da to uèinite."
 # ../libfdisk/gnomefsedit.c:1855
 # ../libfdisk/gnomefsedit.c:1855
 # ../libfdisk/gnomefsedit.c:1855
-#: ../libfdisk/gnomefsedit.c:1890
+#: ../libfdisk/gnomefsedit.c:2014
 msgid "The mount point requested is already in use. Please select a valid mount point."
 msgstr "Zahtevana taèka montiranja se veæ koristi. Molim navedite ispravnu taèku montiranja."
 
 # ../libfdisk/gnomefsedit.c:1868
 # ../libfdisk/gnomefsedit.c:1868
 # ../libfdisk/gnomefsedit.c:1868
-#: ../libfdisk/gnomefsedit.c:1903
+#: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
 msgstr "Upozorenje kod pokretanja sa RAID-a"
 
 # ../libfdisk/gnomefsedit.c:1869
 # ../libfdisk/gnomefsedit.c:1869
 # ../libfdisk/gnomefsedit.c:1869
-#: ../libfdisk/gnomefsedit.c:1904
+#: ../libfdisk/gnomefsedit.c:2028
 msgid "You have made this raid device mount as a booting partition.  Please make sure all the component partitions are bootable."
 msgstr "Izabrali ste ovaj RAID ureðaj kao startnu particiju. Molim proverite da li sve sastavne particije mogu biti startovane."
 
@@ -3374,28 +3374,28 @@ msgstr "Izabrali ste ovaj RAID ureðaj kao startnu particiju. Molim proverite da 
 # ../libfdisk/gnomefsedit.c:1879
 # ../libfdisk/gnomefsedit.c:1879
 # ../libfdisk/gnomefsedit.c:1879
-#: ../libfdisk/gnomefsedit.c:1914
+#: ../libfdisk/gnomefsedit.c:2038
 msgid "No RAID Device"
 msgstr "Nema RAID ureðaja"
 
 # ../libfdisk/gnomefsedit.c:1880
 # ../libfdisk/gnomefsedit.c:1880
 # ../libfdisk/gnomefsedit.c:1880
-#: ../libfdisk/gnomefsedit.c:1915
+#: ../libfdisk/gnomefsedit.c:2039
 msgid "You need to selected a RAID device."
 msgstr "Treba da izaberete RAID ureðaj."
 
 # ../libfdisk/gnomefsedit.c:1886
 # ../libfdisk/gnomefsedit.c:1886
 # ../libfdisk/gnomefsedit.c:1886
-#: ../libfdisk/gnomefsedit.c:1921
+#: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
 msgstr "Kori¹æen RAID ureðaj"
 
 # ../libfdisk/gnomefsedit.c:1887
 # ../libfdisk/gnomefsedit.c:1887
 # ../libfdisk/gnomefsedit.c:1887
-#: ../libfdisk/gnomefsedit.c:1922
+#: ../libfdisk/gnomefsedit.c:2046
 #, c-format
 msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
 msgstr "RAID ureðaj \"/dev/%s\" je veæ pode¹en kao RAID ureðaj. Molim da izaberete neki drugi."
@@ -3404,47 +3404,47 @@ msgstr "RAID ureðaj \"/dev/%s\" je veæ pode¹en kao RAID ureðaj. Molim da izabere
 # ../libfdisk/gnomefsedit.c:1900
 # ../libfdisk/gnomefsedit.c:1900
 # ../libfdisk/gnomefsedit.c:1900
-#: ../libfdisk/gnomefsedit.c:1935
+#: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
 msgstr "Nema dovoljno particija"
 
 # ../libfdisk/gnomefsedit.c:1902
 # ../libfdisk/gnomefsedit.c:1902
 # ../libfdisk/gnomefsedit.c:1902
-#: ../libfdisk/gnomefsedit.c:1937
+#: ../libfdisk/gnomefsedit.c:2061
 msgid "You have not configured enough partitions for the RAID type you have selected."
 msgstr "Niste podesili dovoljno particija za RAID tip koji ste odabrali."
 
 # ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/gnomefsedit.c:1909
-#: ../libfdisk/gnomefsedit.c:1944
+#: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
 msgstr "Nedozvoljeni /boot tip RAID-a"
 
 # ../libfdisk/gnomefsedit.c:1911
 # ../libfdisk/gnomefsedit.c:1911
 # ../libfdisk/gnomefsedit.c:1911
-#: ../libfdisk/gnomefsedit.c:1946
+#: ../libfdisk/gnomefsedit.c:2070
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Startne particije (/boot) su dozvoljene samo na RAID-1."
 
 # ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/gnomefsedit.c:1909
 # ../libfdisk/gnomefsedit.c:1909
-#: ../libfdisk/gnomefsedit.c:1953
+#: ../libfdisk/gnomefsedit.c:2077
 #, fuzzy
 msgid "Illegal RAID mountpoint"
 msgstr "Nedozvoljeni /boot tip RAID-a"
 
-#: ../libfdisk/gnomefsedit.c:1955
+#: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:2012
 # ../libfdisk/gnomefsedit.c:2012
 # ../libfdisk/gnomefsedit.c:2012
-#: ../libfdisk/gnomefsedit.c:2038
+#: ../libfdisk/gnomefsedit.c:2162
 #, c-format
 msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
 msgstr "Particija %s veæ postoji u skupu particija za ovaj RAID ureðaj. Taèka montiranja je postavljena na /boot. Da li ste sigurni da je moguæe da se sistem pokrene sa ove particije?"
@@ -3453,7 +3453,7 @@ msgstr "Particija %s veæ postoji u skupu particija za ovaj RAID ureðaj. Taèka mo
 # ../libfdisk/gnomefsedit.c:2019
 # ../libfdisk/gnomefsedit.c:2019
 # ../libfdisk/gnomefsedit.c:2019
-#: ../libfdisk/gnomefsedit.c:2045
+#: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
 msgstr "Da koristim postojeæu particiju?"
 
@@ -3461,14 +3461,14 @@ msgstr "Da koristim postojeæu particiju?"
 # ../libfdisk/gnomefsedit.c:2128
 # ../libfdisk/gnomefsedit.c:2128
 # ../libfdisk/gnomefsedit.c:2128
-#: ../libfdisk/gnomefsedit.c:2154
+#: ../libfdisk/gnomefsedit.c:2278
 msgid "Auto-Partition"
 msgstr "Auto-particionisanje"
 
 # ../libfdisk/gnomefsedit.c:2135
 # ../libfdisk/gnomefsedit.c:2135
 # ../libfdisk/gnomefsedit.c:2135
-#: ../libfdisk/gnomefsedit.c:2161
+#: ../libfdisk/gnomefsedit.c:2285
 msgid "Using Existing Disk Space"
 msgstr "Kori¹æenje postojeæeg prostora na disku"
 
@@ -3476,14 +3476,14 @@ msgstr "Kori¹æenje postojeæeg prostora na disku"
 # ../libfdisk/gnomefsedit.c:2154
 # ../libfdisk/gnomefsedit.c:2154
 # ../libfdisk/gnomefsedit.c:2154
-#: ../libfdisk/gnomefsedit.c:2180
+#: ../libfdisk/gnomefsedit.c:2304
 msgid "Remove Linux partitions"
 msgstr "Uklanjanje Linux particija"
 
 # ../libfdisk/gnomefsedit.c:2165
 # ../libfdisk/gnomefsedit.c:2165
 # ../libfdisk/gnomefsedit.c:2165
-#: ../libfdisk/gnomefsedit.c:2191
+#: ../libfdisk/gnomefsedit.c:2315
 msgid "Use existing free space"
 msgstr "Koristi postojeæi slobodan prostor"
 
@@ -3491,7 +3491,7 @@ msgstr "Koristi postojeæi slobodan prostor"
 # ../libfdisk/gnomefsedit.c:2177
 # ../libfdisk/gnomefsedit.c:2177
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2203
+#: ../libfdisk/gnomefsedit.c:2327
 msgid "Intended Use"
 msgstr "Nameravana upotreba"
 
@@ -3499,14 +3499,14 @@ msgstr "Nameravana upotreba"
 # ../libfdisk/gnomefsedit.c:2216
 # ../libfdisk/gnomefsedit.c:2216
 # ../libfdisk/gnomefsedit.c:2216
-#: ../libfdisk/gnomefsedit.c:2242
+#: ../libfdisk/gnomefsedit.c:2366
 msgid "Workstation"
 msgstr "Radna stanica"
 
 # ../libfdisk/gnomefsedit.c:2290
 # ../libfdisk/gnomefsedit.c:2290
 # ../libfdisk/gnomefsedit.c:2290
-#: ../libfdisk/gnomefsedit.c:2316
+#: ../libfdisk/gnomefsedit.c:2440
 msgid "Delete RAID Device?"
 msgstr "Brisanje RAID ureðaja?"
 
@@ -3514,7 +3514,7 @@ msgstr "Brisanje RAID ureðaja?"
 # ../libfdisk/gnomefsedit.c:2291
 # ../libfdisk/gnomefsedit.c:2291
 # ../libfdisk/gnomefsedit.c:2291
-#: ../libfdisk/gnomefsedit.c:2317
+#: ../libfdisk/gnomefsedit.c:2441
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Da li ste sigurni da hoæete da uklonite ovaj RAID ureðaj?"
 
@@ -3522,7 +3522,7 @@ msgstr "Da li ste sigurni da hoæete da uklonite ovaj RAID ureðaj?"
 # ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
 # ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
 # ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
-#: ../libfdisk/gnomefsedit.c:2368 ../libfdisk/newtfsedit.c:1581
+#: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
 msgstr "Resetovanje tabele particija"
 
@@ -3530,28 +3530,28 @@ msgstr "Resetovanje tabele particija"
 # ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
 # ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
 # ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
-#: ../libfdisk/gnomefsedit.c:2370 ../libfdisk/newtfsedit.c:1583
+#: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
 msgstr "Da li da vratim originalni sadr¾aj u tabelu particija?"
 
 # ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
 # ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
 # ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
-#: ../libfdisk/gnomefsedit.c:2406 ../libfdisk/gnomefsedit.c:2457
+#: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
 msgstr "<Swap>"
 
 # ../libfdisk/gnomefsedit.c:2382
 # ../libfdisk/gnomefsedit.c:2382
 # ../libfdisk/gnomefsedit.c:2382
-#: ../libfdisk/gnomefsedit.c:2408
+#: ../libfdisk/gnomefsedit.c:2532
 msgid "<RAID>"
 msgstr "<RAID>"
 
 # ../libfdisk/gnomefsedit.c:2384
 # ../libfdisk/gnomefsedit.c:2384
 # ../libfdisk/gnomefsedit.c:2384
-#: ../libfdisk/gnomefsedit.c:2410
+#: ../libfdisk/gnomefsedit.c:2534
 msgid "<not set>"
 msgstr "<nepode¹eno>"
 
@@ -3559,7 +3559,7 @@ msgstr "<nepode¹eno>"
 # ../libfdisk/gnomefsedit.c:2941
 # ../libfdisk/gnomefsedit.c:2941
 # ../libfdisk/gnomefsedit.c:2941
-#: ../libfdisk/gnomefsedit.c:3074
+#: ../libfdisk/gnomefsedit.c:3198
 msgid "Unallocated Partitions Exist..."
 msgstr "Postoje nealocirane particije..."
 
@@ -3567,7 +3567,7 @@ msgstr "Postoje nealocirane particije..."
 # ../libfdisk/gnomefsedit.c:2952
 # ../libfdisk/gnomefsedit.c:2952
 # ../libfdisk/gnomefsedit.c:2952
-#: ../libfdisk/gnomefsedit.c:3080 ../libfdisk/gnomefsedit.c:3094
+#: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
 msgid "You must assign a root (/) partition to a Linux native partition (ext2) or a RAID partition for the install to proceed."
 msgstr "Morate dodeliti root (/) particiju nekoj 'Linux native' particiji (ext2) ili RAID particiji da biste nastavili instalaciju."
 
@@ -3575,7 +3575,7 @@ msgstr "Morate dodeliti root (/) particiju nekoj 'Linux native' particiji (ext2)
 # ../libfdisk/gnomefsedit.c:3067
 # ../libfdisk/gnomefsedit.c:3067
 # ../libfdisk/gnomefsedit.c:3067
-#: ../libfdisk/gnomefsedit.c:3164
+#: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
 msgstr "Particije"
 
@@ -3583,7 +3583,7 @@ msgstr "Particije"
 # ../libfdisk/gnomefsedit.c:3111
 # ../libfdisk/gnomefsedit.c:3111
 # ../libfdisk/gnomefsedit.c:3111
-#: ../libfdisk/gnomefsedit.c:3195
+#: ../libfdisk/gnomefsedit.c:3319
 msgid "_Add..."
 msgstr "_Dodaj..."
 
@@ -3591,14 +3591,14 @@ msgstr "_Dodaj..."
 # ../libfdisk/gnomefsedit.c:3123
 # ../libfdisk/gnomefsedit.c:3123
 # ../libfdisk/gnomefsedit.c:3123
-#: ../libfdisk/gnomefsedit.c:3202
+#: ../libfdisk/gnomefsedit.c:3326
 msgid "_Edit..."
 msgstr "_Uredi..."
 
 # ../libfdisk/gnomefsedit.c:3125
 # ../libfdisk/gnomefsedit.c:3125
 # ../libfdisk/gnomefsedit.c:3125
-#: ../libfdisk/gnomefsedit.c:3203
+#: ../libfdisk/gnomefsedit.c:3327
 msgid "_Reset"
 msgstr "_Resetuj"
 
@@ -3606,7 +3606,7 @@ msgstr "_Resetuj"
 # ../libfdisk/gnomefsedit.c:3124
 # ../libfdisk/gnomefsedit.c:3124
 # ../libfdisk/gnomefsedit.c:3124
-#: ../libfdisk/gnomefsedit.c:3208
+#: ../libfdisk/gnomefsedit.c:3332
 msgid "_Delete"
 msgstr "_Obri¹i"
 
@@ -3615,7 +3615,7 @@ msgstr "_Obri¹i"
 # ../libfdisk/gnomefsedit.c:3154
 # ../libfdisk/gnomefsedit.c:3154
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3221
+#: ../libfdisk/gnomefsedit.c:3345
 msgid "_Make RAID Device"
 msgstr "_Napravi RAID ureðaj"
 
@@ -3623,7 +3623,7 @@ msgstr "_Napravi RAID ureðaj"
 # ../libfdisk/gnomefsedit.c:3163
 # ../libfdisk/gnomefsedit.c:3163
 # ../libfdisk/gnomefsedit.c:3163
-#: ../libfdisk/gnomefsedit.c:3231
+#: ../libfdisk/gnomefsedit.c:3355
 msgid "Auto Partition"
 msgstr "Auto-particionisanje"
 
@@ -3631,7 +3631,7 @@ msgstr "Auto-particionisanje"
 # ../libfdisk/gnomefsedit.c:3176
 # ../libfdisk/gnomefsedit.c:3176
 # ../libfdisk/gnomefsedit.c:3176
-#: ../libfdisk/gnomefsedit.c:3240
+#: ../libfdisk/gnomefsedit.c:3364
 msgid "Drive Summary"
 msgstr "Pregled drajvova"
 
@@ -3791,7 +3791,7 @@ msgstr "Parametri modula"
 # ../loader/loader.c:311
 # ../loader/devices.c:141 ../loader/loader.c:237 ../loader/loader.c:296
 # ../loader/loader.c:311
-#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253 ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1747
+#: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253 ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
 msgid "Devices"
 msgstr "Ureðaji"
 
@@ -3800,7 +3800,7 @@ msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Ubacite disketu sa drajverima i pritisnite \"U redu\" da nastavite."
 
 # ../ftp.c:460
-#: ../loader/devices.c:179 ../loader/loader.c:1756
+#: ../loader/devices.c:179 ../loader/loader.c:1783
 msgid "Failed to mount floppy disk."
 msgstr "Neuspe¹no montiranje flopi-diska."
 
@@ -4038,7 +4038,7 @@ msgstr "Izgleda da ureðaj %s ne sadr¾i Red Hat-ovo instalaciono stablo."
 # ../loader/loader.c:711
 # ../loader/loader.c:709
 # ../loader/loader.c:709
-#: ../loader/loader.c:744
+#: ../loader/loader.c:749
 msgid "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please insert the Red Hat CD and press \"OK\" to retry."
 msgstr "Nisam mogao da pronaðem CD-ROM sa Red Hat Linux-om ni u jednom od va¹ih CD-ROM drajvova. Ubacite taj CD i pritisnite \"U redu\" da poku¹ate opet."
 
@@ -4046,7 +4046,7 @@ msgstr "Nisam mogao da pronaðem CD-ROM sa Red Hat Linux-om ni u jednom od va¹ih 
 # ../loader/loader.c:844
 # ../loader/loader.c:842
 # ../loader/loader.c:842
-#: ../loader/loader.c:882
+#: ../loader/loader.c:906
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Izgleda da taj direktorijum ne sadr¾i Red Hat instalaciono stablo."
 
@@ -4054,14 +4054,14 @@ msgstr "Izgleda da taj direktorijum ne sadr¾i Red Hat instalaciono stablo."
 # ../loader/loader.c:849
 # ../loader/loader.c:847
 # ../loader/loader.c:847
-#: ../loader/loader.c:887
+#: ../loader/loader.c:911
 msgid "I could not mount that directory from the server"
 msgstr "Nisam mogao da montiram taj direktorijum na serveru"
 
 # ../loader/loader.c:934
 # ../loader/loader.c:932
 # ../loader/loader.c:932
-#: ../loader/loader.c:971
+#: ../loader/loader.c:995
 msgid "FTP"
 msgstr "FTP"
 
@@ -4069,14 +4069,14 @@ msgstr "FTP"
 # ../loader/loader.c:935
 # ../loader/loader.c:933
 # ../loader/loader.c:933
-#: ../loader/loader.c:972
+#: ../loader/loader.c:996
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Preuzimanje ramdisk-a druge faze nije uspelo"
 
 # ../loader/loader.c:1038
 # ../loader/loader.c:1057
 # ../loader/loader.c:1057
-#: ../loader/loader.c:1107
+#: ../loader/loader.c:1131
 msgid "Rescue Method"
 msgstr "Naèin spasavanja"
 
@@ -4084,14 +4084,14 @@ msgstr "Naèin spasavanja"
 # ../loader/loader.c:1039
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
-#: ../loader/loader.c:1108
+#: ../loader/loader.c:1132
 msgid "Installation Method"
 msgstr "Naèin instalacije"
 
 # ../loader/loader.c:1041
 # ../loader/loader.c:1060
 # ../loader/loader.c:1060
-#: ../loader/loader.c:1110
+#: ../loader/loader.c:1134
 msgid "What type of media contains the rescue image?"
 msgstr "Koja vrsta medija sadr¾i fajl za oporavak?"
 
@@ -4099,7 +4099,7 @@ msgstr "Koja vrsta medija sadr¾i fajl za oporavak?"
 # ../loader/loader.c:1043
 # ../loader/loader.c:1062
 # ../loader/loader.c:1062
-#: ../loader/loader.c:1112
+#: ../loader/loader.c:1136
 msgid "What type of media contains the packages to be installed?"
 msgstr "Kakav tip medija sadr¾i pakete koje treba instalirati?"
 
@@ -4107,17 +4107,17 @@ msgstr "Kakav tip medija sadr¾i pakete koje treba instalirati?"
 # ../loader/loader.c:1357
 # ../loader/loader.c:1388
 # ../loader/loader.c:1388
-#: ../loader/loader.c:1639
+#: ../loader/loader.c:1666
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Ne mogu da naðem ks.cfg na startnoj disketi."
 
 # ../net.c:908
-#: ../loader/loader.c:1685
+#: ../loader/loader.c:1712
 #, fuzzy, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Ne mogu da kreiram datoteku %s"
 
-#: ../loader/loader.c:1748
+#: ../loader/loader.c:1775
 #, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Ubacite disketu sa drajverima i pritisnite \"U redu\" da nastavite."
@@ -4125,18 +4125,18 @@ msgstr "Ubacite disketu sa drajverima i pritisnite \"U redu\" da nastavite."
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1761
+#: ../loader/loader.c:1788
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:1761
+#: ../loader/loader.c:1788
 msgid "Reading anaconda updates..."
 msgstr ""
 
 # ../loader/loader.c:1466
 # ../loader/loader.c:1500
 # ../loader/loader.c:1500
-#: ../loader/loader.c:1914
+#: ../loader/loader.c:1942
 msgid "PC Card"
 msgstr "PC kartica"
 
@@ -4144,7 +4144,7 @@ msgstr "PC kartica"
 # ../loader/loader.c:1466
 # ../loader/loader.c:1500
 # ../loader/loader.c:1500
-#: ../loader/loader.c:1914
+#: ../loader/loader.c:1942
 msgid "Initializing PC Card Devices..."
 msgstr "Inicijalizacija PC kartica..."
 
@@ -4231,7 +4231,7 @@ msgstr "Morate uneti i va¾eæu IP adresu i mre¾nu masku."
 # ../loader/net.c:338 ../loader/net.c:569
 # ../loader/net.c:338 ../loader/net.c:569
 # ../loader/net.c:338 ../loader/net.c:569
-#: ../loader/net.c:338 ../loader/net.c:572
+#: ../loader/net.c:338 ../loader/net.c:574
 msgid "Dynamic IP"
 msgstr "Dinamièki IP"
 
@@ -4239,7 +4239,7 @@ msgstr "Dinamièki IP"
 # ../loader/net.c:339 ../loader/net.c:570
 # ../loader/net.c:339 ../loader/net.c:570
 # ../loader/net.c:339 ../loader/net.c:570
-#: ../loader/net.c:339 ../loader/net.c:573
+#: ../loader/net.c:339 ../loader/net.c:575
 msgid "Sending request for IP information..."
 msgstr "Slanje zahteva za IP podacima..."
 
@@ -4255,7 +4255,7 @@ msgstr "Odreðivanje imena hosta i domena..."
 # ../loader/net.c:559
 # ../loader/net.c:559
 # ../loader/net.c:559
-#: ../loader/net.c:558 ../loader/net.c:589
+#: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
 msgstr "brzi poèetak"
 
@@ -4263,13 +4263,13 @@ msgstr "brzi poèetak"
 # ../loader/net.c:560
 # ../loader/net.c:560
 # ../loader/net.c:560
-#: ../loader/net.c:559
+#: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
 msgstr "lo¹ argument za brzi poèetak mre¾ne komande %s: %s"
 
 # ../net.c:602
-#: ../loader/net.c:590
+#: ../loader/net.c:592
 #, fuzzy, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "lo¹ IP broj u mre¾noj komandi: %s"
@@ -4278,7 +4278,7 @@ msgstr "lo¹ IP broj u mre¾noj komandi: %s"
 # ../loader/net.c:607
 # ../loader/net.c:607
 # ../loader/net.c:607
-#: ../loader/net.c:621
+#: ../loader/net.c:628
 msgid "Boot protocol to use"
 msgstr "Startni protokol"
 
@@ -4286,7 +4286,7 @@ msgstr "Startni protokol"
 # ../loader/net.c:609
 # ../loader/net.c:609
 # ../loader/net.c:609
-#: ../loader/net.c:623
+#: ../loader/net.c:630
 msgid "Network gateway"
 msgstr "Mre¾ni 'gateway'"
 
@@ -4294,7 +4294,7 @@ msgstr "Mre¾ni 'gateway'"
 # ../loader/net.c:611
 # ../loader/net.c:611
 # ../loader/net.c:611
-#: ../loader/net.c:625
+#: ../loader/net.c:632
 msgid "IP address"
 msgstr "IP adresa"
 
@@ -4302,14 +4302,14 @@ msgstr "IP adresa"
 # ../loader/net.c:613
 # ../loader/net.c:613
 # ../loader/net.c:613
-#: ../loader/net.c:627
+#: ../loader/net.c:634
 msgid "Nameserver"
 msgstr "Nameserver"
 
 # ../loader/net.c:620
 # ../loader/net.c:620
 # ../loader/net.c:620
-#: ../loader/net.c:634
+#: ../loader/net.c:641
 msgid "Domain name"
 msgstr "Ime domena"
 
@@ -4317,21 +4317,21 @@ msgstr "Ime domena"
 # ../loader/net.c:623
 # ../loader/net.c:623
 # ../loader/net.c:623
-#: ../loader/net.c:637
+#: ../loader/net.c:644
 msgid "Network device"
 msgstr "Mre¾ni ureðaj"
 
 # ../loader/net.c:695
 # ../loader/net.c:695
 # ../loader/net.c:695
-#: ../loader/net.c:709
+#: ../loader/net.c:716
 msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
 msgstr " <Tab>/<Alt-Tab> kretanje | <Space> za izbor stavke | <F12> sledeæi ekran "
 
 # ../loader/net.c:696
 # ../loader/net.c:696
 # ../loader/net.c:696
-#: ../loader/net.c:710
+#: ../loader/net.c:717
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
 msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
@@ -4340,7 +4340,7 @@ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 # ../loader/net.c:698
 # ../loader/net.c:698
 # ../loader/net.c:698
-#: ../loader/net.c:712
+#: ../loader/net.c:719
 msgid "Network configuration"
 msgstr "Pode¹avanje mre¾e"
 
@@ -4348,7 +4348,7 @@ msgstr "Pode¹avanje mre¾e"
 # ../loader/net.c:699
 # ../loader/net.c:699
 # ../loader/net.c:699
-#: ../loader/net.c:713
+#: ../loader/net.c:720
 msgid "Would you like to set up networking?"
 msgstr "Da li biste da podesite rad sa mre¾om?"
 
