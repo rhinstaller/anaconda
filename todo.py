@@ -543,7 +543,10 @@ class ToDo:
             raise ToDoError, "boot disk creation failed"
 
     def installLilo (self):
-	if not self.liloDevice: return
+        # on upgrade read in the lilo config file
+        if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
+            self.lilo.read (self.instPath + '/etc/lilo.conf')
+        elif not self.liloDevice: return
 
         kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
                                    self.kernelPackage[rpm.RPMTAG_RELEASE])
@@ -551,7 +554,8 @@ class ToDo:
             
         self.makeInitrd ()
 
-	self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
+        if self.liloDevice:
+            self.lilo.addEntry("boot", '/dev/' + self.liloDevice)
 	self.lilo.addEntry("map", "/boot/map")
 	self.lilo.addEntry("install", "/boot/boot.b")
 	self.lilo.addEntry("prompt")
