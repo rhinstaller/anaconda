@@ -119,9 +119,8 @@ edd_supported(int drive)
 	  ec->edd = 1;
 	  return ec;
       }
-      return NULL;
+
   }
-  return NULL; 
  
   if (edd_lrmi_init() == EDD_ERROR) {
     return NULL;
