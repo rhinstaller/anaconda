@@ -1,5 +1,8 @@
 2004-10-19  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/linuxrc.s390: Ensure OSA addresses are lowercase so the
+	kernel will like them (#133190)
+
 	* autopart.py (doAutoPartition): Don't hard code VG name for
 	auto-partitioned volume groups as VolGroup00 (#134263)
 

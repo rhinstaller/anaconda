@@ -192,6 +192,7 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 		echo $"with the subchannels 0x600 and 0x601)"
 		echo $"QETH needs three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
 		read SUBCHANNELS
+		SUBCHANNELS=`echo $SUBCHANNELS | /sbin/busybox tr ABCDEF abcdef`
    done
 	if [ "$NETTYPE" = "qeth" ]; then
 		if [ -z "$PORTNAME" ]; then
