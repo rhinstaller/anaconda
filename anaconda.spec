@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.0
+Version: 10.1.1.1
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct 20 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.1-1
+- Create a netboot.img again for ppc64 (#125129)
+
 * Wed Oct 20 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.0-1
 - Lowercase OSA addresses from the parm file too (karsten)
 

@@ -2,7 +2,15 @@
 
 	* anaconda.spec: Bump version.
 
+	* scripts/mk-images.ppc: Update to work with new mkzimage so we
+	get a netboot.img again (#125129)
+
+2004-10-20  Jeremy Katz  <katzj@redhat.com>	
+
+	* anaconda.spec: Bump version.
+
 2004-10-19  Karsten Hopp <karsten@redhat.com>
+
 	* loader2/linuxrc.s390: make sure to lowercase SUBCHANNELS sourced 
           from the .parm/.conf file, too
 

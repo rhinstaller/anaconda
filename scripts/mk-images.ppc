@@ -42,7 +42,7 @@ makeBootImages() {
 	if [ -x $IMGPATH/usr/bin/mkzimage ]; then
 		pushd $TOPDESTPATH/ppc/chrp
 		cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/chrp/zImage.lds
-		$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/pseries/netboot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
+		$IMGPATH/usr/bin/mkzimage $TOPDESTPATH/ppc/chrp/vmlinuz no no $TOPDESTPATH/ppc/chrp/ramdisk.image.gz $KERNELROOT/boot/zImage.stub-* $TOPDESTPATH/images/pseries/netboot.img
 		rm -f $TOPDESTPATH/ppc/chrp/zImage.lds
 		popd
 	fi
