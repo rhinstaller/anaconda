@@ -1437,7 +1437,8 @@ class DiskSet:
                 else:
                     if num and len(num) >= 26:
                         # printf("cyl %5d of %5d |  %3d%%\n",
-                        val = int(num[23:26])
+                        val = string.split(num)
+                        val = int(val[5][:-1])
                         w and w.set(val)
                         # sync every 10%
                         if sync + 10 < val:
