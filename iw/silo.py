@@ -1,6 +1,6 @@
 from iw import *
 from gtk import *
-from gui import _
+from translate import _
 from xpms import SMALL_CHECK
 import GdkImlib
 

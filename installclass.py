@@ -12,9 +12,7 @@ FSEDIT_USE_EXISTING = (1 << 3)
 
 import gettext_rh, os, iutil
 from xf86config import XF86Config
-
-cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
-_ = cat.gettext
+from translate import _
 
 class InstallClass:
 

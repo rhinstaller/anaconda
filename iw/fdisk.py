@@ -1,7 +1,7 @@
 from gtk import *
 from iw import *
 from gnome.zvt import *
-from gui import _
+from translate import _
 import isys
 import os
 

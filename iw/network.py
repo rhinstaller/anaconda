@@ -1,7 +1,7 @@
 from gtk import *
 from iw import *
 from isys import *
-from gui import _
+from translate import _
 
 class NetworkWindow (InstallWindow):		
 

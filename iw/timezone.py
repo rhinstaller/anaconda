@@ -2,7 +2,7 @@ from gtk import *
 from iw import *
 import string
 from gnome.ui import GnomeCanvas
-from gui import _
+from translate import _
 
 import timezonemap
 

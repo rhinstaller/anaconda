@@ -23,9 +23,8 @@ import errno
 import raid
 import fstab
 import time
-
-def _(x):
-    return x
+import gettext_rh
+from translate import _
 
 class LogFile:
     def __init__ (self, serial, reconfigOnly, test):
@@ -233,7 +232,7 @@ class Language (SimpleConfigFile):
         os.environ["LANG"] = self.langs[lang]
 
 	rpm.addMacro("_install_langs", self.langs[lang]);
-        os.environ["LINGUAS"] = self.langs[lang]        
+        os.environ["LINGUAS"] = self.langs[lang]
         
     def get (self):
 	return self.lang

@@ -2,7 +2,7 @@ from gtk import *
 from iw import *
 from thread import *
 import isys
-from gui import _
+from translate import _
 
 class FormatWindow (InstallWindow):
     def __init__ (self, ics):

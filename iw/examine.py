@@ -1,7 +1,7 @@
 from gtk import *
 from iw import *
 from package import *
-from gui import _
+from translate import _
 
 class UpgradeExamineWindow (InstallWindow):		
 

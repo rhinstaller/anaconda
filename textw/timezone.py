@@ -4,7 +4,7 @@ import os
 from time import *
 from snack import *
 from textw.constants import *
-from text import _
+from translate import _
 
 class TimezoneWindow:
 

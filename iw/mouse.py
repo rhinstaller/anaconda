@@ -3,7 +3,7 @@ from iw import *
 from string import *
 from re import *
 import tree
-from gui import _
+from translate import _
 import xmouse
 
 class MouseWindow (InstallWindow):

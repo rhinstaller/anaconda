@@ -2,7 +2,7 @@ import rpm
 #import gettext
 from snack import *
 from textw.constants import *
-from text import _
+from translate import _
 
 class PackageGroupWindow:
     def __call__(self, screen, todo, individual):

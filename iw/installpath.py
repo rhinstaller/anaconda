@@ -22,7 +22,7 @@ from fdisk import *
 from rootpartition import *
 from confirm import *
 import iutil
-from gui import _
+from translate import _
 import installclass
 
 UPGRADE = 0

@@ -3,7 +3,7 @@ import os
 import isys
 from snack import *
 from textw.constants import *
-from text import _
+from translate import _
 
 class PartitionMethod:
     def __call__(self, screen, todo):

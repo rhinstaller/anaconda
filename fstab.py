@@ -20,9 +20,7 @@ import os
 import string
 import raid
 import struct
-
-def _(str):
-    return str
+from translate import _
 
 def isValidExt2(device):
     file = '/tmp/' + device

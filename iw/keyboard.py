@@ -3,7 +3,7 @@ from iw import *
 import xkb
 import string
 import keyboard
-from gui import _
+from translate import _
 
 class KeyboardWindow (InstallWindow):
 

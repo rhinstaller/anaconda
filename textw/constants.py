@@ -1,5 +1,5 @@
 #import gettext
-from text import _
+from translate import _
 INSTALL_OK = 0
 INSTALL_BACK = -1
 INSTALL_NOOP = -2

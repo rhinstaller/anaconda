@@ -1,6 +1,6 @@
 from gtk import *
 from iw import *
-from gui import _
+from translate import _
 import re
 import string
 

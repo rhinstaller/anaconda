@@ -1,16 +1,11 @@
 import gettext_rh
 import os
-
-cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
-
-def _(string):
-    return cat.gettext(string)
-
 from gtk import *
 from gtk import _root_window
 from _gtk import gtk_set_locale
 import GdkImlib
 from GDK import *
+from translate import cat, _
 
 im = None
 splashwindow = None
@@ -256,17 +251,14 @@ class InstallInterface:
 
 class InstallControlWindow (Thread):
     def setLanguage (self, lang):
-        global cat
-        
         newlangs = [lang]
         
         if len(lang) > 2:
             newlangs.append(lang[:2])
         self.locale = lang[:2]
 
-        gettext_rh.setlangs (newlangs)
-        
-        cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
+        cat.setlangs (newlangs)
+
         for l in newlangs:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)

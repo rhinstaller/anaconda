@@ -2,7 +2,7 @@ from gtk import *
 from iw import *
 from thread import *
 import isys
-from gui import _
+from translate import _
 import gui
 from fdisk import *
 import isys

@@ -1,7 +1,7 @@
 #import gettext_rh
 from snack import *
 from textw.constants import *
-from text import _
+from translate import _
 import iutil
 
 class RootPasswordWindow:

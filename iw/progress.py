@@ -4,7 +4,7 @@ import string
 import rpm
 import time
 from threading import *
-from gui import _
+from translate import _
 
 class DoInstall (Thread):
     def __init__ (self, icw, todo):

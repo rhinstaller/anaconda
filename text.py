@@ -9,11 +9,7 @@ import time
 import gettext_rh
 import glob
 import signal
-
-cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
-
-def _(string):
-    return cat.gettext (string)
+from translate import _, cat
 
 from textw.constants import *
 from textw.lilo import LiloWindow
@@ -37,8 +33,6 @@ from textw.packages import IndividualPackageWindow
 from textw.packages import PackageDepWindow
 from textw.timezone import TimezoneWindow
 import installclass
-
-
 
 class LanguageWindow:
     def __call__(self, screen, todo):
@@ -70,9 +64,7 @@ class LanguageWindow:
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])
-        gettext_rh.setlangs (newlangs)
-        global cat
-        cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
+        cat.setlangs (newlangs)
         todo.language.set (choice)
 	if not todo.serial:
 	    font = todo.language.getFont(choice)
