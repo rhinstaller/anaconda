@@ -186,7 +186,7 @@ void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
                        moduleInfoSet modInfo, int flags) {
     mlLoadModuleSet("vga16fb", modLoaded, modDeps, modInfo, flags);
     /* enable UTF-8 console */
-    printf("\033%G");
+    printf("\033%%G");
     fflush(stdout);
     isysLoadFont();
 }
@@ -218,7 +218,7 @@ static void spawnShell(int flags) {
         setsid();
 
 	/* enable UTF-8 console */
-	printf("\033%G");
+	printf("\033%%G");
 	fflush(stdout);
 	isysLoadFont();
 	
