@@ -114,3 +114,6 @@ create-archive:
 
 pycheck:
 	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
+
+pycheck-file:
+	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses:gnome-map pychecker $(CHECK) | grep -v "__init__() not called" 

@@ -57,6 +57,8 @@ def writeKSConfiguration(id, instPath):
     id.writeKS(fn)
 
 def writeXConfiguration(id, instPath):
+    if flags.test:
+        return
     xserver = id.videocard.primaryCard().getXServer()
     if not xserver:
         return

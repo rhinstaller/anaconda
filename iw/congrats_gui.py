@@ -48,7 +48,6 @@ class CongratulationWindow (InstallWindow):
                 
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
-        label.set_usize(190, -1)
 
         box = GtkVBox (FALSE, 10)
         box.pack_start (label, TRUE, TRUE, 0)

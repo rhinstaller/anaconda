@@ -365,7 +365,7 @@ class InstallControlWindow:
 
         self.html.set_font_charset (locale)
 	self.updateStockButtons()
-        self.navFrame.set_label (_("Online Help"))
+        self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
 	self.loadReleaseNotes()
 
@@ -526,8 +526,9 @@ class InstallControlWindow:
             self.window.reset_rc_styles ()
             self.reloadRcQueued = 0
 
-        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-        self.html.source (ics.getHTML(self.langSearchPath))
+        if self.displayHelp:
+            self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+            self.html.source (ics.getHTML(self.langSearchPath))
 
     def destroyCurrentWindow(self):
         children = self.installFrame.children ()
@@ -561,6 +562,15 @@ class InstallControlWindow:
 
         prevButton.set_sensitive (ics.getPrevEnabled ())
         nextButton.set_sensitive (ics.getNextEnabled ())
+        self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+        self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+
+        if ics.getHelpEnabled () == FALSE:
+            if self.displayHelp:
+                self.helpClicked (self.hideHelpButton, 1)
+        elif ics.getHelpEnabled () == TRUE:
+            if not self.displayHelp:
+                self.helpClicked (self.showHelpButton, 1)
  
         if (ics.getGrabNext ()):
             nextButton.grab_focus ()
@@ -701,7 +711,6 @@ class InstallControlWindow:
 
 	self.hbox = GtkHBox ()
         self.hbox.set_border_width(5)
-#	self.hbox.pack_start (self.showHelpButton, FALSE)
 	self.hbox.pack_start (self.hideHelpButton, FALSE)
         self.hbox.set_spacing (25)
         self.hbox.pack_start (self.releaseButton, FALSE)
@@ -712,18 +721,20 @@ class InstallControlWindow:
         self.html = GtkXmHTML()
         self.html.set_allow_body_colors(TRUE)
         self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.displayHelp = TRUE
+        self.helpState = TRUE
 
-        self.navFrame = GtkFrame (_("Online Help"))
+        self.helpFrame = GtkFrame (_("Online Help"))
         self.box = GtkVBox (FALSE, 0)
         self.box.set_spacing(0)
 
         self.box.pack_start (GtkHSeparator (), FALSE)
         self.box.pack_start (self.html, TRUE)
         
-        self.navFrame. add (self.box)
+        self.helpFrame.add (self.box)
 
         table = GtkTable (1, 3, TRUE)
-        table.attach (self.navFrame, 0, 1, 0, 1)
+        table.attach (self.helpFrame, 0, 1, 0, 1)
 
         self.installFrame = GtkFrame ()
 
