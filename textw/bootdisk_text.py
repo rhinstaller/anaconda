@@ -20,6 +20,7 @@ from constants import *
 class BootDiskWindow:
     def __call__(self, screen, dir, disp, fsset):
 	if fsset.rootOnLoop():
+            disp.skipStep("makebootdisk", skip=0)
 	    return INSTALL_NOOP
 
 	buttons = [ _("Yes"), _("No") ]
@@ -48,13 +49,13 @@ class BootDiskWindow:
 ##                                          "not work\n\n"))
 
 	rc = ButtonChoiceWindow(screen, _("Boot Disk"), text,
-                                buttons = buttons,
-				help = "bootdiskquery")
+                                buttons=buttons,
+				help="bootdiskquery")
 
 	if rc == string.lower (_("No")):
 	    disp.skipStep("makebootdisk")
 	else:
-	    disp.skipStep("makebootdisk", skip = 0)
+	    disp.skipStep("makebootdisk", skip=0)
 	
 
 	return INSTALL_OK
@@ -84,11 +85,11 @@ class MakeBootDiskWindow:
                             "partitionless install.")
 
         rc = ButtonChoiceWindow (screen, _("Boot Disk"),
-                                 text, buttons, help = "insertbootdisk")
+                                 text, buttons, help="insertbootdisk")
 
         if rc == string.lower (_("Skip")):
 	    disp.skipStep("makebootdisk")
 	else:
-	    disp.skipStep("makebootdisk", skip = 0)
+	    disp.skipStep("makebootdisk", skip=0)
             
         return INSTALL_OK
