@@ -855,15 +855,17 @@ class InstallInterface:
 	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-	self.screen.suspendCallback(killSelf, self.screen)
+#	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-	#self.screen.suspendCallback(debugSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
+        if os.environ.has_key ("LC_ALL"):
+            cat.setlangs ([os.environ["LC_ALL"][:2]])
 
     def __del__(self):
         self.screen.finish()
