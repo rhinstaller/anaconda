@@ -1,4 +1,5 @@
 #ifndef H_MODULES
+#define H_MODULES
 
 typedef struct moduleList_s * moduleList;
 typedef struct moduleDependency_s * moduleDeps;
