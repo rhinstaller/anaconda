@@ -3,6 +3,13 @@ TILO=$IMGPATH/usr/bin/tilo
 SILO=$IMGPATH/usr/sbin/silo
 FAKEARCH=sparc64
 
+# EVIL HACK HACK
+cat $MODINFO | sed 's|ncr53c8xx|sym53c8xx|g' > $MODINFO-
+mv -f $MODINFO- $MODINFO
+
+cat $PCITABLE | sed 's|ncr53c8xx|sym53c8xx|g' > $PCITABLE-
+mv -f $PCITABLE- $PCITABLE
+
 prepareBootImage() {
 	stagedir=/tmp/sparcboot.$$
 	rm -rf $stagedir
