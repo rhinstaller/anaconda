@@ -451,7 +451,7 @@ EOF
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
        mkdir -p $MBD_DIR/lib $MBD_DIR/mnt1 \
-	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh 
+	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh  $MBD_DIR/mnt/source
        ln -sf mnt/runtime/usr $MBD_DIR/usr
        cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
@@ -475,9 +475,10 @@ EOF
        cp -f $IMGPATH/usr/sbin/tune2fs $MBD_DIR/sbin/tune2fs
        cp -f $IMGPATH/usr/sbin/mke2fs $MBD_DIR/sbin/mke2fs
        cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
-       for i in cp uname tee sed rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
+       for i in cp uname tee rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
           ln -sf busybox $MBD_DIR/sbin/$i
        done
+       cp -f $IMGPATH/usr/bin/sed_save $MBD_DIR/sbin/sed
        cp -f $IMGPATH/usr/bin/mount_save $MBD_DIR/sbin/mount
        cp -f $IMGPATH/usr/bin/umount $MBD_DIR/sbin/umount
        ln -s gzip $MBD_DIR/sbin/zcat

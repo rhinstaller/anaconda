@@ -78,9 +78,11 @@ done
 unset BOOTLANG
 unset BOOTDIR
 
+if [ "$kernelvers" = "BOOT" ]; then
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
 
-#makeinstimage "hdstg" "=net $SECSTAGE"
+makeinstimage "hdstg" "=net $SECSTAGE"
 makemainimage "stage2" "cramfs"
+fi
