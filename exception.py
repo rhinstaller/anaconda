@@ -40,14 +40,19 @@ def handleException(todo, (type, value, tb)):
 
 	os.close(fd)
 
-	args = [ 'mkdosfs', '/tmp/floppy' ]
+	if iutil.getArch() != "ia64":
+	    args = [ 'mkdosfs', '/tmp/floppy' ]
 
-	cmd = "/usr/sbin/mkdosfs"
-	if os.access("/sbin/mkdosfs", os.X_OK):
-	    cmd = "/sbin/mkdosfs"
+	
+	    cmd = "/usr/sbin/mkdosfs"
+	
+	    if os.access("/sbin/mkdosfs", os.X_OK):
+		cmd = "/sbin/mkdosfs"
 
-        iutil.execWithRedirect (cmd, args, 
+
+	    iutil.execWithRedirect (cmd, args, 
                                 stdout = '/dev/tty5', stderr = '/dev/tty5')
+				
         try:
             isys.mount(device, "/tmp/crash", fstype = "vfat")
         except SystemError:
