@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-28 17:32-0500\n"
-"PO-Revision-Date: 2001-03-29 23:20+01:00\n"
+"PO-Revision-Date: 2001-03-29 23:29+01:00\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: Portuguese <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -2336,7 +2336,7 @@ msgstr "Disquete de Arranque"
 #: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
 #: ../textw/silo_text.py:25 ../textw/upgrade_text.py:67
 msgid "Skip"
-msgstr "Ignore"
+msgstr "Ignorar"
 
 #: ../textw/bootdisk_text.py:57
 msgid ""
@@ -2436,9 +2436,8 @@ msgstr ""
 "nenhuma ou não tiver certeza, deixe em branco."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Ignore"
+msgstr "Não instalar o LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2449,6 +2448,12 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Escolheu não instalar o LILO. É altamente recomendado que instale sempre o "
+"LILO, excepto em casos de utilização específicos muito avançados. LILO é "
+"quase sempre necessário para conseguir arrancar o seu sistema Linux "
+"directamente do disco rígido.\n"
+"\n"
+"Tem a certeza que não quer instalar o LILO?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
