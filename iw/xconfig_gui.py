@@ -178,7 +178,9 @@ class MonitorWindow (InstallWindow):
         select = None
         for man in keys:
             parent = ctree.insert_node (None, None, (man,), 2, is_leaf = FALSE)
-            for monitor in monitors[man]:
+            models = monitors[man]
+            models.sort()
+            for monitor in models:
                 node = ctree.insert_node (parent, None, (monitor[0],), 2)
                 ctree.node_set_row_data (node, monitor)
                 if monitor[0] == self.todo.x.monID:

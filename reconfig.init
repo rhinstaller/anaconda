@@ -9,7 +9,7 @@
 #               Also will run if 'reconfig' is on the kernel cmdline.
 #
 # Source function library.
-. /etc/rc.d/init.d/functions
+. /etc/init.d/functions
 
 RETVAL=$?
 

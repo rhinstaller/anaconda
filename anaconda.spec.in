@@ -66,7 +66,7 @@ fi
 /usr/sbin/ddcprobe
 %endif
 
-%config /etc/rc.d/init.d/reconfig
+%config /etc/init.d/reconfig
 
 %files runtime
 %defattr(-,root,root)
@@ -77,6 +77,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Fri Jul 14 2000 Matt Wilson <msw@redhat.com>
+- moved init script for reconfig mode to /etc/init.d/reconfig
 
 * Thu Feb 03 2000 Michael Fulbright <drmike@redhat.com>
 - strip files
