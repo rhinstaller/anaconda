@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.2
+Version: 10.2.0.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -73,6 +73,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Nov 16 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.3-1
+- Create initramfs images instead of initrds for boot media
+- Remove some old code in a few places
+- Allow passing --notksdevice in network lines of a ks.cfg to avoid 
+  confusion with multiple network lines and a ksdevice= (#136903)
+- Allow going back to change the network device if ksdevice= is 
+  passed and isn't correct (#136903)
+- Fix for console= to automatically imply serial as needed (#137971)
+
 * Mon Nov 15 2004 Jeremy Katz <katzj@redhat.com> - 10.2.0.2-1
 - Do some more unmounts if we run out of space (#133773)
 - Fix for obsoletes E being long (nasrat, #138485)
