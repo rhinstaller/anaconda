@@ -590,7 +590,7 @@ class Group:
     # forInclude is whether this group is an include from a previous
     # asMeta means that we should include the members of the group,
     # but not this one (useful for Workstation Common, etc)
-    def select(self, forInclude = 0, asMeta = 0):
+    def select(self, forInclude = 0, asMeta = 0, selectOptional = 0):
         hdrlist = self.grpset.hdrlist
 
         # if we're being selected as a meta group, then just select
@@ -616,7 +616,7 @@ class Group:
         selected = []
         for (pkgnevra, pkg) in self.packages.items():
             # if it's not optional, we should turn it on
-            if pkg["type"] == PKGTYPE_OPTIONAL:
+            if pkg["type"] == PKGTYPE_OPTIONAL and not selectOptional:
                 continue
             pkg["state"] = ON
             if pkg["meta"] == 0:
