@@ -149,6 +149,22 @@ def swapSuggestion(instPath, fstab):
 
     return (fsList, suggestion, suggMnt)
 
+
+def swapfileExists(swapname):
+
+    if os.access(swapname, os.R_OK):
+        return 1
+
+    exists = 0
+    try:
+        rc = os.lstat(swapname)
+        exists = 1
+    except:
+        pass
+
+    return exists
+            
+
 def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
@@ -158,7 +174,7 @@ def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
 
     file = mntPoint + "/SWAP"
     count = 0
-    while (os.access(instPath + file, os.R_OK)):
+    while (swapfileExists(instPath + file)):
 	count = count + 1
 	file = "%s/SWAP-%d" % mntPoint, count
 
