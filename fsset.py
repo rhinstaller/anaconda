@@ -924,7 +924,8 @@ class FileSystemSet:
                     sys.exit(0)
 
     def labelEntry(self, entry, chroot):
-        entry.fsystem.labelDevice(entry, chroot)
+        if entry.doLabel:
+            entry.fsystem.labelDevice(entry, chroot)
     
     def formatEntry(self, entry, chroot):
         entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
@@ -968,16 +969,14 @@ class FileSystemSet:
     def createLogicalVolumes (self, chroot='/'):
         # first set up the volume groups
         for entry in self.entries:
-            print entry.fsystem.name
             if entry.fsystem.name == "volume group (LVM)":
-                print "setting up volume group"
                 entry.device.setupDevice(chroot)
 
         # then set up the logical volumes
         for entry in self.entries:
-            print type(entry.device)
             if type(entry.device) == type(LogicalVolumeDevice):
-                print "setting up a logical volume"
+                # logical volumes can't mount by label
+                entry.doLabel = None
                 entry.device.setupDevice(chroot)
                 
 
@@ -1080,6 +1079,14 @@ class FileSystemSet:
                                           entry.mountpoint, msg))
                 sys.exit(0)
 
+        # XXX hack to make the device node exist for the root fs if
+        # it's a logical volume so that mkinitrd can create the initrd.
+        root = fsset.getEntryByMountPoint("/")
+        if type(root.device) == type(LogicalVolumeDevice):
+            rootDev = root.device.getDevice()
+            os.makedirs(rootDev[:string.rfind(rootDev, "/")])
+            iutil.copyDeviceNode(rootDev, instPath + rootDev)
+
     def filesystemSpace(self, chroot='/'):
 	space = []
         # XXX limit to ext[23] etc?
@@ -1179,6 +1186,8 @@ class FileSystemSetEntry:
                                  "flag on" % fsystem.getName())
         self.format = format
         self.badblocks = badblocks
+
+        self.doLabel = 1
 
     def mount(self, chroot='/', devPrefix='/tmp'):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
@@ -1416,7 +1425,6 @@ class VolumeGroupDevice(Device):
 
             args = [ "/usr/sbin/vgcreate", "-v", self.name ]
             args.extend(nodes)
-            print "running ", args
             rc = iutil.execWithRedirect(args[0], args,
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
