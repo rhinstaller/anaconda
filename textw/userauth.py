@@ -227,20 +227,20 @@ class UsersWindow:
         return dir
 
 class AuthConfigWindow:
+    def setsensitive (self):
+        server = FLAGS_RESET
+        flag = FLAGS_RESET
+        if self.broadcast.selected ():
+            server = FLAGS_SET
+        if not self.nis.selected ():
+            flag = FLAGS_SET
+            server = FLAGS_SET
+
+        self.domain.setFlags (FLAG_DISABLED, flag)
+        self.broadcast.setFlags (FLAG_DISABLED, flag)
+        self.server.setFlags (FLAG_DISABLED, server)
+
     def __call__(self, screen, todo):
-        def setsensitive (self):
-            server = FLAGS_RESET
-            flag = FLAGS_RESET
-            if self.broadcast.selected ():
-                server = FLAGS_SET
-            if not self.nis.selected ():
-                flag = FLAGS_SET
-                server = FLAGS_SET
-            
-            self.domain.setFlags (FLAG_DISABLED, flag)
-            self.broadcast.setFlags (FLAG_DISABLED, flag)
-            self.server.setFlags (FLAG_DISABLED, server)
-        
         bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
 
         toplevel = GridForm (screen, _("Authentication Configuration"), 1, 5)
@@ -272,10 +272,10 @@ class AuthConfigWindow:
         toplevel.add (subgrid, 0, 3, (2, 0, 0, 1))
         toplevel.add (bb, 0, 4, growx = 1)
 
-        self.nis.setCallback (setsensitive, self)
-        self.broadcast.setCallback (setsensitive, self)
+        self.nis.setCallback (self.setsensitive)
+        self.broadcast.setCallback (self.setsensitive)
 
-        setsensitive (self)
+        self.setsensitive ()
 
         result = toplevel.runOnce ()
 
