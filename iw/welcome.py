@@ -57,16 +57,33 @@ class ReconfigWelcomeWindow (InstallWindow):
 
     def getScreen (self):
 
-	label = GtkLabel(_("Do you want to configure your system?"))
 
+	frame = GtkFrame ()
+        frame.set_shadow_type (SHADOW_IN)
+
+        box = GtkVBox (FALSE)
+        box.set_border_width (5)
+        frame.add (box)
+
+        im = self.ics.readPixmap ("first-375.png")
+        
+        if im:
+            im.render ()
+            ebox = GtkEventBox ()
+            pix = im.make_pixmap ()
+            style = ebox.get_style ().copy ()
+            style.bg[STATE_NORMAL] = style.white
+            ebox.set_style (style)
+            ebox.add (pix)
+            box.pack_start (ebox, FALSE)
+
+        label = GtkLabel(_("Would you like to configure your system?"))
 	label.set_line_wrap(TRUE)
 	label.set_alignment(0.0, 0.0)
 	label.set_usize(400, -1)
 
-        box = GtkVBox (FALSE)
-	box.pack_start(label, FALSE)
-        box.set_border_width (5)
-
+        box.pack_start(label)
+        
         radioBox = GtkVBox (FALSE)
 	self.continueChoice = GtkRadioButton (None, _("Yes"))
 	radioBox.pack_start(self.continueChoice, FALSE)
@@ -81,4 +98,6 @@ class ReconfigWelcomeWindow (InstallWindow):
 	box.pack_start(align, TRUE, TRUE)
 	box.set_border_width (5)
 	self.beingDisplayed = 1
-	return box
+
+	return frame
+    

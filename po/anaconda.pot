@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-14 11:43-0500\n"
+"POT-Creation-Date: 2000-01-14 12:03-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -302,7 +302,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 
-#: ../iw/welcome.py:71 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:90 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
@@ -313,7 +313,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: ../iw/welcome.py:74 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
+#: ../iw/welcome.py:93 ../libfdisk/fsedit.c:696 ../libfdisk/gnomefsedit.c:602
 #: ../libfdisk/gnomefsedit.c:1003 ../libfdisk/gnomefsedit.c:1109
 #: ../libfdisk/gnomefsedit.c:2046 ../libfdisk/gnomefsedit.c:2316
 #: ../libfdisk/gnomefsedit.c:2369 ../libfdisk/newtfsedit.c:499
@@ -344,8 +344,8 @@ msgstr ""
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
-"You have entered reconfiguration mode, which will allow you to setup your "
-"computer for your current location. \n"
+"You have entered reconfiguration mode, which will allow you to configure "
+"site-specific options of your computer.\n"
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
@@ -1300,8 +1300,8 @@ msgstr ""
 msgid "UTC Offset"
 msgstr ""
 
-#: ../iw/welcome.py:60
-msgid "Do you want to configure your system?"
+#: ../iw/welcome.py:80
+msgid "Would you like to configure your system?"
 msgstr ""
 
 #: ../iw/xconfig.py:13
