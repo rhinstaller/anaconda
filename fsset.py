@@ -1504,6 +1504,8 @@ class RAIDDevice(Device):
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
             self.isSetup = 1
+        else:
+            isys.raidstart(self.device, self.members[0])
         return node
 
     def getDevice (self, asBoot = 0):
@@ -1538,14 +1540,12 @@ class VolumeGroupDevice(Device):
         self.physicalextentsize = pesize
 
     def setupDevice (self, chroot, devPrefix='/tmp'):
-        if not self.isSetup:
-            lvm.vgscan()
-            
-            nodes = []
-            for volume in self.physicalVolumes:
-                # XXX the lvm tools are broken and will only work for /dev
-                node = volume.setupDevice(chroot, devPrefix="/dev")
+        nodes = []
+        for volume in self.physicalVolumes:
+            # XXX the lvm tools are broken and will only work for /dev
+            node = volume.setupDevice(chroot, devPrefix="/dev")
 
+            if not self.isSetup:
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
@@ -1560,6 +1560,7 @@ class VolumeGroupDevice(Device):
 
                 nodes.append(node)
 
+        if not self.isSetup:
             # rescan now that we've recreated pvs.  ugh.
             lvm.vgscan()
 
@@ -1576,6 +1577,9 @@ class VolumeGroupDevice(Device):
                 raise SystemError, "vgcreate failed for %s" %(self.name,)
 
             self.isSetup = 1
+        else:
+            lvm.vgscan()
+            lvm.vgactivate()
             
         return "/dev/%s" % (self.name,)
 
