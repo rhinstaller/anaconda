@@ -35,7 +35,11 @@ makeBootImages() {
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
 	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
 
+	pushd $TOPDESTPATH/ppc/chrp
+	cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/chrp/zImage.lds
 	$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/boot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
+	rm -f $TOPDESTPATH/ppc/chrp/zImage.lds
+	popd
 
 	# we also want to make a boot.iso here 
 	mkdir -p $TOPDESTPATH/isopath/ppc/chrp $TOPDESTPATH/isopath/etc
