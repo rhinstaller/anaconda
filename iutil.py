@@ -436,3 +436,25 @@ def needsEnterpriseKernel():
 
     return rc
 
+#
+# scan /proc/mounts to see if we've already have USB mounted
+#
+# kernel can fall over if we mount it twice on some hw (bug #71554)
+#
+def isUSBDevFSMounted():
+    try:
+	f = open("/proc/mounts", "r")
+	lines = f.readlines()
+	f.close()
+	for l in lines:
+	    if string.find(l, "usbdevfs") != -1:
+		return 1
+    except:
+	log("In isUSBMounted, failed to open /proc/mounts")
+	return 0
+
+    return 0
+
+    
+
+    
