@@ -4,7 +4,7 @@ from lilo import LiloConfiguration
 arch = iutil.getArch ()
 if arch == "sparc":
     from silo import SiloInstall
-else if arch == "alpha":
+elif arch == "alpha":
     from milo import MiloInstall
 import string
 import socket
