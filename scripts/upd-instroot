@@ -112,7 +112,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            cpio mt-st iputils sh-utils XFree86-cyrillic-fonts XFree86
            Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
            pygnome-applet pygnome-capplet gdk-pixbuf XFree86-KOI8-R
-           XFree86-KOI8-R-75dpi-fonts"
+           XFree86-KOI8-R-75dpi-fonts pciutils"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
