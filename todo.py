@@ -400,7 +400,9 @@ class ToDo:
 	keys.sort()
 	keys.reverse()
 	for n in keys:
-	    isys.umount('/mnt/sysimage/' + n)
+            (device, fsystem, format) = self.mounts[mntpoint]
+            if fsystem != "swap":
+                isys.umount('/mnt/sysimage/' + n)
 
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
