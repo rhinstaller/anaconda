@@ -918,6 +918,7 @@ int main(int argc, char ** argv) {
 
     if (testing) flags |= LOADER_FLAGS_TESTING;
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
+    if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
 
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
 #if defined(__s390__) && !defined(__s390x__)
@@ -995,13 +996,20 @@ int main(int argc, char ** argv) {
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
-    if (loaderData.ksFile) {
+    if (loaderData.ksFile || ksFile) {
         logMessage("getting kickstart file");
-        getKickstartFile(&kd, &loaderData, &flags);
+        if (!ksFile)
+            getKickstartFile(&kd, &loaderData, &flags);
         if (FL_KICKSTART(flags) && 
-            (ksReadCommands(loaderData.ksFile) != LOADER_ERROR)) {
+            (ksReadCommands((ksFile) ? ksFile : loaderData.ksFile, 
+                            flags) != LOADER_ERROR)) {
             setupKickstart(&loaderData, &flags);
         }
+        
+        /* JKFIXME: this is kind of gross, but we need to do it in case
+         * a driver disk was loaded.  but we should really load them earlier
+         * but we have a nice chicken and the egg problem.  ick */
+        busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
     }
 
     if (FL_TELNETD(flags))
