@@ -137,7 +137,7 @@ class AccountWindow (InstallWindow):
         self.pw.connect ("activate", forward)
         self.pw.connect ("changed", self.rootPasswordsMatch)
         self.pw.set_visibility (FALSE)
-        self.confirm = GtkEntry (8)
+        self.confirm = GtkEntry (128)
         self.confirm.connect ("activate", forward)
         self.confirm.set_visibility (FALSE)
         self.confirm.connect ("changed", self.rootPasswordsMatch)
