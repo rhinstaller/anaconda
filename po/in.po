@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1998-04-11 12:01+0700\n"
+"PO-Revision-Date: 1998-09-08 10:32+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -52,10 +52,9 @@ msgstr "Kembali"
 
 #: ../iw/language.py:10 ../text.py:29 ../text.py:1529
 msgid "Language Selection"
-msgstr ""
+msgstr "Pilih Bahasa"
 
 #: ../text.py:30
-#, fuzzy
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -67,23 +66,23 @@ msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 #: ../text.py:1166 ../text.py:1230 ../text.py:1250 ../text.py:1262
 #: ../text.py:1274 ../text.py:1452 ../text.py:1496 ../text.py:1502
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #: ../text.py:44
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM1 di DOS)"
 
 #: ../text.py:45
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 di DOS)"
 
 #: ../text.py:46
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS2 (COM3 di DOS)"
 
 #: ../text.py:47
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS3 (COM4 di DOS)"
 
 #: ../iw/lilo.py:171 ../text.py:62 ../text.py:1012 ../text.py:1070
 msgid "Device"
@@ -92,64 +91,55 @@ msgstr "Perangkat"
 #: ../text.py:63
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr ""
+msgstr "Perangkat apa yang disambung ke mouse? %s %i"
 
 #: ../text.py:82
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Mouse model apa yang digunakan komputer ini?"
 
 #: ../text.py:91
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "Emulasikan 3 tombol?"
 
 #: ../text.py:93
-#, fuzzy
 msgid "Mouse Selection"
-msgstr "Pilihan Modul"
+msgstr "Pilih Mouse"
 
 #: ../text.py:129 ../text.py:1531
-#, fuzzy
 msgid "Keyboard Selection"
-msgstr "Tipe Keyboard"
+msgstr "Pilih Keyboard"
 
 #: ../text.py:130
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Keyboard mana yang disambung ke komputer ini?"
 
 #: ../text.py:150
-#, fuzzy
 msgid "Install GNOME Workstation"
-msgstr "Workstation"
+msgstr "Install Workstation GNOME"
 
 #: ../text.py:151
-#, fuzzy
 msgid "Install KDE Workstation"
-msgstr "Workstation"
+msgstr "Install Workstation KDE"
 
 #: ../text.py:152
-#, fuzzy
 msgid "Install Server System"
-msgstr "Install sistem"
+msgstr "Install sistem server"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Install Custom System"
-msgstr "Install sistem"
+msgstr "Install sistem custom"
 
 #: ../text.py:154
-#, fuzzy
 msgid "Upgrade Existing Installation"
-msgstr "Instalasi LILO"
+msgstr "Upgrade Instalasi yang ada"
 
 #: ../text.py:155 ../text.py:1534
-#, fuzzy
 msgid "Installation Type"
-msgstr "Tahapan Instalasi"
+msgstr "Tipe Instalasi"
 
 #: ../text.py:156
-#, fuzzy
 msgid "What type of system would you like to install?"
-msgstr "Media apa yang berisi paket yang hendak diinstal ?"
+msgstr "Sistem macam mana yang hendak diinstal ?"
 
 #: ../libfdisk/newtfsedit.c:1545 ../text.py:181 ../text.py:1270
 msgid "Error"
@@ -160,16 +150,14 @@ msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Anda belum membuat satupun partisi Linux, jadi tidak bisa upgrade!"
 
 #: ../text.py:195
-#, fuzzy
 msgid "System to Upgrade"
-msgstr "Error system %d"
+msgstr "Sistem yang hendak diupgrade"
 
 #: ../text.py:196
 msgid "What partition holds the root partition of your installation?"
 msgstr "Partisi mana yang menyimpan partisi root di instalasi ini?"
 
 #: ../text.py:211
-#, fuzzy
 msgid "Customize Packages to Upgrade"
 msgstr "Pilih paket yang hendak diupgrade"
 
@@ -224,9 +212,8 @@ msgid "Password (again):"
 msgstr "Password (lagi):"
 
 #: ../text.py:266 ../text.py:317
-#, fuzzy
 msgid "Password Length"
-msgstr "Password tidak sama"
+msgstr "Panjang Password"
 
 #: ../text.py:267
 msgid "The root password must be at least 6 characters long."
@@ -248,46 +235,40 @@ msgid "Cancel"
 msgstr "Batal"
 
 #: ../text.py:297
-#, fuzzy
 msgid "Edit User"
-msgstr "Edit"
+msgstr "Edit User"
 
 #: ../text.py:299
-#, fuzzy
 msgid "Add User"
-msgstr "Tambahkan printer"
+msgstr "Tambahkan user"
 
 #: ../text.py:304
-#, fuzzy
 msgid "User ID"
-msgstr "User:"
+msgstr "User ID"
 
 #: ../iw/account.py:171 ../iw/account.py:192 ../text.py:305 ../text.py:386
 msgid "Full Name"
-msgstr ""
+msgstr "Nama Lengkap"
 
 #: ../iw/account.py:166 ../text.py:306
-#, fuzzy
 msgid "Password"
-msgstr "Password:"
+msgstr "Password"
 
 #: ../iw/account.py:168 ../text.py:307
-#, fuzzy
 msgid "Password (confirm)"
-msgstr "Password (lagi):"
+msgstr "Password (lagi)"
 
 #: ../text.py:318
-#, fuzzy
 msgid "The password must be at least 6 characters long."
-msgstr "Password root haruslah minimal 6 karakter"
+msgstr "Password haruslah minimal 6 karakter"
 
 #: ../text.py:335
 msgid "User Exists"
-msgstr ""
+msgstr "User sudah ada"
 
 #: ../text.py:336
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "User ini sudah ada. Coba cari nama lain."
 
 #: ../text.py:363
 msgid ""
@@ -295,10 +276,13 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Anda harus gunakan account user biasa untuk menggunakan sistem ini. Jangan "
+"gunakan account root, kalau kebiasaan pakai account root nanti malah bisa "
+"merusak konfigurasi sistem."
 
 #: ../text.py:374 ../text.py:1563
 msgid "User Account Setup"
-msgstr ""
+msgstr "Setup account user"
 
 #: ../text.py:376
 msgid ""
@@ -306,11 +290,13 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"User account macam mana yang hendak dipasang di sistem? Anda mesti paling "
+"tidak punya satu account yang bukan root, kalau sistem ini nantinya jadi "
+"sistem multi user, bikin banyak aja."
 
 #: ../text.py:386
-#, fuzzy
 msgid "User name"
-msgstr "Nama user:"
+msgstr "Nama user"
 
 #: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303 ../text.py:397
 msgid "Add"
@@ -329,20 +315,18 @@ msgstr "Edit"
 
 #: ../text.py:410
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Masukkan keterangan tentang user ini."
 
 #: ../text.py:422
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Ubah keterangan user ini."
 
 #: ../text.py:457
-#, fuzzy
 msgid "Red Hat Linux"
-msgstr "Selamat Datang di Linux Red Hat"
+msgstr "Linux Red Hat"
 
 # i ../install.c:76
 #: ../text.py:458
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -363,44 +347,40 @@ msgstr ""
 "pembelian Anda di http://www.redhat.com."
 
 #: ../iw/auth.py:11 ../text.py:490
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Konfigurasi Jaringan"
+msgstr "Konfigurasi Autentikasi"
 
 #: ../text.py:491
-#, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Password Root"
+msgstr "Gunakan password shadow"
 
 #: ../text.py:493
 msgid "Enable MD5 Passwords"
-msgstr ""
+msgstr "Gunakan password MD5"
 
 #: ../iw/auth.py:53 ../text.py:495
 msgid "Enable NIS"
-msgstr ""
+msgstr "Gunakan NIS"
 
 #: ../text.py:500
-#, fuzzy
 msgid "NIS Domain:"
-msgstr "Nama domain:"
+msgstr "Domain NIS:"
 
 #: ../text.py:502
-#, fuzzy
 msgid "NIS Server:"
-msgstr "Server:"
+msgstr "Server NIS:"
 
 #: ../text.py:504
 msgid "or use:"
-msgstr ""
+msgstr "atau gunakan:"
 
 #: ../text.py:507
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Ambil server pakai broadcast"
 
 #: ../text.py:593
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "Gunakan bootp/dhcp"
 
 #: ../text.py:598
 msgid "IP address:"
@@ -423,34 +403,32 @@ msgid "Network Configuration"
 msgstr "Konfigurasi Jaringan"
 
 #: ../text.py:639
-#, fuzzy
 msgid "Invalid information"
-msgstr "Informasi yang dimasukkan kurang lengkap"
+msgstr "Informasi yang dimasukkan salah"
 
 #: ../text.py:640
-#, fuzzy
 msgid "You must enter valid IP information to continue"
-msgstr "Anda harus memberikan alamat IP dan netmask yang valid"
+msgstr "Anda harus memberikan alamat IP yang valid"
 
 #: ../text.py:668
-#, fuzzy
 msgid "Hostname Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi Hostname"
 
 #: ../text.py:669
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
+"Nama host adalah nama komputer Anda. Bila komputer Anda dihubungkan ke "
+"jaringan, maka biasanya namanya ditentukan oleh administrator jaringan."
 
 #: ../iw/network.py:180 ../text.py:672
 msgid "Hostname"
 msgstr "Hostname"
 
 #: ../iw/rootpartition.py:75 ../text.py:697
-#, fuzzy
 msgid "Automatic Partitioning"
-msgstr "Edit Partisi"
+msgstr "Partisi otomatis"
 
 #: ../iw/rootpartition.py:111 ../text.py:698
 #, c-format
@@ -461,15 +439,18 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"Bila Anda tidak ingin melakukan ini, Anda bisa lanjutkan dgn instalasi "
+"partisi manual, atau bisa kembali ke awal dan lakukan instalasi custom."
 
 #: ../text.py:702 ../text.py:703
 msgid "Continue"
 msgstr "Lanjutkan"
 
 #: ../iw/rootpartition.py:126 ../text.py:702
-#, fuzzy
 msgid "Manually partition"
-msgstr "Partisi ulang"
+msgstr "Partisi manual"
 
 #: ../text.py:726
 msgid ""
@@ -487,7 +468,6 @@ msgid "Check for bad blocks during format"
 msgstr "Mengecek bad blok pada saat format"
 
 #: ../text.py:750
-#, fuzzy
 msgid "Choose Partitions to Format"
 msgstr "Pilih partisi yang hendak diformat"
 
@@ -497,12 +477,11 @@ msgstr "Pilih beberapa paket"
 
 #: ../iw/package.py:377 ../text.py:790 ../text.py:855
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Pilihan Grup Paket"
 
 #: ../text.py:882 ../text.py:1571
-#, fuzzy
 msgid "Package Dependencies"
-msgstr "Ketergantungan paket tidak diketahui"
+msgstr "Ketergantungan paket"
 
 #: ../text.py:883
 msgid ""
@@ -572,9 +551,8 @@ msgstr "Lewatkan"
 
 #: ../text.py:957 ../text.py:996 ../text.py:1093 ../text.py:1545
 #: ../text.py:1547 ../text.py:1549
-#, fuzzy
 msgid "LILO Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi LILO"
 
 #: ../text.py:997
 msgid "Where do you want to install the bootloader?"
@@ -611,38 +589,32 @@ msgstr ""
 "boot dan sertakan juga labelnya untuk masing-masing partisi"
 
 #: ../text.py:1142
-#, fuzzy
 msgid "X probe results"
-msgstr "Deteksi otomatis"
+msgstr "Hasil deteksi X"
 
 #: ../text.py:1155 ../text.py:1174
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Card tidak ada"
 
 #: ../text.py:1163
-#, fuzzy
 msgid "Video Card Selection"
-msgstr "Tipe Keyboard"
+msgstr "Pilih Video card"
 
 #: ../text.py:1164
-#, fuzzy
 msgid "Which video card do you have?"
-msgstr "Keyboard mana yang Anda pakai?"
+msgstr "Video card mana yang Anda pakai?"
 
 #: ../text.py:1176
-#, fuzzy
 msgid "X Server Selection"
-msgstr "Pilihan Modul"
+msgstr "Pilih X Server"
 
 #: ../text.py:1176
-#, fuzzy
 msgid "Choose a server"
-msgstr "Gunakan proxy server"
+msgstr "Pilih server"
 
 #: ../text.py:1226
-#, fuzzy
 msgid "Installation to begin"
-msgstr "Tahapan Instalasi"
+msgstr "Instalasi dimulai"
 
 #: ../text.py:1227
 msgid ""
@@ -681,80 +653,78 @@ msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
+"Masukkan disket kosong di drive pertama Anda. Data di disket ini akan "
+"dihapus saat membuat boot disk."
 
 #: ../iw/bootdisk.py:44 ../text.py:1271
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
+"Error terjadi saat membuat bootdisk. Silahkan diperiksa apakah ada disket "
+"kosong di drive."
 
 #: ../text.py:1333
-#, fuzzy
 msgid "Package Installation"
-msgstr "Instalasi LILO"
+msgstr "Instalasi Paket"
 
 #: ../text.py:1335
-#, fuzzy
 msgid "Name   : "
-msgstr "Nama antrian :"
+msgstr "Nama   :"
 
 #: ../text.py:1336
-#, fuzzy
 msgid "Size   : "
-msgstr "Ukuran :"
+msgstr "Ukuran  :"
 
 #: ../text.py:1337
 msgid "Summary: "
-msgstr ""
+msgstr "Keterangan:"
 
 #: ../text.py:1363
-#, fuzzy
 msgid "    Packages"
 msgstr "Nama Paket"
 
 #: ../text.py:1364
 msgid "       Bytes"
-msgstr ""
+msgstr "       Byte"
 
 #: ../text.py:1365
 msgid "        Time"
-msgstr ""
+msgstr "        Waktu"
 
 #: ../text.py:1367
 msgid "Total    :"
-msgstr ""
+msgstr "Total    :"
 
 #: ../text.py:1374
-#, fuzzy
 msgid "Completed:   "
-msgstr "Selesai"
+msgstr "Selesai:"
 
 #: ../text.py:1384
 msgid "Remaining:  "
-msgstr ""
+msgstr "Sisa Waktu:"
 
 #: ../text.py:1454
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "Anda sekarang ada di timezone apa?"
 
 #: ../text.py:1462
 msgid "Hardware clock set to GMT?"
-msgstr ""
+msgstr "Jam hardware diset ke GMT?"
 
 #: ../iw/timezone.py:29 ../text.py:1464
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Pilih Timezone"
 
 #: ../text.py:1502 ../text.py:1503
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #: ../text.py:1515
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:1517
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -763,225 +733,195 @@ msgstr ""
 
 #: ../text.py:1533
 msgid "Welcome"
-msgstr ""
+msgstr "Selamat Datang"
 
 #: ../text.py:1539
-#, fuzzy
 msgid "Automatic Partition"
-msgstr "Edit Partisi"
+msgstr "Partisi Otomatis"
 
 #: ../iw/lilo.py:91 ../iw/lilo.py:194 ../text.py:1541
-#, fuzzy
 msgid "Partition"
-msgstr "Partisi ulang"
+msgstr "Partisi"
 
 #: ../text.py:1543
-#, fuzzy
 msgid "Filesystem Formatting"
-msgstr "Saya sedang memformat"
+msgstr "Sedang memformat sistem file"
 
 #: ../text.py:1551
-#, fuzzy
 msgid "Hostname Setup"
-msgstr "Mencari nama host"
+msgstr "Setup hostname"
 
 #: ../text.py:1553
-#, fuzzy
 msgid "Network Setup"
-msgstr "Setup NFS"
+msgstr "Setup Network"
 
 #: ../text.py:1555 ../text.py:1557
-#, fuzzy
 msgid "Mouse Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi Mouse"
 
 #: ../text.py:1559
 msgid "Time Zone Setup"
-msgstr ""
+msgstr "Setup Time Zone"
 
 #: ../text.py:1565
-#, fuzzy
 msgid "Authentication"
-msgstr "Konfigurasikan authentication"
+msgstr "Autentikasi"
 
 #: ../text.py:1567
-#, fuzzy
 msgid "Package Groups"
-msgstr "Nama Paket"
+msgstr "Grup Paket"
 
 #: ../text.py:1569 ../text.py:1589
-#, fuzzy
 msgid "Individual Packages"
 msgstr "Pilih beberapa paket"
 
 #: ../iw/xconfig.py:91 ../text.py:1573 ../text.py:1581
-#, fuzzy
 msgid "X Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi X"
 
 #: ../text.py:1575
-#, fuzzy
 msgid "Boot Disk"
 msgstr "Bootdisk"
 
 #: ../text.py:1577
-#, fuzzy
 msgid "Installation Begins"
-msgstr "Tahapan Instalasi"
+msgstr "Instalasi Mulai"
 
 #: ../text.py:1579
-#, fuzzy
 msgid "Install System"
 msgstr "Install sistem"
 
 #: ../text.py:1582
-#, fuzzy
 msgid "Installation Complete"
-msgstr "Tipe Instalasi"
+msgstr "Instalasi Beres"
 
 #: ../text.py:1587
 msgid "Examine System"
-msgstr ""
+msgstr "Periksa Sistem"
 
 #: ../text.py:1588
 msgid "Customize Upgrade"
-msgstr ""
+msgstr "Upgrade custom"
 
 #: ../text.py:1590
-#, fuzzy
 msgid "Upgrade System"
 msgstr "Upgrade sistem"
 
 #: ../text.py:1591
-#, fuzzy
 msgid "Upgrade Complete"
-msgstr "Upgrade sistem"
+msgstr "Upgrade Beres"
 
 #: ../gui.py:280
 msgid "Red Hat Linux Installer"
-msgstr ""
+msgstr "Installer Red Hat Linux"
 
 #: ../gui.py:289
 msgid "Finish"
-msgstr ""
+msgstr "Selesai"
 
 #: ../gui.py:290
 msgid "Hide Help"
-msgstr ""
+msgstr "Sembunyikan help"
 
 #: ../gui.py:291
 msgid "Show Help"
-msgstr ""
+msgstr "Lihat Help"
 
 #: ../gui.py:312
 msgid "Online Help"
-msgstr ""
+msgstr "Help online"
 
 #: ../iw/account.py:14
-#, fuzzy
 msgid "Account Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi Account"
 
 #: ../iw/account.py:115
-#, fuzzy
 msgid "Root Password: "
-msgstr "Password Root"
+msgstr "Password Root:"
 
 #: ../iw/account.py:116
-#, fuzzy
 msgid "Confirm: "
-msgstr "Konfigurasikan X"
+msgstr "Konfirmasi:"
 
 #: ../iw/account.py:164 ../iw/account.py:192
-#, fuzzy
 msgid "Account Name"
-msgstr "Nama Login  :"
+msgstr "Nama Account"
 
 #: ../iw/account.py:184
 msgid "New"
-msgstr ""
+msgstr "Baru"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr ""
+msgstr "Gunakan password MD5"
 
 #: ../iw/auth.py:51
-#, fuzzy
 msgid "Enable shadow passwords"
-msgstr "Buat password root"
+msgstr "Gunakan password shadow"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr ""
+msgstr "Gunakan broadcast untuk mencari server NIS"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr ""
+msgstr "Domain NIS:"
 
 #: ../iw/auth.py:68
-#, fuzzy
 msgid "NIS Server: "
-msgstr "Server:"
+msgstr "Server NIS:"
 
 #: ../iw/bootdisk.py:10
-#, fuzzy
 msgid "Bootdisk Creation"
-msgstr "Bootdisk"
+msgstr "Membuat Bootdisk"
 
 #: ../iw/bootdisk.py:51
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Tidak buat boot disk"
 
 #: ../iw/congrats.py:11
-#, fuzzy
 msgid "Congratulations"
-msgstr "Konfigurasikan authentication"
+msgstr "Selamet"
 
 #: ../iw/congrats.py:13
-#, fuzzy
 msgid "Exit"
-msgstr "Edit"
+msgstr "Keluar"
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
 msgstr "Ketergantungan paket tidak diketahui"
 
 #: ../iw/examine.py:11
-#, fuzzy
 msgid "Upgrade Examine"
-msgstr "Upgrade"
+msgstr "Periksa Upgrade"
 
 #: ../iw/examine.py:35
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
-msgstr "Anda belum membuat satupun partisi Linux, jadi tidak bisa upgrade!"
+msgstr ""
+"Anda belum membuat satupun partisi Linux.\n"
+"jadi tidak bisa upgrade!"
 
 #: ../iw/examine.py:53
-#, fuzzy
 msgid "Customize packages to be upgraded"
 msgstr "Pilih paket yang hendak diupgrade"
 
 #: ../iw/format.py:12
-#, fuzzy
 msgid "Choose partitions to Format"
 msgstr "Pilih partisi yang hendak diformat"
 
 #: ../iw/format.py:47
-#, fuzzy
 msgid "Check for bad blocks while formatting"
 msgstr "Mengecek bad blok pada saat format"
 
 #: ../iw/installpath.py:34
-#, fuzzy
 msgid "GNOME Workstation"
-msgstr "Workstation"
+msgstr "Workstation GNOME"
 
 #: ../iw/installpath.py:35
-#, fuzzy
 msgid "KDE Workstation"
-msgstr "Workstation"
+msgstr "Workstation KDE"
 
 #: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2156
 #: ../libfdisk/gnomefsedit.c:2176
@@ -993,7 +933,6 @@ msgid "Custom"
 msgstr "Bebas"
 
 #: ../iw/installpath.py:73
-#, fuzzy
 msgid "Install Type"
 msgstr "Install sistem"
 
@@ -1006,280 +945,253 @@ msgid "Upgrade"
 msgstr "Upgrade"
 
 #: ../iw/keyboard.py:11
-#, fuzzy
 msgid "Keyboard Configuration"
-msgstr "Konfigurasi Jaringan"
+msgstr "Konfigurasi Keyboard"
 
 #: ../iw/keyboard.py:27
 msgid "Model"
-msgstr ""
+msgstr "Model"
 
 #: ../iw/keyboard.py:39
 msgid "Layout"
-msgstr ""
+msgstr "Layout"
 
 #: ../iw/keyboard.py:53
 msgid "Variant"
-msgstr ""
+msgstr "Varian"
 
 #: ../iw/language.py:15
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
 #: ../iw/lilo.py:18
-#, fuzzy
 msgid "Lilo Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi LILO"
 
 #: ../iw/lilo.py:96 ../iw/lilo.py:195
 msgid "Type"
-msgstr ""
+msgstr "Tipe"
 
 #: ../iw/lilo.py:125
-#, fuzzy
 msgid "Install LILO boot record on:"
-msgstr "Install bootloader"
+msgstr "Install boot record LILO di:"
 
 #: ../iw/lilo.py:130
-#, fuzzy
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record"
+msgstr "Master Boot Record (MBR)"
 
 #: ../iw/lilo.py:134
 msgid "First sector of boot partition"
 msgstr "Partisi pertama dari partisi boot"
 
 #: ../iw/lilo.py:141
-#, fuzzy
 msgid "Kernel parameters"
-msgstr "Parameter Modul"
+msgstr "Parameter Kernel"
 
 #: ../iw/lilo.py:156
-#, fuzzy
 msgid "Create boot disk"
 msgstr "Buat bootdisk"
 
 #: ../iw/lilo.py:160
 msgid "Do not install LILO"
-msgstr ""
+msgstr "Jangan install LILO"
 
 #: ../iw/network.py:127
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Konfigurasikan mouse"
+msgstr "Konfigurasikan pakai DHCP"
 
 #: ../iw/network.py:133
 msgid "Activate on boot"
-msgstr ""
+msgstr "Aktifkan saat boot"
 
 #: ../iw/network.py:142
-#, fuzzy
 msgid "IP Address"
-msgstr "Alamat IP:"
+msgstr "Alamat IP"
 
 #: ../iw/network.py:142
-#, fuzzy
 msgid "Netmask"
-msgstr "Netmask:"
+msgstr "Netmask"
 
 #: ../iw/network.py:142
 msgid "Network"
-msgstr ""
+msgstr "Network"
 
 #: ../iw/network.py:142
 msgid "Broadcast"
-msgstr ""
+msgstr "Broadcast"
 
 #: ../iw/network.py:181
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: ../iw/network.py:181
 msgid "Primary DNS"
-msgstr ""
+msgstr "DNS Primer"
 
 #: ../iw/network.py:181
 msgid "Secondary DNS"
-msgstr ""
+msgstr "DNS Sekunder"
 
 #: ../iw/network.py:181
 msgid "Ternary DNS"
-msgstr ""
+msgstr "DNS Tersier"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Pilih masing-masing paket"
 
 #: ../iw/package.py:178
 msgid "Up"
-msgstr ""
+msgstr "Atas"
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr ""
+msgstr "Nama:"
 
 #: ../iw/package.py:329
-#, fuzzy
 msgid "Package Details"
-msgstr "Nama Paket"
+msgstr "Keterangan Paket"
 
 #: ../iw/package.py:335
-#, fuzzy
 msgid "Size: "
 msgstr "Ukuran :"
 
 #: ../iw/package.py:341
-#, fuzzy
 msgid "Select Package For Installation"
-msgstr "Instalasi Silo"
+msgstr "Pilih paket Instalasi"
 
 #: ../iw/progress.py:26
-#, fuzzy
 msgid "Installing Packages"
-msgstr "Instalasi"
+msgstr "Instalasi paket"
 
 #: ../iw/progress.py:113 ../iw/progress.py:148
-#, fuzzy
 msgid "Size"
-msgstr "Ukuran :"
+msgstr "Ukuran"
 
 #: ../iw/progress.py:114
-#, fuzzy
 msgid "Summary"
-msgstr "(tidak diringkas)"
+msgstr "Keterangan"
 
 #: ../iw/progress.py:148
-#, fuzzy
 msgid "Status"
-msgstr "Status Instalasi"
+msgstr "Status"
 
 #: ../iw/progress.py:148
-#, fuzzy
 msgid "Packages"
 msgstr "Nama Paket"
 
 #: ../iw/progress.py:148
 msgid "Time"
-msgstr ""
+msgstr "Waktu"
 
 #: ../iw/progress.py:153
-#, fuzzy
 msgid "Total"
-msgstr "Lokal"
+msgstr "Total"
 
 #: ../iw/progress.py:154
-#, fuzzy
 msgid "Completed"
 msgstr "Selesai"
 
 #: ../iw/progress.py:155
-#, fuzzy
 msgid "Remaining"
-msgstr "Bangun ulang"
+msgstr "Sisa waktu"
 
 #: ../iw/rootpartition.py:12
 msgid "Confirm Partitioning Selection"
-msgstr ""
+msgstr "Konfirmasi pilihan partisi"
 
 #: ../iw/rootpartition.py:27
-#, fuzzy
 msgid "Root Partition Selection"
-msgstr "Partisi root"
+msgstr "Pilih Partisi root"
 
 #: ../iw/rootpartition.py:123
-#, fuzzy
 msgid "Remove data"
-msgstr "lpd remote"
+msgstr "Hapus data"
 
 #: ../iw/timezone.py:109
 msgid "View:"
-msgstr ""
+msgstr "Lihat:"
 
 #: ../iw/timezone.py:139
 msgid "Use Daylight Saving Time"
-msgstr ""
+msgstr "Gunakan Daylight Saving Time"
 
 #: ../iw/timezone.py:146
-#, fuzzy
 msgid "Location"
-msgstr "Workstation"
+msgstr "Lokasi"
 
 #: ../iw/timezone.py:147
 msgid "UTC Offset"
-msgstr ""
+msgstr "Offset UTC"
 
 #: ../iw/timezone.py:151
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Jam sistem menggunakan UTC"
 
 #: ../iw/welcome.py:10
-#, fuzzy
 msgid "Welcome to Red Hat Linux!"
-msgstr "Selamat Datang di Linux Red Hat"
+msgstr "Selamat Datang di Linux Red Hat!"
 
 #: ../iw/xconfig.py:9
 msgid "Video Card"
-msgstr ""
+msgstr "Card Video"
 
 #: ../iw/xconfig.py:10
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: ../iw/xconfig.py:11
 msgid "Video Ram"
-msgstr ""
+msgstr "Video Ram"
 
 #: ../iw/xconfig.py:12
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Jangkauan Frekuensi Horizontal"
 
 #: ../iw/xconfig.py:13
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Jangkauan Frekuensi Vertikal"
 
 #: ../iw/xconfig.py:14
 msgid "Test failed"
-msgstr ""
+msgstr "Test Gagal"
 
 #: ../iw/xconfig.py:22 ../iw/xconfig.py:198
-#, fuzzy
 msgid "Customize X Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Konfigurasi X Custom"
 
 #: ../iw/xconfig.py:63
-#, fuzzy
 msgid "Bits per Pixel"
-msgstr "Bits per pixel:"
+msgstr "Bits per pixel"
 
 #: ../iw/xconfig.py:73 ../iw/xconfig.py:194
-#, fuzzy
 msgid "Test this configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Test Konfigurasi ini"
 
 #: ../iw/xconfig.py:149
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
+"Biasanya hardware video akan dideteksi otomatis untuk menentukan setting "
+"terbaik untuk sistem Anda."
 
 #: ../iw/xconfig.py:157
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Deteksi otomatis"
+msgstr "Hasil Deteksi:"
 
 #: ../iw/xconfig.py:171
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
-msgstr ""
+msgstr "Monitor Anda tidak bisa dideteksi, silahkan pilih di daftar:"
 
 #: ../iw/xconfig.py:201
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "Gunakan login grafikal"
 
 #: ../iw/xconfig.py:203
-#, fuzzy
 msgid "Skip X Configuration"
-msgstr "Konfigurasi SCSI"
+msgstr "Tidak Konfigurasikan X"
 
 #: ../libfdisk/fsedit.c:604 ../libfdisk/fsedit.c:611 ../libfdisk/fsedit.c:618
 #: ../libfdisk/fsedit.c:627 ../libfdisk/fsedit.c:639 ../libfdisk/fsedit.c:649
@@ -1444,14 +1356,12 @@ msgid "Fdisk Error"
 msgstr "Error Fdisk"
 
 #: ../libfdisk/gnomefsedit.c:477 ../libfdisk/gnomefsedit.c:646
-#, fuzzy
 msgid "<Swap Partition>"
-msgstr "Partisi swap"
+msgstr "<Partisi swap>"
 
 #: ../libfdisk/gnomefsedit.c:485 ../libfdisk/gnomefsedit.c:648
-#, fuzzy
 msgid "<RAID Partition>"
-msgstr "Partisi root"
+msgstr "<Partisi RAID>"
 
 #: ../libfdisk/gnomefsedit.c:540 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
@@ -1469,18 +1379,16 @@ msgid "Edit Partition"
 msgstr "Edit Partisi"
 
 #: ../libfdisk/gnomefsedit.c:626 ../libfdisk/gnomefsedit.c:1588
-#, fuzzy
 msgid "Mount Point:"
-msgstr "Lokasi Mount"
+msgstr "Lokasi Mount:"
 
 #: ../libfdisk/gnomefsedit.c:661
-#, fuzzy
 msgid "Size (Megs):"
-msgstr "Ukuran :"
+msgstr "Ukuran (Mega):"
 
 #: ../libfdisk/gnomefsedit.c:692
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Perbesar hingga habis kapasitas disk?"
 
 #: ../libfdisk/gnomefsedit.c:711 ../libfdisk/newtfsedit.c:335
 msgid "Allocation Status:"
@@ -1499,13 +1407,12 @@ msgid "Failure Reason:"
 msgstr "Sebab kegagalan:"
 
 #: ../libfdisk/gnomefsedit.c:744 ../libfdisk/gnomefsedit.c:1614
-#, fuzzy
 msgid "Partition Type:"
-msgstr "Tipe partisi"
+msgstr "Tipe partisi:"
 
 #: ../libfdisk/gnomefsedit.c:811
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Drive yang digunakan:"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/gnomefsedit.c:1806
 #: ../libfdisk/newtfsedit.c:486
@@ -1535,13 +1442,12 @@ msgid "Size Error"
 msgstr "Ukuran Salah"
 
 #: ../libfdisk/gnomefsedit.c:987 ../libfdisk/newtfsedit.c:546
-#, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Ukuran partisi salah, ukuran haruslah lebih besar atau sama dengan nol, dan "
-"dituliksan dalam format bilangan bulat desimal."
+"Ukuran partisi salah, ukuran haruslah lebih besar atau sama dengan nol (0), "
+"dan dituliksan dalam format bilangan bulat desimal (basis 10)."
 
 #: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/gnomefsedit.c:1927
 #: ../libfdisk/newtfsedit.c:581
@@ -1558,33 +1464,34 @@ msgstr "Partisi swap yang Anda buat terlalu besar (maksimum %ld MB)."
 
 #: ../libfdisk/gnomefsedit.c:1039 ../libfdisk/gnomefsedit.c:1046
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Tidak ada drive RAID"
 
 #: ../libfdisk/gnomefsedit.c:1041
-#, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Anda belum memilih lokasi mount untuk partisi ini. Benar ingin melanjutkan?"
+"Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive.\n"
+"Bener maunya seperti ini?"
 
 #: ../libfdisk/gnomefsedit.c:1047
-#, fuzzy
 msgid "Close"
-msgstr "Hapus"
+msgstr "Tutup"
 
 #: ../libfdisk/gnomefsedit.c:1048
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
+"Anda mengkonfigurasikan partisi RAID tanpa melakukan constraining di drive. "
+"Silahkan pilih drive yang hendak di constrain"
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1227
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "Entry RAID tidak komplit"
 
 #: ../libfdisk/gnomefsedit.c:1228
 #, c-format
@@ -1593,6 +1500,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"Device raid /dev/%s sekarang berisi partisi yang belum dialokasikan. Device "
+"radi /dev/%s akan didekomposisi menjadi partisi komponennya. silahkan "
+"komposisikan ulang device dgn partisi yang telah dialokasikan."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1321 ../libfdisk/gnomefsedit.c:1340
@@ -1609,31 +1519,26 @@ msgid ""
 msgstr "Ada partisi yang belum dialokasikan di daftar berikut."
 
 #: ../libfdisk/gnomefsedit.c:1600
-#, fuzzy
 msgid "<Swap Partition"
-msgstr "Partisi swap"
+msgstr "<Partisi swap>"
 
 #: ../libfdisk/gnomefsedit.c:1658
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "Device RAID: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1681
 msgid "RAID Type:"
-msgstr ""
+msgstr "Tipe RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1718
-#, fuzzy
 msgid "Partitions For RAID Array:"
-msgstr "Partisi yang hendak diformat"
+msgstr "Partisi array RAID"
 
 #: ../libfdisk/gnomefsedit.c:1807
-#, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Anda belum memilih lokasi mount untuk partisi ini. Benar ingin melanjutkan?"
+msgstr "Anda belum memilih lokasi mount untuk partisi ini. Saya perlu ini."
 
 #: ../libfdisk/gnomefsedit.c:1815
-#, fuzzy
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
@@ -1641,26 +1546,27 @@ msgstr "Lokasi mount tidak sah atau sudah digunakan. Silahkan ulangi lagi."
 
 #: ../libfdisk/gnomefsedit.c:1828
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Warning boot dari RAID"
 
 #: ../libfdisk/gnomefsedit.c:1829
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"Anda menentukan device raid ini sebagai partisi boot. Silahkan periksa "
+"apakah semua komponen partisi bisa diboot."
 
 #: ../libfdisk/gnomefsedit.c:1839
-#, fuzzy
 msgid "No RAID Device"
-msgstr "Perangkat"
+msgstr "Tidak ada device RAID"
 
 #: ../libfdisk/gnomefsedit.c:1840
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Anda harus pilih device RAID"
 
 #: ../libfdisk/gnomefsedit.c:1846
 msgid "Used Raid Device"
-msgstr ""
+msgstr "gunakan device RAID"
 
 #: ../libfdisk/gnomefsedit.c:1847
 #, c-format
@@ -1668,25 +1574,27 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
+"Device RAID \"/dev/%s\" sudah dikonfigurasikan sebagai raid. Pilih yang lain "
+"lagi."
 
 #: ../libfdisk/gnomefsedit.c:1860
-#, fuzzy
 msgid "Not Enough Partitions"
-msgstr "Partisi root takada"
+msgstr "Partisi tidak cukup"
 
 #: ../libfdisk/gnomefsedit.c:1862
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
+"Anda belum mengkonfigurasikan partisi untuk tipe RAID yang telah Anda pilih."
 
 #: ../libfdisk/gnomefsedit.c:1869
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Tipe /boot RAID tidak bisa dipakai"
 
 #: ../libfdisk/gnomefsedit.c:1871
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Partisi boot (/boot) hanya boleh untuk RAID-1 saja."
 
 #: ../libfdisk/gnomefsedit.c:1972
 #, c-format
@@ -1695,34 +1603,33 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"Partisi %s adalah partisi yang sudah ada di device RAID ini. Mount point "
+"diset ke /boot. Apakah benar partisi ini bisa melakukan boot?"
 
 #: ../libfdisk/gnomefsedit.c:1979
-#, fuzzy
 msgid "Use Pre-existing Partition?"
-msgstr "Hapus Partisi"
+msgstr "Gunakan partisi yang ada?"
 
 #: ../libfdisk/gnomefsedit.c:2088
-#, fuzzy
 msgid "Auto-Partition"
-msgstr "Edit Partisi"
+msgstr "Partisi Otomatis"
 
 #: ../libfdisk/gnomefsedit.c:2095
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "Gunakan sisa space disk yang ada"
 
 #: ../libfdisk/gnomefsedit.c:2114
-#, fuzzy
 msgid "Remove Linux partitions"
-msgstr "Rubah ukuran partisi"
+msgstr "Hapus partisi Linux"
 
 #: ../libfdisk/gnomefsedit.c:2125
 msgid "Use existing free space"
-msgstr ""
+msgstr "Gunakan space yang ada"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2137
 msgid "Intended Use"
-msgstr ""
+msgstr "Penggunaan sistem"
 
 #: ../libfdisk/gnomefsedit.c:2176
 msgid "Workstation"
@@ -1730,12 +1637,11 @@ msgstr "Workstation"
 
 #: ../libfdisk/gnomefsedit.c:2250
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "Hapus device RAID ?"
 
 #: ../libfdisk/gnomefsedit.c:2251
-#, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Benar ingin menghapus partisi ini?"
+msgstr "Benar ingin menghapus device RAID ini?"
 
 #: ../libfdisk/gnomefsedit.c:2302 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
@@ -1747,66 +1653,65 @@ msgstr "Tabel partisi hendak direset ke aslinya?"
 
 #: ../libfdisk/gnomefsedit.c:2340 ../libfdisk/gnomefsedit.c:2391
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2342
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2344
 msgid "<not set>"
-msgstr ""
+msgstr "<tidak diset>"
 
 #: ../libfdisk/gnomefsedit.c:2901
-#, fuzzy
 msgid "Unallocated Partitions Exist..."
-msgstr "Partisi belum dialokasikan"
+msgstr "Ada partisi yang belum dialokasikan..."
 
 #: ../libfdisk/gnomefsedit.c:2912
-#, fuzzy
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
-msgstr "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2)."
+msgstr ""
+"Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
+"partisi RAID untuk instal."
 
 #: ../libfdisk/gnomefsedit.c:2926 ../libfdisk/gnomefsedit.c:2939
-#, fuzzy
 msgid ""
 "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
 "or a RAID-1 partition for the install to proceed."
-msgstr "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2)."
+msgstr ""
+"Anda harus membuat partisi root (/) ke partisi Linux Native (ext2) atau "
+"partisi RAID-1 untuk install."
 
 #: ../libfdisk/gnomefsedit.c:2954
-#, fuzzy
 msgid ""
 "Because you have assigned the root partition (/) to a RAID device, you must "
 "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
 "RAID-1 partition for the install to proceed."
-msgstr "Anda harus membuat partisi root (/) ke partisi Linux Native (ext2)."
+msgstr ""
+"Karena Anda sudah alokasikan partisi root (/) ke device RAID, maka Anda "
+"harus pula alokasikan partisi boot (/boot) ke partisi Linux native (ext2) "
+"atau ke partisi RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:3027
-#, fuzzy
 msgid "Partitions"
-msgstr "Partisi ulang"
+msgstr "Partisi"
 
 #: ../libfdisk/gnomefsedit.c:3071
-#, fuzzy
 msgid "_Add..."
-msgstr "Tambah"
+msgstr "_Tambah..."
 
 #: ../libfdisk/gnomefsedit.c:3083
-#, fuzzy
 msgid "_Edit..."
-msgstr "Edit"
+msgstr "_Edit..."
 
 #: ../libfdisk/gnomefsedit.c:3084
-#, fuzzy
 msgid "_Delete"
-msgstr "Hapus"
+msgstr "_Hapus"
 
 #: ../libfdisk/gnomefsedit.c:3085
 msgid "_Reset"
-msgstr ""
+msgstr "_Reset"
 
 #. XXXX - uncomment if you want the add raid button
 #.
@@ -1842,7 +1747,6 @@ msgstr ""
 #. }
 #.
 #: ../libfdisk/gnomefsedit.c:3138
-#, fuzzy
 msgid "Drive Summary"
 msgstr "Keterangan Drive"
 
@@ -1900,1463 +1804,1460 @@ msgstr "Simpan tabel partisi?"
 msgid "You may only delete NFS mounts."
 msgstr "Anda hanya boleh menghapus mount NFS"
 
-#~ msgid "Warning"
-#~ msgstr "Perhatian"
+msgid "Warning"
+msgstr "Perhatian"
 
-#~ msgid "You are about to lose data! Are you sure you want to do this?"
-#~ msgstr "Anda akan kehilangan data Anda! Benar ingin melanjutkan?"
+msgid "You are about to lose data! Are you sure you want to do this?"
+msgstr "Anda akan kehilangan data Anda! Benar ingin melanjutkan?"
 
-#~ msgid "Disk Space"
-#~ msgstr "Space disk"
+msgid "Disk Space"
+msgstr "Space disk"
 
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
-
-#, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
+msgid "There is not enough disk space for this type of installation."
+msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
 
 #, fuzzy
-#~ msgid "_Make RAID Device"
-#~ msgstr "Perangkat"
+msgid "There is not enough disk space for the chosen partitioning."
+msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
 
 #, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "Instalasi SILO"
-
-#~ msgid "No BOOTP reply received"
-#~ msgstr "Tidak ada balasan BOOTP"
-
-#~ msgid "No DHCP reply received"
-#~ msgstr "Tidak ada balasan DHCP"
-
-#~ msgid "Other CDROM"
-#~ msgstr "CDROM lain"
-
-#~ msgid "CDROM type"
-#~ msgstr "tipe CDROM"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "CDROM jenis apa yang Anda punya?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Inisialisasi CDROM..."
-
-#~ msgid "Base IO port:"
-#~ msgstr "Basis IO port:"
-
-#~ msgid "IRQ level:"
-#~ msgstr "Level IRQ:"
-
-#~ msgid "IO base, IRQ:"
-#~ msgstr "Base IO, IRQ:"
-
-#~ msgid "Use other options"
-#~ msgstr "Gunakan pilihan lain"
-
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Level Interupsi (IRQ):"
-
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "Base IO, IRQ, label:"
-
-#~ msgid "Specify options"
-#~ msgstr "Tuliskan opsi"
-
-#~ msgid "mknod() failed: %s"
-#~ msgstr "mknod() gagal: %s"
-
-#~ msgid "Load module"
-#~ msgstr "Load modul"
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Driver mana yang ingin dipakai ?"
-
-#~ msgid "Probe"
-#~ msgstr "Deteksi"
-
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "Saya menemukan card %s di sistem ini."
-
-#~ msgid "device command"
-#~ msgstr "perintah device"
-
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "Argumen perintah kickstart %s tidak sah: %s"
-
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "Argumen untuk device kickstart tidak benar"
-
-#~ msgid "No module exists for %s"
-#~ msgstr "Tidak ada modul yang tersedia untuk %s"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Maaf, saya tidak menemukan device tersebut di sistem ini!"
-
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "Kadang kala, driver %s harus diberikan argumen tambahan agar bisa dikenali. "
-#~ "Nah apakah sekarang Anda ingin menuliskan argumen tersebut, atau biarkan "
-#~ "driver itu mendeteksi sendiri ? Bila gagal, biasanya pendeteksian akan "
-#~ "menyebabkan mesin menjadi hang, tetapi tidak akan sampai merusak hardwarenya."
-
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "Sering kali, driver %s membutuhkan argumen tambahan agar bisa dikenali. Anda "
-#~ "bisa menuliskan argumen tersebut. Proses ini bisa menyebabkan sistem menjadi "
-#~ "hang, namun seharusnya tidak merusak hardwarenya."
-
-#~ msgid "Miscellaneous options:"
-#~ msgstr "Pilihan Lain-lain:"
-
-#~ msgid "Module options:"
-#~ msgstr "Pilihan Modul:"
-
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "Tidak dapat membuka /proc/filesystem: %d"
-
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "Saya gagal membuka %s. Tidak ada log yang akan dicatat."
-
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "Saya tidak dapat membuka database RPM"
-
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "Error saat mengurutkan daftar paket: %s"
-
-#~ msgid ""
-#~ "You don't appear to have enough disk space to install the packages you've "
-#~ "selected. You need more space on the following filesystems:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Sepertinya space hard drive Anda kurang untuk menginstall seluruh paketyang "
-#~ "Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
-#~ "\n"
-
-#~ msgid "Space Needed"
-#~ msgstr "Spasi yg dibutuhkan"
-
-#~ msgid "Install anyway"
-#~ msgstr "Install aja lah!"
-
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "Saya tidak bisa membuka lagi database RPMnya"
-
-#~ msgid "Examining packages to install..."
-#~ msgstr "Mengecek paket yang hendak diinstall"
-
-#~ msgid "Examining files to install..."
-#~ msgstr "Mengecek file yang hendak diinstall"
-
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Mencari file yang dobel"
-
-#~ msgid "Processing"
-#~ msgstr "Mulai diproses"
-
-#~ msgid "Removing old files..."
-#~ msgstr "Menghapus paket yang kadaluwarsa..."
-
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "Saya gagal menginstall paket: tidak bisa membaca file RPM %s: %s"
-
-#~ msgid "Force supplemental disk"
-#~ msgstr "Ganti ke disk supplemental"
-
-#~ msgid "Installation Method"
-#~ msgstr "Metode Instalasi"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Silahkan memasukan informasi berikut:\n"
-#~ "\n"
-#~ "  - Nama atau alamat IP NFS Server\n"
-#~ "  - direktori pada server tersebut yang berisi\n"
-#~ "    Red Hat Linux"
-
-#~ msgid "NFS server name:"
-#~ msgstr "Nama server NFS:"
-
-#~ msgid "Red Hat directory:"
-#~ msgstr "Direktori Red Hat:"
-
-#~ msgid "Note"
-#~ msgstr "Catatan"
-
-#~ msgid "Insert your Red Hat CD into your CD drive now"
-#~ msgstr "Masukkan CD Red Hat Anda ke dalam drive CD sekarang"
-
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "I could not mount a CD on device /dev/%s"
-
-#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-#~ msgstr "CDROM ini tidak berisi Red Hat"
-
-#~ msgid "nfs command"
-#~ msgstr "perintah nfs"
-
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "Argumen untuk kickstart nfs error %s: %s"
-
-#~ msgid "nfs command incomplete"
-#~ msgstr "Perintah nfs tak lengkap"
-
-#~ msgid "I could not mount that directory from the server"
-#~ msgstr "Saya tak dapat memount direktori tersebut dari server"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Direktori ini tidak memiliki tree Red Hat"
-
-#~ msgid "Loading second stage ramdisk..."
-#~ msgstr "Sedang mengambil ramdisk tahap kedua..."
-
-#~ msgid "PCMCIA Disk"
-#~ msgstr "Disk PCMCIA"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Saya gagal saat memount disketnya. Tolong masukkan saja disk PCMCIA Red "
-#~ "Hat,atau tekan Batal untuk memilih proses instalasi yang lain."
-
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "Mengambil instalasi PCMCIA"
-
-#~ msgid "Supplemental Disk"
-#~ msgstr "Disket Supplemen"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Gagal dalam memount floppy. Silahkan masukkan disket Red Hat Supplemen atau "
-#~ "pilih Batal untuk memilih proses instalasi lain."
-
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Sedang meload disket supplemen..."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Disket Driver"
-
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Metode instalasi ini membutuhkan disket driver. Silahkan ganti disket yang "
-#~ "ada di drive dengan Disket Module Red Hat."
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Saya gagal saat memount disketnya. Tolong masukkan saja disket Module Red "
-#~ "Hat,atau tekan Batal untuk memilih proses instalasi yang lain."
-
-#~ msgid "Loading Driver Disk..."
-#~ msgstr "Meload Disket Driver..."
-
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Metode instalasi ini membutuhkan disket yang lain lagi. Silahkan ganti "
-#~ "disket yang ada di drive dengan Disket Red Hat Supplemen."
-
-#~ msgid "hd command"
-#~ msgstr "perintah hd"
-
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "perintah kickstart hd salah di %s: %s"
-
-#~ msgid "hd command incomplete"
-#~ msgstr "perintah hd tak lengkap"
-
-#~ msgid "HD device %s not found"
-#~ msgstr "Device HD %s tidak ketemu"
-
-#~ msgid ""
-#~ "What partition and directory on that partition hold the RedHat/RPMS and "
-#~ "RedHat/base directories?"
-#~ msgstr ""
-#~ "Partisi mana dan di direktori mana yang berisi file-file instalasi "
-#~ "RedHat/RPMS dan direktori RedHat/base ?"
-
-#~ msgid "Directory holding Red Hat:"
-#~ msgstr "Direktori yang berisi Red Hat:"
-
-#~ msgid "Select Partition"
-#~ msgstr "Pilih Partisinya"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "Saya gagal saat membuat symlink /tmp/rhimage: %s"
-
-#~ msgid "Device %s does not appear to contain a Red Hat installation tree."
-#~ msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
-
-#~ msgid "Error reading second stage ramdisk. "
-#~ msgstr "Error saat membaca ramdisk tahap kedua"
-
-#~ msgid "url command"
-#~ msgstr "perintah url"
-
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "salah perintah url kickstart di %s: %s"
-
-#~ msgid "url command incomplete"
-#~ msgstr "perintah url tak lengkap"
-
-#~ msgid "Unable to retrieve the second stage ramdisk: %s"
-#~ msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Lokasi mount harus dimulai dengan /."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Lokasi mount tidak boleh diakhiri dengan /."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "Lokasi mount hanya boleh diisi dengan karakter biasa"
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Partisi sistem harus berada di partisi Linux Native."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr "/usr harus ada pada partisi Linux Native atau pada volume NFS."
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Ganti Lokasi mount Jaringan"
-
-#~ msgid "Making ext2 filesystem on /dev/%s..."
-#~ msgstr "Sedang membuat filesystem ext2 di /dev/%s"
-
-#~ msgid "Running"
-#~ msgstr "ekarang saya sedang ...."
-
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "mount nfs gagal: %s"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "mount gagal: %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Tabel partisi pada device %s rusak. Untuk membuat partisi baru, ini harus "
-#~ "diinisialisai dulu. Anda boleh memberikan argumen \"zerombr yes\" di file "
-#~ "kickstart agar hal ini dilakukan secara otomatis"
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Tidak ada Tabel Partisi"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "Perintah zerombr kickstart %s salah\n"
-#~ "Seharusnya 'on', '1', atau 'yes' untuk mengaktifkan, atau 'off', '0', atau "
-#~ "'no' untuk menonaktifkan."
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Hapus Perintah Partisi"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "Perintah clearpart kickstart %s salah: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Perintah Partisi"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "Perintah part kickstart %s salah: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Option diabaikan"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Pilihan --maxsize untuk partisi %s diabaikan. Cek sendiri apakah sudah lebih "
-#~ "dari --size atau belum."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "Lokasi mount %s sudah terpakai."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "Alokasi gagal"
-
-#~ msgid "The partition %s could not be allocated."
-#~ msgstr "Partisi %s tidak dapat dialokasikan."
-
-#~ msgid "Disk Setup"
-#~ msgstr "Setup Disk"
-
-#~ msgid ""
-#~ "There are partitions that can be resized nondestructively to make room for "
-#~ "your Red Hat Linux installation. Do you want to resize these partitions now?"
-#~ msgstr ""
-#~ "Ada partisi yang dapat dirubah ukurannya tanpa menghapus isi datanya. Apakah "
-#~ "Anda hendak melakukan perubahan ukuran partisi ini ?"
-
-#~ msgid "Success"
-#~ msgstr "Sukses"
-
-#~ msgid "Bad server response"
-#~ msgstr "Balasan dari server aneh"
-
-#~ msgid "Server IO error"
-#~ msgstr "IO Error pada server"
-
-#~ msgid "Server timeout"
-#~ msgstr "Timeout pada server"
-
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Saya gagal mencari alamat host server"
-
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Saya gagal mencari nama host server"
-
-#~ msgid "Failed to connect to server"
-#~ msgstr "Saya gagal menghubungkan diri dengan server"
-
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "Saya gagal menjalankan koneksi data ke server"
-
-#~ msgid "IO error to local file"
-#~ msgstr "Error IO pada file lokal"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "Ada kesalahan saat menset server ke mode passive"
-
-#~ msgid "File not found on server"
-#~ msgstr "File tidak ada pada server"
-
-#~ msgid "Abort in progress"
-#~ msgstr "Batalkan proses sekarang"
-
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Error yang tidak diketahui"
-
-#~ msgid "Whole disk"
-#~ msgstr "Seluruh isi disk"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux swap"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid "Hard Drives"
-#~ msgstr "Hard Disk"
-
-#~ msgid "Scanning hard drives..."
-#~ msgstr "Mencari hard disk..."
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Anda tidak memiliki hard disk ya? Atau mungkin lupa mengkonfigurasi "
-#~ "kontroler SCSI."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux. We suggest placing that partition on one of the first "
-#~ "two hard drives in your system so you can boot into Linux with LILO."
-#~ msgstr ""
-#~ "Untuk menginstal Red Hat Linux, Anda harus paling tidak memiliki satu "
-#~ "partisi dengan ukuran minimal 150 MB untuk Linux. Saya sarankan untuk "
-#~ "membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
-#~ "agar Anda dapat langsung memboot ke Linux dengan LILO."
-
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "Untuk menginstall Red Hat Linux, Anda paling tidak memiliki satu partisi "
-#~ "berukuran 150 MB khusus untuk Linux."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Disk Partisi"
-
-#~ msgid "Done"
-#~ msgstr "Selesai"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Harus direboot"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
-#~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
-#~ msgstr ""
-#~ "Kernel tidak dapat membaca partisi, mungkin ini disebabkan karena Anda telah "
-#~ "memodifikasi partisi extended. Tapi hal ini tidak begitu penting, Anda harus "
-#~ "memboot sistem sebelum melanjutkan. Sekarang masukkan boot disk dari Red Hat "
-#~ "dan tekan ENTER untuk mulai reboot.\n"
-#~ "\n"
-#~ "Bila Anda menggunakan ZIP atau JAZ drive, masukkan dulu disknya ke dalam "
-#~ "drive."
-
-#~ msgid "lilo command"
-#~ msgstr "perintah lilo"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "perintah kickstart LILO salah %s: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "Dukungan PCMCIA"
-
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Apakah Anda harus menggunakan perangkat PCMCIA saat instalasi? Jawab tidak "
-#~ "bila Anda hanya butuh PCMCIA setelah install. Anda tidak perlu menggunakan "
-#~ "PCMCIA bila Anda sekarang menginstall Red Hat Linux pada laptop dengan "
-#~ "built-in CDROM."
-
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "Disket untuk PCMCIA"
-
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "Untuk menggunakan PCMCIA, maka ganti disket boot pada drive sekarang dengan "
-#~ "disket PCMCIA Red Hat."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Mulai menggunakan PCMCIA..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Ketik <exit> untuk kembali ke program instalasi.\n"
-#~ "\n"
-
-#~ msgid "Kickstart Error"
-#~ msgstr "Errok Kickstart"
-
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Saya tidak dapat menemukan file kickstart di server."
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Saya gagal memount path kickstart %s.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Saya gagal memount boot floopy."
-
-#~ msgid "Cannot find ks.cfg on boot floppy."
-#~ msgstr "Saya tak dapat menemukan ks.cfg di floppy."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "Gagal membuka file untuk menyalin kickstart: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "Error saat kopi kickstart dari floppy."
-
-#~ msgid "Select installation path"
-#~ msgstr "Pilihlah path instalasi"
-
-#~ msgid "Select installation class"
-#~ msgstr "Pilihlah tipe instalasi"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "Setup SCSI"
-
-#~ msgid "Setup filesystems"
-#~ msgstr "Setup filesystem"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Setup lokasi swap"
-
-#~ msgid "Find installation files"
-#~ msgstr "Cari file instalasi"
-
-#~ msgid "Choose packages to install"
-#~ msgstr "Pilihlah paket yang hendak diinstall"
-
-#~ msgid "Configure networking"
-#~ msgstr "Konfigurasikan jaringan"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Konfigurasikan zona waktu"
-
-#~ msgid "Configure services"
-#~ msgstr "Konfigurasikan layanan sistem"
-
-#~ msgid "Configure printer"
-#~ msgstr "Konfigurasikan printer"
-
-#~ msgid "Exit install"
-#~ msgstr "Keluar dari Instalasi"
-
-#~ msgid "Find current installation"
-#~ msgstr "Cari instalasi yang telah terpasang"
-
-#~ msgid "Disk Druid"
-#~ msgstr "Setup disk"
-
-#~ msgid "fdisk"
-#~ msgstr "fdisk"
-
-#~ msgid ""
-#~ "Disk Druid is a tool for partitioning and setting up mount points. It is "
-#~ "designed to be easier to use than Linux's traditional disk partitioning "
-#~ "sofware, fdisk, as well as more powerful. However, there are some cases "
-#~ "where fdisk may be preferred.\n"
-#~ "\n"
-#~ "Which tool would you like to use?"
-#~ msgstr ""
-#~ "Disk Druid adalah alat untuk mempartisi dan setting mount point. Program ini "
-#~ "dirancang sedemikian rupa untuk memudahkan proses partisi, namun secanggih "
-#~ "program partisi tradisional (misalnya fdisk). Tetapi adakalanya fdisk lebih "
-#~ "enak digunakan daripada Disk Druid.\n"
-#~ "\n"
-#~ "Program mana yang hendak Anda gunakan?"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Mencari paket..."
-
-#~ msgid "Install log"
-#~ msgstr "Log instalasi"
-
-#~ msgid "Upgrade log"
-#~ msgstr "Log upgrade"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "Log lengkap dari proses upgrade disimpan di /tmp/install.log setelah sistem "
-#~ "diboot. Bacalah file ini untuk memastikan proses upgrade berjalan dengan "
-#~ "baik."
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Membuat database RPM..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Gagal dalam pembuatan database RPM. Mungkin spasi disk habis?"
-
-#~ msgid "rootpw command"
-#~ msgstr "perintah rootpw"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "perintah rootpw kickstart salah %s: %s"
-
-#~ msgid "Missing password"
-#~ msgstr "Password tidak ada"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Argumen salah"
-
-#~ msgid "Installation Path"
-#~ msgstr "Path instalasi"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Apakah Anda ingin menginstall sistem baru ataukah upgrade sistem ? Untuk "
-#~ "upgrade, Anda harus sudah memiliki Red Hat 2.0 ke atas pada sistem Anda"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Mesin tipe apa yang hendak Anda instal? Untuk lebih enaknya, lebih baik "
-#~ "pilih \"Bebas\"."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "Mengkonversi database RPM..."
-
-#~ msgid "Finding packages to upgrade..."
-#~ msgstr "Mencari paket yang hendak diupgrade..."
-
-#~ msgid "Previous"
-#~ msgstr "Kembali"
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "Ada error pada tahap \"%s\" di proses instalasi ini.\n"
-#~ "\n"
-#~ "Anda boleh mengulangi tahap ini, kembali ke tahap awal instalasi, atau "
-#~ "melihat menu instalasi agar Anda bisa berpindah ke tahap yang Anda inginkan. "
-#~ "Namun saya tidak menganjurkan Anda menggunakan menu, kecuali Anda sudah "
-#~ "sangat familiar dengan Red Hat Linux. Nah sekarang bagaimana?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "  Lanjutkan instalasi"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr ""
-#~ "Tahap mana yang ingin Anda jalankan? Tahap yang sudah selesai dilakukan "
-#~ "ditandai dengan *."
-
-#~ msgid "Cancelled"
-#~ msgstr "Dibatalkan"
-
-#~ msgid ""
-#~ "I can't go to the previous step from here. You will have to try again."
-#~ msgstr ""
-#~ "Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "Masukkan disket kosong di drive /dev/fd0"
-
-#~ msgid "file %s missing from source directory"
-#~ msgstr "file %s kok tidak ada di direktori source?"
-
-#~ msgid "failed to create file %s"
-#~ msgstr "saya gagal membuat %s"
-
-#~ msgid "error writing to file %s: %s"
-#~ msgstr "tidak bisa menulis ke file %s: %s"
-
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "tidak bisa membaca file %s: %s"
-
-#~ msgid "Kernel"
-#~ msgstr "Kernel"
-
-#~ msgid ""
-#~ "Please insert your boot disk in your first disk drive if it's not already "
-#~ "present."
-#~ msgstr "Masukkan dulu boot disknya ke drive ya."
-
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "Menyalin kernel dari disket..."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Error membuka file kickstart %s: %s"
-
-#~ msgid "Error reading contents of kickstart file %s: %s"
-#~ msgstr "Error saat membaca isi file kickstart %s: %s"
-
-#~ msgid "Error on line %d of kickstart file %s."
-#~ msgstr "Error pada baris %d di file kickstart %s."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "Perintah tak dikenal %s pada baris %d di file kickstart %s."
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "Gagal membuat /mnt/tmp/ks.script: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr "Gagal menuliskan post script ks: %s"
-
-#~ msgid "Choose a Language"
-#~ msgstr "Pilih bahasanya:"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "Gagal membuat symlink untuk source package."
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "Saya tidak dapat mengambil %s. Ulangi lagi?"
-
-#~ msgid "SILO"
-#~ msgstr "SILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "Membuat initial ramdisk..."
-
-#~ msgid "Device:"
-#~ msgstr "Perangkat:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Label boot:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Instalasi boot loader..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Partisi yang bisa diboot"
-
-#~ msgid "Creating bootdisk..."
-#~ msgstr "Membuat bootdisk..."
-
-#~ msgid "Formatting swap space on device %s..."
-#~ msgstr "Saya sedang memformat area swap di device %s..."
-
-#~ msgid "No Swap Space"
-#~ msgstr "Tidak ada area swap"
-
-#~ msgid ""
-#~ "You don't have any swap space defined. Would you like to continue, or "
-#~ "repartition your disk?"
-#~ msgstr ""
-#~ "Anda belum memberitahu saya area swapnya. Lanjutkan saja atau partisi ulang "
-#~ "disk Anda ?"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Partisi mana yang Anda hendak gunakan sebagai area swap? Hati-hati karena "
-#~ "proses ini akan menghapus/menimpa apa pun yang ada di partisi ini."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Area swap aktif"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Saya tidak dapat memount ke device itu secara otomatis."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "Saya tidak dapat membaca /mnt/etc/fstab: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "Ada kesalahan di /mnt/etc/fstab -- batal"
-
-#~ msgid "Determining host name and domain..."
-#~ msgstr "Sedang mencari tahu nama host dan domain..."
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Pencarian Ethernet"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Saya tidak menemukan satu ethernet card pun di sistem Anda. Silahkantekan "
-#~ "<ENTER> untuk mengkonfigurasi secara manual."
-
-#~ msgid ""
-#~ "Please enter the IP configuration for this machine. Each item should be "
-#~ "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-#~ msgstr ""
-#~ "Sekarang masukkan alamat IP untuk mesin ini. Tiap IP harus dituliskandalam "
-#~ "bentuk notasi desimal bertitik (misalnya, 202.159.123.25)."
-
-#~ msgid "Configure TCP/IP"
-#~ msgstr "Konfigurasi TCP/IP"
-
-#~ msgid "Static IP address"
-#~ msgstr "Alamat IP statis"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "kickstart"
-#~ msgstr "kickstart"
-
-#~ msgid "bad ip number in network command: %s"
-#~ msgstr "alamat IP di perintah %s salah"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "perintah kickstart membutuhkan alamat IP"
-
-#~ msgid "Boot Protocol"
-#~ msgstr "Protokol Boot"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Bagaimana cara IP Anda diset ? Bila system administrator Andamemberikan "
-#~ "alamat IP tertentu, maka pilihlah IP statis."
-
-#~ msgid "Sending DHCP request..."
-#~ msgstr "Mengirimkan permintaan DHCP..."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "Mengirimkan permintaan BOOTP..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "Tidak dapat membuat %s: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr "saya tidak dapat membuat file device config: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "saya tidak dapat membuka file: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Saya tidak dapat mencari nama host mesin ini. Silahkan tekan <ENTER> untuk "
-#~ "menuliskan nama host mesin ini."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Silahkan tuliskan nama domain, nama host, dan alamat IP dari nameserver "
-#~ "Anda. Nama host haruslah dalam bentuk FQDN (Fully qualified host name), "
-#~ "misalnya sipalui.linux.or.id. Bila Anda tidak memiliki nameserver, maka "
-#~ "jangan tuliskan (kosongkan saja)."
-
-#~ msgid "Host name:"
-#~ msgstr "Nama host:"
-
-#~ msgid "Secondary nameserver (IP):"
-#~ msgstr "Nameserver Cadangan (IP):"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Nameserver Cadangan 2 (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Konfigurasi Jaringan"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Jangan merubah konfigurasi IP"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Konfigurasikan jaringan sekarang"
-
-#~ msgid "Don't set up networking"
-#~ msgstr "Jangan mensetup jaringan"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "Jaringan LAN telah dikonfigurasi. Apakah Anda ingin:"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr ""
-#~ "Apakah Anda ingin mengkonfigurasikan LAN (bukan dialup) untuk sistem ini?"
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Saya tidak bisa membuka file komponen: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Saya tidak bisa membaca file komponen: %s"
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "File Comps bukan versi 0.1 nih"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "file comps error pada baris %d"
-
-#~ msgid "comps Error"
-#~ msgstr "Error comps"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "nama komponen tidak ada di baris %d"
-
-#~ msgid "Ignore all"
-#~ msgstr "Abaikan semuanya"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "paket %s di baris %d tidak ada"
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "Komponen %s tidak ada.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "Paket %s tidak ada.\n"
-
-#~ msgid "GNOME"
-#~ msgstr "GNOME"
-
-#~ msgid ""
-#~ "Would you like to have the GNOME desktop installed? It provides an easy to "
-#~ "use interface, including a drag and drop capability and an integrated help "
-#~ "system."
-#~ msgstr ""
-#~ "Apakah Anda hendak menginstall GNOME? GNOME menyediakan interface yang mudah "
-#~ "digunakan, termasuk fasilitas drag and drop dan help yang sudah terintegrasi."
-
-#~ msgid "no suggestion"
-#~ msgstr "tidak tahu"
-
-#~ msgid "Everything"
-#~ msgstr "Semuanya"
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Pilihlah komponen yang hendak diinstall:"
-
-#~ msgid "Components to Install"
-#~ msgstr "Komponen yang hendak diinstall"
-
-#~ msgid "error opening header file: %s"
-#~ msgstr "Error saat membuka file: %s"
-
-#~ msgid "Installed system size:"
-#~ msgstr "Ukuran sistem yang diinstal:"
-
-#~ msgid "Choose a group to examine"
-#~ msgstr "Pilihlah kelompok paketnya"
-
-#~ msgid "Press F1 for a package description"
-#~ msgstr "Tekan F1 untuk melihat deskripsi paket ini"
-
-#~ msgid "Select Group"
-#~ msgstr "Pilih Kelompok Paket"
-
-#~ msgid "(none available)"
-#~ msgstr "(tidak ada yg tersedia)"
-
-#~ msgid "Package:"
-#~ msgstr "Paket  :"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Upgrade Paket"
-
-#~ msgid "Printer Information"
-#~ msgstr "Informasi Printer"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr "Tekan <F1> untuk melihat informasi printer ini"
-
-#~ msgid "What type of printer do you have?"
-#~ msgstr "Printer mana yang Anda punya?"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Konfigurasi Printer"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr "Tekan <F1> untuk melihat info driver printer ini."
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr ""
-#~ "Sekarang silahkan konfigurasikan ukuran kertas dan resolusi printer."
-
-#~ msgid "Paper Size"
-#~ msgstr "Ukuran Kertas"
-
-#~ msgid "Resolution"
-#~ msgstr "Resolusi"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Perbaiki efek tangga pada text?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Silahkan juga konfigurasikan warna pada printer."
-
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Silahkan konfigurasikan opsi uniprint pada printer ini."
-
-#~ msgid "Configure Color Depth"
-#~ msgstr "Konfigurasi kedalaman warna"
-
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Konfigurasikan Driver Uniprint"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr "Ke mana printer Anda tersambung ? (/dev/lp0 adalah LPT1:)"
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Port yang terdeteksi:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Tidak"
-
-#~ msgid "Detected\n"
-#~ msgstr "Terdeteksi\n"
-
-#~ msgid "Printer Device:"
-#~ msgstr "Device Printer:"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Device Printer Lokal"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Nama host remote:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Antrian remote:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Option printer lpd remote"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Anda harus menuliskan nama host printer server dan nama queuenya bila ingin "
-#~ "menggunakan print queue lpd di mesin remote."
-
-#~ msgid "Printer Server:"
-#~ msgstr "Server Printer:"
-
-#~ msgid "Print Queue Name:"
-#~ msgstr "Nama antrian:"
-
-#~ msgid "NetWare Printer Options"
-#~ msgstr "Setting Printer Netware"
-
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Agar bisa mencetak pada printer NetWare, maka tuliskan nama server printer "
-#~ "Netware (biasanya tidak sama namanya dengan nama hostname TCP/IPnya) beserta "
-#~ "dgn nama antrian cetaknya untuk printer tersebut, juga kalau perlu "
-#~ "sertakanjuga nama user dan passwordnya."
-
-#~ msgid "SMB server host:"
-#~ msgstr "Nama server SMB:"
-
-#~ msgid "SMB server IP:"
-#~ msgstr "IP Server SMB:"
-
-#~ msgid "Share name:"
-#~ msgstr "Nama share:"
-
-#~ msgid "Workgroup:"
-#~ msgstr "Workgroup:"
-
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "Setting Printer SMB/Windows 95/NT"
-
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Agar bisa mencetak pada printer SMB, maka tuliskan nama server printer "
-#~ "Netware (biasanya tidak sama namanya dengan nama hostname TCP/IPnya) beserta "
-#~ "dengan alamat IP server, plus nama share printer tersebut, juga sertakan "
-#~ "juga nama user, passwordnya, dan workgroupnya."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Direktori spool:"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Setting Printer Standar"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Tiap antrian print (tempat job print ditempatkan) harus memiliki nama "
-#~ "(biasanya bernama lp) dan direktori spoolnya. Tuliskan nama dan direktori "
-#~ "yang hendak digunakan untuk antrian ini"
-
-#~ msgid "Would you like to configure a printer?"
-#~ msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Tambah lagi printernya ?"
-
-#~ msgid "SMB/Windows 95/NT"
-#~ msgstr "SMB/Windows 95/NT"
-
-#~ msgid "NetWare"
-#~ msgstr "NetWare"
-
-#~ msgid "Select Printer Connection"
-#~ msgstr "Pilih koneksi printer"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Bagaimana printer ini dipasang?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Tipe printer:"
-
-#~ msgid "Queue:"
-#~ msgstr "Antrian:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Device printer:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Host remote:"
-
-#~ msgid "Share:"
-#~ msgstr "Share:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Driver Printer:"
-
-#~ msgid "Paper size:"
-#~ msgstr "Ukuran Kertas:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Resolusi:"
-
-#~ msgid "Uniprint driver:"
-#~ msgstr "Driver Uniprint:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Silahkan periksa apakah informasi berikut adalah benar:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Device printer"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Periksa Konfigurasi Printer"
-
-#~ msgid ""
-#~ "I have found the following types of SCSI adapters on your system:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Saya menemukan adapter SCSI berikut ini:\n"
-#~ "\n"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Apakah Anda memiliki lagi adapter SCSI di komputer ini?"
-
-#~ msgid "Do you have any SCSI adapters?"
-#~ msgstr "Apakah Anda memiliki adapter SCSI?"
-
-#~ msgid "SMB server name  :"
-#~ msgstr "Nama server SMB  :"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Volume share     :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Nama account     :"
-
-#~ msgid "Password         :"
-#~ msgstr "Password         :"
-
-#~ msgid "SMB Setup"
-#~ msgstr "Setup SMB"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Silahkan masukkan informasi berikut:\n"
-#~ "\n"
-#~ "    o nama atau alamat IP server SMB\n"
-#~ "    o volume share yang berisi instalasi\n"
-#~ "      Red Hat"
-
-#~ msgid "Password for %s@%s: "
-#~ msgstr "Password %s@%s: "
-
-#~ msgid "error: %sport must be a number\n"
-#~ msgstr "error: %sport haruslah angka\n"
-
-#~ msgid "url port must be a number\n"
-#~ msgstr "port url harus angka\n"
-
-#~ msgid "logging into %s as %s, pw %s\n"
-#~ msgstr "masuk ke %s sebagai %s, pw %s\n"
-
-#~ msgid "failed to open %s\n"
-#~ msgstr "saya gagal membuka %s\n"
-
-#~ msgid "failed to create %s\n"
-#~ msgstr "saya gagal membuat %s\n"
-
-#~ msgid "Retrieving"
-#~ msgstr "Mengambil file"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "saya gagal membuka %s: %s\n"
-
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr ""
-#~ "Terjadi kesalahan saat mentransfer file %s:\n"
-#~ "%s"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your FTP server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Sekarang masukkan informasi berikut:\n"
-#~ "\n"
-#~ " - nama atau alamat IP FTP server \n"
-#~ " - direktori di server tersebut yang berisi\n"
-#~ "   master instalasi Red Hat Linux\n"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your web server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      Red Hat Linux for your architecure\n"
-#~ msgstr ""
-#~ "Sekarang masukkan informasi berikut:\n"
-#~ "\n"
-#~ " - nama atau alamat IP web server \n"
-#~ " - direktori di server tersebut yang berisi\n"
-#~ "   master instalasi Red Hat Linux\n"
-
-#~ msgid "FTP site name:"
-#~ msgstr "Nama FTP site:"
-
-#~ msgid "Web site name:"
-#~ msgstr "Nama web site:"
-
-#~ msgid "Use non-anonymous ftp or a proxy server"
-#~ msgstr "Gunakan non-anonim ftp atau proxy server"
-
-#~ msgid "FTP Setup"
-#~ msgstr "Setup FTP"
-
-#~ msgid "HTTP Setup"
-#~ msgstr "Setup HTTP"
-
-#~ msgid "You must enter a server name."
-#~ msgstr "Masukkan nama servernya."
-
-#~ msgid "You must enter a directory."
-#~ msgstr "Masukkan nama direktorinya."
-
-#~ msgid ""
-#~ "If you are using non anonymous ftp, enter the account name and password you "
-#~ "wish to use below. If you are using an FTP proxy enter the name of the FTP "
-#~ "proxy server to use."
-#~ msgstr ""
-#~ "Bila Anda menggunakan ftp non-anonim, segera masukkan nama login dan "
-#~ "passwordnya. Bila Anda menggunakan proxy FTP, maka tuliskan nama serverproxy "
-#~ "FTPnya."
-
-#~ msgid ""
-#~ "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-#~ "to use."
-#~ msgstr ""
-#~ "Bila Anda menggunakan proxy HTTP, maka tuliskan nama server proxy HTTPnya."
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "Proxy FTP:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "Proxy HTTP:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Port Proxy FTP:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Port Proxy HTTP:"
+msgid "_Make RAID Device"
+msgstr "Perangkat"
 
 #, fuzzy
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
+msgid "Skip LILO install"
+msgstr "Instalasi SILO"
 
-#~ msgid "LAN manager host:"
-#~ msgstr "Host LAN manager:"
+msgid "No BOOTP reply received"
+msgstr "Tidak ada balasan BOOTP"
 
-#~ msgid "LAN manager IP:"
-#~ msgstr "IP LAN manager:"
+msgid "No DHCP reply received"
+msgstr "Tidak ada balasan DHCP"
+
+msgid "Other CDROM"
+msgstr "CDROM lain"
+
+msgid "CDROM type"
+msgstr "tipe CDROM"
+
+msgid "What type of CDROM do you have?"
+msgstr "CDROM jenis apa yang Anda punya?"
+
+msgid "Initializing CDROM..."
+msgstr "Inisialisasi CDROM..."
+
+msgid "Base IO port:"
+msgstr "Basis IO port:"
+
+msgid "IRQ level:"
+msgstr "Level IRQ:"
+
+msgid "IO base, IRQ:"
+msgstr "Base IO, IRQ:"
+
+msgid "Use other options"
+msgstr "Gunakan pilihan lain"
+
+msgid "Interrupt level (IRQ):"
+msgstr "Level Interupsi (IRQ):"
+
+msgid "IO base, IRQ, label:"
+msgstr "Base IO, IRQ, label:"
+
+msgid "Specify options"
+msgstr "Tuliskan opsi"
+
+msgid "mknod() failed: %s"
+msgstr "mknod() gagal: %s"
+
+msgid "Load module"
+msgstr "Load modul"
+
+msgid "Which driver should I try?"
+msgstr "Driver mana yang ingin dipakai ?"
+
+msgid "Probe"
+msgstr "Deteksi"
+
+msgid "A %s card has been found on your system."
+msgstr "Saya menemukan card %s di sistem ini."
+
+msgid "device command"
+msgstr "perintah device"
+
+msgid "bad argument to kickstart device command %s: %s"
+msgstr "Argumen perintah kickstart %s tidak sah: %s"
+
+msgid "bad arguments to kickstart device command"
+msgstr "Argumen untuk device kickstart tidak benar"
+
+msgid "No module exists for %s"
+msgstr "Tidak ada modul yang tersedia untuk %s"
+
+msgid "I can't find the device anywhere on your system!"
+msgstr "Maaf, saya tidak menemukan device tersebut di sistem ini!"
+
+msgid ""
+"In some cases, the %s driver needs to have extra information to work "
+"properly, although it normally works fine without. Would you like to specify "
+"extra options for it or allow the driver to probe your machine for the "
+"information it needs? Occasionally, probing will hang a computer, but it "
+"should not cause any damage."
+msgstr ""
+"Kadang kala, driver %s harus diberikan argumen tambahan agar bisa dikenali. "
+"Nah apakah sekarang Anda ingin menuliskan argumen tersebut, atau biarkan "
+"driver itu mendeteksi sendiri ? Bila gagal, biasanya pendeteksian akan "
+"menyebabkan mesin menjadi hang, tetapi tidak akan sampai merusak hardwarenya."
+
+msgid ""
+"In many cases, the %s driver needs to be provided with extra information on "
+"your hardware. If you prefer, some common values for those parameters will "
+"be tried. This process can hang a machine, although it should not cause any "
+"damage."
+msgstr ""
+"Sering kali, driver %s membutuhkan argumen tambahan agar bisa dikenali. Anda "
+"bisa menuliskan argumen tersebut. Proses ini bisa menyebabkan sistem menjadi "
+"hang, namun seharusnya tidak merusak hardwarenya."
+
+msgid "Miscellaneous options:"
+msgstr "Pilihan Lain-lain:"
+
+msgid "Module options:"
+msgstr "Pilihan Modul:"
+
+msgid "Cannot open /proc/filesystems: %d"
+msgstr "Tidak dapat membuka /proc/filesystem: %d"
+
+msgid "Failed to open %s. No upgrade log will be kept."
+msgstr "Saya gagal membuka %s. Tidak ada log yang akan dicatat."
+
+msgid "Fatal error opening RPM database"
+msgstr "Saya tidak dapat membuka database RPM"
+
+msgid "Error ordering package list: %s"
+msgstr "Error saat mengurutkan daftar paket: %s"
+
+msgid ""
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
+"\n"
+msgstr ""
+"Sepertinya space hard drive Anda kurang untuk menginstall seluruh paketyang "
+"Anda pilih. Coba tambahkan lagi space di filesystem ini:\n"
+"\n"
+
+msgid "Space Needed"
+msgstr "Spasi yg dibutuhkan"
+
+msgid "Install anyway"
+msgstr "Install aja lah!"
+
+msgid "Fatal error reopening RPM database"
+msgstr "Saya tidak bisa membuka lagi database RPMnya"
+
+msgid "Examining packages to install..."
+msgstr "Mengecek paket yang hendak diinstall"
+
+msgid "Examining files to install..."
+msgstr "Mengecek file yang hendak diinstall"
+
+msgid "Finding overlapping files..."
+msgstr "Mencari file yang dobel"
+
+msgid "Processing"
+msgstr "Mulai diproses"
+
+msgid "Removing old files..."
+msgstr "Menghapus paket yang kadaluwarsa..."
+
+msgid "Error installing package: cannot open RPM file for %s: %s"
+msgstr "Saya gagal menginstall paket: tidak bisa membaca file RPM %s: %s"
+
+msgid "Force supplemental disk"
+msgstr "Ganti ke disk supplemental"
+
+msgid "Installation Method"
+msgstr "Metode Instalasi"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your NFS server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Silahkan memasukan informasi berikut:\n"
+"\n"
+"  - Nama atau alamat IP NFS Server\n"
+"  - direktori pada server tersebut yang berisi\n"
+"    Red Hat Linux"
+
+msgid "NFS server name:"
+msgstr "Nama server NFS:"
+
+msgid "Red Hat directory:"
+msgstr "Direktori Red Hat:"
+
+msgid "Note"
+msgstr "Catatan"
+
+msgid "Insert your Red Hat CD into your CD drive now"
+msgstr "Masukkan CD Red Hat Anda ke dalam drive CD sekarang"
+
+msgid "I could not mount a CD on device /dev/%s"
+msgstr "I could not mount a CD on device /dev/%s"
+
+msgid "That CDROM device does not seem to contain a Red Hat CDROM."
+msgstr "CDROM ini tidak berisi Red Hat"
+
+msgid "nfs command"
+msgstr "perintah nfs"
+
+msgid "bad argument to kickstart nfs command %s: %s"
+msgstr "Argumen untuk kickstart nfs error %s: %s"
+
+msgid "nfs command incomplete"
+msgstr "Perintah nfs tak lengkap"
+
+msgid "I could not mount that directory from the server"
+msgstr "Saya tak dapat memount direktori tersebut dari server"
+
+msgid "That directory does not seem to contain a Red Hat installation tree."
+msgstr "Direktori ini tidak memiliki tree Red Hat"
+
+msgid "Loading second stage ramdisk..."
+msgstr "Sedang mengambil ramdisk tahap kedua..."
+
+msgid "PCMCIA Disk"
+msgstr "Disk PCMCIA"
+
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Saya gagal saat memount disketnya. Tolong masukkan saja disk PCMCIA Red "
+"Hat,atau tekan Batal untuk memilih proses instalasi yang lain."
+
+msgid "Loading PCMCIA Support"
+msgstr "Mengambil instalasi PCMCIA"
+
+msgid "Supplemental Disk"
+msgstr "Disket Supplemen"
+
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Supplementary "
+"Install disk, or choose Cancel to pick a different installation process."
+msgstr ""
+"Gagal dalam memount floppy. Silahkan masukkan disket Red Hat Supplemen atau "
+"pilih Batal untuk memilih proses instalasi lain."
+
+msgid "Loading Supplemental Disk..."
+msgstr "Sedang meload disket supplemen..."
+
+msgid "Driver Disk"
+msgstr "Disket Driver"
+
+msgid ""
+"This install method requires a driver disk. Please remove the supplemental "
+"disk currently in your drive and replace it with the Red Hat Modules disk."
+msgstr ""
+"Metode instalasi ini membutuhkan disket driver. Silahkan ganti disket yang "
+"ada di drive dengan Disket Module Red Hat."
+
+msgid ""
+"I failed to mount the floppy. Please insert the Red Hat Module disk, or "
+"choose Cancel to pick a different installation process."
+msgstr ""
+"Saya gagal saat memount disketnya. Tolong masukkan saja disket Module Red "
+"Hat,atau tekan Batal untuk memilih proses instalasi yang lain."
+
+msgid "Loading Driver Disk..."
+msgstr "Meload Disket Driver..."
+
+msgid ""
+"This install method requires two additional disks. Please remove the boot "
+"disk currently in your drive and replace it with the Red Hat Supplementary "
+"Install disk."
+msgstr ""
+"Metode instalasi ini membutuhkan disket yang lain lagi. Silahkan ganti "
+"disket yang ada di drive dengan Disket Red Hat Supplemen."
+
+msgid "hd command"
+msgstr "perintah hd"
+
+msgid "bad argument to kickstart hd command %s: %s"
+msgstr "perintah kickstart hd salah di %s: %s"
+
+msgid "hd command incomplete"
+msgstr "perintah hd tak lengkap"
+
+msgid "HD device %s not found"
+msgstr "Device HD %s tidak ketemu"
+
+msgid ""
+"What partition and directory on that partition hold the RedHat/RPMS and "
+"RedHat/base directories?"
+msgstr ""
+"Partisi mana dan di direktori mana yang berisi file-file instalasi "
+"RedHat/RPMS dan direktori RedHat/base ?"
+
+msgid "Directory holding Red Hat:"
+msgstr "Direktori yang berisi Red Hat:"
+
+msgid "Select Partition"
+msgstr "Pilih Partisinya"
+
+msgid "Failed to create /tmp/rhimage symlink: %s"
+msgstr "Saya gagal saat membuat symlink /tmp/rhimage: %s"
+
+msgid "Device %s does not appear to contain a Red Hat installation tree."
+msgstr "Device %s kelihatannya tidak berisi instalasi Red Hat tuh."
+
+msgid "Error reading second stage ramdisk. "
+msgstr "Error saat membaca ramdisk tahap kedua"
+
+msgid "url command"
+msgstr "perintah url"
+
+msgid "bad argument to kickstart url command %s: %s"
+msgstr "salah perintah url kickstart di %s: %s"
+
+msgid "url command incomplete"
+msgstr "perintah url tak lengkap"
+
+msgid "Unable to retrieve the second stage ramdisk: %s"
+msgstr "Saya gagal mengambil ramdisk tahap kedua: %s"
+
+msgid "Mount points must begin with a leading /."
+msgstr "Lokasi mount harus dimulai dengan /."
+
+msgid "Mount points may not end with a /."
+msgstr "Lokasi mount tidak boleh diakhiri dengan /."
+
+msgid "Mount points may only printable characters."
+msgstr "Lokasi mount hanya boleh diisi dengan karakter biasa"
+
+msgid "System partitions must be on Linux Native partitions."
+msgstr "Partisi sistem harus berada di partisi Linux Native."
+
+msgid "/usr must be on a Linux Native partition or an NFS volume."
+msgstr "/usr harus ada pada partisi Linux Native atau pada volume NFS."
+
+msgid "Edit Network Mount Point"
+msgstr "Ganti Lokasi mount Jaringan"
+
+msgid "Making ext2 filesystem on /dev/%s..."
+msgstr "Sedang membuat filesystem ext2 di /dev/%s"
+
+msgid "Running"
+msgstr "ekarang saya sedang ...."
+
+msgid "nfs mount failed: %s"
+msgstr "mount nfs gagal: %s"
+
+msgid "mount failed: %s"
+msgstr "mount gagal: %s"
+
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized. You can specify \"zerombr yes\" in the kickstart file "
+"to have this done automatically"
+msgstr ""
+"Tabel partisi pada device %s rusak. Untuk membuat partisi baru, ini harus "
+"diinisialisai dulu. Anda boleh memberikan argumen \"zerombr yes\" di file "
+"kickstart agar hal ini dilakukan secara otomatis"
+
+msgid "Zero Partition Table"
+msgstr "Tidak ada Tabel Partisi"
+
+msgid ""
+"bad argument to kickstart zerombr command: %s.\n"
+"Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
+msgstr ""
+"Perintah zerombr kickstart %s salah\n"
+"Seharusnya 'on', '1', atau 'yes' untuk mengaktifkan, atau 'off', '0', atau "
+"'no' untuk menonaktifkan."
+
+msgid "Clear Partition Command"
+msgstr "Hapus Perintah Partisi"
+
+msgid "bad argument to kickstart clearpart command %s: %s"
+msgstr "Perintah clearpart kickstart %s salah: %s"
+
+msgid "Partition Command"
+msgstr "Perintah Partisi"
+
+msgid "bad argument to kickstart part command %s: %s"
+msgstr "Perintah part kickstart %s salah: %s"
+
+msgid "Option Ignored"
+msgstr "Option diabaikan"
+
+msgid ""
+"The --maxsize option for the partition %s was ignored. Check that it is "
+"larger than the --size option."
+msgstr ""
+"Pilihan --maxsize untuk partisi %s diabaikan. Cek sendiri apakah sudah lebih "
+"dari --size atau belum."
+
+msgid "The mount point %s is already in use."
+msgstr "Lokasi mount %s sudah terpakai."
+
+msgid "Failed Allocation"
+msgstr "Alokasi gagal"
+
+msgid "The partition %s could not be allocated."
+msgstr "Partisi %s tidak dapat dialokasikan."
+
+msgid "Disk Setup"
+msgstr "Setup Disk"
+
+msgid ""
+"There are partitions that can be resized nondestructively to make room for "
+"your Red Hat Linux installation. Do you want to resize these partitions now?"
+msgstr ""
+"Ada partisi yang dapat dirubah ukurannya tanpa menghapus isi datanya. Apakah "
+"Anda hendak melakukan perubahan ukuran partisi ini ?"
+
+msgid "Success"
+msgstr "Sukses"
+
+msgid "Bad server response"
+msgstr "Balasan dari server aneh"
+
+msgid "Server IO error"
+msgstr "IO Error pada server"
+
+msgid "Server timeout"
+msgstr "Timeout pada server"
+
+msgid "Unable to lookup server host address"
+msgstr "Saya gagal mencari alamat host server"
+
+msgid "Unable to lookup server host name"
+msgstr "Saya gagal mencari nama host server"
+
+msgid "Failed to connect to server"
+msgstr "Saya gagal menghubungkan diri dengan server"
+
+msgid "Failed to establish data connection to server"
+msgstr "Saya gagal menjalankan koneksi data ke server"
+
+msgid "IO error to local file"
+msgstr "Error IO pada file lokal"
+
+msgid "Error setting remote server to passive mode"
+msgstr "Ada kesalahan saat menset server ke mode passive"
+
+msgid "File not found on server"
+msgstr "File tidak ada pada server"
+
+msgid "Abort in progress"
+msgstr "Batalkan proses sekarang"
+
+msgid "Unknown or unexpected error"
+msgstr "Error yang tidak diketahui"
+
+msgid "Whole disk"
+msgstr "Seluruh isi disk"
+
+msgid "Linux swap"
+msgstr "Linux swap"
+
+msgid "Linux native"
+msgstr "Linux native"
+
+msgid "DOS 12-bit FAT"
+msgstr "DOS 12-bit FAT"
+
+msgid "DOS 16-bit <32M"
+msgstr "DOS 16-bit <32M"
+
+msgid "DOS 16-bit >=32"
+msgstr "DOS 16-bit >=32"
+
+msgid "OS/2 HPFS"
+msgstr "OS/2 HPFS"
+
+msgid "Win95 FAT32"
+msgstr "Win95 FAT32"
+
+msgid "Hard Drives"
+msgstr "Hard Disk"
+
+msgid "Scanning hard drives..."
+msgstr "Mencari hard disk..."
+
+msgid ""
+"You don't have any hard drives available! You probably forgot to configure a "
+"SCSI controller."
+msgstr ""
+"Anda tidak memiliki hard disk ya? Atau mungkin lupa mengkonfigurasi "
+"kontroler SCSI."
+
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Untuk menginstal Red Hat Linux, Anda harus paling tidak memiliki satu "
+"partisi dengan ukuran minimal 150 MB untuk Linux. Saya sarankan untuk "
+"membuat partisi tersebut di salah satu dari dua hard disk pertama di sistem "
+"agar Anda dapat langsung memboot ke Linux dengan LILO."
+
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux."
+msgstr ""
+"Untuk menginstall Red Hat Linux, Anda paling tidak memiliki satu partisi "
+"berukuran 150 MB khusus untuk Linux."
+
+msgid "Partition Disks"
+msgstr "Disk Partisi"
+
+msgid "Done"
+msgstr "Selesai"
+
+msgid "Reboot Needed"
+msgstr "Harus direboot"
+
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press Return to reboot your system.\n"
+"\n"
+"If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
+"empty SCSI drive can also cause this problem."
+msgstr ""
+"Kernel tidak dapat membaca partisi, mungkin ini disebabkan karena Anda telah "
+"memodifikasi partisi extended. Tapi hal ini tidak begitu penting, Anda harus "
+"memboot sistem sebelum melanjutkan. Sekarang masukkan boot disk dari Red Hat "
+"dan tekan ENTER untuk mulai reboot.\n"
+"\n"
+"Bila Anda menggunakan ZIP atau JAZ drive, masukkan dulu disknya ke dalam "
+"drive."
+
+msgid "lilo command"
+msgstr "perintah lilo"
+
+msgid "bad argument to kickstart lilo command %s: %s"
+msgstr "perintah kickstart LILO salah %s: %s"
+
+msgid "PCMCIA Support"
+msgstr "Dukungan PCMCIA"
+
+msgid ""
+"Do you need to use PCMCIA devices during the install? Answer no to this "
+"question if only need PCMCIA support after the install. You do not need "
+"install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
+"with a built-in CDROM drive."
+msgstr ""
+"Apakah Anda harus menggunakan perangkat PCMCIA saat instalasi? Jawab tidak "
+"bila Anda hanya butuh PCMCIA setelah install. Anda tidak perlu menggunakan "
+"PCMCIA bila Anda sekarang menginstall Red Hat Linux pada laptop dengan "
+"built-in CDROM."
+
+msgid "PCMCIA Support Disk"
+msgstr "Disket untuk PCMCIA"
+
+msgid ""
+"PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
+"currently in your drive and replace it with the Red Hat PCMCIA support disk."
+msgstr ""
+"Untuk menggunakan PCMCIA, maka ganti disket boot pada drive sekarang dengan "
+"disket PCMCIA Red Hat."
+
+msgid "Starting PCMCIA services..."
+msgstr "Mulai menggunakan PCMCIA..."
+
+msgid ""
+"\n"
+"\n"
+"Type <exit> to return to the install program.\n"
+"\n"
+msgstr ""
+"\n"
+"\n"
+"Ketik <exit> untuk kembali ke program instalasi.\n"
+"\n"
+
+msgid "Kickstart Error"
+msgstr "Errok Kickstart"
+
+msgid "No kickstart configuration file server can be found."
+msgstr "Saya tidak dapat menemukan file kickstart di server."
+
+msgid "I could not mount the kickstart path %s.\n"
+msgstr "Saya gagal memount path kickstart %s.\n"
+
+msgid "I could not mount the boot floppy."
+msgstr "Saya gagal memount boot floopy."
+
+msgid "Cannot find ks.cfg on boot floppy."
+msgstr "Saya tak dapat menemukan ks.cfg di floppy."
+
+msgid "Error opening files for kickstart copy: %s\n"
+msgstr "Gagal membuka file untuk menyalin kickstart: %s\n"
+
+msgid "Error copying kickstart file from floppy."
+msgstr "Error saat kopi kickstart dari floppy."
+
+msgid "Select installation path"
+msgstr "Pilihlah path instalasi"
+
+msgid "Select installation class"
+msgstr "Pilihlah tipe instalasi"
+
+msgid "Setup SCSI"
+msgstr "Setup SCSI"
+
+msgid "Setup filesystems"
+msgstr "Setup filesystem"
+
+msgid "Setup swap space"
+msgstr "Setup lokasi swap"
+
+msgid "Find installation files"
+msgstr "Cari file instalasi"
+
+msgid "Choose packages to install"
+msgstr "Pilihlah paket yang hendak diinstall"
+
+msgid "Configure networking"
+msgstr "Konfigurasikan jaringan"
+
+msgid "Configure timezone"
+msgstr "Konfigurasikan zona waktu"
+
+msgid "Configure services"
+msgstr "Konfigurasikan layanan sistem"
+
+msgid "Configure printer"
+msgstr "Konfigurasikan printer"
+
+msgid "Exit install"
+msgstr "Keluar dari Instalasi"
+
+msgid "Find current installation"
+msgstr "Cari instalasi yang telah terpasang"
+
+msgid "Disk Druid"
+msgstr "Setup disk"
+
+msgid "fdisk"
+msgstr "fdisk"
+
+msgid ""
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
+"\n"
+"Which tool would you like to use?"
+msgstr ""
+"Disk Druid adalah alat untuk mempartisi dan setting mount point. Program ini "
+"dirancang sedemikian rupa untuk memudahkan proses partisi, namun secanggih "
+"program partisi tradisional (misalnya fdisk). Tetapi adakalanya fdisk lebih "
+"enak digunakan daripada Disk Druid.\n"
+"\n"
+"Program mana yang hendak Anda gunakan?"
+
+msgid "Scanning packages..."
+msgstr "Mencari paket..."
+
+msgid "Install log"
+msgstr "Log instalasi"
+
+msgid "Upgrade log"
+msgstr "Log upgrade"
+
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
+"is finished. After rebooting, please read it to ensure configuration files "
+"are properly updated."
+msgstr ""
+"Log lengkap dari proses upgrade disimpan di /tmp/install.log setelah sistem "
+"diboot. Bacalah file ini untuk memastikan proses upgrade berjalan dengan "
+"baik."
+
+msgid "Rebuilding RPM database..."
+msgstr "Membuat database RPM..."
+
+msgid "Rebuild of RPM database failed. You may be out of disk space?"
+msgstr "Gagal dalam pembuatan database RPM. Mungkin spasi disk habis?"
+
+msgid "rootpw command"
+msgstr "perintah rootpw"
+
+msgid "bad argument to kickstart rootpw command %s: %s"
+msgstr "perintah rootpw kickstart salah %s: %s"
+
+msgid "Missing password"
+msgstr "Password tidak ada"
+
+msgid "Unexpected arguments"
+msgstr "Argumen salah"
+
+msgid "Installation Path"
+msgstr "Path instalasi"
+
+msgid ""
+"Would you like to install a new system or upgrade a system which already "
+"contains Red Hat Linux 2.0 or later?"
+msgstr ""
+"Apakah Anda ingin menginstall sistem baru ataukah upgrade sistem ? Untuk "
+"upgrade, Anda harus sudah memiliki Red Hat 2.0 ke atas pada sistem Anda"
+
+msgid ""
+"What type of machine are you installing? For maximum flexibility, choose "
+"\"Custom\"."
+msgstr ""
+"Mesin tipe apa yang hendak Anda instal? Untuk lebih enaknya, lebih baik "
+"pilih \"Bebas\"."
+
+msgid "Converting RPM database..."
+msgstr "Mengkonversi database RPM..."
+
+msgid "Finding packages to upgrade..."
+msgstr "Mencari paket yang hendak diupgrade..."
+
+msgid "Previous"
+msgstr "Kembali"
+
+msgid "Menu"
+msgstr "Menu"
+
+msgid ""
+"An error occured during step \"%s\" of the install.\n"
+"\n"
+"You may retry that step, return to the previous step in the install, or see "
+"a menu of installation steps which will allow you to move around in the "
+"install more freely. It is not recommended to use the menu unless you are "
+"already familiar with Red Hat Linux. What would you like to do?"
+msgstr ""
+"Ada error pada tahap \"%s\" di proses instalasi ini.\n"
+"\n"
+"Anda boleh mengulangi tahap ini, kembali ke tahap awal instalasi, atau "
+"melihat menu instalasi agar Anda bisa berpindah ke tahap yang Anda inginkan. "
+"Namun saya tidak menganjurkan Anda menggunakan menu, kecuali Anda sudah "
+"sangat familiar dengan Red Hat Linux. Nah sekarang bagaimana?"
+
+msgid "  Continue with install"
+msgstr "  Lanjutkan instalasi"
+
+msgid ""
+"What step would you like to run? Steps with a * next to them have already "
+"been completed."
+msgstr ""
+"Tahap mana yang ingin Anda jalankan? Tahap yang sudah selesai dilakukan "
+"ditandai dengan *."
+
+msgid "Cancelled"
+msgstr "Dibatalkan"
+
+msgid "I can't go to the previous step from here. You will have to try again."
+msgstr ""
+"Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
+
+msgid "Insert a blank floppy in the first drive /dev/fd0."
+msgstr "Masukkan disket kosong di drive /dev/fd0"
+
+msgid "file %s missing from source directory"
+msgstr "file %s kok tidak ada di direktori source?"
+
+msgid "failed to create file %s"
+msgstr "saya gagal membuat %s"
+
+msgid "error writing to file %s: %s"
+msgstr "tidak bisa menulis ke file %s: %s"
+
+msgid "error reading from file %s: %s"
+msgstr "tidak bisa membaca file %s: %s"
+
+msgid "Kernel"
+msgstr "Kernel"
+
+msgid ""
+"Please insert your boot disk in your first disk drive if it's not already "
+"present."
+msgstr "Masukkan dulu boot disknya ke drive ya."
+
+msgid "Copying kernel from floppy..."
+msgstr "Menyalin kernel dari disket..."
+
+msgid "Error opening: kickstart file %s: %s"
+msgstr "Error membuka file kickstart %s: %s"
+
+msgid "Error reading contents of kickstart file %s: %s"
+msgstr "Error saat membaca isi file kickstart %s: %s"
+
+msgid "Error on line %d of kickstart file %s."
+msgstr "Error pada baris %d di file kickstart %s."
+
+msgid "Unknown command %s on line %d of kickstart file %s."
+msgstr "Perintah tak dikenal %s pada baris %d di file kickstart %s."
+
+msgid "Failed to create /mnt/tmp/ks.script: %s"
+msgstr "Gagal membuat /mnt/tmp/ks.script: %s"
+
+msgid "Failed to write ks post script: %s"
+msgstr "Gagal menuliskan post script ks: %s"
+
+msgid "Choose a Language"
+msgstr "Pilih bahasanya:"
+
+msgid "Failed to create symlink for package source."
+msgstr "Gagal membuat symlink untuk source package."
+
+msgid "ftp"
+msgstr "ftp"
+
+msgid "I'm having trouble getting %s. Would you like to retry?"
+msgstr "Saya tidak dapat mengambil %s. Ulangi lagi?"
+
+msgid "SILO"
+msgstr "SILO"
+
+msgid "LILO"
+msgstr "LILO"
+
+msgid "Creating initial ramdisk..."
+msgstr "Membuat initial ramdisk..."
+
+msgid "Device:"
+msgstr "Perangkat:"
+
+msgid "Boot label:"
+msgstr "Label boot:"
+
+msgid "Installing boot loader..."
+msgstr "Instalasi boot loader..."
+
+msgid "Bootable Partitions"
+msgstr "Partisi yang bisa diboot"
+
+msgid "Creating bootdisk..."
+msgstr "Membuat bootdisk..."
+
+msgid "Formatting swap space on device %s..."
+msgstr "Saya sedang memformat area swap di device %s..."
+
+msgid "No Swap Space"
+msgstr "Tidak ada area swap"
+
+msgid ""
+"You don't have any swap space defined. Would you like to continue, or "
+"repartition your disk?"
+msgstr ""
+"Anda belum memberitahu saya area swapnya. Lanjutkan saja atau partisi ulang "
+"disk Anda ?"
+
+msgid ""
+"What partitions would you like to use for swap space? This will destroy any "
+"information already on the partition."
+msgstr ""
+"Partisi mana yang Anda hendak gunakan sebagai area swap? Hati-hati karena "
+"proses ini akan menghapus/menimpa apa pun yang ada di partisi ini."
+
+msgid "Active Swap Space"
+msgstr "Area swap aktif"
+
+msgid "Could not mount automatically selected device."
+msgstr "Saya tidak dapat memount ke device itu secara otomatis."
+
+msgid "Cannot read /mnt/etc/fstab: %s"
+msgstr "Saya tidak dapat membaca /mnt/etc/fstab: %s"
+
+msgid "Bad line in /mnt/etc/fstab -- aborting"
+msgstr "Ada kesalahan di /mnt/etc/fstab -- batal"
+
+msgid "Determining host name and domain..."
+msgstr "Sedang mencari tahu nama host dan domain..."
+
+msgid "Ethernet Probe"
+msgstr "Pencarian Ethernet"
+
+msgid ""
+"The Ethernet probe failed to find a card on your system. Press <Enter> to "
+"manually configure one."
+msgstr ""
+"Saya tidak menemukan satu ethernet card pun di sistem Anda. Silahkantekan "
+"<ENTER> untuk mengkonfigurasi secara manual."
+
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"Sekarang masukkan alamat IP untuk mesin ini. Tiap IP harus dituliskandalam "
+"bentuk notasi desimal bertitik (misalnya, 202.159.123.25)."
+
+msgid "Configure TCP/IP"
+msgstr "Konfigurasi TCP/IP"
+
+msgid "Static IP address"
+msgstr "Alamat IP statis"
+
+msgid "BOOTP"
+msgstr "BOOTP"
+
+msgid "DHCP"
+msgstr "DHCP"
+
+msgid "kickstart"
+msgstr "kickstart"
+
+msgid "bad ip number in network command: %s"
+msgstr "alamat IP di perintah %s salah"
+
+msgid "bad argument to kickstart network command %s: %s"
+msgstr "argumen untuk perintah kickstart %s tidak valid: %s"
+
+msgid "kickstart network command is missing ip address"
+msgstr "perintah kickstart membutuhkan alamat IP"
+
+msgid "Boot Protocol"
+msgstr "Protokol Boot"
+
+msgid ""
+"How should the IP information be set? If your system administrator gave you "
+"an IP address, choose static IP."
+msgstr ""
+"Bagaimana cara IP Anda diset ? Bila system administrator Andamemberikan "
+"alamat IP tertentu, maka pilihlah IP statis."
+
+msgid "Sending DHCP request..."
+msgstr "Mengirimkan permintaan DHCP..."
+
+msgid "Sending BOOTP request..."
+msgstr "Mengirimkan permintaan BOOTP..."
+
+msgid "Cannot create %s: %s\n"
+msgstr "Tidak dapat membuat %s: %s\n"
+
+msgid "cannot create network device config file: %s"
+msgstr "saya tidak dapat membuat file device config: %s"
+
+msgid "cannot open file: %s"
+msgstr "saya tidak dapat membuka file: %s"
+
+msgid ""
+"I cannot automatically determine the hostname. Press <Enter> to enter "
+"hostname information."
+msgstr ""
+"Saya tidak dapat mencari nama host mesin ini. Silahkan tekan <ENTER> untuk "
+"menuliskan nama host mesin ini."
+
+msgid ""
+"Please enter your domain name, host name, and the IP addresses of any "
+"additional nameservers. Your host name should be a fully-qualified host "
+"name, such as mybox.mylab.myco.com. If you don't have any additional "
+"nameservers, leave the nameserver entries blank."
+msgstr ""
+"Silahkan tuliskan nama domain, nama host, dan alamat IP dari nameserver "
+"Anda. Nama host haruslah dalam bentuk FQDN (Fully qualified host name), "
+"misalnya sipalui.linux.or.id. Bila Anda tidak memiliki nameserver, maka "
+"jangan tuliskan (kosongkan saja)."
+
+msgid "Host name:"
+msgstr "Nama host:"
+
+msgid "Secondary nameserver (IP):"
+msgstr "Nameserver Cadangan (IP):"
+
+msgid "Tertiary nameserver (IP):"
+msgstr "Nameserver Cadangan 2 (IP):"
+
+msgid "Configure Network"
+msgstr "Konfigurasi Jaringan"
+
+msgid "Keep the current IP configuration"
+msgstr "Jangan merubah konfigurasi IP"
+
+msgid "Reconfigure network now"
+msgstr "Konfigurasikan jaringan sekarang"
+
+msgid "Don't set up networking"
+msgstr "Jangan mensetup jaringan"
+
+msgid "LAN networking has already been configured. Do you want to:"
+msgstr "Jaringan LAN telah dikonfigurasi. Apakah Anda ingin:"
+
+msgid ""
+"Do you want to configure LAN (not dialup) networking for your installed "
+"system?"
+msgstr ""
+"Apakah Anda ingin mengkonfigurasikan LAN (bukan dialup) untuk sistem ini?"
+
+msgid "Cannot open components file: %s"
+msgstr "Saya tidak bisa membuka file komponen: %s"
+
+msgid "Cannot read components file: %s"
+msgstr "Saya tidak bisa membaca file komponen: %s"
+
+msgid "Comps file is not version 0.1 as expected"
+msgstr "File Comps bukan versi 0.1 nih"
+
+msgid "bad comps file at line %d"
+msgstr "file comps error pada baris %d"
+
+msgid "comps Error"
+msgstr "Error comps"
+
+msgid "missing component name at line %d"
+msgstr "nama komponen tidak ada di baris %d"
+
+msgid "Ignore all"
+msgstr "Abaikan semuanya"
+
+msgid "package %s at line %d does not exist"
+msgstr "paket %s di baris %d tidak ada"
+
+msgid "Component %s does not exist.\n"
+msgstr "Komponen %s tidak ada.\n"
+
+msgid "Package %s does not exist.\n"
+msgstr "Paket %s tidak ada.\n"
+
+msgid "GNOME"
+msgstr "GNOME"
+
+msgid ""
+"Would you like to have the GNOME desktop installed? It provides an easy to "
+"use interface, including a drag and drop capability and an integrated help "
+"system."
+msgstr ""
+"Apakah Anda hendak menginstall GNOME? GNOME menyediakan interface yang mudah "
+"digunakan, termasuk fasilitas drag and drop dan help yang sudah terintegrasi."
+
+msgid "no suggestion"
+msgstr "tidak tahu"
+
+msgid "Everything"
+msgstr "Semuanya"
+
+msgid "Choose components to install:"
+msgstr "Pilihlah komponen yang hendak diinstall:"
+
+msgid "Components to Install"
+msgstr "Komponen yang hendak diinstall"
+
+msgid "error opening header file: %s"
+msgstr "Error saat membuka file: %s"
+
+msgid "Installed system size:"
+msgstr "Ukuran sistem yang diinstal:"
+
+msgid "Choose a group to examine"
+msgstr "Pilihlah kelompok paketnya"
+
+msgid "Press F1 for a package description"
+msgstr "Tekan F1 untuk melihat deskripsi paket ini"
+
+msgid "Select Group"
+msgstr "Pilih Kelompok Paket"
+
+msgid "(none available)"
+msgstr "(tidak ada yg tersedia)"
+
+msgid "Package:"
+msgstr "Paket  :"
+
+msgid "Upgrade Packages"
+msgstr "Upgrade Paket"
+
+msgid "Printer Information"
+msgstr "Informasi Printer"
+
+msgid "<F1> will give you information on a particular printer type"
+msgstr "Tekan <F1> untuk melihat informasi printer ini"
+
+msgid "What type of printer do you have?"
+msgstr "Printer mana yang Anda punya?"
+
+msgid "Configure Printer"
+msgstr "Konfigurasi Printer"
+
+msgid "<F1> will give you information on this printer driver."
+msgstr "Tekan <F1> untuk melihat info driver printer ini."
+
+msgid "You may now configure the paper size and resolution for this printer."
+msgstr "Sekarang silahkan konfigurasikan ukuran kertas dan resolusi printer."
+
+msgid "Paper Size"
+msgstr "Ukuran Kertas"
+
+msgid "Resolution"
+msgstr "Resolusi"
+
+msgid "Fix stair-stepping of text?"
+msgstr "Perbaiki efek tangga pada text?"
+
+msgid "You may now configure the color options for this printer."
+msgstr "Silahkan juga konfigurasikan warna pada printer."
+
+msgid "You may now configure the uniprint options for this printer."
+msgstr "Silahkan konfigurasikan opsi uniprint pada printer ini."
+
+msgid "Configure Color Depth"
+msgstr "Konfigurasi kedalaman warna"
+
+msgid "Configure Uniprint Driver"
+msgstr "Konfigurasikan Driver Uniprint"
+
+msgid ""
+"What device is your printer connected to (note that /dev/lp0 is equivalent "
+"to LPT1:)?"
+msgstr "Ke mana printer Anda tersambung ? (/dev/lp0 adalah LPT1:)"
+
+msgid ""
+"Auto-detected ports:\n"
+"\n"
+msgstr ""
+"Port yang terdeteksi:\n"
+"\n"
+
+msgid "Not "
+msgstr "Tidak"
+
+msgid "Detected\n"
+msgstr "Terdeteksi\n"
+
+msgid "Printer Device:"
+msgstr "Device Printer:"
+
+msgid "Local Printer Device"
+msgstr "Device Printer Lokal"
+
+msgid "Remote hostname:"
+msgstr "Nama host remote:"
+
+msgid "Remote queue:"
+msgstr "Antrian remote:"
+
+msgid "Remote lpd Printer Options"
+msgstr "Option printer lpd remote"
+
+msgid ""
+"To use a remote lpd print queue, you need to supply the hostname of the "
+"printer server and the queue name on that server which jobs should be placed "
+"in."
+msgstr ""
+"Anda harus menuliskan nama host printer server dan nama queuenya bila ingin "
+"menggunakan print queue lpd di mesin remote."
+
+msgid "Printer Server:"
+msgstr "Server Printer:"
+
+msgid "Print Queue Name:"
+msgstr "Nama antrian:"
+
+msgid "NetWare Printer Options"
+msgstr "Setting Printer Netware"
+
+msgid ""
+"To print to a NetWare printer, you need to provide the NetWare print server "
+"name (this is not always the same as the machines TCP/IP hostname) as well "
+"as the print queue name for the printer you wish to access and any "
+"applicable user name and password."
+msgstr ""
+"Agar bisa mencetak pada printer NetWare, maka tuliskan nama server printer "
+"Netware (biasanya tidak sama namanya dengan nama hostname TCP/IPnya) beserta "
+"dgn nama antrian cetaknya untuk printer tersebut, juga kalau perlu "
+"sertakanjuga nama user dan passwordnya."
+
+msgid "SMB server host:"
+msgstr "Nama server SMB:"
+
+msgid "SMB server IP:"
+msgstr "IP Server SMB:"
+
+msgid "Share name:"
+msgstr "Nama share:"
+
+msgid "Workgroup:"
+msgstr "Workgroup:"
+
+msgid "SMB/Windows 95/NT Printer Options"
+msgstr "Setting Printer SMB/Windows 95/NT"
+
+msgid ""
+"To print to a SMB printer, you need to provide the SMB host name (this is "
+"not always the same as the machines TCP/IP hostname) and possibly the IP "
+"address of the print server, as well as the share name for the printer you "
+"wish to access and any applicable user name, password, and workgroup "
+"information."
+msgstr ""
+"Agar bisa mencetak pada printer SMB, maka tuliskan nama server printer "
+"Netware (biasanya tidak sama namanya dengan nama hostname TCP/IPnya) beserta "
+"dengan alamat IP server, plus nama share printer tersebut, juga sertakan "
+"juga nama user, passwordnya, dan workgroupnya."
+
+msgid "Spool directory:"
+msgstr "Direktori spool:"
+
+msgid "Standard Printer Options"
+msgstr "Setting Printer Standar"
+
+msgid ""
+"Every print queue (which print jobs are directed to) needs a name (often lp) "
+"and a spool directory associated with it. What name and directory should be "
+"used for this queue?"
+msgstr ""
+"Tiap antrian print (tempat job print ditempatkan) harus memiliki nama "
+"(biasanya bernama lp) dan direktori spoolnya. Tuliskan nama dan direktori "
+"yang hendak digunakan untuk antrian ini"
+
+msgid "Would you like to configure a printer?"
+msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
+
+msgid "Would you like to add another printer?"
+msgstr "Tambah lagi printernya ?"
+
+msgid "SMB/Windows 95/NT"
+msgstr "SMB/Windows 95/NT"
+
+msgid "NetWare"
+msgstr "NetWare"
+
+msgid "Select Printer Connection"
+msgstr "Pilih koneksi printer"
+
+msgid "How is this printer connected?"
+msgstr "Bagaimana printer ini dipasang?"
+
+msgid "Printer type:"
+msgstr "Tipe printer:"
+
+msgid "Queue:"
+msgstr "Antrian:"
+
+msgid "Printer device:"
+msgstr "Device printer:"
+
+msgid "Remote host:"
+msgstr "Host remote:"
+
+msgid "Share:"
+msgstr "Share:"
+
+msgid "Printer driver:"
+msgstr "Driver Printer:"
+
+msgid "Paper size:"
+msgstr "Ukuran Kertas:"
+
+msgid "Resolution:"
+msgstr "Resolusi:"
+
+msgid "Uniprint driver:"
+msgstr "Driver Uniprint:"
+
+msgid ""
+"Please verify that this printer information is correct:\n"
+"\n"
+msgstr ""
+"Silahkan periksa apakah informasi berikut adalah benar:\n"
+"\n"
+
+msgid "Printer device"
+msgstr "Device printer"
+
+msgid "Verify Printer Configuration"
+msgstr "Periksa Konfigurasi Printer"
+
+msgid ""
+"I have found the following types of SCSI adapters on your system:\n"
+"\n"
+msgstr ""
+"Saya menemukan adapter SCSI berikut ini:\n"
+"\n"
+
+msgid ""
+"\n"
+"Do you have any more SCSI adapters on your system?"
+msgstr ""
+"\n"
+"Apakah Anda memiliki lagi adapter SCSI di komputer ini?"
+
+msgid "Do you have any SCSI adapters?"
+msgstr "Apakah Anda memiliki adapter SCSI?"
+
+msgid "SMB server name  :"
+msgstr "Nama server SMB  :"
+
+msgid "Share volume     :"
+msgstr "Volume share     :"
+
+msgid "Account name     :"
+msgstr "Nama account     :"
+
+msgid "Password         :"
+msgstr "Password         :"
+
+msgid "SMB Setup"
+msgstr "Setup SMB"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your SMB server\n"
+"    o the volume to share which contains\n"
+"      Red Hat Linux for your architecture"
+msgstr ""
+"Silahkan masukkan informasi berikut:\n"
+"\n"
+"    o nama atau alamat IP server SMB\n"
+"    o volume share yang berisi instalasi\n"
+"      Red Hat"
+
+msgid "Password for %s@%s: "
+msgstr "Password %s@%s: "
+
+msgid "error: %sport must be a number\n"
+msgstr "error: %sport haruslah angka\n"
+
+msgid "url port must be a number\n"
+msgstr "port url harus angka\n"
+
+msgid "logging into %s as %s, pw %s\n"
+msgstr "masuk ke %s sebagai %s, pw %s\n"
+
+msgid "failed to open %s\n"
+msgstr "saya gagal membuka %s\n"
+
+msgid "failed to create %s\n"
+msgstr "saya gagal membuat %s\n"
+
+msgid "Retrieving"
+msgstr "Mengambil file"
+
+msgid "open of %s failed: %s\n"
+msgstr "saya gagal membuka %s: %s\n"
+
+msgid ""
+"Error transferring file %s:\n"
+"%s"
+msgstr ""
+"Terjadi kesalahan saat mentransfer file %s:\n"
+"%s"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your FTP server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Sekarang masukkan informasi berikut:\n"
+"\n"
+" - nama atau alamat IP FTP server \n"
+" - direktori di server tersebut yang berisi\n"
+"   master instalasi Red Hat Linux\n"
+
+msgid ""
+"Please enter the following information:\n"
+"\n"
+"    o the name or IP number of your web server\n"
+"    o the directory on that server containing\n"
+"      Red Hat Linux for your architecure\n"
+msgstr ""
+"Sekarang masukkan informasi berikut:\n"
+"\n"
+" - nama atau alamat IP web server \n"
+" - direktori di server tersebut yang berisi\n"
+"   master instalasi Red Hat Linux\n"
+
+msgid "FTP site name:"
+msgstr "Nama FTP site:"
+
+msgid "Web site name:"
+msgstr "Nama web site:"
+
+msgid "Use non-anonymous ftp or a proxy server"
+msgstr "Gunakan non-anonim ftp atau proxy server"
+
+msgid "FTP Setup"
+msgstr "Setup FTP"
+
+msgid "HTTP Setup"
+msgstr "Setup HTTP"
+
+msgid "You must enter a server name."
+msgstr "Masukkan nama servernya."
+
+msgid "You must enter a directory."
+msgstr "Masukkan nama direktorinya."
+
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below. If you are using an FTP proxy enter the name of the FTP "
+"proxy server to use."
+msgstr ""
+"Bila Anda menggunakan ftp non-anonim, segera masukkan nama login dan "
+"passwordnya. Bila Anda menggunakan proxy FTP, maka tuliskan nama serverproxy "
+"FTPnya."
+
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"Bila Anda menggunakan proxy HTTP, maka tuliskan nama server proxy HTTPnya."
+
+msgid "FTP Proxy:"
+msgstr "Proxy FTP:"
+
+msgid "HTTP Proxy:"
+msgstr "Proxy HTTP:"
+
+msgid "FTP Proxy Port:"
+msgstr "Port Proxy FTP:"
+
+msgid "HTTP Proxy Port:"
+msgstr "Port Proxy HTTP:"
 
 #, fuzzy
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "Setting Printer Standar"
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was:"
+msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
 
-#~ msgid "LAN Manager"
-#~ msgstr "LAN Manager"
+msgid "LAN manager host:"
+msgstr "Host LAN manager:"
 
-#, fuzzy
-#~ msgid "RPM install of %s failed: %s"
-#~ msgstr "saya gagal membuka %s: %s\n"
-
-#~ msgid "<F1> will show you a size and description of a package"
-#~ msgstr "Tekan <F1> untuk mengetahui ukuran dan deskripsi paket ini"
-
-#~ msgid "Size of all selected packages:"
-#~ msgstr "Ukuran seluruh paket terpilih:"
+msgid "LAN manager IP:"
+msgstr "IP LAN manager:"
 
 #, fuzzy
-#~ msgid "Select Packages"
-#~ msgstr "Pilih beberapa paket"
+msgid "LAN Manager Printer Options"
+msgstr "Setting Printer Standar"
+
+msgid "LAN Manager"
+msgstr "LAN Manager"
 
 #, fuzzy
-#~ msgid "I cannot get file %s: %s\n"
-#~ msgstr "saya tidak dapat membuka file: %s"
+msgid "RPM install of %s failed: %s"
+msgstr "saya gagal membuka %s: %s\n"
+
+msgid "<F1> will show you a size and description of a package"
+msgstr "Tekan <F1> untuk mengetahui ukuran dan deskripsi paket ini"
+
+msgid "Size of all selected packages:"
+msgstr "Ukuran seluruh paket terpilih:"
 
 #, fuzzy
-#~ msgid "I cannot log into machine: %s\n"
-#~ msgstr "saya tidak dapat membuka file: %s"
+msgid "Select Packages"
+msgstr "Pilih beberapa paket"
 
 #, fuzzy
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
-#~ msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
+msgid "I cannot get file %s: %s\n"
+msgstr "saya tidak dapat membuka file: %s"
+
+#, fuzzy
+msgid "I cannot log into machine: %s\n"
+msgstr "saya tidak dapat membuka file: %s"
+
+#, fuzzy
+msgid ""
+"Would you like to install or configure the SILO bootloader on your system?"
+msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
