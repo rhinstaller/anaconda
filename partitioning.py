@@ -1102,6 +1102,31 @@ def confirmResetPartitionState(intf):
                             type="yesno")
     return rc
 
+# does this partition contain partitions we can't delete?
+def containsImmutablePart(part, requestlist):
+    if not part:
+        return None
+    
+    if not part.type & parted.PARTITION_EXTENDED:
+        return None
+
+    disk = part.geom.disk
+    while part:
+        if not part.is_active():
+            part = disk.next_partition(part)
+            continue
+
+        device = get_partition_name(part)
+        request = requestlist.getRequestByDeviceName(device)
+
+        if request:
+            if request.type == REQUEST_PROTECTED:
+                return _("the partition in use by the installer.")
+
+            if requestlist.isRaidMember(request):
+                return _("a partition which is a member of a RAID array.")
+        
+        part = disk.next_partition(part)
 #
 # handle deleting a partition - pass in the list of requests and the
 # partition to be deleted
@@ -1119,6 +1144,15 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         return 0
     else:
         device = get_partition_name(partition)
+
+    ret = containsImmutablePart(partition, requestlist)
+    if ret:
+        intf.messageWindow(_("Unable To Remove"),
+                           _("You cannot remove this "
+                             "partition, as it is an extended partition "
+                             "which contains %s") %(ret))
+        return 0
+        
 
     # see if device is in our partition requests, remove
     request = requestlist.getRequestByDeviceName(device)
@@ -1179,6 +1213,14 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return ("PARTITION", request)
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
+
+    ret = containsImmutablePart(part, requestlist)
+    if ret:
+        intf.messageWindow(_("Unable To Edit"),
+                           _("You cannot edit this "
+                             "partition, as it is an extended partition "
+                             "which contains %s") %(ret))
+        return 0
 
     request = requestlist.getRequestByDeviceName(get_partition_name(part))
     if request:
