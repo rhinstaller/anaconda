@@ -557,11 +557,10 @@ class FileSystemSet:
     def formatSwap (self, chroot):
         for entry in self.entries:
             if (not entry.fsystem or not entry.fsystem.getName() == "swap"
-                or not entry.getFormat()):
+                or not entry.getFormat() or entry.isMounted()):
                 continue
             try:
-                entry.fsystem.formatDevice(entry, self.progressWindow,
-                                           chroot)
+                self.formatEntry(entry, chroot)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -576,7 +575,8 @@ class FileSystemSet:
                 
     def turnOnSwap (self, chroot):
         for entry in self.entries:
-            if entry.fsystem and entry.fsystem.getName() == "swap":
+            if (entry.fsystem and entry.fsystem.getName() == "swap"
+                and not entry.isMounted()):
                 try:
                     entry.mount(chroot)
                 except SystemError, (errno, msg):
@@ -592,7 +592,10 @@ class FileSystemSet:
                                              "system.")
                                            % (entry.device.getDevice(), msg))
                     sys.exit(0)
-
+                    
+    def formatEntry(self, entry, chroot):
+        entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
+        
     def formattablePartitions(self):
         list = []
         for entry in self.entries:
@@ -605,8 +608,8 @@ class FileSystemSet:
             if (not entry.fsystem.isFormattable() or not entry.getFormat()
                 or entry.isMounted()):
                 continue
-            try: 
-                entry.fsystem.formatDevice(entry, self.progressWindow, chroot)
+            try:
+                self.formatEntry(entry, chroot)
             except SystemError:
                 if self.messageWindow:
                     self.messageWindow(_("Error"),
@@ -962,7 +965,7 @@ class SwapFileDevice(Device):
             if self.size:
                 isys.ddfile(file, self.size, None)
             else:
-                raise SystemError, ("swap file creation necessary, but "
+                raise SystemError, (0, "swap file creation necessary, but "
                                     "required size is unknown.")
         return file
 

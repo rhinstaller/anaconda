@@ -177,10 +177,7 @@ class UpgradeSwapWindow:
 		else:
 		    screen.popWindow()
                     if flags.setupFilesystems:
-                        # XXX fix me
-                        # upgrade.createSwapFile(todo.instPath, todo.fstab,
-                        #                       mnt, val)
-                        pass
+                        upgrade.createSwapFile(instPath, fsset, mnt, val)
 		    return INSTALL_OK
 
 	raise ValueError

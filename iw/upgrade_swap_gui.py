@@ -62,9 +62,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         else:
             if flags.setupFilesystems:
-                # XXX fix me
-                # upgrade.createSwapFile(instPath, fsset, mnt, val)
-                pass
+                upgrade.createSwapFile(self.instPath, self.fsset, mnt, val)
                 
         return None
 

@@ -18,12 +18,12 @@ import _balkan
 import os
 import raid
 import iutil
-import fsset
 import time
 import rpm
 import sys
 import os.path
 from flags import flags
+from fsset import *
 from partitioning import *
 from log import log
 from translate import _
@@ -50,7 +50,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     mdList = raid.startAllRaid(diskset.driveList())
 
     if rootFs == "vfat":
-	fsset.mountLoopbackRoot(root)
+	mountLoopbackRoot(root)
     else:
 	isys.mount(root, '/mnt/sysimage', rootFs)
 
@@ -60,7 +60,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
         oldfsset.add(entry)
 
     if rootFs == "vfat":
-	fsset.unmountLoopbackRoot()
+	unmountLoopbackRoot()
     else:
 	isys.umount('/mnt/sysimage')        
 
@@ -116,7 +116,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
 	space = isys.pathSpaceAvailable("/mnt/loophost")
 
         for entry in fsset.entries:
-            if entry.mountpoint != '/':
+            if entry.mountpoint != '/' or space <= 16:
                 continue
             
 	    info = (entry.mountpoint, entry.device.getDevice(), space)
@@ -129,8 +129,9 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
                 if flags.setupFilesystems and not entry.isMounted():
                     continue
                 space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
-                info = (entry.mountpoint, entry.device.getDevice(), space)
-                fsList.append(info)
+                if space > 16:
+                    info = (entry.mountpoint, entry.device.getDevice(), space)
+                    fsList.append(info)
 
     suggestion = mem * 2 - swap
     suggSize = 0
@@ -148,11 +149,10 @@ def swapfileExists(swapname):
     except:
 	return 0
 
-# XXX fix me.
-def createSwapFile(instPath, thefsset, mntPoint, size):
+def createSwapFile(instPath, theFsset, mntPoint, size):
     fstabPath = instPath + "/etc/fstab"
     prefix = ""
-    if thefsset.rootOnLoop():
+    if theFsset.rootOnLoop():
 	instPath = "/mnt/loophost"
 	prefix = "/initrd/loopfs"
 
@@ -161,11 +161,10 @@ def createSwapFile(instPath, thefsset, mntPoint, size):
     else:
         file = "/SWAP"
 
-    existingSwaps = thefsset.swapList(files = 1)
     swapFileDict = {}
-    for n in existingSwaps:
-	dev = n[0]
-	swapFileDict[dev] = 1
+    for entry in theFsset.entries:
+        if entry.fsystem.getName() == "swap":
+            swapFileDict[entry.device.getName()] = 1
         
     count = 0
     while (swapfileExists(instPath + file) or 
@@ -177,12 +176,19 @@ def createSwapFile(instPath, thefsset, mntPoint, size):
         else:
             file = tmpFile
 
-    theFstab.addMount(file, size, "swap")
-    theFstab.turnOnSwap(instPath)
+    device = SwapFileDevice(file)
+    device.setSize(size)
+    fsystem = fileSystemTypeGet("swap")
+    entry = FileSystemSetEntry(device, "swap", fsystem)
+    entry.setFormat(1)
+    theFsset.add(entry)
+    theFsset.formatEntry(entry, instPath)
+    theFsset.turnOnSwap(instPath)
 
+    # XXX generalize fstab modification
     f = open(fstabPath, "a")
-    f.write(fstab.fstabFormatString % (prefix + file, "swap", "swap", "defaults",
-	    0, 0))
+    format = "%-23s %-23s %-7s %-15s %d %d\n";
+    f.write(format % (prefix + file, "swap", "swap", "defaults", 0, 0))
     f.close()
 
 # XXX handle going backwards
@@ -261,7 +267,7 @@ def upgradeFindPackages (intf, method, id, instPath):
                            _("Rebuild of RPM database failed. "
                              "You may be out of disk space?"))
 	if flags.setupFilesystems:
-	    fsset.umountFilesystems (instPath)
+	    umountFilesystems (instPath)
 	sys.exit(0)
 
     rpm.addMacro("_dbpath", id.dbpath)
@@ -275,7 +281,7 @@ def upgradeFindPackages (intf, method, id, instPath):
                            _("An error occured when finding the packages to "
                              "upgrade."))
 	if flags.setupFilesystems:
-	    fsset.umountFilesystems (instPath)
+	    umountFilesystems (instPath)
 	sys.exit(0)
 	    
     # Turn off all comps
