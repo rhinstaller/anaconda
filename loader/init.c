@@ -510,6 +510,7 @@ printf("done\n");
     
     if (isSerial) {
 	char *device = "/dev/ttyS0";
+
 	printf("Red Hat install init version %s using a serial console\n", 
 		VERSION);
 
@@ -519,6 +520,9 @@ printf("done\n");
 	if (isSerial == 2)
 	    device = "/dev/console";
 	fd = open(device, O_RDWR, 0);
+	if (fd < 0)
+	    device = "/dev/tts/0";
+
 	if (fd < 0) {
 	    printf("failed to open %s\n", device);
 	    fatal_error(1);
@@ -527,8 +531,11 @@ printf("done\n");
 	setupTerminal(fd);
     } else {
 	fd = open("/dev/tty1", O_RDWR, 0);
+	if (fd < 0)
+	    fd = open("/dev/vc/1", O_RDWR, 0);
+
 	if (fd < 0) {
-	    printf("failed to open /dev/tty1");
+	    printf("failed to open /dev/tty1 and /dev/vc/1");
 	    fatal_error(1);
 	}
     }
@@ -560,7 +567,7 @@ printf("done\n");
 
     if (!nfsRoot) {
 	printf("trying to remount root filesystem read write... ");
-	if (mount("/", "/", NULL, MS_REMOUNT | MS_MGC_VAL, NULL)) {
+	if (mount("/", "/", "ext2", MS_REMOUNT | MS_MGC_VAL, NULL)) {
 	    printf("failed (but that's okay)\n");
 	
 	    roRoot = 1;
