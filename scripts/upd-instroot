@@ -69,7 +69,9 @@ prunePackageList() {
 	    # libstdc++, enough said
 	    PATTERN=$(echo $PKG | sed 's,[\+\*],\\&,g')
 
-	    PACKAGEFILES="$PACKAGEFILES $(rpm --nodigest --nosignature -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n"  | egrep "(^$PATTERN )" | sed 's/.* //')"
+	    if [ -n "$this" ]; then
+		PACKAGEFILES="$PACKAGEFILES $(rpm --nodigest --nosignature -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm\n"  | egrep "(^$PATTERN )" | sed 's/.* //')"
+	    fi
 	done
 
 	ls -1 $PACKAGEFILES |sort -u
