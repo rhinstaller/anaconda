@@ -70,13 +70,13 @@ class Keyboard (SimpleConfigFile):
 		self.type = "Serial"
 	    elif desc[:8] == 'Sun Type':
 		self.type = "Sun"
-		if desc[8:1] == '4':
+		if desc[8:9] == '4':
 		    self.model = 'type4'
 		    desc = desc[10:]
-		elif desc[8:6] == '5 Euro':
+		elif desc[8:14] == '5 Euro':
 		    self.model = 'type5_euro'
 		    desc = desc[15:]
-		elif desc[8:6] == '5 Unix':
+		elif desc[8:14] == '5 Unix':
 		    self.model = 'type5_unix'
 		    desc = desc[15:]
 		else:
