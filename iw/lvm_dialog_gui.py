@@ -161,7 +161,7 @@ class VolumeGroupEditor:
 					 _("This change in the value of the "
 					   "physical extent will waste "
 					   "substantial space on one or more "
-					   "of the phyical volumes in the "
+					   "of the physical volumes in the "
 					   "volume group."),
 					 type="custom", custom_icon="error",
 					   custom_buttons=["gtk-cancel", _("C_ontinue")])
