@@ -174,7 +174,8 @@ def lvlist():
 
     lvs = []
     args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
-    lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1,
+                                      stderr = "/dev/tty6")
     for line in lvscanout.split("\n"):
         try:
             (lv, vg, attr, size) = line.strip()[:-1].split()
@@ -192,7 +193,8 @@ def pvlist():
 
     pvs = []
     args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
-    scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
+                                    stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
             (dev, vg, format, attr, size, free) = line.strip()[:-1].split()
@@ -211,7 +213,8 @@ def vglist():
 
     vgs = []
     args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
-    scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
+                                    stderr = "/dev/tty6")
     for line in scanout.split("\n"):
         try:
             (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
