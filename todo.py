@@ -1077,7 +1077,7 @@ class ToDo:
 
 	    os.symlink(device, self.instPath + "/dev/" + cdname)
 	    mntpoint = "/mnt/" + cdname
-	    self.mounts[mntpoint] = (cdname, "iso9660", 0)
+	    self.fstab.addMount(cdname, mntpoint, "iso9660")
 
     def setDefaultRunlevel (self):
         inittab = open (self.instPath + '/etc/inittab', 'r')
@@ -1340,7 +1340,8 @@ class ToDo:
         if not self.upgrade:
 	    self.createCdrom()
 	    self.copyExtraModules()
-            self.writeFstab ()
+	    self.findFdDevice()
+            self.fstab.write (self.instPath, fdDevice = self.fdDevice)
             self.writeConfiguration ()
             self.writeDesktop ()
 	    if (self.instClass.defaultRunlevel):
