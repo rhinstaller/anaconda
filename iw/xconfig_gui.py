@@ -86,6 +86,29 @@ class XCustomWindow (InstallWindow):
 #        print data, " resolution was selected"
 #        print self.res_combo.list.child_position (data)
 
+    def desktop_cb (self, widget, desktop):
+        self.newDesktop = desktop
+        print desktop
+
+        if desktop == "GNOME":
+            im = self.ics.readPixmap ("gnome.png")
+        elif desktop == "KDE":
+            im = self.ics.readPixmap ("kde2.png")            
+
+        self.vbox4.destroy ()
+
+        self.vbox4 = GtkVBox ()
+
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.5, 0.5, 1.0, 1.0)
+            self.vbox4.pack_start (a, TRUE, TRUE)
+
+        self.hbox4.pack_start (self.vbox4)
+        self.hbox4.show_all ()
 
     def getScreen (self):
         self.oldmodes = self.todo.x.modes
@@ -95,7 +118,8 @@ class XCustomWindow (InstallWindow):
 
         hbox1 = GtkHBox (FALSE, 5)
         hbox2 = GtkHBox (FALSE, 5)
-        
+        hbox3 = GtkHBox (FALSE, 5)
+
 
 
         im = self.ics.readPixmap ("monitor.png")
@@ -106,8 +130,6 @@ class XCustomWindow (InstallWindow):
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
             hbox1.pack_start (a, TRUE, TRUE)
-
-
 
 
         available = self.todo.x.availableModes()
@@ -151,24 +173,33 @@ class XCustomWindow (InstallWindow):
 
 
         frame1 = GtkFrame (_("Color Depths"))
+        frame1.set_border_width (10)
         vbox1 = GtkVBox ()
         frame1.add (vbox1)
         hbox2.pack_start (frame1, TRUE, FALSE, 10)
 
-        depth_list = ["256 Colors (8 Bit)", "High Color (16 Bit)", "True Color (32 Bit)"]
+        depth_list = ["256 Colors (8 Bit)", "High Color (16 Bit)", "True Color (24 Bit)"]
 
         self.avail_depths = depth_list[:self.depth_count]
 #        print self.avail_depths
-        
-
+    
 
         self.depth_combo = GtkCombo ()
         self.depth_combo.set_popdown_strings (self.avail_depths)
         self.depth_combo.list.connect ("select-child", self.color_cb)
-        vbox1.pack_start (self.depth_combo)
+        vbox1.pack_start (self.depth_combo, TRUE, FALSE, 10)
 
+#        im = self.ics.readPixmap ("spectrum.png")
+#        if im:
+#            im.render ()
+#            pix = im.make_pixmap ()
+#            a = GtkAlignment ()
+#            a.add (pix)
+#            a.set (0.5, 0.5, 1.0, 1.0)
+#            vbox1.pack_start (a, TRUE, TRUE)
 
         frame2 = GtkFrame (_("Screen Resolution"))
+        frame2.set_border_width (10)
         vbox2 = GtkVBox ()
         frame2.add (vbox2)
         hbox2.pack_start (frame2, TRUE, FALSE, 10)
@@ -187,12 +218,125 @@ class XCustomWindow (InstallWindow):
         self.res_combo = GtkCombo ()
         self.res_combo.set_popdown_strings (res_list)
         self.res_combo.list.connect ("select-child", self.res_cb)
-        vbox2.pack_start (self.res_combo)
+        vbox2.pack_start (self.res_combo, TRUE, FALSE, 10)
 #        frame2.add (self.res_combo)
 
 
         box.pack_start (hbox1)
-        box.pack_start (hbox2, FALSE, TRUE, 30)
+        box.pack_start (hbox2, FALSE, TRUE, 10)
+
+
+
+#        frame3 = GtkFrame (_("Default Desktop"))
+#        hbox3.pack_start (frame3, TRUE, FALSE, 10)
+
+#        self.hbox4 = GtkHBox ()
+#        frame3.add (self.hbox4)
+
+#        vbox3 = GtkVBox()
+#        self.vbox4 = GtkVBox()
+
+
+        #--If both KDE and GNOME are selected
+        if ((self.todo.hdList.has_key('gnome-core')
+             and self.todo.hdList['gnome-core'].selected)
+            and (self.todo.hdList.has_key('kdebase')
+                 and self.todo.hdList['kdebase'].selected)):
+
+            frame3 = GtkFrame (_("Default Desktop"))
+            hbox3.pack_start (frame3, TRUE, FALSE, 10)
+
+            self.hbox4 = GtkHBox ()
+            frame3.add (self.hbox4)
+
+            vbox3 = GtkVBox()
+            self.vbox4 = GtkVBox()
+
+            gnome_radio = GtkRadioButton (None, (_("GNOME")))
+            gnome_radio.connect ("clicked", self.desktop_cb, "GNOME")        
+            vbox3.pack_start (gnome_radio, TRUE, FALSE, 10)
+
+            im = self.ics.readPixmap ("gnome.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0.5, 0.5, 1.0, 1.0)
+                self.vbox4.pack_start (a, TRUE, TRUE)
+
+            kde_radio = GtkRadioButton(gnome_radio, (_("KDE")))
+            kde_radio.connect ("clicked", self.desktop_cb, "KDE")
+            
+            vbox3.pack_start (kde_radio, TRUE, FALSE, 10)
+
+            self.hbox4.pack_start (vbox3)
+            self.hbox4.pack_start (self.vbox4)
+            box.pack_start (hbox3, FALSE, TRUE, 10)
+            
+        elif (self.todo.hdList.has_key('gnome-core')
+             and self.todo.hdList['gnome-core'].selected):
+            
+            frame3 = GtkFrame (_("Default Desktop"))
+            hbox3.pack_start (frame3, TRUE, FALSE, 10)
+
+            self.hbox4 = GtkHBox ()
+            frame3.add (self.hbox4)
+
+            vbox3 = GtkVBox()
+            self.vbox4 = GtkVBox()
+
+            gnome_radio = GtkRadioButton (None, (_("GNOME")))
+            vbox3.pack_start (gnome_radio, TRUE, FALSE, 10)
+
+            im = self.ics.readPixmap ("gnome.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0.5, 0.5, 1.0, 1.0)
+                self.vbox4.pack_start (a, TRUE, TRUE)
+
+            self.hbox4.pack_start (vbox3)
+            self.hbox4.pack_start (self.vbox4)
+            box.pack_start (hbox3, FALSE, TRUE, 10)
+            
+        elif (self.todo.hdList.has_key('kdebase')
+                 and self.todo.hdList['kdebase'].selected):
+
+            
+            frame3 = GtkFrame (_("Default Desktop"))
+            hbox3.pack_start (frame3, TRUE, FALSE, 10)
+
+            self.hbox4 = GtkHBox ()
+            frame3.add (self.hbox4)
+
+            vbox3 = GtkVBox()
+            self.vbox4 = GtkVBox()
+
+            kde_radio = GtkRadioButton(None, (_("KDE")))
+            vbox3.pack_start (kde_radio, TRUE, FALSE, 10)
+
+            im = self.ics.readPixmap ("kde2.png")
+            if im:
+                im.render ()
+                pix = im.make_pixmap ()
+                a = GtkAlignment ()
+                a.add (pix)
+                a.set (0.5, 0.5, 1.0, 1.0)
+                self.vbox4.pack_start (a, TRUE, TRUE)
+
+
+            self.hbox4.pack_start (vbox3)
+            self.hbox4.pack_start (self.vbox4)
+            box.pack_start (hbox3, FALSE, TRUE, 10)
+        else:
+            pass
+
+#        box.pack_start (hbox1)
+#        box.pack_start (hbox2, FALSE, TRUE, 10)
+#        box.pack_start (hbox3, FALSE, TRUE, 10)
 
 
         
@@ -1230,7 +1374,7 @@ class XConfigWindow (InstallWindow):
             v.pack_start (option, TRUE)
             hbox.pack_start (v, FALSE)
 
-        box.pack_start (hbox, FALSE)
+#        box.pack_start (hbox, FALSE)
 
         self.topbox = GtkVBox (FALSE, 5)
         self.topbox.set_border_width (5)
