@@ -853,7 +853,7 @@ def copyExtraModules(instPath, comps, extraModules):
 
 #Recreate initrd for use when driver disks add modules
 def recreateInitrd (kernelTag, instRoot):
-    log("recreating initrd for %s" % (kernelTag,)
+    log("recreating initrd for %s" % (kernelTag,))
     if iutil.getArch() == 'ia64':
         initrd = "/boot/efi/initrd-%s.img" % (kernelTag, )
     else:
