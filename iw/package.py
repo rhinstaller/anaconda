@@ -5,7 +5,7 @@ from string import *
 from xpms import *
 from thread import *
 import rpm
-
+import GdkImlib
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -23,6 +23,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.RPM = 2
 
         self.updatingIcons = FALSE
+
+	self.idirImage = GdkImlib.create_image_from_xpm (I_DIRECTORY_XPM)
+	self.idirUpImage = GdkImlib.create_image_from_xpm (I_DIRECTORY_UP_XPM)
+	self.packageImage = GdkImlib.create_image_from_xpm (PACKAGE_XPM)
+	self.packageSelectedImage = GdkImlib.create_image_from_xpm (PACKAGE_SELECTED_XPM)
 
     def getPrev (self):
         return PackageSelectionWindow
@@ -64,7 +69,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.iconList.clear ()
         for x in self.ctree.base_nodes ():
             dirName = self.ctree.get_node_info (x)[0]
-            pos = self.iconList.append ("/usr/src/mc/gnome/i-directory.png", dirName)
+            pos = self.iconList.append_imlib (self.idirImage, dirName)
             self.iconList.set_icon_data (pos, (self.DIR, x))
         self.iconList.thaw ()
 
@@ -159,11 +164,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.clear_package_desc ()
         self.iconList.freeze ()
         self.iconList.clear ()
-        self.iconList.append ("/home/devel/msw/i-directory-up.png", "Up")
+        self.iconList.append_imlib (self.idirUpImage, "Up")
         self.iconList.set_icon_data (0, (self.DIR_UP, node))
         for x in node.children:
             dirName = ctree.get_node_info (x)[0]
-            pos = self.iconList.append ("/usr/src/mc/gnome/i-directory.png", dirName)
+            pos = self.iconList.append_imlib (self.idirImage, dirName)
             self.iconList.set_icon_data (pos, (self.DIR, x))
 
         try:
@@ -173,13 +178,13 @@ class IndividualPackageSelectionWindow (InstallWindow):
             # drop the leading slash off the package namespace
             for header in self.flat_groups[ctree.node_get_row_data (node)[1:]]:
                 if header.selected:
-                    packageIcon = "/home/devel/pnfisher/gnome-package-checked.png"
+                    packageIcon = self.packageSelectedImage
                     self.cbutton.set_active (TRUE)
                 else:
-                    packageIcon = "/usr/src/gnorpm/gnome-package.xpm"
+                    packageIcon = self.packageImage
                     self.cbutton.set_active (FALSE)
                 
-                pos = self.iconList.append (packageIcon, header[rpm.RPMTAG_NAME])
+                pos = self.iconList.append_imlib (packageIcon, header[rpm.RPMTAG_NAME])
                 self.iconList.set_icon_data (pos, (self.RPM, header))
         except:
             pass
