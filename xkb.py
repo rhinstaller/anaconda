@@ -24,4 +24,16 @@ class XKB:
         for x in keys:
             groups = tree.merge (groups, string.split (x, ":"))
         return (groups, self.rules[3])
+
+    def setRule (self, model, layout, variant, options):
+	if model == None: model = ""
+	if layout == None: layout = ""
+	if variant == None: variant = ""
+	if options == None: options = ""
+
+        return _xkb.set_rule (model, layout, variant, options)
+
+        
+        
+        
         
