@@ -131,7 +131,12 @@ class LiloImagesWindow:
             elif (result == "ok" or result == "F12" or result == newLabel):
 		import regex
 
-                if (regex.search (" ", newLabel.value()) != -1):
+		if not newLabel.value():
+                    rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
+                                             _("Boot label may not be empty."),
+                                             [ _("OK") ])
+                    result = ""
+                elif (regex.search (" ", newLabel.value()) != -1):
                     rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
                                              _("Boot labels cannot contain "
                                                "space(s)."),
