@@ -20,7 +20,7 @@
 import parted
 import iutil
 import string
-import os, sys
+import os, sys, math
 
 from constants import *
 from rhpl.translate import _
