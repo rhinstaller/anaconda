@@ -798,7 +798,7 @@ for kernelvers in $vertag; do
 	usage
     fi
 
-    if [ -d $KERNELROOT/lib/modules/$version/pcmcia -a -f KERNELROOT/etc/pcmcia/config ]; then
+    if [ -d $KERNELROOT/lib/modules/$version/pcmcia -a -f $KERNELROOT/etc/pcmcia/config ]; then
 	# This gets all of the modules in the pcmcia directory, as well as
 	# everything mentioned in /etc/pcmcia/config
 	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config;
