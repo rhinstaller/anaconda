@@ -657,29 +657,7 @@ int main(void) {
 	    close(fd);
 	}
 	
-	if (0 && (nfsRoot || cdRoot)) {
-	    symlink("/", "/tmp/rhimage");
-	    symlink("/", "/tmp/image");
-
-	    *argvp++ = "/usr/bin/runinstall2";
-	    *argvp++ = argv[0];
-	    *argvp++ = "--method";
-	    *argvp++ = nfsRoot ? "nfs" : "cdrom";
-
-#if 0 /* we don't need this anymore */
-#	    if defined(__alpha__)
-		if (cdRoot && (kernel = findKernel())) {
-		    *argvp++ = "--kernel";
-		    *argvp++ = kernel;
-		} 
-#	    endif
-#endif /* not needed */
-	} else {
-	    *argvp++ = "/bin/loader";
-	}
-
-	if (isRescue) 
-	    *argvp++ = "--rescue";
+	*argvp++ = "/bin/loader";
 
 	if (isExpert) *argvp++ = "--expert";
 	if (forceSupp) *argvp++ = "--forcesupp";
@@ -697,8 +675,9 @@ int main(void) {
 	
 	*argvp++ = NULL;
 
+	printf("running %s\n", argv[0]);
 	execve(argv[0], argv, environ);
-
+	
 	exit(0);
     }
 
