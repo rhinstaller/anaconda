@@ -29,15 +29,6 @@ class PartitionWindow (InstallWindow):
         ics.setHTML ("<HTML><BODY>Select a root partition"
                      "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)
-        from gnomepyfsedit import fsedit
-
-        if not self.todo.ddruid:
-            drives = self.todo.drives.available ().keys ()
-            drives.sort ()
-            self.todo.ddruid = \
-                fsedit(1, drives, [])
-            self.todo.ddruid.setCallback (self.enableCallback, self)
-
 
     def getNext (self):
         print "calling self.ddruid.next ()"
@@ -63,6 +54,15 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):   
+        from gnomepyfsedit import fsedit
+
+        if not self.todo.ddruid:
+            drives = self.todo.drives.available ().keys ()
+            drives.sort ()
+            self.todo.ddruid = \
+                fsedit(1, drives, [])
+            self.todo.ddruid.setCallback (self.enableCallback, self)
+
         self.bin = GtkFrame (None, _obj = self.todo.ddruid.getWindow ())
         self.bin.set_shadow_type (SHADOW_NONE)
         self.todo.ddruid.edit ()
