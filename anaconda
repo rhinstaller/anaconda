@@ -483,6 +483,9 @@ except:
 	out.write("\nToDo object:\n")
 	todo.intf = None
 	todo.fstab = None
+	todo.comps = None
+	todo.hdList = None
+
 	p.dump(todo)
 
 	out.close()
