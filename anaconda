@@ -4,7 +4,7 @@ import sys, os, signal
 signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 # For anaconda in test mode
-if (os.path.exists('rpmmodule')):
+if (os.path.exists('isys')):
     sys.path.append('libfdisk')
     sys.path.append('balkan')
     sys.path.append('gnome-map')
