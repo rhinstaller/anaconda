@@ -1015,9 +1015,10 @@ class XConfigWindow (InstallWindow):
         hbox = gtk.HBox()
         hbox.set_border_width(3)
             
-        label = gtk.Label (_("Video card RAM: "))
+        label = gui.MnemonicLabel (_("_Video card RAM: "))
 
         self.ramOption = gtk.OptionMenu()
+        label.set_mnemonic_widget(self.ramOption)
         self.ramOption.set_size_request (40, 20)
         self.ramMenu = gtk.Menu()
 
