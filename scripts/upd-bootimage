@@ -26,9 +26,7 @@ fi
 if [ ! -x $LOOPMNT/sbin/$TO ]; then
     echo "$LOOPMNT/sbin/$TO doesn't exist"
 else
-    ls -l $LOOPMNT/sbin
     install -s $FROM $LOOPMNT/sbin/$TO
-    ls -l $LOOPMNT/sbin
 fi
 
 umount $LOOPMNT
