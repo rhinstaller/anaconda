@@ -29,7 +29,8 @@ class OldHardDriveInstallMethod(InstallMethod):
 		self.tree = s[1] + "/"
 		return
 	
-	isys.mount(self.device, "/tmp/hdimage", fstype = self.fstype);
+	isys.mount(self.device, "/tmp/hdimage", fstype = self.fstype,
+		   readOnly = 1);
 	self.tree = "/tmp/hdimage/"
 	self.isMounted = 1
 
@@ -101,7 +102,7 @@ class HardDriveInstallMethod(InstallMethod):
 	isys.makeDevInode("loop2", "/tmp/loop2")
 	isys.losetup("/tmp/loop2", isoImage)
 	
-	isys.mount("loop2", "/tmp/hdimage", fstype = 'iso9660');
+	isys.mount("loop2", "/tmp/hdimage", fstype = 'iso9660', readOnly = 1);
 	self.tree = "/tmp/hdimage/"
 	self.mediaIsMounted = cdNum
 
@@ -131,7 +132,8 @@ class HardDriveInstallMethod(InstallMethod):
 		self.isoDir = s[1] + "/"
 		return
 	
-	isys.mount(self.device, "/tmp/isodir", fstype = self.fstype);
+	isys.mount(self.device, "/tmp/isodir", fstype = self.fstype, 
+		   readOnly = 1);
 	self.isoDir = "/tmp/isodir/"
 	self.isoDirIsMounted = 1
 
@@ -210,7 +212,8 @@ class HardDriveInstallMethod(InstallMethod):
 		continue
 
 	    try:
-		isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660")
+		isys.mount("loop2", "/mnt/cdimage", fstype = "iso9660",
+			   readOnly = 1)
 		for num in range(1, 10):
 		    discTag = "/mnt/cdimage/.disc%d-%s" % (num, arch)
 		    if os.access(discTag, os.R_OK):
