@@ -1112,7 +1112,11 @@ class ToDo:
                     (type, sector, size) = table[i]
                     # 2 is ext2 in balkan speek
                     if size and type == 2:
-                        dev = drive + str (i + 1)
+			# for RAID arrays of format c0d0p1
+			if drive [:3] == "rd/" or drive [:4] == "ida/":
+                            dev = drive + 'p' + str (i + 1)
+			else:
+                            dev = drive + str (i + 1)
                         isys.makeDevInode(dev, '/tmp/' + dev)
                         try:
                             isys.mount('/tmp/' + dev, '/mnt/sysimage')
@@ -1406,7 +1410,7 @@ class ToDo:
             rc = rpm.rebuilddb (self.instPath)
             w.pop ()
             if rc:
-                intf.messageWindow (_("Error"),
+                self.intf.messageWindow (_("Error"),
                                     _("Rebuild of RPM "
                                       "database failed. You may be out of disk space?"));
                 # XXX do something sane here.
