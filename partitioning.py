@@ -67,6 +67,9 @@ def partitionMethodSetup(partitions, dispatch):
                       skip = not partitions.useAutopartitioning)
     dispatch.skipStep("autopartitionexecute",
                       skip = not partitions.useAutopartitioning)
+    if dispatch.stepInSkipList("partition") and not partitions.useAutopartitioning:
+	dispatch.skipStep("partition", skip = 0)
+    
     if iutil.getArch() == "s390":
         dispatch.skipStep("fdasd", skip = not partitions.useFdisk)
     else:
