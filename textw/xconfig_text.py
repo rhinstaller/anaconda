@@ -37,10 +37,6 @@ class XCustomWindow:
         if button != TEXT_CANCEL_CHECK:
             self.selectedRes = self.available_res[result]
         
-    def resetCB(self, screen):
-        self.selectedRes = self.origRes
-        self.selectedDepth = self.origDepth
-
     def testCB(self, screen):
         newmodes = {}
         newmodes[self.selectedDepth] = []

@@ -196,7 +196,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 	badLinks = []
 	for n in checkLinks:
 	    if not os.path.islink(instPath + n): continue
-	    l = os.readlink(self.instPath + n)
+	    l = os.readlink(instPath + n)
 	    if l[0] == '/':
 		badLinks.append(n)
 
@@ -251,7 +251,7 @@ def upgradeFindPackages (intf, method, id, instPath):
 	intf.messageWindow(_("Error"),
                            _("Rebuild of RPM database failed. "
                              "You may be out of disk space?"))
-	if files.setupFilesystems:
+	if flags.setupFilesystems:
 	    fsset.umountFilesystems (instPath)
 	sys.exit(0)
 

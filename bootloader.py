@@ -203,7 +203,7 @@ class bootloaderInfo:
 		(fsType, sl) = lilo.getImage(label)
 		lilo.delImage(label)
 	    except IndexError:
-		sl = LiloConfigFile(imageType = "other", path = device)
+		sl = LiloConfigFile(imageType = "other", path = "/dev/%s" %(device))
 		sl.addEntry("optional")
 
 	    sl.addEntry("label", label)
@@ -238,18 +238,6 @@ class bootloaderInfo:
 		lilo.delEntry('single-key')
 
         return lilo
-
-	lilo.write(instRoot + self.configfile, perms = self.perms)
-
-	if not justConfigFile:
-	    # throw away stdout, catch stderr
-	    str = iutil.execWithCapture(instRoot + '/sbin/lilo' ,
-					[ "lilo", "-r", instRoot ],
-					catchfd = 2, closefd = 1)
-	else:
-	    str = ""
-
-	return str
 
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):

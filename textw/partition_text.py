@@ -176,7 +176,7 @@ class PartitionWindow:
 
     def fstypeSetCB(self, obj):
         (listbox, entry) = obj
-        self.fstypeSet(listbox.current(), entry)
+        self.fstypeSet((listbox.current(), entry))
 
     # make the entry for the mount point and it's label
     def makeMountEntry(self, request):

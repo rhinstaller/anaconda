@@ -66,6 +66,9 @@ class BootloaderWindow (InstallWindow):
 		if widget.get_active():
 		    self.bl.setDevice(device)
 
+        self.bl.setUseGrub(self.grub_radio.get_active())
+        self.bl.args.set(self.appendEntry.get_text())
+
         default = None
         linuxDevice = None
         for index in range(self.numImages):
@@ -83,9 +86,8 @@ class BootloaderWindow (InstallWindow):
         if not default:
             default = linuxDevice
 
-        self.bl.setUseGrub(self.grub_radio.get_active())
-        self.bl.args.set(self.appendEntry.get_text())
         self.bl.images.setDefault(default)
+        
 
     def typeName(self, type):
         if (type == "ext2"):
@@ -310,7 +312,7 @@ class BootloaderWindow (InstallWindow):
             self.bootloader.set_active (FALSE)
             self.toggled (self.bootloader)
 
-            for n in (self.mbr, self.part, self.appendEntry, self.editBox, 
+            for n in (self.appendEntry, self.editBox, 
                       self.imageList, self.liloLocationBox, self.radioBox ):
                 n.set_sensitive (FALSE)
 

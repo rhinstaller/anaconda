@@ -58,9 +58,7 @@ class NetworkWindow (InstallWindow):
                     domain = domain + "." + token
                 count = count + 1
 
-            self.domainname.set_text (domain)
-
-#            self.hostname.set_text (self.network.hostname)
+            self.hostname.set_text (self.network.hostname)
 
         if ip.calcNMHandler != None:
             ip.disconnect (ip.calcNMHandler)
@@ -94,26 +92,6 @@ class NetworkWindow (InstallWindow):
             except:
                 pass
             
-    # not currently used
-    def setupTODO (self):
-        if self.devs:
-            if self.DHCPcb.get_active ():
-                self.dev.set (("bootproto", "dhcp"))
-                self.dev.unset ("ipaddr", "netmask", "network", "broadcast")
-            else:
-                try:
-                    network, broadcast = inet_calcNetBroad (self.ip.get_text (), self.nm.get_text ())
-                    self.dev.set (("bootproto", "static"))
-                    self.dev.set (("ipaddr", self.ip.get_text ()), ("netmask", self.nm.get_text ()),
-                                  ("network", network), ("broadcast", broadcast), ("onboot", "yes"))
-                    self.network.gateway = self.gw.get_text ()
-                    self.network.primaryNS = self.dns1.get_text ()
-                except:
-                    pass
-            
-                self.dev.set (("onboot", "yes"))
-
-
     def calcNWBC (self, widget, (dev, ip, nm, nw, bc)):
         for addr in (ip, nm):
             dots = 0

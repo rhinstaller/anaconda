@@ -4,6 +4,7 @@ import string
 import isys
 import iutil
 from log import log
+from flags import flags
 from constants_text import *
 import upgrade
 
@@ -98,10 +99,9 @@ class UpgradeSwapWindow:
                                          "and 2000 MB in size."))
 		else:
 		    screen.popWindow()
-                    if todo.setupFilesystems:
+                    if flags.setupFilesystems:
                         # XXX fix me
-                        return INSTALL_OK
-                        upgrade.createSwapFile(todo.instPath, todo.fstab,
+                        # upgrade.createSwapFile(todo.instPath, todo.fstab,
                                                mnt, val)
 		    return INSTALL_OK
 
@@ -183,9 +183,9 @@ class CustomizeUpgradeWindow:
             return INSTALL_BACK
 
         if rc == string.lower (_("No")):
-            indiv.set (0)
+            dispatch.skipStep("indivpackage")
         else:
-            indiv.set (1)
+            dispatch.skipStep("indivpackage", skip = 0)            
 
         return INSTALL_OK
 
