@@ -764,7 +764,7 @@ class PartitionWindow(InstallWindow):
 
     def newCB(self, widget):
         # create new request of size 1M
-        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 1)
+        request = NewPartitionSpec(fileSystemTypeGetDefault(), size = 100)
 
         self.editPartitionRequest(request, isNew = 1)
 
