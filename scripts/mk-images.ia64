@@ -15,6 +15,6 @@ makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 		     	    --initrdsize 4096 \
 			    --loaderbin loader'
 
-makeinstimage --size1 6000 --size2 7000 "netstg"
-makeinstimage --size1 6000 --size2 7000 "hdstg" 
+makeinstimage --size1 8192 --size2 8192 "netstg"
+makeinstimage --size1 8192 --size2 8192 "hdstg" 
 makemainimage "stage2"
