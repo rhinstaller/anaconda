@@ -52,12 +52,12 @@ class BootdiskWindow (InstallWindow):
         label = None
 
         text = _("The boot diskette allows you to boot your %s "
-                 "system from a floppy diskette.  A boot disk "
-		 "allows you to boot your system if your "
+                 "system from a floppy diskette.  A boot diskette "
+		 "allows you to boot your system in the event your "
 		 "bootloader configuration stops working, if you "
 		 "chose not to install a boot loader, or if your "
 		 "third-party boot loader does not support Linux.\n\nIt is "
-		 "highly recommended you create a boot disk.\n") % (productName,)
+		 "highly recommended you create a boot diskette.\n") % (productName,)
 
         label = gtk.Label (text)
 
