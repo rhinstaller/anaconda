@@ -824,14 +824,14 @@ class XF86Config:
         return probe
 
     def write (self, path):
-        config = open (path + "XF86Config", 'w')
+        config = open (path + "/XF86Config", 'w')
         config.write (self.Version3Config ())
         config.close ()
         try:
             config4 = self.Version4Config ()
         except RuntimeError:
             return
-        config = open (path + "XF86Config-4", 'w')
+        config = open (path + "/XF86Config-4", 'w')
         config.write (config4)
         config.close ()        
 
