@@ -379,7 +379,7 @@ def processPartitioning(diskset, requests):
             requests.maxcontainer = requests.maxcontainer + 1
 
         if request.type == REQUEST_RAID:
-            request.size = get_raid_device_size(request)
+            request.size = get_raid_device_size(request) / 1024 / 1024
         
         if not request.device:
 #            return PARTITION_FAIL
