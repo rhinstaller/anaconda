@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
-"POT-Creation-Date: 2001-03-07 11:04-0500\n"
+"POT-Creation-Date: 2001-03-08 11:38-0500\n"
 "PO-Revision-Date: 1998-09-22 13:40+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Saya sedang mencari"
 
-#: ../exception.py:13 ../text.py:949
+#: ../exception.py:13 ../text.py:961
 msgid "Exception Occurred"
 msgstr ""
 
@@ -59,11 +59,11 @@ msgstr "Perhatian"
 #: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
 #: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2162 ../loader/loader.c:2192
-#: ../loader/loader.c:2270 ../loader/loader.c:2482 ../loader/pcmcia.c:114
+#: ../loader/loader.c:1278 ../loader/loader.c:2129 ../loader/loader.c:2159
+#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../text.py:374 ../textw/bootdisk_text.py:69 ../todo.py:1157 ../todo.py:1170
+#: ../text.py:377 ../textw/bootdisk_text.py:69 ../todo.py:1157 ../todo.py:1170
 #: ../todo.py:1493 ../upgrade.py:22 ../upgrade.py:50
 msgid "Error"
 msgstr "Error"
@@ -144,28 +144,28 @@ msgid ""
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:325 ../text.py:967
+#: ../gui.py:325 ../text.py:979
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:421 ../gui.py:788
+#: ../gui.py:421 ../gui.py:794
 msgid "Next"
 msgstr "Lanjutkan"
 
-#: ../gui.py:422 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:422 ../gui.py:793 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
 #: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:58
-#: ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222
-#: ../text.py:225 ../text.py:305 ../text.py:377 ../text.py:395 ../text.py:398
-#: ../text.py:407 ../text.py:408 ../text.py:423 ../text.py:426 ../text.py:448
-#: ../text.py:451 ../text.py:508 ../text.py:511 ../text.py:537 ../text.py:541
-#: ../text.py:550 ../text.py:623 ../text.py:625 ../text.py:635 ../text.py:637
+#: ../text.py:72 ../text.py:132 ../text.py:196 ../text.py:203 ../text.py:225
+#: ../text.py:228 ../text.py:308 ../text.py:380 ../text.py:398 ../text.py:401
+#: ../text.py:415 ../text.py:416 ../text.py:431 ../text.py:434 ../text.py:456
+#: ../text.py:459 ../text.py:516 ../text.py:519 ../text.py:545 ../text.py:549
+#: ../text.py:558 ../text.py:635 ../text.py:637 ../text.py:647 ../text.py:649
 #: ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9
 #: ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -184,60 +184,60 @@ msgstr "Lanjutkan"
 msgid "Back"
 msgstr "Kembali"
 
-#: ../gui.py:423 ../gui.py:793
+#: ../gui.py:423 ../gui.py:542 ../gui.py:796
+msgid "Release Notes"
+msgstr ""
+
+#: ../gui.py:424 ../gui.py:799
 msgid "Show Help"
 msgstr "Lihat Help"
 
-#: ../gui.py:424 ../gui.py:792
+#: ../gui.py:425 ../gui.py:798
 msgid "Hide Help"
 msgstr "Sembunyikan help"
 
-#: ../gui.py:425 ../gui.py:791
+#: ../gui.py:426 ../gui.py:797
 msgid "Finish"
 msgstr "Selesai"
 
-#: ../gui.py:428 ../gui.py:823
+#: ../gui.py:429 ../gui.py:829
 msgid "Online Help"
 msgstr "Help online"
 
-#: ../gui.py:429 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:63 ../text.py:1039 ../text.py:1072
+#: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:66 ../text.py:1051 ../text.py:1084
 msgid "Language Selection"
 msgstr "Pilih Bahasa"
 
-#: ../gui.py:536 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:537 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Tutup"
 
-#: ../gui.py:541 ../gui.py:790
-msgid "Release Notes"
-msgstr ""
-
-#: ../gui.py:572
+#: ../gui.py:573
 #, fuzzy
 msgid "Unable to load file!"
 msgstr "Error IO pada file lokal"
 
-#: ../gui.py:711
+#: ../gui.py:717
 msgid "Red Hat Linux Installer"
 msgstr "Installer Red Hat Linux"
 
-#: ../gui.py:715
+#: ../gui.py:721
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell Install Red Hat Linux"
 
-#: ../gui.py:726
+#: ../gui.py:732
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Installer Red Hat Linux untuk %s"
 
-#: ../gui.py:727
+#: ../gui.py:733
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell Install Red Hat Linux untuk %s"
 
-#: ../gui.py:872
+#: ../gui.py:878
 #, fuzzy
 msgid "Install Window"
 msgstr "Log instalasi"
@@ -297,17 +297,17 @@ msgstr "Partisi %s tidak dapat dialokasikan."
 #: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
 #: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
 #: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2162 ../loader/loader.c:2192 ../loader/loader.c:2255
-#: ../loader/loader.c:2270 ../loader/loader.c:2482 ../loader/net.c:185
+#: ../loader/loader.c:2129 ../loader/loader.c:2159 ../loader/loader.c:2222
+#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
-#: ../rescue.py:109 ../rescue.py:117 ../text.py:129 ../text.py:168
-#: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:448 ../text.py:466
-#: ../text.py:508 ../text.py:537 ../text.py:623 ../text.py:635 ../text.py:664
-#: ../text.py:685 ../text.py:855 ../text.py:909 ../text.py:935 ../text.py:961
-#: ../text.py:969 ../text.py:984 ../text.py:1228 ../textw/bootdisk_text.py:52
+#: ../rescue.py:109 ../rescue.py:117 ../text.py:132 ../text.py:171
+#: ../text.py:225 ../text.py:308 ../text.py:398 ../text.py:456 ../text.py:474
+#: ../text.py:516 ../text.py:545 ../text.py:635 ../text.py:647 ../text.py:676
+#: ../text.py:697 ../text.py:867 ../text.py:921 ../text.py:947 ../text.py:973
+#: ../text.py:981 ../text.py:996 ../text.py:1240 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -343,12 +343,12 @@ msgstr ""
 msgid "System to Rescue"
 msgstr "Sistem yang hendak diupgrade"
 
-#: ../rescue.py:89 ../text.py:393
+#: ../rescue.py:89 ../text.py:396
 msgid "What partition holds the root partition of your installation?"
 msgstr "Partisi mana yang menyimpan partisi root di instalasi ini?"
 
 #: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:91
-#: ../rescue.py:95 ../text.py:348
+#: ../rescue.py:95 ../text.py:351
 msgid "Exit"
 msgstr "Keluar"
 
@@ -416,7 +416,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60
-#: ../text.py:193 ../text.py:348 ../text.py:407 ../text.py:550
+#: ../text.py:196 ../text.py:351 ../text.py:415 ../text.py:558
 #: ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
 #: ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155
 #: ../textw/partitioning_text.py:420 ../textw/silo_text.py:136
@@ -424,109 +424,111 @@ msgstr ""
 msgid "Ok"
 msgstr "Ok"
 
-#: ../text.py:64
+#: ../text.py:67
 msgid "What language would you like to use during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
-#: ../text.py:129
+#: ../text.py:132
 #, fuzzy
 msgid "Select All"
 msgstr "Pilih Kelompok Paket"
 
-#: ../iw/language_support_gui.py:208 ../text.py:129
+#: ../iw/language_support_gui.py:208 ../text.py:132
 #, fuzzy
 msgid "Reset"
 msgstr "_Reset"
 
-#: ../text.py:131
+#: ../text.py:134
 #, fuzzy
 msgid "Choose the languages to be installed:"
 msgstr "Pilihlah paket yang hendak diinstall"
 
-#: ../text.py:135 ../text.py:1135
+#: ../text.py:138 ../text.py:1147
 #, fuzzy
 msgid "Language Support"
 msgstr "Server Printer:"
 
-#: ../text.py:166 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
+#: ../text.py:169 ../textw/firewall_text.py:124 ../textw/firewall_text.py:189
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Ganti label boot"
 
-#: ../text.py:167
+#: ../text.py:170
 #, fuzzy
 msgid "You must select at least one language to install."
 msgstr "Pilihlah paket yang hendak diinstall"
 
-#: ../text.py:195
+#: ../text.py:198
 #, fuzzy
 msgid "Default Language"
 msgstr "Pilih bahasanya:"
 
-#: ../text.py:196
+#: ../text.py:199
 #, fuzzy
 msgid "Choose the default language: "
 msgstr "Pilih bahasanya:"
 
-#: ../text.py:220 ../text.py:1041 ../text.py:1078
+#: ../text.py:223 ../text.py:1053 ../text.py:1090
 msgid "Keyboard Selection"
 msgstr "Pilih Keyboard"
 
-#: ../text.py:221
+#: ../text.py:224
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Keyboard mana yang disambung ke komputer ini?"
 
-#: ../text.py:281
+#: ../text.py:284
 msgid "Upgrade Existing Installation"
 msgstr "Upgrade Instalasi yang ada"
 
-#: ../text.py:303 ../text.py:1081
+#: ../text.py:306 ../text.py:1093
 msgid "Installation Type"
 msgstr "Tipe Instalasi"
 
-#: ../text.py:304
+#: ../text.py:307
 msgid "What type of system would you like to install?"
 msgstr "Sistem macam mana yang hendak diinstal ?"
 
-#: ../iw/lilo_gui.py:50 ../text.py:340
+#: ../iw/lilo_gui.py:50 ../text.py:343
 msgid "Proceed with upgrade?"
 msgstr ""
 
-#: ../iw/lilo_gui.py:51 ../text.py:341
+#: ../iw/lilo_gui.py:51 ../text.py:344
 msgid ""
 "The filesystems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
 
-#: ../text.py:345
+#: ../text.py:348
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
 
-#: ../text.py:375
+#: ../text.py:378
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Anda belum membuat satupun partisi Linux, jadi tidak bisa upgrade!"
 
-#: ../text.py:392
+#: ../text.py:395
 msgid "System to Upgrade"
 msgstr "Sistem yang hendak diupgrade"
 
-#: ../text.py:405
+#: ../text.py:413
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "Edit Partisi"
 
-#: ../text.py:406
-msgid "Going to upgrade partition /dev/"
+#: ../text.py:414
+#, c-format
+msgid ""
+"The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
 msgstr ""
 
-#: ../text.py:415
+#: ../text.py:423
 msgid "Customize Packages to Upgrade"
 msgstr "Pilih paket yang hendak diupgrade"
 
-#: ../text.py:416
+#: ../text.py:424
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -544,7 +546,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
-#: ../text.py:423 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../text.py:431 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
@@ -558,18 +560,18 @@ msgstr "YA"
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:423 ../text.py:429
+#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:431 ../text.py:437
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Tidak"
 
-#: ../text.py:439 ../text.py:458
+#: ../text.py:447 ../text.py:466
 msgid "Red Hat Linux"
 msgstr "Linux Red Hat"
 
 # i ../install.c:76
-#: ../text.py:440
+#: ../text.py:448
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -589,7 +591,7 @@ msgstr ""
 "Bila Anda telah membeli Red Hat Linux Official, maka segera daftarkan "
 "pembelian Anda di http://www.redhat.com."
 
-#: ../text.py:459
+#: ../text.py:467
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -602,42 +604,42 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2255 ../loader/pcmcia.c:104
-#: ../text.py:466 ../text.py:469 ../text.py:855 ../text.py:856 ../text.py:969
-#: ../text.py:971 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../loader/devices.c:530 ../loader/loader.c:2222 ../loader/pcmcia.c:104
+#: ../text.py:474 ../text.py:477 ../text.py:867 ../text.py:868 ../text.py:981
+#: ../text.py:983 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Batal"
 
-#: ../text.py:506
+#: ../text.py:514
 msgid "X probe results"
 msgstr "Hasil deteksi X"
 
-#: ../text.py:526 ../text.py:546
+#: ../text.py:534 ../text.py:554
 msgid "Unlisted Card"
 msgstr "Card tidak ada"
 
-#: ../text.py:534
+#: ../text.py:542
 msgid "Video Card Selection"
 msgstr "Pilih Video card"
 
-#: ../text.py:535
+#: ../text.py:543
 msgid "Which video card do you have?"
 msgstr "Video card mana yang Anda pakai?"
 
-#: ../text.py:548
+#: ../text.py:556
 msgid "X Server Selection"
 msgstr "Pilih X Server"
 
-#: ../text.py:548
+#: ../text.py:556
 msgid "Choose a server"
 msgstr "Pilih server"
 
-#: ../text.py:619
+#: ../text.py:631
 msgid "Installation to begin"
 msgstr "Instalasi dimulai"
 
-#: ../iw/confirm_gui.py:45 ../text.py:620
+#: ../iw/confirm_gui.py:45 ../text.py:632
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -645,12 +647,12 @@ msgstr ""
 "Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
-#: ../text.py:631
+#: ../text.py:643
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "Log upgrade"
 
-#: ../iw/confirm_gui.py:41 ../text.py:632
+#: ../iw/confirm_gui.py:41 ../text.py:644
 #, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
@@ -659,17 +661,17 @@ msgstr ""
 "Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
-#: ../text.py:651
+#: ../text.py:663
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 
-#: ../text.py:653 ../text.py:676
+#: ../text.py:665 ../text.py:688
 msgid "Complete"
 msgstr "Selesai"
 
-#: ../iw/congrats_gui.py:34 ../text.py:654
+#: ../iw/congrats_gui.py:34 ../text.py:666
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -691,13 +693,13 @@ msgstr ""
 "Cara-cara konfigurasi sistem tersedia setelah instalasi di the Official Red "
 "Hat Linux User's Guide."
 
-#: ../text.py:672
+#: ../text.py:684
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 
-#: ../text.py:677
+#: ../text.py:689
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -717,60 +719,60 @@ msgstr ""
 "Cara-cara konfigurasi sistem tersedia setelah instalasi di the Official Red "
 "Hat Linux User's Guide."
 
-#: ../text.py:744
+#: ../text.py:756
 msgid "Package Installation"
 msgstr "Instalasi Paket"
 
-#: ../text.py:746
+#: ../text.py:758
 msgid "Name   : "
 msgstr "Nama   :"
 
-#: ../text.py:747
+#: ../text.py:759
 msgid "Size   : "
 msgstr "Ukuran  :"
 
-#: ../text.py:748
+#: ../text.py:760
 msgid "Summary: "
 msgstr "Keterangan:"
 
-#: ../text.py:774
+#: ../text.py:786
 msgid "    Packages"
 msgstr "Nama Paket"
 
-#: ../text.py:775
+#: ../text.py:787
 msgid "       Bytes"
 msgstr "       Byte"
 
-#: ../text.py:776
+#: ../text.py:788
 msgid "        Time"
 msgstr "        Waktu"
 
-#: ../text.py:778
+#: ../text.py:790
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:785
+#: ../text.py:797
 msgid "Completed:   "
 msgstr "Selesai:"
 
-#: ../text.py:795
+#: ../text.py:807
 msgid "Remaining:  "
 msgstr "Sisa Waktu:"
 
-#: ../text.py:907
+#: ../text.py:919
 #, fuzzy
 msgid "Help not available"
 msgstr "(tidak ada yg tersedia)"
 
-#: ../text.py:908
+#: ../text.py:920
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:966
+#: ../text.py:978
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:977
+#: ../text.py:989
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -779,186 +781,186 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../text.py:984 ../text.py:987
+#: ../text.py:996 ../text.py:999
 msgid "Save"
 msgstr ""
 
-#: ../text.py:984 ../text.py:985
+#: ../text.py:996 ../text.py:997
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:995
+#: ../text.py:1007
 msgid " "
 msgstr ""
 
-#: ../text.py:999
+#: ../text.py:1011
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:1002
+#: ../text.py:1014
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../text.py:1004
+#: ../text.py:1016
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> switch elemen | <Spasi> memilih | <F12> layar selanjutnya"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1037
-#: ../text.py:1080
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1049
+#: ../text.py:1092
 msgid "Welcome"
 msgstr "Selamat Datang"
 
-#: ../text.py:1043 ../text.py:1126
+#: ../text.py:1055 ../text.py:1138
 msgid "Hostname Setup"
 msgstr "Setup hostname"
 
-#: ../text.py:1045 ../text.py:1123
+#: ../text.py:1057 ../text.py:1135
 msgid "Network Setup"
 msgstr "Setup Network"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1047 ../text.py:1128
+#: ../iw/firewall_gui.py:12 ../text.py:1059 ../text.py:1140
 #: ../textw/firewall_text.py:11
 #, fuzzy
 msgid "Firewall Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../text.py:1055 ../text.py:1140
+#: ../text.py:1067 ../text.py:1152
 msgid "Time Zone Setup"
 msgstr "Setup Time Zone"
 
-#: ../text.py:1057 ../text.py:1142 ../textw/userauth_text.py:9
+#: ../text.py:1069 ../text.py:1154 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Password Root"
 
-#: ../text.py:1059 ../text.py:1144 ../textw/userauth_text.py:172
+#: ../text.py:1071 ../text.py:1156 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Setup account user"
 
-#: ../text.py:1061 ../text.py:1146
+#: ../text.py:1073 ../text.py:1158
 msgid "Authentication"
 msgstr "Autentikasi"
 
-#: ../text.py:1067
+#: ../text.py:1079
 #, fuzzy
 msgid "Configuration Complete"
 msgstr "Konfigurasi X"
 
-#: ../text.py:1089 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1101 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 #, fuzzy
 msgid "SILO Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../text.py:1095 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1107 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Konfigurasi LILO"
 
-#: ../text.py:1099
+#: ../text.py:1111
 msgid "Automatic Partition"
 msgstr "Partisi Otomatis"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1101 ../text.py:1105
+#: ../iw/silo_gui.py:280 ../text.py:1113 ../text.py:1117
 msgid "Partition"
 msgstr "Partisi"
 
-#: ../text.py:1103
+#: ../text.py:1115
 msgid "Manually Partition"
 msgstr "Partisi manual"
 
-#: ../text.py:1107 ../textw/partitioning_text.py:333
+#: ../text.py:1119 ../textw/partitioning_text.py:333
 #, fuzzy
 msgid "Root Filesystem Size"
 msgstr "Ukuran sistem yang diinstal:"
 
-#: ../text.py:1109
+#: ../text.py:1121
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1111 ../textw/partitioning_text.py:390
+#: ../text.py:1123 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "Pilih Partisi root"
 
-#: ../text.py:1113
+#: ../text.py:1125
 msgid "Filesystem Formatting"
 msgstr "Sedang memformat sistem file"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1130 ../text.py:1132
+#: ../iw/mouse_gui.py:56 ../text.py:1142 ../text.py:1144
 msgid "Mouse Configuration"
 msgstr "Konfigurasi Mouse"
 
-#: ../text.py:1137
+#: ../text.py:1149
 #, fuzzy
 msgid "Language Default"
 msgstr "Pilih Bahasa"
 
-#: ../text.py:1148
+#: ../text.py:1160
 msgid "Package Groups"
 msgstr "Grup Paket"
 
-#: ../text.py:1150 ../text.py:1178
+#: ../text.py:1162 ../text.py:1190
 msgid "Individual Packages"
 msgstr "Pilih beberapa paket"
 
-#: ../text.py:1152 ../text.py:1179 ../textw/packages_text.py:304
+#: ../text.py:1164 ../text.py:1191 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Ketergantungan paket"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1154 ../text.py:1162
+#: ../iw/xconfig_gui.py:846 ../text.py:1166 ../text.py:1174
 msgid "X Configuration"
 msgstr "Konfigurasi X"
 
-#: ../text.py:1156
+#: ../text.py:1168
 msgid "Installation Begins"
 msgstr "Instalasi Mulai"
 
-#: ../text.py:1158
+#: ../text.py:1170
 msgid "Install System"
 msgstr "Install sistem"
 
-#: ../text.py:1159 ../text.py:1161 ../text.py:1184 ../text.py:1186
+#: ../text.py:1171 ../text.py:1173 ../text.py:1196 ../text.py:1198
 msgid "Boot Disk"
 msgstr "Bootdisk"
 
-#: ../text.py:1164
+#: ../text.py:1176
 msgid "Installation Complete"
 msgstr "Instalasi Beres"
 
-#: ../text.py:1169
+#: ../text.py:1181
 msgid "Examine System"
 msgstr "Periksa Sistem"
 
-#: ../text.py:1176
+#: ../text.py:1188
 msgid "Customize Upgrade"
 msgstr "Upgrade custom"
 
-#: ../text.py:1181
+#: ../text.py:1193
 #, fuzzy
 msgid "Upgrade Begins"
 msgstr "Log upgrade"
 
-#: ../text.py:1183
+#: ../text.py:1195
 msgid "Upgrade System"
 msgstr "Upgrade sistem"
 
-#: ../text.py:1187
+#: ../text.py:1199
 msgid "Upgrade Complete"
 msgstr "Upgrade Beres"
 
-#: ../text.py:1225
+#: ../text.py:1237
 msgid "Cancelled"
 msgstr "Dibatalkan"
 
-#: ../text.py:1226
+#: ../text.py:1238
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Saya tidak dapat kembali ke tahap sebelumnya. Anda harus mengulangi lagi."
@@ -1088,15 +1090,30 @@ msgstr "Spasi yg dibutuhkan"
 msgid "Disk Space"
 msgstr "Space disk"
 
-#: ../todo.py:1849
+#: ../todo.py:1850
 #, fuzzy
 msgid "Post Install"
 msgstr "Install Tahap Akhir"
 
-#: ../todo.py:1850
+#: ../todo.py:1851
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Lakukan konfigurasi install tahap akhir.."
+
+#: ../todo.py:1989
+msgid ""
+"An error occured while installing the bootloader.\n"
+"\n"
+"We HIGHLY recommend you make a recovery boot floppy when prompted, otherwise "
+"you may not be able to reboot into Red Hat Linux.\n"
+"\n"
+"The error reported was:\n"
+"\n"
+msgstr ""
+
+#: ../todo.py:1995
+msgid "Bootloader Errors"
+msgstr ""
 
 #: ../upgrade.py:11
 #, fuzzy
@@ -1119,38 +1136,38 @@ msgid ""
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:934
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:933
 msgid "Video Card"
 msgstr "Card Video"
 
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:936
+#: ../iw/xconfig_gui.py:14 ../xf86config.py:935
 msgid "Video Ram"
 msgstr "Video Ram"
 
-#: ../xf86config.py:939
+#: ../xf86config.py:938
 #, fuzzy
 msgid "X server"
 msgstr "Server X"
 
-#: ../xf86config.py:942
+#: ../xf86config.py:941
 #, fuzzy
 msgid "Unable to detect video card"
 msgstr "Saya gagal mendeteksi video card"
 
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:949 ../xf86config.py:951
+#: ../iw/xconfig_gui.py:13 ../xf86config.py:948 ../xf86config.py:950
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:951
+#: ../xf86config.py:950
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-#: ../xf86config.py:953
+#: ../xf86config.py:952
 #, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Jangkauan Frekuensi Horizontal"
 
-#: ../xf86config.py:955
+#: ../xf86config.py:954
 #, fuzzy
 msgid "Vertical frequency range"
 msgstr "Jangkauan Frekuensi Vertikal"
@@ -1410,7 +1427,7 @@ msgid "Total install size: %s"
 msgstr "saya gagal membuka %s: %s"
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
-#: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
+#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Nama Paket"
 
@@ -1560,7 +1577,7 @@ msgstr ""
 msgid "Test your selection here:"
 msgstr "Coba keyboardnya di sini:"
 
-#: ../iw/language_gui.py:40 ../loader/lang.c:292
+#: ../iw/language_gui.py:39 ../loader/lang.c:292
 msgid "What language should be used during the installation process?"
 msgstr "Bahasa apa yang ingin dipakai saat proses instalasi?"
 
@@ -1801,45 +1818,45 @@ msgstr "Instalasi paket"
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
 msgid "Size"
 msgstr "Ukuran"
 
-#: ../iw/progress_gui.py:193
+#: ../iw/progress_gui.py:200
 msgid "Summary"
 msgstr "Keterangan"
 
-#: ../iw/progress_gui.py:223
+#: ../iw/progress_gui.py:230
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Grup Paket"
 
-#: ../iw/progress_gui.py:228
+#: ../iw/progress_gui.py:235
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Total    :"
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Status"
 msgstr "Status"
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Packages"
 msgstr "Nama Paket"
 
-#: ../iw/progress_gui.py:245
+#: ../iw/progress_gui.py:252
 msgid "Time"
 msgstr "Waktu"
 
-#: ../iw/progress_gui.py:255
+#: ../iw/progress_gui.py:262
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:256
+#: ../iw/progress_gui.py:263
 msgid "Completed"
 msgstr "Selesai"
 
-#: ../iw/progress_gui.py:257
+#: ../iw/progress_gui.py:264
 msgid "Remaining"
 msgstr "Sisa waktu"
 
@@ -2056,6 +2073,18 @@ msgstr "Konfigurasi X Custom"
 #, fuzzy
 msgid "Color Depth:"
 msgstr "Konfigurasi kedalaman warna"
+
+#: ../iw/xconfig_gui.py:238
+msgid "256 Colors (8 Bit)"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:238
+msgid "High Color (16 Bit)"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:238
+msgid "True Color (24 Bit)"
+msgstr ""
 
 #: ../iw/xconfig_gui.py:256
 #, fuzzy
@@ -3707,7 +3736,7 @@ msgstr "Sedang mengambil ramdisk tahap kedua..."
 msgid "Error loading ramdisk."
 msgstr "Error saat membaca ramdisk."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2193
+#: ../loader/loader.c:585 ../loader/loader.c:2160
 #, fuzzy, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "saya gagal membuat %s"
@@ -3812,20 +3841,20 @@ msgstr "Tipe media yang berisi image rescue itu apa?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Media macam mana yang berisi paket yang hendak diinstal ?"
 
-#: ../loader/loader.c:2163
+#: ../loader/loader.c:2130
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Saya tak dapat menemukan ks.cfg di floppy."
 
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2222
 msgid "Updates Disk"
 msgstr ""
 
-#: ../loader/loader.c:2256
+#: ../loader/loader.c:2223
 #, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
-#: ../loader/loader.c:2261
+#: ../loader/loader.c:2228
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -3834,26 +3863,26 @@ msgstr ""
 "Disket yang Anda masukkan tadi tidak berisi disk driver untuk Linux Red Hat "
 "ini."
 
-#: ../loader/loader.c:2271
+#: ../loader/loader.c:2238
 msgid "Failed to mount floppy disk."
 msgstr "Saya gagal memount floppy disk."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2276
+#: ../loader/loader.c:2243
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:2276
+#: ../loader/loader.c:2243
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:2482
+#: ../loader/loader.c:2449
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2940
+#: ../loader/loader.c:2909
 msgid "Running anaconda - please wait...\n"
 msgstr ""
 
@@ -4933,7 +4962,9 @@ msgid "French"
 msgstr ""
 
 #. generated from lang-table
-msgid "German"
+msgid ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
 
 #. generated from lang-table
