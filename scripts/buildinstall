@@ -103,7 +103,7 @@ fi
 if [ -n "$PKGORDER" ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
-	runroot $COMPNAME --onlyone --arch $BUILDARCH \
+	runroot --quiet $COMPNAME --onlyone --arch $BUILDARCH \
 	    "PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH" > $PKGORDER
     else
 	PYTHONPATH=$TREEDIR/instimage/usr/lib/anaconda $TREEDIR/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
