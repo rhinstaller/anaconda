@@ -146,11 +146,26 @@ class LanguageSupportWindow:
                                        buttons = [ TEXT_OK_BUTTON ], width = 40)
 
                 else:
-                    # we may need to reset the default language
+		    # set selected langs once
                     language.setSupported (ct.getSelection())
+
+                    # we may need to reset the default language
                     default = language.getDefault()
                     if default not in ct.getSelection():
-                        language.setDefault(None)
+			sellangs = language.getSupported()
+
+			if len(sellangs) > 0:
+			    language.setDefault(sellangs[0])
+			else:
+			    language.setDefault(None)
+			    
+		    else:
+			language.setDefault(default)
+
+		    # now set new selected langs again in case old default
+		    # lang was left in the list before we switched the default
+                    language.setSupported (ct.getSelection())
+
                     screen.popWindow()
                     return INSTALL_OK
 
