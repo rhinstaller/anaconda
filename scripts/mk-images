@@ -655,7 +655,7 @@ EOF
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
-    for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color b/bterm ; do
+    for i in a/ansi d/dumb l/linux s/screen v/vt100 v/vt100-nav v/vt102 x/xterm x/xterm-color b/bterm g/gnome ; do
 	[ -f $IMGPATH/usr/share/terminfo/$i ] && \
 	  install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
     done
