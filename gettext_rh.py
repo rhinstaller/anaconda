@@ -82,7 +82,7 @@ if os.environ.has_key('PY_XGETTEXT'):
 else:
 	xgettext = None
 
-if iutil.getArch() == 'sparc' or iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+if iutil.getArch() == 'sparc' or iutil.getArch() == "s390":
 	_gettext_byteorder = 'msb'
 else:
 	_gettext_byteorder = 'lsb'

@@ -30,7 +30,7 @@ class FinishedWindow:
         else:
           bootstr = ""
 
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        if iutil.getArch() == "s390":
           floppystr = ""
         else:
           floppystr = _("Remove any floppy diskettes you used during the "

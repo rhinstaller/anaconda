@@ -213,7 +213,7 @@ for n in args:
 	display_mode = 't'
     elif (str == '-x' or str == '--xmode'):
 	xmode = 1
-    elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+    elif iutil.getArch() == "s390":
         logFile = "/tmp/anaconda-s390.log"
 
 #
@@ -251,7 +251,7 @@ if (debug):
 
 # don't let folks do anything stupid on !s390
 if (not flags.test and os.getpid() > 90 and flags.setupFilesystems and
-    not (iutil.getArch() == "s390" or iutil.getArch() == "s390x")):
+    not iutil.getArch() == "s390"):
     sys.stderr.write(
         "You're running me on a live system! that's incredibly stupid.\n")
     sys.exit(1)
@@ -420,7 +420,7 @@ if (display_mode != 't' and method and
     time.sleep(2)
 
 # XXX should be fixed to be more generic instead of just ifarching
-if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+if iutil.getArch() != "s390":
     # if no mouse we force text mode
     mousedev = mousehw.get()
     if display_mode != 't' and mousedev[0] == "None - None":
@@ -474,7 +474,7 @@ elif progmode != 'reconfig':
     import xf86config
 
     # only probe X related stuff if we're doing an install
-    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+    if iutil.getArch() == "s390":
         # XXX why doesn't videohw.primaryCard() dtrt on s390?
         card = videocard.VideoCard()
     else:

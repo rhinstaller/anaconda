@@ -36,7 +36,7 @@ else:
 fileSystemTypes = {}
 
 # XXX define availraidlevels and defaultmntpts as arch characteristics
-if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
+if iutil.getArch() != "s390":
     availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
 else:    
     availRaidLevels = ['RAID0', 'RAID5']

@@ -81,7 +81,7 @@ if iutil.getArch() == 'sparc':
     stepToClasses["bootloader"] = ("silo_text", ("SiloAppendWindow",
                                                  "SiloWindow"
                                                  "SiloImagesWindow"))
-if iutil.getArch() == 's390' or iutil.getArch() == 's390x':
+if iutil.getArch() == 's390':
     stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:

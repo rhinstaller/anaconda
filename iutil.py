@@ -33,6 +33,9 @@ def getArch ():
     if arch == "sparc64":
         arch = "sparc"
 
+    if arch == "s390x":
+        arch = "s390"
+
     return arch
 
 def getfd(filespec, readOnly = 0):

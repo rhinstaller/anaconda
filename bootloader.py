@@ -76,7 +76,7 @@ class KernelArguments:
     def __init__(self):
         str = ""
 
-	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        if iutil.getArch() == "s390":
 	    if os.environ.has_key("DASD"):
                 str = str + "dasd=" + os.environ["DASD"]
 
@@ -1032,7 +1032,7 @@ def getBootloader():
         return x86BootloaderInfo()
     elif iutil.getArch() == 'ia64':
         return ia64BootloaderInfo()
-    elif iutil.getArch() == 's390' or iutil.getArch() == "s390x":
+    elif iutil.getArch() == 's390':
         return s390BootloaderInfo()
     else:
         return bootloaderInfo()

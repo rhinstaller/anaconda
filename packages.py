@@ -365,7 +365,7 @@ def doPreInstall(method, id, intf, instPath, dir):
     if not upgrade:
 	# this is NICE and LATE. It lets kickstart/server/workstation
 	# installs detect this properly
-	if arch == "s390" or arch == "s390x":
+        if arch == "s390":
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
 	    else:
@@ -405,7 +405,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
 
-        if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+        if iutil.getArch() != "s390":
             xserver = id.videocard.primaryCard().getXServer()
             if (xserver and id.comps.packages.has_key('XFree86')
                 and id.comps.packages['XFree86'].selected
@@ -712,7 +712,7 @@ def doPostInstall(method, id, intf, instPath):
 	    # XXX currently Bad Things (X async reply) happen when doing
 	    # Mouse Magic on Sparc (Mach64, specificly)
 	    # The s390 doesn't even have a mouse!
-	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390" or arch == "s390x"):
+	    if os.environ.has_key ("DISPLAY") and not (arch == "sparc" or arch == "s390"):
 		import xmouse
 		try:
 		    mousedev = xmouse.get()[0]
@@ -729,7 +729,7 @@ def doPostInstall(method, id, intf, instPath):
 		except RuntimeError:
 		    pass
 
-	    if arch != "s390" and arch != "s390x":
+	    if arch != "s390":
                 unmountUSB = 0
                 try:
                     isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')

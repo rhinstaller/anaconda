@@ -71,7 +71,7 @@ stepToClass = {
 
 if iutil.getArch() == 'sparc':
     stepToClass["bootloader"] = ("silo_gui", "SiloWindow")
-elif iutil.getArch() == 's390' or iutil.getArch() == 's390x':
+elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
 else:
     stepToClass["bootloader"] = ("bootloader_gui", "BootloaderWindow")

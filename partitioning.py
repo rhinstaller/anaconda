@@ -689,8 +689,6 @@ def getDefaultDiskType():
         return parted.disk_type_get("GPT")
     elif iutil.getArch() == "s390":
         return parted.disk_type_get("dasd")
-    elif iutil.getArch() == "s390x":
-        return parted.disk_type_get("dasd")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
@@ -698,7 +696,6 @@ def getDefaultDiskType():
 archLabels = {'i386': ['msdos'],
               'alpha': ['bsd'],
               's390': ['dasd'],
-              's390x': ['dasd'],
               'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
@@ -1533,7 +1530,7 @@ class DiskSet:
                         recreate = 1
 
                 if recreate == 1 and not flags.test:
-                    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    if iutil.getArch() == "s390":
                         if (self.dasdFmt(intf, drive)):
                             DiskSet.skippedDisks.append(drive)
                             continue
@@ -1556,7 +1553,7 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
-                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                if iutil.getArch() == "s390":
                     if (self.dasdFmt(intf, drive)):
                         DiskSet.skippedDisks.append(drive)
                         continue                    
@@ -1636,7 +1633,7 @@ def checkNoDisks(diskset, intf):
         sys.exit(0)
 
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
-    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+    if iutil.getArch() == "s390":
         partitions.useAutopartitioning = 0
         partitions.useFdisk = 1
             
@@ -1672,7 +1669,7 @@ def partitionMethodSetup(partitions, dispatch):
                       skip = not partitions.useAutopartitioning)
     dispatch.skipStep("autopartitionexecute",
                       skip = not partitions.useAutopartitioning)
-    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+    if iutil.getArch() == "s390":
         dispatch.skipStep("fdasd", skip = not partitions.useFdisk)
     else:
         dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
