@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
-"POT-Creation-Date: 2001-03-22 10:27-0500\n"
-"PO-Revision-Date: 2001-01-30 17:00+1\n"
+"POT-Creation-Date: 2001-03-14 11:37-0500\n"
+"PO-Revision-Date: 2001-03-15 17:00+1\n"
 "Last-Translator: Tullio Dovera <tdovera@redhat.it>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -58,26 +58,25 @@ msgstr ""
 "particiones formateadas (RECOMENDADO)."
 
 #: ../fstab.py:76 ../harddrive.py:235 ../iw/rootpartition_gui.py:81
-#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:174
-#: ../iw/upgrade_swap_gui.py:183 ../iw/upgrade_swap_gui.py:190
-#: ../textw/upgrade_text.py:100
+#: ../iw/rootpartition_gui.py:97 ../iw/upgrade_swap_gui.py:144
+#: ../iw/upgrade_swap_gui.py:153 ../iw/upgrade_swap_gui.py:160
 msgid "Warning"
 msgstr "Aviso"
 
-#: ../fstab.py:320 ../fstab.py:523 ../fstab.py:623 ../fstab.py:774
-#: ../fstab.py:841 ../harddrive.py:173 ../image.py:64 ../image.py:141
+#: ../fstab.py:320 ../fstab.py:517 ../fstab.py:618 ../fstab.py:829
+#: ../harddrive.py:173 ../image.py:64 ../image.py:141
 #: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
-#: ../loader/loader.c:1024 ../loader/loader.c:1194 ../loader/loader.c:1199
-#: ../loader/loader.c:1281 ../loader/loader.c:2135 ../loader/loader.c:2165
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/pcmcia.c:114
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
+#: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
+#: ../loader/loader.c:1278 ../loader/loader.c:2129 ../loader/loader.c:2159
+#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:90
-#: ../textw/upgrade_text.py:96 ../textw/upgrade_text.py:150 ../todo.py:1206
-#: ../todo.py:1219 ../todo.py:1539 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
+#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1199
+#: ../todo.py:1212 ../todo.py:1532 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Error"
 
@@ -94,65 +93,56 @@ msgstr ""
 "disco de arranque de Red Hat ahora y pulse \"Ok\" para arrancar de nuevo su "
 "sistema. \n"
 
-#: ../fstab.py:494
+#: ../fstab.py:492
 msgid "Swap Space"
-msgstr ""
+msgstr "Espacio swap"
 
-#: ../fstab.py:495
+#: ../fstab.py:493
 msgid "Creating swap space..."
-msgstr ""
+msgstr "Crear un espacio swap..."
 
-#: ../fstab.py:513 ../fstab.py:783 ../fstab.py:1242
+#: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formateo"
 
-#: ../fstab.py:514
+#: ../fstab.py:508
 msgid "Formatting swap space..."
-msgstr ""
+msgstr "Formatear un espacio swap..."
 
-#: ../fstab.py:523
+#: ../fstab.py:517
 msgid "Error creating swap on device "
 msgstr "Error al crear swap en el dispositivo"
 
-#: ../fstab.py:624
+#: ../fstab.py:619
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Error al desmontar %s: %s"
 
-#: ../fstab.py:677 ../todo.py:740
+#: ../fstab.py:672 ../todo.py:740
 msgid "Creating"
 msgstr "Creación en curso"
 
-#: ../fstab.py:677
+#: ../fstab.py:672
 msgid "Creating RAID devices..."
 msgstr "Creación de dispositivos RAID... "
 
-#: ../fstab.py:718
+#: ../fstab.py:713
 msgid "Loopback"
 msgstr "Ciclo de retorno"
 
-#: ../fstab.py:719
+#: ../fstab.py:714
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr ""
 "Creación de un sistema de archivos de bucle local (loopback) en el "
 "dispositivo /dev/%s..."
 
-#: ../fstab.py:775
-#, c-format
-msgid ""
-"An error occured trying to format %s. This problem is serious, and the "
-"install cannot continue.\n"
-"\n"
-"Press Enter to reboot your system."
-msgstr ""
-
-#: ../fstab.py:784 ../fstab.py:1243
+#: ../fstab.py:772 ../fstab.py:1231
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formateo del sistema de archivos %s ..."
 
-#: ../fstab.py:842
+#: ../fstab.py:830
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -167,7 +157,7 @@ msgstr ""
 "formateada\n"
 "Pulse OK para volver a arrancar su sistema"
 
-#: ../gui.py:178
+#: ../gui.py:176
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -177,7 +167,7 @@ msgstr ""
 "Por favor copie el texto entero de esta excepción y registre el informe "
 "sobre el error en http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:327 ../text.py:873
+#: ../gui.py:325 ../text.py:873
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -185,17 +175,17 @@ msgstr ""
 "Por favor, introduzca un disco. El contenido de éste será borrado, de modo "
 "que, por favor, elija el disco cuidadosamente."
 
-#: ../gui.py:419 ../gui.py:788
+#: ../gui.py:417 ../gui.py:785
 msgid "Next"
 msgstr "Siguiente"
 
-#: ../gui.py:420 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:418 ../gui.py:784 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
-#: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
-#: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
+#: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
+#: ../loader/loader.c:1021 ../loader/loader.c:1113 ../loader/loader.c:1516
 #: ../loader/net.c:185 ../loader/net.c:272 ../loader/net.c:357
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:132 ../text.py:61
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:61
 #: ../text.py:75 ../text.py:135 ../text.py:199 ../text.py:206 ../text.py:228
 #: ../text.py:231 ../text.py:311 ../text.py:354 ../text.py:357 ../text.py:414
 #: ../text.py:417 ../text.py:443 ../text.py:447 ../text.py:456 ../text.py:529
@@ -213,68 +203,68 @@ msgstr "Siguiente"
 #: ../textw/partitioning_text.py:259 ../textw/partitioning_text.py:342
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:52
-#: ../textw/upgrade_text.py:153 ../textw/upgrade_text.py:171
-#: ../textw/upgrade_text.py:174 ../textw/upgrade_text.py:188
-#: ../textw/upgrade_text.py:189 ../textw/upgrade_text.py:204
-#: ../textw/upgrade_text.py:207 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:148 ../textw/upgrade_text.py:166
+#: ../textw/upgrade_text.py:169 ../textw/upgrade_text.py:183
+#: ../textw/upgrade_text.py:184 ../textw/upgrade_text.py:199
+#: ../textw/upgrade_text.py:202 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
 #: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Anterior"
 
-#: ../gui.py:421 ../gui.py:540 ../gui.py:790
+#: ../gui.py:419 ../gui.py:538 ../gui.py:787
 msgid "Release Notes"
 msgstr "Notas de Última Hora"
 
-#: ../gui.py:422 ../gui.py:793
+#: ../gui.py:420 ../gui.py:790
 msgid "Show Help"
 msgstr "Mostrar Ayuda"
 
-#: ../gui.py:423 ../gui.py:792
+#: ../gui.py:421 ../gui.py:789
 msgid "Hide Help"
 msgstr "Esconder Ayuda"
 
-#: ../gui.py:424 ../gui.py:791
+#: ../gui.py:422 ../gui.py:788
 msgid "Finish"
 msgstr "Terminar"
 
-#: ../gui.py:427 ../gui.py:823
+#: ../gui.py:425 ../gui.py:820
 msgid "Online Help"
 msgstr "Ayuda en línea"
 
-#: ../gui.py:428 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../gui.py:426 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
 #: ../text.py:69 ../text.py:968
 msgid "Language Selection"
 msgstr "Selección del idioma"
 
-#: ../gui.py:535 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:533 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Cerrar"
 
-#: ../gui.py:571
+#: ../gui.py:569
 msgid "Unable to load file!"
 msgstr "¡Ha sido imposible cargar el archivo!"
 
-#: ../gui.py:711
+#: ../gui.py:708
 msgid "Red Hat Linux Installer"
 msgstr "Instalador de Red Hat Linux"
 
-#: ../gui.py:715
+#: ../gui.py:712
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell de Instalación de Red Hat Linux"
 
-#: ../gui.py:726
+#: ../gui.py:723
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Intalador de Red Hat Linux en %s"
 
-#: ../gui.py:727
+#: ../gui.py:724
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell de Instalación de Red Hat Linux en %s"
 
-#: ../gui.py:872
+#: ../gui.py:869
 msgid "Install Window"
 msgstr "Instalar ventana"
 
@@ -327,17 +317,17 @@ msgstr "No se puede instalar el CDROM."
 #: ../loader/devices.c:532 ../loader/kickstart.c:58 ../loader/kickstart.c:68
 #: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:294
 #: ../loader/lang.c:585 ../loader/loader.c:291 ../loader/loader.c:520
-#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:910
-#: ../loader/loader.c:969 ../loader/loader.c:1024 ../loader/loader.c:1116
-#: ../loader/loader.c:1194 ../loader/loader.c:1199 ../loader/loader.c:1241
-#: ../loader/loader.c:1250 ../loader/loader.c:1281 ../loader/loader.c:1519
-#: ../loader/loader.c:2135 ../loader/loader.c:2165 ../loader/loader.c:2228
-#: ../loader/loader.c:2243 ../loader/loader.c:2455 ../loader/net.c:185
+#: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:907
+#: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
+#: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
+#: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
+#: ../loader/loader.c:2129 ../loader/loader.c:2159 ../loader/loader.c:2222
+#: ../loader/loader.c:2237 ../loader/loader.c:2449 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
-#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:20 ../rescue.py:92
-#: ../rescue.py:110 ../rescue.py:126 ../text.py:135 ../text.py:174
+#: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
+#: ../rescue.py:109 ../rescue.py:117 ../text.py:135 ../text.py:174
 #: ../text.py:228 ../text.py:311 ../text.py:354 ../text.py:372 ../text.py:414
 #: ../text.py:443 ../text.py:529 ../text.py:541 ../text.py:570 ../text.py:591
 #: ../text.py:761 ../text.py:815 ../text.py:841 ../text.py:867 ../text.py:875
@@ -355,7 +345,7 @@ msgstr "No se puede instalar el CDROM."
 #: ../textw/partitioning_text.py:361 ../textw/partitioning_text.py:368
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/upgrade_text.py:51
-#: ../textw/upgrade_text.py:171 ../textw/userauth_text.py:30
+#: ../textw/upgrade_text.py:166 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
 #: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
@@ -365,32 +355,32 @@ msgstr "No se puede instalar el CDROM."
 msgid "OK"
 msgstr "OK"
 
-#: ../rescue.py:39
+#: ../rescue.py:38
 msgid "WARNING: no valid block devices were found.\n"
 msgstr "AVISO: no se han encontrado dispositivos de bloqueo válidos.\n"
 
-#: ../rescue.py:41
+#: ../rescue.py:40
 msgid "ERROR: unknown error encountered reading partition tables.\n"
 msgstr "ERROR: error desconocido en la lectura de las tablas de partición.\n"
 
-#: ../rescue.py:89
+#: ../rescue.py:88
 msgid "System to Rescue"
 msgstr "Sistema a Rescatar"
 
-#: ../rescue.py:90 ../textw/upgrade_text.py:169
+#: ../rescue.py:89 ../textw/upgrade_text.py:164
 msgid "What partition holds the root partition of your installation?"
 msgstr "¿Qué partición contiene la partición root de su instalación?"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:92
-#: ../rescue.py:96 ../textw/upgrade_text.py:124
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:91
+#: ../rescue.py:95 ../textw/upgrade_text.py:119
 msgid "Exit"
 msgstr "Salir"
 
-#: ../rescue.py:106 ../rescue.py:121
+#: ../rescue.py:105 ../rescue.py:112
 msgid "Rescue"
 msgstr "Rescatar"
 
-#: ../rescue.py:107
+#: ../rescue.py:106
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -402,7 +392,7 @@ msgstr ""
 "Pulse <Intro> para obtener una shell. El sistema reinicializará\n"
 "automáticamente cuando salga de la shell."
 
-#: ../rescue.py:122
+#: ../rescue.py:113
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -416,11 +406,11 @@ msgstr ""
 "Pulse <Intro> para obtener una shell. El sistema reinicializará\n"
 "automáticamente cuando salga de la shell."
 
-#: ../rescue.py:128
+#: ../rescue.py:119
 msgid "Rescue Mode"
 msgstr "Modo de Rescate"
 
-#: ../rescue.py:129
+#: ../rescue.py:120
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -428,16 +418,16 @@ msgstr ""
 "No tiene ninguna partición Linux. Pulse Intro para obtener una shell. El "
 "sistema se reinicializará cuando salga de la shell."
 
-#: ../rescue.py:141
+#: ../rescue.py:132
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr "El sistema está montado bajo el directorio /mnt/sysimage."
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
-#: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
-#: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1468 ../libfdisk/gnomefsedit.c:756
+#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928
+#: ../libfdisk/fsedit.c:935 ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971
+#: ../libfdisk/fsedit.c:984 ../libfdisk/fsedit.c:994 ../libfdisk/fsedit.c:1023
+#: ../libfdisk/fsedit.c:1033 ../libfdisk/fsedit.c:1050
+#: ../libfdisk/fsedit.c:1467 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -463,8 +453,8 @@ msgstr "El sistema está montado bajo el directorio /mnt/sysimage."
 #: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
 #: ../textw/partitioning_text.py:156 ../textw/partitioning_text.py:421
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:124
-#: ../textw/upgrade_text.py:188
+#: ../textw/silo_text.py:205 ../textw/upgrade_text.py:119
+#: ../textw/upgrade_text.py:183
 msgid "Ok"
 msgstr "Ok"
 
@@ -568,7 +558,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
+#: ../loader/devices.c:532 ../loader/loader.c:2222 ../loader/pcmcia.c:104
 #: ../text.py:372 ../text.py:375 ../text.py:761 ../text.py:762 ../text.py:875
 #: ../text.py:877 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
@@ -835,8 +825,8 @@ msgstr "Configuración de LILO"
 msgid "Automatic Partition"
 msgstr "Particionamiento Automático"
 
-#: ../iw/lilo_gui.py:225 ../iw/lilo_gui.py:388 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:129 ../text.py:996
+#: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:99 ../text.py:996
 #: ../text.py:1000 ../textw/upgrade_text.py:40
 msgid "Partition"
 msgstr "Partición"
@@ -904,7 +894,7 @@ msgstr "Examinar sistema"
 
 #: ../text.py:1065
 msgid "System Swap Space"
-msgstr ""
+msgstr "Espacio swap del sistema"
 
 #: ../text.py:1072
 msgid "Customize Upgrade"
@@ -952,17 +942,12 @@ msgstr ""
 "Comprobando las dependencias en los paquetes seleccionados para la "
 "instalación..."
 
-#: ../todo.py:1071 ../todo.py:1115 ../todo.py:1121 ../todo.py:1138
-#: ../todo.py:1269
+#: ../todo.py:1067 ../todo.py:1111 ../todo.py:1117 ../todo.py:1134
+#: ../todo.py:1262
 msgid "no suggestion"
 msgstr "Ninguna sugerencia"
 
-#: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
-msgid "Dirty Filesystems"
-msgstr "Tamaño del sistema de archivos Root"
-
-#: ../todo.py:1156
+#: ../todo.py:1152
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -971,7 +956,7 @@ msgstr ""
 "instalar correctamente. Trate de resolver el problema e intente la "
 "actualización de nuevo."
 
-#: ../todo.py:1171
+#: ../todo.py:1167
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -983,33 +968,33 @@ msgstr ""
 "reinicie la actualización. \n"
 "\n"
 
-#: ../todo.py:1191
+#: ../todo.py:1184
 msgid "Finding"
 msgstr "Búsqueda"
 
-#: ../todo.py:1192
+#: ../todo.py:1185
 msgid "Finding packages to upgrade..."
 msgstr "Búsqueda de los paquetes a actualizar..."
 
-#: ../todo.py:1207
+#: ../todo.py:1200
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Reconstrucción de la base de datos RPM errónea. ¿Hay suficiente epacio en el "
 "disco?"
 
-#: ../todo.py:1220
+#: ../todo.py:1213
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Se ha producido un error en la búsqueda de paquetes a actualizar."
 
-#: ../todo.py:1505
+#: ../todo.py:1498
 msgid "Processing"
 msgstr "Elaboración en curso"
 
-#: ../todo.py:1506
+#: ../todo.py:1499
 msgid "Preparing to install..."
 msgstr "Preparación para la instalación..."
 
-#: ../todo.py:1540
+#: ../todo.py:1533
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1019,17 +1004,17 @@ msgstr ""
 "archivo, un paquete dañado o un soporte defectuoso. Pulse <return> para "
 "reintentarlo."
 
-#: ../todo.py:1795
+#: ../todo.py:1785
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Actualización %s.\n"
 
-#: ../todo.py:1797
+#: ../todo.py:1787
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Instalación %s.\n"
 
-#: ../todo.py:1842
+#: ../todo.py:1832
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1039,16 +1024,16 @@ msgstr ""
 "seleccionados. Necesita más espacio en los siguientes sistemas de archivo:\n"
 "\n"
 
-#: ../iw/upgrade_swap_gui.py:129 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:39 ../todo.py:1845 ../todo.py:1863
+#: ../iw/upgrade_swap_gui.py:99 ../libfdisk/gnomefsedit.c:3132
+#: ../textw/upgrade_text.py:39 ../todo.py:1835 ../todo.py:1853
 msgid "Mount Point"
 msgstr "Punto de Montaje"
 
-#: ../todo.py:1845
+#: ../todo.py:1835
 msgid "Space Needed"
 msgstr "Espacio necesario"
 
-#: ../todo.py:1860
+#: ../todo.py:1850
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1059,23 +1044,23 @@ msgstr ""
 "archivo:\n"
 "\n"
 
-#: ../todo.py:1863
+#: ../todo.py:1853
 msgid "Nodes Needed"
 msgstr "Nodos necesarios"
 
-#: ../todo.py:1869
+#: ../todo.py:1859
 msgid "Disk Space"
 msgstr "Espacio en el disco"
 
-#: ../todo.py:1904
+#: ../todo.py:1894
 msgid "Post Install"
 msgstr "Post-instalación"
 
-#: ../todo.py:1905
+#: ../todo.py:1895
 msgid "Performing post install configuration..."
 msgstr "Configuración post-instalación..."
 
-#: ../todo.py:2043
+#: ../todo.py:2033
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1092,7 +1077,7 @@ msgstr ""
 "El error encontrado es:\n"
 "\n"
 
-#: ../todo.py:2049
+#: ../todo.py:2039
 msgid "Bootloader Errors"
 msgstr "Errores del cargador de arranque"
 
@@ -1181,7 +1166,7 @@ msgstr "Configuración de las cuentas"
 
 #: ../iw/account_gui.py:39
 msgid "Root password accepted."
-msgstr "Contraseña de root de root aceptada."
+msgstr "Contraseña de root no aceptada."
 
 #: ../iw/account_gui.py:42
 msgid "Please enter root password."
@@ -1390,14 +1375,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Dependencias no resueltas"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:544
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
 msgstr "Tamaño total de la instalación: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:400
-#: ../iw/progress_gui.py:205 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
+#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Paquetes"
 
@@ -1421,7 +1406,7 @@ msgstr "Ignorar las dependencias de los paquetes"
 msgid "Upgrade Examine"
 msgstr "Examinar la actualización"
 
-#: ../iw/examine_gui.py:45
+#: ../iw/examine_gui.py:37
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
@@ -1429,20 +1414,13 @@ msgstr ""
 "No tiene ninguna partición Linux.\n"
 " ¡No puede actualizar el sistema!"
 
-#: ../iw/examine_gui.py:54
+#: ../iw/examine_gui.py:46
 msgid "Please select the device containing the root filesystem: "
 msgstr ""
 "Por favor seleccione el dispositivo que contiene el sistema de archivos "
 "root: "
 
-#: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
-msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr ""
-"El sistema operativo Red Hat Linux instalado en la partición /dev/%s no será "
-"actualizado."
-
-#: ../iw/examine_gui.py:85
+#: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
 msgstr "Personalizar los paquetes para que sean actualizados"
 
@@ -1510,15 +1488,15 @@ msgstr "Seleccione las particiones para formatear"
 msgid "Check for bad blocks while formatting"
 msgstr "Controle los bloques dañados durante el formateo"
 
-#: ../iw/installpath_gui.py:99
+#: ../iw/installpath_gui.py:98
 msgid "Install Type"
 msgstr "Tipo de instalación"
 
-#: ../iw/installpath_gui.py:182
+#: ../iw/installpath_gui.py:180
 msgid "Install"
 msgstr "Instalación"
 
-#: ../iw/installpath_gui.py:184
+#: ../iw/installpath_gui.py:182
 msgid "Upgrade"
 msgstr "Actualización"
 
@@ -1560,7 +1538,7 @@ msgstr "Elija un idioma por defecto:"
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Idiomas instalados actualmente:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1574,73 +1552,92 @@ msgstr "Seleccionar todo"
 msgid "Select as default"
 msgstr "Seleccionar por defecto"
 
-#: ../iw/lilo_gui.py:33
+#: ../iw/lilo_gui.py:32
 msgid "Lilo Configuration"
 msgstr "Configuración de Lilo"
 
-#: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
+#: ../iw/lilo_gui.py:50 ../textw/upgrade_text.py:111
+msgid "Proceed with upgrade?"
+msgstr "¿Desea continuar con la actualización?"
+
+#: ../iw/lilo_gui.py:51 ../textw/upgrade_text.py:112
+msgid ""
+"The filesystems of the Linux installation you have chosen to upgrade have "
+"already been mounted. You cannot go back past this point. \n"
+"\n"
+msgstr ""
+"Los sistemas de ficheros de la instalación de Linux que ha escogido para "
+"actualizar ya han sido montados. Llegado a este punto ya no podrá "
+"retroceder.\n"
+"\n"
+
+#: ../iw/lilo_gui.py:55
+msgid "Would you like to continue with the upgrade?"
+msgstr "¿Le gustaría continuar con la actualización?"
+
+#: ../iw/lilo_gui.py:64
 msgid "Aborting upgrade"
 msgstr "Salir de la actualización"
 
-#: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
+#: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
 msgid "Type"
 msgstr "Tipo"
 
-#: ../iw/lilo_gui.py:277
+#: ../iw/lilo_gui.py:282
 msgid "Install LILO boot record on:"
 msgstr "Instalar el bloque de arranque de LILO en:"
 
-#: ../iw/lilo_gui.py:284 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../iw/lilo_gui.py:289 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../iw/lilo_gui.py:293 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Primer sector de partición de inicio "
 
-#: ../iw/lilo_gui.py:292 ../textw/lilo_text.py:27
+#: ../iw/lilo_gui.py:297 ../textw/lilo_text.py:27
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Usar modo lineal (se necesita para algunos dispositivos SCSI)"
 
-#: ../iw/lilo_gui.py:303 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:308 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "Parámetros del Kernel"
 
-#: ../iw/lilo_gui.py:320 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:325 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "Crear disco de arranque"
 
-#: ../iw/lilo_gui.py:334
+#: ../iw/lilo_gui.py:339
 msgid "Install LILO"
 msgstr "Instalar LILO"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Por defecto"
 
-#: ../iw/lilo_gui.py:361 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:366 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
 #: ../libfdisk/gnomefsedit.c:3133 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Dispositivo"
 
-#: ../iw/lilo_gui.py:361 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:366 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Tipo de Partición"
 
-#: ../iw/lilo_gui.py:361 ../iw/lilo_gui.py:400 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:366 ../iw/lilo_gui.py:405 ../iw/silo_gui.py:257
 #: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Etiqueta de inicio"
 
-#: ../iw/lilo_gui.py:396 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:401 ../iw/silo_gui.py:288
 msgid "Default boot image"
 msgstr "Imagen de inicio por defecto"
 
@@ -1717,59 +1714,40 @@ msgstr "DNS Secundario"
 msgid "Ternary DNS"
 msgstr "DNS Terciario"
 
-#: ../iw/package_gui.py:22 ../textw/upgrade_text.py:116
-msgid "Proceed with upgrade?"
-msgstr "¿Desea continuar con la actualización?"
-
-#: ../iw/package_gui.py:23 ../textw/upgrade_text.py:117
-msgid ""
-"The filesystems of the Linux installation you have chosen to upgrade have "
-"already been mounted. You cannot go back past this point. \n"
-"\n"
-msgstr ""
-"Los sistemas de ficheros de la instalación de Linux que ha escogido para "
-"actualizar ya han sido montados. Llegado a este punto ya no podrá "
-"retroceder.\n"
-"\n"
-
-#: ../iw/package_gui.py:27
-msgid "Would you like to continue with the upgrade?"
-msgstr "¿Le gustaría continuar con la actualización?"
-
-#: ../iw/package_gui.py:38
+#: ../iw/package_gui.py:25
 msgid "Individual Package Selection"
 msgstr "Selección Individual de Paquetes"
 
-#: ../iw/package_gui.py:322
+#: ../iw/package_gui.py:302
 msgid "Total install size: "
 msgstr "Tamaño total de la instalación"
 
-#: ../iw/package_gui.py:402
+#: ../iw/package_gui.py:382
 msgid "Size (MB)"
 msgstr "Tamaño (Megs)"
 
-#: ../iw/package_gui.py:433
+#: ../iw/package_gui.py:413
 msgid "Total size: "
 msgstr "Tamaño total"
 
-#: ../iw/package_gui.py:436
+#: ../iw/package_gui.py:416
 msgid "Select all in group"
 msgstr "Seleccionar todo en el grupo"
 
-#: ../iw/package_gui.py:440
+#: ../iw/package_gui.py:420
 msgid "Unselect all in group"
 msgstr "Deseleccionar todo en el grupo"
 
-#: ../iw/package_gui.py:475
+#: ../iw/package_gui.py:455
 msgid "File not found"
 msgstr "Archivo no encontrado"
 
-#: ../iw/package_gui.py:518 ../textw/packages_text.py:60
+#: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "Selección del grupo de paquetes"
 
-#: ../iw/package_gui.py:578
+#: ../iw/package_gui.py:558
 #, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
@@ -1784,7 +1762,7 @@ msgstr ""
 "\n"
 "Salida del instalador súbita."
 
-#: ../iw/package_gui.py:583
+#: ../iw/package_gui.py:563
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1793,56 +1771,56 @@ msgstr ""
 "media de instalación o la imagen deben de estar dañados. Salida súbita del "
 "instalador. "
 
-#: ../iw/package_gui.py:649 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
 msgstr "Selección individual de los paquetes"
 
-#: ../iw/progress_gui.py:55
+#: ../iw/progress_gui.py:51
 msgid "Installing Packages"
 msgstr "Instalación de los paquetes"
 
-#: ../iw/progress_gui.py:147
+#: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
 msgstr "%s KBytes"
 
-#: ../iw/progress_gui.py:206 ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
 msgid "Size"
 msgstr "Tamaño"
 
-#: ../iw/progress_gui.py:207
+#: ../iw/progress_gui.py:200
 msgid "Summary"
 msgstr "Sumario"
 
-#: ../iw/progress_gui.py:237
+#: ../iw/progress_gui.py:230
 msgid "Package Progress: "
 msgstr "Progreso de los paquetes:"
 
-#: ../iw/progress_gui.py:242
+#: ../iw/progress_gui.py:235
 msgid "Total Progress:   "
 msgstr "Progreso Total    :"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:252
 msgid "Status"
 msgstr "Estado"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:252
 msgid "Packages"
 msgstr "Paquetes"
 
-#: ../iw/progress_gui.py:259
+#: ../iw/progress_gui.py:252
 msgid "Time"
 msgstr "Tiempo"
 
-#: ../iw/progress_gui.py:269
+#: ../iw/progress_gui.py:262
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress_gui.py:270
+#: ../iw/progress_gui.py:263
 msgid "Completed"
 msgstr "Completado"
 
-#: ../iw/progress_gui.py:271
+#: ../iw/progress_gui.py:264
 msgid "Remaining"
 msgstr "Restante"
 
@@ -1887,7 +1865,7 @@ msgstr ""
 "\n"
 "¿Está seguro de que desea continuar?"
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:490
+#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:412
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
@@ -1919,37 +1897,42 @@ msgstr ""
 "el sistema de archivos root y cuánto espacio swap quiere tener? Debe sumar "
 "menos de %d megabytes de tamaño."
 
-#: ../iw/rootpartition_gui.py:249
+#: ../iw/rootpartition_gui.py:248
 msgid "Root filesystem size:"
 msgstr "Tamaño del sistema de archivos de Root"
 
-#: ../iw/rootpartition_gui.py:254
+#: ../iw/rootpartition_gui.py:253
 msgid "Swap space size:"
 msgstr "Tamaño del espacio de Swap"
 
-#: ../iw/rootpartition_gui.py:329 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:324 ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Partición Automática"
 
-#: ../iw/rootpartition_gui.py:380
+#: ../iw/rootpartition_gui.py:375
 msgid "Disk Partitioning"
-msgstr ""
+msgstr "Particionamiento del disco"
 
-#: ../iw/rootpartition_gui.py:382
+#: ../iw/rootpartition_gui.py:377
 #, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
-"%s\n"
+"Automatic partitioning will erase %s\n"
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Seleccione el tipo de particionamiento que le gustaría utilizar.\n"
+"\n"
+"El particionamiento automático borrará %s\n"
+"\n"
+"La selección del particionamiento manual le permite crear particiones a mano."
 
-#: ../iw/rootpartition_gui.py:388
+#: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
 msgstr " Particionado Automático Fallido"
 
-#: ../iw/rootpartition_gui.py:389
+#: ../iw/rootpartition_gui.py:384
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1967,11 +1950,11 @@ msgstr ""
 "Por favor seleccione la herramienta que le gustaría usar para la partición "
 "del sistema Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:396
+#: ../iw/rootpartition_gui.py:391
 msgid "Manual Partitioning"
 msgstr "Partición Manual"
 
-#: ../iw/rootpartition_gui.py:397
+#: ../iw/rootpartition_gui.py:392
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
@@ -1981,23 +1964,23 @@ msgstr ""
 "Por favor seleccione la herramienta que le gustaría utilizar para la "
 "partición de su sistema Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:411
+#: ../iw/rootpartition_gui.py:406
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Partición automática y ELIMINACIÓN DE DATOS"
 
-#: ../iw/rootpartition_gui.py:418
+#: ../iw/rootpartition_gui.py:413
 msgid "Manually partition with Disk Druid"
 msgstr "Partición manual de Disk Druid"
 
-#: ../iw/rootpartition_gui.py:430
+#: ../iw/rootpartition_gui.py:425
 msgid "Manually partition with fdisk [experts only]"
 msgstr "Partición manual con fdisk [solamente expertos]"
 
-#: ../iw/rootpartition_gui.py:453
+#: ../iw/rootpartition_gui.py:448
 msgid "Boot Partition Location Warning"
 msgstr "Aviso de ubicación de particionamiento de arranque"
 
-#: ../iw/rootpartition_gui.py:477 ../textw/partitioning_text.py:392
+#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:392
 msgid ""
 "You have put the partition containing the kernel (the boot partition) above "
 "the 1024 cylinder limit, and it appears that this systems BIOS does not "
@@ -2020,23 +2003,23 @@ msgstr ""
 "\n"
 "¿Está seguro de que desea continuar?"
 
-#: ../iw/rootpartition_gui.py:508 ../iw/welcome_gui.py:89
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89
+#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:845
+#: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:220
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
 msgid "Yes"
 msgstr "Sí"
 
-#: ../iw/rootpartition_gui.py:510 ../iw/welcome_gui.py:92
-#: ../libfdisk/fsedit.c:953 ../libfdisk/gnomefsedit.c:829
+#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92
+#: ../libfdisk/fsedit.c:952 ../libfdisk/gnomefsedit.c:829
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
@@ -2045,8 +2028,8 @@ msgstr "Sí"
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:231 ../loader/net.c:845 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:204
-#: ../textw/upgrade_text.py:210
+#: ../textw/partitioning_text.py:403 ../textw/upgrade_text.py:199
+#: ../textw/upgrade_text.py:205
 msgid "No"
 msgstr "No"
 
@@ -2094,11 +2077,11 @@ msgstr "Localización"
 msgid "UTC Offset"
 msgstr "Compensación UTC"
 
-#: ../iw/upgrade_swap_gui.py:18
+#: ../iw/upgrade_swap_gui.py:17
 msgid "Upgrade Swap Partition"
-msgstr ""
+msgstr "Actualización de la partición swap"
 
-#: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
+#: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
 #, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
@@ -2106,49 +2089,57 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"El Kernel 2.4 necesia más swap que los kernels anteriores, el doble de espacio "
+"swap que de la RAM en su sistema. Actualmente tiene %dMB de swap configurado "
+"pero creará espacio swap adicional en uno de sus sistemas de ficheros."
 
-#: ../iw/upgrade_swap_gui.py:115
+#: ../iw/upgrade_swap_gui.py:80
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Deseo crear un fichero swap"
 
-#: ../iw/upgrade_swap_gui.py:124
+#: ../iw/upgrade_swap_gui.py:94
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Selección de la partición para colocar el archivo swap en:"
 
-#: ../iw/upgrade_swap_gui.py:129
+#: ../iw/upgrade_swap_gui.py:99
 msgid "Free Space (MB)"
-msgstr ""
+msgstr "Espacio libre (MB)" 
 
-#: ../iw/upgrade_swap_gui.py:144
+#: ../iw/upgrade_swap_gui.py:114
 #, c-format
 msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Es recomendable que su archivo swap sea al menos de %d MB. Introduzca un tamaño "
+"para el archivo swap:"
 
-#: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
+#: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
-msgstr ""
+msgstr "Tamaño del archivo swap (MB):"
 
-#: ../iw/upgrade_swap_gui.py:165
+#: ../iw/upgrade_swap_gui.py:135
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "No deseo crear un archivo swap"
 
-#: ../iw/upgrade_swap_gui.py:175
+#: ../iw/upgrade_swap_gui.py:145
 msgid ""
 "It is stongly recommended that you create a swap file.  Failure to do so "
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Le recomendamos que cree un archivo swap. En caso contrario, el instalador podría "
+"detenerse de modo abrupto. ¿Está seguro de que desea continuar?"
 
-#: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
-msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+#: ../iw/upgrade_swap_gui.py:154
+msgid "The swap file must be between 0 and 2000 MB in size."
+msgstr "El archivo swap debe estar entre 0 y 2000 MB de tamaño."
 
-#: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
+#: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"No existe espacio suficiente en el dispositivo que ha seleccionado para la partición swap."
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2234,7 +2225,7 @@ msgstr "Configuración del Monitor"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC Probed Monitor"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2383,7 +2374,7 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Correo (SMTP)"
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
+#: ../loader/loader.c:1238 ../loader/loader.c:1247
 #: ../textw/firewall_text.py:94
 msgid "FTP"
 msgstr "FTP"
@@ -2596,17 +2587,21 @@ msgstr ""
 #: ../loader/loader.c:341 ../loader/loader.c:366
 #: ../textw/partitioning_text.py:64
 msgid "Done"
-msgstr "Aceptar"
+msgstr "Ejecutado"
 
 #: ../textw/partitioning_text.py:150
 #, c-format
 msgid ""
-"%s\n"
+"Automatic partitioning will erase %s\n"
 "\n"
 "If you don't want to do this, you can continue with this install by "
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"El particionamiento automático borrará %s\n"
+"\n"
+"Si no desea hacerlo, puede continuar con la instalación haciendo el particionamiento "
+"manual o vuelva atrás para ejecutar una instalación completamente personalizada."
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
@@ -2642,7 +2637,7 @@ msgstr "Tamaño del sistema de archivos root"
 
 #: ../textw/partitioning_text.py:341
 msgid "Swap space"
-msgstr "Espacio de Swap"
+msgstr "Espacio swap"
 
 #: ../textw/partitioning_text.py:351 ../textw/partitioning_text.py:357
 #: ../textw/partitioning_text.py:364
@@ -2692,21 +2687,21 @@ msgstr "¿Reloj hardware en GMT?"
 
 #: ../textw/upgrade_text.py:40
 msgid "Free Space"
-msgstr ""
+msgstr "Espacio libre"
 
 #: ../textw/upgrade_text.py:55
 msgid "Suggested size (MB):"
-msgstr ""
+msgstr "Espacio sugerido (MB):" 
 
 #: ../textw/upgrade_text.py:66
 msgid "Add Swap"
-msgstr ""
+msgstr "Añadir Swap"
 
-#: ../textw/upgrade_text.py:91
+#: ../textw/upgrade_text.py:90
 msgid "The value you entered is not a valid number."
-msgstr ""
+msgstr "El valor que ha introducido no es un número válido."
 
-#: ../textw/upgrade_text.py:121
+#: ../textw/upgrade_text.py:116
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
@@ -2714,24 +2709,28 @@ msgstr ""
 "Si quiere salir de la actualización seleccione Salir, o escoja Ok para "
 "continuar con ella."
 
-#: ../textw/upgrade_text.py:151
+#: ../textw/upgrade_text.py:146
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr ""
 "No tiene ningún tipo de partición Linux. No puede actualizar el sistema"
 
-#: ../textw/upgrade_text.py:168
+#: ../textw/upgrade_text.py:163
 msgid "System to Upgrade"
 msgstr "Sistema a actualizar"
 
-#: ../textw/upgrade_text.py:186
+#: ../textw/upgrade_text.py:181
 msgid "Upgrade Partition"
 msgstr "Actualización de la partición"
 
-#: ../textw/upgrade_text.py:196
+#: ../textw/upgrade_text.py:182
+msgid "Going to upgrade partition /dev/"
+msgstr "Inicio de la actualización de la partición /dev/"
+
+#: ../textw/upgrade_text.py:191
 msgid "Customize Packages to Upgrade"
 msgstr "Personalizar la actualización de los paquetes"
 
-#: ../textw/upgrade_text.py:197
+#: ../textw/upgrade_text.py:192
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -2892,10 +2891,8 @@ msgid "Custom System"
 msgstr "Personalizada"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-msgid ""
-"Automatic partitioning will erase any preexisting Linux installations on "
-"your system."
-msgstr ""
+msgid "any preexisting Linux installations on your system."
+msgstr "cualquier instalación Linux existente en su sistema."
 
 # ../comps/comps-master:151
 #: ../installclasses/laptop.py:7
@@ -2907,31 +2904,29 @@ msgid "Server System"
 msgstr "Servidor"
 
 #: ../installclasses/server.py:38
-msgid ""
-"Automatic partitioning will erase ALL DATA on your hard drive to make room "
-"for your Linux installation."
-msgstr ""
+msgid "ALL DATA on your hard drive to make room for your Linux installation."
+msgstr "TODOS LOS DATOS de su disco duro para dejar esapacio a su instalación Linux."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
 msgstr "Estación de trabajo"
 
-#: ../libfdisk/fsedit.c:401
+#: ../libfdisk/fsedit.c:400
 msgid "partitioning did not meet requirements"
 msgstr "El particionado no pudo ajustarse a los requisitos"
 
-#: ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929 ../libfdisk/fsedit.c:936
-#: ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:985
-#: ../libfdisk/fsedit.c:995
+#: ../libfdisk/fsedit.c:921 ../libfdisk/fsedit.c:928 ../libfdisk/fsedit.c:935
+#: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
+#: ../libfdisk/fsedit.c:994
 msgid "Bad Mount Point"
 msgstr "Punto erróneo de Montaje"
 
-#: ../libfdisk/fsedit.c:923
+#: ../libfdisk/fsedit.c:922
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "El directorio %s debe estar en el sistema de archivos root."
 
-#: ../libfdisk/fsedit.c:930
+#: ../libfdisk/fsedit.c:929
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2942,7 +2937,7 @@ msgstr ""
 "\n"
 "Los puntos se deben empezar con un / como primer carácter."
 
-#: ../libfdisk/fsedit.c:937
+#: ../libfdisk/fsedit.c:936
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2953,7 +2948,7 @@ msgstr ""
 "\n"
 "Los puntos de montaje no pueden terminar en /."
 
-#: ../libfdisk/fsedit.c:946
+#: ../libfdisk/fsedit.c:945
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2964,7 +2959,7 @@ msgstr ""
 "\n"
 "Los puntos de montaje sólo pueden tener caracteres imprimibles."
 
-#: ../libfdisk/fsedit.c:954
+#: ../libfdisk/fsedit.c:953
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2976,7 +2971,7 @@ msgstr ""
 "su sistema Linux nativo. Además, puede producirse un rápido y grave error "
 "por no usar Linux-nativo. ¿Quiere continuar?"
 
-#: ../libfdisk/fsedit.c:973
+#: ../libfdisk/fsedit.c:972
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2987,14 +2982,14 @@ msgstr ""
 "\n"
 "Las particiones de sistema deben estar en particiones nativas Linux."
 
-#: ../libfdisk/fsedit.c:986
+#: ../libfdisk/fsedit.c:985
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr ""
 "En esta plataforma, /boot debe estar en sistema de archivos compatibles DOS "
 "%x"
 
-#: ../libfdisk/fsedit.c:996
+#: ../libfdisk/fsedit.c:995
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -3005,11 +3000,11 @@ msgstr ""
 "\n"
 "/usr debe estar en una partición nativa Linux o un volumen NFS."
 
-#: ../libfdisk/fsedit.c:1024
+#: ../libfdisk/fsedit.c:1023
 msgid "Too Many Drives"
 msgstr "Demasiadas Unidades"
 
-#: ../libfdisk/fsedit.c:1025
+#: ../libfdisk/fsedit.c:1024
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -3019,11 +3014,11 @@ msgstr ""
 "programa estándar fdisk para configurar las unidades y notifique a Red Hat "
 "Software que ve este mensaje."
 
-#: ../libfdisk/fsedit.c:1034
+#: ../libfdisk/fsedit.c:1033
 msgid "Error Creating Device Nodes"
 msgstr "Error al crear los Nodos de los dispositivos "
 
-#: ../libfdisk/fsedit.c:1035
+#: ../libfdisk/fsedit.c:1034
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -3033,11 +3028,11 @@ msgstr ""
 "el disco duro en su sistema. Esto puede ser así porque no tiene espacio "
 "dentro del disco en la partición /tmp:"
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1050
 msgid "No Drives Found"
 msgstr "No se encuentran las unidades"
 
-#: ../libfdisk/fsedit.c:1052
+#: ../libfdisk/fsedit.c:1051
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -3046,7 +3041,7 @@ msgstr ""
 "crear nuevos sistemas de archivo. Controle su hardware para observar la "
 "causa del problema."
 
-#: ../libfdisk/fsedit.c:1380 ../libfdisk/fsedit.c:1443
+#: ../libfdisk/fsedit.c:1379 ../libfdisk/fsedit.c:1442
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -3055,17 +3050,17 @@ msgstr ""
 "Se produjo un error al leer la tabla de particiones del dispositivo %s. El "
 "error fue"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1455 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1454 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Volver a intentar"
 
-#: ../libfdisk/fsedit.c:1383 ../libfdisk/fsedit.c:1426
-#: ../libfdisk/fsedit.c:1448 ../libfdisk/fsedit.c:1455
+#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1447 ../libfdisk/fsedit.c:1454
 msgid "Skip Drive"
 msgstr "Saltar Unidad"
 
-#: ../libfdisk/fsedit.c:1420
+#: ../libfdisk/fsedit.c:1419
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3075,19 +3070,19 @@ msgstr ""
 "particiones debe ser inicializado, provocando la pérdida de TODOS LOS DATOS "
 "de esta unidad."
 
-#: ../libfdisk/fsedit.c:1425
+#: ../libfdisk/fsedit.c:1424
 msgid "Bad Partition Table"
 msgstr "Tabla errónea de partición"
 
-#: ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1425
 msgid "Initialize"
 msgstr "Inicializar"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1467
 msgid "BSD Disklabel"
 msgstr "Etiqueta de disco BSD"
 
-#: ../libfdisk/fsedit.c:1468
+#: ../libfdisk/fsedit.c:1467
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3098,17 +3093,17 @@ msgstr ""
 "utilizar la instalación y fdisk (en vez de Disk Druid) para ordenadores con "
 "etiquetas BSD."
 
-#: ../libfdisk/fsedit.c:1498 ../libfdisk/fsedit.c:1521
+#: ../libfdisk/fsedit.c:1497 ../libfdisk/fsedit.c:1520
 #, c-format
 msgid "System error %d"
 msgstr "Error de sistema %d"
 
-#: ../libfdisk/fsedit.c:1507 ../libfdisk/fsedit.c:1509
-#: ../libfdisk/fsedit.c:1536
+#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1508
+#: ../libfdisk/fsedit.c:1535
 msgid "Fdisk Error"
 msgstr "Error Fdisk"
 
-#: ../libfdisk/fsedit.c:1531
+#: ../libfdisk/fsedit.c:1530
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3949,16 +3944,16 @@ msgstr "Carga de ramdisk %s..."
 msgid "Error loading ramdisk."
 msgstr "Error al cargar ramdisk."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2166
+#: ../loader/loader.c:585 ../loader/loader.c:2160
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "No se pudo leer el directorio %s: %s"
 
-#: ../loader/loader.c:873
+#: ../loader/loader.c:870
 msgid "Hard Drives"
 msgstr "Disco duro"
 
-#: ../loader/loader.c:874
+#: ../loader/loader.c:871
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3966,7 +3961,7 @@ msgstr ""
 "¡Parece ser que no tiene discos duros en el sistema!¿Le gustaría configurar "
 "dispositivos adicionales?"
 
-#: ../loader/loader.c:888
+#: ../loader/loader.c:885
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3977,20 +3972,20 @@ msgstr ""
 "RedHat/RPMS y directorios RedHat/base? Si no ve en la lista el disco duro "
 "que está utilizando aquí, pulse F2 para configurar dispositivos adicionales."
 
-#: ../loader/loader.c:902
+#: ../loader/loader.c:899
 msgid "Directory holding images:"
 msgstr "Directorio que contiene imágenes:"
 
-#: ../loader/loader.c:922
+#: ../loader/loader.c:919
 msgid "Select Partition"
 msgstr "Selección de la Partición"
 
-#: ../loader/loader.c:970
+#: ../loader/loader.c:967
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "El dispositivo %s no contiene el software para la instalación."
 
-#: ../loader/loader.c:1025
+#: ../loader/loader.c:1022
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3999,11 +3994,11 @@ msgstr ""
 "CDROM. Por favor introduzca el CD de Red Hat pulsando \"OK\" para volver a "
 "intentarlo. "
 
-#: ../loader/loader.c:1112
+#: ../loader/loader.c:1109
 msgid "Networking Device"
 msgstr "Dispositivo de Red"
 
-#: ../loader/loader.c:1113
+#: ../loader/loader.c:1110
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -4011,86 +4006,86 @@ msgstr ""
 "Tiene múltiples dispositivos de red en el sistema. ¿Cuáles le gustaría "
 "instalar?"
 
-#: ../loader/loader.c:1195
+#: ../loader/loader.c:1192
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Este directorio no no contiene el software de Red Hat."
 
-#: ../loader/loader.c:1200
+#: ../loader/loader.c:1197
 msgid "I could not mount that directory from the server"
 msgstr "No puedo montar el directorio desde el servidor"
 
-#: ../loader/loader.c:1241 ../loader/loader.c:1250
+#: ../loader/loader.c:1238 ../loader/loader.c:1247
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1242
+#: ../loader/loader.c:1239
 msgid "Unable to retrieve the first install image"
 msgstr "No se puede recuperar la primera imágen de la instalación "
 
-#: ../loader/loader.c:1251
+#: ../loader/loader.c:1248
 msgid "Unable to retrieve the second install image"
 msgstr "No se puede recuperar la segunda imágen de la instalación"
 
-#: ../loader/loader.c:1281
+#: ../loader/loader.c:1278
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
 "La instalación mediante FTP y HTTP requiere, al menos, 20MB de memoria."
 
-#: ../loader/loader.c:1511
+#: ../loader/loader.c:1508
 msgid "Rescue Method"
 msgstr "Método de Rescate"
 
-#: ../loader/loader.c:1512
+#: ../loader/loader.c:1509
 msgid "Installation Method"
 msgstr "Método de instalación"
 
-#: ../loader/loader.c:1514
+#: ../loader/loader.c:1511
 msgid "What type of media contains the rescue image?"
 msgstr "¿Qué tipo de media contiene la imagen de rescate?"
 
-#: ../loader/loader.c:1516
+#: ../loader/loader.c:1513
 msgid "What type of media contains the packages to be installed?"
 msgstr "¿Qué tipo de dispositivo contienen los paquetes para ser instalados? "
 
-#: ../loader/loader.c:2136
+#: ../loader/loader.c:2130
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "No puede encontrar ks.cfg en el disco de inicio."
 
-#: ../loader/loader.c:2228
+#: ../loader/loader.c:2222
 msgid "Updates Disk"
 msgstr "Actualiza el Disco"
 
-#: ../loader/loader.c:2229
+#: ../loader/loader.c:2223
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Introduzca la actualización del disco y pulse \"OK\" para continuar."
 
-#: ../loader/loader.c:2234
+#: ../loader/loader.c:2228
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr "El disco introducido no es válido para esta versión de Red Hat Linux."
 
-#: ../loader/loader.c:2244
+#: ../loader/loader.c:2238
 msgid "Failed to mount floppy disk."
 msgstr "Fallo en el montaje de la disquetera."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2243
 msgid "Updates"
 msgstr "Actualizaciones"
 
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2243
 msgid "Reading anaconda updates..."
 msgstr "Lectura de las actualizaciones de anaconda"
 
-#: ../loader/loader.c:2455
+#: ../loader/loader.c:2449
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 "No tiene suficiente memoria de sistema para instalar Red Hat en esta máquina."
 
-#: ../loader/loader.c:2917
+#: ../loader/loader.c:2909
 msgid "Running anaconda - please wait...\n"
 msgstr "Ejecución de anaconda - por favor espere...\n"
 
@@ -4540,693 +4535,701 @@ msgstr "Utilidades"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alaska Time"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alaska Time - west Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutian Islands"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
-msgstr ""
+msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
 msgid "Borneo & Celebes"
-msgstr ""
+msgstr "Borneo & Celebes"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Canary Islands"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "central Kazakhstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Central Time"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Central Time - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Central Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "China coast"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "China mountains"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "E Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Easter Island"
-msgstr ""
+msgstr "Easter Island"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - central Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Eastern Time"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Louisville area"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Eastern Time - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
-
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "Eastern Turkestan"
 
 #. generated from zone.tab
 msgid "east Greenland"
-msgstr ""
+msgstr "east Greenland"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
-msgstr ""
+msgstr "east Kazakhstan"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "east Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Galapagos Islands"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert Islands"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Great Britain"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso, Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscow+00 - west Russia"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moscow+01 - Caspian Sea"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscow+02 - Urals"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscow+03 - west Siberia"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscow+04 - Yenisei River"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscow+05 - Lake Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscow+06 - Lena River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "Moscow+08 - Magadan & Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
-
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain Standard Time - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain Time - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain Time - south Idaho & east Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr ""
+msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
+msgstr "NE Brazil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "New South Wales - Broken Hill"
-msgstr ""
+msgstr "New South Wales - Broken Hill"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "northeast Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Northern Ireland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "north Manchuria"
-msgstr ""
+msgstr "north Manchuria"
 
 #. generated from zone.tab
 msgid "northwest Greenland"
-msgstr ""
+msgstr "northwest Greenland"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Pacific Time - north Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Pacific Time - south Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacific Time - west British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - most locations"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "South Australia"
 
 #. generated from zone.tab
 msgid "southwest Greenland"
-msgstr ""
+msgstr "southwest Greenland"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
-msgstr ""
+msgstr "Tibet & Xinjiang"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Transdniestria"
-msgstr ""
+msgstr "Transdniestria"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Western Australia"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
-msgstr ""
+msgstr "west Kazakhstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "west Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Czech"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "Danish"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "French"
 
 #. generated from lang-table
-msgid "German"
+msgid ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Hungarian"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Icelandic"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Italian"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Japanese"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Norwegian"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portuguese"
 
 #. generated from lang-table
 msgid "Romanian"
-msgstr ""
+msgstr "Romanian"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Russian"
 
 #. generated from lang-table
 msgid "Serbian"
-msgstr ""
+msgstr "Serbian"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "Slovak"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovenian"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "Spanish"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Swedish"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Turkish"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Ukrainian"
 
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Inicio de la actualización de la partición /dev/"
+#~ msgid ""
+#~ "The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
+#~ msgstr ""
+#~ "El sistema operativo Red Hat Linux instalado en la partición /dev/%s no será "
+#~ "actualizado."
 
 #~ msgid "America/New_York"
 #~ msgstr "Europa/Madrid"
