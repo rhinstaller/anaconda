@@ -807,20 +807,45 @@ class DiskSet:
             if isys.driveIsRemovable(drive) and not flags.expert:
                 DiskSet.skippedDisks.append(drive)
                 continue
+            if iutil.getArch() == "s390" and isys.getLength(deviceFile) == 0:
+                rc = intf.messageWindow(_("Warning"),
+                        _("The partition table on device %s was unreadable. "
+                          "To create new partitions it must be initialized, "
+                          "causing the loss of ALL DATA on this drive.\n\n"
+                          "This operation will override any previous "
+                          "installation choices about which drives to "
+                          "ignore.\n\n"
+                          "Would you like to initialize this drive, "
+                          "erasing ALL DATA?")
+                                        % (drive,), type = "yesno")
+                if rc == 0:
+                    DiskSet.skippedDisks.append(drive)
+                    continue
+                else:
+                    if (self.dasdFmt(intf, drive)):
+                        DiskSet.skippedDisks.append(drive)
+                        continue
+                
             try:
                 dev = parted.PedDevice.get (deviceFile)
             except parted.error, msg:
                 DiskSet.skippedDisks.append(drive)
                 continue
+            
             if (initAll and ((clearDevs is None) or (len(clearDevs) == 0)
                              or drive in clearDevs) and not flags.test):
-                try:
-                    disk = dev.disk_new_fresh(getDefaultDiskType())
-                    disk.commit()
-                    self.disks[drive] = disk
-                except parted.error, msg:
-                    DiskSet.skippedDisks.append(drive)
-                continue
+                if iutil.getArch() == "s390":
+                    if (self.dasdFmt(intf, drive)):
+                        DiskSet.skippedDisks.append(drive)
+                        continue                    
+                else:
+                    try:
+                        disk = dev.disk_new_fresh(getDefaultDiskType())
+                        disk.commit()
+                        self.disks[drive] = disk
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
                 
             try:
                 disk = parted.PedDisk.new(dev)

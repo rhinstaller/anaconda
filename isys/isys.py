@@ -554,6 +554,9 @@ def getGeometry(device):
     os.unlink("/tmp/disk")
     return rc
 
+def getLength(device):
+    return _isys.getLength(device)
+
 def fbinfo():
     return _isys.fbinfo()
 

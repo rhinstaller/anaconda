@@ -96,6 +96,7 @@ static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 static PyObject * dogetGeometry(PyObject * s, PyObject * args);
+static PyObject * doGetLength(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
@@ -151,6 +152,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
+    { "getLength", (PyCFunction) doGetLength, METH_VARARGS, NULL},
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
@@ -1348,6 +1350,33 @@ static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
     snprintf(sectors, sizeof(sectors), "%d", g.sectors);
     
     return Py_BuildValue("(sss)", cylinders, heads, sectors);
+}
+
+static PyObject * doGetLength(PyObject * s, PyObject * args) {
+    int fd;
+    char *dev;
+    char errstr[200];
+    uint64_t bytes = 0;
+
+#define BLKGETSIZE64 _IOR(0x12,114,sizeof(uint64_t))    /* return device size i\n bytes (u64 *arg) */
+
+    if (!PyArg_ParseTuple(args, "s", &dev)) return NULL;
+
+    fd = open(dev, O_RDONLY);
+    if (fd == -1) {
+	snprintf(errstr, sizeof(errstr), "could not open device %s", dev);
+	PyErr_SetString(PyExc_ValueError, errstr);
+        return NULL;
+    }
+
+    if (ioctl(fd, BLKGETSIZE64, &bytes) < 0) {
+        close(fd);
+        snprintf(errstr, sizeof(errstr), "BLKGETSIZE64 ioctl() failed on device %s", dev);
+	PyErr_SetString(PyExc_ValueError, errstr);
+        return NULL;
+    }
+
+    return Py_BuildValue("i", bytes);
 }
 
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
