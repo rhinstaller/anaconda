@@ -69,6 +69,7 @@ int pclose(FILE * stream) {
     fclose(stream);
     
     waitpid(lastRequest.child, &status, 0);
+    lastRequest.f = NULL;
 
     return status;
 }
