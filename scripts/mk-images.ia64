@@ -4,7 +4,7 @@ LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
 NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin"
-SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2x00 sym53c8xx"
+SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2x00 qla2200 qla2300 sym53c8xx"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {

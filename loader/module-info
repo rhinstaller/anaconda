@@ -692,11 +692,19 @@ qlogicfas
 
 qla1280
 	scsi_hostadapter
-	"Qlogic 1280"
+	"Qlogic 1280/12160"
 
 qla2x00
 	scsi_hostadapter
 	"Qlogic 2x00"
+
+qla2200
+	scsi_hostadapter
+	"Qlogic 2200"
+
+qla2300
+	scsi_hostadapter
+	"Qlogic 2300"
 
 qlogicisp
 	scsi_hostadapter
