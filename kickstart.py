@@ -1166,7 +1166,7 @@ class KickstartBase(BaseInstallClass):
                 rc = intf.messageWindow(_("Missing Group"),
                                         _("You have specified that the "
                                           "group '%s' should be installed.  "
-                                          "This package does not exist. "
+                                          "This group does not exist. "
                                           "Would you like to continue or "
                                           "abort your installation?") %(n,),
                                         type="custom",
