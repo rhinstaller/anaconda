@@ -119,20 +119,21 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
 }
 
 static int waitForLink(char * dev) {
+    extern int num_link_checks;
     int tries = 0;
 
     /* try to wait for a valid link -- if the status is unknown or
      * up continue, else sleep for 1 second and try again for up
      * to five times */
     logMessage("waiting for link...");
-    while (tries < 5) {
-        if (get_link_status(dev) != 0)
+    while (tries < num_link_checks) {
+      if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
     }
     logMessage("%d seconds.", tries);
-    if (tries < 5)
+    if (tries < num_link_checks)
         return 0;
     return 1;
 }
@@ -651,6 +652,10 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
         pumpSetupDefaultGateway(&dev->dev.gateway);
 
+    /* we need to wait for a link after setting up the interface as some
+     * switches decide to reconfigure themselves after that (#115825)
+     */
+    waitForLink((char *)&dev->dev.device);
     return 0;
 }
 

@@ -98,6 +98,8 @@ static int newtRunning = 0;
 #include "urlinstall.h"
 #endif
 
+int num_link_checks = 5;
+
 static struct installMethod installMethods[] = {
 #if !defined(__s390__) && !defined(__s390x__)
     { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
@@ -566,6 +568,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->dns = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "ethtool=", 8))
             loaderData->ethtool = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "linksleep=", 10))
+            num_link_checks = atoi(argv[i] + 10);
         else if (!strncasecmp(argv[i], "allowcddma", 10))
             flags |= LOADER_FLAGS_ENABLECDDMA;
         else if (!strncasecmp(argv[i], "selinux=0", 9))
