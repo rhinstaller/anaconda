@@ -928,6 +928,7 @@ extern unsigned long SLtt_Num_Chars_Output;
 extern int SLtt_Baud_Rate;
 
 typedef unsigned long SLtt_Char_Type;
+SLtt_Char_Type SLcurses_Acs_Map [128];
 
 #define SLTT_BOLD_MASK	0x01000000
 #define SLTT_BLINK_MASK	0x02000000
