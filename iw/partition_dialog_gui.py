@@ -164,6 +164,7 @@ class PartitionEditor:
                 else:
                     request.start = self.startcylspin.get_value_as_int()
                     request.end = self.endcylspin.get_value_as_int()
+                    request.primary = primonly
 
                     if request.end <= request.start:
                         self.intf.messageWindow(_("Error With Request"),
