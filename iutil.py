@@ -3,72 +3,11 @@ import os.path
 from log import log
 
 memoryOverhead = 0
-floppyDevice = None
 
 def setMemoryOverhead(amount):
     global memoryOverhead
 
     memoryOverhead = amount
-
-def SetFdDevice():
-    global floppyDevice
-
-    if floppyDevice:
-	return floppydevice
-
-    floppyDevice = "fd0"
-    if iutil.getArch() == "sparc":
-	try:
-	    f = open(floppyDevice, "r")
-	except IOError, (errnum, msg):
-	    if errno.errorcode[errnum] == 'ENXIO':
-		floppyDevice = "fd1"
-	else:
-	    f.close()
-    elif iutil.getArch() == "alpha":
-	pass
-    elif iutil.getArch() == "i386" or iutil.getArch() == "ia64":
-	# Look for the first IDE floppy device
-	drives = isys.floppyDriveDict()
-	if not drives:
-	    log("no IDE floppy devices found")
-	    return 0
-
-	floppyDrive = drives.keys()[0]
-	# need to go through and find if there is an LS-120
-	for dev in drives.keys():
-	    if re.compile(".*[Ll][Ss]-120.*").search(drives[dev]):
-		floppyDrive = dev
-
-	# No IDE floppy's -- we're fine w/ /dev/fd0
-	if not floppyDrive: return
-
-	if iutil.getArch() == "ia64":
-	    floppyDevice = floppyDrive
-	    log("anaconda floppy device is %s", floppyDevice)
-	    return
-
-	# Look in syslog for a real fd0 (which would take precedence)
-	try:
-	    f = open("/tmp/syslog", "r")
-	except IOError:
-	    return
-	for line in f.readlines():
-	    # chop off the loglevel (which init's syslog leaves behind)
-	    line = line[3:]
-	    match = "Floppy drive(s): "
-	    if match == line[:len(match)]:
-		# Good enough
-		floppyDrive = "fd0"
-		break
-
-	floppyDevice = floppyDrive
-    else:
-	raise SystemError, "cannot determine floppy device for this arch"
-
-    log("anaconda floppy device is %s", floppyDevice)
-
-    return floppyDevice
 
 def getArch ():
     arch = os.uname ()[4]
@@ -443,41 +382,3 @@ class InstSyslog:
         os.kill (self.pid, 15)
 	os.wait (self.pid)
         
-# XXX this doesn't work!
-#
-# funky, but importing dispatch at the top of iutil breaks things!?!
-def makeBootdisk (intf):
-    # this is faster then waiting on mkbootdisk to fail
-
-    import dispatch
-    return dispatch.DISPATCH_NOOP
-
-    device = floppyDevice
-    file = "/tmp/floppy"
-    isys.makeDevInode(device, file)
-    try:
-	fd = os.open(file, os.O_RDONLY)
-    except:
-	import dispatch
-	return dispatch.DISPATCH_BACK
-    os.close(fd)
-
-    kernel = self.hdList['kernel']
-    kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
-			    kernel[rpm.RPMTAG_RELEASE])
-
-    w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
-    rc = iutil.execWithRedirect("/sbin/mkbootdisk",
-				[ "/sbin/mkbootdisk",
-				  "--noprompt",
-				  "--device",
-				  "/dev/" + floppyDevice,
-				  kernelTag[1:] ],
-				stdout = '/dev/tty5', stderr = '/dev/tty5',
-				searchPath = 1, root = self.instPath)
-    w.pop()
-
-    if rc:
-	import dispatch
-	return dispatch.DISPATCH_BACK
-

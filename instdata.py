@@ -129,7 +129,7 @@ class InstallData:
 	#
 
 
-    def __init__(self, extraModules):
+    def __init__(self, extraModules, floppyDevice):
 	self.instLanguage = language.InstallTimeLanguage()
 	self.keyboard = kbd.Keyboard()
 
@@ -138,6 +138,7 @@ class InstallData:
         self.videocard = None
         self.xconfig = None
 	self.extraModules = extraModules
+	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()
         
 	self.reset()

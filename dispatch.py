@@ -19,7 +19,7 @@ from packages import readPackages, checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import queryUpgradeContinue
-from iutil import makeBootdisk
+from floppy import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
 
@@ -84,7 +84,8 @@ installSteps = [
     ( "writexconfig", writeXConfiguration, ("id", "instPath")),
     ( "writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ( "bootdisk", ("dir", "dispatch") ),
-    ( "makebootdisk", makeBootdisk, ("intf",) ),
+    ( "makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
+				     "id.hdList", "instPath") ),
     ( "complete", () ),
     ( "reconfigcomplete", () )
     ]

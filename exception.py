@@ -27,7 +27,7 @@ def handleException( id, intf, (type, value, tb)):
 	    intf.__del__ ()
             os.kill(os.getpid(), signal.SIGKILL)
 
-	device = iutil.getFloppyDevice()
+	device = id.floppyDevice
 	file = "/tmp/floppy"
         try:
             isys.makeDevInode(device, file)

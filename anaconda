@@ -218,6 +218,7 @@ import instdata
 import videocard
 import monitor
 import mouse
+import floppy
 
 # handle traceonly and exit
 if traceOnly:
@@ -483,7 +484,9 @@ if method:
         print "unknown install method:", method
         sys.exit(1)
 
-id = instClass.installDataClass(extraModules)
+floppyDevice = floppy.probeFloppyDevice()
+
+id = instClass.installDataClass(extraModules, floppyDevice)
 
 if mousehw:
     id.setMouse(mousehw)
