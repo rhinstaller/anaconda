@@ -21,12 +21,16 @@ def instCallback(what, amount, total, key, data):
 class ToDo:
 
     def umountFilesystems(self):
+	if (not self.setupFilesystems): return 
+
 	self.mounts.sort(mountListCmp)
 	self.mounts.reverse()
 	for n in self.mounts:
 	    isys.umount(n)
 
     def makeFilesystems(self):
+	if (not self.setupFilesystems): return 
+
 	self.mounts.sort(mountListCmp)
 	for n in self.mounts:
 	    (device, mntpoint, format) = n
@@ -38,11 +42,13 @@ class ToDo:
 	    w.pop()
 
     def mountFilesystems(self):
+	if (not self.setupFilesystems): return 
+
 	for n in self.mounts:
 	    (device, mntpoint, format) = n
 	    isys.mount(device, self.instPath + mntpoint)
 
-    def installSystem(self):
+    def doInstall(self):
 	# make sure we have the header list and comps file
 	self.headerList()
 	self.compsList()
@@ -50,9 +56,12 @@ class ToDo:
 	self.makeFilesystems()
 	self.mountFilesystems()
 
-	#os.mkdir(self.instPath + '/var')
-	#os.mkdir(self.instPath + '/var/lib')
-	#os.mkdir(self.instPath + '/var/lib/rpm')
+	if not self.installSystem: 
+	    return
+
+	os.mkdir(self.instPath + '/var')
+	os.mkdir(self.instPath + '/var/lib')
+	os.mkdir(self.instPath + '/var/lib/rpm')
 
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
@@ -62,7 +71,7 @@ class ToDo:
 
 	ts.order()
 	p = self.intf.packageProgessWindow()
-	#ts.run(0, 0, instCallback, p)
+	ts.run(0, 0, instCallback, p)
 
 	self.installLilo()
 
@@ -122,14 +131,16 @@ class ToDo:
 
 	return self.comps
 
-    def __init__(self, intf, method, rootPath, runLive):
+    def __init__(self, intf, method, rootPath, setupFilesystems = 1,
+		 installSystem = 1, create):
 	self.intf = intf
 	self.method = method
 	self.mounts = []
 	self.hdList = None
 	self.comps = None
 	self.instPath = rootPath
-	self.runLive = runLive
+	self.setupFilesystems = setupFilesystems
+	self.installSystem = installSystem
 	pass
 
 def mountListCmp(first, second):
