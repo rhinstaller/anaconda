@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.2
+Version: 10.0.3.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Sep 22 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.3-1
+- fix going back unmount of /dev/pts (#133301)
+- fix SRPMs disc (#122737)
+- add localboot option to isolinux.cfg (#120687)
+- fix tree build on ia64 and x86_64
+- fix a syntax error for text mode selinux config 
+
 * Tue Sep 21 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.2-1
 - some fixes for Arabic (#122228)
 - support using ksdevice=macaddr (#130605)
