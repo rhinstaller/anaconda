@@ -61,6 +61,8 @@ class InstallPathWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
+        ics.readHTML ("instpath")
+
 	self.commonSteps = [ ( LanguageWindow, "language" ), 
 			     ( KeyboardWindow, "keyboard" ),
 			     ( MouseWindow, "mouse" ),

@@ -12,10 +12,11 @@ class AccountWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Account Configuration"))
-        ics.setHTML ("<HTML><BODY>Enter a root password.  The password "
-                     "must be at least six characters in length."
-                     "<p>The \"Next\" button will become enabled when both entry fields match."
-                     "</BODY></HTML>")
+        ics.readHTML ("accts")
+##         ics.setHTML ("<HTML><BODY>Enter a root password.  The password "
+##                      "must be at least six characters in length."
+##                      "<p>The \"Next\" button will become enabled when both entry fields match."
+##                      "</BODY></HTML>")
 
     def getNext (self):
 	if not self.__dict__.has_key("pw"): return None

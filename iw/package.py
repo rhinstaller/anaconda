@@ -19,8 +19,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Individual Package Selection"))
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Next you must select which packages to install."
-                     "</BODY></HTML>")
+        ics.readHTML ("sel-indiv")
+##         ics.setHTML ("<HTML><BODY>Next you must select which packages to install."
+##                      "</BODY></HTML>")
         ics.setHelpEnabled (FALSE)
         self.DIR = 0
         self.DIR_UP = 1
@@ -375,8 +376,9 @@ class PackageSelectionWindow (InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Package Group Selection"))
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
-                     "</BODY></HTML>")
+        ics.readHTML ("sel-group")
+##         ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
+##                      "</BODY></HTML>")
 
     def getNext (self):
 	if not self.__dict__.has_key("individualPackages"):

@@ -68,8 +68,9 @@ class MouseWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle ("Mouse Configuration")
-        ics.setHTML ("<HTML><BODY>Select your mouse."
-                     "</BODY></HTML>")
+##         ics.setHTML ("<HTML><BODY>Select your mouse."
+##                      "</BODY></HTML>")
+        ics.readHTML ("mouse")
         ics.setNextEnabled (TRUE)
 
     def getCurrentKey (self):

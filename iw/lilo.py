@@ -13,6 +13,8 @@ class LiloWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
+        ics.readHTML ("lilo")
+
         ics.setTitle (_("Lilo Configuration"))
         ics.setNextEnabled (1)
         self.type = None

@@ -9,8 +9,9 @@ class AuthWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Authentication Configuration"))
-        ics.setHTML ("<HTML><BODY>Select authentication methods"
-                     "</BODY></HTML>")
+##         ics.setHTML ("<HTML><BODY>Select authentication methods"
+##                      "</BODY></HTML>")
+        ics.readHTML ("authconf")
 	ics.setNextEnabled (TRUE)
 
     def setSensitivities (self, *args):

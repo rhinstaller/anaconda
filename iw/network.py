@@ -10,9 +10,9 @@ class NetworkWindow (InstallWindow):
 
         ics.setTitle ("Network Configuration")
         ics.setNextEnabled (1)
+        ics.readHTML ("netconf")
         self.todo = ics.getToDo ()
         self.calcNMHandler = None
-
 
     def getNext (self):
 	if not self.__dict__.has_key("gw"):

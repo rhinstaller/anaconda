@@ -11,7 +11,8 @@ class FormatWindow (InstallWindow):
         self.todo = ics.getToDo ()
         ics.setTitle (_("Choose partitions to Format"))
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Choose partitions to Format</BODY></HTML>")
+##         ics.setHTML ("<HTML><BODY>Choose partitions to Format</BODY></HTML>")
+        ics.readHTML ("format")
 
     def getScreen (self):
         def toggled (widget, (todo, mount)):

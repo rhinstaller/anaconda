@@ -9,8 +9,9 @@ class KeyboardWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle (_("Keyboard Configuration"))
-        ics.setHTML ("<HTML><BODY>Select your keyboard."
-                     "</BODY></HTML>")
+##         ics.setHTML ("<HTML><BODY>Select your keyboard."
+##                      "</BODY></HTML>")
+        ics.readHTML ("kybd")
         ics.setNextEnabled (TRUE)
 	self.kb = xkb.XKB ()
 	self.rules = self.kb.getRules ()

@@ -28,7 +28,8 @@ class TimezoneWindow (InstallWindow):
 
         ics.setTitle (_("Time Zone Selection"))
         ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Select your current location</BODY></HTML>")
+        ics.readHTML ("timezone")
+##         ics.setHTML ("<HTML><BODY>Select your current location</BODY></HTML>")
 
 	self.timeZones = ("-12:00",
                           "-11:00",

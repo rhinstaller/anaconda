@@ -89,8 +89,9 @@ class XConfigWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("X Configuration"))
-        ics.setHTML ("<HTML><BODY>This is the X configuration screen<</BODY></HTML>")
-
+##         ics.setHTML ("<HTML><BODY>This is the X configuration screen<</BODY></HTML>")
+        ics.readHTML ("xconf")
+        
         self.didTest = 0
 
     def getNext (self):

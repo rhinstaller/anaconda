@@ -10,8 +10,7 @@ class ConfirmPartitionWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Confirm Partitioning Selection"))
-        ics.setHTML ("<HTML><BODY>Select a root partition"
-                     "</BODY></HTML>")
+        ics.readHTML ("partition")
 	ics.setNextEnabled (TRUE)
         
     def getScreen (self):
