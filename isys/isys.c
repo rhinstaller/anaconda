@@ -11,7 +11,11 @@
 #if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
 #define dev_t unsigned int
 #else
+#if defined(__x86_64__)
+#define dev_t unsigned long
+#else
 #define dev_t unsigned short
+#endif
 #endif
 #include <linux/loop.h>
 #undef dev_t
