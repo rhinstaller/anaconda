@@ -685,7 +685,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
     # input methods all changed.  hooray!
     imupg = ( ("ami", "iiimf-le-hangul"),
-              ("kinput2", "iiimf-le-canna"),
+              ("kinput2-canna-wnn6", "iiimf-le-canna"),
               ("miniChinput", "iiimf-le-chinput"),
               ("xcin", "iiimf-le-xcin") )
     iiimf = 0

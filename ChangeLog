@@ -1,4 +1,13 @@
+2004-11-04  Jeremy Katz  <katzj@redhat.com>
+
+	* upgrade.py (upgradeFindPackages): Key iiimf-le-canna off of
+	kinput2-canna-wnn6 instead of just kinput2 (#129218)
+
 2004-11-03  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow.setupDevices): 
+	* textw/network_text.py (NetworkDeviceWindow.runScreen): 
+	Sync behavior of onboot between gui/text (#138011)
 
 	* autopart.py (getAutopartitionBoot): Use
 	iutil.hasiSeriesNativeStorage instead of iutil.hasIbmSis()
