@@ -628,11 +628,10 @@ def processPartitioning(diskset, requests, newParts):
     for request in requests.requests:
         # set the unique identifier for raid devices
         if request.type == REQUEST_RAID and not request.device:
-            request.device = str(requests.nextUniqueID)
-            requests.nextUniqueID = requests.nextUniqueID + 1
+            request.device = str(request.uniqueID)
 
         if request.type == REQUEST_RAID:
-            request.size = get_raid_device_size(request) / 1024 / 1024
+            request.size = get_raid_device_size(request, requests, diskset) / 1024 / 1024
         
         if not request.device:
 #            return PARTITION_FAIL

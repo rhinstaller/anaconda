@@ -357,9 +357,8 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
     sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
 
     partrow = 0
-    for (part, used) in allraidparts:
-        partname = "%s: %8.0f MB" % (get_partition_name(part),
-                                     getPartSizeMB(part))
+    for (part, size, used) in allraidparts:
+        partname = "%s: %8.0f MB" % (part, size)
         partclist.append((partname,))
 
         if used or not reqraidpart:
@@ -584,8 +583,8 @@ class PartitionWindow(InstallWindow):
                 text[self.titleSlot["Start"]] = ""
                 text[self.titleSlot["End"]] = ""
                 text[self.titleSlot["Size (MB)"]] = \
-                                          "%g" % (get_raid_device_size(request)
-                                                  / 1024.0 / 1024.0)
+                                          "%g" % (request.size)
+
                 # add a parent node to the tree
                 parent = self.tree.insert_node (None, None, text,
                                                 is_leaf = FALSE,
@@ -1094,7 +1093,7 @@ class PartitionWindow(InstallWindow):
         row = 0
 
         availraidparts = get_available_raid_partitions(self.diskset,
-                                                      self.partitions.requests,
+                                                       self.partitions,
                                                        raidrequest)
 
         # Mount Point entry
@@ -1204,7 +1203,8 @@ class PartitionWindow(InstallWindow):
 
             raidmembers = []
             for i in raidclist.selection:
-                raidmembers.append(PartedPartitionDevice(availraidparts[i][0]))
+                id = self.partitions.getRequestByDeviceName(availraidparts[i][0]).uniqueID
+                raidmembers.append(id)
 
             request.raidmembers = raidmembers
             request.raidspares = sparesb.get_value_as_int()

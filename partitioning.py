@@ -214,20 +214,21 @@ def get_raid_devices(requests):
 
 
 # returns a list of tuples of raid partitions which can be used or are used
-# with whether they're used (0 if not, 1 if so)   eg (part, used)
+# with whether they're used (0 if not, 1 if so)   eg (part, size, used)
 def get_available_raid_partitions(diskset, requests, request):
     rc = []
     drives = diskset.disks.keys()
-    raiddevs = get_raid_devices(requests)
+    raiddevs = get_raid_devices(requests.requests)
     drives.sort()
     for drive in drives:
         disk = diskset.disks[drive]
         for part in get_raid_partitions(disk):
+            partname = get_partition_name(part)
             used = 0
             for raid in raiddevs:
                 if raid.raidmembers:
                     for raidmem in raid.raidmembers:
-                        if get_partition_name(part) == get_partition_name(raidmem.partition):
+                        if partname == requests.getRequestByID(raidmem).device:
                             if raid.device == request.device:
                                 used = 2
                             else:
@@ -237,9 +238,9 @@ def get_available_raid_partitions(diskset, requests, request):
                     break
 
             if not used:
-                rc.append((part, 0))
+                rc.append((partname, getPartSizeMB(part), 0))
             elif used == 2:
-                rc.append((part, 1))
+                rc.append((partname, getPartSizeMB(part), 1))
     return rc
 
 
@@ -263,7 +264,7 @@ def get_raid_max_spares(raidlevel, nummembers):
     else:
         raise ValueError, "invalid raidlevel in get_raid_max_spares"
 
-def get_raid_device_size(raidrequest):
+def get_raid_device_size(raidrequest, partitions, diskset):
     if not raidrequest.raidmembers or not raidrequest.raidlevel:
         return 0
     
@@ -272,7 +273,9 @@ def get_raid_device_size(raidrequest):
     smallest = None
     sum = 0
     for member in raidrequest.raidmembers:
-        part = member.partition
+        req = partitions.getRequestByID(member)
+        device = req.device
+        part = get_partition_by_name(diskset.disks, device)
         partsize =  part.geom.length * part.geom.disk.dev.sector_size
 
         if raidlevel == "RAID0":
@@ -428,11 +431,12 @@ def sanityCheckPartitionRequest(reqpartitions, newrequest):
 def sanityCheckRaidRequest(reqpartitions, newraid):
     if not newraid.raidmembers or not newraid.raidlevel:
         return _("No members in RAID request, or not RAID level specified.")
-    
-    for member in newraid.raidmembers:
-        part = member.partition
-        if part.get_flag(parted.PARTITION_RAID) != 1:
-            return _("Some members of RAID request are not RAID partitions.")
+
+    # XXX fix this sanity case
+##     for member in newraid.raidmembers:
+##         part = member.partition
+##         if part.get_flag(parted.PARTITION_RAID) != 1:
+##             return _("Some members of RAID request are not RAID partitions.")
 
     rc = sanityCheckPartitionRequest(reqpartitions, newraid)
     if rc:
@@ -544,7 +548,7 @@ class PartitionSpec:
         raidmem = []
         if self.raidmembers:
             for i in self.raidmembers:
-                raidmem.append(get_partition_name(i.partition))
+                raidmem.append(i)
                 
         return "mountpoint: %s   type: %s   uniqueID:%s\n" %(self.mountpoint, fsname, self.uniqueID) +\
                "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSize) +\
@@ -557,10 +561,13 @@ class PartitionSpec:
                "  raidmembers: %s" % (raidmem)
 
     # turn a partition request into a fsset entry
-    def toEntry(self):
+    def toEntry(self, partitions):
         if self.type == REQUEST_RAID:
+            raidmems = []
+            for member in self.raidmembers:
+                raidmems.append(partitions.getRequestByID(member).device)
             device = fsset.RAIDDevice(int(self.raidlevel[-1:]),
-                                      self.raidmembers,
+                                      raidmems,
                                       spares = self.raidspares)
         else:
             device = fsset.PartitionDevice(self.device)
@@ -663,8 +670,10 @@ class Partitions:
                 part = disk.next_partition(part)
 
     def addRequest (self, request):
-        request.uniqueID = self.nextUniqueID
-        self.nextUniqueID = self.nextUniqueID + 1
+#        print "adding %s" %(self.nextUniqueID)
+        if not request.uniqueID:
+            request.uniqueID = self.nextUniqueID
+            self.nextUniqueID = self.nextUniqueID + 1
         self.requests.append(request)
         self.requests.sort()
 
@@ -687,6 +696,12 @@ class Partitions:
                 return request
         return None
 
+    def getRequestByID(self, id):
+        for request in self.requests:
+            if request.uniqueID == id:
+                return request
+        return None
+
     def getRaidRequests(self):
         retval = []
         for request in self.requests:
@@ -703,7 +718,7 @@ class Partitions:
             if not dev.raidmembers:
                 continue
             for member in dev.raidmembers:
-                if request.device == get_partition_name(member.partition):
+                if request.device == self.getRequestByID(member).device:
                     return 1
         return 0
 
@@ -1046,7 +1061,7 @@ def getAutopartitionBoot():
 def confirmDeleteRequest(intf, request):
     if request.device:
         if request.type == REQUEST_RAID:
-            errmsg = _("You are about to delete a RAID device.\n\nAre you sure?" % request.device)
+            errmsg = _("You are about to delete a RAID device.\n\nAre you sure?")
         else:
             errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
             
@@ -1119,7 +1134,6 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 
 
 def doEditPartitionByRequest(intf, requestlist, part):
-        
     if part == None:
         intf.messageWindow(_("Unable To Edit"),
                            _("You must select a partition to edit"))
@@ -1144,6 +1158,7 @@ def doEditPartitionByRequest(intf, requestlist, part):
     elif part.type & parted.PARTITION_EXTENDED:
         return (None, None)
 
+    request = requestlist.getRequestByDeviceName(get_partition_name(part))
     if request:
         if request.type == REQUEST_PROTECTED:
             intf.messageWindow(_("Unable to Edit"),
@@ -1161,3 +1176,12 @@ def doEditPartitionByRequest(intf, requestlist, part):
         raise ValueError, "Trying to edit non-existent partition %s" %(get_partition_name(part))
     
     
+def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
+    fsset.reset()
+    for request in partitions.requests:
+        # XXX improve sanity checking
+        if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
+            continue
+        entry = request.toEntry(partitions)
+        fsset.add (entry)
+

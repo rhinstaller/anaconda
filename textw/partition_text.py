@@ -124,7 +124,7 @@ class PartitionWindow:
                     ptype = _("None")
 
                 device = _("RAID Device %s" %(str(raidcounter)))
-                size = get_raid_device_size(request) / 1024.0 / 1024.0
+                size = request.size
                 self.lb.append(["%s" %(device),
                                 "", "", "%dM" %(size),
                                 "%s" %(ptype), "%s" %(mount)], request.device,
@@ -372,14 +372,14 @@ class PartitionWindow:
         subgrid.setField(driveLbl, 0, 0)
         disks = self.diskset.disks.keys()
         drivelist = CheckboxTree(height=2, scroll=1)
-        avail = get_available_raid_partitions(self.diskset, self.partitions.requests, request)
+        avail = get_available_raid_partitions(self.diskset, self.partitions, request)
         # XXX
         if not request.raidmembers:
-            for (part, used) in avail:
-                drivelist.append(get_partition_name(part), part, 1)
+            for (part, size, used) in avail:
+                drivelist.append(part, part, 1)
         else:
-            for (part, used) in avail:
-                drivelist.append(get_partition_name(part), part, used)
+            for (part, size, used) in avail:
+                drivelist.append(part, part, used)
         subgrid.setField(drivelist, 0, 1)
         return (drivelist, subgrid)
 
@@ -724,7 +724,8 @@ class PartitionWindow:
 
             raidmembers = []
             for drive in drivelist.getSelection():
-                raidmembers.append(PartedPartitionDevice(drive))
+                id = self.partitions.getRequestByDeviceName(drive).uniqueID
+                raidmembers.append(id)
             request.raidmembers = raidmembers
             request.raidspares = int(spares.value())
             request.raidlevel = raidtype.current()

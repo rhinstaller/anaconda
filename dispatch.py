@@ -22,9 +22,9 @@ from packages import writeKSConfiguration, turnOnFilesystems
 from packages import queryUpgradeContinue
 from autopart import doAutoPartition
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
+from partitioning import partitioningComplete
 from floppy import makeBootdisk
-from bootloader import partitioningComplete, writeBootloader
-from bootloader import bootloaderSetupChoices
+from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeFindPackages, upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind

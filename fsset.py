@@ -849,6 +849,7 @@ class RAIDDevice(Device):
             if minor == -1:
                 raise RuntimeError, ("Unable to allocate minor number for "
                                      "raid device")
+
         RAIDDevice.usedMajors[minor] = None
         self.device = "md" + str(minor)
         self.minor = minor
@@ -875,13 +876,13 @@ class RAIDDevice(Device):
         i = 0
         for device in self.members[:self.numDisks]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
-                                                        device.getDevice())
+                                                        device)
             entry = entry + "    raid-disk     %d\n" % (i,)
             i = i + 1
         i = 0
         for device in self.members[self.numDisks:]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
-                                                        device.getDevice())
+                                                        device)
             entry = entry + "    spare-disk     %d\n" % (i,)
             i = i + 1
         return entry
@@ -896,7 +897,7 @@ class RAIDDevice(Device):
             f.write(self.raidTab('/tmp'))
             f.close()
             for device in self.members:
-                device.setupDevice(chroot, devPrefix=devPrefix)
+                PartitionDevice(device).setupDevice(chroot, devPrefix=devPrefix)
             iutil.execWithRedirect ("/usr/sbin/mkraid", 
                                     ( 'mkraid', '--really-force',
                                       '--configfile', raidtab, node ),
@@ -905,8 +906,7 @@ class RAIDDevice(Device):
         return node
 
     def solidify(self):
-        for device in self.members:
-            device.solidify()
+        return
         
 ext2 = fileSystemTypeGet("ext2")
 ext2.registerDeviceArgumentFunction(RAIDDevice, RAIDDevice.ext2Args)

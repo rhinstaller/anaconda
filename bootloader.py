@@ -493,17 +493,6 @@ def availableBootDevices(diskSet, fsset):
 
     return devs
 
-# XXX move me somewhere else and split the bootloader and fsset parts
-# into different functions
-def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
-    fsset.reset()
-    for request in partitions.requests:
-        # XXX improve sanity checking
-        if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
-            continue
-        entry = request.toEntry()
-        fsset.add (entry)
-
 def bootloaderSetupChoices(dispatch, bl, fsset, diskSet):
     choices = fsset.bootloaderChoices(diskSet)
     if not choices:
