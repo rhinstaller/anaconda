@@ -410,7 +410,7 @@ void unmountFilesystems(void) {
     }
 }
 
-int main(void) {
+int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
     int fd;
@@ -423,8 +423,10 @@ int main(void) {
 #ifdef __alpha__
     char * kernel;
 #endif
-    char * argv[15];
-    char ** argvp = argv;
+    char * argvc[15];
+    char ** argvp = argvc;
+    char twelve = 12;
+    int i;
 
     /* getpid() != 1 should work, by linuxrc tends to get a larger pid */
     testing = (getpid() > 50);
@@ -455,28 +457,32 @@ int main(void) {
     printf("done\n");
 #endif
 
-    if (!isSerial) {
-	char twelve = 12;
-	if (ioctl (0, TIOCLINUX, &twelve) < 0)
+    for (i = 1; i < argc; i++)
+	if (!strcmp (argv[i], "serial")) {
 	    isSerial = 1;
-    }
+	    break;
+	}
+
+    if (ioctl (0, TIOCLINUX, &twelve) < 0)
+	isSerial = 2;
     
     if (isSerial) {
+	char *device = "/dev/ttyS0";
 	printf("Red Hat install init version %s using a serial console\n", 
 		VERSION);
 
 	printf("remember, cereal is an important part of a nutritionally "
 	       "balanced breakfast.\n\n");
 
-	fd = open("/dev/console", O_RDWR, 0);
+	if (isSerial == 2)
+	    device = "/dev/console";
+	fd = open(device, O_RDWR, 0);
 	if (fd < 0) {
-	    printf("failed to open /dev/console");
+	    printf("failed to open %s\n", device);
 	    fatal_error(1);
 	}
 
 	setupTerminal(fd);
-
-	close(fd);
     } else {
 	fd = open("/dev/tty1", O_RDWR, 0);
 	if (fd < 0) {
@@ -570,8 +576,8 @@ int main(void) {
 	/* child */
 	*argvp++ = "/sbin/loader";
 
-	printf("running %s\n", argv[0]);
-	execve(argv[0], argv, env);
+	printf("running %s\n", argvc[0]);
+	execve(argvc[0], argvc, env);
 	
 	exit(0);
     }

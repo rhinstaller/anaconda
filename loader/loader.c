@@ -1452,6 +1452,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
+	else if (!strcasecmp(argv[i], "serial"))
+	    flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "ks"))
 	    flags |= LOADER_FLAGS_KICKSTART;
         else if (!strcasecmp(argv[i], "ks=floppy"))
@@ -1699,10 +1701,8 @@ int main(int argc, char ** argv) {
 	return probe_main(argc, argv);
 #endif
 
-    if (ioctl (0, TIOCLINUX, &twelve) < 0) {
-	/* Obviously we cannot run in GUI mode on serial console. */
-	flags |= LOADER_FLAGS_SERIAL | LOADER_FLAGS_TEXT;
-    }
+    if (ioctl (0, TIOCLINUX, &twelve) < 0)
+	flags |= LOADER_FLAGS_SERIAL;
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -1721,6 +1721,9 @@ int main(int argc, char ** argv) {
     if (testing) flags |= LOADER_FLAGS_TESTING;
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource);
+
+    if (FL_SERIAL(flags) && !getenv("DISPLAY"))
+	flags |= LOADER_FLAGS_TEXT;
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
