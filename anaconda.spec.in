@@ -56,10 +56,11 @@ already installed systems.
 %build
 %if %{_ws_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Workstation"/' < Makefile.inc > Makefile.inc.product
-%else if %{_as_var}
+%endif
+if %{_as_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Server"/' < Makefile.inc > Makefile.inc.product
 %endif
-%endif
+
 [ -f Makefile.inc.product ] && mv Makefile.inc.product Makefile.inc
 
 make depend
@@ -70,7 +71,8 @@ make RPM_OPT_FLAGS="$RPM_OPT_FLAGS"
 sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/workstation.py.hidden
 mv installclasses/workstation.py.hidden installclasses/workstation.py
 echo "helptag         ws" >> anaconda.conf
-%elif %{_as_var}
+%endif
+%if %{_as_var}
 sed '/class InstallClass(BaseInstallClass):/{G;s/$/    hidden=1/;}' < installclasses/server.py > installclasses/server.py.hidden
 mv installclasses/server.py.hidden installclasses/server.py
 echo "helptag         as" >> anaconda.conf
