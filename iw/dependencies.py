@@ -16,7 +16,9 @@ class UnresolvedDependenciesWindow (InstallWindow):
         return None
     
     def getScreen (self):
+	threads_leave ()
         self.deps = self.todo.verifyDeps ()
+	threads_enter ()
         if not self.deps:
             return None
 
