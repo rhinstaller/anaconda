@@ -29,7 +29,7 @@ image=vmlinuz
 EOF
 
 	# make a copy in the root of the image
-	cp -l $MBD_BOOTTREE/EFI/boot/* $MBD_BOOTTREE/
+	cp $MBD_BOOTTREE/EFI/boot/* $MBD_BOOTTREE/
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
