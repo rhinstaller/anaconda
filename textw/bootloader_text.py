@@ -101,23 +101,42 @@ class BootloaderAppendWindow:
 	entry = Entry(48, scroll = 1, returnExit = 1)
 	entry.set(bl.args.get())
 
+        cb = Checkbox(_("Force use of LBA32 (not normally required)"))
+        if bl.forceLBA32:
+            cb.setValue("*")
+
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
 
-	grid = GridFormHelp(screen, _("Boot Loader Configuration"), "kernelopts", 1, 4)
+	grid = GridFormHelp(screen, _("Boot Loader Configuration"), "kernelopts", 1, 5)
 	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
 
 	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
-	grid.add(buttons, 0, 3, growx = 1)
+        grid.add(cb, 0, 3, padding = (0,0,0,1))
+	grid.add(buttons, 0, 4, growx = 1)
 
-        result = grid.runOnce ()
-        button = buttons.buttonPressed(result)
-        
-        if button == TEXT_BACK_CHECK:
-            return INSTALL_BACK
+        while 1:
+            result = grid.run()
+            button = buttons.buttonPressed(result)
 
-	bl.args.set(entry.value())
+            if button == TEXT_BACK_CHECK:
+                return INSTALL_BACK
 
-	return INSTALL_OK
+            if cb.selected() and not bl.forceLBA32:
+                rc = dispatch.intf.messageWindow(_("Warning"),
+                        _("Forcing the use of LBA32 for your bootloader when "
+                          "not supported by the BIOS can cause your machine "
+                          "to be unable to boot.  We highly recommend you "
+                          "create a boot disk.\n\n"
+                          "Would you like to continue and force LBA32 mode?"),
+                                             type = "yesno")
+
+                if rc != 1:
+                    continue
+
+            bl.args.set(entry.value())
+            bl.setForceLBA(cb.selected())
+
+            return INSTALL_OK
 
 class BootloaderWindow:
     def __call__(self, screen, dispatch, bl, fsset, diskSet):

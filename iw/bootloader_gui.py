@@ -50,6 +50,17 @@ class BootloaderWindow (InstallWindow):
                 #sys.exit(0)
 
     def getNext (self):
+        if self.lba.get_active() and not self.bl.forceLBA32:
+            rc = self.intf.messageWindow(_("Warning"),
+                    _("Forcing the use of LBA32 for your bootloader when "
+                      "not supported by the BIOS can cause your machine "
+                      "to be unable to boot.  We highly recommend you "
+                      "create a boot disk.\n\n"
+                      "Would you like to continue and force LBA32 mode?"),
+                                    type = "yesno")
+            if rc != 1:
+                raise gui.StayOnScreen
+
         if self.none_radio.get_active ():
 	    self.dispatch.skipStep("instbootloader")
             self.dispatch.skipStep("bootloaderpassword")
@@ -85,6 +96,7 @@ class BootloaderWindow (InstallWindow):
             default = linuxDevice
 
         self.bl.images.setDefault(default)
+        self.bl.setForceLBA(self.lba.get_active())
         
 
     def typeName(self, type):
@@ -327,7 +339,12 @@ class BootloaderWindow (InstallWindow):
         alignment = GtkAlignment()
         alignment.set(0.0, 0.5, 0, 1.0)
         alignment.add(box)
-        self.radioBox.attach(alignment, 0, 2, 5, 6)
+        self.lba = GtkCheckButton(_("Force use of LBA32 (not normally required)"))
+        self.lba.set_active(self.bl.forceLBA32)
+        vbox = GtkVBox(FALSE, 5)
+        vbox.pack_start(alignment)
+        vbox.pack_end(self.lba)
+        self.radioBox.attach(vbox, 0, 2, 5, 6)
         
         box = GtkVBox (FALSE, 0)
 
