@@ -451,13 +451,12 @@ class InstallControlWindow:
         self.textWin.set_position (WIN_POS_CENTER)
 
         if self.buff != "":
-            text = GtkText()
-            text.insert (None, None, None, self.buff)
-                
-            sw = GtkScrolledWindow()
-            sw.set_policy(POLICY_NEVER, POLICY_ALWAYS)
-            sw.add(text)
-            vbox1.pack_start(sw)
+            text = GtkXmHTML()
+            text.set_allow_body_colors(TRUE)
+            text.source("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+            text.source(self.buff)
+
+            vbox1.pack_start(text)
 
             a = GtkAlignment ()
             a.add (frame)
@@ -484,16 +483,26 @@ class InstallControlWindow:
     def loadReleaseNotes(self):
         self.buff = ""
 	langList = self.langSearchPath + [ "" ]
+        sourcepath = self.dispatch.method.getSourcePath()
 	for lang in langList:
-	    fn = "/mnt/source/RELEASE-NOTES"
-	    if len(lang):
-		fn = fn + "." + lang
+            if lang:
+                langpart = '.%s' % (lang,)
+            else:
+                langpart = ''
 
-	    if os.access(fn, os.R_OK):
-		file = open(fn, "r")
-		self.buff = string.join(file.readlines(), '')
-		file.close()
-		return
+            for suffix in ('.html', ''):
+                fn = "%s/RELEASE-NOTES%s%s" % (sourcepath, langpart, suffix)
+
+                if os.access(fn, os.R_OK):
+                    file = open(fn, "r")
+                    if suffix == ".html":
+                        self.buff = string.join(file.readlines(), '')
+                    else:
+                        self.buff = ("<HTML><BODY BGCOLOR=white><PRE>" +
+                                     string.join(file.readlines(), '') +
+                                     "</PRE></BODY></HTML>")
+                    file.close()
+                    return
 
 	self.buff = _("Release notes are missing.\n")
 
