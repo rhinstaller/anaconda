@@ -21,6 +21,7 @@ if __name__ == "__main__":
 import isys
 import parted
 import math
+import raid
 
 from fsset import *
 from translate import _
@@ -608,7 +609,8 @@ class DiskSet:
                 isys.mount(dev, '/mnt/sysimage', readOnly = 1)
             except SystemError, (errno, msg):
                 intf.messageWindow(_("Error"),
-                                   _("Error mounting filesystem on %s: %s") % (dev, msg))
+                                   _("Error mounting filesystem "
+                                     "on %s: %s") % (dev, msg))
                 continue
             if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
                 rootparts.append ((dev, "ext2"))
@@ -627,19 +629,19 @@ class DiskSet:
                                      or part.fs_type.name == "ext3"):
                     node = get_partition_name(part)
 		    try:
-			isys.mount(dev, '/mnt/sysimage')
+			isys.mount(node, '/mnt/sysimage')
 		    except SystemError, (errno, msg):
 			intf.messageWindow(_("Error"),
                                            _("Error mounting filesystem on "
-                                             "%s: %s") % (dev, msg))
+                                             "%s: %s") % (node, msg))
                         part = disk.next_partition(part)
 			continue
 		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-			rootparts.append ((dev, "ext2"))
+			rootparts.append ((node, "ext2"))
 		    isys.umount('/mnt/sysimage')
                 if part.fs_type and (part.fs_type.name == "DOS"):
                     try:
-                        isys.mount(dev, '/mnt/sysimage', fstype = "vfat",
+                        isys.mount(node, '/mnt/sysimage', fstype = "vfat",
                                    readOnly = 1)
                     except:
 			log("failed to mount vfat filesystem on %s\n" 
@@ -648,7 +650,7 @@ class DiskSet:
 			continue
                         
 		    if os.access('/mnt/sysimage/redhat.img', os.R_OK):
-                        rootparts.append((dev, "vfat"))
+                        rootparts.append((node, "vfat"))
 
 		    isys.umount('/mnt/sysimage')
                     
