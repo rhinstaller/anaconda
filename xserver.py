@@ -7,6 +7,7 @@ import time
 from xf86config import *
 from kbd import Keyboard
 from mouse import Mouse
+import time
 from snack import *
 from translate import _
 from constants_text import *
@@ -83,7 +84,7 @@ def startX(resolution):
     x.res = resolution
     
     x.probe ()
-    print "Probed X server is " , x.server
+#    print "Probed X server is " , x.server
     probedServer = x.server
     x.server = "XF86_FBDev"
 
@@ -102,7 +103,6 @@ def startX(resolution):
     if not os.access (serverPath, os.X_OK):    #--If framebuffer server isn't there...try original probed server
         x.server = probedServer
         print "Frame buffer didn't work...trying ", x.server
-        time.sleep(2)
         serverPath = '/usr/X11R6/bin/' + x.server
 
         
@@ -117,65 +117,74 @@ def startX(resolution):
         testx(mouse, x)
     except:
         print "Can't open /dev/fb0"
-#        time.sleep(5)
-        try:            
-            x.server = probedServer
-            testx(mouse, x)
+    
+	x.server = probedServer
 
-        except:
-            pass
+	# if this fails, we want the exception to go back to anaconda to
+	# it knows that this didn't work
+	testx(mouse, x)
 
     return (mouse, x)
 
 
 def testx(mouse, x):
+    print "going to test the x server"
     try:
-        server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
-
-        # give time for the server to fail (if it is going to fail...)
-        # FIXME: Should find out if X server is already running
-        # otherwise with NFS installs the X server may be still being
-        # fetched from the network while we already continue to run
-
-#        time.sleep (4)
-        count = 0
-
-        sys.stdout.write("Waiting for X server to start")
-        sys.stdout.flush()
-        while count < 60:
-            sys.stdout.write(".")
-            sys.stdout.flush()
-            pid, status = os.waitpid (server, os.WNOHANG)
-            if status:
-                raise RuntimeError, "X server failed to start"
-            try:
-                os.stat ("/tmp/.X11-unix/X1")
-#                print
-                break
-            except OSError:
-                pass
-            time.sleep(1)
-            count = count + 1
-        
-            child = os.fork()
-            if (child):
-                try:
-                    pid, status = os.waitpid(child, 0)
-                except:
-                    sys.exit (-1)
-                try:
-                    sys.kill(server, 15)
-                    pid, status = os.waitpid(server, 0)
-                except:
-                    sys.exit(0)
-
-                sys.exit((status >> 8) & 0xf)
-
-
+	server = x.test ([':1', 'vt7', '-s', '1440', '-terminate'], spawn=1)
     except:
-        raise RuntimeError, "X server failed to start"
+	import traceback
+	from string import joinfields
+	(type, value, tb) = sys.exc_info()
+	list = traceback.format_exception (type, value, tb)
+	text = joinfields (list, "")
+	print text
+    print "tested the x server"
 
+    # give time for the server to fail (if it is going to fail...)
+    # FIXME: Should find out if X server is already running
+    # otherwise with NFS installs the X server may be still being
+    # fetched from the network while we already continue to run
 
+    time.sleep (4)
+    count = 0
+
+    sys.stdout.write("Waiting for X server to start")
+    sys.stdout.flush()
+    while count < 60:
+	sys.stdout.write(".")
+	sys.stdout.flush()
+	pid, status = os.waitpid (server, os.WNOHANG)
+	if pid:
+	    sys.stderr.write("X SERVER FAILED");
+	    raise RuntimeError, "X server failed to start"
+	try:
+	    os.stat ("/tmp/.X11-unix/X1")
+#                print
+	    break
+	except OSError:
+	    pass
+	time.sleep(1)
+	count = count + 1
+
+    print " X server started successfully."
+    
+    child = os.fork()
+    if (child):
+	try:
+	    pid, status = os.waitpid(child, 0)
+	except:
+	    sys.exit (-1)
+
+	try:
+	    sys.kill(server, 15)
+	    os.waitpid(server, 0)
+	except:
+	    pass
+
+	if os.WIFEXITED(status) and not os.WEXITSTATUS(status):
+	    sys.exit(0)
+
+	sys.exit(-1)
 
 
 #
