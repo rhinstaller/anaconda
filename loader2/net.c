@@ -702,7 +702,7 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int chooseNetworkInterface(struct knownDevices * kd, 
                            struct loaderData_s * loaderData,
                            int flags) {
-    int i, rc;
+    int i, rc, max = 40;
     int deviceNums = 0;
     int deviceNum;
     char ** devices;
@@ -714,7 +714,16 @@ int chooseNetworkInterface(struct knownDevices * kd,
         if (kd->known[i].class != CLASS_NETWORK)
             continue;
 
-        devices[deviceNums++] = kd->known[i].name;
+        if (kd->known[i].model) {
+                devices[deviceNums++] = alloca(strlen(kd->known[i].name) +
+                                       strlen(kd->known[i].model) + 4);
+                sprintf(devices[deviceNums-1],"%s - %s",
+                        kd->known[i].name, kd->known[i].model);
+                if (strlen(devices[deviceNums-1]) > max)
+                        max = strlen(devices[deviceNums-1]);
+        } else {
+            devices[deviceNums++] = kd->known[i].name;
+        }
 
         /* make sure that this device is disabled */
         pumpDisableInterface(kd->known[i].name);
@@ -749,7 +758,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
     deviceNum = 0;
     rc = newtWinMenu(_("Networking Device"), 
 		     _("You have multiple network devices on this system. "
-		       "Which would you like to install through?"), 40, 10, 10,
+		       "Which would you like to install through?"), max, 10, 10,
 		     deviceNums < 6 ? deviceNums : 6, devices,
 		     &deviceNum, _("OK"), _("Back"), NULL);
     if (rc == 2)

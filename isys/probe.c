@@ -102,11 +102,14 @@ void kdFree(struct knownDevices * devices) {
 }
 
 int kdFindNetList(struct knownDevices * devices, int code) {
-    int fd;
+    int fd, i;
     char *buf;
     char * start, * end;
+    struct device **kdevs;
     struct kddevice newDevice;
     int s;
+    
+    kdevs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL);
 
     if ((fd = open("/proc/net/dev", O_RDONLY)) < 0) {
 	fprintf(stderr, "failed to open /proc/net/dev!\n");
@@ -139,6 +142,12 @@ int kdFindNetList(struct knownDevices * devices, int code) {
 	    if (!deviceKnown(devices, start)) {
                 newDevice.name = strdup(start);
                 newDevice.model = NULL;
+                if (kdevs) {
+                    for (i = 0; kdevs[i]; i++)
+                        if (kdevs[i]->device && !strcmp(kdevs[i]->device, newDevice.name))
+                             newDevice.model = strdup(kdevs[i]->desc);
+                
+                }
                 newDevice.class = CLASS_NETWORK;
                 newDevice.code = code;
                 addDevice(devices, newDevice);
