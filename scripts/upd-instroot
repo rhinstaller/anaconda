@@ -150,12 +150,12 @@ fi
 # Extra stuff we want for rescue mode should go in PACKAGESRESCUE
 #
 PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
-           XFree86-ISO8859-2-75dpi-fonts gtk2
+           XFree86-ISO8859-2-75dpi-fonts gtk2 libglade2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
            XFree86-100dpi-fonts fonts-ISO8859-2 fonts-ISO8859-9
            XFree86-xfs e2fsprogs coreutils glibc glibc-common
            readline popt specspo util-linux rpm rpm-libs tzdata
-           procps ncurses bash cpio gpm
+           procps ncurses bash cpio gpm pygtk2-libglade
            XFree86 Xconfigurator gnome-python2 pygtk2 gdk-pixbuf 
            XFree86-KOI8-R XFree86-KOI8-R-75dpi-fonts pam 
            reiserfs-utils atk pango freetype gnome-python2-canvas 
@@ -602,6 +602,7 @@ usr/$LIBDIR/libexpat*
 usr/$LIBDIR/libfontconfig*
 usr/$LIBDIR/libfreetype*
 usr/$LIBDIR/libgdk*
+usr/$LIBDIR/libglade*
 usr/$LIBDIR/libgnomecanvas*
 usr/$LIBDIR/libgnomeui*
 usr/$LIBDIR/libgpm*
