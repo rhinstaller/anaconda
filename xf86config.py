@@ -294,12 +294,12 @@ EndSection
         config.write (
 """
 Section "Pointer"
-    Protocol    "%(mouseProto)s"
-    Device      "%(mouseDev)s"
+    Protocol    "%s"
+    Device      "/dev/%s"
     Emulate3Buttons
     Emulate3Timeout    50
 EndSection
-""" % self.mouse)
+""" % (self.mouse.info["XMOUSETYPE"], self.mouse.device))
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
         config.write (self.screenSection ())
