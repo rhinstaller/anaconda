@@ -725,17 +725,19 @@ static void emptyDestructor(PyObject * s) {
 }
 
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
-    char * dev, * ip, * netmask, * broadcast, * network;
+    char * dev, * ip, * netmask;
     int rc;
+    char * gateway;
     struct pumpNetIntf device;
     typedef int int32;
     
-    if (!PyArg_ParseTuple(args, "sss", &dev, &ip, &network)) return NULL;
+    if (!PyArg_ParseTuple(args, "ssss", &dev, &ip, &netmask, &gateway)) 
+	return NULL;
 
     strncpy(device.device, dev, sizeof(device.device) - 1);
     device.ip.s_addr = inet_addr(ip);
     device.netmask.s_addr = inet_addr(netmask);
-    device.broadcast.s_addr = inet_addr(broadcast);
+    device.gateway.s_addr = inet_addr(gateway);
 
     *((int32 *) &device.broadcast) = (*((int32 *) &device.ip) & 
 		       *((int32 *) &device.netmask)) | 
@@ -744,11 +746,15 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     *((int32 *) &device.network) = 
 	    *((int32 *) &device.ip) & *((int32 *) &device.netmask);
 
-    device.network.s_addr = inet_addr(network);
     device.set = PUMP_INTFINFO_HAS_IP | PUMP_INTFINFO_HAS_NETMASK |
 		 PUMP_INTFINFO_HAS_BROADCAST | PUMP_INTFINFO_HAS_NETWORK;
     
     if (pumpSetupInterface(&device)) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
+    if (pumpSetupDefaultGateway(&device.gateway)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
