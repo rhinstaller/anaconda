@@ -19,7 +19,7 @@ from rhpl.log import log
 
 class FileCopyException(Exception):
     def __init__(self, s = ""):
-        self.str = s
+        self.args = s
         
 
 class InstallMethod:
