@@ -55,10 +55,10 @@ class MiloInstall:
             partition = partitionNum (self.todo.mounts['/'][0])
             abootdev = wholeDevice (self.todo.mounts['/'][0])
 
-        if os.access (confprefix + "/etc/aboot.conf", os.R_OK):
-            os.rename (confprefix + "/etc/aboot.conf",
-                       confprefix + "/etc/aboot.conf.rpmsave")
-        f = open (confprefix + "/etc/aboot.conf", 'w')
+        if os.access (confprefix + "/aboot.conf", os.R_OK):
+            os.rename (confprefix + "/aboot.conf",
+                       confprefix + "/aboot.conf.rpmsave")
+        f = open (confprefix + "/aboot.conf", 'w')
         f.write ("# aboot default configurations\n")
         if self.todo.mounts.has_key ('/boot'):
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
