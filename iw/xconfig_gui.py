@@ -68,14 +68,135 @@ class XCustomWindow (InstallWindow):
         elif first < second:
             return -1
         return 0
+
+    def color_cb(self, widget, data):
+#        print data, " bit color depth selected"
+#        print self.depth_combo.list.child_position (data)
+        depth = self.depth_combo.list.child_position (data)
+
+        if depth == 0:
+            self.res_combo.set_popdown_strings (self.avail_res1)
+        if depth == 1:
+            self.res_combo.set_popdown_strings (self.avail_res2)        
+        if depth == 2:
+            self.res_combo.set_popdown_strings (self.avail_res3)
     
+    def res_cb (self, widget, data):
+        pass
+#        print data, " resolution was selected"
+#        print self.res_combo.list.child_position (data)
+
+
     def getScreen (self):
         self.oldmodes = self.todo.x.modes
         
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
-        hbox = GtkHBox (FALSE, 5)
+        hbox1 = GtkHBox (FALSE, 5)
+        hbox2 = GtkHBox (FALSE, 5)
+        
+
+
+        im = self.ics.readPixmap ("monitor.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.5, 0.5, 1.0, 1.0)
+            hbox1.pack_start (a, TRUE, TRUE)
+
+
+
+
+        available = self.todo.x.availableModes()
+        availableDepths = available.keys()
+        availableDepths.sort (self.numCompare)        
+        depths = self.todo.x.modes.keys ()
+        depths.sort (self.numCompare)
+
+
+        self.depth_count = 0
+        self.res_count1 = 0
+        self.res_count2 = 0
+        self.res_count3 = 0
+
+        for depth in availableDepths:
+#            print "depth = ", depth
+
+            for res in available[depth]:
+#                print "res = ", res
+                if self.depth_count == 0:
+                    self.res_count1 = self.res_count1 + 1
+                if self.depth_count == 1:
+                    self.res_count2 = self.res_count2 + 1                    
+                if self.depth_count == 2:
+                    self.res_count3 = self.res_count1 + 1
+
+            self.depth_count = self.depth_count + 1
+
+        if self.res_count1 == 0:
+            self.depth_count = self.depth_count - 1
+        if self.res_count2 == 0:
+            self.depth_count = self.depth_count - 1        
+        if self.res_count3 == 0:
+            self.depth_count = self.depth_count - 1
+            
+#        print self.depth_count 
+#        print self.res_count1 
+#        print self.res_count2 
+#        print self.res_count3 
+
+
+
+        frame1 = GtkFrame (_("Color Depths"))
+        vbox1 = GtkVBox ()
+        frame1.add (vbox1)
+        hbox2.pack_start (frame1, TRUE, FALSE, 10)
+
+        depth_list = ["256 Colors (8 Bit)", "High Color (16 Bit)", "True Color (32 Bit)"]
+
+        self.avail_depths = depth_list[:self.depth_count]
+#        print self.avail_depths
+        
+
+
+        self.depth_combo = GtkCombo ()
+        self.depth_combo.set_popdown_strings (self.avail_depths)
+        self.depth_combo.list.connect ("select-child", self.color_cb)
+        vbox1.pack_start (self.depth_combo)
+
+
+        frame2 = GtkFrame (_("Screen Resolution"))
+        vbox2 = GtkVBox ()
+        frame2.add (vbox2)
+        hbox2.pack_start (frame2, TRUE, FALSE, 10)
+
+
+        res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+
+        self.avail_res1 = res_list[:self.res_count1]
+        self.avail_res2 = res_list[:self.res_count2]
+        self.avail_res3 = res_list[:self.res_count3]
+
+#        print "8 bit res = ", self.avail_res1
+#        print "16 bit res = ", self.avail_res2
+#        print "32 bit res = ", self.avail_res3
+        
+        self.res_combo = GtkCombo ()
+        self.res_combo.set_popdown_strings (res_list)
+        self.res_combo.list.connect ("select-child", self.res_cb)
+        vbox2.pack_start (self.res_combo)
+#        frame2.add (self.res_combo)
+
+
+        box.pack_start (hbox1)
+        box.pack_start (hbox2, FALSE, TRUE, 30)
+
+
+        
+
 
 	# I'm not sure what monitors handle this wide aspect resolution, so better play safe
         monName = self.todo.x.monName
@@ -102,7 +223,7 @@ class XCustomWindow (InstallWindow):
                 if (self.todo.x.manualModes.has_key(depth)
                     and res in self.todo.x.manualModes[depth]):
                     button.set_active(1)
-            hbox.pack_start (vbox)
+#            hbox.pack_start (vbox)
 
         
         test = GtkAlignment ()
@@ -110,7 +231,7 @@ class XCustomWindow (InstallWindow):
         button.connect ("clicked", self.testPressed)
         test.add (button)
         
-        box.pack_start (hbox, FALSE)
+#        box.pack_start (hbox, FALSE)
         box.pack_start (test, FALSE)
         return box
 
@@ -289,12 +410,19 @@ class XConfigWindow (InstallWindow):
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
         
-        self.videoCard = ""
-        self.videoRam = ""
-        self.didTest = 0
-        self.videoCardState = ""
+#        self.videoCard = ""
+#        self.videoRam = ""
+#        self.didTest = 0
+#        self.videoCardState = ""
 
     def getNext (self):
+#        print "Inside getNext"
+
+#        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
+#        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
+#        self.todo.videoCardOriginalNode = ""
+
+        
         if self.skipme:
             return None
 
@@ -309,12 +437,9 @@ class XConfigWindow (InstallWindow):
             self.todo.initlevel = 3
 
 	if not self.cantprobe:
-	    if self.custom.get_active () and not self.skip.get_active ():
+            #	    if self.custom.get_active () and not self.skip.get_active ():
+            if not self.skip.get_active ():
 		return XCustomWindow
-
-        #--Set state to the whatever node is selected when they click "Next"
-#        parent_node, cardname = self.ctree.node_get_row_data(self.current_node)     
-#        self.todo.videoCardState = cardname
 
         return None
 
@@ -334,10 +459,6 @@ class XConfigWindow (InstallWindow):
         else:
             self.didTest = 1
 
-#    def memory_cb (self, widget, size):
-#        self.todo.x.vidRam = size[:-1]
-#        self.todo.x.filterModesByMemory ()
-
     def memory_cb (self, widget, size):
         self.todo.x.vidRam = size[:-1]
         self.todo.x.filterModesByMemory ()
@@ -351,41 +472,29 @@ class XConfigWindow (InstallWindow):
             count = count + 1
 
     def movetree (self, ctree, area, selected_node):
-#        print "Inisde movetree"
+        self.ctree.freeze()
         self.ctree.select(self.selected_node)
         parent_node, cardname = self.ctree.node_get_row_data(self.selected_node)                        
         self.ctree.expand(parent_node)
+#        print self.selected_node
         self.ctree.node_moveto(self.selected_node, 0, 0.5, 0)
+        self.ctree.thaw()
 
     def movetree2 (self, ctree, area, node):
-#        print "Inside movetree2"
+        self.ctree.freeze()
         node = self.todo.videoCardOriginalNode
         current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
-#        print current_parent_node
-#        print cardname2
 
         self.selected_node = node
         self.ctree.select(node)
         parent_node, cardname = self.ctree.node_get_row_data(node)                        
         self.ctree.expand(node)
         self.ctree.node_moveto(node, 0, 0.5, 0)
-
-
-#        self.selectCb_tree (self.ctree, node)
-
-#    def selectCb (self, list, row, col, event):
-#        cardname = list.get_row_data (row)
-#        if cardname:
-#            card = self.cards[cardname]
-#            depth = 0
-#            while depth < 16 and card.has_key ("SEE"):
-#                card = self.cards[card["SEE"]]
-#                depth = depth + 1
-#            self.todo.x.setVidcard (card)
+        self.ctree.thaw()
 
     def selectCb_tree (self, ctree, node, column):
+#        print "Inside selectCb_tree"
         try:
-#            print "Inside selectCb_tree"
             self.current_node = node
             parent, cardname = ctree.node_get_row_data (node)
 #            print cardname
@@ -395,19 +504,32 @@ class XConfigWindow (InstallWindow):
                 while depth < 16 and card.has_key ("SEE"):
                     card = self.cards[card["SEE"]]
                     depth = depth + 1
+#                print card
                 self.todo.x.setVidcard (card)
         except:
             pass
             
     def restorePressed (self, ramMenu):
-        current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
-        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
-        data = self.todo.videoCardOriginalName
+        try:
+            current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
+            original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
 
-        if current_parent_node != original_parent_node:
-            self.ctree.collapse(current_parent_node)
+            #        data = self.todo.videoCardOriginalName
 
-        self.movetree2(self.ctree, self.todo.videoCardOriginalNode, 0)
+            #        print "self.current_node : ", current_parent_node , " - ", cardname1
+            #        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
+
+            if current_parent_node != original_parent_node:
+                self.ctree.collapse(current_parent_node)
+
+            if cardname1 != cardname2:
+                self.movetree2(self.ctree, self.todo.videoCardOriginalNode, 0)
+            else:
+                #            print "Cardnames are equal...don't do anything"
+                pass
+
+        except:
+            pass
 
         self.ramOption.remove_menu ()
         self.ramMenu.set_active(self.default_ram)
@@ -877,8 +999,8 @@ class XConfigWindow (InstallWindow):
                     self.ctree.node_set_row_data(node, (other, card))
 
 
-
-
+                if card == self.todo.videoCardOriginalName:
+                    self.todo.videoCardOriginalNode = node
 
                 if self.todo.x.vidCards:
                     if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
@@ -939,6 +1061,7 @@ class XConfigWindow (InstallWindow):
             label = GtkLabel (_("RAM present on video card: "))
 
             self.ramOption = GtkOptionMenu()
+            self.ramOption.set_usize (40, 20)
             self.ramMenu = GtkMenu()
 
             mem1 = GtkMenuItem("256 kB")
@@ -1037,7 +1160,10 @@ class XConfigWindow (InstallWindow):
 
             restore = GtkButton (_("Restore original values"))
             restore.connect ("clicked", self.restorePressed)
-            buttonBox.pack_start (restore)
+#            buttonBox.pack_start (restore)
+            hbox.pack_start(restore, FALSE, 25)
+
+
 
 #            test.add (button)
 #            test.add (restore)
@@ -1048,7 +1174,7 @@ class XConfigWindow (InstallWindow):
 
             self.custom = GtkCheckButton (_("Customize X Configuration"))
             self.custom.connect ("toggled", self.customToggled)
-            optbox.pack_start (self.custom, FALSE)
+#            optbox.pack_start (self.custom, FALSE)
 
         self.xdm = GtkCheckButton (_("Use Graphical Login"))
         self.skip = GtkCheckButton (_("Skip X Configuration"))
