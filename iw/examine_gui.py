@@ -78,7 +78,7 @@ class UpgradeExamineWindow (InstallWindow):
             # if there is only one partition, go on.
             self.ics.setNextEnabled (TRUE)
             self.root = self.parts[0]
-	    label = GtkLabel (_("Upgrading the Red Hat Linux installation on partition /dev/%s"), (self.root[0] + "\n\n",))
+	    label = GtkLabel (_("Upgrading the Red Hat Linux installation on partition /dev/%s") % (self.root[0] + "\n\n",))
 	    label.set_alignment(0.0, 0.5)
 	    vbox.pack_start(label, FALSE)
             
