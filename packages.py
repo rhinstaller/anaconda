@@ -330,7 +330,7 @@ class InstallCallback:
 
 	    while self.rpmFD < 0:
 		try:
-                    fn = self.method.getFilename(h, self.pkgTimer,
+                    fn = self.method.getRPMFilename(h, self.pkgTimer,
 			 callback=self.packageDownloadCB)
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 
