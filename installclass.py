@@ -31,11 +31,18 @@ class BaseInstallClass:
     def postAction(self, rootPath, serial):
 	pass
 
-    def setLiloInformation(self, location, linear = 1, appendLine = None):
+    def setBootloader(self, id, useLilo = 0, appendLine = None):
+        if useLilo:
+            id.bootloader.useGrubVal = 0
+        id.bootloader.args.set(appendLine)
+
+    def setLiloInformation(self, id, location, linear = 1, appendLine = None):
 	# this throws an exception if there is a problem
 	["mbr", "partition", None].index(location)
 
-	self.lilo = (location, linear, appendLine)
+        id.bootloader.useLinear = linear
+        id.bootloader.args.set(appendLine)
+        id.bootloader.useGrubVal = 0
 
     def setClearParts(self, clear, warningText = None):
 	self.clearParts = clear
@@ -49,8 +56,8 @@ class BaseInstallClass:
     def getClearParts(self):
         return self.clearParts
 
-    def getLiloInformation(self):
-	return self.lilo
+    def getFstab(self):
+	return self.fstab
 
     def addRaidEntry(self, mntPoint, raidDev, level, devices):
 	# throw an exception for bad raid levels

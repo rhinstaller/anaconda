@@ -3,7 +3,7 @@ import isys
 import os
 from installclass import BaseInstallClass
 from partitioning import *
-from autopart import doPartitioning
+from autopart import *
 import sys
 import string
 
@@ -41,28 +41,6 @@ class Script:
 	os.unlink(path)
 
 class KickstartBase(BaseInstallClass):
-
-    def mergeFstabEntries(self, todo):
-        # this is pretty bad - needs complete rewrite of how we handle
-        # --onpart specified partitions.
-        #
-        # we DO NOT want to add raid type partitions at this point
-        # because they are not going to be mounted on final system
-        # HOWEVER, they are in the install class fstab because we need
-        # them there to map from existing partitions to the 'raid.xx'
-        # name we use in the ks.cfg to designate components of a raid
-        # device which also have a --onpart directive.
-        raidFilter = {}
-        for (mntPoint, raidDev, level, devices) in self.raidList:
-            for dev in devices:
-                raidFilter[dev] = 1
-        
-	for (mntpoint, (dev, fstype, reformat)) in self.fstab:
-            if raidFilter and raidFilter.has_key(mntpoint):
-                continue
-            else:
-                todo.fstab.addMount(dev, mntpoint, fstype, reformat)
-
     def postAction(self, rootPath, serial):
 	for script in self.postScripts:
 	    script.run(rootPath, serial)
@@ -138,7 +116,8 @@ class KickstartBase(BaseInstallClass):
                   'enablenis', 'nisdomain=', 'nisserver=',
                   'enableldap', 'enableldapauth', 'ldapserver=', 'ldapbasedn=',
                   'enablekrb5', 'krb5realm=', 'krb5kdc=', 'krb5adminserver=',
-                  'enablehesiod', 'hesiodlhs=', 'hesiodrhs='  ])
+                  'enablehesiod', 'hesiodlhs=', 'hesiodrhs=',
+                  'enablesmbauth', 'smbservers=', 'smbworkgroup='])
 
 	useShadow = 0
 
@@ -162,6 +141,10 @@ class KickstartBase(BaseInstallClass):
         useHesiod = 0
         hesiodLhs = None
         hesiodRhs = None
+
+        useSamba = 0
+        smbServers = None
+        smbWorkgroup = None
 	
 	for n in args:
 	    (str, arg) = n
@@ -197,6 +180,13 @@ class KickstartBase(BaseInstallClass):
                 hesiodLhs = arg
             elif (str == '--hesiodrhs'):
                 hesiodRhs = arg
+            elif (str == '--enablesmbauth'):
+                useSamba = 1
+            elif (str == '--smbservers'):
+                smbServers = arg
+            elif (str == '--smbworkgroup'):
+                smbWorkgroup = arg
+                
 
 	if useNis and not nisServer: nisBroadcast = 1
 	    
@@ -204,11 +194,33 @@ class KickstartBase(BaseInstallClass):
                                useNis, nisDomain, nisBroadcast, nisServer,
                                useLdap, useLdapauth, ldapServer, ldapBasedn,
                                useKrb5, krb5Realm, krb5Kdc, krb5Admin,
-                               useHesiod, hesiodLhs, hesiodRhs )
+                               useHesiod, hesiodLhs, hesiodRhs,
+                               useSamba, smbServers, smbWorkgroup)
         
 	self.skipSteps.append("authentication")
 
-    def doLilo	(self, args):
+    def doBootloader (self, id, args):
+        (args, extra) = isys.getopt(args, '',
+                [ 'append=', 'location=', 'useLilo' ])
+
+        appendLine = None
+        location = "mbr"
+        useLilo = 0
+
+        for n in args:
+            (str, arg) = n
+            if str == '--append':
+                appendLine = arg
+            elif str == '--location':
+                # XXX need this to do something
+                pass
+            elif str == '--useLilo':
+                useLilo = 1
+                
+        self.setBootloader(id, useLilo, appendLine)
+        self.skipSteps.append("bootloader")
+
+    def doLilo	(self, id, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'append=', 'location=', 'linear', 'nolinear' ])
 
@@ -225,6 +237,7 @@ class KickstartBase(BaseInstallClass):
 	    elif str == '--nolinear':
 		linear = 0
 	    elif str == '--location':
+                # XXX this doesn't really do anything right now
 	        if arg == 'mbr' or arg == 'partition':
 		    location = arg
 		elif arg == 'none':
@@ -233,8 +246,8 @@ class KickstartBase(BaseInstallClass):
 		    raise ValueError, ("mbr, partition or none expected for "+
 			"lilo command")
 
-	self.setLiloInformation(location, linear, appendLine)
-	self.addToSkipList("lilo")
+	self.setLiloInformation(id, location, linear, appendLine)
+        self.skipSteps.append("bootloader")        
 
     def doLiloCheck (self, args):
         drives = isys.hardDriveDict ().keys()
@@ -405,8 +418,9 @@ class KickstartBase(BaseInstallClass):
 
         self.skipSteps.append("mouse")
 
-    def doReboot(self, args):
-        self.addToSkipList("complete")
+    def doReboot(self, id, args):
+        pass
+#        self.skipSteps.append("complete")
 
     def doSkipX(self, id, args):
         self.skipSteps.append("videocard")
@@ -431,6 +445,7 @@ class KickstartBase(BaseInstallClass):
 		     "lang"		: self.doLang		,
                      "langsupport"	: self.doLangSupport	,
 		     "lilo"		: self.doLilo		,
+                     "bootloader"       : self.doBootloader     ,
 		     "lilocheck"	: self.doLiloCheck	,
 		     "mouse"		: self.doMouse		,
 		     "network"		: self.doNetwork	,
@@ -535,7 +550,14 @@ class KickstartBase(BaseInstallClass):
             if not request.fstype or (request.fstype.isMountable() and not request.mountpoint):
                 continue
             entry = request.toEntry()
-            id.fsset.add (entry)        
+            id.fsset.add (entry)
+
+        # XXX bootloader stuff shouldn't be done here either
+        choices = id.fsset.bootloaderChoices(id.diskset)
+        if not choices:
+            raise RuntimeError, "Unable to find device to install bootloader to"
+        device = choices[0][0]
+        id.bootloader.setDevice(device)
 
         # test to see if they specified to clear partitions and also
         # tried to --onpart on a logical partition
@@ -650,9 +672,21 @@ class KickstartBase(BaseInstallClass):
             raise ValueError, "temporarily requiring a size to be specified"
 
         request = PartitionSpec(filesystem, size = size, mountpoint = mountpoint, format=1)
+        if grow:
+            request.grow = 1
+        if maxSize:
+            request.maxsize = maxsize
+        if device:
+            request.drive = [ device ]
+        if partNum or primOnly:
+            request.primary = 1
+        if not format:
+            request.format = 0
+        
         id.partrequests.addRequest(request)
 
         self.skipSteps.append("partition")
+        self.skipSteps.append("autopartition")
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch)
