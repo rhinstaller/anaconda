@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 #include <glob.h>
 #include <dirent.h>
+#include <popt.h>
 #include <rpmlib.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,58 +16,29 @@
 
 #define FILENAME_TAG 1000000
 #define FILESIZE_TAG 1000001
+#define CDNUM_TAG    1000002
 
-int tags[] =  { RPMTAG_NAME, RPMTAG_VERSION, RPMTAG_RELEASE, RPMTAG_SERIAL,
-		RPMTAG_DIRNAMES, RPMTAG_BASENAMES, RPMTAG_DIRINDEXES,
-		RPMTAG_FILESIZES, RPMTAG_GROUP, RPMTAG_REQUIREFLAGS, 
-		RPMTAG_REQUIRENAME, RPMTAG_REQUIREVERSION, RPMTAG_DESCRIPTION, 
-		RPMTAG_SUMMARY, RPMTAG_PROVIDES, RPMTAG_SIZE, 
-		RPMTAG_OBSOLETES };
-int numTags = sizeof(tags) / sizeof(int);
-
-int main(int argc, char ** argv) {
-    char buf[300];
-    DIR * dir;
-    FD_t outfd, fd;
+int onePass(FD_t outfd, const char * dirName, int cdNum) {
+    FD_t fd;
     struct dirent * ent;
-    int rc, isSource;
+    char * subdir = alloca(strlen(dirName)) + 20;
+    int errno;
     Header h;
-    struct stat sb;
+    int isSource, rc;
     int_32 size;
+    DIR * dir;
+    struct stat sb;
 
-    if (argc < 2 || argc > 3) {
-	fprintf(stderr, "usage: genhdlist <dir>\n");
-	exit(1);
-    }
+    sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
-    if (*argv[1] != '/') {
-        getcwd(buf, 300);
-        strcat(buf, "/");
-        strcat(buf, argv[1]);
-    } else 
-        strcpy(buf, argv[1]);
-
-    strcat(buf, "/RedHat/RPMS");
-
-    dir = opendir(buf);
+    dir = opendir(subdir);
     if (!dir) {
-	fprintf(stderr,"error opening directory %s: %s\n", buf,
+	fprintf(stderr,"error opening directory %s: %s\n", subdir,
 		strerror(errno));
 	return 1;
     }
-    chdir(buf);
 
-    strcat(buf, "/../base/hdlist");
-    if (argv[2] && *argv[2])
-	strcpy(buf, argv[2]);
-
-    unlink(buf);
-    
-    outfd = Fopen(buf, "w");
-    if (!outfd) {
-	fprintf(stderr,"error creating file %s: %s\n", buf, strerror(errno));
-	return 1;
-    }
+    chdir(subdir);
 
     errno = 0;
     ent = readdir(dir);
@@ -122,6 +94,11 @@ int main(int argc, char ** argv) {
 		headerAddEntry(h, FILENAME_TAG, RPM_STRING_TYPE, ent->d_name, 1);
 		headerAddEntry(h, FILESIZE_TAG, RPM_INT32_TYPE, 
 				&size, 1);
+
+		if (cdNum > -1)
+		    headerAddEntry(h, CDNUM_TAG, RPM_INT32_TYPE, 
+				    &cdNum, 1);
+
 		headerWrite(outfd, h, HEADER_MAGIC_YES);
 		headerFree(h);
 	    }
@@ -137,7 +114,71 @@ int main(int argc, char ** argv) {
     } 
 
     closedir(dir);
+
+    return 0;
+}
+
+static void usage(void) {
+    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--hdlist <path>] <paths>+\n");
+    exit(1);
+}
+
+int main(int argc, const char ** argv) {
+    char buf[300];
+    FD_t outfd;
+    int cdNum = -1;
+    const char ** args;
+    int doNumber = 0;
+    int rc;
+    char * hdListFile = NULL;
+    poptContext optCon;
+    struct poptOption options[] = {
+            { "hdlist", '\0', POPT_ARG_STRING, &hdListFile, 0 },
+            { "withnumbers", '\0', 0, &doNumber, 0 },
+            { 0, 0, 0, 0, 0 }
+    };
+
+    optCon = poptGetContext("genhdlist", argc, argv, options, 0);
+    poptReadDefaultConfig(optCon, 1);
+
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+	fprintf(stderr, "%s: bad argument %s: %s\n", "genhdlist",
+		poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		poptStrerror(rc));
+	return 1;
+    }
+
+    args = poptGetArgs(optCon);
+    if (!args || !args[0] || !args[0][0])
+	usage();
+
+    if (!hdListFile) {
+	strcpy(buf, args[0]);
+	strcat(buf, "/RedHat/base/hdlist");
+	hdListFile = buf;
+    }
+
+    unlink(hdListFile);
+    
+    outfd = Fopen(hdListFile, "w");
+    if (!outfd) {
+	fprintf(stderr,"error creating file %s: %s\n", buf, strerror(errno));
+	return 1;
+    }
+
+    if (doNumber)
+	cdNum = 1;
+
+    while (args[0]) {
+	if (onePass(outfd, args[0], cdNum))
+	    return 1;
+	if (doNumber) cdNum++;
+	args++;
+    }
+
     fdio->close(outfd);
+
+    poptFreeContext(optCon);
 
     return 0;
 }
