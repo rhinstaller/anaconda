@@ -275,6 +275,7 @@ RhostsAuthentication no
 RSAAuthentication yes
 PasswordAuthentication yes
 PermitEmptyPasswords yes
+PermitUserEnvironment yes
 EOF
     chmod 600 $MBD_DIR/etc/ssh/sshd_config
 

@@ -348,12 +348,12 @@ MTU=$MTU
 EOF
 
 # so that the vars get propagated into the sshd shells
-cat >> /etc/profile <<EOF
+mkdir /.ssh
+cat >> /.ssh/environment <<EOF
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH
 PATH=$PATH
 HOME=$HOME
 PYTHONPATH=$PYTHONPATH
-export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
 if [ "$NETTYPE" = "ctc" ]; then
