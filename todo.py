@@ -784,6 +784,7 @@ class ToDo:
     def verifyDeps (self):
 	self.getCompsList()
         if self.upgrade:
+            self.fstab.mountFilesystems (self.instPath)
             db = rpm.opendb (self.instPath)
             ts = rpm.TransactionSet(self.instPath, db)
         else:
@@ -811,9 +812,11 @@ class ToDo:
                         sugname = _("no suggestion")
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
-            return rc
-        else:
-            return None
+
+        del db
+        del ts
+        self.fstab.umountFilesystems (self.instPath)            
+        return rc
 
     def selectDeps (self, deps):
         if deps:
@@ -930,11 +933,11 @@ class ToDo:
                     self.log ("GNOME: Adding %s", package)
                     self.comps['GNOME'].items[package].selected = 1
             
+        del db
+        self.fstab.umountFilesystems (self.instPath)
+
         # new package dependency fixup
         deps = self.verifyDeps ()
-        del db
-        
-        self.fstab.umountFilesystems (self.instPath)
 
         for (name, suggest) in deps:
             self.log ("Upgrade Dependency: %s needs %s, automatically added.", name, suggest)
