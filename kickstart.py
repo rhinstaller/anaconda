@@ -383,7 +383,10 @@ class KickstartBase(BaseInstallClass):
 	newSection = None
 	for n in open(file).readlines():
 	    args = isys.parseArgv(n)
-	    if not args or args[0][0] == '#': continue
+
+	    # don't eliminate white space or comments from scripts
+	    if where != "pre" and where != "post":
+		if not args or args[0][0] == '#': continue
 
 	    if args[0] == "%post" or args[0] == "%pre":
 		if where =="pre" or where == "post":
