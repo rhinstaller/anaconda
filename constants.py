@@ -13,6 +13,8 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+from rhpl.translate import N_
+
 BETANAG = 1
 
 DEBUG = 0
@@ -59,4 +61,15 @@ FIRSTBOOT_RECONFIG = 2
 import product
 productName = product.productName
 
+exceptionText = N_("An unhandled exception has occurred.  This "
+                   "is most likely a bug.  Please copy the "
+                   "full text of this exception or save the crash "
+                   "dump to a floppy then file a detailed bug "
+                   "report against anaconda at "
+                   "http://bugzilla.redhat.com/bugzilla/")
 
+exceptionTextNoFloppy = N_("An unhandled exception has occurred.  This "
+                           "is most likely a bug.  Please copy the "
+                           "full text of this exception and file a detailed "
+                           "bug report against anaconda at "
+                           "http://bugzilla.redhat.com/bugzilla/")

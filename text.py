@@ -286,15 +286,15 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, title, text):
-	ugh = "%s\n\n" % (_("An unhandled exception has occurred.  This "
-                            "is most likely a bug.  Please copy the "
-                            "full text of this exception or save the crash "
-                            "dump to a floppy then file a detailed bug "
-                            "report against anaconda at "
-                            "http://bugzilla.redhat.com/bugzilla/"),)
-
-	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
-                           buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")])
+        floppyDevices = len(isys.floppyDriveDict())
+        if floppyDevices > 0 or DEBUG:
+            ugh = "%s\n\n" % (exceptionText,)
+            buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")]
+        else:
+            ugh = "%s\n\n" % (exceptionTextNoFloppy,)
+            buttons=[TEXT_OK_BUTTON, _("Debug")]
+            
+	rc = ButtonChoiceWindow(self.screen, title, ugh + text, buttons)
         if rc == string.lower(_("Debug")):
             return 1
 	elif rc == string.lower(_("Save")):

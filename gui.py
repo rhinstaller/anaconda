@@ -441,9 +441,12 @@ class ProgressWindow:
 
 class ExceptionWindow:
     def __init__ (self, text):
+        floppyDevices = len(isys.floppyDriveDict())
+
         win = gtk.Dialog("Exception Occured", mainWindow, gtk.DIALOG_MODAL)
         win.add_button("_Debug", 0)
-        win.add_button("_Save to floppy", 1)
+        if floppyDevices > 0 or DEBUG:
+            win.add_button("_Save to floppy", 1)
         win.add_button('gtk-ok', 2)
         buffer = gtk.TextBuffer(None)
         buffer.set_text(text)
@@ -460,12 +463,11 @@ class ExceptionWindow:
 ##         if file:
 ##             hbox.pack_start (GnomePixmap (file), gtk.FALSE)
 
-        info = WrappingLabel(_("An unhandled exception has occurred.  This "
-                               "is most likely a bug.  Please copy the "
-                               "full text of this exception or save the crash "
-                               "dump to a floppy then file a detailed bug "
-                               "report against anaconda at "
-                               "http://bugzilla.redhat.com/bugzilla/"))
+        if floppyDevices > 0:
+            info = WrappingLabel(exceptionText)
+        else:
+            info = WrappingLabel(exceptionTextNoFloppy)
+            
         info.set_size_request (400, -1)
 
         hbox.pack_start (sw, gtk.TRUE)
