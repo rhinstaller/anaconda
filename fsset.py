@@ -1548,9 +1548,9 @@ class VolumeGroupDevice(Device):
             nodes = []
             for volume in self.physicalVolumes:
                 # XXX the lvm tools are broken and will only work for /dev
-##                 node = PartitionDevice(volume).setupDevice(chroot,
-##                                                            devPrefix="/dev")
-                node = "/dev/%s" % (volume,)
+                node = PartitionDevice(volume).setupDevice(chroot,
+                                                           devPrefix="/dev")
+#                node = "/dev/%s" % (volume,)
 
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
