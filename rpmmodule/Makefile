@@ -13,7 +13,7 @@ INCLUDES = -I/usr/include/rpm -I/usr/include/python1.5
 CFLAGS   = -Wall -fPIC -g -DHAVE_LIBIO $(INCLUDES)
 
 LIBS     = -lrpm -lbz2 -lz -ldb1
-LDFLAGS  = -shared -Wl,-soname,$(TARGET) $(LIBS)
+LDFLAGS  = -g -shared -Wl,-soname,$(TARGET) $(LIBS)
 
 # what are we building here?
 TARGET   = rpmmodule.so
