@@ -212,7 +212,7 @@ clean:
 	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
 	      loader.po loader.tr tr/*.tr loader init loader-local-kon loader-network-kon \
               loader-pcmcia-kon
-	for n in $(DIRS); do \
+	for n in "$(DIRS)" ; do \
 	    (cd $$n; make clean) \
 	done
 
