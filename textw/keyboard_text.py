@@ -52,6 +52,6 @@ class KeyboardWindow:
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
-	    log.log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+	    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
 
