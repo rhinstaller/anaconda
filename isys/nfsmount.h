@@ -44,9 +44,12 @@
 /* from @(#)mount.x	1.3 91/03/11 TIRPC 1.0 */
 #ifndef _rpcsvc_mount_h
 #define _rpcsvc_mount_h
+#include <asm/types.h>
+#define MOUNTPORT 635
 #define MNTPATHLEN 1024
 #define MNTNAMLEN 255
 #define FHSIZE 32
+#define FHSIZE3 64
 
 typedef char fhandle[FHSIZE];
 #ifdef __cplusplus 
@@ -55,6 +58,41 @@ extern "C" bool_t xdr_fhandle(XDR *, fhandle);
 extern  bool_t xdr_fhandle(XDR *, fhandle);
 #else /* Old Style C */ 
 bool_t xdr_fhandle();
+#endif /* Old Style C */ 
+
+
+typedef struct {
+	u_int fhandle3_len;
+	char *fhandle3_val;
+} fhandle3;
+#ifdef __cplusplus 
+extern "C" bool_t xdr_fhandle3(XDR *, fhandle3*);
+#elif __STDC__ 
+extern  bool_t xdr_fhandle3(XDR *, fhandle3*);
+#else /* Old Style C */ 
+bool_t xdr_fhandle3();
+#endif /* Old Style C */ 
+
+
+enum mountstat3 {
+	MNT_OK = 0,
+	MNT3ERR_PERM = 1,
+	MNT3ERR_NOENT = 2,
+	MNT3ERR_IO = 5,
+	MNT3ERR_ACCES = 13,
+	MNT3ERR_NOTDIR = 20,
+	MNT3ERR_INVAL = 22,
+	MNT3ERR_NAMETOOLONG = 63,
+	MNT3ERR_NOTSUPP = 10004,
+	MNT3ERR_SERVERFAULT = 10006,
+};
+typedef enum mountstat3 mountstat3;
+#ifdef __cplusplus 
+extern "C" bool_t xdr_mountstat3(XDR *, mountstat3*);
+#elif __STDC__ 
+extern  bool_t xdr_mountstat3(XDR *, mountstat3*);
+#else /* Old Style C */ 
+bool_t xdr_mountstat3();
 #endif /* Old Style C */ 
 
 
@@ -71,6 +109,39 @@ extern "C" bool_t xdr_fhstatus(XDR *, fhstatus*);
 extern  bool_t xdr_fhstatus(XDR *, fhstatus*);
 #else /* Old Style C */ 
 bool_t xdr_fhstatus();
+#endif /* Old Style C */ 
+
+
+struct mountres3_ok {
+	fhandle3 fhandle;
+	struct {
+		u_int auth_flavours_len;
+		int *auth_flavours_val;
+	} auth_flavours;
+};
+typedef struct mountres3_ok mountres3_ok;
+#ifdef __cplusplus 
+extern "C" bool_t xdr_mountres3_ok(XDR *, mountres3_ok*);
+#elif __STDC__ 
+extern  bool_t xdr_mountres3_ok(XDR *, mountres3_ok*);
+#else /* Old Style C */ 
+bool_t xdr_mountres3_ok();
+#endif /* Old Style C */ 
+
+
+struct mountres3 {
+	mountstat3 fhs_status;
+	union {
+		mountres3_ok mountinfo;
+	} mountres3_u;
+};
+typedef struct mountres3 mountres3;
+#ifdef __cplusplus 
+extern "C" bool_t xdr_mountres3(XDR *, mountres3*);
+#elif __STDC__ 
+extern  bool_t xdr_mountres3(XDR *, mountres3*);
+#else /* Old Style C */ 
+bool_t xdr_mountres3();
 #endif /* Old Style C */ 
 
 
@@ -320,6 +391,68 @@ extern  exports * mountproc_exportall_2_svc();
 #define MOUNTPROC_PATHCONF ((u_long)7)
 extern  ppathcnf * mountproc_pathconf_2();
 extern  ppathcnf * mountproc_pathconf_2_svc();
+#endif /* Old Style C */ 
+#define MOUNT_V3 ((u_long)3)
+
+#ifdef __cplusplus
+#define MOUNTPROC3_NULL ((u_long)0)
+extern "C" void * mountproc3_null_3(void *, CLIENT *);
+extern "C" void * mountproc3_null_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_MNT ((u_long)1)
+extern "C" mountres3 * mountproc3_mnt_3(dirpath *, CLIENT *);
+extern "C" mountres3 * mountproc3_mnt_3_svc(dirpath *, struct svc_req *);
+#define MOUNTPROC3_DUMP ((u_long)2)
+extern "C" mountlist * mountproc3_dump_3(void *, CLIENT *);
+extern "C" mountlist * mountproc3_dump_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_UMNT ((u_long)3)
+extern "C" void * mountproc3_umnt_3(dirpath *, CLIENT *);
+extern "C" void * mountproc3_umnt_3_svc(dirpath *, struct svc_req *);
+#define MOUNTPROC3_UMNTALL ((u_long)4)
+extern "C" void * mountproc3_umntall_3(void *, CLIENT *);
+extern "C" void * mountproc3_umntall_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_EXPORT ((u_long)5)
+extern "C" exports * mountproc3_export_3(void *, CLIENT *);
+extern "C" exports * mountproc3_export_3_svc(void *, struct svc_req *);
+
+#elif __STDC__
+#define MOUNTPROC3_NULL ((u_long)0)
+extern  void * mountproc3_null_3(void *, CLIENT *);
+extern  void * mountproc3_null_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_MNT ((u_long)1)
+extern  mountres3 * mountproc3_mnt_3(dirpath *, CLIENT *);
+extern  mountres3 * mountproc3_mnt_3_svc(dirpath *, struct svc_req *);
+#define MOUNTPROC3_DUMP ((u_long)2)
+extern  mountlist * mountproc3_dump_3(void *, CLIENT *);
+extern  mountlist * mountproc3_dump_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_UMNT ((u_long)3)
+extern  void * mountproc3_umnt_3(dirpath *, CLIENT *);
+extern  void * mountproc3_umnt_3_svc(dirpath *, struct svc_req *);
+#define MOUNTPROC3_UMNTALL ((u_long)4)
+extern  void * mountproc3_umntall_3(void *, CLIENT *);
+extern  void * mountproc3_umntall_3_svc(void *, struct svc_req *);
+#define MOUNTPROC3_EXPORT ((u_long)5)
+extern  exports * mountproc3_export_3(void *, CLIENT *);
+extern  exports * mountproc3_export_3_svc(void *, struct svc_req *);
+
+#else /* Old Style C */ 
+#define MOUNTPROC3_NULL ((u_long)0)
+extern  void * mountproc3_null_3();
+extern  void * mountproc3_null_3_svc();
+#define MOUNTPROC3_MNT ((u_long)1)
+extern  mountres3 * mountproc3_mnt_3();
+extern  mountres3 * mountproc3_mnt_3_svc();
+#define MOUNTPROC3_DUMP ((u_long)2)
+extern  mountlist * mountproc3_dump_3();
+extern  mountlist * mountproc3_dump_3_svc();
+#define MOUNTPROC3_UMNT ((u_long)3)
+extern  void * mountproc3_umnt_3();
+extern  void * mountproc3_umnt_3_svc();
+#define MOUNTPROC3_UMNTALL ((u_long)4)
+extern  void * mountproc3_umntall_3();
+extern  void * mountproc3_umntall_3_svc();
+#define MOUNTPROC3_EXPORT ((u_long)5)
+extern  exports * mountproc3_export_3();
+extern  exports * mountproc3_export_3_svc();
 #endif /* Old Style C */ 
 
 #endif /* !_NFSMOUNT_H_RPCGEN */
