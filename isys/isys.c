@@ -48,20 +48,14 @@ static PyObject * doLoSetup(PyObject * s, PyObject * args);
 static PyObject * doUnLoSetup(PyObject * s, PyObject * args);
 static PyObject * doDdFile(PyObject * s, PyObject * args);
 static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
-<<<<<<< isys.c
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
-=======
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
->>>>>>> 1.30
 
 static PyMethodDef isysModuleMethods[] = {
-<<<<<<< isys.c
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
-=======
     { "raidstop", (PyCFunction) doRaidStop, METH_VARARGS, NULL },
     { "raidstart", (PyCFunction) doRaidStart, METH_VARARGS, NULL },
->>>>>>> 1.30
     { "getraidsb", (PyCFunction) doGetRaidSuperblock, METH_VARARGS, NULL },
     { "losetup", (PyCFunction) doLoSetup, METH_VARARGS, NULL },
     { "unlosetup", (PyCFunction) doUnLoSetup, METH_VARARGS, NULL },
