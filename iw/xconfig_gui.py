@@ -93,7 +93,7 @@ class XCustomWindow (InstallWindow):
         if desktop == "GNOME":
             im = self.ics.readPixmap ("gnome.png")
         elif desktop == "KDE":
-            im = self.ics.readPixmap ("kde2.png")            
+            im = self.ics.readPixmap ("kde.png")            
 
         self.vbox4.destroy ()
 
@@ -318,7 +318,7 @@ class XCustomWindow (InstallWindow):
             kde_radio = GtkRadioButton(None, (_("KDE")))
             vbox3.pack_start (kde_radio, TRUE, FALSE, 10)
 
-            im = self.ics.readPixmap ("kde2.png")
+            im = self.ics.readPixmap ("kde.png")
             if im:
                 im.render ()
                 pix = im.make_pixmap ()
@@ -1142,9 +1142,9 @@ class XConfigWindow (InstallWindow):
                     node = self.ctree.insert_node (other, None, (card,), 2)
                     self.ctree.node_set_row_data(node, (other, card))
 
-
-                if card == self.todo.videoCardOriginalName:
-                    self.todo.videoCardOriginalNode = node
+                if self.todo.videoCardOriginalName != "":
+                    if card == self.todo.videoCardOriginalName:
+                        self.todo.videoCardOriginalNode = node
 
                 if self.todo.x.vidCards:
                     if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
