@@ -574,9 +574,6 @@ class ToDo:
 	# naturally
         (devices, raid) = self.ddruid.partitionList()
 
-	if createSwap:
-	    self.swapCreated = 1
-	  
 	if raid:
 	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
 
@@ -593,6 +590,7 @@ class ToDo:
 	    # XXX remove extraneous inodes here
 
         keys = self.mounts.keys ()
+
 	keys.sort()
 	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
@@ -639,6 +637,9 @@ class ToDo:
                 pass
 
             os.remove('/tmp/' + device)
+
+	if createSwap:
+	    self.swapCreated = 1
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
