@@ -3,7 +3,7 @@
 
 #define MIN_ROOTPART_SIZE_MB	250
 
-#define MIN_RAM			17000	    /* 20M or so */
+#define MIN_RAM			30000	    /* 30M or so */
 #define MIN_GUI_RAM		35000
 #define EARLY_SWAP_RAM		34000
 
