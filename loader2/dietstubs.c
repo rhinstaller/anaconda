@@ -191,3 +191,16 @@ char *setlocale (int category, const char *locale) {
 	return "en_US.UTF-8";
     return 0;
 }
+
+void *gzopen(const char *file) {
+    return gunzip_open(file);
+}
+
+int gzread(void *str, void * buf, int bytes) {
+    return gunzip_read(str, buf, bytes);
+}
+
+int gzclose(void *str) {
+    return gunzip_close(str);
+}
+     

@@ -116,6 +116,7 @@ static void loadLanguageList(int flags) {
             numLanguages++;
         }
     }
+    fclose(f);
 }
 
 int getLangInfo(struct langInfo ** langs, int flags) {
@@ -215,6 +216,19 @@ void setLanguage (char * key, int flags) {
     }
 }
 
+/* returns 0 on success, 1 on failure */
+extern int bterm_main(int argc, char **argv);
+int startBterm(int flags) {
+    char *args[4] = { "bterm", "-s", "-f", "/usr/lib/bogl/font.bgf.gz" };
+    int rc;
+    
+    stopNewt();
+    rc = bterm_main(4, args);
+    logMessage("returning, rc is %d", rc);
+    startNewt(flags);
+    return rc;
+}
+
 int chooseLanguage(char ** lang, int flags) {
     int choice = 0;
     char ** langs;
@@ -226,8 +240,6 @@ int chooseLanguage(char ** lang, int flags) {
     char * langPicked;
     char * buf;
 
-    /* JKFIXME: I ripped out some of the wacky Kon stuff.  it might need
-     * to come back for bterm */
     if (!languages) loadLanguageList(flags);
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
@@ -285,29 +297,18 @@ int chooseLanguage(char ** lang, int flags) {
         return 0;
     }
 
-    /* only set the environment variables when we actually have a way
-       to display the language */
-    if (strcmp(languages[choice].font, "None")) {
-        setenv("LANG", languages[choice].lc_all, 1);
-        setenv("LANGKEY", languages[choice].key, 1);
-        setenv("LC_ALL", languages[choice].lc_all, 1);
-        setenv("LINGUAS", languages[choice].lc_all, 1);
-    }
-    
-    if (strings) {
-        free(strings), strings = NULL;
-        numStrings = allocedStrings = 0;
-    }
-
     /* load the language only if it is displayable */
-    if (!strcmp(languages[choice].font, "None")) {
-        newtWinMessage("Language Unavailable", "OK", 
-                       "%s display is unavailable in text mode.  The "
-                       "installation will continue in English until the "
-                       "display of %s is possible.", languages[choice].lang,
-                       languages[choice].lang);
+    /* disable until working */
+    if (1 || !strcmp(languages[choice].font, "bterm") && startBterm(flags)) {
+	newtWinMessage("Language Unavailable", "OK", 
+		       "%s display is unavailable in text mode.  The "
+		       "installation will continue in English until the "
+		       "display of %s is possible.", languages[choice].lang,
+		       languages[choice].lang);
+	return 0;
     } else {
-        loadLanguage (NULL, flags);
+	setLanguage (languages[choice].key, flags);
+	loadLanguage (NULL, flags);
     }
     
     buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
