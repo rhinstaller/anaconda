@@ -14,3 +14,9 @@ for n in db.findbyname('glibc'):
 for n in db.findbyfile('/bin/bash'):
      print "match:", db[n]['name']
 
+key = db.firstkey()
+while key:
+	print "got:", db[key]['name']
+	
+	key = db.nextkey(key)
+
