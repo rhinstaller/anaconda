@@ -498,9 +498,6 @@ def setupTimezone(timezone, upgrade, instPath, dir):
             
 
 def doPreInstall(method, id, intf, instPath, dir):
-    if flags.test:
-	return
-
     if dir == DISPATCH_BACK:
         return
 
@@ -529,7 +526,11 @@ def doPreInstall(method, id, intf, instPath, dir):
         if arch == "s390":
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
-	elif isys.smpAvailable() or isys.htavailable():
+        elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
+            print "selecting kernel-pseries"
+            select(id.hdList, 'kernel-pseries')
+                
+	if isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-bigmem')):
@@ -576,6 +577,9 @@ def doPreInstall(method, id, intf, instPath, dir):
 
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
+
+    if flags.test:
+	return
 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
