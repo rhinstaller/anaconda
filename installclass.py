@@ -270,9 +270,10 @@ def availableClasses():
     list = []
     for file in files:
 	if file[0] == '.': continue
-        if len (file) >= 3:
-            if file[-3:] != ".py":
-                continue
+        if len (file) < 4:
+	    continue
+	if file[-3:] != ".py" and file[-4:-1] != ".py":
+	    continue
 	mainName = string.split(file, ".")[0]
 	if done.has_key(mainName): continue
 	done[mainName] = 1
