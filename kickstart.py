@@ -413,6 +413,31 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("checkmonitorok")
         self.skipSteps.append("setsanex")
 
+    def doMonitor(self, id, args):
+	(args, extra) = isys.getopt(args, '',
+                                    [ 'monitor=', 'hsync=', 'vsync=' ])
+
+	if extra:
+	    raise ValueError, "unexpected arguments to monitor command"
+
+	monitor = None
+	hsync = None
+	vsync = None
+
+	for n in args:
+	    (str, arg) = n
+	    if (str == "--monitor"):
+		monitor = arg
+	    elif (str == "--hsync"):
+		hsync = arg
+	    elif (str == "--vsync"):
+		vsync = arg
+
+        self.skipSteps.append("monitor")
+        self.skipSteps.append("checkmonitorok")
+
+        self.setMonitor(id, hsync = hsync, vsync = vsync,
+                        monitorName = monitor)
 
     def doUpgrade(self, id, args):
 	self.installType = "upgrade"
@@ -584,6 +609,7 @@ class KickstartBase(BaseInstallClass):
 		     "url"		: None			,
 		     "upgrade"		: self.doUpgrade	,
 		     "xconfig"		: self.doXconfig	,
+                     "monitor"		: self.doMonitor	,
 		     "xdisplay"		: None			,
 		     "zerombr"		: self.doZeroMbr	,
                      "interactive"      : self.doInteractive    ,
