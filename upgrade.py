@@ -4,7 +4,7 @@ import os
 from translate import _
 import raid
 import fstab
-import log
+from log import log
 
 def findExistingRoots (intf, theFstab):
     rootparts = []
