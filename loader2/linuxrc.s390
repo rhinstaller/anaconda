@@ -189,6 +189,11 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi"
 		  fi
     fi
 else  # ctc0, escon0, iucv0
+    if [ -z "$NETMASK" ]; then
+        # If the user did not supply netmask, we add the right one.
+        # Netmask MUST be present, or pumpSetupInterface() blows routes.
+        NETMASK="255.255.255.255"
+    fi
 	 while [ -z "$GATEWAY" ]; do
 		  echo $"Enter the IP of your ctc/escon/iucv point-to-point partner:"
 		  read GATEWAY
