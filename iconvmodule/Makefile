@@ -5,3 +5,7 @@ all:
 
 install:
 	$(PYTHON) setup.py install --install-lib=$(DESTDIR)/$(PYTHONLIBDIR)
+
+depend:
+
+clean:
