@@ -14,13 +14,19 @@ if [ $ARCH = ia64 ]; then
     STRIP="strip --strip-debug"
 fi
 
+if [ $ARCH = x86_64 ]; then
+    LIBDIR=lib64
+else
+    LIBDIR=lib
+fi
+
 # Must create ld.so.conf, because ldconfig does not cache
 # dirs specified on the command line.
 touch $p/etc/ld.so.conf
 mkdir $p/proc
 mount -t proc proc $p/proc
-[ -d $p/usr/X11R6/lib ] && echo /usr/X11R6/lib > $p/etc/ld.so.conf
-echo /usr/kerberos/lib > $p/etc/ld.so.conf
+[ -d $p/usr/X11R6/$LIBDIR ] && echo /usr/X11R6/$LIBDIR > $p/etc/ld.so.conf
+echo /usr/kerberos/$LIBDIR > $p/etc/ld.so.conf
 (cd $p; /usr/sbin/chroot $p usr/sbin/ldconfig )
 
 if [ $ARCH != s390 -a $ARCH != s390x ]; then
@@ -51,7 +57,7 @@ done
 
 umount $p/proc
 
-for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/lib/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
+for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/$LIBDIR/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
     $STRIP $l -R .comment -R .note `objdump -h $l | \
 	sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 done

@@ -692,10 +692,10 @@ usr/bin/sftp
 usr/bin/ssh
 usr/bin/termidx
 usr/bin/xargs
-usr/kerberos/lib/libgssapi*
-usr/kerberos/lib/libkrb5*
-usr/kerberos/lib/libk5crypto*
-usr/kerberos/lib/libcom_err*
+usr/kerberos/$LIBDIR/libgssapi*
+usr/kerberos/$LIBDIR/libkrb5*
+usr/kerberos/$LIBDIR/libk5crypto*
+usr/kerberos/$LIBDIR/libcom_err*
 usr/sbin/mtr
 usr/sbin/traceroute
 EOF
