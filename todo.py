@@ -136,25 +136,26 @@ class Network:
 
 class Password:
     def __init__ (self):
-        self.crypt = ""
+        self.crypt = None
 	self.pure = None
 
     def getPure(self):
 	return self.pure
 
     def set (self, password, isCrypted = 0):
-        if not isCrypted:
+	if isCrypted:
+	    self.crypt = password
+	    self.pure = None
+	else:
             salt = (whrandom.choice (string.letters +
                                      string.digits + './') + 
                     whrandom.choice (string.letters +
                                      string.digits + './'))
             self.crypt = crypt.crypt (password, salt)
 	    self.pure = password
-        else:
-            self.crypt = password
 
-    def get (self):
-        return self.crypt
+    def getCrypted(self):
+	return self.crypt
 
 class Desktop (SimpleConfigFile):
     def __init__ (self):
@@ -1047,20 +1048,25 @@ class ToDo:
         f.close ()
 
     def writeRootPassword (self):
-        f = open (self.instPath + "/etc/passwd", "r")
-        lines = f.readlines ()
-        f.close ()
-        index = 0
-        for line in lines:
-            if line[0:4] == "root":
-                entry = string.splitfields (line, ':')
-                entry[1] = self.rootpassword.get ()
-                lines[index] = string.joinfields (entry, ':')
-                break
-            index = index + 1
-        f = open (self.instPath + "/etc/passwd", "w")
-        f.writelines (lines)
-        f.close ()
+	pure = self.rootpassword.getPure()
+	if pure:
+	    self.setPassword("root", pure)
+	else:
+	    # we need to splice in an already crypted password for kickstart
+	    f = open (self.instPath + "/etc/passwd", "r")
+	    lines = f.readlines ()
+	    f.close ()
+	    index = 0
+	    for line in lines:
+		if line[0:4] == "root":
+		    entry = string.splitfields (line, ':')
+		    entry[1] = self.rootpassword.get ()
+		    lines[index] = string.joinfields (entry, ':')
+		    break
+		index = index + 1
+	    f = open (self.instPath + "/etc/passwd", "w")
+	    f.writelines (lines)
+	    f.close ()
 
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]
@@ -1302,6 +1308,19 @@ class ToDo:
     def getUserList(todo):
 	return todo.users
 
+    def setPassword(todo, account, password):
+	todo.log("in SetPassword for %s %s" % (account, password))
+	devnull = os.open("/dev/null", os.O_RDWR)
+
+	argv = [ "/usr/bin/passwd", "--stdin", account ]
+	p = os.pipe()
+	os.write(p[1], password + "\n")
+	iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
+			       stdin = p[0], stdout = devnull)
+	os.close(p[0])
+	os.close(p[1])
+	os.close(devnull)
+
     def createAccounts(todo):
 	if not todo.users: return
 
@@ -1316,13 +1335,8 @@ class ToDo:
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath,
 				   stdout = devnull)
         
-	    argv = [ "/usr/bin/passwd", "--stdin", account ]
-	    p = os.pipe()
-	    os.write(p[1], password + "\n")
-	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
-				   stdin = p[0], stdout = devnull)
-	    os.close(p[0])
-	    os.close(p[1])
+	    todo.setPassword(account, password)
+
 	    os.close(devnull)
 
     def createCdrom(self):
@@ -1581,8 +1595,8 @@ class ToDo:
             self.writeMouse ()
             self.writeKeyboard ()
             self.writeNetworkConfig ()
-            self.writeRootPassword ()
             self.setupAuthentication ()
+            self.writeRootPassword ()
 	    self.createAccounts ()
 	    self.writeTimezone()
             self.writeDesktop ()
