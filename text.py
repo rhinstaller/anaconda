@@ -951,6 +951,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def packageProgressWindow(self, total, totalSize):
+        self.screen.pushHelpLine (_(" "))
 	return InstallProgressWindow(self.screen, total, totalSize)
 
     def drawFrame(self):
