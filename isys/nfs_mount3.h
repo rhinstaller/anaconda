@@ -10,9 +10,11 @@
 
 #define _LINUX_IN_H 1
 
-#define __KERNEL__
-#include <linux/nfs.h>
-#undef __KERNEL__
+#define NFS_MAXFHSIZE		64
+struct nfs_fh {
+	unsigned short		size;
+	unsigned char		data[NFS_MAXFHSIZE];
+};
 
 #include <linux/nfs2.h>
 #include <linux/nfs_mount.h>
