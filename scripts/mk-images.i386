@@ -5,8 +5,8 @@ makebootdisk boot.img loader-local "vfat
 	BusLogic qlogicisp advansys eata_dma"
 
 makebootdisk bootnet.img loader-network "3c59x ac3200 at1700 de4x5 
-	de600 de620 depca dgrs eepro eexpress hp-plus hp 
-	hp100 ibmtr ni52 old_tulip tulip wavelan wd nfs vfat"
+	de600 de620 depca dgrs eepro100 eepro hp-plus hp 
+	hp100 ibmtr ni52 old_tulip tulip ne nfs vfat"
 
 makedriverdisk "drivers" "+scsi -net"
 
