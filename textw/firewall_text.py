@@ -16,7 +16,6 @@
 from snack import *
 from constants_text import *
 from translate import _
-import iutil
 
 class FirewallWindow:
     def __call__(self, screen, network, firewall):

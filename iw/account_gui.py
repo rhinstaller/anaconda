@@ -51,7 +51,6 @@ class AccountWindow (InstallWindow):
 	if (password1 and password1 == password2 and
 	    self.userAccountMatch.search(accountName) and
 	    len(accountName) <= 8 and len(password1) > 5) and accountName != "root":
-	    valid = 1
 	    self.userPwLabel.set_text(_("User password accepted."))
 	else:
 	    if not accountName:
@@ -64,8 +63,6 @@ class AccountWindow (InstallWindow):
 		self.userPwLabel.set_text (_("User password is too short."))
 	    else:
 		self.userPwLabel.set_text (_("User passwords do not match."))
-
-	    valid = 0
 
     def userSelected(self, *args):
 	index = self.userList.selection
@@ -112,7 +109,6 @@ class AccountWindow (InstallWindow):
 
 	accountName = self.accountName.get_text()
 	password1 = self.userPass1.get_text()
-        password2 = self.userPass2.get_text()
 	fullName = self.fullName.get_text()
         index = index[0]        #Get first item in the list
 

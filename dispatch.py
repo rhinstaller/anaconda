@@ -200,7 +200,6 @@ class Dispatcher:
 	self.dir = DISPATCH_FORWARD
 	self.step = None
 	self.skipSteps = {}
-	dispatch = self
 
 	self.id = id
 	self.flags = flags

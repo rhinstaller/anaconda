@@ -16,16 +16,17 @@
 import isys
 import _balkan
 import os
-from translate import _
 import raid
 import iutil
-from log import log
-import os.path
-from flags import flags
-from partitioning import *
 import fsset
 import time
 import rpm
+import sys
+import os.path
+from flags import flags
+from partitioning import *
+from log import log
+from translate import _
 
 def findExistingRoots (intf, id, chroot):
     if not flags.setupFilesystems: return [ (chroot, 'ext2') ]
