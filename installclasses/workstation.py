@@ -12,13 +12,42 @@ class InstallClass(BaseInstallClass):
 
     sortPriority = 1
 
+    # FIXME: THIS IS A HORRIBLE HACK AND MUST GO AWAY
+    def selectDependentHiddenGroups(self, id):
+        BaseInstallClass.selectDependentHiddenGroups(self, id)
+        if id.comps["GNOME Desktop Environment"].isSelected():
+            log("GNOME was selected, adding necessary components")
+            id.comps["GNOME Office/Productivity Software"].select()
+            id.comps["GNOME Multimedia Software"].select()
+            id.comps["GNOME Messaging and Web Tools"].select()            
+            if id.comps["Games and Entertainment"].isSelected():
+                id.comps["GNOME Games and Entertainment"].select()
+            if id.comps["Software Development"].isSelected():
+                id.comps["GNOME Software Development"].select()
+
+        if id.comps["KDE Desktop Environment"].isSelected():
+            log("KDE was selected, adding necessary components")
+            id.comps["KDE Office/Productivity Software"].select()
+            id.comps["KDE Multimedia Software"].select()
+            id.comps["KDE Messaging and Web Tools"].select()            
+            if id.comps["Games and Entertainment"].isSelected():
+                id.comps["KDE Games and Entertainment"].select()
+            if id.comps["Software Development"].isSelected():
+                id.comps["KDE Software Development"].select()
+
+        if id.comps["Games and Entertainment"].isSelected():
+            id.comps["X Based Games and Entertainment"].select()
+        if id.comps["Software Development"].isSelected():
+            id.comps["X Software Development"].select()
+
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("authentication")
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
-	self.showGroups(comps, [ "KDE", ("GNOME", 1),
+	self.showGroups(comps, [ "KDE Desktop Environment",
+                                 ("GNOME Desktop Environment", 1),
                                  "Software Development",
                                  "Games and Entertainment" ] )
         comps["Workstation Common"].select()
