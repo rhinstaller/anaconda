@@ -271,15 +271,10 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 
 	qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
 
-	if (FL_MODDISK(flags)) {
-	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
-		    "If the driver you need does not appear in this list, and "
-		    "you have a separate driver disk, please press F2."),
-					30, 0, 10, 0);
-	} else {
-	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?"),
-					20, 0, 10, 0);
-	}
+	text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
+		"If the driver you need does not appear in this list, and "
+		"you have a separate driver disk, please press F2."),
+				    30, 0, 10, 0);
 
 	listbox = newtListbox(-1, -1, 6, 
 			NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
@@ -289,9 +284,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 				specifyParameters, NULL, &specifyParameters);
 
 	form = newtForm(NULL, NULL, 0);
-
-	if (FL_MODDISK(flags))
-	    newtFormAddHotKey(form, NEWT_KEY_F2);
+	newtFormAddHotKey(form, NEWT_KEY_F2);
 
 	for (i = 0; i < numSorted; i++) {
 	    int num = sortedOrder[i].index;
