@@ -93,7 +93,7 @@ class XF86Config:
         return cards
 
     def monitors (self, lines = None):
-        monitors = []
+        monitors = {}
         if not lines:
             db = open ('/usr/X11R6/share/Xconfigurator/MonitorsDB')
             lines = db.readlines ()
@@ -105,7 +105,9 @@ class XF86Config:
                 continue
             if line and line[0] == '#':
                 continue
-            monitors.append (string.split (line, ';', 1)[0])
+            fields = string.split (line, ';')
+            print fields
+            monitors [fields[0]] = (fields[2], fields[3])
         return monitors
 
     def setVidcard (self, card):
@@ -212,7 +214,7 @@ Section "Pointer"
     Emulate3Buttons
     Emulate3Timeout    50
 EndSection
-""" % settings)
+""" % self.mouse)
 
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
