@@ -187,10 +187,10 @@ void loadLanguage (char * file, int flags) {
         }
 
         strings[numStrings].hash = ntohl(hash);
-        read(fd, &strings[numStrings].length, 2);
+        rc = read(fd, &strings[numStrings].length, 2);
         strings[numStrings].length = ntohs(strings[numStrings].length);
         strings[numStrings].str = malloc(strings[numStrings].length + 1);
-        read(fd, strings[numStrings].str, strings[numStrings].length);
+        rc = read(fd, strings[numStrings].str, strings[numStrings].length);
         strings[numStrings].str[strings[numStrings].length] = '\0';
         numStrings++;
     }
