@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
-import sys, os
+import sys, os, signal
+signal.signal(signal.SIGINT, signal.SIG_DFL)
 
 #
 # For anaconda in reconfig mode
