@@ -58,6 +58,8 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci de4x5
 	       eepro100 e100 tulip pcnet32 hp100
 	       sis900 "
 
+PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
+
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
 	   --initrdsize 2100 \
 	   --loaderbin loader-local \
@@ -93,7 +95,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
 	   --initrdsize 2200 \
 	   --loaderbin loader-pcmcia \
-	   --modules "nfs vfat $IDEMODS $SCSIMODS"
+	   --modules "$PCMCIAMAINMODULES"
 
 for I in `find $BOOTDISKDIR -type d`; do
     BOOTLANG=`basename $I`
@@ -148,7 +150,7 @@ makebootdisk --imagename ja/pcmcia.img \
 			    --pcmcia \
 		     	    --initrdsize 2800 \
 			    --loaderbin loader-pcmcia-kon \
-			    --modules "nfs vfat"'
+			    --modules "$PCMCIAMAINMODULES"
 
 makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
 
