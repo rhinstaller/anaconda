@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.21
+Version: 10.2.0.22
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Feb 20 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.22-1
+- revert some of the ppc changes so that lvm is used (nasrat)
+- Try to fix bogl stuff some more (#149039)
+- x86_64 install fixes (#149040)
+
 * Sun Feb 20 2005 Peter Jones <pjones@redhat.com> - 10.2.0.21-1
 - get rid of lilo
 - make grub work with raid1 /boot and /root
