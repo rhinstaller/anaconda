@@ -95,14 +95,28 @@ class Network:
                 self.netdevices [info["DEVICE"]].set (("BOOTPROTO", info["BOOTPROTO"]))
             if info.has_key ("GATEWAY"):
                 self.gateway = info["GATEWAY"]
-            if info.has_key ("NS1"):
-                self.primaryNS = info["NS1"]
             if info.has_key ("DOMAIN"):
                 self.domains.append(info["DOMAIN"])
             if info.has_key ("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
             
             self.readData = 1
+	try:
+	    f = open ("/etc/resolv.conf", "r")
+	except:
+	    pass
+	else:
+	    lines = f.readlines ()
+	    f.close ()
+	    for line in lines:
+		resolv = string.split (line)
+		if resolv[0] == 'nameserver':
+		    if self.primaryNS == "":
+			self.primaryNS = resolv[1]
+		    elif self.secondaryNS == "":
+			self.secondaryNS = resolv[1]
+		    elif self.ternaryNS == "":
+			self.ternaryNS = resolv[1]
     
     def available (self):
         f = open ("/proc/net/dev")

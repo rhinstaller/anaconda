@@ -172,7 +172,10 @@ EndSection
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
-    time.sleep (1)
+    # FIXME: Should find out if X server is already running
+    # otherwise with NFS installs the X server may be still being
+    # fetched from the network while we already continue to run
+    time.sleep (4)
     pid, status = os.waitpid (server, os.WNOHANG)
     if status:
         raise RuntimeError, "X server failed to start"

@@ -217,6 +217,9 @@ class XF86Config:
 	    except:
 		pass
 	    if not self.vidRam and self.device:
+		if self.server and len (self.server) >= 3 and self.server[0:3] == 'Sun':
+		    # fbconProbe gives bogus video RAM reports on SBUS and UPA servers
+		    return
 		try:
 		    self.vidRam = "%d" % isys.fbconProbe("/dev/" + self.device)
 		except:

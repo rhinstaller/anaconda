@@ -137,12 +137,32 @@ class SiloInstall:
 	    i = i - 1
 	boothd = bootpart[:i+1]
 
-	return (bootpart, boothd)
+	mbrpart = None
+
+	(drives, raid) = self.todo.ddruid.partitionList()
+	for (dev, devName, type, start, size) in drives:
+	    i = len (dev) - 1
+	    while i > 0 and dev[i] in string.digits:
+		i = i - 1
+	    devhd = dev[:i+1]
+	    if devhd == boothd and start == 0:
+		mbrpart = dev
+		break
+
+	if not mbrpart: mbrpart = boothd + "3"
+	return (bootpart, boothd, mbrpart)
 
     def getSiloMbrDefault(self):
 	# Check partition at cylinder 0 on the boot disk
 	# is /, /boot or Linux swap
-	(bootpart, boothd) = self.getSiloOptions()
+	if self.todo.mounts.has_key ('/boot'):
+	    bootpart = self.todo.mounts['/boot'][0]
+	else:
+	    bootpart = self.todo.mounts['/'][0]
+	i = len (bootpart) - 1
+	while i > 0 and bootpart[i] in string.digits:
+	    i = i - 1
+	boothd = bootpart[:i+1]
 	(drives, raid) = self.todo.ddruid.partitionList()
 	for (dev, devName, type, start, size) in drives:
 	    i = len (dev) - 1
@@ -151,7 +171,7 @@ class SiloInstall:
 	    devhd = dev[:i+1]
 	    if devhd == boothd and start == 0:
 		if type == 5:
-		    return "mbr'"
+		    return "mbr"
 		elif type == 2:
 		    if dev == bootpart:
 			return "mbr"
@@ -201,7 +221,7 @@ class SiloInstall:
 ##	     silo.read (todo.instPath + '/etc/silo.conf')
 ##	 elif not todo.liloDevice: return
 
-	(bootpart, boothd) = self.getSiloOptions()
+	(bootpart, boothd, mbrpart) = self.getSiloOptions()
 	smpInstalled = (self.todo.hdList.has_key('kernel-smp') and 
 			self.todo.hdList['kernel-smp'].selected)
 
@@ -214,7 +234,7 @@ class SiloInstall:
 	args = [ "silo" ]
 
 	if todo.liloDevice == "mbr":
-	    device = boothd
+	    device = mbrpart
 	else:
 	    device = bootpart
 	    args.append("-t")
@@ -330,5 +350,7 @@ class SiloInstall:
 	    if self.linuxAlias and self.hasAliases():
 		linuxAlias = bootDevice
 	    if not self.bootDevice:
-		bootDevice = None
+		bootDevice = ""
+	    if not linuxAlias:
+		linuxAlias = ""
 	    _silo.setPromVars(linuxAlias,bootDevice)
