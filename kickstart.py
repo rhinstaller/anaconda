@@ -1022,6 +1022,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("keyboard")
             dispatch.skipStep("mouse")
             dispatch.skipStep("welcome")
+            dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
         else:
             BaseInstallClass.setSteps(self, dispatch)            
@@ -1038,6 +1039,7 @@ class KickstartBase(BaseInstallClass):
         
 	dispatch.skipStep("bootdisk")
         dispatch.skipStep("welcome")
+        dispatch.skipStep("betanag")
         dispatch.skipStep("package-selection")
         dispatch.skipStep("confirminstall")
         dispatch.skipStep("confirmupgrade")
