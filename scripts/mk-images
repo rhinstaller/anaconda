@@ -638,18 +638,31 @@ findloopdevice () {
 
 makemainimage () {
     imagename=$1
-    tmpimage=/tmp/instimage.img.$$
+    mmi_tmpimage=/tmp/instimage.img.$$
+    mmi_mntpoint=/tmp/instimage.mnt.$$
+    
+    rm -rf $mmi_tmpimage $mmi_mntpoint
+    mkdir $mmi_mntpoint
 
-    rm -f $tmpimage
+    SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
+    if [ -d $IMGPATH/usr/lib/anaconda-runtime ]; then
+	ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
+	SIZE=$(expr $SIZE - $ERROR)
+    fi
+    dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage
+    echo y | mke2fs $mmi_tmpimage > /dev/null 
+    mount -o loop $mmi_tmpimage $mmi_mntpoint
 
-    mkisofs -R -o $tmpimage $IMGPATH 2>&1 | grep -v '^Using'
-    SIZE=$(du -sk $tmpimage | awk '{print $1}')
+    (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
+	    cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
+    umount $mmi_mntpoint
 
-    cp $tmpimage $INSTIMGPATH/${imagename}.img
+    cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
 
     echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
 
-    rm $tmpimage
+    rm $mmi_tmpimage
+    rmdir $mmi_mntpoint
 }
 
 makedriverdisk () {
