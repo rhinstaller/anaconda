@@ -658,9 +658,11 @@ Section "Screen"
             section = section + """
         ViewPort    0 0
     EndSubsection
+EndSection
 """
         section = section + """
-# Other accelerated servers
+# The accelerated servers (S3, Mach32, Mach8, 8514, P9000, AGX, W32, Mach64
+# I128, S3V, 3DLabs)
 Section "Screen"
     Driver      "accel"
     Device      "%(DEVICE)s"
