@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.2
+Version: 10.1.1.3
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Oct 26 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.3-1
+- Pull in firefox on upgrade if mozilla/netscape were installed (#137244)
+- Fix s390 tracebacks (#130123, #137239)
+
 * Tue Oct 26 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.2-1
 - Handle our LVM autopart lines slightly better (#137120)
 - Use busybox sleep for s390 since sleep requires librt again (#131167)
