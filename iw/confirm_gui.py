@@ -1,6 +1,8 @@
 from gtk import *
 from iw_gui import *
 from translate import _
+from package_gui import queryUpgradeContinue
+import gui
 
 class ConfirmWindow (InstallWindow):
 
@@ -15,6 +17,23 @@ class ConfirmWindow (InstallWindow):
         else:
             ics.setTitle (_("About to Install"))
             ics.readHTML ("aboutinstall")
+
+    def getPrev (self):
+        #
+        # if this is a partitionless upgrade, and they did NOT choose
+        # individual package selection, we cannot let them go back as
+        # they will go back too far (we can't leave the upgrade path
+        # and return to the install path once its started).
+        #
+        if self.todo.fstab.rootOnLoop():
+            if self.todo.upgrade and self.todo.instClass.skipStep("indivpackage"):
+                rc = queryUpgradeContinue(self.todo.intf)
+                if not rc:
+                    raise gui.StayOnScreen
+                else:
+                    import sys
+                    print _("Aborting upgrade")
+                    sys.exit(0)
 
     # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
     def getScreen (self):
