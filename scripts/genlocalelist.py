@@ -87,10 +87,6 @@ charFont["ISO-8859-15"] =  "lat0-sun16"
 charFont["UTF-8"] = "latarcyrheb-sun16"
 
 prefNotUtf8 = {}
-prefNotUtf8["ja_JP"] = "EUC-JP"
-prefNotUtf8["ko_KR"] = "EUC-KR"
-prefNotUtf8["zh_CN"] = "GB18030"
-prefNotUtf8["zh_TW"] = "BIG5"
 
 
 f = os.popen("locale -a", "r")
