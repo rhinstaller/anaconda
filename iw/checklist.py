@@ -51,7 +51,7 @@ class CheckList (gtk.TreeView):
         self.checkboxrenderer = gtk.CellRendererToggle()
         column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
         column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
-        column.set_fixed_width(20)
+        column.set_fixed_width(30)
         column.set_clickable(gtk.TRUE)
         self.checkboxrenderer.connect ("toggled", self.toggled_item)        
         self.append_column(column)
@@ -159,3 +159,23 @@ class CheckList (gtk.TreeView):
         col = self.get_column(column)
         if col:
             col.set_sort_column_id(id)
+
+def main():
+    win = gtk.Window()
+    cl = CheckList(1)
+    for i in range(1, 10):
+        cl.append_row("%s" %(i,), gtk.FALSE)
+
+    sw = gtk.ScrolledWindow()
+    sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+    sw.add (cl)
+    sw.set_shadow_type(gtk.SHADOW_IN)
+
+    win.add(sw)
+    win.set_size_request(250, 250)
+    win.show_all()
+
+    gtk.main()
+
+if __name__ == "__main__":
+    main()
