@@ -213,11 +213,9 @@ class Desktop (SimpleConfigFile):
     def set (self, desktop):
         self.info ['DESKTOP'] = desktop
 
-class Language (SimpleConfigFile):
-    def __init__ (self):
-        self.info = {}
-        self.info["SUPPORTED"] = None
+class InstallTimeLanguage:
 
+    def __init__ (self):
 	if os.access("lang-table", os.R_OK):
 	    f = open("lang-table", "r")
 	elif os.access("/etc/lang-table", os.R_OK):
@@ -227,81 +225,36 @@ class Language (SimpleConfigFile):
 
 	lines = f.readlines ()
 	f.close()
-	self.langs = {}
+	self.langNicks = {}
+	self.langNames = {}
 	self.font = {}
 	self.map = {}
+	self.kbd = {}
+	self.tz = {}
+	self.langList = []
 
         self.tempDefault = ""
         
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
-	    self.langs[l[0]] = l[4]
-	    self.font[l[0]] = l[2]
-	    self.map[l[0]] = l[3]
-	
-        # kickstart needs this
-        self.abbrevMap = {}
-        for (key, value) in self.langs.items ():
-            self.abbrevMap[value] = key
+	    
+	    longName = l[0]
+	    font = l[2]
+	    map = l[3]
+	    shortName = l[4]
+	    keyboard = l[5]
+	    timezone = l[6]
 
-        self.japanesehack = 0
-#  XXX we're in the same product now, this would be rude...
-#        if self.abbrevMap.has_key ("ja_JP.eucJP"):
-#            self.japanesehack = 1
-            
-        self.setByAbbrev("en_US")
+	    self.langList.append(longName)
+	    self.langNicks[longName] = shortName
+	    self.langNames[shortName] = longName
+	    self.font[longName] = font
+	    self.map[longName] = map
+	    self.kbd[longName] = keyboard
+	    self.tz[longName] = timezone
 
-    def available (self):
-        return self.langs
-
-    def setByAbbrev(self, lang):
-	self.set(self.abbrevMap[lang])
-
-    def getSupported (self):
-        if self.info["SUPPORTED"]:
-            return string.split (self.info["SUPPORTED"], ':')
-        return None
-
-    def setTempDefault (self, lang):
-        self.tempDefault = lang
-
-    def getTempDefault (self):
-        return self.tempDefault
-
-    def setSupported (self, langlist):
-        if langlist:
-            linguas = string.join (langlist, ':')
-            os.environ["LINGUAS"] = linguas
-            rpm.addMacro("_install_langs", linguas)
-            self.info["SUPPORTED"] = linguas
-        else:
-            self.info["SUPPORTED"] = None
-            rpm.delMacro ("_install_langs")
-    
-    def set (self, lang):
-        self.lang = self.langs[lang]
-        # XXX remove me.
-        if self.japanesehack:
-            self.info["LANG"] = "ja_JP.eucJP"
-            rpm.addMacro("_install_langs", "ja_JP.eucJP")
-            os.environ["LINGUAS"] = "ja_JP.eucJP"
-        else:
-            self.info["LANG"] = self.langs[lang]
-            rpm.addMacro("_install_langs", self.langs[lang])
-
-	if self.font[lang] != "None":
-	    self.info["SYSFONT"] = self.font[lang]
-	    self.info["SYSFONTACM"] = self.map[lang]
-	else:
-            if self.info.has_key("SYSFONT"):
-                del self.info["SYSFONT"]
-            if self.info.has_key("SYSFONTACM"):
-                del self.info["SYSFONTACM"]
-
-        
-    def get (self):
-	return self.lang
+	self.langList.sort()
 
     def getFontMap (self, lang):
 	return self.map[lang]
@@ -311,6 +264,124 @@ class Language (SimpleConfigFile):
 	# name as that's unique, font names are not
 	return self.font[lang]
 
+    def getLangNick (self, lang):
+	return self.langNicks[lang]
+
+    def getLangNameByNick(self, nick):
+	return self.langNames[nick]
+
+    def getDefaultKeyboard(self):
+	return self.kbd[self.getCurrent()]
+
+    def getDefaultTimeZone(self):
+	return self.tz[self.getCurrent()]
+
+    def available (self):
+        return self.langList
+
+    def getCurrent(self):
+	if os.environ.has_key('LANG'):
+	    what = os.environ['LANG']
+	else:
+	    what = 'en_US'
+	return self.getLangNameByNick(what)
+
+class Language (SimpleConfigFile):
+
+    def rpmifyLang(self, str):
+	langs = [str]
+	# remove charset ...
+	if '.' in str:
+	    langs.append(string.split(str, '.')[0])
+
+	# also add 2 character language code ...
+	if len(str) > 2:
+	    langs.append(str[:2])
+
+	return langs
+
+    def __init__ (self):
+        self.info = {}
+        self.info["SUPPORTED"] = None
+	self.supported = []
+	self.default = None
+
+	self.allSupportedLangs = []
+	self.langInfoByName = {}
+	if os.access("/usr/share/anaconda/locale-list", os.R_OK):
+	    f = open("/usr/share/anaconda/locale-list")
+	    lines = f.readlines()
+	    f.close()
+	    for line in lines:
+		line = string.strip(line)
+		(lang, map, font, name) = string.split(line, ' ', 3)
+		self.langInfoByName[name] = (lang, map, font)
+		self.allSupportedLangs.append(name)
+	else:
+	    self.langInfoByName['English (US)'] = ('en_US', 'iso01', 'default8x16')
+	    self.allSupportedLangs.append('English (US)')
+
+    def getAllSupported(self):
+	return self.allSupportedLangs
+
+    def getLangNameByNick(self, nick):
+	for langName in self.langInfoByName.keys():
+	    (lang, map, font) = self.langInfoByName[langName]
+	    if (nick == lang) or (nick == lang[0:len(nick)]):
+		return langName
+
+	raise KeyError, "language %s not found" % nick
+
+    def getSupported (self):
+	return self.supported
+
+    def getDefault (self):
+	if self.default:
+	    return self.default
+	elif os.environ.has_key('LANG'):
+	    lang = os.environ['LANG']
+	    name = self.getLangNameByNick(lang)
+	    if name not in self.getSupported():
+		# the default language needs to be in the supported list!
+		s = self.getSupported()
+		s.append(name)
+		s.sort()
+		self.setSupported(s)
+
+	    return name
+	else:
+	    return 'English (US)'
+    
+    def setDefault(self, name):
+	self.default = name
+	(lang, map, font) = self.langInfoByName[name]
+
+	self.info['LANG'] = lang
+	self.info['SYSFONT'] = font
+	self.info['SYSFONTACM'] = map
+
+    def setSupported (self, langlist):
+	if len(langlist) == len(self.allSupportedLangs):
+            self.info["SUPPORTED"] = None
+	    self.supported = langlist
+            rpm.delMacro ("_install_langs")
+        if langlist:
+	    rpmNickList = []
+	    for name in langlist:
+		(lang, map, font) = self.langInfoByName[name]
+		rpmNickList = rpmNickList + self.rpmifyLang(lang)
+
+            linguas = string.join (rpmNickList, ':')
+            self.info["SUPPORTED"] = linguas
+	    self.supported = langlist
+
+            shortLinguas = string.join (rpmNickList, ':')
+            rpm.addMacro("_install_langs", shortLinguas)
+        else:
+            self.info["SUPPORTED"] = None
+            rpm.delMacro ("_install_langs")
+	    self.supported = None
+    
 class Firewall:
     def __init__ (self):
 	self.enabled = -1
@@ -378,6 +449,7 @@ class ToDo:
 	self.instPath = rootPath
 	self.setupFilesystems = setupFilesystems
 	self.installSystem = installSystem
+        self.instTimeLanguage = InstallTimeLanguage ()
         self.language = Language ()
 	self.serial = serial
         self.reconfigOnly = reconfigOnly
@@ -438,7 +510,6 @@ class ToDo:
         self.depthState = ""
         self.initState = ""
         self.dhcpState = ""
-        self.langState = 0
         self.firewallState = 0
 
         # If reconfig mode, don't probe floppy
@@ -1170,7 +1241,9 @@ class ToDo:
 	    todo.rootpassword.set(todo.instClass.rootPassword,
 			      isCrypted = todo.instClass.rootPasswordCrypted)
 	if todo.instClass.language:
-	    todo.language.setByAbbrev(todo.instClass.language)
+	    langName = todo.language.getLangNameByNick(todo.instClass.language)
+	    todo.language.setSupported([langName])
+	    todo.language.setDefault(langName)
 
 	if todo.instClass.keyboard:
 	    todo.keyboard.set(todo.instClass.keyboard)

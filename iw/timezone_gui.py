@@ -133,7 +133,7 @@ class TimezoneWindow (InstallWindow):
 	    (self.default, asUTC, asArc) = rc
             self.default = _(self.default)
 	else:
-	    self.default = _(iutil.defaultZone (self.todo.language.get()))
+	    self.default = _(self.todo.instTimeLanguage.getDefaultTimeZone())
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):

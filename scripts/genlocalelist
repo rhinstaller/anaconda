@@ -96,22 +96,23 @@ while (<FILE>) {
 	$fullName = "$name ($territory)";
     }
 
-    if ($langList{$lang}) {
-	# this is a hack
-	if (length($langList{$lang}) < length($fullName)) {
-	    $langList{$lang} = $fullName;
-	    $charmapList{$lang} = $charmap;
-	}
-    } else {
-	$langList{$lang} = $fullName;
-	$charmapList{$lang} = $charmap;
-    }
+    $langList{$lang} = $fullName;
+    $charmapList{$lang} = $charmap;
 }
 
 close(FILE);
 
 for $key (keys %langList) {
-    $nameList{$langList{$key}} = $key;
+    $langName = $langList{$key};
+    if ($nameList{$langName}) {
+	# we have a conflict. longest wins
+	if (length($key) > length($nameList{$langName})) {
+	    $nameList{$langName} = $key;
+	} else {
+	}
+    } else {
+	$nameList{$langName} = $key;
+    }
 }
 
 @names = sort(keys %nameList);

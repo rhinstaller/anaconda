@@ -61,7 +61,7 @@ class KeyboardWindow (InstallWindow):
     def getScreen (self):
         if not self.hasrun:
 #            default = iutil.defaultKeyboard(self.todo.language.get())
-            default = iutil.defaultKeyboard(self.icw.getLanguage ())
+            default = self.todo.instTimeLanguage.getDefaultKeyboard()
 #            print default
             
             if Keyboard.console2x.has_key (default):

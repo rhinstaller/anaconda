@@ -18,14 +18,13 @@ class LanguageWindow (InstallWindow):
         ics.readHTML ("lang")
         self.ics = ics
         self.icw = ics.getICW ()
-        self.languages = self.todo.language.available ()
+        self.languages = self.todo.instTimeLanguage.available()
         self.running = 0
         self.lang = None
 
     def getNext (self):
         if self.lang:
-            self.icw.setLanguage (self.languages[self.lang])
-            self.todo.language.setSupported(self.lang)
+            self.icw.setLanguage (self.todo.instTimeLanguage.getLangNick(self.lang))
 
             #--Go ahead and pull the release notes into memory.  This allows them to be viewed
             #--during package installation
@@ -70,18 +69,16 @@ class LanguageWindow (InstallWindow):
         label.set_alignment (0.5, 0.5)
         label.set_line_wrap (TRUE)
         
- 	language_keys = self.languages.keys ()
-        language_keys.sort ()
-
         self.language = GtkCList ()
         self.language.set_selection_mode (SELECTION_BROWSE)
         self.language.connect ("select_row", self.select_row)
 
         default = -1
         n = 0
-        for locale in language_keys:
+        for locale in self.languages:
             row = self.language.append ((locale,))
-            if self.languages[locale] == self.icw.getLanguage ():
+	    nick = self.todo.instTimeLanguage.getLangNick(locale)
+            if nick == self.icw.getLanguage ():
                 self.lang = locale
                 default = n
             n = n + 1

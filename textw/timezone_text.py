@@ -63,8 +63,7 @@ class TimezoneWindow:
 	if rc:
 	    (default, asUtc, asArc) = rc
 	else:
-	    default = iutil.defaultZone(todo.language.get())
-	    asUtc = 0
+	    default = todo.instTimeLanguage.getDefaultTimeZone()
 
 	bb = ButtonBar(screen, [(_("OK"), "ok"), (_("Back"), "back")])
 	t = TextboxReflowed(30, 

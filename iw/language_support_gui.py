@@ -28,61 +28,57 @@ class LanguageSupportWindow (InstallWindow):
         ics.readHTML ("langsupport")
         self.ics = ics
         self.icw = ics.getICW ()
-        self.languages = self.todo.language.available ()
-        self.running = 0
+        self.languages = self.todo.language.getAllSupported ()
 
     def getNext (self):
-        self.todo.langState = 1
         self.langs = []
-        support_all = TRUE
 
         for row in range(self.maxrows):
             (val, row_data, header) = self.language.get_row_data (row)
             
             if val == 1:
                 selected = self.language.get_text (row, 1)
-                self.langs.append (self.languages[selected])
-            else:
-                support_all = FALSE
+                self.langs.append (selected)
 
-        if support_all == TRUE:
-            self.langs = None
-
-        self.defaultLang = self.languages[self.combo.entry.get_text()]        
-        self.todo.language.setTempDefault (self.defaultLang)
+        self.defaultLang = self.combo.entry.get_text()
         self.todo.language.setSupported (self.langs)
-        self.todo.language.setByAbbrev (self.defaultLang)
+        self.todo.language.setDefault (self.defaultLang)
 
         return None
 
     def support_select_row (self, clist, event):
+	# ACK: we need exception handling around here
+        
+	row, col  = self.language.get_selection_info (event.x, event.y)
+	selected = self.language.get_text (row, 1)
+	self.toggle_row (row)
+
+	self.rebuild_combo_box()
+
+    def rebuild_combo_box(self):
         list = []
-        try:
-            row, col  = self.language.get_selection_info (event.x, event.y)
-            selected = self.language.get_text (row, 1)
-            self.toggle_row (row)
 
-            for row in range(self.maxrows):
-                (val, row_data, header) = self.language.get_row_data (row)
-                if val == 1:
-                    selected = self.language.get_text (row, 1)
-                    list.append (selected)
-            
-            if len(list) == 0:
-                list = [""]
-                self.ics.setNextEnabled (FALSE)
-            else:
-                self.ics.setNextEnabled (TRUE)
+	for row in range(self.maxrows):
+	    (val, row_data, header) = self.language.get_row_data (row)
+	    if val == 1:
+		selected = self.language.get_text (row, 1)
+		list.append (selected)
+	
+	if len(list) == 0:
+	    list = [""]
+	    self.ics.setNextEnabled (FALSE)
+	else:
+	    self.ics.setNextEnabled (TRUE)
 
-            self.combo.set_popdown_strings(list)      
+        self.defaultLang = self.combo.entry.get_text()
+	self.combo.set_popdown_strings(list)
 
-            for row in range(self.maxrows):
-                if self.languages[self.language.get_text (row, 1)] == self.defaultLang:
-                    default = self.language.get_text (row, 1)
-                    index = list.index(default)
-                    self.combo.list.select_item(index)
-        except:
-            pass
+	if self.defaultLang in list:
+	    index = list.index(self.defaultLang)
+	    self.combo.list.select_item(index)
+	else:
+	    self.combo.list.select_item(0)
+	    self.defaultLang = list[0]
 
     def toggle_row (self, row):
         (val, row_data, header) = self.language.get_row_data(row)
@@ -97,52 +93,44 @@ class LanguageSupportWindow (InstallWindow):
             self.language.set_row_data (row, (TRUE, row_data, header)) 
             self.language._update_row (row)
 
-        self.combo.set_popdown_strings (self.language_keys)
-
-        for row in range(self.maxrows):
-            if self.languages[self.language.get_text (row, 1)] == self.defaultLang:
-                default = self.language.get_text (row, 1)
-                index = self.language_keys.index(default)
-                self.combo.list.select_item(index)
+	self.rebuild_combo_box()
 
     def reset (self, data):
         self.ics.setNextEnabled (TRUE)
+	list = []
         for row in range(self.maxrows):
-            selected = self.languages[self.language.get_text (row, 1)]
-            (val, row_data, header) = self.language.get_row_data (row)
+	    (val, row_data, header) = self.language.get_row_data (row)
+            item = self.language.get_text (row, 1)
 
-            if selected == self.defaultLang:
+	    if item in self.origLangs:
                 self.language.set_row_data(row, (1, row_data, header))
                 self.language._update_row (row)
-                selected = self.language.get_text (row, 1)
-                list = []
-                list.append (selected)
-                self.combo.set_popdown_strings(list)
+                list.append (item)
             else:
                 self.language.set_row_data(row, (0, row_data, header))
                 self.language._update_row (row)
 
+	self.defaultLang = self.oldDefaultLang
+	self.combo.set_popdown_strings(list)
+
+	self.combo.list.select_item(list.index(self.defaultLang))
+
     def language_key_press (self, list, event):
         if event.keyval == ord(" ") and self.language.focus_row != -1:
             self.toggle_row (self.language.focus_row)
+	    self.rebuild_combo_box()
 
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self):
+	def moveto (widget, event, item):
+            widget.moveto (item, 0, 0.5, 0.5)
+
         self.langs = self.todo.language.getSupported()
-#        print "self.langs = ", self.langs
+	self.origLangs = self.langs
 
-        self.lastLangs = self.langs
-        self.sensitiveList = []
-        self.running = 0
-
-        if self.todo.language.getTempDefault () == "":
-            self.defaultLang = self.icw.getLanguage ()
-        else:
-            self.defaultLang = self.todo.language.getTempDefault ()
+	self.defaultLang = self.todo.language.getDefault()
+	self.oldDefaultLang = self.defaultLang
             
- 	self.language_keys = self.languages.keys ()
-        self.language_keys.sort ()
-
         vbox = GtkVBox (FALSE, 10)
         hbox = GtkHBox (FALSE)
         
@@ -166,46 +154,34 @@ class LanguageSupportWindow (InstallWindow):
 
         # langs we want to support
         self.language = checklist.CheckList(1)
-        self.language.connect ('button_press_event', self.support_select_row)
+        self.language.connect ("button_press_event", self.support_select_row)
         self.language.connect ("key_press_event", self.language_key_press)
-
 
         self.maxrows = 0
         list = []
         comboCurr = 0
+	firstItem = 0
         sel = 0
-        for locale in self.language_keys:
-            if self.todo.langState == 0:
-#                print self.todo.langState
-#                print self.defaultLang
+        for locale in self.languages:
+	    if locale == self.defaultLang or (locale in self.langs):
+		self.language.append_row((locale, ""), TRUE)
+		list.append(locale)
 
-                if self.languages[locale] == self.defaultLang:
-                    self.language.append_row((locale, ""), TRUE)
-                    list.append(locale)
-                else:
-                    self.language.append_row((locale, ""), FALSE)
-            else:
-                if self.languages[locale] == self.defaultLang or self.langs == None:
-                    self.language.append_row((locale, ""), TRUE)
-                    list.append(locale)
-                
-                    if self.languages[locale] == self.defaultLang:      #-
-                        sel = comboCurr
-                    else:
-                        comboCurr = comboCurr + 1
-                else:
-                    try:
-                        if self.langs.index(self.languages[locale]) >= 0:
-                            self.language.append_row((locale, ""), TRUE)
-                            list.append(locale)
-                            comboCurr = comboCurr + 1
-                    except:
-                        self.language.append_row((locale, ""), FALSE)
-                    
+		if locale == self.defaultLang:
+		    firstItem = self.maxrows
+		    sel = comboCurr
+		else:
+		    comboCurr = comboCurr + 1
+	    else:
+		self.language.append_row((locale, ""), FALSE)
+
             self.maxrows = self.maxrows + 1
+
+        self.language.connect_after ("draw", moveto, firstItem)
             
         self.combo.set_popdown_strings (list)
         self.combo.list.select_item(sel)
+        self.combo.entry.set_editable(FALSE)
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -236,8 +212,6 @@ class LanguageSupportWindow (InstallWindow):
         alignment = GtkAlignment (0.0, 0.0)
         button = GtkButton (_("Select as default"))
         alignment.add (button)
-
-        self.running = 1
 
         return vbox
 

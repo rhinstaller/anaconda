@@ -45,21 +45,18 @@ import installclass
 
 class LanguageWindow:
     def __call__(self, screen, todo, textInterface):
-        languages = todo.language.available ()
+        languages = todo.instTimeLanguage.available ()
 
         haveKon = os.access ("/sbin/continue", os.X_OK)
-        if languages.has_key ("Japanese") and not haveKon:
-            del languages["Japanese"]
+        if "Japanese" in languages and not haveKon:
+	    languages.remove("Japanese")
 
-        descriptions = languages.keys ()
-        descriptions.sort ()
-        current = todo.language.get ()
+	if os.environ.has_key('LANG'):
+	    current = todo.instTimeLanguage.getCurrent()
+	else:
+	    current = None
 
-        for lang in descriptions:
-            if languages[lang] == current:
-                default = descriptions.index (lang)
-            
-        height = min((screen.height - 16, len(descriptions)))
+        height = min((screen.height - 16, len(languages)))
         if todo.reconfigOnly:
             buttons = [_("Ok"), _("Back")]
         else:
@@ -68,17 +65,17 @@ class LanguageWindow:
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
-			  "installation process?"), descriptions, 
-			buttons, width = 30, default = default, scroll = 1,
+			  "installation process?"), languages, 
+			buttons, width = 30, default = current, scroll = 1,
                                 height = height, help = "lang")
 
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
-        choice = descriptions[choice]
-        lang = languages [choice]
+        choice = languages[choice]
+	lang = todo.instTimeLanguage.getLangNick(choice)
         
         if (todo.setupFilesystems
-            and lang[:2] == "ja" and not isys.isPsudoTTY(0)):
+            and choice == "Japanese" and not isys.isPsudoTTY(0)):
             # we're not running KON yet, lets fire it up
             os.environ["ANACONDAARGS"] = (os.environ["ANACONDAARGS"] +
                                           " --lang ja_JP.eucJP")
@@ -100,11 +97,10 @@ class LanguageWindow:
 	if len(lang) > 2:
             newlangs.append(lang[:2])
         cat.setlangs (newlangs)
-        todo.language.set (choice)
                 
 	if not todo.serial:
-	    map = todo.language.getFontMap(choice)
-	    font = todo.language.getFontFile(choice)
+	    map = todo.instTimeLanguage.getFontMap(choice)
+	    font = todo.instTimeLanguage.getFontFile(choice)
 	    if map != "None":
 		if os.access("/bin/consolechars", os.X_OK):
 		    iutil.execWithRedirect ("/bin/consolechars",
@@ -125,21 +121,22 @@ class LanguageWindow:
 
 class LanguageSupportWindow:
     def __call__(self, screen, todo):
-
-        languages = todo.language.available ()
-        descriptions = languages.keys ()
-        descriptions.sort ()
-        current = todo.language.get ()
-
+	# should already be sorted
+	languages = todo.language.getAllSupported()
         langs = todo.language.getSupported ()
-#        print langs
-#        time.sleep(2)
+
+	# We don't use todo.instTimeLanguage.getCurrent() because it returns a 
+	# long name rather then a short locale name, and long names may not 
+	# match between todo.instTimeLanguage and todo.language
+	if not langs and os.environ.has_key('LANG'):
+	    current = todo.language.getLangNameByNick(os.environ['LANG'])
+	else:
+	    current = None
 
         ct = CheckboxTree(height = 8, scroll = 1)
 
-
-        for lang in descriptions:
-            if languages[lang] == current:
+        for lang in languages:
+            if lang == current:
                 ct.append(lang, lang, 1)
             else:
                 ct.append(lang, lang, 0)
@@ -154,10 +151,9 @@ class LanguageSupportWindow:
         width = len(message)
         tb = Textbox (width, 2, message)
 
-
         g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
 
-        g.add (tb, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        g.add (tb, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
@@ -168,52 +164,43 @@ class LanguageSupportWindow:
         if rc == "back":
             return INSTALL_BACK
 
-        #--If they selected all langs, then set todo.language.setSupported to None.  This installs all langs
-        if todo.language.getSupported () == descriptions:
-            todo.language.setSupported (None)
-        else:
-            todo.language.setSupported (ct.getSelection())
+        # --If they selected all langs, then set todo.language.setSupported to 
+	# None.  This installs all langs
+
+	todo.language.setSupported (ct.getSelection())
+	
+	# we may need to reset the default language
+	default = todo.language.getDefault()
+	if default not in ct.getSelection():
+	    todo.language.setDefault(None)
 
         return INSTALL_OK
 
 
 class LanguageDefaultWindow:
     def __call__(self,screen, todo):
-        languages = todo.language.available ()
         langs = todo.language.getSupported ()
+	current = todo.language.getDefault()
 
-        if len(langs) <= 1:
+        if not langs or len(langs) <= 1:
+	    todo.language.setDefault(current)
             return
 
-        descriptions = languages.keys ()
-        descriptions.sort ()
-        current = todo.language.get ()
+	langs.sort()
 
-        found = 0
-        for lang in langs:
-            if languages[lang] == current:
-                default = langs.index (lang)
-                found = 1
-            else:
-                if found == 0:
-                    default = langs[0]
-                
         height = min((screen.height - 16, len(langs)))
         
         buttons = [_("Ok"), _("Back")]
 
         (button, choice) = ListboxChoiceWindow(screen, _("Default Language"),
 			_("Choose the default language: "), langs, 
-			buttons, width = 30, default = default, scroll = 1,
+			buttons, width = 30, default = current, scroll = 1,
                                                height = height, help = "langdefault")
 
 	if (button == string.lower(_("Back"))): return INSTALL_BACK
 
-
-        choice = langs[choice]
-        todo.language.set (choice)
+        todo.language.setDefault (langs[choice])
         return INSTALL_OK
-
 
 class KeyboardWindow:
     beenRun = 0
@@ -227,12 +214,7 @@ class KeyboardWindow:
 	if self.beenRun:
 	    default = todo.keyboard.get ()
 	else:
-            default = iutil.defaultKeyboard(todo.language.get())
-
-        try:
-            default = keyboards.index (default)
-        except ValueError:
-            default = keyboards.index ("us")
+	    default = todo.instTimeLanguage.getDefaultKeyboard()
 
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Keyboard Selection"),
