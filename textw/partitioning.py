@@ -174,8 +174,8 @@ class TurnOnSwapWindow:
 	    if (rc == "back"):
 		return INSTALL_BACK
 
-        self.fstab.savePartitions ()
-	self.fstab.turnOnSwap(self.intf.waitWindow)
+        todo.fstab.savePartitions ()
+	todo.fstab.turnOnSwap()
 	todo.ddruidAlreadySaved = 1
 	self.beenTurnedOn = 1
 
