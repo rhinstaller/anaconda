@@ -263,6 +263,10 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 				      { NULL, NULL, 0 } };
 
     do {
+      	struct in_addr addr;
+
+        pumpIaExtCode *dns;
+
 	rc = newtWinEntries(_("Nameserver"), 
 		_("Your dynamic IP request returned IP configuration "
 		  "information, but it did not include a DNS nameserver. "
@@ -273,17 +277,16 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
 	if (rc == 2) return LOADER_BACK;
 
-	if (ns && *ns && !inet_aton(ns, &cfg->dev.dnsServers[0])) {
+        dns = pumpGetAddrArray(&cfg->dev.servers, PUMP_BOOTP_OPTION_DNS);
+	if (dns && ns && *ns && !inet_aton(ns, &addr)) {
 	    newtWinMessage(_("Invalid IP Information"), _("Retry"),
 			_("You entered an invalid IP address."));
 	    rc = 2;
 	} 
+	else
+	    pumpAddAddress(&cfg->dev.servers, PUMP_BOOTP_OPTION_DNS, &addr);
 
     } while (rc == 2);
-
-    cfg->dev.set |= PUMP_NETINFO_HAS_DNS;
-    cfg->dev.numDns = 1;
-
     return LOADER_OK;
 }
 
@@ -296,6 +299,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     struct in_addr addr;
     char dhcpChoice;
     char * chptr;
+    pumpIaExtCode * dns;
 
     text = newtTextboxReflowed(-1, -1, 
 		_("Please enter the IP configuration for this machine. Each "
@@ -322,6 +326,8 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
 
     if (!cfg->isDynamic) {
+        pumpIaExtCode *dns;
+
 	if (cfg->dev.set & PUMP_INTFINFO_HAS_IP)
 	    newtEntrySet(c.ipEntry, inet_ntoa(cfg->dev.ip), 1);
 
@@ -331,8 +337,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	    newtEntrySet(c.gwEntry, inet_ntoa(cfg->dev.gateway), 1);
 
-	if (cfg->dev.numDns)
-	    newtEntrySet(c.nsEntry, inet_ntoa(cfg->dev.dnsServers[0]), 1);
+        dns = pumpGetAddrArray(&cfg->dev.servers, PUMP_BOOTP_OPTION_DNS);
+	if (dns != NULL)
+	    newtEntrySet(c.nsEntry, inet_ntoa(*dns->servers), 1);
 
     	dhcpChoice = ' ';
     } else {
@@ -422,7 +429,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 #ifdef __STANDALONE__
 		i = 2;
 #else		    
-		if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
+		if (!pumpGetAddrArray(&newCfg.dev.servers, PUMP_BOOTP_OPTION_DNS)) {
 		    logMessage("pump worked, but didn't return a DNS server");
 		    i = getDnsServers(&newCfg);
 		    i = i ? 0 : 2;
@@ -452,10 +459,10 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	}
     }
 
-    if (!(cfg->dev.numDns)) {
+    dns = pumpGetAddrArray(&cfg->dev.servers, PUMP_BOOTP_OPTION_DNS);
+    if (dns == NULL) {
 	if (*c.ns && inet_aton(c.ns, &addr)) {
-	    cfg->dev.dnsServers[0] = addr;
-	    cfg->dev.numDns = 1;
+	    pumpAddAddress(&cfg->dev.servers, PUMP_BOOTP_OPTION_DNS, &addr);
 	}
     }
 
@@ -464,6 +471,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     if (!FL_TESTING(flags)) {
 	configureNetwork(cfg);
 	findHostAndDomain(cfg, flags);
+        pumpWriteHosts("/etc/hosts", &cfg->dev.servers);
 	writeResolvConf(cfg);
     }
 
@@ -528,9 +536,11 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 int writeResolvConf(struct networkDeviceConfig * net) {
     char * filename = "/etc/resolv.conf";
     FILE * f;
+    pumpIaExtCode *dns;
     int i;
 
-    if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && !net->dev.numDns)
+    dns = pumpGetAddrArray(&net->dev.servers, PUMP_BOOTP_OPTION_DNS);
+    if (!(net->dev.set & PUMP_NETINFO_HAS_DOMAIN) && dns == NULL)
     	return LOADER_ERROR;
 
     f = fopen(filename, "w");
@@ -542,8 +552,8 @@ int writeResolvConf(struct networkDeviceConfig * net) {
     if (net->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "search %s\n", net->dev.domain);
 
-    for (i = 0; i < net->dev.numDns; i++) 
-	fprintf(f, "nameserver %s\n", inet_ntoa(net->dev.dnsServers[i]));
+    for (i = 0; i < dns->n; i++) 
+	fprintf(f, "nameserver %s\n", inet_ntoa(dns->servers[i]));
 
     fclose(f);
 
@@ -559,6 +569,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 #endif
 
     if (!FL_TESTING(flags)) {
+        pumpWriteHosts("/etc/hosts", &dev->dev.servers);
 	writeResolvConf(dev);
     }
 
@@ -728,6 +739,7 @@ int kickstartNetwork(char ** devicePtr, struct networkDeviceConfig * netDev,
     if (!noDns)
 	findHostAndDomain(netDev, flags);
 
+    pumpWriteHosts("/etc/hosts", &netDev->dev.servers);
     writeResolvConf(netDev);
     
     return 0;
@@ -772,11 +784,15 @@ int main(int argc, const char **argv) {
 	    { 0, 0, 0, 0, 0 }
     };
 
+    setlocale(LC_ALL, "");
+    bindtextdomain(PUMP_PACKAGE_NAME, NULL);
+    textdomain(PUMP_PACKAGE_NAME);
 	
     netDev = malloc(sizeof(struct networkDeviceConfig));
     memset(netDev,'\0',sizeof(struct networkDeviceConfig));
     optCon = poptGetContext("netconfig", argc, argv, Options, 0);
     while ((rc = poptGetNextOpt(optCon)) >= 0) {
+        pumpIaExtCode *dns;
 	parseAddress = NULL;
 	netSet = 0;
 
@@ -794,8 +810,9 @@ int main(int argc, const char **argv) {
 	    break;
 		
 	  case 'n':
-	    parseAddress = &netDev->dev.dnsServers[netDev->dev.numDns++];
-	    netSet = PUMP_NETINFO_HAS_DNS;
+	    dns = pumpAddAddress(&netDev->dev.servers,
+	                         PUMP_BOOTP_OPTION_DNS, NULL);
+	    parseAddress = &dns->servers[dns->n - 1];
 	    break;
 
 	  case 'm':
@@ -840,7 +857,7 @@ int main(int argc, const char **argv) {
 	    newtInit();
 	    newtCls();
 	    newtPushHelpLine(_(" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"));
-	    snprintf(roottext,80,_("netconfig %s  (C) 1999 Red Hat, Inc."), VERSION);
+	    snprintf(roottext,80,_("netconfig %s  (C) 2000 Red Hat, Inc."), VERSION);
 	    newtDrawRootText(0, 0, roottext);
 	    x=newtWinChoice(_("Network configuration"),_("Yes"),_("No"),
 			  _("Would you like to set up networking?"));
