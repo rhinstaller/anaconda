@@ -799,7 +799,7 @@ for kernelvers in $vertag; do
 	ppackage=""
     fi
 
-    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${kernelvers}
+    version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
     echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
@@ -808,7 +808,7 @@ for kernelvers in $vertag; do
     fi
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
-	echo "$1 is not a valid modules directory" 2>&1
+	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
 	usage
     fi
 
