@@ -44,7 +44,7 @@ COMMONMODULES="vfat loop cramfs floppy $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs 3c59x 
-	       e100 tulip pcnet32 8139too"
+	       e100 tulip pcnet32 8139too forcedeth"
 #	       sis900 e100 hp100 natsemi"
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
