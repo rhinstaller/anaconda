@@ -129,7 +129,11 @@ class LoopSizeWindow(InstallWindow):
 
     def getScreen (self):
         # XXX error check mount that this check tries
-        avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
+        if self.todo.setupFilesystems:
+            avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
+        else:
+            # test mode
+        avail = 5000
 	(size, swapSize) = self.todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
@@ -142,7 +146,7 @@ class LoopSizeWindow(InstallWindow):
 		  "an already-existing DOS or Windows filesystem. How large, "
 		  "in megabytes, should would you like the root filesystem "
 		  "to be, and how much swap space would you like? They must "
-		  "total less then %d megabytes in size." % (avail, )))
+		  "total less then %d megabytes in size.") % (avail, ))
         label.set_usize (400, -1)
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE, FALSE)
