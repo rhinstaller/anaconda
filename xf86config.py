@@ -178,8 +178,6 @@ Section "Monitor"
 
 EndSection
 
-%(fbProbedMonitor)s
-
 Section "Monitor"
     Identifier  "%(monitorID)s"
     VendorName  "Unknown"
@@ -431,18 +429,6 @@ EndSection
 # Screen section
 # **********************************************************************
 
-# The kernel framebuffer server
-Section "Screen"
-    Driver      "fbdev"
-    Device      "Generic VGA Card"
-    Monitor     "%(fbmonitorID)s"
-    Subsection  "Display"
-#        Depth       16
-        Depth      %(fbDepth)s
-        Modes       "default"
-    EndSubsection
-EndSection
-
 # The 16-color VGA server
 Section "Screen"
     Driver      "vga16"
@@ -669,11 +655,14 @@ class XF86Config:
         # if skipx is TRUE user has selected to not configure X
         self.skipx = 0
 
-        if isys.fbinfo() != None:
-            (x, y, depth) = isys.fbinfo()
-            self.fbDepth = depth
-        else:
-            self.fbDepth = 16
+#
+# we're removing frame buffer code
+#
+#        if isys.fbinfo() != None:
+#            (x, y, depth) = isys.fbinfo()
+#            self.fbDepth = depth
+#        else:
+#            self.fbDepth = 16
 
         self.files = """
 # The location of the RGB database.  Note, this is the name of the
@@ -812,106 +801,79 @@ class XF86Config:
     def getFallBackModes(self):
         return self.fallbackModes
 
-    def cards (self, thecard = None):
-        cards = {}
-        # all the straight servers
-        for server in [ "3DLabs", "8514", "FBDev", "Mach8", "Mach32", "Mach64",
-                        "Mono", "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
-            cards["Generic " + server] = { "SERVER" : server,
-                                           "NAME"   : "Generic " + server }
+#
+# XXX I think this is all no longer used
+#
+
+#     def cards (self, thecard = None):
+#         cards = {}
+#         # all the straight servers
+#         for server in [ "3DLabs", "8514", "FBDev", "Mach8", "Mach32", "Mach64",
+#                         "Mono", "P9000", "S3", "S3V", "SVGA", "W32", "VGA16" ]:
+#             cards["Generic " + server] = { "SERVER" : server,
+#                                            "NAME"   : "Generic " + server }
         
-        db = open ('/usr/X11R6/lib/X11/Cards')
-        lines = db.readlines ()
-        db.close ()
-        card = {}
-        name = None
-        for line in lines:
-            line = string.strip (line)
-            if not line and name:
-                cards[name] = card
-                card = {}
-                name = None
-                continue
+#         db = open ('/usr/X11R6/lib/X11/Cards')
+#         lines = db.readlines ()
+#         db.close ()
+#         card = {}
+#         name = None
+#         for line in lines:
+#             line = string.strip (line)
+#             if not line and name:
+#                 cards[name] = card
+#                 card = {}
+#                 name = None
+#                 continue
             
-            if line and line[0] == '#':
-                continue
+#             if line and line[0] == '#':
+#                 continue
             
-            if len (line) > 4 and line[0:4] == 'NAME':
-                name = line[5:]
+#             if len (line) > 4 and line[0:4] == 'NAME':
+#                 name = line[5:]
                 
-            info = string.splitfields (line, ' ')
-            if card.has_key (info[0]):
-                card[info[0]] = card[info[0]] + '\n' + (string.joinfields (info[1:], ' '))
-            else:
-                card[info[0]] = string.joinfields (info[1:], ' ')
+#             info = string.splitfields (line, ' ')
+#             if card.has_key (info[0]):
+#                 card[info[0]] = card[info[0]] + '\n' + (string.joinfields (info[1:], ' '))
+#             else:
+#                 card[info[0]] = string.joinfields (info[1:], ' ')
 
-        if thecard:
-            card = cards[thecard]
-            # XXX set a max depth here to avoid infinite loops
-            while card.has_key ("SEE"):
-                card = cards[card["SEE"]]
-            return card
-        return cards
+#         if thecard:
+#             card = cards[thecard]
+#             # XXX set a max depth here to avoid infinite loops
+#             while card.has_key ("SEE"):
+#                 card = cards[card["SEE"]]
+#             return card
+#         return cards
 
-    def monitors (self, lines = None):
-        if self.monlist:
-            return self.monlist
-        if not lines:
-            db = open ('/usr/share/hwdata/MonitorsDB')
-            lines = db.readlines ()
-            db.close ()
+#     def monitors (self, lines = None):
+#         if self.monlist:
+#             return self.monlist
+#         if not lines:
+#             db = open ('/usr/share/hwdata/MonitorsDB')
+#             lines = db.readlines ()
+#             db.close ()
 
-        for line in lines:
-            line = string.strip (line)
-            if not line:
-                continue
-            if line and line[0] == '#':
-                continue
-            fields = string.split (line, ';')
-            man = string.strip(fields[0])
-            model = string.strip(fields[1])
-            eisa = string.lower(string.strip(fields[2]))
-            horiz = string.strip(fields[3])
-            vert = string.strip(fields[4])
-            if self.monlist.has_key(man):
-                self.monlist[man].append((model, eisa, vert, horiz))
-            else:
-                self.monlist[man] = [(model, eisa, vert, horiz)]
-            self.monids[eisa] = (man, model, eisa, vert, horiz)
-        return self.monlist
+#         for line in lines:
+#             line = string.strip (line)
+#             if not line:
+#                 continue
+#             if line and line[0] == '#':
+#                 continue
+#             fields = string.split (line, ';')
+#             man = string.strip(fields[0])
+#             model = string.strip(fields[1])
+#             eisa = string.lower(string.strip(fields[2]))
+#             horiz = string.strip(fields[3])
+#             vert = string.strip(fields[4])
+#             if self.monlist.has_key(man):
+#                 self.monlist[man].append((model, eisa, vert, horiz))
+#             else:
+#                 self.monlist[man] = [(model, eisa, vert, horiz)]
+#             self.monids[eisa] = (man, model, eisa, vert, horiz)
+#         return self.monlist
 
-
-    def probeReport (self):
-        probe = ""
-        if self.videocard:
-            primary = self.videocard
-            vidCards = primary.getCardData()
-            
-        if vidCards:
-            probe = probe + _("Video Card") + ": " + vidCards["NAME"] + "\n"
-            if primary.getVideoRam():
-                probe = probe + "\t" + _("Video Ram") + ": " + primary.getVideoRam() + " kb\n"
-        if primary.getXServer():
-            time.sleep(5)
-            probe = probe + "\t" + _("X server") + ": " + primary.getXServer() + "\n"
-        else:
-            time.sleep(5)
-            probe = probe + "\t" + _("Unable to detect video card")
-
-        return probe
-        # disable monitor report
-#          probe = probe + "\n"
-
-#          if self.monName:
-#              probe = probe + _("Monitor") + ": " + self.monName + "\n"
-#          elif self.monEisa:
-#              probe = probe + _("Monitor") + ": " + _("Plug and Play Monitor") + "\n"
-#          if self.monHoriz:
-#              probe = probe + "\t" + _("Horizontal frequency range") + ": " + self.monHoriz + " kHz\n"
-#          if self.monHoriz:
-#              probe = probe + "\t" + _("Vertical frequency range") + ": " + self.monVert + " Hz\n"
-
-#          return probe
+# end of potentially unused code
 
     def write (self, path):
         config = open (path + "/XF86Config", 'w')
@@ -980,19 +942,25 @@ class XF86Config:
 
         files = self.files
 
-        # if we're forcing framebuffer, use those modes if available
-        fbmonsect = None
-        if self.videocard.isFrameBuffer():
-            if self.monitor:
-                fbmonsect = self.monitor.getFBMonitorSection()
 
-                if fbmonsect:
-                    self.manualModes = self.monitor.getFBMonitorMode()
-                elif self.videocard.hasFixedMode():
-                    self.manualModes = self.videocard.FixedMode()
-                else:
-                    raise RuntimeError, "trying frame buffer but no valid modes to try..."
-        elif self.videocard.hasFixedMode():
+#
+# we're removing frame buffer code
+#
+        # if we're forcing framebuffer, use those modes if available
+#         fbmonsect = None
+#         if self.videocard.isFrameBuffer():
+#             if self.monitor:
+#                 fbmonsect = self.monitor.getFBMonitorSection()
+
+#                 if fbmonsect:
+#                     self.manualModes = self.monitor.getFBMonitorMode()
+#                 elif self.videocard.hasFixedMode():
+#                     self.manualModes = self.videocard.FixedMode()
+#                 else:
+#                     raise RuntimeError, "trying frame buffer but no valid modes to try..."
+#        elif self.videocard.hasFixedMode():
+
+        if self.videocard.hasFixedMode():
             self.manualModes = self.videocard.FixedMode()
 
         # save current manually selected mode, override if non-existant
@@ -1180,11 +1148,14 @@ Section "Screen"
         else:
             mouseProto = self.mouse.info['XMOUSETYPE']
 
-        fbprobemon = monitor.getFBMonitorSection()
-        if fbprobemon != "":
-            fbmonid = "Probed Monitor"
-        else:
-            fbmonid = monitor.getMonitorID()
+#
+# we're removing frame buffer code
+#
+#         fbprobemon = monitor.getFBMonitorSection()
+#         if fbprobemon != "":
+#             fbmonid = "Probed Monitor"
+#         else:
+#            fbmonid = monitor.getMonitorID()
             
         info = { "acceleratedDevices" : devices,
                  "acceleratedScreens" : screens,
@@ -1201,18 +1172,21 @@ Section "Screen"
                  "monitorID"	      : monitor.getMonitorID(),
                  "monitorHoriz"       : monitor.getMonitorHorizSync(),
                  "monitorVert"        : monitor.getMonitorVertSync(),
-                 "fbProbedMonitor"    : fbprobemon,
-                 "fbmonitorID"        : fbmonid,
+#                 "fbProbedMonitor"    : fbprobemon,
+#                 "fbmonitorID"        : fbmonid,
                  "files"              : self.files,
                  }
 
         # HACK if no frame buffer running just wing it
+#
+# we're removing frame buffer code
+#
 #        if card.getFBBpp():
 #            info["fbDepth"] = card.getFBBpp()
 #        else:
 #            info["fbDepth"] = 8
-
-        info["fbDepth"] = self.fbDepth
+#
+#        info["fbDepth"] = self.fbDepth
         
         if self.keyVariant:
             info["enableVariant"] = ""
