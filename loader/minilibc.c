@@ -21,7 +21,8 @@ void __libc_init_first (int __status) {
 }
 
 #ifndef __powerpc__
-int __libc_start_main (int (*main) (void), int argc, char **argv,
+int __libc_start_main (int (*main) (int, char **, char **), 
+		       int argc, char **argv,
                        void (*init) (void), void (*fini) (void),
                        void (*rtld_fini) (void), void * stack_end)
 #else
