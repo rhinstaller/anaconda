@@ -148,6 +148,9 @@ class bootloaderInfo:
     def setPassword(self, val, isCrypted = 1):
         pass
 
+    def getPassword(self):
+        pass
+
     def getDevice(self):
         return self.device
 
