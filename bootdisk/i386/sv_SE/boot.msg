@@ -1,6 +1,6 @@
 
 
-                    09Vaelkommen till 0cRed Hat09 Linux 7.0!07
+              09Vaelkommen till 0cRed Hat09 Linux 7.0.91!07
 
  o  Foer att installera eller uppgradera ett system som koer 0cRed Hat07 Linux
     3.0.3 eller baettre i grafiskt laege trycker du 0f<ENTER>07-tangenten.

@@ -1,5 +1,5 @@
  
-                09Welcome to 0cRed Hat09 Linux 7.0.90!07
+                09Welcome to 0cRed Hat09 Linux 7.0.91!07
 
  -  To install or upgrade 0cRed Hat07 Linux in graphical mode, 
     press the 0f<ENTER>07 key.

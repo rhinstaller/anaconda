@@ -1,6 +1,6 @@
 
  
-              09Willkommen bei 0cRed Hat09 Linux 7.0!07
+              09Willkommen bei 0cRed Hat09 Linux 7.0.91!07
 
  o  Um eine grafische Installation oder Aktualisierung auf einem System
     vorzunehmen, auf dem 0cRed Hat07 Linux 3.0.3 oder sp„ter ausgefhrt
