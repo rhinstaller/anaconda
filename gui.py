@@ -399,6 +399,14 @@ def addFrame(dialog, title=None, showtitle = 1):
     dialog.connect ("key-release-event", handleShiftPrintScrnRelease)
 
 
+def findGladeFile(file):
+    for dir in ("/mnt/source/RHupdates/", "/tmp/updates/",
+                "ui/", "/usr/share/anaconda/ui/"):
+        fn = dir + file
+        if os.access(fn, os.R_OK):
+            return fn
+    raise RuntimeError, "Unable to find glade file %s"  %(fn,)
+
 class WaitWindow:
     def __init__(self, title, text):
         if flags.rootpath:
@@ -1234,7 +1242,8 @@ class InstallControlWindow:
         self.mainxml.signal_autoconnect(sigs)
 
     def loadGlade(self):
-        self.mainxml = gtk.glade.XML("anaconda.glade", domain="anaconda")
+        self.mainxml = gtk.glade.XML(findGladeFile("anaconda.glade"),
+                                     domain="anaconda")
 
     def setup_window (self, runres):
         self.setLtR()
