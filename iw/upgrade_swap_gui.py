@@ -35,7 +35,12 @@ class UpgradeSwapWindow (InstallWindow):
 
             if rc == 1:
                 raise gui.StayOnScreen
-
+            else:
+                # proceed because they decided not to have swapfile created
+                threads_leave()
+                self.todo.upgradeFindPackages()
+                threads_enter()
+                return None
         elif val > 2000 or val < 0:
             threads_leave()
             rc = self.swapWrongSize()
