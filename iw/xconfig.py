@@ -21,7 +21,7 @@ class XCustomWindow (InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Customize X Configuration"))
-        ics.setHTML ("<HTML><BODY>This is the configuration customization screen<</BODY></HTML>")
+        ics.readHTML ("xcustom")
         self.ics.setNextEnabled (TRUE)
         
         self.didTest = 0
