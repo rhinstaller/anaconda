@@ -525,6 +525,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->dns = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "ethtool=", 8))
             loaderData->ethtool = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "linksleep=", 10))
+            num_link_checks = atoi(argv[i] + 10);
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
