@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: ja\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-26 00:10+0900\n"
+"PO-Revision-Date: 2004-10-01 23:18+0900\n"
 "Last-Translator: Hirofumi Saito <hi_saito@yk.rim.or.jp>\n"
 "Language-Team: Fedora Trans Ja <fedora-trans-ja@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -2480,15 +2480,13 @@ msgstr ""
 "能な状態にしてしまうかもしれません。アップグレードを続けますか?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"アップグレードしようとしているリリース %s のアーキテクチャーは %s のようです"
-"が、これは以前インストールされた%sのアーキテクチャーと一致していないようで"
-"す。このインストールは成功しない可能性があります。アップグレードを続行します"
-"か?"
+"現在お使いのバージョンは古いため、バージョン %s にはアップグレードできません。それでも"
+"アップグレードを続けますか?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -6709,7 +6707,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6719,9 +6716,9 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-"\tデスクトップ シェル (GNOME)\n"
+"\tデスクトップシェル (GNOME)\n"
 "\tオフィススィート (OpenOffice.org)\n"
-"\tWebブラウザ (Mozilla) \n"
+"\tWebブラウザ \n"
 "\t電子メール (Evolution)\n"
 "\tインスタントメッセージング\n"
 "\tサウンドとビデオのアプリケーション\n"
@@ -6758,7 +6755,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6770,9 +6766,9 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tデスクトップ シェル (GNOME)\n"
+"\tデスクトップシェル (GNOME)\n"
 "\tオフィススィート (OpenOffice.org)\n"
-"\tWebブラウザ (Mozilla) \n"
+"\tWebブラウザ \n"
 "\t電子メール (Evolution)\n"
 "\tインスタントメッセージング\n"
 "\tサウンドとビデオのアプリケーション\n"
