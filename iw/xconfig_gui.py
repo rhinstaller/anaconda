@@ -302,8 +302,8 @@ class XCustomWindow (InstallWindow):
 
         #--If both KDE and GNOME are selected
         if comps:
-            gnomeSelected = (comps.packages.has_key('gnome-core')
-                             and comps.packages['gnome-core'].selected)
+            gnomeSelected = (comps.packages.has_key('gnome-session')
+                             and comps.packages['gnome-session'].selected)
             kdeSelected = (comps.packages.has_key('kdebase')
                            and comps.packages['kdebase'].selected)
         else:
