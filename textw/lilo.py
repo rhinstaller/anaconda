@@ -10,6 +10,10 @@ import string
 class LiloAppendWindow:
 
     def __call__(self, screen, todo):
+	if todo.fstab.rootOnLoop():
+	    todo.skipLilo = 1
+	    return INSTALL_NOOP
+
 	t = TextboxReflowed(53,
 		     _("A few systems will need to pass special options "
 		       "to the kernel at boot time for the system to function "
@@ -40,7 +44,7 @@ class LiloAppendWindow:
 
 	if button == "skip":
 	    todo.skipLilo = 1
-	    todo.liloDevice = None
+            todo.setLiloLocation(None)
 	else:
 	    todo.skipLilo = 0
 

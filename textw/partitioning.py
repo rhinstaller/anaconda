@@ -240,42 +240,47 @@ class LoopSizeWindow:
 	    return INSTALL_NOOP
 
 	avail = apply(isys.spaceAvailable, todo.fstab.getRootDevice())
-	size = todo.fstab.getLoopbackSize()
+	(size, swapSize) = todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
+	    swapSize = 32
 
 	sizeEntry = Entry(6, "%d" % (size,))
+	swapSizeEntry = Entry(6, "%d" % (swapSize,))
 
 	while 1:
 	    (rc, ent) = EntryWindow(screen, _("Root Filesystem Size"),
 		_("You've chosen to put your root filesystem in a file on "
-		  "an already-existing DOS or Windows filesystem. How large "
-		  "would you like to make the root filesystem? You may make it "
-		  "up to %d megabytes in size.") % (avail, ),
-		    [ ( _("Size (in megabytes)"), sizeEntry ) ],
+		  "an already-existing DOS or Windows filesystem. How large, "
+		  "in megabytes, should would you like the root filesystem "
+		  "to be, and how much swap space would you like? They must "
+		  "total less then %d megabytes in size." % (avail, )),
+		    [ ( _("Root filesystem size"), sizeEntry ),
+		      ( _("Swap space"), swapSizeEntry ) ],
 		    buttons = [ (_("OK"), "ok"), (_("Back"), "back") ] )
 
 	    if rc == "back": return INSTALL_BACK
 
 	    try:
 		size = int(sizeEntry.value())
+		swapSize = int(swapSizeEntry.value())
 	    except:
 		ButtonChoiceWindow(screen, _("Bad Size"),
 			_("The size you enter must be a number."),
 			buttons = [ _("OK") ])
 		continue
 
-	    if size >= avail:
+	    if size + swapSize >= avail:
 		ButtonChoiceWindow(screen, _("Bad Size"),
-			_("The size must be smaller then the amount of free"
-			  " space on the disk, which is %d megabytes."
+			_("The total size must be smaller then the amount of "
+			  "free space on the disk, which is %d megabytes."
 				% (avail, )),
 			buttons = [ _("OK") ])
 		continue
 
 	    break
 
-	todo.fstab.setLoopbackSize(size)
+	todo.fstab.setLoopbackSize(size, swapSize)
 
 	return INSTALL_NOOP
 	
