@@ -7,20 +7,20 @@ fi
 
 DEST=$1/RedHat/instimage
 SRC=../../../RedHat/instimage
+DEST1=$1/misc
+SRC1=../../../misc
 
-if [ ! -d $SRC ]; then
-	echo "$SRC does not exist"
-	exit 1
-fi
+for n in $SRC $DEST $SRC1 $DEST1; do
+	if [ ! -d $n ]; then
+		echo "$n does not exist"
+		exit 1
+	fi
+done
 
-if [ ! -d $DEST ]; then
-	echo "$DEST does not exist"
-	exit 1
-fi
+rm -rf $DEST $DEST1
+mkdir -p $DEST $DEST1
 
+(cd $SRC; tar cSpf - . | (cd $DEST; tar xvSpf -))
 
-rm -rf $DEST
-mkdir -p $DEST
+(cd $SRC1; tar cSpf - . | (cd $DEST1; tar xvSpf -))
 
-cd $SRC
-tar cSpf - . | (cd $DEST; tar xvSpf -)
