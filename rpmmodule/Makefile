@@ -8,10 +8,7 @@
 
 # If the above did not exist, then hardcode it here
 ifndef PYTHONLIBDIR
-PYTHONLIBDIR = /usr/lib/anaconda 
-endif
-ifndef ANACONDADATADIR
-ANACONDADATADIR = /usr/share/anaconda 
+PYTHONLIBDIR = /usr/lib/python1.5
 endif
 # end of ugly useability hack
 
