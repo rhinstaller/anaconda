@@ -31,7 +31,7 @@ class EliConfiguration:
 	eli = LiloConfigFile ()
 	perms = 0644
         if os.access (instRoot + '/boot/efi/eli.cfg', os.R_OK):
-	    perms = os.stat(instRoot + '/boot/eli.conf')[0] & 0777
+	    perms = os.stat(instRoot + '/boot/efi/eli.cfg')[0] & 0777
 	    #eli.read (instRoot + '/boot/efi/eli.cfg')
 	    os.rename(instRoot + '/boot/efi/eli.cfg',
 		      instRoot + '/boot/efi/eli.cfg.rpmsave')
