@@ -391,12 +391,10 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
     int numOptions, i, rc;
     char * ch;
     poptContext optCon;
-    char ** args;
-    int * occurs;
     char * str;
     char * error;
     const char ** argv;
-    char strBuf[2];
+    char strBuf[3];
 
     if (!PyArg_ParseTuple(pyargs, "OsO", &argList, &shortArgs, &longArgs)) 
 	return NULL;
@@ -413,10 +411,6 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	if (*ch != ':') numOptions++;
 
     options = alloca(sizeof(*options) * (numOptions + 1));
-    args = alloca(sizeof(*args) * numOptions);
-    memset(args, 0, sizeof(*args) * numOptions);
-    occurs = alloca(sizeof(*occurs) * numOptions);
-    memset(occurs, 0, sizeof(*occurs) * numOptions);
 
     ch = shortArgs;
     numOptions = 0;
@@ -426,14 +420,15 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	options[numOptions].val = 0;
 	options[numOptions].descrip = NULL;
 	options[numOptions].argDescrip = NULL;
+	options[numOptions].arg = NULL;
 	if (*ch == ':') {
 	    options[numOptions].argInfo = POPT_ARG_STRING;
-	    options[numOptions].arg = args + numOptions;
 	    ch++;
 	} else {
 	    options[numOptions].argInfo = POPT_ARG_NONE;
-	    options[numOptions].arg = occurs + numOptions;
 	}
+
+	options[numOptions].val = numOptions + 1;
 
 	numOptions++;
     }
@@ -443,6 +438,7 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	options[numOptions].val = 0;
 	options[numOptions].descrip = NULL;
 	options[numOptions].argDescrip = NULL;
+	options[numOptions].arg = NULL;
 
         strObject = PyList_GetItem(longArgs, i);
 	str = PyString_AsString(strObject);
@@ -452,12 +448,11 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	    str = strcpy(alloca(strlen(str) + 1), str);
 	    str[strlen(str) - 1] = '\0';
 	    options[numOptions].argInfo = POPT_ARG_STRING;
-	    options[numOptions].arg = args + numOptions;
 	} else {
 	    options[numOptions].argInfo = POPT_ARG_NONE;
-	    options[numOptions].arg = occurs + numOptions;
 	}
 
+	options[numOptions].val = numOptions + 1;
 	options[numOptions].longName = str;
 
 	numOptions++;
@@ -478,8 +473,37 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 
     optCon = poptGetContext("", PyList_Size(argList), argv,
 			    options, POPT_CONTEXT_KEEP_FIRST);
+    retList = PyList_New(0);
+    retArgs = PyList_New(0);
 
-    if ((rc = poptGetNextOpt(optCon)) < -1) {
+    while ((rc = poptGetNextOpt(optCon)) >= 0) {
+	const char * argument;
+
+	rc--;
+
+	if (options[rc].argInfo == POPT_ARG_STRING)
+	    argument = poptGetOptArg(optCon);
+	else
+	    argument = NULL;
+	    
+	if (options[rc].longName) {
+	    str = alloca(strlen(options[rc].longName) + 3);
+	    sprintf(str, "--%s", options[rc].longName);
+	} else {
+	    str = strBuf;
+	    sprintf(str, "-%c", options[rc].shortName);
+	}
+
+	if (argument) {
+	    argument = strcpy(alloca(strlen(argument) + 1), argument);
+	    PyList_Append(retList, 
+			    Py_BuildValue("(ss)", str, argument));
+	} else {
+	    PyList_Append(retList, Py_BuildValue("(ss)", str, ""));
+	}
+    }
+
+    if (rc < -1) {
 	i = strlen(poptBadOption(optCon, POPT_BADOPTION_NOALIAS)) +
 	    strlen(poptStrerror(rc));
 
@@ -493,57 +517,6 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 	return NULL;
     }
 
-    retList = PyList_New(0);
-
-    ch = shortArgs;
-    numOptions = 0;
-    while (*ch) {
-	if (!occurs[numOptions] && !args[numOptions]) {
-	    ch++;
-	    if (*ch == ':') ch++;
-	    numOptions++;
-	    continue;
-	}
-
-	strBuf[0] = '-';
-	strBuf[1] = *ch++;
-	strBuf[2] = '\0';
-
-	if (*ch == ':') ch++;
-
-	if (args[numOptions]) 
-	    PyList_Append(retList, Py_BuildValue("(ss)", strBuf, 
-			  args[numOptions]));
-	else
-	    PyList_Append(retList, Py_BuildValue("(ss)", strBuf, ""));
-
-	numOptions++;
-    }
-
-    for (i = 0; i < PyList_Size(longArgs); i++) {
-	if (!occurs[numOptions] && !args[numOptions]) {
-	    numOptions++;
-	    continue;
-	}
-
-        strObject = PyList_GetItem(longArgs, i);
-	str = alloca(strlen(PyString_AsString(strObject)) + 3);
-	sprintf(str, "--%s", PyString_AsString(strObject));
-	if (!str) return NULL;
-
-	if (args[numOptions]) {
-	    str = strcpy(alloca(strlen(str) + 1), str);
-	    str[strlen(str) - 1] = '\0';
-	    PyList_Append(retList, Py_BuildValue("(ss)", str,
-			  args[numOptions]));
-	} else {
-	    PyList_Append(retList, Py_BuildValue("(ss)", str, ""));
-	}
-
-	numOptions++;
-    }
-
-    retArgs = PyList_New(0);
     argv = (const char **) poptGetArgs(optCon);
     for (i = 0; argv && argv[i]; i++) {
 	PyList_Append(retArgs, PyString_FromString(argv[i]));
@@ -644,7 +617,6 @@ static PyObject * doCheckBoot (PyObject * s, PyObject * args) {
     char * path;
     int fd, size;
     unsigned short magic;
-    PyObject * ret;
 
     /* code from LILO */
     
@@ -691,6 +663,9 @@ static PyObject * doCheckUFS (PyObject * s, PyObject * args) {
 				swab32(magic) == UFS_SUPER_MAGIC)));
 }
 
+int swapoff(const char * path);
+int swapon(const char * path, int priorty);
+
 static PyObject * doSwapoff (PyObject * s, PyObject * args) {
     char * path;
 
@@ -735,12 +710,8 @@ void init_isys(void) {
     Py_InitModule("_isys", isysModuleMethods);
 }
 
-static void emptyDestructor(PyObject * s) {
-}
-
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     char * dev, * ip, * netmask;
-    int rc;
     char * gateway;
     struct pumpNetIntf device;
     typedef int int32;
@@ -883,6 +854,21 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
 	class = "tape"; break;
       case CLASS_NETWORK:
 	class = "net"; break;
+      case CLASS_UNSPEC:
+      case CLASS_OTHER:
+      case CLASS_SCSI:
+      case CLASS_VIDEO:
+      case CLASS_AUDIO:
+      case CLASS_MOUSE:
+      case CLASS_MODEM:
+      case CLASS_FLOPPY:
+      case CLASS_SCANNER:
+      case CLASS_RAID:
+      case CLASS_PRINTER:
+      case CLASS_CAPTURE:
+      case CLASS_KEYBOARD:
+      case CLASS_PCMCIA:
+	break;
     }
 
     return Py_BuildValue("(sss)", class, po->list.known[item].name, model);
@@ -915,7 +901,6 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args) {
 static PyObject * doFbconProbe (PyObject * s, PyObject * args) {
     char * path;
     int fd, size;
-    PyObject * ret;
     struct fb_fix_screeninfo fix;
     struct fb_var_screeninfo var;
     char vidres[1024], vidmode[40];
