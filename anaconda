@@ -569,7 +569,7 @@ anaconda_log.open (logFile)
 log.handler=anaconda_log
     
 # now let's set up our selinux stuff.  whee!
-if flags.setupFilesystems:
+if flags.setupFilesystems and 0:
     os.mkdir("/selinux")
     try:
         isys.mount("/selinux", "/selinux", fstype="selinuxfs")
