@@ -1877,6 +1877,9 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, 
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
+	if (!strncmp(partname, "/dev/", 5))
+	    partname += 5;
+
 	logMessage("partname is %s", partname);
 
 	imageUrl = setupOldHardDrive(partname, "ext2", dir, flags);
