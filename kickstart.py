@@ -963,7 +963,11 @@ class KickstartBase(BaseInstallClass):
         for member in extra[1:]:
             if member not in self.ksRaidMapping.keys():
                 raise RuntimeError, "Tried to use an undefined partition in RAID specification"
+	    if member in self.ksUsedMembers:
+                raise RuntimeError, "Tried to use the RAID member %s in two or more RAID specifications" % (member,)
+		
             raidmems.append(self.ksRaidMapping[member])
+	    self.ksUsedMembers.append(member)
 
         # XXX this shouldn't have to happen =\
         if raid.isRaid0(level):
@@ -1302,6 +1306,7 @@ class KickstartBase(BaseInstallClass):
         self.groupList = []
         self.excludedList = []
         self.ksRaidMapping = {}
+	self.ksUsedMembers = []
         self.ksPVMapping = {}
         self.ksVGMapping = {}
         # XXX hack to give us a starting point for RAID, LVM, etc unique IDs.
