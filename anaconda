@@ -3,7 +3,7 @@
 import sys, os
 
 #
-# only used by anaconda in unconfig mode
+# For anaconda in unconfig mode
 #
 sys.path.append('/usr/lib/anaconda')
 
@@ -28,9 +28,6 @@ import iutil
 
 setverPath = None
 
-# save because we munge argv below
-[execname] = string.split(sys.argv[0], '/')[-1:]
-
 gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
@@ -41,39 +38,70 @@ _ = gettext.gettext
             'lang=', 'keymap=', 'kbdtype=', 'module=',
 	    'expert', 'serial' ])
 
+# save because we're about to munge argv
+[execname] = string.split(sys.argv[0], '/')[-1:]
+
 # remove the arguments - gnome_init doesn't understand them
 for arg in sys.argv[1:]:
     sys.argv.remove (arg)
 sys.argc = 1
 
-mode = None
-test = 0
-debug = 0
+#
+# default root to install into if doing a normal install
+#
 rootPath = '/mnt/sysimage'
-localInstall = 0
-forceMount = 0
-mode = 'g'
-method = None
-traceOnly = 0
-mouseInfo = None
-x = None
-kickstart = None
-serial = 0
-expert = 0
-lang = None
-keymap = None
-kbdtpye = None
+
 extraModules = []
 
+# display mode is either 'g' for graphical or 't' for text
+display_mode = 'g'
+
+# booleans - value is 0 for false or non-zero for true
+# test           - in test mode?
+# debug          - in debug mode?
+# serial         - install via serial port (?)
+# expert         - in expert mode?
+# traceOnly      - print out loaded modules
+# forceMount     - ? used ?
+# localInstall   - install to chroot
+# unconfigOnly   - allow user to reconfig installed box w/o reinstall
+test = 0
+debug = 0
+serial = 0
+expert = 0
+traceOnly = 0
+forceMount = 0
+localInstall = 0
+unconfigOnly = 0
+
+#
+# x          - xserver info (?)
+# lang       - language to use for install/machine default
+# method     - install method (not used if unconfigOnly is true)
+# keymap     - kbd map
+# kbdtype    - type of keyboard (84 key, 101 key, etc)
+# kickstart  - ?
+# mouseInfo  - type of mouse
+x = None
+lang = None
+method = None
+keymap = None
+kbdtpye = None
+kickstart = None
+mouseInfo = None
+
+#
+# parse off command line arguments
+#
 for n in args:
     (str, arg) = n
 
     if (str == '-G' or str == '--gui'):
-	mode = 'g'
+	display_mode = 'g'
     elif (str == '-T' or str == '--text'):
-	mode = 't'
+	display_mode = 't'
     elif (str == '-U' or str == '--unconfig'):
-	mode = 'u'
+	unconfigOnly = 1
     elif (str == '-t' or str == '--test'):
 	test = 1
     elif (str == '--module'):
@@ -85,7 +113,7 @@ for n in args:
 	debug = 1
     elif (str == '--kickstart'):
 	kickstart = arg
-	mode = 't'
+	display_mode = 't'
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	localInstall = 1
@@ -103,22 +131,27 @@ for n in args:
         keymap = arg
     elif (str == '--kbdtype'):
         kbdtype = arg
-
+#
 # see how we were run, override command line mode selection
+#
 if (execname == "anaconda-unconfig"):
-    print "overriding to unconfig mode based on exec name"
-    mode = 'u'
+    print "overriding to unconfig mode based on script name"
+    unconfigOnly = 1
 
-
-if (mode != 'u' and not method):
+#
+# if not just reconfiguring box, must have install method
+#
+if (not unconfigOnly  and not method):
     print "no install method specified"
     sys.exit(1)
 
 if (debug):
     import pdb
     pdb.set_trace()
-
-if (mode != 'u' and not test and not localInstall and os.getpid() > 50):
+#
+# don't let a developer reinstall their box unknowingly
+#
+if (not unconfigOnly and not test and not localInstall and os.getpid() > 50):
     print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
@@ -128,45 +161,53 @@ if (os.path.exists('rpmmodule')):
     sys.path.append('balkan')
     sys.path.append('kudzu')
     sys.path.append('gnome-map')
-#elif (mode == None):
+#elif (display_mode == None):
 #      try:
 #          f = open('/dev/fb0', 'r')
 #  	f.close()
-#  	mode = 'g'
+#  	display_mode = 'g'
 #      except:
-#  	mode = 't'
+#  	display_mode = 't'
 
 import rpm
 import lilo
 from todo import ToDo
 import isys
 from installclass import DefaultInstall
+from installclass import UnconfigStation
 from kickstart import Kickstart
 
+#
+# override display mode if machine cannot nicely run X
+#
 if (not test):
     if (iutil.memInstalled() < 30000):
-	mode = 't'
+	display_mode = 't'
 
-if (mode == 'g' and not os.environ.has_key('DISPLAY')):
+#
+# startup X server is we're not already running under an X session
+#
+if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
     try:
         result = xserver.startX ()
     except RuntimeError:
 	print "X startup failed, falling back to text mode"
-        mode = 't'
+        display_mode = 't'
     else:
         (mouseInfo, x) = (result)
 
-if (mode == 'g'):
-    if not test and not localInstall:
+#
+# setup links required by graphical mode if installing and verify display mode
+#
+if (display_mode == 'g'):
+    if not test and not localInstall and not unconfigOnly:
         for i in ( "imrc", "im_palette.pal", "gtk" ):
             os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
     from gui import InstallInterface
-elif (mode == 't'):
+elif (display_mode == 't'):
+    print "text mode"
     from text import InstallInterface
-elif (mode == 'u'):
-    print "Going to go into uninstall mode"
-    sys.exit(1)
 else:
     print "No mode was specified"
     sys.exit(1)
@@ -190,28 +231,36 @@ if traceOnly:
     sys.exit(0)
 
 # imports after setting up the path
-if (method[0:5] == "dir:/"):
-    from image import InstallMethod
-    method = InstallMethod(method[5:])
-elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
-    from urlinstall import InstallMethod
-    method = InstallMethod(method)
-elif (method[0:5] == "hd://"):
-    method = method[5:]
-    i = string.index(method, '/')
-    dir = method[i:]
-    driveAndType = method[0:i]
+if not unconfigOnly:
+    if (method[0:5] == "dir:/"):
+        from image import InstallMethod
+        method = InstallMethod(method[5:])
+    elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
+        from urlinstall import InstallMethod
+        method = InstallMethod(method)
+    elif (method[0:5] == "hd://"):
+        method = method[5:]
+        i = string.index(method, '/')
+        dir = method[i:]
+        driveAndType = method[0:i]
+        
+        i = string.index(driveAndType, ":")
+        drive = driveAndType[0:i]
+        type = driveAndType[i + 1:]
+        
+        from harddrive import InstallMethod
+        method = InstallMethod(drive, type, dir)
+    else:
+        print "unknown install method:", method
+        sys.exit(1)
 
-    i = string.index(driveAndType, ":")
-    drive = driveAndType[0:i]
-    type = driveAndType[i + 1:]
-
-    from harddrive import InstallMethod
-    method = InstallMethod(drive, type, dir)
-else:
-    print "unknown install method:", method
+#
+# do some final sanity checking before going off into the great wide wonder
+#
+if unconfigOnly and method != None:
+    print "Conflicting options: cannot unconfig and install simultaneously!\n"
     sys.exit(1)
-
+    
 intf = InstallInterface()
 
 # set the default actions
@@ -229,6 +278,8 @@ if forceMount:
 
 if kickstart:
     instClass = Kickstart(kickstart)
+elif unconfigOnly:
+    instClass = UnconfigStation()
 else:
     instClass = DefaultInstall()
 
@@ -249,11 +300,17 @@ if iutil.getArch() == "sparc":
 	    instClass.addToSkipList("mouse")
 	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
+if unconfigOnly:
+    installPackages = 0
+    setupFilesystems = 0
+    rootPath = '/'
+    
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass, x = x, expert = expert, serial = serial,
-		extraModules = extraModules)
+                instClass = instClass, x = x, expert = expert,
+                serial = serial, unconfigOnly = unconfigOnly,
+                extraModules = extraModules)
     intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()
