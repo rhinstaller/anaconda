@@ -16,7 +16,6 @@ class InstallClass(BaseInstallClass):
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
-	self.setHostname(id, "localhost.localdomain")
 
         autorequests = [ ("/", None, 700, None, 1, 1) ]
 
