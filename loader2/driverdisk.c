@@ -430,13 +430,18 @@ static void loadFromLocation(struct knownDevices * kd,
 void getDDFromSource(struct knownDevices * kd,
                      struct loaderData_s * loaderData,
                      char * src, int flags) {
+    char *path = "/tmp/dd.img";
+    int unlinkf = 0;
+
     if (!strncmp(src, "nfs:", 4)) {
+        unlinkf = 1;
         if (getFileFromNfs(src + 4, "/tmp/dd.img", kd, loaderData, 
                            flags)) {
             logMessage("unable to retrieve driver disk: %s", src);
             return;
         }
     } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http://", 7)) {
+        unlinkf = 1;
         if (getFileFromUrl(src, "/tmp/dd.img", kd, loaderData, flags)) {
             logMessage("unable to retrieve driver disk: %s", src);
             return;
@@ -448,17 +453,19 @@ void getDDFromSource(struct knownDevices * kd,
                         loaderData->modDepsPtr, loaderData->modInfo,
                         kd, flags);
         return;
+    } else if (!strncmp(src, "path:", 5)) {
+	path = src + 5;
     } else {
         newtWinMessage(_("Kickstart Error"), _("OK"),
                        _("Unknown driver disk kickstart source: %s"), src);
         return;
     }
 
-    if (!mountLoopback("/tmp/dd.img", "/tmp/drivers", "loop6")) {
+    if (!mountLoopback(path, "/tmp/drivers", "loop6")) {
         loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
         umountLoopback("/tmp/drivers", "loop6");
         unlink("/tmp/drivers");
-        unlink("/tmp/dd.img");
+        if (unlinkf) unlink(path);
     }
 
 }
