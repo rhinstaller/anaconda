@@ -52,7 +52,8 @@ static const char * urlfilter(const char * u)
 }
 #endif
 
-int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
+			 int silentErrors) {
     char * buf;
     int fd;
     char * finalPrefix;
@@ -62,12 +63,12 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
     else
 	finalPrefix = ui->prefix;
     
-    logMessage("transferring %s://%s/%s/RedHat/%s to a fd",
+    logMessage("transferring %s://%s/%s/%s to a fd",
 	       ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
 	       ui->address, finalPrefix, filename);
 
     buf = alloca(strlen(finalPrefix) + strlen(filename) + 20);
-    sprintf(buf, "%s/RedHat/%s", finalPrefix, filename);
+    sprintf(buf, "%s/%s", finalPrefix, filename);
 
     if (ui->protocol == URL_METHOD_FTP) {
 	ui->ftpPort = ftpOpen(ui->address, 
@@ -78,21 +79,23 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
 	    newtWinMessage(_("Error"), _("Ok"), 
 		_("Failed to log into %s: %s"), ui->address, 
 		ftpStrerror(ui->ftpPort));
-	    return -1;
+	    return -2;
 	}
 
 	fd = ftpGetFileDesc(ui->ftpPort, buf);
 	if (fd < 0) {
 	    close(ui->ftpPort);
-	    newtWinMessage(_("Error"), _("Ok"), 
-		_("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+	    if (!silentErrors)
+		newtWinMessage(_("Error"), _("Ok"), 
+		    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
 	    return -1;
 	}
     } else {
 	fd = httpGetFileDesc(ui->address, -1, buf);
 	if (fd < 0) {
-	    newtWinMessage(_("Error"), _("Ok"), 
-		_("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
+	    if (!silentErrors)
+		newtWinMessage(_("Error"), _("Ok"), 
+		    _("Failed to retrieve %s: %s"), buf, ftpStrerror(fd));
 	    return -1;
 	}
     }

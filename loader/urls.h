@@ -18,7 +18,8 @@ struct iurlinfo {
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		      char * doSecondarySetup);
 int urlSecondarySetupPanel(struct iurlinfo * ui, urlprotocol protocol);
-int urlinstStartTransfer(struct iurlinfo * ui, char * filename);
+int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
+			 int silentErrors);
 int urlinstFinishTransfer(struct iurlinfo * ui, int fd);
 
 #endif
