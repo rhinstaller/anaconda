@@ -33,7 +33,7 @@ int parsepvd(int isofd, char *mediasum, long long *isosize) {
 
     offset = (16L * 2048L);
     for (;1;) {
-	if (read(isofd, buf, 2048) < 0)
+	if (read(isofd, buf, 2048) <= 0)
 	    return ((long long)-1);
 
 	if (buf[0] == 1)
