@@ -38,6 +38,9 @@ class XCustomWindow (InstallWindow):
         self.todo.x.manualModes = newmodes
         self.todo.x.setModes(newmodes)
 
+    def getPrev (self):
+        self.todo.x.setModes(self.oldmodes)
+
     def testPressed (self, widget, *args):
         newmodes = {}
 
@@ -66,6 +69,8 @@ class XCustomWindow (InstallWindow):
         return 0
     
     def getScreen (self):
+        self.oldmodes = self.todo.x.modes
+        
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
@@ -259,7 +264,6 @@ class XConfigWindow (InstallWindow):
         ics.readHTML ("xconf")
         
         self.didTest = 0
-
 
     def getNext (self):
         if self.skipme:
