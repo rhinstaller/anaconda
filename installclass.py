@@ -200,7 +200,6 @@ class Workstation(InstallClass):
 	    self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
 	self.addToSkipList("package-selection")
-	self.addToSkipList("format")
 
 	if os.uname ()[4] != 'sparc64':
 	    self.partitions.append(('/boot', 16, 16, 0))
@@ -235,7 +234,6 @@ class Server(InstallClass):
 	    self.addToSkipList("lilo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
-	self.addToSkipList("format")
 
 	if os.uname ()[4] != 'sparc64':
 	    self.partitions.append(('/boot', 16, 16, 0))

@@ -108,12 +108,16 @@ class AutoPartitionWindow(InstallWindow):
 
 	if not self.__dict__.has_key("manuallyPartition"):
 	    self.todo.fstab.setRunDruid(1)
+	    self.todo.instClass.removeFromSkipList("format")
 	elif self.manuallyPartition.get_active():
 	    self.todo.fstab.setRunDruid(1)
 	    self.todo.fstab.rescanPartitions()
+	    self.todo.instClass.removeFromSkipList("format")
 	else:
 	    self.todo.fstab.setRunDruid(0)
 	    self.todo.fstab.setDruid(self.druid)
+	    self.todo.fstab.formatAllFilesystems()
+	    self.todo.instClass.addToSkipList("format")
 
 	self.beingDisplayed = 0
 	    

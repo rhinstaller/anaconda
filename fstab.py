@@ -54,6 +54,7 @@ class Fstab:
 
     def setDruid(self, druid):
 	self.ddruid = druid
+	self.fsCache = {}
 
     def rescanPartitions(self):
 	if self.ddruid:
@@ -95,6 +96,10 @@ class Fstab:
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
 	    if partition == device:
 		self.fsCache[(partition, mount)] = (format,)
+
+    def formatAllFilesystems(self):
+	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
+	    self.fsCache[(partition, mount)] = (1,)
 
     def partitionList(self):
 	return self.ddruid.partitionList()
@@ -193,6 +198,8 @@ class Fstab:
 	# naturally
         (devices, raid) = self.ddruid.partitionList()
 
+	print 'in make filesystems'
+
 	if raid:
 	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
 
@@ -216,11 +223,14 @@ class Fstab:
                 kernelPart = '/boot'
             else:
                 kernelPart = '/'
+
+	print 'mount list is', self.mountList()
         
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
+		print '\tcreating filesystem on', device
                 args = [ "mke2fs", '/tmp/' + device ]
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only
@@ -273,7 +283,7 @@ class Fstab:
 				instPath + mntpoint)
 		    os.remove( '/tmp/' + device);
 		except SystemError, (errno, msg):
-		    self.intf.messageWindow(_("Error"), 
+		    self.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))
 
         try:

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-12-21 18:51-0500\n"
+"POT-Creation-Date: 1999-12-22 10:35-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,16 +14,16 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: ENCODING\n"
 
-#: ../fstab.py:124 ../fstab.py:245
+#: ../fstab.py:129 ../fstab.py:255
 msgid "Formatting"
 msgstr ""
 
-#: ../fstab.py:125
+#: ../fstab.py:130
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr ""
 
-#: ../fstab.py:187 ../fstab.py:276 ../libfdisk/newtfsedit.c:1540
+#: ../fstab.py:192 ../fstab.py:286 ../libfdisk/newtfsedit.c:1540
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/loader.c:471
 #: ../loader/loader.c:481 ../loader/loader.c:697 ../loader/loader.c:742
 #: ../loader/loader.c:880 ../loader/loader.c:885 ../loader/loader.c:1621
@@ -33,25 +33,25 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: ../fstab.py:188
+#: ../fstab.py:193
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:199 ../todo.py:523
+#: ../fstab.py:206 ../todo.py:523
 msgid "Creating"
 msgstr ""
 
-#: ../fstab.py:199
+#: ../fstab.py:206
 msgid "Creating RAID devices..."
 msgstr ""
 
-#: ../fstab.py:246
+#: ../fstab.py:256
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr ""
 
-#: ../fstab.py:277
+#: ../fstab.py:287
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr ""
@@ -121,12 +121,12 @@ msgstr ""
 msgid "Red Hat Linux Install Shell on %s"
 msgstr ""
 
-#: ../installclass.py:210
+#: ../installclass.py:209
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
 
-#: ../installclass.py:248
+#: ../installclass.py:246
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
@@ -1165,11 +1165,11 @@ msgid ""
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../iw/rootpartition.py:94 ../textw/partitioning.py:116
+#: ../iw/rootpartition.py:98 ../textw/partitioning.py:116
 msgid "Automatic Partitioning"
 msgstr ""
 
-#: ../iw/rootpartition.py:153 ../textw/partitioning.py:117
+#: ../iw/rootpartition.py:161 ../textw/partitioning.py:117
 #, c-format
 msgid ""
 "%s\n"
@@ -1179,11 +1179,11 @@ msgid ""
 "installation."
 msgstr ""
 
-#: ../iw/rootpartition.py:167
+#: ../iw/rootpartition.py:175
 msgid "Remove data"
 msgstr ""
 
-#: ../iw/rootpartition.py:170 ../textw/partitioning.py:121
+#: ../iw/rootpartition.py:178 ../textw/partitioning.py:121
 msgid "Manually partition"
 msgstr ""
 
