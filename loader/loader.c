@@ -141,6 +141,7 @@ int haveKon = 1;
 #else
 int haveKon = 0;
 #endif
+static int defaultLang = 0;
 
 void doSuspend(void) {
     newtFinished();
@@ -2007,6 +2008,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	       display them so we don't have to start kon if it is not needed. */
 #ifndef INCLUDE_KON
 	    setLanguage (argv[i] + 5, flags);
+	    defaultLang = 1;
 #endif
 	}
     }
@@ -2828,6 +2830,7 @@ int main(int argc, char ** argv) {
 
 	    do {
 		chooseLanguage(&lang, flags);
+		defaultLang = 0;
 		rc = chooseKeyboard (&keymap, &kbdtype, flags);
 	    } while (rc);
 	}
@@ -2867,7 +2870,7 @@ int main(int argc, char ** argv) {
 	if (!lang)
 	    lang = getenv ("LC_ALL");
 	
-	if (lang) {
+	if (lang && !defaultLang) {
 	    *argptr++ = "--lang";
 	    *argptr++ = lang;
 	}
