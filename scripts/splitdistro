@@ -248,10 +248,11 @@ moveFiles("%s/RedHat/RPMS" % disc2Dir,
 disc3used = spaceUsed(disc3Dir)
 
 print "Creating first source disc..."
+stamp(disc1SrcDir, releasestr, "4", arch, startedAt, dirInfo)
 os.system("cp -al %s %s" % (srcDir, disc1SrcDir))
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, releasestr, "4", arch, startedAt, dirInfo)
+stamp(disc2SrcDir, releasestr, "5", arch, startedAt, dirInfo)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
@@ -265,7 +266,7 @@ moveFiles("%s/SRPMS" % disc1SrcDir,
 srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
-stamp(disc3SrcDir, releasestr, "5", arch, startedAt, dirInfo)
+stamp(disc3SrcDir, releasestr, "6", arch, startedAt, dirInfo)
 disc3pkgs = excessFiles(srcDir, srcPkgList,
                         srcDisc1Size + targetSize - fudgeFactor)
 print "first src pkg to move to 3rd src cd is", disc3pkgs[0]
