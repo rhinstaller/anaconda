@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall\n"
-"POT-Creation-Date: 2000-12-14 13:43-0500\n"
+"POT-Creation-Date: 2001-01-10 15:47-0500\n"
 "PO-Revision-Date: 1999-09-20 12:00+0200\n"
 "Last-Translator: Görkem Çetin <gorkem@gelecek.com.tr>\n"
 "Language-Team: Gelecek A.Þ <gorkem@gelecek.com.tr>\n"
@@ -13,12 +13,12 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-9\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:454
+#: ../comps.py:457
 #, fuzzy
 msgid "Everything"
 msgstr "Taranýyor"
 
-#: ../exception.py:13 ../text.py:813
+#: ../exception.py:13 ../text.py:925
 msgid "Exception Occurred"
 msgstr ""
 
@@ -32,23 +32,23 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../fstab.py:216 ../fstab.py:410 ../fstab.py:510 ../fstab.py:714
-#: ../harddrive.py:168 ../image.py:61 ../image.py:123
-#: ../libfdisk/newtfsedit.c:1704 ../loader/devices.c:236
+#: ../fstab.py:251 ../fstab.py:445 ../fstab.py:545 ../fstab.py:749
+#: ../harddrive.py:168 ../image.py:61 ../image.py:138
+#: ../libfdisk/newtfsedit.c:1729 ../loader/devices.c:236
 #: ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455
 #: ../loader/devices.c:475 ../loader/lang.c:97 ../loader/loader.c:510
 #: ../loader/loader.c:520 ../loader/loader.c:574 ../loader/loader.c:893
 #: ../loader/loader.c:948 ../loader/loader.c:1118 ../loader/loader.c:1123
 #: ../loader/loader.c:1260 ../loader/loader.c:2127 ../loader/loader.c:2173
-#: ../loader/loader.c:2244 ../loader/pcmcia.c:101 ../loader/pcmcia.c:118
+#: ../loader/loader.c:2249 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:268
-#: ../textw/bootdisk_text.py:69 ../todo.py:888 ../todo.py:916 ../todo.py:1018
-#: ../todo.py:1031 ../todo.py:1376
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:368
+#: ../textw/bootdisk_text.py:69 ../todo.py:960 ../todo.py:988 ../todo.py:1090
+#: ../todo.py:1103 ../todo.py:1473
 msgid "Error"
 msgstr "Hata"
 
-#: ../fstab.py:217
+#: ../fstab.py:252
 #, fuzzy
 msgid ""
 "The kernel is unable to read your new partitioning information, probably "
@@ -65,47 +65,47 @@ msgstr ""
 "Bir ZIP ya da JAZ sürücünüz varsa, bu sürücüde bir disk olup olmadýðýný "
 "kontrol edin, çünkü boþ SCSI sürücüleri de bu hataya neden olabilirler."
 
-#: ../fstab.py:399 ../fstab.py:663 ../fstab.py:1087
+#: ../fstab.py:434 ../fstab.py:698 ../fstab.py:1122
 msgid "Formatting"
 msgstr "Biçimlendiriliyor"
 
-#: ../fstab.py:400
+#: ../fstab.py:435
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "%s aygýtýnda takas alaný oluþturuluyor..."
 
-#: ../fstab.py:410
+#: ../fstab.py:445
 msgid "Error creating swap on device "
 msgstr "Aygýt üzerinde takas alaný oluþturulmasýnda hata: "
 
-#: ../fstab.py:511
+#: ../fstab.py:546
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "%s aygýtýnýn ayrýlmasýnda hata: %s"
 
-#: ../fstab.py:557 ../todo.py:548
+#: ../fstab.py:592 ../todo.py:582
 msgid "Creating"
 msgstr "Yaratýlýyor"
 
-#: ../fstab.py:557
+#: ../fstab.py:592
 msgid "Creating RAID devices..."
 msgstr "RAID aygýtlar yaratýlýyor..."
 
-#: ../fstab.py:598
+#: ../fstab.py:633
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:599
+#: ../fstab.py:634
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "/dev/%s aygýtýnda loopback dosya sistemi yaratýlýyor..."
 
-#: ../fstab.py:664 ../fstab.py:1088
+#: ../fstab.py:699 ../fstab.py:1123
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s dosya sistemi formatlanýyor..."
 
-#: ../fstab.py:715
+#: ../fstab.py:750
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -115,96 +115,96 @@ msgid ""
 "Press OK to reboot your system."
 msgstr ""
 
-#: ../gui.py:167
+#: ../gui.py:169
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:303 ../text.py:828
+#: ../gui.py:305 ../text.py:940
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:393 ../gui.py:743
+#: ../gui.py:404 ../gui.py:828
 msgid "Next"
 msgstr "Ýleri"
 
-#: ../gui.py:394 ../gui.py:742 ../libfdisk/newtfsedit.c:1440
-#: ../libfdisk/newtfsedit.c:1448 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../gui.py:405 ../gui.py:827 ../libfdisk/newtfsedit.c:1463
+#: ../libfdisk/newtfsedit.c:1471 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:577
 #: ../loader/loader.c:283 ../loader/loader.c:797 ../loader/loader.c:834
 #: ../loader/loader.c:948 ../loader/loader.c:1040 ../loader/loader.c:1492
 #: ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../text.py:56 ../text.py:67
-#: ../text.py:138 ../text.py:141 ../text.py:216 ../text.py:271 ../text.py:289
-#: ../text.py:292 ../text.py:311 ../text.py:314 ../text.py:336 ../text.py:339
-#: ../text.py:396 ../text.py:399 ../text.py:425 ../text.py:429 ../text.py:438
-#: ../text.py:507 ../text.py:509 ../text.py:519 ../text.py:521
-#: ../textw/bootdisk_text.py:30 ../textw/lilo_text.py:34
-#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../text.py:64 ../text.py:75
+#: ../text.py:146 ../text.py:191 ../text.py:238 ../text.py:241 ../text.py:316
+#: ../text.py:371 ../text.py:389 ../text.py:392 ../text.py:411 ../text.py:414
+#: ../text.py:436 ../text.py:439 ../text.py:496 ../text.py:499 ../text.py:525
+#: ../text.py:529 ../text.py:538 ../text.py:607 ../text.py:609 ../text.py:619
+#: ../text.py:621 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9
+#: ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
 #: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
-#: ../textw/mouse_text.py:81 ../textw/network_text.py:103
-#: ../textw/network_text.py:155 ../textw/network_text.py:158
+#: ../textw/mouse_text.py:81 ../textw/network_text.py:102
+#: ../textw/network_text.py:161 ../textw/network_text.py:164
 #: ../textw/packages_text.py:55 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:23 ../textw/partitioning_text.py:64
-#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:257
-#: ../textw/partitioning_text.py:309 ../textw/silo_text.py:26
-#: ../textw/silo_text.py:99 ../textw/silo_text.py:206
+#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:218
+#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:309
+#: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:296
+#: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "Geri"
 
-#: ../gui.py:395 ../gui.py:748
+#: ../gui.py:406 ../gui.py:833
 msgid "Show Help"
 msgstr "Yardýmý Göster"
 
-#: ../gui.py:396 ../gui.py:747
+#: ../gui.py:407 ../gui.py:832
 msgid "Hide Help"
 msgstr "Yardýmý Kapat"
 
-#: ../gui.py:397 ../gui.py:746
+#: ../gui.py:408 ../gui.py:831
 msgid "Finish"
 msgstr "Bitti"
 
-#: ../gui.py:400 ../gui.py:778
+#: ../gui.py:411 ../gui.py:863
 msgid "Online Help"
 msgstr "Çevrimiçi Yardým"
 
-#: ../gui.py:401 ../iw/language_gui.py:10 ../text.py:61 ../text.py:899
-#: ../text.py:928
+#: ../gui.py:412 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:69 ../text.py:1012 ../text.py:1044
 msgid "Language Selection"
 msgstr "Dil Seçimi"
 
-#: ../gui.py:669
+#: ../gui.py:558 ../gui.py:830
+msgid "Release Notes"
+msgstr ""
+
+#: ../gui.py:735
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Kurucusu"
 
-#: ../gui.py:673
+#: ../gui.py:739
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux Kurulum Kabuðu"
 
-#: ../gui.py:684
+#: ../gui.py:750
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "%s Üzerinde Red Hat Linux Kurucusu"
 
-#: ../gui.py:685
+#: ../gui.py:751
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "%s Üzerinde Red Hat Linux Kurulum Kabuðu"
 
-#: ../gui.py:745
-msgid "Release Notes"
-msgstr ""
-
-#: ../gui.py:827
+#: ../gui.py:912
 #, fuzzy
 msgid "Install Window"
 msgstr "Kurulum Kaydý"
@@ -229,75 +229,67 @@ msgid ""
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:105
+#: ../image.py:115
 #, fuzzy
 msgid "Change CDROM"
 msgstr "Baþka CDROM"
 
-#: ../image.py:106
+#: ../image.py:116
 #, c-format
 msgid "Please insert disc %d to continue."
 msgstr ""
 
-#: ../image.py:118
+#: ../image.py:133
 #, fuzzy
 msgid "Wrong CDROM"
 msgstr "Baþka CDROM"
 
-#: ../image.py:119
+#: ../image.py:134
 #, fuzzy
 msgid "That's not the correct Red Hat CDROM."
 msgstr "Bu CD bir Red Hat CD'si deðil."
 
-#: ../image.py:124
+#: ../image.py:139
 #, fuzzy
 msgid "The CDROM could not be mounted."
 msgstr "%s bölümü ayrýlamadý."
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:451 ../libfdisk/fsedit.c:916 ../libfdisk/fsedit.c:923
+#: ../iw/package_gui.py:454 ../libfdisk/fsedit.c:916 ../libfdisk/fsedit.c:923
 #: ../libfdisk/fsedit.c:930 ../libfdisk/fsedit.c:939 ../libfdisk/fsedit.c:966
 #: ../libfdisk/fsedit.c:979 ../libfdisk/fsedit.c:989 ../libfdisk/fsedit.c:1018
 #: ../libfdisk/fsedit.c:1028 ../libfdisk/fsedit.c:1045
-#: ../libfdisk/fsedit.c:1438 ../libfdisk/gnomefsedit.c:778
-#: ../libfdisk/gnomefsedit.c:813 ../libfdisk/gnomefsedit.c:1161
-#: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/gnomefsedit.c:1232
-#: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:1405
-#: ../libfdisk/gnomefsedit.c:1480 ../libfdisk/gnomefsedit.c:1530
-#: ../libfdisk/gnomefsedit.c:1595 ../libfdisk/gnomefsedit.c:1613
-#: ../libfdisk/gnomefsedit.c:1891 ../libfdisk/gnomefsedit.c:1900
-#: ../libfdisk/gnomefsedit.c:2137 ../libfdisk/gnomefsedit.c:2145
-#: ../libfdisk/gnomefsedit.c:2189 ../libfdisk/gnomefsedit.c:2199
-#: ../libfdisk/gnomefsedit.c:2206 ../libfdisk/gnomefsedit.c:2221
-#: ../libfdisk/gnomefsedit.c:2230 ../libfdisk/gnomefsedit.c:2239
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/gnomefsedit.c:2407
-#: ../libfdisk/gnomefsedit.c:2449 ../libfdisk/newtfsedit.c:169
-#: ../libfdisk/newtfsedit.c:345 ../libfdisk/newtfsedit.c:573
-#: ../libfdisk/newtfsedit.c:635 ../libfdisk/newtfsedit.c:668
-#: ../libfdisk/newtfsedit.c:694 ../libfdisk/newtfsedit.c:713
-#: ../libfdisk/newtfsedit.c:811 ../libfdisk/newtfsedit.c:1440
-#: ../libfdisk/newtfsedit.c:1448 ../libfdisk/newtfsedit.c:1573
-#: ../libfdisk/newtfsedit.c:1594 ../libfdisk/newtfsedit.c:1620
-#: ../libfdisk/newtfsedit.c:1704 ../loader/urls.c:78 ../loader/urls.c:87
-#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:56 ../text.py:58
-#: ../text.py:438 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
+#: ../libfdisk/fsedit.c:1438 ../libfdisk/gnomefsedit.c:783
+#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1166
+#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:1430
+#: ../libfdisk/gnomefsedit.c:1505 ../libfdisk/gnomefsedit.c:1555
+#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1638
+#: ../libfdisk/gnomefsedit.c:1916 ../libfdisk/gnomefsedit.c:1925
+#: ../libfdisk/gnomefsedit.c:2167 ../libfdisk/gnomefsedit.c:2175
+#: ../libfdisk/gnomefsedit.c:2219 ../libfdisk/gnomefsedit.c:2229
+#: ../libfdisk/gnomefsedit.c:2236 ../libfdisk/gnomefsedit.c:2251
+#: ../libfdisk/gnomefsedit.c:2261 ../libfdisk/gnomefsedit.c:2271
+#: ../libfdisk/gnomefsedit.c:2310 ../libfdisk/gnomefsedit.c:2441
+#: ../libfdisk/gnomefsedit.c:2483 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/newtfsedit.c:346 ../libfdisk/newtfsedit.c:574
+#: ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669
+#: ../libfdisk/newtfsedit.c:695 ../libfdisk/newtfsedit.c:714
+#: ../libfdisk/newtfsedit.c:834 ../libfdisk/newtfsedit.c:1463
+#: ../libfdisk/newtfsedit.c:1471 ../libfdisk/newtfsedit.c:1596
+#: ../libfdisk/newtfsedit.c:1617 ../libfdisk/newtfsedit.c:1645
+#: ../libfdisk/newtfsedit.c:1729 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:64 ../text.py:66
+#: ../text.py:538 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
 #: ../textw/mouse_text.py:27 ../textw/partitioning_text.py:154
-#: ../textw/silo_text.py:136 ../textw/silo_text.py:149
-#: ../textw/silo_text.py:205
+#: ../textw/partitioning_text.py:386 ../textw/silo_text.py:136
+#: ../textw/silo_text.py:149 ../textw/silo_text.py:205
 msgid "Ok"
 msgstr "Tamam"
 
-#: ../text.py:62
+#: ../text.py:70
 msgid "What language would you like to use during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
-
-#: ../text.py:136 ../text.py:901 ../text.py:930
-msgid "Keyboard Selection"
-msgstr "Tuþtakýmý Seçimi"
-
-#: ../text.py:137
-msgid "Which model keyboard is attached to this computer?"
-msgstr "Ne tip bir klavye kullanýyorsunuz?"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:214
 #: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312
@@ -310,19 +302,21 @@ msgstr "Ne tip bir klavye kullanýyorsunuz?"
 #: ../loader/loader.c:1118 ../loader/loader.c:1123 ../loader/loader.c:1220
 #: ../loader/loader.c:1229 ../loader/loader.c:1260 ../loader/loader.c:1492
 #: ../loader/loader.c:2127 ../loader/loader.c:2173 ../loader/loader.c:2236
-#: ../loader/loader.c:2244 ../loader/net.c:164 ../loader/net.c:251
+#: ../loader/loader.c:2249 ../loader/net.c:164 ../loader/net.c:251
 #: ../loader/net.c:336 ../loader/net.c:645 ../loader/net.c:678
-#: ../loader/pcmcia.c:91 ../loader/pcmcia.c:101 ../loader/pcmcia.c:118
+#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../loader/urls.c:375 ../text.py:138 ../text.py:216 ../text.py:289
-#: ../text.py:336 ../text.py:354 ../text.py:396 ../text.py:425 ../text.py:507
-#: ../text.py:519 ../text.py:544 ../text.py:564 ../text.py:773 ../text.py:799
-#: ../text.py:824 ../text.py:830 ../text.py:845 ../text.py:1060
-#: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
-#: ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
+#: ../loader/urls.c:375 ../text.py:146 ../text.py:191 ../text.py:238
+#: ../text.py:316 ../text.py:389 ../text.py:436 ../text.py:454 ../text.py:496
+#: ../text.py:525 ../text.py:607 ../text.py:619 ../text.py:648 ../text.py:669
+#: ../text.py:885 ../text.py:911 ../text.py:936 ../text.py:942 ../text.py:957
+#: ../text.py:1190 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
+#: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
+#: ../textw/firewall_text.py:124 ../textw/lilo_text.py:33
+#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
 #: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
-#: ../textw/network_text.py:103 ../textw/network_text.py:124
-#: ../textw/network_text.py:155 ../textw/packages_text.py:55
+#: ../textw/network_text.py:102 ../textw/network_text.py:123
+#: ../textw/network_text.py:161 ../textw/packages_text.py:55
 #: ../textw/packages_text.py:89 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/partitioning_text.py:257
 #: ../textw/partitioning_text.py:309 ../textw/partitioning_text.py:320
@@ -334,39 +328,67 @@ msgstr "Ne tip bir klavye kullanýyorsunuz?"
 #: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
 #: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
-#: ../textw/userauth_text.py:296 ../xserver.py:33
+#: ../textw/userauth_text.py:297 ../xserver.py:33
 msgid "OK"
 msgstr "Tamam"
 
-#: ../text.py:192
+#: ../text.py:149
+#, fuzzy
+msgid "Choose the languages to be installed:"
+msgstr "Kurulacak paketlerin seçimi"
+
+#: ../text.py:155 ../text.py:1046
+#, fuzzy
+msgid "Language Support"
+msgstr "Yazýcý sunucusu:"
+
+#: ../text.py:194
+#, fuzzy
+msgid "Choose the default language:"
+msgstr "Bir Dil Seçin"
+
+#: ../text.py:200
+#, fuzzy
+msgid "Default Language"
+msgstr "Bir Dil Seçin"
+
+#: ../text.py:236 ../text.py:1014 ../text.py:1050
+msgid "Keyboard Selection"
+msgstr "Tuþtakýmý Seçimi"
+
+#: ../text.py:237
+msgid "Which model keyboard is attached to this computer?"
+msgstr "Ne tip bir klavye kullanýyorsunuz?"
+
+#: ../text.py:292
 msgid "Upgrade Existing Installation"
 msgstr "Eski Sistemi Güncelle"
 
-#: ../text.py:214 ../text.py:933
+#: ../text.py:314 ../text.py:1053
 msgid "Installation Type"
 msgstr "Kurulum Tipi"
 
-#: ../text.py:215
+#: ../text.py:315
 msgid "What type of system would you like to install?"
 msgstr "Ne tür bir sistem kurmak istiyorsunuz?"
 
-#: ../text.py:269
+#: ../text.py:369
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Diskinizde hiç Linux bölümü yok. Sistem güncellenemez."
 
-#: ../text.py:286
+#: ../text.py:386
 msgid "System to Upgrade"
 msgstr "Güncellenecek Sistem"
 
-#: ../text.py:287
+#: ../text.py:387
 msgid "What partition holds the root partition of your installation?"
 msgstr "Kurulumun tepe dizini hangi disk bölümünde bulunuyor?"
 
-#: ../text.py:303
+#: ../text.py:403
 msgid "Customize Packages to Upgrade"
 msgstr "Güncellenecek Paketlerin Seçimi"
 
-#: ../text.py:304
+#: ../text.py:404
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -376,37 +398,40 @@ msgstr ""
 "üzere seçildiler. Güncellenecek paketlerin listesini deðiþtirmek istiyor "
 "musunuz?"
 
-#: ../iw/welcome_gui.py:90 ../libfdisk/fsedit.c:947
-#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/gnomefsedit.c:1136
-#: ../libfdisk/gnomefsedit.c:1277 ../libfdisk/gnomefsedit.c:2331
-#: ../libfdisk/gnomefsedit.c:2617 ../libfdisk/gnomefsedit.c:2670
-#: ../libfdisk/newtfsedit.c:611 ../libfdisk/newtfsedit.c:837
-#: ../libfdisk/newtfsedit.c:1641 ../libfdisk/newtfsedit.c:1659
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:207
-#: ../loader/loader.c:797 ../loader/net.c:812 ../text.py:311
-#: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../iw/rootpartition_gui.py:430 ../iw/welcome_gui.py:90
+#: ../libfdisk/fsedit.c:947 ../libfdisk/gnomefsedit.c:733
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2651 ../libfdisk/gnomefsedit.c:2706
+#: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
+#: ../libfdisk/newtfsedit.c:860 ../libfdisk/newtfsedit.c:1666
+#: ../libfdisk/newtfsedit.c:1684 ../libfdisk/newtfsedit.c:1771
+#: ../loader/devices.c:207 ../loader/loader.c:797 ../loader/net.c:812
+#: ../text.py:411 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
+#: ../textw/partitioning_text.py:368
 msgid "Yes"
 msgstr "Evet"
 
-#: ../iw/welcome_gui.py:93 ../libfdisk/fsedit.c:947
-#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/gnomefsedit.c:1136
-#: ../libfdisk/gnomefsedit.c:1277 ../libfdisk/gnomefsedit.c:2331
-#: ../libfdisk/gnomefsedit.c:2617 ../libfdisk/gnomefsedit.c:2670
-#: ../libfdisk/newtfsedit.c:611 ../libfdisk/newtfsedit.c:837
-#: ../libfdisk/newtfsedit.c:1641 ../libfdisk/newtfsedit.c:1659
-#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:208 ../loader/net.c:812
-#: ../text.py:311 ../text.py:317 ../textw/bootdisk_text.py:12
-#: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
-#: ../textw/partitioning_text.py:218
+#: ../iw/rootpartition_gui.py:432 ../iw/welcome_gui.py:93
+#: ../libfdisk/fsedit.c:947 ../libfdisk/gnomefsedit.c:733
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2364
+#: ../libfdisk/gnomefsedit.c:2651 ../libfdisk/gnomefsedit.c:2706
+#: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
+#: ../libfdisk/newtfsedit.c:860 ../libfdisk/newtfsedit.c:1666
+#: ../libfdisk/newtfsedit.c:1684 ../libfdisk/newtfsedit.c:1771
+#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:411 ../text.py:417
+#: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:368
 msgid "No"
 msgstr "Hayýr"
 
-#: ../text.py:327 ../text.py:346
+#: ../text.py:427 ../text.py:446
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:328
+#: ../text.py:428
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -427,7 +452,7 @@ msgstr ""
 "Resmi Red Hat Linux daðýtýmýný aldýysanýz, bunu web sitemiz aracýlýðýyla "
 "kaydettirmeyi unutmayýn: http://www.redhat.com"
 
-#: ../text.py:347
+#: ../text.py:447
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -442,45 +467,45 @@ msgstr ""
 "deðiþiklikte bulunmak istemiyorsanýz, aþaðýda yeralan Ýptal düðmesine "
 "týklayýn"
 
-#: ../libfdisk/gnomefsedit.c:813 ../libfdisk/gnomefsedit.c:1900
-#: ../libfdisk/gnomefsedit.c:2449 ../libfdisk/newtfsedit.c:574
-#: ../libfdisk/newtfsedit.c:1659 ../loader/devices.c:215
-#: ../loader/devices.c:507 ../loader/loader.c:2236 ../loader/pcmcia.c:91
-#: ../text.py:354 ../text.py:357 ../text.py:830 ../text.py:832
+#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1925
+#: ../libfdisk/gnomefsedit.c:2483 ../libfdisk/newtfsedit.c:575
+#: ../libfdisk/newtfsedit.c:1684 ../loader/devices.c:215
+#: ../loader/devices.c:507 ../loader/loader.c:2236 ../loader/pcmcia.c:104
+#: ../text.py:454 ../text.py:457 ../text.py:942 ../text.py:944
 #: ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Vazgeç"
 
-#: ../text.py:394
+#: ../text.py:494
 msgid "X probe results"
 msgstr "X tarama sonuçlarý"
 
-#: ../text.py:414 ../text.py:434
+#: ../text.py:514 ../text.py:534
 msgid "Unlisted Card"
 msgstr "Listede Bulunmayan Kart"
 
-#: ../text.py:422
+#: ../text.py:522
 msgid "Video Card Selection"
 msgstr "Ekran Kartý Seçimi"
 
-#: ../text.py:423
+#: ../text.py:523
 msgid "Which video card do you have?"
 msgstr "Ne tip bir ekran kartýnýz var?"
 
-#: ../text.py:436
+#: ../text.py:536
 msgid "X Server Selection"
 msgstr "X Sunucu Seçimi"
 
-#: ../text.py:436
+#: ../text.py:536
 msgid "Choose a server"
 msgstr "Bir sunucu seçin"
 
-#: ../text.py:503
+#: ../text.py:603
 msgid "Installation to begin"
 msgstr "Kuruluma baþlangýç"
 
-#: ../iw/confirm_gui.py:45 ../text.py:504
+#: ../iw/confirm_gui.py:45 ../text.py:604
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -488,12 +513,12 @@ msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
 "sonra /tmp/install.log dosyasýnda bulabilirsiniz."
 
-#: ../text.py:515
+#: ../text.py:615
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "Güncelleme Kaydý"
 
-#: ../iw/confirm_gui.py:41 ../text.py:516
+#: ../iw/confirm_gui.py:41 ../text.py:616
 #, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
@@ -502,18 +527,25 @@ msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
 "sonra /tmp/install.log dosyasýnda bulabilirsiniz."
 
-#: ../text.py:533 ../text.py:554
+#: ../text.py:635
+msgid ""
+"                              <Return> to reboot                             "
+" "
+msgstr ""
+
+#: ../text.py:637 ../text.py:660
 msgid "Complete"
 msgstr "Bitti"
 
-#: ../iw/congrats_gui.py:34 ../text.py:534
+#: ../iw/congrats_gui.py:34 ../text.py:638
+#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
-"Press return to reboot, and be sure to remove your boot medium as the system "
-"reboots, or your system will rerun the install. For information on fixes "
-"which are available for this release of Red Hat Linux, consult the Errata "
-"available from http://www.redhat.com/errata.\n"
+"Press return to reboot, and be sure to remove your boot medium after the "
+"system reboots, or your system will rerun the install. For information on "
+"fixes which are available for this release of Red Hat Linux, consult the "
+"Errata available from http://www.redhat.com/errata.\n"
 "\n"
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
@@ -527,15 +559,22 @@ msgstr ""
 "Sisteminizi nasýl ayarlayacaðýnýza iliþkin bilgiler resmi Red Hat Linux "
 "Kullaným Kýlavuzu'nun 'Kurulum Sonrasý' baþlýklý bölümünde ele alýnmaktadýr."
 
-#: ../text.py:555
+#: ../text.py:656
+msgid ""
+"                                <Return> to exit                             "
+" "
+msgstr ""
+
+#: ../text.py:661
+#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
 " For information on fixes which are available for this release of Red Hat "
 "Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available in the post "
-"install chapter of the Official Red Hat Linux User's Guide."
+"Information on further configuring your system is available at "
+"http://www.redhat.com/support/manuals/"
 msgstr ""
 "Kutlarýz, yapýlandýrma iþlemi sona erdi.\n"
 "\n"
@@ -545,60 +584,60 @@ msgstr ""
 "Daha ilerideki aþamalarda sistemde yapabileceðiniz ayarlamalar için Red Hat "
 "Linux Kullanýcý Kýlavuzu'na göz atýnýz."
 
-#: ../text.py:623
+#: ../text.py:728
 msgid "Package Installation"
 msgstr "Paket Kurulumu"
 
-#: ../text.py:625
+#: ../text.py:730
 msgid "Name   : "
 msgstr "Ýsim   :"
 
-#: ../text.py:626
+#: ../text.py:731
 msgid "Size   : "
 msgstr "Boy    :"
 
-#: ../text.py:627
+#: ../text.py:732
 msgid "Summary: "
 msgstr "Özet   :"
 
-#: ../text.py:653
+#: ../text.py:758
 msgid "    Packages"
 msgstr "       Paket"
 
-#: ../text.py:654
+#: ../text.py:759
 msgid "       Bytes"
 msgstr "        Bayt"
 
-#: ../text.py:655
+#: ../text.py:760
 msgid "        Time"
 msgstr "       Zaman"
 
-#: ../text.py:657
+#: ../text.py:762
 msgid "Total    :"
 msgstr "Toplam   :"
 
-#: ../text.py:664
+#: ../text.py:769
 msgid "Completed:   "
 msgstr "Biten:       "
 
-#: ../text.py:674
+#: ../text.py:779
 msgid "Remaining:  "
 msgstr "Kalan:      "
 
-#: ../text.py:771
+#: ../text.py:883
 #, fuzzy
 msgid "Help not available"
 msgstr "(yok)"
 
-#: ../text.py:772
+#: ../text.py:884
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:827
+#: ../text.py:939
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:838
+#: ../text.py:950
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -607,26 +646,30 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../text.py:845 ../text.py:848
+#: ../text.py:957 ../text.py:960
 msgid "Save"
 msgstr ""
 
-#: ../text.py:845 ../text.py:846
+#: ../text.py:957 ../text.py:958
 msgid "Debug"
 msgstr "Hata Ayýklama"
 
-#: ../text.py:859
+#: ../text.py:968
+msgid " "
+msgstr ""
+
+#: ../text.py:972
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:862
+#: ../text.py:975
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <Tab>/<Alt-Tab> ileri-geri  |   <Boþluk> iþaretle   |   <F12> sonraki ekran"
 
-#: ../text.py:864
+#: ../text.py:977
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -634,190 +677,207 @@ msgstr ""
 "  <Tab>/<Alt-Tab> ileri-geri   |   <Boþluk> iþaretle   |   <F12> sonraki "
 "ekran"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:897
-#: ../text.py:932
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1010
+#: ../text.py:1052
 msgid "Welcome"
 msgstr "Hoþgeldiniz"
 
-#: ../text.py:903 ../text.py:971
+#: ../text.py:1016 ../text.py:1098
 msgid "Hostname Setup"
 msgstr "Makina Adý Belirlenmesi"
 
-#: ../text.py:905 ../text.py:973
+#: ../text.py:1018 ../text.py:1095
 msgid "Network Setup"
 msgstr "Að Ayarlarý"
 
-#: ../text.py:911 ../text.py:979
+#: ../iw/firewall_gui.py:12 ../text.py:1020 ../text.py:1100
+#: ../textw/firewall_text.py:11
+#, fuzzy
+msgid "Firewall Configuration"
+msgstr "LILO Yapýlandýrmasý"
+
+#: ../text.py:1027 ../text.py:1106
 msgid "Time Zone Setup"
 msgstr "Zaman Dilimi Ayarlarý"
 
-#: ../text.py:913 ../text.py:981 ../textw/userauth_text.py:9
+#: ../text.py:1029 ../text.py:1108 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "root Parolasý"
 
-#: ../text.py:915 ../text.py:983 ../textw/userauth_text.py:172
+#: ../text.py:1031 ../text.py:1110 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Kullanýcý Hesabý Ýþlemleri"
 
-#: ../text.py:917 ../text.py:985
+#: ../text.py:1033 ../text.py:1112
 msgid "Authentication"
 msgstr "Kimlik sýnama"
 
-#: ../text.py:923
+#: ../text.py:1039
 msgid "Configuration Complete"
 msgstr "Yapýlandýrma Tamamlandý"
 
-#: ../text.py:941 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1048
+#, fuzzy
+msgid "Language Default"
+msgstr "Dil Seçimi"
+
+#: ../text.py:1061 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO Yapýlandýrmasý"
 
-#: ../text.py:947 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1067 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO Yapýlandýrmasý"
 
-#: ../text.py:951
+#: ../text.py:1071
 msgid "Automatic Partition"
 msgstr "Otomatik Bölümlendir"
 
-#: ../iw/lilo_gui.py:194 ../iw/lilo_gui.py:351 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:953 ../text.py:957
+#: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../text.py:1073 ../text.py:1077
 msgid "Partition"
 msgstr "Bölümlendirme"
 
-#: ../text.py:955
+#: ../text.py:1075
 msgid "Manually Partition"
 msgstr "Elle Bölümlendir"
 
-#: ../text.py:959 ../textw/partitioning_text.py:301
+#: ../text.py:1079 ../textw/partitioning_text.py:301
 msgid "Root Filesystem Size"
 msgstr "Kök Dosya Sistemi Büyüklüðü:"
 
-#: ../text.py:961
+#: ../text.py:1081
 msgid "Swap"
 msgstr "Takas"
 
-#: ../text.py:963
+#: ../text.py:1083 ../textw/partitioning_text.py:356
+#: ../textw/partitioning_text.py:376
+#, fuzzy
+msgid "Boot Partition Warning"
+msgstr "Kök Bölümü Seçimi"
+
+#: ../text.py:1085
 msgid "Filesystem Formatting"
 msgstr "Dosya Sistemi Biçimlendirme"
 
-#: ../iw/mouse_gui.py:56 ../text.py:975 ../text.py:977
+#: ../iw/mouse_gui.py:56 ../text.py:1102 ../text.py:1104
 msgid "Mouse Configuration"
 msgstr "Fare Yapýlandýrmasý"
 
-#: ../text.py:987
+#: ../text.py:1114
 msgid "Package Groups"
 msgstr "Paket Gruplarý"
 
-#: ../text.py:989 ../text.py:1017
+#: ../text.py:1116 ../text.py:1144
 msgid "Individual Packages"
 msgstr "Ayrý Paketler"
 
-#: ../text.py:991 ../textw/packages_text.py:304
+#: ../text.py:1118 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Paket Baðýmlýlýðý"
 
-#: ../iw/xconfig_gui.py:879 ../text.py:993 ../text.py:1001
+#: ../iw/xconfig_gui.py:1009 ../text.py:1120 ../text.py:1128
 msgid "X Configuration"
 msgstr "X Yapýlandýrmasý"
 
-#: ../text.py:995
+#: ../text.py:1122
 msgid "Installation Begins"
 msgstr "Kurulum Baþlýyor"
 
-#: ../text.py:997
+#: ../text.py:1124
 msgid "Install System"
 msgstr "Sistemi Kur"
 
-#: ../text.py:998 ../text.py:1000 ../text.py:1021 ../text.py:1023
+#: ../text.py:1125 ../text.py:1127 ../text.py:1148 ../text.py:1150
 msgid "Boot Disk"
 msgstr "Açýlýþ Disketi"
 
-#: ../text.py:1003
+#: ../text.py:1130
 msgid "Installation Complete"
 msgstr "Kurulum Bitti"
 
-#: ../text.py:1008
+#: ../text.py:1135
 msgid "Examine System"
 msgstr "Sistemi Ýncele"
 
-#: ../text.py:1015
+#: ../text.py:1142
 msgid "Customize Upgrade"
 msgstr "Güncellemeyi Ayarla"
 
-#: ../text.py:1018
+#: ../text.py:1145
 #, fuzzy
 msgid "Upgrade Begins"
 msgstr "Güncelleme Kaydý"
 
-#: ../text.py:1020
+#: ../text.py:1147
 msgid "Upgrade System"
 msgstr "Sistemi Güncelle"
 
-#: ../text.py:1024
+#: ../text.py:1151
 msgid "Upgrade Complete"
 msgstr "Güncelleme Bitti"
 
-#: ../text.py:1057
+#: ../text.py:1187
 msgid "Cancelled"
 msgstr "Vazgeçildi"
 
-#: ../text.py:1058
+#: ../text.py:1188
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Bu adýmdan bir öncekine gidilemez. Yeniden denemeniz gerekiyor."
 
-#: ../todo.py:548
+#: ../todo.py:582
 msgid "Creating boot disk..."
 msgstr "Açýlýþ disketi yaratýlýyor..."
 
-#: ../todo.py:567
+#: ../todo.py:601
 msgid "Reading"
 msgstr "Okunuyor"
 
-#: ../todo.py:568
+#: ../todo.py:602
 msgid "Reading package information..."
 msgstr "Paket bilgisi okunuyor..."
 
-#: ../todo.py:776
+#: ../todo.py:848
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:777
+#: ../todo.py:849
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:804 ../todo.py:846 ../todo.py:852 ../todo.py:869
+#: ../todo.py:876 ../todo.py:918 ../todo.py:924 ../todo.py:941
 msgid "no suggestion"
 msgstr "öneri yok"
 
-#: ../todo.py:877
+#: ../todo.py:949
 msgid "Searching"
 msgstr "Taranýyor"
 
-#: ../todo.py:878
+#: ../todo.py:950
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Red Hat Linux kurulumlarý taranýyor..."
 
-#: ../todo.py:889 ../todo.py:917
+#: ../todo.py:961 ../todo.py:989
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "%s üzerine ext2 dosya sistemi baðlanmasýnda hata: %s"
 
-#: ../todo.py:961
+#: ../todo.py:1033
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 
-#: ../todo.py:971
+#: ../todo.py:1043
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:989
+#: ../todo.py:1061
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -825,51 +885,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1003
+#: ../todo.py:1075
 msgid "Finding"
 msgstr "Bulunuyor"
 
-#: ../todo.py:1004
+#: ../todo.py:1076
 msgid "Finding packages to upgrade..."
 msgstr "Güncellenecek paketler belirleniyor..."
 
-#: ../todo.py:1019
+#: ../todo.py:1091
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "RPM veri tabanýnýn yeniden oluþturulmasý baþarýsýz. Diskiniz dolmuþ olabilir "
 "mi?"
 
-#: ../todo.py:1032
+#: ../todo.py:1104
 #, fuzzy
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Güncellenecek paketler belirleniyor..."
 
-#: ../todo.py:1342
+#: ../todo.py:1439
 msgid "Processing"
 msgstr "Ýþleniyor"
 
-#: ../todo.py:1343
+#: ../todo.py:1440
 msgid "Preparing to install..."
 msgstr "Kuruluma hazýrlýk yapýlýyor..."
 
-#: ../todo.py:1377
+#: ../todo.py:1474
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1606
+#: ../todo.py:1704
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s güncelleniyor.\n"
 
-#: ../todo.py:1608
+#: ../todo.py:1706
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s kuruluyor.\n"
 
-#: ../todo.py:1635
+#: ../todo.py:1751
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -879,31 +939,47 @@ msgstr ""
 "diskbölümlerinde daha fazla disk alanýna ihtiyacýnýz var:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:2993 ../todo.py:1638
+#: ../libfdisk/gnomefsedit.c:3029 ../todo.py:1754 ../todo.py:1770
 msgid "Mount Point"
 msgstr "Baðlama Noktasý"
 
-#: ../todo.py:1638
+#: ../todo.py:1754
 msgid "Space Needed"
 msgstr "Gerekli Alan"
 
-#: ../todo.py:1651
+#: ../todo.py:1767
+#, fuzzy
+msgid ""
+"You don't appear to have enough file nodes to install the packages you've "
+"selected. You need more file nodes on the following filesystems:\n"
+"\n"
+msgstr ""
+"Seçtiðiniz paketleri kurmak için yeterli disk bölümünüz yok. Aþaðýdaki "
+"diskbölümlerinde daha fazla disk alanýna ihtiyacýnýz var:\n"
+"\n"
+
+#: ../todo.py:1770
+#, fuzzy
+msgid "Nodes Needed"
+msgstr "Gerekli Alan"
+
+#: ../todo.py:1776
 msgid "Disk Space"
 msgstr "Disk Alaný"
 
-#: ../todo.py:1686
+#: ../todo.py:1811
 msgid "Post Install"
 msgstr "Kurulum Sonrasý"
 
-#: ../todo.py:1687
+#: ../todo.py:1812
 msgid "Performing post install configuration..."
 msgstr "Kurulum sonrasý ayarlar yapýlýyor..."
 
-#: ../iw/xconfig_gui.py:11 ../xf86config.py:929
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:929
 msgid "Video Card"
 msgstr "Ekran Kartý"
 
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:931
+#: ../iw/xconfig_gui.py:14 ../xf86config.py:931
 msgid "Video Ram"
 msgstr "Ekran Belleði"
 
@@ -915,7 +991,7 @@ msgstr "X Sunucu"
 msgid "Unable to detect video card"
 msgstr "Ekran kartý tanýtýlamadý"
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:944 ../xf86config.py:946
+#: ../iw/xconfig_gui.py:13 ../xf86config.py:944 ../xf86config.py:946
 msgid "Monitor"
 msgstr "Monitör"
 
@@ -1017,20 +1093,20 @@ msgstr "Parola (tekrar)"
 msgid "Full Name"
 msgstr "Tam Adý"
 
-#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1446
+#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1469
 #: ../textw/userauth_text.py:198
 msgid "Add"
 msgstr "Ekle"
 
-#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1439
-#: ../libfdisk/newtfsedit.c:1447 ../textw/lilo_text.py:208
+#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1462
+#: ../libfdisk/newtfsedit.c:1470 ../textw/lilo_text.py:208
 #: ../textw/lilo_text.py:231 ../textw/partitioning_text.py:63
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "Deðiþtir"
 
-#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1447
+#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1470
 #: ../textw/userauth_text.py:198
 msgid "Delete"
 msgstr "Sil"
@@ -1039,7 +1115,7 @@ msgstr "Sil"
 msgid "New"
 msgstr "Yeni"
 
-#: ../iw/auth_gui.py:11 ../textw/userauth_text.py:298
+#: ../iw/auth_gui.py:11 ../textw/userauth_text.py:299
 msgid "Authentication Configuration"
 msgstr "Eriþim Ayarlarý"
 
@@ -1051,7 +1127,7 @@ msgstr "MD5 parolayý etkinleþtir"
 msgid "Enable shadow passwords"
 msgstr "Gölge parolayý etkinleþtir"
 
-#: ../iw/auth_gui.py:82 ../textw/userauth_text.py:307
+#: ../iw/auth_gui.py:82 ../textw/userauth_text.py:308
 msgid "Enable NIS"
 msgstr "NIS'i Etkinleþtir"
 
@@ -1067,7 +1143,7 @@ msgstr "NIS Alaný: "
 msgid "NIS Server: "
 msgstr "NIS Sunucu:"
 
-#: ../iw/auth_gui.py:136 ../textw/userauth_text.py:341
+#: ../iw/auth_gui.py:136 ../textw/userauth_text.py:342
 #, fuzzy
 msgid "Enable LDAP"
 msgstr "NIS'i Etkinleþtir"
@@ -1076,29 +1152,29 @@ msgstr "NIS'i Etkinleþtir"
 msgid "Use TLS lookups"
 msgstr ""
 
-#: ../iw/auth_gui.py:140 ../textw/userauth_text.py:347
+#: ../iw/auth_gui.py:140 ../textw/userauth_text.py:348
 #, fuzzy
 msgid "LDAP Server:"
 msgstr "NIS Sunucu:"
 
-#: ../iw/auth_gui.py:142 ../textw/userauth_text.py:349
+#: ../iw/auth_gui.py:142 ../textw/userauth_text.py:350
 msgid "LDAP Base DN:"
 msgstr ""
 
-#: ../iw/auth_gui.py:173 ../textw/userauth_text.py:370
+#: ../iw/auth_gui.py:173 ../textw/userauth_text.py:371
 #, fuzzy
 msgid "Enable Kerberos"
 msgstr "Ölü tuþlarý etkinleþtir"
 
-#: ../iw/auth_gui.py:177 ../textw/userauth_text.py:377
+#: ../iw/auth_gui.py:177 ../textw/userauth_text.py:378
 msgid "Realm:"
 msgstr ""
 
-#: ../iw/auth_gui.py:179 ../textw/userauth_text.py:379
+#: ../iw/auth_gui.py:179 ../textw/userauth_text.py:380
 msgid "KDC:"
 msgstr ""
 
-#: ../iw/auth_gui.py:181 ../textw/userauth_text.py:381
+#: ../iw/auth_gui.py:181 ../textw/userauth_text.py:382
 #, fuzzy
 msgid "Admin Server:"
 msgstr "NIS Sunucu:"
@@ -1156,14 +1232,15 @@ msgid "Exit"
 msgstr "Çýkýþ"
 
 #: ../iw/congrats_gui.py:83
+#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
 "For information on fixes which are available for this release of Red Hat "
 "Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available in the post "
-"install chapter of the Official Red Hat Linux User's Guide."
+"Information on further configuring your system is available in the Official "
+"Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
 msgstr ""
 "Kutlarýz, yapýlandýrma sona erdi.\n"
 "\n"
@@ -1177,14 +1254,14 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Çözülemeyen Paket Gerekliliði"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:505
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:508
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, fuzzy, c-format
 msgid "Total install size: %s"
 msgstr "%s paketinin kurulumu yapýlamadý: %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:365
-#: ../iw/progress_gui.py:181 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:368
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Paket"
 
@@ -1235,23 +1312,66 @@ msgstr "fdisk"
 msgid "Select drive to run fdisk on"
 msgstr "fdisk çalýþtýrýlacak sürücüyü seçin"
 
-#: ../iw/format_gui.py:12
+#: ../iw/firewall_gui.py:39
+msgid "Please choose your level of security.  "
+msgstr ""
+
+#: ../iw/firewall_gui.py:48
+msgid "Security level:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:52 ../textw/firewall_text.py:33
+msgid "High"
+msgstr ""
+
+#: ../iw/firewall_gui.py:53 ../textw/firewall_text.py:36
+msgid "Medium"
+msgstr ""
+
+#: ../iw/firewall_gui.py:54
+#, fuzzy
+msgid "None"
+msgstr "Yapýldý"
+
+#: ../iw/firewall_gui.py:65
+msgid "Use default firewall rules"
+msgstr ""
+
+#: ../iw/firewall_gui.py:66 ../textw/firewall_text.py:9
+#, fuzzy
+msgid "Customize"
+msgstr "Özel"
+
+#: ../iw/firewall_gui.py:81
+#, fuzzy
+msgid "Trusted devices:"
+msgstr "Yazýcý aygýtý:"
+
+#: ../iw/firewall_gui.py:92 ../textw/firewall_text.py:75
+msgid "Allow incoming:"
+msgstr ""
+
+#: ../iw/firewall_gui.py:103
+msgid "Other ports:"
+msgstr ""
+
+#: ../iw/format_gui.py:13
 msgid "Choose partitions to Format"
 msgstr "Biçimlendirilecek bölümlerin seçimi"
 
-#: ../iw/format_gui.py:54
+#: ../iw/format_gui.py:55
 msgid "Check for bad blocks while formatting"
 msgstr "Biçimlendirme sýrasýnda hatalý disk bloklarý sýnansýn"
 
-#: ../iw/installpath_gui.py:92
+#: ../iw/installpath_gui.py:95
 msgid "Install Type"
 msgstr "Kurulum Tipi"
 
-#: ../iw/installpath_gui.py:185
+#: ../iw/installpath_gui.py:177
 msgid "Install"
 msgstr "Kurulum"
 
-#: ../iw/installpath_gui.py:187
+#: ../iw/installpath_gui.py:179
 msgid "Upgrade"
 msgstr "Güncelleme"
 
@@ -1283,74 +1403,98 @@ msgstr "Ölü tuþlarý etkisizleþtir"
 msgid "Test your selection here:"
 msgstr "Seçimi burada denetleyin:"
 
-#: ../iw/language_gui.py:40 ../loader/lang.c:287
+#: ../iw/language_gui.py:39 ../loader/lang.c:287
 msgid "What language should be used during the installation process?"
 msgstr "Kurulum sýrasýnda hangi dili kullanmak istiyorsunuz?"
 
-#: ../iw/lilo_gui.py:23
+#: ../iw/language_support_gui.py:139
+#, fuzzy
+msgid "Choose the default language:   "
+msgstr "Bir Dil Seçin"
+
+#: ../iw/language_support_gui.py:157
+#, fuzzy
+msgid "Choose the languages to install:"
+msgstr "Kurulacak paketlerin seçimi"
+
+#: ../iw/language_support_gui.py:196
+#, fuzzy
+msgid "Select all"
+msgstr "Grup Seçimi"
+
+#: ../iw/language_support_gui.py:201
+#, fuzzy
+msgid "Reset"
+msgstr "Sý_fýrla"
+
+#: ../iw/language_support_gui.py:223
+msgid "Select as default"
+msgstr ""
+
+#: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
 msgstr "LILO Yapýlandýrmasý"
 
-#: ../iw/lilo_gui.py:197 ../iw/lilo_gui.py:352 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:2997
+#: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3033
 msgid "Type"
 msgstr "Tip"
 
-#: ../iw/lilo_gui.py:242
+#: ../iw/lilo_gui.py:253
 msgid "Install LILO boot record on:"
 msgstr "LILO kaydýný bu bölüme kur:"
 
-#: ../iw/lilo_gui.py:249 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Ana Açýlýþ Kaydý (MBR)"
 
-#: ../iw/lilo_gui.py:253 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../iw/lilo_gui.py:264 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
 #: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Açýlýþ bölümünün ilk sektörü"
 
-#: ../iw/lilo_gui.py:257 ../textw/lilo_text.py:27
+#: ../iw/lilo_gui.py:268 ../textw/lilo_text.py:27
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Çizgisel kip (bazý SCSI sürücülere gerekir)"
 
-#: ../iw/lilo_gui.py:269 ../iw/silo_gui.py:208
+#: ../iw/lilo_gui.py:279 ../iw/silo_gui.py:208
 msgid "Kernel parameters"
 msgstr "Çekirdek parametreleri"
 
-#: ../iw/lilo_gui.py:286 ../iw/silo_gui.py:226
+#: ../iw/lilo_gui.py:296 ../iw/silo_gui.py:226
 msgid "Create boot disk"
 msgstr "Açýlýþ disketi yarat"
 
-#: ../iw/lilo_gui.py:300
+#: ../iw/lilo_gui.py:310
 #, fuzzy
 msgid "Install LILO"
 msgstr "Kurulum"
 
-#: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Öntanýmlý"
 
-#: ../iw/lilo_gui.py:327 ../iw/mouse_gui.py:143 ../iw/silo_gui.py:257
-#: ../libfdisk/gnomefsedit.c:2994 ../textw/lilo_text.py:118
+#: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:143 ../iw/silo_gui.py:257
+#: ../libfdisk/gnomefsedit.c:3030 ../textw/lilo_text.py:118
 #: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
 #: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Aygýt"
 
-#: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Bölüm Tipi"
 
-#: ../iw/lilo_gui.py:327 ../iw/lilo_gui.py:363 ../iw/silo_gui.py:257
+#: ../iw/lilo_gui.py:337 ../iw/lilo_gui.py:376 ../iw/silo_gui.py:257
 #: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "Açýlýþ Etiketi"
 
-#: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
+#: ../iw/lilo_gui.py:372 ../iw/silo_gui.py:288
 #, fuzzy
 msgid "Default boot image"
 msgstr "Öntanýmlý olarak PROM açýlýþ aygýtýný etkinleþtir"
@@ -1379,52 +1523,52 @@ msgstr "3 Tuþ Emülasyonu"
 msgid "Port"
 msgstr ""
 
-#: ../iw/network_gui.py:11 ../textw/network_text.py:105
+#: ../iw/network_gui.py:11 ../textw/network_text.py:104
 msgid "Network Configuration"
 msgstr "Að Ayarlarý"
 
-#: ../iw/network_gui.py:149
+#: ../iw/network_gui.py:170
 msgid "Configure using DHCP"
 msgstr "DHCP kullanarak ayarla"
 
-#: ../iw/network_gui.py:155
+#: ../iw/network_gui.py:176
 msgid "Activate on boot"
 msgstr "Açýlýþ sýrasýnda etkinleþtir"
 
-#: ../iw/network_gui.py:164
+#: ../iw/network_gui.py:185
 msgid "IP Address"
 msgstr "IP Adresi"
 
-#: ../iw/network_gui.py:165 ../loader/net.c:729
+#: ../iw/network_gui.py:186 ../loader/net.c:729
 msgid "Netmask"
 msgstr "Að maskesi"
 
-#: ../iw/network_gui.py:166 ../loader/loader.c:268
+#: ../iw/network_gui.py:187 ../loader/loader.c:268
 msgid "Network"
 msgstr "Að"
 
-#: ../iw/network_gui.py:167
+#: ../iw/network_gui.py:188
 msgid "Broadcast"
 msgstr "Yayýn"
 
-#: ../iw/network_gui.py:211 ../loader/net.c:533 ../loader/net.c:731
-#: ../textw/network_text.py:155
+#: ../iw/network_gui.py:232 ../loader/net.c:533 ../loader/net.c:731
+#: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "Makine Adý"
 
-#: ../iw/network_gui.py:212
+#: ../iw/network_gui.py:233
 msgid "Gateway"
 msgstr "Geçit"
 
-#: ../iw/network_gui.py:212
+#: ../iw/network_gui.py:233
 msgid "Primary DNS"
 msgstr "Birincil DNS"
 
-#: ../iw/network_gui.py:212
+#: ../iw/network_gui.py:233
 msgid "Secondary DNS"
 msgstr "Ýkincil DNS"
 
-#: ../iw/network_gui.py:212
+#: ../iw/network_gui.py:233
 msgid "Ternary DNS"
 msgstr "Üçüncü DNS"
 
@@ -1432,88 +1576,108 @@ msgstr "Üçüncü DNS"
 msgid "Individual Package Selection"
 msgstr "Tek Tek Paket Seçimi"
 
-#: ../iw/package_gui.py:287
+#: ../iw/package_gui.py:290
 msgid "Total install size: "
 msgstr ""
 
-#: ../iw/package_gui.py:367
+#: ../iw/package_gui.py:370
 #, fuzzy
 msgid "Size (MB)"
 msgstr "Boy (Mbayt):"
 
-#: ../iw/package_gui.py:396
+#: ../iw/package_gui.py:399
 #, fuzzy
 msgid "Total size: "
 msgstr "Toplam"
 
-#: ../iw/package_gui.py:399
+#: ../iw/package_gui.py:402
 #, fuzzy
 msgid "Select all in group"
 msgstr "Grup Seçimi"
 
-#: ../iw/package_gui.py:403
+#: ../iw/package_gui.py:406
 #, fuzzy
 msgid "Unselect all in group"
 msgstr "Grup Seçimi"
 
-#: ../iw/package_gui.py:436
+#: ../iw/package_gui.py:439
 #, fuzzy
 msgid "File not found"
 msgstr "Dosya sunucuda bulunamadý"
 
-#: ../iw/package_gui.py:479 ../textw/packages_text.py:60
+#: ../iw/package_gui.py:482 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "Paket Grup Seçimi"
 
-#: ../iw/package_gui.py:528
+#: ../iw/package_gui.py:542
+#, c-format
 msgid ""
-"An error has occurred while retreiving hdlist file.  The installation media "
-"or image is probably corrupt.  Installer will exit now."
+"The following error occurred while retreiving hdlist file:\n"
+"\n"
+"%s\n"
+"\n"
+"Installer will exit now."
 msgstr ""
 
-#: ../iw/package_gui.py:592 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:547
+msgid ""
+"An error has occurred while retreiving the hdlist file.  The installation "
+"media or image is probably corrupt.  Installer will exit now."
+msgstr ""
+
+#: ../iw/package_gui.py:613 ../textw/packages_text.py:54
 msgid "Select individual packages"
 msgstr "Tek tek paket seçimi"
 
-#: ../iw/progress_gui.py:43
+#: ../iw/progress_gui.py:51
 msgid "Installing Packages"
 msgstr "Paketler Kuruluyor"
 
-#: ../iw/progress_gui.py:132
+#: ../iw/progress_gui.py:140
 #, c-format
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:182 ../iw/progress_gui.py:223
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
 msgstr "Boy"
 
-#: ../iw/progress_gui.py:183
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Özet"
 
 #: ../iw/progress_gui.py:223
+#, fuzzy
+msgid "Package Progress: "
+msgstr "Paket Gruplarý"
+
+#: ../iw/progress_gui.py:228
+#, fuzzy
+msgid "Total Progress:   "
+msgstr "Toplam   :"
+
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Durum"
 
-#: ../iw/progress_gui.py:223
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Paketler"
 
-#: ../iw/progress_gui.py:223
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Zaman"
 
-#: ../iw/progress_gui.py:228
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Toplam"
 
-#: ../iw/progress_gui.py:229
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Bitti"
 
-#: ../iw/progress_gui.py:230
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Kalan"
 
@@ -1618,6 +1782,36 @@ msgstr "Elle bölümlendir"
 msgid "Manually partition with fdisk [experts only]"
 msgstr ""
 
+#: ../iw/rootpartition_gui.py:377
+#, fuzzy
+msgid "Boot Partition Location Warning"
+msgstr "Kök Bölümü Seçimi"
+
+#: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:357
+msgid ""
+"You have put the partition containing the kernel (the boot partition) above "
+"the 1023 cylinder limit, and it appears that this systems BIOS does not "
+"support booting from above this limit. Proceeding will most likely make the "
+"system unable to reboot into Linux.\n"
+"\n"
+"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+"when asked. This will guarantee you have a way to boot into the system after "
+"installation.\n"
+"\n"
+"Are you sure you want to proceed?"
+msgstr ""
+
+#: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:377
+msgid ""
+"You have put the partition containing the kernel (the boot partition) above "
+"the 1023 cylinder limit. It appears that this systems BIOS supports booting "
+"from above this limit. \n"
+"\n"
+"It is HIGHLY recommended you make a boot floppy when asked by the installer, "
+"as this is a new feature in recent motherboards and is not always reliable. "
+"Making a boot disk will guarantee you can boot your system once installed."
+msgstr ""
+
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
 msgstr "Silo Yapýlandýrmasý"
@@ -1672,85 +1866,113 @@ msgstr "UTC Ofseti"
 msgid "Would you like to configure your system?"
 msgstr "Sistemde ayarlamalar yapmak istiyor musunuz?"
 
-#: ../iw/xconfig_gui.py:14
+#: ../iw/xconfig_gui.py:15
 msgid "Horizontal Frequency Range"
 msgstr "Yatay Tazeleme Hýzý"
 
-#: ../iw/xconfig_gui.py:15
+#: ../iw/xconfig_gui.py:16
 msgid "Vertical Frequency Range"
 msgstr "Düþey Tazeleme Hýzý"
 
-#: ../iw/xconfig_gui.py:16
+#: ../iw/xconfig_gui.py:17
 msgid "Test failed"
 msgstr "Sýnama baþarýsýz oldu"
 
-#: ../iw/xconfig_gui.py:24
+#: ../iw/xconfig_gui.py:25
 #, fuzzy
 msgid "Customize Graphics Configuration"
 msgstr "X Window Yapýlandýrmasý"
 
-#: ../iw/xconfig_gui.py:214
+#: ../iw/xconfig_gui.py:257
 #, fuzzy
 msgid "Color Depth:"
 msgstr "Renk Derinliði Ayarý"
 
-#: ../iw/xconfig_gui.py:242
+#: ../iw/xconfig_gui.py:285
 #, fuzzy
 msgid "Screen Resolution:"
 msgstr "Çözünürlük:"
 
-#: ../iw/xconfig_gui.py:318
+#: ../iw/xconfig_gui.py:395
 msgid "   Test Setting   "
 msgstr ""
 
-#: ../iw/xconfig_gui.py:336
+#: ../iw/xconfig_gui.py:412
 msgid "Please choose your default desktop environment:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:346 ../iw/xconfig_gui.py:395
+#: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:487
 msgid "GNOME"
 msgstr "GNOME"
 
 # ../comps/comps-master:315
-#: ../iw/xconfig_gui.py:359 ../iw/xconfig_gui.py:409
+#: ../iw/xconfig_gui.py:424 ../iw/xconfig_gui.py:501
 msgid "KDE"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:376
+#: ../iw/xconfig_gui.py:467
 msgid "Your desktop environment is:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:428
+#: ../iw/xconfig_gui.py:512
 msgid "Please choose your login type:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:478
+#: ../iw/xconfig_gui.py:521
+#, fuzzy
+msgid "Text"
+msgstr "Ýleri"
+
+#: ../iw/xconfig_gui.py:522
+#, fuzzy
+msgid "Graphical"
+msgstr "Grafik Giriþi Kullan"
+
+#: ../iw/xconfig_gui.py:562
 msgid "Bits per Pixel"
 msgstr "Benek Derinliði"
 
-#: ../iw/xconfig_gui.py:498
+#: ../iw/xconfig_gui.py:582
 msgid "Monitor Configuration"
 msgstr "Monitör Yapýlandýrmasý"
 
-#: ../iw/xconfig_gui.py:836
+#: ../iw/xconfig_gui.py:933
 msgid "Horizontal Sync"
 msgstr "Yatay Tazeleme"
 
-#: ../iw/xconfig_gui.py:845
+#: ../iw/xconfig_gui.py:942
 msgid "Vertical Sync"
 msgstr "Dikey Tazeleme"
 
-#: ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
+#: ../iw/xconfig_gui.py:954 ../iw/xconfig_gui.py:1751
 msgid "Restore original values"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:1027
+#: ../iw/xconfig_gui.py:966
+#, fuzzy
+msgid "Horizontal Sync:"
+msgstr "Yatay Tazeleme"
+
+#: ../iw/xconfig_gui.py:968
+#, fuzzy
+msgid "Vertical Sync:"
+msgstr "Dikey Tazeleme"
+
+#: ../iw/xconfig_gui.py:974
+msgid "Hz"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:977
+msgid "kHz"
+msgstr ""
+
+#: ../iw/xconfig_gui.py:1157
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr "Ekran kartý bellek miktarý bulunamadý. Lütfen listeden seçim yapýnýz:"
 
-#: ../iw/xconfig_gui.py:1038 ../iw/xconfig_gui.py:1059
+#: ../iw/xconfig_gui.py:1168 ../iw/xconfig_gui.py:1189
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1758,7 +1980,7 @@ msgstr ""
 "Çoðu zaman ekran donanýmý otomatik olarak tanýnacak ve en uygun çözünürlük "
 "ayarlanacaktýr."
 
-#: ../iw/xconfig_gui.py:1047
+#: ../iw/xconfig_gui.py:1177
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
@@ -1766,35 +1988,18 @@ msgstr ""
 "Eðer tanýnan kart özellikleri donanýmýnýz ile uyuþmuyor ise, lütfen aþaðýdan "
 "düzgün ayarlarý yapýnýz."
 
-#: ../iw/xconfig_gui.py:1068
+#: ../iw/xconfig_gui.py:1198
 msgid "Autoprobe results:"
 msgstr "Tarama sonuçlarý:"
 
-#: ../iw/xconfig_gui.py:1553
+#: ../iw/xconfig_gui.py:1684
 #, fuzzy
 msgid "Video card RAM: "
 msgstr "Ekran Kartý"
 
-#: ../iw/xconfig_gui.py:1644
-msgid "Test this configuration"
-msgstr "Bu yapýlandýrmayý sýna"
-
-#: ../iw/xconfig_gui.py:1667
-msgid "Customize X Configuration"
-msgstr "X Window Yapýlandýrmasý"
-
-#: ../iw/xconfig_gui.py:1671
-msgid "Use Graphical Login"
-msgstr "Grafik Giriþi Kullan"
-
-#: ../iw/xconfig_gui.py:1672
+#: ../iw/xconfig_gui.py:1755
 msgid "Skip X Configuration"
 msgstr "X Ayarlamalarýný Atla"
-
-#: ../iw/xconfig_gui.py:1719
-#, fuzzy
-msgid "Default Desktop:"
-msgstr "Öntanýmlý"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
@@ -1846,6 +2051,80 @@ msgid ""
 msgstr ""
 "Birinci disket sürücüsüne temiz bir disket yerleþtirin. Açýlýþ "
 "disketininyaratýlmasý sýrasýnda disketteki tüm bilgiler SÝLÝNECEKTÝR."
+
+#: ../textw/firewall_text.py:13
+msgid ""
+"A firewall protects against unauthorized network intrusions. High security "
+"blocks all incoming accesses. Medium blocks access to system services (such "
+"as telnet or printing), but allows other connections. No firewall allows all "
+"connections and is not recommended. "
+msgstr ""
+
+#: ../textw/firewall_text.py:29
+msgid "Security Level:"
+msgstr ""
+
+#: ../textw/firewall_text.py:39
+msgid "No firewall"
+msgstr ""
+
+#: ../textw/firewall_text.py:58
+#, fuzzy
+msgid "Trusted Devices:"
+msgstr "Yazýcý Aygýtý:"
+
+#: ../textw/firewall_text.py:80
+msgid "DHCP"
+msgstr "DHCP"
+
+#: ../textw/firewall_text.py:82
+msgid "SSH"
+msgstr ""
+
+#: ../textw/firewall_text.py:84
+#, fuzzy
+msgid "Telnet"
+msgstr "Sil"
+
+#: ../textw/firewall_text.py:86
+msgid "WWW (HTTP)"
+msgstr ""
+
+#: ../textw/firewall_text.py:88
+msgid "Mail (SMTP)"
+msgstr ""
+
+#: ../loader/loader.c:1220 ../loader/loader.c:1229
+#: ../textw/firewall_text.py:90
+msgid "FTP"
+msgstr "FTP"
+
+#: ../textw/firewall_text.py:94
+#, fuzzy
+msgid "Other ports"
+msgstr "Yazýcý sunucusu:"
+
+#: ../textw/firewall_text.py:120
+#, fuzzy
+msgid "Invalid Choice"
+msgstr "Açýlýþ etiketini deðiþtir:"
+
+#: ../textw/firewall_text.py:121
+msgid "You cannot customize a disabled firewall."
+msgstr ""
+
+#: ../textw/firewall_text.py:126
+#, fuzzy
+msgid "Firewall Configuration - Customize"
+msgstr "Yapýlandýrma Tamamlandý"
+
+#: ../textw/firewall_text.py:128
+msgid ""
+"You can customize your firewall in two ways. First, you can select to allow "
+"all traffic from certain network interfaces. Second, you can allow certain "
+"protocols explicitly through the firewall. Specify additional ports in the "
+"form 'service:protocol', such as 'imap:tcp'. "
+msgstr ""
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -1912,49 +2191,49 @@ msgstr "3 Tuþ Emülasyonu"
 msgid "Mouse Selection"
 msgstr "Fare Seçimi"
 
-#: ../textw/network_text.py:64
+#: ../textw/network_text.py:66
 msgid "Use bootp/dhcp"
 msgstr "bootp/dhcp kullan"
 
-#: ../loader/net.c:286 ../textw/network_text.py:69
+#: ../loader/net.c:286 ../textw/network_text.py:71
 msgid "IP address:"
 msgstr "IP adresi:"
 
-#: ../loader/net.c:289 ../textw/network_text.py:70
+#: ../loader/net.c:289 ../textw/network_text.py:72
 msgid "Netmask:"
 msgstr "Að maskesi:"
 
-#: ../loader/net.c:292 ../textw/network_text.py:71
+#: ../loader/net.c:292 ../textw/network_text.py:73
 msgid "Default gateway (IP):"
 msgstr "Yönlendirici (IP):"
 
-#: ../loader/net.c:295 ../textw/network_text.py:72
+#: ../loader/net.c:295 ../textw/network_text.py:74
 msgid "Primary nameserver:"
 msgstr "Birincil DNS sunucusu:"
 
-#: ../textw/network_text.py:73
+#: ../textw/network_text.py:75
 #, fuzzy
 msgid "Secondary nameserver:"
 msgstr "Ýkincil DNS sunucusu (IP):"
 
-#: ../textw/network_text.py:74
+#: ../textw/network_text.py:76
 #, fuzzy
 msgid "Ternary nameserver:"
 msgstr "Birincil DNS sunucusu:"
 
-#: ../textw/network_text.py:122
+#: ../textw/network_text.py:121
 msgid "Invalid information"
 msgstr "Hatalý bilgi"
 
-#: ../textw/network_text.py:123
+#: ../textw/network_text.py:122
 msgid "You must enter valid IP information to continue"
 msgstr "Devam etmek için geçerli bir IP adresi girmelisiniz."
 
-#: ../textw/network_text.py:151
+#: ../textw/network_text.py:157
 msgid "Hostname Configuration"
 msgstr "Makina Adý Yapýlandýrmasý"
 
-#: ../textw/network_text.py:152
+#: ../textw/network_text.py:158
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
@@ -2226,31 +2505,31 @@ msgstr "Kullanýcý bilgilerini girin."
 msgid "Change the information for this user."
 msgstr "Kullanýcý bilgilerini deðiþtirin."
 
-#: ../textw/userauth_text.py:300
+#: ../textw/userauth_text.py:301
 msgid "Use Shadow Passwords"
 msgstr "Gölge Parola Kullan"
 
-#: ../textw/userauth_text.py:302
+#: ../textw/userauth_text.py:303
 msgid "Enable MD5 Passwords"
 msgstr "MD5 Parolalarý Etkinleþtir"
 
-#: ../textw/userauth_text.py:313
+#: ../textw/userauth_text.py:314
 msgid "NIS Domain:"
 msgstr "NIS Alan Adý:"
 
-#: ../textw/userauth_text.py:315
+#: ../textw/userauth_text.py:316
 msgid "NIS Server:"
 msgstr "NIS Sunucu:"
 
-#: ../textw/userauth_text.py:317
+#: ../textw/userauth_text.py:318
 msgid "or use:"
 msgstr "ya da:"
 
-#: ../textw/userauth_text.py:320
+#: ../textw/userauth_text.py:321
 msgid "Request server via broadcast"
 msgstr "Yayýn aðý üzerinden sunucu iste"
 
-#: ../textw/userauth_text.py:359
+#: ../textw/userauth_text.py:360
 #, fuzzy
 msgid "Use TLS connections"
 msgstr "Baþka seçenekler kullan"
@@ -2280,7 +2559,7 @@ msgid ""
 "Linux installation."
 msgstr "Linux'a yer açmak için diskinizdeki TÜM bilgiler silinecektir."
 
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2537
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2571
 msgid "Workstation"
 msgstr "Ýþistasyonu"
 
@@ -2469,84 +2748,84 @@ msgstr "Sistem hatasý %d"
 msgid "Fdisk Error"
 msgstr "Fdisk Hatasý"
 
-#: ../libfdisk/gnomefsedit.c:550 ../libfdisk/gnomefsedit.c:851
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:856
 msgid "<Swap Partition>"
 msgstr "<Takas Bölümü>"
 
-#: ../libfdisk/gnomefsedit.c:558 ../libfdisk/gnomefsedit.c:853
+#: ../libfdisk/gnomefsedit.c:559 ../libfdisk/gnomefsedit.c:858
 msgid "<RAID Partition>"
 msgstr "<RAID Bölümü>"
 
-#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:837
+#: ../libfdisk/gnomefsedit.c:733 ../libfdisk/newtfsedit.c:860
 msgid "Delete Partition"
 msgstr "Bölüm Silme"
 
-#: ../libfdisk/gnomefsedit.c:729 ../libfdisk/newtfsedit.c:838
+#: ../libfdisk/gnomefsedit.c:734 ../libfdisk/newtfsedit.c:861
 msgid "Are you sure you want to delete this partition?"
 msgstr "Bu bölümü silmek istediðinizden emin misiniz?"
 
-#: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
+#: ../libfdisk/gnomefsedit.c:783 ../libfdisk/newtfsedit.c:346
 #, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "Bölüm Ayarý"
 
-#: ../libfdisk/gnomefsedit.c:779 ../libfdisk/newtfsedit.c:346
+#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:347
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:797 ../libfdisk/gnomefsedit.c:803
-#: ../libfdisk/gnomefsedit.c:807 ../libfdisk/gnomefsedit.c:809
-#: ../libfdisk/newtfsedit.c:369 ../libfdisk/newtfsedit.c:375
-#: ../libfdisk/newtfsedit.c:379 ../libfdisk/newtfsedit.c:381
+#: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
+#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
+#: ../libfdisk/newtfsedit.c:370 ../libfdisk/newtfsedit.c:376
+#: ../libfdisk/newtfsedit.c:380 ../libfdisk/newtfsedit.c:382
 msgid "Edit Partition"
 msgstr "Bölüm Ayarý"
 
-#: ../libfdisk/gnomefsedit.c:824 ../libfdisk/gnomefsedit.c:1909
-#: ../libfdisk/newtfsedit.c:390
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1934
+#: ../libfdisk/newtfsedit.c:391
 msgid "Mount Point:"
 msgstr "Baðlama Noktasý:"
 
-#: ../libfdisk/gnomefsedit.c:866 ../libfdisk/newtfsedit.c:409
+#: ../libfdisk/gnomefsedit.c:871 ../libfdisk/newtfsedit.c:410
 msgid "Size (Megs):"
 msgstr "Boy (Mbayt):"
 
-#: ../libfdisk/gnomefsedit.c:898
+#: ../libfdisk/gnomefsedit.c:903
 #, fuzzy
 msgid "Use remaining space?"
 msgstr "Mevcut boþ alaný kullan"
 
-#: ../libfdisk/gnomefsedit.c:917 ../libfdisk/newtfsedit.c:441
+#: ../libfdisk/gnomefsedit.c:922 ../libfdisk/newtfsedit.c:442
 msgid "Allocation Status:"
 msgstr "Ayýrma Durumu:"
 
-#: ../libfdisk/gnomefsedit.c:921 ../libfdisk/newtfsedit.c:443
+#: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:444
 msgid "Successful"
 msgstr "Baþarýlý"
 
-#: ../libfdisk/gnomefsedit.c:924 ../libfdisk/newtfsedit.c:445
+#: ../libfdisk/gnomefsedit.c:929 ../libfdisk/newtfsedit.c:446
 msgid "Failed"
 msgstr "Baþarýsýz"
 
-#: ../libfdisk/gnomefsedit.c:936 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/gnomefsedit.c:941 ../libfdisk/newtfsedit.c:451
 msgid "Failure Reason:"
 msgstr "Baþarýsýzlýk Nedeni:"
 
-#: ../libfdisk/gnomefsedit.c:950 ../libfdisk/gnomefsedit.c:1943
+#: ../libfdisk/gnomefsedit.c:955 ../libfdisk/gnomefsedit.c:1968
 msgid "Partition Type:"
 msgstr "Bölüm Tipi:"
 
-#: ../libfdisk/gnomefsedit.c:1033 ../libfdisk/newtfsedit.c:520
+#: ../libfdisk/gnomefsedit.c:1038 ../libfdisk/newtfsedit.c:521
 msgid "Allowable Drives:"
 msgstr "Kullanýlabilir Sürücüler:"
 
-#: ../libfdisk/gnomefsedit.c:1136 ../libfdisk/gnomefsedit.c:2137
-#: ../libfdisk/newtfsedit.c:611
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:2167
+#: ../libfdisk/newtfsedit.c:612
 msgid "No Mount Point"
 msgstr "Baðlama Noktasý Yok"
 
-#: ../libfdisk/gnomefsedit.c:1137 ../libfdisk/newtfsedit.c:612
+#: ../libfdisk/gnomefsedit.c:1142 ../libfdisk/newtfsedit.c:613
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -2554,13 +2833,13 @@ msgstr ""
 "Bu bölüm için bir baðlama noktasý seçmediniz. Böyle yapmak istediðinizden "
 "emin misiniz?"
 
-#: ../libfdisk/gnomefsedit.c:1161 ../libfdisk/gnomefsedit.c:1198
-#: ../libfdisk/gnomefsedit.c:2145 ../libfdisk/newtfsedit.c:635
-#: ../libfdisk/newtfsedit.c:668
+#: ../libfdisk/gnomefsedit.c:1166 ../libfdisk/gnomefsedit.c:1203
+#: ../libfdisk/gnomefsedit.c:2175 ../libfdisk/newtfsedit.c:636
+#: ../libfdisk/newtfsedit.c:669
 msgid "Mount Point Error"
 msgstr "Baðlama Noktasý Hatasý"
 
-#: ../libfdisk/gnomefsedit.c:1162 ../libfdisk/newtfsedit.c:636
+#: ../libfdisk/gnomefsedit.c:1167 ../libfdisk/newtfsedit.c:637
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2568,7 +2847,7 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1199 ../libfdisk/newtfsedit.c:669
+#: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -2576,11 +2855,11 @@ msgstr ""
 "Ýstenen baðlama noktasý ya geçersiz bir yol belirtiyor ya da kullanýmda. "
 "Lütfen geçerli bir baðlama noktasý seçin."
 
-#: ../libfdisk/gnomefsedit.c:1232 ../libfdisk/newtfsedit.c:694
+#: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:695
 msgid "Size Error"
 msgstr "Boy Hatasý"
 
-#: ../libfdisk/gnomefsedit.c:1233 ../libfdisk/newtfsedit.c:695
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:696
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -2588,13 +2867,13 @@ msgstr ""
 "Ýstenen boy geçersiz. Bu sayýnýn sýfýrdan büyük ve onluk düzende yazýlmýþ "
 "olmasýna dikkat edin."
 
-#: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2278
-#: ../libfdisk/newtfsedit.c:713
+#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:2310
+#: ../libfdisk/newtfsedit.c:714
 msgid "Swap Size Error"
 msgstr "Takas Boyu Hatasý"
 
-#: ../libfdisk/gnomefsedit.c:1252 ../libfdisk/gnomefsedit.c:2279
-#: ../libfdisk/newtfsedit.c:714
+#: ../libfdisk/gnomefsedit.c:1257 ../libfdisk/gnomefsedit.c:2311
+#: ../libfdisk/newtfsedit.c:715
 #, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
@@ -2603,25 +2882,39 @@ msgstr ""
 "Çok geniþ bir takas bölümü yarattýnýz. Takas bölümü en fazla %ld Mb "
 "büyüklüðünde olabilir."
 
-#: ../libfdisk/gnomefsedit.c:1266
+#: ../libfdisk/gnomefsedit.c:1271 ../libfdisk/newtfsedit.c:731
+#, c-format
+msgid ""
+"It is recommended that the root (/) partition have a minimum size of %ld "
+"Megabytes. You are trying to create one which is %ld Megabytes, which could "
+"cause the install to fail.\n"
+"\n"
+"Are you sure you want to do this?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
+msgid "Warning: Root FS Size"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1291
 #, fuzzy
 msgid "No Drives Specified"
 msgstr "Hiç Sürücü Bulunamadý"
 
-#: ../libfdisk/gnomefsedit.c:1267 ../libfdisk/gnomefsedit.c:1284
+#: ../libfdisk/gnomefsedit.c:1292 ../libfdisk/gnomefsedit.c:1309
 msgid "Close"
 msgstr "Kapat"
 
-#: ../libfdisk/gnomefsedit.c:1268
+#: ../libfdisk/gnomefsedit.c:1293
 #, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
 
-#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:1283
+#: ../libfdisk/gnomefsedit.c:1301 ../libfdisk/gnomefsedit.c:1308
 msgid "No RAID Drive Constraint"
 msgstr "No RAID Drive Const"
 
-#: ../libfdisk/gnomefsedit.c:1278
+#: ../libfdisk/gnomefsedit.c:1303
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -2630,7 +2923,7 @@ msgstr ""
 "Bir RAID disk bölümü seçtiniz, ancak bunu tek bir diske baðýmlý kýlmadýnýz. "
 "Böyle yapmak istediðinizden emin misiniz?"
 
-#: ../libfdisk/gnomefsedit.c:1285
+#: ../libfdisk/gnomefsedit.c:1310
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -2638,12 +2931,12 @@ msgstr ""
 "Bir RAID disk bölümünü, bu bölümü tek bir diske baðýmlý olacak þekilde "
 "seçmediniz. Lütfen bir diski bu iþlem için ayýrýn."
 
-#: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
+#: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:834
 #, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Ayrýlmamýþ Bölümler"
 
-#: ../libfdisk/gnomefsedit.c:1406 ../libfdisk/newtfsedit.c:812
+#: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:835
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -2651,11 +2944,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1480
+#: ../libfdisk/gnomefsedit.c:1505
 msgid "RAID Entry Incomplete"
 msgstr "Yetersiz RAID Girdisi"
 
-#: ../libfdisk/gnomefsedit.c:1481
+#: ../libfdisk/gnomefsedit.c:1506
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -2666,24 +2959,24 @@ msgstr ""
 "aygýtý þimdi alt bölümlerine ayrýlacak. Lütfen RAID aygýtýný tanýmlanmýþ "
 "disk bölümleriyle tekrar belirleyin."
 
-#: ../libfdisk/gnomefsedit.c:1530
+#: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1531
+#: ../libfdisk/gnomefsedit.c:1556
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1595 ../libfdisk/gnomefsedit.c:1614
-#: ../libfdisk/newtfsedit.c:137 ../libfdisk/newtfsedit.c:1640
+#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
+#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1665
 msgid "Unallocated Partitions"
 msgstr "Ayrýlmamýþ Bölümler"
 
-#: ../libfdisk/gnomefsedit.c:1599 ../libfdisk/gnomefsedit.c:1609
-#: ../libfdisk/newtfsedit.c:141
+#: ../libfdisk/gnomefsedit.c:1624 ../libfdisk/gnomefsedit.c:1634
+#: ../libfdisk/newtfsedit.c:142
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
 "requested partitions. The unallocated partition(s) are shown below, along "
@@ -2692,43 +2985,43 @@ msgstr ""
 "Ýstenen bölümler listesinde yer alan halen ayrýlmamýþ bölüm(ler) bulunuyor. "
 "Ayrýlmamýþ bölüm(ler) aþaðýda ayrýlmama nedenleri ile gösterilmektedir. "
 
-#: ../libfdisk/gnomefsedit.c:1891
+#: ../libfdisk/gnomefsedit.c:1916
 msgid "Cannot Edit Raid"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1892
+#: ../libfdisk/gnomefsedit.c:1917
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1929
+#: ../libfdisk/gnomefsedit.c:1954
 msgid "<Swap Partition"
 msgstr "<Takas Bölümü"
 
-#: ../libfdisk/gnomefsedit.c:1988
+#: ../libfdisk/gnomefsedit.c:2013
 msgid "RAID Device: /dev/"
 msgstr "RAID Aygýtý: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:2011
+#: ../libfdisk/gnomefsedit.c:2036
 msgid "RAID Type:"
 msgstr "RAID Tipi:"
 
-#: ../libfdisk/gnomefsedit.c:2048
+#: ../libfdisk/gnomefsedit.c:2073
 msgid "Partitions For RAID Array:"
 msgstr "RAID Dizisi Ýçin Bölümler:"
 
-#: ../libfdisk/gnomefsedit.c:2138
+#: ../libfdisk/gnomefsedit.c:2168
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Bir baðlama noktasý seçmediniz. Baðlama noktasýna ihtiyacýnýz vardýr."
 
-#: ../libfdisk/gnomefsedit.c:2146
+#: ../libfdisk/gnomefsedit.c:2176
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr "Ýstenen baðlama noktasý kullanýmda. Geçerli bir baðlama noktasý seçin."
 
-#: ../libfdisk/gnomefsedit.c:2182
+#: ../libfdisk/gnomefsedit.c:2212
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -2736,23 +3029,23 @@ msgid ""
 "These drives are: "
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2189
+#: ../libfdisk/gnomefsedit.c:2219
 msgid "Booting From RAID Warning"
 msgstr "RAID'den Açýlma Uyarýsý"
 
-#: ../libfdisk/gnomefsedit.c:2199
+#: ../libfdisk/gnomefsedit.c:2229
 msgid "No RAID Device"
 msgstr "RAID Aygýtý Yok"
 
-#: ../libfdisk/gnomefsedit.c:2200
+#: ../libfdisk/gnomefsedit.c:2230
 msgid "You need to selected a RAID device."
 msgstr "Bir RAID aygýtý seçmelisiniz."
 
-#: ../libfdisk/gnomefsedit.c:2206
+#: ../libfdisk/gnomefsedit.c:2236
 msgid "Used Raid Device"
 msgstr "Kullanýlan RAID Aygýtý"
 
-#: ../libfdisk/gnomefsedit.c:2207
+#: ../libfdisk/gnomefsedit.c:2237
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -2761,29 +3054,29 @@ msgstr ""
 "\"/dev/%s\" RAID aygýtý zaten bir RAID aygýtý olarak tanýmlý. Lütfen baþka "
 "bir aygýt seçiniz."
 
-#: ../libfdisk/gnomefsedit.c:2220
+#: ../libfdisk/gnomefsedit.c:2250
 msgid "Not Enough Partitions"
 msgstr "Yeterli Bölüm Yok"
 
-#: ../libfdisk/gnomefsedit.c:2222
+#: ../libfdisk/gnomefsedit.c:2252
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr "Seçilen RAID tipi için yeterli disk bölümü ayýrmadýnýz."
 
-#: ../libfdisk/gnomefsedit.c:2229
+#: ../libfdisk/gnomefsedit.c:2260
 msgid "Illegal /boot RAID Type"
 msgstr "Hatalý /boot RAID Tipi"
 
-#: ../libfdisk/gnomefsedit.c:2231
+#: ../libfdisk/gnomefsedit.c:2262
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "/boot açýlýþ bölümü sadece RAID-1'de geçerlidir."
 
-#: ../libfdisk/gnomefsedit.c:2238
+#: ../libfdisk/gnomefsedit.c:2270
 msgid "Illegal RAID mountpoint"
 msgstr "Hatalý RAID baðlama noktasý"
 
-#: ../libfdisk/gnomefsedit.c:2240
+#: ../libfdisk/gnomefsedit.c:2272
 #, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
@@ -2792,7 +3085,7 @@ msgstr ""
 "Alpha iþlemciler üzerinde RAID disk bölümleri kök dosya sistemi (/) olarak "
 "baðlanamaz."
 
-#: ../libfdisk/gnomefsedit.c:2323
+#: ../libfdisk/gnomefsedit.c:2356
 #, c-format
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
@@ -2803,113 +3096,113 @@ msgstr ""
 "/boot olarak tanýmlanmýþ durumda. Sistemin disk bölümü üzerinden açýlacaðýna "
 "emin misiniz?"
 
-#: ../libfdisk/gnomefsedit.c:2330
+#: ../libfdisk/gnomefsedit.c:2363
 msgid "Use Pre-existing Partition?"
 msgstr "Önceden Tanýmlý Disk Kullanýlsýn Mý?"
 
-#: ../libfdisk/gnomefsedit.c:2407
+#: ../libfdisk/gnomefsedit.c:2441
 #, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "RAID Aygýtý Yok"
 
-#: ../libfdisk/gnomefsedit.c:2408
+#: ../libfdisk/gnomefsedit.c:2442
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2449
+#: ../libfdisk/gnomefsedit.c:2483
 msgid "Auto-Partition"
 msgstr "Otomatik Bölümlendirme"
 
-#: ../libfdisk/gnomefsedit.c:2456
+#: ../libfdisk/gnomefsedit.c:2490
 msgid "Using Existing Disk Space"
 msgstr "Mevcut Disk Alaný Kulllanýlýyor"
 
-#: ../libfdisk/gnomefsedit.c:2475
+#: ../libfdisk/gnomefsedit.c:2509
 msgid "Remove Linux partitions"
 msgstr "Linux disk bölümlerini sil"
 
-#: ../libfdisk/gnomefsedit.c:2486
+#: ../libfdisk/gnomefsedit.c:2520
 msgid "Use existing free space"
 msgstr "Mevcut boþ alaný kullan"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2498
+#: ../libfdisk/gnomefsedit.c:2532
 msgid "Intended Use"
 msgstr "Amaçlanan Kullaným"
 
-#: ../libfdisk/gnomefsedit.c:2517 ../libfdisk/gnomefsedit.c:2537
+#: ../libfdisk/gnomefsedit.c:2551 ../libfdisk/gnomefsedit.c:2571
 msgid "Server"
 msgstr "Sunucu"
 
-#: ../libfdisk/gnomefsedit.c:2617
+#: ../libfdisk/gnomefsedit.c:2651
 msgid "Delete RAID Device?"
 msgstr "RAID Aygýtý Silinsin mi?"
 
-#: ../libfdisk/gnomefsedit.c:2618
+#: ../libfdisk/gnomefsedit.c:2652
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Bu RAID aygýtýný silmek istediðinizden emin misiniz?"
 
-#: ../libfdisk/gnomefsedit.c:2669 ../libfdisk/newtfsedit.c:1745
+#: ../libfdisk/gnomefsedit.c:2705 ../libfdisk/newtfsedit.c:1770
 msgid "Reset Partition Table"
 msgstr "Bölümlendirme Tablosunu Sýfýrla"
 
-#: ../libfdisk/gnomefsedit.c:2671 ../libfdisk/newtfsedit.c:1747
+#: ../libfdisk/gnomefsedit.c:2707 ../libfdisk/newtfsedit.c:1772
 msgid "Reset partition table to original contents? "
 msgstr "Bölüm tablosu ilk deðerlerine dönsün mü?"
 
-#: ../libfdisk/gnomefsedit.c:2707 ../libfdisk/gnomefsedit.c:2758
+#: ../libfdisk/gnomefsedit.c:2743 ../libfdisk/gnomefsedit.c:2794
 msgid "<Swap>"
 msgstr "<Takas>"
 
-#: ../libfdisk/gnomefsedit.c:2709
+#: ../libfdisk/gnomefsedit.c:2745
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2711
+#: ../libfdisk/gnomefsedit.c:2747
 msgid "<not set>"
 msgstr "<tanýmsýz>"
 
-#: ../libfdisk/gnomefsedit.c:2995
+#: ../libfdisk/gnomefsedit.c:3031
 msgid "Requested"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:2996
+#: ../libfdisk/gnomefsedit.c:3032
 msgid "Actual"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3169
+#: ../libfdisk/gnomefsedit.c:3205
 #, fuzzy
 msgid "Drive"
 msgstr "Diski Geç"
 
-#: ../libfdisk/gnomefsedit.c:3170
+#: ../libfdisk/gnomefsedit.c:3206
 msgid "Geom [C/H/S]"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3171
+#: ../libfdisk/gnomefsedit.c:3207
 #, fuzzy
 msgid "Total (M)"
 msgstr "Toplam"
 
-#: ../libfdisk/gnomefsedit.c:3172
+#: ../libfdisk/gnomefsedit.c:3208
 msgid "Free (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3173
+#: ../libfdisk/gnomefsedit.c:3209
 msgid "Used (M)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3174
+#: ../libfdisk/gnomefsedit.c:3210
 msgid "Used (%)"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:3411
+#: ../libfdisk/gnomefsedit.c:3452
 msgid "Unallocated Partitions Exist..."
 msgstr "Ayrýlmamýþ Bölümler Bulunuyor..."
 
-#: ../libfdisk/gnomefsedit.c:3417 ../libfdisk/gnomefsedit.c:3431
+#: ../libfdisk/gnomefsedit.c:3458 ../libfdisk/gnomefsedit.c:3476
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -2917,90 +3210,90 @@ msgstr ""
 "Kurulumun sürebilmesi için Linux native tipi bir disk bölümü ya da RAID "
 "bölümünü kök (/) bölümü olarak seçmelisiniz."
 
-#: ../libfdisk/gnomefsedit.c:3502
+#: ../libfdisk/gnomefsedit.c:3547
 msgid "Partitions"
 msgstr "Bölümler"
 
-#: ../libfdisk/gnomefsedit.c:3532
+#: ../libfdisk/gnomefsedit.c:3577
 msgid "_Add..."
 msgstr "_Ekle..."
 
-#: ../libfdisk/gnomefsedit.c:3539
+#: ../libfdisk/gnomefsedit.c:3584
 msgid "_Edit..."
 msgstr "_Deðiþtir..."
 
-#: ../libfdisk/gnomefsedit.c:3540
+#: ../libfdisk/gnomefsedit.c:3585
 msgid "_Reset"
 msgstr "Sý_fýrla"
 
-#: ../libfdisk/gnomefsedit.c:3545
+#: ../libfdisk/gnomefsedit.c:3590
 msgid "_Delete"
 msgstr "_Sil"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3558
+#: ../libfdisk/gnomefsedit.c:3603
 msgid "_Make RAID Device"
 msgstr "_RAID Aygýt Yarat"
 
-#: ../libfdisk/gnomefsedit.c:3568
+#: ../libfdisk/gnomefsedit.c:3613
 msgid "Auto Partition"
 msgstr "Otomatik Bölümlendir"
 
-#: ../libfdisk/gnomefsedit.c:3577
+#: ../libfdisk/gnomefsedit.c:3622
 msgid "Drive Summary"
 msgstr "Disk Özeti"
 
-#: ../libfdisk/newtfsedit.c:203
+#: ../libfdisk/newtfsedit.c:204
 msgid "Swap Partition"
 msgstr "Takas Bölümü"
 
-#: ../libfdisk/newtfsedit.c:209
+#: ../libfdisk/newtfsedit.c:210
 #, fuzzy
 msgid "Raid Partition"
 msgstr "Bölüm Ayarý"
 
-#: ../libfdisk/newtfsedit.c:364
+#: ../libfdisk/newtfsedit.c:365
 #, fuzzy
 msgid "Edit New Partition"
 msgstr "Bölüm Ayarý"
 
-#: ../libfdisk/newtfsedit.c:429
+#: ../libfdisk/newtfsedit.c:430
 #, fuzzy
 msgid "Use remaining space?:"
 msgstr "Mevcut boþ alaný kullan"
 
-#: ../libfdisk/newtfsedit.c:473
+#: ../libfdisk/newtfsedit.c:474
 #, fuzzy
 msgid "Type:"
 msgstr "Tip"
 
-#: ../libfdisk/newtfsedit.c:487
+#: ../libfdisk/newtfsedit.c:488
 #, fuzzy
 msgid "Unknown"
 msgstr "Bilinmeyen Makina"
 
-#: ../libfdisk/newtfsedit.c:1424
+#: ../libfdisk/newtfsedit.c:1447
 msgid "Current Disk Partitions"
 msgstr "Þu Anki Disk Bölümleri"
 
-#: ../libfdisk/newtfsedit.c:1454
+#: ../libfdisk/newtfsedit.c:1477
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1457
+#: ../libfdisk/newtfsedit.c:1480
 msgid "Drive Summaries"
 msgstr "Disk Özetleri"
 
-#: ../libfdisk/newtfsedit.c:1459
+#: ../libfdisk/newtfsedit.c:1482
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1573
+#: ../libfdisk/newtfsedit.c:1596
 msgid "No Root Partition"
 msgstr "Kök Bölümü Yok"
 
-#: ../libfdisk/newtfsedit.c:1574
+#: ../libfdisk/newtfsedit.c:1597
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -3008,27 +3301,27 @@ msgstr ""
 "Kurulumun sürebilmesi için Linux native tipi bir disk bölümünü kök (/) "
 "bölümü olarak seçmelisiniz."
 
-#: ../libfdisk/newtfsedit.c:1593
+#: ../libfdisk/newtfsedit.c:1616
 msgid "No Swap Partition"
 msgstr "Takas Bölümü Yok"
 
-#: ../libfdisk/newtfsedit.c:1595
+#: ../libfdisk/newtfsedit.c:1618
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
 
-#: ../libfdisk/newtfsedit.c:1619
+#: ../libfdisk/newtfsedit.c:1644
 #, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Kök Bölümü Yok"
 
-#: ../libfdisk/newtfsedit.c:1621
+#: ../libfdisk/newtfsedit.c:1646
 #, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr "Kurulumun sürebilmesi için bir takas bölümü seçmelisiniz."
 
-#: ../libfdisk/newtfsedit.c:1642
+#: ../libfdisk/newtfsedit.c:1667
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -3040,15 +3333,15 @@ msgstr ""
 "\n"
 "Çýkmak istediðinizden emin misiniz?"
 
-#: ../libfdisk/newtfsedit.c:1658
+#: ../libfdisk/newtfsedit.c:1683
 msgid "Save Changes"
 msgstr "Deðiþiklikleri kaydet"
 
-#: ../libfdisk/newtfsedit.c:1660
+#: ../libfdisk/newtfsedit.c:1685
 msgid "Save changes to partition table(s)?"
 msgstr "Bölüm tablosundaki deðiþiklikler saklansýn mý?"
 
-#: ../libfdisk/newtfsedit.c:1705
+#: ../libfdisk/newtfsedit.c:1730
 msgid "You may only delete NFS mounts."
 msgstr "Sadece NFS baðlantýlarýný silebilirsiniz."
 
@@ -3315,10 +3608,6 @@ msgid "I could not mount that directory from the server"
 msgstr "Sunucudan bu dizin baðlanamadý."
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
-msgid "FTP"
-msgstr "FTP"
-
-#: ../loader/loader.c:1220 ../loader/loader.c:1229
 msgid "HTTP"
 msgstr ""
 
@@ -3365,26 +3654,35 @@ msgstr "Güncellemeler"
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Güncelleme disketini takýp \"Tamam\" düðmesine týklayýn."
 
-#: ../loader/loader.c:2245
+#: ../loader/loader.c:2242
+#, fuzzy
+msgid ""
+"The floppy disk you inserted is not a valid update disk for this release of "
+"Red Hat Linux."
+msgstr ""
+"Sürücüye yerleþtirilen disket, Red Hat'in bu sürümü için güncel sürücüler "
+"içermiyor."
+
+#: ../loader/loader.c:2250
 msgid "Failed to mount floppy disk."
 msgstr "Disket baðlanamadý."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2250
+#: ../loader/loader.c:2255
 msgid "Updates"
 msgstr "Güncellemeler"
 
-#: ../loader/loader.c:2250
+#: ../loader/loader.c:2255
 msgid "Reading anaconda updates..."
 msgstr "Anaconda güncellemeleri okunuyor..."
 
-#: ../loader/loader.c:2444
+#: ../loader/loader.c:2457
 msgid "IDE"
 msgstr ""
 
-#: ../loader/loader.c:2444
+#: ../loader/loader.c:2457
 #, fuzzy
 msgid "Initializing IDE modules..."
 msgstr "CDROM hazýrlanýyor..."
@@ -3532,30 +3830,30 @@ msgstr "Að Ayarlarý"
 msgid "Would you like to set up networking?"
 msgstr "Að ayarlarýný yapmak istiyor musunuz?"
 
-#: ../loader/pcmcia.c:32
+#: ../loader/pcmcia.c:34
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/pcmcia.c:33
+#: ../loader/pcmcia.c:35
 msgid "Initializing PC Card Devices..."
 msgstr "PC Kart Sürücüleri Hazýrlanýyor..."
 
-#: ../loader/pcmcia.c:91
+#: ../loader/pcmcia.c:104
 #, fuzzy
 msgid "PCMCIA"
 msgstr "PCMCIA Disketi"
 
-#: ../loader/pcmcia.c:92
+#: ../loader/pcmcia.c:105
 #, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 msgstr "Lütfen Red Hat CD'nizi CD sürücünüze takýn."
 
-#: ../loader/pcmcia.c:101
+#: ../loader/pcmcia.c:114
 #, fuzzy
 msgid "Failed to mount disk."
 msgstr "Disket baðlanamadý."
 
-#: ../loader/pcmcia.c:119
+#: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr ""
 
@@ -3709,7 +4007,7 @@ msgid "South America"
 msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:103
-msgid "Pacific Rim"
+msgid "Indian Rim"
 msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:104
@@ -3802,16 +4100,16 @@ msgid "Anonymous FTP Server"
 msgstr ""
 
 #, fuzzy
+msgid "SQL Server"
+msgstr "NIS Sunucu:"
+
+#, fuzzy
 msgid "Web Server"
 msgstr "Sunucu"
 
 #, fuzzy
 msgid "DNS Name Server"
 msgstr "Alan adý sunucu"
-
-#, fuzzy
-msgid "SQL Server"
-msgstr "NIS Sunucu:"
 
 #, fuzzy
 msgid "Network Management Workstation"
@@ -3836,6 +4134,16 @@ msgstr "Çekirdek parametreleri"
 # ../comps/comps-master:738
 msgid "Utilities"
 msgstr ""
+
+#~ msgid "Test this configuration"
+#~ msgstr "Bu yapýlandýrmayý sýna"
+
+#~ msgid "Customize X Configuration"
+#~ msgstr "X Window Yapýlandýrmasý"
+
+#, fuzzy
+#~ msgid "Default Desktop:"
+#~ msgstr "Öntanýmlý"
 
 #~ msgid "Error mounting %s: %s"
 #~ msgstr "%s aygýtýnýn baðlanmasýnda hata: %s"
@@ -3884,9 +4192,6 @@ msgstr ""
 
 #~ msgid "GNOME Workstation"
 #~ msgstr "GNOME Ýþistasyonu"
-
-#~ msgid "Custom"
-#~ msgstr "Özel"
 
 #~ msgid "Use fdisk"
 #~ msgstr "fdisk Kullan"
@@ -3946,9 +4251,6 @@ msgstr ""
 
 #~ msgid "Use fdisk to format drives"
 #~ msgstr "Diski biçimlendirmek için fdisk kullan"
-
-#~ msgid "Root Partition Selection"
-#~ msgstr "Kök Bölümü Seçimi"
 
 #~ msgid "Warning"
 #~ msgstr "Uyarý"
@@ -4393,9 +4695,6 @@ msgstr ""
 #~ msgid "Find installation files"
 #~ msgstr "Kurulum dosyalarýnýn bulunmasý"
 
-#~ msgid "Choose packages to install"
-#~ msgstr "Kurulacak paketlerin seçimi"
-
 #~ msgid "Configure networking"
 #~ msgstr "Að ayarlarý"
 
@@ -4579,9 +4878,6 @@ msgstr ""
 #~ msgid "BOOTP"
 #~ msgstr "BOOTP"
 
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
 #~ msgid "kickstart network command is missing ip address"
 #~ msgstr "kickstart að komutunda IP adresi eksik"
 
@@ -4750,9 +5046,6 @@ msgstr ""
 #~ msgid "Detected\n"
 #~ msgstr "Bulundu\n"
 
-#~ msgid "Printer Device:"
-#~ msgstr "Yazýcý Aygýtý:"
-
 #~ msgid "Local Printer Device"
 #~ msgstr "Yerel Yazýcý Aygýtý"
 
@@ -4846,9 +5139,6 @@ msgstr ""
 
 #~ msgid "Queue:"
 #~ msgstr "Kuyruk:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Yazýcý aygýtý:"
 
 #~ msgid "Remote host:"
 #~ msgstr "Uzak sunucu:"
