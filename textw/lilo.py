@@ -46,10 +46,10 @@ class LiloWindow:
 
 	(bootpart, boothd) = todo.getLiloOptions()
 
-	if (todo.getLiloLocation == "mbr"):
-	    default = boothd
-	elif (todo.getLiloLocation == "partition"):
-	    default = bootpart
+	if (todo.getLiloLocation () == "mbr"):
+	    default = 0
+	elif (todo.getLiloLocation () == "partition"):
+	    default = 1
 	else:
 	    default = 0
             
