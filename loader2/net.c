@@ -116,6 +116,7 @@ static void fillInIpInfo(struct networkDeviceConfig * cfg) {
     }
 }
 
+#define NUM_LINK_CHECKS 15
 static int waitForLink(char * dev) {
     int tries = 0;
 
@@ -123,14 +124,14 @@ static int waitForLink(char * dev) {
      * up continue, else sleep for 1 second and try again for up
      * to five times */
     logMessage("waiting for link...");
-    while (tries < 5) {
+    while (tries < NUM_LINK_CHECKS) {
         if (get_link_status(dev) != 0)
             break;
         sleep(1);
         tries++;
     }
     logMessage("%d seconds.", tries);
-    if (tries < 5)
+    if (tries < NUM_LINK_CHECKS)
         return 0;
     return 1;
 }
