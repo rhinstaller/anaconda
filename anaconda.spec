@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.15
+Version: 10.0.3.16
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct  7 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.16-1
+- s390/s390x: Fix traceback with unpartitioned disks (karsten)
+- improve fit of bengali network screen (#134762)
+- don't allow formatting of a pre-existing partition without also 
+  mounting it (#134865)
+- Don't show "0" as a mountpoint for an LV that's not being mounted (#134867)
+- Add prelink config bits (#117867)
+- Sort packages in text package group details (#123437)
+- Don't traceback on upgrade if /dev/mapper/control exists (#124092)
+
 * Tue Oct  5 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.15-1
 - Fix creation of scsi device nodes (#134709)
 - Fix multiple kickstart scriptlets with different interpreters (#134707)
