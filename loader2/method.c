@@ -668,7 +668,6 @@ int getFileFromBlockDevice(char *device, char *path, char * dest) {
 
 void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
     char * c, * dup;
-    ld->method = strdup(arg);
 
     dup = strdup(arg);
     c = dup;
@@ -676,27 +675,29 @@ void setMethodFromCmdline(char * arg, struct loaderData_s * ld) {
     if ((c = strtok(c, ":"))) {
         c = strtok(NULL, ":");
  
-        if (!strcmp(ld->method, "nfs")) {
+        if (!strncmp(arg, "nfs:", 4)) {
+	    ld->method = strdup("nfs");
             ld->methodData = calloc(sizeof(struct nfsInstallData *), 1);
             ((struct nfsInstallData *)ld->methodData)->host = strdup(c);
             if ((c = strtok(NULL, ":"))) {
                 ((struct nfsInstallData *)ld->methodData)->directory = strdup(c);
             }
-        } else if (!strcmp(ld->method, "ftp") || 
-                   !strcmp(ld->method, "http")) {
+        } else if (!strncmp(arg, "ftp:", 4) || 
+                   !strncmp(arg, "http:", 5)) {
+	    ld->method = strcmp(arg, "ftp") ? strdup("ftp") : strdup("http");
             ld->methodData = calloc(sizeof(struct urlInstallData *), 1);
             ((struct urlInstallData *)ld->methodData)->url = strdup(arg);
-        } else if (!strcmp(ld->method, "cdrom")) {
-            /* no cdrom specific data */
-        } else if (!strcmp(ld->method, "harddrive") ||
-                   !strcmp(ld->method, "hd")) {
+        } else if (!strncmp(arg, "cdrom:", 6)) {
+	    ld->method = strdup("cdrom");
+        } else if (!strncmp(arg, "harddrive:", 10) ||
+                   !strncmp(arg, "hd:", 3)) {
+	    ld->method = strdup("hd");
             ld->methodData = calloc(sizeof(struct hdInstallData *), 1);
             ((struct hdInstallData *)ld->methodData)->partition = strdup(c);
             if ((c = strtok(NULL, ":"))) {
                 ((struct hdInstallData *)ld->methodData)->directory = strdup(c);
             }
         }
-                
     }
     free(dup);
     
