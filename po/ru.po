@@ -1,11 +1,13 @@
 # translation of ru.po to 
+# translation of ru.po to
+# translation of ru.po to
 # translation of ru.po to Russian
 # Leonid Kanter <leon@geon.donetsk.ua>, 2003
 msgid ""
 msgstr ""
 "Project-Id-Version: ru\n"
 "POT-Creation-Date: 2003-07-30 20:15-0400\n"
-"PO-Revision-Date: 2003-07-25 20:52+0300\n"
+"PO-Revision-Date: 2003-08-01 17:07+0300\n"
 "Last-Translator: Leonid Kanter <leon@geon.donetsk.ua>\n"
 "Language-Team:  <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -105,9 +107,9 @@ msgid "Unknown Error"
 msgstr "Неизвестная ошибка"
 
 #: ../anaconda:547
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
+msgstr "Error pulling second part of kickstart config: %s!"
 
 #: ../anaconda:641
 msgid ""
@@ -123,7 +125,7 @@ msgstr "Переход к установке в текстовом режиме"
 
 #: ../anaconda:720
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Видеокарта не найдена, подразумевается отсутствие видеокарты."
 
 #: ../anaconda:731 ../anaconda:965 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
@@ -194,13 +196,12 @@ msgstr ""
 "с этого раздела."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"Загрузочный раздел %s не является разделом VFAT.  EFI не сможет загрузиться "
-"с этого раздела."
+"Загрузочный раздел расположен недостаточно близко к началу диска.  "
+"OpenFirmware не сможет загрузиться с этого раздела."
 
 #: ../autopart.py:1013
 #, python-format
@@ -341,7 +342,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -350,18 +350,15 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Ваше разбиение вызвало следующие ошибки:\n"
 "\n"
-"%s\n"
 "\n"
-"Возможная причина - недостаточно места на жестких дисках для установки. Вы "
-"можете выбрать другие параметры автоматического разбиения, или нажмите "
-"\"назад\" для выбора ручного разбиения.\n"
+"Вы можете выбрать другие параметры автоматического разбиения, или нажмите "
+"\"Назад\" для выбора ручного разбиения.\n"
 "\n"
 "Нажмите 'Ok' для продолжения."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -374,11 +371,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Возможная причина - недостаточно места на жестких дисках для установки. Вы "
-"можете выбрать другие параметры автоматического разбиения, или нажмите "
-"\"назад\" для выбора ручного разбиения.\n"
-"\n"
-"Нажмите 'Ok' для продолжения."
+"Возможная причина ошибки - недостаточно места на жестких дисках "
+"для установки %s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -436,11 +430,10 @@ msgstr "Удалить все разделы Linux на этой системе"
 
 #: ../autopart.py:1488
 msgid "Keep all partitions and use existing free space"
-msgstr ""
-"Сохранить все разделы и использовать существующее свободное пространство"
+msgstr "Сохранить все разделы и использовать существующее свободное пространство"
 
 #: ../autopart.py:1490
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
@@ -450,7 +443,7 @@ msgstr ""
 "Вы уверены, что хотите удалить все разделы?"
 
 #: ../autopart.py:1494
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
@@ -831,7 +824,6 @@ msgstr ""
 "Нажмите ОК для перезагрузки системы."
 
 #: ../fsset.py:2007
-#, fuzzy
 msgid "Duplicate Labels"
 msgstr "Одинаковые ярлыки"
 
@@ -843,6 +835,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Несколько устройтсв в вашей системе имеют одинаковые ярлыки %s.  "
+"Для нормальной работы системы ярлыки должны быть уникальнвми.\n"
+"\n"
+"Исправьте эту проблему и перезапустите установку."
 
 #: ../fsset.py:2015 ../gui.py:1086 ../packages.py:1286
 msgid "_Reboot"
@@ -1039,15 +1035,16 @@ msgid "Install Window"
 msgstr "Окно установки"
 
 #: ../harddrive.py:165 ../image.py:452
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
 "\n"
 "%s\n"
 "The system will now reboot."
 msgstr ""
-"Отсутствует ISO-образ диска #%d, который необходим для установки.\n"
+"Отсутствуют следующие ISO-образы, которые необходимы для установки:\n"
 "\n"
+"%s\n"
 "Система будет перезагружена."
 
 #: ../image.py:84
@@ -1387,7 +1384,7 @@ msgid "Warning! This is a beta!"
 msgstr "Внимание! Это бета!"
 
 #: ../packages.py:1267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1796,10 +1793,8 @@ msgid "Confirm Reset"
 msgstr "Подтвердите возврат"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Вы уверены, что хотите вернуть первоначальное состояние таблицы разделов?"
 
 #: ../partitioning.py:76
 msgid "Installation cannot continue."
@@ -1847,13 +1842,12 @@ msgstr ""
 "мало для установки %s."
 
 #: ../partitions.py:819
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Вы должны создать раздел /boot/efi типа FAT размером 50 мегабайт."
 
 #: ../partitions.py:835
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Необходимо создать загрузочный раздел PPC PReP"
 
 #: ../partitions.py:842
 #, python-format
@@ -1912,8 +1906,7 @@ msgstr "раздел, который является членом группы 
 
 #: ../partRequests.py:219
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Точка монтирования неверна. Каталог %s должен быть на корневой файловой "
 "системе."
@@ -2166,17 +2159,14 @@ msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:353
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
 #: ../text.py:355
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2262,16 +2252,15 @@ msgid "Absolute Symlinks"
 msgstr "Абсолютные символические ссылки "
 
 #: ../upgrade.py:294
-#, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic links, which "
 "will cause problems with the upgrade.  Please return them to their original "
 "state as symbolic links and restart the upgrade.\n"
 "\n"
 msgstr ""
-"Следующие файлы являются абсолютными символическими ссылками, которые не "
-"поддерживаются во время обновления. Замените их, пожалуйста, на "
-"относительные символические ссылки и повторите попытку обновления.\n"
+"Перечисленные каталоги, которые должны быть символическими ссылками, могут "
+"вызвать проблемы при обновлении. Восстановите их первоначальное состояние и "
+"перезапустите обновление.\n"
 "\n"
 
 #: ../upgrade.py:300
@@ -2314,7 +2303,6 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:470
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2327,8 +2315,10 @@ msgstr ""
 "Похоже, что в системе установлены пакеты, конфликтующие с пакетами, "
 "входящими в Red Hat Linux. Поскольку эти пакеты конфликтуют, продолжение "
 "обновления может привести к тому, что эти пакеты либо перестанут работать, "
-"либо появятся другие проблемы со стабильностью системы. Вы действительно "
-"хотите продолжить обновление? "
+"либо появятся другие проблемы со стабильностью системы. Ознакомьтесь с "
+"примечаниями о выпуске для более подробной информации.\n"
+"\n"
+"Вы действительно хотите продолжить обновление? "
 
 #: ../upgrade.py:493
 msgid ""
@@ -2794,18 +2784,17 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:63 ../textw/complete_text.py:36
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Удалите все дискеты, которые использовались при установке, и нажмите <Enter> "
-"для перезагрузки системы.\n"
+"Удалите все носители (дискеты или CD-ROM), которые использовались при "
+"установке, и нажмите <Enter> для перезагрузки системы.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2825,9 +2814,7 @@ msgid ""
 msgstr ""
 "Поздравляем, установка завершена.\n"
 "\n"
-"Удалите все носители (дискеты, CD-ROM), использовавшиеся при установке.\n"
-"\n"
-"%sИнформацию об исправлениях к данному выпуску Red Hat Linux, можно найти в "
+"%s%sИнформацию об исправлениях к данному выпуску Red Hat Linux, можно найти в "
 "разделе Errata на http://www.redhat.com/errata.\n"
 "\n"
 "Для информации об автоматическом обновлении системы посетите:\n"
@@ -2840,7 +2827,6 @@ msgstr ""
 "Для регистрации поддержки продукта посетите:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Нажмите \"Выход\" для перезагрузки системы"
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -3139,8 +3125,7 @@ msgstr "Выберите основной язык для этой систем�
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе:"
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
@@ -3700,7 +3685,7 @@ msgstr "вручную"
 
 #: ../iw/network_gui.py:545
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(напр. \"host.domaib.com\")"
 
 #: ../iw/network_gui.py:608
 msgid "Miscellaneous Settings"
@@ -3974,14 +3959,12 @@ msgid "Partitioning"
 msgstr "Разбиение"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Выбранная схема разбиения вызвала следующие критические ошибки."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Эти ошибки должны быть исправлены перед продолжением установки %s."
 
 #: ../iw/partition_gui.py:648
@@ -4140,8 +4123,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1310
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1354
 msgid "Ne_w"
@@ -4553,8 +4535,7 @@ msgstr "Ваш текущий загрузчик будет обновлен"
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Программа установки обнаружила загрузчик %s, установленный на %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4689,10 +4670,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Размер файла свопинга должен быть между 1 и 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "На устройстве, которое вы выбрали для раздела свопинга, недостаточно места."
 
 #: ../iw/welcome_gui.py:20
 msgid "Welcome"
@@ -4760,17 +4739,19 @@ msgstr "Настройка монитора"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "Монитор не указан"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:468
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"Вы не указали тип монитора.  Рекомендуется выбрать ближайшую "
+"подходящую модель, чтобы получить наилучшее качество изображения."
 
 #: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:473
 msgid "Proceed"
-msgstr ""
+msgstr "Продолжить"
 
 #: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
@@ -4841,6 +4822,9 @@ msgid ""
 "System.  If you do not want to setup the X Window System , choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Ваша система будет настроена для использования линейного буфера кадров в "
+"системе X Window. Если вы не хотите настраивать X, нажмите кнопку "
+"\"Пропустить настройку X\" ниже."
 
 #: ../iw/xconfig_gui.py:982
 msgid ""
@@ -4873,9 +4857,8 @@ msgid "z/IPL Boot Loader Configuration"
 msgstr "Настройка загрузчика z/IPL"
 
 #: ../iw/zipl_gui.py:75
-#, fuzzy
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "Загрузчик %s будет установлен установлен на %s."
+msgstr "В вашей системе будет установлен загрузчик z/IPL."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4912,9 +4895,8 @@ msgid "Kernel Parameters"
 msgstr "Параметры ядра"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
-#, fuzzy
 msgid "Chandev Parameters"
-msgstr "Параметры ядра"
+msgstr "Параметры Chandev"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5031,10 +5013,8 @@ msgstr ""
 "обращении к ним."
 
 #: ../textw/bootloader_text.py:316
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Space> нажимает кнопку | <F2> запись по умолчанию | <F12> след. экран>"
 
 #: ../textw/bootloader_text.py:395
 msgid ""
@@ -5071,18 +5051,16 @@ msgid "Boot loader password is too short"
 msgstr "Пароль загрузчика слишком краток"
 
 #: ../textw/complete_text.py:33
-#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Нажмите <Enter> для перезагрузки системы.\n"
+"Нажмите <Enter> для завершения процесса установки.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
-#, fuzzy
 msgid "<Enter> to exit"
-msgstr "<Enter> для перезагрузки"
+msgstr "<Enter> для выхода"
 
 #: ../textw/complete_text.py:40
 msgid "<Enter> to reboot"
@@ -5354,8 +5332,7 @@ msgstr "Сбросить изменения"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе."
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе."
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -5394,9 +5371,9 @@ msgid "Invalid IP string"
 msgstr "Неверная строка IP"
 
 #: ../textw/network_text.py:31
-#, fuzzy, python-format
+#, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "Введенный вами размер должен быть цифровой величиной"
+msgstr "Введенный адрес '%s' не является действительным IP."
 
 #: ../textw/network_text.py:68
 msgid "IP Address"
@@ -5416,9 +5393,9 @@ msgid "Network Device: %s"
 msgstr "Сетевое устройство: %s"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "Описание"
+msgstr "Описание: %s"
 
 #: ../textw/network_text.py:94
 msgid "Configure using DHCP"
@@ -5480,6 +5457,10 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Если ваша система является частью большой сети, где имена узлов назначаются "
+"по DHCP, выберите \"автоматически по DHCP\". В противном случае укажите имя "
+"узла вручную. Если имя узла не будет указано, система будет известна под "
+"именем 'localhost'."
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
@@ -5495,10 +5476,8 @@ msgstr "Индивидуальный выбор пакетов"
 
 #: ../textw/packages_text.py:73
 #, fuzzy
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:110
 msgid "Package Group Details"
@@ -5522,10 +5501,8 @@ msgid "Total size"
 msgstr "Всего"
 
 #: ../textw/packages_text.py:319
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> выбор      |   <F1> помощь   |  <F2> описание пакета    "
 
 #: ../textw/packages_text.py:367
 msgid "Package Dependencies"
@@ -5748,8 +5725,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr "  F1-Помощь F2-Новый F3-Правка F4-Удалить F5-Сброс F12-Ok    "
 
 #: ../textw/partition_text.py:1165
@@ -6010,15 +5986,12 @@ msgid "User Exists"
 msgstr "Пользователь существует"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "Пользователь root уже существует."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"Пользователь root уже существует. Нет необходимости добавлять его еще раз."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "Пользователь root уже существует. Нет необходимости добавлять его еще раз."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6380,13 +6353,12 @@ msgid "_Custom"
 msgstr "_Выборочная"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
 "Выберите этот тип, если вы хотите получить полный контроль над процессом "
-"установки, включая состав пакетов и настойку аутентификации."
+"установки, включая состав пакетов и разбиение."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6587,16 +6559,18 @@ msgid "Kickstart Error"
 msgstr "Ошибка Kickstart"
 
 #: ../loader2/driverdisk.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Неверный аргумент команды kickstart метода URL %s: :%s"
+msgstr "Неизвестный источник драйвера диска kickstart: %s"
 
 #: ../loader2/driverdisk.c:476
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Неверный аргумент команды kickstart HD-метода %s: :%s"
+msgstr ""
+"The following invalid argument was specified for the kickstart driver disk "
+"command: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6627,8 +6601,7 @@ msgstr "Загрузка диска драйверов"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
+msgstr "Драйверы для загрузки вручную не были найдены. Использовать диск драйверов?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6743,10 +6716,8 @@ msgid "Welcome to %s"
 msgstr "Добро пожаловать в %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:173
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-" <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
 #: ../loader2/lang.c:371
 msgid "Choose a Language"
@@ -6856,8 +6827,7 @@ msgstr "В вашей системе были найдены следующие 
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
+msgstr "Не загружен ни один драйвер устройств. Вы хотите загрузить какой-либо сейчас?"
 
 #: ../loader2/loader.c:926
 msgid "Devices"
@@ -6873,13 +6843,12 @@ msgstr "Добавить устройство"
 
 #: ../loader2/loader.c:1029
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "Загрузчик уже выполнялся.  Запускается оболочка."
 
 #: ../loader2/loader.c:1362
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -6981,9 +6950,9 @@ msgid "Checksum Test"
 msgstr "Проверка контрольной суммы"
 
 #: ../loader2/modules.c:917
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Неверный аргумент команды kickstart HD-метода %s: :%s"
+msgstr "Bad argument to device kickstart method command %s: %s"
 
 #: ../loader2/net.c:44
 #, c-format
@@ -7152,7 +7121,7 @@ msgstr "Обнаружен носитель"
 
 #: ../loader2/urlinstall.c:267
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Обнаружен локальный установочный носитель..."
 
 #: ../loader2/urlinstall.c:422
 #, c-format
@@ -7290,15 +7259,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7473,10 +7439,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Eastern Time - Ontario & Quebec - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7651,10 +7615,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Стандартное горное время - Аризона"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -8065,3 +8027,4 @@ msgstr "Турецкий"
 #~ msgstr ""
 #~ "Произошла ошибка перестройки базы RPM. Возможная причина - отсутствие "
 #~ "места на диске."
+

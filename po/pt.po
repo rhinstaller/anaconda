@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-07-30 20:15-0400\n"
-"PO-Revision-Date: 2003-07-30 17:39+0100\n"
+"PO-Revision-Date: 2003-07-31 10:17+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -241,13 +241,10 @@ msgstr ""
 "arrancar desta partição."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
-"A partição de arranque não está localizada suficientemente no início do "
-"disco.  O OpenFirmware não vai conseguir arrancar desta partição."
+msgstr "A partição de arranque não está localizada suficientemente no início do disco.  O OpenFirmware não vai conseguir arrancar desta instalação."
 
 #: ../autopart.py:1013
 #, python-format
@@ -878,9 +875,8 @@ msgstr ""
 "Carregue em OK para reiniciar o sistema."
 
 #: ../fsset.py:2007
-#, fuzzy
 msgid "Duplicate Labels"
-msgstr "Nome de Arranque Duplicado"
+msgstr "Nomes Duplicados"
 
 #: ../fsset.py:2008
 #, python-format
@@ -890,6 +886,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Existes vários dispositivos no seu sistema com o nome %s.  Os nomes em todos os dispositivos devem ser únicos para que o seu sistema funcione correctamente.\n"
+"\n"
+"Por favor corrija este problema e reinicie o processo de instalação."
 
 #: ../fsset.py:2015 ../gui.py:1086 ../packages.py:1286
 msgid "_Reboot"
@@ -1440,7 +1439,7 @@ msgid "Warning! This is a beta!"
 msgstr "Aviso! Esta versão é beta!"
 
 #: ../packages.py:1267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1456,15 +1455,13 @@ msgid ""
 msgstr ""
 "Obrigado por ter obtido esta versão Beta do %s.\n"
 "\n"
-"Esta não é uma versão final e como tal não se pretende usar nos sistemas em "
-"produção.  O objectivo desta versão é reunir opiniões dos utilizadores que "
-"realizam os testes e não é conveniente para uma utilização no dia-a-dia.\n"
+"Esta não é uma versão final e como tal não se pretende usar nos sistemas em produção.  O objectivo desta versão é reunir opiniões dos utilizadores que realizam os testes e não é conveniente para uma utilização no dia-a-dia.\n"
 "\n"
-"Para nos dar algum 'feedback', visite por favor o:\n"
+"Para dar 'feedback', visite por favor o:\n"
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"e envie um relatório sobre o '%s Beta'.\n"
+"e envie um relatório sobre '%s'.\n"
 
 #: ../packages.py:1280
 msgid "_Install BETA"
@@ -1475,7 +1472,7 @@ msgid "Foreign"
 msgstr "Estranha"
 
 #: ../partedUtils.py:267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The /dev/%s device is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1484,12 +1481,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"A tabela de partições do dispositivo /dev/%s é do tipo inesperado %s para a "
-"sua arquitectura.  Para utilizar este disco para instalar o %s, este terá "
-"que ser reinicializado, o que provocará a perda de TODOS OS DADOS que ele "
-"contém.\n"
+"O dispositivo /dev/%s está formatado no modo LDL em vez do modo CDL.  Os DASDs formatados no modo LDL não são suportados durante uma instalação de %s.  Para utilizar este disco na instalação, este terá que ser reinicializado, o que provocará a perda de TODOS OS DADOS que ele contém.\n"
 "\n"
-"Quer inicializar este disco?"
+"Quer reformatar este DASD utilizando o formato CDL?"
 
 #: ../partedUtils.py:297
 #, python-format
@@ -2889,7 +2883,7 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2909,11 +2903,10 @@ msgid ""
 msgstr ""
 "Parabéns, a instalação terminou.\n"
 "\n"
-"%s%sPara informações sobre a Errata (actualizações e correcções de erros), "
-"visite:\thttp://www.redhat.com/errata/\n"
+"%s%sPara informações sobre a Errata (actualizações e correcções de erros), visite:\n"
+"\thttp://www.redhat.com/errata/\n"
 "\n"
-"Para informações sobre a actualizações automáticas através da Red Hat "
-"Network, visite:\n"
+"Para informações sobre a actualizações automáticas através da Red Hat Network, visite:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
 "Para informações sobre como usar e configurar o sistema, visite:\n"
@@ -2923,7 +2916,6 @@ msgstr ""
 "Para registar o produto e obter suporte, visite:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Carregue em 'Sair' para reiniciar o sistema."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -5179,18 +5171,14 @@ msgid "Boot loader password is too short"
 msgstr "A senha do gestor de arranque é demasiado curta"
 
 #: ../textw/complete_text.py:33
-#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
-msgstr ""
-"Carregue em <Enter> para reiniciar o seu computador.\n"
-"\n"
+msgstr "Carregue em <Enter> para terminar o procesos de instalação.\n\n"
 
 #: ../textw/complete_text.py:34
-#, fuzzy
 msgid "<Enter> to exit"
-msgstr "<Enter> para reiniciar"
+msgstr "<Enter> para sair"
 
 #: ../textw/complete_text.py:40
 msgid "<Enter> to reboot"
@@ -5520,9 +5508,9 @@ msgid "Network Device: %s"
 msgstr "Dispositivo de rede: %s"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "Descrição"
+msgstr "Descrição: %s"
 
 #: ../textw/network_text.py:94
 msgid "Configure using DHCP"

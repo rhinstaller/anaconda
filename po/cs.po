@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install VERSION\n"
 "POT-Creation-Date: 2003-07-30 20:15-0400\n"
-"PO-Revision-Date: 2003-07-30 22:20+0200\n"
+"PO-Revision-Date: 2003-07-31 02:59+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -191,15 +191,11 @@ msgstr ""
 "Zaváděcí oddíl %s není oddíl VFAT. EFI nebude moci zavést systém z tohoto "
 "oddílu."
 
-# FIXME: wan't
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
-msgstr ""
-"Zaváděcí oddíl není umístěn dostatečně blízko začátku disku. OpenFirmware "
-"nebude moci zavést takto nainstalovaný systém."
+msgstr "Zaváděcí oddíl není umístěn dostatečně blízko začátku disku. OpenFirmware nebude moci zavést takto nainstalovaný systém."
 
 #: ../autopart.py:1013
 #, python-format
@@ -823,9 +819,8 @@ msgstr ""
 "Stiskněte OK pro restart systému."
 
 #: ../fsset.py:2007
-#, fuzzy
 msgid "Duplicate Labels"
-msgstr "Jmenovka je používána"
+msgstr "Duplicitní jmenovky"
 
 #: ../fsset.py:2008
 #, python-format
@@ -835,6 +830,9 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Několik zařízení ve vašem počítači má jmenovku %s. Aby váš systém správně fungoval, musí být jmenovky jedinečné.\n"
+"\n"
+"Opravte prosím tento problém a spusťte instalaci znovu."
 
 #: ../fsset.py:2015 ../gui.py:1086 ../packages.py:1286
 msgid "_Reboot"
@@ -1384,7 +1382,7 @@ msgid "Warning! This is a beta!"
 msgstr "Varování! Toto je betaverze!"
 
 #: ../packages.py:1267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1400,14 +1398,13 @@ msgid ""
 msgstr ""
 "Děkujeme vám, že jste si stáhli tuto betaverzi %s.\n"
 "\n"
-"Toto není konečná verze a není určena pro nasazení na důležitých počítačích. "
-"Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
+"Toto není konečná verze a není určena pro nasazení na důležitých počítačích. Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
 "\n"
 "Pro nahlášení svých poznatků prosím navštivte\n"
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"a založte zprávu pro '%s Beta'.\n"
+"a založte zprávu pro '%s'.\n"
 
 #: ../packages.py:1280
 msgid "_Install BETA"
@@ -1418,7 +1415,7 @@ msgid "Foreign"
 msgstr "Cizí"
 
 #: ../partedUtils.py:267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The /dev/%s device is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1427,12 +1424,9 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Tabulka oddílů na zařízení /dev/%s je typu %s, který není na vaší "
-"architektuře očekáván. Pokud chcete na tento disk nainstalovat %s, musí být "
-"tabulka oddílů znovu inicializována, což znamená ztrátu VŠECH DAT na tomto "
-"disku.\n"
+"Zařízení /dev/%s má formát LDL místo CDL. DASD s formátem LDL nejsou podporovány při instalaci %s. Pokud chcete tento disk použít pro instalaci, musí být znovu inicializován, což způsobí ztrátu VŠECH DAT na tomto disku.\n"
 "\n"
-"Chcete tento disk inicializovat?"
+"Chcete toto DASD přeformátovat pomocí formátu CDL?"
 
 #: ../partedUtils.py:297
 #, python-format
@@ -2798,7 +2792,7 @@ msgstr ""
 "instalaci a restartujte svůj systém stisknutím Enter.\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2821,8 +2815,7 @@ msgstr ""
 "%s%sPro informace o errata (aktualizace a opravy chyb) navštivte:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
-"Pro informace o automatických aktualizacích pomocí Red Hat Network "
-"navštivte:\n"
+"Pro informace o automatických aktualizacích pomocí Red Hat Network navštivte:\n"
 "\thttp://rhn.redhat.com/\n"
 "\n"
 "Pro informace o používání a konfiguraci systému navštivte:\n"
@@ -2832,7 +2825,6 @@ msgstr ""
 "Pro registraci produktu pro technickou podporu navštivte:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Restartujte počítač kliknutím na Konec."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -5058,18 +5050,14 @@ msgid "Boot loader password is too short"
 msgstr "Heslo pro zavaděč je příliš krátké."
 
 #: ../textw/complete_text.py:33
-#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
-msgstr ""
-"Stiskněte Enter pro restart systému.\n"
-"\n"
+msgstr "Dokončete instalaci stisknutím <Enter>.\n\n"
 
 #: ../textw/complete_text.py:34
-#, fuzzy
 msgid "<Enter> to exit"
-msgstr "<Enter> pro restart"
+msgstr "<Enter> pro ukončení"
 
 #: ../textw/complete_text.py:40
 msgid "<Enter> to reboot"
@@ -5400,9 +5388,9 @@ msgid "Network Device: %s"
 msgstr "Síťové zařízení: %s"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "Popis"
+msgstr "Popis: %s"
 
 #: ../textw/network_text.py:94
 msgid "Configure using DHCP"
@@ -7984,9 +7972,6 @@ msgstr "Turečtina"
 #~ msgid "_Reset"
 #~ msgstr "_Obnovit"
 
-#~ msgid "Make _RAID"
-#~ msgstr "Vytvořit _RAID"
-
 #~ msgid "Location"
 #~ msgstr "Umístění"
 
@@ -7999,9 +7984,6 @@ msgstr "Turečtina"
 #~ "vložte ji do mechaniky před tím, než stisknete Enter pro restart "
 #~ "počítače.\n"
 #~ "\n"
-
-#~ msgid "Use bootp/dhcp"
-#~ msgstr "Použít BOOTP/DHCP"
 
 #~ msgid "You must go back and use fdasd to initialize this partition"
 #~ msgstr "Pro inicializaci tohoto oddílu se musíte vrátit a použít fdasd"

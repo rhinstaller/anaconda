@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-07-30 20:15-0400\n"
-"PO-Revision-Date: 2003-03-03 20:01+0100\n"
+"PO-Revision-Date: 2003-08-12 23:34+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,16 +16,15 @@ msgstr ""
 
 #: ../anaconda:97
 msgid "Starting VNC..."
-msgstr ""
+msgstr "Startar VNC..."
 
 #: ../anaconda:114
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "Kan inte ställa in vnc-lösenord - använder inget lösenord!"
 
 #: ../anaconda:115
-#, fuzzy
 msgid "Make sure your password is at least 6 characters in length."
-msgstr "Rootlösenordet måste vara minst 6 tecken långt."
+msgstr "Försäkra dig om att ditt lösenord är minst 6 tecken långt."
 
 #: ../anaconda:135
 msgid ""
@@ -33,29 +32,52 @@ msgid ""
 "\n"
 "WARNING!!! VNC server running with NO PASSWORD!"
 msgstr ""
+"\n"
+"\n"
+"VARNING!!! VNC-servern kör UTAN LÖSENORD!"
 
 #: ../anaconda:136
 msgid "You can use the vncpasswd=<password> boot option"
-msgstr ""
+msgstr "Du kan använda uppstartsflaggan vncpasswd=<lösenord>"
 
 #: ../anaconda:137
 msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"om du vill säkra servern.\n"
+"\n"
+
+msgid ""
+"You can use the vncpasswd=<password> boot option "
+"if you would like to secure the server.\n"
+"\n"
+msgstr ""
+"Du kan använda uppstartsflaggan vncpasswd=<lösenord> "
+"om du vill säkra servern.\n"
+"\n"
+
+msgid ""
+"You can use the vncpasswd=<password> boot option\n"
+"if you would like to secure the server.\n"
+"\n"
+msgstr ""
+"Du kan använda uppstartsflaggan vncpasswd=<lösenord>\n"
+"om du vill säkra servern.\n"
+"\n"
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr ""
+msgstr "VNC-servern kör nu."
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Anslut till %s för att påbörja installationen..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Anslut för att påbörja installationen..."
 
 #: ../anaconda:498 ../anaconda:656 ../gui.py:239 ../gui.py:981 ../rescue.py:40
 #: ../rescue.py:223 ../rescue.py:301 ../rescue.py:329 ../rescue.py:339
@@ -97,14 +119,13 @@ msgid "OK"
 msgstr "OK"
 
 #: ../anaconda:544
-#, fuzzy
 msgid "Unknown Error"
-msgstr "Okänd server"
+msgstr "Okänt fel"
 
 #: ../anaconda:547
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Fel vid läsning av innehållet i kickstartfil %s: %s"
+msgstr "Fel vid hämtning av andra delen av kickstartkonfigurationen: %s!"
 
 #: ../anaconda:641
 msgid ""
@@ -116,22 +137,19 @@ msgstr ""
 
 #: ../anaconda:693
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Installationsklassen påtvingar textlägesinstallation"
 
 #: ../anaconda:720
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "Ingen grafikhårdvara hittades, antar huvudlöst"
 
 #: ../anaconda:731 ../anaconda:965 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr "Kan inte instantiera ett X-hårdvarutillståndsobjekt."
 
 #: ../anaconda:755
-#, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafisk installation är inte tillgänglig för %s-installationer. Startar "
-"textläge."
+msgstr "Grafisk installation är inte tillgänglig... Startar textläge."
 
 #: ../anaconda:768
 msgid ""
@@ -194,13 +212,12 @@ msgstr ""
 "starta från denna partition."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
-"Startpartitionen %s är inte en VFAT-partition. EFI kommer inte att kunna "
-"starta från denna partition."
+"Startpartitionen ligger inte tillräckligt tidigt på hårddisken. OpenFirmware "
+"kommer inte att kunna starta denna installation."
 
 #: ../autopart.py:1013
 #, python-format
@@ -236,50 +253,47 @@ msgstr ""
 "Tryck \"OK\" för att starta om ditt system."
 
 #: ../autopart.py:1221
-#, fuzzy
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Begärd partition finns inte"
+msgstr "Begärd raid-enhet finns inte"
 
 #: ../autopart.py:1222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Kan inte hitta partitionen %s att använda till %s.\n"
+"Kan inte hitta raid-enheten %s att använda till %s.\n"
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
 #: ../autopart.py:1251
-#, fuzzy
 msgid "Requested Volume Group Does Not Exist"
-msgstr "Begärd partition finns inte"
+msgstr "Begärd volymgrupp finns inte"
 
 #: ../autopart.py:1252
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate volume group %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Kan inte hitta partitionen %s att använda till %s.\n"
+"Kan inte hitta volymgruppen %s att använda till %s.\n"
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
 #: ../autopart.py:1287
-#, fuzzy
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Begärd partition finns inte"
+msgstr "Begärd logisk volym finns inte"
 
 #: ../autopart.py:1288
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate logical volume %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Kan inte hitta partitionen %s att använda till %s.\n"
+"Kan inte hitta logiska volymen %s att använda till %s.\n"
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
@@ -325,7 +339,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Tryck på \"OK\" för att starta om ditt system."
+"Tryck \"OK\" för att starta om ditt system."
 
 #: ../autopart.py:1346 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:219
@@ -344,7 +358,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -353,19 +366,30 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Följande fel inträffade med din partitionering:\n"
 "\n"
-"%s\n"
 "\n"
-"Detta kan inträffa om det inte finns tillräckligt med utrymme för "
-"installationen på din(a) hårddisk(ar). Du kan välja ett annat automatiskt "
-"partitioneringsalternativ eller klicka på \"Bakåt\" för att välja manuell "
-"partitionering.\n"
+"Du kan välja ett annat automatiskt partitioneringsalternativ eller klicka på "
+"\"Bakåt\" för att välja manuell partitionering.\n"
 "\n"
-"Tryck på \"OK\" för att fortsätta."
+"Tryck \"OK\" för att fortsätta."
+
+msgid ""
+"\n"
+"\n"
+"You can choose a different automatic partitioning option or click 'Back' to "
+"select manual partitioning.\n"
+"\n"
+"Press 'OK' to continue."
+msgstr ""
+"\n"
+"\n"
+"Du kan välja ett annat automatiskt partitioneringsalternativ eller klicka på "
+"\"Bakåt\" för att välja manuell partitionering.\n"
+"\n"
+"Tryck \"OK\" för att fortsätta."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -378,21 +402,16 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Detta kan inträffa om det inte finns tillräckligt med utrymme för "
-"installationen på din(a) hårddisk(ar). Du kan välja ett annat automatiskt "
-"partitioneringsalternativ eller klicka på \"Bakåt\" för att välja manuell "
-"partitionering.\n"
-"\n"
-"Tryck på \"OK\" för att fortsätta."
+"Detta kan inträffa om det inte finns tillräckligt med utrymme på din(a) "
+"hårddisk(ar) för installationen.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
-msgstr ""
+msgstr "Olösligt fel"
 
 #: ../autopart.py:1381
-#, fuzzy
 msgid "Your system will now be rebooted."
-msgstr "Ditt system kommer nu att startas om..."
+msgstr "Ditt system kommer nu att startas om."
 
 #: ../autopart.py:1464 ../bootloader.py:139 ../gui.py:978 ../image.py:399
 #: ../partedUtils.py:266 ../partedUtils.py:296 ../partedUtils.py:817
@@ -437,7 +456,6 @@ msgid "Remove all partitions on this system"
 msgstr "Ta bort alla partitioner på detta system"
 
 #: ../autopart.py:1487
-#, fuzzy
 msgid "Remove all Linux partitions on this system"
 msgstr "Ta bort alla Linuxpartitioner på detta system"
 
@@ -446,7 +464,7 @@ msgid "Keep all partitions and use existing free space"
 msgstr "Behåll alla partitioner och använd befintligt ledigt utrymme"
 
 #: ../autopart.py:1490
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
 "s\n"
@@ -457,7 +475,7 @@ msgstr ""
 "Är du säker på att du vill göra detta?"
 
 #: ../autopart.py:1494
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
 "following drives:%s\n"
@@ -488,27 +506,32 @@ msgid "Completed"
 msgstr "Färdigt"
 
 #: ../cmdline.py:47
-#, fuzzy
 msgid "In progress...   "
-msgstr "Totalt förlopp:   "
+msgstr "Pågår...   "
+
+msgid "In progress..."
+msgstr "Pågår..."
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Kan inte ha en fråga i kommandoradsläge!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
+msgstr "Parted-undantag kan inte hanteras i kommandoradsläge!"
 
 #: ../cmdline.py:131
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Klart [%d/%d]"
 
 #: ../cmdline.py:137
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s... "
-msgstr "Installerar %s-%s-%s.\n"
+msgstr "Installerar %s-%s-%s... "
+
+msgid "Installing %s-%s-%s..."
+msgstr "Installerar %s-%s-%s..."
 
 #: ../comps.py:767 ../comps.py:795 ../hdrlist.py:734
 msgid "Everything"
@@ -601,8 +624,8 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
-"Ta bort eventuella disketter från diskettstationen och sätt i en tom diskett "
-"som du vill ska bli startdiskett.\n"
+"Ta bort eventuella disketter från diskettstationen och sätt in en tom "
+"diskett som du vill ska bli startdiskett.\n"
 "\n"
 "All data kommer att TAS BORT när startdisketten skapas."
 
@@ -700,13 +723,14 @@ msgstr ""
 msgid "RAID Device"
 msgstr "RAID-enhet"
 
+# Nix, kommer inte på någon bra översättning av bootstrap
 #: ../fsset.py:1114 ../fsset.py:1120
 msgid "Apple Bootstrap"
-msgstr ""
+msgstr "Apple-bootstrap"
 
 #: ../fsset.py:1125
 msgid "PPC PReP Boot"
-msgstr ""
+msgstr "PPC PReP-start"
 
 #: ../fsset.py:1128 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -727,7 +751,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att initiera växlingsutrymme på enheten %s. "
 "Detta problem är allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1215
 #, python-format
@@ -755,7 +779,7 @@ msgstr ""
 "Felaktiga block har hittats på enheten /dev/%s. Vi rekommenderar inte att du "
 "använder denna enhet.\n"
 "\n"
-"Tryck på <Retur> för att starta om ditt system"
+"Tryck <Retur> för att starta om ditt system"
 
 #: ../fsset.py:1276
 #, python-format
@@ -768,7 +792,7 @@ msgstr ""
 "Ett fel inträffade vid sökning efter skadade block på %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1312
 #, python-format
@@ -781,7 +805,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att formatera %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1362
 #, python-format
@@ -794,7 +818,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att migrera %s. Detta problem är allvarligt "
 "och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1382 ../fsset.py:1391
 msgid "Invalid mount point"
@@ -812,7 +836,7 @@ msgstr ""
 "en katalog. Detta är ett ödesdigert fel och installationen kan inte "
 "fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1392
 #, python-format
@@ -825,7 +849,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
 "ödesdigert och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på <Retur> för att för att starta om ditt system."
+"Tryck <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1405
 #, python-format
@@ -843,8 +867,10 @@ msgstr ""
 "Tryck OK för att starta om ditt system."
 
 #: ../fsset.py:2007
-#, fuzzy
 msgid "Duplicate Labels"
+msgstr "Dublettetiketter"
+
+msgid "Duplicate label"
 msgstr "Dublettetikett"
 
 #: ../fsset.py:2008
@@ -855,6 +881,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Flera enheter på ditt system har etiketten %s. Etiketter över enheter måste "
+"vara unika för att ditt system ska fungera korrekt.\n"
+"\n"
+"Korrigera detta problem och starta om installationen."
 
 #: ../fsset.py:2015 ../gui.py:1086 ../packages.py:1286
 msgid "_Reboot"
@@ -958,8 +988,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Sätt i en diskett nu. Allt innehåll på disketten kommer att tas bort, så var "
-"noga med valet av diskett."
+"Sätt in en diskett nu. Allt innehåll på disketten kommer att tas bort, så "
+"var noga med valet av diskett."
 
 #: ../gui.py:743 ../gui.py:1365
 msgid "Online Help"
@@ -974,9 +1004,8 @@ msgid "Release notes are missing.\n"
 msgstr "Utgåvenoteringar saknas.\n"
 
 #: ../gui.py:979
-#, fuzzy
 msgid "The release notes are missing."
-msgstr "Utgåvenoteringar saknas.\n"
+msgstr "Utgåvenoteringarna saknas."
 
 #: ../gui.py:1074
 msgid "Error!"
@@ -1054,14 +1083,16 @@ msgid "Install Window"
 msgstr "Installationsfönster"
 
 #: ../harddrive.py:165 ../image.py:452
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
 "\n"
 "%s\n"
 "The system will now reboot."
 msgstr ""
-"ISO-avbild saknas för cd %d, som behövs för installationen.\n"
+"Följande ISO-avbilder, som behövs för installationen, saknas:\n"
+"\n"
+"%s\n"
 "\n"
 "Systemet kommer nu att startas om."
 
@@ -1098,7 +1129,7 @@ msgstr "Byt cd-romskiva"
 #: ../image.py:219
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr "Sätt i skiva %d för att fortsätta."
+msgstr "Sätt in skiva %d för att fortsätta."
 
 #: ../image.py:254
 msgid "Wrong CDROM"
@@ -1194,7 +1225,7 @@ msgid ""
 "media.  Press <return> to try again."
 msgstr ""
 "Kan inte läsa huvudlistan. Detta kan bero på att filen saknas eller "
-"felaktigt medium. Tryck på <Retur> för att försöka igen."
+"felaktigt medium. Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:164
 msgid ""
@@ -1202,7 +1233,7 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 "Kan inte läsa comps-filen. Detta kan bero på att filen saknas eller "
-"felaktigt medium. Tryck på <Retur> för att försöka igen."
+"felaktigt medium. Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:250
 msgid "Dependency Check"
@@ -1236,9 +1267,8 @@ msgstr ""
 "Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:364
-#, fuzzy
 msgid "Installing..."
-msgstr "Installerar startprogram..."
+msgstr "Installerar..."
 
 #: ../packages.py:385
 msgid "Error Installing Package"
@@ -1259,7 +1289,7 @@ msgstr ""
 "ödesdigert fel och din installation kommer att avbrytas. Verifiera mediumet "
 "och försök att installera igen.\n"
 "\n"
-"Tryck på OK-knappen för att starta om ditt system."
+"Tryck OK-knappen för att starta om ditt system."
 
 #: ../packages.py:529
 #, python-format
@@ -1275,12 +1305,11 @@ msgid ""
 "media.  Press <return> to try again."
 msgstr ""
 "Kan inte slå samman huvudlistan. Detta kan bero på att filen saknas eller "
-"felaktigt medium. Tryck på <Retur> för att försöka igen."
+"felaktigt medium. Tryck <Retur> för att försöka igen."
 
 #: ../packages.py:710
-#, fuzzy
 msgid "Preparing RPM transaction..."
-msgstr "Ställer in RPM-transaktion..."
+msgstr "Förbereder RPM-transaktion..."
 
 #: ../packages.py:780
 #, python-format
@@ -1301,13 +1330,19 @@ msgstr ""
 "\n"
 
 #: ../packages.py:790 ../packages.py:1077
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
+msgstr "Uppgraderar %s-%s-%s.%s.\n"
+
+msgid "Upgrading %s-%s-%s.\n"
 msgstr "Uppgraderar %s-%s-%s.\n"
 
 #: ../packages.py:792 ../packages.py:1079
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s.\n"
+msgstr "Installerar %s-%s-%s.%s.\n"
+
+msgid "Installing %s-%s-%s.\n"
 msgstr "Installerar %s-%s-%s.\n"
 
 #: ../packages.py:808
@@ -1333,7 +1368,7 @@ msgstr "Installationen startar"
 
 #: ../packages.py:815
 msgid "Starting install process, this may take several minutes..."
-msgstr "Startar installationsprocessen, detta kan ta flera minuter..."
+msgstr "Startar installationen, detta kan ta flera minuter..."
 
 #: ../packages.py:855
 msgid ""
@@ -1392,7 +1427,6 @@ msgstr ""
 "Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
 
 #: ../packages.py:1105
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -1400,14 +1434,14 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
+"Följande paket är tillgängliga i denna version men installerades INTE:\n"
 
 #: ../packages.py:1266
 msgid "Warning! This is a beta!"
 msgstr "Varning! Detta är en beta!"
 
 #: ../packages.py:1267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1421,7 +1455,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Tack för att du har hämtat denna Red Hat-betaversion.\n"
+"Tack för att du har hämtat denna %s-betaversion.\n"
 "\n"
 "Detta är inte den slutgiltiga versionen och den är inte avsedd för "
 "användning på system i produktion. Ändamålet med denna version är att samla "
@@ -1431,7 +1465,7 @@ msgstr ""
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"och fyller i en felrapport mot \"Red Hat Public Beta\".\n"
+"och fyller i en felrapport mot \"%s\".\n"
 
 #: ../packages.py:1280
 msgid "_Install BETA"
@@ -1442,7 +1476,7 @@ msgid "Foreign"
 msgstr "Främmande"
 
 #: ../partedUtils.py:267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The /dev/%s device is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1451,12 +1485,12 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Partitionstabellen på enheten /dev/%s är av en oväntad typ %s för din "
-"arkitektur. För att denna disk ska kunna användas för installation av %s "
-"måste den initieras om, vilket kommer att förstöra ALL DATA på denna "
-"hårddisk.\n"
+"Enheten /dev/%s är LDL_formaterad istället för CDL-formaterad. "
+"LDL-formaterade DASD:er stöds inte för användning under en installation av "
+"%s. Om du vill använda denna hårddisk för installation måste den initieras "
+"om, vilket kommer att förstöra ALL DATA på denna hårddisk.\n"
 "\n"
-"Vill du initiera denna enhet?"
+"Vill du formatera om denna DASD med CDL-format?"
 
 #: ../partedUtils.py:297
 #, python-format
@@ -1612,11 +1646,8 @@ msgid "You cannot delete free space."
 msgstr "Du kan inte ta bort ledigt utrymme."
 
 #: ../partIntfHelpers.py:157
-#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
-"Du kan inte ta bort denna partition:\n"
-"\n"
+msgstr "Du kan inte ta bort en partition på en LDL-formaterad DASD."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1884,7 +1915,7 @@ msgstr ""
 
 #: ../partitions.py:835
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Du måste skapa en PPC PReP-startpartition."
 
 #: ../partitions.py:842
 #, python-format
@@ -2019,14 +2050,13 @@ msgstr ""
 "måste du lägga till medlemmar i RAID-enheten."
 
 #: ../rescue.py:123
-#, fuzzy
 msgid "Starting Interface"
-msgstr "Redigera gränssnittet %s"
+msgstr "Startar gränssnittet"
 
 #: ../rescue.py:124
-#, fuzzy, python-format
+#, python-format
 msgid "Attempting to start %s"
-msgstr "Försöker starta VGA16-X-servern"
+msgstr "Försöker starta %s"
 
 #: ../rescue.py:173
 msgid "Setup Networking"
@@ -2130,7 +2160,7 @@ msgid ""
 msgstr ""
 "Ditt system har monterats under %s.\n"
 "\n"
-"Tryck på <Retur> för att komma till ett skal. Om du vill göra ditt system "
+"Tryck <Retur> för att komma till ett skal. Om du vill göra ditt system "
 "till rotmiljön kan du köra kommandot:\n"
 "\n"
 "\tchroot %s\n"
@@ -2149,7 +2179,7 @@ msgstr ""
 "Ett fel inträffade vid försök att montera en del av eller hela ditt system. "
 "En del kan ha monterats under %s.\n"
 "\n"
-"Tryck på <Retur> för att komma till ett skal. Systemet kommer automatiskt "
+"Tryck <Retur> för att komma till ett skal. Systemet kommer automatiskt "
 "att startas om när du avslutar skalet."
 
 #: ../rescue.py:410
@@ -2161,7 +2191,7 @@ msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
-"Du har inga Linuxpartitioner. Tryck på Retur för att komma till ett skal. "
+"Du har inga Linuxpartitioner. Tryck Retur för att komma till ett skal. "
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
 #: ../rescue.py:422
@@ -2345,9 +2375,12 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
+"Den arkitektur för den utgåva av %s som du uppgraderar till verkar vara %s, "
+"som inte stämmer överens med din tidigare installerade arkitektur %s. Detta "
+"kommer sannolikt inte att lyckas. Är du säker på att du vill fortsätta "
+"uppgraderingen?"
 
 #: ../upgrade.py:470
-#, fuzzy
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2360,8 +2393,10 @@ msgstr ""
 "Detta system verkar ha tredjepartspaket installerade som överlappar med "
 "paket som ingår i Red Hat Linux. Att fortsätta uppgraderingsprocessen kan, "
 "eftersom dessa paket överlappar varandra, göra att systemet slutar fungera "
-"ordentligt eller orsaka instabilitet i systemet. Vill du fortsätta "
-"uppgraderingsprocessen?"
+"ordentligt eller orsaka instabilitet i systemet. Se utgåvenoteringarna för "
+"mer information.\n"
+"\n"
+"Vill du fortsätta uppgraderingsprocessen?"
 
 #: ../upgrade.py:493
 msgid ""
@@ -2387,9 +2422,8 @@ msgstr ""
 "uppgraderingsprocessen?"
 
 #: ../urlinstall.py:45
-#, fuzzy
 msgid "Connecting..."
-msgstr "Kontrollerar \"%s\"..."
+msgstr "Ansluter..."
 
 #: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2409,16 +2443,16 @@ msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
+"Du måste ange ditt rootlösenord och bekräfta det genom att ange det en andra "
+"gång för att fortsätta."
 
 #: ../iw/account_gui.py:44
-#, fuzzy
 msgid "The passwords you entered were different.  Please try again."
-msgstr "Lösenorden du skrev in var olika. Var vänlig och försök igen."
+msgstr "Lösenorden du angav var olika. Var vänlig och försök igen."
 
 #: ../iw/account_gui.py:51
-#, fuzzy
 msgid "The root password must be at least six characters long."
-msgstr "Rootlösenordet måste vara minst 6 tecken långt."
+msgstr "Rootlösenordet måste vara minst sex tecken långt."
 
 #: ../iw/account_gui.py:60 ../textw/userauth_text.py:72
 msgid ""
@@ -2836,18 +2870,17 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:63 ../textw/complete_text.py:36
-#, fuzzy
 msgid ""
 "Remove any installation media (diskettes or CD-ROMs) used during the "
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Ta bort alla disketter som du har använt under installationen och tryck "
-"<Retur> för att starta om din maskin.\n"
+"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
+"under installationen och tryck <Retur> för att starta om din maskin.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2867,10 +2900,7 @@ msgid ""
 msgstr ""
 "Gratulerar, installationen är färdig.\n"
 "\n"
-"Ta bort all installationsmedia (disketter eller cd-romskivor) som användes "
-"under installationen.\n"
-"\n"
-"%sFör information om uppdateringar och felfixar, besök:\n"
+"%s%sFör information om uppdateringar och felfixar, besök:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "För information om automatiska uppdateringar genom Red Hat Network, besök:\n"
@@ -2883,7 +2913,6 @@ msgstr ""
 "För att registrera produkten för support, besök:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Klicka på \"Avsluta\" för att starta om systemet."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -3017,16 +3046,15 @@ msgstr ""
 "välja att anpassa det nedan."
 
 #: ../iw/desktop_choice_gui.py:106
-#, fuzzy
 msgid "_Install default software packages"
-msgstr ""
-"Installerar %s paket\n"
-"\n"
+msgstr "_Installera standardprogramvarupaket"
+
+msgid "Install default software packages"
+msgstr "Installera standardprogramvarupaket"
 
 #: ../iw/desktop_choice_gui.py:107
-#, fuzzy
 msgid "_Customize software packages to be installed"
-msgstr "An_passa valet av paket att installera"
+msgstr "An_passa programvarupaket att installera"
 
 #: ../iw/driveorderwidget.py:44
 msgid "Drive"
@@ -3046,8 +3074,13 @@ msgid "Upgrade Examine"
 msgstr "Granskning av uppgradering"
 
 #: ../iw/examine_gui.py:59
-#, fuzzy
 msgid "_Upgrade an existing installation"
+msgstr "_Uppgradera en befintlig installation"
+
+msgid "Upgrade an existing installation"
+msgstr "Uppgradera en befintlig installation"
+
+msgid "Upgrade existing installation"
 msgstr "Uppgradera befintlig installation"
 
 #: ../iw/examine_gui.py:61
@@ -3069,6 +3102,9 @@ msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
 msgstr ""
+"Välj detta alternativ för att installera ditt system på nytt. Befintlig "
+"programvara och data kommer att skrivas över beroende på dina "
+"konfigurationsval."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following Red Hat product will be upgraded:"
@@ -3616,7 +3652,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Du har inte angett ett värdnamn. Beroende på din nätverksmiljö kan detta "
+"Du har inte angivit ett värdnamn. Beroende på din nätverksmiljö kan detta "
 "orsaka problem senare."
 
 #: ../iw/network_gui.py:161
@@ -3625,7 +3661,7 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"Du har inte angett ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
+"Du har inte angivit ett värde i fältet \"%s\". Beroende på din nätverksmiljö "
 "kan detta orsaka problem senare."
 
 #: ../iw/network_gui.py:165 ../textw/network_text.py:399
@@ -3695,9 +3731,8 @@ msgid "Net_mask"
 msgstr "_Nätmask"
 
 #: ../iw/network_gui.py:233
-#, fuzzy
 msgid "_Point to Point (IP)"
-msgstr "Punkt till punkt (IP)"
+msgstr "_Punkt till punkt (IP)"
 
 #: ../iw/network_gui.py:256
 #, python-format
@@ -3746,7 +3781,7 @@ msgstr "_manuellt"
 
 #: ../iw/network_gui.py:545
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(t.ex. \"värd.domän.se\")"
 
 #: ../iw/network_gui.py:608
 msgid "Miscellaneous Settings"
@@ -4263,7 +4298,10 @@ msgstr "Installerar paket"
 #: ../iw/progress_gui.py:52 ../textw/progress_text.py:65
 #, python-format
 msgid "Downloading - %s"
-msgstr ""
+msgstr "Hämtar - %s"
+
+msgid "Downloading"
+msgstr "Hämtar"
 
 #: ../iw/progress_gui.py:110 ../iw/progress_gui.py:304
 msgid "Total"
@@ -4283,9 +4321,11 @@ msgid "Summary"
 msgstr "Sammanfattning"
 
 #: ../iw/progress_gui.py:275 ../textw/progress_text.py:130
-#, fuzzy
 msgid "Status: "
-msgstr "Status"
+msgstr "Status: "
+
+msgid "Status:"
+msgstr "Status:"
 
 #: ../iw/progress_gui.py:285
 msgid "Package Progress: "
@@ -4577,9 +4617,8 @@ msgid "System clock uses _UTC"
 msgstr "Systemklockan använder _UTC"
 
 #: ../iw/timezone_gui.py:73
-#, fuzzy
 msgid "Please select the nearest city in your timezone:"
-msgstr "Välj den upplösning som du vill använda:"
+msgstr "Välj den närmaste staden i din tidszon:"
 
 #: ../iw/timezone_map_gui.py:126
 msgid "_Location"
@@ -4813,22 +4852,24 @@ msgstr "Konfiguration av bildskärm"
 
 #: ../iw/xconfig_gui.py:438 ../textw/xconfig_text.py:467
 msgid "Monitor Unspecified"
-msgstr ""
+msgstr "Bildskärm inte angiven"
 
 #: ../iw/xconfig_gui.py:439 ../textw/xconfig_text.py:468
 msgid ""
 "You have not selected a monitor type.  It is recommended you choose the "
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
+"Du har inte valt en bildskärmstyp. Det rekommenderas att du väljer den "
+"närmast överensstämmande modellen för att kunna få den bästa möjliga "
+"bildkvaliteten."
 
 #: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:473
 msgid "Proceed"
-msgstr ""
+msgstr "Fortsätt"
 
 #: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:473
-#, fuzzy
 msgid "Choose monitor type"
-msgstr "Undersöker bildskärmstyp: "
+msgstr "Välj bildskärmstyp"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4896,6 +4937,9 @@ msgid ""
 "System.  If you do not want to setup the X Window System , choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Ditt system kommer att konfigureras för användning av "
+"rambuffertdrivrutinen för X Window System. Om du inte vill konfigurera "
+"X Window System bör du välja \"Hoppa över konfiguration av X\" nedan."
 
 #: ../iw/xconfig_gui.py:982
 msgid ""
@@ -4928,9 +4972,11 @@ msgid "z/IPL Boot Loader Configuration"
 msgstr "Konfiguration av z/IPL-startprogram"
 
 #: ../iw/zipl_gui.py:75
-#, fuzzy
 msgid "The z/IPL boot loader will be installed on your system."
-msgstr "Startprogrammet %s kommer att installeras på /dev/%s."
+msgstr "Startprogrammet z/IPL kommer att installeras på ditt system."
+
+msgid "The %s boot loader will be installed on your system."
+msgstr "Startprogrammet %s kommer att installeras på ditt system."
 
 #: ../iw/zipl_gui.py:77
 msgid ""
@@ -4967,9 +5013,8 @@ msgid "Kernel Parameters"
 msgstr "Parametrar till kärnan"
 
 #: ../iw/zipl_gui.py:107 ../iw/zipl_gui.py:110
-#, fuzzy
 msgid "Chandev Parameters"
-msgstr "Parametrar till kärnan"
+msgstr "Chandev-parametrar"
 
 #: ../textw/bootdisk_text.py:24
 #, python-format
@@ -5129,14 +5174,12 @@ msgid "Boot loader password is too short"
 msgstr "Lösenordet till startprogrammet är för kort"
 
 #: ../textw/complete_text.py:33
-#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
+"Tryck <Retur> för att avsluta installationen.\n"
 "\n"
-"\n"
-"Tryck på \"OK\" för att starta om ditt system."
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to exit"
@@ -5446,18 +5489,19 @@ msgid "Mouse Selection"
 msgstr "Musval"
 
 #: ../textw/network_text.py:30
-#, fuzzy
 msgid "Invalid IP string"
-msgstr "Ogiltig IP-information"
+msgstr "Ogiltig IP-sträng"
 
 #: ../textw/network_text.py:31
-#, fuzzy, python-format
+#, python-format
 msgid "The entered IP '%s' is not a valid IP."
-msgstr "Värdet du angav är inte ett giltigt tal."
+msgstr "Den angivna IP-adressen \"%s\" är inte en giltig IP-adress."
 
 #: ../textw/network_text.py:68
-#, fuzzy
 msgid "IP Address"
+msgstr "IP-adress"
+
+msgid "_IP address"
 msgstr "_IP-adress"
 
 #: ../textw/network_text.py:69
@@ -5474,14 +5518,19 @@ msgid "Network Device: %s"
 msgstr "Nätverksenhet: %s"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "Beskrivning"
+msgstr "Beskrivning: %s"
+
+msgid "Description: "
+msgstr "Beskrivning: "
+
+msgid "Description:"
+msgstr "Beskrivning:"
 
 #: ../textw/network_text.py:94
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Konfigurera med hjälp av _DHCP"
+msgstr "Konfigurera med hjälp av DHCP"
 
 #: ../textw/network_text.py:107
 msgid "Activate on boot"
@@ -5501,39 +5550,35 @@ msgid "You must enter valid IP information to continue"
 msgstr "Du måste skriva in giltig IP-information för att fortsätta"
 
 #: ../textw/network_text.py:245
-#, fuzzy
 msgid "Gateway:"
-msgstr "Gateway"
+msgstr "Gateway:"
+
+msgid "Gateway: "
+msgstr "Gateway: "
 
 #: ../textw/network_text.py:255
-#, fuzzy
 msgid "Primary DNS:"
-msgstr "Primär DNS"
+msgstr "Primär DNS:"
 
 #: ../textw/network_text.py:260
-#, fuzzy
 msgid "Secondary DNS:"
-msgstr "Sekundär DNS"
+msgstr "Sekundär DNS:"
 
 #: ../textw/network_text.py:265
-#, fuzzy
 msgid "Tertiary DNS:"
-msgstr "Tertiär DNS"
+msgstr "Tertiär DNS:"
 
 #: ../textw/network_text.py:272
-#, fuzzy
 msgid "Miscellaneous Network Settings"
-msgstr "Diverse inställningar"
+msgstr "Diverse nätverksinställningar"
 
 #: ../textw/network_text.py:340
-#, fuzzy
 msgid "automatically via DHCP"
-msgstr "_automatiskt via DHCP"
+msgstr "automatiskt via DHCP"
 
 #: ../textw/network_text.py:344
-#, fuzzy
 msgid "manually"
-msgstr "_manuellt"
+msgstr "manuellt"
 
 #: ../textw/network_text.py:363
 msgid "Hostname Configuration"
@@ -5546,31 +5591,32 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
+"Om ditt system är en del av ett större nätverk där värdnamn tilldelas med "
+"hjälp av DHCP bör du välja automatiskt via DHCP. Annars bör du välja "
+"manuellt och ange ett värdnamn för ditt system. Om du inte gör detta kommer "
+"ditt system att gå under namnet \"localhost\"."
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
-#, fuzzy
 msgid "Invalid Hostname"
-msgstr "Ogiltig startetikett"
+msgstr "Ogiltigt värdnamn"
 
 #: ../textw/network_text.py:393
 msgid "You have not specified a hostname."
-msgstr ""
+msgstr "Du har inte angivit ett värdnamn."
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
 msgstr "Välj enstaka paket"
 
 #: ../textw/packages_text.py:73
-#, fuzzy
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
-"   <Blanksteg>,<+>,<-> val    |    <F1> hjälp    |    <F2> paketbeskrivning"
+"<Blanksteg>,<+>,<-> val    |    <F2> Gruppdetaljer    |    <F12> nästa skärm"
 
 #: ../textw/packages_text.py:110
-#, fuzzy
 msgid "Package Group Details"
-msgstr "Paketgrupper"
+msgstr "Detaljer för paketgrupp"
 
 #: ../textw/packages_text.py:165
 msgid "Package :"
@@ -6415,6 +6461,9 @@ msgid ""
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
+"Ditt system kommer att konfigureras för användning av "
+"rambuffertdrivrutinen för X Window System. Om du inte vill konfigurera "
+"X Window System bör du välja \"Hoppa över konfiguration av X\" nedan."
 
 #: ../textw/xconfig_text.py:646
 msgid "Select the video card and video RAM for your system."
@@ -6451,23 +6500,25 @@ msgid "Chandev line "
 msgstr "Chandev-rad "
 
 #: ../installclasses/custom.py:11
-#, fuzzy
 msgid "_Custom"
+msgstr "An_passad"
+
+msgid "Custom"
 msgstr "Anpassad"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
 "Välj denna installationstyp för att få fullständig kontroll över "
-"installationsprocessen, inklusive val av programvarupaket och "
-"autentiseringsinställningar."
+"installationen, inklusive val av programvarupaket och partitionering."
 
 #: ../installclasses/personal_desktop.py:11
-#, fuzzy
 msgid "_Personal Desktop"
+msgstr "_Personligt skrivbord"
+
+msgid "Personal Desktop"
 msgstr "Personligt skrivbord"
 
 #: ../installclasses/personal_desktop.py:13
@@ -6481,8 +6532,10 @@ msgstr ""
 "och skapa ett system som är perfekt för hem- eller skrivbordsanvändning."
 
 #: ../installclasses/server.py:11
-#, fuzzy
 msgid "_Server"
+msgstr "_Server"
+
+msgid "Server"
 msgstr "Server"
 
 #: ../installclasses/server.py:13
@@ -6496,8 +6549,10 @@ msgstr ""
 "aktiveras, och du kan välja huruvida du vill installera en grafisk miljö."
 
 #: ../installclasses/workstation.py:8
-#, fuzzy
 msgid "_Workstation"
+msgstr "Ar_betsstation"
+
+msgid "Workstation"
 msgstr "Arbetsstation"
 
 #: ../installclasses/workstation.py:10
@@ -6555,7 +6610,7 @@ msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt i cd-"
+"Cd-skivan med %s kunde inte hittas i någon av dina cd-romenheter. Sätt in cd-"
 "skivan med %s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:250
@@ -6580,7 +6635,7 @@ msgid ""
 "and press %s to retry."
 msgstr ""
 "Ingen cd-skiva med %s kunde hittas som stämmer överens med ditt startmedium. "
-"Sätt i cd-skivan med %s och tryck %s för att försöka igen."
+"Sätt in cd-skivan med %s och tryck %s för att försöka igen."
 
 #: ../loader2/cdinstall.c:355
 msgid "CD Not Found"
@@ -6614,11 +6669,12 @@ msgstr ""
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Sätt i din drivrutinsdiskett i /dev/%s och tryck på \"OK\" för att fortsätta."
+"Sätt in din drivrutinsdiskett i /dev/%s och tryck på \"OK\" för att "
+"fortsätta."
 
 #: ../loader2/driverdisk.c:260
 msgid "Insert Driver Disk"
-msgstr "Sätt i drivrutinsdiskett"
+msgstr "Sätt in drivrutinsdiskett"
 
 #: ../loader2/driverdisk.c:275
 msgid "Failed to mount driver disk."
@@ -6668,16 +6724,18 @@ msgid "Kickstart Error"
 msgstr "Kickstartfel"
 
 #: ../loader2/driverdisk.c:443
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Felaktigt argument till Url-kickstartmetodkommandot %s: %s"
+msgstr "Okänd kickstartkälla för drivrutinsdiskett: %s"
 
 #: ../loader2/driverdisk.c:476
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
+msgstr ""
+"Följande ogiltiga argument angavs till kickstartkommandot för "
+"drivrutinsdiskett: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6862,7 +6920,7 @@ msgstr ""
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
-"Sätt i din uppdateringsdiskett i /dev/%s och tryck \"OK\" för att fortsätta."
+"Sätt in din uppdateringsdiskett i /dev/%s och tryck \"OK\" för att fortsätta."
 
 #: ../loader2/loader.c:317
 msgid "Updates Disk"
@@ -6959,7 +7017,10 @@ msgstr "Lägg till enhet"
 
 #: ../loader2/loader.c:1029
 msgid "loader has already been run.  Starting shell."
-msgstr ""
+msgstr "inläsaren har redan körts. Startar skal."
+
+msgid "Loader has already been run.  Starting shell."
+msgstr "Inläsaren har redan körts. Startar skal."
 
 #: ../loader2/loader.c:1362
 #, c-format
@@ -7067,9 +7128,9 @@ msgid "Checksum Test"
 msgstr "Test av kontrollsumma"
 
 #: ../loader2/modules.c:917
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to device kickstart method command %s: %s"
-msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
+msgstr "Felaktigt argument till enhetskickstartmetodkommandot %s: %s"
 
 #: ../loader2/net.c:44
 #, c-format
@@ -7232,13 +7293,12 @@ msgid "Unable to retrieve the install image."
 msgstr "Kan inte hämta installationsavbilden."
 
 #: ../loader2/urlinstall.c:266
-#, fuzzy
 msgid "Media Detected"
-msgstr "Ingen mus upptäcktes"
+msgstr "Media upptäcktes"
 
 #: ../loader2/urlinstall.c:267
 msgid "Local installation media detected..."
-msgstr ""
+msgstr "Lokal installationsmedia upptäcktes..."
 
 #: ../loader2/urlinstall.c:422
 #, c-format
@@ -7859,9 +7919,8 @@ msgid "Roraima"
 msgstr "Roraima"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Rothera Station, Adelaide Island"
-msgstr "Palmer-stationen, Anversön"
+msgstr "Rothera-stationen, Adelaide-ön"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -8270,7 +8329,8 @@ msgstr "Turkiska"
 #~ msgstr "Modulparametrar"
 
 #~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr "Sätt i din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
+#~ msgstr ""
+#~ "Sätt in din drivrutinsdiskett och tryck på \"OK\" för att fortsätta."
 
 #~ msgid ""
 #~ "The floppy disk you inserted is not a valid driver disk for this release "
@@ -8330,7 +8390,7 @@ msgstr "Turkiska"
 #~ msgstr "FTP- och HTTP-installationer kräver minst 20 MB systemminne."
 
 #~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr "Sätt i din uppdateringsdiskett och tryck \"OK\" för att fortsätta."
+#~ msgstr "Sätt in din uppdateringsdiskett och tryck \"OK\" för att fortsätta."
 
 #~ msgid ""
 #~ "The floppy disk you inserted is not a valid update disk for this release "
@@ -8376,7 +8436,7 @@ msgstr "Turkiska"
 #~ msgstr "Fel diskett sattes in."
 
 #~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Sätt i %s-drivrutinsdisketten nu."
+#~ msgstr "Sätt in %s-drivrutinsdisketten nu."
 
 #~ msgid "Sending request for IP information..."
 #~ msgstr "Skickar förfrågan om IP-information..."
@@ -8431,7 +8491,7 @@ msgstr "Turkiska"
 #~ msgstr "PCMCIA"
 
 #~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Sätt i din PCMCIA-drivrutinsdiskett i din diskettstation nu."
+#~ msgstr "Sätt in din PCMCIA-drivrutinsdiskett i din diskettstation nu."
 
 #~ msgid "Failed to mount disk."
 #~ msgstr "Misslyckades med att montera disketten."
@@ -8765,7 +8825,7 @@ msgstr "Turkiska"
 #~ "Kan inte skapa symbolisk länk för /var/tmp. Detta bör bara hända om det "
 #~ "uppstod fel vid skapandet av dina filsystem.\n"
 #~ "\n"
-#~ "Tryck på OK-knappen för att starta om ditt system."
+#~ "Tryck OK-knappen för att starta om ditt system."
 
 #~ msgid "delete"
 #~ msgstr "ta bort"
@@ -10268,7 +10328,7 @@ msgstr "Turkiska"
 #~ "the first floppy drive. All data on this disk will be erased during "
 #~ "creation of the boot disk."
 #~ msgstr ""
-#~ "Ta bort installationsdisketten (om du har använt en sådan) och sätt i en "
+#~ "Ta bort installationsdisketten (om du har använt en sådan) och sätt in en "
 #~ "tom diskett i den första diskettstationen. All data på denna diskett "
 #~ "kommer att tas bort när startdisketten skapas."
 
@@ -10365,7 +10425,7 @@ msgstr "Turkiska"
 #~ msgstr ""
 #~ "Kärnan kan inte läsa din nya partitioneringsinformation, antagligen på "
 #~ "grund av att du ändrade på utökade partitioner. Även om detta inte är "
-#~ "allvarligt måste du starta om din maskin innan du kan fortsätta. Sätt i "
+#~ "allvarligt måste du starta om din maskin innan du kan fortsätta. Sätt in "
 #~ "din Red Hat-startdiskett och tryck \"OK\" för att starta om ditt system.\n"
 
 #~ msgid "Swap Space"

@@ -194,7 +194,6 @@ msgstr ""
 "sneið."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
@@ -827,9 +826,8 @@ msgstr ""
 "Veldu Í lagi til að endurræsa vélina."
 
 #: ../fsset.py:2007
-#, fuzzy
 msgid "Duplicate Labels"
-msgstr "Diskmerking tvítekin"
+msgstr "Merking tvítekin"
 
 #: ../fsset.py:2008
 #, python-format
@@ -839,6 +837,10 @@ msgid ""
 "\n"
 "Please fix this problem and restart the installation process."
 msgstr ""
+"Fleiri en eitt tæki í vélinni þinni eru merkt %s.  Diskamerkingar mega ekki "
+"eins milli diska.\n"
+"\n"
+"Vinsamlegast lagfærðu þetta og reyndu aftur."
 
 #: ../fsset.py:2015 ../gui.py:1086 ../packages.py:1286
 msgid "_Reboot"
@@ -1384,7 +1386,7 @@ msgid "Warning! This is a beta!"
 msgstr "Aðvörun! Þetta er beta-hugbúnaður!"
 
 #: ../packages.py:1267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
 "\n"
@@ -1407,7 +1409,7 @@ msgstr ""
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"og flokkað það í flokkinn '%s Beta'.\n"
+"og flokkað það í flokkinn '%s'.\n"
 
 #: ../packages.py:1280
 msgid "_Install BETA"
@@ -1418,7 +1420,7 @@ msgid "Foreign"
 msgstr "Ókunnugt"
 
 #: ../partedUtils.py:267
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The /dev/%s device is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1427,12 +1429,12 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Disksneiðataflan á tæki /dev/%s er af gerð %s sem ekki passar fyrir vélbúnað "
-"þinn. Til þess að hægt sé að nota diskinn fyrir þessa uppsetningu af %s þarf "
-"að frumstilla disksneiðatöfluna, sem veldur því að ÖLL GÖGN á disknum "
-"tapast.\n"
+"Tækið /dev/%s er LDL forsniðið en ekki CDL forsniðið. DASD diskar sem eru LDL "
+"forsniðnir eru ekki studdir við uppsetningu %s.  Til þess að hægt sé að nota "
+"diskinn fyrir þessa uppsetningu þarf að frumstilla disksneiðatöfluna, sem veldur "
+"því að ÖLL GÖGN á disknum tapast.\n"
 "\n"
-"Viltu frumstilla töfluna?"
+"Viltu endurforsníða þennan DASD með CDL sniði?"
 
 #: ../partedUtils.py:297
 #, python-format
@@ -2798,7 +2800,7 @@ msgstr ""
 "\n"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
@@ -2818,7 +2820,7 @@ msgid ""
 msgstr ""
 "Til hamingju, uppsetningu er lokið.\n"
 "\n"
-"%s%sFyrir frekari upplýsingar um villuleiðréttingar eða uppfærslur, farðu á:"
+"%s%sFyrir frekari upplýsingar um villuleiðréttingar eða uppfærslur, farðu á:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "Upplýsingar um sjálfvirkar uppfærslur um Red Hat Network eru á:\n"
@@ -2831,7 +2833,6 @@ msgstr ""
 "Til að skrá þessa vél, farðu á:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
-"Smelltu á 'Hætta' til að endurræsa."
 
 #: ../iw/dependencies_gui.py:21
 msgid "Unresolved Dependencies"
@@ -5056,18 +5057,16 @@ msgid "Boot loader password is too short"
 msgstr "Ræsistjóralykilorðið er of stutt"
 
 #: ../textw/complete_text.py:33
-#, fuzzy
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
 msgstr ""
-"Sláðu á <Enter> til að endurræsa.\n"
+"Sláðu á <Enter> til að ljúka uppsetningunni.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
-#, fuzzy
 msgid "<Enter> to exit"
-msgstr "<Enter> til að endurræsa"
+msgstr "<Enter> til hætta"
 
 #: ../textw/complete_text.py:40
 msgid "<Enter> to reboot"
@@ -5398,9 +5397,9 @@ msgid "Network Device: %s"
 msgstr "Netkort: %s"
 
 #: ../textw/network_text.py:89
-#, fuzzy, python-format
+#, python-format
 msgid "Description: %s"
-msgstr "Lýsing"
+msgstr "Lýsing: %s"
 
 #: ../textw/network_text.py:94
 msgid "Configure using DHCP"
