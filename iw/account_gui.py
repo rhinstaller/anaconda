@@ -358,7 +358,7 @@ class AccountWindow (InstallWindow):
         table.set_row_spacings (5)
 	table.set_col_spacings (5)
 
-        pass1 = gui.MnemonicLabel (("Root _Password: "))
+        pass1 = gui.MnemonicLabel (_("Root _Password: "))
         pass1.set_alignment (0.0, 0.5)
         table.attach (pass1, 0, 1, 0, 1, gtk.FILL, 0, 10)
         pass2 = gui.MnemonicLabel (_("_Confirm: "))
