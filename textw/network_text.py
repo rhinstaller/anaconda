@@ -137,7 +137,6 @@ class NetworkWindow:
 
         while 1:
             result = toplevel.run ()
-            screen.suspend()
             if self.onboot.selected() != 0:
                 dev.set (('onboot', 'yes'))
             else:
