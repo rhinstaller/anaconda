@@ -373,6 +373,12 @@ class ToDo:
         self.progressWindow = None
 	self.fdDevice = None
         self.lilostate = ""
+        self.videoCardOriginalName = ""
+        self.videoCardOriginalNode = ""
+        self.videoCardState = ""
+        self.videoCardStateNode = ""
+        self.videoRamState = ""
+        
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
