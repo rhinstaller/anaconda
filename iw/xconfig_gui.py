@@ -487,11 +487,11 @@ class MonitorWindow (InstallWindow):
         if self.ignoreEntryChanges:
             return
 
+        (entry, other) = entrys
         list = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", " ", ".", ","]
         if not(text[:1] in list):
             entry.emit_stop_by_name ("insert-text")
 
-        (entry, other) = entrys
         self.enableIfSyncsValid(entry, other)
 
     def changedCb (self, data, entrys):
