@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-29 02:04+0200\n"
+"PO-Revision-Date: 2004-10-02 15:53+0200\n"
 "Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -477,7 +477,7 @@ msgstr ""
 "der gewählten Installationsart eingerichtet. Sie können die Partitionen auch "
 "nach der Erstellung Ihren Bedürfnissen anpassen.\n"
 "\n"
-"Mit dem manuellen Festplatten-Partitionierungstool Disk Druid können Sie "
+"Mit dem manuellen Festplatten-Partitionierungswerkzeug Disk Druid können Sie "
 "Ihre Partitionen in einer interaktiven Umgebung einrichten. Sie können\n"
 "Dateisystemtypen, Einhängepunkte, Größen und anderes einstellen."
 
@@ -966,7 +966,6 @@ msgid "An error occurred copying the screenshots over."
 msgstr "Beim Kopieren der Bildschirmfotos ist ein Fehler aufgetreten."
 
 #: ../gui.py:119
-#, fuzzy
 msgid "Screenshots Copied"
 msgstr "Bildschirmfotos kopiert"
 
@@ -987,7 +986,7 @@ msgstr ""
 
 #: ../gui.py:164
 msgid "Saving Screenshot"
-msgstr ""
+msgstr "Speichere Bildschirmfoto"
 
 #: ../gui.py:165
 #, python-format
@@ -995,7 +994,6 @@ msgid "A screenshot named '%s' has been saved."
 msgstr "Ein Bildschirmfoto mit dem Namen '%s' wurde gespeichert."
 
 #: ../gui.py:168
-#, fuzzy
 msgid "Error Saving Screenshot"
 msgstr "Fehler beim Speichern des Bildschirmfotos"
 
@@ -2578,15 +2576,13 @@ msgstr ""
 "das System unbenutzbar werden. Wollen Sie mit dem Upgrade fortfahren?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"Die Architektur der Release von %s, welche Sie aktualisieren, scheint %s zu "
-"sein. Dies stimmt mit dem vorher von Ihnen installierten Architektur von %s "
-"nicht überein. Dies wird wahrscheinlich keinen Erfolg haben.  Sind Sie "
-"sicher, dass Sie mit dem Upgrade fortfahren wollen?"
+"Allem Anschein nach versuchen Sie, ein System zu aktualisieren, das zu alt ist"", um auf diese Version von %s aktualisiert zu werden. Sind Sie sicher, dass "
+"Sie mit dem Upgrade fortfahren wollen?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -3260,7 +3256,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Nach der Installation kann mithilfe des Tools 'system-config-packages' "
+"Nach der Installation kann mit Hilfe des Programms 'system-config-packages' "
 "weitere Software hinzugefügt oder auch entfernt werden.\n"
 "\n"
 "Wenn Sie mit %s vertraut sind, möchten Sie vielleicht bestimmte Pakete "
@@ -5650,7 +5646,7 @@ msgid ""
 "selection of software installed if you want."
 msgstr ""
 "Die Standard-Installations-Umgebung enthält unsere empfohlene Paket-Auswahl. "
-"Nach der Installation kann mithilfe des Tools 'system-config-packages' "
+"Nach der Installation kann mit Hilfe des Programms 'system-config-packages' "
 "weitere Software hinzugefügt oder auch entfernt werden.\n"
 "\n"
 "%s wird jedoch mit einer großen Anzahl an weiteren Applikationen "
@@ -6890,7 +6886,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6900,9 +6895,9 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
-"\tDesktop-Shell (GNOME)\n"
+"\tDesktop-Oberfläche (GNOME)\n"
 "\tOffice-Suite (OpenOffice.org)\n"
-"\tWeb-Browser (Mozilla) \n"
+"\tWeb-Browser \n"
 "\tE-Mail (Evolution)\n"
 "\tSofortnachrichten\n"
 "\tAudio- und Video-Anwendungen\n"
@@ -6939,7 +6934,6 @@ msgid "Red Hat Enterprise Linux WS"
 msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6953,13 +6947,13 @@ msgid ""
 msgstr ""
 "\tDesktop-Oberfläche (GNOME)\n"
 "\tOffice-Suite (OpenOffice.org)\n"
-"\tWeb-Browser (Mozilla) \n"
+"\tWeb-Browser \n"
 "\tE-Mail (Evolution)\n"
 "\tSofortnachrichten\n"
 "\tAudio- und Video-Anwendungen\n"
 "\tSpiele\n"
-"\tSoftware-Entwicklungstools\n"
-"\tAdministrations-Tools\n"
+"\tSoftware-Entwicklungswerkzeuge\n"
+"\tAdministrationswerkzeuge\n"
 
 #: ../installclasses/server.py:11
 msgid "_Server"
