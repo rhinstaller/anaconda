@@ -659,7 +659,7 @@ class Partitions:
                     part = disk.next_partition(part)
                     continue
 
-                format = 0
+                format = None
                 if part.type & parted.PARTITION_FREESPACE:
                     ptype = None
                 elif part.type & parted.PARTITION_EXTENDED:
