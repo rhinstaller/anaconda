@@ -797,8 +797,26 @@ class InstallControlWindow:
         newScreenClass = None
 	s = "from %s import %s; newScreenClass = %s" % (file, className,
                                                         className)
-	exec s
-
+        while 1:
+            try:
+                exec s
+                break
+            except ImportError:            
+                win = MessageWindow(_("Error!"),
+                                   _("An error occured when attempting "
+                                     "to load an installer interface "
+                                     "component."),
+                                    type="custom", custom_icon="warning",
+                                    custom_buttons=[_("_Exit"),
+                                                    _("_Retry")])
+                if not win.getrc():
+                    MessageWindow(_("Rebooting System"),
+                                  _("Your system will now be rebooted..."),
+                                  type="custom",
+                                  custom_icon="warning",
+                                  custom_buttons=[_("_Reboot")])
+                    sys.exit(0)
+                
 	ics = InstallControlState (self)
         ics.setPrevEnabled(self.dispatch.canGoBack())
         
