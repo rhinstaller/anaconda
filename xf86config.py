@@ -924,7 +924,7 @@ class XF86Config:
                 return modes
         return None
 
-    def test (self, serverflags=None, spawn=0):
+    def test (self, serverflags=None, spawn=0, root='/'):
         servername = self.video.primaryCard().getXServer()
         if not servername:
             return
@@ -961,7 +961,7 @@ class XF86Config:
     FontPath    "/usr/share/fonts/KOI8-R/misc/"
     FontPath    "/usr/share/fonts/KOI8-R/75dpi/"
 """
-        f = open ('/tmp/XF86Config.test', 'w')
+        f = open ('%s/tmp/XF86Config.test' %(root), 'w')
 
         if servername == "XFree86":
             config = self.Version4Config
@@ -978,8 +978,12 @@ class XF86Config:
         serverPath = "/usr/X11R6/bin/" + servername
 
         serverpid = os.fork()
-
+        
         if (not serverpid):
+            if (root and root != '/'): 
+                isys.chroot (root)
+                os.chdir("/")
+
             args = [serverPath, '-xf86config', '/tmp/XF86Config.test' ]
 	    logFile = "/tmp/X.log"
             if servername == "XFree86":
@@ -1010,6 +1014,10 @@ class XF86Config:
             
         child = os.fork()
         if (not child):
+            if (root and root != '/'): 
+                isys.chroot (root)
+                os.chdir("/")
+            
             os.environ["DISPLAY"] = ":9"
             os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--norunlevel"])
         else:

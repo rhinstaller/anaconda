@@ -54,7 +54,7 @@ class XCustomWindow (InstallWindow):
         self.xconfig.setManualModes(newmodes)
 
         try:
-            self.xconfig.test ()
+            self.xconfig.test (root="/mnt/sysimage/")
         except RuntimeError:
             ### test failed window
             pass
