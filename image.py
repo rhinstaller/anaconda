@@ -4,6 +4,9 @@ import rpm
 
 class InstallMethod:
 
+    def getFilename(self, h):
+	return self.tree + "/" + "RedHat/RPMS/" + h[1000000]
+
     def readHeaders(self):
 	return rpm.readHeaderList(self.tree + "/RedHat/base/hdlist")
 

@@ -53,9 +53,10 @@ import rpm
 
 def cb(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-	(h, key) = key
+	(h, method) = key
 	data.setPackage(h[rpm.RPMTAG_NAME])
-	d = os.open("/mnt/redhat/test/6.0/i386/RedHat/RPMS/" + key, os.O_RDONLY)
+	fn = method.getFilename(h)
+	d = os.open(fn, os.O_RDONLY)
 	return d
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
@@ -93,7 +94,7 @@ db = rpm.opendb(1, rootPath)
 ts = rpm.TransactionSet(rootPath, db)
 
 for p in comps.selected():
-    ts.add(p.h, (p.h, p.h[1000000]))
+    ts.add(p.h, (p.h, method))
 
 ts.order()
 p = intf.packageProgessWindow()
