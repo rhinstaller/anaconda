@@ -440,14 +440,19 @@ int main(void) {
     printf("Red Hat install init version %s starting\n", VERSION);
 
     printf("mounting /proc filesystem... "); 
-
     if (!testing) {
 	if (mount("/proc", "/proc", "proc", 0, NULL))
 	    fatal_error(1);
     }
-
     printf("done\n");
 
+    printf("mounting /dev/pts (unix89 pty) filesystem... "); 
+    if (!testing) {
+	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
+	    fatal_error(1);
+    }
+    printf("done\n");
+    
     if (isSerial) {
 	printf("Red Hat install init version %s using a serial console\n", 
 		VERSION);
