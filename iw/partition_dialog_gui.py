@@ -176,7 +176,7 @@ class PartitionEditor:
 
 		err = request.sanityCheckRequest(self.partitions)
 		if not err:
-		    err = doUIRAIDLVMChecks(request)
+		    err = doUIRAIDLVMChecks(request, self.diskset)
 		    
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
