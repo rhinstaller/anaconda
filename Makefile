@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 7.1.94
+VERSION = 7.1.95
 RELEASE = 0
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
