@@ -550,8 +550,8 @@ class XF86Config:
         self.res = ""
         self.res = resolution
 
-        self.monHoriz = "35.15"
-        self.monVert = "56"
+        self.monHoriz = "30-70"
+        self.monVert = "50-100"
 
 
 	self.monSect = ""
