@@ -617,7 +617,10 @@ class ToDo:
             if len (fields) == 6:
                 if fields and (fields[2] == "ext2" or fields[2] == "swap") \
                    and fields[3] == "defaults":
-                    fstab[fields[1]] = (fields[0][5:], fields[2], 0)
+                    format = 0
+                    # XXX always format swap. 
+                    if fields[2] == "swap": format = 1
+                    fstab[fields[1]] = (fields[0][5:], fields[2], format)
         return fstab
 
     def writeLanguage(self):
