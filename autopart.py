@@ -755,8 +755,7 @@ def processPartitioning(diskset, requests, newParts):
             request.size = request.getActualSize(requests, diskset)
             vgreq = requests.getRequestByID(request.volumeGroup)
 
-    return (PARTITION_SUCCESS, "success")
-
+    return (PARTITION_SUCCESS, "success")            
 ##     print "disk layout after everything is done"
 ##     print diskset.diskState()
 
@@ -786,12 +785,34 @@ def doPartitioning(diskset, requests, doRefresh = 1):
         raise PartitioningError, "Growing partitions failed"
 
     ret = bootRequestCheck(requests, diskset)
-    
+
+    if ret != PARTITION_SUCCESS:
+        # more specific message?
+        raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
+ 
+    # make sure our logical volumes still fit
+    vgused = {}
+    for request in requests.requests:
+        if request.type == REQUEST_LV:
+            size = int(request.getActualSize(requests, diskset))
+            if vgused.has_key(request.volumeGroup):
+                vgused[request.volumeGroup] = (vgused[request.volumeGroup] +
+                                               size)
+            else:
+                vgused[request.volumeGroup] = size
+    for vg in vgused.keys():
+        request = requests.getRequestByID(vg)
+        print vgused[vg]
+        print request.getActualSize(requests, diskset)
+        if vgused[vg] > request.getActualSize(requests, diskset):
+            raise PartitioningError, _("Adding this partition would not "
+                                       "leave enough disk space for already "
+                                       "allocated logical volumes in "
+                                       "%s." % (request.volumeGroupName))
+
     if ret == PARTITION_SUCCESS:
         return
 
-    # more specific message?
-    raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
 
 # given clearpart specification execute it
 # probably want to reset diskset and partition request lists before calling
