@@ -263,8 +263,6 @@ char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args,
 
 	    list = *listPtr;
 	    listSize = *listSizePtr;
-
-	    free(deps);
 	}	    
 
 	/* add this to the list */
@@ -272,12 +270,16 @@ char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args,
 	while (*next) next++;
 
 	if ((next - list) >= listSize) {
+	    int count = next - list;
+
 	    listSize += 10;
 	    /* leave room for a NULL */
 	    list = realloc(list, sizeof(*list) * (listSize + 1));
 
 	    *listSizePtr = listSize;
 	    *listPtr = list;
+
+	    next = list + count;
 	}
 
 	next[0] = *args;
@@ -318,8 +320,6 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	logMessage("would have insmod %s", path);
 	rc = 0;
     } else {
-	logMessage("going to insmod %s", path);
-
 	if (!(child = fork())) {
 	    int fd = open("/dev/tty3", O_RDWR);
 
@@ -339,8 +339,6 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	} else {
 	    rc = 0;
 	}
-
-	logMessage("%s done w/ rc %d", path, rc);
     }
 
     if (!rc) {
@@ -392,6 +390,7 @@ int mlLoadModuleSet(const char * origModNames,
     char ** list, ** l;
     char ** paths, ** p;
     struct moduleInfo * mi;
+    char items[1024] = "";
 
     start = modNames = alloca(strlen(origModNames) + 1);
     strcpy(modNames, origModNames);
@@ -426,6 +425,13 @@ int mlLoadModuleSet(const char * origModNames,
 	logMessage("found loop in module dependencies; not inserting anything");
 	return 1;
     }
+
+    for (i = 0; list[i]; i++) {
+	strcat(items, " ");
+	strcat(items, list[i]);
+    }
+
+    logMessage("modules to insert%s", items);
 
     paths = NULL;
     if (modInfo) {
@@ -463,8 +469,6 @@ int mlLoadModuleSet(const char * origModNames,
 	    i++;
 	}
     }
-
-    logMessage("done inserting modules");
 
     if (!FL_TESTING(flags)) {
 	int fd;
