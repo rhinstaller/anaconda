@@ -19,6 +19,12 @@ class AccountWindow (InstallWindow):
 
     def getNext (self):
         self.todo.rootpassword.set (self.pw.get_text ())
+	accounts = []
+	for n in range(len(self.passwords.keys())):
+	    accounts.append((self.userList.get_text(n, 0),
+			      self.userList.get_text(n, 1),
+			      self.passwords[self.userList.get_text(n, 0)]))
+	self.todo.setUserList(accounts)
         return None
 
     def rootPasswordsMatch (self, *args):
@@ -35,8 +41,6 @@ class AccountWindow (InstallWindow):
 	password1 = self.userPass1.get_text()
 	password2 = self.userPass2.get_text()
 
-	print (accountName, password1, password2)
-
 	if (password1 and password1 == password2 and
 	    self.userAccountMatch.search(accountName) and
 	    len(accountName) <= 8):
@@ -44,7 +48,6 @@ class AccountWindow (InstallWindow):
 	else:
 	    valid = 0
 
-        print "editingUser", self.editingUser
 	if (self.editingUser != None):
 	    self.edit.set_sensitive(valid)
 	    self.add.set_sensitive(0)
@@ -57,7 +60,8 @@ class AccountWindow (InstallWindow):
 	if (not index): return
 	index = index[0]
 	accountName = self.userList.get_text(index, 0)
-	(fullName, password) = self.users[accountName]
+	fullName = self.userList.get_text(index, 1)
+	password = self.passwords[accountName]
 
 	self.editingUser = index
 	self.accountName.set_text(accountName)
@@ -77,7 +81,7 @@ class AccountWindow (InstallWindow):
 	else:
 	    index = self.userList.append((accountName, fullName))
 	    
-	self.users[accountName] = (fullName, password)
+	self.passwords[accountName] = password
 	self.newUser()
 
     def deleteUser(self, *args):
@@ -86,7 +90,7 @@ class AccountWindow (InstallWindow):
 	index = index[0]
 	accountName = self.userList.get_text(index, 0)
 
-	del self.users[accountName]
+	del self.passwords[accountName]
 	self.userList.remove(index)
 	self.newUser()
 
@@ -98,7 +102,7 @@ class AccountWindow (InstallWindow):
 	self.fullName.set_text("")
 
     def getScreen (self):
-	self.users = {}
+	self.passwords = {}
 	self.editingUser = None
 
         box = GtkVBox ()
@@ -117,6 +121,12 @@ class AccountWindow (InstallWindow):
         self.confirm.connect ("changed", self.rootPasswordsMatch)
         table.attach (self.pw, 1, 2, 0, 1)
         table.attach (self.confirm, 1, 2, 1, 2)
+
+	pw = self.todo.rootpassword.getPure()
+	if pw:
+	    self.pw.set_text(pw)
+	    self.confirm.set_text(pw)
+        
 
         box.pack_start (table, FALSE)
 
@@ -147,7 +157,7 @@ class AccountWindow (InstallWindow):
         self.userPass2.set_visibility (FALSE)
         self.userPass1.set_usize (50, -1)
         self.userPass2.set_usize (50, -1)
-        
+
         entrytable.attach (GtkLabel (_("Account Name")), 0, 1, 0, 1)        
         entrytable.attach (self.accountName,                  1, 2, 0, 1)
         entrytable.attach (GtkLabel (_("Password")),  0, 1, 1, 2)                
@@ -179,6 +189,12 @@ class AccountWindow (InstallWindow):
         self.userList = GtkCList (2, (_("Account Name"), _("Full Name")))
 	self.userList.connect("select_row", self.userSelected)
         box.pack_start (self.userList, TRUE)
+
+        index = 0
+	for (user, name, password) in self.todo.getUserList():
+	    self.userList.append((user, name))
+	    self.passwords[user] = password
+	    index = index + 1
 
 	self.userOkay()
 
