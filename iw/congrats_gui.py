@@ -72,6 +72,21 @@ class CongratulationWindow (InstallWindow):
         box.pack_start (label, TRUE, TRUE, 0)
 
         hbox.pack_start (box)
+        f = open("/proc/mounts", "r")
+        lines = f.readlines()
+        f.close()
+        umounts = []
+        for line in lines:
+           if string.find(line, "/mnt/sysimage") > -1:
+                tokens = string.split(line)
+                umounts.append(tokens[1])
+        umounts.sort()
+        umounts.reverse()
+        for part in umounts:
+            try:
+                isys.umount(part)
+            except:
+                print part + "is busy, couldn't umount."
         return hbox
 
 
@@ -113,5 +128,20 @@ class ReconfigCongratulationWindow (InstallWindow):
         box.pack_start (label, TRUE, TRUE, 0)
 
         hbox.pack_start (box)
+        f = open("/proc/mounts", "r")
+        lines = f.readlines()
+        f.close()
+        umounts = []
+        for line in lines:
+           if string.find(line, "/mnt/sysimage") > -1:
+                tokens = string.split(line)
+                umounts.append(tokens[1])
+        umounts.sort()
+        umounts.reverse()
+        for part in umounts:
+            try:
+                isys.umount(part)
+            except:
+                print part + "is busy, couldn't umount."
         return hbox
 

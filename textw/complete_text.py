@@ -15,9 +15,13 @@ from snack import *
 from constants_text import *
 from translate import _
 import iutil
+import isys
+import string
 
 
 class FinishedWindow:
+
+  import string
 
   if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
 
@@ -60,6 +64,23 @@ class FinishedWindow:
 		"Linux system is contained in the Red Hat Linux "
 		"manuals."),
 		[ _("OK") ], help = "finished")
+	f = open("/proc/mounts", "r")
+	lines = f.readlines()
+	f.close()
+	umounts = []
+	for line in lines:
+	   if string.find(line, "/mnt/sysimage") > -1:
+		tokens = string.split(line)
+		umounts.append(tokens[1])
+	umounts.sort()
+	umounts.reverse()
+	for part in umounts:
+	    try:
+		isys.umount(part)
+	    except:
+		print part + "is busy, couldn't umount."
+
+	
 	return INSTALL_OK
 
 
@@ -77,4 +98,19 @@ class ReconfigFinishedWindow:
                   "http://www.redhat.com/support/manuals."),
                    [ _("OK") ], help = "reconfigfinished")
 
+        f = open("/proc/mounts", "r")
+        lines = f.readlines()
+        f.close()
+        umounts = []
+        for line in lines:
+           if string.find(line, "/mnt/sysimage") > -1:
+                tokens = string.split(line)
+                umounts.append(tokens[1])
+        umounts.sort()
+        umounts.reverse()
+        for part in umounts:
+            try:
+                isys.umount(part)
+            except:
+                print part + "is busy, couldn't umount."
         return INSTALL_OK
