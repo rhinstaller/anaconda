@@ -19,6 +19,9 @@ extern char ** _environ;
 
 extern int errno;
 
+/* Aieee, gcc 2.95+ creates a stub for posix_types.h on i386 which brings
+   glibc headers in and thus makes __FD_SET etc. not defined with 2.3+ kernels. */
+#define _FEATURES_H 1
 #include <linux/socket.h>
 #include <linux/types.h>
 #include <linux/time.h>
@@ -81,12 +84,13 @@ static inline int fork(void) {
 static inline _syscall0(int,fork)
 #endif
 static inline _syscall0(pid_t,setsid)
-extern inline _syscall1(int,exit,int,exitcode)
 static inline _syscall3(int,syslog,int, type, char *, buf, int, len);
 #else
 static inline _syscall5(int,_newselect,int,n,fd_set *,rd,fd_set *,wr,fd_set *,ex,struct timeval *,timeval);
 static inline _syscall3(int,write,int,fd,const char *,buf,unsigned long,count)
 static inline _syscall2(int,socketcall,int,code,unsigned long *, args)
+#define __NR__do_exit __NR_exit
+extern inline _syscall1(int,_do_exit,int,exitcode)
 #endif
 
 #define select _newselect
@@ -107,38 +111,5 @@ void printint(int i);
 void printf(char * fmt, ...);
 char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, int len);
-
-#ifndef __FD_SET
-#define __FD_SET(fd,fdsetp) \
-		__asm__ __volatile__("btsl %1,%0": \
-			"=m" (*(__kernel_fd_set *) (fdsetp)):"r" ((int) (fd)))
-#endif
-
-#ifndef	__FD_CLR
-#define __FD_CLR(fd,fdsetp) \
-		__asm__ __volatile__("btrl %1,%0": \
-			"=m" (*(__kernel_fd_set *) (fdsetp)):"r" ((int) (fd)))
-#endif
-
-#ifndef	__FD_ISSET
-#define __FD_ISSET(fd,fdsetp) (__extension__ ({ \
-		unsigned char __result; \
-		__asm__ __volatile__("btl %1,%2 ; setb %0" \
-			:"=q" (__result) :"r" ((int) (fd)), \
-			"m" (*(__kernel_fd_set *) (fdsetp))); \
-		__result; }))
-#endif
-
-#ifndef	__FD_ZERO
-#define __FD_ZERO(fdsetp) \
-do { \
-	int __d0, __d1; \
-	__asm__ __volatile__("cld ; rep ; stosl" \
-			:"=m" (*(__kernel_fd_set *) (fdsetp)), \
-			  "=&c" (__d0), "=&D" (__d1) \
-			:"a" (0), "1" (__FDSET_LONGS), \
-			"2" ((__kernel_fd_set *) (fdsetp)) : "memory"); \
-} while (0)
-#endif
 
 void printstr(char * string);

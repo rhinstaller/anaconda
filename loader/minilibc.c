@@ -7,6 +7,8 @@ int atexit (void (*__func) (void)) {
 }
 
 void exit() {
+    _do_exit(0);
+    for (;;); /* Shut up gcc */
 }
 
 char ** _environ = NULL;
@@ -82,7 +84,7 @@ char * strcpy(char * dst, const char * src) {
     return chptr;
 }
 
-void * memcpy(void * dst, const void * src, int count) {
+void * memcpy(void * dst, const void * src, size_t count) {
     char * a = dst;
     const char * b = src;
 
