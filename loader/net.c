@@ -551,7 +551,7 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
 
-#ifndef __STANDALONE__
+#if !defined(__STANDALONE__) && !defined(__s390__) && !defined(__s390x__)
     if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
 	fprintf(f, "ONBOOT=no\n");
     else
