@@ -837,6 +837,13 @@ class ToDo:
 
     def getUserList(todo):
 	return todo.users
+
+    def createUsers(todo):
+	if not todo.users return
+
+	for (account, name, password) in todo.users:
+	    argv = [ "/usr/sbin/useradd", account ]
+	    iutil.execWithRedirect(argv[0], argv, root = self.instPath)
         
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -956,6 +963,7 @@ class ToDo:
             self.writeNetworkConfig ()
             self.writeRootPassword ()
             self.setupAuthentication ()
+	    self.createAccounts ()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
 	self.installLilo ()
