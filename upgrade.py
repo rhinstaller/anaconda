@@ -464,7 +464,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
 	log(text)
         pkgs = ""
-	for package in id.comps['GNOME'].pkgs:
+	for package in id.comps['GNOME Desktop Environment'].pkgs:
 	    try:
 		rec = db.findbyname(package.name)
 	    except rpm.error:
@@ -526,6 +526,21 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
                 id.hdList["nautilus"].select()
+
+    # now for ugly gnome2 upgrade hacks
+    recs = None
+    try:
+        recs = db.findbyname("gnome-core")
+    except rpm.error:
+        pass
+    if recs:
+        log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
+        for pkg in ["gnome-terminal", "gnome-desktop", "gnome-session",
+                    "gnome-panel", "metacity", "file-roller"]:
+            try:
+                id.hdList[pkg].select()
+            except:
+                pass
 
     # more hacks!  we can't really have anything require rhn-applet without
     # causing lots of pain (think systems that don't want rhn crap installed)
