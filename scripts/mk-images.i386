@@ -42,6 +42,9 @@ makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	   --loaderbin loader-network \
 	   --modules "$NETWORKMODULES"
 
+# XXX hack hack
+PCMCIAMODULES=`echo $PCMCIAMODULES | sed s/apa1480_cb//g`
+
 makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --pcmcia \
 	   --initrdsize 2000 \
