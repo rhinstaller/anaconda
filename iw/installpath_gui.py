@@ -153,7 +153,6 @@ class InstallPathWindow (InstallWindow):
 		    name = obj.name
 		    pixmap = obj.pixmap
 		    descr = obj.description
-		    print descr
 		    group = self.pixRadioButton(group, _(name), pixmap,
 						description=_(descr))
 		    self.buttonToObject[group] = obj
