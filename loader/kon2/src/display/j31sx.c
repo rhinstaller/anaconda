@@ -47,7 +47,7 @@
 #include	<string.h>
 #include	<unistd.h>
 #include	<sys/mman.h>
-/* #include	<linux/mm.h> */
+#include	<linux/mm.h>
 #include	<sys/kd.h>
 #undef free
 #include	<stdlib.h>

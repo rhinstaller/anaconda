@@ -30,68 +30,28 @@
 #ifndef MEM_H
 #define MEM_H
 
-static inline
+static __inline__
     void PortOutw(u_short value, u_short port)
 {
-    __asm__ ("outw %0,%1"
-	     ::"a" ((u_short) value),
-	     "d" ((u_short) port));
+    __asm__ volatile ("outw %0,%1"
+	     ::"a" ((unsigned short) value), "d"((unsigned short) port));
 }
 
-static inline
+static __inline__
     void PortOutb(char value, u_short port)
 {
-    __asm__ ("outb %0,%1"
-	     ::"a" ((char) value),
-	     "d" ((u_short) port));
+    __asm__ volatile ("outb %0,%1"
+	      ::"a" ((unsigned char) value), "d"((unsigned short) port));
 }
 
-static inline
-    void lzero(void *head, int n)
+static __inline__
+    unsigned char PortInb(unsigned short port)
 {
-    __asm__ ("cld\n\t"
-	     "rep\n\t"
-	     "stosl"
-	     ::"a" (0),
-	     "c" (n>>2),
-	     "D" ((long)head)
-	     :"cx","di");
-}
-
-static inline
-    void bmove(void *dst, void *src, int n)
-{
-    __asm__ ("cld\n\t"
-	     "rep\n\t"
-	     "movsb\n\t"
-	     ::"c" (n),
-	     "D" ((long)dst),
-	     "S" ((long)src)
-	     :"cx","di","si");
-}
-
-static inline
-    void brmove(void *dst, void *src, int n)
-{
-    __asm__ ("std\n\t"
-	     "rep\n\t"
-	     "movsb\n\t"
-	     ::"c" (n),
-	     "D" ((long)dst),
-	     "S" ((long)src)
-	     :"cx","di","si");
-}
-
-static inline
-    void bzero2(void *head, int n)
-{
-    __asm__ ("cld\n\t"
-	     "rep\n\t"
-	     "stosb"
-	     ::"a" (0),
-	     "c" (n),
-	     "D" ((long)head)
-	     :"cx","di");
+    unsigned char value;
+    __asm__ volatile ("inb %1,%0"
+		      :"=a" (value)
+		      :"d"((unsigned short) port));
+    return value;
 }
 
 extern u_char PortInb(u_short);

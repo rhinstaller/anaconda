@@ -99,10 +99,8 @@ u_int vgaSt1Addr = 0x3DA;
 static	char	*gramMem;		/* dummy buffer for mmapping grahics memory */
 static	char	*fontBuff1;		/* saved font data - plane 2 */
 
-#ifndef	MINI_KON
 static	bool	savePlane3;
 static	char	*fontBuff2;		/* saved font data - plane 3 */
-#endif
 
 static	u_int	writeAddr;		 /* address to write next character */
 
@@ -237,13 +235,15 @@ void VgaInit(void)
 #ifdef	USE_ROMFONT
     VgaLoadRomFont(fontBuff1);
 #endif
-#ifndef	MINI_KON
-    if (savePlane3) {
+#if defined(MINI_KON) || defined(USE_STATICFONT)
+    VgaLoadStaticFont();
+#endif
+
+    if (savePlane3 && fontBuff2) {
 	/* save font data in plane 3 */
 	PortOutw(0x0304, VGAGRP_ADDR);
 	memcpy(fontBuff2, gramMem, FONT_SIZE);
     }
-#endif
 }
 
 void VgaTextMode(void)
@@ -264,14 +264,12 @@ void VgaTextMode(void)
     PortOutb(0x04, VGASEQ_DATA );
     memcpy(gramMem, fontBuff1, FONT_SIZE);
     
-#ifndef	MINI_KON
     if (savePlane3) {
 	/* restore font data in plane 3 - necessary for Trident VGA's */
 	PortOutb(0x02, VGASEQ_ADDR );
 	PortOutb(0x08, VGASEQ_DATA );
 	memcpy(gramMem, fontBuff2, FONT_SIZE);
     }
-#endif
     
     /* restore text mode VGA registers */
     VgaSetRegisters(&regText);
@@ -435,17 +433,17 @@ void VgaHardScrollUp(int line)
     
     if (line > dInfo.tymax) {
 	line %= dInfo.tymax + 1;
-	lzero(gramMem, dInfo.gsize);
+	bzero(gramMem, dInfo.gsize);
     }
     
     oldhead = gramHead;
     gramHead += line * dInfo.tlineByte;
     if (gramHead >= dInfo.gsize) {
 	gramHead -= dInfo.gsize;
-	lzero(gramMem + oldhead, dInfo.gsize - oldhead);
-/*	if (gramHead) lzero(gramMem, gramHead);*/
-	lzero(gramMem, gramHead);
-    } else lzero(gramMem + oldhead, gramHead - oldhead);
+	bzero(gramMem + oldhead, dInfo.gsize - oldhead);
+/*	if (gramHead) bzero(gramMem, gramHead);*/
+	bzero(gramMem, gramHead);
+    } else bzero(gramMem + oldhead, gramHead - oldhead);
     vInfo.set_start_address();
 }
 
@@ -457,17 +455,17 @@ void VgaHardScrollDown(int line)
     
     if (line > dInfo.tymax) {
 	line %= dInfo.tymax + 1;
-	lzero(gramMem, dInfo.gsize);
+	bzero(gramMem, dInfo.gsize);
     }
     
     oldhead = gramHead;
     gramHead -= line * dInfo.tlineByte;
     if (gramHead < 0) {
 	gramHead += dInfo.gsize;
-/*	if (oldhead) lzero(gramMem, oldhead);*/
-	lzero(gramMem, oldhead);
-	lzero(gramMem + gramHead, dInfo.gsize - gramHead);
-    } else lzero(gramMem + gramHead, oldhead - gramHead);
+/*	if (oldhead) bzero(gramMem, oldhead);*/
+	bzero(gramMem, oldhead);
+	bzero(gramMem + gramHead, dInfo.gsize - gramHead);
+    } else bzero(gramMem + gramHead, oldhead - gramHead);
     vInfo.set_start_address();
 }
 
@@ -515,7 +513,7 @@ void VgaCursor(struct cursorInfo *ci)
 void VgaClearAll(void)
 {
     VgaSetColor((con.attr & ATTR_REVERSE ? con.fcol:con.bcol)&7);
-    lzero(gramMem, dInfo.gsize);
+    bzero(gramMem, dInfo.gsize);
 }
 
 void VgaScreenSaver(bool blank)
@@ -668,9 +666,7 @@ int VgaAttach(void)
     }
 #endif
     if ((fontBuff1 = malloc(FONT_SIZE)) == NULL
-#ifndef	MINI_KON
 	|| (savePlane3 && (fontBuff2 = malloc(FONT_SIZE)) == NULL)
-#endif
 	) {
 	Perror("malloc ");
 	return FAILURE;
@@ -728,22 +724,18 @@ void VgaDetach(void)
     
     SafeFree((void **)&gramMem);
     SafeFree((void **)&fontBuff1);
-#ifndef	MINI_KON
-    if (savePlane3)
+    if (savePlane3 && fontBuff2)
 	SafeFree((void **)&fontBuff2);
-#endif
 }
 
 /* Configure */
 
-#ifndef	MINI_KON
 static
     int ConfigPlane3(const char *confstr)
 {
     savePlane3 = BoolConf(confstr);
     return SUCCESS;
 }
-#endif
 
 static
     int ConfigKanjiCursor(const char *confstr)
@@ -769,9 +761,7 @@ static
 void VgaDefaultCaps()
 {
     DefineCap("Pels", VgaReadPels, NULL);
-#ifndef	MINI_KON
     DefineCap("SavePlane3", ConfigPlane3, "Off");
-#endif
     DefineCap("KanjiCursor", ConfigKanjiCursor, "On");
     DefineCap("CursorTop", ConfigCursorTop, "14");
     DefineCap("CursorBottom", ConfigCursorBottom, "15");

@@ -33,6 +33,7 @@
 #include	<stdlib.h>
 #endif
 
+#if 0
 u_char	PortInb(unsigned short port)
 {
 	u_char	_rval;
@@ -46,36 +47,43 @@ u_char	PortInb(unsigned short port)
 
 void	wzero(void *head, int n)
 {
+  int dummy_cx;
 	__asm__	("cld\n\t"
-		"rep\n\t"
-		"stosw"
-		::"a" (0),
-		"c" (n>>1),
-		"D" ((long)head)
-		:"cx","di");
+		 "rep\n\t"
+		 "stosw"
+		 :"=c" (dummy_cx)
+		 :"a" (0),
+		 "0" (n>>1),
+		 "D" ((long)head)
+		 :"cx","di");
 }
 
 void	wmove(void *dst, void *src, int n)
 {
+  int dummy_cx;
 	__asm__	("cld\n\t"
-		"rep\n\t"
-		"movsw\n\t"
-		::"c" (n>>1),
-		"D" ((long)dst),
-		"S" ((long)src)
-		:"cx","di","si");
+		 "rep\n\t"
+		 "movsw\n\t"
+		 :"=c" (dummy_cx)
+		 :"0" (n>>1),
+		 "D" ((long)dst),
+		 "S" ((long)src)
+		 :"cx","di","si");
 }
 
 void	lmove(void *dst, void *src, int n)
 {
+  int dummy_cx;
 	__asm__	("cld\n\t"
-		"rep\n\t"
-		"movsl\n\t"
-		::"c" (n>>2),
-		"D" ((long)dst),
-		"S" ((long)src)
-		:"cx","di","si");
+		 "rep\n\t"
+		 "movsl\n\t"
+		 :"=c" (dummy_cx)
+		 :"0" (n>>2),
+		 "D" ((long)dst),
+		 "S" ((long)src)
+		 :"cx","di","si");
 }
+#endif
 
 void	SafeFree(void **p)
 {

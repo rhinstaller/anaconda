@@ -27,11 +27,13 @@ ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
 # XXX Japanese is i386 only at the moment
 ifeq (i386, $(ARCH))
-BINS += loader-local loader-network loader-pcmcia \
-        loader-local-kon loader-network-kon loader-pcmcia-kon
+BINS += loader-local loader-network loader-pcmcia
+ ifeq (1, $(JAPANESE))
+ BINS += loader-local-kon loader-network-kon loader-pcmcia-kon
+ KONOBJS = ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+ endif
 DIRS += pcmcia-install kon2
 OBJS += stubs.o
-KONOBJS += ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
 endif
 
 ifeq (ia64, $(ARCH))
@@ -124,7 +126,7 @@ loader-local-kon: loader-local-kon.o $(OBJS)
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
         -L ../stubs -lz -lresolv -lnewt -lslang -lpci \
-	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+	$(KONOBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
@@ -137,7 +139,7 @@ loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
         -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci \
-	./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+	$(KONOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
@@ -153,7 +155,8 @@ loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        ./kon2/src/libkon.a ./kon2/src/display.a ./kon2/lib/libgon.a
+        -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci \
+        $(KONOBJS)
 
 loader.o: loader.c
 	$(CC) -DINCLUDE_LOCAL -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $^

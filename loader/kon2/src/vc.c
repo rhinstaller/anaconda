@@ -97,6 +97,12 @@ static
 inline	void	blatch(void *head, int n)
 {
 
+    int i;
+    unsigned char *p=head;
+
+    for (i = 0; i < n; i ++, p ++) *p &= 0x7F;
+
+#if 0
     __asm__("\t clc\n"
 	    "1:\n"
 	    "\t andb %%bl, (%%eax)\n"
@@ -105,12 +111,15 @@ inline	void	blatch(void *head, int n)
 	    :
 	    : "eax" ((long)head), "bl" (0x7F), "c" (n)
 	    : "bl", "cx" );
+#endif
 }
 
 static
 inline	void	llatch(void *head, int n)
 {
+    blatch(head, n);
 
+#if 0
     __asm__("\t clc\n"
 	    "1:\n"
 	    "\t andl %%ebx, (%%eax)\n"
@@ -119,6 +128,7 @@ inline	void	llatch(void *head, int n)
 	    :
 	    : "eax" ((long)head), "ebx" (0x7F7F7F7F), "c" (n>>2)
 	    : "ebx", "cx" );
+#endif
 }
 
 static inline u_int	TextAddress(u_int x, u_int y)
@@ -159,33 +169,33 @@ void	TextDeleteChar(int n)
     addr = TextAddress(con.x, con.y);
     dx = dInfo.glineByte - con.x - n;
     
-    bmove(textBuff + addr, textBuff + addr + n, dx);
-    bmove(attrBuff + addr, attrBuff + addr + n, dx);
-    bmove(flagBuff + addr, flagBuff + addr + n, dx);
+    memcpy(textBuff + addr, textBuff + addr + n, dx);
+    memcpy(attrBuff + addr, attrBuff + addr + n, dx);
+    memcpy(flagBuff + addr, flagBuff + addr + n, dx);
+
     blatch(flagBuff + addr, dx);
     
     addr = TextAddress(dInfo.glineByte - n, con.y);
-    bzero2(textBuff + addr, n);
-    bzero2(attrBuff + addr, n);
-    bzero2(flagBuff + addr, n);
+    bzero(textBuff + addr, n);
+    bzero(attrBuff + addr, n);
+    bzero(flagBuff + addr, n);
 }
 
 void	TextInsertChar(int n)
 {
     u_int	addr, dx;
     
-    addr = TextAddress(dInfo.txmax, con.y);
-    dx = dInfo.glineByte - con.x - n;
-    brmove(textBuff + addr, textBuff + addr - n, dx);
-    brmove(attrBuff + addr, attrBuff + addr - n, dx);
-    brmove(flagBuff + addr, flagBuff + addr - n, dx);
-    
     addr = TextAddress(con.x, con.y);
 
+    dx = dInfo.txmax - con.x - n;
+    memmove(textBuff + addr + n, textBuff + addr, dx);
+    memmove(attrBuff + addr + n, attrBuff + addr, dx);
+    memmove(flagBuff + addr + n, flagBuff + addr, dx);
+
     blatch(flagBuff + addr + n, dx);
-    bzero2(textBuff + addr, n);
-    bzero2(attrBuff + addr, n);
-    bzero2(flagBuff + addr, n);
+    bzero(textBuff + addr, n);
+    bzero(attrBuff + addr, n);
+    bzero(flagBuff + addr, n);
 }
 
 void	TextRefresh(void)
@@ -253,8 +263,7 @@ void	TextRefresh(void)
     vInfo.set_cursor_address(&cInfo, con.x, con.y);
     ShowCursor(&cInfo, TRUE);
     busy = FALSE;
-    if (release)
-	LeaveVC(SIGUSR1);
+    if (release) LeaveVC(SIGUSR1);
 }
 
 static struct winsize text_win;
@@ -368,14 +377,14 @@ static
 	textHead -= textSize;
 	len = textSize - oldhead;
 	if (textHead) {
-	    lzero(textBuff, textHead);
-	    lzero(attrBuff, textHead);
-	    lzero(flagBuff, textHead);
+	    bzero(textBuff, textHead);
+	    bzero(attrBuff, textHead);
+	    bzero(flagBuff, textHead);
 	}
     } else len = textHead - oldhead;
-    lzero(textBuff + oldhead, len);
-    lzero(attrBuff + oldhead, len);
-    lzero(flagBuff + oldhead, len);
+    bzero(textBuff + oldhead, len);
+    bzero(attrBuff + oldhead, len);
+    bzero(flagBuff + oldhead, len);
 }
 
 static
@@ -388,15 +397,15 @@ static
     if (textHead < 0) {
 	textHead += textSize;
 	if (oldhead) {
-	    lzero(textBuff, oldhead);
-	    lzero(attrBuff, oldhead);
-	    lzero(flagBuff, oldhead);
+	    bzero(textBuff, oldhead);
+	    bzero(attrBuff, oldhead);
+	    bzero(flagBuff, oldhead);
 	}
 	len = textSize - textHead;
     } else len = oldhead - textHead;
-    lzero(textBuff + textHead, len);
-    lzero(attrBuff + textHead, len);
-    lzero(flagBuff + textHead, len);
+    bzero(textBuff + textHead, len);
+    bzero(attrBuff + textHead, len);
+    bzero(flagBuff + textHead, len);
 }
 
 void TextWput(u_char ch1, u_char ch2)
@@ -429,14 +438,14 @@ void TextClearAll(void)
 
     for (y = 0; y <= con.ymax; y ++) {
 	addr = TextAddress(0, y);
-	lzero(textBuff + addr, dInfo.glineByte);
-	lzero(attrBuff + addr, dInfo.glineByte);
+	bzero(textBuff + addr, dInfo.glineByte);
+	bzero(attrBuff + addr, dInfo.glineByte);
     }
 #else
-    lzero(textBuff, textSize);
-    lzero(attrBuff, textSize);
+    bzero(textBuff, textSize);
+    bzero(attrBuff, textSize);
 #endif
-    lzero(flagBuff, textSize);
+    bzero(flagBuff, textSize);
 #ifndef	MINI_KON
     mInfo.sw = 0;
 #endif
@@ -461,9 +470,9 @@ void	TextClearEol(u_char mode)
 	break;
     }
     addr = TextAddress(x, con.y);
-    bzero2(textBuff + addr, len);
-    bzero2(attrBuff + addr, len);
-    bzero2(flagBuff + addr, len);/* needless to latch */
+    bzero(textBuff + addr, len);
+    bzero(attrBuff + addr, len);
+    bzero(flagBuff + addr, len);/* needless to latch */
 }
 
 void	TextClearEos(u_char mode)
@@ -478,27 +487,27 @@ void	TextClearEos(u_char mode)
     case 1:
 	for (y = 0; y < con.y; y ++) {
 	    addr = TextAddress(0, y);
-	    lzero(textBuff + addr, dInfo.glineByte);
-	    lzero(attrBuff + addr, dInfo.glineByte);
-	    lzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
+	    bzero(textBuff + addr, dInfo.glineByte);
+	    bzero(attrBuff + addr, dInfo.glineByte);
+	    bzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
 	}
 	addr = TextAddress(0, con.y);
-	bzero2(textBuff + addr, con.x);
-	bzero2(attrBuff + addr, con.x);
-	bzero2(flagBuff + addr, con.x);/* needless to latch */
+	bzero(textBuff + addr, con.x);
+	bzero(attrBuff + addr, con.x);
+	bzero(flagBuff + addr, con.x);/* needless to latch */
 	break;
     default:
 	for (y = con.y + 1; y <= con.ymax; y ++) {
 	    addr = TextAddress(0, y);
-	    lzero(textBuff + addr, dInfo.glineByte);
-	    lzero(attrBuff + addr, dInfo.glineByte);
-	    lzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
+	    bzero(textBuff + addr, dInfo.glineByte);
+	    bzero(attrBuff + addr, dInfo.glineByte);
+	    bzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
 	}
 	addr = TextAddress(con.x, con.y);
 	len = dInfo.glineByte - con.x;
-	bzero2(textBuff + addr, len);
-	bzero2(attrBuff + addr, len);
-	bzero2(flagBuff + addr, len);/* needless to latch */
+	bzero(textBuff + addr, len);
+	bzero(attrBuff + addr, len);
+	bzero(flagBuff + addr, len);/* needless to latch */
 	break;
     }
 }
@@ -510,9 +519,9 @@ static
     
     for (y = top; y <= btm; y ++) {
 	addr = TextAddress(0, y);
-	lzero(textBuff + addr, dInfo.glineByte);
-	lzero(attrBuff + addr, dInfo.glineByte);
-	lzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
+	bzero(textBuff + addr, dInfo.glineByte);
+	bzero(attrBuff + addr, dInfo.glineByte);
+	bzero(flagBuff + addr, dInfo.glineByte);/* needless to latch */
     }
 }
 
@@ -527,9 +536,9 @@ void	TextMoveDown(int top, int btm, int line)
     for (n = btm; n >= top + line; n --) {
 	dst = TextAddress(0, n);
 	src = TextAddress(0, n - line);
-	lmove(textBuff + dst, textBuff + src, dInfo.glineByte);
-	lmove(attrBuff + dst, attrBuff + src, dInfo.glineByte);
-	lmove(flagBuff + dst, flagBuff + src, dInfo.glineByte);
+	memcpy(textBuff + dst, textBuff + src, dInfo.glineByte);
+	memcpy(attrBuff + dst, attrBuff + src, dInfo.glineByte);
+	memcpy(flagBuff + dst, flagBuff + src, dInfo.glineByte);
 	llatch(flagBuff + dst, dInfo.glineByte);
     }
     TextClearBand(top, top + line - 1);
@@ -546,9 +555,9 @@ void	TextMoveUp(int top, int btm, int line)
     for (n = top; n <= btm - line; n ++) {
 	dst = TextAddress(0, n);
 	src = TextAddress(0, n + line);
-	lmove(textBuff + dst, textBuff + src, dInfo.glineByte);
-	lmove(attrBuff + dst, attrBuff + src, dInfo.glineByte);
-	lmove(flagBuff + dst, flagBuff + src, dInfo.glineByte);
+	memcpy(textBuff + dst, textBuff + src, dInfo.glineByte);
+	memcpy(attrBuff + dst, attrBuff + src, dInfo.glineByte);
+	memcpy(flagBuff + dst, flagBuff + src, dInfo.glineByte);
 	llatch(flagBuff + dst, dInfo.glineByte);
     }
     TextClearBand(btm - line + 1, btm);
