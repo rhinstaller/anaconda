@@ -5,7 +5,7 @@ import iutil
 from autopart import CLEARPART_TYPE_LINUX
 from autopart import CLEARPART_TYPE_ALL
 from autopart import CLEARPART_TYPE_NONE
-from partitioning import autoCreatePartitionRequests
+from partitioning import *
 
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
