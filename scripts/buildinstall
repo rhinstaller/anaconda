@@ -51,6 +51,10 @@ while [ $# -gt 0 ]; do
 	    DISCSTR=$2
 	    shift; shift
 	    ;;
+	--bugurl)
+	    BUGURL=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/$PRODUCTPATH/RPMS ]; then
 		usage
@@ -79,6 +83,10 @@ fi
 
 if [ -z "$DISCSTR" ]; then
     DISCSTR="1,2,3"
+fi
+
+if [ -z "$BUGURL" ]; then
+    BUGURL="your distribution provider's bug reporting tool."
 fi
 
 p=`cd $DIR; /bin/pwd`
@@ -127,9 +135,9 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH --discs '\"$DISCSTR\"' $DIR" 
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --prodpath $PRODUCTPATH --discs '\"$DISCSTR\"' --bugurl '\"$BUGURL\"' $DIR" 
 else
-    $BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --prodpath $PRODUCTPATH --discs "$DISCSTR" $DIR 
+    $BUILDINSTALL $DEBUGSTR --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --prodpath $PRODUCTPATH --discs "$DISCSTR" --bugurl "$BUGURL" $DIR 
 fi
 
 rm -rf $BUILDINSTDIR
@@ -155,9 +163,9 @@ fi
 
 echo "Making images..."
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION $PRODUCTPATH"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH '\"$PRODUCTSTR\"' $VERSION $PRODUCTPATH '\"$BUGURL\"'"
 else
-    $MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH
+    $MK_IMAGES $DEBUGSTR $p/$PRODUCTPATH/RPMS $p $TREEDIR/image-template $TREEDIR/instimage $BUILDARCH "$PRODUCTSTR" $VERSION $PRODUCTPATH "$BUGURL"
 fi
 
 echo "Writing .discinfo file"

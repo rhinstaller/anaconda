@@ -1,5 +1,13 @@
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 
+	* product.py (bugUrl): Clean up .buildstamp reading, read in bug url
+
+	* constants.py (bugzillaUrl): Make bug url a per-product characteristic.
+
+	* scripts/buildinstall: Allow passing in bug url on the command
+	line.
+	* scripts/mk-images: Likewise, and use it to populate .buildstamp.
+
 	* text.py: Make topline match the loader.
 
 	* anaconda: Remove essentially unused config file data code,

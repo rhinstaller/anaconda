@@ -15,11 +15,14 @@ if [ "$1" == "--debug" ]; then
     shift
 fi
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" -o -z "$7" -o -z "$8" ]; then usage; fi
 
 PRODUCT=$6
 VERSION=$7
 PRODUCTPATH=$8
+if [ -n "$9" ]; then
+    BUGURL=$9
+fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -366,6 +369,9 @@ makeproductfile() {
     echo $PRODUCT >> $root/.buildstamp
     echo $VERSION >> $root/.buildstamp
     echo $PRODUCTPATH >> $root/.buildstamp
+    if [ -n "$BUGURL" ]; then
+	echo $BUGURL >> $root/.buildstamp
+    fi
 }
 
 setupShellEnvironment() {

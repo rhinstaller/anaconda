@@ -68,7 +68,7 @@ import product
 productName = product.productName
 productVersion = product.productVersion
 productPath = product.productPath
-bugzillaUrl = "https://bugzilla.redhat.com/bugzilla/"
+bugzillaUrl = product.bugUrl
 
 exceptionText = _("An unhandled exception has occurred.  This "
                   "is most likely a bug.  Please copy the "

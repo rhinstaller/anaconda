@@ -19,20 +19,23 @@ elif os.access("/.buildstamp", os.R_OK):
 else:
     path = None
     
-if path is None:
-    productName = "anaconda"
-    productVersion = "bluesky"
-    productPath = "Fedora"
-else:
+
+productName = "anaconda"
+productVersion = "bluesky"
+productPath = "anaconda"
+bugUrl = "your distribution provider's bug reporting tool."    
+
+if path is not None:
     f = open(path, "r")
     lines = f.readlines()
-    if len(lines) < 4:
-        productName = "anaconda"
-        productVersion = "bluesky"
-	productPath = "Fedora"
-    else:
+    if len(lines) >= 3:
         productName = lines[1][:-1]
         productVersion = lines[2][:-1]
+    if len(lines) >= 4:
 	productPath = lines[3][:-1]
+    if len(lines) >= 5:
+        bugUrl = lines[4][:-1]
+
+
         
 
