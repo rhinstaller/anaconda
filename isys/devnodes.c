@@ -220,6 +220,15 @@ int devMakeInode(char * devName, char * path) {
 	minor = (devName[9] - '0') * 16;  /* disk */
 	if (strlen(devName) > 10)          /* partition */
 	    minor += atoi(devName + 11);
+    } else if (!strncmp(devName, "sx8/", 4)) {
+	/* Promise SX8 "sx8/0{p1} */
+	int d, p;
+	d = p = 0;
+	sscanf(devName + 4, "%dp%d", &d, &p);
+	type = S_IFBLK;
+	major = 160 + (d/8);    /* controller */
+	minor = (d % 8) * 32;     /* disk */
+	minor += p; 	    /* partition */
     } else if (!strncmp(devName, "i2o/", 4)) {
         /* I2O Block Device "i2o/hda */
         type = S_IFBLK;
