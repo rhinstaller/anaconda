@@ -140,7 +140,7 @@ and RPMs. Set to 1 to turn on."""
         # if start_time isn't set then we haven't got this info yet
         if not self.start_time:
             file = open("%s/.discinfo" % (self.dist_dir), 'r')
-            self.start_time = string.atof(file.readline()[:-1])
+            self.start_time = file.readline()[:-1]
             self.release_str = file.readline()[:-1]
             self.real_arch = file.readline()[:-1]
 
