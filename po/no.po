@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-04-25 18:41+0200\n"
+"PO-Revision-Date: 2004-08-21 09:25+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -602,20 +602,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Ekstern pålogging (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Webtjener (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Filoverføring (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-post (SMTP)"
+msgstr "E-posttjener (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1006,11 +1005,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Følgende feil ble funnet under lesing av din kickstart-konfigurasjon:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Feil under åpning av kickstart-fil %s: %s"
+msgstr "Feil under lesing av kickstart-konfigurasjon"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1021,9 +1022,8 @@ msgstr ""
 "forsiktig når du velger diskett."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Forvalg"
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1176,9 +1176,9 @@ msgid "Change CDROM"
 msgstr "Bytt CD-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Sett inn CD %d for å fortsette."
+msgstr "Sett inn %s CD %d for å fortsette."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1191,7 +1191,7 @@ msgstr "Dette er ikke riktig CD-ROM for %s."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Kan ikke aksessere din CD-ROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1533,7 +1533,7 @@ msgstr ""
 "Vil du reformattere denne DASDen med CDL-format?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1541,21 +1541,17 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Partisjonstabellen på enhet /dev/%s er av en uventet type, %s, for din "
-"arkitektur. For å bruke denne disken med en installasjon av %s må den re-"
-"initieres. Dette medfører tap av ALLE DATA på denne disken.\n"
+"/dev/%s har nå partisjonsutforming %s. For å bruke denne disken med en installasjon av %s må den re-initieres. Dette medfører tap av ALLE DATA på denne disken.\n"
 "\n"
-"Ønsker du å initiere denne stasjonen?"
+"Ønsker du å formatere denne stasjonen?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Overse"
+msgstr "_Overse stasjon"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formater"
+msgstr "_Formater stasjon"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1572,7 +1568,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Vennligst vent mens stasjon %s formateres...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1583,12 +1579,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Partisjonstabellen på enhet %s kunne ikke leses. For å opprette nye "
-"partisjoner må denne initieres. Dette medfører tap av ALLE DATA på denne "
-"disken.\n"
+"Partisjonstabellen på enhet %s (%s) kunne ikke leses. For å opprette nye partisjoner må denne initieres. Dette medfører tap av ALLE DATA på denne disken.\n"
 "\n"
-"Denne operasjonen vil ignorere ethvert tidligere valg om disker som skal "
-"overses.\n"
+"Denne operasjonen vil ignorere ethvert tidligere valg om disker som skal overses.\n"
 "\n"
 "Ønsker du å initiere denne stasjonen og slette ALLE DATA?"
 
@@ -2491,42 +2484,38 @@ msgid "Connecting..."
 msgstr "Kobler til..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Kan ikke lese filen!"
+msgstr "Kan ikke starte X"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "X kunne ikke starte på din maskin. Vil du starte VNC for å koble denne maskinen til en annen datamaskin og utføre en grafisk installasjon eller vil du starte installasjonen i tekstmodus?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Bruker tekstmodus"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Starter VNC..."
+msgstr "Start VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Silo-konfigurasjon"
+msgstr "VNC-konfigurasjon"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Root-passord"
+msgstr "Ingen passord"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Et passord vil forhindre uautoriserte lyttere fra å koble seg til og overvåke din installasjon. Vennligst oppgi et passord som skal brukes for installasjonen."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2549,9 +2538,8 @@ msgid "Password Length"
 msgstr "Passordlengde"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Passordet må bestå av minst 6 tegn."
+msgstr "Passordet må være minst seks tegn langt."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2592,7 +2580,7 @@ msgstr "Oppgitt passord inneholder ugyldige tegn. Bruk kun ASCII-tegn."
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "Root-kontoen brukes for å adminsitrere systemet. Oppgi et passord for denne brukeren."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3235,7 +3223,7 @@ msgstr "_Aktiver brannmur"
 msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
-msgstr ""
+msgstr "Du vil kanskje gi tilgang til andre for spesifikke tjenester på din datamaskin med en brannvegg. Hvilke tjenester vil du gi tilgang til?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3243,12 +3231,11 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
+msgstr "Security Enhanced Linux (SELinux) gir mer finkornet kontroll over sikkerhet enn det som er tilgjengelig på et vanlig Linux-system. Det kan settes opp slik at det kun gis advarsler om ting som ville blitt nektet i aktiv modus."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Deaktiver SELinux"
+msgstr "Aktiver _SELinux?"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3805,11 +3792,11 @@ msgstr "_Punkt til punkt (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Krypteringsnø_kkel"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5479,9 +5466,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Du kan ikke tilpasse en deaktivert brannmur."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Tilpass grafisk konfigurasjon"
+msgstr "Tilpasset konfigurasjon av brannvegg"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5584,11 +5570,11 @@ msgstr "Punkt til punkt (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Krypteringsnøkkel"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6733,32 +6719,26 @@ msgstr ""
 "bruke?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"Du har flere enheter som kan være kilde for en driverdisk. Hvilken vil du "
-"bruke?"
+msgstr "Det er flere partisjoner på denne stasjonen som kan inneholde driverdisketten. Hvilken vil du bruke?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Kunne ikke montere oppdateringsdisketten"
+msgstr "Kunne ikke montere partisjonen."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Velg driver"
+msgstr "Velg driverdisk"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Velg filen som er din driverdiskett."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Kunne ikke montere driverdisketten."
+msgstr "Kunne ikke laste driverdiskett fra fil."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6971,9 +6951,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kan ikke finne ks.cfg på oppstartsdisketten."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Ugyldig argument til HD-kommando for kickstart %s: %s"
+msgstr "Ugyldig argument til kommando for nedstenging av kickstart %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7110,9 +7090,9 @@ msgid "Add Device"
 msgstr "Legg til enhet"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "laster er allerede kjørt. Starter skall."
+msgstr "laster er allerede kjørt. Starter skall.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7249,12 +7229,11 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s er et trådløst nettverkskort. Vennligst oppgi ESSID og krypteringsnøkkel som kreves for å aksessere ditt trådløse nettverk. Hvis ingen nøkkel kreves kan du la dette feltet stå tomt og fortsette installasjonen."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Forskjellige innstillinger"
+msgstr "Innstillinger for trådløst nettverk"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8164,7 +8143,7 @@ msgstr "Zaporozh'ye, østre Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisk"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8219,9 +8198,8 @@ msgid "German"
 msgstr "Tysk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Finner"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8245,7 +8223,7 @@ msgstr "Koreansk"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonsk"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8269,7 +8247,7 @@ msgstr "Portugisisk (Brasiliensk)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8288,9 +8266,8 @@ msgid "Swedish"
 msgstr "Svensk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8302,7 +8279,7 @@ msgstr "Ukrainsk"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamesisk"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8311,87 +8288,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Ugyldig port oppgitt: %s. Riktig format er «port:protokoll», hvor port er "
-#~ "mellom 1 og 65535, og protokoll er enten «tcp» eller «udp».\n"
-#~ "\n"
-#~ "For eksempel, «1234:udp»"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Advarsel: ugyldig tegn"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Till_at inngående:"
-
-#, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "_Tjener"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Andre _porter:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Utvidelser for _Security Enhanced Linux (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Enheter vi stoler på:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "E-post (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Andre porter"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Konfigurasjon av brannmur - Tilpass"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Du kan tilpasse din brannmur på to måter. Du kan velge å tillate all "
-#~ "trafikk fra enkelte nettverksgrensesnitt. Videre kan du tillate visse "
-#~ "protokoller eksplisitt gjennom brannmuren. Du kan spesifisere flere "
-#~ "porter på formen 'tjeneste:protokoll' i en komma-separert liste, f.eks. "
-#~ "'imap:tcp'."
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Advarsel: %s er ikke en gyldig port."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CD-ROM kunne ikke monteres."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Oppgi passord for root-bruker (administrator) for dette systemet."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Tilpasset brannmur"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Hvilke tjenester skal tillates å slippe gjennom brannmuren?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Hvis du ønsker å tillate all trafikk fra en enhet kan du velge det under."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Enhe_ter vi stoler på:"
