@@ -1244,6 +1244,9 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGet(fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
+        elif extra[0] == 'prepboot':
+            filesystem = fileSystemTypeGet("PPC PReP Boot")
+            mountpoint = None
         elif extra[0].startswith("raid."):
             filesystem = fileSystemTypeGet("software RAID")
             

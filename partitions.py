@@ -968,6 +968,8 @@ class Partitions:
             elif request.fstype.getName() == "physical volume (LVM)":
                 # see above about uniqueIDs being ints
                 args.append("pv.%s" % (request.uniqueID))
+            elif request.fstype.getName() == "PPC PReP Boot":
+                args.extend(["prepboot", "--fstype", "\"PPC PReP Boot\""])
             elif request.mountpoint:
                 fstype = request.fstype.getName()
                 if fstype.find(" "):

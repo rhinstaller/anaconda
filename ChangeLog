@@ -1,5 +1,11 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* partitions.py (Partitions.writeKS): Include PPC PReP boot
+	partition (#133934)
+
+	* kickstart.py (KickstartBase.definePartition) 
+	Allow specifying the PPC PReP Boot partition as "part prepboot"
+	
 	* kickstart.py (KickstartBase.setPackageSelection): Fix a thinko
 	in the arch-specific case.  Also, add arch-specific removal (#133396)
 
