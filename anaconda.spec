@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.27
+Version: 10.2.0.28
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,16 +69,21 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Thu Mar XX 2005 XXX <XXX@redhat.com> - 20.2.0.XX-X
+* Mon Mar 14 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.28-1
 - fix swap detection on upgrade (pjones)
-- don't use os.read to make a buffer of '\x00'
-- move availRaidLevels to raid.py from fsset.py
+- don't use os.read to make a buffer of '\x00' (pjones)
+- move availRaidLevels to raid.py from fsset.py (pjones)
 - fix Xvnc parameters (clumens, #150498)
 - unmount loopback-mounted ISO images to free loop0 (clumens, #150887)
 - fix warnings about gtk.TRUE and gtk.FALSE, partly based on a patch
   from Colin Walters. (pjones)
+- sqlite3->sqlite (pnasrat)
+- support longer package names in hdlist (pnasrat, #146820)
+- Fix handling of --debug (Ingo Pakleppa, #150920, #150925)
+- Fix for font location changes (#150889)
+- More cjk text shuffling (#149039)
 
-* Mon Mar  7 2005 Peter Jones <pjones@redhat.com> - 20.2.0.27-1
+* Mon Mar  7 2005 Peter Jones <pjones@redhat.com> - 10.2.0.27-1
 - supress lvm fd warning messages
 - fewer log messages when growing partitions
 - clamp LVs to pesize during grow
