@@ -942,10 +942,13 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
         partitions.setFromDisk(diskset)
         if not isKickstart:
             extra = ""
+            dispatch.skipStep("partition", skip = 0)
         else:
             extra = "\n\nPress OK to reboot your system."
         intf.messageWindow(_("Error Partitioning"),
-               _("Could not allocate requested partitions: \n\n%s.%s") % (msg.value, extra))
+               _("Could not allocate requested partitions: \n\n"
+                 "%s.%s") % (msg.value, extra))
+        
 
         if isKickstart:
             sys.exit(0)
