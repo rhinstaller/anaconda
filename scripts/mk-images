@@ -98,13 +98,12 @@ TOPDIR=$(cd $TOPDIR; pwd)
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
     PCITABLE=$IMGPATH/usr/share/hwdata/pcitable
-    PCIIDS=$IMGPATH/usr/share/hwdata/pci.ids
     CACHE=$KERNELBASE/.cache
     MODULESUSED=$KERNELBASE/modules-used
 
     touch $MODULESUSED
 
-    REQUIREMENTS="$TRIMPCITABLE $TRIMMODMAP $PCITABLE $PCIIDS $GETMODDEPS $MODINFO
+    REQUIREMENTS="$TRIMPCITABLE $TRIMMODMAP $PCITABLE $GETMODDEPS $MODINFO
 		  $FILTERMODDEPS $LANGTABLE $GETKEYMAPS"
 
     dieLater=
@@ -320,8 +319,7 @@ makemoduleball() {
     MMB_MODULESET=$(resdeps $2)
 
     rm -rf $MMB_DIR/modules $MMB_DIR/$MMB_NAME $MMB_DIR/modules.dep \
-	   $MMB_DIR/modules.pcimap $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO \
-	   $MMB_DIR/pci.ids
+	   $MMB_DIR/modules.pcimap $MMB_DIR/pcitable $MMB_DIR/$MMB_MODINFO
     mkdir -p $MMB_DIR/modules
 
     MMB_MODULESET=$(intcopymodules "$MMB_MODULESET" $MMB_DIR/modules)
@@ -347,8 +345,6 @@ makemoduleball() {
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd
     fi
-    # create the pci.ids
-    awk '!/^(\t\t|#)/ { print ;if ($0 == "ffff  Illegal Vendor ID") nextfile; }' < $PCIIDS > ../pci.ids
 
     find . -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
     cd ..
