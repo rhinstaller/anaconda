@@ -2,13 +2,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-01-29 11:10-0500\n"
-"PO-Revision-Date: 2001-01-30 20:37GMT\n"
+"PO-Revision-Date: 2001-01-31 23:35GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 0.7.1\n"
+"X-Generator: KBabel 0.8\n"
 
 #: ../comps.py:481
 msgid "Everything"
@@ -439,7 +439,7 @@ msgstr "Hvilket sprog ønsker du at benytte under installationsprocessen?"
 
 #: ../text.py:144
 msgid "Choose the languages to be installed:"
-msgstr "Vælg de sprogunderstøttelser der skal instalers:"
+msgstr "Vælg de sprogunderstøttelser der skal installeres:"
 
 #: ../text.py:148 ../text.py:1100
 msgid "Language Support"
@@ -597,7 +597,7 @@ msgstr "Valg af X Server"
 
 #: ../text.py:513
 msgid "Choose a server"
-msgstr "Vælg en server"
+msgstr "Vælg en værtsmaskine"
 
 #: ../text.py:584
 msgid "Installation to begin"
@@ -794,7 +794,7 @@ msgstr "Opsætning af Netværk"
 #: ../iw/firewall_gui.py:12 ../text.py:1012 ../text.py:1093
 #: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
-msgstr "Konfiguration af brandskot (firewall)"
+msgstr "Konfiguration af brandmur (firewall)"
 
 #: ../text.py:1020 ../text.py:1105
 msgid "Time Zone Setup"
@@ -1093,7 +1093,7 @@ msgstr "Video-hukommelse"
 
 #: ../xf86config.py:946
 msgid "X server"
-msgstr "X server"
+msgstr "X-tjener"
 
 #: ../xf86config.py:949
 msgid "Unable to detect video card"
@@ -1240,7 +1240,7 @@ msgstr "Anvend NIS"
 
 #: ../iw/auth_gui.py:83
 msgid "Use broadcast to find NIS server"
-msgstr "Benyt rundkastning til at finde NIS-server"
+msgstr "Benyt rundkastning til at finde NIS-tjener"
 
 #: ../iw/auth_gui.py:95
 msgid "NIS Domain: "
@@ -1431,11 +1431,11 @@ msgstr "Middel"
 
 #: ../iw/firewall_gui.py:256 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr "Ingen brandskot (firewall)"
+msgstr "Ingen brandmur (firewall)"
 
 #: ../iw/firewall_gui.py:273
 msgid "Use default firewall rules"
-msgstr "Brug standardregler til brandskot."
+msgstr "Brug standardregler til brandmur."
 
 #: ../iw/firewall_gui.py:274 ../textw/firewall_text.py:9
 msgid "Customize"
@@ -1810,8 +1810,8 @@ msgstr ""
 "resultere i at computeren ikke kan starte Linux.\n"
 "\n"
 "Hvis du vælger at fortsætte, anbefales det KRAFTIGT at du laver en "
-"opstartsdiskette, når instalationsprogrammet tilbyder dette. Dette vil sikre "
-"at du har en måde at starte linux på, efter installationen.\n"
+"opstartsdiskette, når installationsprogrammet tilbyder dette. Dette vil "
+"sikre at du har en måde at starte linux på, efter installationen.\n"
 "\n"
 "Tryk OK for at fortsætte, Fortryd for at gå tilbage og genudpege en "
 "opstartspatition."
@@ -1918,7 +1918,7 @@ msgstr "Partitioner automatisk og FJERN DATA"
 
 #: ../iw/rootpartition_gui.py:413
 msgid "Manually partition with Disk Druid"
-msgstr "Manuel partitionering med Disk Druid"
+msgstr "Manuel partitionering med Disk Druide"
 
 #: ../iw/rootpartition_gui.py:425
 msgid "Manually partition with fdisk [experts only]"
@@ -1947,8 +1947,8 @@ msgstr ""
 "sandsynligt resultere i at computeren ikke kan starte linux.\n"
 "\n"
 "Hvis du vælger at fortsætte, anbefales det KRAFTIGT at du laver en "
-"opstartsdiskette, når instalationsprogrammet tilbyder dette. Dette vil sikre "
-"at du har en måde at starte linux på, efter installationen.\n"
+"opstartsdiskette, når installationsprogrammet tilbyder dette. Dette vil "
+"sikre at du har en måde at starte linux på, efter installationen.\n"
 "\n"
 "Er du sikker på at du vil fortsætte?"
 
@@ -1982,7 +1982,7 @@ msgstr "visning:"
 
 #: ../iw/timezone_gui.py:166 ../iw/timezone_gui.py:167
 msgid "System clock uses UTC"
-msgstr "System-ur bruger UTC"
+msgstr "System-ur bruger GMT"
 
 #: ../iw/timezone_gui.py:215
 msgid "Use Daylight Saving Time (US only)"
@@ -1994,7 +1994,7 @@ msgstr "Placering"
 
 #: ../iw/timezone_gui.py:230
 msgid "UTC Offset"
-msgstr "UTC forskydning"
+msgstr "GMT forskydning"
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2185,11 +2185,10 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
-"Et brandskot beskytter mod uautoriserede netværks forbindelser. Høj "
-"sikkerhed blokerer for alle indkommende forbindelser. Medium blokerer "
-"forbindelser til systemtjenester (som f.eks. telnet eller printer), men "
-"tillader andre forbindelser. Intet brandskot tillader alle forbindelser, og "
-"anbefales ikke."
+"En brandmur beskytter mod uautoriserede netværks forbindelser. Høj sikkerhed "
+"blokerer for alle indkommende forbindelser. Medium blokerer forbindelser til "
+"systemtjenester (som f.eks. telnet eller printer), men tillader andre "
+"forbindelser. Ingen brandmur tillader alle forbindelser, og anbefales ikke."
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
@@ -2234,11 +2233,11 @@ msgstr "Ugyldigt valg"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr "Du kan ikke tilpasse et deaktiveret brandskot."
+msgstr "Du kan ikke tilpasse en deaktiveret brandmur."
 
 #: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
-msgstr "Tilpas Konfigurationen af brandskot"
+msgstr "Tilpas konfigurationen af brandmur"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2247,10 +2246,10 @@ msgid ""
 "protocols explicitly through the firewall. Specify additional ports in the "
 "form 'service:protocol', such as 'imap:tcp'. "
 msgstr ""
-"Du kan tilpasse et brandskot på to måder. Du kan vælge at tillade alt trafik "
+"Du kan tilpasse en brandmur på to måder. Du kan vælge at tillade alt trafik "
 "fra et bestemt netkort. Eller du kan tillade bestemte protokoller at gå "
-"igennem brandskotet . Angiv flere porte i formularen 'service:protokol', "
-"såsom 'imap:tcp'."
+"igennem brandmuren. Angiv flere porte i formularen 'service:protokol', såsom "
+"'imap:tcp'."
 
 #: ../textw/firewall_text.py:186
 #, c-format
@@ -2338,15 +2337,15 @@ msgstr "Standard-gateway (IP):"
 
 #: ../loader/net.c:295 ../textw/network_text.py:74
 msgid "Primary nameserver:"
-msgstr "Primær navneserver:"
+msgstr "Primær navnetjener:"
 
 #: ../textw/network_text.py:75
 msgid "Secondary nameserver:"
-msgstr "Sekundær navneserver:"
+msgstr "Sekundær navnetjener:"
 
 #: ../textw/network_text.py:76
 msgid "Ternary nameserver:"
-msgstr "Tertiær navneserver:"
+msgstr "Tertiær navnetjener:"
 
 #: ../textw/network_text.py:121
 msgid "Invalid information"
@@ -2414,7 +2413,7 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk Druid er et værktøj til at lave partitioner og opsætte "
+"Disk Druide er et værktøj til at lave partitioner og opsætte "
 "monteringspunkter. Det er designet til at være lettere at bruge end Linux's "
 "traditionelle diskpartitioneringsprogram 'fdisk', og har flere faciliteter.  "
 "Der er dog tilfælde hvor fdisk er at foretrække.\n"
@@ -2524,7 +2523,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 "Vælg en 'root'-adgangskode. Du skal skrive det to gange for at sikre at du "
-"véd hvad det er og får ikke tastet forkert. Husk at 'root'-adgangskoden er "
+"ved hvad det er og får ikke tastet forkert. Husk at 'root'-adgangskoden er "
 "meget vigtig del af systemets sikkerhed!"
 
 #: ../loader/urls.c:345 ../textw/userauth_text.py:24
@@ -2549,7 +2548,7 @@ msgstr "Adgangskode stemmer ikke"
 
 #: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
 msgid "The passwords you entered were different. Please try again."
-msgstr "De to adgangskoder du indtastede var ikke éns. Prøv igen."
+msgstr "De to adgangskoder du indtastede var ikke ens. Prøv igen."
 
 #: ../textw/userauth_text.py:72
 msgid "Edit User"
@@ -2656,7 +2655,7 @@ msgstr "eller brug:"
 
 #: ../textw/userauth_text.py:321
 msgid "Request server via broadcast"
-msgstr "Spørg efter server via rundkastning"
+msgstr "Spørg efter tjener via rundkastning"
 
 #: ../textw/userauth_text.py:360
 msgid "Use TLS connections"
@@ -2935,11 +2934,11 @@ msgstr "Brug resterende plads?"
 
 #: ../libfdisk/gnomefsedit.c:922 ../libfdisk/newtfsedit.c:442
 msgid "Allocation Status:"
-msgstr "Tildelningsstatus:"
+msgstr "Tildelingsstatus:"
 
 #: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:444
 msgid "Successful"
-msgstr "Succés"
+msgstr "Succes"
 
 #: ../libfdisk/gnomefsedit.c:929 ../libfdisk/newtfsedit.c:446
 msgid "Failed"
@@ -3034,7 +3033,7 @@ msgid ""
 msgstr ""
 "Det anbefales at root (/) partitionen har en minimum størelse på %ld "
 "megabyte. Du forsøger at lave en på %ld megabyte, hvilket kunne få "
-"instalationen til at mislykkes.\n"
+"installationen til at mislykkes.\n"
 "\n"
 "Er du sikker på du vil gøre dette?"
 
@@ -3111,7 +3110,7 @@ msgid ""
 "non-RAID device first."
 msgstr ""
 "Du kan ikke fjerne \"/boot\" hvis \"/\" er på en RAID enhed.  Skift \"/\" "
-"til enikke-RAID enhed først."
+"til en ikke-RAID enhed først."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
@@ -3348,7 +3347,7 @@ msgstr "Brugt (%)"
 
 #: ../libfdisk/gnomefsedit.c:3462
 msgid "Unallocated Partitions Exist..."
-msgstr "Utildelte partitioner eksisterer..."
+msgstr "Ikke-tildelte partitioner eksisterer..."
 
 #: ../libfdisk/gnomefsedit.c:3468 ../libfdisk/gnomefsedit.c:3486
 msgid ""
@@ -3475,8 +3474,8 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Der er stadig utildelte partitioner tilbage. Hvis du afslutter nu, vil de "
-"ikke blive skrevet på disken.\n"
+"Der er stadig ikke-tildelte partitioner tilbage. Hvis du afslutter nu, vil "
+"de ikke blive skrevet på disken.\n"
 "\n"
 "Er du sikker på at du vil afslutte?"
 
@@ -3747,7 +3746,7 @@ msgstr "Det katalog ser ikke ud til at indeholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:1137
 msgid "I could not mount that directory from the server"
-msgstr "Jeg kunne ikke montere dette katalog fra server"
+msgstr "Jeg kunne ikke montere dette katalog fra tjener"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 msgid "HTTP"
@@ -3818,7 +3817,7 @@ msgstr "Læser anaconda-opdateringer..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
-msgstr "NFS-server navn:"
+msgstr "NFS-tjener navn:"
 
 #: ../loader/net.c:152 ../loader/urls.c:191
 msgid "Red Hat directory:"
@@ -3838,17 +3837,17 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navn eller IP nummer på din NFS-server\n"
-"    o navnet på kataloget til den server der indeholder\n"
+"    o navn eller IP nummer på din NFS-tjener\n"
+"    o navnet på kataloget til den tjener der indeholder\n"
 "      Red Hat Linux til din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:241
 msgid "Nameserver IP"
-msgstr "Navnetserver-IP"
+msgstr "Navnetjener- IP"
 
 #: ../loader/net.c:245 ../loader/net.c:727
 msgid "Nameserver"
-msgstr "Navnetserver"
+msgstr "Navnetjener"
 
 #: ../loader/net.c:246
 msgid ""
@@ -3858,7 +3857,7 @@ msgid ""
 "blank and the install will continue."
 msgstr ""
 "Din dynamiske IP-anmodning returnerede IP-konfigurationsinformation, men "
-"dette indeholdt ikke en DNS navnetserver. Hvis du véd hvor din navneserver "
+"dette indeholdt ikke en DNS navnetjener. Hvis du ved hvor din navnetjener "
 "er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
 "felt være blankt, og installationen vil fortsætte."
 
@@ -4008,8 +4007,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din ftp-tserver\n"
-"    o kataloget på tserveren som indeholder\n"
+"    o navnet eller IP-nummeret på din ftp-tjener\n"
+"    o kataloget på tjeneren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:169
@@ -4022,8 +4021,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din Web-tserver\n"
-"    o kataloget på tserveren som indeholder\n"
+"    o navnet eller IP-nummeret på din webtjener\n"
+"    o kataloget på tjeneren som indeholder\n"
 "      Red Hat Linux til din arkitektur\n"
 
 #: ../loader/urls.c:187
@@ -4036,11 +4035,11 @@ msgstr "navn på webside:"
 
 #: ../loader/urls.c:206
 msgid "Use non-anonymous ftp"
-msgstr "Benyt ikke-anonym ftp"
+msgstr "Benyt ikke-anonym FTP"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
-msgstr "Benyt proxytserver"
+msgstr "Benyt stråmand (proxy)"
 
 #: ../loader/urls.c:223
 msgid "FTP Setup"
@@ -4052,7 +4051,7 @@ msgstr "Http-opsætning"
 
 #: ../loader/urls.c:234
 msgid "You must enter a server name."
-msgstr "Du skal indtaste et tservernavn."
+msgstr "Du skal indtaste et værtsnavn."
 
 #: ../loader/urls.c:239
 msgid "You must enter a directory."
@@ -4080,8 +4079,8 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"Hvis du bruger en Http-proxytserver så indtast navnet på den proxytserver du "
-"vil benytte."
+"Hvis du bruger en HTTP-stråmand så indtast navnet på den stråmand du vil "
+"benytte."
 
 #: ../loader/urls.c:342
 msgid "Account name:"
@@ -4089,19 +4088,19 @@ msgstr "Kontonavn:"
 
 #: ../loader/urls.c:351
 msgid "FTP Proxy:"
-msgstr "Ftp-proxy:"
+msgstr "Ftp-stråmand:"
 
 #: ../loader/urls.c:352
 msgid "HTTP Proxy:"
-msgstr "Http-proxy:"
+msgstr "Http-stråmand:"
 
 #: ../loader/urls.c:356
 msgid "FTP Proxy Port:"
-msgstr "Ftp-proxyport:"
+msgstr "Ftp-stråmands port:"
 
 #: ../loader/urls.c:357
 msgid "HTTP Proxy Port:"
-msgstr "Http-proxyport:"
+msgstr "Http-stråmands port:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
@@ -4199,22 +4198,22 @@ msgid "Dialup Workstation"
 msgstr "opkalds-arbejdsstation"
 
 msgid "News Server"
-msgstr "Nyhedstserver"
+msgstr "Nyhedstjener"
 
 msgid "NFS Server"
-msgstr "NFS-tserver"
+msgstr "NFS-tjener"
 
 msgid "SMB (Samba) Server"
-msgstr "Samba SMB-tserver"
+msgstr "Samba SMB-tjener"
 
 msgid "IPX/Netware(tm) Connectivity"
 msgstr "IPX/Netware(tm)-forbindelse"
 
 msgid "Anonymous FTP Server"
-msgstr "Anonym ftp-tserver"
+msgstr "Anonym ftp-tjener"
 
 msgid "SQL Server"
-msgstr "SQL-server"
+msgstr "SQL-tjener"
 
 msgid "Web Server"
 msgstr "Web-Server"
