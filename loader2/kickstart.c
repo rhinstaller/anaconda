@@ -63,6 +63,8 @@ struct ksCommand {
 
 static void setTextMode(struct loaderData_s * loaderData, int argc, 
                         char ** argv, int * flagsPtr);
+void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
+                         char ** argv, int * flagsPtr);
 
 struct ksCommandNames ksTable[] = {
     { KS_CMD_NFS, "nfs", setKickstartNfs },
@@ -74,6 +76,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_KEYBOARD, "keyboard", setKickstartKeyboard },
     { KS_CMD_LANG, "lang", setKickstartLanguage },
     { KS_CMD_DD, "driverdisk", useKickstartDD },
+    { KS_CMD_DEVICE, "device", loadKickstartModule },
     { KS_CMD_NONE, NULL, NULL }
 };
 

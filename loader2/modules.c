@@ -21,6 +21,7 @@
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
 #include <newt.h>
+#include <popt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -901,3 +902,65 @@ static int reloadUnloadedModule(char * modName, moduleList modLoaded,
     return rc;
 }
 
+void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
+                    char ** argv, int * flagsPtr) {
+    char * opts = NULL;
+    char * module = NULL;
+    char * type = NULL;
+    char ** args;
+    poptContext optCon;
+    int rc;
+    int flags = *flagsPtr;
+    struct poptOption ksDeviceOptions[] = {
+        { "opts", '\0', POPT_ARG_STRING, &opts, 0 },
+        { 0, 0, 0, 0, 0 }
+    };
+    
+    optCon = poptGetContext(NULL, argc, (const char **) argv, 
+                            ksDeviceOptions, 0);
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+        newtWinMessage(_("Kickstart Error"), _("OK"),
+                       _("Bad argument to device kickstart method "
+                         "command %s: %s"),
+                       poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+                       poptStrerror(rc));
+        return;
+    }
+
+    type = (char *) poptGetArg(optCon);
+    module = (char *) poptGetArg(optCon);
+
+    if (!type || !module) {
+        logMessage("type and module should be specified for kickstart device "
+                   "command");
+    }
+
+    if (opts) {
+        int numAlloced = 5, i = 0;
+        char * start;
+        char * end;
+
+        args = malloc((numAlloced + 1) * sizeof(args));
+        start = opts;
+        while (start && *start) {
+            end = start;
+            while (!isspace(*end) && *end) end++;
+            *end = '\0';
+            (args)[i++] = strdup(start);
+            start = end + 1;
+            *end = ' ';
+            start = strchr(end, ' ');
+            if (start) start++;
+
+            if (i >= numAlloced) {
+                numAlloced += 5;
+                args = realloc(args, sizeof(args) * (numAlloced + 1));
+            }
+        }
+        args[i] = NULL;
+    }
+
+
+    mlLoadModule(module, loaderData->modLoaded, *(loaderData->modDepsPtr),
+                 loaderData->modInfo, args, flags);
+}
