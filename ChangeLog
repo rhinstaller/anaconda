@@ -1,3 +1,7 @@
+2004-10-29  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c (getWirelessConfig): Allow 128-bit WEP keys (#137447)
+
 2004-10-27  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgradeFindPackages): Fix traceback on cjk 

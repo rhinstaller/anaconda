@@ -189,7 +189,7 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
                                         { NULL, NULL, 0 } };
 
         rc = newtWinEntries(_("Wireless Settings"), buf,
-                            40, 5, 10, 25, entry, _("OK"), _("Back"), NULL);
+                            40, 5, 10, 30, entry, _("OK"), _("Back"), NULL);
         if (rc == 2) return LOADER_BACK;
 
         /* set stuff up */
