@@ -373,7 +373,11 @@ class InstallControlWindow:
 
         self.reloadRcQueued = 1
 
-        self.html.set_font_charset (locale)
+        if self.displayHelp:
+            self.html.set_font_charset (locale)
+        else:
+            pass
+
 	self.updateStockButtons()
         self.helpFrame.set_label (_("Online Help"))
         self.installFrame.set_label (_("Language Selection"))
