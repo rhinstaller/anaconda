@@ -346,6 +346,14 @@ class UsersWindow:
         self.screen = screen
 	user = { "id" : "", "name" : "", "password" : "" }
 
+	for (account, name, password) in todo.getUserList():
+	    user['id'] = account
+	    user['name'] = name
+	    user['password'] = password
+	    self.users[account] = user
+	    del user
+	    user = { "id" : "", "name" : "", "password" : "" }
+
 	if not self.users.keys():
 	    rc = self.editWindow(user, _("You should use a normal user "
 		"account for most activities on your system. By not using the "
@@ -429,6 +437,14 @@ class UsersWindow:
                 raise NeverGetHereError, "I shouldn't be here w/ rc %s..." % rc
                 
         screen.popWindow ()
+
+        list = []
+        for n in self.users.values():
+	    info = ( n['id'], n['name'], n['password'] )
+	    list.append(info)
+
+	todo.setUserList(list)
+
         return dir
 
 class WelcomeWindow:
@@ -562,7 +578,7 @@ class NetworkWindow:
         
 	list = devices.keys ()
 	list.sort()
-        dev = list[0]
+        dev = devices[list[0]]
 
         firstg = Grid (1, 1)
         boot = dev.get ("bootproto")
@@ -1405,6 +1421,8 @@ class InstallInterface:
             ]
         
         self.installSteps = [
+            [_("User Account Setup"), UsersWindow, 
+		    (self.screen, todo), "accounts" ],
             [_("Partition"), PartitionWindow, (self.screen, todo),
 		    "partition" ],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo),
