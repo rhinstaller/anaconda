@@ -548,8 +548,8 @@ def availableBootDevices(diskSet, fsset):
         # XXX do we boot fat on anything other than i386?
 	if type == 'FAT' and not foundDos and iutil.getArch() == "i386":
 	    isys.makeDevInode(dev, '/tmp/' + dev)
-            part = get_partition_by_name(diskset, dev)
-            if part.native_type not in dosPartitionTypes:
+            part = partitioning.get_partition_by_name(diskSet.disks, dev)
+            if part.native_type not in partitioning.dosPartitionTypes:
                 continue
 
 	    try:
