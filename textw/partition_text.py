@@ -131,8 +131,16 @@ class PartitionWindow:
     def refresh(self):
         # XXX need some way to stay at the same place in the list after
         # repopulating
-        doPartitioning(self.diskset, self.partitions)        
+
+        try:
+            doPartitioning(self.diskset, self.partitions)
+            rc = 0
+        except PartitioningError, msg:
+            self.intf.messageWindow(_("Error Partitioning"),
+                   _("Could not allocated requested partitions: %s.") % (msg))
+            rc = -1            
         self.populate()
+        return rc
 
 
     def fstypeSet(self, obj):
@@ -499,8 +507,6 @@ class PartitionWindow:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
-                self.partitions.addRequest(request)
-                
             else:
                 # pre-existing partition, just set mount point and format flag
                 if origrequest.fstype.isMountable():
@@ -517,15 +523,21 @@ class PartitionWindow:
                                             "%s" % (err))
                     continue
 
-                # remove the already existing request
+            # backup current (known working) configuration
+            backpart = self.partitions.copy()
+            if origrequest.device or origrequest.type != REQUEST_NEW:
                 self.partitions.removeRequest(origrequest)
-                self.partitions.addRequest(origrequest)
 
-            break
+            self.partitions.addRequest(request)
+            if self.refresh():
+                self.partitions = backpart
+                self.refresh()
+            else:
+                break
 
         # clean up
         self.screen.popWindow()
-        self.refresh()
+#        self.refresh()
 
 
     def editRaidRequest(self, raidrequest):
@@ -602,16 +614,28 @@ class PartitionWindow:
                                         "%s" % (err))
                 continue
 
-            if self.partitions.getRequestByDeviceName(raidrequest.device):
+            # backup current (known working) configuration
+            backpart = self.partitions.copy()
+
+            # XXX should only remove if we know we put it in before
+            try:
                 self.partitions.removeRequest(raidrequest)
+            except:
+                pass
+
             self.partitions.addRequest(request)
+            
+            if self.refresh():
+                self.partitions = backpart
+                self.refresh()
+            else:
+                break            
 
             break
 
-
         # clean up
         self.screen.popWindow()
-        self.refresh()
+#        self.refresh()
         
     def newCb(self):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
@@ -638,7 +662,7 @@ class PartitionWindow:
             request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,
                                     start = start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
                                     end = end_sector_to_cyl(part.geom.disk.dev, part.geom.end),
-                                    drive = get_partition_drive(part))
+                                    drive = [ get_partition_drive(part) ])
             self.editPartitionRequest(request)
             return
         elif part.type & parted.PARTITION_EXTENDED:
@@ -646,6 +670,13 @@ class PartitionWindow:
 
         request = self.partitions.getRequestByDeviceName(get_partition_name(part))
         if request:
+            if self.partitions.isRaidMember(request):
+                ButtonChoiceWindow(self.screen, _("Unable to Remove"),
+                                   _("You cannot remove this partition "
+                                     "as it is part of a RAID device"),
+                                   buttons = [ TEXT_OK_BUTTON ])
+                return
+            
             self.editPartitionRequest(request)
         else: # shouldn't ever happen
             raise ValueError, "Trying to edit non-existent partition %s" %(get_partition_name(part))
@@ -670,8 +701,16 @@ class PartitionWindow:
             device = get_partition_name(partition)
 
         request = self.partitions.getRequestByDeviceName(device)
+        
 
         if request:
+            if self.partitions.isRaidMember(request):
+                ButtonChoiceWindow(self.screen, _("Unable to Remove"),
+                                   _("You cannot remove this partition "
+                                     "as it is part of a RAID device"),
+                                   buttons = [ TEXT_OK_BUTTON ])
+                return
+                
             self.partitions.removeRequest(request)
             if request.type == REQUEST_PREEXIST:
                 # get the drive
@@ -737,6 +776,8 @@ class PartitionWindow:
                 return INSTALL_BACK
             else:
                 if not self.partitions.getRequestByMountPoint("/"):
+                    self.intf.messageWindow(_("No Root Partition"),
+                        _("Must have a / partition to install on."))
                     continue
                 self.fsset.reset()
                 for request in self.partitions.requests:
