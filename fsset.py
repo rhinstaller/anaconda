@@ -246,7 +246,20 @@ class reiserfsFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
-        self.supported = 0
+        # this is totally, 100% unsupported.  Boot with "linux reiserfs"
+        # at the boot: prompt will let you make new reiserfs filesystems
+        # in the installer.  Bugs filed when you use this will be closed
+        # WONTFIX.
+        try:
+            f = open("/proc/cmdline")
+            line = f.readline()
+            if string.find(line, " reiserfs") != -1:
+                self.supported = 1
+            else:
+                self.supported = 0
+            del f
+        except:
+            self.supported = 0
         self.name = "reiserfs"
 
         self.maxSize = 2 * 1024 * 1024
