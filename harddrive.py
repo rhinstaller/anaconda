@@ -15,6 +15,7 @@
 from comps import ComponentSet, HeaderList, HeaderListFromFile
 from installmethod import InstallMethod
 from image import findIsoImages
+import shutil
 import os
 import isys
 import iutil
@@ -27,9 +28,16 @@ FILENAME = 1000000
 # Install from a set of files laid out on the hard drive like a CD
 class OldHardDriveInstallMethod(InstallMethod):
     def copyFileToTemp(self, filename):
+        wasmounted = self.isMounted
+
+        if not wasmounted:
+            self.mountMedia()
         tmppath = self.getTempPath()
         path = tmppath + os.path.basename(filename)
         shutil.copy(self.tree + "/" + filename, path)
+
+        if not wasmounted:
+            self.umountMedia()
         
         return path
 
@@ -102,9 +110,16 @@ class OldHardDriveInstallMethod(InstallMethod):
 # Install from one or more iso images
 class HardDriveInstallMethod(InstallMethod):
     def copyFileToTemp(self, filename):
+        wasmounted = self.mediaIsMounted
+
+        if not wasmounted:
+            self.mountMedia(1)
         tmppath = self.getTempPath()
-        path = tmppath + os.path.basename(tmppath)
+        path = tmppath + os.path.basename(filename)
         shutil.copy(self.tree + "/" + filename, path)
+
+        if not wasmounted:
+            self.umountMedia()
         
         return path
 
