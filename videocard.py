@@ -142,6 +142,8 @@ class VideoCard:
 
     def canTestSafely(self):
         cardData = self.getCardData()
+        if not cardData:
+            return 1
         if cardData.has_key("DRIVER"):
             curdriver = cardData["DRIVER"]
             noprobedriverList = ("i810", "tdfx")
