@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.17
+Version: 10.2.0.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -53,7 +53,6 @@ rm -rf $RPM_BUILD_ROOT
 %doc docs/command-line.txt
 %doc docs/install-methods.txt
 %doc docs/kickstart-docs.txt
-%doc docs/kickstart-docs.html
 %doc docs/mediacheck.txt
 %doc docs/anaconda-release-notes.txt
 /usr/bin/mini-wm
@@ -70,6 +69,14 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.18-1
+- Remove some old cruft
+- Fix-up for new module naming in gnome-python2-canvas 2.9.x 
+- Add needed requirements for rpm 4.4
+- Fix segfault when rpm tries to write to non-existent fd during 
+  transaction ordering
+- Support --erroronfail as an option for %pre/%post (clumens, #124386)
+
 * Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.17-1
 - Use rhpl.archscore to fix iseries upgrades (pnasrat, #146915)
 - Only configure ksdevice if no --device (pnasrat, #138852)
