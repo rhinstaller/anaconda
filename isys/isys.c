@@ -1,5 +1,6 @@
 #include <errno.h>
 #include <fcntl.h>
+#include <popt.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
@@ -16,6 +17,7 @@
 moduleInfoSet modInfoList;
 
 static PyObject * doFindModInfo(PyObject * s, PyObject * args);
+static PyObject * doGetOpt(PyObject * s, PyObject * args);
 /*static PyObject * doInsmod(PyObject * s, PyObject * args);
 static PyObject * doRmmod(PyObject * s, PyObject * args);*/
 static PyObject * doMount(PyObject * s, PyObject * args);
@@ -36,6 +38,7 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
+    { "getopt", (PyCFunction) doGetOpt, METH_VARARGS, NULL },
 /*
     { "insmod", (PyCFunction) doInsmod, METH_VARARGS, NULL },
 */
@@ -264,6 +267,183 @@ static PyObject * doFindModInfo(PyObject * s, PyObject * args) {
     }
 
     return buildModuleObject(mi);
+}
+
+static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
+    PyObject * argList, * longArgs, * strObject;
+    PyObject * retList, * retArgs;
+    char * shortArgs;
+    struct poptOption * options;
+    int numOptions, i, rc;
+    char * ch;
+    poptContext optCon;
+    char ** args;
+    int * occurs;
+    char * str;
+    char * error;
+    char ** argv;
+    char strBuf[2];
+
+    if (!PyArg_ParseTuple(pyargs, "OsO", &argList, &shortArgs, &longArgs)) 
+	return NULL;
+
+    if (!(PyList_Check(argList))) {
+	PyErr_SetString(PyExc_TypeError, "list expected");
+    }
+    if (!(PyList_Check(longArgs))) {
+	PyErr_SetString(PyExc_TypeError, "list expected");
+    }
+
+    numOptions = PyList_Size(longArgs);
+    for (ch = shortArgs; *ch; ch++)
+	if (*ch != ':') numOptions++;
+
+    options = alloca(sizeof(*options) * (numOptions + 1));
+    args = alloca(sizeof(*args) * numOptions);
+    memset(args, 0, sizeof(*args) * numOptions);
+    occurs = alloca(sizeof(*occurs) * numOptions);
+    memset(occurs, 0, sizeof(*occurs) * numOptions);
+
+    ch = shortArgs;
+    numOptions = 0;
+    while (*ch) {
+        options[numOptions].shortName = *ch++;
+        options[numOptions].longName = NULL;
+	options[numOptions].val = 0;
+	options[numOptions].descrip = NULL;
+	options[numOptions].argDescrip = NULL;
+	if (*ch == ':') {
+	    options[numOptions].argInfo = POPT_ARG_STRING;
+	    options[numOptions].arg = args + numOptions;
+	    ch++;
+	} else {
+	    options[numOptions].argInfo = POPT_ARG_NONE;
+	    options[numOptions].arg = occurs + numOptions;
+	}
+
+	numOptions++;
+    }
+
+    for (i = 0; i < PyList_Size(longArgs); i++) {
+        options[numOptions].shortName = 0;
+	options[numOptions].val = 0;
+	options[numOptions].descrip = NULL;
+	options[numOptions].argDescrip = NULL;
+
+        strObject = PyList_GetItem(longArgs, i);
+	str = PyString_AsString(strObject);
+	if (!str) return NULL;
+
+	if (str[strlen(str) - 1] == '=') {
+	    str = strcpy(alloca(strlen(str)) + 1, str);
+	    str[strlen(str) - 1] = '\0';
+	    options[numOptions].argInfo = POPT_ARG_STRING;
+	    options[numOptions].arg = args + numOptions;
+	} else {
+	    options[numOptions].argInfo = POPT_ARG_NONE;
+	    options[numOptions].arg = occurs + numOptions;
+	}
+
+	options[numOptions].longName = str;
+
+	numOptions++;
+    }
+
+    memset(options + numOptions, 0, sizeof(*options));
+
+    argv = alloca(sizeof(*argv) * (PyList_Size(argList) + 1));
+    for (i = 0; i < PyList_Size(argList); i++) {
+        strObject = PyList_GetItem(argList, i);
+	str = PyString_AsString(strObject);
+	if (!str) return NULL;
+
+	argv[i] = str;
+    }
+
+    argv[i] = NULL;
+
+    optCon = poptGetContext("", PyList_Size(argList), argv, options, 
+			    POPT_CONTEXT_KEEP_FIRST);
+
+    if ((rc = poptGetNextOpt(optCon)) < -1) {
+	i = strlen(poptBadOption(optCon, POPT_BADOPTION_NOALIAS)) +
+	    strlen(poptStrerror(rc));
+
+	error = alloca(i) + 50;
+
+	sprintf(error, "bad argument %s: %s\n", 
+		poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
+		poptStrerror(rc));
+
+	PyErr_SetString(PyExc_TypeError, error);
+	return NULL;
+    }
+
+    retList = PyList_New(0);
+
+    ch = shortArgs;
+    numOptions = 0;
+    while (*ch) {
+	if (!occurs[numOptions] && !args[numOptions]) {
+	    printf("skipping %c numOptions %d\n", *ch, numOptions);
+	    ch++;
+	    if (*ch == ':') ch++;
+	    numOptions++;
+	    continue;
+	}
+
+	printf("got %c numOptions %d\n", *ch, numOptions);
+
+	strBuf[0] = '-';
+	strBuf[1] = *ch++;
+	strBuf[2] = '\0';
+
+	if (*ch == ':') ch++;
+
+	if (args[numOptions]) 
+	    PyList_Append(retList, Py_BuildValue("(ss)", strBuf, 
+			  args[numOptions]));
+	else
+	    PyList_Append(retList, Py_BuildValue("(ss)", strBuf, ""));
+
+	numOptions++;
+    }
+
+    printf("first long arg is option number %d\n", numOptions);
+
+    for (i = 0; i < PyList_Size(longArgs); i++) {
+	if (!occurs[numOptions] && !args[numOptions]) {
+	    numOptions++;
+	    continue;
+	}
+
+        strObject = PyList_GetItem(longArgs, i);
+	str = alloca(strlen(PyString_AsString(strObject)) + 3);
+	sprintf(str, "--%s", PyString_AsString(strObject));
+	printf("numOptions is %d i is %d str is %s\n", numOptions, i, str);
+	if (!str) return NULL;
+
+	if (args[numOptions]) {
+	    str = strcpy(alloca(strlen(str) + 1), str);
+	    str[strlen(str) - 1] = '\0';
+	    PyList_Append(retList, Py_BuildValue("(ss)", str,
+			  args[numOptions]));
+	} else {
+	    PyList_Append(retList, Py_BuildValue("(ss)", str, ""));
+	}
+
+	numOptions++;
+    }
+
+    retArgs = PyList_New(0);
+    argv = (char **) poptGetArgs(optCon);
+    for (i = 0; argv && argv[i]; i++) {
+	PyList_Append(retArgs, PyString_FromString(argv[i]));
+    }
+
+    poptFreeContext(optCon);
+
+    return Py_BuildValue("(OO)", retList, retArgs);
 }
 
 static PyObject * doReadModInfo(PyObject * s, PyObject * args) {
