@@ -629,6 +629,8 @@ class PartitionWindow(InstallWindow):
                 elif part.fs_type:
                     if request and request.fstype != None:
                         ptype = request.fstype.getName()
+                        if ptype == "foreign":
+                            ptype = map_foreign_to_fsname(part.native_type)
                     else:
                         ptype = part.fs_type.name
                     if request.format:
