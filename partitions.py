@@ -1207,12 +1207,16 @@ class Partitions:
         # now, go through and delete logical volumes
         for delete in self.deletes:
             if isinstance(delete, partRequests.DeleteLogicalVolumeSpec):
-                lvm.lvremove(delete.name, delete.vg)
+                if not delete.beenDeleted():
+                    lvm.lvremove(delete.name, delete.vg)
+                    delete.setDeleted(1)
 
         # now, go through and delete volume groups
         for delete in self.deletes:
             if isinstance(delete, partRequests.DeleteVolumeGroupSpec):
-                lvm.vgremove(delete.name)
+                if not delete.beenDeleted():
+                    lvm.vgremove(delete.name)
+                    delete.setDeleted(1)
 
         lvm.vgdeactivate()
         diskset.stopAllRaid()
