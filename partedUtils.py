@@ -438,7 +438,7 @@ def getRedHatReleaseString(mountpoint):
 
                 ver = ""
                 for a in relstr[idx + 8:]:
-                    if a in string.digits() + ".":
+                    if a in string.digits + ".":
                         ver = ver + a
                     else:
                         break
