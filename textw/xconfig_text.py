@@ -626,8 +626,7 @@ class XConfigWindowCard:
         skipx = 0
 	while 1:
             bb = ButtonBar (screen, (TEXT_OK_BUTTON,
-                                     (_("Skip X Configuration"), "skipx"),
-                                     TEXT_BACK_BUTTON))
+                                     (_("Skip X Configuration"), "skipx")))
 
             toplevel = GridFormHelp (screen, _("Video Card Configuration"),
                                      "videocard", 1, 5)
@@ -678,10 +677,7 @@ class XConfigWindowCard:
 	    result = toplevel.run ()
 	    rc = bb.buttonPressed (result)
 
-	    if rc == TEXT_BACK_CHECK:
-		screen.popWindow()
-		return INSTALL_BACK
-            elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
+            if rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 # we're done
                 # see if they have not specified card yet
                 if self.selectedCard == None:

@@ -315,14 +315,15 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                 option[strlen(option) - 1] = '\0';
             if (option[0] == '\"')
                 option++;
-            if (!strncmp(option, "duplex=", 7)) {
+            if (!strncmp(option, "duplex", 6)) {
                 if (!strncmp(option + 7, "full", 4)) 
                     duplex = ETHTOOL_DUPLEX_FULL;
                 else if (!strncmp(option + 7, "half", 4))
                     duplex = ETHTOOL_DUPLEX_HALF;
                 else
                     logMessage("Unknown duplex setting: %s", option + 7);
-            } else if (!strncmp("speed=", option, 6)) {
+                option = strtok(NULL, " ");
+            } else if (!strncmp("speed", option, 5)) {
                 if (!strncmp(option + 6, "1000", 4))
                     speed = ETHTOOL_SPEED_1000;
                 else if (!strncmp(option + 6, "100", 3))
@@ -331,6 +332,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                     speed = ETHTOOL_SPEED_10;
                 else
                     logMessage("Unknown speed setting: %s", option + 6);
+                option = strtok(NULL, " ");
             } else {
                 logMessage("Unknown ethtool setting: %s", option);
             }

@@ -573,7 +573,7 @@ class KickstartBase(BaseInstallClass):
                      "interactive"      : self.doInteractive    ,
                      "autostep"         : self.doAutoStep       ,
                      "firstboot"        : self.doFirstboot      ,
-		     "vnc"              : None                  ,
+                     "vnc"              : None                  ,
 		   }
 
 	packages = []

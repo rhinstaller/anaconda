@@ -51,6 +51,7 @@
 #define syslog klogctl
 #endif
 
+#include <asm/types.h>
 #include <linux/cdrom.h>
 
 #ifndef MS_REMOUNT

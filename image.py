@@ -47,7 +47,7 @@ class ImageInstallMethod(InstallMethod):
 
     def getRPMFilename(self, h, timer, callback=None):
         if self.currentIso is not None and self.currentIso != h[1000002]:
-            log("switching from iso %s to %s" %(self.currentIso, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentIso, h[1000002], h['name'], h['version'], h['release'], h['arch']))
         self.currentIso = h[1000002]
 	return self.getFilename("/RedHat/RPMS/" + h[1000000], callback=callback)
     def readHeaders(self):
@@ -143,7 +143,7 @@ class CdromInstallMethod(ImageInstallMethod):
                  "on the current CD", h[1000000])
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
-            log("switching from iso %s to %s" %(self.currentDisc, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 
             if os.access("/mnt/source/.discinfo", os.R_OK):
                 f = open("/mnt/source/.discinfo")
@@ -175,14 +175,7 @@ class CdromInstallMethod(ImageInstallMethod):
 	    cdlist = []
 	    for (dev, something, descript) in \
 		    kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
-		#
-		# this is broken but late to fix
-		# we never bump self.device to another device when
-		# we swap CDs, so we never revisit original CD device
-		# this way we go back to it if we're looking for something
-		# other than the first CD image
-		if needed > 1 or dev != self.device:
-		    cdlist.append(dev)
+                cdlist.append(dev)
 
 	    for dev in cdlist:
 		try:
@@ -430,7 +423,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
     
     def getRPMFilename(self, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
-            log("switching from iso %s to %s" %(self.imageMounted, h[1000002]))
+            log("switching from iso %s to %s for %s-%s-%s.%s" %(self.imageMounted, h[1000002], h['name'], h['version'], h['release'], h['arch']))
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 

@@ -2,6 +2,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <asm/types.h>
 #include <linux/cdrom.h>
 #include <linux/hdreg.h>
 #include <stdio.h>
@@ -227,14 +228,12 @@ int isUsableDasd(char *device) {
 		return 0;
 	}
 	ret = read_vlabel(&dasd_info, f, blksize, &vlabel);
-	
+        close(f);
+        unlink(devname);
+
 	if (ret == 2) {
-		close(f);
-		unlink(devname);
 		return 0;
 	} else if (ret == 1) { /* probably unformatted DASD */
-		close(f);
-		unlink(devname);
 		/* fprintf(stderr, "Found a usable device: %s\n", devname); */
 		return 1;
 	}
@@ -242,6 +241,7 @@ int isUsableDasd(char *device) {
 	memset(v4_hex, 0, 9);
 	strncpy(label, vlabel.volkey, 4);
 	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
+        
 	if(!strncmp(v4_hex, cms1_hex, 9)) {
 		return 0;
 	}

@@ -782,6 +782,7 @@ class XConfigWindow (InstallWindow):
         
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
+        ics.setPrevEnabled (gtk.FALSE)
         self.ics = ics
 
     def getNext (self):

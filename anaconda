@@ -137,7 +137,7 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
     if not vncpid:
 	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
 		 "-depth", "16", "-geometry", "800x600",
-		 "IdleTimeout=0",
+		 "IdleTimeout=0", "-auth", "/dev/null"
 		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
 
 	# set passwd if necessary
@@ -388,8 +388,7 @@ try:
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc',
-	    'vnc', 'vncconnect=',
-	    'cmdline', 'headless'])
+	    'vnc', 'vncconnect=', 'cmdline', 'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)

@@ -316,6 +316,8 @@ class BaseInstallClass:
                         dev.set (("ipaddr", ip))
                     if (netmask):
                         dev.set (("netmask", netmask))
+                    if (ethtool):
+                        dev.set (("ethtool_opts", ethtool))
 
     def setLanguageSupport(self, id, langlist):
 	if len (langlist) == 0:
@@ -352,52 +354,49 @@ class BaseInstallClass:
 	id.firewall.http = http
 	id.firewall.ftp = ftp
 
+    def setMiscXSettings(self, id, depth = None, resolution = None,
+                         desktop = None, runlevel = None):
 
-    def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
-        import rhpl.videocard as videocard
-        import rhpl.monitor as monitor
-	import rhpl.xhwstate as xhwstate
-	import xsetup
+        if depth:
+            availableDepths = id.xsetup.xhwstate.available_color_depths()
+            if depth not in availableDepths:
+                log("Requested depth %s not available, falling back to %s"
+                    %(depth, availableDepths[-1]))
+                depth = availableDepths[-1]
+            id.xsetup.xhwstate.set_colordepth(depth)
 
-        # XXX they could have sensitive hardware, but we need this info =\
-        videohw = videocard.VideoCardInfo()
-        if videohw and iutil.getArch() != "ppc": # XXX hack for ppc
-            id.setVideoCard(videohw)
+        if resolution:
+            availableRes = id.xsetup.xhwstate.available_resolutions()
+            if resolution not in availableRes:
+                 log("Requested resolution %s is not supported, falling "
+                     "back to %s. To avoid this you may need to specify the "
+                     "videocard and monitor specs on the xconfig ks "
+                     "directive if they were not probed correctly."
+                     %(resolution, availableRes[-1]))
+		 resolution = availableRes[-1]
+            id.xsetup.xhwstate.set_resolution(resolution)
+
+        if not resolution and not depth:
+            # choose a sane default
+            log("resolution and depth not specified, trying to be sane")
+            id.xsetup.xhwsetup.choose_sane_default()
             
-        if (not noProbe):
-            monitorhw = monitor.MonitorInfo()
+        if desktop is not None:
+            id.desktop.setDefaultDesktop(desktop)
+        if runlevel is not None:
+            id.desktop.setDefaultRunLevel(runlevel)
 
-            if monitorhw:
-                id.setMonitor(monitorhw)
-
-        if id.videocard and not id.videocard.primaryCard().getXServer() and iutil.getArch() != "ppc": # XXX hack for ppc
-            if (card != None):
-                vc = id.videocard.locateVidcardByName(card)
-            elif (server != None):
-                vc = id.videocard.locateVidcardByServer(server)
-            else:
-                raise RuntimeError, "Could not probe video card and no fallback specified"
-            id.videocard.setVidcard(vc)
-
-	tmpram = None
-	if videoRam != None:
-	    if type(videoRam) == type(1024):
-		tmpram = videoRam
-	    else:
-		tmpram = string.atoi(videoRam)
-	    
-        if tmpram in id.videocard.possible_ram_sizes():
-            id.videocard.primaryCard().setVideoRam(str(tmpram))
-
-        if id.monitor.getMonitorID() != "Unprobed Monitor":
-	    usemon = id.monitor.getMonitorName()
-        elif monitorName:
+    def setMonitor(self, id, hsync = None, vsync = None, monitorName = None):
+        if monitorName:
             usemon = monitorName
+        elif id.monitor.getMonitorID() != "Unprobed Monitor":
+	    usemon = id.monitor.getMonitorName()
         else:
             usemon = None
 
         setmonitor = 0
         if usemon:
+            monname = usemon
             try:
                 (model, eisa, vert, horiz) = id.monitor.lookupMonitorByName(usemon)
 		if id.monitor.getMonitorID() != "DDCPROBED":
@@ -410,6 +409,8 @@ class BaseInstallClass:
             except:
                 log("Couldnt lookup monitor type %s." % usemon)
                 pass
+        else:
+            monname = "Unprobed Monitor"
 
         if not setmonitor and hsync and vsync:
             id.monitor.setSpecs(hsync, vsync)
@@ -421,52 +422,58 @@ class BaseInstallClass:
              log("Falling back to Generic VGA monitor")
 
              try:
-                 id.monitor.setSpecs("31.5-37.9", "50.0-61.0")
+                 hsync = "31.5-37.9"
+                 vsync = "50.0-61.0"
+                 monname = "Unprobed Monitor"
+                 id.monitor.setSpecs(hsync, vsync)
              except:
                  raise RuntimeError, "Could not probe monitor and fallback failed."
-             
+
+        # shove into hw state object, force it to recompute available modes
+        id.xsetup.xhwstate.monitor = id.monitor
+        id.xsetup.xhwstate.set_monitor_name(monname)
+        id.xsetup.xhwstate.set_hsync(hsync)
+        id.xsetup.xhwstate.set_vsync(vsync)
+        id.xsetup.xhwstate.recalc_mode()
+
+    def setVideoCard(self, id, server = None, card = None, videoRam = None):
+        # oh suck.  if on ppc, bail because nothing other than fbdev is
+        # going to work all that well
+        if iutil.getArch() == "ppc":
+            return
+        
+        primary = id.videocard.primaryCard()
+
+        if card:
+            db = id.videocard.cardsDB()
+            if db.has_key(card):
+                vcdata = db[card]
+                primary.setCardData(vcdata)
+                primary.setDevID(vcdata["NAME"])
+                primary.setDescription(vcdata["NAME"])
+
+                id.xsetup.xhwstate.set_videocard_name(vcdata["NAME"])
+                id.xsetup.xhwstate.set_videocard_card(vcdata["NAME"])
+            else:
+                raise RuntimeError, "Unknown videocard specified: %s" %(card,)
+
+        if videoRam:
+            id.videocard.primaryCard().setVideoRam(videoRam)
+            id.xsetup.xhwstate.set_videocard_ram(videoRam)
+
+        if server is not None:
+            log("unable to really do anything with server right now")
+            
+
+    def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
+        self.setVideoCard(id, server, card, videoRam)
+        self.setMonitor(id, hsync, vsync, monitorName)
+
         if startX:
-            id.desktop.setDefaultRunLevel(5)
+            rl = 5
         else:
-            id.desktop.setDefaultRunLevel(3)
-
-        xcfg = xhwstate.XF86HardwareState(defcard=id.videocard, defmon=id.monitor)
-	availableDepths = xcfg.available_color_depths()
-
-	# XXXX -xhwstate will not always get monitor specs set
-	# correctly, so make sure they are set - this is another place
-	# where maintaining the monitor data in xhwstate and
-	# monitor objects IS BAD!
-	xcfg.set_monitor_name(id.monitor.getMonitorName())
-	xcfg.set_hsync(id.monitor.getMonitorHorizSync())
-	xcfg.set_vsync(id.monitor.getMonitorVertSync())
-
-        if resolution and depth:
-	    if depth not in availableDepths:
-                log("Requested depth %s not available, falling back to %s"
-                    %(depth, availableDepths[-1]))
-                depth = availableDepths[-1]
-
-	    xcfg.set_colordepth(depth)
-	    availableRes = xcfg.available_resolutions()
-	    
-	    if resolution not in availableRes:
-                 fbres = availableRes[-1]
-                 log("Resolution requested %s is not supported.",resolution)
-		 log("Falling back to %s.", fbres)
-		 log("To avoid this you may need to specify the videocard and ")
-		 log("monitor specs on the xconfig ks directive if they were ")
-		 log("not probed correctly.")
-		 resolution = fbres
-		 
-	    xcfg.set_resolution(resolution)
-        else:
-	    # pick something sane
-	    xcfg.choose_sane_default()
-
-	xsetup = xsetup.XSetup(xcfg)
-        id.setXSetup(xsetup)
-
+            rl = 3
+        self.setMiscXSettings(id, depth, resolution, runlevel = rl)
 
     def setMouse(self, id, mouseType, device = None, emulThree = -1):
         import rhpl.mouse as mouse

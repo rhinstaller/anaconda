@@ -831,7 +831,7 @@ def doInstall(method, id, intf, instPath):
                         "\n"
                         "%s"
                         "\n\n") % (id.upgradeDeps,))
-        
+
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 

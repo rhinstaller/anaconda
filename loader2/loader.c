@@ -539,7 +539,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 !strncasecmp(argv[i], "lowres", 6) ||
                 !strncasecmp(argv[i], "skipddc", 7) ||
                 !strncasecmp(argv[i], "nomount", 7) ||
-		!strncasecmp(argv[i], "vnc", 3) ||
+                !strncasecmp(argv[i], "vnc", 3) ||
 		!strncasecmp(argv[i], "vncconnect=", 11) ||
                 !strncasecmp(argv[i], "headless", 8)) {
                 int arglen;
@@ -652,6 +652,8 @@ static char *doLoaderMain(char * location,
         if (loaderData->method && *loaderData->method && 
             !strcmp(loaderData->method, installMethods[i].shortname)) {
             methodNum = numValidMethods;
+            /* disable the fast path (#102652) */
+            flags |= LOADER_FLAGS_ASKMETHOD;
         }
     }
 

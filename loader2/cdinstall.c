@@ -26,6 +26,7 @@
 #include <sys/mount.h>
 #include <sys/ioctl.h>
 #include <unistd.h>
+#include <asm/types.h>
 #include <linux/cdrom.h>
 
 #include "kickstart.h"

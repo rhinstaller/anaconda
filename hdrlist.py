@@ -52,7 +52,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-pseries': None,    'kernel-iseries': None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
                      'kernel-bigmem-unsupported': None,
-                     'kernel-hugmem': None,
+                     'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None }
 
 def showMem():
@@ -826,6 +826,7 @@ class GroupSet:
 	# nick is used to generate the lilo name
 	for (ktag, nick) in [ ('kernel-summit', 'summit'),
                               ('kernel-bigmem', 'bigmem'),
+                              ('kernel-hugemem', 'hugemem'),
 			      ('kernel-smp', 'smp'),
 			      ('kernel-tape', 'tape'),
                               ('kernel-pseries', ''),
