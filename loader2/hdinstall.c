@@ -191,7 +191,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 
     path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
 
-    sprintf(path, "%s/%s/RedHat/base/hdstg1.img", prefix, dir ? dir : "");
+    sprintf(path, "%s/%s/RedHat/base/hdstg2.img", prefix, dir ? dir : "");
 
     if ((fd = open(path, O_RDONLY)) < 0) {
 	logMessage("failed to open %s: %s", path, strerror(errno));
@@ -203,7 +203,7 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
     copyUpdatesImg(path);
 
-    rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg1.img", flags, 
+    rc = copyFileAndLoopbackMount(fd, "/tmp/ramfs/hdstg2.img", flags, 
 				  device, mntpoint);
     close(fd);
 

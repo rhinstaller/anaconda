@@ -164,7 +164,7 @@ char * validIsoImages(char * dirName) {
             continue;
         }
         
-        if (!access("/tmp/loopimage/RedHat/base/hdstg1.img", F_OK)) {
+        if (!access("/tmp/loopimage/RedHat/base/hdstg2.img", F_OK)) {
             umountLoopback("/tmp/loopimage", "loop7");
             break;
         }

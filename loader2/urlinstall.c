@@ -89,8 +89,8 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         unlink("/tmp/ramfs/updates-disk.img");
     }
 
-    if (loadSingleUrlImage(ui, "RedHat/base/netstg1.img", flags,
-                           "/tmp/ramfs/netstg1.img",
+    if (loadSingleUrlImage(ui, "RedHat/base/netstg2.img", flags,
+                           "/tmp/ramfs/netstg2.img",
                            "/mnt/runtime", "loop0", 0)) {
         newtWinMessage(_("Error"), _("OK"),
                        _("Unable to retrieve the install image."));
