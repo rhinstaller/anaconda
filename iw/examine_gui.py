@@ -15,6 +15,7 @@
 import gtk
 from iw_gui import *
 from package_gui import *
+from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 from rhpl.translate import _, N_
 from constants import *
 from upgrade import *
@@ -23,28 +24,25 @@ from flags import flags
 import upgradeclass
 UpgradeClass = upgradeclass.InstallClass
 
+UPGRADE_STR = N_("Upgrade Existing Installation")
+REINSTALL_STR = N_("Reinstall Red Hat Linux")
+
 class UpgradeExamineWindow (InstallWindow):		
 
     windowTitle = N_("Upgrade Examine")
     htmlTag = "upgrade"
 
-    def toggled (self, widget, newPart):
-        if widget.get_active ():
-	    self.root = newPart
-            if self.root is None:
-                self.individualPackages.set_sensitive(gtk.FALSE)
-            else:
-                self.individualPackages.set_sensitive(gtk.TRUE)
-
     def getNext (self):
-        if self.root is not None:
+	if self.doupgrade:
             # set the install class to be an upgrade
             c = UpgradeClass(flags.expert)
             c.setSteps(self.dispatch)
             c.setInstallData(self.id)
 
-            self.id.upgradeRoot = [(self.root[0], self.root[1])]
+	    rootfs = self.parts[self.upgradeoption.get_history()]
+            self.id.upgradeRoot = [(rootfs[0], rootfs[1])]
             self.id.rootParts = self.parts
+
             if self.individualPackages.get_active():
                 self.dispatch.skipStep("indivpackage", skip = 0)
             else:
@@ -55,6 +53,31 @@ class UpgradeExamineWindow (InstallWindow):
 
         return None
 
+    def createUpgradeOption(self):
+	r = pixmapRadioButtonGroup()
+	r.addEntry(UPGRADE_STR, pixmap=self.ics.readPixmap("upgrade.png"),
+		   descr=_("Choose this option if you would like to upgrade your "
+		   "existing Red Hat Linux system.  This option will preserve the "
+		   "data on your driver."))
+
+	r.addEntry(REINSTALL_STR, pixmap=self.ics.readPixmap("install.png"),
+		   descr=_("Choose this option to reinstall your system.  "
+		   "Depending on how you partition your system your previous data "
+		   "may or may not be lost."))
+
+	return r
+
+    def upgradeOptionsSetSensitivity(self, state):
+	self.uplabel.set_sensitive(state)
+	self.upgradeoption.set_sensitive(state)
+	self.individualPackages.set_sensitive(state)
+
+    def optionToggled(self, widget, name):
+	if name == UPGRADE_STR:
+	    self.upgradeOptionsSetSensitivity(widget.get_active())
+
+	    self.doupgrade = widget.get_active()
+
     #UpgradeExamineWindow tag = "upgrade"
     def getScreen (self, dispatch, intf, id, chroot):
         self.dispatch = dispatch
@@ -62,28 +85,22 @@ class UpgradeExamineWindow (InstallWindow):
         self.id = id
         self.chroot = chroot
 
-        self.parts = self.id.rootParts
-
-	box = gtk.VBox (gtk.FALSE)
+	self.doupgrade = dispatch.stepInSkipList("installtype")
+        self.parts = self.id.rootParts 
 
         vbox = gtk.VBox (gtk.FALSE, 10)
 	vbox.set_border_width (8)
 
-        label = gui.WrappingLabel (_("The following root partitions have been found "
-                             "on your system.  FIXME: I NEED BETTER TEXT "
-                             "HERE."))
-        label.set_alignment(0.0, 0.5)
-        box.pack_start(label, gtk.FALSE)
+	r = self.createUpgradeOption()
+	b = r.render()
+	if self.doupgrade:
+	    r.setCurrent(UPGRADE_STR)
+	else:
+	    r.setCurrent(REINSTALL_STR)
 
-        group = None
-        for (part, filesystem, desc) in self.parts:
-            group = gtk.RadioButton (group, "/dev/%s (%s)" %(part, desc))
-            group.connect ("toggled", self.toggled, part)
-            box.pack_start(group, gtk.FALSE)
-
-        group = gtk.RadioButton (group, "Don't upgrade")
-        group.connect("toggled", self.toggled, None)
-        box.pack_start(group, gtk.FALSE)
+	r.setToggleCallback(self.optionToggled)
+	box = gtk.VBox (gtk.FALSE)
+        box.pack_start(b, gtk.FALSE)
 
         vbox.pack_start (box, gtk.FALSE)
         self.root = self.parts[0]
@@ -91,10 +108,68 @@ class UpgradeExamineWindow (InstallWindow):
         self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
                                                     "upgraded"))
         self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
-            
-        align = gtk.Alignment (0.0, 0.5)
-        align.add (self.individualPackages)
+	ipbox = gtk.HBox(gtk.FALSE)
+	crackhbox = gtk.HBox(gtk.FALSE)
+	crackhbox.set_size_request(70, -1)
+	ipbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
+	r.packWidgetInEntry(UPGRADE_STR, ipbox)
 
-        vbox.pack_end (align, gtk.FALSE)
+
+	# hack hack hackity hack
+	upboxtmp = gtk.VBox(gtk.FALSE, 5)
+	uplabelstr = _("The following Red Hat product will be upgraded:")
+	self.uplabel = gtk.Label(uplabelstr)
+	self.uplabel.set_alignment(0.0, 0.0)
+	self.upgradeoption = gtk.OptionMenu()
+	self.upgradeoptionmenu = gtk.Menu()
+	for (part, filesystem, desc) in self.parts:
+	    if (desc is None) or len(desc) < 1:
+		desc = _("Unknown Linux system")
+	    if part[:5] != "/dev/":
+		devname = "/dev/" + part
+	    else:
+		devname = part
+            item = gtk.MenuItem("")
+	    itemlabel = item.get_children()[0]
+	    itemlabel.set_markup("<small>%s (%s)</small>" %(desc, devname))
+	    item.show()
+	    self.upgradeoptionmenu.add(item)
+
+	self.upgradeoption.set_menu(self.upgradeoptionmenu)
+	upboxtmp.pack_start(self.uplabel)
+
+	# more indentation
+	box1 = gtk.HBox(gtk.FALSE)
+	crackhbox = gtk.HBox(gtk.FALSE)
+	crackhbox.set_size_request(65, -1)
+	box1.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+	box1.pack_start(self.upgradeoption, gtk.FALSE, gtk.FALSE)
+	upboxtmp.pack_start(box1, gtk.FALSE, gtk.FALSE)
+#	upboxtmp.pack_start(self.upgradeoption, gtk.FALSE, gtk.FALSE)
+
+	# hack indent it
+	upbox = gtk.HBox(gtk.FALSE)
+
+	crackhbox = gtk.HBox(gtk.FALSE)
+	crackhbox.set_size_request(70, -1)
+
+	upbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+#	upbox.pack_start(upboxtmp, gtk.TRUE, gtk.TRUE)
+	upbox.pack_start(upboxtmp, gtk.FALSE, gtk.FALSE)
+
+	# all done phew
+	r.packWidgetInEntry(UPGRADE_STR, upbox)
+
+	# set default
+	if self.doupgrade:
+	    idx = 0
+	    for p in self.parts:
+		if self.id.upgradeRoot[0][0] == p[0]:
+		    self.upgradeoption.set_history(idx)
+		    break
+		idx = idx + 1
+
+	self.upgradeOptionsSetSensitivity(self.doupgrade)
 
         return vbox
