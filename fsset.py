@@ -1717,7 +1717,7 @@ class RAIDDevice(Device):
                                                                 self.device,)
         entry = entry + "raid-level		    %d\n" % (self.level,)
         entry = entry + "nr-raid-disks		    %d\n" % (self.numDisks,)
-        entry = entry + "chunk-size		    %d\n" %(self.chunksize,)
+        entry = entry + "chunk-size		    %s\n" %(self.chunksize,)
         entry = entry + "persistent-superblock	    1\n"
         entry = entry + "nr-spare-disks		    %d\n" % (self.spares,)
         i = 0
