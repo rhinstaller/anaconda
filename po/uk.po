@@ -222,7 +222,7 @@ msgstr "Новини"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Неможливо завантажити файл!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -290,11 +290,11 @@ msgstr "CDROM не може бути змонтовано."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "УВАГА: не знайдено блочних пристро╖в, що п╕дходять.\n"
 
 #: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "ПОМИЛКА: нев╕дома помилка в процес╕ читання таблиць розд╕л╕в.\n"
 
 #: ../rescue.py:54
 msgid "System to Rescue"
@@ -449,9 +449,8 @@ msgid "Default Language"
 msgstr "Основна мова"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Вибер╕ть основну мову"
+msgstr "Вибер╕ть основну мову:"
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -997,6 +996,8 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Неможливо в╕дкрити файл %s. Це може бути через в╕дсутн╕й файл, поганий пакет "
+"або поганий нос╕й. Натисн╕ть <Enter> для повтору."
 
 #: ../todo.py:1642
 #, c-format
@@ -2146,6 +2147,10 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"Брандмауер захища╓ в╕д неавторизованого вторгнення в мережу. Високий р╕вень "
+"безпеки повн╕стю блоку╓ доступ до системи. Середн╕й блоку╓ доступ к "
+"системним серв╕сам (таким як telnet або друк), але дозволя╓ ╕нш╕ "
+"п╕д'╓днання. Якщо не встановити брандмауер, ус╕ п╕д'╓днання будуть дозволен╕."
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
@@ -2190,7 +2195,7 @@ msgstr "Нев╕рний виб╕р"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Неможливо пол╕пшити брандмауер, який заборонено."
 
 #: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
@@ -2329,7 +2334,7 @@ msgstr "Розм╕р  :"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
