@@ -617,7 +617,7 @@ class ComponentSet:
         # if we still have the same packages selected, bail - we don't need to
         # do this again.
         if self.verifiedState == self.getSelectionState()[1]:
-            return
+            return []
 
         self.verifiedState = None
 
