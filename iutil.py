@@ -76,3 +76,15 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
     os.waitpid(childpid, 0)
 
     return rc
+
+def copyFile(source, to):
+    f = os.open(source, os.O_RDONLY)
+    t = os.open(to, os.O_RDWR | os.O_TRUNC | os.O_CREAT)
+
+    count = os.read(f, 16384)
+    while (count):
+	os.write(t, count)
+	count = os.read(f, 16384)
+	
+    os.close(f)
+    os.close(t)
