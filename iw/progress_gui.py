@@ -78,8 +78,6 @@ class InstallProgressWindow (InstallWindow):
         self.totalProgress.update (float (self.sizeComplete) / self.totalSize)
         
         return
-	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 
     def setPackage(self, header):
         if len(self.pixmaps):
