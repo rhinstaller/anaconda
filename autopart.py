@@ -79,7 +79,6 @@ def findFreespace(diskset):
         part = disk.next_partition()
         while part:
             if part.type & parted.PARTITION_FREESPACE:
-#                print "found free", printFreespaceitem(part)
                 free[drive].append(part)
             part = disk.next_partition(part)
     return free
@@ -270,14 +269,18 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
 #            print "largestPart is",largestPart
             freespace = largestPart[1]
+            freeStartSec = freespace.geom.start
+            freeEndSec = freespace.geom.end
+
             disk = freespace.geom.disk
-            startSec = freespace.geom.start
+
+            startSec = freeStartSec
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
 
-            if endSec > freespace.geom.end:
-                endSec = freespace.geom.end
-            if startSec < freespace.geom.start:
-                startSec = freespace.geom.start
+            if endSec > freeEndSec:
+                endSec = freeEndSec
+            if startSec < freeStartSec:
+                startSec = freeStartSec
 
             if freespace.type & parted.PARTITION_LOGICAL:
                 partType = parted.PARTITION_LOGICAL
@@ -296,12 +299,39 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     newParts.parts.append(newp)
                     requests.nextUniqueID = requests.nextUniqueID + 1
                     partType = parted.PARTITION_LOGICAL
+
+                    # now need to update freespace since adding extended
+                    # took some space
+                    found = 0
+                    part = disk.next_partition()
+                    while part:
+                        if part.type & parted.PARTITION_FREESPACE:
+                            if part.geom.start > freeStartSec and part.geom.end <= freeEndSec:
+                                found = 1
+                                freeStartSec = part.geom.start
+                                freeEndSec = part.geom.end
+                                break
+
+                        part = disk.next_partition(part)
+
+                    if not found:
+                        raise PartitioningError, "Could not find free space after making new extended partition"
+
+                    startSec = freeStartSec
+                    endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
+
+                    if endSec > freeEndSec:
+                        endSec = freeEndSec
+                    if startSec < freeStartSec:
+                        startSec = freeStartSec
+
                 else: # shouldn't get here
                     raise PartitioningError, "Impossible partition to create"
 
             fsType = request.fstype.getPartedFileSystemType()
             newp = disk.partition_new (partType, fsType, startSec, endSec)
             constraint = disk.constraint_any ()
+
             try:
                 disk.add_partition (newp, constraint)
             except parted.error, msg:
