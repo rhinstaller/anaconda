@@ -151,7 +151,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -L../pump -lpump -lrpm -lbz2 -lz -lresolv -lnewt -lslang -lpci
 
 loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
-	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
+	$(CC) -g $(STATIC) -o $@ loader-pcmcia-kon.o $(OBJS) \
 	    $(PCMCIAOBJS) -L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
         -lpopt     \
         ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
@@ -189,7 +189,8 @@ init: init.o $(MINILIBC)
 
 clean: 
 	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
-	      loader.po loader.tr tr/*.tr loader init
+	      loader.po loader.tr tr/*.tr loader init loader-local-kon loader-network-kon \
+              loader-pcmcia-kon
 	for n in $(DIRS); do \
 	    (cd $$n; make clean) \
 	done
