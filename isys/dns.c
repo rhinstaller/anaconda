@@ -21,14 +21,8 @@ static int doQuery(char * query, int queryType,
     char name[MAXDNAME];
     union dns_response response;
 
-#ifdef __sparc__
-    /* from jj: */
-    /* We have to wait till ethernet negotiation is done */
+    /* Give time to finish ethernet negotiation */
     _res.retry = 3;
-#else
-    _res.retry = 2;
-#endif
-
 
     len = res_search(query, C_IN, queryType, (void *) &response, 
 		    sizeof(response));
@@ -111,6 +105,8 @@ char * mygethostbyaddr(char * ipnum) {
 	    splits[1], splits[0]);
 
     rc = doQuery(ipnum, T_PTR, &result, NULL);
+    if (rc)
+	rc = doQuery(ipnum, T_PTR, &result, NULL);
 
     if (rc) 
 	return NULL;
