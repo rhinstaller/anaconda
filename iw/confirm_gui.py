@@ -1,7 +1,7 @@
 #
 # confirm_gui.py: install/upgrade point of no return screen.
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -16,7 +16,9 @@ from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
 from package_gui import queryUpgradeContinue
+from image import presentRequiredMediaMessage
 import gui
+import sys
 
 class ConfirmWindow (InstallWindow):
 
@@ -55,7 +57,24 @@ class InstallConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Install")
     htmlTag = "aboutinstall"
 
-    def getScreen(self):
+    def getNext(self):
+	if self.id.methodstr.startswith("cdrom://") and (self.id.instClass.name and self.id.instClass.name != "kickstart"):
+	    rc = presentRequiredMediaMessage(self.intf, self.id.grpset)
+	    
+	    if rc == 0:
+		rc2 = self.intf.messageWindow(_("Reboot?"),
+					_("The system will be rebooted now."),
+					type="custom", custom_icon="warning",
+					custom_buttons=[_("_Back"), _("_Reboot")])
+		if rc2 == 1:
+		    sys.exit(0)
+		else:
+		    raise gui.StayOnScreen
+
+    def getScreen(self, intf, id):
+	self.intf = intf
+	self.id = id
+	
 	return ConfirmWindow.getScreen(self,
 	    _("Click next to begin installation of %s.") % (productName,),
 	    _("A complete log of the installation can be found in "
@@ -68,7 +87,23 @@ class UpgradeConfirmWindow (ConfirmWindow):
     windowTitle = N_("About to Upgrade")
     htmlTag = "aboutupgrade"
 
-    def getScreen(self):
+    def getNext(self):
+	if self.id.methodstr.startswith("cdrom://") and (self.id.instClass.name and self.id.instClass.name != "kickstart"):
+	    rc = presentRequiredMediaMessage(self.intf, self.id.grpset)
+	    
+	    if rc == 0:
+		rc2 = self.intf.messageWindow(_("Reboot?"),
+					_("The system will be rebooted now."),
+					type="custom", custom_icon="warning",
+					custom_buttons=[_("_Back"), _("_Reboot")])
+		if rc2 == 1:
+		    sys.exit(0)
+		else:
+		    raise gui.StayOnScreen
+
+    def getScreen(self, intf, id):
+	self.intf = intf
+	self.id = id
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of the upgrade can be found in "

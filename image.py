@@ -22,6 +22,8 @@ import stat
 import kudzu
 import string
 import shutil
+import product
+
 from constants import *
 
 from rhpl.log import log
@@ -33,6 +35,43 @@ if os.uname()[4] == "s390x":
     _arch = "s390x"
 else:
     _arch = iutil.getArch()
+
+# given groupset containing information about selected packages, use
+# the disc number info in the headers to come up with message describing
+# the required CDs
+#
+# dialog returns a value of 0 if user selected to abort install
+def presentRequiredMediaMessage(intf, grpset):
+    reqcds = []
+    for hdr in grpset.hdrlist.values():
+	if not hdr.isSelected():
+	    continue
+	elif hdr[1000002] not in reqcds:
+	    reqcds.append(hdr[1000002])
+	else:
+	    continue
+
+    # if only one CD required no need to pop up a message
+    if len(reqcds) < 2:
+	return
+
+    reqcds.sort()
+    reqcdstr = ""
+    for cdnum in reqcds:
+	reqcdstr += "\t\t%s %s CD #%d\n" % (product.productName, product.productVersion, cdnum,)
+		
+    return intf.messageWindow( _("Required Install Media"),
+				    _("The software you have selected to "
+				      "install will require the following CDs:\n\n"
+				      "%s\nPlease "
+				      "have these ready before proceeding with "
+				      "the installation.  If you need to abort "
+				      "the installation and reboot please "
+				      "select \"Reboot\".") % (reqcdstr,),
+				    type="custom", custom_icon="warning",
+				    custom_buttons=[_("_Reboot"), _("_Continue")])
+
+
 
 class ImageInstallMethod(InstallMethod):
 

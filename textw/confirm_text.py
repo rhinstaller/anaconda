@@ -1,7 +1,7 @@
 #
 # confirm_text.py: text mode install/upgrade confirmation window
 #
-# Copyright 2001-2002 Red Hat, Inc.
+# Copyright 2001-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -14,9 +14,10 @@
 from snack import *
 from constants_text import *
 from rhpl.translate import _
+from image import presentRequiredMediaMessage
 
 class BeginInstallWindow:
-    def __call__ (self, screen):
+    def __call__ (self, screen, intf, id):
         rc = ButtonChoiceWindow (screen, _("Installation to begin"),
                                 _("A complete log of your installation will be in "
                                   "%s after rebooting your system. You "
@@ -25,6 +26,20 @@ class BeginInstallWindow:
 				help = "begininstall")
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
+
+	if id.methodstr.startswith("cdrom://") and (id.instClass.name and id.instClass.name != "kickstart"):
+	    rc = presentRequiredMediaMessage(intf, id.grpset)
+
+	    if rc == 0:
+		rc2 = intf.messageWindow(_("Reboot?"),
+					_("The system will be rebooted now."),
+					type="custom", custom_icon="warning",
+					custom_buttons=[_("_Back"), _("_Reboot")])
+		if rc2 == 1:
+		    sys.exit(0)
+		else:
+		    return INSTALL_BACK
+	
         return INSTALL_OK
 
 class BeginUpgradeWindow:
@@ -37,4 +52,18 @@ class BeginUpgradeWindow:
 				help = "beginupgrade")
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
+
+	if id.methodstr.startswith("cdrom://") and (id.instClass.name and id.instClass.name != "kickstart"):
+	    rc = presentRequiredMediaMessage(intf, id.grpset)
+
+	    if rc == 0:
+		rc2 = intf.messageWindow(_("Reboot?"),
+					_("The system will be rebooted now."),
+					type="custom", custom_icon="warning",
+					custom_buttons=[_("_Back"), _("_Reboot")])
+		if rc2 == 1:
+		    sys.exit(0)
+		else:
+		    return INSTALL_BACK
+
         return INSTALL_OK
