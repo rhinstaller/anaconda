@@ -396,7 +396,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 #
 def growLogicalVolumes(diskset, requests):
 
-    if vgreq is None or diskset is None:
+    if requests is None or diskset is None:
 	return
 
     # iterate over each volume group, grow logical volumes in each
