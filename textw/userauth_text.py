@@ -348,12 +348,16 @@ class AuthConfigWindow:
                            1, 0, (2, 0, 1, 0), anchorRight = 1)
         subgrid2.setField (Label (_("LDAP Base DN:")),
                            1, 1, (2, 0, 1, 0), anchorRight = 1)
+
         self.ldapServer = Entry (entrywid)
         self.ldapServer.set (todo.auth.ldapServer)
         self.ldapBasedn = Entry (entrywid)
         self.ldapBasedn.set (todo.auth.ldapBasedn)
         subgrid2.setField (self.ldapServer, 2, 0, anchorLeft = 1)
         subgrid2.setField (self.ldapBasedn, 2, 1, anchorLeft = 1)
+
+        self.ldapTLS = Checkbox (_("Use TLS connections"), 0)
+        subgrid2.setField (self.ldapTLS, 2, 2, anchorLeft = 1)
 
         toplevel.add (subgrid2, 0, 3, (0, 0, 0, 0))
 
@@ -410,6 +414,7 @@ class AuthConfigWindow:
         todo.auth.useLdapauth = self.ldap.selected ()
         todo.auth.ldapServer = self.ldapServer.value()
         todo.auth.ldapBasedn = self.ldapBasedn.value()
+        todo.auth.ldapTLS = self.ldapTLS.selected ()
         todo.auth.useKrb5 = self.krb5.selected()
         todo.auth.krb5Realm = self.krb5Realm.value()
         todo.auth.krb5Kdc = self.krb5Kdc.value()
