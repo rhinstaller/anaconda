@@ -23,13 +23,11 @@ class DesktopChoiceWindow:
 	
 	toplevel = GridFormHelp (screen, _("Workstation Defaults"),
 				 "wsdefaults", 1, 5)
-	
-	labeltxt = N_("The Personal Desktop and Workstation options "
-		      "install a default set of applications that will "
-		      "allow you to browse the Internet, send and receive "
-		      "email, and create and edit documents on your %s "
-		      "system. The Workstation option includes development "
-		      "and administration tools as well.\n\n"
+
+	labeltxt = N_("The default installation environment includes our "
+                      "recommended package selection.  After installation, "
+                      "additional software can be added or removed using the "
+                      "'redhat-config-packages' tool.\n\n"
 		      "However %s ships with many more applications, and "
 		      "you may customize the selection of software "
 		      "installed if you want.")

@@ -27,6 +27,13 @@ from constants import *
 from rhpl.log import log
 from rhpl.translate import _
 
+# this sucks, but we want to consider s390x as s390x in here but generally
+# don't.  *sigh*
+if os.uname()[4] == "s390x":
+    _arch = "s390x"
+else:
+    _arch = iutil.getArch()
+
 class ImageInstallMethod(InstallMethod):
 
     def readCompsViaMethod(self, hdlist):
@@ -198,7 +205,7 @@ class CdromInstallMethod(ImageInstallMethod):
                                 discNum = [ 0 ]
 			    f.close()
 			    if (newStamp == timestamp and
-                                arch == iutil.getArch() and
+                                arch == _arch and
                                 needed in discNum):
 				done = 1
                                 self.currentDisc = discNum
@@ -243,7 +250,7 @@ class CdromInstallMethod(ImageInstallMethod):
                             discNum = [ 0 ]
 			f.close()
                         if (newStamp == timestamp and
-                            arch == iutil.getArch() and
+                            arch == _arch and
                             needed in discNum):
 			    done = 1
                             self.currentDisc = discNum
@@ -353,7 +360,7 @@ def getDiscNums(line):
 
 def findIsoImages(path, messageWindow):
     files = os.listdir(path)
-    arch = iutil.getArch()
+    arch = _arch
     discImages = {}
 
     for file in files:

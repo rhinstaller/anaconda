@@ -1421,7 +1421,7 @@ def getAutopartitionBoot():
         return [ (None, "PPC PReP Boot", 4, None, 0, 1),
                  ("/boot", None, 100, None, 0, 1) ]
     elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasIbmSis():
-        return [ (None, "PPC PReP Boot", 4, None, 0, 1) ]
+        return [ (None, "PPC PReP Boot", 16, None, 0, 1) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasIbmSis():
         return []
     else:

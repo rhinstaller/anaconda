@@ -95,7 +95,7 @@ int beTelnet(int flags) {
 
     telnet_negotiate(conn, &termType, &height, &width);
 
-#ifdef DEBUG
+#ifdef DEBUG_TELNET
     printf("got term type %s\n", termType);
 #endif
 
@@ -107,7 +107,7 @@ int beTelnet(int flags) {
     }
 
     if (height != -1 && width != -1) {
-#ifdef DEBUF
+#ifdef DEBUG_TELNET
 	printf("setting window size to %d x %d\n", width, height);
 #endif
 	ws.ws_row = height;
@@ -119,7 +119,7 @@ int beTelnet(int flags) {
     child = fork();
 
     if (child) {
-#ifndef DEBUG
+#ifndef DEBUG_TELNET
 	startNewt(flags);
 	winStatus(45, 3, _("Telnet"), _("Running anaconda via telnet..."));
 #endif
@@ -134,7 +134,7 @@ int beTelnet(int flags) {
 	    if (fds[0].revents) {
 		i = read(masterFd, buf, sizeof(buf));
 
-#ifdef DEBUG
+#ifdef DEBUG_TELNET
 		{
 		    int j;
 		    int row;
@@ -173,7 +173,7 @@ int beTelnet(int flags) {
 		i = telnet_process_input(&ts, buf, i);
 		write(masterFd, buf, i);
 
-#ifdef DEBUG
+#ifdef DEBUG_TELNET
 		{
 		    int j;
 
@@ -192,7 +192,7 @@ int beTelnet(int flags) {
 	    logMessage("poll: %s", strerror(errno));
 	} 
 
-#ifndef DEBUG
+#ifndef DEBUG_TELNET
 	stopNewt();
 #endif
 

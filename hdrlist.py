@@ -51,7 +51,9 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-tape' : None,      'kernel-BOOTtape' : None,
                      'kernel-pseries': None,    'kernel-iseries': None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
-                     'kernel-bigmem-unsupported': None }
+                     'kernel-bigmem-unsupported': None,
+                     'kernel-hugmem': None,
+                     'kernel-hugemem-unsupported': None }
 
 def showMem():
     f = open("/proc/self/status", "r")
@@ -150,8 +152,7 @@ def depMatch(dep, hdrlist):
         return nevra(hdrlist[dep])
     elif cached.has_key(dep):
         return cached[dep]
-    # next, see if its a file dep (FIXME: we have Provides: /usr/sbin/sendmail
-    # with alternatives)
+    # next, see if its a file dep
     elif dep[0] == "/":
         hdr = None
         for h in hdrlist.pkgs.values():
@@ -166,7 +167,11 @@ def depMatch(dep, hdrlist):
                 if f[0].find("bin") != -1: cached[f[0]] = nevra(hdr)
             cached[dep] = nevra(hdr)
             return nevra(hdr)
-    else:
+
+    # else:
+    # need to do this even on file deps too because they could be virtual
+    # provides such as /usr/sbin/sendmail or /usr/bin/lpr.  
+    if 1:
         hdr = None
         for h in hdrlist.pkgs.values():
             if (dep in h[rpm.RPMTAG_PROVIDENAME]):

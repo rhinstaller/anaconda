@@ -35,6 +35,18 @@ class BaseInstallClass:
     showLoginChoice = 0
     description = None
     name = "base"
+    pkgstext = ""
+
+#     pkgstext = _("\tDesktop shell (GNOME)\n"
+#                  "\tOffice suite (OpenOffice)\n"
+#                  "\tWeb browser (Mozilla) \n"
+#                  "\tEmail (Evolution)\n"
+#                  "\tInstant messaging\n"
+#                  "\tSound and video applications\n"
+#                  "\tGames\n"
+#                  "\tSoftware Development Tools\n"
+#                  "\tAdministration Tools\n")
+    
     
     # don't select this class by default
     default = 0
@@ -329,14 +341,11 @@ class BaseInstallClass:
     def setDesktop(self, id, desktop):
 	id.desktop.setDefaultDesktop (desktop)
 
-    def setFirewall(self, id, enable = -1, policy = 1, trusts = [], ports = "",
-		    dhcp = 0, ssh = 0, telnet = 0, smtp = 0, http = 0,
-		    ftp = 0):
+    def setFirewall(self, id, enable = 1, trusts = [], ports = "",
+		    ssh = 0, telnet = 0, smtp = 0, http = 0, ftp = 0):
 	id.firewall.enabled = enable
-	id.firewall.policy = policy
 	id.firewall.trustdevs = trusts
 	id.firewall.portlist = ports
-	id.firewall.dhcp = dhcp
 	id.firewall.ssh = ssh
 	id.firewall.telnet = telnet
 	id.firewall.smtp = smtp

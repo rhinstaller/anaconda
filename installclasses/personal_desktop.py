@@ -1,5 +1,5 @@
 from installclass import BaseInstallClass
-from rhpl.translate import N_
+from rhpl.translate import N_, _
 from constants import *
 import os
 import iutil
@@ -14,6 +14,15 @@ class InstallClass(BaseInstallClass):
 		     "installation type to install a graphical desktop "
 		     "environment and create a system ideal for home "
 		     "or desktop use.")
+    
+    pkgstext = _("\tDesktop shell (GNOME)\n"
+                 "\tOffice suite (OpenOffice)\n"
+                 "\tWeb browser (Mozilla) \n"
+                 "\tEmail (Evolution)\n"
+                 "\tInstant messaging\n"
+                 "\tSound and video applications\n"
+                 "\tGames\n")
+    
 
     showLoginChoice = 0
     sortPriority = 1

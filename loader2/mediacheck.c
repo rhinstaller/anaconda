@@ -373,5 +373,6 @@ int main(int argc, char **argv) {
     newtCls();
     rc = mediaCheckFile(argv[1], "TESTING");
     newtFinished();
+    exit (0);
 }
 #endif

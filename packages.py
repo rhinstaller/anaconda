@@ -258,6 +258,11 @@ def checkDependencies(dir, intf, disp, id, instPath):
     else:
         ts = getAnacondaTS()        
         how = "i"
+
+    # set the rpm log file to /dev/null so that we don't segfault
+    f = open("/dev/null", "w+")
+    rpm.setLogFile(f)
+    ts.scriptFd = f.fileno()
     
     for p in id.grpset.hdrlist.pkgs.values():
         if p.isSelected():
@@ -305,9 +310,14 @@ class InstallCallback:
 		   self.progressWindowClass (_("Processing"),
 					     _("Preparing to install..."),
 					     total)
+                try:
+                    self.incr = total / 10
+                except:
+                    pass
 	if (what == rpm.RPMCALLBACK_TRANS_PROGRESS):
-	    if self.progressWindow:
+            if self.progressWindow and amount > self.lastprogress + self.incr:
 		self.progressWindow.set (amount)
+                self.lastprogress = amount
 		
 	if (what == rpm.RPMCALLBACK_TRANS_STOP and self.progressWindow):
 	    self.progressWindow.pop ()
@@ -405,6 +415,8 @@ class InstallCallback:
 	self.method = method
 	self.progressWindowClass = progressWindowClass
 	self.progressWindow = None
+        self.lastprogress = 0
+        self.incr = 20
 	self.instLog = instLog
 	self.modeText = modeText
 	self.beenCalled = 0

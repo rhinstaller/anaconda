@@ -496,6 +496,7 @@ EOF
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     install -m 644 $IMGPATH/usr/share/terminfo/x/xterm $MBD_DIR/etc/terminfo/x/xterm
     install -m 644 $IMGPATH/usr/share/terminfo/v/vt100 $MBD_DIR/etc/terminfo/v/vt100
+    install -m 644 $IMGPATH/usr/share/terminfo/v/vt100-nav $MBD_DIR/etc/terminfo/v/vt100-nav
     makeproductfile $MBD_DIR
 
     mkdir -p $MBD_DIR/etc/terminfo/b

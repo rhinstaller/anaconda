@@ -263,8 +263,15 @@ def checkDasdFmt(disk, intf):
         return 0
 
     if intf:
+        try:
+            devs = isys.getDasdDevPort()
+            dev = "/dev/%s (%s" %(disk.dev.path[5:], devs[device])
+        except Exception, e:
+            log("exception getting dasd dev ports: %s" %(e,))
+            dev = "/dev/%s" %(disk.dev.path[5:],)
+        
         rc = intf.messageWindow(_("Warning"),
-                       _("The /dev/%s device is LDL formatted instead of "
+                       _("The device %s is LDL formatted instead of "
                          "CDL formatted.  LDL formatted DASDs are not "
                          "supported for usage during an install of %s.  "
                          "If you wish to use this disk for installation, "
@@ -272,7 +279,7 @@ def checkDasdFmt(disk, intf):
                          "ALL DATA on this drive.\n\n"
                          "Would you like to reformat this DASD using CDL "
                          "format?")
-                        %(disk.dev.path[5:], productName), type = "yesno")
+                        %(dev, productName), type = "yesno")
         if rc == 0:
             return 1
         else:
@@ -707,7 +714,8 @@ class DiskSet:
     def dasdFmt (self, intf = None, drive = None):
         """Format dasd devices (s390)."""
 
-        self.closeDevices()
+        if self.disks.has_key(drive):
+            del self.disks[drive]
 
         w = intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
@@ -781,8 +789,7 @@ class DiskSet:
         w and w.pop()
         
         isys.flushDriveDict()
-        self.refreshDevices()
-        
+
         if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
             return 0
 

@@ -23,14 +23,11 @@ class FirewallWindow:
 	
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Customize"), "customize"), TEXT_BACK_BUTTON))
 	
-	toplevel = GridFormHelp (screen, _("Firewall Configuration"),
+	toplevel = GridFormHelp (screen, _("Firewall"),
 				"securitylevel", 1, 5)
-	text = _("A firewall protects against unauthorized "
-		 "network intrusions. High security blocks all "
-		 "incoming accesses. Medium blocks access "
-		 "to system services (such as telnet or printing), "
-		 "but allows other connections. No firewall allows "
-		 "all connections and is not recommended. ")
+	text = _("A firewall can help prevent unauthorized access to your "
+                 "computer from the outside world.  Would you like to enable "
+                 "a firewall?")
 	toplevel.add (TextboxReflowed(50, text), 0, 0, (0, 0, 0, 1))	 
 						
 	toplevel.add (bb, 0, 4, (0, 0, 0, 0), growx = 1)
@@ -39,23 +36,20 @@ class FirewallWindow:
 	
 	bigGrid = Grid(2,15)
 	
-	typeGrid = Grid(3,2)
+	typeGrid = Grid(2,1)
 
-	label = Label(_("Security Level:"))
-	smallGrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+# 	label = Label(_("Security Level:"))
+# 	smallGrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
 	
 	
-	self.paranoid = SingleRadioButton(_("High"), None, firewall.enabled and not firewall.policy)
-	self.paranoid.setCallback(self.radiocb, (firewall, self.paranoid))
-	typeGrid.setField (self.paranoid, 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-	self.simple = SingleRadioButton(_("Medium"), self.paranoid, firewall.enabled and firewall.policy)
-	self.simple.setCallback(self.radiocb, (firewall, self.simple))
-	typeGrid.setField (self.simple, 1, 0, (0, 0, 1, 0), anchorLeft = 1)
-	self.disabled = SingleRadioButton(_("No firewall"), self.simple, not firewall.enabled)
+	self.enabled = SingleRadioButton(_("Enable firewall"), None, firewall.enabled)
+	self.enabled.setCallback(self.radiocb, (firewall, self.enabled))
+	typeGrid.setField (self.enabled, 0, 0, (0, 0, 1, 0), anchorLeft = 1)
+	self.disabled = SingleRadioButton(_("No firewall"), self.enabled, not firewall.enabled)
 	self.disabled.setCallback(self.radiocb, (firewall, self.disabled))
-	typeGrid.setField (self.disabled, 2, 0, (0, 0, 1, 0), anchorLeft = 1)
+	typeGrid.setField (self.disabled, 1, 0 , (0, 0, 1, 0), anchorRight = 1)
 	
-	smallGrid.setField (typeGrid, 1, 0, (1, 0, 0, 1), anchorLeft = 1)
+	smallGrid.setField (typeGrid, 0, 0, (1, 0, 0, 1), anchorLeft = 1, growx = 1)
 	
 	currentRow = 1
 	devices = network.available().keys()
@@ -78,8 +72,6 @@ class FirewallWindow:
 				  (1, 0, 0, 1), anchorLeft = 1)
 		currentRow = currentRow + 1
 		for dev in devices:
-                    if network.netdevices[dev].get('bootproto') == 'dhcp':
-                        firewall.dhcp = 1
                     devicelist.append(dev, selected = (dev in firewall.trustdevs))
 		    
 	bigGrid.setField (Label(_("Allow incoming:")), 0, currentRow, (0, 0, 0, 0),
@@ -87,8 +79,6 @@ class FirewallWindow:
 	    
 	self.portGrid = Grid(3,2)
 	    
-	self.dhcp = Checkbox (_("DHCP"), firewall.dhcp)
-	self.portGrid.setField (self.dhcp, 0, 0, (0, 0, 1, 0), anchorLeft = 1)
 	self.ssh = Checkbox (_("SSH"), firewall.ssh)
 	self.portGrid.setField (self.ssh, 1, 0, (0, 0, 1, 0), anchorLeft = 1)
 	self.telnet = Checkbox (_("Telnet"), firewall.telnet)
@@ -210,7 +200,6 @@ class FirewallWindow:
                 firewall.trustdevs.append(dev)
 
 #	firewall.portlist = self.other.value()
-	firewall.dhcp = self.dhcp.selected()
 	firewall.ssh = self.ssh.selected()
 	firewall.telnet = self.telnet.selected()
 	firewall.http = self.http.selected()
@@ -220,10 +209,6 @@ class FirewallWindow:
 	    firewall.enabled = 0
 	else:
 	    firewall.enabled = 1
-	if self.paranoid.selected():
-	    firewall.policy = 0
-	else:
-	    firewall.policy = 1
 
 	return INSTALL_OK
     
@@ -231,10 +216,8 @@ class FirewallWindow:
 	(firewall, widget) = args
 	if widget == self.disabled:
 	    firewall.enabled = 0
-	elif widget == self.simple:
-	    firewall.policy = 1
-	elif widget == self.paranoid:
-	    firewall.policy = 0
+	elif widget == self.enabled:
+	    firewall.enabled = 1
 	else:
 	    raise RuntimeError, "never reached"
 

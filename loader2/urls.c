@@ -144,7 +144,8 @@ char *convertUIToURL(struct iurlinfo *ui) {
 /* see ftp.c:httpGetFileDesc() for details */
 /* set to NULL if not needed */
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename, 
-                         char *extraHeaders, int silentErrors) {
+                         char *extraHeaders, int silentErrors,
+                         int flags) {
     char * buf;
     int fd;
     char * finalPrefix;
@@ -191,17 +192,20 @@ int urlinstStartTransfer(struct iurlinfo * ui, char * filename,
         }
     }
 
-    winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), filename);
+    if (!FL_CMDLINE(flags))
+        winStatus(70, 3, _("Retrieving"), "%s %s...", _("Retrieving"), 
+                  filename);
 
     return fd;
 }
 
-int urlinstFinishTransfer(struct iurlinfo * ui, int fd) {
+int urlinstFinishTransfer(struct iurlinfo * ui, int fd, int flags) {
     if (ui->protocol == URL_METHOD_FTP)
         close(ui->ftpPort);
     close(fd);
 
-    newtPopWindow();
+    if (!FL_CMDLINE(flags))
+        newtPopWindow();
 
     return 0;
 }

@@ -1,5 +1,5 @@
 import personal_desktop
-from rhpl.translate import N_
+from rhpl.translate import N_, _
 import os
 
 class InstallClass(personal_desktop.InstallClass):
@@ -10,6 +10,17 @@ class InstallClass(personal_desktop.InstallClass):
     description = N_("This option installs a graphical desktop "
 		     "environment with tools for software "
 		     "development and system administration. ")
+
+    pkgstext = _("\tDesktop shell (GNOME)\n"
+                 "\tOffice suite (OpenOffice)\n"
+                 "\tWeb browser (Mozilla) \n"
+                 "\tEmail (Evolution)\n"
+                 "\tInstant messaging\n"
+                 "\tSound and video applications\n"
+                 "\tGames\n"
+                 "\tSoftware Development Tools\n"
+                 "\tAdministration Tools\n")
+    
 
     sortPriority = 2
     showLoginChoice = 0

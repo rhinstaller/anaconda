@@ -22,8 +22,8 @@ from flags import flags
 
 class DesktopChoiceWindow (InstallWindow):		
 
-    windowTitle = N_("Workstation Defaults")
-    htmlTag = "workstation-pkgs"
+    windowTitle = N_("Package Defaults")
+    htmlTag = "pkg-default"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -48,52 +48,19 @@ class DesktopChoiceWindow (InstallWindow):
 	vbox.set_border_width (5)
 	hbox = gtk.HBox (gtk.FALSE, 0)
 
-	# ugly hack
-	if instclass.id == "workstation":
-	    self.windowTitle = N_("Workstation Defaults")
-	    self.ics.setTitle (_(self.windowTitle))
-	    self.htmlTag = "workstation-pkgs"
-	    self.ics.readHTML (self.htmlTag)
-	    labeltxt = _(
-		"The default workstation environment includes our recommendations for "
-		"new users, including:\n\n"
-		"\tDesktop shell (GNOME)\n"
-		"\tOffice suite (OpenOffice)\n"
-		"\tWeb browser (Mozilla) \n"
-		"\tEmail (Evolution)\n"
-		"\tInstant messaging\n"
-		"\tSound and video applications\n"
-		"\tGames\n"
-		"\tSoftware Development Tools\n"
-		"\tAdministration Tools\n"
-		"\n"
-		"After installation, additional software can be added or removed using "
-		"the 'redhat-config-packages' tool.\n\n"
-		"If you are familiar with %s, you may have specific packages "
-		"you would like to install or avoid installing. Check the box below to "
-		"customize your installation.") % (productName,)
-	elif instclass.id == "personal desktop":
-	    self.windowTitle = N_("Personal Desktop Defaults")
-	    self.ics.setTitle (_(self.windowTitle))
-	    self.htmlTag = "pdesktop-pkgs"
-	    self.ics.readHTML (self.htmlTag)
-	    labeltxt = _(
-		"The default personal desktop environment includes our recommendations for "
-		"new users, including:\n\n"
-		"\tDesktop shell (GNOME)\n"
-		"\tOffice suite (OpenOffice)\n"
-		"\tWeb browser (Mozilla) \n"
-		"\tEmail (Evolution)\n"
-		"\tInstant messaging\n"
-		"\tSound and video applications\n"
-		"\tGames\n"
-		"\n"
-		"After installation, additional software can be added or removed using "
-		"the 'redhat-config-packages' tool.\n\n"
-		"If you are familiar with %s, you may have specific packages "
-		"you would like to install or avoid installing. Check the box below to "
-		"customize your installation.") % (productName,)
-	else:
+        header = _("The default installation environment includes our "
+                   "recommended package selection, including:\n\n")
+        footer = _("\n\nAfter installation, additional software can be "
+                   "added or removed using the 'redhat-config-packages' "
+                   "tool.\n\n"
+                   "If you are familiar with %s, you may have specific "
+                   "packages you would like to install or avoid "
+                   "installing. Check the box below to "
+                   "customize your installation.") %(productName,)
+
+        if len(instclass.pkgstext) > 0:
+            labeltxt = header + instclass.pkgstext + footer
+        else:
 	    labeltxt = _(
 		"If you would like to change the default package set to be "
 		"installed you can choose to customize this below.")

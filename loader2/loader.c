@@ -283,8 +283,6 @@ void loadUpdates(struct knownDevices *kd, int flags) {
     char * buf;
     int num = 0;
 
-    startNewt(flags);
-
     do { 
         rc = getRemovableDevices(&devNames);
         if (rc == 0) 
@@ -673,7 +671,8 @@ static char *doLoaderMain(char * location,
 	    rhcdfnd = 1;
     }
 
-    startNewt(flags);
+    if (!FL_CMDLINE(flags))
+        startNewt(flags);
 
     step = STEP_LANG;
 

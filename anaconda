@@ -94,7 +94,8 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	    print __name__, "waitpid:", msg
 
 	return status
-	
+
+
     dup_log(_("Starting VNC..."))
 
     # figure out host info
@@ -172,10 +173,10 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 
     if vncpassword is None:
 	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!\n"
-		"You can use the vncpassword=<password> boot option\n"
-		"if you would like to secure the server.\n\n"))
+                  "You can use the vncpassword=<password> boot option\n"
+                  "if you would like to secure the server.\n\n"))
 	
-    dup_log(_("The VNC server now running."))
+    dup_log(_("The VNC server is now running."))
 
     if vncconnecthost is not None:
 	dup_log(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
@@ -736,7 +737,7 @@ if not instClass:
     from installclass import DefaultInstall, availableClasses
     instClass = DefaultInstall(flags.expert)
 
-    if len(availableClasses()) < 2:
+    if len(availableClasses(showHidden = 1)) < 2:
         (cname, cobject, clogo) = availableClasses()[0]
         log("%s is only installclass, using it" %(cname,))
         instClass = cobject(flags.expert)
@@ -814,7 +815,7 @@ if not flags.test and not os.access("/mnt/runtime/usr/X11R6/bin/XFree86", os.X_O
 if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if ksfile is None and display_mode == 'g' and mousedev[0] == "No - mouse":
+    if ksfile is None and not flags.usevnc and display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
