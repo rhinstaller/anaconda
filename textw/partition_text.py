@@ -244,7 +244,7 @@ class PartitionWindow:
             if fileSystemTypeGet(name).isFormattable():
                 fstype.append(name, types[name])
         if request.fstype and request.fstype.getName() in names and \
-           request.fstype.isFormattable():
+           request.fstype.isFormattable() and request.fstype.isSupported():
             fstype.setCurrent(request.fstype)
         else:
             fstype.setCurrent(fileSystemTypeGetDefault())
@@ -463,7 +463,8 @@ class PartitionWindow:
         (fortype, forgrid) = self.makeFsList(origrequest, usecallback = 0,
                                              uselabel = 0)
         if newfstype and newfstype.isFormattable() and \
-           newfstype.getName() in fileSystemTypeGetTypes().keys():
+           newfstype.getName() in fileSystemTypeGetTypes().keys() and \
+           newfstype.isSupported():
             fortype.setCurrent(newfstype)
         subgrid.setField(forgrid, 1, srow, (0,0,0,1))
 
