@@ -1551,7 +1551,7 @@ class VolumeGroupDevice(Device):
             lvm.vgscan()
 
             args = [ "/usr/sbin/vgcreate", "-v",
-                     "-p", "%sk" %(self.physicalextentsize,),
+                     "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
             rc = iutil.execWithRedirect(args[0], args,
