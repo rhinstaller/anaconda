@@ -554,7 +554,7 @@ class ToDo:
                                       "--device",
                                       "/dev/" + self.fdDevice,
                                       kernelTag[1:] ],
-                                    stdout = None, stderr = None,
+                                    stdout = '/dev/tty5', stderr = '/dev/tty5',
 				    searchPath = 1, root = self.instPath)
         w.pop()
         if rc:
@@ -1428,8 +1428,8 @@ class ToDo:
 
 	    for n in kernelVersions:
 		fromFile = "%s/lib/modules/%s/%s.o" % (self.instPath, n, name)
-		to = "%s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
-							subdir, name)
+		to = "%s/lib/modules/%s/kernel/drivers%s/%s.o" % \
+			(self.instPath, n, subdir, name)
 
 		if (os.access(fromFile, os.R_OK)):
 		    log("copying %s to %s" % (fromFile, to))
