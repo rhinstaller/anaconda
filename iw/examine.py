@@ -1,5 +1,6 @@
 from gtk import *
 from iw import *
+from package import *
 
 class UpgradeExamineWindow (InstallWindow):		
 
