@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install 1.130\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-16 01:31+0000\n"
+"PO-Revision-Date: 2004-09-04 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1064,7 +1064,7 @@ msgstr "_Reyna aftur"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Uppsetningaforritið mun nú hætta..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2567,6 +2567,10 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"zSeries vélar geta notað staðlaða SCSI diska um Fibre Channel (FCP) tengingar. "
+"Þú þarft að veita 5 viðföng fyrir hvert tæki: 16 bita tækjanúmer, 16 bita "
+"SCSI vistfang, 64 bita World Wide Port Number (WWPN), 16 bita SCSI LUN og "
+"64 bita FCP LUN."
 
 #: ../zfcp.py:29
 msgid "Device number"
@@ -3301,14 +3305,13 @@ msgstr ""
 "þinni frá öðrum vélum. Leyfa aðgang í hvaða þjónustur?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
-"Security Enhanced Linux (SELinux) býður uppá ítarlegra öryggisstillingar en "
+"Security Enhanced Linux (SELinux) býður uppá ítarlegri öryggisstillingar en "
 "eru til staðar í hefðbundnum Linux kerfum. Það er hægt að setja SELinux upp "
 "í óvirkum ham svo það vari eingöngu við aðgerðum sem væru óheimilar eða í "
 "fullkomlega virkri stöðu."
@@ -5156,6 +5159,8 @@ msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"Þú ert að fara að fjarlægja FCP disk úr stillingum þínum. Ertu viss um að þú "
+"viljir halda áfram?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -6007,19 +6012,16 @@ msgid "No Volume Groups"
 msgstr "Engir sýndardiskhópar"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Vinsamlegast sláðu heiti sýndardisksins."
+msgstr "Engir sýndardiskhópar til að búa til sýndardisk í."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Umbeðin stærð (%10.2f MB) er stærri en hámarksstærð sýndardiska (%10.2f MB). "
-"Til þess að hækka þetta þak getur þú stækkað stærð raundiskabúta þessa "
-"sýndardiskahóps."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6027,16 +6029,16 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"Umbeðin stærð (%10.2f MB) er stærri en tiltækt diskrými í sýndardiskhópnum "
+"(%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Breyta sýndardisk"
+msgstr "Ný disksneið eða sýndardiskur?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Ræsisneiðar mega ekki vera á sýndardiskum."
+msgstr "Viltu búa til nýja disksneið eða sýndardisk?"
 
 #: ../textw/partition_text.py:1367
 msgid "partition"
@@ -7100,7 +7102,7 @@ msgstr "Gat ekki fundið hraðuppsetningarskrá á harða disknum."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Finn ekki harða drifið fyrir BIOS diskinn %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7741,7 +7743,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7821,7 +7823,7 @@ msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7979,7 +7981,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8229,11 +8231,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Krús (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8281,7 +8283,7 @@ msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8293,7 +8295,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
