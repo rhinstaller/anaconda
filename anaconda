@@ -3,13 +3,14 @@
 import sys, getopt, os
 import gettext
 import traceback
+import string
 
 gettext.bindtextdomain("anaconda", "/usr/share/locale")
 gettext.textdomain("anaconda")
 _ = gettext.gettext
 
-(args, extra) = getopt.getopt(sys.argv[1:], 'p:GTtdr:f', 
-          [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
+(args, extra) = getopt.getopt(sys.argv[1:], 'GTtdr:fm:', 
+          [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=', 
 	    'testpath=', 'mountfs', 'traceonly' ])
 
 # remove the arguments - gnome_init doesn't understand them
@@ -24,6 +25,7 @@ rootPath = '/mnt/sysimage'
 localInstall = 0
 forceMount = 0
 mode = 'g'
+method = None
 traceOnly = 0
 
 for n in args:
@@ -34,24 +36,28 @@ for n in args:
 	mode = 't'
     elif (str == '-t' or str == '--test'):
 	test = 1
+    elif (str == '-m' or str == '--method'):
+	method = arg
     elif (str == '-d' or str == '--debug'):
 	debug = 1
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	localInstall = 1
-    elif (str == '-p' or str == '--imagepath'):
-	imagepath = arg
     elif (str == '--mountfs'):
 	forceMount = 1
     elif (str == '--traceonly'):
 	traceOnly = 1
+
+if (not method):
+    print "no install method specified"
+    sys.exit(1)
 
 if (debug):
     import pdb
     pdb.set_trace()
 
 if (not test and not localInstall and os.getpid() > 50):
-    print _("you're running me on a live system! that's incredibly stupid.")
+    print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
 if (os.path.exists('rpmmodule')):
@@ -67,8 +73,6 @@ if (os.path.exists('rpmmodule')):
 #      except:
 #  	mode = 't'
 
-# imports after setting up the path
-from image import InstallMethod
 import rpm
 import lilo
 from todo import ToDo
@@ -88,8 +92,9 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
 
     isys.makeDevInode("psaux", "/tmp/psaux")
 
-    for i in ( "imrc", "im_palette.pal" ):
-        os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
+    if (not test):
+	for i in ( "imrc", "im_palette.pal" ):
+	    os.symlink ("../mnt/source/RedHat/instimage/etc/" + i, "/etc/" + i)
     
     f = open ('/tmp/XF86Config', 'w')
     f.write ("""
@@ -205,9 +210,26 @@ else:
     sys.exit(1)
 
 if traceOnly:
+    import pdb
+    import image
+    import harddrive
     sys.exit(0)
 
-method = InstallMethod(imagepath)
+# imports after setting up the path
+if (method[0:5] == "dir:/"):
+    from image import InstallMethod
+    method = InstallMethod(method[5:])
+elif (method[0:5] == "hd://"):
+    method = method[5:]
+    i = string.index(method, '/')
+    dir = method[i:]
+    drive = method[0:i]
+
+    from harddrive import InstallMethod
+    method = InstallMethod(drive, dir)
+else:
+    print "unknown install method:", method
+    sys.exit(1)
 
 intf = InstallInterface()
 
