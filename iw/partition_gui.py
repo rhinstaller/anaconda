@@ -1301,13 +1301,21 @@ class PartitionWindow(InstallWindow):
         buttonBox = GtkHButtonBox()
         buttonBox.set_layout (BUTTONBOX_SPREAD)
 
-        ops = ((_("New"), self.newCB),
-               (_("Edit"), self.editCb),
-               (_("Delete"), self.deleteCb),
-               (_("Reset"), self.resetCb),
-               (_("Make Raid"), self.makeraidCB))
+        self.accelgroup = GtkAccelGroup()
+
+        ops = ((_("_New"), self.newCB),
+               (_("_Edit"), self.editCb),
+               (_("_Delete"), self.deleteCb),
+               (_("_Reset"), self.resetCb),
+               (_("Make _Raid"), self.makeraidCB))
+        
         for label, cb in ops:
-            button = GtkButton (label)
+            labelwid = GtkLabel(label)
+            key = labelwid.parse_uline(label)
+            button = GtkButton ()
+            button.add(labelwid)
+            button.add_accelerator("clicked", self.accelgroup, key,
+                                   GDK.MOD1_MASK, 0)
             buttonBox.add (button)
             button.connect ("clicked", cb)
         
