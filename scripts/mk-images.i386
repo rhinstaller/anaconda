@@ -104,7 +104,8 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --modules "$PCMCIAMAINMODULES"
 
 #for I in $BOOTDISKDIR; do
-for I in `find $BOOTDISKDIR -type d`; do
+TIER1LANGS="de_DE|fr_FR|it_IT|es_ES|ja_JP"
+for I in $BOOTDISKDIR `find $BOOTDISKDIR -type d | egrep "($TIER1LANGS)"`; do
     BOOTLANG=`basename $I`
     BOOTDIR=`basename $I | cut -d'_' -f1`
 
