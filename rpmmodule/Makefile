@@ -1,4 +1,4 @@
-DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
+PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
 CFLAGS += -fPIC -I/usr/include/rpm -I/usr/include/python1.5 -g
 
@@ -13,5 +13,5 @@ clean:
 	rm -f *.o $(TARGET)
 
 install: all
-	mkdir -p $(DESTDIR)
-	cp $(TARGET) $(DESTDIR)
+	mkdir -p $(PYTHONLIBDIR)
+	cp $(TARGET) $(PYTHONLIBDIR)

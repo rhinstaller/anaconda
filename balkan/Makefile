@@ -20,4 +20,4 @@ clean:
 dos.o: dos.h
 
 install: all
-	#cp _balkanmodule.so $(PYTHONLIBDIR)
+	cp _balkanmodule.so $(PYTHONLIBDIR)

@@ -1,5 +1,3 @@
-DESTDIR = $(TOPDIR)/RedHat/instimage/usr/lib/python1.5/site-packages
-
 CFLAGS = -I/usr/include/python1.5 -g
 OBJECTS = isys.o nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o otherinsmod.o cpio.o probe.o
@@ -7,6 +5,7 @@ STATICLIBS = pci/libpciprobe.a modutils/insmod/libmodutils.a \
 	     modutils/obj/libobj.a modutils/util/libutil.a
 LOADLIBES = -lrpm -lresolv -lz -lpci
 SUBDIRS = modutils pci
+PYTHONLIBDIR = $(DESTDIR)/usr/lib/python1.5/site-packages
 
 all: subdirs _isys.so libisys.a 
 
@@ -20,7 +19,7 @@ clean:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all
-	cp _isys.so isys.py $(DESTDIR)
+	cp _isys.so isys.py $(PYTHONLIBDIR)
 
 subdirs:
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done

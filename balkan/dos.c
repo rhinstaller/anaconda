@@ -57,13 +57,13 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 		  long long partSector, long long sectorOffset) {
     struct singlePartitionTable singleTable;
     int rc;
-    int i;
+    int i, thisPart;
     int gotExtended = 0;
 
     if ((rc = readSingleTable(fd, &singleTable, partSector + sectorOffset)))
 	return rc;
 
-    if (nextNum > 4) {
+    if (nextNum >= 4) {
 	/* This is an extended table */
 	if (singleTable.parts[2].size || singleTable.parts[3].size)
 	    return BALKAN_ERROR_BADTABLE;
@@ -72,15 +72,20 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
     for (i = 0; i < 4; i++) {
 	if (!singleTable.parts[i].size) continue;
 	if (singleTable.parts[i].type == DOSP_TYPE_EXTENDED &&
-	    nextNum >= 5) continue;
+	    nextNum >= 4) continue;
 
-	table->parts[nextNum].startSector = singleTable.parts[i].start + 
+	if (nextNum < 4)
+	    thisPart = i;
+	else
+	    thisPart = nextNum++;
+
+	table->parts[thisPart].startSector = singleTable.parts[i].start + 
 					    sectorOffset;
-	table->parts[nextNum].size = singleTable.parts[i].size;
-	table->parts[nextNum].type = singleTable.parts[i].type;
-
-	nextNum++;
+	table->parts[thisPart].size = singleTable.parts[i].size;
+	table->parts[thisPart].type = singleTable.parts[i].type;
     }
+
+    if (nextNum < 4) nextNum = 4;
 
     /* look for extended partitions */
     for (i = 0; i < 4; i++) {
