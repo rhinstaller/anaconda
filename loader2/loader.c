@@ -870,7 +870,6 @@ int main(int argc, char ** argv) {
         { 0, 0, 0, 0, 0 }
     };
 
-
     /* JKFIXME: very very bad hack */
     secondStageModuleLocation = malloc(sizeof(struct moduleBallLocation));
     secondStageModuleLocation->path = strdup("/mnt/runtime/modules/modules.cgz");
@@ -881,7 +880,7 @@ int main(int argc, char ** argv) {
         return ourInsmodCommand(argc, argv);
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return combined_insmod_main(argc, argv);
-    
+
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
@@ -913,6 +912,11 @@ int main(int argc, char ** argv) {
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
 #endif
 
+    /* workaround for now... */
+#if defined(__x86_64__)
+    flags |= LOADER_FLAGS_NOUSB;
+#endif
+
     openLog(FL_TESTING(flags));
     if (!FL_TESTING(flags))
         openlog("loader", 0, LOG_LOCAL0);
@@ -929,13 +933,11 @@ int main(int argc, char ** argv) {
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = newModuleInfoSet();
-
     if (readModuleInfo(arg, modInfo, NULL, 0)) {
         fprintf(stderr, "failed to read %s\n", arg);
         sleep(5);
         exit(1);
     }
-
     kd = kdInit();
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
@@ -944,6 +946,7 @@ int main(int argc, char ** argv) {
     initializeConsole(modLoaded, modDeps, modInfo, flags);
     checkForRam(flags);
 
+    
     mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, 
                     modInfo, flags);
 
@@ -957,11 +960,6 @@ int main(int argc, char ** argv) {
     
     /* now let's initialize any possible firewire.  fun */
     firewireInitialize(modLoaded, modDeps, modInfo, flags);
-
-    /* JKFIXME: this is kind of a different way to handle pcmcia... I think
-     * it's more correct, although it will require a little bit of kudzu
-     * hacking */
-    /*pcmciaInitialize(modLoaded, modDeps, modInfo, flags);*/
 
     kdFindIdeList(&kd, 0);
     kdFindScsiList(&kd, 0);
