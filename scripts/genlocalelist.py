@@ -78,12 +78,12 @@ charFont["ISO-8859-1"] =  "lat0-sun16"
 charFont["ISO-8859-2"] =  "lat2-sun16"
 #charFont["ISO-8859-3"] =  "iso03"		mk_MK -- no font available
 charFont["ISO-8859-5"] =  "cyr-sun16"
-charFont["ISO-8859-6"] =  "LatArCyrHeb-16"
+charFont["ISO-8859-6"] =  "latarcyrheb-sun16"
 charFont["ISO-8859-7"] =  "iso07.16"
-charFont["ISO-8859-8"] =  "LatArCyrHeb-16"
+charFont["ISO-8859-8"] =  "latarcyrheb-sun16"
 charFont["ISO-8859-9"] =  "lat5-sun16"
 charFont["ISO-8859-15"] =  "lat0-sun16"
-charFont["UTF-8"] = "LatArCyrHeb-16"
+charFont["UTF-8"] = "latarcyrheb-sun16"
 
 
 
