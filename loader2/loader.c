@@ -1355,7 +1355,7 @@ int main(int argc, char ** argv) {
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
-                flags |= FL_NO_SELINUX;
+                flags |= LOADER_FLAGS_NOSELINUX;
             }
         }
     }
