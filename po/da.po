@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.9.1 Install\n"
 "POT-Creation-Date: 2000-06-01 11:33-0400\n"
-"PO-Revision-Date: 2000-06-28 06:17+01:00\n"
-"Last-Translator: KC and BL <dansk@klid.dk>\n"
+"PO-Revision-Date: 2000-06-29 06:17+01:00\n"
+"Last-Translator: KC and BL and KS <dansk@klid.dk>\n"
 "Language-Team: Danish/Dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -73,6 +73,9 @@ msgid ""
 "copy the full text of this exception and file a bug report at "
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
+"En usædvanlig hændelse er sket. Dette er sandsynligvis en fejl. Venligst "
+"kopiér den fulde tekst fra denne hændelse og udfyld en fejlrapport på "
+"http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:344 ../gui.py:597
 msgid "Next"
@@ -277,7 +280,7 @@ msgstr "Ok"
 
 #: ../text.py:141
 msgid "Which model mouse is attached to this computer?"
-msgstr "Hvilken musetype er forbundet til denne komputer?"
+msgstr "Hvilken musetype er forbundet til denne maskine?"
 
 #: ../text.py:150
 msgid "Emulate 3 Buttons?"
@@ -293,11 +296,11 @@ msgstr "Tastaturvalg"
 
 #: ../text.py:191
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Hvilken tastaturtype er forbundet til denne komputer?"
+msgstr "Hvilken tastaturtype er forbundet til denne maskine?"
 
 #: ../text.py:243
 msgid "Upgrade Existing Installation"
-msgstr "Upgradér eksisterende installation"
+msgstr "Opgradér eksisterende installation"
 
 #: ../text.py:263 ../text.py:947
 msgid "Installation Type"
@@ -377,7 +380,7 @@ msgstr ""
 "Velkommen til Red Hat Linux!\n"
 "\n"
 "Denne installationsproces er beskrevet i detaljer i den officielle Red Hat "
-"Linux installationsguide som kan fåes fra Red Hat Software. Hvis du har "
+"Linux installationsguide som kan fås fra Red Hat Software. Hvis du har "
 "adgang til denne manual, bør du læse afsnittet om installation før du "
 "fortsætter.\n"
 "\n"
@@ -396,9 +399,9 @@ msgstr ""
 "Velkommen til Red Hat Linux!\n"
 "\n"
 "Du er i en omkonfigurationstilstand som giver dig mulighed for at "
-"konfigurere din komputers side-specifikke indstillinger.\n"
+"konfigurere din maskines lokalt-specifikke indstillinger.\n"
 "\n"
-"Tryk på Annullér knappen for afslutte uden at ændre dine opsætning."
+"Tryk på Annullér knappen for afslutte uden at ændre din opsætning."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/gnomefsedit.c:1897
 #: ../libfdisk/gnomefsedit.c:2446 ../libfdisk/newtfsedit.c:523
@@ -455,7 +458,7 @@ msgid ""
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "En komplet log af din installation vil befinde sig i /tmp/install.log efter "
-"du har genstartet dit system. Du kan beholde denne fil for senere reference."
+"du har genstartet dit system. Du kan beholde denne fil til senere reference."
 
 #: ../text.py:573 ../text.py:594
 msgid "Complete"
@@ -475,7 +478,7 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"Tryk venligst på retur/enter for at genstarte og husk at fjerne "
+"Tryk venligst på retur/enter for at genstarte, og husk at fjerne "
 "opstartsmediet først, ellers kommer du til at køre hele installationen én "
 "gang til. For oplysninger om hvilke fejlretninger der findes for denne "
 "udgave af Red Hat Linux, læs erratadata som findes på "
@@ -496,7 +499,7 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"For oplysninger om hvilke fejlretninger der findes for denne udgave afRed "
+"For oplysninger om hvilke fejlretninger der findes for denne udgave af Red "
 "Hat Linux, læs erratadata som du finder på http://www.redhat.com.\n"
 "\n"
 "Information om yderligere konfiguration af dit system kan du finde i den "
@@ -552,11 +555,11 @@ msgstr "Intet hjælp er tilgængelig for denne installation."
 
 #: ../text.py:848
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Undtagelse hændte"
 
 #: ../text.py:863 ../text.py:864
 msgid "Debug"
-msgstr "Aflus"
+msgstr "Fejlfind"
 
 #: ../text.py:875
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
@@ -711,7 +714,7 @@ msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 #: ../todo.py:350
 #, c-format
 msgid "Error copying timezone (from %s): %s"
-msgstr "Fejl ved kopiering af fil: %s"
+msgstr "Fejl ved kopiering af tidszone (fra %s): %s"
 
 #: ../todo.py:417
 msgid "Creating boot disk..."
@@ -854,7 +857,7 @@ msgstr "Lodret frekvensområde"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
-msgstr "Kontikonfiguration"
+msgstr "Konti-konfiguration"
 
 #: ../iw/account_gui.py:36
 msgid "Root password accepted."
@@ -882,11 +885,11 @@ msgstr "Indtast venligst adgangskode for bruger."
 
 #: ../iw/account_gui.py:65
 msgid "User password is too short."
-msgstr "Root-adgangskoden er for kort."
+msgstr "Bruger-adgangskoden er for kort."
 
 #: ../iw/account_gui.py:67
 msgid "User passwords do not match."
-msgstr "Root-adgangskoden stemmer ikke."
+msgstr "Bruger-adgangskoden stemmer ikke."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
@@ -953,7 +956,7 @@ msgstr "Anvend NIS"
 
 #: ../iw/auth_gui.py:54
 msgid "Use broadcast to find NIS server"
-msgstr "Brug bredkastning til at finde NIS-tjener"
+msgstr "Brug rundkastning til at finde NIS-tjener"
 
 #: ../iw/auth_gui.py:66
 msgid "NIS Domain: "
@@ -965,7 +968,7 @@ msgstr "NIS-tjener: "
 
 #: ../iw/bootdisk_gui.py:11
 msgid "Bootdisk Creation"
-msgstr "Opret opstartsdiskette"
+msgstr "Fremstil opstartsdiskette"
 
 #: ../iw/bootdisk_gui.py:57
 msgid ""
@@ -974,19 +977,19 @@ msgid ""
 "the boot disk."
 msgstr ""
 "Indsæt en tom diskette i diskettedrevet. Alle data på denne diskette vil "
-"blive slettet under oprettelsen af opstartsdisketten."
+"blive slettet under fremstillingen af opstartsdisketten."
 
 #: ../iw/bootdisk_gui.py:61 ../textw/bootdisk_text.py:66
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"En fejl opstod under oprettelsen af opstartsdisketten. Se efter om der er en "
-"formateret diskette i det første diskettedrev."
+"En fejl opstod under fremstillingen af opstartsdisketten. Se efter om der er "
+"en formateret diskette i det første diskettedrev."
 
 #: ../iw/bootdisk_gui.py:68
 msgid "Skip boot disk creation"
-msgstr "Undlad oprettelse af opstartsdiskette"
+msgstr "Undlad fremstilling af opstartsdiskette"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
@@ -998,7 +1001,7 @@ msgstr "Klar til at installere"
 
 #: ../iw/confirm_gui.py:33
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Klik på næste for at begynde installation af Red Hat Linux"
+msgstr "Klik på næste for at begynde opgradering af Red Hat Linux"
 
 #: ../iw/confirm_gui.py:35
 msgid "Click next to begin installation of Red Hat Linux."
@@ -1055,11 +1058,11 @@ msgstr "Installér pakker for at opfylde afhængigheder"
 
 #: ../iw/dependencies_gui.py:88
 msgid "Do not install packages that have dependencies"
-msgstr "Installér pakker for at opfylde afhængigheder"
+msgstr "Installér ikke pakker der har afhængigheder"
 
 #: ../iw/dependencies_gui.py:92
 msgid "Ignore package dependencies"
-msgstr "Pakkeafhængigheder"
+msgstr "Ignorér pakkeafhængigheder"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1160,7 +1163,7 @@ msgstr "Første sektor på opstartspartitionen"
 
 #: ../iw/lilo_gui.py:189 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Brug linær modus (kræves for nogle SCSI-drev)"
+msgstr "Brug lineær modus (kræves for nogle SCSI-drev)"
 
 #: ../iw/lilo_gui.py:199 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
@@ -1220,7 +1223,7 @@ msgstr "Netværk"
 
 #: ../iw/network_gui.py:164
 msgid "Broadcast"
-msgstr "Bredkastning"
+msgstr "Rundkastning"
 
 #: ../iw/network_gui.py:207 ../loader/net.c:525 ../loader/net.c:723
 #: ../textw/network_text.py:141
@@ -1265,11 +1268,11 @@ msgstr "Størrelse: "
 
 #: ../iw/package_gui.py:344
 msgid "Select Package For Installation"
-msgstr "Vælg pakker for installation"
+msgstr "Vælg pakke for installation"
 
 #: ../iw/package_gui.py:353
 msgid "Total install size: "
-msgstr "Total størrelse: "
+msgstr "Total størrelse for installation: "
 
 #: ../iw/package_gui.py:390 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
@@ -1381,7 +1384,7 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:275
 msgid "Automatic Partitioning Failed"
-msgstr "Automatisk partitionering"
+msgstr "Automatisk partitionering fejlede"
 
 #: ../iw/rootpartition_gui.py:276
 msgid ""
@@ -1393,6 +1396,12 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Der er ikke nok diskplads til at automatisk opdele din disk. Du må "
+"partitionere dine diske manuelt for at Red Hat Linux kan installeres.\n"
+"\n"
+"Venligst vælg det værktøj som du vil bruge til partitionering af dit system "
+"for Red Hat Linux."
 
 #: ../iw/rootpartition_gui.py:283
 msgid "Manual Partitioning"
@@ -1404,14 +1413,17 @@ msgid ""
 "Please choose the tool you would like to use to partition your system for "
 "Red Hat Linux."
 msgstr ""
+"\n"
+"Venligst vælg det værktøj som du vil bruge til partitionering af dit system "
+"for Red Hat Linux."
 
 #: ../iw/rootpartition_gui.py:298
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Automatisk partitionering"
+msgstr "Automatisk partitionering og FJERN DATA"
 
 #: ../iw/rootpartition_gui.py:305
 msgid "Manually partition with Disk Druid"
-msgstr "Manuel partitionering"
+msgstr "Manuel partitionering med Disk druiden"
 
 #: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
@@ -1577,7 +1589,8 @@ msgid ""
 "blank floppy in the first floppy drive. All data on this disk will be erased "
 "during creation of the boot disk."
 msgstr ""
-"Indsæt en tom diskette i diskettedrevet. Alle data på denne diskette vil "
+"Hvis du har installeringsdisketten i diskettedrevet, så fjern den først. "
+"Indsæt så en tom diskette i diskettedrevet. Alle data på denne diskette vil "
 "blive slettet under oprettelsen af opstartsdisketten."
 
 #: ../textw/bootdisk_text.py:57 ../textw/bootdisk_text.py:58
@@ -1593,7 +1606,7 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Nogle få systemer har brug for at få tilført særlige parametre til kernen "
+"Nogle få systemer har brug for at få anført særlige parametre til kernen "
 "under opstarten for at systemet kan fungere. Hvis du har brug for at tilføje "
 "opstartsparametre til kernen, så indtast dem nu. Hvis du ikke behøver det "
 "eller er i tvivl, så lad dette felt stå tomt."
@@ -1672,13 +1685,12 @@ msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"Værtsnavnet er det navn, du giver din komputer. Hvis komputeren er "
-"tilsluttet et netværk, skal din netværksadministrator muligvis tildele dig "
-"et navn."
+"Værtsnavnet er det navn, du giver din maskine. Hvis maskinen er tilsluttet "
+"et netværk, skal din netværksadministrator muligvis tildele dig et navn."
 
 #: ../textw/packages_text.py:90
 msgid "Package :"
-msgstr "Pakke"
+msgstr "Pakke   :"
 
 #: ../textw/packages_text.py:95
 msgid "Size    :"
@@ -1686,7 +1698,7 @@ msgstr "Størrelse: "
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr "Total"
+msgstr "Totalt"
 
 #: ../textw/packages_text.py:249
 msgid ""
@@ -1732,7 +1744,7 @@ msgid ""
 msgstr ""
 "For at installere Red Hat Linux skal du have mindst én partition med 150 Mb "
 "bare til Linux. Vi anbefaler at du placerer den partition på én af de to "
-"første harddiske på dit system så du kan opstarte ind i Linux ved hjælp af "
+"første harddiske på dit system så du kan starte op med Linux ved hjælp af "
 "LILO."
 
 #: ../loader/loader.c:317 ../loader/loader.c:342
@@ -1799,6 +1811,7 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
+"Hverken rod-filsystemet eller swappladsen kan være større end 2000 megabyte."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -1837,7 +1850,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 "Vælg en 'root'-adgangskode. Du skal skrive det to gange for at sikre at du "
-"ved hvad det er og ikke taster forkert (caps lock). Husk at "
+"véd hvad det er og ikke taster forkert (caps lock). Husk at "
 "'root'-adgangskoden er meget vigtig for systemets sikkerhed!"
 
 #: ../loader/urls.c:340 ../textw/userauth_text.py:24
@@ -1908,6 +1921,8 @@ msgstr "Bruger eksisterer"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"'root'-brugeren er allerede konfigureret. Du behøver ikke at tilføje denne "
+"bruger her."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -1967,7 +1982,7 @@ msgstr "eller brug:"
 
 #: ../textw/userauth_text.py:288
 msgid "Request server via broadcast"
-msgstr "Spørg efter tjener via bredkastning"
+msgstr "Spørg efter tjener via rundkastning"
 
 #: ../libfdisk/fsedit.c:817 ../libfdisk/fsedit.c:824 ../libfdisk/fsedit.c:831
 #: ../libfdisk/fsedit.c:840 ../libfdisk/fsedit.c:867 ../libfdisk/fsedit.c:880
@@ -1978,7 +1993,7 @@ msgstr "Ugyldigt monteringspunkt"
 #: ../libfdisk/fsedit.c:818
 #, c-format
 msgid "The %s directory must be on the root filesystem."
-msgstr "%s mappen skal ligge på rodfilsystemet."
+msgstr "%s kataloget skal ligge på rodfilsystemet."
 
 #: ../libfdisk/fsedit.c:825
 #, c-format
@@ -2034,12 +2049,12 @@ msgid ""
 msgstr ""
 "Monteringspunktet %s er ugyldigt.\n"
 "\n"
-"Systempartitioner skal ligge på indfødte Linux-partitioner."
+"Systempartitioner skal ligge på ægte Linux-partitioner."
 
 #: ../libfdisk/fsedit.c:881
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr ""
+msgstr "På denne platform skal /boot ligge på et DOS-kompatibelt filsystem %x."
 
 #: ../libfdisk/fsedit.c:891
 #, c-format
@@ -2050,7 +2065,7 @@ msgid ""
 msgstr ""
 "Monteringspunktet %s er ugyldigt.\n"
 "\n"
-"/usr skal ligge på en indfødt Linux-partition eller et NFS-volumen."
+"/usr skal ligge på en ægte Linux-partition eller et NFS-volumen."
 
 #: ../libfdisk/fsedit.c:919
 msgid "Too Many Drives"
@@ -2068,7 +2083,7 @@ msgstr ""
 
 #: ../libfdisk/fsedit.c:929
 msgid "Error Creating Device Nodes"
-msgstr "Kunne ikke oprette swap på enhed "
+msgstr "Fejl ved oprettelse af enheds-noder"
 
 #: ../libfdisk/fsedit.c:930
 msgid ""
@@ -2076,6 +2091,9 @@ msgid ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
+"En fejl opstod ved forsøg på at oprette enheds-noder for diskdrevene i dit "
+"system. Dette er måske fordi du er løbet tør for diskplads på /tmp "
+"partitionen."
 
 #: ../libfdisk/fsedit.c:946
 msgid "No Drives Found"
@@ -2087,7 +2105,7 @@ msgid ""
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 "En fejl er opstået - ingen gyldige enheder blev fundet på hvilke nye "
-"filsystemer kunne oprettes. Tjek venligst din hardware for at finde grunden "
+"filsystemer kunne oprettes. Tjek venligst din maskine for at finde grunden "
 "til dette problem."
 
 #: ../libfdisk/fsedit.c:1260 ../libfdisk/fsedit.c:1339
@@ -2173,6 +2191,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
+"redigere andre partitioner."
 
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:818
 #: ../libfdisk/gnomefsedit.c:822 ../libfdisk/gnomefsedit.c:824
@@ -2192,7 +2212,7 @@ msgstr "Størrelse (Mb):"
 
 #: ../libfdisk/gnomefsedit.c:913
 msgid "Use remaining space?"
-msgstr "Brug eksisterende ledig plads"
+msgstr "Brug eksisterende ledig plads?"
 
 #: ../libfdisk/gnomefsedit.c:932 ../libfdisk/newtfsedit.c:391
 msgid "Allocation Status:"
@@ -2244,6 +2264,10 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
+"Du har forsøgt at tildele '/' monteringspunktet til en FAT-type partition. "
+"Du kan ikke gøre dette nu, fordi monteringspunkter også er blevet tildelt "
+"til ext2-partitioner.Fjern disse monteringspunkter, så vil du kunne tildele "
+"'/' til denne partition."
 
 #: ../libfdisk/gnomefsedit.c:1217 ../libfdisk/newtfsedit.c:617
 msgid ""
@@ -2315,6 +2339,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
+"tilføje andre partitioner."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2359,6 +2385,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
+"redigere RAID-enheder."
 
 #: ../libfdisk/gnomefsedit.c:1926
 msgid "<Swap Partition"
@@ -2395,6 +2423,10 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"Den opstartelige raid enhed kan kun indeholde partitioner fra de to første "
+"drev på dit system.\n"
+"\n"
+"Disse drev er: "
 
 #: ../libfdisk/gnomefsedit.c:2187
 msgid "Booting From RAID Warning"
@@ -2472,6 +2504,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
+"Du har defineret '/' filsystemet på en ikke-ext2 partition, så du kan ikke "
+"tilføje RAID-enheder."
 
 #: ../libfdisk/gnomefsedit.c:2446
 msgid "Auto-Partition"
@@ -2532,11 +2566,11 @@ msgstr "<ikke sat>"
 
 #: ../libfdisk/gnomefsedit.c:2985
 msgid "Requested"
-msgstr ""
+msgstr "Anmodet"
 
 #: ../libfdisk/gnomefsedit.c:2986
 msgid "Actual"
-msgstr ""
+msgstr "Faktisk"
 
 #: ../libfdisk/gnomefsedit.c:3159
 msgid "Drive"
@@ -2548,7 +2582,7 @@ msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3161
 msgid "Total (M)"
-msgstr "Total"
+msgstr "Total (M)"
 
 #: ../libfdisk/gnomefsedit.c:3162
 msgid "Free (M)"
@@ -2571,8 +2605,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Du skal tildele en rodpartition (/) til en indfødt Linux-partition (ext2) "
-"eller en RAID-partition før installationen kan gå videre."
+"Du skal tildele en rodpartition (/) til en ægte Linux-partition (ext2) eller "
+"en RAID-partition før installationen kan gå videre."
 
 #: ../libfdisk/gnomefsedit.c:3460
 msgid "Partitions"
@@ -2625,7 +2659,7 @@ msgstr "Type:"
 
 #: ../libfdisk/newtfsedit.c:437
 msgid "Unknown"
-msgstr "Ukendt vært"
+msgstr "Ukendt"
 
 #: ../libfdisk/newtfsedit.c:1371
 msgid "Current Disk Partitions"
@@ -2654,8 +2688,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Du skal tildele en rodpartition (/) til en indfødt Linux-partition (ext2) "
-"før installationen kan gå videre."
+"Du skal tildele en rodpartition (/) til en ægte Linux-partition (ext2) før "
+"installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1541
 msgid "No Swap Partition"
@@ -2734,19 +2768,19 @@ msgstr "Har du en driver-diskette?"
 
 #: ../loader/devices.c:206
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Indsæt din driverdisk og tryk \"Ok\" for at fortsætte."
+msgstr "Indsæt din driverdiskette og tryk \"Ok\" for at fortsætte."
 
 #: ../loader/devices.c:218 ../loader/devices.c:417
 msgid "Failed to mount driver disk."
-msgstr "Kunne ikke montere diskette."
+msgstr "Kunne ikke montere driver-diskette."
 
 #: ../loader/devices.c:223
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Disketten du indsatte er ikke en gyldig driverdisk for denne udgave af Red "
-"Hat Linux."
+"Disketten du indsatte er ikke en gyldig driverdiskette til denne udgave af "
+"Red Hat Linux."
 
 #: ../loader/devices.c:274
 msgid ""
@@ -2754,7 +2788,7 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "Hvilken driver skal jeg prøve? Hvis driveren du mangler ikke findes på denne "
-"liste og du har en separat driverdisk, tryk venligst på F2."
+"liste og du har en separat driverdiskette, tryk venligst på F2."
 
 #: ../loader/devices.c:283
 msgid "Specify module parameters"
@@ -2763,20 +2797,20 @@ msgstr "Angiv modulparametre"
 #: ../loader/devices.c:379
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Kunne ikke logge ind på %s: %s"
+msgstr "Kunne ikke indsætte %s modul."
 
 #: ../loader/devices.c:437
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Den forkerte diskette blev indsat"
 
 #: ../loader/devices.c:462
 msgid "Driver Disk"
-msgstr "Drevresumér"
+msgstr "Driverdiskette"
 
 #: ../loader/devices.c:463
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Venligst indsæt %s driverdisketten nu."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -2886,13 +2920,13 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"Hvilken partition, og hvilken mappe på denne partition, indeholder "
-"RedHat/RPMS og RedHat/base mapperne? Hvis du ikke kan se det diskdrev du "
+"Hvilken partition, og hvilket katalog på denne partition, indeholder "
+"RedHat/RPMS og RedHat/base katalogerne? Hvis du ikke kan se det diskdrev du "
 "bruger her, tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:675
 msgid "Directory holding Red Hat:"
-msgstr "Mappe indeholdende Red Hat:"
+msgstr "Katalog indeholdende Red Hat:"
 
 #: ../loader/loader.c:695
 msgid "Select Partition"
@@ -2920,14 +2954,16 @@ msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
+"Du har flere netværksenheder på dette system. Hvilken vil du gerne bruge til "
+"at installere fra?"
 
 #: ../loader/loader.c:1008
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Den mappe ser ikke ud til at indholde et Red Hat installationstræ."
+msgstr "Det katalog ser ikke ud til at indholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:1013
 msgid "I could not mount that directory from the server"
-msgstr "Jeg kunne ikke montere denne mappe fra tjeneren"
+msgstr "Jeg kunne ikke montere dette katalog fra tjeneren"
 
 #: ../loader/loader.c:1054 ../loader/loader.c:1063
 msgid "FTP"
@@ -2939,7 +2975,7 @@ msgstr "Http"
 
 #: ../loader/loader.c:1055
 msgid "Unable to retrieve the first install image"
-msgstr "Kunne ikke hente det andet trins ramdisk"
+msgstr "Kunne ikke hente det første trins ramdisk"
 
 #: ../loader/loader.c:1064
 msgid "Unable to retrieve the second install image"
@@ -2959,7 +2995,7 @@ msgstr "Hvilken type medium befinder rednings-image sig på?"
 
 #: ../loader/loader.c:1310
 msgid "What type of media contains the packages to be installed?"
-msgstr "Hvilken type medium befinder pakkerne som skal installeres sig på?"
+msgstr "Hvilken type medium befinder pakkerne, som skal installeres, sig på?"
 
 #: ../loader/loader.c:1920
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2968,11 +3004,11 @@ msgstr "Kan ikke finde ks.cfg på opstartsdiskette."
 #: ../loader/loader.c:1966
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Kunne ikke læse mappe %s: %s"
+msgstr "Kunne ikke læse katalog %s: %s"
 
 #: ../loader/loader.c:2028
 msgid "Updates Disk"
-msgstr "Opdateringer"
+msgstr "Opdaterings-diskette"
 
 #: ../loader/loader.c:2029
 msgid "Insert your updates disk and press \"OK\" to continue."
@@ -3007,7 +3043,7 @@ msgstr "NFS-tjenernavn:"
 
 #: ../loader/net.c:150 ../loader/urls.c:185
 msgid "Red Hat directory:"
-msgstr "Red Hat mappe:"
+msgstr "Red Hat katalog:"
 
 #: ../loader/net.c:156
 msgid "NFS Setup"
@@ -3024,7 +3060,7 @@ msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
 "    o navn eller IP nummer på din NFS-tjener\n"
-"    o navnet på mappen på den tjener der indeholder\n"
+"    o navnet på kataloget til den tjener der indeholder\n"
 "      Red Hat Linux for din arkitektur (i386/alpha/..)"
 
 #: ../loader/net.c:237
@@ -3042,6 +3078,10 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Din dynamiske IP anmodning returnerede IP konfigurations-information. men "
+"dette indeholdt ikke en DNS navnetjener. Hvis du véd hvor din navneserver "
+"er, så skriv det nu. Hvis du ikke har denne information kan du lade dette "
+"felt være blankt, og installationen vil fortsætte."
 
 #: ../loader/net.c:252
 msgid "Invalid IP Information"
@@ -3139,7 +3179,7 @@ msgstr "Netværkskonfiguration"
 
 #: ../loader/net.c:805
 msgid "Would you like to set up networking?"
-msgstr "Ønsker du at indstille netværk?"
+msgstr "Ønsker du at opsætte netværk?"
 
 #: ../loader/urls.c:73
 #, c-format
@@ -3149,7 +3189,7 @@ msgstr "Kunne ikke logge ind på %s: %s"
 #: ../loader/urls.c:82 ../loader/urls.c:89
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Kune ikke hente %s: %s:"
+msgstr "Kunne ikke hente %s: %s:"
 
 #: ../loader/urls.c:94
 msgid "Retrieving"
@@ -3165,8 +3205,8 @@ msgid ""
 msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
-"    o navnet eller IP-nummeret på din ftptjener\n"
-"    o mappen på tjeneren som indeholder\n"
+"    o navnet eller IP-nummeret på din ftp-tjener\n"
+"    o kataloget på tjeneren som indeholder\n"
 "      Red Hat Linux for din arkitektur\n"
 
 #: ../loader/urls.c:163
@@ -3180,16 +3220,16 @@ msgstr ""
 "Indtast venligst følgende information:\n"
 "\n"
 "    o navnet eller IP-nummeret på din webtjener\n"
-"    o mappen på tjeneren som indeholder\n"
+"    o kataloget på tjeneren som indeholder\n"
 "      Red Hat Linux'en for din arkitektur\n"
 
 #: ../loader/urls.c:181
 msgid "FTP site name:"
-msgstr "Ftp-sidenavn:"
+msgstr "Ftp-stedsnavn:"
 
 #: ../loader/urls.c:182
 msgid "Web site name:"
-msgstr "Websidenavn:"
+msgstr "Webstedsnavn:"
 
 #: ../loader/urls.c:200
 msgid "Use non-anonymous ftp or a proxy server"
@@ -3213,7 +3253,7 @@ msgstr "Du skal indtaste et tjenernavn."
 
 #: ../loader/urls.c:233
 msgid "You must enter a directory."
-msgstr "Du skal indtaste en mappe."
+msgstr "Du skal indtaste et katalog."
 
 #: ../loader/urls.c:238
 msgid "Unknown Host"
