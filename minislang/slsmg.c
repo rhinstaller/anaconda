@@ -28,6 +28,7 @@ Screen_Type;
 
 #define TOUCHED 0x1
 #define TRASHED 0x2
+static int Screen_Trashed = 0;
 
 #if !defined(IBMPC_SYSTEM) || defined(__DJGPP__) || defined(__os2__)
 # define MAX_SCREEN_SIZE 256
@@ -764,10 +765,18 @@ static int Smg_Inited;
 void SLsmg_refresh (void)
 {
    int i;
-   int trashed;
+#ifndef IBMPC_SYSTEM
+   int trashed = 0;
+#endif
 
    if (Smg_Inited == 0) return;
-   trashed = 0;
+
+   if (Screen_Trashed)
+     {
+       Cls_Flag = 1;
+       for ( i = 0; i < Screen_Rows; i++)
+	 SL_Screen[i].flags |= TRASHED;
+     }
 
 #ifndef IBMPC_SYSTEM
    for (i = 0; i < Screen_Rows; i++)
@@ -824,6 +833,7 @@ void SLsmg_refresh (void)
    if (point_visible (1)) (*tt_goto_rc) (This_Row - Start_Row, This_Col - Start_Col);
    (*tt_flush_output) ();
    Cls_Flag = 0;
+   Screen_Trashed = 0;
 }
 
 static int compute_clip (int row, int n, int box_start, int box_end,
@@ -857,6 +867,11 @@ void SLsmg_touch_lines (int row, unsigned int n)
      {
 	SL_Screen[i].flags |= TRASHED;
      }
+}
+
+void SLsmg_touch_screen (void)
+{
+  Screen_Trashed = 1;
 }
 
 #ifndef IBMPC_SYSTEM
@@ -994,6 +1009,7 @@ int SLsmg_init_smg (void)
 	SL_Screen[i].new_hash = SL_Screen[i].old_hash =  Blank_Hash;
 #endif
      }
+   Screen_Trashed = 1;
    Smg_Inited = 1;
    UNBLOCK_SIGNALS
    return 0;
