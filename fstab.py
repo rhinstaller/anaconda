@@ -150,7 +150,6 @@ class Fstab:
 		return (partition, fsystem)
 
     def rootOnLoop(self):
-        if not self.setupFilesystems: return 0
 	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
 	    if mntpoint == '/':
 		if fsystem == "vfat": 
