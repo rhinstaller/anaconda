@@ -114,6 +114,7 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         rc = 0
         
     if rc:
+        partitions.doMetaDeletes(diskset)        
         fsset.setActive(diskSet)
         diskSet.savePartitions ()
         fsset.createLogicalVolumes(instPath)        
