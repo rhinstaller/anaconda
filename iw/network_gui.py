@@ -594,8 +594,7 @@ class NetworkWindow(InstallWindow):
 	    self.globals[global_options[t]] = options[t]
 
 	# bring over the value from the loader
-	if self.network.hostname != "localhost.localdomain" and ((self.anyUsingDHCP() and self.network.overrideDHCPhostname) or not self.anyUsingDHCP()):
-	    self.hostnameEntry.set_text(self.network.hostname)
+	self.hostnameEntry.set_text(self.network.hostname)
 
 #
 # for now always put info in the entries, even if we're using DHCP
