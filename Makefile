@@ -52,7 +52,7 @@ clean:
 subdirs:
 	for d in $(ALLSUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d; done
 
-install-reconfig: all
+install: all
 	@if [ "$(RECFGDESTDIR)" = "" ]; then \
 		echo " "; \
 		echo "ERROR: A destdir is required"; \
@@ -62,6 +62,9 @@ install-reconfig: all
 	mkdir -p $(RECFGDESTDIR)/usr/sbin
 	mkdir -p $(RECFGDESTDIR)/etc/rc.d/init.d
 	mkdir -p $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	mkdir -p $(RECFGDESTDIR)/$(RUNTIMEDIR)
+
+	install -m 755 upd-instroot $(RECFGDESTDIR)/$(RUNTIMEDIR)
 
 	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
 	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda
@@ -71,37 +74,6 @@ install-reconfig: all
 	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	cp -a kudzu/kudzumodule.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRSRECFG); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(RECFGDESTDIR); pwd` -C $$d install; done
-
-install-hd: all
-	@if [ "$(DESTDIR)" = "" ]; then \
-		echo " "; \
-		echo "ERROR: A destdir is required"; \
-		exit 1; \
-	fi
-	mkdir -p $(DESTDIR)/usr/bin
-	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-
-	install anaconda $(DESTDIR)/usr/bin
-	install *.py $(DESTDIR)/$(PYTHONLIBDIR)
-	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
-	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
-
-install: all
-	@if [ "$(DESTDIR)" = "" ]; then \
-		echo " "; \
-		echo "ERROR: A destdir is required"; \
-		exit 1; \
-	fi
-	mkdir -p $(DESTDIR)/usr/bin
-	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
-	install anaconda $(DESTDIR)/usr/bin
-	install raidstart-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	install raidstop-stub $(DESTDIR)/$(PYTHONLIBDIR)
-	install $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
-	install lang-table $(DESTDIR)/$(PYTHONLIBDIR)
-	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
-	install *.so $(DESTDIR)/$(PYTHONLIBDIR)
-	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
 archive: create-archive
 

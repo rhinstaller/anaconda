@@ -1,3 +1,5 @@
+include ../Makefile.inc
+
 VERSION = 6.2
 
 DESTDIR = ../../trees/initrd
@@ -105,14 +107,13 @@ dirs:
 	done
 
 install: all
-#	mkdir -p $(DESTDIR)/sbin
-#	mkdir -p $(DESTDIR)/etc
-#	rm -f $(DESTDIR)/sbin/loader
-#	rm -f $(DESTDIR)/sbin/init
-#	install -s loader $(DESTDIR)/sbin/loader
-#	install -s init $(DESTDIR)/sbin/init
-#	install -m 755 ../kudzu/pcitable $(DESTDIR)/etc
-#	install -m 644 loader.tr $(DESTDIR)/etc
+	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
+	for n in $(BINS); do \
+	    install -s -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
+	done
+	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
+	install -m 644 ../kudzu/pcitable $(DESTDIR)/$(RUNTIMEDIR)/loader
 
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
