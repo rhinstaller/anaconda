@@ -29,8 +29,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
     INSTIMGPATH=$TOPDESTPATH/RedHat/base
     INSTIMGTEMPLATE=$3
     IMGPATH=$4
-    KERNELROOT=/tmp/updboot.kernel.$$
-    MODDEPS=$KERNELROOT/moddeps
+    KERNELBASE=/tmp/updboot.kernel.$$
+    MODDEPS=$KERNELBASE/moddeps
     BUILDARCH=$5
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
@@ -70,11 +70,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
     rm -rf $IMAGEPATH
     rm -rf $FULLMODPATH
     rm -rf $FINALFULLMODPATH
-    rm -rf $KERNELROOT
+    rm -rf $KERNELBASE
     mkdir -p $IMAGEPATH
     mkdir -p $FULLMODPATH
     mkdir -p $FINALFULLMODPATH
-    mkdir -p $KERNELROOT
+    mkdir -p $KERNELBASE
     mkdir -p $INSTIMGPATH
 
 # Stuff that we need
@@ -90,8 +90,8 @@ TOPDIR=$(cd $TOPDIR; pwd)
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
     LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
     PCITABLE=$IMGPATH/usr/share/hwdata/pcitable
-    CACHE=$KERNELROOT/lib/modules/.cache
-    MODULESUSED=$KERNELROOT/modules-used
+    CACHE=$KERNELBASE/.cache
+    MODULESUSED=$KERNELBASE/modules-used
 
     touch $MODULESUSED
 
@@ -225,10 +225,11 @@ intcopymodules () {
 	    echo $n >> $MODULESUSED
 	    for o in $m ; do 
 		echo $n
-		ver=$(echo $o |cut -d / -f 6)
-		if ! [ -d $dir/$ver/$arch ] ; then mkdir -p $dir/$ver/$arch ; fi
-		if ! cp $o $dir/$ver/$arch; then
-		    echo "Failed to copy $o to $dir/$ver/$arch (for module $n)" >&2
+		ver=$(echo $o |cut -d / -f 7)
+		myarch=$(echo $o |cut -d / -f 4)
+		if ! [ -d $dir/$ver/$myarch ] ; then mkdir -p $dir/$ver/$myarch ; fi
+		if ! cp $o $dir/$ver/$myarch; then
+		    echo "Failed to copy $o to $dir/$ver/$myarch (for module $n)" >&2
 		fi
 	    done
         fi
@@ -864,6 +865,7 @@ else
 fi
 for KERNELARCH in $arches; do
   for kernelvers in $vertag; do
+    KERNELROOT=$KERNELBASE/$KERNELARCH
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
     mkdir -p $KERNELROOT/lib/modules/misc
     if [ ! -f "$kpackage" ]; then
@@ -918,7 +920,7 @@ for KERNELARCH in $arches; do
 done
 
 # make the second stage
-find $KERNELROOT/lib/modules/ > $CACHE
+find $KERNELBASE/*/lib/modules/ > $CACHE
 makeSecondStage
-rm -rf $KERNELROOT
+rm -rf $KERNELBASE
 
