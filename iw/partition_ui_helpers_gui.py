@@ -201,6 +201,7 @@ def formatOptionCB(widget, data):
     if widget.get_active():
 	fstype = menu.get_active().get_data("type")
 	setMntPtComboStateFromType(fstype, mntptcombo)
+        menuwidget.grab_focus()
     else:
 	setMntPtComboStateFromType(ofstype, mntptcombo)
 
@@ -245,13 +246,13 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     maintable.attach(label, 0, 2, row, row + 1)
     row = row + 1
 
-    noformatrb = gtk.RadioButton(label=_("Leave unchanged "
+    noformatrb = gtk.RadioButton(label=_("Leave _unchanged "
 					 "(preserve data)"))
     noformatrb.set_active(1)
     maintable.attach(noformatrb, 0, 2, row, row + 1)
     row = row + 1
 
-    formatrb = gtk.RadioButton(label=_("Format partition as:"),
+    formatrb = gtk.RadioButton(label=_("_Format partition as:"),
 				    group=noformatrb)
     formatrb.set_active(0)
     if origrequest.format:
@@ -274,7 +275,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 		     (fstype, fstypeMenu, mountCombo, origrequest.origfstype))
 
     if origrequest.origfstype.isMigratable():
-	migraterb = gtk.RadioButton(label=_("Migrate partition to:"),
+	migraterb = gtk.RadioButton(label=_("Mi_grate partition to:"),
 				    group=noformatrb)
 	migraterb.set_active(0)
 	if origrequest.migrate:
@@ -297,7 +298,7 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migfstypeMenu = None
 
     if showbadblocks:
-        badblocks = gtk.CheckButton(_("Check for bad blocks?"))
+        badblocks = gtk.CheckButton(_("Check for _bad blocks?"))
         badblocks.set_active(0)
         maintable.attach(badblocks, 0, 1, row, row + 1)
         formatrb.connect("toggled", noformatCB, badblocks)

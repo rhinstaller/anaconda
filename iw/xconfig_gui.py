@@ -204,7 +204,8 @@ class XCustomWindow (InstallWindow):
         hbox3 = gtk.HBox (gtk.FALSE, 5)
         hbox4 = gtk.HBox (gtk.FALSE, 5)
 
-        frame1 = gtk.Frame (_("Color Depth:"))
+        frame1 = gtk.Frame (_("_Color Depth:"))
+        frame1.get_label_widget().set_property("use-underline", gtk.TRUE)
         frame1.set_shadow_type (gtk.SHADOW_NONE)
         frame1.set_border_width (10)
         hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
@@ -218,7 +219,9 @@ class XCustomWindow (InstallWindow):
         self.depth_combo.set_popdown_strings (self.avail_depths)
 
         frame1.add (self.depth_combo)
-        frame2 = gtk.Frame (_("Screen Resolution:"))
+        frame1.get_label_widget().set_mnemonic_widget(self.depth_combo.entry)
+        frame2 = gtk.Frame (_("_Screen Resolution:"))
+        frame2.get_label_widget().set_property("use-underline", gtk.TRUE)
         frame2.set_shadow_type (gtk.SHADOW_NONE)
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
@@ -270,6 +273,7 @@ class XCustomWindow (InstallWindow):
             self.res_combo.set_popdown_strings (available[self.selectedDepth])
 
         frame2.add (self.res_combo)
+        frame2.get_label_widget().set_mnemonic_widget(self.res_combo.entry)
 
         # apply current configuration to UI
         count = 0
@@ -303,7 +307,7 @@ class XCustomWindow (InstallWindow):
 
         if not self.cantprobe:
             test = gtk.Alignment (.9, 0, 0, 0)
-            button = gtk.Button (_("   Test _Setting   "))
+            button = gtk.Button (_("   _Test Setting   "))
             button.connect ("clicked", self.testPressed)
             test.add (button)
             self.box.pack_start (test, gtk.FALSE)
@@ -381,7 +385,7 @@ class XCustomWindow (InstallWindow):
         self.hbox5 = gtk.HBox (gtk.TRUE, 2)
         frame4.add (self.hbox5)
 
-        self.text = gtk.RadioButton (None, (_("_Text")))
+        self.text = gtk.RadioButton (None, (_("T_ext")))
         self.graphical = gtk.RadioButton (self.text, (_("_Graphical")))
 
         self.runLevel = self.desktop.getDefaultRunLevel()

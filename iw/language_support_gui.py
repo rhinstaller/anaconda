@@ -142,7 +142,7 @@ class LanguageSupportWindow (InstallWindow):
         vbox = gtk.VBox (gtk.FALSE, 10)
         hbox = gtk.HBox (gtk.FALSE)
         
-        label = gtk.Label (_("Choose the default language for this system:   "))
+        label = gtk.Label (_("_Choose the default language for this system:   "))
         hbox.pack_start (label, gtk.FALSE, 20)
 
         self.combo = gtk.Combo ()
