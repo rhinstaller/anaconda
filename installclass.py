@@ -301,7 +301,7 @@ class BaseInstallClass:
         # XXX they could have sensitive hardware, but we need this info =\
         videohw = videocard.VideoCardInfo()
         if videohw:
-            id.setVideoCard(videohw)            
+            id.setVideoCard(videohw)
             
         if (not noProbe):
             monitorhw = monitor.MonitorInfo()
@@ -334,7 +334,7 @@ class BaseInstallClass:
         else:
             id.desktop.setDefaultRunLevel(3)
 
-        xcfg = XF86Config(id.videocard, id.monitor, id.mouse)
+        xcfg = XF86Config(id.videocard.primaryCard(), id.monitor, id.mouse)
 
         available = xcfg.availableModes()
         
