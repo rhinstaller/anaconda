@@ -170,9 +170,12 @@ class BootloaderWindow (InstallWindow):
         i = 0
         while i < len:
             cur = text[i]
-# lilo did not allow ' '!, grub does
-#            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
-            if cur == '#' or cur == '$' or cur == '=':
+
+            # lilo did not allow ' '!, grub does
+            if self.lilo_radio.get_active() and (cur == ' ' or cur == '#' or cur == '$' or cur == '='):
+                entry.emit_stop_by_name("insert_text")
+                return
+            elif cur == '#' or cur == '$' or cur == '=':
                 entry.emit_stop_by_name ("insert_text")
                 return
             i = i + 1
