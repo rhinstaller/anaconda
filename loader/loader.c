@@ -2030,21 +2030,15 @@ static char * doMountImage(char * location,
     if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
 	return "cdrom://unknown/mnt/source/.";
     
-#if defined (INCLUDE_LOCAL) || defined (__sparc__) || defined (__alpha__)
-# if defined (__sparc__) || defined (__alpha__)
-    /* Check any attached CDROM device for a
-       Red Hat CD. If there is one there, just die happy */
-    if (!FL_ASKMETHOD(flags)) {
-# else
+#if defined (INCLUDE_LOCAL)
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
-    if (!FL_ASKMETHOD(flags)) {
-# endif
+    if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
        url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
 			flags, 1, 1);
        if (url) return url;
     }
-#endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
+#endif /* defined (INCLUDE_LOCAL) */
 
     startNewt(flags);
 
