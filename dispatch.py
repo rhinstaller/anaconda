@@ -21,7 +21,7 @@ from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
-from packages import doPreInstall, doPostInstall
+from packages import doPreInstall, doPostInstall, doPostAction
 from autopart import doAutoPartition
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
@@ -119,6 +119,7 @@ installSteps = [
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.langSupport",
                                          "id.comps")),
+    ("dopostaction", doPostAction, ("id", "instPath")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
                                     "id.hdList", "instPath")),

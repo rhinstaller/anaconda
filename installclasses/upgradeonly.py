@@ -37,6 +37,7 @@ class InstallClass(BaseInstallClass):
                     "installpackages",
                     "postinstallconfig",
                     "instbootloader",
+                    "dopostaction",
 		    "bootdisk",
 		    "complete"
 		)

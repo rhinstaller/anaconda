@@ -46,6 +46,9 @@ def queryUpgradeContinue(intf, dir):
         sys.exit(0)
     return DISPATCH_FORWARD
 
+def doPostAction(id, instPath):
+    id.instClass.postAction(instPath, flags.serial)        
+
 def writeConfiguration(id, instPath):
     log("Writing main configuration")
     if not flags.test:

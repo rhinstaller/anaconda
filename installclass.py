@@ -104,6 +104,7 @@ class BaseInstallClass:
                  "postinstallconfig",
 		 "writeconfig",
 		 "instbootloader",
+                 "dopostaction",
 		 "writexconfig",
 		 "writeksconfig",
 		 "bootdisk",
