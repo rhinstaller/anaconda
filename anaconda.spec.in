@@ -61,9 +61,9 @@ fi
 %defattr(-,root,root)
 %doc COPYING
 /usr/sbin/anaconda
-/usr/share/anaconda/*
+/usr/share/anaconda
 /usr/share/locale/*/*/*
-/usr/lib/anaconda/*
+/usr/lib/anaconda
 %ifarch i386
 /usr/sbin/ddcprobe
 %endif
@@ -79,6 +79,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Wed Jul 18 2001 Jeremy Katz <katzj@redhat.com>
+- own /usr/lib/anaconda and /usr/share/anaconda
 
 * Fri Jan 12 2001 Matt Wilson <msw@redhat.com>
 - sync text with specspo
