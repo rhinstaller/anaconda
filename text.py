@@ -976,7 +976,7 @@ class InstallInterface:
 
     def __init__(self):
         self.screen = SnackScreen()
-        self.welcomeText = _("Red Hat Linux (C) 1999 Red Hat, Inc.")
+        self.welcomeText = _("Red Hat Linux (C) 2000 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
 # uncomment this line to make the installer quit on <Ctrl+Z>
