@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-04-21 22:43+0200\n"
+"PO-Revision-Date: 2004-08-17 18:29+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -603,20 +603,31 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Fjärrinloggning (SSH)"
+
+msgid "Remote Login"
+msgstr "Fjärrinloggning"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Webbserver (HTTP, HTTPS)"
+
+msgid "Web server"
+msgstr "Webbserver"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Filöverföring (FTP)"
+
+msgid "File Transfer"
+msgstr "Filöverföring"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-post (SMTP)"
+msgstr "E-postserver (SMTP)"
+
+msgid "Mail Server"
+msgstr "E-postserver"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1008,11 +1019,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Följande fel upptäcktes vid tolkning av din kickstart-konfiguration:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Fel vid öppnande av kickstartfilen %s: %s"
+msgstr "Fel vid tolkning av kickstartkonfigurationen"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1022,10 +1035,10 @@ msgstr ""
 "Sätt in en diskett nu. Allt innehåll på disketten kommer att tas bort, så "
 "var noga med valet av diskett."
 
+# Antar att detta är vänster-till-höger.
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Standard"
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1181,8 +1194,11 @@ msgid "Change CDROM"
 msgstr "Byt cd-romskiva"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
+msgstr "Sätt in %s-skiva %d för att fortsätta."
+
+msgid "Please insert disc %d to continue."
 msgstr "Sätt in skiva %d för att fortsätta."
 
 #: ../image.py:320
@@ -1196,7 +1212,7 @@ msgstr "Detta är inte rätt %s-cd."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Kan inte komma åt cd-romenheten."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1540,12 +1556,12 @@ msgstr ""
 "Enheten %s är LDL-formaterad istället för CDL-formaterad. LDL-formaterade "
 "DASD:er stöds inte för användning under en installation av %s. Om du vill "
 "använda denna hårddisk för installation måste den initieras om, vilket "
-"kommer att förstöra ALL DATA på denna hårddisk.\n"
+"kommer att förstöra ALL DATA på denna enhet.\n"
 "\n"
 "Vill du formatera om denna DASD med CDL-format?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1553,22 +1569,25 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"Partitionstabellen på enheten /dev/%s är av en oväntad typ %s för din "
-"arkitektur. För att denna disk ska kunna användas för installation av %s "
-"måste den initieras om, vilket kommer att förstöra ALL DATA på denna "
-"hårddisk.\n"
+"/dev/%s har en %s-partitionslayout. För att denna disk ska kunna användas "
+"för installation av %s måste den initieras om, vilket kommer att förstöra "
+"ALL DATA på denna enhet.\n"
 "\n"
 "Vill du initiera denna enhet?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Ignorera"
+msgstr "_Ignorera enhet"
+
+msgid "_Ignore"
+msgstr "_Ignorera"
+
+msgid "Ignore drive"
+msgstr "Ignorera enhet"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formatera"
+msgstr "_Formatera enhet"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1585,7 +1604,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Vänta medan enhet %s formateras...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1596,8 +1615,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"Partitionstabellen på enhet %s är oläsbar. För att skapa nya partitioner "
-"måste den initieras, vilket kommer att förstöra ALL DATA på denna enhet.\n"
+"Partitionstabellen på enhet %s (%s) är oläsbar. För att skapa nya "
+"partitioner måste den initieras, vilket kommer att förstöra ALL DATA på "
+"denna enhet.\n"
 "\n"
 "Denna åtgärd kommer att åsidosätta alla tidigare val under installationen om "
 "vilka enheter som ska ignoreras.\n"
@@ -2513,9 +2533,11 @@ msgid "Connecting..."
 msgstr "Ansluter..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Kan inte redigera"
+msgstr "Kan inte starta X"
+
+msgid "Unable to start X"
+msgstr "Kan inte starta X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2523,20 +2545,30 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X kunde inte startas på din maskin. Vill du starta VNC för att ansluta till "
+"denna dator från en annan dator och utföra en grafisk installation, eller "
+"fortsätta med en textlägesinstallation?"
+
+msgid ""
+"X was unable to start on your machine.  Would you like to start VNC to "
+"connect to this computer from another computer and perform a graphical "
+"install, or continue with a text mode install?"
+msgstr ""
+"X kunde inte startas på din maskin. Vill du starta VNC för att ansluta till "
+"denna dator från en annan dator och utföra en grafisk installation, eller "
+"fortsätta med en textlägesinstallation?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
 msgstr "Använd textläge"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Startar VNC..."
+msgstr "Starta VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "X-konfiguration"
+msgstr "VNC-konfiguration"
 
 #: ../vnc.py:59
 msgid "No password"
@@ -2548,6 +2580,18 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Ett lösenord kommer att förhindra oauktoriserade lyssnare från att ansluta "
+"och övervaka installationsförloppet. Ange ett lösenord att använda för "
+"installationen"
+
+msgid ""
+"A password will prevent unauthorized listeners connecting and monitoring "
+"your installation progress.  Please enter a password to be used for the "
+"installation."
+msgstr ""
+"Ett lösenord kommer att förhindra oauktoriserade lyssnare från att ansluta "
+"och övervaka installationsförloppet. Ange ett lösenord att använda för "
+"installationen."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2570,9 +2614,8 @@ msgid "Password Length"
 msgstr "Lösenordslängd"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Lösenordet måste vara minst 6 tecken långt."
+msgstr "Lösenordet måste vara minst sex tecken långt."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2616,6 +2659,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"rootkontot används för administration av systemet. Ange ett lösenord för "
+"rootanvändaren."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3264,6 +3309,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Med en brandvägg kan du tillåta åtkomst för andra till specifika tjänster på "
+"din dator. Tillåt åtkomst för vilka tjänster?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3272,11 +3319,27 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) möjliggör mer finjusterbar "
+"säkerhetsstyrning än vad som är tillgängligt i ett traditionellt "
+"Linuxsystem. Det kan konfigureras i antingen ett inaktiverat tillstånd, ett "
+"tillstånd som endast varnar om saker som skulle nekas, eller ett "
+"fullständigt aktiverat tillstånd."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
+msgstr "Aktivera _SELinux?:"
+
+msgid "Enable SELinux"
 msgstr "Aktivera SELinux"
+
+msgid "Enable SELinux:"
+msgstr "Aktivera SELinux:"
+
+msgid "Enable _SELinux:"
+msgstr "Aktivera _SELinux:"
+
+msgid "Enable _SELinux?"
+msgstr "Aktivera _SELinux?"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3834,13 +3897,15 @@ msgid "_Point to Point (IP)"
 msgstr "_Punkt till punkt (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "SCSI"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "_Krypteringsnyckel"
+
+msgid "Encryption key"
+msgstr "Krypteringsnyckel"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5516,12 +5581,11 @@ msgstr "Ogiltigt val"
 
 #: ../textw/firewall_text.py:87
 msgid "You cannot customize a disabled firewall."
-msgstr "Du kan inte anpassa en avstängd brandvägg."
+msgstr "Du kan inte anpassa en inaktiverad brandvägg."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Anpassa grafikkonfiguration"
+msgstr "Anpassa brandväggskonfiguration"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5623,13 +5687,12 @@ msgid "Point to Point (IP)"
 msgstr "Punkt till punkt (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
-#, fuzzy
 msgid "ESSID"
-msgstr "SCSI"
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Krypteringsnyckel"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6776,32 +6839,28 @@ msgstr ""
 "Vilken vill du använda?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Du har flera enheter som kan tjäna som källor för en drivrutinsdiskett. "
-"Vilken vill du använda?"
+"Det finns flera partitioner på denna enhet som kan innehålla avbilden för "
+"drivrutinsdisketten. Vilken vill du använda?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Misslyckades med att montera disketten."
+msgstr "Misslyckades med att montera partitionen."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Välj drivrutin"
+msgstr "Välj avbild för drivrutinsdiskett"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Välj den fil som är avbilden för drivrutinsdisketten."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Montering av drivrutinsdisketten misslyckades."
+msgstr "Misslyckades med att läsa in drivrutinsdisketten från fil."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7017,9 +7076,10 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Hittade inte ks.cfg på startdisketten."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Felaktigt argument till HD-kickstartmetodkommandot %s: %s"
+msgstr ""
+"Felaktigt argument till kickstartmetodkommandot för nedstängning %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7160,8 +7220,11 @@ msgid "Add Device"
 msgstr "Lägg till enhet"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
+msgstr "inläsaren har redan körts. Startar skal.\n"
+
+msgid "loader has already been run.  Starting shell."
 msgstr "inläsaren har redan körts. Startar skal."
 
 #: ../loader2/loader.c:1484
@@ -7302,11 +7365,13 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s är ett trådlöst nätverkskort. Ange den ESSID och krypteringsnyckel som "
+"behövs för åtkomst at ditt trådlösa nätverk. Om ingen nyckel behövs bör du "
+"lämna fältet tomt, och installationen kommer att fortsätta."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Diverse inställningar"
+msgstr "Inställningar för trådlöst nätverk"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8209,9 +8274,8 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "Zaporizjzja, Ö Lugansk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Arabic"
-msgstr "Afrika"
+msgstr "Arabiska"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8266,9 +8330,8 @@ msgid "German"
 msgstr "Tyska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Letar"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8292,7 +8355,7 @@ msgstr "Koreanska"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Makedonska"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8316,7 +8379,10 @@ msgstr "Portugisiska(brasiliansk)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
+
+msgid "Panjabi"
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8335,9 +8401,8 @@ msgid "Swedish"
 msgstr "Svenska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmanien"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8349,7 +8414,7 @@ msgstr "Ukrainska"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamesiska"
 
 #. generated from lang-table
 msgid "Welsh"
