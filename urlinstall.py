@@ -47,8 +47,9 @@ def urlretrieve(location, file):
 	# sanity check result - sometimes FTP doesnt
 	# catch a file is missing
 	try:
-	    clen = file.info()['content-length']
-	except:
+	    clen = url.info()['content-length']
+	except Exception, e:
+            logMessage("exception %s getting content-length" %(e,))
 	    clen = 0
 
 	if clen < 1:
