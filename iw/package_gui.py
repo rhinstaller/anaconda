@@ -314,7 +314,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.ctree.set_line_style(CTREE_LINES_NONE)
 
         # Kludge to get around CTree s extremely broken focus behavior
-        self.ctree.unset_flags (CAN_FOCUS)
+        # self.ctree.unset_flags (CAN_FOCUS)     
 
         if (not self.__dict__.has_key ("open_p")):
             self.open_p, self.open_b = create_pixmap_from_xpm_d (self.ctree,
