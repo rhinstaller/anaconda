@@ -63,4 +63,7 @@ class BootdiskWindow (InstallWindow):
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
         box.pack_start (self.bootdisk, FALSE)
 
+	if self.todo.fstab.rootOnLoop():
+	    self.bootdisk.set_sensitive(FALSE)
+
         return box
