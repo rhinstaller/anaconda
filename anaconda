@@ -359,6 +359,7 @@ if traceOnly:
     import syslogd
     import installclass
     import re
+    import rescue
 
     installclass.availableClasses()
 
