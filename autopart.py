@@ -1405,7 +1405,7 @@ def getAutopartitionBoot():
         return ("/boot/efi", "vfat", 100, None, 0, 1)
     elif (iutil.getPPCMachine() == "pSeries" or
           iutil.getPPCMachine() == "iSeries"):
-        return(None, "PPC PReP Boot", 8, None, 0, 1)
+        return(None, "PPC PReP Boot", 4, None, 0, 1)
     else:
         return ("/boot", None, 100, None, 0, 1)
 
