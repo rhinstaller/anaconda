@@ -91,6 +91,7 @@ class FileSystemType:
         self.linuxnativefs = 0
         self.partedFileSystemType = None
         self.partedPartitionFlags = []
+        self.maxSize = 2 * 1024 * 1024
         
     def mount(self, device, mountpoint, readOnly=0):
         if not self.isMountable():
@@ -154,6 +155,10 @@ class FileSystemType:
     def getPartedPartitionFlags(self):
         return self.partedPartitionFlags
 
+    # note that this returns the maximum size of a filesystem in megabytes
+    def getMaxSize(self):
+        return self.maxSize
+
 class ext2FileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -162,6 +167,7 @@ class ext2FileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.name = "ext2"
+        self.maxSize = 4 * 1024 * 1024
 
     def formatDevice(self, entry, progress, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -193,6 +199,7 @@ class ext3FileSystem(FileSystemType):
         self.checked = 1
         self.linuxnativefs = 1
         self.name = "ext3"
+        self.maxSize = 4 * 1024 * 1024
 
     def formatDevice(self, entry, progress, message, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
@@ -238,6 +245,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.checked = 0
         self.linuxnativefs = 0
         self.name = "software raid component"
+        self.maxSize = 4 * 1024 * 1024
 
     def isSupported(self):
         # XXX look at /proc/mdstat ?
@@ -257,6 +265,7 @@ class swapFileSystem(FileSystemType):
         self.partedFileSystemType = parted.file_system_type_get("linux-swap")
         self.formattable = 1
         self.name = "swap"
+        self.maxSize = 2 * 1024
 
     def mount(self, device, mountpoint):
         isys.swapon (device)
