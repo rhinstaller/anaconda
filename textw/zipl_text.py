@@ -36,8 +36,9 @@ class ZiplWindow:
             kernelparms = bl.args.get()
         if isys.getDasdPorts() and (kernelparms.find("dasd=") == -1):
             if len(kernelparms) > 0:
-                kernelparms + " "
-            kernelparms = kernelparms + "dasd=" + isys.getDasdPorts()
+                kernelparms = "%s dasd=%s" %(kernelparms, isys.getDasdPorts())
+            else:
+                kernelparms = "dasd=%s" %(isys.getDasdPorts(),)
         kernelentry.set(kernelparms)
 
         if bl.args and bl.args.chandevget():
