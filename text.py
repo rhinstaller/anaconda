@@ -505,6 +505,9 @@ def debugSelf(screen):
 def spawnShell(screen):
     screen.suspend()
     print "\n\nType <exit> to return to the install program.\n"
-    iutil.execWithRedirect("/bin/sh", ["-/bin/sh"])
+    if os.path.exists("/bin/sh"):
+        iutil.execWithRedirect("/bin/sh", ["-/bin/sh"])
+    else:
+        print "Unable to find /bin/sh to execute!  Not starting shell"
     time.sleep(5)
     screen.resume()
