@@ -1,4 +1,9 @@
-#!/bin/bash -x
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: $0 /path/to/tree"
+    return 1
+fi
 
 p=$1
 
