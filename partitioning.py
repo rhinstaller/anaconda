@@ -385,6 +385,17 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
     return None
 
 
+# add delete specs to requests for all logical partitions in part
+def deleteAllLogicalPartitions(part, requests):
+    for partition in get_logical_partitions(part.geom.disk):
+        request = requests.getRequestByDeviceName(get_partition_name(partition))
+        requests.removeRequest(request)
+        if request.type == REQUEST_PREEXIST:
+            drive = partition.geom.disk.dev.path[5:]
+            delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
+            requests.addDelete(delete)
+            
+
 class DeleteSpec:
     def __init__(self, drive, start, end):
         self.drive = drive
