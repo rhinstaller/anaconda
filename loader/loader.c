@@ -135,6 +135,11 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
 int continuing = 0;
+#ifdef INCLUDE_KON
+int haveKon = 1;
+#else
+int haveKon = 0;
+#endif
 
 void doSuspend(void) {
     newtFinished();
