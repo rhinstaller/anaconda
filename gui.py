@@ -19,8 +19,8 @@ class LanguageWindow:
         ics.setHTML ("<HTML><BODY>Select which language you would like"
                      "to use for the system default.</BODY></HTML>")
         
-        self.languages = ("English", "German", "French", "Spanish",
-                          "Hungarian", "Japanese", "Chinese", "Korean")
+        self.languages = ["English", "German", "French", "Spanish",
+                          "Hungarian", "Japanese", "Chinese", "Korean"]
         self.question = ("What language should be used during the "
                          "installation process?")
         
@@ -32,8 +32,8 @@ class LanguageWindow:
         box = GtkVBox (FALSE, 10)
         language1 = GtkRadioButton (None, self.languages[0])
         box.pack_start (language1, FALSE)
-        for i in range (1, len (self.languages)):
-            language = GtkRadioButton (language1, self.languages[i])
+        for locale in self.languages[1:]:
+            language = GtkRadioButton (language1, locale)
             box.pack_start (language, FALSE)
 
         align = GtkAlignment (0.5, 0.5)
