@@ -15,6 +15,7 @@
 
 import parted
 import math
+import copy
 import string, sys
 import fsset
 from partitioning import *
@@ -860,9 +861,10 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass):
                 req.format = 1
                 req.fstype = request.fstype
         else:
-            if not request.drive:
-                request.drive = drives
-            partitions.addRequest(request)
+            req = copy.copy(request)
+            if not req.drive:
+                req.drive = drives
+            partitions.addRequest(req)
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane 
