@@ -657,8 +657,10 @@ static int writeModulesConf(moduleList list, int fd) {
             write(fd, buf, strlen(buf));
         }
     }
-
-    /* JKFIXME: used to have special casing for iucv stuff on s390 */
+    if (getenv("IUCV")) {
+        sprintf(buf, "options netiucv %s\n", getenv("IUCV"));
+        write(fd, buf, strlen(buf));
+    }
 
     return 0;
 }
