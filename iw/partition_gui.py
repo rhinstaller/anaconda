@@ -820,33 +820,26 @@ class PartitionWindow(InstallWindow):
 # XXX this breaks when we try to refresh tree after a refresh
 #
 # XXX - this breaks self.refresh calls!!!	
-#	    lvmparent = self.tree.append(None)
-#	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
-            lvmparent = None
+	    lvmparent = self.tree.append(None)
+	    self.tree[lvmparent]['Device'] = _("LVM Physical Volumes")
+#            lvmparent = None
             for vgname in lvmrequests.keys():
                 vgparent = self.tree.append(lvmparent)
 		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
 		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
-		rsize = requestSize(vgrequest, self.partitions, self.diskset)
-		print "volume group %s size is %s" % (vgname, rsize)
-		self.tree[vgparent]['Mount Point'] = ""
-		self.tree[vgparent]['Size (MB)'] = "%g" % (rsize,)
-		self.tree[vgparent]['Type'] = _("LVM Volume Group")
-		if lvmrequests[vgname]:
-		    self.tree[vgparent]['IsLeaf'] = gtk.FALSE
-		else:
-		    self.tree[vgparent]['IsLeaf'] = gtk.TRUE
+		rsize = requestSize(vgrequest, self.diskset)
+		print "volume group %s size is %g" % (vgname, rsize)
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
-#                self.tree[vgparent]['PyObject'] = vgrequest.volumeGroupName
+		self.tree[vgparent]['Size (MB)'] = "%g" % (rsize,)
+		self.tree[vgparent]['Type'] = _("LVM Volume Group")
+		self.tree[vgparent]['Mount Point'] = ""
                 self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)
 		    self.tree[iter]['Device'] = lvrequest.logicalVolumeName
 		    self.tree[iter]['Mount Point'] = lvrequest.mountpoint
 		    self.tree[iter]['Size (MB)'] = "%g" % (lvrequest.size,)
-		    print lvrequest.logicalVolumeName
-#		    self.tree[iter]['PyObject'] = lvrequest.logicalVolumeName
 		    self.tree[iter]['PyObject'] = str(lvrequest.uniqueID)
 		
                     ptype = lvrequest.fstype.getName()
@@ -854,17 +847,19 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
 		    self.tree[iter]['IsLeaf'] = gtk.TRUE
 		    self.tree[iter]['Type'] = ptype
-		    self.tree[iter]['Start'] = _("N/A")
-		    self.tree[iter]['End'] = _("N/A")
+		    self.tree[iter]['Start'] = ""
+		    self.tree[iter]['End'] = ""
+#		    self.tree[iter]['Start'] = _("N/A")
+#		    self.tree[iter]['End'] = _("N/A")
 
         # handle RAID next
         raidcounter = 0
         raidrequests = self.partitions.getRaidRequests()
         if raidrequests:
 # XXX - this breaks self.refresh calls!!!	
-#	    raidparent = self.tree.append(None)
-#	    self.tree[raidparent]['Device'] = _("RAID Devices")
-            raidparent = None
+	    raidparent = self.tree.append(None)
+	    self.tree[raidparent]['Device'] = _("RAID Devices")
+#            raidparent = None
             for request in raidrequests:
                 iter = self.tree.append(raidparent)
 
@@ -883,21 +878,20 @@ class PartitionWindow(InstallWindow):
                 self.tree[iter]['IsLeaf'] = gtk.TRUE
                 self.tree[iter]['Device'] = device
                 self.tree[iter]['Type'] = ptype
-		self.tree[iter]['Start'] = _("N/A")
-		self.tree[iter]['End'] = _("N/A")
-#                self.tree[iter]['Start'] = ""
-#                self.tree[iter]['End'] = ""
-                self.tree[iter]['Size (MB)'] = "%g" % (request.size)
+#		self.tree[iter]['Start'] = _("N/A")
+#		self.tree[iter]['End'] = _("N/A")
+                self.tree[iter]['Start'] = ""
+                self.tree[iter]['End'] = ""
+                self.tree[iter]['Size (MB)'] = "%g" % (request.size,)
                 self.tree[iter]['PyObject'] = str(request.uniqueID)
 
                 raidcounter = raidcounter + 1
                 
 	# now normal partitions
 # XXX - this breaks self.refresh calls!!!	
-#	drvparent = self.tree.append(None)
-#	self.tree[drvparent]['Device'] = _("Hard Drives")
-
-	drvparent=None
+	drvparent = self.tree.append(None)
+	self.tree[drvparent]['Device'] = _("Hard Drives")
+#	drvparent=None
         for drive in drives:
             disk = self.diskset.disks[drive]
 
@@ -2118,7 +2112,6 @@ class PartitionWindow(InstallWindow):
 
 		    part = get_partition_by_name(self.diskset.disks, partname)
 		    availSpaceMB = availSpaceMB + requestSize(pvreq,
-							      self.partitions,
 							      self.diskset)
 		next = model.iter_next(iter)
 

@@ -668,7 +668,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     return None
 
 # return the actual size being used by the request in megabytes
-def requestSize(req, allrequests, diskset):
+def requestSize(req, diskset):
     if req.type == REQUEST_VG:
 	if req.size != None:
 	    thissize = req.size
@@ -709,12 +709,12 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     if not slash:
         errors.append(_("You have not defined a root partition (/), which is required for installation of Red Hat Linux to continue."))
 
-    if slash and requestSize(slash, requests, diskset) < 250:
+    if slash and requestSize(slash, diskset) < 250:
         warnings.append(_("Your root partition is less than 250 megabytes which is usually too small to install Red Hat Linux."))
 
     if iutil.getArch() == "ia64":
         bootreq = requests.getRequestByMountPoint("/boot/efi")
-        if not bootreq or requestSize(bootreq, requests, diskset) < 50:
+        if not bootreq or requestSize(bootreq, diskset) < 50:
             errors.append(_("You must create a /boot/efi partition of type "
                             "FAT and a size of 50 megabytes."))
 
@@ -722,7 +722,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
         req = requests.getRequestByMountPoint(mount)
         if not req:
             continue
-        if requestSize(req, requests, diskset) < size:
+        if requestSize(req, diskset) < size:
             warnings.append(_("Your %s partition is less than %s megabytes which is lower than recommended for a normal Red Hat Linux install.") %(mount, size))
 
     foundSwap = 0
@@ -730,7 +730,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
     for request in requests.requests:
         if request.fstype and request.fstype.getName() == "swap":
             foundSwap = foundSwap + 1
-            swapSize = swapSize + requestSize(request, requests, diskset)
+            swapSize = swapSize + requestSize(request, diskset)
         if baseChecks:
             rc = doPartitionSizeCheck(request)
             if rc:
