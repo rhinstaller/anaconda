@@ -556,21 +556,21 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
 	    else if (kbdtype == KBDTYPE_PC && !strncmp (infoTable[j].name, "sun", 3))
 	        continue;
 	    kbds[i] = infoTable[j].name;
-	    if (!strcmp(infoTable[j].name, defkbd))
-		num = i;
 	    i++;
 	}
 #else	
 	kbds = alloca(sizeof(*kbds) * (hdr.numEntries + 1));
 	for (i = 0; i < hdr.numEntries; i++)  {
 	    kbds[i] = infoTable[i].name;
-	    if (!strcmp(infoTable[i].name, defkbd)) 
-		num = i;
 	}
 #endif
 
 	kbds[i] = NULL;
 	qsort(kbds, i, sizeof(*kbds), simpleStringCmp);
+
+	for (i = 0; i < hdr.numEntries; i++) 
+	    if (!strcmp(kbds[i], defkbd)) 
+		num = i;
 
 	rc = newtWinMenu(_("Keyboard Type"), 
 			_("What type of keyboard do you have?"),
