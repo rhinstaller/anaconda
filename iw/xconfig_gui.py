@@ -5,6 +5,7 @@ from translate import _
 import string
 import sys
 import iutil
+import xpms_gui
 
 """
 _("Video Card")
@@ -183,6 +184,11 @@ class MonitorWindow (InstallWindow):
         ctree.set_line_style(CTREE_LINES_NONE)
         ctree.connect ("tree_select_row", self.selectCb)
 
+        self.monitor_p, self.monitor_b = create_pixmap_from_xpm_d (ctree, None, xpms_gui.MONITOR_XPM)
+
+
+
+
         arch = iutil.getArch()
 
         self.hEntry = GtkEntry ()
@@ -190,7 +196,11 @@ class MonitorWindow (InstallWindow):
 
         select = None
         for man in keys:
-            parent = ctree.insert_node (None, None, (man,), 2, is_leaf = FALSE)
+#            parent = ctree.insert_node (None, None, (man,), 2, is_leaf = FALSE)
+
+            parent = ctree.insert_node (None, None, (man,), 2, self.monitor_p, self.monitor_b, self.monitor_p,
+                                        self.monitor_b, is_leaf = FALSE)
+            
             models = monitors[man]
             models.sort()
             for monitor in models:
@@ -202,8 +212,16 @@ class MonitorWindow (InstallWindow):
 
         # Add a category for a DDC probed monitor that isn't in MonitorDB
         if not select and self.todo.x.monID != "Generic Monitor":
+#            parent = ctree.insert_node (None, None, ("DDC Probed Monitor",),
+#                                        2, is_leaf = FALSE)
+
             parent = ctree.insert_node (None, None, ("DDC Probed Monitor",),
-                                        2, is_leaf = FALSE)
+                     2, self.monitor_p, self.monitor_b, self.monitor_p, self.monitor_b, is_leaf = FALSE)
+
+#            node = self.ctree.insert_node (cur_parent, None, (list[0],), 2,
+#                                           self.closed_p, self.closed_b, self.open_p, self.open_b, leaf)
+ 
+
             node = ctree.insert_node (parent, None, (self.todo.x.monID,), 2)
             monitor = (self.todo.x.monID, self.todo.x.monID, self.todo.x.monVert,
                        self.todo.x.monHoriz)
