@@ -89,25 +89,27 @@ def probePciDevices():
 
     return result
 
-def driveList(klassArg):
+def driveDict(klassArg):
     p = _isys.ProbedList()
     p.updateIde()
     p.updateScsi()
 
     dict = {}
     for (klass, dev, descr) in p:
-	if (klass == classArg):
+	if (klass == klassArg):
 	    dict[dev] = descr
     return dict
 
-def hardDriveList():
-    return driveList("disk")
+def hardDriveDict():
+    return driveDict("disk")
 
-def floppyDriveList():
-    return driveList("floppy")
+def floppyDriveDict():
+    return driveDict("floppy")
 
 def cdromList():
-    return driveList("cdrom")
+    list = driveDict("cdrom").keys()
+    list.sort()
+    return list
 
 def moduleListByType(type):
     return _isys.modulelist(type)
