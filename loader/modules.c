@@ -17,17 +17,6 @@ struct moduleDependency_s {
     char ** deps;
 };
 
-struct loadedModuleInfo {
-    char * name;
-    char ** args;
-    int weLoaded;
-};
-
-struct moduleList_s {
-    struct loadedModuleInfo mods[50];
-    int numModules;
-};
-
 int mlReadLoadedList(moduleList * mlp) {
     int fd;
     char * start;

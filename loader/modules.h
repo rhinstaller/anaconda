@@ -4,6 +4,17 @@
 typedef struct moduleList_s * moduleList;
 typedef struct moduleDependency_s * moduleDeps;
 
+struct loadedModuleInfo {
+    char * name;
+    char ** args;
+    int weLoaded;
+};
+
+struct moduleList_s {
+    struct loadedModuleInfo mods[50];
+    int numModules;
+};
+
 int mlReadLoadedList(moduleList * list);
 void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);

@@ -182,6 +182,31 @@ static int detectHardware(moduleInfoSet modInfo,
     return LOADER_OK;
 }
 
+int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded, 
+		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
+    int rc, i;
+    char buf[2000] = "";
+    struct moduleInfo * mi;
+
+    for (i = 0; i < modLoaded->numModules; i++) {
+	if (!modLoaded->mods[i].weLoaded) continue;
+
+	strcat(buf, "\t");
+
+	if ((mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
+	    strcat(buf, mi->description);
+	} else {
+	    strcat(buf, modLoaded->mods[i].name);
+	}
+
+	strcat(buf, "\n");
+    }
+
+    newtWinMessage(_("Devices"), _("Ok"),
+	       ("I know about the following devices on your system:\n\n %s"),
+		buf);
+}
+
 int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
@@ -344,6 +369,11 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	    break;
 
 	  case NFS_STAGE_MOUNT:
+	    if (FL_TESTING(flags)) {
+		stage = NFS_STAGE_DONE;
+		break;
+	    }
+
 	    mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
@@ -558,6 +588,10 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
     pciProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
+
+    if (access("/proc/pci", X_OK) || FL_EXPERT(flags)) {
+	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
+    }
 
     if (!FL_TESTING(flags)) {
         int fd;
