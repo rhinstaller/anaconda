@@ -168,7 +168,7 @@ if os.environ.has_key("LD_PRELOAD"):
 
 try:
     (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
-          [ 'text', 'xmode', 'test', 'debug', 'nofallback',
+          [ 'text', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
@@ -195,7 +195,6 @@ sys.argc = 1
 rootPath = '/mnt/sysimage'	# where to instal packages
 extraModules = []		# kernel modules to use
 display_mode = 'g'		# try GUI by default
-xmode = 0			# bring up text mode in a remote xterm?
 debug = 0			# start up pdb immediately
 traceOnly = 0			# don't run, just list modules we use
 nofallback = 0			# if GUI mode fails, exit
@@ -289,8 +288,6 @@ for n in args:
 	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
-    elif (str == '-x' or str == '--xmode'):
-	xmode = 1
     elif (str == '--kbdtype'):
         kbdtype = arg
 
@@ -617,34 +614,6 @@ if (display_mode == 't'):
     from text import InstallInterface
     from text import stepToClasses
 
-
-# we like to have a way to shoot text mode back at a display
-if xmode:
-    os.environ["TERM"] = "xterm"
-    import gtk
-    import vte
-
-    def child_died (widget, *args):
-        gtk.mainquit()
-
-    win = gtk.Window ()
-    term = vte.Terminal ()
-    term.set_encoding("UTF-8")
-    term.set_font_from_string("monospace 10")
-    term.set_color_background(gtk.gdk.color_parse('white'))
-    term.set_color_foreground(gtk.gdk.color_parse('black'))
-    term.connect ("child_exited", child_died)
-    term.reset(gtk.TRUE, gtk.TRUE)
-    win.add (term)
-    win.show_all ()
-    child = term.forkpty()
-    if child != 0:
-        gtk.mainloop()
-        try:
-            pid, status = os.waitpid(child, 0)
-        except OSError:
-            pass
-        sys.exit (0)
 
 if display_mode == "t":
     intf = InstallInterface ()
