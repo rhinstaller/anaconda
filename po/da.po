@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.2 Install\n"
 "POT-Creation-Date: 2000-06-01 11:33-0400\n"
-"PO-Revision-Date: 2000-03-07 05:17+01:00\n"
+"PO-Revision-Date: 2000-06-28 05:17+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
-"Language-Team: Danish/Dansk <sslug-locale@sslug.dk>\n"
+"Language-Team: Danish/Dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -154,7 +154,7 @@ msgstr "Kopierer fil"
 
 #: ../image.py:34
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Overfører installationsbillede til harddisken..."
 
 #: ../image.py:51
 msgid "Change CDROM"
@@ -171,7 +171,7 @@ msgstr "Forkert cdrom"
 
 #: ../image.py:62
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Dette er ikke den korrekte Red Hat cdrom"
+msgstr "Dette er ikke den korrekte Red Hat-cdrom"
 
 #: ../image.py:67
 msgid "The CDROM could not be mounted."
@@ -277,7 +277,7 @@ msgstr "Ok"
 
 #: ../text.py:141
 msgid "Which model mouse is attached to this computer?"
-msgstr "Hvilken musetype er forbundet til denne computer?"
+msgstr "Hvilken musetype er forbundet til denne komputer?"
 
 #: ../text.py:150
 msgid "Emulate 3 Buttons?"
@@ -293,7 +293,7 @@ msgstr "Tastaturvalg"
 
 #: ../text.py:191
 msgid "Which model keyboard is attached to this computer?"
-msgstr "Hvilken tastaturtype er forbundet til denne computer?"
+msgstr "Hvilken tastaturtype er forbundet til denne komputer?"
 
 #: ../text.py:243
 msgid "Upgrade Existing Installation"
@@ -395,8 +395,8 @@ msgid ""
 msgstr ""
 "Velkommen til Red Hat Linux!\n"
 "\n"
-"Du er i en rekonfigurationsmodus som giver dig mulighed for at konfigurere "
-"din komputers site-specifikke indstillinger.\n"
+"Du er i en omkonfigurationstilstand som giver dig mulighed for at "
+"konfigurere din komputers side-specifikke indstillinger.\n"
 "\n"
 "Tryk på Annullér knappen for afslutte uden at ændre dine opsætning."
 
@@ -496,8 +496,8 @@ msgid ""
 msgstr ""
 "Tillykke, installationen er færdig.\n"
 "\n"
-"For oplysninger om hvilke fejlretninger/bugfixes der findes for denne udgave "
-"af Red Hat Linux, læs erratadata som du finder på http://www.redhat.com.\n"
+"For oplysninger om hvilke fejlretninger der findes for denne udgave afRed "
+"Hat Linux, læs erratadata som du finder på http://www.redhat.com.\n"
 "\n"
 "Information om yderligere konfiguration af dit system kan du finde i den "
 "officielle Red Hat brugerguide i kapitlet om efterinstallation."
@@ -536,15 +536,15 @@ msgstr "Total    :"
 
 #: ../text.py:699
 msgid "Completed:   "
-msgstr "Færdig:      "
+msgstr "Færdig   :   "
 
 #: ../text.py:709
 msgid "Remaining:  "
-msgstr "Tilbage:    "
+msgstr "Tilbage  :  "
 
 #: ../text.py:806
 msgid "Help not available"
-msgstr ""
+msgstr "Ingen hjælp tilgængelig"
 
 #: ../text.py:807
 msgid "No help is available for this install."
@@ -595,7 +595,7 @@ msgstr "Tidszoneopsætning"
 
 #: ../text.py:927 ../text.py:995 ../textw/userauth_text.py:9
 msgid "Root Password"
-msgstr "Root-adgangskode"
+msgstr "'Root'-adgangskode"
 
 #: ../text.py:929 ../text.py:997 ../textw/userauth_text.py:172
 msgid "User Account Setup"
@@ -727,7 +727,7 @@ msgstr "Læser pakkeinformation..."
 
 #: ../todo.py:590
 msgid "Dependency Check"
-msgstr ""
+msgstr "Afhængighedstjek"
 
 #: ../todo.py:591
 msgid "Checking dependencies in packages selected for installation..."
@@ -743,7 +743,7 @@ msgstr "Søger"
 
 #: ../todo.py:673
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Søger efter Red Hat Linux installationer..."
+msgstr "Søger efter Red Hat Linux-installationer..."
 
 #: ../todo.py:684 ../todo.py:712
 #, c-format
@@ -2347,7 +2347,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1888
 msgid "Cannot Edit Raid"
-msgstr ""
+msgstr "Kan ikke ændre RAID"
 
 #: ../libfdisk/gnomefsedit.c:1889
 msgid ""
@@ -2535,11 +2535,11 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3159
 msgid "Drive"
-msgstr "Spring drev over"
+msgstr "Drev"
 
 #: ../libfdisk/gnomefsedit.c:3160
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Geom [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3161
 msgid "Total (M)"
@@ -2547,15 +2547,15 @@ msgstr "Total"
 
 #: ../libfdisk/gnomefsedit.c:3162
 msgid "Free (M)"
-msgstr ""
+msgstr "Fri (M)"
 
 #: ../libfdisk/gnomefsedit.c:3163
 msgid "Used (M)"
-msgstr ""
+msgstr "Brugt (M)"
 
 #: ../libfdisk/gnomefsedit.c:3164
 msgid "Used (%)"
-msgstr ""
+msgstr "Brugt (%)"
 
 #: ../libfdisk/gnomefsedit.c:3369
 msgid "Unallocated Partitions Exist..."
@@ -2612,11 +2612,11 @@ msgstr "Redigér partition"
 
 #: ../libfdisk/newtfsedit.c:379
 msgid "Use remaining space?:"
-msgstr "Brug eksisterende ledig plads"
+msgstr "Brug ledig plads?:"
 
 #: ../libfdisk/newtfsedit.c:423
 msgid "Type:"
-msgstr "Type"
+msgstr "Type:"
 
 #: ../libfdisk/newtfsedit.c:437
 msgid "Unknown"
@@ -2630,6 +2630,7 @@ msgstr "Nuværende drevpartitioner"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-Ok        "
 
 #: ../libfdisk/newtfsedit.c:1406
 msgid "Drive Summaries"
@@ -2637,7 +2638,7 @@ msgstr "Drevresumér"
 
 #: ../libfdisk/newtfsedit.c:1408
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Drev       Geom [C/H/S]      Total    Brugt   Fri"
 
 #: ../libfdisk/newtfsedit.c:1522
 msgid "No Root Partition"
@@ -2689,7 +2690,7 @@ msgstr "Anden cdrom"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "Cdromtype"
+msgstr "Cdrom-type"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
@@ -2724,7 +2725,7 @@ msgstr "Enheder"
 
 #: ../loader/devices.c:199
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Har du en driver-diskette?"
 
 #: ../loader/devices.c:206
 msgid "Insert your driver disk and press \"OK\" to continue."
@@ -2774,22 +2775,22 @@ msgstr ""
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
-msgstr "Kickstartfejl"
+msgstr "Kickstartsfejl"
 
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr "Fejl ved åbning: kickstartfil %s: %s"
+msgstr "Fejl ved åbning: kickstartsfil %s: %s"
 
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Fejl ved læsning af indhold af kickstartfil %s: %s"
+msgstr "Fejl ved læsning af indhold af kickstartsfil %s: %s"
 
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr "Fejl på linie %d i kickstartfilen %s."
+msgstr "Fejl på linie %d i kickstartsfilen %s."
 
 #: ../loader/lang.c:280
 msgid "Choose a Language"
@@ -2803,7 +2804,7 @@ msgstr "Velkommen til Red Hat Linux"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-" <Tab>/<Alt-Tab> imellem elementer  |  <Mellemrum> vælg  |  <F12> næste side"
+"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader/lang.c:567
 msgid "Keyboard Type"
@@ -2819,11 +2820,11 @@ msgstr "Lokal cdrom"
 
 #: ../loader/loader.c:117
 msgid "NFS image"
-msgstr "NFS-image"
+msgstr "NFS-billede"
 
 #: ../loader/loader.c:122
 msgid "Hard drive"
-msgstr "Harddrive"
+msgstr "Harddisk"
 
 #: ../loader/loader.c:253
 msgid "SCSI"
@@ -2856,7 +2857,7 @@ msgstr "Indlæser"
 #: ../loader/loader.c:485
 #, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Indlæser andet trins ramdisk..."
+msgstr "Indlæser %s ramdisk..."
 
 #: ../loader/loader.c:495
 msgid "Error loading ramdisk."
@@ -2895,15 +2896,15 @@ msgstr "Vælg partition"
 #: ../loader/loader.c:742
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Enheden %s ser ikke ud til at indholde et Red Hat installationstræ."
+msgstr "Enheden %s ser ikke ud til at indholde et Red Hat-installationstræ."
 
 #: ../loader/loader.c:839
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Jeg kunne ikke finde en Red Hat Linux cdrom i nogen af dine cdromdrev. "
-"Indsæt venligst Red Hat CD'en og tryk på \"Ok\" for at prøve igen."
+"Jeg kunne ikke finde en Red Hat Linux-cdrom i nogen af dine cdrom-drev. "
+"Indsæt venligst Red Hat-cd'en og tryk på \"Ok\" for at prøve igen."
 
 #: ../loader/loader.c:925
 msgid "Networking Device"
@@ -2913,7 +2914,7 @@ msgstr "Netværksenhed"
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
-msgstr "Hvilken type system ønsker du at installere?"
+msgstr ""
 
 #: ../loader/loader.c:1008
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2925,11 +2926,11 @@ msgstr "Jeg kunne ikke montere denne mappe fra tjeneren"
 
 #: ../loader/loader.c:1054 ../loader/loader.c:1063
 msgid "FTP"
-msgstr "FTP"
+msgstr "Ftp"
 
 #: ../loader/loader.c:1054 ../loader/loader.c:1063
 msgid "HTTP"
-msgstr ""
+msgstr "Http"
 
 #: ../loader/loader.c:1055
 msgid "Unable to retrieve the first install image"
@@ -2989,11 +2990,11 @@ msgstr "Læser anaconda opdateringer..."
 
 #: ../loader/loader.c:2211
 msgid "PC Card"
-msgstr "Pc-kort"
+msgstr "'PC Card'"
 
 #: ../loader/loader.c:2211
 msgid "Initializing PC Card Devices..."
-msgstr "Opstarter Pc-kort enheder..."
+msgstr "Opstarter 'PC Card'-enheder..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -3187,11 +3188,11 @@ msgstr "Websidenavn:"
 
 #: ../loader/urls.c:200
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Brug ikke-anonym ftp eller proxytjener"
+msgstr "Benyt ikke-anonym ftp eller proxytjener"
 
 #: ../loader/urls.c:205
 msgid "Use proxy server"
-msgstr "Brug proxytjener"
+msgstr "Benyt proxytjener"
 
 #: ../loader/urls.c:217
 msgid "FTP Setup"
@@ -3225,16 +3226,16 @@ msgid ""
 "proxy server to use."
 msgstr ""
 "Hvis du bruger ikke-anonym ftp, så indtast det kontonavn og den adgangskode "
-"du vil bruge herunder. Hvis du bruger en FTP-proxy så indtast navnet på den "
-"FTP-proxytjener du vil bruge."
+"du vil bruge herunder. Hvis du bruger en Ftp-proxy så indtast navnet på den "
+"proxytjener du vil benytte."
 
 #: ../loader/urls.c:316
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"Hvis du bruger en HTTP-proxytjener så indtast navnet på den HTTP-proxytjener "
-"du vil bruge."
+"Hvis du bruger en Http-proxytjener så indtast navnet på den proxytjener du "
+"vil benytte."
 
 #: ../loader/urls.c:337
 msgid "Account name:"
@@ -3279,7 +3280,7 @@ msgstr ""
 "Du er ved at slette alle eksisterende Linux-installationer på dit system."
 
 msgid "Base"
-msgstr ""
+msgstr "Basal"
 
 msgid "Printer Support"
 msgstr "Printer-understøttelse"
@@ -3294,13 +3295,13 @@ msgid "KDE"
 msgstr "KDE"
 
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Post/web/nyhedsgrupper"
 
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "DOS/Windows-forbindelse"
 
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Billedbehandling"
 
 msgid "Games"
 msgstr "Underholdning"
@@ -3309,7 +3310,7 @@ msgid "Multimedia Support"
 msgstr "Multimedie-understøttelse"
 
 msgid "Networked Workstation"
-msgstr "Netværksorienteret arbejdsstation"
+msgstr "Netorienteret arbejdsstation"
 
 msgid "Dialup Workstation"
 msgstr "KDE-arbejdsstation"
@@ -3321,10 +3322,10 @@ msgid "NFS Server"
 msgstr "NIS-tjener:"
 
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "Samba SMB-tjener"
 
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "IPX/Netware(tm)-forbindelse"
 
 msgid "Anonymous FTP Server"
 msgstr "Anonym ftp-tjener"
@@ -3336,13 +3337,13 @@ msgid "DNS Name Server"
 msgstr "DNS-navnetjener"
 
 msgid "Postgres (SQL) Server"
-msgstr "Postgres (SQL-tjener"
+msgstr "Postgres SQL-tjener"
 
 msgid "Network Management Workstation"
 msgstr "Netværkskonfiguration"
 
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Publisering"
 
 msgid "Emacs"
 msgstr "Emacs"
@@ -3354,7 +3355,7 @@ msgid "Kernel Development"
 msgstr "Kerneudvikling"
 
 msgid "Clustering"
-msgstr ""
+msgstr "Klyngning"
 
 msgid "Utilities"
 msgstr "Tilbehør"
