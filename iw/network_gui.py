@@ -167,9 +167,9 @@ class NetworkWindow (InstallWindow):
             align = GtkAlignment ()
             bootcb = GtkCheckButton (_("Activate on boot"))
             onboot = devs[i].get ("onboot")
+	    bootcb.connect ("toggled", self.onBootToggled, devs[i])
             bootcb.set_active ((num == 0 and not onboot)
                                or onboot == "yes")
-	    bootcb.connect ("toggled", self.onBootToggled, devs[i])
             align.add (bootcb)
 
             devbox.pack_start (align, FALSE)
