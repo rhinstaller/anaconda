@@ -138,7 +138,8 @@ def dumpException(out, text, tb, dispatch):
         out.write("\n\n")
         dumpClass(dispatch, out)
     except:
-        out.write("Exception occured during state dump\n")
+        out.write("\nException occured during state dump:\n")
+        traceback.print_exc(None, out)
 
 def handleException(dispatch, intf, (type, value, tb)):
     list = traceback.format_exception (type, value, tb)
