@@ -594,10 +594,7 @@ class RaidRequestSpec(RequestSpec):
     
     def getDevice(self, partitions):
         """Return a device which can be solidified."""
-        if self.dev:
-            # FIXME: this warning can probably be removed post-beta
-            log("WARNING: getting self.dev more than once for %s" %(self,))
-            return self.dev
+        # Alway return a new device for minor changing
         raidmems = []
         for member in self.raidmembers:
             raidmems.append(partitions.getRequestByID(member).device)
