@@ -801,10 +801,8 @@ class ToDo:
 
         for (drive, (label, liloType)) in self.liloImages.items ():
             if (drive == rootDev) and label:
-                self.log ("%s label %s is root (%s)", drive, label, rootDev)
                 main = label
             elif label:
-                self.log ("%s label %s is ohter", drive, label)
                 otherList.append (label, "/dev/" + drive)
 
         lilo.addEntry("default", main)        
