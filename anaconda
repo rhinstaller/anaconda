@@ -346,7 +346,7 @@ elif (display_mode == 't'):
         or (method and len (method) >= 7 and method[:7] == "http://")):
         print _("Graphical installation not available for %s installs.  "
                 "Starting text mode.") % (string.split(method, ':')[0],)
-    elif len (method) >= 5 and method[:5] == "hd://":
+    elif method and len (method) >= 5 and method[:5] == "hd://":
         print _("Graphical installation not available for hard drive installs.  "
                 "Starting text mode.")
     from text import InstallInterface
