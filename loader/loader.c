@@ -515,10 +515,28 @@ static int loadStage2Ramdisk(int fd, off_t size, int flags,
 }
 
 #ifdef INCLUDE_LOCAL
+static int loadSingleImage(char * prefix, char * dir, char * file, int flags, 
+			   char * device, char * mntpoint) {
+    int fd, rc;
+    char * path;
+
+    path = alloca(50 + strlen(file) + strlen(prefix) + 
+			(dir ? strlen(dir) : 2));
+
+    sprintf(path, "%s/%s/%s", prefix, dir ? dir : "", file);
+
+    if ((fd = open(path, O_RDONLY)) < 0) {
+	return 1;
+    } 
+
+    rc = loadStage2Ramdisk(fd, 0, flags, device, mntpoint);
+    close(fd);
+
+    return rc;
+}
+
 static char * setupHardDrive(char * device, char * type, char * dir, 
 			     int flags) {
-    int fd;
-    char * path;
     int rc;
     char * url;
 
@@ -532,23 +550,14 @@ static char * setupHardDrive(char * device, char * type, char * dir,
 	if (doPwMount("/tmp/hddev", "/tmp/hdimage", type, 1, 0, NULL, NULL))
 	    return NULL;
 
-	path = alloca(50 + (dir ? strlen(dir) : 2));
-#ifdef __i386__
-	sprintf(path, "/tmp/hdimage/%s/RedHat/base/hdstg2.img", 
-		    dir ? dir : "");
-#else
-	sprintf(path, "/tmp/hdimage/%s/RedHat/base/stage2.img", 
-		    dir ? dir : "");
-#endif
-	if ((fd = open(path, O_RDONLY)) < 0) {
-	    logMessage("cannot open %s", path);
-	    umount("/tmp/hdimage");
-	    return NULL;
-	} 
+	rc = loadSingleImage("/tmp/hdimage", dir, "RedHat/base/hdstg1.img", 
+			     flags, "ram3", "/mnt/runtime");
+	if (!rc) {
+	    rc = loadSingleImage("/tmp/hdimage", dir, "RedHat/base/hdstg2.img", 
+				 flags, "ram4", "/mnt/runtime/usr");
+	    if (rc) umount("/mnt/runtime");
+	}
 
-	rc = loadStage2Ramdisk(fd, 0, flags, "ram3", "/mnt/runtime");
-	close(fd);
-	umount("/tmp/hdimage");
 	if (rc) return NULL;
     }
 
