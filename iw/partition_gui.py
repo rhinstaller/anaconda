@@ -34,11 +34,6 @@ TREE_SPACING = 2
 MODE_ADD = 1
 MODE_EDIT = 2
 
-# max partition size in kB
-# XXX these are just made up, need to get real values from parted!
-MAX_PART_SIZE = 1024*1024*1024
-MAX_SWAP_PART_SIZE_KB = 2147483640/1024
-
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
         if event.type == GDK.BUTTON_PRESS:
