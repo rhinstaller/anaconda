@@ -233,8 +233,8 @@ typedef struct MPCTH {
     uint16_t    base_table_length;
     u_char      spec_rev;
     u_char      checksum;
-    u_char      oem_id[ 8 ];
-    u_char      product_id[ 12 ];
+    char        oem_id[ 8 ];
+    char        product_id[ 12 ];
     int32_t     oem_table_pointer;
     uint16_t    oem_table_size;
     uint16_t    entry_count;
