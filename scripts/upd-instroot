@@ -1,10 +1,16 @@
 #!/bin/bash
 
 ORIGDIR=`pwd`
+COMPONENT=""
+
+if [ "$1" == "--comp" ]; then
+    COMPONENT=$2
+    shift; shift
+fi
 
 if [ -z "$1" ]; then
 	echo "upd-instroot: updates instimage from a Red Hat RPMS directory"
-	echo "usage:        $0 <packagedir> [templatedir] [instroot]"
+	echo "usage:        $0 --comp <comp> <packagedir> [templatedir] [instroot]"
 	exit 1
 fi
 
@@ -88,7 +94,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python bzip2 dosfstools pciutils reiserfs-utils"
+	 kudzu db3 rpm-python bzip2 dosfstools pciutils reiserfs-utils parted"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
@@ -209,14 +215,17 @@ usr/lib/libdb.so.2
 usr/lib/libdb.so.3
 usr/lib/libdb1*
 usr/lib/libnewt*
+usr/lib/libparted*
 usr/lib/libpopt*
 usr/lib/librpm.so*
+usr/lib/librpmdb.so*
 usr/lib/librpmio.so*
 usr/lib/libslang*
 usr/lib/libz.*
 usr/lib/python*
 usr/lib/python1.5/site-packages/*kudzu*
 usr/lib/python1.5/site-packages/rpmmodule.so
+usr/lib/python1.5/site-packages/partedmodule.so
 usr/lib/rpm/macros
 usr/lib/rpm/rpmpopt
 usr/lib/rpm/rpmrc
@@ -589,9 +598,9 @@ for p in $DEST $DESTGR; do
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
 
-	if [ -x /usr/bin/runroot ]; then
-	    REALPATH=`(cd $p; /bin/pwd)`
-            runroot dist-7.1 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+	    REALPATH=`(cd $p; /bin/pwd | sed 's,/md1/,/,g')`
+            runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
 	else
 	    $p/usr/lib/anaconda-runtime/scrubtree $p
 	fi
@@ -638,9 +647,10 @@ EOF
 cd -
 
 echo -n -e "Removing unused python files in hdimage... "
-if [ -x /usr/bin/runroot ]; then
-    REALPATH=`(cd $DEST; /bin/pwd)`
-    runroot dist-7.1 --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
+
+if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
+    REALPATH=`(cd $DEST; /bin/pwd | sed 's,/md1/,/,g')`
+    runroot $COMPONENT --onlyone --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH"
 else
     $DEST/usr/lib/anaconda-runtime/pythondeps $DEST
 fi
@@ -663,43 +673,8 @@ if [ $NEEDGR ]; then
 fi
 
 # this is only for the minimal second stage
-echo "Compressing ramdisk install images..."
-
-	cd $DEST/usr/lib
-	find python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
-	rm -rf python1.5
-
-	find anaconda | cpio --quiet -H crc -o | gzip -9 > anaconda.cgz
-	rm -rf anaconda
-
-	ls libnewt* libslang* | cpio --quiet -H crc -o | 
-		gzip -9 > slang-newt.cgz
-	rm -f libnewt* libslang*
-
-	cd $DEST/usr/bin
-	echo python1.5 | cpio --quiet -H crc -o | gzip -9 > python1.5.cgz
-	/bin/rm -f python python1.5
-	/bin/ln -s python1.5 python
-
-	mv anaconda anaconda.real
-	mv $DEST/usr/lib/anaconda-runtime/anaconda-stub anaconda
-
-	cd $DEST/lib
-	ls    libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
-	      libpthread* libss* libtermcap* libuuid* \
-			| cpio --quiet -H crc -o | gzip -9 > libs.cgz
-	rm -f libcom* libcrypt* libdl* libe2p* libext2* libm* libnss* libnsl* \
-	      libpthread* libss* libtermcap* libuuid*
-
-	cd $DEST/usr
-	find X11R6 | cpio --quiet -H crc -o | gzip -9 > X11R6.cgz
-	rm -rf X11R6
-
-	cd $DEST/usr/sbin
-	ls [a-r]* | cpio --quiet -H crc -o | gzip -9 > sbin.cgz
-	rm -f [a-r]*
-
-	rm -rf $DEST/usr/lib/anaconda-runtime
+echo "Cleaning ramdisk install images..."
+    rm -rf $DEST/usr/lib/anaconda-runtime
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR

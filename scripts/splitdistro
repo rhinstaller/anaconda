@@ -1,0 +1,191 @@
+#!/usr/bin/python
+
+# These dirs, along with RPMS, make up disc 2
+disc2dirs = [ "preview" ]
+
+# These files appear on all binary CDs
+jointfiles = [ "COPYING", "RPM-GPG-KEY", "README", "autorun" ]
+
+targetSize = 650 * 1024 * 1024
+
+# Leave about 1.2MB of space on the disc
+fudgeFactor = 1.2 * 1024 * 1024
+
+#-----------------
+
+import sys
+import os
+import os.path
+import string
+import getopt
+import time
+import types
+
+def stamp(path, name, arch, startedAt):
+    f = open("%s/.%s-%s" % (path, name, arch), "w")
+    f.write("%f\n" % startedAt)
+    f.close()
+
+def moveFiles(srcDir, destDir, files):
+    for fn in files:
+	src = "%s/%s" % (srcDir, fn)
+	dest = "%s/%s" % (destDir, fn)
+	os.rename(src, dest)
+
+def excessFiles(path, fileList, maxSize):
+    total = 0
+    moveList = []
+
+    for fns in fileList:
+	if type(fns) == types.StringType:
+	    fns = [ fns ]
+
+	size = 0
+	for fn in fns:
+	    thisSize = os.path.getsize(path + "/" + fn)
+	    size = size + thisSize + ((thisSize + 2047) % 2048)
+
+	if size + total  < maxSize:
+	    total = total + size
+	else:
+	    # once we're done, we're done
+	    total = maxSize
+	    moveList.extend(fns)
+
+    return moveList
+
+class DirectoryIterator:
+    def __init__(self):
+        self.inodes = {}
+    
+    def traverse (self, arg, dirname, names):
+        for name in names:
+            sb = os.lstat (dirname + "/" + name)
+            if not self.inodes.has_key(sb[1]):
+                self.inodes[sb[1]] = sb[6]
+
+    def total(self):
+        total = 0
+        for size in self.inodes.values():
+            total = total + size
+	return total
+
+def spaceUsed(path):
+    foo = DirectoryIterator()
+    os.path.walk (path, foo.traverse, None)
+    return foo.total()
+
+startedAt = time.time()
+
+fns = {}
+
+(args, extra) = getopt.getopt(sys.argv[1:], '', [ 'fileorder=' ])
+if len(extra) != 2:
+    print "splitdistro --fileorder <file> <toppath> <arch>"
+    sys.exit(1)
+
+for n in args:
+    (str, arg) = n
+    if str == '--fileorder':
+	packageOrderFile = arg
+
+arch = extra[1]
+distDir = os.path.normpath(extra[0] + "/" + arch)
+srcDir = os.path.normpath(extra[0] + "/SRPMS")
+
+if not os.path.isdir(distDir):
+    print "error: %s is not a directory" % distDir
+    sys.exit(1)
+
+if not os.path.isdir(srcDir):
+    print "error: %s is not a directory" % srcDir
+    sys.exit(1)
+
+disc1Dir = distDir + "-disc1"
+disc2Dir = distDir + "-disc2"
+disc1SrcDir = distDir + "-srpms1"
+disc2SrcDir = distDir + "-srpms2"
+
+id = 0
+
+files = os.listdir(distDir + "/RedHat/RPMS")
+files.sort()
+packages = {}
+for file in files:
+    l = string.split(file, ".")
+    pkg = string.join(l[:-2], ".")
+    if packages.has_key(pkg):
+	packages[pkg].append(file)
+    else:
+	packages[pkg] = [ file ]
+
+f = open(packageOrderFile, "r")
+binPkgList = []
+for pkg in f.readlines():
+    # chop
+    pkg = pkg[:len(pkg) - 1]
+    if pkg[0:8] != "warning:":
+	binPkgList.append(packages[pkg])
+
+del f
+
+print "Splitting tree..."
+
+totalsize = spaceUsed(distDir)
+rpmsize = spaceUsed(distDir + "/RedHat/RPMS")
+dirsize = 0
+for dir in disc2dirs:
+    what = distDir + "/" + dir
+    if os.access(what, os.R_OK):
+        dirsize = dirsize + spaceUsed(distDir + "/" + dir)
+
+disc1used = totalsize - rpmsize - dirsize
+
+os.system("rm -rf %s %s %s %s" % ( disc1Dir, disc2Dir, disc1SrcDir,
+				   disc2SrcDir))
+os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS" % 
+	    (disc1Dir, disc1SrcDir, disc2SrcDir, disc2Dir))
+
+print "Creating disc1..."
+
+os.system("cp -al %s/. %s" % (distDir, disc1Dir))
+stamp(disc1Dir, "disc1", arch, startedAt)
+
+print "Creating disc2..."
+stamp(disc2Dir, "disc2", arch, startedAt)
+
+for file in jointfiles:
+    src = "%s/%s" % (disc1Dir, file)
+    dest = "%s/%s" %(disc2Dir, file)
+    try:
+	os.link(src, dest)
+    except OSError, (errno, msg):
+	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
+
+disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
+			targetSize - disc1used - fudgeFactor)
+
+moveFiles("%s/RedHat/RPMS" % disc1Dir, 
+	  "%s/RedHat/RPMS" % disc2Dir, 
+	  disc2pkgs);
+
+print "Creating first source disc..."
+os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
+stamp(disc1SrcDir, "disc1src", arch, startedAt)
+
+print "Creating second source disc..."
+stamp(disc2SrcDir, "disc2src", arch, startedAt)
+
+srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
+srcPkgList.sort()
+disc2pkgs = excessFiles(disc1SrcDir + "/SRPMS", srcPkgList,
+			targetSize - fudgeFactor)
+moveFiles("%s/SRPMS" % disc1SrcDir, 
+	  "%s/SRPMS" % disc2SrcDir, 
+	  disc2pkgs);
+
+sys.exit(0)
+
+sys.stdout.flush()
+
+os.system("du -sh %s %s %s" % (disc1Dir, disc2Dir, disc1SrcDir))

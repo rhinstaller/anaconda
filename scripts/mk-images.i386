@@ -46,16 +46,16 @@ prepareBootImage() {
 # LATEUSBMODS go in the second stage
 USBMODS="usb-ohci usb-uhci hid keybdev"
 LATEUSBMODS="mousedev"
-IDEMODS="ide-cd"
+IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
 SECSTAGE="msdos vfat raid0 raid1 raid5 $IDEMODS $SCSIMODS $LATEUSBMODS"
 
-COMMONMODULES="vfat $USBMODS agpgart"
+COMMONMODULES="vfat $USBMODS agpgart cramfs ramfs ext3 jbd"
 LOCALMODULES="$COMMONMODULES BusLogic aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs 3c59x ne2k-pci de4x5
-	       eepro100 e100 tulip pcnet32 hp100
+NETWORKMODULES="$COMMONMODULES nfs 3c59x 
+	       eepro100 
 	       sis900 "
 
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
@@ -97,7 +97,8 @@ makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
 	   --loaderbin loader-pcmcia \
 	   --modules "$PCMCIAMAINMODULES"
 
-for I in `find $BOOTDISKDIR -type d`; do
+#for I in `find $BOOTDISKDIR -type d`; do
+for I in $BOOTDISKDIR; do
     BOOTLANG=`basename $I`
     BOOTDIR=`basename $I | cut -d'_' -f1`
 
@@ -188,6 +189,6 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 
 makemainmodules "=scsi =net $SECSTAGE"
 
-makeinstimage --size1 3300 --size2 4608 "netstg" "=scsi $SECSTAGE"
-makeinstimage --size1 3300 --size2 4608 "hdstg" "=net $SECSTAGE"
-makemainimage "stage2" "ext2"
+makeinstimage "netstg" "=scsi $SECSTAGE"
+makeinstimage "hdstg" "=net $SECSTAGE"
+makemainimage "stage2" "cramfs"

@@ -31,7 +31,7 @@ if [ -z "$DIR" ]; then
     usage
 fi
 
-p=`cd $DIR; /bin/pwd`
+p=`cd $DIR; /bin/pwd | sed 's,/md1/,/,g'`
 
 BUILDINSTDIR=$p/buildinstall.tree.$$
 
@@ -64,7 +64,7 @@ fi
 MK_IMAGES=$BUILDINSTDIR/mk-images
 
 echo "Building images..."
-$UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage
+$UPD_INSTROOT --comp $COMPNAME $p/RedHat/RPMS $p/image-template $p/RedHat/instimage
 
 # XXX hack - msw
 if [ $BUILDARCH = "sparc" ]; then

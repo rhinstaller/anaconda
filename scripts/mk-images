@@ -612,19 +612,6 @@ makeImage () {
 }
 
 makeinstimage () {
-    SIZE1=4096
-    SIZE2=""
-
-    while [ $(echo $1 | cut -c1-2) = "--" ]; do
-	if [ $1 = "--size1" ]; then
-	    SIZE1=$2
-	    shift; shift
-	elif [ $1 = "--size2" ]; then
-	    SIZE2=$2
-	    shift; shift
-	fi
-    done
-
     imagename=$1
     modlist=$(expandModuleSet "$2")
     tmpdir=/tmp/instimage.dir.$$
@@ -636,12 +623,10 @@ makeinstimage () {
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     makemoduleball $tmpdir/modules "$modlist"
 
-    if [ -n "$SIZE2" ]; then
-	makeImage $tmpdir/usr $SIZE2 $INSTIMGPATH/${imagename}2.img
-	rm -rf $tmpdir/usr
-    fi
-
-    makeImage $tmpdir $SIZE1 $INSTIMGPATH/${imagename}1.img
+    mkcramfs $tmpdir $INSTIMGPATH/${imagename}1.img
+    size=$(ls -l $INSTIMGPATH/${imagename}1.img | awk '{print $5}')
+    size=$(expr $size / 1024)
+    echo "Wrote $INSTIMGPATH/${imagename}1.img (${size}k)..."
     rm -rf $tmpdir
 }
 
