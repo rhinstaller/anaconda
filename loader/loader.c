@@ -1457,7 +1457,7 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 
     writeNetInfo("/tmp/netinfo", &netDev);
 
-    if (!(netDev.dev.set & PUMP_INTFINFO_HAS_BOOTSERVER)) {
+    if (!(netDev.dev.set & PUMP_INTFINFO_HAS_NEXTSERVER)) {
 	logMessage("no bootserver was found");
 	return 1;
     }
@@ -1469,8 +1469,8 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
 	file = netDev.dev.bootFile;
     }
 
-    ksPath = alloca(strlen(file) + strlen(netDev.dev.hostname) + 70);
-    strcpy(ksPath, inet_ntoa(netDev.dev.bootServer));
+    ksPath = alloca(strlen(file) + 70);
+    strcpy(ksPath, inet_ntoa(netDev.dev.nextServer));
     strcat(ksPath, ":");
     strcat(ksPath, file);
 
