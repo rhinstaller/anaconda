@@ -295,19 +295,25 @@ def createMountPointCombo(request):
 
 def fstypechangeCB(widget, mountCombo):
     fstype = widget.get_data("type")
+
+    prevmountable = mountCombo.get_data("prevmountable")
     mountpoint = mountCombo.get_data("saved_mntpt")
+
+    if prevmountable and fstype.isMountable():
+        return
+    
     if fstype.isMountable():
         mountCombo.set_sensitive(1)
-        if mountpoint:
+        if mountpoint != None:
             mountCombo.entry.set_text(mountpoint)
-        else:
-            mountCombo.entry.set_text("")
     else:
         if mountCombo.entry.get_text() != _("<Not Applicable>"):
             mountCombo.set_data("saved_mntpt", mountCombo.entry.get_text())
         mountCombo.entry.set_text(_("<Not Applicable>"))
         mountCombo.set_sensitive(0)
 
+    mountCombo.set_data("prevmountable", fstype.isMountable())
+    
     # XXX hrmm... we need to get these passed into the callback somehow
 ##     # XXX ugly, there has to be a better way
 ##     adj = maxSizeSpinner.get_adjustment()
@@ -396,6 +402,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
             fstypeoptionMenu.add(item)
             if fstype and fstype.getName() == name:
                 defindex = i
+                defismountable = types[name].isMountable()
             if fstypechangeCB and mountCombo:
                 item.connect("activate", fstypechangeCB, mountCombo)
             i = i + 1
@@ -404,6 +411,8 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo):
 
     if defindex:
         fstypeoption.set_history(defindex)
+
+    mountCombo.set_data("prevmountable", fstypeoptionMenu.get_active().get_data("type").isMountable())
 
     return (fstypeoption, fstypeoptionMenu)
 
@@ -507,10 +516,13 @@ class PartitionWindow(InstallWindow):
                              (start_sector_to_cyl(disk.dev, part.geom.start),)
                 text[self.titleSlot["End"]] = "%d" % \
                                 (end_sector_to_cyl(disk.dev, part.geom.end),)
-                text[self.titleSlot["Size (MB)"]] = \
-                                          "%g" % (part.geom.length
-                                                  * disk.dev.sector_size
-                                                  / 1024.0 / 1024.0)
+                size = part.geom.length*disk.dev.sector_size / 1024.0 / 1024.0
+                if size < 1.0:
+                    sizestr = "< 1"
+                else:
+                    sizestr = "%8.0f" % (size)
+                text[self.titleSlot["Size (MB)"]] = sizestr
+
                 if part.type == parted.PARTITION_EXTENDED:
                     if extendedParent:
                         raise RuntimeError, ("can't handle more than "
@@ -688,8 +700,7 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(createAlignedLabel(_("Allowable Drives:")),
                                  0, 1, row, row + 1)
 
-                driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),
-                                                      origrequest.drive)
+                driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),                                                      origrequest.drive)
 
                 maintable.attach(driveclist, 1, 2, row, row + 1)
             else:
@@ -738,6 +749,8 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(endcylspin, 1, 2, row, row + 1)
 
         else:
+            maintable.attach(createAlignedLabel(_("Size (MB):")),
+                             0, 1, row, row + 1)
             sizelabel = GtkLabel("%d" % (origrequest.size))
             maintable.attach(sizelabel, 1, 2, row, row + 1)
             sizespin = None
@@ -1219,7 +1232,10 @@ class PartitionWindow(InstallWindow):
         self.numCols = len(titles)
         self.tree = GtkCTree (self.numCols, 0, titles)
         self.tree.set_selection_mode (SELECTION_BROWSE)
-        self.tree.connect ("tree_select_row", self.treeSelectCb)        
+        self.tree.set_column_justification(1, JUSTIFY_RIGHT)
+        self.tree.set_column_justification(2, JUSTIFY_RIGHT)
+        self.tree.set_column_justification(3, JUSTIFY_RIGHT)
+        self.tree.connect ("tree_select_row", self.treeSelectCb)
 
         # set up the canvas
         self.diskStripeGraph = DiskStripeGraph(diskset, self.tree)
