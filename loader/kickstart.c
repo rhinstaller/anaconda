@@ -31,6 +31,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_URL, "url" },
     { KS_CMD_NETWORK, "network" },
     { KS_CMD_DEVICE, "device" },
+    { KS_CMD_XDISPLAY, "xdisplay" },
     { KS_CMD_NONE, NULL }
 };
 
