@@ -659,14 +659,6 @@ def doPostInstall(method, id, intf, instPath):
     
     try:
 	if not upgrade:
-            # XXX should this go here?
-	    if id.floppyDevice[0:2] == "fd":
-                dev = fsset.PartitionDevice(id.floppyDevice)
-                fs = fsset.fileSystemTypeGet("auto")
-                entry = fsset.FileSystemSetEntry(dev, '/mnt/floppy', fs,
-                                                 "noauto,owner")
-		id.fsset.add(entry)
-
 	    w.set(1)
 
 	    copyExtraModules(instPath, id.comps, id.extraModules)
