@@ -402,7 +402,11 @@ class ToDo:
 	for n in keys:
             (device, fsystem, format) = self.mounts[n]
             if fsystem != "swap":
-                isys.umount('/mnt/sysimage/' + n)
+                try:
+                    isys.umount('/mnt/sysimage/' + n)
+                except:
+                    # XXX
+                    pass
 
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
