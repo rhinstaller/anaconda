@@ -175,7 +175,7 @@ class Fstab:
 	boothd = self.getMbrDevice()
         (drives, raid) = self.partitionList()
 
-        for (dev, devName, type, start, size, maxcyl) in drives:
+        for (dev, devName, type, start, size, maxcyl, preexist) in drives:
             if dev == bootpart:
                 log ("maxcyl of %s is %d" % (dev, maxcyl))
                 return maxcyl
