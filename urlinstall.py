@@ -39,7 +39,7 @@ class UrlInstallMethod(InstallMethod):
 	if type("/") == type(h):
 	    fullPath = self.baseUrl + "/" + h
 	else:
-	    fullPath = self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
+	    fullPath = self.baseUrl + "/RedHat/RPMS/" + h[FILENAME]
 
 	file = tmppath + os.path.basename(fullPath)
 
