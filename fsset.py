@@ -17,6 +17,7 @@ import string
 import isys
 import iutil
 import os
+import posix
 import errno
 import parted
 import sys
@@ -1461,10 +1462,21 @@ class FileSystemSet:
                                           entry.mountpoint, msg))
                 sys.exit(0)
 
+        self.makeLVMNodes(instPath)
+
+    def makeLVMNodes(self, instPath, trylvm1 = 0):
         # XXX hack to make the device node exist for the root fs if
         # it's a logical volume so that mkinitrd can create the initrd.
         root = self.getEntryByMountPoint("/")
-        if isinstance(root.device, LogicalVolumeDevice):
+
+        rootlvm1 = 0
+        if trylvm1:
+            dev = root.device.getDevice()
+            # lvm1 major is 58
+            if posix.major(os.stat("%s/dev/%s" %(instPath, dev)).st_rdev) == 58:
+                rootlvm1 = 1
+        
+        if isinstance(root.device, LogicalVolumeDevice) or rootlvm1:
             # now make sure all of the device nodes exist.  *sigh*
             rc = iutil.execWithRedirect("lvm",
                                         ["lvm", "vgmknodes", "-v"],
@@ -1480,10 +1492,12 @@ class FileSystemSet:
                 os.makedirs(rootdir)
             dmdev = "/dev/mapper/" + root.device.getDevice().replace("/", "-")
             iutil.copyDeviceNode(dmdev, instPath + dmdev)
+            # unlink existing so that we dtrt on upgrades
+            if os.path.exists(instPath + rootDev):
+                os.unlink(instPath + rootDev)
             os.symlink(dmdev, instPath + rootDev)
             if not os.path.isdir("%s/etc/lvm" %(instPath,)):
                 os.makedirs("%s/etc/lvm" %(instPath,))
-#        raise RuntimeError
 
     def filesystemSpace(self, chroot='/'):
 	space = []

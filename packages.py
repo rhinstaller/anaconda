@@ -513,8 +513,12 @@ def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
 
     if thefsset.haveMigratedFilesystems():
         return DISPATCH_NOOP
-    
+
     thefsset.migrateFilesystems (instPath)
+
+    # if we're upgrading, we may need to do lvm device node hackery
+    if upgrade.get():
+        thefsset.makeLVMNodes(instPath, trylvm1 = 1)
     
 
 def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
