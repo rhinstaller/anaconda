@@ -1296,7 +1296,7 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
 		 "nonSparcMods" : '\n\tLoad "fbdevhw"',
-		 "driMod"	: '\n#\tLoad "dri"',
+		 "driMod"	: '\n\tLoad "dri"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
@@ -1310,6 +1310,11 @@ Section "Screen"
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         # see if 16 bpp is available, and if it should be the
         # default depth
+
+        # hack -- if we have nodri in the Cards file, let's really
+        # make sure it gets disabled
+        if string.find(cardoptions, 'Option "nodri"') != -1:
+            data["driMod"] = ""
 
         if self.keyVariant:
             data["enableVariant"] = ""
