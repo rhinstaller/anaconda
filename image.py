@@ -15,6 +15,7 @@ from comps import ComponentSet, HeaderListFromFile
 from installmethod import InstallMethod, FileCopyException
 import iutil
 import os
+import sys
 import isys
 import time
 import stat
@@ -42,8 +43,27 @@ class ImageInstallMethod(InstallMethod):
     def readHeaders(self):
         if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
             raise FileCopyException
-	return HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
+	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
+	# Make sure all of the correct CD images are available
+	missing_images = []
+	for h in hl.values():
+	    if not self.discImages.has_key(h[1000002]):
+		if h[1000002] not in missing_images:
+		    missing_images.append(h[1000002])
+
+	if len(missing_images) > 0:
+	    missing_images.sort()
+	    missing_string = ""
+	    for missing in missing_images:
+		missing_string += "\t\t\tCD #%d\n" % (missing,)
+		
+	    self.messageWindow(_("Error"),
+			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
+	    sys.exit(0)
+
+	return hl
+    
     def mergeFullHeaders(self, hdlist):
         if not os.access(self.tree + "/RedHat/base/hdlist2", os.R_OK):
             raise FileCopyException
@@ -391,7 +411,6 @@ def findIsoImages(path, messageWindow):
 	       "probably fail), or Cancel to exit the "
 	       "installer (RECOMMENDED). " % file, type = "okcancel")
 			if rc:
-			    import sys
 			    sys.exit(0)
 
 		    discImages[num] = file
@@ -444,6 +463,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
             pass
 
     def __init__(self, tree, messageWindow, rootPath):
+	self.messageWindow = messageWindow
 	self.imageMounted = None
 	self.isoPath = tree
 

@@ -17,6 +17,7 @@ from installmethod import InstallMethod, FileCopyException
 from image import findIsoImages
 import shutil
 import os
+import sys
 import isys
 import iutil
 import rpm
@@ -86,14 +87,22 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 
 	# Make sure all of the correct CD images are available
+	missing_images = []
 	for h in hl.values():
-            import sys
 	    if not self.discImages.has_key(h[1000002]):
-		self.messageWindow(_("Error"),
-			_("Missing ISO image for CD #%d, which is required for the "
-			  "install.\n\nThe system will now reboot.") % h[1000002])
-		sys.exit(0)
+		if h[1000002] not in missing_images:
+		    missing_images.append(h[1000002])
 
+	if len(missing_images) > 0:
+	    missing_images.sort()
+	    missing_string = ""
+	    for missing in missing_images:
+		missing_string += "\t\t\tCD #%d\n" % (missing,)
+		
+	    self.messageWindow(_("Error"),
+			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
+	    sys.exit(0)
+		
 	return hl
 
     def mergeFullHeaders(self, hdlist):
