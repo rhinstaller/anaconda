@@ -81,7 +81,7 @@ msgstr "ループバック"
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "/dev/%s 上にループバック ファイルシステムを作成しています"
+msgstr "デバイス /dev/%s 上にループバックファイルシステムを作成中..."
 
 # ../fstab.py:402
 # ../fstab.py:461
@@ -131,7 +131,7 @@ msgstr "ヘルプの表示"
 # ../gui.py:280 ../gui.py:526
 #: ../gui.py:272 ../gui.py:523
 msgid "Hide Help"
-msgstr "ヘルプの非表示"
+msgstr "ヘルプを隠す"
 
 # ../gui.py:274 ../gui.py:519
 # ../gui.py:281 ../gui.py:525
@@ -176,7 +176,7 @@ msgstr "%s 上の Red Hat Linux インストーラ"
 #: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "%s 上の Red Hat Linux インストールシェル"
+msgstr "%s 上の Red Hat Linux インストール シェル"
 
 # ../installclass.py:245
 # ../installclass.py:252
@@ -343,7 +343,7 @@ msgstr "サーバシステムのインストール"
 # ../text.py:226
 #: ../text.py:231
 msgid "Install Custom System"
-msgstr "カスタムシステムのインストール"
+msgstr "カスタム システムのインストール"
 
 # ../text.py:216
 # ../text.py:227
@@ -385,7 +385,7 @@ msgstr "ルートパーティションのあるパーティションを指定してください。"
 # ../text.py:311
 #: ../text.py:316
 msgid "Customize Packages to Upgrade"
-msgstr "アップグレードするパッケージのカスタマイズ"
+msgstr "アップグレードするパッケージをカスタマイズする"
 
 # ../text.py:276
 # ../text.py:312
@@ -655,7 +655,7 @@ msgstr ""
 # ../iw/bootdisk.py:57 ../text.py:754
 #: ../iw/bootdisk.py:57 ../text.py:759
 msgid "Insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "空のフロッピーディスクをプライマリフロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
+msgstr "空のフロッピーディスクをプライマリ フロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
 
 # ../text.py:719 ../text.py:720 ../text.py:731 ../text.py:732
 # ../textw/lilo.py:30 ../textw/silo.py:25
@@ -716,19 +716,19 @@ msgstr "        時間"
 # ../text.py:862
 #: ../text.py:867
 msgid "Total    :"
-msgstr "合計     :"
+msgstr "合計   :"
 
 # ../text.py:831
 # ../text.py:869
 #: ../text.py:874
 msgid "Completed:   "
-msgstr "完了    :   "
+msgstr "完了:   "
 
 # ../text.py:841
 # ../text.py:879
 #: ../text.py:884
 msgid "Remaining:  "
-msgstr "残り     :  "
+msgstr "残り:  "
 
 # ../text.py:930 ../text.py:931
 # ../text.py:968 ../text.py:969
@@ -746,7 +746,7 @@ msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 # ../text.py:983
 #: ../text.py:988
 msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
-msgstr "  <Tab>/<Alt-Tab> 項目間の移動      |  <Space> 選択      |  <F12> 次の画面"
+msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
 
 # ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:969 ../text.py:1004
 # ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
@@ -1037,7 +1037,7 @@ msgid ""
 "You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"選択したパッケージのインストールに必要なディスク容量が不足しているようです。以下のファイルシステム上に空き領域が必要です。"
+"選択したパッケージのインストールに必要なディスク容量が不足しているようです。以下のファイルシステム上に空き領域が必要です:\n"
 "\n"
 
 # ../todo.py:1326
@@ -1299,7 +1299,7 @@ msgstr ""
 "\n"
 "本リリースの Red Hat Linux 修正情報については、http://www.redhat.com の「Errata」を参照してください。\n"
 "\n"
-"システムの追加の設定方法については、『Official Red Hat Linux User's Guide』のインストール後の作業についての章を参照してください。"
+"システムの追加の設定方法については、『Official Red Hat Linux ユーザーズガイド』のインストール後の作業についての章を参照してください。"
 
 # ../iw/dependencies.py:9
 # ../iw/dependencies.py:9
@@ -1338,7 +1338,7 @@ msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"You don't have any Linux partitions.\n"
+"Linuxパーティションが存在しません.\n"
 " このシステムをアップグレードすることはできません"
 
 # ../iw/examine.py:60
@@ -1418,7 +1418,7 @@ msgstr "アップグレード"
 # ../iw/installpath.py:242
 #: ../iw/installpath.py:242
 msgid "Use fdisk"
-msgstr "fdisk を使用する"
+msgstr "fdiskを使用する"
 
 # ../iw/keyboard.py:13
 # ../iw/keyboard.py:13
@@ -1442,19 +1442,19 @@ msgstr "レイアウト"
 # ../iw/keyboard.py:94
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr "Dead Keys"
+msgstr "デッドキー"
 
 # ../iw/keyboard.py:103
 # ../iw/keyboard.py:103
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr "Enable dead keys"
+msgstr "デッドキーを有効にする"
 
 # ../iw/keyboard.py:104
 # ../iw/keyboard.py:104
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr "Disable dead keys"
+msgstr "デッドキーを無効にする"
 
 # ../iw/keyboard.py:113
 # ../iw/keyboard.py:113
@@ -2165,7 +2165,7 @@ msgstr "ユーザ ID"
 # ../textw/userauth.py:92
 #: ../textw/userauth.py:92
 msgid "User IDs must be less than 8 characters and contain only characters A-Z, a-z, and 0-9."
-msgstr ""
+msgstr "ユーザIDはアルファベットA-Z,a-z,0-9の範囲の8文字以内のものでなければなりません."
 
 # ../textw/userauth.py:90
 # ../textw/userauth.py:99
@@ -3126,7 +3126,7 @@ msgstr "Red Hat Linux へようこそ"
 # ../loader/loader.c:130
 #: ../loader/loader.c:131
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr "  <Tab>/<Alt-Tab> 項目間の移動     |  <Space> 選択   |  <F12> 次の画面 "
+msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面 "
 
 # ../loader/loader.c:236
 # ../loader/loader.c:240
@@ -3455,7 +3455,7 @@ msgstr "ネットワークデバイス"
 # ../loader/net.c:716
 #: ../loader/net.c:716
 msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
-msgstr " <Tab>/<Alt-Tab> 項目間の移動      |  <Space> 選択      |  <F12> 次の画面"
+msgstr " <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面"
 
 # ../loader/net.c:709
 # ../loader/net.c:717
@@ -3544,7 +3544,7 @@ msgstr "Web サイト名:"
 # ../loader/urls.c:198
 #: ../loader/urls.c:198
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "非 anonymous (匿名) ftp またはプロキシサーバを使用する"
+msgstr "匿名(anonymous)ftpまたはプロキシサーバを使用する"
 
 # ../loader/urls.c:202
 # ../loader/urls.c:202
@@ -3593,7 +3593,7 @@ msgstr "%s は有効なホスト名ではありません。"
 # ../loader/urls.c:307
 #: ../loader/urls.c:307
 msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below. If you are using an FTP proxy enter the name of the FTP proxy server to use."
-msgstr "非-anonymous (匿名) FTP を使用している場合は、使用するアカウント名およびパスワードを以下に入力してください。FTP プロキシを使用している場合は、使用する FTP プロキシサーバの名前を入力してください。"
+msgstr "匿名(anonymous)ftpを使用している場合は、使用するアカウント名およびパスワードを以下に入力してください。FTP プロキシを使用している場合は、使用する FTP プロキシサーバの名前を入力してください。"
 
 # ../loader/urls.c:313
 # ../loader/urls.c:313
