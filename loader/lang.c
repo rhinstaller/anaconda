@@ -278,6 +278,10 @@ int chooseLanguage(char ** lang, int flags) {
 	unsetenv("LANG");
 	unsetenv("LC_ALL");
 	unsetenv("LINGUAS");
+        if (strings) {
+            free(strings), strings = NULL;
+            numStrings = allocedStrings = 0;
+        }
 	return 0;
     }
 
