@@ -692,6 +692,7 @@ makeinstimage () {
     makemoduleball $tmpdir/modules "$modlist"
     makeproductfile $tmpdir
 
+    echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
     mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
@@ -737,6 +738,7 @@ makemainimage () {
         rmdir $mmi_mntpoint
     elif [ $type = "cramfs" ]; then
         makeproductfile $IMGPATH
+        echo "Running mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage"
         mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi
