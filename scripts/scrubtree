@@ -29,7 +29,7 @@ mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
 (cd $p/usr/bin;
 set $(./busybox 2>&1| awk '/^\t([a-z\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
 while [ -n "$1" ]; do
-    if [ $1 != "busybox" ]; then
+    if [ $1 != "busybox" -a $1 != "sh" ]; then
 	ln -sf ./busybox $1
     fi
     shift
