@@ -373,6 +373,13 @@ class Component:
                 self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
                 p.registerComponent(self)
                 self.pkgDict[p] = None
+                # up the refcount since, otherwise, when you have things
+                # which are deps as optional also, Bad Things Happen (tm)
+                if p.name in self.depsDict.keys():
+                    self.depsDict[p.name] = self.depsDict[p.name] + 1
+                else:
+                    self.depsDict[p.name] = 1
+                
                 self.updateDependencyCountForAddition(p)
         elif isinstance(p, Component):
             print "selecting component"
@@ -391,6 +398,12 @@ class Component:
                 p.unregisterComponent(self)
                 if self.pkgDict.has_key(p):
                     del self.pkgDict[p]
+                # dec the refcount since, otherwise, when you have things
+                # which are deps as optional also, Bad Things Happen (tm)
+                if p.name in self.depsDict.keys():
+                    self.depsDict[p.name] = self.depsDict[p.name] - 1
+                    if self.depsDict[p.name] == 0:
+                        del self.depsDict[p.name]
                 self.updateDependencyCountForRemoval(p)
         elif isinstance(p, Component):
             p.unselect(forInclude = 1, toplevel = 0)
