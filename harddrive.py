@@ -194,7 +194,7 @@ class HardDriveInstallMethod(InstallMethod):
 	# Go ahead and poke through the directory looking for interesting
 	# iso images
 	self.mountDirectory()
-	files = os.listdir(self.isoDir)
+	files = os.listdir(self.isoDir + '/' + self.path)
 
 	arch = iutil.getArch()
 
