@@ -17,6 +17,4 @@
 
  -  If you have an installer update disk, type: 0flinux updates <ENTER>07.
 
- -  To install using a 640x480 resolution, type: 0flinux lowres07.
-
 02[F1-Main] [F2-Options] [F3-General] [F4-Kernel] [F5-Rescue]07

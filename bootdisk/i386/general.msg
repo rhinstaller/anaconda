@@ -8,8 +8,9 @@ the best way to get started is to simply press the 0f<ENTER>07 key.
 
 If you are having problems with the graphical installer, you can use the 
 'resolution=<width>x<height>' option to try and force a particular resolution.
-For example, boot with '0flinux resolution=1024x76807'. You may also want to
-try '0flinux lowres07'.
+For example, boot with '0flinux resolution=1024x76807'.  If you
+have problems with displaying before the graphical environment starts,
+try booting with '0flinux nofb07'.
 
 Certain hardware configurations may have trouble with the automatic hardware
 detection done during the installation.  If you experience problems during the 
