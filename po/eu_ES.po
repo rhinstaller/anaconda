@@ -1,19 +1,19 @@
 # SOME DESCRIPTIVE TITLE.
 # Anaconda-ko mezuen Euskeraketa
 # Copyright (C) 2000 Free Software Foundation, Inc.
-# Euskeraketa: Iñaki Larrañaga Murgoitio <blackziggy@sammic.com>, 2001/01/10.
+# Euskeraketa: IÃ±aki LarraÃ±aga Murgoitio <blackziggy@sammic.com>, 2001/01/10.
 # 
 #
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: 7.1\n"
-"POT-Creation-Date: 2002-12-11 12:29-0500\n"
+"POT-Creation-Date: 2002-12-18 00:10-0500\n"
 "PO-Revision-Date: 2001-01-10 22:20+1\n"
-"Last-Translator: Iñaki Larrañaga Murgoitio <blackziggy@freemail.it>\n"
+"Last-Translator: IÃ±aki LarraÃ±aga Murgoitio <blackziggy@freemail.it>\n"
 "Language-Team: BASQUE <linux-eu@chanae.alphanet.ch>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=iso-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../anaconda:394
@@ -57,9 +57,9 @@ msgstr ""
 # ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
 # ../textw/userauth_text.py:135 ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:287 ../xserver.py:33
-#: ../anaconda:409 ../gui.py:140 ../rescue.py:38 ../rescue.py:136
-#: ../rescue.py:164 ../rescue.py:174 ../rescue.py:190 ../rescue.py:196
-#: ../text.py:314 ../text.py:443 ../xserver.py:51 ../textw/complete_text.py:54
+#: ../anaconda:409 ../gui.py:237 ../rescue.py:39 ../rescue.py:137
+#: ../rescue.py:165 ../rescue.py:175 ../rescue.py:191 ../rescue.py:197
+#: ../text.py:314 ../text.py:443 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdasd_text.py:32
 #: ../textw/fdisk_text.py:41 ../textw/network_text.py:154
@@ -85,19 +85,20 @@ msgstr ""
 #: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
 #: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
 #: ../loader/urls.c:198 ../loader/urls.c:268 ../loader/urls.c:273
-#: ../loader/urls.c:279 ../loader/urls.c:419 ../loader2/cdinstall.c:138
-#: ../loader2/cdinstall.c:139 ../loader2/cdinstall.c:251
-#: ../loader2/cdinstall.c:254 ../loader2/cdinstall.c:334
-#: ../loader2/cdinstall.c:339 ../loader2/cdinstall.c:342
-#: ../loader2/driverdisk.c:198 ../loader2/driverdisk.c:214
-#: ../loader2/driverdisk.c:225 ../loader2/driverselect.c:72
-#: ../loader2/driverselect.c:198 ../loader2/hdinstall.c:254
-#: ../loader2/hdinstall.c:421 ../loader2/hdinstall.c:472
-#: ../loader2/hdinstall.c:503 ../loader2/kbd.c:125 ../loader2/kickstart.c:97
+#: ../loader/urls.c:279 ../loader/urls.c:419 ../loader2/cdinstall.c:139
+#: ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:252
+#: ../loader2/cdinstall.c:255 ../loader2/cdinstall.c:346
+#: ../loader2/cdinstall.c:351 ../loader2/cdinstall.c:354
+#: ../loader2/cdinstall.c:423 ../loader2/driverdisk.c:200
+#: ../loader2/driverdisk.c:216 ../loader2/driverdisk.c:227
+#: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
+#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
+#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
+#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:97
 #: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148
-#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/lang.c:263
-#: ../loader2/loader.c:250 ../loader2/loader.c:262 ../loader2/loader.c:273
-#: ../loader2/loader.c:529 ../loader2/loader.c:645 ../loader2/mediacheck.c:255
+#: ../loader2/kickstart.c:248 ../loader2/lang.c:100 ../loader2/lang.c:383
+#: ../loader2/loader.c:268 ../loader2/loader.c:280 ../loader2/loader.c:291
+#: ../loader2/loader.c:551 ../loader2/loader.c:667 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:347
 #: ../loader2/method.c:145 ../loader2/method.c:353 ../loader2/method.c:438
 #: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:637
@@ -105,15 +106,15 @@ msgstr ""
 #: ../loader2/nfsinstall.c:216 ../loader2/nfsinstall.c:219
 #: ../loader2/nfsinstall.c:257 ../loader2/telnetd.c:86
 #: ../loader2/urlinstall.c:57 ../loader2/urlinstall.c:95
-#: ../loader2/urlinstall.c:107 ../loader2/urlinstall.c:385
-#: ../loader2/urlinstall.c:394 ../loader2/urlinstall.c:405
+#: ../loader2/urlinstall.c:107 ../loader2/urlinstall.c:386
+#: ../loader2/urlinstall.c:395 ../loader2/urlinstall.c:406
 #: ../loader2/urls.c:168 ../loader2/urls.c:178 ../loader2/urls.c:186
 #: ../loader2/urls.c:248 ../loader2/urls.c:309 ../loader2/urls.c:314
 #: ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
 msgstr "Onartu"
 
-#: ../anaconda:474 ../anaconda:683
+#: ../anaconda:474 ../anaconda:721
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
@@ -281,16 +282,16 @@ msgid ""
 msgstr ""
 
 # ../todo.py:857
-#: ../autopart.py:1291 ../bootloader.py:123 ../image.py:375
-#: ../partedUtils.py:247 ../partedUtils.py:671 ../upgrade.py:280
-#: ../upgrade.py:417 ../upgrade.py:436 ../upgrade.py:477
+#: ../autopart.py:1291 ../bootloader.py:123 ../image.py:371
+#: ../partedUtils.py:247 ../partedUtils.py:693 ../upgrade.py:282
+#: ../upgrade.py:418 ../upgrade.py:437 ../upgrade.py:478
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
 #: ../textw/bootloader_text.py:135 ../textw/bootloader_text.py:450
 #: ../textw/fdasd_text.py:84 ../textw/partition_text.py:217
 #: ../textw/upgrade_text.py:177 ../loader/loader.c:3762
-#: ../loader2/loader.c:298
+#: ../loader2/loader.c:316
 #, fuzzy
 msgid "Warning"
 msgstr "Bilatzen"
@@ -377,23 +378,23 @@ msgid "Everything"
 msgstr "Guztiak"
 
 # ../todo.py:784 ../todo.py:826 ../todo.py:832 ../todo.py:849
-#: ../comps.py:892 ../comps.py:956 ../upgrade.py:582
+#: ../comps.py:892 ../comps.py:957 ../upgrade.py:583
 msgid "no suggestion"
 msgstr "aholkurik ez dago"
 
 # ../loader/devices.c:77
-#: ../comps.py:1051 ../loader/devices.c:83
+#: ../comps.py:1052 ../loader/devices.c:83
 msgid "Miscellaneous"
 msgstr "Denetatik"
 
-#: ../comps.py:1067
+#: ../comps.py:1068
 msgid ""
 "This group includes all the packages available.  Note that this is "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1071
+#: ../comps.py:1072
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -479,29 +480,30 @@ msgstr "Abiatze disketea sortu"
 #: ../floppy.py:118 ../floppy.py:143 ../fsset.py:555 ../fsset.py:1027
 #: ../fsset.py:1046 ../fsset.py:1093 ../fsset.py:1104 ../fsset.py:1140
 #: ../fsset.py:1190 ../fsset.py:1233 ../harddrive.py:208 ../image.py:68
-#: ../image.py:102 ../image.py:238 ../packages.py:128 ../packages.py:142
-#: ../packages.py:331 ../packages.py:544 ../partedUtils.py:475
-#: ../partIntfHelpers.py:147 ../partIntfHelpers.py:332 ../upgrade.py:336
-#: ../upgrade.py:362 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
-#: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
-#: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
-#: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
-#: ../textw/upgrade_text.py:172 ../loader/devices.c:282
-#: ../loader/devices.c:289 ../loader/devices.c:453 ../loader/lang.c:28
-#: ../loader/lang.c:96 ../loader/loader.c:484 ../loader/loader.c:501
-#: ../loader/loader.c:610 ../loader/loader.c:942 ../loader/loader.c:1274
-#: ../loader/loader.c:1372 ../loader/loader.c:1496 ../loader/loader.c:1709
-#: ../loader/loader.c:1714 ../loader/loader.c:1756 ../loader/loader.c:1857
-#: ../loader/loader.c:2893 ../loader/loader.c:2923 ../loader/loader.c:3001
-#: ../loader/loader.c:3323 ../loader/loader.c:3361 ../loader/mediacheck.c:255
-#: ../loader/mediacheck.c:312 ../loader/modules.c:390 ../loader/modules.c:410
-#: ../loader/pcmcia.c:117 ../loader/pcmcia.c:134 ../loader/telnetd.c:68
-#: ../loader/urls.c:81 ../loader/urls.c:91 ../loader/urls.c:99
-#: ../loader/urls.c:268 ../loader/urls.c:273 ../loader2/cdinstall.c:139
-#: ../loader2/driverdisk.c:225 ../loader2/driverdisk.c:286
-#: ../loader2/hdinstall.c:254 ../loader2/hdinstall.c:472
-#: ../loader2/kickstart.c:246 ../loader2/lang.c:102 ../loader2/loader.c:273
-#: ../loader2/loader.c:529 ../loader2/mediacheck.c:255
+#: ../image.py:98 ../image.py:234 ../packages.py:129 ../packages.py:143
+#: ../packages.py:332 ../packages.py:501 ../packages.py:573
+#: ../partedUtils.py:497 ../partIntfHelpers.py:147 ../partIntfHelpers.py:332
+#: ../upgrade.py:338 ../upgrade.py:364 ../iw/osbootwidget.py:222
+#: ../iw/osbootwidget.py:231 ../iw/raid_dialog_gui.py:616
+#: ../iw/raid_dialog_gui.py:655 ../textw/fdasd_text.py:73
+#: ../textw/partition_text.py:1066 ../textw/partition_text.py:1077
+#: ../textw/upgrade_text.py:165 ../textw/upgrade_text.py:172
+#: ../loader/devices.c:282 ../loader/devices.c:289 ../loader/devices.c:453
+#: ../loader/lang.c:28 ../loader/lang.c:96 ../loader/loader.c:484
+#: ../loader/loader.c:501 ../loader/loader.c:610 ../loader/loader.c:942
+#: ../loader/loader.c:1274 ../loader/loader.c:1372 ../loader/loader.c:1496
+#: ../loader/loader.c:1709 ../loader/loader.c:1714 ../loader/loader.c:1756
+#: ../loader/loader.c:1857 ../loader/loader.c:2893 ../loader/loader.c:2923
+#: ../loader/loader.c:3001 ../loader/loader.c:3323 ../loader/loader.c:3361
+#: ../loader/mediacheck.c:255 ../loader/mediacheck.c:312
+#: ../loader/modules.c:390 ../loader/modules.c:410 ../loader/pcmcia.c:117
+#: ../loader/pcmcia.c:134 ../loader/telnetd.c:68 ../loader/urls.c:81
+#: ../loader/urls.c:91 ../loader/urls.c:99 ../loader/urls.c:268
+#: ../loader/urls.c:273 ../loader2/cdinstall.c:140 ../loader2/cdinstall.c:423
+#: ../loader2/driverdisk.c:227 ../loader2/driverdisk.c:289
+#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:473
+#: ../loader2/hdinstall.c:554 ../loader2/kickstart.c:248 ../loader2/lang.c:100
+#: ../loader2/loader.c:291 ../loader2/loader.c:551 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:145 ../loader2/method.c:353
 #: ../loader2/method.c:438 ../loader2/nfsinstall.c:216
 #: ../loader2/nfsinstall.c:219 ../loader2/telnetd.c:86
@@ -721,7 +723,45 @@ msgstr "Diskoa Egituratzen"
 msgid "Formatting %s file system..."
 msgstr "%s fitxategitza egituratzen..."
 
-#: ../gui.py:137 ../text.py:311
+# ../todo.py:993
+#: ../gui.py:104
+#, fuzzy
+msgid "An error occurred copying the screenshots over."
+msgstr "Eguneratuko diren sortak bilatzerakoan akats bat gertatu da."
+
+#: ../gui.py:116
+msgid "Screenshots Copied"
+msgstr ""
+
+#: ../gui.py:117
+msgid ""
+"The screenshots have been saved into the directory:\n"
+"\n"
+"\t/root/anaconda-screenshots/\n"
+"\n"
+"You can access these when you reboot and login as root."
+msgstr ""
+
+#: ../gui.py:161
+msgid "Saving Screenshot"
+msgstr ""
+
+#: ../gui.py:162
+#, python-format
+msgid "A screenshot named '%s' has been saved."
+msgstr ""
+
+#: ../gui.py:165
+msgid "Error Saving Screenshot"
+msgstr ""
+
+#: ../gui.py:166
+msgid ""
+"An error occurred while saving the screenshot.  If this occurredduring "
+"package installation, you may need to try several times for it to succeed."
+msgstr ""
+
+#: ../gui.py:234 ../text.py:311
 msgid "Fix"
 msgstr ""
 
@@ -735,11 +775,12 @@ msgstr ""
 # ../loader/loader.c:656 ../loader/net.c:810 ../text.py:291
 # ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 # ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
-#: ../gui.py:138 ../text.py:312 ../textw/bootdisk_text.py:22
+#: ../gui.py:235 ../text.py:312 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:247 ../loader/devices.c:237
+#: ../textw/upgrade_text.py:253 ../loader/devices.c:237
 #: ../loader/loader.c:1145 ../loader/loader.c:3762 ../loader/net.c:907
-#: ../loader2/hdinstall.c:367 ../loader2/loader.c:298
+#: ../loader2/driverdisk.c:337 ../loader2/hdinstall.c:368
+#: ../loader2/loader.c:316
 msgid "Yes"
 msgstr "Bai"
 
@@ -753,21 +794,22 @@ msgstr "Bai"
 # ../text.py:291 ../text.py:297 ../textw/bootdisk_text.py:12
 # ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 # ../textw/partitioning_text.py:218
-#: ../gui.py:139 ../text.py:313 ../textw/bootdisk_text.py:22
+#: ../gui.py:236 ../text.py:313 ../textw/bootdisk_text.py:22
 #: ../textw/bootdisk_text.py:35 ../textw/bootloader_text.py:79
-#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:247
-#: ../textw/upgrade_text.py:254 ../loader/devices.c:238
-#: ../loader/loader.c:3762 ../loader/net.c:907 ../loader2/loader.c:298
+#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:253
+#: ../textw/upgrade_text.py:260 ../loader/devices.c:238
+#: ../loader/loader.c:3762 ../loader/net.c:907 ../loader2/driverdisk.c:337
+#: ../loader2/loader.c:316
 msgid "No"
 msgstr "Ez"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:141 ../text.py:315 ../loader/net.c:274 ../loader/net.c:400
+#: ../gui.py:238 ../text.py:315 ../loader/net.c:274 ../loader/net.c:400
 #: ../loader2/net.c:156 ../loader2/net.c:359
 msgid "Retry"
 msgstr "Saiatu Berriz"
 
-#: ../gui.py:142 ../text.py:316
+#: ../gui.py:239 ../text.py:316
 msgid "Ignore"
 msgstr ""
 
@@ -778,7 +820,7 @@ msgstr ""
 # ../text.py:337 ../text.py:812 ../text.py:814 ../textw/lilo_text.py:118
 # ../textw/silo_text.py:136 ../textw/silo_text.py:154
 # ../textw/userauth_text.py:63
-#: ../gui.py:143 ../gui.py:428 ../partIntfHelpers.py:231
+#: ../gui.py:240 ../gui.py:540 ../partIntfHelpers.py:231
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:115
 #: ../text.py:116 ../text.py:281 ../text.py:283 ../text.py:317
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
@@ -786,12 +828,12 @@ msgstr ""
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:76 ../loader/devices.c:245
 #: ../loader/loader.c:2986 ../loader/modules.c:450 ../loader/pcmcia.c:107
-#: ../loader2/driverdisk.c:199 ../loader2/loader.c:262
+#: ../loader2/driverdisk.c:201 ../loader2/loader.c:280
 msgid "Cancel"
 msgstr "Etsi"
 
 # ../gui.py:142
-#: ../gui.py:351 ../text.py:289
+#: ../gui.py:463 ../text.py:289
 #, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
@@ -804,7 +846,7 @@ msgstr ""
 "com/bugzilla -ra mamorro honi buruzko txozten bat bidal ezazu mesedez."
 
 # ../gui.py:275 ../text.py:810
-#: ../gui.py:502 ../text.py:279
+#: ../gui.py:622 ../text.py:279
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -813,26 +855,26 @@ msgstr ""
 "izango da, beraz disketea aukeratzerakoan argi ibili."
 
 # ../gui.py:372 ../gui.py:635
-#: ../gui.py:610 ../gui.py:1095
+#: ../gui.py:730 ../gui.py:1218
 msgid "Online Help"
 msgstr "Zuzeneko Laguntza"
 
 # ../gui.py:373 ../iw/language_gui.py:10 ../text.py:62 ../text.py:881
 # ../text.py:910
-#: ../gui.py:611 ../iw/language_gui.py:23 ../textw/language_text.py:39
+#: ../gui.py:731 ../iw/language_gui.py:23 ../textw/language_text.py:37
 msgid "Language Selection"
 msgstr "Hizkuntzaren Hautaketa"
 
 # ../gui.py:745
-#: ../gui.py:711 ../gui.py:740
+#: ../gui.py:831 ../gui.py:860
 msgid "Release Notes"
 msgstr "Oharrak Zabaldu"
 
-#: ../gui.py:745
+#: ../gui.py:865
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:782
+#: ../gui.py:902
 msgid "Release notes are missing.\n"
 msgstr ""
 
@@ -847,12 +889,12 @@ msgstr ""
 # ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 # ../text.py:248 ../textw/bootdisk_text.py:69 ../todo.py:868 ../todo.py:896
 # ../todo.py:979 ../todo.py:992
-#: ../gui.py:813
+#: ../gui.py:933
 #, fuzzy
 msgid "Error!"
 msgstr "Akatsa"
 
-#: ../gui.py:814
+#: ../gui.py:934
 #, python-format
 msgid ""
 "An error occurred when attempting to load an installer interface component.\n"
@@ -861,29 +903,29 @@ msgid ""
 msgstr ""
 
 # ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:61
-#: ../gui.py:818 ../packages.py:1152 ../iw/congrats_gui.py:29
+#: ../gui.py:938 ../packages.py:1185 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Irten"
 
 # ../libfdisk/fsedit.c:1439 ../loader/net.c:254 ../loader/net.c:379
-#: ../gui.py:819
+#: ../gui.py:939
 #, fuzzy
 msgid "_Retry"
 msgstr "Saiatu Berriz"
 
 # ../text.py:1002
-#: ../gui.py:821 ../packages.py:1155
+#: ../gui.py:941 ../packages.py:1188
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Sistema Eguneratu"
 
-#: ../gui.py:822 ../packages.py:1156
+#: ../gui.py:942 ../packages.py:1189
 msgid "Your system will now be rebooted..."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../gui.py:825 ../packages.py:1158
+#: ../gui.py:945 ../packages.py:1191
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Garbitu"
@@ -913,61 +955,61 @@ msgstr "_Garbitu"
 # ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 # ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
 # ../textw/userauth_text.py:287
-#: ../gui.py:916 ../packages.py:1158
+#: ../gui.py:1036 ../packages.py:1191
 #, fuzzy
 msgid "_Back"
 msgstr "Atzera"
 
 # ../gui.py:365 ../gui.py:605
-#: ../gui.py:918
+#: ../gui.py:1038
 #, fuzzy
 msgid "_Next"
 msgstr "Hurrengoa"
 
 # ../gui.py:745
-#: ../gui.py:920
+#: ../gui.py:1040
 #, fuzzy
 msgid "_Release Notes"
 msgstr "Oharrak Zabaldu"
 
 # ../gui.py:367 ../gui.py:609
-#: ../gui.py:922
+#: ../gui.py:1042
 #, fuzzy
 msgid "Show _Help"
 msgstr "Laguntza Azaldu"
 
 # ../gui.py:368 ../gui.py:608
-#: ../gui.py:924
+#: ../gui.py:1044
 #, fuzzy
 msgid "Hide _Help"
 msgstr "Laguntza Ezkutatu"
 
 # ../text.py:827 ../text.py:828
-#: ../gui.py:926
+#: ../gui.py:1046
 #, fuzzy
 msgid "_Debug"
 msgstr "Akats-Azterketa"
 
 # ../todo.py:1634
-#: ../gui.py:999
+#: ../gui.py:1122
 #, fuzzy, python-format
 msgid "%s Installer"
 msgstr "Ezarketa Ondorengoa"
 
 # ../gui.py:586
-#: ../gui.py:1014
+#: ../gui.py:1137
 #, fuzzy, python-format
 msgid "%s Installer on %s"
 msgstr "Red Hat Linux-eko Ezartzailea %s-ean"
 
 # ../xf86config.py:873
-#: ../gui.py:1053
+#: ../gui.py:1176
 #, fuzzy
 msgid "Unable to load title bar"
 msgstr "Bideo xafla ezin ezagutu"
 
 # ../gui.py:682
-#: ../gui.py:1156
+#: ../gui.py:1279
 msgid "Install Window"
 msgstr "Ezarketa Lehioa"
 
@@ -985,17 +1027,17 @@ msgid ""
 msgstr ""
 
 # ../image.py:52
-#: ../image.py:99
+#: ../image.py:95
 msgid "Copying File"
 msgstr "Fitxategia Kopiatzen"
 
 # ../image.py:53
-#: ../image.py:100
+#: ../image.py:96
 msgid "Transferring install image to hard drive..."
 msgstr "Ezarketaren irudia disko gogrrera bidaltzen..."
 
 # ../image.py:56
-#: ../image.py:103
+#: ../image.py:99
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -1004,29 +1046,29 @@ msgstr ""
 "Litekeena da diskoko leku guztia beteta edukitzea."
 
 # ../image.py:78
-#: ../image.py:196
+#: ../image.py:192
 msgid "Change CDROM"
 msgstr "Aldatu 'CDROM'-a"
 
 # ../image.py:79
-#: ../image.py:197
+#: ../image.py:193
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Mesedez, jarraitzeko %d diskoa sartu."
 
 # ../image.py:91
-#: ../image.py:232
+#: ../image.py:228
 msgid "Wrong CDROM"
 msgstr "CDROM okerra"
 
 # ../image.py:92
-#: ../image.py:233
+#: ../image.py:229
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Hau ez da Red Hat Linux-eko CDROM zuzena."
 
 # ../image.py:97
-#: ../image.py:239
+#: ../image.py:235
 msgid "The CDROM could not be mounted."
 msgstr "Ezinezkoa CDROM-a lotzea."
 
@@ -1044,11 +1086,11 @@ msgstr ""
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
 
-#: ../packages.py:41 ../iw/package_gui.py:37
+#: ../packages.py:42 ../iw/package_gui.py:37
 msgid "Proceed with upgrade?"
 msgstr ""
 
-#: ../packages.py:42 ../iw/package_gui.py:38
+#: ../packages.py:43 ../iw/package_gui.py:38
 msgid ""
 "The file systems of the Linux installation you have chosen to upgrade have "
 "already been mounted. You cannot go back past this point. \n"
@@ -1056,23 +1098,23 @@ msgid ""
 msgstr ""
 
 # ../iw/welcome_gui.py:80
-#: ../packages.py:46 ../iw/package_gui.py:42
+#: ../packages.py:47 ../iw/package_gui.py:42
 #, fuzzy
 msgid "Would you like to continue with the upgrade?"
 msgstr "Zure sistema egokitzea nahi?"
 
 # ../todo.py:550
-#: ../packages.py:122
+#: ../packages.py:123
 msgid "Reading"
 msgstr "Irakurtzen"
 
 # ../todo.py:551
-#: ../packages.py:122
+#: ../packages.py:123
 msgid "Reading package information..."
 msgstr "Programa Sortei buruzko azalpenak irakurtzen..."
 
 # ../todo.py:1377
-#: ../packages.py:129
+#: ../packages.py:130
 #, fuzzy
 msgid ""
 "Unable to read header list.  This may be due to a missing file or bad "
@@ -1083,7 +1125,7 @@ msgstr ""
 "(Return) zapaldu."
 
 # ../todo.py:1377
-#: ../packages.py:143
+#: ../packages.py:144
 #, fuzzy
 msgid ""
 "Unable to read comps file.  This may be due to a missing file or bad media.  "
@@ -1094,26 +1136,26 @@ msgstr ""
 "(Return) zapaldu."
 
 # ../todo.py:756
-#: ../packages.py:217
+#: ../packages.py:218
 msgid "Dependency Check"
 msgstr "Menpekotasunak Egiztatu"
 
 # ../todo.py:757
-#: ../packages.py:218
+#: ../packages.py:219
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Ezarketarako hautatuako programa sorten menpekotasunak egiaztatzen..."
 
 # ../todo.py:1302
-#: ../packages.py:283 ../packages.py:663
+#: ../packages.py:284 ../packages.py:692
 msgid "Processing"
 msgstr "Burutzen"
 
 # ../todo.py:1303
-#: ../packages.py:284
+#: ../packages.py:285
 msgid "Preparing to install..."
 msgstr "Ezarketarako prestatzen..."
 
-#: ../packages.py:332
+#: ../packages.py:333
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1124,12 +1166,12 @@ msgid ""
 msgstr ""
 
 # ../iw/progress_gui.py:36
-#: ../packages.py:372
+#: ../packages.py:362
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Sortak Ezartzen"
 
-#: ../packages.py:373
+#: ../packages.py:363
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1140,8 +1182,15 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
+#: ../packages.py:502
+#, python-format
+msgid ""
+"You are trying to install on a machine which isn't supported by this release "
+"of %s."
+msgstr ""
+
 # ../todo.py:1377
-#: ../packages.py:545
+#: ../packages.py:574
 #, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
@@ -1151,12 +1200,12 @@ msgstr ""
 "diskete okerra egoteagatik izan daiteke. Berriz saiatzeko lerro-itzulera "
 "(Return) zapaldu."
 
-#: ../packages.py:664
+#: ../packages.py:693
 msgid "Setting up RPM transaction..."
 msgstr ""
 
 # ../todo.py:1556
-#: ../packages.py:703
+#: ../packages.py:732
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
@@ -1164,7 +1213,7 @@ msgid ""
 msgstr "%s eguneratzen.\n"
 
 # ../iw/progress_gui.py:36
-#: ../packages.py:705
+#: ../packages.py:734
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
@@ -1172,18 +1221,18 @@ msgid ""
 msgstr "Sortak Ezartzen"
 
 # ../todo.py:1556
-#: ../packages.py:712 ../packages.py:993
+#: ../packages.py:741 ../packages.py:1026
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "%s eguneratzen.\n"
 
 # ../todo.py:1558
-#: ../packages.py:714 ../packages.py:995
+#: ../packages.py:743 ../packages.py:1028
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "%s ezartzen.\n"
 
-#: ../packages.py:731
+#: ../packages.py:760
 #, python-format
 msgid ""
 "\n"
@@ -1195,17 +1244,17 @@ msgid ""
 msgstr ""
 
 # ../text.py:977
-#: ../packages.py:737
+#: ../packages.py:766
 #, fuzzy
 msgid "Install Starting"
 msgstr "Ezarketaren Hasera"
 
-#: ../packages.py:738
+#: ../packages.py:767
 msgid "Starting install process, this may take several minutes..."
 msgstr ""
 
 # ../todo.py:1583
-#: ../packages.py:780
+#: ../packages.py:811
 #, fuzzy
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
@@ -1217,19 +1266,19 @@ msgstr ""
 "\n"
 
 # ../libfdisk/gnomefsedit.c:2992 ../todo.py:1586
-#: ../packages.py:784 ../packages.py:804 ../iw/lvm_dialog_gui.py:1048
+#: ../packages.py:815 ../packages.py:835 ../iw/lvm_dialog_gui.py:1048
 #: ../iw/partition_gui.py:348 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1114 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Loturagunea"
 
 # ../todo.py:1586
-#: ../packages.py:785
+#: ../packages.py:816
 msgid "Space Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1583
-#: ../packages.py:800
+#: ../packages.py:831
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1241,17 +1290,17 @@ msgstr ""
 "\n"
 
 # ../todo.py:1586
-#: ../packages.py:805
+#: ../packages.py:836
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Diskoan Lekua behar da"
 
 # ../todo.py:1599
-#: ../packages.py:811
+#: ../packages.py:842
 msgid "Disk Space"
 msgstr "Diskaren Zabaltegia"
 
-#: ../packages.py:830
+#: ../packages.py:863
 msgid ""
 "\n"
 "\n"
@@ -1259,20 +1308,20 @@ msgid ""
 msgstr ""
 
 # ../todo.py:1634
-#: ../packages.py:847
+#: ../packages.py:880
 msgid "Post Install"
 msgstr "Ezarketa Ondorengoa"
 
 # ../todo.py:1635
-#: ../packages.py:848
+#: ../packages.py:881
 msgid "Performing post install configuration..."
 msgstr "Ezarketa ondorengo egokitzaketa lantzen..."
 
-#: ../packages.py:1138
+#: ../packages.py:1171
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1139
+#: ../packages.py:1172
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1288,7 +1337,7 @@ msgid ""
 msgstr ""
 
 # ../iw/installpath_gui.py:92
-#: ../packages.py:1152
+#: ../packages.py:1185
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Ezarketa Mota"
@@ -1311,41 +1360,44 @@ msgstr ""
 "beharko dira, eta diskoko EDUKIN GUZTIA GALDUKO DA."
 
 # ../todo.py:869 ../todo.py:897
-#: ../partedUtils.py:476
+#: ../partedUtils.py:498
 #, fuzzy, python-format
 msgid "Error mounting file system on %s: %s"
 msgstr "%s-an ext2 fitxategitza lotzerakoan akatsa: %s"
 
 # ../libfdisk/fsedit.c:1418
-#: ../partedUtils.py:554
+#: ../partedUtils.py:576
 #, fuzzy
 msgid "Initializing"
 msgstr "Hasieratu"
 
-#: ../partedUtils.py:555
+#: ../partedUtils.py:577
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
 msgstr ""
 
 # ../libfdisk/fsedit.c:1412
-#: ../partedUtils.py:672
+#: ../partedUtils.py:694
 #, fuzzy, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
 "\n"
-"Would you like to initialize this drive?"
+"This operation will override any previous installation choices about which "
+"drives to ignore.\n"
+"\n"
+"Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "%s-ko zati-taula izurrauta dago. Disko zati berriak egiteko guztiak ezabatu "
 "beharko dira, eta diskoko EDUKIN GUZTIA GALDUKO DA."
 
 # ../libfdisk/fsedit.c:1041
-#: ../partedUtils.py:784 ../textw/fdasd_text.py:100
+#: ../partedUtils.py:810 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
 # ../libfdisk/fsedit.c:1042
-#: ../partedUtils.py:785
+#: ../partedUtils.py:811
 #, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
@@ -1857,17 +1909,17 @@ msgid ""
 "will need to add members to the RAID device."
 msgstr ""
 
-#: ../rescue.py:72 ../rescue.py:106 ../rescue.py:206
+#: ../rescue.py:73 ../rescue.py:107 ../rescue.py:207
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../rescue.py:90 ../rescue.py:159 ../rescue.py:167 ../rescue.py:185
+#: ../rescue.py:91 ../rescue.py:160 ../rescue.py:168 ../rescue.py:186
 #, fuzzy
 msgid "Rescue"
 msgstr "_Garbitu"
 
-#: ../rescue.py:91
+#: ../rescue.py:92
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1882,14 +1934,14 @@ msgid ""
 msgstr ""
 
 # ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:155
-#: ../rescue.py:101 ../iw/partition_gui.py:559 ../loader/loader.c:1346
-#: ../loader/loader.c:1354 ../loader2/cdinstall.c:111
-#: ../loader2/cdinstall.c:119 ../loader2/driverdisk.c:287
+#: ../rescue.py:102 ../iw/partition_gui.py:559 ../loader/loader.c:1346
+#: ../loader/loader.c:1354 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:120 ../loader2/driverdisk.c:290
 msgid "Continue"
 msgstr "Jarraitu"
 
 # ../todo.py:550
-#: ../rescue.py:101 ../rescue.py:110
+#: ../rescue.py:102 ../rescue.py:111
 #, fuzzy
 msgid "Read-Only"
 msgstr "Irakurtzen"
@@ -1897,37 +1949,37 @@ msgstr "Irakurtzen"
 # ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
 # ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:30
 # ../textw/silo_text.py:25
-#: ../rescue.py:101 ../rescue.py:103 ../textw/silo_text.py:36
+#: ../rescue.py:102 ../rescue.py:104 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader/loader.c:963 ../loader/loader.c:1422
-#: ../loader/loader.c:1424 ../loader2/cdinstall.c:252
-#: ../loader2/cdinstall.c:254 ../loader2/method.c:400
+#: ../loader/loader.c:1424 ../loader2/cdinstall.c:253
+#: ../loader2/cdinstall.c:255 ../loader2/method.c:400
 msgid "Skip"
 msgstr "Jauzi"
 
 # ../text.py:266
-#: ../rescue.py:133
+#: ../rescue.py:134
 #, fuzzy
 msgid "System to Rescue"
 msgstr "Sistemaren Eguneraketa"
 
 # ../text.py:267
-#: ../rescue.py:134
+#: ../rescue.py:135
 msgid "What partition holds the root partition of your installation?"
 msgstr "Erro nagusia zein disko-zatitan ezarri behar da?"
 
 # ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:61
-#: ../rescue.py:136 ../rescue.py:140
+#: ../rescue.py:137 ../rescue.py:141
 msgid "Exit"
 msgstr "Irten"
 
-#: ../rescue.py:160
+#: ../rescue.py:161
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:168
+#: ../rescue.py:169
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1940,7 +1992,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:186
+#: ../rescue.py:187
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1951,19 +2003,19 @@ msgid ""
 msgstr ""
 
 # ../loader/loader.c:1390
-#: ../rescue.py:192
+#: ../rescue.py:193
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Berreskuraketa Bidea"
 
-#: ../rescue.py:193
+#: ../rescue.py:194
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
 # ../loader/urls.c:239
-#: ../rescue.py:203
+#: ../rescue.py:204
 #, fuzzy, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Direktorio bat idatzi behar duzu."
@@ -2038,24 +2090,24 @@ msgid "Upgrade"
 msgstr "Eguneraketa"
 
 # ../todo.py:857
-#: ../upgrade.py:55
+#: ../upgrade.py:57
 msgid "Searching"
 msgstr "Bilatzen"
 
 # ../todo.py:858
-#: ../upgrade.py:56
+#: ../upgrade.py:58
 #, fuzzy, python-format
 msgid "Searching for %s installations..."
 msgstr "Red Hat Linux-eko ezarketak bilatzen..."
 
 # ../text.py:941 ../textw/partitioning_text.py:301
-#: ../upgrade.py:108 ../upgrade.py:116
+#: ../upgrade.py:110 ../upgrade.py:118
 #, fuzzy
 msgid "Dirty File Systems"
 msgstr "Erro Fitxategitzaren Neurria"
 
 # ../todo.py:941
-#: ../upgrade.py:109
+#: ../upgrade.py:111
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2068,7 +2120,7 @@ msgstr ""
 "eguneratzeko, sistema era antolatu batean itzali."
 
 # ../todo.py:941
-#: ../upgrade.py:117
+#: ../upgrade.py:119
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2080,13 +2132,13 @@ msgstr ""
 "eguneratzeko, sistema era antolatu batean itzali."
 
 # ../iw/xconfig_gui.py:15
-#: ../upgrade.py:246 ../upgrade.py:252
+#: ../upgrade.py:248 ../upgrade.py:254
 #, fuzzy
 msgid "Mount failed"
 msgstr "Saiakerak huts egin du"
 
 # ../todo.py:951
-#: ../upgrade.py:247
+#: ../upgrade.py:249
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
@@ -2097,7 +2149,7 @@ msgstr ""
 "eguneratu berriz."
 
 # ../todo.py:951
-#: ../upgrade.py:253
+#: ../upgrade.py:255
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
@@ -2109,7 +2161,7 @@ msgstr ""
 "eguneratu berriz."
 
 # ../todo.py:989
-#: ../upgrade.py:270
+#: ../upgrade.py:272
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2122,32 +2174,32 @@ msgstr ""
 "itzazu eta eguneraketa ber-abiatu.\n"
 "\n"
 
-#: ../upgrade.py:281
+#: ../upgrade.py:283
 #, python-format
 msgid "%s not found"
 msgstr ""
 
 # ../todo.py:964
-#: ../upgrade.py:303
+#: ../upgrade.py:305
 msgid "Finding"
 msgstr "Bilatzen..."
 
 # ../todo.py:965
-#: ../upgrade.py:304
+#: ../upgrade.py:306
 msgid "Finding packages to upgrade..."
 msgstr "Eguneratuko diren sortak bilatzen..."
 
 # ../todo.py:980
-#: ../upgrade.py:337
+#: ../upgrade.py:339
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "RPM datu basearen sorreran akatsa. Diskoan lekurik ba al dago?"
 
 # ../todo.py:993
-#: ../upgrade.py:363
+#: ../upgrade.py:365
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Eguneratuko diren sortak bilatzerakoan akats bat gertatu da."
 
-#: ../upgrade.py:418
+#: ../upgrade.py:419
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2156,7 +2208,7 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:437
+#: ../upgrade.py:438
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2164,51 +2216,12 @@ msgid ""
 "process?"
 msgstr ""
 
-#: ../upgrade.py:478
+#: ../upgrade.py:479
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
-msgstr ""
-
-# ../xserver.py:26
-#: ../xserver.py:44
-msgid "Mouse Not Detected"
-msgstr "Xagurik ez da topatu"
-
-# ../xserver.py:27
-#: ../xserver.py:45
-msgid ""
-"Your mouse was not automatically detected.  To proceed in the graphical "
-"installation mode, please proceed to the next screen and provide your mouse "
-"information. You may also use text mode installation which does not require "
-"a mouse."
-msgstr ""
-"Ezartzaileak bere kasa ezin izan du zure xagua nabarmendu. Ezarketa era "
-"grafiko batean egitekotan hurrengo pantailarra joan eta xaguaren ezaugarriak "
-"zehaztu itzazu. Nahiz izan ezkero, ezarketa testu eran egin dezakezu, "
-"horretarako xagurik ez bait da behar."
-
-# ../xserver.py:33 ../xserver.py:34
-#: ../xserver.py:51 ../xserver.py:52
-msgid "Use text mode"
-msgstr "Testu era erabili"
-
-#: ../xserver.py:104
-msgid "Attempting to start native X server"
-msgstr ""
-
-#: ../xserver.py:111
-msgid "Attempting to start VESA driver X server"
-msgstr ""
-
-#: ../xserver.py:180
-msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr ""
-
-#: ../xserver.py:207
-msgid " X server started successfully."
 msgstr ""
 
 # ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
@@ -2373,6 +2386,36 @@ msgstr "Kerberos  Baimendu"
 msgid "SMB"
 msgstr ""
 
+# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
+# ../textw/partitioning_text.py:149
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1399
+#: ../textw/partition_text.py:1205
+msgid "Automatic Partitioning"
+msgstr "Berekasakako Disko Zatiketa"
+
+# ../loader/lang.c:287
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1427
+#, fuzzy, python-format
+msgid "You need to select at least one hard drive to have %s installed onto."
+msgstr "Hizkuntza bat Hautatu"
+
+# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
+# ../textw/partitioning_text.py:149
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1469
+#, fuzzy
+msgid "I want to have automatic partitioning:"
+msgstr "Berekasakako Disko Zatiketa"
+
+# ../textw/lilo_text.py:85 ../textw/silo_text.py:103
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1500
+#, fuzzy
+msgid "Select the drive(s) to use for this installation:"
+msgstr "Abiagailua non ezartzea nahi duzu?"
+
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1524
+msgid "Re_view (and modify if needed) the partitions created"
+msgstr ""
+
 #: ../iw/blpasswidget.py:37
 msgid ""
 "A boot loader password prevents users from changing options passed to the "
@@ -2439,26 +2482,26 @@ msgstr ""
 # ../iw/bootdisk_gui.py:11
 #: ../iw/bootdisk_gui.py:23
 #, fuzzy
-msgid "Boot Disk Creation"
+msgid "Boot Diskette Creation"
 msgstr "Abiatze Diskoaren Sorrera"
 
 #: ../iw/bootdisk_gui.py:54
 #, python-format
 msgid ""
 "The boot diskette allows you to boot your %s system from a floppy diskette.  "
-"A boot disk allows you to boot your system if your bootloader configuration "
-"stops working, if you chose not to install a boot loader, or if your third-"
-"party boot loader does not support Linux.\n"
+"A boot diskette allows you to boot your system in the event your bootloader "
+"configuration stops working, if you chose not to install a boot loader, or "
+"if your third-party boot loader does not support Linux.\n"
 "\n"
-"It is highly recommended you create a boot disk.\n"
+"It is highly recommended you create a boot diskette.\n"
 msgstr ""
 
 #: ../iw/bootdisk_gui.py:70
-msgid "_Yes, I would like to create a boot disk"
+msgid "_Yes, I would like to create a boot diskette"
 msgstr ""
 
 #: ../iw/bootdisk_gui.py:73
-msgid "No, I _do not want to create a boot disk"
+msgid "No, I _do not want to create a boot diskette"
 msgstr ""
 
 # ../iw/xconfig_gui.py:123
@@ -2644,14 +2687,16 @@ msgstr ""
 msgid "Congratulations"
 msgstr "Zorionak"
 
-#: ../iw/congrats_gui.py:49
+#: ../iw/congrats_gui.py:53
+#, python-format
 msgid ""
-"If you created a boot diskette to boot the system, insert it before "
-"rebooting.\n"
+"If you created a boot diskette during this installation as your primary "
+"means of booting %s, insert it before rebooting your newly installed "
+"system.\n"
 "\n"
 msgstr ""
 
-#: ../iw/congrats_gui.py:56
+#: ../iw/congrats_gui.py:62
 #, python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
@@ -2748,7 +2793,7 @@ msgid ""
 "\tAdministration Tools\n"
 "\n"
 "After installation, additional software can be added or removed using the "
-"'redhat-config-package' tool.\n"
+"'redhat-config-packages' tool.\n"
 "\n"
 "If you are familiar with %s, you may have specific packages you would like "
 "to install or avoid installing. Check the box below to customize your "
@@ -2782,7 +2827,7 @@ msgid ""
 "\tGames\n"
 "\n"
 "After installation, additional software can be added or removed using the "
-"'redhat-config-package' tool.\n"
+"'redhat-config-packages' tool.\n"
 "\n"
 "If you are familiar with %s, you may have specific packages you would like "
 "to install or avoid installing. Check the box below to customize your "
@@ -2822,23 +2867,49 @@ msgid "Model"
 msgstr "Eredua"
 
 # ../iw/examine_gui.py:10
-#: ../iw/examine_gui.py:28
+#: ../iw/examine_gui.py:32
 msgid "Upgrade Examine"
 msgstr "Eguneraketa Aztertu"
 
-# ../loader/loader.c:325
-#: ../iw/examine_gui.py:72
+# ../text.py:174
+#: ../iw/examine_gui.py:58
 #, fuzzy
+msgid "Upgrade an existing installation"
+msgstr "Aurrez Ezarritakoa Eguneratu"
+
+#: ../iw/examine_gui.py:60
 msgid ""
-"The following root partitions have been found on your system.  FIXME: I NEED "
-"BETTER TEXT HERE."
-msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
+"Choose this option if you would like to upgrade your existing Red Hat Linux "
+"system.  This option will preserve the existing data on your drives."
+msgstr ""
+
+#: ../iw/examine_gui.py:64
+#, python-format
+msgid "Perform a fresh install of %s"
+msgstr ""
+
+#: ../iw/examine_gui.py:66
+msgid ""
+"Choose this option to install your system from scratch.  Depending on how "
+"you choose to partition your system the existing data on your drives may or "
+"may not be preserved."
+msgstr ""
 
 # ../iw/examine_gui.py:72
-#: ../iw/examine_gui.py:91
+#: ../iw/examine_gui.py:110
 #, fuzzy
 msgid "_Customize packages to be upgraded"
 msgstr "Eguneratutzeko sortak Norberekatu"
+
+#: ../iw/examine_gui.py:123 ../iw/pixmapRadioButtonGroup_gui.py:194
+msgid "The following Red Hat product will be upgraded:"
+msgstr ""
+
+# ../loader/urls.c:244
+#: ../iw/examine_gui.py:130
+#, fuzzy
+msgid "Unknown Linux system"
+msgstr "Ostalari Ezezaguna"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
@@ -2927,7 +2998,7 @@ msgid "Other _ports:"
 msgstr "Inprimaketa Sistema"
 
 # ../text.py:194 ../text.py:915
-#: ../iw/installpath_gui.py:36 ../textw/installpath_text.py:42
+#: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:42
 msgid "Installation Type"
 msgstr "Ezarketa Mota"
 
@@ -2946,8 +3017,8 @@ msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
 # ../text.py:63
-#: ../iw/language_gui.py:61 ../textw/language_text.py:40 ../loader/lang.c:306
-#: ../loader2/lang.c:261
+#: ../iw/language_gui.py:61 ../textw/language_text.py:38 ../loader/lang.c:306
+#: ../loader2/lang.c:381
 msgid "What language would you like to use during the installation process?"
 msgstr "Ezarketak dirauen bitartean, zein hizkuntza erabiltzea nahi duzu?"
 
@@ -2958,31 +3029,31 @@ msgid "Additional Language Support"
 msgstr "Ordenagailu Mugikorra Onartu"
 
 # ../loader/lang.c:287
-#: ../iw/language_support_gui.py:150
+#: ../iw/language_support_gui.py:205
 #, fuzzy
 msgid "Select the _default language for the system:   "
 msgstr "Hizkuntza bat Hautatu"
 
 # ../text.py:63
-#: ../iw/language_support_gui.py:160
+#: ../iw/language_support_gui.py:219
 #, fuzzy
 msgid "Select _additional languages to install on the system:"
 msgstr "Ezarketak dirauen bitartean, zein hizkuntza erabiltzea nahi duzu?"
 
 # ../iw/package_gui.py:399
-#: ../iw/language_support_gui.py:208
+#: ../iw/language_support_gui.py:254
 #, fuzzy
 msgid "_Select All"
 msgstr "Taldekide guztiak hautatu"
 
 # ../iw/package_gui.py:399
-#: ../iw/language_support_gui.py:214
+#: ../iw/language_support_gui.py:260
 #, fuzzy
 msgid "Select Default _Only"
 msgstr "Taldekide guztiak hautatu"
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../iw/language_support_gui.py:220
+#: ../iw/language_support_gui.py:266
 #, fuzzy
 msgid "Rese_t"
 msgstr "_Garbitu"
@@ -4000,7 +4071,7 @@ msgstr "Amaituta"
 
 # ../loader/loader.c:656
 #: ../iw/partition_gui.py:790 ../loader/loader.c:1145
-#: ../loader2/hdinstall.c:367
+#: ../loader2/hdinstall.c:368
 msgid "Hard Drives"
 msgstr "Disko Gogorrak"
 
@@ -4171,35 +4242,6 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1384
 msgid "Hide RAID device/LVM Volume _Group members"
-msgstr ""
-
-# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
-# ../textw/partitioning_text.py:149
-#: ../iw/partition_gui.py:1399 ../textw/partition_text.py:1205
-msgid "Automatic Partitioning"
-msgstr "Berekasakako Disko Zatiketa"
-
-# ../loader/lang.c:287
-#: ../iw/partition_gui.py:1427
-#, fuzzy, python-format
-msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Hizkuntza bat Hautatu"
-
-# ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
-# ../textw/partitioning_text.py:149
-#: ../iw/partition_gui.py:1469
-#, fuzzy
-msgid "I want to have automatic partitioning:"
-msgstr "Berekasakako Disko Zatiketa"
-
-# ../textw/lilo_text.py:85 ../textw/silo_text.py:103
-#: ../iw/partition_gui.py:1500
-#, fuzzy
-msgid "Select the drive(s) to use for this installation:"
-msgstr "Abiagailua non ezartzea nahi duzu?"
-
-#: ../iw/partition_gui.py:1524
-msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
 #: ../iw/partition_ui_helpers_gui.py:87 ../iw/partition_ui_helpers_gui.py:108
@@ -4795,122 +4837,122 @@ msgid "Customize Graphical Configuration"
 msgstr "Grafiko Egituraketa Norberekatu"
 
 # ../iw/xconfig_gui.py:214
-#: ../iw/xconfig_gui.py:231
+#: ../iw/xconfig_gui.py:249
 #, fuzzy
 msgid "_Color Depth:"
 msgstr "Kolore Sakonera:"
 
-#: ../iw/xconfig_gui.py:240 ../textw/xconfig_text.py:108
+#: ../iw/xconfig_gui.py:258 ../textw/xconfig_text.py:108
 msgid "256 Colors (8 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:241 ../textw/xconfig_text.py:109
+#: ../iw/xconfig_gui.py:259 ../textw/xconfig_text.py:109
 msgid "High Color (16 Bit)"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:242 ../textw/xconfig_text.py:110
+#: ../iw/xconfig_gui.py:260 ../textw/xconfig_text.py:110
 msgid "True Color (24 Bit)"
 msgstr ""
 
 # ../iw/xconfig_gui.py:242
-#: ../iw/xconfig_gui.py:256
+#: ../iw/xconfig_gui.py:280
 #, fuzzy
 msgid "_Screen Resolution:"
 msgstr "Pantailaren Zehaztasuna:"
 
 # ../iw/xconfig_gui.py:336
-#: ../iw/xconfig_gui.py:310
+#: ../iw/xconfig_gui.py:336
 msgid "Please choose your default desktop environment:"
 msgstr "Mesedez, atseginen duzun idazmahai gunea hautatu:"
 
 # ../iw/xconfig_gui.py:376
-#: ../iw/xconfig_gui.py:312
+#: ../iw/xconfig_gui.py:338
 msgid "Your desktop environment is:"
 msgstr "Zure idazmahai gunea hau da:"
 
 # ../comps/comps-master:239
-#: ../iw/xconfig_gui.py:327
+#: ../iw/xconfig_gui.py:353
 #, fuzzy
 msgid "GNO_ME"
 msgstr "GNOME"
 
 # ../comps/comps-master:304
-#: ../iw/xconfig_gui.py:329
+#: ../iw/xconfig_gui.py:355
 #, fuzzy
 msgid "_KDE"
 msgstr "KDE"
 
 # ../iw/xconfig_gui.py:428
-#: ../iw/xconfig_gui.py:360
+#: ../iw/xconfig_gui.py:386
 msgid "Please choose your login type:"
 msgstr "Mesedez, zure sarrera (login) mota hautatu:"
 
 # ../gui.py:365 ../gui.py:605
-#: ../iw/xconfig_gui.py:367
+#: ../iw/xconfig_gui.py:393
 #, fuzzy
 msgid "T_ext"
 msgstr "Hurrengoa"
 
 # ../iw/xconfig_gui.py:471
-#: ../iw/xconfig_gui.py:368
+#: ../iw/xconfig_gui.py:394
 #, fuzzy
 msgid "_Graphical"
 msgstr "Era Grafikoan abiatu"
 
 # ../iw/xconfig_gui.py:123
-#: ../iw/xconfig_gui.py:385 ../textw/xconfig_text.py:391
+#: ../iw/xconfig_gui.py:411 ../textw/xconfig_text.py:391
 msgid "Monitor Configuration"
 msgstr "Monitorea Egokitu"
 
-#: ../iw/xconfig_gui.py:579
+#: ../iw/xconfig_gui.py:605
 msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:640
+#: ../iw/xconfig_gui.py:666
 msgid "Generic"
 msgstr ""
 
 # ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
-#: ../iw/xconfig_gui.py:687 ../iw/xconfig_gui.py:1028
+#: ../iw/xconfig_gui.py:713 ../iw/xconfig_gui.py:1054
 #, fuzzy
 msgid "Restore _original values"
 msgstr "Jatorrizko balioak berreskuratu"
 
 # ../iw/xconfig_gui.py:229
-#: ../iw/xconfig_gui.py:695
+#: ../iw/xconfig_gui.py:721
 #, fuzzy
 msgid "Hori_zontal Sync:"
 msgstr "Zeharkako Maiztasun Muga"
 
 # ../iw/xconfig_gui.py:238
-#: ../iw/xconfig_gui.py:698
+#: ../iw/xconfig_gui.py:724
 #, fuzzy
 msgid "_Vertical Sync:"
 msgstr "Goitibeherako Maiztasun Muga"
 
-#: ../iw/xconfig_gui.py:705
+#: ../iw/xconfig_gui.py:731
 msgid "kHz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:708
+#: ../iw/xconfig_gui.py:734
 msgid "Hz"
 msgstr ""
 
 # ../comps/comps-master:363
-#: ../iw/xconfig_gui.py:728
+#: ../iw/xconfig_gui.py:754
 #, fuzzy
 msgid "Graphical Interface (X) Configuration"
 msgstr "Margoketa Tresnak"
 
 # ../libfdisk/newtfsedit.c:486
-#: ../iw/xconfig_gui.py:753
+#: ../iw/xconfig_gui.py:779
 #, fuzzy
 msgid "Unknown video card"
 msgstr "Ezezaguna"
 
-#: ../iw/xconfig_gui.py:754
+#: ../iw/xconfig_gui.py:780
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
@@ -4918,12 +4960,12 @@ msgid ""
 msgstr ""
 
 # ../xf86config.py:873
-#: ../iw/xconfig_gui.py:778 ../textw/xconfig_text.py:627
+#: ../iw/xconfig_gui.py:804 ../textw/xconfig_text.py:627
 #, fuzzy
 msgid "Unspecified video card"
 msgstr "Bideo xafla ezin ezagutu"
 
-#: ../iw/xconfig_gui.py:779 ../textw/xconfig_text.py:628
+#: ../iw/xconfig_gui.py:805 ../textw/xconfig_text.py:628
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
@@ -4931,7 +4973,7 @@ msgid ""
 msgstr ""
 
 # ../iw/xconfig_gui.py:350
-#: ../iw/xconfig_gui.py:910
+#: ../iw/xconfig_gui.py:936
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -4940,7 +4982,7 @@ msgstr ""
 "beharko duzu:"
 
 # ../iw/xconfig_gui.py:361 ../iw/xconfig_gui.py:382
-#: ../iw/xconfig_gui.py:918
+#: ../iw/xconfig_gui.py:944
 #, fuzzy
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
@@ -4951,13 +4993,13 @@ msgstr ""
 "egokitzaketa ezagutu daiteke (gehienetan bederen)."
 
 # ../iw/xconfig_gui.py:10 ../xf86config.py:867
-#: ../iw/xconfig_gui.py:1006
+#: ../iw/xconfig_gui.py:1032
 #, fuzzy
 msgid "_Video card RAM: "
 msgstr "Bideo Xaflaren RAM-a:"
 
 # ../iw/xconfig_gui.py:472
-#: ../iw/xconfig_gui.py:1032
+#: ../iw/xconfig_gui.py:1058
 #, fuzzy
 msgid "_Skip X configuration"
 msgstr "X-en Egokitzaketaz Ahaztu"
@@ -4994,18 +5036,19 @@ msgstr "Kernel-eko agerbideak"
 #: ../textw/bootdisk_text.py:24
 #, python-format
 msgid ""
-"The boot disk allows you to boot your %s system from a floppy diskette.  A "
-"boot disk allows you to boot your system if your bootloader configuration "
-"stops working.\n"
+"The boot diskette allows you to boot your %s system from a floppy diskette.  "
+"A boot diskette allows you to boot your system in the event your bootloader "
+"configuration stops working.\n"
 "\n"
-"It is highly recommended you create a boot disk.\n"
+"It is highly recommended you create a boot diskette.\n"
 "\n"
-"Would you like to create a boot disk?"
+"Would you like to create a boot diskette?"
 msgstr ""
 
 # ../text.py:980 ../text.py:982 ../text.py:1003 ../text.py:1005
 #: ../textw/bootdisk_text.py:31
-msgid "Boot Disk"
+#, fuzzy
+msgid "Boot Diskette"
 msgstr "Abiatze Diskoa"
 
 # ../loader/loader.c:276
@@ -5263,11 +5306,11 @@ msgstr ""
 #: ../loader/loader.c:342 ../loader/loader.c:1145 ../loader/loader.c:1215
 #: ../loader/loader.c:1496 ../loader/loader.c:1592 ../loader/loader.c:2099
 #: ../loader/net.c:186 ../loader/net.c:269 ../loader/net.c:355
-#: ../loader/urls.c:198 ../loader/urls.c:419 ../loader2/cdinstall.c:342
-#: ../loader2/driverdisk.c:199 ../loader2/driverdisk.c:214
+#: ../loader/urls.c:198 ../loader/urls.c:419 ../loader2/cdinstall.c:354
+#: ../loader2/driverdisk.c:201 ../loader2/driverdisk.c:216
 #: ../loader2/driverselect.c:72 ../loader2/driverselect.c:198
-#: ../loader2/hdinstall.c:367 ../loader2/hdinstall.c:421 ../loader2/kbd.c:125
-#: ../loader2/loader.c:250 ../loader2/loader.c:645 ../loader2/loader.c:673
+#: ../loader2/hdinstall.c:368 ../loader2/hdinstall.c:422 ../loader2/kbd.c:125
+#: ../loader2/loader.c:268 ../loader2/loader.c:667 ../loader2/loader.c:695
 #: ../loader2/net.c:151 ../loader2/net.c:314 ../loader2/net.c:723
 #: ../loader2/nfsinstall.c:53 ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -5446,7 +5489,7 @@ msgstr "Inprimaketa Sistema"
 
 # ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:153
+#: ../textw/language_text.py:151
 #, fuzzy
 msgid "Invalid Choice"
 msgstr "Abiaketaren Izena Erabilkaitza"
@@ -5491,41 +5534,41 @@ msgid "Which model keyboard is attached to this computer?"
 msgstr "Zure ordenagailuak zein atzoldi (teklatu) mota dauka?"
 
 # ../iw/package_gui.py:399
-#: ../textw/language_text.py:116
+#: ../textw/language_text.py:114
 #, fuzzy
 msgid "Select All"
 msgstr "Taldekide guztiak hautatu"
 
 # ../libfdisk/gnomefsedit.c:3538
-#: ../textw/language_text.py:116
+#: ../textw/language_text.py:114
 #, fuzzy
 msgid "Reset"
 msgstr "_Garbitu"
 
-#: ../textw/language_text.py:118
+#: ../textw/language_text.py:116
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr ""
 
 # ../comps/comps-master:450
-#: ../textw/language_text.py:122
+#: ../textw/language_text.py:120
 #, fuzzy
 msgid "Language Support"
 msgstr "Ordenagailu Mugikorra Onartu"
 
 # ../loader/lang.c:287
-#: ../textw/language_text.py:154
+#: ../textw/language_text.py:152
 #, fuzzy
 msgid "You must select at least one language to install."
 msgstr "Hizkuntza bat Hautatu"
 
 # ../loader/lang.c:287
-#: ../textw/language_text.py:182
+#: ../textw/language_text.py:180
 #, fuzzy
 msgid "Default Language"
 msgstr "Hizkuntza bat Hautatu"
 
 # ../loader/lang.c:287
-#: ../textw/language_text.py:183
+#: ../textw/language_text.py:181
 #, fuzzy
 msgid "Choose the default language for this system: "
 msgstr "Hizkuntza bat Hautatu"
@@ -6149,25 +6192,25 @@ msgid "The value you entered is not a valid number."
 msgstr "Idatzi beharrekoak zenbaki bat izan behar du."
 
 # ../text.py:266
-#: ../textw/upgrade_text.py:203
+#: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
 msgstr "Sistemaren Eguneraketa"
 
-# ../loader/loader.c:325
-#: ../textw/upgrade_text.py:204
-#, fuzzy
+#: ../textw/upgrade_text.py:208
 msgid ""
-"The following root partitions have been found on your system. FIXME: I NEED "
-"BETTER TEXT HERE."
-msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
+"One or more existing Linux installations have been found on your system.\n"
+"\n"
+"Please choose one to upgrade, or select 'Reinstall System' to freshly "
+"install your system."
+msgstr ""
 
 # ../text.py:283
-#: ../textw/upgrade_text.py:239
+#: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
 msgstr "Eguneratzeko Sortak Norberekatu"
 
 # ../text.py:284
-#: ../textw/upgrade_text.py:240
+#: ../textw/upgrade_text.py:246
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -6773,6 +6816,7 @@ msgstr "Moduluaren Agerbideak"
 # ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
 #: ../loader/devices.c:237 ../loader/devices.c:244 ../loader/devices.c:381
 #: ../loader/loader.c:340 ../loader/loader.c:401 ../loader/loader.c:417
+#: ../loader2/loader.c:796
 msgid "Devices"
 msgstr "Tramankuluak"
 
@@ -6790,7 +6834,7 @@ msgstr ""
 "zapaldu."
 
 # ../loader/devices.c:237
-#: ../loader/devices.c:283 ../loader2/driverdisk.c:226
+#: ../loader/devices.c:283 ../loader2/driverdisk.c:228
 msgid "Failed to mount driver disk."
 msgstr "Diskoa lotzerakoan porrot egin du."
 
@@ -6827,11 +6871,11 @@ msgstr "%s modulua  ezin izan da sartu."
 
 # ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 #: ../loader/kickstart.c:59 ../loader/kickstart.c:69 ../loader/kickstart.c:108
-#: ../loader2/hdinstall.c:503 ../loader2/kickstart.c:97
+#: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
 #: ../loader2/kickstart.c:106 ../loader2/kickstart.c:148 ../loader2/net.c:637
 #: ../loader2/net.c:660 ../loader2/nfsinstall.c:257
-#: ../loader2/urlinstall.c:385 ../loader2/urlinstall.c:394
-#: ../loader2/urlinstall.c:405
+#: ../loader2/urlinstall.c:386 ../loader2/urlinstall.c:395
+#: ../loader2/urlinstall.c:406
 msgid "Kickstart Error"
 msgstr "Kickstart-en akatsa"
 
@@ -6855,14 +6899,14 @@ msgstr "%d. lerroan akatsa ( %s kickstart fitxategian)."
 
 # ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:879
 # ../text.py:914
-#: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:49
+#: ../loader/lang.c:41 ../loader/loader.c:210 ../loader2/lang.c:50
 #: ../loader2/loader.c:166
 #, fuzzy, c-format
 msgid "Welcome to %s"
 msgstr "Ongietorria"
 
 # ../loader/lang.c:338 ../loader/loader.c:148
-#: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:50
+#: ../loader/lang.c:42 ../loader/loader.c:216 ../loader2/lang.c:51
 #: ../loader2/loader.c:172
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
@@ -6871,7 +6915,7 @@ msgstr ""
 "hurrengo pantaila "
 
 # ../loader/lang.c:287
-#: ../loader/lang.c:305 ../loader2/lang.c:260
+#: ../loader/lang.c:305 ../loader2/lang.c:380
 msgid "Choose a Language"
 msgstr "Hizkuntza bat Hautatu"
 
@@ -6923,12 +6967,12 @@ msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
 
 # ../loader/loader.c:327 ../loader/loader.c:352
 # ../textw/partitioning_text.py:64
-#: ../loader/loader.c:392 ../loader/loader.c:417
+#: ../loader/loader.c:392 ../loader/loader.c:417 ../loader2/loader.c:797
 msgid "Done"
 msgstr "Amaituta"
 
 # ../loader/loader.c:327 ../loader/loader.c:352
-#: ../loader/loader.c:392 ../loader/loader.c:417
+#: ../loader/loader.c:392 ../loader/loader.c:417 ../loader2/loader.c:798
 msgid "Add Device"
 msgstr "Tramankulua Gehitu"
 
@@ -6950,7 +6994,7 @@ msgid "Failed to read directory %s: %s"
 msgstr "%s direktorioa irakurtzean %s akatsa"
 
 # ../libfdisk/fsedit.c:1355 ../libfdisk/fsedit.c:1435
-#: ../loader/loader.c:611 ../loader2/hdinstall.c:255
+#: ../loader/loader.c:611 ../loader2/hdinstall.c:256
 #, fuzzy
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
@@ -6971,15 +7015,15 @@ msgstr ""
 
 # ../gui.py:365 ../gui.py:605
 #: ../loader/loader.c:963 ../loader/loader.c:1325 ../loader/loader.c:1328
-#: ../loader/loader.c:1346 ../loader/loader.c:1354 ../loader2/cdinstall.c:90
-#: ../loader2/cdinstall.c:93 ../loader2/cdinstall.c:111
-#: ../loader2/cdinstall.c:119 ../loader2/method.c:400
+#: ../loader/loader.c:1346 ../loader/loader.c:1354 ../loader2/cdinstall.c:91
+#: ../loader2/cdinstall.c:94 ../loader2/cdinstall.c:112
+#: ../loader2/cdinstall.c:120 ../loader2/method.c:400
 #, fuzzy
 msgid "Test"
 msgstr "Hurrengoa"
 
 # ../loader/loader.c:657
-#: ../loader/loader.c:1146 ../loader2/hdinstall.c:368
+#: ../loader/loader.c:1146 ../loader2/hdinstall.c:369
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -6988,7 +7032,7 @@ msgstr ""
 "bategokitzerik nahi dozu?"
 
 # ../loader/loader.c:671
-#: ../loader/loader.c:1191 ../loader2/hdinstall.c:384
+#: ../loader/loader.c:1191 ../loader2/hdinstall.c:385
 #, fuzzy, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -7001,40 +7045,40 @@ msgstr ""
 "egokitu."
 
 # ../loader/loader.c:685
-#: ../loader/loader.c:1207 ../loader2/hdinstall.c:406
+#: ../loader/loader.c:1207 ../loader2/hdinstall.c:407
 msgid "Directory holding images:"
 msgstr "Irudiak dauzkan direktorioa:"
 
 # ../loader/loader.c:705
-#: ../loader/loader.c:1227 ../loader2/hdinstall.c:433
+#: ../loader/loader.c:1227 ../loader2/hdinstall.c:434
 msgid "Select Partition"
 msgstr "Disko-zatia Hautatu"
 
 # ../loader/loader.c:753
-#: ../loader/loader.c:1275 ../loader2/hdinstall.c:473
+#: ../loader/loader.c:1275 ../loader2/hdinstall.c:474
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "%s tramankulua Red Hat Linux-eko CDROM irudietan ez da ageri."
 
 #: ../loader/loader.c:1325 ../loader/loader.c:1346 ../loader/mediacheck.c:272
-#: ../loader2/cdinstall.c:90 ../loader2/cdinstall.c:111
+#: ../loader2/cdinstall.c:91 ../loader2/cdinstall.c:112
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
 msgstr ""
 
-#: ../loader/loader.c:1325 ../loader/loader.c:1329 ../loader2/cdinstall.c:90
-#: ../loader2/cdinstall.c:94
+#: ../loader/loader.c:1325 ../loader/loader.c:1329 ../loader2/cdinstall.c:91
+#: ../loader2/cdinstall.c:95
 msgid "Eject CD"
 msgstr ""
 
-#: ../loader/loader.c:1326 ../loader2/cdinstall.c:91
+#: ../loader/loader.c:1326 ../loader2/cdinstall.c:92
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
 
-#: ../loader/loader.c:1347 ../loader2/cdinstall.c:112
+#: ../loader/loader.c:1347 ../loader2/cdinstall.c:113
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -7046,8 +7090,8 @@ msgid ""
 msgstr ""
 
 # ../loader/loader.c:853
-#: ../loader/loader.c:1368 ../loader/loader.c:1492 ../loader2/cdinstall.c:135
-#: ../loader2/cdinstall.c:336
+#: ../loader/loader.c:1368 ../loader/loader.c:1492 ../loader2/cdinstall.c:136
+#: ../loader2/cdinstall.c:348
 #, fuzzy, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
@@ -7058,12 +7102,12 @@ msgstr ""
 "\"zapaldu."
 
 # ../libfdisk/fsedit.c:1041
-#: ../loader/loader.c:1421 ../loader2/cdinstall.c:251
+#: ../loader/loader.c:1421 ../loader2/cdinstall.c:252
 #, fuzzy
 msgid "CD Found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
-#: ../loader/loader.c:1423 ../loader2/cdinstall.c:253
+#: ../loader/loader.c:1423 ../loader2/cdinstall.c:254
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -7118,32 +7162,32 @@ msgstr ""
 "dituzte."
 
 # ../loader/loader.c:1390
-#: ../loader/loader.c:2091 ../loader2/loader.c:637
+#: ../loader/loader.c:2091 ../loader2/loader.c:659
 msgid "Rescue Method"
 msgstr "Berreskuraketa Bidea"
 
 # ../loader/loader.c:1391
-#: ../loader/loader.c:2092 ../loader2/loader.c:638
+#: ../loader/loader.c:2092 ../loader2/loader.c:660
 msgid "Installation Method"
 msgstr "Ezarketa Bidea"
 
 # ../loader/loader.c:1393
-#: ../loader/loader.c:2094 ../loader2/loader.c:640
+#: ../loader/loader.c:2094 ../loader2/loader.c:662
 msgid "What type of media contains the rescue image?"
 msgstr "Berreskuratze irudia zein tramankulutan dago?"
 
 # ../loader/loader.c:1395
-#: ../loader/loader.c:2096 ../loader2/loader.c:642
+#: ../loader/loader.c:2096 ../loader2/loader.c:664
 msgid "What type of media contains the packages to be installed?"
 msgstr "Ezarketako Sortak zein tramankulutan daude?"
 
 # ../loader/loader.c:2027
-#: ../loader/loader.c:2894 ../loader2/kickstart.c:247
+#: ../loader/loader.c:2894 ../loader2/kickstart.c:249
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Abiatze disketean 'ks.cfg' ezin izan da aurkitu."
 
 # ../loader/loader.c:2135
-#: ../loader/loader.c:2986 ../loader2/loader.c:262
+#: ../loader/loader.c:2986 ../loader2/loader.c:280
 msgid "Updates Disk"
 msgstr "Eguneraketako diskoa"
 
@@ -7168,17 +7212,17 @@ msgid "Failed to mount floppy disk."
 msgstr "Disketea lotzerakoan porrot egin du."
 
 # ../loader/loader.c:2149
-#: ../loader/loader.c:3007 ../loader2/loader.c:277
+#: ../loader/loader.c:3007 ../loader2/loader.c:295
 msgid "Updates"
 msgstr "Eguneraketak"
 
 # ../loader/loader.c:2149
-#: ../loader/loader.c:3007 ../loader2/loader.c:277
+#: ../loader/loader.c:3007 ../loader2/loader.c:295
 msgid "Reading anaconda updates..."
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
 
 # ../loader/loader.c:439 ../loader/loader.c:441
-#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader2/driverdisk.c:88
+#: ../loader/loader.c:3181 ../loader/modules.c:424 ../loader2/driverdisk.c:90
 #: ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Gaineratzen"
@@ -7191,7 +7235,7 @@ msgid "Loading %s driver..."
 msgstr "%s kontrolatzailea bereganatzen..."
 
 # ../loader/lang.c:287
-#: ../loader/loader.c:3320 ../loader2/loader.c:526
+#: ../loader/loader.c:3320 ../loader2/loader.c:548
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Hizkuntza bat Hautatu"
@@ -7211,7 +7255,7 @@ msgid ""
 msgstr ""
 
 # ../loader/loader.c:2149
-#: ../loader/loader.c:3950 ../loader2/loader.c:1078
+#: ../loader/loader.c:3950 ../loader2/loader.c:1149
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "'Anaconda'-ren eguneraketak irakurtzen..."
@@ -7645,7 +7689,7 @@ msgid "Loading SCSI driver"
 msgstr "SCSI kontrolatzailea bereganatzen"
 
 # ../loader/loader.c:853
-#: ../loader2/cdinstall.c:331
+#: ../loader2/cdinstall.c:343
 #, fuzzy, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
@@ -7656,25 +7700,29 @@ msgstr ""
 "\"zapaldu."
 
 # ../libfdisk/fsedit.c:1041
-#: ../loader2/cdinstall.c:341
+#: ../loader2/cdinstall.c:353
 #, fuzzy
 msgid "CD Not Found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
+#: ../loader2/cdinstall.c:424
+msgid "Cannot find kickstart file on CDROM."
+msgstr ""
+
 # ../loader/devices.c:237
-#: ../loader2/driverdisk.c:88
+#: ../loader2/driverdisk.c:90
 #, fuzzy
-msgid "Reading driver disk"
+msgid "Reading driver disk..."
 msgstr "Diskoa lotzerakoan porrot egin du."
 
 # ../loader/devices.c:503
-#: ../loader2/driverdisk.c:193
+#: ../loader2/driverdisk.c:195
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Disko Tramankulua"
 
 # ../loader/loader.c:941
-#: ../loader2/driverdisk.c:194
+#: ../loader2/driverdisk.c:196
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
@@ -7682,7 +7730,7 @@ msgid ""
 msgstr "Zure sistemak sareko tramankulu asko ditu. Zein ezartzea nahi duzu?"
 
 # ../loader/devices.c:216
-#: ../loader2/driverdisk.c:212
+#: ../loader2/driverdisk.c:214
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
@@ -7690,27 +7738,39 @@ msgstr ""
 "zapaldu."
 
 # ../loader/devices.c:503
-#: ../loader2/driverdisk.c:214
+#: ../loader2/driverdisk.c:216
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Disko Tramankulua"
 
 # ../text.py:935
-#: ../loader2/driverdisk.c:286
+#: ../loader2/driverdisk.c:289
 #, fuzzy
 msgid "Manually choose"
 msgstr "Disko Zatiteka eskuz egin"
 
-#: ../loader2/driverdisk.c:287
+#: ../loader2/driverdisk.c:290
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:288
+#: ../loader2/driverdisk.c:291
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
+
+# ../loader/devices.c:503
+#: ../loader2/driverdisk.c:337
+#, fuzzy
+msgid "More Driver Disks?"
+msgstr "Disko Tramankulua"
+
+# ../loader/devices.c:209
+#: ../loader2/driverdisk.c:338
+#, fuzzy
+msgid "Do you wish to load any more driver disks?"
+msgstr "Kontrolatzaileen diskorik bai?"
 
 # ../loader/devices.c:86
 #: ../loader2/driverselect.c:59
@@ -7755,10 +7815,16 @@ msgid "Select Device Driver to Load"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
 # ../loader/net.c:644
-#: ../loader2/hdinstall.c:504
+#: ../loader2/hdinstall.c:505
 #, fuzzy, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
+
+# ../image.py:53
+#: ../loader2/hdinstall.c:555
+#, fuzzy
+msgid "Cannot find kickstart file on hard drive."
+msgstr "Ezarketaren irudia disko gogrrera bidaltzen..."
 
 # ../loader/kickstart.c:59
 #: ../loader2/kickstart.c:98
@@ -7767,13 +7833,13 @@ msgid "Error opening kickstart file %s: %s"
 msgstr "%s kickstart fitxategia irekitzean %s akatsa gertatu da"
 
 # ../loader/loader.c:2135
-#: ../loader2/loader.c:245
+#: ../loader2/loader.c:263
 #, fuzzy
 msgid "Update Disk Source"
 msgstr "Eguneraketako diskoa"
 
 # ../loader/loader.c:941
-#: ../loader2/loader.c:246
+#: ../loader2/loader.c:264
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for an update disk.  "
@@ -7781,18 +7847,18 @@ msgid ""
 msgstr "Zure sistemak sareko tramankulu asko ditu. Zein ezartzea nahi duzu?"
 
 # ../loader/loader.c:2136
-#: ../loader2/loader.c:260
+#: ../loader2/loader.c:278
 #, fuzzy, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
 msgstr "Jarraitzeko eguneraketa diskete bat sartu eta \"Onartu\" zapaldu."
 
 # ../loader/devices.c:237
-#: ../loader2/loader.c:274
+#: ../loader2/loader.c:292
 #, fuzzy
 msgid "Failed to mount updates disk"
 msgstr "Diskoa lotzerakoan porrot egin du."
 
-#: ../loader2/loader.c:299
+#: ../loader2/loader.c:317
 msgid ""
 "No hard drives have been found.  You probably need to manually choose device "
 "drivers for the installation to succeed.  Would you like to select drivers "
@@ -7800,28 +7866,44 @@ msgid ""
 msgstr ""
 
 # ../libfdisk/fsedit.c:1041
-#: ../loader2/loader.c:672
+#: ../loader2/loader.c:694
 #, fuzzy
 msgid "No driver found"
 msgstr "Disko Gogorrik ez da aurkitu"
 
 # ../iw/fdisk_gui.py:109
-#: ../loader2/loader.c:672
+#: ../loader2/loader.c:694
 #, fuzzy
 msgid "Select driver"
 msgstr "'fdisk'-ek zein disko landu behar du?"
 
 # ../loader/devices.c:209
-#: ../loader2/loader.c:673
+#: ../loader2/loader.c:695
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Kontrolatzaileen diskorik bai?"
 
-#: ../loader2/loader.c:674
+#: ../loader2/loader.c:696
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
+
+# ../loader/loader.c:325
+#: ../loader2/loader.c:789
+#, fuzzy
+msgid "The following devices have been found on your system."
+msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
+
+# ../loader/loader.c:353
+#: ../loader2/loader.c:791
+#, fuzzy
+msgid ""
+"No device drivers have been loaded for your system.  Would you like to load "
+"any now?"
+msgstr ""
+"Zure sistemako tramankuluentzako kontrolatzaile berezirik ez da gaineratu. "
+"Nahi duzu batenbat gaineratzea?"
 
 # ../loader/net.c:389 ../loader/net.c:660
 #: ../loader2/net.c:189
@@ -7867,17 +7949,17 @@ msgid "Unable to retrieve the install image."
 msgstr "Ezarketako lehen irudia lortzea ezinezkoa izan da."
 
 # ../loader/net.c:644
-#: ../loader2/urlinstall.c:386
+#: ../loader2/urlinstall.c:387
 #, fuzzy, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "%s kickstart-eko %s sare aginduak argumentu okerra"
 
-#: ../loader2/urlinstall.c:395
+#: ../loader2/urlinstall.c:396
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
 # ../libfdisk/newtfsedit.c:486
-#: ../loader2/urlinstall.c:406
+#: ../loader2/urlinstall.c:407
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "Ezezaguna"
@@ -8547,6 +8629,10 @@ msgstr ""
 msgid "Danish"
 msgstr "Amaitu"
 
+#. generated from lang-table
+msgid "Dutch"
+msgstr ""
+
 # ../gui.py:369 ../gui.py:607
 #. generated from lang-table
 #, fuzzy
@@ -8580,10 +8666,6 @@ msgid "Korean"
 msgstr ""
 
 #. generated from lang-table
-msgid "Dutch"
-msgstr ""
-
-#. generated from lang-table
 msgid "Norwegian"
 msgstr ""
 
@@ -8614,6 +8696,40 @@ msgstr ""
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr ""
+
+# ../xserver.py:26
+#~ msgid "Mouse Not Detected"
+#~ msgstr "Xagurik ez da topatu"
+
+# ../xserver.py:27
+#~ msgid ""
+#~ "Your mouse was not automatically detected.  To proceed in the graphical "
+#~ "installation mode, please proceed to the next screen and provide your "
+#~ "mouse information. You may also use text mode installation which does not "
+#~ "require a mouse."
+#~ msgstr ""
+#~ "Ezartzaileak bere kasa ezin izan du zure xagua nabarmendu. Ezarketa era "
+#~ "grafiko batean egitekotan hurrengo pantailarra joan eta xaguaren "
+#~ "ezaugarriak zehaztu itzazu. Nahiz izan ezkero, ezarketa testu eran egin "
+#~ "dezakezu, horretarako xagurik ez bait da behar."
+
+# ../xserver.py:33 ../xserver.py:34
+#~ msgid "Use text mode"
+#~ msgstr "Testu era erabili"
+
+# ../loader/loader.c:325
+#, fuzzy
+#~ msgid ""
+#~ "The following root partitions have been found on your system.  FIXME: I "
+#~ "NEED BETTER TEXT HERE."
+#~ msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
+
+# ../loader/loader.c:325
+#, fuzzy
+#~ msgid ""
+#~ "The following root partitions have been found on your system. FIXME: I "
+#~ "NEED BETTER TEXT HERE."
+#~ msgstr "Zure sisteman ondoko tramankulu hauek aurkitu dira:"
 
 # ../xf86config.py:873
 #, fuzzy
@@ -10269,10 +10385,6 @@ msgstr ""
 # ../gui.py:587
 #~ msgid "Red Hat Linux Install Shell on %s"
 #~ msgstr "Red Hat Linux-eko Ezarketa Agindu-Geruza %s-ean"
-
-# ../text.py:174
-#~ msgid "Upgrade Existing Installation"
-#~ msgstr "Aurrez Ezarritakoa Eguneratu"
 
 # ../text.py:374
 #~ msgid "X probe results"
