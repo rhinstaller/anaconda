@@ -4,12 +4,11 @@ VERSION = 7.0
 
 SUBDIRSHD = balkan isys libfdisk collage loader po text-help \
 	    minislang textw utils scripts bootdisk installclasses \
-	    keymaps fonts
+	    keymaps fonts gnome-map iw help pixmaps
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
 SUBDIRSHD += stubs
-SUBDIRS = $(SUBDIRSHD) gnome-map iw help pixmaps
 endif
 
 ifeq (i386, $(ARCH))
