@@ -246,6 +246,7 @@ class KickstartBase(BaseInstallClass):
 	gateway = ""
 	nameserver = ""
 	hostname = ""
+        device = None
 	for n in args:
 	    (str, arg) = n
 	    if str == "--bootproto":
