@@ -162,14 +162,20 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     logMessage("cardmgr running as pid %d", child);
 
     waitpid(child, &status, 0);
-
     logMessage("cardmgr returned 0x%x", status);
 
     busProbe(modInfo, modLoaded, modDeps, 0, kd, flags);
 
-    newtPopWindow();
-    umount("/modules");
+    while(1) {
+	sleep(2);
+	rc = umount("/modules");
+	if (rc != -1) {
+	    break;
+	}
+	logMessage("return code of /modules unmount is %d", rc);
+    }
 
+    newtPopWindow();
     strcpy(pcicPtr, pcic);
 
     return 0;

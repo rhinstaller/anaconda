@@ -425,11 +425,16 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 
 	    myCpioFilterArchive(from, to, pattern);
 
-	    newtPopWindow();
-
 	    gunzip_close(from);
 	    gunzip_close(to);
-	    umount("/tmp/drivers");
+	    while(1) {
+		int rc;
+		rc = umount("/tmp/drivers");
+		if (rc != -1)
+		    break;
+	    }
+
+	    newtPopWindow();
 
 	    return toPath;
 	}
