@@ -28,6 +28,7 @@ import kudzu
 from flags import flags
 from constants import *
 from syslogd import syslog
+from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT
 
 from rhpl.log import log
 from rhpl.translate import _
@@ -958,6 +959,7 @@ def doPostInstall(method, id, intf, instPath):
         # FIXME: hack to install the comps package
         if (id.compspkg is not None and
             os.access(id.compspkg, os.R_OK)):
+            log("found the comps package")
             try:
                 # ugly hack
                 path = id.compspkg.split("/mnt/sysimage")[1]
@@ -984,6 +986,8 @@ def doPostInstall(method, id, intf, instPath):
                     os.unlink(id.compspkg)
                 except:
                     pass
+        else:
+            log("no comps package found")
                 
         w.set(6)
 
@@ -1144,8 +1148,22 @@ def selectLanguageSupportGroups(comps, langSupport):
                     # add to the deps in the dependencies structure --
                     # this will take care of if we're ever added as a dep
                     comps.compsxml.packages[req].dependencies.append(package)
-                    # also add to all components for which the req is
-                    # registered as PKGTYPE_DEFAULT
+                    print "adding %s as a dep of %s" %(package, comps.compsxml.packages[req].name)
+                    # also add to components as needed
+                    # if the req is PKGTYPE_MANDATORY, then just add to the
+                    # depsDict.  if the req is PKGTYPE_DEFAULT, add it
+                    # as DEFAULT
                     pkg = comps.packages[package]
                     for comp in comps.packages[req].comps:
-                        comp.addPackage(pkg, 1)
+                        if comp.newpkgDict.has_key(req):
+                            if comp.newpkgDict[req][0] == PKGTYPE_MANDATORY:
+                                print "adding %s to comp %s as dep" %(pkg.name, comp.name)
+                                comp.addDependencyPackage(pkg)
+                            else:
+                                print "adding %s to comp %s" %(pkg.name, comp.name)
+                                comp.addPackage(pkg, PKGTYPE_DEFAULT)
+                        elif comp.depsDict.has_key(req):
+                            comp.addDependencyPackage(pkg)
+                        else:
+                            print "unable to find how %s is in comp %s" %(pkg.name, comp.name)
+    comps.updateSelections()

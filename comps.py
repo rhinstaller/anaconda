@@ -364,7 +364,13 @@ class Component:
 
     def addDependencyPackage(self, p):
         if not self.depsDict.has_key(p):
-            self.depsDict[p] = 0
+            self.depsDict[p.name] = 1
+            # make sure it's registered in this component
+            p.registerComponent(self)
+            # and it also has to be in the pkgDict
+            self.pkgDict[p] = None
+        else:
+            self.depsDict[p.name] = self.depsDict[p.name] + 1
 
     def selectOptionalPackage(self, p):
         if isinstance(p, Package):
