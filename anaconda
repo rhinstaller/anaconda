@@ -340,6 +340,8 @@ if (not flags.test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
         print _("You do not have enough RAM to use the graphical installer.  "
                 "Starting text mode.")
+        log(_("You do not have enough RAM to use the graphical installer.  "
+                "Starting text mode."))
 	display_mode = 't'
         time.sleep(2)
 
@@ -398,19 +400,21 @@ else:
 
 mousehw    = mouse.Mouse(skipProbe = 1)
 
-sys.stdout.write(    _("Probing for video card:   "))
 fbdev = None
 videohw    = videocard.VideoCardInfo(skipDDCProbe = (skipddc or flags.test))
 
 if videohw and videohw.primaryCard():
-    sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
-#    fbdev = videohw.primaryCard().getDevice()
+    cardstr = videohw.primaryCard().shortDescription()
 else:
-    sys.stdout.write(_("Unable to probe\n"))
+    cardstr = _("Unable to probe")
 
-sys.stdout.write(    _("Probing for monitor type: "))
+sys.stdout.write(_("Probing for video card:   ") + cardstr + '\n')
+log(_("Probing for video card:   %s"), cardstr)
+
 monitorhw  = monitor.MonitorInfo(fbDevice=fbdev, skipDDCProbe = (skipddc or flags.test))
-sys.stdout.write(monitorhw.shortDescription()+'\n')
+monstr = monitorhw.shortDescription()
+sys.stdout.write(_("Probing for monitor type: ") + monstr + '\n')
+log(_("Probing for monitor type: %s"), monstr)
 
 kbd = keyboard.Keyboard()
 if keymap:
@@ -421,9 +425,12 @@ if keymap:
 if not os.environ.has_key('DISPLAY') or flags.setupFilesystems:
     sys.stdout.write(_("Probing for mouse type:   "))
     mousehw.probe (frob = 1)
-    sys.stdout.write(mousehw.shortDescription()+'\n')
+    mousestr = mousehw.shortDescription()
+    sys.stdout.write(mousestr+'\n')
+    log(_("Probing for mouse type:   %s"), mousestr)
 else:
-    sys.stdout.write(_("Skipping mouse probe.\n"))
+    sys.stdout.write(_("Skipping mouse probe.") + "\n")
+    log(_("Skipping mouse probe."))
 
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
@@ -432,6 +439,8 @@ if (display_mode != 't' and method and
     method.startswith('oldhd://')):
     print _("Graphical installation not available for %s installs.  "
             "Starting text mode.") % (string.split(method, ':')[0],)
+    log(_("Graphical installation not available for %s installs.  "
+            "Starting text mode.") % (string.split(method, ':')[0],))
     display_mode = 't'
     time.sleep(2)
 
@@ -444,6 +453,8 @@ if iutil.getArch() != "s390":
         if mouse.mouseWindow(mousehw) == 0:
             print _("No mouse was detected.  A mouse is required for graphical "
                 "installation.  Starting text mode.")
+            log(_("No mouse was detected.  A mouse is required for graphical "
+                "installation.  Starting text mode."))
             display_mode = 't'
             time.sleep(2)
         else:
@@ -477,6 +488,7 @@ if display_mode == 'g':
 					  mousehw, kbd)
         except RuntimeError:
             print " X startup failed, falling back to text mode"
+            log(" X startup failed, falling back to text mode")
             xcfg = xf86config.XF86Config(videohw.primaryCard(),
                                          monitorhw, mousehw, kbd, runres)
             display_mode = 't'
@@ -533,6 +545,7 @@ if (display_mode == 'g'):
             if startXServer:
                 isys.vtActivate (1)
             print "GUI installer startup failed, falling back to text mode."
+            log("GUI installer startup failed, falling back to text mode.")
             display_mode = 't'
             time.sleep(2)            
             from text import InstallInterface
