@@ -23,7 +23,7 @@ from flags import flags
 from translate import _
 
 class UpgradeMigrateFSWindow:
-    def __call__ (self, screen, partitions):
+    def __call__ (self, screen, fsset, partitions):
       
         migratereq = partitions.getMigratableRequests()
 
@@ -45,9 +45,16 @@ class UpgradeMigrateFSWindow:
                 migrating = 1
             else:
                 migrating = 0
+
+            entry = fsset.getEntryByDeviceName(req.device)
+            if not entry:
+                mntpt = ""
+            else:
+                mntpt =entry.mountpoint
+
             partlist.append("%s - %s - %s" % (req.device,
                                               req.origfstype.getName(),
-                                              req.mountpoint), req, migrating)
+                                              mntpt), req, migrating)
             
 	g.add(partlist, 0, 1, padding = (0, 0, 0, 1))
         

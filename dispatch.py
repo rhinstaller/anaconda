@@ -68,7 +68,7 @@ installSteps = [
                                               "id.fsset", "id.diskset",
                                               "id.partitions") ),
     ( "upgrademigfind", upgradeMigrateFind, ("dispatch", "id.partitions")),
-    ( "upgrademigratefs",  ("id.partitions",) ),
+    ( "upgrademigratefs",  ("id.fsset", "id.partitions",) ),
     ( "bootloadersetup", bootloaderSetupChoices, ("dispatch", "id.bootloader",
                                                   "id.fsset", "id.diskset",
                                                   "dir") ),

@@ -44,7 +44,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
 
         return None
 
-    def getScreen (self, partitions):
+    def getScreen (self, fsset, partitions):
       
         self.migratereq = partitions.getMigratableRequests()
                 
@@ -72,9 +72,15 @@ class UpgradeMigrateFSWindow (InstallWindow):
             else:
                 migrating = 0
 
+            entry = fsset.getEntryByDeviceName(req.device)
+            if not entry:
+                mntpt = ""
+            else:
+                mntpt =entry.mountpoint
+
             cb = GtkCheckButton("%s - %s - %s" % (req.device,
                                               req.origfstype.getName(),
-                                              req.mountpoint))
+                                              mntpt))
             cb.set_active(migrating)
             cbox.pack_start(cb, FALSE)
 
