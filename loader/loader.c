@@ -62,11 +62,13 @@ int main(int argc, char ** argv) {
     modules = probePciDriverList();
     module = *modules++;
     while (module && *module) {
-	if (!testing)
+	if (!testing) {
+	    printf("Inserting module %s\n", module);
 	    insmod(module, NULL);
-	else
+	} else {
 	    printf("If I were not testing, I would run insmod(%s, NULL);\n",
 		   module);
+	}
 	module = *modules++;
     }
     
@@ -80,5 +82,7 @@ int main(int argc, char ** argv) {
     */
     execv(testing ? "../anaconda" : "/sbin/anaconda", argv);
 
+    sleep(5);
+    
     return 0;
 }
