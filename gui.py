@@ -124,7 +124,6 @@ class InstallControlWindow (Thread):
         return window
 
     def setStateList (self, list, pos):
-	print "states", list
         self.stateList = []
 	self.stateTagByWindow = {}
         for x in list:
