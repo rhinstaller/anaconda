@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.20
+Version: 10.2.0.21
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Sun Feb 20 2005 Peter Jones <pjones@redhat.com> - 10.2.0.21-1
+- get rid of lilo
+- make grub work with raid1 /boot and /root
+
 * Sat Feb 19 2005 Paul Nasrat <pnasrat@redhat.com> - 10.2.0.20-1
 - Pull in translations
 - s390 linuxrc silence nonexistant group warnings (karsten)
