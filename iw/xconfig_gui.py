@@ -428,9 +428,12 @@ class MonitorWindow (InstallWindow):
 
     def getNext (self):
         if self.currentNode:
+            monHoriz = string.replace(self.hEntry.get_text(), " ", "")
+            monVert = string.replace(self.vEntry.get_text(), " ", "")
+
             (current_parent, current_monitor) = self.ctree.node_get_row_data (self.currentNode)
-            self.monitor.setSpecs(self.hEntry.get_text (),
-                                  self.vEntry.get_text (),
+            self.monitor.setSpecs(monHoriz,
+                                  monVert,
                                   id=current_monitor[0],
                                   name=current_monitor[0])
         return None

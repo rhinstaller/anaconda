@@ -191,6 +191,9 @@ class MonitorInfo:
 			ranges = string.split (line, ',')
 			self.monHoriz = string.strip (string.split (ranges[0], '=')[1])
 			self.monVert = string.strip (string.split (ranges[1], '=')[1])
+                        self.monHoriz = string.replace(self.monHoriz, " " , "")
+                        self.monVert =  string.replace(self.monVert, " ", "")
+                        
                 if self.monEisa:
                     # read the monitor DB
                     self.readMonitorsDB()
