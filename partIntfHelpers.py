@@ -101,7 +101,7 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting):
 def isNotChangable(request, requestlist):
     if request:
 	if request.getProtected():
-	    return _("You cannot %s this partition, as it is holding the data"
+	    return _("You cannot %s this partition, as it is holding the data "
 		     "for the hard drive install.")
 
         if requestlist.isRaidMember(request):
