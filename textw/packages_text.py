@@ -24,7 +24,7 @@ class PackageGroupWindow:
         for comp in ct.getSelection():
             comp.select (1)
 
-	label.setText(self.size(comps))
+	label.setText(self.size(todo.comps))
 
     def __call__(self, screen, todo, individual):
         # be sure that the headers and comps files have been read.
