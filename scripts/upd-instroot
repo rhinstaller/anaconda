@@ -104,7 +104,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python glib2
-	 elfutils-libelf bogl-bterm krb5-libs convertdb1"
+	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -329,6 +329,7 @@ usr/$LIBDIR/librpmio*4.?.so*
 usr/$LIBDIR/libslang*
 usr/$LIBDIR/libxml2.so*
 usr/$LIBDIR/libz.*
+usr/$LIBDIR/libbogl.so*
 usr/$LIBDIR/python2.2/*
 usr/$LIBDIR/python2.2/site-packages/libxml2*
 usr/$LIBDIR/python2.2/site-packages/*kudzu*
