@@ -16,10 +16,11 @@ rpm.addMacro("__dbi_cdb", "create private mpool mp_mmapsize=16Mb mp_size=1Mb")
 
 # assuming that SELinux is set up, tell rpm where to pull file contexts from
 if flags.selinux:
-    for fn in ("/tmp/updates/file_contexts",
-               "/mnt/source/RHupdates/file_contexts",
-               "/etc/security/selinux/src/policy/file_contexts/file_contexts",
-                "/etc/security/selinux/file_contexts"):
+    for dir in ("/tmp/updates", "/mnt/source/RHupdates",
+                "/etc/selinux/targeted/contexts/files",
+                "/etc/security/selinux/src/policy/file_contexts",
+                "/etc/security/selinux"):
+        fn = "%s/file_contexts" %(dir,)
         if os.access(fn, os.R_OK):
             break
     rpm.addMacro("__file_context_path", fn)

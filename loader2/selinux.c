@@ -52,9 +52,10 @@ static char * getpolicyver() {
 
 int loadpolicy() {
     char * ver, * fn;
-    char *paths[] = { "/tmp/updates/policy.", 
-                      "/mnt/source/RHupdates/policy.",
-                      "/mnt/runtime/etc/security/selinux/policy.",
+    char *paths[] = { "/tmp/updates", 
+                      "/mnt/source/RHupdates",
+                      "/mnt/runtime/etc/selinux/targeted/policy",
+                      "/mnt/runtime/etc/security/selinux",
                       NULL };
     int i, pid, status;
 
@@ -66,7 +67,7 @@ int loadpolicy() {
     fn = malloc(128);
     fn = memset(fn, 0, 128);
     for (i = 0; paths[i]; i++) {
-        snprintf(fn, 128, "%s%s", (char *) paths[i], ver);
+        snprintf(fn, 128, "%s/policy.%s", (char *) paths[i], ver);
         if (!access(fn, R_OK)) {
             break;
         }

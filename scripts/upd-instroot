@@ -160,6 +160,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
            xfsprogs xfsdump dmapi attr acl policy policycoreutils
+           selinux-policy-targeted
            xorg-x11-libs xorg-x11-ISO8859-2-75dpi-fonts
            xorg-x11-ISO8859-9-75dpi-fonts xorg-x11-100dpi-fonts
            xorg-x11-xfs xorg-x11 xorg-x11-KOI8-R xorg-x11-KOI8-R-75dpi-fonts
@@ -229,6 +230,8 @@ etc/group
 etc/passwd
 etc/protocols
 etc/services
+etc/selinux/targeted/policy/policy.*
+etc/selinux/targeted/contexts/files/file_contexts
 etc/security/selinux/policy.*
 etc/security/selinux/file_contexts
 $LIBDIR/ld*.so*
