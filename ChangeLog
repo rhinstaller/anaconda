@@ -1,3 +1,10 @@
+2004-10-17  Jeremy Katz  <katzj@redhat.com>
+
+	* partitions.py (Partitions.writeKS): Write out size=0 (#135714)
+
+	* kickstart.py (KickstartBase.definePartition): Allow partition
+	size to be zero to work better with LVM autopart (#135714)
+
 2004-10-15  Jeremy Katz  <katzj@redhat.com>
 
 	* iw/driveorderwidget.py: Remove empty row leading 

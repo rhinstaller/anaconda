@@ -1287,7 +1287,7 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGetDefault()
                 mountpoint = extra[0]
 
-        if (not size) and (not start and not end) and (not onPart):
+        if (size is None) and (not start and not end) and (not onPart):
             raise KickstartValueError, "partition command requires a size specification"
         if start and not disk:
             raise KickstartValueError, "partition command with start cylinder requires a drive specification"

@@ -994,6 +994,8 @@ class Partitions:
             elif request.type == REQUEST_NEW:
                 if request.size:
                     args.append("--size=%s" % (request.size))
+                if request.size == 0:
+                    args.append("--size=0")
                 if request.grow:
                     args.append("--grow")
                 if request.start:
