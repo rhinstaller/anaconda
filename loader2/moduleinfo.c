@@ -84,12 +84,13 @@ moduleInfoSet newModuleInfoSet(void) {
 int readModuleInfo(const char * filename, moduleInfoSet mis, 
                    void * location, int override) {
     int fd, isIndented;
-    char * buf, * start, * next, * chptr;
+    char * buf, * start, * next = NULL, * chptr;
     struct stat sb;
     char oldch;
     struct moduleInfo * nextModule;
     int modulesAlloced;
     int i;
+    int found = 0, skipModule = 0;
 
     fd = open(filename, O_RDONLY);
     if (fd < 0) return -1;
@@ -143,30 +144,39 @@ int readModuleInfo(const char * filename, moduleInfoSet mis,
                 }
 
                 nextModule = NULL;
-                if (override) {
-                    for (i = 0; i < mis->numModules; i++) {
-                        if (!strcmp(mis->moduleList[i].moduleName, start)) {
+                found = 0;
+                skipModule = 0;
+                for (i = 0; i < mis->numModules; i++) {
+                    if (!strcmp(mis->moduleList[i].moduleName, start)) {
+                        if (override) 
                             nextModule = mis->moduleList + i;
-                            break;
-                        }
+                        else
+                            skipModule = 1;
+                        found = 1;
+                        break;
                     }
                 }
 
-                if (!nextModule) {
+                if (!found && !nextModule) {
                     nextModule = mis->moduleList + mis->numModules;
 
                     nextModule->moduleName = strdup(start);
                 } 
 
-                nextModule->major = DRIVER_NONE;
-                nextModule->minor = DRIVER_MINOR_NONE;
-                nextModule->description = NULL;
-                nextModule->flags = 0;
-                nextModule->args = NULL;
-                nextModule->numArgs = 0;
-                nextModule->locationID = location;
-            } else if (!nextModule) {
+                if (nextModule) {
+                    nextModule->major = DRIVER_NONE;
+                    nextModule->minor = DRIVER_MINOR_NONE;
+                    nextModule->description = NULL;
+                    nextModule->flags = 0;
+                    nextModule->args = NULL;
+                    nextModule->numArgs = 0;
+                    nextModule->locationID = location;
+                }
+            } else if (!nextModule && skipModule) {
+                /* we're skipping this one (not overriding), do nothing */
+            } else if (!nextModule && skipModule) {
                 /* ACK! syntax error */
+                fprintf(stderr, "module-info syntax error in %s\n", filename);
                 return 1;
             } else if (nextModule->major == DRIVER_NONE) {
                 chptr = start + strlen(start) - 1;
