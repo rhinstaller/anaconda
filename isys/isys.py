@@ -353,3 +353,6 @@ def vtActivate (num):
 def isPsudoTTY (fd):
     return _isys.isPsudoTTY (fd)
 
+def sync ():
+    return _isys.sync ()
+
