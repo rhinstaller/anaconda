@@ -26,7 +26,7 @@ class XF86Config:
         self.monHoriz = ""
         self.monVert = ""
 	self.monSect = None
-        self.monID = "Generic Monitor"
+        self.monID = "Generic VGA Monitor"
         self.devID = None
         self.probed = 0
         self.skip = 0
@@ -525,7 +525,7 @@ Section "Keyboard"
 
 # Any number of monitor sections may be present
 Section "Monitor"
-    Identifier  "Generic Monitor"
+    Identifier  "Generic VGA Monitor"
     VendorName  "Unknown"
     ModelName   "Unknown"
     HorizSync   31.5
@@ -799,6 +799,9 @@ Section "Device"
 	    monID = "Probed Monitor"
 	else:
 	    monID = self.monID
+        if not monID:
+            monID = "Generic VGA Monitor"
+            
         info = { "DEVICE"  : self.devID,
                  "MONITOR" : monID }
 
