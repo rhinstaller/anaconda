@@ -1371,8 +1371,8 @@ static char * doMountImage(char * location,
 	free(class);
     }
 
-#if defined(__alpha__) || defined(__ia64__)
-    /* || defined (__s390__) || defined (__s390x__) */
+#if defined(__alpha__) || defined(__ia64__) \
+     || defined (__s390__) || defined (__s390x__)
     for (i = 0; i < numMethods; i++) {
 	installNames[numValidMethods] = _(installMethods[i].name);
 	validMethods[numValidMethods++] = i;
