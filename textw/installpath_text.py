@@ -19,7 +19,13 @@ import installclass
 
 class InstallPathWindow:
     def __call__ (self, screen, dispatch, id, method, intf):
-	classes = installclass.availableClasses()
+	tmpclasses = installclass.availableClasses()
+
+	# strip out '_' in names cause we dont do mnemonics in text mode
+	classes = []
+	for (n, o, l) in tmpclasses:
+	    n2 = n.replace("_", "")
+	    classes.append((n2, o, l))
 
 	choices = []
 	default = 0
