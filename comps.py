@@ -858,7 +858,7 @@ class ComponentSet:
                 ts = rpm.TransactionSet()
                 how = 'i'
 
-            ts.setVSFlags(rpm.RPMVSF_NODSA|rpm.RPMVSF_NORSA)
+            ts.setVSFlags(~(rpm.RPMVSF_NODSA|rpm.RPMVSF_NORSA))
 
             for p in self.packages.values():
                 if p.selected:

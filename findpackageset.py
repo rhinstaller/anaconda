@@ -29,8 +29,7 @@ def addNewPackageToUpgSet(pkgDict, pkg):
 
 def findpackageset(hdrlist, dbPath='/'):
     ts = rpm.TransactionSet(dbPath)
-    ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
-    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA|rpm.RPMVSF_NOMD5))
 
     pkgDict = {}
 

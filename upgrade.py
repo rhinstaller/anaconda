@@ -381,8 +381,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # open up the database to check dependencies and currently
     # installed packages
     ts = rpm.TransactionSet(instPath)
-    ts.setVSFlags(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA)
-    ts.setFlags(rpm.RPMTRANS_FLAG_NOMD5)
+    ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 
     mi = ts.dbMatch()
     found = 0
