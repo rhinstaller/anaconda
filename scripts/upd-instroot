@@ -506,7 +506,7 @@ patch -p0 > /dev/null <<EOF
 EOF
 cd -
 
-echo -n -e "\Removing unused python files in $DEST... "
+echo -n -e "Removing unused python files in hdimage... "
 if [ -x /usr/bin/runroot ]; then
     REALPATH=`(cd $DEST; /bin/pwd)`
     runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/pythondeps $REALPATH" > /dev/null

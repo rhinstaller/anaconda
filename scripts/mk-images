@@ -244,25 +244,34 @@ makeinitrd() {
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
 	    shift; shift
+	    continue
 	elif [ $1 = "--pcmcia" ]; then
 	    PCMCIA=yes
 	    shift
+	    continue
 	elif [ $1 = "--keep" ]; then
 	    KEEP=yes
 	    shift
+	    continue
 	elif [ $1 = "--initrdsize" ]; then
-	     INITRDSIZE=$2
-	     shift; shift
+	    INITRDSIZE=$2
+	    shift; shift
+	    continue
 	elif [ $1 = "--padsize" ]; then
-	     PADSIZE=$2
-	     shift; shift
+	    PADSIZE=$2
+	    shift; shift
+	    continue
 	elif [ $1 = "--loaderbin" ]; then
-	     LOADERBIN=$2
-	     shift; shift
+	    LOADERBIN=$2
+	    shift; shift
+	    continue
 	elif [ $1 = "--modules" ]; then
-	     LOADERMODULES=$2
-	     shift; shift
+	    LOADERMODULES=$2
+	    shift; shift
+	    continue
 	fi
+	echo "Unknown option passed to makeinitrd"
+	exit 1
     done
     if [ -z "$LOADERBIN" ]; then
 	echo "no loader binary specified!" >&2

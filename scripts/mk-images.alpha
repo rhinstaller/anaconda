@@ -11,7 +11,7 @@ prepareBootImage() {
 makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 	   --initrdsize 2000 \
 	   --padsize 1440 \
-	   --loaderbinary loader \
+	   --loaderbin loader \
 	   --modules "3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne vfat"
 
 makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
