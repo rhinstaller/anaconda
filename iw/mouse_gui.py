@@ -146,6 +146,7 @@ class MouseWindow(InstallWindow):
 
         parent = None
         iter = self.mousestore.get_iter_first()
+	fndmouse = 0
         # iterate over the list, looking for the current mouse selection
         while iter:
             # if this is a parent node, get the first child and iter over them
@@ -167,6 +168,7 @@ class MouseWindow(InstallWindow):
                 if recenter:
                     self.mouseview.scroll_to_cell(path, col, gtk.TRUE,
                                                   0.5, 0.5)
+		fndmouse = 1
                 break
             # get the next row.
             iter = self.mousestore.iter_next(iter)
@@ -193,11 +195,24 @@ class MouseWindow(InstallWindow):
             self.devview.set_sensitive(gtk.FALSE)
             self.ics.setNextEnabled(gtk.TRUE)
         else:
-            # otherwise disable the list
-	    self.devview.get_selection().unselect_all();
-	    self.serialDevice = None
-            self.ics.setNextEnabled(gtk.FALSE)
-            self.devview.set_sensitive(gtk.TRUE)
+	    # XXX - see if this is the 'No - mouse' case
+	    if fndmouse:
+		cur = self.mousestore.get_value(iter, 1)
+		(gpm, xdev, device, emulate, shortname) = self.availableMice[cur]
+	    else:
+		xdev = None
+
+	    if xdev == "none":
+		self.devview.get_selection().unselect_all();
+		self.devview.set_sensitive(gtk.FALSE)
+		self.ics.setNextEnabled(gtk.TRUE)
+		    
+	    else:
+		# otherwise disable the list
+		self.devview.get_selection().unselect_all();
+		self.serialDevice = None
+		self.ics.setNextEnabled(gtk.FALSE)
+		self.devview.set_sensitive(gtk.TRUE)
             
         self.emulate3.set_active(emulate3)
         self.ignoreEvents = 0
