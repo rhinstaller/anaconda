@@ -67,7 +67,7 @@ if len(sys.argv) > 1:
 
 import signal, traceback, string, isys, iutil, time
 from log import log
-from translate import _
+from rhpl.translate import _
 from exception import handleException
 import dispatch
 from flags import flags
