@@ -1768,6 +1768,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
         if (!strcasecmp(argv[i], "expert"))
 	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE |
 		     LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "nousb"))
+	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
 	    flags |= LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "text"))
@@ -2173,6 +2175,8 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
+    if (FL_NOUSB(flags)) return 0;
+
     logMessage("looking for usb controllers");
 
     devices = probeDevices(CLASS_USB, BUS_PCI, PROBE_ALL);
@@ -2203,6 +2207,8 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
    stuff */
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
+
+    if (FL_NOUSB(flags)) return 0;
 
     logMessage("looking for USB mouse...");
     if (probeDevices(CLASS_MOUSE, BUS_USB, PROBE_ALL)) {
