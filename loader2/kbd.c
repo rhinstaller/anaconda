@@ -31,21 +31,6 @@
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 
-/* JKFIXME: these should just be included from isys somehow.. */
-/* define ask johnsonm@redhat.com where this came from */
-#define KMAP_MAGIC 0x8B39C07F
-#define KMAP_NAMELEN 40         /* including '\0' */
-
-struct kmapHeader {
-    int magic;
-    int numEntries;
-};
-
-struct kmapInfo {
-    int size;
-    char name[KMAP_NAMELEN];
-};
-
 int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     int num = -1;
     int rc;

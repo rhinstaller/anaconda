@@ -51,20 +51,6 @@ int isysLoadFont(char * fontFile) {
     return 0;
 }
 
-/* define ask johnsonm@redhat.com where this came from */
-#define KMAP_MAGIC 0x8B39C07F
-#define KMAP_NAMELEN 40         /* including '\0' */
-
-struct kmapHeader {
-    int magic;
-    int numEntries;
-};
-        
-struct kmapInfo {
-    int size;
-    char name[KMAP_NAMELEN];
-};
-
 /* the file pointer must be at the beginning of the section already! */
 int loadKeymap(gzFile stream) {
     int console;
