@@ -480,7 +480,7 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     char ctl[64];
     char *path;
 	
-    path = "/proc/driver/ida";
+    path = "/proc/driver/array";
 
     sprintf(ctl, "%s/ida%d", path, ctlNum++);
 		
