@@ -1737,7 +1737,7 @@ class ToDo:
                         spaceneeded[mount] = need
                     else:
                         spaceneeded[mount] = need
-                else if type == nodeprob:
+                elif type == nodeprob:
                     if nodeneeded.has_key (mount) and nodeneeded[mount] < need:
                         nodeneeded[mount] = need
                     else:
