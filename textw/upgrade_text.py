@@ -223,7 +223,7 @@ class UpgradeExamineWindow:
             c.setSteps(dispatch)
             c.setInstallData(id)
 
-            id.upgradeRoot = [root]
+            id.upgradeRoot = [(root[0], root[1])]
             id.rootParts = parts
             dispatch.skipStep("installtype", skip = 1)
         else:

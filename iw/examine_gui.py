@@ -43,7 +43,7 @@ class UpgradeExamineWindow (InstallWindow):
             c.setSteps(self.dispatch)
             c.setInstallData(self.id)
 
-            self.id.upgradeRoot = [self.root]
+            self.id.upgradeRoot = [(self.root[0], self.root[1])]
             self.id.rootParts = self.parts
             if self.individualPackages.get_active():
                 self.dispatch.skipStep("indivpackage", skip = 0)
