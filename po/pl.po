@@ -1,6 +1,5 @@
 # translation of pl.po to Polish
 # translation of pl.po to POLISH
-# Plik z zasobami dla polskiego użytkownika.
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998.
 # Rafał Maszkowski <rzm@icm.edu.pl>, 1999, 2000.
 # Bartosz Sapijaszko <bartosz@sapek.net>, 2002.
@@ -1221,7 +1220,7 @@ msgstr "Zainstaluj w systemie"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Porażka scriptletu"
 
 #: ../kickstart.py:103
 #, python-format
@@ -1231,6 +1230,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Wystąpił błąd podczas uruchamiania scriptletu. Możesz sprawdzić wyjście w %"
+"s. Jest to krytyczny błąd, więc instalacja zostanie przerwana.\n"
+"\n"
+"Naciśnij przycisk OK aby zrestartować system."
 
 #: ../kickstart.py:1489
 msgid "Missing Package"
@@ -1323,7 +1326,7 @@ msgid ""
 "ensure that your install tree has been correctly generated."
 msgstr ""
 "Plik comps w twoim drzewie instalacyjnym nie zawiera pewnych krytycznych "
-"grup.  Upewnij się, że drzewo instalacji zostało poprawnie wygenerowane."
+"grup.  Upewnij się, że drzewo instalacji zostało poprawnie utworzone."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
