@@ -25,9 +25,15 @@
 #include <sys/wait.h>
 
 #include "modstubs.h"
+#include "modules.h"
 
 #include "../isys/cpio.h"
 #include "../isys/stubs.h"
+
+static int usage() {
+    fprintf(stderr, "usage: insmod [-p <path>] <module>.o\n");
+    return 1;
+}
 
 int ourInsmodCommand(int argc, char ** argv) {
     char * file;
@@ -37,21 +43,28 @@ int ourInsmodCommand(int argc, char ** argv) {
     int rc, rmObj = 0;
     char * ballPath = NULL;
     char fullName[100];
-    struct utsname u;
-
-    uname(&u);
+    int version = 1;
 
     if (argc < 2) {
-        fprintf(stderr, "usage: insmod [-p <path>] <module>.o [params]\n");
-        return 1;
+        return usage();
     }
 
-    if (!strcmp(argv[1], "-p")) {
-        ballPath = malloc(strlen(argv[2]) + 30);
-        sprintf(ballPath, "%s/modules.cgz", argv[2]);
-        argv += 2;
-        argc -= 2;
-    } else {
+    while (argc > 2) {
+        if (!strcmp(argv[1], "-p")) {
+            ballPath = malloc(strlen(argv[2]) + 30);
+            sprintf(ballPath, "%s/modules.cgz", argv[2]);
+            argv += 2;
+            argc -= 2;
+        } else if (!strcmp(argv[1], "--modballversion")) {
+            version = atoi(argv[2]);
+            argv += 2;
+            argc -= 2;
+        } else {
+            return usage();
+        }
+    }
+
+    if (!ballPath) {
         ballPath = strdup("/modules/modules.cgz");
     }
 
@@ -69,7 +82,8 @@ int ourInsmodCommand(int argc, char ** argv) {
         if (chptr) file = chptr + 1;
         sprintf(finalName, "/tmp/%s", file);
         
-        sprintf(fullName, "%s/%s", u.release, file);
+        /* XXX: leak */
+        sprintf(fullName, "%s/%s", getModuleLocation(version), file);
         
         if (installCpioFile(fd, fullName, finalName, 0)) {
             free(ballPath);

@@ -48,5 +48,6 @@ int simpleRemoveLoadedModule(const char * modName, moduleList modLoaded,
                              int flags);
 int reloadUnloadedModule(char * modName, moduleList modLoaded,
                          char **, int flags);
+char * getModuleLocation(int version);
 
 #endif

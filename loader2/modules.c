@@ -701,7 +701,7 @@ void writeScsiDisks(moduleList list) {
     return;
 }
 
-static char * getModuleLocation(int version) {
+char * getModuleLocation(int version) {
     struct utsname u;
     static char * arch = NULL;
     const char * archfile = "/etc/arch";
