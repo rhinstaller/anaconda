@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-24 17:14-0400\n"
+"POT-Creation-Date: 2004-09-30 17:13-0400\n"
 "PO-Revision-Date: 2004-09-20 12:15+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
@@ -118,19 +118,19 @@ msgstr "กรุณาเชื่อมต่อก่อน เพื่อ�
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
-#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:466
-#: ../loader2/hdinstall.c:534 ../loader2/hdinstall.c:577
-#: ../loader2/hdinstall.c:590 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
+#: ../loader2/hdinstall.c:217 ../loader2/hdinstall.c:383
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
+#: ../loader2/hdinstall.c:537 ../loader2/hdinstall.c:580
+#: ../loader2/hdinstall.c:593 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
 #: ../loader2/loader.c:350 ../loader2/loader.c:661 ../loader2/loader.c:839
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:192
-#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:884
-#: ../loader2/net.c:907 ../loader2/net.c:1054 ../loader2/nfsinstall.c:54
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:156 ../loader2/method.c:365
+#: ../loader2/method.c:450 ../loader2/modules.c:919 ../loader2/net.c:192
+#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:882
+#: ../loader2/net.c:905 ../loader2/net.c:1052 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
@@ -319,11 +319,11 @@ msgstr ""
 "\n"
 "กดปุ่ม 'ตกลง' เพื่อรีบูตระบบของคุณ"
 
-#: ../autopart.py:1389 ../autopart.py:1437
+#: ../autopart.py:1391 ../autopart.py:1439
 msgid "Automatic Partitioning Errors"
 msgstr "การแบ่งพาร์ทิชันอัตโนมัติมีข้อผิดพลาด"
 
-#: ../autopart.py:1390
+#: ../autopart.py:1392
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -338,11 +338,11 @@ msgstr ""
 "\n"
 "กดปุ่ม 'ตกลง' เพื่อรีบูตระบบของคุณ"
 
-#: ../autopart.py:1400
+#: ../autopart.py:1402
 msgid "Warnings During Automatic Partitioning"
 msgstr "ข้อความเตือนในระหว่างการแบ่งพาร์ทิชันแบบอัตโนมัติ"
 
-#: ../autopart.py:1401
+#: ../autopart.py:1403
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -353,7 +353,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1414 ../autopart.py:1431
+#: ../autopart.py:1416 ../autopart.py:1433
 msgid ""
 "\n"
 "\n"
@@ -363,12 +363,12 @@ msgstr ""
 "\n"
 "กดปุ่ม 'ตกลง' เพื่อรีบูตระบบของคุณ "
 
-#: ../autopart.py:1415 ../iw/partition_gui.py:994
-#: ../textw/partition_text.py:226
+#: ../autopart.py:1417 ../iw/partition_gui.py:992
+#: ../textw/partition_text.py:224
 msgid "Error Partitioning"
 msgstr "การแบ่งพาร์ทิชันมีข้อผิดพลาด"
 
-#: ../autopart.py:1416
+#: ../autopart.py:1418
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -379,7 +379,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1433
+#: ../autopart.py:1435
 msgid ""
 "\n"
 "\n"
@@ -395,7 +395,7 @@ msgstr ""
 "\n"
 "กดปุ่ม 'ตกลง' เพื่อดำเนินการต่อไป "
 
-#: ../autopart.py:1438
+#: ../autopart.py:1440
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -411,29 +411,29 @@ msgstr ""
 "\n"
 "กรณีนี้สามารถเกิดขึ้นได้เมื่อพื้นที่บนดิสก์ไม่เพียงพอสำหรับการติดตั้ง %s"
 
-#: ../autopart.py:1449
+#: ../autopart.py:1451
 msgid "Unrecoverable Error"
 msgstr "เกิดข้อผิดพลาดที่ไม่สามารถกู้คืนได้"
 
-#: ../autopart.py:1450
+#: ../autopart.py:1452
 msgid "Your system will now be rebooted."
 msgstr "ระบบของคุณจะถูกรีบูตโดยทันที"
 
-#: ../autopart.py:1597 ../bootloader.py:151 ../gui.py:1006 ../image.py:466
+#: ../autopart.py:1599 ../bootloader.py:151 ../gui.py:1006 ../image.py:466
 #: ../partedUtils.py:277 ../partedUtils.py:307 ../partedUtils.py:830
 #: ../partedUtils.py:887 ../upgrade.py:318 ../upgrade.py:429 ../upgrade.py:482
-#: ../upgrade.py:505 ../upgrade.py:551 ../iw/blpasswidget.py:148
+#: ../upgrade.py:505 ../upgrade.py:545 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
 #: ../iw/fdasd_gui.py:93 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
-#: ../iw/zfcp_gui.py:236 ../textw/bootloader_text.py:141
+#: ../iw/zfcp_gui.py:239 ../textw/bootloader_text.py:141
 #: ../textw/bootloader_text.py:456 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:230 ../textw/upgrade_text.py:177
+#: ../textw/partition_text.py:228 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:381
 msgid "Warning"
 msgstr "ข้อความเตือน"
 
-#: ../autopart.py:1603
+#: ../autopart.py:1605
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -449,7 +449,7 @@ msgstr ""
 "ในสภาวะแวดล้อมแบบปฏิสัมพันธ์ได้ โดยคุณสามารถตั้งค่าชนิดของระบบไฟล์ ตำแหน่งเม้านท์ "
 "ขนาดของพาร์ทิชัน และอื่น ๆ ตามต้องการ"
 
-#: ../autopart.py:1614
+#: ../autopart.py:1616
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -457,19 +457,19 @@ msgstr ""
 "ก่อนที่การแบ่งพาร์ทิชันแบบอัตโนมัติ จะถูกตั้งค่าโดยโปรแกรมติดตั้ง "
 "คุณต้องเลือกว่าจะใช้พื้นที่บนฮาร์ดไดรฟ์อย่างไร"
 
-#: ../autopart.py:1619
+#: ../autopart.py:1621
 msgid "Remove all partitions on this system"
 msgstr "ลบพาร์ทิชันทั้งหมดที่มีในระบบ"
 
-#: ../autopart.py:1620
+#: ../autopart.py:1622
 msgid "Remove all Linux partitions on this system"
 msgstr "ลบพาร์ทิชันลินุกซ์ทั้งหมดที่มีในระบบ"
 
-#: ../autopart.py:1621
+#: ../autopart.py:1623
 msgid "Keep all partitions and use existing free space"
 msgstr "คงพาร์ทิชันทั้งหมดที่มีอยู่ไว้ และใช้เฉพาะพื้นที่ว่างที่เหลือเท่านั้น"
 
-#: ../autopart.py:1623
+#: ../autopart.py:1625
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -479,7 +479,7 @@ msgstr ""
 "คุณได้เลือกลบพาร์ทิชันที่มีทั้งหมด (ข้อมูลทั้งหมด) บนไดรฟ์ต่อไปนี้: %s\n"
 "คุณแน่ใจหรือไม่ว่าต้องการทำเช่นนี้จริง?"
 
-#: ../autopart.py:1627
+#: ../autopart.py:1629
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -645,26 +645,26 @@ msgid "_Make boot disk"
 msgstr "_สร้างแผ่นบูต"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
-#: ../fsset.py:1355 ../fsset.py:1390 ../fsset.py:1440 ../fsset.py:1484
+#: ../fsset.py:592 ../fsset.py:1315 ../fsset.py:1352 ../fsset.py:1403
+#: ../fsset.py:1414 ../fsset.py:1449 ../fsset.py:1499 ../fsset.py:1543
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
 #: ../partedUtils.py:650 ../upgrade.py:349 ../upgrade.py:374 ../upgrade.py:401
 #: ../iw/osbootwidget.py:219 ../iw/osbootwidget.py:228
-#: ../iw/raid_dialog_gui.py:603 ../iw/raid_dialog_gui.py:642
+#: ../iw/raid_dialog_gui.py:604 ../iw/raid_dialog_gui.py:643
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:337
 #: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:402
 #: ../loader2/driverdisk.c:469 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
-#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
-#: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:217
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:537
+#: ../loader2/hdinstall.c:580 ../loader2/hdinstall.c:593
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
 #: ../loader2/loader.c:661 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:156 ../loader2/method.c:365
+#: ../loader2/method.c:450 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
 #: ../loader2/urlinstall.c:149 ../loader2/urls.c:172 ../loader2/urls.c:182
@@ -725,27 +725,27 @@ msgstr ""
 "\n"
 "คุณต้องการดำเนินการต่อโดยไม่เปลี่ยนระบบไฟล์ของ %s เป็น ext3 หรือไม่?"
 
-#: ../fsset.py:1189
+#: ../fsset.py:1223
 msgid "RAID Device"
 msgstr "อุปกรณ์ RAID"
 
-#: ../fsset.py:1193 ../fsset.py:1199
+#: ../fsset.py:1227 ../fsset.py:1233
 msgid "Apple Bootstrap"
 msgstr "Apple Bootstrap"
 
-#: ../fsset.py:1204 ../partitions.py:807
+#: ../fsset.py:1238 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP Boot"
 
-#: ../fsset.py:1207 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1241 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "เซกเตอร์แรกของบูตพาร์ทิชัน"
 
-#: ../fsset.py:1208 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1242 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "บูตเรคอร์ดหลัก (MBR)"
 
-#: ../fsset.py:1275
+#: ../fsset.py:1316
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -758,7 +758,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1294
+#: ../fsset.py:1353
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -773,7 +773,7 @@ msgstr ""
 "\n"
 "กดปุ่ม ตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1345
+#: ../fsset.py:1404
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -785,7 +785,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณ"
 
-#: ../fsset.py:1356
+#: ../fsset.py:1415
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -798,7 +798,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1391
+#: ../fsset.py:1450
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -810,7 +810,7 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1441
+#: ../fsset.py:1500
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -823,11 +823,11 @@ msgstr ""
 "\n"
 "กดปุ่ม <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1462 ../fsset.py:1471
+#: ../fsset.py:1521 ../fsset.py:1530
 msgid "Invalid mount point"
 msgstr "ตำแหน่งเมานท์ไม่ถูกต้อง"
 
-#: ../fsset.py:1463
+#: ../fsset.py:1522
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -840,7 +840,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1472
+#: ../fsset.py:1531
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -853,7 +853,7 @@ msgstr ""
 "\n"
 "กด <Enter> เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:1485
+#: ../fsset.py:1544
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -868,11 +868,11 @@ msgstr ""
 "\n"
 "กดปุ่มตกลง เพื่อรีบูตระบบของคุณใหม่"
 
-#: ../fsset.py:2131
+#: ../fsset.py:2190
 msgid "Duplicate Labels"
 msgstr "ชื่อซ้ำซ้อน"
 
-#: ../fsset.py:2132
+#: ../fsset.py:2191
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -885,18 +885,18 @@ msgstr ""
 "\n"
 "ให้ทำการแก้ไข แล้วเริ่มการติดตั้งใหม่ทั้งหมด "
 
-#: ../fsset.py:2139 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../fsset.py:2198 ../gui.py:661 ../gui.py:1120 ../image.py:96
 #: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "_รีบูต"
 
-#: ../fsset.py:2392
+#: ../fsset.py:2451
 msgid "Formatting"
 msgstr "กำลังฟอร์แมต"
 
-#: ../fsset.py:2393
+#: ../fsset.py:2452
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "กำลังฟอร์แมตระบบไฟล์ %s ..."
@@ -951,7 +951,7 @@ msgstr "ซ่อม"
 #: ../gui.py:239 ../rescue.py:179 ../text.py:337 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:513
-#: ../loader2/driverdisk.c:524 ../loader2/hdinstall.c:326
+#: ../loader2/driverdisk.c:524 ../loader2/hdinstall.c:329
 #: ../loader2/loader.c:381
 msgid "Yes"
 msgstr "ใช่"
@@ -965,7 +965,7 @@ msgstr "ใช่"
 msgid "No"
 msgstr "ไม่"
 
-#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:569
+#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:574
 msgid "Retry"
 msgstr "ลองใหม่"
 
@@ -1128,8 +1128,8 @@ msgstr ""
 "%s\n"
 "กรุณาเตรียมไว้ให้พร้อมก่อนทำการติดตั้ง ถ้าคุณต้องการยกเลิกและจะรีบูต ให้เลือก \"รีบูต\""
 
-#: ../image.py:96 ../image.py:477 ../kickstart.py:1407 ../kickstart.py:1435
-#: ../iw/partition_gui.py:1008
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1423 ../kickstart.py:1451
+#: ../iw/partition_gui.py:1006
 msgid "_Continue"
 msgstr "_ต่อไป"
 
@@ -1184,11 +1184,11 @@ msgstr "ไม่สามารถเข้าถึงแผ่นซีดี
 msgid "Install on System"
 msgstr "ติดตั้งบนระบบ"
 
-#: ../kickstart.py:1399
+#: ../kickstart.py:1415
 msgid "Missing Package"
 msgstr "ไม่พบแพ็กเกจ"
 
-#: ../kickstart.py:1400
+#: ../kickstart.py:1416
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1197,15 +1197,15 @@ msgstr ""
 "คุณได้กำหนดไว้ว่าแพ็กเกจ '%s' ต้องถูกติดตั้ง แต่แพ็กเกจนี้ไม่ได้มีอยู่ "
 "คุณยังอยากจะดำเนินการต่อไปหรือยกเลิกการติดตั้ง?"
 
-#: ../kickstart.py:1406 ../kickstart.py:1434
+#: ../kickstart.py:1422 ../kickstart.py:1450
 msgid "_Abort"
 msgstr "_ยกเลิก"
 
-#: ../kickstart.py:1426
+#: ../kickstart.py:1442
 msgid "Missing Group"
 msgstr "ไม่พบกลุ่ม"
 
-#: ../kickstart.py:1427
+#: ../kickstart.py:1443
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1405,7 +1405,7 @@ msgstr ""
 
 #: ../packages.py:978 ../packages.py:999 ../iw/lvm_dialog_gui.py:1057
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1437 ../textw/upgrade_text.py:111
+#: ../textw/partition_text.py:1435 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "ตำแหน่งเมานท์"
 
@@ -1492,7 +1492,7 @@ msgstr ""
 msgid "_Install anyway"
 msgstr "ดำเนินการติดตั้งต่อ"
 
-#: ../partedUtils.py:186 ../textw/partition_text.py:557
+#: ../partedUtils.py:186 ../textw/partition_text.py:555
 msgid "Foreign"
 msgstr "อื่นๆ"
 
@@ -1720,7 +1720,7 @@ msgstr "คุณกำลังจะลบพาร์ทิชันทั้
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1080
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1351
 msgid "_Delete"
 msgstr "_ลบ"
 
@@ -1798,7 +1798,7 @@ msgstr ""
 msgid "Format?"
 msgstr "ฟอร์แมตหรือไม่?"
 
-#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1006
+#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1004
 msgid "_Modify Partition"
 msgstr "แ_ก้ไขพาร์ทิชัน"
 
@@ -2141,7 +2141,7 @@ msgstr "อ่านได้อย่างเดียว"
 
 #: ../rescue.py:270 ../rescue.py:272 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
-#: ../loader2/cdinstall.c:256 ../loader2/method.c:411
+#: ../loader2/cdinstall.c:256 ../loader2/method.c:412
 msgid "Skip"
 msgstr "ข้ามไป"
 
@@ -2412,15 +2412,14 @@ msgstr ""
 "ระบบไม่มีไฟล์ /etc/redhat-release ซึ่งเป็นไปได้ว่าไม่ใช่ระบบ %s การดำเนินการอัพเกรดต่อ "
 "อาจทำให้ระบบทำงานโดยไม่เสถียรได้ คุณยังต้องการอัพเกรดต่อหรือไม่? "
 
-#: ../upgrade.py:552
-#, python-format
+#: ../upgrade.py:546
+#, fuzzy, python-format
 msgid ""
-"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
-"higher.  This appears to be an older system.  Do you wish to continue the "
-"upgrade process?"
+"You appear to be upgrading from a system which is too old to upgrade to this "
+"version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"การอัพเกรดสำหรับเวอร์ชันนี้ของ %s สามารถใช้ได้กับเรดแฮทลินุกซ์ 6.2 หรือสูงกว่าเท่านั้น "
-"ซึ่งดูเหมือนว่าระบบของคุณเก่ากว่า คุณจะยังอัพเกรดต่อหรือไม่? "
+"สถาปัตยกรรมของรีลีสของ %s ที่คุณกำลังอัพเกรดคือ %s ซึ่งไม่เข้ากันกับระบบที่ติดตั้งไว้ก่อนหน้านี้สำหรับ "
+"%s  เป็นไปได้ว่าการอัพเกรดจะไม่สำเร็จ  คุณแน่ใจว่ายังต้องการจะอัพเกรดต่อหรือไม่?"
 
 #: ../urlinstall.py:46
 #, fuzzy
@@ -3094,7 +3093,7 @@ msgid "Drive"
 msgstr "ไดรฟ์"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:602
-#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1437
+#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1435
 msgid "Size"
 msgstr "ขนาด"
 
@@ -3275,23 +3274,23 @@ msgstr "ภาษาอะไรที่คุณต้องการใช้
 msgid "Additional Language Support"
 msgstr "การรองรับภาษาเพิ่มเติม"
 
-#: ../iw/language_support_gui.py:199
+#: ../iw/language_support_gui.py:193
 msgid "Select the _default language for the system:   "
 msgstr "เลือกภาษา_ปริยายสำหรับระบบ: "
 
-#: ../iw/language_support_gui.py:212
+#: ../iw/language_support_gui.py:206
 msgid "Select _additional languages to install on the system:"
 msgstr "เลือกภาษาที่ต้องการใช้เ_พิ่มเติมเพื่อติดตั้งในระบบนี้:"
 
-#: ../iw/language_support_gui.py:247
+#: ../iw/language_support_gui.py:241
 msgid "_Select All"
 msgstr "เ_ลือกทั้งหมด "
 
-#: ../iw/language_support_gui.py:255
+#: ../iw/language_support_gui.py:249
 msgid "Select Default _Only"
 msgstr "เลือกเฉพาะภาษาปริยายเ_ท่านั้น"
 
-#: ../iw/language_support_gui.py:266
+#: ../iw/language_support_gui.py:260
 msgid "Rese_t"
 msgstr "_รีเซต "
 
@@ -3299,7 +3298,7 @@ msgstr "_รีเซต "
 #: ../iw/lvm_dialog_gui.py:166 ../iw/lvm_dialog_gui.py:206
 #: ../iw/lvm_dialog_gui.py:282 ../iw/lvm_dialog_gui.py:576
 #: ../iw/lvm_dialog_gui.py:643 ../iw/lvm_dialog_gui.py:850
-#: ../textw/partition_text.py:1290 ../textw/partition_text.py:1309
+#: ../textw/partition_text.py:1288 ../textw/partition_text.py:1307
 msgid "Not enough space"
 msgstr "พื้นที่ไม่เพียงพอ"
 
@@ -3385,7 +3384,7 @@ msgstr ""
 "คุณไม่สามารถลบโวลูมกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume "
 "ที่กำหนดไว้สามารถคงอยู่ได้"
 
-#: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1136
+#: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1134
 msgid "Make Logical Volume"
 msgstr "สร้าง Logical Volume"
 
@@ -3394,12 +3393,12 @@ msgstr "สร้าง Logical Volume"
 msgid "Edit Logical Volume: %s"
 msgstr "แก้ไข Logical Volume: %s"
 
-#: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1134
+#: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1132
 msgid "Edit Logical Volume"
 msgstr "แก้ไข Logical Volume "
 
-#: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:286
-#: ../iw/raid_dialog_gui.py:282
+#: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:292
+#: ../iw/raid_dialog_gui.py:283
 msgid "_Mount Point:"
 msgstr "ตำแหน่งเ_มานท์:"
 
@@ -3407,12 +3406,12 @@ msgstr "ตำแหน่งเ_มานท์:"
 msgid "_File System Type:"
 msgstr "ชนิดของระบบไ_ฟล์: "
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:305
+#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:311
 msgid "Original File System Type:"
 msgstr "ชนิดของระบบไฟล์ดั้งเดิม:"
 
-#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:316
-#: ../iw/raid_dialog_gui.py:303
+#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:322
+#: ../iw/raid_dialog_gui.py:304
 msgid "Unknown"
 msgstr "ไม่ทราบ"
 
@@ -3420,18 +3419,18 @@ msgstr "ไม่ทราบ"
 msgid "_Logical Volume Name:"
 msgstr "ชื่อ _Logical Volume:"
 
-#: ../iw/lvm_dialog_gui.py:407 ../textw/partition_text.py:285
+#: ../iw/lvm_dialog_gui.py:407 ../textw/partition_text.py:283
 msgid "Logical Volume Name:"
 msgstr "ชื่อ Logical Volume:"
 
-#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:361
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
 msgstr "_ขนาด (เมกะไบต์):"
 
-#: ../iw/lvm_dialog_gui.py:421 ../iw/partition_dialog_gui.py:378
-#: ../iw/partition_dialog_gui.py:421 ../textw/partition_text.py:300
-#: ../textw/partition_text.py:377 ../textw/partition_text.py:460
-#: ../textw/partition_text.py:568
+#: ../iw/lvm_dialog_gui.py:421 ../iw/partition_dialog_gui.py:384
+#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:298
+#: ../textw/partition_text.py:375 ../textw/partition_text.py:458
+#: ../textw/partition_text.py:566
 msgid "Size (MB):"
 msgstr "ขนาด (เมกะไบต์):"
 
@@ -3457,15 +3456,15 @@ msgstr "ตำแหน่งเมานท์ถูกใช้อยู่"
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "ตำแหน่งเมานท์ %s ได้ถูกใช้ไปแล้ว กรุณาเลือกที่อื่น"
 
-#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1258
+#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1256
 msgid "Illegal Logical Volume Name"
 msgstr "ชื่อ Logical Volume ไม่ถูกต้อง "
 
-#: ../iw/lvm_dialog_gui.py:562 ../textw/partition_text.py:1275
+#: ../iw/lvm_dialog_gui.py:562 ../textw/partition_text.py:1273
 msgid "Illegal logical volume name"
 msgstr "ชื่อ logical volume ไม่ถูกต้อง "
 
-#: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1274
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "logical volume ชื่อ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น "
@@ -3480,11 +3479,11 @@ msgstr ""
 "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) "
 "ถ้าต้องการเพิ่มอีก คุณต้องเพิ่มขนาดของส่วนยืดขยายทางกายภาพสำหรับ volume group นี้"
 
-#: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:173
-#: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
-#: ../iw/raid_dialog_gui.py:209 ../textw/partition_text.py:909
-#: ../textw/partition_text.py:931 ../textw/partition_text.py:1104
-#: ../textw/partition_text.py:1329
+#: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:179
+#: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
+#: ../iw/raid_dialog_gui.py:210 ../textw/partition_text.py:907
+#: ../textw/partition_text.py:929 ../textw/partition_text.py:1102
+#: ../textw/partition_text.py:1327
 msgid "Error With Request"
 msgstr "ความผิดพลาดเกี่ยวกับการร้องขอ"
 
@@ -3604,12 +3603,12 @@ msgstr "ชื่อ Logical Volume"
 msgid "Size (MB)"
 msgstr "ขนาด (เมกะไบต์)"
 
-#: ../iw/lvm_dialog_gui.py:1074 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:93
+#: ../iw/lvm_dialog_gui.py:1074 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:96
 msgid "_Add"
 msgstr "เ_พิ่ม"
 
 #: ../iw/lvm_dialog_gui.py:1077 ../iw/network_gui.py:512
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352 ../iw/zfcp_gui.py:96
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1350 ../iw/zfcp_gui.py:99
 msgid "_Edit"
 msgstr "แ_ก้ไข"
 
@@ -3691,7 +3690,7 @@ msgstr "การตั้งค่าเน็ตเวิร์ก"
 
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
 #: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
-#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:156 ../iw/zfcp_gui.py:220
+#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
 #: ../textw/zfcp_text.py:63
 msgid "Error With Data"
 msgstr "เกิดข้อผิดพลาดกับข้อมูล"
@@ -3800,7 +3799,7 @@ msgstr "ให้ทำงานเมื่อบูต"
 #: ../iw/network_gui.py:455 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:212 ../textw/bootloader_text.py:283
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1437
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1435
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "อุปกรณ์"
@@ -3829,7 +3828,7 @@ msgstr "ทำด้วย_ตัวเอง"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(เช่น \"host.domain.com\")"
 
-#: ../iw/network_gui.py:552 ../loader2/net.c:799
+#: ../iw/network_gui.py:552 ../loader2/net.c:797
 msgid "Hostname"
 msgstr "ชื่อโฮสต์"
 
@@ -4019,53 +4018,53 @@ msgstr "_ขยายพื้นที่จนได้ขนาด (เมก
 msgid "Fill to maximum _allowable size"
 msgstr "ขยายพื้นที่จนใ_หญ่ที่สุดที่เป็นไปได้"
 
-#: ../iw/partition_dialog_gui.py:174
+#: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "ไซลินเดอร์สุดท้าย จะต้องมากกว่าไซลินเดอร์เริ่มต้น"
 
-#: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:710
+#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:708
 msgid "Add Partition"
 msgstr "เพิ่มพาร์ทิชัน"
 
-#: ../iw/partition_dialog_gui.py:266
+#: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "แก้ไขพาร์ทิชัน: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:268
+#: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
 msgstr "แก้ไขพาร์ทิชัน"
 
-#: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:290
+#: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:291
 msgid "File System _Type:"
 msgstr "_ชนิดของระบบไฟล์:"
 
-#: ../iw/partition_dialog_gui.py:327
+#: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
 msgstr "ไ_ดรฟ์ที่สามารถใช้ได้:"
 
-#: ../iw/partition_dialog_gui.py:340
+#: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
 msgstr "ไดรฟ์:"
 
-#: ../iw/partition_dialog_gui.py:349
+#: ../iw/partition_dialog_gui.py:355
 msgid "Original File System Label:"
 msgstr "ชื่อของระบบไฟล์ดั้งเดิม:"
 
-#: ../iw/partition_dialog_gui.py:384
+#: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
 msgstr "ไซลินเดอร์เ_ริ่มต้น:"
 
-#: ../iw/partition_dialog_gui.py:402
+#: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
 msgstr "ไซลินเดอร์_สุดท้าย:"
 
-#: ../iw/partition_dialog_gui.py:453
+#: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
 msgstr "กำหนดให้เป็นพาร์ทิชันห_ลัก"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1437
+#: ../textw/partition_text.py:1435
 msgid "Type"
 msgstr "ชนิด"
 
@@ -4073,11 +4072,11 @@ msgstr "ชนิด"
 msgid "Format"
 msgstr "ฟอร์แมต"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1435
 msgid "Start"
 msgstr "เริ่มต้น"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1435
 msgid "End"
 msgstr "สิ้นสุด"
 
@@ -4097,7 +4096,7 @@ msgstr ""
 "ขนาด\n"
 "(เมกะไบต์)"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1429
 msgid "Partitioning"
 msgstr "การแบ่งพาร์ทิชัน"
 
@@ -4144,69 +4143,69 @@ msgstr "LVM Volume Groups"
 msgid "RAID Devices"
 msgstr "อุปกรณ์ RAID"
 
-#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:903
-#: ../textw/partition_text.py:93 ../textw/partition_text.py:158
+#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:901
+#: ../textw/partition_text.py:93 ../textw/partition_text.py:156
 msgid "None"
 msgstr "ไม่มี"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:326
+#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:329
 msgid "Hard Drives"
 msgstr "ฮาร์ดไดรฟ์"
 
-#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
-#: ../textw/partition_text.py:179
+#: ../iw/partition_gui.py:864 ../textw/partition_text.py:138
+#: ../textw/partition_text.py:177
 msgid "Free space"
 msgstr "พื้นที่ว่าง"
 
-#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
+#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
 msgid "Extended"
 msgstr "ส่วนยืดขยาย"
 
-#: ../iw/partition_gui.py:870 ../textw/partition_text.py:144
+#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
 msgid "software RAID"
 msgstr "RAID ซอฟต์แวร์"
 
-#: ../iw/partition_gui.py:905
+#: ../iw/partition_gui.py:903
 msgid "Free"
 msgstr "ว่าง"
 
-#: ../iw/partition_gui.py:995 ../textw/partition_text.py:227
+#: ../iw/partition_gui.py:993 ../textw/partition_text.py:225
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "ไม่สามารถสร้างพาร์ทิชันที่ต้องการได้: %s"
 
-#: ../iw/partition_gui.py:1004
+#: ../iw/partition_gui.py:1002
 #, python-format
 msgid "Warning: %s."
 msgstr "คำเตือน: %s"
 
-#: ../iw/partition_gui.py:1186 ../iw/partition_gui.py:1200
+#: ../iw/partition_gui.py:1184 ../iw/partition_gui.py:1198
 msgid "Not supported"
 msgstr "ไม่สนับสนุน"
 
-#: ../iw/partition_gui.py:1187
+#: ../iw/partition_gui.py:1185
 msgid "LVM is NOT supported on this platform."
 msgstr "แพลตฟอร์มนี้ไม่สนับสนุน LVM"
 
-#: ../iw/partition_gui.py:1201
+#: ../iw/partition_gui.py:1199
 msgid "Software RAID is NOT supported on this platform."
 msgstr "แพลตฟอร์มนี้ไม่สนับสนุน RAID ซอฟต์แวร์"
 
-#: ../iw/partition_gui.py:1208
+#: ../iw/partition_gui.py:1206
 msgid "No RAID minor device numbers available"
 msgstr "ไม่มีหมายเลขอุปกรณ์ย่อย RAID เหลือ"
 
-#: ../iw/partition_gui.py:1209
+#: ../iw/partition_gui.py:1207
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr "ไม่สามารถอุปกรณ์ RAID ซอฟต์แวร์ได้ เพราะหมายเลขอุปกรณ์ย่อยของ RAID ถูกใช้หมดแล้ว"
 
-#: ../iw/partition_gui.py:1223
+#: ../iw/partition_gui.py:1221
 msgid "RAID Options"
 msgstr "ตัวเลือก RAID"
 
-#: ../iw/partition_gui.py:1234
+#: ../iw/partition_gui.py:1232
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4224,7 +4223,7 @@ msgstr ""
 "ปัจจุบันคุณมี พาร์ทิชัน RAID ซอฟต์แวร์ว่างพร้อมใช้งานทั้งหมด %s พาร์ทิชัน\n"
 "\n"
 
-#: ../iw/partition_gui.py:1245
+#: ../iw/partition_gui.py:1243
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4235,77 +4234,77 @@ msgstr ""
 "จากนั้นคุณจึงสร้างอุปกรณ์ RAID จึงจะสามารถฟอร์แมตและเมานท์ได้\n"
 "\n"
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1249
 msgid "What do you want to do now?"
 msgstr "คุณต้องการทำอะไร?"
 
-#: ../iw/partition_gui.py:1260
+#: ../iw/partition_gui.py:1258
 msgid "Create a software RAID _partition."
 msgstr "สร้าง_พาร์ทิชัน RAID ซอฟต์แวร์"
 
-#: ../iw/partition_gui.py:1263
+#: ../iw/partition_gui.py:1261
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "สร้าง_อุปกรณ์ RAID [โดยปริยายคือ /dev/md%s]"
 
-#: ../iw/partition_gui.py:1267
+#: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "สำเนาไ_ดรฟ์เพื่อสร้างอุปกรณ์ RAID [โดยปริยายคือ /dev/md%s]"
 
-#: ../iw/partition_gui.py:1306
+#: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "ไม่สามารถสร้างบรรณาธิกรณ์สำหรับการสำเนาไดรฟ์ได้"
 
-#: ../iw/partition_gui.py:1307
+#: ../iw/partition_gui.py:1305
 msgid "The drive clone editor could not be created for some reason."
 msgstr "ไม่สามารถสร้างบรรณาธิกรณ์สำหรับสำเนาไดรฟ์ได้ด้วยเหตุผลบางประการ"
 
-#: ../iw/partition_gui.py:1351
+#: ../iw/partition_gui.py:1349
 msgid "Ne_w"
 msgstr "_สร้างใหม่"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1352
 msgid "Re_set"
 msgstr "_รีเซต"
 
-#: ../iw/partition_gui.py:1355
+#: ../iw/partition_gui.py:1353
 msgid "R_AID"
 msgstr "_RAID"
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1354
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1397
+#: ../iw/partition_gui.py:1395
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "ซ่อนสมาชิกของ อุปกรณ์ RAID หรือ LVM Volume _Group"
 
-#: ../iw/partition_gui.py:1412 ../textw/partition_text.py:1521
+#: ../iw/partition_gui.py:1410 ../textw/partition_text.py:1519
 msgid "Automatic Partitioning"
 msgstr "การแบ่งพาร์ทิชันแบบอัตโนมัติ"
 
-#: ../iw/partition_gui.py:1440
+#: ../iw/partition_gui.py:1438
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "คุณต้องเลือกอย่างน้อยหนึ่งฮาร์ดไดรฟ์ เพื่อใช้ในการติดตั้ง %s"
 
-#: ../iw/partition_gui.py:1482
+#: ../iw/partition_gui.py:1480
 msgid "I want to have automatic partitioning:"
 msgstr "ต้องการแบ่งพาร์ทิชันแบบอัตโนมัติ:"
 
-#: ../iw/partition_gui.py:1513
+#: ../iw/partition_gui.py:1511
 msgid "Select the drive(s) to use for this installation:"
 msgstr "เลือกไดรฟ์หนึ่งหรือหลายๆ ตัว ที่คุณต้องการใช้ในการติดตั้งครั้งนี้"
 
-#: ../iw/partition_gui.py:1537
+#: ../iw/partition_gui.py:1535
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "_ทบทวน (และแก้ไขหากต้องการ) พาร์ทิชันที่สร้างขึ้น"
 
 #: ../iw/partition_ui_helpers_gui.py:90 ../iw/partition_ui_helpers_gui.py:111
-#: ../iw/partition_ui_helpers_gui.py:113 ../textw/partition_text.py:250
-#: ../textw/partition_text.py:252 ../textw/partition_text.py:254
-#: ../textw/partition_text.py:279
+#: ../iw/partition_ui_helpers_gui.py:113 ../textw/partition_text.py:248
+#: ../textw/partition_text.py:250 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:277
 msgid "<Not Applicable>"
 msgstr "<ไม่สามารถเหมาะสม>"
 
@@ -4435,7 +4434,7 @@ msgstr "แพ็กเกจ"
 msgid "Time"
 msgstr "เวลา"
 
-#: ../iw/raid_dialog_gui.py:249
+#: ../iw/raid_dialog_gui.py:250
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4449,41 +4448,41 @@ msgstr ""
 "แรกสุดต้องสร้างพาร์ทิชันให้เป็นชนิด \"RAID ซอฟต์แวร์\" อย่างน้อยสองพาร์ทิชัน "
 "จากนั้นให้เลือกตัวเลือก \"RAID\" อีกครั้ง"
 
-#: ../iw/raid_dialog_gui.py:263 ../iw/raid_dialog_gui.py:667
-#: ../textw/partition_text.py:966
+#: ../iw/raid_dialog_gui.py:264 ../iw/raid_dialog_gui.py:668
+#: ../textw/partition_text.py:964
 msgid "Make RAID Device"
 msgstr "สร้างอุปกรณ์ RAID"
 
-#: ../iw/raid_dialog_gui.py:266
+#: ../iw/raid_dialog_gui.py:267
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "แก้ไขชุดอุปกรณ์ RAID: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:268 ../textw/partition_text.py:964
+#: ../iw/raid_dialog_gui.py:269 ../textw/partition_text.py:962
 msgid "Edit RAID Device"
 msgstr "แก้ไขอุปกรณ์ RAID"
 
-#: ../iw/raid_dialog_gui.py:309
+#: ../iw/raid_dialog_gui.py:310
 msgid "RAID _Device:"
 msgstr "_อุปกรณ์ RAID:"
 
-#: ../iw/raid_dialog_gui.py:327
+#: ../iw/raid_dialog_gui.py:328
 msgid "RAID _Level:"
 msgstr "_ระดับของ RAID:"
 
-#: ../iw/raid_dialog_gui.py:368
+#: ../iw/raid_dialog_gui.py:369
 msgid "_RAID Members:"
 msgstr "สมาชิกของ _RAID:"
 
-#: ../iw/raid_dialog_gui.py:385
+#: ../iw/raid_dialog_gui.py:386
 msgid "Number of _spares:"
 msgstr "จำนวนของตัว_สำรอง:"
 
-#: ../iw/raid_dialog_gui.py:395
+#: ../iw/raid_dialog_gui.py:396
 msgid "_Format partition?"
 msgstr "_ฟอร์แมตพาร์ทิชัน?"
 
-#: ../iw/raid_dialog_gui.py:474
+#: ../iw/raid_dialog_gui.py:475
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4491,12 +4490,12 @@ msgstr ""
 "ไดรฟ์ต้นฉบับไม่มีพาร์ทิชันให้สำเนา คุณต้องกำหนดชนิดของพาร์ทิชันเป็น 'RAID ซอฟต์แวร์' "
 "บนไดรฟ์นี้ก่อน จึงจะสำเนาได้"
 
-#: ../iw/raid_dialog_gui.py:478 ../iw/raid_dialog_gui.py:484
-#: ../iw/raid_dialog_gui.py:496 ../iw/raid_dialog_gui.py:509
+#: ../iw/raid_dialog_gui.py:479 ../iw/raid_dialog_gui.py:485
+#: ../iw/raid_dialog_gui.py:497 ../iw/raid_dialog_gui.py:510
 msgid "Source Drive Error"
 msgstr "ไดรฟ์ต้นฉบับมีข้อผิดพลาด"
 
-#: ../iw/raid_dialog_gui.py:485
+#: ../iw/raid_dialog_gui.py:486
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
@@ -4507,7 +4506,7 @@ msgstr ""
 "\n"
 "พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
-#: ../iw/raid_dialog_gui.py:497
+#: ../iw/raid_dialog_gui.py:498
 #, python-format
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
@@ -4520,7 +4519,7 @@ msgstr ""
 "\n"
 "พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้ง หรือถูกจำกัดให้อยู่เพียงในไดรฟ์นี้ก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
-#: ../iw/raid_dialog_gui.py:510
+#: ../iw/raid_dialog_gui.py:511
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
@@ -4532,21 +4531,21 @@ msgstr ""
 "\n"
 "พาร์ทิชันเหล่านี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะถูกสำเนาได้"
 
-#: ../iw/raid_dialog_gui.py:523 ../iw/raid_dialog_gui.py:529
-#: ../iw/raid_dialog_gui.py:542
+#: ../iw/raid_dialog_gui.py:524 ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:543
 msgid "Target Drive Error"
 msgstr "ไดรฟ์เป้าหมายมีข้อผิดพลาด"
 
-#: ../iw/raid_dialog_gui.py:524
+#: ../iw/raid_dialog_gui.py:525
 msgid "Please select the target drives for the clone operation."
 msgstr "กรุณาเลือกไดรฟ์เป้าหมายสำหรับการสำเนา"
 
-#: ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "ไดรฟ์ต้นฉบับ /dev/%s ไม่สามารถถูกเลือกเป็นไดรฟ์เป้าหมายพร้อมๆ กันได้"
 
-#: ../iw/raid_dialog_gui.py:543
+#: ../iw/raid_dialog_gui.py:544
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4562,11 +4561,11 @@ msgstr ""
 "\n"
 "พาร์ทิชันนี้จะต้องถูกลบทิ้งก่อน ไดรฟ์นี้จึงจะใช้เป็นเป้าหมายได้"
 
-#: ../iw/raid_dialog_gui.py:604
+#: ../iw/raid_dialog_gui.py:605
 msgid "Please select a source drive."
 msgstr "กรุณาเลือกไดรฟ์ต้นฉบับ"
 
-#: ../iw/raid_dialog_gui.py:624
+#: ../iw/raid_dialog_gui.py:625
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4575,7 +4574,7 @@ msgstr ""
 "ไดรฟ์ /dev/%s จะถูกสำเนาไปยังไดรฟ์ต่อไปนี้:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:629
+#: ../iw/raid_dialog_gui.py:630
 msgid ""
 "\n"
 "\n"
@@ -4585,19 +4584,19 @@ msgstr ""
 "\n"
 "คำเตือน! ข้อมูลทั้งหมดบนไดรฟ์เป้าหมายจะถูกทำลาย"
 
-#: ../iw/raid_dialog_gui.py:632
+#: ../iw/raid_dialog_gui.py:633
 msgid "Final Warning"
 msgstr "ข้อความเตือนครั้งสุดท้าย"
 
-#: ../iw/raid_dialog_gui.py:634
+#: ../iw/raid_dialog_gui.py:635
 msgid "Clone Drives"
 msgstr "สำเนาไดรฟ์"
 
-#: ../iw/raid_dialog_gui.py:643
+#: ../iw/raid_dialog_gui.py:644
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "มีข้อผิดพลาดเกิดขึ้นตอนกำลังเตรียมไดรฟ์เป้าหมาย  การสำเนาล้มเหลว"
 
-#: ../iw/raid_dialog_gui.py:677
+#: ../iw/raid_dialog_gui.py:678
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4623,15 +4622,15 @@ msgstr ""
 "\n"
 "ข้อมูลทุกอย่างบนไดรฟ์เป้าหมายจะถูกทำลายทั้งหมดในขั้นตอนนี้"
 
-#: ../iw/raid_dialog_gui.py:697
+#: ../iw/raid_dialog_gui.py:698
 msgid "Source Drive:"
 msgstr "ไดรฟ์ต้นฉบับ:"
 
-#: ../iw/raid_dialog_gui.py:705
+#: ../iw/raid_dialog_gui.py:706
 msgid "Target Drive(s):"
 msgstr "ไดรฟ์เป้าหมาย:"
 
-#: ../iw/raid_dialog_gui.py:713
+#: ../iw/raid_dialog_gui.py:714
 msgid "Drives"
 msgstr "ไดรฟ์"
 
@@ -5029,26 +5028,26 @@ msgstr "_ข้ามการกำหนดค่าให้ X"
 msgid "ZFCP Configuration"
 msgstr "การกำหนดค่าสำหรับ VNC"
 
-#: ../iw/zfcp_gui.py:99
+#: ../iw/zfcp_gui.py:102
 msgid "_Remove"
 msgstr ""
 
-#: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:116
+#: ../iw/zfcp_gui.py:109 ../textw/zfcp_text.py:116
 #, fuzzy
 msgid "FCP Devices"
 msgstr "อุปกรณ์"
 
-#: ../iw/zfcp_gui.py:118
+#: ../iw/zfcp_gui.py:121
 #, fuzzy
 msgid "Add FCP device"
 msgstr "เพิ่มอุปกรณ์"
 
-#: ../iw/zfcp_gui.py:181
+#: ../iw/zfcp_gui.py:184
 #, fuzzy, python-format
 msgid "Edit FCP device %s"
 msgstr "แก้ไขอุปกรณ์ RAID"
 
-#: ../iw/zfcp_gui.py:237
+#: ../iw/zfcp_gui.py:240
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
@@ -5195,7 +5194,7 @@ msgid "Boot label contains illegal characters."
 msgstr "ชื่อรายการบูตมีอักษรที่ไม่ถูกต้อง"
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1442 ../textw/silo_text.py:216
+#: ../textw/partition_text.py:1440 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
@@ -5330,10 +5329,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:299
 #: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
+#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:125
 #: ../loader2/loader.c:326 ../loader2/loader.c:839 ../loader2/loader.c:861
 #: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:524
-#: ../loader2/net.c:1054 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/net.c:1052 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
 #: ../loader2/urls.c:445
 msgid "Back"
 msgstr "ย้อนกลับ"
@@ -5713,187 +5712,187 @@ msgstr "ค่าที่ต้องการใหญ่เกินไป"
 msgid "RAID Device %s"
 msgstr "อุปกรณ์ RAID %s"
 
-#: ../textw/partition_text.py:230
+#: ../textw/partition_text.py:228
 #, python-format
 msgid "Warning: %s"
 msgstr "คำเตือน: %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:229
 msgid "Modify Partition"
 msgstr "กลับไปแก้ไขพาร์ทิชัน"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:229
 msgid "Add anyway"
 msgstr "เพิ่มโดยไม่แก้ไข"
 
-#: ../textw/partition_text.py:269
+#: ../textw/partition_text.py:267
 msgid "Mount Point:"
 msgstr "ตำแหน่งเมานท์:"
 
-#: ../textw/partition_text.py:321
+#: ../textw/partition_text.py:319
 msgid "File System type:"
 msgstr "ชนิดของระบบไฟล์:"
 
-#: ../textw/partition_text.py:355
+#: ../textw/partition_text.py:353
 msgid "Allowable Drives:"
 msgstr "ไดรฟ์ที่สามารถใช้ได้:"
 
-#: ../textw/partition_text.py:411
+#: ../textw/partition_text.py:409
 msgid "Fixed Size:"
 msgstr "ขนาดคงที่:"
 
-#: ../textw/partition_text.py:413
+#: ../textw/partition_text.py:411
 msgid "Fill maximum size of (MB):"
 msgstr "ใช้พื้นที่ให้มากที่สุดของ (เมกะไบต์):"
 
-#: ../textw/partition_text.py:417
+#: ../textw/partition_text.py:415
 msgid "Fill all available space:"
 msgstr "ใช้พื้นที่ที่เหลือทั้งหมด:"
 
-#: ../textw/partition_text.py:440
+#: ../textw/partition_text.py:438
 msgid "Start Cylinder:"
 msgstr "ไซลินเดอร์เริ่มต้น:"
 
-#: ../textw/partition_text.py:453
+#: ../textw/partition_text.py:451
 msgid "End Cylinder:"
 msgstr "ไซลินเดอร์สุดท้าย:"
 
-#: ../textw/partition_text.py:476
+#: ../textw/partition_text.py:474
 #, fuzzy
 msgid "Volume Group:"
 msgstr "ชื่อ Volume Group:"
 
-#: ../textw/partition_text.py:498
+#: ../textw/partition_text.py:496
 msgid "RAID Level:"
 msgstr "ระดับของ RAID:"
 
-#: ../textw/partition_text.py:516
+#: ../textw/partition_text.py:514
 msgid "RAID Members:"
 msgstr "สมาชิกของ RAID:"
 
-#: ../textw/partition_text.py:535
+#: ../textw/partition_text.py:533
 msgid "Number of spares?"
 msgstr "จำนวนตัวสำรองเท่าไหร่?"
 
-#: ../textw/partition_text.py:549
+#: ../textw/partition_text.py:547
 msgid "File System Type:"
 msgstr "ชนิดของระบบไฟล์:"
 
-#: ../textw/partition_text.py:562
+#: ../textw/partition_text.py:560
 msgid "File System Label:"
 msgstr "ชื่อของระบบไฟล์:"
 
-#: ../textw/partition_text.py:573
+#: ../textw/partition_text.py:571
 msgid "File System Option:"
 msgstr "ตัวเลือกของการสร้างระบบไฟล์:"
 
-#: ../textw/partition_text.py:576 ../textw/partition_text.py:814
-#: ../textw/partition_text.py:1051 ../textw/partition_text.py:1221
+#: ../textw/partition_text.py:574 ../textw/partition_text.py:812
+#: ../textw/partition_text.py:1049 ../textw/partition_text.py:1219
 #, python-format
 msgid "Format as %s"
 msgstr "ฟอร์แมตเป็น %s"
 
-#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
-#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
+#: ../textw/partition_text.py:576 ../textw/partition_text.py:814
+#: ../textw/partition_text.py:1051 ../textw/partition_text.py:1221
 #, python-format
 msgid "Migrate to %s"
 msgstr "แปลงระบบเป็น %s"
 
-#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
-#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1225
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
 msgid "Leave unchanged"
 msgstr "ปล่อยไว้อย่างเดิม"
 
-#: ../textw/partition_text.py:596 ../textw/partition_text.py:791
-#: ../textw/partition_text.py:1031 ../textw/partition_text.py:1201
+#: ../textw/partition_text.py:594 ../textw/partition_text.py:789
+#: ../textw/partition_text.py:1029 ../textw/partition_text.py:1199
 msgid "File System Options"
 msgstr "ตัวเลือกของการสร้างระบบไฟล์"
 
-#: ../textw/partition_text.py:599
+#: ../textw/partition_text.py:597
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr "กรุณาเลือกว่าคุณต้องการเตรียมระบบไฟล์ในพาร์ทิชันอย่างไร"
 
-#: ../textw/partition_text.py:607
+#: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
 msgstr "ตรวจสอบพื้นที่เสีย"
 
-#: ../textw/partition_text.py:611
+#: ../textw/partition_text.py:609
 msgid "Leave unchanged (preserve data)"
 msgstr "ไม่เปลี่ยนแปลง (คงข้อมูลไว้)"
 
-#: ../textw/partition_text.py:620
+#: ../textw/partition_text.py:618
 msgid "Format as:"
 msgstr "ฟอร์แมตเป็น:"
 
-#: ../textw/partition_text.py:640
+#: ../textw/partition_text.py:638
 msgid "Migrate to:"
 msgstr "แปลงระบบเป็น:"
 
-#: ../textw/partition_text.py:752
+#: ../textw/partition_text.py:750
 msgid "Force to be a primary partition"
 msgstr "กำหนดเป็นพาร์ทิชันหลัก"
 
-#: ../textw/partition_text.py:769
+#: ../textw/partition_text.py:767
 msgid "Not Supported"
 msgstr "ไม่สนับสนุน"
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:768
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr "LVM Volume Groups สามารถแก้ไขได้ในตัวติดตั้งแบบกราฟิกเท่านั้น"
 
-#: ../textw/partition_text.py:846 ../textw/partition_text.py:899
+#: ../textw/partition_text.py:844 ../textw/partition_text.py:897
 msgid "Invalid Entry for Partition Size"
 msgstr "ป้อนขนาดของพาร์ทิชันไม่ถูกต้อง"
 
-#: ../textw/partition_text.py:858
+#: ../textw/partition_text.py:856
 msgid "Invalid Entry for Maximum Size"
 msgstr "ป้อนค่าของขนาดสูงสุดไม่ถูกต้อง"
 
-#: ../textw/partition_text.py:877
+#: ../textw/partition_text.py:875
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "ป้อนไซลินเดอร์เริ่มต้นไม่ถูกต้อง"
 
-#: ../textw/partition_text.py:891
+#: ../textw/partition_text.py:889
 msgid "Invalid Entry for End Cylinder"
 msgstr "ป้อนไซลินเดอร์สุดท้ายไม่ถูกต้อง"
 
-#: ../textw/partition_text.py:1004
+#: ../textw/partition_text.py:1002
 msgid "No RAID partitions"
 msgstr "ไม่มีพาร์ทิชัน RAID"
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1003
 msgid "At least two software RAID partitions are needed."
 msgstr "ต้องการพาร์ทิชันซอฟต์แวร์ RAID อย่างน้อยสองพาร์ทิชัน"
 
-#: ../textw/partition_text.py:1017 ../textw/partition_text.py:1188
+#: ../textw/partition_text.py:1015 ../textw/partition_text.py:1186
 msgid "Format partition?"
 msgstr "ฟอร์แมตพาร์ทิชันหรือไม่?"
 
-#: ../textw/partition_text.py:1079
+#: ../textw/partition_text.py:1077
 msgid "Invalid Entry for RAID Spares"
 msgstr "ป้อนจำนวนตัวสำรองของ RAID ไม่ถูกต้อง"
 
-#: ../textw/partition_text.py:1092
+#: ../textw/partition_text.py:1090
 msgid "Too many spares"
 msgstr "จำนวนตัวสำรองมากเกินไป"
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1091
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "จำนวนสูงสุดของตัวสำรองของ RAID0 คือ 0"
 
-#: ../textw/partition_text.py:1174
+#: ../textw/partition_text.py:1172
 #, fuzzy
 msgid "No Volume Groups"
 msgstr "LVM Volume Groups"
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1173
 #, fuzzy
 msgid "No volume groups in which to create a logical volume"
 msgstr "กรุณาระบุชื่อของ logical volume"
 
-#: ../textw/partition_text.py:1291
+#: ../textw/partition_text.py:1289
 #, fuzzy, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -5902,61 +5901,61 @@ msgstr ""
 "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) "
 "ถ้าต้องการเพิ่มอีก คุณต้องเพิ่มขนาดของส่วนยืดขยายทางกายภาพสำหรับ volume group นี้"
 
-#: ../textw/partition_text.py:1310
+#: ../textw/partition_text.py:1308
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
 
-#: ../textw/partition_text.py:1364
+#: ../textw/partition_text.py:1362
 #, fuzzy
 msgid "New Partition or Logical Volume?"
 msgstr "แก้ไข Logical Volume "
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1363
 #, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "พาร์ทิชันที่บูตได้ จะต้องไม่อยู่บน logical volume"
 
-#: ../textw/partition_text.py:1367
+#: ../textw/partition_text.py:1365
 #, fuzzy
 msgid "partition"
 msgstr "พาร์ทิชัน"
 
-#: ../textw/partition_text.py:1367
+#: ../textw/partition_text.py:1365
 #, fuzzy
 msgid "logical volume"
 msgstr "Logical Volumes"
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1439
 msgid "New"
 msgstr "สร้างใหม่"
 
-#: ../textw/partition_text.py:1443 ../textw/userauth_text.py:236
+#: ../textw/partition_text.py:1441 ../textw/userauth_text.py:236
 msgid "Delete"
 msgstr "ลบ"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1442
 msgid "RAID"
 msgstr "RAID"
 
-#: ../textw/partition_text.py:1447
+#: ../textw/partition_text.py:1445
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-แนะนำ     F2-สร้างใหม่      F3-แก้ไข   F4-ลบ    F5-รีเซต    F12-"
 "ตกลง        "
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1474
 msgid "No Root Partition"
 msgstr "ไม่มีพาร์ทิชัน Root"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1475
 msgid "Must have a / partition to install on."
 msgstr "ต้องมีพาร์ทิชัน / เพื่อใช้ติดตั้ง"
 
-#: ../textw/partition_text.py:1544
+#: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "ไดรฟ์ใดบ้างที่คุณต้องการใช้ในการติดตั้ง?"
 
@@ -6572,10 +6571,11 @@ msgstr ""
 "และสร้างระบบที่เหมาะกับใช้ที่บ้าน หรือเป็นเดสก์ทอป"
 
 #: ../installclasses/personal_desktop.py:18
+#: ../installclasses/rhel_desktop.py:16
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser (Mozilla) \n"
+"\tWeb browser \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tSound and video applications\n"
@@ -6599,18 +6599,6 @@ msgstr ""
 msgid "Red Hat Enterprise Linux Desktop"
 msgstr ""
 
-#: ../installclasses/rhel_desktop.py:16
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tAdministration Tools\n"
-msgstr ""
-
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
 msgstr ""
@@ -6619,11 +6607,11 @@ msgstr ""
 msgid "Red Hat Enterprise Linux WS"
 msgstr ""
 
-#: ../installclasses/rhel_ws.py:16
+#: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
 msgid ""
 "\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
+"\tOffice suite (OpenOffice.org)\n"
+"\tWeb browser \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tSound and video applications\n"
@@ -6657,19 +6645,6 @@ msgstr ""
 "การติดตั้งแบบนี้จะทำการติดตั้งสภาวะแวดล้อมเดสก์ทอปแบบกราฟิก "
 "พร้อมด้วยเครื่องมือสำหรับการพัฒนาซอฟต์แวร์ และการจัดการระบบ"
 
-#: ../installclasses/workstation.py:14
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
-msgstr ""
-
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
 msgid "Media Check"
@@ -6677,7 +6652,7 @@ msgstr "ตรวจสอบแผ่นข้อมูล"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:411
+#: ../loader2/method.c:412
 msgid "Test"
 msgstr "ทดสอบ"
 
@@ -6835,10 +6810,10 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "คุณต้องการที่จะโหลดแผ่นไดรเวอร์เพิ่มอีกหรือไม่?"
 
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
-#: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
+#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:884
-#: ../loader2/net.c:907 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:882
+#: ../loader2/net.c:905 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
@@ -6915,20 +6890,20 @@ msgid ""
 "media."
 msgstr ""
 
-#: ../loader2/hdinstall.c:219
+#: ../loader2/hdinstall.c:218
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
 msgstr ""
 "เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
 
-#: ../loader2/hdinstall.c:327
+#: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr "ดูเหมือนจะไม่มีฮาร์ดไดรฟ์บนระบบของคุณ! คุณต้องการจะกำหนดค่าอุปกรณ์เพิ่มเติมอีกหรือไม่?"
 
-#: ../loader2/hdinstall.c:343
+#: ../loader2/hdinstall.c:346
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6938,29 +6913,29 @@ msgstr ""
 "อิมเมจซีดี (iso9660) สำหรับ %s ถูกเก็บที่พาร์ทิชัน และไดเรกทอรีใด? "
 "ถ้าคุณไม่เห็นดิสก์ไดรฟ์ที่คุณใช้อยู่ในรายการนี้ ให้กด F2 เพื่อปรับแต่งอุปกรณ์เพิ่มเติม"
 
-#: ../loader2/hdinstall.c:365
+#: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
 msgstr "ไดเรกทอรีที่เก็บอิมเมจ:"
 
-#: ../loader2/hdinstall.c:392
+#: ../loader2/hdinstall.c:395
 msgid "Select Partition"
 msgstr "เลือกพาร์ทิชัน"
 
-#: ../loader2/hdinstall.c:432
+#: ../loader2/hdinstall.c:435
 #, fuzzy, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "อุปกรณ์ %s ไม่มีอิมเมจของลินุกซ์ทะเลซีดีรอมอยู่"
 
-#: ../loader2/hdinstall.c:467
+#: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/hdinstall.c:535 ../loader2/hdinstall.c:591
+#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:594
 msgid "Cannot find kickstart file on hard drive."
 msgstr "ไม่สามารถหาไฟล์คิกสตาร์ทบนฮาร์ดไดรฟ์"
 
-#: ../loader2/hdinstall.c:578
+#: ../loader2/hdinstall.c:581
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr ""
@@ -7214,12 +7189,12 @@ msgstr ""
 "การตรวจสอบแผ่นข้อมูล %s เสร็จเรียบร้อยแล้ว และผลที่ได้คือ: %s\n"
 "\n"
 
-#: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
+#: ../loader2/method.c:157 ../loader2/method.c:366 ../loader2/method.c:451
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "อ่านไดเรกทอรี %s ล้มเหลว: %s"
 
-#: ../loader2/method.c:408
+#: ../loader2/method.c:409
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7230,7 +7205,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:411
+#: ../loader2/method.c:412
 msgid "Checksum Test"
 msgstr "การตรวจสอบ Checksum"
 
@@ -7293,11 +7268,11 @@ msgstr "ข้อมูลเกี่ยวกับ IP ไม่ถูกต�
 msgid "You entered an invalid IP address."
 msgstr "คุณป้อนหมายเลข IP ไม่ถูกต้อง"
 
-#: ../loader2/net.c:299 ../loader2/net.c:578
+#: ../loader2/net.c:299 ../loader2/net.c:583
 msgid "Dynamic IP"
 msgstr "IP แบบไดนามิก"
 
-#: ../loader2/net.c:300 ../loader2/net.c:579
+#: ../loader2/net.c:300 ../loader2/net.c:584
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "กำลังส่งคำร้องขอข้อมูล IP สำหรับ %s.."
@@ -7334,33 +7309,33 @@ msgstr "ใช้การกำหนดค่า IP แบบไดนาม�
 msgid "Configure TCP/IP"
 msgstr "กำหนดค่า TCP/IP"
 
-#: ../loader2/net.c:569
+#: ../loader2/net.c:574
 msgid "Missing Information"
 msgstr "ข้อมูลไม่ถูกต้อง"
 
-#: ../loader2/net.c:570
+#: ../loader2/net.c:575
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "คุณต้องป้อนค่าที่เป็นไปได้ทั้งหมายเลข IP และเน็ตมาสก์"
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:798
 msgid "Determining host name and domain..."
 msgstr "กำลังค้นหาชื่อโฮสต์และชื่อโดเมน..."
 
-#: ../loader2/net.c:885
+#: ../loader2/net.c:883
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr ""
 
-#: ../loader2/net.c:908
+#: ../loader2/net.c:906
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader2/net.c:1050
+#: ../loader2/net.c:1048
 msgid "Networking Device"
 msgstr "อุปกรณ์เครือข่าย"
 
-#: ../loader2/net.c:1051
+#: ../loader2/net.c:1049
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -8350,3 +8325,11 @@ msgstr "ภาษาชาวเวลส์"
 #, fuzzy
 msgid "Zulu"
 msgstr "ภาษาซูลู"
+
+#~ msgid ""
+#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
+#~ "or higher.  This appears to be an older system.  Do you wish to continue "
+#~ "the upgrade process?"
+#~ msgstr ""
+#~ "การอัพเกรดสำหรับเวอร์ชันนี้ของ %s สามารถใช้ได้กับเรดแฮทลินุกซ์ 6.2 หรือสูงกว่าเท่านั้น "
+#~ "ซึ่งดูเหมือนว่าระบบของคุณเก่ากว่า คุณจะยังอัพเกรดต่อหรือไม่? "

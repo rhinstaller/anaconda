@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-24 17:14-0400\n"
+"POT-Creation-Date: 2004-09-30 17:13-0400\n"
 "PO-Revision-Date: 2004-09-28 13:14+0530\n"
 "Last-Translator: Jayaradha N <jaya@pune.redhat.com>\n"
 "Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
@@ -12,7 +12,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.3.1\n"
-"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 
@@ -113,19 +114,19 @@ msgstr "நிறுவுதலை தொடங்குவதற்கு த
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
 #: ../loader2/hdinstall.c:106 ../loader2/hdinstall.c:159
-#: ../loader2/hdinstall.c:218 ../loader2/hdinstall.c:380
-#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:466
-#: ../loader2/hdinstall.c:534 ../loader2/hdinstall.c:577
-#: ../loader2/hdinstall.c:590 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
+#: ../loader2/hdinstall.c:217 ../loader2/hdinstall.c:383
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:469
+#: ../loader2/hdinstall.c:537 ../loader2/hdinstall.c:580
+#: ../loader2/hdinstall.c:593 ../loader2/kbd.c:125 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
 #: ../loader2/kickstart.c:270 ../loader2/kickstart.c:405 ../loader2/lang.c:102
 #: ../loader2/lang.c:375 ../loader2/loader.c:326 ../loader2/loader.c:339
 #: ../loader2/loader.c:350 ../loader2/loader.c:661 ../loader2/loader.c:839
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/modules.c:919 ../loader2/net.c:192
-#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:884
-#: ../loader2/net.c:907 ../loader2/net.c:1054 ../loader2/nfsinstall.c:54
+#: ../loader2/mediacheck.c:354 ../loader2/method.c:156 ../loader2/method.c:365
+#: ../loader2/method.c:450 ../loader2/modules.c:919 ../loader2/net.c:192
+#: ../loader2/net.c:230 ../loader2/net.c:524 ../loader2/net.c:882
+#: ../loader2/net.c:905 ../loader2/net.c:1052 ../loader2/nfsinstall.c:54
 #: ../loader2/nfsinstall.c:200 ../loader2/nfsinstall.c:209
 #: ../loader2/nfsinstall.c:247 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
@@ -234,7 +235,8 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr "துவக்க பகிர்வு %s VFAT பகிர்வில் இல்லை. EFI ஐ இந்த பகிர்விலிருந்து துவக்க முடியாது."
+msgstr ""
+"துவக்க பகிர்வு %s VFAT பகிர்வில் இல்லை. EFI ஐ இந்த பகிர்விலிருந்து துவக்க முடியாது."
 
 #: ../autopart.py:1023
 msgid ""
@@ -246,15 +248,18 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid "Boot partition %s may not meet booting constraints for your architecture."
-msgstr "துவக்க பகிர்வு %s ஆல் உங்கள் கட்டுமானத்திற்கேற்ப துவக்க விதிகளை அமைக்க முடியவில்லை."
+msgid ""
+"Boot partition %s may not meet booting constraints for your architecture."
+msgstr ""
+"துவக்க பகிர்வு %s ஆல் உங்கள் கட்டுமானத்திற்கேற்ப துவக்க விதிகளை அமைக்க முடியவில்லை."
 
 #: ../autopart.py:1056
 #, python-format
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr "இந்த பகிர்வை சேர்ப்பதால் ஏற்கெனவே ஒதுக்கப்பட்ட பகிர்வு %s இல் இடப்பற்றாக்குறை ஏற்படும்."
+msgstr ""
+"இந்த பகிர்வை சேர்ப்பதால் ஏற்கெனவே ஒதுக்கப்பட்ட பகிர்வு %s இல் இடப்பற்றாக்குறை ஏற்படும்."
 
 #: ../autopart.py:1223
 msgid "Requested Partition Does Not Exist"
@@ -316,11 +321,11 @@ msgstr ""
 "\n"
 "கணியமைப்பைமீண்டும் துவக்க 'சரி'யைக்ளிக் செய்யவும்.."
 
-#: ../autopart.py:1389 ../autopart.py:1437
+#: ../autopart.py:1391 ../autopart.py:1439
 msgid "Automatic Partitioning Errors"
 msgstr "தானியங்கு பாகிர்வுகள்"
 
-#: ../autopart.py:1390
+#: ../autopart.py:1392
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -335,11 +340,11 @@ msgstr ""
 "\n"
 "கணியமைப்பை மீண்டும் துவக்க 'சரி' யை க்ளிக் செய்யவும்."
 
-#: ../autopart.py:1400
+#: ../autopart.py:1402
 msgid "Warnings During Automatic Partitioning"
 msgstr "தன்னியக்க பகிர்தலின் போது எச்சரிக்கை"
 
-#: ../autopart.py:1401
+#: ../autopart.py:1403
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -350,7 +355,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1414 ../autopart.py:1431
+#: ../autopart.py:1416 ../autopart.py:1433
 msgid ""
 "\n"
 "\n"
@@ -360,12 +365,12 @@ msgstr ""
 "\n"
 "கணியமைப்பை மீண்டும் துவக்க 'சரி'யை க்ளிக் செய்யவும்."
 
-#: ../autopart.py:1415 ../iw/partition_gui.py:994
-#: ../textw/partition_text.py:226
+#: ../autopart.py:1417 ../iw/partition_gui.py:992
+#: ../textw/partition_text.py:224
 msgid "Error Partitioning"
 msgstr "பகிர்வதில் தவறு"
 
-#: ../autopart.py:1416
+#: ../autopart.py:1418
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -376,7 +381,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1433
+#: ../autopart.py:1435
 msgid ""
 "\n"
 "\n"
@@ -391,7 +396,7 @@ msgstr ""
 "க்ளிக்செய்து கைம்முறையாக பகிர்வுகளை தேர்ந்தெடுக்கலாம்.\n"
 "தொடர்வதற்கு 'சரி'யை க்ளிக் செய்யவும்."
 
-#: ../autopart.py:1438
+#: ../autopart.py:1440
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -406,29 +411,29 @@ msgstr ""
 "%s\n"
 "உங்கள் வன்தகடில் நிறுவுவதற்கு போதுமான இடம் இல்லாமையால் இப்பிழை ஏற்பட்டிருக்கலாம.%s"
 
-#: ../autopart.py:1449
+#: ../autopart.py:1451
 msgid "Unrecoverable Error"
 msgstr "மீட்கமுடியாத தமுடியாத பிழை"
 
-#: ../autopart.py:1450
+#: ../autopart.py:1452
 msgid "Your system will now be rebooted."
 msgstr "உங்கள் கணினி இப்பொழுது மீண்டும் துவங்கப்படும்."
 
-#: ../autopart.py:1597 ../bootloader.py:151 ../gui.py:1006 ../image.py:466
+#: ../autopart.py:1599 ../bootloader.py:151 ../gui.py:1006 ../image.py:466
 #: ../partedUtils.py:277 ../partedUtils.py:307 ../partedUtils.py:830
 #: ../partedUtils.py:887 ../upgrade.py:318 ../upgrade.py:429 ../upgrade.py:482
-#: ../upgrade.py:505 ../upgrade.py:551 ../iw/blpasswidget.py:148
+#: ../upgrade.py:505 ../upgrade.py:545 ../iw/blpasswidget.py:148
 #: ../iw/bootloader_advanced_gui.py:42 ../iw/bootloader_main_gui.py:92
 #: ../iw/fdasd_gui.py:93 ../iw/upgrade_swap_gui.py:200
 #: ../iw/upgrade_swap_gui.py:208 ../iw/upgrade_swap_gui.py:215
-#: ../iw/zfcp_gui.py:236 ../textw/bootloader_text.py:141
+#: ../iw/zfcp_gui.py:239 ../textw/bootloader_text.py:141
 #: ../textw/bootloader_text.py:456 ../textw/fdasd_text.py:84
-#: ../textw/partition_text.py:230 ../textw/upgrade_text.py:177
+#: ../textw/partition_text.py:228 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:381
 msgid "Warning"
 msgstr "எச்சரிக்கை"
 
-#: ../autopart.py:1603
+#: ../autopart.py:1605
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -444,7 +449,7 @@ msgstr ""
 "கைமுறையாக பகிர்வை உருவாக்கும் கருவி டிஸ்க் ரூயிட் காட்சி விளக்கங்கள் மூலம் பகிர்வைடுத்தலை "
 "உருவக்க அனுமதிக்கிறது.கோப்பு முறைமை, ஏற்றப்புள்ளி, பகிர்வின் அளவு போன்றவைகளை அமைக்கலாம்."
 
-#: ../autopart.py:1614
+#: ../autopart.py:1616
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -452,19 +457,19 @@ msgstr ""
 "தானியங்கு பகிர்வுகளை நிறுவல்நிரல் மூலம் அமைக்கலாம், உங்கள் வன்பொருள் இயக்கில் எவ்வளவு இடம் "
 "பயன்படுத்த விரும்புகிறீர்கள் என்பதை தேர்ந்தெடுக்க வேண்டும். "
 
-#: ../autopart.py:1619
+#: ../autopart.py:1621
 msgid "Remove all partitions on this system"
 msgstr "இந்த கணியமைப்பில் உள்ள அனைத்து பகிர்வுகளையும் நீக்கு"
 
-#: ../autopart.py:1620
+#: ../autopart.py:1622
 msgid "Remove all Linux partitions on this system"
 msgstr "இந்த கணியமைப்பில் உள்ள அனைத்து லினக்ஸ் பகிர்வுகளையும் நீக்கு"
 
-#: ../autopart.py:1621
+#: ../autopart.py:1623
 msgid "Keep all partitions and use existing free space"
 msgstr "எல்லா பகிர்வுகளையும் வைத்திரு, இருக்கும் வெற்றிடத்தை பயன்படுத்து"
 
-#: ../autopart.py:1623
+#: ../autopart.py:1625
 #, python-format
 msgid ""
 "You have chosen to remove all partitions (ALL DATA) on the following drives:%"
@@ -474,7 +479,7 @@ msgstr ""
 "கீழ்கண்ட தகடில் உள்ள அனைத்து (ALL DATA) பகிர்வுகளையும் நீக்க்  தேர்ந்தெடுத்துள்ளீர்கள்:%s\n"
 "இதை செய்ய விரும்புகிறீர்களா?"
 
-#: ../autopart.py:1627
+#: ../autopart.py:1629
 #, python-format
 msgid ""
 "You have chosen to remove all Linux partitions (and ALL DATA on them) on the "
@@ -572,7 +577,9 @@ msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr "கையாள முடியாத பிழை.இது வழுவப்போல் உள்ளது. முழு உரையையும் நகலெடுத்து அதை அனக்கோன்டா வழு அறிக்கையாக இங்கு அனுப்பவும் http://bugzilla.redhat.com/bugzilla/"
+msgstr ""
+"கையாள முடியாத பிழை.இது வழுவப்போல் உள்ளது. முழு உரையையும் நகலெடுத்து அதை அனக்கோன்டா "
+"வழு அறிக்கையாக இங்கு அனுப்பவும் http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:241
 msgid "Exception Occurred"
@@ -586,7 +593,8 @@ msgstr "Dump எழுதப்பட்டது"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr "உங்கள் கணினியின் நிலை நெகிழ்வட்டில் எழுத்தப்பட்டது. உங்கள் கணினி இப்போது மீட்டமைக்கப்படுகிறது"
+msgstr ""
+"உங்கள் கணினியின் நிலை நெகிழ்வட்டில் எழுத்தப்பட்டது. உங்கள் கணினி இப்போது மீட்டமைக்கப்படுகிறது"
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -641,26 +649,26 @@ msgid "_Make boot disk"
 msgstr "(_M) துவக்க வட்டை உருவாக்கு"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
-#: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
-#: ../fsset.py:1355 ../fsset.py:1390 ../fsset.py:1440 ../fsset.py:1484
+#: ../fsset.py:592 ../fsset.py:1315 ../fsset.py:1352 ../fsset.py:1403
+#: ../fsset.py:1414 ../fsset.py:1449 ../fsset.py:1499 ../fsset.py:1543
 #: ../harddrive.py:165 ../image.py:154 ../image.py:192 ../image.py:326
 #: ../image.py:523 ../packages.py:150 ../packages.py:163 ../packages.py:175
 #: ../packages.py:182 ../packages.py:412 ../packages.py:595 ../packages.py:680
 #: ../partedUtils.py:650 ../upgrade.py:349 ../upgrade.py:374 ../upgrade.py:401
 #: ../iw/osbootwidget.py:219 ../iw/osbootwidget.py:228
-#: ../iw/raid_dialog_gui.py:603 ../iw/raid_dialog_gui.py:642
+#: ../iw/raid_dialog_gui.py:604 ../iw/raid_dialog_gui.py:643
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
 #: ../loader2/cdinstall.c:447 ../loader2/driverdisk.c:337
 #: ../loader2/driverdisk.c:375 ../loader2/driverdisk.c:402
 #: ../loader2/driverdisk.c:469 ../loader2/hdinstall.c:106
-#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:218
-#: ../loader2/hdinstall.c:431 ../loader2/hdinstall.c:534
-#: ../loader2/hdinstall.c:577 ../loader2/hdinstall.c:590
+#: ../loader2/hdinstall.c:159 ../loader2/hdinstall.c:217
+#: ../loader2/hdinstall.c:434 ../loader2/hdinstall.c:537
+#: ../loader2/hdinstall.c:580 ../loader2/hdinstall.c:593
 #: ../loader2/kickstart.c:270 ../loader2/lang.c:102 ../loader2/loader.c:350
 #: ../loader2/loader.c:661 ../loader2/mediacheck.c:255
-#: ../loader2/mediacheck.c:312 ../loader2/method.c:155 ../loader2/method.c:364
-#: ../loader2/method.c:449 ../loader2/nfsinstall.c:200
+#: ../loader2/mediacheck.c:312 ../loader2/method.c:156 ../loader2/method.c:365
+#: ../loader2/method.c:450 ../loader2/nfsinstall.c:200
 #: ../loader2/nfsinstall.c:209 ../loader2/telnetd.c:84
 #: ../loader2/urlinstall.c:66 ../loader2/urlinstall.c:136
 #: ../loader2/urlinstall.c:149 ../loader2/urls.c:172 ../loader2/urls.c:182
@@ -722,27 +730,27 @@ msgstr ""
 "தொடரலாம்.\n"
 "நகர்த்த விரும்புகிறீர்களா %s?"
 
-#: ../fsset.py:1189
+#: ../fsset.py:1223
 msgid "RAID Device"
 msgstr "RAID சாதனங்கள்"
 
-#: ../fsset.py:1193 ../fsset.py:1199
+#: ../fsset.py:1227 ../fsset.py:1233
 msgid "Apple Bootstrap"
 msgstr "Apple துவக்கி"
 
-#: ../fsset.py:1204 ../partitions.py:807
+#: ../fsset.py:1238 ../partitions.py:807
 msgid "PPC PReP Boot"
 msgstr "PPC PReP துவக்கி"
 
-#: ../fsset.py:1207 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
+#: ../fsset.py:1241 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
 msgstr "துவக்க பகிர்வின் முதல் பிரிவு"
 
-#: ../fsset.py:1208 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
+#: ../fsset.py:1242 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
 msgstr "தலைமை துவக்க பதிவு(MBR)"
 
-#: ../fsset.py:1275
+#: ../fsset.py:1316
 #, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -755,7 +763,7 @@ msgstr ""
 "\n"
 "<Enter> விசையை அழுத்தி கணியை மீண்டும் துவக்கவும்.."
 
-#: ../fsset.py:1294
+#: ../fsset.py:1353
 #, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -770,7 +778,7 @@ msgstr ""
 "\n"
 "சரி பட்டனை க்ளிக் செய்து கணினியை மீண்டும் துவக்கவும்."
 
-#: ../fsset.py:1345
+#: ../fsset.py:1404
 #, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
@@ -783,7 +791,7 @@ msgstr ""
 "n\n"
 "<Enter> விசையை அழுத்தி கணியை மீண்டும் துவக்கவும்.."
 
-#: ../fsset.py:1356
+#: ../fsset.py:1415
 #, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -796,7 +804,7 @@ msgstr ""
 "\n"
 "<Enter> விசையை அழுத்தி கணியை மீண்டும் துவக்கவும்.."
 
-#: ../fsset.py:1391
+#: ../fsset.py:1450
 #, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -808,7 +816,7 @@ msgstr ""
 "\n"
 "<Enter> விசையை அழுத்தி கணியை மீண்டும் துவக்கவும்."
 
-#: ../fsset.py:1441
+#: ../fsset.py:1500
 #, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -820,11 +828,11 @@ msgstr ""
 "\n"
 "<Enter> ஐ அழுத்தி மீண்டும் துவக்கவும்."
 
-#: ../fsset.py:1462 ../fsset.py:1471
+#: ../fsset.py:1521 ../fsset.py:1530
 msgid "Invalid mount point"
 msgstr "தகுதியற்ற ஏற்றப்புள்ளி"
 
-#: ../fsset.py:1463
+#: ../fsset.py:1522
 #, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -837,7 +845,7 @@ msgstr ""
 "\n"
 "<Enter> விசையை அழுத்தி கணினியை மீண்டும் துவக்கவும்."
 
-#: ../fsset.py:1472
+#: ../fsset.py:1531
 #, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -849,7 +857,7 @@ msgstr ""
 "\n"
 "கணினியை மீண்டும் துவக்க <Enter> விசையை அழுத்தவும்."
 
-#: ../fsset.py:1485
+#: ../fsset.py:1544
 #, python-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -864,11 +872,11 @@ msgstr ""
 "\n"
 "சரி விசையை பயன்படுத்தி கணினியை மீண்டும் இயக்கவும்."
 
-#: ../fsset.py:2131
+#: ../fsset.py:2190
 msgid "Duplicate Labels"
 msgstr "மற்றுமொரு அடையாளம்"
 
-#: ../fsset.py:2132
+#: ../fsset.py:2191
 #, python-format
 msgid ""
 "Multiple devices on your system are labelled %s.  Labels across devices must "
@@ -881,18 +889,18 @@ msgstr ""
 "\n"
 "இந்த பிரச்சனையை சரிசெய்து நிறுவலை தொடரவும்."
 
-#: ../fsset.py:2139 ../gui.py:661 ../gui.py:1120 ../image.py:96
+#: ../fsset.py:2198 ../gui.py:661 ../gui.py:1120 ../image.py:96
 #: ../image.py:476 ../packages.py:1504 ../iw/confirm_gui.py:68
 #: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
 #: ../textw/confirm_text.py:64
 msgid "_Reboot"
 msgstr "(_R)மீண்டும் துவக்கு"
 
-#: ../fsset.py:2392
+#: ../fsset.py:2451
 msgid "Formatting"
 msgstr "வடிவமைக்கிறது"
 
-#: ../fsset.py:2393
+#: ../fsset.py:2452
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "%s கோப்பு அமைப்பை வடிவமைக்கிறது..."
@@ -948,7 +956,7 @@ msgstr "சரிசெய்"
 #: ../gui.py:239 ../rescue.py:179 ../text.py:337 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:82 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:254 ../loader2/driverdisk.c:513
-#: ../loader2/driverdisk.c:524 ../loader2/hdinstall.c:326
+#: ../loader2/driverdisk.c:524 ../loader2/hdinstall.c:329
 #: ../loader2/loader.c:381
 msgid "Yes"
 msgstr "ஆம்"
@@ -962,7 +970,7 @@ msgstr "ஆம்"
 msgid "No"
 msgstr "இல்லை"
 
-#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:569
+#: ../gui.py:242 ../text.py:340 ../loader2/net.c:235 ../loader2/net.c:574
 msgid "Retry"
 msgstr "மீண்டும் முயல்"
 
@@ -1000,7 +1008,8 @@ msgstr "வேகத்துவக்கியை அமைப்பதில�
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
-msgstr "தயவு செய்து நெகிழ்வட்டை செருகவும். உங்கள் நெகிழ்வட்டில் தகவல் இருப்பின் அழிக்கப்படும். கவனம்!"
+msgstr ""
+"தயவு செய்து நெகிழ்வட்டை செருகவும். உங்கள் நெகிழ்வட்டில் தகவல் இருப்பின் அழிக்கப்படும். கவனம்!"
 
 #: ../gui.py:763
 msgid "default:LTR"
@@ -1126,8 +1135,8 @@ msgstr ""
 "தயவுசெய்து கீழ்கண்டவைகளை தயாராக வைத்துக்கொள்ளவும். நிறுவுவதை நிறுத்திவிட்டு மீண்டும் "
 "தொடர விரும்பினால் தயவுசெய்து \"Reboot\"-ஐ தேர்ந்தெடுக்கவும்."
 
-#: ../image.py:96 ../image.py:477 ../kickstart.py:1407 ../kickstart.py:1435
-#: ../iw/partition_gui.py:1008
+#: ../image.py:96 ../image.py:477 ../kickstart.py:1423 ../kickstart.py:1451
+#: ../iw/partition_gui.py:1006
 msgid "_Continue"
 msgstr "(_C)தொடர்"
 
@@ -1180,11 +1189,11 @@ msgstr "CDROM இயக்கியை அணுக முடியவில்�
 msgid "Install on System"
 msgstr "கணினியில் நிறுவு"
 
-#: ../kickstart.py:1399
+#: ../kickstart.py:1415
 msgid "Missing Package"
 msgstr "நிரலைக் காணவில்லை"
 
-#: ../kickstart.py:1400
+#: ../kickstart.py:1416
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -1193,15 +1202,15 @@ msgstr ""
 "நீங்கள் '%s' நிறுவப்பட வேண்டும் என்று குறிப்பிட்டுள்ளீர்கள். இந்த பணித்தொகுப்பு உங்களிடம் "
 "இல்லை. நிறுவலை நிறுத்த விருப்பமா?"
 
-#: ../kickstart.py:1406 ../kickstart.py:1434
+#: ../kickstart.py:1422 ../kickstart.py:1450
 msgid "_Abort"
 msgstr "(_A)கைவிடு"
 
-#: ../kickstart.py:1426
+#: ../kickstart.py:1442
 msgid "Missing Group"
 msgstr "குழுவை காணவில்லை"
 
-#: ../kickstart.py:1427
+#: ../kickstart.py:1443
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1404,7 +1413,7 @@ msgstr ""
 
 #: ../packages.py:978 ../packages.py:999 ../iw/lvm_dialog_gui.py:1057
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
-#: ../textw/partition_text.py:1437 ../textw/upgrade_text.py:111
+#: ../textw/partition_text.py:1435 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "ஏற்றப்புள்ளி"
 
@@ -1493,7 +1502,7 @@ msgstr ""
 msgid "_Install anyway"
 msgstr "(_I)எப்படியேனும் நிறுவு"
 
-#: ../partedUtils.py:186 ../textw/partition_text.py:557
+#: ../partedUtils.py:186 ../textw/partition_text.py:555
 msgid "Foreign"
 msgstr "அயல்"
 
@@ -1716,7 +1725,7 @@ msgstr "'/dev/%s' சாதனத்தில் உள்ள எல்லா �
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1080
-#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1353
+#: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1351
 msgid "_Delete"
 msgstr "(_D)அழி"
 
@@ -1793,7 +1802,7 @@ msgstr ""
 msgid "Format?"
 msgstr "வடிவமைக்கவா?"
 
-#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1006
+#: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1004
 msgid "_Modify Partition"
 msgstr "(_M)பகிர்வை திருத்து"
 
@@ -1841,7 +1850,8 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr "கீழ்கண்ட ஏற்கெனவே உள்ள பகிர்வுகள் தகவலை அழித்து பர்வுகளை வடிவமைக்க தேர்வு செய்யப்பட்டதுு."
+msgstr ""
+"கீழ்கண்ட ஏற்கெனவே உள்ள பகிர்வுகள் தகவலை அழித்து பர்வுகளை வடிவமைக்க தேர்வு செய்யப்பட்டதுு."
 
 #: ../partIntfHelpers.py:450
 msgid ""
@@ -1889,7 +1899,8 @@ msgid "Confirm Reset"
 msgstr "மீட்டமைத்தலை உறுதிசெய்"
 
 #: ../partIntfHelpers.py:528
-msgid "Are you sure you want to reset the partition table to its original state?"
+msgid ""
+"Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "உங்கள் பிரிவினைவினை பட்டியலை அமூல முல நிலைக்கே மாற்றவேண்டும என்பதை உறுதி செய்து "
 "கொள்ளவும்?"
@@ -1925,7 +1936,8 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr "நீங்கள் மூல பாகுபடுத்தலை வரையறுக்க வில்லை (/),  %s  நிறுவலைத் தொடர இது அவசியம் தேவை"
+msgstr ""
+"நீங்கள் மூல பாகுபடுத்தலை வரையறுக்க வில்லை (/),  %s  நிறுவலைத் தொடர இது அவசியம் தேவை"
 
 #: ../partitions.py:766
 #, python-format
@@ -1937,7 +1949,8 @@ msgstr ""
 "போதாது."
 
 #: ../partitions.py:773
-msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid ""
+"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "நீங்கள் /boot/efi FAT வகையாக உருவாக்க வேண்டும் மேலும் அது 50 மெகா பைட்டுகளாக இருத்தல் "
 "வேண்டும்"
@@ -2003,7 +2016,8 @@ msgstr "LVM தொகுதிக்குழுவின் உறுப்ப�
 
 #: ../partRequests.py:233
 #, python-format
-msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgid ""
+"This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "இந்த ஏற்றப்புள்ளி செல்லாது.%s அடைவு / கோப்ப அமைப்பில் இருக்க வேண்டும்"
 
 #: ../partRequests.py:236
@@ -2031,7 +2045,8 @@ msgstr "ஏற்றப்புள்ளி \"%s\" ஏற்கனவே பய
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr "தேவைப்படும் %s பகிர்வின் அளவு(%10.2f MB) எம்பி யை விட அதிகமாக உள்ளது. %10.2f MB."
+msgstr ""
+"தேவைப்படும் %s பகிர்வின் அளவு(%10.2f MB) எம்பி யை விட அதிகமாக உள்ளது. %10.2f MB."
 
 #: ../partRequests.py:469
 #, python-format
@@ -2055,12 +2070,14 @@ msgstr "பகிர்வுகள் எதிர் உருளையில�
 
 #: ../partRequests.py:644
 msgid "No members in RAID request, or not RAID level specified."
-msgstr "RAID வேண்டுகோளில் உறுப்பினர்கல் இல்லை, அல்லது RAID மட்டத்தின் மதிப்பு குறிப்பிடப்படவில்லை"
+msgstr ""
+"RAID வேண்டுகோளில் உறுப்பினர்கல் இல்லை, அல்லது RAID மட்டத்தின் மதிப்பு குறிப்பிடப்படவில்லை"
 
 #: ../partRequests.py:656
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr "%s வகையைச் சார்ந்த RAID கருவி குறைந்தது %s உறுப்பினர்களையாவது கொண்டிருக்க வேண்டும்."
+msgstr ""
+"%s வகையைச் சார்ந்த RAID கருவி குறைந்தது %s உறுப்பினர்களையாவது கொண்டிருக்க வேண்டும்."
 
 #: ../partRequests.py:662
 #, python-format
@@ -2094,7 +2111,8 @@ msgstr "நீக்கப்பட்ட"
 
 #: ../rescue.py:224 ../text.py:501
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "என்னால் இங்கு இருந்து முன் பக்கத்திற்கு செல்ல இயலவில்லை.நிங்கள் மீண்டும் முயற்சிக்க வேண்டும்."
+msgstr ""
+"என்னால் இங்கு இருந்து முன் பக்கத்திற்கு செல்ல இயலவில்லை.நிங்கள் மீண்டும் முயற்சிக்க வேண்டும்."
 
 #: ../rescue.py:240 ../rescue.py:275 ../rescue.py:432
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2137,7 +2155,7 @@ msgstr "வாசிக்க மட்டும்"
 
 #: ../rescue.py:270 ../rescue.py:272 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:254
-#: ../loader2/cdinstall.c:256 ../loader2/method.c:411
+#: ../loader2/cdinstall.c:256 ../loader2/method.c:412
 msgid "Skip"
 msgstr "தவிர்"
 
@@ -2242,14 +2260,17 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 ரெட் ஹாட் , இங்க்"
 
 #: ../text.py:367
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr " <F1> உதவிக்கு | <Tab> உறுப்புகள்  இடையே | <Space> தேர்ந்தெடு | <F12> அடுத்த திரை"
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr ""
+" <F1> உதவிக்கு | <Tab> உறுப்புகள்  இடையே | <Space> தேர்ந்தெடு | <F12> அடுத்த திரை"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "   <Tab>/<Alt-Tab> உறுப்புகள் இடையே  |  <Space> தேர்ந்தெடு   |  <F12> அடுத்த திரை "
+msgstr ""
+"   <Tab>/<Alt-Tab> உறுப்புகள் இடையே  |  <Space> தேர்ந்தெடு   |  <F12> அடுத்த திரை "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2292,7 +2313,8 @@ msgid ""
 "cleanly.  Would you like to mount them anyway?\n"
 "%s"
 msgstr ""
-"உங்கள் லைனக்ஸ் அமைப்புக்கு கீழ்காணும் கோப்பின் அமைப்பை சரியாக ஏற்றவில்லை. எப்படியாவது ஏற்ற விரும்பிகிறிர்களா?\n"
+"உங்கள் லைனக்ஸ் அமைப்புக்கு கீழ்காணும் கோப்பின் அமைப்பை சரியாக ஏற்றவில்லை. எப்படியாவது ஏற்ற "
+"விரும்பிகிறிர்களா?\n"
 "%s"
 
 #: ../upgrade.py:266 ../upgrade.py:272
@@ -2341,8 +2363,8 @@ msgid ""
 "\n"
 msgstr ""
 "கீழ் உள்ளவை அடைவுகளாக உள்ளன அதை அடையாள இனைப்புகளாக மாற்ற வேண்டும்,இல்லை எனில் "
-"மேம்படுத்தும் போது சிக்கல் நேரும். இவைகளை இயல்புநிலைக்கு மாற்றி"
-"ன் மேம்படுத்தலை மீண்டும் துவங்கும்.\n"
+"மேம்படுத்தும் போது சிக்கல் நேரும். இவைகளை இயல்புநிலைக்கு மாற்றின் மேம்படுத்தலை மீண்டும் "
+"துவங்கும்.\n"
 "\n"
 
 #: ../upgrade.py:313
@@ -2415,16 +2437,15 @@ msgstr ""
 "செயலைத் தொடர்ந்தால் உங்கள் கணினியை பயன்படுத்தமுடியாத நிலைக்கு செல்லும், மேம்படுத்தலை தொடர "
 "விரும்புகிறீர்களா??"
 
-#: ../upgrade.py:552
-#, python-format
+#: ../upgrade.py:546
+#, fuzzy, python-format
 msgid ""
-"Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
-"higher.  This appears to be an older system.  Do you wish to continue the "
-"upgrade process?"
+"You appear to be upgrading from a system which is too old to upgrade to this "
+"version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"ரெட் ஹாட் லினக்ஸ் 6.2 அல்லது அதற்கு மேல் ுமே %sயின் பதிப்பு  மேம்பட ஆதரவு "
-"உண்டு. இது பழைய முறைமையாக இருக்கிறது. நீங்கள் மேம்படுத்தல் செயலைத் தொடர "
-"விருப்பமா?"
+"கிடங்கின் %sன் வேளியிட்டில் நிங்கள் %s என்று தொன்றும் வகையில் மேம்படுத்தியதால் ஏற்கெனவே "
+"நிறுவிய கிடங்கு %s உடன் பொருந்தவில்லை. நிறுவல் வெற்றியடையாது. செயலை தொடர்வதில் "
+"உறுதியாக உள்ளீர்களா?ா?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -2566,7 +2587,8 @@ msgstr ""
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
-msgstr "நீங்கள் உள்ளிட்ட கடவுச்சொல்லில் வேறுபாடு உள்ளதுு .தயவு செய்து மறுபடியும் உளளிடவும்.க"
+msgstr ""
+"நீங்கள் உள்ளிட்ட கடவுச்சொல்லில் வேறுபாடு உள்ளதுு .தயவு செய்து மறுபடியும் உளளிடவும்.க"
 
 #: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
@@ -2576,13 +2598,16 @@ msgstr "கடவுச்சொல் குறைந்தபட்சம�
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
-msgstr "நீங்கள் கேட்டுக் நுழைவுச்சொல் அஸ்கியுடன் பொருந்தவில்லை அகையால் இதை நுழைவுச்சொல்லாக அனுமதிக்க முடியாது."
+msgstr ""
+"நீங்கள் கேட்டுக் நுழைவுச்சொல் அஸ்கியுடன் பொருந்தவில்லை அகையால் இதை நுழைவுச்சொல்லாக "
+"அனுமதிக்க முடியாது."
 
 #: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr "மூல கடவுச்சொல் கணினி மேலாண்மைக்கு பயன்படும். மூல பயனீட்டாளருக்கான கடவுச்சொல்லை உள்ளிடவும்."
+msgstr ""
+"மூல கடவுச்சொல் கணினி மேலாண்மைக்கு பயன்படும். மூல பயனீட்டாளருக்கான கடவுச்சொல்லை உள்ளிடவும்."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2796,7 +2821,8 @@ msgstr "(_F)LBA32ஐ செயல்படுத்துக (இயல்பா
 msgid ""
 "If you wish to add default options to the boot command, enter them into the "
 "'General kernel parameters' field."
-msgstr "இயல்பான தேர்வை துவக்க கட்டளையில் சேர்க்க, 'பொதுவான கர்னல் அளவுரு' புலத்தில் உள்ளிடவும். "
+msgstr ""
+"இயல்பான தேர்வை துவக்க கட்டளையில் சேர்க்க, 'பொதுவான கர்னல் அளவுரு' புலத்தில் உள்ளிடவும். "
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
@@ -3099,7 +3125,7 @@ msgid "Drive"
 msgstr " இயக்கி"
 
 #: ../iw/driveorderwidget.py:44 ../iw/progress_gui.py:602
-#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1437
+#: ../iw/progress_gui.py:685 ../textw/partition_text.py:1435
 msgid "Size"
 msgstr "அளவு"
 
@@ -3277,23 +3303,23 @@ msgstr "நிறுவலின் போது நீங்கள் பயன
 msgid "Additional Language Support"
 msgstr "கூடுதல் மொழி ஆதரவு"
 
-#: ../iw/language_support_gui.py:199
+#: ../iw/language_support_gui.py:193
 msgid "Select the _default language for the system:   "
 msgstr "கணியமைப்புக்கான இயல்பான மொழியை தேர்ந்தெடுக"
 
-#: ../iw/language_support_gui.py:212
+#: ../iw/language_support_gui.py:206
 msgid "Select _additional languages to install on the system:"
 msgstr "(_a)கணிணியில் நிறுவ கூடுதல் மொழியை தேர்வு செய்:"
 
-#: ../iw/language_support_gui.py:247
+#: ../iw/language_support_gui.py:241
 msgid "_Select All"
 msgstr "(_S)அனைத்தையும் தேர்வு செய்"
 
-#: ../iw/language_support_gui.py:255
+#: ../iw/language_support_gui.py:249
 msgid "Select Default _Only"
 msgstr "(_O)இயல்பானவைகளை மட்டும் தேர்வு செய"
 
-#: ../iw/language_support_gui.py:266
+#: ../iw/language_support_gui.py:260
 msgid "Rese_t"
 msgstr "(_t)மீட்டமை"
 
@@ -3301,7 +3327,7 @@ msgstr "(_t)மீட்டமை"
 #: ../iw/lvm_dialog_gui.py:166 ../iw/lvm_dialog_gui.py:206
 #: ../iw/lvm_dialog_gui.py:282 ../iw/lvm_dialog_gui.py:576
 #: ../iw/lvm_dialog_gui.py:643 ../iw/lvm_dialog_gui.py:850
-#: ../textw/partition_text.py:1290 ../textw/partition_text.py:1309
+#: ../textw/partition_text.py:1288 ../textw/partition_text.py:1307
 msgid "Not enough space"
 msgstr "போதுமான இடம் இல்லை"
 
@@ -3365,7 +3391,8 @@ msgstr "மிகச் சிறியது"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr "தொகுதிக் குழிவில் உள்ள பரும தொகுதியில் இந்த பரும நீட்டிப்பின் மாற்றம் இடத்தை வீணாக்கிவிடும் "
+msgstr ""
+"தொகுதிக் குழிவில் உள்ள பரும தொகுதியில் இந்த பரும நீட்டிப்பின் மாற்றம் இடத்தை வீணாக்கிவிடும் "
 
 #: ../iw/lvm_dialog_gui.py:207
 #, python-format
@@ -3386,7 +3413,7 @@ msgstr ""
 "இந்த பருநிலை தொகுதியை நீக்க முடியாது காரணம் தொகுதி குழு முகவும் சிறியது தற்போது "
 "குறிப்பிடப்பட்ட தருக்க தொகுதியை ஏற்க முடியாது."
 
-#: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1136
+#: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1134
 msgid "Make Logical Volume"
 msgstr "தருக்க தொகுதியை உருவாக்கு"
 
@@ -3395,12 +3422,12 @@ msgstr "தருக்க தொகுதியை உருவாக்கு"
 msgid "Edit Logical Volume: %s"
 msgstr "தரவுத் தொகுதியை தொகு: %s"
 
-#: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1134
+#: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1132
 msgid "Edit Logical Volume"
 msgstr "தற்கரீதியான அளவை திருத்து"
 
-#: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:286
-#: ../iw/raid_dialog_gui.py:282
+#: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:292
+#: ../iw/raid_dialog_gui.py:283
 msgid "_Mount Point:"
 msgstr "(_M)ஏற்றப் புள்ளி:"
 
@@ -3408,12 +3435,12 @@ msgstr "(_M)ஏற்றப் புள்ளி:"
 msgid "_File System Type:"
 msgstr "கோப்பு முறைமை வகை:"
 
-#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:305
+#: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:311
 msgid "Original File System Type:"
 msgstr "கோப்பமைப்பு வகை:"
 
-#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:316
-#: ../iw/raid_dialog_gui.py:303
+#: ../iw/lvm_dialog_gui.py:393 ../iw/partition_dialog_gui.py:322
+#: ../iw/raid_dialog_gui.py:304
 msgid "Unknown"
 msgstr "தெரியாத"
 
@@ -3421,18 +3448,18 @@ msgstr "தெரியாத"
 msgid "_Logical Volume Name:"
 msgstr "(_L)தருக்க தொகுதி பெயர்:"
 
-#: ../iw/lvm_dialog_gui.py:407 ../textw/partition_text.py:285
+#: ../iw/lvm_dialog_gui.py:407 ../textw/partition_text.py:283
 msgid "Logical Volume Name:"
 msgstr "தருக்க தொகுதி பெயர்:"
 
-#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:361
+#: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
 msgstr "(_S)அளவு (எம்பி):"
 
-#: ../iw/lvm_dialog_gui.py:421 ../iw/partition_dialog_gui.py:378
-#: ../iw/partition_dialog_gui.py:421 ../textw/partition_text.py:300
-#: ../textw/partition_text.py:377 ../textw/partition_text.py:460
-#: ../textw/partition_text.py:568
+#: ../iw/lvm_dialog_gui.py:421 ../iw/partition_dialog_gui.py:384
+#: ../iw/partition_dialog_gui.py:427 ../textw/partition_text.py:298
+#: ../textw/partition_text.py:375 ../textw/partition_text.py:458
+#: ../textw/partition_text.py:566
 msgid "Size (MB):"
 msgstr "அளவு (எம்பி):"
 
@@ -3458,15 +3485,15 @@ msgstr "ஏற்றுப்புள்ளி பயன்படுத்த�
 msgid "The mount point \"%s\" is in use, please pick another."
 msgstr "ஏற்றப்புள்ளி \"%s\"  பயன்பாட்டில் உள்ளது, வேறு எதையாவது தேர்வுசெய்யவும்."
 
-#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1258
+#: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1256
 msgid "Illegal Logical Volume Name"
 msgstr "தவறான தருக்கத் தொகுதியின் பெயர்"
 
-#: ../iw/lvm_dialog_gui.py:562 ../textw/partition_text.py:1275
+#: ../iw/lvm_dialog_gui.py:562 ../textw/partition_text.py:1273
 msgid "Illegal logical volume name"
 msgstr "தொகுதியின் பெயர் தவறாக உள்ளது"
 
-#: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1276
+#: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1274
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "\"%s\" என்ற தொகுதி குழு பெயர் பயன்பாட்டில் உள்ளது.வேறு பெயரை தேர்ந்தெடு."
@@ -3481,11 +3508,11 @@ msgstr ""
 "தற்போது பதிந்துரைக்கப்பட்ட (%10.2f MB) அளவு தருக்க தொகுதி அளவை விட குறைவாக உள்ளது (%"
 "10.2f MB). இந்த வரம்பை உயர்த்த இந்த தொகுதி குழுவின் பரும நீட்டிப்பின் அளவை உயர்த்துக."
 
-#: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:173
-#: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
-#: ../iw/raid_dialog_gui.py:209 ../textw/partition_text.py:909
-#: ../textw/partition_text.py:931 ../textw/partition_text.py:1104
-#: ../textw/partition_text.py:1329
+#: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:179
+#: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
+#: ../iw/raid_dialog_gui.py:210 ../textw/partition_text.py:907
+#: ../textw/partition_text.py:929 ../textw/partition_text.py:1102
+#: ../textw/partition_text.py:1327
 msgid "Error With Request"
 msgstr "வேண்டுகோளில் தவறு"
 
@@ -3506,7 +3533,8 @@ msgstr "காலியான செருகுவாய்கள் இல்�
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr "%s மேற்பட்ட எண்ணிக்கையிலான தற்கரீதியானான பகுப்புகளை குழுக்களில் உருவாக்க முடியாது"
+msgstr ""
+"%s மேற்பட்ட எண்ணிக்கையிலான தற்கரீதியானான பகுப்புகளை குழுக்களில் உருவாக்க முடியாது"
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -3607,12 +3635,12 @@ msgstr "தருக்க தொகுதி பெயர்:"
 msgid "Size (MB)"
 msgstr "அளவு (எம்பி):"
 
-#: ../iw/lvm_dialog_gui.py:1074 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:93
+#: ../iw/lvm_dialog_gui.py:1074 ../iw/osbootwidget.py:96 ../iw/zfcp_gui.py:96
 msgid "_Add"
 msgstr "(_A)சேர்"
 
 #: ../iw/lvm_dialog_gui.py:1077 ../iw/network_gui.py:512
-#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1352 ../iw/zfcp_gui.py:96
+#: ../iw/osbootwidget.py:100 ../iw/partition_gui.py:1350 ../iw/zfcp_gui.py:99
 msgid "_Edit"
 msgstr "(_E)திருத்தவும்"
 
@@ -3694,7 +3722,7 @@ msgstr "வலைப்பின்னல்ைய உள்ளமைப்ப�
 
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
 #: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
-#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:156 ../iw/zfcp_gui.py:220
+#: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:159 ../iw/zfcp_gui.py:223
 #: ../textw/zfcp_text.py:63
 msgid "Error With Data"
 msgstr "தகவலில் பிழை"
@@ -3805,7 +3833,7 @@ msgstr "இயக்கியை செயல்படுத்து"
 #: ../iw/network_gui.py:455 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:212 ../textw/bootloader_text.py:283
-#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1437
+#: ../textw/mouse_text.py:38 ../textw/partition_text.py:1435
 #: ../textw/silo_text.py:142 ../textw/silo_text.py:207
 msgid "Device"
 msgstr "கருவி"
@@ -3834,7 +3862,7 @@ msgstr "(_m)நீங்களாக"
 msgid "(ex. \"host.domain.com\")"
 msgstr "(ex. \"host.domain.com\")"
 
-#: ../iw/network_gui.py:552 ../loader2/net.c:799
+#: ../iw/network_gui.py:552 ../loader2/net.c:797
 msgid "Hostname"
 msgstr "புரவலன் பெயர்"
 
@@ -3920,7 +3948,8 @@ msgstr "அழிக்க முடியாது"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr "துவக்க இலக்குகண்டறியப்படவில்லை காரணம் %s, இப்போது உங்கள் கணினியில் நிறுவப்பட உள்ளது."
+msgstr ""
+"துவக்க இலக்குகண்டறியப்படவில்லை காரணம் %s, இப்போது உங்கள் கணினியில் நிறுவப்பட உள்ளது."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4025,53 +4054,53 @@ msgstr "(_u)எல்லா இடங்களையும் இதுவரை
 msgid "Fill to maximum _allowable size"
 msgstr "அதிகப்பட்சம் அனுமதிக்கப்பட்ட அளவிற்கு நிரப்புக"
 
-#: ../iw/partition_dialog_gui.py:174
+#: ../iw/partition_dialog_gui.py:180
 msgid "The end cylinder must be greater than the start cylinder."
 msgstr "முடிவு உருளை துவக்க உருளையை விட பெரியதாக இருக்க வேண்டும்"
 
-#: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:710
+#: ../iw/partition_dialog_gui.py:269 ../textw/partition_text.py:708
 msgid "Add Partition"
 msgstr "பகிர்வை த்தலை சேர்"
 
-#: ../iw/partition_dialog_gui.py:266
+#: ../iw/partition_dialog_gui.py:272
 #, python-format
 msgid "Edit Partition: /dev/%s"
 msgstr "பகிர்வுளை திருத்துுப்பி: /dev/%s"
 
-#: ../iw/partition_dialog_gui.py:268
+#: ../iw/partition_dialog_gui.py:274
 msgid "Edit Partition"
 msgstr "பகிர்வை தொகுக்கவும்"
 
-#: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:290
+#: ../iw/partition_dialog_gui.py:301 ../iw/raid_dialog_gui.py:291
 msgid "File System _Type:"
 msgstr "கோப்பமைப்பு வகை:"
 
-#: ../iw/partition_dialog_gui.py:327
+#: ../iw/partition_dialog_gui.py:333
 msgid "Allowable _Drives:"
 msgstr "அனுமதிக்கப்பட்ட இயக்கிகள்:"
 
-#: ../iw/partition_dialog_gui.py:340
+#: ../iw/partition_dialog_gui.py:346
 msgid "Drive:"
 msgstr "இயக்கி:"
 
-#: ../iw/partition_dialog_gui.py:349
+#: ../iw/partition_dialog_gui.py:355
 msgid "Original File System Label:"
 msgstr "மூல கோப்பு அமைப்பு விளக்கச்சீட்டு"
 
-#: ../iw/partition_dialog_gui.py:384
+#: ../iw/partition_dialog_gui.py:390
 msgid "_Start Cylinder:"
 msgstr "(_S)உருளை துவக்குக :"
 
-#: ../iw/partition_dialog_gui.py:402
+#: ../iw/partition_dialog_gui.py:408
 msgid "_End Cylinder:"
 msgstr "(_E)முடிவு உருளை:"
 
-#: ../iw/partition_dialog_gui.py:453
+#: ../iw/partition_dialog_gui.py:459
 msgid "Force to be a _primary partition"
 msgstr "முதல் நிலை பகுப்பை வலியுருத்து"
 
 #: ../iw/partition_gui.py:359 ../iw/silo_gui.py:140 ../iw/silo_gui.py:287
-#: ../textw/partition_text.py:1437
+#: ../textw/partition_text.py:1435
 msgid "Type"
 msgstr "வகை"
 
@@ -4079,11 +4108,11 @@ msgstr "வகை"
 msgid "Format"
 msgstr "வடிவமைப்பு"
 
-#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:364 ../textw/partition_text.py:1435
 msgid "Start"
 msgstr "துவக்கு"
 
-#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1437
+#: ../iw/partition_gui.py:365 ../textw/partition_text.py:1435
 msgid "End"
 msgstr "முடிவு"
 
@@ -4103,17 +4132,19 @@ msgstr ""
 "அளவு\n"
 "(எம்பி)"
 
-#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1431
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1429
 msgid "Partitioning"
 msgstr "பகிர்வுகளாக்கள்"
 
 #: ../iw/partition_gui.py:628
-msgid "The following critical errors exist with your requested partitioning scheme."
+msgid ""
+"The following critical errors exist with your requested partitioning scheme."
 msgstr "நீங்கள் தேர்தெடுத்த பகிர்வில் கீழ்கண்ட சிக்கலான பிழை உள்ளது"
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid "These errors must be corrected prior to continuing with your install of %s."
+msgid ""
+"These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "நிறுவலை தொடர்வதற்கு முன் பிழைகளை திருத்தவும்.\n"
 "\n"
@@ -4125,7 +4156,8 @@ msgstr "பகிர்தல் பிழைகள்"
 
 #: ../iw/partition_gui.py:643
 msgid "The following warnings exist with your requested partition scheme."
-msgstr "உங்கள் விருப்பத்தேர்வு பகிர்வுகள் மற்றும் திட்டமுறையுடன் கீழ்க்கண்ட எச்சரிக்கையும் உள்ளது. "
+msgstr ""
+"உங்கள் விருப்பத்தேர்வு பகிர்வுகள் மற்றும் திட்டமுறையுடன் கீழ்க்கண்ட எச்சரிக்கையும் உள்ளது. "
 
 #: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
@@ -4151,69 +4183,70 @@ msgstr "LVM  தொகுதிக் குழுக்கள்"
 msgid "RAID Devices"
 msgstr "RAID கருவிகள்"
 
-#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:903
-#: ../textw/partition_text.py:93 ../textw/partition_text.py:158
+#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:901
+#: ../textw/partition_text.py:93 ../textw/partition_text.py:156
 msgid "None"
 msgstr "எதுவும் இல்லை"
 
-#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:326
+#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:329
 msgid "Hard Drives"
 msgstr "வன் தகடு இயக்கி"
 
-#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
-#: ../textw/partition_text.py:179
+#: ../iw/partition_gui.py:864 ../textw/partition_text.py:138
+#: ../textw/partition_text.py:177
 msgid "Free space"
 msgstr "காலி இடங்கள் "
 
-#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
+#: ../iw/partition_gui.py:866 ../textw/partition_text.py:140
 msgid "Extended"
 msgstr "நீட்டிக்கப்பட்ட"
 
-#: ../iw/partition_gui.py:870 ../textw/partition_text.py:144
+#: ../iw/partition_gui.py:868 ../textw/partition_text.py:142
 msgid "software RAID"
 msgstr "மென் பொருள் RAID"
 
-#: ../iw/partition_gui.py:905
+#: ../iw/partition_gui.py:903
 msgid "Free"
 msgstr "இலவசம்"
 
-#: ../iw/partition_gui.py:995 ../textw/partition_text.py:227
+#: ../iw/partition_gui.py:993 ../textw/partition_text.py:225
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "விரும்பிய பகிர்வுகளை உருவாக்க முடியவில்லை: %s."
 
-#: ../iw/partition_gui.py:1004
+#: ../iw/partition_gui.py:1002
 #, python-format
 msgid "Warning: %s."
 msgstr "எச்சரிக்கை: %s"
 
-#: ../iw/partition_gui.py:1186 ../iw/partition_gui.py:1200
+#: ../iw/partition_gui.py:1184 ../iw/partition_gui.py:1198
 msgid "Not supported"
 msgstr "ஆதரிக்கப்படவில்லை"
 
-#: ../iw/partition_gui.py:1187
+#: ../iw/partition_gui.py:1185
 msgid "LVM is NOT supported on this platform."
 msgstr "இந்த நிலையத்தில் LVM ஆதரிக்கப்படவில்லை"
 
-#: ../iw/partition_gui.py:1201
+#: ../iw/partition_gui.py:1199
 msgid "Software RAID is NOT supported on this platform."
 msgstr "இந்த தளத்திற்கு RAID ஆதரவு இல்லை"
 
-#: ../iw/partition_gui.py:1208
+#: ../iw/partition_gui.py:1206
 msgid "No RAID minor device numbers available"
 msgstr "RAID சிறுபான்மை கருவிகளின் எண்ணிக்கை இல்லை"
 
-#: ../iw/partition_gui.py:1209
+#: ../iw/partition_gui.py:1207
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
-msgstr "அனைத்து RAID எண்களையும் பயன்படுத்தப்பட்டது ஆனால் RAID சாதனத்தை உருவாக்க முடியவில்லை"
+msgstr ""
+"அனைத்து RAID எண்களையும் பயன்படுத்தப்பட்டது ஆனால் RAID சாதனத்தை உருவாக்க முடியவில்லை"
 
-#: ../iw/partition_gui.py:1223
+#: ../iw/partition_gui.py:1221
 msgid "RAID Options"
 msgstr "RAID விருப்பத்தேர்வுகள்"
 
-#: ../iw/partition_gui.py:1234
+#: ../iw/partition_gui.py:1232
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -4231,7 +4264,7 @@ msgstr ""
 "தற்போது %s  மென்பொருள் RAID பகிர்வுகள் காலியாக உள்ளன.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1245
+#: ../iw/partition_gui.py:1243
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -4241,77 +4274,77 @@ msgstr ""
 "RAID ஐ பயன்படுத்த குறைந்தது 'மென்பொருள் RAID' வகையில் இரண்டு பகிர்வுகளையாவது "
 "உருவாக்கவும். பிறகு வடிவமைக்க மற்றும் ஏற்றக்கூடிய RAID கருவியை உருவாக்கலாம்.\n"
 
-#: ../iw/partition_gui.py:1251
+#: ../iw/partition_gui.py:1249
 msgid "What do you want to do now?"
 msgstr "என்ன செய்ய விரும்புகிறீர்கள்?"
 
-#: ../iw/partition_gui.py:1260
+#: ../iw/partition_gui.py:1258
 msgid "Create a software RAID _partition."
 msgstr "(_p)மென்பொருள் RAID பகிர்வை உருவாக்குக"
 
-#: ../iw/partition_gui.py:1263
+#: ../iw/partition_gui.py:1261
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "ஒரு RAID சாதனத்தை உருவாக்கு [default=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1267
+#: ../iw/partition_gui.py:1265
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "(_d)ஒரு RAID சாதனத்தை உருவாக்க ஒரு இயக்கியை நகலிடவும்[default=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1306
+#: ../iw/partition_gui.py:1304
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "இயக்கி நகலியை உருவாக்க முடியவில்லை"
 
-#: ../iw/partition_gui.py:1307
+#: ../iw/partition_gui.py:1305
 msgid "The drive clone editor could not be created for some reason."
 msgstr "ஏதோொ காரணத்தால்வட்டு பிரதியை  உருவாக்க முடியவில்லை."
 
-#: ../iw/partition_gui.py:1351
+#: ../iw/partition_gui.py:1349
 msgid "Ne_w"
 msgstr "(_w)புதிய"
 
-#: ../iw/partition_gui.py:1354
+#: ../iw/partition_gui.py:1352
 msgid "Re_set"
 msgstr "(_s)மீட்டமை"
 
-#: ../iw/partition_gui.py:1355
+#: ../iw/partition_gui.py:1353
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1356
+#: ../iw/partition_gui.py:1354
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1397
+#: ../iw/partition_gui.py:1395
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "(_G)RAID கருவியை மறைக்கவும்/LVM  தொகுதி குழு உருப்பினர்கள்"
 
-#: ../iw/partition_gui.py:1412 ../textw/partition_text.py:1521
+#: ../iw/partition_gui.py:1410 ../textw/partition_text.py:1519
 msgid "Automatic Partitioning"
 msgstr "தானியங்கு பாகுபடுத்தல்கள்"
 
-#: ../iw/partition_gui.py:1440
+#: ../iw/partition_gui.py:1438
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "%s இங்கு நிறுவ குறைந்தது ஒரு வன்பொருளை தேர்வு செய்க"
 
-#: ../iw/partition_gui.py:1482
+#: ../iw/partition_gui.py:1480
 msgid "I want to have automatic partitioning:"
 msgstr "தானாக பகிர்வுகளை உருவாக்க வேண்டும்:"
 
-#: ../iw/partition_gui.py:1513
+#: ../iw/partition_gui.py:1511
 msgid "Select the drive(s) to use for this installation:"
 msgstr "நிறுவ பயன்படும் இயக்கிகளை தேர்வு செய்யவும்"
 
-#: ../iw/partition_gui.py:1537
+#: ../iw/partition_gui.py:1535
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "(_v)உருவாக்கப்பட்ட பகிர்வுகளை(மற்றும்தேவைப்பட்டால் மற்றுக) மறுபார்வையிடு"
 
 #: ../iw/partition_ui_helpers_gui.py:90 ../iw/partition_ui_helpers_gui.py:111
-#: ../iw/partition_ui_helpers_gui.py:113 ../textw/partition_text.py:250
-#: ../textw/partition_text.py:252 ../textw/partition_text.py:254
-#: ../textw/partition_text.py:279
+#: ../iw/partition_ui_helpers_gui.py:113 ../textw/partition_text.py:248
+#: ../textw/partition_text.py:250 ../textw/partition_text.py:252
+#: ../textw/partition_text.py:277
 msgid "<Not Applicable>"
 msgstr "<Not Applicable>"
 
@@ -4442,7 +4475,7 @@ msgstr "பணித்தொகுப்புகள்ப்புகள்"
 msgid "Time"
 msgstr "நேரம்"
 
-#: ../iw/raid_dialog_gui.py:249
+#: ../iw/raid_dialog_gui.py:250
 msgid ""
 "At least two unused software RAID partitions are needed to create a RAID "
 "device.\n"
@@ -4455,41 +4488,41 @@ msgstr ""
 "முதலில் இரண்டு பகுப்புகளில் \"மென்பொருள் RAID \" என்பதை தேர்வு செய்து பின் \"RAID\" ஐ "
 "தேர்வு செய்யவும்"
 
-#: ../iw/raid_dialog_gui.py:263 ../iw/raid_dialog_gui.py:667
-#: ../textw/partition_text.py:966
+#: ../iw/raid_dialog_gui.py:264 ../iw/raid_dialog_gui.py:668
+#: ../textw/partition_text.py:964
 msgid "Make RAID Device"
 msgstr "RAID கருவியை உருவாக்கு"
 
-#: ../iw/raid_dialog_gui.py:266
+#: ../iw/raid_dialog_gui.py:267
 #, python-format
 msgid "Edit RAID Device: /dev/md%s"
 msgstr "RAID சாதனத்தை தொகுக்கவும்: /dev/md%s"
 
-#: ../iw/raid_dialog_gui.py:268 ../textw/partition_text.py:964
+#: ../iw/raid_dialog_gui.py:269 ../textw/partition_text.py:962
 msgid "Edit RAID Device"
 msgstr "RAID சாதனத்தை தொகுக்கவும்"
 
-#: ../iw/raid_dialog_gui.py:309
+#: ../iw/raid_dialog_gui.py:310
 msgid "RAID _Device:"
 msgstr "(_D)RAID  சாதனம்:"
 
-#: ../iw/raid_dialog_gui.py:327
+#: ../iw/raid_dialog_gui.py:328
 msgid "RAID _Level:"
 msgstr "(_L)RAID மட்டம்:"
 
-#: ../iw/raid_dialog_gui.py:368
+#: ../iw/raid_dialog_gui.py:369
 msgid "_RAID Members:"
 msgstr "(_R)RAID உறுப்பினர்கள்:"
 
-#: ../iw/raid_dialog_gui.py:385
+#: ../iw/raid_dialog_gui.py:386
 msgid "Number of _spares:"
 msgstr "உதிரிகளின் எண்ணிக்கை?"
 
-#: ../iw/raid_dialog_gui.py:395
+#: ../iw/raid_dialog_gui.py:396
 msgid "_Format partition?"
 msgstr "(_F)பகிர்வுகளை த்தலை வடிவமைக்கவா?"
 
-#: ../iw/raid_dialog_gui.py:474
+#: ../iw/raid_dialog_gui.py:475
 msgid ""
 "The source drive has no partitions to be cloned.  You must first define "
 "partitions of type 'software RAID' on this drive before it can be cloned."
@@ -4497,12 +4530,12 @@ msgstr ""
 "மூல இயக்கியில் நகலெடுக்க வேண்டிய பகிர்வுகள் எதுவும் இல்லை. பகிர்வின் வகையை 'software "
 "RAID' என நகலெடுக்கும் முன் குறிப்பிடவும்."
 
-#: ../iw/raid_dialog_gui.py:478 ../iw/raid_dialog_gui.py:484
-#: ../iw/raid_dialog_gui.py:496 ../iw/raid_dialog_gui.py:509
+#: ../iw/raid_dialog_gui.py:479 ../iw/raid_dialog_gui.py:485
+#: ../iw/raid_dialog_gui.py:497 ../iw/raid_dialog_gui.py:510
 msgid "Source Drive Error"
 msgstr "மூல இயக்கிப் பிழை"
 
-#: ../iw/raid_dialog_gui.py:485
+#: ../iw/raid_dialog_gui.py:486
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
@@ -4513,7 +4546,7 @@ msgstr ""
 "\n"
 "இந்த இயக்கியை பிரதியெடுக்கும் முன் பகிர்வுகளை நீக்க வேண்டும்."
 
-#: ../iw/raid_dialog_gui.py:497
+#: ../iw/raid_dialog_gui.py:498
 #, python-format
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
@@ -4528,7 +4561,7 @@ msgstr ""
 "இந்த இயக்கியை பிரதியெடுக்கும் முன் இந்த பகிர்வுகளை நீக்க வேண்டும்்டும் அல்லது தடை சய்ய "
 "வேண்டும்."
 
-#: ../iw/raid_dialog_gui.py:510
+#: ../iw/raid_dialog_gui.py:511
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
@@ -4540,21 +4573,21 @@ msgstr ""
 "\n"
 "இந்பகிர்வுகள்ள் பிரதியெடுக்கும் முன் நீக்கபப்டவேண்டும்."
 
-#: ../iw/raid_dialog_gui.py:523 ../iw/raid_dialog_gui.py:529
-#: ../iw/raid_dialog_gui.py:542
+#: ../iw/raid_dialog_gui.py:524 ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:543
 msgid "Target Drive Error"
 msgstr "மூல இயக்கிப் பிழை"
 
-#: ../iw/raid_dialog_gui.py:524
+#: ../iw/raid_dialog_gui.py:525
 msgid "Please select the target drives for the clone operation."
 msgstr "நகலெடுப்பதற்கான இலக்க அடைவை தேர்வுசெய்யவும்."
 
-#: ../iw/raid_dialog_gui.py:530
+#: ../iw/raid_dialog_gui.py:531
 #, python-format
 msgid "The source drive /dev/%s cannot be selected as a target drive as well."
 msgstr "மூல இயக்கி /dev/%s  தேர்வு இலக்கு இயக்கியிலிருந்து செய்யப்படவில்லை."
 
-#: ../iw/raid_dialog_gui.py:543
+#: ../iw/raid_dialog_gui.py:544
 #, python-format
 msgid ""
 "The target drive /dev/%s has a partition which cannot be removed for the "
@@ -4570,11 +4603,11 @@ msgstr ""
 "\n"
 "இந்த அடைவு இலக்காக இருந்தால் இப்பகிர்வை நீக்கவும்."
 
-#: ../iw/raid_dialog_gui.py:604
+#: ../iw/raid_dialog_gui.py:605
 msgid "Please select a source drive."
 msgstr "மூல இயக்கியை தயவு செய்து தேர்வு செய்க"
 
-#: ../iw/raid_dialog_gui.py:624
+#: ../iw/raid_dialog_gui.py:625
 #, python-format
 msgid ""
 "The drive /dev/%s will now be cloned to the following drives:\n"
@@ -4583,7 +4616,7 @@ msgstr ""
 "இயக்கி /dev/%s கீழ்கண்ட இயக்கிக்கு க்ளேன் செய்யப்பட்டது:\n"
 "\n"
 
-#: ../iw/raid_dialog_gui.py:629
+#: ../iw/raid_dialog_gui.py:630
 msgid ""
 "\n"
 "\n"
@@ -4593,19 +4626,19 @@ msgstr ""
 "\n"
 "இலக்கு அடைவில் உள்ள அனைத்து தகவல்களும் அழிக்கப்படும்"
 
-#: ../iw/raid_dialog_gui.py:632
+#: ../iw/raid_dialog_gui.py:633
 msgid "Final Warning"
 msgstr "இறுதி எச்சரிக்கை"
 
-#: ../iw/raid_dialog_gui.py:634
+#: ../iw/raid_dialog_gui.py:635
 msgid "Clone Drives"
 msgstr "இயக்கிகளை நகலிடு"
 
-#: ../iw/raid_dialog_gui.py:643
+#: ../iw/raid_dialog_gui.py:644
 msgid "There was an error clearing the target drives.  Cloning failed."
 msgstr "இலக்கு இயக்கியை துடைக்கும் போது தவறு ஏற்பட்டது. பிரதிஎடுத்தல் தோல்வியுற்றது."
 
-#: ../iw/raid_dialog_gui.py:677
+#: ../iw/raid_dialog_gui.py:678
 msgid ""
 "Clone Drive Tool\n"
 "\n"
@@ -4631,15 +4664,15 @@ msgstr ""
 "அனுமதிக்கப்படமாட்டாது.\n"
 "இந்த செயலால் இலக்கு இயக்கியில் உள்ள அனைத்தும் அழிக்கப்ப.டும்"
 
-#: ../iw/raid_dialog_gui.py:697
+#: ../iw/raid_dialog_gui.py:698
 msgid "Source Drive:"
 msgstr "மூல இயக்கி:"
 
-#: ../iw/raid_dialog_gui.py:705
+#: ../iw/raid_dialog_gui.py:706
 msgid "Target Drive(s):"
 msgstr "இலக்கு இயக்கி(கள்):"
 
-#: ../iw/raid_dialog_gui.py:713
+#: ../iw/raid_dialog_gui.py:714
 msgid "Drives"
 msgstr "இயக்கிகள்"
 
@@ -4732,7 +4765,8 @@ msgstr "இது உங்கள் தற்போதைய துவக்க
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid "The installer has detected the %s boot loader currently installed on %s."
+msgid ""
+"The installer has detected the %s boot loader currently installed on %s."
 msgstr "%s யில் தற்போதைய %s இயக்கி ஏற்றி நிறுவலை கண்டுபிடித்துள்ளது."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4753,7 +4787,8 @@ msgstr "புது இயக்க ஏற்றி உள்ளமைப்ப
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
-msgstr "இது புதிய துவக்க இயக்கியை அமைக்க பயன்படும். துவக்க இயக்கியை மாற்ற இதை தேர்வு செய்யவும்"
+msgstr ""
+"இது புதிய துவக்க இயக்கியை அமைக்க பயன்படும். துவக்க இயக்கியை மாற்ற இதை தேர்வு செய்யவும்"
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4859,7 +4894,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "மாற்று கோப்பு 1 முதல் 2000 எம்பி அளவுக்குள் இருக்க வேண்டும்"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid "There is not enough space on the device you selected for the swap partition."
+msgid ""
+"There is not enough space on the device you selected for the swap partition."
 msgstr "மாற்று பாகுபடுத்தல்களுக்கு நீங்கள் தேர்வுசெய்த இருவியில் போதுமான இடமில்லை."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -4979,7 +5015,8 @@ msgstr "தெரியாத ஒளி அட்டை"
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr "ஒளி அட்டை%s ஐ தேர்வு செய்கையில் பிழை. பிழையை bugzilla.redhat.com க்கு அனுப்பவும்"
+msgstr ""
+"ஒளி அட்டை%s ஐ தேர்வு செய்கையில் பிழை. பிழையை bugzilla.redhat.com க்கு அனுப்பவும்"
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5032,24 +5069,24 @@ msgstr "X வடிவமைப்பை தவிர்க்கவும்"
 msgid "ZFCP Configuration"
 msgstr "ZFCP அமைப்பு"
 
-#: ../iw/zfcp_gui.py:99
+#: ../iw/zfcp_gui.py:102
 msgid "_Remove"
 msgstr "(_R)நீக்கு"
 
-#: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:116
+#: ../iw/zfcp_gui.py:109 ../textw/zfcp_text.py:116
 msgid "FCP Devices"
 msgstr "FCP சாதனங்கள்"
 
-#: ../iw/zfcp_gui.py:118
+#: ../iw/zfcp_gui.py:121
 msgid "Add FCP device"
 msgstr "FCP சாதனத்தை சேர்"
 
-#: ../iw/zfcp_gui.py:181
+#: ../iw/zfcp_gui.py:184
 #, python-format
 msgid "Edit FCP device %s"
 msgstr "FCP சாதனத்தை தொகுக்கவும் %s"
 
-#: ../iw/zfcp_gui.py:237
+#: ../iw/zfcp_gui.py:240
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
@@ -5197,7 +5234,7 @@ msgid "Boot label contains illegal characters."
 msgstr "துவக்கி விளக்கச்சீட்டில் அனுமதிக்க இயலாத எழுத்துக்கள் உள்ளது"
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
-#: ../textw/partition_text.py:1442 ../textw/silo_text.py:216
+#: ../textw/partition_text.py:1440 ../textw/silo_text.py:216
 #: ../textw/silo_text.py:238 ../textw/userauth_text.py:237
 #: ../textw/zfcp_text.py:109
 msgid "Edit"
@@ -5214,7 +5251,8 @@ msgstr ""
 "பயன்படுத்த விரும்புகிறீகள் மற்றும், அதன் பெயர் என்ன போன்ற விவரங்களை தெரியப்படுத்தவும்"
 
 #: ../textw/bootloader_text.py:315
-msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid ""
+" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 "<Space> பட்டனை தேர்வுசெய் | <F2>இயல்பான துவக்க உள்ளீட்டை தேர்வு செய் | <F12> "
 "அடுத்து<next screen>"
@@ -5332,10 +5370,10 @@ msgstr ""
 #: ../loader2/driverdisk.c:268 ../loader2/driverdisk.c:299
 #: ../loader2/driverdisk.c:388 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:187 ../loader2/driverselect.c:213
-#: ../loader2/hdinstall.c:326 ../loader2/hdinstall.c:380 ../loader2/kbd.c:125
+#: ../loader2/hdinstall.c:329 ../loader2/hdinstall.c:383 ../loader2/kbd.c:125
 #: ../loader2/loader.c:326 ../loader2/loader.c:839 ../loader2/loader.c:861
 #: ../loader2/net.c:192 ../loader2/net.c:230 ../loader2/net.c:524
-#: ../loader2/net.c:1054 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
+#: ../loader2/net.c:1052 ../loader2/nfsinstall.c:54 ../loader2/urls.c:255
 #: ../loader2/urls.c:445
 msgid "Back"
 msgstr "பின்"
@@ -5641,8 +5679,10 @@ msgid "Select individual packages"
 msgstr "தனிப் பணித்தொகுப்பை தேர்வு செய்க"
 
 #: ../textw/packages_text.py:73
-msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "   <Space>,<+>,<-> தேர்வுகள்   |   <F2> குழு விவரம் |   <F12>  அடுத்த சாளரம்"
+msgid ""
+"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr ""
+"   <Space>,<+>,<-> தேர்வுகள்   |   <F2> குழு விவரம் |   <F12>  அடுத்த சாளரம்"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5666,7 +5706,8 @@ msgid "Total size"
 msgstr "மொத்த அளவு:"
 
 #: ../textw/packages_text.py:326
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space> ,<+>,<-> தேர்வுகள்  |   <F1>உதவி  |   <F2> பணிதொகுப்பு விவரங்கள்"
 
 #: ../textw/packages_text.py:374
@@ -5711,184 +5752,184 @@ msgstr "கோரப்பட்ட மதிப்பு மிகப்பெ�
 msgid "RAID Device %s"
 msgstr "RAID கருவி %s"
 
-#: ../textw/partition_text.py:230
+#: ../textw/partition_text.py:228
 #, python-format
 msgid "Warning: %s"
 msgstr "எச்சரிக்கை: %s"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:229
 msgid "Modify Partition"
 msgstr "பாகுபடுத்தலை மாற்று"
 
-#: ../textw/partition_text.py:231
+#: ../textw/partition_text.py:229
 msgid "Add anyway"
 msgstr "எப்படியிருந்தாலும் சேர்க்கவும்"
 
-#: ../textw/partition_text.py:269
+#: ../textw/partition_text.py:267
 msgid "Mount Point:"
 msgstr "ஏற்று புள்ளி:"
 
-#: ../textw/partition_text.py:321
+#: ../textw/partition_text.py:319
 msgid "File System type:"
 msgstr "கோப்பமைப்பு வகை:"
 
-#: ../textw/partition_text.py:355
+#: ../textw/partition_text.py:353
 msgid "Allowable Drives:"
 msgstr "அனுமதிக்கப்பட்ட இயக்கிகள்:"
 
-#: ../textw/partition_text.py:411
+#: ../textw/partition_text.py:409
 msgid "Fixed Size:"
 msgstr "நிலையான அளவு:"
 
-#: ../textw/partition_text.py:413
+#: ../textw/partition_text.py:411
 msgid "Fill maximum size of (MB):"
 msgstr "அதிகப்படியான MBயின் அளவு  :"
 
-#: ../textw/partition_text.py:417
+#: ../textw/partition_text.py:415
 msgid "Fill all available space:"
 msgstr "உள்ள இடங்கள் முழுவதையும் நிரப்பு:"
 
-#: ../textw/partition_text.py:440
+#: ../textw/partition_text.py:438
 msgid "Start Cylinder:"
 msgstr "உருளை துவக்கம்:"
 
-#: ../textw/partition_text.py:453
+#: ../textw/partition_text.py:451
 msgid "End Cylinder:"
 msgstr "உருளை முடிவு :"
 
-#: ../textw/partition_text.py:476
+#: ../textw/partition_text.py:474
 msgid "Volume Group:"
 msgstr "தொகுதி குழு:"
 
-#: ../textw/partition_text.py:498
+#: ../textw/partition_text.py:496
 msgid "RAID Level:"
 msgstr "RAID நிலை:"
 
-#: ../textw/partition_text.py:516
+#: ../textw/partition_text.py:514
 msgid "RAID Members:"
 msgstr "RAID உறுப்பினர்கள்:"
 
-#: ../textw/partition_text.py:535
+#: ../textw/partition_text.py:533
 msgid "Number of spares?"
 msgstr "உதிரிகளின் எண்ணிக்கை?"
 
-#: ../textw/partition_text.py:549
+#: ../textw/partition_text.py:547
 msgid "File System Type:"
 msgstr "கோப்பமைப்பு வகை:"
 
-#: ../textw/partition_text.py:562
+#: ../textw/partition_text.py:560
 msgid "File System Label:"
 msgstr "கோப்பமைப்பு விளக்கசீட்டு:"
 
-#: ../textw/partition_text.py:573
+#: ../textw/partition_text.py:571
 msgid "File System Option:"
 msgstr "கோப்பு அமைப்பு விருப்பத்தேர்வுகள்"
 
-#: ../textw/partition_text.py:576 ../textw/partition_text.py:814
-#: ../textw/partition_text.py:1051 ../textw/partition_text.py:1221
+#: ../textw/partition_text.py:574 ../textw/partition_text.py:812
+#: ../textw/partition_text.py:1049 ../textw/partition_text.py:1219
 #, python-format
 msgid "Format as %s"
 msgstr "%sஆக வடிவமை"
 
-#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
-#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
+#: ../textw/partition_text.py:576 ../textw/partition_text.py:814
+#: ../textw/partition_text.py:1051 ../textw/partition_text.py:1221
 #, python-format
 msgid "Migrate to %s"
 msgstr "%sக்கு இடத்தை மாற்றுக"
 
-#: ../textw/partition_text.py:580 ../textw/partition_text.py:818
-#: ../textw/partition_text.py:1055 ../textw/partition_text.py:1225
+#: ../textw/partition_text.py:578 ../textw/partition_text.py:816
+#: ../textw/partition_text.py:1053 ../textw/partition_text.py:1223
 msgid "Leave unchanged"
 msgstr "மாற்றாமல் விட்டுவிடு"
 
-#: ../textw/partition_text.py:596 ../textw/partition_text.py:791
-#: ../textw/partition_text.py:1031 ../textw/partition_text.py:1201
+#: ../textw/partition_text.py:594 ../textw/partition_text.py:789
+#: ../textw/partition_text.py:1029 ../textw/partition_text.py:1199
 msgid "File System Options"
 msgstr "கோப்பு முறைமை விருப்பத்தேர்வுகள்"
 
-#: ../textw/partition_text.py:599
+#: ../textw/partition_text.py:597
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
 msgstr "இந்த கோப்பு முறைமையில் பாகுபடுத்தலை எவ்வாறு அமைக்க விரும்புகிறீர்?"
 
-#: ../textw/partition_text.py:607
+#: ../textw/partition_text.py:605
 msgid "Check for bad blocks"
 msgstr "கெட்ட தொகுதிகளுக்காக சரிபார்."
 
-#: ../textw/partition_text.py:611
+#: ../textw/partition_text.py:609
 msgid "Leave unchanged (preserve data)"
 msgstr "மாற்றாமல் விடு ( தரவை சேமி )"
 
-#: ../textw/partition_text.py:620
+#: ../textw/partition_text.py:618
 msgid "Format as:"
 msgstr "இவ்வறு வடிவமை:"
 
-#: ../textw/partition_text.py:640
+#: ../textw/partition_text.py:638
 msgid "Migrate to:"
 msgstr "இங்கு இடமாற்றுக:"
 
-#: ../textw/partition_text.py:752
+#: ../textw/partition_text.py:750
 msgid "Force to be a primary partition"
 msgstr "முதன்மை பாகுபடுத்தலாக அமைக்கப்படுகிறது"
 
-#: ../textw/partition_text.py:769
+#: ../textw/partition_text.py:767
 msgid "Not Supported"
 msgstr "ஆதரிக்கப்படவில்லை"
 
-#: ../textw/partition_text.py:770
+#: ../textw/partition_text.py:768
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr "LVM தொகுதி குழுக்கள் வரைகலை நிறுவலால் மட்டுமே தொகுக்கப்படும்."
 
-#: ../textw/partition_text.py:846 ../textw/partition_text.py:899
+#: ../textw/partition_text.py:844 ../textw/partition_text.py:897
 msgid "Invalid Entry for Partition Size"
 msgstr "பகுப்பின் பெயரில் செல்லாத உள்ளீடு உள்ளது"
 
-#: ../textw/partition_text.py:858
+#: ../textw/partition_text.py:856
 msgid "Invalid Entry for Maximum Size"
 msgstr "அதிகப்படியான அளவுக்கு தவறான உள்ளிடு"
 
-#: ../textw/partition_text.py:877
+#: ../textw/partition_text.py:875
 msgid "Invalid Entry for Starting Cylinder"
 msgstr "துவக்க உருளைக்கு தவறான உள்ளீடு"
 
-#: ../textw/partition_text.py:891
+#: ../textw/partition_text.py:889
 msgid "Invalid Entry for End Cylinder"
 msgstr "உருளையின் முடிவில் செல்லாத உள்ளீடு உள்ளது"
 
-#: ../textw/partition_text.py:1004
+#: ../textw/partition_text.py:1002
 msgid "No RAID partitions"
 msgstr "RAID பகுப்புகள் இல்லை"
 
-#: ../textw/partition_text.py:1005
+#: ../textw/partition_text.py:1003
 msgid "At least two software RAID partitions are needed."
 msgstr "இரண்டு RAID பகிர்வுகளாவது தேவை"
 
-#: ../textw/partition_text.py:1017 ../textw/partition_text.py:1188
+#: ../textw/partition_text.py:1015 ../textw/partition_text.py:1186
 msgid "Format partition?"
 msgstr "பாகுபடுத்தலை வடிவமைக்கவா?"
 
-#: ../textw/partition_text.py:1079
+#: ../textw/partition_text.py:1077
 msgid "Invalid Entry for RAID Spares"
 msgstr "செல்லாத RAID பகுதிகள்"
 
-#: ../textw/partition_text.py:1092
+#: ../textw/partition_text.py:1090
 msgid "Too many spares"
 msgstr "நிரம்ப உதிரிகள்"
 
-#: ../textw/partition_text.py:1093
+#: ../textw/partition_text.py:1091
 msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "RAID0 கோவையின் அதிகபட்ச பாகங்கள் 0."
 
-#: ../textw/partition_text.py:1174
+#: ../textw/partition_text.py:1172
 msgid "No Volume Groups"
 msgstr "தொகுதிக் குழுக்கள் எதுவுமில்லை"
 
-#: ../textw/partition_text.py:1175
+#: ../textw/partition_text.py:1173
 msgid "No volume groups in which to create a logical volume"
 msgstr "தர்க்க தொகுதியை உருவாக்க தொகுதிக்குழுக்கள் இல்லை"
 
-#: ../textw/partition_text.py:1291
+#: ../textw/partition_text.py:1289
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
@@ -5897,7 +5938,7 @@ msgstr ""
 "தற்போது பரிந்துரைக்கப்பட்ட (%10.2f MB) அளவு தருக்க தொகுதி அளவை விடஅதிகமாக உள்ளது (%"
 "10.2f MB)."
 
-#: ../textw/partition_text.py:1310
+#: ../textw/partition_text.py:1308
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
@@ -5906,47 +5947,49 @@ msgstr ""
 "தற்போது பரிந்துரைக்கப்பட்ட (%10.2f MB) அளவு தருக்க தொகுதி அளவை விட குறைவாக உள்ளது (%"
 "10.2f MB)."
 
-#: ../textw/partition_text.py:1364
+#: ../textw/partition_text.py:1362
 msgid "New Partition or Logical Volume?"
 msgstr "தர்கரீதியான அளவா அல்லது புதிய பகிர்வா?"
 
-#: ../textw/partition_text.py:1365
+#: ../textw/partition_text.py:1363
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "புதிய பகிர்வை அல்லது தர்க தொகுதியை உருவாக்க விரும்புகிறீர்களா?"
 
-#: ../textw/partition_text.py:1367
+#: ../textw/partition_text.py:1365
 msgid "partition"
 msgstr "பகிர்வுகளாக்கல்"
 
-#: ../textw/partition_text.py:1367
+#: ../textw/partition_text.py:1365
 msgid "logical volume"
 msgstr "தருக்கக் தொகுதி"
 
-#: ../textw/partition_text.py:1441
+#: ../textw/partition_text.py:1439
 msgid "New"
 msgstr "புதிய"
 
-#: ../textw/partition_text.py:1443 ../textw/userauth_text.py:236
+#: ../textw/partition_text.py:1441 ../textw/userauth_text.py:236
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: ../textw/partition_text.py:1444
+#: ../textw/partition_text.py:1442
 msgid "RAID"
 msgstr "RAID "
 
-#: ../textw/partition_text.py:1447
-msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr "    F1-உதவி     F2-புதிய     F3-திருத்து   F4-நீக்கு    F5-மீட்டமை   F12-சரி     "
+#: ../textw/partition_text.py:1445
+msgid ""
+"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr ""
+"    F1-உதவி     F2-புதிய     F3-திருத்து   F4-நீக்கு    F5-மீட்டமை   F12-சரி     "
 
-#: ../textw/partition_text.py:1476
+#: ../textw/partition_text.py:1474
 msgid "No Root Partition"
 msgstr "ரூட் பகுப்பு இல்லை"
 
-#: ../textw/partition_text.py:1477
+#: ../textw/partition_text.py:1475
 msgid "Must have a / partition to install on."
 msgstr "நிறுவுவதற்கு / பகிர்வு தேவை"
 
-#: ../textw/partition_text.py:1544
+#: ../textw/partition_text.py:1542
 msgid "Which drive(s) do you want to use for this installation?"
 msgstr "இந்த நிறுவலுக்கு எந்த இயக்கி(கள்)ஐ பயன்படுத்த விரும்புகிறீர்கள்?"
 
@@ -6178,12 +6221,16 @@ msgid "User Exists"
 msgstr "பயனர் உள்ளார்"
 
 #: ../textw/userauth_text.py:156
-msgid "The root user is already configured. You don't need to add this user here."
-msgstr "இந்த மூல பயனர் ஏற்கெனவே உள்ளமைக்கப்பட்டுள்ளார்.இந்த பயனரை இங்கு சேர்க்க வேண்டிய அவசியமில்லை."
+msgid ""
+"The root user is already configured. You don't need to add this user here."
+msgstr ""
+"இந்த மூல பயனர் ஏற்கெனவே உள்ளமைக்கப்பட்டுள்ளார்.இந்த பயனரை இங்கு சேர்க்க வேண்டிய அவசியமில்லை."
 
 #: ../textw/userauth_text.py:163
-msgid "This system user is already configured. You don't need to add this user here."
-msgstr "இந்த முறைமை பயனர் ஏற்க்கனவே உள்ளமைக்கப்பட்டுள்ளார்.இந்த பயனரை இங்கு சேர்க்க தேவையில்லை"
+msgid ""
+"This system user is already configured. You don't need to add this user here."
+msgstr ""
+"இந்த முறைமை பயனர் ஏற்க்கனவே உள்ளமைக்கப்பட்டுள்ளார்.இந்த பயனரை இங்கு சேர்க்க தேவையில்லை"
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6323,7 +6370,8 @@ msgstr "X தனிப்பயனாக்கம்"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "உங்கள் கணினியிக்கு பயன்படுத்த வேண்டிய வண்ண ஆழம் மற்றும் ஒளித்தோற்ற மறையை தேர்வு செய்க"
+msgstr ""
+"உங்கள் கணினியிக்கு பயன்படுத்த வேண்டிய வண்ண ஆழம் மற்றும் ஒளித்தோற்ற மறையை தேர்வு செய்க"
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6565,10 +6613,12 @@ msgstr ""
 "உருவாக்கவும்."
 
 #: ../installclasses/personal_desktop.py:18
+#: ../installclasses/rhel_desktop.py:16
+#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser (Mozilla) \n"
+"\tWeb browser \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tSound and video applications\n"
@@ -6604,26 +6654,6 @@ msgstr ""
 msgid "Red Hat Enterprise Linux Desktop"
 msgstr "ரெட் ஹாட் என்டர்ப்ரைஸ் லினக்ஸ் மேல்மேசை"
 
-#: ../installclasses/rhel_desktop.py:16
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tAdministration Tools\n"
-msgstr ""
-"\tமேல்மேசை ஷெல்(GNOME)\n"
-"\tஅலுவலக பயன்பாடு(OpenOffice)\n"
-"\tஇணைய உலாவி (Mozilla) \n"
-"\tமின்னஞ்சல்(Evolution)\n"
-"\tதூதுவன்\n"
-"\tஒலி மற்றும் ஒளி பயன்பாடுகள்\n"
-"\tவிளையாட்டுகள்\n"
-"\tமேலாண்மை கருவிகள்\n"
-
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
 msgstr "ரெட் ஹாட் என்டர்ப்ரைஸ் லினக்ஸ் ES"
@@ -6632,11 +6662,12 @@ msgstr "ரெட் ஹாட் என்டர்ப்ரைஸ் லின
 msgid "Red Hat Enterprise Linux WS"
 msgstr "ரெட் ஹாட் என்டர்ப்ரைஸ் லினக்ஸ் WS"
 
-#: ../installclasses/rhel_ws.py:16
+#: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
+#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice)\n"
-"\tWeb browser (Mozilla) \n"
+"\tOffice suite (OpenOffice.org)\n"
+"\tWeb browser \n"
 "\tEmail (Evolution)\n"
 "\tInstant messaging\n"
 "\tSound and video applications\n"
@@ -6644,11 +6675,11 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tமேல் மேசை ஷெல்(GNOME)\n"
-"\tஅலுவலக பயன்பாடு(OpenOffice.org)\n"
+"\tமேசை ஓட்டு (GNOME)\n"
+"\tஅலுவலக சுட்(OpenOffice.org)\n"
 "\t வலை உலாவி (Mozilla) \n"
 "\tமின் அஞ்சல் (Evolution)\n"
-"\t தூதுவன்\n"
+"\t உடனடி செதியனுப்பல்\n"
 "\tஒலி மற்றும் ஒளி செயல்பாடுகள்\n"
 "\tவிளையாட்டுகள்\n"
 "\tமென்பொருள் உருவாக்க கருவிகள்\n"
@@ -6675,29 +6706,9 @@ msgstr "(_W)புரவலன்கள்"
 msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
-msgstr "இந்த தேர்வின் மூலம் வரைகலை மேல்மேசை சூழல் மென்பொருள் உருவாக்கம் மற்றும் மேலாண்மை கருவிகளை நிறுவலாம்."
-
-#: ../installclasses/workstation.py:14
-msgid ""
-"\tDesktop shell (GNOME)\n"
-"\tOffice suite (OpenOffice.org)\n"
-"\tWeb browser (Mozilla) \n"
-"\tEmail (Evolution)\n"
-"\tInstant messaging\n"
-"\tSound and video applications\n"
-"\tGames\n"
-"\tSoftware Development Tools\n"
-"\tAdministration Tools\n"
 msgstr ""
-"\tமேசை ஓட்டு (GNOME)\n"
-"\tஅலுவலக சுட்(OpenOffice.org)\n"
-"\t வலை உலாவி (Mozilla) \n"
-"\tமின் அஞ்சல் (Evolution)\n"
-"\t உடனடி செதியனுப்பல்\n"
-"\tஒலி மற்றும் ஒளி செயல்பாடுகள்\n"
-"\tவிளையாட்டுகள்\n"
-"\tமென்பொருள் உருவாக்க கருவிகள்\n"
-"\tமேலாண்மை கருவிகள்\n"
+"இந்த தேர்வின் மூலம் வரைகலை மேல்மேசை சூழல் மென்பொருள் உருவாக்கம் மற்றும் மேலாண்மை கருவிகளை "
+"நிறுவலாம்."
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
 #: ../loader2/mediacheck.c:272
@@ -6706,7 +6717,7 @@ msgstr "ஊடக சோதனை"
 
 #: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
 #: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
-#: ../loader2/method.c:411
+#: ../loader2/method.c:412
 msgid "Test"
 msgstr "சோதி"
 
@@ -6744,7 +6755,8 @@ msgstr ""
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
-msgstr "%s குறுந்தகடு சிடிராம் இயக்கியில் இல்லை.%s CD ஐ சொருகி %s CD மீண்டும் முயற்சி செய்யவும்"
+msgstr ""
+"%s குறுந்தகடு சிடிராம் இயக்கியில் இல்லை.%s CD ஐ சொருகி %s CD மீண்டும் முயற்சி செய்யவும்"
 
 #: ../loader2/cdinstall.c:253
 msgid "CD Found"
@@ -6794,7 +6806,8 @@ msgstr "இயக்க வட்டு மூலம்"
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
-msgstr "இயக்கி தட்டிற்கு மூலமான பலகருவிகள் உங்களிடம் உள்ளன.எதை பயன் படுத்த விரும்புகிறீர்கள்?"
+msgstr ""
+"இயக்கி தட்டிற்கு மூலமான பலகருவிகள் உங்களிடம் உள்ளன.எதை பயன் படுத்த விரும்புகிறீர்கள்?"
 
 #: ../loader2/driverdisk.c:295
 msgid ""
@@ -6868,10 +6881,10 @@ msgid "Do you wish to load any more driver disks?"
 msgstr "மற்ற இயக்க இயக்கு வட்டுகளை ஏற்ற விரும்புகிறீர்களா?"
 
 #: ../loader2/driverdisk.c:577 ../loader2/driverdisk.c:610
-#: ../loader2/hdinstall.c:466 ../loader2/kickstart.c:118
+#: ../loader2/hdinstall.c:469 ../loader2/kickstart.c:118
 #: ../loader2/kickstart.c:128 ../loader2/kickstart.c:171
-#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:884
-#: ../loader2/net.c:907 ../loader2/nfsinstall.c:247
+#: ../loader2/kickstart.c:405 ../loader2/modules.c:919 ../loader2/net.c:882
+#: ../loader2/net.c:905 ../loader2/nfsinstall.c:247
 #: ../loader2/urlinstall.c:431 ../loader2/urlinstall.c:440
 #: ../loader2/urlinstall.c:451
 msgid "Kickstart Error"
@@ -6887,7 +6900,8 @@ msgstr "தெரியாத இயக்க வட்டு துவக்க
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "கிக்ஸ்டார்ட் இயக்க வட்டு கட்டளையில் கீழ்கண்ட செல்லாத அளவுரு குறிப்பிடப்பட்டுள்ளது: %s:%s"
+msgstr ""
+"கிக்ஸ்டார்ட் இயக்க வட்டு கட்டளையில் கீழ்கண்ட செல்லாத அளவுரு குறிப்பிடப்பட்டுள்ளது: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6917,7 +6931,8 @@ msgstr "இயக்கி வட்டை ஏற்று"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr "கைமுறையாகல் உள்ளிட எந்த இயக்கிகளும் இல்லை.நீங்கள் இயக்கி தட்டை பயன்படுத்த விரும்புகிறீர்களா?"
+msgstr ""
+"கைமுறையாகல் உள்ளிட எந்த இயக்கிகளும் இல்லை.நீங்கள் இயக்கி தட்டை பயன்படுத்த விரும்புகிறீர்களா?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6950,7 +6965,7 @@ msgstr ""
 "அடைவில் உள்ள %s நிறுவல் கிளையில் உள்ள கோப்புகள் உங்கள் ஊடகத்தில் உள்ள கோப்புகளோடு "
 "பொருந்தவில்லை."
 
-#: ../loader2/hdinstall.c:219
+#: ../loader2/hdinstall.c:218
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
@@ -6958,13 +6973,13 @@ msgstr ""
 "ISO கோப்பிலிருந்து நிறுவும் போது பிழை நேர்ந்துள்ளதுதுள்ளது. ISO கோப்பை சோதித்து மீ்டும் "
 "முயற்சிக்கவும்"
 
-#: ../loader2/hdinstall.c:327
+#: ../loader2/hdinstall.c:330
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr "உங்கள் கணிணியில் வன் தகடு எதுவும் இல்லை. கூடுதல் சாதனங்களை அமைக்க வேண்டுமா?"
 
-#: ../loader2/hdinstall.c:343
+#: ../loader2/hdinstall.c:346
 #, c-format
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
@@ -6974,29 +6989,29 @@ msgstr ""
 "எந்த பகிர்வு மற்றும் அடைவில் CD (iso9660) %s பிம்பம் இருக்க வேண்டும்?. ஒருவேளை வட்டு "
 "இயக்கி உங்கள் பட்டியலில் இல்லை என்றால் F2 ஐ பயன்படுத்தி கூடுதல் சாதனங்களை அமைக்கவும்."
 
-#: ../loader2/hdinstall.c:365
+#: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
 msgstr "பிம்பங்களைக் கொண்டிருக்கும் அடைவு:"
 
-#: ../loader2/hdinstall.c:392
+#: ../loader2/hdinstall.c:395
 msgid "Select Partition"
 msgstr "பகிர்வை தேர்வுசெய்"
 
-#: ../loader2/hdinstall.c:432
+#: ../loader2/hdinstall.c:435
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
 msgstr "சாதனம் %s இல் %s குறுந்தகடு கோப்பு இல்லை"
 
-#: ../loader2/hdinstall.c:467
+#: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
 msgstr "%s: %s HD கிக்ஸ்டார்ட் முறை கட்டளைக்கான அளவுரு தவறாக உள்ளது"
 
-#: ../loader2/hdinstall.c:535 ../loader2/hdinstall.c:591
+#: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:594
 msgid "Cannot find kickstart file on hard drive."
 msgstr "வன் தட்டு இயக்கியில் கிக்ஸ்டார்ட் கோப்பைக் காணவில்லை."
 
-#: ../loader2/hdinstall.c:578
+#: ../loader2/hdinstall.c:581
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
 msgstr "BIOS வட்டுக்கான வன்தகடை காணவில்லை %s"
@@ -7031,7 +7046,8 @@ msgstr "துவக்க வட்டில் ks.cfg இல்லை"
 #: ../loader2/kickstart.c:406
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "கிக்ஸ்டார்ட் முறையை பணிநிறுத்தம் செய்ய தவறான அளவுருக்கள் பயன்படுத்தப்பட்டது ளை %s: %s"
+msgstr ""
+"கிக்ஸ்டார்ட் முறையை பணிநிறுத்தம் செய்ய தவறான அளவுருக்கள் பயன்படுத்தப்பட்டது ளை %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:172
 #, c-format
@@ -7039,7 +7055,8 @@ msgid "Welcome to %s"
 msgstr "%sக்கு நல்வரவு"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> உறுப்புகளுக்குள் | <Space> தேர்வுகள் | <F12> அடுத்த திரை"
 
 #: ../loader2/lang.c:372
@@ -7147,7 +7164,8 @@ msgstr "கீழ்க்கண்ட சாதனங்கள்ள் உங�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr "உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்பட்வில்லை. எப்படியாவது ஏற்றவேண்டுமா?"
+msgstr ""
+"உங்கள் கணினியிலிருந்து சாதன இயக்கிகள் எதுவும் ஏற்றப்பட்வில்லை. எப்படியாவது ஏற்றவேண்டுமா?"
 
 #: ../loader2/loader.c:1028
 msgid "Devices"
@@ -7169,7 +7187,8 @@ msgstr "ஏற்றி ஏற்கெனவே இயக்கத்தில�
 #: ../loader2/loader.c:1509
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "அனகோண்டா இயங்கிக்கொண்டிருக்கிறது, %s பாதுகாப்பு வகை - -தயவு செய்து காத்திருக்கவும்...\n"
+msgstr ""
+"அனகோண்டா இயங்கிக்கொண்டிருக்கிறது, %s பாதுகாப்பு வகை - -தயவு செய்து காத்திருக்கவும்...\n"
 
 #: ../loader2/loader.c:1511
 #, c-format
@@ -7257,12 +7276,12 @@ msgstr ""
 msgid "The media check %sis complete, and the result is: %s\n"
 msgstr "ஊடகச் சோதனை %s நிரைவுிபெற்றது மற்றும் அதன் முடிவு : %s\n"
 
-#: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
+#: ../loader2/method.c:157 ../loader2/method.c:366 ../loader2/method.c:451
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "அடைவை படிக்க முடியவில்லை %s: %s"
 
-#: ../loader2/method.c:408
+#: ../loader2/method.c:409
 #, c-format
 msgid ""
 "Would you like to perform a checksum test of the ISO image:\n"
@@ -7273,7 +7292,7 @@ msgstr ""
 "\n"
 "   %s?"
 
-#: ../loader2/method.c:411
+#: ../loader2/method.c:412
 msgid "Checksum Test"
 msgstr "சரிபார்ப்புதொகை சோதனை"
 
@@ -7338,11 +7357,11 @@ msgstr "தகுதியற்ற IP தகவல்"
 msgid "You entered an invalid IP address."
 msgstr "நீங்கள் தவறான IP முகவரியை உள்ளிட்டுள்ளீர்"
 
-#: ../loader2/net.c:299 ../loader2/net.c:578
+#: ../loader2/net.c:299 ../loader2/net.c:583
 msgid "Dynamic IP"
 msgstr "இயக்க IP"
 
-#: ../loader2/net.c:300 ../loader2/net.c:579
+#: ../loader2/net.c:300 ../loader2/net.c:584
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr "%sக்கான IP தகவலுக்காக கோரிக்கை அனுப்பப்படுகிறது"
@@ -7379,33 +7398,33 @@ msgstr "இயக்க ஐபி அமைப்பை பயன்படுத
 msgid "Configure TCP/IP"
 msgstr "TCP/IPஐ உள்ளமை"
 
-#: ../loader2/net.c:569
+#: ../loader2/net.c:574
 msgid "Missing Information"
 msgstr "தகவல்களைக் காணவில்லை"
 
-#: ../loader2/net.c:570
+#: ../loader2/net.c:575
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "நீங்கள் சரியான IP முகவரி மற்றும் நெட்மாஸ்கை உள்ளிடவேண்டும்்."
 
-#: ../loader2/net.c:800
+#: ../loader2/net.c:798
 msgid "Determining host name and domain..."
 msgstr "புரவலன் பெயர் மற்றும் களம் ..."
 
-#: ../loader2/net.c:885
+#: ../loader2/net.c:883
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr "தவறாக அளவுருக்களோடு கிக்ஸ்ட்டாடுக்கான கட்டளை %s: %s அனுப்பட்டது"
 
-#: ../loader2/net.c:908
+#: ../loader2/net.c:906
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr "தவறான துவக்க விதி %s வலைப்பின்னல் கட்டளையில் குறிப்பிடப்படுள்ளது"
 
-#: ../loader2/net.c:1050
+#: ../loader2/net.c:1048
 msgid "Networking Device"
 msgstr "வலைப்பின்னல் சாதனங்கள்"
 
-#: ../loader2/net.c:1051
+#: ../loader2/net.c:1049
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -7605,7 +7624,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "அட்லான்டிக் நேரம்-கிழக்கு லப்ரடார்"
 
 #. generated from zone.tab
-msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "அட்லான்டிக் நேரம் - நொவா ஸ்காட்டிய (அனைது இடங்கள்) , என்பி, மேற்கு லாப்ரெடார்,  கிழக்கு "
 "குப்பிக் மற்றும் பிஇ"
@@ -7795,7 +7815,8 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "கிழக்கு நேரம்  - ஒன்டாரியொ எல்ல இடங்கள்"
 
 #. generated from zone.tab
-msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "கிழக்கு நேரம்  -  DST 1967-1973வை ஒன்டரியொ மற்றும் குபெக் இடங்கள் கவணிக்க வில்லை"
 
 #. generated from zone.tab
@@ -7983,7 +8004,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "மலை தரவரையறை நேரம்-அரிசோனா"
 
 #. generated from zone.tab
-msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "மலை தர நேரம்-டாசன் கிரீக் மற்றும் பொர்ட் செயின்ட் ஜான்,பிரிடிஷ் கொலம்பிய"
 
 #. generated from zone.tab
@@ -8394,3 +8416,50 @@ msgstr "வெல்ஸ்"
 msgid "Zulu"
 msgstr "சூலு"
 
+#~ msgid ""
+#~ "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 "
+#~ "or higher.  This appears to be an older system.  Do you wish to continue "
+#~ "the upgrade process?"
+#~ msgstr ""
+#~ "ரெட் ஹாட் லினக்ஸ் 6.2 அல்லது அதற்கு மேல் ுமே %sயின் பதிப்பு  மேம்பட ஆதரவு உண்டு. இது "
+#~ "பழைய முறைமையாக இருக்கிறது. நீங்கள் மேம்படுத்தல் செயலைத் தொடர விருப்பமா?"
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice)\n"
+#~ "\tWeb browser (Mozilla) \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tAdministration Tools\n"
+#~ msgstr ""
+#~ "\tமேல்மேசை ஷெல்(GNOME)\n"
+#~ "\tஅலுவலக பயன்பாடு(OpenOffice)\n"
+#~ "\tஇணைய உலாவி (Mozilla) \n"
+#~ "\tமின்னஞ்சல்(Evolution)\n"
+#~ "\tதூதுவன்\n"
+#~ "\tஒலி மற்றும் ஒளி பயன்பாடுகள்\n"
+#~ "\tவிளையாட்டுகள்\n"
+#~ "\tமேலாண்மை கருவிகள்\n"
+
+#~ msgid ""
+#~ "\tDesktop shell (GNOME)\n"
+#~ "\tOffice suite (OpenOffice)\n"
+#~ "\tWeb browser (Mozilla) \n"
+#~ "\tEmail (Evolution)\n"
+#~ "\tInstant messaging\n"
+#~ "\tSound and video applications\n"
+#~ "\tGames\n"
+#~ "\tSoftware Development Tools\n"
+#~ "\tAdministration Tools\n"
+#~ msgstr ""
+#~ "\tமேல் மேசை ஷெல்(GNOME)\n"
+#~ "\tஅலுவலக பயன்பாடு(OpenOffice.org)\n"
+#~ "\t வலை உலாவி (Mozilla) \n"
+#~ "\tமின் அஞ்சல் (Evolution)\n"
+#~ "\t தூதுவன்\n"
+#~ "\tஒலி மற்றும் ஒளி செயல்பாடுகள்\n"
+#~ "\tவிளையாட்டுகள்\n"
+#~ "\tமென்பொருள் உருவாக்க கருவிகள்\n"
+#~ "\tமேலாண்மை கருவிகள்\n"
