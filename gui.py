@@ -44,7 +44,6 @@ stepToClass = {
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_gui", "FDiskWindow"),
     "fdasd" : ("fdasd_gui", "FDasdWindow"),
-    "format" : ("format_gui", "FormatWindow"),
     "bootloader": ("bootloader_gui", "BootloaderWindow"), 
     "bootloaderpassword" : ("bootloaderpassword_gui", "BootloaderPasswordWindow"),
     "network" : ("network_gui", "NetworkWindow"),
