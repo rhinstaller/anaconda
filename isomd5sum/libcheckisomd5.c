@@ -22,12 +22,12 @@
 /* mediasum must be a preallocated buffer at least 33 bytes long */
 static int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, int *supported) {
     unsigned char buf[2048];
-    unsigned char buf2[512];
-    unsigned char tmpbuf[512];
+    char buf2[512];
+    char tmpbuf[512];
     int skipfnd, md5fnd, supportedfnd;
     unsigned int loc;
     long long offset;
-    unsigned char *p;
+    char *p;
 
     *supported = 0;
 
@@ -251,7 +251,7 @@ int mediaCheckFile(char *file, int quiet) {
     int isofd;
     int rc;
     char *result;
-    unsigned char mediasum[33], computedsum[33];
+    char mediasum[33], computedsum[33];
     long long isosize;
     int supported;
 
