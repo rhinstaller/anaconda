@@ -40,11 +40,29 @@ def inet_ntoa (addr):
     
 def inet_aton (addr):
     quad = string.splitfields (addr, ".")
-    return ((string.atoi (quad[0]) << 24) +
-            (string.atoi (quad[1]) << 16) +
-            (string.atoi (quad[2]) << 8) +
-            string.atoi (quad[3]))
+    try: 
+        rc = ((string.atoi (quad[0]) << 24) +
+               (string.atoi (quad[1]) << 16) +
+               (string.atoi (quad[2]) << 8) +
+               string.atoi (quad[3]))
+    except IndexError:
+        raise ValueError
+    return rc
 
+def inet_calcNetmask (ip):
+    if isinstance (ip, type ("")):
+        ipaddr = inet_aton (ip)
+    else:
+        ipaddr = ip
+    if (ipaddr >> 24 & 0x000000ff) <= 127:
+        mask = "255.0.0.0";
+    elif (ipaddr >> 24 & 0x000000ff) <= 191:
+        mask = "255.255.0.0";
+    else:
+        mask = "255.255.255.0";
+        
+    return mask
+    
 try:
     _isys.readmoduleinfo("/modules/module-info")
 except IOError:
