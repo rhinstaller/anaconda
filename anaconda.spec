@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.17
+Version: 10.0.3.18
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 14 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.18-1
+- Add fonts for ta, gu, bn, hi, pa (#119283)
+- Re-enable bterm for testing (#113910)
+- Fix segfault when using biospart with a ks hdinstall.  Patch from 
+  Rez Kabir (#135609)
+- Write out /etc/sysconfig/kernel for use with new-kernel-pkg changes (#135161)
+- Fix telnet logins for s390 (karsten)
+- Hardcode LCS as eth instead of tr (karsten)
+
 * Tue Oct 12 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.17-1
 - Only use "our" LVM partitions with auto-partitioning (#135440)
 - Remove localboot option from syslinux.cfg for diskboot.img (#135263)
