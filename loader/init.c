@@ -58,8 +58,8 @@
 
 char * environ[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sbin:/mnt/usr/sbin:"
-		   "/mnt/bin:/mnt/usr/bin",
-    "LD_LIBRARY_PATH=/lib:/usr/lib:/mnt/lib:/mnt/usr/lib",
+        "/mnt/bin:/mnt/usr/bin",
+    "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib:/mnt/lib:/mnt/usr/lib",
     "HOME=/",
     "TERM=linux",
     "DEBUG=",
