@@ -12,6 +12,7 @@
 
 	* image.py (findIsoImages): Genericize comment.
 	* loader2/urlinstall.c: Likewise.
+	* urlinstall.py (UrlInstallMethod.__init__): Likewise.
 
 	* loader2/cdinstall.c (findRedHatCD): Change function to
 	findAnacondaCD to be more general.

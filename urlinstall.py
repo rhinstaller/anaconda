@@ -229,7 +229,7 @@ class UrlInstallMethod(InstallMethod):
         if self.baseUrl[-1] == "/":
             self.baseUrl = self.baseUrl[:-1]
 
-	# self.baseUrl points at the path which contains the 'RedHat'
+	# self.baseUrl points at the path which contains the 'product'
 	# directory with the hdlist.
 
 	if self.baseUrl[-6:] == "/disc1":
