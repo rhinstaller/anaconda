@@ -44,7 +44,7 @@ SECSTAGE="vfat raid0 raid1 raid5 $LATEUSBMODS"
 COMMONMODULES="vfat $USBMODS agpgart"
 LOCALMODULES="$COMMONMODULES AM53C974 BusLogic DAC960 aacraid advansys 
              aic7xxx cpqarray gdth ips initio megaraid ncr53c8xx 
-	     qlogicisp"
+	     qlogicisp sym53c8xx"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
 	       de600 de620 depca dgrs eepro100 eepro hp-plus hp hp100
 	       ne ne2k-pci ni52 old_tulip pcnet32 rtl8139 tlan tulip
