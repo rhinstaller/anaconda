@@ -354,9 +354,12 @@ class ComponentSet:
 	    import iutil
 	    arch = iutil.getArch()
 
-	arch2 = None
-	if arch == "sparc" and os.uname ()[4] == "sparc64":
-	    arch2 = "sparc64"
+# always set since with can have i386 arch with i686 arch2, for example
+#	arch2 = None
+#	if arch == "sparc" and os.uname ()[4] == "sparc64":
+#	    arch2 = "sparc64"
+#
+        arch2 = os.uname ()[4]
 	file = urllib.urlopen(filename)
 	lines = file.readlines()
 
