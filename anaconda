@@ -836,7 +836,7 @@ time.sleep(3)
 # now determine if we're going to run in GUI or TUI mode
 #
 # if no X server, we have to use text mode
-if not flags.test and not os.access("/mnt/runtime/usr/X11R6/bin/XFree86", os.X_OK):
+if not flags.test and not os.access("/mnt/runtime/usr/X11R6/bin/Xorg", os.X_OK):
      dup_log(_("Graphical installation not available...  "
               "Starting text mode."))
      time.sleep(2)
