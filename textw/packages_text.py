@@ -112,7 +112,7 @@ class IndividualPackageWindow:
         return "%3d.%dM" % (size / 1024, (((size * 10) / 1024) % 10))
 
     def printTotal(self):
-	size = self.total / 1024
+	size = self.total
 	self.lbl.setText("%-*s   %4d.%dM" % (self.length, _("Total size"), size / 1024, (((size * 10) / 1024) % 10)))
 
     def printNum(self, group):
@@ -133,14 +133,14 @@ class IndividualPackageWindow:
 	key = header[rpm.RPMTAG_GROUP]
 	if isOn:
 	    self.groupSize[key] = self.groupSize[key] + (header[rpm.RPMTAG_SIZE] / 1024)
-	    self.total = self.total + header[rpm.RPMTAG_SIZE]
+	    self.total = self.total + (header[rpm.RPMTAG_SIZE] / 1024)
 	    self.groupSelCount[key] = self.groupSelCount[key] + 1
 	    self.ct.setEntry(header, "%-*s %s" % (self.length,
 						  header[rpm.RPMTAG_NAME],
 						  self.printSize(header[rpm.RPMTAG_SIZE] / 1024)))
 	else:
 	    self.groupSize[key] = self.groupSize[key] - (header[rpm.RPMTAG_SIZE] / 1024)
-	    self.total = self.total - header[rpm.RPMTAG_SIZE]
+	    self.total = self.total - (header[rpm.RPMTAG_SIZE] / 1024)
 	    self.groupSelCount[key] = self.groupSelCount[key] - 1
 	    self.ct.setEntry(header, "%-*s" % (self.length + 7, header[rpm.RPMTAG_NAME]))
 	self.ct.setEntry(key, "[%s] %-*s %s" % (self.printNum(key),
@@ -199,8 +199,6 @@ class IndividualPackageWindow:
 		if header.isSelected():
 		    self.groupSize[group] = self.groupSize[group] + (header[rpm.RPMTAG_SIZE] / 1024)
 		    self.groupSelCount[group] = self.groupSelCount[group] + 1
-	    else:
-		self.total = self.total + header[rpm.RPMTAG_SIZE]
 
         # now insert the groups into the list, then each group's packages
         # after sorting the list
@@ -215,7 +213,9 @@ class IndividualPackageWindow:
         keys.sort ()
 	for key in keys:
 	    self.length = max((self.length, 1+len(key)))
-	    self.total = self.total + self.groupSize[key]
+
+	# comps.size() is in meg, we found in k
+	self.total = todo.comps.size() * 1024
 
         index = 0
         for key in keys:
