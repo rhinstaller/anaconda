@@ -40,7 +40,7 @@ class WideCheckList(checklist.CheckList):
     
     def __init__(self, columns, store, clickCB=None):
 	checklist.CheckList.__init__(self, columns=columns,
-				     custom_store = store)
+				     custom_store=store)
 
 	selection = self.get_selection()
 	selection.set_mode(gtk.SELECTION_NONE)

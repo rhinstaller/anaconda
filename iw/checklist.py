@@ -33,8 +33,7 @@ class CheckList (gtk.TreeView):
 
     # XXX need to handle the multicolumn case better still....
     def __init__ (self, columns = 1, custom_store=None):
-
-	if not custom_store:
+	if custom_store is None:
 	    self.store = gtk.TreeStore(gobject.TYPE_BOOLEAN,
 				       gobject.TYPE_STRING,
 				       gobject.TYPE_STRING)
@@ -44,7 +43,7 @@ class CheckList (gtk.TreeView):
         gtk.TreeView.__init__ (self, self.store)
         
         # XXX we only handle two text columns right now
-        if custom_store == None and columns > 2:
+        if custom_store is None and columns > 2:
             raise RuntimeError, "CheckList supports a maximum of 2 columns"
 	
         self.columns = columns
@@ -73,14 +72,13 @@ class CheckList (gtk.TreeView):
         text: text to display in the row
         init_value: initial state of the indicator"""
 
-        textList = ("",) + textList        
         iter = self.store.append(None)
         self.store.set_value(iter, 0, init_value)
 
         # add the text for the number of columns we have
         i = 1
-        for text in textList[1:self.columns + 1]:
-            self.store.set_value(iter, i, textList[i])
+        for text in textList[:self.columns]:
+            self.store.set_value(iter, i, textList[i - 1])
             i = i + 1
 
         self.num_rows = self.num_rows + 1
