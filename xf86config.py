@@ -145,8 +145,8 @@ class XF86Config:
             man = string.strip(fields[0])
             model = string.strip(fields[1])
             eisa = string.strip(fields[2])
-            vert = string.strip(fields[3])
-            horiz = string.strip(fields[4])
+            horiz = string.strip(fields[3])
+            vert = string.strip(fields[4])
             if self.monlist.has_key(man):
                 self.monlist[man].append((model, eisa, vert, horiz))
             else:
