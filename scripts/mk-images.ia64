@@ -28,11 +28,14 @@ image=vmlinuz
 	append="ramdisk_size=12288 maxcpus=1"
 	initrd=initrd.img
 EOF
+
+	# make a copy in the root of the image
+	cp $MBD_BOOTTREE/efi/EFI/boot/* $MBD_BOOTTREE/
 }
 
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
 	     --imagename boot.img \
-	     --bootdisksize 10240 \
+	     --bootdisksize 20480 \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \
