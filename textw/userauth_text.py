@@ -70,8 +70,10 @@ class UsersWindow:
 
 	if edit:
 	    title = _("Edit User")
+	    helptag = "edituser"
 	else:
 	    title = _("Add User")
+	    helptag = "newuser"
 
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
@@ -80,7 +82,7 @@ class UsersWindow:
 			   (_("Password"), pass1),
 			   (_("Password (confirm)"), pass2) ],
 			 buttons = [ (_("OK"), "ok"), (cancelText, "cancel") ],
-			 help = "edituser")
+			 help = helptag)
             
             if rc == "cancel":
                 return INSTALL_BACK
