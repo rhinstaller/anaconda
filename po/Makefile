@@ -15,8 +15,7 @@ POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
            ../loader/*.c
 
-NONPOTFILES = ../comps/comps-master \
-	   /usr/share/zoneinfo/zone.tab \
+NONPOTFILES = /usr/share/zoneinfo/zone.tab \
 	   ../lang-table
 
 
