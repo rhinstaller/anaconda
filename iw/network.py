@@ -224,10 +224,10 @@ class NetworkWindow (InstallWindow):
             self.hostname.set_text (self.todo.network.hostname)
 
         self.gw = options[1]
-#        self.gw.set_text (self.todo.network.gateway)
+        self.gw.set_text (self.todo.network.gateway)
 
         self.ns = options[2]
-#        self.ns.set_text (self.todo.network.primaryNS)
+        self.ns.set_text (self.todo.network.primaryNS)
 
         self.ns2 = options[3]
         self.ns3 = options[4]
