@@ -334,7 +334,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     def select(hdList, name):
         if hdList.has_key(name):
-            id.hdList[name].selected = 1
+            hdList[name].selected = 1
 
     if not upgrade:
 	# this is NICE and LATE. It lets kickstart/server/workstation
