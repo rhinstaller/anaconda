@@ -20,6 +20,7 @@ import parted
 import math
 import os, sys, string
 
+from product import *
 import fsset
 import iutil, isys
 import raid
