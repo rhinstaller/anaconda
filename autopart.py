@@ -800,10 +800,10 @@ def doPartitioning(diskset, requests, doRefresh = 1):
                                                size)
             else:
                 vgused[request.volumeGroup] = size
+	    
     for vg in vgused.keys():
         request = requests.getRequestByID(vg)
-        print vgused[vg]
-        print request.getActualSize(requests, diskset)
+	log("Used size vs. available for vg %s:  %s %s", request.volumeGroupName, vgused[vg], request.getActualSize(requests, diskset))
         if vgused[vg] > request.getActualSize(requests, diskset):
             raise PartitioningError, _("Adding this partition would not "
                                        "leave enough disk space for already "
