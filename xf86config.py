@@ -828,7 +828,7 @@ Section "Device"
         maxdepth = -1
         for (depth, modes) in self.modes.items ():
             modes.sort (self.areaCompare)
-            if string.atoi(depth) > maxdepth:
+            if len(modes) > 0 and string.atoi(depth) > maxdepth:
                 maxdepth = string.atoi(depth)
         
         section = """
