@@ -987,16 +987,28 @@ class InstallControlState:
         text = None
         if self.htmlFile:
             file = self.htmlFile
+
+            if self.cw.configFileData.has_key("helptag"):
+                helpTag = "-%s" % (self.cw.configFileData["helptag"],)
+            else:
+                helpTag = ""
+
+            arch = "-%s" % (iutil.getArch(),)
+            tags = [ "%s%s" % (helpTag, arch), "%s" % (helpTag,),
+                     "%s" % (arch,), "" ]
             
             for path in self.searchPath:
                 for lang in langPath + ['C']:
-                    try:
-                        text = open("%s/help/%s/s1-help-screens-%s.html" %
-                                    (path, lang, file)).read ()
-                    except IOError:
-                        continue
-                    else:
-                        break
+                    for tag in tags:
+                        try:
+                            text = open("%s/help/%s/s1-help-screens-%s%s.html"
+                                        % (path, lang, file, tag)).read ()
+                        except IOError:
+                            continue
+                        else:
+                            break
+                if text:
+                    break
 
             if text:
                 return text
