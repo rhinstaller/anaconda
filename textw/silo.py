@@ -48,8 +48,8 @@ class SiloWindow:
 	(bootpart, boothd) = todo.silo.getSiloOptions()
 
 	format = "/dev/%-11s %s%*s" 
-	str1 = _("First sector of boot partition")
-	str2 = _("Master Boot Record (MBR)")
+	str1 = _("Master Boot Record (MBR)")
+	str2 = _("First sector of boot partition")
 	str3 = _("Create PROM alias `linux'")
 	str4 = _("Set default PROM boot device")
 	len1 = len(str1) + 17
@@ -57,8 +57,12 @@ class SiloWindow:
 	len3 = len(str3)
 	len4 = len(str4) 
 	lenmax = max((len1, len2, len3, len4))
-	rc1 = SingleRadioButton (format % (bootpart, str1, lenmax - len1, ""), None, 1 )
-	rc2 = SingleRadioButton (format % (boothd, str2, lenmax - len2, ""), rc1)
+	if todo.silo.getSiloMbrDefault() == 'mbr':
+	    dflt = 1
+	else:
+	    dflt = 0
+	rc1 = SingleRadioButton (format % (boothd, str1, lenmax - len1, ""), None, dflt )
+	rc2 = SingleRadioButton (format % (bootpart, str2, lenmax - len2, ""), rc1, 1 - dflt)
 
 	prompath = todo.silo.disk2PromPath(bootpart)
 	if prompath and len(prompath) > 0 and todo.silo.hasAliases():
