@@ -25,6 +25,7 @@
 #include "isys.h"
 #include "probe.h"
 #include "smp.h"
+#include "../pump/pump.h"
 #include "../balkan/byteswap.h"
 
 long long llseek(int fd, long long offset, int whence);
@@ -61,6 +62,7 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args);
 static PyObject * doDevSpaceFree(PyObject * s, PyObject * args);
 static PyObject * doRaidStart(PyObject * s, PyObject * args);
 static PyObject * doRaidStop(PyObject * s, PyObject * args);
+static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
@@ -87,9 +89,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "mount", (PyCFunction) doMount, METH_VARARGS, NULL },
     { "smpavailable", (PyCFunction) smpAvailable, METH_VARARGS, NULL },
     { "umount", (PyCFunction) doUMount, METH_VARARGS, NULL },
-#if 0
     { "confignetdevice", (PyCFunction) doConfigNetDevice, METH_VARARGS, NULL },
-#endif
     { "chroot", (PyCFunction) doChroot, METH_VARARGS, NULL },
     { "checkBoot", (PyCFunction) doCheckBoot, METH_VARARGS, NULL },
     { "checkUFS", (PyCFunction) doCheckUFS, METH_VARARGS, NULL },
@@ -381,7 +381,7 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
     int * occurs;
     char * str;
     char * error;
-    char ** argv;
+    const char ** argv;
     char strBuf[2];
 
     if (!PyArg_ParseTuple(pyargs, "OsO", &argList, &shortArgs, &longArgs)) 
@@ -530,7 +530,7 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
     }
 
     retArgs = PyList_New(0);
-    argv = (char **) poptGetArgs(optCon);
+    argv = (const char **) poptGetArgs(optCon);
     for (i = 0; argv && argv[i]; i++) {
 	PyList_Append(retArgs, PyString_FromString(argv[i]));
     }
@@ -724,18 +724,26 @@ void init_isys(void) {
 static void emptyDestructor(PyObject * s) {
 }
 
-#if 0
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     char * dev, * ip, * netmask, * broadcast, * network;
-    int * isPtp, rc;
+    int rc;
+    struct pumpNetIntf device;
+    typedef int int32;
     
-    if (!PyArg_ParseTuple(args, "sssssd", &dev, &ip, &netmask, &broadcast,
-			  &network, &isPtp)) return NULL;
+    if (!PyArg_ParseTuple(args, "sss", &dev, &ip, &network)) return NULL;
 
     strncpy(device.device, dev, sizeof(device.device) - 1);
     device.ip.s_addr = inet_addr(ip);
     device.netmask.s_addr = inet_addr(netmask);
     device.broadcast.s_addr = inet_addr(broadcast);
+
+    *((int32 *) &device.broadcast) = (*((int32 *) &device.ip) & 
+		       *((int32 *) &device.netmask)) | 
+		       ~(*((int32 *) &device.netmask));
+
+    *((int32 *) &device.network) = 
+	    *((int32 *) &device.ip) & *((int32 *) &device.netmask);
+
     device.network.s_addr = inet_addr(network);
     device.set = PUMP_INTFINFO_HAS_IP | PUMP_INTFINFO_HAS_NETMASK |
 		 PUMP_INTFINFO_HAS_BROADCAST | PUMP_INTFINFO_HAS_NETWORK;
@@ -748,7 +756,6 @@ static PyObject * doConfigNetDevice(PyObject * s, PyObject * args) {
     Py_INCREF(Py_None);
     return Py_None;
 }
-#endif
 
 static PyObject * probedListGetAttr(probedListObject * o, char * name) {
     return Py_FindMethod(probedListObjectMethods, (PyObject * ) o, name);
@@ -829,7 +836,7 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
 static PyObject * doPoptParse(PyObject * s, PyObject * args) {
     char * str;
     int argc, i;
-    char ** argv;
+    const char ** argv;
     PyObject * list;
 
     if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
