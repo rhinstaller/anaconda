@@ -201,7 +201,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
 			mlLoadModule(modList[i]->moduleName, modLoaded, 
-				     modDeps, FL_TESTING(flags));
+				     modDeps, NULL, FL_TESTING(flags));
 		    }
 		}
 	    }
@@ -213,7 +213,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 FL_TESTING(flags));
+				 NULL, FL_TESTING(flags));
 		    newtPopWindow();
 		}
 	    }
@@ -306,6 +306,11 @@ static int ensureNetDevice(struct knownDevices * kd,
     return 0;
 }
 
+#define NFS_STAGE_IP	1
+#define NFS_STAGE_NFS	2
+#define NFS_STAGE_MOUNT	3
+#define NFS_STAGE_DONE	4
+
 static int mountNfsImage(char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags) {
@@ -315,30 +320,51 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     char * host = NULL;
     char * dir = NULL;
     char * fullPath;
+    int stage = NFS_STAGE_IP;
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return i;
 
-    do {
-	rc = readNetConfig(devName, &netDev, flags);
-        if (rc) return rc;
-    } while (nfsGetSetup(&host, &dir) == LOADER_BACK);
+    while (stage != NFS_STAGE_DONE) {
+        switch (stage) {
+	  case NFS_STAGE_IP:
+	    rc = readNetConfig(devName, &netDev, flags);
+	    if (rc) {
+		pumpDisableInterface(devName);
+		return rc;
+	    }
+	    stage = NFS_STAGE_NFS;
+	    break;
 
-    
-    if (!FL_TESTING(flags)) {
-	configureNetwork(&netDev);
+	  case NFS_STAGE_NFS:
+	    if (nfsGetSetup(&host, &dir) == LOADER_BACK)
+		stage = NFS_STAGE_IP;
+	    else
+		stage = NFS_STAGE_MOUNT;
+	    break;
 
-	mlLoadModule("nfs", modLoaded, modDeps, flags);
+	  case NFS_STAGE_MOUNT:
+	    mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
+	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
+	    sprintf(fullPath, "%s:%s", host, dir);
 
-	fullPath = alloca(strlen(host) + strlen(dir) + 2);
-	sprintf(fullPath, "%s:%s", host, dir);
+	    logMessage("mounting nfs path %s", fullPath);
 
-	logMessage("mounting nfs path %s", fullPath);
+	    stage = NFS_STAGE_NFS;
 
-	doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL);
+	    if (!doPwMount(fullPath, "/mnt/source", "nfs", 1, 0, NULL, NULL)) {
+		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
+			    X_OK)) 
+		    stage = NFS_STAGE_DONE;
+		else
+		    umount("/mnt/source");
+	    }
 
-	writeNetInfo("/tmp/netinfo", &netDev);
-    }		  
+	    break;
+        }
+    }
+
+    writeNetInfo("/tmp/netinfo", &netDev);
 
     free(host);
     free(dir);
