@@ -49,6 +49,9 @@ static int getISOStatusFromFD(int isofd, char *mediasum);
 
 /* ejects the CD device the device node /tmp/cdrom points at */
 void ejectCdrom(void) {
+#if defined(__s390__) && defined(__s390x__)
+    return;
+#else
   int ejectfd;
 
   logMessage("ejecting /tmp/cdrom...");
@@ -59,6 +62,7 @@ void ejectCdrom(void) {
   } else {
       logMessage("eject failed %d ", errno);
   }
+#endif
 }
 
 /*
