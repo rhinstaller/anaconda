@@ -342,8 +342,8 @@ if (display_mode == 'g'):
             display_mode = 't'
             from text import InstallInterface
 elif (display_mode == 't'):
-    if ((len (method) >= 6 and method[:6] == "ftp://")
-        or (len (method) >= 7 and method[:7] == "http://")):
+    if ((method and len (method) >= 6 and method[:6] == "ftp://")
+        or (method and len (method) >= 7 and method[:7] == "http://")):
         print _("Graphical installation not available for %s installs.  "
                 "Starting text mode.") % (string.split(method, ':')[0],)
     elif len (method) >= 5 and method[:5] == "hd://":
