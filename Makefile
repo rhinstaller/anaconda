@@ -20,7 +20,7 @@ subdirs:
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
-	mkdir -p $(DESTDIR)/usr/lib/python1.5/lib-dynload
+	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
 	mkdir -p $(DESTDIR)/usr/bin/iw
 	cp -a anaconda *.py $(DESTDIR)/usr/bin
 	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
