@@ -744,6 +744,11 @@ static char * mountHardDrive(struct installMethod * method,
     int rc;
     int fd;
     int i, j;
+#if defined (__s390__) || defined (__s390x__)
+    static struct networkDeviceConfig netDev;
+    struct iurlinfo ui;
+    char * devName;
+#endif
     struct {
 	char name[20];
 	int type;
@@ -837,6 +842,12 @@ static char * mountHardDrive(struct installMethod * method,
 
 #else
 	/* s390 */
+	memset(&ui, 0, sizeof(ui));
+        memset(&netDev, 0, sizeof(netDev));
+        netDev.isDynamic = 1;
+	i = ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName);
+        if (i) return NULL;
+	setupRemote(&ui);
 	for(c = 'a'; c <= 'z'; c++) {
 	  for(i = 1; i < 4; i++) {
 	    char dev[7];
@@ -959,6 +970,9 @@ static char * mountHardDrive(struct installMethod * method,
     }
 
     free(dir);
+#if defined (__s390__) || defined (__s390x__)
+    writeNetInfo("/tmp/netinfo", &netDev, kd);
+#endif
 
     return url;
 }
