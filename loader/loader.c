@@ -2436,6 +2436,21 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
+			      moduleInfoSet modInfo, int flags) {
+    startNewt(flags);
+
+    winStatus(40, 3, _("IDE"), _("Initializing IDE modules..."));
+    
+    mlLoadModule("ide-mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("ide-probe-mod", NULL, modLoaded, modDeps, NULL, modInfo, 
+		 flags);
+    mlLoadModule("ide-disk", NULL, modLoaded, modDeps, NULL, modInfo, 
+		 flags);
+    mlLoadModule("ide-cd", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+
+    newtPopWindow();
+}
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -2593,6 +2608,10 @@ int main(int argc, char ** argv) {
 	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1, 1,
 			      floppyDevice);
 	}
+   
+	/* Load the ide modules after letting the user specify a driver disk.
+	   This let's them override the ide drivers if they like. */
+	ideSetup(modLoaded, modDeps, modInfo, flags);
 
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
@@ -2637,7 +2656,6 @@ int main(int argc, char ** argv) {
 	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, &modDeps,
 			   &lang, &keymap, &kbdtype,
 			   flags);
-logMessage("found url image %s", url);
     }
 
     if (!FL_TESTING(flags)) {
@@ -2729,6 +2747,10 @@ logMessage("found url image %s", url);
 	    close(fd);
 	}
     }
+
+    /* We may already have these modules loaded, but trying again won't
+       hurt. */
+    ideSetup(modLoaded, modDeps, modInfo, flags);
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
