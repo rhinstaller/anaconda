@@ -32,7 +32,7 @@ extern int testing;
 void disableSwap(void);
 void unmountFilesystems(void);
 
-void rebootHandler(int signum) {
+static void rebootHandler(int signum) {
     printf("rebooting system\n");
 #if USE_MINILIBC
     reboot(0xfee1dead, 672274793, 0x1234567);
