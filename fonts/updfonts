@@ -25,11 +25,11 @@ for n in $fontlist; do
     echo -n " map "
     echo $map
 
-    setfont --tty=/dev/tty1 -f $map -u $n
+    consolechars --tty /dev/tty1 -f $map -m $n
     ../utils/snarffont > $TMPDIR/$n
 done
 
-setfont --tty=/dev/tty1
+consolechars --tty /dev/tty1 -d
 
 (cd $TMPDIR > /dev/null; ls * | cpio -o -H crc) | gzip -9 > fonts-$ARCH
 
