@@ -28,6 +28,7 @@ class XF86Config:
         self.devID = None
         self.probed = 0
         self.skip = 0
+	self.primary = 0
         self.modes = { "8" :  ["640x480"] }
 	self.device = None
         self.keyRules = "xfree86"
@@ -157,13 +158,15 @@ class XF86Config:
         self.vidCards.append (card)
 
         if self.vidCards:
-            self.devID = self.vidCards[0]["NAME"]
-            self.server = self.vidCards[0]["SERVER"]
+            self.devID = self.vidCards[self.primary]["NAME"]
+            self.server = self.vidCards[self.primary]["SERVER"]
 
     def probe (self, probeMonitor = 1):
         if self.probed:
             return
         self.probed = 1
+	self.device = None
+	self.primary = 0
         # PCI probe for video cards
         sections = {}
 
@@ -173,8 +176,9 @@ class XF86Config:
         for card in cards:
             section = ""
             (device, server, descr) = card
-	    if len (self.vidCards) == 0:
+	    if device and not self.device:
 		self.device = device
+		self.primary = len(self.vidCards)
             if len (server) > 5 and server[0:5] == "Card:":
                 self.vidCards.append (self.cards (server[5:]))
             if len (server) > 7 and server[0:7] == "Server:":
@@ -183,8 +187,8 @@ class XF86Config:
                 self.vidCards.append (info)
 
         if self.vidCards:
-            self.devID = self.vidCards[0]["NAME"]
-            self.server = self.vidCards[0]["SERVER"]
+            self.devID = self.vidCards[self.primary]["NAME"]
+            self.server = self.vidCards[self.primary]["SERVER"]
 
         # VESA probe for monitor/videoram, etc.
         if probeMonitor:
@@ -213,7 +217,7 @@ class XF86Config:
 			self.monVert = string.strip (string.split (ranges[1], '=')[1])
 
 		    if self.vidCards and self.cardMan:
-			self.vidCards[0]["VENDOR"] = self.cardMan
+			self.vidCards[self.primary]["VENDOR"] = self.cardMan
 	    except:
 		pass
 	    if not self.vidRam and self.device:
@@ -228,7 +232,7 @@ class XF86Config:
     def probeReport (self):
         probe = ""
         if self.vidCards:
-            probe = probe + _("Video Card") + ": " + self.vidCards[0]["NAME"] + "\n"
+            probe = probe + _("Video Card") + ": " + self.vidCards[self.primary]["NAME"] + "\n"
             if self.vidRam:
                 probe = probe + "\t" + _("Video Ram") + ": " + self.vidRam + " kb\n"
         if self.server:
