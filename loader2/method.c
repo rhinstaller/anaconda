@@ -498,6 +498,7 @@ void copyUpdatesImg(char * path) {
         if (!mountLoopback(path, "/tmp/update-disk", "loop7")) {
             copyDirectory("/tmp/update-disk", "/tmp/updates");
             umountLoopback("/tmp/update-disk", "loop7");
+            unlink("/tmp/update-disk");
         }
     }
 }
@@ -507,6 +508,7 @@ void copyProductImg(char * path) {
         if (!mountLoopback(path, "/tmp/product-disk", "loop7")) {
             copyDirectory("/tmp/product-disk", "/tmp/product");
             umountLoopback("/tmp/product-disk", "loop7");
+            unlink("/tmp/product-disk");
         }
     }
 }
