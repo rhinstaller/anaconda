@@ -31,10 +31,10 @@ class DesktopChoiceWindow (InstallWindow):
         ics.setGrabNext (1)
 
     def getNext(self):
-	if self.customize.get_active():
+	if self.customizeRadio.get_active():
 	    self.dispatch.skipStep("package-selection", skip = 0)
 	else:
-	    self.dispatch.skipStep("package-selection")
+	    self.dispatch.skipStep("package-selection", skip = 1)
 
 	return None
     
@@ -44,24 +44,33 @@ class DesktopChoiceWindow (InstallWindow):
 	self.intf = intf
 	self.dispatch = dispatch
 
-	table = gtk.Table()
-	table.set_row_spacings(5)
-	table.set_border_width(5)
+	vbox = gtk.VBox (gtk.FALSE, 36)
+	vbox.set_border_width (5)
+	hbox = gtk.HBox (gtk.FALSE, 0)
 
 	label1 = DEFAULT_DESKTOP_LABEL_1
 	label2 = "\tGNOME Desktop\t\t\tNautilus file manager\n"+"\tMozilla web browser\t\tEvolution mail client\n"+"\tCD authoring software\t\tMultimedia applications\n"+"\tOpen Office(tm) office suite"
 	label3 = DEFAULT_DESKTOP_LABEL_2 % (productName, productName)
 
 	label = gui.WrappingLabel(label1+"\n\n"+label2+"\n\n"+label3)
-	table.attach(label, 0, 1, 0, 1)
-
-	self.customize = gtk.CheckButton(_("I would like to choose additional software"))
-	table.attach(self.customize, 0, 1, 1, 2, ypadding=15)
-
+	hbox.pack_start (label, gtk.FALSE, gtk.FALSE, 0)
+	vbox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 0)
+	
+	self.acceptRadio = gtk.RadioButton (None, _("_Accept the current package list"))
+	self.customizeRadio = gtk.RadioButton (self.acceptRadio, _("_Customize the set of packages to be installed"))
+	vbox2 = gtk.VBox (gtk.FALSE, 18)
+	vbox2.pack_start (self.acceptRadio, gtk.FALSE, gtk.FALSE, 0)
+	vbox2.pack_start (self.customizeRadio, gtk.FALSE, gtk.FALSE, 0)
+	al = gtk.Alignment(0.5, 0)
+	al.add (vbox2)
+	
+	vbox.pack_start (al, gtk.FALSE, gtk.FALSE, 0)
 	custom = not self.dispatch.stepInSkipList("package-selection")
-	self.customize.set_active(custom)
-
-	al = gtk.Alignment(0.5, 0.5)
-	al.add(table)
-	return al
-    
+	if custom:
+	    self.customizeRadio.set_active(1)
+	else:
+	    self.acceptRadio.set_active(0)
+	    
+	big_al = gtk.Alignment (0.5, 0.2)
+	big_al.add (vbox)
+	return big_al
