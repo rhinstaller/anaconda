@@ -464,7 +464,7 @@ def getPPCMachine():
                 'CHRP IBM' : 'pSeries',
                 'iSeries'  : 'iSeries',
                 'PReP'     : 'PReP',
-                'CHRP'     : 'CHRP',
+                'CHRP'     : 'pSeries',
                 'Amiga'    : 'APUS',
                 'Gemini'   : 'Gemini',
                 'Shiner'   : 'ANS',
