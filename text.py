@@ -286,12 +286,19 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, title, text):
-	ugh = "%s\n\n" % (_("An unhandled exception has occurred.  This "
+        if iutil.getArch() == 's390':
+            ugh = "%s\n\n" % (_("An unhandled exception has occured.  This "
                             "is most likely a bug.  Please copy the "
-                            "full text of this exception or save the crash "
-                            "dump to a floppy then file a detailed bug "
-                            "report against anaconda at "
+                            "full text of this exception and file a "
+                            "detailed bug report against anaconda at "
                             "http://bugzilla.redhat.com/bugzilla/"),)
+        else:
+            ugh = "%s\n\n" % (_("An unhandled exception has occured.  This "
+                           "is most likely a bug.  Please copy the "
+                           "full text of this exception or save the crash "
+                           "dump to a floppy then file a detailed bug "
+                           "report against anaconda at "
+                           "http://bugzilla.redhat.com/bugzilla/"),)
 
 	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
                            buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")])
@@ -377,12 +384,14 @@ class InstallInterface:
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
         lang = id.instLanguage.getCurrent()
         # if we don't have any way to display the preselected language,
-        # fall back to English.
-        if ((id.instLanguage.getFontFile(lang) == "Kon" and not
-             isys.isPsudoTTY(0)) or
-            id.instLanguage.getFontFile(lang) == "None"):
-            lang = "English"
-            id.instLanguage.setRuntimeLanguage(lang)
+        # fall back to English.(Except S390, where the installation
+        # is done remotely and the display is handled by the remote machine)
+        if iutil.getArch() != 's390':
+            if ((id.instLanguage.getFontFile(lang) == "Kon" and not
+                 isys.isPsudoTTY(0)) or
+                id.instLanguage.getFontFile(lang) == "None"):
+                lang = "English"
+                id.instLanguage.setRuntimeLanguage(lang)
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage
