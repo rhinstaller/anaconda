@@ -757,6 +757,8 @@ class PartitionWindow:
                     
                 if request.fstype.isMountable():
                     request.mountpoint = self.mount.value()
+                else:
+                    request.mountpoint = None
 
                 if request.type == REQUEST_PREEXIST:
                     request.format = format
