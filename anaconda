@@ -30,6 +30,7 @@ mode = 'g'
 method = None
 traceOnly = 0
 mouseInfo = None
+x = None
 kickstart = None
 
 for n in args:
@@ -91,11 +92,15 @@ from kickstart import Kickstart
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
-    result = xserver.startX ()
+    try:
+        result = xserver.startX ()
+    except RuntimeError:
+        print "X startup failed, falling back to text mode"
+        mode = 't'
     if not result:
         mode = 't'
     else:
-	(mouseInfo,) = (result)
+	(mouseInfo, x) = (result)
 
 if (mode == 'g'):
     if not test and not localInstall:
@@ -167,7 +172,7 @@ else:
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
                 setupFilesystems = setupFilesystems, mouse = mouseInfo,
-		instClass = instClass)
+		instClass = instClass, x = x)
     intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()
