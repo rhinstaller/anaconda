@@ -1044,6 +1044,8 @@ class KickstartBase(BaseInstallClass):
         
         if uniqueID:
             request.uniqueID = uniqueID
+        if preexist and raidDev is not None:
+            request.device = "md%s" %(raidDev,)
 
         self.addPartRequest(id.partitions, request)
 
