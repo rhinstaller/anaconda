@@ -50,7 +50,7 @@ class LiloConfiguration:
 	for l in f.readlines():
 	    l = l[:-1]
 	    orig = l
-	    while (l and l[0] == ' ' or l[0] == '\t'):
+	    while (l and (l[0] == ' ' or l[0] == '\t')):
 		l = l[1:]
 	    if (not l or l[0] == '#'):
 		self.order.append('#' + orig)
