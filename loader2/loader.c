@@ -554,8 +554,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "ksdevice=", 9)) {
             loaderData->netDev = strdup(argv[i] + 9);
             loaderData->netDev_set = 1;
-        } else if (!strncasecmp(argv[i], "dhcpclass=", 8)) {
-            loaderData->netCls = strdup(argv[i] + 8);
+        } else if (!strncasecmp(argv[i], "dhcpclass=", 10)) {
+            loaderData->netCls = strdup(argv[i] + 10);
             loaderData->netCls_set = 1;
         }
         else if (!strcasecmp(argv[i], "ks") || !strncasecmp(argv[i], "ks=", 3))
