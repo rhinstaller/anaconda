@@ -45,6 +45,7 @@ class LanguageWindow (InstallWindow):
         path = self.listStore.get_path(iter)
         col = self.listView.get_column(0)
         self.listView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+	self.listView.set_cursor(path, col, gtk.FALSE)
 
     # LanguageWindow tag="lang"
     def getScreen (self, intf, instLang):
