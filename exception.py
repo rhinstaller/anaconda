@@ -36,11 +36,45 @@ def dumpClass(instance, fd, level=0):
     else:
         fd.write("Already dumped\n")
         return
+    if (instance.__class__.__dict__.has_key("__str__") or
+        instance.__class__.__dict__.has_key("__repr__")):
+        fd.write("%s\n" % (instance,))
+        return
     fd.write("%s instance, containing members:\n" %
              (instance.__class__.__name__))
     pad = ' ' * ((level) * 2)
     for key, value in instance.__dict__.items():
-        if type(value) == types.InstanceType:
+        if type(value) == types.ListType:
+            fd.write("%s%s: [" % (pad, key))
+            first = 1
+            for item in value:
+                if not first:
+                    fd.write(", ")
+                else:
+                    first = 0
+                if type(item) == types.InstanceType:
+                    dumpClass(item, fd, level + 1)
+                else:
+                    fd.write("%s" % (item,))
+            fd.write("]\n")
+        elif type(value) == types.DictType:
+            fd.write("%s%s: {" % (pad, key))
+            first = 1
+            for k, v in value.items():
+                if not first:
+                    fd.write(", ")
+                else:
+                    first = 0
+                if type(k) == types.StringType:
+                    fd.write("'%s': " % (k,))
+                else:
+                    fd.write("%s: " % (k,))
+                if type(v) == types.InstanceType:
+                    dumpClass(v, fd, level + 1)
+                else:
+                    fd.write("%s" % (v,))
+            fd.write("}\n")
+        elif type(value) == types.InstanceType:
             fd.write("%s%s: " % (pad, key))
             dumpClass(value, fd, level + 1)
         else:
