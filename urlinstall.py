@@ -45,7 +45,7 @@ class UrlInstallMethod(InstallMethod):
 		     "/." ]
 	for p in pathlist:
 	    if (os.access(root + p, os.X_OK)):
-		tmppath = root + p
+		tmppath = root + p + "/"
 		break
 
 	# h doubles as a filename -- gross
