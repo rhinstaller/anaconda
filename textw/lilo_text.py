@@ -97,7 +97,18 @@ class LiloWindow:
         return INSTALL_OK
 
 class LiloImagesWindow:
-    def editItem(self, screen, partition, itemLabel):
+    def validLiloLabel(self, label):
+        i=0
+        while i < len(label):
+            cur = label[i]
+            if cur == ' ' or cur == '#' or cur == '$' or cur == '=':
+                return 0
+            i = i + 1
+
+        return 1
+
+    
+    def editItem(self, screen, partition, itemLabel, allowNone=0):
 	devLabel = Label(_("Device") + ":")
 	bootLabel = Label(_("Boot label") + ":")
 	device = Label("/dev/" + partition)
@@ -129,17 +140,15 @@ class LiloImagesWindow:
 	    elif (result == "clear"):
 		newLabel.set("")
             elif (result == "ok" or result == "F12" or result == newLabel):
-		import regex
-
-		if not newLabel.value():
+		if not allowNone and not newLabel.value():
                     rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
                                              _("Boot label may not be empty."),
                                              [ _("OK") ])
                     result = ""
-                elif (regex.search (" ", newLabel.value()) != -1):
+                elif not self.validLiloLabel(newLabel.value()):
                     rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
-                                             _("Boot labels cannot contain "
-                                               "space(s)."),
+                                             _("Boot label contains "
+                                               "illegal characters."),
                                              [ _("OK") ])
                     result = ""
 
@@ -210,6 +219,7 @@ class LiloImagesWindow:
 	g.addHotKey(" ")
 
 	result = None
+        (rootdev, rootfs) = todo.fstab.getRootDevice()
 	while (result != "ok" and result != "back" and result != "F12"):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
@@ -218,7 +228,7 @@ class LiloImagesWindow:
 	    if (result == string.lower(_("Edit")) or result == listbox):
 		item = listbox.current()
 		(label, type) = images[item]
-		label = self.editItem(screen, item, label)
+		label = self.editItem(screen, item, label, allowNone = (rootdev != item))
 		images[item] = (label, type)
 		if (default == item and not label):
 		    default = ""
