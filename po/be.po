@@ -6,15 +6,15 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda VERSION\n"
+"Project-Id-Version: anaconda HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-11 11:14+0300\n"
+"PO-Revision-Date: 2004-09-25 02:59+0300\n"
 "Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
-"Language-Team: belarusian <i18n@mova.org>\n"
+"Language-Team: Belorussian\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -146,7 +146,7 @@ msgstr "Невядомая памылка"
 #: ../anaconda:621
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
+msgstr "Памылка атрыманьня другой часткі наладкі kickstart: %s!"
 
 #: ../anaconda:737
 msgid ""
@@ -158,15 +158,17 @@ msgstr ""
 
 #: ../anaconda:789
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Пераход да ўсталёўкі ў тэкставым рэжыме"
 
 #: ../anaconda:816
 msgid "No video hardware found, assuming headless"
 msgstr ""
+"Відэакартка ня знойдзена; далейшая ўсталёўка пойдзе без разьліку на "
+"відэакартку"
 
 #: ../anaconda:827 ../anaconda:1087
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "Немагчыма ініцыялізаваць аб'ект стану абсталяваньня X."
 
 #: ../anaconda:851
 msgid "Graphical installation not available...  Starting text mode."
@@ -196,19 +198,19 @@ msgstr "Запуск графічнае ўсталёўкі..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
+msgstr "Немагчыма разьмеркаваць цыліндра-заснаваныя падзелы як першасныя"
 
 #: ../autopart.py:949
 msgid "Could not allocate partitions as primary partitions"
-msgstr ""
+msgstr "Немагчыма разьмеркаваць падзелы як першасныя"
 
 #: ../autopart.py:952
 msgid "Could not allocate cylinder-based partitions"
-msgstr ""
+msgstr "Немагчыма разьмеркаваць цыліндра-заснаваныя падзелы"
 
 #: ../autopart.py:955
 msgid "Could not allocate partitions"
-msgstr ""
+msgstr "Немагчыма разьмеркаваць падзелы"
 
 #: ../autopart.py:1017
 #, python-format
@@ -232,18 +234,23 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Падзел загрузкі %s не зьяўляецца VFAT падзелам. EFI ня здолее загружацца з "
+"гэтага падзела."
 
 #: ../autopart.py:1023
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
+"Падзел загрузкі знаходзіцца надта далёка на дыске. OpenFirmware ня здолее "
+"загрузіць гэтую усталёўку."
 
 #: ../autopart.py:1030
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
+"Падзел загрузкі %s не адпавядае патрабаваньням загрузкі вашае архітэктуры."
 
 #: ../autopart.py:1056
 #, python-format
@@ -251,6 +258,8 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"Даданьне гэтага падзела не пакіне неабходнае вольнае прасторы для ўжо "
+"разьмеркаваных лягічаскіх падзелаў у %s."
 
 #: ../autopart.py:1223
 msgid "Requested Partition Does Not Exist"
@@ -263,6 +272,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Немагчыма адшукаць падзел %s каб выкарыстоўваць для %s.\n"
+"\n"
+"Націсьніце \"Добра\" для перазагрузкі сыстэмы."
 
 #: ../autopart.py:1249
 msgid "Requested Raid Device Does Not Exist"
@@ -275,10 +287,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Немагчыма адшукаць raid прыладу %s каб выкарыстоўваць для %s.\n"
+"\n"
+"Націсьніце \"Добра\" для перазагрузкі сыстэмы."
 
 #: ../autopart.py:1279
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "Запатрабаваная група тамоў не йснуе"
 
 #: ../autopart.py:1280
 #, python-format
@@ -287,10 +302,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Немагчыма адшукаць групу тамоў %s каб выкарыстоўваць для %s.\n"
+"\n"
+"Націсьніце \"Добра\" для перазагрузкі сыстэмы."
 
 #: ../autopart.py:1315
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "Запатрабаваны лягічаскі том не йснуе"
 
 #: ../autopart.py:1316
 #, python-format
@@ -299,10 +317,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Немагчыма адшукаць лягічаскі том %s каб выкарыстоўваць для %s.\n"
+"\n"
+"Націсьніце \"Добра\" для перазагрузкі сыстэмы."
 
 #: ../autopart.py:1389 ../autopart.py:1437
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "Памылкі пад час аўтаматычнага разбіеньня"
 
 #: ../autopart.py:1390
 #, python-format
@@ -313,10 +334,15 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Пад час аўтаматычнага разбіеньня адбыліся наступныя памылкі:\n"
+"\n"
+"%s\n"
+"\n"
+"Націсьніце \"Добра\" для перазагрузкі сыстэмы."
 
 #: ../autopart.py:1400
 msgid "Warnings During Automatic Partitioning"
-msgstr ""
+msgstr "Папярэджаньні пад час аўтаматычнага разбіеньня"
 
 #: ../autopart.py:1401
 #, python-format
@@ -325,6 +351,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Пад час аўтаматычнага разбіеньня адбыліся наступныя папярэджаньні:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1414 ../autopart.py:1431
 msgid ""
@@ -348,6 +377,9 @@ msgid ""
 "\n"
 "%s.%s"
 msgstr ""
+"Немагчыма разьмеркаваць запатрабаваныя падзелы: \n"
+"\n"
+"%s.%s"
 
 #: ../autopart.py:1433
 msgid ""
@@ -358,6 +390,12 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
+"\n"
+"\n"
+"Вы можаце абраць розныя варыянты аўтаматычнага стварэньня падзелаў, альбо "
+"пстрыкнуць \"Назад\", каб самастойна стварыць падзелы.\n"
+"\n"
+"Націсьніце \"Добра\" для працягу."
 
 #: ../autopart.py:1438
 #, python-format
@@ -369,6 +407,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"Пад час стварэньня падзелаў адбыліся наступныя памылкі:\n"
+"\n"
+"%s\n"
+"\n"
+"Гэта магло здарыцца, калі бракуе вольнае прасторы для ўсталёўкі на вашым "
+"жорсткім дыске ці дысках.%s"
 
 #: ../autopart.py:1449
 msgid "Unrecoverable Error"
@@ -401,24 +445,32 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"Аўтаматычнае стварэньне падзелаў грунтуецца на абраным тыпе ўсталёўкі. Вы "
+"так сама можаце зьмяніць падзелы пад вашы патрэбы, пасьля іх стварэньня.\n"
+"\n"
+"Disk Druid - праграма для самастойнага стварэньня падзелаў, дазваляе вам "
+"ствараць падзелы ў інтарактыўным асяродзьдзі. Вы можаце выставіць тыпы "
+"файлавых сыстэм, пункты мацаваньня, памеры падзелаў і іншыя рэчы."
 
 #: ../autopart.py:1614
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"Перш чым адбудзецца аўтаматычнае стварэньне падзелаў, вам трэба абраць, якім "
+"чынам выкарыстоўваць прастору жорсткіх дыскаў."
 
 #: ../autopart.py:1619
 msgid "Remove all partitions on this system"
-msgstr ""
+msgstr "Выдліць усе падзелы з гэтае сыстэмы"
 
 #: ../autopart.py:1620
 msgid "Remove all Linux partitions on this system"
-msgstr ""
+msgstr "Выдліць усе Linux падзелы з гэтае сыстэмы"
 
 #: ../autopart.py:1621
 msgid "Keep all partitions and use existing free space"
-msgstr ""
+msgstr "Некранаць існуючыя падзелы й ужыць вольную прастору"
 
 #: ../autopart.py:1623
 #, python-format
@@ -427,6 +479,8 @@ msgid ""
 "s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Вы абралі выдаленьне ўсіх падзелаў (УСІХ ДАНЬНЯЎ) на гэтыхпрыладах: %s\n"
+"Вы насамрэч жадаеце зрабіць гэта?"
 
 #: ../autopart.py:1627
 #, python-format
@@ -435,20 +489,25 @@ msgid ""
 "following drives:%s\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Вы абралі выдаленьне ўсіх Linux падзелаў (УСІХ ДАНЬНЯЎ) на гэтыхпрыладах: %"
+"s\n"
+"Вы насамрэч жадаеце зрабіць гэта?"
 
 #: ../bootloader.py:110
 msgid "Bootloader"
-msgstr ""
+msgstr "Загрузчык"
 
 #: ../bootloader.py:110
 msgid "Installing bootloader..."
-msgstr ""
+msgstr "Усталёўваньне загрузчыка..."
 
 #: ../bootloader.py:152
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"У сыстэме адсутнічаюць усталяваныя пакеты ядра. Наладка загрузчыка ня будзе "
+"зьменена."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -460,11 +519,13 @@ msgstr "Ідзе праца...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr ""
+msgstr "Немагчыма запытацца ў рэжыме загаднага разка!"
 
 #: ../cmdline.py:87
 msgid "Parted exceptions can't be handled in command line mode!"
 msgstr ""
+"Памылкі рэдактара падзелаў ня могуць быць апрацаваны ў рэжыме загаднага "
+"радка!"
 
 #: ../cmdline.py:132
 #, python-format
@@ -482,11 +543,11 @@ msgstr "Усё"
 
 #: ../comps.py:936 ../comps.py:1001
 msgid "no suggestion"
-msgstr ""
+msgstr "варыянты адсутнічаюць"
 
 #: ../comps.py:1098 ../hdrlist.py:1008
 msgid "Miscellaneous"
-msgstr ""
+msgstr "Рознае"
 
 #: ../comps.py:1114 ../hdrlist.py:45 ../hdrlist.py:955
 msgid ""
@@ -494,12 +555,16 @@ msgid ""
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
+"Гэтая група ўтрымлівае ўсе наяўныя пакеты. Заўважце, што гэта значна болей, "
+"чым усе пакеты з усіх іншых груп з гэтай старонкі."
 
 #: ../comps.py:1118 ../hdrlist.py:959
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
+"Выбярыце гэтую групу, каб атрымаць найменшае магчымае мноства пакетаў. Гэта "
+"карысна напрыклад, для стварэньня маленькага шляхавіка/міжсеткавага экрана."
 
 #: ../constants.py:72
 msgid ""
@@ -508,6 +573,10 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
+"Адбылася невыправімая памылка. Хутчэй заўсё гэта памылка ў праграмным "
+"забесьпячэньні. Калі ласка, стварэце копію ўсяго тэкста памылкі альбо "
+"захавайце дамп памяці на дыск; запоўніце падрабязнае паведамленьне аб "
+"памылцы ў Анакондзе на http://bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:79
 msgid ""
@@ -515,6 +584,10 @@ msgid ""
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
+"Адбылася невыправімая памылка. Хутчэй заўсё гэта памылка ў праграмным "
+"забесьпячэньні. Калі ласка, стварэце копію ўсяго тэкста памылкі; запоўніце "
+"падрабязнае паведамленьне аб памылцы ў Анакондзе на http://bugzilla.redhat."
+"com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:241
 msgid "Exception Occurred"
@@ -557,6 +630,8 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
+"Памер модуляў ядра, неабходных для вашае машын, робіць немагчымым стварэнье "
+"гнуткага дыска."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -569,6 +644,10 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
+"Калі ласка, дастаньце ўсе дыскі з дыскавода й устаўце загрузачны дыск.\n"
+"\n"
+"Усе даньні з гнуткага дыска будуць ВЫДАЛЕНЫ цягам стварэньня загрузачнага "
+"дыска."
 
 #: ../floppy.py:118
 msgid "_Cancel"
@@ -576,7 +655,7 @@ msgstr "Ска_саваць"
 
 #: ../floppy.py:118
 msgid "_Make boot disk"
-msgstr ""
+msgstr "_Зрабіць загрузачны дыск"
 
 #: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:592 ../fsset.py:1274 ../fsset.py:1293 ../fsset.py:1344
@@ -611,6 +690,8 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
+"Пад час стварэньня загрузачнага дыска ўзьнікла памылка. Калі ласка, "
+"упэўніцеся, што гнуткі дыск прысутнічае ў першым дыскаводзе."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -618,13 +699,15 @@ msgstr "Стварэньне"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr ""
+msgstr "Стварэньне загрузачнага дыска..."
 
 #: ../floppy.py:170
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
+"Ўзьнікла памылка пад час праверкі загрузачнага дыска. Калі ласка, упэўніцеся "
+"што ў прыладзе знаходзіцца якасны гнуткі дыск."
 
 #: ../floppy.py:201
 msgid ""
@@ -632,6 +715,8 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
+"Здаецца, ваш гнуткі дыск пашкоджаны. Калі ласка, зьмясьціце якасны дыск у "
+"першы дыскаквод."
 
 #: ../fsset.py:178
 msgid "Checking for Bad Blocks"
@@ -650,6 +735,9 @@ msgid ""
 "\n"
 "Would you like to continue without migrating %s?"
 msgstr ""
+"Узьнікла памылка пад час міграцыі %s на ext3. Есьць магчымаць працягваць "
+"працу без міграцыі гэтае файлавае сыстэмы.n\n"
+"Ці жадаеце працягваць без міграцыі %s?"
 
 #: ../fsset.py:1189
 msgid "RAID Device"
@@ -679,6 +767,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"Узьнікла памылка пад час ініцыялізаваньня прасторы падмену %s. Гэта "
+"сур'ёзная праблема й усталёўка ня можа працягвацца далей.\n"
+"\n"
+"Націсніце <Enter> для перазагрузкі сыстэмы."
 
 #: ../fsset.py:1294
 #, python-format
@@ -689,6 +781,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Немагчыма задзейнічаць прастору падмему %s: %s\n"
+"\n"
+"Верагодна, яна не была праініцыялізавана.\n"
+"\n"
+"Націсьніце \"Добра\", каб перазагрузіць сыстэму."
 
 #: ../fsset.py:1345
 #, python-format
@@ -698,6 +795,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
+"На прыладзе /dev/%s былі знойдзены дрэнныя блёкі. Далейшае выкарыстаньне "
+"гэтае прылады не пажадана.\n"
+"\n"
+"Націсьніце <Enter> каб перазагрузіць сыстэму"
 
 #: ../fsset.py:1356
 #, python-format
@@ -707,6 +808,10 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
+"На прыладзе /dev/%s былі знойдзены дрэнныя блёкі. Далейшае выкарыстаньне "
+"гэтае прылады не пажадана.\n"
+"\n"
+"Націсьніце <Enter> для перазагрузкі сыстэмы"
 
 #: ../fsset.py:1391
 #, python-format
@@ -728,7 +833,7 @@ msgstr ""
 
 #: ../fsset.py:1462 ../fsset.py:1471
 msgid "Invalid mount point"
-msgstr ""
+msgstr "Нерэчаісны пункт мацаваньня"
 
 #: ../fsset.py:1463
 #, python-format
@@ -757,6 +862,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Памылка прымацоўваньня прылады %s як %s: %s\n"
+"\n"
+"Верагодна, падзел ня мае файлавае сыстэмы.\n"
+"\n"
+"Націсьніце \"Добра\" каб перазагрузіць сыстэму."
 
 #: ../fsset.py:2131
 msgid "Duplicate Labels"
@@ -876,10 +986,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Наступныя памылкі былі знойдзены цягам разбору наладкі kickstart:\n"
+"\n"
+"%s"
 
 #: ../gui.py:658 ../text.py:286
 msgid "Error Parsing Kickstart Config"
-msgstr ""
+msgstr "Памылка разбору наладкі Kickstart"
 
 #: ../gui.py:666 ../text.py:296
 msgid ""
@@ -2124,9 +2237,8 @@ msgid ""
 msgstr ""
 
 #: ../urlinstall.py:46
-#, fuzzy
 msgid "Connecting..."
-msgstr "Праверка \"%s\"..."
+msgstr ""
 
 #: ../vnc.py:54
 msgid "Unable to Start X"
@@ -2272,30 +2384,32 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Рахунак root выкарыстоўваецца для адміністраваньня сыстэмы. Увядзіце пароль"
+"для карыстальніка root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "_Пароль root:"
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "Па_цьверджаньне:"
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr ""
+msgstr "Наладка аўтэнтыфікацыі"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr ""
+msgstr "Уключыць паролі _MD5"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr ""
+msgstr "Уключыць _ценевыя паролі"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr ""
+msgstr "Уключыць N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
@@ -2303,55 +2417,55 @@ msgstr ""
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
-msgstr ""
+msgstr "NIS _маёнтак: "
 
 #: ../iw/auth_gui.py:118
 msgid "NIS _Server: "
-msgstr ""
+msgstr "NIS _паслужнік: "
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
-msgstr ""
+msgstr "Уключыць _LDAP"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr ""
+msgstr "Выкарыстоўваць _TLS"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
-msgstr ""
+msgstr "LDAP _паслужнік:"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr ""
+msgstr "LDAP _базавая DN:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr ""
+msgstr "Уключыць _Kerberos"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
-msgstr ""
+msgstr "Аб_шар:"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
-msgstr ""
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr ""
+msgstr "_Адмін. паслужнік:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr ""
+msgstr "Уключыць аўтэнтыфікацыю SMB"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
-msgstr ""
+msgstr "SMB _паслужнік:"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr ""
+msgstr "SMB група:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
@@ -2375,6 +2489,8 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
+"Пароль на загрузку стварае абарону ад зьмены парамэнтраў ядру. Каб павысіць "
+"узровень бясьпекі вельмі раціца выставіць гэты пароль."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
@@ -2382,7 +2498,7 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr ""
+msgstr "Зьмяніць _пароль"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2396,19 +2512,19 @@ msgstr ""
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
-msgstr ""
+msgstr "_Пароль:"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr ""
+msgstr "Па_цьверджаньне:"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
-msgstr ""
+msgstr "Паролі не супадаюць"
 
 #: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:447
 msgid "Passwords do not match"
-msgstr ""
+msgstr "Паролі не супадаюць"
 
 #: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:457
 msgid ""
@@ -2470,17 +2586,17 @@ msgstr ""
 
 #: ../iw/bootloader_advanced_gui.py:82
 msgid "_General kernel parameters"
-msgstr ""
+msgstr "_Агульныя парамэтры ядра"
 
 #: ../iw/bootloader_main_gui.py:30 ../textw/bootloader_text.py:53
 #: ../textw/bootloader_text.py:125 ../textw/bootloader_text.py:184
 #: ../textw/bootloader_text.py:307 ../textw/bootloader_text.py:399
 msgid "Boot Loader Configuration"
-msgstr ""
+msgstr "Наладка загрузчыка"
 
 #: ../iw/bootloader_main_gui.py:75
 msgid "Change Boot Loader"
-msgstr ""
+msgstr "Зьмяніць загрузчык"
 
 #: ../iw/bootloader_main_gui.py:93
 msgid ""
@@ -2492,7 +2608,7 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:105
 msgid "C_ontinue with no boot loader"
-msgstr ""
+msgstr "П_рацягваць без загрузчыка"
 
 #: ../iw/bootloader_main_gui.py:131
 msgid ""
@@ -2503,28 +2619,28 @@ msgstr ""
 
 #: ../iw/bootloader_main_gui.py:139
 msgid "Use _GRUB as the boot loader"
-msgstr ""
+msgstr "Выкарыстоўваць _GRUB у якасьці загрузчыка"
 
 #: ../iw/bootloader_main_gui.py:143
 msgid "Use _LILO as the boot loader"
-msgstr ""
+msgstr "Выкарыстоўваць _LILO у якасьці загрузчыка"
 
 #: ../iw/bootloader_main_gui.py:147
 msgid "_Do not install a boot loader"
-msgstr ""
+msgstr "_Не ўсталёўваць загрузчык"
 
 #: ../iw/bootloader_main_gui.py:170
 #, python-format
 msgid "The %s boot loader will be installed on /dev/%s."
-msgstr ""
+msgstr "Загрузчык %s будзе ўсталяваны на /dev/%s."
 
 #: ../iw/bootloader_main_gui.py:175
 msgid "No boot loader will be installed."
-msgstr ""
+msgstr "Загрузчык ня будзе ўсталявны."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr ""
+msgstr "_Зьмяніць загрузчык"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
@@ -2814,12 +2930,12 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:45
 msgid "_Configure Firewall"
-msgstr ""
+msgstr "На_ладзіць міжсеткавы экран"
 
 #: ../iw/firewall_gui.py:45 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:120
 msgid "_Proceed"
-msgstr ""
+msgstr "_Працяг"
 
 #: ../iw/firewall_gui.py:79 ../textw/firewall_text.py:31
 msgid ""
@@ -2829,11 +2945,11 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:90
 msgid "N_o firewall"
-msgstr ""
+msgstr "_Без экрана"
 
 #: ../iw/firewall_gui.py:92
 msgid "_Enable firewall"
-msgstr ""
+msgstr "_Уключыць экран"
 
 #: ../iw/firewall_gui.py:109
 msgid ""
@@ -2852,43 +2968,43 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:158
 msgid "Enable _SELinux?:"
-msgstr ""
+msgstr "Уключыць _SELinux?:"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
-msgstr ""
+msgstr "Тып усталёўкі"
 
 #: ../iw/ipwidget.py:92
 msgid "IP Address is missing"
-msgstr ""
+msgstr "Прапушчаны IP адрас"
 
 #: ../iw/ipwidget.py:97
 msgid "IP Addresses must contain numbers between 1 and 255"
-msgstr ""
+msgstr "IP адрас мусіць утрымліваць ліжбы ў прамежку ад 1 да 255"
 
 #: ../iw/ipwidget.py:102 ../iw/ipwidget.py:104
 msgid "IP Addresses must contain numbers between 0 and 255"
-msgstr ""
+msgstr "IP адрас мусіць утрымліваць ліжбы ў прамежку ад 0 да 255"
 
 #: ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
-msgstr ""
+msgstr "Вылучэньне мовы"
 
 #: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:373
 msgid "What language would you like to use during the installation process?"
-msgstr ""
+msgstr "На якой мовы вы жадаеце весьці ўсталёўку?"
 
 #: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
-msgstr ""
+msgstr "Дадатковая падтрымка мовы"
 
 #: ../iw/language_support_gui.py:199
 msgid "Select the _default language for the system:   "
-msgstr ""
+msgstr "Вылучыце дап_омную мову для сыстэмы:"
 
 #: ../iw/language_support_gui.py:212
 msgid "Select _additional languages to install on the system:"
-msgstr ""
+msgstr "Вылучыце _дадатковыя мовы для ўсталяваньня ў сытэме:"
 
 #: ../iw/language_support_gui.py:247
 msgid "_Select All"
@@ -2896,11 +3012,11 @@ msgstr "Вылучыць _усё"
 
 #: ../iw/language_support_gui.py:255
 msgid "Select Default _Only"
-msgstr ""
+msgstr "Вылучыць _толькі дапомную"
 
 #: ../iw/language_support_gui.py:266
 msgid "Rese_t"
-msgstr ""
+msgstr "Ск_інуць"
 
 #: ../iw/lvm_dialog_gui.py:108 ../iw/lvm_dialog_gui.py:155
 #: ../iw/lvm_dialog_gui.py:166 ../iw/lvm_dialog_gui.py:206
@@ -2933,7 +3049,7 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:128 ../iw/lvm_dialog_gui.py:188
 #: ../iw/network_gui.py:158 ../iw/network_gui.py:162 ../iw/network_gui.py:185
 msgid "C_ontinue"
-msgstr ""
+msgstr "Пра_цяг"
 
 #: ../iw/lvm_dialog_gui.py:156
 #, python-format
@@ -2953,7 +3069,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:181
 msgid "Too small"
-msgstr ""
+msgstr "Надта маленькі"
 
 #: ../iw/lvm_dialog_gui.py:182
 msgid ""
@@ -2991,11 +3107,11 @@ msgstr ""
 #: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:282
 msgid "_Mount Point:"
-msgstr ""
+msgstr "Пункт _мацаваньня:"
 
 #: ../iw/lvm_dialog_gui.py:380
 msgid "_File System Type:"
-msgstr ""
+msgstr "Тып _файлавае сыстэмы:"
 
 #: ../iw/lvm_dialog_gui.py:388 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
@@ -3016,7 +3132,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:361
 msgid "_Size (MB):"
-msgstr ""
+msgstr "_Памер (Мб):"
 
 #: ../iw/lvm_dialog_gui.py:421 ../iw/partition_dialog_gui.py:378
 #: ../iw/partition_dialog_gui.py:421 ../textw/partition_text.py:300
@@ -3095,7 +3211,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
-msgstr ""
+msgstr "Бракуе вольнае прасторы"
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid ""
@@ -3115,7 +3231,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:875
 msgid "Name in use"
-msgstr ""
+msgstr "Назва ўжо выкарыстоўваецца"
 
 #: ../iw/lvm_dialog_gui.py:876
 #, python-format
@@ -3166,15 +3282,15 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:990
 msgid "Used Space:"
-msgstr ""
+msgstr "Занятая прастора:"
 
 #: ../iw/lvm_dialog_gui.py:1007
 msgid "Free Space:"
-msgstr ""
+msgstr "Вольная прастора:"
 
 #: ../iw/lvm_dialog_gui.py:1025
 msgid "Total Space:"
-msgstr ""
+msgstr "Агульная прастора:"
 
 #: ../iw/lvm_dialog_gui.py:1054
 msgid "Logical Volume Name"
@@ -3199,88 +3315,90 @@ msgstr ""
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
-msgstr ""
+msgstr "Наладка мышы"
 
 #: ../iw/mouse_gui.py:78 ../textw/mouse_text.py:20
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM1 у DOS)"
 
 #: ../iw/mouse_gui.py:79 ../textw/mouse_text.py:21
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS1 (COM2 у DOS)"
 
 #: ../iw/mouse_gui.py:80 ../textw/mouse_text.py:22
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS2 (COM3 у DOS)"
 
 #: ../iw/mouse_gui.py:81 ../textw/mouse_text.py:23
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS3 (COM4 у DOS)"
 
 #: ../iw/mouse_gui.py:91 ../iw/osbootwidget.py:160
 msgid "_Device"
-msgstr ""
+msgstr "_Прылада"
 
 #: ../iw/mouse_gui.py:137
 msgid "_Model"
-msgstr ""
+msgstr "_Мадэль"
 
 #: ../iw/mouse_gui.py:235
 msgid "_Emulate 3 buttons"
-msgstr ""
+msgstr "_Эмуляваць 3-ы кнопкі"
 
 #: ../iw/mouse_gui.py:250
 msgid "Select the appropriate mouse for the system."
-msgstr ""
+msgstr "Вылучыце адпаведную мышу для сыстэмы."
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:594
 msgid "Gateway"
-msgstr ""
+msgstr "Брама"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:596
 msgid "Primary DNS"
-msgstr ""
+msgstr "Першасны DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:598
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Другасны DNS"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:600
 msgid "Tertiary DNS"
-msgstr ""
+msgstr "Трэці DNS"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
-msgstr ""
+msgstr "_Брама"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr ""
+msgstr "_Першасны DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr ""
+msgstr "_Другасны DNS"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr ""
+msgstr "_Трэці DNS"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
-msgstr ""
+msgstr "Наладка сеткі"
 
 #: ../iw/network_gui.py:157 ../iw/network_gui.py:161 ../iw/network_gui.py:165
 #: ../iw/network_gui.py:170 ../iw/network_gui.py:176 ../iw/network_gui.py:180
 #: ../iw/network_gui.py:185 ../iw/zfcp_gui.py:156 ../iw/zfcp_gui.py:220
 #: ../textw/zfcp_text.py:63
 msgid "Error With Data"
-msgstr ""
+msgstr "Памылка даньняў"
 
 #: ../iw/network_gui.py:158
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
+"Вы не пазначылі назву вузла. У залежнасьці ад вашага сеткавага асяродзьдзя, "
+"гэта можа выклікаць праблемы."
 
 #: ../iw/network_gui.py:162
 #, python-format
@@ -3288,6 +3406,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
+"Вы не запоўнілі поле \"%s\". У залежнасьці ад вашага сеткавага асяродзьдзя, "
+"гэта можа выклікаць праблемы."
 
 #: ../iw/network_gui.py:166 ../textw/network_text.py:410
 #, python-format
@@ -3296,6 +3416,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Назва вузла \"%s\" зьяўляецца нерэчаіснай з-за наступнае прычыны\n"
+"\n"
+"%s"
 
 #: ../iw/network_gui.py:171
 #, python-format
@@ -3303,15 +3426,17 @@ msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
+"Узьнікла памылка пераўтварэньня ўведзенага значэньня для \"%s\":\n"
+"%s"
 
 #: ../iw/network_gui.py:177
 #, python-format
 msgid "A value is required for the field \"%s\"."
-msgstr ""
+msgstr "Значэньне неабходня для поля \"%s\"."
 
 #: ../iw/network_gui.py:181
 msgid "The IP information you have entered is invalid."
-msgstr ""
+msgstr "Зьвесткі аб IP, якія вы ўвялі, зьяўляюцца нерэчаіснымі."
 
 #: ../iw/network_gui.py:185
 msgid ""
@@ -3322,48 +3447,53 @@ msgid ""
 "inactive at this point. When you reboot your system the adapter will be "
 "activated automatically."
 msgstr ""
+"Ваша сыстэма ня мае актыўных сеткавых прылад. Яна ня здолее ўзаемадзейнічаць "
+"праз сетку покуль не зьявяцца прылады.\n"
+"\n"
+"ЗАЎВАГА! Калі вы маеце PCMCIA-заснаваны адаптар, вы мусіце пакінуць яго "
+"незадзейнічаным. Пасьля перазагрузкі ён будзе актывізаваны аўтаматычна."
 
 #: ../iw/network_gui.py:204
 #, python-format
 msgid "Edit Interface %s"
-msgstr ""
+msgstr "Рэдагаваць спалучэньне %s"
 
 #: ../iw/network_gui.py:215
 msgid "Configure using _DHCP"
-msgstr ""
+msgstr "Наладка праз _DHCP"
 
 #: ../iw/network_gui.py:221
 msgid "_Activate on boot"
-msgstr ""
+msgstr "_Задзейнічаць пад час загрузкі"
 
 #: ../iw/network_gui.py:230
 msgid "_IP Address"
-msgstr ""
+msgstr "_IP адрас"
 
 #: ../iw/network_gui.py:231
 msgid "Net_mask"
-msgstr ""
+msgstr "_Маска"
 
 #: ../iw/network_gui.py:236
 msgid "_Point to Point (IP)"
-msgstr ""
+msgstr "_Кропка-кропка (IP)"
 
 #: ../iw/network_gui.py:240
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:241
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Ключ _шыраваньня"
 
 #: ../iw/network_gui.py:281
 #, python-format
 msgid "Configure %s"
-msgstr ""
+msgstr "Наладка %s"
 
 #: ../iw/network_gui.py:453
 msgid "Active on Boot"
-msgstr ""
+msgstr "Задзейнічаць пад час загрузкі"
 
 #: ../iw/network_gui.py:455 ../iw/osbootwidget.py:67
 #: ../iw/partition_gui.py:357 ../iw/silo_gui.py:263
@@ -3379,23 +3509,23 @@ msgstr "Адрас/маска"
 
 #: ../iw/network_gui.py:519
 msgid "Network Devices"
-msgstr ""
+msgstr "Сеткавыя прылады"
 
 #: ../iw/network_gui.py:529
 msgid "Set the hostname:"
-msgstr ""
+msgstr "Выстаўленьне назвы вузла:"
 
 #: ../iw/network_gui.py:533
 msgid "_automatically via DHCP"
-msgstr ""
+msgstr "_аўтаматычна праз DHCP"
 
 #: ../iw/network_gui.py:539
 msgid "_manually"
-msgstr ""
+msgstr "_самастойна"
 
 #: ../iw/network_gui.py:545
 msgid "(ex. \"host.domain.com\")"
-msgstr ""
+msgstr "(напрыклад, \"host.domain.com\")"
 
 #: ../iw/network_gui.py:552 ../loader2/net.c:799
 msgid "Hostname"
@@ -3403,7 +3533,7 @@ msgstr "Назва вузла"
 
 #: ../iw/network_gui.py:605
 msgid "Miscellaneous Settings"
-msgstr ""
+msgstr "Разнастайныя наладкі"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3424,11 +3554,11 @@ msgstr "Дапомна"
 
 #: ../iw/osbootwidget.py:67
 msgid "Label"
-msgstr ""
+msgstr "Метка"
 
 #: ../iw/osbootwidget.py:133
 msgid "Image"
-msgstr ""
+msgstr "Вобраз"
 
 #: ../iw/osbootwidget.py:140
 msgid ""
@@ -3438,11 +3568,11 @@ msgstr ""
 
 #: ../iw/osbootwidget.py:152
 msgid "_Label"
-msgstr ""
+msgstr "_Метка"
 
 #: ../iw/osbootwidget.py:191
 msgid "Default Boot _Target"
-msgstr ""
+msgstr "Дапомная _мэта загрузкі"
 
 #: ../iw/osbootwidget.py:220
 msgid "You must specify a label for the entry"
@@ -3481,7 +3611,7 @@ msgstr ""
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Індывідуальнае вылучэньне пакетаў"
 
 #: ../iw/package_gui.py:66
 msgid "All Packages"
@@ -3493,42 +3623,44 @@ msgid ""
 "Package: %s\n"
 "Version: %s\n"
 msgstr ""
+"Пакет: %s\n"
+"Вэрсыя: %s\n"
 
 #: ../iw/package_gui.py:357
 msgid "_Tree View"
-msgstr ""
+msgstr "_Дрэва"
 
 #: ../iw/package_gui.py:359
 msgid "_Flat View"
-msgstr ""
+msgstr "Просты выгляд"
 
 #: ../iw/package_gui.py:374
 msgid "_Package"
-msgstr ""
+msgstr "_Пакет"
 
 #: ../iw/package_gui.py:376
 msgid "_Size (MB)"
-msgstr ""
+msgstr "Па_мер (Мб)"
 
 #: ../iw/package_gui.py:427
 msgid "Total size: "
-msgstr ""
+msgstr "Агульны памер:"
 
 #: ../iw/package_gui.py:430
 msgid "Select _all in group"
-msgstr ""
+msgstr "Вылучыць _усе ў групе"
 
 #: ../iw/package_gui.py:434
 msgid "_Unselect all in group"
-msgstr ""
+msgstr "Ска_саваць вылучэньне"
 
 #: ../iw/package_gui.py:471 ../textw/packages_text.py:63
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Вылучэньне групы пакетаў"
 
 #: ../iw/package_gui.py:678
 msgid "Minimal"
-msgstr ""
+msgstr "Найменшы"
 
 #: ../iw/package_gui.py:740
 #, python-format
@@ -3545,19 +3677,19 @@ msgstr ""
 
 #: ../iw/package_gui.py:792
 msgid "Base Packages"
-msgstr ""
+msgstr "Базавыя пакеты"
 
 #: ../iw/package_gui.py:822
 msgid "Optional Packages"
-msgstr ""
+msgstr "Неабавязковыя пакеты"
 
 #: ../iw/package_gui.py:1032
 msgid "Details"
-msgstr ""
+msgstr "Падрабязнасьці"
 
 #: ../iw/package_gui.py:1126
 msgid "_Select individual packages"
-msgstr ""
+msgstr "Індывідуальна вы_лучыць пакеты"
 
 #: ../iw/partition_dialog_gui.py:58
 msgid "Additional Size Options"
@@ -3577,32 +3709,32 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr ""
+msgstr "Цыліндар канца павінны быць большым за цыліндар пачатку."
 
 #: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:710
 msgid "Add Partition"
-msgstr ""
+msgstr "Дадаць падзел"
 
 #: ../iw/partition_dialog_gui.py:266
 #, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr ""
+msgstr "Рэдагаваньне падзела: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:268
 msgid "Edit Partition"
-msgstr ""
+msgstr "Рэдагаваньне падзела"
 
 #: ../iw/partition_dialog_gui.py:295 ../iw/raid_dialog_gui.py:290
 msgid "File System _Type:"
-msgstr ""
+msgstr "_Тып файлавае сыстэмы"
 
 #: ../iw/partition_dialog_gui.py:327
 msgid "Allowable _Drives:"
-msgstr ""
+msgstr "Дазволеныя _прылады:"
 
 #: ../iw/partition_dialog_gui.py:340
 msgid "Drive:"
-msgstr ""
+msgstr "Прылада:"
 
 #: ../iw/partition_dialog_gui.py:349
 msgid "Original File System Label:"
@@ -3610,11 +3742,11 @@ msgstr ""
 
 #: ../iw/partition_dialog_gui.py:384
 msgid "_Start Cylinder:"
-msgstr ""
+msgstr "_Пачатковы цыліндар:"
 
 #: ../iw/partition_dialog_gui.py:402
 msgid "_End Cylinder:"
-msgstr ""
+msgstr "_Канчатковы цыліндар:"
 
 #: ../iw/partition_dialog_gui.py:453
 msgid "Force to be a _primary partition"
@@ -5365,48 +5497,48 @@ msgstr ""
 
 #: ../textw/progress_text.py:98
 msgid "Package Installation"
-msgstr ""
+msgstr "Усталёўваньне пакета"
 
 #: ../textw/progress_text.py:100
 msgid " Name   : "
-msgstr ""
+msgstr " Назва  : "
 
 #: ../textw/progress_text.py:101
 msgid " Size   : "
-msgstr ""
+msgstr " Памер  : "
 
 #: ../textw/progress_text.py:102
 msgid " Summary: "
-msgstr ""
+msgstr " Каротка : "
 
 #: ../textw/progress_text.py:147
 msgid "    Packages"
-msgstr ""
+msgstr "    Пакеты"
 
 #: ../textw/progress_text.py:148
 msgid "      Bytes"
-msgstr ""
+msgstr "      Байтаў"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
-msgstr ""
+msgstr "        Час"
 
 #: ../textw/progress_text.py:151
 msgid "Total    :"
-msgstr ""
+msgstr "Агулам    :"
 
 #: ../textw/progress_text.py:158
 msgid "Completed:   "
-msgstr ""
+msgstr "Зроблена:    "
 
 #: ../textw/progress_text.py:168
 msgid "Remaining:  "
-msgstr ""
+msgstr "Засталося:  "
 
 #: ../textw/silo_text.py:39 ../textw/silo_text.py:112
 #: ../textw/silo_text.py:224
 msgid "SILO Configuration"
-msgstr ""
+msgstr "Наладка SILO"
 
 #: ../textw/silo_text.py:77
 msgid "Create PROM alias `linux'"
@@ -5429,20 +5561,20 @@ msgstr ""
 
 #: ../textw/timezone_text.py:79
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "У якім часавым поясе вы знаходзіцеся?"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
 msgid "Update boot loader configuration"
-msgstr ""
+msgstr "Абнавіць наладку загрузчыка"
 
 #: ../textw/upgrade_bootloader_text.py:64
 msgid "Skip boot loader updating"
-msgstr ""
+msgstr "Абмінуць абнаўленьне наладкі загрузчыка"
 
 #: ../textw/upgrade_bootloader_text.py:66
 msgid "Create new boot loader configuration"
-msgstr ""
+msgstr "Стварыць новую наладку загрузчыка"
 
 #: ../textw/upgrade_text.py:94
 #, python-format
@@ -5479,11 +5611,11 @@ msgstr ""
 
 #: ../textw/upgrade_text.py:199
 msgid "Reinstall System"
-msgstr ""
+msgstr "Пераўсталёўка сыстэмы"
 
 #: ../textw/upgrade_text.py:208
 msgid "System to Upgrade"
-msgstr ""
+msgstr "Абнаўленьне сыстэмы"
 
 #: ../textw/upgrade_text.py:209
 msgid ""
@@ -5937,6 +6069,13 @@ msgid ""
 "\tSound and video applications\n"
 "\tGames\n"
 msgstr ""
+"\tПрацоўнае асяродзьдзе (GNOME)\n"
+"\tКанцылярскі набор (OpenOffice.org)\n"
+"\tВандроўнік павуціньня (Mozilla) \n"
+"\tПаштовы кліент (Evolution)\n"
+"\tІмгненныя паведамленьні\n"
+"\tДастасаваньні для музыкі й фільмаў\n"
+"\tГульні\n"
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
@@ -6275,12 +6414,12 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:392
 msgid "Select Partition"
-msgstr ""
+msgstr "Вылучыце падзел"
 
 #: ../loader2/hdinstall.c:432
 #, c-format
 msgid "Device %s does not appear to contain %s CDROM images."
-msgstr ""
+msgstr "Прылада %s ня ўтрымлівае %s вобразы CDROM."
 
 #: ../loader2/hdinstall.c:467
 #, c-format
@@ -6317,7 +6456,7 @@ msgstr ""
 #: ../loader2/kickstart.c:172
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
-msgstr ""
+msgstr "Памылка ў %s, радок %d файла kickstart %s."
 
 #: ../loader2/kickstart.c:271
 msgid "Cannot find ks.cfg on boot floppy."
@@ -6337,26 +6476,27 @@ msgstr "Вітаем у %s"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
+"  <Tab>/<Alt-Tab> паміж элемэнтамі | <Прагал> вылучыць | <F12> наступны экран "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
-msgstr ""
+msgstr "Абярыце мову"
 
 #: ../loader2/loader.c:107
 msgid "Local CDROM"
-msgstr ""
+msgstr "Мясцовы CDROM"
 
 #: ../loader2/loader.c:109
 msgid "Hard drive"
-msgstr ""
+msgstr "Жорсткі дыск"
 
 #: ../loader2/loader.c:110
 msgid "NFS image"
-msgstr ""
+msgstr "Вобраз NFS"
 
 #: ../loader2/loader.c:321
 msgid "Update Disk Source"
-msgstr ""
+msgstr "Абнавіць крыніцу"
 
 #: ../loader2/loader.c:322
 msgid ""
@@ -6400,31 +6540,31 @@ msgstr ""
 
 #: ../loader2/loader.c:831
 msgid "Rescue Method"
-msgstr ""
+msgstr "Мэтад аднаўленьня"
 
 #: ../loader2/loader.c:832
 msgid "Installation Method"
-msgstr ""
+msgstr "Мэтад усталёўкі"
 
 #: ../loader2/loader.c:834
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Носьбіт якога тыпу ўтрымлівае выратавальны вобраз?"
 
 #: ../loader2/loader.c:836
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "Носьбіт якога тыпу ўтрымлівае пакеты для ўсталёўваньня?"
 
 #: ../loader2/loader.c:860
 msgid "No driver found"
-msgstr ""
+msgstr "Кіроўца ня знойдзены"
 
 #: ../loader2/loader.c:860
 msgid "Select driver"
-msgstr ""
+msgstr "Вылучыце кіроўцу"
 
 #: ../loader2/loader.c:861
 msgid "Use a driver disk"
-msgstr ""
+msgstr "Ужыць дыск с кіроўцам"
 
 #: ../loader2/loader.c:862
 msgid ""
@@ -6434,7 +6574,7 @@ msgstr ""
 
 #: ../loader2/loader.c:1022
 msgid "The following devices have been found on your system."
-msgstr ""
+msgstr "Наступныя прылады былі знойдзены ў вашае сыстэме."
 
 #: ../loader2/loader.c:1024
 msgid ""
@@ -6488,7 +6628,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "Немагчыма адшукаць вобраз усталёўкі %s"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -6515,7 +6655,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
-msgstr ""
+msgstr "Вынік праверкі носьбіта"
 
 #: ../loader2/mediacheck.c:345
 #, c-format
@@ -6525,11 +6665,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"вобраза:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Праверка носьбіта %sis завершана; вынік: %s\n"
 
 #: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
 #, c-format
@@ -6543,10 +6687,13 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Ці жадаеце падлічыць праверучю суму ISO вобраза:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:411
 msgid "Checksum Test"
-msgstr ""
+msgstr "Падлік праверчае сумы"
 
 #: ../loader2/modules.c:920
 #, c-format
@@ -6562,6 +6709,11 @@ msgid ""
 "    o the directory on that server containing\n"
 "      %s for your architecture\n"
 msgstr ""
+"Калі ласка паведаміце наступныя зьвесткі:\n"
+"\n"
+"    o назва альбо IP адрас вашага паслужніка %s\n"
+"    o назва тэчкі на паслужніке, якая ўтрымлівае\n"
+"      %s для вашае архітэктуры\n"
 
 #: ../loader2/net.c:181
 #, c-format
@@ -7030,36 +7182,38 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі "
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі  - Кэнтукі - раён Луйсвіля"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі - Кентукі - Вэйн Кантры"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі - Мічыган - большая частка"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі - Антарыа - большая частка"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"Усходняе ўзьябрэжжа Амэрыкі - Антарыа й Квэбэк - месцы дзе не было зьмены "
+"летняга/зімовага часу ў 1967-1973 гадох"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі - Квэбэк - большая частка"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Усходняе ўзьябрэжжа Амэрыкі - Сандэр Бэй, Антарыа"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -7067,11 +7221,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "усход Узбекістана"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Галапагосскія выспы"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
@@ -7083,11 +7237,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Вялікабрытанія"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Гаваі"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
@@ -7103,7 +7257,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Ява і Суматра"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -7171,67 +7325,67 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Масква+00 - захад Расеі"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Маска+01 - Каспійскае мора"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Масква-01 - Кінегсберг"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Масква+02 - Урал"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Масква+03 - Навасібірск"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Масква+03 - захад Сібіры"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Масква+04 - рака Енісей"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Масква+05 - возера Байкал"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Масква+06 - рака Лена"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Масква+07 - рака Амур"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Масква+07 - выспа Сахалі"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Масква+08 - Магадан"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Масква+09 - Камчатка"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Масква+10 - Берынгава мора"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "большая частка"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "большая частка (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -7412,7 +7566,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Тасманія"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
@@ -7440,11 +7594,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Вікторыя"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Станцыя Ўсход, Паўднёвы полюс"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -7484,171 +7638,171 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Запарож'е, Усх. Луганск"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Арабская"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Бэнгальская"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Бэнгальская (Індыя)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "Баўгарская"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "Каталёнская"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Кітайская (спрошчаная)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Кітайская (традыцыйная)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr ""
+msgstr "Харвацкая"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Чэская"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr ""
+msgstr "Дацкая"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr ""
+msgstr "Галандцкая"
 
 #. generated from lang-table
 msgid "English"
-msgstr ""
+msgstr "Ангельская"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "Эстонская"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr ""
+msgstr "Фінская"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Француская"
 
 #. generated from lang-table
 msgid "German"
-msgstr ""
+msgstr "Нямецкая"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Гуяраці"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "Хіндзі"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Вугорская"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Іслянцкая"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Італійская"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Японская"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "Карэйская"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Макэдонская"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Малайская"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Нарвэская"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr ""
+msgstr "Пэрсыцкая"
 
 #. generated from lang-table
 msgid "Polish"
-msgstr ""
+msgstr "Польская"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Партугальская"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr ""
+msgstr "Партугальская (Бразылія)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Пун'ябі"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Расейская"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Славенская"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr ""
+msgstr "Гішпанская"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "Швэцкая"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "Тамільская"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Турэцкая"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "Украінская"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Вьетнамская"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Валійская"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr ""
+msgstr "Зулу"
 
 #~ msgid "Disable SELinux"
 #~ msgstr "Выключыць SELinux"
