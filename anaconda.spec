@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.16
+Version: 10.2.0.17
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Feb  8 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.17-1
+- Use rhpl.archscore to fix iseries upgrades (pnasrat, #146915)
+- Only configure ksdevice if no --device (pnasrat, #138852)
+- Don't redraw help if disasbled on next button click (clumens, #145691)
+- Fix exception in exception handler (msw)
+- Rebuild for new librpm
+
 * Fri Feb  4 2005 Chris Lumens <clumens@redhat.com> - 10.2.0.16-1
 - Support setting fs options in kickstart via --fsoptions  (#97560)
 - Fix tracebacks
