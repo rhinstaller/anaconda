@@ -7,7 +7,7 @@ ifneq (ia64, $(ARCH))
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) $(MININEWT) loader2 po \
+SUBDIRSHD = isys collage $(MINISLANG) $(MININEWT) loader2 po \
 	    textw utils scripts bootdisk installclasses \
 	    fonts iw pixmaps $(STUBS) isomd5sum command-stubs
 SUBDIRS = $(SUBDIRSHD)
@@ -124,10 +124,10 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=isys:balkan:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
+	PYTHONPATH=isys:textw:iw:installclasses:booty:booty/edd pychecker *.py textw/*.py iw/*.py installclasses/*.py command-stubs/*-stub | grep -v "__init__() not called" 
 
 pycheck-file:
-	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
+	PYTHONPATH=.:isys:textw:iw:installclasses:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
 
 PKGNAME=anaconda
 local:
