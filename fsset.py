@@ -1254,13 +1254,14 @@ class FileSystemSet:
 	return space
 
     def hasDirtyFilesystems(self, mountpoint):
+        ret = []
 	if self.rootOnLoop():
             entry = self.getEntryByMountPoint('/')
             mountLoopbackRoot(entry.device.host[5:], skipMount = 1,
                               mountpoint = mountpoint)
 	    dirty = isys.ext2IsDirty("loop1")
 	    unmountLoopbackRoot(skipMount = 1, mountpoint = mountpoint)
-	    if dirty: return 1
+	    if dirty: return [ "loop" ]
 
 	for entry in self.entries:
             # XXX - multifsify, virtualize isdirty per fstype
@@ -1269,9 +1270,9 @@ class FileSystemSet:
 
 	    if isys.ext2IsDirty(entry.device.getDevice()):
 		log("%s is a dirty ext2 partition" % entry.device.getDevice())
-		return 1
+                ret.append(entry.device.getDevice())
 
-	return 0
+	return ret
 
     def umountFilesystems(self, instPath, ignoreErrors = 0):
         # XXX remove special case

@@ -49,6 +49,15 @@ def findExistingRoots(intf, id, chroot):
 
     return rootparts
 
+def getDirtyDevString(dirtyDevs):
+    ret = ""
+    for dev in dirtyDevs:
+        if dev != "loop":
+            ret = "/dev/%s\n" % (dev,)
+        else:
+            ret = "%s\n" % (dev,)
+    return ret
+
 def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 		       raiseErrors = 0, warnDirty = 0, readOnly = 0):
     (root, rootFs) = rootInfo
@@ -72,20 +81,24 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     else:
 	isys.umount(instPath)        
 
-    if not allowDirty and oldfsset.hasDirtyFilesystems(instPath):
+    dirtyDevs = oldfsset.hasDirtyFilesystems(instPath)
+    if not allowDirty and dirtyDevs != []:
         import sys
         diskset.stopAllRaid()
 	intf.messageWindow(_("Dirty Filesystems"),
-	    _("One or more of the filesystems for your Linux system "
-	      "was not unmounted cleanly. Please boot your Linux "
-	      "installation, let the filesystems be checked, and "
-	      "shut down cleanly to upgrade."))
+                           _("The following filesystems for your Linux system "
+                             "were not unmounted cleanly.  Please boot your "
+                             "Linux installation, let the filesystems be "
+                             "checked and shut down cleanly to upgrade.\n"
+                             "%s" %(getDirtyDevString(dirtyDevs),)))
 	sys.exit(0)
-    elif warnDirty and oldfsset.hasDirtyFilesystems():
+    elif warnDirty and dirtyDevs != []:
         rc = intf.messageWindow(_("Dirty Filesystems"),
-                 _("One or more filesystems for your Linux system "
-                   "was not unmounted cleanly.  Would you like to mount "
-                   "them anyway?"), type = "yesno")
+                                _("The following filesystems for your Linux "
+                                  "system were not unmounted cleanly.  Would "
+                                  "you like to mount them anyway?\n"
+                                  "%s" % (getDirtyDevString(dirtyDevs,))),
+                                type = "yesno")
         if rc == 0:
             return -1
 
