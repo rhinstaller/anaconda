@@ -1270,6 +1270,9 @@ class KickstartBase(BaseInstallClass):
         if badblocks:
             request.badblocks = badblocks
         if onPart:
+            # strip spurious /dev
+            if onPart.startswith("/dev/"):
+                onPart = onPart[5:]
             request.device = onPart
             for areq in id.partitions.autoPartitionRequests:
                 if areq.device is not None and areq.device == onPart:
