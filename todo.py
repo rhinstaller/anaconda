@@ -148,63 +148,61 @@ class Mouse (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
         self.mice = {
-            "PS/2" :
-                    ("ps/2", "PS/2", "psaux"),
-            "ALPS GlidePoint (PS/2)" :
+            "ALPS - GlidePoint (PS/2)" :
                     ("ps/2", "GlidePointPS/2", "psaux"),
-            "ASCII MieMouse (serial)" :
+            "ASCII - MieMouse (serial)" :
                     ("ms3", "IntelliMouse", "ttyS"),
-            "ASCII MieMouse (PS/2)" : 
+            "ASCII - MieMouse (PS/2)" : 
                     ("ps/2", "NetMousePS/2", "psaux"),
-            "ATI Bus Mouse" :
+            "ATI - Bus Mouse" :
                     ("Busmouse", "BusMouse", "atibm"),
-            "Generic Mouse (serial)" :
+            "Generic - 2 Button Mouse (serial)" :
                     ("Microsoft", "Microsoft", "ttyS"),
-            "Generic 3 Button Mouse (serial)" :
+            "Generic - 3 Button Mouse (serial)" :
                     ("Microsoft", "Microsoft", "ttyS"),
-            "Generic Mouse (PS/2)" :
+            "Generic - 2 Button Mouse (PS/2)" :
                     ("ps/2", "PS/2", "psaux"),
-            "Generic 3 Button Mouse (PS/2)" :
+            "Generic - 3 Button Mouse (PS/2)" :
 	            ("ps/2", "PS/2", "psaux"),
-            "Genius NetMouse (serial)" :
+            "Genius - NetMouse (serial)" :
         	   ("ms3", "IntelliMouse", "ttyS"),
-            "Genius NetMouse (PS/2)" :
+            "Genius - NetMouse (PS/2)" :
 	            ("netmouse", "NetMousePS/2", "psaux"),
-            "Genius NetMouse Pro (PS/2)" :
+            "Genius - NetMouse Pro (PS/2)" :
 	            ("netmouse", "NetMousePS/2", "psaux"),
-            "Genius NetScroll (PS/2)" :
+            "Genius - NetScroll (PS/2)" :
 	            ("netmouse", "NetScrollPS/2", "psaux"),
-            "Kensington Thinking Mouse (PS/2)" :
+            "Kensington - Thinking Mouse (PS/2)" :
             	    ("ps/2", "ThinkingMousePS/2", "psaux"),
-            "Logitech Mouse (serial, old C7 type)" :
+            "Logitech - C7 Mouse (serial, old C7 type)" :
             	    ("Logitech", "Logitech", "ttyS"),
-            "Logitech CC Series (serial)" :
+            "Logitech - CC Series (serial)" :
 	            ("logim", "MouseMan", "ttyS"),
-            "Logitech Bus Mouse" :
+            "Logitech - Bus Mouse" :
             	    ("Busmouse", "BusMouse", "logibm"),
-            "Logitech MouseMan/FirstMouse (serial)" :
+            "Logitech - MouseMan/FirstMouse (serial)" :
             	    ("MouseMan", "MouseMan", "ttyS"),
-            "Logitech MouseMan/FirstMouse (ps/2)" :
+            "Logitech - MouseMan/FirstMouse (ps/2)" :
             	    ("ps/2", "PS/2", "psaux"),
-            "Logitech MouseMan+/FirstMouse+ (serial)" :
+            "Logitech - MouseMan+/FirstMouse+ (serial)" :
 	            ("pnp", "IntelliMouse", "ttyS"),
-            "Logitech MouseMan+/FirstMouse+ (PS/2)" :
+            "Logitech - MouseMan+/FirstMouse+ (PS/2)" :
 	            ("ps/2", "MouseManPlusPS/2", "psaux"),
-            "Microsoft compatible (serial)" :
+            "Microsoft - Compatible Mouse (serial)" :
             	    ("Microsoft",    "Microsoft", "ttyS"),
-            "Microsoft Rev 2.1A or higher (serial)" :
+            "Microsoft - Rev 2.1A or higher (serial)" :
                     ("pnp", "Auto", "ttyS"),
-            "Microsoft IntelliMouse (serial)" :
+            "Microsoft - IntelliMouse (serial)" :
                     ("ms3", "IntelliMouse", "ttyS"),
-            "Microsoft IntelliMouse (PS/2)" :
+            "Microsoft - IntelliMouse (PS/2)" :
             	    ("imps2", "IMPS/2", "psaux"), 
-            "Microsoft Bus Mouse" :
+            "Microsoft - Bus Mouse" :
 	            ("Busmouse", "BusMouse", "inportbm"),
-            "Mouse Systems (serial)" :
+            "Mouse Systems - Mouse (serial)" :
             	    ("MouseSystems", "MouseSystems", "ttyS"), 
-            "MM Series (serial)" :
+            "MM - Series (serial)" :
 	            ("MMSeries", "MMSeries", "ttyS"),
-            "MM HitTablet (serial)" :
+            "MM - HitTablet (serial)" :
 	            ("MMHitTab", "MMHittab", "ttyS"),
             }
 
