@@ -259,7 +259,8 @@ if iutil.memInstalled() < isys.MIN_RAM:
     screen = SnackScreen()
     ButtonChoiceWindow(screen, _('Fatal Error'),
 			_('You do not have enough RAM to install Red Hat '
-			  'Linux on this machine.\n'
+			  'Linux on this machine.  You need at least 32 '
+                          'MB of RAM to complete the installation.\n'
 			  '\n'
 			  'Press <return> to reboot your system.\n'), 
 			  buttons = (_("OK"),))
@@ -305,6 +306,13 @@ else:
 #
 # startup X server is we're not already running under an X session
 #
+
+#print "sleeping 40 seconds"
+#import os
+#os.read(2, 1)
+
+
+
 startXServer = 0
 if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     startXServer = 1
