@@ -11,6 +11,7 @@ splashwindow = None
 
 width = screen_width()
 
+#--If the xserver is running at 800x600 res or higher, use the 800x600 splash screen.
 if width >= 800:
     try:
         im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
@@ -19,7 +20,7 @@ if width >= 800:
             im = GdkImlib.Image ("pixmaps/first-lowres.png")
         except:
             print "Unable to load", file
-
+#--Otherwise, use the old 640x480 one
 else:
     try:
         im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
@@ -28,19 +29,6 @@ else:
             im = GdkImlib.Image ("pixmaps/first-lowres.png")
         except:
             print "Unable to load", file
-
-#else:
-#    try:
-#        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
-#    except:
-#        try:
-#            im = GdkImlib.Image ("pixmaps/first.png")
-#        except:
-#            print "Unable to load", file
-
-
-
-
 
 if im:
     threads_enter ()
