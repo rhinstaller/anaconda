@@ -19,7 +19,7 @@ import sys
 import timer
 import gtk
 from iw_gui import *
-from translate import _, N_
+from translate import _, N_, utf8
 from packages import doInstall
 from constants import *
 
