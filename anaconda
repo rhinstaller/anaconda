@@ -731,7 +731,7 @@ if (display_mode == 'g' and method and
     display_mode = 't'
     time.sleep(2)
 
-if not isHeadless:
+if not isHeadless and ksfile is None:
     # if no mouse we force text mode
     mousedev = mousehw.get()
     if display_mode == 'g' and mousedev[0] == "No - mouse":
