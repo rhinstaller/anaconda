@@ -60,7 +60,7 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	stdout = getfd(stdout)
 	stderr = getfd(stderr)
 
-    if not os.access (root + command, os.X_OK):
+    if not searchPath and not os.access (root + command, os.X_OK):
 	raise RuntimeError, command + " can not be run"
 
     childpid = os.fork()
@@ -91,10 +91,14 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	    os.dup2(stderr, 2)
 	    os.close(stderr)
 
-	if (searchPath):
-	    os.execvp(command, argv)
-	else:
-	    os.execv(command, argv)
+        try:
+            if (searchPath):
+                os.execvp(command, argv)
+            else:
+                os.execv(command, argv)
+        except OSError:
+            # let the caller deal with the exit code of 1.
+            pass
 
 	sys.exit(1)
 
