@@ -9,7 +9,10 @@ class LogFile:
     
     def open (self, serial, reconfigOnly, test, setupFilesystems):
 	if reconfigOnly:
-	    self.logFile = open("/tmp/reconfig.log", "w")
+            try:
+                self.logFile = open("/var/log/reconfig.log", "w")
+            except:
+                self.logFile = sys.stderr
         elif not setupFilesystems:
             self.logFile = sys.stderr
         elif serial:
