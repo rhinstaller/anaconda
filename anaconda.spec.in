@@ -64,9 +64,6 @@ fi
 /usr/share/anaconda
 /usr/share/locale/*/*/*
 /usr/lib/anaconda
-%ifarch i386
-/usr/sbin/ddcprobe
-%endif
 
 %config /etc/rc.d/init.d/reconfig
 
@@ -79,6 +76,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Fri Jan  4 2002 Jeremy Katz <katzj@redhat.com>
+- ddcprobe is now done from kudzu
 
 * Wed Jul 18 2001 Jeremy Katz <katzj@redhat.com>
 - own /usr/lib/anaconda and /usr/share/anaconda

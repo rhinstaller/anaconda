@@ -15,7 +15,7 @@ SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
 SUBDIRS = $(SUBDIRSHD)
 
 ifeq (i386, $(ARCH))
-SUBDIRS := ddcprobe edd $(SUBDIRS)
+SUBDIRS := edd $(SUBDIRS)
 endif
 
 # DESTDIR        - destination for install image for install purposes
