@@ -113,7 +113,6 @@ class InstallData:
             self.mouse.write(instPath)
             self.keyboard.write (instPath)
             
-        self.network.write (instPath)
         self.timezone.write (instPath)
         self.auth.write (instPath)
 	self.firewall.write (instPath)

@@ -975,6 +975,10 @@ def doPostInstall(method, id, intf, instPath):
 	    if arch == "i386":
 		pcmcia.createPcmciaConfig(
 			instPath + "/etc/sysconfig/pcmcia")
+
+            # we need to write out the network bits before kudzu runs
+            # to avoid getting devices in the wrong order (#102276)
+            id.network.write(instPath)
 		       
 	    w.set(3)
 

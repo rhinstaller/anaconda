@@ -356,6 +356,10 @@ class Network:
                 f.write("\n");
 
     def write(self, instPath):
+        # make sure the directory exists
+        if not os.path.isdir("%s/etc/sysconfig/network-scripts" %(instPath,)):
+            iutil.mkdirChain("%s/etc/sysconfig/network-scripts" %(instPath,))
+        
         # /etc/sysconfig/network-scripts/ifcfg-*
         for dev in self.netdevices.values():
             device = dev.get("device")
