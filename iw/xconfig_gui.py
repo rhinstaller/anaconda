@@ -28,20 +28,11 @@ from rhpl.translate import _, N_
 from rhpl.monitor import isValidSyncRange
 from rhpl.videocard import Videocard_blacklist
 
+from desktop import ENABLE_DESKTOP_CHOICE
+
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
 
-ENABLE_DESKTOP_CHOICE = 0
-try:
-    f = open("/proc/cmdline")
-    line = f.readline()
-    if string.find(line, " kde") != -1:
-	ENABLE_DESKTOP_CHOICE = 1
-    else:
-	ENABLE_DESKTOP_CHOICE = 0
-    del f
-except:
-    ENABLE_DESKTOP_CHOICE = 0
 
 class XCustomWindow (InstallWindow):
 
