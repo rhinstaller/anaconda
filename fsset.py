@@ -810,7 +810,7 @@ class prepbootFileSystem(FileSystemType):
         def getDiskPart(dev):
             cut = len(dev)
             if (dev.startswith('rd/') or dev.startswith('ida/') or
-                dev.startswith('cciss/')):
+                dev.startswith('cciss/') or dev.startswith('i2o/')):
                 if dev[-2] == 'p':
                     cut = -1
                 elif dev[-3] == 'p':
