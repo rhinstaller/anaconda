@@ -198,14 +198,7 @@ class NetworkWindow (InstallWindow):
             self.ipTable = GtkTable (len (options), 2) # this is the iptable used for DNS, et. al
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
-
-#            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
-#            DHCPcb.set_active (TRUE)
-
-            if devs[i].get ("bootproto") == "static":
-                DHCPcb.set_active (FALSE)
-            else:
-                DHCPcb.set_active (TRUE)
+            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
