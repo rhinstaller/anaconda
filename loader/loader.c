@@ -213,49 +213,74 @@ int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded,
 
 int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
-    int i;
+    int i, rc;
     char buf[2000];
     struct moduleInfo * mi;
     newtComponent done, add, text, items, form, answer;
     newtGrid grid, buttons;
+    int numItems;
+    int maxWidth;
+    char * t;
 
-    do {
-	text = newtTextboxReflowed(-1, -1, 
-	    _("I have found the following devices in your system:"), 
-	    40, 5, 20, 0);
-	buttons = newtButtonBar(_("Done"), &done, _("Add Device"), &add, NULL);
-	items = newtTextbox(-1, -1, 30, 5, NEWT_FLAG_SCROLL);
-
+    while (1) {
+	numItems = 0;
+        maxWidth = 0;
 	for (i = 0, *buf = '\0'; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].weLoaded) continue;
 
-	    strcat(buf, "\t");
+	    strcat(buf, "    ");
 
 	    if ((mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
-		strcat(buf, mi->description);
+		t = mi->description;
 	    } else {
-		strcat(buf, modLoaded->mods[i].name);
+		t = modLoaded->mods[i].name;
 	    }
 
+	    strcat(buf, t);
+
+	    if (maxWidth < strlen(t)) maxWidth = strlen(t);
+
 	    strcat(buf, "\n");
+	    numItems++;
 	}
 
-	newtTextboxSetText(items, buf);
+        if (numItems > 0) {
+	    text = newtTextboxReflowed(-1, -1, 
+		_("I have found the following devices in your system:"), 
+		40, 5, 20, 0);
+	    buttons = newtButtonBar(_("Done"), &done, _("Add Device"), &add, 
+				    NULL);
+	    items = newtTextbox(-1, -1, maxWidth + 8, 
+				numItems < 10 ? numItems : 10, 
+				(numItems < 10 ? 0 : NEWT_FLAG_SCROLL));
+				    
+	    newtTextboxSetText(items, buf);
 
-	grid = newtGridSimpleWindow(text, items, buttons);
-	newtGridWrappedWindow(grid, _("Devices"));
+	    grid = newtGridSimpleWindow(text, items, buttons);
+	    newtGridWrappedWindow(grid, _("Devices"));
 
-	form = newtForm(NULL, NULL, 0);
-	newtGridAddComponentsToForm(grid, form, 1);
+	    form = newtForm(NULL, NULL, 0);
+	    newtGridAddComponentsToForm(grid, form, 1);
 
-	answer = newtRunForm(form);
-	newtPopWindow();
+	    answer = newtRunForm(form);
+	    newtPopWindow();
 
-	newtGridFree(grid, 1);
-	newtFormDestroy(form);
+	    newtGridFree(grid, 1);
+	    newtFormDestroy(form);
 
-	addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
-    } while (answer == add);
+	    if (answer != add)
+		break;
+	    addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
+	} else {
+	    rc = newtWinChoice(_("Devices"), _("Done"), _("Add Device"), 
+		    _("I don't have any special device drivers loaded for "
+		      "your system. Would you like to load some now?"));
+	    if (rc != 2)
+		break;
+
+	    addDeviceManually(modInfo, modLoaded, modDeps, kd, flags);
+	}
+    } 
 
 
     return 0;

@@ -119,7 +119,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 
     text = newtTextboxReflowed(-1, -1, _("Which driver should I try?"),
 				20, 0, 10, 0);
-    listbox = newtListbox(-1, -1, 6, NEWT_FLAG_SCROLL);
+    listbox = newtListbox(-1, -1, 6, NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
 
     for (i = 0; i < modInfo->numModules; i++) {
 	if (modInfo->moduleList[i].major == type && 
@@ -146,13 +146,15 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
     answer = newtRunForm(form);
     newtPopWindow();
 
+    i = (int) newtListboxGetCurrent(listbox);
+
     newtGridFree(grid, 1);
     newtFormDestroy(form);
 
     if (answer == back) return LOADER_BACK;
     
     *specifyParams = (specifyParameters != ' ');
-    *modp = modInfo->moduleList + (int) newtListboxGetCurrent(listbox);
+    *modp = modInfo->moduleList + i;
 
     return 0;
 }
