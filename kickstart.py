@@ -644,6 +644,8 @@ class KickstartBase(BaseInstallClass):
                             id.handleDeps = IGNORE_DEPS
                         elif arg == "--ignoremissing":
                             self.handleMissing = KS_MISSING_IGNORE
+                        elif arg == "--nobase":
+                            self.addBase = 0
                 
 		where = "packages"
                 self.skipSteps.append("package-selection")
@@ -1244,7 +1246,8 @@ class KickstartBase(BaseInstallClass):
     def setGroupSelection(self, grpset, intf):
         grpset.unselectAll()
         
-	grpset.selectGroup("base")
+        if self.addBase:
+            grpset.selectGroup("base")
 	for n in self.groupList:
             try:
                 grpset.selectGroup(n)
@@ -1279,6 +1282,7 @@ class KickstartBase(BaseInstallClass):
 	self.skipSteps = []
         self.showSteps = []
         self.interactive = 0
+        self.addBase = 1
         self.packageList = []
         self.groupList = []
         self.excludedList = []
