@@ -83,8 +83,6 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 		checkCallback cb, void *cbdata) {
     int nread;
     int i;
-    int dirty;
-    int sector;
     int appdata_start_offset, appdata_end_offset;
     int nattempt;
     unsigned int bufsize = 32768;
@@ -169,23 +167,14 @@ int checkmd5sum(int isofd, char *mediasum, char *computedsum,
 
 static void readCB(void *co, long long pos) {
     struct progressCBdata *data = co;
-    static tick = 0;
-    char *tickmark;
+    static int tick = 0;
+    char tickmark[2] = "-";
+    char * ticks = "-\\|/";
 
     newtScaleSet(data->scale, pos);
     tick++;
-    if (tick < 100)
-	tickmark = "-";
-    if (tick >= 100 && tick < 200)
-	tickmark = "\\";
-    else if (tick >= 200 && tick < 300)
-	tickmark = "|";
-    else if (tick >= 300 && tick < 400)
-	tickmark = "/";
-    else if (tick >= 400) {
-	tick = 0;
-	tickmark = "-";
-    }
+    if (tick >= 400) tick = 0;
+    *tickmark = ticks[tick % 100];
 
     newtLabelSetText(data->label, tickmark);
     newtRefresh();
