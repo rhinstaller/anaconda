@@ -312,7 +312,7 @@ int main(int argc, char **argv) {
     int rc;
 
     if (argc < 2) {
-	printf("Usage: checkisomd5  <isofilename>|<blockdevice>\n\n");
+	printf("Usage: checkisomd5 [--md5sumonly] <isofilename>|<blockdevice>\n\n");
 	exit(1);
     }
 
@@ -323,4 +323,6 @@ int main(int argc, char **argv) {
     }
 
     rc = mediaCheckFile(argv[1]);
+
+    exit(rc ? 0 : 1);
 }
