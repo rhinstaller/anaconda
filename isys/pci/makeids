@@ -54,7 +54,7 @@ while (<F>) {
     s/   */ /g;
     s/^  *//g;
     s/  *$//g;
-    if (/^# List of known device classes/) { print "moo\n"; last; }
+    if (/^# List of known device classes/) { last; }
     if (/^#.*/) { next };
     if (!length($_)) { next };
 
@@ -78,9 +78,9 @@ while (<F>) {
 	s/([0-9A-Fa-f]+) +//;
 	$classid = $1;
 	if ($classtr{$_}) {
-	    $class = $classtr{$_};
+	   $class = $classtr{$_};
 	} else {
-	    $class = $_;
+	   $class = $_;
 	}
     }
 }

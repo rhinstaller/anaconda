@@ -28,6 +28,34 @@ static int devCmp(const void * a, const void * b) {
       return y;
 }
 
+static int vendCmp(const void * a, const void * b) {
+    const struct pciDevice * one = a;
+    const struct pciDevice * two = b;
+    
+    return (one->vendor - two->vendor);
+}
+
+
+char *getVendor(unsigned int vendor) {
+    struct pciDevice *searchDev, key;
+    char *tmpstr;
+    
+    key.vendor = vendor;
+    
+    searchDev = bsearch(&key,pciDeviceList,numPciDevices,
+			sizeof(struct pciDevice), vendCmp);
+    if (searchDev) {
+	int x;
+	
+	x=strchr(searchDev->desc,'|')-searchDev->desc-1;
+	tmpstr=calloc(x,sizeof(char));
+	tmpstr=strncpy(tmpstr,searchDev->desc,x);
+	return tmpstr;
+    } else {
+	return NULL;
+    }
+}
+
 int probePciReadDrivers(const char * fn) {
     int fd;
     struct stat sb;
@@ -36,6 +64,7 @@ int probePciReadDrivers(const char * fn) {
     char * start;
     struct pciDevice * nextDevice;
     char module[5000];
+    char descrip[5000];
 
     fd = open(fn, O_RDONLY);
     if (fd < 0) return -1;
@@ -62,16 +91,11 @@ int probePciReadDrivers(const char * fn) {
     while (start && *start) {
 	while (isspace(*start)) start++;
 	if (*start != '#' && *start != '\n') {
-	    if (sscanf(start, "%x %x %s", &nextDevice->vendor,
-		       &nextDevice->device, module ) == 3) {
-		int x;
+	    if (sscanf(start, "%x %x %s \"%[^\"]", &nextDevice->vendor,
+		       &nextDevice->device, module, descrip ) == 4) {
 		numPciDevices++;
 		nextDevice->driver = strdup(module);
-		x=strchr(start,'\n')-strchr(start,'"')-2;
-		if (x>0) {
-		    nextDevice->desc = calloc(x,sizeof(char));
-		    nextDevice->desc = strncpy(nextDevice->desc,strchr(start,'"')+1,x);
-		}
+		nextDevice->desc = strdup(descrip);
 		nextDevice++;
 	    }
 	}
@@ -94,21 +118,21 @@ struct pciDevice * pciGetDeviceInfo(unsigned int vend, unsigned int dev) {
     searchDev = bsearch(&key,pciDeviceList,numPciDevices,
 			sizeof(struct pciDevice), devCmp);
     if (!searchDev) {
-	char *namebuf=calloc(128,sizeof(char *));
+	char *namebuf;
+
 	searchDev = malloc(sizeof(struct pciDevice));
 	searchDev->vendor = vend;
 	searchDev->device = dev;
 	searchDev->driver = strdup("unknown");
 	searchDev->desc = calloc(128, sizeof(char));
-	namebuf=pci_lookup_name(pacc,namebuf,128,
-				PCI_LOOKUP_VENDOR, searchDev->vendor,0);
-	if ((strtol(namebuf, (char **)NULL, 16)) == searchDev->vendor) { 
+	namebuf = getVendor(vend);
+	if (!namebuf) {
 	    snprintf(searchDev->desc,128,
-		     "Unknown vendor unknown device: %04x:%04x",
+		     "Unknown vendor unknown device %04x:%04x",
 		     searchDev->vendor, searchDev->device);
 	} else {
 	    snprintf(searchDev->desc,128,
-		     "%s unknown device: %04x:%04x",
+		     "%s unknown device %04x:%04x",
 		     namebuf, searchDev->vendor, searchDev->device);
 	}
     }

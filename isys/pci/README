@@ -1,0 +1,41 @@
+
+Requires the pciutils-devel-2.0-2 rpm currently in playpen
+(static lib + headers). Probably will get moved into dist-6.1
+soon.
+
+Use is as follows:
+--
+/* pciprobe.h */
+
+struct pciDevice {
+        unsigned int vendor, device, type;
+        char * driver;
+        char * desc;
+};
+
+int probePciReadDrivers(const char *fn);
+struct pciDevice **probePci(unsigned int type, int all);
+--
+
+probePciReadDrivers is same as before.
+probePci returns a null-terminated list of pciDevice *.
+
+'type' is a base class/subclass type (look in /usr/include/pci/header.h
+under 'Device classes and subclasses' for constants to use, or you
+can hard-code them....). 
+'all=0' means return only those for which there are drivers
+(which means entries where the drivers are *not* 'unknown' or 'ignore'.)
+'all=anything else' means return everything.
+
+Currently, the pcitable is more-or-less the same as before:
+0xvendor	0xdevice	<driver>	"description"
+
+It's generated from the pci.ids file by the 'makeids' command,
+which reads the driver mappings from the *current* pcitable
+file in the current directory. Basically, to change a driver,
+edit the pcitable and commit; rerunning makeids will simply
+merge in any new PCI ids in the pci.ids file, and change
+any changed descriptions.
+
+testprobe currently prints (more-or-less) the results
+of probePci(0,1);
