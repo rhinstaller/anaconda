@@ -29,6 +29,10 @@ lvmDevicePresent = 0
 
 def has_lvm():
     global lvmDevicePresent
+
+    if not (os.access("/usr/sbin/lvm", os.X_OK) or
+            os.access("/sbin/lvm", os.X_OK)):
+        return
     
     f = open("/proc/devices", "r")
     lines = f.readlines()
@@ -169,7 +173,7 @@ def lvlist():
         return []
 
     lvs = []
-    args = ["/usr/sbin/lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
     lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1)
     for line in lvscanout.split("\n"):
         try:
@@ -188,7 +192,7 @@ def pvlist():
         return []
 
     pvs = []
-    args = ["/usr/sbin/lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
     for line in scanout.split("\n"):
         try:
@@ -207,7 +211,7 @@ def vglist():
         return []
 
     vgs = []
-    args = ["/usr/sbin/lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
     scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
     for line in scanout.split("\n"):
         try:

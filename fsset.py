@@ -1448,7 +1448,7 @@ class FileSystemSet:
         root = self.getEntryByMountPoint("/")
         if isinstance(root.device, LogicalVolumeDevice):
             # now make sure all of the device nodes exist.  *sigh*
-            rc = iutil.execWithRedirect("/usr/sbin/lvm",
+            rc = iutil.execWithRedirect("lvm",
                                         ["lvm", "vgmknodes", "-v"],
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
@@ -1840,7 +1840,7 @@ class VolumeGroupDevice(Device):
                 # now make the device into a real physical volume
                 # XXX I don't really belong here.   should
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
-                rc = iutil.execWithRedirect("/usr/sbin/lvm",
+                rc = iutil.execWithRedirect("lvm",
                                             ["lvm", "pvcreate", "-ff", "-y",
                                              "-v", node],
                                             stdout = "/tmp/lvmout",
@@ -1855,7 +1855,7 @@ class VolumeGroupDevice(Device):
             # rescan now that we've recreated pvs.  ugh.
             lvm.vgscan()
 
-            args = [ "/usr/sbin/lvm", "vgcreate", "-v", "-An",
+            args = [ "lvm", "vgcreate", "-v", "-An",
                      "-s", "%sk" %(self.physicalextentsize,),
                      self.name ]
             args.extend(nodes)
@@ -1897,7 +1897,7 @@ class LogicalVolumeDevice(Device):
 
     def setupDevice(self, chroot="/", devPrefix='/tmp'):
         if not self.isSetup:
-            rc = iutil.execWithRedirect("/usr/sbin/lvm",
+            rc = iutil.execWithRedirect("lvm",
                                         ["lvm", "lvcreate", "-L",
                                          "%dM" % (self.size,),
                                          "-n", self.name, "-An",
