@@ -27,12 +27,20 @@ if [ $ARCH != s390 -a $ARCH != s390x ]; then
 fi
 rm $p/etc/ld.so.conf
 
+#
+# make sure we have links for programs supplied by busybox
+#
+# HOWEVER dont clobber existing programs supplied by other packages if exist
+#
 mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
 (cd $p/usr/bin;
 set $(./busybox 2>&1| awk '/^\t([a-z\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
 while [ -n "$1" ]; do
     if [ $1 != "busybox" -a $1 != "sh" ]; then
-	ln -sf ./busybox $1
+        # if file doesnt already exist, link to busybox
+	if [ ! -f "$1" ]; then
+	    ln -sf ./busybox $1
+	fi
     fi
     shift
 done
