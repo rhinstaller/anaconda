@@ -1931,7 +1931,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
         else if (!strcasecmp(argv[i], "ks")) {
 	    flags |= LOADER_FLAGS_KSNFS;
 	    *ksSource = NULL;
-        } else if (!strncasecmp(argv[i], "ks=cdrom:", 7)) {
+        } else if (!strncasecmp(argv[i], "ks=cdrom:", 9)) {
 	    flags |= LOADER_FLAGS_KSCDROM;
 	    *ksSource = argv[i] + 9;
         } else if (!strncasecmp(argv[i], "ks=nfs:", 7)) {
