@@ -28,7 +28,7 @@ makeBootImages() {
 	    --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
+	cp $KERNELROOT/boot/vmlinux-*pseries* $TOPDESTPATH/ppc/chrp/vmlinux
 	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
@@ -50,8 +50,8 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
-	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
-	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
+	cp $KERNELROOT/boot/vmlinux-*iseries* $TOPDESTPATH/ppc/iSeries/vmlinux
+	cp $KERNELROOT/boot/System.map-*iseries* $TOPDESTPATH/ppc/iSeries/System.map
 	
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/boot.img
     else
