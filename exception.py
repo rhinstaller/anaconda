@@ -34,8 +34,11 @@ def dumpException(out, text, tb, id):
         trace = trace.tb_next
     frame = trace.tb_frame
     out.write ("\nLocal variables in innermost frame:\n")
-    for (key, value) in frame.f_locals.items():
-        out.write ("%s: %s\n" % (key, value))
+    try:
+        for (key, value) in frame.f_locals.items():
+            out.write ("%s: %s\n" % (key, value))
+    except:
+        pass
 
     out.write("\nToDo object:\n")
 
