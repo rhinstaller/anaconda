@@ -217,7 +217,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                     partType = parted.PARTITION_PRIMARY
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
-                    constraint = disk.constraint_any()
+                    constraint = disk.dev.constraint_any()
                     disk.add_partition(newp, constraint)
                     disk.maximize_partition (newp, constraint)
                     newParts.parts.append(newp)
@@ -226,7 +226,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 else: # shouldn't get here
                     raise PartitioningError, "Impossible partition type to create"
             newp = disk.partition_new (partType, fsType, startSec, endSec)
-            constraint = disk.constraint_any ()
+            constraint = disk.dev.constraint_any ()
             try:
                 disk.add_partition (newp, constraint)
 

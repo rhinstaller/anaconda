@@ -509,7 +509,7 @@ class DiskSet:
                 newp = disk.partition_new (type, spec.fs_type,
                                            part.geom.start,
                                            part.geom.start + spec.size)
-                constraint = disk.constraint_any ()
+                constraint = disk.dev.constraint_any ()
                 try:
                     disk.add_partition (newp, constraint)
                     status = 1
