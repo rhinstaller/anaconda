@@ -46,6 +46,7 @@ static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
                                     "modules.cgz", NULL };
 
 
+static char * optionalFiles[] = { "modules.pcimap", "pci.ids", NULL };
 
 static int verifyDriverDisk(char *mntpt, int flags) {
     char ** fnPtr;
@@ -121,6 +122,11 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     }
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
+        sprintf(file, "%s/%s", mntpt, *fnPtr);
+        sprintf(dest, "/tmp/ramfs/DD-%d/%s", disknum, *fnPtr);
+        copyFile(file, dest);
+    }
+    for (fnPtr = optionalFiles; *fnPtr; fnPtr++) {
         sprintf(file, "%s/%s", mntpt, *fnPtr);
         sprintf(dest, "/tmp/ramfs/DD-%d/%s", disknum, *fnPtr);
         copyFile(file, dest);
