@@ -6,9 +6,9 @@ Copyright: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
-BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm404-python, newt-devel, rpm-devel, gettext >= 0.11, modutils-devel, dietlibc, kernel-pcmcia-cs, rhpl
+BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm404-python, newt-devel, librpm404-devel, gettext >= 0.11, modutils-devel, dietlibc, kernel-pcmcia-cs, rhpl
 Prereq: chkconfig /etc/init.d
-Requires: rpm-python, rhpl
+Requires: rpm404-python, rhpl
 Excludearch: sparc sparc64
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
