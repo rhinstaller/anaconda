@@ -634,7 +634,10 @@ class Partitions:
 
         if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
-            return [ bootreq ]
+            if bootreq:
+                return [ bootreq ]
+            else:
+                return None
         elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
@@ -675,8 +678,10 @@ class Partitions:
             bootreq = self.getRequestByMountPoint("/boot")
         if not bootreq:
             bootreq = self.getRequestByMountPoint("/")
-            
-        return [ bootreq ]
+
+        if bootreq:
+            return [ bootreq ]
+        return None
 
     def getBootableMountpoints(self):
         """Return a list of bootable valid mountpoints for this arch."""
