@@ -59,7 +59,8 @@ class InstallTimeLanguage:
                     self.nativeLangNames[lang] = native
                 break
 
-        search = ('lang-table', '/etc/lang-table',
+        search = ('lang-table', '/tmp/updates/lang-table',
+                  '/mnt/source/RHupdates/lang-table', '/etc/lang-table',
                   '/usr/lib/anaconda/lang-table')
         for path in search:
             if os.access(path, os.R_OK):
