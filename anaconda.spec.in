@@ -11,7 +11,7 @@ BuildPreReq: pump-devel >= 0.8.15, kudzu-devel >= 1.1.0, pciutils-devel, bzip2-d
 BuildRequires: dietlibc
 %endif
 Prereq: chkconfig /etc/init.d
-Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty
+Requires: rpm-python >= 4.2-0.61, rhpl > 0.63, parted >= 1.6.3-7, booty, kudzu
 Url: http://rhlinux.redhat.com/anaconda/
 
 BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
