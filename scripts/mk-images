@@ -277,6 +277,12 @@ EOF
     install -m 644 $LANGTABLE $LOADERBINDIR/loader.tr $MBD_DIR/etc
     install -m 644 /usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
 
+    if [ -n "$PCMCIA" ]; then
+	mkdir -p $MBD_BOOTTREE/etc
+	cp -a $KERNELROOT/etc/pcmcia $MBD_DIR/etc
+    fi
+
+
     for n in insmod rmmod modprobe; do
 	ln -s loader $MBD_DIR/sbin/$n
     done
@@ -366,11 +372,6 @@ EOF
     else
 	echo "I don't know how big to make the image!" >&2
 	exit 1
-    fi
-
-    if [ -n "$PCMCIA" ]; then
-	mkdir -p $MBD_BOOTTREE/etc
-	cp -a $KERNELROOT/etc/pcmcia $MBD_BOOTTREE/etc
     fi
 
     if [ -n "$EXTRAKERNELPATH" ]; then
