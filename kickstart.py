@@ -351,7 +351,7 @@ class KickstartBase(BaseInstallClass):
 
     def doFirstboot(self, id, args):
         (args, extra) = isys.getopt(args, '',
-                                    ['reconfig', 'enable', 'enabled'
+                                    ['reconfig', 'enable', 'enabled',
                                      'disable', 'disabled'])
 
         fb = FIRSTBOOT_SKIP
