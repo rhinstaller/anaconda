@@ -142,7 +142,7 @@ def clampLVSizeRequest(size, pe):
     if ((size*1024L) % pe) == 0:
 	return size
     else:
-	return ((long((size*1024L)/pe)+1L)*pe)/1024
+	return ((long((size*1024L)/pe))*pe)/1024
 
 def clampPVSize(pvsize, pesize):
     """Given a PV size and a PE, returns the usable space of the PV.
