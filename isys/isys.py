@@ -79,8 +79,8 @@ def raidsb(mdDevice):
     rc = 0
     try:
         rc = _isys.getraidsb(fd)
-    except:
-        pass
+    finally:
+        os.close(fd)
     os.close(fd)
     return rc
 
