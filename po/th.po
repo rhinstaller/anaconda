@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-26 17:40+0700\n"
+"PO-Revision-Date: 2004-07-27 15:30+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
 "Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
@@ -3250,7 +3250,7 @@ msgstr "ขนาดของส่วนยืดขยายทางกาย
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr "คุณไม่สามารถลบโวลูมทางกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume ที่ XXX"
+msgstr "คุณไม่สามารถลบโวลูมทางกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume ที่กำหนดไว้สามารถคงอยู่ได้"
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
@@ -3268,15 +3268,15 @@ msgstr "แก้ไข Logical Volume "
 #: ../iw/lvm_dialog_gui.py:376 ../iw/partition_dialog_gui.py:286
 #: ../iw/raid_dialog_gui.py:294
 msgid "_Mount Point:"
-msgstr "ตำแหน่งเมานท์:"
+msgstr "ตำแหน่งเ_มานท์:"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "ชนิดของระบบไฟล์: "
+msgstr "ชนิดของระบบไ_ฟล์: "
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:305
 msgid "Original File System Type:"
-msgstr "ชนิดของระบบไฟล์เดิม:"
+msgstr "ชนิดของระบบไฟล์ดั้งเดิม:"
 
 #: ../iw/lvm_dialog_gui.py:397 ../iw/partition_dialog_gui.py:316
 #: ../iw/raid_dialog_gui.py:315
@@ -3285,15 +3285,15 @@ msgstr "ไม่ทราบ"
 
 #: ../iw/lvm_dialog_gui.py:403
 msgid "_Logical Volume Name:"
-msgstr "ชื่อ Logical Volume "
+msgstr "ชื่อ _Logical Volume:"
 
 #: ../iw/lvm_dialog_gui.py:411
 msgid "Logical Volume Name:"
-msgstr "ชื่อ Logical Volume: "
+msgstr "ชื่อ Logical Volume:"
 
 #: ../iw/lvm_dialog_gui.py:419 ../iw/partition_dialog_gui.py:362
 msgid "_Size (MB):"
-msgstr "ขนาด (เมกะไบต์): "
+msgstr "_ขนาด (เมกะไบต์):"
 
 #: ../iw/lvm_dialog_gui.py:425 ../iw/partition_dialog_gui.py:379
 #: ../iw/partition_dialog_gui.py:422 ../textw/partition_text.py:343
@@ -3312,7 +3312,7 @@ msgstr "ขนาดไม่ถูกต้อง"
 
 #: ../iw/lvm_dialog_gui.py:502
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr "ค่าที่คุณป้อนเข้ามา เป็นตัวเลขที่ไม่ถูกต้อง (ต้องมากกว่า 0)"
+msgstr "ขนาดที่คุณป้อนเข้ามา เป็นตัวเลขที่ไม่ถูกต้อง (ต้องมากกว่า 0)"
 
 #: ../iw/lvm_dialog_gui.py:535
 msgid "Mount point in use"
@@ -3321,7 +3321,7 @@ msgstr "ตำแหน่งเมานท์ถูกใช้อยู่"
 #: ../iw/lvm_dialog_gui.py:536
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr "ตำแหน่งเมานท์ %s ได้ถูกใช้ไปแล้ว กรุณาเลือกตำแหน่งเมานท์อื่น"
+msgstr "ตำแหน่งเมานท์ %s ได้ถูกใช้ไปแล้ว กรุณาเลือกที่อื่น"
 
 #: ../iw/lvm_dialog_gui.py:547
 msgid "Illegal Logical Volume Name"
@@ -3334,7 +3334,7 @@ msgstr "ชื่อ logical volume ไม่ถูกต้อง "
 #: ../iw/lvm_dialog_gui.py:567
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
-msgstr "logical volume ชื่อ \"%s\" มีอยู่แล้ว กรุณาเลือกชื่ออื่น "
+msgstr "logical volume ชื่อ \"%s\" ได้ถูกใช้ไปแล้ว กรุณาเลือกชื่ออื่น "
 
 #: ../iw/lvm_dialog_gui.py:581
 #, python-format
@@ -3342,7 +3342,7 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can increase the Physical "
 "Extent size for this Volume Group."
-msgstr ""
+msgstr "ขนาดที่ต้องการในปัจจุบัน (%10.2f MB) ใหญ่กว่าขนาดสูงสุดของ logical volume (%10.2f MB) XXX"
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:173
 #: ../iw/partition_dialog_gui.py:185 ../iw/partition_dialog_gui.py:233
