@@ -192,9 +192,11 @@ class AccountWindow (InstallWindow):
         userWin.set_modal(gtk.TRUE)
         userWin.set_usize(350, 200)		
         userWin.set_position (gtk.WIN_POS_CENTER)
+        userWin.set_border_width(5)
 
-        userTable = gtk.Table (5,2)
+        userTable = gtk.Table (5, 2)
         userTable.set_homogeneous(gtk.FALSE)
+        userTable.set_border_width(5)
 
         vbox = gtk.VBox()
         vbox.pack_start(userTable)
@@ -204,28 +206,36 @@ class AccountWindow (InstallWindow):
 
         # Labels
         label = gtk.Label (_("User Name:"))
-        userTable.attach(label, 0, 1, 0, 1)
-        label = gtk.Label (_("Full Name:"))
-        userTable.attach(label, 0, 1, 1, 2)
+        a = gtk.Alignment(0.0, 0.5, 0, 1)
+        a.add(label)
+        userTable.attach(a, 0, 1, 0, 1, gtk.FILL)
         label = gtk.Label (_("Password:"))
-        userTable.attach(label, 0, 1, 2, 3)
-        label = gtk.Label (_("Confirm:"))
-        userTable.attach(label, 0, 1, 3, 4)
+        a = gtk.Alignment(0.0, 0.5, 0, 1)
+        a.add(label)
+        userTable.attach(a, 0, 1, 1, 2, gtk.FILL)
+        label = gtk.Label (_("Password (confirm):"))
+        a = gtk.Alignment(0.0, 0.5, 0, 1)
+        a.add(label)
+        userTable.attach(a, 0, 1, 2, 3, gtk.FILL)
+        label = gtk.Label (_("Full Name:"))
+        a = gtk.Alignment(0.0, 0.5, 0, 1)
+        a.add(label)
+        userTable.attach(a, 0, 1, 3, 4, gtk.FILL)
         # user password label
         self.userPwLabel = gtk.Label(_("Please enter user name"))
         vbox.pack_start(self.userPwLabel)
 
         # entry boxes
         self.accountName = gtk.Entry (8)
-        userTable.attach(self.accountName, 1, 2, 0, 1, gtk.SHRINK, gtk.SHRINK)
-        self.fullName = gtk.Entry ()
-        userTable.attach(self.fullName, 1, 2, 1, 2, gtk.SHRINK, gtk.SHRINK)
+        userTable.attach(self.accountName, 1, 2, 0, 1, gtk.EXPAND, gtk.EXPAND)
         self.userPass1 = gtk.Entry ()
         self.userPass1.set_visibility(gtk.FALSE)
-        userTable.attach(self.userPass1, 1, 2, 2, 3, gtk.SHRINK, gtk.SHRINK)
+        userTable.attach(self.userPass1, 1, 2, 1, 2, gtk.EXPAND, gtk.EXPAND)
         self.userPass2 = gtk.Entry ()
         self.userPass2.set_visibility(gtk.FALSE)
-        userTable.attach (self.userPass2, 1, 2, 3, 4, gtk.SHRINK, gtk.SHRINK)
+        userTable.attach(self.userPass2, 1, 2, 2, 3, gtk.EXPAND, gtk.EXPAND)
+        self.fullName = gtk.Entry ()
+        userTable.attach(self.fullName, 1, 2, 3, 4, gtk.EXPAND, gtk.EXPAND)
 
         if data:
             index, account, password, password, name = data

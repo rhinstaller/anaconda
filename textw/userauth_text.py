@@ -35,7 +35,7 @@ class RootPasswordWindow:
         entry2 = Entry (24, password = 1, text = pw)
         passgrid = Grid (2, 2)
         passgrid.setField (Label (_("Password:")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
-        passgrid.setField (Label (_("Password (again):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
+        passgrid.setField (Label (_("Password (confirm):")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
         passgrid.setField (entry1, 1, 0)
         passgrid.setField (entry2, 1, 1)
         toplevel.add (passgrid, 0, 1, (0, 0, 0, 1))
