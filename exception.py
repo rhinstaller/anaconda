@@ -98,7 +98,7 @@ def dumpClass(instance, fd, level=0, parentkey=""):
             fd.write("%s%s: {" % (pad, curkey))
             first = 1
             for k, v in value.items():
-		newkey = curkey+"."+k
+		newkey = curkey+"."+str(k)
 		if newkey in keySkipList:
 		    continue
 		
