@@ -688,10 +688,10 @@ static char * setupCdrom(struct installMethod * method,
 			_("I could not find a Red Hat Linux "
 			  "CDROM in any of your CDROM drives. Please insert "
 			  "the Red Hat CD and press \"Ok\" to retry."));
-	    if (rc == LOADER_BACK) return NULL;
+	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDeps, flags);
-	    if (rc == LOADER_BACK) return NULL;
+	    if (rc == 2) return NULL;
 	}
     } while (1);
 
