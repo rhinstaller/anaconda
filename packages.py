@@ -275,7 +275,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     if depcheck.added and id.handleDeps == CHECK_DEPS:
 	disp.skipStep("dependencies", skip = 0)
-        log("FIXME: had dependency problems.  resolved them without informing the user")
+        log("had unresolved dependencies, resolved.")
 	disp.skipStep("dependencies")
     else:
 	disp.skipStep("dependencies")
