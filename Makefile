@@ -30,7 +30,7 @@ ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS)
 
 PYFILES = $(wildcard *.py)
 
-all: subdirs _xkb.so $(CATALOGS)
+all: subdirs _xkb.so xmouse.so $(CATALOGS)
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -fPIC -I/usr/include/python1.5 `gtk-config --cflags gtk` -c xkb.c 
