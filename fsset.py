@@ -845,9 +845,10 @@ class RAIDDevice(Device):
                 if not RAIDDevice.usedMajors.has_key(I):
                     minor = I
                     break
+
+            if minor == -1:
                 raise RuntimeError, ("Unable to allocate minor number for "
                                      "raid device")
-            minor = I
         RAIDDevice.usedMajors[minor] = None
         self.device = "md" + str(minor)
         self.minor = minor
