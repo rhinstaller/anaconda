@@ -50,8 +50,6 @@ static struct devnum devices[] = {
     { "optcd",		17,	0,	0 },
     { "psaux",		10,	1,	1 },
     { "sbpcd",		25,	0,	0 },
-    { "scd0",		11,	0,	0 },
-    { "scd1",		11,	1,	0 },
     { "sjcd",		18,	0,	0 },
     { "ttyS0",		4,	64,	1 },
     { "ttyS1",		4,	65,	1 },
@@ -106,6 +104,10 @@ int devMakeInode(char * devName, char * path) {
     } else if (!strncmp(devName, "loop", 4)) {
 	type = S_IFBLK;
 	major = 7;
+	minor = atoi(devName + 4);
+    } else if (!(strncmp(devName, "scd", 3)) {
+	type = S_IFBLK;
+	major = 11;
 	minor = atoi(devName + 4);
     } else if (devName[0] == 'h' && devName[1] == 'd') {
 	type = S_IFBLK;
