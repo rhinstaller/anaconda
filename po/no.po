@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-02-07 13:19-0500\n"
-"PO-Revision-Date: 2001-02-05 23:10-05:00\n"
+"PO-Revision-Date: 2001-02-08 12:48+01:00\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -2903,7 +2903,6 @@ msgid "Root partition"
 msgstr "Rotpartisjon"
 
 #: ../libfdisk/gnomefsedit.c:756
-#, fuzzy
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2911,10 +2910,9 @@ msgid ""
 msgstr ""
 "Veksten av rot (/)-RAIDet ser ut til å ha blitt stoppet av 1024-sylinders "
 "grensen for oppstart. Hvis dette er tilfelle, kan det å lage en egen "
-"/boot-partisjon gjøre det mulig å lage en større rotpartisjon."
+"/boot-partisjon (50 MB holder) gjøre det mulig å lage en større rotpartisjon."
 
 #: ../libfdisk/gnomefsedit.c:788
-#, fuzzy
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2922,7 +2920,8 @@ msgid ""
 msgstr ""
 "Veksten av rot (/)-partisjonen ser ut til å ha blitt stoppet av "
 "1024-sylinders grensen for oppstart. Hvis dette er tilfelle, kan det å lage "
-"en egen /boot-partisjon gjøre det mulig å lage en større rotpartisjon."
+"en egen /boot-partisjon (50 MB holder) gjøre det mulig å lage en større "
+"rotpartisjon."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -3851,6 +3850,7 @@ msgstr "Leser anaconda-oppdateringer..."
 #: ../loader/loader.c:2470
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
+"Du har ikke nok systemminne til å installere Red Hat på denne maskinen."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
