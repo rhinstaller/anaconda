@@ -80,10 +80,10 @@ class TimezoneWindow (InstallWindow):
 	if not self.__dict__.has_key('list'): return None
 
         self.old_page = self.nb.get_current_page ()
-        self.old_ulist_row = self.ulist.selection[0]
-        self.old_use_dst = self.daylightCB.get_active ()
+        self.timezone.utcOffset = self.nb.get_current_page ()
+        self.timezone.dst = self.daylightCB.get_active ()
         
-        if (self.old_page == 0):
+        if self.old_page == 0:
             newzone = "America/New_York"
             try:
                 newzone = self.tz.getzone (self.list.get_text (self.list.selection[0], 0))
@@ -117,7 +117,11 @@ class TimezoneWindow (InstallWindow):
         try:
             self.tz.setcurrent (self.default)
         except SystemError:
-            pass
+            self.default = _(self.langDefault)
+            try:
+                self.tz.setcurrent (self.default)
+            except:
+                pass
         widget.disconnect (self.id)
 
     # TimezoneWindow tag="timezone"
@@ -145,10 +149,20 @@ class TimezoneWindow (InstallWindow):
 
 	(self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
 
+        self.old_page = timezone.utcOffset
+        self.old_use_dst = timezone.dst
+        self.langDefault = instLang.getDefaultTimeZone()
+        if self.old_page:
+            i = 0
+            for ((offset, descr), (file, daylight)) in self.timeZones:
+                if self.default == daylight or self.default == file:
+                    break
+                i = i + 1
+            self.old_ulist_row = i
 	if self.default:
             self.default = _(self.default)
 	else:
-            self.default = _(instLang.getDefaultTimeZone())
+            self.default = _(self.langDefault)
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):
