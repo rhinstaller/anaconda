@@ -11,9 +11,11 @@ class Keyboard (SimpleConfigFile):
             ("cf"                , ('pc102', 'cf')),
             ("cz-lat2"           , ('pc102', 'cs')),
             ("cz-lat2-prog"      , ('pc102', 'cs')),
+
             ("de-latin1"         , ('pc102', 'de')),
             ("de"                , ('pc102', 'de')),
             ("de-latin1-nodeadkeys" , ('pc102', 'de')),
+
             ("dk"                , ('pc102', 'dk')),
             ("dk-latin1"         , ('pc102', 'dk')),
             ("es"                , ('pc102', 'es')),
@@ -60,6 +62,7 @@ class Keyboard (SimpleConfigFile):
 	    "sunt5-uk"		: 'en_US',
 	    "sunt5-us-cz"	: 'cs',
 	    }
+
 
     console2x = {}
     for (console, (map, layout)) in console2xlist:
@@ -224,7 +227,10 @@ class Keyboard (SimpleConfigFile):
 	if self.type != "Serial":
 	    self.info["KEYTABLE"] = keytable
 
-    def setfromx (self, model, layout):
+    def setfromx (self, model, layout, variant):
+        print "Inside setfromx"
+        print "Values are", model, layout, variant
+        
 	if self.type == "PC":
             mapping = Keyboard.x2console
         else:
@@ -240,7 +246,12 @@ class Keyboard (SimpleConfigFile):
                 mod = model
                 lay = key;
             if model == mod and layout == lay:
-                self.info["KEYTABLE"] = mapping[key]
+                #--Check to see if keyboard is German and has deadkeys disabled
+                print "Inside compare", mod, lay, variant
+                if lay == "de" and variant == "nodeadkeys":
+                    self.info["KEYTABLE"] = "de-latin1-nodeadkeys"
+                else:
+                    self.info["KEYTABLE"] = mapping[key]
                 return
             if layout == lay:
                 fuzzy = key
