@@ -1139,9 +1139,8 @@ static char * setupCdrom(struct installMethod * method,
 				    }
 				} while (!gotcd1);
 			    }
-
-			    return buf;
 			}
+			return buf;
 		    }
 		}
 		umount("/mnt/source");
@@ -1685,9 +1684,9 @@ static char * doMountImage(char * location,
        Red Hat CD. If there is one there, just die happy */
     if (!FL_EXPERT(flags)) {
 # endif
-	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
-			 flags, 1, 1);
-	if (url) return url;
+       url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
+			flags, 1, 1);
+       if (url) return url;
     }
 #endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
 
@@ -2167,6 +2166,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "lowres"))
 	    flags |= LOADER_FLAGS_LOWRES;
+	else if (!strcasecmp(argv[i], "mediacheck"))
+            flags |= LOADER_FLAGS_MEDIACHECK;
 	else if (!strcasecmp(argv[i], "nofb"))
 	    flags |= LOADER_FLAGS_NOFB;
 	else if (!strcasecmp(argv[i], "nousbstorage"))

@@ -173,8 +173,8 @@ static void readCB(void *co, long long pos) {
 
     newtScaleSet(data->scale, pos);
     tick++;
-    if (tick >= 400) tick = 0;
-    *tickmark = ticks[tick % 100];
+    if (tick > 399) tick = 0;
+    *tickmark = ticks[tick / 100];
 
     newtLabelSetText(data->label, tickmark);
     newtRefresh();
