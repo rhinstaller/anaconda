@@ -169,6 +169,8 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		     0, 0, 0, 1, 0, 0);
     newtGridSetField(grid, 0, 1, NEWT_GRID_SUBGRID, entryGrid,
 		     0, 0, 0, 1, 0, 0);
+
+#ifdef NO_PROXY
     switch (protocol) {
     case URL_METHOD_FTP:
 	cb = newtCheckbox(3, 11, _("Use non-anonymous ftp or a proxy server"),
@@ -178,8 +180,10 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	cb = newtCheckbox(3, 11, _("Use proxy server"),
 			  *doSecondarySetup, NULL, doSecondarySetup);
     }
+
     newtGridSetField(grid, 0, 2, NEWT_GRID_COMPONENT, cb,
 		     0, 0, 0, 1, NEWT_ANCHOR_LEFT, 0);
+#endif
 	
     newtGridSetField(grid, 0, 3, NEWT_GRID_SUBGRID, buttons,
 		     0, 0, 0, 0, 0, NEWT_GRID_FLAG_GROWX);
