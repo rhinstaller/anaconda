@@ -777,8 +777,8 @@ class KickstartBase(BaseInstallClass):
     def setSteps(self, dispatch):
         if self.installType == "upgrade":
             from upgradeonly import InstallClass
-            BaseInstallClass = InstallClass(0)
-            BaseInstallClass.setSteps(dispatch)
+            upgradeclass = InstallClass(0)
+            upgradeclass.setSteps(dispatch)
             
             # we have no way to specify migrating yet
             dispatch.skipStep("upgrademigfind")
@@ -786,7 +786,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("upgradecontinue")
             dispatch.skipStep("findinstall")
         else:
-            BaseInstallClass.setSteps(self, dispatch)
+            BaseInstallClass.setSteps(self, dispatch)            
 
         if self.interactive or flags.autostep:
             dispatch.skipStep("installtype")
