@@ -297,6 +297,12 @@ patch -p0 <<EOF
 
 EOF
 
+# Don't ask for which OS is this kludge
+cd $DESTGR/usr/lib/python1.5/site-packages
+sed 's/^from GTK import \*/#&/;/from GTK import \*/r GTK.py' < gtk.py > gtk.py.tmp
+mv -f gtk.py.tmp gtk.py
+rm -f GTK.py GTK.pyc
+
 pythondeps $DEST
 
 for p in $DEST $DESTGR; do
