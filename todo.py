@@ -293,7 +293,7 @@ class ToDo:
         self.upgrade = 0
 	self.lilo = LiloConfiguration()
 	self.initrdsMade = {}
-	self.liloImages = []
+	self.liloImages = {}
 	if (not instClass):
 	    raise TypeError, "installation class expected"
 	self.setClass(instClass)
@@ -511,10 +511,10 @@ class ToDo:
             self.lilo.read (self.instPath + '/etc/lilo.conf')
         elif not self.liloDevice: return
 
-	(bootpart, boothd) = todo.getLiloOptions()
-	if (self.liloDevice == "mbr")
+	(bootpart, boothd) = self.getLiloOptions()
+	if (self.liloDevice == "mbr"):
 	    self.liloDevice = boothd
-	else
+	else:
 	    self.liloDevice = bootpart
 
         if self.liloDevice:
@@ -615,7 +615,7 @@ class ToDo:
 	group = self.instClass.getGroups()
 	if (group == None): return 0
 	for n in self.comps.keys():
-	    self.comps[n].select(0)
+	    self.comps[n].unselect(0)
 
 	self.comps['Base'].select(1)
 	for n in group:
@@ -811,6 +811,8 @@ class ToDo:
         todo.auth.useBroadcast = nisBroadcast
         todo.auth.server = nisServer
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
+	(where, linear, append) = todo.instClass.getLiloInformation()
+	todo.liloDevice = where
         
     def doInstall(self):
 	# make sure we have the header list and comps file
