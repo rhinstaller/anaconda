@@ -1,8 +1,8 @@
 #!/bin/bash
 
-if [ -z "$1" ]; then
-	echo "$0: updates instimage from a Red Hat RPMS tree"
-	echo "usage: $0 <tree>"
+if [ -z "$1" -o ! -d "$1" ]; then
+	echo "$0: updates instimage from a Red Hat RPMS directory"
+	echo "usage: $0 <dir>"
 	exit 1
 fi
 
@@ -35,7 +35,7 @@ pythondeps() {
 	rm -rf $DIR/dev
 }
 
-SRC=$1
+SRC=$1/RedHat/RPMS
 
 mkdir -p ../trees/hdimage
 cd ../trees/hdimage
@@ -50,25 +50,18 @@ cd -
 echo "DEST is $DEST"
 echo "DESTGR is $DESTGR"
 
-PACKAGES="glibc ldconfig setup e2fsprogs XFree86-libs XFree86-SVGA
+PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-S3 XFree86-S3V XFree86-Mach32 XFree86-Mach64
           XFree86-FBDev XFree86-I128 XFree86-3DLabs XFree86-VGA16
-          XFree86-75dpi-fonts XFree86-100dpi-fonts
-          XFree86-ISO8859-2 XFree86-cyrillic-fonts XFree86
-	  xpm glib gtk+ gnome-libs python newt imlib libpng
-	  libtiff libjpeg libtermcap zlib rpm rpm-devel rpm-python ash bash
-	  pygtk pygnome util-linux procps esound audiofile
-	  kernel-pcmcia-cs Xconfigurator raidtools
-          open cpio tar fileutils net-tools grep sed mt-st gzip
-          iputils traceroute sh-utils textutils pine less
-          rsh ncurses popt mtools ftp readline mount modutils"
-
-if [ $ARCH = "sparc" ]; then
-	PACKAGES="$PACKAGES XFree86-Sun"
-fi
-if [ $ARCH = "alpha" ]; then
-	PACKAGES="$PACKAGES XFree86-TGA"
-fi
+          XFree86-Sun XFree86-TGA XFree86-75dpi-fonts XFree86-100dpi-fonts
+          XFree86-ISO8859-2 XFree86-cyrillic-fonts XFree86-3.
+	  xpm-3 glib- gtk+- gnome-libs python-1 newt imlib-1 libpng
+	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel rpm-python ash- bash-
+	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
+	  kernel-pcmcia-cs Xconfigurator raidtools- locale-ja
+          open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
+          iputils- traceroute- sh-utils- textutils- pine- less-
+          rsh- ncurses- popt mtools- ftp- readline- mount- modutils-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -310,9 +303,17 @@ usr/share/fonts/ISO8859-2/100dpi/fonts*
 EOF
 fi
 
-# latest finds the latest version of a binary RPM for a given arch; if you
-# aren't at Red Hat, you'll need to write your own!
-RPMS=$(latest --arch $ARCH $SRC $PACKAGES)
+for I in $PACKAGES; do
+    for J in `ls $SRC/$I* 2> /dev/null`; do
+	if [ "$I" != "rpm-devel" ]; then
+            if ! echo $J | egrep "(devel|sparcv9)" > /dev/null; then
+	        RPMS="$RPMS $J"
+            fi
+        else
+                RPMS="$RPMS $J"
+	fi
+    done
+done
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
 rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin
@@ -340,12 +341,7 @@ rm -f $KEEPFILE $KEEPFILEGR
 make install-hd DESTDIR=$DEST > /dev/null
 make install DESTDIR=$DESTGR > /dev/null
 
-# clean collage out of larger image so we can use real commands like 'ls'
-for i in cat chmod df gunzip ln ls lsmod mkdir umount mount; do
-     rm -f $DESTGR/usr/bin/$i
-done
-
-for p in $DEST $DESTGR; do
+for p in $DESTGR $DEST; do
 	find $p -type d | xargs chmod 755
 
 	if [ -f $p/bin/bash ]; then
@@ -355,8 +351,8 @@ for p in $DEST $DESTGR; do
 	    ln -s ash $p/bin/sh
 	fi
 
-	(cd $p/bin; tar cSpf - .) | (cd $p/usr/bin; tar xSpf -)
-	(cd $p/sbin; tar cSpf - .) | (cd $p/usr/sbin; tar xSpf -)
+	(cd $p/bin; find) | (cd $p/bin; cpio --quiet -pdmu $p/usr/bin)
+	(cd $p/sbin; find) | (cd $p/sbin; cpio --quiet -pdmu $p/usr/sbin)
 	rm -rf $p/bin
 	rm -rf $p/sbin
 
@@ -370,7 +366,6 @@ for p in $DEST $DESTGR; do
 	rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
 	for l in `find $p -exec file {} \; | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
-	    # Strip dwarf stuff, symbols and unneeded not-alloced sections
 	    strip $l -R .comment -R .note `objdump -h $l | \
 		sed -n 's/^.*\(\.gnu\.warning\.[^ ]*\) .*$/-R \1/p'`
 	done
