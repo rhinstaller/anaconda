@@ -42,6 +42,7 @@ static PyObject * hdrUnload(hdrObject * s, PyObject * args);
 static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 static PyObject * hdrCompressFilelist(hdrObject * s, PyObject * args);
 static PyObject * hdrExpandFilelist(hdrObject * s, PyObject * args);
+static PyObject * hdrFullFilelist(hdrObject * s, PyObject * args);
 
 void initrpm(void);
 static PyObject * doAddMacro(PyObject * self, PyObject * args);
@@ -210,6 +211,7 @@ static struct PyMethodDef hdrMethods[] = {
 	{"verifyFile",	(PyCFunction) hdrVerifyFile,	1 },
 	{"expandFilelist",	(PyCFunction) hdrExpandFilelist,	1 },
 	{"compressFilelist",	(PyCFunction) hdrCompressFilelist,	1 },
+	{"fullFilelist",	(PyCFunction) hdrFullFilelist,	1 },
 	{NULL,		NULL}		/* sentinel */
 };
 
@@ -359,6 +361,28 @@ void initrpm(void) {
 			 PyInt_FromLong(RPMPROB_OLDPACKAGE));
     PyDict_SetItemString(d, "RPMPROB_DISKSPACE",
 			 PyInt_FromLong(RPMPROB_DISKSPACE));
+}
+
+/* make a header with _all_ the tags we need */
+void mungeFilelist(Header h)
+{
+    const char ** fileNames = NULL;
+    int count = 0;
+
+    if (!headerIsEntry (h, RPMTAG_BASENAMES)
+	|| !headerIsEntry (h, RPMTAG_DIRNAMES)
+	|| !headerIsEntry (h, RPMTAG_DIRINDEXES))
+	compressFilelist(h);
+    
+    rpmBuildFileList(h, &fileNames, &count);
+
+    if (fileNames == NULL || count <= 0)
+	return;
+
+    headerAddEntry(h, RPMTAG_OLDFILENAMES, RPM_STRING_ARRAY_TYPE,
+			fileNames, count);
+
+    xfree(fileNames);
 }
 
 
@@ -1276,6 +1300,13 @@ static PyObject * hdrCompressFilelist(hdrObject * s, PyObject * args) {
 
 static PyObject * hdrExpandFilelist(hdrObject * s, PyObject * args) {
     expandFilelist (s->h);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * hdrFullFilelist(hdrObject * s, PyObject * args) {
+    mungeFilelist (s->h);
 
     Py_INCREF(Py_None);
     return Py_None;

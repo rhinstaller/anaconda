@@ -21,15 +21,24 @@ rc = db.findbyname('redhat-release')
 h = db[rc[0]]
 printlist (h, 'filenames')
 printlist (h, 'oldfilenames')
-h.expandFilelist()
+
 print "-------------- expand --------------------"
+h.expandFilelist()
 printlist (h, 'oldfilenames')
 printlist (h, 'filenames')
+
 print "-------------- compress --------------------"
 h.compressFilelist()
 printlist (h, 'oldfilenames')
 printlist (h, 'filenames')
+
+print "-------------- expand --------------------"
+h.expandFilelist()
+printlist (h, 'oldfilenames')
+printlist (h, 'filenames')
+
 print "-------------- full --------------------"
 h.fullFilelist()
 printlist (h, 'oldfilenames')
 printlist (h, 'filenames')
+
