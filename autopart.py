@@ -1568,9 +1568,9 @@ def getAutopartitionBoot():
     elif (iutil.getPPCMachine() == "pSeries"):
         return [ (None, "PPC PReP Boot", 4, None, 0, 1, 0),
                  ("/boot", None, 100, None, 0, 1, 0) ]
-    elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasIbmSis():
+    elif (iutil.getPPCMachine() == "iSeries") and not iutil.hasiSeriesNativeStorage():
         return [ (None, "PPC PReP Boot", 16, None, 0, 1, 0) ]
-    elif (iutil.getPPCMachine() == "iSeries") and iutil.hasIbmSis():
+    elif (iutil.getPPCMachine() == "iSeries") and iutil.hasiSeriesNativeStorage():
         return []
     elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen == "NewWorld":
         return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0) , 

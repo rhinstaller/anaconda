@@ -523,7 +523,7 @@ def isUSBDevFSMounted():
     return 0
 
 # this is disgusting and I feel very dirty
-def hasIbmSis():
+def hasiSeriesNativeStorage():
     if getArch() != "ppc":
         return
 
@@ -533,6 +533,8 @@ def hasIbmSis():
 
     for line in lines:
         if line.startswith("ibmsis"):
+            return 1
+        if line.startswith("ipr"):
             return 1
 
     return 0

@@ -1,5 +1,12 @@
 2004-11-03  Jeremy Katz  <katzj@redhat.com>
 
+	* autopart.py (getAutopartitionBoot): Use
+	iutil.hasiSeriesNativeStorage instead of iutil.hasIbmSis()
+	* partitions.py (Partitions.sanityCheckAllRequests): Likewise.
+
+	* iutil.py (hasiSeriesNativeStorage): Rename from hasIbmSis(),
+	check for ipr as well as ibmsis.
+
 	* packages.py (copyAnacondaLogs): Set permissions on logs (#137963)
 
 	* scripts/scrubtree: Don't use busybox shutdown, poweroff, or

@@ -789,7 +789,7 @@ class Partitions:
                                                   (req.format == 1))):
                             bestreq = req
                         break
-            if iutil.getPPCMachine() == "iSeries" and iutil.hasIbmSis():
+            if iutil.getPPCMachine() == "iSeries" and iutil.hasiSeriesNativeStorage():
                 found = 1
                 
             if not found:
