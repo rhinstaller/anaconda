@@ -27,7 +27,7 @@ def runRescue(serial):
 
     fstab = None
 
-    log.open (serial, 0, 0, 0)
+    log.open (serial, 0, 0, 1)
 
     try:
 	fstab = NewtFstab(1, serial, 0, 0, None, None, None, 0, [], 0, 0,
