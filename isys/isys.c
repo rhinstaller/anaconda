@@ -1,14 +1,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <popt.h>
-/* Need to tell loop.h what the actual dev_t type is. */
-#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
-#define dev_t unsigned int
-#else
-#define dev_t unsigned short
-#endif
+#include <sys/types.h>
 #include <linux/loop.h>
-#undef dev_t
 #include <sys/ioctl.h>
 #include <sys/mount.h>
 #include <sys/stat.h>
@@ -953,7 +947,7 @@ static PyObject * doGetRaidSuperblock(PyObject * s, PyObject * args) {
     /* put the size in 1k blocks */
     size >>= 1;
 
-    if (llseek(fd, 1024 * MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
+    if (llseek(fd, ((long long) 1024) * MD_NEW_SIZE_BLOCKS(size), SEEK_SET) < 0) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     } 
