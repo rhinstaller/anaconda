@@ -163,8 +163,8 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
 }
 
 static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
-    const char * wepkey = "";
-    const char * essid = "";
+    char * wepkey = "";
+    char * essid = "";
     int rc = 0;
     char * buf;
 
@@ -183,8 +183,8 @@ static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
                        "is needed, leave this field blank and the "
                        "install will continue."), ifname);
     do {
-        struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
-                                        { N_("Encryption Key"), &wepkey, 0 },
+        struct newtWinEntry entry[] = { { N_("ESSID"), (const char **)&essid, 0 },
+                                        { N_("Encryption Key"), (const char **) &wepkey, 0 },
                                         { NULL, NULL, 0 } };
 
         rc = newtWinEntries(_("Wireless Settings"), buf,
