@@ -25,7 +25,7 @@ class MouseDeviceWindow:
         i = 0
         default = 0
         mousedev = mouse.getDevice()
-        if (mousedev[0:4] != "ttyS"): return INSTALL_NOOP
+        if (not mousedev or mousedev[0:4] != "ttyS"): return INSTALL_NOOP
 
         l = choices.keys()
         l.sort()
