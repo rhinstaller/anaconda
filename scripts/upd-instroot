@@ -789,6 +789,14 @@ rm -f $DESTGR/locales $DESTGR/locales.list
 
 # Remove unneeded XFree86 modules
 rm -rf $DESTGR/usr/X11R6/$LIBDIR/modules/dri
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/libscanpci.a
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/libxf1bpp.a
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/fonts/libspeedo.a
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/drivers/linux/v4l_drv.o
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libdri.a
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/libxtrap.a
+rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/librecord.a
+
 rm -f $DESTGR/usr/X11R6/$LIBDIR/modules/extensions/lib{GLcore,glx,pex5}*
 
 echo "Creating nsswitch.conf"
@@ -1011,15 +1019,6 @@ done
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
 rm -rf $DEST/usr/lib/anaconda-runtime
-
-# remove *.py in /usr/lib/anaconda since we compile everything
-find $DESTGR -name "*.py" | while read fn; do
-    if [ -f ${fn}c ]; then
-	echo "removing $fn because it has a .pyc"
-	rm -f $fn
-    fi
-done
-
 
 if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
    if [ $NEEDGR ]; then
