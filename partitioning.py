@@ -1402,8 +1402,8 @@ class DiskSet:
                     "-y",
                     "-b", "4096",
                     "-d", "cdl",
-                    "-f",
                     "-P",
+                    "-f",
                     "/tmp/%s" % drive]
         
         fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
