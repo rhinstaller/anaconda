@@ -26,8 +26,12 @@ class ZiplWindow (InstallWindow):
     checkMark = None
     checkMark_Off = None
 
-    windowTitle = N_("z/IPL Boot Loader Configuration")
-    htmlTag = "zipl"
+    def __init__ (self, ics):
+        InstallWindow.__init__ (self, ics)
+        self.ics.setTitle ("z/IPL")
+        self.ics.htmlTag = "zipl"
+        self.ics.readHTML ("zipl")
+        self.ics.windowTitle = N_("z/IPL Boot Loader Configuration")
 
     def getPrev (self):
         # avoid coming back in here if the user backs past and then tries
