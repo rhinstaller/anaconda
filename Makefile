@@ -24,7 +24,7 @@ PYFILES = $(wildcard *.py)
 all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table lang-names
 
 lang-names: lang-table
-	(cd scripts; $(PYTHON) getlangnames.py) > lang-names
+	PYTHONPATH="iconvmodule:." $(PYTHON) scripts/getlangnames.py > lang-names
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
