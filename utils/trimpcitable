@@ -10,7 +10,7 @@ while (<STDIN>) {
     @a = split;
     if ($mods{$a[2]}) {
 	print "$_\n";
-    } elsif ($_ =~ /Card:Intel.*810/) {
+    } elsif ($_ =~ /Card:Intel.*81[05]/) {
 	print "$_\n";
     }
 }
