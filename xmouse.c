@@ -23,12 +23,12 @@
 #include <Python.h>
 
 static char *Mouses[] = { "None", "Microsoft", "MouseSystems", "MMSeries",
-			    "Logitech", "BusMouse", "Mouseman", "PS/2",
-			    "MMHitTab", "GlidePoint", "IntelliMouse",
-			    "ThinkingMouse", "IMPS/2", "ThinkingMousePS/2",
-			    "MouseManPlusPS/2", "GlidePointPS/2", 
-			    "NetMousePS/2", "NetScrollPS/2", "SysMouse",
-			    "Auto", "Xqueue", "OSMouse" };
+			  "Logitech", "BusMouse", "Mouseman", "PS/2",
+			  "MMHitTab", "GlidePoint", "IntelliMouse",
+			  "ThinkingMouse", "IMPS/2", "ThinkingMousePS/2",
+			  "MouseManPlusPS/2", "GlidePointPS/2", 
+			  "NetMousePS/2", "NetScrollPS/2", "SysMouse",
+			  "Auto", "Xqueue", "OSMouse" };
 static int numMouses = (sizeof (Mouses) / sizeof (*Mouses));
 
 static int (*olderror)();
@@ -37,13 +37,12 @@ static int error_set = FALSE;
 
 static PyObject * mouse_get (PyObject * s, PyObject * args);
 static PyObject * mouse_reopen (PyObject * s, PyObject * args);
-
-/*  static PyObject * mouse_set (PyObject * s, PyObject * args); */
+static PyObject * mouse_set (PyObject * s, PyObject * args);
 
 static PyMethodDef xmouseMethods[] = {
     { "get", mouse_get, 1 },
     { "reopen", mouse_reopen, 1 },
-/*  { "set", mouse_set, 1 }, */
+    { "set", mouse_set, 1 },
     { NULL, NULL }
 };
 
@@ -82,22 +81,21 @@ mouse_get (PyObject * s, PyObject * args)
     else
 	name = Mouses[settings.type+1];
 
-    ret = Py_BuildValue("ssiiiisisss",
+    ret = Py_BuildValue("[ssiiiiiiii]",
 			settings.device == NULL ? "no device": settings.device,
 			name,
 			settings.baudrate,
 			settings.samplerate,
 			settings.resolution,
 			settings.buttons,
-			settings.emulate3buttons ? "on": "off",
+			settings.emulate3buttons,
 			settings.emulate3timeout,
-			settings.chordmiddle ? "on": "off",
-			settings.flags & MF_CLEAR_DTR ? "ClearDTR" : "NoClearDTR",
-			settings.flags & MF_CLEAR_DTR ? "ClearRTS" : "NoClearRTS");
+			settings.chordmiddle,
+			settings.flags);
 
-    if (settings.device) {
+    if (settings.device) 
 	free(settings.device);
-    }
+
     XCloseDisplay (disp);
     
     return ret;
@@ -142,8 +140,72 @@ mouse_reopen (PyObject * s, PyObject * args)
     return Py_None;
 }
 
+PyObject *
+mouse_set (PyObject * s, PyObject * args)
+{
+    XF86MiscMouseSettings settings;
+    char *proto;
+    int i = 0;
+    Status rc;
+    
+    Display *disp = XOpenDisplay (NULL);
+    if (!disp) {
+	PyErr_SetString(PyExc_RuntimeError, "Unable to open display");
+	return NULL;
+    }
+    
+    if (!PyArg_ParseTuple(args, "ssiiiiiiii", &settings.device, &proto,
+			  &settings.baudrate,
+			  &settings.samplerate,
+			  &settings.resolution,
+			  &settings.buttons,
+			  &settings.emulate3buttons,
+			  &settings.emulate3timeout,
+			  &settings.chordmiddle,
+			  &settings.flags))
+	return NULL;
+
+    while (i < numMouses && strcasecmp (Mouses[i + 1], proto))
+	i++;
+    if (i >= numMouses) {
+	PyErr_SetString(PyExc_TypeError, "Bad mouse protocol");
+	return NULL;
+    }
+    
+    settings.type = i;
+
+    XSync(disp, False);
+    olderror = XSetErrorHandler(miscError);
+    rc = XF86MiscSetMouseSettings(disp, &settings);
+    XSync(disp, False);
+    XSetErrorHandler(olderror);
+    XCloseDisplay (disp);
+    if (error_set) {
+	PyErr_SetString(PyExc_RuntimeError, error);
+	error_set = 0;
+	return NULL;
+    }
+    if (!rc) {
+	PyErr_SetString(PyExc_RuntimeError, "unknown error setting mouse");
+	return NULL;
+    }
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+
+#define registerConst(name, val) \
+    PyDict_SetItemString(d, name, PyInt_FromLong(val))
 void 
 initxmouse ()
 {
-    Py_InitModule ("xmouse", xmouseMethods);
+    PyObject * d;
+
+    d = Py_InitModule ("xmouse", xmouseMethods);
 }
+
+
+
+
+

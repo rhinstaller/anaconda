@@ -4,6 +4,7 @@ from string import *
 from re import *
 import tree
 from gui import _
+import xmouse
 
 class MouseWindow (InstallWindow):
 
@@ -48,7 +49,6 @@ class MouseWindow (InstallWindow):
         else:
             self.selectMouse (ctreeNode[1:], mouseNode)
 
-
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
@@ -81,6 +81,15 @@ class MouseWindow (InstallWindow):
 	    self.todo.mouse.setDevice(self.serialDevice)
 	else:
 	    self.todo.mouse.setDevice(device)
+
+	cur = self.getCurrentKey()
+	(gpm, xdev, device, emulate) = self.availableMice[cur]
+        curmouse = xmouse.get()
+        curmouse[0] = "/dev/" + device
+        curmouse[1] = xdev
+        curmouse[6] = emulate
+        apply (xmouse.set, curmouse)
+
         return None
     
     def selectDeviceType(self, *args):
@@ -115,7 +124,7 @@ class MouseWindow (InstallWindow):
 	    self.locList.unselect_all()
 	    self.locList.set_sensitive(FALSE)
 	    self.ics.setNextEnabled (TRUE)
-	
+
     def getScreen (self):
 	self.availableMice = self.todo.mouse.available()
         sorted_mice_keys = self.availableMice.keys()
