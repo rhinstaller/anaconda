@@ -317,7 +317,8 @@ char * setupCdrom(char * location,
             devMakeInode(kd->known[i].name, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL)) {
-                if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+                if (!access("/mnt/source/.discinfo", R_OK) &&
+		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
                     rc = mountStage2("/mnt/source/RedHat/base/stage2.img");
                     /* if we failed, umount /mnt/source and keep going */
                     if (rc) {
