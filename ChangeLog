@@ -1,6 +1,9 @@
 2005-03-29  Chris Lumens  <clumens@redhat.com>
 
-	* scripts/getlangnames.py:  Updated for lang-table format change.
+	* language.py (InstallTimeLanguage.__init__):  Split on tabs.
+	* scripts/genlocalelist.py, scripts/getlangnames.py: Updated for
+	lang-table format change.  Also, delimit fields with tabs to make
+	splitting easier.
 
 2005-03-29  Jeremy Katz  <katzj@redhat.com>
 

@@ -174,4 +174,4 @@ for name in names:
     map = charmapList[short]
 
     if charMap.has_key(map) and charFont.has_key(map):
-        print "%s %s %s %s" %(short, charMap[map], charFont[map], name)
+        print "%s\t%s\t%s\t%s" %(short, charMap[map], charFont[map], name)

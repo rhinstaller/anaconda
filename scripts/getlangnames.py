@@ -16,4 +16,4 @@ nameList = names.keys()
 nameList.sort()
 
 for k in nameList:
-    print k, names[k]
+    print "%s\t%s" % (k, names[k])

@@ -66,7 +66,7 @@ class InstallTimeLanguage:
             if os.access(path, os.R_OK):
                 f = open(path, 'r')
                 for line in f.readlines():
-                    lang, native = line.split(' ', 1)
+                    lang, native = line.split('\t', 1)
                     native = native.strip()
                     self.nativeLangNames[lang] = native
 
@@ -102,7 +102,7 @@ class InstallTimeLanguage:
 
                 for line in f.readlines():
                     line = string.strip(line)
-                    (nick, map, font, name) = string.split(line, ' ', 3)
+                    (nick, map, font, name) = string.split(line, '\t')
                     self.langInfoByName[name] = (nick, map, font)
 
                 f.close()
