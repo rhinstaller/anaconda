@@ -43,28 +43,44 @@ int pkgCompare(void * first, void * second) {
 }
 
 
-static void compareFileList(int availFileCount, char **availFiles,
-			    int installedFileCount, char **installedFiles,
+/* Adds all files in the second file list which are not in the first
+   file list to the hash table. */
+static void compareFileList(int availFileCount, char **availBaseNames,
+			    char ** availDirNames, int * availDirIndexes,
+			    int instFileCount, char **instBaseNames,
+			    char ** instDirNames, int * instDirIndexes,
 			    struct hash_table *ht)
 {
     int installedX, availX, rc;
+    char * availDir, * availBase;
+    char * instDir, * instBase;
+    static int i = 0;
     
     availX = 0;
     installedX = 0;
-    while (installedX < installedFileCount) {
+    while (installedX < instFileCount) {
+	instBase = instBaseNames[installedX];
+	instDir = instDirNames[instDirIndexes[installedX]];
+
 	if (availX == availFileCount) {
 	    /* All the rest have moved */
-	    DEBUG(("=> %s\n", installedFiles[installedX]));
-	    if (strncmp(installedFiles[installedX], "/etc/rc.d/", 10))
-		htAddToTable(ht, installedFiles[installedX]);
+	    DEBUG(("=> %d: %s%s\n", i++, instDir, instBase))
+	    if (strncmp(instDir, "/etc/rc.d/", 10))
+		htAddToTable(ht, instDir, instBase);
 	    installedX++;
 	} else {
-	    rc = strcmp(availFiles[availX], installedFiles[installedX]);
+	    availBase = availBaseNames[availX];
+	    availDir = availDirNames[availDirIndexes[availX]];
+
+	    rc = strcmp(availDir, instDir);
+	    if (!rc) 
+		rc = strcmp(availBase, instBase);
+
 	    if (rc > 0) {
 		/* Avail > Installed -- file has moved */
-		DEBUG (("=> %s\n", installedFiles[installedX]));
-		if (strncmp(installedFiles[installedX], "/etc/rc.d/", 10))
-		    htAddToTable(ht, installedFiles[installedX]);
+		DEBUG(("=> %d: %s%s\n", i++, instDir, instBase))
+		if (strncmp(instDir, "/etc/rc.d/", 10))
+		    htAddToTable(ht, instDir, instBase);
 		installedX++;
 	    } else if (rc < 0) {
 		/* Avail < Installed -- avail has some new files */
@@ -87,6 +103,8 @@ static void addLostFiles(rpmdb db, struct pkgSet *psp, struct hash_table *ht)
     struct packageInfo key;
     struct packageInfo *keyaddr = &key;
     char **installedFiles;
+    char **installedDirs;
+    int_32 * installedDirIndexes;
     int installedFileCount;
 
     num = rpmdbFirstRecNum(db);
@@ -105,11 +123,19 @@ static void addLostFiles(rpmdb db, struct pkgSet *psp, struct hash_table *ht)
 	pack = bsearch(&keyaddr, psp->packages, psp->numPackages,
 		       sizeof(*psp->packages), (void *)pkgCompare);
 	if (!pack) {
-	    if (headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
+	    if (headerGetEntryMinMemory(h, RPMTAG_BASENAMES, NULL,
 			  (void **) &installedFiles, &installedFileCount)) {
-		compareFileList(0, NULL, installedFileCount,
-				installedFiles, ht);
+		headerGetEntryMinMemory(h, RPMTAG_DIRINDEXES, NULL,
+			  (void **) &installedDirIndexes, NULL);
+		headerGetEntryMinMemory(h, RPMTAG_DIRNAMES, NULL,
+			  (void **) &installedDirs, NULL);
+
+		compareFileList(0, NULL, NULL, NULL, installedFileCount,
+				installedFiles, installedDirs,
+				installedDirIndexes, ht);
+
 		free(installedFiles);
+		free(installedDirs);
 	    }
 	}
 	
@@ -133,7 +159,7 @@ static int findPackagesWithObsoletes(rpmdb db, struct pkgSet *psp)
 	    continue;
 	}
 
-	if (headerGetEntry((*pip)->h, RPMTAG_OBSOLETES, NULL,
+	if (headerGetEntryMinMemory((*pip)->h, RPMTAG_OBSOLETES, NULL,
 		       (void **) &obsoletes, &obsoletesCount)) {
 	    while (obsoletesCount--) {
 		rc = rpmdbFindPackage(db, obsoletes[obsoletesCount], &matches);
@@ -166,10 +192,12 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 {
     int skipThis;
     Header h, installedHeader;
-    char *name, *version, *release;
+    char *name;
     dbiIndexSet matches;
     int rc, i, count;
     char **installedFiles, **availFiles;
+    char **installedDirs, ** availDirs;
+    int_32 * installedDirIndexes, * availDirIndexes;
     int installedFileCount, availFileCount;
     struct packageInfo **pip;
 
@@ -177,17 +205,15 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
     pip = psp->packages;
     while (count--) {
 	h = (*pip)->h;
-	name = version = release = NULL;
+	name = NULL;
 	headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
-	headerGetEntry(h, RPMTAG_VERSION, NULL, (void **) &version, NULL);
-	headerGetEntry(h, RPMTAG_RELEASE, NULL, (void **) &release, NULL);
-	if (! (name && version && release)) {
+	if (!name) {
 	    /* bum header */
 	    /*logMessage("Failed with bad header");*/
 	    return(-1);
 	}
 	
-	DEBUG (("Avail: %s-%s-%s\n", name, version, release));
+	DEBUG (("Avail: %s\n", name));
 	rc = rpmdbFindPackage(db, name, &matches);
 
 	if (rc == 0) {
@@ -220,34 +246,44 @@ static int findUpgradePackages(rpmdb db, struct pkgSet *psp,
 	    DEBUG (("UPGRADE\n"))
 	    (*pip)->selected = 1;
 
-	    if (!headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
+	    if (!headerGetEntryMinMemory(h, RPMTAG_BASENAMES, NULL,
 			  (void **) &availFiles, &availFileCount)) {
 		availFiles = NULL;
 		availFileCount = 0;
+	    } else {
+		headerGetEntryMinMemory(h, RPMTAG_DIRNAMES, NULL,
+			    (void **) &availDirs, NULL);
+		headerGetEntryMinMemory(h, RPMTAG_DIRINDEXES, NULL,
+			    (void **) &availDirIndexes, NULL);
 	    }
 
 	    for (i = 0; i < matches.count; i++) {
 		/* Compare the file lists */
 		installedHeader =
 		    rpmdbGetRecord(db, matches.recs[i].recOffset);
-		if (!headerGetEntry(installedHeader, RPMTAG_OLDFILENAMES, NULL,
-			      (void **) &installedFiles,
+		if (headerGetEntryMinMemory(installedHeader, RPMTAG_BASENAMES, 
+			      NULL, (void **) &installedFiles,
 			      &installedFileCount)) {
-		    installedFiles = NULL;
-		    installedFileCount = 0;
-		}
+		    headerGetEntryMinMemory(installedHeader, RPMTAG_DIRNAMES, 
+				NULL, (void **) &installedDirs, NULL);
+		    headerGetEntryMinMemory(installedHeader, RPMTAG_DIRINDEXES, 
+				NULL, (void **) &installedDirIndexes, NULL);
 
-		compareFileList(availFileCount, availFiles,
-				installedFileCount, installedFiles, ht);
+		    compareFileList(availFileCount, availFiles,
+				    availDirs, availDirIndexes,
+				    installedFileCount, installedFiles, 
+				    installedDirs, installedDirIndexes,
+				    ht);
 
-		if (installedFiles) {
 		    free(installedFiles);
+		    free(installedDirs);
 		}
 		headerFree(installedHeader);
 	    }
 
 	    if (availFiles) {
 		free(availFiles);
+		free(availDirs);
 	    }
 	}
 
@@ -269,9 +305,9 @@ static int removeMovedFilesAlreadyHandled(struct pkgSet *psp,
     char *name;
     int i, count;
     Header h;
-    char **availFiles;
+    char **availFiles, ** availDirs;
+    int_32 * availDirIndexes;
     int availFileCount;
-    char *file;
     struct packageInfo **pip;
 
     count = psp->numPackages;
@@ -282,21 +318,27 @@ static int removeMovedFilesAlreadyHandled(struct pkgSet *psp,
 	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 
-	    if (!headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
+	    if (headerGetEntryMinMemory(h, RPMTAG_BASENAMES, NULL,
 			  (void **) &availFiles, &availFileCount)) {
-		availFiles = NULL;
-		availFileCount = 0;
-	    }
 
-	    for (i = 0; i < availFileCount; i++) {
-		if ((file = htInTable(ht, availFiles[i]))) {
-		    *file = '\0';
-		    DEBUG (("File already in %s: %s\n", name, availFiles[i]))
-		    break;
+		headerGetEntryMinMemory(h, RPMTAG_DIRNAMES, NULL, 
+			       (void **) &availDirs, NULL);
+		headerGetEntryMinMemory(h, RPMTAG_DIRINDEXES, NULL, 
+			       (void **) &availDirIndexes, NULL);
+
+		for (i = 0; i < availFileCount; i++) {
+		    if (htInTable(ht, availDirs[availDirIndexes[i]],
+					  availFiles[i])) {
+			htRemoveFromTable(ht, availDirs[availDirIndexes[i]],
+					  availFiles[i]);
+			DEBUG (("File already in %s: %s%s\n", name, 
+				availDirs[availDirIndexes[i]], availFiles[i]))
+			break;
+		    }
 		}
-	    }
-	    if (availFiles) {
+
 		free(availFiles);
+		free(availDirs);
 	    }
 	}
 
@@ -312,9 +354,9 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
     char *name;
     int i, count;
     Header h;
-    char **availFiles;
+    char **availFiles, **availDirs;
+    int_32 * availDirIndexes;
     int availFileCount;
-    char *file;
     struct packageInfo **pip;
 
     count = psp->numPackages;
@@ -325,20 +367,26 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
 	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
 
-	    availFiles = NULL;
-	    availFileCount = 0;
-	    if (headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
+	    if (headerGetEntry(h, RPMTAG_BASENAMES, NULL,
 			 (void **) &availFiles, &availFileCount)) {
+		headerGetEntryMinMemory(h, RPMTAG_DIRNAMES, NULL,
+			    (void **) &availDirs, NULL);
+		headerGetEntryMinMemory(h, RPMTAG_DIRINDEXES, NULL,
+			    (void **) &availDirIndexes, NULL);
+
 		for (i = 0; i < availFileCount; i++) {
-		    if ((file = htInTable(ht, availFiles[i]))) {
-			*file = '\0';
-			DEBUG (("Found file in %s: %s\n", name,
-				availFiles[i]))
+		    if (htInTable(ht, availDirs[availDirIndexes[i]], 
+				    availFiles[i])) {
+			htRemoveFromTable(ht, availDirs[availDirIndexes[i]],
+					  availFiles[i]);
+			DEBUG (("Found file in %s: %s%s\n", name,
+				availDirs[availDirIndexes[i]], availFiles[i]))
 			(*pip)->selected = 1;
 			break;
 		    }
 		}
 		free(availFiles);
+		free(availDirs);
 	    }
 	}
 
@@ -371,7 +419,7 @@ static int unmarkPackagesAlreadyInstalled(rpmdb db, struct pkgSet *psp)
 {
     dbiIndexSet matches;
     Header h, installedHeader;
-    char *name, *version, *release;
+    char *name;
     struct packageInfo **pip;
     int count, rc, i;
 
@@ -381,11 +429,9 @@ static int unmarkPackagesAlreadyInstalled(rpmdb db, struct pkgSet *psp)
 	if ((*pip)->selected) {
 	    h = (*pip)->h;
 	    /* If this package is already installed, don't bother */
-	    name = version = release = NULL;
+	    name = NULL;
 	    headerGetEntry(h, RPMTAG_NAME, NULL, (void **) &name, NULL);
-	    headerGetEntry(h, RPMTAG_VERSION, NULL, (void **) &version, NULL);
-	    headerGetEntry(h, RPMTAG_RELEASE, NULL, (void **) &release, NULL);
-	    if (! (name && version && release)) {
+	    if (!name) {
 		/* bum header */
 		/*logMessage("Failed with bad header");*/
 		return(-1);
