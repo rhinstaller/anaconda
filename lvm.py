@@ -15,6 +15,7 @@ import iutil
 import os,sys
 import string
 import math
+from flags import flags
 
 MAX_LV_SLOTS=256
 
@@ -22,9 +23,11 @@ output = "/tmp/lvmout"
 
 def vgscan():
     """Runs vgscan."""
+    if flags.test:
+        return
 
-    rc = iutil.execWithRedirect("vgscan",
-                                ["vgscan", "-v"],
+    rc = iutil.execWithRedirect("/usr/sbin/vgscan",
+                                ["/usr/sbin/vgscan", "-v"],
                                 stdout = output,
                                 stderr = output,
                                 searchPath = 1)
@@ -36,8 +39,10 @@ def vgactivate(volgroup = None):
 
     volgroup - optional single volume group to activate
     """
+    if flags.test:
+        return
 
-    args = ["vgchange", "-ay", "-An"]
+    args = ["/usr/sbin/vgchange", "-ay", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -52,8 +57,10 @@ def vgdeactivate(volgroup = None):
 
     volgroup - optional single volume group to deactivate
     """
+    if flags.test:
+        return
 
-    args = ["vgchange", "-an", "-An"]
+    args = ["/usr/sbin/vgchange", "-an", "-An"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -70,8 +77,10 @@ def lvremove(lvname, vgname):
     lvname - name of logical volume to remove.
     vgname - name of volume group lv is in.
     """
+    if flags.test:
+        return
 
-    args = ["lvremove", "-f", "-An"]
+    args = ["/usr/sbin/lvremove", "-f", "-An"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
@@ -88,6 +97,8 @@ def vgremove(vgname):
 
     vgname - name of volume group.
     """
+    if flags.test:
+        return
 
     # we'll try to deactivate... if it fails, we'll probably fail on
     # the removal too... but it's worth a shot
@@ -96,7 +107,7 @@ def vgremove(vgname):
     except:
         pass
 
-    args = ["vgremove", vgname]
+    args = ["/usr/sbin/vgremove", vgname]
 
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
