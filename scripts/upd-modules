@@ -1,0 +1,232 @@
+#!/bin/bash
+
+export PATH=/sbin:$PATH
+q=--quiet
+
+KERNELROOT=/tmp/updboot.kernel-$$
+KERNELROOT=/tmp/updboot.kernel
+MODLIST=$PWD/../anaconda/utils/modlist
+PCITABLE=$PWD/../anaconda/kudzu/pcitable
+TRIMPCITABLE=$PWD/../anaconda/utils/trimpcitable
+GETMODDEPS=$PWD/../anaconda/utils/moddeps
+FILTERMODDEPS=$PWD/../anaconda/utils/filtermoddeps
+
+# egrep expression, not a list
+EXCLUDENETMODULES="acenic"
+
+# list of modules to leave off of boot disks
+NOTBOOTMODULES="cpqarray DAC960 gdth ips pcd imm ppa eata_dma"
+
+PCMCIAMODULES="8390"
+BLOCKMODULES="raid0 raid1 raid5"
+
+ARCH=$(uname -m | sed 's/i.86/i386/')
+
+# pcd.o paride.o bpck.o"
+
+# this is an egrep expression, not a list, of modules left out of the module 
+# ball
+PRISTINEMODULES="(loop.o)"
+
+MODLINKS="block cdrom fs ipv4 misc net scsi"
+
+
+usage () {
+    echo "$0: <component>"
+    exit 1
+}
+
+resdeps () {
+    list=`$GETMODDEPS -m $MODDEPS $*`
+    items=$(for n in $* $list; do echo $n; done | sort -u)
+    echo $items
+}
+
+findmodule () {
+    find $KERNELROOT/lib/modules -name $1.o
+}
+
+intcopymodules () {
+    for n in $1; do
+	m=`findmodule $n`
+	if [ -z "$m" ]; then
+            echo "Module $n not found in kernel rpm"
+        else 
+	    for dir in $2; do
+	        if ! cp $m $dir ; then
+		    echo "Failed to copy $m to $dir (for module $n)"
+	        fi
+	    done
+        fi
+    done
+}
+
+copymodules () {
+    intcopymodules "$1" "$2 ../../../RedHat/instimage/modules"
+}
+
+makedriverdisk () {
+    diskname=$1
+    modlist=$(resdeps $2)
+
+    rm -rf $diskname
+    mkdir -p $diskname/modules
+    intcopymodules "$modlist" $diskname/modules
+
+    pushd $diskname/modules
+
+    # create the module-info file
+    $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
+	$(ls *.o | sed 's/\.o$//') > ../modinfo
+
+    PARIDE="aten bpck comm dstr epat epia fit2 fit3 friq frpw kbic ktti on20 on26"
+    /sbin/depmod -m $KERNELROOT/boot/System.map-$version -i -e *.o | \
+          grep ':.*o' | \
+          sed -e 's/\.o//g' \
+              -e 's/: parport$/: parport_pc/g' \
+              -e 's/^\(parport_pc: parport\)_pc$/\1/' \
+              -e "s/^pcd:.*/pcd: $PARIDE/" > ../modules.dep
+
+    # create the pcitable
+    $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
+    touch ../rhdd-6.1
+
+    mkdir $version
+    mv *.o $version
+
+    find $version -type f | cpio -H crc -o | gzip -9 > ../modules.cgz
+    cd ..
+    rm -rf modules
+    popd 
+}
+
+if [ -z "$1" ]; then
+    usage
+fi
+
+COMPONENT=$1
+
+wd=`pwd`
+
+if [ x`basename $wd` != x"trees" ]; then
+    usage
+fi
+
+rm -rf $KERNELROOT
+mkdir -p $KERNELROOT
+
+kpackage=$(latest --arch $ARCH $COMPONENT kernel-BOOT)
+ppackage=$(latest --arch $ARCH $COMPONENT kernel-pcmcia-cs)
+
+version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)BOOT
+
+rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
+rpm2cpio $ppackage | (cd $KERNELROOT; cpio --quiet -iumd etc/pcmcia/*)
+
+if [ ! -d "$KERNELROOT/lib/modules/$version/scsi" ]; then
+    echo "$1 is not a valid modules directory" 2>&1
+    usage
+fi
+
+if [ ! -f "$KERNELROOT/boot/vmlinuz-$version" ]; then
+    echo "$KERNELROOT/boot/vmlinuz-$version does not exist"
+    usage
+fi
+
+#if [ ! -f "$KERNELROOT/boot/module-info-$version" ]; then
+#    echo "$KERNELROOT/boot/module-info-$version does not exist"
+#    usage
+#fi
+
+MODINFO=$KERNELROOT/boot/module-info-$version
+# we really ought to use the above modinfo file :-(
+MODINFO=$PWD/../anaconda/loader/module-info
+MODDEPS=$KERNELROOT/moddeps
+
+depmod -e -i -m $KERNELROOT/boot/System.map-$version \
+	$KERNELROOT/lib/modules/$version/*/*.o | $FILTERMODDEPS > $MODDEPS
+
+NETMODULES=$(resdeps `$MODLIST --modinfo-file $MODINFO net | egrep -v $EXCLUDENETMODULES`)
+SCSIMODULES=$(resdeps `$MODLIST --modinfo-file $MODINFO scsi`)
+CDMODULES=$(resdeps `$MODLIST --modinfo-file $MODINFO cdrom`)
+PCMCIAMODULES="$PCMCIAMODULES
+	       $(ls $KERNELROOT/lib/modules/$version/pcmcia | sed 's/\.o$//' )"
+
+LOCALFSMODULES=""
+NETFSMODULES=""
+
+LOCALFSMODULES=$(resdeps "vfat")
+NETFSMODULES=$(resdeps "nfs vfat")
+
+mkdir -p initrd/modules
+
+rm -rf local/modules network/modules ../../../RedHat/instimage/modules \
+       pcmcia/modules netstg2/modules hdstg2/modules
+mkdir -p local/modules network/modules ../../../RedHat/instimage/modules \
+         pcmcia/modules netstg2/modules hdstg2/modules
+
+copymodules "$NETMODULES" "./network/modules hdstg2/modules"
+copymodules "$NETFSMODULES" "./network/modules ./pcmcia/modules"
+copymodules "$SCSIMODULES" "./local/modules netstg2/modules"
+copymodules "$LOCALFSMODULES" "./local/modules netstg2/modules hdstg2/modules"
+copymodules "$CDMODULES" "./local/modules"
+copymodules "$BLOCKMODULES"  "netstg2/modules hdstg2/modules"
+copymodules "$PCMCIAMODULES" "./pcmcia/modules"
+
+for I in local/modules network/modules pcmcia/modules; do
+    for n in $NOTBOOTMODULES; do
+	rm -f $I/$n.o
+    done
+done
+
+for I in local/modules network/modules ../../../RedHat/instimage/modules \
+	 pcmcia/modules netstg2/modules hdstg2/modules; do
+    echo -n "Computing $I dependencies... "
+
+    cd $I;
+
+    SPACE2=`du -s . | awk '{print $1}'`
+
+    /sbin/depmod -m $KERNELROOT/boot/System.map-$version -i -e *.o | \
+          grep ':.*o' | \
+          sed -e 's/\.o//g' \
+              -e 's/lp: parport/lp: parport_pc/g' \
+              -e 's/plip: parport/plip: parport_pc/g' > modules.dep
+    if grep "unresolved symbol" modules.dep; then
+	echo "ERROR - Unresolved symbols in $I"
+    else
+        echo "done. "
+    fi
+
+    # create the module-info file
+    $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
+	$(ls *.o | sed 's/\.o$//') > module-info
+
+    # create the pcitable
+    $TRIMPCITABLE *.o < $PCITABLE > pcitable
+
+    echo -n "Balling $I modules... "
+    mkdir $version
+    mv $(ls *.o | egrep -v "$PRISTINEMODULES|(modules.dep)") $version
+    find $version -type f | cpio $q -H crc -o | gzip -9 > modules.cgz
+    rm -rf $version
+
+    SPACE1=`du -s . | awk '{print $1}'`
+    cd -
+
+    DIFF=`expr $SPACE2 - $SPACE1`
+    echo "done (saved ${DIFF}k)"
+done
+
+cp -f "$KERNELROOT/boot/vmlinuz-$version" boot/vmlinuz
+cp boot/vmlinuz ../../../dosutils/autoboot/vmlinuz
+
+rm -rf pcmcia/etc
+mkdir -p pcmcia/etc/pcmcia
+cp -a $KERNELROOT/etc/pcmcia/* pcmcia/etc/pcmcia
+
+makedriverdisk "gdth" "gdth"
+makedriverdisk "eata_dma" "eata_dma"
+makedriverdisk "paride" "parport_pc parport pcd paride aten bpck comm dstr epat fit2 fit3 friq frpw kbic ktti on20 on26 epia ppa imm"
+
+rm -rf $KERNELROOT
