@@ -2302,6 +2302,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 
     } else if (ksType == KS_CMD_URL) {
+        char * finalPrefix;
 	memset(&ui, 0, sizeof(ui));
 
 	imageUrl = strdup(url);
@@ -2350,6 +2351,19 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    logMessage("failed to retrieve second stage");
 	    return NULL;
 	}
+
+	/* now that we've loaded images, the url could have changed to handle
+	   the multi-disc loopback stuff */
+	if (!strcmp(ui.prefix, "/"))
+	    finalPrefix = "/.";
+	else
+	    finalPrefix = ui.prefix;
+
+	url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) + strlen(ui.login));
+	sprintf(url, "%s://%s%s/%s", 
+		ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
+		ui.login, ui.address, finalPrefix);
+
     }
 #endif
 
