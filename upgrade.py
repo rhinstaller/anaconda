@@ -420,6 +420,29 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 pass
             sys.exit(0)
 
+    # upgrade nag for upgrades from pre-6.2
+    mi = db.match("name", "redhat-release")
+    h = mi.next()
+    if h:
+        val = rpm.labelCompare((None, '6.2', '1'),
+                               (h[rpm.RPMTAG_EPOCH], h[rpm.RPMTAG_VERSION],
+                                h[rpm.RPMTAG_RELEASE]))
+        if val > 0:
+            rc = intf.messageWindow(_("Warning"),
+                                    _("Upgrades for this version of %s "
+                                      "are only supported from Red Hat Linux "
+                                      "6.2 or higher.  This appears to be an "
+                                      "older system.  Do you wish to continue "
+                                      "the upgrade process?") %(productName,),
+                                    type="yesno")
+            if rc == 0:
+                try:
+                    iutil.rmrf(rebuildpath)
+                except:
+                    pass
+                sys.exit(0)
+
+
     # during upgrade, make sure that we only install %lang colored files
     # for the languages selected to be supported.
     langs = ''
