@@ -31,22 +31,36 @@ from constants import *
 from rhpl.log import log
 from rhpl.translate import _
 
-def findRootParts(intf, id, dir, chroot):
+def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
         return
-    parts = findExistingRoots(intf, id, chroot)
-    id.upgradeRoot = parts
+    if id.rootParts is None:
+        id.rootParts = findExistingRoots(intf, id, chroot)
+
+    id.upgradeRoot = []
+    for (dev, fs, meta) in id.rootParts:
+        id.upgradeRoot.append( (dev, fs) )
+
+    if id.rootParts is not None:
+        dispatch.skipStep("findinstall", skip = 0)
+    else:
+        dispatch.skipStep("findinstall", skip = 1)
 
 def findExistingRoots(intf, id, chroot):
-    if not flags.setupFilesystems: return [(chroot, 'ext2')]
+    if not flags.setupFilesystems: return [(chroot, 'ext2', "")]
 
     diskset = partedUtils.DiskSet()
     diskset.openDevices()
     
-    win = intf.waitWindow(_("Searching"),
-                          _("Searching for %s installations...") % (productName,))
+    win = intf.progressWindow(_("Searching"),
+                              _("Searching for %s installations...") %
+                              (productName,), 5)
 
     rootparts = diskset.findExistingRootPartitions(intf, chroot)
+    for i in range(1, 6):
+        time.sleep(1)
+        win.set(i)
+
     win.pop()
 
     return rootparts
