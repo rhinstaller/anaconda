@@ -1,4 +1,4 @@
-SECSTAGE="vfat raid0 raid1 raid5"
+SECSTAGE="raid0 raid1 raid5"
 
 prepareBootImage() {
         dd if=/dev/zero of=$MBD_TMPIMAGE bs=1k count=$BOOTDISKSIZE 2>/dev/null
@@ -48,7 +48,7 @@ makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 	   --initrdsize 4096 \
 	   --padsize 1440 \
 	   --loaderbin loader \
-	   --modules "$NETMODULES $SCSIMODULES vfat"
+	   --modules "$NETMODULES $SCSIMODULES vfat cramfs"
 
 makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
@@ -56,7 +56,7 @@ makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 makemainmodules "$SECSTAGE $SCSIMODULES"
 makeinstimage --size1 3800 --size2 4352 "netstg" "$SECSTAGE $SCSIMODULES"
 makeinstimage --size1 3800 --size2 4352 "hdstg" "$SECSTAGE $NETMODULES"
-makemainimage "stage2"
+makemainimage "stage2" "cramfs"
 
 if [ -f $TOPDESTPATH/preview/RPMS/kernel-2.4.0-*.alpha.rpm ]; then
     K24_PKG=$TOPDESTPATH/preview/RPMS/kernel-2.4.0-*.alpha.rpm

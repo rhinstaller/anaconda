@@ -25,4 +25,4 @@ makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 makeinstimage --size1 8192 --size2 8192 "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
 makeinstimage --size1 8192 --size2 8192 "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
 makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
-makemainimage "stage2"
+makemainimage "stage2" "ext2"

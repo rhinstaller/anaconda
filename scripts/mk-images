@@ -661,24 +661,31 @@ findloopdevice () {
 
 makemainimage () {
     imagename=$1
+    type=$2
     mmi_tmpimage=/tmp/instimage.img.$$
     mmi_mntpoint=/tmp/instimage.mnt.$$
     
     rm -rf $mmi_tmpimage $mmi_mntpoint
     mkdir $mmi_mntpoint
 
-    SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
-    if [ -d $IMGPATH/usr/lib/anaconda-runtime ]; then
-	ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
-	SIZE=$(expr $SIZE - $ERROR)
-    fi
-    dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage
-    echo y | mke2fs $mmi_tmpimage > /dev/null 
-    mount -o loop $mmi_tmpimage $mmi_mntpoint
+    if [ $type = "ext2" ]; then
+        SIZE=$(du -sk $IMGPATH | awk '{ print int($1 * 1.1) }')
+        if [ -d $IMGPATH/usr/lib/anaconda-runtime ]; then
+	    ERROR=$(du -sk $IMGPATH/usr/lib/anaconda-runtime | awk '{ print $1 }')
+	    SIZE=$(expr $SIZE - $ERROR)
+        fi
+        dd if=/dev/zero bs=1k count=${SIZE} of=$mmi_tmpimage
+        echo y | mke2fs $mmi_tmpimage > /dev/null 
+        mount -o loop $mmi_tmpimage $mmi_mntpoint
 
-    (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
-	    cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
-    umount $mmi_mntpoint
+        (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
+	        cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
+        umount $mmi_mntpoint
+        rmdir $mmi_mntpoint
+    elif [ $type = "cramfs" ]; then
+        mkcramfs $IMGPATH $mmi_tmpimage
+        SIZE=$(expr `cat $PS_FILE | wc -c` / 1024)
+    fi
     
     if [ "$BUILDARCH" = "ia64" ]; then
         ln -snf $mmi_tmpimage $INSTIMGPATH/${imagename}.img
@@ -692,7 +699,6 @@ makemainimage () {
     if [ "$BUILDARCH" != "ia64" ]; then
       rm $mmi_tmpimage
     fi
-    rmdir $mmi_mntpoint
 }
 
 makedriverdisk () {

@@ -95,4 +95,4 @@ makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES" modules64.cgz
 
 makeinstimage --size1 3000 --size2 3000 "netstg" "$SCSIMOUDLES $SECSTAGE"
 makeinstimage --size1 3000 --size2 3000 "hdstg" "$NETMODULES $SECSTAGE"
-makemainimage "stage2"
+makemainimage "stage2" "ext2"
