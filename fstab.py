@@ -66,7 +66,7 @@ class Fstab:
             return ddruid
 
 	for (mntpoint, sizespec, locspec, typespec, fsopts) in partitions:
-            (device, part) = locspec
+            (device, part, primOnly) = locspec
             (size, maxsize, grow) = sizespec
             (type, active) = typespec
 
@@ -83,7 +83,7 @@ class Fstab:
 	    elif (mntpoint[0:5] == "raid."):
 		type = 0xfd
 
-	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device, part, active))
+	    attempt.append((mntpoint, size, maxsize, type, grow, -1, device, part, primOnly, active))
 
         success = 0
 

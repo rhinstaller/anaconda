@@ -427,12 +427,14 @@ class Kickstart(BaseInstallClass):
         fsopts = None
         type = 0
         partNum = 0
+        primOnly = 0
         active = 0
         
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
-                                        'onprimary=', 'active', 'type='])
+                                        'onprimary=', 'active', 'type=',
+                                        'asprimary'])
 
 	for n in args:
 	    (str, arg) = n
@@ -454,6 +456,8 @@ class Kickstart(BaseInstallClass):
                 type = int(arg)
             elif str == "--active":
                 active = 1
+            elif str == "--asprimary":
+                primOnly = 1
 
 	if len(extra) != 1:
 	    raise ValueError, "partition command requires one anonymous argument"
@@ -465,7 +469,7 @@ class Kickstart(BaseInstallClass):
            else:
                self.addToFstab(extra[0], onPart)
 	else:
-	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum), (type, active), fsopts)
+	    self.addNewPartition(extra[0], (size, maxSize, grow), (device, partNum, primOnly), (type, active), fsopts)
 
     def __init__(self, file, serial):
 	BaseInstallClass.__init__(self)
