@@ -1,7 +1,7 @@
 include Makefile.inc
 
 VERSION = 7.3.92
-RELEASE = 0
+RELEASE = 2
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
 ifneq (ia64, $(ARCH))
@@ -118,3 +118,14 @@ pycheck:
 
 pycheck-file:
 	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
+
+PKGNAME=anaconda
+local:
+	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
+	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
+	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
+	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
+	@dir=$$PWD; cd /tmp; tar --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
+	@rm -rf /tmp/${PKGNAME}-$(VERSION)
+	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.bz2"
+
