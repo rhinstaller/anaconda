@@ -54,6 +54,9 @@ textw/userauth_text.py
 	UsersWindow		"edituser" or "newuser"
 	AuthConfigWindow	"authconfig"
 
-text/firewall_text.py
+textw/firewall_text.py
         FirewallConfigWindow	"firewall"
 	FirewallConfigWindow	"firewall-custom"
+
+textw/upgrade_bootloader_text.py
+	UpgradeBootloaderWindow	"bl-upgrade"

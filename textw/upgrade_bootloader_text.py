@@ -77,7 +77,7 @@ class UpgradeBootloaderWindow:
         buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
         grid = GridFormHelp(screen, _("Upgrade Boot Loader Configuration"),
-                            "upgbootloader", 1, 5)
+                            "bl-upgrade", 1, 5)
 
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(self.update_radio, 0, 1, (0,0,0,0))
