@@ -14,7 +14,7 @@ if [ "$ARCH" = "x86_64" ]; then
     LIBDIR=lib64
 else
     LIBDIR=lib
-endif
+fi
 
 mkdir -p $DIR/proc
 mount -t proc /proc $DIR/proc
