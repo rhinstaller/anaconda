@@ -41,6 +41,7 @@
 #include "smp.h"
 #include "lang.h"
 #include "../balkan/byteswap.h"
+#include "../balkan/balkan.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -855,10 +856,61 @@ static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
     return Py_None;
 }
 
+int pdc_dev_running_raid(int fd);
+
+#ifdef __i386__
+static int ideFilter(struct kddevice * dev) {
+    char where[50];
+    int fd;
+    int rc;
+    struct partitionTable table;
+    int i;
+
+    sprintf(where, "/tmp/%s", dev->name);
+    if (devMakeInode(dev->name, where)) return 1;
+
+    if ((fd = open(where, O_RDONLY)) < 0) return 1;
+    rc = pdc_dev_running_raid(fd);
+
+    /* no pdc magic, so include this device */
+    if (rc != 1)
+	return 1;
+
+    /* it's a pdc device w/o a valid partition table, skip it (probably
+       raid 5) */
+    if (balkanReadTable(fd, &table)) {
+	close(fd);
+	return 0;
+    }
+
+    close(fd);
+
+    /* we have a pdc device with a valid partition table. if there are
+       windows partitions on it, ignore this device */
+    for (i = 0; i < table.maxNumPartitions; i++) {
+	if (table.parts[i].type == BALKAN_PART_DOS ||
+	    table.parts[i].type == BALKAN_PART_NTFS) {
+	    return 0;
+	}
+    }
+
+    /* otherwise we have a pdc device with partition table, but no windows
+       filesystems */
+
+    return 1;
+}
+#endif
+
 static PyObject * probedListIde(probedListObject * o, PyObject * args) {
+    kdFilterType filter = NULL;
+
+#ifdef __i386__
+    filter = ideFilter;
+#endif
+
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-    kdFindIdeList(&o->list, 0);
+    kdFindFilteredIdeList(&o->list, 0, filter);
 
     Py_INCREF(Py_None);
     return Py_None;

@@ -6,7 +6,7 @@ CFLAGS = -I/usr/include/python1.5 -I.. -Wall -O2 -g -fPIC -DHAVE_NFS -D_LARGEFIL
 
 OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o uncpio.o \
-	  lang.o isofs.o
+	  lang.o isofs.o pdc.o
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -lpump -lext2fs

@@ -152,15 +152,16 @@ bye:
 }
 
 int kdFindIdeList(struct knownDevices * devices, int code) {
+    return kdFindFilteredIdeList(devices, code, NULL);
+}
+
+int kdFindFilteredIdeList(struct knownDevices * devices, int code, 
+			  kdFilterType filter) {
     DIR * dir;
     char path[80];
     int fd, i;
     struct dirent * ent;
     struct kddevice device;
-    struct hd_driveid hdId;
-    char devChar;
-    char name[10];
-    struct cdrom_volctrl vol;
 
     if (access("/proc/ide", R_OK)) return 0;
 
@@ -199,7 +200,12 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
 			device.model = strdup(path);
 		    }
 
-		    addDevice(devices, device);
+		    if (filter && !filter(&device)) {
+			free(device.model);
+			free(device.name);
+		    } else {
+			addDevice(devices, device);
+		    }
 		}
 	    }
 	}
@@ -208,34 +214,6 @@ int kdFindIdeList(struct knownDevices * devices, int code) {
     }
 
     closedir(dir);
-
-    for (devChar = 'a'; devChar <= 'h'; devChar++) {
-	sprintf(name, "hd%c", devChar);
-	if (deviceKnown(devices, name)) continue;
-	
-	devMakeInode(name, "/tmp/ideprobe");
-	fd = open("/tmp/ideprobe", O_RDONLY | O_NONBLOCK);
-	unlink("/tmp/ideprobe");
-
-	if (fd < 0) continue;
-
-	device.name = strdup(name);
-
-	ioctl(fd, HDIO_GET_IDENTITY, &hdId);
-	close(fd);
-
-	if (!ioctl(fd, CDROMVOLCTRL, &vol))
-		device.class = CLASS_CDROM;
-	else if (hdId.command_set_1 & 4)
-		device.class = CLASS_FLOPPY;
-	else
-		device.class = CLASS_HD;
-
-	if (*hdId.model)
-		device.model = strdup(hdId.model);
-
-	addDevice(devices, device);
-    }
 
     qsort(devices->known, devices->numKnown, sizeof(*devices->known),
 	  sortDevices);
@@ -482,7 +460,7 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
     FILE *f;
     char buf[256];
     char *ptr;
-    int numMatches = 0, ctlNum = 0;
+    int ctlNum = 0;
     char ctl[64];
     char *path;
 	
@@ -602,7 +580,7 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
     FILE *f;
     char buf[256];
     char *ptr;
-    int numMatches = 0, ctlNum = 0;
+    int ctlNum = 0;
     char ctl[64];
     char *path;
 	
