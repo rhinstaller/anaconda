@@ -4,6 +4,7 @@ import os
 from installclass import BaseInstallClass
 from partitioning import *
 from autopart import *
+from fsset import *
 import sys
 import string
 
@@ -53,7 +54,7 @@ class KickstartBase(BaseInstallClass):
 	    (str, arg) = n
 	    if (str == '--iscrypted'):
 		isCrypted = 1
-
+                
 	if len(extra) != 1:
 	    raise ValueError, "a single argument is expected to rootPw"
 
@@ -675,7 +676,7 @@ class KickstartBase(BaseInstallClass):
         if grow:
             request.grow = 1
         if maxSize:
-            request.maxsize = maxsize
+            request.maxSize = maxSize
         if device:
             request.drive = [ device ]
         if partNum or primOnly:
@@ -717,7 +718,7 @@ class KickstartBase(BaseInstallClass):
 	self.readKickstart(id, self.file)
 
 	for script in self.preScripts:
-	    script.run("/", serial)
+	    script.run("/", self.serial)
 
     # Note that this assumes setGroupSelection() is called after
     # setPackageSelection()

@@ -259,7 +259,7 @@ class x86BootloaderInfo:
 	lilo.addEntry("message", message, replace = 0)
 
         if not lilo.testEntry('lba32') and not lilo.testEntry('linear'):
-            if self.linear:
+            if self.useLinear:
                 lilo.addEntry("linear", replace = 0)
             else:
                 lilo.addEntry("nolinear", replace = 0)
