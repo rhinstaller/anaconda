@@ -29,7 +29,7 @@ class UpgradeBootloaderWindow:
         self.bl = bl
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot("/mnt/sysimage")
+                    checkbootloader.getBootloaderTypeAndBoot(dispatch.instPath)
 
         blradio = RadioGroup()
 

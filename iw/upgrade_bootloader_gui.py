@@ -62,7 +62,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.intf = dispatch.intf
 
         (self.type, self.bootDev) = \
-                    checkbootloader.getBootloaderTypeAndBoot("/mnt/sysimage")
+                    checkbootloader.getBootloaderTypeAndBoot(dispatch.instPath)
 
 
         self.update_radio = gtk.RadioButton(None, _("Update boot loader configuration"))
