@@ -160,6 +160,9 @@ class AccountWindow (InstallWindow):
             text[0] not in [ '.', '-', '_' ]):
             widget.emit_stop_by_name ("insert-text")
 
+    def setFocus (self, area, data):
+        self.pw.grab_focus ()
+
     def getScreen (self):
 	self.passwords = {}
 	self.editingUser = None
@@ -189,6 +192,7 @@ class AccountWindow (InstallWindow):
         self.pw = GtkEntry (128)
         self.pw.connect ("activate", forward)
         self.pw.connect ("changed", self.rootPasswordsMatch)
+        self.pw.connect ("draw", self.setFocus)
         self.pw.set_visibility (FALSE)
         self.confirm = GtkEntry (128)
         self.confirm.connect ("activate", forward)
@@ -308,4 +312,6 @@ class AccountWindow (InstallWindow):
 
 	self.userOkay()
 	box.set_border_width (5)
+
+
         return box
