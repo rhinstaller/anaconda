@@ -1,6 +1,5 @@
 from installclass import BaseInstallClass
 from translate import *
-from installclass import FSEDIT_CLEAR_ALL
 import os
 import iutil
 

@@ -1,8 +1,11 @@
 from installclass import BaseInstallClass
-from installclass import FSEDIT_CLEAR_LINUX
 from translate import N_
 import os
 import iutil
+from partitioning import *
+from autopart import CLEARPART_TYPE_LINUX
+from autopart import CLEARPART_TYPE_ALL
+from autopart import CLEARPART_TYPE_NONE
 
 class InstallClass(BaseInstallClass):
     name = N_("Workstation")
@@ -26,6 +29,31 @@ class InstallClass(BaseInstallClass):
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
+
+        rootrequest = PartitionSpec(fileSystemTypeGet("ext2"),
+                                    mountpoint = "/",
+                                    size = 800,
+                                    grow = 1,
+                                    requesttype = REQUEST_NEW,
+                                    format = 1)
+
+        bootrequest = PartitionSpec(fileSystemTypeGet("ext2"),
+                                    mountpoint = "/boot",
+                                    size = 100,
+                                    grow = 0,
+                                    requesttype = REQUEST_NEW,
+                                    format = 1)
+
+        swaprequest = PartitionSpec(fileSystemTypeGet("swap"),
+                                    size = 128,
+                                    grow = 0,
+                                    requesttype = REQUEST_NEW,
+                                    format = 1)
+
+        id.autoClearPartType = CLEARPART_TYPE_LINUX
+        id.autoClearPartDrives = []
+        id.autoPartitionRequests = [rootrequest, bootrequest, swaprequest]
+
 
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)

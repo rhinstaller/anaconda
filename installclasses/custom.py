@@ -1,5 +1,4 @@
 from installclass import BaseInstallClass
-from installclass import FSEDIT_CLEAR_LINUX
 from translate import N_
 import os
 import iutil
