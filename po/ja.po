@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-18 14:07-05:00\n"
+"POT-Creation-Date: 2001-01-19 10:09-0500\n"
+"PO-Revision-Date: 2001-01-23 15:58-05:00\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 msgid "Everything"
 msgstr "すべて"
 
-#: ../exception.py:13 ../text.py:924
+#: ../exception.py:13 ../text.py:938
 msgid "Exception Occurred"
 msgstr "例外が発生しました。"
 
@@ -26,76 +26,102 @@ msgid "Dump Written"
 msgstr "dump が書き込まれました。"
 
 #: ../exception.py:92
-msgid "Your system's state has been successfully written to the floppy. Your system will now be reset."
-msgstr "システム状態のフロッピーへの書き込みが成功しました。システムをリセットします。"
+msgid ""
+"Your system's state has been successfully written to the floppy. Your system "
+"will now be reset."
+msgstr ""
+"システム状態のフロッピーへの書き込みが成功しました。システムをリセットします"
 
 #: ../fstab.py:65
 msgid ""
-"The following partitions are newly created, but you have chosen not to format them. This will probably cause an error later in the install.\n"
+"The following partitions are newly created, but you have chosen not to "
+"format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"次のパーティションは新規に作成されますがまだフォーマットされていません。"
+"これは後でインストールの最中にエラーを引き起こす可能性があります。\n"
 
 #: ../fstab.py:73
 msgid ""
 "\n"
 "\n"
-"Press OK to continue, or Cancel to go back and select these partitions to be formatted (RECOMMENDED)."
-msgstr ""
+"Press OK to continue, or Cancel to go back and select these partitions to be "
+"formatted (RECOMMENDED)."
+msgstr "\n\n続けるには[OK]を押して下さい。前に戻ってこれらのパーティションをフォーマットする(推奨)には[取り消し]を押してください。"
 
-#: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
-#, fuzzy
+#: ../fstab.py:74
 msgid "Warning"
-msgstr "検索中"
+msgstr "警告"
 
-#: ../fstab.py:321 ../fstab.py:515 ../fstab.py:615 ../fstab.py:819 ../harddrive.py:168 ../image.py:61 ../image.py:138 ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475 ../loader/lang.c:99 ../loader/loader.c:515 ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:906 ../loader/loader.c:961 ../loader/loader.c:1131 ../loader/loader.c:1136 ../loader/loader.c:1273 ../loader/loader.c:2142 ../loader/loader.c:2188 ../loader/loader.c:2266 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:352 ../textw/bootdisk_text.py:69 ../todo.py:1098 ../todo.py:1111 ../todo.py:1485 ../upgrade.py:22 ../upgrade.py:50
+#: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
+#: ../harddrive.py:168 ../image.py:61 ../image.py:138
+#: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:236
+#: ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455
+#: ../loader/devices.c:475 ../loader/lang.c:99 ../loader/loader.c:515
+#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:906
+#: ../loader/loader.c:961 ../loader/loader.c:1131 ../loader/loader.c:1136
+#: ../loader/loader.c:1273 ../loader/loader.c:2140 ../loader/loader.c:2186
+#: ../loader/loader.c:2262 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:370
+#: ../textw/bootdisk_text.py:69 ../todo.py:1013 ../todo.py:1026
+#: ../todo.py:1398 ../upgrade.py:21 ../upgrade.py:49
 msgid "Error"
 msgstr "エラー"
 
-#: ../fstab.py:322
-msgid "The kernel is unable to read your new partitioning information, probably because you modified extended partitions. While this is not critical, you must reboot your machine before proceeding. Insert the Red Hat boot disk now and press \"Ok\" to reboot your system.\n"
-msgstr "カーネルが新規パーティション情報を読み込むことができません。おそらく拡張パーティションが修正されたためです。重大な問題ではありませんが、手順を進める前にマシンを再起動しなければなりません。Red Hat 起動ディスクを挿入し、\"OK\" を押してシステムを再起動してください。\n"
+#: ../fstab.py:301
+msgid ""
+"The kernel is unable to read your new partitioning information, probably "
+"because you modified extended partitions. While this is not critical, you "
+"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
+"and press \"Ok\" to reboot your system.\n"
+msgstr ""
+"カーネルが新規パーティション情報を読み込むことができません。おそらく"
+"拡張パーティションに変更を加えたためです。これは重大な問題ではありま"
+"せんが、マシンを再起動しなければなりません。Red Hat 起動ディスクを挿"
+"入し、\"OK\"を押してシステムを再起動してください。\n"
 
-#: ../fstab.py:504 ../fstab.py:768 ../fstab.py:1205
+#: ../fstab.py:483 ../fstab.py:747 ../fstab.py:1184
 msgid "Formatting"
 msgstr "フォーマットしています"
 
-#: ../fstab.py:505
+#: ../fstab.py:484
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
 msgstr "/dev/%s上のスワップ領域をフォーマットしています..."
 
-#: ../fstab.py:515
+#: ../fstab.py:494
 msgid "Error creating swap on device "
 msgstr "デバイス上にスワップ領域を作成中にエラーが発生しました "
 
-#: ../fstab.py:616
+#: ../fstab.py:595
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "%s のアンマウントでエラーが発生しました: %s"
 
-#: ../fstab.py:662 ../todo.py:664
+#: ../fstab.py:641 ../todo.py:590
 msgid "Creating"
 msgstr "作成中です"
 
-#: ../fstab.py:662
+#: ../fstab.py:641
 msgid "Creating RAID devices..."
 msgstr "RAID デバイスの作成中です..."
 
-#: ../fstab.py:703
+#: ../fstab.py:682
 msgid "Loopback"
 msgstr "ループバック"
 
-#: ../fstab.py:704
+#: ../fstab.py:683
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "デバイス/dev/%s上にループバックファイルシステムを作成中です"
 
-#: ../fstab.py:769 ../fstab.py:1206
+#: ../fstab.py:748 ../fstab.py:1185
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "%s ファイルシステムのフォーマット中です..."
 
-#: ../fstab.py:820
+#: ../fstab.py:799
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -106,23 +132,61 @@ msgid ""
 msgstr ""
 "デバイス %s の(%s としての)マウントでエラーが発生しました:%s\n"
 "\n"
-"たいていの場合は、このパーティションがフォーマットされていないことを意味します。\n"
+"たいていの場合は、このパーティションがフォーマットされていないことを"
+"意味します。\n"
 "\n"
 "OK を押してシステムを再起動してください。"
 
 #: ../gui.py:171
-msgid "An exceptional condition has occured.  This is most likely a bug.  Please copy the full text of this exception and file a bug report at http://bugzilla.redhat.com/bugzilla"
-msgstr "例外条件が発生しました。バグの可能性が考えられます。この例外メッセージの全テキストをコピーし、http://bugzilla.redhat.com/bugzilla にバグレポートしてください。"
+msgid ""
+"An exceptional condition has occured.  This is most likely a bug.  Please "
+"copy the full text of this exception and file a bug report at "
+"http://bugzilla.redhat.com/bugzilla"
+msgstr ""
+"例外条件が発生しました。バグの可能性が考えられます。この例外メッセージ"
+"の全文をコピーし、http://bugzilla.redhat.com/bugzilla "
+"にバグレポートしてください。"
 
-#: ../gui.py:307 ../text.py:942
-msgid "Please insert a floppy now. All contents of the disk will be erased, so please choose your diskette carefully."
-msgstr "ここでフロッピーを挿入してください。 ディスクの内容はすべて消去されるので、注意してディスケットを選択してください。"
+#: ../gui.py:307 ../text.py:956
+msgid ""
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+"ここでフロッピーを挿入してください。 "
+"ディスクの内容はすべて消去されるので、注意してディスケットを選択して"
+"ください"
 
 #: ../gui.py:413 ../gui.py:781
 msgid "Next"
 msgstr "次"
 
-#: ../gui.py:414 ../gui.py:780 ../libfdisk/newtfsedit.c:1474 ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93 ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:582 ../loader/loader.c:288 ../loader/loader.c:810 ../loader/loader.c:847 ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1505 ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336 ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:99 ../text.py:61 ../text.py:72 ../text.py:148 ../text.py:193 ../text.py:200 ../text.py:222 ../text.py:225 ../text.py:300 ../text.py:355 ../text.py:373 ../text.py:376 ../text.py:395 ../text.py:398 ../text.py:420 ../text.py:423 ../text.py:480 ../text.py:483 ../text.py:508 ../text.py:512 ../text.py:521 ../text.py:594 ../text.py:596 ../text.py:606 ../text.py:608 ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9 ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101 ../textw/lilo_text.py:209 ../textw/mouse_text.py:27 ../textw/mouse_text.py:28 ../textw/mouse_text.py:55 ../textw/mouse_text.py:81 ../textw/network_text.py:102 ../textw/network_text.py:161 ../textw/network_text.py:164 ../textw/packages_text.py:55 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/packages_text.py:353 ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206 ../textw/timezone_text.py:68 ../textw/userauth_text.py:30 ../textw/userauth_text.py:165 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297
+#: ../gui.py:414 ../gui.py:780 ../libfdisk/newtfsedit.c:1474
+#: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:582
+#: ../loader/loader.c:288 ../loader/loader.c:810 ../loader/loader.c:847
+#: ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1505
+#: ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:87 ../text.py:64
+#: ../text.py:75 ../text.py:151 ../text.py:203 ../text.py:210 ../text.py:240
+#: ../text.py:243 ../text.py:318 ../text.py:373 ../text.py:391 ../text.py:394
+#: ../text.py:413 ../text.py:416 ../text.py:438 ../text.py:441 ../text.py:498
+#: ../text.py:501 ../text.py:526 ../text.py:530 ../text.py:539 ../text.py:608
+#: ../text.py:610 ../text.py:620 ../text.py:622 ../textw/bootdisk_text.py:30
+#: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
+#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
+#: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
+#: ../textw/mouse_text.py:28 ../textw/mouse_text.py:55
+#: ../textw/mouse_text.py:81 ../textw/network_text.py:102
+#: ../textw/network_text.py:161 ../textw/network_text.py:164
+#: ../textw/packages_text.py:55 ../textw/packages_text.py:236
+#: ../textw/packages_text.py:347 ../textw/packages_text.py:353
+#: ../textw/partitioning_text.py:23 ../textw/partitioning_text.py:64
+#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:218
+#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:318
+#: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
+#: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
+#: ../textw/userauth_text.py:165 ../textw/userauth_text.py:199
+#: ../textw/userauth_text.py:297
 msgid "Back"
 msgstr "戻る"
 
@@ -142,11 +206,12 @@ msgstr "完了"
 msgid "Online Help"
 msgstr "オンラインヘルプ"
 
-#: ../gui.py:421 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25 ../text.py:66 ../text.py:1014 ../text.py:1047
+#: ../gui.py:421 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:69 ../text.py:1028 ../text.py:1061
 msgid "Language Selection"
 msgstr "言語の選択"
 
-#: ../gui.py:522 ../iw/firewall_gui.py:145 ../libfdisk/gnomefsedit.c:1292 ../libfdisk/gnomefsedit.c:1309
+#: ../gui.py:522 ../libfdisk/gnomefsedit.c:1292 ../libfdisk/gnomefsedit.c:1309
 msgid "Close"
 msgstr "閉じる"
 
@@ -156,7 +221,7 @@ msgstr "リリースノート"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "ファイルを読み込めません!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -183,7 +248,8 @@ msgstr "インストールウィンドウ"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr "CD #%d が指定されていません。この CD はインストールするために必要です。"
+msgstr ""
+"CD #%d が指定されていません。この CD はインストールするために必要です。"
 
 #: ../image.py:58
 msgid "Copying File"
@@ -194,8 +260,12 @@ msgid "Transferring install image to hard drive..."
 msgstr "インストールイメージをハードディスクドライブに転送中です。"
 
 #: ../image.py:62
-msgid "An error occured transferring the install image to your hard drive. You are probably out of disk space."
-msgstr "インストールイメージをハードディスクドライブへ転送中にエラーが発生しました。おそらくディスク容量が不足しています。"
+msgid ""
+"An error occured transferring the install image to your hard drive. You are "
+"probably out of disk space."
+msgstr ""
+"インストールイメージをハードディスクドライブへ転送中にエラーが発生"
+"しました。おそらくディスク容量が足りません。"
 
 #: ../image.py:115
 msgid "Change CDROM"
@@ -218,607 +288,803 @@ msgstr "正しい Red Hat CD-ROM ではありません。"
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM のマウントに失敗しました。"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:214 ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312 ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475 ../loader/devices.c:507 ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293 ../loader/lang.c:582 ../loader/loader.c:288 ../loader/loader.c:515 ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:847 ../loader/loader.c:906 ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1131 ../loader/loader.c:1136 ../loader/loader.c:1233 ../loader/loader.c:1242 ../loader/loader.c:1273 ../loader/loader.c:1505 ../loader/loader.c:2142 ../loader/loader.c:2188 ../loader/loader.c:2251 ../loader/loader.c:2266 ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336 ../loader/net.c:645 ../loader/net.c:678 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:17 ../rescue.py:67 ../rescue.py:85 ../rescue.py:93 ../text.py:148 ../text.py:222 ../text.py:300 ../text.py:373 ../text.py:420 ../text.py:438 ../text.py:480 ../text.py:508 ../text.py:594 ../text.py:606 ../text.py:635 ../text.py:656 ../text.py:826 ../text.py:884 ../text.py:910 ../text.py:936 ../text.py:944 ../text.py:959 ../text.py:1201 ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9 ../textw/firewall_text.py:122 ../textw/firewall_text.py:124 ../textw/firewall_text.py:187 ../textw/lilo_text.py:33 ../textw/lilo_text.py:93 ../textw/lilo_text.py:152 ../textw/lilo_text.py:158 ../textw/mouse_text.py:55 ../textw/network_text.py:102 ../textw/network_text.py:123 ../textw/network_text.py:161 ../textw/packages_text.py:55 ../textw/packages_text.py:89 ../textw/packages_text.py:236 ../textw/packages_text.py:347 ../textw/partitioning_text.py:258 ../textw/partitioning_text.py:341 ../textw/partitioning_text.py:352 ../textw/partitioning_text.py:360 ../textw/partitioning_text.py:367 ../textw/silo_text.py:25 ../textw/silo_text.py:99 ../textw/timezone_text.py:68 ../textw/userauth_text.py:30 ../textw/userauth_text.py:44 ../textw/userauth_text.py:49 ../textw/userauth_text.py:84 ../textw/userauth_text.py:99 ../textw/userauth_text.py:105 ../textw/userauth_text.py:111 ../textw/userauth_text.py:119 ../textw/userauth_text.py:128 ../textw/userauth_text.py:135 ../textw/userauth_text.py:199 ../textw/userauth_text.py:297 ../xserver.py:33
-msgid "OK"
-msgstr "OK"
-
-#: ../rescue.py:36
+#: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "警告: 適切なブロックデバイスがみつかりませんでした\n"
 
-#: ../rescue.py:38
+#: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "エラー: パーティションテーブル読み込み中に不明なエラーが起りました\n"
 
-#: ../rescue.py:64
-#, fuzzy
+#: ../rescue.py:54
 msgid "System to Rescue"
-msgstr "アップグレード対象システム"
+msgstr "レスキュー対象システム"
 
-#: ../rescue.py:65 ../text.py:371
+#: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
 msgstr "ルートパーティションのあるパーティションを指定してください。"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:67 ../rescue.py:71
+#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:214
+#: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312
+#: ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475
+#: ../loader/devices.c:507 ../loader/kickstart.c:58 ../loader/kickstart.c:68
+#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
+#: ../loader/lang.c:582 ../loader/loader.c:288 ../loader/loader.c:515
+#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:847
+#: ../loader/loader.c:906 ../loader/loader.c:961 ../loader/loader.c:1053
+#: ../loader/loader.c:1131 ../loader/loader.c:1136 ../loader/loader.c:1233
+#: ../loader/loader.c:1242 ../loader/loader.c:1273 ../loader/loader.c:1505
+#: ../loader/loader.c:2140 ../loader/loader.c:2186 ../loader/loader.c:2249
+#: ../loader/loader.c:2262 ../loader/net.c:164 ../loader/net.c:251
+#: ../loader/net.c:336 ../loader/net.c:645 ../loader/net.c:678
+#: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
+#: ../loader/urls.c:375 ../rescue.py:57 ../rescue.py:74 ../rescue.py:81
+#: ../text.py:151 ../text.py:240 ../text.py:318 ../text.py:391 ../text.py:438
+#: ../text.py:456 ../text.py:498 ../text.py:526 ../text.py:608 ../text.py:620
+#: ../text.py:649 ../text.py:670 ../text.py:840 ../text.py:898 ../text.py:924
+#: ../text.py:950 ../text.py:958 ../text.py:973 ../text.py:1213
+#: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
+#: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
+#: ../textw/firewall_text.py:124 ../textw/lilo_text.py:33
+#: ../textw/lilo_text.py:93 ../textw/lilo_text.py:152
+#: ../textw/lilo_text.py:158 ../textw/mouse_text.py:55
+#: ../textw/network_text.py:102 ../textw/network_text.py:123
+#: ../textw/network_text.py:161 ../textw/packages_text.py:55
+#: ../textw/packages_text.py:89 ../textw/packages_text.py:236
+#: ../textw/packages_text.py:347 ../textw/partitioning_text.py:257
+#: ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:329
+#: ../textw/partitioning_text.py:337 ../textw/partitioning_text.py:344
+#: ../textw/silo_text.py:25 ../textw/silo_text.py:99
+#: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
+#: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
+#: ../textw/userauth_text.py:84 ../textw/userauth_text.py:99
+#: ../textw/userauth_text.py:105 ../textw/userauth_text.py:111
+#: ../textw/userauth_text.py:119 ../textw/userauth_text.py:128
+#: ../textw/userauth_text.py:135 ../textw/userauth_text.py:199
+#: ../textw/userauth_text.py:297 ../xserver.py:33
+msgid "OK"
+msgstr "OK"
+
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:57
+#: ../rescue.py:61
 msgid "Exit"
 msgstr "終了"
 
-#: ../rescue.py:81 ../rescue.py:88
-#, fuzzy
+#: ../rescue.py:70 ../rescue.py:76
 msgid "Rescue"
-msgstr "リセット"
+msgstr "レスキュー"
 
-#: ../rescue.py:82
+#: ../rescue.py:71
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
-"Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
 msgstr ""
-
-#: ../rescue.py:89
-msgid ""
-"An error occured trying to mount some or all of your system. Some of it may be mounted under /mnt/sysimage.\n"
+"システムを /mnt/sysimage にマウントしました。\n"
 "\n"
-"Press <return> to get a shell. The system will reboot automatically when you exit from the shell."
+"シェルを起動するには <return>を押してください。シェルから抜けるとシステムは自動的に再起動します。"
+
+#: ../rescue.py:77
+msgid ""
+"An error occured trying to mount some or all of your system. Some of it may "
+"be mounted under /mnt/sysimage.\n"
+"\n"
+"Press <return> to get a shell. The system will reboot automatically when you "
+"exit from the shell."
 msgstr ""
+"システムのいくつか、あるいはすべてのパーティションをマウントする際に"
+"エラーが起りました。/mnt/sysimageにいくつかはマウントされているかもし"
+"れません。\n"
+"\n"
+"シェルを起動するには <return> を押してください。シェルから抜けるとシ"
+"ステムは自動的に再起動します。"
+
+#: ../rescue.py:83
+msgid "Rescue Mode"
+msgstr "レスキューモード"
+
+#: ../rescue.py:84
+msgid ""
+"You don't have any Linux partitions. Press return to get a shell. The system "
+"will reboot automatically when you exit from the shell."
+msgstr ""
+"Linux パーティションがありません。シェルを起動するには <return> を"
+"押してください。シェルから抜けるとシステムは自動的に再起動します。"
 
 #: ../rescue.py:95
-#, fuzzy
-msgid "Rescue Mode"
-msgstr "レスキュー方法"
-
-#: ../rescue.py:96
-msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
-msgstr ""
-
-#: ../rescue.py:108
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "システムを /mnt/sysimage にマウントしました"
 
 #. code to create dialog in gtk+
-#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1019 ../libfdisk/fsedit.c:1029 ../libfdisk/fsedit.c:1046 ../libfdisk/fsedit.c:1454 ../libfdisk/gnomefsedit.c:783 ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1166 ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:1430 ../libfdisk/gnomefsedit.c:1505 ../libfdisk/gnomefsedit.c:1555 ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1638 ../libfdisk/gnomefsedit.c:1916 ../libfdisk/gnomefsedit.c:1925 ../libfdisk/gnomefsedit.c:2171 ../libfdisk/gnomefsedit.c:2179 ../libfdisk/gnomefsedit.c:2223 ../libfdisk/gnomefsedit.c:2233 ../libfdisk/gnomefsedit.c:2240 ../libfdisk/gnomefsedit.c:2255 ../libfdisk/gnomefsedit.c:2265 ../libfdisk/gnomefsedit.c:2275 ../libfdisk/gnomefsedit.c:2314 ../libfdisk/gnomefsedit.c:2445 ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:170 ../libfdisk/newtfsedit.c:346 ../libfdisk/newtfsedit.c:574 ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669 ../libfdisk/newtfsedit.c:695 ../libfdisk/newtfsedit.c:714 ../libfdisk/newtfsedit.c:845 ../libfdisk/newtfsedit.c:1474 ../libfdisk/newtfsedit.c:1482 ../libfdisk/newtfsedit.c:1607 ../libfdisk/newtfsedit.c:1628 ../libfdisk/newtfsedit.c:1656 ../libfdisk/newtfsedit.c:1740 ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63 ../text.py:193 ../text.py:521 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208 ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:420 ../textw/silo_text.py:136 ../textw/silo_text.py:149 ../textw/silo_text.py:205
+#: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
+#: ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967
+#: ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1019
+#: ../libfdisk/fsedit.c:1029 ../libfdisk/fsedit.c:1046
+#: ../libfdisk/fsedit.c:1454 ../libfdisk/gnomefsedit.c:783
+#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1166
+#: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:1237
+#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:1430
+#: ../libfdisk/gnomefsedit.c:1505 ../libfdisk/gnomefsedit.c:1555
+#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1638
+#: ../libfdisk/gnomefsedit.c:1916 ../libfdisk/gnomefsedit.c:1925
+#: ../libfdisk/gnomefsedit.c:2171 ../libfdisk/gnomefsedit.c:2179
+#: ../libfdisk/gnomefsedit.c:2223 ../libfdisk/gnomefsedit.c:2233
+#: ../libfdisk/gnomefsedit.c:2240 ../libfdisk/gnomefsedit.c:2255
+#: ../libfdisk/gnomefsedit.c:2265 ../libfdisk/gnomefsedit.c:2275
+#: ../libfdisk/gnomefsedit.c:2314 ../libfdisk/gnomefsedit.c:2445
+#: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:170
+#: ../libfdisk/newtfsedit.c:346 ../libfdisk/newtfsedit.c:574
+#: ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669
+#: ../libfdisk/newtfsedit.c:695 ../libfdisk/newtfsedit.c:714
+#: ../libfdisk/newtfsedit.c:845 ../libfdisk/newtfsedit.c:1474
+#: ../libfdisk/newtfsedit.c:1482 ../libfdisk/newtfsedit.c:1607
+#: ../libfdisk/newtfsedit.c:1628 ../libfdisk/newtfsedit.c:1656
+#: ../libfdisk/newtfsedit.c:1740 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:64 ../text.py:66
+#: ../text.py:203 ../text.py:539 ../textw/lilo_text.py:123
+#: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
+#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:395
+#: ../textw/silo_text.py:136 ../textw/silo_text.py:149
+#: ../textw/silo_text.py:205
 msgid "Ok"
 msgstr "OK"
 
-#: ../text.py:67
+#: ../text.py:70
 msgid "What language would you like to use during the installation process?"
 msgstr "インストール時に使用する言語を選択してください。"
 
-#: ../text.py:150
+#: ../text.py:153
 msgid "Choose the languages to be installed:"
 msgstr "インストールする言語を選択してください"
 
 # ../comps/comps-master:446
-#: ../text.py:154 ../text.py:1110
+#: ../text.py:158 ../text.py:1124
 msgid "Language Support"
 msgstr "言語サポート"
 
-#: ../text.py:195
+#: ../text.py:205
 msgid "Default Language"
 msgstr "デフォルト言語"
 
-#: ../text.py:196
-#, fuzzy
+#: ../text.py:206
 msgid "Choose the default language: "
-msgstr "デフォルト言語を選択してください。"
+msgstr "デフォルト言語を選択してください: "
 
-#: ../text.py:220 ../text.py:1016 ../text.py:1053
+#: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
 msgstr "キーボードの選択"
 
-#: ../text.py:221
+#: ../text.py:239
 msgid "Which model keyboard is attached to this computer?"
 msgstr "コンピュータに接続されているキーボードモデルを指定してください。"
 
-#: ../text.py:276
+#: ../text.py:294
 msgid "Upgrade Existing Installation"
 msgstr "既存システムのアップグレード"
 
-#: ../text.py:298 ../text.py:1056
+#: ../text.py:316 ../text.py:1070
 msgid "Installation Type"
 msgstr "インストールの種類"
 
-#: ../text.py:299
+#: ../text.py:317
 msgid "What type of system would you like to install?"
 msgstr "インストールの種類を選択してください。"
 
-#: ../text.py:353
+#: ../text.py:371
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Linux パーティションがありません。このシステムをアップグレードすることはできません。"
+msgstr ""
+"Linux "
+"パーティションがありません。このシステムをアップグレードすることは"
+"できません"
 
-#: ../text.py:370
+#: ../text.py:388
 msgid "System to Upgrade"
 msgstr "アップグレード対象システム"
 
-#: ../text.py:387
+#: ../text.py:405
 msgid "Customize Packages to Upgrade"
 msgstr "アップグレード対象パッケージのカスタマイズ"
 
-#: ../text.py:388
-msgid "The packages you have installed, and any other packages which are needed to satisfy their dependencies, have been selected for installation. Would you like to customize the set of packages that will be upgraded?"
-msgstr "インストール済のパッケージ、および依存関係を解決するために必要なその他のパッケージがインストール用に選択されています。アップグレード対象のパッケージをカスタマイズしますか?"
+#: ../text.py:406
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+"インストール済のパッケージ、および依存関係を解決するために必要な"
+"その他のパッケージがインストールのために選択されていません。パッケージ"
+"選択をカスタマイズしますか?"
 
-#: ../iw/rootpartition_gui.py:503 ../iw/welcome_gui.py:89 ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733 ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280 ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368 ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710 ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739 ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677 ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782 ../loader/devices.c:207 ../loader/loader.c:810 ../loader/net.c:812 ../text.py:395 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219 ../textw/partitioning_text.py:402
+#: ../iw/rootpartition_gui.py:430 ../iw/welcome_gui.py:89
+#: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
+#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
+#: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
+#: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
+#: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
+#: ../loader/devices.c:207 ../loader/loader.c:810 ../loader/net.c:812
+#: ../text.py:413 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
+#: ../textw/partitioning_text.py:377
 msgid "Yes"
 msgstr "はい"
 
-#: ../iw/rootpartition_gui.py:505 ../iw/welcome_gui.py:92 ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733 ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280 ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368 ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710 ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739 ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677 ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782 ../loader/devices.c:208 ../loader/net.c:812 ../text.py:395 ../text.py:401 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
+#: ../iw/rootpartition_gui.py:432 ../iw/welcome_gui.py:92
+#: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
+#: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
+#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
+#: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
+#: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
+#: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
+#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:413 ../text.py:419
+#: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:377
 msgid "No"
 msgstr "いいえ"
 
-#: ../text.py:411 ../text.py:430
+#: ../text.py:429 ../text.py:448
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:412
+#: ../text.py:430
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
-"This installation process is outlined in detail in the Official Red Hat Linux Installation Guide available from Red Hat Software. If you have access to this manual, you should read the installation section before continuing.\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
 "\n"
-"If you have purchased Official Red Hat Linux, be sure to register your purchase through our web site, http://www.redhat.com/."
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com/."
 msgstr ""
 "Red Hat Linux へようこそ！\n"
 "\n"
-"インストール手順については、Red Hat Software から入手可能な『Official Red Hat Linux インストールガイド』で詳しく説明されています。このマニュアルをお持ちの場合は、あらかじめインストールのセクションをお読みください。\n"
+"インストール手順については、Red Hat Software から入手可能な『Official Red "
+"Hat Linux "
+"インストールガイド』で詳しく説明されています。このマニュアルをお持ち"
+"の場合は作業を続ける前にインストールのセクションを読んでください。"
 "\n"
-"Official Red Hat Linux をお買い求めいただいた場合は、弊社の Web サイト http://www.redhat.com/ で登録をお済ませください。"
+"Official Red Hat Linux をお買い求めいただいた場合は、弊社の Web サイト "
+"http://www.redhat.com/ で登録をお済ませください。"
 
-#: ../text.py:431
+#: ../text.py:449
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
-"You have entered reconfiguration mode, which will allow you to configure site-specific options of your computer.\n"
+"You have entered reconfiguration mode, which will allow you to configure "
+"site-specific options of your computer.\n"
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
 "Red Hat Linux へようこそ！\n"
 "\n"
-"再設定モードに入りました。このモードでは、コンピュータのサイト固有オプションを設定することができます。.\n"
+"再設定モードに入りました。このモードでは、コンピュータのサイト固有"
+"オプションを再設定できます。"
 "\n"
-"設定内容を変更せずに終了するには、下の [キャンセル] ボタンを選択してください。"
+"設定内容を変更せずに終了するには、下の [キャンセル] "
+"ボタンを選択してください。"
 
-#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1925 ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:575 ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:215 ../loader/devices.c:507 ../loader/loader.c:2251 ../loader/pcmcia.c:104 ../text.py:438 ../text.py:441 ../text.py:826 ../text.py:827 ../text.py:944 ../text.py:946 ../textw/lilo_text.py:124 ../textw/silo_text.py:136 ../textw/silo_text.py:154 ../textw/userauth_text.py:63
+#: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1925
+#: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:575
+#: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:215
+#: ../loader/devices.c:507 ../loader/loader.c:2249 ../loader/pcmcia.c:104
+#: ../text.py:456 ../text.py:459 ../text.py:840 ../text.py:841 ../text.py:958
+#: ../text.py:960 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "取り消し"
 
-#: ../text.py:478
+#: ../text.py:496
 msgid "X probe results"
 msgstr "X 設定の検出結果"
 
-#: ../text.py:498 ../text.py:517
+#: ../text.py:516 ../text.py:535
 msgid "Unlisted Card"
 msgstr "不明なビデオカードです"
 
-#: ../text.py:505
+#: ../text.py:523
 msgid "Video Card Selection"
 msgstr "ビデオカードの選択"
 
-#: ../text.py:506
+#: ../text.py:524
 msgid "Which video card do you have?"
 msgstr "お使いのビデオカードを選択してください。"
 
-#: ../text.py:519
+#: ../text.py:537
 msgid "X Server Selection"
 msgstr "X サーバの選択"
 
-#: ../text.py:519
+#: ../text.py:537
 msgid "Choose a server"
 msgstr "サーバを選択してください"
 
-#: ../text.py:590
+#: ../text.py:604
 msgid "Installation to begin"
 msgstr "インストールの開始"
 
-#: ../iw/confirm_gui.py:45 ../text.py:591
-msgid "A complete log of your installation will be in /tmp/install.log after rebooting your system. You may want to keep this file for later reference."
-msgstr "完全なインストールログは、システムの再起動後に /tmp/install.log に保存されます。後で参照できるように、このファイルを保管しておくことをお勧めします。"
+#: ../iw/confirm_gui.py:45 ../text.py:605
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+"完全なインストールログは、システムの再起動後に /tmp/install.log "
+"に保存されます。後で参照できるように、このファイルを保管しておく"
+"ことをお勧めします。"
 
-#: ../text.py:602
+#: ../text.py:616
 msgid "Upgrade to begin"
 msgstr "アップデートの開始"
 
-#: ../iw/confirm_gui.py:41 ../text.py:603
-msgid "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting your system. You may want to keep this file for later reference."
-msgstr "完全なアップグレードログは、システムの再起動後 /tmp/upgrade.log に保存されます。後で参照できるように、このファイルを保管しておくことをお勧めします。"
+#: ../iw/confirm_gui.py:41 ../text.py:617
+msgid ""
+"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"your system. You may want to keep this file for later reference."
+msgstr ""
+"完全なアップグレードログは、システムの再起動後 /tmp/upgrade.log "
+"に保存されます。後で参照できるように、このファイルを保管しておくこと"
+"をお勧めします。"
 
-#: ../text.py:622
-msgid "                              <Return> to reboot                              "
+#: ../text.py:636
+msgid ""
+"                              <Return> to reboot                             "
+" "
 msgstr "                              再起動するには <Return> を押してください"
 
-#: ../text.py:624 ../text.py:647
+#: ../text.py:638 ../text.py:661
 msgid "Complete"
 msgstr "完了"
 
-#: ../iw/congrats_gui.py:34 ../text.py:625
+#: ../iw/congrats_gui.py:34 ../text.py:639
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
-"Press return to reboot, and be sure to remove your boot medium after the system reboots, or your system will rerun the install. For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com/errata.\n"
+"Press return to reboot, and be sure to remove your boot medium after the "
+"system reboots, or your system will rerun the install. For information on "
+"fixes which are available for this release of Red Hat Linux, consult the "
+"Errata available from http://www.redhat.com/errata.\n"
 "\n"
-"Information on configuring and using your Red Hat Linux system is contained in the Red Hat Linux manuals."
+"Information on configuring and using your Red Hat Linux system is contained "
+"in the Red Hat Linux manuals."
 msgstr ""
 "インストールが完了しました。\n"
 "\n"
-"[Return] キーを押すとシステムが再起動します。再起動時にブートメディアを取り除いておかないと、もう一度インストールが開始されますのでご注意ください。本リリースの Red Hat Linux 修正情報については、http://www.redhat.com/errata を参照してください。\n"
+"[Return] "
+"キーを押すとシステムが再起動します。再起動時にブートメディアを"
+"取り除いておかないと再度インストール画面になりますので注意してください"
+"Red Hat Linux 修正情報については、http://www.redhat.com/errata "
+"を参照してください。\n"
 "\n"
-"Red Hat Linux の設定と使用方法に関する情報は、Red Hat Linux のマニュアルを参照してください。"
+"Red Hat Linux の設定と使用方法に関する情報は、Red Hat Linux "
+"のマニュアルを参照してください。"
 
-#: ../text.py:643
-msgid "                                <Return> to exit                              "
+#: ../text.py:657
+msgid ""
+"                                <Return> to exit                             "
+" "
 msgstr "                                終了するには <Return> を押してください"
 
-#: ../text.py:648
+#: ../text.py:662
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-" For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com.\n"
+" For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available at http://www.redhat.com/support/manuals/"
+"Information on further configuring your system is available at "
+"http://www.redhat.com/support/manuals/"
 msgstr ""
 "設定が完了しました。\n"
 "\n"
-"本リリースの Red Hat Linux の修正情報については、http://www.redhat.com/errata を参照してください。\n"
+"本リリースの Red Hat Linux "
+"の修正情報については、http://www.redhat.com/errata を参照してください。\n"
 "\n"
-"システムの追加設定については、『Official Red Hat Linux ユーザーズガイド』のインストール後の作業についての章を参照してください。"
+"システムの追加設定については、『Official Red Hat Linux "
+"ユーザーズガイド』のインストール後の作業についての章を参照してください。"
 
-#: ../text.py:715
+#: ../text.py:729
 msgid "Package Installation"
 msgstr "パッケージのインストール"
 
-#: ../text.py:717
+#: ../text.py:731
 msgid "Name   : "
 msgstr "名前: "
 
-#: ../text.py:718
+#: ../text.py:732
 msgid "Size   : "
 msgstr "サイズ   : "
 
-#: ../text.py:719
+#: ../text.py:733
 msgid "Summary: "
 msgstr "説明: "
 
-#: ../text.py:745
+#: ../text.py:759
 msgid "    Packages"
 msgstr "    パッケージ"
 
-#: ../text.py:746
+#: ../text.py:760
 msgid "       Bytes"
 msgstr "       バイト"
 
-#: ../text.py:747
+#: ../text.py:761
 msgid "        Time"
 msgstr "        時間"
 
-#: ../text.py:749
+#: ../text.py:763
 msgid "Total    :"
 msgstr "合計   :"
 
-#: ../text.py:756
+#: ../text.py:770
 msgid "Completed:   "
 msgstr "完了:   "
 
-#: ../text.py:766
+#: ../text.py:780
 msgid "Remaining:  "
 msgstr "残り:  "
 
-#: ../text.py:882
+#: ../text.py:896
 msgid "Help not available"
 msgstr "ヘルプ情報はありません。"
 
-#: ../text.py:883
+#: ../text.py:897
 msgid "No help is available for this install."
 msgstr "このインストールに関するヘルプはありません。"
 
-#: ../text.py:941
+#: ../text.py:955
 msgid "Save Crash Dump"
 msgstr "クラッシュダンプの保存"
 
-#: ../text.py:952
+#: ../text.py:966
 msgid ""
-"An internal error occurred in the installation program. Please report this error to Red Hat (through the bugzilla.redhat.com web site) as soon as possible. The information on this failure may be saved to a floppy disk, and will help Red Hat in fixing the problem.\n"
+"An internal error occurred in the installation program. Please report this "
+"error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
+"possible. The information on this failure may be saved to a floppy disk, and "
+"will help Red Hat in fixing the problem.\n"
 "\n"
 msgstr ""
-"インストールプログラムで内部エラーが発生しました。できるだけ早くこのエラーを Red Hat までお知らせください (Web サイト bugzilla.redhat.com をご利用ください)。このエラーに関する情報をフロッピーディスクに保存していただければ、Red Hat が問題を解決する上で参考になります。\n"
+"インストールプログラムで内部エラーが発生しました。できるだけ早くこのエラーを "
+"Red Hat までお知らせください (Web サイト bugzilla.redhat.com "
+"をご利用ください)。このエラーに関する情報をフロッピーディスクに保存していただ"
+"ければ、Red Hat が問題を解決する上で参考になります。\n"
 "\n"
 
-#: ../text.py:959 ../text.py:962
+#: ../text.py:973 ../text.py:976
 msgid "Save"
 msgstr "保存"
 
-#: ../text.py:959 ../text.py:960
+#: ../text.py:973 ../text.py:974
 msgid "Debug"
 msgstr "デバッグ"
 
-#: ../text.py:970
+#: ../text.py:984
 msgid " "
 msgstr " "
 
-#: ../text.py:974
-#, fuzzy
+#: ../text.py:988
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
 
-#: ../text.py:977
-msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+#: ../text.py:991
+msgid ""
+" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> ヘルプ| <Tab> 項目間の移動| <Space> 選択| <F12> 次の画面"
 
-#: ../text.py:979
-msgid "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"
+#: ../text.py:993
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択   |  <F12> 次の画面"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1012 ../text.py:1055
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1026
+#: ../text.py:1069
 msgid "Welcome"
 msgstr "ようこそ"
 
-#: ../text.py:1018 ../text.py:1101
+#: ../text.py:1032 ../text.py:1115
 msgid "Hostname Setup"
 msgstr "ホスト名の設定"
 
-#: ../text.py:1020 ../text.py:1098
+#: ../text.py:1034 ../text.py:1112
 msgid "Network Setup"
 msgstr "ネットワークの設定"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1022 ../text.py:1103 ../textw/firewall_text.py:11
+#: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
+#: ../textw/firewall_text.py:11
 msgid "Firewall Configuration"
 msgstr "ファイアウォールの設定"
 
-#: ../text.py:1030 ../text.py:1115
+#: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
 msgstr "タイムゾーンの設定"
 
-#: ../text.py:1032 ../text.py:1117 ../textw/userauth_text.py:9
+#: ../text.py:1046 ../text.py:1131 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "root パスワード"
 
-#: ../text.py:1034 ../text.py:1119 ../textw/userauth_text.py:172
+#: ../text.py:1048 ../text.py:1133 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "ユーザアカウントの設定"
 
-#: ../text.py:1036 ../text.py:1121
+#: ../text.py:1050 ../text.py:1135
 msgid "Authentication"
 msgstr "認証"
 
-#: ../text.py:1042
+#: ../text.py:1056
 msgid "Configuration Complete"
 msgstr "設定完了"
 
-#: ../text.py:1064 ../textw/silo_text.py:28 ../textw/silo_text.py:101 ../textw/silo_text.py:213
+#: ../text.py:1078 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "SILO の設定"
 
-#: ../text.py:1070 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90 ../textw/lilo_text.py:217
+#: ../text.py:1084 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "LILO の設定"
 
-#: ../text.py:1074
+#: ../text.py:1088
 msgid "Automatic Partition"
 msgstr "自動パーティション設定"
 
-#: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127 ../iw/silo_gui.py:280 ../text.py:1076 ../text.py:1080
+#: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:280 ../text.py:1090 ../text.py:1094
 msgid "Partition"
 msgstr "パーティション"
 
-#: ../text.py:1078
+#: ../text.py:1092
 msgid "Manually Partition"
 msgstr "手動パーティション設定"
 
-#: ../text.py:1082 ../textw/partitioning_text.py:333
+#: ../text.py:1096 ../textw/partitioning_text.py:310
 msgid "Root Filesystem Size"
 msgstr "ルートファイルシステムのサイズ"
 
-#: ../text.py:1084
+#: ../text.py:1098
 msgid "Swap"
 msgstr "スワップ"
 
-#: ../text.py:1086 ../textw/partitioning_text.py:390 ../textw/partitioning_text.py:410
+#: ../text.py:1100 ../textw/partitioning_text.py:365
+#: ../textw/partitioning_text.py:385
 msgid "Boot Partition Warning"
 msgstr "起動パーティション警告"
 
-#: ../text.py:1088
+#: ../text.py:1102
 msgid "Filesystem Formatting"
 msgstr "ファイルシステムをフォーマットしています"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1105 ../text.py:1107
+#: ../iw/mouse_gui.py:56 ../text.py:1119 ../text.py:1121
 msgid "Mouse Configuration"
 msgstr "マウスの設定"
 
-#: ../text.py:1112
+#: ../text.py:1126
 msgid "Language Default"
 msgstr "デフォルト言語"
 
-#: ../text.py:1123
+#: ../text.py:1137
 msgid "Package Groups"
 msgstr "パッケージグループ"
 
-#: ../text.py:1125 ../text.py:1153
+#: ../text.py:1139 ../text.py:1167
 msgid "Individual Packages"
 msgstr "個別パッケージ"
 
-#: ../text.py:1127 ../textw/packages_text.py:304
+#: ../text.py:1141 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "パッケージの依存関係"
 
-#: ../iw/xconfig_gui.py:1007 ../text.py:1129 ../text.py:1137
+#: ../iw/xconfig_gui.py:1007 ../text.py:1143 ../text.py:1151
 msgid "X Configuration"
 msgstr "X の設定"
 
-#: ../text.py:1131
+#: ../text.py:1145
 msgid "Installation Begins"
 msgstr "インストールの開始"
 
-#: ../text.py:1133
+#: ../text.py:1147
 msgid "Install System"
 msgstr "システムのインストール"
 
-#: ../text.py:1134 ../text.py:1136 ../text.py:1157 ../text.py:1159
+#: ../text.py:1148 ../text.py:1150 ../text.py:1171 ../text.py:1173
 msgid "Boot Disk"
 msgstr "ブートディスク"
 
-#: ../text.py:1139
+#: ../text.py:1153
 msgid "Installation Complete"
 msgstr "インストール完了"
 
-#: ../text.py:1144
+#: ../text.py:1158
 msgid "Examine System"
 msgstr "システムのテスト"
 
-#: ../text.py:1151
+#: ../text.py:1165
 msgid "Customize Upgrade"
 msgstr "アップグレードのカスタマイズ"
 
-#: ../text.py:1154
+#: ../text.py:1168
 msgid "Upgrade Begins"
 msgstr "アップグレードの開始"
 
-#: ../text.py:1156
+#: ../text.py:1170
 msgid "Upgrade System"
 msgstr "システムのアップグレード"
 
-#: ../text.py:1160
+#: ../text.py:1174
 msgid "Upgrade Complete"
 msgstr "アップグレード完了"
 
-#: ../text.py:1198
+#: ../text.py:1210
 msgid "Cancelled"
 msgstr "取り消されました"
 
-#: ../text.py:1199
+#: ../text.py:1211
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "ここから直前のステップに戻ることはできません。もう一度やり直してください。"
+msgstr ""
+"ここから直前のステップに戻ることはできません。もう一度やり直してください。"
 
-#: ../todo.py:664
+#: ../todo.py:590
 msgid "Creating boot disk..."
 msgstr "ブートディスクの作成中です..."
 
-#: ../todo.py:683
+#: ../todo.py:609
 msgid "Reading"
 msgstr "読み込み中です"
 
-#: ../todo.py:684
+#: ../todo.py:610
 msgid "Reading package information..."
 msgstr "パッケージ情報を読み込んでいます..."
 
-#: ../todo.py:943
+#: ../todo.py:858
 msgid "Dependency Check"
 msgstr "依存関係チェック"
 
-#: ../todo.py:944
+#: ../todo.py:859
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "インストール対象パッケージの依存関係をチェックしています..."
 
-#: ../todo.py:971 ../todo.py:1013 ../todo.py:1019 ../todo.py:1036 ../todo.py:1161
+#: ../todo.py:886 ../todo.py:928 ../todo.py:934 ../todo.py:951 ../todo.py:1076
 msgid "no suggestion"
 msgstr "推奨事項はありません"
 
-#: ../todo.py:1051
-msgid "One or more of the filesystems listed in the /etc/fstab on your Linux system cannot be mounted. Please fix this problem and try to upgrade again."
-msgstr "Linux システムの /etc/fstab の中にリストされた一つまたは複数のファイルシステムをマウントすることはできません。 問題を解決してから再度アップグレードしてください。"
-
-#: ../todo.py:1069
+#: ../todo.py:966
 msgid ""
-"The following files are absolute symbolic links, which we do not support during an upgrade. Please change them to relative symbolic links and restart the upgrade.\n"
+"One or more of the filesystems listed in the /etc/fstab on your Linux system "
+"cannot be mounted. Please fix this problem and try to upgrade again."
+msgstr ""
+"Linux システムの /etc/fstab "
+"の中にリストされた一つまたは複数のファイルシステムをマウントすることは"
+"できません。この問題を解決してから再度アップグレードしてください。"
+
+#: ../todo.py:984
+msgid ""
+"The following files are absolute symbolic links, which we do not support "
+"during an upgrade. Please change them to relative symbolic links and restart "
+"the upgrade.\n"
 "\n"
 msgstr ""
-"以下のファイルは絶対シンボリックリンクです。アップグレード中の絶対シンボリックリンクはサポートされていません。これらを相対シンボリックリンクに変更してから、アップグレードを\n"
-"再開してください。\n"
+"以下のファイルは絶対シンボリックリンクです。アップグレード中の絶対"
+"シンボリックリンクはサポートされていません。相対リンクに修正して"
+"、アップグレードを再開してください。\n"
 "\n"
 
-#: ../todo.py:1083
+#: ../todo.py:998
 msgid "Finding"
 msgstr "検索中"
 
-#: ../todo.py:1084
+#: ../todo.py:999
 msgid "Finding packages to upgrade..."
 msgstr "アップグレードするパッケージを検索しています..."
 
-#: ../todo.py:1099
+#: ../todo.py:1014
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "RPM データベースの再構築に失敗しました。ディスク領域が不足している可能性があります"
+msgstr ""
+"RPM "
+"データベースの再構築に失敗しました。ディスク領域が不足している"
+"可能性があります。"
 
-#: ../todo.py:1112
+#: ../todo.py:1027
 msgid "An error occured when finding the packages to upgrade."
 msgstr "アップグレードするパッケージを検索中にエラーが起りました"
 
-#: ../todo.py:1451
+#: ../todo.py:1364
 msgid "Processing"
 msgstr "処理中"
 
-#: ../todo.py:1452
+#: ../todo.py:1365
 msgid "Preparing to install..."
 msgstr "インストールの準備をしています..."
 
-#: ../todo.py:1486
+#: ../todo.py:1399
 #, c-format
-msgid "The file %s cannot be opened. This is due to a missing file, a bad package, or bad media. Press <return> to try again."
-msgstr "ファイル %s をオープンできません。原因はファイルの欠落、パッケージ、またはメディアの不良です。<return> キーを押してやり直してください。"
+msgid ""
+"The file %s cannot be opened. This is due to a missing file, a bad package, "
+"or bad media. Press <return> to try again."
+msgstr ""
+"ファイル %s "
+"をオープンできません。原因はファイルの欠落、パッケージ、またはメディア"
+"の不良の可能性があります。<return> キーを押してやり直してください。"
 
-#: ../todo.py:1729
+#: ../todo.py:1642
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s をアップグレードしています。\n"
 
-#: ../todo.py:1731
+#: ../todo.py:1644
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s をインストールしています。\n"
 
-#: ../todo.py:1776
+#: ../todo.py:1689
 msgid ""
-"You don't appear to have enough disk space to install the packages you've selected. You need more space on the following filesystems:\n"
+"You don't appear to have enough disk space to install the packages you've "
+"selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"選択したパッケージのインストールに必要なディスク容量が不足しているようです。以下のファイルシステム上に空き領域が必要です。\n"
+"選択したパッケージのインストールに必要なディスク容量が不足している"
+"ようです。次のファイルシステムでより多くの容量が必要です:"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1779 ../todo.py:1795
+#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1692 ../todo.py:1708
 msgid "Mount Point"
 msgstr "マウントポイント"
 
-#: ../todo.py:1779
+#: ../todo.py:1692
 msgid "Space Needed"
 msgstr "領域不足"
 
-#: ../todo.py:1792
+#: ../todo.py:1705
 msgid ""
-"You don't appear to have enough file nodes to install the packages you've selected. You need more file nodes on the following filesystems:\n"
+"You don't appear to have enough file nodes to install the packages you've "
+"selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"選択したパッケージのインストールに必要なファイルノード数が不足しているようです。以下のファイルシステム上により多くのファイルノードが必要です。\n"
+"選択したパッケージのインストールに必要なファイルノード数が不足している"
+"ようです。次のファイルシステムでより多くのノードが必要です:"
 "\n"
 
-#: ../todo.py:1795
+#: ../todo.py:1708
 msgid "Nodes Needed"
 msgstr "ノード数不足"
 
-#: ../todo.py:1801
+#: ../todo.py:1714
 msgid "Disk Space"
 msgstr "ディスク容量"
 
-#: ../todo.py:1836
+#: ../todo.py:1749
 msgid "Post Install"
 msgstr "インストール後の設定"
 
-#: ../todo.py:1837
+#: ../todo.py:1750
 msgid "Performing post install configuration..."
 msgstr "インストール後の設定を実行しています..."
 
-#: ../upgrade.py:11
+#: ../upgrade.py:10
 msgid "Searching"
 msgstr "検索中"
 
-#: ../upgrade.py:12
+#: ../upgrade.py:11
 msgid "Searching for Red Hat Linux installations..."
 msgstr "インストール済の Red Hat Linux を検索しています..."
 
-#: ../upgrade.py:23 ../upgrade.py:51
+#: ../upgrade.py:22 ../upgrade.py:50
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "%s 上に ext2 ファイルシステムをマウントしようとしてエラーが発生しました: %s"
+msgstr ""
+"%s 上に ext2 ファイルシステムをマウントしようとしてエラーが発生しました: %s"
 
-#: ../upgrade.py:95
-msgid "One or more of the filesystems for your Linux system was not unmounted cleanly. Please boot your Linux installation, let the filesystems be checked, and shut down cleanly to upgrade."
-msgstr "正常にアンマウントされなかった Linux ファイルシステムがあります。アップグレードするためには、Linux インストールを起動し、ファイルシステムのチェックを実行してから正常にシャットダウンを行ってください。"
+#: ../upgrade.py:94
+msgid ""
+"One or more of the filesystems for your Linux system was not unmounted "
+"cleanly. Please boot your Linux installation, let the filesystems be "
+"checked, and shut down cleanly to upgrade."
+msgstr ""
+"正常にアンマウントされなかった Linux "
+"ファイルシステムがあります。アップグレードするためには、Linux "
+"インストールを起動し、ファイルシステムのチェックを実行してから"
+"正常にシャットダウンしてください。"
 
 #: ../iw/xconfig_gui.py:12 ../xf86config.py:929
 msgid "Video Card"
@@ -857,8 +1123,16 @@ msgid "Mouse Not Detected"
 msgstr "マウスを検出できません。"
 
 #: ../xserver.py:27
-msgid "Your mouse was not automatically detected.  To proceed in the graphical installation mode, please proceed to the next screen and provide your mouse information. You may also use text mode installation which does not require a mouse."
-msgstr "マウスを自動検出できませんでした。  グラフィカルなインストールモードに入るには、次画面に進んでマウスの情報を設定してください。またマウスを必要としないテキストモードのインストールを行うこともできます。"
+msgid ""
+"Your mouse was not automatically detected.  To proceed in the graphical "
+"installation mode, please proceed to the next screen and provide your mouse "
+"information. You may also use text mode installation which does not require "
+"a mouse."
+msgstr ""
+"マウスを自動検出できませんでした。  "
+"グラフィカルなインストールモードに入るには、次画面に進んでマウスの"
+"情報を設定してください。マウスを必要としないテキストモードでのイン"
+"ストールを行うこともできます。"
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
@@ -924,19 +1198,26 @@ msgstr "パスワード"
 msgid "Password (confirm)"
 msgstr "パスワード (確認)"
 
-#: ../iw/account_gui.py:270 ../iw/account_gui.py:300 ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
+#: ../iw/account_gui.py:270 ../iw/account_gui.py:300
+#: ../textw/userauth_text.py:83 ../textw/userauth_text.py:184
 msgid "Full Name"
 msgstr "フルネーム"
 
-#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1480 ../textw/userauth_text.py:198
+#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1480
+#: ../textw/userauth_text.py:198
 msgid "Add"
 msgstr "追加"
 
-#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1473 ../libfdisk/newtfsedit.c:1481 ../textw/lilo_text.py:208 ../textw/lilo_text.py:231 ../textw/partitioning_text.py:64 ../textw/silo_text.py:205 ../textw/silo_text.py:227 ../textw/userauth_text.py:199
+#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1473
+#: ../libfdisk/newtfsedit.c:1481 ../textw/lilo_text.py:208
+#: ../textw/lilo_text.py:231 ../textw/partitioning_text.py:63
+#: ../textw/silo_text.py:205 ../textw/silo_text.py:227
+#: ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "編集"
 
-#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1481 ../textw/userauth_text.py:198
+#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1481
+#: ../textw/userauth_text.py:198
 msgid "Delete"
 msgstr "削除"
 
@@ -1009,12 +1290,22 @@ msgid "Bootdisk Creation"
 msgstr "ブートディスクの作成"
 
 #: ../iw/bootdisk_gui.py:58
-msgid "Please remove the install floppy (if used) and insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "インストール用フロッピーが挿入されている場合は取り出して、空のフロッピーをプライマリフロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
+msgid ""
+"Please remove the install floppy (if used) and insert a blank floppy in the "
+"first floppy drive. All data on this disk will be erased during creation of "
+"the boot disk."
+msgstr ""
+"インストール用フロッピーが挿入されている場合は取り出して、空の"
+"フロッピーをプライマリフロッピードライブに挿入してください。デ"
+"ィスク内のすべてのデータは起動ディスクの作成中にすべて消去されます。"
 
 #: ../iw/bootdisk_gui.py:62 ../textw/bootdisk_text.py:70
-msgid "An error occured while making the boot disk. Please make sure that there is a formatted floppy in the first floppy drive."
-msgstr "ブートディスクの作成中にエラーが発生しました。プライマリフロッピードライブ内のフロッピーがフォーマット済であるかどうか確認してください。"
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
+msgstr ""
+"ブートディスクの作成中にエラーが発生しました。プライマリフロッピー"
+"ドライブ内にフォーマットされたディスクがあることを確認してください。"
 
 #: ../iw/bootdisk_gui.py:69
 msgid "Skip boot disk creation"
@@ -1044,26 +1335,32 @@ msgstr "おめでとうございます"
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on fixes which are available for this release of Red Hat Linux, consult the Errata available from http://www.redhat.com.\n"
+"For information on fixes which are available for this release of Red Hat "
+"Linux, consult the Errata available from http://www.redhat.com.\n"
 "\n"
-"Information on further configuring your system is available in the Official Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
+"Information on further configuring your system is available in the Official "
+"Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
 msgstr ""
 "設定が完了しました。\n"
 "\n"
-"本リリースの Red Hat Linux の修正情報については、http://www.redhat.com/errata を参照してください。\n"
+"本リリースの Red Hat Linux "
+"の修正情報については、http://www.redhat.com/errata を参照してください。\n"
 "\n"
-"システムの追加設定については、http://www.redhat.com/support/manuals/ で入手できる『Red Hat Linux オフィシャルマニュアル』を参照してください。"
+"システムの追加設定については、http://www.redhat.com/support/manuals/ "
+"で入手できる『Red Hat Linux オフィシャルマニュアル』を参照してください。"
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
 msgstr "未解決の依存"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524 ../textw/packages_text.py:12 ../textw/packages_text.py:275
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:524
+#: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
 msgstr "インストール合計容量： %s"
 
-#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380 ../iw/progress_gui.py:191 ../textw/packages_text.py:312
+#: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "パッケージ"
 
@@ -1103,7 +1400,7 @@ msgstr "ルートファイルシステムが含まれるデバイスを選択してください。 "
 msgid "Customize packages to be upgraded"
 msgstr "アップグレードするパッケージをカスタマイズする"
 
-#: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
+#: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:22
 msgid "fdisk"
 msgstr "fdisk"
 
@@ -1111,54 +1408,39 @@ msgstr "fdisk"
 msgid "Select drive to run fdisk on"
 msgstr "fdisk を実行するドライブを選択してください"
 
-#: ../iw/firewall_gui.py:137
-#, fuzzy
-msgid "Warning: "
-msgstr "残り:  "
-
-#: ../iw/firewall_gui.py:137
-#, fuzzy
-msgid " is an invalid port."
-msgstr "%s は有効なホスト名ではありません。"
-
-#: ../iw/firewall_gui.py:141
-msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
-
-#: ../iw/firewall_gui.py:245
-#, fuzzy
+#: ../iw/firewall_gui.py:59
 msgid "Please choose your security level:  "
-msgstr "セキュリティレベルを選択してください  "
+msgstr "セキュリティレベルを選択してください: "
 
-#: ../iw/firewall_gui.py:254 ../textw/firewall_text.py:33
+#: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
 msgstr "高"
 
-#: ../iw/firewall_gui.py:255 ../textw/firewall_text.py:36
+#: ../iw/firewall_gui.py:69 ../textw/firewall_text.py:36
 msgid "Medium"
 msgstr "中"
 
-#: ../iw/firewall_gui.py:256 ../textw/firewall_text.py:39
+#: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
 msgstr "ファイアウォールなし"
 
-#: ../iw/firewall_gui.py:273
+#: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
 msgstr "デフォルトのファイアウォール規則を使用"
 
-#: ../iw/firewall_gui.py:274 ../textw/firewall_text.py:9
+#: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
 msgid "Customize"
 msgstr "カスタマイズ"
 
-#: ../iw/firewall_gui.py:287
+#: ../iw/firewall_gui.py:101
 msgid "Trusted devices:"
 msgstr "信用するデバイス:"
 
-#: ../iw/firewall_gui.py:319 ../textw/firewall_text.py:75
+#: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
 msgstr "以下については侵入を許可:"
 
-#: ../iw/firewall_gui.py:348
+#: ../iw/firewall_gui.py:122
 msgid "Other ports:"
 msgstr "他のポート:"
 
@@ -1210,27 +1492,27 @@ msgstr "デッドキーを無効にする"
 msgid "Test your selection here:"
 msgstr "ここで選択した設定をテストしてください:"
 
-#: ../iw/language_gui.py:67 ../loader/lang.c:291
+#: ../iw/language_gui.py:40 ../loader/lang.c:291
 msgid "What language should be used during the installation process?"
 msgstr "インストール中に使用する言語を選択してください。"
 
-#: ../iw/language_support_gui.py:142
+#: ../iw/language_support_gui.py:145
 msgid "Choose the default language:   "
 msgstr "デフォルトの言語を選択してください。"
 
-#: ../iw/language_support_gui.py:153
+#: ../iw/language_support_gui.py:156
 msgid "Choose the languages to install:"
 msgstr "インストールする言語を選択してください。"
 
-#: ../iw/language_support_gui.py:198
+#: ../iw/language_support_gui.py:211
 msgid "Select all"
 msgstr "すべて選択"
 
-#: ../iw/language_support_gui.py:204
+#: ../iw/language_support_gui.py:217
 msgid "Reset"
 msgstr "リセット"
 
-#: ../iw/language_support_gui.py:218
+#: ../iw/language_support_gui.py:231
 msgid "Select as default"
 msgstr "デフォルトとして選択"
 
@@ -1238,7 +1520,8 @@ msgstr "デフォルトとして選択"
 msgid "Lilo Configuration"
 msgstr "LILO の設定"
 
-#: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132 ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3037
+#: ../iw/lilo_gui.py:208 ../iw/lilo_gui.py:365 ../iw/silo_gui.py:132
+#: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3037
 msgid "Type"
 msgstr "タイプ"
 
@@ -1246,11 +1529,13 @@ msgstr "タイプ"
 msgid "Install LILO boot record on:"
 msgstr "LILO ブートレコードをインストールする場所:"
 
-#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87 ../textw/silo_text.py:64
+#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:173 ../textw/lilo_text.py:87
+#: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "マスタブートレコード (MBR)"
 
-#: ../iw/lilo_gui.py:264 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88 ../textw/silo_text.py:65
+#: ../iw/lilo_gui.py:264 ../iw/silo_gui.py:176 ../textw/lilo_text.py:88
+#: ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "ブートパーティションの最初のセクタ"
 
@@ -1270,19 +1555,26 @@ msgstr "ブートディスクを作成する"
 msgid "Install LILO"
 msgstr "LILO をインストールする"
 
-#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "デフォルト"
 
-#: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257 ../libfdisk/gnomefsedit.c:3034 ../textw/lilo_text.py:118 ../textw/lilo_text.py:199 ../textw/mouse_text.py:25 ../textw/silo_text.py:131 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:337 ../iw/mouse_gui.py:145 ../iw/silo_gui.py:257
+#: ../libfdisk/gnomefsedit.c:3034 ../textw/lilo_text.py:118
+#: ../textw/lilo_text.py:199 ../textw/mouse_text.py:25
+#: ../textw/silo_text.py:131 ../textw/silo_text.py:196
 msgid "Device"
 msgstr "デバイス"
 
-#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
+#: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "パーティションタイプ"
 
-#: ../iw/lilo_gui.py:337 ../iw/lilo_gui.py:376 ../iw/silo_gui.py:257 ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199 ../textw/silo_text.py:132 ../textw/silo_text.py:196
+#: ../iw/lilo_gui.py:337 ../iw/lilo_gui.py:376 ../iw/silo_gui.py:257
+#: ../iw/silo_gui.py:292 ../textw/lilo_text.py:119 ../textw/lilo_text.py:199
+#: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
 msgstr "ブートラベル"
 
@@ -1342,7 +1634,8 @@ msgstr "ネットワーク"
 msgid "Broadcast"
 msgstr "ブロードキャスト"
 
-#: ../iw/network_gui.py:232 ../loader/net.c:533 ../loader/net.c:731 ../textw/network_text.py:161
+#: ../iw/network_gui.py:232 ../loader/net.c:533 ../loader/net.c:731
+#: ../textw/network_text.py:161
 msgid "Hostname"
 msgstr "ホスト名"
 
@@ -1390,7 +1683,8 @@ msgstr "グループ内のすべてを選択解除"
 msgid "File not found"
 msgstr "ファイルが見つかりません"
 
-#: ../iw/package_gui.py:498 ../textw/packages_text.py:60 ../textw/packages_text.py:241
+#: ../iw/package_gui.py:498 ../textw/packages_text.py:60
+#: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "パッケージグループの選択"
 
@@ -1410,8 +1704,13 @@ msgstr ""
 "ここでインストーラは終了します。"
 
 #: ../iw/package_gui.py:563
-msgid "An error has occurred while retreiving the hdlist file.  The installation media or image is probably corrupt.  Installer will exit now."
-msgstr "hdlist ファイルの読み出し中にエラーが発生しました。おそらくインストールメディアまたはインストールイメージが壊れています。ここでインストーラは終了します。"
+msgid ""
+"An error has occurred while retreiving the hdlist file.  The installation "
+"media or image is probably corrupt.  Installer will exit now."
+msgstr ""
+"hdlist "
+"ファイルの読み出し中にエラーが発生しました。おそらくインストール"
+"メディアまたはイメージが壊れています。インストーラを終了します。"
 
 #: ../iw/package_gui.py:629 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1466,130 +1765,164 @@ msgstr "完了"
 msgid "Remaining"
 msgstr "残り"
 
-#: ../iw/rootpartition_gui.py:39 ../textw/partitioning_text.py:23
+#: ../iw/rootpartition_gui.py:38 ../textw/partitioning_text.py:22
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:214
+#: ../iw/rootpartition_gui.py:50 ../textw/partitioning_text.py:213
 msgid "Low Memory"
 msgstr "メモリ不足"
 
-#: ../iw/rootpartition_gui.py:52 ../textw/partitioning_text.py:215
-msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
-msgstr "このマシンには十分なメモリがありません。ただちにスワップ領域を有効にする必要があります。このため、新しいパーティションテーブルをディスクに書き込みます。よろしいですか?"
-
-#: ../iw/rootpartition_gui.py:82
-#, fuzzy
+#: ../iw/rootpartition_gui.py:51 ../textw/partitioning_text.py:214
 msgid ""
-"You have put the partition containing the kernel (the boot partition) above the 1024 cylinder limit, and it appears that this systems BIOS does not support booting from above this limit. Proceeding will most likely make the system unable to reboot into Linux.\n"
-"\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy when asked. This will guarantee you have a way to boot into the system after installation.\n"
-"\n"
-"Press OK to proceed, or Cancel to go back and reassign the boot partition."
+"As you don't have much memory in this machine, we need to turn on swap space "
+"immediately. To do this we'll have to write your new partition table to the "
+"disk immediately. Is that okay?"
 msgstr ""
-"カーネルを含むパーティション (ブートパーティション) が 1023 シリンダ制限を超えた場所に設定されましたが、このシステムの BIOS はこの制限を超えた場所からの起動をサポートしていないようです。そのまま先に進んでもたいていの場合はシステムが再起動した後に Linux が起動できなくなります。\n"
-"\n"
-"先に進むならば、後で尋ねられたときに起動フロッピーを作成することを強く推奨します。そうするとインストール後にシステムを起動する手段が確保されます。\n"
-"\n"
-"先に進みますか?"
+"このマシンには十分なメモリがありません。ただちにスワップ領域を有効に"
+"する必要があります。そうするには新しいパーティションテーブルをディス"
+"クにすぐに書き込まなければいけません。よろしいですか?"
 
-#: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485 ../textw/partitioning_text.py:411
-#, fuzzy
-msgid ""
-"You have put the partition containing the kernel (the boot partition) above the 1024 cylinder limit. It appears that this systems BIOS supports booting from above this limit. \n"
-"\n"
-"It is HIGHLY recommended you make a boot floppy when asked by the installer, as this is a new feature in recent motherboards and is not always reliable. Making a boot disk will guarantee you can boot your system once installed."
-msgstr ""
-"カーネルを含むパーティション (ブートパーティション) が 1023 シリンダ制限を超えた場所に設定されました。このシステムの BIOS はこの制限を超えた場所からの起動をサポートしていないようです。\n"
-"\n"
-"後で尋ねられたときに起動フロッピーを作成することを強く推奨します。これは最近のマザーボードの新機能であり必ずしも信頼できないためです。起動ディスクを作成すると、インストール後にシステムを起動できることが保証されます。"
-
-#: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:334
+#: ../iw/rootpartition_gui.py:149 ../textw/partitioning_text.py:311
 #, c-format
-msgid "You've chosen to put your root filesystem in a file on an already-existing DOS or Windows filesystem. How large, in megabytes, should would you like the root filesystem to be, and how much swap space would you like? They must total less then %d megabytes in size."
-msgstr "既存の DOS または Windows ファイルシステム上のファイルにルートファイルシステムを挿入するように選択されました。ルートファイルシステムおよびスワップ領域の容量をメガバイト単位で指定してください。合計 %d メガバイト未満になるようにしてください。"
+msgid ""
+"You've chosen to put your root filesystem in a file on an already-existing "
+"DOS or Windows filesystem. How large, in megabytes, should would you like "
+"the root filesystem to be, and how much swap space would you like? They must "
+"total less then %d megabytes in size."
+msgstr ""
+"既存の DOS または Windows "
+"ファイルシステム上のファイルにルートファイルシステムを挿入するように"
+"選択されたパーティションには既に DOS か Windows のファイルシステムが"
+"存在しています。ルートファイルシステムとスワップ容量をどれぐらいに"
+"するかメガバイト単位で決定してください。合計 %d メガバイト未満になる"
+"ようにしてください。"
 
-#: ../iw/rootpartition_gui.py:248
+#: ../iw/rootpartition_gui.py:178
 msgid "Root filesystem size:"
 msgstr "ルートファイルシステムのサイズ:"
 
-#: ../iw/rootpartition_gui.py:253
+#: ../iw/rootpartition_gui.py:183
 msgid "Swap space size:"
 msgstr "スワップ領域のサイズ:"
 
-#: ../iw/rootpartition_gui.py:324 ../iw/rootpartition_gui.py:375 ../textw/partitioning_text.py:149
+#: ../iw/rootpartition_gui.py:254 ../iw/rootpartition_gui.py:305
+#: ../textw/partitioning_text.py:148
 msgid "Automatic Partitioning"
 msgstr "自動パーティション設定"
 
-#: ../iw/rootpartition_gui.py:377 ../textw/partitioning_text.py:150
+#: ../iw/rootpartition_gui.py:307 ../textw/partitioning_text.py:149
 #, c-format
 msgid ""
 "%s\n"
 "\n"
-"If you don't want to do this, you can continue with this install by partitioning manually, or you can go back and perform a fully customized installation."
+"If you don't want to do this, you can continue with this install by "
+"partitioning manually, or you can go back and perform a fully customized "
+"installation."
 msgstr ""
 "%s\n"
 "\n"
-"パーティションの自動設定を行いたくない場合には、手動でパーティション設定を行うことができます。また、前に戻って自在なカスタムインストールを実行することもできます。"
+"パーティションの自動設定を行いたくない場合には、手動でパーティション"
+"設定を行うか、あるいは前に戻ってカスタマイズインストールを行うことが"
+"できます。"
 
-#: ../iw/rootpartition_gui.py:383
+#: ../iw/rootpartition_gui.py:313
 msgid "Automatic Partitioning Failed"
 msgstr "パーティションの自動設定に失敗しました"
 
-#: ../iw/rootpartition_gui.py:384
+#: ../iw/rootpartition_gui.py:314
 msgid ""
 "\n"
-"There is not sufficient disk space in order to automatically partition your disk. You will need to manually partition your disks for Red Hat Linux to install.\n"
+"There is not sufficient disk space in order to automatically partition your "
+"disk. You will need to manually partition your disks for Red Hat Linux to "
+"install.\n"
 "\n"
-"Please choose the tool you would like to use to partition your system for Red Hat Linux."
+"Please choose the tool you would like to use to partition your system for "
+"Red Hat Linux."
 msgstr ""
 "\n"
-"ディスクの自動パーティション設定を行うのに十分なディスク容量がありません。Red Hat Linux をインストールするには、ディスクのパーティションを手動で設定する必要があります。.\n"
+"ディスクの自動パーティション設定を行うのに十分なディスク容量がありません。Red"
+" Hat Linux "
+"をインストールするには、ディスクのパーティションを手動で設定する必要が"
+"あります。\n"
 "\n"
-"Red Hat Linuxをインストールするシステムのパーティションを設定するためのツールを選択してください。"
+"Red Hat "
+"Linuxをインストールするシステムのパーティションを設定するためのツールを選択し"
+"てください。"
 
-#: ../iw/rootpartition_gui.py:391
+#: ../iw/rootpartition_gui.py:321
 msgid "Manual Partitioning"
 msgstr "手動パーティション設定"
 
-#: ../iw/rootpartition_gui.py:392
+#: ../iw/rootpartition_gui.py:322
 msgid ""
 "\n"
-"Please choose the tool you would like to use to partition your system for Red Hat Linux."
+"Please choose the tool you would like to use to partition your system for "
+"Red Hat Linux."
 msgstr ""
 "\n"
-"Red Hat Linuxをインストールするシステムのパーティションを設定するためのツールを選択してください。"
+"Red Hat "
+"Linuxをインストールするシステムのパーティションを設定するためのツールを選択し"
+"てください。"
 
-#: ../iw/rootpartition_gui.py:406
+#: ../iw/rootpartition_gui.py:336
 msgid "Automatically partition and REMOVE DATA"
 msgstr "パーティションの自動設定を実行し、データを削除する"
 
-#: ../iw/rootpartition_gui.py:413
+#: ../iw/rootpartition_gui.py:343
 msgid "Manually partition with Disk Druid"
 msgstr "Disk Druid を使用して手動でパーティションを設定する"
 
-#: ../iw/rootpartition_gui.py:425
+#: ../iw/rootpartition_gui.py:355
 msgid "Manually partition with fdisk [experts only]"
 msgstr "ftisk を使用して手動でパーティションを設定する [エクスパートのみ]"
 
-#: ../iw/rootpartition_gui.py:448
+#: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
 msgstr "ブートパーティションの警告"
 
-#: ../iw/rootpartition_gui.py:472 ../textw/partitioning_text.py:391
-#, fuzzy
+#: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
-"You have put the partition containing the kernel (the boot partition) above the 1024 cylinder limit, and it appears that this systems BIOS does not support booting from above this limit. Proceeding will most likely make the system unable to reboot into Linux.\n"
+"You have put the partition containing the kernel (the boot partition) above "
+"the 1023 cylinder limit, and it appears that this systems BIOS does not "
+"support booting from above this limit. Proceeding will most likely make the "
+"system unable to reboot into Linux.\n"
 "\n"
-"If you choose to proceed, it is HIGHLY recommended you make a boot floppy when asked. This will guarantee you have a way to boot into the system after installation.\n"
+"If you choose to proceed, it is HIGHLY recommended you make a boot floppy "
+"when asked. This will guarantee you have a way to boot into the system after "
+"installation.\n"
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
-"カーネルを含むパーティション (ブートパーティション) が 1023 シリンダ制限を超えた場所に設定されましたが、このシステムの BIOS はこの制限を超えた場所からの起動をサポートしていないようです。そのまま先に進んでもたいていの場合はシステムが再起動した後に Linux が起動できなくなります。\n"
+"カーネルを含むパーティション (ブートパーティション) が 1023 "
+"シリンダ制限を超えた場所に設定されましたが、このシステムの BIOS "
+"はこの制限を超えた場所からの起動をサポートしていないようです。その"
+"まま先に進むとシステムから Linux を起動できなくなります。\n"
 "\n"
-"先に進むならば、後で尋ねられたときに起動フロッピーを作成することを強く推奨します。そうするとインストール後にシステムを起動する手段が確保されます。\n"
+"先に進むならば、後で尋ねられたときに起動フロッピーを作成することを"
+"強く推奨します。そうするとインストール後にシステムを起動できることが"
+"保証されます。"
 "\n"
 "先に進みますか?"
+
+#: ../iw/rootpartition_gui.py:412 ../textw/partitioning_text.py:386
+msgid ""
+"You have put the partition containing the kernel (the boot partition) above "
+"the 1023 cylinder limit. It appears that this systems BIOS supports booting "
+"from above this limit. \n"
+"\n"
+"It is HIGHLY recommended you make a boot floppy when asked by the installer, "
+"as this is a new feature in recent motherboards and is not always reliable. "
+"Making a boot disk will guarantee you can boot your system once installed."
+msgstr ""
+"カーネルを含むパーティション (ブートパーティション) が 1023 "
+"シリンダ制限を超えた場所に設定されました。このシステムの BIOS "
+"はこの制限を超えた場所からの起動をサポートしていないようです。\n"
+"\n"
+"後で尋ねられたときに起動フロッピーを作成することを強く推奨します。"
+"これは最近のマザーボードの新機能であり必ずしも信頼できないためです。"
+"起動ディスクを作成すると、インストール後にシステムを起動できることが"
+"保証されます。"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -1611,12 +1944,13 @@ msgstr "デフォルトの PROM ブートデバイスを linux に設定する"
 msgid "Do not install SILO"
 msgstr "SILO をインストールしない"
 
-#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:88
+#: ../iw/timezone_gui.py:31 ../textw/timezone_text.py:89
 msgid "Time Zone Selection"
 msgstr "タイムゾーンの選択"
 
 #. pick New York City as default
-#: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766 ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
+#: ../gnome-map/gglobe-canvas.c:781 ../gnome-map/timezonemapmodule.c:766
+#: ../gnome-map/timezonemapmodule.c:768 ../iw/timezone_gui.py:140
 msgid "America/New_York"
 msgstr "アメリカ/ニューヨーク"
 
@@ -1739,16 +2073,28 @@ msgid "kHz"
 msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:1165
-msgid "Your video ram size can not be autodetected.  Choose your video ram size from the choices below:"
-msgstr "ビデオメモリのサイズを自動検出することができません。ビデオメモリのサイズを選択してください:"
+msgid ""
+"Your video ram size can not be autodetected.  Choose your video ram size "
+"from the choices below:"
+msgstr ""
+"ビデオメモリのサイズを自動検出することができません。"
+"ビデオメモリのサイズを選択してください:"
 
 #: ../iw/xconfig_gui.py:1176 ../iw/xconfig_gui.py:1197
-msgid "In most cases your video hardware can be probed to automatically determine the best settings for your display."
-msgstr "ほとんどの場合には自動的にビデオカードを検出して、ディスプレイに最適な設定を判断できます。"
+msgid ""
+"In most cases your video hardware can be probed to automatically determine "
+"the best settings for your display."
+msgstr ""
+"ほとんどの場合には自動的にビデオカードを検出して、ディスプレイに"
+"最適な設定を判断できます。"
 
 #: ../iw/xconfig_gui.py:1185
-msgid "If the probed settings do not match your hardware select the correct setting below:"
-msgstr "検出された設定がハードウェアに適さない場合には、以下から正しい設定を選択してください。"
+msgid ""
+"If the probed settings do not match your hardware select the correct setting "
+"below:"
+msgstr ""
+"検出された設定がハードウェアに適さない場合には、"
+"以下から正しい設定を選択してください。"
 
 #: ../iw/xconfig_gui.py:1206
 msgid "Autoprobe results:"
@@ -1764,11 +2110,21 @@ msgstr "X の設定を行わない"
 
 #: ../textw/bootdisk_text.py:13
 msgid ""
-"A custom boot disk provides a way of booting into your Linux system without depending on the normal bootloader. This is useful if you don't want to install lilo on your system, another operating system removes lilo, or lilo doesn't work with your hardware configuration. A custom boot disk can also be used with the Red Hat rescue image, making it much easier to recover from severe system failures.\n"
+"A custom boot disk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom boot disk can also "
+"be used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"カスタムブートディスクを使用すると、通常のブートローダに依存せずに Linux システムをブートすることができます。これは、LILO をシステム内にインストールしたくない場合、他のオペレーティングシステムが LILO を削除してしまう場合、ハードウェア的な理由で LILO が正しく機能しない場合に便利です。カスタムブートディスクは、Red Hat レスキューイメージと共に使用し、より簡単にシステムを深刻なシステムダウンから復旧させることができます。\n"
+"カスタムブートディスクを使用すると、通常のブートローダに依存せずに "
+"Linux システムをブートすることができます。これは、LILO をシステム内に"
+"インストールしたくない場合、他のオペレーティングシステムが LILO を削除して"
+"しまう場合、ハードウェア的な理由で LILO が正しく機能しない場合に便利です。"
+"カスタムブートディスクは、Red Hat レスキューイメージと共に使用し、"
+"より簡単にシステムを深刻なシステムダウンから復旧させることができます。\n"
 "\n"
 "システムのブートディスクを作成しますか?"
 
@@ -1786,17 +2142,35 @@ msgstr ""
 msgid "Bootdisk"
 msgstr "ブートディスク"
 
-#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62 ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33 ../textw/silo_text.py:25
+#: ../textw/bootdisk_text.py:54 ../textw/bootdisk_text.py:62
+#: ../textw/bootdisk_text.py:73 ../textw/lilo_text.py:33
+#: ../textw/silo_text.py:25
 msgid "Skip"
 msgstr "スキップ"
 
 #: ../textw/bootdisk_text.py:57
-msgid "If you have the install floppy in your drive, first remove it. Then insert a blank floppy in the first floppy drive. All data on this disk will be erased during creation of the boot disk."
-msgstr "ドライブ内にインストールフロッピーが入っている場合には、最初に取り出してください。次に、空のフロッピーディスクをプライマリフロッピードライブに挿入してください。このディスク上のデータは、ブートディスクの作成中にすべて消去されます。"
+msgid ""
+"If you have the install floppy in your drive, first remove it. Then insert a "
+"blank floppy in the first floppy drive. All data on this disk will be erased "
+"during creation of the boot disk."
+msgstr ""
+"ドライブ内にインストールフロッピーが入っている場合には、最初に"
+"取り出してください。次に、空のフロッピーディスクをプライマリフロッピー"
+"ドライブに挿入してください。このディスク上のデータは、ブートディスクの"
+"作成中にすべて消去されます。"
 
 #: ../textw/firewall_text.py:13
-msgid "A firewall protects against unauthorized network intrusions. High security blocks all incoming accesses. Medium blocks access to system services (such as telnet or printing), but allows other connections. No firewall allows all connections and is not recommended. "
-msgstr "ファイアウォールは不正なネットワーク侵入を防御します。高度なセキュリティはすべての受信アクセスをブロックします。中度のセキュリティはシステムサービス (telnet や印刷など) へのアクセスをブロックしますが、その他の接続は許可します。ファイアウォールなしの場合はすべての接続が許可されるので、この設定は推奨しません。 "
+msgid ""
+"A firewall protects against unauthorized network intrusions. High security "
+"blocks all incoming accesses. Medium blocks access to system services (such "
+"as telnet or printing), but allows other connections. No firewall allows all "
+"connections and is not recommended. "
+msgstr ""
+"ファイアウォールは不正なネットワーク侵入を防御します。高度な"
+"セキュリティはすべての受信アクセスをブロックします。中度のセキュリティは"
+"システムサービス (telnet や印刷など) へのアクセスをブロックしますが、"
+"その他の接続は許可します。ファイアウォールなしの場合はすべての接続が許可"
+"されるので、この設定は推奨しません。"
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
@@ -1826,7 +2200,8 @@ msgstr "WWW (HTTP)"
 msgid "Mail (SMTP)"
 msgstr "Mail (SMTP)"
 
-#: ../loader/loader.c:1233 ../loader/loader.c:1242 ../textw/firewall_text.py:90
+#: ../loader/loader.c:1233 ../loader/loader.c:1242
+#: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
 
@@ -1835,7 +2210,7 @@ msgstr "FTP"
 msgid "Other ports"
 msgstr "他のポート"
 
-#: ../textw/firewall_text.py:120 ../textw/firewall_text.py:185
+#: ../textw/firewall_text.py:120
 msgid "Invalid Choice"
 msgstr "不正な選択"
 
@@ -1848,23 +2223,36 @@ msgid "Firewall Configuration - Customize"
 msgstr "ファイアウォール設定 - カズタマイズ"
 
 #: ../textw/firewall_text.py:128
-msgid "You can customize your firewall in two ways. First, you can select to allow all traffic from certain network interfaces. Second, you can allow certain protocols explicitly through the firewall. Specify additional ports in the form 'service:protocol', such as 'imap:tcp'. "
-msgstr "2 種類の方法でファイアウォールをカスタマイズできます。まず、一定のネットワークインタフェースからのすべてのトラフィックを許可する選択ができます。次に、一定プロトコルのファイアウォールの通過を明示的に許可できます。追加のポートを 'service:protocol' の形式、たとえば 'imap:tcp' として指定します。 "
-
-#: ../textw/firewall_text.py:186
-#, fuzzy, c-format
-msgid "Warning: %s is not a valid port."
-msgstr "%s は有効なホスト名ではありません。"
+msgid ""
+"You can customize your firewall in two ways. First, you can select to allow "
+"all traffic from certain network interfaces. Second, you can allow certain "
+"protocols explicitly through the firewall. Specify additional ports in the "
+"form 'service:protocol', such as 'imap:tcp'. "
+msgstr ""
+"2 種類の方法でファイアウォールをカスタマイズできます。"
+"まず、一定のネットワークインタフェースからのすべてのトラフィックを許可する"
+"選択ができます。次に、一定プロトコルのファイアウォールの通過を明示的に"
+"許可できます。追加のポートを 'service:protocol' の形式、"
+"たとえば 'imap:tcp' として指定します。"
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
-msgid "A few systems will need to pass special options to the kernel at boot time for the system to function properly. If you need to pass boot options to the kernel, enter them now. If you don't need any or aren't sure, leave this blank."
-msgstr "システムが正しく機能するためには、起動時にカーネルに対して特別なオプションを渡す必要がある場合があります。カーネルにブートオプションを渡す必要がある場合には、ここで入力してください。オプションが必要ないか、または不明な場合には、空白にしておいてください。"
+msgid ""
+"A few systems will need to pass special options to the kernel at boot time "
+"for the system to function properly. If you need to pass boot options to the "
+"kernel, enter them now. If you don't need any or aren't sure, leave this "
+"blank."
+msgstr ""
+"システムが正しく機能するためには、起動時にカーネルに対して特別な"
+"オプションを渡す必要がある場合があります。カーネルにブートオプションを"
+"渡す必要がある場合には、ここで入力してください。オプションが必要ないか、"
+"または不明な場合には、空白にしておいてください。"
 
 #: ../textw/lilo_text.py:91 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
 msgstr "ブートローダーをインストールする場所を指定してください。"
 
-#: ../textw/lilo_text.py:123 ../textw/silo_text.py:136 ../textw/silo_text.py:157
+#: ../textw/lilo_text.py:123 ../textw/silo_text.py:136
+#: ../textw/silo_text.py:157
 msgid "Clear"
 msgstr "クリア"
 
@@ -1885,8 +2273,14 @@ msgid "Boot label contains illegal characters."
 msgstr "ブートラベルに無効な文字が含まれています。"
 
 #: ../textw/lilo_text.py:212 ../textw/silo_text.py:208
-msgid "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them."
-msgstr "Red Hat が使用するブートマネージャは、他のオペレーティングシステムの起動に使用することもできます。ブート可能にするパーティションと、そのパーティション用に使用するブートラベルを設定してください。"
+msgid ""
+"The boot manager Red Hat uses can boot other operating systems as well. You "
+"need to tell me what partitions you would like to be able to boot and what "
+"label you want to use for each of them."
+msgstr ""
+"Red Hat が使用するブートマネージャは、他のオペレーティングシステムの"
+"起動に使用することもできます。ブート可能にするパーティションと、"
+"そのパーティション用に使用するブートラベルを設定してください。"
 
 #: ../textw/mouse_text.py:26
 msgid "What device is your mouse located on?"
@@ -1945,8 +2339,13 @@ msgid "Hostname Configuration"
 msgstr "ホスト名の設定"
 
 #: ../textw/network_text.py:158
-msgid "The hostname is the name of your computer.  If your computer is attached to a network, this may be assigned by your network administrator."
-msgstr "ホスト名は使用するコンピュータの名前です。お使いのコンピュータがネットワークに接続されている場合はネットワーク管理者によって割り当てられているはずです。"
+msgid ""
+"The hostname is the name of your computer.  If your computer is attached to "
+"a network, this may be assigned by your network administrator."
+msgstr ""
+"ホスト名は使用するコンピュータの名前です。お使いのコンピュータが"
+"ネットワークに接続されている場合はネットワーク管理者によって割り当てられて"
+"いるはずです。"
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
@@ -1966,79 +2365,118 @@ msgid "Total size"
 msgstr "合計サイズ"
 
 #: ../textw/packages_text.py:249
-msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid ""
+"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>、<+>、<->選択| <F1> ヘルプ>| <F2> パッケージの説明"
 
 #: ../textw/packages_text.py:306
-msgid "Some of the packages you have selected to install require packages you have not selected. If you just select Ok all of those required packages will be installed."
-msgstr "選択したパッケージの中に、未選択のパッケージを必要とするものがあります。ここで [OK] を選択すると、必要なパッケージがインストールされます。"
+msgid ""
+"Some of the packages you have selected to install require packages you have "
+"not selected. If you just select Ok all of those required packages will be "
+"installed."
+msgstr ""
+"選択したパッケージの中に、未選択のパッケージを必要とするものが"
+"あります。ここで [OK] を選択すると、必要なパッケージがインストール"
+"されます。"
 
-#: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
+#: ../textw/partitioning_text.py:14 ../textw/partitioning_text.py:57
 msgid "Disk Setup"
 msgstr "ディスクの設定"
 
-#: ../textw/partitioning_text.py:16
+#: ../textw/partitioning_text.py:15
 msgid ""
-"Disk Druid is a tool for partitioning and setting up mount points. It is designed to be easier to use than Linux's traditional disk partitioning sofware, fdisk, as well as more powerful. However, there are some cases where fdisk may be preferred.\n"
+"Disk Druid is a tool for partitioning and setting up mount points. It is "
+"designed to be easier to use than Linux's traditional disk partitioning "
+"sofware, fdisk, as well as more powerful. However, there are some cases "
+"where fdisk may be preferred.\n"
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk Druid は、パーティションとマウントポイントの設定を行うためのツールです。Disk Druid は、Linux の伝統的なパーティション設定ソフトウェアであるfdisk よりも使いやすく、強力です。ただし、fdisk を使用した方が良い場合もあります。\n"
+"Disk Druid "
+"は、パーティションとマウントポイントの設定を行うためのツールです。Disk Druid "
+"は、Linux の伝統的なパーティション設定ソフトウェアであるfdisk "
+"よりも使いやすく、強力です。ただし、fdisk "
+"を使用した方が良い場合もあります。\n"
 "\n"
 "どちらを使用しますか?"
 
-#: ../textw/partitioning_text.py:59
-msgid "To install Red Hat Linux, you must have at least one partition of 150 MB dedicated to Linux. We suggest placing that partition on one of the first two hard drives in your system so you can boot into Linux with LILO."
-msgstr "Red Hat Linux をインストールするためには、Linux 専用の 150 MB のパーティションが少なくとも一つ必要です。そのパーティションを、システムの 2 つのハードディスクドライブのうち先頭ドライブ上に配置して、LILO によって Linux をブートすることができるようにすることをお勧めします。"
+#: ../textw/partitioning_text.py:58
+msgid ""
+"To install Red Hat Linux, you must have at least one partition of 150 MB "
+"dedicated to Linux. We suggest placing that partition on one of the first "
+"two hard drives in your system so you can boot into Linux with LILO."
+msgstr ""
+"Red Hat Linux をインストールするためには、Linux 専用の 150 MB "
+"のパーティションが少なくとも一つ必要です。そのパーティションを、システムの 2 "
+"つのハードディスクドライブのうち先頭ドライブ上に配置して、LILO によって "
+"Linux をブートすることができるようにすることをお勧めします。"
 
-#: ../loader/loader.c:338 ../loader/loader.c:363 ../textw/partitioning_text.py:64
+#: ../loader/loader.c:338 ../loader/loader.c:363
+#: ../textw/partitioning_text.py:63
 msgid "Done"
 msgstr "終了"
 
-#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:156
+#: ../textw/partitioning_text.py:153 ../textw/partitioning_text.py:155
 msgid "Continue"
 msgstr "続行"
 
-#: ../textw/partitioning_text.py:154
+#: ../textw/partitioning_text.py:153
 msgid "Manually partition"
 msgstr "手動のパーティション設定"
 
-#: ../textw/partitioning_text.py:235
-msgid "What partitions would you like to format? We strongly suggest formatting all of the system partitions, including /, /usr, and /var. There is no need to format /home or /usr/local if they have already been configured during a previous install."
-msgstr "フォーマットするパーティションを選択してください。/、/usr、および /var を含む、すべてのシステムパーティションをフォーマットすることを強くお勧めします。すでに以前のインストール時に設定されている場合は、/home または /usr/local をフォーマットする必要はありません。"
+#: ../textw/partitioning_text.py:234
+msgid ""
+"What partitions would you like to format? We strongly suggest formatting all "
+"of the system partitions, including /, /usr, and /var. There is no need to "
+"format /home or /usr/local if they have already been configured during a "
+"previous install."
+msgstr ""
+"フォーマットするパーティションを選択してください。/、/usr、および "
+"/var を含む、すべてのシステムパーティションをフォーマットすることを強く"
+"お勧めします。すでに以前のインストール時に設定されている場合は、/home "
+"または /usr/local をフォーマットする必要はありません。"
 
-#: ../textw/partitioning_text.py:255
+#: ../textw/partitioning_text.py:254
 msgid "Check for bad blocks during format"
 msgstr "フォーマット中に不良ブロックをチェックする"
 
-#: ../textw/partitioning_text.py:260
+#: ../textw/partitioning_text.py:259
 msgid "Choose Partitions to Format"
 msgstr "フォーマットするパーティションの選択"
 
-#: ../textw/partitioning_text.py:339
+#: ../textw/partitioning_text.py:316
 msgid "Root filesystem size"
 msgstr "ルートファイルシステムのサイズ"
 
-#: ../textw/partitioning_text.py:340
+#: ../textw/partitioning_text.py:317
 msgid "Swap space"
 msgstr "スワップ領域"
 
-#: ../textw/partitioning_text.py:350 ../textw/partitioning_text.py:356 ../textw/partitioning_text.py:363
+#: ../textw/partitioning_text.py:327 ../textw/partitioning_text.py:333
+#: ../textw/partitioning_text.py:340
 msgid "Bad Size"
 msgstr "サイズが不適当です"
 
-#: ../textw/partitioning_text.py:351
+#: ../textw/partitioning_text.py:328
 msgid "The size you enter must be a number."
 msgstr "サイズは数字で入力してください。"
 
-#: ../textw/partitioning_text.py:357
+#: ../textw/partitioning_text.py:334
 #, c-format
-msgid "The total size must be smaller then the amount of free space on the disk, which is %d megabytes."
-msgstr "合計サイズがディスクの空き領域より小さくなるようにしてください。空き領域は %d メガバイトです。"
+msgid ""
+"The total size must be smaller then the amount of free space on the disk, "
+"which is %d megabytes."
+msgstr ""
+"合計サイズがディスクの空き領域より小さくなるようにしてください。空き領域は "
+"%d メガバイトです。"
 
-#: ../textw/partitioning_text.py:364
-msgid "Neither the root file system size nor the swap space size may be greater then 2000 megabytes."
-msgstr "ルートファイルシステムのサイズおよびスワップ領域のサイズは、2000 メガバイトを超えてはいけません。"
+#: ../textw/partitioning_text.py:341
+msgid ""
+"Neither the root file system size nor the swap space size may be greater "
+"then 2000 megabytes."
+msgstr ""
+"ルートファイルシステムのサイズおよびスワップ領域のサイズは、2000 "
+"メガバイトを超えてはいけません。"
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -2052,17 +2490,23 @@ msgstr "デフォルト PROM ブートデバイスの設定"
 msgid "Edit Boot Label"
 msgstr "ブートラベルの編集"
 
-#: ../textw/timezone_text.py:70
+#: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
 msgstr "タイムゾーンを指定してください。"
 
-#: ../textw/timezone_text.py:85
+#: ../textw/timezone_text.py:86
 msgid "Hardware clock set to GMT?"
 msgstr "ハードウェアクロックを GMT に合わせて設定しますか?"
 
 #: ../textw/userauth_text.py:11
-msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "root パスワードを設定してください。パスワードを 2 回入力して、パスワードを記憶し、入力ミスのないことを確認してください。root パスワードはシステムセキュリティの重要な部分を占めることを忘れないで下さい。"
+msgid ""
+"Pick a root password. You must type it twice to ensure you know what it is "
+"and didn't make a mistake in typing. Remember that the root password is a "
+"critical part of system security!"
+msgstr ""
+"root パスワードを設定してください。パスワードを 2 "
+"回入力して、パスワードを記憶し、入力ミスのないことを確認してください。root "
+"パスワードはシステムセキュリティの重要な部分を占めることを忘れないで下さい。"
 
 #: ../loader/urls.c:345 ../textw/userauth_text.py:24
 msgid "Password:"
@@ -2105,8 +2549,11 @@ msgid "Bad User ID"
 msgstr "無効なユーザ ID です"
 
 #: ../textw/userauth_text.py:96
-msgid "User IDs must be less than 8 characters and contain only characters A-Z, a-z, and 0-9."
-msgstr "ユーザ IDは、8 文字未満にし、A-Z、a-z、0-9 のみを使用することができます。"
+msgid ""
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
+msgstr ""
+"ユーザ IDは、8 文字未満にし、A-Z、a-z、0-9 のみを使用することができます。"
 
 #: ../textw/userauth_text.py:103
 msgid "Missing User ID"
@@ -2125,20 +2572,34 @@ msgid "User Exists"
 msgstr "ユーザが存在します"
 
 #: ../textw/userauth_text.py:126
-msgid "The root user is already configured. You don't need to add this user here."
-msgstr "root ユーザが既に設定されています。このユーザを追加する必要はありません。"
+msgid ""
+"The root user is already configured. You don't need to add this user here."
+msgstr ""
+"root ユーザが既に設定されています。このユーザを追加する必要はありません。"
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
 msgstr "このユーザ ID は既に使用されています。別の ID を選択してください。"
 
 #: ../textw/userauth_text.py:161
-msgid "You should use a normal user account for most activities on your system. By not using the root account casually, you'll reduce the chance of disrupting your system's configuration."
-msgstr "システムに関するほとんどの作業は、通常のユーザアカウントを使用すべきです。意識的に root アカウントを使用しないようにすることで、システムの設定を壊してしまう確率を低くすることができます。"
+msgid ""
+"You should use a normal user account for most activities on your system. By "
+"not using the root account casually, you'll reduce the chance of disrupting "
+"your system's configuration."
+msgstr ""
+"システムに関するほとんどの作業は、通常のユーザアカウントを使用"
+"すべきです。意識的に root アカウントを使用しないようにすることで、"
+"システムの設定を壊してしまう確率を低くすることができます。"
 
 #: ../textw/userauth_text.py:174
-msgid "What user account would you like to have on the system? You should have at least one non-root account for normal work, but multi-user systems can have any number of accounts set up."
-msgstr "ユーザアカウントを設定してください。通常作業のために少なくとも一つの root 以外のアカウントを設定すべきですが、マルチユーザシステムでは複数のアカウントを設定することができます。"
+msgid ""
+"What user account would you like to have on the system? You should have at "
+"least one non-root account for normal work, but multi-user systems can have "
+"any number of accounts set up."
+msgstr ""
+"ユーザアカウントを設定してください。通常作業のために少なくとも"
+"一つの root 以外のアカウントを設定すべきですが、マルチユーザシステムでは"
+"複数のアカウントを設定することができます。"
 
 #: ../textw/userauth_text.py:184
 msgid "User name"
@@ -2185,7 +2646,8 @@ msgid "Custom System"
 msgstr "カスタムシステム"
 
 #: ../installclasses/custom.py:23 ../installclasses/workstation.py:30
-msgid "You are about to erase any preexisting Linux installations on your system."
+msgid ""
+"You are about to erase any preexisting Linux installations on your system."
 msgstr "システムに既にインストールされている Linux を消去しようとしています。"
 
 #: ../installclasses/laptop.py:7
@@ -2197,8 +2659,12 @@ msgid "Server System"
 msgstr "サーバシステム"
 
 #: ../installclasses/server.py:38
-msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
-msgstr "Linux のインストールに必要な領域を作成するために、ハードディスクドライブ上のすべてのデータを消去しようとしています。"
+msgid ""
+"You are about to erase ALL DATA on your hard drive to make room for your "
+"Linux installation."
+msgstr ""
+"Linux のインストールに必要な領域を作成するために、"
+"ハードディスクドライブ上のすべてのデータを消去しようとしています。"
 
 #: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2575
 msgid "Workstation"
@@ -2208,7 +2674,9 @@ msgstr "ワークステーション"
 msgid "partitioning did not meet requirements"
 msgstr "パーティショニングが要件を満たしていません"
 
-#: ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931 ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:980 ../libfdisk/fsedit.c:990
+#: ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924 ../libfdisk/fsedit.c:931
+#: ../libfdisk/fsedit.c:940 ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:980
+#: ../libfdisk/fsedit.c:990
 msgid "Bad Mount Point"
 msgstr "マウントポイントが不適当です"
 
@@ -2251,8 +2719,16 @@ msgstr ""
 "マウントポイントは表示可能文字でなければなりません。"
 
 #: ../libfdisk/fsedit.c:949
-msgid "You've asked to put your root (/) filesystem on a DOS-style FAT partition. You can do this, but you may not use any other filesystems for your Linux system. Additionally, there will be a speed penalty for not using Linux-native partitions. Do you want to continue?"
-msgstr "DOS の FAT パーティション上にルート (/) ファイルシステムを作成するように指定されました。作成することは可能ですが、その他のファイルシステムを Linux 用に使用することはできません。さらに、Linux-native パーティションを使用しないことで性能上のデメリットが発生します。続行しますか?"
+msgid ""
+"You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
+"You can do this, but you may not use any other filesystems for your Linux "
+"system. Additionally, there will be a speed penalty for not using "
+"Linux-native partitions. Do you want to continue?"
+msgstr ""
+"DOS の FAT パーティション上にルート (/) ファイルシステムを作成する"
+"ように指定されました。作成することは可能ですが、その他のファイルシステム"
+"を Linux 用に使用することはできません。さらに、Linux-native パーティション"
+"を使用しないことで性能上のデメリットが発生します。続行しますか?"
 
 #: ../libfdisk/fsedit.c:968
 #, c-format
@@ -2268,7 +2744,9 @@ msgstr ""
 #: ../libfdisk/fsedit.c:981
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr "このパーティションでは、/boot は DOS 対応のファイルシステム %x 上になければいけません。"
+msgstr ""
+"このパーティションでは、/boot は DOS 対応のファイルシステム %x "
+"上になければいけません。"
 
 #: ../libfdisk/fsedit.c:991
 #, c-format
@@ -2279,41 +2757,67 @@ msgid ""
 msgstr ""
 "マウントポイント %s が不適当です.\n"
 "\n"
-"/usr は Linux Native パーティションまたは NFS ボリューム上になければなりません"
+"/usr は Linux Native パーティションまたは NFS "
+"ボリューム上になければなりません"
 
 #: ../libfdisk/fsedit.c:1019
 msgid "Too Many Drives"
 msgstr "ドライブ数が多過ぎます"
 
 #: ../libfdisk/fsedit.c:1020
-msgid "You have more drives than this program supports. Please use the standard fdisk program to setup your drives and please notify Red Hat Software that you saw this message."
-msgstr "ドライブ数がこのプログラムでサポートできる数を超えています。標準の fdisk を使用してドライブのセットアップを行ない、このメッセージが表示されたことを Red Hat Software にご連絡ください。"
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+"ドライブ数がこのプログラムでサポートできる数を超えています。標準の fdisk "
+"を使用してドライブのセットアップを行ない、このメッセージが表示されたことを "
+"Red Hat Software にご連絡ください。"
 
 #: ../libfdisk/fsedit.c:1029
 msgid "Error Creating Device Nodes"
 msgstr "デバイスノードの作成中にエラーが発生しました。"
 
 #: ../libfdisk/fsedit.c:1030
-msgid "An error has occurred while trying to create device nodes for the hard drives in your system.  This may be because you have run out of disk space on the /tmp partition."
-msgstr "システムのハードディスクに対するデバイスノードの作成中にエラーが発生しました。/tmp パーティションのディスク容量が不足している可能性があります。"
+msgid ""
+"An error has occurred while trying to create device nodes for the hard "
+"drives in your system.  This may be because you have run out of disk space "
+"on the /tmp partition."
+msgstr ""
+"システムのハードディスクに対するデバイスノードの作成中にエラーが発生"
+"しました。tmp パーティションのディスク容量が不足している可能性があります。"
 
 #: ../libfdisk/fsedit.c:1046
 msgid "No Drives Found"
 msgstr "ドライブが見つかりません"
 
 #: ../libfdisk/fsedit.c:1047
-msgid "An error has occurred - no valid devices were found on which to create new filesystems.  Please check your hardware for the cause of this problem."
-msgstr "エラーが発生しました - 新規ファイルシステムを作成するための有効なデバイスが見つかりません。ハードウェアをチェックして、この問題の原因を調査してください。"
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+"エラーが発生しました - 新規ファイルシステムを作成するための有効な"
+"デバイスが見つかりません。ハードウェアをチェックして、この問題の原因を"
+"調査してください。"
 
 #: ../libfdisk/fsedit.c:1375 ../libfdisk/fsedit.c:1438
 #, c-format
-msgid "An error occurred reading the partition table for the block device %s.  The error was"
-msgstr "ブロックデバイス %s のパーティションテーブルの読み込みでエラーが発生しました。エラーの内容:"
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+"ブロックデバイス %s "
+"のパーティションテーブルの読み込みでエラーが発生しました。エラーの内容:"
 
 #: ../libfdisk/fsedit.c:1415
 #, c-format
-msgid "The partition table on device %s is corrupted.  To create new partitions it must be initialized, causing the loss of ALL DATA on this drive."
-msgstr "デバイス %s のパーティションテーブルが壊れています。新しいパーティションを作成するためには、初期化しなければなりません。この場合、このドライブ上のすべてのデータが失われます。"
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+"デバイス %s のパーティションテーブルが壊れています。"
+"新しいパーティションを作成するためには、初期化しなければなりません。"
+"この場合、このドライブ上のすべてのデータが失われます。"
 
 #: ../libfdisk/fsedit.c:1420
 msgid "Bad Partition Table"
@@ -2336,8 +2840,16 @@ msgid "BSD Disklabel"
 msgstr "BSD ディスクラベル"
 
 #: ../libfdisk/fsedit.c:1454
-msgid "A disk with a BSD disklabel has been found. The Red Hat installation only supports BSD Disklabels in read-only mode, so you must use a custom install and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
-msgstr "BSD ディスクラベル付きのディスクが見つかりました。Red Hat のインストールでは、読み込み専用モードの BSD ディスクラベルのみをサポートしています。したがって、BSD ディスクラベルを使用したマシンの場合には、カスタムインストールおよび fdisk (Disk Druid ではなく) を使用してください。"
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+"BSD ディスクラベル付きのディスクが見つかりました。Red Hat "
+"のインストールでは、読み込み専用モードの BSD "
+"ディスクラベルのみをサポートしています。したがって、BSD "
+"ディスクラベルを使用したマシンの場合には、カスタムインストールおよび fdisk "
+"(Disk Druid ではなく) を使用してください。"
 
 #: ../libfdisk/fsedit.c:1484
 #, c-format
@@ -2348,7 +2860,8 @@ msgstr "システムエラー %d"
 msgid "Fdisk Error"
 msgstr "Fdisk エラー"
 
-#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:856 ../libfdisk/gnomefsedit.c:1951
+#: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:856
+#: ../libfdisk/gnomefsedit.c:1951
 msgid "<Swap Partition>"
 msgstr "<スワップパーティション>"
 
@@ -2369,14 +2882,23 @@ msgid "Cannot Edit Partitions"
 msgstr "パーティションを編集できません"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/newtfsedit.c:347
-msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot edit other partitions."
-msgstr "ext2 パーティション上以外に '/' ファイルシステムが定義されているため、他のパーティションを編集することはできません"
+msgid ""
+"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+"edit other partitions."
+msgstr ""
+"ext2 パーティション上以外に '/' "
+"ファイルシステムが定義されているため、他のパーティションを編集すること"
+"はできません。"
 
-#: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808 ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814 ../libfdisk/newtfsedit.c:370 ../libfdisk/newtfsedit.c:376 ../libfdisk/newtfsedit.c:380 ../libfdisk/newtfsedit.c:382
+#: ../libfdisk/gnomefsedit.c:802 ../libfdisk/gnomefsedit.c:808
+#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:814
+#: ../libfdisk/newtfsedit.c:370 ../libfdisk/newtfsedit.c:376
+#: ../libfdisk/newtfsedit.c:380 ../libfdisk/newtfsedit.c:382
 msgid "Edit Partition"
 msgstr "パーティションの編集"
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1934 ../libfdisk/newtfsedit.c:391
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/gnomefsedit.c:1934
+#: ../libfdisk/newtfsedit.c:391
 msgid "Mount Point:"
 msgstr "マウントポイント:"
 
@@ -2412,51 +2934,83 @@ msgstr "パーティションタイプ:"
 msgid "Allowable Drives:"
 msgstr "選択可能なドライブ:"
 
-#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:2171 ../libfdisk/newtfsedit.c:612
+#: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:2171
+#: ../libfdisk/newtfsedit.c:612
 msgid "No Mount Point"
 msgstr "マウントポイントがありません"
 
 #: ../libfdisk/gnomefsedit.c:1142 ../libfdisk/newtfsedit.c:613
-msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
-msgstr "このパーティション用のマウントポイントが選択されていません。よろしいですか?"
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+"このパーティション用のマウントポイントが選択されていません。よろしいですか?"
 
-#: ../libfdisk/gnomefsedit.c:1166 ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2179 ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669
+#: ../libfdisk/gnomefsedit.c:1166 ../libfdisk/gnomefsedit.c:1203
+#: ../libfdisk/gnomefsedit.c:2179 ../libfdisk/newtfsedit.c:636
+#: ../libfdisk/newtfsedit.c:669
 msgid "Mount Point Error"
 msgstr "マウントポイントエラー"
 
 #: ../libfdisk/gnomefsedit.c:1167 ../libfdisk/newtfsedit.c:637
-msgid "You have tried to assign the '/' mount point to a FAT-style partition.  You cannot do this now because mount points have been assigned to ext2 partitions also.  Clear those mount points and then you will be able to assign '/' to this partition."
-msgstr "FAT 形式のパーティションに '/' マウントポイントを割り当てようとしました。ext2 パーティションに、このマウントポイントが割り当てられているため、ここで割り当てることはできません。これらのマウントポイントをクリアしてから、このパーティションに '/' を割り当ててください。"
+msgid ""
+"You have tried to assign the '/' mount point to a FAT-style partition.  You "
+"cannot do this now because mount points have been assigned to ext2 "
+"partitions also.  Clear those mount points and then you will be able to "
+"assign '/' to this partition."
+msgstr ""
+"FAT 形式のパーティションに '/' マウントポイントを割り当てようと"
+"しました。ext2 パーティションに、このマウントポイントが割り当てられている"
+"ため、ここで割り当てることはできません。これらのマウントポイントをクリア"
+"してから、このパーティションに '/' を割り当ててください。"
 
 #: ../libfdisk/gnomefsedit.c:1204 ../libfdisk/newtfsedit.c:670
-msgid "The mount point requested is either an illegal path or is already in use. Please select a valid mount point."
-msgstr "指定したたマウントポイントが不適当なパスであるか、すでに使用されています。有効なマウントポイントを選択してください。"
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+"指定したたマウントポイントが不適当なパスであるか、"
+"すでに使用されています。有効なマウントポイントを選択してください。"
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/newtfsedit.c:695
 msgid "Size Error"
 msgstr "サイズエラー"
 
 #: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:696
-msgid "The size requested is illegal. Make sure the size is greater and zero (0), and is specified int decimal (base 10) format."
-msgstr "要求された容量は不適当です。容量がゼロ (0) より大きく、10 進整数で指定されていることを確認してください。"
+msgid ""
+"The size requested is illegal. Make sure the size is greater and zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+"要求された容量は不適当です。容量がゼロ (0) より大きく、10 "
+"進整数で指定されていることを確認してください。"
 
-#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:2314 ../libfdisk/newtfsedit.c:714
+#: ../libfdisk/gnomefsedit.c:1256 ../libfdisk/gnomefsedit.c:2314
+#: ../libfdisk/newtfsedit.c:714
 msgid "Swap Size Error"
 msgstr "スワップサイズエラー"
 
-#: ../libfdisk/gnomefsedit.c:1257 ../libfdisk/gnomefsedit.c:2315 ../libfdisk/newtfsedit.c:715
+#: ../libfdisk/gnomefsedit.c:1257 ../libfdisk/gnomefsedit.c:2315
+#: ../libfdisk/newtfsedit.c:715
 #, c-format
-msgid "You have created a swap partition which is too large. The maximum size of a swap partition is %ld Megabytes."
-msgstr "作成したスワップパーティションが大き過ぎます。スワップパーティションの最大サイズは %ld メガバイトです。"
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+"作成したスワップパーティションが大き過ぎます。"
+"スワップパーティションの最大サイズは %ld メガバイトです。"
 
 #: ../libfdisk/gnomefsedit.c:1271 ../libfdisk/newtfsedit.c:731
 #, c-format
 msgid ""
-"It is recommended that the root (/) partition have a minimum size of %ld Megabytes. You are trying to create one which is %ld Megabytes, which could cause the install to fail.\n"
+"It is recommended that the root (/) partition have a minimum size of %ld "
+"Megabytes. You are trying to create one which is %ld Megabytes, which could "
+"cause the install to fail.\n"
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
-"ルート (/) パーティションの最小サイズを %ld メガバイトにすることを推奨します。%ld メガバイトのものを作成しようとしていますが、インストールが失敗する可能性があります。\n"
+"ルート (/) パーティションの最小サイズを %ld メガバイトにすることを"
+"推奨します。%ld メガバイトのものを作成しようとしていますが、"
+"インストールが失敗する可能性があります。\n"
 "\n"
 "続行しますか?"
 
@@ -2478,21 +3032,32 @@ msgstr "RAID ドライブの制限がありません"
 
 #: ../libfdisk/gnomefsedit.c:1303
 msgid ""
-"You have configured a RAID partition without constraining the partition to a single drive.\n"
+"You have configured a RAID partition without constraining the partition to a "
+"single drive.\n"
 " Are you sure you want to do this?"
-msgstr "一つのドライブにパーティションを制限することなく RAID パーティションを構成しようとしています。よろしいですか?"
+msgstr ""
+"一つのドライブにパーティションを制限することなく RAID "
+"パーティションを構成しようとしています。よろしいですか?"
 
 #: ../libfdisk/gnomefsedit.c:1310
-msgid "You have configured a RAID partition without constraining the partition to a single drive. Please select one drive to constrain this partition to."
-msgstr "一つのドライブにパーティションを制限することなく RAID パーティションを構成しようとしています。ドライブを一つ選択して、このパーティションをそのドライブに制限してください。"
+msgid ""
+"You have configured a RAID partition without constraining the partition to a "
+"single drive. Please select one drive to constrain this partition to."
+msgstr ""
+"一つのドライブにパーティションを制限することなく "
+"RAID パーティションを構成しようとしています。よろしいですか?"
 
 #: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:845
 msgid "Cannot Add Partitions"
 msgstr "パーティションを追加できません"
 
 #: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:846
-msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot add other partitions."
-msgstr "ext2 パーティション上以外に '/' ファイルシステムが定義されているため、他のパーティションを追加することはできません"
+msgid ""
+"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+"add other partitions."
+msgstr ""
+"ext2 パーティション上以外に '/' ファイルシステムが定義されている"
+"ため、他のパーティションを追加することはできません"
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2502,33 +3067,54 @@ msgstr "RAID エントリが不完全です"
 
 #: ../libfdisk/gnomefsedit.c:1506
 #, c-format
-msgid "The raid device /dev/%s now contains partitions which are unallocated. The raid device /dev/%s will now be decomposed into its component partitions. Please recompose the raid device with allocated partitions."
-msgstr "RAID デバイス /dev/%s に、未割当のパーティションが含まれています。RAID デバイス /dev/%s はコンポーネントパーティション群に分割されます。割当済みのパーティションを含む RAID デバイスを再整理してください。"
+msgid ""
+"The raid device /dev/%s now contains partitions which are unallocated. The "
+"raid device /dev/%s will now be decomposed into its component partitions. "
+"Please recompose the raid device with allocated partitions."
+msgstr ""
+"RAID デバイス /dev/%s に、未割当のパーティションが含まれています。"
+"RAID デバイス /dev/%s はコンポーネントパーティション群に分割されます。"
+"割当済みのパーティションを含む RAID デバイスを再整理してください。"
 
 #: ../libfdisk/gnomefsedit.c:1555
 msgid "Cannot Remove /boot"
 msgstr "/boot を削除できません。"
 
 #: ../libfdisk/gnomefsedit.c:1556
-msgid "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a non-RAID device first."
-msgstr "RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/\" を非 RAID デバイスに切り替えてください。"
+msgid ""
+"You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
+"non-RAID device first."
+msgstr ""
+"RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/\" "
+"を非 RAID デバイスに切り替えてください。"
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639 ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1676
+#: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
+#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1676
 msgid "Unallocated Partitions"
 msgstr "未割当のパーティションがあります"
 
-#: ../libfdisk/gnomefsedit.c:1624 ../libfdisk/gnomefsedit.c:1634 ../libfdisk/newtfsedit.c:142
-msgid "There are currently unallocated partition(s) present in the list of requested partitions. The unallocated partition(s) are shown below, along with the reason they were not allocated."
-msgstr "指定されたパーティション一覧中に、未割当のパーティション (群) があります。未割当のパーティション (群) と、その理由を以下に示します。"
+#: ../libfdisk/gnomefsedit.c:1624 ../libfdisk/gnomefsedit.c:1634
+#: ../libfdisk/newtfsedit.c:142
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+"指定されたパーティション一覧中に、未割当のパーティション (群) "
+"があります。未割当のパーティション (群) と、その理由を以下に示します。"
 
 #: ../libfdisk/gnomefsedit.c:1916
 msgid "Cannot Edit Raid"
 msgstr "RAID を編集できません"
 
 #: ../libfdisk/gnomefsedit.c:1917
-msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot edit RAID devices."
-msgstr "ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、RAID デバイスを編集することはできません"
+msgid ""
+"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+"edit RAID devices."
+msgstr ""
+"ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、RAID "
+"デバイスを編集することはできません"
 
 #: ../libfdisk/gnomefsedit.c:2017
 msgid "RAID Device: /dev/"
@@ -2547,16 +3133,22 @@ msgid "You have not selected a mount point. A mount point is required."
 msgstr "マウントポイントが選択されていません。マウントポイントが必要です。"
 
 #: ../libfdisk/gnomefsedit.c:2180
-msgid "The mount point requested is already in use. Please select a valid mount point."
-msgstr "要求されたマウントポイントはすでに使用されています。有効なマウントポイントを選択してください。"
+msgid ""
+"The mount point requested is already in use. Please select a valid mount "
+"point."
+msgstr ""
+"要求されたマウントポイントはすでに使用されています。"
+"有効なマウントポイントを選択してください。"
 
 #: ../libfdisk/gnomefsedit.c:2216
 msgid ""
-"The bootable raid device can only include partitions from the first two drives on your system.\n"
+"The bootable raid device can only include partitions from the first two "
+"drives on your system.\n"
 "\n"
 "These drives are: "
 msgstr ""
-"プート可能な RAID デバイスには、システムの最初から 2 つのパーティションのみを含めることができます。\n"
+"プート可能な RAID デバイスには、システムの最初から 2 "
+"つのパーティションのみを含めることができます。\n"
 "\n"
 "これらのドライブは： "
 
@@ -2578,15 +3170,21 @@ msgstr "使用済の RAID デバイスです"
 
 #: ../libfdisk/gnomefsedit.c:2241
 #, c-format
-msgid "The raid device \"/dev/%s\" is already configured as a raid device. Please select another."
-msgstr "RAID デバイス \"/dev/%s\" はすでに RAID デバイスとして構成されています。別のデバイスを選択してください。"
+msgid ""
+"The raid device \"/dev/%s\" is already configured as a raid device. Please "
+"select another."
+msgstr ""
+"RAID デバイス \"/dev/%s\" はすでに RAID "
+"デバイスとして構成されています。別のデバイスを選択してください。"
 
 #: ../libfdisk/gnomefsedit.c:2254
 msgid "Not Enough Partitions"
 msgstr "パーティションが不足しています"
 
 #: ../libfdisk/gnomefsedit.c:2256
-msgid "You have not configured enough partitions for the RAID type you have selected."
+msgid ""
+"You have not configured enough partitions for the RAID type you have "
+"selected."
 msgstr "選択した RAID タイプのためのパーティションが不足しています。"
 
 #: ../libfdisk/gnomefsedit.c:2264
@@ -2602,13 +3200,23 @@ msgid "Illegal RAID mountpoint"
 msgstr "RAID マウントポイントが不適当です"
 
 #: ../libfdisk/gnomefsedit.c:2276
-msgid "RAID partitions cannot be mounted as root (/) on Alpha without a /boot partition (non-RAID) as well."
-msgstr "Alpha システムでは RAID パーティションをルート (/) としてマウントすることはできません。"
+msgid ""
+"RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
+"partition (non-RAID) as well."
+msgstr ""
+"Alpha システムでは RAID パーティションをルート (/) "
+"としてマウントすることはできません。"
 
 #: ../libfdisk/gnomefsedit.c:2360
 #, c-format
-msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
-msgstr "パーティション %s は、この RAID デバイス用のパーティションセットに含まれる既存のパーティションです。マウントポイントは /boot と設定されます。このパーティションからのブートが可能になります。よろしいですか?"
+msgid ""
+"The partition %s is a pre-existing partition in the set of partitions for "
+"this RAID device.  The mount point is set to /boot. Are you sure that it is "
+"possible to boot from this partition?"
+msgstr ""
+"パーティション %s は、この RAID デバイス用のパーティションセットに"
+"含まれる既存のパーティションです。マウントポイントは /boot と設定されます。"
+"このパーティションからのブートが可能になります。よろしいですか?"
 
 #: ../libfdisk/gnomefsedit.c:2367
 msgid "Use Pre-existing Partition?"
@@ -2619,8 +3227,12 @@ msgid "Cannot Add RAID Devices"
 msgstr "RAID デバイスを追加することができません"
 
 #: ../libfdisk/gnomefsedit.c:2446
-msgid "You have defined the '/' filesystem on a non-ext2 partition, so you cannot add RAID devices."
-msgstr "ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、RAID デバイスを追加することはできません"
+msgid ""
+"You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
+"add RAID devices."
+msgstr ""
+"ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、RAID "
+"デバイスを追加することはできません"
 
 #: ../libfdisk/gnomefsedit.c:2487
 msgid "Auto-Partition"
@@ -2712,8 +3324,13 @@ msgid "Unallocated Partitions Exist..."
 msgstr "未割当のパーティションが存在します..."
 
 #: ../libfdisk/gnomefsedit.c:3468 ../libfdisk/gnomefsedit.c:3486
-msgid "You must assign a root (/) partition to a Linux native partition (ext2) or a RAID partition for the install to proceed."
-msgstr "インストールを続行するためには、ルート (/) パーティションを Linux 本来のパーティション (ext2) または RAID パーティションに割り当てなければなりません。"
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) or a "
+"RAID partition for the install to proceed."
+msgstr ""
+"インストールを続行するためには、ルート (/) パーティションを Linux "
+"本来のパーティション (ext2) または RAID "
+"パーティションに割り当てなければなりません。"
 
 #: ../libfdisk/gnomefsedit.c:3557
 msgid "Partitions"
@@ -2721,34 +3338,24 @@ msgstr "パーティション"
 
 #: ../libfdisk/gnomefsedit.c:3587
 msgid "_Add..."
-msgstr ""
-"追加\n"
-"(_A)..."
+msgstr "追加(_A)..."
 
 #: ../libfdisk/gnomefsedit.c:3594
 msgid "_Edit..."
-msgstr ""
-"編集\n"
-"(_E)..."
+msgstr "編集(_E)..."
 
 #: ../libfdisk/gnomefsedit.c:3595
 msgid "_Reset"
-msgstr ""
-"リセット\n"
-"(_R)"
+msgstr "リセット(_R)"
 
 #: ../libfdisk/gnomefsedit.c:3600
 msgid "_Delete"
-msgstr ""
-"削除\n"
-"(_D)"
+msgstr "削除(_D)"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3613
 msgid "_Make RAID Device"
-msgstr ""
-"RAID デバイスの\n"
-"作成(_M)"
+msgstr "RAID デバイスの作成(_M)"
 
 #: ../libfdisk/gnomefsedit.c:3623
 msgid "Auto Partition"
@@ -2788,11 +3395,14 @@ msgstr "現在のディスクパーティション"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "  マウントポイント     ドライブ   要求容量    実際            種類"
 
 #: ../libfdisk/newtfsedit.c:1488
-msgid "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr "    <F1> - ヘルプ   <F2> - 追加    <F3> - 編集   <F4> - 削除  <F5> - リセット  <F12> - OK        "
+msgid ""
+"    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
+msgstr ""
+"    <F1> - ヘルプ   <F2> - 追加    <F3> - 編集   <F4> - 削除  <F5> - "
+"リセット  <F12> - OK        "
 
 #: ../libfdisk/newtfsedit.c:1491
 msgid "Drive Summaries"
@@ -2800,15 +3410,20 @@ msgstr "ドライブの説明"
 
 #: ../libfdisk/newtfsedit.c:1493
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr "  ドライブ      ジオメトリ [C/H/S]      合計領域   使用領域    空き領域"
+msgstr ""
+"  ドライブ      ジオメトリ [C/H/S]      合計領域   使用領域    空き領域"
 
 #: ../libfdisk/newtfsedit.c:1607
 msgid "No Root Partition"
 msgstr "ルートパーティションがありません"
 
 #: ../libfdisk/newtfsedit.c:1608
-msgid "You must assign a root (/) partition to a Linux native partition (ext2) for the install to proceed."
-msgstr "インストールを続行するためには、ルート (/) パーティションを Linux native パーティション (ext2) に割り当てなければなりません。"
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+"インストールを続行するためには、ルート (/) パーティションを Linux native "
+"パーティション (ext2) に割り当てなければなりません。"
 
 #: ../libfdisk/newtfsedit.c:1627
 msgid "No Swap Partition"
@@ -2816,25 +3431,34 @@ msgstr "スワップパーティションがありません"
 
 #: ../libfdisk/newtfsedit.c:1629
 msgid "You must assign a swap partition for the install to proceed."
-msgstr "インストールを続行するためにはスワップパーティションを割り当てなければなりません。"
+msgstr ""
+"インストールを続行するためにはスワップパーティションを割り当て"
+"なければなりません。"
 
 #: ../libfdisk/newtfsedit.c:1655
 msgid "No /boot/efi Partition"
 msgstr "/boot/efi パーティションがありません"
 
 #: ../libfdisk/newtfsedit.c:1657
-msgid "You must assign the mount point /boot/efi to a FAT-style primary partition for the install to proceed."
-msgstr "インストールを続行するには、FAT 型のプライマリパーティションにマウントポイント /boot/efi を割り当てなければなりません。"
+msgid ""
+"You must assign the mount point /boot/efi to a FAT-style primary partition "
+"for the install to proceed."
+msgstr ""
+"インストールを続行するには、FAT "
+"型のプライマリパーティションにマウントポイント /boot/efi "
+"を割り当てなければなりません。"
 
 #: ../libfdisk/newtfsedit.c:1678
 msgid ""
-"There are unallocated partitions left. If you quit now they will not be written to the disk.\n"
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"未割当のパーティションが残っています。ここで中断すると、情報はディスクに書き込まれません。\n"
+"未割当のパーティションが残っています。ここで中断すると、"
+"情報はディスクに書き込まれません。\n"
 "\n"
-"終了してよろしいですか？"
+"終了してよろしいですか?"
 
 #: ../libfdisk/newtfsedit.c:1694
 msgid "Save Changes"
@@ -2869,14 +3493,21 @@ msgid "Miscellaneous"
 msgstr "その他"
 
 #: ../loader/devices.c:86
-msgid "This module can take parameters which affects its operation. If you don't know what parameters to supply, just skip this screen by pressing the \"OK\" button now."
-msgstr "このモジュールにパラメータを渡してモジュールの動きを調整することができます。指定するパラメータが不明である場合は、ここで [OK] ボタンを押してこの画面をスキップしてください。"
+msgid ""
+"This module can take parameters which affects its operation. If you don't "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
+"button now."
+msgstr ""
+"このモジュールにパラメータを渡してモジュールの動きを調整することが"
+"できます。指定するパラメータが不明である場合は、ここで [OK] ボタンを押して"
+"この画面をスキップしてください。"
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
 msgstr "モジュールパラメータ"
 
-#: ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333 ../loader/loader.c:286 ../loader/loader.c:347 ../loader/loader.c:363
+#: ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
+#: ../loader/loader.c:286 ../loader/loader.c:347 ../loader/loader.c:363
 msgid "Devices"
 msgstr "デバイス"
 
@@ -2893,12 +3524,20 @@ msgid "Failed to mount driver disk."
 msgstr "ドライバディスクのマウントに失敗しました。"
 
 #: ../loader/devices.c:244
-msgid "The floppy disk you inserted is not a valid driver disk for this release of Red Hat Linux."
-msgstr "挿入されたフロッピーディスクは、本リリースの Red Hat Linux で有効なドライバディスクではありません。"
+msgid ""
+"The floppy disk you inserted is not a valid driver disk for this release of "
+"Red Hat Linux."
+msgstr ""
+"挿入されたフロッピーディスクは、本リリースの Red Hat Linux "
+"で有効なドライバディスクではありません。"
 
 #: ../loader/devices.c:304
-msgid "Which driver should I try?. If the driver you need does not appear in this list, and you have a separate driver disk, please press F2."
-msgstr "ドライバを指定してください。必要なドライバが一覧内に存在しない、またはドライバディスクが別にある場合は、<F2> を押してください。"
+msgid ""
+"Which driver should I try?. If the driver you need does not appear in this "
+"list, and you have a separate driver disk, please press F2."
+msgstr ""
+"ドライバを指定してください。必要なドライバが一覧内に存在しない、"
+"またはドライバディスクが別にある場合は、<F2> を押してください。"
 
 #: ../loader/devices.c:313
 msgid "Specify module parameters"
@@ -2964,7 +3603,8 @@ msgid "Welcome to Red Hat Linux"
 msgstr "Red Hat Linux へようこそ"
 
 #: ../loader/lang.c:342 ../loader/loader.c:155
-msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択|  <F12> 次の画面 "
 
 #: ../loader/lang.c:580
@@ -3004,8 +3644,11 @@ msgid "Add Device"
 msgstr "デバイスの追加"
 
 #: ../loader/loader.c:364
-msgid "I don't have any special device drivers loaded for your system. Would you like to load some now?"
-msgstr "特別なデバイスドライバは読み込まれていません。ドライバを読み込みますか?"
+msgid ""
+"I don't have any special device drivers loaded for your system. Would you "
+"like to load some now?"
+msgstr ""
+"特別なデバイスドライバは読み込まれていません。ドライバを読み込みますか?"
 
 #: ../loader/loader.c:505
 #, c-format
@@ -3016,7 +3659,7 @@ msgstr "%s ramdisk を読み込み中です"
 msgid "Error loading ramdisk."
 msgstr "ramdisk の読み込みでエラーが発生しました"
 
-#: ../loader/loader.c:580 ../loader/loader.c:2189
+#: ../loader/loader.c:580 ../loader/loader.c:2187
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "%s ディレクトリの読み込みに失敗しました: %s"
@@ -3026,12 +3669,21 @@ msgid "Hard Drives"
 msgstr "ハードドライブ"
 
 #: ../loader/loader.c:811
-msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
+msgid ""
+"You don't seem to have any hard drives on your system! Would you like to "
+"configure additional devices?"
+msgstr ""
+"このシステムにはハードドライブがないようです。追加デバイスの設定を行いますか?"
 
 #: ../loader/loader.c:825
-msgid "What partition and directory on that partition hold the CD (iso9660) images for Red Hat Linux? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
-msgstr "RedHat/RPMS および RedHat/base のあるパーティションとディレクトリを指定してください。使用しているディスクドライブがこの一覧に含まれていない場合は、[F2] を押して追加デバイスを設定してください。"
+msgid ""
+"What partition and directory on that partition hold the CD (iso9660) images "
+"for Red Hat Linux? If you don't see the disk drive you're using listed here, "
+"press F2 to configure additional devices."
+msgstr ""
+"RedHat/RPMS および RedHat/base のあるパーティションとディレクトリを"
+"指定してください。使用しているディスクドライブがこの一覧に含まれていない"
+"場合は、[F2] を押して追加デバイスを設定してください。"
 
 #: ../loader/loader.c:839
 msgid "Directory holding images:"
@@ -3047,20 +3699,30 @@ msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "デバイス %s にはRed Hat CDROM イメージが含まれていないようです。"
 
 #: ../loader/loader.c:962
-msgid "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please insert the Red Hat CD and press \"OK\" to retry."
-msgstr "CDROM ドライブの中に Red Hat Linux CDROM が見つかりません。Red Hat CD を挿入してから [OK] を押して再試行してください。"
+msgid ""
+"I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
+"insert the Red Hat CD and press \"OK\" to retry."
+msgstr ""
+"CDROM ドライブの中に Red Hat Linux CDROM が見つかりません。Red Hat CD "
+"を挿入してから [OK] を押して再試行してください。"
 
 #: ../loader/loader.c:1049
 msgid "Networking Device"
 msgstr "ネットワークデバイス"
 
 #: ../loader/loader.c:1050
-msgid "You have multiple network devices on this system. Which would you like to install through?"
-msgstr "このシステムには複数のネットワークデバイスが存在します。インストールの際に使用するデバイスを選択してください。"
+msgid ""
+"You have multiple network devices on this system. Which would you like to "
+"install through?"
+msgstr ""
+"このシステムには複数のネットワークデバイスが存在します。"
+"インストールの際に使用するデバイスを選択してください。"
 
 #: ../loader/loader.c:1132
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "指定したディレクトリには Red Hat インストール用のディレクトリツリーが含まれていないようです。"
+msgstr ""
+"指定したディレクトリには Red Hat "
+"インストール用のディレクトリツリーが含まれていないようです。"
 
 #: ../loader/loader.c:1137
 msgid "I could not mount that directory from the server"
@@ -3080,7 +3742,9 @@ msgstr "第 2 のインストールイメージを読み込むことができません"
 
 #: ../loader/loader.c:1273
 msgid "FTP and HTTP installs require 20MB or more of system memory."
-msgstr "FTP インストールおよび HTTP インストールでは 20 MB またはそれ以上のシステムメモリが必要です。"
+msgstr ""
+"FTP インストールおよび HTTP インストールでは 20 MB "
+"またはそれ以上のシステムメモリが必要です。"
 
 #: ../loader/loader.c:1497
 msgid "Rescue Method"
@@ -3096,38 +3760,53 @@ msgstr "レスキューイメージが保存されているメディアタイプを指定してください。"
 
 #: ../loader/loader.c:1502
 msgid "What type of media contains the packages to be installed?"
-msgstr "インストール対象のパッケージが保存されているメディアタイプを指定してください。"
+msgstr ""
+"インストール対象のパッケージが保存されているメディアタイプを指定して"
+"ください。"
 
-#: ../loader/loader.c:2143
+#: ../loader/loader.c:2141
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "ブートフロッピーには ks.cfg がありません。"
 
-#: ../loader/loader.c:2251
+#: ../loader/loader.c:2249
 msgid "Updates Disk"
 msgstr "ディスクのアップデート"
 
-#: ../loader/loader.c:2252
+#: ../loader/loader.c:2250
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "アップデートディスクを挿入してから [OK] を押して続行してください。"
 
-#: ../loader/loader.c:2257
-msgid "The floppy disk you inserted is not a valid update disk for this release of Red Hat Linux."
-msgstr "挿入されたフロッピーディスクは本リリースの Red Hat Linux で有効なドライバディスクではありません。"
+#: ../loader/loader.c:2255
+msgid ""
+"The floppy disk you inserted is not a valid update disk for this release of "
+"Red Hat Linux."
+msgstr ""
+"挿入されたフロッピーディスクは本リリースの Red Hat Linux "
+"で有効なドライバディスクではありません。"
 
-#: ../loader/loader.c:2267
+#: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
 msgstr "フロッピーディスクのマウントに失敗しました。"
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2272
+#: ../loader/loader.c:2268
 msgid "Updates"
 msgstr "アップデート"
 
-#: ../loader/loader.c:2272
+#: ../loader/loader.c:2268
 msgid "Reading anaconda updates..."
 msgstr "anaconda アップデートを読み込んでいます..."
+
+# ../comps/comps-master:307
+#: ../loader/loader.c:2471
+msgid "IDE"
+msgstr "IDE"
+
+#: ../loader/loader.c:2471
+msgid "Initializing IDE modules..."
+msgstr "IDE モジュールを初期化しています..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3164,8 +3843,16 @@ msgid "Nameserver"
 msgstr "ネームサーバ"
 
 #: ../loader/net.c:246
-msgid "Your dynamic IP request returned IP configuration information, but it did not include a DNS nameserver. If you know what your nameserver is, please enter it now. If you don't have this information, you can leave this field blank and the install will continue."
-msgstr "動的 IP 要求によって IP 設定情報が返されましたが、その中に DNS ネームサーバが含まれていません。ネームサーバが分かっている場合には、ここで入力してください。分からない場合には、このフィールドを空白にしてインストールを続行することができます。"
+msgid ""
+"Your dynamic IP request returned IP configuration information, but it did "
+"not include a DNS nameserver. If you know what your nameserver is, please "
+"enter it now. If you don't have this information, you can leave this field "
+"blank and the install will continue."
+msgstr ""
+"動的 IP 要求によって IP 設定情報が返されましたが"
+"その中に DNS ネームサーバが含まれていません。ネームサーバが分かっている場合"
+"には、ここで入力してください。分からない場合には、このフィールドを空白に"
+"してインストールを続行することができます。"
 
 #: ../loader/net.c:256
 msgid "Invalid IP Information"
@@ -3176,8 +3863,12 @@ msgid "You entered an invalid IP address."
 msgstr "無効な IP アドレスが入力されました。"
 
 #: ../loader/net.c:280
-msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr "このマシン用の IP 構成を入力してください。各項目をドットで区切られた 10 進表記の IP アドレスとして入力する必要があります (たとえば、1.2.3.4)。"
+msgid ""
+"Please enter the IP configuration for this machine. Each item should be "
+"entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
+msgstr ""
+"このマシン用の IP 構成を入力してください。各項目をドットで区切られた 10 "
+"進表記の IP アドレスとして入力する必要があります (たとえば、1.2.3.4)。"
 
 #: ../loader/net.c:322
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -3242,7 +3933,9 @@ msgid "Network device"
 msgstr "ネットワークデバイス"
 
 #: ../loader/net.c:809
-msgid " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next screen"
+msgid ""
+" <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
+"screen"
 msgstr " <Tab>/<Alt-Tab> 項目間の移動|  <Space> 選択   |  <F12> 次の画面"
 
 #: ../loader/net.c:810
@@ -3366,12 +4059,21 @@ msgid "%s is not a valid hostname."
 msgstr "%s は有効なホスト名ではありません。"
 
 #: ../loader/urls.c:316
-msgid "If you are using non anonymous ftp, enter the account name and password you wish to use below."
-msgstr "非-anonymous (匿名) FTP を使用している場合は、使用するアカウント名およびパスワードを以下に入力してください。FTP プロキシを使用している場合は、使用する FTP プロキシサーバの名前を入力してください。"
+msgid ""
+"If you are using non anonymous ftp, enter the account name and password you "
+"wish to use below."
+msgstr ""
+"非-anonymous (匿名) FTP を使用している場合は、使用するアカウント名"
+"およびパスワードを以下に入力してください。FTP プロキシを使用している"
+"場合は、使用する FTP プロキシサーバの名前を入力してください。"
 
 #: ../loader/urls.c:321
-msgid "If you are using a HTTP proxy server enter the name of the HTTP proxy server to use."
-msgstr "HTTP プロキシサーバを使用している場合は、使用する HTTP プロキシサーバの名前を入力してください。"
+msgid ""
+"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
+"to use."
+msgstr ""
+"HTTP プロキシサーバを使用している場合は、使用する HTTP "
+"プロキシサーバの名前を入力してください。"
 
 #: ../loader/urls.c:342
 msgid "Account name:"
@@ -3558,13 +4260,6 @@ msgstr "ユーティリティ"
 #~ msgid "<Swap Partition"
 #~ msgstr "<スワップパーティション"
 
-# ../comps/comps-master:307
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "IDE モジュールを初期化しています..."
-
 #~ msgid "Test this configuration"
 #~ msgstr "この設定をテストする"
 
@@ -3599,13 +4294,16 @@ msgstr "ユーティリティ"
 #~ msgstr "パーティション設定の選択内容を確認してください"
 
 #~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You need to tell me what partitions you would like to be able to boot and what label you want to use for each of them.\n"
+#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
+#~ "need to tell me what partitions you would like to be able to boot and what "
+#~ "label you want to use for each of them.\n"
 #~ "\n"
 #~ msgstr ""
-#~ "Red Hat が使用するブートマネージャは、他のオペレーティングシステムの起動に使用することもできます。ブート可能にするパーティションと、そのパーティション用に使用するブートラベルを設定してください。\n"
+#~ "Red Hat が使用するブートマネージャは、他のオペレーティングシステムの"
+#~ "起動に使用することもできます。ブート可能にするパーティションと、"
+#~ "そのパーティション用に使用するブートラベルを設定してください。\n"
 #~ "\n"
 
 # ../comps/comps-master:570
-#, fuzzy
 #~ msgid "Postgres (SQL) Server"
-#~ msgstr "SQL サーバ"
+#~ msgstr "Postgres (SQL) サーバ"
