@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-04-02 18:54-0400\n"
+"POT-Creation-Date: 2001-04-03 18:40-0400\n"
 "PO-Revision-Date: 2000-08-17 11:34+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
@@ -52,7 +52,7 @@ msgstr "Keresés"
 
 #: ../fstab.py:320 ../fstab.py:535 ../fstab.py:635 ../fstab.py:786
 #: ../fstab.py:853 ../harddrive.py:173 ../image.py:64 ../image.py:141
-#: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
+#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
@@ -62,8 +62,8 @@ msgstr "Keresés"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
-#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
+#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Hiba"
 
@@ -107,7 +107,7 @@ msgstr "Hiba a swap létrehozásánál a köv. eszközön: "
 msgid "Error unmounting %s: %s"
 msgstr "Hiba %s unmount-olásánál: %s"
 
-#: ../fstab.py:689 ../todo.py:741
+#: ../fstab.py:689 ../todo.py:740
 msgid "Creating"
 msgstr "Létrehozás"
 
@@ -170,8 +170,8 @@ msgstr ""
 msgid "Next"
 msgstr "Következõ"
 
-#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1477
-#: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1480
+#: ../libfdisk/newtfsedit.c:1488 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
 #: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
@@ -224,7 +224,7 @@ msgid "Online Help"
 msgstr "Online súgó"
 
 #: ../gui.py:434 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:69 ../text.py:973
+#: ../test.py:24 ../text.py:69 ../text.py:973
 msgid "Language Selection"
 msgstr "Nyelv kiválasztás"
 
@@ -404,12 +404,22 @@ msgstr ""
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
+#: ../iw/upgrade_swap_gui.py:102 ../test.py:26 ../test.py:34 ../test.py:40
+#: ../textw/upgrade_text.py:38
+#, c-format
+msgid ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
+msgstr ""
+
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
+#: ../libfdisk/fsedit.c:1476 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -423,13 +433,13 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
 #: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
-#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
-#: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
-#: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
-#: ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477
-#: ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610
-#: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
-#: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:580
+#: ../libfdisk/newtfsedit.c:642 ../libfdisk/newtfsedit.c:675
+#: ../libfdisk/newtfsedit.c:701 ../libfdisk/newtfsedit.c:720
+#: ../libfdisk/newtfsedit.c:851 ../libfdisk/newtfsedit.c:1480
+#: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
+#: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
+#: ../libfdisk/newtfsedit.c:1746 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
 #: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
@@ -545,8 +555,8 @@ msgstr ""
 "Változtatás nélküli kilépéshez válassza a Mégsem gombot."
 
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
-#: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
+#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
 #: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
@@ -582,7 +592,7 @@ msgstr "Válasszon egy szervert"
 msgid "Installation to begin"
 msgstr "Telepítés elkezdése"
 
-#: ../iw/confirm_gui.py:45 ../text.py:528
+#: ../iw/confirm_gui.py:64 ../text.py:528
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -595,7 +605,7 @@ msgstr ""
 msgid "Upgrade to begin"
 msgstr "Frissítés kezdése"
 
-#: ../iw/confirm_gui.py:41 ../text.py:540
+#: ../iw/confirm_gui.py:60 ../text.py:540
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -911,37 +921,37 @@ msgstr "Leállítva"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Innen nem tudok visszalépni. Sajna újra kell próbálkoznia."
 
-#: ../todo.py:741
+#: ../todo.py:740
 msgid "Creating boot disk..."
 msgstr "Boot lemez létrehozása..."
 
-#: ../todo.py:760
+#: ../todo.py:759
 msgid "Reading"
 msgstr "Olvasás"
 
-#: ../todo.py:761
+#: ../todo.py:760
 msgid "Reading package information..."
 msgstr "Csomag információ olvasása..."
 
-#: ../todo.py:1058
+#: ../todo.py:1057
 msgid "Dependency Check"
 msgstr "Függöség ellenõrzés"
 
-#: ../todo.py:1059
+#: ../todo.py:1058
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "A telepítésre kiválasztott csomagok közötti függöségek ellenõrzése..."
 
-#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
-#: ../todo.py:1308
+#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
+#: ../todo.py:1302
 msgid "no suggestion"
 msgstr "nincs ajánlás"
 
-#: ../todo.py:1189 ../upgrade.py:99
+#: ../todo.py:1188 ../upgrade.py:99
 #, fuzzy
 msgid "Dirty Filesystems"
 msgstr "Root filerendszer méret"
 
-#: ../todo.py:1190
+#: ../todo.py:1189
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -949,7 +959,7 @@ msgstr ""
 "A Linux rendszer egy vagy több /etc/fstab-ban felsorolt partíciója nem "
 "mountolható. Javítsa ki ezt a hibát, és próbálkozzon újra a frissítéssel."
 
-#: ../todo.py:1205
+#: ../todo.py:1204
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -957,48 +967,48 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1226
+#: ../todo.py:1224
 msgid "Finding"
 msgstr "Keresés"
 
-#: ../todo.py:1227
+#: ../todo.py:1225
 msgid "Finding packages to upgrade..."
 msgstr "Frissítendõ csomagok keresése..."
 
-#: ../todo.py:1244
+#: ../todo.py:1240
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Hiba az RPM adatbázis újraépítésénél. Nincs szabad lemezterület?"
 
-#: ../todo.py:1259
+#: ../todo.py:1253
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Hiba történt a frissítendõ csomagok keresésénél."
 
-#: ../todo.py:1544
+#: ../todo.py:1538
 msgid "Processing"
 msgstr "Feldolgozás"
 
-#: ../todo.py:1545
+#: ../todo.py:1539
 msgid "Preparing to install..."
 msgstr "Felkészülés telepítésre..."
 
-#: ../todo.py:1579
+#: ../todo.py:1573
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1837
+#: ../todo.py:1828
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "%s frissítése.\n"
 
-#: ../todo.py:1839
+#: ../todo.py:1830
 #, c-format
 msgid "Installing %s.\n"
 msgstr "%s telepítése.\n"
 
-#: ../todo.py:1884
+#: ../todo.py:1875
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1008,15 +1018,15 @@ msgstr ""
 "következõ filerendszereken van szükség több helyre:\n"
 
 #: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1887 ../todo.py:1905
+#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
 msgid "Mount Point"
 msgstr "Mount pont"
 
-#: ../todo.py:1887
+#: ../todo.py:1878
 msgid "Space Needed"
 msgstr "Szükséges hely"
 
-#: ../todo.py:1902
+#: ../todo.py:1893
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1026,24 +1036,24 @@ msgstr ""
 "Nincsen elegendõ lemezterülete a kiválasztott csomagok telepítéséhez. A "
 "következõ filerendszereken van szükség több helyre:\n"
 
-#: ../todo.py:1905
+#: ../todo.py:1896
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Szükséges hely"
 
-#: ../todo.py:1911
+#: ../todo.py:1902
 msgid "Disk Space"
 msgstr "Lemez terület"
 
-#: ../todo.py:1946
+#: ../todo.py:1937
 msgid "Post Install"
 msgstr "Telepítés utáni szakasz"
 
-#: ../todo.py:1947
+#: ../todo.py:1938
 msgid "Performing post install configuration..."
 msgstr "Telepítés utáni konfigurálás..."
 
-#: ../todo.py:2086
+#: ../todo.py:2077
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1054,7 +1064,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2092
+#: ../todo.py:2083
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1210,19 +1220,19 @@ msgstr "Jelszó (újra)"
 msgid "Full Name"
 msgstr "Teljes név"
 
-#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1483
+#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1486
 #: ../textw/userauth_text.py:198
 msgid "Add"
 msgstr "Hozzáad"
 
-#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
-#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:225
+#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1479
+#: ../libfdisk/newtfsedit.c:1487 ../textw/lilo_text.py:225
 #: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "Szerkesztés"
 
-#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1484
+#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1487
 #: ../textw/userauth_text.py:198
 msgid "Delete"
 msgstr "Töröl"
@@ -1317,19 +1327,25 @@ msgstr ""
 msgid "Skip boot disk creation"
 msgstr "Boot lemez létrehozásának kihagyása"
 
-#: ../iw/confirm_gui.py:13
+#: ../iw/confirm_gui.py:15
 msgid "About to Upgrade"
 msgstr "A frissítés megkezdése"
 
-#: ../iw/confirm_gui.py:16
+#: ../iw/confirm_gui.py:18
 msgid "About to Install"
 msgstr "A telepítés megkezdése"
 
-#: ../iw/confirm_gui.py:34
+#: ../iw/confirm_gui.py:35 ../iw/lilo_gui.py:59 ../iw/package_gui.py:61
+#: ../iw/upgrade_swap_gui.py:34
+#, fuzzy
+msgid "Aborting upgrade"
+msgstr "A frissítés megkezdése"
+
+#: ../iw/confirm_gui.py:53
 msgid "Click next to begin upgrade of Red Hat Linux."
 msgstr "Kattintson a Következõ-re a Red Hat Linux frissítés elkezdéséhez."
 
-#: ../iw/confirm_gui.py:36
+#: ../iw/confirm_gui.py:55
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr "Kattintson a Következõ-re a Red Hat Linux telepítés elkezdéséhez."
 
@@ -1550,11 +1566,6 @@ msgstr ""
 #: ../iw/lilo_gui.py:33
 msgid "Lilo Configuration"
 msgstr "LILO beállítás"
-
-#: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
-#, fuzzy
-msgid "Aborting upgrade"
-msgstr "A frissítés megkezdése"
 
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -1968,9 +1979,9 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
-#: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
-#: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
+#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
+#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
+#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
@@ -1984,9 +1995,9 @@ msgstr "Igen"
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
-#: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
-#: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
+#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
+#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
+#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
@@ -2042,15 +2053,6 @@ msgstr "UTC idõeltolódás"
 #, fuzzy
 msgid "Upgrade Swap Partition"
 msgstr "Raid partíció"
-
-#: ../iw/upgrade_swap_gui.py:102 ../textw/upgrade_text.py:38
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
-msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:116
 msgid "I want to create a swap file"
@@ -3001,11 +3003,11 @@ msgstr ""
 "Hiba történt a merevelemezek eszköz node-jainak létrehozásánál. Ennek az "
 "lehet az oka, hogy megtelt a /tmp partíció."
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1052
 msgid "No Drives Found"
 msgstr "Nem találtam meghajtókat"
 
-#: ../libfdisk/fsedit.c:1052
+#: ../libfdisk/fsedit.c:1053
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -3013,25 +3015,25 @@ msgstr ""
 "Hiba történt - nincsenek érvényes eszközök, amiken létre lehetne hozni új "
 "file-rendszereket. Ellenõrizze a hardvert a probléma okának kiderítéséhez."
 
-#: ../libfdisk/fsedit.c:1381 ../libfdisk/fsedit.c:1444
+#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr "Hiba a %s blokk eszköz partíciós táblájának olvasásakor. A hiba:"
 
-#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1462 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Újra"
 
-#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1427
-#: ../libfdisk/fsedit.c:1449 ../libfdisk/fsedit.c:1455
-#: ../libfdisk/fsedit.c:1462
+#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
+#: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
+#: ../libfdisk/fsedit.c:1463
 msgid "Skip Drive"
 msgstr "Meghajtó kihagyása"
 
-#: ../libfdisk/fsedit.c:1421
+#: ../libfdisk/fsedit.c:1422
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3040,19 +3042,19 @@ msgstr ""
 "A %s eszköz partíciós táblája hibás. Új partíciók létrehozása elõtt "
 "inicializálnia kell, ami a meghajtón lévõ ÖSSZES ADAT elvesztését jelenti."
 
-#: ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1427
 msgid "Bad Partition Table"
 msgstr "Hibás partíciós tábla"
 
-#: ../libfdisk/fsedit.c:1427
+#: ../libfdisk/fsedit.c:1428
 msgid "Initialize"
 msgstr "Inicializálás"
 
-#: ../libfdisk/fsedit.c:1475
+#: ../libfdisk/fsedit.c:1476
 msgid "BSD Disklabel"
 msgstr "BSD Disklabel"
 
-#: ../libfdisk/fsedit.c:1475
+#: ../libfdisk/fsedit.c:1476
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -3062,18 +3064,18 @@ msgstr ""
 "tudja a BSD disklabel-t, így egy saját telepítõre és (a Disk Druid helyett) "
 "az fdisk programra lesz szüksége BSD disklabel-t használó gépeken."
 
-#: ../libfdisk/fsedit.c:1505 ../libfdisk/fsedit.c:1528
-#: ../libfdisk/fsedit.c:1554
+#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
+#: ../libfdisk/fsedit.c:1555
 #, c-format
 msgid "System error %d"
 msgstr "Rendszerhiba %d"
 
-#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516
-#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1573
+#: ../libfdisk/fsedit.c:1515 ../libfdisk/fsedit.c:1517
+#: ../libfdisk/fsedit.c:1544 ../libfdisk/fsedit.c:1574
 msgid "Fdisk Error"
 msgstr "Fdisk hiba"
 
-#: ../libfdisk/fsedit.c:1538
+#: ../libfdisk/fsedit.c:1539
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3081,7 +3083,7 @@ msgid ""
 "kernel command line when booting the installer."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1564
+#: ../libfdisk/fsedit.c:1565
 msgid ""
 "This error has occurred because there is a logical partition on the drive "
 "which has a partition type of zero (0).  A partition type of zero means that "
@@ -3124,11 +3126,11 @@ msgid ""
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
 msgid "Delete Partition"
 msgstr "Partíció-törlés"
 
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 msgid "Are you sure you want to delete this partition?"
 msgstr "Biztosan törölni akarja ezt a partíciót?"
 
@@ -3164,19 +3166,21 @@ msgstr "Méret (MB) :"
 msgid "Use remaining space?"
 msgstr "Maradék terület használata?"
 
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
+#. give status
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:443
+#: ../libfdisk/newtfsedit.c:446
 msgid "Allocation Status:"
 msgstr "Lekötöttség:"
 
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:448
 msgid "Successful"
 msgstr "Eredményes"
 
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:450
 msgid "Failed"
 msgstr "Hibás"
 
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:455
 msgid "Failure Reason:"
 msgstr "A hiba oka:"
 
@@ -3184,28 +3188,28 @@ msgstr "A hiba oka:"
 msgid "Partition Type:"
 msgstr "Partíció-típus:"
 
-#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:527
 msgid "Allowable Drives:"
 msgstr "Használható meghajtók:"
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
-#: ../libfdisk/newtfsedit.c:615
+#: ../libfdisk/newtfsedit.c:618
 msgid "No Mount Point"
 msgstr "Nincs mount-pont"
 
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:619
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr "Nem adott meg mount-pontot a partícióhoz. Biztosan ezt akarja?"
 
 #: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
-#: ../libfdisk/newtfsedit.c:672
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
+#: ../libfdisk/newtfsedit.c:675
 msgid "Mount Point Error"
 msgstr "Mount-pont hiba"
 
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:643
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -3216,7 +3220,7 @@ msgstr ""
 "Ezt most nem teheti meg, mivel ext2 partíciókhoz is vannak rendelve mount "
 "pontok. Ha azokat kitörli, hozzárendelheti a '/'-ot ehhez a partícióhoz."
 
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -3224,11 +3228,11 @@ msgstr ""
 "A kért mount-pont érvénytelen útvonal, vagy már használatban van. Válasszon "
 "egy érvényes mount-pontot."
 
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:701
 msgid "Size Error"
 msgstr "Mérethiba"
 
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:702
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -3237,12 +3241,12 @@ msgstr ""
 "tízes számrendszerben, egész számként van megadva."
 
 #: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
-#: ../libfdisk/newtfsedit.c:717
+#: ../libfdisk/newtfsedit.c:720
 msgid "Swap Size Error"
 msgstr "Swapméret-hiba"
 
 #: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
-#: ../libfdisk/newtfsedit.c:718
+#: ../libfdisk/newtfsedit.c:721
 #, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
@@ -3251,7 +3255,7 @@ msgstr ""
 "Túlságosan nagy swap-partíciót hozott létre. A swap-partíció legnagyobb "
 "mérete %ld Megabyte."
 
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:737
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3261,7 +3265,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:745
 msgid "Warning: Root FS Size"
 msgstr ""
 
@@ -3296,11 +3300,11 @@ msgstr ""
 "meghajtóhoz hozzárendelte volna. Válasszon egy meghajtót, amelyhez "
 "hozzárendeli ezt a partíciót."
 
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
 msgid "Cannot Add Partitions"
 msgstr "Nem lehet partíciókat hozzáadni"
 
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:852
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3337,7 +3341,7 @@ msgstr ""
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
+#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1682
 msgid "Unallocated Partitions"
 msgstr "Lekötetlen partíciók"
 
@@ -3511,11 +3515,11 @@ msgstr "RAID eszköz törlése?"
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Biztosan el akarja távolítani ezt a RAID eszközt?"
 
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1787
 msgid "Reset Partition Table"
 msgstr "Partíciós tábla alaphelyzetbe állítása"
 
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1789
 msgid "Reset partition table to original contents? "
 msgstr "Visszaállítsam a partíciós táblát az eredeti tartalmára?"
 
@@ -3624,41 +3628,41 @@ msgstr "Új partíció szerkesztés"
 msgid "Use remaining space?:"
 msgstr "Maradék terület használata?:"
 
-#: ../libfdisk/newtfsedit.c:477
+#: ../libfdisk/newtfsedit.c:479 ../libfdisk/newtfsedit.c:480
 msgid "Type:"
 msgstr "Típus:"
 
-#: ../libfdisk/newtfsedit.c:491
+#: ../libfdisk/newtfsedit.c:494
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: ../libfdisk/newtfsedit.c:1461
+#: ../libfdisk/newtfsedit.c:1464
 msgid "Current Disk Partitions"
 msgstr "Jelenlegi lemez-partíciók"
 
-#: ../libfdisk/newtfsedit.c:1467
+#: ../libfdisk/newtfsedit.c:1470
 msgid "   Mount Point          Device     Requested   Actual         Type"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1491
+#: ../libfdisk/newtfsedit.c:1494
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "   F1-Súgó  F2-Hozzáad  F3-Szerkeszt  F4-Töröl  F5-Alaphelyzet  F12-Ok       "
 
-#: ../libfdisk/newtfsedit.c:1494
+#: ../libfdisk/newtfsedit.c:1497
 msgid "Drive Summaries"
 msgstr "Meghajtók összefoglalása"
 
-#: ../libfdisk/newtfsedit.c:1496
+#: ../libfdisk/newtfsedit.c:1499
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr "  Meghajtó   Geom [C/H/S]      Össz     Tele    Szabad"
 
-#: ../libfdisk/newtfsedit.c:1610
+#: ../libfdisk/newtfsedit.c:1613
 msgid "No Root Partition"
 msgstr "Nincs root-partíció"
 
-#: ../libfdisk/newtfsedit.c:1611
+#: ../libfdisk/newtfsedit.c:1614
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -3666,19 +3670,19 @@ msgstr ""
 "A telepítés folytatásához hozzá kell rendelnie egy root (/) partíciót "
 "valamelyik Linux Native (ext2) partícióhoz."
 
-#: ../libfdisk/newtfsedit.c:1630
+#: ../libfdisk/newtfsedit.c:1633
 msgid "No Swap Partition"
 msgstr "Nincs swap-partíció"
 
-#: ../libfdisk/newtfsedit.c:1632
+#: ../libfdisk/newtfsedit.c:1635
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "A telepítés folytatásához ki kell jelölnie egy swap-partíciót."
 
-#: ../libfdisk/newtfsedit.c:1658
+#: ../libfdisk/newtfsedit.c:1661
 msgid "No /boot/efi Partition"
 msgstr "Nincs /boot/efi partíció"
 
-#: ../libfdisk/newtfsedit.c:1660
+#: ../libfdisk/newtfsedit.c:1663
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
@@ -3686,7 +3690,7 @@ msgstr ""
 "A telepítés folytatásához a /boot/efi mount-pontot hozzá kell rendelnie egy "
 "FAT stílusú elsõdleges partícióhoz."
 
-#: ../libfdisk/newtfsedit.c:1681
+#: ../libfdisk/newtfsedit.c:1684
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -3697,15 +3701,15 @@ msgstr ""
 "lemezre.\n"
 "Biztosan ki akar lépni?"
 
-#: ../libfdisk/newtfsedit.c:1697
+#: ../libfdisk/newtfsedit.c:1700
 msgid "Save Changes"
 msgstr "Változások mentése"
 
-#: ../libfdisk/newtfsedit.c:1699
+#: ../libfdisk/newtfsedit.c:1702
 msgid "Save changes to partition table(s)?"
 msgstr "Mentsem a partíciós tábla változásait?"
 
-#: ../libfdisk/newtfsedit.c:1744
+#: ../libfdisk/newtfsedit.c:1747
 msgid "You may only delete NFS mounts."
 msgstr "Csak NFS mountokat törölhet."
 

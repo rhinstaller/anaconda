@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 6.2\n"
-"POT-Creation-Date: 2001-04-02 18:54-0400\n"
+"POT-Creation-Date: 2001-04-03 18:40-0400\n"
 "PO-Revision-Date: 2000-03-01 17:24-0500\n"
 "Last-Translator: Arnaldo Carvalho de Melo <acme@conectiva.com.br>\n"
 "Language-Team: Portugese Brasil <LL@li.org>\n"
@@ -57,7 +57,7 @@ msgstr "Todos os Pacotes"
 
 #: ../fstab.py:320 ../fstab.py:535 ../fstab.py:635 ../fstab.py:786
 #: ../fstab.py:853 ../harddrive.py:173 ../image.py:64 ../image.py:141
-#: ../libfdisk/newtfsedit.c:1743 ../loader/devices.c:259
+#: ../libfdisk/newtfsedit.c:1746 ../loader/devices.c:259
 #: ../loader/devices.c:266 ../loader/devices.c:435 ../loader/devices.c:480
 #: ../loader/devices.c:500 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:969
@@ -67,8 +67,8 @@ msgstr "Todos os Pacotes"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
-#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1239
+#: ../todo.py:1252 ../todo.py:1572 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Erro"
 
@@ -110,7 +110,7 @@ msgstr "Formatando swap no dispositivo %s..."
 msgid "Error unmounting %s: %s"
 msgstr "Erro na abertura: arquivo kickstart %s: %s"
 
-#: ../fstab.py:689 ../todo.py:741
+#: ../fstab.py:689 ../todo.py:740
 msgid "Creating"
 msgstr ""
 
@@ -169,8 +169,8 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1477
-#: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../gui.py:425 ../gui.py:798 ../libfdisk/newtfsedit.c:1480
+#: ../libfdisk/newtfsedit.c:1488 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:873 ../loader/loader.c:910
 #: ../loader/loader.c:1024 ../loader/loader.c:1116 ../loader/loader.c:1519
@@ -223,7 +223,7 @@ msgid "Online Help"
 msgstr ""
 
 #: ../gui.py:434 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:69 ../text.py:973
+#: ../test.py:24 ../text.py:69 ../text.py:973
 msgid "Language Selection"
 msgstr ""
 
@@ -409,12 +409,22 @@ msgstr ""
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
+#: ../iw/upgrade_swap_gui.py:102 ../test.py:26 ../test.py:34 ../test.py:40
+#: ../textw/upgrade_text.py:38
+#, c-format
+msgid ""
+"The 2.4 kernel needs significantly more swap than older kernels, as much as "
+"twice as much swap space as RAM on the system. You currently have %dMB of "
+"swap configured, but you may create additional swap space on one of your "
+"file systems now."
+msgstr ""
+
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:490 ../libfdisk/fsedit.c:922 ../libfdisk/fsedit.c:929
 #: ../libfdisk/fsedit.c:936 ../libfdisk/fsedit.c:945 ../libfdisk/fsedit.c:972
 #: ../libfdisk/fsedit.c:985 ../libfdisk/fsedit.c:995 ../libfdisk/fsedit.c:1024
-#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1051
-#: ../libfdisk/fsedit.c:1475 ../libfdisk/gnomefsedit.c:756
+#: ../libfdisk/fsedit.c:1034 ../libfdisk/fsedit.c:1052
+#: ../libfdisk/fsedit.c:1476 ../libfdisk/gnomefsedit.c:756
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:879
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:1262
 #: ../libfdisk/gnomefsedit.c:1299 ../libfdisk/gnomefsedit.c:1333
@@ -428,13 +438,13 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2364 ../libfdisk/gnomefsedit.c:2374
 #: ../libfdisk/gnomefsedit.c:2413 ../libfdisk/gnomefsedit.c:2544
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:170
-#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:577
-#: ../libfdisk/newtfsedit.c:639 ../libfdisk/newtfsedit.c:672
-#: ../libfdisk/newtfsedit.c:698 ../libfdisk/newtfsedit.c:717
-#: ../libfdisk/newtfsedit.c:848 ../libfdisk/newtfsedit.c:1477
-#: ../libfdisk/newtfsedit.c:1485 ../libfdisk/newtfsedit.c:1610
-#: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
-#: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../libfdisk/newtfsedit.c:347 ../libfdisk/newtfsedit.c:580
+#: ../libfdisk/newtfsedit.c:642 ../libfdisk/newtfsedit.c:675
+#: ../libfdisk/newtfsedit.c:701 ../libfdisk/newtfsedit.c:720
+#: ../libfdisk/newtfsedit.c:851 ../libfdisk/newtfsedit.c:1480
+#: ../libfdisk/newtfsedit.c:1488 ../libfdisk/newtfsedit.c:1613
+#: ../libfdisk/newtfsedit.c:1634 ../libfdisk/newtfsedit.c:1662
+#: ../libfdisk/newtfsedit.c:1746 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:61 ../text.py:63
 #: ../text.py:199 ../text.py:458 ../textw/lilo_text.py:140
 #: ../textw/lilo_text.py:225 ../textw/mouse_text.py:27
@@ -550,8 +560,8 @@ msgid ""
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
-#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
-#: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
+#: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:581
+#: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:238
 #: ../loader/devices.c:532 ../loader/loader.c:2228 ../loader/pcmcia.c:104
 #: ../text.py:374 ../text.py:377 ../text.py:764 ../text.py:765 ../text.py:880
 #: ../text.py:882 ../textw/lilo_text.py:141 ../textw/silo_text.py:136
@@ -593,7 +603,7 @@ msgstr "Escolha um grupo para examinar:"
 msgid "Installation to begin"
 msgstr "Passos da Instalação"
 
-#: ../iw/confirm_gui.py:45 ../text.py:528
+#: ../iw/confirm_gui.py:64 ../text.py:528
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -607,7 +617,7 @@ msgstr ""
 msgid "Upgrade to begin"
 msgstr "Log de Atualização"
 
-#: ../iw/confirm_gui.py:41 ../text.py:540
+#: ../iw/confirm_gui.py:60 ../text.py:540
 #, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
@@ -948,46 +958,46 @@ msgstr ""
 "Não é possível ir para o passo anterior a partir deste. Você deve tentar "
 "novamente."
 
-#: ../todo.py:741
+#: ../todo.py:740
 #, fuzzy
 msgid "Creating boot disk..."
 msgstr "Criando disco de inicialização..."
 
-#: ../todo.py:760
+#: ../todo.py:759
 #, fuzzy
 msgid "Reading"
 msgstr "Buscando"
 
-#: ../todo.py:761
+#: ../todo.py:760
 #, fuzzy
 msgid "Reading package information..."
 msgstr "Enviando requisição DHCP..."
 
-#: ../todo.py:1058
+#: ../todo.py:1057
 msgid "Dependency Check"
 msgstr ""
 
-#: ../todo.py:1059
+#: ../todo.py:1058
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 
-#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
-#: ../todo.py:1308
+#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
+#: ../todo.py:1302
 msgid "no suggestion"
 msgstr "sem sugestão"
 
-#: ../todo.py:1189 ../upgrade.py:99
+#: ../todo.py:1188 ../upgrade.py:99
 #, fuzzy
 msgid "Dirty Filesystems"
 msgstr "Instalar sistema"
 
-#: ../todo.py:1190
+#: ../todo.py:1189
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
 
-#: ../todo.py:1205
+#: ../todo.py:1204
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -995,51 +1005,51 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1226
+#: ../todo.py:1224
 #, fuzzy
 msgid "Finding"
 msgstr "Buscando"
 
-#: ../todo.py:1227
+#: ../todo.py:1225
 msgid "Finding packages to upgrade..."
 msgstr "Encontrando pacotes a serem atualizados..."
 
-#: ../todo.py:1244
+#: ../todo.py:1240
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 
-#: ../todo.py:1259
+#: ../todo.py:1253
 #, fuzzy
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Encontrando pacotes a serem atualizados..."
 
-#: ../todo.py:1544
+#: ../todo.py:1538
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:1545
+#: ../todo.py:1539
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Encontrando pacotes a serem atualizados..."
 
-#: ../todo.py:1579
+#: ../todo.py:1573
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
 
-#: ../todo.py:1837
+#: ../todo.py:1828
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1839
+#: ../todo.py:1830
 #, fuzzy, c-format
 msgid "Installing %s.\n"
 msgstr "Instalando"
 
-#: ../todo.py:1884
+#: ../todo.py:1875
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1047,42 +1057,42 @@ msgid ""
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1887 ../todo.py:1905
+#: ../textw/upgrade_text.py:55 ../todo.py:1878 ../todo.py:1896
 #, fuzzy
 msgid "Mount Point"
 msgstr "Nenhum Mount Point"
 
-#: ../todo.py:1887
+#: ../todo.py:1878
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1902
+#: ../todo.py:1893
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1905
+#: ../todo.py:1896
 msgid "Nodes Needed"
 msgstr ""
 
-#: ../todo.py:1911
+#: ../todo.py:1902
 #, fuzzy
 msgid "Disk Space"
 msgstr "Configuração dos Discos"
 
-#: ../todo.py:1946
+#: ../todo.py:1937
 #, fuzzy
 msgid "Post Install"
 msgstr "Instalar"
 
-#: ../todo.py:1947
+#: ../todo.py:1938
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Configuração SCSI"
 
-#: ../todo.py:2086
+#: ../todo.py:2077
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1093,7 +1103,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:2092
+#: ../todo.py:2083
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -1258,19 +1268,19 @@ msgstr "Senha (de novo) :"
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1483
+#: ../iw/account_gui.py:284 ../libfdisk/newtfsedit.c:1486
 #: ../textw/userauth_text.py:198
 msgid "Add"
 msgstr "Adicione"
 
-#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1476
-#: ../libfdisk/newtfsedit.c:1484 ../textw/lilo_text.py:225
+#: ../iw/account_gui.py:286 ../libfdisk/newtfsedit.c:1479
+#: ../libfdisk/newtfsedit.c:1487 ../textw/lilo_text.py:225
 #: ../textw/partitioning_text.py:65 ../textw/silo_text.py:205
 #: ../textw/silo_text.py:227 ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "Edite"
 
-#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1484
+#: ../iw/account_gui.py:288 ../libfdisk/newtfsedit.c:1487
 #: ../textw/userauth_text.py:198
 msgid "Delete"
 msgstr "Apague"
@@ -1366,21 +1376,27 @@ msgstr ""
 msgid "Skip boot disk creation"
 msgstr ""
 
-#: ../iw/confirm_gui.py:13
+#: ../iw/confirm_gui.py:15
 #, fuzzy
 msgid "About to Upgrade"
 msgstr "Erro de sistema %d"
 
-#: ../iw/confirm_gui.py:16
+#: ../iw/confirm_gui.py:18
 #, fuzzy
 msgid "About to Install"
 msgstr "Componentes para Instalação"
 
-#: ../iw/confirm_gui.py:34
+#: ../iw/confirm_gui.py:35 ../iw/lilo_gui.py:59 ../iw/package_gui.py:61
+#: ../iw/upgrade_swap_gui.py:34
+#, fuzzy
+msgid "Aborting upgrade"
+msgstr "Erro de sistema %d"
+
+#: ../iw/confirm_gui.py:53
 msgid "Click next to begin upgrade of Red Hat Linux."
 msgstr ""
 
-#: ../iw/confirm_gui.py:36
+#: ../iw/confirm_gui.py:55
 msgid "Click next to begin installation of Red Hat Linux."
 msgstr ""
 
@@ -1616,11 +1632,6 @@ msgstr ""
 #, fuzzy
 msgid "Lilo Configuration"
 msgstr "Configuração SCSI"
-
-#: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
-#, fuzzy
-msgid "Aborting upgrade"
-msgstr "Erro de sistema %d"
 
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -2045,9 +2056,9 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
-#: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
-#: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
+#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
+#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
+#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
 #: ../loader/devices.c:230 ../loader/loader.c:873 ../loader/net.c:854
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/lilo_text.py:62
@@ -2061,9 +2072,9 @@ msgstr "Sim"
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:1376
 #: ../libfdisk/gnomefsedit.c:1398 ../libfdisk/gnomefsedit.c:2467
 #: ../libfdisk/gnomefsedit.c:2754 ../libfdisk/gnomefsedit.c:2809
-#: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
-#: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
-#: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
+#: ../libfdisk/newtfsedit.c:618 ../libfdisk/newtfsedit.c:745
+#: ../libfdisk/newtfsedit.c:877 ../libfdisk/newtfsedit.c:1683
+#: ../libfdisk/newtfsedit.c:1701 ../libfdisk/newtfsedit.c:1788
 #: ../loader/devices.c:231 ../loader/net.c:854 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/lilo_text.py:62 ../textw/partitioning_text.py:404
@@ -2122,15 +2133,6 @@ msgstr ""
 #, fuzzy
 msgid "Upgrade Swap Partition"
 msgstr "Editar Partição"
-
-#: ../iw/upgrade_swap_gui.py:102 ../textw/upgrade_text.py:38
-#, c-format
-msgid ""
-"The 2.4 kernel needs significantly more swap than older kernels, as much as "
-"twice as much swap space as RAM on the system. You currently have %dMB of "
-"swap configured, but you may create additional swap space on one of your "
-"file systems now."
-msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:116
 msgid "I want to create a swap file"
@@ -3075,11 +3077,11 @@ msgid ""
 "on the /tmp partition."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1051
+#: ../libfdisk/fsedit.c:1052
 msgid "No Drives Found"
 msgstr "Nenhum Drive Encontrado"
 
-#: ../libfdisk/fsedit.c:1052
+#: ../libfdisk/fsedit.c:1053
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -3088,7 +3090,7 @@ msgstr ""
 "sistemas de arquivos. Por favor cheque seu hardware para encontrar a causa "
 "deste problema."
 
-#: ../libfdisk/fsedit.c:1381 ../libfdisk/fsedit.c:1444
+#: ../libfdisk/fsedit.c:1382 ../libfdisk/fsedit.c:1445
 #, fuzzy, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -3097,18 +3099,18 @@ msgstr ""
 "Um erro ocorreu durante a leitura da tabela de partições do dispositivo tipo "
 "bloco %s. O erro foi:"
 
-#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1462 ../loader/net.c:277
+#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1463 ../loader/net.c:277
 #: ../loader/net.c:402
 msgid "Retry"
 msgstr "Insistir"
 
-#: ../libfdisk/fsedit.c:1384 ../libfdisk/fsedit.c:1427
-#: ../libfdisk/fsedit.c:1449 ../libfdisk/fsedit.c:1455
-#: ../libfdisk/fsedit.c:1462
+#: ../libfdisk/fsedit.c:1385 ../libfdisk/fsedit.c:1428
+#: ../libfdisk/fsedit.c:1450 ../libfdisk/fsedit.c:1456
+#: ../libfdisk/fsedit.c:1463
 msgid "Skip Drive"
 msgstr "Ignore Drive"
 
-#: ../libfdisk/fsedit.c:1421
+#: ../libfdisk/fsedit.c:1422
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -3118,38 +3120,38 @@ msgstr ""
 "partições ela precisa ser inicializada, o que causará a perda de TODOS OS "
 "DADOS neste disco."
 
-#: ../libfdisk/fsedit.c:1426
+#: ../libfdisk/fsedit.c:1427
 msgid "Bad Partition Table"
 msgstr "Tabela de Partições Inválida"
 
-#: ../libfdisk/fsedit.c:1427
+#: ../libfdisk/fsedit.c:1428
 msgid "Initialize"
 msgstr "Inicialize"
 
-#: ../libfdisk/fsedit.c:1475
+#: ../libfdisk/fsedit.c:1476
 #, fuzzy
 msgid "BSD Disklabel"
 msgstr "Rótulo de Boot"
 
-#: ../libfdisk/fsedit.c:1475
+#: ../libfdisk/fsedit.c:1476
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1505 ../libfdisk/fsedit.c:1528
-#: ../libfdisk/fsedit.c:1554
+#: ../libfdisk/fsedit.c:1506 ../libfdisk/fsedit.c:1529
+#: ../libfdisk/fsedit.c:1555
 #, c-format
 msgid "System error %d"
 msgstr "Erro de sistema %d"
 
-#: ../libfdisk/fsedit.c:1514 ../libfdisk/fsedit.c:1516
-#: ../libfdisk/fsedit.c:1543 ../libfdisk/fsedit.c:1573
+#: ../libfdisk/fsedit.c:1515 ../libfdisk/fsedit.c:1517
+#: ../libfdisk/fsedit.c:1544 ../libfdisk/fsedit.c:1574
 msgid "Fdisk Error"
 msgstr "Erro no Fdisk"
 
-#: ../libfdisk/fsedit.c:1538
+#: ../libfdisk/fsedit.c:1539
 msgid ""
 "This occurs because the drive geometry detected by the kernel used by the "
 "installer is different than the drive geometry used when the drive was "
@@ -3157,7 +3159,7 @@ msgid ""
 "kernel command line when booting the installer."
 msgstr ""
 
-#: ../libfdisk/fsedit.c:1564
+#: ../libfdisk/fsedit.c:1565
 msgid ""
 "This error has occurred because there is a logical partition on the drive "
 "which has a partition type of zero (0).  A partition type of zero means that "
@@ -3202,11 +3204,11 @@ msgid ""
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
+#: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:877
 msgid "Delete Partition"
 msgstr "Delete Partição"
 
-#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:875
+#: ../libfdisk/gnomefsedit.c:830 ../libfdisk/newtfsedit.c:878
 #, fuzzy
 msgid "Are you sure you want to delete this partition?"
 msgstr "Tem certeza que quer deletar esta partição?"
@@ -3244,19 +3246,21 @@ msgstr "Tamanho:"
 msgid "Use remaining space?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:445
+#. give status
+#: ../libfdisk/gnomefsedit.c:1018 ../libfdisk/newtfsedit.c:443
+#: ../libfdisk/newtfsedit.c:446
 msgid "Allocation Status:"
 msgstr "Status da Alocação:"
 
-#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:447
+#: ../libfdisk/gnomefsedit.c:1022 ../libfdisk/newtfsedit.c:448
 msgid "Successful"
 msgstr "Sucesso"
 
-#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:1025 ../libfdisk/newtfsedit.c:450
 msgid "Failed"
 msgstr "Falha"
 
-#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:454
+#: ../libfdisk/gnomefsedit.c:1037 ../libfdisk/newtfsedit.c:455
 msgid "Failure Reason:"
 msgstr "Razão da Falha:"
 
@@ -3265,16 +3269,16 @@ msgstr "Razão da Falha:"
 msgid "Partition Type:"
 msgstr "Tipo da Partição"
 
-#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:524
+#: ../libfdisk/gnomefsedit.c:1134 ../libfdisk/newtfsedit.c:527
 msgid "Allowable Drives:"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
-#: ../libfdisk/newtfsedit.c:615
+#: ../libfdisk/newtfsedit.c:618
 msgid "No Mount Point"
 msgstr "Nenhum Mount Point"
 
-#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
+#: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:619
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
@@ -3283,12 +3287,12 @@ msgstr ""
 "fazer isso?"
 
 #: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
-#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
-#: ../libfdisk/newtfsedit.c:672
+#: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:642
+#: ../libfdisk/newtfsedit.c:675
 msgid "Mount Point Error"
 msgstr "Erro no Mount Point"
 
-#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
+#: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:643
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -3296,7 +3300,7 @@ msgid ""
 "assign '/' to this partition."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
+#: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:676
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -3304,11 +3308,11 @@ msgstr ""
 "O mount point requisitado tem um path ilegal ou já está em uso. Por favor "
 "selecione um mount point válido."
 
-#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
+#: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:701
 msgid "Size Error"
 msgstr "Erro de Tamanho"
 
-#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:699
+#: ../libfdisk/gnomefsedit.c:1334 ../libfdisk/newtfsedit.c:702
 #, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
@@ -3318,12 +3322,12 @@ msgstr ""
 "zero e que esteja em formato decimal (base 10.)"
 
 #: ../libfdisk/gnomefsedit.c:1352 ../libfdisk/gnomefsedit.c:2413
-#: ../libfdisk/newtfsedit.c:717
+#: ../libfdisk/newtfsedit.c:720
 msgid "Swap Size Error"
 msgstr "Erro de Tamanho de Swap"
 
 #: ../libfdisk/gnomefsedit.c:1353 ../libfdisk/gnomefsedit.c:2414
-#: ../libfdisk/newtfsedit.c:718
+#: ../libfdisk/newtfsedit.c:721
 #, fuzzy, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
@@ -3332,7 +3336,7 @@ msgstr ""
 "Você criou uma partição de swap muito grande. O tamanho máximo para uma "
 "partição de swap é 128 Megabytes."
 
-#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:734
+#: ../libfdisk/gnomefsedit.c:1367 ../libfdisk/newtfsedit.c:737
 #, c-format
 msgid ""
 "It is recommended that the root (/) partition have a minimum size of %ld "
@@ -3342,7 +3346,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:742
+#: ../libfdisk/gnomefsedit.c:1375 ../libfdisk/newtfsedit.c:745
 msgid "Warning: Root FS Size"
 msgstr ""
 
@@ -3376,12 +3380,12 @@ msgid ""
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
 
-#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:848
+#: ../libfdisk/gnomefsedit.c:1526 ../libfdisk/newtfsedit.c:851
 #, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Partições não Alocadas"
 
-#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:849
+#: ../libfdisk/gnomefsedit.c:1527 ../libfdisk/newtfsedit.c:852
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3413,7 +3417,7 @@ msgstr ""
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1719 ../libfdisk/gnomefsedit.c:1738
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1679
+#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1682
 msgid "Unallocated Partitions"
 msgstr "Partições não Alocadas"
 
@@ -3589,11 +3593,11 @@ msgstr ""
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Tem certeza que quer deletar esta partição?"
 
-#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1784
+#: ../libfdisk/gnomefsedit.c:2808 ../libfdisk/newtfsedit.c:1787
 msgid "Reset Partition Table"
 msgstr "Resetar Tabela de Partições"
 
-#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1786
+#: ../libfdisk/gnomefsedit.c:2810 ../libfdisk/newtfsedit.c:1789
 msgid "Reset partition table to original contents? "
 msgstr "Reseto a tabela de partições para o conte·do original?"
 
@@ -3714,40 +3718,40 @@ msgstr "Editar Partição"
 msgid "Use remaining space?:"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:477
+#: ../libfdisk/newtfsedit.c:479 ../libfdisk/newtfsedit.c:480
 msgid "Type:"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:491
+#: ../libfdisk/newtfsedit.c:494
 msgid "Unknown"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1461
+#: ../libfdisk/newtfsedit.c:1464
 msgid "Current Disk Partitions"
 msgstr "Partições de Disco Atuais"
 
-#: ../libfdisk/newtfsedit.c:1467
+#: ../libfdisk/newtfsedit.c:1470
 msgid "   Mount Point          Device     Requested   Actual         Type"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1491
+#: ../libfdisk/newtfsedit.c:1494
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1494
+#: ../libfdisk/newtfsedit.c:1497
 msgid "Drive Summaries"
 msgstr "Sumários dos Drives"
 
-#: ../libfdisk/newtfsedit.c:1496
+#: ../libfdisk/newtfsedit.c:1499
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1610
+#: ../libfdisk/newtfsedit.c:1613
 msgid "No Root Partition"
 msgstr "Nenhuma Partição Root"
 
-#: ../libfdisk/newtfsedit.c:1611
+#: ../libfdisk/newtfsedit.c:1614
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -3755,27 +3759,27 @@ msgstr ""
 "Você deve atribuir a partição root (/) para uma partição Nativa Linux (ext2) "
 "para a instalação continuar."
 
-#: ../libfdisk/newtfsedit.c:1630
+#: ../libfdisk/newtfsedit.c:1633
 msgid "No Swap Partition"
 msgstr "Nenhuma Partição de Swap"
 
-#: ../libfdisk/newtfsedit.c:1632
+#: ../libfdisk/newtfsedit.c:1635
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "Você deve indicar uma partição de swap para a instalação continuar."
 
-#: ../libfdisk/newtfsedit.c:1658
+#: ../libfdisk/newtfsedit.c:1661
 #, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Nenhuma Partição Root"
 
-#: ../libfdisk/newtfsedit.c:1660
+#: ../libfdisk/newtfsedit.c:1663
 #, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr "Você deve indicar uma partição de swap para a instalação continuar."
 
-#: ../libfdisk/newtfsedit.c:1681
+#: ../libfdisk/newtfsedit.c:1684
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -3787,15 +3791,15 @@ msgstr ""
 "\n"
 "Tem certeza que quer sair?"
 
-#: ../libfdisk/newtfsedit.c:1697
+#: ../libfdisk/newtfsedit.c:1700
 msgid "Save Changes"
 msgstr "Salvar Alterações"
 
-#: ../libfdisk/newtfsedit.c:1699
+#: ../libfdisk/newtfsedit.c:1702
 msgid "Save changes to partition table(s)?"
 msgstr "As alterações devem ser salvas na(s) tabela(s) de partições?"
 
-#: ../libfdisk/newtfsedit.c:1744
+#: ../libfdisk/newtfsedit.c:1747
 msgid "You may only delete NFS mounts."
 msgstr "Você somente pode deletar pontos de montagem NFS."
 
