@@ -623,10 +623,8 @@ def doPostInstall(method, id, intf, instPath):
     if flags.test:
 	return
     
-    createWindow = (intf.progressWindow,
-		    (_("Post Install"),
-		     _("Performing post install configuration..."), 8))
-    w = apply(apply, createWindow)
+    w = intf.progressWindow(_("Post Install"),
+                            _("Performing post install configuration..."), 8)
 
     upgrade = id.upgrade.get()
     arch = iutil.getArch ()
