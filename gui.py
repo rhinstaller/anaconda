@@ -1180,7 +1180,7 @@ class InstallControlState:
                 return fn
         return None
         
-    def readPixmap (self, file):
+    def readPixmap (self, file, height = None, width = None):
         fn = self.findPixmap(file)
         if not fn:
             log("unable to load %s", file)
@@ -1190,13 +1190,22 @@ class InstallControlState:
         except RuntimeError, msg:
             log("unable to read %s: %s", file, msg)
             return None
-        source = gtk.IconSource()
-        source.set_pixbuf(pixbuf)
-        source.set_size(gtk.ICON_SIZE_DIALOG)
-        source.set_size_wildcarded(gtk.FALSE)
-        iconset = gtk.IconSet()
-        iconset.add_source(source)
-        p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
+        curheight = pixbuf.get_height()
+        curwidth = pixbuf.get_width()
+        if (height is not None and width is not None
+            and height != curheight and width != curwidth):
+            sclpix = pixbuf.scale_simple(height, width,
+                                         gtk.gdk.INTERP_BILINEAR)
+            p = gtk.Image()
+            p.set_from_pixbuf(sclpix)
+        else:
+            source = gtk.IconSource()
+            source.set_pixbuf(pixbuf)
+            source.set_size(gtk.ICON_SIZE_DIALOG)
+            source.set_size_wildcarded(gtk.FALSE)
+            iconset = gtk.IconSet()
+            iconset.add_source(source)
+            p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
         return p
 
     def readHTML (self, file):
