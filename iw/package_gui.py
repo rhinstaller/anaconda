@@ -27,6 +27,7 @@ from string import *
 from thread import *
 from examine_gui import *
 from rhpl.translate import _, N_, utf8
+from comps import orderPackageGroups
 
 
 def queryUpgradeContinue(intf):
@@ -511,10 +512,21 @@ class PackageSelectionWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        box = gtk.VBox (gtk.FALSE, 2)
+        boxcol1 = gtk.VBox (gtk.FALSE, 2)
+        boxcol2 = gtk.VBox (gtk.FALSE, 2)
 
         self.checkButtons = []
-        for comp in self.comps:
+	compsorder = orderPackageGroups(self.comps)
+	if len(compsorder) != len(self.comps):
+	    raise RuntimeError, ("len(Ordered comps) != len(original)")
+
+	numvis = 0
+	for comp in compsorder:
+            if not comp.hidden:
+		numvis = numvis + 1
+	    
+	idx = 0
+        for comp in compsorder:
             if not comp.hidden:
                 pixname = string.replace (comp.name, ' ', '-')
                 pixname = string.replace (pixname, '/', '-')
@@ -524,7 +536,7 @@ class PackageSelectionWindow (InstallWindow):
                 pixname = string.lower (pixname) + ".png"
                 checkButton = None
                 pix = self.ics.readPixmap (pixname)
-                if pix:
+                if pix and 0:
                     hbox = gtk.HBox (gtk.FALSE, 5)
                     hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
                     label = gtk.Label (_(comp.name))
@@ -538,16 +550,25 @@ class PackageSelectionWindow (InstallWindow):
                 checkButton.set_active (comp.isSelected(justManual = 1))
                 checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
-                box.pack_start (checkButton)
 
+		if idx < numvis/2:
+		    boxcol1.pack_start (checkButton)
+		else:
+		    boxcol2.pack_start (checkButton)
+		idx = idx + 1
+
+	tmpbox = gtk.HBox(gtk.FALSE, 0)
+	tmpbox.pack_start(boxcol1)
+	tmpbox.pack_start(boxcol2)
+	
         wrapper = gtk.VBox (gtk.FALSE, 0)
-        wrapper.pack_start (box, gtk.FALSE)
+        wrapper.pack_start (tmpbox, gtk.FALSE)
         
         sw.add_with_viewport (wrapper)
         viewport = sw.get_children()[0]
         viewport.set_shadow_type (gtk.SHADOW_IN)
-        box.set_focus_hadjustment(sw.get_hadjustment ())
-        box.set_focus_vadjustment(sw.get_vadjustment ())
+        tmpbox.set_focus_hadjustment(sw.get_hadjustment ())
+        tmpbox.set_focus_vadjustment(sw.get_vadjustment ())
 
         hbox = gtk.HBox (gtk.FALSE, 5)
 
