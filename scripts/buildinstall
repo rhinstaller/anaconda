@@ -123,7 +123,7 @@ echo "Going to run buildinstall again"
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' $DIR" 
 else
-    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release \"$RELEASESTR\" --product \"$PRODUCTSTR\" $DIR
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" $DIR
 fi
 
 rm -rf $BUILDINSTDIR
