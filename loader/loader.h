@@ -10,6 +10,7 @@
 #define LOADER_FLAGS_KSFLOPPY		(1 << 5)
 #define LOADER_FLAGS_KSHD		(1 << 6)
 #define LOADER_FLAGS_NOPROBE		(1 << 7)
+#define LOADER_FLAGS_MODDISK		(1 << 8)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -19,4 +20,5 @@
 #define FL_KSFLOPPY(a)	    ((a) & LOADER_FLAGS_KSFLOPPY)
 #define FL_KSHD(a)	    ((a) & LOADER_FLAGS_KSHD)
 #define FL_NOPROBE(a)	    ((a) & LOADER_FLAGS_NOPROBE)
+#define FL_MODDISK(a)	    ((a) & LOADER_FLAGS_MODDISK)
 
