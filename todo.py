@@ -336,7 +336,7 @@ class ToDo:
     def writeTimezone(self):
 	if (self.timezone):
 	    (timezone, asUtc, asArc) = self.timezone
-	    os.symlink("../usr/share/zoneinfo/" + timezone, 
+	    iutil.copyFile(self.instPath + "/usr/share/zoneinfo/" + timezone, 
 		       self.instPath + "/etc/localtime")
 	else:
 	    asUtc = 0
@@ -882,6 +882,17 @@ class ToDo:
 				   stdin = p[0])
 	    os.close(p[0])
 	    os.close(p[1])
+
+    def createCdrom(self):
+	list = isys.cdromList()
+	count = 0
+	for device in list:
+	    cdname = "cdrom"
+	    if (count):
+		cdname = "%s%d" % (cdname, count)
+	    count = count + 1
+
+	    os.symlink(device, self.instPath + "/dev/" + cdname)
         
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -1002,7 +1013,8 @@ class ToDo:
             self.writeRootPassword ()
             self.setupAuthentication ()
 	    self.createAccounts ()
-	    #self.writeTimezone()
+	    self.createCdrom()
+	    self.writeTimezone()
 	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
 	self.installLilo ()
