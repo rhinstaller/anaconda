@@ -5,7 +5,7 @@ from constants_text import *
 from constants import *
 
 class BootDiskWindow:
-    def __call__(self, screen, dir, disp):
+    def __call__(self, screen, dir, disp, fsset):
 	if fsset.rootOnLoop():
 	    return INSTALL_NOOP
 
