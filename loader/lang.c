@@ -93,7 +93,7 @@ static void loadLanguageList(int flags) {
 		    "/etc/lang-table";
     FILE * f;
     char line[256];
-    char name[256], key[256], sun[256], console[256], code[256],
+    char name[256], key[256], font[256], map[256], code[256],
 	 keyboard[256], timezone[256];
     int lineNum = 0;
 
@@ -107,16 +107,19 @@ static void loadLanguageList(int flags) {
     while (fgets(line, sizeof(line), f)) {
 	lineNum++;
 	languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
-	if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, sun, console,
+	if (sscanf(line, "%s %s %s %s %s %s %s\n", name, key, font, map,
 					     code, keyboard, timezone) != 7) {
 	    logMessage("bad line %d in lang-table", lineNum);
 	} else {
-	    if (!haveKon && !strcmp (name, "Japanese"))
+	    /* XXX assume that if we don't have a console font for this
+	       language that it needs to have kon or some other text display
+	       engine */
+	    if (!haveKon && !strcmp (font, "None") && !strcmp (map, "None"))
 		continue;
 	    languages[numLanguages].lang = strdup(name);
 	    languages[numLanguages].key	= strdup(key);
-	    languages[numLanguages].font = strdup(sun);
-	    languages[numLanguages].map	= strdup(console);
+	    languages[numLanguages].font = strdup(font);
+	    languages[numLanguages].map	= strdup(map);
 	    languages[numLanguages].lc_all = strdup(code);
 	    languages[numLanguages].keyboard = strdup(keyboard);
 	    numLanguages++;
@@ -330,7 +333,8 @@ int chooseLanguage(char ** lang, int flags) {
 	extern int continuing;
 	extern void stopNewt(void);
 
-	if (!strcmp (languages[choice].key, "ja") && !continuing) {
+	/* XXX need to do something for Korean, Chinese */
+	if (!strcmp (languages[choice].font, "None") && !continuing) {
 	    char * args[4];
 
 	    stopNewt();
@@ -435,12 +439,12 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     char buf[16384]; 			/* I hope this is big enough */
     int i;
     char * defkbd = keymap ? *keymap : NULL;
-    struct defaultKeyboardByLang * kbdEntry;
     char *lang;
 
 #ifdef __sparc__
 #define KBDTYPE_SUN            0
 #define KBDTYPE_PC             1
+    struct defaultKeyboardByLang * kbdEntry;
     int kbdtype = -1;
     int j;
 #endif
