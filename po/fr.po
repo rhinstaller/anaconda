@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: fr\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-08-14 09:41+1000\n"
+"PO-Revision-Date: 2003-08-26 11:52+1000\n"
 "Last-Translator: Audrey Simons <asimons@redhat.com>\n"
 "Language-Team: french <fr@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -413,7 +413,7 @@ msgstr ""
 "fonction de vos besoins, après leur création.\n"
 "\n"
 "L'outil de partitionnement manuel, Disk Druid, vous permet de créer vos "
-"partitions dans un environnement intéractif. Vous pouvez configurer les "
+"partitions dans un environnement interactif. Vous pouvez configurer les "
 "types de systèmes de fichiers, les points de montage, tailles de partition "
 "et plus encore."
 
@@ -864,7 +864,7 @@ msgid ""
 "\n"
 "You can access these when you reboot and login as root."
 msgstr ""
-"Les captures décrans on été enregistrées dans le répertoire:\n"
+"Les captures d'écrans on été enregistrées dans le répertoire:\n"
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
@@ -878,7 +878,7 @@ msgstr "Enregistrement des captures d'écrans en cours."
 #: ../gui.py:163
 #, python-format
 msgid "A screenshot named '%s' has been saved."
-msgstr "Une caprure d'écran intitulée '%s' vient d'être enregistrée. "
+msgstr "Une capture d'écran intitulée '%s' vient d'être enregistrée. "
 
 #: ../gui.py:166
 msgid "Error Saving Screenshot"
@@ -1147,7 +1147,7 @@ msgstr "Le nom d'hôte doit commencer par un caractère entre 'a-z' o 'A-Z'"
 #: ../network.py:46
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
 msgstr ""
-"Les noms d'hôte ne peuvent contenir que des caarctères compris entre 'a-z', "
+"Les noms d'hôte ne peuvent contenir que des caractères compris entre 'a-z', "
 "'A-Z' ou '.'"
 
 #: ../packages.py:46 ../iw/package_gui.py:41
@@ -1469,7 +1469,7 @@ msgstr "Initialisation"
 #: ../partedUtils.py:717
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr "Formatation du disque en cours, veuillez patienter %s...\n"
+msgstr "Formatage du disque en cours, veuillez patienter %s...\n"
 
 #: ../partedUtils.py:835
 #, python-format
@@ -1584,7 +1584,7 @@ msgstr "Cette partition car elle fait partie du groupe de volume LVM."
 #: ../partIntfHelpers.py:156 ../partIntfHelpers.py:166
 #: ../partIntfHelpers.py:183
 msgid "Unable To Delete"
-msgstr "Impossible d'efffacer"
+msgstr "Impossible d'effacer"
 
 #: ../partIntfHelpers.py:142
 msgid "You must first select a partition to delete."
@@ -1596,7 +1596,7 @@ msgstr "Vous ne pouvez pas supprimer de l'espace libre."
 
 #: ../partIntfHelpers.py:157
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr "Vous ne pouvez pas supprimer la partition d'un DASD formatté en LDL."
+msgstr "Vous ne pouvez pas supprimer la partition d'un DASD formaté en LDL."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1699,7 +1699,7 @@ msgid ""
 "contains files that you need to keep, such as a users home directories, then "
 "you should continue without formatting this partition."
 msgstr ""
-"Vous avez choisi d'utiliser une partition pré-existante pour cette "
+"Vous avez choisi d'utiliser une partition préexistante pour cette "
 "installation sans la formater. Red Hat vous recommande de formater cette "
 "partition pour vous assurer que les fichiers provenant de l'installation "
 "d'un système d'exploitation précédent ne créent pas de problèmes lors de "
@@ -1757,7 +1757,7 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Les partitions pré-existantes ci-dessous ont été sélectionnées pour être "
+"Les partitions préexistantes ci-dessous ont été sélectionnées pour être "
 "formatées. Ceci causera la destruction de toutes les données qu'elles "
 "contiennent."
 
@@ -1918,7 +1918,7 @@ msgstr "la partition utilisée par le programme d'installation."
 
 #: ../partitions.py:1185
 msgid "a partition which is a member of a RAID array."
-msgstr "une partition qui fait partie d'un RAID array."
+msgstr "une partition qui fait partie d'une matrice RAID."
 
 #: ../partitions.py:1188
 msgid "a partition which is a member of a LVM Volume Group."
@@ -2329,7 +2329,7 @@ msgid ""
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
 "L'architecture de la version de %s que vous êtes en train de mettre à jour "
-"sermble être %s et ne correspond pas à l'architecture précédemment installée "
+"semble être %s et ne correspond pas à l'architecture précédemment installée "
 "de %s. Il n'y a peu de chance de réussite. Souhaitez-vous continuer le "
 "processus de mise à jour ?"
 
@@ -2712,7 +2712,7 @@ msgstr "Impossible de modifier l'ordre du disque pour LILO "
 msgid "We do not support changing the drive order for use with LILO."
 msgstr ""
 "Nous ne prenons pas en charge la modification de l'ordre du disque pour "
-"l'utlisation avec LILO. "
+"l'utilisation avec LILO. "
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -2775,7 +2775,7 @@ msgid ""
 "your system."
 msgstr ""
 "Un journal complet de la mise à niveau est disponible dans le fichier%s "
-"après le redémarrage de votre systsème."
+"après le redémarrage de votre système."
 
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
@@ -2790,7 +2790,7 @@ msgid ""
 "\n"
 msgstr ""
 "Si vous avez créé une disquette d'amorçage pour démarrer votre système %s, "
-"insérez-la avant de redémarrer le sytème nouvellement installé.\n"
+"insérez-la avant de redémarrer le système nouvellement installé.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:63 ../textw/complete_text.py:36
@@ -2825,17 +2825,14 @@ msgid ""
 msgstr ""
 "Votre installation est terminée, félicitations !\n"
 "\n"
-"%s%sPour obtenir des informations sur Errata (mises à jour et correctifs de "
-"bogues),\n"
-"rendez-vous à l'adresse \thttp://www.redhat.com/errata/\n"
+"%s%sPour obtenir des informations sur Errata (mises à jour et correctifs de\n"
+"bogues), rendez-vous à l'adresse \thttp://www.redhat.com/errata/\n"
 "\n"
-"Pour obtenir des informations concernant les mises à jour automatiques grâce "
-"à Red Hat Network,\n"
-"rendez-vous à l'adresse \thttp://rhn.redhat.com/\n"
+"Pour obtenir des informations concernant les mises à jour automatiques\n"
+"grâce à Red Hat Network, rendez-vous à l'adresse \thttp://rhn.redhat.com/\n"
 "\n"
-"Pour obtenir des informations sur l'utilisation et la configuration du "
-"système, rendez-vous aux\n"
-"adresses \thttp://www.redhat.com/docs/\n"
+"Pour obtenir des informations sur l'utilisation et la configuration du\n"
+"système, rendez-vous aux adresses \thttp://www.redhat.com/docs/\n"
 "\thttp://www.redhat.com/apps/support/\n"
 "\n"
 "Pour vous enregistrer à l'assistance, rendez-vous à l'adresse\n"
@@ -3165,7 +3162,7 @@ msgid ""
 msgstr ""
 "La taille physique ne peut pas être modifiée car la valeur sélectionnée (%"
 "10.2f Mo) est plus grande que le plus petit volume physique du groupe de "
-"volume(%10.2f MB). "
+"volume(%10.2f Mo). "
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -3176,7 +3173,7 @@ msgid ""
 msgstr ""
 "La taille physique ne peut pas être modifiée car la valeur sélectionnée (%"
 "10.2f Mo) est plus grande que le plus petit volume physique du groupe de "
-"volume (%10.2f MB). "
+"volume (%10.2f Mo). "
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -3188,7 +3185,7 @@ msgid ""
 "on one or more of the physical volumes in the volume group."
 msgstr ""
 "Cette modification de la valeur de la dimension physique gaspillera l'espace "
-"substanciel d'un ou de plusieurs volumes physiques dans le groupe de volume."
+"substantiel d'un ou de plusieurs volumes physiques dans le groupe de volume."
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -3302,7 +3299,7 @@ msgid ""
 msgstr ""
 "La taille en cours demandée (%10.2f Mo) est supérieure à la taille du volume "
 "logique maximum  (%10.2f Mo). Pour augmenter cette limite, vous pouvez "
-"augmenter la taille physqiue de ce groupe de volume."
+"augmenter la taille physique de ce groupe de volume."
 
 #: ../iw/lvm_dialog_gui.py:621 ../iw/partition_dialog_gui.py:170
 #: ../iw/partition_dialog_gui.py:182 ../iw/partition_dialog_gui.py:230
@@ -3378,7 +3375,7 @@ msgstr ""
 "Au moins une partition de volume physique est nécessaire à la création d'un "
 "groupe de volume LVM.\n"
 "\n"
-"Créer avant tout une partition ou un array raid de type \"physical volume "
+"Créer avant tout une partition ou une matrice raid de type \"physical volume "
 "(LVM)\" puis sélectionnez à nouveau l'option \"LVM\"."
 
 #: ../iw/lvm_dialog_gui.py:933
@@ -3586,7 +3583,7 @@ msgstr ""
 "activé.\n"
 "\n"
 "REMARQUE : Si vous disposez d'un adaptateur de réseau basé sur PCMCIA, il "
-"vous faut le maintenir désactivé. Lorsque vous redémarez votre système, "
+"vous faut le maintenir désactivé. Lorsque vous redémarrez votre système, "
 "l'adaptateur sera activé automatiquement."
 
 #: ../iw/network_gui.py:203
@@ -3678,7 +3675,7 @@ msgstr ""
 "d'exploitation à démarrer par mi ceux de la liste. Pour ajouter des systèmes "
 "d'exploitation qui ne sont pas sélectionnés automatiquement, cliquez sur "
 "'Ajouter'. Pour modifier le système d'exploitation démarré par défaut, "
-"sélectionnez 'Défaut' à côté du système d'axploitation désiré."
+"sélectionnez 'Défaut' à côté du système d'exploitation désiré."
 
 #: ../iw/osbootwidget.py:65 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:284 ../textw/silo_text.py:207
@@ -3702,7 +3699,7 @@ msgid ""
 "drive and partition number) is the device from which it boots."
 msgstr ""
 "L'étiquette est ce qui est affiché dans le chargeur de démarrage du chargeur "
-"dedémarrage. Le périphérique (ou disuqe dur et nombre de partition) est "
+"de démarrage. Le périphérique (ou disque dur et nombre de partition) est "
 "celui d'où vous démarrez."
 
 #: ../iw/osbootwidget.py:150
@@ -3784,7 +3781,7 @@ msgstr "_Taille (Mo)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
-msgstr "Taille tot :"
+msgstr "Taille totale :"
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
@@ -3792,7 +3789,7 @@ msgstr "Sélectionner _tous les paquetages du groupe"
 
 #: ../iw/package_gui.py:433
 msgid "_Unselect all in group"
-msgstr "_Désélectionner tous les paquetages du groupe"
+msgstr "_Dé-sélectionner tous les paquetages du groupe"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
@@ -4307,7 +4304,7 @@ msgid ""
 msgstr ""
 "Le disque source sélectionné comprend des partitions qui ne sont pas de type "
 "'software RAID'.\n"
-"Ces partitions devront être supprimées avant de cloner le dique. "
+"Ces partitions devront être supprimées avant de cloner le disque. "
 
 #: ../iw/raid_dialog_gui.py:510
 #, python-format
@@ -4318,7 +4315,7 @@ msgid ""
 "These partitions will have to be removed or restricted to this drive before "
 "this drive can be cloned. "
 msgstr ""
-"Le disque source sélectionné comprend des parititons qui ne sont pas "
+"Le disque source sélectionné comprend des partitions qui ne sont pas "
 "contenues dans le disque /dev/%s.\n"
 "\n"
 "Ces partitions devront être supprimées ou restreintes à ce disque avant de "
@@ -4426,7 +4423,7 @@ msgstr ""
 "Outil de clonage de disque\n"
 "\n"
 "Cet outil vous permet de réduire de manière significative les efforts lors "
-"du paramétrage des arrays RAID. L'idée est de prendre un disque source "
+"du paramétrage des matrices RAID. L'idée est de prendre un disque source "
 "préparé selon la disposition de partition désirée et de cloner cette "
 "disposition dans des disques de taille similaire. Le périphérique RAID peut "
 "être créé.\n"
@@ -4491,7 +4488,7 @@ msgstr "Partition"
 #: ../textw/bootloader_text.py:284 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
-msgstr "Étiquette dém."
+msgstr "Étiquette de démarrage."
 
 #: ../iw/silo_gui.py:294
 msgid "Default boot image"
@@ -4578,7 +4575,7 @@ msgid ""
 "This will make no changes to boot loader configuration.  If you are using a "
 "third party boot loader, you should choose this."
 msgstr ""
-"Ceci n'apportera aucun changemement à la configuration du chargeur de "
+"Ceci n'apportera aucun changement à la configuration du chargeur de "
 "démarrage. Si vous utilisez un chargeur de démarrage de tierce partie, "
 "choisissez cette option."
 
@@ -4633,7 +4630,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Le programme d'installation a détecté %s Mo de mémore vive.\n"
+"Le programme d'installation a détecté %s Mo de mémoire vive.\n"
 
 #: ../iw/upgrade_swap_gui.py:120
 msgid "I _want to create a swap file"
@@ -4761,7 +4758,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:725 ../iw/xconfig_gui.py:1087
 msgid "Restore _original values"
-msgstr "Ré-établir les _valeurs d'origines"
+msgstr "Rétablir les _valeurs d'origines"
 
 #: ../iw/xconfig_gui.py:733
 msgid "Hori_zontal Sync:"
@@ -5699,7 +5696,7 @@ msgstr "Trop de disques restants"
 
 #: ../textw/partition_text.py:1034
 msgid "The maximum number of spares with a RAID0 array is 0."
-msgstr "Le nombre maximum de disques restants avec un array RAID0 est 0."
+msgstr "Le nombre maximum de disques restants avec une matrice RAID0 est 0."
 
 #: ../textw/partition_text.py:1130
 msgid "New"
@@ -5958,7 +5955,7 @@ msgstr "Nom de l'utilisateur erroné"
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
 msgstr ""
-"Les ID utilisateurs ne peuvent contenir que des caractères compris entreA-Z, "
+"Les ID utilisateurs ne peuvent contenir que des caractères compris entre A-Z, "
 "a-z et 0-9."
 
 #: ../textw/userauth_text.py:133
@@ -6226,7 +6223,7 @@ msgstr ""
 "\n"
 "      %s\n"
 "\n"
-"Une fréquence de rafraichissement valide a cette forme :\n"
+"Une fréquence de rafraîchissement valide a cette forme :\n"
 "\n"
 "      31.5                   un seul numéro\n"
 "    50.1-90.2                une plage de numéros\n"
@@ -6246,7 +6243,7 @@ msgstr ""
 "Entrez les fréquences de rafraîchissement de votre écran. \n"
 "\n"
 "REMARQUE - normalement il n'est pas nécessaire de modifier les fréquences de "
-"rafraichissement manuellement et il est conseillé de vérifier que les "
+"rafraîchissement manuellement et il est conseillé de vérifier que les "
 "valeurs introduites sont correctes."
 
 #: ../textw/xconfig_text.py:286
@@ -7208,7 +7205,7 @@ msgstr "Impossible de récupérer %s://%s/%s/%s. "
 
 #: ../loader2/urlinstall.c:113
 msgid "Unable to retrieve the install image."
-msgstr "Impossible de récupérer l'mage d'installation."
+msgstr "Impossible de récupérer l'image d'installation."
 
 #: ../loader2/urlinstall.c:387
 #, c-format
@@ -7325,7 +7322,7 @@ msgstr "Heure de l'Alaska - Alaska de l'ouest"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr "Iles Aléoutiennes"
+msgstr "Îles Aléoutiennes"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
@@ -7341,7 +7338,7 @@ msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr "Iles de l'Atlantique"
+msgstr "Îles de l'Atlantique"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
@@ -7373,7 +7370,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr "Iles Canaries"
+msgstr "Îles Canaries"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
@@ -7451,7 +7448,7 @@ msgstr "Ceuta et Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr "Iles Chatham "
+msgstr "Îles Chatham "
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -7561,11 +7558,11 @@ msgstr "Les Galapagos "
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr "Iles Gambier "
+msgstr "Îles Gambier "
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr "Iles Gilbert "
+msgstr "Îles Gilbert "
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -7609,15 +7606,15 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr "Iles Line"
+msgstr "Îles Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr "Iles Lord Howe "
+msgstr "Îles Lord Howe "
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr "Iles de Madère"
+msgstr "Îles de Madère"
 
 #. generated from zone.tab
 msgid "mainland"
@@ -7625,7 +7622,7 @@ msgstr "métropole"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr "Iles Marquise"
+msgstr "Îles Marquise"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
@@ -7645,7 +7642,7 @@ msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Iles Midway "
+msgstr "Îles Midway "
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7759,7 +7756,7 @@ msgstr "Heure des Montagnes Rocheuses - Idaho du sud et Oregon de l'est"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Heure des Montagnes Rocheuses- Territoires du Nord-Ouest occidentaux"
+msgstr "Heure des Montagnes Rocheuses- Territoires du Nord-ouest occidentaux"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
@@ -7819,7 +7816,7 @@ msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Iles Phoenix "
+msgstr "Îles Phoenix "
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -7827,7 +7824,7 @@ msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Queensland - Iles Holiday "
+msgstr "Queensland - Îles Holiday "
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -7843,7 +7840,7 @@ msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr "Rothera Station, Ile d'Adelaide"
+msgstr "Rothera Station, Île d'Adelaide"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7859,7 +7856,7 @@ msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr "Iles de la Société"
+msgstr "Îles de la Société"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -7915,7 +7912,7 @@ msgstr "Station Vostok, Pôle Sud Magnétique"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr "Ile de Wake"
+msgstr "Île de Wake"
 
 #. generated from zone.tab
 msgid "W Amazonas"
