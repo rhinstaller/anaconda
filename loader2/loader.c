@@ -1054,7 +1054,7 @@ int main(int argc, char ** argv) {
     if (mediacheck) flags |= LOADER_FLAGS_MEDIACHECK;
     if (ksFile) flags |= LOADER_FLAGS_KICKSTART;
 
-    /* uncomment to enable sending mac address in ks=http:/ header */
+    /* uncomment to send mac address in ks=http:/ header by default*/
     flags |= LOADER_FLAGS_KICKSTART_SEND_MAC;
 
     /* JKFIXME: I do NOT like this... it also looks kind of bogus */
