@@ -32,6 +32,11 @@ class XSetup:
     # really all of this should be in rhpl probably
     #
     def write(self, fn, mouse, keyboard):
+	#
+	# always turn dri on
+	#
+	self.xhwstate.set_dri_enabled(1)
+	
 	outfile = fn + "/XF86Config"
 	xserver.writeXConfig(outfile, self.xhwstate, mouse, keyboard,
 			     standalone = 0)	
