@@ -87,6 +87,15 @@ import sys
 import rpm
 from threading import *
 
+def processEvents():
+    thread = currentThread ()
+    if thread.getName () == "gtk_main":
+        gdk_flush()
+        while events_pending ():
+            mainiteration (FALSE)
+    else:
+        gdk_flush()
+
 class WaitWindow:
     def __init__(self, title, text):
 	threads_enter ()
@@ -105,13 +114,7 @@ class WaitWindow:
         frame.add (box)
 	self.window.add (frame)
 	self.window.show_all ()
-        thread = currentThread ()
-        if thread.getName () == "gtk_main":
-            gdk_flush()
-            while events_pending ():
-                mainiteration (FALSE)
-        else:
-            gdk_flush()
+        processEvents ()
         threads_leave ()
             
     def pop(self):
@@ -143,11 +146,13 @@ class ProgressWindow:
         frame.add (box)
 	self.window.add (frame)
 	self.window.show_all ()
+        processEvents ()
         threads_leave ()
 
     def set (self, amount):
         threads_enter ()
 	self.progress.update (float (amount) / self.total)
+        processEvents ()        
         threads_leave ()
     
     def pop(self):
