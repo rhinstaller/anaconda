@@ -85,13 +85,15 @@ if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder 
 	runroot --quiet $COMPNAME --onlyone --arch $BUILDARCH \
 	    "PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH" > $PKGORDER
     else
-	PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
+	#PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
+	PYTHONPATH=/usr/lib/anaconda /usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
     fi
 fi
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION"
 else
+    echo "$MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION"
     $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION
 fi
 

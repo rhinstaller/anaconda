@@ -82,12 +82,12 @@ if os.environ.has_key('PY_XGETTEXT'):
 else:
 	xgettext = None
 
-if iutil.getArch() == 'sparc':
+if iutil.getArch() == 'sparc' or iutil.getArch() == "s390" or iutil.getArch() == "s390x":
 	_gettext_byteorder = 'msb'
 else:
 	_gettext_byteorder = 'lsb'
 
-del os, string, iutil
+del string, iutil
 
 error = 'gettext.error'
 
@@ -157,13 +157,19 @@ class Catalog:
 				del f
 				break
 			except IOError:
-				pass
+				try:
+					f = os.open(catalog, os.O_RDONLY)
+					buffer = f.read()
+					f.close()
+					del f
+				except OSError:
+					pass
 		else:
 			return # assume C locale
 
 		if _StrToInt(buffer[:4]) != 0x950412de:
 			# magic number doesn't match
-			raise error, 'Bad magic number in %s' % (catalog,)
+			raise error, 'Bad magic number in %s / %lx' % (catalog,_StrToInt(buffer[:4]))
 
 		self.revision = _StrToInt(buffer[4:8])
 		nstrings = _StrToInt(buffer[8:12])

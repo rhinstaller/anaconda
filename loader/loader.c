@@ -618,6 +618,7 @@ static int umountLoopback(char * mntpoint, char * device) {
     devMakeInode(device, "/tmp/loop");
     loopfd = open("/tmp/loop", O_RDONLY);
 
+
     ioctl(loopfd, LOOP_CLR_FD, 0);
 
     close(loopfd);
@@ -1188,7 +1189,6 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 	    return 1;
 	}
     }
-
     rc = setupStage2Image(fd, dest, flags, device, mntpoint);
 
     urlinstFinishTransfer(ui, fd);
@@ -1264,6 +1264,9 @@ static char * mountUrlImage(struct installMethod * method,
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
 		return NULL;
 	    }
+#if defined (__s390__) || defined (__s390x__)
+	    setupRemote(&ui);
+#endif
 	    stage = URL_STAGE_MAIN;
 
 	  case URL_STAGE_MAIN:
@@ -2688,6 +2691,7 @@ int main(int argc, char ** argv) {
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
 #endif
 
+#if !defined (__s390__) && !defined (__s390x__)
     if (!continuing) {
 	if ((access("/proc/bus/pci/devices", R_OK) &&
 	      access("/proc/openprom", R_OK)) || FL_MODDISK(flags)) { 
@@ -2699,6 +2703,7 @@ int main(int argc, char ** argv) {
 	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
 	if (probeOnly) exit(0);
     }
+#endif
 
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";

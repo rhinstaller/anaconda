@@ -30,7 +30,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
-
     KERNELNAME=vmlinuz
     
     if [ "$BUILDARCH" = "sparc64" ]; then
@@ -61,7 +60,11 @@ TOPDIR=$(cd $TOPDIR; pwd)
     FONTS=$IMGPATH/usr/lib/anaconda-runtime/fonts-${BASEARCH}
     GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
     MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
-    MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info.s390
+    else
+       MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
+    fi
     FILTERMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/filtermoddeps
     LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
     BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
@@ -113,7 +116,7 @@ findPackage() {
 
 findmodule () {
     if [ ! -f $CACHE ]; then
-        find $KERNELROOT/lib/modules > $CACHE
+        find $KERNELROOT/lib/modules/ > $CACHE
     fi
     
     grep "/$1\.o" $CACHE
@@ -402,12 +405,20 @@ makeinitrd() {
 EOF
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
-    install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+    if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
+       install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
+    fi
     install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
     install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+      mkdir -p $MBD_DIR/etc/terminfo/{a,d,s,v}
+      for i in a/ansi d/dumb s/screen v/vt100 v/vt102 ; do
+         install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
+      done
+    fi
     if [ -n "$JAPANESE" ]; then
         mkdir -p $MBD_DIR/etc/terminfo/k
         install -m 644 $IMGPATH/usr/share/terminfo/k/kon $MBD_DIR/etc/terminfo/k/kon
@@ -425,8 +436,59 @@ EOF
 	ln -s loader $MBD_DIR/sbin/$n
     done
 
-    ln -s /usr/bin/sh $MBD_DIR/sbin/sh
-    ln -s /sbin/init $MBD_DIR/linuxrc
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       mkdir -p $MBD_DIR/lib/modules/misc $MBD_DIR/etc/ssh 
+       cp -f $LOADERBINDIR/linuxrc.s390 $MBD_DIR/linuxrc
+       ln -s ../linuxrc $MBD_DIR/sbin/init
+       cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
+       ln -sf ksh $MBD_DIR/sbin/sh
+       cp -f $IMGPATH/usr/bin/ssh-keygen $MBD_DIR/sbin/ssh-keygen
+       cp -f $IMGPATH/usr/bin/ldd $MBD_DIR/sbin/ldd
+       cp -f $IMGPATH/usr/bin/ps $MBD_DIR/sbin/ps
+       cp -f $IMGPATH/usr/bin/strace $MBD_DIR/sbin/strace
+       cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
+       cp -f $IMGPATH/usr/sbin/insmod $MBD_DIR/sbin/insmod
+       cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
+       cp -f $IMGPATH/usr/sbin/inetd $MBD_DIR/sbin/inetd
+       cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
+       cp -f $IMGPATH/usr/sbin/route $MBD_DIR/sbin/route
+       cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
+       cp -f $IMGPATH/usr/bin/cat $MBD_DIR/sbin/cat
+       cp -f $IMGPATH/usr/bin/chmod $MBD_DIR/sbin/chmod
+       cp -f $IMGPATH/usr/bin/sed $MBD_DIR/sbin/sed
+       cp -f $IMGPATH/usr/bin/hostname $MBD_DIR/sbin/hostname
+       cp -f $IMGPATH/usr/bin/mount $MBD_DIR/sbin/mount
+       cp -f $IMGPATH/etc/inetd.conf $MBD_DIR/etc/inetd.conf
+       cp -df $IMGPATH/lib/libpam.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libdl.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libdl-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libnsl.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libnsl-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libnss_compat* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libcrypto.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libc.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libc-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/ld.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/ld-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
+       cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
+       if [ "${version:0:3}" = "2.2" ]; then
+          cp -f $KERNELROOT/lib/modules/*/misc/* $MBD_DIR/lib/modules/misc
+          cp -f $IMGPATH/lib/modules/ibm-2.2*/net/* $MBD_DIR/lib/modules/misc
+       else
+          cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
+          cp -f $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net/* $MBD_DIR/lib/modules/misc
+       fi
+       sed -e "s/PermitEmptyPasswords no/PermitEmptyPasswords yes/; \
+	  s/^Gssapi/\# Gssapi/; s/X11Forwarding yes/X11Forwarding no/" \
+                < $IMGPATH/etc/ssh/sshd_config > $MBD_DIR/etc/ssh/sshd_config
+    else
+       ln -s /usr/bin/sh $MBD_DIR/sbin/sh
+       ln -s /sbin/init $MBD_DIR/linuxrc
+    fi
     ln -s /proc/mounts $MBD_DIR/etc/mtab
     ln -s sbin $MBD_DIR/bin
 
@@ -474,6 +536,23 @@ EOF
 	$MBD_DIR fd0 b 2 0 644 root:root
 	$MBD_DIR fd1 b 2 1 644 root:root
 EOF
+    if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
+       rm -f $MBD_DIR/dev/console
+       awk '{ printf("mknod %s/dev/%s %s %s %s\n", $1, $2, $3, $4, $5);
+	      printf("chmod %s %s/dev/%s\n", $6, $1, $2);
+	      printf("chown %s %s/dev/%s\n", $7, $1, $2); 
+	    }' <<EOF | sh
+	    $MBD_DIR console c 4 64 600 root:root
+	    $MBD_DIR random c 1 8 644 root:root
+	    $MBD_DIR urandom c 1 9 644 root:root
+	    $MBD_DIR mnda b 95 0 660 root:disk
+	    $MBD_DIR mndb b 95 1 660 root:disk
+	    $MBD_DIR mndc b 95 2 660 root:disk
+	    $MBD_DIR xpram0 b 35 0 600 root:root
+	    $MBD_DIR xpram1 b 35 1 600 root:root
+	    $MBD_DIR xpram2 b 35 2 600 root:root
+EOF
+    fi
     ln -s fb0 $MBD_DIR/dev/fb
 
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=12000
@@ -629,6 +708,7 @@ makeinstimage () {
     mkdir -p $mntpoint $tmpdir
 
     mkdir -p $tmpdir
+
     (cd $INSTIMGTEMPLATE; find . | cpio --quiet -p $tmpdir)
     makemoduleball $tmpdir/modules "$modlist"
 
@@ -756,7 +836,7 @@ makedriverdisk () {
     kpackage=$($LATEST $KERNELPATH kernel-BOOT)
     vertag=BOOT
     if [ ! -f "$kpackage" ]; then
-	if [ "$BUILDARCH" == "ia64" ]; then
+	if [ "$BUILDARCH" = "ia64" ]; then
 	    # XXX remove me post beta
 	    echo 'kernel-BOOT does not exist -- using kernel-smp package on ia64'
 	    kpackage=$($LATEST $KERNELPATH kernel-smp)
@@ -774,6 +854,7 @@ makedriverdisk () {
     fi
 
     version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)${vertag}
+    echo "unpacking $kpackage"
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
     if [ ! -z $ppackage ]; then 
@@ -790,7 +871,7 @@ makedriverdisk () {
 	usage
     fi
 
-    if [ -d $KERNELROOT/lib/modules/$version/pcmcia ]; then
+    if [ -d $KERNELROOT/lib/modules/$version/pcmcia -a -f KERNELROOT/etc/pcmcia/config ]; then
 	# This gets all of the modules in the pcmcia directory, as well as
 	# everything mentioned in /etc/pcmcia/config
 	PCMCIAMODULES=$((perl -e 'while (<>) { s/^.*class.*module +"// || next; s/[" ]//g; s/,/\n/g; print }' $KERNELROOT/etc/pcmcia/config;

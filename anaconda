@@ -316,8 +316,8 @@ if (not flags.test):
         time.sleep(2)
 
 # Force text mode on IBM s390/s390x
-if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
-	display_mode = 't'
+#if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+#	display_mode = 't'
         
 
 if iutil.memInstalled() < isys.MIN_RAM:
@@ -365,7 +365,11 @@ if instClass.forceTextMode:
 #
 # find out what video hardware is available to run installer 
 #
+if os.environ.has_key('DISPLAY') and display_mode == 'g':
+    x_already_set = 1
+else: x_already_set = 0
 
+    
 mousehw    = mouse.Mouse(skipProbe = 1)
 #if display_mode == 'g':
 
@@ -448,14 +452,18 @@ if display_mode == 'g':
             display_mode = 't'
             time.sleep(2)            
     else:
-        xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                     monitorhw, mousehw, runres)
+        if x_already_set: card = videocard.VideoCard()
+        else: card = videohw.primaryCard()
+        xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
+
 elif progmode != 'reconfig':
-    # only probe X related stuff if we're doing an install
-    
     import xf86config
-    xcfg = xf86config.XF86Config(videohw.primaryCard(),
-                                 monitorhw, mousehw, runres)
+
+    # only probe X related stuff if we're doing an install
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        card = videocard.VideoCard()
+    else: card = videohw.primaryCard()
+    xcfg = xf86config.XF86Config(card, monitorhw, mousehw, runres)
 
 import configFileData
 configFile = configFileData.configFileData()
@@ -573,6 +581,8 @@ floppyDevice = floppy.probeFloppyDevice()
 
 id = instClass.installDataClass(extraModules, floppyDevice, configFileData)
 #id = instClass.installDataClass(extraModules, floppyDevice)
+
+id.x_already_set = x_already_set
 
 if mousehw:
     id.setMouse(mousehw)

@@ -105,6 +105,12 @@ if [ $ARCH = ia64 ]; then
     PACKAGES="$PACKAGES elilo slang"
 fi
 
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    PACKAGES="$PACKAGES s390utils oco binutils installer pdksh-static
+	sed net-tools inetd openssh openssh-server fileutils modutils
+	portmap textutils telnet-server"
+fi
+
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
@@ -151,6 +157,12 @@ fi
 
 if [ $ARCH = ia64 ]; then
     PACKAGESGR="$PACKAGESGR elilo slang"
+fi
+
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    PACKAGESGR="$PACKAGESGR s390utils oco binutils installer pdksh-static
+	sed net-tools inetd openssh openssh-server fileutils modutils
+	portmap textutils openssl telnet-server strace"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -246,6 +258,59 @@ usr/share/kudzu/pcitable
 usr/share/pci.ids
 usr/share/themes/Raleigh/gtk/gtkrc
 EOF
+
+if [ $ARCH = s390 -o $ARCH = s390x ]; then
+    cat >> $KEEPFILE <<EOF
+usr/lib/anaconda-runtime/loader/linuxrc.s390
+usr/lib/anaconda-runtime/loader/dasdformat
+usr/lib/anaconda-runtime/loader/mountpoint
+usr/lib/anaconda-runtime/loader/netsetup
+usr/lib/anaconda-runtime/loader/pkgselect
+usr/lib/anaconda-runtime/loader/pkgsrc
+usr/share/terminfo/a/ansi
+usr/share/terminfo/d/dumb
+usr/share/terminfo/s/screen
+usr/share/terminfo/v/vt100
+usr/share/terminfo/v/vt102
+bin/ksh
+usr/bin/ssh-keygen
+usr/bin/strace
+usr/bin/ldd
+bin/ps
+usr/sbin/sshd
+usr/sbin/inetd
+usr/sbin/in.telnetd
+sbin/insmod
+sbin/ifconfig
+sbin/route
+sbin/portmap
+bin/cat
+bin/chmod
+bin/sed
+bin/mount
+bin/hostname
+lib/libpam.so*
+lib/libdl.so*
+lib/libdl-*.so*
+usr/lib/libz.so*
+lib/libnsl.so*
+lib/libnsl-*.so*
+lib/libnss*
+lib/libutil.so*
+lib/libutil-*.so*
+lib/libcrypto.so*
+lib/libc.so*
+lib/libc-*so*
+lib/ld.so*
+lib/ld-*.so*
+lib/libresolv.so*
+lib/libresolv-*.so*
+lib/modules/ibm*
+etc/inetd.conf
+etc/ssh/sshd_config
+EOF
+fi
+      
 
 KEEPFILEGR=/tmp/keepfilegr.$$
 cp $KEEPFILE $KEEPFILEGR
@@ -682,19 +747,21 @@ for p in $DEST $DESTGR; do
 	done
 done
 
-if [ $NEEDGR ]; then
-    # Xserver needs a place to put the compiled xkb maps.
-    rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-    ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
-fi
-
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
     rm -rf $DEST/usr/lib/anaconda-runtime
 
-if [ -n "$NEEDGR" ]; then
+if [ "$ARCH" != "s390" -a "$ARCH" != "s390x" ]; then
+   if [ $NEEDGR ]; then
+       # Xserver needs a place to put the compiled xkb maps.
+       rm -rf $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+       ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
+   fi
+
+   if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
     $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+   fi
 fi
 
 # pick Raleigh theme as default

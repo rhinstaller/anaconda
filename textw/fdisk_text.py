@@ -25,8 +25,14 @@ import partitioning
 class fdiskPartitionWindow:
     def __call__(self, screen, diskset, partrequests, intf):
         choices = []
-        drives = diskset.disks.keys()
+
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            drives =  diskset.driveList()
+        else:
+            drives = diskset.disks.keys()
+        
         drives.sort()
+        
         for drive in drives:
             choices.append("%s" %(drive))
 
@@ -44,10 +50,16 @@ class fdiskPartitionWindow:
             if button != "done" and button != TEXT_BACK_CHECK:
                 device = choices[choice]
                 
-                if os.access("/sbin/fdisk", os.X_OK):
-                    path = "/sbin/fdisk"
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    if os.access("/sbin/fdasd", os.X_OK):
+                        path = "/sbin/fdasd"
+                    else:
+                        path = "/usr/sbin/fdasd"
                 else:
-                    path = "/usr/sbin/fdisk"
+                    if os.access("/sbin/fdisk", os.X_OK):
+                        path = "/sbin/fdisk"
+                    else:
+                        path = "/usr/sbin/fdisk"
 
                 try:
                     isys.makeDevInode(device, '/tmp/' + device)

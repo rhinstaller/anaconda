@@ -336,7 +336,7 @@ class InstallInterface:
             except SystemError:
                 pass
 
-        if id.keyboard:
+        if id.keyboard and not id.x_already_set:
 	    info = id.keyboard.getXKB()
 	    if info:
                 (rules, model, layout, variant, options) = info
