@@ -106,6 +106,23 @@ class LoopSizeWindow(InstallWindow):
     def getNext (self):
         self.todo.fstab.setLoopbackSize (self.sizeAdj.value, self.swapAdj.value)
 
+    def Spinchanged(self, *args):
+        swapsize = self.swapAdj.value
+        rootsize = self.sizeAdj.value
+        totalmax = self.upper
+        
+        if swapsize + rootsize > totalmax:
+            rootsize = totalmax - swapsize
+            
+        if rootsize < 0:
+            rootsize = self.sizeAdj.minimum
+                
+        if rootsize + swapsize > totalmax:
+            swapsize = self.swapAdj.minimum
+                    
+        self.swapAdj.set_value(swapsize)
+        self.sizeAdj.set_value(rootsize)
+
     def getScreen (self):
         # XXX error check mount that this check tries
         avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
@@ -126,19 +143,24 @@ class LoopSizeWindow(InstallWindow):
         label.set_line_wrap (TRUE)
         vbox.pack_start (label, FALSE, FALSE)
 
-	upper = avail
+	self.upper = avail
 	if avail > 2000:
-	    upper = 2000
+	    self.upper = 2000
+
 
         # XXX lower is 150
-        self.sizeAdj = GtkAdjustment (value = size, lower = 150, upper = upper, step_incr = 1)
+        self.sizeAdj = GtkAdjustment (value = size, lower = 150, upper = self.upper, step_incr = 1)
         self.sizeSpin = GtkSpinButton (self.sizeAdj, digits = 0)
         self.sizeSpin.set_usize (100, -1)
-
-        self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = upper, step_incr = 1)
+        self.sizeSpin.set_numeric(1)
+        self.sizeSpin.connect("changed", self.Spinchanged)
+        
+        self.swapAdj = GtkAdjustment (value = swapSize, lower = 16, upper = self.upper, step_incr = 1)
         self.swapSpin = GtkSpinButton (self.swapAdj, digits = 0)
         self.swapSpin.set_usize (100, -1)
-
+        self.swapSpin.set_numeric(1)
+        self.swapSpin.connect("changed", self.Spinchanged)
+        
         table = GtkTable ()
 
         label = GtkLabel (_("Root filesystem size:"))
