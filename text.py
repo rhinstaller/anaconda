@@ -186,12 +186,19 @@ class InstallPathWindow:
 	if (todo.instClass.installType == "install"):
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
-	    return INSTALL_NOOP
+	    showScreen = 0
 	elif (todo.instClass.installType == "upgrade"):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
-	    return INSTALL_NOOP
 	    showScreen = 0
+
+	if not showScreen:
+	    todo.fstab = NewtFstab(todo.setupFilesystems, 
+				       todo.serial, 0, 0,
+				       todo.intf.waitWindow,
+				       todo.intf.messageWindow)
+
+	    return INSTALL_NOOP
 
 	if (todo.upgrade):
 	    default = 4
@@ -256,18 +263,11 @@ class InstallPathWindow:
 
 class UpgradeExamineWindow:
     def __call__ (self, dir, screen, todo):
-	from fstab import NewtFstab
-
 	if dir == -1:
 	    # Hack to let backing out of upgrades work properly
 	    if todo.fstab:
 		todo.fstab.turnOffSwap()
 	    return INSTALL_NOOP
-
-	todo.fstab = NewtFstab(todo.setupFilesystems, 
-				   todo.serial, 0, 0,
-				   todo.intf.waitWindow,
-				   todo.intf.messageWindow)
 
         parts = todo.upgradeFindRoot ()
 
