@@ -524,6 +524,7 @@ class PartitionWindow:
             poplevel.add(primary, 0, row, (0,1,0,0))
 
             fsoptLbl = None
+
         else:
             subgrid = Grid(2, 4)
             # filesystem type selection
@@ -542,14 +543,18 @@ class PartitionWindow:
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
+            # set some defaults
             format = origrequest.format
             migrate = origrequest.migrate
             newfstype = origrequest.fstype
 
         row = row + 1
-        popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
-                                        (_("Filesystem Options"), "fsopts"),
-                                        TEXT_CANCEL_BUTTON))
+        if origrequest.type == REQUEST_NEW:
+            popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
+        else:
+            popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
+                                            (_("Filesystem Options"), "fsopts"),
+                                            TEXT_CANCEL_BUTTON))
         poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
 
         while 1:
