@@ -2134,8 +2134,6 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "updates"))
 	    flags |= LOADER_FLAGS_UPDATES;
-        else if (!strcasecmp(argv[i], "upgrade"))
-	    *instClass = "upgradeonly";
 	else if (!strncasecmp(argv[i], "class=", 6))
 	    *instClass = argv[i] + 6;
         else if (!strcasecmp(argv[i], "isa"))
