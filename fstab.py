@@ -1225,7 +1225,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 
     try:
         (pid, status) = os.waitpid(childpid, 0)
-    except OSError (errno, msg):
+    except OSError, (errno, msg):
         print __name__, "waitpid:", msg
     os.close(fd)
 
