@@ -242,6 +242,8 @@ class Kickstart(InstallClass):
 		     "network"		: self.doNetwork	,
 		     "nfs"		: None			,
 		     "part"		: self.definePartition	,
+		     "partition"	: self.definePartition	,
+		     "raid"		: self.defineRaid	,
 		     "reboot"		: self.doReboot		,
 		     "rootpw"		: self.doRootPw		,
 		     "skipx"		: self.doSkipX		,
@@ -298,6 +300,21 @@ class Kickstart(InstallClass):
 	    clear = FSEDIT_CLEAR_ALL
 	self.setClearParts(clear)
 
+    def defineRaid(self, args):
+	(args, extra) = isys.getopt(args, '', [ 'level=', 'device=' ] )
+					
+	for n in args:
+	    (str, arg) = n
+	    if str == '--level':
+		level = int(arg)
+	    elif str == "--device":
+		raidDev = arg
+
+	mntPoint = extra[0]
+	extra = extra[1:]
+
+	self.addRaidEntry(mntPoint, raidDev, level, extra)
+
     def definePartition(self, args):
 	# we just set up the desired partitions -- magic in our base class 
 	# does the actual partitioning (no, you don't want to know the 
@@ -324,7 +341,7 @@ class Kickstart(InstallClass):
 	if onPart:
 	    self.addToFstab(extra[0], onPart)
 	else:
-	    self.partitions.append((extra[0], size, maxSize, grow))
+	    self.addNewPartition(extra[0], size, maxSize, grow)
 
     def __init__(self, file):
 	InstallClass.__init__(self)

@@ -43,6 +43,34 @@ class InstallClass:
     def getFstab(self):
 	return self.fstab
 
+    def addRaidEntry(self, mntPoint, raidDev, level, devices):
+	# throw an exception for bad raid levels
+	[ 0, 1, 5 ].index(level)
+	for device in devices:
+	    found = 0
+	    for (otherMountPoint, size, maxSize, grow) in self.partitions:
+		if otherMountPoint == device:
+		    found = 1
+	    if not found:
+		raise ValueError, "unknown raid device %s" % (device,)
+	if mntPoint[0] != '/':
+	    raise ValueError, "bad raid mount point %s" % (mntPoint,)
+	if raidDev[0:2] != "md":
+	    raise ValueError, "bad raid device point %s" % (raidDev,)
+	if level == 5 and len(devices) < 3:
+	    raise ValueError, "raid 5 arrays require at least 3 devices"
+	if len(devices) < 2:
+	    raise ValueError, "raid arrays require at least 2 devices"
+
+	self.raidList.append(mntPoint, raidDev, level, devices)	
+
+    def addNewPartition(self, mntPoint, size, maxSize, grow):
+	if mntPoint[0] != '/' and mntPoint != 'swap' and \
+		mntPoint[0:5] != "raid.":
+	    raise TypeError, "bad mount point for partitioning: %s" % \
+		    (mntPoint,)
+	self.partitions.append((mntPoint, size, maxSize, grow))
+
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))
 
@@ -177,6 +205,7 @@ class InstallClass:
 	self.fstab = []
 	self.earlySwapOn = 0
         self.desktop = ""
+	self.raidList = []
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):
@@ -202,9 +231,9 @@ class Workstation(InstallClass):
 	self.addToSkipList("package-selection")
 
 	if os.uname ()[4] != 'sparc64':
-	    self.partitions.append(('/boot', 16, 16, 0))
-	self.partitions.append(('/', 500, 500, 1))
-	self.partitions.append(('swap', 64, 64, 0))
+	    self.addNewPartition('/boot', 16, 16, 0)
+	self.addNewPartition('/', 500, 500, 1)
+	self.addNewPartition('swap', 64, 64, 0)
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
 	    warningText = _("You are about to erase any preexisting Linux "
 			    "installations on your system."))
@@ -236,12 +265,12 @@ class Server(InstallClass):
 	self.addToSkipList("authentication")
 
 	if os.uname ()[4] != 'sparc64':
-	    self.partitions.append(('/boot', 16, 16, 0))
-	self.partitions.append(('/', 256, 256, 0))
-	self.partitions.append(('/usr', 512, 512, 1))
-	self.partitions.append(('/var', 256, 256, 0))
-	self.partitions.append(('/home', 512, 512, 1))
-	self.partitions.append(('swap', 64, 64, 1))
+	    self.addNewPartition('/boot', 16, 16, 0)
+	self.addNewPartition('/', 256, 256, 0)
+	self.addNewPartition('/usr', 512, 512, 1)
+	self.addNewPartition('/var', 256, 256, 0)
+	self.addNewPartition('/home', 512, 512, 1)
+	self.addNewPartition('swap', 64, 64, 1)
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
 	    warningText = _("You are about to erase ALL DATA on your hard "
 			    "drive to make room for your Linux installation."))

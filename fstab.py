@@ -8,7 +8,8 @@
 #
 # the swap information is stored as ( device, format ) tuples
 #
-# raid lists are stored as ( raiddevice, raidlevel, [ device list ] )
+# raid lists are stored as ( mntpoint, raiddevice, fssystem, doFormat,
+#			     raidlevel, [ device list ] )
 #
 # we always store as much of the fstab within the disk druid structure
 # as we can -- Don't Duplicate Data.
@@ -51,10 +52,16 @@ class Fstab:
 
 	return None
 
-    def setDruid(self, druid):
+    def setDruid(self, druid, raid):
 	self.ddruid = druid
 	self.fsCache = {}
-
+	for (mntPoint, raidDev, level, devices) in raid:
+	    if mntPoint == "swap":
+		fsystem = "swap"
+	    else:
+		fsystem = "ext2"
+	    self.addRaidDevice(mntPoint, raidDev, fsystem, level, devices)
+	    
     def rescanPartitions(self):
 	if self.ddruid:
 	    self.closeDrives()
@@ -92,13 +99,22 @@ class Fstab:
 		del self.fsCache[(partition, mount)]
 
     def setFormatFilesystem(self, device, format):
-	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
+	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
 	    if partition == device:
-		self.fsCache[(partition, mount)] = (format,)
+		self.fsCache[(partition, mntpoint)] = (format,)
+		return
+
+	raise TypeError, "unknown partition to format %s" % (device,)
 
     def formatAllFilesystems(self):
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
-	    self.fsCache[(partition, mount)] = (1,)
+	    if mount[0] == '/':
+		self.fsCache[(partition, mount)] = (1,)
+        (devices, raid) = self.ddruid.partitionList()
+	for (mount, partition, fsystem, level, i, j, deviceList) in \
+	    self.raidList()[1]:
+	    if mount[0] == '/':
+		self.fsCache[(partition, mount)] = (1,)
 
     def partitionList(self):
 	return self.ddruid.partitionList()
@@ -144,9 +160,26 @@ class Fstab:
 
 	    os.unlink(file)
 
-    def createRaidTab(self, file, devPrefix, createDevices = 0):
+    def addRaidDevice(self, mountPoint, raidDevice, fileSystem, 
+		      raidLevel, deviceList):
+	self.supplementalRaid.append((mountPoint, raidDevice, fileSystem,
+				  raidLevel, deviceList))
+	
+    def raidList(self):
         (devices, raid) = self.ddruid.partitionList()
-	if not raid: return
+
+	if raid == None:
+	    raid = []
+
+	for (mountPoint, raidDevice, fileSystem, raidLevel, deviceList) in \
+		self.supplementalRaid:
+	    raid.append(mountPoint, raidDevice, fileSystem, raidLevel,
+			0, 0, deviceList)
+
+	return (devices, raid)
+
+    def createRaidTab(self, file, devPrefix, createDevices = 0):
+	(devices, raid) = self.raidList()
 
 	deviceDict = {}
 	for (device, name, type, start, size) in devices:
@@ -195,7 +228,12 @@ class Fstab:
     def makeFilesystems(self):
 	# let's make the RAID devices first -- the fstab will then proceed
 	# naturally
-        (devices, raid) = self.ddruid.partitionList()
+	(devices, raid) = self.raidList()
+
+	if self.serial:
+	    messageFile = "/tmp/mke2fs.log"
+	else:
+	    messageFile = "/dev/tty5"
 
 	if raid:
 	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
@@ -205,7 +243,8 @@ class Fstab:
 	    for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
                 iutil.execWithRedirect ("/usr/sbin/mkraid", 
 			[ 'mkraid', '--really-force', '--configfile', 
-			  '/tmp/raidtab', '/tmp/' + device ])
+			  '/tmp/raidtab', '/tmp/' + device ],
+			stderr = messageFile, stdout = messageFile)
 
 	    w.pop()
         
@@ -249,14 +288,9 @@ class Fstab:
 		w = self.waitWindow(_("Formatting"),
 			      _("Formatting %s filesystem...") % (mntpoint,))
 
-		if self.serial:
-		    messages = "/tmp/mke2fs.log"
-		else:
-		    messages = "/dev/tty5"
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
-                                        args,
-                                        stdout = messages, stderr = messages,
-                                        searchPath = 1)
+                                        args, stdout = messageFile, 
+					stderr = messageFile, searchPath = 1)
 		w.pop()
             else:
                 pass
@@ -279,6 +313,7 @@ class Fstab:
 		except SystemError, (errno, msg):
 		    self.messageWindow(_("Error"), 
 			_("Error mounting %s: %s") % (device, msg))
+		    raise SystemError, (errno, msg)
 
         try:
             os.mkdir (instPath + '/proc')
@@ -340,6 +375,16 @@ class Fstab:
 	    (doFormat,) = self.fsCache[(partition, mount)]
 	    fstab.append((mount, partition, fsystem, doFormat, size ))
 
+	# Add raid mounts to mount list
+        (devices, raid) = self.raidList()
+	for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
+	    if fsType == "swap": continue
+
+	    if not self.fsCache.has_key((device, mntpoint)):
+		self.fsCache[(device, mntpoint)] = (0, )
+	    (doFormat,) = self.fsCache[(device, mntpoint)]
+	    fstab.append((mntpoint, device, fsType, doFormat, size ))
+
 	if not skipExtra:
 	    for n in self.extraFilesystems:
 		fstab.append(n)
@@ -374,6 +419,7 @@ class Fstab:
 	self.fsedit = fsedit
 	self.fsCache = {}
 	self.swapOn = 0
+	self.supplementalRaid = []
 	self.beenSaved = 1
 	self.setupFilesystems = setupFilesystems
 	self.serial = serial

@@ -115,7 +115,7 @@ class AutoPartitionWindow(InstallWindow):
 	    self.todo.instClass.removeFromSkipList("format")
 	else:
 	    self.todo.fstab.setRunDruid(0)
-	    self.todo.fstab.setDruid(self.druid)
+	    self.todo.fstab.setDruid(self.druid, self.todo.instClass.raidList)
 	    self.todo.fstab.formatAllFilesystems()
 	    self.todo.instClass.addToSkipList("format")
 

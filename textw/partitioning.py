@@ -112,7 +112,7 @@ class AutoPartitionWindow:
 
 	if not todo.getPartitionWarningText():
 	    todo.fstab.setRunDruid(0)
-	    todo.fstab.setDruid(druid)
+	    todo.fstab.setDruid(druid, todo.instClass.raidList)
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 	    return
