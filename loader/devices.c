@@ -190,6 +190,19 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     return 0;
 }
 
+struct sortModuleList {
+    int index;
+    moduleInfoSet modInfo;
+};
+
+static int sortDrivers(const void * a, const void * b) {
+    const struct sortModuleList * one = a;
+    const struct sortModuleList * two = b;
+
+    return strcmp(one->modInfo->moduleList[one->index].description,
+		  one->modInfo->moduleList[two->index].description);
+}
+
 static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 		      moduleList modLoaded, moduleDeps modDeps, 
 		      struct moduleInfo * suggestion,
@@ -200,6 +213,20 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
     newtGrid buttons, grid, subgrid;
     char specifyParameters = *specifyParams ? '*' : ' ';
     struct newtExitStruct es;
+    struct sortModuleList * sortedOrder;
+    int numSorted = 0;
+
+    sortedOrder = alloca(sizeof(*sortedOrder) * modInfo->numModules);
+
+    for (i = 0; i < modInfo->numModules; i++) {
+	if (modInfo->moduleList[i].major == type && 
+	    !mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
+	    sortedOrder[numSorted].index = i;
+	    sortedOrder[numSorted++].modInfo = modInfo;
+	}
+    }	
+
+    qsort(sortedOrder, numSorted, sizeof(*sortedOrder), sortDrivers);
 
     do {
 	if (FL_MODDISK(flags)) {
@@ -224,15 +251,14 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	if (FL_MODDISK(flags))
 	    newtFormAddHotKey(form, NEWT_KEY_F2);
 
-	for (i = 0; i < modInfo->numModules; i++) {
-	    if (modInfo->moduleList[i].major == type && 
-		!mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
-		newtListboxAppendEntry(listbox, 
-				       modInfo->moduleList[i].description,
-				       (void *) i);
-		if (modp && (modInfo->moduleList + i) == *modp)
-		    newtListboxSetCurrentByKey(listbox, (void *) i);
-	    }
+	for (i = 0; i < numSorted; i++) {
+	    int num = sortedOrder[i].index;
+
+	    newtListboxAppendEntry(listbox, 
+				   modInfo->moduleList[num].description,
+				   (void *) num);
+	    if (modp && (modInfo->moduleList + num) == *modp)
+		newtListboxSetCurrentByKey(listbox, (void *) num);
 	}
 
 	subgrid = newtGridVStacked(NEWT_GRID_COMPONENT, listbox,
