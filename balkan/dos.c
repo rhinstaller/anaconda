@@ -105,7 +105,7 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 }
 
 int dospReadTable(int fd, struct partitionTable * table) {
-    int i;
+    int i, rc;
 
     table->maxNumPartitions = 16;
 
@@ -114,7 +114,35 @@ int dospReadTable(int fd, struct partitionTable * table) {
 
     table->sectorSize = SECTOR_SIZE;
 
-    return readNextTable(fd, table, 0, 0, 0);
+    rc = readNextTable(fd, table, 0, 0, 0);
+
+    if (!rc) {
+	for (i = 0; i < 16; i++) {
+	    if (table->parts[i].type == -1) continue;
+
+	    switch (table->parts[i].type) {
+	      case 0x01:
+	      case 0x04:
+	      case 0x06:
+	      case 0x0b:
+	      case 0x0c:
+	      case 0x0e:
+	      case 0x0f:
+		table->parts[i].type = BALKAN_PART_DOS;
+		break;
+
+	      case 0x83:
+		table->parts[i].type = BALKAN_PART_EXT2;
+		break;
+
+	      default:
+		table->parts[i].type = BALKAN_PART_OTHER;
+		break;
+	    }
+	}
+    }
+
+    return rc;
 }
 
 #ifdef STANDALONE_TEST

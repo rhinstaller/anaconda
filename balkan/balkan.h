@@ -5,6 +5,10 @@
 #define BALKAN_ERROR_BADMAGIC	2
 #define BALKAN_ERROR_BADTABLE	3
 
+#define BALKAN_PART_DOS		1
+#define BALKAN_PART_EXT2	2
+#define BALKAN_PART_OTHER	3
+
 struct partition {
     long startSector;
     long size;			/* in sectors */
