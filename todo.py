@@ -536,9 +536,9 @@ class ToDo:
 		     "up in lilo")
 	    smpInstalled = 0
 
-	(mntpoint, device, fsystem, doFormat, size) = self.fstab.mountList()[0]
-	if mntpoint == "/":
-            rootDev = device
+        rootDev = self.fstab.getRootDevice ()
+        if rootDev:
+            rootDev = rootDev[0]
         else:
             raise RuntimeError, "Installing lilo, but there is no root device"
 

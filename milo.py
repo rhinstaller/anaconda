@@ -37,11 +37,11 @@ class MiloInstall:
         self.todo = todo
 
     def writeAboot (self):
-        if self.todo.mounts.has_key ('/boot'):
+        bootDevice = self.todo.fstab.getBootDevice ()
+        rootDevice = self.todo.fstab.getRootDevice ()[0]
+        if bootDevice != rootDevice:
             confprefix = self.todo.instPath + "/boot/etc"
             kernelprefix = '/'
-            partition = partitionNum (self.todo.mounts['/boot'][0])
-            abootdev = wholeDevice (self.todo.mounts['/boot'][0])
             try:
                 os.mkdir (confprefix)
             except:
@@ -57,27 +57,27 @@ class MiloInstall:
         else:
             confprefix = self.todo.instPath + "/etc"
             kernelprefix = '/boot/'
-            partition = partitionNum (self.todo.mounts['/'][0])
-            abootdev = wholeDevice (self.todo.mounts['/'][0])
+            
+        partition = partitionNum (bootDevice)
+        abootdev = wholeDevice (bootDevice)
 
         if os.access (confprefix + "/aboot.conf", os.R_OK):
             os.rename (confprefix + "/aboot.conf",
                        confprefix + "/aboot.conf.rpmsave")
         f = open (confprefix + "/aboot.conf", 'w')
         f.write ("# aboot default configurations\n")
-        if self.todo.mounts.has_key ('/boot'):
+        if bootDevice != rootDevice:
             f.write ("# NOTICE:  You have a /boot partition.  This means that\n")
             f.write ("#          all kernel paths are relative to /boot/\n")
 
         lines = 0
-        rootdev = self.todo.mounts['/'][0]
         for package, tag in (('kernel-smp', 'smp'), ('kernel', '')):
             if (self.todo.hdList.has_key(package) and
                 self.todo.hdList[package].selected):
                 kernel = self.todo.hdList[package]
                 version = "%s-%s" % (kernel['version'], kernel['release'])
                 f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s\n" %
-                         (lines, partition, kernelprefix, version, tag, rootdev))
+                         (lines, partition, kernelprefix, version, tag, rootDevice))
                 lines = lines + 1
 
         f.close ()
@@ -94,7 +94,10 @@ class MiloInstall:
                                stdout = None,
                                root = self.todo.instPath)
     def writeMilo (self):
-        if self.todo.mounts.has_key ('/boot'):
+        bootDevice = self.todo.fstab.getBootDevice ()
+        rootDevice = self.todo.fstab.getRootDevice ()[0]
+        
+        if bootDevice != rootDevice:
             hasboot = 1
             kernelroot = '/'
             try:
@@ -127,7 +130,7 @@ class MiloInstall:
         for version, label in kernels:
             f.write ("image=%svmlinuz-%s\n" % (kernelroot, version))
             f.write ("\tlabel=%s\n" % label)
-            f.write ("\troot=/dev/%s" % self.todo.mounts ['/'][0])
+            f.write ("\troot=/dev/%s" % rootDevice)
                 
     def write (self):
         if onMILO ():
