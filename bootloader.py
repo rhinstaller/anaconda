@@ -287,6 +287,27 @@ class ia64BootloaderInfo(bootloaderInfo):
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev, justConfig)
 
+        bootdev = fsset.getEntryByMountPoint("/boot/efi").device.getDevice()
+        if not bootdev:
+            bootdev = fsset.getEntryByDeviceName("sda1").device.getDevice()
+
+        ind = len(bootdev)
+        try:
+            while (bootdev[ind-1] in string.digits):
+                ind = ind - 1
+        except IndexError:
+            ind = len(bootdev) - 1
+            
+        bootdisk = bootdev[:ind]
+        bootpart = bootdev[ind:]
+        if bootdisk[0:4] == "ida/" or bootdisk[0:6] == "cciss/" or bootdisk[0:3] == "rd/":
+            bootdisk = bootdisk[:-1]
+                    
+        argv = [ "/usr/sbin/efibootmgr", "-c" , "-L",
+                 "Red Hat Linux", "-d", "/dev/%s" % bootdisk, "-p", bootpart ]
+        iutil.execWithRedirect(argv[0], argv, root = instRoot,
+                               stdout = "/dev/tty5",
+                               stderr = "/dev/tty5")
 
     def __init__(self):
         bootloaderInfo.__init__(self)
