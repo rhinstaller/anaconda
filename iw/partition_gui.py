@@ -351,7 +351,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     partclist = GtkCList()
     partclist.set_selection_mode (SELECTION_MULTIPLE)
-    sw = GtkScrolled Window()
+    sw = GtkScrolledWindow()
     sw.add(partclist)
     sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
