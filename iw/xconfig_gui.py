@@ -35,6 +35,7 @@ class XCustomWindow (InstallWindow):
                 if button.get_active ():
                     newmodes[depth].append (res)
 
+        self.todo.x.manualModes = newmodes
         self.todo.x.setModes(newmodes)
         
     def testPressed (self, widget, *args):
@@ -92,7 +93,8 @@ class XCustomWindow (InstallWindow):
                 button = GtkCheckButton (res)
                 self.toggles[depth].append (res, button)
                 vbox.pack_start (button, FALSE)
-                if self.todo.x.modes.has_key(depth) and res in self.todo.x.modes[depth]:
+                if (self.todo.x.manualModes.has_key(depth)
+                    and res in self.todo.x.manualModes[depth]):
                     button.set_active(1)
             hbox.pack_start (vbox)
 

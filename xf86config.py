@@ -544,6 +544,7 @@ class XF86Config:
         self.probed = 0
         self.skip = 0
 	self.primary = 0
+        self.manualModes = {}
         self.modes = { "8" :  ["640x480"] }
 	self.device = None
         self.keyRules = "xfree86"
