@@ -342,6 +342,10 @@ static int startBterm(int flags) {
     
     stopNewt();
     rc = bterm_main(4, args);
+ 
+    /* HACK: sleep to give the console time to adjust */
+    sleep(1);
+ 
     startNewt(flags);
     return rc;
 }
