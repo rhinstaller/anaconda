@@ -23,7 +23,7 @@ class FakeDDruid:
     def append (self, name, table):
         for i in range (len (table)):
             (type, sector, size) = table[i]
-            if size:
+            if size and type != -1:
                 self.partitions.append ((name + str (i)),
                                         "Existing000" + str(len (self.partitions)),
                                         type)
@@ -161,7 +161,21 @@ class Language (SimpleConfigFile):
         self.info = {}
         self.lang = None
         self.langs = {
-            "English" : "C",
+            "Czech"	:	"cs",
+            "English"	:	"en",
+            "French":	"fr",
+            "German":	"de",
+            "Hungarian":  "hu", 
+            "Icelandic":	"is",
+            "Indonesian":	"id",
+            "Italian":	"it",
+            "Norwegian":	"no",
+            "Polish":	"pl",
+            "Romanian":	"ro",
+            "Slovak":	"sk",
+            "Spanish":	"es",
+            "Russian": 	"ru",
+            "Ukrainian":  "uk",
             "German" : "de",
             }
 	self.abbrevMap = {		# kickstart needs this
@@ -185,7 +199,7 @@ class Language (SimpleConfigFile):
         if self.lang:
             return self.lang
         else:
-            return "C"
+            return "en"
 
 class Keyboard (SimpleConfigFile):
     # XXX fixme - externalize
