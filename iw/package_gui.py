@@ -132,7 +132,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 self.packageName.set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                                          header[rpm.RPMTAG_VERSION],
                                                          header[rpm.RPMTAG_RELEASE]))
-                self.packageSize.set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
+                self.packageSize.set_text (_("%.1f KBytes") % (header[rpm.RPMTAG_SIZE] / 1024.0))
                 self.packageDesc.freeze ()
                 self.packageDesc.delete_text (0, -1)
                 self.packageDesc.insert_defaults (self.get_rpm_desc (header))

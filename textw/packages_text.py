@@ -94,8 +94,8 @@ class IndividualPackageWindow:
 	                                  header[rpm.RPMTAG_RELEASE])),
 	             1, 0, anchorLeft = 1)
 	sg.setField (Label (_("Size    :")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
-	sg.setField (Label ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0)),
-	             1, 1, anchorLeft= 1)
+	sg.setField (Label (_("%.1f KBytes") 
+		% (header[rpm.RPMTAG_SIZE] / 1024.0)), 1, 1, anchorLeft= 1)
 
 	txt = TextboxReflowed(60, self.get_rpm_desc(header), maxHeight = 10)
 
