@@ -683,6 +683,39 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             log(text)
             id.grpset.hdrlist["xterm"].select()
 
+    # input methods all changed.  hooray!
+    imupg = ( ("ami", "iiimf-le-hangul"),
+              ("kinput2", "iiimf-le-canna"),
+              ("miniChinput", "iiimf-le-chinput"),
+              ("xcin", "iiimf-le-xcin") )
+    iiimf = 0
+    for (old, new) in imupg:
+        mi = ts.dbMatch("name", old)
+        if (mi.count() > 0 and id.grpset.hdrlist.has_key(new) and
+            not id.grpset.hdrlist[new].isSelected()):
+            text = "Upgrade: %s was on the system.  Pulling in %s" %(old, new)
+            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+            log(text)
+            id.grpset.hdrlist[new].select()
+            iiimf = 1
+    if iiimf:
+        imupg = ( ("iiimf-gnome-im-switcher", "control-center"),
+                  ("iiimf-gnome-im-switcher", "gnome-panel"),
+                  ("iiimf-gtk", "gtk2"),
+                  ("system-switch-im", "gtk2") )
+        for (new, old) in imupg:
+            mi = ts.dbMatch("name", old)
+            if (not id.grpset.hdrlist.has_key(new) or
+                id.grpset.hdrlist[new].isSelected()):
+                continue
+            if (mi.count() > 0 or
+                id.grpset.hdrlist.has_key(old) and
+                id.grpset.hdrlist[old].isSelected()):
+                text = "Upgrade: Need iiimf base package %s" %(new,)
+                id.upgradeDeps("%s%s\n" %(id.upgradeDeps, text))
+                log(text)
+                id.grpset.hdrlist[new].select()
+
     # now some upgrade removal black list checking... there are things that
     # if they were installed in the past, we want to remove them because
     # they'll screw up the upgrade otherwise
