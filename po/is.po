@@ -91,7 +91,7 @@ msgstr "Nota þessa músartegund: "
 
 #: ../anaconda:454
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY breytan er ekki skilgreind. Ræsi í textaham!"
 
 #: ../autopart.py:723
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -124,29 +124,30 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"Verði þessari disksneið bætt við verður ekki nóg pláss fyrir sýndardiskana "
+"í %s."
 
 #: ../autopart.py:952
 msgid "Requested Partition Does Not Exist"
 msgstr "Disksneiðin er ekki til"
 
 #: ../autopart.py:953
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Gat ekki fundið disksneiðina %s til að nota sem %s.\n"
+"Gat ekki fundið disksneiðina %s sem nota á í %s.\n"
 "\n"
-"Veldu Í lagi til að endurræsa."
+"Veldu 'Í lagi' til að endurræsa."
 
 #: ../autopart.py:983 ../autopart.py:1022
-#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr "Sjálfvirk disksneiðing"
+msgstr "Villa í sjálfvirkri disksneiðingu"
 
 #: ../autopart.py:984
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -158,7 +159,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Veldu Í lagi til að endurræsa."
+"Veldu 'Í lagi' til að endurræsa."
 
 #: ../autopart.py:993
 msgid "Warnings During Automatic Partitioning"
@@ -181,6 +182,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"\n"
+"\n"
+"Veldu 'Í lagi' til að endurræsa."
 
 #: ../autopart.py:1007 ../iw/partition_gui.py:942
 #: ../textw/partition_text.py:198
@@ -1114,7 +1118,7 @@ msgstr "Vinsamlegast gefðu upp tengipunkt fyrir þess disksneið."
 #: ../partIntfHelpers.py:104
 #, fuzzy, python-format
 msgid ""
-"You cannot %s this partition, as it is holding the data for the hard drive "
+"You cannot %s this partition, as it is holding the datafor the hard drive "
 "install."
 msgstr ""
 "Þú getur ekki fjarlægt þessa disksneið því hún inniheldur gögnin fyrir "
@@ -7225,11 +7229,11 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "Kínverska(einfölduð)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "Kínverska(hefðbundin)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -7276,9 +7280,8 @@ msgid "Portuguese"
 msgstr "Postúgalska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Eftir"
+msgstr "Rúmanska"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7299,440 +7302,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "Partition Request Sanity Check Errors"
-#~ msgstr "Disksneiðavillur"
-
-#~ msgid "Install"
-#~ msgstr "Setja upp"
-
-#, fuzzy
-#~ msgid "User _Name:"
-#~ msgstr "Notandanafn:"
-
-#~ msgid ""
-#~ "Additional accounts can be created for other users of this system. Such "
-#~ "accounts could be for a personal login account, or for other non-"
-#~ "administrative users who need to use this system. Use the <Add> button to "
-#~ "enter additional user accounts."
-#~ msgstr ""
-#~ "Hægt er að búa til fleiri aðganga fyrir aðra notendur þessarar vélar. "
-#~ "Slíkir aðgangar gætu til dæmis verið fyrir vini eða fjölskyldu eða hvaða "
-#~ "notanda sem er sem er ekki kerfisstjórnunarnotandi.  Notaðu <Bæta við> "
-#~ "hnappinn til að bæta við notendum."
-
-#~ msgid "Use GRUB as the boot loader"
-#~ msgstr "Nota GRUB ræsistjórann"
-
-#~ msgid "Use LILO as the boot loader"
-#~ msgstr "Nota LILO ræsistjórann"
-
-#~ msgid "Do not install a boot loader"
-#~ msgstr "Ekki setja upp ræsistjóra"
-
-#, fuzzy
-#~ msgid ""
-#~ "A complete log of your installation will be in /root/install.log after "
-#~ "rebooting your system. You may want to keep this file for later "
-#~ "reference. A kickstart file representing the choices you have made will "
-#~ "be in /root/anaconda-ks.cfg."
-#~ msgstr ""
-#~ "Eftir að uppsetningunni lýkur verður til annáll sem heitir /tmp/install."
-#~ "log. Honum ættir þú að halda til haga. Kickstart skrá verður búin til "
-#~ "fyrir þig í /root/anaconda-ks.cfg eftir því sem þú hefur valið hér."
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Til hamingju, uppsetningu %s er lokið.\n"
-#~ "\n"
-#~ "Fjarlægðu disklinga og geisladiska úr drifunum sem þú notaðir í "
-#~ "uppsetningunni og sláðu á <Enter> til að endurræsa vélina. \n"
-#~ "\n"
-#~ "%sÁ http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-#~ "lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu "
-#~ "stýrikerfisins.\n"
-#~ "\n"
-#~ "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er "
-#~ "að finna í %s handbókunum á http://www.redhat.com/docs."
-
-#~ msgid "Please choose your security level:  "
-#~ msgstr "Vinsamlegast veldu öryggisstig:  "
-
-#, fuzzy
-#~ msgid "_Select all"
-#~ msgstr "Velja öll"
-
-#, fuzzy
-#~ msgid "Which _model mouse is attached to the computer?"
-#~ msgstr "Hvernig mús er tengd þessari vél?"
-
-#, fuzzy
-#~ msgid ""
-#~ "Re_view (allows you to see and change the automatic partitioning results)"
-#~ msgstr ""
-#~ "Endurskoða (leyfir þér að skoða og breyta sjálfvirku disksneiðingunni)"
-
-#, fuzzy
-#~ msgid "Have the installer _automatically partition for you"
-#~ msgstr "Láta uppsetningarforritið sneiða diskinn sjálfvirkt"
-
-#~ msgid ""
-#~ "If the probed settings do not match your hardware, select the correct "
-#~ "hardware settings below:"
-#~ msgstr ""
-#~ "Ef útkoma leitarinnar passar ekki við vélbúnaðinn þinn, veldu réttar "
-#~ "stillingar hér:"
-
-#~ msgid "Laptop"
-#~ msgstr "Fartölvu"
-
-#~ msgid "Close"
-#~ msgstr "Loka"
-
-#~ msgid "Unable to probe"
-#~ msgstr "Get ekki leitað"
-
-#~ msgid ""
-#~ "You cannot remove this partition, as it is an extended partition which "
-#~ "contains %s"
-#~ msgstr ""
-#~ "Þú getur ekki fjarlægt þessa sneið þar sem hún er \"extended\" disksneið "
-#~ "sem inniheldur %s"
-
-#~ msgid "Unable to Edit"
-#~ msgstr "Get ekki breytt skrá"
-
-#~ msgid ""
-#~ "You have chosen to format a pre-existing partition.  This will destroy "
-#~ "all data that was previously on it.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Þú hefur kosið að forsníða disksneið sem þegar var til. Það mun eyða "
-#~ "öllum gögnum sem eru á henni.\n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir gera þetta?"
-
-#~ msgid ""
-#~ "You have chosen not to format a pre-existing partition which is being "
-#~ "mounted under a system directory.  Unless you have particular needs to "
-#~ "preserve data on this partition, it is highly recommended you format this "
-#~ "partition to guarantee the data formerly on the partition does not "
-#~ "corrupt your new installation.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "Þú hefur valið að forsníða ekki disksneið sem var þegar til sem nota á "
-#~ "sem kerfisdisksneið. Nema þú hafir sérstaka þörf fyrir að verðveita "
-#~ "gögnin á þessari disksneið mælum við eindregið með að þú forsníðir þessa "
-#~ "disksneið til að tryggja að gögnin sem fyrir eru á henni flækjist ekki "
-#~ "fyrir nýju uppsetningunni.\n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir gera þetta?"
-
-#~ msgid "Unknown Card"
-#~ msgstr "Óþekkt kort"
-
-#~ msgid "Video Ram"
-#~ msgstr "Skjáminni"
-
-#~ msgid "X server"
-#~ msgstr "X þjónn"
-
-#~ msgid "Unable to detect video card"
-#~ msgstr "Finn ekki skjákort"
-
-#~ msgid "Attempting to start framebuffer based X server"
-#~ msgstr "Reyni að ræsa 'framebuffer' X þjón"
-
-#~ msgid "Root Password: "
-#~ msgstr "Rótarlykilorð: "
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "A boot disk is REQUIRED to boot a partitionless install."
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Ræsidisklingur er NAUÐSYNLEGUR fyrir sneiðlausa uppsetningu."
-
-#~ msgid "Skip boot disk creation"
-#~ msgstr "Sleppa ræsidiskling"
-
-#~ msgid "Boot Loader Password Configuration"
-#~ msgstr "lykilorðastillingar ræsistjóra"
-
-#~ msgid "Password accepted."
-#~ msgstr "Lykilorð móttekið."
-
-#~ msgid "Password is too short."
-#~ msgstr "Lykilorðið er of stutt."
-
-#~ msgid "Passwords do not match."
-#~ msgstr "Lykilorðin stemma ekki."
-
-#~ msgid "Use a GRUB Password?"
-#~ msgstr "Nota GRUB lykilorð?"
-
-#~ msgid ""
-#~ "Congratulations, configuration is complete.\n"
-#~ "\n"
-#~ "For information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using and configuring your system is available in the %s "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Til hamingju, uppsetningu er lokið.\n"
-#~ "\n"
-#~ "Á http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-#~ "lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af Red "
-#~ "Hat Linux.\n"
-#~ "\n"
-#~ "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er "
-#~ "að finna í %s handbókunum á http://www.redhat.com/docs."
-
-#~ msgid " is an invalid port."
-#~ msgstr " er ógild gátt."
-
-#~ msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-#~ msgstr "Sniðið er 'gátt:prótókollur'. Til dæmis '1234:udp'"
-
-#~ msgid "Choose partitions to Format"
-#~ msgstr "Velja disksneiðar sem á að forsníða"
-
-#~ msgid "Keyboard Configuration"
-#~ msgstr "Stillingar lyklaborðs"
-
-#~ msgid "Which model keyboard is attached to the computer?"
-#~ msgstr "Hvernig lyklaborð er tengt þessari vél?"
-
-#~ msgid "Layout"
-#~ msgstr "Vörpun"
-
-#~ msgid "Dead Keys"
-#~ msgstr "Broddstafir"
-
-#~ msgid "Enable dead keys"
-#~ msgstr "Nota broddstafi"
-
-#~ msgid "Disable dead keys"
-#~ msgstr "Ekki nota broddstafi"
-
-#~ msgid "Test your selection here:"
-#~ msgstr "Prófaðu valið hér:"
-
-#~ msgid "Currently installed languages:"
-#~ msgstr "Uppsett tungumál:"
-
-#~ msgid "Port"
-#~ msgstr "Gátt"
-
-#~ msgid "Broadcast"
-#~ msgstr "Uppkall"
-
-#~ msgid "Total install size: "
-#~ msgstr "Samanlögð stærð uppsetningar: "
-
-#~ msgid "_New"
-#~ msgstr "_Nýr"
-
-#~ msgid "View:"
-#~ msgstr "Skoða:"
-
-#~ msgid "%s  %s"
-#~ msgstr "%s  %s"
-
-#~ msgid "Exiting anaconda now"
-#~ msgstr "Anaconda hættir nú"
-
-#~ msgid "Would you like to configure your system?"
-#~ msgstr "Viltu stilla kerfið þitt?"
-
-#~ msgid "Unknown server"
-#~ msgstr "Óþekktur þjónn"
-
-#~ msgid ""
-#~ "This video card has no suitable X server in the database.  You will need "
-#~ "to choose a different card or choose the 'Skip X Configuration' button."
-#~ msgstr ""
-#~ "Þetta skjákort hefur engann X rekil sem hentar því í gagnagrunninum. Þú "
-#~ "þarft að velja annað kort eða nota 'Sleppa að stilla X' hnappinn."
-
-#~ msgid "Other"
-#~ msgstr "Önnur"
-
-#~ msgid ""
-#~ "A custom boot disk provides a way of booting into your Linux system "
-#~ "without depending on the normal boot loader. This is useful if you don't "
-#~ "want to install lilo on your system, another operating system removes "
-#~ "lilo, or lilo doesn't work with your hardware configuration. A custom "
-#~ "boot disk can also be used with the Red Hat rescue image, making it much "
-#~ "easier to recover from severe system failures.\n"
-#~ "\n"
-#~ "Would you like to create a boot disk for your system?"
-#~ msgstr ""
-#~ "Sérsmíðaður ræsidisklingur gerir þér kleyft að ræsa Linux án þess að nota "
-#~ "venjulegann ræsistjóra. Þetta kemur að gagni ef þú vilt ekki setja upp "
-#~ "Lilo á vélinni eða ef annað stýrikerfi hefur fjarlægt Lilo eða Lilo "
-#~ "virkar ekki með vélbúnaðarstillingum þínum. Ræsidiskling má einnig nota "
-#~ "með Red Hat 'rescue' disklingnum svo hægt sé að bjarga vélinni ef "
-#~ "alvarleg vandamál koma upp.\n"
-#~ "\n"
-#~ "Viltu búa til ræsidiskling fyrir vélina þína?"
-
-#~ msgid ""
-#~ "Congratulations, your %s installation is complete.\n"
-#~ "\n"
-#~ "Remove any floppy diskettes you used during the installation process and "
-#~ "press <Enter> to reboot your system. \n"
-#~ "\n"
-#~ "%sFor information on errata (updates and bug fixes), visit http://www."
-#~ "redhat.com/errata.\n"
-#~ "\n"
-#~ "Information on using your system is available in the Red Hat Linux "
-#~ "manuals at http://www.redhat.com/docs."
-#~ msgstr ""
-#~ "Til hamingju, uppsetningu %s er lokið.\n"
-#~ "\n"
-#~ "Fjarlægðu disklinga og geisladiska úr drifunum sem þú notaðir í "
-#~ "uppsetningunni og sláðu á <Enter> til að endurræsa vélina. \n"
-#~ "\n"
-#~ "%sÁ http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
-#~ "lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
-#~ "stýrikerfinu.\n"
-#~ "\n"
-#~ "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er "
-#~ "að finna í Red Hat Linux handbókunum á http://www.redhat.com/docs."
-
-#~ msgid "<Enter> to continue"
-#~ msgstr "<Enter> til að halda áfram"
-
-#~ msgid ""
-#~ "Congratulations, package installation is complete.\n"
-#~ "\n"
-#~ "Press return to continue.\n"
-#~ "\n"
-#~ "Information on configuring and using your Red Hat Linux system is "
-#~ "contained in the %s manuals."
-#~ msgstr ""
-#~ "Til hamingju, uppsetningu pakka er lokið.\n"
-#~ "\n"
-#~ "Sláðu á return til að halda áfram.\n"
-#~ "\n"
-#~ "Upplýsingar um hvernig stilla skuli kerfið og nota það eru í %s "
-#~ "handbókunum."
-
-#~ msgid "<Enter> to exit"
-#~ msgstr "<Enter> til að hætta"
-
-#~ msgid "Bad User ID"
-#~ msgstr "Ólöglegt notandanafn"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "You have entered reconfiguration mode, which will allow you to configure "
-#~ "site-specific options of your computer.\n"
-#~ "\n"
-#~ "To exit without changing your setup select the Cancel button below."
-#~ msgstr ""
-#~ "Velkomin(n) í %s!\n"
-#~ "\n"
-#~ "Þú ert kominn í breytingarham, sem leyfir þér að sérsníða uppsetningu "
-#~ "vélarinnar að breyttum aðstæðum. \n"
-#~ "\n"
-#~ "Ef þú vilt hætta án þess að gera neinar breytingar veldu þá Hætta við "
-#~ "hnappinn að neðan."
-
-#~ msgid "You cannot go back from this step."
-#~ msgstr "Þú getur ekki farið til baka úr þessu þrepi."
-
-#~ msgid "Other CDROM"
-#~ msgstr "Annað geisladrif"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your NFS server\n"
-#~ "    o the directory on that server containing\n"
-#~ "      %s for your architecture"
-#~ msgstr ""
-#~ "Vinsamlegast sláðu inn eftirfarandi upplýsingar:\n"
-#~ "\n"
-#~ "    o heiti eða IP vistfang NFS þjónsins þíns\n"
-#~ "    o nafn möppunnar á þjóninum sem inniheldur\n"
-#~ "      %s fyrir vélina þína"
-
-#~ msgid "Map Image to display"
-#~ msgstr "Mynd til að birta"
-
-#~ msgid "Width of map (in pixels)"
-#~ msgstr "Breidd korts (í myndeiningum)"
-
-#~ msgid "Enable antialias"
-#~ msgstr "Virkja \"antialias\""
-
-#~ msgid "World"
-#~ msgstr "Heimur"
-
-#~ msgid "North America"
-#~ msgstr "Norður Ameríka"
-
-#~ msgid "South America"
-#~ msgstr "Suður Ameríka"
-
-#~ msgid "Indian Rim"
-#~ msgstr "Indland"
-
-#~ msgid "Europe"
-#~ msgstr "Evrópa"
-
-#~ msgid "Africa"
-#~ msgstr "Afríka"
-
-#~ msgid "Asia"
-#~ msgstr "Asía"
-
-#~ msgid "Cannot load timezone data"
-#~ msgstr "Get ekki lesið tímabeltisgögn"
-
-#~ msgid "gglobe-canvas"
-#~ msgstr "gglobe-canvas"
-
-#~ msgid "View: "
-#~ msgstr "Skoða: "
-
-#~ msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-#~ msgstr "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-
-#~ msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-#~ msgstr "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-
-#~ msgid ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-#~ msgstr ""
-#~ "Chinese(Simplified)    zh_CN.GB2312    None    None            zh_CN."
-#~ "GB2312            us              Asia/Shanghai"
-
-#~ msgid ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-#~ msgstr ""
-#~ "Chinese(Traditional)   zh_TW.Big5      None    None            zh_TW."
-#~ "Big5              us              Asia/Taipei"
-
-#~ msgid "Portuguese(Brasilian) pt"
-#~ msgstr "Postúgalska(Brasil) pt"
