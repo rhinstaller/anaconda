@@ -225,7 +225,7 @@ class NetworkWindow(InstallWindow):
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
 
-        if (isPtpDev(dev)):
+        if (network.isPtpDev(dev)):
 	    newopt = (_("_Point to Point (IP)"), "remip")
 	    options.append(newopt)
             
