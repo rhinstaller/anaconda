@@ -2,7 +2,7 @@ init-message = "\nWelcome!\nHit <TAB> for boot options.\n\n"
 timeout=6000
 enablecdboot
 
-image=cd:,/ppc/mac/vmlinux    
+image=cd:,/ppc/mac/vmlinuz
 	label=mac    
 	initrd=cd:,/ppc/mac/ramdisk.image.gz    
 	append="maxcpus=1 ramdisk_size=8192"

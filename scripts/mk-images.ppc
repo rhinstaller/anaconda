@@ -30,18 +30,20 @@ makeBootImages() {
 	    --loaderbin loader \
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES =scsi =net"
 
-	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinux
+	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp $TOPDESTPATH/images/pseries
+	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinuz
         cp $BOOTDISKDIR/yaboot.conf.pseries $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
 	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
 
-	pushd $TOPDESTPATH/ppc/chrp
-	cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/chrp/zImage.lds
-	$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/pseries/netboot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
-	rm -f $TOPDESTPATH/ppc/chrp/zImage.lds
-	popd
+	if [ -x $IMGPATH/usr/bin/mkzimage ]; then
+		pushd $TOPDESTPATH/ppc/chrp
+		cp $IMGPATH/usr/share/ppc64-utils/zImage.lds $TOPDESTPATH/ppc/chrp/zImage.lds
+		$IMGPATH/usr/bin/mkzimage $KERNELROOT/boot/vmlinuz-partial* $TOPDESTPATH/images/pseries/netboot.img $TOPDESTPATH/ppc/chrp/ramdisk.image.gz 
+		rm -f $TOPDESTPATH/ppc/chrp/zImage.lds
+		popd
+	fi
 
 	# we also want to make a boot.iso here 
 	mkdir -p $TOPDESTPATH/isopath/ppc/chrp $TOPDESTPATH/isopath/etc
@@ -80,7 +82,7 @@ EOF
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     elif [ "$KERNELARCH" = "ppc" ]; then
 	FAKEARCH="ppc"
-	mkdir -p $TOPDESTPATH/ppc/mac
+	mkdir -p $TOPDESTPATH/ppc/mac $TOPDESTPATH/images/mac
 
         echo "Building ppc initrd"
         makeinitrd --initrdto $TOPDESTPATH/ppc/mac/ramdisk.image.gz \
@@ -89,7 +91,7 @@ EOF
             --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES =scsi =net"
 
         mkdir -p $TOPDESTPATH/ppc/mac
-        cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinux
+        cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinuz
         cp $BOOTDISKDIR/yaboot.conf.mac $TOPDESTPATH/ppc/mac/yaboot.conf
         cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
         cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/
@@ -99,7 +101,6 @@ EOF
         cp $TOPDESTPATH/ppc/mac/* $TOPDESTPATH/isopath/ppc/mac/
 
         # Create the boot.iso
-	mkdir -p $TOPDESTPATH/images/mac/
 	mkisofs -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 2 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
         rm -rf $TOPDESTPATH/isopath/
     else
