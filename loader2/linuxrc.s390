@@ -142,6 +142,30 @@ setupdevice()
    sysecho /sys/bus/ccwgroup/drivers/${NETTYPE}/${SYSDIR}/online 1
 }
 
+createDevices()
+{
+    awk '{ printf("mknod /dev/%s %s %s %s\n", $1, $2, $3, $4);
+	   printf("chmod %s /dev/%s\n", $5, $1);
+	   printf("chown %s /dev/%s\n", $6, $1); 
+	 }' <<EOF | sh
+	console c 5 1 600 root:root
+	null c 1 3 666 root:root
+	zero c 1 5 666 root:root
+	mem c 1 1 600 root:root
+	ptmx c 5 2 666 root:root
+	tty  c 5 0 666 root:root
+	tty0 c 4 0 600 root:tty
+	tty1 c 4 1 600 root:tty
+	random c 1 8 644 root:root
+	urandom c 1 9 644 root:root
+   rtc c 10 135 644 root:root
+EOF
+	for i in 2 3 4 5 6 7 8 9 ; do
+	    ln -s console /dev/tty$i
+	done
+	mkdir /dev/pts
+}
+
 S390ARCH=`uname -m`
 if [ "$S390ARCH" = "s390" ]; then
    export S390ARCH="S/390"
@@ -168,6 +192,8 @@ PYTHONPATH=/tmp/updates
 export PYTHONPATH
 
 mount -t proc none /proc
+mount -t tmpfs none /dev
+createDevices
 mount -t devpts /dev/pts /dev/pts
 mount -t sysfs none /sys
 # remount root fs rw

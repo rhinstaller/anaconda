@@ -1,5 +1,7 @@
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/linuxrc.s390: Create /dev and devices in it here too
+
 	* loader2/devices.h: Add static list of basic devices to create in 
 	/dev.
 
