@@ -93,7 +93,7 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     unsigned char buf[2048];
     unsigned char orig_appdata[512];
     unsigned char new_appdata[512];
-    unsigned char mediasum[33];
+    char mediasum[33];
     char md5str[40];
     MD5_CTX md5ctx;
 
@@ -171,8 +171,8 @@ int implantISOFile(char *fname, int supported, int forceit, int quiet, char **er
     loc = writeAppData(new_appdata, "ISO MD5SUM = ", loc);
     loc = writeAppData(new_appdata, md5str, loc);
     loc = writeAppData(new_appdata, ";", loc);
-    snprintf(buf, sizeof(buf), "SKIPSECTORS = %d", SKIPSECTORS);
-    loc = writeAppData(new_appdata, buf, loc);
+    snprintf((char *)buf, sizeof(buf), "SKIPSECTORS = %d", SKIPSECTORS);
+    loc = writeAppData(new_appdata, (char *)buf, loc);
     loc = writeAppData(new_appdata, ";", loc);
 
     if (supported) {
