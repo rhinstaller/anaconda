@@ -858,6 +858,10 @@ class PartitionWindow(InstallWindow):
 			    continue
 		    else:
 			self.tree[iter]['Mount Point'] = ""
+
+		    if request.format:
+			self.tree[iter]['Format'] = self.checkmark_pixbuf
+
 			
                 if request and request.fstype:
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
