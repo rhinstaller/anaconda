@@ -364,11 +364,17 @@ mousehw    = mouse.Mouse(skipProbe = 1)
 # skip probing if we have really sensitive hw that HAS to use text mode
 if 1:
     sys.stdout.write(    _("Probing for video card:   "))
+    fbdev = None
     videohw    = videocard.VideoCardInfo()
+
     if videohw and videohw.primaryCard():
         sys.stdout.write(videohw.primaryCard().shortDescription()+'\n')
+        fbdev = videohw.primaryCard().getDevice()
+    else:
+        sys.stdout.write(_("Unable to probe\n"))
+
     sys.stdout.write(    _("Probing for monitor type: "))
-    monitorhw  = monitor.MonitorInfo()
+    monitorhw  = monitor.MonitorInfo(fbDevice=fbdev)
     sys.stdout.write(monitorhw.shortDescription()+'\n')
 
     # only probe if we're installing a real box or
@@ -396,6 +402,14 @@ if (method and ((len (method) >= 6 and method[:6] == "ftp://")
     display_mode = 't'
     time.sleep(2)
 
+# if no mouse we force text mode
+mousedev = mousehw.get()
+if mousedev[0] == "None - None":
+    print _("No mouse was detected.  A mouse is required for graphical "
+            "installation.  Starting text mode.")
+    display_mode = 't'
+    time.sleep(2)
+
 #
 # startup X server is we're not already running under an X session
 #
@@ -412,16 +426,17 @@ if display_mode == 'g':
             else:
                 xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw,
                                        mousehw)
-            
         except RuntimeError:
             print " X startup failed, falling back to text mode"
             display_mode = 't'
             time.sleep(2)            
     else:
-        xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
+        xcfg = xf86config.XF86Config(videohw.primaryCard(),
+                                     monitorhw, mousehw, runres)
 else:
     import xf86config
-    xcfg = xf86config.XF86Config(videohw, monitorhw, mousehw, runres)
+    xcfg = xf86config.XF86Config(videohw.primaryCard(),
+                                 monitorhw, mousehw, runres)
 
 import configFileData
 configFile = configFileData.configFileData()
@@ -489,7 +504,8 @@ if xmode:
 if display_mode == "t":
     intf = InstallInterface ()
 else:
-    intf = InstallInterface (runres, nofbmode)
+    # determine the mode we actually ended up in
+    intf = InstallInterface ()
 
 # imports after setting up the path
 if method:
