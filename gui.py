@@ -10,13 +10,31 @@ im = None
 splashwindow = None
 #print "Hello"
 #print self.todo.test
+
+#print self.todo.lowres
+
+#if self.todo.intf.runres == '640x480':
 try:
-    im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
+    im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first-lowres.png")
 except:
     try:
-        im = GdkImlib.Image ("pixmaps/first.png")
+        im = GdkImlib.Image ("pixmaps/first-lowres.png")
     except:
         print "Unable to load", file
+
+#else:
+#    try:
+#        im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
+#    except:
+#        try:
+#            im = GdkImlib.Image ("pixmaps/first.png")
+#        except:
+#            print "Unable to load", file
+
+
+
+
+
 if im:
     threads_enter ()
     im.render ()
@@ -245,9 +263,12 @@ class MessageWindow:
             self.mutex.wait ()
     
 class InstallInterface:
+    def __init__ (self, runres):
+        self.runres = runres
+
     def __del__ (self):
         pass
-    
+
     def shutdown (self):
 	pass
 
@@ -628,10 +649,12 @@ class InstallControlWindow:
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
-#        self.window.set_default_size (640, 480)
-#        self.window.set_usize (640, 480)
-        self.window.set_default_size (800, 600)
-        self.window.set_usize (800, 600)
+        if self.todo.intf.runres == '640x480':
+            self.window.set_default_size (640, 480)
+            self.window.set_usize (640, 480)
+        else:
+            self.window.set_default_size (800, 600)
+            self.window.set_usize (800, 600)
 
         cursor = cursor_new (LEFT_PTR)
         _root_window ().set_cursor (cursor)
@@ -671,8 +694,8 @@ class InstallControlWindow:
         vbox = GtkVBox (FALSE, 10)
 
 
-        if self.todo.lowres != '640x480':
-            
+        if self.todo.intf.runres != '640x480':
+                        
         #Create header at the top of the installer
             try:
                 im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/anaconda_header.png")
