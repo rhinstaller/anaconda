@@ -630,6 +630,17 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 log(text)
                 id.grpset.hdrlist["rhn-applet"].select()
 
+    # and since xterm is now split out from XFree86 (#98254)
+    if (id.grpset.hdrlist.has_key("xterm") and
+        not id.grpset.hdrlist["xterm"].isSelected()):
+        h = ts.dbMatch('name', 'XFree86').next()
+        if h is not None:
+            text = ("Upgrade: XFree86 was on the system.  Pulling in xterm "
+                    "for upgrade.")
+            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+            log(text)
+            id.grpset.hdrlist["xterm"].select()
+
     # now some upgrade removal black list checking... there are things that
     # if they were installed in the past, we want to remove them because
     # they'll screw up the upgrade otherwise
