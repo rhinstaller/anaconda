@@ -33,14 +33,12 @@ struct singlePartitionTable {
 #define WINP_TYPE_EXTENDED	0xf
 #define LINUX_TYPE_EXTENDED     0x85
 
-long long llseek(int fd, long long offset, int whence);
-
 static int readSingleTable(int fd, struct singlePartitionTable * table,
 			long long partSector) {
     unsigned char sector[SECTOR_SIZE];
     unsigned short magic;
 
-    if (llseek(fd, ((long long) SECTOR_SIZE * (long long) partSector),
+    if (lseek64(fd, ((long long) SECTOR_SIZE * (long long) partSector),
 	       SEEK_SET) < 0)
 	return BALKAN_ERROR_ERRNO;
 
