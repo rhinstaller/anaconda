@@ -780,9 +780,9 @@ class WaitWindow:
 	width = 40
 	if (len(text) < width): width = len(text)
 
-	t = TextboxReflowed(width, text)
+	t = TextboxReflowed(width, _(text))
 
-	g = GridForm(self.screen, title, 1, 1)
+	g = GridForm(self.screen, _(title), 1, 1)
 	g.add(t, 0, 0)
 	g.draw()
 	self.screen.refresh()
@@ -881,10 +881,10 @@ class ProgressWindow:
 
 class InstallInterface:
     def progressWindow(self, title, text, total):
-        return ProgressWindow (self.screen, title, text, total)
+        return ProgressWindow (self.screen, _(title), _(text), total)
 
     def messageWindow(self, title, text):
-	ButtonChoiceWindow(self.screen, title, text,
+	ButtonChoiceWindow(self.screen, _(title), _(text),
                            buttons = [ _("OK") ])
     
     def exceptionWindow(self, title, text):

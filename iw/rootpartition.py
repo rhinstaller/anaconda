@@ -191,7 +191,8 @@ class AutoPartitionWindow(InstallWindow):
            GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
 	      "this install by partitioning manually, or you can go back "
 	      "and perform a fully customized installation.") % 
-		    (todo.getPartitionWarningText(), ))
+		    (_(todo.getPartitionWarningText()), ))
+
 	label.set_line_wrap(TRUE)
 	label.set_alignment(0.0, 0.0)
 	label.set_usize(400, -1)

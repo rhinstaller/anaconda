@@ -74,10 +74,10 @@ class WaitWindow:
     def __init__(self, title, text):
 	threads_enter ()
         self.window = GtkWindow (WINDOW_POPUP)
-        self.window.set_title (title)
+        self.window.set_title (_(title))
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_modal (TRUE)
-        label = GtkLabel (text)
+        label = GtkLabel (_(text))
         label.set_line_wrap (TRUE)
         box = GtkFrame ()
         box.set_border_width (10)
@@ -90,7 +90,6 @@ class WaitWindow:
 	self.window.show_all ()
         thread = currentThread ()
         if thread.getName () == "gtk_main":
-            gdk_flush ()
             while events_pending ():
                 mainiteration (FALSE)
         threads_leave ()
@@ -104,13 +103,13 @@ class ProgressWindow:
     def __init__(self, title, text, total):
 	threads_enter ()
         self.window = GtkWindow (WINDOW_POPUP)
-        self.window.set_title (title)
+        self.window.set_title (_(title))
         self.window.set_position (WIN_POS_CENTER)
         self.window.set_modal (TRUE)
         box = GtkVBox (5)
         box.set_border_width (10)
 
-        label = GtkLabel (text)
+        label = GtkLabel (_(text))
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
         box.pack_start (label)
@@ -160,10 +159,10 @@ class MessageWindow:
     def __init__ (self, title, text, type = "ok"):
         threads_enter ()
         if type == "ok":
-            self.window = GnomeOkDialog (text)
+            self.window = GnomeOkDialog (_(text))
             self.window.connect ("clicked", self.quit)
         if type == "okcancel":
-            self.window = GnomeOkCancelDialog (text, self.okcancelquit)
+            self.window = GnomeOkCancelDialog (_(text), self.okcancelquit)
         # this is the pixmap + the label
         hbox = self.window.vbox.children ()[0]
         label = hbox.children ()[1]

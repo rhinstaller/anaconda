@@ -285,6 +285,6 @@ class Server(InstallClass):
 	self.partitions.append(('/home', 512, 512, 1))
 	self.partitions.append(('swap', 64, 64, 1))
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
-	    warningText = _("You are about to erase ALL DATA on your hard " + \
+	    warningText = _("You are about to erase ALL DATA on your hard "
 			    "drive to make room for your Linux installation."))
 

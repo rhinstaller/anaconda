@@ -36,6 +36,7 @@ class LanguageWindow (InstallWindow):
         mainBox = GtkVBox (FALSE, 10)
         label = GtkLabel (self.question)
         label.set_alignment (0.5, 0.5)
+        label.set_line_wrap (TRUE)
         
  	language_keys = self.languages.keys ()
         language_keys.sort ()
