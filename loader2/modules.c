@@ -268,9 +268,11 @@ static int loadModule(const char * modName, struct extractedModule * path,
 
         if (mi->major == DRIVER_SCSI) {
             deviceCount = scsiDiskCount();
-            startNewt(flags);
-            scsiWindow(modName);
-            popWindow = 1;
+            if (!FL_CMDLINE(flags)) {
+                startNewt(flags);
+                scsiWindow(modName);
+                popWindow = 1;
+            }
         }
     }
 

@@ -227,7 +227,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           loaderData->netDev, 0);
             } else {
-                printf(_("Sending request for IP information for %s..."), 
+                printf("Sending request for IP information for %s...\n", 
                        loaderData->netDev);
             }
 
@@ -635,7 +635,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
             winStatus(40, 3, _("Hostname"), 
                       _("Determining host name and domain..."));
         else
-            printf(_("Determining host name and domain..."));
+            printf("Determining host name and domain...\n");
 
         name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
 

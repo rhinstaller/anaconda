@@ -115,8 +115,10 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "/tmp/ramfs/DD-%d", disknum);
     mkdirChain(file);
 
-    startNewt(flags);
-    winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
+    if (!FL_CMDLINE(flags)) {
+        startNewt(flags);
+        winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
+    }
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
         sprintf(file, "%s/%s", mntpt, *fnPtr);
@@ -138,7 +140,8 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "%s/pcitable", mntpt);
     pciReadDrivers(file);
 
-    newtPopWindow();
+    if (!FL_CMDLINE(flags))
+        newtPopWindow();
 
     disknum++;
     return 0;
