@@ -81,7 +81,7 @@ class ReconfigCongratulationWindow (InstallWindow):
 
         ics.setTitle (_("Congratulations"))
         ics.setPrevEnabled (0)
-        ics.setNextButton (STOCK_PIXMAP_QUIT, _("Exit"))
+        ics.setNextButton (gtk.STOCK_QUIT, _("Exit"))
         ics.setNextEnabled (1)
 	ics.setGrabNext (1)
 
