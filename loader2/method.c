@@ -136,6 +136,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                 ioctl(loopfd, LOOP_CLR_FD, 0);
                 close(loopfd);
                 return LOADER_ERROR;
+              }
             }
         }
     }
