@@ -3019,8 +3019,10 @@ int main(int argc, char ** argv) {
 		return 1;
 	}
 
-	kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
-	writeNetInfo("/tmp/netinfo", &netDev, &kd);
+	if (!FL_TESTING(flags)) {
+	    kickstartNetwork(&ksNetDevice, &netDev, NULL, flags);
+	    writeNetInfo("/tmp/netinfo", &netDev, &kd);
+	}
 
 	if (!beTelnet(flags)) flags |= LOADER_FLAGS_TEXT;
     }

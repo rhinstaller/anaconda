@@ -38,6 +38,7 @@ int beTelnet(int flags) {
     struct pollfd fds[3];
     telnet_state ts = TS_DATA;
     struct termios orig, new;
+    char * termType;
 
     if ((sock = socket(PF_INET, SOCK_STREAM, 0)) < 0) {
 	logMessage("socket: %s", strerror(errno));
@@ -72,7 +73,12 @@ int beTelnet(int flags) {
 
     close(sock);
 
-    telnet_negotiate(conn);
+    telnet_negotiate(conn, &termType);
+
+    printf("got term type %s\n", termType);
+    printf("term is currently %s\n", getenv("TERM"));
+
+    sleep(3);
 
     masterFd = open("/dev/ptyp0", O_RDWR);
     if (masterFd < 0) {
@@ -148,6 +154,8 @@ int beTelnet(int flags) {
     dup(0);
 
     /* brand new tty! */
+    setenv("TERM", termType, 1);
+
     startNewt(flags);
 
     return 0;

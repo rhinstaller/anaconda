@@ -20,6 +20,7 @@
 
 /* Shamelessly stolen from ttywatch -- oot */
 
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -36,6 +37,7 @@
 #define SE "\xf0"
 #define ECHO "\x01"
 #define SUPPRESS_GO_AHEAD "\x03"
+#define TERMINAL_TYPE "\x18"
 #define LINEMODE "\x22"
 #define NEWENVIRON "\x27"
 #define MODE "\x01"
@@ -52,7 +54,12 @@
  * too.
  */
 void
-telnet_negotiate(int socket) {
+telnet_negotiate(int socket, char ** term_type_ptr) {
+    char ch;
+    int done = 0;
+    char * termType = NULL;
+    int termLength = 0, termAlloced = 0;
+    enum { ST_NONE, ST_TERMTYPE, ST_TERMSIZE } state;
     char request[]=
       IAC DONT ECHO
       IAC WILL ECHO
@@ -60,17 +67,79 @@ telnet_negotiate(int socket) {
       IAC DO SUPPRESS_GO_AHEAD
       IAC DONT NEWENVIRON
       IAC WONT NEWENVIRON
-      IAC DO LINEMODE
-      IAC SB LINEMODE MODE "0" IAC SE
+      IAC WONT LINEMODE
+      IAC SB TERMINAL_TYPE "\x01" IAC SE
       ;
+
     write(socket, request, sizeof(request)-1);
+
+    /* Read from the terminal until we get the terminal type. This will
+       do bad things if the client doesn't send the terminal type, but
+       those clients have existed for aeons (right?) */
+
+    do {
+	read(socket, &ch, 1);
+	if (ch != '\xff') {
+	    printf("got 0x%x\n", ch);
+	    abort();
+	}
+
+	printf("got IAC\n");
+	
+	read(socket, &ch, 1);	    /* command */
+
+	printf("command %d\n", (unsigned char) ch);
+	
+	if (ch != '\xfa') {
+	    read(socket, &ch, 1);   /* verb */
+	    printf("verb %d\n", (unsigned char) ch);
+	    continue;
+	}
+
+	read(socket, &ch, 1);   /* suboption */
+	printf("suboption %d\n", (unsigned char) ch);
+	if (ch == '\x18') {
+	    state = ST_TERMTYPE;
+	    read(socket, &ch, 1);	    /* should be 0x0! */
+	    done = 1;
+	} else {
+	    state = ST_NONE;;
+	}
+
+	read(socket, &ch, 1);   /* data */
+	while (ch != '\xff') {
+	    printf("got %d '%c'\n", (unsigned char) ch, ch);
+
+	    if (state == ST_TERMTYPE) {
+		if (termAlloced == termLength) {
+		    termAlloced += 10;
+		    termType = realloc(termType, termAlloced + 1);
+		}
+
+		termType[termLength++] = tolower(ch);
+	    }
+
+	    read(socket, &ch, 1);   /* data */
+	}
+
+	read(socket, &ch, 1);   /* should be a SE */
+	printf("ended on %d\n", (unsigned char) ch);
+
+	printf("---\n");
+
+	termType[termLength] = '\0';
+
+    } while (!done);
+
+    printf("term is %s\n", termType);
+
+    if (term_type_ptr) *term_type_ptr = termType;
 }
 
 int
 telnet_process_input(telnet_state * ts, char *data, int len) {
     char *s, *d; /* source, destination */
 
-#   define DEBUG_TELNET 0
 #   if DEBUG_TELNET
     printf("\nprinting packet:");
     for (s=data; s<data+len; s++) {
@@ -135,7 +204,7 @@ telnet_process_input(telnet_state * ts, char *data, int len) {
 		*ts = TS_DATA;
 	    } else {
 #		if DEBUG_TELNET
-		printf("IAC without SE in SB\n");
+		printf("IAC without SE in SB (offset %d)\n", s-data-1);
 #		endif /* DEBUG_TELNET */
 		*ts = TS_SB;
 	    }
@@ -159,6 +228,7 @@ telnet_process_input(telnet_state * ts, char *data, int len) {
     }
     printf("\n");
 #endif /* DEBUG_TELNET */
+
     return len;
 }
 
