@@ -39,6 +39,7 @@ static char * getpolicyver() {
 
     buf = malloc(128);
     if ((read(fd, buf, 128)) == -1) {
+        logMessage("error getting policy version: %s", strerror(errno));
         free(buf);
         close(fd);
         return NULL;
