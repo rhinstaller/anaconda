@@ -14,6 +14,7 @@
 import installclass
 import gtk
 import gui
+from pixmapRadioButtonGroup_gui import pixmapRadioButtonGroup
 from iw_gui import InstallWindow
 from flags import flags
 from rhpl.translate import _, N_
@@ -26,9 +27,6 @@ WORKSTATION_GNOME = 3
 WORKSTATION_KDE = 4
 SERVER = 5
 
-def D_(x):
-    return x
-
 class InstallPathWindow (InstallWindow):		
 
     installTypes = installclass.availableClasses()
@@ -40,14 +38,10 @@ class InstallPathWindow (InstallWindow):
 	#if self.flags.setupFilesystems() and self.id.fstab:
 	    #self.id.fstab.turnOffSwap()
 
-	for (button, box, buttons) in self.topLevelButtonList:
-	    if not button.get_active(): continue
-
-	    if buttons:
-		for b in buttons:
-		    if b.get_active(): selection = self.buttonToObject[b]
-	    else:
-		selection = self.buttonToObject[button]
+        selection = None
+	for (name, object, pixmap) in self.installTypes:
+	    if name == self.currentClassName:
+		selection = object
 
 	if not isinstance (self.id.instClass, selection):
 	    c = selection(self.flags.expert)
@@ -55,47 +49,71 @@ class InstallPathWindow (InstallWindow):
 	    c.setInstallData(self.id)
 	    needNewDruid = 1
 
-    def toggled (self, widget):
-        if not widget.get_active (): return
+    def optionToggled(self, widget, name):
+	if widget.get_active():
+	    self.currentClassName = name
 
-	for (button, box, buttons) in self.topLevelButtonList:
-	    if not box: continue
-	    sensitive = (button == widget)
-	    box.set_sensitive(sensitive)
+    def createInstallTypeOption(self):
+	r = pixmapRadioButtonGroup()
 
-    def pixRadioButton (self, group, labelstr, pixmap, description=None):
-	if pixmap:
-	    pix = self.ics.readPixmap (pixmap)
-	    xpad = 15
-	else:
-	    pix = None
-	    xpad = 0
+	for (name, object, pixmap) in self.installTypes:
+	    descr = object.description
+	    r.addEntry(name, pixmap=self.ics.readPixmap(pixmap),
+		       descr=_(descr))
 
-	hbox = gtk.HBox (gtk.FALSE, 18)
-	if pix != None:
-	    hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
-	label = gtk.Label("")
-	label.set_line_wrap(gtk.TRUE)
-	label.set_markup("<b>"+labelstr+"</b>")
-	label.set_alignment (0.0, 0.5)
-	if description is not None:
-	    label.set_markup ("<b>%s</b>\n<small>%s</small>" %(labelstr,
-                                                               description))
-	    label.set_line_wrap(gtk.TRUE)
-	    if  gtk.gdk.screen_width() > 640:
-		wraplen = 350
-	    else:
-		wraplen = 250
-		
-	    label.set_size_request(wraplen, -1)
-	label.set_use_markup (gtk.TRUE)
-	hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
-	button = gtk.RadioButton (group)
-	button.add (hbox)
-        return button
+	return r
+
+
 
     # InstallPathWindow tag="instpath"
-    def getScreen (self, dispatch, id, method, intf):
+    def getScreen(self, dispatch, id, method, intf): 
+        self.id = id
+        self.intf = intf
+	self.flags = flags
+	self.method = method
+	self.dispatch = dispatch
+	
+        vbox = gtk.VBox (gtk.FALSE, 10)
+	vbox.set_border_width (8)
+
+	r = self.createInstallTypeOption()
+	b = r.render()
+
+	r.setToggleCallback(self.optionToggled)
+
+	# figure out current class as well as default
+	defaultClass = None
+	currentClass = None
+	firstClass = None
+	for (name, object, pixmap) in self.installTypes:
+	    if firstClass is None:
+		firstClass = object
+
+	    if isinstance(id.instClass, object):
+		currentClass = object
+
+	    if object.default:
+		defaultClass = object
+
+	if currentClass is None:
+	    if defaultClass is not None:
+		self.currentClassName = defaultClass.name
+	    else:
+		self.currentClassName = firstClass.name
+	else:
+	    self.currentClassName = currentClass.name
+
+	r.setCurrent(self.currentClassName)
+	
+	box = gtk.VBox (gtk.FALSE)
+        box.pack_start(b, gtk.FALSE)
+
+        vbox.pack_start (box, gtk.FALSE)
+        return vbox
+
+
+    
+    def getScreenOld (self, dispatch, id, method, intf):
 	self.dispatch = dispatch
 	self.id = id
 	self.flags = flags
