@@ -371,7 +371,7 @@ class ToDo:
 	    w = self.intf.waitWindow("Formatting", 
 			"Formatting %s filesystem..." % (mntpoint,))
 	    isys.makeDevInode(device, '/tmp/' + device)
-	    util.execWithRedirect("mke2fs", [ "mke2fs", '/tmp/' + device ],
+	    util.execWithRedirect("/usr/sbin/mke2fs", [ "mke2fs", '/tmp/' + device ],
 				  stdout = None, stderr = None, searchPath = 1)
             os.remove('/tmp/' + device)
 	    w.pop()
