@@ -541,7 +541,7 @@ class ToDo:
         self.probedFlag = ""
         self.resState = ""
         self.depthState = ""
-        self.initState = ""
+        self.initState = 0
         self.dhcpState = ""
         self.firewallState = 0
 

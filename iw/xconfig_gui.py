@@ -399,11 +399,11 @@ class XCustomWindow (InstallWindow):
 
 
         #--If both KDE and GNOME are selected
-        if ((self.todo.hdList.has_key('gnome-core')
-             and self.todo.hdList['gnome-core'].selected)
-            and (self.todo.hdList.has_key('kdebase')
-                 and self.todo.hdList['kdebase'].selected)):
-
+        gnomeSelected = (self.todo.hdList.has_key('gnome-core')
+                         and self.todo.hdList['gnome-core'].selected)
+        kdeSelected = (self.todo.hdList.has_key('kdebase')
+                       and self.todo.hdList['kdebase'].selected)
+        if gnomeSelected and kdeSelected:
             hsep = GtkHSeparator ()
             self.box.pack_start (hsep)
 
@@ -454,11 +454,7 @@ class XCustomWindow (InstallWindow):
             kde_radio.connect ("clicked", self.desktop_cb, "KDE")                
             self.box.pack_start (hbox3, FALSE, TRUE, 2)
             
-        elif ((self.todo.hdList.has_key('gnome-core')
-             and self.todo.hdList['gnome-core'].selected)
-            or (self.todo.hdList.has_key('kdebase')
-                 and self.todo.hdList['kdebase'].selected)):
-
+        elif gnomeSelected or kdeSelected:
             hsep = GtkHSeparator ()
             self.box.pack_start (hsep)
 
@@ -471,7 +467,7 @@ class XCustomWindow (InstallWindow):
 #            vbox3 = GtkVBox()
 #            self.vbox4 = GtkVBox()
 
-            if self.todo.hdList['gnome-core'].selected:
+            if gnomeSelected:
                 self.newDesktop = "GNOME"
                 im = self.ics.readPixmap ("gnome.png")
                 if im:
@@ -485,7 +481,7 @@ class XCustomWindow (InstallWindow):
                 label = GtkLabel (_("GNOME"))
                 self.hbox4.pack_start (label, TRUE, FALSE, 2)
 
-            elif self.todo.hdList['kdebase'].selected:
+            elif kdeSelected:
                 self.newDesktop = "KDE"
                 im = self.ics.readPixmap ("kde.png")                
                 if im:
@@ -518,6 +514,14 @@ class XCustomWindow (InstallWindow):
 
         self.text = GtkRadioButton (None, (_("Text")))
         self.graphical = GtkRadioButton (self.text, (_("Graphical")))
+
+
+        # see if we've ever set initState
+        if self.todo.initState == 0:
+            if gnomeSelected or kdeSelected:
+                self.todo.initState = 5
+            else:
+                self.todo.initState = 3
 
         if self.todo.initState == 3:
             self.text.set_active (TRUE)
