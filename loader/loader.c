@@ -622,8 +622,8 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    errno = 0;
 	}
 
-	umount("/tmp/hdimage");
 	closedir(dir);
+	umount("/tmp/hdimage");
 
 	if (!ent) return NULL;
     }
