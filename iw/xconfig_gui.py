@@ -1066,7 +1066,7 @@ class XConfigWindow (InstallWindow):
         self.ctree.select(node)
 
         self.ctree.expand(parent_node)
-        self.ctree.node_moveto(node, 0, 0.5, 0.5)
+        self.ctree.node_moveto(node, 0, 0.5, 0)
         self.ctree.thaw()
 
     def movetree2 (self, ctree, area, node):
@@ -1098,6 +1098,7 @@ class XConfigWindow (InstallWindow):
             pass
             
     def restorePressed (self, ramMenu):
+        print "restorePressed"
         try:
             current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
             original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
@@ -1673,6 +1674,7 @@ class XConfigWindow (InstallWindow):
 
 #            self.cardList.connect ("draw", self.moveto, select)
             sw = GtkScrolledWindow ()
+            sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
 #            sw.add (self.cardList)
             sw.add (self.ctree)
             box.pack_start (sw, TRUE)
