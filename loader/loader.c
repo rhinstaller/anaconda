@@ -3004,7 +3004,7 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags) {
 
-#if !defined (__s390__) && !defined (__s390x__)
+#if defined (__s390__) && defined (__s390x__)
 	return;
 #else
     if (FL_NOUSB(flags)) return;
