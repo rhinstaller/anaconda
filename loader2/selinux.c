@@ -51,10 +51,15 @@ static char * getpolicyver() {
 }
 
 int loadpolicy() {
-    char * ver, * fn;
+    char * ver, * fn, * bfn;
     char *paths[] = { "/tmp/updates", 
                       "/mnt/source/RHupdates",
                       "/mnt/runtime/etc/selinux/targeted/policy",
+                      "/mnt/runtime/etc/security/selinux",
+                      NULL };
+    char *bpaths[] = { "/tmp/updates", 
+                      "/mnt/source/RHupdates",
+                      "/mnt/runtime/etc/selinux/targeted",
                       "/mnt/runtime/etc/security/selinux",
                       NULL };
     int i, pid, status;
@@ -73,7 +78,16 @@ int loadpolicy() {
         }
     }
 
-    if (access(fn, R_OK)) {
+    bfn = malloc(128);
+    bfn = memset(bfn, 0, 128);
+    for (i = 0; paths[i]; i++) {
+        snprintf(bfn, 128, "%s/booleans", (char *) bpaths[i]);
+        if (!access(bfn, R_OK)) {
+            break;
+        }
+    }
+
+    if (access(fn, R_OK) || access(bfn, R_OK)) {
         logMessage("Unable to load suitable SELinux policy");
         return -1;
     }
@@ -82,7 +96,7 @@ int loadpolicy() {
     if (!(pid = fork())) {
         setenv("LD_LIBRARY_PATH", LIBPATH, 1);
         execl("/usr/sbin/load_policy", 
-              "/usr/sbin/load_policy", "-q", fn, NULL);
+              "/usr/sbin/load_policy", "-q", "-b", fn, bfn, NULL);
         logMessage("exec of load_policy failed: %s", strerror(errno));
         exit(1);
     }
