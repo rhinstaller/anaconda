@@ -91,10 +91,10 @@ static int readNextTable(int fd, struct partitionTable * table, int nextNum,
 	    gotExtended = 1;
 
 	    if (sectorOffset)
-		rc = readNextTable(fd, table, nextNum > 5 ? nextNum : 5, 
+		rc = readNextTable(fd, table, nextNum > 4 ? nextNum : 4, 
 				   singleTable.parts[i].start, sectorOffset);
 	    else
-		rc = readNextTable(fd, table, nextNum > 5 ? nextNum : 5, 
+		rc = readNextTable(fd, table, nextNum > 4 ? nextNum : 4, 
 				   0, singleTable.parts[i].start);
 
 	    if (rc) return rc;
