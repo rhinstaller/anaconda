@@ -1540,8 +1540,17 @@ def readFstab (path):
 	    # skip all comments
 	    continue
 
-	# all valid fstab entries have 6 fields
-	if len (fields) < 4 or len (fields) > 6: continue
+	# all valid fstab entries have 6 fields; if the last two are missing
+        # they are assumed to be zero per fstab(5)
+        if len(fields) < 4:
+            continue
+        elif len(fields) == 4:
+            fields[4] = 0
+            fields[5] = 0
+        elif len(fields) == 5:
+            fields[5] = 0
+        elif len(fields) > 6:
+            continue
 
         # if we don't support mounting the filesystem, continue
         if not fileSystemTypes.has_key(fields[2]):
