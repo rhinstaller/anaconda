@@ -403,19 +403,16 @@ class PackageSelectionWindow (InstallWindow):
 
         for comp in self.todo.comps:
             if not comp.hidden:
-                pixname = string.replace (comp.name, ' ', '_')
-                pixname = string.replace (pixname, '/', '_')
-                pixname = string.replace (pixname, '.', '_')
-                pixname = string.replace (pixname, '(', '_')
-                pixname = string.replace (pixname, ')', '_')
-                pixname = string.upper (pixname) + "_XPM"
-#                print pixname
+                pixname = string.replace (comp.name, ' ', '-')
+                pixname = string.replace (pixname, '/', '-')
+                pixname = string.replace (pixname, '.', '-')
+                pixname = string.replace (pixname, '(', '-')
+                pixname = string.replace (pixname, ')', '-')
+                pixname = string.lower (pixname) + ".png"
                 picture = None
                 checkButton = None
-                if pixname in xpms.__dict__.keys ():
-                    picture = xpms.__dict__[pixname]
-                if picture:
-                    im = GdkImlib.create_image_from_xpm (picture)
+                im = self.ics.readPixmap (pixname)
+                if im:
                     im.render ()
                     pix = im.make_pixmap ()
                     hbox = GtkHBox (FALSE, 5)
