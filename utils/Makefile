@@ -4,12 +4,20 @@ ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
 LOADLIBES =  -L../isys -lisys -lpopt
-CFLAGS = -Wall -g
+CFLAGS = -Wall -g -I/usr/include/rpm
 LDFLAGS = -g 
 
 ifneq ($(ARCH),ia64)
 MODDEPS=moddeps
 endif
+
+ifeq (.depend,$(wildcard .depend))
+TARGET=all
+else
+TARGET=depend all
+endif
+
+everything: $(TARGET)
 
 all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
@@ -21,7 +29,10 @@ moddeps: moddeps.o
 	    ../isys/modutils/obj/libobj.a -lrpm -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c
-	$(CC) -I/usr/include/rpm $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt -ldb
+	$(CC) $(LDFLAGS) -o genhdlist genhdlist.c -lrpm -lbz2 -static -lz -lpopt -ldb
+
+depends:
+	
 
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
@@ -37,3 +48,10 @@ install: all
 #
 clean:	
 	rm -f modlist moddeps snarffont *.o 
+
+depend:
+	$(CPP) -M $(CFLAGS) *.c > .depend
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif                                           
