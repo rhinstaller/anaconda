@@ -362,6 +362,7 @@ def growParts(diskset, requests, newParts):
             growList = growable[drive]
 
             sector_size = diskset.disks[drive].dev.sector_size
+            cylsectors = diskset.disks[drive].dev.sectors*diskset.disks[drive].dev.heads
             
             # sort in order of request size, consider biggest first
             n = 0
@@ -448,7 +449,11 @@ def growParts(diskset, requests, newParts):
 
                     lastDiff = diff
                     diff = max - min
-                    cur = max - (diff / 2)
+
+                    if diff < cylsectors:
+                        cur = max
+                    else:
+                        cur = max - (diff / 2)
 
                     inner_iter = inner_iter + 1
 ##                     print diskset.diskState()
