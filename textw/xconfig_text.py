@@ -271,6 +271,9 @@ class MonitorWindow:
             selMonitorName = self.currentMonitor
 	    if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
 		selMonitor = self.ddcmon
+	    elif selMonitorName == unprobed_monitor_string:
+		selMonitor = (unprobed_monitor_string, unprobed_monitor_string,
+			      "31.5", "50-61")
 	    else:
 		selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
@@ -377,7 +380,7 @@ class MonitorWindow:
 
 	man = title
 	self.monitorslist[title] = self.ddcmon
-	self.monitorsnames.append(title)
+	self.monitorsnames.insert(0, title)
 	
 	# set as current monitor if necessary
 	if self.origMonitorID == "DDCPROBED" or self.origMonitorID == "Unprobed Monitor":
@@ -393,6 +396,9 @@ class MonitorWindow:
             selMonitorName = self.currentMonitor
 	    if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
 		selMonitor = self.ddcmon
+	    elif selMonitorName == unprobed_monitor_string:
+		selMonitor = (unprobed_monitor_string, unprobed_monitor_string,
+			      "31.5", "50-61")
 	    else:
 		selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
             
@@ -458,6 +464,9 @@ class MonitorWindow:
         selMonitorName = self.currentMonitor
 	if selMonitorName[:len(ddc_monitor_string)] == ddc_monitor_string:
 	    selMonitor = self.ddcmon
+	elif selMonitorName == unprobed_monitor_string:
+	    selMonitor = (unprobed_monitor_string, unprobed_monitor_string,
+			  "31.5", "50-61")
 	else:
 	    selMonitor = self.monitor.lookupMonitorByName(selMonitorName)
 
