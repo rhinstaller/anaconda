@@ -106,27 +106,50 @@ class LiloWindow (InstallWindow):
             
         format = "/dev/%s"
 
-        self.radioBox = GtkVBox (FALSE, 10)
+        self.radioBox = GtkTable(2, 6)
+
+	spacer = GtkLabel("")
+	spacer.set_usize(10, 1)
+	self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
+
+	label = GtkLabel(_("Install LILO boot record on:"))
+	label.set_alignment(0.0, 0.5)
+	self.radioBox.attach(label, 0, 2, 1, 2)
+
         group = GtkRadioButton(None, 
 	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
-	self.radioBox.pack_start(group, FALSE)
+	self.radioBox.attach(group, 1, 2, 2, 3)
         group = GtkRadioButton(group, 
 	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
-	self.radioBox.pack_start(group, FALSE)
+	self.radioBox.attach(group, 1, 2, 3, 4)
+
+	self.linearCheck = GtkCheckButton(
+	    _("Use linear mode (needed for some SCSI drives)"))
+	self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
+
+	label = GtkLabel(_("Kernel parameters") + ":")
+	label.set_alignment(0.0, 0.0)
+	self.appendEntry = GtkEntry(15)
+	box = GtkHBox(FALSE)
+	box.pack_start(label)
+	box.pack_start(self.appendEntry)
+	alignment = GtkAlignment()
+	alignment.set(0.0, 0.5, 0, 1.0)
+	alignment.add(box)
+	self.radioBox.attach(alignment, 0, 2, 5, 6)
 	
         box = GtkVBox (FALSE, 5)
         self.bootdisk = GtkCheckButton (_("Create boot disk"))
         self.bootdisk.set_active (TRUE)
         box.pack_start (self.bootdisk, FALSE)
-        box.pack_start (GtkHSeparator (), FALSE, padding=3)
 
         self.lilo = GtkCheckButton (_("Skip LILO install"))
         self.lilo.set_active (FALSE)
         self.lilo.connect ("toggled", self.toggled)
         box.pack_start (self.lilo, FALSE)
 
-        self.radioBox.set_border_width (10)
+        box.pack_start (GtkHSeparator (), FALSE, padding=3)
         box.pack_start (self.radioBox, FALSE)
 
 	self.imageList = GtkCList (4,

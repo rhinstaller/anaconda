@@ -852,10 +852,44 @@ class BootDiskWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
+class LiloAppendWindow:
+
+    def __call__(self, screen, todo):
+	t = TextboxReflowed(53,
+		     _("A few systems will need to pass special options "
+		       "to the kernel at boot time for the system to function "
+		       "properly. If you need to pass boot options to the "
+		       "kernel, enter them now. If you don't need any or "
+		       "aren't sure, leave this blank."))
+
+        cb = Checkbox(_("Use linear mode (needed for some SCSI drives)"))
+	entry = Entry(48, scroll = 1, returnExit = 1)
+	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
+			     (_("Back"), "back") ] )
+
+	grid = GridForm(screen, _("LILO Configuration"), 1, 4)
+	grid.add(t, 0, 0)
+	grid.add(cb, 0, 1, padding = (0, 1, 0, 1))
+	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
+	grid.add(buttons, 0, 3, growx = 1)
+
+        result = grid.runOnce ()
+        button = buttons.buttonPressed(result)
+        
+        if button == "back":
+            return INSTALL_BACK
+
+	if button == "skip":
+	    todo.skipLilo = 1
+	else:
+	    todo.skipLilo = 0
+
+	return INSTALL_OK
 
 class LiloWindow:
     def __call__(self, screen, todo):
         if '/' not in todo.mounts.keys (): return INSTALL_NOOP
+	if todo.skipLilo: return INSTALL_NOOP
 
 	(bootpart, boothd) = todo.getLiloOptions()
 
@@ -939,7 +973,8 @@ class LiloImagesWindow:
 
     def __call__(self, screen, todo):
 	images = todo.getLiloImages()
-	if not images: return
+	if not images: return INSTALL_NOOP
+	if todo.skipLilo: return INSTALL_NOOP
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
@@ -1323,6 +1358,12 @@ class InstallInterface:
 		    "hostname"],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
+            [_("LILO Configuration"), LiloAppendWindow, 
+		    (self.screen, todo), "lilo"],
+            [_("LILO Configuration"), LiloWindow, 
+		    (self.screen, todo), "lilo"],
+	    [_("LILO Configuration"), LiloImagesWindow, 
+		    (self.screen, todo), "lilo"],
             [_("Package Groups"), PackageGroupWindow, 
 		(self.screen, todo, self.individual), "package-selection" ],
             [_("Individual Packages"), IndividualPackageWindow, 
@@ -1336,10 +1377,6 @@ class InstallInterface:
             [_("User Account Setup"), UsersWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
 		"bootdisk" ],
-            [_("LILO Configuration"), LiloWindow, 
-		    (self.screen, todo), "lilo"],
-	    [_("LILO Configuration"), LiloImagesWindow, 
-		    (self.screen, todo), "lilo"],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
             [_("Install System"), InstallWindow, (self.screen, todo),
 		"install-pause"],
