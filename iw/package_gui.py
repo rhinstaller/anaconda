@@ -750,7 +750,7 @@ class PackageSelectionWindow (InstallWindow):
 	# START OF editDetails
 	#
 	# backup state
-	(comp, hdrlbl, count) = data
+	(comp, hdrlbl, countlbl, compcb) = data
 	origpkgselection = {}
 	for pkg in comp.packagesFullInfo().keys():
 	    val = comp.packagesFullInfo()[pkg]
@@ -925,9 +925,13 @@ class PackageSelectionWindow (InstallWindow):
         self.dialog.destroy()
 	self.setSize()
 
-	if count:
-	    self.setCompCountLabel(comp, count)
-	    
+	if countlbl:
+	    self.setCompCountLabel(comp, countlbl)
+
+	(selpkg, totpkg) = self.getStats(comp)
+	if selpkg < 1:
+	    if compcb:
+		compcb.set_active(0)
         return
 
     def focusIdleHandler(self, data):
@@ -1062,7 +1066,7 @@ class PackageSelectionWindow (InstallWindow):
 		    editbutton.add(nlbl)
 		    editbutton.set_relief(gtk.RELIEF_NONE)
 		    editbutton.connect("clicked", self.editDetails,
-				       (comp, hdrlabel, count))
+				       (comp, hdrlabel, count, checkButton))
                     if comp.isSelected(justManual = 1):
                         buttonal.add(editbutton)
 		else:
