@@ -264,8 +264,8 @@ def checkDasdFmt(disk, intf):
 
     if intf:
         rc = intf.messageWindow(_("Warning"),
-                       _("The /dev/%s device is LDL formatted instead of"
-                         "CDL formatted.  LDL formatted dasds are not "
+                       _("The /dev/%s device is LDL formatted instead of "
+                         "CDL formatted.  LDL formatted DASDs are not "
                          "supported for usage during an install of %s.  "
                          "If you wish to use this disk for installation, "
                          "it must be re-initialized causing the loss of "
