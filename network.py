@@ -160,7 +160,13 @@ class Network:
 	self.hostname = hn
 
     def setDNS(self, ns):
-        self.primaryNS = ns
+        dns = ns.split(',')
+        if len(dns) >= 1:
+            self.primaryNS = dns[0]
+        if len(dns) >= 2:
+            self.secondaryNS = dns[1]
+        if len(dns) >= 3:
+            self.ternaryNS = dns[2]
 
     def setGateway(self, gw):
         self.gateway = gw
@@ -209,6 +215,16 @@ class Network:
     def nameservers(self):
         return (self.primaryNS, self.secondaryNS, self.ternaryNS)
 
+    def dnsString(self):
+        str = ""
+        for ns in self.nameservers():
+            if not ns:
+                continue
+            if str: str = str + ","
+            str = str + ns
+        return str
+            
+
     def writeKS(self, f):
 	devNames = self.netdevices.keys()
 	devNames.sort()
@@ -234,8 +250,8 @@ class Network:
 		    if self.gateway is not None:
 			f.write(" --gateway %s" % (self.gateway,))
 
-		    if self.primaryNS:
-                        f.write(" --nameserver %s" % self.primaryNS)
+		    if self.dnsString():
+                        f.write(" --nameserver %s" % (self.dnsString(),)
                         
 		    if (self.hostname and
 			self.hostname != "localhost.localdomain"):
