@@ -22,6 +22,11 @@
 char *snip(char *string)
 {
 	int i;
+	
+	/* This is always a 13 character buffer */
+	/* and it's not always terminated. */
+	string[12] = '\0';
+	
 	while(((i = strlen(string)) > 0) &&
 	       (isspace(string[i - 1]) ||
 	        (string[i - 1] == '\n') ||
