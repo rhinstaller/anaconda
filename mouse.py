@@ -51,6 +51,8 @@ class Mouse (SimpleConfigFile):
 		("pnp", "IntelliMouse", "ttyS", 0),
 	"Logitech - MouseMan+/FirstMouse+ (PS/2)" :
 		("ps/2", "MouseManPlusPS/2", "psaux", 0),
+	"Logitech - MouseMan Wheel (USB)" :
+		("ps/2", "IMPS/2", "input/mice", 0),
 	"Microsoft - Compatible Mouse (serial)" :
 		("Microsoft",    "Microsoft", "ttyS", 1),
 	"Microsoft - Rev 2.1A or higher (serial)" :
@@ -58,7 +60,12 @@ class Mouse (SimpleConfigFile):
 	"Microsoft - IntelliMouse (serial)" :
 		("ms3", "IntelliMouse", "ttyS", 0),
 	"Microsoft - IntelliMouse (PS/2)" :
-		("imps2", "IMPS/2", "psaux", 0), 
+		("imps2", "IMPS/2", "psaux", 0),
+
+	"Microsoft - IntelliMouse (USB)" :
+		("ps/2", "IMPS/2", "input/mice", 0),
+        
+        
 	"Microsoft - Bus Mouse" :
 		("Busmouse", "BusMouse", "inportbm", 1),
 	"Mouse Systems - Mouse (serial)" :
