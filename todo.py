@@ -973,7 +973,7 @@ class ToDo:
         hasFileManager = 0
         # turn on the packages in the upgrade set
         for package in packages:
-            self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
+            self.hdList[package[rpm.RPMTAG_NAME]].select()
             if package[rpm.RPMTAG_NAME] == "XFree86":
                 hasX = 1
             if package[rpm.RPMTAG_NAME] == "gmc":
