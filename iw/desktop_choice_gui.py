@@ -24,7 +24,7 @@ from flags import flags
 class DesktopChoiceWindow (InstallWindow):		
 
     windowTitle = N_("Workstation Defaults")
-    htmlTag = "wsdefaults"
+    htmlTag = "workstation-pkgs"
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
