@@ -32,6 +32,8 @@
 #define LOADER_FLAGS_NOFB		(1 << 27)
 #define LOADER_FLAGS_CMDLINE            (1 << 28)
 #define LOADER_FLAGS_GRAPHICAL		(1 << 29)
+/* FIXME: this should go away */
+#define LOADER_FLAGS_ENABLECDDMA       	(1 << 13)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -60,6 +62,8 @@
 #define FL_NOFB(a)	    ((a) & LOADER_FLAGS_NOFB)
 #define FL_GRAPHICAL(a)	    ((a) & LOADER_FLAGS_GRAPHICAL)
 #define FL_CMDLINE(a)	    ((a) & LOADER_FLAGS_CMDLINE)
+/* FIXME: this should go away */
+#define FL_ENABLECDDMA(a)   ((a) & LOADER_FLAGS_ENABLECDDMA)
 
 
 void startNewt(int flags);

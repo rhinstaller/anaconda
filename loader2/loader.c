@@ -553,6 +553,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             loaderData->dns = strdup(argv[i] + 4);
         else if (!strncasecmp(argv[i], "ethtool=", 8))
             loaderData->ethtool = strdup(argv[i] + 8);
+        else if (!strncasecmp(argv[i], "allowcddma", 10))
+            flags |= LOADER_FLAGS_ENABLECDDMA;
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */

@@ -16,6 +16,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <errno.h>
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
 #include <popt.h>
@@ -28,6 +29,12 @@
 #include "hardware.h"
 #include "pcmcia.h"
 #include "log.h"
+
+/* FIXME: for turning off dma */
+#include <sys/ioctl.h>
+#include <linux/hdreg.h>
+#include "../isys/isys.h"
+
 
 /* JKFIXME: this is the same hack as in loader.c for second stage modules */
 extern struct moduleBallLocation * secondStageModuleLocation;
@@ -309,7 +316,38 @@ void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
               moduleInfoSet modInfo, int flags,
               struct knownDevices * kd) {
+    struct device ** devices;
+    int fd, i;
+
     mlLoadModuleSet("ide-cd", modLoaded, modDeps, modInfo, flags);
+
+    /* FIXME: having dma on for CD devices seems to break media check
+     * as well as causing other problems for people.  To avoid having
+     * to tell everyone to use ide=nodma all the time, let's do it 
+     * ourselves.
+     */
+    if (FL_ENABLECDDMA(flags))
+        return;
+    devices = probeDevices(CLASS_CDROM, BUS_IDE, PROBE_ALL);
+    for (i = 0; devices[i]; i++) {
+        if ((devices[i]->detached != 0) || (devices[i]->device == NULL)) 
+            continue;
+        devMakeInode(devices[i]->device, "/tmp/cdrom");
+        fd = open("/tmp/cdrom", O_RDONLY|O_NONBLOCK);
+        if (fd == -1) {
+            logMessage("failed to open /tmp/cdrom: %s", strerror(errno));
+            unlink("/tmp/cdrom");
+            continue;
+        }
+        if (ioctl(fd, HDIO_SET_DMA, 0) == -1)
+            logMessage("failed to disable dma for %s: %s", devices[i]->device,
+                       strerror(errno));
+        else
+            logMessage("disabled DMA for CD devices %s", devices[i]->device);
+        close(fd);
+        unlink("/tmp/cdrom");
+    }
+    
 }
 
 
