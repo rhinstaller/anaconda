@@ -729,7 +729,7 @@ class InstallControlWindow:
                           gtk.FILL | gtk.EXPAND, 5, 5)
 
             self.textWin.set_border_width(0)
-            addFrame(self.textWin)
+            addFrame(self.textWin, _("Release Notes"))
             self.textWin.show_all()
 
         else:
