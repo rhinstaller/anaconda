@@ -16,6 +16,8 @@ import os,sys
 import string
 import math
 
+MAX_LV_SLOTS=256
+
 output = "/tmp/lvmout"
 
 def vgscan():
