@@ -2140,7 +2140,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char * chptr;
     static struct networkDeviceConfig netDev;
     char * host = NULL, * url = NULL, * proxy = NULL, * proxyport = NULL;
-    char * fullPath;
+    char * fullPath, *isopath;
 
     struct poptOption ksNfsOptions[] = {
 	    { "server", '\0', POPT_ARG_STRING, &host, 0 },
@@ -2260,13 +2260,35 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	if (count == 3)
 	    return NULL;
 
-	if (mountLoopback("/mnt/source/RedHat/base/stage2.img",
-			   "/mnt/runtime", "loop0")) {
+	if (!access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+	    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
+			       "/mnt/runtime", "loop0")) {
+		rmdir("/mnt/source");
+		symlink("/mnt/source", "/mnt/source");
+		useMntSourceUpdates();
+		imageUrl = "nfs://mnt/source/.";
+	    }
+	} else if ((isopath = validIsoImages("/mnt/source"))) {
+	    useMntSourceUpdates();
+
+	    if (mountLoopback(isopath, "/mnt/source2", "loop1"))
+		logMessage("failed to mount iso loopback!");
+	    else {
+		if (mountLoopback("/mnt/source2/RedHat/base/stage2.img",
+				  "/mnt/runtime", "loop0"))
+		    logMessage("failed to mount install loopback!");
+		else
+		    imageUrl = "nfsiso:/mnt/source";
+	    }
+	} else {
+	    logMessage("No valid tree or isos found in %s", fullPath);
 	    umount("/mnt/source");
 	    return NULL;
 	}
-	    
-	imageUrl = "nfs://mnt/source/.";
+
+	if (!imageUrl)
+	    return NULL;
+
     } else if (ksType == KS_CMD_URL) {
 	memset(&ui, 0, sizeof(ui));
 
