@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-14 22:33+0200\n"
+"PO-Revision-Date: 2004-07-07 14:54+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -628,7 +628,7 @@ msgstr "Login op afstand (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Web-server (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
@@ -636,7 +636,7 @@ msgstr "Bestand-overdracht (FTP)"
 
 #: ../firewall.py:58
 msgid "Mail Server (SMTP)"
-msgstr "Mail Server (SMTP)"
+msgstr "Mail-server (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1589,7 +1589,7 @@ msgstr ""
 "Wilt u deze DASD opnieuw formatteren met het CDL formaat?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1597,22 +1597,19 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"De partitietabel op device /dev/%s is van een, voor uw architectuur, "
-"onverwacht type %s.  Om deze schijf te gebruiken voor de installatie van %s, "
-"moet deze opnieuw geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS op "
-"dit station verloren gaan.\n"
+"De partitietabel op device /dev/%s is van een type %s.  Om deze schijf te "
+"gebruiken voor de installatie van %s, moet deze opnieuw geïnitialiseerd "
+"worden. Hierdoor zullen ALLE GEGEVENS op dit station verloren gaan.\n"
 "\n"
 "Wilt u dit station initialiseren?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Negeren"
+msgstr "_Negeer station"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Formatteren"
+msgstr "_Formatteer station"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -1630,7 +1627,7 @@ msgstr "Een ogenblik geduld, station %s wordt nu geformatteerd...\n"
 
 # drive en device worden hier wel heel erg willekeurig door elkaar gehaald, lijkt het.
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1641,9 +1638,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"De partitietabel op device %s was onleesbaar. Om nieuwe partities te maken "
-"moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS op "
-"dit station verloren gaan.\n"
+"De partitietabel op device %s (%s) was onleesbaar. Om nieuwe partities te "
+"maken moet deze schijf geïnitialiseerd worden. Hierdoor zullen ALLE GEGEVENS "
+"op dit station verloren gaan.\n"
 "\n"
 "Deze actie zal alle voorgaande installatie keuzes met betrekking tot welke "
 "drives worden genegeerd teniet doen.\n"
@@ -2751,7 +2748,7 @@ msgstr "K_DC:"
 # ../comps/comps-master:698
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr "_Admin Server:"
+msgstr "_Admin-server:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
@@ -3340,6 +3337,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Met behulp van een firewall kunt u toegang verlenen tot bepaalde services op "
+"uw computer aan anderen.  Tot welke services wilt u toegang verlenen?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3348,11 +3347,14 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Security Enhanced Linux (SELinux) biedt meer verfijnde beveiligingscontroles "
+"dan gebruikelijk in een traditioneel Linux systeem.  SELinux kan worden "
+"uitgezet zodat het alleen waarschuwt over bepaalde zaken die niet zouden zijn "
+"toegestaan. SELinux kan ook worden aangezet zodat het volledig actief is."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "SELinux uitzetten"
+msgstr "_SELinux aanzetten?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3792,15 +3794,15 @@ msgstr "Gateway"
 
 #: ../iw/network_gui.py:27 ../iw/network_gui.py:600
 msgid "Primary DNS"
-msgstr "Eerste DNS server"
+msgstr "Eerste DNS-server"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:602
 msgid "Secondary DNS"
-msgstr "Tweede DNS server"
+msgstr "Tweede DNS-server"
 
 #: ../iw/network_gui.py:28 ../iw/network_gui.py:604
 msgid "Tertiary DNS"
-msgstr "Derde DNS server"
+msgstr "Derde DNS-server"
 
 #: ../iw/network_gui.py:30
 msgid "_Gateway"
@@ -3808,15 +3810,15 @@ msgstr "_Gateway"
 
 #: ../iw/network_gui.py:30
 msgid "_Primary DNS"
-msgstr "_Eerste DNS server"
+msgstr "_Eerste DNS-server"
 
 #: ../iw/network_gui.py:31
 msgid "_Secondary DNS"
-msgstr "_Tweede DNS server"
+msgstr "_Tweede DNS-server"
 
 #: ../iw/network_gui.py:31
 msgid "_Tertiary DNS"
-msgstr "_Derde DNS server"
+msgstr "_Derde DNS-server"
 
 #: ../iw/network_gui.py:35
 msgid "Network Configuration"
@@ -3918,14 +3920,12 @@ msgid "_Point to Point (IP)"
 msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:238
-#, fuzzy
 msgid "_ESSID"
-msgstr "ESSID"
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
-#, fuzzy
 msgid "Encryption _Key"
-msgstr "Encryptie sleutel"
+msgstr "Encryptie _sleutel"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5635,9 +5635,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "U kunt een firewall die is uitgezet niet aanpassen."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Grafische configuratie aanpassen"
+msgstr "Firewall configuratie aanpassen"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5785,15 +5784,15 @@ msgstr "Gateway:"
 
 #: ../textw/network_text.py:266
 msgid "Primary DNS:"
-msgstr "Eerste DNS server:"
+msgstr "Eerste DNS-server:"
 
 #: ../textw/network_text.py:271
 msgid "Secondary DNS:"
-msgstr "Tweede DNS server:"
+msgstr "Tweede DNS-server:"
 
 #: ../textw/network_text.py:276
 msgid "Tertiary DNS:"
-msgstr "Derde DNS server:"
+msgstr "Derde DNS-server:"
 
 #: ../textw/network_text.py:283
 msgid "Miscellaneous Network Settings"
@@ -7143,10 +7142,11 @@ msgstr "Fout in %s (regel %d) van het kickstart-bestand %s."
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Kon ks.cfg niet op de opstartdiskette vinden."
 
+# vertaling ok?
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Foutief argument voor harde schijf kickstart methode commando %s: %s"
+msgstr "Foutief argument voor 'uitschakelen' kickstart methode commando %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -8349,7 +8349,7 @@ msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabisch"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8405,9 +8405,8 @@ msgstr "Duits"
 
 # Vinden is letterlijk, maar zoeken is hier beter
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Zoekende"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8431,7 +8430,7 @@ msgstr "Koreaans"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonisch"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8456,7 +8455,7 @@ msgstr "Portugees(Braziliaans)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8475,9 +8474,8 @@ msgid "Swedish"
 msgstr "Zweeds"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmanië"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8489,7 +8487,7 @@ msgstr "Oekraïns"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnamees"
 
 #. generated from lang-table
 msgid "Welsh"
