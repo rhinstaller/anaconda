@@ -345,17 +345,6 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     arch = iutil.getArch ()
 
-    if arch == "alpha":
-	# if were're on alpha with ARC console, set the clock
-	# so that our installed files won't be in the future
-        from milo import MiloInstall, onMILO
-	if onMILO ():
-	    args = ("clock", "-A", "-s")
-	    try:
-		iutil.execWithRedirect('/usr/sbin/clock', args)
-	    except:
-		pass
-
     # shorthand
     upgrade = id.upgrade.get()
 
@@ -375,9 +364,7 @@ def doPreInstall(method, id, intf, instPath, dir):
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-bigmem')):
-	    import lilo
-
-	    if lilo.needsEnterpriseKernel():
+	    if iutil.needsEnterpriseKernel():
 		id.hdList['kernel-bigmem'].selected = 1
 
 	# we *always* need a kernel installed
