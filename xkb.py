@@ -42,9 +42,11 @@ class XKB:
             args = args + ("-variant", variant)
 
 	path = ("/usr/X11R6/bin/setxkbmap",)
-	if (os.fork () == 0):
+        child = os.fork ()
+        if (child == 0):
             os.execv (path[0], path + args)
 
+        pid, status = os.waitpid(child, 0)
         return
 
         # don't use any of our code, since it seems to corrupt
