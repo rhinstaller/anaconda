@@ -1,5 +1,6 @@
 
 import types, os, sys, isys, select, string, stat, signal
+import os.path
 
 def getArch ():
     arch = os.uname ()[4]
@@ -128,17 +129,29 @@ def execWithCapture(command, argv, searchPath = 0, root = '/', stdin = 0):
 
     return rc
 
-def copyFile(source, to):
+def copyFile(source, to, pw = None):
     f = os.open(source, os.O_RDONLY)
     t = os.open(to, os.O_RDWR | os.O_TRUNC | os.O_CREAT)
 
+    if pw:
+	(fn, title, text) = pw
+	total = os.path.getsize(source)
+	win = fn(title, text, total)
+
     count = os.read(f, 262144)
+    total = 0
     while (count):
 	os.write(t, count)
+	total = total + len(count)
+	if pw:
+	    win.set(total)
 	count = os.read(f, 16384)
 	
     os.close(f)
     os.close(t)
+
+    if pw:
+	win.pop()
 
 def memInstalled():
     f = open("/proc/meminfo", "r")
