@@ -60,8 +60,12 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	stdout = getfd(stdout)
 	stderr = getfd(stderr)
 
-    if not os.access (root + command, os.X_OK):
-	raise RuntimeError, command + " can not be run"
+#
+# XXX What is this good for? If we can't run a command we'll error
+#     out below won't we?
+#
+#    if not os.access (root + command, os.X_OK):
+#	raise RuntimeError, command + " can not be run"
 
     childpid = os.fork()
     if (not childpid):
