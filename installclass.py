@@ -165,7 +165,7 @@ class BaseInstallClass:
         if iutil.getArch() != "i386":
             dispatch.skipStep("bootdisk")
 
-        if iutil.getArch() != "i386" or iutil.getArch() != "x86_64":
+        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
 
         # 'noupgrade' can be used on the command line to force not looking
