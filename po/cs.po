@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2001-03-29 18:52-0500\n"
-"PO-Revision-Date: 2001-02-18 22:30+0100\n"
+"PO-Revision-Date: 2001-04-02 02:49+0100\n"
 "Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -85,23 +85,20 @@ msgstr ""
 "\"Ok\" pro nový start poèítaèe.\n"
 
 #: ../fstab.py:506
-#, fuzzy
 msgid "Swap Space"
 msgstr "Odkládací prostor"
 
 #: ../fstab.py:507
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formátuji odkládací prostor na zaøízení /dev/%s..."
+msgstr "Vytváøím odkládací prostor..."
 
 #: ../fstab.py:525 ../fstab.py:795 ../fstab.py:1254
 msgid "Formatting"
 msgstr "Formátování"
 
 #: ../fstab.py:526
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formátuji odkládací prostor na zaøízení /dev/%s..."
+msgstr "Formátuji odkládací prostor..."
 
 #: ../fstab.py:535
 msgid "Error creating swap on device "
@@ -892,9 +889,8 @@ msgid "Examine System"
 msgstr "Kontrola systému"
 
 #: ../text.py:1070
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Odkládací prostor"
+msgstr "Systémový odkládací prostor"
 
 #: ../text.py:1077
 msgid "Customize Upgrade"
@@ -947,9 +943,8 @@ msgid "no suggestion"
 msgstr "¾ádné doporuèení"
 
 #: ../todo.py:1189 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Velikost koøenové oblasti"
+msgstr "©pinavé systémy souborù"
 
 #: ../todo.py:1190
 msgid ""
@@ -1417,9 +1412,9 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Zvolte prosím zaøízení, které obsahuje koøenový systém souborù: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:189
-#, fuzzy, c-format
+#, c-format
 msgid "Upgrading the Red Hat Linux installation on partition /dev/%s"
-msgstr "Hledám instalace Red Hat Linuxu..."
+msgstr "Aktualizace instalace Red Hat Linuxu na oddílu /dev/%s"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1558,9 +1553,8 @@ msgid "Lilo Configuration"
 msgstr "Nastavení LILO"
 
 #: ../iw/lilo_gui.py:59 ../iw/package_gui.py:61 ../iw/upgrade_swap_gui.py:34
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "Upgrade systému"
+msgstr "Pøeru¹ení aktualizace"
 
 #: ../iw/lilo_gui.py:228 ../iw/lilo_gui.py:389 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -1700,7 +1694,7 @@ msgstr "Terciální DNS"
 #: ../iw/package_gui.py:22 ../textw/upgrade_text.py:14
 #: ../textw/upgrade_text.py:133
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Provést aktualizaci?"
 
 #: ../iw/package_gui.py:23 ../textw/upgrade_text.py:15
 #: ../textw/upgrade_text.py:134
@@ -1709,11 +1703,13 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Systémy souborù s Linuxem, které jste zvolili k aktualizaci ji¾ byly "
+"pøipojeny. V tuto chvíli se ji¾ nemù¾ete vrátit zpìt za tento bod. \n"
+"\n"
 
 #: ../iw/package_gui.py:27
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Chcete nastavit svùj systém?"
+msgstr "Chcete pokraèovat v aktualizaci?"
 
 #: ../iw/package_gui.py:38
 msgid "Individual Package Selection"
@@ -1911,9 +1907,8 @@ msgid "Automatic Partitioning"
 msgstr "Automatické rozdìlování na oddíly"
 
 #: ../iw/rootpartition_gui.py:382
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Ruèní dìlení disku"
+msgstr "Dìlení disku na oddíly"
 
 #: ../iw/rootpartition_gui.py:384
 #, c-format
@@ -2076,9 +2071,8 @@ msgid "UTC Offset"
 msgstr "Èasový posun"
 
 #: ../iw/upgrade_swap_gui.py:18
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "RAID oddíl"
+msgstr "Aktualizace odkládacího oddílu"
 
 #: ../iw/upgrade_swap_gui.py:102 ../textw/upgrade_text.py:38
 #, c-format
@@ -2088,19 +2082,23 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Jádra øady 2.4 potøebují více odkládacího prostoru, ne¾ jádra star¹í. "
+"Doporuèená velikost odkládacího prostoru je dvojnásobek velikosti RAM, "
+"kterou máte ve va¹em poèítaèi. V souèasné dobì máte %dMB odkládacího "
+"prostoru. Pokud budete chtít, mù¾ete v tuto chvíli na jednom ze systémù "
+"souborù odkládací prostor pøidat."
 
 #: ../iw/upgrade_swap_gui.py:116
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Chci vytvoøit odkládací soubor"
 
 #: ../iw/upgrade_swap_gui.py:125
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Zvolte oddíl, na kterém se má vytvoøit odkládací soubor:"
 
 #: ../iw/upgrade_swap_gui.py:130
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Diskový prostor"
+msgstr "Volný prostor (MB)"
 
 #: ../iw/upgrade_swap_gui.py:145
 #, c-format
@@ -2108,15 +2106,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Doporuèená velikost odkládacího souboru je alespoò %d MB. Vlo¾te prosím "
+"velikost odkládacího souboru:"
 
 #: ../iw/upgrade_swap_gui.py:158 ../textw/upgrade_text.py:74
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Velikost odkládacího oddílu:"
+msgstr "Velikost odkládacího souboru (MB):"
 
 #: ../iw/upgrade_swap_gui.py:166
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Nechci vytvoøit odkládací soubor"
 
 #: ../iw/upgrade_swap_gui.py:176
 msgid ""
@@ -2124,15 +2123,18 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Dùraznì doporuèujeme vytvoøit odkládací soubor. Pokud jej nevytvoøíte, mù¾e "
+"být bìh instalaèního programu pøedèasnì ukonèen. Jste si jisti, ¾e chcete "
+"pokraèovat?"
 
 #: ../iw/upgrade_swap_gui.py:185 ../textw/upgrade_text.py:118
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Velikost odkládacího souboru musí být mezi 1 a 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:192 ../textw/upgrade_text.py:114
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "Na vybraném zaøízení není dostatek volného místa pro odkládací oddíl."
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2160,15 +2162,15 @@ msgstr "Barevná hloubka:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 barev (8 bitù)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "65536 barev (16 bitù)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "16 mil. barev (24 bitù)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2208,7 +2210,7 @@ msgstr "Grafické"
 
 #: ../iw/xconfig_gui.py:513
 msgid "Bits per Pixel"
-msgstr "Bitù na pixel"
+msgstr "Bitù na bod"
 
 #: ../iw/xconfig_gui.py:531
 msgid "Monitor Configuration"
@@ -2216,7 +2218,7 @@ msgstr "Nastavení monitoru"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Monitor detekovaný via DDC"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2409,9 +2411,8 @@ msgstr ""
 "zadejte je teï. Pokud ¾ádné nepotøebujete nebo je nevíte, nezadávejte nic."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Vynechat"
+msgstr "Pøeskoèit LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2422,6 +2423,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Zvolili jste vynechání instalace LILO. Doporuèujeme jeho instalci provést, "
+"pokud k tomu nemáte zvlá¹tní dùvody. LILO je ve vìt¹inì pøípadù potøeba pro "
+"zavedení systému pøímo z pevného disku.\n"
+"\n"
+"Jste si opravdu jisti, ¾e chcete vynechat instalaci LILO?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -2591,7 +2597,7 @@ msgid "Done"
 msgstr "Hotovo"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2601,9 +2607,8 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Pokud jej nechcete, mù¾ete pokraèovat ruèním rozdìlením diskù na oddíly, "
-"nebo se mù¾ete vrátit zpìt a provést vlastní instalaci podle va¹ich "
-"po¾adavkù."
+"Pokud nechcete pokraèovat, mù¾ete rozdìlit disky na oddíly ruènì nebo se "
+"mù¾ete vrátit zpìt a provést vlastní instalaci pøesnì podle va¹ich potøeb."
 
 #: ../textw/partitioning_text.py:155 ../textw/partitioning_text.py:157
 msgid "Continue"
@@ -2694,24 +2699,20 @@ msgid ""
 msgstr ""
 
 #: ../textw/upgrade_text.py:56
-#, fuzzy
 msgid "Free Space"
-msgstr "Diskový prostor"
+msgstr "Volné místo"
 
 #: ../textw/upgrade_text.py:71
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Velikost (MB)"
+msgstr "Doporuèená velikost (MB):"
 
 #: ../textw/upgrade_text.py:82
-#, fuzzy
 msgid "Add Swap"
-msgstr "Odkládací"
+msgstr "Pøidat swap"
 
 #: ../textw/upgrade_text.py:108
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Velikost musí být zadána èíslem."
+msgstr "Vlo¾ený údaj není platné èíslo."
 
 #: ../textw/upgrade_text.py:153
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -2722,9 +2723,8 @@ msgid "System to Upgrade"
 msgstr "Upgrade systému"
 
 #: ../textw/upgrade_text.py:188
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "RAID oddíl"
+msgstr "Aktualizovat oddíl"
 
 #: ../textw/upgrade_text.py:198
 msgid "Customize Packages to Upgrade"
@@ -2890,11 +2890,12 @@ msgid "Custom System"
 msgstr "Vlastní systém"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
-msgstr "Døívìj¹í instalace Linuxu na va¹em poèítaèi bude nyní smazána."
+msgstr ""
+"Automatické vytváøení oddílù sma¾e v¹echny existující instalace Linuxu ve "
+"va¹em poèítaèi."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2905,13 +2906,12 @@ msgid "Server System"
 msgstr "Serverový systém"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
-"Nyní bude smazán CELÝ OBSAH va¹eho pevného disku, aby se uvolnilo místo pro "
-"novou instalaci Linuxu!"
+"Automatické vytváøení oddílù sma¾e V©ECHNA DATA na va¹ich pevných discích, "
+"aby se uvolnilo místo pro novou instalaci Linuxu!"
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -4089,9 +4089,8 @@ msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr "Ve va¹em systému není dostek pamìti pro instalaèní program."
 
 #: ../loader/loader.c:2917
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Ètení updatù pro anakondu..."
+msgstr "Spou¹tím Anacondu - èekejte prosím...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4407,7 +4406,7 @@ msgstr "Ji¾ní Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103 ../gnome-map/timezonemapmodule.c:73
 msgid "Indian Rim"
-msgstr "Indian Rim"
+msgstr ""
 
 #: ../gnome-map/gglobe-canvas.c:104 ../gnome-map/timezonemapmodule.c:74
 msgid "Europe"
@@ -4518,19 +4517,19 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alja¹ský èas"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alja¹ský èas - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alja¹ský èas - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alja¹ský èas - západní Alja¹ka"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
@@ -4563,7 +4562,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azory"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
@@ -4575,7 +4574,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Kanárské ostrovy"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
@@ -4591,7 +4590,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "centrální Kazachstán"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
@@ -4623,7 +4622,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Centrální èas - vìt¹ina území"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
@@ -4647,11 +4646,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "Èínský záliv"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "Èínské hory"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -4663,15 +4662,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "východní Amazonie"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "východní Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "východní Dem. rep. Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island"
@@ -4707,52 +4706,53 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Východní èas"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Východní èas - Kentucky - Louisville"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Východní èas - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Východní èas - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "Východní èas - Ontario & Quebec - vìt¹ina území"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"Východní èas - Ontario & Quebec - místa bez letního èasu v letech 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Východní èas - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "východní Turkmenistán"
 
 #. generated from zone.tab
 msgid "east Greenland"
-msgstr ""
+msgstr "východní Grónsko"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
-msgstr ""
+msgstr "východní Kazachstán"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "východní Uzbekistán"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Galapágy"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
@@ -4764,11 +4764,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Velká Británie"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Havaj"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -4780,7 +4780,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -4808,7 +4808,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeirské ostrovy"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -4836,55 +4836,55 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moskva+00 - západní Rusko"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moskva+01 - Kaspické moøe"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moskva+02 - Ural"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moskva+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moskva+03 - západní Sibiø"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moskva+04 - øeka Jenisej"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moskva+05 - jezero Bajkal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moskva+06 - øeka Lena"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moskva+07 - øeka Amur"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "Moskva+08 - Madagan & Sachalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moskva+09 - Kamèatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moskva+10 - Beringovo moøe"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -4957,7 +4957,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Severní Irsko"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -4969,7 +4969,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "northwest Greenland"
-msgstr ""
+msgstr "severozápadní Grónsko"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
@@ -5016,9 +5016,8 @@ msgid "Roraima"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ruthenia"
-msgstr "Autentizace"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
@@ -5029,21 +5028,20 @@ msgid "Society Islands"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "South Australia"
-msgstr "Ji¾ní Amerika"
+msgstr "Ji¾ní Austrálie"
 
 #. generated from zone.tab
 msgid "southwest Greenland"
-msgstr ""
+msgstr "jihozápadní Grónsko"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "jihozápadní Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S a SV Brazílie (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5055,16 +5053,15 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmánie"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
 msgstr ""
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "Umístìní"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
@@ -5072,11 +5069,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Viktorie"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Stanice Vostok, S magnetický pól"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -5084,27 +5081,27 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "západní Amazonie"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "západní Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "západní Dem. rep. Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "západní Austrálie"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
-msgstr ""
+msgstr "západní Kazachstán"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "západní Uzbekistán"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
@@ -5120,94 +5117,80 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "Èeská republika"
 
 #. generated from lang-table
-#, fuzzy
 msgid "English"
-msgstr "Dokonèení"
+msgstr "Anglie"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Dokonèení"
+msgstr "Dánsko"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "Francie"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "Hledání"
+msgstr "Nìmecko"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "Maïarsko"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Island"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "Itálie"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "Japonsko"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "Norsko"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "Portugalsko"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Zbývá"
+msgstr "Rumunsko"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "Rusko"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Hledání"
+msgstr "Srbsko"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "Slovensko"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "Slovinsko"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Spanish"
-msgstr "Dokonèení"
+msgstr "©panìlsko"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "©védsko"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "Turecko"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Hledám instalace Red Hat Linuxu..."
-
-#, fuzzy
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "RAID oddíl"
+msgstr "Ukrajina"
