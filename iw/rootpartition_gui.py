@@ -156,7 +156,9 @@ class LoopSizeWindow(InstallWindow):
         ics.readHTML ("loopback")
 
     def getNext (self):
-        self.todo.fstab.setLoopbackSize (self.sizeAdj.value, self.swapAdj.value)
+        fsSize = int(self.sizeAdj.value)
+        swapSize = int(self.swapAdj.value)
+        self.todo.fstab.setLoopbackSize (fsSize, swapSize)
 
     def Spinchanged(self, *args):
         swapsize = self.swapAdj.value
