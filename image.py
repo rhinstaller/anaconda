@@ -133,7 +133,7 @@ class CdromInstallMethod(ImageInstallMethod):
                             try:
                                 discNum = getDiscNums(f.readline().strip())
                             except:
-                                discNum = 0
+                                discNum = [ 0 ]
 			    f.close()
 			    if (newStamp == timestamp and
                                 arch == iutil.getArch() and
@@ -234,8 +234,23 @@ class CdromInstallMethod(ImageInstallMethod):
 	(self.device, tree) = string.split(url, "/", 1)
 	self.messageWindow = messageWindow
 	self.progressWindow = progressWindow
-	self.currentDisc = [ 1 ]
         self.loopbackFile = None
+
+        # figure out which disc is in.  if we fail for any reason,
+        # assume it's just disc1.
+        if os.access("/mnt/source/.discinfo", os.O_RDONLY):
+            try:
+                f = open("/mnt/source/.discinfo")
+                f.readline() # stamp
+                f.readline() # descr
+                f.readline() # arch
+                self.currentDisc = getDiscNums(f.readline().strip())
+                f.close()
+            except:
+                self.currentDisc = [ 1 ]
+        else:                
+            self.currentDisc = [ 1 ]
+        
 	ImageInstallMethod.__init__(self, "/" + tree, rootPath)
 
 class NfsInstallMethod(ImageInstallMethod):
