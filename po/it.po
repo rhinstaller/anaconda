@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anacondapo $Revision$\n"
-"POT-Creation-Date: 2000-08-14 16:58-0400\n"
+"POT-Creation-Date: 2000-06-30 14:48-0400\n"
 "PO-Revision-Date: 2000-07-19 18:55+1\n"
 "Last-Translator: Tullio Dovera <tdovera@redhat.it>\n"
 "Language-Team: Italian <it@li.org>\n"
@@ -13,83 +13,64 @@ msgstr ""
 "Content-Type: text/plain; charset=US/Ascii\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../comps.py:444
-#, fuzzy
-msgid "Everything"
-msgstr "Ricerca in corso"
-
-#: ../exception.py:13 ../text.py:795
-msgid "Exception Occurred"
-msgstr "Eccezione accaduta"
-
-#: ../fstab.py:213 ../fstab.py:404 ../fstab.py:504 ../fstab.py:711
-#: ../image.py:55 ../image.py:96 ../libfdisk/newtfsedit.c:1701
-#: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:410
-#: ../loader/devices.c:455 ../loader/devices.c:475 ../loader/lang.c:97
-#: ../loader/loader.c:504 ../loader/loader.c:514 ../loader/loader.c:752
-#: ../loader/loader.c:852 ../loader/loader.c:1022 ../loader/loader.c:1027
-#: ../loader/loader.c:1960 ../loader/loader.c:2006 ../loader/loader.c:2077
-#: ../loader/urls.c:72 ../loader/urls.c:81 ../loader/urls.c:88
-#: ../loader/urls.c:227 ../loader/urls.c:232 ../text.py:248
-#: ../textw/bootdisk_text.py:69 ../todo.py:839 ../todo.py:867 ../todo.py:951
-#: ../todo.py:964
-msgid "Error"
-msgstr "Errore"
-
-#: ../fstab.py:214
-msgid ""
-"The kernel is unable to read your new partitioning information, probably "
-"because you modified extended partitions. While this is not critical, you "
-"must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-"and press \"Ok\" to reboot your system.\n"
-msgstr ""
-
-#: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
+#: ../fstab.py:363 ../fstab.py:576 ../fstab.py:586 ../fstab.py:610
 msgid "Formatting"
 msgstr "Formattazione in corso"
 
-#: ../fstab.py:394
-#, c-format
+#: ../fstab.py:364
 msgid "Formatting swap space on /dev/%s..."
 msgstr "Formattazione swap /dev/%s..."
 
-#: ../fstab.py:404
+#: ../fstab.py:374 ../fstab.py:459 ../fstab.py:665 ../image.py:66
+#: ../libfdisk/newtfsedit.c:1694 ../loader/devices.c:229
+#: ../loader/devices.c:236 ../loader/devices.c:394 ../loader/devices.c:439
+#: ../loader/devices.c:459 ../loader/lang.c:90 ../loader/loader.c:501
+#: ../loader/loader.c:511 ../loader/loader.c:749 ../loader/loader.c:846
+#: ../loader/loader.c:1016 ../loader/loader.c:1021 ../loader/loader.c:1942
+#: ../loader/loader.c:1988 ../loader/loader.c:2059 ../loader/urls.c:72
+#: ../loader/urls.c:81 ../loader/urls.c:88 ../loader/urls.c:227
+#: ../loader/urls.c:232 ../text.py:234 ../textw/bootdisk_text.py:69
+#: ../todo.py:788 ../todo.py:816 ../todo.py:869
+msgid "Error"
+msgstr "Errore"
+
+#: ../fstab.py:374
 msgid "Error creating swap on device "
 msgstr "Errore durante la creazione dell'area di swap"
 
-#: ../fstab.py:505
+#: ../fstab.py:460
 #, c-format
 msgid "Error unmounting %s: %s"
 msgstr "Errore di unmounting %s: %s"
 
-#: ../fstab.py:551 ../todo.py:507
+#: ../fstab.py:506 ../todo.py:488
 msgid "Creating"
 msgstr "Creazione"
 
-#: ../fstab.py:551
+#: ../fstab.py:506
 msgid "Creating RAID devices..."
 msgstr "Creazione dispositivi RAID..."
 
-#: ../fstab.py:621 ../fstab.py:631 ../fstab.py:655
+#: ../fstab.py:577 ../fstab.py:587 ../fstab.py:611
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formattazione filesystem %s..."
 
-#: ../fstab.py:643
+#: ../fstab.py:599
 msgid "Loopback"
 msgstr "Loopback"
 
-#: ../fstab.py:644
+#: ../fstab.py:600
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Creazione filesystem loopback sul dispositivo /dev/%s..."
 
-#: ../fstab.py:712
+#: ../fstab.py:666
 #, c-format
 msgid "Error mounting %s: %s"
 msgstr "Errore mounting %s: %s"
 
-#: ../gui.py:142
+#: ../gui.py:139
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -99,39 +80,31 @@ msgstr ""
 "copiate il testo completo ed inviatelo al bug report "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:271 ../text.py:810
-msgid ""
-"Please insert a floppy now. All contents of the disk will be erased, so "
-"please choose your diskette carefully."
-msgstr ""
-"Inserire un dischetto nel drive. Il contenuto del dischetto sara'\n"
-"cancellato."
-
-#: ../gui.py:361 ../gui.py:601
+#: ../gui.py:329 ../gui.py:569
 msgid "Next"
 msgstr "Avanti"
 
-#: ../gui.py:362 ../gui.py:600 ../libfdisk/newtfsedit.c:1438
-#: ../libfdisk/newtfsedit.c:1446 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:577
-#: ../loader/loader.c:277 ../loader/loader.c:656 ../loader/loader.c:693
-#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1330
+#: ../gui.py:330 ../gui.py:568 ../libfdisk/newtfsedit.c:1431
+#: ../libfdisk/newtfsedit.c:1439 ../loader/cdrom.c:34 ../loader/devices.c:87
+#: ../loader/devices.c:209 ../loader/devices.c:296 ../loader/lang.c:569
+#: ../loader/loader.c:274 ../loader/loader.c:653 ../loader/loader.c:690
+#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1324
 #: ../loader/net.c:164 ../loader/net.c:249 ../loader/net.c:334
 #: ../loader/urls.c:149 ../loader/urls.c:370 ../text.py:57 ../text.py:68
-#: ../text.py:120 ../text.py:123 ../text.py:196 ../text.py:251 ../text.py:269
-#: ../text.py:272 ../text.py:291 ../text.py:294 ../text.py:316 ../text.py:319
-#: ../text.py:376 ../text.py:379 ../text.py:405 ../text.py:409 ../text.py:418
-#: ../text.py:487 ../text.py:489 ../text.py:499 ../text.py:501
+#: ../text.py:109 ../text.py:112 ../text.py:182 ../text.py:237 ../text.py:255
+#: ../text.py:258 ../text.py:277 ../text.py:280 ../text.py:302 ../text.py:305
+#: ../text.py:362 ../text.py:365 ../text.py:391 ../text.py:395 ../text.py:404
+#: ../text.py:467 ../text.py:469 ../text.py:479 ../text.py:481
 #: ../textw/bootdisk_text.py:30 ../textw/constants_text.py:10
 #: ../textw/lilo_text.py:31 ../textw/lilo_text.py:87 ../textw/lilo_text.py:95
 #: ../textw/lilo_text.py:203 ../textw/mouse_text.py:27
-#: ../textw/mouse_text.py:28 ../textw/mouse_text.py:53
-#: ../textw/mouse_text.py:79 ../textw/network_text.py:92
+#: ../textw/mouse_text.py:28 ../textw/mouse_text.py:43
+#: ../textw/mouse_text.py:66 ../textw/network_text.py:92
 #: ../textw/network_text.py:141 ../textw/network_text.py:144
-#: ../textw/packages_text.py:55 ../textw/packages_text.py:236
+#: ../textw/packages_text.py:54 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/packages_text.py:353
 #: ../textw/partitioning_text.py:24 ../textw/partitioning_text.py:65
-#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:309
+#: ../textw/partitioning_text.py:257 ../textw/partitioning_text.py:307
 #: ../textw/silo_text.py:26 ../textw/silo_text.py:99 ../textw/silo_text.py:206
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:165 ../textw/userauth_text.py:196
@@ -139,111 +112,105 @@ msgstr "Avanti"
 msgid "Back"
 msgstr "Indietro"
 
-#: ../gui.py:363 ../gui.py:605
+#: ../gui.py:331 ../gui.py:573
 msgid "Show Help"
 msgstr "Mostra Help"
 
-#: ../gui.py:364 ../gui.py:604
+#: ../gui.py:332 ../gui.py:572
 msgid "Hide Help"
 msgstr "Nascondi Help"
 
-#: ../gui.py:365 ../gui.py:603
+#: ../gui.py:333 ../gui.py:571
 msgid "Finish"
 msgstr "Fine"
 
-#: ../gui.py:368 ../gui.py:631
+#: ../gui.py:336 ../gui.py:599
 msgid "Online Help"
 msgstr "Help Online"
 
-#: ../gui.py:369 ../iw/language_gui.py:10 ../text.py:62 ../text.py:881
-#: ../text.py:910
+#: ../gui.py:337 ../iw/language_gui.py:10 ../text.py:62 ../text.py:852
+#: ../text.py:881
 msgid "Language Selection"
 msgstr "Scelta della lingua"
 
-#: ../gui.py:567
+#: ../gui.py:535
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Installer"
 
-#: ../gui.py:571
+#: ../gui.py:539
 msgid "Red Hat Linux Install Shell"
 msgstr "Red Hat Linux Install Shell"
 
-#: ../gui.py:582
+#: ../gui.py:550
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Red Hat Linux Installer su %s"
 
-#: ../gui.py:583
+#: ../gui.py:551
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Red Hat Linux Install Shell su %s"
 
-#: ../gui.py:678
+#: ../gui.py:646
 msgid "Install Window"
 msgstr "Finestra di installazione"
 
-#: ../image.py:52
+#: ../image.py:33
 msgid "Copying File"
 msgstr "Copia del file in corso"
 
-#: ../image.py:53
+#: ../image.py:34
 msgid "Transferring install image to hard drive..."
 msgstr "Trasferimento dell'immagine di installazione sull'harddisk"
 
-#: ../image.py:56
-msgid ""
-"An error occured transferring the install image to your hard drive. You are "
-"probably out of disk space."
-msgstr ""
-
-#: ../image.py:78
+#: ../image.py:51
 msgid "Change CDROM"
 msgstr "Cambia CDROM"
 
-#: ../image.py:79
+#: ../image.py:52
 #, c-format
 msgid "Please insert disc %d to continue."
 msgstr "Inserire il disco %d per continuare."
 
-#: ../image.py:91
+#: ../image.py:61
 msgid "Wrong CDROM"
 msgstr "CDROM errato"
 
-#: ../image.py:92
+#: ../image.py:62
 msgid "That's not the correct Red Hat CDROM."
 msgstr "Non e' il CDROM Red Hat corretto."
 
-#: ../image.py:97
+#: ../image.py:67
 msgid "The CDROM could not be mounted."
 msgstr "Il CDROM non puo' essere montato."
 
 #. code to create dialog in gtk+
-#: ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:974 ../libfdisk/fsedit.c:981
-#: ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1017
-#: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1040
-#: ../libfdisk/fsedit.c:1069 ../libfdisk/fsedit.c:1079
-#: ../libfdisk/fsedit.c:1096 ../libfdisk/fsedit.c:1506
-#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/gnomefsedit.c:812
-#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
-#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/gnomefsedit.c:1250
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/gnomefsedit.c:1479
-#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1597
-#: ../libfdisk/gnomefsedit.c:1877 ../libfdisk/gnomefsedit.c:1886
-#: ../libfdisk/gnomefsedit.c:2123 ../libfdisk/gnomefsedit.c:2131
-#: ../libfdisk/gnomefsedit.c:2175 ../libfdisk/gnomefsedit.c:2185
-#: ../libfdisk/gnomefsedit.c:2192 ../libfdisk/gnomefsedit.c:2207
-#: ../libfdisk/gnomefsedit.c:2216 ../libfdisk/gnomefsedit.c:2225
-#: ../libfdisk/gnomefsedit.c:2264 ../libfdisk/gnomefsedit.c:2393
-#: ../libfdisk/gnomefsedit.c:2435 ../libfdisk/newtfsedit.c:168
-#: ../libfdisk/newtfsedit.c:344 ../libfdisk/newtfsedit.c:572
-#: ../libfdisk/newtfsedit.c:634 ../libfdisk/newtfsedit.c:667
-#: ../libfdisk/newtfsedit.c:693 ../libfdisk/newtfsedit.c:712
-#: ../libfdisk/newtfsedit.c:810 ../libfdisk/newtfsedit.c:1438
-#: ../libfdisk/newtfsedit.c:1446 ../libfdisk/newtfsedit.c:1571
-#: ../libfdisk/newtfsedit.c:1592 ../libfdisk/newtfsedit.c:1618
-#: ../libfdisk/newtfsedit.c:1701 ../loader/urls.c:72 ../loader/urls.c:81
+#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
+#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
+#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
+#: ../libfdisk/fsedit.c:1066 ../libfdisk/fsedit.c:1076
+#: ../libfdisk/fsedit.c:1093 ../libfdisk/fsedit.c:1502
+#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/gnomefsedit.c:815
+#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
+#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/gnomefsedit.c:1253
+#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/gnomefsedit.c:1482
+#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1600
+#: ../libfdisk/gnomefsedit.c:1880 ../libfdisk/gnomefsedit.c:1889
+#: ../libfdisk/gnomefsedit.c:2127 ../libfdisk/gnomefsedit.c:2135
+#: ../libfdisk/gnomefsedit.c:2179 ../libfdisk/gnomefsedit.c:2189
+#: ../libfdisk/gnomefsedit.c:2196 ../libfdisk/gnomefsedit.c:2211
+#: ../libfdisk/gnomefsedit.c:2220 ../libfdisk/gnomefsedit.c:2229
+#: ../libfdisk/gnomefsedit.c:2268 ../libfdisk/gnomefsedit.c:2397
+#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:168
+#: ../libfdisk/newtfsedit.c:337 ../libfdisk/newtfsedit.c:565
+#: ../libfdisk/newtfsedit.c:627 ../libfdisk/newtfsedit.c:660
+#: ../libfdisk/newtfsedit.c:686 ../libfdisk/newtfsedit.c:705
+#: ../libfdisk/newtfsedit.c:803 ../libfdisk/newtfsedit.c:1431
+#: ../libfdisk/newtfsedit.c:1439 ../libfdisk/newtfsedit.c:1564
+#: ../libfdisk/newtfsedit.c:1585 ../libfdisk/newtfsedit.c:1611
+#: ../libfdisk/newtfsedit.c:1694 ../loader/urls.c:72 ../loader/urls.c:81
 #: ../loader/urls.c:88 ../loader/urls.c:238 ../text.py:57 ../text.py:59
-#: ../text.py:418 ../textw/constants_text.py:10 ../textw/lilo_text.py:117
+#: ../text.py:404 ../textw/constants_text.py:10 ../textw/lilo_text.py:117
 #: ../textw/lilo_text.py:202 ../textw/mouse_text.py:27
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:149
 #: ../textw/silo_text.py:205
@@ -254,40 +221,40 @@ msgstr "Ok"
 msgid "What language would you like to use during the installation process?"
 msgstr "Quale lingua si desidera utilizzare durante l'installazione?"
 
-#: ../text.py:118 ../text.py:883 ../text.py:912
+#: ../text.py:107 ../text.py:854 ../text.py:883
 msgid "Keyboard Selection"
 msgstr "Scelta del tipo di tastiera"
 
-#: ../text.py:119
+#: ../text.py:108
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Quale modello di tastiera e' collegato al computer?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:92 ../loader/devices.c:214
-#: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312
-#: ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475
-#: ../loader/devices.c:503 ../loader/kickstart.c:58 ../loader/kickstart.c:68
-#: ../loader/kickstart.c:107 ../loader/lang.c:97 ../loader/lang.c:289
-#: ../loader/lang.c:577 ../loader/loader.c:277 ../loader/loader.c:504
-#: ../loader/loader.c:514 ../loader/loader.c:693 ../loader/loader.c:752
-#: ../loader/loader.c:852 ../loader/loader.c:944 ../loader/loader.c:1022
-#: ../loader/loader.c:1027 ../loader/loader.c:1071 ../loader/loader.c:1080
-#: ../loader/loader.c:1330 ../loader/loader.c:1960 ../loader/loader.c:2006
-#: ../loader/loader.c:2069 ../loader/loader.c:2077 ../loader/net.c:164
+#: ../loader/cdrom.c:34 ../loader/devices.c:86 ../loader/devices.c:208
+#: ../loader/devices.c:229 ../loader/devices.c:236 ../loader/devices.c:296
+#: ../loader/devices.c:394 ../loader/devices.c:439 ../loader/devices.c:459
+#: ../loader/devices.c:487 ../loader/kickstart.c:57 ../loader/kickstart.c:67
+#: ../loader/kickstart.c:106 ../loader/lang.c:90 ../loader/lang.c:282
+#: ../loader/lang.c:569 ../loader/loader.c:274 ../loader/loader.c:501
+#: ../loader/loader.c:511 ../loader/loader.c:690 ../loader/loader.c:749
+#: ../loader/loader.c:846 ../loader/loader.c:938 ../loader/loader.c:1016
+#: ../loader/loader.c:1021 ../loader/loader.c:1065 ../loader/loader.c:1074
+#: ../loader/loader.c:1324 ../loader/loader.c:1942 ../loader/loader.c:1988
+#: ../loader/loader.c:2051 ../loader/loader.c:2059 ../loader/net.c:164
 #: ../loader/net.c:249 ../loader/net.c:334 ../loader/net.c:643
 #: ../loader/net.c:676 ../loader/urls.c:149 ../loader/urls.c:227
-#: ../loader/urls.c:232 ../loader/urls.c:370 ../text.py:120 ../text.py:196
-#: ../text.py:269 ../text.py:316 ../text.py:334 ../text.py:376 ../text.py:405
-#: ../text.py:487 ../text.py:499 ../text.py:524 ../text.py:544 ../text.py:755
-#: ../text.py:781 ../text.py:806 ../text.py:812 ../text.py:827 ../text.py:1042
+#: ../loader/urls.c:232 ../loader/urls.c:370 ../text.py:109 ../text.py:182
+#: ../text.py:255 ../text.py:302 ../text.py:320 ../text.py:362 ../text.py:391
+#: ../text.py:467 ../text.py:479 ../text.py:504 ../text.py:524 ../text.py:728
+#: ../text.py:754 ../text.py:779 ../text.py:785 ../text.py:800 ../text.py:1014
 #: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
 #: ../textw/lilo_text.py:30 ../textw/lilo_text.py:87 ../textw/lilo_text.py:146
-#: ../textw/lilo_text.py:152 ../textw/mouse_text.py:53
+#: ../textw/lilo_text.py:152 ../textw/mouse_text.py:43
 #: ../textw/network_text.py:92 ../textw/network_text.py:113
-#: ../textw/network_text.py:141 ../textw/packages_text.py:55
-#: ../textw/packages_text.py:89 ../textw/packages_text.py:236
+#: ../textw/network_text.py:141 ../textw/packages_text.py:54
+#: ../textw/packages_text.py:88 ../textw/packages_text.py:236
 #: ../textw/packages_text.py:347 ../textw/partitioning_text.py:257
-#: ../textw/partitioning_text.py:309 ../textw/partitioning_text.py:320
-#: ../textw/partitioning_text.py:328 ../textw/partitioning_text.py:335
+#: ../textw/partitioning_text.py:307 ../textw/partitioning_text.py:318
+#: ../textw/partitioning_text.py:326 ../textw/partitioning_text.py:333
 #: ../textw/silo_text.py:25 ../textw/silo_text.py:99
 #: ../textw/timezone_text.py:69 ../textw/userauth_text.py:30
 #: ../textw/userauth_text.py:44 ../textw/userauth_text.py:49
@@ -299,35 +266,35 @@ msgstr "Quale modello di tastiera e' collegato al computer?"
 msgid "OK"
 msgstr "OK"
 
-#: ../text.py:174
+#: ../text.py:160
 msgid "Upgrade Existing Installation"
 msgstr "Aggiornamento di una installazione esistente"
 
-#: ../text.py:194 ../text.py:915
+#: ../text.py:180 ../text.py:886
 msgid "Installation Type"
 msgstr "Tipo di installazione"
 
-#: ../text.py:195
+#: ../text.py:181
 msgid "What type of system would you like to install?"
 msgstr "Quale tipo di sistema volete installare?"
 
-#: ../text.py:249
+#: ../text.py:235
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Non ci sono partizioni Linux. Non e' possibile aggiornare il sistema!"
 
-#: ../text.py:266
+#: ../text.py:252
 msgid "System to Upgrade"
 msgstr "Sistema da aggiornare"
 
-#: ../text.py:267
+#: ../text.py:253
 msgid "What partition holds the root partition of your installation?"
 msgstr "Quale partizione contiene la partizione di root?"
 
-#: ../text.py:283
+#: ../text.py:269
 msgid "Customize Packages to Upgrade"
 msgstr "Personalizzazione dei pacchetti da aggiornare"
 
-#: ../text.py:284
+#: ../text.py:270
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -336,37 +303,37 @@ msgstr ""
 "I pacchetti selezionati per l'installazione soddisfano le dipendenze. Volete "
 "personalizzare l'elenco dei pacchetti da aggiornare?"
 
-#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:998
-#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
-#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2317
-#: ../libfdisk/gnomefsedit.c:2599 ../libfdisk/gnomefsedit.c:2652
-#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
-#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
-#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:207
-#: ../loader/loader.c:656 ../loader/net.c:810 ../text.py:291
+#: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:995
+#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
+#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
+#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
+#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
+#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
+#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:201
+#: ../loader/loader.c:653 ../loader/net.c:810 ../text.py:277
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
 msgid "Yes"
 msgstr "Si"
 
-#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:998
-#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
-#: ../libfdisk/gnomefsedit.c:1276 ../libfdisk/gnomefsedit.c:2317
-#: ../libfdisk/gnomefsedit.c:2599 ../libfdisk/gnomefsedit.c:2652
-#: ../libfdisk/newtfsedit.c:610 ../libfdisk/newtfsedit.c:836
-#: ../libfdisk/newtfsedit.c:1639 ../libfdisk/newtfsedit.c:1657
-#: ../libfdisk/newtfsedit.c:1742 ../loader/devices.c:208 ../loader/net.c:810
-#: ../text.py:291 ../text.py:297 ../textw/bootdisk_text.py:12
+#: ../iw/welcome_gui.py:91 ../libfdisk/fsedit.c:995
+#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/gnomefsedit.c:1138
+#: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/gnomefsedit.c:2321
+#: ../libfdisk/gnomefsedit.c:2603 ../libfdisk/gnomefsedit.c:2656
+#: ../libfdisk/newtfsedit.c:603 ../libfdisk/newtfsedit.c:829
+#: ../libfdisk/newtfsedit.c:1632 ../libfdisk/newtfsedit.c:1650
+#: ../libfdisk/newtfsedit.c:1735 ../loader/devices.c:202 ../loader/net.c:810
+#: ../text.py:277 ../text.py:283 ../textw/bootdisk_text.py:12
 #: ../textw/bootdisk_text.py:30 ../textw/bootdisk_text.py:41
 #: ../textw/partitioning_text.py:218
 msgid "No"
 msgstr "No"
 
-#: ../text.py:307 ../text.py:326
+#: ../text.py:293 ../text.py:312
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:308
+#: ../text.py:294
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -386,7 +353,7 @@ msgstr ""
 "Se avete acquistato il prodotto Official Red Hat Linux, registrate il vostro "
 "prodotto al sito web, http://www.redhat.com/."
 
-#: ../text.py:327
+#: ../text.py:313
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -400,45 +367,45 @@ msgstr ""
 "Siete entrati nella modalita' di riconfigurazione, tramite la quale e' "
 "possibile riconfigurare il vostro computer."
 
-#: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:1886
-#: ../libfdisk/gnomefsedit.c:2435 ../libfdisk/newtfsedit.c:573
-#: ../libfdisk/newtfsedit.c:1657 ../loader/devices.c:215
-#: ../loader/devices.c:503 ../loader/loader.c:2069 ../text.py:334
-#: ../text.py:337 ../text.py:812 ../text.py:814 ../textw/lilo_text.py:118
+#: ../libfdisk/gnomefsedit.c:815 ../libfdisk/gnomefsedit.c:1889
+#: ../libfdisk/gnomefsedit.c:2439 ../libfdisk/newtfsedit.c:566
+#: ../libfdisk/newtfsedit.c:1650 ../loader/devices.c:209
+#: ../loader/devices.c:487 ../loader/loader.c:2051 ../text.py:320
+#: ../text.py:323 ../text.py:785 ../text.py:787 ../textw/lilo_text.py:118
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:154
 #: ../textw/userauth_text.py:63
 msgid "Cancel"
-msgstr "Annulla"
+msgstr "Cancella"
 
-#: ../text.py:374
+#: ../text.py:360
 msgid "X probe results"
 msgstr "Risultati del rilevamento di X"
 
-#: ../text.py:394 ../text.py:414
+#: ../text.py:380 ../text.py:400
 msgid "Unlisted Card"
 msgstr "Schede non presenti nell'elenco"
 
-#: ../text.py:402
+#: ../text.py:388
 msgid "Video Card Selection"
 msgstr "Scelta della scheda video"
 
-#: ../text.py:403
+#: ../text.py:389
 msgid "Which video card do you have?"
 msgstr "Che scheda video avete?"
 
-#: ../text.py:416
+#: ../text.py:402
 msgid "X Server Selection"
 msgstr "Scelta del server X"
 
-#: ../text.py:416
+#: ../text.py:402
 msgid "Choose a server"
 msgstr "Scelta del server"
 
-#: ../text.py:483
+#: ../text.py:463
 msgid "Installation to begin"
 msgstr "L'installazione sta per iniziare"
 
-#: ../iw/confirm_gui.py:44 ../text.py:484
+#: ../iw/confirm_gui.py:44 ../text.py:464
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -446,11 +413,11 @@ msgstr ""
 "Al riavvio del sistema troverete il file di log dell'installazione "
 "/tmp/install.log nel filesystem. "
 
-#: ../text.py:495
+#: ../text.py:475
 msgid "Upgrade to begin"
 msgstr "L'aggiornamento sta per iniziare"
 
-#: ../iw/confirm_gui.py:40 ../text.py:496
+#: ../iw/confirm_gui.py:40 ../text.py:476
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -458,11 +425,11 @@ msgstr ""
 "Al riavvio del sistema troverete il file di log dell'aggiornamento "
 "/tmp/install.log nel filesystem. "
 
-#: ../text.py:513 ../text.py:534
+#: ../text.py:493 ../text.py:514
 msgid "Complete"
 msgstr "Completato"
 
-#: ../iw/congrats_gui.py:33 ../text.py:514
+#: ../iw/congrats_gui.py:33 ../text.py:494
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -481,7 +448,7 @@ msgstr ""
 "Per maggiori informazioni sugli aggiornamenti disponibili, consultate "
 "l'Errata all'indirizzo http://www.redhat.com/errata."
 
-#: ../text.py:535
+#: ../text.py:515
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -498,323 +465,329 @@ msgstr ""
 "Sulla Official Red Hat Linux User's Guide viene spiegato dettagliatamente "
 "come configurare un sistema gi&agrave; installato."
 
-#: ../text.py:605
+#: ../text.py:578
 msgid "Package Installation"
 msgstr "Installazione dei pacchetti"
 
-#: ../text.py:607
+#: ../text.py:580
 msgid "Name   : "
-msgstr "Nome      : "
+msgstr "Nome   :"
+
+#: ../text.py:581
+msgid "Size   : "
+msgstr "Grandezza:"
+
+#: ../text.py:582
+msgid "Summary: "
+msgstr "Riassunto:"
 
 #: ../text.py:608
-msgid "Size   : "
-msgstr "Dimensione: "
-
-#: ../text.py:609
-msgid "Summary: "
-msgstr "Riassunto : "
-
-#: ../text.py:635
 msgid "    Packages"
 msgstr "    Pacchetti"
 
-#: ../text.py:636
+#: ../text.py:609
 msgid "       Bytes"
 msgstr "       Byte"
 
-#: ../text.py:637
+#: ../text.py:610
 msgid "        Time"
 msgstr "        Tempo"
 
-#: ../text.py:639
+#: ../text.py:612
 msgid "Total    :"
 msgstr "Totale   :"
 
-#: ../text.py:646
+#: ../text.py:619
 msgid "Completed:   "
 msgstr "Completato:  "
 
-#: ../text.py:656
+#: ../text.py:629
 msgid "Remaining:  "
 msgstr "Rimanente:  "
 
-#: ../text.py:753
+#: ../text.py:726
 msgid "Help not available"
 msgstr "Help non disponibile"
 
-#: ../text.py:754
+#: ../text.py:727
 msgid "No help is available for this install."
 msgstr "Nessun help e' disponibile per questa installazione"
 
-#: ../text.py:809
+#: ../text.py:768
+msgid "Exception Occurred"
+msgstr "Eccezione accaduta"
+
+#: ../text.py:782
 msgid "Save Crash Dump"
 msgstr "Salva Crash Dump"
 
-#: ../text.py:820
-#, fuzzy
+#: ../text.py:783
 msgid ""
-"An internal error occurred in the installation program. Please report this "
+"Please insert a floppy now. All contents of the disk will be erased, so "
+"please choose your diskette carefully."
+msgstr ""
+"Inserire un dischetto nel drive. Il contenuto del dischetto sara'\n"
+"cancellato."
+
+#: ../text.py:793
+msgid ""
+"An internal error occured in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
 "possible. The information on this failure may be saved to a floppy disk, and "
-"will help Red Hat in fixing the problem.\n"
+"will help Red hat in fixing the problem.\n"
 "\n"
 msgstr ""
 "Errore interno durante l'installazione del programma. Vi preghiamo di "
 "avvisarci di questo errore tramite il sito bugzilla.redhat.com il prima "
-"possibile. Le informazioni su questo errore possono essere salvate su un "
-"dischetto per poi inviarcele via web.\n"
+"possibile. Le informazioni su questo errore possono essere salvate su "
+"un dischetto per poi inviarcele via web.\n"
 "\n"
 
-#: ../text.py:827 ../text.py:830
+#: ../text.py:800 ../text.py:803
 msgid "Save"
 msgstr "Salva"
 
-#: ../text.py:827 ../text.py:828
+#: ../text.py:800 ../text.py:801
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:841
+#: ../text.py:814
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:844
+#: ../text.py:817
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> per help> | <Tab> fra elementi | <Space> seleziona | <F12> next screen"
 
-#: ../text.py:846
+#: ../text.py:819
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 " <F1> per help> | <Tab> fra elementi | <Space> seleziona | <F12> next screen"
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:879
-#: ../text.py:914
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:38 ../text.py:850
+#: ../text.py:885
 msgid "Welcome"
 msgstr "Benvenuti"
 
-#: ../text.py:885 ../text.py:953
+#: ../text.py:856 ../text.py:924
 msgid "Hostname Setup"
 msgstr "Setup nome host"
 
-#: ../text.py:887 ../text.py:955
+#: ../text.py:858 ../text.py:926
 msgid "Network Setup"
 msgstr "Configurazione della Rete"
 
-#: ../text.py:893 ../text.py:961
+#: ../text.py:864 ../text.py:932
 msgid "Time Zone Setup"
 msgstr "Impostazione del fuso orario"
 
-#: ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
+#: ../text.py:866 ../text.py:934 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Password di root"
 
-#: ../text.py:897 ../text.py:965 ../textw/userauth_text.py:172
+#: ../text.py:868 ../text.py:936 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Setup account utente"
 
-#: ../text.py:899 ../text.py:967
+#: ../text.py:870 ../text.py:938
 msgid "Authentication"
 msgstr "Autenticazione"
 
-#: ../text.py:905
+#: ../text.py:876
 msgid "Configuration Complete"
 msgstr "Configurazione completata"
 
-#: ../text.py:923 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:894 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Configurazione di SILO"
 
-#: ../text.py:929 ../textw/lilo_text.py:33 ../textw/lilo_text.py:84
+#: ../text.py:900 ../textw/lilo_text.py:33 ../textw/lilo_text.py:84
 #: ../textw/lilo_text.py:213
 msgid "LILO Configuration"
 msgstr "Configurazione di LILO"
 
-#: ../iw/lilo_gui.py:188 ../iw/lilo_gui.py:316 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:279 ../text.py:933 ../text.py:939
+#: ../iw/lilo_gui.py:184 ../iw/lilo_gui.py:312 ../iw/silo_gui.py:127
+#: ../iw/silo_gui.py:279 ../text.py:904 ../text.py:910
 msgid "Partition"
 msgstr "Partizione"
 
-#: ../text.py:935
+#: ../text.py:906
 msgid "Manually Partition"
 msgstr "Partizionamento manuale"
 
-#: ../text.py:937
+#: ../text.py:908
 msgid "Automatic Partition"
 msgstr "Partizionamento automatico"
 
-#: ../text.py:941 ../textw/partitioning_text.py:301
+#: ../text.py:912 ../textw/partitioning_text.py:299
 msgid "Root Filesystem Size"
 msgstr "Grandezza filesystem di root"
 
-#: ../text.py:943
+#: ../text.py:914
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:945
+#: ../text.py:916
 msgid "Filesystem Formatting"
 msgstr "Formattazione del filesystem"
 
-#: ../iw/mouse_gui.py:56 ../text.py:957 ../text.py:959
+#: ../iw/mouse_gui.py:56 ../text.py:928 ../text.py:930
 msgid "Mouse Configuration"
 msgstr "Configurazione del mouse"
 
-#: ../text.py:969
+#: ../text.py:940
 msgid "Package Groups"
 msgstr "Gruppi di pacchetti"
 
-#: ../text.py:971 ../text.py:999
+#: ../text.py:942 ../text.py:970
 msgid "Individual Packages"
 msgstr "Pacchetti individuali"
 
-#: ../text.py:973 ../textw/packages_text.py:304
+#: ../text.py:944 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Dipendenze fra pacchetti"
 
-#: ../iw/xconfig_gui.py:256 ../text.py:975 ../text.py:983
+#: ../iw/xconfig_gui.py:250 ../text.py:946 ../text.py:954
 msgid "X Configuration"
 msgstr "Configurazione di X"
 
-#: ../text.py:977
+#: ../text.py:948
 msgid "Installation Begins"
 msgstr "Avvio dell'installazione"
 
-#: ../text.py:979
+#: ../text.py:950
 msgid "Install System"
 msgstr "Installazione del sistema"
 
-#: ../text.py:980 ../text.py:982 ../text.py:1003 ../text.py:1005
+#: ../text.py:951 ../text.py:953 ../text.py:974 ../text.py:976
 msgid "Boot Disk"
 msgstr "Disco di boot"
 
-#: ../text.py:985
+#: ../text.py:956
 msgid "Installation Complete"
 msgstr "Installazione completa"
 
-#: ../text.py:990
+#: ../text.py:961
 msgid "Examine System"
 msgstr "Examine System"
 
-#: ../text.py:997
+#: ../text.py:968
 msgid "Customize Upgrade"
 msgstr "Personalizza l'aggiornamento"
 
-#: ../text.py:1000
+#: ../text.py:971
 msgid "Upgrade Begins"
 msgstr "Avvio dell'aggiornamento"
 
-#: ../text.py:1002
+#: ../text.py:973
 msgid "Upgrade System"
 msgstr "Aggiornamento del sistema"
 
-#: ../text.py:1006
+#: ../text.py:977
 msgid "Upgrade Complete"
 msgstr "Aggiornamento completato"
 
-#: ../text.py:1039
+#: ../text.py:1011
 msgid "Cancelled"
 msgstr "Cancellato"
 
-#: ../text.py:1040
+#: ../text.py:1012
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Non e' possibile tornare al passo precedente. Provare nuovamente."
 
-#: ../todo.py:507
+#: ../todo.py:488
 msgid "Creating boot disk..."
 msgstr "Creazione del dischetto di avvio..."
 
-#: ../todo.py:526
+#: ../todo.py:507
 msgid "Reading"
 msgstr "Lettura in corso"
 
-#: ../todo.py:527
+#: ../todo.py:508
 msgid "Reading package information..."
 msgstr "Lettura delle informazioni sui pacchetti..."
 
-#: ../todo.py:728
+#: ../todo.py:695
 msgid "Dependency Check"
 msgstr "Controllo delle dipendenze"
 
-#: ../todo.py:729
+#: ../todo.py:696
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Controllo delle dipendenze dei pacchetti da installare..."
 
-#: ../todo.py:756 ../todo.py:797 ../todo.py:803 ../todo.py:820
+#: ../todo.py:723 ../todo.py:746 ../todo.py:752 ../todo.py:769
 msgid "no suggestion"
 msgstr "nessun suggerimento"
 
-#: ../todo.py:828
+#: ../todo.py:777
 msgid "Searching"
 msgstr "Ricerca in corso"
 
-#: ../todo.py:829
+#: ../todo.py:778
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Ricerca delle installazioni Red Hat Linux..."
 
-#: ../todo.py:840 ../todo.py:868
+#: ../todo.py:789 ../todo.py:817
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr "Error mounting ext2 filesystem on %s: %s"
 
-#: ../todo.py:913
+#: ../todo.py:827
+msgid "Finding"
+msgstr "Ricerca..."
+
+#: ../todo.py:828
+msgid "Finding packages to upgrade..."
+msgstr "Ricerca dei pacchetti da aggiornare..."
+
+#: ../todo.py:839
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 "Uno o piu' filesystem del sistema Linux non sono stati smontati "
-"correttamente. Vi consigliamo di riavviare il vostro sistema Linux, di "
-"controllare i filesystem e di compiere uno shutdown completo prima di "
-"iniziare il processo di aggiornamento del sistema operativo."
+"correttamente. Vi consigliamo di riavviare il vostro sistema Linux, "
+"di controllare i filesystem e di compiere uno shutdown completo prima "
+"di iniziare il processo di aggiornamento del sistema operativo."
 
-#: ../todo.py:923
+#: ../todo.py:849
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Uno o piu' filesystem presenti nel file /etc/fstab del sistema Linux non "
-"sono stati smontati correttamente. Vi consigliamo di risolvere questo "
-"problema e successivamente di aggiornare il sistema."
+"Uno o piu' filesystem presenti nel file /etc/fstab del sistema Linux "
+"non sono stati smontati correttamente. Vi consigliamo di risolvere "
+"questo problema e successivamente di aggiornare il sistema."
 
-#: ../todo.py:936
-msgid "Finding"
-msgstr "Ricerca..."
-
-#: ../todo.py:937
-msgid "Finding packages to upgrade..."
-msgstr "Ricerca dei pacchetti da aggiornare..."
-
-#: ../todo.py:952
+#: ../todo.py:870
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Ricostruzione del database RPM fallita. Potrebbe non esserci spazio?"
 
-#: ../todo.py:965
-#, fuzzy
-msgid "An error occured when finding the packages to upgrade."
-msgstr "Ricerca dei pacchetti da aggiornare..."
-
-#: ../todo.py:1274
+#: ../todo.py:1168
 msgid "Processing"
 msgstr "Elaborazione in corso"
 
-#: ../todo.py:1275
+#: ../todo.py:1169
 msgid "Preparing to install..."
 msgstr "Preparazione all'installazione..."
 
-#: ../todo.py:1529
+#: ../todo.py:1422
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Aggiornamento %s.\n"
 
-#: ../todo.py:1531
+#: ../todo.py:1424
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installazione %s.\n"
 
-#: ../todo.py:1556
+#: ../todo.py:1445
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -824,55 +797,55 @@ msgstr ""
 "necessario avere piu' spazio libero sui seguenti filesystem:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:2974 ../todo.py:1559
+#: ../libfdisk/gnomefsedit.c:2978 ../todo.py:1448
 msgid "Mount Point"
 msgstr "Mount Point"
 
-#: ../todo.py:1559
+#: ../todo.py:1448
 msgid "Space Needed"
 msgstr "Spazio necessario"
 
-#: ../todo.py:1572
+#: ../todo.py:1461
 msgid "Disk Space"
 msgstr "Spazio su disco"
 
-#: ../todo.py:1607
+#: ../todo.py:1485
 msgid "Post Install"
 msgstr "Post installazione"
 
-#: ../todo.py:1608
+#: ../todo.py:1486
 msgid "Performing post install configuration..."
 msgstr "Configurazione post installazione..."
 
-#: ../iw/xconfig_gui.py:10 ../xf86config.py:856
+#: ../iw/xconfig_gui.py:10 ../xf86config.py:831
 msgid "Video Card"
 msgstr "Scheda Video"
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:858
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:833
 msgid "Video Ram"
 msgstr "Ram Video"
 
-#: ../xf86config.py:860
+#: ../xf86config.py:835
 msgid "X server"
 msgstr "Server X"
 
-#: ../xf86config.py:862
+#: ../xf86config.py:837
 msgid "Unable to detect video card"
 msgstr "Non e' stato possibile riconoscere il tipo di scheda video"
 
-#: ../iw/xconfig_gui.py:11 ../xf86config.py:869 ../xf86config.py:871
+#: ../iw/xconfig_gui.py:11 ../xf86config.py:844 ../xf86config.py:846
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:871
+#: ../xf86config.py:846
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-#: ../xf86config.py:873
+#: ../xf86config.py:848
 msgid "Horizontal frequency range"
 msgstr "Range di frequenze orizzontali"
 
-#: ../xf86config.py:875
+#: ../xf86config.py:850
 msgid "Vertical frequency range"
 msgstr "Range di frequenze verticali"
 
@@ -888,8 +861,8 @@ msgid ""
 "a mouse."
 msgstr ""
 "Il mouse non e' stato riconosciuto automaticamente. Per procedere con "
-"l'installazione grafica, e' necessario specificare il tipo di mouse. E' "
-"anche possibile utilizzare l'installazione in modalita' testo che non "
+"l'installazione grafica, e' necessario specificare il tipo di mouse. "
+"E' anche possibile utilizzare l'installazione in modalita' testo che non "
 "richiede l'uso del mouse."
 
 #: ../xserver.py:33 ../xserver.py:34
@@ -915,11 +888,6 @@ msgstr "La password di root e' troppo corta."
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
 msgstr "Le password di root non corrispondono."
-
-#: ../iw/account_gui.py:56
-#, fuzzy
-msgid "User password accepted."
-msgstr "Password di root accettata."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -962,20 +930,20 @@ msgstr "Password (conferma)"
 msgid "Full Name"
 msgstr "Nome completo"
 
-#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1444
+#: ../iw/account_gui.py:270 ../libfdisk/newtfsedit.c:1437
 #: ../textw/userauth_text.py:195
 msgid "Add"
 msgstr "Aggiungi"
 
-#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1437
-#: ../libfdisk/newtfsedit.c:1445 ../textw/lilo_text.py:202
+#: ../iw/account_gui.py:272 ../libfdisk/newtfsedit.c:1430
+#: ../libfdisk/newtfsedit.c:1438 ../textw/lilo_text.py:202
 #: ../textw/lilo_text.py:228 ../textw/partitioning_text.py:64
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:196
 msgid "Edit"
 msgstr "Modifica"
 
-#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
+#: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1438
 #: ../textw/userauth_text.py:195
 msgid "Delete"
 msgstr "Cancella"
@@ -1112,13 +1080,13 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr "Dipendenze non risolte"
 
-#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:413
+#: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:414
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
 msgstr "Total install size: %s"
 
-#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:167
+#: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:154
 #: ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Pacchetti"
@@ -1143,7 +1111,7 @@ msgstr "Ignora le dipendenze fra i pacchetti"
 msgid "Upgrade Examine"
 msgstr "Upgrade Examine"
 
-#: ../iw/examine_gui.py:35
+#: ../iw/examine_gui.py:37
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
@@ -1151,11 +1119,11 @@ msgstr ""
 "Non ci sono partizioni Linux.\n"
 "Non e' possibile aggiornare il sistema!"
 
-#: ../iw/examine_gui.py:44
+#: ../iw/examine_gui.py:46
 msgid "Please select the device containing the root filesystem: "
 msgstr "Seleziona il dispositivo contenente il filesystem root:"
 
-#: ../iw/examine_gui.py:72
+#: ../iw/examine_gui.py:74
 msgid "Customize packages to be upgraded"
 msgstr "Scelta dei pacchetti da aggiornare"
 
@@ -1171,7 +1139,7 @@ msgstr "Scegliere il disco da partizionare"
 msgid "Choose partitions to Format"
 msgstr "Scegliere le partizioni da formattare"
 
-#: ../iw/format_gui.py:50
+#: ../iw/format_gui.py:46
 msgid "Check for bad blocks while formatting"
 msgstr "Controllo dei blocchi danneggiati durante la formattazione"
 
@@ -1215,7 +1183,7 @@ msgstr "Disabilita dead key"
 msgid "Test your selection here:"
 msgstr "Verifica della configurazione:"
 
-#: ../iw/language_gui.py:39 ../loader/lang.c:287
+#: ../iw/language_gui.py:39 ../loader/lang.c:280
 msgid "What language should be used during the installation process?"
 msgstr "Quale lingua desiderate utilizzare durante l'installazione?"
 
@@ -1223,59 +1191,57 @@ msgstr "Quale lingua desiderate utilizzare durante l'installazione?"
 msgid "Lilo Configuration"
 msgstr "Configurazione di LILO"
 
-#: ../iw/lilo_gui.py:191 ../iw/lilo_gui.py:317 ../iw/silo_gui.py:132
-#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2978
+#: ../iw/lilo_gui.py:187 ../iw/lilo_gui.py:313 ../iw/silo_gui.py:132
+#: ../iw/silo_gui.py:280 ../libfdisk/gnomefsedit.c:2982
 msgid "Type"
 msgstr "Tipo"
 
-#: ../iw/lilo_gui.py:235
+#: ../iw/lilo_gui.py:231
 msgid "Install LILO boot record on:"
 msgstr "Installa LILO boot record su:"
 
-#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:172 ../textw/lilo_text.py:81
-#: ../textw/silo_text.py:64
+#: ../iw/lilo_gui.py:238 ../iw/silo_gui.py:172 ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
 msgstr "Master Boot Record (MBR)"
 
-#: ../iw/lilo_gui.py:246 ../iw/silo_gui.py:175 ../textw/lilo_text.py:82
-#: ../textw/silo_text.py:65
+#: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:175 ../textw/silo_text.py:65
 msgid "First sector of boot partition"
 msgstr "Primo settore della partizione di boot"
 
-#: ../iw/lilo_gui.py:250 ../textw/lilo_text.py:24
+#: ../iw/lilo_gui.py:246 ../textw/lilo_text.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
 msgstr "Usa la modalita' lineare (necessaria per alcuni dischi SCSI)"
 
-#: ../iw/lilo_gui.py:260 ../iw/silo_gui.py:207
+#: ../iw/lilo_gui.py:256 ../iw/silo_gui.py:207
 msgid "Kernel parameters"
 msgstr "Parametri del kernel"
 
-#: ../iw/lilo_gui.py:277 ../iw/silo_gui.py:225
+#: ../iw/lilo_gui.py:273 ../iw/silo_gui.py:225
 msgid "Create boot disk"
 msgstr "Crea il dischetto di boot"
 
-#: ../iw/lilo_gui.py:281
+#: ../iw/lilo_gui.py:277
 msgid "Do not install LILO"
 msgstr "Non installare LILO"
 
-#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Default"
 msgstr "Default"
 
-#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2975
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../libfdisk/gnomefsedit.c:2979
 #: ../textw/lilo_text.py:112 ../textw/lilo_text.py:193
 #: ../textw/mouse_text.py:25 ../textw/silo_text.py:131
 #: ../textw/silo_text.py:196
 msgid "Device"
 msgstr "Dispositivo"
 
-#: ../iw/lilo_gui.py:292 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
+#: ../iw/lilo_gui.py:288 ../iw/silo_gui.py:256 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:196
 msgid "Partition type"
 msgstr "Tipo di partizione"
 
-#: ../iw/lilo_gui.py:292 ../iw/lilo_gui.py:328 ../iw/silo_gui.py:256
+#: ../iw/lilo_gui.py:288 ../iw/lilo_gui.py:324 ../iw/silo_gui.py:256
 #: ../iw/silo_gui.py:291 ../textw/lilo_text.py:113 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
@@ -1289,48 +1255,48 @@ msgstr "Emulazione 3 pulsanti"
 msgid "Network Configuration"
 msgstr "Configurazione della rete"
 
-#: ../iw/network_gui.py:148
+#: ../iw/network_gui.py:147
 msgid "Configure using DHCP"
 msgstr "Configurazione tramite DHCP"
 
-#: ../iw/network_gui.py:154
+#: ../iw/network_gui.py:153
 msgid "Activate on boot"
 msgstr "Attiva al boot"
 
-#: ../iw/network_gui.py:163
+#: ../iw/network_gui.py:162
 msgid "IP Address"
 msgstr "Indirizzo IP"
 
-#: ../iw/network_gui.py:164 ../loader/net.c:727
+#: ../iw/network_gui.py:163 ../loader/net.c:727
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network_gui.py:165 ../loader/loader.c:262
+#: ../iw/network_gui.py:164 ../loader/loader.c:259
 msgid "Network"
 msgstr "Rete"
 
-#: ../iw/network_gui.py:166
+#: ../iw/network_gui.py:165
 msgid "Broadcast"
 msgstr "Broadcast"
 
-#: ../iw/network_gui.py:210 ../loader/net.c:531 ../loader/net.c:729
+#: ../iw/network_gui.py:207 ../loader/net.c:531 ../loader/net.c:729
 #: ../textw/network_text.py:141
 msgid "Hostname"
 msgstr "Nome host"
 
-#: ../iw/network_gui.py:211
+#: ../iw/network_gui.py:208
 msgid "Gateway"
 msgstr "Gateway"
 
-#: ../iw/network_gui.py:211
+#: ../iw/network_gui.py:208
 msgid "Primary DNS"
 msgstr "DNS primario"
 
-#: ../iw/network_gui.py:211
+#: ../iw/network_gui.py:208
 msgid "Secondary DNS"
 msgstr "DNS secondario"
 
-#: ../iw/network_gui.py:211
+#: ../iw/network_gui.py:208
 msgid "Ternary DNS"
 msgstr "DNS terziario"
 
@@ -1338,72 +1304,72 @@ msgstr "DNS terziario"
 msgid "Individual Package Selection"
 msgstr "Scelta individuale dei pacchetti"
 
-#: ../iw/package_gui.py:175
+#: ../iw/package_gui.py:176
 msgid "Up"
 msgstr "Su"
 
-#: ../iw/package_gui.py:326
+#: ../iw/package_gui.py:327
 msgid "Name: "
 msgstr "Nome: "
 
-#: ../iw/package_gui.py:331
+#: ../iw/package_gui.py:332
 msgid "Package Details"
 msgstr "Dettagli sui pacchetti"
 
-#: ../iw/package_gui.py:337
+#: ../iw/package_gui.py:338
 msgid "Size: "
 msgstr "Grandezza :"
 
-#: ../iw/package_gui.py:343
+#: ../iw/package_gui.py:344
 msgid "Select Package For Installation"
 msgstr "Scelta dei pacchetti da installare"
 
-#: ../iw/package_gui.py:352
+#: ../iw/package_gui.py:353
 msgid "Total install size: "
 msgstr "Quantita' totale da installare: "
 
-#: ../iw/package_gui.py:389 ../textw/packages_text.py:60
+#: ../iw/package_gui.py:390 ../textw/packages_text.py:59
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
 msgstr "Scelta dei gruppi di pacchetti"
 
-#: ../iw/package_gui.py:489 ../textw/packages_text.py:54
+#: ../iw/package_gui.py:489 ../textw/packages_text.py:53
 msgid "Select individual packages"
 msgstr "Scelta individuale dei pacchetti"
 
-#: ../iw/progress_gui.py:35
+#: ../iw/progress_gui.py:29
 msgid "Installing Packages"
-msgstr "Installazione dei pacchetti in corso"
+msgstr "Installazione in corso dei pacchetti"
 
-#: ../iw/progress_gui.py:168 ../iw/progress_gui.py:203
+#: ../iw/progress_gui.py:155 ../iw/progress_gui.py:190
 msgid "Size"
 msgstr "Grandezza"
 
-#: ../iw/progress_gui.py:169
+#: ../iw/progress_gui.py:156
 msgid "Summary"
 msgstr "Descrizione"
 
-#: ../iw/progress_gui.py:203
+#: ../iw/progress_gui.py:190
 msgid "Status"
 msgstr "Stato"
 
-#: ../iw/progress_gui.py:203
+#: ../iw/progress_gui.py:190
 msgid "Packages"
 msgstr "Pacchetti"
 
-#: ../iw/progress_gui.py:203
+#: ../iw/progress_gui.py:190
 msgid "Time"
 msgstr "Tempo"
 
-#: ../iw/progress_gui.py:208
+#: ../iw/progress_gui.py:195
 msgid "Total"
 msgstr "Totale"
 
-#: ../iw/progress_gui.py:209
+#: ../iw/progress_gui.py:196
 msgid "Completed"
 msgstr "Completato"
 
-#: ../iw/progress_gui.py:210
+#: ../iw/progress_gui.py:197
 msgid "Remaining"
 msgstr "Rimanente"
 
@@ -1429,8 +1395,7 @@ msgstr ""
 "swap. Per poter utilizzare lo swap bisogna scrivere subito la nuova tabella "
 "delle partizioni. Va bene?"
 
-#: ../iw/rootpartition_gui.py:145 ../textw/partitioning_text.py:302
-#, c-format
+#: ../iw/rootpartition_gui.py:120 ../textw/partitioning_text.py:300
 msgid ""
 "You've chosen to put your root filesystem in a file on an already-existing "
 "DOS or Windows filesystem. How large, in megabytes, should would you like "
@@ -1441,20 +1406,20 @@ msgstr ""
 "DOS o Windows gia' esistente. Quanto deve essere grande ? Quanto spazio di "
 "swap volete ? In totale devono essere meno di %d megabyte."
 
-#: ../iw/rootpartition_gui.py:174
+#: ../iw/rootpartition_gui.py:144
 msgid "Root filesystem size:"
 msgstr "Grandezza del filesystem root:"
 
-#: ../iw/rootpartition_gui.py:179
+#: ../iw/rootpartition_gui.py:149
 msgid "Swap space size:"
 msgstr "Grandezza dello swap:"
 
-#: ../iw/rootpartition_gui.py:247 ../iw/rootpartition_gui.py:297
+#: ../iw/rootpartition_gui.py:217 ../iw/rootpartition_gui.py:267
 #: ../textw/partitioning_text.py:149
 msgid "Automatic Partitioning"
 msgstr "Partizionamento automatico"
 
-#: ../iw/rootpartition_gui.py:299 ../textw/partitioning_text.py:150
+#: ../iw/rootpartition_gui.py:269 ../textw/partitioning_text.py:150
 #, c-format
 msgid ""
 "%s\n"
@@ -1469,11 +1434,11 @@ msgstr ""
 "partizionamento manuale, oppure tornate alle precedenti schermate e "
 "scegliete un'installazione di tipo personalizzato."
 
-#: ../iw/rootpartition_gui.py:305
+#: ../iw/rootpartition_gui.py:275
 msgid "Automatic Partitioning Failed"
 msgstr "Partizionamento automatico fallito"
 
-#: ../iw/rootpartition_gui.py:306
+#: ../iw/rootpartition_gui.py:276
 msgid ""
 "\n"
 "There is not sufficient disk space in order to automatically partition your "
@@ -1490,11 +1455,11 @@ msgstr ""
 "Scegliete il tool per il partizionamento che preferite per creare le "
 "partizioni per il sistema Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:313
+#: ../iw/rootpartition_gui.py:283
 msgid "Manual Partitioning"
 msgstr "Partizionamento manuale"
 
-#: ../iw/rootpartition_gui.py:314
+#: ../iw/rootpartition_gui.py:284
 msgid ""
 "\n"
 "Please choose the tool you would like to use to partition your system for "
@@ -1504,15 +1469,15 @@ msgstr ""
 "Scegliete il tool per il partizionamento che preferite per creare le "
 "partizioni utilizzate dal sistema Red Hat Linux."
 
-#: ../iw/rootpartition_gui.py:328
+#: ../iw/rootpartition_gui.py:298
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Partizionamento automatico e CANCELLAZIONE DEI DATI"
 
-#: ../iw/rootpartition_gui.py:335
+#: ../iw/rootpartition_gui.py:305
 msgid "Manually partition with Disk Druid"
 msgstr "Partizionamento manuale con Disk Druid"
 
-#: ../iw/rootpartition_gui.py:347
+#: ../iw/rootpartition_gui.py:317
 msgid "Manually partition with fdisk [experts only]"
 msgstr "Partizionamento manuale con fdisk [per esperti]"
 
@@ -1576,31 +1541,31 @@ msgstr "Range di frequenze verticali"
 msgid "Test failed"
 msgstr "Test fallito"
 
-#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:443
+#: ../iw/xconfig_gui.py:23 ../iw/xconfig_gui.py:434
 msgid "Customize X Configuration"
-msgstr "Personalizzazione della configurazione di X"
+msgstr "Personalizza la configurazione di X"
 
-#: ../iw/xconfig_gui.py:90
+#: ../iw/xconfig_gui.py:87
 msgid "Bits per Pixel"
 msgstr "Bit per Pixel"
 
-#: ../iw/xconfig_gui.py:101 ../iw/xconfig_gui.py:438
+#: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:429
 msgid "Test this configuration"
 msgstr "Test della configurazione"
 
-#: ../iw/xconfig_gui.py:116
+#: ../iw/xconfig_gui.py:112
 msgid "Monitor Configuration"
 msgstr "Configurazione del monitor"
 
-#: ../iw/xconfig_gui.py:222
+#: ../iw/xconfig_gui.py:216
 msgid "Horizontal Sync"
 msgstr "Horizontal Sync"
 
-#: ../iw/xconfig_gui.py:231
+#: ../iw/xconfig_gui.py:225
 msgid "Vertical Sync"
 msgstr "Vertical Sync"
 
-#: ../iw/xconfig_gui.py:343
+#: ../iw/xconfig_gui.py:337
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -1608,7 +1573,7 @@ msgstr ""
 "La memoria video non e' stata rilevata automaticamente. Scegliete la "
 "quantita' di memoria presente nella vostra scheda grafica:"
 
-#: ../iw/xconfig_gui.py:354 ../iw/xconfig_gui.py:375
+#: ../iw/xconfig_gui.py:348 ../iw/xconfig_gui.py:369
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1617,26 +1582,26 @@ msgstr ""
 "automaticamente ed impostata secondo la risoluzione ottimale del vostro "
 "video."
 
-#: ../iw/xconfig_gui.py:363
+#: ../iw/xconfig_gui.py:357
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
 "Se l'impostazione rilevata non e' adatta, selezionate dalla lista seguente:"
 
-#: ../iw/xconfig_gui.py:384
+#: ../iw/xconfig_gui.py:378
 msgid "Autoprobe results:"
 msgstr "Risultati del rilevamento automatico:"
 
-#: ../iw/xconfig_gui.py:447
+#: ../iw/xconfig_gui.py:438
 msgid "Use Graphical Login"
 msgstr "Login grafico"
 
-#: ../iw/xconfig_gui.py:448
+#: ../iw/xconfig_gui.py:439
 msgid "Skip X Configuration"
 msgstr "Salta la configurazione di X"
 
-#: ../iw/xconfig_gui.py:495
+#: ../iw/xconfig_gui.py:486
 msgid "Default Desktop:"
 msgstr "Desktop di default"
 
@@ -1758,15 +1723,15 @@ msgstr "/dev/ttyS3 (COM4 sotto DOS)"
 msgid "What device is your mouse located on?"
 msgstr "A quale dispositivo e' collegato il mouse?"
 
-#: ../textw/mouse_text.py:55
+#: ../textw/mouse_text.py:45
 msgid "Which model mouse is attached to this computer?"
 msgstr "Quale modello di mouse e' collegato al computer?"
 
-#: ../textw/mouse_text.py:66
+#: ../textw/mouse_text.py:54
 msgid "Emulate 3 Buttons?"
 msgstr "Emulazione 3 pulsanti?"
 
-#: ../textw/mouse_text.py:69
+#: ../textw/mouse_text.py:56
 msgid "Mouse Selection"
 msgstr "Scelta del tipo di mouse"
 
@@ -1810,11 +1775,11 @@ msgstr ""
 "L'hostname e' il nome del computer. Se il vostro computer e' collegato ad "
 "una rete, il nome e' assegnato dall'amministratore della rete."
 
-#: ../textw/packages_text.py:91
+#: ../textw/packages_text.py:90
 msgid "Package :"
 msgstr "Pacchetto:"
 
-#: ../textw/packages_text.py:96
+#: ../textw/packages_text.py:95
 msgid "Size    :"
 msgstr "Grandezza :"
 
@@ -1868,7 +1833,7 @@ msgstr ""
 "dedicata a Linux. Vi suggeriamo di creare la partizione su uno dei primi due "
 "dischi affinche' sia possibile avviare Linux con LILO."
 
-#: ../loader/loader.c:327 ../loader/loader.c:352
+#: ../loader/loader.c:324 ../loader/loader.c:349
 #: ../textw/partitioning_text.py:64
 msgid "Done"
 msgstr "Fatto"
@@ -1901,24 +1866,24 @@ msgstr "Controllo dei blocchi danneggiati durante la formattazione"
 msgid "Choose Partitions to Format"
 msgstr "Scegliere le partizioni da formattare"
 
-#: ../textw/partitioning_text.py:307
+#: ../textw/partitioning_text.py:305
 msgid "Root filesystem size"
 msgstr "Grandezza del filesystem root"
 
-#: ../textw/partitioning_text.py:308
+#: ../textw/partitioning_text.py:306
 msgid "Swap space"
 msgstr "Spazio di swap"
 
-#: ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:324
-#: ../textw/partitioning_text.py:331
+#: ../textw/partitioning_text.py:316 ../textw/partitioning_text.py:322
+#: ../textw/partitioning_text.py:329
 msgid "Bad Size"
 msgstr "Grandezza sbagliata"
 
-#: ../textw/partitioning_text.py:319
+#: ../textw/partitioning_text.py:317
 msgid "The size you enter must be a number."
 msgstr "La grandezza deve essere un numero."
 
-#: ../textw/partitioning_text.py:325
+#: ../textw/partitioning_text.py:323
 #, c-format
 msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
@@ -1927,7 +1892,7 @@ msgstr ""
 "La grandezza totale deve essere piu' piccola della quantita' di spazio "
 "disponibile, che e' di %d megabyte."
 
-#: ../textw/partitioning_text.py:332
+#: ../textw/partitioning_text.py:330
 msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
@@ -2103,50 +2068,21 @@ msgstr "o usa:"
 msgid "Request server via broadcast"
 msgstr "Richiesta al server via broadcast"
 
-#: ../installclasses/custom.py:7
-msgid "Custom System"
-msgstr "Custom System"
-
-#: ../installclasses/server.py:8
-#, fuzzy
-msgid "Server System"
-msgstr "Aggiornamento del sistema"
-
-#: ../installclasses/server.py:34
-msgid ""
-"You are about to erase ALL DATA on your hard drive to make room for your "
-"Linux installation."
-msgstr ""
-"State per cancellare TUTTI I DATI sull'hard disk per installare Red Hat "
-"Linux."
-
-#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2523
-msgid "Workstation"
-msgstr "Workstation"
-
-#: ../installclasses/workstation.py:30
-msgid ""
-"You are about to erase any preexisting Linux installations on your system."
-msgstr ""
-"State per cancellare le installazioni Linux esistenti sul vostro sistema."
-
-#: ../libfdisk/fsedit.c:450
+#: ../libfdisk/fsedit.c:447
 msgid "partitioning did not meet requirements"
 msgstr "partitioning did not meet requirements"
 
-#: ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:974 ../libfdisk/fsedit.c:981
-#: ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1017
-#: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1040
+#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:978
+#: ../libfdisk/fsedit.c:987 ../libfdisk/fsedit.c:1014
+#: ../libfdisk/fsedit.c:1027 ../libfdisk/fsedit.c:1037
 msgid "Bad Mount Point"
 msgstr "Mount Point non corretto"
 
-#: ../libfdisk/fsedit.c:968
-#, c-format
+#: ../libfdisk/fsedit.c:965
 msgid "The %s directory must be on the root filesystem."
 msgstr "La directory %s deve essere sul filesystem root."
 
-#: ../libfdisk/fsedit.c:975
-#, c-format
+#: ../libfdisk/fsedit.c:972
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
@@ -2156,8 +2092,7 @@ msgstr ""
 "\n"
 "Il mount point deve iniziare con uno /"
 
-#: ../libfdisk/fsedit.c:982
-#, c-format
+#: ../libfdisk/fsedit.c:979
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
@@ -2167,8 +2102,7 @@ msgstr ""
 "\n"
 "Il mount point non puo' finire con /"
 
-#: ../libfdisk/fsedit.c:991
-#, c-format
+#: ../libfdisk/fsedit.c:988
 msgid ""
 "The mount point %s is illegal.\n"
 "\n"
@@ -2178,7 +2112,7 @@ msgstr ""
 "\n"
 "Il mount point non puo' contenere caratteri non stampabili."
 
-#: ../libfdisk/fsedit.c:999
+#: ../libfdisk/fsedit.c:996
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2190,7 +2124,7 @@ msgstr ""
 "filesystem per Linux. Inoltre, dovrete accettare un degrado delle "
 "prestazioni sull'accesso ai file. Volete continuare ?"
 
-#: ../libfdisk/fsedit.c:1018
+#: ../libfdisk/fsedit.c:1015
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2201,12 +2135,12 @@ msgstr ""
 "\n"
 "Il mount point deve essere una partizioni Linux nativa."
 
-#: ../libfdisk/fsedit.c:1031
+#: ../libfdisk/fsedit.c:1028
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
 msgstr "Su questa piattaforma, /boot deve essere un un filesystem DOS %x."
 
-#: ../libfdisk/fsedit.c:1041
+#: ../libfdisk/fsedit.c:1038
 #, c-format
 msgid ""
 "The mount point %s is illegal.\n"
@@ -2217,11 +2151,11 @@ msgstr ""
 "\n"
 "Il mount point deve essere una partizione Linux nativa o un volume NFS."
 
-#: ../libfdisk/fsedit.c:1069
+#: ../libfdisk/fsedit.c:1066
 msgid "Too Many Drives"
 msgstr "Troppo dischi"
 
-#: ../libfdisk/fsedit.c:1070
+#: ../libfdisk/fsedit.c:1067
 msgid ""
 "You have more drives than this program supports. Please use the standard "
 "fdisk program to setup your drives and please notify Red Hat Software that "
@@ -2231,11 +2165,11 @@ msgstr ""
 "di utilizzare il programma fdisk per configurare le partizioni. Inoltre vi "
 "preghiamo di inviare a Red Hat, Inc. il messaggio che e' apparso a video."
 
-#: ../libfdisk/fsedit.c:1079
+#: ../libfdisk/fsedit.c:1076
 msgid "Error Creating Device Nodes"
 msgstr "Errore nella creazione di dispositivi"
 
-#: ../libfdisk/fsedit.c:1080
+#: ../libfdisk/fsedit.c:1077
 msgid ""
 "An error has occurred why trying to create device nodes for the hard drives "
 "in your system.  This may be because you have run out of disk space on the "
@@ -2245,11 +2179,11 @@ msgstr ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 
-#: ../libfdisk/fsedit.c:1096
+#: ../libfdisk/fsedit.c:1093
 msgid "No Drives Found"
 msgstr "Nessun disco trovato"
 
-#: ../libfdisk/fsedit.c:1097
+#: ../libfdisk/fsedit.c:1094
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
@@ -2257,7 +2191,7 @@ msgstr ""
 "Errore - non e' stato trovato nessun dispositivo valido sul quale creare il "
 "filesystem. Controllate il vostro hardware per capire la causa del problema."
 
-#: ../libfdisk/fsedit.c:1410 ../libfdisk/fsedit.c:1490
+#: ../libfdisk/fsedit.c:1407 ../libfdisk/fsedit.c:1486
 #, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
@@ -2266,7 +2200,7 @@ msgstr ""
 "Errore durante la lettura della tabelle delle partizioni dal dispositivo %s. "
 "L'errore e'"
 
-#: ../libfdisk/fsedit.c:1467
+#: ../libfdisk/fsedit.c:1463
 #, c-format
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
@@ -2276,27 +2210,27 @@ msgstr ""
 "creare una nuova partizione, e' necessario inizializzarla. Questa operazione "
 "causa la perdita di TUTTI I DATI presenti sul disco."
 
-#: ../libfdisk/fsedit.c:1472
+#: ../libfdisk/fsedit.c:1468
 msgid "Bad Partition Table"
 msgstr "Tabella delle partizioni corrotta"
 
-#: ../libfdisk/fsedit.c:1473
+#: ../libfdisk/fsedit.c:1469
 msgid "Initialize"
 msgstr "Inizializza"
 
-#: ../libfdisk/fsedit.c:1473 ../libfdisk/fsedit.c:1494
+#: ../libfdisk/fsedit.c:1469 ../libfdisk/fsedit.c:1490
 msgid "Skip Drive"
 msgstr "Salta disco"
 
-#: ../libfdisk/fsedit.c:1494 ../loader/net.c:254 ../loader/net.c:379
+#: ../libfdisk/fsedit.c:1490 ../loader/net.c:254 ../loader/net.c:379
 msgid "Retry"
 msgstr "Riprova"
 
-#: ../libfdisk/fsedit.c:1506
+#: ../libfdisk/fsedit.c:1502
 msgid "BSD Disklabel"
 msgstr "BSD Disklabel"
 
-#: ../libfdisk/fsedit.c:1506
+#: ../libfdisk/fsedit.c:1502
 msgid ""
 "A disk with a BSD disklabel has been found. The Red Hat installation only "
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
@@ -2306,36 +2240,36 @@ msgstr ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 
-#: ../libfdisk/fsedit.c:1536
+#: ../libfdisk/fsedit.c:1532
 #, c-format
 msgid "System error %d"
 msgstr "Errore di sistema %d"
 
-#: ../libfdisk/fsedit.c:1545 ../libfdisk/fsedit.c:1547
+#: ../libfdisk/fsedit.c:1541 ../libfdisk/fsedit.c:1543
 msgid "Fdisk Error"
 msgstr "Errore fdisk"
 
-#: ../libfdisk/gnomefsedit.c:550 ../libfdisk/gnomefsedit.c:850
+#: ../libfdisk/gnomefsedit.c:553 ../libfdisk/gnomefsedit.c:853
 msgid "<Swap Partition>"
 msgstr "<Partizione Swap>"
 
-#: ../libfdisk/gnomefsedit.c:558 ../libfdisk/gnomefsedit.c:852
+#: ../libfdisk/gnomefsedit.c:561 ../libfdisk/gnomefsedit.c:855
 msgid "<RAID Partition>"
 msgstr "<Partizione RAID>"
 
-#: ../libfdisk/gnomefsedit.c:727 ../libfdisk/newtfsedit.c:836
+#: ../libfdisk/gnomefsedit.c:730 ../libfdisk/newtfsedit.c:829
 msgid "Delete Partition"
 msgstr "Cancella partizione"
 
-#: ../libfdisk/gnomefsedit.c:728 ../libfdisk/newtfsedit.c:837
+#: ../libfdisk/gnomefsedit.c:731 ../libfdisk/newtfsedit.c:830
 msgid "Are you sure you want to delete this partition?"
 msgstr "Siete sicuri di voler cancellare la partizione?"
 
-#: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
+#: ../libfdisk/gnomefsedit.c:780 ../libfdisk/newtfsedit.c:337
 msgid "Cannot Edit Partitions"
 msgstr "Non e' possibile modificare le partizioni"
 
-#: ../libfdisk/gnomefsedit.c:778 ../libfdisk/newtfsedit.c:345
+#: ../libfdisk/gnomefsedit.c:781 ../libfdisk/newtfsedit.c:338
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
@@ -2343,69 +2277,69 @@ msgstr ""
 "Il filesystem '/' fa riferimento ad una partizione non ext2, percio' non e' "
 "possibile modificare le partizioni."
 
-#: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
-#: ../libfdisk/gnomefsedit.c:806 ../libfdisk/gnomefsedit.c:808
-#: ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
-#: ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
+#: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:805
+#: ../libfdisk/gnomefsedit.c:809 ../libfdisk/gnomefsedit.c:811
+#: ../libfdisk/newtfsedit.c:361 ../libfdisk/newtfsedit.c:367
+#: ../libfdisk/newtfsedit.c:371 ../libfdisk/newtfsedit.c:373
 msgid "Edit Partition"
 msgstr "Modifica partizione"
 
-#: ../libfdisk/gnomefsedit.c:823 ../libfdisk/gnomefsedit.c:1895
-#: ../libfdisk/newtfsedit.c:389
+#: ../libfdisk/gnomefsedit.c:826 ../libfdisk/gnomefsedit.c:1898
+#: ../libfdisk/newtfsedit.c:382
 msgid "Mount Point:"
 msgstr "Mount Point:"
 
-#: ../libfdisk/gnomefsedit.c:865 ../libfdisk/newtfsedit.c:408
+#: ../libfdisk/gnomefsedit.c:868 ../libfdisk/newtfsedit.c:401
 msgid "Size (Megs):"
 msgstr "Grandezza (MB):"
 
-#: ../libfdisk/gnomefsedit.c:897
+#: ../libfdisk/gnomefsedit.c:900
 msgid "Use remaining space?"
 msgstr "Usa spazio rimanente?"
 
-#: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
+#: ../libfdisk/gnomefsedit.c:919 ../libfdisk/newtfsedit.c:433
 msgid "Allocation Status:"
 msgstr "Stato di allocazione:"
 
-#: ../libfdisk/gnomefsedit.c:920 ../libfdisk/newtfsedit.c:442
+#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:435
 msgid "Successful"
 msgstr "Completato con successo"
 
-#: ../libfdisk/gnomefsedit.c:923 ../libfdisk/newtfsedit.c:444
+#: ../libfdisk/gnomefsedit.c:926 ../libfdisk/newtfsedit.c:437
 msgid "Failed"
 msgstr "Fallito"
 
-#: ../libfdisk/gnomefsedit.c:935 ../libfdisk/newtfsedit.c:449
+#: ../libfdisk/gnomefsedit.c:938 ../libfdisk/newtfsedit.c:442
 msgid "Failure Reason:"
 msgstr "Causa dell'errore:"
 
-#: ../libfdisk/gnomefsedit.c:949 ../libfdisk/gnomefsedit.c:1929
+#: ../libfdisk/gnomefsedit.c:952 ../libfdisk/gnomefsedit.c:1932
 msgid "Partition Type:"
 msgstr "Tipo di partizione:"
 
-#: ../libfdisk/gnomefsedit.c:1032 ../libfdisk/newtfsedit.c:519
+#: ../libfdisk/gnomefsedit.c:1035 ../libfdisk/newtfsedit.c:512
 msgid "Allowable Drives:"
 msgstr "Drive disponibili:"
 
-#: ../libfdisk/gnomefsedit.c:1135 ../libfdisk/gnomefsedit.c:2123
-#: ../libfdisk/newtfsedit.c:610
+#: ../libfdisk/gnomefsedit.c:1138 ../libfdisk/gnomefsedit.c:2127
+#: ../libfdisk/newtfsedit.c:603
 msgid "No Mount Point"
 msgstr "Nessun mount point"
 
-#: ../libfdisk/gnomefsedit.c:1136 ../libfdisk/newtfsedit.c:611
+#: ../libfdisk/gnomefsedit.c:1139 ../libfdisk/newtfsedit.c:604
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
 "Non e' stato selezionato un mount point per questa partizione. Siete sicuri?"
 
-#: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
-#: ../libfdisk/gnomefsedit.c:2131 ../libfdisk/newtfsedit.c:634
-#: ../libfdisk/newtfsedit.c:667
+#: ../libfdisk/gnomefsedit.c:1163 ../libfdisk/gnomefsedit.c:1200
+#: ../libfdisk/gnomefsedit.c:2135 ../libfdisk/newtfsedit.c:627
+#: ../libfdisk/newtfsedit.c:660
 msgid "Mount Point Error"
 msgstr "Errore nel mount point"
 
-#: ../libfdisk/gnomefsedit.c:1161 ../libfdisk/newtfsedit.c:635
+#: ../libfdisk/gnomefsedit.c:1164 ../libfdisk/newtfsedit.c:628
 msgid ""
 "You have tried to assign the '/' mount point to a FAT-style partition.  You "
 "cannot do this now because mount points have been assigned to ext2 "
@@ -2417,7 +2351,7 @@ msgstr ""
 "partizioni ext2. Cancellando questi mount point, sara' possibile assegnare "
 "il mount point '/' a questa partizione."
 
-#: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
+#: ../libfdisk/gnomefsedit.c:1201 ../libfdisk/newtfsedit.c:661
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
@@ -2425,11 +2359,11 @@ msgstr ""
 "Il mount point richiesto e' illegale o gia' in uso. Selezionare un mount "
 "point corretto."
 
-#: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/newtfsedit.c:693
+#: ../libfdisk/gnomefsedit.c:1234 ../libfdisk/newtfsedit.c:686
 msgid "Size Error"
 msgstr "Errore nella dimensione"
 
-#: ../libfdisk/gnomefsedit.c:1232 ../libfdisk/newtfsedit.c:694
+#: ../libfdisk/gnomefsedit.c:1235 ../libfdisk/newtfsedit.c:687
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
@@ -2437,13 +2371,13 @@ msgstr ""
 "La dimensione richiesta non e' accettabile. Assicuratevi che la dimensione "
 "sia maggiore di zero (0) ed in formato decimale (base 10)."
 
-#: ../libfdisk/gnomefsedit.c:1250 ../libfdisk/gnomefsedit.c:2264
-#: ../libfdisk/newtfsedit.c:712
+#: ../libfdisk/gnomefsedit.c:1253 ../libfdisk/gnomefsedit.c:2268
+#: ../libfdisk/newtfsedit.c:705
 msgid "Swap Size Error"
 msgstr "Errore nella dimensione dello swap"
 
-#: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2265
-#: ../libfdisk/newtfsedit.c:713
+#: ../libfdisk/gnomefsedit.c:1254 ../libfdisk/gnomefsedit.c:2269
+#: ../libfdisk/newtfsedit.c:706
 #, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
@@ -2452,23 +2386,23 @@ msgstr ""
 "E' stata creata una partizione di swap troppo grande. La dimensione massima "
 "e' di %ld MByte."
 
-#: ../libfdisk/gnomefsedit.c:1265
+#: ../libfdisk/gnomefsedit.c:1268
 msgid "No Drives Specified"
 msgstr "Nessun disco specificato"
 
-#: ../libfdisk/gnomefsedit.c:1266 ../libfdisk/gnomefsedit.c:1283
+#: ../libfdisk/gnomefsedit.c:1269 ../libfdisk/gnomefsedit.c:1286
 msgid "Close"
 msgstr "Chiudi"
 
-#: ../libfdisk/gnomefsedit.c:1267
+#: ../libfdisk/gnomefsedit.c:1270
 msgid "You must constrain this partition to at least one drive."
 msgstr "You must constrain this partition to at least one drive."
 
-#: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
+#: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
 msgstr "No RAID Drive Constraint"
 
-#: ../libfdisk/gnomefsedit.c:1277
+#: ../libfdisk/gnomefsedit.c:1280
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
@@ -2478,7 +2412,7 @@ msgstr ""
 "singolo disco.\n"
 "Siete sicuri?"
 
-#: ../libfdisk/gnomefsedit.c:1284
+#: ../libfdisk/gnomefsedit.c:1287
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
@@ -2486,11 +2420,11 @@ msgstr ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 
-#: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
+#: ../libfdisk/gnomefsedit.c:1407 ../libfdisk/newtfsedit.c:803
 msgid "Cannot Add Partitions"
 msgstr "Non e' possibile aggiungere partizioni"
 
-#: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
+#: ../libfdisk/gnomefsedit.c:1408 ../libfdisk/newtfsedit.c:804
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -2500,11 +2434,11 @@ msgstr ""
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
-#: ../libfdisk/gnomefsedit.c:1479
+#: ../libfdisk/gnomefsedit.c:1482
 msgid "RAID Entry Incomplete"
 msgstr "Entry RAID incompleta"
 
-#: ../libfdisk/gnomefsedit.c:1480
+#: ../libfdisk/gnomefsedit.c:1483
 #, c-format
 msgid ""
 "The raid device /dev/%s now contains partitions which are unallocated. The "
@@ -2512,16 +2446,16 @@ msgid ""
 "Please recompose the raid device with allocated partitions."
 msgstr ""
 "Il dispositivo raid /dev/%s contiene delle partizioni non allocate. Il "
-"dispositivo raid /dev/%s sara' scomposto nelle sue partizioni elementari. Si "
-"prega di ricostruire il dispositivo raid con le partizioni allocate."
+"dispositivo raid /dev/%s sara' scomposto nelle sue partizioni elementari. "
+"Si prega di ricostruire il dispositivo raid con le partizioni allocate."
 
 #. build list of why they all failed
-#: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
-#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1638
+#: ../libfdisk/gnomefsedit.c:1582 ../libfdisk/gnomefsedit.c:1601
+#: ../libfdisk/newtfsedit.c:136 ../libfdisk/newtfsedit.c:1631
 msgid "Unallocated Partitions"
 msgstr "Partizioni non allocate"
 
-#: ../libfdisk/gnomefsedit.c:1583 ../libfdisk/gnomefsedit.c:1593
+#: ../libfdisk/gnomefsedit.c:1586 ../libfdisk/gnomefsedit.c:1596
 #: ../libfdisk/newtfsedit.c:140
 msgid ""
 "There are currently unallocated partition(s) present in the list of "
@@ -2532,11 +2466,11 @@ msgstr ""
 "richieste. Le partizioni non allocate sono mostrate in fondo, con la "
 "motivazione dell'errore."
 
-#: ../libfdisk/gnomefsedit.c:1877
+#: ../libfdisk/gnomefsedit.c:1880
 msgid "Cannot Edit Raid"
 msgstr "Non e' possibile modificare il Raid"
 
-#: ../libfdisk/gnomefsedit.c:1878
+#: ../libfdisk/gnomefsedit.c:1881
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
@@ -2544,34 +2478,34 @@ msgstr ""
 "Il filesystem '/' fa riferimento ad una partizione non ext2. Percio' non e' "
 "possibile modificare i dispositivi RAID."
 
-#: ../libfdisk/gnomefsedit.c:1915
+#: ../libfdisk/gnomefsedit.c:1918
 msgid "<Swap Partition"
 msgstr "<Partizione Swap"
 
-#: ../libfdisk/gnomefsedit.c:1974
+#: ../libfdisk/gnomefsedit.c:1977
 msgid "RAID Device: /dev/"
 msgstr "Dispositivo RAID: /dev/"
 
-#: ../libfdisk/gnomefsedit.c:1997
+#: ../libfdisk/gnomefsedit.c:2000
 msgid "RAID Type:"
 msgstr "Tipo RAID:"
 
-#: ../libfdisk/gnomefsedit.c:2034
+#: ../libfdisk/gnomefsedit.c:2037
 msgid "Partitions For RAID Array:"
 msgstr "Partizioni per Array RAID:"
 
-#: ../libfdisk/gnomefsedit.c:2124
+#: ../libfdisk/gnomefsedit.c:2128
 msgid "You have not selected a mount point. A mount point is required."
 msgstr "Non e' stato selezionato un mount point. E' richiesto un mount point."
 
-#: ../libfdisk/gnomefsedit.c:2132
+#: ../libfdisk/gnomefsedit.c:2136
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
 "Il mount point richiesto e' gia' in uso. Selezionare un mount point valido."
 
-#: ../libfdisk/gnomefsedit.c:2168
+#: ../libfdisk/gnomefsedit.c:2172
 msgid ""
 "The bootable raid device can only include partitions from the first two "
 "drives on your system.\n"
@@ -2583,23 +2517,23 @@ msgstr ""
 "\n"
 "I primi due dischi sono:"
 
-#: ../libfdisk/gnomefsedit.c:2175
+#: ../libfdisk/gnomefsedit.c:2179
 msgid "Booting From RAID Warning"
 msgstr "Booting From RAID Warning"
 
-#: ../libfdisk/gnomefsedit.c:2185
+#: ../libfdisk/gnomefsedit.c:2189
 msgid "No RAID Device"
 msgstr "Nessun dispositivo RAID"
 
-#: ../libfdisk/gnomefsedit.c:2186
+#: ../libfdisk/gnomefsedit.c:2190
 msgid "You need to selected a RAID device."
 msgstr "E' necessario selezionare un dispositivo RAID."
 
-#: ../libfdisk/gnomefsedit.c:2192
+#: ../libfdisk/gnomefsedit.c:2196
 msgid "Used Raid Device"
 msgstr "Dispositivo RAID usato"
 
-#: ../libfdisk/gnomefsedit.c:2193
+#: ../libfdisk/gnomefsedit.c:2197
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
@@ -2608,11 +2542,11 @@ msgstr ""
 "Il dispositivo raid \"/dev/%s\" e' gia' stato configurato come dispositivo "
 "raid. Selezionare un altro dispositivo raid."
 
-#: ../libfdisk/gnomefsedit.c:2206
+#: ../libfdisk/gnomefsedit.c:2210
 msgid "Not Enough Partitions"
 msgstr "Non ci sono abbastanza partizioni"
 
-#: ../libfdisk/gnomefsedit.c:2208
+#: ../libfdisk/gnomefsedit.c:2212
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
@@ -2620,26 +2554,25 @@ msgstr ""
 "Non sono state selezionate abbastanza partizioni per il tipo di dispositivo "
 "RAID selezionato."
 
-#: ../libfdisk/gnomefsedit.c:2215
+#: ../libfdisk/gnomefsedit.c:2219
 msgid "Illegal /boot RAID Type"
 msgstr "Tipo RAID per /boot non accettabile"
 
-#: ../libfdisk/gnomefsedit.c:2217
+#: ../libfdisk/gnomefsedit.c:2221
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Per le partizioni di boot (/boot) e' disponibile solo il RAID-1"
 
-#: ../libfdisk/gnomefsedit.c:2224
+#: ../libfdisk/gnomefsedit.c:2228
 msgid "Illegal RAID mountpoint"
 msgstr "Mount point RAID non accettabile"
 
-#: ../libfdisk/gnomefsedit.c:2226
+#: ../libfdisk/gnomefsedit.c:2230
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
 msgstr ""
 "Le partizioni RAID non possono essere montate come root (/) sui sistemi "
 "Alpha."
 
-#: ../libfdisk/gnomefsedit.c:2309
-#, c-format
+#: ../libfdisk/gnomefsedit.c:2313
 msgid ""
 "The partition %s is a pre-existing partition in the set of partitions for "
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
@@ -2649,15 +2582,15 @@ msgstr ""
 "partizioni per questo dispositivo RAID. Il mount point e' impostato a /boot. "
 "Siete sicuri che sia possibile avviare il sistema da questa partizione?"
 
-#: ../libfdisk/gnomefsedit.c:2316
+#: ../libfdisk/gnomefsedit.c:2320
 msgid "Use Pre-existing Partition?"
 msgstr "Usa una partizione gia' esistente?"
 
-#: ../libfdisk/gnomefsedit.c:2393
+#: ../libfdisk/gnomefsedit.c:2397
 msgid "Cannot Add RAID Devices"
 msgstr "Non e' possibile aggiungere dispositivi RAID"
 
-#: ../libfdisk/gnomefsedit.c:2394
+#: ../libfdisk/gnomefsedit.c:2398
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
@@ -2665,97 +2598,101 @@ msgstr ""
 "Il filesystem '/' fa riferimento ad una partizione non ext2. Percio' non e' "
 "possibile aggiungere dispositivi RAID."
 
-#: ../libfdisk/gnomefsedit.c:2435
+#: ../libfdisk/gnomefsedit.c:2439
 msgid "Auto-Partition"
 msgstr "Partizionamento automatico"
 
-#: ../libfdisk/gnomefsedit.c:2442
+#: ../libfdisk/gnomefsedit.c:2446
 msgid "Using Existing Disk Space"
 msgstr "Uso dello spazio del disco esistente"
 
-#: ../libfdisk/gnomefsedit.c:2461
+#: ../libfdisk/gnomefsedit.c:2465
 msgid "Remove Linux partitions"
 msgstr "Rimuovere le partizioni Linux"
 
-#: ../libfdisk/gnomefsedit.c:2472
+#: ../libfdisk/gnomefsedit.c:2476
 msgid "Use existing free space"
 msgstr "Uso dello spazio libero"
 
 #. workstation or server?
-#: ../libfdisk/gnomefsedit.c:2484
+#: ../libfdisk/gnomefsedit.c:2488
 msgid "Intended Use"
 msgstr "Intended Use"
 
-#: ../libfdisk/gnomefsedit.c:2503 ../libfdisk/gnomefsedit.c:2523
+#: ../libfdisk/gnomefsedit.c:2507 ../libfdisk/gnomefsedit.c:2527
 msgid "Server"
 msgstr "Server"
 
-#: ../libfdisk/gnomefsedit.c:2599
+#: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2527
+msgid "Workstation"
+msgstr "Workstation"
+
+#: ../libfdisk/gnomefsedit.c:2603
 msgid "Delete RAID Device?"
 msgstr "Cancellare dispositivo RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2600
+#: ../libfdisk/gnomefsedit.c:2604
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Volete rimuovere il dispositivo RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2651 ../libfdisk/newtfsedit.c:1741
+#: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/newtfsedit.c:1734
 msgid "Reset Partition Table"
 msgstr "Inizializzazione della tabella delle partizioni"
 
-#: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/newtfsedit.c:1743
+#: ../libfdisk/gnomefsedit.c:2657 ../libfdisk/newtfsedit.c:1736
 msgid "Reset partition table to original contents? "
 msgstr ""
 "Inizializzazione della tabella delle partizioni al contenuto originale?"
 
-#: ../libfdisk/gnomefsedit.c:2689 ../libfdisk/gnomefsedit.c:2740
+#: ../libfdisk/gnomefsedit.c:2693 ../libfdisk/gnomefsedit.c:2744
 msgid "<Swap>"
 msgstr "<Swap>"
 
-#: ../libfdisk/gnomefsedit.c:2691
+#: ../libfdisk/gnomefsedit.c:2695
 msgid "<RAID>"
 msgstr "<RAID>"
 
-#: ../libfdisk/gnomefsedit.c:2693
+#: ../libfdisk/gnomefsedit.c:2697
 msgid "<not set>"
 msgstr "<non impostato>"
 
-#: ../libfdisk/gnomefsedit.c:2976
+#: ../libfdisk/gnomefsedit.c:2980
 msgid "Requested"
 msgstr "Richiesto"
 
-#: ../libfdisk/gnomefsedit.c:2977
+#: ../libfdisk/gnomefsedit.c:2981
 msgid "Actual"
 msgstr "Attuale"
 
-#: ../libfdisk/gnomefsedit.c:3150
+#: ../libfdisk/gnomefsedit.c:3154
 msgid "Drive"
 msgstr "Drive"
 
-#: ../libfdisk/gnomefsedit.c:3151
+#: ../libfdisk/gnomefsedit.c:3155
 msgid "Geom [C/H/S]"
 msgstr "Geom [C/H/S]"
 
-#: ../libfdisk/gnomefsedit.c:3152
+#: ../libfdisk/gnomefsedit.c:3156
 msgid "Total (M)"
 msgstr "Totale (M)"
 
-#: ../libfdisk/gnomefsedit.c:3153
+#: ../libfdisk/gnomefsedit.c:3157
 msgid "Free (M)"
 msgstr "Libero (M)"
 
-#: ../libfdisk/gnomefsedit.c:3154
+#: ../libfdisk/gnomefsedit.c:3158
 msgid "Used (M)"
 msgstr "Usato (M)"
 
-#: ../libfdisk/gnomefsedit.c:3155
+#: ../libfdisk/gnomefsedit.c:3159
 msgid "Used (%)"
 msgstr "Usato (%)"
 
-#: ../libfdisk/gnomefsedit.c:3391
+#: ../libfdisk/gnomefsedit.c:3395
 msgid "Unallocated Partitions Exist..."
 msgstr "Esistono delle partizioni non allocate..."
 
-#: ../libfdisk/gnomefsedit.c:3397 ../libfdisk/gnomefsedit.c:3411
+#: ../libfdisk/gnomefsedit.c:3401 ../libfdisk/gnomefsedit.c:3415
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -2764,86 +2701,86 @@ msgstr ""
 "nativa (ext2) o ad una partizione RAID per poter procedere con "
 "l'installazione."
 
-#: ../libfdisk/gnomefsedit.c:3482
+#: ../libfdisk/gnomefsedit.c:3486
 msgid "Partitions"
 msgstr "Partizioni"
 
-#: ../libfdisk/gnomefsedit.c:3512
+#: ../libfdisk/gnomefsedit.c:3516
 msgid "_Add..."
-msgstr "_Aggiungi..."
+msgstr "Aggiungi"
 
-#: ../libfdisk/gnomefsedit.c:3519
+#: ../libfdisk/gnomefsedit.c:3523
 msgid "_Edit..."
-msgstr "_Modifica..."
+msgstr "Modifica"
 
-#: ../libfdisk/gnomefsedit.c:3520
+#: ../libfdisk/gnomefsedit.c:3524
 msgid "_Reset"
-msgstr "_Inizializza"
+msgstr "Inizializza"
 
-#: ../libfdisk/gnomefsedit.c:3525
+#: ../libfdisk/gnomefsedit.c:3529
 msgid "_Delete"
-msgstr "_Cancella"
+msgstr "Cancella"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3538
+#: ../libfdisk/gnomefsedit.c:3542
 msgid "_Make RAID Device"
-msgstr "_Crea dispositivo RAID"
+msgstr "Crea dispositivo RAID"
 
-#: ../libfdisk/gnomefsedit.c:3548
+#: ../libfdisk/gnomefsedit.c:3552
 msgid "Auto Partition"
 msgstr "Partizionamento automatico"
 
-#: ../libfdisk/gnomefsedit.c:3557
+#: ../libfdisk/gnomefsedit.c:3561
 msgid "Drive Summary"
 msgstr "Drive Summary"
 
-#: ../libfdisk/newtfsedit.c:202
+#: ../libfdisk/newtfsedit.c:195
 msgid "Swap Partition"
 msgstr "Partizione di swap"
 
-#: ../libfdisk/newtfsedit.c:208
+#: ../libfdisk/newtfsedit.c:201
 msgid "Raid Partition"
 msgstr "Partizione RAID"
 
-#: ../libfdisk/newtfsedit.c:363
+#: ../libfdisk/newtfsedit.c:356
 msgid "Edit New Partition"
 msgstr "Modifica nuova partizione"
 
-#: ../libfdisk/newtfsedit.c:428
+#: ../libfdisk/newtfsedit.c:421
 msgid "Use remaining space?:"
 msgstr "Usa spazio rimanente?:"
 
-#: ../libfdisk/newtfsedit.c:472
+#: ../libfdisk/newtfsedit.c:465
 msgid "Type:"
 msgstr "Tipo:"
 
-#: ../libfdisk/newtfsedit.c:486
+#: ../libfdisk/newtfsedit.c:479
 msgid "Unknown"
 msgstr "Sconosciuto"
 
-#: ../libfdisk/newtfsedit.c:1422
+#: ../libfdisk/newtfsedit.c:1415
 msgid "Current Disk Partitions"
 msgstr "Partizioni presenti sul disco"
 
-#: ../libfdisk/newtfsedit.c:1452
+#: ../libfdisk/newtfsedit.c:1445
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 " F1-Help F2-Aggiungi F3-Modifica  F4-Cancella  F5-Inizializza  F12-Ok        "
 
-#: ../libfdisk/newtfsedit.c:1455
+#: ../libfdisk/newtfsedit.c:1448
 msgid "Drive Summaries"
 msgstr "Sommario dei dischi"
 
-#: ../libfdisk/newtfsedit.c:1457
+#: ../libfdisk/newtfsedit.c:1450
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr "  Drive      Geom [C/H/S]      Totale   Usato   Libero"
 
-#: ../libfdisk/newtfsedit.c:1571
+#: ../libfdisk/newtfsedit.c:1564
 msgid "No Root Partition"
 msgstr "Nessuna partizione root"
 
-#: ../libfdisk/newtfsedit.c:1572
+#: ../libfdisk/newtfsedit.c:1565
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -2851,27 +2788,27 @@ msgstr ""
 "E' necessario assegnare la partizione root (/) ad un una partizione Linux "
 "nativa (ext2) per poter procedere con l'installazione."
 
-#: ../libfdisk/newtfsedit.c:1591
+#: ../libfdisk/newtfsedit.c:1584
 msgid "No Swap Partition"
 msgstr "Nessuna partizione di swap"
 
-#: ../libfdisk/newtfsedit.c:1593
+#: ../libfdisk/newtfsedit.c:1586
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "E' necessario assegnare una partizione di swap per poter procedere."
 
-#: ../libfdisk/newtfsedit.c:1617
+#: ../libfdisk/newtfsedit.c:1610
 msgid "No /boot/efi Partition"
 msgstr "Nessuna partizione /boot/efi"
 
-#: ../libfdisk/newtfsedit.c:1619
+#: ../libfdisk/newtfsedit.c:1612
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"Dovete assegnare il mount /boot/efi ad una partizione primaria del tipo FAT "
-"per procedere con l'installazione."
+"Dovete assegnare il mount /boot/efi ad una partizione primaria del tipo "
+"FAT per procedere con l'installazione."
 
-#: ../libfdisk/newtfsedit.c:1640
+#: ../libfdisk/newtfsedit.c:1633
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -2883,15 +2820,15 @@ msgstr ""
 "\n"
 "Volete uscire?"
 
-#: ../libfdisk/newtfsedit.c:1656
+#: ../libfdisk/newtfsedit.c:1649
 msgid "Save Changes"
 msgstr "Salva i cambiamenti"
 
-#: ../libfdisk/newtfsedit.c:1658
+#: ../libfdisk/newtfsedit.c:1651
 msgid "Save changes to partition table(s)?"
 msgstr "Salva i cambiamenti della tabella delle partizioni?"
 
-#: ../libfdisk/newtfsedit.c:1702
+#: ../libfdisk/newtfsedit.c:1695
 msgid "You may only delete NFS mounts."
 msgstr "Potete cancellare solo i mount NFS."
 
@@ -2911,11 +2848,11 @@ msgstr "Che tipo di CDROM avete?"
 msgid "Initializing CDROM..."
 msgstr "Inizializzazione del CDROM..."
 
-#: ../loader/devices.c:77
+#: ../loader/devices.c:71
 msgid "Miscellaneous"
 msgstr "Miscellaneous"
 
-#: ../loader/devices.c:86
+#: ../loader/devices.c:80
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -2925,28 +2862,28 @@ msgstr ""
 "nessun parametro, proseguite alla schermata successiva premendo il tasto "
 "\"OK\"."
 
-#: ../loader/devices.c:91
+#: ../loader/devices.c:85
 msgid "Module Parameters"
 msgstr "Parametri dei moduli"
 
-#: ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
-#: ../loader/loader.c:275 ../loader/loader.c:336 ../loader/loader.c:352
+#: ../loader/devices.c:201 ../loader/devices.c:208 ../loader/devices.c:317
+#: ../loader/loader.c:272 ../loader/loader.c:333 ../loader/loader.c:349
 msgid "Devices"
 msgstr "Dispositivi"
 
-#: ../loader/devices.c:209
+#: ../loader/devices.c:203
 msgid "Do you have a driver disk?"
 msgstr "Avete un dischetto dei driver?"
 
-#: ../loader/devices.c:216
+#: ../loader/devices.c:210
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Inserire il dischetto dei driver e premere \"OK\" per continuare."
 
-#: ../loader/devices.c:237
+#: ../loader/devices.c:230 ../loader/devices.c:440
 msgid "Failed to mount driver disk."
 msgstr "Mount fallito del dischetto dei driver"
 
-#: ../loader/devices.c:244
+#: ../loader/devices.c:237
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
@@ -2954,7 +2891,7 @@ msgstr ""
 "Il floppy disk che e' stato inserito non contiene il driver per questa "
 "release di Red Hat Linux."
 
-#: ../loader/devices.c:304
+#: ../loader/devices.c:288
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
@@ -2962,103 +2899,98 @@ msgstr ""
 "Quale driver dovete usare? Se il driver non e' presente in questa lista, ed "
 "avete un dischetto dei driver, premete il tasto F2."
 
-#: ../loader/devices.c:313
+#: ../loader/devices.c:297
 msgid "Specify module parameters"
 msgstr "Specificare i parametri dei moduli"
 
-#: ../loader/devices.c:410
+#: ../loader/devices.c:394
 #, c-format
 msgid "Failed to insert %s module."
 msgstr "Errore durante il caricamento del modulo %s."
 
-#: ../loader/devices.c:456
-#, fuzzy, c-format
-msgid "Failed to mount driver disk: %s."
-msgstr "Mount fallito del dischetto dei driver"
-
-#: ../loader/devices.c:476
+#: ../loader/devices.c:460
 msgid "The wrong diskette was inserted."
 msgstr "E' stato inserito il dischetto errato."
 
-#: ../loader/devices.c:503
+#: ../loader/devices.c:487
 msgid "Driver Disk"
 msgstr "Dischetto dei driver"
 
-#: ../loader/devices.c:504
+#: ../loader/devices.c:488
 #, c-format
 msgid "Please insert the %s driver disk now."
 msgstr "Inserire il dischetto dei driver %s."
 
-#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
 msgid "Kickstart Error"
 msgstr "Errore Kickstart"
 
-#: ../loader/kickstart.c:59
+#: ../loader/kickstart.c:58
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Error opening: kickstart file %s: %s"
 
-#: ../loader/kickstart.c:69
+#: ../loader/kickstart.c:68
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Errore durante la lettura del contenuto del file kickstart %s: %s"
 
-#: ../loader/kickstart.c:108
+#: ../loader/kickstart.c:107
 #, c-format
 msgid "Error on line %d of kickstart file %s."
 msgstr "Errore alla linea %d del file kickstart %s."
 
-#: ../loader/lang.c:287
+#: ../loader/lang.c:280
 msgid "Choose a Language"
 msgstr "Scelta della lingua"
 
-#: ../loader/lang.c:336 ../loader/loader.c:146
+#: ../loader/lang.c:329 ../loader/loader.c:145
 msgid "Welcome to Red Hat Linux"
 msgstr "Benvenuti in Red Hat Linux"
 
-#: ../loader/lang.c:337 ../loader/loader.c:148
+#: ../loader/lang.c:330 ../loader/loader.c:147
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "<Tab>/<Alt-Tab> fra elementi | <Space> seleziona | <F12> prossima schermata"
 
-#: ../loader/lang.c:575
+#: ../loader/lang.c:567
 msgid "Keyboard Type"
 msgstr "Tipo di tastiera"
 
-#: ../loader/lang.c:576
+#: ../loader/lang.c:568
 msgid "What type of keyboard do you have?"
 msgstr "Quale tipo di tastiera avete?"
 
-#: ../loader/loader.c:121
+#: ../loader/loader.c:120
 msgid "Local CDROM"
 msgstr "CDROM locale"
 
-#: ../loader/loader.c:124
+#: ../loader/loader.c:123
 msgid "NFS image"
 msgstr "Immagine NFS"
 
-#: ../loader/loader.c:129
+#: ../loader/loader.c:128
 msgid "Hard drive"
 msgstr "Hard disk"
 
-#: ../loader/loader.c:262
+#: ../loader/loader.c:259
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:276
+#: ../loader/loader.c:273
 msgid "What kind of device would you like to add"
 msgstr "Quale dispositivo volete aggiungere"
 
-#: ../loader/loader.c:325
+#: ../loader/loader.c:322
 msgid "I have found the following devices in your system:"
 msgstr "Sono stati rivelati i seguenti dispositivi:"
 
-#: ../loader/loader.c:327 ../loader/loader.c:352
+#: ../loader/loader.c:324 ../loader/loader.c:349
 msgid "Add Device"
 msgstr "Aggiungi dispositivo"
 
-#: ../loader/loader.c:353
+#: ../loader/loader.c:350
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3066,24 +2998,24 @@ msgstr ""
 "Non e' disponibile uno speciale device driver caricato nel sistema. Volete "
 "caricarlo?"
 
-#: ../loader/loader.c:439 ../loader/loader.c:441
+#: ../loader/loader.c:436 ../loader/loader.c:438
 msgid "Loading"
 msgstr "Caricamento"
 
-#: ../loader/loader.c:494
+#: ../loader/loader.c:491
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Caricamento ramdisk %s..."
 
-#: ../loader/loader.c:504
+#: ../loader/loader.c:501
 msgid "Error loading ramdisk."
 msgstr "Errore durante il caricamento del ramdisk."
 
-#: ../loader/loader.c:656
+#: ../loader/loader.c:653
 msgid "Hard Drives"
 msgstr "Hard disk"
 
-#: ../loader/loader.c:657
+#: ../loader/loader.c:654
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3091,7 +3023,7 @@ msgstr ""
 "Non sono stati trovati degli hard disk nel vostro sistema! Volete "
 "configurare un device addizionale?"
 
-#: ../loader/loader.c:671
+#: ../loader/loader.c:668
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -3101,20 +3033,20 @@ msgstr ""
 "RedHat/base? Se non vedete l'hard disk nell'elenco, premete F2 per "
 "configurare un dispositivo addizionale."
 
-#: ../loader/loader.c:685
+#: ../loader/loader.c:682
 msgid "Directory holding Red Hat:"
 msgstr "Directory contenente Red Hat:"
 
-#: ../loader/loader.c:705
+#: ../loader/loader.c:702
 msgid "Select Partition"
 msgstr "Selezionare la partizione"
 
-#: ../loader/loader.c:753
+#: ../loader/loader.c:750
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Il dispositivo %s non contiene il software per l'installazione"
 
-#: ../loader/loader.c:853
+#: ../loader/loader.c:847
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3122,94 +3054,94 @@ msgstr ""
 "Non e' possibile trovare un CD Red Hat Linux inserito nel CDROM. Inserire un "
 "CD Red Hat e premere \"OK\" per riprovare."
 
-#: ../loader/loader.c:940
+#: ../loader/loader.c:934
 msgid "Networking Device"
 msgstr "Dispositivo di rete"
 
-#: ../loader/loader.c:941
+#: ../loader/loader.c:935
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
 "Avete piu' di un dispositivo di rete. Quale volete usare per l'installazione?"
 
-#: ../loader/loader.c:1023
+#: ../loader/loader.c:1017
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "La directory non contiene il software per l'installazione di Red Hat."
 
-#: ../loader/loader.c:1028
+#: ../loader/loader.c:1022
 msgid "I could not mount that directory from the server"
 msgstr "Non e' possibile montare la directory dal server"
 
-#: ../loader/loader.c:1071 ../loader/loader.c:1080
+#: ../loader/loader.c:1065 ../loader/loader.c:1074
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:1071 ../loader/loader.c:1080
+#: ../loader/loader.c:1065 ../loader/loader.c:1074
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1072
+#: ../loader/loader.c:1066
 msgid "Unable to retrieve the first install image"
 msgstr "Non e' possibile caricare la prima immagine per l'installazione"
 
-#: ../loader/loader.c:1081
+#: ../loader/loader.c:1075
 msgid "Unable to retrieve the second install image"
 msgstr "Non e' possibile caricare la seconda immagine per l'installazione"
 
-#: ../loader/loader.c:1322
+#: ../loader/loader.c:1316
 msgid "Rescue Method"
 msgstr "Metodo rescue"
 
-#: ../loader/loader.c:1323
+#: ../loader/loader.c:1317
 msgid "Installation Method"
 msgstr "Metodo installazione"
 
-#: ../loader/loader.c:1325
+#: ../loader/loader.c:1319
 msgid "What type of media contains the rescue image?"
 msgstr "Quale dispositivo contiene l'immagine rescue?"
 
-#: ../loader/loader.c:1327
+#: ../loader/loader.c:1321
 msgid "What type of media contains the packages to be installed?"
 msgstr "Quale dispositivo contiene i pacchetti da installare?"
 
-#: ../loader/loader.c:1961
+#: ../loader/loader.c:1943
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Non e' possibile trovare il file ks.cfg sul dischetto di avvio."
 
-#: ../loader/loader.c:2007
+#: ../loader/loader.c:1989
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Errore durante la lettura della directory %s: %s"
 
-#: ../loader/loader.c:2069
+#: ../loader/loader.c:2051
 msgid "Updates Disk"
 msgstr "Disco degli aggiornamenti"
 
-#: ../loader/loader.c:2070
+#: ../loader/loader.c:2052
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Inserire il disco degli aggiornamenti e premere \"OK\" per continuare"
 
-#: ../loader/loader.c:2078
+#: ../loader/loader.c:2060
 msgid "Failed to mount floppy disk."
 msgstr "Errore durante l'accesso al dischetto."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2083
+#: ../loader/loader.c:2065
 msgid "Updates"
 msgstr "Aggiornamenti"
 
-#: ../loader/loader.c:2083
+#: ../loader/loader.c:2065
 msgid "Reading anaconda updates..."
 msgstr "Lettura in corso degli aggiornamenti di anaconda..."
 
-#: ../loader/loader.c:2396
+#: ../loader/loader.c:2277
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:2396
+#: ../loader/loader.c:2277
 msgid "Initializing PC Card Devices..."
 msgstr "Inizializzazione delle schede presenti nel PC..."
 
@@ -3482,63 +3414,23 @@ msgstr "Porta proxy HTTP:"
 msgid "Loading SCSI driver"
 msgstr "Caricamento driver SCSI"
 
-#: ../gnome-map/gglobe-canvas.c:24
-msgid "Map Image to display"
-msgstr ""
+#: ../installclasses/custom.py:7
+msgid "Custom System"
+msgstr "Custom System"
 
-#: ../gnome-map/gglobe-canvas.c:25
-msgid "Width of map (in pixels)"
+#: ../installclasses/server.py:34
+msgid ""
+"You are about to erase ALL DATA on your hard drive to make room for your "
+"Linux installation."
 msgstr ""
+"State per cancellare TUTTI I DATI sull'hard disk per installare Red Hat "
+"Linux."
 
-#: ../gnome-map/gglobe-canvas.c:26
-msgid "Enable antialias"
+#: ../installclasses/workstation.py:31
+msgid ""
+"You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:100
-msgid "World"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:101
-msgid "North America"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:102
-msgid "South America"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:103
-msgid "Pacific Rim"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:104
-msgid "Europe"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:105
-msgid "Africa"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:106
-msgid "Asia"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
-msgid "Cannot load timezone data"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
-msgid "gglobe-canvas"
-msgstr ""
-
-#: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
-msgid "View: "
-msgstr "Vista:"
-
-#. pick New York City as default
-#: ../gnome-map/gglobe-canvas.c:781
-msgid "America/New_York"
-msgstr ""
+"State per cancellare le installazioni Linux esistenti sul vostro sistema."
 
 # ../comps/comps-master:3
 msgid "Base"
@@ -3621,9 +3513,8 @@ msgid "DNS Name Server"
 msgstr "Server DNS"
 
 # ../comps/comps-master:560
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "Server SQL"
+msgstr "Server Postgres (SQL)"
 
 # ../comps/comps-master:567
 msgid "Network Management Workstation"
