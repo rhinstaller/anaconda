@@ -166,7 +166,7 @@ int devMakeInode(char * devName, char * path) {
 	/* dac 960 "/rd/c0d0{p1}" */
 	int rc, c, d, p;
 	c = d = p = 0;
-	rc = sscanf(devName + 4, "c%dd%dp%d", &c, &d, &p);
+	rc = sscanf(devName + 3, "c%dd%dp%d", &c, &d, &p);
 	type = S_IFBLK;
 	major = 48 + c;     /* controller */
 	minor = d * 8;      /* disk */
