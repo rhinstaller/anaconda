@@ -63,9 +63,16 @@ class DeleteLogicalVolumeSpec:
 
         self.name = name
         self.vg = vg
+        self.deleted = 0
 
     def __str__(self):
         return "lvname: %s  vgname: %s" %(self.name, self.vg)
+
+    def beenDeleted(self):
+        return self.deleted
+
+    def setDeleted(self, val):
+        self.deleted = val
 
 class DeleteVolumeGroupSpec:
     """Defines a preexisting volume group which is intended to be removed."""
@@ -77,9 +84,16 @@ class DeleteVolumeGroupSpec:
         """
 
         self.name = name
+        self.deleted = 0
 
     def __str__(self):
         return "vgname: %s" %(self.name,)
+
+    def beenDeleted(self):
+        return self.deleted
+
+    def setDeleted(self, val):
+        self.deleted = val
 
 class DeleteRAIDSpec:
     """Defines a preexisting RAID device which is intended to be removed."""
