@@ -740,6 +740,7 @@ def doInstall(method, id, intf, instPath):
 
     total = 0
     totalSize = 0
+    totalFiles = 0
 
     if upgrade:
 	how = "u"
@@ -788,6 +789,7 @@ def doInstall(method, id, intf, instPath):
 	ts.addInstall(p.hdr, p.hdr, how)
 	total = total + 1
 	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
+	totalFiles = totalFiles + len(p[rpm.RPMTAG_FILENAMES])
         i = i + 1
 
 	# HACK - dont overload progress bar with useless requests
@@ -854,7 +856,7 @@ def doInstall(method, id, intf, instPath):
     errors = rpmErrorClass(instLog)
     pkgTimer = timer.Timer(start = 0)
 
-    id.instProgress.setSizes(total, totalSize)
+    id.instProgress.setSizes(total, totalSize, totalFiles)
     id.instProgress.processEvents()
 
     cb = InstallCallback(intf.messageWindow, id.instProgress, pkgTimer,
@@ -994,7 +996,7 @@ def doInstall(method, id, intf, instPath):
 def doPostInstall(method, id, intf, instPath):
     if flags.test:
 	return
-    
+
     w = intf.progressWindow(_("Post Install"),
                             _("Performing post install configuration..."), 6)
 

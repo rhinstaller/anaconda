@@ -87,7 +87,7 @@ class InstallProgressWindow:
     def processEvents(self):
 	pass
 
-    def setSizes(self, total, totalSize):
+    def setSizes(self, total, totalSize, totalFiles):
 	screen = self.screen
 
 	if self.showdownload:

@@ -1,7 +1,7 @@
 #
 # progress_gui.py: install/upgrade progress window setup.
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -21,6 +21,7 @@ import timer
 import gobject
 import gtk
 import locale
+import math
 
 from flags import flags
 from iw_gui import *
@@ -60,6 +61,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	self.numComplete = 0
 	self.sizeComplete = 0
+	self.filesComplete = 0
 
     def processEvents(self):
 	gui.processEvents()
@@ -91,19 +93,82 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE]/1024)
 
+	self.filesComplete = self.filesComplete + (len(header[rpm.RPMTAG_FILENAMES]))
+
         # check to see if we've started yet
 	elapsedTime = timer.elapsed()
 	if not elapsedTime:
 	    elapsedTime = 1
 	
         if self.sizeComplete != 0:
-            finishTime = (float (self.totalSize) / self.sizeComplete) * elapsedTime
-        else:
-            finishTime = (float (self.totalSize) / (self.sizeComplete+1)) * elapsedTime
+            finishTime1 = (float (self.totalSize) / self.sizeComplete) * elapsedTime
+	else:
+            finishTime1 = (float (self.totalSize)) * elapsedTime
+		
+	if  self.numComplete != 0:
+            finishTime2 = (float (self.numTotal) / self.numComplete) * elapsedTime
+	else:
+	    finishTime2 = (float (self.numTotal)) * elapsedTime
+
+
+	if self.filesComplete != 0:	    
+	    finishTime3 = (float (self.totalFiles) / self.filesComplete) * elapsedTime
+	else:
+	    finishTime3 = (float (self.totalFiles)) * elapsedTime
+
+	finishTime = finishTime1
+# another alternate suggestion
+#	finishTime = math.sqrt(finishTime1 * finishTime2)
 
 	remainingTime = finishTime - elapsedTime
 
-        self.totalProgress.set_fraction(float (self.sizeComplete) / self.totalSize)
+	fractionComplete = float(self.sizeComplete)/float(self.totalSize)
+
+	timeest = 1.4*remainingTime/60.0
+
+	# average last 10 estimates
+	self.estimateHistory.append(timeest)
+	if len(self.estimateHistory) > 10:
+	    del self.estimateHistory[0]
+	tavg = 0.0
+	for testimate in self.estimateHistory:
+	    tavg += testimate
+
+	timeest = tavg/float(len(self.estimateHistory))
+
+        # here is strategy for time estimate
+	#
+	# 1) First 100 or so packages give us misleading estimates as things
+        #    are not settled down. So no estimate until past 100 packages
+	#
+	# 2) Time estimate based on % of bytes installed is on about 30% too
+	#    low overall. So we just bump our estimate to compensate
+	#
+	# 3) Lets only report time on 5 minute boundaries, and round up.
+	#
+
+#	self.timeLog.write("%s %s %s %s %s %s %s %s %s %s %s %s\n" % (elapsedTime/60.0, (finishTime1-elapsedTime)/60.0, (finishTime2-elapsedTime)/60.0, (finishTime3-elapsedTime)/60.0, (finishTime-elapsedTime)/60.0, timeest, self.sizeComplete, self.totalSize, self.numComplete, self.numTotal, self.filesComplete, self.totalFiles, ))
+#	self.timeLog.flush()
+
+#	if (fractionComplete > 0.10):
+        if self.numComplete > 100:
+	    if self.initialTimeEstimate is None:
+		self.initialTimeEstimate = timeest
+		log("Initial install time estimate = %s", timeest)
+
+#	    log ("elapsed time, time est, remaining time =  %s %s", int(elapsedTime/60), timeest)		
+
+            if timeest < 10:
+	        timefactor = 2
+	    else:
+		timefactor = 5
+	    str = _("Remaining time: %s minutes") % ((int(timeest/timefactor)+1)*timefactor,)
+	    self.remainingTimeLabel.set_text(str)
+
+	if (fractionComplete >= 1):
+	    log("Actual install time = %s", elapsedTime/60.0)
+	    
+        self.totalProgress.set_fraction(fractionComplete)
 	
         return
 
@@ -158,14 +223,15 @@ class InstallProgressWindow_NEW (InstallWindow):
                                                 header[rpm.RPMTAG_RELEASE],
                                                 header[rpm.RPMTAG_ARCH],
                                                 size))
-	
+
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
             summary = "(none)"
         self.curPackage["summary"].set_text (summary)
 
-    def setSizes (self, total, totalSize):
+    def setSizes (self, total, totalSize, totalFiles):
         self.numTotal = total
+	self.totalFiles = totalFiles
         self.totalSize = totalSize
         self.timeStarted = -1
 
@@ -233,6 +299,11 @@ class InstallProgressWindow_NEW (InstallWindow):
         self.pixtimer = None
         self.pixcurnum = 0
 	self.wrappedpixlist = 0
+	self.lastTimeEstimate = None
+	self.initialTimeEstimate = None
+	self.estimateHistory = []
+
+#	self.timeLog = open("/tmp/timelog", "w")
 
 	# Create vbox to contain components of UI
         vbox = gtk.VBox (gtk.FALSE, 10)
@@ -262,6 +333,11 @@ class InstallProgressWindow_NEW (InstallWindow):
 #	progressTable.attach (self.progress, 1, 2, 1, 2, ypadding=2)
 
         vbox.pack_start (progressTable, gtk.FALSE)
+
+	# total time remaining
+	self.remainingTimeLabel = gtk.Label("")
+	self.remainingTimeLabel.set_alignment(0.5, 0.5)
+	vbox.pack_start(self.remainingTimeLabel, gtk.FALSE, gtk.FALSE)
 
 	# Create table for current package info
 	table = gtk.Table (3, 1)
