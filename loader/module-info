@@ -483,29 +483,29 @@ wd7000
 
 aztcd
 	block-major-29	cdrom
-	"Aztech CD268 CDROM driver"
+	"Aztech CD268 CDROM"
 	aztcd "Base I/O Address"
 
 cdu31a
 	block-major-15	cdrom
-	"Sony CDU-31A CDROM driver"
+	"Sony CDU-31A CDROM"
 	cdu31a_port "Base I/O Address"
 	cdu31a_irq "IRQ"
 
 cm206
 	block-major-32	cdrom
-	"Philips/LMS cm20 CDROM driver"
+	"Philips/LMS cm20 CDROM"
 	cm206 "Base I/O address, irq"
 
 gscd
 	block-major-16	cdrom
-	"GoldStar R420 CDROM driver"
+	"GoldStar R420 CDROM"
 	gscd "Base I/O Address"
 
 isp16
 # module, but dynamic block number so kerneld can't request it... (?)
 	unknown	cdrom
-	"ISP16/MAD16/Mozart soundcard-based CDROM driver"
+	"ISP16/MAD16/Mozart soundcard-based CDROM"
 	isp16_cdrom_base "Base I/O Address"
 	isp16_cdrom_irq "IRQ"
 	isp16_cdrom_dma "DMA Channel (0,3,5,6,7)"
@@ -513,17 +513,17 @@ isp16
 
 mcd
 	block-major-23	cdrom
-	"Mitsumi CDROM driver"
+	"Mitsumi CDROM"
 	mcd "Base I/O Address,irq"
 
 mcdx
 	block-major-20	cdrom
-	"Mitsumi XA/Multisession CDROM driver"
+	"Mitsumi XA/Multisession CDROM"
 	mcdx "Base I/O Address,irq"
 
 sbpcd
 	block-major-25	cdrom
-	"SoundBlaster Pro/Matsushita/Panasonic/Longshine/CreativeLabs/TEAC/ECS-AT CDROM"
+	"SoundBlaster Pro/Panasonic CDROM"
 	sbpcd "Base I/O Address,type (0=LaserMate, 1=SoundBlaster, 2=SoundScape, 3=Teac16bit)"
 
 sjcd
@@ -533,6 +533,6 @@ sjcd
 
 sonycd535
 	block-major-24	cdrom
-	"Sony CDU-535 CDROM driver"
+	"Sony CDU-535 CDROM"
 	sonycd535 "Base I/O Address"
 
