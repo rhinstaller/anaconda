@@ -1020,7 +1020,7 @@ class PartitionWindow(InstallWindow):
             self.editPartitionRequest(request)
             return
 
-        elif partition.fs_type and not partition.fs_type.name:
+        elif (partition.fs_type == None) or (partition.fs_type and not partition.fs_type.name):
             dialog = GnomeWarningDialog(_("You cannot edit partitions without "
                                           "a filesystem type."),
                                         parent = self.parent)
