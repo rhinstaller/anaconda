@@ -654,7 +654,7 @@ def doInstall(method, id, intf, instPath):
 		pass
 	    os.rename (instPath + "/var/lib/rpm",
 		       instPath + "/var/lib/rpm.rpmsave")
-	    os.rename (instPath + self.dbpath,
+	    os.rename (instPath + id.dbpath,
 		       instPath + "/var/lib/rpm")
 
 	    # XXX - rpm 4.0.2 %post braindeadness support

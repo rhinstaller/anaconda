@@ -47,11 +47,6 @@ class UpgradeSwapWindow (InstallWindow):
         #-If the user doesn't need to add swap, we don't do anything
         if not self.neededSwap:
             return None
-        
-        mnt, part, size = self.clist.get_row_data(self.row)
-        val = int(self.entry.get_text())
-        size = int(size)
-        val = int(val)
 
         if self.option2.get_active():
             rc = self.warning()
@@ -59,10 +54,18 @@ class UpgradeSwapWindow (InstallWindow):
             if rc == 1:
                 raise gui.StayOnScreen
             else:
-                # proceed because they decided not to have swapfile created
-                self.todo.upgradeFindPackages()
                 return None
-        elif val > 2000 or val < 1:
+
+        data = self.clist.get_row_data(self.row)
+        if data:
+            mnt, part, size = data
+            val = int(self.entry.get_text())
+            size = int(size)
+            val = int(val)
+        else:
+            val = 0
+            
+        if val > 2000 or val < 1:
             rc = self.swapWrongSize()
             raise gui.StayOnScreen
 

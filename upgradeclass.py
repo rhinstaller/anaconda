@@ -24,12 +24,16 @@ class InstallClass(BaseInstallClass):
 		    "findinstall",
 		    "addswap",
                     "upgradecontinue",
-		    "indivpackage",
+                    "readcomps",
+#		    "indivpackage",
+                    "findpackages",
 		    "bootloader",
+                    "checkdeps",
 		    "dependencies",
 		    "monitor",
 		    "confirminstall",
 		    "install",
+                    "instbootloader",
 		    "bootdisk",
 		    "complete"
 		)

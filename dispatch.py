@@ -22,6 +22,7 @@ from packages import queryUpgradeContinue
 from floppy import makeBootdisk
 from bootloader import partitioningComplete, writeBootloader
 from flags import flags
+from upgrade import upgradeFindPackages
 
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
@@ -61,6 +62,8 @@ installSteps = [
     ( "accounts", ("id.rootPassword", "id.accounts", ) ),
     ( "authentication", ("id.auth", ) ),
     ( "readcomps", readPackages, ("intf", "method", "id" )),
+    ( "findpackages", upgradeFindPackages, ("intf", "method", "id",
+                                            "instPath")),
     ( "package-selection", ("id.comps", "dispatch") ),
     ( "indivpackage", ("id.comps", "id.hdList", ) ),
     ( "handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",

@@ -48,6 +48,8 @@ class InstallData:
         self.diskset = partitioning.DiskSet()
         self.partrequests = partitioning.PartitionRequests(self.diskset)
 	self.bootloader = bootloader.x86BootloaderInfo()
+        self.dependencies = []
+        self.dbpath = None
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c

@@ -133,13 +133,18 @@ class LiloWindow (InstallWindow):
         return 1
 
     def toggled (self, widget, *args):
+        if self.ignoreSignals:
+            return
+        
         if widget.get_active ():
             state = TRUE
         else:
             state = FALSE
 
-        for n in self.bootDevice.keys() + [self.appendEntry, self.editBox, 
-		self.imageList, self.liloLocationBox, self.radioBox, self.sw ]:
+        list = self.bootDevice.keys()
+        list.extend ([self.appendEntry, self.editBox, self.imageList,
+                      self.liloLocationBox, self.radioBox, self.sw])
+        for n in list:
             n.set_sensitive (state)
 
         if state and not len(self.bootDevice.keys()) < 2:
@@ -242,7 +247,7 @@ class LiloWindow (InstallWindow):
 
 	imageList = bl.images.getImages()
 	defaultDevice = bl.images.getDefault()
-        self.ignoreSignals = 0
+        self.ignoreSignals = 1
 
         format = "/dev/%s"
 
@@ -312,8 +317,8 @@ class LiloWindow (InstallWindow):
             self.bootloader.set_active (FALSE)
             self.toggled (self.bootloader)
 
-            for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
-                      self.imageList, self.liloLocationBox, self.radioBox ]:
+            for n in (self.mbr, self.part, self.appendEntry, self.editBox, 
+                      self.imageList, self.liloLocationBox, self.radioBox ):
                 n.set_sensitive (FALSE)
 
         self.bootloader.connect ("toggled", self.toggled)
@@ -324,8 +329,8 @@ class LiloWindow (InstallWindow):
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
 
-        self.imageList = GtkCList (4,
-            ( _("Default"), _("Device"), _("Partition type"), _("Boot label")))
+        self.imageList = GtkCList (4, ( _("Default"), _("Device"),
+                                        _("Partition type"), _("Boot label")))
 
         sortedKeys = imageList.keys()
         sortedKeys.sort()
@@ -403,7 +408,8 @@ class LiloWindow (InstallWindow):
             self.editBox.set_sensitive(FALSE)
             self.radioBox.set_sensitive(FALSE)
             self.sw.set_sensitive(FALSE)
-
+            
+        self.ignoreSignals = 0
 
         return box
 

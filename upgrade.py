@@ -9,6 +9,8 @@ import os.path
 from flags import flags
 from partitioning import *
 import fsset
+import time
+import rpm
 
 def findExistingRoots (intf, id, chroot):
     if not flags.setupFilesystems: return [ (chroot, 'ext2') ]
@@ -160,7 +162,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 	    mountRootPartition(intf, rootInfo, oldfsset, instPath,
                                allowDirty = 0)
 	except SystemError, msg:
-	    self.intf.messageWindow(_("Dirty Filesystems"),
+	    intf.messageWindow(_("Dirty Filesystems"),
 		_("One or more of the filesystems listed in the "
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
@@ -170,7 +172,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 		       '/boot', '/tmp', '/var/tmp' ]
 	badLinks = []
 	for n in checkLinks:
-	    if not os.path.islink(self.instPath + n): continue
+	    if not os.path.islink(instPath + n): continue
 	    l = os.readlink(self.instPath + n)
 	    if l[0] == '/':
 		badLinks.append(n)
@@ -182,7 +184,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 			"symbolic links and restart the upgrade.\n\n")
 	    for n in badLinks:
 		message = message + '\t' + n + '\n'
-	    self.intf.messageWindow(("Absolute Symlinks"), message)
+	    intf.messageWindow(("Absolute Symlinks"), message)
 	    sys.exit(0)
     else:
 	newfsset = fsset.readFstab(instPath + '/etc/fstab')
@@ -190,71 +192,74 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
             oldfsset.add(entry)
         
     if flags.setupFilesystems:
-        oldfsset.turnOnSwap(self.instPath)
-		
-def upgradeFindPackages (self):
-    if not self.rebuildTime:
-	self.rebuildTime = str(int(time.time()))
-    self.getCompsList ()
-    self.getHeaderList ()
-    self.method.mergeFullHeaders(self.hdList)
+        oldfsset.turnOnSwap(instPath)
 
-    win = self.intf.waitWindow (_("Finding"),
-				_("Finding packages to upgrade..."))
+rebuildTime = None
 
-    self.dbpath = "/var/lib/anaconda-rebuilddb" + self.rebuildTime
-    rpm.addMacro("_dbpath_rebuild", self.dbpath)
+def upgradeFindPackages (intf, method, id, instPath):
+    global rebuildTime
+    if not rebuildTime:
+	rebuildTime = str(int(time.time()))
+    method.mergeFullHeaders(id.hdlist)
+
+    win = intf.waitWindow (_("Finding"),
+                           _("Finding packages to upgrade..."))
+
+    id.dbpath = "/var/lib/anaconda-rebuilddb" + rebuildTime
+    rpm.addMacro("_dbpath_rebuild", id.dbpath)
     rpm.addMacro("_dbapi", "-1")
 
     # now, set the system clock so the timestamps will be right:
-    iutil.setClock (self.instPath)
+    if flags.setupFilesystems:
+        iutil.setClock (instPath)
     
     # and rebuild the database so we can run the dependency problem
     # sets against the on disk db
-    rc = rpm.rebuilddb (self.instPath)
+
+    rebuildpath = "%s%s%s" % (instPath, "/var/lib/anaconda-rebuilddb",
+                              rebuildTime)
+    rc = rpm.rebuilddb (instPath)
     if rc:
         try:
-            iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
-                        + self.rebuildTime)
+            iutil.rmrf (rebuildpath)
         except:
             pass
         
 	win.pop()
-	self.intf.messageWindow(_("Error"),
-				_("Rebuild of RPM database failed. "
-				  "You may be out of disk space?"))
-	if self.setupFilesystems:
-	    self.fstab.umountFilesystems (self.instPath)
+	intf.messageWindow(_("Error"),
+                           _("Rebuild of RPM database failed. "
+                             "You may be out of disk space?"))
+	if files.setupFilesystems:
+	    fsset.umountFilesystems (instPath)
 	sys.exit(0)
 
-    rpm.addMacro("_dbpath", self.dbpath)
+    rpm.addMacro("_dbpath", id.dbpath)
     rpm.addMacro("_dbapi", "3")
     try:
-	packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
+	packages = rpm.findUpgradeSet (id.hdlist.hdlist, instPath)
     except rpm.error:
-	iutil.rmrf (self.instPath + "/var/lib/anaconda-rebuilddb"
-		    + self.rebuildTime)
+	iutil.rmrf (rebuildpath)
 	win.pop()
-	self.intf.messageWindow(_("Error"),
-				_("An error occured when finding the packages to "
-				  "upgrade."))
-	if self.setupFilesystems:
-	    self.fstab.umountFilesystems (self.instPath)
+	intf.messageWindow(_("Error"),
+                           _("An error occured when finding the packages to "
+                             "upgrade."))
+	if flags.setupFilesystems:
+	    fsset.umountFilesystems (instPath)
 	sys.exit(0)
 	    
     # Turn off all comps
-    for comp in self.comps:
+    for comp in id.comps:
 	comp.unselect()
 
     # unselect all packages
-    for package in self.hdList.packages.values ():
+    for package in id.hdlist.packages.values ():
 	package.selected = 0
 
     hasX = 0
     hasFileManager = 0
     # turn on the packages in the upgrade set
     for package in packages:
-	self.hdList[package[rpm.RPMTAG_NAME]].select()
+	id.hdlist[package[rpm.RPMTAG_NAME]].select()
 	if package[rpm.RPMTAG_NAME] == "XFree86":
 	    hasX = 1
 	if package[rpm.RPMTAG_NAME] == "gmc":
@@ -263,13 +268,13 @@ def upgradeFindPackages (self):
 	    hasFileManager = 1
 
     # open up the database to check dependencies
-    db = rpm.opendb (0, self.instPath)
+    db = rpm.opendb (0, instPath)
 
     # if we have X but not gmc, we need to turn on GNOME.  We only
     # want to turn on packages we don't have installed already, though.
     if hasX and not hasFileManager:
 	log ("Has X but no desktop -- Installing GNOME")
-	for package in self.comps['GNOME'].pkgs:
+	for package in id.comps['GNOME'].pkgs:
 	    try:
 		rec = db.findbyname (package.name)
 	    except rpm.error:
@@ -281,16 +286,12 @@ def upgradeFindPackages (self):
     del db
 
     # new package dependency fixup
-    deps = self.verifyDeps ()
-    loops = 0
-    while deps and self.canResolveDeps (deps) and loops < 10:
-	for (name, suggest) in deps:
-	    if name != _("no suggestion"):
-		log ("Upgrade Dependency: %s needs %s, "
-		     "automatically added.", name, suggest)
-	self.selectDeps (deps)
-	deps = self.verifyDeps ()
-	loops = loops + 1
+    deps = id.comps.verifyDeps(instPath, 1)
+    for (name, suggest) in deps:
+        if name != _("no suggestion"):
+            log ("Upgrade Dependency: %s needs %s, "
+                 "automatically added.", name, suggest)
+    id.comps.selectDeps (deps)
 
     win.pop ()
 
