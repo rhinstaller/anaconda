@@ -41,7 +41,7 @@ SECSTAGE="$IDEMODS $SCSIMODS raid0 raid1 raid5"
 
 COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tape390 isofs ext3"
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
-NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
+NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
 echo "In mk-images.s390: kernelvers is $kernelvers"
 if [ "$kernelvers" = "BOOT" ]; then
