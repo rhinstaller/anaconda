@@ -233,7 +233,7 @@ static void spawnShell(int flags) {
         signal(SIGTSTP, SIG_DFL);
         
         setenv("LD_LIBRARY_PATH",
-               "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
+               "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:"
                "/mnt/sysimage/lib:/mnt/sysimage/usr/lib", 1);
         
         execl("/bin/sh", "-/bin/sh", NULL);
