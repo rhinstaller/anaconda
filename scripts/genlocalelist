@@ -47,6 +47,7 @@ $charMap{"ISO-8859-7"} =  "iso07";
 $charMap{"ISO-8859-8"} =  "iso08";
 $charMap{"ISO-8859-9"} =  "iso09";
 $charMap{"ISO-8859-15"} =  "iso15";
+$charMap{"UTF-8"} = "utf8";
 
 $charFont{"EUC-JP"} =  "lat0-sun16";
 $charFont{"EUC-TW"} =  "lat0-sun16";
@@ -65,6 +66,7 @@ $charFont{"ISO-8859-7"} =  "iso07.16";
 $charFont{"ISO-8859-8"} =  "LatArCyrHeb-16";
 $charFont{"ISO-8859-9"} =  "lat5-sun16";
 $charFont{"ISO-8859-15"} =  "lat0-sun16";
+$charFont{"UTF-8"} = "LatArCyrHeb-16";
 
 
 open(FILE, "locale -a|");
@@ -83,10 +85,14 @@ while (<FILE>) {
     $lang =~ s/^zh_CN$/zh_CN.GB2312/;
     $lang =~ s/^zh_TW$/zh_TW.Big5/;
 
+    # major hack.  just chop of iso885915 and it'll be shorter 
+    $lang =~ s/iso885915//;
+
     # someone put nb_NO in locale.alias.  yuck.  We don't
     # want to offer that.
     ("nb_" eq substr($lang, 0, 3)) && next;
     ("zh_TW.euctw" eq $lang) && next;
+    ("zh_TW.utf8" eq $lang) && next;
 
     open(INFO, "LANG=$lang locale language territory charmap|");
     $name = <INFO>;
@@ -99,7 +105,7 @@ while (<FILE>) {
     chop $charmap;
 
     # We don't want UTF-8.
-    ($charmap eq "UTF-8") && next;
+#    ($charmap eq "UTF-8") && next;
 
     # Some languages name's are the same as their ISO id's!
     ($name eq substr($lang, 0, 2)) && next;
@@ -134,6 +140,7 @@ for $key (keys %langList) {
 for $name (@names) {
     $short = $nameList{$name};
     $map = $charmapList{$short};
+#    print $name . " " . $short . " " . $map . "\n";
     if ($charMap{$map} and $charFont{$map}) {
 	print "$short $charMap{$map} $charFont{$map} $name\n";
     }
