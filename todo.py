@@ -475,6 +475,17 @@ class ToDo:
         open (self.instPath + "/etc/mtab", "w+")
         f.close ()
 
+    def readFstab (self, path):
+        f = open (path, "r")
+        lines = f.readlines ()
+        f.close
+        fstab = {}
+        for line in lines:
+            fields = string.split (line)
+            if fields and fields[2] == "ext2" or fields[2] == "swap":
+                fstab[fields[1]] = (fields[0][4:], fields[2], 0)
+        return fstab
+
     def writeLanguage(self):
 	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
 	f.write(str (self.language))
@@ -710,17 +721,6 @@ class ToDo:
             os.remove ('/tmp/' + drive)
         win.pop ()
         return rootparts
-
-    def readFstab (self, path):
-        f = open (path, "r")
-        lines = f.readlines ()
-        f.close
-        fstab = {}
-        for line in lines:
-            fields = string.split (line)
-            if fields and fields[2] == "ext2" or fields[2] == "swap":
-                fstab[fields[0][4:]] = (fields[1], fields[2], 0)
-        return fstab
 
     def upgradeFindPackages (self, root):
 	self.getHeaderList()
