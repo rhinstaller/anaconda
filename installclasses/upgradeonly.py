@@ -22,6 +22,7 @@ class InstallClass(BaseInstallClass):
 	self.addToSkipList("keyboard")
         self.addToSkipList("welcome")
         self.addToSkipList("package-selection")
+        self.addToSKipList("lilo")
         self.addToSkipList("confirm-install")
         self.addToSkipList("custom-upgrade")
         self.addToSkipList("network")
