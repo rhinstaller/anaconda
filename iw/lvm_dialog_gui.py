@@ -966,16 +966,11 @@ class VolumeGroupEditor:
         maintable.attach(self.volnameEntry, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	row = row + 1
 
-        if not origvgrequest.getPreExisting():
-            lbl = createAlignedLabel(_("_Physical Extent:"))
-            self.peCombo = self.createPEOptionMenu(self.origvgrequest.pesize)
-            lbl.set_mnemonic_widget(self.peCombo)
-        else:
-            # FIXME: this is a nice hack -- if we create the option menu, but
-            # don't display it, getting the value always returns what we init'd
-            # it to
-            lbl = createAlignedLabel(_("Physical Extent:"))
-            self.peCombo = gtk.Label(self.prettyFormatPESize(origvgrequest.pesize))
+        lbl = createAlignedLabel(_("_Physical Extent:"))
+        self.peCombo = self.createPEOptionMenu(self.origvgrequest.pesize)
+        lbl.set_mnemonic_widget(self.peCombo)
+        if origvgrequest.getPreExisting():
+            self.peCombo.set_sensitive(gtk.FALSE)
 
         maintable.attach(lbl, 0, 1, row, row + 1,
                          gtk.EXPAND|gtk.FILL, gtk.SHRINK)
