@@ -86,6 +86,7 @@ install: all
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYHTONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done

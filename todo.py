@@ -184,26 +184,21 @@ class Desktop (SimpleConfigFile):
 class Language (SimpleConfigFile):
     def __init__ (self):
         self.info = {}
-        self.langs = {
-            "Czech"	 : "cs_CZ" ,
-            "English"	 : "en_US" ,
-            "French"	 : "fr_FR" ,
-            "German"	 : "de_DE" ,
-            "Hungarian"	 : "hu_HU" ,
-            "Icelandic"	 : "is_IS" ,
-            "Indonesian" : "id_ID" ,
-            "Italian"	 : "it_IT" ,
-            "Japanese"	 : "ja_JP.ujis" ,
-            "Norwegian"	 : "no_NO" ,
-            "Polish"	 : "pl_PL" ,
-            "Romanian"	 : "ro_RO" ,
-            "Slovak"	 : "sk_SK" ,
-	    "Slovenian"	 : "sl_SI" ,
-            "Spanish"	 : "es_MX" ,
-            "Russian"	 : "ru_RU.KOI8-R" ,
-            "Ukrainian"	 : "uk_UA" ,
-            }
-        
+
+	if os.access("lang-table", os.R_OK):
+	    f = open("lang-table", "r")
+	else:
+	    f = open("/usr/share/anaconda/lang-table", "r")
+
+	lines = f.readlines ()
+	f.close()
+	self.langs = {}
+
+	for line in lines:
+	    string.strip(line)
+	    l = string.split(line)
+	    self.langs[l[0]] = l[4]
+	
         # kickstart needs this
         self.abbrevMap = {}
         for (key, value) in self.langs.items ():
