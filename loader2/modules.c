@@ -68,7 +68,6 @@ static int ethCount(const char * type) {
         if (chptr) chptr++;
     }
     
-    logMessage("there are %d %s devices", count, type);
     return count;
 }
 
