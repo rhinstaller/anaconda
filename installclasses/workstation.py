@@ -44,6 +44,8 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("authentication")
 
+        dispatch.skipStep("chooseyourowndesktop", skip = 0)
+
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
 	self.showGroups(comps, [ "KDE Desktop Environment",
