@@ -32,7 +32,7 @@ class Mouse (SimpleConfigFile):
 	"Generic - 3 Button Mouse (serial)" :
 		("Microsoft", "Microsoft", "ttyS", 0, "generic3"),
 	"Generic - 2 Button Mouse (PS/2)" :
-		("ps/2", "PS/2", "psaux", 1, "generisps/2"),
+		("ps/2", "PS/2", "psaux", 1, "genericsps/2"),
 	"Generic - 3 Button Mouse (PS/2)" :
 		("ps/2", "PS/2", "psaux", 0, "generic3ps/2"),
 	"Generic - 2 Button Mouse (USB)" :
