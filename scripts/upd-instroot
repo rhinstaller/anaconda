@@ -625,7 +625,6 @@ usr/share/icons/default/*
 usr/share/icons/Bluecurve/index.theme
 usr/share/icons/Bluecurve/cursors/*
 usr/share/icons/Bluecurve/*/stock/*
-usr/share/fonts/bitmap-fonts/fangsongti*
 usr/share/fonts/default/Type1/n019003l*
 usr/share/fonts/default/Type1/n019004l*
 usr/share/fonts/default/Type1/n019023l*
@@ -636,6 +635,7 @@ usr/share/fonts/default/Type1/n021023l*
 usr/share/fonts/default/Type1/n021024l*
 usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic-subst.ttf
+usr/share/fonts/zh_CN/TrueType/gbsn00lp.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/fonts/bengali/MuktiNarrow.ttf
 usr/share/fonts/arabic/KacstFarsi.ttf
@@ -973,13 +973,6 @@ if [ -n "$NEEDGR" ]; then
 	LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/gdk-pixbuf-query-loaders > $DESTGR/etc/gtk-2.0/$HOSTTRIPLET/gdk-pixbuf.loaders
     fi
     rm -f $DESTGR/usr/bin/gdk-pixbuf-query-loaders
-fi
-
-# make the changes we want to fonts.conf for anaconda (#65913)
-if [ -n "$NEEDGR" ]; then
-    echo "Munging fonts.conf"
-    sed s/AR\ PL\ SungtiL\ GB/Fangsong\ ti/g $DESTGR/etc/fonts/fonts.conf > $DESTGR/etc/fonts/fonts.conf.foo
-    mv $DESTGR/etc/fonts/fonts.conf.foo $DESTGR/etc/fonts/fonts.conf
 fi
 
 rm -f $KEEPFILE $KEEPFILEGR $KEEPFILERESCUE

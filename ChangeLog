@@ -1,5 +1,22 @@
+2004-09-24  Jeremy Katz  <katzj@redhat.com>
+
+	* scripts/upd-instroot: Switch back to default zh_CN font instead
+	of the bitmap one (#133330)
+
 2004-09-23  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/getparts.c (isPartitionName): i2o devices don't use a
+	"p" separator (#133379)
+
+	* iutil.py (makeDriveDeviceNodes): Create more RAID devices.
+	(makeDriveDeviceNodes): i2o devices don't use a "p" separator (#133379)
+
+	* installclasses/rhel_as.py: 
+	* installclasses/rhel_desktop.py: 
+	* installclasses/rhel_es.py: 
+	* installclasses/rhel_ws.py:
+	Add Red Hat Enterprise Linux installclasses.
+	
 	* loader2/cdinstall.c: Don't use PROBE_LOADED for cd probing (#131033)
 
 	* loader2/hardware.c: We can always probe devices with current
