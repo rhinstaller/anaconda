@@ -785,7 +785,7 @@ class GroupSet:
                 group.addMetaPkg(xmlgrp.metapkgs[id])
         
 
-    def selectGroup(self, group, asMeta = 0):
+    def selectGroup(self, group, asMeta = 0, missingOk = 0):
         if self.groups.has_key(group):
             self.groups[group].select(asMeta = asMeta)
             return
@@ -793,6 +793,8 @@ class GroupSet:
             if (grp.name == group) and self.groups.has_key(grp.id):
                 self.groups[grp.id].select(asMeta = asMeta)
                 return
+        if missingOk:
+            return
         raise KeyError, "No such group %s" %(group,)
 
     def unselectAll(self):
