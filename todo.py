@@ -1322,7 +1322,7 @@ class ToDo:
             if onMILO ():
                 args = ("clock", "-A", "-s")
                 try:
-                    iutil.execWithRedirect('/sbin/clock', args)
+                    iutil.execWithRedirect('/usr/sbin/clock', args)
                 except:
                     pass
 
