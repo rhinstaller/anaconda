@@ -405,7 +405,7 @@ class Partitions:
 	for volgroup in volgroups:
 	    if volgroup.physicalVolumes:
 		if request.uniqueID in volgroup.physicalVolumes:
-			return 1
+		    return 1
 
 	return 0
 

@@ -444,8 +444,8 @@ class PartitionWindow(InstallWindow):
     def quit(self):
         pass
 
-    def presentPartitioningComments(self, type,
-                                    title, labelstr1, labelstr2, comments):
+    def presentPartitioningComments(self,title, labelstr1, labelstr2, comments,
+				    type="ok", custom_buttons=None):
         win = gtk.Dialog(title)
         gui.addFrame(win)
         
@@ -457,6 +457,15 @@ class PartitionWindow(InstallWindow):
 	elif type == "continue":
             win.add_button('gtk-cancel', 0)
             win.add_button(_("Continue"), 1)
+	elif type == "custom":
+	    rid=0
+
+	    for button in custom_buttons:
+		widget = win.add_button(button, rid)
+		rid = rid + 1
+
+            defaultchoice = rid - 1
+	    
 
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
@@ -493,6 +502,7 @@ class PartitionWindow(InstallWindow):
         win.vbox.pack_start(hbox)
 #        win.set_size_request(400,300)
         win.set_position(gtk.WIN_POS_CENTER)
+        win.set_default_response(defaultchoice)
         win.show_all()
         rc = win.run()
         win.destroy()
@@ -511,10 +521,9 @@ class PartitionWindow(InstallWindow):
 
             commentstr = string.join(errors, "\n\n")
             
-            self.presentPartitioningComments("ok",
-                                             _("Partitioning Errors"),
+            self.presentPartitioningComments(_("Partitioning Errors"),
                                              labelstr1, labelstr2,
-                                             commentstr)
+                                             commentstr, type="ok")
             raise gui.StayOnScreen
         
         if warnings:
@@ -525,10 +534,10 @@ class PartitionWindow(InstallWindow):
                          "scheme?")
             
             commentstr = string.join(warnings, "\n\n")
-            rc = self.presentPartitioningComments("yesno",
-                                                  _("Partitioning Warnings"),
+            rc = self.presentPartitioningComments(_("Partitioning Warnings"),
                                                   labelstr1, labelstr2,
-                                                  commentstr)
+                                                  commentstr,
+						  type="yesno")
             if rc != 1:
                 raise gui.StayOnScreen
 
@@ -538,19 +547,21 @@ class PartitionWindow(InstallWindow):
             labelstr1 = _("The following pre-existing partitions have been "
                           "selected to be formatted, destroying all data.")
 
-            labelstr2 = _("Select 'Yes' to continue and format these "
-                          "partitions, or 'No' to go back and change these "
-                          "settings.")
-
+#            labelstr2 = _("Select 'Yes' to continue and format these "
+#                          "partitions, or 'No' to go back and change these "
+#                          "settings.")
+            laberstr2 = ""
             commentstr = ""
             for (dev, type, mntpt) in formatWarnings:
                 commentstr = commentstr + \
                         "/dev/%s         %s         %s\n" % (dev,type,mntpt)
 
-            rc = self.presentPartitioningComments("yesno",
-                                                  _("Format Warnings"),
+            rc = self.presentPartitioningComments(_("Format Warnings"),
                                                   labelstr1, labelstr2,
-                                                  commentstr)
+                                                  commentstr,
+						  type="custom",
+						  custom_buttons=["gtk-cancel",
+								  _("Format")])
             if rc != 1:
                 raise gui.StayOnScreen
 
@@ -578,16 +589,16 @@ class PartitionWindow(InstallWindow):
 	    lvmparent = self.tree.append(None)
 	    self.tree[lvmparent]['Device'] = _("LVM Volume Groups")
             for vgname in lvmrequests.keys():
-                vgparent = self.tree.append(lvmparent)
-		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
 		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
 		rsize = vgrequest.getActualSize(self.partitions, self.diskset)
 
+                vgparent = self.tree.append(lvmparent)
+		self.tree[vgparent]['Device'] = _("LVM: %s") % (vgname,)
+		self.tree[vgparent]['Mount Point'] = ""
 		self.tree[vgparent]['Start'] = ""
 		self.tree[vgparent]['End'] = ""
-		self.tree[vgparent]['Size (MB)'] = "%g" % (rsize,)
+		self.tree[vgparent]['Size (MB)'] = "%8.0f" % (rsize,)
 		self.tree[vgparent]['Type'] = _("LVM Volume Group")
-		self.tree[vgparent]['Mount Point'] = ""
                 self.tree[vgparent]['PyObject'] = str(vgrequest.uniqueID)
 		for lvrequest in lvmrequests[vgname]:
 		    iter = self.tree.append(vgparent)

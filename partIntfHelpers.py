@@ -97,6 +97,28 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting):
             # its an existing partition so don't force a mount point
             return None
 
+def isNotChangable(request, requestlist):
+    if request:
+	if request.getProtected():
+	    return _("You cannot %s this partition, as it is holding the data"
+		     "for the hard drive install.")
+
+        if requestlist.isRaidMember(request):
+	    return _("You cannot %s this partition as it is part of "
+		     "a RAID device")
+
+	if request.type == REQUEST_LV:
+	    # temporary message
+	    return _("The %s action on logical volumes from the "
+		     "treeview is not currently supported.")
+
+	if requestlist.isLVMVolumeGroupMember(request):
+	    return _("You cannot %s this partition, as it is part of a LVM "
+		     "volume group.")
+
+    return None
+    
+
 def doDeletePartitionByRequest(intf, requestlist, partition):
     """Delete a partition from the request list.
 
@@ -140,32 +162,10 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
 	request = requestlist.getRequestByDeviceName(device)
 	    
     if request:
-        if request.getProtected():
-            intf.messageWindow(_("Unable To Delete"),
-                               _("You cannot delete this "
-                                 "partition, as it is holding the data for "
-                                 "the hard drive install."))
-            return 0
-
-        if requestlist.isRaidMember(request):
-            intf.messageWindow(_("Unable To Delete"),
-                               _("You cannot delete this "
-                                 "partition, as it is part of a RAID device."))
-            return 0
-
-	if request.type == REQUEST_LV:
-	    # temporary message
-            intf.messageWindow(_("Unable To Delete"),
-                               _("Deleting logical volumes from the "
-				 "treeview is not currently supported."))
-	    return 0
-
-        if requestlist.isLVMVolumeGroupMember(request):
-            intf.messageWindow(_("Unable To Delete"),
-			       _("You cannot delete this "
-				 "partition, as it is part of a LVM "
- 				 "volume group."))
-            return 0
+	state = isNotChangable(request, requestlist)
+	if state is not None:
+	    intf.messageWindow(_("Unable To Delete"), state % ("delete",))
+	    return (None, None)
 
         if confirmDeleteRequest(intf, request):
             requestlist.removeRequest(request)
@@ -207,7 +207,15 @@ def doEditPartitionByRequest(intf, requestlist, part):
         return (None, None)
 
     if type(part) == type("RAID"):
+
+	# see if device is in our partition requests, remove
         request = requestlist.getRequestByID(int(part))
+	    
+	if request:
+	    state = isNotChangable(request, requestlist)
+	    if state is not None:
+		intf.messageWindow(_("Unable To Edit"), state % ("edit",))
+		return (None, None)
 
 	if request.type == REQUEST_RAID:
 	    return ("RAID", request)
@@ -245,12 +253,11 @@ def doEditPartitionByRequest(intf, requestlist, part):
     name = partedUtils.get_partition_name(part)
     request = requestlist.getRequestByDeviceName(name)
     if request:
-        if requestlist.isRaidMember(request):
-            intf.messageWindow( _("Unable to Edit"),
-                               _("You cannot edit this partition "
-                                 "as it is part of a RAID device"))
-            return (None, None)
-
+	state = isNotChangable(request, requestlist)
+	if state is not None:
+	    intf.messageWindow(_("Unable To Edit"), state % ("edit",))
+	    return (None, None)
+	
         return ("PARTITION", request)
     else: # shouldn't ever happen
         raise ValueError, ("Trying to edit non-existent partition %s"
