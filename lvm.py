@@ -152,6 +152,13 @@ def vgremove(vgname):
     if flags.test or lvmDevicePresent == 0:
         return
 
+    # find the Physical Volumes which make up this Volume Group, so we
+    # can prune and recreate them.
+    pvs = []
+    for pv in pvlist():
+        if pv[1] == vgname:
+            pvs.append(pv[0])
+
     # we'll try to deactivate... if it fails, we'll probably fail on
     # the removal too... but it's worth a shot
     try:
@@ -161,12 +168,38 @@ def vgremove(vgname):
 
     args = ["lvm", "vgremove", vgname]
 
+    log(string.join(args, ' '))
     rc = iutil.execWithRedirect(args[0], args,
                                 stdout = output,
                                 stderr = output,
                                 searchPath = 1)
     if rc:
         raise SystemError, "vgremove failed"
+
+    # now iterate all the PVs we've just freed up, so we reclaim the metadata
+    # space.  This is an LVM bug, AFAICS.
+    for pvname in pvs:
+        args = ["lvm", "pvremove", pvname]
+
+        log(string.join(args, ' '))
+        rc = iutil.execWithRedirect(args[0], args,
+                                    stdout = output,
+                                    stderr = output,
+                                    searchPath = 1)
+
+        if rc:
+            raise SystemError, "pvremove failed"
+
+        args = ["lvm", "pvcreate", "-ff", "-y", "-v", pvname]
+
+        log(string.join(args, ' '))
+        rc = iutil.execWithRedirect(args[0], args,
+                                    stdout = output,
+                                    stderr = output,
+                                    searchPath = 1)
+
+        if rc:
+            raise SystemError, "pvcreate failed for %s" % (pvname,)
 
 def lvlist():
     global lvmDevicePresent
@@ -388,5 +421,8 @@ def getVGUsedSpace(vgreq, requests, diskset):
 
 def getVGFreeSpace(vgreq, requests, diskset):
     used = getVGUsedSpace(vgreq, requests, diskset)
+    log("used space is %s" % (used,))
     
-    return vgreq.getActualSize(requests, diskset) - used
+    total = vgreq.getActualSize(requests, diskset)
+    log("actual space is %s" % (total,))
+    return total - used

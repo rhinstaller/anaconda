@@ -503,9 +503,14 @@ def growLogicalVolumes(diskset, requests):
 	    log("No growable logical volumes defined in VG %s.", vgreq)
 	    continue
 
-	log("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, growreqs)
+	log("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, reduce(lambda x,y: x + [y.uniqueID], growreqs, []))
 
 #	print "VG %s has these growable logical volumes: %s" % (vgreq.volumeGroupName, growreqs)
+
+	# get remaining free space
+        if DEBUG_LVM_GROW:
+	    vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
+	    log("Free space in VG after initial partition formation = %s", (vgfree,))
 
 	# store size we are starting at
 	initsize = {}
@@ -571,7 +576,7 @@ def growLogicalVolumes(diskset, requests):
 		if req.maxSizeMB:
 		    newsize = min(newsize, req.maxSizeMB)
 		    
-		req.size = lvm.clampLVSizeRequest(newsize, vgreq.pesize)
+		req.size = newsize
 		if req.size != cursize[req.logicalVolumeName]:
 		    nochange = 0
 

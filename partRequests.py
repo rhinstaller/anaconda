@@ -176,49 +176,6 @@ class RequestSpec:
         import traceback
         traceback.print_stack()
 
-    # XXX we don't have a request for a Physical Volume, so any request type
-    # that can contain a Volume Group needs to be able to compensate for
-    # a Physical Volume's overhead.  It might be worth making a PVRequest
-    # or having the VG do the compensation instead...
-    def getPVSize(self, partitions, diskset):
-        """Return the usable size for a physical volume in the request in megabytes."""
-
-        # XXX this reads from the disk; we should *really* be keeping an
-        # in-memory representation and only looking at it.  The way it is
-        # now, if you've got leftover LVs from a previous install, we might
-        # be computing sizes based on them.  So as it stands, you generally
-        # need to wipe your disks when you do a reinstall.  Most, if not all,
-        # of the LVM code does this wrong :/
-        for pvpart, pvvg, pvsize in lvm.pvlist():
-            if pvpart == "/dev/%s" % (self.device):
-                size = pvsize
-                return size;
-
-        # You can't tell what the (usable) size of a Physical Volume is until
-        # the volume is associated with a Volume Group, because the PV
-        # stores metadata in a Physical Extent, and the size of a PE for
-        # this PV is defined as that of the VG to which it is associated.
-        # So until you assign a VG to the PV, it has indeterminate size.
-        # Brilliant.
-        #
-        # Current lvm utils (lvm2-2.01.05-1.0) always uses 1 PE for the PV's
-        # data.  So right now, I'm assuming 64M PEs, since they're the
-        # biggest PE size you can set in anaconda.  This can mean that our
-        # _display_ of the sizes shows a suboptimal allocation, but in
-        # practice when anaconda creates the VG it doesn't specify a maximum
-        # size, so you won't actually lose any space.
-        #
-        # XXX We should probably look at making this recalculate after the 
-        # VG is associated, so we show the user the real numbers...
-        size = self.getActualSize(partitions, diskset)
-
-        # It might also be a good idea to make this use some estimate for
-        # "best" PE size, and present that as the default when creating
-        # a VG, rather than always using 64.  That's rather complicated,
-        # though.
-        size = long((math.floor(size / 64)-1) * 64)
-        return size
-        
     def getDevice(self, partitions):
         """Return a device to solidify."""
 
@@ -803,20 +760,17 @@ class VolumeGroupRequestSpec(RequestSpec):
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
 
-        # this seems like a bogus check too...
-        if self.physicalVolumes is None:
-            return 0
-
         # if we have a preexisting size, use it
         if self.preexist and self.preexist_size:
-            totalspace = ((self.preexist_size / self.pesize) *
-                          self.pesize)
+            totalspace = lvm.clampPVSize(self.preexist_size, self.pesize)
         else:
             totalspace = 0
             for pvid in self.physicalVolumes:
                 pvreq = partitions.getRequestByID(pvid)
-                size = pvreq.getPVSize(partitions, diskset)
-                size = lvm.clampPVSize(size, self.pesize)
+                size = pvreq.getActualSize(partitions, diskset)
+                log("size for pv %s is %s" % (pvid, size))
+                size = lvm.clampPVSize(size, self.pesize) - (self.pesize/1024)
+                log("  clamped size is %s" % (size,))
                 totalspace = totalspace + size
 
         return totalspace
@@ -929,7 +883,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
             vgreq = partitions.getRequestByID(self.volumeGroup)
 	    vgsize = vgreq.getActualSize(partitions, diskset)
 	    lvsize = int(self.percent * 0.01 * vgsize)
-	    lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
+	    #lvsize = lvm.clampLVSizeRequest(lvsize, vgreq.pesize)
             return lvsize
         else:
             return self.size

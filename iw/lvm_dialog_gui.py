@@ -71,8 +71,13 @@ class VolumeGroupEditor:
 	first = 1
         pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
 	for id in pvlist:
+            try:
+                pesize = int(self.peCombo.get_active_value())
+            except:
+                pesize = 32768
 	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getPVSize(self.partitions, self.diskset)
+	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+            pvsize = lvm.clampPVSize(pvsize, pesize) - (pesize/1024)
 	    if first:
 		minpvsize = pvsize
 		first = 0
@@ -768,12 +773,13 @@ class VolumeGroupEditor:
 	availSpaceMB = 0
 	for id in pvlist:
 	    pvreq = self.partitions.getRequestByID(id)
-	    pvsize = pvreq.getPVSize(self.partitions, self.diskset)
-	    pvsize = lvm.clampPVSize(pvsize, curpe)
+	    pvsize = pvreq.getActualSize(self.partitions, self.diskset)
+	    pvsize = lvm.clampPVSize(pvsize, curpe) - (curpe/1024)
 
 	    # have to clamp pvsize to multiple of PE
 	    availSpaceMB = availSpaceMB + pvsize
 
+        log("computeVGSize: vgsize is %s" % (availSpaceMB,))
 	return availSpaceMB
 
     def computeLVSpaceNeeded(self, logreqs):

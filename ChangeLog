@@ -1,3 +1,21 @@
+2005-03-06  Peter Jones  <pjones@redhat.com>
+
+	* autopart.py: fix growable size log to show IDs instead of
+	python's <instance> info.
+	log how much free space we're starting with
+	don't clamp an lv's total size, instead clamp pv's sizes appropriately
+	* lvm.py: remove and recreate all PVs when we do a vgremove, so they
+	don't lose 1 PE each time due to an lvm2 bug.
+	log what lvm commands are being run, since that doesn't go into lvmout.
+	log total vs actual in getVGFreeSpace
+	* partRequests.py: get rid of getPVSize, that way can't work (oopsie).
+	remove bogus check in getActualSize.
+	clamp totalspace for preexisting PVs.
+	clamp each PV's size and trim 1 PE off when computing total space.
+	don't clamp the LV's overall size.
+	* iw/lvm_dialog_gui.py: clamp each PV and trim 1 PE when computing
+	availSpaceMB.
+	
 2005-03-03  Jeremy Katz  <katzj@redhat.com>
 
 	* scripts/upd-instroot (PACKAGESGR): Add new font package names
