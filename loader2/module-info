@@ -548,6 +548,15 @@ viodasd
 	scsi_hostadapter
 	"iSeries Virtual DASD"
 
+# pSeries
+ibmveth
+	eth
+	"Power5 Virtual Ethernet"
+
+ibmvscsic
+	scsi_hostadapter
+	"Power5 Virtual SCSI"
+
 # Mac stuff
 bmac	
 	eth
