@@ -667,7 +667,7 @@ int nfsmount(const char *spec, const char *node, int *flags,
 				close(msock);
 			} else {
 				if (!running_bg && prevt == 0)
-					clnt_pcreateerror("mount");
+					perror("mount");
 			}
 			prevt = t;
 		}
