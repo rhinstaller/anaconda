@@ -15,6 +15,8 @@ class NetworkWindow (InstallWindow):
 
 
     def getNext (self):
+	if not self.__dict__.has_key("gw"):
+	    return None
         self.todo.network.gateway = self.gw.get_text ()
         self.todo.network.primaryNS = self.ns.get_text ()
         self.todo.network.secondaryNS = self.ns2.get_text ()

@@ -380,6 +380,9 @@ class PackageSelectionWindow (InstallWindow):
                      "</BODY></HTML>")
 
     def getNext (self):
+	if not self.__dict__.has_key("individualPackages"):
+	    return None
+
         if self.individualPackages.get_active ():
             return IndividualPackageSelectionWindow
         else:

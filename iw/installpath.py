@@ -43,7 +43,7 @@ class InstallPathWindow (InstallWindow):
 		     ( TimezoneWindow, "timezone" ),
 		     ( AccountWindow, "accounts" ),
 		     ( AuthWindow, "authentication" ),
-		     ( PackageSelectionWindow, "package-selection" ),
+		     PackageSelectionWindow, 
 		     ( UnresolvedDependenciesWindow, "dependencies" ),
 		     InstallProgressWindow,
 		     ( BootdiskWindow, "bootdisk" ),

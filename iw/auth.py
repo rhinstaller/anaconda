@@ -33,6 +33,9 @@ class AuthWindow (InstallWindow):
 		self.nisServer.set_sensitive (TRUE)
 
     def getNext(self):
+	if not self.__dict__.has_key("md5"):
+	    return None
+
         self.todo.auth.useMD5 = self.md5.get_active ()
         self.todo.auth.useShadow = self.shadow.get_active ()
 
