@@ -803,8 +803,9 @@ class DiskSet:
                 continue
             # FIXME: need the right fix for z/VM formatted dasd
             if iutil.getArch() == "s390" and isys.getDasdState(drive):
+                devs = isys.getDasdDevPort()
                 rc = intf.messageWindow(_("Warning"),
-                        _("The partition table on device %s was unreadable. "
+                        _("The partition table on device %s (%s) was unreadable. "
                           "To create new partitions it must be initialized, "
                           "causing the loss of ALL DATA on this drive.\n\n"
                           "This operation will override any previous "
@@ -812,7 +813,7 @@ class DiskSet:
                           "ignore.\n\n"
                           "Would you like to initialize this drive, "
                           "erasing ALL DATA?")
-                                        % (drive,), type = "yesno")
+                                        % (drive, devs[drive]), type = "yesno")
                 if rc == 0:
                     DiskSet.skippedDisks.append(drive)
                     continue
@@ -855,6 +856,11 @@ class DiskSet:
                     DiskSet.skippedDisks.append(drive)
                     continue
                 else:
+                    if iutil.getArch() == "s390":
+                         devs = isys.getDasdDevPort()
+                         format = drive + " (" + devs[drive] + ")"
+                    else:
+                         format = drive
                     rc = intf.messageWindow(_("Warning"),
                              _("The partition table on device %s was unreadable. "
                                "To create new partitions it must be initialized, "
@@ -864,7 +870,7 @@ class DiskSet:
 			       "ignore.\n\n"
                                "Would you like to initialize this drive, "
 			       "erasing ALL DATA?")
-                                           % (drive,), type = "yesno")
+                                           % (format,), type = "yesno")
                     if rc == 0:
                         DiskSet.skippedDisks.append(drive)
                         continue
