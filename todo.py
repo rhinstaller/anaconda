@@ -89,6 +89,8 @@ class Network:
                 self.gateway = info["GATEWAY"]
             if info.has_key ("NS1"):
                 self.primaryNS = info["NS1"]
+            if info.has_key ("DOMAIN"):
+                self.domains.append(info["DOMAIN"])
             if info.has_key ("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
             
@@ -751,7 +753,7 @@ class ToDo:
 ##         elif not self.liloDevice: return
 
 	(bootpart, boothd) = self.getLiloOptions()
-	if (type((1,)) == bootpart):
+	if (type((1,)) == type(bootpart)):
 	    (kind, self.liloDevice) = bootpart
 	elif (self.liloDevice == "mbr"):
 	    self.liloDevice = boothd
@@ -769,7 +771,7 @@ class ToDo:
                         self.hdList['kernel-smp'].selected and isys.smpAvailable())
 
         if self.mounts.has_key ('/'):
-            (dev, type, format) = self.mounts['/']
+            (dev, fstype, format) = self.mounts['/']
             rootDev = dev
         else:
             raise RuntimeError, "Installing lilo, but there is no root device"
@@ -779,7 +781,7 @@ class ToDo:
 
         main = "linux"
 
-        for (drive, (label, type)) in self.liloImages.items ():
+        for (drive, (label, liloType)) in self.liloImages.items ():
             if (drive == rootDev) and label:
                 self.log ("%s label %s is root (%s) \n", drive, label, rootDev)
                 main = label
@@ -816,13 +818,13 @@ class ToDo:
 	    sl.addEntry("label", label)
 	    lilo.addImage ("other", device, sl)
 
-        for (type, name, config) in lilo.images:
+        for (liloType, name, config) in lilo.images:
             # remove entries for missing kernels (upgrade)
-            if type == "image":
+            if liloType == "image":
                 if not os.access (self.instPath + name, os.R_OK):
                     lilo.delImage (name)
             # remove entries for unbootable partitions
-            if type == "other":
+            elif liloType == "other":
                 device = name[5:]
                 isys.makeDevInode(device, '/tmp/' + device)
                 if not isys.checkBoot ('/tmp/' + device):
@@ -832,7 +834,7 @@ class ToDo:
         # pass 2, remove duplicate entries
         labels = []
 
-        for (type, name, config) in lilo.images:
+        for (liloType, name, config) in lilo.images:
             if not name in labels:
                 labels.append (name)
             else: # duplicate entry, first entry wins
