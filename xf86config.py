@@ -1284,8 +1284,8 @@ Section "Screen"
             if data["cardDriver"] == "i810":
                 data["videoRam"] = "\tVideoRam %s\n" % self.vidRam
 	    # DRI HACK!
-	    if data["cardDriver"] == "r128" or data["cardDriver"] == "mga":
-		data["driMod"] = '\n\t#Load "dri"'
+	    #if data["cardDriver"] == "r128" or data["cardDriver"] == "mga":
+	    #	data["driMod"] = '\n\t#Load "dri"'
         else:
             raise RuntimeError, "Don't know which XFree86-4.0 video driver to use!"
 	return XF86Config_4_template % data
