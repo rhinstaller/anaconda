@@ -580,7 +580,10 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # are not newer in this release.
     if hasX and not hasFileManager:
         for name in ("nautilus", "kdebase", "gmc"):
-            h = ts.dbMatch('name', name).next()
+            try:
+                h = ts.dbMatch('name', name).next()
+            except StopIteration:
+                continue
             if h is not None:
                 hasFileManager = 1
                 break
@@ -591,7 +594,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         log("Upgrade: User selected to use GRUB for bootloader")
         if id.grpset.hdrlist.has_key("grub") and not id.grpset.hdrlist["grub"].isSelected():
             log("Upgrade: grub is not currently selected to be upgraded")
-            h = ts.dbMatch('name', 'grub').next()
+            h = None
+            try:
+                h = ts.dbMatch('name', 'grub').next()
+            except StopIteration:
+                pass
             if h is None:
                 text = ("Upgrade: GRUB is not already installed on the "
                         "system, selecting GRUB")
@@ -602,7 +609,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         log("Upgrade: User selected to use LILO for bootloader")
         if id.grpset.hdrlist.has_key("lilo") and not id.grpset.hdrlist["lilo"].isSelected():
             log("Upgrade: lilo is not currently selected to be upgraded")
-            h = ts.dbMatch('name', 'lilo').next()
+            h = None
+            try:
+                h = ts.dbMatch('name', 'lilo').next()
+            except StopIteration:
+                pass
             if h is None:
                 text = ("Upgrade: LILO is not already installed on the "
                         "system, selecting LILO")
@@ -611,7 +622,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 id.grpset.hdrlist["lilo"].select()
                 
 
-    h = ts.dbMatch('name', 'gnome-core').next()
+    h = None
+    try:
+        h = ts.dbMatch('name', 'gnome-core').next()
+    except StopIteration:
+        pass
     if h is not None:
         log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
         upgraded = []
@@ -631,10 +646,18 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     if (id.grpset.hdrlist.has_key("rhn-applet")
         and not id.grpset.hdrlist["rhn-applet"].isSelected()):
         log("Upgrade: rhn-applet is not currently selected to be upgraded")
-        h = ts.dbMatch('name', 'up2date-gnome').next()
+        h = None
+        try:
+            h = ts.dbMatch('name', 'up2date-gnome').next()
+        except StopIteration:
+            pass
 
         if h is not None:
-            hdr = ts.dbMatch('name', 'rhn-applet').next()
+            hdr = None
+            try:
+                hdr = ts.dbMatch('name', 'rhn-applet').next()
+            except StopIteration:
+                pass
             if hdr is None:
                 text = ("Upgrade: up2date-gnome is on the "
                         "system, but rhn-applet isn't.  Selecting "
@@ -646,7 +669,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # and since xterm is now split out from XFree86 (#98254)
     if (id.grpset.hdrlist.has_key("xterm") and
         not id.grpset.hdrlist["xterm"].isSelected()):
-        h = ts.dbMatch('name', 'XFree86').next()
+        h = None
+        try:
+            h = ts.dbMatch('name', 'XFree86').next()
+        except StopIteration:
+            pass
         if h is not None:
             text = ("Upgrade: XFree86 was on the system.  Pulling in xterm "
                     "for upgrade.")
@@ -658,7 +685,11 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # if they were installed in the past, we want to remove them because
     # they'll screw up the upgrade otherwise
     for pkg in upgrade_remove_blacklist:
-        h = ts.dbMatch('name', pkg).next()
+        h = None
+        try:
+            h = ts.dbMatch('name', pkg).next()
+        except StopIteration:
+            pass
         if h is not None:
             text = ("Upgrade: %s is on the system but will cause problems "
                     "with the upgrade transaction.  Removing." %(pkg,))
