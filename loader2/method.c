@@ -537,8 +537,8 @@ int verifyStamp(char * path) {
     char *stamp1;
     char *stamp2;
     FILE *f;
-    int fail = 0, ret;
-    char * p;
+    int fail = 0;
+    char * p, *q;
 
     stamp1 = alloca(13);
     stamp2 = alloca(13);
@@ -548,7 +548,7 @@ int verifyStamp(char * path) {
     if (!f) {
         fail = 1;
     } else {
-        ret = fgets(stamp1, 13, f);
+        q = fgets(stamp1, 13, f);
 	fclose(f);
 
         /* and the runtime */
@@ -558,7 +558,7 @@ int verifyStamp(char * path) {
         if (!f) {
             fail = 1;
         } else {
-            ret = fgets(stamp2, 13, f);
+            q = fgets(stamp2, 13, f);
 	    fclose(f);
 
             if (strncmp(stamp1, stamp2, 12) != 0) {
