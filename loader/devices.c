@@ -85,11 +85,11 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 
     text = _("This module can take parameters which affects its "
 		    "operation. If you don't know what parameters to supply, "
-		    "just skip this screen by pressing the \"OK\" button "
+		    "just skip this screen by pressing the \"Ok\" button "
 		    "now.");
 
     rc = newtWinEntries(_("Module Parameters"), text,
-		        40, 5, 15, 20, entries, _("OK"), 
+		        40, 5, 15, 20, entries, _("Ok"), 
 		        _("Back"), NULL);
 
     if (rc == 2) {
@@ -234,9 +234,9 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	}
 
 	eject(device);
-	rc = newtWinChoice(_("Devices"), _("OK"), 
+	rc = newtWinChoice(_("Devices"), _("Ok"), 
 		cancelNotBack ? _("Cancel") : _("Back"),
-		_("Insert your driver disk and press \"OK\" to continue."));
+		_("Insert your driver disk and press \"Ok\" to continue."));
 
 	if (rc == 2) return LOADER_BACK;
 
@@ -256,14 +256,14 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	    ddi->fs = "ext2";
 	    if (doPwMount(ddi->mntDevice, "/tmp/drivers", ddi->fs, 1, 0, NULL, 
 			  NULL))
-		newtWinMessage(_("Error"), _("OK"), 
+		newtWinMessage(_("Error"), _("Ok"), 
 			       _("Failed to mount driver disk."));
 	}
 
 
 	if (devInitDriverDisk(modInfo, modLoaded, modDepsPtr, flags, 
 			      "/tmp/drivers", ddi))
-	    newtWinMessage(_("Error"), _("OK"),
+	    newtWinMessage(_("Error"), _("Ok"),
 		_("The floppy disk you inserted is not a valid driver disk "
 		  "for this release of Red Hat Linux."));
 	else
@@ -332,7 +332,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	listbox = newtListbox(-1, -1, 6, 
 			NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
 
-	buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
+	buttons = newtButtonBar(_("Ok"), &ok, _("Back"), &back, NULL);
 	checkbox = newtCheckbox(-1, -1, _("Specify module parameters"),
 				specifyParameters, NULL, &specifyParameters);
 
@@ -432,7 +432,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     }
 
     if (rc)
-	newtWinMessage(_("Error"), _("OK"), _("Failed to insert %s module."),
+	newtWinMessage(_("Error"), _("Ok"), _("Failed to insert %s module."),
 		       mod->moduleName);
 
     if (!rc && moduleName)
@@ -477,7 +477,7 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 	    failed = 1;
 
 	if (failed && !first) {
-	    newtWinMessage(_("Error"), _("OK"), 
+	    newtWinMessage(_("Error"), _("Ok"), 
 		    _("Failed to mount driver disk: %s."), strerror(errno));
 	} else if (!failed) {
 	    if ((fd = open("/tmp/drivers/rhdd-6.1", O_RDONLY)) < 0)
@@ -497,7 +497,7 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 
 	    if (failed && !first) {
 		umount("/tmp/drivers");
-		newtWinMessage(_("Error"), _("OK"),
+		newtWinMessage(_("Error"), _("Ok"),
 			_("The wrong diskette was inserted."));
 	    }
 	}
@@ -529,7 +529,7 @@ char * extractModule(struct driverDiskInfo * ddi, char * modName) {
 	if (ddi->device)
 	    eject(ddi->device);
 
-	rc = newtWinChoice(_("Driver Disk"), _("OK"), _("Cancel"),
+	rc = newtWinChoice(_("Driver Disk"), _("Ok"), _("Cancel"),
 		_("Please insert the %s driver disk now."), ddi->title);
 	if (rc == 2) return NULL;
     }
