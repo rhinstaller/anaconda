@@ -96,17 +96,30 @@ tag:
 
 archive: create-archive
 
+PWDIR=$(shell pwd)
+beehive-srpm: create-snapshot
+	@rpmbuild --define "_sourcedir $(PWDIR)" --define "_srcrpmdir $(PWDIR)" --define "_builddir $(PWDIR)" --define "_rpmdir $(PWDIR)" --define "_specdir $(PWDIR)" --nodeps -ts anaconda-$(VERSION).tar.bz2
+	@mv anaconda-$(VERSION)-$(SNAPRELEASE).src.rpm src.rpm
+
 src: create-archive
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
 
 snapsrc: create-snapshot
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
 
-build: src
-	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+do-beehive-build:
+	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
+	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
+	[ x"$$TAG" != x ] && tag=$$TAG; \
+	cvsroot=`cat CVS/Root |cut -d @ -f 2-` 2>/dev/null; \
+        echo "*** Building $$tag from $$cvsroot!"; \
+	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
 
-snapbuild: snapsrc
-	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(SNAPRELEASE).src.rpm
+build: 
+	make TAG=$(CVSTAG) do-beehive-build
+
+snapbuild: 
+	make do-beehive-build
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
