@@ -119,8 +119,8 @@ loader.po: *.c
 	xgettext --default-domain=loader --add-comments \
 		--keyword=_ --keyword=N_ *.c
 
-tr/%.tr: ../po/%.po loader.po
-	msgmerge $< loader.po | ./simplemot > $@
+#tr/%.tr: ../po/%.po loader.po
+#	msgmerge $< loader.po | ./simplemot > $@
 
 dirs:
 	for n in . $(DIRS); do \

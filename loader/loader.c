@@ -8,6 +8,7 @@
  *
  * Erik Troan <ewt@redhat.com>
  * Matt Wilson <msw@redhat.com>
+ * Michael Fulbright <msf@redhat.com>
  *
  * Copyright 1997 - 2002 Red Hat, Inc.
  *
@@ -31,6 +32,7 @@
 #include <popt.h>
 #include <syslog.h>
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
@@ -370,7 +372,7 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 
         if (numItems > 0) {
 	    text = newtTextboxReflowed(-1, -1, 
-		_("I have found the following devices in your system:"), 
+		_("The following devices have been found on your system:"), 
 		40, 5, 20, 0);
 	    buttons = newtButtonBar(_("Done"), &done, _("Add Device"), &add, 
 				    NULL);
@@ -398,8 +400,8 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 	    addDeviceManually(modInfo, modLoaded, modDepsPtr, kd, flags);
 	} else {
 	    rc = newtWinChoice(_("Devices"), _("Done"), _("Add Device"), 
-		    _("I don't have any special device drivers loaded for "
-		      "your system. Would you like to load some now?"));
+		    _("No special device drivers have been loaded for "
+		      "your system. Would you like to load any now?"));
 	    if (rc != 2)
 		break;
 
@@ -651,10 +653,13 @@ static int umountLoopback(char * mntpoint, char * device) {
 
     umount(mntpoint);
 
+    logMessage("umounting loopback %s %s", mntpoint, device);
+
     devMakeInode(device, "/tmp/loop");
     loopfd = open("/tmp/loop", O_RDONLY);
 
-    ioctl(loopfd, LOOP_CLR_FD, 0);
+    if (ioctl(loopfd, LOOP_CLR_FD, 0) < 0)
+	logMessage("LOOP_CLR_FD failed for %s %s", mntpoint, device);
 
     close(loopfd);
 
@@ -674,10 +679,13 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     mkdirChain(mntpoint);
 
     targfd = open(fsystem, O_RDONLY);
+    if (targfd < 0)
+	logMessage("opening target filesystem %s failed", fsystem);
 
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
-    logMessage("loopfd is %d", loopfd);
+    logMessage("mntloop %s on %s as %s fd is %d", 
+	       device, mntpoint, fsystem, loopfd);
 
     if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
 	logMessage("LOOP_SET_FD failed: %s", strerror(errno));
@@ -783,6 +791,94 @@ static void useMntSourceUpdates() {
   }
 }
 
+/* get description of ISO image from stamp file */
+char *getReleaseDescriptorFromIso(char *file) {
+    DIR * dir;
+    FILE *f;
+    struct dirent * ent;
+    struct stat sb;
+    char *stampfile;
+    char *ptr;
+    char *descr;
+    char tmpstr[1024];
+    int  filetype;
+
+    lstat(file, &sb);
+    if (S_ISBLK(sb.st_mode)) {
+	filetype = 1;
+	if (doPwMount(file, "/tmp/testmnt",
+		      "iso9660", 1, 0, NULL, NULL)) {
+	    logMessage("Failed to mount device %s to get description", file);
+	    return NULL;
+	}
+    } else if (S_ISREG(sb.st_mode)) {
+	filetype = 2;
+	if (mountLoopback(file, "/tmp/testmnt", "loop6")) {
+	    logMessage("Failed to mount iso %s to get description", file);
+	    return NULL;
+	}
+    } else {
+	    logMessage("Unknown type of file %s to get description", file);
+	    return NULL;
+    }
+
+    if (!(dir = opendir("/tmp/testmnt"))) {
+	umount("/tmp/testmnt");
+	if (filetype == 2)
+	    umountLoopback("tmp/testmnt", "loop6");
+	return NULL;
+    }
+
+    errno = 0;
+    stampfile = NULL;
+    while ((ent = readdir(dir))) {
+	if (!strncmp(ent->d_name, ".disc", 4)) {
+	    stampfile = strdup(ent->d_name);
+	    break;
+	}
+    }
+
+    closedir(dir);
+    descr = NULL;
+    if (stampfile) {
+	snprintf(tmpstr, sizeof(tmpstr), "/tmp/testmnt/%s", stampfile);
+	f = fopen(tmpstr, "r");
+	if (f) {
+	    char *tmpptr;
+
+	    tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+	    if (tmpptr)
+		tmpptr = fgets(tmpstr, sizeof(tmpstr), f);
+	    fclose(f);
+
+	    if (tmpptr >= 0 && strlen(tmpstr) > 0) {
+		for (ptr = tmpstr+strlen(tmpstr) - 1; 
+		     ptr != tmpstr && isspace(*ptr); ptr--);
+		*(ptr+1) = '\0';
+		descr = tmpstr;
+	    }
+	}
+    }
+
+    free(stampfile);
+
+    umount("/tmp/testmnt");
+    if (filetype == 2)
+	umountLoopback("tmp/testmnt", "loop6");
+
+/*
+    if (descr)
+	logMessage("descr = %s", descr);
+    else
+	logMessage("descr not found");
+*/
+    if (descr)
+	return strdup(descr);
+    else
+	return descr;
+}
+
+
 
 /* XXX this ignores "location", which should be fixed */
 static char * mediaCheckISODir(char *path) {
@@ -812,17 +908,26 @@ static char * mediaCheckISODir(char *path) {
 
 
 	snprintf(tmpmessage, sizeof(tmpmessage),
-		 _("Would you like to perform an integrity "
-		   "check of the ISO image %s?"), isoImage);
+		 _("Would you like to perform a checksum "
+		   "test of the ISO image:\n\n   %s?"), isoImage);
 
-	rc = newtWinChoice(_("Integrity Check"), _("Test"), _("Skip"),
+	rc = newtWinChoice(_("Checksum Test"), _("Test"), _("Skip"),
 			   tmpmessage);
 
 	if (rc == 2) {
+	    continue;
+	    /*
 	    closedir(dir);
 	    return NULL;
+	    */
 	} else {
-	    mediaCheckFile(isoImage);
+	    char *descr;
+
+	    descr = getReleaseDescriptorFromIso(isoImage);
+	    mediaCheckFile(isoImage, descr);
+	    if (descr)
+		free(descr);
+
 	    continue;
 	}
     }
@@ -1084,15 +1189,25 @@ static char * mediaCheckCdrom(char *cddriver) {
     devMakeInode(cddriver, "/tmp/cdrom");
     
     do {
-	mediaCheckFile("/tmp/cdrom");
+	char *descr;
+
+	descr = getReleaseDescriptorFromIso("/tmp/cdrom");
+
+	mediaCheckFile("/tmp/cdrom", descr);
 	
+	if (descr)
+	    free(descr);
+
 	ejectCdrom();
 	
 	rc = newtWinChoice(_("Media Check"), _("Test"), _("Continue"),
-			   _("Please insert any additional media you "
-			     "would like to test and press %s.\n\n"
-			     "Otherwise insert CD #1 into your drive "
-			     "and press %s to continue."),
+			   _("If you would like to test additional media, "
+			     "insert the next CD and press %s. "
+			     "You do not have to test all CDs, although "
+			     "it is recommended you do so at least once.\n\n"
+			     "To begin the installation process "
+			     "insert CD #1 into the drive "
+			     "and press %s."),
 			   _("Test"), _("Continue"));
 
 	if (rc == 2) {
@@ -1108,9 +1223,9 @@ static char * mediaCheckCdrom(char *cddriver) {
 
 static void wrongCDMessage(void) {
     newtWinMessage(_("Error"), _("OK"),
-		   _("I could not find a Red Hat Linux "
-		     "CDROM in any of your CDROM drives. Please insert "
-		     "the Red Hat CD and press \"OK\" to retry."));
+		   _("The Red Hat Linux CD was not found "
+		     "in any of your CDROM drives. Please insert "
+		     "the Red Hat Linux CD and press %s to retry."), _("OK"));
 }
 
 /* put mounts back and continue */
@@ -1176,8 +1291,8 @@ static char * setupCdrom(struct installMethod * method,
 			    startNewt(flags);
 			    rc = newtWinChoice(_("CD Found"), _("OK"),
 					       _("Skip"), 
-       _("We will now test your media before installing.\n\nChoose 'Skip' "
-	 "if you would like to skip this test."));
+       _("To being testing the CD media before installation press %s.\n\n"
+	 "Choose %s to skip the media test and start the installation."), _("OK"), _("Skip"));
 
 			    if (rc != 2) {
 
@@ -1206,9 +1321,9 @@ static char * setupCdrom(struct installMethod * method,
 
 	if (hasCdrom) {
 	    rc = newtWinChoice(_("Error"), _("OK"), _("Back"), 
-			_("I could not find a Red Hat Linux "
-			  "CDROM in any of your CDROM drives. Please insert "
-			  "the Red Hat CD and press \"OK\" to retry."));
+			_("The Red Hat Linux CD was not found "
+			  "in any of your CDROM drives. Please insert "
+			  "the Red Hat Linux CD and press %s to retry."), _("OK"));
 	    if (rc == 2) return NULL;
 	} else {
 	    rc = setupCDdevice(kd, modInfo, modLoaded, modDepsPtr, 
@@ -1420,7 +1535,7 @@ static char * mountNfsImage(struct installMethod * method,
 		}
 	    } else {
 		newtWinMessage(_("Error"), _("OK"), 
-		        _("I could not mount that directory from the server"));
+		        _("That directory could not be mounted from the server"));
 	    }
 
 	    break;	    /* from switch */
