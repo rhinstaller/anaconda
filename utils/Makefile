@@ -19,7 +19,7 @@ endif
 
 everything: $(TARGET)
 
-all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
+all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap implantisomd5 checkisomd5
 
 modlist:    modlist.o 
 
@@ -32,6 +32,15 @@ moddeps: moddeps.o moduledeps.o
             $(LOADLIBES) -lresolv \
 	    -lmodutils -lmodutilobj -lmodutilutil  \
 	    -lpopt -lbz2
+
+md5.o: md5.c md5.h
+	gcc -c -O -g md5.c
+
+implantisomd5: implantisomd5.c md5.o
+	gcc -O -g -o implantisomd5 implantisomd5.c md5.o -lm
+
+checkisomd5: checkisomd5.c md5.o
+	gcc -O -g -o checkisomd5 -DTESTING checkisomd5.c md5.o -lm
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(CFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
@@ -54,6 +63,7 @@ install: all
 #
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
+	rm -f implantisomd5 checkisomd5
 
 depend:
 	$(CPP) -M $(CFLAGS) *.c > .depend
