@@ -132,7 +132,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            libgnomecanvas libart_lgpl libzvt gnome-python2-zvt
            anaconda-images anaconda-help hdparm XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           redhat-config-keyboard Xft fontconfig"
+           redhat-config-keyboard Xft fontconfig expat"
 
 if [ -z "$NEEDGR" ]; then
     PACKAGESGR="bash"
@@ -560,6 +560,7 @@ usr/lib/libart*
 usr/lib/libatk*
 usr/lib/libaudio*
 usr/lib/libesd*
+usr/lib/libexpat*
 usr/lib/libfontconfig*
 usr/lib/libfreetype*
 usr/lib/libgdk*
