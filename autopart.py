@@ -271,7 +271,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 #            print "largestPart is",largestPart
             freespace = largestPart[1]
             disk = freespace.geom.disk
-            startSec = freespace.geom.start + 1
+            startSec = freespace.geom.start
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
 
             if endSec > freespace.geom.end:
