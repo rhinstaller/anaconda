@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-01-12 16:58-0500\n"
+"POT-Creation-Date: 2000-01-14 11:43-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,8 +27,8 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
 #: ../loader/devices.c:183 ../loader/loader.c:467 ../loader/loader.c:477
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
-#: ../loader/loader.c:881 ../loader/loader.c:1632 ../loader/loader.c:1678
-#: ../loader/loader.c:1749 ../loader/urls.c:70 ../loader/urls.c:79
+#: ../loader/loader.c:881 ../loader/loader.c:1631 ../loader/loader.c:1677
+#: ../loader/loader.c:1748 ../loader/urls.c:70 ../loader/urls.c:79
 #: ../loader/urls.c:86 ../loader/urls.c:223 ../loader/urls.c:228
 #: ../text.py:245 ../text.py:728 ../todo.py:336 ../todo.py:833 ../todo.py:864
 #: ../todo.py:1225
@@ -79,7 +79,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
 #: ../loader/devices.c:168 ../loader/devices.c:218 ../loader/lang.c:536
 #: ../loader/loader.c:251 ../loader/loader.c:599 ../loader/loader.c:635
-#: ../loader/loader.c:738 ../loader/loader.c:1111 ../loader/net.c:162
+#: ../loader/loader.c:738 ../loader/loader.c:1110 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:55
 #: ../text.py:66 ../text.py:101 ../text.py:102 ../text.py:121 ../text.py:144
 #: ../text.py:174 ../text.py:177 ../text.py:219 ../text.py:248 ../text.py:262
@@ -210,15 +210,15 @@ msgstr ""
 #: ../loader/lang.c:269 ../loader/lang.c:536 ../loader/loader.c:251
 #: ../loader/loader.c:467 ../loader/loader.c:477 ../loader/loader.c:635
 #: ../loader/loader.c:693 ../loader/loader.c:738 ../loader/loader.c:876
-#: ../loader/loader.c:881 ../loader/loader.c:967 ../loader/loader.c:1111
-#: ../loader/loader.c:1632 ../loader/loader.c:1678 ../loader/loader.c:1741
-#: ../loader/loader.c:1749 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/loader.c:881 ../loader/loader.c:966 ../loader/loader.c:1110
+#: ../loader/loader.c:1631 ../loader/loader.c:1677 ../loader/loader.c:1740
+#: ../loader/loader.c:1748 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:557 ../loader/net.c:588 ../loader/urls.c:146
 #: ../loader/urls.c:223 ../loader/urls.c:228 ../loader/urls.c:361
 #: ../text.py:121 ../text.py:174 ../text.py:219 ../text.py:262 ../text.py:307
 #: ../text.py:324 ../text.py:416 ../text.py:436 ../text.py:467 ../text.py:550
 #: ../text.py:578 ../text.py:648 ../text.py:673 ../text.py:687 ../text.py:707
-#: ../text.py:720 ../text.py:732 ../text.py:927 ../text.py:931 ../text.py:1127
+#: ../text.py:720 ../text.py:732 ../text.py:927 ../text.py:931 ../text.py:1128
 #: ../textw/lilo.py:30 ../textw/lilo.py:86 ../textw/packages.py:20
 #: ../textw/packages.py:85 ../textw/packages.py:136
 #: ../textw/partitioning.py:211 ../textw/partitioning.py:260
@@ -353,7 +353,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646
 #: ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463
 #: ../libfdisk/newtfsedit.c:1497 ../loader/devices.c:168
-#: ../loader/loader.c:1741 ../text.py:324 ../text.py:326 ../textw/lilo.py:104
+#: ../loader/loader.c:1740 ../text.py:324 ../text.py:326 ../textw/lilo.py:104
 #: ../textw/lilo.py:122 ../textw/silo.py:124 ../textw/silo.py:142
 #: ../textw/userauth.py:62
 msgid "Cancel"
@@ -636,7 +636,7 @@ msgstr ""
 msgid "Package Groups"
 msgstr ""
 
-#: ../text.py:1062 ../text.py:1089
+#: ../text.py:1062 ../text.py:1090
 msgid "Individual Packages"
 msgstr ""
 
@@ -648,7 +648,7 @@ msgstr ""
 msgid "X Configuration"
 msgstr ""
 
-#: ../text.py:1068 ../text.py:1073 ../text.py:1090 ../text.py:1093
+#: ../text.py:1068 ../text.py:1073 ../text.py:1091 ../text.py:1094
 msgid "Boot Disk"
 msgstr ""
 
@@ -672,19 +672,19 @@ msgstr ""
 msgid "Customize Upgrade"
 msgstr ""
 
-#: ../text.py:1092
+#: ../text.py:1093
 msgid "Upgrade System"
 msgstr ""
 
-#: ../text.py:1094
+#: ../text.py:1095
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../text.py:1124
+#: ../text.py:1125
 msgid "Cancelled"
 msgstr ""
 
-#: ../text.py:1125
+#: ../text.py:1126
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
@@ -2150,7 +2150,7 @@ msgid "Module Parameters"
 msgstr ""
 
 #: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:249
-#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1741
+#: ../loader/loader.c:308 ../loader/loader.c:324 ../loader/loader.c:1740
 msgid "Devices"
 msgstr ""
 
@@ -2158,7 +2158,7 @@ msgstr ""
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
 
-#: ../loader/devices.c:179 ../loader/loader.c:1750
+#: ../loader/devices.c:179 ../loader/loader.c:1749
 msgid "Failed to mount floppy disk."
 msgstr ""
 
@@ -2312,59 +2312,59 @@ msgstr ""
 msgid "I could not mount that directory from the server"
 msgstr ""
 
-#: ../loader/loader.c:967
+#: ../loader/loader.c:966
 msgid "FTP"
 msgstr ""
 
-#: ../loader/loader.c:968
+#: ../loader/loader.c:967
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1103
+#: ../loader/loader.c:1102
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1104
+#: ../loader/loader.c:1103
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1106
+#: ../loader/loader.c:1105
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1108
+#: ../loader/loader.c:1107
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1633
+#: ../loader/loader.c:1632
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1679
+#: ../loader/loader.c:1678
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr ""
 
-#: ../loader/loader.c:1742
+#: ../loader/loader.c:1741
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
-#: ../loader/loader.c:1755
+#: ../loader/loader.c:1754
 msgid "Updates"
 msgstr ""
 
-#: ../loader/loader.c:1755
+#: ../loader/loader.c:1754
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:1908
+#: ../loader/loader.c:1907
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1908
+#: ../loader/loader.c:1907
 msgid "Initializing PC Card Devices..."
 msgstr ""
 

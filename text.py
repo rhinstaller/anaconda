@@ -316,8 +316,8 @@ class ReconfigWelcomeWindow:
         rc = ButtonChoiceWindow(screen, _("Red Hat Linux"), 
                                 _("Welcome to the Red Hat Linux!\n\n"
                                   "You have entered reconfiguration mode, "
-                                  "which will allow you to setup your "
-                                  "computer for your current location. "
+                                  "which will allow you to configure "
+                                  "site-specific options of your computer."
                                   "\n\n"
                                   "To exit without changing your setup "
                                   "select the ""Cancel"" button below."),
