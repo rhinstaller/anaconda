@@ -191,6 +191,12 @@ os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 ts = rpm.TransactionSet(testpath)
 ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
 ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
+
+# ts coloring, more hacks to workaround #92285
+if (rhpl.arch.canonArch.startswith("ppc64") or
+    rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64")):
+    ts.setColor(3)
+
 i = 0
 for h in pkgOrder:
 #    sys.stderr.write("%s: %s\n" %(i, h))
