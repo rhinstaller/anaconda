@@ -1630,6 +1630,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 			  modDepsPtr, flags, 1, 1);
     } else if (ksType == KS_CMD_HD) {
 	char * fsType;
+	int fd;
 	logMessage("partname is %s", partname);
 
 	for (i = 0; i < kd->numKnown; i++) {
