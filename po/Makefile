@@ -91,6 +91,6 @@ missing-mixed:
 	done
 
 %.mo: %.po
-	cat $< timeconfig/$< | msgfmt -o $@ -
+	cat $< timeconfig/$< | msgfmt --check -o $@ -
 
 depend:
