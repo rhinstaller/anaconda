@@ -35,10 +35,12 @@ class AccountWindow (InstallWindow):
             self.ics.setNextEnabled (TRUE)
             self.rootStatus.set_text (_("Root password accepted."))
         else:
-            if len (pw) < 6:
+	    if not pw and not confirm:
+                self.rootStatus.set_text (_("Please enter root password."))
+            elif len (pw) < 6:
                 self.rootStatus.set_text (_("Root password is too short."))
             else:
-                self.rootStatus.set_text (_("Root password does not match."))
+                self.rootStatus.set_text (_("Root passwords do not match."))
                 
             self.ics.setNextEnabled (FALSE)
 
@@ -51,7 +53,17 @@ class AccountWindow (InstallWindow):
 	    self.userAccountMatch.search(accountName) and
 	    len(accountName) <= 8) and accountName != "root":
 	    valid = 1
+	    self.userPwLabel.set_text("User password accepted.")
 	else:
+	    if not accountName:
+		self.userPwLabel.set_text("")
+	    elif not password1 and not password2:
+		self.userPwLabel.set_text (_("Please enter user password."))
+	    elif len (password1) < 6:
+		self.userPwLabel.set_text (_("User password is too short."))
+	    else:
+		self.userPwLabel.set_text (_("User passwords do not match."))
+
 	    valid = 0
 
 	if (self.editingUser != None):
@@ -126,6 +138,7 @@ class AccountWindow (InstallWindow):
 	self.userPass1.set_text("")
 	self.userPass2.set_text("")
 	self.fullName.set_text("")
+	self.userPwLabel.set_text("")
 
     def filter(self, widget, text, len, pos):
         # XXX this doesn't check copy/pase
@@ -201,7 +214,7 @@ class AccountWindow (InstallWindow):
         table.set_row_spacings(5)
         table.set_col_spacings(5)
 
-        entrytable = GtkTable (4, 4)
+        entrytable = GtkTable (5, 4)
         entrytable.set_row_spacings(5)
         entrytable.set_col_spacings(5)
         self.entrytable = entrytable
@@ -235,13 +248,18 @@ class AccountWindow (InstallWindow):
         entrytable.attach (label,            0, 1, 1, 2, FILL, 0, 10)               
         entrytable.attach (self.userPass1,   1, 2, 1, 2, FILL|EXPAND)
         label = GtkLabel (_("Password (confirm)") + ": ")
-        label.set_alignment (0.0, 0.5)        
-        entrytable.attach (label,            2, 3, 1, 2, FILL, 0, 10)               
+        label.set_alignment (0.0, 0.5)
+        entrytable.attach (label,            2, 3, 1, 2, FILL, 0, 10)
         entrytable.attach (self.userPass2,   3, 4, 1, 2, FILL|EXPAND)
+
+	self.userPwLabel = GtkLabel()
+        self.userPwLabel.set_alignment (0.0, 0.5)
+        entrytable.attach (self.userPwLabel, 1, 4, 2, 3, FILL, 0, 10)
+
         label = GtkLabel (_("Full Name") + ": ")
         label.set_alignment (0.0, 0.5)
-        entrytable.attach (label,            0, 1, 2, 3, FILL, 0, 10)
-        entrytable.attach (self.fullName,    1, 4, 2, 3, FILL|EXPAND)
+        entrytable.attach (label,            0, 1, 3, 4, FILL, 0, 10)
+        entrytable.attach (self.fullName,    1, 4, 3, 4, FILL|EXPAND)
 
         table.attach (entrytable, 0, 4, 0, 1,
                       xoptions = EXPAND | FILL,
