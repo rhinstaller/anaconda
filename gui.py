@@ -50,7 +50,7 @@ stepToClass = {
     "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
     "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
     "format" : ( "format_gui", "FormatWindow" ),
-    "bootloader": ("lilo_gui", "LiloWindow" ), 
+    "bootloader": ("bootloader_gui", "BootloaderWindow" ), 
     "network" : ( "network_gui", "NetworkWindow" ),
     "firewall" : ( "firewall_gui", "FirewallWindow" ),
     "languagesupport" : ( "language_support_gui", "LanguageSupportWindow" ),
@@ -77,7 +77,7 @@ stepToClass = {
 if iutil.getArch() == 'sparc':
     stepToClass["bootloader"] = ( "silo_gui", "SiloWindow" )
 else:
-    stepToClass["bootloader"] = ( "lilo_gui", "LiloWindow" )
+    stepToClass["bootloader"] = ( "bootloader_gui", "BootloaderWindow" )
 
 # setup globals
 
