@@ -1,3 +1,11 @@
+2004-12-14  Jeremy Katz  <katzj@redhat.com>
+
+	* dispatch.py (installSteps): Pass new arg to desktopchoice
+
+	* iw/desktop_choice_gui.py (DesktopChoiceWindow.getNext): Reset
+	package selection to defaults if selected (#142415)
+	* textw/desktop_choice_text.py (DesktopChoiceWindow): Likewise.
+
 2004-12-13  Jeremy Katz  <katzj@redhat.com>
 
 	* loader2/module-info: Add tcmscsim (#142692)

@@ -35,14 +35,19 @@ class DesktopChoiceWindow (InstallWindow):
 	    self.dispatch.skipStep("package-selection", skip = 0)
 	else:
 	    self.dispatch.skipStep("package-selection", skip = 1)
+            self.instclass.setGroupSelection(self.grpset, self.intf)
+            self.instclass.setPackageSelection(self.grpset.hdrlist, self.intf)
+            
 
 	return None
     
     # WelcomeWindow tag="wel"
-    def getScreen (self, intf, instclass, dispatch):
+    def getScreen (self, intf, instclass, dispatch, grpset):
 
 	self.intf = intf
 	self.dispatch = dispatch
+        self.instclass = instclass
+        self.grpset = grpset
 
 	vbox = gtk.VBox (gtk.FALSE, 0)
 	vbox.set_border_width (5)
