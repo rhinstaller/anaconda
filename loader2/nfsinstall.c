@@ -188,6 +188,11 @@ char * mountNfsImage(struct installMethod * method,
                                        "contain a %s installation tree."),
                                      getProductName());
                 newtWinMessage(_("Error"), _("OK"), buf);
+                if (loaderData->method) {
+                    free(loaderData->method);
+                    loaderData->method = NULL;
+                }
+
 		
                 break;
             } else {
