@@ -155,8 +155,10 @@ class BaseInstallClass:
 	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)
 	    dispatch.skipStep("monitor", permanent = 1)
+	    dispatch.skipStep("firstboot", permanent = 1)
 	    dispatch.skipStep("xcustom", permanent = 1)
 	    dispatch.skipStep("writexconfig", permanent = 1)
+	    dispatch.skipStep("writeksconfig", permanent = 1) # KH: FIXME
 	    dispatch.skipStep("bootdisk", permanent = 1)
 
     # This is called after the hdlist is read in.
