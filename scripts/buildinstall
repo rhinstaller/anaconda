@@ -67,7 +67,7 @@ set -x
 if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder ]; then
     echo "Getting package order..."
     if [ -x /usr/bin/runroot ]; then
-	runroot $COMPNAME --onlyone --arch $BUILDARCH \
+	runroot --quiet $COMPNAME --onlyone --arch $BUILDARCH \
 	    "PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH" > $PKGORDER
     else
 	PYTHONPATH=$p/RedHat/instimage/usr/lib/anaconda $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder $p $BUILDARCH > $PKGORDER
