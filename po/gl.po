@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-02-14 14:30-0500\n"
-"PO-Revision-Date: 2001-02-06 10:43+0100\n"
+"PO-Revision-Date: 2001-02-19 22:36+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -460,9 +460,8 @@ msgid "Invalid Choice"
 msgstr "Escolla non válida"
 
 #: ../text.py:167
-#, fuzzy
 msgid "You must select at least one language to install."
-msgstr "Seleccione qué linguas quere instalar:"
+msgstr "Ten que seleccionar polo menos unha lingua para instalar."
 
 #: ../text.py:195
 msgid "Default Language"
@@ -2923,7 +2922,6 @@ msgid "Root partition"
 msgstr "Partición raíz"
 
 #: ../libfdisk/gnomefsedit.c:756
-#, fuzzy
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2931,10 +2929,9 @@ msgid ""
 msgstr ""
 "Semella que o medre do array RAID raíz (/) fixo que se superase o límite do "
 "cilindro 1024 no arrinque. Se é o caso, podería engadir unha partición /boot "
-"para permitir que a partición raíz medre ata encher o disco."
+"(50 MB abonda) para permitir que a partición raíz medre ata encher o disco."
 
 #: ../libfdisk/gnomefsedit.c:788
-#, fuzzy
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2942,7 +2939,7 @@ msgid ""
 msgstr ""
 "Semella que o medre da partición raíz (/) fixo que se superase o límite do "
 "cilindro 1024 no arrinque. Se é o caso, podería engadir unha partición /boot "
-"para permitir que a partición raíz medre ata encher o disco."
+"(50 MB abonda) para permitir que a partición raíz medre ata encher o disco."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -3872,6 +3869,7 @@ msgstr "Lendo as actualizacións de anaconda..."
 #: ../loader/loader.c:2472
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
+"Non ten memoria de sistema dabondo para instalar Red Hat nesta máquina."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4290,6 +4288,3 @@ msgstr "Desenvolvemento do Núcleo"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid "America/New_York"
-#~ msgstr "América/Nova_York"
