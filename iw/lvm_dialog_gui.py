@@ -1094,9 +1094,13 @@ class VolumeGroupEditor:
         lvtable.attach(lvalign, 1, 2, 0, 1, gtk.SHRINK, gtk.SHRINK)
 
 	# pack all logical volumne stuff in a frame
-	lvtable.set_border_width(5)
-	frame = gtk.Frame(_("Logical Volumes"))
+	lvtable.set_border_width(12)
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(_("Logical Volumes"),))
+	frame = gtk.Frame()
+        frame.set_label_widget(l)
 	frame.add(lvtable)
+        frame.set_shadow_type(gtk.SHADOW_NONE)
 
 #	dialog.vbox.pack_start(frame)
 	maintable.attach(frame, 0, 2, row, row+1)
