@@ -98,19 +98,33 @@ class MonitorInfo:
 
         return self.monids
 
-    def lookupMonitor(self, monID):
+    def lookupMonitorByID(self, monID):
         if not self.monlist:
             self.readMonitorsDB()
 
         for man in self.monlist.keys():
             for model in self.monlist[man]:
-                if monID == model[0]:
+		idlower = string.lower(monID)
+		idupper = string.upper(monID)
+                if idlower == model[1] or idupper == model[1]:
                     return model
 
         return 0
 
+    def lookupMonitorByName(self, monName):
+        if not self.monlist:
+            self.readMonitorsDB()
+
+        for man in self.monlist.keys():
+            for model in self.monlist[man]:
+		if monName == model[0]:
+                    return model
+
+        return None
+
+
     def __str__ (self):
-        return  "monEisa: %s\nmonName: %s\nmonID: %s\nfbmonSect: %s\nmonHoriz: %s\nmonVert: %s\n" % (  self.monEisa, self.monName, self.monID, self.fbmonSect, self.monHoriz, self.monVert)
+        return  "monName: %s\nmonID: %s\nfbmonSect: %s\nmonHoriz: %s\nmonVert: %s\n" % ( self.monName, self.monID, self.fbmonSect, self.monHoriz, self.monVert)
 
     def setSpecs(self, horiz, vert, id=None, name = None):
         self.monHoriz = horiz
@@ -143,17 +157,27 @@ class MonitorInfo:
         if not useProbed:
             return self.monID
         else:
-            return self.orig_monID
+	    if self.orig_use_probed:
+		return self.probedMonitor[0]
+	    else:
+		return self.monID
+
+    def getMonitorName(self):
+	return self.monName
 
     def shortDescription(self):
         if self.monName and self.monName != "" and self.monName != "Unprobed Monitor":
             return self.monName
         else:
             return _("Unable to probe")
-        
+
+    def getDDCProbeResults(self):
+	if self.orig_use_probed:
+	    return self.probedMonitor
+	else:
+	    return None
 
     def reset(self):
-        self.monEisa = self.orig_monEisa
         self.monName = self.orig_monName
         self.monID = self.orig_monID
         self.fbmonSect = self.orig_fbmonSect
@@ -162,7 +186,6 @@ class MonitorInfo:
 
     def __init__ (self, skipDDCProbe = 0, fbDevice = None):
 
-        self.monEisa = None
         self.monName = None
         self.monID = "Unprobed Monitor"
 
@@ -174,34 +197,52 @@ class MonitorInfo:
         self.monlist = {}
         self.monids = {}
 
+	# store probed values for future reference
+	self.probedMonitor = []
+
+	# flag if the original monitor was probed or not
+	self.orig_use_probed = 0
+	
         # VESA probe for monitor/videoram, etc.
         if not skipDDCProbe:
 	    try:
                 monitor = kudzu.probe(kudzu.CLASS_MONITOR, kudzu.BUS_DDC,
                                       kudzu.PROBE_ALL)
+#		print monitor
+
+		monEisa = None
+		monName = None
+		monHoriz = None
+		monVert = None
+		
                 if monitor:
-                    self.monEisa = monitor[0].id
-                    self.monID = monitor[0].id
+		    self.orig_use_probed = 1
+                    monEisa = monitor[0].id
+
+#		    print monEisa
 
                     # only guess the timings if something is non-zero
                     if (monitor[0].horizSyncMin != 0 or
                         monitor[0].horizSyncMax != 0 or
                         monitor[0].vertRefreshMin != 0 or
                         monitor[0].vertRefreshMax != 0):
-                        self.monHoriz = "%d-%d" % (monitor[0].horizSyncMin,
+                        monHoriz = "%d-%d" % (monitor[0].horizSyncMin,
                                                    monitor[0].horizSyncMax)
-                        self.monVert = "%d-%d" % (monitor[0].vertRefreshMin,
+                        monVert = "%d-%d" % (monitor[0].vertRefreshMin,
                                                   monitor[0].vertRefreshMax)
-                        
-                if self.monEisa:
-                    # read the monitor DB
-                    self.readMonitorsDB()
-                    if self.monids.has_key (self.monEisa):
-                        (man, model, eisa, vert, horiz) = self.monids[self.monEisa]
-                        self.setSpecs(horiz, vert, id=model, name=model)
+#			print monHoriz
+#			print monVert
+
+		    if monitor[0].desc != None:
+			monName = monitor[0].desc
+
+		    self.probedMonitor = (monEisa, monName, monHoriz, monVert)
+		    self.setSpecs(monHoriz, monVert, id="DDCPROBED", name=monName)
             except:
                 log("ddcprobe failed")
                 pass
+
+#	print self
 
         self.fbmonMode = {}
         if fbDevice != None:
@@ -217,7 +258,6 @@ class MonitorInfo:
                 pass
 
         # save for reset() method
-        self.orig_monEisa = self.monEisa
         self.orig_monName = self.monName
         self.orig_monID = self.monID
 
