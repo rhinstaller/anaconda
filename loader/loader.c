@@ -223,15 +223,17 @@ static int detectHardware(moduleInfoSet modInfo,
 
 int addDeviceManually(moduleInfoSet modInfo, moduleList modLoaded, 
 		      moduleDeps modDeps, struct knownDevices * kd, int flags) {
-    char * pristineItems[] = { N_("SCSI"), N_("Network"), NULL };
+    char * pristineItems[] = { N_("SCSI"), N_("Network") };
     char * items[3];
     int i, rc;
     int choice = 0;
     enum deviceClass type;
 
-    for (i = 0; i < 3; i++) {
+    for (i = 0; i < sizeof(pristineItems) / sizeof(*pristineItems); i++) {
 	items[i] = _(pristineItems[i]);
     }
+
+    items[i] = NULL;
 
     do {
 	rc = newtWinMenu(_("Devices"), 
@@ -326,6 +328,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	     int justProbe, struct knownDevices * kd, int flags) {
     int i;
     struct moduleInfo ** modList;
+
+    if (FL_NOPROBE(flags)) return 0;
 
     if (!access("/proc/bus/pci/devices", R_OK) ||
         !access("/proc/openprom", R_OK)) {
@@ -1358,15 +1362,11 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	cmdLine = buf;
     }
 
-    logMessage("cmdLine %s", cmdLine);
-
     if (poptParseArgvString(cmdLine, &argc, &argv)) return flags;
-
-    logMessage("here I am");
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
-	    flags |= LOADER_FLAGS_EXPERT;
+	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "rescue"))
@@ -1577,8 +1577,7 @@ int main(int argc, char ** argv) {
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
-    if (!FL_EXPERT(flags))
-	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
+    busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
 
     if (FL_KSHD(flags)) {
@@ -1633,7 +1632,7 @@ int main(int argc, char ** argv) {
     }
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
-    if (access("/proc/pci", X_OK) || FL_EXPERT(flags)) {
+    if ((access("/proc/pci", X_OK) || FL_EXPERT(flags)) && !ksFile) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
 
