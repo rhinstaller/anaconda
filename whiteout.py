@@ -22,6 +22,8 @@ if flags.selinux:
         if os.access(fn, os.R_OK):
             break
     rpm.addMacro("__file_context_path", fn)
+else:
+    rpm.addMacro("__file_context_path", "%{nil}")
 
 whiteout="""
 	pango-gtkbeta-devel>pango-gtkbeta\
