@@ -55,11 +55,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
                      'kernel-bigmem-unsupported': None,
                      'kernel-hugemem': None,
-                     'kernel-hugemem-unsupported': None,
-                     # temporarily....
-                     'policy': None, 'policy-sources': None,
-                     'setools': None, 'setools-devel': None,
-                     'setools-gui': None }
+                     'kernel-hugemem-unsupported': None }
 
 def showMem():
     f = open("/proc/self/status", "r")
@@ -986,7 +982,7 @@ def orderPackageGroups(grpset):
     return (retlist, retdict)
 
 if __name__ == "__main__":
-    tree = "/mnt/redhat/test/katzj2/i386/i386/"
+    tree = "/mnt/redhat/test/rawhide-20040109/i386/"
     
     def simpleInstallCallback(what, amount, total, h, (param)):
         global rpmfd
@@ -1046,6 +1042,10 @@ if __name__ == "__main__":
     showMem()
     groups = GroupSet(comps, hdrlist)
     showMem()
+
+    for h in hdrlist.hdlist:
+        print h[rpm.RPMTAG_NAME], h[rpm.RPMTAG_FILENAMES]
+    sys.exit(0)
 
     ts = rpm.TransactionSet("/tmp/testinstall")
     ts.setVSFlags(-1)
