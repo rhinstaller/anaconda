@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1.9\n"
-"POT-Creation-Date: 2002-03-21 16:48-0500\n"
+"POT-Creation-Date: 2002-03-25 17:27-0500\n"
 "PO-Revision-Date: 2001-07-23 12:50\n"
 "Last-Translator: Arjan van de Ven <arjanv@redhat.com>\n"
 "Language-Team: Dutch <LL@li.org>\n"
@@ -29,7 +29,7 @@ msgstr ""
 #: ../textw/bootdisk_text.py:68 ../textw/complete_text.py:48
 #: ../textw/complete_text.py:63 ../textw/complete_text.py:79
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
-#: ../textw/constants_text.py:20 ../textw/fdisk_text.py:41
+#: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/firewall_text.py:195 ../textw/network_text.py:139
 #: ../textw/silo_text.py:110 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:160 ../loader/cdrom.c:34 ../loader/devices.c:94
@@ -174,7 +174,7 @@ msgid ""
 msgstr "Er zijn niet toegewezen partities..."
 
 #: ../autopart.py:996 ../bootloader.py:286 ../image.py:198
-#: ../partitioning.py:706 ../partitioning.py:1452 ../upgrade.py:258
+#: ../partitioning.py:706 ../partitioning.py:1455 ../upgrade.py:258
 #: ../upgrade.py:378 ../upgrade.py:397 ../iw/bootloader_gui.py:58
 #: ../iw/bootloaderpassword_gui.py:29 ../iw/partition_gui.py:1296
 #: ../iw/partition_gui.py:1625 ../iw/upgrade_swap_gui.py:171
@@ -475,7 +475,7 @@ msgstr ""
 #: ../gui.py:108 ../text.py:301 ../iw/partition_gui.py:508
 #: ../iw/partition_gui.py:665 ../iw/partition_gui.py:730
 #: ../iw/welcome_gui.py:97 ../textw/bootdisk_text.py:26
-#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:32
+#: ../textw/bootloader_text.py:78 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:254 ../loader/devices.c:232
 #: ../loader/loader.c:1026 ../loader/loader.c:3456 ../loader/net.c:901
 msgid "Yes"
@@ -485,7 +485,7 @@ msgstr "Ja"
 #: ../iw/partition_gui.py:667 ../iw/partition_gui.py:732
 #: ../iw/welcome_gui.py:100 ../textw/bootdisk_text.py:26
 #: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
-#: ../textw/constants_text.py:36 ../textw/upgrade_text.py:254
+#: ../textw/constants_text.py:52 ../textw/upgrade_text.py:254
 #: ../textw/upgrade_text.py:261 ../loader/devices.c:233
 #: ../loader/loader.c:3456 ../loader/net.c:901
 msgid "No"
@@ -502,7 +502,7 @@ msgstr ""
 #: ../gui.py:113 ../text.py:117 ../text.py:118 ../text.py:270 ../text.py:272
 #: ../text.py:306 ../iw/account_gui.py:151 ../iw/account_gui.py:162
 #: ../iw/partition_gui.py:861 ../iw/partition_gui.py:1343
-#: ../textw/bootloader_text.py:202 ../textw/constants_text.py:24
+#: ../textw/bootloader_text.py:202 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
 #: ../textw/userauth_text.py:76 ../textw/welcome_text.py:51
 #: ../textw/welcome_text.py:54 ../loader/devices.c:240 ../loader/loader.c:2811
@@ -554,7 +554,7 @@ msgstr ""
 
 #: ../gui.py:628 ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
-#: ../textw/constants_text.py:28 ../textw/silo_text.py:110
+#: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:185 ../loader/cdrom.c:34 ../loader/devices.c:95
 #: ../loader/devices.c:240 ../loader/devices.c:334 ../loader/lang.c:631
 #: ../loader/loader.c:329 ../loader/loader.c:1026 ../loader/loader.c:1096
@@ -955,7 +955,7 @@ msgstr ""
 msgid "Error mounting filesystem on %s: %s"
 msgstr "Fout tijdens het unmounten van %s: %s"
 
-#: ../partitioning.py:1453
+#: ../partitioning.py:1456
 #, python-format
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
@@ -964,24 +964,24 @@ msgid ""
 "Would you like to initialize this drive?"
 msgstr ""
 
-#: ../partitioning.py:1541
+#: ../partitioning.py:1551
 msgid "No Drives Found"
 msgstr ""
 
-#: ../partitioning.py:1542
+#: ../partitioning.py:1552
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem."
 msgstr ""
 
-#: ../partitioning.py:1630
+#: ../partitioning.py:1645
 msgid ""
 "You are about to delete a RAID device.\n"
 "\n"
 "Are you sure?"
 msgstr ""
 
-#: ../partitioning.py:1633
+#: ../partitioning.py:1648
 #, python-format
 msgid ""
 "You are about to delete the /dev/%s partition.\n"
@@ -989,118 +989,118 @@ msgid ""
 "Are you sure?"
 msgstr ""
 
-#: ../partitioning.py:1637
+#: ../partitioning.py:1652
 msgid "Are you sure you want to delete this partition?"
 msgstr ""
 
-#: ../partitioning.py:1639
+#: ../partitioning.py:1654
 #, fuzzy
 msgid "Confirm Delete"
 msgstr "Bevestig: "
 
-#: ../partitioning.py:1643
+#: ../partitioning.py:1658
 #, fuzzy
 msgid "Confirm Reset"
 msgstr "Bevestig: "
 
-#: ../partitioning.py:1644
+#: ../partitioning.py:1659
 #, fuzzy
 msgid ""
 "Are you sure you want to reset the partition table to its original state?"
 msgstr "De partitie tabel terugzetten naar de oorspronkelijke inhoud? "
 
-#: ../partitioning.py:1668
+#: ../partitioning.py:1683
 msgid "the partition in use by the installer."
 msgstr ""
 
-#: ../partitioning.py:1671
+#: ../partitioning.py:1686
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitioning.py:1680 ../partitioning.py:1686 ../partitioning.py:1694
-#: ../partitioning.py:1705 ../partitioning.py:1712
+#: ../partitioning.py:1695 ../partitioning.py:1701 ../partitioning.py:1709
+#: ../partitioning.py:1720 ../partitioning.py:1727
 msgid "Unable To Remove"
 msgstr ""
 
-#: ../partitioning.py:1681
+#: ../partitioning.py:1696
 #, fuzzy
 msgid "You must first select a partition to remove."
 msgstr "Eerste sector van de opstart partitie"
 
-#: ../partitioning.py:1687
+#: ../partitioning.py:1702
 msgid "You cannot remove free space."
 msgstr ""
 
-#: ../partitioning.py:1695
+#: ../partitioning.py:1710
 #, python-format
 msgid ""
 "You cannot remove this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
 
-#: ../partitioning.py:1706
+#: ../partitioning.py:1721
 msgid ""
 "You cannot remove this partition, as it is holding the data for the hard "
 "drive install."
 msgstr ""
 
-#: ../partitioning.py:1713
+#: ../partitioning.py:1728
 msgid "You cannot remove this partition, as it is part of a RAID device."
 msgstr ""
 
-#: ../partitioning.py:1744 ../partitioning.py:1766
+#: ../partitioning.py:1759 ../partitioning.py:1781
 msgid "Unable To Edit"
 msgstr ""
 
-#: ../partitioning.py:1745
+#: ../partitioning.py:1760
 #, fuzzy
 msgid "You must select a partition to edit"
 msgstr "U moet tenminste 1 taal kiezen"
 
-#: ../partitioning.py:1767
+#: ../partitioning.py:1782
 #, python-format
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
 msgstr ""
 
-#: ../partitioning.py:1775
+#: ../partitioning.py:1790
 msgid "Unable to Edit"
 msgstr ""
 
-#: ../partitioning.py:1776
+#: ../partitioning.py:1791
 msgid "You cannot edit this partition as it is part of a RAID device"
 msgstr ""
 
-#: ../partitioning.py:1788
+#: ../partitioning.py:1803
 #, fuzzy
 msgid "Installation cannot continue."
 msgstr "Installatie Voltooid"
 
-#: ../partitioning.py:1789
+#: ../partitioning.py:1804
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
 msgstr ""
 
-#: ../partitioning.py:1812
+#: ../partitioning.py:1827
 msgid "Low Memory"
 msgstr ""
 
-#: ../partitioning.py:1813
+#: ../partitioning.py:1828
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
 
-#: ../partitioning.py:1834
+#: ../partitioning.py:1849
 #, fuzzy
 msgid "Format as Swap?"
 msgstr "Automatische Partitionering"
 
-#: ../partitioning.py:1835
+#: ../partitioning.py:1850
 #, python-format
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
@@ -1109,11 +1109,11 @@ msgid ""
 "Would you like to format this partition as a swap partition?"
 msgstr ""
 
-#: ../partitioning.py:1854 ../partitioning.py:1872
+#: ../partitioning.py:1869 ../partitioning.py:1887
 msgid "Format?"
 msgstr ""
 
-#: ../partitioning.py:1855
+#: ../partitioning.py:1870
 msgid ""
 "You have chosen to format a pre-existing partition.  This will destroy all "
 "data that was previously on it.\n"
@@ -1121,7 +1121,7 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1863
+#: ../partitioning.py:1878
 msgid ""
 "You have chosen not to format a pre-existing partition which is being "
 "mounted under a system directory.  Unless you have particular needs to "
@@ -1132,12 +1132,12 @@ msgid ""
 "Are you sure you want to do this?"
 msgstr ""
 
-#: ../partitioning.py:1879
+#: ../partitioning.py:1894
 #, fuzzy
 msgid "Error with Partitioning"
 msgstr "Handmatig Partitioneren"
 
-#: ../partitioning.py:1880
+#: ../partitioning.py:1895
 #, python-format
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
@@ -1146,12 +1146,12 @@ msgid ""
 "%s"
 msgstr ""
 
-#: ../partitioning.py:1893
+#: ../partitioning.py:1908
 #, fuzzy
 msgid "Partitioning Warning"
 msgstr "Boot Partitie Waarschuwing"
 
-#: ../partitioning.py:1894
+#: ../partitioning.py:1909
 #, python-format
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
@@ -1161,19 +1161,19 @@ msgid ""
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
 
-#: ../partitioning.py:1906 ../iw/partition_gui.py:586
+#: ../partitioning.py:1921 ../iw/partition_gui.py:586
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
 
-#: ../partitioning.py:1909 ../iw/partition_gui.py:589
+#: ../partitioning.py:1924 ../iw/partition_gui.py:589
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
 
-#: ../partitioning.py:1915
+#: ../partitioning.py:1930
 #, fuzzy
 msgid "Format Warning"
 msgstr "Automatische Partitionering"
@@ -1909,13 +1909,13 @@ msgstr ""
 msgid "Unresolved Dependencies"
 msgstr ""
 
-#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:517
+#: ../iw/dependencies_gui.py:33 ../iw/package_gui.py:524
 #: ../textw/packages_text.py:24 ../textw/packages_text.py:270
 #, python-format
 msgid "Total install size: %s"
 msgstr ""
 
-#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
+#: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:430
 #: ../iw/progress_gui.py:192 ../textw/packages_text.py:301
 msgid "Package"
 msgstr "Pakket"
@@ -2183,39 +2183,39 @@ msgstr "Derde DNS server"
 msgid "Individual Package Selection"
 msgstr ""
 
-#: ../iw/package_gui.py:277
+#: ../iw/package_gui.py:280
 msgid "Total install size: "
 msgstr ""
 
-#: ../iw/package_gui.py:409
+#: ../iw/package_gui.py:416
 msgid "Tree View"
 msgstr ""
 
-#: ../iw/package_gui.py:411
+#: ../iw/package_gui.py:418
 msgid "Flat View"
 msgstr ""
 
-#: ../iw/package_gui.py:425 ../iw/partition_gui.py:1562
+#: ../iw/package_gui.py:432 ../iw/partition_gui.py:1562
 msgid "Size (MB)"
 msgstr "Grootte (MB)"
 
-#: ../iw/package_gui.py:456
+#: ../iw/package_gui.py:463
 msgid "Total size: "
 msgstr "Totale grootte:"
 
-#: ../iw/package_gui.py:459
+#: ../iw/package_gui.py:466
 msgid "Select all in group"
 msgstr ""
 
-#: ../iw/package_gui.py:463
+#: ../iw/package_gui.py:470
 msgid "Unselect all in group"
 msgstr ""
 
-#: ../iw/package_gui.py:496 ../textw/packages_text.py:57
+#: ../iw/package_gui.py:503 ../textw/packages_text.py:57
 msgid "Package Group Selection"
 msgstr ""
 
-#: ../iw/package_gui.py:580 ../textw/packages_text.py:50
+#: ../iw/package_gui.py:587 ../textw/packages_text.py:50
 msgid "Select individual packages"
 msgstr "Individuele Pakketten kiezen"
 
@@ -2641,8 +2641,9 @@ msgstr "Beeldscherm Instellingen"
 
 #: ../iw/upgrade_bootloader_gui.py:69 ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
-msgid "Update current settings"
-msgstr ""
+#, fuzzy
+msgid "Update boot loader configuration"
+msgstr "Beeldscherm Instellingen"
 
 #: ../iw/upgrade_bootloader_gui.py:70
 msgid "This will update your current boot loader."
@@ -2671,8 +2672,8 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:89 ../textw/upgrade_bootloader_text.py:66
 #, fuzzy
-msgid "Customize new boot loader configuration"
-msgstr "Beeldscherm Instellingen"
+msgid "Create new boot loader configuration"
+msgstr "Boot floppy aanmaken"
 
 #: ../iw/upgrade_bootloader_gui.py:91
 msgid ""
@@ -2681,8 +2682,9 @@ msgid ""
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:98 ../textw/upgrade_bootloader_text.py:64
-msgid "Do nothing"
-msgstr ""
+#, fuzzy
+msgid "Skip boot loader updating"
+msgstr "Opstart floppy niet aanmaken"
 
 #: ../iw/upgrade_bootloader_gui.py:99
 msgid ""
@@ -4927,6 +4929,14 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Aqtobe (Aktobe)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr ""
 
@@ -4940,7 +4950,7 @@ msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Atlantic islands"
+msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 msgstr ""
 
 #. generated from zone.tab
@@ -4961,6 +4971,14 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr ""
+
+#. generated from zone.tab
+msgid "central Crimea"
 msgstr ""
 
 #. generated from zone.tab
@@ -4992,15 +5010,19 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - North Dakota - Oliver County"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Central Time - most locations"
 msgstr ""
 
 #. generated from zone.tab
@@ -5016,19 +5038,11 @@ msgid "Chatham Islands"
 msgstr ""
 
 #. generated from zone.tab
-msgid "China coast"
-msgstr ""
-
-#. generated from zone.tab
-msgid "China mountains"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Dornod, Sukhbaatar (unsure about this)"
+msgid "Dornod, Sukhbaatar"
 msgstr ""
 
 #. generated from zone.tab
@@ -5044,11 +5058,35 @@ msgid "E Argentina (BA, DF, SC, TF)"
 msgstr ""
 
 #. generated from zone.tab
+msgid "east China - Beijing, Guangdong, Shanghai, etc."
+msgstr ""
+
+#. generated from zone.tab
+msgid "east coast, north of Scoresbysund"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
 msgstr ""
 
 #. generated from zone.tab
@@ -5060,19 +5098,7 @@ msgid "Eastern Standard Time - Indiana - Switzerland County"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Eastern Standard Time - east Nunavut"
 msgstr ""
 
 #. generated from zone.tab
@@ -5105,7 +5131,11 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Eastern Turkestan"
+msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
 msgstr ""
 
 #. generated from zone.tab
@@ -5126,6 +5156,10 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Hawaii"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Heilongjiang"
 msgstr ""
 
 #. generated from zone.tab
@@ -5201,6 +5235,10 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Moscow+02 - Urals"
 msgstr ""
 
@@ -5229,7 +5267,11 @@ msgid "Moscow+07 - Amur River"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Moscow+08 - Magadan & Sakhalin"
+msgid "Moscow+07 - Sakhalin Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+08 - Magadan"
 msgstr ""
 
 #. generated from zone.tab
@@ -5238,10 +5280,6 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Moscow-01 - Kaliningrad"
 msgstr ""
 
 #. generated from zone.tab
@@ -5266,6 +5304,10 @@ msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
 msgstr ""
 
@@ -5275,10 +5317,6 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Mountain Time - central Northwest Territories"
 msgstr ""
 
 #. generated from zone.tab
@@ -5298,7 +5336,7 @@ msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr ""
 
 #. generated from zone.tab
-msgid "New South Wales - Yancowinna"
+msgid "Newfoundland Island"
 msgstr ""
 
 #. generated from zone.tab
@@ -5306,7 +5344,11 @@ msgid "New South Wales - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Newfoundland Island"
+msgid "New South Wales - Yancowinna"
+msgstr ""
+
+#. generated from zone.tab
+msgid "northeast Mali"
 msgstr ""
 
 #. generated from zone.tab
@@ -5334,6 +5376,10 @@ msgid "Palmer Station, Anvers Island"
 msgstr ""
 
 #. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Pernambuco"
 msgstr ""
 
@@ -5354,6 +5400,10 @@ msgid "Queensland - most locations"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Roraima"
 msgstr ""
 
@@ -5362,11 +5412,11 @@ msgid "Ruthenia"
 msgstr ""
 
 #. generated from zone.tab
-msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgid "Sabah & Sarawak"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Sabah & Sarawak"
+msgid "Scoresbysund / Ittoqqortoormiit"
 msgstr ""
 
 #. generated from zone.tab
@@ -5377,6 +5427,18 @@ msgstr ""
 #, fuzzy
 msgid "South Australia"
 msgstr "Zuid Amerika"
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr ""
+
+#. generated from zone.tab
+msgid "southwest Xinjiang Uyghur"
+msgstr ""
+
+#. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -5391,7 +5453,11 @@ msgid "Tasmania"
 msgstr ""
 
 #. generated from zone.tab
-msgid "Tibet & Xinjiang"
+msgid "Thule / Pituffik"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Tibet & most of Xinjiang Uyghur"
 msgstr ""
 
 #. generated from zone.tab
@@ -5412,83 +5478,15 @@ msgid "Vostok Station, S Magnetic Pole"
 msgstr ""
 
 #. generated from zone.tab
+msgid "Wake Island"
+msgstr ""
+
+#. generated from zone.tab
 msgid "W Amazonas"
 msgstr ""
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
-
-#. generated from zone.tab
-msgid "W Para, Rondonia"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Wake Island"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Western Australia"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Yap"
-msgstr ""
-
-#. generated from zone.tab
-msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
-
-#. generated from zone.tab
-msgid "central Crimea"
-msgstr ""
-
-#. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Dem. Rep. of Congo"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr ""
-
-#. generated from zone.tab
-msgid "east Uzbekistan"
-msgstr ""
-
-#. generated from zone.tab
-msgid "north Manchuria"
-msgstr ""
-
-#. generated from zone.tab
-msgid "northeast Mali"
-msgstr ""
-
-#. generated from zone.tab
-msgid "northwest Greenland"
-msgstr ""
-
-#. generated from zone.tab
-msgid "peninsular Malaysia"
-msgstr ""
-
-#. generated from zone.tab
-msgid "southwest Greenland"
-msgstr ""
-
-#. generated from zone.tab
-msgid "southwest Mali"
 msgstr ""
 
 #. generated from zone.tab
@@ -5500,11 +5498,27 @@ msgid "west Dem. Rep. of Congo"
 msgstr ""
 
 #. generated from zone.tab
-msgid "west Kazakhstan"
+msgid "Western Australia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "West Kazakhstan"
 msgstr ""
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
 msgstr ""
 
 #. generated from lang-table
@@ -5591,20 +5605,16 @@ msgstr ""
 msgid "Ukrainian"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Customize new boot loader configuration"
+#~ msgstr "Beeldscherm Instellingen"
+
 #~ msgid "What language should be used during the installation process?"
 #~ msgstr "Welke taal wilt U tijdens de installatie gebruiken?"
 
 #, fuzzy
 #~ msgid "Welcome to "
 #~ msgstr "Welkom"
-
-#, fuzzy
-#~ msgid "Skip boot loader updating"
-#~ msgstr "Opstart floppy niet aanmaken"
-
-#, fuzzy
-#~ msgid "Create new boot loader config"
-#~ msgstr "Boot floppy aanmaken"
 
 #~ msgid "Red Hat Linux Installer"
 #~ msgstr "Red Hat Linux Installatieprogramma"
