@@ -52,7 +52,7 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-pseries': None,    'kernel-iseries': None,
                      'kernel-unsupported': None,'kernel-smp-unsupported': None,
                      'kernel-bigmem-unsupported': None,
-                     'kernel-hugmem': None,
+                     'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None }
 
 def showMem():
