@@ -474,7 +474,7 @@ EOF
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
-    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=7168
+    dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=12000
     mke2fs -Fq $MBD_DIR/etc/ramfs.img.big
     gzip -9 < $MBD_DIR/etc/ramfs.img.big > $MBD_DIR/etc/ramfs.img
     rm -f $MBD_DIR/etc/ramfs.img.big

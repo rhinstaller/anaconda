@@ -22,6 +22,7 @@ timeout=50
 image=vmlinuz
         label=linux
         read-only
+	append="ramdisk_size=12288"
 	initrd=initrd.img
 EOF
 }
