@@ -81,6 +81,8 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         self.offsets = {}
         
     def get_buffer(self):
+        iter = self.buffer.get_iter_at_offset(0)
+        self.buffer.place_cursor(iter)
         return self.buffer
 
     def pushTag(self, tag, offset):
