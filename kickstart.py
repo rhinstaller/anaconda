@@ -968,7 +968,7 @@ class KickstartBase(BaseInstallClass):
 
         preexist = 0
         format = 1
-        pesize = 4096
+        pesize = 32768
 
         vgname = extra[0]
 

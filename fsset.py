@@ -1877,7 +1877,7 @@ ext2 = fileSystemTypeGet("ext2")
 ext2.registerDeviceArgumentFunction(RAIDDevice, RAIDDevice.ext2Args)
 
 class VolumeGroupDevice(Device):
-    def __init__(self, name, physvols, pesize = 4096, existing = 0):
+    def __init__(self, name, physvols, pesize = 32768, existing = 0):
         """Creates a VolumeGroupDevice.
 
         name is the name of the volume group

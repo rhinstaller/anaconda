@@ -676,7 +676,7 @@ class VolumeGroupRequestSpec(RequestSpec):
     
     def __init__(self, fstype =None, format = None,
                  vgname = None, physvols = None,
-                 pesize = 4096, preexist = 0,
+                 pesize = 32768, preexist = 0,
                  preexist_size = 0):
         """Create a new VolumeGroupRequestSpec object.
 
