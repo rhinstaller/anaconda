@@ -313,5 +313,5 @@ class Language (SimpleConfigFile):
             for n in self.getSupported():
                 sup = sup + " " + self.getLangNickByName(n)
 	
-	f.write("langsupport --default %s%s\n" % 
+	f.write("langsupport --default=%s%s\n" % 
 		(self.getLangNickByName(self.getDefault()), sup))
