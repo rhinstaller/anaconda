@@ -1,4 +1,4 @@
-from iw import *
+from iw_gui import *
 from gtk import *
 from translate import _
 

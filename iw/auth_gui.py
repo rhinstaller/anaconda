@@ -1,5 +1,5 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 from translate import _
 
 class AuthWindow (InstallWindow):

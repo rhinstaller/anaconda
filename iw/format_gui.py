@@ -1,5 +1,5 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 from thread import *
 import isys
 from translate import _

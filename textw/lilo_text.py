@@ -1,6 +1,6 @@
 #import gettext
 from snack import *
-from constants import *
+from constants_text import *
 from translate import _
 import string
 

@@ -1,8 +1,8 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 import xkb
 import string
-import keyboard
+#import keyboard
 from translate import _
 from kbd import Keyboard
 import iutil

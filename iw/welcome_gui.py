@@ -1,6 +1,6 @@
 from gtk import *
 from gnome.ui import *
-from iw import *
+from iw_gui import *
 from translate import _
 
 class WelcomeWindow (InstallWindow):		

@@ -47,11 +47,12 @@ from gnome.xmhtml import *
 #
 # instead we do (assuming pythonpath set correctly)
 #
-import language_gui
-import welcome_gui
-import mouse_gui
-import keyboard_gui
-import installpath_gui
+from language_gui import *
+from welcome_gui import *
+from mouse_gui import *
+
+from keyboard_gui import *
+from installpath_gui import *
 
 import isys
 import sys

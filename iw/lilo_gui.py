@@ -1,9 +1,9 @@
 # must replace with explcit form so update disks will work
-#from iw import *
+from iw_gui import *
 
 from gtk import *
 from translate import _
-from xpms import SMALL_CHECK
+from xpms_gui import SMALL_CHECK
 import GdkImlib
 
 class LiloWindow (InstallWindow):

@@ -1,5 +1,5 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 import string
 from gnome.ui import GnomeCanvas
 from translate import _

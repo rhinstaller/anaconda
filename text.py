@@ -40,12 +40,12 @@ from translate import _, cat
 #
 # instead we do
 #
-import constants
+from constants_text import *
 from lilo_text import LiloWindow
 from lilo_text import LiloAppendWindow
 from lilo_text import LiloImagesWindow
 from silo_text import SiloWindow
-from silo_text import SiloApeendWindow
+from silo_text import SiloAppendWindow
 from silo_text import SiloImagesWindow
 from network_text import NetworkWindow
 from network_text import HostnameWindow
@@ -56,6 +56,7 @@ from partitioning_text import PartitionMethod
 from partitioning_text import LoopSizeWindow
 from partitioning_text import ManualPartitionWindow
 from partitioning_text import AutoPartitionWindow
+from partitioning_text import PartitionWindow
 from partitioning_text import TurnOnSwapWindow
 from partitioning_text import FormatWindow
 from packages_text import PackageGroupWindow

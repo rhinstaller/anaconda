@@ -2,7 +2,7 @@ include Makefile.inc
 
 VERSION = 7.0
 
-SUBDIRSHD = rpmmodule balkan isys libfdisk collage loader po \
+SUBDIRSHD = balkan isys libfdisk collage loader po \
 	    minislang textw utils scripts bootdisk
 SUBDIRS = $(SUBDIRSHD)
 

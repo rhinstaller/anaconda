@@ -1,7 +1,7 @@
 #import gettext
 import iutil
 from snack import *
-from constants import *
+from constants_text import *
 from translate import _
 
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")

@@ -1,8 +1,7 @@
 from gtk import *
 
 # must replace with explcit form so update disks will work
-#from iw import *
-
+from iw_gui import *
 from string import *
 from re import *
 import tree

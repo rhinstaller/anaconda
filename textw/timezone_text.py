@@ -3,7 +3,7 @@ import iutil
 import os
 from time import *
 from snack import *
-from constants import *
+from constants_text import *
 from translate import _
 
 class TimezoneWindow:

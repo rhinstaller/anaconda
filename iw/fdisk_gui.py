@@ -1,5 +1,5 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 from gnome.zvt import *
 from translate import _
 import isys
@@ -30,7 +30,7 @@ class FDiskWindow (InstallWindow):
 	self.todo.fstab.rescanPartitions()
 
     def getNext(self):
-        from installpath import InstallPathWindow
+        from installpath_gui import InstallPathWindow
         if ((not InstallPathWindow.fdisk) or
             (not InstallPathWindow.fdisk.get_active ())):
                return None
@@ -73,7 +73,7 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     def getScreen (self):
-        from installpath import InstallPathWindow
+        from installpath_gui import InstallPathWindow
         if ((not InstallPathWindow.fdisk) or
             (not InstallPathWindow.fdisk.get_active ())):
                return None

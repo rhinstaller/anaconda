@@ -1,10 +1,10 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 from thread import *
 import isys
 from translate import _
 import gui
-from fdisk import *
+from fdisk_gui import *
 import isys
 import iutil
 
@@ -193,7 +193,7 @@ class AutoPartitionWindow(InstallWindow):
 	self.beingDisplayed = 0
 
     def getScreen (self):   
-        from installpath import InstallPathWindow
+        from installpath_gui import InstallPathWindow
 
         if (InstallPathWindow.fdisk and
             InstallPathWindow.fdisk.get_active ()):

@@ -1,14 +1,14 @@
 from gtk import *
 from gnome.ui import *
-from iw import *
+from iw_gui import *
 from string import *
 from thread import *
-from examine import *
+from examine_gui import *
 import rpm
 import GdkImlib
 import string
 import sys
-import xpms
+import xpms_gui
 from translate import _
 
 class IndividualPackageSelectionWindow (InstallWindow):

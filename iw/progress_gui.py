@@ -1,5 +1,5 @@
 from gtk import *
-from iw import *
+from iw_gui import *
 import string
 import rpm
 import time
