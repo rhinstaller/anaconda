@@ -590,10 +590,10 @@ EndSection
 """
 
 class XF86Config:
-    def __init__ (self, video, monitor, mouse, resolution = None):
+    def __init__ (self, videocard, monitor, mouse, resolution = None):
 
-        if video:
-            self.setVideo(video)
+        if videocard:
+            self.setVideoCard(videocard)
         else:
             raise RuntimeError, "no videocard specified in XF86Config __init__"
 
@@ -675,8 +675,8 @@ class XF86Config:
     def setMouse(self, mouse):
         self.mouse = mouse
 
-    def setVideo(self, video):
-        self.video = video
+    def setVideoCard(self, videocard):
+        self.videocard = videocard
 
     def setMonitor(self, monitor):
         self.monitor = monitor
@@ -699,10 +699,10 @@ class XF86Config:
     def availableModes (self):
         modes = { "8" : [ "640x480" ] }
 
-        if not self.video:
+        if not self.videocard:
             return modes
-        
-        vidRam = self.video.primaryCard().getVideoRam()
+
+        vidRam = self.videocard.getVideoRam()
 
         if not vidRam:
             return modes
@@ -840,8 +840,8 @@ class XF86Config:
 
     def probeReport (self):
         probe = ""
-        if self.video:
-            primary = self.video.primaryCard()
+        if self.videocard:
+            primary = self.videocard
             vidCards = primary.getCardData()
             
         if vidCards:
@@ -875,7 +875,7 @@ class XF86Config:
         config.write (self.Version3Config ())
         config.close ()
         try:
-            config4 = self.Version4Config ()
+            config4 = self.Version4Config (self.videocard)
         except RuntimeError:
             return
         config = open (path + "/XF86Config-4", 'w')
@@ -897,7 +897,7 @@ class XF86Config:
 
     def getArgList(self, xmodes):
         args = []
-        vc = self.video.primaryCard()
+        vc = self.videocard
 
         args = args + [ "--card", '"' + vc.shortDescription() + '"' ]
         args = args + [ "--videoram", vc.getVideoRam() ]
@@ -915,7 +915,10 @@ class XF86Config:
 
     def laptop (self):
 
-        descr = self.video.primaryCard().getDescription() 
+        if self.videocard == None:
+            return None
+        
+        descr = self.videocard.getDescription() 
         if not descr:
             return None
 
@@ -934,7 +937,12 @@ class XF86Config:
         return None
 
     def test (self, serverflags=None, spawn=0, root='/'):
-        servername = self.video.primaryCard().getXServer()
+
+        if self.videocard == None:
+            return
+
+        servername = self.videocard.getXServer()
+            
         if not servername:
             return
 
@@ -944,6 +952,21 @@ class XF86Config:
         # override modes if on a laptop
         if laptop:
             self.manualModes = laptop
+
+        # if we're forcing framebuffer, use those modes if available
+        fbmonsect = None
+        if self.videocard.isFrameBuffer():
+            if self.monitor:
+                fbmonsect = self.monitor.getFBMonitorSection()
+
+                if fbmonsect:
+                    self.manualModes[str(fbmonsect[3])] = fbmonsect[2]
+                elif self.videocard.hasFixedMode():
+                    self.manualModes = self.videocard.FixedMode()
+                else:
+                    raise RuntimeError, "trying frame buffer but no valid modes to try..."
+        elif self.videocard.hasFixedMode():
+            self.manualModes = self.videocard.FixedMode()
 
         # save current manually selected mode, override if non-existant
         manmodes = self.manualModes
@@ -971,12 +994,12 @@ class XF86Config:
     FontPath    "/usr/share/fonts/KOI8-R/75dpi/"
 """
         f = open ('%s/tmp/XF86Config.test' %(root), 'w')
-
+            
         if servername == "XFree86":
-            config = self.Version4Config
+            f.write(self.Version4Config(self.videocard, 1))
         else:
-            config = self.Version3Config
-        f.write (config (1))
+            f.write(self.Version3Config(1))
+
         f.close ()
 
         self.files = files
@@ -987,7 +1010,7 @@ class XF86Config:
         serverPath = "/usr/X11R6/bin/" + servername
 
         serverpid = os.fork()
-        
+
         if (not serverpid):
             if (root and root != '/'): 
                 isys.chroot (root)
@@ -1026,7 +1049,7 @@ class XF86Config:
             if (root and root != '/'): 
                 isys.chroot (root)
                 os.chdir("/")
-            
+
             os.environ["DISPLAY"] = ":9"
             os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--norunlevel"])
         else:
@@ -1051,7 +1074,7 @@ class XF86Config:
         screens = ""
 
         monitor = self.monitor
-        card = self.video.primaryCard()
+        card = self.videocard
         carddata = card.getCardData()
         devices = devices + """
 Section "Device"
@@ -1170,12 +1193,13 @@ Section "Screen"
 
         return XF86Config_template % info
         
-    def Version4Config(self, test=0):
-        if not self.video:
+    def Version4Config(self, card, test=0):
+        if not card:
             raise RuntimeError, "No known video cards"
         screens = ""
         maxdepth = -1
         xmodes = self.manualModes
+
         for depth in xmodes.keys ():
             if not xmodes[depth]: continue
             if depth == "32":
@@ -1214,7 +1238,6 @@ Section "Screen"
         else:
             emulate3 = "no"
 
-        card = self.video.primaryCard()
         carddata = card.getCardData()
         monitor = self.monitor
 
