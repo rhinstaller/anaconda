@@ -3,10 +3,18 @@
 # scan system for harddrives and output device name/size
 #
 
+import os
+import sys
+
+# for testing
+if (os.path.exists('isys')):
+    sys.path.append('isys')
+
+sys.path.append('/usr/lib/anaconda')
+
 import parted
 import partedUtils
 import isys
-import os
 
 drives = isys.hardDriveDict()
 
