@@ -34,8 +34,6 @@ Current Installation Methods:
   Update Options: 
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory of CD #1 image.
-      - updated python sources or modules in 'RHupdates/' directory of 
-	CD #1 image are used in preference to those in original.
 
 - NFS (from a fully exploded tree)
 ----------------------------------
@@ -58,8 +56,6 @@ Current Installation Methods:
   Update Options:
       - floppy
       - 'updates.img' file in 'RedHat/base' directory 
-      - updated python sources or modules in 'RHupdates/' directory are 
-        used in preference to those in original.
 
 - FTP/HTTP (from a fully exploded tree)
 ---------------------------------------
@@ -94,8 +90,6 @@ Hard Drive from fully exploded tree (kickstart only)
   Update Options:
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory.
-      - updated python sources or modules in 'RHupdates/' directory are 
-        used in preference to those in original.
 
 Hard Drive from ISOs (non-kickstart only)
 -----------------------------------------
@@ -107,7 +101,5 @@ Hard Drive from ISOs (non-kickstart only)
   Update Options:
       - floppy.
       - 'updates.img' file in '/RedHat/base' directory of ISO image for CD #1.
-      - updated python sources or modules in 'RHupdates/' directory are 
-        used in preference to those in original.
   
 
