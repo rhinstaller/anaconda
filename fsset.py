@@ -58,7 +58,7 @@ def mountCompare(a, b):
     return 0
 
 def devify(device):
-    if device != "none":
+    if device != "none" and device[0] != '/':
         return "/dev/" + device
     return device
 
