@@ -22,6 +22,7 @@ import time
 import sys
 import string
 import pcmcia
+import language
 import fsset
 from flags import flags
 from constants import *
