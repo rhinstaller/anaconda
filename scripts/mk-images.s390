@@ -243,8 +243,6 @@ EOF
     cp -df $IMGPATH/usr/kerberos/lib/libcom_err.so* $MBD_DIR/usr/kerberos/lib
     cp -df $IMGPATH/lib/libe2p* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libuuid* $MBD_DIR/lib
-    cp -df $IMGPATH/usr/lib/libnewt.so* $MBD_DIR/lib
-    cp -df $IMGPATH/usr/lib/libslang* $MBD_DIR/lib
     cat >>$MBD_DIR/etc/ld.so.conf <<EOF
 /usr/kerberos/lib
 /usr/X11R6/lib
