@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-04-29 11:25+0200\n"
+"PO-Revision-Date: 2004-06-09 23:21+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1020,11 +1020,14 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"De volgende fout is opgetreden tijdens het verwerken van uw kickstart "
+"configuratie:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Fout bij het openen van kickstart-bestand %s: %s"
+msgstr "Fout bij verwerken kickstart configuratie"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1035,9 +1038,8 @@ msgstr ""
 "verwijderd, dus let goed op welke diskette u gebruikt."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Standaard"
+msgstr "standaard:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1194,9 +1196,9 @@ msgid "Change CDROM"
 msgstr "Verwissel de CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Plaats CD-%d om door te gaan."
+msgstr "Plaats %s CD %d om door te gaan."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1209,7 +1211,7 @@ msgstr "Dat is niet de juiste %s CD."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Niet in staat om de CDROM te benaderen."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2524,9 +2526,8 @@ msgid "Connecting..."
 msgstr "Verbinden..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Niet in staat te onderzoeken"
+msgstr "Niet in staat om X op te starten"
 
 #: ../vnc.py:37
 msgid ""
@@ -2534,25 +2535,26 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X kon niet worden gestart op uw machine. Wilt u VNC starten om een verbinding "
+"te maken met deze computer vanaf een andere computer en op deze manier een "
+"grafische installatie starten of wilt u verder gaan met een installatie in "
+"tekstmodus?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
 msgstr "Tekstmodus gebruiken"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Bezig met opstarten van VNC..."
+msgstr "VNC starten"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Silo Instellingen"
+msgstr "VNC configuratie"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Root-wachtwoord"
+msgstr "Geen wachtwoord"
 
 #: ../vnc.py:62
 msgid ""
@@ -2560,6 +2562,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Een wachtwoord voorkomt dat ongeautoriseerde luisteraars een connectie maken "
+"en meekijken met uw installatie. Voer een wachtwoord in om gebruikt te worden "
+"voor de installatie"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2582,7 +2587,6 @@ msgid "Password Length"
 msgstr "Wachtwoordlengte"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "Het wachtwoord moet tenminste 6 tekens lang zijn."
 
@@ -2630,6 +2634,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Het root account wordt gebruikt om het systeem te beheren.  Voer een "
+"wachtwoord in voor de gebruiker root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3303,7 +3309,7 @@ msgstr "_Firewall aanzetten"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Sta anderen op het internet toe om deze services te benaderen."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3311,21 +3317,19 @@ msgstr "Binnenkomend _toestaan voor:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Login op afstand (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Server"
+msgstr "Web Server"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-mail (SMTP)"
+msgstr "Mail Server (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Bestand-overdracht (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -4069,7 +4073,7 @@ msgstr "_Grootte (MB)"
 
 #: ../iw/package_gui.py:426
 msgid "Total size: "
-msgstr "Totale grootte:"
+msgstr "Totale grootte: "
 
 #: ../iw/package_gui.py:429
 msgid "Select _all in group"
@@ -4368,7 +4372,7 @@ msgstr "Wat wilt u nu doen?"
 
 #: ../iw/partition_gui.py:1268
 msgid "Create a software RAID _partition."
-msgstr "Softwarematige RAID-_partitie maken"
+msgstr "Softwarematige RAID-_partitie maken."
 
 #: ../iw/partition_gui.py:1271
 #, python-format
@@ -4556,7 +4560,7 @@ msgstr "Bezig met installeren van %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:653
 msgid "Package Progress: "
-msgstr "Pakket Voortgang:"
+msgstr "Pakket Voortgang: "
 
 #: ../iw/progress_gui.py:658
 msgid "Total Progress:   "
@@ -6913,33 +6917,33 @@ msgstr ""
 "U heeft meerdere apparaten die gebruikt kunnen worden voor het invoeren van "
 "extra stuurprogramma's. Welke wilt u gebruiken?"
 
+# vertaling van "disk image" naar "bestand" ok?
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"U heeft meerdere apparaten die gebruikt kunnen worden voor het invoeren van "
-"extra stuurprogramma's. Welke wilt u gebruiken?"
+"Er zijn meerdere partities op dit apparaat die het stuurprogramma bestand "
+"kunnen bevatten.  Welke wilt u gebruiken?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Aankoppelen diskette mislukt."
+msgstr "Aankoppelen van partitie mislukt."
 
+# vertaling ok?
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Stuurprogramma selecteren"
+msgstr "Stuurprogramma bestand selecteren"
 
+# vertaling ok?
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Selecteer het stuurprogramma bestand."
 
+# vertaling ok?
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Aankoppelen stuurprogramma-diskette mislukt"
+msgstr "Laden van stuurprogramma bestand mislukt."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6953,7 +6957,7 @@ msgstr "Stuurprogramma-diskette invoeren"
 
 #: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
-msgstr "Aankoppelen stuurprogramma-diskette mislukt"
+msgstr "Aankoppelen stuurprogramma-diskette mislukt."
 
 #: ../loader2/driverdisk.c:462
 msgid "Manually choose"
@@ -7291,9 +7295,9 @@ msgstr "Apparaat toevoegen"
 
 # mooier dan: de lader is reeds uitgevoerd, en... komt op hetzelfde neer.
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart."
+msgstr "Het laden is reeds gedaan.  Shell wordt nu opgestart.\n"
 
 # vertaling correct?
 #: ../loader2/loader.c:1478
@@ -7437,19 +7441,21 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s is een draadloze netwerk adapter. Voer de ESSID en de encryptie sleutel in "
+"die nodig zijn om uw draadloos netwerk te benaderen.  Als er geen sleutel "
+"nodig is kunt u dit veld leeg laten. De installatie zal dan verder gaan."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Encryptie sleutel"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Overige instellingen"
+msgstr "Draadloze instellingen"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
