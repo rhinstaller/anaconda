@@ -40,6 +40,7 @@
 #include "isys/probe.h"
 #include "isys/pci/pciprobe.h"
 
+#include "devices.h"
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
@@ -56,15 +57,18 @@ struct installMethod {
     char * name;
     enum deviceClass deviceRequired;
     int (*mountImage)(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleList modLoaded,
+    		      struct device * knownDevices, moduleInfoSet
+		      modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 };
 
 static int mountCdromImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleList modLoaded,
+    		      struct device * knownDevices, moduleInfoSet
+		      modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 static int mountNfsImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleList modLoaded,
+    		      struct device * knownDevices, moduleInfoSet
+		      modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
@@ -371,7 +375,8 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 }
 
 static int mountCdromImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleList modLoaded,
+    		      struct device * knownDevices, moduleInfoSet
+		      modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i;
 
@@ -393,9 +398,38 @@ static int mountCdromImage(char * location, int numKnownDevices,
 }
 
 static int mountNfsImage(char * location, int numKnownDevices, 
-    		      struct device * knownDevices, moduleList modLoaded,
+    		      struct device * knownDevices, moduleInfoSet modInfo,
+		      moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     struct intfInfo netDev;
+    char * devName = NULL;
+    int i;
+
+    for (i = 0; i < numKnownDevices; i++) {
+	if (knownDevices[i].class == DEVICE_NET) {
+	    devName = knownDevices[i].name;
+	    break;
+	}
+    }
+
+    if (!devName) {
+	devDeviceMenu(modInfo, modLoaded, modDeps, flags);
+    }
+
+    if (!devName) {
+	for (i = 0; i < numKnownDevices; i++) {
+	    if (knownDevices[i].class == DEVICE_NET) {
+		devName = knownDevices[i].name;
+		break;
+	    }
+	}
+    }
+
+    if (!devName) {
+        newtWinMessage(_("Error"), _("Ok"),
+    		_("No networking devices exist on this system!"));
+	return LOADER_BACK;
+    }
 
     readNetConfig("eth0", &netDev);
     netDev.isPtp = netDev.isUp = 0;
@@ -414,7 +448,8 @@ static int mountNfsImage(char * location, int numKnownDevices,
 }
     
 static int doMountImage(char * location, int numKnownDevices, 
-    		        struct device * knownDevices, moduleList modLoaded,
+    		        struct device * knownDevices, moduleInfoSet modInfo,
+			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
     int i, j, rc;
@@ -454,7 +489,8 @@ static int doMountImage(char * location, int numKnownDevices,
     if (rc == 2) return LOADER_BACK;
 
     return installMethods[validMethods[methodNum]].mountImage(location,
-    		numKnownDevices, knownDevices, modLoaded, modDeps, flags);
+    		numKnownDevices, knownDevices, modInfo, modLoaded, modDeps, 
+		flags);
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine) {
@@ -554,7 +590,7 @@ int main(int argc, char ** argv) {
     startNewt();
 
     doMountImage("/mnt/source", kd.numKnown, kd.known, 
-    		 modLoaded, modDeps, FL_TESTING(flags));
+    		 modInfo, modLoaded, modDeps, FL_TESTING(flags));
 
     if (!FL_TESTING(flags)) {
      
