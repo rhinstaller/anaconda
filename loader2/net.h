@@ -6,6 +6,12 @@
 
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
+
+    /* wireless settings */
+    char * essid; /* side effect: if this is non-NULL, then assume wireless */
+    char * wepkey;
+
+    /* misc settings */
     int isDynamic;
     int noDns;
     int preset;
@@ -32,5 +38,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr,
                        int flags);
+
+char * setupInterface(struct networkDeviceConfig *dev);
+char * doDhcp(struct networkDeviceConfig *dev, char * dhcpclass);
 
 #endif

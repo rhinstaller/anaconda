@@ -159,16 +159,20 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
     newtEntrySetFlags(c->nsEntry, NEWT_FLAG_DISABLED, NEWT_FLAGS_TOGGLE);
 }
 
-#if 0
-static int getWirelessConfig(char * ifname) {
+static int getWirelessConfig(struct networkDeviceConfig *cfg, char * ifname) {
     const char * wepkey = "";
-    const char * essid = get_essid(ifname);
+    const char * essid = "";
     int rc = 0;
     char * buf;
 
-    struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
-                                    { N_("Encryption Key"), &wepkey, 0 },
-                                    { NULL, NULL, 0 } };
+    if (cfg->wepkey != NULL) {
+        wepkey = strdup(cfg->wepkey);
+    }
+    if (cfg->essid != NULL) {
+        essid = strdup(cfg->essid);
+    } else {
+        essid = get_essid(ifname);
+    }
 
     buf = sdupprintf(_("%s is a wireless network adapter.  Please "
                        "provide the ESSID and encryption key needed "
@@ -176,6 +180,10 @@ static int getWirelessConfig(char * ifname) {
                        "is needed, leave this field blank and the "
                        "install will continue."), ifname);
     do {
+        struct newtWinEntry entry[] = { { N_("ESSID"), &essid, 0 },
+                                        { N_("Encryption Key"), &wepkey, 0 },
+                                        { NULL, NULL, 0 } };
+
         rc = newtWinEntries(_("Wireless Settings"), buf,
                             40, 5, 10, 25, entry, _("OK"), _("Back"), NULL);
         if (rc == 2) return LOADER_BACK;
@@ -185,7 +193,6 @@ static int getWirelessConfig(char * ifname) {
 
     return LOADER_OK;
 }
-#endif
 
 static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
@@ -265,7 +272,7 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
 
             if (!FL_TESTING(flags)) {
                 waitForLink(loaderData->netDev);
-                chptr = pumpDhcpClassRun(loaderData->netDev, 0, 0, NULL, loaderData->netCls ? loaderData->netCls : "anaconda", &cfg->dev, NULL);
+                chptr = doDhcp(cfg, loaderData->netCls);
             } else {
                 chptr = NULL;
             }
@@ -402,6 +409,16 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
         return LOADER_NOOP;
     }        
 
+    if (is_wireless_interface(device)) {
+        logMessage("%s is a wireless adaptor", device);
+        if (getWirelessConfig(cfg, device) == LOADER_BACK)
+            return LOADER_BACK;
+        /* FIXME: this is a bit of a hack */
+        newCfg.essid = cfg->essid;
+        newCfg.wepkey = cfg->wepkey;
+    }
+    else         logMessage("%s isn't a wireless adaptor", device);
+
     text = newtTextboxReflowed(-1, -1, 
                 _("Please enter the IP configuration for this machine. Each "
                   "item should be entered as an IP address in dotted-decimal "
@@ -517,7 +534,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
                           _("Sending request for IP information for %s..."), 
                           device, 0);
                 waitForLink(device);
-                chptr = pumpDhcpClassRun(device, 0, 0, NULL, dhcpclass ? dhcpclass : "anaconda", &newCfg.dev, NULL);
+                chptr = doDhcp(&newCfg, dhcpclass);
                 newtPopWindow();
             } else {
                 chptr = NULL;
@@ -577,10 +594,46 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg,
     return 0;
 }
 
+static int setupWireless(struct networkDeviceConfig *dev) {
+    /* wireless config needs to be set up before we can bring the interface
+     * up */
+    if (!is_wireless_interface(dev->dev.device))
+        return 0;
+    if (dev->essid) {
+        logMessage("setting essid for %s to %s", dev->dev.device, dev->essid);
+        if (set_essid(dev->dev.device, dev->essid) < 0) {
+            logMessage("failed to set essid: %s", strerror(errno));
+        }
+        if (dev->wepkey) {
+            logMessage("setting encryption key for %s", dev->dev.device);
+            if (set_wep_key(dev->dev.device, dev->wepkey) < 0) {
+                logMessage("failed to set wep key: %s", strerror(errno));
+        }
+
+        }
+    }
+
+    return 0;
+}
+
+char * setupInterface(struct networkDeviceConfig *dev) {
+    setupWireless(dev);
+    return pumpSetupInterface(&dev->dev);
+}
+
+char * doDhcp(struct networkDeviceConfig *dev, char * dhcpclass) {
+    setupWireless(dev);
+    return pumpDhcpClassRun(dev->dev.device, 0, 0, NULL, 
+                            dhcpclass ? dhcpclass : "anaconda", 
+                            &dev->dev, NULL);
+    
+}
+
+
 int configureNetwork(struct networkDeviceConfig * dev) {
     char *rc;
 
-    rc = pumpSetupInterface(&dev->dev);
+    rc = setupInterface(dev);
     if (rc)
 	logMessage("result of pumpSetupInterface is %s", rc);
 
