@@ -12,6 +12,34 @@ class AuthWindow (InstallWindow):
                      "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)
 
+    def setSensitivities (self, *args):
+	if (not self.nis.get_active()):
+	    self.nisDomain.set_sensitive (FALSE)
+	    self.nisBroadcast.set_sensitive (FALSE)
+	    self.nisServer.set_sensitive (FALSE)
+	    self.domainLabel.set_sensitive (FALSE)
+	    self.serverLabel.set_sensitive (FALSE)
+	else:
+	    self.nisDomain.set_sensitive (TRUE)
+	    self.domainLabel.set_sensitive (TRUE)
+	    self.nisBroadcast.set_sensitive (TRUE)
+
+	    if (self.nisBroadcast.get_active()):
+		self.serverLabel.set_sensitive (FALSE)
+		self.nisServer.set_sensitive (FALSE)
+	    else:
+		self.serverLabel.set_sensitive (TRUE)
+		self.nisServer.set_sensitive (TRUE)
+
+    def getNext(self):
+        self.todo.auth.useMD5 = self.md5.get_active ()
+        self.todo.auth.useShadow = self.shadow.get_active ()
+
+        self.todo.auth.useNIS = self.nis.get_active ()
+        self.todo.auth.useBroadcast = self.nisBroadcast.get_active ()
+        self.todo.auth.domain = self.nisDomain.get_text ()
+        self.todo.auth.server = self.nisServer.get_text ()
+
     def getScreen (self):
         box = GtkVBox (FALSE, 10)
         self.md5 = GtkCheckButton ("Enable MD5 passwords")
@@ -22,17 +50,30 @@ class AuthWindow (InstallWindow):
         self.nisDomain = GtkEntry ()
         self.nisServer = GtkEntry ()
 
-        domainLabel = GtkLabel ("NIS Domain: ")
-        domainLabel.set_alignment (0, 0)
-        serverLabel = GtkLabel ("NIS Server: ")
-        serverLabel.set_alignment (0, 0)
+        self.md5.set_active (self.todo.auth.useMD5)
+        self.shadow.set_active (self.todo.auth.useShadow)
+
+        self.nis.set_active (self.todo.auth.useNIS)
+        self.nisDomain.set_text (self.todo.auth.domain)
+        self.nisBroadcast.set_active (self.todo.auth.useBroadcast)
+        self.nisServer.set_text (self.todo.auth.server )
+
+        self.domainLabel = GtkLabel ("NIS Domain: ")
+        self.domainLabel.set_alignment (0, 0)
+        self.serverLabel = GtkLabel ("NIS Server: ")
+        self.serverLabel.set_alignment (0, 0)
+
+	self.setSensitivities()
+
+        self.nis.connect ("toggled", self.setSensitivities)
+        self.nisBroadcast.connect ("toggled", self.setSensitivities)
 
         hbox1 = GtkHBox ()
-        hbox1.pack_start (domainLabel, FALSE)
+        hbox1.pack_start (self.domainLabel, FALSE)
         hbox1.pack_start (self.nisDomain)
 
         hbox2 = GtkHBox ()
-        hbox2.pack_start (serverLabel, FALSE)
+        hbox2.pack_start (self.serverLabel, FALSE)
         hbox2.pack_start (self.nisServer)
 
         a = GtkAlignment (0, 0)
