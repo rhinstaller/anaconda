@@ -1,3 +1,18 @@
+#
+# language.py: install data component that stores information about both
+#              installer runtime language choice and installed system
+#              language support.
+#
+# Copyright 2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 import os
 import string
 import locale
@@ -127,7 +142,7 @@ class InstallTimeLanguage:
         newlangs = [lang]
 	if len(lang) > 2:
             newlangs.append(lang[:2])
-        cat.setlangs (newlangs)
+        cat.setlangs(newlangs)
 
     def writeKS(self, f):
 	lang = self.getLangNick(self.getCurrent())
