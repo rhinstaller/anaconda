@@ -13,3 +13,4 @@ subdirs:
 install: all
 	mkdir -p $(DESTDIR)
 	cp -a anaconda comps.py gui.py image.py text.py $(DESTDIR)
+	for d in $(SUBDIRS); do make -C $$d install; done
