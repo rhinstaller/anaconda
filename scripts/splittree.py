@@ -384,7 +384,7 @@ self.reserve_size : Additional size needed to be reserved on the first disc.
         """Just runs everything"""
         self.createSplitDirs()
         self.splitRPMS()
-	if (self.srcdiscs != 0):
+	if (self.src_discs != 0):
             self.splitSRPMS()
         return self.logfile
 
