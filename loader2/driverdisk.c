@@ -194,6 +194,14 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             if (rc == 0)
                 return LOADER_BACK;
 
+            /* we don't need to ask which to use if they only have one */
+            if (rc == 1) {
+                device = strdup(devNames[0]);
+                free(devNames);
+                stage = DEV_INSERT;
+                break;
+            }
+
             startNewt(flags);
             rc = newtWinMenu(_("Driver Disk Source"),
                              _("You have multiple devices which could serve "

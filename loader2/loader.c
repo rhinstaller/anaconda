@@ -288,20 +288,27 @@ void loadUpdates(struct knownDevices *kd, int flags) {
         rc = getRemovableDevices(&devNames);
         if (rc == 0) 
             return;
-        startNewt(flags);
-        rc = newtWinMenu(_("Update Disk Source"),
-                         _("You have multiple devices which could serve "
-                           "as sources for an update disk.  Which would "
-                           "you like to use?"), 40, 10, 10,
-                         rc < 6 ? rc : 6, devNames,
-                         &num, _("OK"), _("Back"), NULL);
 
-        if (rc == 2) {
+        /* we don't need to ask which to use if they only have one */
+        if (rc == 1) {
+            device = strdup(devNames[0]);
             free(devNames);
-            return;
+        } else {
+            startNewt(flags);
+            rc = newtWinMenu(_("Update Disk Source"),
+                             _("You have multiple devices which could serve "
+                               "as sources for an update disk.  Which would "
+                               "you like to use?"), 40, 10, 10,
+                             rc < 6 ? rc : 6, devNames,
+                             &num, _("OK"), _("Back"), NULL);
+            
+            if (rc == 2) {
+                free(devNames);
+                return;
+            }
+            device = strdup(devNames[num]);
+            free(devNames);
         }
-        device = strdup(devNames[num]);
-        free(devNames);
 
 
         buf = sdupprintf(_("Insert your updates disk into /dev/%s and press "
