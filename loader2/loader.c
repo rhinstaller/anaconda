@@ -763,7 +763,7 @@ static char *doLoaderMain(char * location,
 
     installNames[numValidMethods] = NULL;
 
-    /* check to see if we have a Red Hat Linux CD.  If we have one, then
+    /* check to see if we have a CD.  If we have one, then
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {

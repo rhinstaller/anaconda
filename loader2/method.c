@@ -158,7 +158,7 @@ char * validIsoImages(char * dirName, int *foundinvalid) {
         return 0;
     }
 
-    /* Walk through the directories looking for a Red Hat CD image. */
+    /* Walk through the directories looking for a CD image. */
     errno = 0;
     while ((ent = readdir(dir))) {
         snprintf(isoImage, sizeof(isoImage), "%s/%s", dirName, ent->d_name);
@@ -377,7 +377,7 @@ void queryIsoMediaCheck(char *isoFile, int flags) {
 	return;
     }
 
-    /* Walk through the directories looking for a Red Hat CD images. */
+    /* Walk through the directories looking for a CD images. */
     errno = 0;
     first = 0;
     while (1) {

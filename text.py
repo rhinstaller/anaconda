@@ -80,10 +80,6 @@ stepToClasses = {
     "complete" : ("complete_text", "FinishedWindow"),
 }
 
-if iutil.getArch() == 'sparc':
-    stepToClasses["bootloader"] = ("silo_text", ("SiloAppendWindow",
-                                                 "SiloWindow"
-                                                 "SiloImagesWindow"))
 if iutil.getArch() == 's390':
     stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 

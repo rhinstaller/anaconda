@@ -403,7 +403,7 @@ char * findAnacondaCD(char * location,
 
 
 
-/* look for a Red Hat CD and mount it.  if we have problems, ask */
+/* look for a CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
                        char * location, struct loaderData_s * loaderData,
                        moduleInfoSet modInfo, moduleList modLoaded,
