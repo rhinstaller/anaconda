@@ -36,7 +36,8 @@ import traceback
 import string
 
 import isys
-if isys.isPsudoTTY(0):
+(osname, host, release, version, machine) = os.uname()
+if isys.isPsudoTTY(0) and not (machine == "s390" or machine == "s390x") :
     os.environ["TERM"] = "kon"
 
 import iutil
