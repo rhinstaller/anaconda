@@ -1975,25 +1975,28 @@ int main(int argc, char ** argv) {
 #ifdef INCLUDE_PCMCIA
     startNewt(flags);
 
-    winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
-    startPcmcia(modLoaded, modDeps, modInfo, flags);
-    newtPopWindow();
+    if (!continuing) {
+	winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
+	startPcmcia(modLoaded, modDeps, modInfo, flags);
+	newtPopWindow();
+    }
 #endif
 
     kdFindIdeList(&kd);
     kdFindScsiList(&kd);
     kdFindNetList(&kd);
 
-    if (((access("/proc/bus/pci/devices", X_OK) &&
-	  access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
-	    && !ksFile && !continuing) {
-	startNewt(flags);
-        devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1);
+    if (!continuing) {
+	if (((access("/proc/bus/pci/devices", X_OK) &&
+	      access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
+	    && !ksFile) {
+	    startNewt(flags);
+	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1);
+	}
+
+	busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
+	if (probeOnly) exit(0);
     }
-
-    busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
-    if (probeOnly) exit(0);
-
     if (FL_KSHD(flags)) {
 	ksFile = "/tmp/ks.cfg";
 	kickstartFromHardDrive(ksFile, modLoaded, modDeps, ksSource, flags);
