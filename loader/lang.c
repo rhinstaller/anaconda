@@ -333,8 +333,9 @@ int chooseLanguage(char ** lang, int flags) {
 }
 
 #ifdef __sparc__
-struct defaultKeyboardByLang
-defaultSunKeyboards[] = {
+struct defaultKeyboardByLang {
+    char * lang, * keyboard;
+} defaultSunKeyboards[] = {
     { "fi", "sunt5-fi-latin1" },   
     { "cs", "sunt5-cz-us" },
     { NULL, NULL } };
