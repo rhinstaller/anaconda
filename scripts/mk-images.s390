@@ -45,7 +45,7 @@ LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv"
 
 makeinitrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 7000 \
+	   --initrdsize 7900 \
 	   --loaderbin loader \
 	   --modules "$NETWORKMODULES"
 
@@ -67,6 +67,7 @@ unset BOOTDIR
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg" "=scsi $SECSTAGE"
+
 #makeinstimage "hdstg" "=net $SECSTAGE"
 makemainimage "stage2" "cramfs"
 #makemainimage "stage2" "ext2"

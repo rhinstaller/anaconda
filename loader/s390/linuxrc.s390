@@ -207,6 +207,8 @@ portmap
 # convert to space-separated lists
 DNS=`echo $DNS |sed -e 's/:/ /g'`
 SEARCHDNS=`echo $SEARCHDNS |sed -e 's/:/ /g'`
+for i in "$SEARCHDNS"; do echo "search $i"; done >> /etc/resolv.conf
+for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
  
 # transfer options into install environment
 cat > /tmp/install.cfg <<EOF

@@ -419,7 +419,7 @@ makeinitrd() {
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-      mkdir -p $MBD_DIR/etc/terminfo/{a,d,s,v}
+      mkdir -p $MBD_DIR/etc/terminfo/{a,d,s,v,x}
       for i in a/ansi d/dumb s/screen v/vt100 v/vt102 x/xterm; do
          install -m 644 $IMGPATH/usr/share/terminfo/$i $MBD_DIR/etc/terminfo/$i
       done
@@ -442,7 +442,8 @@ makeinitrd() {
     done
 
     if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-       mkdir -p $MBD_DIR/lib/modules/misc $MBD_DIR/etc/ssh 
+       #mkdir -p $MBD_DIR/lib/modules/misc
+       mkdir -p $MBD_DIR/etc/ssh 
        cp -f $LOADERBINDIR/linuxrc.s390 $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh

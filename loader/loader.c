@@ -19,6 +19,10 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *
  */
+/*
+#define DB logMessage("%s: %d\n", __FILE__, __LINE__);
+*/
+#define DB
 
 #include <arpa/inet.h>
 #include <ctype.h>
@@ -1206,6 +1210,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
     setupRamdisk();
 
+DB
     if (loadSingleUrlImage(ui, "RedHat/base/netstg1.img", flags, 
 			   "/tmp/ramfs/netstg1.img",
 			   "/mnt/runtime", "loop0")) {
@@ -1215,6 +1220,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
 	return 1;
     }
 
+DB
     return 0;
 }
 
@@ -1289,15 +1295,18 @@ static char * mountUrlImage(struct installMethod * method,
 		break;
 	    }
 
+DB
 	    if (loadUrlImages(&ui, flags))
 		stage = URL_STAGE_MAIN;
 	    else
 		stage = URL_STAGE_DONE;
+DB
 	    
 	    break;
         }
     }
 
+DB
     i = 0;
     login = "";
     /* password w/o login isn't usefull */
@@ -1322,19 +1331,19 @@ static char * mountUrlImage(struct installMethod * method,
 	    }
 	}
     }
-
+DB
     if (!strcmp(ui.prefix, "/"))
 	finalPrefix = "/.";
     else
 	finalPrefix = ui.prefix;
-
+DB
     url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) + strlen(login));
     sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    login, ui.address, finalPrefix);
-
+DB
     writeNetInfo("/tmp/netinfo", &netDev, kd);
-
+DB
     return url;
 }
 
@@ -1407,6 +1416,7 @@ static char * doMountImage(char * location,
 	}
     }
 #endif
+DB
 
     installNames[numValidMethods] = NULL;
 
@@ -1415,6 +1425,7 @@ static char * doMountImage(char * location,
 	exit(1);
     }
 
+DB
     /* This is a check for NFS or CD-ROM rooted installs */
     if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
 	return "cdrom://unknown/mnt/source/.";
@@ -1502,9 +1513,11 @@ static char * doMountImage(char * location,
 	    break;
 	case STEP_URL:
 logMessage("starting to STEP_URL");
+DB
 	    url = installMethods[validMethods[methodNum]].mountImage(
 		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDepsPtr, flags);
+DB
 	    logMessage("got url %s", url);
 	    if (!url) {
 		step = STEP_METHOD;
@@ -1851,12 +1864,15 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	logMessage("url address %s", ui.address);
 	logMessage("url prefix %s", ui.prefix);
 
+DB
 	if (loadUrlImages(&ui, flags)) {
 	    logMessage("failed to retrieve second stage");
 	    return NULL;
 	}
+DB
     }
 #endif
+DB
 
 #ifdef INCLUDE_LOCAL
     if (ksType == KS_CMD_CDROM) {
@@ -1877,6 +1893,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    logMessage ("Failed to mount hd kickstart media");
     }
 #endif
+DB
 
     return imageUrl;
 }
@@ -2613,10 +2630,6 @@ int main(int argc, char ** argv) {
     close(fd);
 
     setsid();
-    if (ioctl(0, TIOCSCTTY, NULL)) {
-	printf("could not set new controlling tty\n");
-    }
-
 
     optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
@@ -2665,6 +2678,11 @@ int main(int argc, char ** argv) {
     mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #if 0
     mlLoadModule("ramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+#endif
+
+
+#if defined (__s390__) || defined (__s390x__)
+    mlLoadModule("loop", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
 #if !defined (__s390__) && !defined (__s390x__)
@@ -2792,20 +2810,25 @@ int main(int argc, char ** argv) {
 	startNewt(flags);
     }
 #endif
-
+DB
     if (!url) {
 	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, &modDeps,
 			   &lang, &keymap, &kbdtype,
 			   flags);
     }
+DB
 
     if (!FL_TESTING(flags)) {
      
 	unlink("/usr");
 	symlink("mnt/runtime/usr", "/usr");
+#if !defined (__s390__) && !defined (__s390x__)
 	unlink("/lib");
+#else
+	rename("/lib", "/libold");
 	symlink("mnt/runtime/lib", "/lib");
-
+	system("/mnt/runtime/usr/sbin/glibc_post_upgrade");
+#endif
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/pcitable");
@@ -2837,13 +2860,18 @@ int main(int argc, char ** argv) {
 
     spawnShell(flags);			/* we can attach gdb now :-) */
 #endif
+DB
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+DB
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* merge in any new pci ids */
     pciReadDrivers("/modules/pcitable");
+#endif
+DB
 
     /* We reinit this from the beginning because we could have lost drivers
        when we switched media, and we don't want to list ones that don't
@@ -2851,19 +2879,25 @@ int main(int argc, char ** argv) {
        drivers we've loaded as well, which could include ISA drivers which
        kudzu won't reprobe! */
     modInfo = isysNewModuleInfoSet();
+DB
 
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
+DB
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* merge in drivers we know about from a driver disk so we probe things
        properly */
     ddReadDriverDiskModInfo(modInfo);
+#endif
+DB
 
     if (ksFile)
 	kickstartDevices(&kd, modInfo, modLoaded, &modDeps, flags);
+DB
 
     /* We may already have these modules loaded, but trying again won't
        hurt. */
@@ -2872,17 +2906,24 @@ int main(int argc, char ** argv) {
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
+DB
+
+#if !defined (__s390__) && !defined (__s390x__)
     if (((access("/proc/bus/pci/devices", R_OK) &&
 	  access("/proc/openprom", R_OK)) || 
 	  FL_ISA(flags) || FL_NOPROBE(flags)) && !ksFile) {
 	startNewt(flags);
 	manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
+#endif
+DB
 
     if (FL_UPDATES(flags))
         loadUpdates(&kd, modLoaded, &modDeps, flags);
 
+DB
     loadUfs(&kd, modLoaded, &modDeps, flags);
+DB
 
     if (!FL_TESTING(flags)) {
         int fd;
@@ -2902,9 +2943,12 @@ int main(int argc, char ** argv) {
 	    close(fd);
 	}
     }
+DB
 
+#if !defined (__s390__) && !defined (__s390x__)
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
+#endif
 
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
@@ -2914,7 +2958,11 @@ int main(int argc, char ** argv) {
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
+DB
+#if !defined (__s390__) && !defined (__s390x__)
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
+#endif
+DB
 
 #if 0
     for (i = 0; i < kd.numKnown; i++) {
@@ -2931,6 +2979,7 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 #endif
+DB
 
     /* Just in case */
     setenv("PYTHONPATH", "/tmp/updates:/mnt/source/RHupdates", 1);
@@ -2944,6 +2993,7 @@ int main(int argc, char ** argv) {
     else
 	*argptr++ = "/usr/bin/anaconda";
 
+DB
     *argptr++ = "-m";
     if (strncmp(url, "ftp:", 4)) {
 	*argptr++ = url;
@@ -2956,6 +3006,7 @@ int main(int argc, char ** argv) {
 	close(fd);
 	*argptr++ = "@/tmp/method";
     }
+DB
 
     if (FL_RESCUE(flags)) {
 	startNewt(flags);
@@ -3020,6 +3071,7 @@ int main(int argc, char ** argv) {
 	    sprintf(*argptr, "%d", memoryOverhead);
 	    argptr++;
 	}
+DB
 
 	for (i = 0; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].path) continue;
@@ -3041,17 +3093,21 @@ int main(int argc, char ** argv) {
 	    argptr++;
 	}
     }
+DB
     
     *argptr = NULL;
+DB
 
     stopNewt();
     closeLog();
+DB
 
     if (!FL_TESTING(flags)) {
 	printf(_("Running anaconda - please wait...\n"));
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
+DB
 
     return 1;
 }

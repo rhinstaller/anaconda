@@ -18,6 +18,10 @@
  * in this Software without prior written authorization from Red Hat.
  *
  */
+/*
+#define DB logMessage("%s: %d\n", __FILE__, __LINE__);
+*/
+#define DB
 
 #include <arpa/inet.h>
 #include <errno.h>
@@ -447,42 +451,33 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    newCfg.isDynamic = 0;
    env = getenv("IPADDR");
    if (env) {
-      inet_aton(env, &newCfg.dev.ip);
+     if(inet_aton(env, &newCfg.dev.ip))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_IP;
    }
    env = getenv("NETMASK");
    if (env) {
-      inet_aton(env, &newCfg.dev.netmask);
+     if(inet_aton(env, &newCfg.dev.netmask))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETMASK;
    }
    env = getenv("GATEWAY");
    if (env) {
-      inet_aton(env, &newCfg.dev.gateway);
+     if(inet_aton(env, &newCfg.dev.gateway))
       newCfg.dev.set |= PUMP_NETINFO_HAS_GATEWAY;
    }
    env = getenv("NETWORK");
    if (env) {
-      inet_aton(env, &newCfg.dev.network);
+     if(inet_aton(env, &newCfg.dev.network))
       newCfg.dev.set |= PUMP_INTFINFO_HAS_NETWORK;
    }
    env = getenv("DNS");
    if (env) {
-      inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]);
+     if(inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]))
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
    }
-   if (!strncmp(newCfg.dev.device, "ctc", 3)) {
-      env = getenv("REMIP");
-      if (env) {
-         /* ctc stores remoteip in broadcast-field until pump.h is changed */
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
-   } else {
-      env = getenv("BROADCAST");
-      if (env) {
-         inet_aton(env, &newCfg.dev.broadcast);
-         newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;
-      }
+   env = getenv("BROADCAST");
+   if (env && strlen(env)) {
+     if(inet_aton(env, &newCfg.dev.broadcast))
+       newCfg.dev.set |= PUMP_INTFINFO_HAS_BROADCAST;     
    }
 #endif   /* s390 */
 
@@ -540,22 +535,28 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 #ifndef __STANDALONE__
     int i;
 #endif
-
+DB
 #ifndef __STANDALONE__
     for (i = 0; i < kd->numKnown; i++)
 	if (!strcmp(kd->known[i].name, dev->dev.device)) break;
 #endif
+DB
     
     if (!(f = fopen(fn, "w"))) return -1;
+DB
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
+    printf("DEVICE=%s\n", dev->dev.device);
+DB
 
 #ifndef __STANDALONE__
     if (i < kd->numKnown && kd->known[i].code == CODE_PCMCIA)
 	fprintf(f, "ONBOOT=no\n");
     else
 #endif
+DB
 	fprintf(f, "ONBOOT=yes\n");
+DB
 
     if (dev->isDynamic) {
 	fprintf(f, "BOOTPROTO=dhcp\n");
@@ -566,21 +567,24 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	    fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
     }
+DB
 
     if (dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)
 	fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
+DB
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
 	fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
-   if (!strncmp(dev->dev.device, "ctc", 3)) {
-	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
-		fprintf(f, "REMIP=%s\n", dev->dev.broadcast);
-   } else {
-       fprintf(f, "BROADCAST=%s\n", dev->dev.broadcast);
-   }
+DB
+  fflush(f);
+     if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
+       fprintf(f, "BROADCAST=%s\n", inet_ntoa(dev->dev.broadcast));
+DB
     if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY)
 	fprintf(f, "GATEWAY=%s\n", dev->dev.gateway);
 
+DB
     fclose(f);
+DB
 
     return 0;
 }
