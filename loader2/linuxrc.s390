@@ -150,6 +150,7 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
 			read QETHPARM
 		fi
 	fi
+	[ -n "$CHANDEV" ]  && echo "noauto" >/proc/chandev
 	[ -n "$CHANDEV" ]  && echo "$CHANDEV"  >/proc/chandev
    [ -n "$QETHPARM" ] && echo "$QETHPARM" >/proc/chandev
 	[ -n "$CHANDEV" ]  && echo "reprobe" >/proc/chandev
