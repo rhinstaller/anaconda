@@ -87,6 +87,7 @@ install:
 	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
+SRPMDIR=$(shell rpm --eval '%{_srcrpmdir}')
 tag:
 	@cvs tag -cR $(CVSTAG)
 	@echo "Tagged as $(CVSTAG)"
@@ -98,6 +99,12 @@ src: create-archive
 
 snapsrc: create-snapshot
 	@rpmbuild -ts --nodeps anaconda-$(VERSION).tar.bz2
+
+build: src
+	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+
+snapbuild: snapsrc
+	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(SNAPRELEASE).src.rpm
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
