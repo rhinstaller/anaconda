@@ -829,6 +829,18 @@ class Flag:
     def get(self):
         return self.flag
 
+class OkCancelWindow:
+
+    def getrc(self):
+	return self.rc
+
+    def __init__(self, screen, title, text):
+	rc = ButtonChoiceWindow(screen, _(title), _(text),
+			        buttons = [ _("OK"), _("Cancel") ])
+	if rc == string.lower(_("Cancel")):
+	    self.rc = 1
+	else:
+	    self.rc = 0
 
 class ProgressWindow:
     def pop(self):
@@ -931,9 +943,12 @@ class InstallInterface:
     def progressWindow(self, title, text, total):
         return ProgressWindow (self.screen, _(title), _(text), total)
 
-    def messageWindow(self, title, text):
-	ButtonChoiceWindow(self.screen, _(title), _(text),
-                           buttons = [ _("OK") ])
+    def messageWindow(self, title, text, type = "ok"):
+	if type == "ok":
+	    ButtonChoiceWindow(self.screen, _(title), _(text),
+			       buttons = [ _("OK") ])
+	else:
+	    return OkCancelWindow(self.screen, _(title), _(text))
 
     def dumpWindow(self):
 	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
