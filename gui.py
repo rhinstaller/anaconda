@@ -168,12 +168,69 @@ class WrappingLabel(gtk.Label):
 #        self.set_size_request(-1, 1)
         widgetExpander(self)
 
-def addFrame(dialog):
+def titleBarMousePressCB(widget, event, data):
+    if event.type & gtk.gdk.BUTTON_PRESS:
+	data["state"] = 1
+	data["button"] = event.button
+	data["deltax"] = event.x
+	data["deltay"] = event.y
+	
+def titleBarMouseReleaseCB(widget, event, data):
+    if data["state"] and event.button == data["button"]:
+	data["state"] = 0
+	data["button"] = 0
+	data["deltax"] = 0
+	data["deltay"] = 0
+
+def titleBarMotionEventCB(widget, event, data):
+    if data["state"]:
+	newx = event.x_root-data["deltax"]
+	newy = event.y_root-data["deltay"]
+	if newx < 0 or newy < 0:
+	    return
+	(w, h) = data["window"].get_size()
+	if (newx+w) > gtk.gdk.screen_width() or (newy > (gtk.gdk.screen_height()-10)):
+	    return
+	
+	data["window"].move(newx, newy)
+
+def addFrame(dialog, title=None):
     contents = dialog.get_children()[0]
     dialog.remove(contents)
     frame = gtk.Frame()
     frame.set_shadow_type(gtk.SHADOW_OUT)
-    frame.add(contents)
+    box = gtk.VBox()
+    try:
+	if title is None:
+	    title = dialog.get_title()
+
+	if title:
+	    data = {}
+	    data["state"] = 0
+	    data["button"] = 0
+	    data["deltax"] = 0
+	    data["deltay"] = 0
+	    data["window"] = dialog
+	    eventBox = gtk.EventBox()
+	    eventBox.connect("button-press-event", titleBarMousePressCB, data)
+	    eventBox.connect("button-release-event", titleBarMouseReleaseCB, data)
+	    eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
+	    titleBox = gtk.HBox(gtk.FALSE, 5)
+	    eventBox.add(titleBox)
+	    eventBox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("#4C57a6"))
+	    titlelbl = gtk.Label(_(title))
+	    titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
+	    titleBox.pack_start(titlelbl)
+	    box.pack_start(eventBox, gtk.FALSE, gtk.FALSE)
+    except:
+	pass
+    
+    frame2=gtk.Frame()
+    frame2.set_shadow_type(gtk.SHADOW_NONE)
+    frame2.set_border_width(4)
+    frame2.add(contents)
+    box.pack_start(frame2, gtk.TRUE, gtk.TRUE, padding=5)
+    frame.add(box)
     frame.show()
     dialog.add(frame)
 
@@ -344,7 +401,7 @@ class MessageWindow:
 	    else:
                 defaultchoice = 0
 
-        addFrame(dialog)
+        addFrame(dialog, title=title)
         dialog.set_position (gtk.WIN_POS_CENTER)
         dialog.set_default_response(defaultchoice)
         dialog.show_all ()
