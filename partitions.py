@@ -1019,6 +1019,8 @@ class Partitions:
                 args.append("pv.%s" % (request.uniqueID))
             elif request.fstype.getName() == "PPC PReP Boot":
                 args.extend(["prepboot", "--fstype", "\"PPC PReP Boot\""])
+            elif request.fstype.getName() == "Apple Bootstrap":
+                args.extend(["appleboot", "--fstype", "\"Apple Bootstrap\""])
             elif request.mountpoint:
                 fstype = request.fstype.getName()
                 if fstype.find(" ") > 0:

@@ -1270,6 +1270,9 @@ class KickstartBase(BaseInstallClass):
                 filesystem = fileSystemTypeGet(fstype)
             else:
                 filesystem = fileSystemTypeGetDefault()
+        elif extra[0] == 'appleboot':
+            filesystem = fileSystemTypeGet("Apple Bootstrap")
+            mountpoint = None
         elif extra[0] == 'prepboot':
             filesystem = fileSystemTypeGet("PPC PReP Boot")
             mountpoint = None
