@@ -790,6 +790,7 @@ int kickstartNetwork(char ** devicePtr, struct networkDeviceConfig * netDev,
 int main(int argc, const char **argv) {
     int netSet, rc;
     int x;
+    int noDns = 0;
     char * bootProto = NULL;
     char * device = NULL;
     char * hostname = NULL;
@@ -820,6 +821,9 @@ int main(int argc, const char **argv) {
 	    },
 	    { "device", 'd', POPT_ARG_STRING, &device, 0,
 	      _("Network device"), NULL 
+	    },
+	    { "nodns", '\0', POPT_ARG_NONE, &noDns, 0,
+	      _("No DNS lookups"), NULL 
 	    },
 	    { 0, 0, 0, 0, 0 }
     };
