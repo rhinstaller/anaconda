@@ -177,6 +177,11 @@ def filter_partitions(disk, func):
 
     return rc
 
+def get_all_partitions(disk):
+    """Return a list of all PedPartition objects on disk."""
+    func = lambda part: part.is_active()
+    return filter_partitions(disk, func)
+
 def get_logical_partitions(disk):
     """Return a list of logical PedPartition objects on disk."""
     func = lambda part: (part.is_active()
