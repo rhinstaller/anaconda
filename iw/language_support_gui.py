@@ -78,6 +78,18 @@ class LanguageSupportWindow (InstallWindow):
 
 	self.rebuild_combo_box()
 
+    def select_default (self, data):
+        self.ics.setNextEnabled (gtk.TRUE)
+        for row in range(self.maxrows):
+	    deflang = self.combo.entry.get_text()
+
+	    if self.languageList.get_text(row, 1) == deflang:
+		self.languageList.set_active(row, gtk.TRUE)
+	    else:
+		self.languageList.set_active(row, gtk.FALSE)
+
+	self.rebuild_combo_box()
+
     def reset (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
 	list = []
@@ -196,22 +208,29 @@ class LanguageSupportWindow (InstallWindow):
         a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
+        default_button = gtk.Button (_("Select Default Only"))
+        default_button.set_size_request(160, -1)
+        default_button.connect ('clicked', self.select_default)
+        a2 = gtk.Alignment (0.5, 0.5)
+        a2.add (default_button)
+
         reset_button = gtk.Button (_("Reset"))
         reset_button.set_size_request(160, -1)
         reset_button.connect ('clicked', self.reset)
-        a2 = gtk.Alignment (0.5, 0.5)
-        a2.add (reset_button)
+        a3 = gtk.Alignment (0.5, 0.5)
+        a3.add (reset_button)
 
         vbox2.pack_start (a1, gtk.FALSE, 10)
         vbox2.pack_start (a2, gtk.FALSE)
+        vbox2.pack_start (a3, gtk.FALSE)
         hbox.pack_start (sw, gtk.TRUE, 10)
         hbox.pack_start (vbox2, gtk.FALSE, 10)
         vbox.pack_start (hbox, gtk.TRUE)
 
         # default button
-        alignment = gtk.Alignment (0.0, 0.0)
-        button = gtk.Button (_("Select as default"))
-        alignment.add (button)
+#        alignment = gtk.Alignment (0.0, 0.0)
+#        button = gtk.Button (_("Select as default"))
+#        alignment.add (button)
 
 	# connect CB for when they change selected langs
         self.languageList.checkboxrenderer.connect("toggled",
