@@ -479,7 +479,12 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
     }
 
     if (!strcmp(bootProto, "dhcp") || !strcmp(bootProto, "bootp")) {
+	winStatus(50, 3, _("Dynamic IP"), 
+		  _("Sending request for IP information..."),
+		    0);
+
 	chptr = pumpDhcpRun(device, 0, 0, NULL, &netDev->dev, NULL);
+	newtPopWindow();
 	if (chptr) {
 	    logMessage("pump told us: %s", chptr);
 	    return -1;
