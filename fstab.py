@@ -522,11 +522,13 @@ class Fstab:
 		    skipList.index(dev)
 		except ValueError, msg:
 		    (type, sector, size) = table[i]
-		    if type == _balkan.EXT2:
-			label = isys.readExt2Label(dev)
-			if label:
-			    labels[dev] = label
-			#print "label for", dev
+
+		    # we check the label on all filesystems because mount
+		    # does to!
+		    label = isys.readExt2Label(dev)
+		    if label:
+			labels[dev] = label
+		    #print "label for", dev
 	return labels
 
     def makeFilesystems(self):
