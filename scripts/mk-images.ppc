@@ -43,8 +43,8 @@ makeBootImages() {
 
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
-
-    # FIXME: need to do addRamdisk here
+	
+	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/boot.img
     else
 	echo "Unknown kernel version: $kernelvers"
     # mac?
