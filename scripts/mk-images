@@ -767,6 +767,14 @@ EOF
 	chmod 644 $MBD_DIR/dev/hvsi0 $MBD_DIR/dev/hvsi1 $MBD_DIR/dev/hvsi2 $MBD_DIR/dev/hvc0
     fi
 
+    # weird ia64 consoles
+    if [ "$BUILDARCH" = "ia64" ]; then
+	# SGI Altix
+	mknod $MBD_DIR/dev/ttySG0 c 204 40
+	chown root:root $MBD_DIR/dev/ttySG0
+	chmod 644 $MBD_DIR/dev/ttySG0
+    fi
+
     dd if=/dev/zero of=$MBD_DIR/etc/ramfs.img.big bs=1k count=20000 2>/dev/null
     mke2fs -F -q $MBD_DIR/etc/ramfs.img.big
     tune2fs -c0 -i0 $MBD_DIR/etc/ramfs.img.big >/dev/null
