@@ -24,6 +24,7 @@ from rhpl.log import log
 
 class ZFCP:
     def __init__(self):
+        self.description = _("zSeries machines can access industry-standard SCSI devices via Fibre Channel (FCP). You need to provide 5 parameters for each device: a 16 bit device number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit SCSI LUN and a 64 bit FCP LUN.")
         self.options = [
             (_("Device number"), 1,
              _("You have not specified a device number or the number is invalid"),
