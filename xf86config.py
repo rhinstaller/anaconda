@@ -888,11 +888,6 @@ class XF86Config:
     FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
 """
         f = open ('/tmp/XF86Config.test', 'w')
-        # XXX if we're going to be using IMPS/2 on
-        # reboot, but we're using PS/2 now, we'll need
-        # to temporarily use PS/2 so we don't frob the
-        # intellimouse into IMPS/2 mode (if we did, we'll
-        # loose the mouse cursor in the install)
 
         if self.server == "XFree86":
             config = self.Version4Config
@@ -998,10 +993,19 @@ Section "Screen"
 """
                 screens = screens + "EndSection\n"
 
+        # XXX if we're going to be using IMPS/2 on
+        # reboot, but we're using PS/2 now, we'll need
+        # to temporarily use PS/2 so we don't frob the
+        # intellimouse into IMPS/2 mode (if we did, we'll
+        # loose the mouse cursor in the install)
+        if test and self.mouse.info["XMOUSETYPE"] == "IMPS/2":
+            mouseProto = "PS/2"
+        else:
+            mouseProto = self.mouse.info['XMOUSETYPE']
         info = { "acceleratedDevices" : devices,
                  "acceleratedScreens" : screens,
                  "devID"              : self.devID,
-                 "mouseProto"         : self.mouse.info['XMOUSETYPE'],
+                 "mouseProto"         : mouseProto,
                  "mouseDevice"        : self.mouse.device,
                  "XkbRules"           : self.keyRules,
                  "XkbModel"           : self.keyModel,
@@ -1038,7 +1042,15 @@ Section "Screen"
             screens = screens + """
 	EndSubsection
 """
-	mouseProto = self.mouse.info['XMOUSETYPE']
+        # XXX if we're going to be using IMPS/2 on
+        # reboot, but we're using PS/2 now, we'll need
+        # to temporarily use PS/2 so we don't frob the
+        # intellimouse into IMPS/2 mode (if we did, we'll
+        # loose the mouse cursor in the install)
+        if test and self.mouse.info["XMOUSETYPE"] == "IMPS/2":
+            mouseProto = "PS/2"
+        else:
+            mouseProto = self.mouse.info['XMOUSETYPE']
 	if mouseProto == 'sun':
 	    mouseProto = 'BusMouse'
         data = { "mouseProto"   : mouseProto,
