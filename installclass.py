@@ -164,6 +164,11 @@ class BaseInstallClass:
         if cmdline.find("upgrade") == -1:
             dispatch.skipStep("findrootparts")
 
+        # if there's only one install class, it doesn't make much sense
+        # to show it
+        if availableClasses() < 2:
+            dispatch.skipStep("installtype")
+
     # called from anaconda so that we can skip steps in the headless case
     # in a perfect world, the steps would be able to figure this out
     # themselves by looking at instdata.headless.  but c'est la vie.
