@@ -875,6 +875,8 @@ fi
 
 echo "Getting pango modules"
 if [ -n "$NEEDGR" ]; then
+    # sick sick sick hack for pango-querymodules being -32 or -64
+    mv $DESTGR/usr/bin/pango-querymodules* $DESTGR/usr/bin/pango-querymodules
     if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
     	runroot $COMPONENT --onlyone --arch $ARCH "LD_LIBRARY_PATH=/usr/X11R6/$LIBDIR:$LD_LIBRARY_PATH /usr/sbin/chroot $DESTGR /usr/bin/pango-querymodules 2> $DESTGR/etc/pango/pango.modules"
     else
