@@ -21,7 +21,10 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table
+all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table lang-names
+
+lang-names: lang-table
+	(cd scripts; $(PYTHON) getlangnames.py) > lang-names
 
 _xkb.so: xkb.c
 	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
@@ -69,6 +72,7 @@ install:
 	install -m 644 anaconda.conf $(DESTDIR)/$(ANACONDADATADIR)
 	cp -var $(PYFILES) $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-names $(DESTDIR)/$(PYTHONLIBDIR)
 	cp -a lang-table-kon $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)

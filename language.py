@@ -46,12 +46,24 @@ class InstallTimeLanguage:
             self.current = os.environ["LANG"]
         else:
             self.current = "en_US"
-	if os.access("lang-table", os.R_OK):
-	    f = open("lang-table", "r")
-	elif os.access("/etc/lang-table", os.R_OK):
-	    f = open("/etc/lang-table", "r")
-	else:
-	    f = open("/usr/lib/anaconda/lang-table", "r")
+        self.nativeLangNames = {}
+
+        search = ('lang-names', '/usr/lib/anaconda/lang-names')
+        for path in search:
+            if os.access(path, os.R_OK):
+                f = open(path, 'r')
+                for line in f.readlines():
+                    lang, native = line.split(' ', 1)
+                    native = native.strip()
+                    self.nativeLangNames[lang] = native
+                break
+
+        search = ('lang-table', '/etc/lang-table',
+                  '/usr/lib/anaconda/lang-table')
+        for path in search:
+            if os.access(path, os.R_OK):
+                f = open(path, "r")
+                break
 
 	lines = f.readlines ()
 	f.close()
@@ -96,6 +108,9 @@ class InstallTimeLanguage:
     def getLangNick (self, lang):
         # returns the short locale ID
 	return self.langNicks[lang]
+
+    def getNativeLangName(self, lang):
+        return self.nativeLangNames.get(lang)
 
     def getLangNameByNick(self, lang):
 	# The nick we get here may be long (fr_FR@euro), when we need
