@@ -3,8 +3,9 @@
 #
 # Matt Wilson <msw@redhat.com>
 # Brent Fox <bfox@redhat.com>
+# Michael Fulbright <msf@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
