@@ -811,9 +811,9 @@ class InstallControlWindow:
                 break
             except ImportError:            
                 win = MessageWindow(_("Error!"),
-                                   _("An error occured when attempting "
+                                   _("An error occurred when attempting "
                                      "to load an installer interface "
-                                     "component."),
+                                     "component.\n\nclassName = %s") % (className,),
                                     type="custom", custom_icon="warning",
                                     custom_buttons=[_("_Exit"),
                                                     _("_Retry")])
