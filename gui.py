@@ -112,8 +112,7 @@ def partedExceptionWindow(exc):
             buttonToAction[numButtons] = flag
             numButtons = numButtons + 1
     win.show_all()
-    rc = win.run()
-    print rc, buttonToAction
+    rc = win.run_and_close()
     return buttonToAction[rc]
 
 class WaitWindow:
