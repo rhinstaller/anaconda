@@ -757,7 +757,6 @@ int main(int argc, char **argv) {
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
 
-    printf("ejecting cdrom (if it exists)...\n");
     ejectCdrom();
 
     if (doReboot) {
