@@ -139,7 +139,7 @@ def ddfile(file, megs, pw = None):
 
     os.close(fd)
 
-def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0):
+def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0, remount = 0):
     location = os.path.normpath(location)
 
     #
@@ -158,8 +158,8 @@ def mount(device, location, fstype = "ext2", readOnly = 0, bindMount = 0):
 	mountCount[location] = mountCount[location] + 1
 	return
 
-    log("going to mount %s on %s" %(device, location))
-    rc = _isys.mount(fstype, device, location, readOnly, bindMount)
+    log("isys.py:mount()- going to mount %s on %s" %(device, location))
+    rc = _isys.mount(fstype, device, location, readOnly, bindMount, remount)
 
     if not rc:
 	mountCount[location] = 1

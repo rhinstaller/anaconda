@@ -14,7 +14,7 @@
 static int mkdirIfNone(char * directory);
 
 int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
-              char * acct, char * pw, int bindmnt) { 
+              char * acct, char * pw, int bindmnt, int remount) { 
     char * buf = NULL;
     int isnfs = 0;
     char * mount_opt = NULL;
@@ -84,6 +84,8 @@ int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
 	    flag |= MS_RDONLY;
         if (bindmnt)
             flag |= MS_BIND;
+	if (remount)
+	    flag |= MS_REMOUNT;
 
 	if (!strncmp(fs, "vfat", 4))
 	    mount_opt="check=relaxed";

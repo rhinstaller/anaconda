@@ -7,7 +7,7 @@
 #include <sys/mount.h>		/* for umount() */
 
 int doPwMount(char * dev, char * where, char * fs, int rdonly, int istty,
-              char * acct, char * pw, int bindmnt);
+              char * acct, char * pw, int bindmnt, int remount);
 int mkdirChain(char * origChain);
 
 #endif
