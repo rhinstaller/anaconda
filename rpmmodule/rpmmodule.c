@@ -9,6 +9,7 @@
 
 #include "Python.h"
 #include "rpmlib.h"
+#include "misc.h"
 #include "rpmmacro.h"
 #include "upgrade.h"
 
@@ -39,6 +40,8 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item);
 static PyObject * hdrKeyList(hdrObject * s, PyObject * args);
 static PyObject * hdrUnload(hdrObject * s, PyObject * args);
 static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
+static PyObject * hdrCompressFilelist(hdrObject * s, PyObject * args);
+static PyObject * hdrExpandFilelist(hdrObject * s, PyObject * args);
 
 void initrpm(void);
 static PyObject * doAddMacro(PyObject * self, PyObject * args);
@@ -205,6 +208,8 @@ static struct PyMethodDef hdrMethods[] = {
 	{"keys",	(PyCFunction) hdrKeyList,	1 },
 	{"unload",	(PyCFunction) hdrUnload,	1 },
 	{"verifyFile",	(PyCFunction) hdrVerifyFile,	1 },
+	{"expandFilelist",	(PyCFunction) hdrExpandFilelist,	1 },
+	{"compressFilelist",	(PyCFunction) hdrCompressFilelist,	1 },
 	{NULL,		NULL}		/* sentinel */
 };
 
@@ -1260,6 +1265,20 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
     }
 
     return list;
+}
+
+static PyObject * hdrCompressFilelist(hdrObject * s, PyObject * args) {
+    compressFilelist (s->h);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * hdrExpandFilelist(hdrObject * s, PyObject * args) {
+    expandFilelist (s->h);
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }
 
 static PyObject * rpmtransCreate(PyObject * self, PyObject * args) {
