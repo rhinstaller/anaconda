@@ -26,7 +26,7 @@ from iw_gui import *
 from string import *
 from thread import *
 from examine_gui import *
-from rhpl.translate import _, N_, utf8
+from rhpl.translate import _, N_
 from comps import orderPackageGroups, getCompGroupDescription
 from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT, PKGTYPE_OPTIONAL
 from comps import Package, Component
@@ -201,7 +201,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         desc = replace (header[rpm.RPMTAG_DESCRIPTION], "\n\n", "\x00")
         desc = replace (desc, "\n", " ")
         desc = replace (desc, "\x00", "\n\n")
-        desc = utf8(desc)
         return desc
 
     def make_group_list(self, hdList, comps, displayBase = 0):
@@ -216,7 +215,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         for key in hdList.packages.keys():
             header = hdList.packages[key]
 
-            group = utf8(header[rpm.RPMTAG_GROUP])
+            group = header[rpm.RPMTAG_GROUP]
 	    hier = string.split(group, '/')
             toplevel = hier[0]
 
@@ -721,7 +720,6 @@ class PackageSelectionWindow (InstallWindow):
 		desc = replace (basedesc, "\n\n", "\x00")
 		desc = replace (desc, "\n", " ")
 		desc = replace (desc, "\x00", "\n\n")
-		desc = utf8(desc)
 	    else:
 		desc = ""
 	    return "%s - %s" % (obj.name, desc)

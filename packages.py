@@ -31,8 +31,6 @@ from syslogd import syslog
 from rhpl.log import log
 from rhpl.translate import _
 
-rpm.addMacro("_i18ndomains", "redhat-dist")
-
 def queryUpgradeContinue(intf, dir):
     if dir == DISPATCH_FORWARD:
         return

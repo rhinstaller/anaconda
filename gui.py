@@ -21,6 +21,7 @@ import sys
 import parted
 import gtk
 import htmlbuffer
+import rpm
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
@@ -28,6 +29,8 @@ from constants import *
 
 from rhpl.log import log
 from rhpl.translate import _, N_, utf8
+
+rpm.addMacro("_i18ndomains", "redhat-dist")
 
 StayOnScreen = "stayOnScreen"
 mainWindow = None
