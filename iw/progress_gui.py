@@ -71,7 +71,7 @@ class InstallProgressWindow (InstallWindow):
             amt = amt % 60
             secs = amt
 
-            return "%01d:%02d.%02d" % (int(hours) ,int(min), int(secs))
+            return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
 
         threads_enter ()
         self.numComplete = self.numComplete + 1
@@ -252,9 +252,9 @@ class InstallProgressWindow (InstallWindow):
         clist.set_column_justification (1, JUSTIFY_RIGHT)
         clist.set_column_justification (2, JUSTIFY_RIGHT)
         clist.set_column_justification (3, JUSTIFY_RIGHT)
-        clist.append ((_("Total"),     "0", "0 M", "0:00.00"))
-        clist.append ((_("Completed"), "0", "0 M", "0:00.00"))
-        clist.append ((_("Remaining"), "0", "0 M", "0:00.00"))
+        clist.append ((_("Total"),     "0", "0 M", "0:00:00"))
+        clist.append ((_("Completed"), "0", "0 M", "0:00:00"))
+        clist.append ((_("Remaining"), "0", "0 M", "0:00:00"))
         self.frobnicatingClist = 0
         
 	clist.connect_after ("size_allocate", self.allocate)

@@ -675,7 +675,7 @@ class InstallProgressWindow:
             amt = amt % 60
             secs = amt
 
-            return "%01d:%02d.%02d" % (int(hours) ,int(min), int(secs))
+            return "%01d:%02d:%02d" % (int(hours) ,int(min), int(secs))
 
        	self.numComplete = self.numComplete + 1
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE] / 1024)
