@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 9.1.5.4
+Version: 9.1.5.5
 Release: 1.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
@@ -72,6 +72,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Mar  2 2005 Jeremy Katz <katzj@redhat.com> - 9.1.5.5-1.RHEL
+- Support 2 TB filesystems (#116286)
+- Don't use vesa for all graphics adapters with ftp/http installs (#144128)
+
 * Mon Feb 28 2005 Paul Nasrat <pnasrat@redhat.com> - 9.1.5.4-1.RHEL
 - Perform ethtool setup in more places (#145422)
 
