@@ -774,9 +774,9 @@ class KickstartBase(BaseInstallClass):
         if fsopts:
             filesystem.extraFormatArgs.extend(fsopts)
 
-        request = partRequests.PartitionRequestSpec(filesystem,
-                                                    mountpoint = mountpoint,
-                                                    format = 1)
+        request = partRequests.PartitionSpec(filesystem,
+                                             mountpoint = mountpoint,
+                                             format = 1)
         if size:
             request.size = size
         if start:
