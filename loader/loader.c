@@ -113,9 +113,7 @@ static struct installMethod installMethods[] = {
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
-#ifdef INCLUDE_KON
-static int startKon = 1;
-#endif
+int continuing = 0;
 
 void doSuspend(void) {
     newtFinished();
@@ -1122,7 +1120,15 @@ static char * doMountImage(char * location,
 
     startNewt(flags);
 
+#ifdef INCLUDE_KON
+    if (continuing)
+	step = STEP_KBD;
+    else
+	step = STEP_LANG;
+#else
     step = STEP_LANG;
+#endif
+	
     while (step != STEP_DONE) {
 	switch (step) {
 	case STEP_LANG:
@@ -1554,19 +1560,11 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_KSFILE;
 	    *ksSource = argv[i] + 8;
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
+	    /* For Japanese, we have two options.  We should just
+	       display them so we don't have to start kon if it is not needed. */
+#ifndef INCLUDE_KON
 	    setLanguage (argv[i] + 5, flags);
-#ifdef INCLUDE_KON
-	    if (!strcmp (argv[i] + 5, "ja") && startKon) {
-		char * args[4];
-
-		args[0] = "kon";
-		args[1] = "-e";
-		args[2] = FL_TESTING(flags) ? "./loader" : "/sbin/continue";
-		args[3] = NULL;
-		
-		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
-	    }
-#endif /* INCLUDE_KON */
+#endif
 	}
     }
 
@@ -1906,8 +1904,9 @@ int main(int argc, char ** argv) {
     else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon")) {
 	i = kon_main(argc, argv);
 	return i;
-    } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
-	startKon = 0;
+    } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue")) {
+	continuing = 1;
+    }
 #endif
 
 #ifdef INCLUDE_PCMCIA
@@ -1967,6 +1966,11 @@ int main(int argc, char ** argv) {
 	kickstartFromFloppy(ksFile, modLoaded, modDeps, flags);
 	flags |= LOADER_FLAGS_KICKSTART;
     }
+
+#ifdef INCLUDE_KON
+    if (continuing)
+	setLanguage ("ja", flags);
+#endif
 
 #ifdef INCLUDE_PCMCIA
     startNewt(flags);

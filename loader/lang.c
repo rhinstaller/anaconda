@@ -302,6 +302,21 @@ int chooseLanguage(char ** lang, int flags) {
 	numStrings = allocedStrings = 0;
     }
 
+    {
+	extern int continuing;
+
+	if (!strcmp (languages[choice].key, "ja") && !continuing) {
+	    char * args[4];
+	    
+	    args[0] = "kon";
+	    args[1] = "-e";
+	    args[2] = FL_TESTING(flags) ? "./loader" : "/sbin/continue";
+	    args[3] = NULL;
+	    
+	    execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
+	}
+    }
+    
     loadLanguage (NULL, flags);
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
