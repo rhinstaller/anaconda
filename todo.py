@@ -535,8 +535,7 @@ class ToDo:
 
     def makeBootdisk (self):
 	kernel = self.hdList['kernel']
-        kernelTag = "%s-%s-%s" % (kernel['name'][6:], kernel['version'],
-                                  kernel['release'])
+        kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
         self.makeInitrd ()
         w = self.intf.waitWindow ("Creating", "Creating boot disk...")
@@ -570,32 +569,29 @@ class ToDo:
             return
         (rootDev, type, size) = self.mounts['/']
 
-	sl = LiloConfiguration()
-
-	label = "linux"
 	kernelList = []
+	label = "linux"
+
 	if (self.hdList.has_key('kernel-smp') and
 	    	self.hdList['kernel-smp'].selected):
-	    kernelList.append((label, self.hdList['kernel-smp']))
+	    kernelList.append((label, self.hdList['kernel-smp'], "smp"))
 	    label = "linux-up"
-	kernelList.append((label, self.hdList['kernel']))
 
-	for (label, kernel) in kernelList:
-	    kernelTag = "%s-%s-%s" % (kernel['name'][6:], kernel['version'],
-				      kernel['release'])
-		
+	kernelList.append((label, self.hdList['kernel'], ""))
+
+	for (label, kernel, tag) in kernelList:
+	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
 	    initrd = self.makeInitrd (kernelTag)
+
+	    sl = LiloConfiguration()
 
 	    sl.addEntry("label", label)
 	    if os.access (self.instPath + initrd, os.R_OK):
 		sl.addEntry("initrd", initrd)
 
 	    sl.addEntry("read-only")
-
 	    sl.addEntry("root", '/dev/' + rootDev)
-
 	    kernelFile = "/boot/vmlinuz" + kernelTag
-		
 	    self.lilo.addImage ("image", kernelFile, sl)
 
         for (type, name, config) in self.lilo.images:
