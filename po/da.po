@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Red Hat 6.1 Install\n"
+"Project-Id-Version: Red Hat 6.2 Install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
 "PO-Revision-Date: 2000-02-19 16:20+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
@@ -1157,7 +1157,7 @@ msgstr "Partitionstype"
 #: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:121
 #: ../textw/silo.py:185
 msgid "Boot label"
-msgstr "Opstartsetikette"
+msgstr "Opstartsnavn"
 
 #: ../iw/mouse.py:132
 msgid "Emulate 3 Buttons"
@@ -1329,8 +1329,8 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at oprette "
-"partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
+"Hvis du ikke vil gøre dette, kan du fortsætte med installationen ved at "
+"oprette partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
 "brugerdefineret installation."
 
 #: ../iw/rootpartition.py:248
@@ -1446,7 +1446,7 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
-"Hvis de fundne indstillinger ikke passer til din hardware, så vælg de "
+"Hvis de fundne indstillinger ikke passer til din maskine, så vælg de "
 "korrekte indstillinger herunder:"
 
 #: ../iw/xconfig.py:372
@@ -1459,7 +1459,7 @@ msgstr "Brug grafisk logind"
 
 #: ../iw/xconfig.py:433
 msgid "Skip X Configuration"
-msgstr "Udelad X-konfiguration"
+msgstr "Undlad X-konfiguration"
 
 #: ../textw/lilo.py:18 ../textw/silo.py:14
 msgid ""
@@ -1468,9 +1468,9 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Nogle få systemer er nødt til at sende særlige flag til kernen ved "
-"opstartstid for at systemet kan virke ordentligt. Hvis du er nødt til at "
-"sende boot-flag til kernen, så indtast dem nu. Hvis du ikke behøver dem "
+"Nogle få systemer har brug for at sende særlige parametre til kernen under "
+"opstarten for at systemet kan fungere. Hvis du har brug for at sende "
+"opstartsparametre til kernen, så indtast dem nu. Hvis du ikke behøver det "
 "eller er i tvivl, så lad dette felt stå tomt."
 
 #: ../textw/lilo.py:85 ../textw/silo.py:92
@@ -1483,7 +1483,7 @@ msgstr "Ryd"
 
 #: ../textw/lilo.py:114 ../textw/silo.py:133
 msgid "Edit Boot Label"
-msgstr "Redigér opstartsetikette"
+msgstr "Redigér opstartsnavn"
 
 #: ../textw/lilo.py:181 ../textw/silo.py:197
 msgid ""
@@ -1491,9 +1491,9 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Red Hats opstartshåndtering kan også opstarte andre operativsystemer. Du "
-"skal fortælle mig hvilke partitioner du gerne vil kunne opstarte og hvilken "
-"etiket du gerne vil sætte på hver af dem."
+"Opstartsprogram, som red Hat bruger, kan også starte andre operativsystemer. "
+"Skriv hvilke partitioner du gerne vil kunne starte samt et navn for hvert af "
+"disse operativsystemer."
 
 #: ../textw/packages.py:123
 msgid ""
@@ -1520,8 +1520,8 @@ msgid ""
 msgstr ""
 "Diskdruiden er et værktøj til at lave partitioner og opsætte "
 "monteringspunkter. Det er designet til at være lettere at bruge end Linux's "
-"traditionelle diskpartitioneringssoftware, fdisk, og med flere muligheder. "
-"Imidlertid er der nogen situationer hvor fdisk bør foretrækkes.\n"
+"traditionelle diskpartitioneringsprogram 'fdisk', og har flere faciliteter. "
+"Der er dog tilfælde hvor fdisk bør foretrækkes.\n"
 "\n"
 "Hvilket værktøj vil du bruge?"
 
@@ -1789,10 +1789,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Du har ønsket at lægge dit rodfilsystem (/) på en DOS FAT partition. Det er "
-"tilladt men så du vil ikke kunne bruge nogen andre filsystemer på dit Linux "
-"system. Desuden vil systemet køre langsommere når du ikke bruger indfødte "
-"Linux-partitioner. Vil du fortsætte?"
+"Du har bedt om at lægge dit rodfilsystem (/) på en DOS FAT partition. Det er "
+"tilladt, men så kan du ikke bruge andre filsystemer på på Linux. Desuden vil "
+"systemet også køre langsommere når du ikke bruger Linux's almindelige "
+"filsystem. Vil du fortsætte?"
 
 #: ../libfdisk/fsedit.c:790
 #, c-format
@@ -1879,7 +1879,7 @@ msgstr "Prøv igen"
 
 #: ../libfdisk/fsedit.c:1238
 msgid "BSD Disklabel"
-msgstr "BSD-disketikette"
+msgstr "BSD-disknavn"
 
 #: ../libfdisk/fsedit.c:1238
 msgid ""
@@ -1887,10 +1887,10 @@ msgid ""
 "supports BSD Disklabels in read-only mode, so you must use a custom install "
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
-"Et drev med en BSD-disketikette blev fundet. Red Hats installation "
-"understøtter kun BSD-disketiketter i skrivebeskyttet modus, så du er nødt "
-"til at bruge en brugerdefineret installation og fdisk (istedetfor "
-"Diskdruiden) til maskiner med BSD-disketiketter."
+"Et drev med en BSD-disknavn blev fundet. Red Hat's installation understøtter "
+"kun BSD-disknavne i skrivebeskyttet modus, så du er nødt til at køre en "
+"brugerdefineret installation og 'fdisk' (istedetfor Diskdruiden) for "
+"maskiner med BSD-disknavne."
 
 #: ../libfdisk/fsedit.c:1268
 #, c-format
@@ -2015,7 +2015,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
-msgstr "Ingen RAID-drevsbegrænsning"
+msgstr "Ingen RAID-drevbegrænsning"
 
 #: ../libfdisk/gnomefsedit.c:1221
 msgid ""
@@ -2024,7 +2024,7 @@ msgid ""
 " Are you sure you want to do this?"
 msgstr ""
 "Du har konfigureret en RAID-partition uden at begrænse partitionen til et "
-"enkelt drev.\n"
+"enkelt diskdrev.\n"
 "Er du sikker på at du vil gøre det?"
 
 #: ../libfdisk/gnomefsedit.c:1227
@@ -2037,8 +2037,7 @@ msgid ""
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
 "Du har konfigureret en RAID-partition uden at begrænse partitionen til et "
-"enkelt drev. Vælg venligst et drev et drev som partitionen skal begrænses "
-"til."
+"enkelt drev. Vælg venligst det drev som du vil begrænse denne partition til."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2053,15 +2052,15 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"Raid-enheden /dev/%s indeholder partitioner som ikke er tildelte. Raid "
-"enheden /dev/%s vil nu be opløst i de partitioner, den består af. Sæt "
-"venligst raid-enheden sammen igen med tildelte partitioner."
+"RAID-enheden /dev/%s indeholder nu partitioner som ikke er i brug. "
+"RAID-enheden /dev/%s vil nu blive opdelt i sine del-partitioner. Genopbyg "
+"venligst RAID-enheden med brugte partitioner."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
 #: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
-msgstr "Utildelte partitioner"
+msgstr "Ubrugte partitioner"
 
 #: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
 #: ../libfdisk/newtfsedit.c:85
@@ -2070,9 +2069,9 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
-"Der er for tiden en eller flere utildelte partitioner på listen over ønskede "
-"partitioner. De utildelte partition(er) er vist herunder sammen med årsagen "
-"til at de ikke er tildelt værdier."
+"Der er nu en eller flere ubrugte partitioner i listen over ønskede "
+"partitioner. De ubrugte partition(er) er vist herunder sammen med årsagen "
+"til at de ikke er blevet brugt."
 
 #: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
@@ -2111,8 +2110,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
-"Du har valgt at montere denne raid-enhed som en opstartspartition. Sørg "
-"venligst for at alle dens partitioner kan opstartes."
+"Du har anført denne RAID-enhed som en partition der kan startes et system "
+"fra. Sørg venligst for at der kan startes fra alle RAID-delpartitionerne."
 
 #: ../libfdisk/gnomefsedit.c:2038
 msgid "No RAID Device"
@@ -2124,7 +2123,7 @@ msgstr "Du skal vælge en RAID-enhed."
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
-msgstr "Brugt RAID-enhed"
+msgstr "Anvendt RAID-enhed"
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
@@ -2132,7 +2131,7 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"Raid-enheden \"/dev/%s\" er allerede konfigureret som en raid-enhed. Vælg "
+"RAID-enheden \"/dev/%s\" er allerede konfigureret som en RAID-enhed. Vælg "
 "venligst en anden."
 
 #: ../libfdisk/gnomefsedit.c:2059
@@ -2169,9 +2168,9 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"%s partitionen er en præ-eksisterende partition i denne raid-enheds sæt af "
-"partitioner.  Monteringspunktet er sat til /boot. Er du sikker på at det er "
-"muligt at opstarte fra denne partition?"
+"Partitionen %s er allerede brugt i rækken af partitioner for denne "
+"RAID-enhed. Monteringspunktet er sat til /boot. Er du sikker på at det er "
+"muligt at lave systemopstart fra denne partition?"
 
 #: ../libfdisk/gnomefsedit.c:2169
 msgid "Use Pre-existing Partition?"
@@ -2357,9 +2356,9 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Dette modul kan modtage parametre som påvirker dets operation. Hvis du ikke "
-"ved hvilke parametre, du skal bruge, så spring denne side over ved at trykke "
-"på \"Ok\" knappen nu."
+"Dette modul kan tage parametre som påvirker dets operation. Hvis du ikke ved "
+"hvilke parametre, der skal bruges, så spring denne side over ved at trykke "
+"på \"Ok\"-knappen nu."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
@@ -2509,9 +2508,9 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"Hvilken partition og hvilken mappe på den partition indeholder RedHat/RPMS "
-"og RedHat/base mapperne? Hvis du ikke kan se det diskdrev du bruger her, så "
-"tryk på F2 for at konfigurere yderligere enheder."
+"Hvilken partition, og hvilken mappe på denne partition, indeholder "
+"RedHat/RPMS og RedHat/base mapperne? Hvis du ikke kan se det diskdrev du "
+"bruger her, så tryk på F2 for at konfigurere yderligere enheder."
 
 #: ../loader/loader.c:636
 msgid "Directory holding Red Hat:"
