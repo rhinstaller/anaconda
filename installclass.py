@@ -66,14 +66,14 @@ class InstallClass:
 
 	self.raidList.append(mntPoint, raidDev, level, devices)	
 
-    def addNewPartition(self, mntPoint, size, maxSize, grow, device):
+    def addNewPartition(self, mntPoint, size, maxSize, grow, device, fsopts=None):
 	if not device: device = ""
 
 	if mntPoint[0] != '/' and mntPoint != 'swap' and \
 		mntPoint[0:5] != "raid.":
 	    raise TypeError, "bad mount point for partitioning: %s" % \
 		    (mntPoint,)
-	self.partitions.append((mntPoint, size, maxSize, grow, device))
+	self.partitions.append((mntPoint, size, maxSize, grow, device, fsopts))
 
     def addToFstab(self, mntpoint, dev, fstype = "ext2" , reformat = 1):
 	self.fstab.append((mntpoint, (dev, fstype, reformat)))

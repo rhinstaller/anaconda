@@ -47,12 +47,12 @@ class Fstab:
 	swapCount = 0
 
 	fstab = []
-	for (mntpoint, dev, fstype, reformat, size) in self.extraFilesystems:
+	for (mntpoint, dev, fstype, reformat, size, fsopts) in self.extraFilesystems:
             fstab.append ((dev, mntpoint))
 
 	ddruid = self.createDruid(fstab = fstab, ignoreBadDrives = 1)
 
-	for (mntpoint, size, maxsize, grow, device) in partitions:
+	for (mntpoint, size, maxsize, grow, device, fsopts) in partitions:
 	    type = 0x83
 	    if (mntpoint == "swap"):
 		mntpoint = "Swap%04d-auto" % swapCount
@@ -179,6 +179,21 @@ class Fstab:
 	    self.raidList()[1]:
 	    if mount[0] == '/' and fsystem == "ext2":
 		self.fsCache[(partition, mount)] = (1,)
+
+#   FSOptions is a list of options to be passed when creating fs for mount
+    def setfsOptions (self, mount, fsopts):
+        self.fsOptions[mount] = fsopts;
+        return
+
+    def getfsOptions (self, mount):
+        if self.fsOptions.has_key(mount):
+            return self.fsOptions[mount]
+        else:
+            return None
+
+    def clearfsOptions (self):
+        self.fsOptions = {}
+        return
 
     def partitionList(self):
 	return self.ddruid.partitionList()
@@ -394,6 +409,10 @@ class Fstab:
                 if self.badBlockCheck:
                     args.append ("-c")
 
+                fsopts = self.getfsOptions(mntpoint)
+                if fsopts:
+                    args.extend(fsopts)
+
 		w = self.waitWindow(_("Formatting"),
 			      _("Formatting %s filesystem...") % (mntpoint,))
 
@@ -607,6 +626,7 @@ class Fstab:
 		 readOnly, waitWindow, messageWindow):
 	self.fsedit = fsedit
 	self.fsCache = {}
+        self.clearfsOptions()
 	self.swapOn = 0
 	self.supplementalRaid = []
 	self.beenSaved = 1

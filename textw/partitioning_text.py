@@ -121,6 +121,12 @@ class AutoPartitionWindow:
 
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
+
+            # configure kickstart requested ext2 filesystem options
+            if todo.instClass.partitions:
+                for (mntpoint, size, maxsize, grow, device, fsopts) in todo.instClass.partitions:
+                    if fsopts != None:
+                        todo.fstab.setfsOptions (mntpoint, fsopts)
 	    return
 
 	(rc, choice) = ListboxChoiceWindow(screen, _("Automatic Partitioning"),
