@@ -2,6 +2,7 @@ COMMONMODULES="nfs fat vfat cramfs loop floppy"
 FSMODS="msdos vfat ext3 reiserfs jfs"
 IDEMODS="ide-cd"
 SCSIMODS="sd_mod sg sr_mod st"
+USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod sr_mod"
 LATEUSBMODS="mousedev usb-storage"
 SECSTAGE="md raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS"
 NETMODULES="sungem tg3 ne2k-pci 3c59x 8139too olympic
@@ -26,7 +27,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $USBMODULES $ISOMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
@@ -68,7 +69,7 @@ EOF
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $USBMODULES $ISOMODULES $ISERIESMODULES"
 
 	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
@@ -83,7 +84,7 @@ EOF
     # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
     #            --initrdsize 8192 \
     #            --loaderbin loader \
-    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES"
+    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODS $USBMODULES $ISOMODULES"
     fi
 }
 
