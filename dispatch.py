@@ -64,7 +64,7 @@ installSteps = [
     ("autopartition", ("id.diskset", "id.partitions", "intf", "dispatch")),
     ("autopartitionexecute", doAutoPartition, ("dir", "id.diskset",
                                                "id.partitions", "intf",
-                                               "id.instClass")),
+                                               "id.instClass", "dispatch")),
     ("fdisk", ("id.diskset", "id.partitions", "intf")),
     ("partition", ("id.fsset", "id.diskset", "id.partitions", "intf")),
     ("upgrademount", upgradeMountFilesystems, ("intf", "id.upgradeRoot",

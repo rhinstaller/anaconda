@@ -822,7 +822,7 @@ def doClearPartAction(partitions, diskset):
             deletePart(diskset, delete)
             continue
     
-def doAutoPartition(dir, diskset, partitions, intf, instClass):
+def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     if instClass.name and instClass.name == "kickstart":
         isKickstart = 1
     else:
@@ -831,6 +831,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass):
     if dir == DISPATCH_BACK:
         diskset.refreshDevices()
         partitions.setFromDisk(diskset)
+        setProtected(partitions, dispatch)
         return
     
     # if no auto partition info in instclass we bail

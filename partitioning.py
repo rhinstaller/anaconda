@@ -1504,6 +1504,15 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
 
     partitions.setFromDisk(diskset)
 
+# set the protected partitions
+def setProtected(partitions, dispatch):
+    protected = dispatch.method.protectedPartitions()
+    if protected:
+        for device in protected:
+            log("%s is a protected partition" % (device))
+            request = partitions.getRequestByDeviceName(device)
+            request.type = REQUEST_PROTECTED
+
 def partitionMethodSetup(partitions, dispatch):
 
     # turn on/off step based on 3 paths:
@@ -1517,11 +1526,7 @@ def partitionMethodSetup(partitions, dispatch):
                       skip = not partitions.useAutopartitioning)
     dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
 
-    protected = dispatch.method.protectedPartitions()
-    if protected:
-        for device in protected:
-            request = partitions.getRequestByDeviceName(device)
-            request.type = REQUEST_PROTECTED
+    setProtected(partitions, dispatch)
 
     
 # shorthand mainly for installclasses
