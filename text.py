@@ -16,8 +16,13 @@ class WelcomeWindow:
 
 class InstallProgressWindow:
 
+    def setPackageScale(self, amount, total):
+	self.s.set(int(((amount * 1.0)/ total) * 100))
+	self.g.draw()
+	self.screen.refresh()
+
     def setPackage(self, name):
-	self.p.setText(name)
+	self.l.setText('Package: ' + name)
 	self.g.draw()
 	self.screen.refresh()
 
@@ -27,11 +32,11 @@ class InstallProgressWindow:
 
     def __init__(self, screen):
 	self.screen = screen
-	self.l = Label('Package:')
-	self.p = Label('                       ')
-	g = GridForm(self.screen, 'Installing Packages', 2, 1)
+	self.l = Label('Package:                                  ')
+	self.s = Scale(50, 100)
+	g = GridForm(self.screen, 'Installing Packages', 1, 2)
 	g.add(self.l, 0, 0)
-	g.add(self.p, 1, 0)
+	g.add(self.s, 0, 1)
 	g.draw()
 	self.g = g
 	screen.refresh()

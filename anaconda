@@ -55,9 +55,12 @@ def cb(what, amount, total, key, data):
     if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
 	(h, method) = key
 	data.setPackage(h[rpm.RPMTAG_NAME])
+	data.setPackageScale(0, 1)
 	fn = method.getFilename(h)
 	d = os.open(fn, os.O_RDONLY)
 	return d
+    elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
+	data.setPackageScale(amount, total)
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     os.environ['DISPLAY'] = ':0'
