@@ -97,6 +97,10 @@ if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
 fi
 
+if [ $ARCH = ia64 ]; then
+    PACKAGES="$PACKAGES slang"
+fi
+
 # xpm is missing
 
 # Some packages are listed twice, but that's okay
@@ -138,6 +142,10 @@ fi
 if [ $ARCH = alpha ]; then
     PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mono XFree86-P9000
                 XFree86-S3 XFree86-SVGA aboot"
+fi
+
+if [ $ARCH = ia64 ]; then
+    PACKAGESGR="$PACKAGESGR slang"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
