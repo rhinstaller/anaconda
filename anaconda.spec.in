@@ -25,6 +25,7 @@ These files are of little use on an already installed system.
 Summary: Red Hat Linux installer portions needed only for fresh installs.
 Group: Applications/System
 AutoReqProv: false
+Requires: libxml2-python
 
 %description runtime
 The anaconda-runtime package contains parts of the Red Hat Linux
