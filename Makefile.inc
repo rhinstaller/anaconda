@@ -1,8 +1,8 @@
 #
 # define destination locations
 #
-VERSION = 8.0.92
-RELEASE = 8
+VERSION = 8.0.93
+RELEASE = 0
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
 PYTHONLIBDIR = /usr/lib/anaconda
