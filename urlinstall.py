@@ -176,6 +176,11 @@ class UrlInstallMethod(InstallMethod):
     def __init__(self, url, rootPath):
 	InstallMethod.__init__(self, rootPath)
 
+        if url.startswith("ftp"):
+            isFtp = 1
+        else:
+            isFtp = 0
+
         # build up the url.  this is tricky so that we can replace
         # the first instance of // with /%3F to do absolute URLs right
         i = string.index(url, '://') + 3
@@ -187,7 +192,7 @@ class UrlInstallMethod(InstallMethod):
         rem = rem[i:]
         
         # encoding fun so that we can handle absolute paths
-        if rem.startswith("/"):
+        if rem.startswith("/") and isFtp:
             rem = "%2F" + rem[1:]
 
         self.baseUrl = self.baseUrl + rem
