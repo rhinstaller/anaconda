@@ -18,26 +18,40 @@ prepareBootImage() {
 }
 
 echo "kernelvers is $kernelvers"
-# pseries
-echo "Building pSeries initrd"
-makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
-           --initrdsize 8192 \
-           --loaderbin loader \
-           --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+if [ "$kernelvers" = "pseries" ]; then
+    echo "Building pSeries initrd"
+    makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
+	       --initrdsize 8192 \
+	       --loaderbin loader \
+               --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
-mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
-cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
-cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
-cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+    mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
+    cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
+    cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
+    cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
+    cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+elif [ "$kernelvers" = "iseries" ]; then
+    mkdir -p $TOPDESTPATH/ppc/iSeries
 
+    echo "Building iSeries initrd"
+    makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
+	       --initrdsize 8192 \
+	       --loaderbin loader \
+               --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
-# mac
+    cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+
+    # FIXME: need to do addRamdisk here
+else
+    echo "Unknown kernel version: $kernelvers"
+    # mac?
 # echo "Building Mac initrd"
 # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
 #            --initrdsize 8192 \
 #            --loaderbin loader \
 #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+fi
+
 
 makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
 makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"

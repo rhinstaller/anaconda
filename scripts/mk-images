@@ -823,7 +823,7 @@ if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
     vertag="smp"
 fi
 if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
-    vertag="pseries"
+    vertag="pseries iseries"
 fi
 for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
