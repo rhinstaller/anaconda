@@ -652,7 +652,7 @@ class InstallControlWindow:
     def refreshHelp(self):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
-        buffer.feed(utf8(ics.getHTML(self.langSearchPath)))
+        buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
         self.help.set_buffer(textbuffer)
         # scroll to the top.  Do this with a mark so it's done in the idle loop
