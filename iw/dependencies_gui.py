@@ -59,11 +59,11 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	self.deps = deps
 	self.comps = comps
 
-        sw = gtk.GtkScrolledWindow ()
+        sw = gtk.ScrolledWindow ()
         sw.set_border_width (5)
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        list = gtk.GtkCList (2, (_("Package"), _("Requirement")))
+        list = gtk.CList (2, (_("Package"), _("Requirement")))
         list.freeze ()
         for (name, suggest) in self.deps:
             list.append ((name, suggest))
@@ -75,19 +75,19 @@ class UnresolvedDependenciesWindow (InstallWindow):
 	self.origSelection = self.comps.getSelectionState()
         self.comps.selectDeps (self.deps)
 
-        self.sizelabel = gtk.GtkLabel()
+        self.sizelabel = gtk.Label("")
         self.sizelabel.set_alignment (1, .5)
         self.updateSize()
 
-        rb = gtk.GtkVBox (gtk.FALSE)
-        self.dependRB = gtk.GtkRadioButton (None, _("Install packages to "
+        rb = gtk.VBox (gtk.FALSE)
+        self.dependRB = gtk.RadioButton (None, _("Install packages to "
                                                 "satisfy dependencies"))
         
-        self.causeRB  = gtk.GtkRadioButton (self.dependRB, _("Do not install "
+        self.causeRB  = gtk.RadioButton (self.dependRB, _("Do not install "
                                                          "packages that "
                                                          "have dependencies"))
         
-        self.ignoreRB = gtk.GtkRadioButton (self.dependRB, _("Ignore package "
+        self.ignoreRB = gtk.RadioButton (self.dependRB, _("Ignore package "
                                                          "dependencies"))
 
         rb.pack_start (self.dependRB)
@@ -100,7 +100,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
         self.causeRB.connect('toggled', self.causeToggled)
         self.ignoreRB.connect('toggled', self.ignoreToggled)
 
-        box = gtk.GtkVBox (gtk.FALSE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
         box.pack_start (sw, gtk.TRUE)
         box.pack_start (rb, gtk.FALSE)
 
