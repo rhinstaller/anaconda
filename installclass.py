@@ -42,6 +42,7 @@ class BaseInstallClass:
     # default to not being hidden
     hidden = 0
     pixmap = None
+    description = None
 
     # don't select this class by default
     default = 0
