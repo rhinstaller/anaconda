@@ -212,18 +212,15 @@ int isUsableDasd(char *device) {
 	strcat(devname, device);
 	devMakeInode(device, devname);
 	if((f = open(devname, O_RDONLY)) == -1) {
-		unlink(devname);
 		return 0;
 	}
 	if (ioctl(f, BLKSSZGET, &blksize) != 0) {
 		close(f);
-		unlink(devname);
 		/* fprintf(stderr, "Could not retrieve blocksize information!\n"); */
 		return 0;
 	}
 	if (ioctl(f, BIODASDINFO, &dasd_info) != 0) {
 		close(f);
-		unlink(devname);
 		/* fprintf(stderr, "Could not retrieve disk information!\n"); */
 		return 0;
 	}
