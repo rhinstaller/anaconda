@@ -25,8 +25,6 @@ if [ ! -d $1 ]; then
 	LATEST="latest --arch $ARCH"
 fi
 
-HOMEDIR=`pwd`
-
 # remove all non unused python files
 pythondeps() {
         DIR=$1
@@ -86,15 +84,15 @@ expandPackageSet() {
 
 PACKAGEDIR=$1
 
-DEST=/tmp/upd-instroot/hd
 if [ -z "$2" ]; then
-    DESTGR=/tmp/upd-instroot/gr
+    DESTGR=/tmp/upd-instroot
 elif [ -d "$2" ]; then
     DESTGR=$2/RedHat/instimage
 else
     echo "$2 is not a directory!"
     exit 1
 fi
+DEST=$DESTGR/hd-image
 
 rm -rf $DEST $DESTGR
 mkdir -p $DEST
