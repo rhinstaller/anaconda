@@ -439,10 +439,6 @@ class PartitionSpec(RequestSpec):
 
     def getDevice(self, partitions):
         """Return a device to solidify."""
-        if self.dev:
-            # FIXME: this warning can probably be removed post-beta
-            log("WARNING: getting self.dev more than once for %s" %(self,))
-            return self.dev
         self.dev = fsset.PartitionDevice(self.device)
         return self.dev
 
