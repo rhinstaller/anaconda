@@ -79,13 +79,13 @@ class OldHardDriveInstallMethod(InstallMethod):
 
     def readHeaders(self):
 	self.mountMedia()
-	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
+	hl = HeaderListFromFile(self.tree + self.path + "/RedHat/base/hdlist")
 	self.umountMedia()
 	return hl
 	
     def mergeFullHeaders(self, hdlist):
 	self.mountMedia()
-	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+	hdlist.mergeFullHeaders(self.tree + self.path + "/RedHat/base/hdlist2")
 	self.umountMedia()
 
 
