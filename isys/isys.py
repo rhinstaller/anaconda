@@ -238,8 +238,6 @@ def loadFont():
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
-probedList = None
-
 classMap = { "disk": kudzu.CLASS_HD,
              "cdrom": kudzu.CLASS_CDROM,
              "floppy": kudzu.CLASS_FLOPPY }
