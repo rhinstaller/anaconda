@@ -113,7 +113,10 @@ class AutoPartitionWindow:
 	if not todo.getPartitionWarningText():
 	    todo.fstab.setRunDruid(0)
 	    todo.fstab.setDruid(druid, todo.instClass.raidList)
-	    todo.allowLiloLocationConfig()
+
+	    # sets up lilo for raid boot partitions during kickstart
+	    todo.lilo.allowLiloLocationConfig(todo.fstab)
+
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 	    return
@@ -139,7 +142,7 @@ class AutoPartitionWindow:
 	else:
 	    todo.fstab.setRunDruid(0)
 	    todo.fstab.setDruid(druid, todo.instClass.raidList)
-	    todo.allowLiloLocationConfig()
+	    todo.lilo.allowLiloLocationConfig(todo.fstab)
 	    todo.fstab.formatAllFilesystems()
 	    todo.instClass.addToSkipList("format")
 

@@ -283,7 +283,8 @@ class ToDo:
         self.ddruidReadOnly = 0
         self.badBlockCheck = 0
         self.bootdisk = 1
-	self.liloImages = {}
+	self.lilo = LiloConfiguration()
+
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
         arch = iutil.getArch ()
@@ -357,67 +358,6 @@ class ToDo:
 
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
-
-    def allowLiloLocationConfig(self):
-	bootDevice = self.fstab.getBootDevice()
-	if bootDevice[0:2] == "md":
-	    self.setLiloLocation(("raid", bootDevice))
-	    return None
-
-	return 1
-
-    def setLiloImages(self, images):
-	self.liloImages = images
-
-    def getLiloImages(self):
-        if not self.__dict__.has_key('fstab'):
-            raise RuntimeError, "No fstab object"
-
-        (drives, raid) = self.fstab.raidList()
-
-	# rearrange the fstab so it's indexed by device
-	mountsByDev = {}
-	for (mntpoint, device, fsystem, doFormat, size) in \
-		    self.fstab.mountList():
-	    mountsByDev[device] = mntpoint
-
-	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
-	    mountsByDev[device] = mntpoint
-	    drives.append(device, "", 2, 0, 0)
-
-	for (device, mntpoint, fsystem, makeup) in self.fstab.existingRaidList():
-	    mountsByDev[device] = mntpoint
-	    drives.append(device, "", 2, 0, 0)
-	    
-	oldImages = {}
-	for dev in self.liloImages.keys():
-	    oldImages[dev] = self.liloImages[dev]
-
-	self.liloImages = {}
-        foundDos = 0
-	for (dev, devName, type, start, size) in drives:
-	    # ext2 and raid partitions get listed if 
-	    #	    1) they're /
-	    #	    2) they're not mounted
-
-            # only list dos and ext2 partitions
-            if type != 1 and type != 2:
-                continue
-
-	    if (mountsByDev.has_key(dev)):
-		if mountsByDev[dev] == '/':
-		    self.liloImages[dev] = ("linux", 2)
-	    else:
-		if not oldImages.has_key(dev):
-		    self.liloImages[dev] = ("", type)
-		else:
-		    self.liloImages[dev] = oldImages[dev]
-            if type == 1:
-		if foundDos: continue
-		foundDos = 1
-		self.liloImages[dev] = ("dos", type)
-
-	return self.liloImages
 
     def addMount(self, device, location, fsystem, reformat = 1):
         if fsystem == "swap":
@@ -503,137 +443,6 @@ class ToDo:
         if rc:
             raise RuntimeError, "boot disk creation failed"
 
-    def installLilo (self):
-	# If self.liloDevice is None, skipping lilo doesn't work
-	if not self.liloDevice: return
-
-	# If the root partition is on a loopback device, lilo won't work!
-	if self.fstab.rootOnLoop():
-	    return 
-
-	lilo = LiloConfiguration ()
-
-	if not self.liloImages:
-	    self.setLiloImages(self.getLiloImages())
-
-        # OK - for this release we need to just blow away the old lilo.conf
-        # just like we used to.
-##         # on upgrade read in the lilo config file
-##         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
-##             lilo.read (self.instPath + '/etc/lilo.conf')
-
-        if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
-	    os.rename(self.instPath + '/etc/lilo.conf',
-		      self.instPath + '/etc/lilo.conf.rpmsave')
-
-        if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
-	    os.rename(self.instPath + '/etc/lilo.conf',
-		      self.instPath + '/etc/lilo.conf.rpmsave')
-
-	bootpart = self.fstab.getBootDevice()
-	boothd = self.fstab.getMbrDevice()
-
-	if (type((1,)) == type(bootpart)):
-	    (kind, self.liloDevice) = bootpart
-	elif (self.liloDevice == "mbr"):
-	    self.liloDevice = boothd
-	else:
-	    self.liloDevice = bootpart
-
-        if self.liloDevice:
-            lilo.addEntry("boot", '/dev/' + self.liloDevice)
-	lilo.addEntry("map", "/boot/map")
-	lilo.addEntry("install", "/boot/boot.b")
-	lilo.addEntry("prompt")
-	lilo.addEntry("timeout", "50")
-	if self.liloLinear:
-	    lilo.addEntry("linear")
-
-	smpInstalled = (self.hdList.has_key('kernel-smp') and 
-                        self.hdList['kernel-smp'].selected)
-	if (self.upgrade and not isys.smpAvailable()):
-	    smpInstalled = 0
-
-        rootDev = self.fstab.getRootDevice ()
-        if rootDev:
-            rootDev = rootDev[0]
-        else:
-            raise RuntimeError, "Installing lilo, but there is no root device"
-
-        kernelList = []
-        otherList = []
-
-        main = "linux"
-
-        for (drive, (label, liloType)) in self.liloImages.items ():
-            if (drive == rootDev) and label:
-                main = label
-            elif label:
-                otherList.append (label, "/dev/" + drive)
-
-        lilo.addEntry("default", main)        
-
-	label = main
-	if (smpInstalled):
-	    kernelList.append((main, self.hdList['kernel-smp'], "smp"))
-	    label = main + "-up"
-
-	kernelList.append((label, self.hdList['kernel'], ""))
-
-	for (label, kernel, tag) in kernelList:
-	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
-	    initrd = self.makeInitrd (kernelTag)
-
-	    sl = LiloConfiguration()
-
-	    sl.addEntry("label", label)
-	    if os.access (self.instPath + initrd, os.R_OK):
-		sl.addEntry("initrd", initrd)
-
-	    sl.addEntry("read-only")
-	    sl.addEntry("root", '/dev/' + rootDev)
-	    kernelFile = "/boot/vmlinuz" + kernelTag
-
-	    if self.liloAppend:
-		sl.addEntry('append', '"%s"' % (self.liloAppend,))
-		
-	    lilo.addImage ("image", kernelFile, sl)
-
-	for (label, device) in otherList:
-	    sl = LiloConfiguration()
-	    sl.addEntry("label", label)
-	    lilo.addImage ("other", device, sl)
-
-        for (liloType, name, config) in lilo.images:
-            # remove entries for missing kernels (upgrade)
-            if liloType == "image":
-                if not os.access (self.instPath + name, os.R_OK):
-                    lilo.delImage (name)
-            # remove entries for unbootable partitions
-            elif liloType == "other":
-                device = name[5:]
-                isys.makeDevInode(device, '/tmp/' + device)
-                if not isys.checkBoot ('/tmp/' + device):
-                    lilo.delImage (name)
-                os.remove ('/tmp/' + device)
-
-        # pass 2, remove duplicate entries
-        labels = []
-
-        for (liloType, name, config) in lilo.images:
-            if not name in labels:
-                labels.append (name)
-            else: # duplicate entry, first entry wins
-                lilo.delImage (name)                
-
-	lilo.write(self.instPath + "/etc/lilo.conf")
-
-        # XXX make me "not test mode"
-        if self.setupFilesystems:
-            iutil.execWithRedirect(self.instPath + '/sbin/lilo' ,
-                                   [ "lilo", "-r", self.instPath ],
-                                   stdout = None)
-
     def freeHeaderList(self):
 	if (self.hdList):
 	    self.hdList = None
@@ -645,12 +454,6 @@ class ToDo:
 	    self.hdList = self.method.readHeaders()
 	    w.pop()
 	return self.hdList
-
-    def setLiloLocation(self, location):
-	self.liloDevice = location
-
-    def getLiloLocation (self):
-        return self.liloDevice
 
     def getCompsList(self):
 	if (not self.comps):
@@ -970,9 +773,9 @@ class ToDo:
 	todo.bootdisk = todo.instClass.getMakeBootdisk()
 	todo.zeroMbr = todo.instClass.zeroMbr
 	(where, linear, append) = todo.instClass.getLiloInformation()
-	todo.liloDevice = where
-	todo.liloLinear = linear
-	todo.liloAppend = append
+	todo.lilo.setDevice(where)
+	todo.lilo.setLinear(linear)
+	todo.lilo.setAppend(append)
 
 	for (mntpoint, (dev, fstype, reformat)) in todo.instClass.fstab:
 	    todo.addMount(dev, mntpoint, fstype, reformat)
@@ -1407,7 +1210,7 @@ class ToDo:
         if arch == "sparc":
             self.silo.installSilo ()
         elif arch == "i386":
-            self.installLilo ()
+            self.lilo.install (self.fstab)
         elif arch == "alpha":
             self.milo.write ()
         else:

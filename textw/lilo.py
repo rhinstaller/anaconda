@@ -22,10 +22,10 @@ class LiloAppendWindow:
 		       "aren't sure, leave this blank."))
 
         cb = Checkbox(_("Use linear mode (needed for some SCSI drives)"),
-		      isOn = todo.liloLinear)
+		      isOn = todo.lilo.getLinear())
 	entry = Entry(48, scroll = 1, returnExit = 1)
-	if todo.liloAppend:
-	    entry.set(todo.liloAppend)
+	if todo.lilo.getAppend():
+	    entry.set(todo.lilo.getAppend())
 
 	buttons = ButtonBar(screen, [(_("OK"), "ok"), (_("Skip"), "skip"),  
 			     (_("Back"), "back") ] )
@@ -44,15 +44,15 @@ class LiloAppendWindow:
 
 	if button == "skip":
 	    todo.skipLilo = 1
-            todo.setLiloLocation(None)
+            todo.lilo.setDevice(None)
 	else:
 	    todo.skipLilo = 0
 
-	todo.liloLinear = cb.selected()
+	todo.lilo.setLinear(cb.selected())
 	if entry.value():
-	    todo.liloAppend = string.strip(entry.value())
+	    todo.lilo.setAppend(string.strip(entry.value()))
 	else:
-	    todo.liloAppend = None
+	    todo.lilo.setAppend(None)
 
 	return INSTALL_OK
 
@@ -62,15 +62,15 @@ class LiloWindow:
 	if mount != '/': return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
-	if not todo.allowLiloLocationConfig():
+	if not todo.lilo.allowLiloLocationConfig(todo.fstab):
 	    return INSTALL_NOOP
 
 	bootpart = todo.fstab.getBootDevice()
 	boothd = todo.fstab.getMbrDevice()
 
-	if (todo.getLiloLocation () == "mbr"):
+	if (todo.lilo.getDevice () == "mbr"):
 	    default = 0
-	elif (todo.getLiloLocation () == "partition"):
+	elif (todo.lilo.getDevice () == "partition"):
 	    default = 1
 	else:
 	    default = 0
@@ -86,9 +86,9 @@ class LiloWindow:
                                          buttons = [ _("OK"), _("Back") ])
 
         if sel == 0:
-            todo.setLiloLocation("mbr")
+            todo.lilo.setDevice("mbr")
         else:
-            todo.setLiloLocation("partition")
+            todo.lilo.setDevice("partition")
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
@@ -101,7 +101,8 @@ class LiloImagesWindow:
 	device = Label("/dev/" + partition)
         newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
 
-	buttons = ButtonBar(screen, [_("Ok"), _("Clear"), _("Cancel")])
+	buttons = ButtonBar(screen, [(_("Ok"), "ok"), (_("Clear"), "clear"),
+			    (_("Cancel"), "cancel")])
 
 	subgrid = Grid(2, 2)
 	subgrid.setField(devLabel, 0, 0, anchorLeft = 1)
@@ -114,15 +115,15 @@ class LiloImagesWindow:
 	g.add(buttons, 0, 1, growx = 1)
 
 	result = ""
-	while (result != string.lower(_("Ok")) and result != newLabel):
+	while (result != "ok" and result != "F12" and result != newLabel):
 	    result = g.run()
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
-	    if (result == string.lower(_("Cancel"))):
+	    if (result == "cancel"):
 		screen.popWindow ()
 		return itemLabel
-	    elif (result == string.lower(_("Clear"))):
+	    elif (result == "clear"):
 		newLabel.set("")
 
 	screen.popWindow()
@@ -147,9 +148,17 @@ class LiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-	images = todo.getLiloImages()
+	(images, default) = todo.lilo.getLiloImages(todo.fstab)
 	if not images: return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
+
+	# the default item is kept as a label (which makes more sense for the
+	# user), but we want our listbox "indexed" by device, which so we keep
+	# the default item as a device
+	for (dev, (label, type)) in images.items():
+	    if label == default:
+		default = dev
+		break
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
@@ -158,11 +167,11 @@ class LiloImagesWindow:
 		( _("Device"), _("Partition type"), _("Default"), _("Boot label")))
 	listbox = Listbox(5, scroll = 1, returnExit = 1)
 
-	default = ""
-
 	for n in sortedKeys:
 	    (label, type) = images[n]
 	    listbox.append(self.formatDevice(type, label, n, default), n)
+	    if n == default:
+		listbox.setCurrent(n)
 
 	buttons = ButtonBar(screen, [ (_("Ok"), "ok"), (_("Edit"), "edit"), 
 				      (_("Back"), "back") ] )
@@ -213,7 +222,14 @@ class LiloImagesWindow:
 	if (result == "back"):
 	    return INSTALL_BACK
 
-	todo.setLiloImages(images)
+	# find the label for the default device
+	for (dev, (label, type)) in images.items():
+	    if dev == default:
+		default = label
+		break
+
+	todo.lilo.setLiloImages(images)
+	todo.lilo.setDefault(label)
 
 	return INSTALL_OK
 
