@@ -107,7 +107,7 @@ class Keyboard (SimpleConfigFile):
 		"sundvorak",
 		"sunkeymap",
 		"sunt4-es",
-		"sunt4-no-latin1.map.gz",
+		"sunt4-no-latin1",
 		"sunt5-cz-us",
 		"sunt5-de-latin1",
 		"sunt5-es",
