@@ -48,9 +48,10 @@ class KeyboardWindow:
 				    ["/bin/loadkeys", keyboards[choice]],
 				    stderr = "/dev/null")
 
-	try:
-	    isys.loadKeymap(keyboards[choice])
-	except SystemError, (errno, msg):
-		log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+        # XXX FIXME More hackery around loadKeymap problem.  bleah :(
+## 	try:
+## 	    isys.loadKeymap(keyboards[choice])
+## 	except SystemError, (errno, msg):
+## 		log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
 
