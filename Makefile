@@ -53,7 +53,7 @@ install:
 
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/usr/sbin
-	mkdir -p $(DESTDIR)/etc/init.d/init.d
+	mkdir -p $(DESTDIR)/etc/rc.d/init.d
 	mkdir -p $(DESTDIR)/$(PYTHONLIBDIR)
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
 
