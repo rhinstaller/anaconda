@@ -1,5 +1,11 @@
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* packages.py (selectLanguageSupportGroups): Switch to selecting
+	metapkgs of a "language-support" group so that language selection
+	is just like other package selection
+
+	* product.py: Default product path to Fedora for HEAD
+
 	* urlinstall.py: Fix urlgrabber import up
 	* kickstart.py: Likewise.
 	* hdrlist.py (groupSetFromCompsFile): Likewise.

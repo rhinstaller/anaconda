@@ -156,7 +156,7 @@ def readPackages(intf, method, id):
 	w = intf.waitWindow(_("Reading"), _("Reading package information..."))
         try:
             hdrlist = method.readHeaders()
-        except FileCopyException:
+        except FileCopyException, e:
             w.pop()
             method.unmountCD()
             intf.messageWindow(_("Error"),
@@ -170,7 +170,7 @@ def readPackages(intf, method, id):
     while grpset is None:
         try:
             grpset = method.readComps(hdrlist)
-        except FileCopyException:
+        except FileCopyException, e:
             method.unmountCD()            
             intf.messageWindow(_("Error"),
                                _("Unable to read comps file.  This may be "
@@ -1567,22 +1567,33 @@ def betaNagScreen(intf, dir):
 
 # FIXME: this is a kind of poor way to do this, but it will work for now
 def selectLanguageSupportGroups(grpset, langSupport):
+    if not grpset.groups.has_key("language-support"):
+        return
+
+    langSupport.getDefault()
     sup = langSupport.supported
     if len(sup) == 0:
         sup = langSupport.getAllSupported()
 
-    for group in grpset.groups.values():
+    langs = []
+    for name in sup:
+        try:
+            lang = langSupport.langInfoByName[name][0]
+            langs.extend(language.expandLangs(lang))
+        except:
+            continue
+
+    grp = grpset.groups["language-support"]
+    for (pid, pdict) in grp.packages.items():
+        if pdict['meta'] != 1:
+            continue
+        if not grpset.groups.has_key(pid):
+            continue
+        group = grpset.groups[pid]
         xmlgrp = grpset.compsxml.groups[group.basename]
-        langs = []
-        for name in sup:
-            try:
-                lang = langSupport.langInfoByName[name][0]
-                langs.extend(language.expandLangs(lang))
-            except:
-                continue
-            
+
         if group.langonly is not None and group.langonly in langs:
-            group.select()
+            grp.selectPackage(pid)
             for package in xmlgrp.pkgConditionals.keys():
                 req = xmlgrp.pkgConditionals[package]
                 if not grpset.hdrlist.has_key(package):
@@ -1594,7 +1605,5 @@ def selectLanguageSupportGroups(grpset, langSupport):
                 grpset.hdrlist[req].addDeps([package], main = 0)
                 if grpset.hdrlist[req].isSelected():
                     grpset.hdrlist[package].select()
-                    sys.stdout.flush()
                     grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
                     group.selectDeps([package], uses = grpset.hdrlist[req].usecount)
-    
