@@ -135,18 +135,16 @@ msgid "Install GNOME Workstation"
 msgstr "Установить рабочую станцию GNOME"
 
 #: ../text.py:161
-#, fuzzy
 msgid "Install KDE Workstation"
 msgstr "Установить рабочую станцию KDE"
 
 #: ../text.py:162
-#, fuzzy
 msgid "Install Server System"
-msgstr "Установка сервера"
+msgstr "Установить сервер"
 
 #: ../text.py:163
 msgid "Install Custom System"
-msgstr "Выборочная установка системы"
+msgstr "Установить систему по выбору"
 
 #: ../text.py:164
 msgid "Upgrade Existing Installation"
@@ -317,7 +315,6 @@ msgid "Unlisted Card"
 msgstr "Неуказанная карта"
 
 #: ../text.py:454
-#, fuzzy
 msgid "Video Card Selection"
 msgstr "Выбор видеокарты"
 
@@ -326,7 +323,6 @@ msgid "Which video card do you have?"
 msgstr "Укажите тип видеокарты"
 
 #: ../text.py:467
-#, fuzzy
 msgid "X Server Selection"
 msgstr "Выбор Х-сервера"
 
@@ -392,12 +388,12 @@ msgstr ""
 #: ../text.py:625
 #, fuzzy
 msgid "Package Installation"
-msgstr "Инсталляция LILO"
+msgstr "Инсталляция пакета"
 
 #: ../text.py:627
 #, fuzzy
 msgid "Name   : "
-msgstr "Имя очереди:"
+msgstr "Имя    :"
 
 #: ../text.py:628
 #, fuzzy
@@ -406,56 +402,53 @@ msgstr "Размер :"
 
 #: ../text.py:629
 msgid "Summary: "
-msgstr ""
+msgstr "Сведения:"
 
 #: ../text.py:655
-#, fuzzy
 msgid "    Packages"
-msgstr "Пакет"
+msgstr "      Пакеты"
 
 #: ../text.py:656
 msgid "       Bytes"
-msgstr ""
+msgstr "        Байт"
 
 #: ../text.py:657
 msgid "        Time"
-msgstr ""
+msgstr "       Время"
 
 #: ../text.py:659
 msgid "Total    :"
-msgstr ""
+msgstr "Всего    :"
 
 #: ../text.py:666
-#, fuzzy
 msgid "Completed:   "
-msgstr "Готово"
+msgstr "Завершено:   "
 
 #: ../text.py:676
 msgid "Remaining:  "
-msgstr ""
+msgstr "Осталось:   "
 
 #: ../text.py:746
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "В каком часовом поясе вы находитесь?"
 
 #: ../text.py:754
 msgid "Hardware clock set to GMT?"
-msgstr ""
+msgstr "Установлены ли системные часы по GMT?"
 
 #: ../iw/timezone.py:29 ../text.py:756
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Выбор часового пояса"
 
 #: ../text.py:791 ../text.py:792
 msgid "Debug"
-msgstr ""
+msgstr "Отладка"
 
 #: ../text.py:804
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:806
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -464,56 +457,48 @@ msgstr ""
 
 #: ../text.py:822
 msgid "Welcome"
-msgstr ""
+msgstr "Welcome"
 
 #: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
-#, fuzzy
 msgid "Partition"
-msgstr "Переразбиение"
+msgstr "Разбиение"
 
 #: ../text.py:830
-#, fuzzy
 msgid "Manually Partition"
-msgstr "Переразбиение"
+msgstr "Ручное разбиение"
 
 #: ../text.py:832
-#, fuzzy
 msgid "Automatic Partition"
-msgstr "Редактировать раздел"
+msgstr "Автоматическое разбиение"
 
 #: ../text.py:836
 msgid "Swap"
 msgstr ""
 
 #: ../text.py:838
-#, fuzzy
 msgid "Filesystem Formatting"
-msgstr "Форматирование"
+msgstr "Форматирование файловых систем"
 
 #: ../text.py:840 ../text.py:842 ../text.py:844 ../textw/lilo.py:23
 #: ../textw/lilo.py:61 ../textw/lilo.py:158
-#, fuzzy
 msgid "LILO Configuration"
-msgstr "Настройка SCSI"
+msgstr "Конфигурация LILO"
 
 #: ../text.py:846
-#, fuzzy
 msgid "Hostname Setup"
-msgstr "Запрос имени компьютера"
+msgstr "Имя компьютера"
 
 #: ../text.py:848
-#, fuzzy
 msgid "Network Setup"
-msgstr "Настройка NFS"
+msgstr "Настройка сети"
 
 #: ../text.py:850 ../text.py:852
-#, fuzzy
 msgid "Mouse Configuration"
-msgstr "Настройка SCSI"
+msgstr "Выбор мыши"
 
 #: ../text.py:854
 msgid "Time Zone Setup"
-msgstr ""
+msgstr "Выбор часового пояса"
 
 #: ../text.py:856 ../textw/userauth.py:10
 msgid "Root Password"
@@ -521,125 +506,109 @@ msgstr "Пароль пользователя root"
 
 #: ../text.py:858 ../textw/userauth.py:150
 msgid "User Account Setup"
-msgstr ""
+msgstr "Создание учетной записи пользователя"
 
 #: ../text.py:860
-#, fuzzy
 msgid "Authentication"
-msgstr "Настройка аутентификации"
+msgstr "Аутентификация"
 
 #: ../text.py:862
-#, fuzzy
 msgid "Package Groups"
-msgstr "Пакет"
+msgstr "Группы пакетов"
 
 #: ../text.py:864 ../text.py:885
-#, fuzzy
 msgid "Individual Packages"
 msgstr "Индивидуальный выбор пакетов"
 
 #: ../text.py:866 ../textw/packages.py:116
-#, fuzzy
 msgid "Package Dependencies"
-msgstr "Неопределенные зависимости"
+msgstr "Зависимости пакетов"
 
 #: ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
 #, fuzzy
 msgid "X Configuration"
-msgstr "Настройка SCSI"
+msgstr "Настройка Х"
 
 #: ../text.py:870
-#, fuzzy
 msgid "Boot Disk"
 msgstr "Загрузочный диск"
 
 #: ../text.py:872
-#, fuzzy
 msgid "Installation Begins"
-msgstr "Этапы установки"
+msgstr "Начало инсталляции"
 
 #: ../text.py:874
-#, fuzzy
 msgid "Install System"
-msgstr "Установка системы"
+msgstr "Инсталляция системы"
 
 #: ../text.py:878
-#, fuzzy
 msgid "Installation Complete"
-msgstr "Класс инсталляции"
+msgstr "Инсталляция завершена"
 
 #: ../text.py:883
 msgid "Examine System"
-msgstr ""
+msgstr "Проверка системы"
 
 #: ../text.py:884
 msgid "Customize Upgrade"
 msgstr ""
 
 #: ../text.py:886
-#, fuzzy
 msgid "Upgrade System"
 msgstr "Обновление системы"
 
 #: ../text.py:887
-#, fuzzy
 msgid "Upgrade Complete"
-msgstr "Обновление системы"
+msgstr "Обновление завершено"
 
 #: ../gui.py:310
 msgid "Red Hat Linux Installer"
-msgstr ""
+msgstr "Инсталлятоr Red Hat Linux"
 
 #: ../gui.py:319
 msgid "Finish"
-msgstr ""
+msgstr "Завершить"
 
 #: ../gui.py:320
 msgid "Hide Help"
-msgstr ""
+msgstr "Скрыть помощь"
 
 #: ../gui.py:321
 msgid "Show Help"
-msgstr ""
+msgstr "Показать помощь"
 
 #: ../gui.py:343
 msgid "Online Help"
-msgstr ""
+msgstr "Помощь"
 
 #: ../iw/account.py:14
-#, fuzzy
 msgid "Account Configuration"
-msgstr "Настройка SCSI"
+msgstr "Учетная запись пользователя"
 
 #: ../iw/account.py:121
-#, fuzzy
 msgid "Root Password: "
-msgstr "Пароль пользователя root"
+msgstr "Пароль пользователя root:"
 
 #: ../iw/account.py:124
-#, fuzzy
 msgid "Confirm: "
-msgstr "Настройка X Window"
+msgstr "Подтвердите: "
 
 #: ../iw/account.py:175 ../iw/account.py:218
-#, fuzzy
 msgid "Account Name"
-msgstr "Имя пользователя:"
+msgstr "Имя пользователя"
 
 #: ../iw/account.py:179 ../textw/userauth.py:82
-#, fuzzy
 msgid "Password"
-msgstr "Пароль:"
+msgstr "Пароль"
 
 #: ../iw/account.py:183 ../textw/userauth.py:83
-#, fuzzy
 msgid "Password (confirm)"
-msgstr "Повторите пароль:"
+msgstr "Подтвердите пароль"
 
 #: ../iw/account.py:187 ../iw/account.py:218 ../textw/userauth.py:81
 #: ../textw/userauth.py:162
 msgid "Full Name"
-msgstr ""
+msgstr "Полное имя"
 
 #: ../iw/account.py:196 ../libfdisk/newtfsedit.c:1303 ../textw/userauth.py:173
 msgid "Add"
@@ -658,46 +627,43 @@ msgstr "Удалить"
 
 #: ../iw/account.py:202
 msgid "New"
-msgstr ""
+msgstr "Новый"
 
 #: ../iw/auth.py:11 ../textw/userauth.py:248
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Конфигурация сети"
+msgstr "Настройка аутентификации"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr ""
+msgstr "Разрешить пароли MD5"
 
 #: ../iw/auth.py:51
-#, fuzzy
 msgid "Enable shadow passwords"
-msgstr "Установка пароля пользователя root"
+msgstr "Разрешить скрытые пароли"
 
 #: ../iw/auth.py:53 ../textw/userauth.py:253
 msgid "Enable NIS"
-msgstr ""
+msgstr "Разрешить NIS"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr ""
+msgstr "Использовать бродкаст для поиска сервера NIS"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr ""
+msgstr "Домен NIS"
 
 #: ../iw/auth.py:68
 msgid "NIS Server: "
 msgstr "Сервер NIS:"
 
 #: ../iw/bootdisk.py:10
-#, fuzzy
 msgid "Bootdisk Creation"
-msgstr "Загрузочный диск"
+msgstr "Создание загрузочного диска"
 
 #: ../iw/bootdisk.py:51
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Пропустить создание загрузочного диска"
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -724,9 +690,8 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Установить пакеты для удовлетворения зависимостей"
 
 #: ../iw/examine.py:11
-#, fuzzy
 msgid "Upgrade Examine"
-msgstr "Обновление"
+msgstr ""
 
 #: ../iw/examine.py:35
 msgid ""
@@ -741,13 +706,12 @@ msgid "Customize packages to be upgraded"
 msgstr "Уточните пакеты для обновления"
 
 #: ../iw/fdisk.py:11 ../textw/partitioning.py:25
-#, fuzzy
 msgid "fdisk"
-msgstr "Загрузочный диск"
+msgstr "fdisk"
 
 #: ../iw/fdisk.py:42
 msgid "Select drive to run fdisk on"
-msgstr ""
+msgstr "Выберите устройство для работы fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -868,7 +832,6 @@ msgid "Activate on boot"
 msgstr "Активизировать при загрузке"
 
 #: ../iw/network.py:147
-#, fuzzy
 msgid "IP Address"
 msgstr "Адрес IP"
 
@@ -913,7 +876,6 @@ msgid "Name: "
 msgstr "Имя: "
 
 #: ../iw/package.py:329
-#, fuzzy
 msgid "Package Details"
 msgstr "Описание пакета"
 
@@ -958,27 +920,24 @@ msgid "Time"
 msgstr "Время"
 
 #: ../iw/progress.py:154
-#, fuzzy
 msgid "Total"
 msgstr "Всего"
 
 #: ../iw/progress.py:155
-#, fuzzy
 msgid "Completed"
 msgstr "Готово"
 
 #: ../iw/progress.py:156
-#, fuzzy
 msgid "Remaining"
-msgstr "Переиндексация"
+msgstr "Осталось"
 
 #: ../iw/rootpartition.py:12
 msgid "Confirm Partitioning Selection"
-msgstr ""
+msgstr "Подтвердите разбиение диска"
 
 #: ../iw/rootpartition.py:27 ../textw/partitioning.py:25
 msgid "Disk Druid"
-msgstr ""
+msgstr "Disk Druid"
 
 #: ../iw/rootpartition.py:86 ../textw/partitioning.py:97
 msgid "Automatic Partitioning"
@@ -995,17 +954,16 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition.py:137
-#, fuzzy
 msgid "Remove data"
-msgstr "Удаленный lpd"
+msgstr "Удалить данные"
 
 #: ../iw/rootpartition.py:140 ../textw/partitioning.py:102
 msgid "Manually partition"
-msgstr "Переразбиение"
+msgstr "Ручное разбиение"
 
 #: ../iw/timezone.py:110
 msgid "View:"
-msgstr ""
+msgstr "Просмотр:"
 
 #: ../iw/timezone.py:140
 msgid "Use Daylight Saving Time"
@@ -1066,7 +1024,6 @@ msgid ""
 msgstr ""
 
 #: ../iw/xconfig.py:157
-#, fuzzy
 msgid "Autoprobe results:"
 msgstr "Результат автоопределения:"
 
@@ -1097,7 +1054,6 @@ msgid "Where do you want to install the bootloader?"
 msgstr ""
 
 #: ../textw/lilo.py:82 ../textw/lilo.py:102
-#, fuzzy
 msgid "Clear"
 msgstr "Очистить"
 
@@ -1109,9 +1065,8 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: ../textw/lilo.py:90
-#, fuzzy
 msgid "Edit Boot Label"
-msgstr "Метка загрузки"
+msgstr "Изменить метку загрузки"
 
 #: ../textw/lilo.py:153
 msgid ""
@@ -1128,9 +1083,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/partitioning.py:17 ../textw/partitioning.py:56
-#, fuzzy
 msgid "Disk Setup"
-msgstr "Настройка NFS"
+msgstr ""
 
 #: ../textw/partitioning.py:18
 msgid ""
@@ -1177,14 +1131,12 @@ msgid ""
 msgstr ""
 
 #: ../textw/partitioning.py:170
-#, fuzzy
 msgid "Check for bad blocks during format"
 msgstr "Поск дефектных блоков при форматировании"
 
 #: ../textw/partitioning.py:174
-#, fuzzy
 msgid "Choose Partitions to Format"
-msgstr "Выбор разделов для форматирования"
+msgstr "Выберите разделы для форматирования"
 
 #: ../textw/userauth.py:12
 msgid ""
@@ -1199,40 +1151,36 @@ msgid "Password:"
 msgstr "Пароль:"
 
 #: ../textw/userauth.py:26
-#, fuzzy
 msgid "Password (again):"
 msgstr "Повторите пароль:"
 
 #: ../textw/userauth.py:42 ../textw/userauth.py:93
-#, fuzzy
 msgid "Password Length"
-msgstr "Пароль:"
+msgstr "Длина пароля"
 
 #: ../textw/userauth.py:43
 msgid "The root password must be at least 6 characters long."
 msgstr ""
 
 #: ../textw/userauth.py:47 ../textw/userauth.py:101
-#, fuzzy
 msgid "Password Mismatch"
-msgstr "Пароль:"
+msgstr "Пароли не совпадают"
 
 #: ../textw/userauth.py:48 ../textw/userauth.py:102
 msgid "The passwords you entered were different. Please try again."
 msgstr ""
 
 #: ../textw/userauth.py:73
-#, fuzzy
 msgid "Edit User"
-msgstr "Редактировать"
+msgstr "Редактировать пользователя"
 
 #: ../textw/userauth.py:75
 msgid "Add User"
-msgstr ""
+msgstr "Добавить пользователя"
 
 #: ../textw/userauth.py:80
 msgid "User ID"
-msgstr ""
+msgstr "ID пользователя"
 
 #: ../textw/userauth.py:94
 msgid "The password must be at least 6 characters long."
@@ -1240,11 +1188,11 @@ msgstr ""
 
 #: ../textw/userauth.py:111
 msgid "User Exists"
-msgstr ""
+msgstr "Пользователь существует"
 
 #: ../textw/userauth.py:112
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "Пользователь с таким ID существует. Выберите другой ID"
 
 #: ../textw/userauth.py:139
 msgid ""
@@ -1262,7 +1210,7 @@ msgstr ""
 
 #: ../textw/userauth.py:162
 msgid "User name"
-msgstr ""
+msgstr "Имя пользователя"
 
 #: ../textw/userauth.py:186
 msgid "Enter the information for the user."
@@ -1287,7 +1235,6 @@ msgid "NIS Domain:"
 msgstr ""
 
 #: ../textw/userauth.py:260
-#, fuzzy
 msgid "NIS Server:"
 msgstr "Сервер NIS:"
 
@@ -1488,12 +1435,10 @@ msgid "Edit Partition"
 msgstr "Редактировать раздел"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
-#, fuzzy
 msgid "Mount Point:"
-msgstr "Точка монтирования"
+msgstr "Точка монтирования:"
 
 #: ../libfdisk/gnomefsedit.c:701
-#, fuzzy
 msgid "Size (Megs):"
 msgstr "Размер (Мег):"
 
@@ -2310,7 +2255,6 @@ msgid ""
 msgstr ""
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
 msgstr "Имя пользователя:"
 
@@ -2333,7 +2277,3 @@ msgstr ""
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Root Partition Selection"
-#~ msgstr "Выбор корневого раздела"
