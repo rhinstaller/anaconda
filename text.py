@@ -945,7 +945,7 @@ class InstallInterface:
         
         self.installSteps = [
             [_("Network Setup"), NetworkWindow, (self.screen, todo)],
-            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
+#            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
             [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
