@@ -163,7 +163,7 @@ class BaseInstallClass:
 	if not BETANAG:
 	    dispatch.skipStep("betanag")
 
-        if iutil.getArch() != "i386":
+        if iutil.getArch() != "i386" or 1:
             dispatch.skipStep("bootdisk")
 
 	# see if we need to write out a rescue boot floppy
