@@ -38,8 +38,6 @@ msgid "Make sure your password is at least 6 characters in length."
 msgstr "Kgonthišetša gore lentšu-phetišo la gago le nale bonyenyane ditlhaka tše 6 ka botelele."
 
 #: ../anaconda:183
-#, fuzzy
-#, review - vncpassword should not be translated
 msgid ""
 "\n"
 "\n"
@@ -47,7 +45,7 @@ msgid ""
 "You can use the vncpassword=<password> boot option\n"
 "if you would like to secure the server.\n"
 "\n"
-msgstr "\n\nTEMOŠO!!! Seabi sa VNC se šoma ka ntle le LENTŠU-PHETIŠO!\nO ka diriša lentšu-phetišo la vnc=<lentšu-phetišo> kgetho ya go thoma\nge eba o nyaka go šireletša seabi.\n\n"
+msgstr "\n\nTEMOŠO!!! Seabi sa VNC se šoma ka ntle le LENTŠU-PHETIŠO!\nO ka diriša vncpassword=<lentšu-phetišo> kgetho ya go thoma\nge eba o nyaka go šireletša seabi.\n\n"
 
 #: ../anaconda:187
 msgid "The VNC server is now running."
@@ -208,13 +206,11 @@ msgstr "Karolo ya go thoma ya %s ga se ya leswao la tisiki la BSD. SRM e ka se k
 
 #: ../autopart.py:1022
 #, python-format
-#, fuzzy
-#, review - fo not translate /boot
 msgid ""
 "Boot partition %s doesn't belong to a disk with enough free space at its "
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
-msgstr "Karolo ya go thoma ya %s ga se ya tisiki yeo e nago le sekgoba se lekanego seo se se nago selo mathomong a yona bakeng sa gore selaiši sa go thoma se tšwele pele. Kgonthišetša gore go na le bonyenyane sekgoba se se nago selo sa 5MB mathomong a tisiki yeo e nago le/go thoma"
+msgstr "Karolo ya go thoma ya %s ga se ya tisiki yeo e nago le sekgoba se lekanego seo se se nago selo mathomong a yona bakeng sa gore selaiši sa go thoma se tšwele pele. Kgonthišetša gore go na le bonyenyane sekgoba se se nago selo sa 5MB mathomong a tisiki yeo e nago le /boot"
 
 #: ../autopart.py:1024
 #, python-format
@@ -483,12 +479,10 @@ msgid ""
 msgstr "Sehlopha se se akaretša diphuthelwana ka moka tšeo di lego gona. Ela hloko gore go na le diphuthelwana tše oketšegilego tša kgonthe go feta feela tšeo di lego dihlopheng ka moka tša diphuthelwana tšeo di lego letlakaleng le."
 
 #: ../comps.py:1118 ../hdrlist.py:959
-#, fuzzy
-#, review - router/firewall not sure if that is correctly translated
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
-msgstr "Kgetha sehlopha se gore o hwetše sehlopha se senyenyane se kgonegago sa diphuthelwana. Di na le mohola bakeng sa go dira mapokisi a manyenyane a sešireletši sa tsebišo, ka mohlala."
+msgstr "Kgetha sehlopha se gore o hwetše sehlopha se senyenyane se kgonegago sa diphuthelwana. Di na le mohola bakeng sa go dira mapokisi a manyenyane a sekopanyi/sešireletši sa tsebišo, ka mohlala."
 
 #: ../constants.py:72
 msgid ""
@@ -1683,11 +1677,9 @@ msgid ""
 msgstr "Karolo ya gago ya modu e ka tlase ga di-megapaete tše 250 tšeo ka mo go tlwaelegilego e lego tše nyenyane kudu gore o ka tsenya %s."
 
 #: ../partitions.py:791
-#, fuzzy
-#, review - /boot/efi must not be translated
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr "O swanetše go hlama karolo ya /go thoma/efi ya mohuta wa FAT le bogolo bja di-megapaete tše 50."
+msgstr "O swanetše go hlama karolo ya /boot/efi ya mohuta wa FAT le bogolo bja di-megapaete tše 50."
 
 #: ../partitions.py:814
 msgid "You must create a PPC PReP Boot partition."
@@ -2087,13 +2079,11 @@ msgstr "Tshepedišo ye e bonagala e tsentšhitšwe diphuthelwana tša motho wa b
 
 #: ../upgrade.py:506
 #, python-format
-#, fuzzy
-#, review - /etc/redhat-release must remain untranslated
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
-msgstr "Tshepedišo ye ga e na faele ya tokollo ya /etc/redhat. Go na le kgonagalo ya gore ye ga se tshepedišo ya %s. Go tšwela pele le mosepelo wa go kaonafatša go ka tlogela tshepedišo e le boemong bjo sa tsepamago. Na o rata go tšwela pele le mosepelo wa go kaonafatša?"
+msgstr "Tshepedišo ye ga e na faele ya /etc/redhat-release. Go na le kgonagalo ya gore ye ga se tshepedišo ya %s. Go tšwela pele le mosepelo wa go kaonafatša go ka tlogela tshepedišo e le boemong bjo sa tsepamago. Na o rata go tšwela pele le mosepelo wa go kaonafatša?"
 
 #: ../upgrade.py:546
 #, python-format
@@ -2169,14 +2159,12 @@ msgid "DDC Probed Monitor"
 msgstr "Selebeledi se Nyakišišitšwego sa DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
-#, review - zSeries should remain untranslated
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Name (WWPN), a 16bit SCSI "
 "LUN and a 64 bit FCP LUN."
-msgstr "Metšhene ya zTatelano e ka tsena didirišweng tša SCSI tša motheo wa intaseteri ka Kanale ya Fibre (FCP). O swanetše go fana ka dikarolo tše 5 bakeng sa sedirišwa se sengwe le se sengwe: nomoro ya sedirišwa sa 16 bit, 16bit SCSI ID, Leina la Lefelo la Lefase ka Bophara (WWPN) la 64 bit, SCSI ya LUN ya 16bit le FCP ya LUN ya 64 bit."
+msgstr "Metšhene ya zSeries e ka tsena didirišweng tša SCSI tša motheo wa intaseteri ka Kanale ya Fibre (FCP). O swanetše go fana ka dikarolo tše 5 bakeng sa sedirišwa se sengwe le se sengwe: nomoro ya sedirišwa sa 16 bit, 16bit SCSI ID, Leina la Lefelo la Lefase ka Bophara (WWPN) la 64 bit, SCSI ya LUN ya 16bit le FCP ya LUN ya 64 bit."
 
 #: ../zfcp.py:29
 msgid "Device number"
