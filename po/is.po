@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install 1.130\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-04 01:31+0000\n"
+"PO-Revision-Date: 2004-09-16 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -2557,7 +2557,6 @@ msgid "DDC Probed Monitor"
 msgstr "Skjár fundinn með DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -3294,14 +3293,13 @@ msgid "_Enable firewall"
 msgstr "_Virkja eldvegginn"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Með eldvegg er þér kleyft að leyfa aðgang í tilteknar þjónustur á vélinni "
-"þinni frá öðrum vélum. Leyfa aðgang í hvaða þjónustur?"
+"Með eldvegg er mögulegt að leyfa öðrum tölvum að tengjast þjónustum á vélinni "
+"þinni. Hvaða þ´jónustur viltu leyfa aðgang í?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -5999,7 +5997,6 @@ msgid "No Volume Groups"
 msgstr "Engir sýndardiskhópar"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
 msgstr "Engir sýndardiskhópar til að búa til sýndardisk í."
 
@@ -8322,9 +8319,8 @@ msgid "Bengali"
 msgstr "Bengalí"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengalí"
+msgstr "Bengalí(Indland)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8380,7 +8376,7 @@ msgstr "Þýska"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 #. generated from lang-table
 msgid "Hindi"
@@ -8477,38 +8473,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "Connecting..."
-#~ msgstr "Tengist..."
-
-#~ msgid "Physical Extent:"
-#~ msgstr "Raundiskbútur:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Linux með öryggisendurbótum (SELinux) veitir betri aðgangsstjórn til að "
-#~ "auka öryggi vélarinnar. Viltu virkja þessar endurbætur ?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "Slökkva á SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "Vara við brotum"
-
-#~ msgid "Device number:"
-#~ msgstr "Tæki númer:"
-
-#~ msgid "SCSI ID:"
-#~ msgstr "SCSI ID:"
-
-#~ msgid "WWPN:"
-#~ msgstr "WWPN:"
-
-#~ msgid "SCSI LUN:"
-#~ msgstr "SCSI LUN:"
-
-#~ msgid "FCP LUN:"
-#~ msgstr "FCP LUN:"
