@@ -287,9 +287,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
     char **dasd_parms;
     char *line, *ports = NULL;
     char *parms = NULL, *parms_end;
-    char buf[512];
     FILE *fd;
-    int f;
 
     dasd_parms = malloc(sizeof(*dasd_parms) * 2);
     dasd_parms[0] = NULL;
@@ -331,23 +329,6 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
             strcpy(parms,"dasd=");
             strcat(parms, ports);
             dasd_parms[0] = parms;
-<<<<<<< hardware.c
-            simpleRemoveLoadedModule("dasd_eckd_mod", modLoaded, flags);
-            simpleRemoveLoadedModule("dasd_fba_mod", modLoaded, flags);
-            simpleRemoveLoadedModule("dasd_diag_mod", modLoaded, flags);
-            simpleRemoveLoadedModule("dasd_mod", modLoaded, flags);
-            reloadUnloadedModule("dasd_mod", modLoaded, dasd_parms, flags);
-            reloadUnloadedModule("dasd_eckd_mod", modLoaded, NULL, flags);
-            /* KHFIXME */
-            sprintf(buf, "options dasd_mod %s\n", parms);
-            f = open("/tmp/modules.conf", O_WRONLY | O_CREAT | O_APPEND, 0666);
-            if (f != -1) {
-                write(f, buf, strlen(buf));
-                close(f);
-            }
-        }
-
-=======
             removeLoadedModule("dasd_eckd_mod", modLoaded, flags);
             removeLoadedModule("dasd_fba_mod", modLoaded, flags);
             removeLoadedModule("dasd_diag_mod", modLoaded, flags);
@@ -356,7 +337,6 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
                          dasd_parms, flags);
             mlLoadModuleSet("dasd_diag_mod:dasd_fba_mod:dasd_eckd_mod", 
                             modLoaded, modDeps, modInfo, flags);
->>>>>>> 1.9.6.8
             free(dasd_parms);
             free(ports);
         }
