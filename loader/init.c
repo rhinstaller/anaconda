@@ -447,7 +447,7 @@ int main(void) {
     printf("done\n");
 
 #ifndef __alpha__
-    printf("mounting /dev/pts (unix89 pty) filesystem... "); 
+    printf("mounting /dev/pts (unix98 pty) filesystem... "); 
     if (!testing) {
 	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
 	    fatal_error(1);
