@@ -103,7 +103,7 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc glibc-common setup openssl python newt slang
+PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 procps rpm XFree86 Xconfigurator anaconda tzdata
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
@@ -239,6 +239,7 @@ $LIBDIR/libnss_files*
 $LIBDIR/libpthread*
 $LIBDIR/libresolv*
 $LIBDIR/librt[-.]*
+$LIBDIR/libselinux*
 $LIBDIR/libss*
 $LIBDIR/libtermcap*
 $LIBDIR/libhandle*
