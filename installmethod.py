@@ -75,7 +75,8 @@ class InstallMethod:
 		break
 
         if tmppath is None:
-            raise RuntimeError, "Unable to find temp path"
+            log("Unable to find temp path, going to use ramfs path")
+            return "/tmp/"
 
         return tmppath
 
