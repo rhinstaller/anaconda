@@ -20,6 +20,7 @@ from packages import readPackages, checkDependencies, doInstall
 from packages import handleX11Packages, writeConfiguration, writeXConfiguration
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import queryUpgradeContinue
+from packages import doPreInstall, doPostInstall
 from autopart import doAutoPartition
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
@@ -95,7 +96,9 @@ installSteps = [
     ( "enablefilesystems", turnOnFilesystems, ( "dir", "id.fsset",
                                                 "id.diskset", "id.upgrade",
                                                 "instPath") ),
+    ( "preinstallconfig", doPreInstall, ("method", "id", "intf", "instPath", "dir")),
     ( "installpackages", doInstall, ( "method", "id", "intf", "instPath" )),
+    ( "postinstallconfig", doPostInstall, ("method", "id", "intf", "instPath")),
     ( "writeconfig", writeConfiguration, ("id", "instPath" )),
     ( "instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                           "id.bootloader", "id.langSupport",

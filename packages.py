@@ -308,9 +308,12 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
 	    thefsset.makeFilesystems (instPath)
             thefsset.mountFilesystems (instPath)
 
-def doInstall(method, id, intf, instPath):
+def doPreInstall(method, id, intf, instPath, dir):
     if flags.test:
 	return
+
+    if dir == DISPATCH_BACK:
+        return
 
     arch = iutil.getArch ()
 
@@ -400,6 +403,14 @@ def doInstall(method, id, intf, instPath):
             #                        "%s" % (i, msg))
 	    pass
 
+    # write out the fstab
+    id.fsset.write(instPath)
+
+def doInstall(method, id, intf, instPath):
+    if flags.test:
+	return
+
+    upgrade = id.upgrade.get()
     db = rpm.opendb(1, instPath)
     ts = rpm.TransactionSet(instPath, db)
 
@@ -574,11 +585,17 @@ def doInstall(method, id, intf, instPath):
 
     id.instProgress = None
 
+def doPostInstall(method, id, intf, instPath):
+    if flags.test:
+	return
+    
     createWindow = (intf.progressWindow,
 		    (_("Post Install"),
 		     _("Performing post install configuration..."), 8))
     w = apply(apply, createWindow)
 
+    upgrade = id.upgrade.get()
+    arch = iutil.getArch ()    
     try:
 	if not upgrade:
             # XXX should this go here?

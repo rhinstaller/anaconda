@@ -38,7 +38,9 @@ class InstallClass(BaseInstallClass):
 		    "monitor",
 		    "confirmupgrade",
 		    "install",
+                    "preinstallconfig",
                     "installpackages",
+                    "postinstallconfig",
                     "instbootloader",
 		    "bootdisk",
 		    "complete"
