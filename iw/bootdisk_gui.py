@@ -11,6 +11,7 @@ class BootdiskWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
+        ics.setPrevEnabled (FALSE)
 
     def getNext (self):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
