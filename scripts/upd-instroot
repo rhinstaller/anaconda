@@ -209,7 +209,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils binutils s390installer
 	sed net-tools inetd openssh openssh-server coreutils login 
-	initscripts xauth bash 
+	initscripts xauth bash tcp_wrappers
 	modutils portmap openssl telnet-server strace ssh_keys"
 fi
 
@@ -459,6 +459,7 @@ $LIBDIR/security/pam_*
 usr/$LIBDIR/libcrack.so*
 usr/$LIBDIR/python2.2/site-packages/gtk*/gtk/*
 usr/$LIBDIR/python2.2/site-packages/gnome/uimodule.so
+usr/$LIBDIR/libwrap.so*
 usr/X11R6/bin/xauth
 usr/share/anaconda/*
 EOF

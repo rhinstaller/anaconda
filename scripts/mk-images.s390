@@ -219,6 +219,7 @@ EOF
     cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libcrypt*so* $MBD_DIR/lib
+    cp -df $IMGPATH/usr/lib/libwrap*.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libc.so* $MBD_DIR/lib
     cp -df $IMGPATH/lib/libc-*.so* $MBD_DIR/lib
     if [ "$BUILDARCH" = "s390" ]; then
