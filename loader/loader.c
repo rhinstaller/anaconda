@@ -614,6 +614,8 @@ int main(int argc, char ** argv) {
     printf("broadcast: %s\n", inet_ntoa(netDev.broadcast));
     printf("network: %s\n", inet_ntoa(netDev.network));
 
+    configureNetDevice(&netDev);
+
     doPwMount("207.175.42.68:/mnt/test/msw/i386",
     	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
  
