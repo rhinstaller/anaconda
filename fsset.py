@@ -149,7 +149,10 @@ class FileSystemType:
             w = None
         
         devicePath = entry.device.setupDevice(chroot)
-        args = [ "badblocks", "-vv", devicePath ]
+        if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
+            args = [ "badblocks", "-vv", devicePath ]
+        else:
+            args = [ "badblocks", devicePath ]
         
         rc = iutil.execWithRedirect("/usr/sbin/badblocks", args,
                                     stdout = "/dev/tty5",
