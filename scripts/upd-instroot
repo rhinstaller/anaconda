@@ -176,7 +176,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            fonts-xorg-ISO8859-9-75dpi fonts-xorg-100dpi
            fonts-xorg-KOI8-R fonts-xorg-KOI8-R-75dpi fonts-xorg-base
            xorg-x11-base xorg-x11-ISO8859-15-75dpi 
-           xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos"
+           xorg-x11-libs-data xorg-x11-xfs prelink redhat-logos fedora-logos
+           ttfonts-ta ttfonts-bn ttfonts-gu ttfonts-hi ttfonts-pa"
 
 #
 # stuff ONLY included for rescue mode
@@ -641,6 +642,11 @@ usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/fonts/bengali/MuktiNarrow.ttf
 usr/share/fonts/arabic/KacstFarsi.ttf
 usr/share/fonts/arabic/KacstQura.ttf
+usr/share/fonts/ta/shree_ta.ttf
+usr/share/fonts/gu/shree_gu.ttf
+usr/share/fonts/bn/shree_bn.ttf
+usr/share/fonts/hi/shree_hi.ttf
+usr/share/fonts/pa/shree_pa.ttf
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/locale/*/LC_MESSAGES/system-config-date.mo
 usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
