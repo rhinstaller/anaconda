@@ -238,6 +238,12 @@ class FormatWindow:
 
 	gotOne = 0
 	for (mount, dev, fstype, format, size) in mounts:
+
+            # dont format protected partitions
+            for n in todo.fstab.protectList:
+                if n == dev:
+                    continue
+                
             if fstype == "ext2":
 		gotOne = 1
                 ct.append("/dev/%s   %s" % (dev, mount), dev, format)
