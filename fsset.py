@@ -195,7 +195,6 @@ class FileSystemType:
             os.write(fd, s)
 
         num = ''
-        sync = 0
         while s:
             try:
                 s = os.read(p[0], 1)
@@ -209,11 +208,8 @@ class FileSystemType:
                 else:
                     if num:
                         l = string.split(num, '/')
-                        val = (int(l[0]) * 100) / int(l[1])
+                        val = (long(l[0]) * 100) / long(l[1])
                         w and w.set(val)
-                        if sync + 10 < val:
-                            isys.sync()
-                            sync = val
                     num = ''
             except OSError, args:
                 (num, str) = args
