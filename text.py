@@ -270,6 +270,10 @@ class InstallInterface:
         return None
 
     def partedExceptionWindow(self, exc):
+        # if our only option is to cancel, let us handle the exception
+        # in our code and avoid popping up the exception window here.
+        if exc.options == parted.EXCEPTION_CANCEL:
+            return parted.EXCEPTION_UNHANDLED
         buttons = []
         buttonToAction = {}
         flags = ((parted.EXCEPTION_FIX, N_("Fix")),

@@ -90,6 +90,10 @@ def processEvents():
         mainiteration (FALSE)
 
 def partedExceptionWindow(exc):
+    # if our only option is to cancel, let us handle the exception
+    # in our code and avoid popping up the exception window here.
+    if exc.options == parted.EXCEPTION_CANCEL:
+        return parted.EXCEPTION_UNHANDLED
     print exc.type_string
     print exc.message
     print exc.options
