@@ -551,7 +551,6 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
         if request.fstype and request.fstype.getName() == "swap":
             foundSwap = foundSwap + 1
             swapSize = swapSize + requestSize(request, diskset)
-            break
         if baseChecks:
             rc = doPartitionSizeCheck(request)
             if rc:
@@ -563,6 +562,12 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
                 rc = sanityCheckRaidRequest(requests, request, 0)
                 if rc:
                     errors.append(rc)
+
+    bootreq = requests.getBootableRequest()
+    if (bootreq and (bootreq.type == REQUEST_RAID) and
+        (not isRaid1(bootreq.raidlevel))):
+        errors.append(_("Bootable partitions can only be on RAID1 devices."))
+                
         
     if foundSwap == 0:
         warnings.append(_("You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."))
