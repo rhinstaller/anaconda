@@ -599,6 +599,11 @@ class VolumeGroupEditor:
             request.format = format
             request.migrate = migrate
 	    request.badblock = None
+
+	    # this is needed to clear out any cached info about the device
+	    # only a workaround - need to change way this is handled in
+	    # partRequest.py really.
+	    request.dev = None
 	    
 	    # make list of original logvol requests so we can skip them
 	    # in tests below. We check for mount point name conflicts
