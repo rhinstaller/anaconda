@@ -1,6 +1,7 @@
 import kudzu
 from simpleconfig import SimpleConfigFile
 from snack import *
+import os
 
 class Mouse (SimpleConfigFile):
     mice = {
