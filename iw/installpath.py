@@ -108,13 +108,13 @@ class InstallPathWindow (InstallWindow):
 		if button.get_active():
 		    break
 
-	    if type == WORKSTATION_GNOME:
+	    if type == WORKSTATION_GNOME and self.orig != WORKSTATION_GNOME:
 		self.todo.setClass (installclass.GNOMEWorkstation ())
-	    elif type == WORKSTATION_KDE:
+	    elif type == WORKSTATION_KDE and self.orig != WORKSTATION_KDE:
 		self.todo.setClass (installclass.KDEWorkstation ())
-	    elif type == SERVER:
+	    elif type == SERVER and self.orig != SERVER:
 		self.todo.setClass (installclass.Server ())
-	    else:
+	    elif type == CUSTOM and self.orig != CUSTOM:
 		self.todo.setClass (installclass.CustomInstall ())
 
     def toggled (self, widget, type):
@@ -161,17 +161,24 @@ class InstallPathWindow (InstallWindow):
 
 	if (self.todo.upgrade):
 	    self.upgradeButton.set_active(1)
-	    default = None
+	    self.orig = None
 	else:
 	    instClass = self.todo.getClass()
-	    default = WORKSTATION_GNOME
+	    self.orig = None
 	    installButton.set_active(1)
 	    if isinstance(instClass, installclass.GNOMEWorkstation):
-		default = WORKSTATION_GNOME
+		self.orig = WORKSTATION_GNOME
 	    elif isinstance(instClass, installclass.KDEWorkstation):
-		default = WORKSTATION_KDE
+		self.orig = WORKSTATION_KDE
 	    elif isinstance(instClass, installclass.Server):
-		default = SERVER
+		self.orig = SERVER
+	    elif isinstance(instClass, installclass.CustomInstall):
+		self.orig = CUSTOM
+
+	    if (self.orig):
+		default = self.orig
+	    else:
+		default = WORKSTATION_GNOME
 
         self.installBox = GtkVBox (FALSE, 0)
         group = None
