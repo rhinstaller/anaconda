@@ -415,6 +415,11 @@ def makeDriveDeviceNodes():
     cdroms = isys.cdromList()
     for drive in cdroms:
         isys.makeDevInode(drive, "/dev/%s" % (drive,))
+
+    mdlist = raid.scanForRaid(hardDrives)
+    for mdMinor, devices, level, numdisks in mdlist:
+        md = "md%d" %(mdMinor,)
+        isys.makeDevInode(md, "/dev/%s" %(md,))
     
 def needsEnterpriseKernel():
     rc = 0
