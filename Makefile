@@ -1,8 +1,9 @@
-SUBDIRS = rpmmodule isys balkan loader
+SUBDIRS = rpmmodule isys balkan loader po
 TOPDIR = ../../..
 DESTDIR = $(TOPDIR)/RedHat/instimage/usr/bin
+CATALOGS = po/anaconda-text.pot
 
-all: subdirs
+all: subdirs $(CATALOGS)
 
 clean: 
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
@@ -14,6 +15,3 @@ install: all
 	mkdir -p $(DESTDIR)
 	cp -a anaconda *.py $(DESTDIR)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d install; done
-
-text.po: text.py
-	xgettext --default-domain=text --add-comments --keyword=_ text.py

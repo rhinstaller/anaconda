@@ -56,23 +56,23 @@ class Component:
 	return self.items[key]
 
     def addPackage(self, package):
-	self.items.append(package)
+	self.items[package] = package
 
     def addInclude(self, component):
 	self.includes.append(component)
 
     def select(self, recurse = 1):
         self.selected = 1
-	for n in self.items:
-	    n.selected = 1
+	for n in self.items.keys ():
+	    self.items[n].selected = 1
 	if recurse:
 	    for n in self.includes:
 		n.select(recurse)
 
     def unselect(self, recurse = 1):
         self.selected = 0
-	for n in self.items:
-	    n.selected = 0
+	for n in self.items.keys ():
+	    self.items[n].selected = 0
 	if recurse:
 	    for n in self.includes:
 		n.unselect(recurse)
@@ -81,7 +81,7 @@ class Component:
 	self.name = name
 	self.hidden = hidden
 	self.selected = selected
-	self.items = []
+	self.items = {}
 	self.includes = []
 
 class ComponentSet:

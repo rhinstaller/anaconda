@@ -1,9 +1,11 @@
 #!/usr/bin/python
 
 import sys, getopt, os
-import lang
+import gettext
 
-_=lang.gettext 
+gettext.bindtextdomain("anaconda", "/usr/share/locale")
+gettext.textdomain("anaconda")
+_ = gettext.gettext
 
 (args, extra) = getopt.getopt(sys.argv[1:], 'p:GTtdr:f', 
           [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
@@ -112,10 +114,23 @@ if test:
 if forceMount:
     setupFilesystems = 1
 
-todo = ToDo(intf, method, rootPath, installSystem = installPackages,
-	    setupFilesystems = setupFilesystems)
+try:
+    todo = ToDo(intf, method, rootPath, installSystem = installPackages,
+                setupFilesystems = setupFilesystems)
+    intf.run(todo)
+    todo.doInstall(intf)
+    intf.messageWindow (_("Complete"), 
+                        _("Congratulations, installation is complete.\n\n"
+                          "Remove the boot media and "
+                          "press return to reboot. For information on fixes which are "
+                          "available for this release of Red Hat Linux, consult the "
+                          "Errata available from http://www.redhat.com.\n\n"
+                          "Information on configuring your system is available in the post "
+                          "install chapter of the Official Red Hat Linux User's Guide."))
 
-intf.run(todo)
-todo.doInstall()
+except:
+    exc = sys.exc_info()
+    intf.exceptionWindow (exc)
+    os._exit (1)
 
 del intf

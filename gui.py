@@ -163,6 +163,10 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
+    def exceptionWindow(self, (type, value, tb)):
+        import traceback
+        print_exception (type, value, tb)
+
     def run (self, todo):
         sys.setcheckinterval (0)
         start_new_thread (GtkMainThread ().run, ())

@@ -7,22 +7,150 @@ import rpm, os
 import util, isys
 from lilo import LiloConfiguration
 from syslog import Syslog
+import string
+import socket
+import crypt
+import whrandom
 
-def instCallback(what, amount, total, key, data):
-    if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-	(h, method) = key
-	data.setPackage(h)
-	data.setPackageScale(0, 1)
-	fn = method.getFilename(h)
-	d = os.open(fn, os.O_RDONLY)
-	return d
-    elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
-	data.setPackageScale(amount, total)
-    elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-	(h, method) = key
-	data.completePackage(h)
+class SimpleConfigFile:
+    def __str__ (self):
+        s = ""
+        keys = self.info.keys ()
+        keys.sort ()
+        for key in keys:
+            s = s + key + "=" + self.info[key] + "\n"
+        return s
+            
+    def __init__ (self):
+        self.info = {}
 
+    def set (self, *args):
+        for (key, data) in args:
+            self.info[string.upper (key)] = data
+
+    def unset (self, *keys):
+        for key in keys:
+            key = string.upper (key)
+            if self.info.has_key (key):
+               del self.info[key] 
+
+    def get (self, key):
+        key = string.upper (key)
+        if self.info.has_key (key):
+            return self.info[key]
+        else:
+            return ""
+
+
+class NetworkDevice (SimpleConfigFile):
+    def __str__ (self):
+        s = ""
+        s = s + "DEVICE=" + self.info["DEVICE"] + "\n"
+        keys = self.info.keys ()
+        keys.sort ()
+        keys.remove ("DEVICE")
+        for key in keys:
+            s = s + key + "=" + self.info[key] + "\n"
+        return s
+
+    def __init__ (self, dev):
+        self.info = { "DEVICE" : dev }
+        self.hostname = ""
+
+class Network:
+    def __init__ (self):
+        self.netdevices = {}
+        self.gateway = ""
+        self.primaryNS = ""
+        self.secondaryNS = ""
+        self.ternaryNS = ""
+        self.domains = []
+    
+    def available (self):
+        if self.netdevices:
+            return self.netdevices
+        f = open ("/proc/net/dev")
+        lines = f.readlines()
+        f.close ()
+        # skip first two lines, they are header
+        lines = lines[2:]
+        for line in lines:
+            dev = string.strip (line[0:6])
+            if dev != "lo":
+                self.netdevices[dev] = NetworkDevice (dev)
+        return self.netdevices
+
+    def guessHostnames (self):
+        # guess the hostname for the first device with an IP
+        # XXX fixme - need to set up resolv.conf
+        self.domains = []
+        for dev in self.netdevices.values ():
+            ip = dev.get ("ipaddr")
+            if ip:
+                (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
+                if hostname:
+                    dev.hostname = hostname
+                    self.domains.append (string.joinfields (string.splitfields (hostname, '.')[1:], '.'))
+            else:
+                dev.hostname = "localhost.localdomain"
+        if not self.domains:
+            self.domains = [ "localdomain" ]
+
+    def nameservers (self):
+        return [ self.primaryNS, self.secondaryNS, self.ternaryNS ]
+
+class Password:
+    def __init__ (self):
+        self.crypt = ""
+
+    def set (self, password, isCrypted = 0):
+        if not isCrypted:
+            salt = (whrandom.choice (string.letters +
+                                     string.digits + './') + 
+                    whrandom.choice (string.letters +
+                                     string.digits + './'))
+            self.crypt = crypt.crypt (password, salt)
+        else:
+            self.crypt = password
+
+    def get (self):
+        return self.crypt
+            
+class Language (SimpleConfigFile):
+    def __init__ (self):
+        self.info = {}
+        self.lang = None
+        self.langs = {
+            "English" : "C",
+            "German" : "de",
+            }
+
+    def available (self):
+        return self.langs
+    
+    def set (self, lang):
+        self.lang = lang
+        self.info["LANG"] = self.langs[lang]
+        self.info["LINGUAS"] = self.langs[lang]
+        self.info["LC_ALL"] = self.langs[lang]
+        
+    def get (self):
+        return self.lang
+            
 class ToDo:
+    def __init__(self, intf, method, rootPath, setupFilesystems = 1,
+		 installSystem = 1):
+	self.intf = intf
+	self.method = method
+	self.mounts = []
+	self.hdList = None
+	self.comps = None
+	self.instPath = rootPath
+	self.setupFilesystems = setupFilesystems
+	self.installSystem = installSystem
+        self.language = Language ()
+        self.network = Network ()
+        self.rootpassword = Password ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -33,6 +161,15 @@ class ToDo:
 	    isys.makeDevInode(n, '/tmp/' + n)
 	    isys.umount(n)
             os.remove('/tmp/' + n)
+
+    def mountFilesystems(self):
+	if (not self.setupFilesystems): return 
+
+	for n in self.mounts:
+	    (device, mntpoint, format) = n
+            isys.makeDevInode(device, '/tmp/' + device)
+	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -49,68 +186,29 @@ class ToDo:
             os.remove('/tmp/' + device)
 	    w.pop()
 
-    def mountFilesystems(self):
-	if (not self.setupFilesystems): return 
+    def addMount(self, device, location, reformat = 1):
+	self.mounts.append((device, location, reformat))
 
-	for n in self.mounts:
-	    (device, mntpoint, format) = n
-            isys.makeDevInode(device, '/tmp/' + device)
-	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
-	    os.remove( '/tmp/' + device);
+    def writeFstab(self):
+	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
-    def doInstall(self):
-	# make sure we have the header list and comps file
-	self.headerList()
-	self.compsList()
+	f = open(self.instPath + "/etc/fstab", "w")
+	self.mounts.sort(mountListCmp)
+	for n in self.mounts: 
+	    (dev, fs, reformat) = n
+	    if (fs == '/'):
+		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
+	    else:
+		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
+	f.write(format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
+	f.write(format % ("none", "/proc", 'proc', 'defaults', 0, 0))
+	f.write(format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
+	f.close()
 
-        # make sure that all comps that include other comps are
-        # selected (i.e. - recurse down the selected comps and turn
-        # on the children
-
-        for comp in self.comps:
-            if comp.selected:
-                comp.select(1)
-
-	self.makeFilesystems()
-	self.mountFilesystems()
-
-	if not self.installSystem: 
-	    return
-
-	for i in [ '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev' ]:
-	    try:
-	        os.mkdir(self.instPath + i)
-	    except os.error, (errno, msg):
-                print 'Error making directory %s: %s' % (i, msg)
-
-	db = rpm.opendb(1, self.instPath)
-	ts = rpm.TransactionSet(self.instPath, db)
-
-        total = 0
-	totalSize = 0
-	for p in self.hdList.selected():
-	    ts.add(p.h, (p.h, self.method))
-	    total = total + 1
-	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
-
-	ts.order()
-
-	instLog = open(self.instPath + '/tmp/install.log', "w+")
-	syslog = Syslog(root = self.instPath, output = instLog)
-
-	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_RDWR)
-	ts.scriptFd = instLogFd
-	# the transaction set dup()s the file descriptor and will close the
-	# dup'd when we go out of scope
-	os.close(instLogFd)	
-
-	p = self.intf.packageProgressWindow(total, totalSize)
-	ts.run(0, 0, instCallback, p)
-
-	del syslog
-
-	self.writeFstab()
-	self.installLilo()
+    def writeLanguage(self):
+	f = open(self.instPath + "/etc/sysconfig/i18n", "w")
+	f.write(str (self.language))
+	f.close()
 
     def installLilo(self):
 	if not self.liloDevice: return
@@ -143,30 +241,11 @@ class ToDo:
 	util.execWithRedirect(self.instPath + '/sbin/lilo' , [ "lilo", 
 				"-r", self.instPath ], stdout = None)
 
-    def writeFstab(self):
-	format = "%-23s %-23s %-7s %-15s %d %d\n";
-
-	f = open(self.instPath + "/etc/fstab", "w")
-	self.mounts.sort(mountListCmp)
-	for n in self.mounts: 
-	    (dev, fs, reformat) = n
-	    if (fs == '/'):
-		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
-	    else:
-		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
-	f.write(format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
-	f.write(format % ("none", "/proc", 'proc', 'defaults', 0, 0))
-	f.write(format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
-	f.close()
-
-    def addMount(self, device, location, reformat = 1):
-	self.mounts.append((device, location, reformat))
-
-    def freeHeaders(self):
+    def freeHeaderList(self):
 	if (self.hdList):
 	    self.hdList = None
 
-    def headerList(self):
+    def getHeaderList(self):
 	if (not self.hdList):
 	    w = self.intf.waitWindow("Reading",
                                      "Reading package information...")
@@ -174,12 +253,12 @@ class ToDo:
 	    w.pop()
 	return self.hdList
 
-    def liloLocation(self, device):
+    def setLiloLocation(self, device):
 	self.liloDevice = device
 
-    def compsList(self):
+    def getCompsList(self):
 	if (not self.comps):
-	    self.headerList()
+	    self.getHeaderList()
 	    self.comps = self.method.readComps(self.hdList)
 	self.comps['Base'].select(1)
 	self.kernelPackage = self.hdList['kernel']
@@ -190,16 +269,132 @@ class ToDo:
 
 	return self.comps
 
-    def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1):
-	self.intf = intf
-	self.method = method
-	self.mounts = []
-	self.hdList = None
-	self.comps = None
-	self.instPath = rootPath
-	self.setupFilesystems = setupFilesystems
-	self.installSystem = installSystem
+    def writeNetworkConfig (self):
+        # /etc/sysconfig/network-scripts/ifcfg-*
+        for dev in self.network.netdevices.values ():
+            device = dev.get ("device")
+            f = open (self.instPath + "/etc/sysconfig/network-scripts/ifcfg-" + device, "w")
+            f.write (str (dev))
+            f.close ()
+
+        # /etc/sysconfig/network
+        f = open (self.instPath + "/etc/sysconfig/network", "w")
+        f.write ("NETWORKING=yes\n"
+                 "FORWARD_IPV4=false\n"
+                 "HOSTNAME=localhost.localdomain\n"
+                 "GATEWAY=" + self.network.gateway + "\n")
+        f.close ()
+
+        # /etc/hosts
+        f = open (self.instPath + "/etc/hosts", "w")
+        f.write ("127.0.0.1\t\tlocalhost.localdomain\n")
+        for dev in self.network.netdevices.values ():
+            ip = dev.get ("ipaddr")
+            if dev.hostname and ip:
+                f.write ("%s\t\t%s\n" % (ip, dev.hostname))
+        f.close ()
+
+        # /etc/resolv.conf
+        f = open (self.instPath + "/etc/resolv.conf", "w")
+        f.write ("search " + string.joinfields (self.network.domains, ' ') + "\n")
+        for ns in self.network.nameservers ():
+            if ns:
+                f.write ("nameserver " + ns + "\n")
+        f.close ()
+
+    def writeRootPassword (self):
+        f = open (self.instPath + "/etc/passwd", "r")
+        lines = f.readlines ()
+        f.close ()
+        index = 0
+        for line in lines:
+            if line[0:4] == "root":
+                entry = string.splitfields (line, ':')
+                entry[1] = self.rootpassword.get ()
+                lines[index] = string.joinfields (entry, ':')
+                break
+            index = index + 1
+        f = open (self.instPath + "/etc/passwd", "w")
+        f.writelines (lines)
+        f.close ()
+
+    def doInstall(self, intf):
+	# make sure we have the header list and comps file
+	self.getHeaderList()
+	self.getCompsList()
+
+        # make sure that all comps that include other comps are
+        # selected (i.e. - recurse down the selected comps and turn
+        # on the children
+
+        for comp in self.comps:
+            if comp.selected:
+                comp.select(1)
+
+	self.makeFilesystems()
+	self.mountFilesystems()
+
+	if not self.installSystem: 
+	    return
+
+	for i in [ '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev' ]:
+	    try:
+	        os.mkdir(self.instPath + i)
+	    except os.error, (errno, msg):
+                intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
+
+	db = rpm.opendb(1, self.instPath)
+	ts = rpm.TransactionSet(self.instPath, db)
+
+        total = 0
+	totalSize = 0
+	for p in self.hdList.selected():
+	    ts.add(p.h, (p.h, self.method))
+	    total = total + 1
+	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
+
+	ts.order()
+
+	instLog = open(self.instPath + '/tmp/install.log', "w+")
+	syslog = Syslog(root = self.instPath, output = instLog)
+
+	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_RDWR)
+	ts.scriptFd = instLogFd
+	# the transaction set dup()s the file descriptor and will close the
+	# dup'd when we go out of scope
+	os.close(instLogFd)	
+
+	p = self.intf.packageProgressWindow(total, totalSize)
+
+        def instCallback(what, amount, total, key, data):
+            if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
+                (h, method) = key
+                data.setPackage(h)
+                data.setPackageScale(0, 1)
+                fn = method.getFilename(h)
+                d = os.open(fn, os.O_RDONLY)
+                return d
+            elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
+                data.setPackageScale(amount, total)
+            elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
+                (h, method) = key
+                data.completePackage(h)
+
+	ts.run(0, 0, instCallback, p)
+
+	del syslog
+        del p
+
+        w = self.intf.waitWindow("Post Install", 
+                                 "Performing post install configuration")
+        
+	self.writeFstab ()
+        self.writeLanguage ()
+        self.writeNetworkConfig ()
+        self.writeRootPassword ()
+	self.installLilo ()
+
+        w.pop ()
 
 def mountListCmp(first, second):
     mnt1 = first[1]

@@ -1,4 +1,5 @@
 import _isys
+import string
 
 def mount(device, location, fstype = "ext2"):
     return _isys.mount(fstype, device, location)
@@ -30,7 +31,20 @@ def moduleListByType(type):
 
 def makeDevInode(name, fn):
     return _isys.mkdevinode(name, fn)
-	
+
+def inet_ntoa (addr):
+    return "%d.%d.%d.%d" % ((addr >> 24) & 0x000000ff,
+                            (addr >> 16) & 0x000000ff,
+                            (addr >> 8) & 0x000000ff,
+                            addr & 0x000000ff)
+    
+def inet_aton (addr):
+    quad = string.splitfields (addr, ".")
+    return ((string.atoi (quad[0]) << 24) +
+            (string.atoi (quad[1]) << 16) +
+            (string.atoi (quad[2]) << 8) +
+            string.atoi (quad[3]))
+
 try:
     _isys.readmoduleinfo("/modules/module-info")
 except IOError:
