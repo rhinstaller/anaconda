@@ -1326,7 +1326,8 @@ class ToDo:
             for (descr, (type, mount, need)) in problems:
                 idx = string.find (mount, "/mnt/sysimage")
                 if idx != -1:
-                    mount = mount[idx:]
+                    # 13 chars in /mnt/sysimage
+                    mount = mount[13:]
 
                 if needed.has_key (mount) and needed[mount] < need:
                     needed[mount] = need
