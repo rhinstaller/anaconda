@@ -356,10 +356,11 @@ class SiloInstall:
     def getAppend(self):
 	return self.siloAppend
 
-    def __init__(self):
+    def __init__(self, serial = 0):
 	self.siloImages = {}
 	self.siloDevice = 'mbr'
 	self.siloLinear = 1
 	self.siloAppend = None
 	self.default = None
 	self.initrdsMade = {}
+        self.serial = serial

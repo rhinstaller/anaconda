@@ -280,13 +280,14 @@ class ToDo:
         self.desktop = Desktop ()
         self.ddruidReadOnly = 0
         self.bootdisk = 1
-	self.lilo = LiloConfiguration()
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
 	# default install class
         arch = iutil.getArch ()
-	if arch == "sparc":
-	    self.silo = SiloInstall (self)
+        if arch == "i386":
+            self.lilo = LiloConfiguration()
+        elif arch == "sparc":
+	    self.silo = SiloInstall (self.serial)
         elif arch == "alpha":
             self.milo = MiloInstall (self)
 	self.timezone = None
