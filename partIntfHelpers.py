@@ -412,7 +412,9 @@ def confirmDeleteRequest(intf, request):
     """Confirm the deletion of a request."""
     if request.device:
 	if request.type == REQUEST_VG:
-            errmsg = _("You are about to delete the volume group \"%s\"" % (request.volumeGroupName,))
+            errmsg = _("You are about to delete the volume group \"%s\"."
+		       "\n\nALL logical volumes in this volume group "
+		       "will be lost!" % (request.volumeGroupName,))
 	elif request.type == REQUEST_RAID:
             errmsg = _("You are about to delete a RAID device.")
         else:
@@ -420,6 +422,7 @@ def confirmDeleteRequest(intf, request):
 	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="custom",
 				    custom_buttons=[_("Cancel"), _("Delete")])
     else:
+	# XXX can this ever happen?
         errmsg = _("Are you sure you want to delete this partition?")
 	rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="yesno")
 
