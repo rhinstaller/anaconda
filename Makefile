@@ -80,8 +80,10 @@ src: create-archive
 create-snapshot:
 	@rm -rf /tmp/anaconda
 	@rm -rf /tmp/anaconda-$(VERSION)
-	@echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
-	@cd /tmp ; cvs -Q -d $(CVSROOT) export -r HEAD anaconda || echo "Um... export aborted."
+	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
+	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
+	echo "*** Pulling off $$tag!"; \
+	cd /tmp ; cvs -Q -d $(CVSROOT) export -r $$tag anaconda || echo "Um... export aborted."
 	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec
 	@cd /tmp/anaconda ; rm -rf comps
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
@@ -94,17 +96,4 @@ create-snapshot:
 	@echo "The final archive is in anaconda-$(VERSION).tar.gz"
 
 create-archive:
-	@rm -rf /tmp/anaconda
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@echo "WARNING WARNING WARNING: Pulling HEAD off - need to do tagging instead!"
-	@cd /tmp ; cvs -Q -d $(CVSROOT) export -r HEAD anaconda || echo "Um... export aborted."
-	@cd /tmp/anaconda ; rm isys/modutils/modutils.spec
-	@cd /tmp/anaconda ; rm -rf comps
-	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(RELEASE)/g" < anaconda.spec.in > anaconda.spec
-	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
-	@cd /tmp ; tar -czSpf anaconda-$(VERSION).tar.gz anaconda-$(VERSION)
-	@rm -rf /tmp/anaconda-$(VERSION)
-	@cp /tmp/anaconda-$(VERSION).tar.gz .
-	@rm -f /tmp/anaconda-$(VERSION).tar.gz
-	@echo ""
-	@echo "The final archive is in anaconda-$(VERSION).tar.gz"
+	make SNAPRELEASE=$(RELEASE) create-snapshot
