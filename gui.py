@@ -273,9 +273,12 @@ class MessageWindow:
         win.keyboard_ungrab()
     
 class InstallInterface:
-    def __init__ (self, runres, nofbmode):
-        self.runres = runres
-        self.nofbmode = nofbmode
+    def __init__ (self):
+        # figure out if we want to run interface at 800x600 or 640x480
+        if screen_width() >= 800:
+            self.runres = "800x600"
+        else:
+            self.runres = "640x480"            
 
     def __del__ (self):
         pass
