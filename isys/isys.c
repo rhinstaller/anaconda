@@ -18,7 +18,6 @@
 #include <sys/vfs.h>
 #include <unistd.h>
 #include <resolv.h>
-#include <pump.h>
 
 #include "Python.h"
 
@@ -28,6 +27,7 @@
 #include "probe.h"
 #include "smp.h"
 #include "lang.h"
+#include "../pump/pump.h"
 #include "../balkan/byteswap.h"
 
 long long llseek(int fd, long long offset, int whence);
@@ -1106,7 +1106,7 @@ static PyObject * doRaidStart(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    if (ioctl(fd, START_ARRAY, sb.st_rdev)) {
+    if (ioctl(fd, START_ARRAY, (unsigned long) sb.st_rdev)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }
