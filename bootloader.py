@@ -445,7 +445,6 @@ class x86BootloaderInfo(bootloaderInfo):
                 % (grubbyPartitionName(bootDev), cfPath))
 
         usedDevs[bootDev] = 1
-        usedDevs[rootDev] = 1
         usedDevs[grubTarget] = 1
 
         if self.password:
