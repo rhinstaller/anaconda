@@ -16,7 +16,7 @@ edd: lrmi.c edd.c
 	gcc -DDEBUG -o edd lrmi.c edd.c
 
 eddmodule.so: pyedd.c edd.o lrmi.o
-	gcc -c -o pyedd.o -fpic pyedd.c 
+	gcc -c -o pyedd.o -fpic pyedd.c $(CFLAGS)
 	gcc -shared -g -o $@ pyedd.o edd.o lrmi.o
 
 clean:
