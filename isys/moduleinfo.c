@@ -126,7 +126,8 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis) {
 		} else if (!strcmp(chptr, "plip")) {
 		    nextModule->major = DRIVER_NET;
 		    nextModule->minor = DRIVER_MINOR_PLIP;
-		} else if (!strcmp(chptr, "scsi_hostadapter")) {
+		} else if (!strcmp(chptr, "scsi_hostadapter") ||
+			   !strcmp(chptr, "scsi")) {
 		    nextModule->major = DRIVER_SCSI;
 		} else if (!strcmp(chptr, "cdrom")) {
 		    nextModule->major = DRIVER_CDROM;
