@@ -191,10 +191,25 @@ class PartitionWindow:
         # XXX need some way to stay at the same place in the list after
         # repopulating
 
+	# XXXX - Backup some info which doPartitioning munges if it fails
+	origInfoDict = {}
+	for request in self.partitions.requests:
+	    try:
+		origInfoDict[request.uniqueID] = (request.requestSize, request.currentDrive)
+	    except:
+		pass
+
         try:
             doPartitioning(self.diskset, self.partitions)
             rc = 0
         except PartitioningError, msg:
+	    try:
+		for request in self.partitions.requests:
+		    if request.uniqueID in origInfoDict.keys():
+			(request.requestSize, request.currentDrive) = origInfoDict[request.uniqueID]
+	    except:
+		log("Failed to restore original info")
+
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocate requested partitions: %s.") % (msg))
             rc = -1

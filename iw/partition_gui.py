@@ -79,6 +79,7 @@ new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\15\0\0\0r\0\0\0\263\0\0\0i
 new_checkmark = new_checkmark + "\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0g\0\0"
 new_checkmark = new_checkmark + "\0\"\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
 
+
 class DiskStripeSlice:
     def eventHandler(self, widget, event):
         if event.type == gtk.gdk.BUTTON_PRESS:
@@ -944,10 +945,26 @@ class PartitionWindow(InstallWindow):
     def refresh(self):
         self.diskStripeGraph.shutDown()
         self.tree.clear()
+
+	# XXXX - Backup some info which doPartitioning munges if it fails
+	origInfoDict = {}
+	for request in self.partitions.requests:
+	    try:
+		origInfoDict[request.uniqueID] = (request.requestSize, request.currentDrive)
+	    except:
+		pass
+
         try:
             autopart.doPartitioning(self.diskset, self.partitions)
             rc = 0
         except PartitioningError, msg:
+	    try:
+		for request in self.partitions.requests:
+		    if request.uniqueID in origInfoDict.keys():
+			(request.requestSize, request.currentDrive) = origInfoDict[request.uniqueID]
+	    except:
+		log("Failed to restore original info")
+
             self.intf.messageWindow(_("Error Partitioning"),
                    _("Could not allocate requested partitions: %s.") % (msg),
 				    custom_icon="error")
