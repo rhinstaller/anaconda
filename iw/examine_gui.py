@@ -43,7 +43,7 @@ class UpgradeExamineWindow (InstallWindow):
             self.id.upgradeRoot = [(rootfs[0], rootfs[1])]
             self.id.rootParts = self.parts
 
-            if self.individualPackages.get_active():
+            if self.individualPackages is not None and self.individualPackages.get_active():
                 self.dispatch.skipStep("indivpackage", skip = 0)
             else:
                 self.dispatch.skipStep("indivpackage")
@@ -56,7 +56,7 @@ class UpgradeExamineWindow (InstallWindow):
     def createUpgradeOption(self):
 	r = pixmapRadioButtonGroup()
 	r.addEntry(UPGRADE_STR,
-                   _("Perform an upgrade of an existing installation"),
+                   _("_Upgrade an existing installation"),
 		   pixmap=self.ics.readPixmap("upgrade.png"),
 		   descr=_("Choose this option if you would like "
                            "to upgrade your existing %s system.  "
@@ -64,19 +64,17 @@ class UpgradeExamineWindow (InstallWindow):
                            "existing data on your drives.") %(productName,))
         
 	r.addEntry(REINSTALL_STR,
-                   _("Perform a new %s installation") %(productName,),
+                   _("_Install %s") %(productName,),
 		   pixmap=self.ics.readPixmap("install.png"),
-		   descr=_("Choose this option to install your system "
-                           "from scratch.  Depending on how you choose "
-                           "to partition your system the existing data "
-                           "on your drives may or may not be preserved."))
-        
+		   descr=_("Choose this option to freshly install your system. "                           "Existing software and data may be overwritten "
+			   "depending on your configuration choices."))        
 	return r
 
     def upgradeOptionsSetSensitivity(self, state):
 	self.uplabel.set_sensitive(state)
 	self.upgradeoption.set_sensitive(state)
-	self.individualPackages.set_sensitive(state)
+	if self.individualPackages is not None:
+	    self.individualPackages.set_sensitive(state)
 
     def optionToggled(self, widget, name):
 	if name == UPGRADE_STR:
@@ -111,15 +109,19 @@ class UpgradeExamineWindow (InstallWindow):
         vbox.pack_start (box, gtk.FALSE)
         self.root = self.parts[0]
 
-        self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
-                                                    "upgraded"))
-        self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
-	ipbox = gtk.HBox(gtk.FALSE)
-	crackhbox = gtk.HBox(gtk.FALSE)
-	crackhbox.set_size_request(70, -1)
-	ipbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
-	r.packWidgetInEntry(UPGRADE_STR, ipbox)
+#
+# lets remove this seemingly useless option - clutters display
+#
+#        self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
+#                                                    "upgraded"))
+#        self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
+#	ipbox = gtk.HBox(gtk.FALSE)
+#	crackhbox = gtk.HBox(gtk.FALSE)
+#	crackhbox.set_size_request(70, -1)
+#	ipbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
+#	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
+#	r.packWidgetInEntry(UPGRADE_STR, ipbox)
+        self.individualPackages = None
 
 
 	# hack hack hackity hack
