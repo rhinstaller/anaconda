@@ -170,27 +170,30 @@ class InstallProgressWindow:
 
 class WaitWindow:
     def showWaitWindow(self, title, text):
-        window = GtkWindow()
-        window.set_border_width(10)
-        window.set_title(title)
-        window.set_position(WIN_POS_CENTER)
-        label = GtkLabel(text)
-        label.set_line_wrap (TRUE)
-	window.add(label)
-	window.show_all()
-	while self.lock.locked():
-    	    while events_pending():
-	        mainiteration(FALSE)
-       	window.destroy()
-        thread.exit()
+	pass
+#        window = GtkWindow()
+#        window.set_border_width(10)
+#        window.set_title(title)
+#        window.set_position(WIN_POS_CENTER)
+#        label = GtkLabel(text)
+#        label.set_line_wrap (TRUE)
+#	window.add(label)
+#	window.show_all()
+#	while self.lock.locked():
+#    	    while events_pending():
+#	        mainiteration(FALSE)
+#       	window.destroy()
+#        thread.exit()
 
     def __init__(self, title, text):
-	self.lock = thread.allocate_lock()
-	self.lock.acquire()
-	thread.start_new_thread (self.showWaitWindow, (title, text))
+	pass
+#	self.lock = thread.allocate_lock()
+#	self.lock.acquire()
+#	thread.start_new_thread (self.showWaitWindow, (title, text))
 
     def pop(self):
-	self.lock.release()
+	pass
+#	self.lock.release()
 
 class InstallInterface:
     def waitWindow(self, title, text):

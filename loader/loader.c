@@ -23,19 +23,138 @@
 #include <unistd.h>
 #include <popt.h>
 #include <newt.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <net/if.h>
+#include <net/route.h>
+#include <sys/ioctl.h>
+#include <fcntl.h>
+
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/pci/pciprobe.h"
 
 #define _(x) x
 
+struct intfInfo {
+    char device[10];
+    int isPtp, isUp;
+    int set, manuallySet;
+    struct in_addr ip, netmask, broadcast, network;
+    struct in_addr bootServer;
+    char * bootFile;
+    int bootProto;
+};
+
+static int configureNetDevice(struct intfInfo * intf) {
+    struct ifreq req;
+    struct rtentry route;
+    int s;
+    struct sockaddr_in addr;
+    struct in_addr ia;
+    char ip[20], nm[20], nw[20], bc[20];
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = 0;
+
+    memcpy(&ia, &intf->ip, sizeof(intf->ip));
+    strcpy(ip, inet_ntoa(ia));
+
+    memcpy(&ia, &intf->netmask, sizeof(intf->netmask));
+    strcpy(nm, inet_ntoa(ia));
+
+    memcpy(&ia, &intf->broadcast, sizeof(intf->broadcast));
+    strcpy(bc, inet_ntoa(ia));
+
+    memcpy(&ia, &intf->network, sizeof(intf->network));
+    strcpy(nw, inet_ntoa(ia));
+
+    printf("configuring %s ip: %s nm: %s nw: %s bc: %s", intf->device,
+	   ip, nm, nw, bc);
+
+    s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s < 0) {
+	perror("socket");
+        return 1;
+    }
+    
+    strcpy(req.ifr_name, intf->device);
+    req.ifr_flags &= ~(IFF_UP | IFF_RUNNING); /* Take down iface */
+    if (ioctl(s, SIOCSIFFLAGS, &req)) {
+        perror("SIOCSIFFLAGS");
+        close(s);
+        return 1;
+    }
+
+    addr.sin_port = 0;
+    memcpy(&addr.sin_addr, &intf->ip, sizeof(intf->ip));
+    memcpy(&req.ifr_addr, &addr, sizeof(addr));
+    if (ioctl(s, SIOCSIFADDR, &req)) {
+        perror("SIOCSIFADDR");
+        close(s);
+        return 1;
+    }
+
+    memcpy(&addr.sin_addr, &intf->broadcast, sizeof(intf->broadcast));
+    memcpy(&req.ifr_broadaddr, &addr, sizeof(addr));
+    if (ioctl(s, SIOCSIFBRDADDR, &req)) {
+        perror("SIOCSIFNETMASK");
+        close(s);
+        return 1;
+    }
+
+    memcpy(&addr.sin_addr, &intf->netmask, sizeof(intf->netmask));
+    memcpy(&req.ifr_netmask, &addr, sizeof(addr));
+    if (ioctl(s, SIOCSIFNETMASK, &req)) {
+        perror("SIOCSIFNETMASK\n");
+        close(s);
+        return 1;
+    }
+
+    if (intf->isPtp)
+        req.ifr_flags = IFF_UP | IFF_RUNNING | IFF_POINTOPOINT | IFF_NOARP;
+    else
+        req.ifr_flags = IFF_UP | IFF_RUNNING | IFF_BROADCAST;
+
+    if (ioctl(s, SIOCSIFFLAGS, &req)) {
+        perror("SIOCSIFFLAGS");
+        close(s);
+        return 1;
+    }
+
+    memset(&route, 0, sizeof(route));
+    route.rt_dev = intf->device;
+    route.rt_flags = RTF_UP;
+
+    memcpy(&addr.sin_addr, &intf->network, sizeof(intf->netmask));
+    memcpy(&route.rt_dst, &addr, sizeof(addr));
+
+    memcpy(&addr.sin_addr, &intf->netmask, sizeof(intf->netmask));
+    memcpy(&route.rt_genmask, &addr, sizeof(addr));
+
+    if (ioctl(s, SIOCADDRT, &route)) {
+        perror("SIOCADDRT");
+        close(s);
+        return 1;
+
+    }
+
+    intf->isUp = 1;
+
+    return 0;
+}
+
 int main(int argc, char ** argv) {
     char * arg;
     poptContext optCon;
-    int testing, rc;
+    int testing, network, local, rc;
     char ** modules, *module;
+    struct intfInfo eth0;    
     struct poptOption optionTable[] = {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
+	    { "network", '\0', POPT_ARG_NONE, &network, 0 },
+	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
 	    { 0, 0, 0, 0, 0 }
     };
 
@@ -80,7 +199,26 @@ int main(int argc, char ** argv) {
 
     newtFinished();
     */
-    execv(testing ? "../anaconda" : "/sbin/anaconda", argv);
+
+    strcpy(eth0.device, "eth0");
+    eth0.isPtp=0;
+    eth0.isUp=0;
+    eth0.ip.s_addr=inet_addr("207.175.42.47");
+    eth0.netmask.s_addr=htonl(0xffffff00);
+    eth0.broadcast.s_addr=inet_addr("207.175.42.255");
+    eth0.network.s_addr=inet_addr("207.175.42.0");
+
+    configureNetDevice(&eth0);
+
+    mkdir("/mnt", 777);
+    mkdir("/mnt/source", 777);
+    
+    doPwMount("207.175.42.68:/mnt/test/msw/i386",
+	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
+
+    symlink("/mnt/source/RedHat/instimage/usr", "/usr");
+    
+    execv(testing ? "../anaconda" : "/usr/sbin/anaconda", argv);
 
     sleep(5);
     
