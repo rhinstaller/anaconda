@@ -541,7 +541,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     if recs:
         log("Upgrade: gnome-core was on the system.  Upgrading to GNOME 2")
         for pkg in ["gnome-terminal", "gnome-desktop", "gnome-session",
-                    "gnome-panel", "metacity", "file-roller"]:
+                    "gnome-panel", "metacity", "file-roller", "yelp"]:
             try:
                 id.hdList[pkg].select()
             except:
