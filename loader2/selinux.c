@@ -37,8 +37,9 @@ static char * getpolicyver() {
         return NULL;
     }
 
-    buf = malloc(128);
-    if ((read(fd, buf, 128)) == -1) {
+    buf = malloc(32);
+    buf = memset(buf, 0, 32);
+    if ((read(fd, buf, 32)) == -1) {
         logMessage("error getting policy version: %s", strerror(errno));
         free(buf);
         close(fd);
@@ -63,6 +64,7 @@ int loadpolicy() {
     }
 
     fn = malloc(128);
+    fn = memset(fn, 0, 128);
     for (i = 0; paths[i]; i++) {
         snprintf(fn, 128, "%s%s", (char *) paths[i], ver);
         if (!access(fn, R_OK)) {
