@@ -50,8 +50,6 @@ class FormatWindow (InstallWindow):
         vbox = GtkVBox (FALSE, 10)
         vbox.pack_start (sw, TRUE, TRUE)
 
-#        vbox.pack_start (GtkHSeparator (), FALSE, padding=3)
-        
         self.check = GtkCheckButton (_("Check for bad blocks while formatting"))
         self.check.set_active (self.todo.fstab.getBadBlockCheck())
         self.check.connect ("toggled", check, self.todo)
