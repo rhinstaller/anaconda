@@ -525,6 +525,9 @@ class InstallControlWindow:
             self.window.reset_rc_styles ()
             self.reloadRcQueued = 0
 
+        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
+        self.html.source (ics.getHTML(self.langSearchPath))
+
     def destroyCurrentWindow(self):
         children = self.installFrame.children ()
         if children:
@@ -558,9 +561,6 @@ class InstallControlWindow:
         prevButton.set_sensitive (ics.getPrevEnabled ())
         nextButton.set_sensitive (ics.getNextEnabled ())
  
-        self.html.source ("<HTML><BODY BGCOLOR=white></BODY></HTML>")
-        self.html.source (ics.getHTML(self.langSearchPath))
-
         if (ics.getGrabNext ()):
             nextButton.grab_focus ()
 
