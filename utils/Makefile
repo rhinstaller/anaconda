@@ -25,10 +25,10 @@ moddeps: moddeps.o
             $(LOADLIBES) \
 	    ../isys/modutils/insmod/libmodutils.a    \
 	    ../isys/modutils/util/libutil.a          \
-	    ../isys/modutils/obj/libobj.a -lrpm -ldb-3.2 -ldb1 -lrpmio -lbz2 -lz -lpopt
+	    ../isys/modutils/obj/libobj.a -lrpm -ldb-3.1 -ldb1 -lrpmio -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -ldb-3.2 -ldb1 -lrpmio \
+	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -ldb-3.1 -ldb1 -lrpmio \
 	-lbz2 -lz -lpopt 
 
 depends:
