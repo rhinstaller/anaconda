@@ -334,6 +334,24 @@ class XCustomWindow (InstallWindow):
         else:
             pass
 
+
+
+        #--If both KDE and GNOME are selected
+        if ((self.todo.hdList.has_key('gnome-core')
+             and self.todo.hdList['gnome-core'].selected)
+            or (self.todo.hdList.has_key('kdebase')
+                 and self.todo.hdList['kdebase'].selected)):
+
+#            print "Hello"
+
+            self.xdm = GtkCheckButton (_("Use Graphical Login"))
+            box.pack_start (self.xdm, FALSE, TRUE, 10)
+            self.xdm.set_active (TRUE)
+
+
+
+
+
 #        box.pack_start (hbox1)
 #        box.pack_start (hbox2, FALSE, TRUE, 10)
 #        box.pack_start (hbox3, FALSE, TRUE, 10)
