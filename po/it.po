@@ -577,7 +577,7 @@ msgstr "Dimen. :"
 
 #: ../text.py:794
 msgid "Summary: "
-msgstr "Riassunto:"
+msgstr "Descrizione:"
 
 #: ../text.py:820
 msgid "    Packages"
@@ -624,11 +624,11 @@ msgstr "Benvenuti"
 
 #: ../text.py:975 ../text.py:1043
 msgid "Hostname Setup"
-msgstr "Hostname Setup"
+msgstr "Setup del nome dell'host"
 
 #: ../text.py:977 ../text.py:1045
 msgid "Network Setup"
-msgstr "Network Setup"
+msgstr "Setup della rete"
 
 #: ../text.py:983 ../text.py:1051
 msgid "Time Zone Setup"
@@ -761,7 +761,7 @@ msgstr "Lettura in corso"
 
 #: ../todo.py:637
 msgid "Reading package information..."
-msgstr "Lettura informazioni sui pacchetti..."
+msgstr "Lettura delle informazioni sui pacchetti ..."
 
 #: ../todo.py:812 ../todo.py:825
 msgid "no suggestion"
@@ -898,7 +898,7 @@ msgstr "Le due password di Root inserite sono diverse."
 
 #: ../iw/account.py:136
 msgid "Root Password: "
-msgstr "Password di Root"
+msgstr "Password di Root: "
 
 #: ../iw/account.py:139
 msgid "Confirm: "
@@ -979,7 +979,7 @@ msgstr "Saltare creazione boot disk"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
-msgstr "About to Install"
+msgstr "Processo di installazione"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
@@ -1096,7 +1096,7 @@ msgstr "Server"
 
 #: ../iw/installpath.py:43
 msgid "Custom"
-msgstr "Custom"
+msgstr "Personalizzato"
 
 #: ../iw/installpath.py:93
 msgid "Install Type"
@@ -1176,7 +1176,7 @@ msgstr "Parametri del Kernel"
 
 #: ../iw/lilo.py:186 ../iw/silo.py:215
 msgid "Create boot disk"
-msgstr "Creazione del disco di disk"
+msgstr "Creazione del disco di boot"
 
 #: ../iw/lilo.py:190
 msgid "Do not install LILO"
@@ -1220,7 +1220,7 @@ msgstr "Netmask"
 
 #: ../iw/network.py:165 ../loader/loader.c:236
 msgid "Network"
-msgstr "Network"
+msgstr "Rete"
 
 #: ../iw/network.py:166
 msgid "Broadcast"
@@ -1353,7 +1353,7 @@ msgstr "Dimensione swap space"
 
 #: ../iw/rootpartition.py:158 ../textw/partitioning.py:121
 msgid "Automatic Partitioning"
-msgstr "Partizione automatica "
+msgstr "Partizionamento automatico"
 
 #: ../iw/rootpartition.py:224 ../textw/partitioning.py:122
 #, c-format
@@ -1511,7 +1511,7 @@ msgstr "Dove volete installare il bootloader?"
 #: ../textw/lilo.py:104 ../textw/lilo.py:125 ../textw/silo.py:124
 #: ../textw/silo.py:145
 msgid "Clear"
-msgstr "Clear"
+msgstr "Cancella"
 
 #: ../textw/lilo.py:112 ../textw/silo.py:132
 msgid "Edit Boot Label"
@@ -1570,7 +1570,7 @@ msgstr ""
 
 #: ../loader/loader.c:299 ../loader/loader.c:324 ../textw/partitioning.py:62
 msgid "Done"
-msgstr "Fatto"
+msgstr "Fine"
 
 #: ../textw/partitioning.py:126 ../textw/partitioning.py:127
 msgid "Continue"
@@ -1759,7 +1759,7 @@ msgstr "o usa:"
 
 #: ../textw/userauth.py:267
 msgid "Request server via broadcast"
-msgstr "Request server via broadcast"
+msgstr "Ricerca del server via broadcast"
 
 #: ../libfdisk/fsedit.c:664 ../libfdisk/fsedit.c:671 ../libfdisk/fsedit.c:678
 #: ../libfdisk/fsedit.c:687 ../libfdisk/fsedit.c:713 ../libfdisk/fsedit.c:723
@@ -2258,7 +2258,7 @@ msgstr "<not set>"
 
 #: ../libfdisk/gnomefsedit.c:3076
 msgid "Unallocated Partitions Exist..."
-msgstr "Unallocated Partitions Exist..."
+msgstr "Ci sono partizioni non allocate..."
 
 #: ../libfdisk/gnomefsedit.c:3082 ../libfdisk/gnomefsedit.c:3096
 msgid ""
@@ -2327,7 +2327,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
-msgstr "No Swap Partition"
+msgstr "Nessuna partizione di Swap"
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
@@ -2505,19 +2505,19 @@ msgstr ""
 
 #: ../loader/loader.c:409 ../loader/loader.c:411
 msgid "Loading"
-msgstr "Loading"
+msgstr "Caricamento in corso"
 
 #: ../loader/loader.c:463
 msgid "Loading second stage ramdisk..."
-msgstr "Loading second stage ramdisk..."
+msgstr "Caricamento secondo ramdisk..."
 
 #: ../loader/loader.c:467
 msgid "Error loading ramdisk."
-msgstr "Error loading ramdisk."
+msgstr "Errore di caricamento del ramdisk."
 
 #: ../loader/loader.c:599
 msgid "Hard Drives"
-msgstr "Hard Drives"
+msgstr "Hard Drive"
 
 #: ../loader/loader.c:600
 msgid ""
@@ -2704,7 +2704,7 @@ msgstr "Protocollo boot da utilizzare"
 
 #: ../loader/net.c:622
 msgid "Network gateway"
-msgstr "Entrata network"
+msgstr "Gateway di rete"
 
 #: ../loader/net.c:624
 msgid "IP address"
@@ -2716,7 +2716,7 @@ msgstr "Nameserver"
 
 #: ../loader/net.c:633
 msgid "Domain name"
-msgstr "Nome di dominio"
+msgstr "Dominio"
 
 #: ../loader/net.c:636
 msgid "Network device"
@@ -2799,7 +2799,7 @@ msgstr "Usate ftp non anonimo o un proxy server"
 
 #: ../loader/urls.c:202
 msgid "Use proxy server"
-msgstr "Usate proxy server"
+msgstr "Usare proxy server"
 
 #: ../loader/urls.c:213
 msgid "FTP Setup"
@@ -2866,7 +2866,7 @@ msgstr "HTTP Proxy Port:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Loading SCSI driver"
+msgstr "Caricamento del driver SCSI"
 
 
 
