@@ -310,6 +310,8 @@ class extFileSystem(FileSystemType):
         args = [ "/usr/sbin/mke2fs", devicePath]
         args.extend(devArgs)
         args.extend(self.extraFormatArgs)
+        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
+            args.extend(['-b', '4096'])
 
         rc = ext2FormatFilesystem(args, "/dev/tty5",
                                   progress,
@@ -714,8 +716,8 @@ class FileSystemSet:
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
 
-        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
-	    return [ ( "/dev/dasda", "DASD" ) ]
+#        if iutil.getArch() == "s390" or iutil.getArch() == "s390x" :
+#	    return [ ( "/dev/dasda", "DASD" ) ]
         
         elif iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
             bootDev = mntDict['/boot/efi']
