@@ -1,6 +1,11 @@
 from gtk import *
 from gnome.ui import *
 from gnome.xmhtml import *
+from iw.language import *
+from iw.welcome import *
+from iw.progress import *
+from iw.package import *
+import sys
 import GdkImlib
 
 import isys
@@ -12,45 +17,15 @@ from thread import *
 from threading import *
 import time
 
-class LanguageWindow:
-    def __init__ (self, ics):
-        ics.setTitle ("Language Selection")
-        ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Select which language you would like"
-                     "to use for the system default.</BODY></HTML>")
-        
-        self.languages = ["English", "German", "French", "Spanish",
-                          "Hungarian", "Japanese", "Chinese", "Korean"]
-        self.question = ("What language should be used during the "
-                         "installation process?")
-        
-    def getScreen (self):
-        mainBox = GtkVBox (FALSE, 10)
-        label = GtkLabel (self.question)
-        label.set_alignment (1.0, 1.0)
-        
-        box = GtkVBox (FALSE, 10)
-        language1 = GtkRadioButton (None, self.languages[0])
-        box.pack_start (language1, FALSE)
-        for locale in self.languages[1:]:
-            language = GtkRadioButton (language1, locale)
-            box.pack_start (language, FALSE)
-
-        align = GtkAlignment (0.5, 0.5)
-        align.add (box)
-
-        mainBox.pack_start (label, FALSE, FALSE, 10)
-        mainBox.pack_start (align)
-        
-        return mainBox
-
 class NetworkConfigWindow:
     def __init__ (self, ics):
         self.ics = ics
         ics.setTitle ("Network Configuration")
 
     def getScreen (self):
-        devices = ["eth0", "eth1", "eth2" ]
+        devices = ["Ethernet Device 0 (eth0)",
+                   "Ethernet Device 1 (eth1)",
+                   "Ethernet Device 2 (eth2)"]
         vbox = GtkVBox (FALSE, 10)
         optionmenu = GtkOptionMenu ()
         menu = GtkMenu ()
@@ -66,86 +41,6 @@ class NetworkConfigWindow:
         hbox.pack_start (optionmenu, TRUE)
         vbox.pack_start (hbox, FALSE, padding=10)
         return vbox
-
-class PackageSelectionWindow:
-    def __init__ (self, ics):
-        self.ics = ics
-        self.todo = ics.getToDo ()
-        ics.setTitle ("Package Group Selection")
-        ics.setNextEnabled (1)
-        ics.setHTML ("<HTML><BODY>Next you must select which package groups to install."
-                     "</BODY></HTML>")
-
-    def getScreen (self):
-        threads_leave ()
-        self.todo.headerList ()
-        self.todo.compsList()
-	threads_enter ()
-
-        sw = GtkScrolledWindow ()
-        sw.set_border_width (5)
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-
-        box = GtkVBox (FALSE, 10)
-        for comp in self.todo.comps:
-            if not comp.hidden:
-                checkButton = GtkCheckButton (comp.name)
-                checkButton.set_active (comp.selected)
-
-                def toggled (widget, comp):
-                  if widget.get_active ():
-                    comp.select (0)
-                  else:
-                    comp.unselect (0)
-                    
-                checkButton.connect ("toggled", toggled, comp)
-
-                box.pack_start (checkButton)
-
-        sw.add_with_viewport (box)
-
-        vbox = GtkVBox (FALSE, 5)
-        indivPackages = GtkCheckButton ("Select individual packages")
-        indivPackages.set_active (FALSE)
-        align = GtkAlignment (0.5, 0.5)
-        align.add (indivPackages)
-
-        vbox.pack_start (sw, TRUE)
-        vbox.pack_start (align, FALSE)
-        
-        return vbox
-
-class WelcomeWindow:		
-    def __init__ (self, ics):
-        ics.setTitle ("Welcome to Red Hat Linux!")
-        ics.setPrevEnabled (0)
-        ics.setNextEnabled (1)
-        ics.setHTML("<HTML><BODY><CENTER><H2>Welcome to<br>Red Hat Linux!</H2></CENTER><br><br>"
-	    "This installation process is outlined in detail in the "
-    	    "Official Red Hat Linux Installation Guide available from "
-	    "Red Hat Software. If you have access to this manual, you "
-	    "should read the installation section before continuing.<br><br>"
-	    "If you have purchased Official Red Hat Linux, be sure to "
-	    "register your purchase through our web site, "
-	    "http://www.redhat.com/.</BODY></HTML>")
-
-    def getScreen (self):
-        label = GtkLabel("(insert neat logo graphic here)")
-        label.set_line_wrap (TRUE)
-
-        box = GtkVBox (FALSE, 10)
-        box.pack_start (label, TRUE, TRUE, 0)
-
-        try:
-            im = GdkImlib.Image ("shadowman-200.png")
-            im.render ()
-            pix = im.make_pixmap ()
-            box.pack_start (pix, TRUE, TRUE, 0)
-
-        except:
-            print "Unable to load shadowman-200.png"
-
-        return box
 
 class PartitionWindow:
     def back(self, win):
@@ -229,65 +124,6 @@ class PartitionWindow:
 
         return self.rc
 
-
-class InstallProgressWindow:
-    def setPackageScale (self, amount, total):
-        threads_enter ()
-	self.progress.update (float (amount) / total)
-        threads_leave ()
-
-    def completePackage(self, header):
-	pass
-
-    def setPackage(self, header):
-        threads_enter ()
-        self.name.set_text (header[rpm.RPMTAG_NAME])
-        self.size.set_text ("%d k" % (header[rpm.RPMTAG_SIZE] / 1024))
-        self.summary.set_text (header[rpm.RPMTAG_SUMMARY])
-        threads_leave ()
-
-    def __del__(self):
-        threads_enter ()
-        self.window.destroy()
-        threads_leave ()
-
-    def setSizes (self, total, totalSize):
-        self.total = total
-        self.totalSize = totalSize
-
-    def __init__ (self, ics):
-        ics.setTitle ("Installing Packages")
-        ics.setPrevEnabled (0)
-
-    def getScreen (self):
-	table = GtkTable()
-	# x1, x2, y1, y2
-	label = GtkLabel("Package Name:")
-	label.set_alignment(1.0, 0.0)
-	table.attach(label, 0, 1, 0, 1)
-        label = GtkLabel("Package Size:")
-	label.set_alignment(1.0, 0.0)
-	table.attach(label, 0, 1, 1, 2)
-        label = GtkLabel("Package Summary:")
-	label.set_alignment(1.0, 0.0)
-	table.attach(label, 0, 1, 2, 3, yoptions = FILL)
-
-	self.name = GtkLabel();
-	self.name.set_alignment(0, 0.0)
-	self.size = GtkLabel();
-	self.size.set_alignment(0, 0.0)
-	self.summary = GtkLabel();
-	self.summary.set_alignment(0, 0.0)
-        self.summary.set_line_wrap (TRUE)
-	table.attach(self.name, 1, 2, 0, 1, xoptions = FILL | EXPAND)
-	table.attach(self.size, 1, 2, 1, 2, xoptions = FILL | EXPAND)
-	table.attach(self.summary, 1, 2, 2, 3, xoptions = FILL | EXPAND)
-
-	self.progress = GtkProgressBar()
-	table.attach(self.progress, 0, 2, 3, 4)
-
-	return table
-
 class WaitWindow:
     def __init__(self, title, text):
 	threads_enter ()
@@ -303,7 +139,7 @@ class WaitWindow:
 	gdk_flush ()
 	while events_pending ():
             mainiteration ()
-	threads_leave ()
+        threads_leave ()
             
     def pop(self):
 	threads_enter ()
@@ -316,16 +152,19 @@ class GtkMainThread:
     
 class InstallInterface:
 
-    def filledToDo (self):
+    def setPackageProgressWindow (self, ppw):
+        self.ppw = ppw
         self.mutex.release ()
         
     def waitWindow (self, title, text):
 	return WaitWindow (title, text)
 
     def packageProgressWindow (self, total, totalSize):
-	return InstallProgressWindow (total, totalSize)
+        self.ppw.setSizes (total, totalSize)
+        return self.ppw
 
     def run (self, todo):
+        sys.setcheckinterval (0)
         start_new_thread (GtkMainThread ().run, ())
         
         steps = [
@@ -333,9 +172,12 @@ class InstallInterface:
             ["Partition", PartitionWindow, (todo,)]
         ]
 
-        steps = [WelcomeWindow, LanguageWindow, PackageSelectionWindow]
+        steps = [WelcomeWindow, LanguageWindow, PackageSelectionWindow, InstallProgressWindow]
+
+        windows = [WelcomeWindow, LanguageWindow, PackageSelectionWindow,
+                   IndividualPackageSelectionWindow, InstallProgressWindow]
                  
-        icw = InstallControlWindow (steps, todo)
+        icw = InstallControlWindow (self, steps, windows, todo)
 	
 	self.mutex = allocate_lock ()
 	self.mutex.acquire ()
@@ -347,30 +189,69 @@ class InstallInterface:
 
 class InstallControlWindow:
 
-    def prevClicked (self, *args):
-        self.setScreen (self.currentScreen - 1)
+    def prevClicked (self, widget, *args):
+        prev = self.currentScreen.getPrev ()
+        if prev:
+            for x in self.windowList:
+                if isinstance (x, prev):
+                    self.currentScreen = x
+                    break
+        else:
+            self.stateListIndex = self.stateListIndex - 1
+            self.currentScreen = self.stateList[self.stateListIndex]
+        self.setScreen (self.currentScreen)
 
-    def nextClicked (self, *args):
-        self.setScreen (self.currentScreen + 1)
+    def nextClicked (self, widget, *args):
+        next = self.currentScreen.getNext ()
+        if next:
+            for x in self.windowList:
+                if isinstance (x, next):
+                    self.currentScreen = x
+                    break
+        else:
+            self.stateListIndex = self.stateListIndex + 1
+            self.currentScreen = self.stateList[self.stateListIndex]
+        self.setScreen (self.currentScreen)
+
+    def helpClicked (self, widget, *args):
+        self.hbox.remove (widget)
+        if widget == self.hideHelpButton:
+            self.bin.remove (self.table)
+            self.installFrame.reparent (self.bin)
+
+            self.showHelpButton.show ()
+            self.showHelpButton.set_state (STATE_NORMAL)
+
+            self.hbox.pack_start (self.showHelpButton, FALSE)
+            self.hbox.reorder_child (self.showHelpButton, 0)
+            self.displayHelp = FALSE
+        else:
+            self.bin.remove (self.installFrame)
+            self.table.attach (self.installFrame, 1, 3, 0, 1)
+            self.bin.add (self.table)
+
+            self.hideHelpButton.show ()
+            self.showHelpButton.set_state (STATE_NORMAL)
+            self.hbox.pack_start (self.hideHelpButton, FALSE)
+            self.hbox.reorder_child (self.hideHelpButton, 0)
+            self.displayHelp = TRUE
 
     def setScreen (self, screen):
-        if screen == len (self.stateList):
-            self.mutex.release ()
-            return
-        
-        self.currentScreen = screen
-        newScreen = self.stateList[self.currentScreen][0].getScreen ()
-        self.update (self.stateList[self.currentScreen][1])
+#        if screen == len (self.stateList):
+#            self.mutex.release ()
+#            return
+
+        self.update (screen.getICS ())
 
         child = self.installFrame.children ()[0]
         self.installFrame.remove (child)
         child.destroy ()
         
-        self.installFrame.add (newScreen)
+        self.installFrame.add (screen.getScreen ())
         self.installFrame.show_all ()
 
     def update (self, ics):
-        if self.buildingWindows or ics != self.stateList[self.currentScreen][1]:
+        if self.buildingWindows or ics != self.currentScreen.getICS ():
             return
 
         self.installFrame.set_label (ics.getTitle ())
@@ -388,17 +269,25 @@ class InstallControlWindow:
                 if   name == "prev": buttons[name].connect ("clicked", self.prevClicked)
                 elif name == "next": buttons[name].connect ("clicked", self.nextClicked)
                 buttons[name].show ()
-            buttons[name].set_state (STATE_NORMAL)
-            buttons[name].show ()
 
         self.buttonBox.foreach (lambda x, b=self.buttonBox: b.remove (x))
         self.buttonBox.pack_start (buttons["prev"])
         self.buttonBox.pack_start (buttons["next"])
         buttons["prev"].set_sensitive (ics.getPrevEnabled ())
         buttons["next"].set_sensitive (ics.getNextEnabled ())
-        self.html.source (ics.getHTML ())
 
-    def __init__ (self, steps, todo):
+        if ics.getHelpEnabled () == FALSE:
+            if self.displayHelp:
+                self.helpClicked (self.hideHelpButton)
+        elif ics.getHelpEnabled () == TRUE:
+            if not self.displayHelp:
+                self.helpClicked (self.showHelpButton)
+        
+        if self.displayHelp:
+            self.html.source (ics.getHTML ())
+
+    def __init__ (self, ii, steps, windows, todo):
+        self.ii = ii
         self.steps = steps
 
         threads_enter ()
@@ -414,46 +303,61 @@ class InstallControlWindow:
         self.prevButtonStock = GnomeStockButton (STOCK_BUTTON_PREV)
         self.nextButtonStock = GnomeStockButton (STOCK_BUTTON_NEXT)
         
-        self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY),
-                                               "Finish")
+        self.finishButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_APPLY), "Finish")
+	self.hideHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), "Hide Help")
+        self.showHelpButton = GnomePixmapButton (GnomeStock (STOCK_BUTTON_HELP), "Show Help")
+        self.hideHelpButton.connect ("clicked", self.helpClicked)
+        self.showHelpButton.connect ("clicked", self.helpClicked)
         self.prevButtonStock.connect ("clicked", self.prevClicked)
         self.nextButtonStock.connect ("clicked", self.nextClicked)
 
         self.buttonBox.add (self.prevButtonStock)
         self.buttonBox.add (self.nextButtonStock)
 
-        vbox.pack_end (self.buttonBox, FALSE)
+	self.hbox = GtkHBox ()
+	self.hbox.pack_start (self.hideHelpButton, FALSE)
+	self.hbox.pack_start (self.buttonBox)
+
+        vbox.pack_end (self.hbox, FALSE)
 
         self.html = GtkXmHTML()
 #        html.set_dithering(FALSE)  # this forces creation of CC
         self.html.set_allow_body_colors(TRUE)
         self.html.source ("<HTML><BODY>HTML Help Window</BODY></HTML>")
+        self.displayHelp = TRUE
 
-        helpFrame = GtkFrame ("Help Window")
-        helpFrame.add (self.html)
+        self.helpFrame = GtkFrame ("Help Window")
+        self.helpFrame.add (self.html)
 
         table = GtkTable (1, 3, TRUE)
-        table.attach (helpFrame, 0, 1, 0, 1)
+        table.attach (self.helpFrame, 0, 1, 0, 1)
 
         self.installFrame = GtkFrame ()
 
-	self.currentScreen = 0
         self.stateList = []
+        self.windowList = []
 
         self.buildingWindows = 1
-        for x in steps:
-            ics = InstallControlState (self, todo)
-            self.stateList.append ((x (ics), ics))
+        for x in windows:
+            ics = InstallControlState (self, ii, todo)
+            window = x (ics)
+            if x in steps: self.stateList.append (window)
+            self.windowList.append (window)
         self.buildingWindows = 0
 
-        currentScreen = self.stateList[self.currentScreen][0].getScreen ()
-        self.update (self.stateList[self.currentScreen][1])
-        self.installFrame.add (currentScreen)
+        self.stateListIndex = 0
+        self.currentScreen = self.stateList[self.stateListIndex]
+        self.update (self.currentScreen.getICS ())
+        self.installFrame.add (self.currentScreen.getScreen ())
                           
         table.attach (self.installFrame, 1, 3, 0, 1)
         table.set_col_spacing (0, 15)
 
-        vbox.pack_end (table, TRUE, TRUE)
+        self.bin = GtkFrame ()
+        self.bin.set_shadow_type (SHADOW_NONE)
+        self.bin.add (table)
+        vbox.pack_end (self.bin, TRUE, TRUE)
+        self.table = table
 
         self.window.add (vbox)
         threads_leave ()
@@ -472,8 +376,9 @@ class InstallControlWindow:
 
 class InstallControlState:
 
-    def __init__ (self, cw, todo, title = "Install Window",
+    def __init__ (self, cw, ii, todo, title = "Install Window",
                   prevEnabled = 1, nextEnabled = 0, html = ""):
+        self.ii = ii
         self.cw = cw
         self.todo = todo
         self.prevEnabled = prevEnabled
@@ -484,6 +389,7 @@ class InstallControlState:
         self.prevButton = STOCK_BUTTON_PREV
         self.nextButtonLabel = None
         self.prevButtonLabel = None
+        self.helpEnabled = 3 # Values other than TRUE or FALSE don't change the help setting
 
     def getState (self):
         return (self.title, prevEnabled, nextEnabled, prevText, nextTest)
@@ -537,4 +443,18 @@ class InstallControlState:
     def getPrevButton (self):
         return { "pixmap" : self.prevButton, "label" : self.prevButtonLabel }
 
+    def setScreenPrev (self):
+        self.cw.prevClicked ()
 
+    def setScreenNext (self):
+        self.cw.nextClicked ()
+
+    def getInstallInterface (self):
+        return self.ii
+
+    def setHelpEnabled (self, value):
+        self.helpEnabled = value
+        self.cw.update (self)
+
+    def getHelpEnabled (self):
+        return self.helpEnabled
