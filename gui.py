@@ -6,6 +6,7 @@ import isys
 import sys
 import _balkan
 import thread
+import rpm
 
 class WelcomeWindow:		
     def next(self, win):
@@ -145,18 +146,19 @@ class InstallProgressWindow:
 	self.progress.update((amount * 1.0)/ total)
   	while events_pending():
 	    mainiteration(FALSE)
-	
 
-    def setPackage(self, name):
-	print name
-        self.label.set_text (name)
+    def completePackage(self, header):
+	pass
+
+    def setPackage(self, header):
+        self.label.set_text (header[rpm.RPMTAG_NAME])
   	while events_pending():
 	    mainiteration(FALSE)
 
     def __del__(self):
        	self.window.destroy()
 
-    def __init__(self):
+    def __init__(self, total, totalSize):
         self.window = GtkWindow()
         self.window.set_border_width(10)
         self.window.set_title('Installing Packages')
@@ -201,8 +203,8 @@ class InstallInterface:
     def waitWindow(self, title, text):
 	return WaitWindow(title, text)
 
-    def packageProgessWindow(self):
-	return InstallProgressWindow()
+    def packageProgressWindow(self, total, totalSize):
+	return InstallProgressWindow(total, totalSize)
 
     def run(self, todo):
         rc_parse("gtkrc")
@@ -221,3 +223,5 @@ class InstallInterface:
             else:
 		dir = 1
 	    step = step + dir
+
+	todo.liloLocation("hda")
