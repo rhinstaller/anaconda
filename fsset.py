@@ -1378,15 +1378,6 @@ class VolumeGroupDevice(Device):
         # self.physicalextentsize = 4 * 1024 * 1024
 
     def setupDevice (self, chroot, devPrefix='/tmp'):
-        # XXX cheap hack
-        import _isys
-        for drive in [ "hda", "hdb", "hdc", "hdd", "sda", "sdb", "sdd" ]:
-            _isys.mkdevinode(drive, "/dev/%s" % (drive,))
-            for part in range(1, 16):
-                dev = "%s%d" % (drive, part)
-                path = "/dev/%s" % (dev,)
-                _isys.mkdevinode(dev, path)
-
         if not self.isSetup:
             rc = iutil.execWithRedirect("/usr/sbin/vgscan",
                                         ["vgscan", "-v"],
