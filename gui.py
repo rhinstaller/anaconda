@@ -441,7 +441,12 @@ class ProgressWindow:
 
 class ExceptionWindow:
     def __init__ (self, text):
-        floppyDevices = len(isys.floppyDriveDict())
+        try:
+            floppyDevices = len(kudzu.probe(kudzu.CLASS_FLOPPY,
+                                            kudzu.BUS_UNSPEC,
+                                            kudzu.PROBE_ALL))
+        except:
+            floppyDevices = 0
 
         win = gtk.Dialog("Exception Occured", mainWindow, gtk.DIALOG_MODAL)
         win.add_button("_Debug", 0)

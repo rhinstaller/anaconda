@@ -289,7 +289,12 @@ class InstallInterface:
 	return 0
     
     def exceptionWindow(self, title, text):
-        floppyDevices = len(isys.floppyDriveDict())
+        try:
+            floppyDevices = len(kudzu.probe(kudzu.CLASS_FLOPPY,
+                                            kudzu.BUS_UNSPEC,
+                                            kudzu.PROBE_ALL))
+        except:
+            floppyDevices = 0
         if floppyDevices > 0 or DEBUG:
             ugh = "%s\n\n" % (exceptionText,)
             buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")]
