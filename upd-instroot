@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ORIGDIR=`pwd`
+
 if [ -z "$1" -o ! -d "$1" ]; then
 	echo "$0: updates instimage from a Red Hat RPMS directory"
 	echo "usage: $0 <dir>"
@@ -172,9 +174,6 @@ usr/lib/libpng*
 usr/lib/libtiff*
 usr/lib/libjpeg*
 usr/lib/libzvt*
-usr/share/zoneinfo/US
-usr/share/zoneinfo/Europe
-usr/share/zoneinfo/Japan
 usr/sbin/gnome-pty-helper
 usr/X11R6/lib/libICE*
 usr/X11R6/lib/libSM*
@@ -290,6 +289,12 @@ usr/sbin/chroot
 usr/sbin/traceroute
 EOF
 
+TIMEZONES="
+usr/share/zoneinfo/US
+usr/share/zoneinfo/Europe
+usr/share/zoneinfo/Japan
+"
+
 # sparc needs 100dpi fonts as well, otherwise
 # things look ugly
 
@@ -323,9 +328,20 @@ rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin
 
 for n in $RPMS; do 
     echo "expanding $n"
+    if [ $(rpm -qp --qf '%{NAME}' $n) = "glibc" ] ; then
+	GLIBC=$n
+    fi 
     rpm2cpio $n | (cd $DEST; cpio -E $KEEPFILE --quiet -iumd)
     rpm2cpio $n | (cd $DESTGR; cpio -E $KEEPFILEGR --quiet -iumd)
 done
+
+echo "retrieving timezones"
+TZDIR=/tmp/glibc-timezone-$$
+mkdir -p $TZDIR/usr/share/zoneinfo
+rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo usr/share/zoneinfo/*)
+(cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
+(cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
+rm -rf $TZDIR
 
 # XXX kludge, fix me
 rm -f $DEST/usr/lib/python1.5/site-packages/rpmmodule.so
@@ -456,4 +472,5 @@ ln -s /tmp $DESTGR/usr/X11R6/lib/X11/xkb/compiled
 
 	cp -a $HOMEDIR/anaconda-stub $DEST/usr/bin/anaconda
 
+cd $ORIGDIR
 utils/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
