@@ -50,16 +50,16 @@ msgstr ""
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr ""
+msgstr "VNC þjónninn er nú í gangi."
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Vinsamlegast tengist %s til að hefja uppsetningu..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Vinsamlegast tengist til að hefja uppsetningu..."
 
 #: ../anaconda:492 ../anaconda:650 ../gui.py:239 ../gui.py:979 ../rescue.py:40
 #: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
@@ -119,7 +119,7 @@ msgstr ""
 
 #: ../anaconda:681
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Uppsetningaraðferðin krefst uppsetningar í textaham"
 
 #: ../anaconda:708
 msgid "No video hardware found, assuming headless"
@@ -194,13 +194,12 @@ msgstr ""
 "sneið."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware wan't "
 "be able to boot this installation."
 msgstr ""
-"Ræsisneiðin %s er ekki PPC PReP ræsisneið. OpenFirmware mun ekki geta ræst "
-"úr þessari sneið."
+"Ræsisneiðin er ekki staðsett nógu framarlega á disknum. OpenFirmware mun ekki "
+"geta ræst úr þessari sneið."
 
 #: ../autopart.py:1013
 #, python-format
@@ -341,7 +340,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -350,18 +348,15 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Eftirfarandi villur komu upp við disksneiðinguna:\n"
 "\n"
-"%s\n"
 "\n"
-"Þetta getur átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
-"uppsetninguna. Þú getur valið um aðra sjálfvirka sneiðingu eða smellt á 'Til "
+"Þú getur kosið að nota aðra rofa á sjálfvirka sneiðingu eða smellt á 'Til "
 "baka' hnappinn og sneitt diskana handvirkt.\n"
 "\n"
 "Veldu 'Í lagi' til að halda áfram."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -375,10 +370,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Þetta getur átt sér stað ef það er ekki nóg pláss á diskunum þínum fyrir "
-"uppsetninguna. Þú getur valið um aðra sjálfvirka sneiðingu eða smellt á 'Til "
-"baka' hnappinn og sneitt diskana handvirkt.\n"
-"\n"
-"Veldu 'Í lagi' til að halda áfram."
+"uppsetninguna.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -1272,14 +1264,14 @@ msgstr ""
 "\n"
 
 #: ../packages.py:790 ../packages.py:1077
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "Uppfæri %s-%s-%s.\n"
+msgstr "Uppfæri %s-%s-%s.%s.\n"
 
 #: ../packages.py:792 ../packages.py:1079
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "Set inn %s-%s-%s.\n"
+msgstr "Set inn %s-%s-%s.%s.\n"
 
 #: ../packages.py:808
 #, python-format
@@ -1563,11 +1555,8 @@ msgid "You cannot delete free space."
 msgstr "Þú getur ekki fjarlægt laust pláss."
 
 #: ../partIntfHelpers.py:157
-#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
-"Þú getur ekki eytt þessari disksneið:\n"
-"\n"
+msgstr "Þú getur ekki eytt disksneið af LDL sniðnu DASD tæki."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1831,7 +1820,7 @@ msgstr ""
 
 #: ../partitions.py:832
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Þú verður að búa til PPC PReP ræsisneið."
 
 #: ../partitions.py:839
 #, python-format
@@ -2285,6 +2274,9 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
+"Örgjörfaútgáfa %s sem þú ert að uppfæra virðist vera %s sem passar ekki við "
+"útgáfuna %s sem nú er uppsett.  Þetta mun líklega ekki takast.  Ertu viss um "
+"að þú viljir halda uppfærsluni áfram?"
 
 #: ../upgrade.py:470
 msgid ""
@@ -5445,15 +5437,14 @@ msgid "Select individual packages"
 msgstr "Velja hvern pakka fyrir sig"
 
 #: ../textw/packages_text.py:73
-#, fuzzy
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr "  <Bilslá>,<+>,<-> velur       |   <F1> hjálp  |   <F2> pakkalýsingar"
+msgstr ""
+"<Bilslá>,<+>,<-> velur      |  <F2> Upplýsingar um hóp |  <F2> næsti skjár"
 
 #: ../textw/packages_text.py:110
-#, fuzzy
 msgid "Package Group Details"
-msgstr "Velja pakkahópa"
+msgstr "Upplýsingar um pakkahóp"
 
 #: ../textw/packages_text.py:165
 msgid "Package :"
@@ -6291,7 +6282,6 @@ msgid "Video Card Configuration"
 msgstr "Stillingar skjákorts"
 
 #: ../textw/xconfig_text.py:638
-#, fuzzy
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
@@ -6340,14 +6330,13 @@ msgid "_Custom"
 msgstr "_Sérsniðið"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
 msgstr ""
 "Með þessari uppsetningaraðferð færðu fulla stjórn á því hvernig vélin verður "
-"sett upp ásamt stjórn á hvaða hugbúnaðarpakkar fara inn og hvernig "
-"auðkenning fer fram."
+"sett upp ásamt stjórn á hvaða hugbúnaðarpakkar fara inn og hvernig diskarnir "
+"verða sneiddir."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6546,16 +6535,17 @@ msgid "Kickstart Error"
 msgstr "Kickstart villa"
 
 #: ../loader2/driverdisk.c:436
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "óleyfilegt viðfang við rekladiskskipun hraðuppsetningar %s: %s"
+msgstr "óleyfilegt staðsetning rekladisks: %s"
 
 #: ../loader2/driverdisk.c:469
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Óleyfilegt viðfang við tækjaskipun hraðuppsetningar %s: %s"
+msgstr ""
+"Eftirfarandi er óleyfilegt viðfang við rekladiskskipun hraðuppsetningar: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -7918,18 +7908,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
-
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr "VNC þjónustan komin upp - Vinsamlegast tengstu til að setja upp..."
-
-#~ msgid "Generic"
-#~ msgstr "Almennur"
-
-#~ msgid ""
-#~ "Your system will be setup to use the frame buffer driver for the X Window "
-#~ "System.  If you do not want setup the X Window System, choose 'Skip X "
-#~ "Configuration' below."
-#~ msgstr ""
-#~ "Vélin þín verður stillt þannig að hún ræsir 'frame buffer' rekilinn fyrir "
-#~ "X gluggakerfið. Ef þú vilt ekki setja upp X gluggakerfið skaltu velja "
-#~ "'Sleppa að stilla X' hnappinn að neðan."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 9.1\n"
 "POT-Creation-Date: 2003-07-08 00:11-0400\n"
-"PO-Revision-Date: 2003-06-17 21:35+0200\n"
+"PO-Revision-Date: 2003-07-13 19:10+0200\n"
 "Last-Translator: Roman Maurer <roman@lugos.si>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -51,16 +51,16 @@ msgstr ""
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr ""
+msgstr "Strežnik VNC zdaj teče."
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Prosim, povežite se z %s za začetek namestitve..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Prosim, povežite se za začetek namestitve..."
 
 #: ../anaconda:492 ../anaconda:650 ../gui.py:239 ../gui.py:979 ../rescue.py:40
 #: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
@@ -120,7 +120,7 @@ msgstr ""
 
 #: ../anaconda:681
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Namestitveni razred vsiljuje besedilni način namestitve"
 
 #: ../anaconda:708
 msgid "No video hardware found, assuming headless"
@@ -131,10 +131,8 @@ msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
 #: ../anaconda:743
-#, fuzzy
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
-"Grafična namestitev ni dostopna za namestitev %s. Zaganja se besedilni način."
+msgstr "Grafična namestitev ni dostopna... Zaganja se besedilni način."
 
 #: ../anaconda:756
 msgid ""
@@ -226,18 +224,17 @@ msgstr ""
 "Pritisnite 'V redu' za vnovičen zagon sistema."
 
 #: ../autopart.py:1221
-#, fuzzy
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Zahtevani razdelek ne obstaja"
+msgstr "Zahtevana naprava RAID ne obstaja"
 
 #: ../autopart.py:1222
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Unable to locate raid device %s to use for %s.\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Ni moč najti razdelka %s, da bi ga uporabljali za %s.\n"
+"Ni moč najti naprave RAID %s, da bi jo uporabljali za %s.\n"
 "\n"
 "Pritisnite V redu za vnovičen zagon sistema."
 
@@ -274,12 +271,11 @@ msgstr ""
 "Pritisnite V redu za vnovičen zagon sistema."
 
 #: ../autopart.py:1320 ../autopart.py:1368
-#, fuzzy
 msgid "Automatic Partitioning Errors"
-msgstr "Samodejna razdelitev"
+msgstr "Napake med samodejno razdelitvijo"
 
 #: ../autopart.py:1321
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -291,7 +287,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Pritisnite V redu za vnovičen zagon sistema."
+"Pritisnite 'V redu' za vnovičen zagon sistema."
 
 #: ../autopart.py:1331
 msgid "Warnings During Automatic Partitioning"
@@ -313,7 +309,7 @@ msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
-msgstr ""
+msgstr "\n\nPritisnite 'V redu' za vnovičen zagon sistema."
 
 #: ../autopart.py:1346 ../iw/partition_gui.py:998
 #: ../textw/partition_text.py:219

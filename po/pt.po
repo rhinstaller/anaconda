@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-07-08 00:11-0400\n"
-"PO-Revision-Date: 2003-06-20 14:43+0100\n"
+"PO-Revision-Date: 2003-07-30 17:39+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -93,16 +93,16 @@ msgstr ""
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr ""
+msgstr "O servidor de VNC está a correr."
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Ligue-se por favor a %s para iniciar a instalação..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Por favor ligue-se para iniciar a instalação..."
 
 #: ../anaconda:492 ../anaconda:650 ../gui.py:239 ../gui.py:979 ../rescue.py:40
 #: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
@@ -162,7 +162,7 @@ msgstr ""
 
 #: ../anaconda:681
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "A classe de instalação obriga a instalação em modo texto"
 
 #: ../anaconda:708
 msgid "No video hardware found, assuming headless"
@@ -241,13 +241,10 @@ msgstr ""
 "arrancar desta partição."
 
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware wan't "
 "be able to boot this installation."
-msgstr ""
-"A partição de arranque %s não é uma partição de arranque PPC PReP.  O "
-"OpenFirmware não vai conseguir arrancar desta partição."
+msgstr "A partição de arranque não está localizada suficientemente no início do disco.  O OpenFirmware não vai conseguir arrancar desta partição."
 
 #: ../autopart.py:1013
 #, python-format
@@ -389,7 +386,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -398,19 +394,14 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Ocorreram os seguintes erros com o seu particionamento:\n"
 "\n"
-"%s\n"
 "\n"
-"Isto pode acontecer se não existir espaço suficiente no(s) seu(s) disco(s) "
-"rígido(s) para a instalação. O utilizador poderá escolher uma opção de "
-"particionamento automático diferente ou então carregar em 'Anterior' para "
-"seleccionar o particionamento manual.\n"
+"Pode escolher uma opção de particionamento automático diferente ou então carregar em 'Anterior' para seleccionar o particionamento manual.\n"
 "\n"
 "Carregue em 'OK' para continuar."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -423,12 +414,7 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Isto pode acontecer se não existir espaço suficiente no(s) seu(s) disco(s) "
-"rígido(s) para a instalação. O utilizador poderá escolher uma opção de "
-"particionamento automático diferente ou então carregar em 'Anterior' para "
-"seleccionar o particionamento manual.\n"
-"\n"
-"Carregue em 'OK' para continuar."
+"Isto pode acontecer se não existir espaço suficiente no(s) seu(s) disco(s) rígido(s) para a instalação.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -1330,14 +1316,14 @@ msgid ""
 msgstr "A instalar %s pacotes\n"
 
 #: ../packages.py:790 ../packages.py:1077
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "A actualizar %s-%s-%s.\n"
+msgstr "A actualizar %s-%s-%s.%s.\n"
 
 #: ../packages.py:792 ../packages.py:1079
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "A instalar %s-%s-%s.\n"
+msgstr "A instalar %s-%s-%s.%s.\n"
 
 #: ../packages.py:808
 #, python-format
@@ -1625,11 +1611,8 @@ msgid "You cannot delete free space."
 msgstr "Não pode remover o espaço livre."
 
 #: ../partIntfHelpers.py:157
-#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
-"Não pode apagar esta partição:\n"
-"\n"
+msgstr "Não pode apagar uma partição de um DASD formatado com LDL."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1900,7 +1883,7 @@ msgstr ""
 
 #: ../partitions.py:832
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Deve criar um partição de arranque PPC PReP."
 
 #: ../partitions.py:839
 #, python-format
@@ -2363,7 +2346,7 @@ msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "A arquitectura da versão de %s que está a actualizar parece ser %s que não é a mesma do que a arquitectura previamente instalada, %s. Isto provavelmente não fai funcionar.  Deseja continuar o processo de actualização?"
 
 #: ../upgrade.py:470
 msgid ""
@@ -5570,16 +5553,13 @@ msgid "Select individual packages"
 msgstr "Seleccionar pacotes individuais"
 
 #: ../textw/packages_text.py:73
-#, fuzzy
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"   <Espaço>,<+>,<-> seleccionar  |   <F1> ajuda  |   <F2> descrição do pacote"
+msgstr "<Espaço>,<+>,<-> seleccionar |   <F2> detalhes do grupo | <F12> próximo ecrã"
 
 #: ../textw/packages_text.py:110
-#, fuzzy
 msgid "Package Group Details"
-msgstr "Selecção de Grupos de Pacotes"
+msgstr "Detalhes do Grupo de Pacotes"
 
 #: ../textw/packages_text.py:165
 msgid "Package :"
@@ -6234,11 +6214,11 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:35
 msgid "Color Depth"
-msgstr "Profundidade de Cor"
+msgstr "Número de Cores"
 
 #: ../textw/xconfig_text.py:36
 msgid "Please select the color depth you would like to use:"
-msgstr "Por favor seleccione a profundidade de cor que deseja utilizar:"
+msgstr "Por favor seleccione o número de cores que deseja utilizar:"
 
 #: ../textw/xconfig_text.py:59
 msgid "Resolution"
@@ -6421,15 +6401,11 @@ msgid "Video Card Configuration"
 msgstr "Configuração do Placa Gráfica"
 
 #: ../textw/xconfig_text.py:638
-#, fuzzy
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
-msgstr ""
-"O seu sistema vai ser configurado para utilizar o controlador de 'frame "
-"buffer' para o X Window System.  Se não deseja configurar o X Window System, "
-"escolha 'Não efectuar a configuração do X' abaixo."
+msgstr "O seu sistema vai ser configurado para utilizar o controlador de 'frame buffer' para o X Window System.  Se não deseja configurar o X Window System, escolha 'Não efectuar a configuração do X' em baixo."
 
 #: ../textw/xconfig_text.py:646
 msgid "Select the video card and video RAM for your system."
@@ -6470,14 +6446,10 @@ msgid "_Custom"
 msgstr "Personali_zado"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
-"Seleccione este tipo de instalação para obter o controlo completo sobre o "
-"processo de instalação, incluindo a selecção dos pacotes de 'software' e as "
-"preferências de autenticação."
+msgstr "Seleccione este tipo de instalação para obter o controlo completo sobre o processo de instalação, incluindo a selecção dos pacotes de software e o particionamento."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6682,16 +6654,16 @@ msgid "Kickstart Error"
 msgstr "Erro do Kickstart"
 
 #: ../loader2/driverdisk.c:436
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Argumento inválido para o método driver disk do kickstart %s: %s"
+msgstr "Fonte desconhecida no método driver disk do kickstart: %s"
 
 #: ../loader2/driverdisk.c:469
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Argumento inválido para o método device do kickstart %s: %s"
+msgstr "Argumento inválido para o comando driver disk do kickstart: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -8064,9 +8036,6 @@ msgstr "Sueco"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Turco"
-
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr "Servidor VNC a correr - ligue-se para instalar..."
 
 #~ msgid "Generic"
 #~ msgstr "Genérico"

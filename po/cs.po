@@ -3,9 +3,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 7.0\n"
+"Project-Id-Version: install VERSION\n"
 "POT-Creation-Date: 2003-07-08 00:11-0400\n"
-"PO-Revision-Date: 2003-06-18 13:42+0200\n"
+"PO-Revision-Date: 2003-07-30 22:20+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -48,16 +48,16 @@ msgstr ""
 
 #: ../anaconda:165
 msgid "The VNC server now running."
-msgstr ""
+msgstr "VNC server nyní běží."
 
 #: ../anaconda:167
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "Pro spuštění instalace se prosím připojte k %s..."
 
 #: ../anaconda:169
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "Pro spuštění instalace se prosím připojte..."
 
 #: ../anaconda:492 ../anaconda:650 ../gui.py:239 ../gui.py:979 ../rescue.py:40
 #: ../rescue.py:193 ../rescue.py:271 ../rescue.py:299 ../rescue.py:309
@@ -117,7 +117,7 @@ msgstr ""
 
 #: ../anaconda:681
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "Třída instalace vynucující instalaci v textovém režimu"
 
 #: ../anaconda:708
 msgid "No video hardware found, assuming headless"
@@ -191,14 +191,12 @@ msgstr ""
 "Zaváděcí oddíl %s není oddíl VFAT. EFI nebude moci zavést systém z tohoto "
 "oddílu."
 
+# FIXME: wan't
 #: ../autopart.py:1010
-#, fuzzy
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware wan't "
 "be able to boot this installation."
-msgstr ""
-"Zaváděcí oddíl %s není zaváděcí oddíl PPC PReP. OpenFirmware nebude moci "
-"zavést systém z tohoto oddílu."
+msgstr "Zaváděcí oddíl není umístěn dostatečně blízko začátku disku. OpenFirmware nebude moci zavést takto nainstalovaný systém."
 
 #: ../autopart.py:1013
 #, python-format
@@ -293,7 +291,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Při vytváření oddílů vznikly následující chyby:\n"
+"Při vytváření oddílů došlo k následujícím chybám:\n"
 "\n"
 "%s\n"
 "\n"
@@ -310,7 +308,7 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
-"Při automatickém vytvoření oddílů vznikly tyto varování:\n"
+"Při automatickém vytvoření oddílů vznikla tyto varování:\n"
 "\n"
 "%s"
 
@@ -341,7 +339,6 @@ msgstr ""
 "%s.%s"
 
 #: ../autopart.py:1364
-#, fuzzy
 msgid ""
 "\n"
 "\n"
@@ -350,18 +347,14 @@ msgid ""
 "\n"
 "Press 'OK' to continue."
 msgstr ""
-"Při vytváření oddílů vznikly tyto chyby:\n"
 "\n"
-"%s\n"
 "\n"
-"To se může stát, pokud na vašem pevném disku (discích) není pro instalaci "
-"dostatek místa. Můžete zvolit jinou volbu automatického vytvoření oddílů, "
-"nebo klikněte na Zpět a vytvořte oddíly ručně.\n"
+"Můžete zvolit jinou volbu automatického vytvoření oddílů, nebo kliknout na 'Zpět' a vytvořit oddíly ručně.\n"
 "\n"
-"Pro pokračování stiskněte Budiž."
+"Pokračujte stisknutím 'OK'."
 
 #: ../autopart.py:1369
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
 "\n"
@@ -370,15 +363,11 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
-"Při vytváření oddílů vznikly tyto chyby:\n"
+"Při vytváření oddílů došlo k těmto chybám:\n"
 "\n"
 "%s\n"
 "\n"
-"To se může stát, pokud na vašem pevném disku (discích) není pro instalaci "
-"dostatek místa. Můžete zvolit jinou volbu automatického vytvoření oddílů, "
-"nebo klikněte na Zpět a vytvořte oddíly ručně.\n"
-"\n"
-"Pro pokračování stiskněte Budiž."
+"To se může stát, pokud na vašem pevném disku (discích) není pro instalaci dostatek místa.%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -835,7 +824,7 @@ msgstr "Formátování"
 #: ../fsset.py:2220
 #, python-format
 msgid "Formatting %s file system..."
-msgstr "Formátuji souborový systém %s..."
+msgstr "Formátuji systém souborů %s..."
 
 #: ../gui.py:106
 msgid "An error occurred copying the screenshots over."
@@ -1270,14 +1259,14 @@ msgstr ""
 "\n"
 
 #: ../packages.py:790 ../packages.py:1077
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "Aktualizace %s-%s-%s.\n"
+msgstr "Aktualizuji %s-%s-%s.%s.\n"
 
 #: ../packages.py:792 ../packages.py:1079
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "Instalace %s-%s-%s.\n"
+msgstr "Instaluji %s-%s-%s.%s.\n"
 
 #: ../packages.py:808
 #, python-format
@@ -1309,10 +1298,7 @@ msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
-msgstr ""
-"Nemáte dostatek místa na disku pro balíčky, které jste si vybrali. "
-"Potřebujete více místa na následujících souborových systémech:\n"
-"\n"
+msgstr "Nemáte dostatek místa na disku pro balíčky, které jste si vybrali. Potřebujete více místa na následujících systémech souborů:\n\n"
 
 #: ../packages.py:859 ../packages.py:880 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
@@ -1329,10 +1315,7 @@ msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
-msgstr ""
-"Nemáte dostatek volných inodů pro balíčky, které jste si vybrali. "
-"Potřebujete více volných inodů na následujících souborových systémech:\n"
-"\n"
+msgstr "Nemáte dostatek volných inodů pro balíčky, které jste si vybrali. Potřebujete více volných inodů na následujících systémech souborů:\n\n"
 
 #: ../packages.py:881
 msgid "Nodes Needed"
@@ -1561,11 +1544,8 @@ msgid "You cannot delete free space."
 msgstr "Volné místo nelze odstranit."
 
 #: ../partIntfHelpers.py:157
-#, fuzzy
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
-"Nelze odstranit tento oddíl:\n"
-"\n"
+msgstr "Nemůžete odstranit oddíl DASD formátovaného LDL."
 
 #: ../partIntfHelpers.py:167
 #, python-format
@@ -1829,7 +1809,7 @@ msgstr ""
 
 #: ../partitions.py:832
 msgid "You must create a PPC PReP Boot partition."
-msgstr ""
+msgstr "Musíte vytvořit zaváděcí oddíl PPC PReP."
 
 #: ../partitions.py:839
 #, python-format
@@ -2281,7 +2261,7 @@ msgid ""
 "The arch of the release of %s you are upgrading to appears to be %s which "
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
-msgstr ""
+msgstr "Architektura verze %s, na kterou aktualizujete, je zřejmě %s, což neodpovídá vaší dříve nainstalované architektuře %s. To se pravděpodobně nepovede. Jste si jisti, že chcete pokračovat v procesu aktualizace?"
 
 #: ../upgrade.py:470
 msgid ""
@@ -2566,7 +2546,7 @@ msgstr "_Ano, chci vytvořit zaváděcí disketu"
 
 #: ../iw/bootdisk_gui.py:73
 msgid "No, I _do not want to create a boot diskette"
-msgstr "_Ne, nechci vytvořit zaváděcí disketu"
+msgstr "N_e, nechci vytvořit zaváděcí disketu"
 
 #: ../iw/bootloader_advanced_gui.py:27
 msgid "Advanced Boot Loader Configuration"
@@ -2592,7 +2572,7 @@ msgstr "Použít LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Použít LBA32 (bez ohledu na autodetekci)"
+msgstr "Použít _LBA32 (bez ohledu na autodetekci)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2665,7 +2645,7 @@ msgstr "Nebude nainstalován žádný zavaděč."
 
 #: ../iw/bootloader_main_gui.py:226
 msgid "_Change boot loader"
-msgstr "_Změnit zavaděč"
+msgstr "Z_měnit zavaděč"
 
 #: ../iw/bootloader_main_gui.py:254
 msgid "Configure advanced boot loader _options"
@@ -2972,9 +2952,7 @@ msgstr "_Aktualizovat existující instalaci"
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
-"Zvolte tuto možnost, jestliže chcete aktualizovat váš existující systém %s. "
-"Tato možnost zachová existující data na vašich discích."
+msgstr "Zvolte tuto možnost, jestliže chcete aktualizovat svůj existující systém %s. Tato možnost zachová existující data na vašich discích."
 
 #: ../iw/examine_gui.py:67
 #, python-format
@@ -2985,9 +2963,7 @@ msgstr "_Instalovat %s"
 msgid ""
 "Choose this option to freshly install your system. Existing software and "
 "data may be overwritten depending on your configuration choices."
-msgstr ""
-"Zvolte tuto možnost pro novou instalaci svého systému. Existující software a "
-"data mohou být přepsána, podle vašich rozhodnutí při konfiguraci."
+msgstr "Zvolte tuto možnost pro novou instalaci vašeho systému. Existující software a data mohou být přepsána, podle vašich rozhodnutí při konfiguraci."
 
 #: ../iw/examine_gui.py:129 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following Red Hat product will be upgraded:"
@@ -3233,7 +3209,7 @@ msgstr "_Místo připojení:"
 
 #: ../iw/lvm_dialog_gui.py:384
 msgid "_File System Type:"
-msgstr "Typ _souborového systému:"
+msgstr "Typ _systému souborů:"
 
 #: ../iw/lvm_dialog_gui.py:392 ../iw/partition_dialog_gui.py:300
 msgid "Original File System Type:"
@@ -3597,7 +3573,7 @@ msgstr "Upravit rozhraní %s"
 
 #: ../iw/network_gui.py:212
 msgid "Configure using _DHCP"
-msgstr "Nastavení pomocí _DHCP"
+msgstr "_Nastavit pomocí DHCP"
 
 #: ../iw/network_gui.py:218
 msgid "_Activate on boot"
@@ -3871,7 +3847,7 @@ msgstr "Upravit oddíl"
 
 #: ../iw/partition_dialog_gui.py:291 ../iw/raid_dialog_gui.py:302
 msgid "File System _Type:"
-msgstr "_Typ souborového systému:"
+msgstr "_Typ systému souborů:"
 
 #: ../iw/partition_dialog_gui.py:323
 msgid "Allowable _Drives:"
@@ -3883,7 +3859,7 @@ msgstr "Disk:"
 
 #: ../iw/partition_dialog_gui.py:345
 msgid "Original File System Label:"
-msgstr "Původní jmenovka souborového systému:"
+msgstr "Původní jmenovka systému souborů:"
 
 #: ../iw/partition_dialog_gui.py:380
 msgid "_Start Cylinder:"
@@ -4193,7 +4169,7 @@ msgstr "Zbývá"
 #: ../iw/progress_gui.py:155
 #, python-format
 msgid "%s KBytes"
-msgstr "%s KByte"
+msgstr "%s KB"
 
 #: ../iw/progress_gui.py:235
 msgid "Summary"
@@ -5428,11 +5404,7 @@ msgid ""
 "DHCP, select automatically via DHCP. Otherwise, select manually and enter in "
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
-msgstr ""
-"Pokud je váš systém součástí větší sítě, kde jsou jména počítačů přiřazována "
-"pomocí DHCP, zvolte Automaticky pomocí DHCP. V opačtném případě zvolte Ručně "
-"a zadejte jméno svého počítače. Pokud to neuděláte, váš systém bude znám "
-"jako 'localhost'."
+msgstr "Pokud je váš systém součástí větší sítě, kde jsou jména počítačů přiřazována pomocí DHCP, zvolte Automaticky pomocí DHCP. V opačném případě zvolte Ručně a zadejte jméno svého počítače. Pokud to neuděláte, váš systém bude znám jako 'localhost'."
 
 #: ../textw/network_text.py:376 ../textw/network_text.py:382
 msgid "Invalid Hostname"
@@ -5447,16 +5419,13 @@ msgid "Select individual packages"
 msgstr "Výběr jednotlivých balíčků"
 
 #: ../textw/packages_text.py:73
-#, fuzzy
 msgid ""
 "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"   <Mezera>,<+>,<->  výběr   |   <F1>  nápověda  |   <F2> popis balíčku"
+msgstr "<Mezera>,<+>,<-> výběr  |  <F2> Detaily skupiny  |  <F12> další obrazovka"
 
 #: ../textw/packages_text.py:110
-#, fuzzy
 msgid "Package Group Details"
-msgstr "Výběr skupin balíčků"
+msgstr "Detaily skupiny balíčků"
 
 #: ../textw/packages_text.py:165
 msgid "Package :"
@@ -5469,7 +5438,7 @@ msgstr "Velikost:"
 #: ../textw/packages_text.py:171
 #, python-format
 msgid "%.1f KBytes"
-msgstr "%.1f KByte"
+msgstr "%.1f KB"
 
 #: ../textw/packages_text.py:190
 msgid "Total size"
@@ -5583,7 +5552,7 @@ msgstr "Počet rezerv?"
 
 #: ../textw/partition_text.py:490
 msgid "File System Type:"
-msgstr "Typ souborového systému:"
+msgstr "Typ systému souborů:"
 
 #: ../textw/partition_text.py:503
 msgid "File System Label:"
@@ -5705,8 +5674,7 @@ msgstr "RAID"
 #: ../textw/partition_text.py:1136
 msgid ""
 "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Nápověda  F2-Nový   F3-Upravit F4-Smazat    F5-Obnovit  F12-Ok        "
+msgstr "    F1-Nápověda  F2-Nový   F3-Upravit F4-Odstranit F5-Obnovit  F12-Ok        "
 
 #: ../textw/partition_text.py:1165
 msgid "No Root Partition"
@@ -6296,7 +6264,6 @@ msgid "Video Card Configuration"
 msgstr "Nastavení videokarty"
 
 #: ../textw/xconfig_text.py:638
-#, fuzzy
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
@@ -6345,13 +6312,10 @@ msgid "_Custom"
 msgstr "_Vlastní"
 
 #: ../installclasses/custom.py:13
-#, fuzzy
 msgid ""
 "Select this installation type to gain complete control over the installation "
 "process, including software package selection and partitioning."
-msgstr ""
-"Zvolením tohoto typu instalace získáte úplnou kontrolu nad procesem "
-"instalace, včetně výběru balíčků a nastavení autentizace."
+msgstr "Zvolením tohoto typu instalace získáte úplnou kontrolu nad procesem instalace, včetně výběru balíčků a vytváření oddílů."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6383,7 +6347,7 @@ msgstr ""
 
 #: ../installclasses/workstation.py:8
 msgid "_Workstation"
-msgstr "_Pracovní stanice"
+msgstr "P_racovní stanice"
 
 #: ../installclasses/workstation.py:10
 msgid ""
@@ -6552,16 +6516,16 @@ msgid "Kickstart Error"
 msgstr "Chyba Kickstartu"
 
 #: ../loader2/driverdisk.c:436
-#, fuzzy, c-format
+#, c-format
 msgid "Unknown driver disk kickstart source: %s"
-msgstr "Chybný argument kickstart příkazu metody driver disk %s: %s"
+msgstr "Neznámy zdroj driver disk kickstartu: %s"
 
 #: ../loader2/driverdisk.c:469
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
-msgstr "Chybný argument kickstart příkazu metody device %s: %s"
+msgstr "Byl zadán následující neplatný argument příkazu kickstart driver disk: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -7919,9 +7883,6 @@ msgstr "Švédština"
 msgid "Turkish"
 msgstr "Turečtina"
 
-#~ msgid "VNC server now running - please connect to install..."
-#~ msgstr "VNC server nyní běží - připojte se prosím pro instalaci..."
-
 #~ msgid "Generic"
 #~ msgstr "Obecný"
 
@@ -7976,10 +7937,3 @@ msgstr "Turečtina"
 
 #~ msgid "You must go back and use fdasd to initialize this partition"
 #~ msgstr "Pro inicializaci tohoto oddílu se musíte vrátit a použít fdasd"
-
-#~ msgid ""
-#~ "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "OK        "
-#~ msgstr ""
-#~ "    F1-Nápověda            F3-Upravit F4-Smazat    F5-Obnovit  F12-"
-#~ "Ok        "
