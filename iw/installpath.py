@@ -184,10 +184,14 @@ class InstallPathWindow (InstallWindow):
 	box.pack_start(table, FALSE)
 
         if self.todo.expert:
-            InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk to format drives"))
-            line = GtkHSeparator ()
-            box.pack_start (line, FALSE)
-            box.pack_start (InstallPathWindow.fdisk, FALSE)
+            hbox = GtkHBox (FALSE)
+            InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
+            align = GtkAlignment ()
+            align.add (InstallPathWindow.fdisk)
+            align.set (0.0, 0.0, 0.0, 0.0)
+            hbox.pack_start (box, TRUE)
+            hbox.pack_start (align, FALSE)
+            box = hbox
         else:
             InstallPathWindow.fdisk = None
 

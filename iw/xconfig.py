@@ -45,8 +45,6 @@ class XCustomWindow (InstallWindow):
         else:
             self.didTest = 1
             
-        self.setNext ()
-
     def getScreen (self):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
@@ -85,11 +83,10 @@ class XConfigWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        self.ics.setNextEnabled (FALSE)
+        self.ics.setNextEnabled (TRUE)
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("X Configuration"))
-##         ics.setHTML ("<HTML><BODY>This is the X configuration screen<</BODY></HTML>")
         ics.readHTML ("xconf")
         
         self.didTest = 0
@@ -114,19 +111,12 @@ class XConfigWindow (InstallWindow):
             self.todo.initlevel = 3
         return None
 
-    def setNext (self):
-        if self.skip.get_active () or self.custom.get_active () or self.didTest:
-            self.ics.setNextEnabled (TRUE)
-        else:
-            self.ics.setNextEnabled (FALSE)
-
     def customToggled (self, widget, *args):
-        self.setNext ()
-
+        pass
+    
     def skipToggled (self, widget, *args):
         self.autoBox.set_sensitive (not widget.get_active ())
         self.todo.x.skip = widget.get_active ()
-        self.setNext ()
 
     def testPressed (self, widget, *args):
         try:
@@ -137,8 +127,6 @@ class XConfigWindow (InstallWindow):
         else:
             self.didTest = 1
             
-        self.setNext ()
-
     def getScreen (self):
 	if not self.todo.hdList.packages.has_key('XFree86') or \
 	   not self.todo.hdList.packages['XFree86'].selected: return None

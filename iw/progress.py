@@ -37,6 +37,7 @@ class InstallProgressWindow (InstallWindow):
     def setPackageScale (self, amount, total):
         threads_enter ()
 	self.progress.update (float (amount) / total)
+#        self.totalProgress.update (float (self.sizeComplete + amount) / self.totalSize) 
         threads_leave ()
 
     def completePackage(self, header):
