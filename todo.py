@@ -722,6 +722,7 @@ class ToDo:
             out.write (inf.read ())
 
     def verifyDeps (self):
+	self.getCompsList()
 	ts = rpm.TransactionSet()
         self.comps['Base'].select (1)
 
