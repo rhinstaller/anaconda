@@ -2592,7 +2592,8 @@ logMessage("found url image %s", url);
 		rc = chooseKeyboard (&keymap, &kbdtype, flags);
 	    } while (rc);
 	}
-	*argptr++ = "/bin/sh";
+/*	*argptr++ = "/bin/sh"; */
+	*argptr++ = "/usr/bin/anaconda-runrescue"; 
     } else {
 	if (!access("./anaconda", X_OK))
 	    *argptr++ = "./anaconda";
