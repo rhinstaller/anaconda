@@ -1,5 +1,8 @@
 2004-09-27  Jeremy Katz  <katzj@redhat.com>
 
+	* isys/isys.py (getGeometry): Remove unused function.
+	* isys/isys.c (doGetGeometry): Likewise.
+
 	* anaconda.spec: Bump version.
 
 	* loader2/driverdisk.c: 

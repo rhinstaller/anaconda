@@ -98,7 +98,6 @@ static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
 static PyObject * doisVioConsole(PyObject * s);
 static PyObject * doSync(PyObject * s, PyObject * args);
 static PyObject * doisIsoImage(PyObject * s, PyObject * args);
-static PyObject * dogetGeometry(PyObject * s, PyObject * args);
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args);
 static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
@@ -158,7 +157,6 @@ static PyMethodDef isysModuleMethods[] = {
     { "isVioConsole", (PyCFunction) doisVioConsole, METH_NOARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
     { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
-    { "getGeometry", (PyCFunction) dogetGeometry, METH_VARARGS, NULL},
     { "fbinfo", (PyCFunction) getFramebufferInfo, METH_VARARGS, NULL},
     { "getpagesize", (PyCFunction) doGetPageSize, METH_VARARGS, NULL},
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
@@ -1217,59 +1215,6 @@ static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
     rc = fileIsIso(fn);
     
     return Py_BuildValue("i", rc);
-}
-
-static PyObject * dogetGeometry(PyObject * s, PyObject * args) {
-    int fd;
-    char *dev;
-    char cylinders[16], heads[16], sectors[16];
-    char errstr[200];
-    struct hd_geometry g;
-    long numsectors;
-    unsigned int numcylinders;
-
-    if (!PyArg_ParseTuple(args, "s", &dev)) return NULL;
-
-    fd = open(dev, O_RDONLY);
-    if (fd == -1) {
-	snprintf(errstr, sizeof(errstr), "could not open device %s", dev);
-	PyErr_SetString(PyExc_ValueError, errstr);
-        return NULL;
-    }
-
-    if (ioctl(fd, HDIO_GETGEO, &g)) {
-        close(fd);
-	snprintf(errstr, sizeof(errstr),  "HDTIO_GETGEO ioctl() failed on device %s", dev);
-	PyErr_SetString(PyExc_ValueError, errstr);
-        return NULL;
-    }
-
-
-    /* never use g.cylinders if all possible - it is truncated */
-    if (ioctl(fd, BLKGETSIZE, &numsectors) == 0) {
-	int sector_size=1;
-
-#ifdef BLKSSZGET
-	/* BLKSSZGET only works with kernel >= 2.3.3. */
-	struct utsname buf;
-
-	if (uname (&buf) == 0
-	    && strverscmp (buf.release, "2.3.3") >= 0
-	    && ioctl(fd, BLKSSZGET, &sector_size) == 0)
-	    sector_size /= 512;
-	else
-#endif
-       numcylinders = numsectors / (g.heads * g.sectors);
-       numcylinders /= sector_size;
-    } else {
-       numcylinders = g.cylinders;
-    }
-
-    snprintf(cylinders, sizeof(cylinders), "%d", numcylinders);
-    snprintf(heads, sizeof(heads), "%d", g.heads);
-    snprintf(sectors, sizeof(sectors), "%d", g.sectors);
-    
-    return Py_BuildValue("(sss)", cylinders, heads, sectors);
 }
 
 static PyObject * getFramebufferInfo(PyObject * s, PyObject * args) {
