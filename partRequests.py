@@ -511,7 +511,7 @@ class RaidRequestSpec(RequestSpec):
         """Return the actual size allocated for the request in megabytes."""
 
         # this seems like a check which should never fail...
-        if not self.raidmembers or self.raidlevel:
+        if not self.raidmembers or not self.raidlevel:
             return 0
         nummembers = len(self.raidmembers) - self.raidspares
         smallest = None
