@@ -312,7 +312,8 @@ def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
     if flags.setupFilesystems:
 	if not upgrade.get():
             thefsset.setActive(diskset)
-	    diskset.savePartitions ()
+            if not thefsset.isActive():
+                diskset.savePartitions ()
             thefsset.checkBadblocks(instPath)
             thefsset.formatSwap(instPath)
             thefsset.turnOnSwap(instPath)

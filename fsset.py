@@ -461,7 +461,11 @@ class FileSystemSet:
     def __init__(self):
         self.messageWindow = None
         self.progressWindow = None
+        self.mountcount = 0
         self.reset()
+
+    def isActive(self):
+        return self.mountcount != 0
         
     def registerMessageWindow(self, method):
         self.messageWindow = method
@@ -660,6 +664,7 @@ class FileSystemSet:
                 and not entry.isMounted()):
                 try:
                     entry.mount(chroot)
+                    self.mountcount = self.mountcount + 1
                 except SystemError, (errno, msg):
                     if self.messageWindow:
                         self.messageWindow(_("Error"), 
@@ -764,6 +769,7 @@ class FileSystemSet:
 		continue
             try:
                 entry.mount(instPath)
+                self.mountcount = self.mountcount + 1
             except SystemError, (errno, msg):
                 if raiseErrors:
                     raise SystemError, (errno, msg)

@@ -1334,7 +1334,19 @@ def doEditPartitionByRequest(intf, requestlist, part):
                            % (get_partition_name(part)))
     
     
-def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
+def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
+    if dir == DISPATCH_BACK and fsset.isActive():
+        rc = intf.messageWindow(_("Installation cannot continue."),
+                                _("The partitioning options you have chosen "
+                                  "have already been activated. You can "
+                                  "no longer return to the disk editing "
+                                  "screen. Would you like to continue "
+                                  "with the installation process?"),
+                                  type = "yesno")
+        if rc == 0:
+            sys.exit(0)
+        return DISPATCH_FORWARD
+
     fsset.reset()
     for request in partitions.requests:
         # XXX improve sanity checking
@@ -1343,6 +1355,19 @@ def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
             continue
         entry = request.toEntry(partitions)
         fsset.add (entry)
+    if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
+        return
+    rc = intf.messageWindow(_("Low Memory"),
+                            _("As you don't have much memory in this "
+                              "machine, we need to turn on swap space "
+                              "immediately. To do this we'll have to "
+                              "write your new partition table to the disk "
+                              "immediately. Is that okay?"), "okcancel")
+    if rc:
+        fsset.setActive(diskSet)
+        diskSet.savePartitions ()
+        fsset.formatSwap(instPath)
+        fsset.turnOnSwap(instPath)
 
 def queryFormatPreExisting(intf):
     rc = intf.messageWindow(_("Format?"),
