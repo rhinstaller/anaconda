@@ -139,9 +139,11 @@ class HeaderList:
 	return self.packages.values()
 
     def mergeFullHeaders(self, file):
-	fd = os.open(file, os.O_RDONLY)
-	rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
-	os.close(fd)
+        if not self.hasFullHeaders:
+            fd = os.open(file, os.O_RDONLY)
+            rpm.mergeHeaderListFromFD(self.hdlist, fd, 1000004)
+            os.close(fd)
+            self.hasFullHeaders = 1
 
     def preordered(self):
         preordered = 1
@@ -154,6 +156,7 @@ class HeaderList:
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
+        self.hasFullHeaders = 0
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
             if noscore:
