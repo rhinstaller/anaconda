@@ -12,7 +12,7 @@ struct devnum {
 
 static struct devnum devices[] = {
     { "aztcd",		29,	0,	0 },
-    { "bpcd",		41,	0,	0 },
+    { "pcd",		46,	0,	0 },
     { "cdu31a",		15,	0,	0 },
     { "cdu535",		24,	0,	0 },
     { "cm206cd",	32,	0,	0 },
