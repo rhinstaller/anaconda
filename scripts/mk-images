@@ -371,7 +371,7 @@ EOF
 
     if [ -n "$EXTRAINITRDPATH" ]; then
 	mkdir -p $EXTRAINITRDPATH
-	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH/initrd
+	cp -a $MBD_FSIMAGE $EXTRAINITRDPATH/initrd.img
     fi
     
     rmdir $MBD_BOOTTREE 
@@ -473,6 +473,11 @@ makedriverdisk () {
     if [ ! -f "$KERNELROOT/boot/vmlinuz-$version" ]; then
 	echo "$KERNELROOT/boot/vmlinuz-$version does not exist"
 	usage
+    fi
+
+    if [ -d $KERNELROOT/lib/modules/$version/pcmcia ]; then
+	PCMCIAMODULES=$(cd $KERNELROOT/lib/modules/$version/pcmcia; ls *.o |
+	    sed 's/\.o//g')
     fi
 
     rundepmod "$KERNELROOT/lib/modules/$version/*/*.o" $MODDEPS
