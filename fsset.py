@@ -449,6 +449,9 @@ class DevshmFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "tmpfs")
 
+    def isMountable(self):
+        return 0
+    
 fileSystemTypeRegister(DevshmFileSystem())
 
 class AutoFileSystem(PsudoFileSystem):
