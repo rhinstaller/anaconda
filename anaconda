@@ -19,7 +19,7 @@ forceMount = 0
 
 for n in args:
     (str, arg) = n
-    if (str == '-g' or str == '--gui'):
+    if (str == '-G' or str == '--gui'):
 	mode = 'g'
     elif (str == '-T' or str == '--text'):
 	mode = 't'
