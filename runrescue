@@ -7,5 +7,6 @@
 
 for i in "services protocols group"; do
    ln -s /mnt/source/RedHat/sysimage/etc/$i /etc/$i
+   echo "ln -s /mnt/source/RedHat/sysimage/etc/$i /etc/$i"
 
 exec /bin/sh
