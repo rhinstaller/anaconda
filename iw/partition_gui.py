@@ -201,6 +201,9 @@ class DiskStripe:
         slice.select()
 
         # update selection of the tree
+
+	print "selectSlice: updateTree = ", updateTree
+	print "selectSlice: partition = ", partition
         if updateTree:
             self.tree.selectPartition(partition)
         self.selected = slice
@@ -362,11 +365,14 @@ class DiskTreeModel(gtk.TreeStore):
         pyobject = self.titleSlot['PyObject']
         iter = self.get_iter_root()
         next = 1
+	parentstack = []
+	parent = None
         # iterate over the list, looking for the current mouse selection
         while next:
             # if this is a parent node, get the first child and iter over them
             if self.iter_has_child(iter):
-                parent = iter
+		parent = iter
+                parentstack.append(parent)
                 iter = self.iter_children(parent)
                 continue
             # if it's not a parent node and the mouse matches, select it.
@@ -386,8 +392,11 @@ class DiskTreeModel(gtk.TreeStore):
             # if there isn't a next row and we had a parent, go to the node
             # after the parent we've just gotten the children of.
             if not next and parent:
-                next = self.iter_next(parent)
-                iter = parent
+		while not next and parent:
+		    next = self.iter_next(parent)
+		    iter = parent
+		    if len(parentstack) > 0:
+			parent = parentstack.pop()
 
     def getCurrentPartition(self):
         selection = self.view.get_selection()
