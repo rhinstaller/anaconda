@@ -445,6 +445,7 @@ Section "Module"
         Load  "pex5"
         Load  "record"
         Load  "xie"
+        %(ia64Mods)s
 EndSection
 
 Section "InputDevice"
@@ -997,9 +998,18 @@ Section "Screen"
                  "monitorHoriz" : self.monHoriz,
                  "monitorVert"  : self.monVert,
                  "files"        : self.files,
-                 "screenModes"  : screens
+                 "screenModes"  : screens,
+                 "ia64Mods"     : ""
                  }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
+	if iutil.getArch() == "ia64":
+	    data.ia64Mods = """
+        Load  "mfb"
+        Load  "cfb"
+        Load  "cfb16"
+        Load  "cfb24"
+        Load  "cfb32"
+"""				
         if self.vidCards[self.primary].has_key ("DRIVER"):
             data["cardDriver"] = self.vidCards[self.primary]["DRIVER"]
         else:
