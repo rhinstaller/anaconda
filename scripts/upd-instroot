@@ -118,7 +118,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite3 neon
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl yum
+ 	 xfsprogs xfsdump dmapi libacl libattr attr acl python-urlgrabber
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then

@@ -1,3 +1,10 @@
+2005-03-07  Jeremy Katz  <katzj@redhat.com>
+
+	* anaconda.spec (Requires): Require python-urlgrabber
+
+	* scripts/upd-instroot (PACKAGES): urlgrabber stuff is in its own
+	package now
+
 2005-03-06  Peter Jones  <pjones@redhat.com>
 
 	* autopart.py: fix growable size log to show IDs instead of
