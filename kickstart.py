@@ -1148,9 +1148,16 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("partitionmethodsetup")
             dispatch.skipStep("fdisk")
             dispatch.skipStep("autopartition")
-            dispatch.skipStep("bootdisk")            
+	    dispatch.skipStep("bootdisk")
+
+	    # because these steps depend on the monitor being probed
+	    # properly, and will stop you if you have an unprobed monitor,
+	    # we should skip them for autostep
+	    if flags.autostep:
+		dispatch.skipStep("checkmonitorok")
+		dispatch.skipStep("monitor")
             return
-        
+
 	dispatch.skipStep("bootdisk")
         dispatch.skipStep("welcome")
         dispatch.skipStep("betanag")
