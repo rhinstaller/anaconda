@@ -663,7 +663,7 @@ makemainimage () {
     umount $mmi_mntpoint
     
     if [ "$BUILDARCH" = "ia64" ]; then
-    	dd if=$mmi_tmpimage of=$INSTIMGPATH/${imagename}.img
+    	dd if=$mmi_tmpimage of=$INSTIMGPATH/${imagename}.img bs=1048576
     else
 	cp $mmi_tmpimage $INSTIMGPATH/${imagename}.img
     fi
