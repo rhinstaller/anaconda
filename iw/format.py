@@ -50,5 +50,5 @@ class FormatWindow (InstallWindow):
         vbox.pack_start (self.check, FALSE)
         
         self.check = GtkCheckButton 
-
+	vbox.set_border_width (5)
         return vbox
