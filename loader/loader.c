@@ -521,7 +521,7 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
 				 "/mnt/runtime");
 	    if (!rc) { 
-		umountLoopback("/tmp/loopimage", "loop1");
+		umountLoopback("/tmp/loopimage", "loop0");
 		break;
 	    }
 
@@ -597,9 +597,6 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     mkdirChain(mntpoint);
     filename = alloca(15 + strlen(device));
     sprintf(filename, "/tmp/%s", device);
-
-    devMakeInode(device, filename);
-    loopfd = open(filename, O_RDONLY);
 
     mkdirChain(mntpoint);
 
