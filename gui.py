@@ -218,8 +218,10 @@ def addFrame(dialog, title=None):
 	    titleBox = gtk.HBox(gtk.FALSE, 5)
 	    eventBox.add(titleBox)
 	    eventBox.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("#4C57a6"))
-	    titlelbl = gtk.Label(_(title))
+	    titlelbl = gtk.Label("")
+	    titlelbl.set_markup("<b>"+_(title)+"</b>")
 	    titlelbl.modify_fg(gtk.STATE_NORMAL, gtk.gdk.color_parse ("white"))
+	    titlelbl.set_property("ypad", 4)
 	    titleBox.pack_start(titlelbl)
 	    box.pack_start(eventBox, gtk.FALSE, gtk.FALSE)
     except:
