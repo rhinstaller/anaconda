@@ -613,7 +613,7 @@ class XconfiguratorWindow:
                                 root = todo.instPath)
         screen.resume ()
 	todo.x.skip = 1
-	os.unlink("/var/run/SERVER");
+	os.unlink(todo.instPath + "/var/run/SERVER");
         return INSTALL_NOOP
         
 class BeginInstallWindow:
