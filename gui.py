@@ -8,7 +8,39 @@ def _(string):
 
 from gtk import *
 from gtk import _root_window
+import GdkImlib
 from GDK import *
+
+im = None
+splashwindow = None
+try:
+    im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
+except:
+    try:
+        im = GdkImlib.Image ("pixmaps/first.png")
+    except:
+        print "Unable to load", file
+if im:
+    root = _root_window ()
+    cursor = cursor_new (LEFT_PTR)
+    root.set_cursor (cursor)
+    threads_enter ()
+    im.render ()
+    splashwindow = GtkWindow (WINDOW_POPUP)
+    splashwindow.set_position (WIN_POS_CENTER)
+    box = GtkEventBox ()
+    pix = im.make_pixmap ()
+    style = box.get_style ().copy ()
+    style.bg[STATE_NORMAL] = style.white
+    box.set_style (style)
+    box.add (pix)
+    splashwindow.add (box)
+    splashwindow.show_all ()
+    while events_pending ():
+        mainiteration (FALSE)
+    draw_rectangle(root, style.white_gc, TRUE, 0, 0, root.width, root.height)
+    threads_leave ()        
+
 from gnome.ui import *
 from gnome.xmhtml import *
 from iw.language import *
@@ -28,7 +60,6 @@ from iw.lilo import *
 from iw.installpath import *
 
 import sys
-import GdkImlib
 
 import isys
 import sys
@@ -190,6 +221,12 @@ class InstallInterface:
         return CongratulationWindow
 
     def run (self, todo, test = 0):
+        global splashwindow
+        if splashwindow:
+            threads_enter ()
+            splashwindow.destroy ()
+            print "here"
+            threads_leave ()
         gtkThread = GtkMainThread ()
         gtkThread.start ()
 
