@@ -32,6 +32,8 @@ Videocard_blacklist = ["Generic VGA compatible",
 
 Video_cardslist = {}
 
+USE_XFREE86_V4_FB = 0
+
 def Video_cardsDBLookup(thecard):
     card = Video_cardslist[thecard]
 
@@ -169,26 +171,21 @@ class FrameBufferCard(VideoCard):
         card = {}
 
 # This makes it use the XFree86 4.x fbdev
-# also uncomment the code below in getXServer()
-#        card["DRIVER"] = "fbdev"
-#
-# This makes is use the XFree 3.x.x fbdev
-# also uncomment the code below in getXServer()
-        card["SERVER"] = "FBDev"
+        if USE_XFREE86_V4_FB:
+	    card["DRIVER"] = "fbdev"
+	else:
+	    card["SERVER"] = "FBDev"
          
         card["NAME"] = "VGA VESA Framebuffer"
 
         return card
 
     def getXServer(self):
-        
-# This makes it use the XFree86 4.x fbdev        
-# also uncomment the code above in getCardData()
-#        return "XFree86"
-#
-# This makes is use the XFree 3.x.x fbdev
-# also uncomment the code above in getCardData()
-         return "XF86_FBDev"
+
+	if USE_XFREE86_V4_FB:
+	    return "XFree86"
+	else:
+	    return "XF86_FBDev"
 
     def isFrameBuffer(self):
         return 1

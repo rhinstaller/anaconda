@@ -114,6 +114,7 @@ def startX(resolution, nofbmode, video, monitor, mouse):
         elif attempt == 'VGA16':
             # if no xserver then try falling back to VGA16 in no fb
             card = VGA16Card()
+            
             print _("Attempting to start VGA16 X server")
             next_attempt = 'END'
         else:
