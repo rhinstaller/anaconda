@@ -228,6 +228,7 @@ class InstallPathWindow:
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
 				       todo.intf.messageWindow,
+				       todo.intf.progressWindow,
                                        not todo.expert)
 	    return INSTALL_NOOP
 
@@ -283,6 +284,7 @@ class InstallPathWindow:
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
 				       todo.intf.messageWindow,
+				       todo.intf.progressWindow,
                                        not todo.expert)
 
         return INSTALL_OK
@@ -298,6 +300,7 @@ class UpgradeExamineWindow:
 				       todo.serial, 0, 0,
 				       todo.intf.waitWindow,
 				       todo.intf.messageWindow,
+				       todo.intf.progressWindow,
                                        not todo.expert)
 	    return INSTALL_NOOP
 
