@@ -25,6 +25,7 @@ import raid
 import fsset
 import os
 import sys
+import string
 import iutil
 from translate import _
 from log import log
@@ -1453,6 +1454,32 @@ def queryNoFormatPreExisting(intf):
                             type = "yesno", default = "no")
     return rc
 
+def partitionSanityErrors(intf, errors):
+    rc = 1
+    if errors:
+        errorstr = string.join(errors, "\n\n")
+        rc = intf.messageWindow(_("Error with Partitioning"),
+                                _("The following critical errors exist "
+                                  "with your requested partitioning "
+                                  "scheme. "
+                                  "These errors must be corrected prior "
+                                  "to continuing with your install of "
+                                  "Red Hat Linux.\n\n%s") %(errorstr))    
+    return rc
+
+
+def partitionSanityWarnings(intf, warnings):
+    rc = 1
+    if warnings:
+        warningstr = string.join(warnings, "\n\n")
+        rc = intf.messageWindow(_("Partitioning Warning"),
+                                     _("The following warnings exist with "
+                                       "your requested partition scheme.\n\n%s"
+                                       "\n\nWould you like to continue with "
+                                       "your requested partitioning "
+                                       "scheme.") % (warningstr),
+                                     type="yesno")
+    return rc
 
 # XXX is this all of the possibilities?
 dosPartitionTypes = [ 1, 6, 11, 12, 14, 15 ]

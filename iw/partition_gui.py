@@ -466,6 +466,15 @@ class PartitionWindow(InstallWindow):
         self.parent = ics.getICW().window
         
     def getNext(self):
+        (errors, warnings) = sanityCheckAllRequests(self.partitions)
+        rc = partitionSanityErrors(self.intf, errors)
+        if rc != 1:
+            raise gui.StayOnScreen
+        
+        rc = partitionSanityWarnings(self.intf, warnings)
+        if rc != 1:
+            raise gui.StayOnScreen
+                                      
         self.diskStripeGraph.shutDown()
         self.tree.freeze()
         self.clearTree()

@@ -935,6 +935,15 @@ class PartitionWindow:
                     self.intf.messageWindow(_("No Root Partition"),
                         _("Must have a / partition to install on."))
                     continue
+                
+                (errors, warnings) = sanityCheckAllRequests(self.partitions)
+                rc = partitionSanityErrors(self.intf, errors)
+                if rc != 1:
+                    continue
+        
+                rc = partitionSanityWarnings(self.intf, warnings)
+                if rc != 1:
+                    continue
 
                 # remove refs to parted objects
                 self.shutdownMainUI()
