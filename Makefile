@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 7.2.92
+VERSION = 7.2.91
 RELEASE = 0
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
@@ -9,9 +9,9 @@ MINISLANG=minislang
 STUBS=stubs
 endif
 
-SUBDIRSHD = balkan isys collage $(MINISLANG) loader po text-help \
+SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
 	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts gnome-map iw help pixmaps $(STUBS)
+	    keymaps fonts gnome-map iw pixmaps $(STUBS)
 SUBDIRS = $(SUBDIRSHD)
 
 ifeq (i386, $(ARCH))
@@ -100,6 +100,8 @@ create-snapshot:
 	@cd /tmp/anaconda ; rm -f isys/modutils/modutils.spec
 	@cd /tmp/anaconda ; rm -f pycheckrc-for-anaconda
 	@cd /tmp/anaconda ; rm -rf comps
+	@cd /tmp/anaconda ; rm -rf help
+	@cd /tmp/anaconda ; rm -rf text-help
 	@cd /tmp/anaconda ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec
 	@mv /tmp/anaconda /tmp/anaconda-$(VERSION)
 	@cd /tmp ; tar --bzip2 -cSpf anaconda-$(VERSION).tar.bz2 anaconda-$(VERSION)
