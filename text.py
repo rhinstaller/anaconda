@@ -1202,6 +1202,10 @@ class XconfiguratorWindow:
     def __call__ (self, screen, todo):
         if not todo.x.server: return INSTALL_NOOP
 
+        # if Xconfigurator isn't installed, we can't run it.
+        if not os.access (todo.instPath + '/usr/X11R6/bin/Xconfigurator',
+                          os.X_OK): return INSTALL_NOOP
+
         f = open (todo.instPath + "/tmp/SERVER", "w")
         f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
         f.close ()
