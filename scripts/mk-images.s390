@@ -1,5 +1,3 @@
-
-
 prepareBootImage() {
         dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
@@ -436,41 +434,31 @@ COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tap
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
-echo "In mk-images.s390: kernelvers is $kernelvers"
-if [ "$kernelvers" = "" ]; then
-    makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 15000 \
-	   --loaderbin loader \
-	   --modules "$NETWORKMODULES"
-    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
-fi
-
-if [ "$kernelvers" = "tape" ]; then
-    makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
-	   --initrdsize 15000 \
-	   --loaderbin loader \
-	   --modules "$NETWORKMODULES"
-    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
-fi
-
-for I in `find $BOOTDISKDIR -type d`; do
-    BOOTLANG=`basename $I`
-    BOOTDIR=`basename $I | cut -d'_' -f1`
-
-    if [ $BOOTLANG = "boot" ]; then
-	BOOTLANG=""
-	BOOTDIR=""
+makeBootImages() {
+    echo "In mk-images.s390: kernelvers is $kernelvers"
+    if [ "$kernelvers" = "" ]; then
+	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
+	    --initrdsize 15000 \
+	    --loaderbin loader \
+	    --modules "$NETWORKMODULES"
+	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
     fi
-done
 
-unset BOOTLANG
-unset BOOTDIR
+    if [ "$kernelvers" = "tape" ]; then
+	makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
+	    --initrdsize 15000 \
+	    --loaderbin loader \
+	    --modules "$NETWORKMODULES"
+	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
+    fi
+}
 
-if [ "$kernelvers" = "" ]; then
-makemainmodules "=scsi =net $SECSTAGE"
+makeSecondStage() {
+    makemainmodules "=scsi =net $SECSTAGE"
 
-makeinstimage "netstg" "=scsi $SECSTAGE"
+    makeinstimage "netstg" "=scsi $SECSTAGE"
 
-makeinstimage "hdstg" "=net $SECSTAGE"
-makemainimage "stage2" "cramfs"
-fi
+    makeinstimage "hdstg" "=net $SECSTAGE"
+    makemainimage "stage2" "cramfs"
+}
+

@@ -83,15 +83,16 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 mkdir -p $TOPDESTPATH/images/pxeboot
 
-echo "Building initrd-everything.img"
-makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
-	   --pcmcia \
-	   --initrdsize 8192 \
-	   --loaderbin loader \
-	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
-[ $? = 0 ] || exit 1
+makeBootImages() {
+    echo "Building initrd-everything.img"
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
+	--pcmcia \
+	--initrdsize 8192 \
+	--loaderbin loader \
+	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
+    [ $? = 0 ] || exit 1
 
-if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
+    if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
 	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.img
@@ -102,26 +103,29 @@ if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 
 	# isolinux needs the config file to be isolinux.cfg
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
-else
+    else
 	echo "No isolinux binaries.  Skipping isolinux creation"
-fi
+    fi
 
-echo "Building main moduleball"
-makemainmodules "=scsi =net $SECSTAGE"
-[ $? = 0 ] || exit 1
+    # now make a boot iso
+    mkdir -p $TOPDESTPATH/images/isopath
+    cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
+    mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
+    rm -rf $TOPDESTPATH/images/isopath
+}
 
-echo "Building netstg.img"
-makeinstimage "netstg" "=scsi $SECSTAGE"
-[ $? = 0 ] || exit 1
-echo "Building hdstg.img"
-makeinstimage "hdstg" "=net $SECSTAGE"
-[ $? = 0 ] || exit 1
-echo "Building stage2.img"
-makemainimage "stage2" "cramfs"
-[ $? = 0 ] || exit 1
+makeSecondStage() {
+    echo "Building main moduleball"
+    makemainmodules "=scsi =net $SECSTAGE"
+    [ $? = 0 ] || exit 1
 
-# now make a boot iso
-mkdir -p $TOPDESTPATH/images/isopath
-cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
-mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
-rm -rf $TOPDESTPATH/images/isopath
+    echo "Building netstg.img"
+    makeinstimage "netstg" "=scsi $SECSTAGE"
+    [ $? = 0 ] || exit 1
+    echo "Building hdstg.img"
+    makeinstimage "hdstg" "=net $SECSTAGE"
+    [ $? = 0 ] || exit 1
+    echo "Building stage2.img"
+    makemainimage "stage2" "cramfs"
+    [ $? = 0 ] || exit 1
+}

@@ -817,6 +817,15 @@ makedriverdisk () {
     fi
 }
 
+# source the architecture specific mk-images file so we can call functions
+# in it
+if [ ${BUILDARCH} = s390x ]; then
+    # FIXME: this is a bad hack for s390, but better than copying for now
+    source $TOPDIR/mk-images.s390
+else
+    source $TOPDIR/mk-images.${BUILDARCH}
+fi
+
 # Find the kernel, unpack it, and verify it
 vertag="BOOT"
 if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
@@ -869,12 +878,10 @@ for kernelvers in $vertag; do
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
 
-  # this is a bad hack, but better than copying for now
-  if [ ${BUILDARCH} = s390x ]; then
-      . $TOPDIR/mk-images.s390
-  else
-      . $TOPDIR/mk-images.${BUILDARCH}
-  fi
+    # make the boot images
+    makeBootImages
 
+# make the second stage
+makeSecondStage
 rm -rf $KERNELROOT
 done

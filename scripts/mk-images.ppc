@@ -17,45 +17,48 @@ prepareBootImage() {
     mkdir -p $TOPDESTPATH/images
 }
 
-echo "kernelvers is $kernelvers"
-if [ "$kernelvers" = "pseries" ]; then
-    echo "Building pSeries initrd"
-    makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
-	       --initrdsize 8192 \
-	       --loaderbin loader \
-               --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+makeBootImages() {
+    echo "Building boot images for kernel $kernelvers"
 
-    mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-    cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
-    cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
-    cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
-    cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
-elif [ "$kernelvers" = "iseries" ]; then
-    mkdir -p $TOPDESTPATH/ppc/iSeries
+    if [ "$kernelvers" = "pseries" ]; then
+	echo "Building pSeries initrd"
+	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
+	    --initrdsize 8192 \
+	    --loaderbin loader \
+	    --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
 
-    echo "Building iSeries initrd"
-    makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
-	       --initrdsize 8192 \
-	       --loaderbin loader \
-               --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
+	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
+	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
+	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+    elif [ "$kernelvers" = "iseries" ]; then
+	mkdir -p $TOPDESTPATH/ppc/iSeries
 
-    cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
-    cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
+	echo "Building iSeries initrd"
+	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
+	    --initrdsize 8192 \
+	    --loaderbin loader \
+	    --modules "nfs fat vfat cramfs veth $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+
+	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
 
     # FIXME: need to do addRamdisk here
-else
-    echo "Unknown kernel version: $kernelvers"
+    else
+	echo "Unknown kernel version: $kernelvers"
     # mac?
-# echo "Building Mac initrd"
-# makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
-#            --initrdsize 8192 \
-#            --loaderbin loader \
-#            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
-fi
+    # echo "Building Mac initrd"
+    # makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.image.gz \
+    #            --initrdsize 8192 \
+    #            --loaderbin loader \
+    #            --modules "nfs fat vfat cramfs $NETMODULES $SCSIMODULES $IDEMODULES $ISOMODULES"
+    fi
+}
 
-
-makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
-makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
-makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
-makemainimage "stage2" "cramfs"
-
+makeSecondStage() {
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+    makemainimage "stage2" "cramfs"
+}

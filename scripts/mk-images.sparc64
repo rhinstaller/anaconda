@@ -52,47 +52,51 @@ maketftp() {
     $TILO vmlinux64 $TFTPKERNEL $TFTPINITRD $TFTPIMAGE
 }
 
+makeBootImages() {
 # set up the silo files
-rm -rf $TOPDESTPATH/boot
-rm -rf $TOPDESTPATH/etc
-mkdir -p $TOPDESTPATH/boot
-mkdir -p $TOPDESTPATH/etc
+    rm -rf $TOPDESTPATH/boot
+    rm -rf $TOPDESTPATH/etc
+    mkdir -p $TOPDESTPATH/boot
+    mkdir -p $TOPDESTPATH/etc
 
-cp $BOOTDISKDIR/cd.b $TOPDESTPATH/boot
-cp $BOOTDISKDIR/second.b $TOPDESTPATH/boot
-cp $BOOTDISKDIR/*.msg $TOPDESTPATH/etc
-cp $BOOTDISKDIR/silo.conf $TOPDESTPATH/etc
+    cp $BOOTDISKDIR/cd.b $TOPDESTPATH/boot
+    cp $BOOTDISKDIR/second.b $TOPDESTPATH/boot
+    cp $BOOTDISKDIR/*.msg $TOPDESTPATH/etc
+    cp $BOOTDISKDIR/silo.conf $TOPDESTPATH/etc
 
 # set up aout kernel images
-rm -rf $TOPDESTPATH/kernels
-mkdir -p $TOPDESTPATH/kernels
-elftoaout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
-gzip -9 $TOPDESTPATH/kernels/vmlinux64
+    rm -rf $TOPDESTPATH/kernels
+    mkdir -p $TOPDESTPATH/kernels
+    elftoaout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
+    gzip -9 $TOPDESTPATH/kernels/vmlinux64
 
-SCSIMODULES="qlogicpti sg st pluto fcal soc socal
+    SCSIMODULES="qlogicpti sg st pluto fcal soc socal
              fc4 aic7xxx sym53c8xx qlogicisp"
-NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5" 
+    NETMODULES="sunhme sunqe sunbmac myri_sbus 3c59x de4x5" 
 
-makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
-	   --initrdsize 2000 \
-	   --loaderbin loader \
-           --modules "$SCSIMODULES $NETMODULES" \
-	   --moduleballname modules64.cgz
+    makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
+	--initrdsize 2000 \
+	--loaderbin loader \
+	--modules "$SCSIMODULES $NETMODULES" \
+	--moduleballname modules64.cgz
 
-maketftp --kernel $KERNELROOT/boot/vmlinux-* \
-	 --imagename $TOPDESTPATH/images/tftp64.img \
-         --initrdfrom $TOPDESTPATH/boot/initrd64.img
+    maketftp --kernel $KERNELROOT/boot/vmlinux-* \
+	--imagename $TOPDESTPATH/images/tftp64.img \
+	--initrdfrom $TOPDESTPATH/boot/initrd64.img
 
-makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
-	     --imagename boot64.img \
-	     --bootdisksize 1440 \
-	     --initrdflags '--initrdsize 2000 \
+    makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
+	--imagename boot64.img \
+	--bootdisksize 1440 \
+	--initrdflags '--initrdsize 2000 \
 			    --loaderbin loader-local \
 			    --modules "$SCSIMODULES" \
 			    --moduleballname modules64.cgz'
+}
 
-makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES" modules64.cgz
+makeSecondStage() {
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES" modules64.cgz
 
-makeinstimage "netstg" "$SCSIMOUDLES $SECSTAGE"
-makeinstimage "hdstg" "$NETMODULES $SECSTAGE"
-makemainimage "stage2" "ext2"
+    makeinstimage "netstg" "$SCSIMOUDLES $SECSTAGE"
+    makeinstimage "hdstg" "$NETMODULES $SECSTAGE"
+    makemainimage "stage2" "ext2"
+}

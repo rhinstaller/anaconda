@@ -32,21 +32,25 @@ EOF
 	cp $MBD_BOOTTREE/EFI/boot/* $MBD_BOOTTREE/
 }
 
-makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
-	     --imagename boot.img \
-	     --bootdisksize 20480 \
-	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
+makeBootImages() {
+    makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinuz  \
+	--imagename boot.img \
+	--bootdisksize 20480 \
+	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \
 			    --modules "nfs fat vfat cramfs $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES"' 
 
-makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
-makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
-makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
-makemainimage "stage2" "cramfs"
+    # now make a boot iso
+    mkdir -p $TOPDESTPATH/images/isopath
+    cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
+    mkisofs -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V -T $TOPDESTPATH/images/isopath
+    rm -rf $TOPDESTPATH/images/isopath
+}
 
-# now make a boot iso
-mkdir -p $TOPDESTPATH/images/isopath
-cp -l $TOPDESTPATH/images/boot.img $TOPDESTPATH/images/isopath
-mkisofs -o $TOPDESTPATH/images/boot.iso -b boot.img -no-emul-boot -R -J -V -T $TOPDESTPATH/images/isopath
-rm -rf $TOPDESTPATH/images/isopath
+makeSecondStage() {
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+    makemainimage "stage2" "cramfs"
+}
