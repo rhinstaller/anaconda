@@ -165,6 +165,15 @@ getmoddeps () {
     egrep $(echo $what | sed 's/\.o  */|^/g;s/\.o$//') $MODDEPS > $final
 }
 
+padfile () {
+    PS_FILE=$1
+    PS_SIZE=$2
+
+    size=`cat $PS_FILE | wc -c`
+    filler=`expr $PS_SIZE "*" 1024 - $size`
+    dd if=/dev/zero bs=$filler count=1 >> $PS_FILE 2> /dev/null
+}
+
 intcopymodules () {
     dir=$2
 
@@ -495,9 +504,7 @@ EOF
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
 
     if [ -n "$PADSIZE" ]; then
-	size=`cat $MBD_FSIMAGE | wc -c`
-	filler=`expr $PADSIZE "*" 1024 - $size`
-	dd if=/dev/zero bs=$filler count=1 >> $MBD_FSIMAGE 2> /dev/null
+	padfile $MBD_FSIMAGE $PADSIZE"
     fi
 
     if [ -n "$EXTRAINITRDPATH" ]; then
@@ -689,6 +696,19 @@ makemainimage () {
 }
 
 makedriverdisk () {
+    PADSIZE=""
+
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ $1 = "--padsize" ]; then
+	    PADSIZE=$2
+	    shift; shift
+	    continue
+	fi
+
+	echo "Unknown option passed to makedriverdisk"
+	exit 1
+    done
+
     modlabel=$1
     diskname=$2
     modlist=$(expandModuleSet "$3")
@@ -734,6 +754,10 @@ makedriverdisk () {
     size=$(expr $size / 1024)
 
     echo "Wrote $IMAGEPATH/${diskname}.img (${size}k)"
+
+    if [ -n "$PADSIZE" ]; then
+	padfile $IMAGEPATH/${diskname}.img $PADSIZE
+    fi
 }
 
 # Find the kernel, unpack it, and verify it
