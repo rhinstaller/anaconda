@@ -242,7 +242,7 @@ class FormatWindow:
 	mounts = todo.fstab.formattablePartitions()
         height = min (screen.height - 12, len (mounts))
         
-        ct = CheckboxTree(height = height)
+        ct = CheckboxTree(height = height, scroll = 1)
 
 	gotOne = 0
 	for (mount, dev, fstype, format, size) in mounts:
