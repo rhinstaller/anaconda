@@ -1,6 +1,6 @@
 include Makefile.inc
 
-VERSION = 6.2.1.2
+VERSION = 6.2.1.3
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
@@ -57,6 +57,7 @@ install-reconfig: all
 	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
 	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda
 	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	cp -a kudzu/kudzumodule.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
