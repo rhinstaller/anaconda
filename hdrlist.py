@@ -57,7 +57,9 @@ EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-hugemem': None,
                      'kernel-hugemem-unsupported': None,
                      # temporarily....
-                     'policy': None, 'policy-sources': None}
+                     'policy': None, 'policy-sources': None,
+                     'setools': None, 'setools-devel': None,
+                     'setools-gui': None }
 
 def showMem():
     f = open("/proc/self/status", "r")
