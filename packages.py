@@ -306,8 +306,6 @@ class InstallCallback:
 			_("The file %s cannot be opened. This is due to "
 			  "a missing file, a bad package, or bad media. "
 			  "Press <return> to try again.") % fn)
-                    # FIXME: get should probably be inside the loop
-                    fn = self.method.getFilename(h, self.pkgTimer)
 
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
