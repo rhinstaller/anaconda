@@ -419,8 +419,7 @@ class ToDo:
             try:
                 iutil.copyFile(fromFile, self.instPath + "/etc/localtime")
             except OSError, (errno, msg):
-                self.intf.messageWindow(_("Error"),
-		    _("Error copying timezone (from %s): %s") % (fromFile, msg))
+                log ("Error copying timezone (from %s): %s" % (fromFile, msg))
 	else:
 	    asUtc = 0
 	    asArc = 0
@@ -1085,8 +1084,6 @@ class ToDo:
 
             log ("creating cdrom link for " + device)
             try:
-                os.stat(self.instPath + "/dev/" + cdname)
-                log ("link exists, removing")
                 os.unlink(self.instPath + "/dev/" + cdname)
             except OSError:
                 pass
@@ -1127,7 +1124,11 @@ class ToDo:
 	    self.fstab.addMount(rType, mntpoint, "auto")
 
     def setDefaultRunlevel (self):
-        inittab = open (self.instPath + '/etc/inittab', 'r')
+        try:
+            inittab = open (self.instPath + '/etc/inittab', 'r')
+        except IOError:
+            log ("WARNING, there is no inittab, bad things will happen!")
+            return
         lines = inittab.readlines ()
         inittab.close ()
         inittab = open (self.instPath + '/etc/inittab', 'w')        
@@ -1240,6 +1241,7 @@ class ToDo:
         self.writeTimezone()
 
     def sortPackages(self, first, second):
+        # install packages in cd order (cd tag is 1000002)
 	one = 0
 	two = 0
 
@@ -1340,7 +1342,9 @@ class ToDo:
 	if not self.installSystem: 
 	    return
 
-	for i in [ '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev' ]:
+	for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
+                   '/etc/sysconfig', '/etc/sysconfig/network-scripts',
+                   '/etc/X11' ):
 	    try:
 	        os.mkdir(self.instPath + i)
 	    except os.error, (errno, msg):
@@ -1365,21 +1369,19 @@ class ToDo:
 	l = []
 
 	for p in self.hdList.selected():
-	    l.append(p)
+            if p.h['name'] != 'locale-ja':
+                l.append(p)
 	l.sort(self.sortPackages)
 
         # XXX HACK HACK for Japanese.
-        #     Remove me when the japanese locales are in glibc package
-	localePackage = self.hdList['locale-ja'].h
+        #     Remove me when the japanese locale is in glibc package
+	localePackage = self.hdList['locale-ja']
 	l = [ localePackage ] + l
-	total = total + 1
-	totalSize = totalSize + localePackage[rpm.RPMTAG_SIZE]
 
 	for p in l:
-            if p['name'] != 'locale-ja':
-                ts.add(p.h, p.h, how)
-                total = total + 1
-                totalSize = totalSize + p['size']
+            ts.add(p.h, p.h, how)
+            total = total + 1
+            totalSize = totalSize + p['size']
 
 	ts.order()
 
@@ -1484,6 +1486,10 @@ class ToDo:
 		if os.access (self.instPath + "/etc/X11/X", os.R_OK):
 		    os.rename (self.instPath + "/etc/X11/X",
 			       self.instPath + "/etc/X11/X.rpmsave")
+                try:
+                    os.unlink (self.instPath + "/etc/X11/X")
+                except OSError:
+                    pass
 		os.symlink ("../../usr/X11R6/bin/" + self.x.server,
 			    self.instPath + "/etc/X11/X")
 
