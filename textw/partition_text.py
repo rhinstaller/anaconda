@@ -670,7 +670,8 @@ class PartitionWindow:
             self.editPartitionRequest(request)
             return
         elif (part.fs_type == None) or (part.fs_type and not part.fs_type.name):
-            ButtonChoiceWindow(self.screen, _("You cannot edit partitions "
+            ButtonChoiceWindow(self.screen, _("Filesystem Missing"),
+                               _("You cannot edit partitions "
                                "without a filesystem type."),
                                buttons = [ TEXT_OK_BUTTON ] )
             return
@@ -680,8 +681,9 @@ class PartitionWindow:
         request = self.partitions.getRequestByDeviceName(get_partition_name(part))
         if request:
             if request.type == REQUEST_PROTECTED:
-                ButtonChoiceWindow(self.screen, _("You cannot edit this "
-                          "partition, as it is part of a RAID device."),
+                ButtonChoiceWindow(self.screen, _("Cannot Edit"),
+                                   _("You cannot edit this "
+                          "partition, as it is in use by the installer."),
                                    buttons = [ TEXT_OK_BUTTON ] )
                 return
             if self.partitions.isRaidMember(request):
