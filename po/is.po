@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-02-07 13:19-0500\n"
-"PO-Revision-Date: 2001-02-06 01:57+0000\n"
+"PO-Revision-Date: 2001-02-08 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -2906,7 +2906,6 @@ msgid "Root partition"
 msgstr "Rótarsneið"
 
 #: ../libfdisk/gnomefsedit.c:756
-#, fuzzy
 msgid ""
 "The growth of the root (/) RAID array appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2914,10 +2913,9 @@ msgid ""
 msgstr ""
 "Stækkun rótardiskasafnsins (RAID) virðist hafa stöðvast útaf 1024 cyl. "
 "þakinu á ræsingu. Ef þetta er rétt getur þú reynt að búa til /boot disksneið "
-"og reyna þá að stækka rótardiskasafnið."
+"(um 50 megabæti duga) og reyna þá að stækka rótardiskasafnið."
 
 #: ../libfdisk/gnomefsedit.c:788
-#, fuzzy
 msgid ""
 "The growth of the root (/) partition appears to have been stunted by the "
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
@@ -2925,7 +2923,7 @@ msgid ""
 msgstr ""
 "Stækkun rótardiskasafnsins (RAID) virðist hafa stöðvast útaf 1024 cyl. "
 "þakinu á ræsingu. Ef þetta er rétt getur þú reynt að búa til /boot disksneið "
-"og reyna þá að stækka rótardiskasafnið."
+"(um 50 megabæti duga) og reyna þá að stækka rótardiskasafnið."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -3859,6 +3857,7 @@ msgstr "Les inn uppfærslur fyrir anaconda..."
 #: ../loader/loader.c:2470
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
+"Það er ekki nægjanlegt vinnsluminni í vélinni til að setja upp Red Hat Linux"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
