@@ -103,7 +103,7 @@ rm -rf $DEST $DESTGR
 mkdir -p $DEST
 mkdir -p $DESTGR
 
-PACKAGES="glibc ldconfig setup python newt libtermcap zlib ash
+PACKAGES="glibc setup python newt libtermcap zlib ash
 	 e2fsprogs util-linux raidtools locale-ja popt mount procps
 	 rpm XFree86 Xconfigurator anaconda anaconda-runtime
 	 kudzu-devel kudzu db1 db2 db3 rpm-python syslinux"
@@ -196,6 +196,7 @@ usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
 usr/lib/anaconda/*
 usr/lib/anaconda/textw/*
+usr/lib/anaconda/installclasses/*
 usr/lib/anaconda-runtime/*
 usr/sbin/anaconda
 usr/lib/python1.5/site-packages/kudzumodule.so
