@@ -1031,6 +1031,22 @@ class ToDo:
             out.write (inf.read ())
 
     def verifyDeps (self):
+        def formatRequire (name, version, flags):
+            string = name
+            
+            if flags:
+                if flags & (rpm.RPMSENSE_LESS | rpm.RPMSENSE_GREATER | 
+                            rpm.RPMSENSE_EQUAL):
+                    string = string + " "
+                    if flags & rpm.RPMSENSE_LESS:
+                        string = string + "<"
+                    if flags & rpm.RPMSENSE_GREATER:
+                        string = string + ">"
+                    if flags & rpm.RPMSENSE_EQUAL:
+                        string = string + "="
+                    string = string + " %s" % version
+            return string
+
         # if we still have the same packages selected, bail - we don't need to
         # do this again.
         if self.verifiedState == self.comps.getSelectionState()[1]:
@@ -1067,7 +1083,12 @@ class ToDo:
                 if sense == rpm.RPMDEP_SENSE_REQUIRES:
                     if suggest:
                         (header, sugname) = suggest
+                        log ("depcheck: package %s needs %s (provided by %s)",
+                             name, formatRequire(reqname, reqversion, flags),
+                             sugname)
                     else:
+                        log ("depcheck: package %s needs %s (not provided)",
+                             name, formatRequire(reqname, reqversion, flags))
                         sugname = _("no suggestion")
                     if not (name, sugname) in rc:
                         rc.append ((name, sugname))
