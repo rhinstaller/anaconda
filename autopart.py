@@ -1425,7 +1425,7 @@ AUTOPART_DISK_CHOICE_DESCR_TEXT = N_("Before automatic partitioning can be "
                                      "your hard drives.")
 
 CLEARPART_TYPE_ALL_DESCR_TEXT = N_("Remove all partitions on this system")
-CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux Partitions on this system")
+CLEARPART_TYPE_LINUX_DESCR_TEXT = N_("Remove all Linux partitions on this system")
 CLEARPART_TYPE_NONE_DESCR_TEXT = N_("Keep all partitions and use existing free space")
 
 CLEARPART_TYPE_ALL_WARNING_MSG = N_("You have selected to remove "
