@@ -925,27 +925,6 @@ def doInstall(method, id, intf, instPath):
         log("failed to unlink /var/lib/rpm: %s" %(e,))
             
 
-    if upgrade:
-        instLog.write(_("\n\nThe following packages were available in "
-                        "this version but NOT upgraded:\n"))
-    else:
-        instLog.write(_("\n\nThe following packages were available in "
-                        "this version but NOT installed:\n"))
-        
-    lines = []
-    for line in lines:
-        instLog.write(line)
-        lines = []
-        for p in id.grpset.hdrlist.values():
-            if not p.isSelected():
-                lines.append("%s-%s-%s.%s.rpm\n" %
-                             (p.hdr[rpm.RPMTAG_NAME],
-                              p.hdr[rpm.RPMTAG_VERSION],
-                              p.hdr[rpm.RPMTAG_RELEASE],
-                              p.hdr[rpm.RPMTAG_ARCH]))
-        lines.sort()
-        for line in lines:
-            instLog.write(line)
     instLog.close ()
 
     id.instProgress = None
@@ -1116,9 +1095,28 @@ def doPostInstall(method, id, intf, instPath):
                 
         w.set(6)
 
-
     finally:
 	pass
+
+    if upgrade:
+        instLog.write(_("\n\nThe following packages were available in "
+                        "this version but NOT upgraded:\n"))
+    else:
+        instLog.write(_("\n\nThe following packages were available in "
+                        "this version but NOT installed:\n"))
+        
+    lines = []
+    for p in id.grpset.hdrlist.values():
+        if not p.isSelected():
+            lines.append("%s-%s-%s.%s.rpm\n" %
+                         (p.hdr[rpm.RPMTAG_NAME],
+                          p.hdr[rpm.RPMTAG_VERSION],
+                          p.hdr[rpm.RPMTAG_RELEASE],
+                          p.hdr[rpm.RPMTAG_ARCH]))
+    lines.sort()
+    for line in lines:
+        instLog.write(line)
+    
 
     # XXX hack - we should really write a proper /etc/lvmtab.  but for now
     # just create the lvmtab if they have /sbin/vgscan and some VGs
