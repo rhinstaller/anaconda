@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-05 17:32+0700\n"
+"PO-Revision-Date: 2004-10-06 13:55+0700\n"
 "Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
 "Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -193,9 +193,9 @@ msgid "Unknown Error"
 msgstr "Kesalahan yang tidak diketahui"
 
 #: ../anaconda:621
-#, fuzzy, c-format
+#, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Terjadi kesalahan ketika mengambil bagian kedua dari konfigurasi kickstart: %s!"
+msgstr "Terjadi kesalahan saat mengambil bagian kedua dari konfigurasi kickstart: %s!"
 
 #: ../anaconda:737
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
@@ -233,9 +233,8 @@ msgid "Using mouse type: %s"
 msgstr "Mempergunakan tipe mouse: %s"
 
 #: ../anaconda:969
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Memulai instalasi mode grafis..."
+msgstr "Memulai instalasi mode grafis...."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -744,9 +743,9 @@ msgid "Checking for Bad Blocks"
 msgstr "Mengecek Blok Rusak"
 
 #: ../fsset.py:179
-#, fuzzy, python-format
+#, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Mengecek blok rusak pada /dev/%s..."
+msgstr "Mengecek blok yang rusak pada /dev/%s..."
 
 #: ../fsset.py:593
 #, python-format
@@ -1053,9 +1052,8 @@ msgstr ""
 
 #: ../gui.py:658
 #: ../text.py:286
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Kesalahan membuka file kickstart %s: %s"
+msgstr "Terjadi kesalah parsing Konfigurasi Kickstart"
 
 #: ../gui.py:666
 #: ../text.py:296
@@ -1228,9 +1226,9 @@ msgid "Change CDROM"
 msgstr "Ganti CDROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Masukkan disc %d untuk melanjutkan."
+msgstr "Silakan masukkan %s disc %d untuk melanjutkan."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -4698,9 +4696,9 @@ msgid "Add FCP device"
 msgstr "Tambah Devais FCP"
 
 #: ../iw/zfcp_gui.py:184
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Edit Devais RAID"
+msgstr "Edit FCP Devais %s"
 
 #: ../iw/zfcp_gui.py:240
 msgid "You're about to remove a FCP disk from your configuration. Are you sure that you wish to continue?"
@@ -5041,9 +5039,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr ""
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Konfigurasi nama host"
+msgstr "Kostumisasi Konfigurasi Firewall"
 
 #: ../textw/firewall_text.py:94
 msgid "With a firewall, you may wish to allow access to specific services on your computer from others.  Allow access to which services?"
@@ -5332,9 +5329,8 @@ msgid "End Cylinder:"
 msgstr ""
 
 #: ../textw/partition_text.py:474
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Nama Volume Group:"
+msgstr "Volume Group:"
 
 #: ../textw/partition_text.py:496
 msgid "RAID Level:"
@@ -5465,14 +5461,12 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr ""
 
 #: ../textw/partition_text.py:1172
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Nama Volume Group:"
+msgstr "Tidak ada Volume Group:"
 
 #: ../textw/partition_text.py:1173
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Isikan nama logical volume."
+msgstr "Tidak ada group volume dalam pembuatan volume logical"
 
 #: ../textw/partition_text.py:1289
 #, python-format
@@ -5485,24 +5479,20 @@ msgid "The current requested size (%10.2f MB) is larger than the available size 
 msgstr ""
 
 #: ../textw/partition_text.py:1362
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Edit Logical Volume"
+msgstr "Partisi Baru atau Volume Logical"
 
 #: ../textw/partition_text.py:1363
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Partisi bootable tidak dapat berada dalam logical volume."
+msgstr "Maukah anda untuk membuat partisi baru atau logical volume baru?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "partition"
-msgstr "Partisi"
+msgstr "partisi"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "logical volume"
-msgstr "Logical Volume"
+msgstr "Logikal Volume"
 
 #: ../textw/partition_text.py:1439
 msgid "New"
@@ -6038,14 +6028,12 @@ msgid "Video RAM:"
 msgstr ""
 
 #: ../textw/zfcp_text.py:44
-#, fuzzy
 msgid "FCP Device"
-msgstr "Device"
+msgstr "FCP Device"
 
 #: ../textw/zfcp_text.py:102
-#, fuzzy
 msgid "Device #"
-msgstr "Device"
+msgstr "Device #"
 
 #: ../textw/zfcp_text.py:110
 msgid "Remove"
@@ -6238,23 +6226,20 @@ msgid "There are multiple partitions on this device which could contain the driv
 msgstr ""
 
 #: ../loader2/driverdisk.c:338
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Gagal me-mount disk update"
+msgstr "Gagal me-mount partisi."
 
 #: ../loader2/driverdisk.c:346
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Pilih driver"
+msgstr "Pilih driver disk image"
 
 #: ../loader2/driverdisk.c:347
 msgid "Select the file which is your driver disk image."
 msgstr ""
 
 #: ../loader2/driverdisk.c:376
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Gagal memount disket driver."
+msgstr "Gagal menggunakan disket driver dari file."
 
 #: ../loader2/driverdisk.c:386
 #, c-format
@@ -6674,9 +6659,8 @@ msgid "%s is a wireless network adapter.  Please provide the ESSID and encryptio
 msgstr ""
 
 #: ../loader2/net.c:191
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Setting Lain-lain"
+msgstr "Setting Wireless"
 
 #: ../loader2/net.c:220
 msgid "Nameserver IP"
@@ -7035,125 +7019,125 @@ msgstr ""
 msgid "Central Time - most locations"
 msgstr ""
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
 msgstr ""
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Waktu bagian Tengah - Quintana Roo"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Waktu bagian Tengah, Rainy River & Perancis Fort, Ontario"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Waktu bagian Tengah, Nunavut Barat"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "Cina Timur - Beijing, Guangdong, Shanghai, dll."
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "Coast Timur, Utara Scoresbysund"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "Republik Dem. Kongo Timur"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Nunavut Pusat"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Nunavut Timur"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Indiana - Crawford County"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Indiana - kebanyakan lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Indiana - Starke County"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Indiana - Switzerland County"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Waktu Standar bagian Timur - Pangnirtung, Nunavut"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Waktu bagian Timur"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Waktu bagian Timur - Kentucky - Louisville area"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Waktu bagian Timur - Kentucky - Wayne County"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Waktu bagian Timur - Michigan - kebanyakan lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Waktu bagian Timur - Ontario - kebanyakan lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Waktu bagian Timur - Ontario & Quebec - tempat uang tidak melihat DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
 msgstr "Waktu Bagian Timur - Quebec - sebagian besar lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Waktu bagian Timur - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
@@ -7167,9 +7151,9 @@ msgstr "Uzbekistan Timur"
 msgid "Galapagos Islands"
 msgstr "Kepulauan Galapagos"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
@@ -7183,81 +7167,81 @@ msgstr "Inggris Raya"
 msgid "Hawaii"
 msgstr "Hawaii"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
 msgstr "Irian Jaya & Maluku"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
 msgstr "Jawa & Sumatra"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "mainland"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
@@ -7279,9 +7263,9 @@ msgstr "Moskow-01 - Kaliningrad"
 msgid "Moscow+02 - Urals"
 msgstr "Moskow+02 - Urals"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
@@ -7311,93 +7295,93 @@ msgstr "Moscow+07 - Kepulauan Sakhalin"
 msgid "Moscow+08 - Magadan"
 msgstr "Moskow+08 - Magadan"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
 msgstr "Moskow+10 - Laut Bering"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "kebanyakan lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain Standard Time - Arizona"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain Standard Time - Sonora"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain Time"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - central Northwest Territories"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain Time - Chihuahua"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain Time - Navajo"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain Time - south Idaho & east Oregon"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - west Northwest Territories"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "NE Brasil (MA, PI, CE, RN, PB)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland Island"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - most locations"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "northeast Mali"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Northern Irlandia"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
@@ -7411,133 +7395,133 @@ msgstr "Waktu Pasifik - Yukon Utara"
 msgid "Pacific Time - south Yukon"
 msgstr "Waktu Pasifik - Yukon Selatan"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacific Time - west British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
 msgstr "Stasiun Palmer, Kepulauan Anvers"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "Malaysia peninsular"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
 msgstr "Kepulauan Phoenix"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
 msgstr "Queensland - Kepulauan Holiday"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - dikebanyakan lokasi"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Rothera Station, Adelaide Island"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "Sabah & Sarawak"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Islandia Tenggara"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "Australia Tenggara"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "Mali tenggara"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "Xinjiang Uyghur Tenggara"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE Brasil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
 msgstr "Tasmania"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
 msgstr "Tibet & sebagian besar Xinjiang Uyghun"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
 msgstr "Victoria"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -7567,39 +7551,37 @@ msgstr "Kazakhstan Barat"
 msgid "west Uzbekistan"
 msgstr "Uzbekistan Barat"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
-#. generated from zone.tab
+#  generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Arabi"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Bengali"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "Bengali(India)"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Bulgarian"
-msgstr "Hungaria"
+msgstr "Bulgaria"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Catalan"
-msgstr "Italia"
+msgstr "Katalan"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -7645,14 +7627,13 @@ msgstr "Perancis"
 msgid "German"
 msgstr "Jerman"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarat"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Hindi"
-msgstr "Mencari"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -7674,9 +7655,9 @@ msgstr "Jepang"
 msgid "Korean"
 msgstr "Korea"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "Macedonia"
 
 #. generated from lang-table
 msgid "Malay"
@@ -7686,15 +7667,13 @@ msgstr "Malaysia"
 msgid "Norwegian"
 msgstr "Norwegia"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Persian"
-msgstr "Jerman"
+msgstr "Persia"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Polish"
-msgstr "Inggris"
+msgstr "Polandia"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -7704,9 +7683,9 @@ msgstr "Portugis"
 msgid "Portuguese(Brazilian)"
 msgstr "Portugis(Brazil)"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7724,10 +7703,9 @@ msgstr "Spanyol"
 msgid "Swedish"
 msgstr "Swedia"
 
-#. generated from lang-table
-#, fuzzy
+#  generated from lang-table
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7737,13 +7715,13 @@ msgstr "Turki"
 msgid "Ukrainian"
 msgstr "Ukrania"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Vietnam"
 
-#. generated from lang-table
+#  generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "Weles"
 
 #. generated from lang-table
 msgid "Zulu"
