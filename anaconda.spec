@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.37
+Version: 10.2.0.38
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Apr 01 2005 Chris Lumens <clumens@redhat.com> 10.2.0.38-1
+- Set default language for /etc/sysconfig/i18n (#149688).
+- Make sure hostname option isn't greyed out if using static IP (#149116).
+- Remove unused packages, python library bits, and locale info (katzj).
+- Add missing Indic font packages (katzj).
+- Various language fixups.
+
 * Wed Mar 30 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.37-1
 - try not using maxcpus=1 for arches which still had it
 - don't use the reserved variable name str (sopwith)

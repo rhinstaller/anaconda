@@ -61,8 +61,6 @@ stepToClasses = {
                                   "HostnameWindow")),
     "firewall" : ("firewall_text", ("FirewallWindow",
                                     "SELinuxWindow")),
-    "languagesupport" : ("language_text", ("LanguageSupportWindow",
-                                           "LanguageDefaultWindow")),
     "timezone" : ("timezone_text", "TimezoneWindow"),
     "accounts" : ("userauth_text", "RootPasswordWindow"),
     "authentication" : ("userauth_text", ("AuthConfigWindow")),
@@ -422,8 +420,7 @@ class InstallInterface:
 	#self.screen.drawRootText (len(_(self.welcomeText)), 0,
 		  #(self.screen.width - len(_(self.welcomeText))) * " ")
 	#self.screen.drawRootText (0 - len(_(step[0])), 0, _(step[0]))
-        langname = id.instLanguage.getCurrent()
-        lang = id.instLanguage.getNickByName(langname)
+        lang = id.instLanguage.getCurrent()
 
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage

@@ -102,7 +102,6 @@ installSteps = [
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
     ("network", ("id.network", "dir", "intf", "id")),
     ("firewall", ("intf", "id.network", "id.firewall", "id.security")),
-    ("languagesupport", ("id.instLanguage",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
     ("authentication", ("id.auth",)),

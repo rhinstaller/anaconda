@@ -1,8 +1,18 @@
 2005-04-01  Chris Lumens  <clumens@redhat.com>
 
+	* anaconda.spec:  Bump version.
+
+	* iw/language_support_gui.py:  Removed.
+	* dispatch.py:  Removed reference to LanguageSupportWindow.
+	* gui.py:  Likewise.
+	* textw/language_text.py:  Likewise.
+
 	* installclass.py (BaseInstallClass.setLanguageSupport):  Don't add
 	duplicate entries to supported list.
 	* language.py:  Fix traceback on kickstart language support.
+	* language.py (Language.setDefault):  Remove dependance on
+	langInfoByName.
+	* text.py (InstallInterface.run):  Use language nick instead of name.
 
 2005-04-01  Jeremy Katz  <katzj@redhat.com>
 

@@ -190,32 +190,20 @@ class Language:
             return 'English'
 
     def setDefault(self, nick):
-	if not nick:
+	canonNick = self.canonLangNick(nick)
+
+	if not canonNick or not self.localeInfo[canonNick]:
 	    self.default = None
 	    return
 
-        # Try to find a match for the language nick we were given.
-        name = None
-        for k in self.langInfoByName.keys():
-            row = self.langInfoByName[k]
-            if nick in expandLangs(row[0]):
-                name = k
-                break
-
-        # It's possible we didn't find a match.
-        if name == None:
-            self.default = None
-            return
-
 	self.default = self.getLangNameByNick(nick)
-	(lang, map, font) = self.langInfoByName[name]
 
-	self.info['LANG'] = lang
-	self.info['SYSFONT'] = font
-        if map != "utf8":
-            self.info['SYSFONTACM'] = map
+	self.info['LANG'] = nick
+	self.info['SYSFONT'] = self.localeInfo[nick][2]
+        self.info['SYSFONTACM'] = "utf8"
+
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
-	if lang == "zh_CN.GB18030":
+	if nick == "zh_CN.GB18030":
 	    self.info['LANGUAGE'] = "zh_CN.GB18030:zh_CN.GB2312:zh_CN"        
 
     def setSupported (self, namelist):
