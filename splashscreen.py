@@ -55,7 +55,7 @@ def splashScreenShow(configFileData):
                 pixbuf = None
         if pixbuf:
             (pixmap, mask) = pixbuf.render_pixmap_and_mask()
-            pixbuf.render_to_drawable(pixmap, gtk.gdk.gc_new(pixmap),
+            pixbuf.render_to_drawable(pixmap, gtk.gdk.GC(pixmap),
                                       0, 0, 0, 0,
                                       pixbuf.get_width(), pixbuf.get_height(),
                                       gtk.gdk.RGB_DITHER_MAX, 0, 0)
