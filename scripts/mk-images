@@ -653,7 +653,8 @@ makedriverdisk () {
     rmdir /tmp/mkdd.$$/lost+found
     (cd $diskpath; tar cSpf - .) | (cd /tmp/mkdd.$$; tar xSpf -)
     DIE=""
-    if [ $(du -s $diskpath | cut -f1) != $(du -s /tmp/mkdd.$$ | cut -f1) ]; then
+    diff -upr $diskpath /tmp/mkdd.$$ > /dev/null 2>&1
+    if [ $? != 0 ]; then
 	echo copy to disk image failed
 	ls -l /tmp/mkdd.$$
 	echo "disk size: $size"
