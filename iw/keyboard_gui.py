@@ -146,7 +146,7 @@ class KeyboardWindow (InstallWindow):
 #        self.variantList.append (("None",))
 #        for (key, variant) in self.rules[2].items ():
         count = 0
-        for (key, variant) in (("basic", (_("Enable dead keys"))),
+        for (key, variant) in (("", (_("Enable dead keys"))),
                                ("nodeadkeys", (_("Disable dead keys")))):
             loc = self.variantList.append ((variant,))
 	    self.variantList.set_row_data (loc, key)

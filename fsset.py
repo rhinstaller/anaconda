@@ -21,10 +21,13 @@ import parted
 from log import log
 from translate import _, N_
 import partitioning
+import sys
 
 defaultMountPoints = ('/', '/boot', '/home', '/tmp', '/usr', '/var')
 
 fileSystemTypes = {}
+
+availRaidLevels = ['RAID-0', 'RAID-1', 'RAID-5']
 
 def fileSystemTypeGetDefault():
     return fileSystemTypeGet('ext2')
@@ -87,8 +90,18 @@ class FileSystemType:
         self.name = ""
         self.linuxnativefs = 0
         self.partedFileSystemType = None
-        self.partedPartitonFlags = []
+        self.partedPartitionFlags = []
         
+    def mount(self, device, mountpoint, readOnly=0):
+        if not self.isMountable():
+            return
+        iutil.mkdirChain(mountpoint)
+        isys.mount(device, mountpoint, fstype = self.getName(), 
+                   readOnly = readOnly)
+
+    def umount(self, path):
+        isys.umount(path, removeDir = 0)
+
     def getName(self):
         return self.name
 
@@ -169,6 +182,37 @@ class ext2FileSystem(FileSystemType):
 
 fileSystemTypeRegister(ext2FileSystem())
 
+class ext3FileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.formattable = 1
+        self.checked = 1
+        self.linuxnativefs = 1
+        self.name = "ext3"
+
+    def formatDevice(self, entry, progress, message, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        devArgs = self.getDeviceArgs(entry.device)
+        label = labelFactory.createLabel(entry.mountpoint)
+        entry.setLabel(label)
+        args = [ "/usr/sbin/mke2fs", devicePath, '-j', '-L', label ]
+        args.extend(devArgs)
+
+        rc = ext2FormatFilesystem(args, "/dev/tty5",
+                                  progress,
+                                  entry.mountpoint)
+        if rc:
+            message and message(_("Error"), 
+                                _("An error occured trying to format %s. "
+                                  "This problem is serious, and the install "
+                                  "cannot continue.\n\n"
+                                  "Press Enter to reboot your "
+                                  "system.") % (entry.device.getDevice(),))
+            raise SystemError
+
+fileSystemTypeRegister(ext3FileSystem())
+
 class raidMemberDummyFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
@@ -186,11 +230,20 @@ class raidMemberDummyFileSystem(FileSystemType):
 fileSystemTypeRegister(raidMemberDummyFileSystem())
 
 class swapFileSystem(FileSystemType):
+    enabledSwaps = {}
+    
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("linux-swap")
         self.formattable = 1
         self.name = "swap"
+
+    def mount(self, device, mountpoint):
+        isys.swapon (device)
+
+    def umount(self, device, path):
+        # unfortunately, turning off swap is bad.
+        pass
 
     def formatDevice(self, entry, progress, message, chroot='/'):
         file = entry.device.setupDevice(chroot)
@@ -325,7 +378,7 @@ class FileSystemSet:
 	if bootDev.getName() == "LoopbackDevice":
 	    return None
 	elif bootDev.getName() == "RAIDDevice":
-	    return [ bootDev.device, "RAID Device" ]
+	    return [ ( bootDev.device, "RAID Device" ) ]
 	
 	return [ (diskSet.driveList()[0], N_("Master Boot Record (MBR)") ),
 		 (bootDev.device,	  N_("First sector of boot partition"))
@@ -333,24 +386,20 @@ class FileSystemSet:
 
     def formatSwap (self, chroot):
         for entry in self.entries:
-            if entry.mountpoint and entry.fsystem.getName() == "swap":
+            if (entry.fsystem and entry.fsystem.getName() == "swap"
+                and entry.getFormat()):
                 entry.fsystem.formatDevice(entry, self.progressWindow,
                                            self.messageWindow, chroot)
                 
     def turnOnSwap (self, chroot):
         for entry in self.entries:
-            if entry.mountpoint and entry.fsystem.getName() == "swap":
-                if not entry.isMounted():
-                    file = entry.device.setupDevice(chroot)
-                    isys.swapon (file)
-                    entry.setMounted(1)
+            if entry.fsystem and entry.fsystem.getName() == "swap":
+                entry.mount(chroot)
 
     def turnOffSwap(self, devices = 1, files = 0):
         for entry in self.entries:
-            if entry.mountpoint and entry.fsystem.getName() == "swap":
-                if entry.isMounted():
-                    isys.swapoff(n)
-                    entry.setMounted(0)
+            if entry.fsystem and entry.fsystem.getName() == "swap":
+                entry.umount(chroot)
 
     def formattablePartitions(self):
         list = []
@@ -361,10 +410,9 @@ class FileSystemSet:
 
     def makeFilesystems (self, chroot='/'):
         for entry in self.entries:
-            if (not entry.format or entry.isMounted()
-                or not entry.fsystem.isFormattable()):
+            if (not entry.fsystem.isFormattable() or not entry.getFormat()
+                or entry.isMounted()):
                 continue
-            
             entry.fsystem.formatDevice(entry, self.progressWindow,
                                        self.messageWindow, chroot)
 
@@ -372,27 +420,20 @@ class FileSystemSet:
 	for entry in self.entries:
             if not entry.fsystem.isMountable():
 		continue
-	    elif (entry.fsystem.isFormattable()
-                  or (entry.fsystem.getName() == "vfat"
-                      and entry.mountpoint == "/boot/efi")):
-		try:
-		    iutil.mkdirChain(instPath + entry.mountpoint)
-		    isys.mount(entry.device.getDevice(),
-                               instPath + entry.mountpoint,
-                               fstype = entry.fsystem.getName(), 
-			       readOnly = readOnly)
-                    entry.setMounted(1)
-		except SystemError, (errno, msg):
-		    if raiseErrors:
-			raise SystemError, (errno, msg)
-		    self.messageWindow and self.messageWindow(_("Error"), 
-			_("Error mounting device %s as %s: %s\n\n"
-                          "This most likely means this partition has "
-                          "not been formatted.\n\nPress OK to reboot your "
-                          "system.") % (entry.device.getDevice(),
-                                        entry.mountpoint, msg))
-                    sys.exit(0)
+            try:
+                entry.mount(instPath)
+            except SystemError, (errno, msg):
+                if raiseErrors:
+                    raise SystemError, (errno, msg)
+                self.messageWindow and self.messageWindow(_("Error"), 
+                    _("Error mounting device %s as %s: %s\n\n"
+                      "This most likely means this partition has "
+                      "not been formatted.\n\nPress OK to reboot your "
+                      "system.") % (entry.device.getDevice(),
+                                    entry.mountpoint, msg))
+                sys.exit(0)
 
+        # XXX remove special case...
         try:
             os.mkdir (instPath + '/proc')
         except:
@@ -401,6 +442,7 @@ class FileSystemSet:
 	isys.mount('/proc', instPath + '/proc', 'proc')
 
     def umountFilesystems(self, instPath, ignoreErrors = 0):
+        # XXX remove special case
         try:
             isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
             log("Umount USB OK")
@@ -412,9 +454,7 @@ class FileSystemSet:
         reverse.reverse()
 
 	for entry in reverse:
-            if entry.isMounted():
-                isys.umount(instPath + entry.mountpoint, removeDir = 0)
-                entry.setMounted(0)
+            entry.umount(instPath)
 
 class FileSystemSetEntry:
     def __init__ (self, device, mountpoint,
@@ -426,7 +466,7 @@ class FileSystemSetEntry:
         self.mountpoint = mountpoint
         self.fsystem = fsystem
         self.options = options
-        self.mounted = 0
+        self.mountcount = 0
         self.label = None
         if fsck == -1:
             self.fsck = fsystem.isChecked()
@@ -444,6 +484,17 @@ class FileSystemSetEntry:
         if format and not fsystem.isFormattable():
             raise RuntimeError, "file system type %s is not formattable, but has been added to fsset with format flag on" % fsystem.getName()
         self.format = format
+
+    def mount(self, chroot='/', devPrefix='/tmp'):
+        device = self.device.setupDevice(chroot, devPrefix=devPrefix) 
+        self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint))
+        self.mountcount = self.mountcount + 1
+
+    def umount(self, chroot='/'):
+        if self.mountcount > 0:
+            self.fssytem.umount(self.device, "%s/%s" % (chroot,
+                                                        self.mountpoint))
+            self.mountcount = self.mountcount - 1
         
     def setFormat (self, state):
         self.format = state
@@ -452,10 +503,7 @@ class FileSystemSetEntry:
         return self.format
 
     def isMounted (self):
-        return self.mounted
-
-    def setMounted (self, state):
-        self.isMounted = state
+        return self.mountcount > 0
 
     def getLabel (self):
         return self.label
@@ -468,6 +516,7 @@ class Device:
         self.device = "none"
         self.fsoptions = {}
         self.label = None
+        self.isSetup = 0
 
     def __repr__(self):
         return self.device
@@ -478,7 +527,7 @@ class Device:
     def getDevice (self):
         return self.device
 
-    def setupDevice (self, chroot='/tmp'):
+    def setupDevice (self, chroot='/', devPrefix='/tmp'):
         pass
 
     def cleanupDevice (self, chroot, devPrefix='/tmp'):
@@ -491,16 +540,17 @@ class Device:
         return self.__class__.__name__
 
 class RAIDDevice(Device):
-    usedMajors = []
+    usedMajors = {}
 
     # members is a list of Device based instances that will be
     # a part of this raid device
-    def __init__(self, level, members, minor=-1, spares=0):
+    def __init__(self, level, members, minor=-1, spares=0, existing=0):
         Device.__init__(self)
         self.level = level
         self.members = members
         self.spares = spares
         self.numDisks = len(members) - spares
+        self.isSetup = existing
 
         if len(members) < spares:
             raise RuntimeError, "you requiested more spare devices than online devices!"
@@ -512,12 +562,12 @@ class RAIDDevice(Device):
         # there are 32 major md devices, 0...31
         if minor == -1:
             for I in range(32):
-                if not I in RAIDDevice.usedMajors:
+                if not RAIDDevice.usedMajors.has_key(I):
                     minor = I
                     break
                 raise RuntimeError, "Unable to allocate minor number for raid device"
             minor = I
-        RAIDDevice.usedMajors.append(minor)
+        RAIDDevice.usedMajors[minor] = None
         self.device = "md" + str(minor)
         self.minor = minor
 
@@ -538,27 +588,37 @@ class RAIDDevice(Device):
         entry = entry + "nr-raid-disks		    %d\n" % (self.numDisks,)
         entry = entry + "chunk-size		    64k\n"
         entry = entry + "persistent-superblock	    1\n"
-        entry = entry + "#nr-spare-disks	    %d\n" % (self.spares,)
+        entry = entry + "nr-spare-disks		    %d\n" % (self.spares,)
         i = 0
-        for device in self.members:
+        for device in self.members[:self.numDisks]:
             entry = entry + "    device	    %s/%s\n" % (devPrefix,
                                                         device.getDevice())
             entry = entry + "    raid-disk     %d\n" % (i,)
             i = i + 1
+        i = 0
+        for device in self.members[self.numDisks:]:
+            entry = entry + "    device	    %s/%s\n" % (devPrefix,
+                                                        device.getDevice())
+            entry = entry + "    spare-disk     %d\n" % (i,)
+            i = i + 1
         return entry
 
     def setupDevice (self, chroot, devPrefix='/tmp'):
-        raidtab = '/tmp/raidtab.%s' % (self.device,)
-        f = open(raidtab, 'w')
-        f.write(self.raidTab('/tmp'))
-        for device in self.members:
-            device.setupDevice()
         node = "%s/%s" % (devPrefix, self.device)
-        isys.makeDevInode(self.device, node, devPrefix=devPrefix)
-        iutil.execWithRedirect ("/usr/sbin/mkraid", 
-                                [ 'mkraid', '--really-force', '--configfile', 
-                                  raidtab, node ],
-                                stderr = "/dev/tty5", stdout = "/dev/tty5")
+        isys.makeDevInode(self.device, node)
+
+        if not self.isSetup:
+            raidtab = '/tmp/raidtab.%s' % (self.device,)
+            f = open(raidtab, 'w')
+            f.write(self.raidTab('/tmp'))
+            f.close()
+            for device in self.members:
+                device.setupDevice(chroot, devPrefix=devPrefix)
+            iutil.execWithRedirect ("/usr/sbin/mkraid", 
+                                    ( 'mkraid', '--really-force',
+                                      '--configfile', raidtab, node ),
+                                    stderr = "/dev/tty5", stdout = "/dev/tty5")
+            self.isSetup = 1
         return node
 
     def solidify(self):
@@ -582,11 +642,10 @@ class PartitionDevice(Device):
         isys.makeDevInode(self.getDevice(), path)
         return path
 
-class PartedPartitionDevice(Device):
+class PartedPartitionDevice(PartitionDevice):
     def __init__(self, partition):
-        Device.__init__(self)
+        PartitionDevice.__init__(self, None)
         self.partition = partition
-        self.device = None
 
     def getDevice(self):
         if not self.partition:
@@ -599,12 +658,9 @@ class PartedPartitionDevice(Device):
         return "%s%d" % (self.partition.geom.disk.dev.path[5:],
                          self.partition.num)
 
-    def setupDevice(self, chroot, devPrefix='/tmp'):
-        path = '%d/%s' % (self.getDevice(), devPrefix)
-        isys.makeDevInode(self.getDevice(), path)
-        return path
-
     def solidify(self):
+        # drop reference on the parted partition object and note
+        # the current minor number allocation
         self.device = self.getDevice()
         self.partition = None
         

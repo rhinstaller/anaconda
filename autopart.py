@@ -159,7 +159,6 @@ def fitSized(diskset, requests):
                 ret = bestPartType(disk)
                 if ret == PARTITION_FAIL:
                     return ret
-                print ret
                 if ret == parted.PARTITION_PRIMARY:
                     partType = parted.PARTITION_PRIMARY
                 elif ret == parted.PARTITION_EXTENDED:
@@ -291,7 +290,11 @@ def processPartitioning(diskset, requests):
     for request in requests.requests:
         if request.type == REQUEST_NEW:
             request.device = None
-#        request.requestSize = request.size
+
+        # set the unique identifier for raid devices
+        if request.type == REQUEST_RAID and not request.device:
+            request.device = requests.maxcontainer
+            requests.maxcontainer = requests.maxcontainer + 1
 
     # XXX - handle delete requests
     for delete in requests.deletes:

@@ -109,7 +109,7 @@ def get_primary_partitions(disk):
 
     return rc
 
-
+# returns a list of partitions which can make up RAID devices
 def get_raid_partitions(disk):
     rc = []
     part = disk.next_partition()
@@ -124,7 +124,54 @@ def get_raid_partitions(disk):
         part = disk.next_partition(part)
 
     return rc
-    
+
+
+# returns a list of the actual raid device requests
+def get_raid_devices(requests):
+    raidRequests = []
+    for request in requests:
+        if request.type == REQUEST_RAID:
+            raidRequests.append(request)
+            
+    return raidRequests
+
+
+# returns a list of raid partitions which haven't been used in a device yet
+def get_available_raid_partitions(diskset, requests):
+    rc = []
+    drives = diskset.disks.keys()
+    raiddevs = get_raid_devices(requests)
+    drives.sort()
+    for drive in drives:
+        disk = diskset.disks[drive]
+        for part in get_raid_partitions(disk):
+            for raid in raiddevs:
+                if raid.raidmembers and part in raid.raidmembers:
+                    break
+            rc.append(part)
+    return rc
+
+# return minimum numer of raid members required for a raid level
+def get_raid_min_members(raidlevel):
+    if raidlevel == "RAID-0":
+        return 2
+    elif raidlevel == "RAID-1":
+        return 2
+    elif raidlevel == "RAID-5":
+        return 3
+    else:
+        raise ValueError, "invalid raidlevel in get_raid_min_members"
+
+# return max num of spares available for raidlevel and total num of members
+def get_raid_max_spares(raidlevel, nummembers):
+    if raidlevel == "RAID-0":
+        return 0
+    elif raidlevel == "RAID-1":
+        return 0
+    elif raidlevel == "RAID-5":
+        return max(0, nummembers - get_raid_min_members(raidlevel))
+    else:
+        raise ValueError, "invalid raidlevel in get_raid_max_spares"
 
 # returns error string if something not right about request
 # returns error string if something not right about request
@@ -270,6 +317,10 @@ class PartitionRequests:
         self.deletes = []
         if diskset:
             self.setFromDisk(diskset)
+
+        # identifier used for raid partitions
+        self.maxcontainer = 0
+            
 
     def setFromDisk(self, diskset):
         self.deletes = []

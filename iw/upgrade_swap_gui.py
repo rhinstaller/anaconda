@@ -104,6 +104,7 @@ class UpgradeSwapWindow (InstallWindow):
         self.swapbox = GtkVBox(FALSE, 5)
         box.pack_start(self.swapbox, FALSE)
         
+
         label = GtkLabel (_("Select the partition to put the swap file on:"))
         a = GtkAlignment(0.2, 0.5)
         a.add(label)
@@ -111,16 +112,9 @@ class UpgradeSwapWindow (InstallWindow):
 
         titles = [(_("Mount Point")), (_("Partition")), (_("Free Space (MB)"))]        
         self.clist = GtkCList(3, titles)
-        self.clist.set_usize(300, 100)
         self.clist.connect("select-row", self.clist_cb)
-
-        sw = GtkScrolledWindow()
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        sw.add(self.clist)
-
         a = GtkAlignment(0.5, 0.5)
-        a.add(sw)
-        
+        a.add(self.clist)
         self.swapbox.pack_start(a, FALSE, TRUE, 10)
 
         count = 0
@@ -130,7 +124,6 @@ class UpgradeSwapWindow (InstallWindow):
             count = count + 1
 
         self.clist.select_row(0, 0)
-
 
         label = GtkLabel (_("It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:") % suggSize)
         label.set_usize(400, 40)
