@@ -71,6 +71,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 
     def mergeFullHeaders(self, hdlist):
 	# since we read headers from the disk, we don't need to do this
+	pass
 
     def systemMounted(self, fstab, mntPoint, selected):
 	self.mountMedia()
@@ -176,7 +177,9 @@ class HardDriveInstallMethod(InstallMethod):
 	return hl
 
     def mergeFullHeaders(self, hdlist):
-	# since we read headers from the disk, we don't need to do this
+	self.mountMedia(1)
+	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
+	self.umountMedia()
 
     def systemMounted(self, fstab, mntPoint, selected):
 	self.mountMedia(1)
