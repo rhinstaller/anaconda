@@ -214,6 +214,19 @@ class ext3FileSystem(FileSystemType):
                                   "system.") % (entry.device.getDevice(),))
             raise SystemError
 
+    def mount(self, device, mountpoint, readOnly=0):
+        if not self.isMountable():
+            return
+        iutil.mkdirChain(mountpoint)
+        # tricky - mount the filesystem as ext2, it makes the install
+        # faster
+        try:
+            isys.mount(device, mountpoint, fstype = "ext2", 
+                       readOnly = readOnly)
+        except OSError:
+            isys.mount(device, mountpoint, fstype = "ext3", 
+                       readOnly = readOnly)
+
 fileSystemTypeRegister(ext3FileSystem())
 
 class raidMemberDummyFileSystem(FileSystemType):
