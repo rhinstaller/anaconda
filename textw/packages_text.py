@@ -39,7 +39,7 @@ class PackageGroupWindow:
 
 	label.setText(self.size(comps))
 
-    def __call__(self, screen, comps, langSupport, dispatch):
+    def __call__(self, screen, comps, langSupport, instClass, dispatch):
 	origSelection = comps.getSelectionState()
 
         ct = CheckboxTree(height = 8, scroll = 1)
