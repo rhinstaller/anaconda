@@ -14,9 +14,9 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-25 23:38+0700\n"
+"PO-Revision-Date: 2004-07-26 17:40+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
-"Language-Team: Thai <l10n@opentle.org>\n"
+"Language-Team: Thai <L10N@OpenTLE.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3111,27 +3111,23 @@ msgid ""
 "than are available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr "Security Enhanced Linux (SELinux) ทำให้ควบคุมความปลอดภัยได้อย่างละเอียดลึกซึ้งมากกว่าที่จะพบได้บนระบบลินุกซ์ทั่วไป  มันสามารถตั้งให้อยู่ในสถานะไม่ทำงาน คือแค่เตือนเกี่ยวกับสิ่งที่ XXX"
+msgstr "Security Enhanced Linux (SELinux) ทำให้ควบคุมความปลอดภัยได้อย่างละเอียดลึกซึ้งมากกว่าที่จะพบได้บนระบบลินุกซ์ทั่วไป  มันสามารถตั้งให้อยู่ในสถานะไม่ใช้งาน หรือให้แจ้งเตือนเกี่ยวกับสิ่งที่ไม่ควรได้รับอนุญาต หรือตั้งให้อยู่ในสถานะทำงานเต็มรูปแบบก็ได้"
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "ใช้ NIS"
+msgstr "เปิดใช้ _SELinux?:"
 
 #: ../iw/firewall_gui.py:161
-#, fuzzy
 msgid "Disabled"
-msgstr "ไม่ใช้ dead keys"
+msgstr "ไม่ใช้งาน"
 
 #: ../iw/firewall_gui.py:161
-#, fuzzy
 msgid "Warn"
-msgstr "ข้อความเตือน"
+msgstr "แจ้งเตือน"
 
 #: ../iw/firewall_gui.py:161 ../textw/firewall_text.py:173
-#, fuzzy
 msgid "Active"
-msgstr "ทำงานเมื่อบูต"
+msgstr "ใช้งาน"
 
 #: ../iw/installpath_gui.py:34 ../textw/installpath_text.py:48
 msgid "Installation Type"
@@ -3159,27 +3155,27 @@ msgstr "ภาษาอะไรที่คุณต้องการใช้
 
 #: ../iw/language_support_gui.py:24
 msgid "Additional Language Support"
-msgstr "การรองรับภาษาที่เพิ่มเติม"
+msgstr "การรองรับภาษาเพิ่มเติม"
 
 #: ../iw/language_support_gui.py:205
 msgid "Select the _default language for the system:   "
-msgstr "เลือกภาษาปริยายสำหรับระบบ: "
+msgstr "เลือกภาษา_ปริยายสำหรับระบบ: "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "เลือกภาษาที่ต้องการใช้เพิ่มเติมเพื่อติดตั้งในระบบนี้:"
+msgstr "เลือกภาษาที่ต้องการใช้เ_พิ่มเติมเพื่อติดตั้งในระบบนี้:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
-msgstr "เลือกทั้งหมด "
+msgstr "เ_ลือกทั้งหมด "
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "เลือกเฉพาะภาษาปริยายเท่านั้น"
+msgstr "เลือกเฉพาะภาษาปริยายเ_ท่านั้น"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
-msgstr "รีเซต "
+msgstr "_รีเซต "
 
 #: ../iw/lvm_dialog_gui.py:107 ../iw/lvm_dialog_gui.py:153
 #: ../iw/lvm_dialog_gui.py:164 ../iw/lvm_dialog_gui.py:204
@@ -3193,13 +3189,11 @@ msgid ""
 "The physical extent size cannot be changed because otherwise the space "
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
-msgstr ""
-"ขนาดการขยายไม่สามารถเปลี่ยนแปลงได้เพราะ อาจเป็นไปได้ว่า logical volumes "
-"สามารถขยายได้มากกว่าพื้นที่ที่มีอยู่"
+msgstr "ส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนแปลงได้ เพราะมิฉะนั้นแล้วจะทำให้พื้นที่ที่ต้องการสำหรับการกำหนด logical volumes จะเพิ่มขึ้นมากกว่าพื้นที่ว่างที่มีอยู่"
 
 #: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
-msgstr "ยืนยันการเปลี่ยนขนาด"
+msgstr "ยืนยันการเปลี่ยนแปลงส่วนยืดขยายทางกายภาพ"
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid ""
@@ -3209,11 +3203,14 @@ msgid ""
 "\n"
 "This change will take affect immediately."
 msgstr ""
+"การเปลี่ยนแปลงค่าสำหรับส่วนยืดขยายทางกายภาพนี้ จำเป็นต้องปัดเศษของขนาดของ logical volume ปัจจุบัน ให้เป็นจำนวนเท่าของส่วนยืดขยายทางกายภาพด้วย\n"
+"\n"
+"การเปลี่ยนแปลงนี้ จะมีผลทันที"
 
 #: ../iw/lvm_dialog_gui.py:127 ../iw/lvm_dialog_gui.py:186
 #: ../iw/network_gui.py:156 ../iw/network_gui.py:160 ../iw/network_gui.py:183
 msgid "C_ontinue"
-msgstr "ต่อไป"
+msgstr "_ต่อไป"
 
 #: ../iw/lvm_dialog_gui.py:154
 #, python-format
@@ -3221,7 +3218,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
-msgstr ""
+msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่กว่าโวลูมทางกายภาพที่เล็กที่สุด (%10.2f MB) ใน volume group"
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -3229,7 +3226,7 @@ msgid ""
 "The physical extent size cannot be changed because the value selected (%"
 "10.2f MB) is too large compared to the size of the smallest physical volume "
 "(%10.2f MB) in the volume group."
-msgstr ""
+msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะค่าที่เลือก (%10.2f MB) ใหญ่มาก เมื่อเปรียบเทียบกับขนาดที่เล็กที่สุดของโวลูมทางกายภาพ (%10.2f MB) ใน volume group"
 
 #: ../iw/lvm_dialog_gui.py:179
 msgid "Too small"
@@ -3239,7 +3236,7 @@ msgstr "เล็กเกินไป"
 msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
-msgstr ""
+msgstr "การเปลี่ยนค่าของส่วนยืดขยายทางกายภาพนี้ จะสูญเสียพื้นที่เปล่าอย่างถาวรบนโวลูมทางกายภาพใน volume group อย่างน้อย 1 ตัว"
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -3247,13 +3244,13 @@ msgid ""
 "The physical extent size cannot be changed because the resulting maximum "
 "logical volume size (%10.2f MB) is smaller than one or more of the currently "
 "defined logical volumes."
-msgstr ""
+msgstr "ขนาดของส่วนยืดขยายทางกายภาพไม่สามารถเปลี่ยนได้ เพราะผลจากการที่ขนาด logical volume สูงสุด (%10.2f MB) เล็กกว่า logical volume ที่กำหนดไว้ในปัจจุบันอย่างน้อย 1 ตัว"
 
 #: ../iw/lvm_dialog_gui.py:287
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
-msgstr ""
+msgstr "คุณไม่สามารถลบโวลูมทางกายภาพนี้ได้ เพราะว่าจะทำให้กลุ่มโวลูมเล็กเกินไปที่จะทำให้ logical volume ที่ XXX"
 
 #: ../iw/lvm_dialog_gui.py:358
 msgid "Make Logical Volume"
