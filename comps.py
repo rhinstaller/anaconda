@@ -69,15 +69,12 @@ class HeaderList:
 	    # don't use list + here, as it creates a new object
 	    for p in newCompat:
 		compatPackages.append(p)
-	print "compatPackages", compatPackages
 
 class HeaderListFromFile (HeaderList):
 
     def __init__(self, path, compatPackages = None):
 	hdlist = rpm.readHeaderListFromFile(path)
 	HeaderList.__init__(self, hdlist, compatPackages = compatPackages)
-
-	print "compatPackages", compatPackages
 
 class HeaderListFD (HeaderList):
     def __init__(self, fd):
