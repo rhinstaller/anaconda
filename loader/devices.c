@@ -119,7 +119,7 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 }
 
 int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
-		      moduleDeps modDeps, int flags, char * mntPoint) {
+		      moduleDeps *modDepsPtr, int flags, char * mntPoint) {
     char * files[] = { "modules.cgz", "modinfo", "modules.dep", NULL };
     char * dirName;
     char ** file;
@@ -151,7 +151,7 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(from, "%s/modinfo", dirName);
     isysReadModuleInfo(from, modInfo, dirName);
     sprintf(from, "%s/modules.dep", dirName);
-    mlLoadDeps(&modDeps, from);
+    mlLoadDeps(modDepsPtr, from);
 
     diskNum++;
 
@@ -159,7 +159,7 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 }
 
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags, int cancelNotBack) {
+		      moduleDeps *modDepsPtr, int flags, int cancelNotBack) {
     int rc;
     int done = 0;
 
@@ -170,7 +170,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
+	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, flags);
 
 	devMakeInode("fd0", "/tmp/fd0");
 
@@ -178,7 +178,7 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 	    newtWinMessage(_("Error"), _("OK"), 
 			   _("Failed to mount floppy disk."));
 
-	if (devCopyDriverDisk(modInfo, modLoaded, modDeps, 
+	if (devCopyDriverDisk(modInfo, modLoaded, modDepsPtr, 
 			      flags, "/tmp/drivers"))
 	    newtWinMessage(_("Error"), _("OK"),
 		_("The floppy disk you inserted is not a valid driver disk "
@@ -252,7 +252,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return LOADER_BACK;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 0);
+	    devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 0);
 	    continue;
 	} else {
 	    break;

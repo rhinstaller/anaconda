@@ -1182,7 +1182,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 		break;
 	    } 
 
-	    if (devCopyDriverDisk(modInfo, modLoaded, modDeps, flags,
+	    if (devCopyDriverDisk(modInfo, modLoaded, &modDeps, flags,
 				  "/tmp/drivers")) {
 		logMessage("driver information missing!");
 	    }
@@ -1904,7 +1904,7 @@ int main(int argc, char ** argv) {
 	  access("/proc/openprom", X_OK)) || FL_MODDISK(flags)) 
 	    && !ksFile) {
 	startNewt(flags);
-        devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 1);
+        devLoadDriverDisk(modInfo, modLoaded, &modDeps, flags, 1);
     }
 
     busProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);

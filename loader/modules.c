@@ -182,8 +182,8 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, flags);
-
+	    if (mlLoadModule(*nextDep, path, modLoaded, modDeps, NULL, flags) && path)
+		  mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, flags);
 	    nextDep++;
 	}
     }
