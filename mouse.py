@@ -20,6 +20,10 @@ class Mouse (SimpleConfigFile):
 		("ps/2", "PS/2", "psaux", 1),
 	"Generic - 3 Button Mouse (PS/2)" :
 		("ps/2", "PS/2", "psaux", 0),
+	"Generic - 2 Button Mouse (USB)" :
+		("ps/2", "PS/2", "input/mice", 1),
+	"Generic - 3 Button Mouse (USB)" :
+		("ps/2", "PS/2", "input/mice", 0),
 	"Genius - NetMouse (serial)" :
 	       ("ms3", "IntelliMouse", "ttyS", 1),
 	"Genius - NetMouse (PS/2)" :
@@ -78,8 +82,10 @@ class Mouse (SimpleConfigFile):
     def probe (self):
         list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
                            kudzu.PROBE_ONE)
+
         if (list):
             (device, module, desc) = list[0]
+            
             if device == 'psaux':
             # kickstart some ps/2 mice.  Blame the kernel
                 try:
@@ -93,6 +99,11 @@ class Mouse (SimpleConfigFile):
                 self.set("Sun - Mouse", 0)
             elif device == "psaux":
                 self.set("Generic - 3 Button Mouse (PS/2)", 0)
+            elif device == "input/mice":
+                if module == "generic3usb":
+                    self.set("Generic - 3 Button Mouse (USB)", 0)
+                elif module == "genericusb":
+                    self.set("Generic - 2 Button Mouse (USB)", 1)
             else:
                 self.set("Generic - 2 Button Mouse (serial)", 1)
 
@@ -130,6 +141,7 @@ class Mouse (SimpleConfigFile):
 	self.device = device
 
     def set (self, mouse, emulateThreeButtons = -1, thedev = None):
+
         (gpm, x11, dev, em) = self.mice[mouse]
         self.info["MOUSETYPE"] = gpm
         self.info["XMOUSETYPE"] = x11
@@ -138,8 +150,10 @@ class Mouse (SimpleConfigFile):
             self.emulate = emulateThreeButtons
         else:
             self.emu = em
-        if not self.device and thedev: self.device = thedev
-	if not self.device: self.device = dev
+        if not self.device and thedev:
+            self.device = thedev
+	if not self.device:
+            self.device = dev
 
     def setXProtocol (self):
         import xmouse

@@ -71,6 +71,10 @@ def startX():
     if not mouse.probe ():
         if not mouseWindow(mouse):
             raise RuntimeError, "failed to get a mouse for X startup"
+    else:
+        (Xtype, Xtmp) = mouse.get()
+        print "Found a ", Xtype
+        time.sleep(2)
 
     x = XF86Config (mouse)
     x.probe ()

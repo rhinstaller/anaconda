@@ -527,6 +527,7 @@ EndSection
 
 class XF86Config:
     def __init__ (self, mouse = None):
+
         if mouse:
             self.setMouse(mouse)
         else:

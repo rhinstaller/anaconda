@@ -329,7 +329,16 @@ class ToDo:
         self.network = Network ()
         self.rootpassword = Password ()
         self.extraModules = extraModules
-        self.mouse = Mouse ()
+
+        log.open(0,0,0)
+        log("In todo we were passed mouse = %s" % mouse)
+        if mouse:
+            self.mouse = mouse
+        else:
+            log("calling Mouse from todo")
+            self.mouse = Mouse ()
+        log.close()
+        
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
         self.desktop = Desktop ()
@@ -337,6 +346,8 @@ class ToDo:
         self.bootdisk = 1
 
         log.open (serial, reconfigOnly, test)
+
+        log ("In todo mouse = %s" % self.mouse)
 
         self.fstab = None
 
