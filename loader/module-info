@@ -67,9 +67,17 @@ Version 0
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
+3c515
+	eth
+	"3Com 3c515 Corkscrew"
+
 3c59x
 	eth
 	"3Com 3c590/3c595 Vortex"
+
+82596
+	eth
+	"Apricot 82596"
 
 #a2065
 #	eth
@@ -82,18 +90,22 @@ ac3200
 	irq "IRQ level" "[0-9]+"
 	mem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
 
-apricot
+acenic
 	eth
-	"Apricot 82596"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
+	"Alteon AceNIC Gigabit"
 
-arcnet
-	arc
-	"ARCnet for IP driver"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-	irq "IRQ level" "[0-9]+"
-	shmem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
+#apricot
+#	eth
+#	"Apricot 82596"
+#	io "Base I/O address" "0x[0-9a-fA-F]+"
+#	irq "IRQ level" "[0-9]+"
+
+#arcnet
+#	arc
+#	"ARCnet for IP driver"
+#	io "Base I/O address" "0x[0-9a-fA-F]+"
+#	irq "IRQ level" "[0-9]+"
+#	shmem "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
 
 #ariadne
 #	eth
@@ -113,6 +125,10 @@ at1700
 #atp
 #	atp
 #	"Attached (pocket) ethernet adapter"
+
+cs89x0
+	eth
+	"Crystal SemiconductorCS89[02]0"
 
 de4x5
 	eth
@@ -164,15 +180,27 @@ eepro
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
+eepro100
+	eth
+	"Intel EtherExpress Pro 100B"
+
 eexpress
 	eth
 	"EtherExpress"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
 
+epic100
+	eth
+	"SMC 83c170 EPIC/100"
+
 eql
 	eql
 	"Load balancing for point-to-point network interfaces"
+
+es3210
+	eth
+	"Racal-Interlan ES3210 EISA"
 
 eth16i
 	eth
@@ -218,21 +246,38 @@ ibmtr
 	"Shared-memory IBM Token Ring 16/4"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
-# NOT YET MODULARIZED!
-#lance
-#	eth
-#	"AMD LANCE: Allied Telesis AT1500, HP J2405A, most NE2100/clone"
+	
+
+lance
+	eth
+	"AMD LANCE: Allied Telesis AT1500, HP J2405A, most NE2100/clone"
 
 # NOT YET MODULARIZED!
 #lance32
 #	eth
 #	"AMD PCnet32, PCnetPCI"
 
+lne390
+	eth
+	"Mylex LNE390 EISA"
+
 ne
 	eth
 	"NE1000, NE2000, and compatible"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
+
+n32k-pci
+	eth
+	"PCI NE2000 clones"
+
+ne3210
+	eth
+	"Novell NE3210 EISA"
+
+ni5010
+	eth
+	"MiCom-Interlan NI5010"
 
 ni52
 	eth
@@ -242,10 +287,17 @@ ni52
 	memstart "Base shared memory address" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
 	memend "Address of end of shared memory" "0x[0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F][0-9a-fA-F]+"
 
-# NOT YET MODULARIZED!
-#ni65
-#	eth
-#	"NI6510 Ethernet"
+ni65
+	eth
+	"NI6510 Ethernet"
+
+olympic
+	tr
+	"IBM PCI tokenring cards based on the Pit/Pit-Phy/Olympic chipset"
+
+pcnet32
+	eth
+	"AMD PCnet32"
 
 # not modularized
 #pi2
@@ -263,6 +315,10 @@ plip
 # NOT YET MODULARIZED!
 #pt
 
+rtl8139
+	eth
+	"RealTek RTL8129/8139"
+
 sdla
 	sdla
 	"Sangoma S502/S508 series multi-protocol PC interface card"
@@ -277,6 +333,10 @@ sdla
 #	eth
 #	"Schneider & Koch (SK) G16"
 
+sktr
+	tr
+	"SysKonnect Token Ring ISA/PCI"
+
 # slhc is never loaded explicitly, only by dependencies
 
 #slip
@@ -288,6 +348,10 @@ smc-ultra
 	"SMC Ultra, SMC EtherEZ ISA"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 	irq "IRQ level" "[0-9]+"
+
+smc-ultra32
+	eth
+	"SMC Ultra32 EISA"
 
 smc9194
 	eth
@@ -305,10 +369,18 @@ strip
 #	eth
 #	"Linux/Sparc/Lance Ethernet"
 
+tlan
+	eth
+	"ThunderLAN"
+
 tulip
 	eth
 	"DEC 21040, most 21*40 Ethernet"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+via-rhine
+	eth
+	"VIA VT86c100A Rhine-II PCI"
 
 wavelan
 	eth
@@ -328,6 +400,10 @@ wic
 	wic
 	"parallel port network driver"
 
+yellowfin
+	eth
+	"Packet Engines G-NIC PCI Gigabit"
+
 # NOT YET MODULARIZED!
 #znet
 #	eth
@@ -338,10 +414,9 @@ wic
 	scsi_hostadapter
 	"Symbios/NCR 53c700 and 53c800 series"
 
-# Not a module
-#AM53C974
-#	scsi_hostadapter
-#	"AM53/79C974 (PCscsi) driver"
+AM53C974
+	scsi_hostadapter
+	"AM53/79C974 (PCscsi) driver"
 
 BusLogic
 	scsi_hostadapter
@@ -376,6 +451,10 @@ aic7xxx
 	scsi_hostadapter
 	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
 
+atp870u
+	scsi_hostadapter
+	"atp870u"
+
 dtc
 	scsi_hostadapter
 	"DTC 3180/3280"
@@ -399,6 +478,14 @@ fdomain
 	scsi_hostadapter
 	"Future Domain TMC-16xx SCSI"
 
+g_NCR5380
+	scsi_hostadapter
+	"generic NCR5380"
+
+gdth
+	scsi_hostadapter
+	"GDT ISA/EISA/PCI Disk Array Controller"
+
 # not a module
 # gvp11
 
@@ -406,6 +493,10 @@ in2000
 	scsi_hostadapter
 	"IN2000 SCSI"
 	setup_string "ioport:addr"
+
+megaraid
+	scsi_hostadapter
+	"MegaRAID 418, 428, 438, 466, 762"
 
 ncr53c8xx
 	scsi_hostadapter
@@ -420,9 +511,17 @@ ppa
 	"IOMEGA PPA3/Parallel ZIP"
 	ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
 
+psi240i
+	scsi_hostadapter
+	"PSI240I EIDE"
+
 qlogicfas
 	scsi_hostadapter
 	"Qlogic FAS408 SCSI"
+
+qlogicfc
+	scsi_hostadapter
+	"Qlogic ISP2x00 SCSI"
 
 qlogicisp
 	scsi_hostadapter
@@ -453,9 +552,21 @@ seagate
 #	char-major-10	st
 #	"SCSI tape protocol"
 
+sym53c416
+	scsi_hostadapter
+	"sym53c416"
+
+sym53c8xx
+	scsi_hostadapter
+	"Symbios 53C896"
+
 t128
 	scsi_hostadapter
 	"Trantor T128/T128F/T228"
+
+tmscsim
+	scsi_hostadapter
+	"Tekram DC-390(T) PCI"
 
 u14-34f
 	scsi_hostadapter
@@ -513,6 +624,10 @@ mcdx
 	block-major-20	cdrom
 	"Mitsumi XA/Multisession CDROM"
 	mcdx "Base I/O Address,irq"
+
+optcd
+	block-major-17	cdrom
+	"Optics Storage 8000 AT CDROM"
 
 sbpcd
 	block-major-25	cdrom
