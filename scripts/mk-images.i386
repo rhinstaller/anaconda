@@ -150,7 +150,7 @@ makebootdisk --imagename ja/pcmcia.img \
 			    --pcmcia \
 		     	    --initrdsize 2800 \
 			    --loaderbin loader-pcmcia-kon \
-			    --modules "$PCMCIAMAINMODULES"
+			    --modules "$PCMCIAMAINMODULES"'
 
 makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
 
