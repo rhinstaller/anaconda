@@ -158,17 +158,21 @@ class SELinuxWindow:
 
         toplevel = GridFormHelp (screen, _("Security Enhanced Linux"),
                                  "selinux", 1, 5)
-        text = _("Security Enhanced Linux (SELinux) provides stricter access "
-                 "controls to improve the security of your system.  How would "
-                 "you like this support enabled?")
+        text = _("Security Enhanced Linux (SELinux) "
+                 "provides finer-grained "
+                 "security controls than those available "
+                 "in a traditional Linux system.  It can "
+                 "be set up in a disabled state, a state "
+                 "which only warns about things which would "
+                 "be denied, or a fully active state."))        
 
         toplevel.add(TextboxReflowed(50, text), 0, 0, (0,0,0,1))
 
 
         grid = Grid(3, 1)
-	disable = SingleRadioButton(_("Disable SELinux"), None, (security.getSELinux() == 0))
+	disable = SingleRadioButton(_("Disabled"), None, (security.getSELinux() == 0))
         toplevel.add(disable, 0, 1, (0,0,0,0))
-	warn = SingleRadioButton(_("Warn on violations"), disable, (security.getSELinux() == 1))
+	warn = SingleRadioButton(_("Warn"), disable, (security.getSELinux() == 1))
         toplevel.add(warn, 0, 2, (0,0,0,0))
 	enable = SingleRadioButton(_("Active"), warn, (security.getSELinux() == 2))
         toplevel.add(enable, 0, 3, (0,0,0,1))
