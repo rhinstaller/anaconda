@@ -1048,7 +1048,7 @@ static char * doMountImage(char * location,
 	exit(1);
     }
 
-#ifdef INCLUDE_LOCAL
+#if defined (INCLUDE_LOCAL) || defined (__sparc__)
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
     if (!networkAvailable && !FL_EXPERT(flags)) {
