@@ -1,14 +1,16 @@
 include ../Makefile.inc
 
-all:	libbz2.so.0
+LIBBZ = libbz2.so.1
 
-libbz2.so.0:	bzip.c
-	gcc -fPIC -shared -o libbz2.so.0 bzip.c
+all:	$(LIBBZ)
+
+$(LIBBZ):   bzip.c
+	gcc -fPIC -shared -o $(LIBBZ) bzip.c
 
 clean:
 	rm -f *.so.* *.o
 
 install:
-	install libbz2.so.0 $(DESTDIR)/$(RUNTIMEDIR)
+	install $(LIBBZ) $(DESTDIR)/$(RUNTIMEDIR)
 
 depend:
