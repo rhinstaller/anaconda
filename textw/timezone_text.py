@@ -81,10 +81,10 @@ class TimezoneWindow:
 	    self.l.append(tz, tz)
 
 	self.l.setCurrent(default)
-	self.l.setCallback(self.updateClock)
+#	self.l.setCallback(self.updateClock)
 
 	self.c = Checkbox(_("Hardware clock set to GMT?"), isOn = asUtc)
-	self.c.setCallback(self.updateSysClock)
+#	self.c.setCallback(self.updateSysClock)
 
 	self.g = GridFormHelp(screen, _("Time Zone Selection"), "timezone",
 			      1, 5)
@@ -110,6 +110,7 @@ class TimezoneWindow:
         while 1:
             result = self.g.run()
             rc = bb.buttonPressed (result)
+            
             if rc == "back":
                 screen.popWindow()
                 return INSTALL_BACK
