@@ -127,6 +127,8 @@ class LanguageSupportWindow:
 	else:
 	    current = None
 
+
+
         ct = CheckboxTree(height = 8, scroll = 1)
 
         for lang in languages:
@@ -135,40 +137,55 @@ class LanguageSupportWindow:
             else:
                 ct.append(lang, lang, 0)
 
+
         if langs != None:
             for lang in langs:
                 ct.setEntryValue(lang, 1)
 
-        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Select All"), "all"), (_("Reset"), "reset"), (_("Back"), "back")))
 
         message = (_("Choose the languages to be installed:"))
         width = len(message)
         tb = Textbox (width, 2, message)
 
         g = GridFormHelp (screen, _("Language Support"), "langsupport", 1, 4)
-
+        
         g.add (tb, 0, 0, (0, 0, 0, 0), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
         g.add (bb, 0, 3, growx = 1)
 
-        result = g.runOnce()
+        while 1:
+            result = g.run()
 
-        rc = bb.buttonPressed (result)
+            rc = bb.buttonPressed (result)
 
-        if rc == "back":
-            return INSTALL_BACK
+            if rc == "back":
+                screen.popWindow()
+                return INSTALL_BACK
 
-        # --If they selected all langs, then set todo.language.setSupported to 
-	# None.  This installs all langs
+            if rc == "all":
+                for lang in languages:
+                    ct.setEntryValue(lang, 1)
 
-	todo.language.setSupported (ct.getSelection())
-	
-	# we may need to reset the default language
-	default = todo.language.getDefault()
-	if default not in ct.getSelection():
-	    todo.language.setDefault(None)
+            if rc == "reset":
+                for lang in languages:
+                    if lang == current:
+                        ct.setEntryValue(lang, 1)
+                    else:
+                        ct.setEntryValue(lang, 0)
 
-        return INSTALL_OK
+            if rc == "ok" or result == "F12":
+                # --If they selected all langs, then set todo.language.setSupported to 
+                # None.  This installs all langs
+
+                todo.language.setSupported (ct.getSelection())
+
+                # we may need to reset the default language
+                default = todo.language.getDefault()
+                if default not in ct.getSelection():
+                    todo.language.setDefault(None)
+                screen.popWindow()
+                return INSTALL_OK
 
 
 class LanguageDefaultWindow:
@@ -979,7 +996,7 @@ class InstallInterface:
 	self.drawFrame()
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
-#	self.screen.suspendCallback(killSelf, self.screen)
+	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
 	#self.screen.suspendCallback(debugSelf, self.screen)
