@@ -40,13 +40,14 @@ class HeaderList:
 	self.packages = {}
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
-	    if self.packages.has_key(name):
-		score1 = rpm.archscore(h['arch'])
-		score2 = rpm.archscore(self.packages[name].h['arch'])
-		if (score1 < score2):
+	    score1 = rpm.archscore(h['arch'])
+	    if (score1):
+		if self.packages.has_key(name):
+		    score2 = rpm.archscore(self.packages[name].h['arch'])
+		    if (score1 < score2):
+			self.packages[name] = Package(h)
+		else:
 		    self.packages[name] = Package(h)
-	    else:
-		self.packages[name] = Package(h)
 
 class HeaderListFromFile (HeaderList):
 
