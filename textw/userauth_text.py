@@ -96,9 +96,9 @@ class UsersWindow:
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
 			 [ (_("User Name"), username),
+			   (_("Full Name"), fullname),
 			   (_("Password"), pass1),
-			   (_("Password (confirm)"), pass2),
-			   (_("Full Name"), fullname) ],
+			   (_("Password (confirm)"), pass2)],
 			 buttons = [ TEXT_OK_BUTTON, (cancelText, "cancel") ],
 			 help = helptag)
             
