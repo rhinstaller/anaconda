@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
 "POT-Creation-Date: 2001-03-14 11:37-0500\n"
-"PO-Revision-Date: 2001-03-15 11:22+0900\n"
+"PO-Revision-Date: 2001-03-17 09:09+0900\n"
 "Last-Translator: Jong-Hoon Ryu <queenrjh@chollian.net>\n"
 "Language-Team: Korean Linux Extension project <kle@kldp.org>\n"
 "MIME-Version: 1.0\n"
@@ -1011,7 +1011,7 @@ msgstr ""
 #: ../iw/upgrade_swap_gui.py:99 ../libfdisk/gnomefsedit.c:3132
 #: ../textw/upgrade_text.py:39 ../todo.py:1835 ../todo.py:1853
 msgid "Mount Point"
-msgstr "마운트할 이름"
+msgstr "마운트할 지점"
 
 #: ../todo.py:1835
 msgid "Space Needed"
@@ -2540,7 +2540,7 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"'Disk Druid' 는 파티션 및 마운트할 이름을 설정하기 위한 프로그램입니다. "
+"'Disk Druid' 는 파티션 및 마운트할 지점을 설정하기 위한 프로그램입니다. "
 "기존의 전통적인 리눅스 파티션 설정 프로그램인 'fdisk' 보다 사용하기 편하며, "
 "훨씬 강력합니다. 그러나, 때로는 'fdisk' 를 사용해야 하는 경우도 있습니다.\n"
 "\n"
@@ -2886,7 +2886,7 @@ msgstr "파티션 설정에 필요한 사항이 충족되지 않음"
 #: ../libfdisk/fsedit.c:944 ../libfdisk/fsedit.c:971 ../libfdisk/fsedit.c:984
 #: ../libfdisk/fsedit.c:994
 msgid "Bad Mount Point"
-msgstr "마운트할 이름의 오류"
+msgstr "마운트할 지점의 오류"
 
 #: ../libfdisk/fsedit.c:922
 #, c-format
@@ -2900,9 +2900,9 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"%s (은)는 마운트할 이름으로 사용하실 수 없습니다.\n"
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
 "\n"
-"마운트할 이름은 반드시 '/' 로 시작해야 합니다."
+"마운트할 지점은 반드시 '/' 로 시작해야 합니다."
 
 #: ../libfdisk/fsedit.c:936
 #, c-format
@@ -2911,9 +2911,9 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"%s (은)는 마운트할 이름으로 사용하실 수 없습니다.\n"
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
 "\n"
-"마운트할 이름의 끝부분에는 '/' 를 입력하지 마십시요."
+"마운트할 지점의 끝부분에 '/' 를 입력하지 마십시요."
 
 #: ../libfdisk/fsedit.c:945
 #, c-format
@@ -2922,9 +2922,9 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"%s (은)는 마운트할 이름으로 사용하실 수 없습니다.\n"
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
 "\n"
-"마운트할 이름은 출력가능한 문자로만 입력해 주십시요."
+"마운트할 지점은 출력가능한 문자로만 입력해 주십시요."
 
 #: ../libfdisk/fsedit.c:953
 msgid ""
@@ -2945,7 +2945,7 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"%s (은)는 마운트할 이름으로 사용하실 수 없습니다.\n"
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
 "\n"
 "시스템 파티션은 반드시 리눅스 파티션 상에 위치해야 합니다."
 
@@ -2961,7 +2961,7 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"%s (은)는 마운트할 이름으로 사용하실 수 없습니다.\n"
+"%s (은)는 마운트할 지점으로 사용하실 수 없습니다.\n"
 "\n"
 "'/usr' 은 반드시 리눅스 파티션 또는 NFS 볼륨 상에 위치해야 합니다."
 
@@ -3147,7 +3147,7 @@ msgstr "파티션 편집"
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:2033
 #: ../libfdisk/newtfsedit.c:392
 msgid "Mount Point:"
-msgstr "마운트할 이름:"
+msgstr "마운트할 지점:"
 
 #: ../libfdisk/gnomefsedit.c:967 ../libfdisk/newtfsedit.c:411
 msgid "Size (Megs):"
@@ -3184,21 +3184,21 @@ msgstr "할당 가능한 드라이브:"
 #: ../libfdisk/gnomefsedit.c:1237 ../libfdisk/gnomefsedit.c:2270
 #: ../libfdisk/newtfsedit.c:615
 msgid "No Mount Point"
-msgstr "마운트할 이름이 지정되지 않음"
+msgstr "마운트할 지점이 지정되지 않음"
 
 #: ../libfdisk/gnomefsedit.c:1238 ../libfdisk/newtfsedit.c:616
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"이 파티션에 마운트할 이름을 지정하지 않으셨습니다. 지정되지 않은채로 "
+"이 파티션에 마운트할 지점을 지정하지 않으셨습니다. 지정되지 않은채로 "
 "놔두시겠습니까?"
 
 #: ../libfdisk/gnomefsedit.c:1262 ../libfdisk/gnomefsedit.c:1299
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:639
 #: ../libfdisk/newtfsedit.c:672
 msgid "Mount Point Error"
-msgstr "마운트할 이름의 오류"
+msgstr "마운트할 지점의 오류"
 
 #: ../libfdisk/gnomefsedit.c:1263 ../libfdisk/newtfsedit.c:640
 msgid ""
@@ -3207,17 +3207,17 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"FAT-형식의 파티션에 마운트할 이름을 '/' 로 지정하셨습니다.  '/' 는 이미 "
-"'ext2' 파티션에 마운트할 이름으로 지정되었기 때문에 이 이름으로는 지정하실 "
-"수 없습니다.  이 파티션을 '/' 로 지정하시려면, 앞서 다른 곳에 지정하신 "
-"마운트할 이름 '/' 를 다른 이름으로 변경하시거나 지워주십시요."
+"FAT-형식의 파티션에 마운트할 지점을 '/' 로 지정하셨습니다.  '/' 는 이미 "
+"'ext2' 파티션에 마운트할 지점으로 지정되었기 때문에 이 위치로는 지정하실 수 "
+"없습니다.  이 파티션을 '/' 로 지정하시려면, 앞서 다른 곳에 지정하신 '/' 의 "
+"마운트할 지점을 다른 위치로 변경하시거나 지워주십시요."
 
 #: ../libfdisk/gnomefsedit.c:1300 ../libfdisk/newtfsedit.c:673
 msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
-"여러분이 지정하신 마운트할 이름은 잘못된 경로이거나 이미 지정되어 있습니다. "
+"여러분이 지정하신 마운트할 지점은 잘못된 경로이거나 이미 지정되어 있습니다. "
 "다시한번 확인하시고 지정해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:1333 ../libfdisk/newtfsedit.c:698
@@ -3379,7 +3379,7 @@ msgstr "RAID 어레이 파티션:"
 #: ../libfdisk/gnomefsedit.c:2271
 msgid "You have not selected a mount point. A mount point is required."
 msgstr ""
-"마운트할 이름을 지정하지 않으셨습니다. 마운트할 이름은 반드시 지정해 주셔야 "
+"마운트할 지점을 지정하지 않으셨습니다. 마운트할 지점은 반드시 지정해 주셔야 "
 "합니다."
 
 #: ../libfdisk/gnomefsedit.c:2279
@@ -3387,7 +3387,7 @@ msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"여러분이 지정하신 마운트할 이름은 이미 지정되어 있습니다. 다시한번 "
+"여러분이 지정하신 마운트할 지점은 이미 지정되어 있습니다. 다시한번 "
 "확인하시고 지정해 주십시요."
 
 #: ../libfdisk/gnomefsedit.c:2315
@@ -3449,7 +3449,7 @@ msgstr "부트 파티션(/boot) 은 'RAID-1' 유형에서만 지정하실 수 있습니다."
 
 #: ../libfdisk/gnomefsedit.c:2373
 msgid "Illegal RAID mountpoint"
-msgstr "RAID 장치의 마운트할 이름 오류"
+msgstr "RAID 장치의 마운트할 지점 오류"
 
 #: ../libfdisk/gnomefsedit.c:2375
 msgid ""
@@ -3467,7 +3467,7 @@ msgid ""
 "possible to boot from this partition?"
 msgstr ""
 "%s 파티션은 이 RAID 장치를 구성하고 있는 파티션 중 이전에 설정되어 있던 "
-"파티션이며, 마운트할 이름은 '/boot' 로 지정되어 있습니다.  이 파티션을 부팅 "
+"파티션이며, 마운트할 지점은 '/boot' 로 지정되어 있습니다.  이 파티션을 부팅 "
 "파티션으로 하시겠습니까?"
 
 #: ../libfdisk/gnomefsedit.c:2466
@@ -3646,7 +3646,7 @@ msgstr "드라이브의 파티션 상황"
 
 #: ../libfdisk/newtfsedit.c:1467
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr "  마운트할 이름          장치      설정 용량  실제 용량       유형"
+msgstr "  마운트할 지점          장치      설정 용량  실제 용량       유형"
 
 #: ../libfdisk/newtfsedit.c:1491
 msgid ""
@@ -3692,7 +3692,7 @@ msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
 msgstr ""
-"설치를 계속 진행하기 위해서는 '/boot/efi' 의 마운트할 이름을 반드시 "
+"설치를 계속 진행하기 위해서는 '/boot/efi' 의 마운트할 지점을 반드시 "
 "FAT-형식의 첫번째 파티션에 지정하셔야 합니다."
 
 #: ../libfdisk/newtfsedit.c:1681
