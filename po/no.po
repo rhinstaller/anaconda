@@ -1314,9 +1314,8 @@ msgid "Create boot disk"
 msgstr "Lag oppstartsdiskett"
 
 #: ../iw/lilo_gui.py:300
-#, fuzzy
 msgid "Install LILO"
-msgstr "Installér"
+msgstr "Installér LILO"
 
 #: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1342,9 +1341,8 @@ msgid "Boot label"
 msgstr "Oppstartsnavn"
 
 #: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Sett standard PROM oppstartsenhet"
+msgstr "Sett standard bootfil"
 
 #: ../iw/mouse_gui.py:132 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1428,18 +1426,16 @@ msgid "Total install size: "
 msgstr "Total størrelse for installasjon: "
 
 #: ../iw/package_gui.py:367
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Størrelse (MB):"
+msgstr "Størrelse (MB)"
 
 #: ../iw/package_gui.py:396
-#, fuzzy
 msgid "Total size: "
-msgstr "Total størrelse"
+msgstr "Total størrelse: "
 
 #: ../iw/package_gui.py:399
 msgid "Select all in group"
-msgstr ""
+msgstr "Velg alle i gruppen"
 
 #: ../iw/package_gui.py:403
 msgid "Unselect all in group"
@@ -1678,13 +1674,12 @@ msgid "Test failed"
 msgstr "Testen feilet"
 
 #: ../iw/xconfig_gui.py:24
-#, fuzzy
 msgid "Customize Graphics Configuration"
 msgstr "Tilpass konfigurasjon av X"
 
 #: ../iw/xconfig_gui.py:214
 msgid "Color Depth:"
-msgstr ""
+msgstr "Fargedybde:"
 
 #: ../iw/xconfig_gui.py:242
 msgid "Screen Resolution:"
@@ -1763,9 +1758,8 @@ msgid "Autoprobe results:"
 msgstr "Resultater etter autosøk:"
 
 #: ../iw/xconfig_gui.py:1553
-#, fuzzy
 msgid "Video card RAM: "
-msgstr "Skjermkort"
+msgstr "Minne på skjermkort: "
 
 #: ../iw/xconfig_gui.py:1644
 msgid "Test this configuration"
@@ -1921,14 +1915,12 @@ msgid "Primary nameserver:"
 msgstr "Primær navnetjener:"
 
 #: ../textw/network_text.py:73
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Primær navnetjener:"
+msgstr "Sekundær navnetjener:"
 
 #: ../textw/network_text.py:74
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Primær navnetjener:"
+msgstr "Tertiær navnetjener:"
 
 #: ../textw/network_text.py:122
 msgid "Invalid information"
@@ -3143,9 +3135,9 @@ msgid "Loading"
 msgstr "Laster"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "Laster %s-ramdisk..."
+msgstr "Laster driver %s..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3376,14 +3368,12 @@ msgid "Reading anaconda updates..."
 msgstr "Leser anaconda-oppdateringer..."
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "IDE"
-msgstr "KDE"
+msgstr "IDE"
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "Initializing IDE modules..."
-msgstr "Initierer CD-ROM..."
+msgstr "Initierer IDE-moduler..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3608,9 +3598,8 @@ msgid "Web site name:"
 msgstr "Navn på WWW-område:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
-msgstr "Bruk ikke-anonym ftp eller en proxytjener"
+msgstr "Bruk ikke-anonym ftp"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
@@ -3789,9 +3778,8 @@ msgstr "Web-tjener"
 msgid "DNS Name Server"
 msgstr "DNS navnetjener"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "NFS-tjener"
+msgstr "SQL-tjener"
 
 msgid "Network Management Workstation"
 msgstr "Arbeidsstasjon for nettverksadministrasjon"
