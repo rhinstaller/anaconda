@@ -674,7 +674,7 @@ def doPostInstall(method, id, intf, instPath):
 	return
     
     w = intf.progressWindow(_("Post Install"),
-                            _("Performing post install configuration..."), 7)
+                            _("Performing post install configuration..."), 5)
 
     upgrade = id.upgrade.get()
     arch = iutil.getArch ()
@@ -786,13 +786,6 @@ def doPostInstall(method, id, intf, instPath):
 	    migrateXinetd(instPath, instLogName)
 
         w.set(5)
-
-	if flags.setupFilesystems:
-	    f = open("/tmp/cleanup", "w")
-	    method.writeCleanupPath(f)
-	    f.close()
-
-	w.set(6)
 
     finally:
 	pass
