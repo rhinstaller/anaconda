@@ -36,6 +36,8 @@ class BaseInstallClass:
     description = None
     name = "base"
     pkgstext = ""
+    # default to showing the upgrade option
+    showUpgrade = 1
 
 #     pkgstext = _("\tDesktop shell (GNOME)\n"
 #                  "\tOffice suite (OpenOffice)\n"
@@ -185,6 +187,10 @@ class BaseInstallClass:
             
         if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
+
+        # allow install classes to turn off the upgrade 
+        if self.showUpgrade == 0:
+            dispatch.skipStep("findrootparts", skip = 1)
 
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
