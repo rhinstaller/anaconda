@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install 1.130\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-03-16 01:31+0000\n"
+"PO-Revision-Date: 2004-06-14 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@ra.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -988,11 +988,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Eftirfarandi villa kom upp við þáttun hraðuppsetningarskrárarinnar:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Villa við opnun hraðuppsetningarskrár %s: %s"
+msgstr "Villa við þáttun hraðuppsetningarskrár"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1003,9 +1005,8 @@ msgstr ""
 "eytt svo veldu disklinginn vel."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Sjálfgefið"
+msgstr "sjálfgefið:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1159,9 +1160,9 @@ msgid "Change CDROM"
 msgstr "Skipta um geisladisk"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Vinsamlegast settu inn disk %d til að halda áfram."
+msgstr "Vinsamlegast settu inn %s disk %d til að halda áfram."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1174,7 +1175,7 @@ msgstr "Þetta er ekki rétti %s geisladiskurinn."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Get ekki opnað geisladrifið."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2438,9 +2439,8 @@ msgid "Connecting..."
 msgstr "Tengist..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Get ekki lesið skrá!"
+msgstr "Get ekki ræst X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2448,25 +2448,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Það var ekki hægt að ræsa X á vélinni.  Viltu ræsa VNC til að tengjast "
+"þessari vél frá annari og framkvæma myndræna uppsetningu eða halda "
+"áfram í textaham?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Nota textaham"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Ræsi VNC..."
+msgstr "Ræsa VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Stillingar Silo"
+msgstr "Stillingar VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Rótarlykilorð"
+msgstr "Ekkert lykilorð"
 
 #: ../vnc.py:62
 msgid ""
@@ -2474,6 +2474,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Lykilorð mun koma í veg fyrir að óprúttnir aðilar tengist og fylgjast með "
+"framgangi uppsetningarinnar.  Vinsamlegast gefðu upp lykilorð til að nota "
+"í uppsetningunni"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2496,9 +2499,8 @@ msgid "Password Length"
 msgstr "Lengd lykilorðs"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Lykilorðið verður að vera a.m.k. 6 stafir að lengd."
+msgstr "Lykilorðið verður að vera minnst 6 stafir að lengd."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2542,6 +2544,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Rótarnotandinn er notaður í kerfisstjórnun vélarinnar.  Sláðu inn lykilorð "
+"fyrir rótarnotandann."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3194,7 +3198,7 @@ msgstr "_Virkja eldvegginn"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Leyfa öðrum á internetinu að nota þessar þjónustur."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3202,21 +3206,19 @@ msgstr "_Leyfa tengingar inn:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Fjarvinnsla (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "Þ_jónn"
+msgstr "Vefþjónn"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Póstur (SMTP)"
+msgstr "Póstþjónn (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Skráaflutningur (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -6731,32 +6733,28 @@ msgstr ""
 "rekladiskling. Hvert þeirra viltu nota við uppsetninguna?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Þú hefur fleiri en eitt drif í vélinni þinni sem nota má fyrir "
-"rekladiskling. Hvert þeirra viltu nota við uppsetninguna?"
+"Þú hefur fleiri en ein disksneið í vélinni þinni sem gæti innihaldið "
+"rekladiskmyndina. Hvert þeirra viltu reyna?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Gat ekki tengt uppfærsludisklinginn"
+msgstr "Gat ekki tengt disksneiðina."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Veldu rekil"
+msgstr "Veldu rekladiskmynd."
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Veldu skrána sem er með rekladiskmyndina."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Gat ekki tengt rekladisklinginn."
+msgstr "Gat ekki lesið rekladisklinginn úr skrá."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7103,9 +7101,9 @@ msgid "Add Device"
 msgstr "Bæta við tæki"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "lesarinn hefur þegar verið keyrður. Ræsi skel."
+msgstr "lesarinn hefur þegar verið keyrður. Ræsi skel.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
@@ -7244,19 +7242,21 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s er þráðlaust netkort. Vinsamlegast gefðu upp ESSID númer og dulritunarlykil "
+"þann sem þarf til að nota þráðlausa netið. Ef þessi gildi eru óþörf má skilja "
+"við þetta tómt og uppsetningin mun halda áfram."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Dulritunarlykill"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Ýmsar stillingar"
+msgstr "Stillingar þráðlausra neta"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
@@ -8278,24 +8278,3 @@ msgstr "Velska"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zúlú"
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Ekki tókst að tengja geisladrifið."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Sláðu inn rótarlykilorðið fyrir kerfisstjóra þessarar vélar."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "_Sérsniðinn eldveggur"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Hvaða þjónustur viltu leyfa að komast í gegnum eldvegginn?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Ef þú vilt leyfa alla umferð frá einhverju netkorti skaltu velja það að "
-#~ "neðan."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "_Tæki sem er treyst:"
