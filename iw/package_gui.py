@@ -497,19 +497,21 @@ class PackageSelectionWindow (InstallWindow):
 
     def componentToggled(self, widget, data):
         # turn on all the comps we selected
-	(comp, lbl, ebutton) = data
+	(comp, lbl, al, ebutton) = data
 	if widget.get_active ():
+            if ebutton:
+                al.add(ebutton)
+                al.show_all()
 	    comp.select ()
 	else:
+            if ebutton in al.get_children():
+                al.remove(ebutton)
 	    comp.unselect ()
 
 	self.setSize()
 	
 	if lbl:
 	    self.setCompLabel(comp, lbl)
-
-        if ebutton:
-            ebutton.set_sensitive(widget.get_active())
 
         ### XXX - need to i18n??
         if comp.name == "Everything":
@@ -851,19 +853,22 @@ class PackageSelectionWindow (InstallWindow):
 		checkButton.add(hdrlabel)
 		hdrhbox.pack_start(checkButton, gtk.FALSE, gtk.FALSE, 10)
 
+                buttonal = gtk.Alignment(1.0, 0.0)
+                buttonal.set_size_request(-1, 20)
+                hdrhbox.pack_start(buttonal, gtk.TRUE, gtk.TRUE, 50)
+
 		# now make the url looking button for details
 		if comp.name != u"Everything":
 		    nlbl = gtk.Label("")
-		    nlbl.set_markup('<span foreground="#3030c0"><u>%s</u></span>' % (_('Details'),))
+                    selected = comp.isSelected(justManual = 1)
+                    nlbl.set_markup('<span foreground="#3030c0"><u>%s</u></span>' % (_('Details'),))
 		    editbutton = gtk.Button()
 		    editbutton.add(nlbl)
 		    editbutton.set_relief(gtk.RELIEF_NONE)
-		    al = gtk.Alignment(1.0, 0.0)
-		    al.add(editbutton)
-		    hdrhbox.pack_start(al, gtk.TRUE, gtk.TRUE, 50)
 		    editbutton.connect("clicked", self.editDetails,
 				       (comp, hdrlabel))
-		    editbutton.set_sensitive(comp.isSelected(justManual = 1))
+                    if comp.isSelected(justManual = 1):
+                        buttonal.add(editbutton)
 		else:
 		    editbutton = None
 
@@ -899,7 +904,7 @@ class PackageSelectionWindow (InstallWindow):
 
 		checkButton.set_active (comp.isSelected(justManual = 1))
 		checkButton.connect('toggled', self.componentToggled,
-				    (comp, hdrlabel, editbutton))
+				    (comp, hdrlabel, buttonal, editbutton))
 		self.checkButtons.append ((hdrhbox, dhbox, comp))
 
 		tmphbox = gtk.HBox(gtk.FALSE)
