@@ -558,6 +558,10 @@ for p in $DEST $DESTGR; do
 	rm -rf $p/boot $p/home $p/root $p/tmp
 
 	find $p -name "*.a" | grep -v "usr/X11R6/lib/modules" | xargs rm -rf
+	find $p -name "lib*.la" | xargs rm -rf
+	for f in newt popt rpm rpmio; do
+	    rm -f $p/usr/lib/lib$f.so
+	done
 
 	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
