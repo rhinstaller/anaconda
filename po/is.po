@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.56\n"
+"Project-Id-Version: install 1.61\n"
 "POT-Creation-Date: 2000-06-30 14:48-0400\n"
 "PO-Revision-Date: 2000-07-07 21:09+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
@@ -74,7 +74,7 @@ msgid ""
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 "Óeðlilegt ástand hefur komið upp. Orsökin er líklegast böggur. Vinsamlegast "
-"afritaðu allann textann hérna og sendu inn villutylkinningu á "
+"afritaðu allann textann hérna og sendu inn villutilkynningu á "
 "http://bugzilla.redhat.com/bugzilla"
 
 #: ../gui.py:329 ../gui.py:569
@@ -146,7 +146,7 @@ msgstr "Red Hat Linux uppsetningarforritið á %s"
 #: ../gui.py:551
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux uppsetningaskél á %s"
+msgstr "Red Hat Linux uppsetningaskel á %s"
 
 #: ../gui.py:646
 msgid "Install Window"
@@ -158,7 +158,7 @@ msgstr "Afrita skrá"
 
 #: ../image.py:34
 msgid "Transferring install image to hard drive..."
-msgstr "Flyt uppsetningarskrár á harðadiskinn..."
+msgstr "Flyt uppsetningarskrár á harða diskinn..."
 
 #: ../image.py:51
 msgid "Change CDROM"
@@ -772,7 +772,7 @@ msgstr ""
 
 #: ../todo.py:870
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægjanlegt diskapláss?"
+msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
 
 #: ../todo.py:1168
 msgid "Processing"
@@ -798,7 +798,7 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Þú virðist ekki hafa nægjanlegt diskpláss til að setja upp þá pakka sem þú "
+"Þú virðist ekki hafa nægjanlegt diskrými til að setja upp þá pakka sem þú "
 "valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
 "\n"
 
@@ -2005,7 +2005,7 @@ msgstr "Þú verður að gefa upp notandanafn"
 
 #: ../textw/userauth_text.py:109
 msgid "The password must be at least 6 characters long."
-msgstr "Lykilorðið verður að vera amk 6 stafir að lengd."
+msgstr "Lykilorðið verður að vera a.m.k. 6 stafir að lengd."
 
 #: ../textw/userauth_text.py:125 ../textw/userauth_text.py:133
 msgid "User Exists"
@@ -2409,7 +2409,7 @@ msgstr "Loka"
 
 #: ../libfdisk/gnomefsedit.c:1270
 msgid "You must constrain this partition to at least one drive."
-msgstr "Þú verður að takmarka þessa sneið við amk. eitt drif."
+msgstr "Þú verður að takmarka þessa sneið við a.m.k. eitt drif."
 
 #: ../libfdisk/gnomefsedit.c:1278 ../libfdisk/gnomefsedit.c:1285
 msgid "No RAID Drive Constraint"
@@ -2776,7 +2776,7 @@ msgstr "Núverandi disksneiðar"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
-"    F1-Hjálp   F2-Bæta við  F3-Sýsl   F4-Eyða      F5-Frumstilla F12-Í lagi  "
+"    F1-Hjálp   F2-Bæta við  F3-Breyta   F4-Eyða   F5-Frumstilla  F12-Í lagi  "
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "Drive Summaries"
@@ -3188,7 +3188,7 @@ msgstr ""
 
 #: ../loader/net.c:239
 msgid "Nameserver IP"
-msgstr "Nafnaþjónn IP"
+msgstr "IP vistfang nafnaþjóns"
 
 #: ../loader/net.c:243 ../loader/net.c:725
 msgid "Nameserver"
@@ -3356,7 +3356,7 @@ msgstr "Vefþjónn:"
 
 #: ../loader/urls.c:200
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "Nota ekki-nafnlaust FTP eða ftp-sel"
+msgstr "Nota \"non-anonymous\" FTP eða ftp-sel"
 
 #: ../loader/urls.c:205
 msgid "Use proxy server"
@@ -3497,7 +3497,7 @@ msgid "IPX/Netware(tm) Connectivity"
 msgstr "IPX/Netware(tm) samskipti"
 
 msgid "Anonymous FTP Server"
-msgstr "Þjónn fyrir afnlaust FTP"
+msgstr "Þjónn fyrir nafnlaust FTP"
 
 msgid "Web Server"
 msgstr "Vefþjónn"
