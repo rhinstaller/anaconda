@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.29
+Version: 10.2.0.30
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 22 2005 Chris Lumens <clumens@redhat.com> 10.2.0.30-1
+- Try harder on the libstdc++ include.
+- Fix /etc/resolv.conf fir interactive kickstart installs (#151472).
+
 * Mon Mar 21 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.29-1
 - Fix beta nag translation
 - Fix button growing (clumens, #151208)
