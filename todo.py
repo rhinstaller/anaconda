@@ -1381,24 +1381,22 @@ class ToDo:
 	self.installLilo ()
 
 	if self.instClass.postScript:
+	    scriptRoot = "/"
 	    if self.instClass.postInChroot:
-		path = self.instPath + "/tmp/ks-script"
-	    else:
-		path = "/tmp/ks-script"
+		scriptRoot = self.instPath	
+
+	    path = scriptRoot + "/tmp/ks-script"
 
 	    f = open(path, "w")
 	    f.write("#!/bin/sh\n\n")
 	    f.write(self.instClass.postScript)
 	    f.close()
 
-	    if self.instClass.postInChroot:
-		iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
-			"/tmp/ks-script" ], root = self.instPath)
-	    else:
-		iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
-				"/tmp/ks-script"])
+	    iutil.execWithRedirect ("/bin/sh", ["/bin/sh", 
+		    "/tmp/ks-script" ], stdout = "/dev/tty3",
+		    stderr = "/dev/tty3", root = scriptRoot)
 				    
-	    os.unlink(path)
+	    #os.unlink(path)
 
 	del syslog
         

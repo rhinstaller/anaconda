@@ -36,6 +36,13 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     if (not childpid):
         if (root != '/'): isys.chroot (root)
 
+	if type(stdin) == type("a"):
+	    stdin == os.open(stdin, os.O_RDONLY)
+	if type(stdout) == type("a"):
+	    stdout == os.open(stdout, os.O_RDWR)
+	if type(stderr) == type("a"):
+	    stderr = os.open(stderr, os.O_RDWR)
+
 	if stdin != 0:
 	    os.dup2(stdin, 0)
 	    os.close(stdin)

@@ -36,12 +36,20 @@ struct moduleInfo * isysGetModuleList(moduleInfoSet mis,
 struct moduleInfo * isysFindModuleInfo(moduleInfoSet mis, 
 				       const char * moduleName) {
     int i;
+    struct moduleInfo * found = NULL;
 
     for (i = 0; i < mis->numModules; i++) {
-	if (!strcmp(moduleName, mis->moduleList[i].moduleName))
-	    return mis->moduleList + i;
+	if (!strcmp(moduleName, mis->moduleList[i].moduleName)) {
+	    if (!found)
+		found = mis->moduleList + i;
+	    else if (found->path && !mis->moduleList[i].path)
+		;
+	    else
+		found = mis->moduleList + i;
+	}
     }
-    return NULL;
+
+    return found;
 }
 
 moduleInfoSet isysNewModuleInfoSet(void) {
