@@ -281,7 +281,8 @@ class CdromInstallMethod(ImageInstallMethod):
 
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 
-		    _("Please insert disc %d to continue.") % needed)
+		    _("Please insert %s disc %d to continue.") % (productName,
+                                                                  needed))
 
 		try:
 		    if isys.mount(self.device, "/mnt/source", 
@@ -323,7 +324,7 @@ class CdromInstallMethod(ImageInstallMethod):
 			isys.ejectCdrom(self.device)
 		except:
 		    self.messageWindow(_("Error"), 
-			    _("The CDROM could not be mounted."))
+			    _("Unable to access the CDROM."))
 
 	    timer.start()
 
@@ -520,7 +521,10 @@ class NfsIsoInstallMethod(NfsInstallMethod):
 		missing_string += "\t\t\tCD #%d\n" % (missing,)
 
 	    self.messageWindow(_("Error"),
-			       _("The following ISO images are missing which are required for the install:\n\n%s\nThe system will now reboot.") % missing_string)
+			       _("The following ISO images are missing which "
+                                 "are required for the install:\n\n%s\n"
+                                 "The system will now reboot.") %
+                               (missing_string,))
 	    sys.exit(0)
 
 	return hl
