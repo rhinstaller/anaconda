@@ -56,6 +56,7 @@ extraModules = []
 
 # display mode is either 'g' for graphical or 't' for text
 display_mode = 'g'
+forced_display_mode = None
 
 # booleans - value is 0 for false or non-zero for true
 # test           - in test mode?
@@ -101,9 +102,9 @@ for n in args:
     (str, arg) = n
 
     if (str == '-G' or str == '--gui'):
-	display_mode = 'g'
+	forced_display_mode = 'g'
     elif (str == '-T' or str == '--text'):
-	display_mode = 't'
+	forced_display_mode = 't'
     elif (str == '-R' or str == '--reconfig'):
 	reconfigOnly = 1
         progmode = 'reconfig'
@@ -120,7 +121,7 @@ for n in args:
 	debug = 1
     elif (str == '--kickstart'):
 	kickstart = arg
-	display_mode = 't'
+	forced_display_mode = 't'
     elif (str == '-r' or str == '--rootpath'):
 	rootPath = arg
 	localInstall = 1
@@ -190,7 +191,24 @@ from kickstart import Kickstart
 #
 if (not test):
     if (iutil.memInstalled() < 30000):
-	display_mode = 't'
+	forced_display_mode = 't'
+
+#
+# if in reconfig mode set display mode based on inittab default runlevel
+#
+# but always let command line specified mode override defaults
+#
+if (forced_display_mode == None):
+    if (reconfigOnly != 0):
+        if (iutil.getDefaultRunlevel() == '5' and
+            os.access("/etc/X11/XF86Config", os.R_OK)):
+                display_mode = 'g'
+        else:
+                display_mode = 't'
+    else:
+        display_mode = 'g'
+else:
+    display_mode = forced_display_mode
 
 #
 # startup X server is we're not already running under an X session
@@ -198,7 +216,11 @@ if (not test):
 if (display_mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
     try:
-        result = xserver.startX ()
+        if (reconfigOnly == 0):
+            result = xserver.startX ()
+        else:
+            result = xserver.start_existing_X ()
+            
     except RuntimeError:
 	print "X startup failed, falling back to text mode"
         display_mode = 't'

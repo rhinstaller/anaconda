@@ -154,3 +154,17 @@ def mkdirChain(dir):
 	
 	if (not os.path.isdir(path)): 
 	    os.mkdir(path, 0755)
+
+#
+# get default runlevel - only for use in reconfig mode
+#
+def getDefaultRunlevel ():
+    inittab = open ('/etc/inittab', 'r')
+    lines = inittab.readlines ()
+    inittab.close ()
+    for line in lines:
+        if len (line) > 3 and line[:3] == "id:":
+            fields = string.split (line, ':')
+            return fields[1]
+
+    return None
