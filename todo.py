@@ -742,8 +742,23 @@ class ToDo:
         self.getCompsList ()
 	self.getHeaderList ()
 
-        packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
+        self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
+        rpm.addMacro("_dbpath_rebuild", self.dbpath);
 
+        # now, set the system clock so the timestamps will be right:
+        iutil.setClock (self.instPath)
+        
+        # and rebuild the database so we can run the dependency problem
+        # sets against the on disk db
+        rc = rpm.rebuilddb (self.instPath)
+        if rc:
+            self.intf.messageWindow(_("Error"),
+                                    _("Rebuild of RPM database failed. "
+                                      "You may be out of disk space?"))
+            raise RuntimeError, "Rebuild of RPM database failed."
+
+        rpm.addMacro("_dbpath", self.dbpath);
+        packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
         # unselect all packages
         for package in self.hdList.packages.values ():
             package.selected = 0
@@ -763,23 +778,7 @@ class ToDo:
             if package[rpm.RPMTAG_NAME] == "gmc":
                 hasgmc = 1
 
-        self.dbpath = "/var/lib/anaconda-rebuilddb" + str(int(time.time()))
-        rpm.addMacro("_dbpath_rebuild", self.dbpath);
-
-        # now, set the system clock so the timestamps will be right:
-        iutil.setClock (self.instPath)
-        
-        # and rebuild the database so we can run the dependency problem
-        # sets against the on disk db
-        rc = rpm.rebuilddb (self.instPath)
-        if rc:
-            self.intf.messageWindow(_("Error"),
-                                    _("Rebuild of RPM database failed. "
-                                      "You may be out of disk space?"))
-            raise RuntimeError, "Rebuild of RPM database failed."
-
         # open up the database to check dependencies
-        rpm.addMacro("_dbpath", self.dbpath);
         db = rpm.opendb (0, self.instPath)
 
         # if we have X but not gmc, we need to turn on GNOME.  We only
