@@ -379,7 +379,7 @@ static char ** lateModuleSort(char **allmods, int num) {
                           "lpfc", "ibmvscsic", NULL };
     char ** lateMods;
 
-    modList = alloca(sizeof(*modList) * (num + 1));
+    modList = malloc(sizeof(*modList) * (num + 1));
 
     lateMods = alloca(sizeof(*lateMods) * 10);
     lateMods = memset(lateMods, 0, 10);

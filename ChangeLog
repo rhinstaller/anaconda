@@ -1,5 +1,7 @@
 2004-11-08  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/modules.c: fix corruption that led to sig11s in the loader
+
 	* text.py (InstallInterface.run): Fallback to English for
 	languages that can't do text-mode (#138308)
 
