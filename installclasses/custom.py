@@ -18,8 +18,11 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
 
-        autorequests = [ ("/", None, 700, None, 1, 1),
-                         ("/boot", None, 50, None, 0, 1) ]
+        autorequests = [ ("/", None, 700, None, 1, 1) ]
+
+        bootreq = getAutopartitionBoot()
+        if bootreq:
+            autorequests.append(bootreq)
 
         (minswap, maxswap) = iutil.swapSuggestion()
         autorequests.append((None, "swap", minswap, maxswap, 1, 1))

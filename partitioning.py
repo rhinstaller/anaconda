@@ -1003,6 +1003,15 @@ def autoCreatePartitionRequests(autoreq):
 
     return requests
 
+# returns shorthand (see above) request for the "boot" dir
+# depends on arch 
+def getAutopartitionBoot():
+    if iutil.getArch() == "ia64":
+        return ("/boot/efi", "vfat", 100, None, 0, 1)
+    else:
+        return ("/boot", None, 50, None, 0, 1)
+        
+
 def confirmDeleteRequest(intf, request):
     if request.device:
         errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
