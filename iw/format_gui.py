@@ -26,16 +26,15 @@ class FormatWindow (InstallWindow):
 
         box = GtkVBox (FALSE, 10)
 
-        mounts = self.todo.fstab.mountList()
+        mounts = self.todo.fstab.formattablePartitions()
 
 	gotOne = 0
 	for (mount, dev, fstype, format, size) in mounts:
-            if fstype == "ext2":
-		gotOne = 1
-                checkButton = GtkCheckButton ("/dev/%s   %s" % (dev, mount))
-                checkButton.set_active (format)
-                checkButton.connect ("toggled", toggled, (self.todo, dev))
-                box.pack_start (checkButton)
+	    gotOne = 1
+	    checkButton = GtkCheckButton ("/dev/%s   %s" % (dev, mount))
+	    checkButton.set_active (format)
+	    checkButton.connect ("toggled", toggled, (self.todo, dev))
+	    box.pack_start (checkButton)
 
 	if not gotOne: return None
 
