@@ -247,6 +247,7 @@ iutil.setMemoryOverhead(overhead)
 #
 if (not test):
     if (iutil.memInstalled() < isys.MIN_GUI_RAM):
+        print _("You do not have enough RAM to use the graphical installer.  Starting text mode.")
 	forced_display_mode = 't'
 
 if iutil.memInstalled() < isys.MIN_RAM:
@@ -425,9 +426,11 @@ if not reconfigOnly:
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
     elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
+        print _("Graphical installation not available for %s installs.  Starting text mode.") % (string.split(method, ':')[0],)
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method)
     elif (method[0:5] == "hd://"):
+        print _("Graphical installation not available for hard drive installs.  Starting text mode.") % (string.split(method, ':')[0],)
         method = method[5:]
 
         i = string.index(method, ":")
