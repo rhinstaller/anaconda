@@ -249,6 +249,7 @@ class LiloConfiguration:
             iutil.execWithRedirect("/sbin/mkinitrd",
                                   [ "/sbin/mkinitrd",
 				    "--ifneeded",
+                                    "-f",
                                     initrd,
                                     kernelTag[1:] ],
                                   stdout = None, stderr = None, searchPath = 1,
@@ -332,6 +333,12 @@ class LiloConfiguration:
 	smpInstalled = (hdList.has_key('kernel-smp') and 
                         hdList['kernel-smp'].selected)
 
+	kernelInstalled = (hdList.has_key('kernel') and 
+                           hdList['kernel'].selected)
+
+        enterpriseInstalled = (hdList.has_key('kernel-enterprise') and 
+                               hdList['kernel-enterprise'].selected)
+        
 	# This is a bit odd, but old versions of Red Hat could install
 	# SMP kernels on UP systems, but (properly) configure the UP version.
 	# We don't want to undo that, but we do want folks using this install
@@ -362,13 +369,12 @@ class LiloConfiguration:
 
 	mainLabelUsed = 0
 
-	if (needsEnterpriseKernel() and hdList.has_key('kernel-enterprise') and 
-                        hdList['kernel-enterprise'].selected):
+	if needsEnterpriseKernel() and enterpriseInstalled:
 	    mainLabelUsed = 1
 	    kernelList.append((main,
 			      hdList['kernel-enterprise'], "enterprise"))
 
-	if (smpInstalled):
+	if smpInstalled:
 	    thisLabel = main
 	    if mainLabelUsed:
 		thisLabel = thisLabel + '-smp'
@@ -380,7 +386,8 @@ class LiloConfiguration:
 	if mainLabelUsed:
 	    thisLabel = thisLabel + '-up'
 
-	kernelList.append((thisLabel, hdList['kernel'], ""))
+        if kernelInstalled:
+            kernelList.append((thisLabel, hdList['kernel'], ""))
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel[rpm.RPMTAG_VERSION],
@@ -511,13 +518,13 @@ class LiloConfiguration:
 
 if __name__ == "__main__":
     config = LiloConfigFile ()
-    config.read ('/etc/lilo.conf')
+    config.read ('lilo.conf')
     print config
     print "image list", config.listImages()
     config.delImage ('linux')
     print '----------------------------------'
     config = LiloConfigFile ()
-    config.read ('/etc/lilo.conf')
+    config.read ('lilo.conf')
     print config
     print '----------------------------------'    
     print config.getImage('linux')
