@@ -855,11 +855,11 @@ class ToDo:
         # want to turn on packages we don't have installed already, though.
         if hasX and not hasgmc:
             log ("Has X but not GNOME")
-            for package in self.comps['GNOME'].items.keys ():
+            for package in self.comps['GNOME'].pkgs:
                 rec = db.findbyname (package.name)
                 if not rec:
                     log ("GNOME: Adding %s", package)
-                    self.comps['GNOME'].items[package].select()
+                    package.select()
             
         del db
         self.fstab.umountFilesystems (self.instPath)
