@@ -851,7 +851,20 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
     
     # if no auto partition info in instclass we bail
     if len(partitions.autoPartitionRequests) < 1:
-        return DISPATCH_NOOP
+        #return DISPATCH_NOOP
+        # XXX if we noop, then we fail later steps... let's just make it
+        # the workstation default.  should instead just never get here
+        # if no autopart info
+        autorequests = [ ("/", None, 1100, None, 1, 1) ]
+
+        bootreq = getAutopartitionBoot()
+        if bootreq:
+            autorequests.append(bootreq)
+
+        (minswap, maxswap) = iutil.swapSuggestion()
+        autorequests.append((None, "swap", minswap, maxswap, 1, 1))
+        partitions.autoPartitionRequests = autoCreatePartitionRequests(autorequests)
+        
 
     # reset drive and request info to original state
     # XXX only do this if we're dirty
