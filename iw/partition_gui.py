@@ -1184,7 +1184,7 @@ class PartitionWindow(InstallWindow):
 
         if len(availraidparts) < 2:
 	    lbltxt = lbltxt + _("To use RAID you must first "
-				"create least two partitions of type "
+				"create at least two partitions of type "
 				"'software RAID'.  Then you can "
 				"create a RAID device which can "
 				"be formatted and mounted.\n\n")
