@@ -163,6 +163,63 @@ def vgremove(vgname):
     if rc:
         raise SystemError, "vgremove failed"
 
+def lvlist():
+    global lvmDevicePresent
+    if lvmDevicePresent == 0:
+        return []
+
+    lvs = []
+    args = ["/usr/sbin/lvm", "lvdisplay", "-C", "--noheadings", "--units", "b"]
+    lvscanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    for line in lvscanout.split("\n"):
+        try:
+            (lv, vg, attr, size) = line.strip()[:-1].split()
+        except:
+            continue
+        size = size[:-1]
+        log("lv is %s/%s, size of %s" %(vg, lv, size))
+        lvs.append( (vg, lv, size) )
+
+    return lvs
+
+def pvlist():
+    global lvmDevicePresent
+    if lvmDevicePresent == 0:
+        return []
+
+    pvs = []
+    args = ["/usr/sbin/lvm", "pvdisplay", "-C", "--noheadings", "--units", "b"]
+    scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    for line in scanout.split("\n"):
+        try:
+            (dev, vg, format, attr, size, free) = line.strip()[:-1].split()
+        except:
+            continue
+        size = size[:-1]
+        log("pv is %s in vg %s, size is %s" %(dev, vg, size))
+        pvs.append( (dev, vg, size) )
+
+    return pvs
+    
+def vglist():
+    global lvmDevicePresent
+    if lvmDevicePresent == 0:
+        return []
+
+    vgs = []
+    args = ["/usr/sbin/lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    scanout = iutil.execWithCapture(args[0], args, searchPath = 1)
+    for line in scanout.split("\n"):
+        try:
+            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
+        except:
+            continue
+        size = size[:-1]
+        log("vg %s, size is %s" %(vg, size))
+        vgs.append( (vg, size) )
+
+    return vgs
+
 def getPossiblePhysicalExtents(floor=0):
     """Returns a list of integers representing the possible values for
        the physical extent of a volume group.  Value is in KB.
