@@ -62,7 +62,7 @@ class Mouse (SimpleConfigFile):
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1),
         "None - None" :
-                ("None", "Microsoft", "null", 0),
+                ("none", "none", "null", 0),
 	"Sun - Mouse":
 		("sun", "sun", "sunmouse", 0),
 	}
