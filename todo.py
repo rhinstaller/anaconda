@@ -1800,6 +1800,8 @@ class ToDo:
                     prob = "%-15s %d %c\n" % (mount, need, suffix)
                     probs = probs + prob
             if nodeneeded:
+                if probs:
+                    probs = probe + '\n'
                 probs = probs + _("You don't appear to have enough file nodes to install "
                                   "the packages you've selected. You need more file nodes on the "
                                   "following filesystems:\n\n")
