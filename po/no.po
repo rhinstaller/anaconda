@@ -939,9 +939,8 @@ msgid "no suggestion"
 msgstr "ingen forslag"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Størrelse på rot-filsystem"
+msgstr "Filsystemer merket \"dirty\" (må gjennom filsystemsjekk)"
 
 #: ../todo.py:1156
 msgid ""
@@ -1411,9 +1410,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vennligst velg enheten som inneholder rotfilsystemet: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Leter etter Red Hat Linux-installasjoner..."
+msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1911,7 +1909,7 @@ msgid "Disk Partitioning"
 msgstr "Diskpartisjonering"
 
 #: ../iw/rootpartition_gui.py:378
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Please select the type of disk partitioning you would like to use.\n"
 "\n"
@@ -1921,7 +1919,7 @@ msgid ""
 msgstr ""
 "Velg hvilken variant av diskpartisjonering du ønsker å benytte.\n"
 "\n"
-"Automatisk partisjonering vil slette %s\n"
+"%s\n"
 "\n"
 "Manuell partisjonering lar deg opprette partisjonene for hånd."
 
@@ -2133,9 +2131,8 @@ msgstr ""
 "på at du vil fortsette?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
-#, fuzzy
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr "Swapfil-størrelsen må være mellom 0 og 2000 MB."
+msgstr "Størrelsen på swapfilen må være mellom 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
@@ -2582,7 +2579,7 @@ msgid "Done"
 msgstr "Ferdig"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2590,7 +2587,7 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"Automatisk partisjonering vil slette %s\n"
+"%s\n"
 "\n"
 "Hvis dette ikke er ønskelig, kan du fortsette denne installeringen\n"
 "ved å partisjonere manuelt, eller du kan gå tilbake og foreta en\n"
@@ -2877,11 +2874,10 @@ msgid "Custom System"
 msgstr "Spesialtilpasset system"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
-msgstr "alle eksisterende Linux-installasjoner på ditt system."
+msgstr "Automatisk partisjonering vil slette alle eksisterende Linux-installasjoner på ditt system."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2892,11 +2888,10 @@ msgid "Server System"
 msgstr "Tjener"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
-msgstr "ALLE DATA på harddisken for å skaffe plass til ditt Linux-system."
+msgstr "Automatisk partisjonering vil slette ALLE DATA på harddisken for å skaffe plass til ditt Linux-system."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5124,9 +5119,8 @@ msgid "French"
 msgstr "Fransk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "Serbisk"
+msgstr "Tysk"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5187,13 +5181,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid ""
-#~ "German          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-#~ msgstr ""
-#~ "Tysk     de     lat0-16     iso09       de_DE       \n"
-#~ "de-latin1-nodeadkeys   Europe/Berlin"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Skal oppgradere \"/dev\"-partisjonen."
