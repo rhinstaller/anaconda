@@ -1450,7 +1450,7 @@ def readFstab (path):
 
     f = open (path, "r")
     lines = f.readlines ()
-    f.close
+    f.close()
 
     for line in lines:
 	fields = string.split (line)
