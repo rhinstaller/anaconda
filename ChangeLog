@@ -5,6 +5,13 @@
 	2 is now "Buffers:", so this is hopelessly broken.
 	* isys.py (ddfile): use '\x00' * num instead of os.read to make a
 	string of '\x00' characters.
+	* fsset.py: make availRaidLevels be in raid.py instead of here
+	* partitions.py: get availRaidLevels from raid.py not fsset.py
+	* raid.py: move availRaidLevels here, and put it and getRaidLevels()
+	before the module imports, so it doesn't go boom importing sometimes
+	when it can't find getRaidLevels()
+	* iw/raid_dialog_gui.py: get availRaidLevels from raid.py
+	* textw/partition_text.py: get availRaidLevels from raid.py
 
 2005-03-07  Peter Jones  <pjones@redhat.com>
 

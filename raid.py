@@ -15,6 +15,28 @@
 #
 """Raid probing control."""
 
+def getRaidLevels():
+    avail = []
+    try:
+        f = open("/proc/mdstat", "r")
+    except:
+        pass
+    else:
+        for l in f.readlines():
+            if not l.startswith("Personalities"):
+                continue
+            for tok in l.split():
+                for lev in ("RAID0", "RAID1", "RAID5", "RAID6"):
+                    if tok.upper().find(lev) != -1:
+                        avail.append(lev)
+
+        f.close()
+
+    return avail
+
+# XXX define availraidlevels and defaultmntpts as arch characteristics
+availRaidLevels = raid.getRaidLevels()
+
 import parted
 import isys
 import os
@@ -196,24 +218,4 @@ def lookup_raid_device(mdname):
             return (dev, devices, level, numActive)
     raise KeyError, "md device not found"
 
-def getRaidLevels():
-    avail = []
-    try:
-        f = open("/proc/mdstat", "r")
-    except:
-        pass
-    else:
-        for l in f.readlines():
-            if not l.startswith("Personalities"):
-                continue
-            for tok in l.split():
-                for lev in ("RAID0", "RAID1", "RAID5", "RAID6"):
-                    if tok.upper().find(lev) != -1:
-                        avail.append(lev)
 
-        f.close()
-
-    return avail
-
-
-    

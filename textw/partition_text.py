@@ -24,6 +24,7 @@ from partedUtils import *
 from partIntfHelpers import *
 from partRequests import *
 from fsset import *
+from raid import availRaidLevels
 from autopart import *
 from snack import *
 from constants_text import *

@@ -24,6 +24,7 @@ from rhpl.translate import _, N_
 
 import gui
 from fsset import *
+from raid import availRaidLevels
 from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *

@@ -47,9 +47,6 @@ else:
 
 fileSystemTypes = {}
 
-# XXX define availraidlevels and defaultmntpts as arch characteristics
-availRaidLevels = raid.getRaidLevels()
-
 def fileSystemTypeGetDefault():
     if fileSystemTypeGet('ext3').isSupported():
         return fileSystemTypeGet('ext3')
@@ -632,7 +629,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.maxSizeMB = 8 * 1024 * 1024
         self.supported = 1
 
-        if len(availRaidLevels) == 0:
+        if len(raid.availRaidLevels) == 0:
             self.supported = 0
 
         self.packages = [ "mdadm" ]

@@ -143,7 +143,7 @@ class Partitions:
             (theDev, devices, level, numActive) = raidDev
             level = "RAID%s" %(level,)
 
-            if level not in fsset.availRaidLevels:
+            if level not in raid.availRaidLevels:
                 log("raid level %s not supported, skipping %s" %(level,
                                                                   theDev))
                 continue
