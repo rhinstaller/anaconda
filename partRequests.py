@@ -675,4 +675,4 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
-
+	return self.size
