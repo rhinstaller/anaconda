@@ -6,14 +6,23 @@ if [ -z "$ARCH" ]; then
     exit 1
 fi
 
+TOPDIR=`pwd`
 OUTPUT=$2
 if [ -z "$OUTPUT" ]; then
     echo "No output specified, using /tmp/keymaps-$ARCH.$$"
     OUTPUT=/tmp/keymaps-$ARCH.$$
 fi
 
+UTILDIR=$3
+if [ -z "$UTILDIR" ]; then
+    READMAP=../utils/readmap
+    MAPSHDR=$TOPDIR/../utils/mapshdr
+else    
+    READMAP=$UTILDIR/usr/lib/anaconda-runtime/readmap
+    MAPSHDR=$UTILDIR/usr/lib/anaconda-runtime/mapshdr
+fi
+
 TMPDIR=/tmp/keymaps.$$
-TOPDIR=`pwd`
 
 rm -rf $TMPDIR
 mkdir -p $TMPDIR
@@ -29,7 +38,7 @@ MAPS=$(python -c "import rhpl.keyboard_models ; rhpl.keyboard_models.get_support
 for map in $MAPS ; do 
  eval find /lib/kbd/keymaps/$PATTERN -name "$map.map*" | while read n; do
     /bin/loadkeys `basename $n .gz`
-    ../utils/readmap $TMPDIR/`basename $n .map.gz`.map
+    $READMAP $TMPDIR/`basename $n .map.gz`.map
   done
 done
 
@@ -37,6 +46,6 @@ loadkeys us
 
 rm -f $TMPDIR/defkeymap* $TMPDIR/ANSI* $TMPDIR/lt.map
 
-(cd $TMPDIR; $TOPDIR/../utils/mapshdr *.map) > $TMPDIR/hdr
+(cd $TMPDIR; $MAPSHDR *.map) > $TMPDIR/hdr
 cat $TMPDIR/hdr $TMPDIR/*.map | gzip -9 > $OUTPUT
 rm -rf $TMPDIR
