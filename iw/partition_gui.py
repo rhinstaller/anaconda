@@ -366,7 +366,7 @@ class DiskTreeModel(gtk.TreeStore):
               (N_("Size (MB)"), gobject.TYPE_STRING, 1.0, 0, 0),
               (N_("Start"), gobject.TYPE_STRING, 1.0, 0, 1),
               (N_("End"), gobject.TYPE_STRING, 1.0, 0, 1),
-	      (N_(""), gobject.TYPE_STRING, 0.0, 0, 0),
+	      ("", gobject.TYPE_STRING, 0.0, 0, 0),
               # the following must be the last two
               ("IsLeaf", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
               ("IsFormattable", gobject.TYPE_BOOLEAN, 0.0, 1, 0),
