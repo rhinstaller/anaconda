@@ -1,3 +1,4 @@
+#include <alloca.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/stat.h>
@@ -6,6 +7,7 @@
 
 #include "Python.h"
 #include "rpmlib.h"
+#include "upgrade.h"
 
 /* Forward types */
 
@@ -32,6 +34,7 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
 static PyObject * archScore(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args);
+static PyObject * findUpgradeSet(PyObject * self, PyObject * args);
 
 static PyObject * rpmtransCreate(PyObject * self, PyObject * args);
 static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args);
@@ -48,6 +51,7 @@ static int rpmtransSetAttr(rpmtransObject * o, char * name,
 static PyMethodDef rpmModuleMethods[] = {
     { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
     { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
+    { "findUpgradeSet", (PyCFunction) findUpgradeSet, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
     { "readHeaderList", (PyCFunction) rpmHeaderFromList, METH_VARARGS, NULL },
     { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
@@ -270,6 +274,49 @@ void initrpm(void) {
 			 PyInt_FromLong(RPMCALLBACK_UNINST_START));
     PyDict_SetItemString(d, "RPMCALLBACK_UNINST_STOP",
 			 PyInt_FromLong(RPMCALLBACK_UNINST_STOP));
+}
+
+static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
+    PyObject * hdrList, * result;
+    char * root = "/";
+    int i, num;
+    struct pkgSet list;
+    hdrObject * hdr;
+
+    if (!PyArg_ParseTuple(args, "o|s", &hdrList, &root)) return NULL;
+
+    if (!PyList_Check(hdrList)) {
+	PyErr_SetString(PyExc_TypeError, "list of headers expected");
+	return NULL;
+    }
+
+    list.numPackages = PyList_Size(hdrList);
+    list.packages = alloca(sizeof(*list.packages) * list.numPackages);
+    for (i = 0; i < list.numPackages; i++) {
+	hdr = (hdrObject *) PyList_GetItem(hdrList, i);
+	if (hdr->ob_type != &hdrType) {
+	    PyErr_SetString(PyExc_TypeError, "list of headers expected");
+	    return NULL;
+	}
+	list.packages[i].h = hdr->h;
+	list.packages[i].selected = 0;
+
+	headerGetEntry(hdr->h, RPMTAG_NAME, NULL, 
+		      (void **) &list.packages[i].name, NULL);
+    }
+
+    if (ugFindUpgradePackages(&list, root)) {
+	PyErr_SetString(pyrpmError, "error during upgrade check");
+	return NULL;
+    }
+
+    result = PyList_New(0);
+    for (i = 0; i < list.numPackages; i++) {
+	if (list.packages[i].selected)
+	    PyList_Append(result, PyList_GetItem(hdrList, i));
+    }
+
+    return result;
 }
 
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
