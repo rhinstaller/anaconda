@@ -26,10 +26,15 @@ static struct devnum devices[] = {
     { "mcdx",		20,	0,	0 },
     { "nst0",		9,	128,	1 },
     { "optcd",		17,	0,	0 },
+    { "psaux",		10,	1,	1 },
     { "sbpcd",		25,	0,	0 },
     { "scd0",		11,	0,	0 },
     { "scd1",		11,	1,	0 },
     { "sjcd",		18,	0,	0 },
+    { "ttyS0",		4,	64,	1 },
+    { "ttyS1",		4,	65,	1 },
+    { "ttyS2",		4,	66,	1 },
+    { "ttyS3",		4,	67,	1 },
 };
 
 int numDevices = sizeof(devices) / sizeof(struct devnum);
