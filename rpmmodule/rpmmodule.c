@@ -598,16 +598,16 @@ static PyObject * handleDbResult(int rc, dbiIndexSet matches) {
     if (rc == -1) {
 	PyErr_SetString(pyrpmError, "error reading from database");
 	return NULL;
-    } else if (rc) {
-	Py_INCREF(Py_None);
-	return Py_None;
     }
 
     list = PyList_New(0);
-    for (i = 0; i < matches.count; i++)
-	PyList_Append(list, PyInt_FromLong(matches.recs[i].recOffset));
 
-    dbiFreeIndexRecord(matches);
+    if (!rc) {
+	for (i = 0; i < matches.count; i++)
+	    PyList_Append(list, PyInt_FromLong(matches.recs[i].recOffset));
+
+	dbiFreeIndexRecord(matches);
+    }
 
     return list;
 }
