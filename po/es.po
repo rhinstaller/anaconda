@@ -106,7 +106,7 @@ msgstr "Esconder Ayuda"
 
 #: ../gui.py:274 ../gui.py:519
 msgid "Finish"
-msgstr "Terminado"
+msgstr"Terminado"
 
 #: ../gui.py:277 ../gui.py:542
 msgid "Online Help"
@@ -149,8 +149,8 @@ msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
-"Esta a punto de borrar TODOS LOS DATOS que hay en su disco duro para encontrar espacio suficiente "
-"para la instalación de Linux."
+"Esta a punto de borrar TODOS LOS DATOS que hay en su disco duro para "
+"encontrar espacio suficiente para la instalación de Linux."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:664 ../libfdisk/fsedit.c:671 ../libfdisk/fsedit.c:678
@@ -384,7 +384,7 @@ msgstr""
 "modificar la configuración de su sistema.\n"
 "\n"
 "Para salir sin modificar la configuración, seleccione la tecla "
-"cancelar en la parte inferior ." 
+"cancelar en la parte inferior." 
 
 #: ../libfdisk/gnomefsedit.c:677 ../libfdisk/gnomefsedit.c:1646
 #: ../libfdisk/gnomefsedit.c:2154 ../libfdisk/newtfsedit.c:463
@@ -460,12 +460,14 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"El disco de arranque permite de entrar en el sistema Linux sin utilizar el normal bootloader\n"
-"de Linux (LILO). Esto es util si no quiere instalar LILO en su sistema, si otro sistema \n"
-"operativo elimina LILO, o si LILO no funciona correctamente en su ordenador. El disco de \n"
-"arranque puede ser utilizado en combinación con el disque de rescate, resultando mucho \n"
+"El disco de arranque permite de entrar en el sistema Linux sin utilizar el "
+"normal bootloader de Linux (LILO). Esto es util si no quiere instalar LILO "
+"en su sistema, si otro sistema operativo elimina LILO, o si LILO no "
+"funciona correctamente en su ordenador. El disco de arranque puede ser "
+"utilizado en combinación con el disque de rescate, resultando mucho "
 "mas sencillo la reinicialización del sistema de fallos severos. \n"
-"¿quiere crear un disco de arranque?"
+"\n"
+"¿Quiere crear un disco de arranque?"
 
 
 #: ../text.py:502
@@ -475,7 +477,8 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"En las maquinas Ultra de SMCC el disco de arranque probablemente no funciona.\n"
+"En las maquinas Ultra de SMCC el disco de arranque probablemente no "
+"funciona.\n"
 "\n"
 
 #: ../text.py:505 ../text.py:715
@@ -517,7 +520,8 @@ msgid ""
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Un completo elenco del proceso de instalación se grabará en /tmp/install.log"
-"reiniciando el sistema. Puede guardar este archivo para posteriores referencias."
+"reiniciando el sistema. Puede guardar este archivo para posteriores "
+"referencias."
 
 #: ../text.py:662 ../text.py:676 ../text.py:696
 msgid "Complete"
@@ -536,9 +540,9 @@ msgid ""
 msgstr ""
  "Enhorabuena, el proceso de instalación ha terminado. \n"
 "\n"
-"quite el disco de instalación y pulse Enter para reiniciar. Para conseguir más información \n"
-"sobre las peculiaridades de esta versión de Linux Red Hat, visite el sitio web \n"
-"http://www.redhat.com."
+"quite el disco de instalación y pulse Enter para reiniciar. Para conseguir "
+"más información sobre las peculiaridades de esta versión de Linux Red Hat, "
+"visite el sitio web http://www.redhat.com."
 
 #: ../text.py:677 ../text.py:697
 msgid ""
@@ -552,8 +556,9 @@ msgid ""
 msgstr ""
 "¡Enhorabuena, el proceso de instalación ha terminado!\n"
 "\n"
-"Para conseguir más información sobre las peculiaridades de esta versión de Linux Red Hat "
-"consulte la pagina de Errata del sitio web http://www.redhat.com.\n"
+"Para conseguir más información sobre las peculiaridades de esta versión "
+"de Linux Red Hat consulte la pagina de Errata del sitio web "
+"http://www.redhat.com.\n"
 "\n"
 "Más información de cómo configurar el sistema aparece en el capítulo de "
 "post-instalación de la Guía Oficial del usuario de Red Hat."
@@ -577,8 +582,8 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Ha surgido un error al ejecutar el disco de arranque, por favor verifique que tenga un "
-"disco formateado en la primera disquetera ."
+"Ha surgido un error al ejecutar el disco de arranque, por favor verifique "
+"que tenga un disco formateado en la primera disquetera ."
 
 #: ../text.py:790
 msgid "Package Installation"
@@ -587,19 +592,19 @@ msgstr "Instalación de paquetes"
 
 #: ../text.py:792
 msgid "Name   : "
-msgstr "Nombre :"
+msgstr  "Nombre:"
 
 #: ../text.py:793
 msgid "Size   : "
-msgstr "Tamaño :"
+msgstr  "Tamaño:"
 
 #: ../text.py:794
 msgid "Summary: "
-msgstr "Resumen:"
+msgstr  "Resumen:"
 
 #: ../text.py:820
 msgid "    Packages"
-msgstr "   Paquetes"
+msgstr "    Paquetes"
 
 #: ../text.py:821
 msgid "       Bytes"
@@ -611,29 +616,30 @@ msgstr "       Tiempo"
 
 #: ../text.py:824
 msgid "Total    :"
-msgstr "Total     :"
+msgstr "Total  :"
 
 #: ../text.py:831
 msgid "Completed:   "
-msgstr "Completado: "
+msgstr "Completado:    "
 
 #: ../text.py:841
 msgid "Remaining:  "
-msgstr "Restante  :"
+msgstr "Restante:   "
 
 #: ../text.py:930 ../text.py:931
 msgid "Debug"
 msgstr "Depurar"
 
 #: ../text.py:943
-msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
+msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
 #: ../text.py:945
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr "<Tab>/<Alt-Tab> moverse  |  <Espaciador> selección  |  <F12> pantalla siguiente"
+msgstr "<Tab>/<Alt-Tab> moverse | <Espaciador> selección | <F12> pantalla "
+"siguiente"
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:969 ../text.py:1004
 msgid "Welcome"
@@ -776,7 +782,8 @@ msgstr "Anulado"
 
 #: ../text.py:1124
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "No puedo ir desde aquí al paso anterior. Es necesario intentarlo otra vez."
+msgstr "No puedo ir desde aquí al paso anterior. Es necesario intentarlo "
+"otra vez."
 
 #: ../todo.py:337
 #, c-format
@@ -844,8 +851,8 @@ msgstr "Reconstruyendo la base de datos RPM..."
 
 #: ../todo.py:1250
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
-msgstr  "Reconstrucción de la base de datos RPM no finalizada. ¿Puede ser que no haya mas espacio en "
-"el disco?"
+msgstr  "Reconstrucción de la base de datos RPM no finalizada. ¿Puede "
+"ser que no haya mas espacio en el disco?"
 
 #: ../todo.py:1300
 #, c-format
@@ -865,8 +872,8 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"No hay suficiente espacio en el disco para instalar los paquetes seleccionados. Necesita "
-"más espacio en los siguientes sistemas de archivos:\n"
+"No hay suficiente espacio en el disco para instalar los paquetes "
+"seleccionados. Necesita más espacio en los siguientes sistemas de archivos:\n"
 "\n"
 
 #: ../todo.py:1326
@@ -891,11 +898,11 @@ msgstr "Ejecutando la configuración de la  post-instalación..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:248
 msgid "Video Card"
-msgstr "Tarjeta Video"
+msgstr "Tarjeta Vídeo"
 
 #: ../iw/xconfig.py:12 ../xf86config.py:250
 msgid "Video Ram"
-msgstr "RAM Video"
+msgstr "RAM Vídeo"
 
 #: ../xf86config.py:252
 msgid "X server"
@@ -1041,7 +1048,7 @@ msgstr "Enhorabuena"
 
 #: ../iw/congrats.py:13 ../iw/congrats.py:60
 msgid "Exit"
-msgstr ""
+msgstr "Salir"
 
 #: ../iw/congrats.py:32
 msgid ""
@@ -1112,7 +1119,7 @@ msgid ""
 " You can't upgrade this sytem!"
 msgstr ""
 "El sistema no tiene ninguna partición Linux.\n"
-"No se puede actualizar el sistema."
+"No se puede actualizar el sistema"
 
 #: ../iw/examine.py:60
 msgid "Customize packages to be upgraded"
@@ -1151,6 +1158,7 @@ msgstr "Estación KDE"
 #: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2222
 #: ../libfdisk/gnomefsedit.c:2242
 msgid "Server"
+
 msgstr "Servidor"
 
 #: ../iw/installpath.py:43
@@ -1402,7 +1410,7 @@ msgid ""
 msgstr ""
 "Como no queda mucha memoria disponible en su ordenador, necesitamos acceder "
 "al espacio de Swap. Para ello tendremos que escribir enseguida la lista "
-"de las nuevas particiónes en el disco duro. ¿vale? "  
+"de las nuevas particiones en el disco duro. ¿vale? "  
 
 
 #: ../iw/rootpartition.py:114 ../textw/partitioning.py:252
@@ -1413,7 +1421,10 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"Ha elejido meter el sistema de ficheros principal en una partición ya existente DOS o Windows. El sistema de ficheros debe tener por lo menos %d megabyte libres."
+"Ha elejido meter el sistema de ficheros principal en una partición ya "
+"existente DOS o Windows. ¿Quiere saber cuanto espacio necesita para el "
+"sistema de archivos principal y cuanto para swap ? El sistema de "
+"ficheros debe tener por lo menos %d megabyte libres."
 
 #: ../iw/rootpartition.py:134
 msgid "Root filesystem size:"
@@ -1438,8 +1449,9 @@ msgid ""
 msgstr ""
 "%s\n"
 "\n"
-"Si no quiere hacerlo, puede continuar la instalación creando unas particiónes manualmente,"
-"o puede volver atrás y ejecutar una instalación totalmente personalizada."
+"Si no quiere hacerlo, puede continuar la instalación creando unas "
+"particiónes manualmente, o puede volver atrás y ejecutar una instalación "
+"totalmente personalizada."
 
 #: ../iw/rootpartition.py:238
 msgid "Remove data"
@@ -1502,7 +1514,7 @@ msgstr "UTC Offset"
 
 #: ../iw/welcome.py:80
 msgid "Would you like to configure your system?"
-msgstr "¿Le gustaria configurar su sistema?"
+msgstr "¿Le gustaría configurar su sistema?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
@@ -1548,8 +1560,8 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"El tamaño de la tarjeta video RAM no ha sido detectado."
-"Elija  manualmente el tamaño de la RAM de su tarjeta video."
+"El tamaño de la tarjeta vídeo RAM no ha sido detectado."
+"Elija  manualmente el tamaño de la RAM de su tarjeta vídeo."
 
 #: ../iw/xconfig.py:329
 msgid ""
@@ -1584,9 +1596,9 @@ msgid ""
 "blank."
 msgstr ""
 "Algunos sistemas necesitan comunicar al Kernel opciones especiales durante "
-"la fase de arranque del mismo sistema para que funcione correctamente. Si es necesario "
-"comunicar estas opciones al Kernel, hágalo ahora. Si no fuera necesario o si las "
-"opciones no fueran ciertas, deje este espacio vacío."
+"la fase de arranque del mismo sistema para que funcione correctamente. "
+"Si es necesario comunicar estas opciones al Kernel, hágalo ahora. Si no "
+"fuera necesario o si las opciones no fueran ciertas, deje este espacio vacío."
 
 #: ../textw/lilo.py:84 ../textw/silo.py:91
 msgid "Where do you want to install the bootloader?"
@@ -1618,8 +1630,8 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"Algunos de los paquetes que ha seleccionado para la instalación necesita otros "
-"paquetes que no han sido seleccionados. Si selecciona OK cada uno "
+"Algunos de los paquetes que ha seleccionado para la instalación necesita "
+"otros paquetes que no han sido seleccionados. Si selecciona OK cada uno "
 "de los paquetes requeridos será instalado." 
 
 #: ../textw/partitioning.py:14 ../textw/partitioning.py:56
@@ -1636,9 +1648,9 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
-"Disk druid es un herramienta que sirve para crear particiones el disco y establecer los Destinos "
-"de Montaje. Esta  diseñado  para hacer más fácil y potente la utilización del fdisk  "
-" De todas formas, hay algunos casos en los"
+"Disk druid es un herramienta que sirve para crear particiones el disco y "
+"establecer los Destinos de Montaje. Esta  diseñado  para hacer más fácil "
+"y potente la utilización del fdisk. De todas formas, hay algunos casos en los"
 "que puede ser bastante útil seguir usando el fdisk.\n"
 "\n"
 "¿Que herramienta desea utilizar?"
@@ -1649,10 +1661,10 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"Para instalar Red Hat Linux, es necesario tener una partición de por lo menos 150 MB "
-"dedicada a Linux. Le aconsejamos posicionar esta partición en uno de los dos "
-"primeros discos duros de su sistema de forma que resulte posible entrar en Linux "
-"directamente desde LILO."
+"Para instalar Red Hat Linux, es necesario tener una partición de por "
+"lo menos 150 MB dedicada a Linux. Le aconsejamos posicionar esta partición "
+"en uno de los dos primeros discos duros de su sistema de forma que resulte "
+"posible entrar en Linux directamente desde LILO."
 
 #: ../loader/loader.c:299 ../loader/loader.c:324 ../textw/partitioning.py:62
 msgid "Done"
@@ -1669,9 +1681,9 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"¿Que partición quiere formatear? Le aconsejamos formatear todas las particiónes "
-"que hay en su sistema, incluso /, /usr y /var. No hace falta formatear /home o /usr/local "
-"si han sido formateadas previamente." 
+"¿Que partición quiere formatear? Le aconsejamos formatear todas las "
+"particiónes que hay en su sistema, incluso /, /usr y /var. No hace falta "
+"formatear /home o /usr/local si han sido formateadas previamente." 
 
 #: ../textw/partitioning.py:208
 msgid "Check for bad blocks during format"
@@ -1731,9 +1743,9 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
-"Elija una clave root. Tiene que teclearla dos veces para asegurarse que la recuerda "
-" y de que no haya cometido ningún fallo. ¡Recuerde que la clave de root es un punto clave en  "
-"la seguridad del sistema!"
+"Elija una clave root. Tiene que teclearla dos veces para asegurarse que "
+"la recuerda  y que no ha cometido ningún fallo. ¡Recuerde que la "
+"clave de root es un punto clave en la seguridad del sistema!"
 
 #: ../loader/urls.c:337 ../textw/userauth.py:23
 msgid "Password:"
@@ -1800,9 +1812,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"Utilice una cuenta usuario normal para la mayoria de las actividades en su sistema."
-"Limite la utilización de la cuenta de root para reducir la posibilidad "
-"de cambiar la configuración de su sistema." 
+"Utilice una cuenta usuario normal para la mayoria de las actividades en su "
+"sistema. Limite la utilización de la cuenta de root para reducir la "
+"posibilidad de cambiar la configuración de su sistema." 
 
 #: ../textw/userauth.py:154
 msgid ""
@@ -1810,9 +1822,9 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"¿Que cuenta de usuario desea tener en su sistema? Para una tarea normal tendría que tener"
-"por lo menos una cuenta que no sea de root, pero los sistemas multi" 
-"usuarios pueden tener más de una cuenta." 
+"¿Que cuenta de usuario desea tener en su sistema? Para una tarea normal "
+"tendría que tener por lo menos una cuenta que no sea de root, pero los "
+"sistemas multi usuarios pueden tener más de una cuenta." 
 
 #: ../textw/userauth.py:164
 msgid "User name"
@@ -1850,12 +1862,12 @@ msgstr "Servidor NIS:"
 
 #: ../textw/userauth.py:264
 msgid "or use:"
-msgstr  "O bien utilizar:"
+msgstr  "O bien utilizar"
 
 
 #: ../textw/userauth.py:267
 msgid "Request server via broadcast"
-msgstr "Solicite el servidor a través de el broadcast"
+msgstr "Solicite el servidor a través del broadcast"
   
 
 #: ../libfdisk/fsedit.c:664 ../libfdisk/fsedit.c:671 ../libfdisk/fsedit.c:678
@@ -1877,8 +1889,9 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"El Destino de Montaje %s no es valido.\n"
-"El Destino de Montaje %s tiene que empezar con una /."
+"El Destino de Montaje %s no es válido.\n"
+"\n"
+"El Destino de Montaje debe empezar con /."
 
 #: ../libfdisk/fsedit.c:679
 #, c-format
@@ -1900,7 +1913,8 @@ msgid ""
 msgstr ""
 "El Destino de Montaje %s no es válido.\n"
 "\n"
-"Los Destinos de Montaje."
+"Los Destinos de Montaje debe contener solamente caracteres que puedan ser "
+"imprimidos."
 
 #: ../libfdisk/fsedit.c:697
 msgid ""
@@ -1909,9 +1923,9 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Se le ha pedido que introduzca su root (/) del sistema de ficheros en una partición "
-"FAT. Puede hacerlo pero no puede usar ningín otro sistema de ficheros "
-"para su Linux. Además disminuira la velocidad"
+"Se le ha pedido que introduzca su root (/) del sistema de ficheros en "
+"una partición FAT. Puede hacerlo pero no puede usar ningún otro sistema "
+"de ficheros para su Linux. Además disminuira la velocidad "
 "por no haber usado particiones originales de Linux. ¿Desea continuar?"
 
 #: ../libfdisk/fsedit.c:714
@@ -1921,9 +1935,9 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"Il punto di mount %s e' illegale.\n"
+"El punto de montaje %s  no es válida.\n"
 "\n"
-"La partizione di sistema si deve trovare su una partizione Linux Nativa."
+"Las particiones del sistema deben encotrarse en particiones Linux Nativas."
 
 #: ../libfdisk/fsedit.c:724
 #, c-format
@@ -1934,7 +1948,7 @@ msgid ""
 msgstr ""
 "El mount point %s no es válido.\n"
 "\n"
-"/usr tiene que estar en la partición Linux Native o en una unidad NFS."
+"/usr tiene que estar en la partición Linux Nativa o en una unidad NFS."
 
 
 #: ../libfdisk/fsedit.c:752
@@ -1948,8 +1962,9 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Tiene más unidades de las que este programa soporta. Por favor, utilice el programa estandar "
-"fdisk para instalar las unidades y comunique a Red Hat Software que le aparecio "
+"Tiene más unidades de las que este programa soporta. Por favor, utilice el "
+"programa estandar fdisk para instalar las unidades y comunique a Red Hat "
+"Software que le aparecio "
 "este mensaje."
 
 #: ../libfdisk/fsedit.c:768
@@ -1962,8 +1977,8 @@ msgid ""
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
 "Se ha detectado un error - no se han encontrado unidades donde crear nuevos"
-"sistemas de archivos. Por favor,controle que la causa del problema no se encuentra"
-"en su hardware."
+"sistemas de archivos. Por favor,controle que la causa del problema no se "
+"encuentra en su hardware."
 
 #: ../libfdisk/fsedit.c:1079 ../libfdisk/fsedit.c:1141
 #, c-format
@@ -1971,8 +1986,8 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
-"Se ha detectado un error al leer la lista de las particiones para el dispositivo "
-"a bloques %s. El error es"
+"Se ha detectado un error al leer la lista de las particiones para el "
+"dispositivo a bloques %s. El error es"
 
 
 #: ../libfdisk/fsedit.c:1118
@@ -1982,8 +1997,8 @@ msgid ""
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 "La lista de las particiones en el dispositivo %s ha sido dañada. Para crear"
-"nuevas particiones, tiene que ser inicializada, causando la pérdida de TODOS LOS DATOS"
-"de esta unidad."
+"nuevas particiones, tiene que ser inicializada, causando la pérdida de "
+"TODOS LOS DATOS de esta unidad."
 
 #: ../libfdisk/fsedit.c:1123
 msgid "Bad Partition Table"
@@ -2016,8 +2031,8 @@ msgid ""
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 "Se ha encontrado un disco con una etiqueta BSD. La instalación de Red Hat"
-"sólo soporta las etiquetas BSD en modalidad de lectura, así que tiene que utilizar "
-"una instalación personalizada y fdisk (en vez de Disk Druid)."
+"sólo soporta las etiquetas BSD en modalidad de lectura, así que tiene que "
+"utilizar una instalación personalizada y fdisk (en vez de Disk Druid)."
 
 
 #: ../libfdisk/fsedit.c:1187
@@ -2171,7 +2186,7 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Ha configurado una partición RAID sin víncularla a una sola unidad.\n"
+"Ha configurado una partición RAID sin vincularla a una sola unidad.\n"
 "¿Desea continuar?"
 
 #: ../libfdisk/gnomefsedit.c:1116
@@ -2183,8 +2198,9 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
-"Ha configurado una partición RAID sin víncularla a una especifica unidad. Por favor, "
-"seleccione una unidad para que la partición quede vínculada a ella."
+"Ha configurado una partición RAID sin vincularla a una especifica unidad. "
+"Por favor, seleccione una unidad para que la partición quede vinculada "
+"a ella."
 
 
 #. XXXXX - for now destroy the raid entry since it
@@ -2201,9 +2217,10 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"El dispositivo RAID /dev/%s ahora contiene particiones que no han sido alojadas."
-"El dispositivo RAID /dev/%s ahora será descompuesto en sus particiones componentes."
-"Por favor, recomponga el dispositivo RAID con las particiones alojadas."
+"El dispositivo RAID /dev/%s ahora contiene particiones que no han sido "
+"alojadas. El dispositivo RAID /dev/%s ahora será descompuesto en las "
+"particiones que lo componen. Por favor, recomponga el dispositivo RAID con "
+"las particiones alojadas."
 
 
 #. build list of why they all failed
@@ -2220,9 +2237,9 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
-"Hay unas particiónes no alojadas presentes en la lista de las particiónes necesarias."
-"La lista de las particiónes no alojadas se muestra a continuación con las razones "
-"por las cuales no han sido alojadas."
+"Hay unas particiónes no alojadas presentes en la lista de las particiónes "
+"necesarias. La lista de las particiónes no alojadas se muestra a "
+"continuación con las razones por las cuales no han sido alojadas."
 
 #: ../libfdisk/gnomefsedit.c:1675
 msgid "<Swap Partition"
@@ -2246,7 +2263,8 @@ msgstr "Particiones para la matriz RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1882
 msgid "You have not selected a mount point. A mount point is required."
-msgstr "No ha selecciónado ningún Destino de Montaje. Se necesita un Destino de Montaje."
+msgstr "No ha selecciónado ningún Destino de Montaje. Se necesita un "
+"Destino de Montaje."
 
 
 #: ../libfdisk/gnomefsedit.c:1890
@@ -2254,8 +2272,8 @@ msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"El Destino de MOntaje requerido ya esta siendo utilizado. Seleccióne un Destino "
-"de Montaje valido."
+"El Destino de MOntaje requerido ya esta siendo utilizado. Seleccione un "
+"Destino de Montaje valido."
 
 #: ../libfdisk/gnomefsedit.c:1903
 msgid "Booting From RAID Warning"
@@ -2267,9 +2285,9 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
-"Ha seleccionado de forma que este dispositivo RAID viniese montado como una partición "
-"de inicio. Por favor, comprobe que todos los componentes de las particiones sean "
-"inicializables."
+"Ha seleccionado de forma que este dispositivo RAID viniese montado como "
+"una partición de inicio. Por favor, compruebe que todos los componentes de "
+"las particiones sean inicializables."
 
 
 #: ../libfdisk/gnomefsedit.c:1914
@@ -2293,8 +2311,8 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
-"El dispositivo RAID \"/dev/%\"ya esta configurado como un dispositivo RAID."
-"Por favor, seleccione otro."
+"El dispositivo RAID \"/dev/%s\" ya esta configurado como un dispositivo "
+"raid. Por favor, seleccione otro."
 
 #: ../libfdisk/gnomefsedit.c:1935
 msgid "Not Enough Partitions"
@@ -2305,7 +2323,8 @@ msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
-"No ha configurado suficientes particiones para el tipo RAID que ha seleccionado."
+"No ha configurado suficientes particiones para el tipo RAID que ha "
+"seleccionado."
 
 #: ../libfdisk/gnomefsedit.c:1944
 msgid "Illegal /boot RAID Type"
@@ -2314,7 +2333,8 @@ msgstr  "El tipo Raid de las particiones de arranque no es valido"
 
 #: ../libfdisk/gnomefsedit.c:1946
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "Las particiones de arranque (/boot) solo estan permitidas en el RAID-1."
+msgstr "Las particiones de arranque (/boot) solo estan permitidas en "
+"el RAID-1."
 
 
 #: ../libfdisk/gnomefsedit.c:1953
@@ -2333,8 +2353,9 @@ msgid ""
 "possible to boot from this partition?"
 msgstr ""
 "La particion %s ya existe  en el conjunto de las particiones "
-"para este dispositivo RAID. El Destino de Montaje  se encuentra en la partición de arranque"
-"(/boot) ¿Esta seguro de que es  posible arrancar el sistema desde esta partición?"
+"para este dispositivo RAID. El Destino de Montaje  se encuentra en la "
+"partición de arranque (/boot) ¿Esta seguro de que es  posible arrancar "
+"el sistema desde esta partición?"
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Use Pre-existing Partition?"
@@ -2360,12 +2381,11 @@ msgstr "Utilizando el espacio libre existente"
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2203
 msgid "Intended Use"
-msgstr ""
+msgstr "Intended Use"
 
 #: ../libfdisk/gnomefsedit.c:2242
 msgid "Workstation"
 msgstr "Estación de trabajo"
-
 
 #: ../libfdisk/gnomefsedit.c:2316
 msgid "Delete RAID Device?"
@@ -2407,8 +2427,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Tiene que asignar una partición root a una partición nativa de Linux (ext2) o "
-"una partición RAID para que la instalación siga."
+"Tiene que asignar una partición root a una partición nativa de Linux "
+"(ext2) o una partición RAID para que la instalación siga."
 
 
 #: ../libfdisk/gnomefsedit.c:3170
@@ -2471,8 +2491,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Tiene que asignar una partición de root (/) a una partición nativa de Linux (ext2)"
-"para que la instalación siga."
+"Tiene que asignar una partición de root (/) a una partición nativa de "
+"Linux (ext2) para que la instalación siga."
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
@@ -2491,7 +2511,8 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Algunas particiones no están alojadas. Si sale ahora, no se grabarán en el disco.\n"
+"Algunas particiones no están alojadas. Si sale ahora, no se grabarán en "
+"el disco.\n"
 "\n"
 "¿Está seguro de querer salir?"
 
@@ -2536,7 +2557,8 @@ msgid ""
 "button now."
 msgstr ""
 "Este módulo puede contener parámetros que afectan su operación. Si usted no "
-"conoce los parámetros a insertar, simplemente salte la pantalla pulsando \"OK\" ahora"
+"conoce los parámetros a insertar, simplemente salte la pantalla "
+"pulsando \"OK\" ahora."
 
 
 #: ../loader/devices.c:65
@@ -2565,7 +2587,8 @@ msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"El disco que ha insertado no es un disco driver válido para esta versión de Red Hat Linux."
+"El disco que ha insertado no es un disco driver válido para esta versión "
+"de Red Hat Linux."
 
 
 #: ../loader/devices.c:206
@@ -2574,8 +2597,8 @@ msgid ""
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
 "¿Que unidad tengo que utilizar? Si el driver que se necesita no está incluido"
-" en la lista que se muestra en la parte inferior de la pantalla y posee un disco "
-"driver, pulse F2."
+" en la lista que se muestra en la parte inferior de la pantalla y posee "
+"un disco driver, pulse F2."
 
 #: ../loader/devices.c:211
 msgid "Which driver should I try?"
@@ -2593,7 +2616,8 @@ msgstr "Error de Kickstart"
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr"Se ha producido un error durante la apertura: fichero de kickstart %s: %s"
+msgstr"Se ha producido un error durante la apertura: fichero de "
+"kickstart %s: %s"
  
 
 #: ../loader/kickstart.c:69
@@ -2643,8 +2667,8 @@ msgstr "Bienvenidos al sistema operativo Linux de Red Hat"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-" <Tab>/<Alt-Tab> tra elementi / <Space> seleziona / <F12> prossimo "
-"schermo "
+" <Tab>/<Alt-Tab>entre elementos / <Space> selecciona / <F12> próxima "
+"pantalla "
 #: ../loader/loader.c:236
 msgid "SCSI"
 msgstr "SCSI"
@@ -2666,9 +2690,8 @@ msgstr "Añadir dispositivo"
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
-msgstr ""
-"No se ha cargado ningún driver para dispositivos especiales para su sistema. "
-"¿Quiere cargar algunos ahora?"
+msgstr "No se ha cargado ningún driver para dispositivos especiales para "
+"su sistema. ¿Quiere cargar algunos ahora?"
 
 #: ../loader/loader.c:409 ../loader/loader.c:411
 msgid "Loading"
@@ -2703,9 +2726,10 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"¿Que partición y qué directorio en esa partición contiene los directorios RedHat/RPMS y"
-"RedHat/base? Si no ve el disco que está utilizando en la lista que aparece a continuación,"
-"pulse F2 para configurar más dispositivos."
+"¿Que partición y qué directorio en esa partición contiene los "
+"directorios RedHat/RPMS y RedHat/base? Si no ve el disco que está "
+"utilizando en la lista que aparece a continuación, pulse F2 para "
+"configurar más dispositivos."
 
 #: ../loader/loader.c:627
 msgid "Directory holding Red Hat:"
@@ -2728,8 +2752,9 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"No ha sido posible encontrar el CDROM de Red Hat Linux en ninguna de las unidades CDROM."
-"Por favor, inserte el CDROM de Red Hat Linux y pulse \"OK\" para intentarlo otra vez."
+"No ha sido posible encontrar el CDROM de Red Hat Linux en ninguna "
+"de las unidades CDROM. Por favor, inserte el CDROM de Red Hat Linux "
+"y pulse \"OK\" para intentarlo otra vez."
 
 #: ../loader/loader.c:877
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2765,7 +2790,8 @@ msgstr "¿Qué soporte (CDROM, disquete) contiene la imagen de rescate?"
 
 #: ../loader/loader.c:1107
 msgid "What type of media contains the packages to be installed?"
-msgstr "¿Qué soporte contiene (CDROM, disquete) los paquetes que hay que instalar?"
+msgstr "¿Qué soporte contiene (CDROM, disquete) los paquetes que hay "
+"que instalar?"
 
 #: ../loader/loader.c:1632
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2839,7 +2865,8 @@ msgid ""
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
 "Por favor, introduzca los dato relativos a la configuración de esta máquina."
-"Cada dato tiene que ser introducido como  una dirección IP en la notación decimal punteada (p.ej.:1.2.3.4)."
+"Cada dato tiene que ser introducido como  una dirección IP en la "
+"notación decimal punteada (p.ej.:1.2.3.4)."
 
 
 #: ../loader/net.c:270
@@ -2925,12 +2952,13 @@ msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
-" <Tab>/<Alt-Tab> moverse | <Espaciador>  selecciona  |  <F12> siguiente "
+"<Tab>/<Alt-Tab> moverse | <Espaciador> selecciona | <F12> siguiente "
+"screen"
 
 #: ../loader/net.c:709
 #, c-format
-msgid "netconfig %s  (C) 2000 Red Hat, Inc."
-msgstr "netconfig %s  (C) 2000 Red Hat, Inc."
+msgid "netconfig %s  (C) 1999 Red Hat, Inc."
+msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:711
 msgid "Network configuration"
@@ -2944,7 +2972,7 @@ msgstr "¿Desea configurar la red?"
 #: ../loader/urls.c:71
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Error, demasiado largo en %s: %S"
+msgstr "Error, demasiado largo en %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
 #, c-format
@@ -2978,7 +3006,7 @@ msgid ""
 "   o the directory on that server containing\n"
 "     Red Hat Linux for your architecure\n"
 msgstr ""
-"Por favor, introduzca las siguientes informaciónes:\n"
+"Por favor, introduzca las siguientes informaciones:\n"
 "\n"
 "    ºEl nombre o el numero IP de su servidor web\n"
 "    ºEl directorio que contiene Red Hat Linux en aquel servidor\n"
@@ -3038,17 +3066,17 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
-"Si está utilizando un FTP no-anónimo, introduzca ahora el nombre de la cuenta y la "
-"clave que desea mantener. Si está utilizando un FTP proxy introduzca el "
-"nombre del servidor FTP Proxy a utilizar."
+"Si está utilizando un FTP no-anónimo, introduzca ahora el nombre de "
+"la cuenta y la clave que desea mantener. Si está utilizando un FTP "
+"proxy introduzca el nombre del servidor FTP Proxy a utilizar."
 
 #: ../loader/urls.c:313
 msgid ""
-"If you are using a HTTP proxy server enter the name of the HTTP proxy server "
-"to use."
+"If you are using a HTTP proxy server enter the name of the HTTP proxy "
+"server to use."
 msgstr ""
-"Si está utilizando un servidor FTP Proxy introduzca el nombre del servidor Proxy"
-"HTTP a utilizar."
+"Si está utilizando un servidor FTP Proxy introduzca el nombre del "
+"servidor Proxy HTTP a utilizar."
 
 
 #: ../loader/urls.c:334
@@ -3074,6 +3102,12 @@ msgstr "Puerta del Proxy HTTP:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Cargando los driver SCSI."
+
+
+
+
+
+
 
 
 
