@@ -327,6 +327,10 @@ ni65
 	eth
 	"NI6510 Ethernet"
 
+ns83820
+	eth
+	"Natsemi 83820 gigabit"
+
 olympic
 	tr
 	"IBM Olympic-based PCI roken ring"
@@ -437,6 +441,23 @@ tulip
 	eth
 	"DEC 21040, most 21*40 Ethernet"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+tulip_old
+	eth
+	"Older DEC 21040, most 21*40 Ethernet"
+	io "Base I/O address" "0x[0-9a-fA-F]+"
+
+tmspci
+	tr
+	"TMS380-based PCI token ring cards"
+
+lanstreamer
+	tr
+	"IBM Auto LANStreamer"
+
+abyss
+	tr
+	"Madge Smart 16/4 PCI Mk2 token ring"
 
 via-rhine
 	eth
