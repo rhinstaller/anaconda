@@ -1618,13 +1618,18 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 }
 
 #ifdef INCLUDE_NETWORK
-int kickstartFromNfs(char * location, moduleList modLoaded, 
+int kickstartFromNfs(struct knownDevices * kd, char * location, 
+		     moduleInfoSet modInfo, moduleList modLoaded, 
 		     moduleDeps * modDepsPtr, int flags, char * ksSource) {
     struct networkDeviceConfig netDev;
     char * file, * fullFn;
     char * ksPath;
+    char * devName;
 
-    if (kickstartNetwork("eth0", &netDev, "dhcp", flags)) {
+    if (ensureNetDevice(kd, modInfo, modLoaded, modDepsPtr, flags, &devName))
+	return 1;
+
+    if (kickstartNetwork(devName, &netDev, "dhcp", flags)) {
         logMessage("no dhcp response received");
 	return 1;
     }
@@ -2067,7 +2072,8 @@ int main(int argc, char ** argv) {
     if (FL_KICKSTART(flags) && !ksFile) {
 	ksFile = "/tmp/ks.cfg";
 	startNewt(flags);
-	kickstartFromNfs(ksFile, modLoaded, &modDeps, flags, ksSource);
+	kickstartFromNfs(&kd, ksFile, modInfo, modLoaded, &modDeps, flags, 
+			 ksSource);
     }
 #endif
 
