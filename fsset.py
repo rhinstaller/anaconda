@@ -35,6 +35,10 @@ class BadBlocksError(Exception):
 
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
+if iutil.getArch() == "s390":
+    # Many s390 have 2G DASDs, we recomment putting /usr/share on its own DASD
+    defaultMountPoints.insert(4, '/usr/share')
+
 if iutil.getArch() == "ia64":
     defaultMountPoints.insert(1, '/boot/efi')
 else:
