@@ -51,7 +51,7 @@ int devMakeInode(char * devName, char * path) {
 	major = 8;
 	minor = (devName[2] - 'a') << 4;
 	if (devName[3] && devName[4])
-	   minor += 10 + (devName[4] - '0');
+	   minor += (devName[3] - '0') * 10 + (devName[4] - '0');
 	else if (devName[3])
 	   minor += (devName[3] - '0');
     } else if (devName[0] == 'm' && devName[1] == 'd') {
@@ -84,7 +84,7 @@ int devMakeInode(char * devName, char * path) {
 	    return -1;
 
 	if (devName[3] && devName[4])
-	   minor += 10 + (devName[4] - '0');
+	   minor += (devName[3] - '0') * 10 + (devName[4] - '0');
 	else if (devName[3])
 	   minor += (devName[3] - '0');
     } else if (!strncmp(devName, "ram", 3)) {
