@@ -604,10 +604,10 @@ seagate
 #	scsi_hostadapter
 #	"sym53c416"
 
-#not currently used
-#sym53c8xx
-#	scsi_hostadapter
-#	"Symbios 53C896"
+# needed for sparc
+sym53c8xx
+	scsi_hostadapter
+	"Symbios 53C896"
 
 t128
 	scsi_hostadapter
