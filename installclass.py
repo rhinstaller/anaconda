@@ -313,9 +313,7 @@ class BaseInstallClass:
 	id.langSupport.setDefault(id.langSupport.getLangNameByNick(default))
 
     def setLanguage(self, id, lang):
-        print "lang is ", lang
 	instLangName = id.instLanguage.getLangNameByNick(lang)
-        print "instlangname is ", instLangName
 	id.instLanguage.setRuntimeLanguage(instLangName)
 
     def setDesktop(self, id, desktop):
