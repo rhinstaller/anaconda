@@ -190,9 +190,11 @@ class ExceptionWindow:
 
 class MessageWindow:
     def quit (self, dialog, button=None):
-        self.rc = button
+        if button != None:
+            self.rc = button
         if self.mutex:
             self.mutex.set ()
+            self.mutex = None
 
     def okcancelquit (self, button):
         self.rc = button
@@ -203,6 +205,7 @@ class MessageWindow:
         return self.rc
     
     def __init__ (self, title, text, type = "ok"):
+        self.rc = None
         threads_enter ()
         if type == "ok":
             self.window = GnomeOkDialog (_(text))
