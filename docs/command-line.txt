@@ -72,3 +72,6 @@ ks=<url>        Kickstart via HTTP.
 ks=hd:<dev>     Kickstart via harddrive (dev = 'hda1', for example)
 
 ks=file:<path>  Kickstart from a file (path = 'fd0/ks.cfg')
+
+upgradeany	Don't require an /etc/redhat-release that matches the 
+		expected syntax to upgrade.
