@@ -16,7 +16,7 @@ def needsEnterpriseKernel():
 	if l[3] == '(reserved)': continue
 
 	regionEnd = (string.atol(l[0], 16) - 1) + string.atol(l[2], 16)
-	if regionEnd > 0x3fffffffL:
+	if regionEnd > 0xffffffffL:
 	    rc = 1
 
     return rc
