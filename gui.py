@@ -145,7 +145,7 @@ class ExceptionWindow:
                            "report at "
                            "http://bugzilla.redhat.com/bugzilla"))
         info.set_line_wrap (TRUE)
-        info.set_usize (350, -1)
+        info.set_usize (400, -1)
 
         hbox.pack_start (sw, TRUE)
         win.vbox.pack_start (info, FALSE)            
@@ -318,10 +318,11 @@ class InstallInterface:
 
         from xkb import XKB
         kb = XKB()
-        try:
-            kb.setMouseKeys (1)
-        except SystemError:
-            pass
+        if todo.installSystem:
+            try:
+                kb.setMouseKeys (1)
+            except SystemError:
+                pass
         if todo.instClass.keyboard:
 	    info = todo.keyboard.getXKB()
 	    if info:
