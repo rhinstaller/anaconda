@@ -75,7 +75,7 @@ class Mouse (SimpleConfigFile):
 	    mice.sort()
 	    for desc in mice:
 		(gpm, x11, dev, em) = self.mice[desc]
-		print "trying %s: '%s', '%s'" % (desc, x11, proto)
+#		print "trying %s: '%s', '%s'" % (desc, x11, proto)
 		if (x11 == proto and desc[0:7] == "Generic" and emulate == em):
 		    mouseType = (desc, emulate, device)
 		    break
