@@ -305,10 +305,7 @@ class Fstab:
         arch = iutil.getArch ()
 
         if arch == "alpha":
-            if '/boot' in keys:
-                kernelPart = '/boot'
-            else:
-                kernelPart = '/'
+            bootPart = self.getBootDevice()
 
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat: continue
@@ -318,7 +315,7 @@ class Fstab:
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only
                 # thing that our milo seems to read.
-                if arch == "alpha" and mntpoint == kernelPart:
+                if arch == "alpha" and mntpoint == bootPart:
                     args = args + ["-b", "1024"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
