@@ -150,7 +150,9 @@ makebootdisk --imagename ja/pcmcia.img \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "nfs vfat"'
 
-makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "parport_pc parport +scsi +net +cdrom"
+makedriverdisk --padsize 1440 "Supplemental Drivers" "drivers" "+scsi +net"
+
+makedriverdisk --padsize 1440 "Supplemental CDROM controllers" "oldcdrom" "parport_pc parport +cdrom"
 
 makedriverdisk --padsize 1440 "rhpcmcia" "pcmciadd" "$PCMCIAMODULES"
 
