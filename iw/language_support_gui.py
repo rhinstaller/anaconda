@@ -11,7 +11,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gdkpixbuf
 import checklist
 from gtk import *
 from iw_gui import *

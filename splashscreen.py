@@ -22,7 +22,11 @@ from gtk import *
 from gtk import _root_window
 from flags import flags
 import GDK
-import gdkpixbuf
+import iutil
+if iutil.getArch() != "s390x":
+    import gdkpixbuf
+else:
+    import GdkImlib
 
 splashwindow = None
 
@@ -44,34 +48,52 @@ def splashScreenShow(configFileData):
     cursor = cursor_new (GDK.LEFT_PTR)
     root.set_cursor (cursor)
 
-    def load_image(file):
-        try:
-            p = gdkpixbuf.new_from_file("/usr/share/anaconda/" + file)
-        except:
+    if iutil.getArch() != "s390x":
+        def load_image(file):
             try:
-                p = gdkpixbuf.new_from_file("" + file)
+                p = gdkpixbuf.new_from_file("/usr/share/anaconda/" + file)
+                pix = apply (GtkPixmap, p.render_pixmap_and_mask())
             except:
-                p = None
-                print "Unable to load", file
+                try:
+                    p = gdkpixbuf.new_from_file("" + file)
+                    pix = apply (GtkPixmap, p.render_pixmap_and_mask())
+                except:
+                    pix = None
+                    print "Unable to load", file
 
-        return p
+            return pix
+    else:
+        def load_image(file):
+            try:
+                im = GdkImlib.Image ("/usr/share/anaconda/" + file)
+                im.render ()
+                pix = im.make_pixmap ()
+            except:
+                try:
+                    im = GdkImlib.Image ("" + file)
+                    im.render ()
+                    pix = im.make_pixmap ()
+                except:
+                    pix = None
+                    print "Unable to load", file
+
+            return pix
 
     global splashwindow
     
     width = screen_width()
-    p = None
+    pix = None
 
     # If the xserver is running at 800x600 res or higher, use the
     # 800x600 splash screen.
     if width >= 800:
         image = configFileData["Splashscreen"]
 
-        p = load_image(image)
+        pix = load_image(image)
     else:
-        p = load_image('pixmaps/first-lowres.png')
+        pix = load_image('pixmaps/first-lowres.png')
                         
-    if p:
-        pix = apply (GtkPixmap, p.render_pixmap_and_mask())
+    if pix:
         splashwindow = GtkWindow ()
         splashwindow.set_position (WIN_POS_CENTER)
         box = GtkEventBox ()

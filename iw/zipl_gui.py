@@ -17,7 +17,6 @@ from iw_gui import *
 from gtk import *
 from gnome.ui import *
 from translate import _, N_
-import gdkpixbuf
 import iutil
 from package_gui import queryUpgradeContinue
 import gui

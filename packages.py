@@ -819,8 +819,6 @@ def doPostInstall(method, id, intf, instPath):
 
     w.pop ()
 
-    sys.stdout.flush()
-
 def migrateXinetd(instPath, instLog):
     if not os.access (instPath + "/usr/sbin/inetdconvert", os.X_OK):
 	return

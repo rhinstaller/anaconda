@@ -29,7 +29,7 @@ class fdasdPartitionWindow:
 
         fdisk_name = "fdasd"
         listboxtext = _("Choose a disk to run fdasd or dasdfmt on")
-        buttons = [ (_("OK"), "done"), (_("Edit Partitions"), "edit"),
+        buttons = [ (_("Next"), "done"), (_("Edit Partitions"), "edit"),
                     (_("Format DASD"), "dasdfmt"),
                     TEXT_BACK_BUTTON ]        
         drives =  diskset.driveList()        

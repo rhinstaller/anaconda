@@ -17,6 +17,7 @@ from iw_gui import *
 from translate import _, N_
 import iutil
 import _isys
+import sys
 import string
 
 class CongratulationWindow (InstallWindow):		
@@ -53,19 +54,32 @@ class CongratulationWindow (InstallWindow):
             bootstr = ""
             
 
-	label = GtkLabel(
-             _("Congratulations, your Red Hat Linux installation is "
-               "complete.\n\n"
-               "Remove any floppy diskettes you used during the "
-               "installation process and press <Enter> to reboot your system. "
-               "\n\n"
-               "%s"
-               "For information on errata (updates and bug fixes), visit "
-               "http://www.redhat.com/errata.\n\n"
-               "Information on using and configuring your "
-               "system is available in the Red Hat Linux manuals "
-               "at http://www.redhat.com/support/manuals.") % bootstr,
-             )
+	if iutil.getArch() != "s390" and iutil.getArch() != "s390x":
+            label = GtkLabel(
+                 _("Congratulations, your Red Hat Linux installation is "
+                   "complete.\n\n"
+                   "Remove any floppy diskettes you used during the "
+                   "installation process and press <Enter> to reboot your system. "
+                   "\n\n"
+                   "%s"
+                   "For information on errata (updates and bug fixes), visit "
+                   "http://www.redhat.com/errata.\n\n"
+                   "Information on using and configuring your "
+                   "system is available in the Red Hat Linux manuals "
+                   "at http://www.redhat.com/support/manuals.") % bootstr,
+                 )
+	else:
+            label = GtkLabel(
+                 _("Congratulations, your Red Hat Linux installation is "
+                   "complete.\n\n"
+                   "Press <Enter> to reboot your system. "
+                   "\n\n"
+                   "For information on errata (updates and bug fixes), visit "
+                   "http://www.redhat.com/errata.\n\n"
+                   "Information on using and configuring your "
+                   "system is available in the Red Hat Linux manuals "
+                   "at http://www.redhat.com/support/manuals."),
+                 )
                 
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
@@ -89,6 +103,7 @@ class CongratulationWindow (InstallWindow):
                 _isys.umount(part)
             except:
                 print part + "is busy, couldn't umount."
+	sys.exit(0)
         return hbox
 
 

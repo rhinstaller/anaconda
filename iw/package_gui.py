@@ -16,7 +16,11 @@ import gui
 import string
 import sys
 import checklist
-import gdkpixbuf
+import iutil
+if iutil.getArch() != "s390x":
+    import gdkpixbuf
+else:
+    import GdkImlib
 from gtk import *
 from gnome.ui import *
 from iw_gui import *
@@ -344,15 +348,21 @@ class IndividualPackageSelectionWindow (InstallWindow):
         # self.ctree.unset_flags (CAN_FOCUS)     
 
         if (not self.__dict__.has_key ("open_p")):
-            fn = self.ics.findPixmap("directory-open.png")
-            p = gdkpixbuf.new_from_file (fn)
-            if p:
-                self.open_p, self.open_b = p.render_pixmap_and_mask()
-            fn = self.ics.findPixmap("directory-closed.png")
-            p = gdkpixbuf.new_from_file (fn)
-            if p:
-                self.closed_p, self.closed_b = p.render_pixmap_and_mask()
-            
+            if iutil.getArch() != "s390x":
+                fn = self.ics.findPixmap("directory-open.png")
+                p = gdkpixbuf.new_from_file (fn)
+                if p:
+                    self.open_p, self.open_b = p.render_pixmap_and_mask()
+                fn = self.ics.findPixmap("directory-closed.png")
+                p = gdkpixbuf.new_from_file (fn)
+                if p:
+                    self.closed_p, self.closed_b = p.render_pixmap_and_mask()
+            else:
+                pix = self.ics.readPixmap("directory-open.png")
+                if pix:
+                    self.open_p, self.open_b = (pix, pix)
+                    self.closed_p, self.closed_b = (pix, pix)
+
         groups = {}
 
         # go through all the headers and grok out the group names, placing

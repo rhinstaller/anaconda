@@ -15,8 +15,11 @@
 
 import os
 import GDK
-import gdkpixbuf
 import iutil
+if iutil.getArch() != "s390x":
+    import gdkpixbuf
+else:
+    import GdkImlib
 import string
 import isys
 import sys
@@ -325,22 +328,25 @@ class InstallInterface:
         return None
 
     def run(self, id, dispatch, configFileData):
-        from xkb import XKB
-        kb = XKB()
+        if iutil.getArch() != "s390x":
+            from xkb import XKB
+            kb = XKB()
 
 	self.dispatch = dispatch
 
-        if flags.setupFilesystems:
-            try:
-                kb.setMouseKeys (1)
-            except SystemError:
-                pass
+	if iutil.getArch() != "s390x":
+            if flags.setupFilesystems:
+                try:
+                    kb.setMouseKeys (1)
+                except SystemError:
+                    pass
 
         if id.keyboard and not id.x_already_set:
 	    info = id.keyboard.getXKB()
 	    if info:
                 (rules, model, layout, variant, options) = info
-                kb.setRule (model, layout, variant, "complete")
+                if iutil.getArch() != "s390x":
+                    kb.setRule (model, layout, variant, "complete")
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
@@ -690,14 +696,19 @@ class InstallControlWindow:
                         "",
                         "/tmp/updates"):
                 try:
-                    p = gdkpixbuf.new_from_file(dir + image)
+                    if iutil.getArch() != "s390x":
+                        p = gdkpixbuf.new_from_file(dir + image)
+                        pix = apply(GtkPixmap, p.render_pixmap_and_mask())
+                    else:
+                        im = GdkImlib.Image (dir + image)
+                        im.render ()
+                        pix = im.make_pixmap ()
                 except:
-                    p = None
+                    pix = None
                 else:
                     break
-                
-            if p:
-                pix = apply(GtkPixmap, p.render_pixmap_and_mask())
+
+            if pix:
                 a = GtkAlignment ()
                 a.add (pix)
                 a.set (0.5, 0.5, 1.0, 1.0)
@@ -846,16 +857,17 @@ class InstallControlState:
             log("unable to load %s", file)
             return None
         try:
-            p = gdkpixbuf.new_from_file (fn)
-        except RuntimeError:
+            if iutil.getArch() != "s390x":
+                p = gdkpixbuf.new_from_file (fn)
+                pix = apply (GtkPixmap, p.render_pixmap_and_mask())
+            else:
+                im = GdkImlib.Image (fn)
+                im.render ()
+                pix = im.make_pixmap ()
+            return pix
+        except:
             log("unable to read %s", file)
             return None
-        if p:
-            pix = apply (GtkPixmap, p.render_pixmap_and_mask())
-            return pix
-        else:
-            log("unable to read %s", file)
-        return None
 
     def readHTML (self, file):
         self.htmlFile = file

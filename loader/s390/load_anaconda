@@ -18,8 +18,32 @@
 #    along with this program; if not, write to the Free Software
 #    Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+if [ "$#" = "0" -o  "$1" != "-gui" ]; then
+  unset DISPLAY
+fi
+
 mv /usr/lib /usr/lib_rd 2>/dev/null
 ln -sf /mnt/runtime/usr/lib /usr/lib
+
+# Source the loader configuration
+. /tmp/install.cfg
+
+# Copied from rhsetup to correctly write modules.conf
+# Options for kernel network drivers.
+if [ -n "$LCS" ]; then
+  echo "alias $DEVICE lcs"   >> /tmp/modules.conf
+fi
+if [ -n "$QETH" ]; then
+  echo "alias eth0 qeth"    >> /tmp/modules.conf
+fi
+if [ -n "$HSI" ]; then
+  echo "alias hsi0 qeth"    >> /tmp/modules.conf
+fi
+if [ -n "$IUCV" ]; then
+  echo "alias $DEVICE netiucv" >> /tmp/modules.conf
+  echo "options netiucv $IUCV" >> /tmp/modules.conf
+fi
+
 /sbin/loaderbin
 
 for file in `cat /proc/mounts | /bin/grep '/mnt/sysimage' |

@@ -72,11 +72,22 @@ class KernelArguments:
     def set(self, args):
 	self.args = args
 
+    def chandevget(self):
+        return self.cargs
+
+    def chandevset(self, args):
+        self.cargs = args
+
     def __init__(self):
 	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
 	    self.args = ""
+	    self.cargs = []
 	    if os.environ.has_key("DASD"):
                 self.args = "dasd=" + os.environ["DASD"]
+	    if os.environ.has_key("CHANDEV"):
+	        self.cargs.append(os.environ["CHANDEV"])
+	    if os.environ.has_key("QETHPARM"):
+	        self.cargs.append(os.environ["QETHPARM"])
 	else:
 	    cdrw = isys.ideCdRwList()
 	    str = ""
@@ -702,7 +713,7 @@ class s390BootloaderInfo(bootloaderInfo):
 
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 	if not rootDev:
-            raise RuntimeError, "Installing zilo, but there is no root device"
+            raise RuntimeError, "Installing zipl, but there is no root device"
 
 	if rootDev == defaultDev:
 	    lilo.addEntry("default", kernelList[0][0])
@@ -778,16 +789,15 @@ class s390BootloaderInfo(bootloaderInfo):
 
         return lilo
 
-    def writeChandevConf(self, instroot):   # S/390 only 
+    def writeChandevConf(self, instroot, bl):   # S/390 only 
 	cf = "/etc/chandev.conf"
 	self.perms = 0644
-	if os.environ.has_key("CHANDEV"):
-	    fd = os.open(instroot + "/etc/chandev.conf", os.O_WRONLY | os.O_CREAT)
-	    os.write(fd, os.environ["CHANDEV"])
-	    os.close(fd)
+        fd = open(instroot + cf, "w+")
+        for cdev in bl.args.chandevget():
+            fd.write('%s\n' % cdev)
+	fd.close()
 	return ""
-	
-    
+
     def writeZipl(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfigFile):
 	images = bl.images.getImages()
@@ -825,43 +835,24 @@ class s390BootloaderInfo(bootloaderInfo):
 	if not justConfigFile:
             argv = [ "/sbin/zipl" ]
             iutil.execWithRedirect(argv[0], argv, root = instRoot,
-                                   stdout = "/dev/tty5",
-                                   stderr = "/dev/tty5")
+                                   stdout = "/dev/stdout",
+                                   stderr = "/dev/stderr")
             
 	return ""
 
-    def writeZilo(self, instRoot, fsset, bl, langs, kernelList, 
-                  chainList, defaultDev, justConfig):
-        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
-                                          kernelList, chainList, defaultDev)
-	config.write(instRoot + self.configfile, perms = self.perms)
-
-        if not justConfig:
-	    # throw away stdout, catch stderr
-	    str = iutil.execWithCapture(instRoot + '/sbin/zilo' ,
-					[ "zilo", "-r", instRoot ],
-					catchfd = 2, closefd = 1)
-	else:
-	    str = ""
-
-	return str
-
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig, intf):
-        str = self.writeZilo(instRoot, fsset, bl, langs, kernelList, 
-                             chainList, defaultDev,
-                             justConfig | (self.useZiplVal))
         str = self.writeZipl(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (not self.useZiplVal))
-	str = self.writeChandevConf(instRoot)
+	str = self.writeChandevConf(instRoot, bl)
     
     def __init__(self):
         bootloaderInfo.__init__(self)
         self.useGrubVal = 0      # only used on x86
         self.useZiplVal = 1      # only used on s390
         self.kernelLocation = "/boot/"
-        self.configfile = "/etc/zilo.conf"
+        self.configfile = "/etc/zipl.conf"
 
 
 def availableBootDevices(diskSet, fsset):

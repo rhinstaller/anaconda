@@ -83,8 +83,11 @@ class InstSyslog:
     def stop(self):
         if self.pid == -1:
             raise RuntimeError, "syslogd not running"
-        os.kill (self.pid, 15)
-        os.wait (self.pid)
+	try:
+            os.kill (self.pid, 15)
+            os.wait (self.pid)
+	except OSError:
+	    pass
         self.pid = -1
 
 syslog = InstSyslog()
