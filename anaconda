@@ -534,13 +534,17 @@ if (display_mode == 'g'):
                 pass
 
     # display splash screen
-    from splashscreen import splashScreenShow
-    splashScreenShow(configFileData)
 
     if nofallback:
+	from splashscreen import splashScreenShow
+	splashScreenShow(configFileData)
+	
         from gui import InstallInterface
     else:
         try:
+	    from splashscreen import splashScreenShow
+	    splashScreenShow(configFileData)
+	    
             from gui import InstallInterface
         except:
             # if we're not going to really go into GUI mode, we need to get
