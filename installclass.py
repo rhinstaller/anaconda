@@ -423,11 +423,11 @@ class BaseInstallClass:
 	    
 	    if resolution not in availableRes:
                  fbres = availableRes[-1]
-                 log(_("Resolution requested %s is not supported."),resolution)
-		 log(_("Falling back to %s."), fbres)
-		 log(_("To avoid this you may need to specify the videocard and "))
-		 log(_("monitor specs on the xconfig ks directive if they were "))
-		 log(_("not probed correctly."))
+                 log("Resolution requested %s is not supported.",resolution)
+		 log("Falling back to %s.", fbres)
+		 log("To avoid this you may need to specify the videocard and ")
+		 log("monitor specs on the xconfig ks directive if they were ")
+		 log("not probed correctly.")
 		 resolution = fbres
 		 
 	    xcfg.set_resolution(resolution)
