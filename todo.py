@@ -847,6 +847,7 @@ class ToDo:
                 self.instLog.flush ()
                 fn = self.method.getFilename(h)
                 self.rpmFD = os.open(fn, os.O_RDONLY)
+                fn = self.method.unlinkFilename(fn)
                 return self.rpmFD
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
