@@ -45,10 +45,11 @@ echo "DEST is $DEST"
 echo "DESTGR is $DESTGR"
 
 PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
-          XFree86-FBDev XFree86-75dpi-fonts XFree86-3. xpm-3 glib-
-          gtk+- gnome-libs slang python-1 newt imlib-1 libpng libtiff
-          libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash- pygtk-
-          pygnome- util-linux procps esound-0 audiofile-0 strace"
+          XFree86-S3 XFree86-S3V XFree86-FBDev XFree86-75dpi-fonts
+          XFree86-3. xpm-3 glib- gtk+- gnome-libs slang python-1 newt
+          imlib-1 libpng libtiff libjpeg- libtermcap-2 zlib rpm
+          rpm-devel ash- bash- pygtk- pygnome- util-linux procps
+          esound-0 audiofile-0 strace"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -116,7 +117,10 @@ usr/X11R6/lib/libSM*
 usr/X11R6/lib/libX11*
 usr/X11R6/lib/libXext*
 usr/X11R6/bin/XF86_SVGA
+usr/X11R6/bin/XF86_S3
+usr/X11R6/bin/XF86_S3V
 usr/X11R6/bin/XF86_FBDev
+usr/X11R6/lib/X11/Cards
 usr/X11R6/lib/X11/fonts/75dpi/cour*
 usr/X11R6/lib/X11/fonts/75dpi/helv*
 usr/X11R6/lib/X11/fonts/75dpi/fonts*
