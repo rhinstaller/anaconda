@@ -13,5 +13,11 @@ class InstallMethod:
     def readHeaders(self):
 	return HeaderList(self.tree + "/RedHat/base/hdlist")
 
+    def targetFstab(self, fstab):
+	pass
+
+    def filesDone(self):
+	pass
+
     def __init__(self, tree):
 	self.tree = tree
