@@ -57,21 +57,21 @@ struct knownDevices devices;
 struct installMethod {
     char * name;
     int network;
-    int (*mountImage)(char * location, struct knownDevices * kd,
+    char * (*mountImage)(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 };
 
-static int mountCdromImage(char * location, struct knownDevices * kd,
+static char * mountCdromImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static int mountHardDrive(char * location, struct knownDevices * kd,
+static char * mountHardDrive(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static int mountNfsImage(char * location, struct knownDevices * kd,
+static char * mountNfsImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static int mountFtpImage(char * location, struct knownDevices * kd,
+static char * mountFtpImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 
@@ -443,7 +443,7 @@ logMessage("mount error %s", strerror(errno));
     return 0;
 }
 
-static int mountHardDrive(char * location, struct knownDevices * kd,
+static char * mountHardDrive(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int rc;
@@ -461,6 +461,7 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
     char * dir = NULL;
     char * type;
     char * path;
+    char * url = NULL;
 
     /* XXX load scsi devices here */
 
@@ -500,7 +501,7 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	newtWinMessage(_("Error"), _("Ok"), 
 			_("You don't seem to have any hard drives on "
 			  "your system!"));
-	return LOADER_BACK;
+	return NULL;
     }
 
     while (!done) {
@@ -551,7 +552,7 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	newtFormDestroy(form);
 	newtPopWindow();
 	
-	if (answer == back) return LOADER_BACK;
+	if (answer == back) return NULL;
 
 	logMessage("partition %s selected", part->name);
 	
@@ -592,6 +593,10 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	    rc = loadStage2Ramdisk(fd, 0, flags);
 	    close(fd);
 	    if (rc) continue;
+
+	    url = malloc(50);
+	    sprintf(url, "hd://%s/RedHat", part->name + 5);
+
 	}
 
 	done = 1; 
@@ -600,10 +605,10 @@ static int mountHardDrive(char * location, struct knownDevices * kd,
 	rmdir("/tmp/hdimage");
     }
 
-    return 0;
+    return url;
 }
 
-static int mountCdromImage(char * location, struct knownDevices * kd,
+static char * mountCdromImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i;
@@ -641,7 +646,7 @@ static int mountCdromImage(char * location, struct knownDevices * kd,
 	}
     } while (1);
 
-    return LOADER_BACK;
+    return "dir://mnt/source/.";
 }
 
 static int ensureNetDevice(struct knownDevices * kd,
@@ -689,7 +694,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 #define NFS_STAGE_MOUNT	3
 #define NFS_STAGE_DONE	4
 
-static int mountNfsImage(char * location, struct knownDevices * kd,
+static char * mountNfsImage(char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags) {
     static struct networkDeviceConfig netDev;
@@ -703,7 +708,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     memset(&netDev, 0, sizeof(netDev));
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
-    if (i) return i;
+    if (i) return NULL;
 
     while (stage != NFS_STAGE_DONE) {
         switch (stage) {
@@ -711,7 +716,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 	    rc = readNetConfig(devName, &netDev, flags);
 	    if (rc) {
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
-		return rc;
+		return NULL;
 	    }
 	    stage = NFS_STAGE_NFS;
 	    break;
@@ -762,7 +767,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     free(host);
     free(dir);
 
-    return 0;
+    return "dir://mnt/source/.";
 }
 
 #define URL_STAGE_IP			1
@@ -771,7 +776,7 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
 #define URL_STAGE_FETCH			4
 #define URL_STAGE_DONE			20
 
-static int mountFtpImage(char * location, struct knownDevices * kd,
+static char * mountFtpImage(char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i, rc;
@@ -784,7 +789,7 @@ static int mountFtpImage(char * location, struct knownDevices * kd,
     char buf[1024];
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
-    if (i) return i;
+    if (i) return NULL;
 
     memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
@@ -796,7 +801,7 @@ static int mountFtpImage(char * location, struct knownDevices * kd,
 	    rc = readNetConfig(devName, &netDev, flags);
 	    if (rc) {
 		if (!FL_TESTING(flags)) pumpDisableInterface(devName);
-		return rc;
+		return NULL;
 	    }
 	    stage = NFS_STAGE_NFS;
 
@@ -835,10 +840,10 @@ static int mountFtpImage(char * location, struct knownDevices * kd,
         }
     }
 
-    return LOADER_BACK;
+    return "dir://mnt/source/.";
 }
     
-static int doMountImage(char * location, struct knownDevices * kd,
+static char * doMountImage(char * location, struct knownDevices * kd,
     		        moduleInfoSet modInfo,
 			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
@@ -851,6 +856,7 @@ static int doMountImage(char * location, struct knownDevices * kd,
     int networkAvailable = 0;
     int localAvailable = 0;
     void * class;
+    char * url;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
 	networkAvailable = 1;
@@ -876,7 +882,7 @@ static int doMountImage(char * location, struct knownDevices * kd,
 
     if (!numValidMethods) {
 	logMessage("no install methods have the required devices!\n");
-	return LOADER_ERROR;
+	return NULL;
     }
 
     do { 
@@ -885,11 +891,13 @@ static int doMountImage(char * location, struct knownDevices * kd,
 			   "installed?"), 30, 10, 20, 6, installNames, 
 			 &methodNum, _("Ok"), NULL);
 
-    	rc = installMethods[validMethods[methodNum]].mountImage(location,
-    		   kd, modInfo, modLoaded, modDeps, flags);
-    } while (rc);
+	if (rc) continue;
 
-    return 0;
+    	url = installMethods[validMethods[methodNum]].mountImage(location,
+    		   kd, modInfo, modLoaded, modDeps, flags);
+    } while (!url);
+
+    return url;
 }
 
 static int parseCmdLineFlags(int flags, char * cmdLine) {
@@ -925,7 +933,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
-    char * arg;
+    char * arg, * url;
     poptContext optCon;
     int probeOnly = 0;
     moduleList modLoaded;
@@ -988,7 +996,7 @@ int main(int argc, char ** argv) {
 
     startNewt(flags);
 
-    doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
+    url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
 		 FL_TESTING(flags));
 
     if (!FL_TESTING(flags)) {
@@ -1012,8 +1020,6 @@ int main(int argc, char ** argv) {
     }
 
     spawnShell(flags);			/* we can attach gdb now :-) */
-
-newtWinMessage("Wait", _("Ok"), "Press return to continue");
 
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
@@ -1063,8 +1069,8 @@ newtWinMessage("Wait", _("Ok"), "Press return to continue");
 
     argptr = anacondaArgs;
     *argptr++ = "/usr/bin/anaconda";
-    *argptr++ = "-p";
-    *argptr++ = "/mnt/source";
+    *argptr++ = "-m";
+    *argptr++ = url;
 
     if (FL_TEXT(flags))
 	*argptr++ = "-T";
