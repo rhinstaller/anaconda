@@ -11,7 +11,7 @@ class InstallClass(workstation.InstallClass):
     arch = 'i386'
 
     def setGroupSelection(self, comps):
-	workstation.InstallClass.__init__(self, comps)
+	workstation.InstallClass.setGroupSelection(self, comps)
 	comps["Laptop Support"].select()
 
     if pcmcia.pcicType():
