@@ -255,6 +255,27 @@ static int intelDetectSMP(void)
     mpfps_t     mpfps;
     int		rc = 0;
     int		ncpus = 0;
+    FILE	*f;
+    
+    f = fopen("/proc/cpuinfo", "r");
+    if (f) {     
+	char buff[1024];
+	
+	while (fgets (buff, 1024, f) != NULL) {
+	    if (!strncmp (buff, "flags\t\t:", 8)) {
+		if (strstr(buff, " ht ") ||
+		    /* buff includes \n, so back up 4 bytes from the end
+		       and check there too to catch the end case */
+		    !strncmp(buff + strlen(buff) - 4, " ht", 3)) {
+		    rc = 1;
+		}
+		break;
+	    }
+	}
+	fclose(f);
+    }
+    if (rc)
+	return 1;
     
     /* open physical memory for access to MP structures */
     if ( (pfd = open( "/dev/mem", O_RDONLY )) < 0 ) {
