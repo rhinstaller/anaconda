@@ -3331,6 +3331,7 @@ static void verifyImagesMatched() {
     char *stamp1;
     char *stamp2;
     FILE *f;
+    int fail = 0;
 
     stamp1 = alloca(13);
     stamp2 = alloca(13);
@@ -3338,19 +3339,24 @@ static void verifyImagesMatched() {
     /* grab the one from the initrd */
     f = fopen("/.buildstamp", "r");
     if (!f) {
-	/* hrmm... not having them won't be fatal for now */
-	return;
-    }
-    fgets(stamp1, 13, f);
+	fail = 1;
+    } else {
+	fgets(stamp1, 13, f);
 
-    /* and the runtime */
-    f = fopen("/mnt/runtime/.buildstamp", "r");
-    if (!f) {
-	return;
-    }
-    fgets(stamp2, 13, f);
+	/* and the runtime */
+	f = fopen("/mnt/runtime/.buildstamp", "r");
+	if (!f) {
+	    fail = 1;
+	} else {
+	    fgets(stamp2, 13, f);
 
-    if (strncmp(stamp1, stamp2, 12) != 0) {
+	    if (strncmp(stamp1, stamp2, 12) != 0) {
+		fail = 1;
+	    }
+	}
+    }
+
+    if (fail == 1) {
 	newtWinMessage(_("Error"), _("OK"),
 		       _("The second stage of the install which you have "
 			 "selected does not match the boot disk which you "
