@@ -49,11 +49,7 @@ class PackageGroupWindow:
         for par in parlist:
             for grp in pardict[par]:
                 if grp.hidden:
-                    if grp.id != "base":
-                        continue
-                    else:
-                        if not instClass.showMinimal:
-                            continue
+                    continue
                 ct.append(grp.name, grp, grp.isSelected(justManual = 1))
 
         cb = Checkbox (_("Select individual packages"), 
