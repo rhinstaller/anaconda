@@ -11,14 +11,14 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-04 11:55+0530\n"
+"PO-Revision-Date: 2005-03-31 10:19+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -243,8 +243,7 @@ msgstr ""
 msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
-msgstr ""
-"બુટ પાર્ટીશન %s એ VFAT પાર્ટીશન નથી. EFI એ આ પાર્ટીશનમાંથી ચાલુ થવા માટે સમર્થ નથી."
+msgstr "બુટ પાર્ટીશન %s એ VFAT પાર્ટીશન નથી. EFI એ આ પાર્ટીશનમાંથી ચાલુ થવા માટે સમર્થ નથી."
 
 #: ../autopart.py:1038
 msgid ""
@@ -256,8 +255,7 @@ msgstr ""
 
 #: ../autopart.py:1045
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "બુટ પાર્ટીશન %s તમારા આર્કીટેક્ચરના બુટ માટેના પરિમાણોને મળતું નથી."
 
 #: ../autopart.py:1071
@@ -265,8 +263,7 @@ msgstr "બુટ પાર્ટીશન %s તમારા આર્કીટ
 msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
-msgstr ""
-"આ પાર્ટીશનને ઉમેરવાનું %s માં પહેલાથી સ્થિત લોજિકલ પાર્ટીશનો માટે પૂરતી જગ્યા રાખતું નથી."
+msgstr "આ પાર્ટીશનને ઉમેરવાનું %s માં પહેલાથી સ્થિત લોજિકલ પાર્ટીશનો માટે પૂરતી જગ્યા રાખતું નથી."
 
 #: ../autopart.py:1239
 msgid "Requested Partition Does Not Exist"
@@ -511,8 +508,7 @@ msgstr "બુટલોડર સ્થાપિત કરી રહ્યા �
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"તમારી સિસ્ટમ પર કોઈ કર્નલ પેકેજો સ્થાપિત થયેલ નથી. તમારુ બુટ લોડર રુપરેખાંકન બદલાયેલ નથી."
+msgstr "તમારી સિસ્ટમ પર કોઈ કર્નલ પેકેજો સ્થાપિત થયેલ નથી. તમારુ બુટ લોડર રુપરેખાંકન બદલાયેલ નથી."
 
 #: ../cmdline.py:42
 msgid "Completed"
@@ -541,26 +537,20 @@ msgid "Installing %s-%s-%s... "
 msgstr "સ્થાપિત કરી રહ્યા છીએ %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
-msgstr ""
-"અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને આ અપવાદનું પૂરેપુરુ લખાણ નકલ "
-"કરો અથવા બગાડ ફ્લોપીમાં સંગ્રહ કરો અને પછી વિગતવાર બગનો અહેવાલ એનાકોન્ડાની સામે આપો "
-"http://bugzilla.redhat.com/bugzilla/"
+msgstr "અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને આ અપવાદનું પૂરેપુરુ લખાણ નકલ કરો અથવા બગાડ ફ્લોપીમાં સંગ્રહ કરો અને પછી વિગતવાર બગનો અહેવાલ એનાકોન્ડાની સામે %s આગળ આપો"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
-msgstr ""
-"અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને આ અપવાદનું પૂરેપુરુ લખાણ નકલ "
-"કરો અને પછી વિગતવાર બગનો અહેવાલ એનાકોન્ડાની સામે આપો http://bugzilla.redhat.com/"
-"bugzilla/"
+msgstr "અનિયંત્રિત અપવાદ ઉદ્ભવ્યો. આ મોટે ભાગે બગ છે. મહેરબાની કરીને આ અપવાદનું પૂરેપુરુ લખાણ નકલ કરો અને પછી વિગતવાર બગનો અહેવાલ એનાકોન્ડાની સામે %s આગળ આપો"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1002,7 +992,6 @@ msgid "Cancel"
 msgstr "નકારો"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
 msgstr "અપવાદ ઉદ્ભવ્યો"
 
@@ -1012,7 +1001,7 @@ msgstr "ભૂલ શોધો (_D)"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "ફ્લોપીમાં સંગ્રહો (_S)"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1264,8 +1253,7 @@ msgstr "યજમાનનું નામ ૬૪ અથવા તેનાથ�
 
 #: ../network.py:45
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"યજમાનનું નામ યોગ્ય અક્ષરો કે જે a-z' અથવા 'A-Z' ના વિસ્તારમાં હોય તેનાથી શરુ થવું જોઈએ"
+msgstr "યજમાનનું નામ યોગ્ય અક્ષરો કે જે a-z' અથવા 'A-Z' ના વિસ્તારમાં હોય તેનાથી શરુ થવું જોઈએ"
 
 #: ../network.py:50
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1530,10 +1518,10 @@ msgstr ""
 
 #: ../packages.py:1543
 msgid "Warning! This is pre-release software!"
-msgstr "ચેતવણી! આ પહેલા-રીલીઝ થયેલ સોફ્ટવેર છે!"
+msgstr "ચેતવણી! આ પહેલા-પ્રકાશન થયેલ સોફ્ટવેર છે!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1547,14 +1535,14 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"%s ની પહેલી રીલીઝ ડાઉનલોડ કરવા માટે તમારો આભાર.\n"
+"%s ની પહેલી પ્રકાશન ડાઉનલોડ કરવા માટે તમારો આભાર.\n"
 "\n"
-"આ અંતિમ રીલીઝ નથી અને ઉત્પાદન સિસ્ટમ પર વાપરવા માટે નથી બનાવાયેલ. આ રીલીઝ બનાવવાનો "
+"આ અંતિમ પ્રકાશન નથી અને ઉત્પાદન સિસ્ટમો પર વાપરવા માટે બનાવાયેલ નથી. આ પ્રકાશન બનાવવાનો "
 "મુખ્ય હેતુ ચકાસનારા પાસે યોગ્ય વળતર મેળવવાનો છે, અને તે રોજિંદા વપરાશ માટે યોગ્ય નથી.\n"
 "\n"
-"વળતર આપવા માટે, મહેરબાની કરીને:\n"
+"વળતર આપવા માટે, મહેરબાની કરીને નીચે મુલાકાત લો:\n"
 "\n"
-"   http://bugzilla.redhat.com/bugzilla ની મુલાકાત લો\n"
+"   %s\n"
 "\n"
 "'%s' વિરુદ્ધ અહેવાલ મોકલો.\n"
 
@@ -1921,8 +1909,7 @@ msgstr ""
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
-msgstr ""
-"નીચેના પહેલાથી હયાત પાર્ટીશનો ફોર્મેટ કરવા માટે પસંદ થયેલ છે, જે બધી માહિતી કાઢી નાંખશે."
+msgstr "નીચેના પહેલાથી હયાત પાર્ટીશનો ફોર્મેટ કરવા માટે પસંદ થયેલ છે, જે બધી માહિતી કાઢી નાંખશે."
 
 #: ../partIntfHelpers.py:451
 msgid ""
@@ -1970,10 +1957,8 @@ msgid "Confirm Reset"
 msgstr "રીસેટ કરવાનું ચોક્કસ છે"
 
 #: ../partIntfHelpers.py:529
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"શું તમે ખરેખર ચોક્કસ છો કે તમે પાર્ટીશન કોષ્ટક તેની મૂળ સ્થિતિમાં સુયોજિત કરવા માંગો છો?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "શું તમે ખરેખર ચોક્કસ છો કે તમે પાર્ટીશન કોષ્ટક તેની મૂળ સ્થિતિમાં સુયોજિત કરવા માંગો છો?"
 
 #: ../partitioning.py:77
 msgid "Installation cannot continue."
@@ -2006,20 +1991,17 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"તમે રુટ પાર્ટીશન (/) વ્યાખ્યાયિત નથી કર્યું, કે જે %s નું સ્થાપન ચાલુ રાખવા માટે જરુરી છે."
+msgstr "તમે રુટ પાર્ટીશન (/) વ્યાખ્યાયિત નથી કર્યું, કે જે %s નું સ્થાપન ચાલુ રાખવા માટે જરુરી છે."
 
 #: ../partitions.py:794
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"તમારુ રુટ પાર્ટીશન એ ૨૫૦ મેગાબાઈટ કરતાં ઓછું છે કે જે %s સ્થાપિત કરવા માટે ખૂબ નાનું છે."
+msgstr "તમારુ રુટ પાર્ટીશન એ ૨૫૦ મેગાબાઈટ કરતાં ઓછું છે કે જે %s સ્થાપિત કરવા માટે ખૂબ નાનું છે."
 
 #: ../partitions.py:801
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "તમારે FAT પ્રકારનું /boot/efi પાર્ટીશન બનાવવું જ જોઈએ અને તે પણ ૫૦ મેગાબાઈટનું."
 
 #: ../partitions.py:821
@@ -2087,8 +2069,7 @@ msgstr "પાર્ટીશન કે જે LVM કદ જૂથનો સભ
 
 #: ../partRequests.py:243
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "આ માઉન્ટ બિંદુ અમાન્ય છે. %s ડિરેક્ટરી / ફાઈલ સિસ્ટમ પર જ હોવી જોઈએ."
 
 #: ../partRequests.py:246
@@ -2109,8 +2090,7 @@ msgstr "આ માઉન્ટ બિંદુ લિનક્સ ફાઈલ �
 msgid ""
 "The mount point \"%s\" is already in use, please choose a different mount "
 "point."
-msgstr ""
-"માઉન્ટ બિંદુ \"%s\" પહેલાથી જ વપરાશમાં છે, મહેરબાની કરીને અલગ માઉન્ટ બિંદુ પસંદ કરો."
+msgstr "માઉન્ટ બિંદુ \"%s\" પહેલાથી જ વપરાશમાં છે, મહેરબાની કરીને અલગ માઉન્ટ બિંદુ પસંદ કરો."
 
 #: ../partRequests.py:288
 #, python-format
@@ -2184,8 +2164,7 @@ msgstr "હું અંહિથી પહેલાના પગલે જઈ �
 
 #: ../rescue.py:243 ../rescue.py:278 ../rescue.py:438
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"જ્યારે પૂર્ણ થાય ત્યારે મહેરબાની કરીને શેલમાંથી બહાર નીકળો અને તમારી સિસ્ટમ રીબુટ થશે."
+msgstr "જ્યારે પૂર્ણ થાય ત્યારે મહેરબાની કરીને શેલમાંથી બહાર નીકળો અને તમારી સિસ્ટમ રીબુટ થશે."
 
 #: ../rescue.py:262 ../rescue.py:331 ../rescue.py:339 ../rescue.py:413
 msgid "Rescue"
@@ -2329,16 +2308,14 @@ msgid "Welcome to %s"
 msgstr "%s માં તમારુ સ્વાગત છે"
 
 #: ../text.py:358
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> મદદ માટે | <Tab> ભાગો વચ્ચે | <Space> પસંદ કરે છે | <F12> આગળની સ્ક્રીન"
 
 #: ../text.py:360
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> ભાગો વચ્ચે    |  <Space> પસંદ કરે છે   |  <F12> આગળની સ્ક્રીન"
+msgstr "  <Tab>/<Alt-Tab> ભાગો વચ્ચે    |  <Space> પસંદ કરે છે   |  <F12> આગળની સ્ક્રીન"
 
 #: ../upgradeclass.py:19
 msgid "Upgrade Existing System"
@@ -2648,8 +2625,7 @@ msgstr "પાસવર્ડ સાથે ભૂલ છે"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"તમારે તમારો રુટ પાસવર્ડ દાખલ કરવો જ પડશે અને તેને બીજી વાર લખીને ખાતરી કરવી જ જોઈએ."
+msgstr "તમારે તમારો રુટ પાસવર્ડ દાખલ કરવો જ પડશે અને તેને બીજી વાર લખીને ખાતરી કરવી જ જોઈએ."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
@@ -3037,7 +3013,6 @@ msgid "Congratulations"
 msgstr "ધન્યવાદ"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
@@ -3127,8 +3102,7 @@ msgstr ""
 msgid ""
 "If you would like to change the default package set to be installed you can "
 "choose to customize this below."
-msgstr ""
-"જો તમે મૂળભુત પેકેજ સેટ સ્થાપિત થયેલ કરવા માંગતા હોય તો તમે નીચે કસ્ટમાઈઝ પસંદ કરી શકો છો."
+msgstr "જો તમે મૂળભુત પેકેજ સેટ સ્થાપિત થયેલ કરવા માંગતા હોય તો તમે નીચે કસ્ટમાઈઝ પસંદ કરી શકો છો."
 
 #: ../iw/desktop_choice_gui.py:78
 msgid "_Install default software packages"
@@ -3965,8 +3939,7 @@ msgstr "કાઢી શકતા નથી"
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
-msgstr ""
-"બુટ લક્ષ્ય કાઢી શકાતું નથી કારણકે તે %s સિસ્ટમ માટે છે જે તમે સ્થાપિત કરવા જઈ રહ્યા છો."
+msgstr "બુટ લક્ષ્ય કાઢી શકાતું નથી કારણકે તે %s સિસ્ટમ માટે છે જે તમે સ્થાપિત કરવા જઈ રહ્યા છો."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:320
 msgid "Individual Package Selection"
@@ -4152,14 +4125,12 @@ msgid "Partitioning"
 msgstr "પાર્ટીશન કરી રહ્યા છીએ"
 
 #: ../iw/partition_gui.py:631
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "તમારી મંગાયેલી પાર્ટીશન કરવાની પદ્ધતિ સાથે નીચેની ગંભીર ભૂલો હતી."
 
 #: ../iw/partition_gui.py:634
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "તમારા %s ના સ્થાપન સાથે ચાલુ રાખવા પહેલાં ભૂલો સુધારેલી જ હોવી જોઈએ."
 
 #: ../iw/partition_gui.py:640
@@ -4340,8 +4311,7 @@ msgstr "આપોઆપ પાર્ટીશન કરી રહ્યા છ�
 #: ../iw/partition_gui.py:1443
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"તમારે ઓછામાં ઓછી એક હાર્ડ ડ્રાઈવ પસંદ કરેલી હોવી જોઈએ કે જેના પર %s સ્થાપિત હોય."
+msgstr "તમારે ઓછામાં ઓછી એક હાર્ડ ડ્રાઈવ પસંદ કરેલી હોવી જોઈએ કે જેના પર %s સ્થાપિત હોય."
 
 #: ../iw/partition_gui.py:1485
 msgid "I want to have automatic partitioning:"
@@ -4693,8 +4663,7 @@ msgstr "આ તમારુ વર્તમાન બુટ લોડર સુ�
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "સ્થાપકે વર્તમાનમાં %s પર સ્થાપિત %s બુટ લોડર શોધી કાઢ્યું."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4829,8 +4798,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "સ્વેપ ફાઈલ ૧ અને ૨૦૦૦ MB માપની વચ્ચે જ હોવી જોઈએ."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "તમે સ્વેપ પાર્ટીશન માટે પસંદ કરેલ ઉપકરણ માટે પૂરતી જગ્યા નથી."
 
 #: ../iw/xconfig_gui.py:36 ../textw/xconfig_text.py:23
@@ -4946,13 +4914,11 @@ msgid "Unknown video card"
 msgstr "અજ્ઞાત વિડીયો કાર્ડ"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"વિડીયો કાર્ડ %s પસંદ કરતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને આ ભૂલનો bugzilla.redhat."
-"com ને અહેવાલ આપો."
+msgstr "વિડીયો કાર્ડ %s પસંદ કરતી વખતે ભૂલ ઉદ્ભવી. મહેરબાની કરીને આ ભૂલનો અહેવાલ %s ને આપો."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5188,8 +5154,7 @@ msgstr ""
 "પાર્ટીશનોમાંથી બુટ કરવા માંગો છો અને તે દરેક માટે કયા લેબલો વાપરવા માંગો છો."
 
 #: ../textw/bootloader_text.py:297
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> બટન પસંદ કરો | <F2> મૂળભુત બુટ પ્રવેશ પસંદ કરો | <F12> પછીની સ્ક્રીન>"
 
 #: ../textw/bootloader_text.py:376
@@ -5619,8 +5584,7 @@ msgid "Select individual packages"
 msgstr "અંગત પેકેજો પસંદ કરો"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr "<Space>,<+>,<-> પસંદગી   |   <F2> જૂથની વિગતો   |   <F12> આગળની સ્ક્રીન"
 
 #: ../textw/packages_text.py:119
@@ -5645,8 +5609,7 @@ msgid "Total size"
 msgstr "કુલ માપ"
 
 #: ../textw/packages_text.py:328
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> પસંદગી   |   <F1> મદદ   |   <F2> પેકેજ વર્ણન"
 
 #: ../textw/packages_text.py:376
@@ -5790,8 +5753,7 @@ msgstr "ફાઈલ સિસ્ટમ વિકલ્પો"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"મહેરબાની કરીને તમે કેવી રીતે આ પાર્ટીશન પર ફાઈલ સિસ્ટમ તૈયાર કરવા માંગો છો તે પસંદ કરો."
+msgstr "મહેરબાની કરીને તમે કેવી રીતે આ પાર્ટીશન પર ફાઈલ સિસ્ટમ તૈયાર કરવા માંગો છો તે પસંદ કરો."
 
 #: ../textw/partition_text.py:606
 msgid "Check for bad blocks"
@@ -5916,8 +5878,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1446
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-મદદ     F2-નવું      F3-ફેરફાર કરો   F4-કાઢી નાંખો    F5-ફરી સુયોજિત "
 "કરો    F12-બરાબર        "
@@ -5992,9 +5953,8 @@ msgid "What time zone are you located in?"
 msgstr "તમે કયા ટાઈમ ઝોનમાં સ્થિત થયેલા છો?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "સિસ્ટમ ઘડિયાળ _UTC વાપરે છે"
+msgstr "સિસ્ટમ ઘડિયાળ UTC વાપરે છે"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -6145,15 +6105,12 @@ msgid "User Exists"
 msgstr "વપરાશકર્તાઓ હાજર છે"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "રુટ વપરાશકર્તા પહેલાથી રુપરેખાંકિત છે. તમારે આ વપરાશકર્તાને અંહિ ઉમેરવાની જરુર છે."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"સિસ્ટમ વપરાશકર્તા પહેલાથી જ રુપરેખાંકિત છે. તમારે આ વપરાશકર્તાને અંહિ ઉમેરવાની જરુર છે."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "સિસ્ટમ વપરાશકર્તા પહેલાથી જ રુપરેખાંકિત છે. તમારે આ વપરાશકર્તાને અંહિ ઉમેરવાની જરુર છે."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6761,8 +6718,7 @@ msgstr "ફાઈલમાંથી ડ્રાઈવર ડિસ્ક લા
 #: ../loader2/driverdisk.c:388
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"તમારી ડ્રાઈવર ડિસ્ક /dev/%s માં દાખલ કરો અને ચાલુ રાખવા માટે \"બરાબર\" બટન દબાવો."
+msgstr "તમારી ડ્રાઈવર ડિસ્ક /dev/%s માં દાખલ કરો અને ચાલુ રાખવા માટે \"બરાબર\" બટન દબાવો."
 
 #: ../loader2/driverdisk.c:390
 msgid "Insert Driver Disk"
@@ -6856,8 +6812,7 @@ msgstr "ડ્રાઈવર ડિસ્ક લાવો"
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
-msgstr ""
-"કોઈ ડ્રાઈવરો જાતે દાખલ કરવા માટે મળ્યા નથી. શું તમે ડ્રાઈવર ડિસ્ક વાપરવા માંગો છો?"
+msgstr "કોઈ ડ્રાઈવરો જાતે દાખલ કરવા માટે મળ્યા નથી. શું તમે ડ્રાઈવર ડિસ્ક વાપરવા માંગો છો?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6980,8 +6935,7 @@ msgid "Welcome to %s - Rescue Mode"
 msgstr "%s - સુરક્ષિત સ્થિતીમાં સ્વાગત છે"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> વસ્તુઓ વચ્ચે  | <Space> પસંદ કરે છે | <F12> પછીની સ્ક્રીન "
 
 #: ../loader2/lang.c:377
@@ -7015,8 +6969,7 @@ msgstr ""
 #: ../loader2/loader.c:319
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"તમારી સુધારેલ ડિસ્ક /dev/%s માં દાખલ કરો અને \"બરાબર\" પર ક્લિક કરીને ચાલુ રાખો."
+msgstr "તમારી સુધારેલ ડિસ્ક /dev/%s માં દાખલ કરો અને \"બરાબર\" પર ક્લિક કરીને ચાલુ રાખો."
 
 #: ../loader2/loader.c:321
 msgid "Updates Disk"
@@ -7092,8 +7045,7 @@ msgstr "તમારી સિસ્ટમ પર નીચેના ઉપક�
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"તમારી સિસ્ટમ માટે કોઈ ઉપકરણ ડ્રાઈવરો લવાયા હતા. શું તમે કોઈપણ હમણાં લાવવા માંગો છો?"
+msgstr "તમારી સિસ્ટમ માટે કોઈ ઉપકરણ ડ્રાઈવરો લવાયા હતા. શું તમે કોઈપણ હમણાં લાવવા માંગો છો?"
 
 #: ../loader2/loader.c:1057
 msgid "Devices"
@@ -7580,10 +7532,8 @@ msgid "Atlantic Time - E Labrador"
 msgstr "એટલાન્ટિક સમય - ઈ લેબરાડોર"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"એટલાન્ટિક સમય - નોવા સ્કોટિઆ (મોટા ભાગની જગ્યાઓ), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "એટલાન્ટિક સમય - નોવા સ્કોટિઆ (મોટા ભાગની જગ્યાઓ), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
@@ -7770,8 +7720,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "પૂર્વીય સમય - ઓન્ટારિયો - મોટા ભાગની જગ્યાઓ"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "પૂર્વીય સમય - ઓન્ટારિયો અને ક્યુબેક - જગ્યાઓ કે જે જોવાઈ નથી DST 1967-1973"
 
 #. generated from zone.tab
@@ -7959,8 +7908,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "પર્વત પ્રમાણભૂત સમય - એરિઝોના"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "પર્વત પ્રમાણભૂત સમય - ડોસન ક્રીક અને ફોર્ટ સંત જ્હોન, બ્રિટિશ કોલંબિયા"
 
 #. generated from zone.tab
@@ -8209,12 +8157,11 @@ msgstr "ઝેપોરોહી, ઈ લુગાન્સક"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "આફ્રિકનો"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "અરેબિક"
+msgstr "અમ્હારિક"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8297,9 +8244,8 @@ msgid "Icelandic"
 msgstr "આઈલેન્ડીક"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "મેકેડોનિયા"
+msgstr "ઈન્ડોનેશિયાઈ"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8326,9 +8272,8 @@ msgid "Norwegian"
 msgstr "નોર્વેઈન"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "ઉત્તરી ટેરિટરી"
+msgstr "ઉત્તરી સોથો"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8355,9 +8300,8 @@ msgid "Russian"
 msgstr "રશિયા"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "સ્લોવેનિયા"
+msgstr "સ્લોવેક"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8376,9 +8320,8 @@ msgid "Tamil"
 msgstr "તમિલ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "તમિલ"
+msgstr "થાઈ"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8400,82 +8343,3 @@ msgstr "વેલ્શ"
 msgid "Zulu"
 msgstr "ઝુલુ"
 
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s (C) 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "ઈરાટા વિશે વધુ જાણકારી માટે (સુધારાઓ અને ભૂલો પૂરી કરો), મુલાકાત લો:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "Red Hat નેટવર્ક દ્વારા આપોઆપ સુધારા વિશે વધુ જાણકારી માટે, મુલાકાત લો:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "તમારી સિસ્ટમ વાપરવા અને રુપરેખાંકિત કરવા વિશે વધુ જાણકારી માટે, મુલાકાત લો:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "આધાર માટે ઉત્પાદનની નોંધણી કરાવવા માટે, મુલાકાત લો:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Silo રુપરેખાંકન"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "ના પર SILO બુટ રેકોર્ડ સ્થાપિત કરો:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "PROM ઉપનામ બનાવો"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "લિનક્સ માટે મૂળભુત PROM બુટ ઉપકરણ સુયોજિત કરો"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "કર્નલ પરિમાણો"
-
-#~ msgid "Create boot disk"
-#~ msgstr "બુટ ડિસ્ક બનાવો"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "SILO સ્થાપિત કરો નહિં"
-
-#~ msgid "Partition type"
-#~ msgstr "પાર્ટીશન પ્રકાર"
-
-#~ msgid "Default boot image"
-#~ msgstr "મૂળભુત બુટ ઈમેજ"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO રુપરેખાંકન"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "PROM ઉપનામ `linux' બનાવો"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "મૂળભુત બુટ ઉપકરણ PROM સુયોજિત કરો"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "તમે ક્યાં બુટલોડર સ્થાપિત કરવા માંગો છો?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Red Hat જે બુટ વ્યવસ્થાપક વાપરે છે તે બીજી ઓપરેટિંગ સિસ્ટમ પણ બુટ કરી શકે છે. તમારે કયા "
-#~ "પાર્ટીશનને બુટ કરવો છે તે તમારે મને કહેવાની જરુર છે અને તે દરેક માટે તમે કયું લેબલ વાપરવા "
-#~ "માંગો છો."
