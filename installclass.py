@@ -93,7 +93,6 @@ class BaseInstallClass:
 		 "partitiondone",
 		 "bootloadersetup",                 
 		 "bootloader",
-                 "bootloaderadvanced",
                  "networkdevicecheck",
 		 "network",
 		 "firewall",
@@ -130,7 +129,6 @@ class BaseInstallClass:
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
-            dispatch.skipStep("bootloaderadvanced")            
             dispatch.skipStep("fdasd", permanent = 1)
         elif iutil.getArch() == "s390" or iutil.getArch() == "s390x":
 	    #dispatch.skipStep("language")
@@ -456,7 +454,6 @@ class BaseInstallClass:
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(BaseInstallClass):
-
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
 
