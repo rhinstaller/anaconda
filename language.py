@@ -114,7 +114,8 @@ class InstallTimeLanguage:
         os.environ["RUNTIMELANG"] = lang
 
     def setRuntimeLanguage(self, name):
-        self.setRuntimeDefaults(name)
+        if not os.environ.has_key("RUNTIMELANG"):
+            self.setRuntimeDefaults(name)
         lang = self.langNicks[name]
 
         os.environ["LANG"] = lang

@@ -340,7 +340,6 @@ class InstallInterface:
         self.screen = SnackScreen()
         self.configFileData = configFileData
 	self.screen.helpCallback(self.helpWindow)
-	self.drawFrame()
 
 # uncomment this line to make the installer quit on <Ctrl+Z>
 # handy for quick debugging.
@@ -368,6 +367,9 @@ class InstallInterface:
         lang = id.instLanguage.getLangNick(lang)
         self.langSearchPath = expandLangs(lang) + ['C']
         self.instLanguage = id.instLanguage
+
+        # draw the frame after setting up the fallback
+        self.drawFrame()
 
         id.fsset.registerMessageWindow(self.messageWindow)
         id.fsset.registerProgressWindow(self.progressWindow)
