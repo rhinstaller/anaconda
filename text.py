@@ -197,17 +197,19 @@ class InstallPathWindow:
 	else:
 	    instClass = todo.getClass()
 	    orig = None
+	    default = 0
 	    i = 0
 	    for (name, object, icon) in classes:
 		if isinstance(instClass, object):
 		    orig = i
 		    break
+		elif object.default:
+		    default = i
+		    
 		i = i + 1
 
 	    if (orig):
 		default = orig
-	    else:
-		default = 0
 
 	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
 			_("What type of system would you like to install?"),

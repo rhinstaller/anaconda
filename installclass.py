@@ -19,6 +19,9 @@ class BaseInstallClass:
     # default to not being hidden
     hidden = 0
 
+    # don't select this class by default
+    default = 0
+
     # look in mouse.py for a list of valid mouse names -- use the LONG names
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
 	self.mouse = (name, device, emulateThreeButtons)

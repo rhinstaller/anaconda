@@ -199,6 +199,8 @@ class InstallPathWindow (InstallWindow):
 	self.installClasses = []
         
         self.orig = self.todo.getClass()
+	haveSetDefault = 0
+	defaultGroup = None
 
 	for (name, object, pixmap) in self.installTypes:
             group = self.pixRadioButton (group, _(name), pixmap)
@@ -206,6 +208,12 @@ class InstallPathWindow (InstallWindow):
 	    self.installClasses.append ((group, object))
             if isinstance(self.orig, object):
 		group.set_active (1)
+		haveSetDefault = 1
+	    if object.default:
+		defaultGroup = group
+
+	if not haveSetDefault and defaultGroup:
+	    defaultGroup.set_active(1)
 
 	spacer = GtkLabel("")
 	spacer.set_usize(60, 1)
