@@ -3149,6 +3149,7 @@ static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
     if (mlLoadModuleSet(devices[0]->driver, modLoaded, modDeps, modInfo,
 			flags)) {
 	logMessage("failed to insert firewire module");
+	newtPopWindow();
 	return 1;
     }
 
