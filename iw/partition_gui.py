@@ -636,6 +636,8 @@ class PartitionWindow(InstallWindow):
             if origrequest.fstype and origrequest.fstype.isFormattable():
                 formatButton = GtkCheckButton (_("Format partition?"))
                 formatButton.set_active(0)
+                if origrequest.format:
+                    formatButton.set_active(1)
                 maintable.attach(formatButton, 0, 2, row, row + 1)
                 row = row + 1
             else:
@@ -658,6 +660,9 @@ class PartitionWindow(InstallWindow):
         # create only as primary
         if origrequest.type == REQUEST_NEW and not newbycyl:
             primonlycheckbutton = GtkCheckButton(_("Force to be a primary partition"))
+            primonlycheckbutton.set_active(0)
+            if origrequest.primary:
+                primonlycheckbutton.set_active(1)
             maintable.attach(primonlycheckbutton, 0, 2, row, row+1)
             row = row + 1
             
