@@ -190,8 +190,8 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Пакети, що ви встановили, та пакети, потр╕бн╕ для узгодження пакет╕в, "
-"вжед╕брано для встановлення. Чи уточнити наб╕р пакет╕в для поновлення?"
+"Пакети, що ви встановили, та пакети, потр╕бн╕ для узгодження пакет╕в, вже "
+"в╕д╕брано для встановлення. Чи уточнити наб╕р пакет╕в для поновлення?"
 
 #: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:957
 #: ../libfdisk/gnomefsedit.c:1081 ../libfdisk/gnomefsedit.c:2021
@@ -473,9 +473,8 @@ msgid "Automatic Partition"
 msgstr "Автоматичн╕й розпод╕л"
 
 #: ../text.py:884
-#, fuzzy
 msgid "Swap"
-msgstr "<Swap>"
+msgstr "Своп"
 
 #: ../text.py:886
 msgid "Filesystem Formatting"
@@ -568,7 +567,7 @@ msgstr "Red Hat Linux Installer"
 
 #: ../gui.py:424
 msgid "Next"
-msgstr ""
+msgstr "Наступний"
 
 #: ../gui.py:426
 msgid "Finish"
@@ -671,13 +670,12 @@ msgid "Skip boot disk creation"
 msgstr "Пропустити створення завантажного диску"
 
 #: ../iw/confirm.py:11
-#, fuzzy
 msgid "About to Install"
-msgstr "Компоненти для встановлення"
+msgstr "В╕домост╕ про встановлення"
 
 #: ../iw/confirm.py:16
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Нитисн╕ть наступний для початку встановлення Red Hat Linux."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -724,9 +722,8 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:63
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Виб╕р типу сполучення з принтером"
+msgstr "Обер╕ть пристр╕й для пуску fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
@@ -766,9 +763,8 @@ msgid "Upgrade"
 msgstr "Оновити"
 
 #: ../iw/installpath.py:189
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Використати fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -787,9 +783,8 @@ msgid "Variant"
 msgstr "Вар╕ант"
 
 #: ../iw/keyboard.py:101
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "Тип клав╕атури"
+msgstr "Перев╕рте ваш виб╕р тут:"
 
 #: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
@@ -845,9 +840,8 @@ msgid "Boot label"
 msgstr "Позначка завантаження"
 
 #: ../iw/mouse.py:134
-#, fuzzy
 msgid "Emulate 3 Buttons"
-msgstr "Емулювати 3 кнопки?"
+msgstr "Емулювати 3 кнопки"
 
 #: ../iw/network.py:132
 msgid "Configure using DHCP"
@@ -1158,7 +1152,7 @@ msgstr "Продовжити"
 
 #: ../textw/partitioning.py:140
 msgid "Low Memory"
-msgstr ""
+msgstr "Браку╓ пам'ят╕"
 
 #: ../textw/partitioning.py:141
 msgid ""
@@ -1166,6 +1160,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Якщо Ви не ма╓те б╕льш пам'ят╕ на ц╕й систем╕, ви повинн╕ негайно включити "
+"п╕дкачку. Для цього потр╕бно негайно записати у таблиц╕ розд╕л╕в навий  "
+"розд╕л п╕ккачки. Згодн╕?"
 
 #: ../textw/partitioning.py:160
 msgid ""
@@ -1830,9 +1827,8 @@ msgid "_Make RAID Device"
 msgstr "Створити RAID пристр╕й"
 
 #: ../libfdisk/gnomefsedit.c:3164
-#, fuzzy
 msgid "Auto Partition"
-msgstr "Автоматично розбити"
+msgstr "Авто розбиття"
 
 #: ../libfdisk/gnomefsedit.c:3177
 msgid "Drive Summary"
@@ -1911,9 +1907,8 @@ msgid "Initializing CDROM..."
 msgstr "╤н╕ц╕ювання CD-ROM..."
 
 #: ../loader/devices.c:50
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "╤нш╕ параметри:"
+msgstr "╤нш╕ параметри"
 
 #: ../loader/devices.c:59
 msgid ""
@@ -1921,47 +1916,47 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Цей модуль ма╓ отримати деяк╕ параметри. Якщо ви не зна╓те як╕ параметри "
+"п╕дтримуються, пропуст╕ть цей екран нажавши кнопку \"OK\" унизу."
 
 #: ../loader/devices.c:64
-#, fuzzy
 msgid "Module Parameters"
-msgstr "Параметри ядра"
+msgstr "Параметри модуля"
 
 #: ../loader/devices.c:164 ../loader/devices.c:234 ../loader/loader.c:240
 #: ../loader/loader.c:299 ../loader/loader.c:315
-#, fuzzy
 msgid "Devices"
-msgstr "Пристр╕й"
+msgstr "Пристро╖"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Вставте ваш диск та натисн╕ть \"OK\" для продовження."
 
 #: ../loader/devices.c:175
-#, fuzzy
 msgid "Failed to mount floppy disk."
-msgstr "Зв`язок з сервером роз╕рвано"
+msgstr "Не виконано монтування floppy диску."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
-msgstr ""
+msgstr "Диск що ви вставили не може бути використано для Red Hat Linux."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Який драйвер спробу╓мо?. Якщо драйвер не з'явився у перел╕ку, потр╕бен "
+"окремий диск з драйвером, будь ласка натисн╕ть F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
 msgstr "Який драйвер випробувати?"
 
 #: ../loader/devices.c:211
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Параметри ядра"
+msgstr "Спецеф╕чн╕ параметри модуля"
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -1987,100 +1982,91 @@ msgid "Choose a Language"
 msgstr "Обер╕ть групу щоб перев╕рити"
 
 #: ../loader/lang.c:501
-#, fuzzy
 msgid "Keyboard Type"
 msgstr "Тип клав╕атури"
 
 #: ../loader/lang.c:502
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Який тип принтера ви ма╓те:"
+msgstr "Який тип клав╕атури ви ма╓те?"
 
 #: ../loader/loader.c:99
 msgid "Local CDROM"
-msgstr ""
+msgstr "Наявний CDROM"
 
 #: ../loader/loader.c:102
 msgid "NFS image"
-msgstr ""
+msgstr "NFS image"
 
 #: ../loader/loader.c:107
-#, fuzzy
 msgid "Hard drive"
-msgstr "Жорстк╕ диски"
+msgstr "Жорсткий диск"
 
 #: ../loader/loader.c:123
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
 msgstr "Ласкаво просимо до Red Hat Linux"
 
 #: ../loader/loader.c:125
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr " <Tab>/<Alt-Tab> м╕ж елементами | <Space> виб╕р | <F12> наступний "
 
 #: ../loader/loader.c:227
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:241
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Систему якого типу ви бажа╓те встановити"
+msgstr "Пристр╕й якого типу ви бажа╓те встановити"
 
 #: ../loader/loader.c:288
-#, fuzzy
 msgid "I have found the following devices in your system:"
-msgstr ""
-"У ваш╕й систем╕ виявлено так╕ типи SCSI-адаптер╕в:\n"
-"\n"
+msgstr "У ваш╕й систем╕ виявлено так╕ пристро╖:"
 
 #: ../loader/loader.c:290 ../loader/loader.c:315
-#, fuzzy
 msgid "Add Device"
-msgstr "Пристр╕й"
+msgstr "Додати пристр╕й"
 
 #: ../loader/loader.c:316
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Не було завантажено особливого драйвери пристрою для ц╕╓╖ системи. Чи "
+"бажа╓те завантажити зараз?"
 
 #: ../loader/loader.c:400 ../loader/loader.c:402
-#, fuzzy
 msgid "Loading"
-msgstr "Знаходження"
+msgstr "Завантаження"
 
 #: ../loader/loader.c:454
 msgid "Loading second stage ramdisk..."
 msgstr "Завантаження другого ramdisk..."
 
 #: ../loader/loader.c:458
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Помилка читання другого диска ramdisk."
+msgstr "Помилка завантаження ramdisk."
 
 #: ../loader/loader.c:579
 msgid "Hard Drives"
 msgstr "Жорстк╕ диски"
 
 #: ../loader/loader.c:580
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Ви не визначили область своп╕нгу (swap space). Продовжити чи перерозпод╕лити "
-"диск?"
+"Не вдалося виявити жодного жорсткого диску на вашо╖ системи! Бажа╓те  "
+"сконф╕гурувати додатков╕ пристро╖?"
 
 #: ../loader/loader.c:593
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
-msgstr "Де розд╕л та каталог, що м╕стять каталоги RedHat/RPMS та RedHat/base?"
+msgstr ""
+"Де розд╕л та каталог, що м╕стять каталоги RedHat/RPMS та RedHat/base? Якщо "
+"ви не бачите диску з ними у списку,  нажм╕ть F2 для конф╕гурування "
+"додаткових пристро╖в."
 
 #: ../loader/loader.c:607
 msgid "Directory holding Red Hat:"
@@ -2100,6 +2086,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"Не знайдено Red Hat Linux CDROM у жодному пристро╖ CDROM. Будь ласка вставте "
+"Red Hat CD та нажм╕ть \"OK\" до повтору."
 
 #: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2111,16 +2099,15 @@ msgstr "неможливо змонтувати цей каталог з сервера"
 
 #: ../loader/loader.c:939
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:940
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Не можу розгорнути другий ramdisk: %s"
+msgstr "Не можу розгорнути другий ramdisk"
 
 #: ../loader/loader.c:1064
 msgid "Rescue Method"
-msgstr ""
+msgstr "Метод допомоги"
 
 #: ../loader/loader.c:1065
 msgid "Installation Method"
@@ -2128,12 +2115,11 @@ msgstr "Метод встановлення"
 
 #: ../loader/loader.c:1067
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Пристр╕й якого типу м╕стить рят╕вний образ?"
 
 #: ../loader/loader.c:1069
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Систему якого типу ви бажа╓те встановити"
+msgstr "Нос╕й якого типу м╕стить пакети до встановлення?"
 
 #: ../loader/loader.c:1491
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2141,12 +2127,11 @@ msgstr "Не можу знайти ks.cfg на дискет╕ завантаження."
 
 #: ../loader/loader.c:1619
 msgid "PC Card"
-msgstr ""
+msgstr "PC Card"
 
 #: ../loader/loader.c:1619
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "╤н╕ц╕ювання CD-ROM..."
+msgstr "╤н╕ц╕ювання пристрою PC Card..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
@@ -2157,9 +2142,8 @@ msgid "Red Hat directory:"
 msgstr "Каталог Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "Налагодження SMB"
+msgstr "Встановлення NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2184,30 +2168,27 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Використати д╕нам╕чний IP (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
 msgstr "Налагодження TCP/IP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "╤нформац╕я про принтер"
+msgstr "Потр╕бна ╕нформац╕я"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
-msgstr "Сл╕д ввести правильну IP-адресу та маску п╕дмереж╕"
+msgstr "Сл╕д ввести правильну IP-адресу та маску п╕дмереж╕."
 
 #: ../loader/net.c:338 ../loader/net.c:569
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Динам╕чний IP"
 
 #: ../loader/net.c:339 ../loader/net.c:570
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Посилаю запит DHCP..."
+msgstr "Посилка запиту про параметри IP..."
 
 #: ../loader/net.c:461
 msgid "Determining host name and domain..."
@@ -2223,56 +2204,48 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "нев╕рний аргумент для мережево╖ команди kickstart %s: %s"
 
 #: ../loader/net.c:607
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Протокол завантаження"
+msgstr "Вживати протокол завантаження"
 
 #: ../loader/net.c:609
-#, fuzzy
 msgid "Network gateway"
-msgstr "Встановлення мереж╕"
+msgstr "Мережевий шлюз"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "IP-адреса:"
+msgstr "IP-адреса"
 
 #: ../loader/net.c:613
-#, fuzzy
 msgid "Nameserver"
-msgstr "Сервер"
+msgstr "DNS сервер"
 
 #: ../loader/net.c:620
-#, fuzzy
 msgid "Domain name"
-msgstr "Домен NIS: "
+msgstr "╤м'я домену"
 
 #: ../loader/net.c:623
-#, fuzzy
 msgid "Network device"
-msgstr "Встановлення мереж╕"
+msgstr "Мережевий пристр╕й"
 
 #: ../loader/net.c:695
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
-msgstr " <Tab>/<Alt-Tab> м╕ж елементами | <Space> виб╕р | <F12> наступний "
+msgstr ""
+" <Tab>/<Alt-Tab> м╕ж елементами | <Space> виб╕р | <F12> наступний екран"
 
 #: ../loader/net.c:696
-#, fuzzy, c-format
+#, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "netconfig %s (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:698
-#, fuzzy
 msgid "Network configuration"
 msgstr "Конф╕гурац╕я мереж╕"
 
 #: ../loader/net.c:699
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Не встановлюйте службу мереж╕"
+msgstr "Бажа╓те встановити мережев╕ функц╕╖?"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
@@ -2319,9 +2292,8 @@ msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Використовувати авторизований ftp або прокс╕-сервер"
 
 #: ../loader/urls.c:180
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Обер╕ть сервер"
+msgstr "Використати proxy сервер"
 
 #: ../loader/urls.c:191
 msgid "FTP Setup"
@@ -2358,9 +2330,8 @@ msgstr ""
 "назвусервера."
 
 #: ../loader/urls.c:295
-#, fuzzy
 msgid "Account name:"
-msgstr "╤м`я користувача"
+msgstr "╤м`я користувача:"
 
 #: ../loader/urls.c:303
 msgid "FTP Proxy:"
@@ -2379,9 +2350,8 @@ msgid "HTTP Proxy Port:"
 msgstr "Порт прокс╕-сервера HTTP:"
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Завантаження диска драйвера..."
+msgstr "Завантаження SCSI драйвера"
 
 #~ msgid "Root Partition Selection"
 #~ msgstr "Виб╕р кореневого розд╕лу"
