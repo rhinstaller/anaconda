@@ -475,7 +475,6 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
 	free(ballPath);
 	return NULL;
     }
-    free(ballPath);
 
     for (m = modNames, i = 0; *m; i++, m++);
     
@@ -501,6 +500,7 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
     /* nothing to do */
     if (!numMaps) {
 	gunzip_close(fd);
+	free(ballPath);
 	return oldPaths;
     }
 
@@ -526,6 +526,7 @@ static struct extractedModule * extractModules (struct driverDiskInfo * ddi,
 	}
     }
 
+    free(ballPath);
     return oldPaths;
 }
 
