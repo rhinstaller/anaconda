@@ -32,9 +32,7 @@
 version=$2
 srcname=$1
 
-modversions=$(rpm -ql kernel-source-$version | grep modversions.h)
-
-usage() {
+usage () {
     echo "usage: ./mk-dd <source.c> <kernel-version>"
     exit 1
 }
@@ -44,7 +42,9 @@ if [ ! -x /usr/lib/anaconda-runtime/modlist -o ! -f /usr/lib/anaconda-runtime/lo
     usage
 fi
 
-if [ ! -f "$srcname" -o ! -f $modversions ]; then
+modversions=$(rpm -ql kernel-source-$version | grep modversions.h)
+
+if [ ! -f "$srcname" -o ! -f "$modversions" ]; then
     echo "either $srcname or $modversions doesn't exist"
     usage
 fi
@@ -55,15 +55,29 @@ mkdir /tmp/modules
 name=$(echo $srcname | sed 's/\.c$//')
 obj=${name}.o
 
-for kinfo in UP- SMP-smp ENTERPRISE-enterprise BOOT-BOOT; do
+klist="UP- SMP-smp ENTERPRISE-enterprise BOOT-BOOT"
+
+for kinfo in $klist; do
     n=$(echo $kinfo | cut -d- -f1)
     dir=/tmp/modules/${version}$(echo $kinfo | cut -d- -f2)
 
     echo -n "Building $n..."
 
+    defines=""
+    for k in $klist; do
+	flag=$(echo $k | cut -d- -f1)
+	if [ $flag = $n ]; then
+	    val=1
+	else
+	    val=0
+	fi
+
+	defines="-D__BOOT_KERNEL_${flag}=${val} $defines"
+    done
+
     mkdir $dir
 
-    gcc -D__BOOT_KERNEL_${n}=1 -I/usr/src/linux-2.4.2/include -include $modversions -DMODVERSIONS -DMODULE -D__KERNEL__ -Wall -Wstrict-prototypes -O6 -c $srcname -o $dir/$obj
+    gcc $defines -I/usr/src/linux-2.4.2/include -include $modversions -DMODVERSIONS -DMODULE -D__KERNEL__ -Wall -Wstrict-prototypes -O6 -c $srcname -o $dir/$obj
 
     rc=$?
     echo
