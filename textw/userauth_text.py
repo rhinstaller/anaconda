@@ -189,7 +189,10 @@ class UsersWindow:
 
 	g.add(subgrid, 0, 1)
 
+        self.numusers = 0
+
         for user in self.users.values ():
+            self.numusers = self.numusers + 1
             listbox.append (userformat % user, user["id"])
 
         bb = ButtonBar (screen, ((_("Add"), "add"), (_("Delete"), "delete"),
@@ -209,27 +212,33 @@ class UsersWindow:
                     listbox.append (userformat % user, user["id"])
                     listbox.setCurrent (user["id"])
                     self.users[user["id"]] = user
+                    self.numusers = self.numusers + 1
             elif rc == "delete":
-                current = listbox.current ()
-                listbox.delete (current)
-                del self.users [current]
+                # if there are no users in the list, don't try to delete one
+                if self.numusers > 0:
+                    current = listbox.current ()
+                    listbox.delete (current)
+                    del self.users [current]
+                    self.numusers = self.numusers - 1
             elif rc == "edit" or result == listbox:
-		current = listbox.current()
-                user = self.users[current]
-                if self.editWindow (user, 
-			_("Change the information for this user."), 1) != INSTALL_BACK:
-                    # if the user id changed, we need to delete the old key
-                    # and insert this new one.
-                    if user["id"] != current:
-                        del self.users [current]
-                        listbox.insert (userformat % user, user["id"], current)
-                        listbox.delete (current)
-                    # and if the user id didn't change, just replace the old
-                    # listbox entry.
-                    else:
-                        listbox.replace (userformat % user, user["id"])
-                    self.users [user["id"]] = user
-                    listbox.setCurrent(user["id"])
+                # if there are no users in the list, don't try to edit one
+                if self.numusers > 0:                    
+                    current = listbox.current()
+                    user = self.users[current]
+                    if self.editWindow (user,
+                                        _("Change the information for this user."), 1) != INSTALL_BACK:
+                         # if the user id changed, we need to delete the old key
+                         # and insert this new one.
+                         if user["id"] != current:
+                             del self.users [current]
+                             listbox.insert (userformat % user, user["id"], current)
+                             listbox.delete (current)
+                             # and if the user id didn't change, just replace the old
+                             # listbox entry.
+                         else:
+                             listbox.replace (userformat % user, user["id"])
+                         self.users [user["id"]] = user
+                         listbox.setCurrent(user["id"])
             elif rc == "ok" or result == "F12":
                 dir = INSTALL_OK
                 break
