@@ -801,6 +801,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("partitionmethodsetup")
             dispatch.skipStep("fdisk")
             dispatch.skipStep("autopartition")
+            dispatch.skipStep("bootdisk")            
             return
         
 	dispatch.skipStep("bootdisk")
