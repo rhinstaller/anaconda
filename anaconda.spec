@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.7
+Version: 10.1.1.8
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,16 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Dec  3 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.8-1
+- Kill pygtk warning
+- Fix writing out of wep keys (#140645)
+- Skip ISOs which don't have an RPMs dir to avoid problems with src ISOs in 
+  the same dir (#106017)
+- Include pesize in the ks.cfg (#141370)
+- Loop less on shutdown
+- Improved handling of VGs that aren't completely present (#139058)
+- Turn off beta nag
+
 * Tue Nov 30 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.7-1
 - More iiimf upgrade fun (#129218)
 - Disable the linuxconf removal stuff.  Has caused sporadic problems and 
