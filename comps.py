@@ -35,7 +35,22 @@ class HeaderList:
 	return self.packages[item]
 
     def __init__(self, path):
-	hdlist = rpm.readHeaderList(path)
+	hdlist = rpm.readHeaderListFromFile(path)
+        self.hdlist = hdlist
+	self.packages = {}
+	for h in hdlist:
+	    name = h[rpm.RPMTAG_NAME]
+	    if self.packages.has_key(name):
+		score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
+		score2 = rpm.archscore(self.packages[name].h[rpm.RPMTAG_ARCH])
+		if (score2 < score1):
+		    self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+	    else:
+		self.packages[h[rpm.RPMTAG_NAME]] = Package(h)
+
+class HeaderListFD (HeaderList):
+    def __init__(self, fd):
+	hdlist = rpm.readHeaderListFromFD (fd)
         self.hdlist = hdlist
 	self.packages = {}
 	for h in hdlist:

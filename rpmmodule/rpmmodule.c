@@ -33,7 +33,8 @@ void initrpm(void);
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
 static PyObject * archScore(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
-static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args);
+static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args);
+static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args);
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args);
 
 static PyObject * rpmtransCreate(PyObject * self, PyObject * args);
@@ -53,7 +54,8 @@ static PyMethodDef rpmModuleMethods[] = {
     { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
     { "findUpgradeSet", (PyCFunction) findUpgradeSet, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
-    { "readHeaderList", (PyCFunction) rpmHeaderFromList, METH_VARARGS, NULL },
+    { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
+    { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },    
     { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
     { NULL }
 } ;
@@ -401,15 +403,10 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
     return o;
 }
 
-static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args) {
-    char * filespec;
-    FD_t fd;
-    Header header;
+static PyObject * rpmReadHeaders (FD_t fd) {
     PyObject * list;
+    Header header;
     hdrObject * h;
-
-    if (!PyArg_ParseTuple(args, "s", &filespec)) return NULL;
-    fd = fdOpen(filespec, O_RDONLY, 0);
 
     if (!fd) {
 	PyErr_SetFromErrno(pyrpmError);
@@ -439,8 +436,40 @@ static PyObject * rpmHeaderFromList(PyObject * self, PyObject * args) {
 	Py_END_ALLOW_THREADS
     }
 
+    return list;
+}
+
+static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args) {
+    FD_t fd;
+    int fileno;
+    PyObject * list;
+    
+    if (!PyArg_ParseTuple(args, "i", &fileno)) return NULL;
+    fd = fdDup(fileno);
+ 
+    list = rpmReadHeaders (fd);
     fdClose(fd);
 
+    return list;
+}
+
+
+static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
+    char * filespec;
+    FD_t fd;
+    PyObject * list;
+
+    if (!PyArg_ParseTuple(args, "s", &filespec)) return NULL;
+    fd = fdOpen(filespec, O_RDONLY, 0);
+
+    if (!fd) {
+	PyErr_SetFromErrno(pyrpmError);
+	return NULL;
+    }
+
+    list = rpmReadHeaders (fd);
+    fdClose(fd);
+    
     return list;
 }
 

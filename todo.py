@@ -707,7 +707,7 @@ class ToDo:
 
     def upgradeFindRoot (self):
         win = self.intf.waitWindow ("Examining System",
-                                    "Searching for Red Hat Linux installations")
+                                    "Searching for Red Hat Linux installations...")
         rootparts = []
         drives = self.drives.available ().keys ()
         for drive in drives:
@@ -729,6 +729,8 @@ class ToDo:
         return rootparts
 
     def upgradeFindPackages (self, root):
+        win = self.intf.waitWindow ("Examining System",
+                                    "Finding packages to upgrade...")
 	self.getHeaderList()
         isys.makeDevInode(root, '/tmp/' + root)
         isys.mount('/tmp/' + root, '/mnt/sysimage')
@@ -739,6 +741,7 @@ class ToDo:
         self.umountFilesystems ()
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
+        win.pop ()
         
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -775,16 +778,16 @@ class ToDo:
             how = "i"
         
 	for p in self.hdList.selected():
-	    ts.add(p.h, (p.h, self.method), how)
+	    ts.add(p.h, (p.h, self), how)
 	    total = total + 1
 	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 
 	ts.order()
 
-	instLog = open(self.instPath + '/tmp/install.log', "w+")
-	syslog = Syslogd(root = self.instPath, output = instLog)
+	self.instLog = open(self.instPath + '/tmp/install.log', "w+")
+	syslog = Syslogd(root = self.instPath, output = self.instLog)
 
-	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_RDWR)
+	instLogFd = os.open(self.instPath + '/tmp/install.log', os.O_APPEND)
 	ts.scriptFd = instLogFd
 	# the transaction set dup()s the file descriptor and will close the
 	# dup'd when we go out of scope
@@ -792,21 +795,26 @@ class ToDo:
 
 	p = self.intf.packageProgressWindow(total, totalSize)
 
+        if self.upgrade:
+            self.modeText = _("Upgrading %s.\n")
+        else:
+            self.modeText = _("Installing %s.\n")
+
         def instCallback(what, amount, total, key, intf):
             if (what == rpm.RPMCALLBACK_INST_OPEN_FILE):
-                (h, method) = key
+                (h, self) = key
                 intf.setPackage(h)
                 intf.setPackageScale(0, 1)
-                fn = method.getFilename(h)
-                global rpmFD
-                rpmFD = os.open(fn, os.O_RDONLY)
-                return rpmFD
+                self.instLog.write (self.modeText % (h[rpm.RPMTAG_NAME],))
+                self.instLog.flush ()
+                fn = self.method.getFilename(h)
+                self.rpmFD = os.open(fn, os.O_RDONLY)
+                return self.rpmFD
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
             elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
-                global rpmFD
-                os.close (rpmFD)
-                (h, method) = key
+                (h, self) = key
+                os.close (self.rpmFD)
                 intf.completePackage(h)
             else:
                 pass

@@ -14,7 +14,28 @@ def cb(what, amount, total, key, data):
 ## print "from foo:", h[rpm.RPMTAG_NAME]
 ## os.close(fd)
 
-list = rpm.readHeaderList('/mnt/test/msw/i386/RedHat/base/hdlist')
+from urllib import *
+
+#url = urlopen ("http://porkchop.redhat.com/msw/i386/RedHat/base/hdlist")
+#url = urlretrieve ("http://porkchop.redhat.com/msw/i386/RedHat/base/hdlist", "/tmp/hdlist")
+#url = urlopen ("/mnt/test/msw/i386/RedHat/base/hdlist")
+#print os.read (url.fileno (), 1)
+
+import httplib
+h = httplib.HTTP('porkchop.redhat.com')
+h.putrequest('GET', '/msw/i386/RedHat/base/hdlist')
+h.endheaders()
+#errcode, errmsg, headers = h.getreply()
+h.getreply()
+#print errcode # Should be 200
+f = h.getfile()
+
+print f.fileno ()
+print os.read (f.fileno (), 5)
+list = rpm.readHeaderListFromFD(f.fileno ())
+f.close()
+#list = rpm.readHeaderListFromFD('/mnt/test/msw/i386/RedHat/base/hdlist')
+#list = rpm.readHeaderListFromFile('/tmp/hdlist')
 print "got", len(list), "items"
 
 print "finding upgrade set..."
