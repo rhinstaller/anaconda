@@ -1,5 +1,5 @@
 
-                    09Vaelkommen till 0cRed Hat09 Linux 7.0.91!07
+                    09Vaelkommen till 0cRed Hat09 Linux 7.1!07
 
  -  Foer att installera eller uppgradera 0cRed Hat07 Linux i grafiskt laege trycker
     du 0f<ENTER>07-tangenten.
