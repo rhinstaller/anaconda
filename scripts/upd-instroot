@@ -153,7 +153,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
 #
 PACKAGESRESCUE="bzip2 bzip2-libs dump
                 findutils ftp gzip iputils joe krb5-libs less man
-                modutils mtools mt-st mtr net-tools open 
+                mdadm modutils mtools mt-st mtr net-tools open 
                 openssh openssh-clients pciutils rsh traceroute tar"
 
 # turn off options we dont want, ie. set package list to something harmless
@@ -235,6 +235,7 @@ $LIBDIR/libtermcap*
 $LIBDIR/libutil*
 $LIBDIR/libuuid*
 sbin/badblocks
+sbin/busybox.anaconda
 sbin/clock
 sbin/debugfs
 sbin/e2fsck
@@ -259,9 +260,9 @@ sbin/lvreduce
 sbin/lvremove
 sbin/lvrename
 sbin/lvscan
+sbin/mdadm
 sbin/mkdosfs
 sbin/mke2fs
-sbin/busybox.anaconda
 sbin/mkfs.ext2
 sbin/mkfs.ext3
 sbin/mkfs.jfs
