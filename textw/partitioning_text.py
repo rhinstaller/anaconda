@@ -29,6 +29,7 @@ class PartitionMethod:
 	    todo.skipFdisk = 0
 	else:
 	    todo.skipFdisk = 1
+            todo.fstab.setReadonly(0)
 
 	return INSTALL_OK
 
