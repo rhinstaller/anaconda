@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-07 19:47+0200\n"
+"PO-Revision-Date: 2004-09-12 01:03+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -78,8 +78,7 @@ msgstr ""
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"За почеток на инсталацијата, ве молам, рачно поврзете го вашиот vnc клиент."
+msgstr "За почеток на инсталацијата, ве молам, рачно поврзете го вашиот vnc клиент."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -148,8 +147,7 @@ msgstr "Непозната грешка"
 #: ../anaconda:618
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
-"Грешка при превземањето на вториот дел од kickstart конфигурацијата: %s!"
+msgstr "Грешка при превземањето на вториот дел од kickstart конфигурацијата: %s!"
 
 #: ../anaconda:734
 msgid ""
@@ -165,8 +163,7 @@ msgstr "Инсталационата класа инсистира на текс
 
 #: ../anaconda:813
 msgid "No video hardware found, assuming headless"
-msgstr ""
-"Не е пронајден никаков видео уред, претпоставувам дека е без видео уред"
+msgstr "Не е пронајден никаков видео уред, претпоставувам дека е без видео уред"
 
 #: ../anaconda:824 ../anaconda:1084
 msgid "Unable to instantiate a X hardware state object."
@@ -195,14 +192,12 @@ msgid "Using mouse type: %s"
 msgstr "Користам глувче од типот: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Барање на %s инсталации..."
+msgstr "Подигнувам графичка инсталација..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Не можам да ги доделам цилиндер-базираните партиции како примарни партиции"
+msgstr "Не можам да ги доделам цилиндер-базираните партиции како примарни партиции"
 
 #: ../autopart.py:949
 msgid "Could not allocate partitions as primary partitions"
@@ -257,12 +252,9 @@ msgstr ""
 "OpenFirmware нема да биде во можност да ја започне оваа инсталација."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"Стартната партиција %s веројатно не ги задоволува условите за подигнување на "
-"вашата архитектура.  Препорачливо е изработка на стартна дискета."
+#, python-format
+msgid "Boot partition %s may not meet booting constraints for your architecture."
+msgstr "Партицијата за подигнување %s може да не ги задоволи потребите за подигнување на Вашата архитектура."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1081,7 +1073,7 @@ msgstr "Повтори"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Инсталерот се исклучува..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -1327,8 +1319,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
-"Се обидувате да инсталирате на систем кој што не е поддржан од изданието %s."
+msgstr "Се обидувате да инсталирате на систем кој што не е поддржан од изданието %s."
 
 #: ../packages.py:293
 msgid "Dependency Check"
@@ -1961,8 +1952,7 @@ msgid "Confirm Reset"
 msgstr "Потврда за ресетирање"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Дали сте сигурни дека сакате да ја ресетирате партиционата табела во "
 "нејзината првобитна состојба?"
@@ -2014,10 +2004,8 @@ msgstr ""
 "инсталирање на %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Мора да ја креирате FAT партицијата /boot/efi со големина 50 мегабајти."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Мора да ја креирате FAT партицијата /boot/efi со големина 50 мегабајти."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2080,8 +2068,7 @@ msgstr "партиција која што е член на LVM групата �
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 "Оваа точка на монтирање е невалидна.  Директориумот %s мора да е на / "
 "датотечниот систем."
@@ -2340,17 +2327,14 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> за помош | <Tab> помеѓу елементи | <Space> избори | <F12> следен екран"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> за помош | <Tab> помеѓу елементи | <Space> избори | <F12> следен екран"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> помеѓу елементи   |  <Space> избори   |  <F12> следен екран"
+msgstr "  <Tab>/<Alt-Tab> помеѓу елементи   |  <Space> избори   |  <F12> следен екран"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2590,8 +2574,7 @@ msgstr "Лозинките не се совпаѓаат"
 
 #: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
-"Лозинките што ги внесовте не се совпаѓаат. Ве молам обидете се повторно."
+msgstr "Лозинките што ги внесовте не се совпаѓаат. Ве молам обидете се повторно."
 
 #: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
@@ -2614,50 +2597,44 @@ msgid ""
 msgstr ""
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Уред"
+msgstr "Број на уред"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Не одредивте име на домаќин"
+msgstr "You have not specified a device number or the number is invalid"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
 msgstr ""
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Не одредивте име на домаќин"
+msgstr "Не одредивте ID за SCSI или пак тоа не е валидно."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
 msgstr ""
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Не одредивте име на домаќин"
+msgstr ""
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
 msgstr ""
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Не одредивте име на домаќин"
+msgstr "Не одредивте SCSI LUN или бројот е невалиден."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Не одредивте име на домаќин"
+msgstr "Не одредивте FCP LUN или бројот е невалиден."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2682,8 +2659,7 @@ msgstr "Лозинките што ги внесовте се различни.  
 
 #: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
-msgstr ""
-"Администраторската (root) лозинка мора да содржи најмалку шест карактери."
+msgstr "Администраторската (root) лозинка мора да содржи најмалку шест карактери."
 
 #: ../iw/account_gui.py:66 ../textw/userauth_text.py:72
 msgid ""
@@ -3004,8 +2980,7 @@ msgstr "Не може да се промени редоследот на дис�
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"Не поддржуваме промена на редоследот на дисковите за користење на LILO."
+msgstr "Не поддржуваме промена на редоследот на дисковите за користење на LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -3056,7 +3031,7 @@ msgid ""
 "A kickstart file containing the installation options selected can be found "
 "in the file '%s' after rebooting the system."
 msgstr ""
-"Целосен запис од инсталацијата ќе можете да најдете во датотеката '%s' "
+"Целосен лог од инсталацијата ќе можете да најдете во датотеката '%s' "
 "откако ќе го рестарирате системот.\n"
 "\n"
 "Датотеката за kickstart која што ги содржи сите одбрани опции за "
@@ -3078,7 +3053,7 @@ msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
 "your system."
 msgstr ""
-"Комплетен запис од надградбата може да најдете во датотеката '%s' откако ќе "
+"Комплетен лог од надградбата може да најдете во датотеката '%s' откако ќе "
 "го рестартирате Вашиот систем."
 
 #: ../iw/congrats_gui.py:23
@@ -3412,8 +3387,7 @@ msgstr "Одберете го стандардниот јазик за сист�
 
 #: ../iw/language_support_gui.py:212
 msgid "Select _additional languages to install on the system:"
-msgstr ""
-"Одберете ги додатните јазици кои што сакате да бидат инсталирањи на системот:"
+msgstr "Одберете ги додатните јазици кои што сакате да бидат инсталирањи на системот:"
 
 #: ../iw/language_support_gui.py:247
 msgid "_Select All"
@@ -3809,7 +3783,7 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Не одредивте име на домаќин.  Во зависност од Вашата мрежна околина, ова "
+"Не одредивте име на хост.  Во зависност од Вашата мрежна околина, ова "
 "може да предизвика проблеми понатаму."
 
 #: ../iw/network_gui.py:162
@@ -3926,7 +3900,7 @@ msgstr "Мрежни уреди"
 
 #: ../iw/network_gui.py:529
 msgid "Set the hostname:"
-msgstr "Постави го името на домаќинот:"
+msgstr "Постави го името на хостот:"
 
 #: ../iw/network_gui.py:533
 msgid "_automatically via DHCP"
@@ -3942,7 +3916,7 @@ msgstr "(на пр. \"host.domain.com\")"
 
 #: ../iw/network_gui.py:552 ../loader2/net.c:796
 msgid "Hostname"
-msgstr "Име на домаќин"
+msgstr "Име на хост"
 
 #: ../iw/network_gui.py:605
 msgid "Miscellaneous Settings"
@@ -4217,14 +4191,12 @@ msgid "Partitioning"
 msgstr "Партиционирање"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Во Вашата шема за партиционирање постојата следниве грешки."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Овие грешки мора да бидат поправени пред да продолжите со инсталацијата на %"
 "s."
@@ -4367,8 +4339,7 @@ msgstr ""
 
 #: ../iw/partition_gui.py:1307
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Уредувачот за клонирање на уреди не може да се креира поради некои причини."
+msgstr "Уредувачот за клонирање на уреди не може да се креира поради некои причини."
 
 #: ../iw/partition_gui.py:1351
 msgid "Ne_w"
@@ -4397,8 +4368,7 @@ msgstr "Автоматско партиционирање"
 #: ../iw/partition_gui.py:1440
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr ""
-"Мора да одберете барем еден уред за да можете да инсталирате %s на него."
+msgstr "Мора да одберете барем еден уред за да можете да инсталирате %s на него."
 
 #: ../iw/partition_gui.py:1482
 msgid "I want to have automatic partitioning:"
@@ -4680,8 +4650,7 @@ msgstr "Клонирај уреди"
 
 #: ../iw/raid_dialog_gui.py:643
 msgid "There was an error clearing the target drives.  Cloning failed."
-msgstr ""
-"Се појави грешка при чистењето на целните уреди.  Клонирањето е неуспешно."
+msgstr "Се појави грешка при чистењето на целните уреди.  Клонирањето е неуспешно."
 
 #: ../iw/raid_dialog_gui.py:677
 msgid ""
@@ -4800,8 +4769,7 @@ msgstr "Ова ќе го надгради Вашиот тековен подиг
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 "Инсталационата програма пронајде %s подигнувач на системот веќе инсталиран "
 "на %s."
@@ -4929,8 +4897,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swap датотеката мора да има големина помеѓу 1 и 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "На избраниот уред нема доволно простор за swap партиција."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5096,34 +5063,31 @@ msgid "_Skip X configuration"
 msgstr "_Прескокни ја конфигурацијата на X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Конфигурација на VNC"
+msgstr "Конфигурација на ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Отстрани"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Уреди"
+msgstr "FCP уреди"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Додади уред"
+msgstr "Додади FCP уред"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Уреди RAID уред"
+msgstr "Уреди го FCP уредот %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Сакате да отстраните FCP диск од Вашата конфигурација. Дали сте сигурни дека сакате да продолжите?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5257,8 +5221,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Space> одбира копче | <F2> одбира стандареден запис за подигнување | <F12> "
 "следен екран>"
@@ -5356,7 +5319,7 @@ msgid ""
 "A complete log of your installation will be in %s after rebooting your "
 "system. You may want to keep this file for later reference."
 msgstr ""
-"Целосен запис од Вашата инсталација ќе биде запишан во %s откако ќе го "
+"Целосен лог од Вашата инсталација ќе биде запишан во %s откако ќе го "
 "рестартирате системот. Може ќе сакате да ја чувате оваа датотека за понатаму."
 
 #: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
@@ -5640,7 +5603,7 @@ msgstr "рачно"
 
 #: ../textw/network_text.py:374
 msgid "Hostname Configuration"
-msgstr "Конфигурација на име на домаќин"
+msgstr "Конфигурација на име на хост"
 
 #: ../textw/network_text.py:377
 msgid ""
@@ -5649,29 +5612,27 @@ msgid ""
 "a hostname for your system. If you do not, your system will be known as "
 "'localhost.'"
 msgstr ""
-"Ако Вашиот систем е дел од поголема мрежа каде што имињата на домаќините се "
+"Ако Вашиот систем е дел од поголема мрежа каде што имињата на хостите се "
 "доделуваат од „автоматски од страна на DHCP“, одберете, автоматски со DHCP. "
-"Доколку не користите DHCP одберете „рачно“  и внесете го името на домаќинот "
-"за системот. Доколку не го направите ова, името на домаќинот ќе остане "
+"Доколку не користите DHCP одберете „рачно“  и внесете го името на хостот "
+"за системот. Доколку не го направите ова, името на хостот ќе остане "
 "'localhost.'"
 
 #: ../textw/network_text.py:403 ../textw/network_text.py:409
 msgid "Invalid Hostname"
-msgstr "Невалидно име на домаќин"
+msgstr "Невалидно име на хост"
 
 #: ../textw/network_text.py:404
 msgid "You have not specified a hostname."
-msgstr "Не одредивте име на домаќин"
+msgstr "Не одредивте име на хост"
 
 #: ../textw/packages_text.py:56
 msgid "Select individual packages"
 msgstr "Одберете индивидуални пакети"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> избор   |   <F2> Детали за група   |   <F12> следен екран"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> избор   |   <F2> Детали за група   |   <F12> следен екран"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5695,8 +5656,7 @@ msgid "Total size"
 msgstr "Вкупна големина"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> избор   |   <F1> помош   |   <F2> опис на пакетот"
 
 #: ../textw/packages_text.py:374
@@ -5785,9 +5745,8 @@ msgid "End Cylinder:"
 msgstr "Краен цилиндер:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Име на група дискови:"
+msgstr ""
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -5914,14 +5873,12 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Максималниот број на заштити со RAID0 поле е 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM групи на партиции"
+msgstr ""
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Ве молам внесете го името на логичкиот диск."
+msgstr ""
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -5938,24 +5895,20 @@ msgid ""
 msgstr ""
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Уреди го логичкиот диск"
+msgstr "Нова или логичка партиција?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Стартувачките партиции не можат да бидат на логички дискови."
+msgstr "Дали сакате да креирате нова партиција или нова логичка партиција?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Партиција"
+msgstr "партиција"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Логички дискови"
+msgstr "логички партиции"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -5970,10 +5923,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"   F1-Помош    F2-Ново    F3-Уреди   F4-Бриши    F5-Ресет    F12-Во ред      "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "   F1-Помош    F2-Ново    F3-Уреди   F4-Бриши    F5-Ресет    F12-Во ред      "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6185,8 +6136,7 @@ msgstr "Погрешно корисничко име"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
-msgstr ""
-"Корисничките имиња мора да ги содржат исклучиво A-Z, a-z, и 0-9 карактерите."
+msgstr "Корисничките имиња мора да ги содржат исклучиво A-Z, a-z, и 0-9 карактерите."
 
 #: ../textw/userauth_text.py:133
 msgid "Missing User Name"
@@ -6206,15 +6156,13 @@ msgid "User Exists"
 msgstr "Корисникот постои"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Корисникот root е веќе конфигуриран. Не треба да го додавате овој корисник "
 "тука."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Системскиот корисник е веќе конфигуриран. Не треба да го додавате овој "
 "корисник тука."
@@ -6377,7 +6325,7 @@ msgstr "Вообичаенa работна површина:"
 
 #: ../textw/xconfig_text.py:159 ../textw/xconfig_text.py:168
 msgid "GNOME"
-msgstr "GNOME"
+msgstr "Гном"
 
 #: ../textw/xconfig_text.py:161 ../textw/xconfig_text.py:170
 msgid "KDE"
@@ -6462,11 +6410,11 @@ msgstr "Монитор:"
 
 #: ../textw/xconfig_text.py:430
 msgid "HSync Rate:"
-msgstr ""
+msgstr "Хоризонтално освежување:"
 
 #: ../textw/xconfig_text.py:440
 msgid "VSync Rate:"
-msgstr ""
+msgstr "Вертикално освежување:"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
@@ -6523,40 +6471,36 @@ msgid "Video RAM:"
 msgstr "Видео RAM:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Уред"
+msgstr "Број на уред:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Уред"
+msgstr "FCP уред"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Уред"
+msgstr "Уред #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Отстрани"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -6759,7 +6703,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:331
 msgid "Failed to mount partition."
-msgstr ""
+msgstr "Не успеав да ја монтирам партицијата."
 
 #: ../loader2/driverdisk.c:339
 msgid "Select driver disk image"
@@ -6978,8 +6922,7 @@ msgid "Welcome to %s"
 msgstr "Добредојдовте во %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> движење помеѓу елементи  | <Space> одбира | <F12> следен "
 "екран "
@@ -6998,7 +6941,7 @@ msgstr "Тврд диск"
 
 #: ../loader2/loader.c:110
 msgid "NFS image"
-msgstr ""
+msgstr "NFS слика"
 
 #: ../loader2/loader.c:321
 msgid "Update Disk Source"
@@ -7054,15 +6997,15 @@ msgstr "Метод за спасување"
 
 #: ../loader2/loader.c:825
 msgid "Installation Method"
-msgstr "Метод на инсталирање"
+msgstr "Метод на инсталација"
 
 #: ../loader2/loader.c:827
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Кој тип на медиум ја содржи сликата за спасување?"
 
 #: ../loader2/loader.c:829
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "Кој тип на медиум ги содржи пакетите кои што треба да бидат инсталирани?"
 
 #: ../loader2/loader.c:853
 msgid "No driver found"
@@ -7114,14 +7057,12 @@ msgstr "подигнувачот е веќе извршен.  Подигнува
 #: ../loader2/loader.c:1496
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Ја извршувам анаконда, %s во режим за спасување - ве молам почекајте...\n"
+msgstr "Ја извршувам анаконда, %s во режим за спасување - ве молам почекајте...\n"
 
 #: ../loader2/loader.c:1498
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Ја извршувам анаконда, %s системскиот инсталер - ве молам почекајте...\n"
+msgstr "Ја извршувам анаконда, %s системскиот инсталер - ве молам почекајте...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7142,7 +7083,7 @@ msgstr "Сега ги проверувам медиумите..."
 #: ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr ""
+msgstr "Не можам да ја најдам сликата за инсталација %s"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -7152,6 +7093,9 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"НЕУСПЕШНО.\n"
+"\n"
+"Тестираната слика содржи грешки. Проблемот може да се јави поради расипан диск или лошо преземена датотека.  Пробајте повторно. Доколку овој тест не успее уште еднаш не треба да продолжувате со инсталирањето."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -7159,6 +7103,9 @@ msgid ""
 "\n"
 "It is OK to install from this media."
 msgstr ""
+"УСПЕШНО.\n"
+"\n"
+"Во ред е да се инсталира од овој медиум"
 
 #: ../loader2/mediacheck.c:337
 msgid ""
@@ -7169,7 +7116,7 @@ msgstr ""
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
-msgstr ""
+msgstr "Резултат од проверката"
 
 #: ../loader2/mediacheck.c:345
 #, c-format
@@ -7179,11 +7126,15 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"од сликата:\n"
+"\n"
+"%s\n"
+"\n"
 
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr ""
+msgstr "Проверката %sis завшри, и резултатот е: %s\n"
 
 #: ../loader2/method.c:156 ../loader2/method.c:365 ../loader2/method.c:450
 #, c-format
@@ -7197,6 +7148,9 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
+"Дали сакате да направите проверка на ISO сликата:\n"
+"\n"
+"   %s?"
 
 #: ../loader2/method.c:411
 msgid "Checksum Test"
@@ -7239,11 +7193,11 @@ msgstr "Безжични подесувања"
 
 #: ../loader2/net.c:219
 msgid "Nameserver IP"
-msgstr ""
+msgstr "IP на сервер за имиња"
 
 #: ../loader2/net.c:223
 msgid "Nameserver"
-msgstr ""
+msgstr "Сервер за имиња"
 
 #: ../loader2/net.c:224
 msgid ""
@@ -7292,7 +7246,7 @@ msgstr "Стандарден премин (IP):"
 
 #: ../loader2/net.c:482
 msgid "Primary nameserver:"
-msgstr ""
+msgstr "Примарен сервер за имиња:"
 
 #: ../loader2/net.c:509
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -7312,7 +7266,7 @@ msgstr "Мора да внесете валидна IP адреса и маск�
 
 #: ../loader2/net.c:797
 msgid "Determining host name and domain..."
-msgstr "Одредувам име на домаќин и домен..."
+msgstr "Одредувам име на хост и домен..."
 
 #: ../loader2/net.c:882
 #, c-format
@@ -7450,12 +7404,12 @@ msgstr "Мора да го внесете директориумот."
 
 #: ../loader2/urls.c:330
 msgid "Unknown Host"
-msgstr "Непознат домаќин"
+msgstr "Непознат хост"
 
 #: ../loader2/urls.c:331
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s е невалиден домаќин."
+msgstr "%s е невалиден хост."
 
 #: ../loader2/urls.c:404
 msgid ""
@@ -7477,354 +7431,351 @@ msgstr "Име на сметка:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
-msgstr "Вчитување на SCSI дискот"
+msgstr "Во вчитувам драјверот за SCSI"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alaska Time"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alaska Time - west Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutian Islands"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Canary Islands"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Централно време"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Central Time - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr "Централно време - Река Рејни и Форт Францес, Онтарио"
+msgstr "Central Time - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Central Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr "источна Кина - Пекинг, Гуангдонг, Шангај, итн."
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr "источна Демократска Република Конго"
+msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - central Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr "Источно стандардно време - Индијана - повеќето локации"
+msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr "Источно време"
+msgstr "Eastern Time"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr "Источно време - Кентаки - област Луисвил"
+msgstr "Eastern Time - Kentucky - Louisville area"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr "Источно време - Мичиген - повеќето локации"
+msgstr "Eastern Time - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr "Источно време - Онтарио - повеќето локации"
+msgstr "Eastern Time - Ontario - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Источно време - Онтарио и Квебек - места кои не ги набљудувале DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr "Источно време - Квебек - повеќето локации"
+msgstr "Eastern Time - Quebec - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr "источен Узбекистан"
+msgstr "east Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr "Острови Галапагос"
+msgstr "Galapagos Islands"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert Islands"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr "Велика Британија"
+msgstr "Great Britain"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr "Хаваи"
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr "Јава и Суматра"
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr "Острови Мадера"
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr "копно"
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
@@ -7836,7 +7787,7 @@ msgstr "Мендоза (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr "Острови Мидвеј"
+msgstr "Острови мидвеј"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -7852,7 +7803,7 @@ msgstr "Москва-01 - Калининград"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Москва+02 - Урал"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
@@ -7880,7 +7831,7 @@ msgstr "Москва+07 - Река Амур"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Москва +07 Сакхалински остров"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
@@ -7899,136 +7850,132 @@ msgid "most locations"
 msgstr "повеќето локации"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "повеќето локации (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "повеќето локации (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr "Планинско стандардно време - Аризона"
+msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Планинско стандардно време - Доусон Крик и Форт Сент Џон, Британска Колумбија"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr "Планинско стандардно време - Сонора"
+msgstr "Mountain Standard Time - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr "Планинско време"
+msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Планинско време - Алберта, источна Британска Колумбиа и западен Саскачеуан"
+msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr "Планинско време - централни Северозападни Територии"
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr "Планинско време - Чиуауа"
+msgstr "Mountain Time - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr "Планинско време - Навахо"
+msgstr "Mountain Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr "Планинско време - јужен Ајдахо и источен Орегон"
+msgstr "Mountain Time - south Idaho & east Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr "Планинско време - западни Северозападни Територии"
+msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr "Североисточен Бразил (MA, PI, CE, RN, PB)"
+msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr "Остров Њуфаундленд"
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr "Нов Јужен Велс - повеќето локации"
+msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr "Нов Јужен Велс - Јанковина"
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr "североисточен Мали"
+msgstr "northeast Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr "Северна Ирска"
+msgstr "Northern Ireland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr "Северни територии"
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr "Пацифичко време"
+msgstr "Pacific Time"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr "Пацифичко време - северен Јукон"
+msgstr "Pacific Time - north Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr "Пацифичко време - јужен Јукон"
+msgstr "Pacific Time - south Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr "Пацифичко време - западна Британска Колумбија"
+msgstr "Pacific Time - west British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr "Станица Палмер, остров Анверс"
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr "полуостров Малезија"
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr "Пернамбуко"
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr "Острови Феникс"
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr "Квинсленд - острови Холидеј"
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr "Квинсленд - повеќе локации"
+msgstr "Queensland - повеќето локации"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
@@ -8036,27 +7983,27 @@ msgstr "Станица Ротера, остров Аделаида"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
@@ -8076,11 +8023,11 @@ msgstr "Јужен и југоисточен Бразил (GO, DF, MG, ES, RJ, S
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -8088,7 +8035,7 @@ msgstr "Тасманија"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
@@ -8096,47 +8043,47 @@ msgstr "Тибет и поголемиот дел од Зинјанг Ујгур
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr "Викторија"
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr "Станица Восток, Јужно магнетно поле"
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr "Западен Амазон"
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr "Западно & централно Борнео"
+msgstr "west & central Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr "Западна Демократска Република Конго"
+msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr "Западна Австралија"
+msgstr "Western Australia"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
@@ -8148,7 +8095,7 @@ msgstr "Западен Узбекистан"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
@@ -8167,81 +8114,80 @@ msgid "Bengali"
 msgstr "Бенгалски"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Унгарски"
+msgstr "Bulgarian"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr "Каталонски"
+msgstr "Catalan"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr "Кинески (упростено)"
+msgstr "Chinese(Simplified)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr "Кинески (традиционално)"
+msgstr "Chinese(Traditional)"
 
 #. generated from lang-table
 msgid "Croatian"
-msgstr "Хрватски"
+msgstr "Croatian"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr "Чешки"
+msgstr "Czech"
 
 #. generated from lang-table
 msgid "Danish"
-msgstr "Дански"
+msgstr "Danish"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "Холандски"
+msgstr "Dutch"
 
 #. generated from lang-table
 msgid "English"
-msgstr "Англиски"
+msgstr "English"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr "Естонски"
+msgstr "Estonian"
 
 #. generated from lang-table
 msgid "Finnish"
-msgstr "Фински"
+msgstr "Finnish"
 
 #. generated from lang-table
 msgid "French"
-msgstr "Француски"
+msgstr "French"
 
 #. generated from lang-table
 msgid "German"
-msgstr "Германски"
+msgstr "German"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr "Индиски"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr "Унгарски"
+msgstr "Hungarian"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr "Исландски"
+msgstr "Icelandic"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr "Италијански"
+msgstr "Italian"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr "Јапонски"
+msgstr "Japanese"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr "Корејски"
+msgstr "Korean"
 
 #. generated from lang-table
 msgid "Macedonian"
@@ -8249,72 +8195,69 @@ msgstr "Македонски"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "Malay"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr "Норвешки"
+msgstr "Norwegian"
 
 #. generated from lang-table
 msgid "Persian"
-msgstr "Персиски"
+msgstr "Persian"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Англиски"
+msgstr "Polish"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr "Португалски"
+msgstr "Portuguese"
 
 #. generated from lang-table
 msgid "Portuguese(Brazilian)"
-msgstr "Португалски (Бразилски)"
+msgstr "Portuguese(Brazilian)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr "Пунџаби"
+msgstr "Punjabi"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr "Руски"
+msgstr "Russian"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr "Словенечки"
+msgstr "Slovenian"
 
 #. generated from lang-table
 msgid "Spanish"
-msgstr "Шпански"
+msgstr "Spanish"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr "Шведски"
+msgstr "Swedish"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr "Тамилски"
+msgstr "Tamil"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr "Турски"
+msgstr "Turkish"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr "Украински"
+msgstr "Ukrainian"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr "Виетнамски"
+msgstr "Vietnamese"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr "Велшки"
+msgstr "Welsh"
 
 #. generated from lang-table
 msgid "Zulu"
-msgstr "Зулу"
+msgstr "Zulu"
 
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Источна Аргентина (BA, DF, SC, TF)"
