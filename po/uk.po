@@ -2562,7 +2562,6 @@ msgid "DDC Probed Monitor"
 msgstr "Монітор визначений через DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -3306,14 +3305,13 @@ msgid "_Enable firewall"
 msgstr "_Увімкнути брандмауер"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
 "Використовуючи брандмауер, ви можете забажати дозволити доступ до певних "
-"служб вашої системи. До яких служб треба дозволити доступ?"
+"служб вашої системи. До яких служб, якщо такі є, треба дозволити доступ?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -6004,9 +6002,8 @@ msgid "No Volume Groups"
 msgstr "Немає груп томів"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
-msgstr "Відсутні групи томів, необхідні для створення логічних томів."
+msgstr "Відсутні групи томів, у яких створюються логічні томи"
 
 #: ../textw/partition_text.py:1291
 #, python-format
@@ -6718,7 +6715,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6728,13 +6725,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tРобоче середовище (GNOME)\n"
+"\tЗасоби адміністрування системи\n"
+"\tЗасоби налаштовування сервера\n"
+"\tВеб-сервер\n"
+"\tФайловий сервер для Windows\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6752,17 +6753,17 @@ msgstr ""
 "\tМиттєві повідомлення\n"
 "\tЗвук та відео\n"
 "\tІгри\n"
+"\tЗасоби адміністрування системи\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -8404,9 +8405,8 @@ msgid "Bengali"
 msgstr "Бенгальська"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Бенгальська"
+msgstr "Бенгальська(Індія)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8462,7 +8462,7 @@ msgstr "Німецька"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Гуяраті"
 
 #. generated from lang-table
 msgid "Hindi"
