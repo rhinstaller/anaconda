@@ -36,7 +36,7 @@ class PartitionWindow (InstallWindow):
         self.swapon = 0
 
     def checkSwap (self):
-        if PartitionWindow.swapon or (iutil.memInstalled() > 30000):
+        if PartitionWindow.swapon or (iutil.memInstalled() > 34000):
 	    return 1
 
         threads_leave ()
@@ -45,7 +45,6 @@ class PartitionWindow (InstallWindow):
 		     "need to turn on swap space immediately. To do this "
 		     "we'll have to write your new partition table to the "
 		     "disk immediately. Is that okay?"), "okcancel")
-        threads_enter ()
 
 	if (message.getrc () == 1):
 	    return 0
@@ -54,6 +53,8 @@ class PartitionWindow (InstallWindow):
 	self.todo.makeFilesystems (createFs = 0)
 	self.todo.ddruidAlreadySaved = 1
 	PartitionWindow.swapon = 1
+
+        threads_enter ()
 
         return 1
 
