@@ -964,9 +964,12 @@ class Partitions:
                 # see above about uniqueIDs being ints
                 args.append("pv.%s" % (request.uniqueID))
             elif request.mountpoint:
+                fstype = request.fstype.getName()
+                if fstype.find(" "):
+                    fstype = "\"%s\"" %(fstype,)
                 args.append(request.mountpoint)
                 args.append("--fstype")
-                args.append(request.fstype.getName())
+                args.append(fstype)
             else:
                 continue
 
