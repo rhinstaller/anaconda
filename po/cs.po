@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2003-01-14 11:59-0500\n"
-"PO-Revision-Date: 2003-01-14 11:37+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"PO-Revision-Date: 2003-01-24 00:14+0100\n"
+"Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -133,8 +133,11 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Zaváděcí oddíl %s může být mimo hranice možností vašeho počítače. "
-"Doporučujeme vytvořit zaváděcí disketu."
+"Zaváděcí oddíl %s je mimo hranice, odkud může být snadno zaveden "
+"operační systém. Pokud BIOS vašeho počítače podporuje rozšíření LBA32, "
+"bude automaticky použito. Pokud ne, nemusí být počítač schopen "
+"zavést operační systém. Proto důrazně doručujeme, abyste vytvořili "
+"zaváděcí disketu."
 
 #: ../autopart.py:1013
 #, python-format
@@ -343,13 +346,12 @@ msgid "Miscellaneous"
 msgstr "Různé volby"
 
 #: ../comps.py:1066
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
-"Tato skupina obsahuje všechny dostupné balíčky. To je výrazně více balíčků, "
+"Tato skupina obsahuje všechny dostupné balíčky. Jde o výrazně více balíčků, "
 "než jen balíčky ve všech ostatních skupinách na této straně."
 
 #: ../comps.py:1070
@@ -927,7 +929,7 @@ msgid "Missing Group"
 msgstr "Chybějící skupina"
 
 #: ../kickstart.py:1167
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
@@ -1113,7 +1115,7 @@ msgstr "Start instalace"
 
 #: ../packages.py:775
 msgid "Starting install process, this may take several minutes..."
-msgstr "Start instalace může trvat několik minut..."
+msgstr "Start instalace může chvíli trvat..."
 
 #: ../packages.py:819
 msgid ""
@@ -2302,19 +2304,19 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
-"Pokud vnutíte použití LBA32 a váš BIOS to nepodporuje, počítač nebude "
-"schopen nastartovat. Doporučujeme proto později v procesu instalace vytvořit "
-"zaváděcí disketu.\n"
+"Pokud přikážete použití LBA32 a váš BIOS to nepodporuje, počítač nebude "
+"schopen nastartovat. Důrazně proto doporučujeme, abyste si v zaváděcí "
+"disketu vytvořili, až vám to instalační program nabídne.\n"
 "\n"
-"Chcete vnutit LBA32?"
+"Opravdu použití LBA32 přikázat?"
 
 #: ../iw/bootloader_advanced_gui.py:51
 msgid "Force LBA32"
-msgstr "Vnutit LBA32"
+msgstr "Použít LBA32"
 
 #: ../iw/bootloader_advanced_gui.py:72
 msgid "_Force LBA32 (not normally required)"
-msgstr "_Vnutit LBA32 (obvykle není potřeba)"
+msgstr "_Použít LBA32 (bez ohledu na autodetekci)"
 
 #: ../iw/bootloader_advanced_gui.py:76
 msgid ""
@@ -2738,7 +2740,6 @@ msgid "Select drive to run fdasd on"
 msgstr "Vyberte jednotku, na kterou spustit fdasd"
 
 #: ../iw/fdasd_gui.py:93
-#, fuzzy
 msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
@@ -3727,7 +3728,7 @@ msgstr "Pevné disky"
 #: ../iw/partition_gui.py:853 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
-msgstr "Volné místo"
+msgstr "Volno"
 
 #: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
 msgid "Extended"
@@ -4657,7 +4658,7 @@ msgstr ""
 
 #: ../textw/bootloader_text.py:113
 msgid "Force use of LBA32 (not normally required)"
-msgstr "Vnutit LBA32 (obvykle není potřeba)"
+msgstr "Použít LBA32 (bez ohledu na autodetekci)"
 
 #: ../textw/bootloader_text.py:179
 msgid "Where do you want to install the boot loader?"
@@ -7509,9 +7510,8 @@ msgid "Portuguese"
 msgstr "Portugalština"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian)"
-msgstr "Portugalština (brazilská)"
+msgstr "Portugalština(brazilská)"
 
 #. generated from lang-table
 msgid "Russian"

@@ -1,10 +1,14 @@
+#
+# Stanislav Meduna <stano@eunet.sk>, 2000.
+# Marcel Telka <marcel@telka.sk>, 2003.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: rhinstall unknown\n"
+"Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2003-01-14 11:59-0500\n"
-"PO-Revision-Date: 2000-03-07 18:15+01:00\n"
-"Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
-"Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
+"PO-Revision-Date: 2003-01-27 20:50+0100\n"
+"Last-Translator: Marcel Telka <marcel@telka.sk>\n"
+"Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
@@ -214,9 +218,8 @@ msgstr ""
 #: ../textw/bootloader_text.py:450 ../textw/fdasd_text.py:84
 #: ../textw/partition_text.py:217 ../textw/upgrade_text.py:177
 #: ../loader2/loader.c:345
-#, fuzzy
 msgid "Warning"
-msgstr "Vyhľadávanie"
+msgstr "Upozornenie"
 
 #: ../autopart.py:1316
 msgid ""
@@ -235,19 +238,16 @@ msgid ""
 msgstr ""
 
 #: ../autopart.py:1332
-#, fuzzy
 msgid "Remove all partitions on this system"
-msgstr "Zrušiť Linux oddiely"
+msgstr "Odstrániť všetky oddiely v systéme"
 
 #: ../autopart.py:1333
-#, fuzzy
 msgid "Remove all Linux Partitions on this system"
-msgstr "Zrušiť Linux oddiely"
+msgstr "Odstrániť všetky Linux oddiely v systéme"
 
 #: ../autopart.py:1334
-#, fuzzy
 msgid "Keep all partitions and use existing free space"
-msgstr "Použiť existujúci voľný priestor"
+msgstr "Zachovať všetky oddiely a použiť existujúce voľné miesto"
 
 #: ../autopart.py:1336
 #, fuzzy, python-format
@@ -270,14 +270,12 @@ msgstr ""
 " Určite to tak chcete?"
 
 #: ../bootloader.py:89
-#, fuzzy
 msgid "Bootloader"
-msgstr "Popis"
+msgstr "Systémový zavádzač"
 
 #: ../bootloader.py:89
-#, fuzzy
 msgid "Installing bootloader..."
-msgstr "Inštalácia %s.\n"
+msgstr "Inštalujem systémový zavádzač..."
 
 #: ../bootloader.py:124
 msgid ""
@@ -286,9 +284,8 @@ msgid ""
 msgstr ""
 
 #: ../comps.py:721 ../comps.py:749
-#, fuzzy
 msgid "Everything"
-msgstr "Vyhľadávanie"
+msgstr "Všetko"
 
 #: ../comps.py:890 ../comps.py:955 ../upgrade.py:591
 msgid "no suggestion"
@@ -328,7 +325,7 @@ msgstr ""
 
 #: ../exception.py:167 ../text.py:238
 msgid "Exception Occurred"
-msgstr ""
+msgstr "Vyskytla sa výnimka"
 
 #: ../exception.py:234
 msgid "Dump Written"
@@ -352,9 +349,8 @@ msgid ""
 msgstr ""
 
 #: ../floppy.py:101
-#, fuzzy
 msgid "Insert a floppy disk"
-msgstr "Nepodarilo sa mi pripojiť disketu."
+msgstr "Vložte disketu"
 
 #: ../floppy.py:102
 #, fuzzy
@@ -368,14 +364,12 @@ msgstr ""
 "zavádzacej diskety budú všetky údaje na nej vymazané."
 
 #: ../floppy.py:106
-#, fuzzy
 msgid "_Cancel"
-msgstr "Zrušiť"
+msgstr "_Zrušiť"
 
 #: ../floppy.py:106
-#, fuzzy
 msgid "_Make boot disk"
-msgstr "Vytvoriť zavádzaciu disketu"
+msgstr "_Vytvoriť zavádzaciu disketu"
 
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
@@ -404,13 +398,12 @@ msgid "Error"
 msgstr "Chyba"
 
 #: ../floppy.py:118 ../floppy.py:143
-#, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"Počas tvorby zavádzacej diskety sa vyskytla chyba. Uistite sa, že je v prvej "
-"disketovej mechanike vložená naformátovaná disketa."
+"Počas tvorby zavádzacej diskety sa vyskytla chyba. Prosím uistite sa, že je "
+"vložená disketa v prvej disketovej mechanike."
 
 #: ../floppy.py:129
 msgid "Creating"
@@ -421,13 +414,12 @@ msgid "Creating boot disk..."
 msgstr "Vytváranie zavádzacej diskety..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Počas tvorby zavádzacej diskety sa vyskytla chyba. Uistite sa, že je v prvej "
-"disketovej mechanike vložená naformátovaná disketa."
+"Počas pokusu o kontrolu zavádzacej diskety sa vyskytla chyba. Prosím uistite "
+"sa, že máte dobrú disketu je v prvej disketovej mechanike."
 
 #: ../floppy.py:189
 #, fuzzy
@@ -440,14 +432,13 @@ msgstr ""
 "disketovej mechanike vložená naformátovaná disketa."
 
 #: ../fsset.py:176
-#, fuzzy
 msgid "Checking for Bad Blocks"
-msgstr "Počas formátovania kontrolovať na chybné bloky"
+msgstr "Kontrola na chybné bloky"
 
 #: ../fsset.py:177
 #, fuzzy, python-format
 msgid "Checking for bad blocks on /dev/%s..."
-msgstr "Počas formátovania kontrolovať na chybné bloky"
+msgstr "Kontrola na chybné bloky na /dev/%s..."
 
 #: ../fsset.py:560
 #, python-format
@@ -459,9 +450,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:964
-#, fuzzy
 msgid "RAID Device"
-msgstr "Žiadne RAID zariadenie"
+msgstr "Zariadenie RAID"
 
 #: ../fsset.py:967 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
@@ -527,9 +517,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:1215 ../fsset.py:1224
-#, fuzzy
 msgid "Invalid mount point"
-msgstr "Chybný bod pripojenia"
+msgstr "Neplatný bod pripojenia"
 
 #: ../fsset.py:1216
 #, python-format
@@ -564,14 +553,14 @@ msgid "Formatting"
 msgstr "Formátovanie"
 
 #: ../fsset.py:1987
-#, fuzzy, python-format
+#, python-format
 msgid "Formatting %s file system..."
 msgstr "Formátovanie súborového systému %s..."
 
 #: ../gui.py:105
 #, fuzzy
 msgid "An error occurred copying the screenshots over."
-msgstr "Vyhľadávanie balíkov pre aktualizáciu..."
+msgstr "Vyskytla sa chyba pri kopírovaní."
 
 #: ../gui.py:117
 msgid "Screenshots Copied"
@@ -607,7 +596,7 @@ msgstr ""
 
 #: ../gui.py:235 ../text.py:319
 msgid "Fix"
-msgstr ""
+msgstr "Oprava"
 
 #: ../gui.py:236 ../rescue.py:140 ../text.py:320 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:79 ../textw/constants_text.py:48
@@ -630,7 +619,7 @@ msgstr "Znovu"
 
 #: ../gui.py:240 ../text.py:324
 msgid "Ignore"
-msgstr ""
+msgstr "Ignorovať"
 
 #: ../gui.py:241 ../gui.py:548 ../partIntfHelpers.py:231
 #: ../partIntfHelpers.py:417 ../partIntfHelpers.py:528 ../text.py:115
@@ -651,7 +640,7 @@ msgstr ""
 
 #: ../gui.py:738 ../gui.py:1231
 msgid "Online Help"
-msgstr "Online pomôcky"
+msgstr "Online pomocník"
 
 #: ../gui.py:739 ../iw/language_gui.py:23 ../textw/language_text.py:37
 msgid "Language Selection"
@@ -659,7 +648,7 @@ msgstr "Výber jazyka"
 
 #: ../gui.py:843 ../gui.py:872
 msgid "Release Notes"
-msgstr ""
+msgstr "Poznámky k vydaniu"
 
 #: ../gui.py:877
 msgid "Unable to load file!"
@@ -667,12 +656,11 @@ msgstr ""
 
 #: ../gui.py:914
 msgid "Release notes are missing.\n"
-msgstr ""
+msgstr "Poznámky k vydaniu chýbajú.\n"
 
 #: ../gui.py:946
-#, fuzzy
 msgid "Error!"
-msgstr "Chyba"
+msgstr "Chyba!"
 
 #: ../gui.py:947
 #, python-format
@@ -683,67 +671,58 @@ msgid ""
 msgstr ""
 
 #: ../gui.py:951 ../packages.py:1223 ../iw/congrats_gui.py:29
-#, fuzzy
 msgid "_Exit"
-msgstr "Ukončiť"
+msgstr "_Ukončiť"
 
 #: ../gui.py:952
-#, fuzzy
 msgid "_Retry"
-msgstr "Znovu"
+msgstr "_Znovu"
 
 #: ../gui.py:954 ../packages.py:1226
-#, fuzzy
 msgid "Rebooting System"
-msgstr "Aktualizácia systému"
+msgstr "Reštartovanie systému"
 
 #: ../gui.py:955 ../packages.py:1227
 msgid "Your system will now be rebooted..."
-msgstr ""
+msgstr "Váš systém bude teraz reštartovaný..."
 
 #: ../gui.py:958 ../packages.py:1229
-#, fuzzy
 msgid "_Reboot"
-msgstr "_Vrátiť"
+msgstr "_Reštart"
 
 #: ../gui.py:1049 ../packages.py:1229
-#, fuzzy
 msgid "_Back"
-msgstr "Späť"
+msgstr "_Späť"
 
 #: ../gui.py:1051
-#, fuzzy
 msgid "_Next"
-msgstr "Ďalej"
+msgstr "Ďa_lej"
 
 #: ../gui.py:1053
 msgid "_Release Notes"
-msgstr ""
+msgstr "_Poznámky k vydaniu"
 
 #: ../gui.py:1055
-#, fuzzy
 msgid "Show _Help"
-msgstr "Zobraziť pomôcky"
+msgstr "Zobraziť _pomocníka"
 
 #: ../gui.py:1057
-#, fuzzy
 msgid "Hide _Help"
-msgstr "Skryť pomôcky"
+msgstr "Skryť _pomocníka"
 
 #: ../gui.py:1059
-#, fuzzy
 msgid "_Debug"
-msgstr "Ladenie"
+msgstr "_Ladenie"
 
 #: ../gui.py:1135
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer"
-msgstr "Po inštalácii"
+msgstr "Inštalátor %s"
 
 #: ../gui.py:1150
-#, fuzzy, python-format
+#, python-format
 msgid "%s Installer on %s"
-msgstr "Red Hat Linux inštalátor na %s"
+msgstr "Inštalátor %s na %s"
 
 #: ../gui.py:1189
 #, fuzzy
@@ -751,14 +730,13 @@ msgid "Unable to load title bar"
 msgstr "Nepodarilo sa zistiť grafickú kartu"
 
 #: ../gui.py:1292
-#, fuzzy
 msgid "Install Window"
-msgstr "Inštalovať"
+msgstr "Okno inštalácie"
 
 #: ../harddrive.py:209
 #, python-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Chýbajúce CD č. %d, ktoré je potrebné pre inštaláciu."
 
 #: ../image.py:69
 #, python-format
@@ -769,11 +747,11 @@ msgstr ""
 
 #: ../image.py:96
 msgid "Copying File"
-msgstr ""
+msgstr "Kopírovanie súboru"
 
 #: ../image.py:97
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Prenášanie inštalačného obrazu na pevný disk..."
 
 #: ../image.py:100
 msgid ""
@@ -782,28 +760,26 @@ msgid ""
 msgstr ""
 
 #: ../image.py:193
-#, fuzzy
 msgid "Change CDROM"
-msgstr "Iná CDROM"
+msgstr "Vymeniť CDROM"
 
 #: ../image.py:194
 #, python-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Pre pokračovanie vložte, prosím, disk %d."
 
 #: ../image.py:229
-#, fuzzy
 msgid "Wrong CDROM"
-msgstr "Iná CDROM"
+msgstr "Nesprávna CDROM"
 
 #: ../image.py:230
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr ""
+msgstr "To je nesprávna CDROM %s."
 
 #: ../image.py:236
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "CDROM nemohla byť pripojená."
 
 #: ../installclass.py:45
 #, fuzzy
@@ -811,9 +787,8 @@ msgid "Install on System"
 msgstr "Typ inštalácie"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Inštalácia balíkov"
+msgstr "Chýbajúci balík"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -823,19 +798,16 @@ msgid ""
 msgstr ""
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "_Vrátiť"
+msgstr "_Prerušiť"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
-#, fuzzy
 msgid "_Continue"
-msgstr "Pokračovať"
+msgstr "_Pokračovať"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Chýbajúca informácia"
+msgstr "Chýbajúca skupina"
 
 #: ../kickstart.py:1167
 #, python-format
@@ -854,7 +826,7 @@ msgstr ""
 
 #: ../packages.py:45 ../iw/package_gui.py:38
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Pokračovať v aktualizácii?"
 
 #: ../packages.py:46 ../iw/package_gui.py:39
 msgid ""
@@ -864,9 +836,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:50 ../iw/package_gui.py:43
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Želáte si konfigurovať váš systém?"
+msgstr "Želáte si pokračovať v aktualizácii?"
 
 #: ../packages.py:126
 msgid "Reading"
@@ -890,11 +861,11 @@ msgstr ""
 
 #: ../packages.py:219
 msgid "Dependency Check"
-msgstr ""
+msgstr "Kontrola závislostí"
 
 #: ../packages.py:220
 msgid "Checking dependencies in packages selected for installation..."
-msgstr ""
+msgstr "Kontrolovanie závislostí v balíkoch vybraných na inštaláciu..."
 
 #: ../packages.py:285 ../packages.py:695
 msgid "Processing"
@@ -915,9 +886,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:363
-#, fuzzy
 msgid "Error Installing Package"
-msgstr "Inštalácia balíkov"
+msgstr "Chyba pri inštalácii balíka"
 
 #: ../packages.py:364
 #, python-format
@@ -945,31 +915,35 @@ msgstr ""
 
 #: ../packages.py:696
 msgid "Setting up RPM transaction..."
-msgstr ""
+msgstr "Nastavovanie transakciu RPM..."
 
 #: ../packages.py:740
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "Aktualizácia %s.\n"
+msgstr ""
+"Aktualizácia %s balíkov\n"
+"\n"
 
 #: ../packages.py:742
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "Inštalácia balíkov"
+msgstr ""
+"Inštalovanie %s balíkov\n"
+"\n"
 
 #: ../packages.py:749 ../packages.py:1062
-#, fuzzy, python-format
+#, python-format
 msgid "Upgrading %s-%s-%s.\n"
-msgstr "Aktualizácia %s.\n"
+msgstr "Aktualizácia %s-%s-%s.\n"
 
 #: ../packages.py:751 ../packages.py:1064
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.\n"
-msgstr "Inštalácia %s.\n"
+msgstr "Inštalácia %s-%s-%s.\n"
 
 #: ../packages.py:768
 #, python-format
@@ -983,13 +957,12 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:774
-#, fuzzy
 msgid "Install Starting"
 msgstr "Inštalácia začína"
 
 #: ../packages.py:775
 msgid "Starting install process, this may take several minutes..."
-msgstr ""
+msgstr "Začína proces inštalácie. Toto môže trvať niekoľko minút..."
 
 #: ../packages.py:819
 #, fuzzy
@@ -1009,7 +982,7 @@ msgstr "Bod pripojenia"
 
 #: ../packages.py:824
 msgid "Space Needed"
-msgstr "Potredný priestor"
+msgstr "Potrebný priestor"
 
 #: ../packages.py:839
 #, fuzzy
@@ -1047,7 +1020,7 @@ msgstr "Vykonanie poinštalačnej konfigurácie..."
 
 #: ../packages.py:1209
 msgid "Warning! This is a beta!"
-msgstr ""
+msgstr "Upozornenie! Toto je beta verzia!"
 
 #: ../packages.py:1210
 msgid ""
@@ -1065,9 +1038,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:1223
-#, fuzzy
 msgid "_Install BETA"
-msgstr "Typ inštalácie"
+msgstr "_Inštalovať BETA verziu"
 
 #: ../partedUtils.py:172 ../textw/partition_text.py:491
 msgid "Foreign"
@@ -1092,14 +1064,13 @@ msgid "Error mounting file system on %s: %s"
 msgstr "Chyba pri pripájaní súborového systému ext2 %s: %s"
 
 #: ../partedUtils.py:615
-#, fuzzy
 msgid "Initializing"
 msgstr "Inicializácia"
 
 #: ../partedUtils.py:616
 #, python-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "Prosím počkajte, kým sa naformátuje zariadenie %s...\n"
 
 #: ../partedUtils.py:733
 #, fuzzy, python-format
@@ -1217,9 +1188,8 @@ msgstr ""
 
 #: ../partIntfHelpers.py:141 ../partIntfHelpers.py:155
 #: ../partIntfHelpers.py:165 ../partIntfHelpers.py:182
-#, fuzzy
 msgid "Unable To Delete"
-msgstr "Nepodarilo sa zistiť grafickú kartu"
+msgstr "Nepodarilo sa odstrániť"
 
 #: ../partIntfHelpers.py:142
 #, fuzzy
@@ -1232,7 +1202,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:156
 msgid "You cannot delete free space."
-msgstr ""
+msgstr "Nemôžete odstrániť prázdne miesto."
 
 #: ../partIntfHelpers.py:166
 #, fuzzy, python-format
@@ -1251,9 +1221,8 @@ msgstr "Skutočne chcete zrušiť tento oddiel?"
 
 #: ../partIntfHelpers.py:227 ../partIntfHelpers.py:527
 #: ../iw/lvm_dialog_gui.py:714
-#, fuzzy
 msgid "Confirm Delete"
-msgstr "Znovu: "
+msgstr "Potvrdiť odstránenie"
 
 #: ../partIntfHelpers.py:228
 #, fuzzy, python-format
@@ -1265,7 +1234,7 @@ msgstr "Skutočne chcete zrušiť tento oddiel?"
 #: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
 #: ../iw/partition_gui.py:1344
 msgid "_Delete"
-msgstr "_Zrušiť"
+msgstr "_Odstrániť"
 
 #: ../partIntfHelpers.py:289
 msgid "Notice"
@@ -1333,13 +1302,12 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:417
-#, fuzzy
 msgid "Format?"
-msgstr "Formátovanie"
+msgstr "Formátovať?"
 
 #: ../partIntfHelpers.py:417
 msgid "Do _Not Format"
-msgstr ""
+msgstr "_Neformátovať"
 
 #: ../partIntfHelpers.py:425
 #, fuzzy
@@ -1383,9 +1351,8 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:464
-#, fuzzy
 msgid "Format Warning"
-msgstr "Formátovanie"
+msgstr "Upozornenie pri formátovaní"
 
 #: ../partIntfHelpers.py:512
 #, python-format
@@ -1415,9 +1382,8 @@ msgid "The partition you selected will be deleted."
 msgstr ""
 
 #: ../partIntfHelpers.py:535
-#, fuzzy
 msgid "Confirm Reset"
-msgstr "Znovu: "
+msgstr "Potvrdiť reštart"
 
 #: ../partIntfHelpers.py:536
 #, fuzzy
@@ -1426,9 +1392,8 @@ msgid ""
 msgstr "Skutočne chcete zrušiť tento oddiel?"
 
 #: ../partitioning.py:83
-#, fuzzy
 msgid "Installation cannot continue."
-msgstr "Začiatok inštalácie"
+msgstr "Inštalácia nemôže pokračovať"
 
 #: ../partitioning.py:84
 msgid ""

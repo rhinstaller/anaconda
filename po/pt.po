@@ -396,15 +396,11 @@ msgid "Miscellaneous"
 msgstr "Vários"
 
 #: ../comps.py:1066
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
-msgstr ""
-"Este grupo inclui todos os pacotes disponíveis. Lembre-se que corresponde a "
-"muitos mais pacotes para além dos outros que se encontram em todos os outros "
-"grupos de pacotes nesta página."
+msgstr "Este grupo inclui todos os pacotes disponíveis.  Isto corresponde a muitos mais pacotes dos que se encontram em todos os outros grupos de pacotes nesta página."
 
 #: ../comps.py:1070
 msgid ""
@@ -987,13 +983,11 @@ msgid "Missing Group"
 msgstr "Grupo em Falta"
 
 #: ../kickstart.py:1167
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
-"Indicou que o grupo '%s' deve ser instalado.  Este pacote não existe.  Quer "
-"continuar ou abortar a instalação?"
+msgstr "Indicou que o grupo '%s' deve ser instalado.  Este grupo não existe.  Quer continuar ou abortar a instalação?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -2838,7 +2832,6 @@ msgid "Select drive to run fdasd on"
 msgstr "Escolha a unidade onde quer correr o fdasd"
 
 #: ../iw/fdasd_gui.py:93
-#, fuzzy
 msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
@@ -3839,7 +3832,7 @@ msgstr "Espaço livre"
 
 #: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
 msgid "Extended"
-msgstr "Extendido"
+msgstr "Extendida"
 
 #: ../iw/partition_gui.py:857 ../textw/partition_text.py:137
 msgid "software RAID"
@@ -5552,7 +5545,7 @@ msgstr " Nome   : "
 
 #: ../textw/progress_text.py:82
 msgid " Size   : "
-msgstr "Tamanho: "
+msgstr " Tamanho: "
 
 #: ../textw/progress_text.py:83
 msgid " Summary: "
@@ -7657,9 +7650,8 @@ msgid "Portuguese"
 msgstr "Português"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian)"
-msgstr "Português (Brasil)"
+msgstr "Português(Brasil)"
 
 #. generated from lang-table
 msgid "Russian"

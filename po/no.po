@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2003-01-14 11:59-0500\n"
-"PO-Revision-Date: 2003-01-03 01:34+0100\n"
+"PO-Revision-Date: 2003-01-18 14:58+0100\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -265,7 +265,6 @@ msgstr ""
 "monteringspunkter, partisjonsstørrelser med mer."
 
 #: ../autopart.py:1327
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -336,14 +335,11 @@ msgid "Miscellaneous"
 msgstr "Forskjellig"
 
 #: ../comps.py:1066
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
-msgstr ""
-"Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er mange "
-"flere pakker enn det som vises i pakkegruppene på denne siden."
+msgstr "Denne gruppen inneholder alle tilgjengelige pakker. Merk at dette er mange flere pakker enn det som vises i alle pakkegruppene på denne siden."
 
 #: ../comps.py:1070
 msgid ""
@@ -366,16 +362,11 @@ msgstr ""
 "bugzilla.redhat.com/bugzilla/"
 
 #: ../constants.py:72
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr ""
-"Et uhåndtert unntak har oppstått. Dette er mest sannsynlig en feil. Kopier "
-"hele teksten fra unntaksmeldingen og lagre informasjon om krasjet på en "
-"diskett; send så inn en detaljert feilrapport for anaconda på https://"
-"bugzilla.redhat.com/bugzilla/"
+msgstr "Et uhåndtert unntak har oppstått. Dette er mest sannsynlig en feil. Kopier hele teksten fra feilmeldingen og send så inn en detaljert feilrapport for anaconda på http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:167 ../text.py:238
 msgid "Exception Occurred"
@@ -471,23 +462,17 @@ msgid "Creating boot disk..."
 msgstr "Oppretter oppstartsdiskett..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
-msgstr ""
-"En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om at "
-"det står en diskett i diskettstasjonen."
+msgstr "En feil oppstod under verifisering av oppstartsdisketten. Sjekk at det står en diskett i diskettstasjonen."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
-msgstr ""
-"En feil oppstod under oppretting av oppstartsdisketten. Forsikre deg om at "
-"det står en diskett i diskettstasjonen."
+msgstr "Oppstartsdisketten ser ut til å være ugyldig. Det er sannsynligvis forårsaket av en ødelagt diskett. Sjekk at det står en fungerende diskett i diskettstasjonen."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -694,7 +679,6 @@ msgid "Error Saving Screenshot"
 msgstr "Feil under lagring av skjermdump"
 
 #: ../gui.py:167
-#, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
@@ -904,9 +888,8 @@ msgid "Install on System"
 msgstr "Installer på systemet"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Installerer pakker"
+msgstr "Manglende pakke"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -916,25 +899,23 @@ msgid ""
 msgstr ""
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "Sta_rt på nytt"
+msgstr "_Avbryt"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Fortsett"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Manglende informasjon"
+msgstr "Manglende gruppe"
 
 #: ../kickstart.py:1167
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
-msgstr ""
+msgstr "Du har oppgitt at gruppen «%s» skal installeres. Denne gruppen eksisterer ikke. Vil du fortsette eller avbryte installasjonen?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1010,6 +991,9 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"Pakken %s-%s-%s kan ikke åpnes. Det kan være pga at filen mangler eller at pakken er korrupt. Hvis du installerer fra en CD betyr dette vanligvis at CD'en er ødelagt eller at CD-stasjonen ikke klarer å lese den.\n"
+"\n"
+"Trykk <linjeskift> for å prøve igjen."
 
 #: ../packages.py:363
 msgid "Error Installing Package"
@@ -1684,12 +1668,11 @@ msgid ""
 msgstr "Monteringspunktet er ugyldig. %s-katalogen må være på filsystemet /."
 
 #: ../partRequests.py:221
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
-msgstr ""
-"Monteringspunktet «%s» er allerede i bruk. Velg et annet monteringspunkt."
+msgstr "Monteringspunktet %s kan ikke brukes. Det må være en symbolsk lenke for at systemet skal fungere. Velg et annet monteringspunkt."
 
 #: ../partRequests.py:228
 msgid "This mount point must be on a linux file system."
@@ -1753,13 +1736,12 @@ msgstr ""
 "reservedisker må du legge til medlemmer på RAID-enheten."
 
 #: ../rescue.py:138
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Nettverk"
+msgstr "Oppsett av nettverk"
 
 #: ../rescue.py:139
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Ønsker du å starte nettverksgrensesnittene på dette systemet?"
 
 #: ../rescue.py:159 ../rescue.py:193 ../rescue.py:346
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1903,9 +1885,9 @@ msgid "Debug"
 msgstr "Debug"
 
 #: ../text.py:340
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2002 Red Hat, Inc."
+msgstr "%s © 2003 Red Hat, Inc."
 
 #: ../text.py:347
 msgid ""
@@ -4454,9 +4436,8 @@ msgid "Please choose your login type:"
 msgstr "Vennligst velg påloggingstype:"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Tekst"
+msgstr "_Tekst"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4867,9 +4848,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Velg en disk som fdasd eller dasdfmt skal kjøres på"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "_Neste"
+msgstr "Neste"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5541,9 +5521,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Størrelsen du oppgav er ikke et gyldig tall."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Installer på systemet"
+msgstr "Installer systemet på nytt"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -6221,14 +6200,12 @@ msgid "Enter Module Parameters"
 msgstr "Oppgi parametere for moduler"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
-msgstr "Ingen driver funnet"
+msgstr "Ingen drivere funnet"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Bruk en driverdisk"
+msgstr "Last driverdisk"
 
 #: ../loader2/driverselect.c:187
 msgid ""
@@ -6237,13 +6214,10 @@ msgid ""
 msgstr ""
 
 #: ../loader2/driverselect.c:206
-#, fuzzy
 msgid ""
 "Please select the driver below which you wish to load.  If it does not "
 "appear and you have a driver disk, press F2."
-msgstr ""
-"Hvilken driver skal jeg forsøke? Hvis driveren du trenger ikke finnes på "
-"denne listen, og du har en separat driverdiskett, vennligst trykk F2."
+msgstr "Vennligst velg hvilken driver du vil laste. Trykk F2 hvis driveren du trenger ikke finnes på denne listen og du har en driverdiskett."
 
 #: ../loader2/driverselect.c:214
 msgid "Specify optional module arguments"
@@ -6620,9 +6594,9 @@ msgid "Dynamic IP"
 msgstr "Dynamisk IP"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Sender forespørsel om IP-informasjon for %s"
+msgstr "Sender forespørsel om IP-informasjon for %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6717,9 +6691,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Kjører anaconda via telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Klarte ikke å hente %s: %s"
+msgstr "Kan ikke hente %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -7513,9 +7487,8 @@ msgid "Portuguese"
 msgstr "Portugisisk:"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian)"
-msgstr "Portugisisk:"
+msgstr "Portugisisk (Brasil)"
 
 #. generated from lang-table
 msgid "Russian"

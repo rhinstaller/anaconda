@@ -275,7 +275,6 @@ msgstr ""
 "tengipunkta, stærðir og fleira í þessu handhæga og einfalda tóli."
 
 #: ../autopart.py:1327
-#, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -346,14 +345,13 @@ msgid "Miscellaneous"
 msgstr "Ýmislegt"
 
 #: ../comps.py:1066
-#, fuzzy
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 "Þessi hópur inniheldur alla pakkana sem koma með dreyfingunni. Athugaðu að "
-"þetta eru fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
+"þetta eru talsvert fleiri pakkar en eru í hinum pakkahópunum á þessari síðu."
 
 #: ../comps.py:1070
 msgid ""
@@ -376,16 +374,14 @@ msgstr ""
 "redhat.com/bugzilla"
 
 #: ../constants.py:72
-#, fuzzy
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
-"Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa í "
-"uppsetningarforritinu. Vinsamlegast afritaðu allan textann hérna eða vistaðu "
-"hann á diskling og sendu inn villutilkynningu um anaconda á http://bugzilla."
-"redhat.com/bugzilla"
+"Óeðlilegt ástand hefur komið upp. Orsökin er líklegast villa. Vinsamlegast "
+"afritaðu allan textann hérna og sendu inn villutilkynningu um anaconda á "
+"http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:167 ../text.py:238
 msgid "Exception Occurred"
@@ -482,23 +478,22 @@ msgid "Creating boot disk..."
 msgstr "Bý til ræsidiskling..."
 
 #: ../floppy.py:158
-#, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
-"gakktu úr skugga um að disklingur sé í fyrsta disklingadrifinu."
+"Villa kom upp þegar reynt var að yfirfara ræsidisklinginn. Vinsamlegast "
+"gakktu úr skugga um að disklingur sem er í lagi sé í fyrsta disklingadrifinu."
 
 #: ../floppy.py:189
-#, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Villa kom upp þegar reynt var að búa til ræsidisklinginn. Vinsamlegast "
-"gakktu úr skugga um að disklingur sé í fyrsta disklingadrifinu."
+"Ræsidisklingurinn þinn virðist vera ógildur. Þetta er líklega útaf gölluðum "
+"disklingi. Vinsamlegast gakktu úr skugga um að góður disklingur sé í fyrsta "
+"disklingadrifinu."
 
 #: ../fsset.py:176
 msgid "Checking for Bad Blocks"
@@ -705,14 +700,13 @@ msgid "Error Saving Screenshot"
 msgstr "Villa við að vista skjáskoti"
 
 #: ../gui.py:167
-#, fuzzy
 msgid ""
 "An error occurred while saving the screenshot.  If this occurred during "
 "package installation, you may need to try several times for it to succeed."
 msgstr ""
 "Villa kom upp við að vista skjáskotinu. Ef þetta átti sér stað meðan verið "
-"var að setja inn pakka gætir þú þurft að reyna nokkrum sinnum áður en það "
-"tekst."
+"var að setja inn pakka gætir þú þurft að reyna nokkrum sinnum til viðbótar "
+"áður en það tekst."
 
 #: ../gui.py:235 ../text.py:319
 msgid "Fix"
@@ -915,9 +909,8 @@ msgid "Install on System"
 msgstr "Setja upp á kerfi"
 
 #: ../kickstart.py:1140
-#, fuzzy
 msgid "Missing Package"
-msgstr "Set inn pakka"
+msgstr "Vantar pakka"
 
 #: ../kickstart.py:1141
 #, python-format
@@ -925,20 +918,20 @@ msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Þú hefur tekið fram að setja skuli upp pakkann '%s'. Þessi pakki er ekki "
+"til. Viltu halda áfram eða hætta uppsetningu?"
 
 #: ../kickstart.py:1147 ../kickstart.py:1173
-#, fuzzy
 msgid "_Abort"
-msgstr "En_durræsa"
+msgstr "Hætta _við"
 
 #: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
 msgid "_Continue"
 msgstr "_Halda áfram"
 
 #: ../kickstart.py:1166
-#, fuzzy
 msgid "Missing Group"
-msgstr "Upplýsingar vantar"
+msgstr "Pakkahóp vantar"
 
 #: ../kickstart.py:1167
 #, python-format
@@ -946,6 +939,8 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Þú hefur tekið fram að setja skuli upp pakkahópinn '%s'. Þessi pakkahópur "
+"er ekki til. Viltu halda áfram eða hætta uppsetningu?"
 
 #: ../network.py:39
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1699,13 +1694,13 @@ msgstr ""
 "Þessi tengipunktur er ógildur. Mappan %s verður að vera á rótarskráakerfinu."
 
 #: ../partRequests.py:221
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Tengipunkturinn \"%s\" er þegar í notkun. Vinsamlegast veldu annan "
-"tengipunkt."
+"Tengipunkturinn %s er ónothæfur. Hann verður að vera tákntengi svo kerfið "
+"vinni rétt. Vinsamlegast veldu annan tengipunkt."
 
 #: ../partRequests.py:228
 msgid "This mount point must be on a linux file system."
@@ -1768,13 +1763,12 @@ msgstr ""
 "að bæta fleiri drifum við þetta RAID tæki."
 
 #: ../rescue.py:138
-#, fuzzy
 msgid "Setup Networking"
-msgstr "Net"
+msgstr "Stillingar nets"
 
 #: ../rescue.py:139
 msgid "Do you want to start the network interfaces on this system?"
-msgstr ""
+msgstr "Viltu að ræsa netkortin í þessari vél þegar vélin ræsir?"
 
 #: ../rescue.py:159 ../rescue.py:193 ../rescue.py:346
 msgid "When finished please exit from the shell and your system will reboot."
@@ -1921,9 +1915,9 @@ msgid "Debug"
 msgstr "Aflúsun"
 
 #: ../text.py:340
-#, fuzzy, python-format
+#, python-format
 msgid "%s (C) 2003 Red Hat, Inc."
-msgstr "%s (C) 2002 Red Hat, Inc."
+msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:347
 msgid ""
@@ -2752,6 +2746,8 @@ msgid ""
 "Formatting the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
 msgstr ""
+"Ef þú forsníður DASD tækið sem er valið mun það eyða öllum gögnum á því. "
+"Viltu virkilega forsníða þetta DASD tæki?"
 
 #: ../iw/fdisk_gui.py:26
 msgid "Partitioning with fdisk"
@@ -4459,9 +4455,8 @@ msgid "Please choose your login type:"
 msgstr "Vinsamlega veldu tegund kveðju:"
 
 #: ../iw/xconfig_gui.py:393
-#, fuzzy
 msgid "_Text"
-msgstr "Texti"
+msgstr "_Texti"
 
 #: ../iw/xconfig_gui.py:394
 msgid "_Graphical"
@@ -4864,9 +4859,8 @@ msgid "Choose a disk to run fdasd or dasdfmt on"
 msgstr "Veldu disk til að keyra fdasd eða dasdfmt á"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Next"
-msgstr "Á_fram"
+msgstr "Áfram"
 
 #: ../textw/fdasd_text.py:32
 msgid "Edit Partitions"
@@ -5541,9 +5535,8 @@ msgid "The value you entered is not a valid number."
 msgstr "Það sem þú slóst inn er ekki gild tala."
 
 #: ../textw/upgrade_text.py:205
-#, fuzzy
 msgid "Reinstall System"
-msgstr "Setja upp á kerfi"
+msgstr "Setja upp kerfið aftur"
 
 #: ../textw/upgrade_text.py:207
 msgid "System to Upgrade"
@@ -6012,6 +6005,9 @@ msgid ""
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
 msgstr ""
+"z/IPL ræsistjórinn verður settur upp á vélinni þinni eftir að uppsetningu "
+"líkur. Þú getur slegið inn kjarnaviðföng og chandev viðföng hér sem vélin "
+"þín þarf á að halda."
 
 #: ../textw/zipl_text.py:47
 msgid "z/IPL Configuration"
@@ -6019,7 +6015,7 @@ msgstr "Stillingar z/IPL"
 
 #: ../textw/zipl_text.py:54 ../textw/zipl_text.py:57
 msgid "Chandev line "
-msgstr ""
+msgstr "Chandev viðföng "
 
 #: ../installclasses/custom.py:10
 msgid "Custom"
@@ -6223,20 +6219,20 @@ msgid "Enter Module Parameters"
 msgstr "Skáðu inn viðföng kjarnarekla"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "No drivers found"
-msgstr "Engin rekill fannst"
+msgstr "Engir rekilar fundust"
 
 #: ../loader2/driverselect.c:186
-#, fuzzy
 msgid "Load driver disk"
-msgstr "Nota rekladisklin?"
+msgstr "Nota rekladisk"
 
 #: ../loader2/driverselect.c:187
 msgid ""
 "No drivers were found to manually insert.  Would you like to use a driver "
 "disk?"
 msgstr ""
+"Engir reklar fundust sem hægt er að setja inn handvirkt. Viltu reyna að "
+"nota rekladisk?"
 
 #: ../loader2/driverselect.c:206
 msgid ""
@@ -6512,6 +6508,12 @@ msgid ""
 "download or a bad disc.  If applicable, please clean the disc and try "
 "again.  If this test continues to fail you should not continue the install."
 msgstr ""
+"VILLA.\n"
+"\n"
+"Diskurinn sem var verið að prófa stóðst ekki prófið. Þetta gæti orsakast af "
+"misheppnuðum skráaflutningi eða skemmdum diski.  Ef það á við getur þú reynt "
+"að hreinsa diskinn og reyna aftur.  Ef þetta próf heldur áfram að takast ekki "
+"ættir þú ekki að halda áfram uppsetningunni."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -6623,9 +6625,9 @@ msgid "Dynamic IP"
 msgstr "Lausbundið IP"
 
 #: ../loader2/net.c:208 ../loader2/net.c:389
-#, fuzzy, c-format
+#, c-format
 msgid "Sending request for IP information for %s..."
-msgstr "Sendi beiðni um IP stillingar fyrir %s"
+msgstr "Sendi beiðni um IP stillingar fyrir %s..."
 
 #: ../loader2/net.c:278
 msgid ""
@@ -6721,9 +6723,9 @@ msgid "Running anaconda via telnet..."
 msgstr "Keyri anaconda gegnum telnet..."
 
 #: ../loader2/urlinstall.c:58
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to retrieve %s://%s/%s/%s."
-msgstr "Gat ekki lesið %s: %s"
+msgstr "Gat ekki sótt %s://%s/%s/%s."
 
 #: ../loader2/urlinstall.c:98
 msgid "Unable to retrieve the install image."
@@ -7512,9 +7514,8 @@ msgid "Portuguese"
 msgstr "Postúgalska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Portuguese(Brasilian)"
-msgstr "Postúgalska"
+msgstr "Brasílísk Postúgalska"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7535,225 +7536,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "T_ext"
-#~ msgstr "_Texti"
-
-#~ msgid "CDROM type"
-#~ msgstr "Tegund geisladrifs"
-
-#~ msgid "What type of CDROM do you have?"
-#~ msgstr "Hvernig geisladrif er í vélinni þinni?"
-
-#~ msgid "Initializing CDROM..."
-#~ msgstr "Frumstilli geisladrifið..."
-
-#~ msgid ""
-#~ "This module can take parameters which affects its operation. If you don't "
-#~ "know what parameters to supply, just skip this screen by pressing the \"OK"
-#~ "\" button now."
-#~ msgstr ""
-#~ "Þessi kjarnarekill getur tekið við viðföngum sem hafa áhrif á hvernig "
-#~ "hann vinnur. Ef þú veist ekki hvaða viðföng á að nota getur þú sleppt "
-#~ "þessum skjá með því að velja \"Í lagi\" hnappinn."
-
-#~ msgid "Module Parameters"
-#~ msgstr "Viðföng kjarnarekla"
-
-#~ msgid "Do you have a driver disk?"
-#~ msgstr "Ertu með rekladiskling?"
-
-#~ msgid "Insert your driver disk and press \"OK\" to continue."
-#~ msgstr ""
-#~ "Settu rekladisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid driver disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "Disklingurinn sem þú settir í drifið er ekki gildur rekladisklingur fyrir "
-#~ "þessa útgáfu af %s."
-
-#~ msgid ""
-#~ "Which driver should I try?. If the driver you need does not appear in "
-#~ "this list, and you have a separate driver disk, please press F2."
-#~ msgstr ""
-#~ "Hvaða rekil viltu reyna?. Ef rekillinn sem þú þarft er ekki á þessum "
-#~ "lista og þú ert með sérstakann rekladiskling veldu þá F2."
-
-#~ msgid "Specify module parameters"
-#~ msgstr "Gefðu upp viðföng kjarnarekla"
-
-#~ msgid "Failed to insert %s module."
-#~ msgstr "Gat ekki lesið inn rekilinn %s."
-
-#~ msgid "Error opening: kickstart file %s: %s"
-#~ msgstr "Villa við opnun: hraðuppsetningarskrá %s: %s"
-
-#~ msgid "SCSI"
-#~ msgstr "SCSI"
-
-#~ msgid "What kind of device would you like to add"
-#~ msgstr "Hverskonar tæki viltu bæta við"
-
-#~ msgid "The following devices have been found on your system:"
-#~ msgstr "Eftirfarandi tæki hafa fundist í vélinni þinni:"
-
-#~ msgid ""
-#~ "No special device drivers have been loaded for your system. Would you "
-#~ "like to load any now?"
-#~ msgstr ""
-#~ "Það eru engir sérstakir tækjareklar í notkun fyrir vélina þína. Viltu "
-#~ "lesa einhverja inn núna?"
-
-#~ msgid "That directory does not seem to contain a Red Hat installation tree."
-#~ msgstr "Þetta skráakerfi virðist ekki innihalda Red Hat uppsetningartré."
-
-#~ msgid "That directory could not be mounted from the server"
-#~ msgstr "Ekki tókst að tengja þetta skráakerfi frá þjóninum"
-
-#~ msgid "File %s/%s not found on server."
-#~ msgstr "Skráin %s/%s fannst ekki á þjóninum."
-
-#~ msgid "HTTP"
-#~ msgstr "HTTP"
-
-#~ msgid "Unable to retrieve the first install image"
-#~ msgstr "Get ekki sótt fyrstu uppsetningardiskmyndina"
-
-#~ msgid "FTP and HTTP installs require 20MB or more of system memory."
-#~ msgstr ""
-#~ "FTP og HTTP uppsetningaraðferðirnar þarfnast 20MB eða meira af "
-#~ "vinnsluminni."
-
-#~ msgid "Insert your updates disk and press \"OK\" to continue."
-#~ msgstr ""
-#~ "Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda "
-#~ "áfram."
-
-#~ msgid ""
-#~ "The floppy disk you inserted is not a valid update disk for this release "
-#~ "of %s."
-#~ msgstr ""
-#~ "Disklingurinn sem þú settir í drifið er ekki gildur uppfærsludisklingur "
-#~ "fyrir þessa útgáfu af %s."
-
-#~ msgid "Failed to mount floppy disk."
-#~ msgstr "Gat ekki tengt disklinginn."
-
-#~ msgid ""
-#~ "The second stage of the install which you have selected does not match "
-#~ "the boot disk which you are using.  This shouldn't happen, and I'm "
-#~ "rebooting your system now."
-#~ msgstr ""
-#~ "Seinna þrep uppsetningarforritsins passar ekki við ræsidisklinginn sem þú "
-#~ "notaðir. Þetta ætti ekki að eiga sér stað og því mun vélin þín ræsa upp "
-#~ "að nýju núna."
-
-#~ msgid ""
-#~ "No hard drives have been found. You probably need to manually choose "
-#~ "device drivers for the installation to succeed. Would you like to select "
-#~ "drivers now?"
-#~ msgstr ""
-#~ "Engir harðir diskar fundust. Þú þarft líklega að velja rekla fyrir "
-#~ "diskana handvirkt svo uppsetningin geti haldið áfram. Viltu velja þá "
-#~ "núna ?"
-
-#~ msgid ""
-#~ "FAIL.\n"
-#~ "\n"
-#~ "It is not recommended to use this media."
-#~ msgstr ""
-#~ "EKKI Í LAGI.\n"
-#~ "\n"
-#~ "Við mælum með að þú notir þetta ekki."
-
-#~ msgid "Failed to mount driver disk: %s."
-#~ msgstr "Gat ekki tengt rekladisklinginn: %s."
-
-#~ msgid "The wrong diskette was inserted."
-#~ msgstr "Réttur disklingur fór ekki inn."
-
-#~ msgid "Driver Disk"
-#~ msgstr "Rekladisklingur"
-
-#~ msgid "Please insert the %s driver disk now."
-#~ msgstr "Vinsamlegast settu %s rekladiskinn í núna."
-
-#~ msgid "Sending request for IP information..."
-#~ msgstr "Sendi beiðni um IP stillingar..."
-
-#~ msgid "kickstart"
-#~ msgstr "hraðuppsetning"
-
-#~ msgid "bad argument to kickstart network command %s: %s"
-#~ msgstr "óleyfilegt viðfang við netskipun hraðuppsetningar %s: %s"
-
-#~ msgid "Boot protocol to use"
-#~ msgstr "Ræsimáti"
-
-#~ msgid "Network gateway"
-#~ msgstr "Gátt nets"
-
-#~ msgid "IP address"
-#~ msgstr "IP vistfang"
-
-#~ msgid "Netmask"
-#~ msgstr "Netmöskvi"
-
-#~ msgid "Domain name"
-#~ msgstr "Lén"
-
-#~ msgid "Network device"
-#~ msgstr "Netkort"
-
-#~ msgid "No DNS lookups"
-#~ msgstr "Engar DNS uppflettingar"
-
-#~ msgid ""
-#~ " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
-#~ "screen"
-#~ msgstr ""
-#~ "  <Tab>/<Alt-Tab> milli atriða      | <Bilslá> velur  | <F12> næsti skjár "
-
-#~ msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-#~ msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
-
-#~ msgid "Network configuration"
-#~ msgstr "Stillingar nets"
-
-#~ msgid "Would you like to set up networking?"
-#~ msgstr "Viltu setja upp net?"
-
-#~ msgid "PC Card"
-#~ msgstr "PC kort"
-
-#~ msgid "Initializing PC Card Devices..."
-#~ msgstr "Frumstilli tækin í PC kortum..."
-
-#~ msgid "PCMCIA"
-#~ msgstr "PCMCIA"
-
-#~ msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-#~ msgstr "Vinsamlegast settu PCMCIA rekladiskinn í disklingadrifið núna."
-
-#~ msgid "Failed to mount disk."
-#~ msgstr "Gat ekki tengt disklinginn."
-
-#~ msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-#~ msgstr "Þessi disklingur virðist ekki vera Red Hat PCMCIA rekladiskur."
-
-#~ msgid "Use proxy server"
-#~ msgstr "Nota vefsel"
-
-#~ msgid "FTP Proxy:"
-#~ msgstr "FTP sel:"
-
-#~ msgid "HTTP Proxy:"
-#~ msgstr "HTTP sel:"
-
-#~ msgid "FTP Proxy Port:"
-#~ msgstr "Gátt FTP sels:"
-
-#~ msgid "HTTP Proxy Port:"
-#~ msgstr "Gátt HTTP sels:"
