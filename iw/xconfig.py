@@ -124,9 +124,6 @@ class XConfigWindow (InstallWindow):
                 setting = self.monlist.get_row_data (row)
                 self.todo.x.setMonitor (setting)
 
-	if not self.sunServer:
-	    if self.custom.get_active () and not self.skip.get_active ():
-		return XCustomWindow
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -134,6 +131,11 @@ class XConfigWindow (InstallWindow):
                 self.todo.initlevel = 3
         else:
             self.todo.initlevel = 3
+
+	if not self.sunServer:
+	    if self.custom.get_active () and not self.skip.get_active ():
+		return XCustomWindow
+
         return None
 
     def customToggled (self, widget, *args):
