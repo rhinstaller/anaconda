@@ -662,7 +662,8 @@ class XF86Config:
 
 	# see if we need to add a section for USB mice which aren't
 	# attached yet. This makes hotplug work
-	if self.mouse and not self.mouse.anyUSBMice():
+#	if self.mouse and not self.mouse.anyUSBMice():
+        if self.mouse and self.mouse.device != "input/mice":
 	    data["usbmouselayout"] = "InputDevice	\"Mouse1\" \"SendCoreEvents\""
 	    data["usbmousesection"] = """
 Section "InputDevice"
