@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-18 16:53+01:00\n"
+"PO-Revision-Date: 2000-02-19 02:53+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -342,12 +342,12 @@ msgid ""
 msgstr ""
 "Velkommen til Red Hat Linux!\n"
 "\n"
-"Denne installations proces er beskrevet i detaljer i den officielle Red Hat "
-"Linux installation guide som er tilgængelig fra Red Hat Software. Har du "
-"adgang til denne manual, bør du læse installations afsnittet før du "
+"Denne installationsproces er beskrevet i detaljer i den officielle Red Hat "
+"Linux installationsguide som kan fåes fra Red Hat Software. Hvis du har "
+"adgang til denne manual, bør du læse installationsafsnittet før du "
 "fortsætter.\n"
 "\n"
-"Har du købt den officielle Red Hat Linux, husk da at registrerer dit køb "
+"Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
 "gennem vores webside, http://www.redhat.com/."
 
 #: ../text.py:353
@@ -591,11 +591,11 @@ msgstr "Total    :"
 
 #: ../text.py:870
 msgid "Completed:   "
-msgstr "Færdig:   "
+msgstr "Færdig:      "
 
 #: ../text.py:880
 msgid "Remaining:  "
-msgstr "Tilbage:  "
+msgstr "Tilbage:    "
 
 #: ../text.py:969 ../text.py:970
 msgid "Debug"
@@ -610,8 +610,7 @@ msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer   |  <Space> vælger   |  <F12> næste "
-"skærm"
+"  <Tab>/<Alt-Tab> imellem elementer   |  <Space> vælger   |  <F12> næste side"
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1004 ../text.py:1039
 msgid "Welcome"
@@ -619,7 +618,7 @@ msgstr "Velkommen"
 
 #: ../text.py:1010 ../text.py:1078
 msgid "Hostname Setup"
-msgstr "Værtnavnsopsætning"
+msgstr "Værtsnavnsopsætning"
 
 #: ../text.py:1012 ../text.py:1080
 msgid "Network Setup"
@@ -678,7 +677,7 @@ msgstr "Swap"
 
 #: ../text.py:1070
 msgid "Filesystem Formatting"
-msgstr "Filsystemsformatering"
+msgstr "Filsystemsformattering"
 
 #: ../iw/mouse.py:55 ../text.py:1082 ../text.py:1084
 msgid "Mouse Configuration"
@@ -789,7 +788,7 @@ msgstr "Behandler"
 
 #: ../todo.py:959
 msgid "Preparing to install..."
-msgstr "Gør parat til at installere..."
+msgstr "Gør klar til at installere..."
 
 #: ../todo.py:1132
 #, c-format
@@ -837,7 +836,7 @@ msgstr "Videokort"
 
 #: ../iw/xconfig.py:12 ../xf86config.py:259
 msgid "Video Ram"
-msgstr "Video ram"
+msgstr "Video-ram"
 
 #: ../xf86config.py:261
 msgid "X server"
@@ -845,7 +844,7 @@ msgstr "X server"
 
 #: ../xf86config.py:263
 msgid "Unable to detect video card"
-msgstr "Kunne ikke bestemme videokort"
+msgstr "Kunne ikke afgøre videokort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
 msgid "Monitor"
@@ -1024,7 +1023,7 @@ msgstr ""
 
 #: ../iw/examine.py:60
 msgid "Customize packages to be upgraded"
-msgstr "Vælg pakker som skal opgraderes"
+msgstr "Vælg selv pakker som skal opgraderes"
 
 #: ../iw/fdisk.py:12 ../textw/partitioning.py:22
 msgid "fdisk"
@@ -1036,11 +1035,11 @@ msgstr "Vælg drev som fdisk skal køres på"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
-msgstr "Vælg partitioner som skal formateres"
+msgstr "Vælg partitioner som skal formatteres"
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
-msgstr "Tjek for dårlige blokke under formateringen"
+msgstr "Tjek for dårlige blokke under formatteringen"
 
 #: ../iw/installpath.py:38
 msgid "GNOME Workstation"
@@ -1093,7 +1092,7 @@ msgstr "Accenter"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr "Brug accenter"
+msgstr "Brug äccêntér"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
@@ -1289,9 +1288,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Da du ikke har maget hukommselse på denne maskine, bliver vi nødt til "
-"øjeblikkelig at slå swapning til. For at gøre dette bliver vi  nødt at "
-"skrive den nye patitionstabel på disken. Er dette ok?"
+"Da du ikke har ret megen hukommelse på denne maskine, bliver vi nødt til slå "
+"swap til med det samme. For at gøre det er vi nødt at skrive den nye "
+"patitionstabel på disken. Er det ok?"
 
 #: ../iw/rootpartition.py:115 ../textw/partitioning.py:273
 #, c-format
@@ -1301,6 +1300,10 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Du har valgt at at placere dit rodfilsystem i en fil på et allerede "
+"eksisterende DOS eller Windows-filsystem. Hvor stort, i megabyte, vil du "
+"have at rodfilsystemet skal være og hvor meget swapplads vil du have? Totalt "
+"skal de være mindre end %d megabyte i størrelse."
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
@@ -1323,6 +1326,11 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"Hvis du ikke vil gøre dette, kan du fortsætte installationen ved at oprette "
+"partitionerne manuelt, eller du kan gå tilbage og lave en personlig, "
+"brugerdefineret installation."
 
 #: ../iw/rootpartition.py:248
 msgid "Remove data"
@@ -1410,11 +1418,11 @@ msgstr "Skærmkonfiguration"
 
 #: ../iw/xconfig.py:216
 msgid "Horizontal Sync"
-msgstr "Vandret sync"
+msgstr "Vandret synkron."
 
 #: ../iw/xconfig.py:225
 msgid "Vertical Sync"
-msgstr "Lodret sync"
+msgstr "Lodret synkron."
 
 #: ../iw/xconfig.py:331
 msgid ""
@@ -1437,6 +1445,8 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Hvis de fundne indstillinger ikke passer til din hardware, så vælg de "
+"korrekte indstillinger herunder:"
 
 #: ../iw/xconfig.py:372
 msgid "Autoprobe results:"
@@ -1457,6 +1467,10 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
+"Nogle få systemer er nødt til at sende særlige flag til kernen ved "
+"opstartstid for at systemet kan virke ordentligt. Hvis du er nødt til at "
+"sende boot-flag til kernen, så indtast dem nu. Hvis du ikke behøver dem "
+"eller er i tvivl, så lad dette felt stå tomt."
 
 #: ../textw/lilo.py:85 ../textw/silo.py:92
 msgid "Where do you want to install the bootloader?"
@@ -1476,6 +1490,9 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
+"Red Hats boothåndtering kan også opstarte andre operativsystemer. Du skal "
+"fortælle mig hvilke partitioner du gerne vil kunne boot'e og hvilken etiket "
+"du gerne vil sætte på hver af dem."
 
 #: ../textw/packages.py:123
 msgid ""
@@ -1500,6 +1517,12 @@ msgid ""
 "\n"
 "Which tool would you like to use?"
 msgstr ""
+"Disk Druid er et værktøj til at lave partitioner og opsætte "
+"monteringspunkter. Det er designet til at være lettere at bruge end Linux's "
+"traditionelle diskpartitioneringssoftware, fdisk, og med flere muligheder. "
+"Imidlertid er der nogen situationer hvor fdisk bør foretrækkes.\n"
+"\n"
+"Hvilket værktøj vil du bruge?"
 
 #: ../textw/partitioning.py:58
 msgid ""
@@ -1764,6 +1787,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Du har ønsket at lægge dit rodfilsystem (/) på en DOS FAT partition. Det er "
+"tilladt men så du vil ikke kunne bruge nogen andre filsystemer på dit Linux "
+"system. Desuden vil systemet køre langsommere når du ikke bruger indfødte "
+"Linux partitioner. Vil du fortsætte?"
 
 #: ../libfdisk/fsedit.c:790
 #, c-format
@@ -1905,7 +1932,7 @@ msgstr "Udfyld hele disken?"
 
 #: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
 msgid "Allocation Status:"
-msgstr "Allokeringsstatus:"
+msgstr "Tildelningsstatus:"
 
 #: ../libfdisk/gnomefsedit.c:896 ../libfdisk/newtfsedit.c:334
 msgid "Successful"
@@ -1963,7 +1990,7 @@ msgid ""
 "and is specified int decimal (base 10) format."
 msgstr ""
 "Den ønskede størrelse er ulovlig. Sørg for at størrelsen er større end nul "
-"(0) og er angivet som int decimal (base 10) format."
+"(0) og er angivet som heltal i decimal (base 10) format."
 
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
 #: ../libfdisk/newtfsedit.c:576
@@ -1982,7 +2009,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Ingen RAID drevsbegrænsning"
 
 #: ../libfdisk/gnomefsedit.c:1221
 msgid ""
@@ -1990,6 +2017,9 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
+"Du har konfigureret en RAID partition uden at begrænse partitionen til et "
+"enkelt drev.\n"
+"Er du sikker på at du vil gøre det?"
 
 #: ../libfdisk/gnomefsedit.c:1227
 msgid "Close"
@@ -2000,6 +2030,9 @@ msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
+"Du har konfigureret en RAID partition uden at begrænse partitionen til et "
+"enkelt drev. Vælg venligst et drev et drev som partitionen skal begrænses "
+"til."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2014,12 +2047,15 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"Raid enheden /dev/%s indeholder partitioner som ikke er tildelte. Raid "
+"enheden /dev/%s vil nu be opløst i de partitioner, den består af. Sæt "
+"venligst raid enheden sammen igen med tildelte partitioner."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
 #: ../libfdisk/newtfsedit.c:81 ../libfdisk/newtfsedit.c:1478
 msgid "Unallocated Partitions"
-msgstr "Uallokerede partitioner"
+msgstr "Utildelte partitioner"
 
 #: ../libfdisk/gnomefsedit.c:1518 ../libfdisk/gnomefsedit.c:1528
 #: ../libfdisk/newtfsedit.c:85
@@ -2028,6 +2064,9 @@ msgid ""
 "requested partitions. The unallocated partition(s) are shown below, along "
 "with the reason they were not allocated."
 msgstr ""
+"Der er for tiden en eller flere utildelte partitioner på listen over ønskede "
+"partitioner. De utildelte partition(er) er vist herunder sammen med årsagen "
+"til at de ikke er tildelt værdier."
 
 #: ../libfdisk/gnomefsedit.c:1799
 msgid "<Swap Partition"
@@ -2059,7 +2098,7 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Booting fra RAID advarsel"
 
 #: ../libfdisk/gnomefsedit.c:2028
 msgid ""
@@ -2077,7 +2116,7 @@ msgstr "Du skal vælge en RAID enhed."
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
-msgstr "Anvendt RAID enhed"
+msgstr "Brugt RAID enhed"
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
@@ -2166,7 +2205,7 @@ msgstr "Gendan partitionstabel"
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
-msgstr "Gendan partitionstabel til det oprindelige indhold?"
+msgstr "Gendan partitionstabel med det oprindelige indhold?"
 
 #: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
@@ -2182,7 +2221,7 @@ msgstr "<ikke sat>"
 
 #: ../libfdisk/gnomefsedit.c:3198
 msgid "Unallocated Partitions Exist..."
-msgstr "Uallokerede partitioner eksisterer..."
+msgstr "Utildelte partitioner eksisterer..."
 
 #: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
 msgid ""
@@ -2190,7 +2229,7 @@ msgid ""
 "RAID partition for the install to proceed."
 msgstr ""
 "Du skal tildele en rodpartition (/) til en indfødt Linux partition (ext2) "
-"eller en RAID partition for at installationen kan gå videre."
+"eller en RAID partition før installationen kan gå videre."
 
 #: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
@@ -2247,7 +2286,7 @@ msgid ""
 "the install to proceed."
 msgstr ""
 "Du skal tildele en rodpartition (/) til en indfødt Linux partition (ext2) "
-"for at installationen kan gå videre."
+"før installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1447
 msgid "No Swap Partition"
@@ -2255,7 +2294,7 @@ msgstr "Ingen swappartition"
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "You must assign a swap partition for the install to proceed."
-msgstr "Du skal tildele en swappartition for installationen kan gå videre."
+msgstr "Du skal tildele en swappartition før installationen kan gå videre."
 
 #: ../libfdisk/newtfsedit.c:1480
 msgid ""
@@ -2264,7 +2303,7 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Der er stadig uallokerede partitioner tilbage. Hvis du afslutter nu, vil de "
+"Der er stadig utildelte partitioner tilbage. Hvis du afslutter nu, vil de "
 "ikke blive skrevet på disken.\n"
 "\n"
 "Er du sikker på at du vil afslutte?"
@@ -2275,7 +2314,7 @@ msgstr "Gem ændringer"
 
 #: ../libfdisk/newtfsedit.c:1498
 msgid "Save changes to partition table(s)?"
-msgstr "Gem ændringer af partitionstabel(ler)?"
+msgstr "Gem ændringer til partitionstabel(ler)?"
 
 #: ../libfdisk/newtfsedit.c:1542
 msgid "You may only delete NFS mounts."
@@ -2307,10 +2346,13 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Dette modul kan modtage parametre som påvirker dets operation. Hvis du ikke "
+"ved hvilke parametre, du skal bruge, så spring denne side over ved at trykke "
+"på \"OK\" knappen nu."
 
 #: ../loader/devices.c:65
 msgid "Module Parameters"
-msgstr "Modulparametere"
+msgstr "Modulparametre"
 
 #: ../loader/devices.c:170 ../loader/devices.c:272 ../loader/loader.c:253
 #: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1801
@@ -2319,7 +2361,7 @@ msgstr "Enheder"
 
 #: ../loader/devices.c:172
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Indsæt din driverdisk og tast \"OK\" for at fortsætte."
+msgstr "Indsæt din driverdisk og tryk \"OK\" for at fortsætte."
 
 #: ../loader/devices.c:183 ../loader/loader.c:1810
 msgid "Failed to mount floppy disk."
@@ -2400,7 +2442,7 @@ msgstr "Velkommen til Red Hat Linux"
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-" <Tab>/<Alt-Tab> imellem elementer  |  <Mellemrum> vælg  |  <F12> næste skærm"
+" <Tab>/<Alt-Tab> imellem elementer  |  <Mellemrum> vælg  |  <F12> næste side"
 
 #: ../loader/loader.c:240
 msgid "SCSI"
@@ -2645,8 +2687,7 @@ msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
 msgstr ""
-" <Tab>/<Alt-Tab> mellem elementer  |  <Mellemrum> Vælger  |  <F12> næste "
-"skærm"
+" <Tab>/<Alt-Tab> mellem elementer  |  <Mellemrum> Vælger  |  <F12> næste side"
 
 #: ../loader/net.c:717
 #, c-format
