@@ -392,12 +392,11 @@ class PartitionWindow:
             drives = todo.drives.available ().keys ()
             drives.sort ()
             todo.ddruid = fsedit(0, drives, fstab)
-        dir = todo.ddruid.edit ()
+        (dir, ) = todo.ddruid.edit ()
         for partition, mount, fstype, size in todo.ddruid.getFstab ():
             todo.addMount(partition, mount, fstype)
-                
-        return dir
 
+        return dir
 
 class FormatWindow:
     def __call__(self, screen, todo):
