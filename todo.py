@@ -311,7 +311,10 @@ class ToDo:
         if x:
             self.x = x
         else:
-            self.x = XF86Config ()
+            if mouse:
+                self.x = XF86Config (mouse)
+            else:
+                self.x = XF86Config ()
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 

@@ -12,7 +12,15 @@ def _(x):
     return x
 
 class XF86Config:
-    def __init__ (self):
+    def __init__ (self, mouse = None):
+        if mouse:
+            (mouseProtocol, mouseEmulate, mouseDev) = mouse
+            self.mouse = { "mouseDev" : "/dev/mouse",
+                           "mouseProto" : mouseProtocol }
+        else:
+            self.mouse = { "mouseDev" : "/dev/mouse",
+                           "mouseProto" : "PS/2" }
+
         self.server = None
         self.vidCards = []
         self.cardMan = None
@@ -347,8 +355,8 @@ EndSection
 # **********************************************************************
 
 Section "Pointer"
-    Protocol    "PS/2"
-    Device      "/dev/mouse"
+    Protocol    "%(mouseProto)s"
+    Device      "%(mouseDev)s"
 
 # When using XQUEUE, comment out the above two lines, and uncomment
 # the following line.
@@ -367,7 +375,7 @@ Section "Pointer"
 #    ChordMiddle
 
 EndSection
-"""
+""" % self.mouse
         
     def monitorSection (self):
         info = {}

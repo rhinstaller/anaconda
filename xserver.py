@@ -30,7 +30,7 @@ def startX():
         mouseProtocol = "Microsoft"
 	mouseEmulate = 1
 
-    x = XF86Config ()
+    x = XF86Config ((mouseProtocol, mouseEmulate, mouseDev))
     x.probe ()
     if x.server:
         serverPath = '/usr/X11R6/bin/XF86_' + x.server
