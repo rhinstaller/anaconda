@@ -383,7 +383,6 @@ for n in args:
     elif (str == '--traceonly'):
 	traceOnly = 1
     elif (str == '--serial'):
-	logFile = "/tmp/install.log"
 	flags.serial = 1
     elif (str == '-t' or str == '--test'):
 	flags.test = 1
