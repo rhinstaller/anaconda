@@ -3015,6 +3015,7 @@ static void verifyImagesMatched() {
 			 "selected does not match the boot disk which you "
 			 "are using.  This shouldn't happen, and I'm "
 			 "rebooting your system now."));
+	stopNewt();
 	exit(1);
     }
 }
