@@ -137,11 +137,70 @@ class FirewallWindow:
 		    poplevel.add (popbb, 0, 4, (0, 0, 0, 0), growx = 1)
 		    poplevel.add (bigGrid, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
 		    
+
 		    result2 = poplevel.run()
-		    screen.popWindow()
+#                    screen.popWindow()
+                    rc2 = popbb.buttonPressed(result2)
+
+
+#                    rc2 = ""
+                    if rc2 == "ok":
+
+                        #- Do some sanity checking on port list
+                        portstring = string.strip(self.other.value())
+                        portlist = ""
+                        bad_token_found = 0
+                        bad_token = ""
+                        if portstring != "":
+                            tokens = string.split(portstring, ',')
+                            for token in tokens:
+                                try:
+                                    if string.index(token,':'):         #- if there's a colon in the token, it's valid
+                                        parts = string.split(token, ':')
+                                        if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
+                                            bad_token_found = 1
+                                            bad_token = token
+                                        else:
+                                            if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
+                                                if portlist == "":
+                                                    portlist = token
+                                                else:
+                                                    portlist = portlist + ',' + token
+                                            else:                        #- Found a protocol other than tcp or udp.  Break loop
+                                                bad_token_found = 1
+                                                bad_token = token
+                                                pass
+                                except:
+                                    if token != "":
+                                        if portlist == "":
+                                            portlist = token + ":tcp"
+                                        else:
+                                            portlist = portlist + ',' + token + ':tcp'
+                                    else:
+                                        pass
+
+                        done = 0
+                        if bad_token_found == 1:
+                            pass
+                            ButtonChoiceWindow(screen, _("Invalid Choice"),
+                                               _("Warning: %s is not a valid port." %token),
+                                               buttons = [ _("OK") ], width = 40)
+                            screen.popWindow()
+                        else:
+                            todo.firewall.portlist = portlist
+                            screen.popWindow()
+
+
+        
+#        print todo.firewall.portlist
+#        import time
+#        time.sleep(3)        
+
+#                    break
 	
 	    if rc == "ok" or result == "F12":
-		break
+                
+                break
                 
         screen.popWindow()
 
@@ -164,43 +223,7 @@ class FirewallWindow:
 	else:
 	    todo.firewall.policy = 1
 
-        #- Do some sanity checking on port list
-        portstring = string.strip(self.other.value())
-        portlist = ""
-        bad_token_found = 0
-        bad_token = ""
-        if portstring != "":
-            tokens = string.split(portstring, ',')
-            for token in tokens:
-                try:
-                    if string.index(token,':'):         #- if there's a colon in the token, it's valid
-                        parts = string.split(token, ':')
-                        if len(parts) > 2:              #- We've found more than one colon.  Break loop and raise an error.
-                            bad_token_found = 1
-                            bad_token = token
-                        else:
-                            if parts[1] == 'tcp' or parts[1] == 'udp':  #-upd and tcp are the only valid protocols
-                                if portlist == "":
-                                    portlist = token
-                                else:
-                                    portlist = portlist + ',' + token
-                            else:                        #- Found a protocol other than tcp or udp.  Break loop
-                                bad_token_found = 1
-                                bad_token = token
-                                pass
-                except:
-                    if token != "":
-                        if portlist == "":
-                            portlist = token + ":tcp"
-                        else:
-                            portlist = portlist + ',' + token + ':tcp'
-                    else:
-                        pass
-        todo.firewall.portlist = portlist
-        
-#        print todo.firewall.portlist
-#        import time
-#        time.sleep(3)        
+
 
 
 	return INSTALL_OK
