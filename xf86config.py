@@ -668,6 +668,10 @@ class XF86Config:
         self.keyVariant = variant
         self.keyOptions = options
 
+    def getKeyboard(self):
+        return (self.keyRules, self.keyModel, self.keyLayout,
+                self.keyVariant, self.keyOptions)
+
     def setMouse(self, mouse):
         self.mouse = mouse
 
