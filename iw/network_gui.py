@@ -166,7 +166,7 @@ class NetworkWindow(InstallWindow):
 	newfield = string.replace(field, "_", "")
 	self.intf.messageWindow(_("Error With Data"),
 				_("An error occurred converting "
-				  " the value entered for \"%s\":\n%s" % (newfield, errmsg)))
+				  "the value entered for \"%s\":\n%s" % (newfield, errmsg)))
 
     def handleIPMissing(self, field):
 	newfield = string.replace(field, "_", "")
