@@ -732,7 +732,7 @@ def doInstall(method, id, intf, instPath):
 
 	for (descr, (type, mount, need)) in problems:
             if mount.startswith(instPath):
-		mount = mount[13:]
+		mount = mount[len(instPath):]
 		if not mount:
 		    mount = '/'
 
