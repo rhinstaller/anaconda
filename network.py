@@ -223,9 +223,9 @@ class Network:
 		    if desc is not None and len(desc) > 0:
 			self.netdevices[device].set(("desc", desc))
 
-		hwaddr = isys.getMacAddress(device)
-		if hwaddr and hwaddr != "00:00:00:00:00:00":
-		    self.netdevices[device].set(("hwaddr", hwaddr))
+                    hwaddr = isys.getMacAddress(device)
+                    if hwaddr and hwaddr != "00:00:00:00:00:00":
+                        self.netdevices[device].set(("hwaddr", hwaddr))
                     
     def getDevice(self, device):
 	return self.netdevices[device]
