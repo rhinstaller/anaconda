@@ -910,7 +910,18 @@ def doPostInstall(method, id, intf, instPath):
                                             stdout = "/dev/tty5",
                                             stderr = "/dev/tty5",
                                             root = instPath)
+                fd = os.open(id.compspkg, os.O_RDONLY)
+                h = rpm.headerFromPackage(fd)[0]
+                os.close(fd)
+                if upgrade:
+                    text = _("Upgrading %s-%s-%s.\n")
+                else:
+                    text = _("Installing %s-%s-%s.\n")
+                instLog.write(text % (h['name'],
+                                      h['version'],
+                                      h['release']))
                 os.unlink(id.compspkg)
+
             except:
                 log("failed to install comps.rpm.  oh well")
                 try:
