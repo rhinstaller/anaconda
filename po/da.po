@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
 "POT-Creation-Date: 2001-03-01 11:37-0500\n"
-"PO-Revision-Date: 2001-02-21 22:53GMT\n"
+"PO-Revision-Date: 2001-03-01 21:44GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -494,7 +494,7 @@ msgstr "Hvilken type system ønsker du at installere?"
 
 #: ../iw/lilo_gui.py:50 ../text.py:340
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Vil du fortsætte opgraderingen?"
 
 #: ../iw/lilo_gui.py:51 ../text.py:341
 msgid ""
@@ -502,12 +502,17 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Filsystemerne for den Linux-installation, du har valgt at opgradere, er "
+"allerede monteret. Du kan ikke gå tilbage til før dette. \n"
+"\n"
 
 #: ../text.py:345
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
+"Vælg afslut hvis du vil afbryde opgraderingen. Vælg O.k. for at fortsætte "
+"opgraderingen."
 
 #: ../text.py:375
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -518,17 +523,16 @@ msgid "System to Upgrade"
 msgstr "System som skal opgraderes"
 
 #: ../text.py:405
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "RAID-partition"
+msgstr "Opgrader patition"
 
 #: ../text.py:406
 msgid "Going to upgrade partition /dev/"
-msgstr ""
+msgstr "Påbegynder opgradering af /dev-partitionen"
 
 #: ../text.py:415
 msgid "Customize Packages to Upgrade"
-msgstr "Vælg selv pakker som skal opgraderes"
+msgstr "Vælg selv pakker, som skal opgraderes"
 
 #: ../text.py:416
 msgid ""
@@ -1178,7 +1182,7 @@ msgstr "Benyt tekst-tilstand"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Søger efter musetype..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1570,14 +1574,12 @@ msgid "Lilo Configuration"
 msgstr "Lilo-konfiguration"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Vil du tilpasse dit system?"
+msgstr "Vil du gerne fortsætte opgraderingen?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "Klar til at opgradere"
+msgstr "Afbryder opgraderingen"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -3898,9 +3900,8 @@ msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr "Du har ikke hukommelse nok til at installere Red Hat på denne maskine."
 
 #: ../loader/loader.c:2934
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Læser anaconda-opdateringer..."
+msgstr "Kører anaconda - vent venligst...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
