@@ -7,7 +7,10 @@ import rpm
 def needsEnterpriseKernel():
     rc = 0
 
-    f = open("/proc/e820info", "r")
+    try:
+        f = open("/proc/e820info", "r")
+    except IOError:
+        return 0
     for l in f.readlines():
 	l = string.split(l)
 	if l[3] == '(reserved)': continue
