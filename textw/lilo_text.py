@@ -3,6 +3,7 @@ from snack import *
 from constants_text import *
 from translate import _
 import string
+import edd
 
 #cat = gettext.Catalog ("anaconda", "/usr/share/locale")
 #_ = cat.gettext
@@ -12,7 +13,7 @@ class LiloAppendWindow:
     def __call__(self, screen, todo):
 	if not todo.fstab.setupFilesystems or todo.fstab.rootOnLoop():
 	    todo.skipLilo = 1
-	    return INSTALL_NOOP
+	    #return INSTALL_NOOP
 
 	t = TextboxReflowed(53,
 		     _("A few systems will need to pass special options "
@@ -31,8 +32,11 @@ class LiloAppendWindow:
 			     (_("Back"), "back") ] )
 
 	grid = GridFormHelp(screen, _("LILO Configuration"), "kernelopts", 1, 4)
-	grid.add(t, 0, 0)
-	grid.add(cb, 0, 1, padding = (0, 1, 0, 1))
+	grid.add(t, 0, 0, padding = (0, 0, 0, 1))
+
+	if not edd.detect():
+	    grid.add(cb, 0, 1, padding = (0, 0, 0, 1))
+
 	grid.add(entry, 0, 2, padding = (0, 0, 0, 1))
 	grid.add(buttons, 0, 3, growx = 1)
 
@@ -206,16 +210,13 @@ class LiloImagesWindow:
 		    _("The boot manager Red Hat uses can boot other " 
 		      "operating systems as well. You need to tell me " 
 		      "what partitions you would like to be able to boot " 
-		      "and what label you want to use for each of them.\n\n"))
-#                      "Press the F2 key to select the partition to boot by "
-#                      "default."))
+		      "and what label you want to use for each of them."))
 
 	g = GridFormHelp(screen, _("LILO Configuration"), "lilolabels", 1, 4)
 	g.add(text, 0, 0, anchorLeft = 1)
 	g.add(listboxLabel, 0, 1, padding = (0, 1, 0, 0), anchorLeft = 1)
 	g.add(listbox, 0, 2, padding = (0, 0, 0, 1), anchorLeft = 1)
 	g.add(buttons, 0, 3, growx = 1)
-#	g.addHotKey("F2")
 	g.addHotKey(" ")
 
 	result = None
