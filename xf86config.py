@@ -283,9 +283,6 @@ Section "Monitor"
 # 1024x768 @ 60 Hz, 48.4 kHz hsync
     Modeline "1024x768"    65    1024 1032 1176 1344
                                  768  771  777  806 -hsync -vsync
-# 1024x768 @ 87 Hz interlaced, 35.5 kHz hsync
-    Modeline "1024x768"    44.9  1024 1048 1208 1264
-                                 768  776  784  817 Interlace
 # 1024x768 @ 70 Hz, 56.5 kHz hsync
     Modeline "1024x768"    75    1024 1048 1184 1328
                                  768  771  777  806 -hsync -vsync
@@ -312,9 +309,6 @@ Section "Monitor"
 # 1152x864 @ 84 Hz, 76.0 kHz hsync
     Modeline "1152x864"   135    1152 1464 1592 1776
                                  864  864  876  908
-# 1152x864 @ 89 Hz interlaced, 44 kHz hsync
-    ModeLine "1152x864"    65    1152 1168 1384 1480
-                                 864  865  875  985 Interlace
 # 1152x864 @ 100 Hz, 89.62 kHz hsync
     Modeline "1152x864"   137.65 1152 1184 1312 1536
                                  864  866  885  902 -HSync -VSync
@@ -335,9 +329,6 @@ Section "Monitor"
 # 1280x1024 @ 85 Hz, 91.15 kHz hsync
     Modeline "1280x1024"  157.5  1280 1344 1504 1728
                                  1024 1025 1028 1072 +HSync +VSync
-# 1280x1024 @ 87 Hz interlaced, 51 kHz hsync
-    Modeline "1280x1024"   80    1280 1296 1512 1568
-                                 1024 1025 1037 1165 Interlace
 # 1280x1024 @ 100 Hz, 107.16 kHz hsync
     Modeline "1280x1024"  181.75 1280 1312 1440 1696
                                  1024 1031 1046 1072 -HSync -VSync
