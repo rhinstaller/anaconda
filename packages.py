@@ -556,7 +556,7 @@ def doPreInstall(method, id, intf, instPath, dir):
         elif arch == "ppc" and iutil.getPPCMachine() == "iSeries":
             select(id.grpset.hdrlist, "kernel-iseries")
                 
-	if isys.smpAvailable() or isys.htavailable():
+	if (isys.smpAvailable() or isys.htavailable()) and not rhpl.arch.canonArch == "ia32e":
             select(id.grpset.hdrlist, 'kernel-smp')
 
         if iutil.needsEnterpriseKernel():
