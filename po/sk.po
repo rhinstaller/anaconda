@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
-"POT-Creation-Date: 1999-09-17 14:05-0400\n"
+"POT-Creation-Date: 1999-09-19 11:17-0400\n"
 "PO-Revision-Date: 1999-09-18 08:45+02:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../iw/language.py:10 ../text.py:39 ../text.py:821
+#: ../iw/language.py:10 ../text.py:39 ../text.py:856
 msgid "Language Selection"
 msgstr "Výber jazyka"
 
@@ -19,19 +19,20 @@ msgstr "Výber jazyka"
 msgid "What language would you like to use during the installation process?"
 msgstr "Ktorý jazyk má by» pou¾itý poèas procesu in¹talácie?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
-#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:241
-#: ../loader/loader.c:456 ../loader/loader.c:466 ../loader/loader.c:613
-#: ../loader/loader.c:668 ../loader/loader.c:713 ../loader/loader.c:846
-#: ../loader/loader.c:851 ../loader/loader.c:937 ../loader/loader.c:1070
-#: ../loader/loader.c:1460 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/cdrom.c:34 ../loader/devices.c:65 ../loader/devices.c:164
+#: ../loader/devices.c:175 ../loader/devices.c:178 ../loader/devices.c:210
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:242
+#: ../loader/loader.c:458 ../loader/loader.c:468 ../loader/loader.c:615
+#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
+#: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
+#: ../loader/loader.c:1490 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
 #: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
-#: ../text.py:363 ../text.py:394 ../text.py:438 ../text.py:460 ../text.py:525
-#: ../text.py:545 ../text.py:557 ../text.py:569 ../text.py:747 ../text.py:790
-#: ../text.py:794 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../text.py:363 ../text.py:394 ../text.py:443 ../text.py:465 ../text.py:530
+#: ../text.py:551 ../text.py:563 ../text.py:575 ../text.py:753 ../text.py:825
+#: ../text.py:829 ../textw/lilo.py:20 ../textw/lilo.py:65
 #: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
 #: ../textw/partitioning.py:184 ../textw/userauth.py:31
 #: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
@@ -56,7 +57,7 @@ msgstr "/dev/ttyS2 (COM3 v DOS-e)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 v DOS-e)"
 
-#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:78 ../textw/lilo.py:137
 msgid "Device"
 msgstr "Zariadenie"
 
@@ -82,25 +83,25 @@ msgstr "Na ktoré zariadenie je va¹a my¹ pripojená? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:472
-#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
-#: ../textw/lilo.py:144
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:477
+#: ../textw/constants.py:10 ../textw/lilo.py:83 ../textw/lilo.py:96
+#: ../textw/lilo.py:146
 msgid "Ok"
 msgstr "OK"
 
-#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:241
-#: ../loader/loader.c:577 ../loader/loader.c:613 ../loader/loader.c:713
-#: ../loader/loader.c:1070 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
-#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
-#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
-#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
-#: ../text.py:415 ../text.py:424 ../text.py:438 ../text.py:440 ../text.py:460
-#: ../text.py:463 ../text.py:472 ../text.py:525 ../text.py:526 ../text.py:747
-#: ../text.py:769 ../textw/constants.py:10 ../textw/lilo.py:21
-#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:145
+#: ../gui.py:405 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:66
+#: ../loader/devices.c:165 ../loader/devices.c:210 ../loader/lang.c:503
+#: ../loader/loader.c:242 ../loader/loader.c:579 ../loader/loader.c:615
+#: ../loader/loader.c:715 ../loader/loader.c:1072 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:443 ../text.py:445
+#: ../text.py:465 ../text.py:468 ../text.py:477 ../text.py:530 ../text.py:531
+#: ../text.py:753 ../text.py:775 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:65 ../textw/lilo.py:72 ../textw/lilo.py:147
 #: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
 #: ../textw/packages.py:147 ../textw/partitioning.py:27
 #: ../textw/partitioning.py:64 ../textw/partitioning.py:184
@@ -121,7 +122,7 @@ msgstr "Emulova» 3 tlaèítka?"
 msgid "Mouse Selection"
 msgstr "Výber my¹i"
 
-#: ../text.py:139 ../text.py:823
+#: ../text.py:139 ../text.py:858
 msgid "Keyboard Selection"
 msgstr "Výber klávesnice"
 
@@ -149,7 +150,7 @@ msgstr "In¹talova» systém podµa vlastnej ¹pecifikácie"
 msgid "Upgrade Existing Installation"
 msgstr "Aktualizova» existujúcu in¹taláciu"
 
-#: ../text.py:165 ../text.py:826
+#: ../text.py:165 ../text.py:861
 msgid "Installation Type"
 msgstr "Typ in¹talácie"
 
@@ -157,10 +158,11 @@ msgstr "Typ in¹talácie"
 msgid "What type of system would you like to install?"
 msgstr "Aký typ systému si ¾eláte nain¹talova»?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:456 ../loader/loader.c:466
-#: ../loader/loader.c:668 ../loader/loader.c:713 ../loader/loader.c:846
-#: ../loader/loader.c:851 ../loader/loader.c:1460 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:191 ../text.py:565
+#: ../libfdisk/newtfsedit.c:1545 ../loader/devices.c:175
+#: ../loader/devices.c:178 ../loader/loader.c:458 ../loader/loader.c:468
+#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
+#: ../loader/loader.c:853 ../loader/loader.c:1490 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:571
 msgid "Error"
 msgstr "Chyba"
 
@@ -195,7 +197,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:577 ../loader/net.c:698
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:698
 #: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:147
 msgid "Yes"
 msgstr "Áno"
@@ -283,7 +285,7 @@ msgstr ""
 msgid "Hostname"
 msgstr "Názov poèítaèa"
 
-#: ../text.py:405 ../text.py:553 ../text.py:878
+#: ../text.py:405 ../text.py:559 ../text.py:913
 msgid "Bootdisk"
 msgstr "Zavádzacia disketa"
 
@@ -307,35 +309,35 @@ msgstr ""
 "\n"
 "®eláte si vytvori» zavádzaciu disketu pre vá¹ systém?"
 
-#: ../text.py:436
+#: ../text.py:441
 msgid "X probe results"
 msgstr "Výsledky X skú¹ky"
 
-#: ../text.py:449 ../text.py:468
+#: ../text.py:454 ../text.py:473
 msgid "Unlisted Card"
 msgstr "Neznáma karta"
 
-#: ../text.py:457
+#: ../text.py:462
 msgid "Video Card Selection"
 msgstr "Výber grafickej karty"
 
-#: ../text.py:458
+#: ../text.py:463
 msgid "Which video card do you have?"
 msgstr "Aký typ grafickej karty máte?"
 
-#: ../text.py:470
+#: ../text.py:475
 msgid "X Server Selection"
 msgstr "Výber X servera"
 
-#: ../text.py:470
+#: ../text.py:475
 msgid "Choose a server"
 msgstr "Vyberte server"
 
-#: ../text.py:521
+#: ../text.py:526
 msgid "Installation to begin"
 msgstr "Zaèiatok in¹talácie"
 
-#: ../text.py:522
+#: ../iw/confirm.py:18 ../text.py:527
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -343,11 +345,11 @@ msgstr ""
 "Kompletný protokol o in¹talácii nájdete po re¹tartovaní systému v súbore "
 "/tmp/install.log. Tento súbor sa mô¾e hodi» pre neskor¹iu referenciu."
 
-#: ../text.py:537
+#: ../text.py:543
 msgid "Complete"
 msgstr "Hotovo"
 
-#: ../iw/congrats.py:17 ../text.py:538
+#: ../iw/congrats.py:17 ../text.py:544
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -367,7 +369,7 @@ msgstr ""
 "Informácie o konfigurácii vá¹ho systému je dostupná v post install kapitole "
 "príruèky Official Red Hat Linux User's Guide."
 
-#: ../iw/bootdisk.py:41 ../text.py:554
+#: ../iw/bootdisk.py:41 ../text.py:560
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -375,12 +377,12 @@ msgstr ""
 "Vlo¾te prázdnu disketu do prvej disketovej mechaniky. Poèas tvorby "
 "zavádzacej diskety budú v¹etky údaje na nej vymazané."
 
-#: ../text.py:557 ../text.py:558 ../text.py:569 ../text.py:570
+#: ../text.py:563 ../text.py:564 ../text.py:575 ../text.py:576
 #: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Vynecha»"
 
-#: ../iw/bootdisk.py:45 ../text.py:566
+#: ../iw/bootdisk.py:45 ../text.py:572
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -388,67 +390,67 @@ msgstr ""
 "Poèas tvorby zavádzacej diskety sa vyskytla chyba. Uistite sa, ¾e je v prvej "
 "disketovej mechanike vlo¾ená naformátovaná disketa."
 
-#: ../text.py:628
+#: ../text.py:634
 msgid "Package Installation"
 msgstr "In¹talácia balíkov"
 
-#: ../text.py:630
+#: ../text.py:636
 msgid "Name   : "
 msgstr "Názov   : "
 
-#: ../text.py:631
+#: ../text.py:637
 msgid "Size   : "
 msgstr "Veµkos» :"
 
-#: ../text.py:632
+#: ../text.py:638
 msgid "Summary: "
 msgstr "Súhrn   :"
 
-#: ../text.py:658
+#: ../text.py:664
 msgid "    Packages"
 msgstr "    Balíkov"
 
-#: ../text.py:659
+#: ../text.py:665
 msgid "       Bytes"
 msgstr "       Bajtov"
 
-#: ../text.py:660
+#: ../text.py:666
 msgid "        Time"
 msgstr "        Èas"
 
-#: ../text.py:662
+#: ../text.py:668
 msgid "Total    :"
 msgstr "Spolu    :"
 
-#: ../text.py:669
+#: ../text.py:675
 msgid "Completed:   "
 msgstr "Hotových :   "
 
-#: ../text.py:679
+#: ../text.py:685
 msgid "Remaining:  "
 msgstr "Zostáva  :  "
 
-#: ../text.py:749
+#: ../text.py:755
 msgid "What time zone are you located in?"
 msgstr "V ktorom èasovom pásme sa nachádzate?"
 
-#: ../text.py:757
+#: ../text.py:763
 msgid "Hardware clock set to GMT?"
 msgstr "Nastavi» hardwérové hodiny na GMT?"
 
-#: ../iw/timezone.py:29 ../text.py:759
+#: ../iw/timezone.py:29 ../text.py:765
 msgid "Time Zone Selection"
 msgstr "Výber èasového pásma"
 
-#: ../text.py:794 ../text.py:795
+#: ../text.py:829 ../text.py:830
 msgid "Debug"
 msgstr "Ladenie"
 
-#: ../text.py:807
+#: ../text.py:842
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:809
+#: ../text.py:844
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -456,128 +458,128 @@ msgstr ""
 "  <Tab>/<Alt-Tab> medzi polo¾kami    |  <Space> vyberá    |  <F12> nasl. "
 "obr. "
 
-#: ../text.py:825
+#: ../text.py:860
 msgid "Welcome"
 msgstr "Vitajte"
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:831 ../text.py:837
+#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:866 ../text.py:872
 msgid "Partition"
 msgstr "Oddiel"
 
-#: ../text.py:833
+#: ../text.py:868
 msgid "Manually Partition"
 msgstr "Manuálne rozdelenie"
 
-#: ../text.py:835
+#: ../text.py:870
 msgid "Automatic Partition"
 msgstr "Automatický oddiel"
 
-#: ../text.py:839
+#: ../text.py:874
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:841
+#: ../text.py:876
 msgid "Filesystem Formatting"
 msgstr "Formátovanie súborového systému"
 
-#: ../text.py:843 ../text.py:845 ../text.py:847 ../textw/lilo.py:23
-#: ../textw/lilo.py:61 ../textw/lilo.py:152
+#: ../text.py:878 ../text.py:880 ../text.py:882 ../textw/lilo.py:23
+#: ../textw/lilo.py:62 ../textw/lilo.py:154
 msgid "LILO Configuration"
 msgstr "Konfigurácia LILO"
 
-#: ../text.py:849
+#: ../text.py:884
 msgid "Hostname Setup"
 msgstr "Nastavenie názvu poèítaèa"
 
-#: ../text.py:851
+#: ../text.py:886
 msgid "Network Setup"
 msgstr "Nastavenie siete"
 
-#: ../text.py:853 ../text.py:855
+#: ../text.py:888 ../text.py:890
 msgid "Mouse Configuration"
 msgstr "Konfigurácia my¹i"
 
-#: ../text.py:857
+#: ../text.py:892
 msgid "Time Zone Setup"
 msgstr "Nastavenie èasového pásma"
 
-#: ../text.py:859 ../textw/userauth.py:10
+#: ../text.py:894 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Heslo superpou¾ívateµa"
 
-#: ../text.py:861 ../textw/userauth.py:150
+#: ../text.py:896 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Nastavenie pou¾ívateµského úètu"
 
-#: ../text.py:863
+#: ../text.py:898
 msgid "Authentication"
 msgstr "Autentifikácia"
 
-#: ../text.py:865
+#: ../text.py:900
 msgid "Package Groups"
 msgstr "Skupiny balíkov"
 
-#: ../text.py:867 ../text.py:888
+#: ../text.py:902 ../text.py:923
 msgid "Individual Packages"
 msgstr "Jednotlivé balíky"
 
-#: ../text.py:869 ../textw/packages.py:116
+#: ../text.py:904 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Závislosti balíkov"
 
-#: ../iw/xconfig.py:91 ../text.py:871 ../text.py:879
+#: ../iw/xconfig.py:89 ../text.py:906 ../text.py:914
 msgid "X Configuration"
 msgstr "Konfigurácia X"
 
-#: ../text.py:873
+#: ../text.py:908
 msgid "Boot Disk"
 msgstr "Zavádzacia disketa"
 
-#: ../text.py:875
+#: ../text.py:910
 msgid "Installation Begins"
 msgstr "In¹talácia zaèína"
 
-#: ../text.py:877
+#: ../text.py:912
 msgid "Install System"
 msgstr "In¹talácia systému"
 
-#: ../text.py:881
+#: ../text.py:916
 msgid "Installation Complete"
 msgstr "In¹talácia ukonèená"
 
-#: ../text.py:886
+#: ../text.py:921
 msgid "Examine System"
 msgstr "Prehliadanie systému"
 
-#: ../text.py:887
+#: ../text.py:922
 msgid "Customize Upgrade"
 msgstr "Úprava aktualizácie"
 
-#: ../text.py:889
+#: ../text.py:924
 msgid "Upgrade System"
 msgstr "Aktualizácia systému"
 
-#: ../text.py:890
+#: ../text.py:925
 msgid "Upgrade Complete"
 msgstr "Aktualizácia ukonèená"
 
-#: ../gui.py:310
+#: ../gui.py:399
 msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux in¹talátor"
 
-#: ../gui.py:319
+#: ../gui.py:408
 msgid "Finish"
 msgstr "Ukonèi»"
 
-#: ../gui.py:320
+#: ../gui.py:409
 msgid "Hide Help"
 msgstr "Skry» pomôcky"
 
-#: ../gui.py:321
+#: ../gui.py:410
 msgid "Show Help"
 msgstr "Zobrazi» pomôcky"
 
-#: ../gui.py:343
+#: ../gui.py:432
 msgid "Online Help"
 msgstr "Online pomôcky"
 
@@ -615,7 +617,7 @@ msgid "Add"
 msgstr "Prida»"
 
 #: ../iw/account.py:206 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:144 ../textw/lilo.py:165
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:146 ../textw/lilo.py:167
 #: ../textw/partitioning.py:63 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Upravi»"
@@ -665,6 +667,15 @@ msgstr "Vytvorenie zavádzacej diskety"
 msgid "Skip boot disk creation"
 msgstr "Vynecha» vytvorenie zavádzacej diskety"
 
+#: ../iw/confirm.py:10
+#, fuzzy
+msgid "About to Install"
+msgstr "In¹talova»"
+
+#: ../iw/confirm.py:15
+msgid "Click next to begin installation of Red Hat Linux."
+msgstr ""
+
 #: ../iw/congrats.py:11
 msgid "Congratulations"
 msgstr "Gratulujeme"
@@ -677,7 +688,7 @@ msgstr "Ukonèi»"
 msgid "Unresolved Dependencies"
 msgstr "Nevyrie¹ené závislosti"
 
-#: ../iw/dependencies.py:30 ../iw/progress.py:113 ../textw/packages.py:123
+#: ../iw/dependencies.py:30 ../iw/progress.py:117 ../textw/packages.py:123
 msgid "Package"
 msgstr "Balík"
 
@@ -721,38 +732,39 @@ msgstr "Vyberte oddiely pre formátovanie"
 msgid "Check for bad blocks while formatting"
 msgstr "Poèas formátovania kontrolova» na chybné bloky"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "GNOME Workstation"
 msgstr "Pracovná stanica GNOME"
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "KDE Workstation"
 msgstr "Pracovná stanica KDE"
 
-#: ../iw/installpath.py:39 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:40 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Server"
 
-#: ../iw/installpath.py:40
+#: ../iw/installpath.py:41
 msgid "Custom"
 msgstr "Vlastný výber"
 
-#: ../iw/installpath.py:76
+#: ../iw/installpath.py:78
 msgid "Install Type"
 msgstr "Typ in¹talácie"
 
-#: ../iw/installpath.py:144
+#: ../iw/installpath.py:146
 msgid "Install"
 msgstr "In¹talova»"
 
-#: ../iw/installpath.py:146
+#: ../iw/installpath.py:148
 msgid "Upgrade"
 msgstr "Aktualizova»"
 
-#: ../iw/installpath.py:185
-msgid "Use fdisk to format drives"
-msgstr "Pou¾i» fdisk pre naformátovanie diskov"
+#: ../iw/installpath.py:188
+#, fuzzy
+msgid "Use fdisk"
+msgstr "fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -814,16 +826,16 @@ msgstr "Vytvori» zavádzaciu disketu"
 msgid "Do not install LILO"
 msgstr "Nein¹talova» LILO"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../textw/lilo.py:137
 msgid "Default"
 msgstr "Predvoµba"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../textw/lilo.py:137
 msgid "Partition type"
 msgstr "Typ oddielu"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
-#: ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:79
+#: ../textw/lilo.py:137
 msgid "Boot label"
 msgstr "Popis"
 
@@ -843,7 +855,7 @@ msgstr "IP adresa"
 msgid "Netmask"
 msgstr "Maska siete"
 
-#: ../iw/network.py:147 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:227
 msgid "Network"
 msgstr "Sie»"
 
@@ -899,39 +911,39 @@ msgstr "Výber skupín balíkov"
 msgid "Select individual packages"
 msgstr "Vyberte jednotlivé balíky"
 
-#: ../iw/progress.py:26
+#: ../iw/progress.py:29
 msgid "Installing Packages"
 msgstr "In¹talácia balíkov"
 
-#: ../iw/progress.py:114 ../iw/progress.py:149
+#: ../iw/progress.py:118 ../iw/progress.py:153
 msgid "Size"
 msgstr "Veµkos»"
 
-#: ../iw/progress.py:115
+#: ../iw/progress.py:119
 msgid "Summary"
 msgstr "Súhrn"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Status"
 msgstr "Stav"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Packages"
 msgstr "Balíky"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Time"
 msgstr "Èas"
 
-#: ../iw/progress.py:154
+#: ../iw/progress.py:158
 msgid "Total"
 msgstr "Spolu"
 
-#: ../iw/progress.py:155
+#: ../iw/progress.py:159
 msgid "Completed"
 msgstr "Hotovo"
 
-#: ../iw/progress.py:156
+#: ../iw/progress.py:160
 msgid "Remaining"
 msgstr "Zostáva"
 
@@ -1013,19 +1025,19 @@ msgstr "Rozsah vertikálnych frekvencií"
 msgid "Test failed"
 msgstr "Test zlyhal"
 
-#: ../iw/xconfig.py:22 ../iw/xconfig.py:203
+#: ../iw/xconfig.py:22 ../iw/xconfig.py:191
 msgid "Customize X Configuration"
 msgstr "Úprava X konfigurácie"
 
-#: ../iw/xconfig.py:63
+#: ../iw/xconfig.py:61
 msgid "Bits per Pixel"
 msgstr "Bitov na pixel"
 
-#: ../iw/xconfig.py:73 ../iw/xconfig.py:199
+#: ../iw/xconfig.py:71 ../iw/xconfig.py:187
 msgid "Test this configuration"
 msgstr "Otestova» túto konfiguráciu"
 
-#: ../iw/xconfig.py:154
+#: ../iw/xconfig.py:142
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1033,21 +1045,21 @@ msgstr ""
 "Vo väè¹ine prípadov je mo¾né automaticky zisti» typ vá¹ho hardvéru a získa» "
 "tak optimálne nastavenie pre vá¹ displej."
 
-#: ../iw/xconfig.py:162
+#: ../iw/xconfig.py:150
 msgid "Autoprobe results:"
 msgstr "Výsledky automatického zistenia:"
 
-#: ../iw/xconfig.py:176
+#: ../iw/xconfig.py:164
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
 "Vá¹ monitor nemohol by» zistený. Vyberte si prosím z nasledujúceho zoznamu:"
 
-#: ../iw/xconfig.py:206
+#: ../iw/xconfig.py:194
 msgid "Use Graphical Login"
 msgstr "Pou¾íva» grafické prihlasovanie sa"
 
-#: ../iw/xconfig.py:208
+#: ../iw/xconfig.py:196
 msgid "Skip X Configuration"
 msgstr "Vynecha» konfiguráciu X"
 
@@ -1062,26 +1074,26 @@ msgstr ""
 "Pokiaµ ich potrebujete, zadajte ich; pokiaµ nie alebo neviete, nezadávajte "
 "niè."
 
-#: ../textw/lilo.py:62
+#: ../textw/lilo.py:63
 msgid "Where do you want to install the bootloader?"
 msgstr "Kam si ¾eláte nain¹talova» zavádzaè?"
 
-#: ../textw/lilo.py:82 ../textw/lilo.py:102
+#: ../textw/lilo.py:83 ../textw/lilo.py:104
 msgid "Clear"
 msgstr "Vynulova»"
 
 #: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
 #: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
-#: ../textw/userauth.py:64
+#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:165 ../textw/lilo.py:83
+#: ../textw/lilo.py:101 ../textw/userauth.py:64
 msgid "Cancel"
 msgstr "Zru¹i»"
 
-#: ../textw/lilo.py:90
+#: ../textw/lilo.py:91
 msgid "Edit Boot Label"
 msgstr "Upravi» zavádzací popis"
 
-#: ../textw/lilo.py:147
+#: ../textw/lilo.py:149
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1131,7 +1143,7 @@ msgstr ""
 "dvoch pevných diskov vo va¹om systéme, aby bolo mo¾né zavies» Linux pomocou "
 "LILO zavádzaèa."
 
-#: ../loader/loader.c:289 ../loader/loader.c:313 ../textw/partitioning.py:63
+#: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Hotovo"
 
@@ -1901,15 +1913,11 @@ msgstr "Aký typ mechaniky CDROM máte?"
 msgid "Initializing CDROM..."
 msgstr "Inicializujem CDROM..."
 
-#: ../loader/devices.c:45
+#: ../loader/devices.c:50
 msgid "Miscellaneous"
 msgstr "Rôzne"
 
-#: ../loader/devices.c:54
-msgid "Module Parameters"
-msgstr "Parametre modulu"
-
-#: ../loader/devices.c:54
+#: ../loader/devices.c:59
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
@@ -1918,34 +1926,58 @@ msgstr ""
 "Tomuto modulu je mo¾né zada» parametre, ovplyvòujúce jeho èinnos». Pokiaµ "
 "ich nepoznáte, preskoète túto obrazovku stlaèením tlaèítka \"OK\"."
 
-#: ../loader/devices.c:120
-msgid "Which driver should I try?"
-msgstr "Ktorý ovládaè mám skúsi»?"
+#: ../loader/devices.c:64
+msgid "Module Parameters"
+msgstr "Parametre modulu"
 
-#: ../loader/devices.c:135
-msgid "Specify module parameters"
-msgstr "Zadajte parametre modulu"
-
-#: ../loader/devices.c:141 ../loader/loader.c:239 ../loader/loader.c:298
-#: ../loader/loader.c:313
+#: ../loader/devices.c:164 ../loader/devices.c:234 ../loader/loader.c:240
+#: ../loader/loader.c:299 ../loader/loader.c:315
 msgid "Devices"
 msgstr "Zariadenia"
 
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
+#: ../loader/devices.c:166
+msgid "Insert your driver disk and press \"OK\" to continue."
+msgstr ""
+
+#: ../loader/devices.c:175
+msgid "Failed to mount floppy disk."
+msgstr ""
+
+#: ../loader/devices.c:179
+msgid ""
+"The floppy disk you inserted is not a valid driver disk for this release of "
+"Red Hat Linux."
+msgstr ""
+
+#: ../loader/devices.c:198
+msgid ""
+"Which driver should I try?. If the driver you need does not appear in this "
+"list, and you have a separate driver disk, please press F2."
+msgstr ""
+
+#: ../loader/devices.c:203
+msgid "Which driver should I try?"
+msgstr "Ktorý ovládaè mám skúsi»?"
+
+#: ../loader/devices.c:211
+msgid "Specify module parameters"
+msgstr "Zadajte parametre modulu"
+
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
 msgstr "Chyba kickstart-u"
 
-#: ../loader/kickstart.c:58
+#: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Chyba pri otváraní kickstart súboru %s: %s"
 
-#: ../loader/kickstart.c:68
+#: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Chyba pri èítaní obsahu kickstart súboru %s: %s"
 
-#: ../loader/kickstart.c:107
+#: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
 msgstr "Chyba na riadku %d kickstart súboru %s."
@@ -1962,45 +1994,45 @@ msgstr "Typ klávesnice"
 msgid "What type of keyboard do you have?"
 msgstr "Aký typ klávesnice máte?"
 
-#: ../loader/loader.c:98
+#: ../loader/loader.c:99
 msgid "Local CDROM"
 msgstr "Lokálna CDROM"
 
-#: ../loader/loader.c:101
+#: ../loader/loader.c:102
 msgid "NFS image"
 msgstr "NFS obraz"
 
-#: ../loader/loader.c:106
+#: ../loader/loader.c:107
 msgid "Hard drive"
 msgstr "Pevný disk"
 
-#: ../loader/loader.c:122
+#: ../loader/loader.c:123
 msgid "Welcome to Red Hat Linux"
 msgstr "Víta vás Red Hat Linux"
 
-#: ../loader/loader.c:124
+#: ../loader/loader.c:125
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> medzi polo¾kami   | <Space> vyberá  |  <F12> nasl. obr. "
 
-#: ../loader/loader.c:226
+#: ../loader/loader.c:227
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:240
+#: ../loader/loader.c:241
 msgid "What kind of device would you like to add"
 msgstr "Aký typ zariadenia si ¾eláte prida»?"
 
-#: ../loader/loader.c:287
+#: ../loader/loader.c:288
 msgid "I have found the following devices in your system:"
 msgstr "Na va¹om systéme boli nájdené nasledovné zariadenia:"
 
-#: ../loader/loader.c:289 ../loader/loader.c:313
+#: ../loader/loader.c:290 ../loader/loader.c:315
 msgid "Add Device"
 msgstr "Prida» zariadenie"
 
-#: ../loader/loader.c:314
+#: ../loader/loader.c:316
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -2008,23 +2040,23 @@ msgstr ""
 "Pre vá¹ systém nie sú naèítané ¾iadne ¹peciálne ovládaèe. ®eláte si teraz "
 "nejaké zavies»?"
 
-#: ../loader/loader.c:398 ../loader/loader.c:400
+#: ../loader/loader.c:400 ../loader/loader.c:402
 msgid "Loading"
 msgstr "Naèítanie"
 
-#: ../loader/loader.c:452
+#: ../loader/loader.c:454
 msgid "Loading second stage ramdisk..."
 msgstr "Naèítava sa ramdisk druhej fázy..."
 
-#: ../loader/loader.c:456
+#: ../loader/loader.c:458
 msgid "Error loading ramdisk."
 msgstr "Chyba pri èítaní ramdisku. "
 
-#: ../loader/loader.c:577
+#: ../loader/loader.c:579
 msgid "Hard Drives"
 msgstr "Pevné disky"
 
-#: ../loader/loader.c:578
+#: ../loader/loader.c:580
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -2032,7 +2064,7 @@ msgstr ""
 "Zdá sa, ¾e na va¹om systéme nemáte ¾iadne pevné disky! ®eláte si "
 "nakonfigurova» prídavné zariadenia?"
 
-#: ../loader/loader.c:591
+#: ../loader/loader.c:593
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
@@ -2042,20 +2074,20 @@ msgstr ""
 "RedHat/base? Pokiaµ tu nevidíte zariadenie, ktoré pou¾ívate, stlaète F2 a "
 "nakonfigurujte prídavné zariadenia."
 
-#: ../loader/loader.c:605
+#: ../loader/loader.c:607
 msgid "Directory holding Red Hat:"
 msgstr "Adresár obsahujúci Red Hat:"
 
-#: ../loader/loader.c:625
+#: ../loader/loader.c:627
 msgid "Select Partition"
 msgstr "Výber oddielu"
 
-#: ../loader/loader.c:669
+#: ../loader/loader.c:671
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Zariadenie %s zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:714
+#: ../loader/loader.c:716
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -2063,47 +2095,47 @@ msgstr ""
 "V ¾iadnej z va¹ich CDROM mechaník nebolo nájdené CD s Red Hat Linuxom. "
 "Vlo¾te prosím Red Hat CD a stlaète \"OK\" pre nový pokus."
 
-#: ../loader/loader.c:847
+#: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Tento adresár zrejme neobsahuje in¹talaèný strom Red Hat distribúcie."
 
-#: ../loader/loader.c:852
+#: ../loader/loader.c:854
 msgid "I could not mount that directory from the server"
 msgstr "Nie je mo¾né pripoji» tento adresár zo servera"
 
-#: ../loader/loader.c:937
+#: ../loader/loader.c:939
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:938
+#: ../loader/loader.c:940
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Nepodarilo sa naèíta» ramdisk druhej fázy"
 
-#: ../loader/loader.c:1062
+#: ../loader/loader.c:1064
 msgid "Rescue Method"
 msgstr "Záchranná metóda"
 
-#: ../loader/loader.c:1063
+#: ../loader/loader.c:1065
 msgid "Installation Method"
 msgstr "Spôsob in¹talácie"
 
-#: ../loader/loader.c:1065
+#: ../loader/loader.c:1067
 msgid "What type of media contains the rescue image?"
 msgstr "Aký typ média obsahuje záchranný obraz systému?"
 
-#: ../loader/loader.c:1067
+#: ../loader/loader.c:1069
 msgid "What type of media contains the packages to be installed?"
 msgstr "Aký typ média obsahuje balíky, ktoré si ¾eláte nain¹talova»?"
 
-#: ../loader/loader.c:1461
+#: ../loader/loader.c:1491
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Na zavádzacej diskete nie je mo¾né nájs» súbor ks.cfg."
 
-#: ../loader/loader.c:1571
+#: ../loader/loader.c:1619
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1571
+#: ../loader/loader.c:1619
 msgid "Initializing PC Card Devices..."
 msgstr "Inicializzácia PC Card zariadení..."
 
@@ -2328,3 +2360,6 @@ msgstr "HTTP proxy port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Naèítava sa SCSI ovládaè"
+
+#~ msgid "Use fdisk to format drives"
+#~ msgstr "Pou¾i» fdisk pre naformátovanie diskov"

@@ -3,7 +3,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: sndconfig 3.0\n"
-"POT-Creation-Date: 1999-09-17 14:05-0400\n"
+"POT-Creation-Date: 1999-09-19 11:17-0400\n"
 "PO-Revision-Date: 199-04-10 12:00+EST\n"
 "Last-Translator: Cristian Gafton <gafton@redhat.com>\n"
 "Language-Team: Romanian <ro@li.org>\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: ../iw/language.py:10 ../text.py:39 ../text.py:821
+#: ../iw/language.py:10 ../text.py:39 ../text.py:856
 msgid "Language Selection"
 msgstr "Selecþie limbã de instalare"
 
@@ -20,19 +20,20 @@ msgid "What language would you like to use during the installation process?"
 msgstr ""
 "Ce limbã doriþi sã folosiþi în timpul rulãrii programului de instalare?"
 
-#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
-#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:241
-#: ../loader/loader.c:456 ../loader/loader.c:466 ../loader/loader.c:613
-#: ../loader/loader.c:668 ../loader/loader.c:713 ../loader/loader.c:846
-#: ../loader/loader.c:851 ../loader/loader.c:937 ../loader/loader.c:1070
-#: ../loader/loader.c:1460 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/cdrom.c:34 ../loader/devices.c:65 ../loader/devices.c:164
+#: ../loader/devices.c:175 ../loader/devices.c:178 ../loader/devices.c:210
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
+#: ../loader/lang.c:247 ../loader/lang.c:503 ../loader/loader.c:242
+#: ../loader/loader.c:458 ../loader/loader.c:468 ../loader/loader.c:615
+#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
+#: ../loader/loader.c:853 ../loader/loader.c:939 ../loader/loader.c:1072
+#: ../loader/loader.c:1490 ../loader/net.c:162 ../loader/net.c:284
 #: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
 #: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
-#: ../text.py:363 ../text.py:394 ../text.py:438 ../text.py:460 ../text.py:525
-#: ../text.py:545 ../text.py:557 ../text.py:569 ../text.py:747 ../text.py:790
-#: ../text.py:794 ../textw/lilo.py:20 ../textw/lilo.py:64
+#: ../text.py:363 ../text.py:394 ../text.py:443 ../text.py:465 ../text.py:530
+#: ../text.py:551 ../text.py:563 ../text.py:575 ../text.py:753 ../text.py:825
+#: ../text.py:829 ../textw/lilo.py:20 ../textw/lilo.py:65
 #: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
 #: ../textw/partitioning.py:184 ../textw/userauth.py:31
 #: ../textw/userauth.py:45 ../textw/userauth.py:50 ../textw/userauth.py:84
@@ -57,7 +58,7 @@ msgstr "/dev/ttyS2 (COM3 sub DOS)"
 msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS3 (COM4 sub DOS)"
 
-#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:77 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../text.py:72 ../textw/lilo.py:78 ../textw/lilo.py:137
 msgid "Device"
 msgstr "Partiþie"
 
@@ -83,25 +84,25 @@ msgstr "Unde este conectat mouse-ul? %s %i"
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:472
-#: ../textw/constants.py:10 ../textw/lilo.py:82 ../textw/lilo.py:95
-#: ../textw/lilo.py:144
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:477
+#: ../textw/constants.py:10 ../textw/lilo.py:83 ../textw/lilo.py:96
+#: ../textw/lilo.py:146
 msgid "Ok"
 msgstr "Ok"
 
-#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
-#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/lang.c:503 ../loader/loader.c:241
-#: ../loader/loader.c:577 ../loader/loader.c:613 ../loader/loader.c:713
-#: ../loader/loader.c:1070 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
-#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
-#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
-#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
-#: ../text.py:415 ../text.py:424 ../text.py:438 ../text.py:440 ../text.py:460
-#: ../text.py:463 ../text.py:472 ../text.py:525 ../text.py:526 ../text.py:747
-#: ../text.py:769 ../textw/constants.py:10 ../textw/lilo.py:21
-#: ../textw/lilo.py:64 ../textw/lilo.py:71 ../textw/lilo.py:145
+#: ../gui.py:405 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:66
+#: ../loader/devices.c:165 ../loader/devices.c:210 ../loader/lang.c:503
+#: ../loader/loader.c:242 ../loader/loader.c:579 ../loader/loader.c:615
+#: ../loader/loader.c:715 ../loader/loader.c:1072 ../loader/net.c:162
+#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
+#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
+#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
+#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
+#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:443 ../text.py:445
+#: ../text.py:465 ../text.py:468 ../text.py:477 ../text.py:530 ../text.py:531
+#: ../text.py:753 ../text.py:775 ../textw/constants.py:10 ../textw/lilo.py:21
+#: ../textw/lilo.py:65 ../textw/lilo.py:72 ../textw/lilo.py:147
 #: ../textw/packages.py:22 ../textw/packages.py:87 ../textw/packages.py:138
 #: ../textw/packages.py:147 ../textw/partitioning.py:27
 #: ../textw/partitioning.py:64 ../textw/partitioning.py:184
@@ -122,7 +123,7 @@ msgstr "Emulare 3 butoane?"
 msgid "Mouse Selection"
 msgstr "Selectare Mouse"
 
-#: ../text.py:139 ../text.py:823
+#: ../text.py:139 ../text.py:858
 msgid "Keyboard Selection"
 msgstr "Tip tastaturã"
 
@@ -150,7 +151,7 @@ msgstr "Instalare system personalizatã"
 msgid "Upgrade Existing Installation"
 msgstr "Actualizare instalare existentã"
 
-#: ../text.py:165 ../text.py:826
+#: ../text.py:165 ../text.py:861
 msgid "Installation Type"
 msgstr "Tip instalare"
 
@@ -158,10 +159,11 @@ msgstr "Tip instalare"
 msgid "What type of system would you like to install?"
 msgstr "Ce tip de system doriþi sã instalaþi?"
 
-#: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:456 ../loader/loader.c:466
-#: ../loader/loader.c:668 ../loader/loader.c:713 ../loader/loader.c:846
-#: ../loader/loader.c:851 ../loader/loader.c:1460 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../text.py:191 ../text.py:565
+#: ../libfdisk/newtfsedit.c:1545 ../loader/devices.c:175
+#: ../loader/devices.c:178 ../loader/loader.c:458 ../loader/loader.c:468
+#: ../loader/loader.c:670 ../loader/loader.c:715 ../loader/loader.c:848
+#: ../loader/loader.c:853 ../loader/loader.c:1490 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../text.py:191 ../text.py:571
 msgid "Error"
 msgstr "Eroare"
 
@@ -197,7 +199,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
 #: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
 #: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
-#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:577 ../loader/net.c:698
+#: ../libfdisk/newtfsedit.c:1586 ../loader/loader.c:579 ../loader/net.c:698
 #: ../text.py:229 ../text.py:415 ../text.py:418 ../textw/partitioning.py:147
 msgid "Yes"
 msgstr "Da"
@@ -286,7 +288,7 @@ msgstr ""
 msgid "Hostname"
 msgstr "Nume host"
 
-#: ../text.py:405 ../text.py:553 ../text.py:878
+#: ../text.py:405 ../text.py:559 ../text.py:913
 msgid "Bootdisk"
 msgstr "Disc de boot"
 
@@ -312,35 +314,35 @@ msgstr ""
 "\n"
 "Doriþi sã creaþi un disc de boot pentru acest sistem?"
 
-#: ../text.py:436
+#: ../text.py:441
 msgid "X probe results"
 msgstr "Rrezultate autodetecþie X11"
 
-#: ../text.py:449 ../text.py:468
+#: ../text.py:454 ../text.py:473
 msgid "Unlisted Card"
 msgstr "Placã nelistatã"
 
-#: ../text.py:457
+#: ../text.py:462
 msgid "Video Card Selection"
 msgstr "Selectare Placã Video"
 
-#: ../text.py:458
+#: ../text.py:463
 msgid "Which video card do you have?"
 msgstr "Ce tip de placã video aveþi?"
 
-#: ../text.py:470
+#: ../text.py:475
 msgid "X Server Selection"
 msgstr "Selectare Server X Windows"
 
-#: ../text.py:470
+#: ../text.py:475
 msgid "Choose a server"
 msgstr "Selectaþi un server"
 
-#: ../text.py:521
+#: ../text.py:526
 msgid "Installation to begin"
 msgstr "Începutul instalãrii"
 
-#: ../text.py:522
+#: ../iw/confirm.py:18 ../text.py:527
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -349,11 +351,11 @@ msgstr ""
 "accesibil dupã reiniþializarea sistemului. Este recomandat sã pãstraþi acest "
 "fiºier pentru referinþe viitoare."
 
-#: ../text.py:537
+#: ../text.py:543
 msgid "Complete"
 msgstr "Complet"
 
-#: ../iw/congrats.py:17 ../text.py:538
+#: ../iw/congrats.py:17 ../text.py:544
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -374,7 +376,7 @@ msgstr ""
 "Informaþii despre configurarea sistemului dumneavoastrã se gãsesc în "
 "capitolul dedicat post-instalãrii din Official Red Hat Linux User's Guide."
 
-#: ../iw/bootdisk.py:41 ../text.py:554
+#: ../iw/bootdisk.py:41 ../text.py:560
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
@@ -382,12 +384,12 @@ msgstr ""
 "Introduceþi o dischetã nouã în prima unitate de floppy-disk. Datele de pe "
 "aceastã dischetã vor fi ºterse în timpul creãrii discului de boot."
 
-#: ../text.py:557 ../text.py:558 ../text.py:569 ../text.py:570
+#: ../text.py:563 ../text.py:564 ../text.py:575 ../text.py:576
 #: ../textw/lilo.py:20
 msgid "Skip"
 msgstr "Urmãtoarea etapã"
 
-#: ../iw/bootdisk.py:45 ../text.py:566
+#: ../iw/bootdisk.py:45 ../text.py:572
 msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
@@ -395,67 +397,67 @@ msgstr ""
 "S-a detectat o eroare la crearea discului de boot. Asiguraþi-vã cã in prima "
 "unitate de floppy-disk existã o dischetã formatatã."
 
-#: ../text.py:628
+#: ../text.py:634
 msgid "Package Installation"
 msgstr "Instalare aplicaþii"
 
-#: ../text.py:630
+#: ../text.py:636
 msgid "Name   : "
 msgstr "Nume   :"
 
-#: ../text.py:631
+#: ../text.py:637
 msgid "Size   : "
 msgstr "Mãrime :"
 
-#: ../text.py:632
+#: ../text.py:638
 msgid "Summary: "
 msgstr "Detalii:"
 
-#: ../text.py:658
+#: ../text.py:664
 msgid "    Packages"
 msgstr "Pachet"
 
-#: ../text.py:659
+#: ../text.py:665
 msgid "       Bytes"
 msgstr "       Bytes"
 
-#: ../text.py:660
+#: ../text.py:666
 msgid "        Time"
 msgstr "        Timp"
 
-#: ../text.py:662
+#: ../text.py:668
 msgid "Total    :"
 msgstr "Total    :"
 
-#: ../text.py:669
+#: ../text.py:675
 msgid "Completed:   "
 msgstr "Completat:   "
 
-#: ../text.py:679
+#: ../text.py:685
 msgid "Remaining:  "
 msgstr "Mai rãmîne:  "
 
-#: ../text.py:749
+#: ../text.py:755
 msgid "What time zone are you located in?"
 msgstr "Care este zona de timp în care sînteþi situat?"
 
-#: ../text.py:757
+#: ../text.py:763
 msgid "Hardware clock set to GMT?"
 msgstr "Ceasul system setat pentru GMT?"
 
-#: ../iw/timezone.py:29 ../text.py:759
+#: ../iw/timezone.py:29 ../text.py:765
 msgid "Time Zone Selection"
 msgstr "Selectare Zona de Timp"
 
-#: ../text.py:794 ../text.py:795
+#: ../text.py:829 ../text.py:830
 msgid "Debug"
 msgstr "Debug"
 
-#: ../text.py:807
+#: ../text.py:842
 msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
 
-#: ../text.py:809
+#: ../text.py:844
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
@@ -463,128 +465,128 @@ msgstr ""
 "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
 "ecran "
 
-#: ../text.py:825
+#: ../text.py:860
 msgid "Welcome"
 msgstr "Bun venit"
 
-#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:831 ../text.py:837
+#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:866 ../text.py:872
 msgid "Partition"
 msgstr "Partiþionare"
 
-#: ../text.py:833
+#: ../text.py:868
 msgid "Manually Partition"
 msgstr "Partiþionare manualã"
 
-#: ../text.py:835
+#: ../text.py:870
 msgid "Automatic Partition"
 msgstr "Partiþionare automatã"
 
-#: ../text.py:839
+#: ../text.py:874
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:841
+#: ../text.py:876
 msgid "Filesystem Formatting"
 msgstr "Formatare filesystem"
 
-#: ../text.py:843 ../text.py:845 ../text.py:847 ../textw/lilo.py:23
-#: ../textw/lilo.py:61 ../textw/lilo.py:152
+#: ../text.py:878 ../text.py:880 ../text.py:882 ../textw/lilo.py:23
+#: ../textw/lilo.py:62 ../textw/lilo.py:154
 msgid "LILO Configuration"
 msgstr "Configurare LILO"
 
-#: ../text.py:849
+#: ../text.py:884
 msgid "Hostname Setup"
 msgstr "Setare nume host"
 
-#: ../text.py:851
+#: ../text.py:886
 msgid "Network Setup"
 msgstr "Configurare Reþea"
 
-#: ../text.py:853 ../text.py:855
+#: ../text.py:888 ../text.py:890
 msgid "Mouse Configuration"
 msgstr "Configurare Mouse"
 
-#: ../text.py:857
+#: ../text.py:892
 msgid "Time Zone Setup"
 msgstr "Setare Zona de Timp"
 
-#: ../text.py:859 ../textw/userauth.py:10
+#: ../text.py:894 ../textw/userauth.py:10
 msgid "Root Password"
 msgstr "Parola de root:"
 
-#: ../text.py:861 ../textw/userauth.py:150
+#: ../text.py:896 ../textw/userauth.py:150
 msgid "User Account Setup"
 msgstr "Setare Conturi Utilizator"
 
-#: ../text.py:863
+#: ../text.py:898
 msgid "Authentication"
 msgstr "Configurare Autentificare"
 
-#: ../text.py:865
+#: ../text.py:900
 msgid "Package Groups"
 msgstr "Grupuri Aplicaþii"
 
-#: ../text.py:867 ../text.py:888
+#: ../text.py:902 ../text.py:923
 msgid "Individual Packages"
 msgstr "Selectaþi Aplicaþiile Dorite"
 
-#: ../text.py:869 ../textw/packages.py:116
+#: ../text.py:904 ../textw/packages.py:116
 msgid "Package Dependencies"
 msgstr "Dependinþe Nerezolvate"
 
-#: ../iw/xconfig.py:91 ../text.py:871 ../text.py:879
+#: ../iw/xconfig.py:89 ../text.py:906 ../text.py:914
 msgid "X Configuration"
 msgstr "Configurare X Windows"
 
-#: ../text.py:873
+#: ../text.py:908
 msgid "Boot Disk"
 msgstr "Disc de Boot"
 
-#: ../text.py:875
+#: ../text.py:910
 msgid "Installation Begins"
 msgstr "Instalarea a început"
 
-#: ../text.py:877
+#: ../text.py:912
 msgid "Install System"
 msgstr "Instalare Sistem"
 
-#: ../text.py:881
+#: ../text.py:916
 msgid "Installation Complete"
 msgstr "Instalare terminatã"
 
-#: ../text.py:886
+#: ../text.py:921
 msgid "Examine System"
 msgstr "Analizare System"
 
-#: ../text.py:887
+#: ../text.py:922
 msgid "Customize Upgrade"
 msgstr "Actualizare Personalizatã"
 
-#: ../text.py:889
+#: ../text.py:924
 msgid "Upgrade System"
 msgstr "Actualizare Sistem"
 
-#: ../text.py:890
+#: ../text.py:925
 msgid "Upgrade Complete"
 msgstr "Actualizare Terminatã"
 
-#: ../gui.py:310
+#: ../gui.py:399
 msgid "Red Hat Linux Installer"
 msgstr "Program de Instalare Red Hat Linux"
 
-#: ../gui.py:319
+#: ../gui.py:408
 msgid "Finish"
 msgstr "Finalizare"
 
-#: ../gui.py:320
+#: ../gui.py:409
 msgid "Hide Help"
 msgstr "Ascunde Detalii"
 
-#: ../gui.py:321
+#: ../gui.py:410
 msgid "Show Help"
 msgstr "Aratã Detalii"
 
-#: ../gui.py:343
+#: ../gui.py:432
 msgid "Online Help"
 msgstr "Detalii instalare"
 
@@ -622,7 +624,7 @@ msgid "Add"
 msgstr "Adãugare"
 
 #: ../iw/account.py:206 ../libfdisk/newtfsedit.c:1296
-#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:144 ../textw/lilo.py:165
+#: ../libfdisk/newtfsedit.c:1304 ../textw/lilo.py:146 ../textw/lilo.py:167
 #: ../textw/partitioning.py:63 ../textw/userauth.py:174
 msgid "Edit"
 msgstr "Editare"
@@ -672,6 +674,14 @@ msgstr "Creare Disc de Boot"
 msgid "Skip boot disk creation"
 msgstr "Fãrã Boot Disc"
 
+#: ../iw/confirm.py:10
+msgid "About to Install"
+msgstr "Programul de instalare este gata de pornire"
+
+#: ../iw/confirm.py:15
+msgid "Click next to begin installation of Red Hat Linux."
+msgstr "Avansaþi la urmãtorul ecran pentru a începe instalarea Red Hat Linux"
+
 #: ../iw/congrats.py:11
 msgid "Congratulations"
 msgstr "Felicitãri"
@@ -684,7 +694,7 @@ msgstr "Exit"
 msgid "Unresolved Dependencies"
 msgstr "Dependinþe nerezolvate"
 
-#: ../iw/dependencies.py:30 ../iw/progress.py:113 ../textw/packages.py:123
+#: ../iw/dependencies.py:30 ../iw/progress.py:117 ../textw/packages.py:123
 msgid "Package"
 msgstr "Pachet"
 
@@ -728,38 +738,38 @@ msgstr "Alegaþi partiþiile care vor fi formatate"
 msgid "Check for bad blocks while formatting"
 msgstr "Verificare pentru blocuri defecte la formatare"
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "GNOME Workstation"
 msgstr "GNOME Workstation"
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "KDE Workstation"
 msgstr "KDE Workstation"
 
-#: ../iw/installpath.py:39 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:40 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr "Server"
 
-#: ../iw/installpath.py:40
+#: ../iw/installpath.py:41
 msgid "Custom"
 msgstr "Custom"
 
-#: ../iw/installpath.py:76
+#: ../iw/installpath.py:78
 msgid "Install Type"
 msgstr "Tip Instalare"
 
-#: ../iw/installpath.py:144
+#: ../iw/installpath.py:146
 msgid "Install"
 msgstr "Instalare"
 
-#: ../iw/installpath.py:146
+#: ../iw/installpath.py:148
 msgid "Upgrade"
 msgstr "Actualizare"
 
-#: ../iw/installpath.py:185
-msgid "Use fdisk to format drives"
-msgstr "Foloseºte fdisk pentru partiþionare discuri"
+#: ../iw/installpath.py:188
+msgid "Use fdisk"
+msgstr "Foloseºte fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -821,16 +831,16 @@ msgstr "Creare disc boot"
 msgid "Do not install LILO"
 msgstr "Fãrã instalare LILO"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../textw/lilo.py:137
 msgid "Default"
 msgstr "Implicit"
 
-#: ../iw/lilo.py:174 ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../textw/lilo.py:137
 msgid "Partition type"
 msgstr "Tip partiþie"
 
-#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
-#: ../textw/lilo.py:135
+#: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:79
+#: ../textw/lilo.py:137
 msgid "Boot label"
 msgstr "Eticheta"
 
@@ -850,7 +860,7 @@ msgstr "Adresã IP"
 msgid "Netmask"
 msgstr "Netmask"
 
-#: ../iw/network.py:147 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:227
 msgid "Network"
 msgstr "Network"
 
@@ -906,39 +916,39 @@ msgstr "Selectare Grupuri Aplicaþii"
 msgid "Select individual packages"
 msgstr "Selectaþi pachetele individuale"
 
-#: ../iw/progress.py:26
+#: ../iw/progress.py:29
 msgid "Installing Packages"
 msgstr "Instalare Aplicaþii"
 
-#: ../iw/progress.py:114 ../iw/progress.py:149
+#: ../iw/progress.py:118 ../iw/progress.py:153
 msgid "Size"
 msgstr "Mãrime"
 
-#: ../iw/progress.py:115
+#: ../iw/progress.py:119
 msgid "Summary"
 msgstr "Descriere"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Status"
 msgstr "Progres Instalare"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Packages"
 msgstr "Aplicaþii"
 
-#: ../iw/progress.py:149
+#: ../iw/progress.py:153
 msgid "Time"
 msgstr "Timp"
 
-#: ../iw/progress.py:154
+#: ../iw/progress.py:158
 msgid "Total"
 msgstr "Total"
 
-#: ../iw/progress.py:155
+#: ../iw/progress.py:159
 msgid "Completed"
 msgstr "Terminat"
 
-#: ../iw/progress.py:156
+#: ../iw/progress.py:160
 msgid "Remaining"
 msgstr "Rãmas"
 
@@ -1021,19 +1031,19 @@ msgstr "Plaja Frecvenþelor Verticale"
 msgid "Test failed"
 msgstr "Testul a eºuat"
 
-#: ../iw/xconfig.py:22 ../iw/xconfig.py:203
+#: ../iw/xconfig.py:22 ../iw/xconfig.py:191
 msgid "Customize X Configuration"
 msgstr "Personalizare configuraþie X Windows"
 
-#: ../iw/xconfig.py:63
+#: ../iw/xconfig.py:61
 msgid "Bits per Pixel"
 msgstr "Biþi per pixel"
 
-#: ../iw/xconfig.py:73 ../iw/xconfig.py:199
+#: ../iw/xconfig.py:71 ../iw/xconfig.py:187
 msgid "Test this configuration"
 msgstr "Testeazã aceastã configuraþie"
 
-#: ../iw/xconfig.py:154
+#: ../iw/xconfig.py:142
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -1041,22 +1051,22 @@ msgstr ""
 "În cele mai multe cazuri placa video si monitorul pot fi autodetectatã "
 "pentru determinarea setãrilor optime în folosire."
 
-#: ../iw/xconfig.py:162
+#: ../iw/xconfig.py:150
 msgid "Autoprobe results:"
 msgstr "Rezultatele autodetecþiei:"
 
-#: ../iw/xconfig.py:176
+#: ../iw/xconfig.py:164
 msgid ""
 "Your monitor could not be autodetected. Please choose it from the list below:"
 msgstr ""
 "Acest monitor nu a putut fi autodetectat. Selectaþi monitorul ataºat acestui "
 "calculator din lista de mai jos:"
 
-#: ../iw/xconfig.py:206
+#: ../iw/xconfig.py:194
 msgid "Use Graphical Login"
 msgstr "Porneºte automat modul grafic"
 
-#: ../iw/xconfig.py:208
+#: ../iw/xconfig.py:196
 msgid "Skip X Configuration"
 msgstr "Fãrã configurare X Windows"
 
@@ -1073,26 +1083,26 @@ msgstr ""
 "aveþi nevoie de opþiuni speciale sau nu sînteþi sigur nu introduceþi nimic "
 "ºi mergeþi mai departe în procesul de instalare."
 
-#: ../textw/lilo.py:62
+#: ../textw/lilo.py:63
 msgid "Where do you want to install the bootloader?"
 msgstr "Unde doriþi sã instalaþi managerul de încãrcare Linux?"
 
-#: ../textw/lilo.py:82 ../textw/lilo.py:102
+#: ../textw/lilo.py:83 ../textw/lilo.py:104
 msgid "Clear"
 msgstr "ªterge"
 
 #: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
 #: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
-#: ../libfdisk/newtfsedit.c:1501 ../textw/lilo.py:82 ../textw/lilo.py:100
-#: ../textw/userauth.py:64
+#: ../libfdisk/newtfsedit.c:1501 ../loader/devices.c:165 ../textw/lilo.py:83
+#: ../textw/lilo.py:101 ../textw/userauth.py:64
 msgid "Cancel"
 msgstr "Abandon"
 
-#: ../textw/lilo.py:90
+#: ../textw/lilo.py:91
 msgid "Edit Boot Label"
 msgstr "Editare eticheta boot"
 
-#: ../textw/lilo.py:147
+#: ../textw/lilo.py:149
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1145,7 +1155,7 @@ msgstr ""
 "unul din primele douã hard discuri din sistemul dumneavoastrã pentru a putea "
 "folosi LILO pentru lansarea sistemului Linux."
 
-#: ../loader/loader.c:289 ../loader/loader.c:313 ../textw/partitioning.py:63
+#: ../loader/loader.c:290 ../loader/loader.c:315 ../textw/partitioning.py:63
 msgid "Done"
 msgstr "Gata"
 
@@ -1162,7 +1172,12 @@ msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
-msgstr "Acest calculator nu are suficientã memorie pentru a permite programului de instalare sã continue. Pentru a obþine memorie adiþionalã este necesarã activarea imediatã a spaþiului de swap. Pentru a face acest lucru trebuie ca tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua tabelã de partiþii sã fie scrisã?"
+msgstr ""
+"Acest calculator nu are suficientã memorie pentru a permite programului de "
+"instalare sã continue. Pentru a obþine memorie adiþionalã este necesarã "
+"activarea imediatã a spaþiului de swap. Pentru a face acest lucru trebuie ca "
+"tabela de partiþii sã fie scrisã pe disk în acest moment. Doriþi ca noua "
+"tabelã de partiþii sã fie scrisã?"
 
 #: ../textw/partitioning.py:162
 msgid ""
@@ -1243,21 +1258,30 @@ msgstr "Utilizator Existemt"
 
 #: ../textw/userauth.py:112
 msgid "This user id already exists.  Choose another."
-msgstr "Acest calculator conþine utlizatorul selectat. Selectaþi un cont diferit."
+msgstr ""
+"Acest calculator conþine utlizatorul selectat. Selectaþi un cont diferit."
 
 #: ../textw/userauth.py:139
 msgid ""
 "You should use a normal user account for most activities on your system. By "
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
-msgstr "Este recomandat sã folosiþi un cont normal de utilizator pentru majoritatea aplicaþiilor pe care le veþi rula pe acest calculator. Prin folosirea contului de root numai în cazul cînd este absolut necesar reduceþi riscurile de modificare neaºteptatã a configuraþiei sistemului."
+msgstr ""
+"Este recomandat sã folosiþi un cont normal de utilizator pentru majoritatea "
+"aplicaþiilor pe care le veþi rula pe acest calculator. Prin folosirea "
+"contului de root numai în cazul cînd este absolut necesar reduceþi riscurile "
+"de modificare neaºteptatã a configuraþiei sistemului."
 
 #: ../textw/userauth.py:152
 msgid ""
 "What user account would you like to have on the system? You should have at "
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
-msgstr "Ce cont de utilizator doriþi sã folosiþi pe acest calculator? Trebuie sã configuraþi cel puþin un utilizator diferit de root pentru activitãþile normale. Bineînþeles cã puteþi configura mai mult de un singur cont în acest moment dacã doriþi."
+msgstr ""
+"Ce cont de utilizator doriþi sã folosiþi pe acest calculator? Trebuie sã "
+"configuraþi cel puþin un utilizator diferit de root pentru activitãþile "
+"normale. Bineînþeles cã puteþi configura mai mult de un singur cont în acest "
+"moment dacã doriþi."
 
 #: ../textw/userauth.py:162
 msgid "User name"
@@ -1922,49 +1946,72 @@ msgstr "Ce tip de CDROM aveþi?"
 msgid "Initializing CDROM..."
 msgstr "Initializare CDROM..."
 
-#: ../loader/devices.c:45
+#: ../loader/devices.c:50
 msgid "Miscellaneous"
 msgstr "Alte Opþiuni"
 
-#: ../loader/devices.c:54
-msgid "Module Parameters"
-msgstr "Parametri Driver"
-
-#: ../loader/devices.c:54
+#: ../loader/devices.c:59
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
-msgstr "Acest driver poate avea parametri care afecteazã funcþionalitatea sa. Dacã nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi \"OK\" ºi treceþi la urmãtorul ecran."
+msgstr ""
+"Acest driver poate avea parametri care afecteazã funcþionalitatea sa. Dacã "
+"nu ºtiþi ce parametri trebuie specificaþi pentru acest driver, selectaþi "
+"\"OK\" ºi treceþi la urmãtorul ecran."
 
-#: ../loader/devices.c:120
-msgid "Which driver should I try?"
-msgstr "Care driver trebuie încercat?"
+#: ../loader/devices.c:64
+msgid "Module Parameters"
+msgstr "Parametri Driver"
 
-#: ../loader/devices.c:135
-msgid "Specify module parameters"
-msgstr "Introduceþi parametri pentru driver"
-
-#: ../loader/devices.c:141 ../loader/loader.c:239 ../loader/loader.c:298
-#: ../loader/loader.c:313
+#: ../loader/devices.c:164 ../loader/devices.c:234 ../loader/loader.c:240
+#: ../loader/loader.c:299 ../loader/loader.c:315
 msgid "Devices"
 msgstr "Devices"
 
-#: ../loader/kickstart.c:57 ../loader/kickstart.c:67 ../loader/kickstart.c:106
+#: ../loader/devices.c:166
+msgid "Insert your driver disk and press \"OK\" to continue."
+msgstr "Introduceþi discheta cu drivere ºi selectaþi \"OK\" pentru a continua."
+
+#: ../loader/devices.c:175
+msgid "Failed to mount floppy disk."
+msgstr "Discheta nu are un sistem de fiºiere suportat"
+
+#: ../loader/devices.c:179
+msgid ""
+"The floppy disk you inserted is not a valid driver disk for this release of "
+"Red Hat Linux."
+msgstr "Discheta introdusã nu este o dischetã de drivere validã pentru aceastã versiune de Red Hat Linux."
+
+#: ../loader/devices.c:198
+msgid ""
+"Which driver should I try?. If the driver you need does not appear in this "
+"list, and you have a separate driver disk, please press F2."
+msgstr "Ce driver trebuie încercat? Dacã driverul dorit nu se regãseºte în lista de mai jos ºi aveþi o dischetã de drivere separatã, selectaþi F2 pentru a continua"
+
+#: ../loader/devices.c:203
+msgid "Which driver should I try?"
+msgstr "Care driver trebuie încercat?"
+
+#: ../loader/devices.c:211
+msgid "Specify module parameters"
+msgstr "Introduceþi parametri pentru driver"
+
+#: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
 msgstr "Eroare KickStart"
 
-#: ../loader/kickstart.c:58
+#: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Eroare la deschiderea fiºierului kickstart %s: %s"
 
-#: ../loader/kickstart.c:68
+#: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Eroare la citirea conþinutului fiºierului kickstart %s: %s"
 
-#: ../loader/kickstart.c:107
+#: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
 msgstr "Eroare la linia %d a fiºierului kickstart %s."
@@ -1981,140 +2028,151 @@ msgstr "Tip Tastaturã"
 msgid "What type of keyboard do you have?"
 msgstr "Ce model de tastaturã este conectatã la acest calculator?"
 
-#: ../loader/loader.c:98
+#: ../loader/loader.c:99
 msgid "Local CDROM"
 msgstr "Unitate CDROM"
 
-#: ../loader/loader.c:101
+#: ../loader/loader.c:102
 msgid "NFS image"
 msgstr "Director NFS"
 
-#: ../loader/loader.c:106
+#: ../loader/loader.c:107
 msgid "Hard drive"
 msgstr "Hard Disc"
 
-#: ../loader/loader.c:122
+#: ../loader/loader.c:123
 msgid "Welcome to Red Hat Linux"
 msgstr "Bun venit în Red Hat Linux!"
 
-#: ../loader/loader.c:124
+#: ../loader/loader.c:125
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> între elemente  | <Space> selecteazã | <F12> urmãtorul "
 "ecran "
 
-#: ../loader/loader.c:226
+#: ../loader/loader.c:227
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:240
+#: ../loader/loader.c:241
 msgid "What kind of device would you like to add"
 msgstr "Ce tip de periferic doriþi sã adãugaþi?"
 
-#: ../loader/loader.c:287
+#: ../loader/loader.c:288
 msgid "I have found the following devices in your system:"
 msgstr "Am gãsit urmãtoarele extensii în acest calculator:"
 
-#: ../loader/loader.c:289 ../loader/loader.c:313
+#: ../loader/loader.c:290 ../loader/loader.c:315
 msgid "Add Device"
 msgstr "Adaugã Periferic"
 
-#: ../loader/loader.c:314
+#: ../loader/loader.c:316
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
-msgstr "Nu s-a încãrcat nici un driver specific penbtru periferice acestui sistem. În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în acest moment?"
+msgstr ""
+"Nu s-a încãrcat nici un driver specific penbtru periferice acestui sistem. "
+"În caz cã acest lucru este necesar, doriþi sã încãrcaþi aceste drivere în "
+"acest moment?"
 
-#: ../loader/loader.c:398 ../loader/loader.c:400
+#: ../loader/loader.c:400 ../loader/loader.c:402
 msgid "Loading"
 msgstr "Încãrcare"
 
-#: ../loader/loader.c:452
+#: ../loader/loader.c:454
 msgid "Loading second stage ramdisk..."
 msgstr "Încãrcare ramdisk pentru etapa a doua..."
 
-#: ../loader/loader.c:456
+#: ../loader/loader.c:458
 msgid "Error loading ramdisk."
 msgstr "Eroare la încãrcarea ramdisk-ului"
 
-#: ../loader/loader.c:577
+#: ../loader/loader.c:579
 msgid "Hard Drives"
 msgstr "Hard Discuri"
 
-#: ../loader/loader.c:578
+#: ../loader/loader.c:580
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
-msgstr "Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã configuraþi alte periferice?"
+msgstr ""
+"Nu am putut detecta nici un hard disk în acest calculator! Doriþi sã "
+"configuraþi alte periferice?"
 
-#: ../loader/loader.c:591
+#: ../loader/loader.c:593
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
-msgstr "Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, apãsaþi F2 pentru a configura periferice adiþionale."
+msgstr ""
+"Ce partiþie si ce director din acea partiþie conþin directoarele RedHat/RPMS "
+"ºi RedHat/base? Dacã hard diskul dorit nu se regãseºte în lista de mai jos, "
+"apãsaþi F2 pentru a configura periferice adiþionale."
 
-#: ../loader/loader.c:605
+#: ../loader/loader.c:607
 msgid "Directory holding Red Hat:"
 msgstr "Directorul conþinînd Red Hat:"
 
-#: ../loader/loader.c:625
+#: ../loader/loader.c:627
 msgid "Select Partition"
 msgstr "Selectaþi o Partitie"
 
-#: ../loader/loader.c:669
+#: ../loader/loader.c:671
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
 msgstr "Partiþia %s nu conþine o versiune de instalare a Red Hat Linux."
 
-#: ../loader/loader.c:714
+#: ../loader/loader.c:716
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
-msgstr "Nu s-a putut detecta un CD cu Red Hat Linux în nici una dintre unitãþile de CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi selectaþi \"OK\" pentru a reîncerca."
+msgstr ""
+"Nu s-a putut detecta un CD cu Red Hat Linux în nici una dintre unitãþile de "
+"CD din acest sistem. Încãrcaþi CD-ul cu Red Hat Linux în unitatea CDROM ºi "
+"selectaþi \"OK\" pentru a reîncerca."
 
-#: ../loader/loader.c:847
+#: ../loader/loader.c:849
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Directorul specificat nu conþine distribuþia Red Hat Linux"
 
-#: ../loader/loader.c:852
+#: ../loader/loader.c:854
 msgid "I could not mount that directory from the server"
 msgstr "Nu s-a putut citi directorul specificat de pe server"
 
-#: ../loader/loader.c:937
+#: ../loader/loader.c:939
 msgid "FTP"
 msgstr "FTP"
 
-#: ../loader/loader.c:938
+#: ../loader/loader.c:940
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Nu s-a putut obþine ramdisk-ul pentru etapa a doua"
 
-#: ../loader/loader.c:1062
+#: ../loader/loader.c:1064
 msgid "Rescue Method"
 msgstr "Metodã de Salvare"
 
-#: ../loader/loader.c:1063
+#: ../loader/loader.c:1065
 msgid "Installation Method"
 msgstr "Metodã de Instalare"
 
-#: ../loader/loader.c:1065
+#: ../loader/loader.c:1067
 msgid "What type of media contains the rescue image?"
 msgstr "Unde se gãseºte imaginea de restaurare?"
 
-#: ../loader/loader.c:1067
+#: ../loader/loader.c:1069
 msgid "What type of media contains the packages to be installed?"
 msgstr "Unde sînt aflate aplicaþiile pentru instalare?"
 
-#: ../loader/loader.c:1461
+#: ../loader/loader.c:1491
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Fiºierul ks.cfg nu existã pe discheta de boot."
 
-#: ../loader/loader.c:1571
+#: ../loader/loader.c:1619
 msgid "PC Card"
 msgstr "PC Card"
 
-#: ../loader/loader.c:1571
+#: ../loader/loader.c:1619
 msgid "Initializing PC Card Devices..."
 msgstr "Se iniþializeazã perifericele de tip PC Card..."
 
@@ -2341,6 +2399,9 @@ msgstr "HTTP Proxy Port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Încãrcare Driver SCSI..."
+
+#~ msgid "Use fdisk to format drives"
+#~ msgstr "Foloseºte fdisk pentru partiþionare discuri"
 
 #~ msgid "Root Partition Selection"
 #~ msgstr "Selectare Partiþia de Root"
@@ -2726,9 +2787,6 @@ msgstr "Încãrcare Driver SCSI..."
 
 #~ msgid "Unable to lookup server host name"
 #~ msgstr "Nu s-a putut determina numele serverului"
-
-#~ msgid "Failed to connect to server"
-#~ msgstr "Nu s-a putut face conectarea la server"
 
 #~ msgid "Failed to establish data connection to server"
 #~ msgstr "Nu s-a putut stabili o conexiune cu serverul"
@@ -3243,9 +3301,6 @@ msgstr "Încãrcare Driver SCSI..."
 
 #~ msgid "Choose components to install:"
 #~ msgstr "Selectaþi componentele pentru instalare:"
-
-#~ msgid "Components to Install"
-#~ msgstr "Selectare pachete individuale"
 
 #~ msgid "error opening header file: %s"
 #~ msgstr "eroare la deschiderea descrierii fiºierului: %s"
