@@ -1001,7 +1001,8 @@ static char * mountUrlImage(struct installMethod * method,
 #endif
 
 	    if (fd < 0) {
-		newtWinMessage(_("FTP"), _("OK"), 
+		newtWinMessage(ui.protocol == URL_METHOD_FTP ?
+				_("FTP") : _("HTTP"), _("OK"), 
 		       _("Unable to retrieve the second stage ramdisk"));
 		stage = URL_STAGE_MAIN;
 		break;
@@ -2188,7 +2189,17 @@ int main(int argc, char ** argv) {
 	    *argptr++ = "/usr/bin/anaconda";
 
 	*argptr++ = "-m";
-	*argptr++ = url;
+	if (strncmp(url, "ftp:", 4)) {
+	    *argptr++ = url;
+	} else {
+	    int fd;
+
+	    fd = open("/tmp/method", O_CREAT | O_TRUNC | O_RDWR, 0600);
+	    write(fd, url, strlen(url));
+	    write(fd, "\r", 1);
+	    close(fd);
+	    *argptr++ = "@/tmp/method";
+	}
 
 	if (FL_SERIAL(flags))
 	    *argptr++ = "--serial";
