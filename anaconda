@@ -616,6 +616,6 @@ try:
 except SystemExit, code:
     intf.shutdown()
 except:
-    handleException(id, intf, sys.exc_info())
+    handleException(dispatch, intf, sys.exc_info())
 
 del intf

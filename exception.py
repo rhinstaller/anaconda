@@ -19,12 +19,32 @@ import os
 import signal
 import traceback
 import iutil
+import types
 from string import joinfields
 from cPickle import Pickler
 from translate import _
 from flags import flags
 
-def dumpException(out, text, tb, id):
+dumpHash = {}
+
+def dumpClass(instance, fd, level=0):
+    # protect from loops
+    if not dumpHash.has_key(instance):
+        dumpHash[instance] = None
+    else:
+        fd.write("Already dumped\n")
+        return
+    fd.write("%s instance, containing members:\n" %
+             (instance.__class__.__name__))
+    pad = ' ' * ((level) * 2)
+    for key, value in instance.__dict__.items():
+        if type(value) == types.InstanceType:
+            fd.write("%s%s: " % (pad, key))
+            dumpClass(value, fd, level + 1)
+        else:
+            fd.write("%s%s: %s\n" % (pad, key, value))
+
+def dumpException(out, text, tb, dispatch):
     p = Pickler(out)
 
     out.write(text)
@@ -40,22 +60,24 @@ def dumpException(out, text, tb, id):
     except:
         pass
 
-    out.write("\nToDo object:\n")
-
     # these have C objects in them which can't dump
-    id.hdList = None
-    id.comps = None
+    dispatch.id.hdList = None
+    dispatch.id.comps = None
+
+#    dispatch.intf = None
+#    dispatch.dispatch = None
 
     # we don't need to know passwords
-    id.rootPassword = None
-    id.accounts = None
+    dispatch.id.rootPassword = None
+    dispatch.id.accounts = None
 
     try:
-        p.dump(id)
+        out.write("\n\n")
+        dumpClass(dispatch, out)
     except:
-        out.write("\n<failed>\n")
+        out.write("Exception occured during state dump\n")
 
-def handleException( id, intf, (type, value, tb)):
+def handleException(dispatch, intf, (type, value, tb)):
     list = traceback.format_exception (type, value, tb)
     text = joinfields (list, "")
     rc = intf.exceptionWindow (_("Exception Occurred"), text)
@@ -71,7 +93,7 @@ def handleException( id, intf, (type, value, tb)):
 
     if not flags.setupFilesystems:
         out = open("/tmp/anacdump.txt", "w")
-        dumpException (out, text, tb, id)
+        dumpException (out, text, tb, dispatch)
         out.close()
         intf.__del__ ()
         os.kill(os.getpid(), signal.SIGKILL)
@@ -114,7 +136,7 @@ def handleException( id, intf, (type, value, tb)):
             continue
 
 	out = open("/tmp/crash/anacdump.txt", "w")
-        dumpException (out, text, tb, id)
+        dumpException (out, text, tb, dispatch)
         out.close()
 
         # write out any syslog information as well
