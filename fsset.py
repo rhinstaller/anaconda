@@ -490,6 +490,47 @@ class raidMemberDummyFileSystem(FileSystemType):
     
 fileSystemTypeRegister(raidMemberDummyFileSystem())
 
+class lvmPhysicalVolumeDummyFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.partedPartitionFlags = [ parted.PARTITION_LVM ]
+        self.formattable = 1
+        self.checked = 0
+        self.linuxnativefs = 1
+        self.name = "physical volume (LVM)"
+        self.maxSize = 2 * 1024 * 1024
+        self.supported = 1
+
+    def isMountable(self):
+        return 0
+
+    def formatDevice(self, entry, progress, chroot='/'):
+        # pvcreate did all we need to format this partition...
+        pass
+    
+fileSystemTypeRegister(lvmPhysicalVolumeDummyFileSystem())
+
+class lvmVolumeGroupDummyFileSystem(FileSystemType):
+    def __init__(self):
+        FileSystemType.__init__(self)
+        self.partedFileSystemType = parted.file_system_type_get("ext2")
+        self.formattable = 1
+        self.checked = 0
+        self.linuxnativefs = 0
+        self.name = "volume group (LVM)"
+        self.supported = 0
+        self.maxSize = 2 * 1024 * 1024
+
+        def isMountable(self):
+            return 0
+
+        def formatDevice(self, entry, progress, chroot='/'):
+            # vgcreate does this
+            pass
+
+fileSystemTypeRegister(lvmVolumeGroupDummyFileSystem())
+
 class swapFileSystem(FileSystemType):
     enabledSwaps = {}
     

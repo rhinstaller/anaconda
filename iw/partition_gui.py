@@ -514,6 +514,26 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     return (partclist, sw)
 
+def createAllowedLvmPartitionsClist(alllvmparts, reqlvmpart):
+
+    partclist = gtk.CList()
+    partclist.set_selection_mode(gtk.SELECTION_MULTIPLE)
+    partclist.set_size_request(-1, 95)
+    sw = gtk.ScrolledWindow()
+    sw.add(partclist)
+    sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+
+    partrow = 0
+    for part, size, used in alllvmparts:
+        partname = "%s: %8.0f MB" % (part, size)
+        partclist.append((partname,))
+
+        if used or not reqlvmpart:
+            partclist.select_row(partrow, 0)
+        partrow = partrow + 1
+
+    return (partclist, sw)
+
 def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     leveloption = gtk.OptionMenu()
     leveloptionmenu = gtk.Menu()
@@ -1641,6 +1661,124 @@ class PartitionWindow(InstallWindow):
 
         dialog.destroy()
 
+    def addLogicalVolume(self, widget):
+        dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
+        dialog.add_button('gtk-ok', 1)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+
+        maintable = gtk.Table()
+        maintable.set_row_spacings(5)
+        maintable.set_col_spacings(5)
+        row = 0
+
+        maintable.attach(createAlignedLabel(_("Mount point")), 0, 1, row, row + 1)
+        mountpointEntry = gtk.Entry(16)
+        maintable.attach(mountpointEntry, 1, 2, row, row + 1)
+
+        row = row + 1
+
+        maintable.attach(createAlignedLabel(_("Size")), 0, 1, row, row + 1)
+        sizeEntry = gtk.Entry(16)
+        maintable.attach(sizeEntry, 1, 2, row, row + 1)
+
+        dialog.vbox.pack_start(maintable)
+        dialog.show_all()
+        
+        rc = dialog.run()
+        if rc == 2:
+            dialog.destroy()
+            return
+
+        # I suck.  I assume the fs is ext3 because it doesn't matter
+        # for me and do no error checking :)
+        fsystem = fileSystemTypeGetDefault()
+        mntpt = mountpointEntry.get_text()
+        size = int(sizeEntry.get_text())
+
+        request = PartitionSpec(fsystem, REQUEST_LV, mountpoint = mntpt,
+                                size = size)
+        self.logvolreqs.append(request)
+        self.logvollist.append((mntpt,))
+        
+        dialog.destroy()
+
+    def makeLvmCB(self, widget):
+        self.logvolreqs = []
+        
+        dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
+        dialog.add_button('gtk-ok', 1)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+
+        maintable = gtk.Table()
+        maintable.set_row_spacings(5)
+        maintable.set_col_spacings(5)
+        row = 0
+
+        # volume group name
+        maintable.attach(createAlignedLabel(_("Volume Name")), 0, 1, row, row + 1)
+        volnameEntry = gtk.Entry(16)
+        maintable.attach(volnameEntry, 1, 2, row, row + 1)
+
+        lvmparts = get_available_lvm_partitions(self.diskset,
+                                                self.partitions,
+                                                None)
+
+        row = row + 1
+
+        (lvmclist, sw) = createAllowedLvmPartitionsClist(lvmparts, [])
+
+        maintable.attach(createAlignedLabel(_("PVs to Use")), 0, 1, row, row + 1)
+        maintable.attach(sw, 1, 2, row, row + 1)
+        row = row + 1
+
+        # obviously this should be a treeview, but writing a clist is faster
+        self.logvollist = gtk.CList()
+        sw = gtk.ScrolledWindow()
+        sw.add(self.logvollist)
+        sw.set_size_request(100, 100)
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+
+        maintable.attach(sw, 1, 2, row, row + 1)
+
+        add = gtk.Button("Add Logical Volume")
+        maintable.attach(add, 0, 1, row, row + 1, gtk.EXPAND, gtk.SHRINK)
+        add.connect("clicked", self.addLogicalVolume)
+
+        row + row + 1
+        
+        dialog.vbox.pack_start(maintable)
+        dialog.show_all()
+        rc = dialog.run()
+
+        pv = []
+        
+        for i in lvmclist.selection:
+            print i
+            id = self.partitions.getRequestByDeviceName(lvmparts[i][0]).uniqueID
+            pv.append(id)
+
+        # first add the volume group
+        request = PartitionSpec(fileSystemTypeGet("volume group (LVM)"),
+                                REQUEST_VG, physvolumes = pv)
+        self.partitions.addRequest(request)
+
+        # this is an evil hack for now.  should addRequest return the id?
+        vgID = self.partitions.nextUniqueID - 1
+
+        print self.logvolreqs
+        # now add the logical volumes
+        for lv in self.logvolreqs:
+            lv.volumeGroup = vgID
+            self.partitions.addRequest(lv)
+
+        for req in self.partitions.requests:
+            print req
+
+        dialog.destroy()
+            
+
     def makeraidCB(self, widget):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
         self.editRaidRequest(request, isNew = 1)
@@ -1673,7 +1811,8 @@ class PartitionWindow(InstallWindow):
                    (_("_Edit"), self.editCb),
                    (_("_Delete"), self.deleteCb),
                    (_("_Reset"), self.resetCb),
-                   (_("Make _RAID"), self.makeraidCB))
+                   (_("Make _RAID"), self.makeraidCB),
+                   (_("_LVM"), self.makeLvmCB))
         
         for label, cb in ops:
             button = gtk.Button(label)

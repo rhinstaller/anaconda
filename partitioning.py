@@ -46,6 +46,8 @@ REQUEST_PREEXIST = 1
 REQUEST_NEW = 2
 REQUEST_RAID = 4
 REQUEST_PROTECTED = 8
+REQUEST_VG = 16 # volume group
+REQUEST_LV = 32 # logical volume
 
 # when clearing partitions, what do we clear
 CLEARPART_TYPE_LINUX = 1
@@ -206,6 +208,12 @@ def get_raid_partitions(disk):
                          and part.get_flag(parted.PARTITION_RAID) == 1)
     return filter_partitions(disk, func)
 
+# returns a list of partitions which can make up volume groups
+def get_lvm_partitions(disk):
+    func = lambda part: (part.is_active()
+                         and part.get_flag(parted.PARTITION_LVM) == 1)
+    return filter_partitions(disk, func)
+
 # returns a list of the actual raid device requests
 def get_raid_devices(requests):
     raidRequests = []
@@ -254,6 +262,25 @@ def get_available_raid_partitions(diskset, requests, request):
                             break
                 if used:
                     break
+
+            if not used:
+                rc.append((partname, getPartSizeMB(part), 0))
+            elif used == 2:
+                rc.append((partname, getPartSizeMB(part), 1))
+    return rc
+
+# returns a list of tuples of lvm partitions which can be used or are used
+# with whether they're used (0 if not, 1 if so)   eg (part, size, used)
+def get_available_lvm_partitions(diskset, requests, request):
+    rc = []
+    drives = diskset.disks.keys()
+    drives.sort()
+    for drive in drives:
+        disk = diskset.disks[drive]
+        for part in get_lvm_partitions(disk):
+            partname = get_partition_name(part)
+            used = 0
+            # XXX doesn't actually figure out if it's used
 
             if not used:
                 rc.append((partname, getPartSizeMB(part), 0))
@@ -733,6 +760,8 @@ class DeleteSpec:
         return "drive: %s  start: %s  end: %s" %(self.drive, self.start, self.end)
 
 
+# XXX subclass me.  should have a generic specification and derive
+# partition, raid, and lvm from me.  then it would be a lot less crufty
 class PartitionSpec:
     def __init__(self, fstype, requesttype = REQUEST_NEW,
                  size = None, grow = 0, maxSize = None,
@@ -742,7 +771,8 @@ class PartitionSpec:
                  format = None, options = None, 
                  constraint = None, migrate = None,
                  raidmembers = None, raidlevel = None, 
-                 raidspares = None, badblocks = None, fslabel = None):
+                 raidspares = None, badblocks = None, fslabel = None,
+                 physvolumes = None, vgname = None, volgroup = None):
         #
         # requesttype: REQUEST_PREEXIST or REQUEST_NEW or REQUEST_RAID
         #
@@ -774,10 +804,18 @@ class PartitionSpec:
         self.constraint = constraint
         self.partition = None
         self.requestSize = size
+
         # note that the raidmembers are the unique id of the requests
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
+
+        # volume group specific.  physicalVolumes are unique ids of requests
+        self.physicalVolumes = physvolumes
+        self.volumeGroupName = vgname
+        
+        # logical volume specific.  volgroup is the uniqueID of the VG
+        self.volumeGroup = volgroup 
 
         # fs label (if pre-existing, otherwise None)
         self.fslabel = fslabel
@@ -814,7 +852,9 @@ class PartitionSpec:
                "  device: %s, currentDrive: %s\n" %(self.device, self.currentDrive)+\
                "  raidlevel: %s" % (self.raidlevel)+\
                "  raidspares: %s" % (self.raidspares)+\
-               "  raidmembers: %s" % (raidmem)
+               "  raidmembers: %s\n" % (raidmem)+\
+               "  vgname: %s" % (self.volumeGroupName)+\
+               "  physical volumes: %s" % (self.physicalVolumes)
 
     # turn a partition request into a fsset entry
     def toEntry(self, partitions):
@@ -825,6 +865,9 @@ class PartitionSpec:
             device = fsset.RAIDDevice(int(self.raidlevel[-1:]),
                                       raidmems,
                                       spares = self.raidspares)
+        # XXX need to handle this obviously
+        elif self.type == REQUEST_LV or self.type == REQUEST_VG:
+            return None
         else:
             device = fsset.PartitionDevice(self.device)
 
@@ -918,6 +961,8 @@ class Partitions:
                     ptype = None
                 elif part.get_flag(parted.PARTITION_RAID) == 1:
                     ptype = fsset.fileSystemTypeGet("software RAID")
+                elif part.get_flag(parted.PARTITION_LVM) == 1:
+                    pytpe = fsset.FileSystemTypeGet("physical volume (LVM)")
                 elif part.fs_type:
                     ptype = get_partition_file_system_type(part)
                     if part.fs_type.name == "linux-swap":
@@ -1896,7 +1941,11 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
                                    and not request.mountpoint)):
             continue
         entry = request.toEntry(partitions)
-        fsset.add (entry)
+        # XXX hack for lvm not being complete, *must* be error condition pre-release
+        if entry:
+            fsset.add (entry)
+##         else:
+##             raise RuntimeError, "Managed to not get an entry back from request.toEntry"
     if iutil.memInstalled() > isys.EARLY_SWAP_RAM:
         return
     # XXX this attribute is probably going away

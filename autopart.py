@@ -708,8 +708,13 @@ def processPartitioning(diskset, requests, newParts):
     if ret == PARTITION_FAIL:
         return (ret, _("Could not allocate partitions"))
     for request in requests.requests:
-        # set the unique identifier for raid devices
+        # set the unique identifier for raid and lvm devices
         if request.type == REQUEST_RAID and not request.device:
+            request.device = str(request.uniqueID)
+        if request.type == REQUEST_VG and not request.device:
+            request.device = request.volumeGroupName
+        # anything better we can use for the logical volume?
+        if request.type == REQUEST_LV and not request.device:
             request.device = str(request.uniqueID)
 
         if request.type == REQUEST_RAID:
