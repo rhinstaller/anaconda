@@ -591,7 +591,10 @@ char ** extractModules(struct driverDiskInfo * ddi,
     }
 
     /* nothing to do */
-    if (!numMaps) return oldPaths;
+    if (!numMaps) {
+	gunzip_close(fd);
+	return oldPaths;
+    }
 
     qsort(map, numMaps, sizeof(*map), myCpioFileMapCmp);
     rc = myCpioInstallArchive(fd, map, numMaps, NULL, NULL, &failedFile);
