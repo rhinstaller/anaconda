@@ -102,7 +102,7 @@ NETWORKMODULES="$COMMONMODULES nfs 3c59x
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
 # images we only want on the CD (usually for space reasons)
-ISOLINUXMODULES="ehci-hcd"
+ISOLINUXMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
 
 echo "Building dosutils/autoboot/initrd.img"
 makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd.img \
