@@ -71,8 +71,12 @@ class TimezoneWindow (InstallWindow):
         self.old_use_dst = self.daylightCB.get_active ()
         
         if (self.old_page == 0):
-            self.todo.setTimezoneInfo (self.list.get_text (self.list.selection[0], 0),
-                                       self.systemUTC.get_active ())
+            newzone = "America/New_York"
+            try:
+                newzone = self.tz.getzone (self.list.get_text (self.list.selection[0], 0))
+            except:
+                pass
+            self.todo.setTimezoneInfo (newzone, self.systemUTC.get_active ())
         else:
             timezone = self.timeZones[self.ulist.selection[0]][1]
             if self.daylightCB.get_active ():
@@ -126,9 +130,9 @@ class TimezoneWindow (InstallWindow):
 	rc = self.todo.getTimezoneInfo()
 	if rc:
 	    (self.default, asUTC, asArc) = rc
+            self.default = _(self.default)
 	else:
 	    self.default = _(iutil.defaultZone ())
-            print self.default
 	    asUTC = 0
 
         if (string.find (self.default, "UTC") != -1):
