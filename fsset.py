@@ -1052,11 +1052,7 @@ class FileSystemSet:
     def mdadmConf(self):
         raident = 0
         
-        cf = """
-# mdadm.conf written out by anaconda
-DEVICE partitions
-MAILADDR root
-"""
+        cf = "DEVICE partitions\n"
         for ent in self.entries:
             if ent.device.getName() != "RAIDDevice":
                 continue
