@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 1.0\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-08-11 17:54+09:00\n"
+"PO-Revision-Date: 2000-08-17 10:38+09:00\n"
 "Last-Translator: Dmytro Koval'ov <kov@tokyo.email.ne.jp>\n"
 "Language-Team: Ukrainian language team <linux@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
@@ -82,7 +82,7 @@ msgstr "Створення Loopback файлово╖ системи на пристро╖ /dev/%s..."
 #: ../fstab.py:712
 #, c-format
 msgid "Error mounting %s: %s"
-msgstr "помилка монтування %s: %s"
+msgstr "Помилка монтування %s: %s"
 
 #: ../gui.py:142
 msgid ""
@@ -144,7 +144,7 @@ msgstr "Сховати п╕дказку"
 
 #: ../gui.py:365 ../gui.py:603
 msgid "Finish"
-msgstr "Ф╕н╕ш"
+msgstr "Зак╕нчити"
 
 #: ../gui.py:368 ../gui.py:631
 msgid "Online Help"
@@ -161,7 +161,7 @@ msgstr "Установщик Red Hat Linux"
 
 #: ../gui.py:571
 msgid "Red Hat Linux Install Shell"
-msgstr "Оболонка Red Hat Linux Install"
+msgstr "Оболонка встановлення Red Hat Linux"
 
 #: ../gui.py:582
 #, c-format
@@ -183,7 +183,7 @@ msgstr "Коп╕ювання файлу"
 
 #: ../image.py:53
 msgid "Transferring install image to hard drive..."
-msgstr "Перенесення ╕нсталяц╕╖ на жорсткий диск..."
+msgstr "Перенесення установочного образу на жорсткий диск..."
 
 #: ../image.py:56
 msgid ""
@@ -292,11 +292,11 @@ msgstr "Яка модель клав╕атури п╕дключена до цього комп'ютера?"
 #: ../textw/userauth_text.py:135 ../textw/userauth_text.py:196
 #: ../textw/userauth_text.py:287 ../xserver.py:33
 msgid "OK"
-msgstr "ОК"
+msgstr "Гаразд"
 
 #: ../text.py:174
 msgid "Upgrade Existing Installation"
-msgstr "Оновити наявну установку "
+msgstr "Поновити встановлену систему "
 
 #: ../text.py:194 ../text.py:915
 msgid "Installation Type"
@@ -304,23 +304,23 @@ msgstr "Тип установки"
 
 #: ../text.py:195
 msgid "What type of system would you like to install?"
-msgstr "Систему якого типу ви бажа╓те встановити"
+msgstr "Систему якого типу Ви бажа╓те встановити"
 
 #: ../text.py:249
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Не задано жодного под╕лу Linux. Оновити систему неможливо!"
+msgstr "Не задано жодного п╕дрозд╕лу для Linux. Поновити систему неможливо!"
 
 #: ../text.py:266
 msgid "System to Upgrade"
-msgstr "Система для оновлення %d"
+msgstr "Система для поновлення"
 
 #: ../text.py:267
 msgid "What partition holds the root partition of your installation?"
-msgstr "Вкаж╕ть кореневий розд╕л вашо╖ ╕нсталяц╕╕."
+msgstr "На якому п╕дрозд╕л╕ знаходиться коренева (/) файлова система?"
 
 #: ../text.py:283
 msgid "Customize Packages to Upgrade"
-msgstr "Виб╕р пакет╕в для оновлення"
+msgstr "Виб╕р пакет╕в для поновлення"
 
 #: ../text.py:284
 msgid ""
@@ -329,7 +329,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 "Пакети, що ви встановили, та пакети, потр╕бн╕ для узгодження пакет╕в, вже "
-"в╕д╕брано для встановлення. Чи уточнити наб╕р пакет╕в для оновлення?"
+"в╕д╕брано для встановлення. Чи уточнити наб╕р пакет╕в для поновлення?"
 
 #: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:998
 #: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
@@ -392,10 +392,10 @@ msgid ""
 msgstr ""
 "Ласкаво просимо до Red Hat Linux!\n"
 "\n"
-"Ви ув╕йшли у режим реконф╕гурац╕╖, який дозволить вам сконф╕гурувати "
+"Ви ув╕йшли у режим реконф╕гурац╕╖, який дозволить Вам сконф╕гурувати "
 "специф╕чн╕ для вашого комп'ютера опц╕╖.\n"
 "\n"
-"Для виходу без зм╕н обер╕ть кнопку Cancel унизу. "
+"Для виходу без зм╕н натисн╕ть кнопку Cancel унизу. "
 
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:1886
 #: ../libfdisk/gnomefsedit.c:2435 ../libfdisk/newtfsedit.c:573
@@ -405,7 +405,7 @@ msgstr ""
 #: ../textw/silo_text.py:136 ../textw/silo_text.py:154
 #: ../textw/userauth_text.py:63
 msgid "Cancel"
-msgstr "Скасувати"
+msgstr "В╕дм╕нити"
 
 #: ../text.py:374
 msgid "X probe results"
@@ -413,7 +413,7 @@ msgstr "Результат випробування Х"
 
 #: ../text.py:394 ../text.py:414
 msgid "Unlisted Card"
-msgstr "╤нша карта"
+msgstr "╤нша плата"
 
 #: ../text.py:402
 msgid "Video Card Selection"
@@ -425,11 +425,11 @@ msgstr "Який тип в╕деокарти ви ма╓те?:"
 
 #: ../text.py:416
 msgid "X Server Selection"
-msgstr "Виб╕р серверу Х"
+msgstr "Виб╕р  Х сервера"
 
 #: ../text.py:416
 msgid "Choose a server"
-msgstr "Обер╕ть сервер"
+msgstr "Вибер╕ть сервер"
 
 #: ../text.py:483
 msgid "Installation to begin"
@@ -445,19 +445,19 @@ msgstr ""
 
 #: ../text.py:495
 msgid "Upgrade to begin"
-msgstr "Початок оновлення"
+msgstr "Початок поновлення"
 
 #: ../iw/confirm_gui.py:40 ../text.py:496
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Повний протокол оновлення вашо╖ системы п╕сля перевантаження буде "
+"Повний протокол поновлення вашо╖ системи п╕сля перевантаження буде "
 "/tmp/upgrade.log. Можливо, ви потребуватимете його згодом."
 
 #: ../text.py:513 ../text.py:534
 msgid "Complete"
-msgstr "Зроблено"
+msgstr "Зак╕нчено"
 
 #: ../iw/congrats_gui.py:33 ../text.py:514
 msgid ""
@@ -471,9 +471,9 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
-"В╕та╓мо, встановлення завершено.\n"
+"В╕та╓мо, установка зак╕нчена.\n"
 "\n"
-"Видал╕ть дискету з дисководу та натисн╕ть <Enter> для перевантаження. "
+"Витягн╕ть дискету з дисководу та натисн╕ть <Enter> для перевантаження. "
 "╤нформац╕ю про виправлення, доступну для цього випуску Red Hat Linux, "
 "знайдете у Errata на http://www.redhat.com.\n"
 "\n"
@@ -490,9 +490,9 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"В╕та╓мо, встановлення завершено.\n"
+"В╕та╓мо, установка зак╕нчена.\n"
 "\n"
-"Видал╕ть дискету з дисководу та натисн╕ть <Enter> для перевантаження. "
+"Витягн╕ть дискету з дисководу та натисн╕ть <Enter> для перевантаження. "
 "╤нформац╕ю про виправлення, доступну для цього випуску Red Hat Linux, "
 "знайдете у Errata на http://www.redhat.com.\n"
 "\n"
@@ -501,7 +501,7 @@ msgstr ""
 
 #: ../text.py:605
 msgid "Package Installation"
-msgstr "Встановлення пакет╕в"
+msgstr "Установка пакет╕в"
 
 #: ../text.py:607
 msgid "Name   : "
@@ -521,7 +521,7 @@ msgstr "    Пакет╕в"
 
 #: ../text.py:636
 msgid "       Bytes"
-msgstr "       Bytes"
+msgstr "       Байт"
 
 #: ../text.py:637
 msgid "        Time"
@@ -545,11 +545,11 @@ msgstr "Дов╕дка недоступна"
 
 #: ../text.py:754
 msgid "No help is available for this install."
-msgstr "Дов╕дка недоступна для цього встановлення."
+msgstr "Дов╕дка недоступна для ц╕╓╖ установки."
 
 #: ../text.py:809
 msgid "Save Crash Dump"
-msgstr "Збереження в╕дбитку збою"
+msgstr "Зберегти образ пам'ят╕ при збо╖"
 
 #: ../text.py:820
 msgid ""
@@ -571,7 +571,7 @@ msgstr "Зберегти"
 
 #: ../text.py:827 ../text.py:828
 msgid "Debug"
-msgstr "Debug"
+msgstr "В╕дладка"
 
 #: ../text.py:841
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
@@ -606,7 +606,7 @@ msgstr "Встановлення мереж╕"
 
 #: ../text.py:893 ../text.py:961
 msgid "Time Zone Setup"
-msgstr "Часова зона"
+msgstr "Установка часово╖ зони"
 
 #: ../text.py:895 ../text.py:963 ../textw/userauth_text.py:9
 msgid "Root Password"
@@ -627,29 +627,29 @@ msgstr "Конф╕гурац╕ю завершено"
 #: ../text.py:923 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
-msgstr "Кнф╕гурац╕я SILO"
+msgstr "Конф╕гурац╕я SILO"
 
 #: ../text.py:929 ../textw/lilo_text.py:33 ../textw/lilo_text.py:84
 #: ../textw/lilo_text.py:213
 msgid "LILO Configuration"
-msgstr "Кнф╕гурац╕я LILO"
+msgstr "Конф╕гурац╕я LILO"
 
 #: ../iw/lilo_gui.py:188 ../iw/lilo_gui.py:316 ../iw/silo_gui.py:127
 #: ../iw/silo_gui.py:279 ../text.py:933 ../text.py:939
 msgid "Partition"
-msgstr "Розд╕л"
+msgstr "П╕дрозд╕л"
 
 #: ../text.py:935
 msgid "Manually Partition"
-msgstr "Перед╕л вручну"
+msgstr "Розпод╕лити вручну"
 
 #: ../text.py:937
 msgid "Automatic Partition"
-msgstr "Автоматичн╕й розпод╕л"
+msgstr "Автоматичний розпод╕л"
 
 #: ../text.py:941 ../textw/partitioning_text.py:301
 msgid "Root Filesystem Size"
-msgstr "Обсяг файлово╖ системи Root"
+msgstr "Розм╕р файлово╖ системи Root"
 
 #: ../text.py:943
 msgid "Swap"
@@ -665,15 +665,15 @@ msgstr "Конф╕гурац╕я миши"
 
 #: ../text.py:969
 msgid "Package Groups"
-msgstr "Група пакет╕в"
+msgstr "Групи пакет╕в"
 
 #: ../text.py:971 ../text.py:999
 msgid "Individual Packages"
-msgstr "Виб╕р окремих пакет╕в"
+msgstr "Окрем╕ пакети"
 
 #: ../text.py:973 ../textw/packages_text.py:304
 msgid "Package Dependencies"
-msgstr "Вза╕моузгодженост╕ пакет╕в"
+msgstr "Залежност╕ пакет╕в"
 
 #: ../iw/xconfig_gui.py:256 ../text.py:975 ../text.py:983
 msgid "X Configuration"
@@ -681,7 +681,7 @@ msgstr "Конф╕гурац╕я Х"
 
 #: ../text.py:977
 msgid "Installation Begins"
-msgstr "Початок встановлення"
+msgstr "Установка почина╓ться"
 
 #: ../text.py:979
 msgid "Install System"
@@ -693,7 +693,7 @@ msgstr "Диск завантаження"
 
 #: ../text.py:985
 msgid "Installation Complete"
-msgstr "Встановлення завершено"
+msgstr "Установка зак╕нчена"
 
 #: ../text.py:990
 msgid "Examine System"
@@ -701,11 +701,11 @@ msgstr "Перев╕рка системи"
 
 #: ../text.py:997
 msgid "Customize Upgrade"
-msgstr "Доповненя користувачем"
+msgstr "╤ндив╕дуальне доповнення"
 
 #: ../text.py:1000
 msgid "Upgrade Begins"
-msgstr "Початок оновлення"
+msgstr "Початок поновлення"
 
 #: ../text.py:1002
 msgid "Upgrade System"
@@ -758,7 +758,7 @@ msgstr "Пошук встановлених систем Red Hat Linux..."
 #: ../todo.py:840 ../todo.py:868
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "помилка монтування файлово╖ системи ext2 на %s: %s"
+msgstr "Помилка монтування файлово╖ системи ext2 на %s: %s"
 
 #: ../todo.py:913
 msgid ""
@@ -768,7 +768,7 @@ msgid ""
 msgstr ""
 "Одну чи б╕льше файлових систем на ваш╕й машин╕ не було нормально "
 "демонтовано. Завантажте ваш Linux, нехай файлов╕ системи протестуються, та "
-"коректно заверш╕ть роботу Linux для оновлення."
+"коректно заверш╕ть роботу Linux для поновлення."
 
 #: ../todo.py:923
 msgid ""
@@ -784,7 +784,7 @@ msgstr "Пошук"
 
 #: ../todo.py:937
 msgid "Finding packages to upgrade..."
-msgstr "Пошук пакет╕в для оновлення..."
+msgstr "Пошук пакет╕в для поновлення..."
 
 #: ../todo.py:952
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -792,7 +792,7 @@ msgstr "Помилка перебудови бази RPM. Мало мiсця на диску?"
 
 #: ../todo.py:965
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Сталася помилка п╕д час пошуку пакет╕в для онвлення."
+msgstr "Сталася помилка п╕д час пошуку пакет╕в для поновлення."
 
 #: ../todo.py:1274
 msgid "Processing"
@@ -818,8 +818,8 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Зда╓ться що ви не ма╓те достатньо в╕льного м╕сця, щоб установити ус╕ обран╕ "
-"вами пакети. Вам потр╕бно б╕льше м╕сця на наступних файлових системах:\n"
+"Зда╓ться не вистача╓ в╕льного м╕сця, щоб установити ус╕ обран╕ вами пакети. "
+"Вам потр╕бно б╕льше м╕сця на цих файлових системах:\n"
 "\n"
 
 #: ../libfdisk/gnomefsedit.c:2974 ../todo.py:1559
@@ -836,11 +836,11 @@ msgstr "Прост╕р на дисков╕"
 
 #: ../todo.py:1607
 msgid "Post Install"
-msgstr "П╕слявстановочн╕ д╕╖"
+msgstr "Пост-установочн╕ д╕╖"
 
 #: ../todo.py:1608
 msgid "Performing post install configuration..."
-msgstr "Перев╕рка конф╕гурац╕╖ п╕слявстановочних д╕й..."
+msgstr "Конф╕гурац╕я пост-установочних д╕й..."
 
 #: ../iw/xconfig_gui.py:10 ../xf86config.py:856
 msgid "Video Card"
@@ -856,7 +856,7 @@ msgstr "X Сервер"
 
 #: ../xf86config.py:862
 msgid "Unable to detect video card"
-msgstr "Не можу впызнати в╕деокарту"
+msgstr "Не можу розп╕знати в╕деокарту"
 
 #: ../iw/xconfig_gui.py:11 ../xf86config.py:869 ../xf86config.py:871
 msgid "Monitor"
@@ -868,11 +868,11 @@ msgstr "Plug and Play мон╕тор"
 
 #: ../xf86config.py:873
 msgid "Horizontal frequency range"
-msgstr "Частота горизонтально╖ розгортки"
+msgstr "Д╕апазон частот горизонтально╖ розгортки"
 
 #: ../xf86config.py:875
 msgid "Vertical frequency range"
-msgstr "Частота вертикально╖ розгортки"
+msgstr "Д╕апазон частот вертикально╖ розгортки"
 
 #: ../xserver.py:26
 msgid "Mouse Not Detected"
@@ -886,9 +886,9 @@ msgid ""
 "a mouse."
 msgstr ""
 "Вашу мишу не вдалося виявити автоматично.  Для продовження встановлення в "
-"граф╕чному режим╕, перейд╕ть в наступний екран та вкаж╕ть ╕нформац╕ю про "
-"вашу мишу. Ви також можете продовжити встановлення у текстовому режим╕, що "
-"не вимага╓ наявност╕ миш╕."
+"граф╕чному режим╕, перейд╕ть на наступний екран та вкаж╕ть ╕нформац╕ю про "
+"Вашу мишу. Ви також можете продовжити встановлення у текстовому режим╕, що "
+"не вимага╓ конф╕гурац╕╖ миш╕."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
@@ -944,7 +944,7 @@ msgstr "П╕дтвердження: "
 
 #: ../iw/account_gui.py:244 ../iw/account_gui.py:291
 msgid "Account Name"
-msgstr "╤м`я користувача"
+msgstr "╤м'я користувача"
 
 #: ../iw/account_gui.py:248 ../textw/userauth_text.py:82
 msgid "Password"
@@ -999,7 +999,7 @@ msgstr "Дозволити NIS"
 
 #: ../iw/auth_gui.py:80
 msgid "Use broadcast to find NIS server"
-msgstr "Використати широкомовний запит при пошуку NIS"
+msgstr "Використати трансляц╕ю для пошуку сервера NIS"
 
 #: ../iw/auth_gui.py:92
 msgid "NIS Domain: "
@@ -1057,15 +1057,15 @@ msgid ""
 "a formatted floppy in the first floppy drive."
 msgstr ""
 "Виникла помилка при створенн╕ завантажувального диску. Будь ласка перев╕рте "
-"чи отформатировано диск у першому диковод╕."
+"чи в╕дформатовано диск у першому привод╕."
 
 #: ../iw/bootdisk_gui.py:68
 msgid "Skip boot disk creation"
-msgstr "Пропустити створення завантажного диску"
+msgstr "Пропустити створення системного диску"
 
 #: ../iw/confirm_gui.py:13
 msgid "About to Upgrade"
-msgstr "В╕домост╕ про оновлення"
+msgstr "В╕домост╕ про поновлення"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
@@ -1073,11 +1073,11 @@ msgstr "В╕домост╕ про встановлення"
 
 #: ../iw/confirm_gui.py:33
 msgid "Click next to begin upgrade of Red Hat Linux."
-msgstr "Клацн╕ть \"Наступний\" для початку оновлення Red Hat Linux."
+msgstr "Клацн╕ть \"Наступний\" для початку поновлення Red Hat Linux."
 
 #: ../iw/confirm_gui.py:35
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Клацн╕ть \"Наступний\" для початку оновлення Red Hat Linux."
+msgstr "Клацн╕ть \"Наступний\" для початку поновлення Red Hat Linux."
 
 #: ../iw/congrats_gui.py:11 ../iw/congrats_gui.py:59
 msgid "Congratulations"
@@ -1107,13 +1107,13 @@ msgstr ""
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
-msgstr "Помилка узгодженост╕ пакет╕в"
+msgstr "Незнайден╕ залежност╕ пакет╕в"
 
 #: ../iw/dependencies_gui.py:31 ../iw/package_gui.py:413
 #: ../textw/packages_text.py:12 ../textw/packages_text.py:275
 #, c-format
 msgid "Total install size: %s"
-msgstr "Загальний обсяг: %s"
+msgstr "Загальний розм╕р: %s"
 
 #: ../iw/dependencies_gui.py:68 ../iw/progress_gui.py:167
 #: ../textw/packages_text.py:312
@@ -1126,7 +1126,7 @@ msgstr "Вимога"
 
 #: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:327
 msgid "Install packages to satisfy dependencies"
-msgstr "Встановити додатков╕ необх╕дн╕ пакети"
+msgstr "Встановити пакети для задоволення залежностей"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
 msgid "Do not install packages that have dependencies"
@@ -1138,7 +1138,7 @@ msgstr "╤гнорувати залежност╕ пакет╕в"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
-msgstr "Перев╕рка оновлення"
+msgstr "Перев╕рка поновлення"
 
 #: ../iw/examine_gui.py:35
 msgid ""
@@ -1154,7 +1154,7 @@ msgstr "Вибер╕ть пристр╕й, що м╕стить кореневу файлову систему: "
 
 #: ../iw/examine_gui.py:72
 msgid "Customize packages to be upgraded"
-msgstr "Виб╕р пакет╕в для оновлення"
+msgstr "Виб╕р пакет╕в для поновлення"
 
 #: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
 msgid "fdisk"
@@ -1162,7 +1162,7 @@ msgstr "fdisk"
 
 #: ../iw/fdisk_gui.py:109
 msgid "Select drive to run fdisk on"
-msgstr "Обер╕ть пристр╕й для пуску fdisk"
+msgstr "Вибер╕ть пристр╕й для пуску fdisk"
 
 #: ../iw/format_gui.py:12
 msgid "Choose partitions to Format"
@@ -1182,7 +1182,7 @@ msgstr "Встановити"
 
 #: ../iw/installpath_gui.py:186
 msgid "Upgrade"
-msgstr "Оновити"
+msgstr "Поновити"
 
 #: ../iw/keyboard_gui.py:16
 msgid "Keyboard Configuration"
@@ -1198,15 +1198,15 @@ msgstr "Розкладка"
 
 #: ../iw/keyboard_gui.py:108
 msgid "Dead Keys"
-msgstr "Клав╕ши смерт╕"
+msgstr "Н╕м╕ клав╕ш╕"
 
 #: ../iw/keyboard_gui.py:117
 msgid "Enable dead keys"
-msgstr "Використовувати клав╕ши смерт╕"
+msgstr "Використовувати н╕м╕ клав╕ш╕"
 
 #: ../iw/keyboard_gui.py:118
 msgid "Disable dead keys"
-msgstr "В╕дключити клав╕ши смерт╕"
+msgstr "В╕дключити н╕м╕ клав╕ш╕"
 
 #: ../iw/keyboard_gui.py:127
 msgid "Test your selection here:"
@@ -1214,7 +1214,7 @@ msgstr "Перев╕рте ваш виб╕р тут:"
 
 #: ../iw/language_gui.py:39 ../loader/lang.c:287
 msgid "What language should be used during the installation process?"
-msgstr "Яка мова повинна використовуватись п╕д час установки?"
+msgstr "Яка мова ма╓ використовуватись п╕д час установки?"
 
 #: ../iw/lilo_gui.py:20
 msgid "Lilo Configuration"
@@ -1232,7 +1232,7 @@ msgstr "Встановити LILO на:"
 #: ../iw/lilo_gui.py:242 ../iw/silo_gui.py:172 ../textw/lilo_text.py:81
 #: ../textw/silo_text.py:64
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record (MBR)"
+msgstr "Головний завантажувальний сектор (MBR)"
 
 #: ../iw/lilo_gui.py:246 ../iw/silo_gui.py:175 ../textw/lilo_text.py:82
 #: ../textw/silo_text.py:65
@@ -1249,7 +1249,7 @@ msgstr "Параметри ядра"
 
 #: ../iw/lilo_gui.py:277 ../iw/silo_gui.py:225
 msgid "Create boot disk"
-msgstr "Створити диск завантаження"
+msgstr "Створити системний диск"
 
 #: ../iw/lilo_gui.py:281
 msgid "Do not install LILO"
@@ -1276,7 +1276,7 @@ msgstr "Тип розд╕лу"
 #: ../iw/silo_gui.py:291 ../textw/lilo_text.py:113 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
-msgstr "Позначка завантаження"
+msgstr "Етикетка системи"
 
 #: ../iw/mouse_gui.py:136
 msgid "Emulate 3 Buttons"
@@ -1288,15 +1288,15 @@ msgstr "Конф╕гурац╕я мереж╕"
 
 #: ../iw/network_gui.py:148
 msgid "Configure using DHCP"
-msgstr "Конф╕гурац╕я DHCP"
+msgstr "Конф╕гурац╕я за допомогою DHCP"
 
 #: ../iw/network_gui.py:154
 msgid "Activate on boot"
-msgstr "Завантажувальний"
+msgstr "Привести в д╕ю при завантаженн╕"
 
 #: ../iw/network_gui.py:163
 msgid "IP Address"
-msgstr "IP-адреса:"
+msgstr "IP-адреса"
 
 #: ../iw/network_gui.py:164 ../loader/net.c:727
 msgid "Netmask"
@@ -1308,7 +1308,7 @@ msgstr "Мережа"
 
 #: ../iw/network_gui.py:166
 msgid "Broadcast"
-msgstr "Широкомовний"
+msgstr "Трансляц╕я"
 
 #: ../iw/network_gui.py:210 ../loader/net.c:531 ../loader/net.c:729
 #: ../textw/network_text.py:141
@@ -1333,7 +1333,7 @@ msgstr "Третинний DNS"
 
 #: ../iw/package_gui.py:20
 msgid "Individual Package Selection"
-msgstr "Индив╕дуальний виб╕р пакет╕в"
+msgstr "╤ндив╕дуальний виб╕р пакет╕в"
 
 #: ../iw/package_gui.py:175
 msgid "Up"
@@ -1345,11 +1345,11 @@ msgstr "Назва: "
 
 #: ../iw/package_gui.py:331
 msgid "Package Details"
-msgstr "Про пакет"
+msgstr "Подробиц╕ про пакет"
 
 #: ../iw/package_gui.py:337
 msgid "Size: "
-msgstr "Обсяг :"
+msgstr "Об'╓м :"
 
 #: ../iw/package_gui.py:343
 msgid "Select Package For Installation"
@@ -1357,12 +1357,12 @@ msgstr "Виб╕р пакет╕в до встановленя"
 
 #: ../iw/package_gui.py:352
 msgid "Total install size: "
-msgstr "Загальний обсяг: "
+msgstr "Загальний об'╓м: "
 
 #: ../iw/package_gui.py:389 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
 msgid "Package Group Selection"
-msgstr "Виб╕р групи пакет╕в"
+msgstr "Виб╕р груп пакет╕в"
 
 #: ../iw/package_gui.py:489 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1374,7 +1374,7 @@ msgstr "Встановлення пакет╕в"
 
 #: ../iw/progress_gui.py:168 ../iw/progress_gui.py:203
 msgid "Size"
-msgstr "Обсяг :"
+msgstr "Розм╕р"
 
 #: ../iw/progress_gui.py:169
 msgid "Summary"
@@ -1382,7 +1382,7 @@ msgstr "П╕дсумок"
 
 #: ../iw/progress_gui.py:203
 msgid "Status"
-msgstr "Статус"
+msgstr "Стан"
 
 #: ../iw/progress_gui.py:203
 msgid "Packages"
@@ -1406,7 +1406,7 @@ msgstr "Залишилось"
 
 #: ../iw/rootpartition_gui.py:21
 msgid "Confirm Partitioning Selection"
-msgstr "П╕дтверд╕ть виб╕р розд╕л╕в"
+msgstr "П╕дтверд╕ть виб╕р п╕дрозд╕л╕в"
 
 #: ../iw/rootpartition_gui.py:37 ../textw/partitioning_text.py:23
 msgid "Disk Druid"
@@ -1422,9 +1422,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Якщо Ви не ма╓те б╕льш пам'ят╕ на ц╕й систем╕, ви повинн╕ негайно включити "
-"п╕дкачку. Для цього потр╕бно негайно записати у таблиц╕ розд╕л╕в новий  "
-"розд╕л п╕дкачки. Згодн╕?"
+"Через те, що Ви не ма╓те досить пам'ят╕ на ц╕й систем╕, Вам сл╕д "
+"користуватися  п╕дкачкою. Для цього потр╕бно негайно записати нову таблицю "
+"п╕дрозд╕л╕в на диск. Згодн╕?"
 
 #: ../iw/rootpartition_gui.py:145 ../textw/partitioning_text.py:302
 #, c-format
@@ -1436,8 +1436,8 @@ msgid ""
 msgstr ""
 "Ви бажа╓те розм╕стити Вашу кореневу файлову систему у файл╕ на ╕снуючому "
 "розд╕л╕ DOS або Windows. Який розм╕р у мегабайтах мусить мати файлова "
-"система root та розд╕л своп╕нгу? ╥хн╕й загальний обсяг повинен бути не менш "
-"н╕ж %d мегабайт╕в."
+"система root та розд╕л своп╕нгу? ╥хн╕й загальний розм╕р повинен бути меншим "
+"за %d мегабайт╕в."
 
 #: ../iw/rootpartition_gui.py:174
 msgid "Root filesystem size:"
@@ -1461,7 +1461,9 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"Якщо вам це не потр╕бно, ви можете продовжити цю установку з розпод╕лом "
+"%s\n"
+"\n"
+"Якщо Вам це не потр╕бно, ви можете продовжити цю установку з розпод╕лом "
 "диску вручну, або повернутися ╕ почати повн╕стю ручну установку."
 
 #: ../iw/rootpartition_gui.py:305
@@ -1502,11 +1504,11 @@ msgstr ""
 
 #: ../iw/rootpartition_gui.py:328
 msgid "Automatically partition and REMOVE DATA"
-msgstr "Автоматичний розпод╕л та ВИДАЛЕННЯ ДАНИХ"
+msgstr "Автоматичний розпод╕л та ЗНИЩЕННЯ ДАНИХ"
 
 #: ../iw/rootpartition_gui.py:335
 msgid "Manually partition with Disk Druid"
-msgstr "Ручний розпод╕л задопомогою Disk Druid"
+msgstr "Ручний розпод╕л за допомогою Disk Druid"
 
 #: ../iw/rootpartition_gui.py:347
 msgid "Manually partition with fdisk [experts only]"
@@ -1526,7 +1528,7 @@ msgstr "Створити псевдон╕м PROM"
 
 #: ../iw/silo_gui.py:203
 msgid "Set default PROM boot device to linux"
-msgstr "Типовий завантажувальний пристр╕й PROM"
+msgstr "Встановити типовий пристр╕й завантаження в PROM у \"linux\""
 
 #: ../iw/silo_gui.py:235
 msgid "Do not install SILO"
@@ -1554,7 +1556,7 @@ msgstr "Знаходження"
 
 #: ../iw/timezone_gui.py:223
 msgid "UTC Offset"
-msgstr "UTC зсув"
+msgstr "Зсув в╕д UTC"
 
 #: ../iw/welcome_gui.py:80
 msgid "Would you like to configure your system?"
@@ -1562,11 +1564,11 @@ msgstr "Чи бажа╓те Ви сконф╕гурувати вашу систему?"
 
 #: ../iw/xconfig_gui.py:13
 msgid "Horizontal Frequency Range"
-msgstr "Горизонтальна розгортка"
+msgstr "Д╕апазон частот горизонтально╖ розгортки"
 
 #: ../iw/xconfig_gui.py:14
 msgid "Vertical Frequency Range"
-msgstr "вертикальна розгортка"
+msgstr "Д╕апазон частот вертикально╖ розгортки"
 
 #: ../iw/xconfig_gui.py:15
 msgid "Test failed"
@@ -1578,7 +1580,7 @@ msgstr "Виб╕р конф╕гурац╕╕ Х"
 
 #: ../iw/xconfig_gui.py:90
 msgid "Bits per Pixel"
-msgstr "Б╕т на п╕ксел:"
+msgstr "Б╕т на п╕ксел"
 
 #: ../iw/xconfig_gui.py:101 ../iw/xconfig_gui.py:438
 msgid "Test this configuration"
@@ -1601,24 +1603,24 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Розм╕р пам'ят╕ на в╕деокарт╕ не визначено. Обер╕ть розм╕р в╕деопам'ят╕з╕ "
-"списку унизу:"
+"Розм╕р пам'ят╕ на в╕деокарт╕ не визначено. Обер╕ть розм╕р в╕деопам'ят╕ з╕ "
+"списку:"
 
 #: ../iw/xconfig_gui.py:354 ../iw/xconfig_gui.py:375
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
-"Для деякого в╕деообладнання ╓ можлив╕сть автоматичного визначення найкращ╕х "
-"установок вашого монитору."
+"В б╕льшост╕ випадк╕в  в╕деообладнання може бути визначене автоматично ╕ "
+"будуть знайден╕ найкращ╕ установки для Вашого мон╕тору."
 
 #: ../iw/xconfig_gui.py:363
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
-"Якщо знайден╕ параметри не в╕дпов╕дають вашому обладнанню, обер╕ть настройки "
-"нижче:"
+"Якщо знайден╕ параметри не в╕дпов╕дають Вашому обладнанню, вибер╕ть в╕рн╕ "
+"установки:"
 
 #: ../iw/xconfig_gui.py:384
 msgid "Autoprobe results:"
@@ -1663,7 +1665,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"На машинах SMCC Ultra загрузка з floppy можливо не спрацю╓\n"
+"На машинах SMCC Ultra заватаження з дискети можливо не спрацю╓\n"
 "\n"
 
 #: ../textw/bootdisk_text.py:35 ../textw/bootdisk_text.py:56
@@ -1683,7 +1685,7 @@ msgid ""
 "during creation of the boot disk."
 msgstr ""
 "Якщо ╕нсталяц╕йна дискета знаходиться у дисковод╕, вийм╕ть ╖╖. Вставте чисту "
-"дискету у перший дисковод. Усю ╕нформац╕ю на ц╕й дискет╕ буде стерто п╕д час "
+"дискету у перший дисков╕д. Всю ╕нформац╕ю на ц╕й дискет╕ буде стерто п╕д час "
 "створення завантажувального диску."
 
 #: ../textw/lilo_text.py:18 ../textw/silo_text.py:14
@@ -1693,13 +1695,13 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"У деяких системах п╕д час завантаження треба передавати ядру "
-"особлив╕параметри. Якщо потр╕бно, зроб╕ть це зараз. Якщо це не потр╕бно, "
-"абови вага╓тесь - залиште це поле порожн╕м. "
+"У деяких системах п╕д час завантаження треба передавати ядру особлив╕ "
+"параметри. Якщо потр╕бно, зроб╕ть це зараз. Якщо це не потр╕бно, або Ви "
+"вага╓тесь - залиште це поле порожн╕м. "
 
 #: ../textw/lilo_text.py:85 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
-msgstr "Де ви бажа╓те встановити завантажувач?"
+msgstr "Де Ви бажа╓те встановити завантажувач?"
 
 #: ../textw/lilo_text.py:117 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:157
@@ -1708,19 +1710,19 @@ msgstr "Очистити"
 
 #: ../textw/lilo_text.py:126
 msgid "Edit Boot Label Please"
-msgstr "Редагування позначки завантаження"
+msgstr "Назв╕ть Вашу систему"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
 msgid "Invalid Boot Label"
-msgstr "Нев╕рна позначка завантаження"
+msgstr "Некоректна етикетка системи"
 
 #: ../textw/lilo_text.py:145
 msgid "Boot label may not be empty."
-msgstr "Позначка завантаження не може бути порожньою."
+msgstr "Етикетка системи не може бути порожньою."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
-msgstr "Позначка завантаження м╕стить заборонен╕ символи."
+msgstr "Етикетка системи м╕стить заборонен╕ символи."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1764,11 +1766,11 @@ msgstr "Емулювати 3 кнопки?"
 
 #: ../textw/mouse_text.py:69
 msgid "Mouse Selection"
-msgstr "Виб╕р миши"
+msgstr "Виб╕р миш╕"
 
 #: ../textw/network_text.py:64
 msgid "Use bootp/dhcp"
-msgstr "Виристати bootp/dhcp"
+msgstr "Користуватися bootp/dhcp"
 
 #: ../loader/net.c:284 ../textw/network_text.py:69
 msgid "IP address:"
@@ -1788,7 +1790,7 @@ msgstr "Первинний сервер ╕мен (DNS):"
 
 #: ../textw/network_text.py:111
 msgid "Invalid information"
-msgstr "Браку╓ ╕нформац╕╖"
+msgstr "Некоректна ╕нформац╕я"
 
 #: ../textw/network_text.py:112
 msgid "You must enter valid IP information to continue"
@@ -1796,15 +1798,15 @@ msgstr "Сл╕д ввести правильну IP-адресу та маску п╕дмереж╕"
 
 #: ../textw/network_text.py:137
 msgid "Hostname Configuration"
-msgstr "╤м'я комп'ютеру"
+msgstr "╤м'я комп'ютера"
 
 #: ../textw/network_text.py:138
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
-"Hostname (Назва хосту)це ╕м'я вашого комп'ютера.  Якщо ваш комп'ютер "
-"п╕д'╓днано до мереж╕, це ╕м'я повинен визначити ваш системний адм╕н╕стратор."
+"Назва хосту - це ╕м'я Вашого комп'ютера.  Якщо ваш комп'ютер п╕д'╓днано до "
+"мереж╕, це ╕м'я може дати Ваш системний адм╕н╕стратор."
 
 #: ../textw/packages_text.py:91
 msgid "Package :"
@@ -1812,11 +1814,11 @@ msgstr "Пакет  : "
 
 #: ../textw/packages_text.py:96
 msgid "Size    :"
-msgstr "Обсяг  :"
+msgstr "Розм╕р  :"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
-msgstr "Загальний обсяг"
+msgstr "Загальний розм╕р"
 
 #: ../textw/packages_text.py:249
 msgid ""
@@ -1829,12 +1831,12 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"Деяк╕ пакети, що ви обрали, потребують встановлення пакет╕в, як╕ вине "
-"обрали. Обер╕ть \"Ок\", ╕ додатков╕ пакети буде встановлено."
+"Деяк╕ пакети, що Ви обрали, потребують встановлення пакет╕в, з тих що Ви не "
+"вибрали. Натисн╕ть \"Гаразд\", ╕ додатков╕ пакети буде встановлено."
 
 #: ../textw/partitioning_text.py:15 ../textw/partitioning_text.py:58
 msgid "Disk Setup"
-msgstr "Налагодження диску"
+msgstr "Установка диску"
 
 #: ../textw/partitioning_text.py:16
 msgid ""
@@ -1849,7 +1851,7 @@ msgstr ""
 "Ним прост╕ше користуватися, н╕ж класичним fdisk, що його постачають з Linux; "
 "в╕н нада╓ б╕льше можливостей. Однак часом перевагу може бути надано fdisk.\n"
 "\n"
-"Який ви будете використовувати?"
+"Який Ви будете використовувати?"
 
 #: ../textw/partitioning_text.py:59
 msgid ""
@@ -1857,9 +1859,9 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"Щоб встановити Red Hat Linux, вам потр╕бен щонайменше один розд╕л на 150 MB, "
-"вид╕лений п╕д Linux. Ми радимо розм╕стити цей розд╕л наодному з двох перших "
-"жорстких диск╕в системи, щоб ви могли завантажувати Linux за допомогою LILO."
+"Щоб встановити Red Hat Linux, Вам потр╕бен щонайменше один розд╕л на 150 MB, "
+"вид╕лений п╕д Linux. Ми радимо розм╕стити цей розд╕л на одному з двох перших "
+"жорстких диск╕в системи, щоб Ви могли завантажувати Linux за допомогою LILO."
 
 #: ../loader/loader.c:327 ../loader/loader.c:352
 #: ../textw/partitioning_text.py:64
@@ -1881,9 +1883,9 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"Як╕ розд╕ли ви хочете форматувати? Радимо форматувати вс╕ системн╕ "
-"розд╕ли,включно з /, /usr ╕ /var. Так╕ розд╕ли як /home або /usr/local можна "
-"не форматувати, якщо ╖х конф╕гуровано п╕д час попереднього встановлення."
+"Як╕ розд╕ли Ви хочете форматувати? Радимо форматувати вс╕ системн╕ розд╕ли, "
+"включаючи /, /usr ╕ /var. Так╕ розд╕ли як /home або /usr/local можна не "
+"форматувати, якщо ╖х конф╕гуровано п╕д час попереднього встановлення."
 
 #: ../textw/partitioning_text.py:254
 msgid "Check for bad blocks during format"
@@ -1916,7 +1918,7 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
-"Загальний обсяг повинен бути меньшим за наявне в╕льне м╕сце на диску, яке "
+"Загальний обсяг повинен бути меншим, н╕ж ╓ в╕льного м╕сця на диску, яке "
 "становить %d мегабайт╕в."
 
 #: ../textw/partitioning_text.py:332
@@ -1924,8 +1926,8 @@ msgid ""
 "Neither the root file system size nor the swap space size may be greater "
 "then 2000 megabytes."
 msgstr ""
-"Н╕ коренева файлова система ('/'), н╕ п╕дрозд╕л для своп╕нгу не можуть мати "
-"розм╕р б╕льший за 2000 мегабайт."
+"Н╕ коренева файлова система ('/'), н╕ п╕дрозд╕л для своп╕нгу не можуть бути "
+"б╕льшими за 2000 мегабайт."
 
 #: ../textw/silo_text.py:66
 msgid "Create PROM alias `linux'"
@@ -1933,11 +1935,11 @@ msgstr "Створити псевдон╕м PROM \"linux\""
 
 #: ../textw/silo_text.py:67
 msgid "Set default PROM boot device"
-msgstr "Типовий завантажувальний пристр╕й PROM"
+msgstr "Встановити стандартний пристр╕й завантаження в PROM"
 
 #: ../textw/silo_text.py:144
 msgid "Edit Boot Label"
-msgstr "Редагування позначки завантаження"
+msgstr "Редагування етикетки системи"
 
 #: ../textw/silo_text.py:208
 msgid ""
@@ -1945,17 +1947,17 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Менеджер завантаження Red Hat може також завантажувати ╕нш╕ "
-"операц╕йн╕системи. Вкаж╕ть, як╕ розд╕ли ви хочете завантажувати та як╕ "
-"позначки вихочетете використовувати для кожного з них."
+"Менеджер завантаження Red Hat може також завантажувати ╕нш╕ операц╕йн╕ "
+"системи. Вкаж╕ть, як╕ розд╕ли Ви хочете завантажувати та як╕ етикетки Ви "
+"хочетете використовувати для кожного з них."
 
 #: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
-msgstr "У якому часовому пояс╕ ви знаходитесь?"
+msgstr "У якому часовому пояс╕ Ви знаходитесь?"
 
 #: ../textw/timezone_text.py:86
 msgid "Hardware clock set to GMT?"
-msgstr "Встановити апаратний годинник за GMT?"
+msgstr "Апаратний годинник працю╓ за GMT?"
 
 #: ../textw/userauth_text.py:11
 msgid ""
@@ -1969,7 +1971,7 @@ msgstr ""
 
 #: ../loader/urls.c:340 ../textw/userauth_text.py:24
 msgid "Password:"
-msgstr "Пароль"
+msgstr "Пароль:"
 
 #: ../textw/userauth_text.py:25
 msgid "Password (again):"
@@ -1981,7 +1983,7 @@ msgstr "Довжина паролю"
 
 #: ../textw/userauth_text.py:42
 msgid "The root password must be at least 6 characters long."
-msgstr "Пароль користувача root ма╓ складатися не менш н╕ж з 6 символ╕в."
+msgstr "Пароль користувача root ма╓ складатися не менш, н╕ж з 6 символ╕в."
 
 #: ../textw/userauth_text.py:46 ../textw/userauth_text.py:116
 msgid "Password Mismatch"
@@ -1989,7 +1991,7 @@ msgstr "Парол╕ не сп╕впадають"
 
 #: ../textw/userauth_text.py:47 ../textw/userauth_text.py:117
 msgid "The passwords you entered were different. Please try again."
-msgstr "Введен╕ вами парол╕ не сп╕впадають. Введ╕ть знову."
+msgstr "Введен╕ Вами парол╕ не сп╕впадають. Введ╕ть знову."
 
 #: ../textw/userauth_text.py:72
 msgid "Edit User"
@@ -2001,11 +2003,11 @@ msgstr "Додати користувача"
 
 #: ../textw/userauth_text.py:80
 msgid "User ID"
-msgstr "Користувач:"
+msgstr "ID користувача:"
 
 #: ../textw/userauth_text.py:95
 msgid "Bad User ID"
-msgstr "Користувач:"
+msgstr "Некоректний ID користувача"
 
 #: ../textw/userauth_text.py:96
 msgid ""
@@ -2035,7 +2037,7 @@ msgstr "Користувач ╕сну╓"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"Користувач root звично вже сконф╕гурований. Вам не потр╕бно додавати цього "
+"Користувач root вже сконф╕гурований. Вам не потр╕бно додавати цього "
 "користувача тут."
 
 #: ../textw/userauth_text.py:134
@@ -2048,9 +2050,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
-"В╕користовуйте звичайного користувача при вход╕ в систему. Не використовуючи "
-"пост╕йно бюджет root, ви знижу╓те шанс пошкодження конф╕гурац╕╖ вашо╖ "
-"системи."
+"Використовуйте звичайного користувача для звичайно╖ роботи в систем╕. Не "
+"використовуючи пост╕йно бюджет root, Ви знижу╓те шанс пошкодження "
+"конф╕гурац╕╖ Вашо╖ системи."
 
 #: ../textw/userauth_text.py:174
 msgid ""
@@ -2058,17 +2060,17 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
-"Який бюджет користувача ви бажа╓те мати на ц╕й систем╕? Ви повинн╕ мати "
-"хочаб один не-root бюджет для звичайно╖ роботи, система для багатьох "
-"користувач╕в може  мати потр╕бну к╕льк╕сть бюджет╕в."
+"Який бюджет користувача Ви бажа╓те мати на ц╕й систем╕? Ви повинн╕ мати хоча "
+"б один не-root бюджет для звичайно╖ роботи, але система для багатьох "
+"користувач╕в може  мати будь-яку к╕льк╕сть бюджет╕в."
 
 #: ../textw/userauth_text.py:184
 msgid "User name"
-msgstr "╤м`я користувача"
+msgstr "╤м'я користувача"
 
 #: ../textw/userauth_text.py:208
 msgid "Enter the information for the user."
-msgstr "Введить информац╕ю про користувача."
+msgstr "Введ╕ть информац╕ю для користувача."
 
 #: ../textw/userauth_text.py:220
 msgid "Change the information for this user."
@@ -2076,7 +2078,7 @@ msgstr "Зм╕на информац╕╖ про користувача."
 
 #: ../textw/userauth_text.py:291
 msgid "Use Shadow Passwords"
-msgstr "Викоритовувати т╕ньов╕ парол╕"
+msgstr "Використовувати т╕ньов╕ парол╕"
 
 #: ../textw/userauth_text.py:293
 msgid "Enable MD5 Passwords"
@@ -2084,7 +2086,7 @@ msgstr "Дозволити парол╕ MD5"
 
 #: ../textw/userauth_text.py:304
 msgid "NIS Domain:"
-msgstr "Домен NIS"
+msgstr "Домен NIS:"
 
 #: ../textw/userauth_text.py:306
 msgid "NIS Server:"
@@ -2096,7 +2098,7 @@ msgstr "або :"
 
 #: ../textw/userauth_text.py:311
 msgid "Request server via broadcast"
-msgstr "Широкомовний запит серверу"
+msgstr "Запит сервера через трансляц╕ю"
 
 #: ../installclasses/custom.py:7
 msgid "Custom System"
@@ -2114,13 +2116,13 @@ msgstr "Вс╕ дан╕ буде втрачено при створен╕ створен╕ м╕сця для Linux."
 
 #: ../installclasses/workstation.py:7 ../libfdisk/gnomefsedit.c:2523
 msgid "Workstation"
-msgstr "Станц╕я для роботи"
+msgstr "Робоча станц╕я"
 
 #: ../installclasses/workstation.py:30
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-"Ви збира╓тесь стерти будь якi iснуючи iнсталяцii Red Hat на вашому "
+"Ви збира╓тесь стерти будь якi iснуючи iнсталяцii Red Hat на Вашому "
 "комп'ютерi."
 
 #: ../libfdisk/fsedit.c:450
@@ -2131,7 +2133,7 @@ msgstr "розпод╕л дискового простору не в╕дпов╕да╓ вимогам"
 #: ../libfdisk/fsedit.c:990 ../libfdisk/fsedit.c:1017
 #: ../libfdisk/fsedit.c:1030 ../libfdisk/fsedit.c:1040
 msgid "Bad Mount Point"
-msgstr "Нев╕рна адреса монтування"
+msgstr "Нев╕рна точка монтування"
 
 #: ../libfdisk/fsedit.c:968
 #, c-format
@@ -2145,9 +2147,9 @@ msgid ""
 "\n"
 "Mount points must begin with a leading /."
 msgstr ""
-"Помилкове м╕сце монтування %s.\n"
+"Некоректна точка монтування %s.\n"
 "\n"
-"М╕сце монтування ма╓ починатися з /."
+"Точка монтування ма╓ починатися з /."
 
 #: ../libfdisk/fsedit.c:982
 #, c-format
@@ -2156,9 +2158,9 @@ msgid ""
 "\n"
 "Mount points may not end with a /."
 msgstr ""
-"Помилкове м╕сце монтування %s.\n"
+"Некоректна точка монтування %s.\n"
 "\n"
-"М╕сце монтування не може завершуватись /."
+"Точка монтування не може зак╕нчуватись на /."
 
 #: ../libfdisk/fsedit.c:991
 #, c-format
@@ -2167,9 +2169,9 @@ msgid ""
 "\n"
 "Mount points may only printable characters."
 msgstr ""
-"Помилкове м╕сце монтування %s.\n"
+"Некоректна точка монтування %s.\n"
 "\n"
-"М╕сце монтування ма╓ м╕стити лише друкован╕ символи."
+"Точка монтування ма╓ м╕стити лише друкован╕ символи."
 
 #: ../libfdisk/fsedit.c:999
 msgid ""
@@ -2178,10 +2180,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Вами запрошено створити файлову систему root (/) у розд╕л╕ FAT. Ви можете це "
-"зробити, але п╕сля цього ви не зможете вткористовувати будь яку ╕ншу файлову "
-"систему, та на додаток швидк╕сть системи буде набагато меньша, н╕ж при "
-"використанн╕ р╕дних Linux розд╕л╕в. Продовжити?"
+"Ви хочете створити файлову систему root (/) у розд╕л╕ FAT. Ви можете це "
+"зробити, але п╕сля цього Ви не зможете використовувати будь-як╕ ╕нш╕ файлови "
+"системи, ╕ кр╕м того швидк╕сть системи буде менша, н╕ж при використанн╕ "
+"р╕дних Linux розд╕л╕в. Продовжити?"
 
 #: ../libfdisk/fsedit.c:1018
 #, c-format
@@ -2190,7 +2192,7 @@ msgid ""
 "\n"
 "System partitions must be on Linux Native partitions."
 msgstr ""
-"Помилкове м╕сце монтування %s.\n"
+"Некоректна точка монтування %s.\n"
 "\n"
 "Системн╕ розд╕ли повинн╕ мати тип Linux Native."
 
@@ -2208,7 +2210,7 @@ msgid ""
 "\n"
 "/usr must be on a Linux Native partition or an NFS volume."
 msgstr ""
-"Помилкове м╕сце монтування %s.\n"
+"Некоректна точка монтування %s.\n"
 "\n"
 "/usr ма╓ бути на розд╕л╕ типу Linux Native або NFS."
 
@@ -2222,8 +2224,8 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Диск╕в б╕льше, н╕ж передбача╓ програма. Використовуйте стандартний fdisk,щоб "
-"позначити розд╕ли, та ╕нформуйте Red Hat, що ви бачили цепов╕домлення."
+"Диск╕в б╕льше, н╕ж передбача╓ програма. Використовуйте стандартний fdisk, "
+"щоб розпод╕лити диски, та пов╕домте Red Hat, що Ви бачили це пов╕домлення."
 
 #: ../libfdisk/fsedit.c:1079
 msgid "Error Creating Device Nodes"
@@ -2266,15 +2268,15 @@ msgid ""
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
 "Таблицю розд╕л╕в на пристро╖ %s пошкоджено. Для створення нових розд╕л╕в "
-"пристр╕й треба ╕н╕ц╕ювати. УС╤ ДАН╤ на цьому пристро╖ буде втрачено╕."
+"пристр╕й треба ╕н╕ц╕ювати. УС╤ ДАН╤ на цьому пристро╖ буде втрачено."
 
 #: ../libfdisk/fsedit.c:1472
 msgid "Bad Partition Table"
-msgstr "Помилкова таблиця розд╕л╕в"
+msgstr "Некоректна таблиця п╕дрозд╕л╕в"
 
 #: ../libfdisk/fsedit.c:1473
 msgid "Initialize"
-msgstr "╤н╕цювання"
+msgstr "╤н╕ц╕ювання"
 
 #: ../libfdisk/fsedit.c:1473 ../libfdisk/fsedit.c:1494
 msgid "Skip Drive"
@@ -2286,7 +2288,7 @@ msgstr "Повторити"
 
 #: ../libfdisk/fsedit.c:1506
 msgid "BSD Disklabel"
-msgstr "Позначка диску BSD"
+msgstr "Етикетка диску типу BSD"
 
 #: ../libfdisk/fsedit.c:1506
 msgid ""
@@ -2295,9 +2297,9 @@ msgid ""
 "and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
 msgstr ""
 "Знайдено диск з позначкою BSD. Програма встановлення Red Hat п╕дтриму╓ так╕ "
-"диски в режим╕ `лише читання', але ви можете обрати особливий тип "
-"встановлення та використати утил╕ту fdisk (зам╕сть Disk Druid) "
-"длякомп'ютер╕в з дисковою позначкою BSD."
+"диски в режим╕ `лише читання', але Ви можете обрати особливий тип "
+"встановлення та використати утил╕ту fdisk (зам╕сть Disk Druid) для "
+"комп'ютер╕в з дисковою етикеткою BSD."
 
 #: ../libfdisk/fsedit.c:1536
 #, c-format
@@ -2346,11 +2348,11 @@ msgstr "Редагувати розд╕л"
 #: ../libfdisk/gnomefsedit.c:823 ../libfdisk/gnomefsedit.c:1895
 #: ../libfdisk/newtfsedit.c:389
 msgid "Mount Point:"
-msgstr "Точка монтування"
+msgstr "Точка монтування:"
 
 #: ../libfdisk/gnomefsedit.c:865 ../libfdisk/newtfsedit.c:408
 msgid "Size (Megs):"
-msgstr "Обсяг (Megs):"
+msgstr "Розм╕р (Megs):"
 
 #: ../libfdisk/gnomefsedit.c:897
 msgid "Use remaining space?"
@@ -2358,7 +2360,7 @@ msgstr "Використати м╕сце, що лишилося?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
-msgstr "Статус розпод╕лу:"
+msgstr "Стан розпод╕лу:"
 
 #: ../libfdisk/gnomefsedit.c:920 ../libfdisk/newtfsedit.c:442
 msgid "Successful"
@@ -2383,21 +2385,21 @@ msgstr "Доступн╕ пристро╖:"
 #: ../libfdisk/gnomefsedit.c:1135 ../libfdisk/gnomefsedit.c:2123
 #: ../libfdisk/newtfsedit.c:610
 msgid "No Mount Point"
-msgstr "Немае м╕сця монтування"
+msgstr "Нема╓ точки монтування"
 
 #: ../libfdisk/gnomefsedit.c:1136 ../libfdisk/newtfsedit.c:611
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"Ви не обрали м╕сце монтування для цього розд╕лу. Залишити цей розд╕л без "
-"м╕сця монтування?"
+"Ви не визначили точку монтування для цього розд╕лу. Ви певн╕, що саме це Ви "
+"хочете робити?"
 
 #: ../libfdisk/gnomefsedit.c:1160 ../libfdisk/gnomefsedit.c:1197
 #: ../libfdisk/gnomefsedit.c:2131 ../libfdisk/newtfsedit.c:634
 #: ../libfdisk/newtfsedit.c:667
 msgid "Mount Point Error"
-msgstr "Помилка щодо м╕сця монтування"
+msgstr "Помилка точки монтування"
 
 #: ../libfdisk/gnomefsedit.c:1161 ../libfdisk/newtfsedit.c:635
 msgid ""
@@ -2416,8 +2418,8 @@ msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
-"Або м╕сце монтування ма╓ помилковий шлях, або його вже використано. Вкаж╕ть "
-"м╕сце монтування правильно."
+"Або точка монтування ма╓ некоректний шлях, або його вже використано. Вкаж╕ть "
+"точку монтування коректно."
 
 #: ../libfdisk/gnomefsedit.c:1231 ../libfdisk/newtfsedit.c:693
 msgid "Size Error"
@@ -2428,13 +2430,13 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
-"Розм╕р вказано нев╕рно. В╕н ма╓ бути б╕льшим за нуль. Вкаж╕ть його у "
-"десятковому формат╕."
+"Розм╕р вказано некоректно. В╕н ма╓ бути б╕льшим за нуль. Використовуйте "
+"десяткову систему счислення для вказання розм╕ру."
 
 #: ../libfdisk/gnomefsedit.c:1250 ../libfdisk/gnomefsedit.c:2264
 #: ../libfdisk/newtfsedit.c:712
 msgid "Swap Size Error"
-msgstr "Помилка щодо розм╕ру своп╕нга"
+msgstr "Помилка розм╕ру своп╕нга"
 
 #: ../libfdisk/gnomefsedit.c:1251 ../libfdisk/gnomefsedit.c:2265
 #: ../libfdisk/newtfsedit.c:713
@@ -2443,8 +2445,8 @@ msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
-"Створений вами розд╕л своп╕нгу завеликий. Розд╕л свопинга ма╓ не "
-"перевищувати %d мегабайт."
+"Створений вами розд╕л своп╕нгу завеликий. Розд╕л своп╕нгу не ма╓ "
+"перевищувати %ld мегабайт."
 
 #: ../libfdisk/gnomefsedit.c:1265
 msgid "No Drives Specified"
@@ -2460,7 +2462,7 @@ msgstr "Ви ма╓те обмежити цей п╕дрозд╕л до одного пристрою диску."
 
 #: ../libfdisk/gnomefsedit.c:1275 ../libfdisk/gnomefsedit.c:1282
 msgid "No RAID Drive Constraint"
-msgstr "Не встановлено тип RAID "
+msgstr "Не обмежений пристр╕й RAID "
 
 #: ../libfdisk/gnomefsedit.c:1277
 msgid ""
@@ -2468,7 +2470,7 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Ви сконф╕гурували розд╕л RAID без прив'язки цого до одногопристрою. \n"
+"Ви сконф╕гурували розд╕л RAID без прив'язки його до одного пристрою. \n"
 "Ви впевненi?"
 
 #: ../libfdisk/gnomefsedit.c:1284
@@ -2488,14 +2490,14 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, отже Ви не "
+"Ви визначили файлову систему '/' на п╕дрозд╕л╕ типу не ext2, тому Ви не "
 "можете додати ╕нш╕ п╕дрозд╕ли."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1479
 msgid "RAID Entry Incomplete"
-msgstr "Не заповнено опис RAID"
+msgstr "Незавершений запис RAID"
 
 #: ../libfdisk/gnomefsedit.c:1480
 #, c-format
@@ -2504,8 +2506,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
-"Пристр╕й raid  /dev/%s зараз ма╓ нерозм╕щен╕ розд╕ли. Пристр╕й raid  /dev/%s "
-"буде розбито на к╕лька розд╕л╕в. Будь ласка перерозд╕л╕ть raid ."
+"Пристр╕й raid  /dev/%s зараз ма╓  розд╕ли, як╕ н╕чому не належать. Пристр╕й "
+"raid  /dev/%s буде розбито на його складов╕ компоненти. Будь-ласка, створ╕ть "
+"raid з новими п╕дрозд╕лами."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1579 ../libfdisk/gnomefsedit.c:1598
@@ -2553,14 +2556,14 @@ msgstr "Розд╕ли для RAID массиву:"
 
 #: ../libfdisk/gnomefsedit.c:2124
 msgid "You have not selected a mount point. A mount point is required."
-msgstr "Ви не обрали м╕сце монтування . Потр╕бне м╕сце монтування."
+msgstr "Ви не обрали точку монтування . Точка монтування ╓ обов'язковою."
 
 #: ../libfdisk/gnomefsedit.c:2132
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
-"Або точка монтування вже використана. Вкаж╕ть м╕сце монтування правильно."
+"Ця точка монтування вже використову╓ться. Вкаж╕ть м╕сце монтування правильно."
 
 #: ../libfdisk/gnomefsedit.c:2168
 msgid ""
@@ -2576,48 +2579,52 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:2175
 msgid "Booting From RAID Warning"
-msgstr "Попередження "
+msgstr "Попередження при завантаженн╕ з RAID "
 
 #: ../libfdisk/gnomefsedit.c:2185
 msgid "No RAID Device"
-msgstr "Не RAID пристр╕й"
+msgstr "RAID пристр╕й  в╕дсутн╕й"
 
 #: ../libfdisk/gnomefsedit.c:2186
 msgid "You need to selected a RAID device."
-msgstr "Вибер╕ть RAID пристр╕й."
+msgstr "Вам потр╕бно вибрати RAID пристр╕й."
 
 #: ../libfdisk/gnomefsedit.c:2192
 msgid "Used Raid Device"
-msgstr "Використати RAID пристр╕й"
+msgstr "RAID пристр╕й, який використову╓ться"
 
 #: ../libfdisk/gnomefsedit.c:2193
 #, c-format
 msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
-msgstr "Пристр╕й raid  \"/dev/%s\" вже встановлено. Будь ласка обер╕ть ╕нший."
+msgstr ""
+"Пристр╕й raid  \"/dev/%s\" вже сконф╕гуровано як RAID. Будь ласка обер╕ть "
+"╕нший."
 
 #: ../libfdisk/gnomefsedit.c:2206
 msgid "Not Enough Partitions"
-msgstr "Нема╓ розд╕л╕в"
+msgstr "Не вистача╓ п╕дрозд╕л╕в"
 
 #: ../libfdisk/gnomefsedit.c:2208
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
-msgstr "Обраний розд╕л неможливо сконф╕гурувати як тип RAID."
+msgstr ""
+"Ви не сконф╕гурували достатню к╕льк╕сть п╕дрозд╕л╕в для того типу  RAID, "
+"який ви вибрали."
 
 #: ../libfdisk/gnomefsedit.c:2215
 msgid "Illegal /boot RAID Type"
-msgstr "Неможливий тип завантажувального RAID"
+msgstr "Некоректний тип RAID для /boot"
 
 #: ../libfdisk/gnomefsedit.c:2217
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr "Т╕льки RAID-1 може бути завантижувальним."
+msgstr "П╕дрозд╕ли для завантажування (/boot) мобуть бути т╕льки типу RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2224
 msgid "Illegal RAID mountpoint"
-msgstr "Неможливе м╕сце монтування RAID"
+msgstr "Некоретна точка монтування RAID"
 
 #: ../libfdisk/gnomefsedit.c:2226
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
@@ -2630,13 +2637,13 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
-"Розд╕л %s це визначен╕й наперед розд╕л з таблиц╕ розд╕л╕в для цього пристрою "
-"RAID. М╕сце монтування встановлено у /boot. Ви впевнен╕, що можливе "
-"завантаження з цього розд╕лу?"
+"Розд╕л %s це один з ╕снуючих п╕дрозд╕л╕в в таблиц╕ п╕дрозд╕л╕в, призначених "
+"для цього пристрою RAID. Точка монтування визначена як /boot. Ви впевнен╕, "
+"що зможете завантажитися з цього п╕дрозд╕лу?"
 
 #: ../libfdisk/gnomefsedit.c:2316
 msgid "Use Pre-existing Partition?"
-msgstr "Використати розд╕л?"
+msgstr "Використати вже ╕снуючи п╕дрозд╕л?"
 
 #: ../libfdisk/gnomefsedit.c:2393
 msgid "Cannot Add RAID Devices"
@@ -2647,7 +2654,7 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
-"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, отже Ви не "
+"Ви визначили файлову систему '/' на п╕дрозд╕л╕ не типу ext2, тому Ви не "
 "можете додавати пристро╖ типу RAID."
 
 #: ../libfdisk/gnomefsedit.c:2435
@@ -2664,7 +2671,7 @@ msgstr "Видалити розд╕л Linux"
 
 #: ../libfdisk/gnomefsedit.c:2472
 msgid "Use existing free space"
-msgstr "Використати наявне м╕сце"
+msgstr "Використати ╕снуючий в╕льний прост╕р"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2484
@@ -2677,19 +2684,19 @@ msgstr "Сервер"
 
 #: ../libfdisk/gnomefsedit.c:2599
 msgid "Delete RAID Device?"
-msgstr "Видалати RAID ?"
+msgstr "Видалати пристр╕й RAID ?"
 
 #: ../libfdisk/gnomefsedit.c:2600
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Ви хочете видалити цей пристр╕й RAID?"
+msgstr "Ви д╕йсно хочете видалити цей пристр╕й RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2651 ../libfdisk/newtfsedit.c:1741
 msgid "Reset Partition Table"
-msgstr "Оновити таблицю розд╕л╕в"
+msgstr "Стерти таблицю п╕дрозд╕л╕в"
 
 #: ../libfdisk/gnomefsedit.c:2653 ../libfdisk/newtfsedit.c:1743
 msgid "Reset partition table to original contents? "
-msgstr "Повернути початковий стан таблиц╕ разд╕л╕в?"
+msgstr "Повернути початковий стан таблиц╕ п╕дрозд╕л╕в?"
 
 #: ../libfdisk/gnomefsedit.c:2689 ../libfdisk/gnomefsedit.c:2740
 msgid "<Swap>"
@@ -2717,7 +2724,7 @@ msgstr "Диск"
 
 #: ../libfdisk/gnomefsedit.c:3151
 msgid "Geom [C/H/S]"
-msgstr "Геометр╕я"
+msgstr "Геометр╕я [Ц/Г/С]"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Total (M)"
@@ -2737,15 +2744,15 @@ msgstr "Використано (%)"
 
 #: ../libfdisk/gnomefsedit.c:3391
 msgid "Unallocated Partitions Exist..."
-msgstr "╢ нерозм╕ш╓нн╕ розд╕ли..."
+msgstr "╢ невизначен╕ п╕дрозд╕ли..."
 
 #: ../libfdisk/gnomefsedit.c:3397 ../libfdisk/gnomefsedit.c:3411
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Щоб встановлення тривало, призначте кореневому (/) розд╕лу тип Linux Native "
-"(ext2) або RAID розд╕л."
+"Щоб установка продовжувалась, призначте кореневому (/) розд╕лу тип Linux "
+"Native (ext2) або RAID розд╕л."
 
 #: ../libfdisk/gnomefsedit.c:3482
 msgid "Partitions"
@@ -2753,24 +2760,24 @@ msgstr "Розд╕ли"
 
 #: ../libfdisk/gnomefsedit.c:3512
 msgid "_Add..."
-msgstr "Додати"
+msgstr "_Додати"
 
 #: ../libfdisk/gnomefsedit.c:3519
 msgid "_Edit..."
-msgstr "Редагувати"
+msgstr "_Редагувати..."
 
 #: ../libfdisk/gnomefsedit.c:3520
 msgid "_Reset"
-msgstr "Сброс"
+msgstr "_В╕дм╕нити"
 
 #: ../libfdisk/gnomefsedit.c:3525
 msgid "_Delete"
-msgstr "Видалити"
+msgstr "_Видалити"
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3538
 msgid "_Make RAID Device"
-msgstr "Створити RAID пристр╕й"
+msgstr "_Створити RAID пристр╕й"
 
 #: ../libfdisk/gnomefsedit.c:3548
 msgid "Auto Partition"
@@ -2806,7 +2813,7 @@ msgstr "Нев╕домий"
 
 #: ../libfdisk/newtfsedit.c:1422
 msgid "Current Disk Partitions"
-msgstr "Наявн╕ розд╕ли диску"
+msgstr "╤снуюч╕ п╕дрозд╕ли на диску"
 
 #: ../libfdisk/newtfsedit.c:1452
 msgid ""
@@ -2816,7 +2823,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
-msgstr "Статистика диску"
+msgstr "Статистика диск╕в"
 
 #: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
@@ -2831,8 +2838,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Щоб встановлення тривало, призначте кореневому (/) розд╕лу тип Linux Native "
-"(ext2)."
+"Щоб установка продовжувалась, призначте кореневому (/) розд╕лу тип Linux "
+"Native (ext2)."
 
 #: ../libfdisk/newtfsedit.c:1591
 msgid "No Swap Partition"
@@ -2859,8 +2866,8 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Залишились нерозпод╕лен╕ розд╕ли. Якщо ви покинете програму, ╖х не "
-"будезаписано на диск.\n"
+"Залишились нерозпод╕лен╕ розд╕ли. Якщо Ви вийдете з програми, ╖х не буде "
+"записано на диск.\n"
 "\n"
 "Ви таки хочете вийти з програми?"
 
@@ -2874,7 +2881,7 @@ msgstr "Зберегти зм╕ни таблиць разд╕л╕в?"
 
 #: ../libfdisk/newtfsedit.c:1702
 msgid "You may only delete NFS mounts."
-msgstr "Прибрати можна лише NFS mounts."
+msgstr "Прибрати можна лише точки монтування NFS."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
@@ -2886,7 +2893,7 @@ msgstr "Тип CD-ROM"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Який у вас тип CDROM?"
+msgstr "Який у Вас тип CDROM?"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
@@ -2902,8 +2909,9 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
-"Цей модуль ма╓ отримати деяк╕ параметри. Якщо ви не зна╓те як╕ параметри "
-"п╕дтримуються, пропуст╕ть цей екран нажавши кнопку \"OK\" унизу."
+"Цей модуль може сприймати деяк╕ параметри, як╕ керують його роботою. Якщо Ви "
+"не зна╓те, як╕ параметри п╕дтримуються, пропуст╕ть цей екран натиснувши "
+"\"Гаразд\"."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -2920,29 +2928,31 @@ msgstr "Ви ма╓те диск з драйвером?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Вставте ваш диск та натисн╕ть \"OK\" для продовження."
+msgstr "Вставте диск ╕з драйвером та натисн╕ть \"Гаразд\" щоб продовжити."
 
 #: ../loader/devices.c:237
 msgid "Failed to mount driver disk."
-msgstr "Не виконано монтування диску з драйвером."
+msgstr "Не можу змонтувати диск з драйвером."
 
 #: ../loader/devices.c:244
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
-msgstr "Диск що ви вставили не може бути використано для Red Hat Linux."
+msgstr ""
+"Диск що Ви вставили не ╓ коректним диском драйвера для дано╖ верс╕╖ Red Hat "
+"Linux."
 
 #: ../loader/devices.c:304
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
-"Який драйвер спробу╓мо?. Якщо драйвер не з'явився у перел╕ку, потр╕бен "
-"окремий диск з драйвером, будь ласка натисн╕ть F2."
+"Який драйвер спробу╓мо?. Якщо потр╕бний драйвер не з'явився у перел╕ку, ╕ Ви "
+"ма╓те ╕нший диск з драйвером, будь-ласка, натисн╕ть F2."
 
 #: ../loader/devices.c:313
 msgid "Specify module parameters"
-msgstr "Спецеф╕чн╕ параметри модуля"
+msgstr "Визначте параметри модуля"
 
 #: ../loader/devices.c:410
 #, c-format
@@ -2979,7 +2989,7 @@ msgstr "Помилка в╕дкриття файлу: файл kickstart %s: %s"
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr "Помилка читання вм╕сту файлу kickstart %s: %s"
+msgstr "Помилка читання зм╕сту файлу kickstart %s: %s"
 
 #: ../loader/kickstart.c:108
 #, c-format
@@ -2988,7 +2998,7 @@ msgstr "Помилка в рядку  %d файлу kickstart %s."
 
 #: ../loader/lang.c:287
 msgid "Choose a Language"
-msgstr "Обер╕ть групу щоб перев╕рити"
+msgstr "Вибер╕ть мову"
 
 #: ../loader/lang.c:336 ../loader/loader.c:146
 msgid "Welcome to Red Hat Linux"
@@ -3005,15 +3015,15 @@ msgstr "Тип клав╕атури"
 
 #: ../loader/lang.c:576
 msgid "What type of keyboard do you have?"
-msgstr "Який тип клав╕атури ви ма╓те?"
+msgstr "Який тип клав╕атури Ви ма╓те?"
 
 #: ../loader/loader.c:121
 msgid "Local CDROM"
-msgstr "Наявний CDROM"
+msgstr "Пристр╕й компакт-диску на даному комп'ютер╕"
 
 #: ../loader/loader.c:124
 msgid "NFS image"
-msgstr "NFS image"
+msgstr "Образ на NFS"
 
 #: ../loader/loader.c:129
 msgid "Hard drive"
@@ -3025,11 +3035,11 @@ msgstr "SCSI"
 
 #: ../loader/loader.c:276
 msgid "What kind of device would you like to add"
-msgstr "Пристр╕й якого типу ви бажа╓те встановити"
+msgstr "Пристр╕й якого типу Ви бажа╓те додати"
 
 #: ../loader/loader.c:325
 msgid "I have found the following devices in your system:"
-msgstr "У ваш╕й систем╕ виявлено так╕ пристро╖:"
+msgstr "У Ваш╕й систем╕ виявлено так╕ пристро╖:"
 
 #: ../loader/loader.c:327 ../loader/loader.c:352
 msgid "Add Device"
@@ -3040,8 +3050,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
-"Не було завантажено особливого драйвери пристрою для ц╕╓╖ системи. Чи "
-"бажа╓те завантажити зараз?"
+"Не було завантажено жодного спец╕ального драйвера пристро╖в для ц╕╓╖ "
+"системи. Чи бажа╓те завантажити драйвери зараз?"
 
 #: ../loader/loader.c:439 ../loader/loader.c:441
 msgid "Loading"
@@ -3089,26 +3099,26 @@ msgstr "Обер╕ть розд╕л"
 #: ../loader/loader.c:753
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Пристр╕й %s не м╕стить дерево встановлення Red Hat"
+msgstr "Пристр╕й %s не ма╓ дерева встановлення Red Hat"
 
 #: ../loader/loader.c:853
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Не знайдено Red Hat Linux CDROM у жодному пристро╖ CDROM. Будь ласка вставте "
-"Red Hat CD та нажм╕ть \"OK\" до повтору."
+"Не знайдено компакт-диску Red Hat Linux  у жодному привод╕ компакт-диск╕в. "
+"Будь-ласка, вставте Red Hat CD та нажм╕ть \"Гаразд\" щоб спробувати ще раз."
 
 #: ../loader/loader.c:940
 msgid "Networking Device"
-msgstr "Мережевий пристр╕й"
+msgstr "Пристр╕й мереж╕"
 
 #: ../loader/loader.c:941
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
 msgstr ""
-"В ц╕й систем╕ б╕льше одного мережевого пристрою. Який ви хочете встановити?"
+"В ц╕й систем╕ б╕льше одного пристрою мереж╕. Який Ви хочете встановити?"
 
 #: ../loader/loader.c:1023
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -3116,7 +3126,7 @@ msgstr "Цей каталог не м╕стить дерево встановлення Red Hat"
 
 #: ../loader/loader.c:1028
 msgid "I could not mount that directory from the server"
-msgstr "неможливо змонтувати цей каталог з сервера"
+msgstr "Не можу змонтувати цей каталог з сервера"
 
 #: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "FTP"
@@ -3136,7 +3146,7 @@ msgstr "Не вдалося отримати другий образ ╕сталяц╕╖"
 
 #: ../loader/loader.c:1322
 msgid "Rescue Method"
-msgstr "Метод допомоги"
+msgstr "Метод спас╕ння"
 
 #: ../loader/loader.c:1323
 msgid "Installation Method"
@@ -3148,7 +3158,7 @@ msgstr "Пристр╕й якого типу м╕стить рят╕вний образ?"
 
 #: ../loader/loader.c:1327
 msgid "What type of media contains the packages to be installed?"
-msgstr "Нос╕й якого типу м╕стить пакети до встановлення?"
+msgstr "Нос╕й якого типу м╕стить пакети для установки?"
 
 #: ../loader/loader.c:1961
 msgid "Cannot find ks.cfg on boot floppy."
@@ -3157,15 +3167,15 @@ msgstr "Не можу знайти ks.cfg на дискет╕ завантаження."
 #: ../loader/loader.c:2007
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "неможливо прочитати каталог %s: %s"
+msgstr "Не можу прочитати каталог %s: %s"
 
 #: ../loader/loader.c:2069
 msgid "Updates Disk"
-msgstr "Диск оновлення"
+msgstr "Диск поновлення"
 
 #: ../loader/loader.c:2070
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr "Вставте ваш диск оновлення та натисн╕ть \"OK\" для продовження."
+msgstr "Вставте ваш диск поновлення та натисн╕ть \"Гаразд\" для продовження."
 
 #: ../loader/loader.c:2078
 msgid "Failed to mount floppy disk."
@@ -3192,7 +3202,7 @@ msgstr "╤н╕ц╕ювання пристрою PC Card..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
-msgstr "Назву сервера NFS:"
+msgstr "Назва сервера NFS:"
 
 #: ../loader/net.c:152 ../loader/urls.c:185
 msgid "Red Hat directory:"
@@ -3200,7 +3210,7 @@ msgstr "Каталог Red Hat:"
 
 #: ../loader/net.c:158
 msgid "NFS Setup"
-msgstr "Встановлення NFS"
+msgstr "Конф╕гурац╕я NFS"
 
 #: ../loader/net.c:159
 msgid ""
@@ -3214,15 +3224,15 @@ msgstr ""
 "\n"
 "    o назву або IP-адресу вашого сервера NFS\n"
 "    o каталог на цьому сервер╕, де м╕ститься\n"
-"      Red Hat Linux для вашо╖ арх╕тектури"
+"      Red Hat Linux для Вашо╖ арх╕тектури"
 
 #: ../loader/net.c:239
 msgid "Nameserver IP"
-msgstr "IP сервера ╕мен"
+msgstr "IP DNS сервера "
 
 #: ../loader/net.c:243 ../loader/net.c:725
 msgid "Nameserver"
-msgstr "Сервер ╕мен"
+msgstr "DNS сервер"
 
 #: ../loader/net.c:244
 msgid ""
@@ -3249,8 +3259,8 @@ msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Введ╕ть конф╕гурац╕ю протоколу IP для ц╕╓╖ машини. Кожен елементтреба "
-"вводити як IP-адресу в десяткових числах з крапками (наприклад,1.2.3.4)"
+"Введ╕ть конф╕гурац╕ю протоколу IP для ц╕╓╖ машини. Кожен елемент треба "
+"вводити як IP-адресу в десяткових числах з крапками (наприклад, 1.2.3.4)"
 
 #: ../loader/net.c:320
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -3278,7 +3288,7 @@ msgstr "Посилка запиту про параметри IP..."
 
 #: ../loader/net.c:532
 msgid "Determining host name and domain..."
-msgstr "Визначення назви комп'ютера та домену"
+msgstr "Визначення назви комп'ютера та домену..."
 
 #: ../loader/net.c:643 ../loader/net.c:676
 msgid "kickstart"
@@ -3287,12 +3297,12 @@ msgstr "kickstart"
 #: ../loader/net.c:644
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
-msgstr "помилковий аргумент для мережево╖ команди kickstart %s: %s"
+msgstr "нев╕рний аргумент для команди мереж╕ kickstart %s: %s"
 
 #: ../loader/net.c:677
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "нев╕рний bootproto %s в мережев╕й команд╕"
+msgstr "Нев╕рний bootproto %s в команд╕ мереж╕"
 
 #: ../loader/net.c:719
 msgid "Boot protocol to use"
@@ -3300,7 +3310,7 @@ msgstr "Вживати протокол завантаження"
 
 #: ../loader/net.c:721
 msgid "Network gateway"
-msgstr "Мережевий шлюз"
+msgstr "Шлюз мереж╕"
 
 #: ../loader/net.c:723
 msgid "IP address"
@@ -3332,17 +3342,17 @@ msgstr "Конф╕гурац╕я мереж╕"
 
 #: ../loader/net.c:811
 msgid "Would you like to set up networking?"
-msgstr "Бажа╓те настро╖ти мережеву?"
+msgstr "Бажа╓те настро╖ти мережу?"
 
 #: ../loader/urls.c:73
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "неможливо створити log у %s: %s"
+msgstr "Неможливо створити журнал у %s: %s"
 
 #: ../loader/urls.c:82 ../loader/urls.c:89
 #, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "неможливо отримати %s: %s"
+msgstr "Неможливо отримати %s: %s"
 
 #: ../loader/urls.c:94
 msgid "Retrieving"
@@ -3360,7 +3370,7 @@ msgstr ""
 "\n"
 "    o назва чи IP-адреса вашого FTP сервера\n"
 "    o каталог на цьому сервер╕, що м╕стить\n"
-"      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
+"      дистрибутив Red Hat для Вашо╖ арх╕тектури\n"
 
 #: ../loader/urls.c:163
 msgid ""
@@ -3374,7 +3384,7 @@ msgstr ""
 "\n"
 "    o назва або адреса IP вашого Web-сервера\n"
 "    o каталог на цьому сервер╕, що м╕стить\n"
-"      дистрибутив Red Hat для вашо╖ арх╕тектури\n"
+"      дистрибутив Red Hat для Вашо╖ арх╕тектури\n"
 
 #: ../loader/urls.c:181
 msgid "FTP site name:"
@@ -3390,15 +3400,15 @@ msgstr "Використовувати авторизований ftp або прокс╕-сервер"
 
 #: ../loader/urls.c:205
 msgid "Use proxy server"
-msgstr "Використати proxy сервер"
+msgstr "Використати прокс╕-сервер"
 
 #: ../loader/urls.c:217
 msgid "FTP Setup"
-msgstr "Налагодження FTP"
+msgstr "Конф╕гурац╕я FTP"
 
 #: ../loader/urls.c:218
 msgid "HTTP Setup"
-msgstr "Налагодження HTTP"
+msgstr "Конф╕гурац╕я HTTP"
 
 #: ../loader/urls.c:228
 msgid "You must enter a server name."
@@ -3415,7 +3425,7 @@ msgstr "Нев╕домий хост"
 #: ../loader/urls.c:239
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr "%s не ╓ ╕менем хосту"
+msgstr "%s не ╓ коректним ╕менем хосту"
 
 #: ../loader/urls.c:310
 msgid ""
@@ -3423,8 +3433,8 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
-"Якщо ви використову╓те авторизований доступ до ftp, введ╕ть ╕м'я користувача "
-"та пароль. Якщо ви використовуете прокс╕-сервер для доступу до FTP - введ╕ть "
+"Якщо Ви використову╓те авторизований доступ до ftp, введ╕ть ╕м'я користувача "
+"та пароль. Якщо Ви використовуете прокс╕-сервер для доступу до FTP - введ╕ть "
 "назву сервера."
 
 #: ../loader/urls.c:316
@@ -3432,12 +3442,12 @@ msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
-"Якщо ви використовуете HTTP прокс╕-сервер для доступу до HTTP - введ╕ть "
-"назвусервера."
+"Якщо Ви використовуете HTTP прокс╕-сервер для доступу до HTTP - введ╕ть "
+"назву сервера."
 
 #: ../loader/urls.c:337
 msgid "Account name:"
-msgstr "╤м`я користувача:"
+msgstr "╤м'я користувача:"
 
 #: ../loader/urls.c:346
 msgid "FTP Proxy:"
@@ -3548,10 +3558,10 @@ msgid "Multimedia Support"
 msgstr "П╕дтримка мультимед╕а"
 
 msgid "Laptop Support"
-msgstr "П╕дтримка для переносних комп'ютер╕в (laptop)"
+msgstr "Моб╕льний комп'ютер"
 
 msgid "Networked Workstation"
-msgstr "Мережева станц╕я"
+msgstr "Робоча станц╕я в мереж╕"
 
 msgid "Dialup Workstation"
 msgstr "Комутована станц╕я"
@@ -3566,7 +3576,7 @@ msgid "SMB (Samba) Server"
 msgstr "Сервер SMB (Samba)"
 
 msgid "IPX/Netware(tm) Connectivity"
-msgstr "З'╓днання в мереж╕ IPX/Netware(tm)"
+msgstr "З'╓днання з IPX/Netware(tm)"
 
 msgid "Anonymous FTP Server"
 msgstr "Анон╕мний сервер FTP"
@@ -3577,9 +3587,8 @@ msgstr "Сервер WWW"
 msgid "DNS Name Server"
 msgstr "Сервер DNS"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "SQL Server"
+msgstr "Postgres (SQL) Server"
 
 msgid "Network Management Workstation"
 msgstr "Станц╕я керування мережею"
