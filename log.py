@@ -8,12 +8,12 @@ class LogFile:
         self.logFile.close ()
     
     def open (self, serial, reconfigOnly, test, setupFilesystems):
-        if not setupFilesystems:
+	if reconfigOnly:
+	    self.logFile = open("/tmp/reconfig.log", "w")
+        elif not setupFilesystems:
             self.logFile = sys.stderr
         elif serial:
 	    self.logFile = open("/tmp/install.log", "w")
-	elif reconfigOnly:
-	    self.logFile = open("/tmp/reconfig.log", "w")
 	elif test:
 	    self.logFile = open("/tmp/anaconda-debug.log", "w")
 	else:
