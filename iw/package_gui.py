@@ -355,9 +355,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         # FIXME should these stay or go?
         # tree/flat radio buttons... 
         optionHBox = gtk.HBox()
-        self.treeRadio = gtk.RadioButton(None, (_("Tree View")))
+        self.treeRadio = gtk.RadioButton(None, (_("_Tree View")))
         self.treeRadio.connect("clicked", self.changePkgView)
-        self.flatRadio = gtk.RadioButton(self.treeRadio, (_("Flat View")))
+        self.flatRadio = gtk.RadioButton(self.treeRadio, (_("_Flat View")))
         optionHBox.pack_start(self.treeRadio)
         optionHBox.pack_start(self.flatRadio)
         self.leftVBox.pack_start(optionHBox, gtk.FALSE)
@@ -372,9 +372,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.set_enable_search(gtk.TRUE)
 
         self.sortType = "Package"
-        self.packageList.set_column_title (1, (_("Package")))
+        self.packageList.set_column_title (1, (_("_Package")))
         self.packageList.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-        self.packageList.set_column_title (2, (_("Size (MB)")))
+        self.packageList.set_column_title (2, (_("_Size (MB)")))
         self.packageList.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.packageList.set_headers_visible(gtk.TRUE)
 
@@ -428,11 +428,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.totalSizeLabel = gtk.Label (_("Total size: "))
         hbox.pack_start (self.totalSizeLabel, gtk.FALSE, gtk.FALSE, 0)
 
-        self.selectAllButton = gtk.Button (_("Select all in group"))
+        self.selectAllButton = gtk.Button (_("Select _all in group"))
         bb.pack_start (self.selectAllButton, gtk.FALSE)
         self.selectAllButton.connect ('clicked', self.select_all, 1)
 
-        self.unselectAllButton = gtk.Button(_("Unselect all in group"))
+        self.unselectAllButton = gtk.Button(_("_Unselect all in group"))
         bb.pack_start(self.unselectAllButton, gtk.FALSE)
         self.unselectAllButton.connect ('clicked', self.select_all, 0)
         
@@ -581,7 +581,7 @@ class PackageSelectionWindow (InstallWindow):
         hbox = gtk.HBox (gtk.FALSE, 5)
 
         self.individualPackages = gtk.CheckButton (
-		_("Select individual packages"))
+		_("_Select individual packages"))
         self.individualPackages.set_active (
 		not dispatch.stepInSkipList("indivpackage"))
         hbox.pack_start (self.individualPackages, gtk.FALSE)
