@@ -731,6 +731,9 @@ def doInstall(method, id, intf, instPath):
         ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
         ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
 
+        # we don't want to try to remove things more than once (#84221)
+        id.upgradeRemove = []
+
     i = 0
     for p in l:
 	ts.addInstall(p.h, p.h, how)
