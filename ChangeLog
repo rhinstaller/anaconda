@@ -1,5 +1,10 @@
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* fsset.py (FileSystemSet.reset): Mount pseudo-filesystems with a
+	device name other than "none" for clarity (#136820)
+	(Device.__init__): Allow specification of device for generic devices.
+	(readFstab): Handle the above changes when reading in fstabs
+
 	* scripts/splittree.py: Allow not creating SRPM CDs by passing
 	--src-discs=0.  Based on a patch from Armijn Hemel (#119070)
 

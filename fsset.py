@@ -996,14 +996,17 @@ class FileSystemSet:
 
     def reset (self):
         self.entries = []
-        proc = FileSystemSetEntry(Device(), '/proc', fileSystemTypeGet("proc"))
+        proc = FileSystemSetEntry(Device(device="proc"), '/proc',
+                                  fileSystemTypeGet("proc"))
         self.add(proc)
-        sys = FileSystemSetEntry(Device(), '/sys', fileSystemTypeGet("sysfs"))
+        sys = FileSystemSetEntry(Device(device="sys"), '/sys',
+                                 fileSystemTypeGet("sysfs"))
         self.add(sys)
-        pts = FileSystemSetEntry(Device(), '/dev/pts',
+        pts = FileSystemSetEntry(Device(device="devpts"), '/dev/pts',
                                  fileSystemTypeGet("devpts"), "gid=5,mode=620")
         self.add(pts)
-        shm = FileSystemSetEntry(Device(), '/dev/shm', fileSystemTypeGet("tmpfs"))
+        shm = FileSystemSetEntry(Device(device="shm"), '/dev/shm',
+                                 fileSystemTypeGet("tmpfs"))
         self.add(shm)
 
     def verify (self):
@@ -1799,8 +1802,8 @@ class FileSystemSetEntry:
         
 
 class Device:
-    def __init__(self):
-        self.device = "none"
+    def __init__(self, device = "none"):
+        self.device = device
         self.fsoptions = {}
         self.label = None
         self.isSetup = 0
@@ -2315,7 +2318,7 @@ def readFstab (path, intf = None):
 	elif fields[0].startswith('/dev/'):
             device = makeDevice(fields[0][5:])
 	else:
-            continue
+            device = Device(device = fields[0])
 
         # if they have a filesystem being mounted as auto, we need
         # to sniff around a bit to figure out what it might be
