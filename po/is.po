@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-03-17 13:31-0500\n"
-"PO-Revision-Date: 2001-03-12 08:21+0000\n"
+"PO-Revision-Date: 2001-03-19 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -939,9 +939,8 @@ msgid "no suggestion"
 msgstr "engin tillaga"
 
 #: ../todo.py:1155 ../upgrade.py:99
-#, fuzzy
 msgid "Dirty Filesystems"
-msgstr "Stærð rótarskráarkerfisins"
+msgstr "Óhrein skráarkerfi"
 
 #: ../todo.py:1156
 msgid ""
@@ -1413,9 +1412,8 @@ msgid "Please select the device containing the root filesystem: "
 msgstr "Vinsamlegast veldu tækið sem inniheldur rótarskráarkerfið: "
 
 #: ../iw/examine_gui.py:81 ../textw/upgrade_text.py:187
-#, fuzzy
 msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-msgstr "Leita að Red Hat Linux uppsetningum..."
+msgstr "Uppfæri Red Hat Linux kerifð á disksneið /dev/"
 
 #: ../iw/examine_gui.py:85
 msgid "Customize packages to be upgraded"
@@ -1535,7 +1533,7 @@ msgstr "Veldu sjálfgefna tungumálið:   "
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Tungumál sem nú þegar eru uppsett:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1907,9 +1905,8 @@ msgid "Automatic Partitioning"
 msgstr "Sjálfvirk disksneiðing"
 
 #: ../iw/rootpartition_gui.py:376
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Sneiða handvirkt"
+msgstr "Disksneiðing"
 
 #: ../iw/rootpartition_gui.py:378
 #, c-format
@@ -1920,6 +1917,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Vinsamlegast veldu þá afðferð sem þú vilt nota við disksneiðingu.\n"
+"\n"
+"%s\n"
+"\n"
+"Ef þú velur að sneiða handvirkt getur þú sérsniðið disksneiðarnar sjálf(ur)."
 
 #: ../iw/rootpartition_gui.py:384
 msgid "Automatic Partitioning Failed"
@@ -2072,9 +2074,8 @@ msgid "UTC Offset"
 msgstr "Frávik frá UTC"
 
 #: ../iw/upgrade_swap_gui.py:18
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Uppfæra disksneið"
+msgstr "Uppfæra diskminnissneið"
 
 #: ../iw/upgrade_swap_gui.py:101 ../textw/upgrade_text.py:22
 #, c-format
@@ -2091,16 +2092,15 @@ msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:115
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "Ég vil búa til diskminnisskrá"
 
 #: ../iw/upgrade_swap_gui.py:124
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Veldu disksneiðina til að setja diskminnisskrá á:"
 
 #: ../iw/upgrade_swap_gui.py:129
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Laust pláss"
+msgstr "Laust pláss (MB)"
 
 #: ../iw/upgrade_swap_gui.py:144
 #, c-format
@@ -2108,6 +2108,8 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Mælt er með að diskminnisskráin sé að minnsta kosti %d MB.  Vinsamlegast "
+"sláðu inn stærð diskminnisskráarinnar:"
 
 #: ../iw/upgrade_swap_gui.py:157 ../textw/upgrade_text.py:58
 msgid "Swap file size (MB):"
@@ -2115,7 +2117,7 @@ msgstr "Stærð diskminnisskráar (MB):"
 
 #: ../iw/upgrade_swap_gui.py:165
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Ég vil ekki búa til diskminnisskrá"
 
 #: ../iw/upgrade_swap_gui.py:175
 msgid ""
@@ -2123,10 +2125,12 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Við mælum sterklega með að þú búir til diskminnisskrá. Ef þú gerir það ekki "
+"getur uppsetningaforritið hrunið.  Ertu viss um að þú viljir halda áfram ?"
 
 #: ../iw/upgrade_swap_gui.py:184 ../textw/upgrade_text.py:101
 msgid "The swap file must be between 1 and 2000 MB in size."
-msgstr ""
+msgstr "Stærð diskminnisskráarinnar verur að vera á milli 1 og 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:191 ../textw/upgrade_text.py:97
 msgid ""
@@ -2579,7 +2583,7 @@ msgid "Done"
 msgstr "Búið"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "%s\n"
 "\n"
@@ -2874,13 +2878,12 @@ msgid "Custom System"
 msgstr "Sérsniðið kerfi"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase any preexisting Linux installations on "
 "your system."
 msgstr ""
-"Öllum Linux uppsetningum sem gætu verið til staðar á tölvunni verður núna "
-"eytt."
+"Sjálfvirk disksneiðing mun eyða öllum linux disksneiðum sem gætu verið til "
+"staðar á vélinni þinni."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2891,13 +2894,12 @@ msgid "Server System"
 msgstr "Þjón"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid ""
 "Automatic partitioning will erase ALL DATA on your hard drive to make room "
 "for your Linux installation."
 msgstr ""
-"Þú ert við það að eyða ÖLLUM GÖGNUM af harða disknum þínum til að búa til "
-"pláss fyrir Linux."
+"Sjálfvirk disksneiðing mun eyða ÖLLUM GÖGNUM af harða disknum þínum til að "
+"búa til pláss fyrir Linux."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -5120,9 +5122,8 @@ msgid "French"
 msgstr "Franska"
 
 #. generated from lang-table
-#, fuzzy
 msgid "German"
-msgstr "Síberíska"
+msgstr "Þýska"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5183,13 +5184,3 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid ""
-#~ "German          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-#~ msgstr ""
-#~ "German          de      lat0-16         iso09           de_DE           "
-#~ "de-latin1-nodeadkeys    Europe/Berlin"
-
-#~ msgid "Going to upgrade partition /dev/"
-#~ msgstr "Uppfæri disksneið /dev/"
