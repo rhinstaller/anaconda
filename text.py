@@ -195,6 +195,9 @@ class InstallInterface:
                 return None
 
 	    l = f.readlines()
+            for l in lines:
+                l = l.replace("@RHL@", productName)
+                l = l.replace("@RHLVER@", productVersion)
 	    while not string.strip(l[0]):
 		l = l[1:]
 	    title = string.strip(l[0])

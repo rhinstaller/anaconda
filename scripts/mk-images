@@ -4,13 +4,14 @@ PATH=$PATH:/sbin:/usr/sbin
 IMAGEUUID=$(date +%Y%m%d%H%M)
 
 usage () {
-	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch> <version>"
+	echo "usage: mk-images <pkgsrc> <toplevel> <template> <buildarch> <productname> <version>"
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" -o -z "$6" ]; then usage; fi
 
-VERSION=$5
+PRODUCT=$5
+VERSION=$6
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -319,6 +320,15 @@ makemainmodules() {
     rm -rf $FULLMODPATH
 }
 
+makeproductfile() {
+    root=$1
+
+    rm -f $root/.buildstamp
+    echo $IMAGEUUID > $root/.buildstamp
+    echo $PRODUCT >> $root/.buildstamp
+    echo $VERSION >> $root/.buildstamp
+}
+
 makeinitrd() {
     EXTRAINITRDPATH=""
     PCMCIA=""
@@ -424,8 +434,7 @@ EOF
     install -m 644 $IMGPATH/usr/share/terminfo/x/xterm $MBD_DIR/etc/terminfo/x/xterm
     install -m 644 $IMGPATH/usr/share/terminfo/x/xterm-color $MBD_DIR/etc/terminfo/x/xterm-color
     install -m 644 $IMGPATH/usr/share/terminfo/v/vt100 $MBD_DIR/etc/terminfo/v/vt100
-    rm -f $MBD_DIR/.buildstamp
-    echo $IMAGEUUID > $MBD_DIR/.buildstamp
+    makeproductfile $MBD_DIR
 
     mkdir -p $MBD_DIR/etc/terminfo/b
     install -m 644 $IMGPATH/usr/share/terminfo/b/bterm $MBD_DIR/etc/terminfo/b/bterm
@@ -655,8 +664,7 @@ makeinstimage () {
        cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $KERNELROOT/lib/modules/misc
     fi
     makemoduleball $tmpdir/modules "$modlist"
-    rm -f $tmpdir/.buildstamp
-    echo $IMAGEUUID > $tmpdir/.buildstamp
+    makeproductfile $tmpdir
 
     mkcramfs $tmpdir $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
@@ -698,13 +706,11 @@ makemainimage () {
 
         (cd $IMGPATH; find . | fgrep -v "./usr/lib/anaconda-runtime" |
 	        cpio -H crc -o) | (cd $mmi_mntpoint; cpio -iumd)
-	rm -f $mmi_mntpoint/.buildstamp
-	echo $IMAGEUUID > $mmi_mntpoint/.buildstamp
+        makeproductfile $mmi_mntpoint
         umount $mmi_mntpoint
         rmdir $mmi_mntpoint
     elif [ $type = "cramfs" ]; then
-	rm -f $IMGPATH/.buildstamp
-	echo $IMAGEUUID > $IMGPATH/.buildstamp
+        makeproductfile $IMGPATH
         mkcramfs $IMGPATH $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi

@@ -13,10 +13,7 @@ CATALOGS = po/anaconda.pot
 
 PYFILES = $(wildcard *.py)
 
-all:  subdirs mini-wm _xkb.so xmouse.so xutils.so $(CATALOGS) lang-table lang-names product.py locale-list
-
-product.py: product.py.in Makefile.inc
-	sed -e 's/@@PRODUCTNAME@@/$(PRODUCTNAME)/g' < product.py.in > product.py
+all:  subdirs mini-wm _xkb.so xmouse.so xutils.so $(CATALOGS) lang-table lang-names locale-list
 
 lang-names: lang-table
 	PYTHONPATH="." $(PYTHON) scripts/getlangnames.py > lang-names

@@ -25,6 +25,10 @@ while [ $# -gt 0 ]; do
 	    RELEASESTR=$2
 	    shift; shift
 	    ;;
+        --product)
+	    PRODUCTSTR=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
 		usage
@@ -35,8 +39,12 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+if [ -z "$PRODUCTSTR" ]; then
+    usage
+fi
+
 if [ -z "$VERSION" ]; then
-    VERSION=7.1
+    usage
 fi
 
 if [ -z "$DIR" ]; then
@@ -98,9 +106,9 @@ if [ -n "$PKGORDER" -a -x $p/RedHat/instimage/usr/lib/anaconda-runtime/pkgorder 
 fi
 
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION"
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "cd $BUILDINSTDIR\; ./mk-images $p/RedHat/RPMS $p $p/image-template $BUILDARCH '\"$PRODUCTSTR\"' $VERSION"
 else
-    $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH $VERSION
+    $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH "$PRODUCTSTR" $VERSION
 fi
 
 MK_STAMP=./makestamp.py
