@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
-"POT-Creation-Date: 2003-08-13 22:03-0400\n"
+"POT-Creation-Date: 2003-09-19 23:33-0400\n"
 "PO-Revision-Date: 2003-02-14 02:39+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
@@ -19,16 +19,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../anaconda:99
+#: ../anaconda:94
 msgid "Starting VNC..."
 msgstr ""
 
-#: ../anaconda:131
+#: ../anaconda:129
 #, fuzzy, c-format
 msgid "%s %s installation on host %s"
 msgstr "Το %s εγκαθιστά την έκδοση %s"
 
-#: ../anaconda:133
+#: ../anaconda:131
 #, fuzzy, c-format
 msgid "%s %s installation"
 msgstr "Προετοιμασία εγκατάστασης"
@@ -95,22 +95,22 @@ msgid "Please connect to begin the install..."
 msgstr ""
 
 #
-#: ../anaconda:549 ../anaconda:711 ../gui.py:239 ../gui.py:981 ../rescue.py:40
-#: ../rescue.py:223 ../rescue.py:301 ../rescue.py:329 ../rescue.py:339
-#: ../rescue.py:408 ../rescue.py:414 ../text.py:325 ../text.py:471
-#: ../textw/complete_text.py:56 ../textw/confirm_text.py:24
-#: ../textw/confirm_text.py:36 ../textw/constants_text.py:36
+#: ../anaconda:550 ../anaconda:732 ../gui.py:239 ../gui.py:981 ../rescue.py:40
+#: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
+#: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
+#: ../textw/complete_text.py:56 ../textw/confirm_text.py:25
+#: ../textw/confirm_text.py:51 ../textw/constants_text.py:36
 #: ../textw/fdisk_text.py:41 ../textw/network_text.py:32
 #: ../textw/network_text.py:166 ../textw/network_text.py:394
 #: ../textw/network_text.py:402 ../textw/silo_text.py:110
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:160
-#: ../loader2/cdinstall.c:136 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:251 ../loader2/cdinstall.c:254
-#: ../loader2/cdinstall.c:373 ../loader2/cdinstall.c:378
-#: ../loader2/cdinstall.c:381 ../loader2/cdinstall.c:452
+#: ../loader2/cdinstall.c:137 ../loader2/cdinstall.c:138
+#: ../loader2/cdinstall.c:252 ../loader2/cdinstall.c:255
+#: ../loader2/cdinstall.c:374 ../loader2/cdinstall.c:379
+#: ../loader2/cdinstall.c:382 ../loader2/cdinstall.c:453
 #: ../loader2/driverdisk.c:247 ../loader2/driverdisk.c:263
-#: ../loader2/driverdisk.c:277 ../loader2/driverdisk.c:445
-#: ../loader2/driverdisk.c:478 ../loader2/driverselect.c:73
+#: ../loader2/driverdisk.c:277 ../loader2/driverdisk.c:452
+#: ../loader2/driverdisk.c:486 ../loader2/driverselect.c:73
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:243
 #: ../loader2/hdinstall.c:296 ../loader2/hdinstall.c:355
 #: ../loader2/hdinstall.c:518 ../loader2/hdinstall.c:569
@@ -118,62 +118,62 @@ msgstr ""
 #: ../loader2/kickstart.c:112 ../loader2/kickstart.c:122
 #: ../loader2/kickstart.c:165 ../loader2/kickstart.c:265 ../loader2/lang.c:102
 #: ../loader2/lang.c:374 ../loader2/loader.c:302 ../loader2/loader.c:315
-#: ../loader2/loader.c:326 ../loader2/loader.c:601 ../loader2/loader.c:760
+#: ../loader2/loader.c:326 ../loader2/loader.c:600 ../loader2/loader.c:764
 #: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
 #: ../loader2/mediacheck.c:354 ../loader2/method.c:147 ../loader2/method.c:355
 #: ../loader2/method.c:440 ../loader2/modules.c:918 ../loader2/net.c:173
-#: ../loader2/net.c:427 ../loader2/net.c:720 ../loader2/net.c:743
-#: ../loader2/net.c:848 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:190
+#: ../loader2/net.c:429 ../loader2/net.c:722 ../loader2/net.c:745
+#: ../loader2/net.c:850 ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:190
 #: ../loader2/nfsinstall.c:194 ../loader2/nfsinstall.c:233
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:62
-#: ../loader2/urlinstall.c:129 ../loader2/urlinstall.c:142
-#: ../loader2/urlinstall.c:426 ../loader2/urlinstall.c:435
-#: ../loader2/urlinstall.c:446 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urlinstall.c:132 ../loader2/urlinstall.c:145
+#: ../loader2/urlinstall.c:430 ../loader2/urlinstall.c:439
+#: ../loader2/urlinstall.c:450 ../loader2/urls.c:171 ../loader2/urls.c:181
 #: ../loader2/urls.c:189 ../loader2/urls.c:254 ../loader2/urls.c:317
 #: ../loader2/urls.c:322 ../loader2/urls.c:328 ../loader2/urls.c:442
 msgid "OK"
 msgstr "Εντάξει"
 
-#: ../anaconda:599
+#: ../anaconda:603
 #, fuzzy
 msgid "Unknown Error"
 msgstr "Άγνωστη κάρτα"
 
 # gconf/gconfd.c:1676
-#: ../anaconda:602
+#: ../anaconda:606
 #, fuzzy, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr "Σφάλμα ανάγνωσης αποθηκευμένου αρχείου κατάστασης: %s"
 
-#: ../anaconda:696
+#: ../anaconda:717
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
 
-#: ../anaconda:748
+#: ../anaconda:769
 msgid "Install class forcing text mode installation"
 msgstr ""
 
-#: ../anaconda:775
+#: ../anaconda:796
 msgid "No video hardware found, assuming headless"
 msgstr ""
 
-#: ../anaconda:786 ../anaconda:1024 ../bar.py:23
+#: ../anaconda:807 ../anaconda:1040 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
 msgstr ""
 
-#: ../anaconda:810
+#: ../anaconda:831
 msgid "Graphical installation not available...  Starting text mode."
 msgstr ""
 
-#: ../anaconda:823
+#: ../anaconda:844
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
 
-#: ../anaconda:828
+#: ../anaconda:849
 #, fuzzy, c-format
 msgid "Using mouse type: %s"
 msgstr "Τύπος ποντικιού: %s\n"
@@ -374,7 +374,7 @@ msgid "Your system will now be rebooted."
 msgstr ""
 
 #
-#: ../autopart.py:1464 ../bootloader.py:139 ../gui.py:978 ../image.py:406
+#: ../autopart.py:1464 ../bootloader.py:139 ../gui.py:978 ../image.py:438
 #: ../partedUtils.py:273 ../partedUtils.py:303 ../partedUtils.py:838
 #: ../upgrade.py:305 ../upgrade.py:416 ../upgrade.py:469 ../upgrade.py:492
 #: ../upgrade.py:533 ../iw/blpasswidget.py:148
@@ -478,7 +478,7 @@ msgstr ""
 msgid "Installing %s-%s-%s... "
 msgstr "Εγκατάσταση του %s..."
 
-#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:739
+#: ../comps.py:767 ../comps.py:795 ../hdrlist.py:743
 #, fuzzy
 msgid "Everything"
 msgstr "Τα πάντα"
@@ -488,18 +488,18 @@ msgstr "Τα πάντα"
 msgid "no suggestion"
 msgstr "&Προτάσεις:"
 
-#: ../comps.py:1098 ../hdrlist.py:943
+#: ../comps.py:1098 ../hdrlist.py:966
 msgid "Miscellaneous"
 msgstr "Διάφορα"
 
-#: ../comps.py:1114 ../hdrlist.py:43 ../hdrlist.py:890
+#: ../comps.py:1114 ../hdrlist.py:43 ../hdrlist.py:913
 msgid ""
 "This group includes all the packages available.  Note that there are "
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
 
-#: ../comps.py:1118 ../hdrlist.py:894
+#: ../comps.py:1118 ../hdrlist.py:917
 msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
@@ -535,22 +535,22 @@ msgid ""
 "will now be reset."
 msgstr ""
 
-#: ../floppy.py:91
+#: ../floppy.py:103
 #, fuzzy
 msgid "Unable to make boot floppy"
 msgstr "Μορφοποιεί δισκέτες."
 
-#: ../floppy.py:92
+#: ../floppy.py:104
 msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
 
-#: ../floppy.py:101
+#: ../floppy.py:113
 msgid "Insert a floppy disk"
 msgstr "Εισάγετε μια δισκέτα"
 
-#: ../floppy.py:102
+#: ../floppy.py:114
 msgid ""
 "Please remove any diskettes from the floppy drive, and insert the floppy "
 "diskette that is to contain the boot disk.\n"
@@ -559,42 +559,42 @@ msgid ""
 msgstr ""
 
 #
-#: ../floppy.py:106
+#: ../floppy.py:118
 msgid "_Cancel"
 msgstr "_Ακύρωση"
 
-#: ../floppy.py:106
+#: ../floppy.py:118
 msgid "_Make boot disk"
 msgstr "_Δημιουργία δισκέτας εκκίνησης"
 
 #
-#: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
+#: ../floppy.py:129 ../floppy.py:154 ../floppy.py:169 ../floppy.py:200
 #: ../fsset.py:562 ../fsset.py:1198 ../fsset.py:1217 ../fsset.py:1267
 #: ../fsset.py:1278 ../fsset.py:1314 ../fsset.py:1364 ../fsset.py:1407
-#: ../harddrive.py:164 ../image.py:90 ../image.py:127 ../image.py:267
-#: ../image.py:458 ../packages.py:150 ../packages.py:163 ../packages.py:365
-#: ../packages.py:540 ../packages.py:620 ../partedUtils.py:631
-#: ../upgrade.py:336 ../upgrade.py:361 ../upgrade.py:388
+#: ../harddrive.py:164 ../image.py:129 ../image.py:166 ../image.py:299
+#: ../image.py:490 ../packages.py:150 ../packages.py:163 ../packages.py:175
+#: ../packages.py:182 ../packages.py:387 ../packages.py:562 ../packages.py:642
+#: ../partedUtils.py:631 ../upgrade.py:336 ../upgrade.py:361 ../upgrade.py:388
 #: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/upgrade_text.py:165
-#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:137
-#: ../loader2/cdinstall.c:452 ../loader2/driverdisk.c:277
+#: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:138
+#: ../loader2/cdinstall.c:453 ../loader2/driverdisk.c:277
 #: ../loader2/driverdisk.c:349 ../loader2/hdinstall.c:243
 #: ../loader2/hdinstall.c:296 ../loader2/hdinstall.c:355
 #: ../loader2/hdinstall.c:569 ../loader2/hdinstall.c:652
 #: ../loader2/kickstart.c:265 ../loader2/lang.c:102 ../loader2/loader.c:326
-#: ../loader2/loader.c:601 ../loader2/mediacheck.c:255
+#: ../loader2/loader.c:600 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:147 ../loader2/method.c:355
 #: ../loader2/method.c:440 ../loader2/nfsinstall.c:190
 #: ../loader2/nfsinstall.c:194 ../loader2/telnetd.c:86
-#: ../loader2/urlinstall.c:62 ../loader2/urlinstall.c:129
-#: ../loader2/urlinstall.c:142 ../loader2/urls.c:171 ../loader2/urls.c:181
+#: ../loader2/urlinstall.c:62 ../loader2/urlinstall.c:132
+#: ../loader2/urlinstall.c:145 ../loader2/urls.c:171 ../loader2/urls.c:181
 #: ../loader2/urls.c:189 ../loader2/urls.c:317 ../loader2/urls.c:322
 msgid "Error"
 msgstr "Σφάλμα"
 
-#: ../floppy.py:118 ../floppy.py:143
+#: ../floppy.py:130 ../floppy.py:155
 #, fuzzy
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
@@ -603,16 +603,16 @@ msgstr ""
 "Σφάλμα κατά την ανάγνωση του αρχείου εικόνας \"%s\".\n"
 "Παρακαλώ βεβαιωθείτε ότι το Gnome-Stones έχει εγκατασταθεί σωστά!"
 
-#: ../floppy.py:129
+#: ../floppy.py:141
 #, fuzzy
 msgid "Creating"
 msgstr "Κροατικό"
 
-#: ../floppy.py:129
+#: ../floppy.py:141
 msgid "Creating boot disk..."
 msgstr "Δημιουργήται δίσκος εκκίνησης..."
 
-#: ../floppy.py:158
+#: ../floppy.py:170
 #, fuzzy
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
@@ -621,7 +621,7 @@ msgstr ""
 "Σφάλμα κατά την ανάγνωση του αρχείου εικόνας \"%s\".\n"
 "Παρακαλώ βεβαιωθείτε ότι το Gnome-Stones έχει εγκατασταθεί σωστά!"
 
-#: ../floppy.py:189
+#: ../floppy.py:201
 #, fuzzy
 msgid ""
 "Your boot floppy appears to be invalid.  This is likely due to a bad "
@@ -771,7 +771,9 @@ msgid ""
 "Please fix this problem and restart the installation process."
 msgstr ""
 
-#: ../fsset.py:2018 ../gui.py:1086 ../packages.py:1295
+#: ../fsset.py:2018 ../gui.py:1086 ../image.py:72 ../packages.py:1337
+#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:37
+#: ../textw/confirm_text.py:63
 #, fuzzy
 msgid "_Reboot"
 msgstr "Reset"
@@ -828,7 +830,7 @@ msgid "Fix"
 msgstr "έξι"
 
 #
-#: ../gui.py:237 ../rescue.py:175 ../text.py:323 ../textw/bootdisk_text.py:22
+#: ../gui.py:237 ../rescue.py:176 ../text.py:323 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
 #: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:394
 #: ../loader2/driverdisk.c:405 ../loader2/hdinstall.c:464
@@ -837,7 +839,7 @@ msgid "Yes"
 msgstr "Ναι"
 
 #
-#: ../gui.py:238 ../rescue.py:175 ../rescue.py:177 ../text.py:324
+#: ../gui.py:238 ../rescue.py:176 ../rescue.py:178 ../text.py:324
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
@@ -846,7 +848,7 @@ msgstr "Ναι"
 msgid "No"
 msgstr "Όχι"
 
-#: ../gui.py:240 ../text.py:326 ../loader2/net.c:178 ../loader2/net.c:472
+#: ../gui.py:240 ../text.py:326 ../loader2/net.c:178 ../loader2/net.c:474
 msgid "Retry"
 msgstr "Προσπάθεια ξανά"
 
@@ -904,7 +906,7 @@ msgid ""
 msgstr ""
 
 #
-#: ../gui.py:1079 ../packages.py:545 ../packages.py:1289
+#: ../gui.py:1079 ../packages.py:187 ../packages.py:567 ../packages.py:1331
 #: ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Έξοδος"
@@ -914,17 +916,20 @@ msgstr "_Έξοδος"
 msgid "_Retry"
 msgstr "Προσπάθεια ξανά"
 
-#: ../gui.py:1082 ../packages.py:1292
+#: ../gui.py:1082 ../packages.py:1334
 #, fuzzy
 msgid "Rebooting System"
 msgstr "&Ενημέρωση υπάρχοντος συστήματος"
 
-#: ../gui.py:1083 ../packages.py:1293
+#: ../gui.py:1083 ../packages.py:1335
 msgid "Your system will now be rebooted..."
 msgstr ""
 
 #
-#: ../gui.py:1177 ../packages.py:1295
+#: ../gui.py:1177 ../packages.py:1337 ../iw/confirm_gui.py:68
+#: ../iw/confirm_gui.py:98 ../iw/firewall_gui.py:36
+#: ../textw/confirm_text.py:37 ../textw/confirm_text.py:63
+#: ../textw/firewall_text.py:196
 msgid "_Back"
 msgstr "_Πίσω"
 
@@ -971,7 +976,7 @@ msgstr "Αδύνατη η Αναπαραγωγή Αρχείου"
 msgid "Install Window"
 msgstr "Παράθυρο Εγκατάστασης"
 
-#: ../harddrive.py:165 ../image.py:459
+#: ../harddrive.py:165 ../image.py:491
 #, python-format
 msgid ""
 "The following ISO images are missing which are required for the install:\n"
@@ -980,48 +985,68 @@ msgid ""
 "The system will now reboot."
 msgstr ""
 
-#: ../image.py:91
+#: ../image.py:63
+msgid "Required Install Media"
+msgstr ""
+
+#: ../image.py:64
+#, python-format
+msgid ""
+"The software you have selected to install will require the following CDs:\n"
+"\n"
+"%s\n"
+"Please have these ready before proceeding with the installation.  If you "
+"need to abort the installation and reboot please select \"Reboot\"."
+msgstr ""
+
+#
+#: ../image.py:72 ../kickstart.py:1266 ../kickstart.py:1293
+#: ../iw/partition_gui.py:1012
+msgid "_Continue"
+msgstr "_Συνέχεια"
+
+#: ../image.py:130
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:124
+#: ../image.py:163
 #, fuzzy
 msgid "Copying File"
 msgstr "Αντιγραφή αρχείων"
 
-#: ../image.py:125
+#: ../image.py:164
 #, fuzzy
 msgid "Transferring install image to hard drive..."
 msgstr "Μεταφορά ταυτότητας στο %s@%s..."
 
-#: ../image.py:128
+#: ../image.py:167
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
 
-#: ../image.py:225
+#: ../image.py:257
 msgid "Change CDROM"
 msgstr "Αλλαγή CDROM"
 
-#: ../image.py:226
+#: ../image.py:258
 #, fuzzy, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Πατήστε επόμενο για να συνεχίσετε."
 
-#: ../image.py:261
+#: ../image.py:293
 msgid "Wrong CDROM"
 msgstr "Λάθος CDROM"
 
-#: ../image.py:262
+#: ../image.py:294
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr ""
 
-#: ../image.py:268
+#: ../image.py:300
 #, fuzzy
 msgid "The CDROM could not be mounted."
 msgstr "Δε βρέθηκε το εφαρμογίδιο ελέγχου."
@@ -1031,34 +1056,29 @@ msgstr "Δε βρέθηκε το εφαρμογίδιο ελέγχου."
 msgid "Install on System"
 msgstr "Πρόβλημα Εγκατάστασης"
 
-#: ../kickstart.py:1247
+#: ../kickstart.py:1258
 #, fuzzy
 msgid "Missing Package"
 msgstr "Εγκατάσταση πακέτων"
 
-#: ../kickstart.py:1248
+#: ../kickstart.py:1259
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1254 ../kickstart.py:1281
+#: ../kickstart.py:1265 ../kickstart.py:1292
 #, fuzzy
 msgid "_Abort"
 msgstr "Reset"
 
-#
-#: ../kickstart.py:1255 ../kickstart.py:1282 ../iw/partition_gui.py:1012
-msgid "_Continue"
-msgstr "_Συνέχεια"
-
-#: ../kickstart.py:1273
+#: ../kickstart.py:1284
 #, fuzzy
 msgid "Missing Group"
 msgstr "Πληροφορίες Συνάντησης"
 
-#: ../kickstart.py:1274
+#: ../kickstart.py:1285
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1117,26 +1137,39 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:250
+#: ../packages.py:176 ../packages.py:643 ../upgrade.py:337
+msgid ""
+"Unable to merge header list.  This may be due to a missing file or bad "
+"media.  Press <return> to try again."
+msgstr ""
+
+#: ../packages.py:183 ../packages.py:563
+#, python-format
+msgid ""
+"You are trying to install on a machine which isn't supported by this release "
+"of %s."
+msgstr ""
+
+#: ../packages.py:272
 msgid "Dependency Check"
 msgstr "Έλεγχος Εξαρτήσεων"
 
-#: ../packages.py:251
+#: ../packages.py:273
 #, fuzzy
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Επιλογή πακέτων προς εγκατάσταση"
 
-#: ../packages.py:310 ../packages.py:718
+#: ../packages.py:332 ../packages.py:740
 #, fuzzy
 msgid "Processing"
 msgstr "Διεργασία"
 
-#: ../packages.py:311
+#: ../packages.py:333
 #, fuzzy
 msgid "Preparing to install..."
 msgstr "Προετοιμασία για εγκατάσταση"
 
-#: ../packages.py:366
+#: ../packages.py:388
 #, python-format
 msgid ""
 "The package %s-%s-%s cannot be opened. This is due to a missing file or "
@@ -1146,17 +1179,17 @@ msgid ""
 "Press <return> to try again."
 msgstr ""
 
-#: ../packages.py:374
+#: ../packages.py:396
 #, fuzzy
 msgid "Installing..."
 msgstr "Εγκ. πρ. εκκίνησης"
 
-#: ../packages.py:395
+#: ../packages.py:417
 #, fuzzy
 msgid "Error Installing Package"
 msgstr "Εγκατάσταση πακέτων"
 
-#: ../packages.py:396
+#: ../packages.py:418
 #, python-format
 msgid ""
 "There was an error installing %s.  This can indicate media failure, lack of "
@@ -1167,49 +1200,36 @@ msgid ""
 "Press the OK button to reboot your system."
 msgstr ""
 
-#: ../packages.py:541
-#, python-format
-msgid ""
-"You are trying to install on a machine which isn't supported by this release "
-"of %s."
-msgstr ""
-
-#: ../packages.py:621 ../upgrade.py:337
-msgid ""
-"Unable to merge header list.  This may be due to a missing file or bad "
-"media.  Press <return> to try again."
-msgstr ""
-
-#: ../packages.py:719
+#: ../packages.py:741
 #, fuzzy
 msgid "Preparing RPM transaction..."
 msgstr "Λήψη μεταφράσεων..."
 
-#: ../packages.py:789
+#: ../packages.py:823
 #, fuzzy, python-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
 msgstr "αναβάθμιση πακέτων"
 
-#: ../packages.py:791
+#: ../packages.py:825
 #, fuzzy, python-format
 msgid ""
 "Installing %s packages\n"
 "\n"
 msgstr "Εγκατάσταση πακέτων"
 
-#: ../packages.py:799 ../packages.py:1086
+#: ../packages.py:833 ../packages.py:1126
 #, fuzzy, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
 msgstr "Αναβάθμιση"
 
-#: ../packages.py:801 ../packages.py:1088
+#: ../packages.py:835 ../packages.py:1128
 #, fuzzy, python-format
 msgid "Installing %s-%s-%s.%s.\n"
 msgstr "Εγκατάσταση του %s..."
 
-#: ../packages.py:817
+#: ../packages.py:851
 #, fuzzy, python-format
 msgid ""
 "\n"
@@ -1220,62 +1240,62 @@ msgid ""
 "\n"
 msgstr "Θα εγκατασταθούν τα παρακάτω πακέτα"
 
-#: ../packages.py:823
+#: ../packages.py:857
 #, fuzzy
 msgid "Install Starting"
 msgstr "Εγκατάσταση"
 
-#: ../packages.py:824
+#: ../packages.py:858
 #, fuzzy
 msgid "Starting install process, this may take several minutes..."
 msgstr "Παρακαλώ περιμένετε. Αυτή η διαδικασία μπορεί να πάρει μερικά λεπτά."
 
-#: ../packages.py:864
+#: ../packages.py:898
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:868 ../packages.py:889 ../iw/lvm_dialog_gui.py:1064
+#: ../packages.py:902 ../packages.py:923 ../iw/lvm_dialog_gui.py:1064
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1126 ../textw/upgrade_text.py:111
 msgid "Mount Point"
 msgstr "Σημείο Προσάρτησης"
 
-#: ../packages.py:869
+#: ../packages.py:903
 #, fuzzy
 msgid "Space Needed"
 msgstr "χώρος %d"
 
-#: ../packages.py:885
+#: ../packages.py:919
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
 
-#: ../packages.py:890
+#: ../packages.py:924
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Τροφοδοσία Ειδήσεων"
 
-#: ../packages.py:901
+#: ../packages.py:935
 #, fuzzy
 msgid "Disk Space"
 msgstr "Χρήση Δίσκου"
 
-#: ../packages.py:945
+#: ../packages.py:981
 #, fuzzy
 msgid "Post Install"
 msgstr "Αυτόματη Εγκατάσταση"
 
-#: ../packages.py:946
+#: ../packages.py:982
 #, fuzzy
 msgid "Performing post install configuration..."
 msgstr "Ρυθμίσεις μετά την εγκατάσταση"
 
-#: ../packages.py:1111
+#: ../packages.py:1151
 #, fuzzy
 msgid ""
 "\n"
@@ -1283,7 +1303,7 @@ msgid ""
 "The following packages were available in this version but NOT upgraded:\n"
 msgstr "Τα ακόλουθα πακέτα δεν έχουν διαγραφεί:\n"
 
-#: ../packages.py:1114
+#: ../packages.py:1154
 #, fuzzy
 msgid ""
 "\n"
@@ -1291,11 +1311,11 @@ msgid ""
 "The following packages were available in this version but NOT installed:\n"
 msgstr "Τα ακόλουθα πακέτα δεν έχουν διαγραφεί:\n"
 
-#: ../packages.py:1275
+#: ../packages.py:1317
 msgid "Warning! This is a beta!"
 msgstr "Προειδοποίηση! Αυτή είναι μιά έκδοση beta!"
 
-#: ../packages.py:1276
+#: ../packages.py:1318
 #, python-format
 msgid ""
 "Thank you for downloading this %s Beta release.\n"
@@ -1311,7 +1331,7 @@ msgid ""
 "and file a report against '%s'.\n"
 msgstr ""
 
-#: ../packages.py:1289
+#: ../packages.py:1331
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Εγκατάσταση"
@@ -1731,44 +1751,44 @@ msgid ""
 "for a normal %s install."
 msgstr ""
 
-#: ../partitions.py:872 ../partRequests.py:636
+#: ../partitions.py:871 ../partRequests.py:636
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr ""
 
-#: ../partitions.py:879
+#: ../partitions.py:878
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr ""
 
-#: ../partitions.py:883
+#: ../partitions.py:889
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
 
-#: ../partitions.py:890
+#: ../partitions.py:896
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
 
-#: ../partitions.py:901
+#: ../partitions.py:907
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
 
-#: ../partitions.py:1182
+#: ../partitions.py:1188
 #, fuzzy
 msgid "the partition in use by the installer."
 msgstr "Αυτός ο τύπος κατάτμησης δεν μπορεί ν' αλλάξει μέγεθος."
 
-#: ../partitions.py:1185
+#: ../partitions.py:1191
 msgid "a partition which is a member of a RAID array."
 msgstr ""
 
-#: ../partitions.py:1188
+#: ../partitions.py:1194
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr ""
 
@@ -1852,33 +1872,33 @@ msgstr ""
 msgid "Attempting to start %s"
 msgstr ""
 
-#: ../rescue.py:173
+#: ../rescue.py:174
 #, fuzzy
 msgid "Setup Networking"
 msgstr "Δίκτυο"
 
-#: ../rescue.py:174
+#: ../rescue.py:175
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: ../rescue.py:219 ../text.py:467
+#: ../rescue.py:220 ../text.py:467
 msgid "Cancelled"
 msgstr "Ακυρώθηκε"
 
-#: ../rescue.py:220 ../text.py:468
+#: ../rescue.py:221 ../text.py:468
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../rescue.py:236 ../rescue.py:271 ../rescue.py:425
+#: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
-#: ../rescue.py:255 ../rescue.py:324 ../rescue.py:332 ../rescue.py:403
+#: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 #, fuzzy
 msgid "Rescue"
 msgstr "Συνέχιση"
 
-#: ../rescue.py:256
+#: ../rescue.py:257
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1893,46 +1913,46 @@ msgid ""
 msgstr ""
 
 #
-#: ../rescue.py:266 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:109
-#: ../loader2/cdinstall.c:117 ../loader2/driverdisk.c:350
+#: ../rescue.py:267 ../iw/partition_gui.py:573 ../loader2/cdinstall.c:110
+#: ../loader2/cdinstall.c:118 ../loader2/driverdisk.c:350
 msgid "Continue"
 msgstr "Συνέχεια"
 
-#: ../rescue.py:266 ../rescue.py:275
+#: ../rescue.py:267 ../rescue.py:276
 #, fuzzy
 msgid "Read-Only"
 msgstr "Μόνο για ανάγνωση"
 
 #
-#: ../rescue.py:266 ../rescue.py:268 ../textw/silo_text.py:36
-#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:252
-#: ../loader2/cdinstall.c:254 ../loader2/method.c:402
+#: ../rescue.py:267 ../rescue.py:269 ../textw/silo_text.py:36
+#: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:253
+#: ../loader2/cdinstall.c:255 ../loader2/method.c:402
 msgid "Skip"
 msgstr "Παράκαμψη"
 
-#: ../rescue.py:298
+#: ../rescue.py:299
 #, fuzzy
 msgid "System to Rescue"
 msgstr "Προσπάθεια για Συνέχιση"
 
-#: ../rescue.py:299
+#: ../rescue.py:300
 #, fuzzy
 msgid "What partition holds the root partition of your installation?"
 msgstr "Ποιά είναι η βασική κατάτμηση (/) του συστήματός σας;"
 
 #
-#: ../rescue.py:301 ../rescue.py:305
+#: ../rescue.py:302 ../rescue.py:306
 msgid "Exit"
 msgstr "Έξοδος"
 
-#: ../rescue.py:325
+#: ../rescue.py:326
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:333
+#: ../rescue.py:334
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1945,7 +1965,7 @@ msgid ""
 "The system will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:404
+#: ../rescue.py:405
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1955,18 +1975,18 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:410
+#: ../rescue.py:411
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Συνέχιση Esound"
 
-#: ../rescue.py:411
+#: ../rescue.py:412
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:422
+#: ../rescue.py:423
 #, fuzzy, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Πρέπει να δώσετε τύπο MIME"
@@ -2165,7 +2185,7 @@ msgstr ""
 msgid "Connecting..."
 msgstr "Έλεγχος αρχείων..."
 
-#: ../xsetup.py:54 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
+#: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 #, fuzzy
 msgid "DDC Probed Monitor"
 msgstr "Έλεγχος Ήχου"
@@ -2552,17 +2572,28 @@ msgid ""
 "the Master Boot Record (MBR)."
 msgstr ""
 
-#: ../iw/confirm_gui.py:55
+#: ../iw/confirm_gui.py:57
 #, fuzzy
 msgid "About to Install"
 msgstr "Αυτόματη Εγκατάσταση"
 
-#: ../iw/confirm_gui.py:60
+#: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:34
+#: ../textw/confirm_text.py:60
+#, fuzzy
+msgid "Reboot?"
+msgstr "Reset"
+
+#: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:35
+#: ../textw/confirm_text.py:61
+msgid "The system will be rebooted now."
+msgstr ""
+
+#: ../iw/confirm_gui.py:79
 #, fuzzy, python-format
 msgid "Click next to begin installation of %s."
 msgstr "Πατήστε επόμενο για να αρχίσει η εγκατάσταση του %s."
 
-#: ../iw/confirm_gui.py:61
+#: ../iw/confirm_gui.py:80
 #, python-format
 msgid ""
 "A complete log of the installation can be found in the file '%s' after "
@@ -2573,17 +2604,17 @@ msgid ""
 msgstr ""
 
 #
-#: ../iw/confirm_gui.py:68
+#: ../iw/confirm_gui.py:87
 #, fuzzy
 msgid "About to Upgrade"
 msgstr "Σχετικά με αυτό το πρόγραμμα"
 
-#: ../iw/confirm_gui.py:73
+#: ../iw/confirm_gui.py:108
 #, fuzzy, python-format
 msgid "Click next to begin upgrade of %s."
 msgstr "Πατήστε επόμενο για να αρχίσει η αναβάθμιση του %s."
 
-#: ../iw/confirm_gui.py:74
+#: ../iw/confirm_gui.py:109
 #, python-format
 msgid ""
 "A complete log of the upgrade can be found in the file '%s' after rebooting "
@@ -2637,18 +2668,18 @@ msgstr "Αποτυχημένες Εξαρτήσεις"
 
 #: ../iw/dependencies_gui.py:34 ../iw/package_gui.py:252
 #: ../iw/package_gui.py:495 ../iw/package_gui.py:672
-#: ../textw/packages_text.py:26 ../textw/packages_text.py:344
+#: ../textw/packages_text.py:26 ../textw/packages_text.py:351
 #, python-format
 msgid "Total install size: %s"
 msgstr "Συνολικό μέγεθος εγκατάστασης: %s "
 
 #
 #: ../iw/dependencies_gui.py:74 ../iw/progress_gui.py:233
-#: ../textw/packages_text.py:375
+#: ../textw/packages_text.py:382
 msgid "Package"
 msgstr "Πακέτο"
 
-#: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:375
+#: ../iw/dependencies_gui.py:76 ../textw/packages_text.py:382
 #, fuzzy
 msgid "Requirement"
 msgstr "Απαιτείται"
@@ -2790,7 +2821,27 @@ msgstr "Επιλέξτε πρώτα επιφάνεια εργασίας"
 msgid "Firewall"
 msgstr "firewall"
 
-#: ../iw/firewall_gui.py:115
+#: ../iw/firewall_gui.py:33 ../textw/firewall_text.py:193
+#, fuzzy
+msgid "Warning - No Firewall"
+msgstr "firewall"
+
+#: ../iw/firewall_gui.py:34 ../textw/firewall_text.py:194
+msgid ""
+"You have elected to disable the firewall on this system.  This is not "
+"recomended if this system is attached directly to the Internet or is on a "
+"large public network. A firewall will help prevent unauthorized access to "
+"your system.\n"
+"\n"
+"Are you sure you want to turn off the firewall?"
+msgstr ""
+
+#: ../iw/firewall_gui.py:36 ../iw/xconfig_gui.py:444
+#: ../textw/firewall_text.py:196
+msgid "_Proceed"
+msgstr ""
+
+#: ../iw/firewall_gui.py:122
 #, python-format
 msgid ""
 "Invalid port given: %s.  The proper format is 'port:protocol', where port is "
@@ -2800,50 +2851,50 @@ msgid ""
 msgstr ""
 
 #
-#: ../iw/firewall_gui.py:119
+#: ../iw/firewall_gui.py:126
 #, fuzzy
 msgid "Warning: Bad Token"
 msgstr "Προειδοποίηση: "
 
-#: ../iw/firewall_gui.py:145 ../textw/firewall_text.py:28
+#: ../iw/firewall_gui.py:152 ../textw/firewall_text.py:28
 msgid ""
 "A firewall can help prevent unauthorized access to your computer from the "
 "outside world.  Would you like to enable a firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:155
+#: ../iw/firewall_gui.py:162
 #, fuzzy
 msgid "N_o firewall"
 msgstr "firewall"
 
-#: ../iw/firewall_gui.py:157
+#: ../iw/firewall_gui.py:164
 #, fuzzy
 msgid "_Enable firewall"
 msgstr "firewall"
 
-#: ../iw/firewall_gui.py:159
+#: ../iw/firewall_gui.py:166
 #, fuzzy
 msgid "_Custom firewall"
 msgstr "firewall"
 
-#: ../iw/firewall_gui.py:178
+#: ../iw/firewall_gui.py:185
 msgid "What services should be allowed to pass through the firewall?"
 msgstr ""
 
-#: ../iw/firewall_gui.py:186
+#: ../iw/firewall_gui.py:193
 #, fuzzy
 msgid "_Allow incoming:"
 msgstr "εισερχόμενα"
 
-#: ../iw/firewall_gui.py:211
+#: ../iw/firewall_gui.py:218
 msgid "Other _ports:"
 msgstr "Άλλες _θύρες:"
 
-#: ../iw/firewall_gui.py:219
+#: ../iw/firewall_gui.py:226
 msgid "If you would like to allow all traffic from a device, select it below."
 msgstr ""
 
-#: ../iw/firewall_gui.py:228
+#: ../iw/firewall_gui.py:235
 msgid "_Trusted devices:"
 msgstr "_Έμπιστες Συσκευές:"
 
@@ -3399,7 +3450,7 @@ msgstr "Συσκευή"
 msgid "IP/Netmask"
 msgstr "IP/Μάσκα δικτύου"
 
-#: ../iw/network_gui.py:448 ../iw/network_gui.py:550 ../loader2/net.c:638
+#: ../iw/network_gui.py:448 ../iw/network_gui.py:550 ../loader2/net.c:640
 #, fuzzy
 msgid "Hostname"
 msgstr "Όνομα Host:"
@@ -3515,7 +3566,7 @@ msgid ""
 "system you are about to install."
 msgstr ""
 
-#: ../iw/package_gui.py:52 ../textw/packages_text.py:311
+#: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 #, fuzzy
 msgid "Individual Package Selection"
 msgstr "Επιλογή ξεχωριστών πακέτων"
@@ -3594,11 +3645,11 @@ msgstr "Βασικά Πακέτα"
 msgid "Optional Packages"
 msgstr "Προαιρετικά Πακέτα"
 
-#: ../iw/package_gui.py:1027
+#: ../iw/package_gui.py:1031
 msgid "Details"
 msgstr "Λεπτομέρειες"
 
-#: ../iw/package_gui.py:1121
+#: ../iw/package_gui.py:1125
 #, fuzzy
 msgid "_Select individual packages"
 msgstr "Απεπιλογή όλων των πακέτων"
@@ -4244,11 +4295,11 @@ msgstr "Εκκινήσιμο"
 msgid "Default boot image"
 msgstr "Εξ' ορισμού εικόνα συστήματος:"
 
-#: ../iw/timezone_gui.py:26 ../textw/timezone_text.py:95
+#: ../iw/timezone_gui.py:26 ../textw/timezone_text.py:100
 msgid "Time Zone Selection"
 msgstr "Επιλογή Ζώνης Ώρας"
 
-#: ../iw/timezone_gui.py:65
+#: ../iw/timezone_gui.py:65 ../textw/timezone_text.py:94
 msgid "System clock uses _UTC"
 msgstr ""
 
@@ -4494,12 +4545,8 @@ msgid ""
 "closest matching model in order to have the highest possible display quality."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:444 ../textw/xconfig_text.py:473
-msgid "Proceed"
-msgstr ""
-
-#: ../iw/xconfig_gui.py:445 ../textw/xconfig_text.py:473
-msgid "Choose monitor type"
+#: ../iw/xconfig_gui.py:445
+msgid "_Choose monitor type"
 msgstr ""
 
 #: ../iw/xconfig_gui.py:625
@@ -4508,7 +4555,7 @@ msgid ""
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1102
+#: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 #, fuzzy
 msgid "Restore _original values"
 msgstr "Επανα_φορά Αρχικών Τιμών"
@@ -4537,53 +4584,53 @@ msgstr "Ηz"
 msgid "Graphical Interface (X) Configuration"
 msgstr "Ρύθμιση Εκτυπωτή"
 
-#: ../iw/xconfig_gui.py:810
+#: ../iw/xconfig_gui.py:811
 msgid "Unknown video card"
 msgstr "Άγνωστη κάρτα βίντεο"
 
-#: ../iw/xconfig_gui.py:811
+#: ../iw/xconfig_gui.py:812
 #, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:837 ../textw/xconfig_text.py:688
+#: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
 msgstr "Απροσδιόριστη κάρτα βίντεο"
 
-#: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:689
+#: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:685
 msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:973 ../textw/xconfig_text.py:638
+#: ../iw/xconfig_gui.py:974 ../textw/xconfig_text.py:637
 msgid ""
 "Your system will be setup to use the frame buffer driver for the X Window "
 "System.  If you do not want to setup the X Window System, choose 'Skip X "
 "Configuration' below."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:982
+#: ../iw/xconfig_gui.py:983
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:989
+#: ../iw/xconfig_gui.py:990
 msgid ""
 "In most cases, the video hardware can be automatically detected. If the "
 "detected settings are not correct for the hardware, select the right "
 "settings."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:1077
+#: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
 msgstr "Μνήμη RAM Κάρτας _Βίντεο:"
 
-#: ../iw/xconfig_gui.py:1106
+#: ../iw/xconfig_gui.py:1107
 #, fuzzy
 msgid "_Skip X configuration"
 msgstr "Ρυθμίσεις ISDN"
@@ -4805,12 +4852,12 @@ msgid ""
 "www.redhat.com/docs."
 msgstr ""
 
-#: ../textw/confirm_text.py:20
+#: ../textw/confirm_text.py:21
 #, fuzzy
 msgid "Installation to begin"
 msgstr "Πρόβλημα Εγκατάστασης"
 
-#: ../textw/confirm_text.py:21
+#: ../textw/confirm_text.py:22
 #, python-format
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
@@ -4818,26 +4865,26 @@ msgid ""
 msgstr ""
 
 #
-#: ../textw/confirm_text.py:24 ../textw/confirm_text.py:26
-#: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:25 ../textw/confirm_text.py:27
+#: ../textw/confirm_text.py:51 ../textw/confirm_text.py:53
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
-#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:381
+#: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:382
 #: ../loader2/driverdisk.c:248 ../loader2/driverdisk.c:263
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:464
 #: ../loader2/hdinstall.c:518 ../loader2/kbd.c:125 ../loader2/loader.c:302
-#: ../loader2/loader.c:760 ../loader2/loader.c:783 ../loader2/net.c:173
-#: ../loader2/net.c:427 ../loader2/net.c:848 ../loader2/nfsinstall.c:54
+#: ../loader2/loader.c:764 ../loader2/loader.c:787 ../loader2/net.c:173
+#: ../loader2/net.c:429 ../loader2/net.c:850 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:254 ../loader2/urls.c:442
 msgid "Back"
 msgstr "Πίσω"
 
-#: ../textw/confirm_text.py:32
+#: ../textw/confirm_text.py:47
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "Επιλογές Αναβάθμισης"
 
-#: ../textw/confirm_text.py:33
+#: ../textw/confirm_text.py:48
 #, python-format
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
@@ -5192,57 +5239,57 @@ msgid ""
 msgstr ""
 "   <Space>,<+>,<-> επιλογή   |   <F1> βοήθεια   |   <F2> περιγραφή πακέτου"
 
-#: ../textw/packages_text.py:110
+#: ../textw/packages_text.py:117
 #, fuzzy
 msgid "Package Group Details"
 msgstr "Επιλογή Ομάδων Πακέτων"
 
-#: ../textw/packages_text.py:165
+#: ../textw/packages_text.py:172
 msgid "Package :"
 msgstr "Πακέτο :"
 
 #
-#: ../textw/packages_text.py:170
+#: ../textw/packages_text.py:177
 msgid "Size    :"
 msgstr "Μέγεθος   :"
 
-#: ../textw/packages_text.py:171
+#: ../textw/packages_text.py:178
 #, python-format
 msgid "%.1f KBytes"
 msgstr "%.1f KBytes"
 
-#: ../textw/packages_text.py:190
+#: ../textw/packages_text.py:197
 msgid "Total size"
 msgstr "Συνολικό μέγεθος"
 
-#: ../textw/packages_text.py:319
+#: ../textw/packages_text.py:326
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
 "   <Space>,<+>,<-> επιλογή   |   <F1> βοήθεια   |   <F2> περιγραφή πακέτου"
 
-#: ../textw/packages_text.py:367
+#: ../textw/packages_text.py:374
 #, fuzzy
 msgid "Package Dependencies"
 msgstr "<!--html-->Εξαρτήσεις Πακέτων"
 
-#: ../textw/packages_text.py:369
+#: ../textw/packages_text.py:376
 msgid ""
 "Some of the packages you have selected to install require packages you have "
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
 
-#: ../textw/packages_text.py:390
+#: ../textw/packages_text.py:397
 #, fuzzy
 msgid "Install packages to satisfy dependencies"
 msgstr "Εγκατάσταση όλων των πακέτων του καταλόγου"
 
-#: ../textw/packages_text.py:391
+#: ../textw/packages_text.py:398
 msgid "Do not install packages that have dependencies"
 msgstr ""
 
-#: ../textw/packages_text.py:392
+#: ../textw/packages_text.py:399
 #, fuzzy
 msgid "Ignore package dependencies"
 msgstr "Έλεγχος εξαρτήσεων"
@@ -5576,11 +5623,6 @@ msgstr "Πού θέλετε να εγκαταστήσετε το πρόγραμ�
 #: ../textw/timezone_text.py:77
 msgid "What time zone are you located in?"
 msgstr ""
-
-#: ../textw/timezone_text.py:92
-#, fuzzy
-msgid "Hardware clock set to GMT?"
-msgstr "Το ρολόι του υπολογιστή σας είναι ρυθμισμένο σε GMT (ώρα Γκρήνουϊτς)"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -5939,7 +5981,7 @@ msgstr "Βάθος Χρώματος:"
 #
 #: ../textw/xconfig_text.py:142 ../textw/xconfig_text.py:149
 #: ../textw/xconfig_text.py:427 ../textw/xconfig_text.py:438
-#: ../textw/xconfig_text.py:658 ../textw/xconfig_text.py:665
+#: ../textw/xconfig_text.py:657 ../textw/xconfig_text.py:664
 msgid "Change"
 msgstr "Αλλαγή"
 
@@ -6057,6 +6099,14 @@ msgstr "Φατνίο συγχρονισμού"
 msgid "VSync Rate:"
 msgstr "Φατνίο συγχρονισμού"
 
+#: ../textw/xconfig_text.py:473
+msgid "Choose monitor type"
+msgstr ""
+
+#: ../textw/xconfig_text.py:473
+msgid "Proceed"
+msgstr ""
+
 #: ../textw/xconfig_text.py:543
 msgid "Video Card"
 msgstr "Κάρτα Βίντεο"
@@ -6084,23 +6134,23 @@ msgstr ""
 msgid "Skip X Configuration"
 msgstr "Ρυθμίσεις ISDN"
 
-#: ../textw/xconfig_text.py:632
+#: ../textw/xconfig_text.py:631
 msgid "Video Card Configuration"
 msgstr "Ρύθμιση Κάρτας Γραφικών"
 
-#: ../textw/xconfig_text.py:646
+#: ../textw/xconfig_text.py:645
 msgid "Select the video card and video RAM for your system."
 msgstr ""
 
-#: ../textw/xconfig_text.py:648
+#: ../textw/xconfig_text.py:647
 msgid "Video Card:"
 msgstr "Κάρτα Βίντεο:"
 
-#: ../textw/xconfig_text.py:653
+#: ../textw/xconfig_text.py:652
 msgid "Unknown card"
 msgstr "Άγνωστη κάρτα"
 
-#: ../textw/xconfig_text.py:661
+#: ../textw/xconfig_text.py:660
 msgid "Video RAM:"
 msgstr "Βίντεο RAM:"
 
@@ -6191,32 +6241,32 @@ msgid ""
 "\tAdministration Tools\n"
 msgstr ""
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:109
+#: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:110
 #: ../loader2/mediacheck.c:272
 #, fuzzy
 msgid "Media Check"
 msgstr "Έλεγχος αλληλογραφίας"
 
 #
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:91
-#: ../loader2/cdinstall.c:109 ../loader2/cdinstall.c:117
+#: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:110 ../loader2/cdinstall.c:118
 #: ../loader2/method.c:402
 msgid "Test"
 msgstr "Δοκιμή"
 
-#: ../loader2/cdinstall.c:88 ../loader2/cdinstall.c:92
+#: ../loader2/cdinstall.c:89 ../loader2/cdinstall.c:93
 #, fuzzy
 msgid "Eject CD"
 msgstr "Εξαγωγή"
 
-#: ../loader2/cdinstall.c:89
+#: ../loader2/cdinstall.c:90
 #, c-format
 msgid ""
 "Choose \"%s\" to test the CD currently in the drive, or \"%s\" to eject the "
 "CD and insert another for testing."
 msgstr ""
 
-#: ../loader2/cdinstall.c:110
+#: ../loader2/cdinstall.c:111
 #, c-format
 msgid ""
 "If you would like to test additional media, insert the next CD and press \"%s"
@@ -6227,19 +6277,19 @@ msgid ""
 "\"."
 msgstr ""
 
-#: ../loader2/cdinstall.c:133 ../loader2/cdinstall.c:375
+#: ../loader2/cdinstall.c:134 ../loader2/cdinstall.c:376
 #, c-format
 msgid ""
 "The %s CD was not found in any of your CDROM drives. Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
 
-#: ../loader2/cdinstall.c:251
+#: ../loader2/cdinstall.c:252
 #, fuzzy
 msgid "CD Found"
 msgstr " προσαρτημένο"
 
-#: ../loader2/cdinstall.c:253
+#: ../loader2/cdinstall.c:254
 #, c-format
 msgid ""
 "To begin testing the CD media before installation press %s.\n"
@@ -6247,19 +6297,19 @@ msgid ""
 "Choose %s to skip the media test and start the installation."
 msgstr ""
 
-#: ../loader2/cdinstall.c:370
+#: ../loader2/cdinstall.c:371
 #, c-format
 msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
 
-#: ../loader2/cdinstall.c:380
+#: ../loader2/cdinstall.c:381
 #, fuzzy
 msgid "CD Not Found"
 msgstr " προσαρτημένο"
 
-#: ../loader2/cdinstall.c:453
+#: ../loader2/cdinstall.c:454
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
@@ -6336,22 +6386,22 @@ msgstr "&Δισκέτα οδηγού"
 msgid "Do you wish to load any more driver disks?"
 msgstr "Έχετε αλλον;"
 
-#: ../loader2/driverdisk.c:445 ../loader2/driverdisk.c:478
+#: ../loader2/driverdisk.c:452 ../loader2/driverdisk.c:486
 #: ../loader2/hdinstall.c:602 ../loader2/kickstart.c:112
 #: ../loader2/kickstart.c:122 ../loader2/kickstart.c:165
-#: ../loader2/modules.c:918 ../loader2/net.c:720 ../loader2/net.c:743
-#: ../loader2/nfsinstall.c:233 ../loader2/urlinstall.c:426
-#: ../loader2/urlinstall.c:435 ../loader2/urlinstall.c:446
+#: ../loader2/modules.c:918 ../loader2/net.c:722 ../loader2/net.c:745
+#: ../loader2/nfsinstall.c:233 ../loader2/urlinstall.c:430
+#: ../loader2/urlinstall.c:439 ../loader2/urlinstall.c:450
 #, fuzzy
 msgid "Kickstart Error"
 msgstr "Μοιραίο Σφάλμα"
 
-#: ../loader2/driverdisk.c:446
+#: ../loader2/driverdisk.c:453
 #, c-format
 msgid "Unknown driver disk kickstart source: %s"
 msgstr ""
 
-#: ../loader2/driverdisk.c:479
+#: ../loader2/driverdisk.c:487
 #, c-format
 msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
@@ -6410,7 +6460,7 @@ msgid "Loading %s driver..."
 msgstr "Φόρτωση του οδηγού ICN ...\n"
 
 #: ../loader2/hdinstall.c:239 ../loader2/hdinstall.c:292
-#: ../loader2/nfsinstall.c:183 ../loader2/urlinstall.c:138
+#: ../loader2/nfsinstall.c:183 ../loader2/urlinstall.c:141
 #, c-format
 msgid ""
 "The %s installation tree in that directory does not seem to match your boot "
@@ -6565,78 +6615,78 @@ msgid ""
 "now?"
 msgstr ""
 
-#: ../loader2/loader.c:598
+#: ../loader2/loader.c:597
 #, fuzzy, c-format
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Δεν έχετε εγκαταστήσει την εφαρμογή \"fortune\"."
 
 #
-#: ../loader2/loader.c:752
+#: ../loader2/loader.c:756
 #, fuzzy
 msgid "Rescue Method"
 msgstr "Μέθοδος Διάσωσης"
 
-#: ../loader2/loader.c:753
+#: ../loader2/loader.c:757
 msgid "Installation Method"
 msgstr "Μέθοδος Εγκατάστασης"
 
-#: ../loader2/loader.c:755
+#: ../loader2/loader.c:759
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader2/loader.c:757
+#: ../loader2/loader.c:761
 #, fuzzy
 msgid "What type of media contains the packages to be installed?"
 msgstr "Θα εγκατασταθούν τα παρακάτω πακέτα"
 
-#: ../loader2/loader.c:782
+#: ../loader2/loader.c:786
 #, fuzzy
 msgid "No driver found"
 msgstr "Προσάρτηση Δίσκων"
 
-#: ../loader2/loader.c:782
+#: ../loader2/loader.c:786
 msgid "Select driver"
 msgstr "Επιλογή οδηγού"
 
-#: ../loader2/loader.c:783
+#: ../loader2/loader.c:787
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Έχετε αλλον;"
 
-#: ../loader2/loader.c:784
+#: ../loader2/loader.c:788
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:945
+#: ../loader2/loader.c:949
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "Τα επόμενα πακέτα από αυτό το κανάλι εγκαθίστανται στο σύστημά σας."
 
-#: ../loader2/loader.c:947
+#: ../loader2/loader.c:951
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
 msgstr ""
 
-#: ../loader2/loader.c:951
+#: ../loader2/loader.c:955
 msgid "Devices"
 msgstr "Συσκευές"
 
-#: ../loader2/loader.c:952
+#: ../loader2/loader.c:956
 msgid "Done"
 msgstr "Έγινε"
 
-#: ../loader2/loader.c:953
+#: ../loader2/loader.c:957
 msgid "Add Device"
 msgstr "Προσθήκη Συσκευής"
 
-#: ../loader2/loader.c:1054
+#: ../loader2/loader.c:1058
 msgid "loader has already been run.  Starting shell."
 msgstr ""
 
-#: ../loader2/loader.c:1387
+#: ../loader2/loader.c:1400
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Φόρτωση αρθρωμάτων, παρακαλώ περιμένετε ..."
@@ -6764,16 +6814,16 @@ msgstr "Πληροφορίες Εικόνας"
 msgid "You entered an invalid IP address."
 msgstr "Εισάγατε μη έγκυρη διεύθυνση IP."
 
-#: ../loader2/net.c:226 ../loader2/net.c:481
+#: ../loader2/net.c:226 ../loader2/net.c:483
 msgid "Dynamic IP"
 msgstr "Δυναμικό IP"
 
-#: ../loader2/net.c:227 ../loader2/net.c:482
+#: ../loader2/net.c:227 ../loader2/net.c:484
 #, c-format
 msgid "Sending request for IP information for %s..."
 msgstr ""
 
-#: ../loader2/net.c:371
+#: ../loader2/net.c:373
 #, fuzzy
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
@@ -6784,62 +6834,62 @@ msgstr ""
 "μορφή (παράδειγμα: 1.2.3.4)."
 
 #
-#: ../loader2/net.c:377
+#: ../loader2/net.c:379
 msgid "IP address:"
 msgstr "Διεύθυνση IP:"
 
-#: ../loader2/net.c:380
+#: ../loader2/net.c:382
 msgid "Netmask:"
 msgstr "Μάσκα δικτύου:"
 
-#: ../loader2/net.c:383
+#: ../loader2/net.c:385
 #, fuzzy
 msgid "Default gateway (IP):"
 msgstr "Εξ' ορισμού στρατηγική:"
 
-#: ../loader2/net.c:386
+#: ../loader2/net.c:388
 #, fuzzy
 msgid "Primary nameserver:"
 msgstr "Πρωτεύον Τηλέφωνο"
 
-#: ../loader2/net.c:413
+#: ../loader2/net.c:415
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
 msgstr ""
 
-#: ../loader2/net.c:441
+#: ../loader2/net.c:443
 msgid "Configure TCP/IP"
 msgstr "Ρύθμιση TCP/IP"
 
-#: ../loader2/net.c:472
+#: ../loader2/net.c:474
 #, fuzzy
 msgid "Missing Information"
 msgstr "Πληροφορίες Συνάντησης"
 
-#: ../loader2/net.c:473
+#: ../loader2/net.c:475
 msgid "You must enter both a valid IP address and a netmask."
 msgstr ""
 
-#: ../loader2/net.c:639
+#: ../loader2/net.c:641
 #, fuzzy
 msgid "Determining host name and domain..."
 msgstr "Σύνδεσμος στον τομέα NIS... "
 
-#: ../loader2/net.c:721
+#: ../loader2/net.c:723
 #, c-format
 msgid "Bad argument to kickstart network command %s: %s"
 msgstr ""
 
-#: ../loader2/net.c:744
+#: ../loader2/net.c:746
 #, c-format
 msgid "Bad bootproto %s specified in network command"
 msgstr ""
 
-#: ../loader2/net.c:844
+#: ../loader2/net.c:846
 #, fuzzy
 msgid "Networking Device"
 msgstr "Κάρτες Συσκευών Δικτύου"
 
-#: ../loader2/net.c:845
+#: ../loader2/net.c:847
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -6888,30 +6938,30 @@ msgstr "Αποστολή δεδομένων μέσω διαδικτύου"
 msgid "Unable to retrieve %s://%s/%s/%s."
 msgstr "Αδύνατ η ανάκτηση του %s!"
 
-#: ../loader2/urlinstall.c:130
+#: ../loader2/urlinstall.c:133
 #, fuzzy
 msgid "Unable to retrieve the install image."
 msgstr "Αδυναμία ανάκτησης καταλόγου εγκατάστασης του GNOME\n"
 
-#: ../loader2/urlinstall.c:266
+#: ../loader2/urlinstall.c:269
 #, fuzzy
 msgid "Media Detected"
 msgstr "Έλεγχος αλληλογραφίας"
 
-#: ../loader2/urlinstall.c:267
+#: ../loader2/urlinstall.c:270
 msgid "Local installation media detected..."
 msgstr ""
 
-#: ../loader2/urlinstall.c:427
+#: ../loader2/urlinstall.c:431
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr ""
 
-#: ../loader2/urlinstall.c:436
+#: ../loader2/urlinstall.c:440
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:447
+#: ../loader2/urlinstall.c:451
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "Άγνωστη κάρτα"
@@ -7747,6 +7797,11 @@ msgid "Russian"
 msgstr "Ρωσικά"
 
 #. generated from lang-table
+#, fuzzy
+msgid "Slovenian"
+msgstr "Σλοβενικά"
+
+#. generated from lang-table
 msgid "Spanish"
 msgstr "Ισπανικά"
 
@@ -7757,6 +7812,11 @@ msgstr "Σουηδικά"
 #. generated from lang-table
 msgid "Turkish"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Hardware clock set to GMT?"
+#~ msgstr ""
+#~ "Το ρολόι του υπολογιστή σας είναι ρυθμισμένο σε GMT (ώρα Γκρήνουϊτς)"
 
 #, fuzzy
 #~ msgid "Enter a boot loader password and then confirm it."
@@ -7851,10 +7911,6 @@ msgstr ""
 #~ msgstr ""
 #~ "    F1-Βοήθεια                 F3-Επεξεργασία   F4-Διαγραφή    F5-"
 #~ "Reset    F12-Εντάξει        "
-
-#, fuzzy
-#~ msgid "Slovenian"
-#~ msgstr "Σλοβενικά"
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ουκρανικά"
