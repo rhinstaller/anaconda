@@ -676,6 +676,10 @@ def doInstall(method, id, intf, instPath):
         # restore old fstab if we did anything for migrating
         if upgrade:
             id.fsset.restoreMigratedFstab(instPath)
+
+        # remove the symlink we made so we can do it again on next round
+        # of preinstall
+        os.unlink("/mnt/sysimage/var/tmp")
         
 	spaceneeded = {}
 	nodeneeded = {}
