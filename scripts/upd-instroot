@@ -93,6 +93,15 @@ expandPackageSet() {
 	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
+	( cd $PKGDEST/$LIBDIR
+	if [ -d obsolete/linuxthreads/ ]; then
+		for x in obsolete/linuxthreads/*-* ; do 
+			lib_base=$(basename $x | cut -d- -f1)
+			rm -f ./$lib_base*
+			mv -f obsolete/linuxthreads/$lib_base* .
+		done
+		rmdir obsolete/linuxthreads obsolete
+	fi )
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
     done
 }
@@ -247,8 +256,8 @@ KEEPFILE=/tmp/keepfile.$$
 
 # XXX gross hack, until we're sure NPTL anaconda builds work, which is
 # highly suspect today.
-if [ "$NPTL" = "0" -a -d /lib/obsolete/linuxthreads/ ]; then
-	EXPR="s,$LIBDIR/,$LIBDIR/obsolete/linuxthreads/,"
+if [ "$NPTL" = "0" ]; then
+	EXPR="p; s,$LIBDIR/,$LIBDIR/obsolete/linuxthreads/,"
 else
 	# this won't get us NPTL if we've got a glibc that doesn't put it
 	# in /lib directly, but really this hack is to make sure we _don't_
