@@ -192,16 +192,26 @@ class LanguageSupportWindow (InstallWindow):
         self.maxrows = 0
         list = []
         comboCurr = 0
+        sel = 0
         for locale in self.language_keys:
             if self.languages[locale] == self.defaultLang or self.langs == None:
+#                print "here"
                 self.language.append_row((locale, ""), TRUE)
                 list.append(locale)
+                sel = comboCurr
             else:
                 try:
                     if self.langs.index(self.languages[locale]) >= 0:
                         self.language.append_row((locale, ""), TRUE)
                         list.append(locale)
+#                        print self.defaultLang, self.languages[locale]
                         comboCurr = comboCurr + 1
+
+
+#                    if self.langs.index(self.languages[locale]) >= 0:
+#                        self.language.append_row((locale, ""), TRUE)
+#                        list.append(locale)
+#                        comboCurr = comboCurr + 1
                 except:
                     self.language.append_row((locale, ""), FALSE)
                     
@@ -209,8 +219,9 @@ class LanguageSupportWindow (InstallWindow):
             self.todo.langMaxRows = self.maxrows
             
         self.combo.set_popdown_strings (list)
-#        print comboCurr
-        self.combo.list.select_item(comboCurr)
+#        print sel
+        self.combo.list.select_item(sel)
+#        self.combo.list.select_item(comboCurr)
 
 
 
