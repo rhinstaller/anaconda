@@ -1,3 +1,9 @@
+2005-01-19  Chris Lumens  <clumens@redhat.com>
+
+	* autopart.py (fitConstrained):  Allow logical partitions to go all
+	the way to the end of the extended partition.  (Potential fix for
+	#101432).
+
 2005-01-18  Chris Lumens  <clumens@redhat.com>
 
 	* iw/partition_gui.py (PartitionWindow.refresh):  Only repopulate the

@@ -215,8 +215,8 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                 startSec = 0L
 
             if disk.type.check_feature(parted.DISK_TYPE_EXTENDED) and disk.extended_partition:
-                
-                if (disk.extended_partition.geom.start < startSec) and (disk.extended_partition.geom.end > endSec):
+
+                if (disk.extended_partition.geom.start < startSec) and (disk.extended_partition.geom.end >= endSec):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
                         return PARTITION_FAIL
