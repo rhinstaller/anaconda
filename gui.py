@@ -222,8 +222,9 @@ class InstallControlWindow (Thread):
 
         # get everything shown, then call fixUp so screens can do
         # things like moveto
-	while events_pending ():
-            mainiteration ()
+        # EEEEEEEEEEEEEEEEEEEEEEEK!  GTK Deadlock
+## 	while events_pending ():
+##             mainiteration ()
 	screen.fixUp ()
 
     def update (self, ics):
