@@ -5,6 +5,14 @@ OBJS = sldisply.o slerr.o slgetkey.o slmisc.o slsignal.o slsmg.o    \
 
 CFLAGS = -fPIC
 
+ifeq (.depend,$(wildcard .depend))
+TARGET=all
+else
+TARGET=depend all
+endif
+
+everything: $(TARGET)
+
 all:	libslang.so
 
 libslang.so:	$(OBJS)
@@ -15,3 +23,10 @@ clean:
 
 install:    libslang.so
 	install -s libslang.so $(DESTDIR)/$(RUNTIMEDIR)/libslang.so.1
+
+depend:
+	$(CPP) -M $(CFLAGS) *.c > .depend
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif                                           

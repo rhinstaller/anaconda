@@ -10,3 +10,5 @@ clean:
 
 install:
 	install libbz2.so.0 $(DESTDIR)/$(RUNTIMEDIR)
+
+depend:

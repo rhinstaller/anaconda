@@ -6,3 +6,5 @@ all:
 install: 
 	mkdir -p $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
 	install *.png $(DESTDIR)/$(ANACONDADATADIR)/pixmaps
+
+depend:

@@ -9,3 +9,4 @@ install:
 	    cp -av $(ARCH)/[a-z]* $(DESTDIR)/$(RUNTIMEDIR)/boot; \
 	fi
 
+depend:

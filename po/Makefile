@@ -88,3 +88,5 @@ missing-mixed:
 
 %.mo: %.po
 	msgfmt -o $@ $<
+
+depend:

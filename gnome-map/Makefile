@@ -20,3 +20,5 @@ timezonemapmodule.so: gnome-map.o gnome-canvas-dot.o timezonemapmodule.o gnome-m
 
 clean:
 	rm -f gglobe-canvas *.so *.o *~
+
+depend:

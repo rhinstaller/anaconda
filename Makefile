@@ -33,6 +33,10 @@ xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I/usr/include/python1.5 -I /usr/include/python1.5 -c xmouse.c 
 	gcc -o xmouse.so -shared xmouse.o /usr/X11R6/lib/libXxf86misc.a -L/usr/X11R6/lib -lX11 -lXext
 
+depend:
+	rm -f *.o *.so *.pyc
+	for d in $(SUBDIRS); do make -C $$d depend; done
+
 clean:
 	rm -f *.o *.so *.pyc
 	for d in $(SUBDIRS); do make -C $$d clean; done

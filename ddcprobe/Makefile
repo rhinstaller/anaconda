@@ -2,6 +2,14 @@ CFLAGS=-Wall -O -g# -DDEBUG
 
 TARGETS=ddcprobe svgamodes ddcxinfo modetest libvbe.a
 
+ifeq (.depend,$(wildcard .depend))
+TARGET=all
+else
+TARGET=depend all
+endif
+
+everything: $(TARGET)
+
 all: $(TARGETS)
 
 install: $(TARGETS)
@@ -28,3 +36,10 @@ $(DESTDIR)/usr/lib/libvbe.a:
 
 clean:
 	$(RM) $(TARGETS) *.o core
+
+depend:
+	$(CPP) -M $(CFLAGS) *.c > .depend
+
+ifeq (.depend,$(wildcard .depend))
+include .depend
+endif                                           
