@@ -180,18 +180,32 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
     if vncconnecthost is not None:
 	dup_log(_("Attempting to connect to vnc client on host %s...") % (vncconnecthost,))
 	
-	if connxinfo is not None:
-	    dup_log(_("If for some reason this fails, please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
-        else:	    
-	    dup_log(_("If for some reason this fails, please manually connect your vnc client to begin the install."))
-		    
 	hostarg = vncconnecthost
 	if vncconnectport is not None:
 	    hostarg = hostarg + ":" + vncconnectport
 	    
 	argv = ["/usr/bin/vncconfig", "-display", ":1", "-connect", hostarg]
-	iutil.execWithRedirect(argv[0], argv)
-	
+	ntries = 0
+	while 1:
+	    output=iutil.execWithCapture(argv[0], argv, catchfd=2)
+	    outfields = string.split(string.strip(output), ' ')
+	    if outfields[0] == "connecting" and outfields[-1] == "failed":
+		ntries += 1
+		if ntries > 50:
+		    dup_log(_("Giving up attempting to connect after 50 tries!\n"))
+		    if connxinfo is not None:
+			dup_log(_("Please manually connect your vnc client to %s to begin the install.") % (connxinfo,))
+		    else:	    
+			dup_log(_("Please manually connect your vnc client to begin the install."))
+		    break
+		    
+		dup_log(output)
+		dup_log(_("Will try to connect again in 15 seconds..."))
+		time.sleep(15)
+		continue
+	    else:
+		dup_log(_("Connected!"))
+		break
     else:
 	if connxinfo is not None:
 	    dup_log(_("Please connect to %s to begin the install...") % (connxinfo,))
