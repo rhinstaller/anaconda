@@ -57,29 +57,35 @@ struct knownDevices devices;
 struct installMethod {
     char * name;
     int network;
-    char * (*mountImage)(char * location, struct knownDevices * kd,
+    char * (*mountImage)(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 };
 
-static char * mountCdromImage(char * location, struct knownDevices * kd,
+static char * mountCdromImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static char * mountHardDrive(char * location, struct knownDevices * kd,
+static char * mountHardDrive(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static char * mountNfsImage(char * location, struct knownDevices * kd,
+static char * mountNfsImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
-static char * mountFtpImage(char * location, struct knownDevices * kd,
+static char * mountUrlImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), 0, mountCdromImage },
-    { N_("NFS image"), 1, mountNfsImage },
+    { "FTP", 1, mountUrlImage },
+    { "HTTP", 1, mountUrlImage },
     { N_("Hard drive"), 0, mountHardDrive },
-    { "FTP", 1, mountFtpImage },
+    { N_("NFS image"), 1, mountNfsImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -443,7 +449,8 @@ logMessage("mount error %s", strerror(errno));
     return 0;
 }
 
-static char * mountHardDrive(char * location, struct knownDevices * kd,
+static char * mountHardDrive(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int rc;
@@ -606,7 +613,8 @@ static char * mountHardDrive(char * location, struct knownDevices * kd,
     return url;
 }
 
-static char * mountCdromImage(char * location, struct knownDevices * kd,
+static char * mountCdromImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i;
@@ -692,7 +700,8 @@ static int ensureNetDevice(struct knownDevices * kd,
 #define NFS_STAGE_MOUNT	3
 #define NFS_STAGE_DONE	4
 
-static char * mountNfsImage(char * location, struct knownDevices * kd,
+static char * mountNfsImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags) {
     static struct networkDeviceConfig netDev;
@@ -774,7 +783,8 @@ static char * mountNfsImage(char * location, struct knownDevices * kd,
 #define URL_STAGE_FETCH			4
 #define URL_STAGE_DONE			20
 
-static char * mountFtpImage(char * location, struct knownDevices * kd,
+static char * mountUrlImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags) {
     int i, rc;
@@ -784,14 +794,16 @@ static char * mountFtpImage(char * location, struct knownDevices * kd,
     char needsSecondary = ' ';
     static struct networkDeviceConfig netDev;
     FD_t fd;
+    char * url;
     char buf[1024];
+    enum urlprotocol_t proto = 
+	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
     i = ensureNetDevice(kd, modInfo, modLoaded, modDeps, flags, &devName);
     if (i) return NULL;
 
     memset(&ui, 0, sizeof(ui));
     memset(&netDev, 0, sizeof(netDev));
-
 
     while (stage != URL_STAGE_DONE) {
         switch (stage) {
@@ -804,7 +816,7 @@ static char * mountFtpImage(char * location, struct knownDevices * kd,
 	    stage = NFS_STAGE_NFS;
 
 	  case URL_STAGE_MAIN:
-	    rc = urlMainSetupPanel(&ui, URL_METHOD_FTP, &needsSecondary);
+	    rc = urlMainSetupPanel(&ui, proto, &needsSecondary);
 	    if (rc) 
 		stage = URL_STAGE_IP;
 	    else
@@ -813,11 +825,16 @@ static char * mountFtpImage(char * location, struct knownDevices * kd,
 	    break;
 
 	  case URL_STAGE_SECOND:
-	    rc = urlSecondarySetupPanel(&ui, URL_METHOD_FTP);
+	    rc = urlSecondarySetupPanel(&ui, proto);
 	    stage = rc ? URL_STAGE_MAIN : URL_STAGE_FETCH;
 	    break;
 
 	  case URL_STAGE_FETCH:
+	    if (FL_TESTING(flags)) {
+		stage = URL_STAGE_DONE;
+		break;
+	    }
+
 	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
 	    
 	    if (fd == NULL || fdFileno(fd) < 0) {
@@ -833,12 +850,17 @@ static char * mountFtpImage(char * location, struct knownDevices * kd,
 	    
 	    rc = loadStage2Ramdisk(fdFileno(fd), 0, flags);
 	    urlinstFinishTransfer(fd);
+	    if (!rc)
+		stage = URL_STAGE_DONE;
 
 	    break;
         }
     }
 
-    return "dir://mnt/source/.";
+    url = malloc(strlen(ui.urlprefix) + 2);
+    strcpy(url, ui.urlprefix);
+
+    return url;
 }
     
 static char * doMountImage(char * location, struct knownDevices * kd,
@@ -891,7 +913,8 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 
 	if (rc) continue;
 
-    	url = installMethods[validMethods[methodNum]].mountImage(location,
+    	url = installMethods[validMethods[methodNum]].mountImage(
+		   installMethods + validMethods[methodNum], location,
     		   kd, modInfo, modLoaded, modDeps, flags);
     } while (!url);
 
