@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-04-16 11:34+0200\n"
+"PO-Revision-Date: 2004-07-04 11:34+0200\n"
 "Last-Translator: Tamas Szanto <tszanto@mol.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -601,20 +601,19 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Távoli bejelentkezés (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Webkiszolgáló (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Fájlkiszolgáló (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "E-mail (SMTP)"
+msgstr "E-mail-kiszolgáló (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1003,11 +1002,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"A Kickstart-konfiguráció feldolgozása közben a következő hiba történt:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Hiba történt a(z) %s Kickstart-fájl megnyitásakor: %s"
+msgstr "Hiba történt a Kickstart-konfiguráció feldolgozásakor"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1018,9 +1019,8 @@ msgstr ""
 "tartsa magát."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Alapértelmezés"
+msgstr "alapértelmezés:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1173,22 +1173,22 @@ msgid "Change CDROM"
 msgstr "Cseréljen CDROM-ot"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Helyezze be a %d. lemezt a folytatáshoz."
+msgstr "Helyezze be a(z) %s - %d. lemezt a folytatáshoz."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
-msgstr "Nem megfelelő CD-ROM"
+msgstr "Nem megfelelő CD-lemez"
 
 #: ../image.py:321
 #, python-format
 msgid "That's not the correct %s CDROM."
-msgstr "Ez nem a megfelelő %s CD-ROM."
+msgstr "Ez nem a megfelelő %s CD-lemez."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Nem sikerült elérni a CD-lemezt."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1531,7 +1531,7 @@ msgstr ""
 "Újra szeretné formázni a DASD-t a CDL formátummal?"
 
 #: ../partedUtils.py:304
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1539,20 +1539,18 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"A /dev/%s eszköz partíciós táblája nem várt típusú (%s) ennél az "
-"architektúránál. Ha %s telepítésénél használni szeretné ezt a lemezt, újra "
-"kell azt inicializálnia, melynek hatására a lemezen található ÖSSZES ADAT "
+"A /dev/%s eszköz partíciós táblája %s típusú. "
+"Ha a(z) %s telepítéséhez ezt a lemezt szeretné használni, előbb újra "
+"kell formáznia, melynek hatására a lemezen található ÖSSZES ADAT "
 "elvész.\n"
 "\n"
-"Inicializálni szeretné a meghajtót?"
+"Le szeretné formázni a lemezt?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Figyelmen kívül hagyás"
+msgstr "Fi_gyelmen kívül hagyás"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
 msgstr "_Formázás"
 
@@ -1571,7 +1569,7 @@ msgid "Please wait while formatting drive %s...\n"
 msgstr "Egy kis türelmet kérek, a(z) %s meghajtó formázása folyik...\n"
 
 #: ../partedUtils.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1582,14 +1580,14 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"A(z) %s eszköz partíciós táblája nem olvasható. Ha új partíciókat szeretne "
-"rajta létrehozni, előbb inicializálnia kell, melynek hatására a meghajtón "
+"A(z) %s (%s) eszköz partíciós tábláját nem sikerült beolvasni. Ha új partíciókat szeretne "
+"létrehozni a lemezen, előbb újra kell formáznia a lemezt, melynek hatására a rajta "
 "található ÖSSZES ADAT elvész.\n"
 "\n"
-"Ez a művelet figyelmen kívül hagyja, hogy Ön mely meghajtókat jelölte ki "
-"korábban kihagyandónak.\n"
+"Ennél a műveletnél a program nem veszi figyelembe, hogy Ön korábban mely meghajtókat jelölte ki "
+"kihagyandónak.\n"
 "\n"
-"Inicializálni szeretné a meghajtót (MINDEN ADAT elvész róla)?"
+"Le szeretné formázni a lemezt (MINDEN ADAT elvész róla)?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -2495,9 +2493,8 @@ msgid "Connecting..."
 msgstr "Csatlakozás..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "A fájl betöltése nem sikerült."
+msgstr "Az X-et nem sikerült elindítani"
 
 #: ../vnc.py:37
 msgid ""
@@ -2505,25 +2502,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Az X nem tudott elindulni. El szeretné indítani a VNC-t, hogy más gépről "
+"csatlakozni lehessen ehhez a géphez a grafikus módú telepítés elvégzéséhez "
+"vagy inkább szöveges módban szeretné folytatni a telepítést?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Szöveges mód használata"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "A VNC elindítása..."
+msgstr "A VNC elindítása"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "SILO-beállítás"
+msgstr "A VNC beállításai"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Root jelszó"
+msgstr "Nincs jelszó"
 
 #: ../vnc.py:62
 msgid ""
@@ -2531,6 +2528,8 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Jelszó használatával lehet megakadályozni, hogy illetéktelenek férjenek hozzá "
+"a telepítési folyamathoz. Kérem adja meg a telepítési jelszót."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2553,7 +2552,6 @@ msgid "Password Length"
 msgstr "Jelszó hossz"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "A jelszónak legalább 6 karakter hosszúnak kell lennie."
 
@@ -2599,6 +2597,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"A root felhasználónév a rendszergazdának van fenntartva. Adja meg a root felhasználó "
+"jelszavát."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3246,6 +3246,8 @@ msgid ""
 "With a firewall, you may wish to allow access to specific services on your "
 "computer from others.  Allow access to which services?"
 msgstr ""
+"Tűzfal használatakor meg kell mondani, hogy mely hálózati szolgáltatások legyenek elérhetők "
+"más gépekről. Mely szolgáltatásokat szeretné elérhetővé tenni?"
 
 #: ../iw/firewall_gui.py:143
 msgid ""
@@ -3254,11 +3256,13 @@ msgid ""
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
 msgstr ""
+"Az SELinux (Security Enhanced Linux) komponens a hagyományos linuxos "
+"jogosultságoknál sokkal finomabb biztonsági előírásokat tesz lehetővé. A komponens ki- vagy bekapcsolt "
+"állapotban lehet (az előbbi esetben csak figyelmeztetéseket ad a hozzáférés megtagadása helyett)."
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "A SELinux letiltása"
+msgstr "Az _SELinux bekapcsolása:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3818,11 +3822,11 @@ msgstr "_Point to Point (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "Titkosítási k_ulcs"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5496,9 +5500,8 @@ msgid "You cannot customize a disabled firewall."
 msgstr "Kikapcsolt tűzfalat nem lehet testreszabni."
 
 #: ../textw/firewall_text.py:92
-#, fuzzy
 msgid "Customize Firewall Configuration"
-msgstr "Egyéni grafikai beállítás használata"
+msgstr "A tűzfal egyéni beállítása"
 
 #: ../textw/firewall_text.py:159
 msgid "Security Enhanced Linux"
@@ -5601,11 +5604,11 @@ msgstr "Point-to-point (IP)"
 
 #: ../textw/network_text.py:75 ../loader2/net.c:186
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Titkosítási kulcs"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -6746,32 +6749,28 @@ msgstr ""
 "Melyiket szeretné használni?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Több olyan eszköz található a gépben, mely meghajtólemezt tartalmazhat. "
+"Több olyan partíció található ezen az eszközön, mely meghajtófájt tartalmazhat. "
 "Melyiket szeretné használni?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Nem sikerült csatlakoztatni a frissítőlemezt."
+msgstr "Nem sikerült csatlakoztatni a partíciót."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Válassza ki a meghajtót"
+msgstr "Válassza ki a meghajtófájlt"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Válassza ki a meghajtófájlt."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Nem sikerült csatlakoztatni a meghajtólemezt."
+msgstr "Nem sikerült betölteni a meghajtó-képmást a fájlból."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6985,9 +6984,9 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nem található a ks.cfg fájl a rendszerindító floppyn."
 
 #: ../loader2/kickstart.c:402
-#, fuzzy, c-format
+#, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr "Hibás argumentum a(z) %s HD Kickstart-parancsnál: %s"
+msgstr "Hibás argumentum a(z) %s lezárási Kickstart-parancsnál: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
@@ -7124,9 +7123,9 @@ msgid "Add Device"
 msgstr "Eszköz hozzáadás"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "a betöltő már le lett futtatva. Elindul a parancsértelmező."
+msgstr "a betöltő már lefutott. Elindul a parancsértelmező.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7268,11 +7267,13 @@ msgid ""
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
 msgstr ""
+"%s egy vezeték nélküli hálózati adapter. Kérem adja a vezeték nélküli hálózat eléréséhez szükséges ESSID-t és "
+"titkosítási kulcsot. Ha nem kell titkosítási kulcsot használni, hagyja üresen "
+"a mezőt, a telepítés folytatódik."
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Egyéb beállítások"
+msgstr "Vezeték nélküli beállítások"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8177,7 +8178,7 @@ msgstr "Zaporozsje (Luganszk)"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "arab"
 
 #. generated from lang-table
 msgid "Bengali"
@@ -8232,9 +8233,8 @@ msgid "German"
 msgstr "német"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Keresés"
+msgstr "hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8258,7 +8258,7 @@ msgstr "koreai"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "macedón"
 
 #. generated from lang-table
 msgid "Malay"
@@ -8282,7 +8282,7 @@ msgstr "portugál (brazil)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "pandzsabi"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8301,9 +8301,8 @@ msgid "Swedish"
 msgstr "svéd"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmánia"
+msgstr "tamil"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8315,7 +8314,7 @@ msgstr "ukrán"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "vietnámi"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8325,88 +8324,3 @@ msgstr "velszi"
 msgid "Zulu"
 msgstr "zulu"
 
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Érvénytelen a megadott port: %s. A várt formátum: 'port:protokoll', a "
-#~ "port értékének 1 és 65535 közé kell esnie, a protokoll pedig 'tcp' és "
-#~ "'udp' lehet.\n"
-#~ "\n"
-#~ "Például: '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Figyelem: hibás token"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "_Bejövő adatok engedélyezése:"
-
-#, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "Kisz_olgáló"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Egyéb _portok:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "_SELinux-bővítmények:"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Megbízható eszközök:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "E-mail (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Egyéb portok"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Tűzfalbeállítás - Testreszabás"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "A tűzfalat két módon lehet testreszabni. Egyrészt meg lehet adni, hogy "
-#~ "mely hálózati eszközöknél engedhető át a teljes adatforgalom. Másrészt "
-#~ "meg lehet adni, mely protokollok működjenek a tűzfalon keresztül. "
-#~ "Vesszővel elválasztva lehet portokat felsorolni 'szolgáltatás:protokoll' "
-#~ "alakban (pl.: 'imap:tcp'). "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Figyelem: %s egy érvénytelen port."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "A CD-lemezt nem sikerült csatlakoztatni."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Adja meg a rendszergazdai (root) jelszót."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "Egyén_i tűzfal"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Milyen hálózati szolgáltatások juthatnak át a tűzfalon?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Ha a teljes adatforgalmat engedélyezni szeretné az eszközről, válassza ki "
-#~ "alább."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Me_gbízható eszközök:"
