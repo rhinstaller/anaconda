@@ -23,15 +23,15 @@ all:	modlist $(MODDEPS) genhdlist snarffont mapshdr readmap
 
 modlist:    modlist.o 
 
-modules.o: ../loader/modules.c
-	cp ../loader/modules.c ./
-	$(CC) $(CFLAGS) -I../loader -c modules.c
+moduledeps.o: ../loader/moduledeps.c
+	cp ../loader/moduledeps.c ./
+	$(CC) $(CFLAGS) -I../loader -c moduledeps.c
 
-moddeps: moddeps.o modules.o
-	$(CC) $(LDFLAGS) -o moddeps moddeps.o modules.o \
+moddeps: moddeps.o moduledeps.o
+	$(CC) $(LDFLAGS) -o moddeps moddeps.o moduledeps.o \
             $(LOADLIBES) -lresolv \
 	    -lmodutils -lmodutilobj -lmodutilutil  \
-	    -lpopt -lgunzip -L../isys/gzlib -lbz2
+	    -lpopt -lbz2
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(CFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \

@@ -19,7 +19,7 @@
 #include <utime.h>
 
 #include "cpio.h"
-#include "gzlib/gzlib.h"
+#include "stubs.h"
 
 #if MAJOR_IN_SYSMACROS 
 #include <sys/sysmacros.h>

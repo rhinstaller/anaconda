@@ -10,7 +10,7 @@ OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
 SOBJECTS = $(patsubst %.o,%.lo,$(OBJECTS))
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
-LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -L./gzlib -lgunzip
+LOADLIBES = -lresolv -lpci -lpopt -lpump -lext2fs -lz
 PYMODULES = _isys.so
 SUBDIRS = gzlib
 DIET = diet
@@ -42,7 +42,7 @@ all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
 
 %.do: %.c
-	$(DIET) $(CC) -c $(CFLAGS) -DDIET=1 "-Du_char=unsigned char" -o $@ $<
+	$(DIET) $(CC) -c $(CFLAGS) -DGZLIB=1 -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
 	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
