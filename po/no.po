@@ -662,6 +662,7 @@ msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                            <Enter> for å avslutte                           "
 
 #: ../text.py:642
 msgid ""
@@ -1071,7 +1072,7 @@ msgstr "Feil under montering av ext2 filsystem på %s: %s"
 
 #: ../upgrade.py:69
 msgid "Partitionless upgrades are NOT supported in this beta"
-msgstr ""
+msgstr "Partisjonsløs oppgradering er ikke støttet i denne betaen"
 
 #: ../upgrade.py:101
 msgid ""
@@ -1942,6 +1943,18 @@ msgid ""
 "\n"
 "Are you sure you want to proceed?"
 msgstr ""
+"Du har lagt partisjonen som inneholder kjernen (bootpartisjonen) over\n"
+"grensen på 1024 sylindre, og det ser ut som om denne BIOSen ikke støtter\n"
+"boot over denne grensen. Hvis du fortsetter, vil du mest sannsynlig\n"
+"ikke kunne reboote inn i Linux.\n"
+"\n"
+"Hvis du velger å fortsette, er det STERKT anbefalt at du lager en "
+"bootdiskett\n"
+"når du blir spurt om denne. Dette sikrer at du har en måte å komme inn i "
+"systemet\n"
+"på etter installer.\n"
+"\n"
+"Er du sikker på at du vil fortsette?"
 
 #: ../iw/silo_gui.py:20
 msgid "Silo Configuration"
@@ -2739,6 +2752,9 @@ msgid ""
 "so do NOT report errors if you choose to do this.\n"
 " Do you want to continue?"
 msgstr ""
+"ADVARSEL: Partisjonsløs installering feiler ofte i denne BETA-utgaven, \n"
+"så IKKE rapporter feil hvis du velger å installere på denne måten.\n"
+"Ønsker du å fortsette?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -4118,7 +4134,7 @@ msgstr "Sør-Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Indian Rim"
-msgstr ""
+msgstr "Indiske hav"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
@@ -4224,14 +4240,3 @@ msgstr "Kjerneutvikling"
 
 msgid "Utilities"
 msgstr "Verktøy"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
-#~ "You can do this, but you may not use any other filesystems for your Linux "
-#~ "system. Additionally, there will be a speed penalty for not using "
-#~ "Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "Du har bedt om å legge rotfilsystemet (/) på en DOS-stil FAT partisjon. Du "
-#~ "kan gjøre dette, men du vil ikke kunne bruke andre filsystemer for ditt "
-#~ "Linux-system. I tillegg vil det gå utover ytelsen når du ikke bruker "
-#~ "Linux-partisjoner. Vil du fortsette?"
