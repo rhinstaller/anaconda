@@ -137,6 +137,11 @@ class XConfigWindow (InstallWindow):
         self.todo.x.skip = widget.get_active ()
 
     def testPressed (self, widget, *args):
+        if self.monlist and self.monlist.selection:
+	    row = self.monlist.selection[0]
+	    setting = self.monlist.get_row_data (row)
+	    self.todo.x.setMonitor (setting)
+
         try:
             self.todo.x.test ()
         except RuntimeError:
