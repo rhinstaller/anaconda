@@ -229,7 +229,7 @@ static int setupLanguage(int choice, int flags) {
     /* load the language only if it is displayable.  if they're using
      * a serial console, we hope it's smart enough */
     if (!strcmp(languages[choice].font, "bterm") && !FL_SERIAL(flags) && 
-        startBterm(flags)) {
+        !isVioConsole() && startBterm(flags)) {
         if (FL_KICKSTART(flags)) return 0;
 
 	newtWinMessage("Language Unavailable", "OK", 
