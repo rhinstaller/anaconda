@@ -59,10 +59,13 @@ class LanguageWindow:
         else:
             buttons = [_("Ok")]
 
+        translated = []
+        for lang in languages:
+            translated.append (_(lang))
         (button, choice) = \
             ListboxChoiceWindow(screen, _("Language Selection"),
 			_("What language would you like to use during the "
-			  "installation process?"), languages, 
+			  "installation process?"), translated, 
 			buttons, width = 30, default = current, scroll = 1,
                                 height = height, help = "lang")
 
