@@ -2525,13 +2525,11 @@ int main(int argc, char ** argv) {
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
 
-#if !defined(__ia64__)
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
-#endif
 
     openLog(FL_TESTING(flags));
 
@@ -2570,25 +2568,19 @@ int main(int argc, char ** argv) {
     }
 #endif
 
-#if defined(__ia64__)
-    kdFindIdeList(&kd, 0);
-    kdFindScsiList(&kd, 0);
-    kdFindNetList(&kd, 0);
-#else
     /* if we're in PCMCIA, we're always going to pass the PCMCIA code
        to the probe */
-# ifdef INCLUDE_PCMCIA
+#ifdef INCLUDE_PCMCIA
     kdFindIdeList(&kd, CODE_PCMCIA);
     kdFindScsiList(&kd, CODE_PCMCIA);
     kdFindNetList(&kd, CODE_PCMCIA);
-# else
+#else
     /* but if we're not in PCMCIA, there is a chance that we were run in
        kon mode which means that the probes were done and modules were
        inserted, but they're *not* PCMCIA */
     kdFindIdeList(&kd, continuing ? 0 : CODE_PCMCIA);
     kdFindScsiList(&kd, continuing ? 0 : CODE_PCMCIA);
     kdFindNetList(&kd, continuing ? 0 : CODE_PCMCIA);
-# endif
 #endif
 
     if (!continuing) {
@@ -2654,7 +2646,7 @@ logMessage("found url image %s", url);
 	symlink("mnt/runtime/lib", "/lib");
 
 /* the only modules we need for alpha are on the initrd */
-#if !defined(__alpha__) && !defined(__ia64__)
+#if !defined(__alpha__)
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
 	unlink("/modules/pcitable");
@@ -2695,13 +2687,11 @@ logMessage("found url image %s", url);
 
     /* XXX should free old modInfo set */
     modInfo = isysNewModuleInfoSet();
-#if !defined(__ia64__)
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
     }
-#endif
 
     readExtraModInfo(modInfo);
 
@@ -2741,13 +2731,11 @@ logMessage("found url image %s", url);
 	}
     }
 
-#ifndef __ia64__
     mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-#endif
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
@@ -2837,7 +2825,6 @@ logMessage("found url image %s", url);
 	    *argptr++ = instClass;
 	}
 
-#ifndef __ia64__
 	for (i = 0; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].path) continue;
 
@@ -2857,7 +2844,6 @@ logMessage("found url image %s", url);
 
 	    argptr++;
 	}
-#endif
     }
     
     *argptr = NULL;

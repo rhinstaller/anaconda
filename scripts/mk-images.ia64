@@ -1,5 +1,11 @@
-# No modules yet
-#SECSTAGE="vfat raid0 raid1 raid5"
+# LATEUSBMODS go in the second stage
+USBMODS="uhci hid keybdev"
+LATEUSBMODS="mousedev"
+
+SECSTAGE="nfs fat vfat raid0 raid1 raid5 $LATEUSBMODS"
+NETMODULES="3c59x acenic e100 e1000 eepro100 sk98lin starfire tulip yellowfin"
+SCSIMODULES="DAC960 cciss cpqarray aic7xxx megaraid qla1280 qla2x00 sym53c8xx"
+
 
 prepareBootImage() {
 	gunzip < $BOOTDISKDIR/bootfs.gz > $MBD_TMPIMAGE
@@ -12,9 +18,11 @@ prepareBootImage() {
 makebootdisk --kernelto $TOPDESTPATH/kernels/vmlinux  \
 	     --imagename boot.img \
 	     --initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
-		     	    --initrdsize 4096 \
-			    --loaderbin loader'
+		     	    --initrdsize 8192 \
+			    --loaderbin loader \
+			    --modules "nfs fat vfat $USBMODS $NETMODULES $SCSIMODULES"' 
 
-makeinstimage --size1 8192 --size2 8192 "netstg"
-makeinstimage --size1 8192 --size2 8192 "hdstg" 
+makeinstimage --size1 8192 --size2 8192 "netstg" "$SECSTAGE $SCSIMODULES"
+makeinstimage --size1 8192 --size2 8192 "hdstg" "$SECSTAGE $NETMODULES"
+makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES"
 makemainimage "stage2"

@@ -91,8 +91,13 @@ class EliConfiguration:
 		eli.delImage(label)
 	    except IndexError, msg:
 		sl = LiloConfigFile(imageType = "image", path = kernelFile)
+		
+	    initrd = self.makeInitrd (kernelTag, instRoot)
 
 	    sl.addEntry("label", label)
+	    if os.access (instRoot + "/boot/efi/" + initrd, os.R_OK):
+		sl.addEntry("initrd", initrd)
+		
 	    sl.addEntry("read-only")
 	    sl.addEntry("root", '/dev/' + rootDev)
 
@@ -102,23 +107,37 @@ class EliConfiguration:
 	    eli.addImage (sl)
 
 	eli.write(instRoot + "/boot/efi/eli.cfg", perms = perms)
+	
+    def makeInitrd (self, kernelTag, instRoot):
+	initrd = "initrd%s.img" % (kernelTag, )
+	if not self.initrdsMade.has_key(initrd):
+	    iutil.execWithRedirect("/sbin/mkinitrd",
+	    			[ "/sbin/mkinitrd",
+				"--ifneeded",
+				"/boot/efi/%s" % initrd,
+				kernelTag[1:] ],
+				stdout = None, stderr = None, searchPath = 1,
+				root = instRoot)
+	    self.initrdsMade[kernelTag] = 1
+	return initrd
 
     def __init__(self):
 	self.eliImages = {}
+	self.initrdsMade = {}
 	self.eliAppend = None
 	self.default = None
 
 if __name__ == "__main__":
     config = LiloConfigFile ()
-    config.read ('/etc/lilo.conf')
+    config.read ('/boot/efi/eli.cfg')
     print config
     print "image list", config.listImages()
-    config.delImage ('/boot/vmlinuz-2.2.5-15')
+    config.delImage ('vmlinux-2.4.0-0.32')
     print '----------------------------------'
     config = LiloConfigFile ()
-    config.read ('/etc/lilo.conf')
+    config.read ('/boot/efi/eli.cfg')
     print config
     print '----------------------------------'    
-    print config.getImage('/boot/vmlinuz-2.2.5-15')
+    print config.getImage('vmlinux-2.4.0-0.32')
     
 
