@@ -462,6 +462,13 @@ class PartitionWindow(InstallWindow):
         del self.parent
         return None
 
+    def getPrev(self):
+        self.diskStripeGraph.shutDown()
+        self.tree.freeze()
+        self.clearTree()
+        del self.parent
+        return None
+
     def checkNextConditions(self):
         request = self.partitions.getRequestByMountPoint("/")
         if request:

@@ -1010,6 +1010,7 @@ class DiskSet:
 
 def partitionObjectsInitialize(diskset, partitions, dir):
     if dir == DISPATCH_BACK:
+        diskset.closeDevices()
         return
     
     # read in drive info
