@@ -1290,7 +1290,8 @@ def setFileCons(instPath, partitions):
                  "/etc/mtab", "/etc/fstab", "/etc/resolv.conf",
                  "/etc/modprobe.conf", "/etc/modprobe.conf~",
                  "/var/log/wtmp", "/var/run/utmp",
-                 "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab"]
+                 "/dev/log", "/var/lib/rpm", "/", "/etc/raidtab",
+                 "/etc/mdadm.conf"]
 
         vgs = []
         for entry in partitions.requests:

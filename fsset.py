@@ -1047,16 +1047,28 @@ class FileSystemSet:
 
         return raidtab
 
+    def mdadmConf(self):
+        if len(self.entries) == 0:
+            return
+        
+        cf = "DEVICE partitions\n"
+        for ent in self.entries:
+            l = "ARRAY /dev/%s superminor=%s\n" %(ent.device, ent.minor)
+            cf = cf + l
+
+        return cf
+        
+
     def write (self, prefix):
         f = open (prefix + "/etc/fstab", "w")
         f.write (self.fstab())
         f.close ()
 
-        raidtab = self.raidtab()
+        cf = self.mdadmConf()
 
-        if raidtab:
-            f = open (prefix + "/etc/raidtab", "w")
-            f.write (raidtab)
+        if cf:
+            f = open (prefix + "/etc/mdadm.conf", "w")
+            f.write (cf)
             f.close ()
 
         # touch mtab
@@ -1817,18 +1829,16 @@ class RAIDDevice(Device):
         isys.makeDevInode(self.device, node)
 
         if not self.isSetup:
-            raidtab = '/tmp/raidtab.%s' % (self.device,)
-            f = open(raidtab, 'w')
-            f.write(self.raidTab(devPrefix=devPrefix))
-            f.close()
             for device in self.members:
                 PartitionDevice(device).setupDevice(chroot,
                                                     devPrefix=devPrefix)
-            iutil.execWithRedirect ("/usr/sbin/mkraid", 
-                                    ('mkraid', '--really-force',
-                                     '--dangerous-no-resync',
-                                     '--configfile', 
-                                     raidtab, node),
+            iutil.execWithRedirect ("/usr/sbin/mdadm"
+                                    ("mdadm", "--create",
+                                     "--chunk=%s" %(self.chunksize,),
+                                     "--level=%s" %(self.level,),
+                                     "--spare-devices=%s" %(self.spares,),
+                                     "--raid-devices=%s" %(self.numDisks,),
+                                     self.members),
                                     stderr="/dev/tty5", stdout="/dev/tty5")
             raid.register_raid_device(self.device, self.members[:],
                                       self.level, self.numDisks)
