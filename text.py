@@ -758,7 +758,7 @@ class ProgressWindow:
 
 class InstallInterface:
 
-    def helpWindow(self, screen, key):
+    def helpWindow(self, screen, key, firstTime = 1):
 	try:
 	    lang = cat.getlangs()
 	    if not lang or lang[0] == "en_US":
@@ -770,8 +770,14 @@ class InstallInterface:
 			% (lang, key)
 	    try:
 		f = open(fn)
-	    except IOError:
-		return self.helpWindow(screen, "helponhelp")
+	    except IOError, msg:
+		if firstTime:	
+		    return self.helpWindow(screen, "helponhelp", firstTime = 0)
+		else:
+		    ButtonChoiceWindow(screen, _("Help not available"), 
+				_("No help is available for this install."),
+				       buttons = [ _("OK") ])
+		    return None
 
 	    l = f.readlines()
 	    while not string.strip(l[0]):
