@@ -177,9 +177,13 @@ class KeyboardWindow:
             return INSTALL_BACK
         todo.keyboard.set (keyboards[choice])
 	if not todo.serial:
-	    try:
-		isys.loadKeymap(keyboards[choice])
-	    except SystemError, (errno, msg):
+            if todo.reconfigOnly:
+                iutil.execWithRedirect ("/bin/loadkeys",
+                                        ["/bin/loadkeys", keyboards[choice]])
+            else:
+                try:
+                    isys.loadKeymap(keyboards[choice])
+                except SystemError, (errno, msg):
 		todo.log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
     
