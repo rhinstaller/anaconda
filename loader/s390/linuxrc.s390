@@ -309,8 +309,12 @@ if [ -z "$DASD" ]; then
 	echo "DASD ranges APPEAR to be $DASD."
 	rmmod dasd_mod
 fi
-echo "Loading DASD kernel module. This can take a while."
-insmod dasd_mod.o dasd=$DASD
+
+if [ -n "$DASD" ]; then
+	 echo "Loading DASD kernel module. This can take a while."
+	 insmod dasd_mod.o dasd=$DASD
+	 insmod dasd_eckd_mod.o
+fi
 
 if [ ":$INTERACTIVE" = ":0" ]; then
 	rhsetup nointeractive || startinetd
