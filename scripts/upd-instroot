@@ -418,7 +418,8 @@ RPMS=$(prunePackageList $PACKAGEDIR "$PACKAGES")
 RPMSGR=$(prunePackageList $PACKAGEDIR "$PACKAGESGR")
 
 rm -rf $DEST; mkdir -p $DEST/usr/sbin
-rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin
+rm -rf $DESTGR; mkdir -p $DESTGR/usr/sbin $DESTGR/var/state
+ln -s /tmp $DESTGR/var/state/xkb 
 
 echo -n "Expanding packages..."
 expandPackageSet "$RPMS" $DEST $KEEPFILE
