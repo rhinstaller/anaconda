@@ -70,6 +70,7 @@
 #include "hdinstall.h"
 #include "urlinstall.h"
 
+#include "net.h"
 #include "telnetd.h"
 
 #include "../isys/imount.h"
@@ -640,6 +641,16 @@ static void checkForRam(int flags) {
     }
 }
 
+static int haveDeviceOfType(struct knownDevices * kd, int type) {
+    int i;
+
+    for (i = 0; i < kd->numKnown; i++) {
+        if (type == kd->known[i].class)
+            return 1;
+    }
+    return 0;
+}
+
 /* fsm for the basics of the loader. */
 static char *doLoaderMain(char * location,
                           struct loaderData_s * loaderData,
@@ -649,7 +660,8 @@ static char *doLoaderMain(char * location,
                           moduleDeps * modDepsPtr,
                           int flags) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER, 
-           STEP_DRIVERDISK, STEP_URL, STEP_DONE } step;
+           STEP_DRIVERDISK, STEP_NETWORK, STEP_IFACE,
+           STEP_IP, STEP_URL, STEP_DONE } step;
     char * url = NULL;
     int dir = 1;
     int rc, i;
@@ -658,6 +670,12 @@ static char *doLoaderMain(char * location,
     int numValidMethods = 0;
     int validMethods[10];
     int methodNum = -1;
+
+    int needed = -1;
+    int needsNetwork = 0;
+
+    char * devName = NULL;
+    static struct networkDeviceConfig netDev;
 
     char * kbdtype = NULL;
 
@@ -738,6 +756,8 @@ static char *doLoaderMain(char * location,
             if (FL_RESCUE(flags) && url)
                 return url;
 
+            needed = -1;
+
             if (loaderData->method && (methodNum != -1)) {
                 rc = 1;
             } else {
@@ -761,24 +781,18 @@ static char *doLoaderMain(char * location,
                 step = STEP_KBD;
                 dir = -1;
             } else {
+                needed = installMethods[validMethods[methodNum]].deviceType;
                 step = STEP_DRIVER;
                 dir = 1;
             }
             break;
 
         case STEP_DRIVER: {
-            int found = 0;
-
             updateKnownDevices(kd);
-            for (i = 0; i < kd->numKnown; i++) {
-                if (installMethods[validMethods[methodNum]].deviceType == 
-                    kd->known[i].class)
-                    found = 1;
-            }
-            
-            if (found) {
-                step = STEP_URL;
+            if (needed == -1 || haveDeviceOfType(kd, needed)) {
+                step = STEP_NETWORK;
                 dir = 1;
+                needed = -1;
                 break;
             }
 
@@ -809,7 +823,7 @@ static char *doLoaderMain(char * location,
 
         case STEP_DRIVERDISK:
 
-            rc = loadDriverFromMedia(installMethods[validMethods[methodNum]].deviceType,
+            rc = loadDriverFromMedia(needed,
                                      modLoaded, modDepsPtr, modInfo, kd, 
                                      flags, 0, 0);
             if (rc == LOADER_BACK) {
@@ -822,6 +836,63 @@ static char *doLoaderMain(char * location,
              * the right kind of driver after loading the driver disk */
             step = STEP_DRIVER;
             break;
+
+        case STEP_NETWORK:
+            if ( (installMethods[validMethods[methodNum]].deviceType != 
+                  CLASS_NETWORK) && (!FL_VNC(flags)) ) {
+                needsNetwork = 0;
+                if (dir == 1) 
+                    step = STEP_URL;
+                else if (dir == -1)
+                    step = STEP_METHOD;
+                break;
+            }
+
+            needsNetwork = 1;
+            if (!haveDeviceOfType(kd, CLASS_NETWORK)) {
+                needed = CLASS_NETWORK;
+                step = STEP_DRIVER;
+                break;
+            }
+            logMessage("need to set up networking");
+
+            initLoopback();
+            memset(&netDev, 0, sizeof(netDev));
+            netDev.isDynamic = 1;
+            
+            /* fall through to interface selection */
+        case STEP_IFACE:
+            logMessage("going to pick interface");
+            rc = chooseNetworkInterface(kd, loaderData, flags);
+            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                ((dir == -1) && (rc == LOADER_NOOP))) {
+                step = STEP_METHOD;
+                dir = -1;
+                break;
+            }
+
+            devName = loaderData->netDev;
+            strcpy(netDev.dev.device, devName);
+
+            /* fall through to ip config */
+        case STEP_IP:
+            if (!needsNetwork) step = STEP_METHOD; /* only hit going back */
+
+            logMessage("going to do getNetConfig");
+	    /* populate netDev based on any kickstart data */
+	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
+
+            rc = readNetConfig(devName, &netDev, flags);
+            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                ((dir == -1) && (rc == LOADER_NOOP))) {
+                step = STEP_IFACE;
+                dir = -1;
+                break;
+            }
+
+            writeNetInfo("/tmp/netinfo", &netDev, kd);
+            step = STEP_URL;
+            dir = 1;
             
         case STEP_URL:
             logMessage("starting to STEP_URL");
@@ -830,7 +901,7 @@ static char *doLoaderMain(char * location,
                                       location, kd, loaderData, modInfo, modLoaded, 
                                       modDepsPtr, flags);
             if (!url) {
-                step = STEP_METHOD;
+                step = STEP_IP ;
                 dir = -1;
             } else {
                 logMessage("got url %s", url);

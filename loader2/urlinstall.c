@@ -155,58 +155,24 @@ char * mountUrlImage(struct installMethod * method,
                      moduleDeps * modDeps, int flags) {
     int rc;
     char * url;
-    char * devName = NULL;
-    static struct networkDeviceConfig netDev;
     struct iurlinfo ui;
     char needsSecondary = ' ';
     int dir = 1;
     char * login;
     char * finalPrefix;
 
-    enum { URL_STAGE_IFACE, URL_STAGE_IP, URL_STAGE_MAIN, URL_STAGE_SECOND, 
-           URL_STAGE_FETCH, URL_STAGE_DONE } stage = URL_STAGE_IFACE;
+    enum { URL_STAGE_MAIN, URL_STAGE_SECOND, URL_STAGE_FETCH, 
+           URL_STAGE_DONE } stage = URL_STAGE_MAIN;
 
     enum urlprotocol_t proto = 
         !strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
 
     /* JKFIXME: we used to do another ram check here... keep it? */
 
-    initLoopback();
-
     memset(&ui, 0, sizeof(ui));
-    memset(&netDev, 0, sizeof(netDev));
-    netDev.isDynamic = 1;
 
     while (stage != URL_STAGE_DONE) {
         switch(stage) {
-        case URL_STAGE_IFACE:
-            logMessage("going to pick interface");
-            rc = chooseNetworkInterface(kd, loaderData, flags);
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) return NULL;
-
-            devName = loaderData->netDev;
-            strcpy(netDev.dev.device, devName);
-            stage = URL_STAGE_IP;
-            dir = 1;
-            break;
-
-        case URL_STAGE_IP:
-            logMessage("going to do getNetConfig");
-
-	    /* populate netDev based on any kickstart data */
-	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
-
-            rc = readNetConfig(devName, &netDev, flags);
-            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
-                ((dir == -1) && (rc == LOADER_NOOP))) {
-                stage = URL_STAGE_IFACE;
-                dir = -1;
-                break;
-            }
-            stage = URL_STAGE_MAIN;
-            dir = 1;
-
         case URL_STAGE_MAIN:
             if (loaderData->method && *loaderData->method &&
                 (!strncmp(loaderData->method, "ftp", 3) ||
@@ -232,9 +198,7 @@ char * mountUrlImage(struct installMethod * method,
 		dir = 1;
 		break;
 	    } else if (urlMainSetupPanel(&ui, proto, &needsSecondary)) {
-                stage = URL_STAGE_IP;
-                dir = -1;
-		break;
+                return NULL;
             }
 
 	    /* got required information from user, proceed */
@@ -293,7 +257,6 @@ char * mountUrlImage(struct installMethod * method,
     sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
 	    login, ui.address, finalPrefix);
-    writeNetInfo("/tmp/netinfo", &netDev, kd);
 
     return url;
 }
