@@ -13,9 +13,7 @@ class InstallClass(BaseInstallClass):
 
     def setSteps(self, dispatch):
 	BaseInstallClass.setSteps(self, dispatch);
-
 	dispatch.skipStep("authentication")
-	dispatch.skipStep("bootdisk", skip = 0)
 
     def setGroupSelection(self, comps):
 	BaseInstallClass.__init__(self, comps)
