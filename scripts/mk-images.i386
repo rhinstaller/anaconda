@@ -217,6 +217,12 @@ if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;
 	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
 	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
 fi
+
+# now make a boot iso
+mkdir -p $TOPDESTPATH/images/isopath
+cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
+mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
+rm -rf $TOPDESTPATH/images/isopath
 	
 cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
