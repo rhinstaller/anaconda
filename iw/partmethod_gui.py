@@ -49,7 +49,7 @@ class PartitionMethodWindow(InstallWindow):
                "way depending on your installation type and then gives you a "
                "chance to customize this setup.\n"
                "\n"
-               "Disk Shaman is a tool designed for partitioning and setting "
+               "Disk Druid is a tool designed for partitioning and setting "
                "up mount points.  It is designed to be easier to use than "
                "Linux's traditional disk partitioning software, fdisk, as "
                "well as more powerful.  However, there are some cases where "
@@ -69,7 +69,7 @@ class PartitionMethodWindow(InstallWindow):
             None, _("Have the installer autopartition for you"))
 	radioBox.pack_start(self.useAuto, FALSE, FALSE)
         self.useDS = GtkRadioButton(
-            self.useAuto, _("Manually partition with Disk Shaman"))
+            self.useAuto, _("Manually partition with Disk Druid"))
 	radioBox.pack_start(self.useDS, FALSE, FALSE)
         self.useFdisk = GtkRadioButton(
             self.useAuto, _("Manually partition with fdisk [experts only]"))
