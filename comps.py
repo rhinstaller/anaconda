@@ -196,9 +196,7 @@ class HeaderList:
                                  % os.uname()[4])
 
 	if compatPackages != None:
-	    # don't use list + here, as it creates a new object
-	    for p in newCompat:
-		compatPackages.append(p)
+            compatPackages.extend(newCompat)
 
 class HeaderListFromFile (HeaderList):
 
@@ -547,23 +545,27 @@ class ComponentSet:
 		else:
                     if expression:
                         # this is a package with some qualifier prefixing it
-                        # XXX last expression noted wins when setting up Everything.
+                        # XXX last expression noted wins when setting up
+                        # Everything.
                         self.expressions[packages[l]] = expression
                         comp.addPackageWithExpression (expression, packages[l])
                     else:
-                        # if this package is listed anywhere without an expression, it can go in Everything.
+                        # if this package is listed anywhere without an
+                        # expression, it can go in Everything.
                         self.expressions[packages[l]] = None
                         # this is a package.
                         comp.addPackage(packages[l])
 
         everything = Component(self, N_("Everything"), 0, 0)
         for package in packages.keys ():
-	    if not ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
-                if self.expressions.has_key (packages[package]):
-                    everything.addPackageWithExpression (self.expressions[packages[package]],
-                                                         packages[package])
-                else:
-                    everything.addPackage (packages[package])
+	    if ExcludePackages.has_key(packages[package][rpm.RPMTAG_NAME]):
+                continue
+            if self.expressions.has_key (packages[package]):
+                expression = self.expressions[packages[package]]
+                everything.addPackageWithExpression (expression,
+                                                     packages[package])
+            else:
+                everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
 
