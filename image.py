@@ -40,9 +40,13 @@ class ImageInstallMethod(InstallMethod):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def readHeaders(self):
+        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+            raise FileCopyException
 	return HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 
     def mergeFullHeaders(self, hdlist):
+        if not os.access(self.tree + "/RedHat/base/hdlist2", os.R_OK):
+            raise FileCopyException
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 
     def getSourcePath(self):

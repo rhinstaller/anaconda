@@ -13,7 +13,7 @@
 
 
 from comps import ComponentSet, HeaderList, HeaderListFromFile
-from installmethod import InstallMethod
+from installmethod import InstallMethod, FileCopyException
 from image import findIsoImages
 import shutil
 import os
@@ -79,12 +79,18 @@ class OldHardDriveInstallMethod(InstallMethod):
 
     def readHeaders(self):
 	self.mountMedia()
+        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+            self.umountMedia()
+            raise FileCopyException
 	hl = HeaderListFromFile(self.tree + self.path + "/RedHat/base/hdlist")
 	self.umountMedia()
 	return hl
 	
     def mergeFullHeaders(self, hdlist):
 	self.mountMedia()
+        if not os.access(self.tree + "/RedHat/base/hdlist2", os.R_OK):
+            self.umountMedia()
+            raise FileCopyException
 	hdlist.mergeFullHeaders(self.tree + self.path + "/RedHat/base/hdlist2")
 	self.umountMedia()
 
@@ -198,6 +204,9 @@ class HardDriveInstallMethod(InstallMethod):
 
     def readHeaders(self):
 	self.mountMedia(1)
+        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+            self.umountMedia()
+            raise FileCopyException
 	hl = HeaderListFromFile(self.tree + "/RedHat/base/hdlist")
 	self.umountMedia()
 
@@ -214,6 +223,9 @@ class HardDriveInstallMethod(InstallMethod):
 
     def mergeFullHeaders(self, hdlist):
 	self.mountMedia(1)
+        if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
+            self.umountMedia()
+            raise FileCopyException
 	hdlist.mergeFullHeaders(self.tree + "/RedHat/base/hdlist2")
 	self.umountMedia()
 
