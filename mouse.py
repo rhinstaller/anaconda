@@ -73,7 +73,7 @@ class Mouse (SimpleConfigFile):
         self.info = {}
         self.device = None
         self.emulate = 0
-        self.set ("None - None")
+        self.set ("Generic - 3 Button Mouse (PS/2)")
 
     def probe (self):
         list = kudzu.probe(kudzu.CLASS_MOUSE, kudzu.BUS_UNSPEC, 
