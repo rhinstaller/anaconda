@@ -641,7 +641,7 @@ class Partitions:
         elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
-                    return req
+                    return [ req ]
             return None
         elif iutil.getPPCMachine() == "pSeries":
             # pSeries bootable requests are odd.
