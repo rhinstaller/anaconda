@@ -350,27 +350,28 @@ class XConfigWindow (InstallWindow):
                 self.todo.videoRamState = count
             count = count + 1
 
-
-#        self.todo.videoRamState = 
-#        print size[:-1]
-
     def movetree (self, ctree, area, selected_node):
+#        print "Inisde movetree"
         self.ctree.select(self.selected_node)
         parent_node, cardname = self.ctree.node_get_row_data(self.selected_node)                        
         self.ctree.expand(parent_node)
         self.ctree.node_moveto(self.selected_node, 0, 0.5, 0)
 
     def movetree2 (self, ctree, area, node):
+#        print "Inside movetree2"
         node = self.todo.videoCardOriginalNode
-#        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
+        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
 #        print current_parent_node
 #        print cardname2
 
+        self.selected_node = node
         self.ctree.select(node)
         parent_node, cardname = self.ctree.node_get_row_data(node)                        
         self.ctree.expand(node)
         self.ctree.node_moveto(node, 0, 0.5, 0)
 
+
+#        self.selectCb_tree (self.ctree, node)
 
 #    def selectCb (self, list, row, col, event):
 #        cardname = list.get_row_data (row)
@@ -384,40 +385,28 @@ class XConfigWindow (InstallWindow):
 
     def selectCb_tree (self, ctree, node, column):
         try:
-            print "Inside selectCb_tree"
+#            print "Inside selectCb_tree"
             self.current_node = node
             parent, cardname = ctree.node_get_row_data (node)
-            print cardname
+#            print cardname
             if cardname:
                 card = self.cards[cardname]
                 depth = 0
                 while depth < 16 and card.has_key ("SEE"):
                     card = self.cards[card["SEE"]]
                     depth = depth + 1
-                print "Setting self.todo.x.setVidcard to ", card
                 self.todo.x.setVidcard (card)
         except:
             pass
             
     def restorePressed (self, ramMenu):
         current_parent_node, cardname1 = self.ctree.node_get_row_data(self.current_node)
-#        current_parent_node, cardname2 = self.ctree.node_get_row_data(self.selected_node)
         original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
         data = self.todo.videoCardOriginalName
 
-        print "Inside restorePressed"
-        print current_parent_node
-        print cardname1
-        print original_parent_node
-        print cardname2
-
-        
-        print data
-        
         if current_parent_node != original_parent_node:
             self.ctree.collapse(current_parent_node)
 
-#        self.movetree(self.ctree, self.selected_node, 0)
         self.movetree2(self.ctree, self.todo.videoCardOriginalNode, 0)
 
         self.ramOption.remove_menu ()
@@ -893,7 +882,7 @@ class XConfigWindow (InstallWindow):
 
                 if self.todo.x.vidCards:
                     if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
-                        print card
+#                        print card
                         #--If we haven't been to this screen before, initialize the state to the original value
                         if self.todo.videoCardOriginalName == "":
                             self.todo.videoCardOriginalName = card
@@ -914,9 +903,8 @@ class XConfigWindow (InstallWindow):
                         if self.todo.videoCardOriginalName == "":
                             self.todo.videoCardOriginalName = card
                             self.todo.videoCardOriginalNode = node
-                        else:
-                            self.todo.videoCardOriginalNode = node
 
+                        self.current_node = node
                         self.selected_node = node
                     
 #            for card in cards:
@@ -986,12 +974,8 @@ class XConfigWindow (InstallWindow):
                     if self.todo.videoRamState == "":          
                         self.todo.videoRamState = count
                         self.ramMenu.set_active(count)
-                        #                            self.selected_node = node
                     else:                        
-                        print self.todo.videoRamState
-                        self.ramMenu.set_active(self.todo.videoRamState)
-                    
-#                    self.ramMenu.set_active(count)
+                        self.ramMenu.set_active(self.todo.videoRamState)                    
                     self.default_ram = count
                 count = count + 1
 
