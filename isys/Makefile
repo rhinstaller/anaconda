@@ -1,7 +1,5 @@
 include ../Makefile.inc
 
-ARCH := $(patsubst i%86,i386,$(shell uname -m))
-ARCH := $(patsubst sparc%,sparc,$(ARCH))
 CFLAGS = -ffunction-sections -I$(PYTHONINCLUDE) -I.. -Wall -Os -g  -DHAVE_NFS -D_LARGEFILE_SOURCE=1 -D_LARGEFILE64_SOURCE=1
 
 OBJECTS = nfsmount.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
@@ -37,7 +35,7 @@ endif
 
 everything: $(TARGET)
 
-all: subdirs $(PYMODULES) libisys.a 
+all: subdirs $(PYMODULES) $(STATICLIB)
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
