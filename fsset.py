@@ -736,6 +736,13 @@ class FileSystemSet:
             bootDev = self.bootloaderChoices(diskset)[0][0]
         else:
             bootDev = self.bootloaderChoices(diskset)[1][0]
+
+        # stupid itanium
+        if iutil.getArch() == "ia64":
+            part = partitioning.get_partition_by_name(diskset.disks, bootDev)
+            if part and part.is_flag_available(parted.PARTITION_BOOT):
+                part.set_flag(parted.PARTITION_BOOT, 1)
+            return
         
         for drive in diskset.disks.keys():
             foundActive = 0
