@@ -378,6 +378,9 @@ class PackageSelectionWindow (InstallWindow):
         ics.readHTML ("sel-group")
         self.selectIndividualPackages = FALSE
 
+    def getPrev (self):
+	self.todo.comps.setSelectionState(self.origSelection)
+
     def getNext (self):
 	if not self.__dict__.has_key ("individualPackages"):
 	    return None
@@ -405,11 +408,31 @@ class PackageSelectionWindow (InstallWindow):
           
         return None
 
+    def setSize(self):
+	print "updated size", self.todo.comps.sizeStr()
+
+    def componentToggled(self, widget):
+        # turn off all the comps
+        for comp in self.todo.comps:
+            if not comp.hidden: comp.unselect(0)
+
+	# it's a shame component selection sucks
+        self.todo.comps['Base'].select (1)
+
+        # turn on all the comps we selected
+        for (button, comp) in self.checkButtons:
+            if button.get_active ():
+                comp.select (1)
+
+	self.setSize()
+
     def getScreen (self):
         threads_leave ()
         self.todo.getHeaderList ()
         self.todo.getCompsList()
         threads_enter ()
+
+	self.origSelection = self.todo.comps.getSelectionState()
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -443,12 +466,15 @@ class PackageSelectionWindow (InstallWindow):
                     checkButton = GtkCheckButton (comp.name)
 
                 checkButton.set_active (comp.selected)
+		checkButton.connect('toggled', self.componentToggled)
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 
         sw.add_with_viewport (box)
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
+
+	self.setSize()
 
         vbox = GtkVBox (FALSE, 5)
         self.individualPackages = GtkCheckButton (_("Select individual packages"))
