@@ -68,7 +68,7 @@ disc2Dir = distDir + "-disc2"
 # pull in the hdlist
 f = distDir + "/RedHat/base/hdlist"
 try:
-    hdlist = comps.HeaderListFromFile(f, noscore = 1)
+    hdlist = comps.HeaderListFromFile(f, noscore = 1, prunePPCKernels = 0)
     hdlist.mergeFullHeaders(distDir + "/RedHat/base/hdlist2")    
 except rpm.error:
     print "Failed to read header list", f

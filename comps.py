@@ -190,7 +190,11 @@ class HeaderList:
                 preordered = 0
         return preordered
 
-    def __init__(self, hdlist, compatPackages = None, noscore = 0):
+    # JKFIXME: prunePPCKernels is an awful hack to let us do something
+    # with kernel-iseries and kernel-pseries and still be able to get
+    # both of them for the pkgorder file.  
+    def __init__(self, hdlist, compatPackages = None, noscore = 0,
+                 prunePPCKernels = 1):
         self.hdlist = hdlist
 	self.packages = {}
 	newCompat = []
@@ -200,14 +204,14 @@ class HeaderList:
 
             # we should only keep kernel-pseries and kernel-iseries on
             # the appropriate machine
-            if name == "kernel-pseries" and iutil.getPPCMachine() != "pSeries":
+            if prunePPCKernels and name == "kernel-pseries" and iutil.getPPCMachine() != "pSeries":
                 continue
-            if name == "kernel-iseries" and iutil.getPPCMachine() != "iSeries":
+            if prunePPCKernels and name == "kernel-iseries" and iutil.getPPCMachine() != "iSeries":
                 continue
 
             # FIXME: this is a really bad hack so that we can try to avoid
             # weirdness with kernel packages
-            if name == "kernel-iseries" or name == "kernel-pseries":
+            if prunePPCKernels and (name == "kernel-iseries" or name == "kernel-pseries"):
                 self.packages["kernel"] = Package(h)
             
             if noscore:
