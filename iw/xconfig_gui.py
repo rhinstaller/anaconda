@@ -411,6 +411,11 @@ class MonitorWindow (InstallWindow):
             self.todo.x.state = monitor[0]
 
     def getNext (self):
+        print "Inside getNext"
+
+        print self.hEntry.get_text ()
+        print self.vEntry.get_text ()
+        
         if self.skipme:
             return None
 
@@ -418,6 +423,9 @@ class MonitorWindow (InstallWindow):
             self.todo.x.setMonitor ((self.monitor[0],
                                     (self.hEntry.get_text (),
                                      self.vEntry.get_text ())))
+
+
+            
         return None
 
     def moveto (self, ctree, area, node):
@@ -436,9 +444,14 @@ class MonitorWindow (InstallWindow):
             return None
         else:
             self.skipme = FALSE
-        
-        
-        self.todo.x.probe ()
+
+        #--If we have never probed before, then probe.  Otherwise, skip it.
+        if self.todo.probedFlag == "":
+            self.todo.x.probe ()
+            self.todo.probedFlag = "TRUE"
+        else:
+            self.todo.probedFlag = "TRUE"
+            
         box = GtkVBox (FALSE, 5)
 
         monitors = self.todo.x.monitors ()
@@ -494,8 +507,6 @@ class MonitorWindow (InstallWindow):
                        self.todo.x.monHoriz)
 
 
-
-
             ctree.node_set_row_data (node, monitor)
             select = node
             selParent = parent
@@ -504,6 +515,10 @@ class MonitorWindow (InstallWindow):
             ctree.select (select)
             ctree.expand (selParent)
             ctree.connect ("draw", self.moveto, select)
+
+
+        print self.todo.x.monHoriz
+        print self.todo.x.monVert
 
         self.hEntry.set_text (self.todo.x.monHoriz)
         self.vEntry.set_text (self.todo.x.monVert)        
@@ -699,7 +714,6 @@ class XConfigWindow (InstallWindow):
 
 
         self.newDesktop = ""
-        self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
 
         box = GtkVBox (FALSE, 0)
