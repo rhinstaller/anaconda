@@ -110,7 +110,6 @@ class UpgradeSwapWindow (InstallWindow):
             count = count + 1
 
         self.clist.select_row(0, 0)
-        suggSize = 128
 
         label = GtkLabel (_("It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:" % suggSize))
         label.set_usize(400, 40)
