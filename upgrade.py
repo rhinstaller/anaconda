@@ -265,8 +265,6 @@ def upgradeFindPackages (intf, method, id, instPath):
 	intf.messageWindow(_("Error"),
                            _("Rebuild of RPM database failed. "
                              "You may be out of disk space?"))
-	if flags.setupFilesystems:
-	    umountFilesystems (instPath)
 	sys.exit(0)
 
     rpm.addMacro("_dbpath", id.dbpath)
@@ -279,8 +277,6 @@ def upgradeFindPackages (intf, method, id, instPath):
 	intf.messageWindow(_("Error"),
                            _("An error occured when finding the packages to "
                              "upgrade."))
-	if flags.setupFilesystems:
-	    umountFilesystems (instPath)
 	sys.exit(0)
 	    
     # Turn off all comps
