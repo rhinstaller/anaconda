@@ -670,15 +670,15 @@ class PartitionWindow:
                     else: # can't ever get here
                         raise RuntimeError, "Selected a way of partitioning by cylinder that's not supported"
                     
-
                 err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
             else:
-                # pre-existing partition, just set mount point and format flag
                 request = copy.copy(origrequest)
+
+                request.fstype = newfstype
                 if request.fstype.isMountable():
                     request.mountpoint = self.mount.value()
 
@@ -745,7 +745,7 @@ class PartitionWindow:
         else:
             format = None
 
-        if raidrequest.format == 1:
+        if raidrequest.format == 1 or raidrequest.format == None:
             format.setValue("*")
 
         drivegrid.setField(miscgrid, 1, 0, anchorTop=1)
@@ -782,7 +782,7 @@ class PartitionWindow:
                 request.format = format.selected()
             else:
                 request.format = 0
-            
+
             err = sanityCheckRaidRequest(self.partitions, request)
             if err:
                 self.intf.messageWindow(_("Error With Request"),
