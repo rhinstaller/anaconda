@@ -351,10 +351,6 @@ plip
 # NOT YET MODULARIZED!
 #pt
 
-rtl8129
-	eth
-	"RealTek RTL8129 Fast Ethernet"
-
 8139too
 	eth
 	"RTL8139, SMC EZ Card Fast Ethernet"
@@ -442,11 +438,6 @@ tulip
 	"DEC 21040, most 21*40 Ethernet"
 	io "Base I/O address" "0x[0-9a-fA-F]+"
 
-old_tulip
-	eth
-	"Older DEC 21040, most 21*40 Ethernet"
-	io "Base I/O address" "0x[0-9a-fA-F]+"
-
 via-rhine
 	eth
 	"VIA VT86c100A Rhine-II PCI"
@@ -469,7 +460,7 @@ wic
 	wic
 	"parallel port network driver"
 
-winbond
+winbond-840
 	eth
 	"Compex RL100ATX-PCI"
 
@@ -537,9 +528,9 @@ aic7xxx
 	scsi_hostadapter
 	"Adaptec AHA-2740, 28xx, 29xx, 39xx"
 
-aic7xxx_new
+aic7xxx_mod
 	scsi_hostadapter
-	"New Adaptec AHA-2740, 28xx, 29xx, 39xx"
+	"New (experimental) Adaptec 28xx, 29xx, 39xx"
 
 atp870u
 	scsi_hostadapter
