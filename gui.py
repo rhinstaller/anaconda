@@ -497,6 +497,7 @@ class InstallControlWindow (Thread):
     def run (self):
         threads_enter ()
         self.window = GtkWindow ()
+        self.window.set_events (KEY_RELEASE_MASK)
 
         self.window.set_default_size (640, 480)
         self.window.set_usize (640, 480)
@@ -552,7 +553,7 @@ class InstallControlWindow (Thread):
         group = GtkAccelGroup()
         self.nextButtonStock.add_accelerator ("clicked", group, F12, RELEASE_MASK, 0);
         self.window.add_accel_group (group)
-        self.window.connect_after ("key-release-event", self.keyRelease)
+        self.window.connect ("key-release-event", self.keyRelease)
 
         self.buttonBox.add (self.prevButtonStock)
         self.buttonBox.add (self.nextButtonStock)

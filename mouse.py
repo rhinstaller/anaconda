@@ -159,7 +159,6 @@ class Mouse (SimpleConfigFile):
             curmouse[1] = self.info["XMOUSETYPE"]
 
         curmouse[6] = self.emulate
-        print curmouse
         try:
             apply (xmouse.set, curmouse)
         except RuntimeError:
