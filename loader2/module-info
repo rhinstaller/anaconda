@@ -636,6 +636,10 @@ i2o_block
         scsi
         "I2O Block driver"
 
+ipr
+	scsi_hostadapter
+	"IBM iSeries/pSeries native storage"
+
 ips
 	scsi_hostadapter
 	"IBM ServeRAID"
