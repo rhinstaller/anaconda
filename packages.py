@@ -483,6 +483,8 @@ def setupTimezone(timezone, upgrade, instPath, dir):
         except OSError, (errno, msg):
             log("Error copying timezone (from %s): %s" %(tzfile, msg))
 
+    if iutil.getArch() == "s390":
+        return
     args = [ "/usr/sbin/hwclock", "--hctosys" ]
     if timezone.utc:
         args.append("-u")
