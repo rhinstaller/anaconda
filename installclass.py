@@ -226,6 +226,9 @@ class BaseInstallClass:
     def setGroupSelection(self, grpset, intf):
 	pass
 
+    def setZFCP(self, id, devnum, scsiid, wwpn, scsilun, fcplun):
+        id.zfcp.fcpdevices.append( (devnum, scsiid, wwpn, scsilun, fcplun) )
+
     def getMakeBootdisk(self):
 	return self.makeBootdisk
 

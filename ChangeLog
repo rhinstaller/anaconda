@@ -1,5 +1,15 @@
 2004-10-01  Jeremy Katz  <katzj@redhat.com>
 
+	* installclass.py (BaseInstallClass.setZFCP): Add method for use
+	in kickstart setting of zfcp config.
+
+	* kickstart.py (KickstartBase.doZFCP): 
+	Add syntax for defining zfcp volumes in kickstart.  
+	Use --devnum=, --scsiid=, --wwpn=, --scsilun=, --fcplun=.  
+	All are required. (#130070, #133288)
+	(KickstartBase.doAutoPart): Skip zfcpconfig (#133288)
+	(KickstartBase.definePartition): Skip zfcpconfig (#133288)
+
 	* isys/nfsmount.c (HAVE_NFSV3): Let's use NFSv3.  Will fix using
 	the DVD iso via nfsiso (#122032)
 

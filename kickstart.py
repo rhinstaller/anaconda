@@ -175,10 +175,48 @@ class KickstartBase(BaseInstallClass):
 
         self.setSELinux(id, sel)
 
-    # FIXME KH add ZFCP support
     def doZFCP(self, id, args):
-        return
-	    
+        (args, extra) = isys.getopt(args, '',
+                                    ["devnum", "scsiid", "wwpn", "scsilun",
+                                     "fcplun"])
+
+        devnum = None
+        scsiid = None
+        wwpn = None
+        scsilun = None
+        fcplun = None
+
+        for n in args:
+            (str, arg) = n
+            if str == "--devnum":
+                devnum = id.zfcp.sanitizeDeviceInput(arg)
+            elif str == "--scsid":
+                scsiid = id.zfcp.sanitizeHexInput(arg)
+            elif str == "--wwpn":
+                wwpn = id.zfcp.sanitizeHexInput(arg)
+            elif str == "--scsilun":
+                scsilun = id.zfcp.sanitizeHexInput(arg)
+            elif str == "--fcplun":
+                fcplun = id.zfcp.sanitizeFCPLInput(arg)
+
+        if id.zfcp.checkValidDevice(devnum) == -1:
+            raise KickstartValueError, "Invalid devnum specified"
+        if id.zfcp.checkValidID(scsiid) == -1:
+            raise KickstartValueError, "Invalid scsiid specified"
+        if id.zfcp.checkValid64BitHex(wwpn) == -1:
+            raise KickstartValueError, "Invalid wwpn specified"
+        if id.zfcp.checkValidID(scsilun) == -1:
+            raise KickstartValueError, "Invalid scsilun specified"
+        if id.zfcp.checkValid64BitHex(fcplun) == -1:
+            raise KickstartValueError, "Invalid fcplun specified"
+
+        if ((devnum is None) or (scsiid is None) or (wwpn is None)
+            or (scsilun is None) or (fcplun is None)):
+            raise KickstartError, "ZFCP config must specify all of devnum, scsiid, wwpn, scsilun, and fcplun"
+
+        self.setZFCP(id, devnum, scsiid, wwpn, scsilun, fcplun)
+        self.skipSteps.append("zfcpconfig")
+                
     def doAuthconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',
                 [ 'useshadow', 'enableshadow',
@@ -286,7 +324,7 @@ class KickstartBase(BaseInstallClass):
                   'password=', 'md5pass=', 'linear', 'nolinear',
                   'upgrade', 'driveorder='])
 
-        validLocations = [ "mbr", "partition", "none" ]
+        validLocations = [ "mbr", "partition", "none", "boot" ]
         appendLine = ""
         location = "mbr"
         password = None
@@ -872,7 +910,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
         self.skipSteps.append("autopartition")
-        
+        self.skipSteps.append("zfcpconfig")
 
     def defineLogicalVolume(self, id, args):
         (args, extra) = isys.getopt(args, '', [ 'vgname=',
@@ -1286,6 +1324,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
         self.skipSteps.append("autopartition")
+        self.skipSteps.append("zfcpconfig")        
 
     def doIgnoreDisk(self, id, args):
         # add disks to ignore list
