@@ -180,7 +180,7 @@ class KeyboardWindow:
 	    try:
 		isys.loadKeymap(keyboards[choice])
 	    except SystemError, (errno, msg):
-		todo.log("Could not install keymap %s: %s" % (keymap, msg))
+		todo.log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
     
 class InstallPathWindow:
