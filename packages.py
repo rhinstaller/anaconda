@@ -628,7 +628,7 @@ def doPostInstall(method, id, intf, instPath):
 	return
     
     w = intf.progressWindow(_("Post Install"),
-                            _("Performing post install configuration..."), 8)
+                            _("Performing post install configuration..."), 7)
 
     upgrade = id.upgrade.get()
     arch = iutil.getArch ()
@@ -749,16 +749,12 @@ def doPostInstall(method, id, intf, instPath):
 
 	w.set(6)
 
-	id.instClass.postAction(instPath, flags.serial)
-
-	w.set(7)
-
 	if flags.setupFilesystems:
 	    f = open("/tmp/cleanup", "w")
 	    method.writeCleanupPath(f)
 	    f.close()
 
-	w.set(8)
+	w.set(7)
 
     finally:
 	pass

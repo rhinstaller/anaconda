@@ -100,7 +100,7 @@ class InstallData:
 	self.firewall.write (instPath)
         self.rootPassword.write (instPath, self.auth)
         self.accounts.write (instPath, self.auth)
-        self.fsset.write (instPath)
+	self.instClass.postAction(instPath, flags.serial)        
 
     def writeKS(self, filename):
         # make it so only root can read, could have password
