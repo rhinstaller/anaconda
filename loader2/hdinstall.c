@@ -211,6 +211,49 @@ static int loadHDImages(char * prefix, char * dir, int flags,
     return rc;
 }
 
+/* mount loopback  second stage image for hard drive install */
+static int mountHDImages(char * prefix, char * dir, int flags, 
+			   char * device, char * mntpoint) {
+    int idx, rc;
+    char * path, *target;
+    char *stg2list[] = {"stage2.img", "hdstg2.img", NULL};
+
+    path = alloca(50 + strlen(prefix) + (dir ? strlen(dir) : 2));
+
+    target = NULL;
+    for (idx=0; stg2list[idx]; idx++) {
+	target = stg2list[idx];
+	sprintf(path, "%s/%s/RedHat/base/%s", prefix, dir ? dir : "", target);
+
+	logMessage("Looking for hd stage2 image %s", path);
+	if (!access(path, F_OK))
+	    break;
+	logMessage("%s does not exist: %s, trying next target", path, strerror(errno));
+    }
+
+    if (!(*target)) {
+	logMessage("failed to find hd stage 2 image%s: %s", path, strerror(errno));
+	return 1;
+    } 
+
+    logMessage("Found hd stage2");
+
+    logMessage("Mounting %s on loop %s as mntpoint %s", path, device, mntpoint);
+    rc = mountLoopback(path, mntpoint, device);
+
+    if (rc) {
+	logMessage("Unable to mount hdstage2 loopback");
+	return rc;
+    }
+
+    /* handle updates.img now before we copy stage2 over... this allows
+     * us to keep our ramdisk size as small as possible */
+    sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");
+    copyUpdatesImg(path);
+
+    return rc;
+}
+
 /* given a partition device and directory, tries to mount hd install image */
 static char * setupIsoImages(char * device, char * dirName,  int flags) {
     int rc;
@@ -249,8 +292,22 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 	    
 	    rc = mountLoopback(path, "/tmp/loopimage", "loop0");
 	    if (!rc) {
+/* define HD_USE_LOOPBACK_STAGE2 to loopback mount stage2 instead of    */
+/* copying into RAM. Uses less memory and should work with newer parted */
+#define HD_USE_LOOPBACK_STAGE2
+#ifdef HD_USE_LOOPBACK_STAGE2
+		/* This code mounts the stage2 via loopback and doesnt  */
+		/* use any RAM. Catch is we dont unmount the partition  */
+		/* holding the ISOs, which used to cause trouble during */
+		/* partitioning, but parted fixes all this now.         */
+		rc = mountHDImages("/tmp/loopimage", "/", flags, "loop1",
+				  "/mnt/runtime");
+#else
+		/* This code is for copying small stage2 into ram */
+		/* and mounting                                   */
 		rc = loadHDImages("/tmp/loopimage", "/", flags, "loop1",
 				  "/mnt/runtime");
+#endif
 		if (rc) {
 		  newtWinMessage(_("Error"), _("OK"),
 			_("An error occured reading the install "
@@ -260,13 +317,17 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
 		    queryIsoMediaCheck(path, flags);
 		}
 	    }
+#ifndef HD_USE_LOOPBACK_STAGE2
 	    umountLoopback("/tmp/loopimage", "loop0");
+#endif
 
 	} else {
 	    rc = 1;
 	}
 
+#ifndef HD_USE_LOOPBACK_STAGE2
 	umount("/tmp/hdimage");
+#endif
 
 	if (rc)
 	    return NULL;
@@ -359,9 +420,12 @@ char * mountHardDrive(struct installMethod * method,
 	partition_list = getPartitionsList();
 	numPartitions = lenPartitionsList(partition_list);
 
+	/* for debugging */
+#if 0
 	logMessage("partitionslist: %d", numPartitions);
 	for (i=0; i<numPartitions; i++)
 	    logMessage("%s", partition_list[i]);
+#endif
 
 	/* no partitions found, try to load a device driver disk for storage */
 	if (!numPartitions) {
