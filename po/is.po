@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.9\n"
+"Project-Id-Version: install 1.11\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1999-09-08 21:41+0000\n"
+"PO-Revision-Date: 1999-09-08 23:26+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -1510,6 +1510,8 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"Raid tækið /dev/%s inniheldur núna disksneiðar sem eru ófráteknar. Raid "
+"tækinu /dev/%s verður nú dreift á allar diskneiðar sem eru innifaldar. "
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1321 ../libfdisk/gnomefsedit.c:1340
@@ -1565,6 +1567,8 @@ msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"Þú hefur gert þetta raid tæki að ræsanlegri disksneið. Vinsamlegast gaktu úr "
+"skugga um að allar sneiðar sem er í tækinu eru ræsanlegar."
 
 #: ../libfdisk/gnomefsedit.c:1839
 msgid "No RAID Device"
