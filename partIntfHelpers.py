@@ -73,12 +73,13 @@ def sanityCheckLogicalVolumeName(logvolname):
 		     "are letters, digits, '.' or '_'.")
     return None
 
-def sanityCheckMountPoint(mntpt, fstype, preexisting):
+def sanityCheckMountPoint(mntpt, fstype, preexisting, format):
     """Sanity check that the mountpoint is valid.
 
     mntpt is the mountpoint being used.
     fstype is the file system being used on the request.
     preexisting is whether the request was preexisting (request.preexist)
+    format is whether the request is being formatted or not
     """
     if mntpt:
         passed = 1
@@ -97,7 +98,7 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting):
         else:
             return None
     else:
-        if (fstype and fstype.isMountable() and not preexisting):
+        if (fstype and fstype.isMountable() and (not preexisting or format)):
             return _("Please specify a mount point for this partition.")
         else:
             # its an existing partition so don't force a mount point

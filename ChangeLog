@@ -1,5 +1,12 @@
 2004-10-06  Jeremy Katz  <katzj@redhat.com>
 
+	* partRequests.py (RequestSpec.sanityCheckRequest): Call
+	sanityCheckMountPoint with new option
+
+	* partIntfHelpers.py (sanityCheckMountPoint): Don't allow
+	formatting unless they specify a mountpoint on pre-existing
+	partitions (#134865)
+
 	* iw/network_gui.py (NetworkWindow.getScreen): Make Bengali fit a
 	little bit better (#134762)
 

@@ -290,12 +290,13 @@ class RequestSpec:
         mntpt = self.mountpoint
         fstype = self.fstype
         preexist = self.preexist
+        format = self.format
 
         rc = self.doSizeSanityCheck()
         if rc:
             return rc
 
-        rc = partIntfHelpers.sanityCheckMountPoint(mntpt, fstype, preexist)
+        rc = partIntfHelpers.sanityCheckMountPoint(mntpt, fstype, preexist, format)
         if rc:
             return rc
 
