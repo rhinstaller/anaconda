@@ -10,14 +10,14 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-14 15:37+0300\n"
+"PO-Revision-Date: 2005-04-03 22:51+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <fedora-trans-ru@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
-"X-Generator: KBabel 1.9.1\n"
+"X-Generator: KBabel 1.10\n"
 "Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
 "10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
@@ -544,7 +544,7 @@ msgid "Installing %s-%s-%s... "
 msgstr "Установка %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
@@ -552,18 +552,17 @@ msgid ""
 msgstr ""
 "Произошла исключительная ситуация. Возможно, что это ошибка. Пожалуйста "
 "скопируйте полный текст исключения или сохраните отладочную информацию на "
-"дискету и заполните отчет об ошибке на http://bugzilla.redhat.com/bugzilla."
+"дискету и заполните отчет об ошибке в anaconda на %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
 msgstr ""
 "Произошла исключительная ситуация. Скорее всего это ошибка. Пожалуйста, "
-"скопируйте полный текст исключения или сохраните отладочную информацию на "
-"дискету и заполните отчет об ошибке на http://bugzilla.redhat.com/bugzilla."
+"скопируйте полный текст исключения и заполните отчет об ошибке anaconda на %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1009,9 +1008,8 @@ msgid "Cancel"
 msgstr "Отмена"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "Произошло исключение"
+msgstr "Произошло Исключение"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -1019,7 +1017,7 @@ msgstr "_Отладка"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Сохранить на дискету"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1545,7 +1543,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Внимание! Это предварительный выпуск!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1567,7 +1565,7 @@ msgstr ""
 "\n"
 "Чтобы сообщить о найденных проблемах, посетите:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"   %s\n"
 "\n"
 "и заполните отчет относительно '%s'.\n"
 
@@ -3092,7 +3090,6 @@ msgid "Congratulations"
 msgstr "Поздравляем"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
@@ -4749,7 +4746,7 @@ msgstr "Выбор часового пояса"
 
 #: ../iw/timezone_gui.py:68
 msgid "System clock uses _UTC"
-msgstr "Системные часы используют UTC"
+msgstr "Системные часы используют _UTC"
 
 #: ../iw/timezone_gui.py:76
 msgid "Please select the nearest city in your timezone:"
@@ -5035,13 +5032,11 @@ msgid "Unknown video card"
 msgstr "Неизвестная видеокарта"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"Произошла ошибка выбора видеокарты %s. Сообщите об этой ошибке на bugzilla."
-"redhat.com."
+msgstr "Произошла ошибка выбора видеокарты %s. Сообщите об этой ошибке на %s"
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -8329,12 +8324,11 @@ msgstr "Запорожье, Луганск"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Африкаанс"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Арабский"
+msgstr "Амхарский (Амаринья)"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8417,9 +8411,8 @@ msgid "Icelandic"
 msgstr "Исландский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Македонский"
+msgstr "Индонезийский"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8446,9 +8439,8 @@ msgid "Norwegian"
 msgstr "Норвежский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Северные Территории"
+msgstr "Сото Северный"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8475,9 +8467,8 @@ msgid "Russian"
 msgstr "Русский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Словенский"
+msgstr "Словацкий"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8496,9 +8487,8 @@ msgid "Tamil"
 msgstr "Тамильский"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Тамильский"
+msgstr "Тайский"
 
 #. generated from lang-table
 msgid "Turkish"
