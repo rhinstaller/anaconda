@@ -397,9 +397,20 @@ class xfsFileSystem(FileSystemType):
         self.name = "xfs"
         self.maxSizeMB = 1024 * 1024
         self.maxLabelChars = 12
-        # we don't even have the module, so it won't be mountable... but
-        # just in case
-        self.supported = 0
+        # this is totally, 100% unsupported.  Boot with "linux xfs"
+        # at the boot: prompt will let you make new xfs filesystems
+        # in the installer.  Bugs filed when you use this will be closed
+        # WONTFIX.
+        try:
+            f = open("/proc/cmdline")
+            line = f.readline()
+            if string.find(line, " xfs") != -1:
+                self.supported = -1
+            else:
+                self.supported = 0
+            del f
+        except:
+            self.supported = 0
         
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)

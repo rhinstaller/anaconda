@@ -110,7 +110,8 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm beecrypt
 	 rhpl pyxf86config libxml2 libxml2-python glib2
-	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils"
+	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
+ 	 xfsprogs xfsdump dmapi libacl libattr attr acl"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -156,7 +157,8 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data convertdb1
-           vnc-server libjpeg tcp_wrappers redhat-config-date"
+           vnc-server libjpeg tcp_wrappers redhat-config-date
+           xfsprogs xfsdump dmapi libacl libattr attr acl"
 
 #
 # stuff ONLY included for rescue mode
@@ -239,6 +241,9 @@ $LIBDIR/libresolv*
 $LIBDIR/librt[-.]*
 $LIBDIR/libss*
 $LIBDIR/libtermcap*
+$LIBDIR/libhandle*
+$LIBDIR/libattr*
+$LIBDIR/libdm*
 $LIBDIR/libutil*
 $LIBDIR/libuuid*
 sbin/badblocks
@@ -250,6 +255,8 @@ sbin/e2fsadm
 sbin/e2label
 sbin/fsck.ext2
 sbin/fsck.ext3
+sbin/fsck.jfs
+sbin/fsck.xfs
 sbin/fdisk
 sbin/hdparm
 sbin/hwclock
@@ -273,6 +280,7 @@ sbin/mke2fs
 sbin/mkfs.ext2
 sbin/mkfs.ext3
 sbin/mkfs.jfs
+sbin/mkfs.xfs
 sbin/mkfs.msdos
 sbin/mkfs.vfat
 sbin/mkreiserfs
@@ -290,6 +298,12 @@ sbin/probe
 sbin/resize2fs
 sbin/sfdisk
 sbin/tune2fs
+sbin/xfsdump
+sbin/xfsrestore
+sbin/xfs_repair
+usr/sbin/xfs_db
+usr/sbin/xfs_check
+usr/sbin/xfs_copy
 sbin/vgcfgbackup
 sbin/vgcfgrestore
 sbin/vgchange
