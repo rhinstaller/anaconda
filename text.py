@@ -1067,7 +1067,6 @@ class LiloWindow:
         locations.append (format % (boothd, "Master Boot Record (MBR)"))
         locations.append (format % (bootpart, "First sector of boot partition"))
 
-        # XXX fixme restore state
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
                                          _("Where do you want to install the bootloader?"),
                                          locations, default = default,
@@ -1699,6 +1698,7 @@ def killSelf(screen):
     os._exit(0)
 
 def debugSelf(screen):
-    screen.finish ()
+    screen.suspend ()
     import pdb
     pdb.set_trace()
+    screen.resume ()
