@@ -1289,12 +1289,11 @@ int main(int argc, char ** argv) {
         if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
             logMessage("failed to mount /selinux: %s", strerror(errno));
         } else {
+            /* FIXME: this is a bad hack for libselinux assuming things
+             * about paths */
+            symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
-                /* FIXME: this is a bad hack for libselinux keeping static
-                 * track of what paths to use and defaulting to the wrong
-                 * thing */
-                symlink("/mnt/runtime/etc/selinux", "/etc/selinux");
             } else {
                 logMessage("failed to load policy, disabling SELinux");
                 flags &= ~LOADER_FLAGS_SELINUX;
