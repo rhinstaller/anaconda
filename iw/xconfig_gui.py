@@ -919,6 +919,8 @@ class XConfigWindow (InstallWindow):
         self.xconfig = xconfig
         self.intf = intf
 
+	self.lastvalidselection = None
+
         box = gtk.VBox (gtk.FALSE, 0)
         box.set_border_width (0)
 
