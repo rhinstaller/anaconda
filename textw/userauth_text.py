@@ -245,7 +245,7 @@ class UsersWindow:
                 dir = INSTALL_BACK
                 break
             else:
-                raise NeverGetHereError, "I shouldn't be here w/ rc %s..." % rc
+                raise RuntimeError, "I shouldn't be here w/ rc %s..." % rc
                 
         screen.popWindow ()
 

@@ -141,15 +141,15 @@ class LiloImagesWindow:
 		newLabel.set("")
             elif (result == TEXT_OK_CHECK or result == TEXT_F12_CHECK or result == newLabel):
 		if not allowNone and not newLabel.value():
-                    rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
-                                             _("Boot label may not be empty."),
-                                             [ TEXT_OK_BUTTON ])
+                    ButtonChoiceWindow (screen, _("Invalid Boot Label"),
+                                        _("Boot label may not be empty."),
+                                        [ TEXT_OK_BUTTON ])
                     result = ""
                 elif not self.validLiloLabel(newLabel.value()):
-                    rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
-                                             _("Boot label contains "
-                                               "illegal characters."),
-                                             [ TEXT_OK_BUTTON ])
+                    ButtonChoiceWindow (screen, _("Invalid Boot Label"),
+                                        _("Boot label contains "
+                                          "illegal characters."),
+                                        [ TEXT_OK_BUTTON ])
                     result = ""
 
 	screen.popWindow()

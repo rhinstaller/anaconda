@@ -59,7 +59,7 @@ class TimezoneWindow:
 	if rc:
 	    (default, asUtc, asArc) = rc
 	else:
-	    default = todo.instLang.getDefaultTimeZone()
+	    default = instLang.getDefaultTimeZone()
 	    asUtc = 0
 
 	bb = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
