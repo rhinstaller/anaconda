@@ -224,9 +224,21 @@ def start_existing_X():
 
     server = os.fork()
     serverPath = "/etc/X11/X"
+
+    # override fontpath because xfs is not running yet!
     if (not server):
         print "Starting X using existing XF86Config"
 	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
+	args.append("-fp")
+	args.append("/usr/X11R6/lib/X11/fonts/misc/,"
+	 		"/usr/X11R6/lib/X11/fonts/75dpi/,"
+			"/usr/X11R6/lib/X11/fonts/100dpi/,"
+			"/usr/X11R6/lib/X11/fonts/cyrillic/,"
+			"/usr/share/fonts/ISO8859-2/misc/,"
+			"/usr/share/fonts/ISO8859-2/75dpi/,"
+			"/usr/share/fonts/ISO8859-2/100dpi/")
+
+        print args
 	os.execv(serverPath, args)
 
     # give time for the server to fail (if it is going to fail...)
