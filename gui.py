@@ -169,23 +169,34 @@ def growToParent(widget, rect, growTo=None):
 
 _busyCursor = 0
 
+def setCursorToBusy(process=1):
+    root = gtk.gdk.get_default_root_window()
+    cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
+    root.set_cursor(cursor)
+    if process:
+        processEvents()
+
+def setCursorToNormal():
+    root = gtk.gdk.get_default_root_window()
+    cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
+    root.set_cursor(cursor)
+
 def rootPushBusyCursor(process=1):
     global _busyCursor
     _busyCursor += 1
     if _busyCursor > 0:
-        root = gtk.gdk.get_default_root_window()
-        cursor = gtk.gdk.Cursor(gtk.gdk.WATCH)
-        root.set_cursor(cursor)
-    if process:
-        processEvents()
+	setCursorToBusy(process)
 
 def rootPopBusyCursor():
     global _busyCursor
     _busyCursor -= 1
     if _busyCursor <= 0:
-        root = gtk.gdk.get_default_root_window()
-        cursor = gtk.gdk.Cursor(gtk.gdk.LEFT_PTR)
-        root.set_cursor(cursor)
+	setCursorToNormal()
+
+def getBusyCursorStatus():
+    global _busyCursor
+    
+    return _busyCursor
 
 class MnemonicLabel(gtk.Label):
     def __init__(self, text=""):
@@ -446,6 +457,10 @@ class MessageWindow:
         dialog.set_position (gtk.WIN_POS_CENTER)
         dialog.set_default_response(defaultchoice)
         dialog.show_all ()
+
+	# XXX - Messy - turn off busy cursor if necessary
+	busycursor = getBusyCursorStatus()
+	setCursorToNormal()
         rc = dialog.run()
 
         if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
@@ -458,6 +473,10 @@ class MessageWindow:
 	else:
 	    self.rc = rc
         dialog.destroy()
+
+	# restore busy cursor
+	if busycursor:
+	    setCursorToBusy()
     
 class InstallInterface:
     def __init__ (self):
