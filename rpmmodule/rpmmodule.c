@@ -236,6 +236,8 @@ void initrpm(void) {
 			 PyInt_FromLong(RPMFILE_STATE_NOTINSTALLED));
     PyDict_SetItemString(d, "RPMFILE_CONFIG", 
 			 PyInt_FromLong(RPMFILE_CONFIG));
+    PyDict_SetItemString(d, "RPMFILE_MISSINGOK",
+			 PyInt_FromLong(RPMFILE_MISSINGOK));
     PyDict_SetItemString(d, "RPMFILE_DOC", 
 			 PyInt_FromLong(RPMFILE_DOC));
 
@@ -1318,8 +1320,10 @@ static PyObject * rpmtransDepCheck(rpmtransObject * s, PyObject * args) {
 	for (i = 0; i < numConflicts; i++) {
 	    cf = Py_BuildValue("((sss)(ss)iOi)", conflicts[i].byName, 
 			       conflicts[i].byVersion, conflicts[i].byRelease,
+
 			       conflicts[i].needsName, 
 			       conflicts[i].needsVersion,
+
 			       conflicts[i].needsFlags,
 			       conflicts[i].suggestedPackage ?
 				   conflicts[i].suggestedPackage : Py_None,
