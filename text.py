@@ -560,9 +560,8 @@ class ReconfigFinishedWindow:
                                    "consult the "
                                    "Errata available from http://www.redhat.com.\n\n"
                                    "Information on further configuring your system is "
-                                   "available "
-                                   "in the post install chapter of the Official Red Hat "
-                                   "Linux User's Guide."),
+                                   "available at http://www.redhat.com/support/manuals/"),
+
                                  [ _("OK") ], help = "reconfigfinished")
 
         return INSTALL_OK
