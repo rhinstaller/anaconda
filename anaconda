@@ -540,6 +540,9 @@ if method:
     elif (method[0:5] == "nfs:/"):
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
+    elif (method[0:8] == 'nfsiso:/'):
+        from image import NfsIsoInstallMethod
+        method = NfsIsoInstallMethod(method[8:], intf.messageWindow)
     elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method)
