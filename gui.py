@@ -15,6 +15,7 @@
 #
 
 import os
+import errno
 import iutil
 import string
 import isys
@@ -763,6 +764,187 @@ class InstallControlWindow:
 
         self.setScreen ()
 
+    def loadReleaseNotes(self):
+	langList = self.langSearchPath + [ "" ]
+        sourcepath = self.dispatch.method.getSourcePath()
+        suffixList = []        
+	for lang in langList:
+	    if lang:
+                suffixList.append("-%s.html" % (lang,))
+                suffixList.append(".%s" % (lang,))
+            else:
+                suffixList.append(".html")
+                suffixList.append("")
+                
+            for suffix in suffixList:
+                fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
+                if os.access(fn, os.R_OK):
+                    file = open(fn, "r")
+		    self.releaseNotesContents = file.read()
+                    if suffix.endswith('.html'):
+			self.releaseNotesType="html"
+                    else:
+			self.releaseNotesType="text"
+                    file.close()
+                    return
+
+	self.releaseNotesContents=_("Release notes are missing.\n")
+        self.releaseNotesType="text"
+
+    #
+    # cant use traditional signals and SIGCHLD to catch viewer exitting,
+    # so instead we just check occasionally to see if child process still
+    # around
+    #
+    def releaseNotesViewerPollExitCB(self, data):
+	# dont wait if we arent running a viewer
+	if self.releaseNotesViewerPid is None:
+	    log("Calling releaseNotesViewerPollExitCB but no release viewer running!")
+	    return gtk.TRUE
+
+	# see if release notes viewer has exitted
+	still_running = 1
+	try:
+	    (pid, status) = os.waitpid(self.releaseNotesViewerPid, os.WNOHANG)
+
+	    if pid and os.WIFEXITED(status):
+		still_running = 0
+	except OSError, (eno, msg):
+	    if eno == errno.ECHILD:
+		still_running = 0
+	    else:
+		log("In releaseNotesViewerPollExitCB got error %s: %s", eno, msg)
+	except:
+	    log("In releaseNotesViewerPollExitCB got unknown exception waiting %s: %s")
+	    
+    
+	if not still_running:
+	    self.releaseNotesViewerPid = None
+	    gtk.timeout_remove(self.releaseNotesViewerIdleID)
+	    
+	    # resensitize buttons
+	    ics = self.currentWindow.getICS()
+	    self.prevButtonStock.set_sensitive (ics.getPrevEnabled ())
+	    self.nextButtonStock.set_sensitive (ics.getNextEnabled ())
+	    self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+	    self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
+	    self.releaseButton.set_sensitive(gtk.TRUE)
+
+	    self.releaseNotesModalDummy.destroy()
+	    
+	    return gtk.FALSE
+	else:
+	    return gtk.TRUE
+
+    # see if we need to start release notes viewer
+    # needed because sometimes we get a callback to start viewer
+    # when we are in an rpm callback inside the chroot and cannot
+    # run the release notes program (sigh)
+    def releaseNotesPollStartViewerCB(self, data):
+	if self.releaseNotesStartViewer:
+	    # turn off so we dont start multiple ones
+	    self.releaseNotesStartViewer = 0
+
+	    # make a 0 by 0 modal dialog so you cant interact with installer
+	    # while release notes are up
+	    self.releaseNotesModalDummy = gtk.Dialog(flags=gtk.DIALOG_MODAL)
+	    self.releaseNotesModalDummy.set_size_request(0, 0)
+	    self.releaseNotesModalDummy.set_decorated(gtk.FALSE)
+	    self.releaseNotesModalDummy.show_all()
+	    processEvents()
+	    
+	    # try to run it
+	    rc = self.runReleaseNotesViewer()
+	    if rc:
+		# failed to run, note we havent started it yet
+		self.releaseNotesStartViewer = 1
+		self.releaseNotesModalDummy.destroy()
+	    else:
+		# started viewer succesfully, remove idle handler
+		gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
+	    
+	return gtk.TRUE
+		
+
+    #
+    # when user clicks on release notes button we queue a request to start
+    # the release notes viewer. The idle handler we setup will try to
+    # start the viewer when it is called. If we happen to be in an RPM
+    # callback during package installation and are in the chroot we cannot
+    # run the viewer.  The idle handler will just keep trying to start
+    # viewer until it gets called outside the chroot environment.
+    #
+    # Yes this is icky.
+    #
+    def releaseNotesButtonClicked (self, widget):
+	# see if release notes are running
+	if self.releaseNotesViewerPid is not None:
+	    log("Viewer already present, pid = %s",self.releaseNotesViewerPid)
+	    return
+
+	if self.releaseNotesStartViewer:
+	    log("Already queued request to start a viewer")
+	    return
+	
+	self.releaseNotesStartViewer = 1
+	self.releaseNotesStartViewerIdleID = gtk.timeout_add(50, self.releaseNotesPollStartViewerCB, None)
+
+	# we make cursor busy, on assumption when viewer app runs it will
+	# make it normal
+	setCursorToBusy()
+	
+
+    def runReleaseNotesViewer(self):
+	if self.releaseNotesContents is not None:
+	    fn = "/tmp/relnotes." + self.releaseNotesType
+	    if not os.access(fn, os.R_OK):
+		ofile = open(fn, "w+")
+		ofile.write(self.releaseNotesContents)
+		ofile.close()
+
+	    # HACK to make release notes to work in test mode
+	    if os.access("iw/release_notes_viewer_gui.py", os.X_OK):
+		path = ("iw/release_notes_viewer_gui.py",)
+	    else:
+		path = ("/mnt/source/RHupdates/release_notes_viewer_gui.py",)
+
+	    # if no viewer present then just ignore click
+	    if not os.access(path[0], os.X_OK):
+		log("Viewer missing at %s - ignoring", path[0])
+		return 1
+	    
+	    args =(fn,)
+	    
+	    child = os.fork()
+
+	    if (child == 0):
+		os.execv(path[0], path + args)
+
+	    # we are going to check several times a second to see if
+	    # release notes viewer has exited so we can restore button
+	    # bar sensitivity
+	    #
+	    # NOTE we cant use a signal handler for SIGCHLD because the
+	    # python interpretter cannot act on signals reliably while inside
+	    # the gtk main loop.
+	    #
+            self.releaseNotesViewerIdleID =  gtk.timeout_add(50, self.releaseNotesViewerPollExitCB, None)
+	    self.releaseNotesViewerPid = child
+	    
+	    #desensitize button bar at bottom of screen
+	    for (icon, name, text, func) in self.stockButtons:
+		if self.__dict__.has_key(name):
+		    self.__dict__[name].set_sensitive(gtk.FALSE)
+
+	    return 0
+	else:
+	    win = MessageWindow(_("Warning"),
+			   _("The release notes are missing."),
+			    type="custom", custom_icon="warning",
+			    custom_buttons=[_("OK")])
+
+	    return 1
+
     def helpClicked (self, widget, simulated=0):
         self.hbox.remove (widget)
         if widget == self.hideHelpButton:
@@ -822,115 +1004,6 @@ class InstallControlWindow:
         iter = textbuffer.get_iter_at_offset(0)
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
         self.help.scroll_to_mark(mark, 0.0, gtk.FALSE, 0.0, 0.0)
-
-    def relnotes_closed (self, *args):
-        self.textWin.destroy()
-
-#
-# XXX - disabling this behavior for now due to bug where if you pop up
-#       release notes during package selection, then close it after
-#       package selection is done and install has moved to next screen,
-#       the stockButtons get their state screwed up
-#
-#        for (icon, name, text, func) in self.stockButtons:
-#            if self.__dict__.has_key(name):
-#		self.__dict__[name].set_sensitive(self.relnotes_buttonstate[name])
-        return
-
-    def releaseClicked (self, widget):
-        self.textWin = gtk.Dialog(parent=mainWindow, flags=gtk.DIALOG_MODAL)
-
-
-#
-# XXX - disabling this behavior for now due to bug where if you pop up
-#       release notes during package selection, then close it after
-#       package selection is done and install has moved to next screen,
-#       the stockButtons get their state screwed up
-#	self.relnotes_buttonstate={}
-#        for (icon, name, text, func) in self.stockButtons:
-#            if self.__dict__.has_key(name):
-#		self.relnotes_buttonstate[name] = self.__dict__[name].get_property("sensitive")
-#                self.__dict__[name].set_sensitive(gtk.FALSE)
-
-        table = gtk.Table(3, 3, gtk.FALSE)
-        self.textWin.vbox.pack_start(table)
-        self.textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
-        self.textWin.connect("response", self.relnotes_closed)
-        vbox1 = gtk.VBox ()        
-        vbox1.set_border_width (10)
-        frame = gtk.Frame (_("Release Notes"))
-        frame.add(vbox1)
-        frame.set_label_align (0.5, 0.5)
-        frame.set_shadow_type (gtk.SHADOW_NONE)
-        
-        self.textWin.set_position (gtk.WIN_POS_CENTER)
-
-        if self.releaseNotesBuffer:
-            text = TextViewBrowser()
-            text.set_buffer(self.releaseNotesBuffer)
-            
-            sw = gtk.ScrolledWindow()
-            sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
-            sw.set_shadow_type(gtk.SHADOW_IN)
-            sw.add(text)
-            vbox1.pack_start(sw)
-
-            a = gtk.Alignment (0, 0, 1.0, 1.0)
-            a.add (frame)
-            
-            self.textWin.set_default_size (635, 393)
-            self.textWin.set_size_request (635, 393)
-            self.textWin.set_position (gtk.WIN_POS_CENTER)
-
-            table.attach (a, 1, 2, 1, 2,
-                          gtk.FILL | gtk.EXPAND,
-                          gtk.FILL | gtk.EXPAND, 5, 5)
-
-            self.textWin.set_border_width(0)
-            addFrame(self.textWin, _("Release Notes"))
-            self.textWin.show_all()
-
-        else:
-            self.textWin.set_position (gtk.WIN_POS_CENTER)
-            label = gtk.Label(_("Unable to load file!"))
-
-            table.attach (label, 1, 2, 1, 2,
-                          gtk.FILL | gtk.EXPAND, gtk.FILL | gtk.EXPAND, 5, 5)
-
-            self.textWin.set_border_width(0)
-            addFrame(self.textWin)
-            self.textWin.show_all()
-
-    def loadReleaseNotes(self):
-	langList = self.langSearchPath + [ "" ]
-        sourcepath = self.dispatch.method.getSourcePath()
-        suffixList = []        
-	for lang in langList:
-	    if lang:
-                suffixList.append("-%s.html" % (lang,))
-                suffixList.append(".%s" % (lang,))
-            else:
-                suffixList.append(".html")
-                suffixList.append("")
-                
-            for suffix in suffixList:
-                fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
-                if os.access(fn, os.R_OK):
-                    file = open(fn, "r")
-                    if suffix.endswith('.html'):
-                        buffer = htmlbuffer.HTMLBuffer()
-                        buffer.feed(file.read())
-                        self.releaseNotesBuffer = buffer.get_buffer()
-                    else:
-                        buffer = gtk.TextBuffer(None)
-                        buffer.set_text(file.read())
-                        self.releaseNotesBuffer = buffer
-                    file.close()
-                    return
-            
-        buffer = gtk.TextBuffer(None)
-        buffer.set_text(_("Release notes are missing.\n"))
-        self.releaseNotesBuffer = buffer
 
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
@@ -1068,7 +1141,7 @@ class InstallControlWindow:
                              ('gtk-go-forward', "nextButtonStock",
                               N_("_Next"), self.nextClicked),
                              ('gtk-new', "releaseButton",
-			       N_("_Release Notes"), self.releaseClicked),
+			       N_("_Release Notes"), self.releaseNotesButtonClicked),
                              ('gtk-help', "showHelpButton",
                               N_("Show _Help"), self.helpClicked),
                              ('gtk-help', "hideHelpButton",
@@ -1081,6 +1154,11 @@ class InstallControlWindow:
         self.dispatch = dispatch
 	self.setLanguage(locale)
         self.handle = None
+
+	self.releaseNotesContents = None
+	self.releaseNotesType = None
+	self.releaseNotesViewerPid = None
+	self.releaseNotesStartViewer = 0
 
     def keyRelease (self, window, event):
         if ((event.keyval == gtk.keysyms.KP_Delete
