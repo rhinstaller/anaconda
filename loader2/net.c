@@ -591,7 +591,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
 
 void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
-    char * arg, * bootProto, * device;
+    char * arg, * bootProto = NULL, * device = NULL;;
     int noDns = 0, rc;
     poptContext optCon;
 
@@ -644,7 +644,8 @@ void setKickstartNetwork(struct loaderData_s * loaderData, int argc,
 
     /* if they've specified dhcp/bootp or haven't specified anything, 
      * use dhcp for the interface */
-    if (!strncmp(bootProto, "dhcp", 4) || !strncmp(bootProto, "bootp", 4) ||
+    if ((bootProto && (!strncmp(bootProto, "dhcp", 4) || 
+                       !strncmp(bootProto, "bootp", 4))) ||
         (!bootProto && !loaderData->ip)) {
         loaderData->ip = strdup("dhcp");
         loaderData->ipinfo_set = 1;
