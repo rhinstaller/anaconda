@@ -741,9 +741,9 @@ def doPostInstall(method, id, intf, instPath):
                 # XXX hack..., if the above move failed, we'll just stash it in
                 # a (hopefully) unique location. (#50339)
                 os.rename (instPath + "/var/lib/rpm",
-                           instPath + "/var/lib/rpm.rpmsave-%s", %
+                           instPath + "/var/lib/rpm.rpmsave-%s" %
                            (str(int(time.time())),))
-	    os.rename (instPath + id.dbpath,
+            os.rename (instPath + id.dbpath,
 		       instPath + "/var/lib/rpm")
 
 	    # XXX - rpm 4.0.2 %post braindeadness support
