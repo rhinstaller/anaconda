@@ -196,7 +196,14 @@ class ExceptionWindow:
         if file:
             hbox.pack_start (GnomePixmap (file), FALSE)
 
-        info = GtkLabel(_("An unhandled exception has occured.  This "
+        if iutil.getArch() == 's390' or iutil.getArch() == 's390x':
+            info = GtkLabel(_("An unhandled exception has occured.  This "
+                            "is most likely a bug.  Please copy the "
+                            "full text of this exception and file a "
+                            "detailed bug report against anaconda at "
+                            "http://bugzilla.redhat.com/bugzilla/"),)
+        else:
+            info = GtkLabel(_("An unhandled exception has occured.  This "
                           "is most likely a bug.  Please copy the "
                           "full text of this exception or save the crash "
                           "dump to a floppy then file a detailed bug "
