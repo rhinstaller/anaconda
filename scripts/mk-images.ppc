@@ -88,7 +88,7 @@ EOF
         makeinitrd --initrdto $TOPDESTPATH/ppc/mac/ramdisk.image.gz \
             --initrdsize 8192 \
             --loaderbin loader \
-            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES =scsi =net"
+            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES =scsi =net"
 
         mkdir -p $TOPDESTPATH/ppc/mac
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinuz
