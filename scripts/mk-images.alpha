@@ -9,6 +9,9 @@ prepareBootImage() {
 
 NETMODULES="3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
 
+mkdir -p $TOPDESTPATH/boot
+cp $BOOTDISKDIR/bootlx $TOPDESTPATH/boot
+
 makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 	   --initrdsize 3000 \
 	   --padsize 1440 \

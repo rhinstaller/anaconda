@@ -136,7 +136,7 @@ fi
 
 if [ $ARCH = alpha ]; then
     PACKAGESGR="$PACKAGESGR XFree86-3DLabs XFree86-Mono XFree86-P9000
-                XFree86-S3 XFree86-SVGA "
+                XFree86-S3 XFree86-SVGA aboot"
 fi
 
 KEEPFILE=/tmp/keepfile.$$
@@ -238,6 +238,7 @@ bin/touch
 bin/umount
 bin/zcat
 boot/*.b
+boot/bootlx
 etc/gtk/gtkrc*
 etc/im_palette.pal
 etc/imrc
