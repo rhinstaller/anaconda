@@ -1,0 +1,26 @@
+#!/bin/sh
+
+ARCH=$1
+if [ -z "$ARCH" ]; then
+    echo "usage: $0 <arch>"
+    exit 1
+fi
+
+TMPDIR=/tmp/keymaps.$$
+TOPDIR=`pwd`
+
+rm -rf $TMPDIR
+mkdir -p $TMPDIR
+
+find /usr/lib/kbd/keymaps/i386 -name "*.kmap*" | while read n; do
+    /usr/bin/loadkeys `basename $n .gz`
+    ../utils/readmap $TMPDIR/`basename $n .kmap.gz`.kmap
+done
+
+loadkeys us
+
+rm -f $TMPDIR/defkeymap* $TMPDIR/ANSI* $TMPDIR/lt.kmap
+
+(cd $TMPDIR; $TOPDIR/../utils/mapshdr *.kmap) > $TMPDIR/hdr
+cat $TMPDIR/hdr $TMPDIR/*.kmap | gzip -9 > keymaps-$ARCH
+rm -rf $TMPDIR
