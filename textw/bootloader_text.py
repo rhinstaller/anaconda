@@ -18,9 +18,6 @@ from flags import flags
 from rhpl.log import log
 import string
 import iutil
-# XXX
-#if iutil.getArch() == 'i386':
-#    import edd
     
 class BootloaderChoiceWindow:
 
@@ -44,7 +41,7 @@ class BootloaderChoiceWindow:
 
         blradio = RadioGroup()
         grub = blradio.add(_("Use GRUB Boot Loader"), "grub", useGrub)
-        if iutil.getArch() == "i386":
+        if 0 and iutil.getArch() == "i386":
             lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
         else:
             lilo = None
