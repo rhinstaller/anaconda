@@ -66,7 +66,7 @@ int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
     char * mods;
     int i;
 
-    if (FL_NOPCMCIA(flags))
+    if (FL_NOPCMCIA(flags) || FL_TESTING(flags))
 	return 0;
 
     pcic = getPcicController();
