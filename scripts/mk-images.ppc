@@ -31,7 +31,7 @@ makeBootImages() {
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
-	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/chrp/vmlinux
+	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinux
         cp $BOOTDISKDIR/yaboot.conf.pseries $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
@@ -72,7 +72,7 @@ EOF
 	    --loaderbin loader \
 	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
 
-	cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/iSeries/vmlinux
+	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
 
 	$IMGPATH/usr/sbin/addSystemMap $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux $TOPDESTPATH/ppc/iSeries/vmlinux.sm
@@ -89,7 +89,7 @@ EOF
             --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
 
         mkdir -p $TOPDESTPATH/ppc/mac
-        cp $KERNELROOT/boot/vmlinux-* $TOPDESTPATH/ppc/mac/vmlinux
+        cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinux
         cp $BOOTDISKDIR/yaboot.conf.mac $TOPDESTPATH/ppc/mac/yaboot.conf
         cp $BOOTDISKDIR/ofboot.b $TOPDESTPATH/ppc/mac/ofboot.b
         cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/mac/
