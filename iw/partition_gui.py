@@ -46,8 +46,8 @@ from partition_ui_helpers_gui import *
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
-CANVAS_WIDTH_800 = 500
-CANVAS_WIDTH_640 = 400
+CANVAS_WIDTH_800 = 490
+CANVAS_WIDTH_640 = 390
 CANVAS_HEIGHT = 200
 TREE_SPACING = 2
 
@@ -1383,8 +1383,8 @@ class PartitionWindow(InstallWindow):
         sw = gtk.ScrolledWindow(hadjustment = hadj, vadjustment = vadj)
         sw.add(self.diskStripeGraph.getCanvas())
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-	sw.set_shadow_type(gtk.SHADOW_IN)
-
+        sw.set_shadow_type(gtk.SHADOW_IN)
+            
         frame = gtk.Frame()
         frame.add(sw)
 	vpaned.add1(frame)
@@ -1406,7 +1406,7 @@ class PartitionWindow(InstallWindow):
 	vpaned.add2(box)
 
 	# XXX should probably be set according to height 
-	vpaned.set_position(170)
+	vpaned.set_position(175)
 
 	return vpaned
 
