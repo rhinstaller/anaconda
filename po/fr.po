@@ -4,14 +4,14 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Install 6.2 \n"
+"Project-Id-Version: install 6.1 \n"
 "POT-Creation-Date: 2000-03-01 17:24-0500\n"
-"PO-Revision-Date: 2000-02-17 18:41-0500 \n"
-"Last-Translator: Cristian Gafton <gafton@redhat.com> \n"
-"Language-Team: French <LL@li.org> \n"
+"PO-Revision-Date: 1999-04-13 12:44 \n"
+"Last-Translator: Logiciels du Soleil <joel@ldsol.com> \n"
+"Language-Team: French <fr@li.org> \n"
 "MIME-Version: 1.0 \n"
 "Content-Type: text/plain; charset=ISO-8859-1 \n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8-bit \n"
 
 #: ../fstab.py:233 ../fstab.py:396
 msgid "Formatting"
@@ -58,12 +58,12 @@ msgstr "Formatage de système de fichiers %s..."
 
 #: ../fstab.py:419
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:420
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Création d'un système de fichiers loopback sur /dev/%s..."
 
 #: ../fstab.py:463
 #, c-format
@@ -206,7 +206,7 @@ msgstr "Périphérique"
 #: ../text.py:99
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr "Sur quel port votre souris est-elle connectée ? %s %i"
+msgstr "Sur quel port votre souris est-elle connectée ? [%s%i]"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:171
 #: ../loader/devices.c:184 ../loader/devices.c:189 ../loader/devices.c:251
@@ -257,19 +257,19 @@ msgstr "Quel est le modèle du clavier connecté à cet ordinateur ?"
 
 #: ../text.py:228
 msgid "Install GNOME Workstation"
-msgstr "Installer un poste de travail GNOME"
+msgstr "Poste de travail GNOME"
 
 #: ../text.py:229
 msgid "Install KDE Workstation"
-msgstr "Installer un poste de travail KDE"
+msgstr "Poste de travail KDE"
 
 #: ../text.py:230
 msgid "Install Server System"
-msgstr "Installation serveur"
+msgstr "Serveur"
 
 #: ../text.py:231
 msgid "Install Custom System"
-msgstr "Installation personnalisée"
+msgstr "Personnalisée"
 
 #: ../text.py:232
 msgid "Upgrade Existing Installation"
@@ -371,7 +371,7 @@ msgstr ""
 "Red Hat Linux vous souhaite la bienvenue !\n"
 "\n"
 "Vous êtes maintenant dans le mode de reconfiguration qui va vous permettre "
-"de configurer votre ordinateur. \n"
+"de configurer les options de votre ordinateur dépendant de votre site. \n"
 "\n"
 "Pour quitter sans modifier votre configuration, cliquez sur le bouton "
 "Annuler ci-dessous."
@@ -614,7 +614,7 @@ msgstr "Effectué :   "
 
 #: ../text.py:884
 msgid "Remaining:  "
-msgstr "Restant :   "
+msgstr "Restant  :  "
 
 #: ../text.py:973 ../text.py:974
 msgid "Debug"
@@ -776,7 +776,7 @@ msgstr "Lecture"
 
 #: ../todo.py:447
 msgid "Reading package information..."
-msgstr "Lecture des informations sur le paquetage..."
+msgstr "Lecture des informations sur les paquetages..."
 
 #: ../todo.py:631 ../todo.py:644
 msgid "no suggestion"
@@ -840,7 +840,7 @@ msgstr ""
 
 #: ../todo.py:1191
 msgid "Mount Point"
-msgstr "Point de montage"
+msgstr "Pt de montage"
 
 #: ../todo.py:1191
 msgid "Space Needed"
@@ -856,7 +856,7 @@ msgstr "Post-installation"
 
 #: ../todo.py:1229
 msgid "Performing post install configuration..."
-msgstr "Exécution de la configuration post-installatoire en cours..."
+msgstr "Exécution de la configuration finale en cours..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:256
 msgid "Video Card"
@@ -1255,7 +1255,7 @@ msgstr "Taille : "
 
 #: ../iw/package.py:341
 msgid "Select Package For Installation"
-msgstr "Sélection des paquetages à installer"
+msgstr "Installer ce paquetage"
 
 #: ../iw/package.py:376 ../textw/packages.py:22 ../textw/packages.py:87
 msgid "Package Group Selection"
@@ -1401,11 +1401,11 @@ msgstr "Affichage :"
 
 #: ../iw/timezone.py:155 ../iw/timezone.py:156
 msgid "System clock uses UTC"
-msgstr "Horloge système en UTC"
+msgstr "Horloge système UTC"
 
 #: ../iw/timezone.py:204
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Heure d'été (US uniquement)"
+msgstr "Heure d'été (US seulement)"
 
 #: ../iw/timezone.py:218
 msgid "Location"
@@ -1482,7 +1482,7 @@ msgstr ""
 
 #: ../iw/xconfig.py:372
 msgid "Autoprobe results:"
-msgstr "Résultats de la détection X"
+msgstr "Résultats de la détection :"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1685,13 +1685,13 @@ msgstr "ID utilisateur"
 
 #: ../textw/userauth.py:91
 msgid "Bad User ID"
-msgstr "ID utilisateur faux"
+msgstr "ID utilisateur incorrect"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
-msgstr ""
+msgstr "Les identifiants utilisateurs doivent comporter moins de 8 caractères, choisis dans A-Z, a-z et 0-9"
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -1954,11 +1954,11 @@ msgstr "Modification de la partition"
 
 #: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
 msgid "Mount Point:"
-msgstr "Point de montage :"
+msgstr "Pt de montage:"
 
 #: ../libfdisk/gnomefsedit.c:842
 msgid "Size (Megs):"
-msgstr "Taille (Mo) :"
+msgstr "Taille (Mo):"
 
 #: ../libfdisk/gnomefsedit.c:873
 msgid "Grow to fill disk?"
@@ -2292,7 +2292,7 @@ msgstr "Modifi_er..."
 
 #: ../libfdisk/gnomefsedit.c:3327
 msgid "_Reset"
-msgstr "_Réinitialiser"
+msgstr "_Réinit."
 
 #: ../libfdisk/gnomefsedit.c:3332
 msgid "_Delete"
@@ -2301,7 +2301,7 @@ msgstr "_Supprimer"
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3345
 msgid "_Make RAID Device"
-msgstr "_Créer le périphérique RAID"
+msgstr "_Créer périph. RAID"
 
 #: ../libfdisk/gnomefsedit.c:3355
 msgid "Auto Partition"
@@ -2707,7 +2707,7 @@ msgstr "Envoi d'une requête pour l'adresse IP..."
 
 #: ../loader/net.c:460
 msgid "Determining host name and domain..."
-msgstr "Détermination du nom d'hôte et du domaine..."
+msgstr "Détermination nom d'hôte / domaine..."
 
 #: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
@@ -2893,28 +2893,97 @@ msgstr "Port du serveur proxy HTTP :"
 msgid "Loading SCSI driver"
 msgstr "Chargement du pilote SCSI"
 
-#~ msgid ""
-#~ "Congratulations, installation is complete.\n"
-#~ "\n"
-#~ "Remove the boot media and press return to reboot. For information on fixes "
-#~ "which are available for this release of Red Hat Linux, consult the Errata "
-#~ "available from http://www.redhat.com.\n"
-#~ "\n"
-#~ "Information on configuring your system is available in the post install "
-#~ "chapter of the Official Red Hat Linux User's Guide."
-#~ msgstr ""
-#~ "Félicitations, l'installation est terminée.\n"
-#~ "\n"
-#~ "Retirez la disquette et appuyez sur Entrée pour redémarrer. Pour plus "
-#~ "d'informations sur les corrections disponibles pour cette version de Red Hat "
-#~ "Linux, consultez la liste des erreurs à l'adresse http://www.redhat.com.\n"
-#~ "\n"
-#~ "Des informations sur la configuration de votre système sont disponibles dans "
-#~ "le chapitre \"Après l'installation\" du Manuel utilisateur de Red Hat Linux "
-#~ "Officiel."
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+"Félicitations, l'installation est terminée.\n"
+"\n"
+"Ejectez la disquette d'amorçage et pressez \"Entrée\" pour redémarrer.\n"
+"Pour plus d'informations sur les corrections disponibles pour cette version de Red Hat Linux, consultez la liste des erreurs à l'adresse http://www.redhat.com.\n"
+"\n"
+"Des informations complémentaires sur la configuration du système figurent dans le chapitre \"Après l'installation\" du Manuel utilisateur de Red Hat Linux Officiel."
 
-#~ msgid "Rebuilding"
-#~ msgstr "Reconstruction"
+msgid "Rebuilding"
+msgstr "Reconstruction"
 
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Reconstruction de la base de données RPM..."
+msgid "Rebuilding RPM database..."
+msgstr "Reconstruction de la base de données RPM..."
+
+#~ msgid "Default boot image"
+#~ msgstr "Image à démarrer par défaut"
+
+#~ msgid "Port"
+#~ msgstr "Port"
+
+#~ msgid "DDC Probed Monitor"
+#~ msgstr "Détection DDC"
+
+#~ msgid "Current time: "
+#~ msgstr "Heure locale : "
+
+#~ msgid "Requested"
+#~ msgstr "Demandé"
+
+#~ msgid "Actual"
+#~ msgstr "Actuel"
+
+#~ msgid "Drive"
+#~ msgstr "Disque"
+
+#~ msgid "Geom [C/H/S]"
+#~ msgstr "Géom.[C/H/S]"
+
+#~ msgid "Total (M)"
+#~ msgstr "Total(M)"
+
+#~ msgid "Free (M)"
+#~ msgstr "Libre(M)"
+
+#~ msgid "Used (M)"
+#~ msgstr "Occupé(M)"
+
+#~ msgid "Used (%)"
+#~ msgstr "Occupé(%)"
+
+#~ msgid "Loading %s driver..."
+#~ msgstr "Chargement du pilote pour %s..."
+
+#~ msgid "Map Image to display"
+#~ msgstr "Carte à afficher"
+
+#~ msgid "Width of map (in pixels)"
+#~ msgstr "Largeur de la carte (en pixels)"
+
+#~ msgid "Enable antialias"
+#~ msgstr "Activer l'antialias"
+
+#~ msgid "World"
+#~ msgstr "Monde"
+
+#~ msgid "North America"
+#~ msgstr "Amérique du Nord"
+
+#~ msgid "South America"
+#~ msgstr "Amérique du Sud"
+
+#~ msgid "Pacific Rim"
+#~ msgstr "Pacifique"
+
+#~ msgid "Europe"
+#~ msgstr "Europe"
+
+#~ msgid "Africa"
+#~ msgstr "Afrique"
+
+#~ msgid "Asia"
+#~ msgstr "Asie"
+
+#~ msgid "Cannot load timezone data"
+#~ msgstr "Impossible de charger les données du fuseau horaire"
