@@ -725,10 +725,10 @@ if (display_mode == 'g' and method and
     display_mode = 't'
     time.sleep(2)
 
-if not isHeadless and ksfile is None:
+if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if display_mode == 'g' and mousedev[0] == "No - mouse":
+    if ksfile is None and display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
