@@ -938,8 +938,8 @@ class PackageSelectionWindow (InstallWindow):
         viewport.add(box)
         viewport.set_property('shadow-type', gtk.SHADOW_IN)
 	viewport.modify_bg(gtk.STATE_NORMAL, gtk.gdk.color_parse("white"))
-#        box.set_focus_hadjustment(sw.get_hadjustment())
-#        box.set_focus_vadjustment(sw.get_vadjustment())
+        box.set_focus_hadjustment(sw.get_hadjustment())
+        box.set_focus_vadjustment(sw.get_vadjustment())
 
         hbox = gtk.HBox (gtk.FALSE, 5)
 

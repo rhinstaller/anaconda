@@ -83,14 +83,13 @@ class LanguageWindow (InstallWindow):
 
         current = instLang.getCurrent()
         iter = self.listStore.get_iter_first()
-        next = 1
-        while next:
+        while iter:
             if self.listStore.get_value(iter, 1) == current:
                 selection = self.listView.get_selection()
                 selection.unselect_all()
                 selection.select_iter(iter)
                 break
-            next = self.listStore.iter_next(iter)
+            iter = self.listStore.iter_next(iter)
         self.listView.connect("size-allocate", self.listScroll)
 
         sw = gtk.ScrolledWindow ()

@@ -144,9 +144,8 @@ class MouseWindow(InstallWindow):
 
         parent = None
         iter = self.mousestore.get_iter_first()
-        next = 1
         # iterate over the list, looking for the current mouse selection
-        while next:
+        while iter:
             # if this is a parent node, get the first child and iter over them
             if self.mousestore.iter_has_child(iter):
                 parent = iter
@@ -168,11 +167,11 @@ class MouseWindow(InstallWindow):
                                                   0.5, 0.5)
                 break
             # get the next row.
-            next = self.mousestore.iter_next(iter)
+            iter = self.mousestore.iter_next(iter)
             # if there isn't a next row and we had a parent, go to the node
             # after the parent we've just gotten the children of.
-            if not next and parent:
-                next = self.mousestore.iter_next(parent)
+            if not iter and parent:
+                parent = self.mousestore.iter_next(parent)
                 iter = parent
 
         # set up the device list if we have a serial port

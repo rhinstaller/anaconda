@@ -448,13 +448,13 @@ class DiskTreeModel(gtk.TreeStore):
                 iter = self.iter_children(iter)
                 continue
             # get the next row.
-            success = self.iter_next(iter)
+            iter = self.iter_next(iter)
             # if there isn't a next row and we had a parent, go to the next
             # node after our parent
-            if not success and parent:
-		while not success and parent:
+            if not iter and parent:
+		while not iter and parent:
+                    parent = self.iter_next(parent)
                     iter = parent
-                    success = self.iter_next(iter)
 		    if len(parentstack) > 0:
 			parent = parentstack.pop()
                     else:
@@ -1373,15 +1373,14 @@ class AutoPartitionWindow(InstallWindow):
         allowdrives = []
 	model = self.drivelist.get_model()
 	iter = model.get_iter_first()
-	next = 1
-	while next:
+	while iter:
 	    val   = model.get_value(iter, 0)
 	    drive = model.get_value(iter, 1)
 
 	    if val:
 		allowdrives.append(drive)
 
-	    next = model.iter_next(iter)
+	    iter = model.iter_next(iter)
 
         if len(allowdrives) < 1:
             dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,

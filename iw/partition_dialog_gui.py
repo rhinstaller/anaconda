@@ -144,15 +144,14 @@ class PartitionEditor:
 		    allowdrives = []
 		    model = self.driveview.get_model()
 		    iter = model.get_iter_first()
-		    next = 1
-		    while next:
+		    while iter:
 			val   = model.get_value(iter, 0)
 			drive = model.get_value(iter, 1)
 
 			if val:
 			    allowdrives.append(drive)
 
-			next = model.iter_next(iter)
+                        iter = model.iter_next(iter)
 
                     if len(allowdrives) == len(self.diskset.disks.keys()):
                         allowdrives = None

@@ -40,14 +40,13 @@ class NetworkWindow(InstallWindow):
     def getNext(self):
 
         iter = self.ethdevices.store.get_iter_first()
-	next = 1
 	noneonboot = 1
-	while next:
+	while iter:
 	    model = self.ethdevices.store
 	    if model.get_value(iter, 0):
 		noneonboot = 0
 		break
-            next = self.ethdevices.store.iter_next(iter)
+            iter = self.ethdevices.store.iter_next(iter)
 
 	if noneonboot:
 	    rc = self.handleNoActiveDevices()
@@ -100,8 +99,7 @@ class NetworkWindow(InstallWindow):
 	    self.network.ternaryNS = None
 
         iter = self.ethdevices.store.get_iter_first()
-	next = 1
-	while next:
+	while iter:
 	    model = self.ethdevices.store
 	    dev = model.get_value(iter, 1)
 	    bootproto = model.get_value(iter, 2)
@@ -119,7 +117,7 @@ class NetworkWindow(InstallWindow):
 		
 	    self.devices[dev].set(("ONBOOT", onboot))
 	    self.devices[dev].set(("bootproto", bootproto))
-            next = self.ethdevices.store.iter_next(iter)
+            iter = self.ethdevices.store.iter_next(iter)
 
 	self.network.hostname = newHostname
 	self.network.overrideDHCPhostname = override

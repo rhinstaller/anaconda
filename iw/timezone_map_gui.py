@@ -160,8 +160,7 @@ class TimezoneMap(gtk.VBox):
             return
 
         iter = self.listStore.get_iter_first()
-        next = 1
-        while next:
+        while iter:
             if self.listStore.get_value(iter, self.columns.ENTRY) == self.currentEntry:
                 selection = self.listView.get_selection()
                 selection.unselect_all()
@@ -171,7 +170,7 @@ class TimezoneMap(gtk.VBox):
                 self.listView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
                 self.listView.set_cursor(path, col, gtk.FALSE)
                 break
-            next = self.listStore.iter_next(iter)
+            iter = self.listStore.iter_next(iter)
         
     def canvasEvent(self, widget, event=None):
         if event.type == gtk.gdk.LEAVE_NOTIFY:

@@ -157,8 +157,7 @@ class RaidEditor:
 	    raidmembers = []
 	    model = self.raidlist.get_model()
 	    iter = model.get_iter_first()
-	    next = 1
-	    while next:
+	    while iter:
 		val   = model.get_value(iter, 0)
 		part = model.get_value(iter, 1)
 
@@ -166,7 +165,7 @@ class RaidEditor:
 		    req = self.partitions.getRequestByDeviceName(part)
 		    raidmembers.append(req.uniqueID)
 
-		next = model.iter_next(iter)
+                iter = model.iter_next(iter)
 
             if not self.origrequest.getPreExisting():
                 request.raidminor = self.minorOptionMenu.get_active().get_data("minor")

@@ -461,10 +461,9 @@ class MonitorWindow (InstallWindow):
 
         parent = None
         iter = self.monitorstore.get_iter_first()
-        next = 1
 
         # iterate over the list, looking for the current monitor selection
-        while next:
+        while iter:
             # if this is a parent node, get the first child and iter over them
             if self.monitorstore.iter_has_child(iter):
                 parent = iter
@@ -485,12 +484,12 @@ class MonitorWindow (InstallWindow):
                                                   0.0, 0.5)
                 break
             # get the next row.
-            next = self.monitorstore.iter_next(iter)
+            iter = self.monitorstore.iter_next(iter)
 	    
             # if there isn't a next row and we had a parent, go to the node
             # after the parent we've just gotten the children of.
-            if not next and parent:
-                next = self.monitorstore.iter_next(parent)
+            if not iter and parent:
+                parent = self.monitorstore.iter_next(parent)
                 iter = parent
 
 	# set sync rates
@@ -887,11 +886,11 @@ class XConfigWindow (InstallWindow):
                                                   0.0, 0.5)
                 break
             # get the next row.
-            next = self.cardstore.iter_next(iter)
+            iter = self.cardstore.iter_next(iter)
             # if there isn't a next row and we had a parent, go to the node
             # after the parent we've just gotten the children of.
-            if not next and parent:
-                next = self.cardstore.iter_next(parent)
+            if not iter and parent:
+                parent = self.cardstore.iter_next(parent)
                 iter = parent
 
         #--Some video cards don't return exact numbers, so do some hacks

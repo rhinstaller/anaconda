@@ -39,13 +39,12 @@ class AccountWindow (InstallWindow):
             return None
 
 	iter = self.userstore.get_iter_first()
-	next = iter
-	while next:
+	while iter:
 	    accounts.append((self.userstore.get_value(iter, 0),
                              self.userstore.get_value(iter, 1),
                              self.passwords[self.userstore.get_value(iter, 0)]))
 
-	    next = self.userstore.iter_next(iter)
+	    iter = self.userstore.iter_next(iter)
             
 	self.accounts.setUserList(accounts)
         return None
