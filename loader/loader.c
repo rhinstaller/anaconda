@@ -1485,7 +1485,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
-        } else if (!strncasecmp(argv[i], "ks=file:", 10)) {
+        } else if (!strncasecmp(argv[i], "ks=file:", 8)) {
 	    flags |= LOADER_FLAGS_KSFILE;
 	    *ksSource = argv[i] + 8;
 	} else if (!strncasecmp(argv[i], "lang=", 5)) {
@@ -1942,6 +1942,7 @@ int main(int argc, char ** argv) {
 #endif
 
     if (ksFile) {
+	startNewt(flags);
 	ksReadCommands(ksFile);
 	url = setupKickstart("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
 			     &flags);
