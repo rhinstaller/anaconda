@@ -124,18 +124,18 @@ def startVNCServer(vncpassword=None, root='/'):
     except:
 	log("Unable to determine VNC server network info")
 	
-
     # figure out product info
     if srvname is not None:
 	desktopname = _("%s %s installation on host %s") % (product.productName, product.productVersion, srvname)
     else:
 	desktopname = _("%s %s installation") % (product.productName, product.productVersion)
-	
+
     vncpid = os.fork()
 
     if not vncpid:
 	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
-		 "-depth", "16", "-geometry", "800x600", "DisconnectClients=false", "desktop=%s" % (desktopname,)]
+		 "-depth", "16", "-geometry", "800x600",
+		 "DisconnectClients=false", "desktop=%s" % (desktopname,)]
 
 	# set passwd if necessary
 	if vncpassword is not None:
