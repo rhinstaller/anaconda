@@ -14,10 +14,6 @@ SUBDIRSHD = balkan isys collage $(MINISLANG) po \
 	    keymaps fonts iw pixmaps $(STUBS) iconvmodule
 SUBDIRS = $(SUBDIRSHD)
 
-ifeq (i386, $(ARCH))
-SUBDIRS := edd $(SUBDIRS)
-endif
-
 # DESTDIR        - destination for install image for install purposes
 DESTDIR = ../../../RedHat/instimage
 
@@ -116,7 +112,7 @@ create-archive:
 	make SNAPRELEASE=$(RELEASE) create-snapshot
 
 pycheck:
-	PYTHONPATH=edd:isys:balkan:textw:iw:installclasses:iconvmodule pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
+	PYTHONPATH=isys:balkan:textw:iw:installclasses:iconvmodule pychecker *.py textw/*.py iw/*.py  | grep -v "__init__() not called" 
 
 pycheck-file:
-	PYTHONPATH=.:edd:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule pychecker $(CHECK) | grep -v "__init__() not called" 
+	PYTHONPATH=.:isys:balkan:textw:iw:installclasses:gnome-map:iconvmodule pychecker $(CHECK) | grep -v "__init__() not called" 
