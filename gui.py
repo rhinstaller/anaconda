@@ -58,8 +58,10 @@ class WaitWindow:
 	self.window.add (frame)
 	self.window.show_all ()
 	gdk_flush ()
- 	while events_pending ():
-            mainiteration (FALSE)
+        thread = currentThread ()
+        if thread.getName () == "gtk_main":
+            while events_pending ():
+                mainiteration (FALSE)
         threads_leave ()
             
     def pop(self):
