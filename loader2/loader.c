@@ -572,10 +572,9 @@ static char *doLoaderMain(char * location,
     /* check to see if we have a Red Hat Linux CD.  If we have one, then
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
-    /* JKFIXME: what should we do about rescue mode here? */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
         url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags);
-        if (url) return url;
+        if (url && !FL_RESCUE(flags)) return url;
     }
 
     startNewt(flags);
@@ -628,6 +627,12 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_METHOD:
+            /* this is kind of crappy, but we want the first few questions
+             * to be asked when using rescue mode even if we're going
+             * to short-circuit to the CD */
+            if (FL_RESCUE(flags) && url)
+                return url;
+
             if (loaderData->method && (methodNum != -1)) {
                 rc = 1;
             } else {
