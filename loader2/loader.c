@@ -666,7 +666,6 @@ static char *doLoaderMain(char * location,
      * vs network install methods here.  do we still want to do that or 
      * just nuke that code? */
     for (i = 0; i < numMethods; i++) {
-	logMessage("Adding %s", _(installMethods[i].name));
         installNames[numValidMethods] = _(installMethods[i].name);
         validMethods[numValidMethods++] = i;
     }
