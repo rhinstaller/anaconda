@@ -57,6 +57,10 @@ def urlretrieve(location, file, callback=None):
     except:
 	filesize = None
 
+    # handle zero length case
+    if filesize == 0:
+	filesize = None
+
     # create output file
     f = open(file, 'w+')
 
