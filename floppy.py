@@ -87,4 +87,4 @@ def makeBootdisk (intf, floppyDevice, hdList, instPath):
 		      "Please make sure that there is a formatted floppy "
 		      "in the first floppy drive."))
 	return DISPATCH_BACK
-
+    return DISPATCH_FORWARD
