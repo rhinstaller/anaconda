@@ -104,7 +104,7 @@ class ReconfigCongratulationWindow (InstallWindow):
                   "http://www.redhat.com/errata.\n\n"
                   "Information on using and configuring your "
                   "system is available in the Red Hat Linux manuals "
-                  "at http://www.redhat.com/support/manuals."))
+                  "at http://www.redhat.com/docs."))
         
         label.set_line_wrap (TRUE)
         label.set_alignment (0.0, 0.5)
