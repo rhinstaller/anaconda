@@ -357,7 +357,8 @@ class InstallCallback:
 			    pass
 			self.rpmFD = -1
 			raise FileCopyException
-		except:
+		except Exception, e:
+                    log("exception was: %s" %(e,))
                     self.method.unmountCD()
 		    self.messageWindow(_("Error"),
 			_("The package %s-%s-%s cannot be opened. This is due "
@@ -601,11 +602,6 @@ def doPreInstall(method, id, intf, instPath, dir):
 
         if pcmcia.pcicType():
             select(id.grpset.hdrlist, 'kernel-pcmcia-cs')
-
-        if (os.access("/tmp/product/.userhgb", os.R_OK) and
-            (id.grpset.hdrlist.has_key("XFree86") and
-             id.grpset.hdrlist["XFree86"].isSelected())):
-            select(id.grpset.hdrlist, 'rhgb')
 
     if flags.test:
 	return
