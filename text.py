@@ -67,7 +67,7 @@ class LanguageWindow:
         cat.setlangs (newlangs)
         todo.language.set (choice)
 	if not todo.serial:
-	    font = todo.language.getFont(choice)
+	    font = todo.language.getFontFile(choice)
 	    if font != "None":
 		try:
 		    isys.loadFont(font)

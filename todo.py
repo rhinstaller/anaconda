@@ -248,8 +248,10 @@ class Language (SimpleConfigFile):
     def get (self):
 	return self.lang
 
-    def getFont (self, lang):
-	return self.font[lang]
+    def getFontFile (self, lang):
+	# Note: in /etc/fonts.cgz fonts are named by the map
+	# name as that's unique, font names are not
+	return self.map[lang]
 
 class Authentication:
     def __init__ (self):
