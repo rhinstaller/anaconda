@@ -1,6 +1,6 @@
 import string
 import os
-from lilo import LiloConfiguration
+from lilo import LiloConfigFile
 import _silo
 import iutil
 import isys
@@ -178,7 +178,7 @@ class SiloInstall:
 	return _silo.disk2PromPath(dev)
 
     def install(self, fstab, instRoot, hdList, upgrade):
-	silo = LiloConfiguration ()
+	silo = LiloConfigFile ()
 
 	if not self.siloImages:
 	    (images, default) = self.getSiloImages(fstab)
