@@ -932,17 +932,21 @@ def doInstall(method, id, intf, instPath):
     if upgrade:
         instLog.write(_("\n\nThe following packages were available in "
                         "this version but NOT upgraded:\n"))
-        lines = []
-        for p in id.hdList.packages.values ():
-            if not p.selected:
-                lines.append("%s-%s-%s.%s.rpm\n" %
-                             (p.h[rpm.RPMTAG_NAME],
-                              p.h[rpm.RPMTAG_VERSION],
-                              p.h[rpm.RPMTAG_RELEASE],
-                              p.h[rpm.RPMTAG_ARCH]))
-        lines.sort()
-        for line in lines:
-            instLog.write(line)
+    else:
+        instLog.write(_("\n\nThe following packages were available in "
+                        "this version but NOT installed:\n"))
+        
+    lines = []
+    for p in id.hdList.packages.values ():
+        if not p.selected:
+            lines.append("%s-%s-%s.%s.rpm\n" %
+                         (p.h[rpm.RPMTAG_NAME],
+                          p.h[rpm.RPMTAG_VERSION],
+                          p.h[rpm.RPMTAG_RELEASE],
+                          p.h[rpm.RPMTAG_ARCH]))
+    lines.sort()
+    for line in lines:
+        instLog.write(line)
     instLog.close ()
 
     id.instProgress = None
