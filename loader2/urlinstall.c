@@ -115,7 +115,7 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
     if (FL_TEXT(flags) || totalMemory() < 128000) {
 	stage2img = "netstg2.img";
 	if (totalMemory() < 128000)
-	    logMessage("URLINSTALL failling back to non-GUI stage2 due to "
+	    logMessage("URLINSTALL falling back to non-GUI stage2 due to "
 		       "insufficient RAM");
     } else {
 	stage2img = "stage2.img";
