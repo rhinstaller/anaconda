@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.1\n"
-"POT-Creation-Date: 2001-01-16 16:09-0500\n"
+"POT-Creation-Date: 2001-01-19 10:09-0500\n"
 "PO-Revision-Date: 2000-08-08 01:20+0300\n"
 "Last-Translator: Leon Kanter <leon@blackcatlinux.com>\n"
 "Language-Team: Black Cat Linux Team <blackcat-support@blackcatlinux.com>\n"
@@ -10,11 +10,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Date: 1999-04-03 12:20+0200\n"
 
-#: ../comps.py:457
+#: ../comps.py:460
 msgid "Everything"
 msgstr "Все"
 
-#: ../exception.py:13 ../text.py:937
+#: ../exception.py:13 ../text.py:938
 msgid "Exception Occurred"
 msgstr "Произошло исключение"
 
@@ -52,17 +52,17 @@ msgstr "Поиск"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
-#: ../libfdisk/newtfsedit.c:1729 ../loader/devices.c:236
+#: ../libfdisk/newtfsedit.c:1740 ../loader/devices.c:236
 #: ../loader/devices.c:243 ../loader/devices.c:410 ../loader/devices.c:455
-#: ../loader/devices.c:475 ../loader/lang.c:97 ../loader/loader.c:510
-#: ../loader/loader.c:520 ../loader/loader.c:574 ../loader/loader.c:893
-#: ../loader/loader.c:948 ../loader/loader.c:1118 ../loader/loader.c:1123
-#: ../loader/loader.c:1260 ../loader/loader.c:2127 ../loader/loader.c:2173
-#: ../loader/loader.c:2249 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
+#: ../loader/devices.c:475 ../loader/lang.c:99 ../loader/loader.c:515
+#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:906
+#: ../loader/loader.c:961 ../loader/loader.c:1131 ../loader/loader.c:1136
+#: ../loader/loader.c:1273 ../loader/loader.c:2140 ../loader/loader.c:2186
+#: ../loader/loader.c:2262 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:78 ../loader/urls.c:87 ../loader/urls.c:94
-#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:368
-#: ../textw/bootdisk_text.py:69 ../todo.py:1007 ../todo.py:1020
-#: ../todo.py:1392 ../upgrade.py:21 ../upgrade.py:49
+#: ../loader/urls.c:233 ../loader/urls.c:238 ../text.py:370
+#: ../textw/bootdisk_text.py:69 ../todo.py:1013 ../todo.py:1026
+#: ../todo.py:1398 ../upgrade.py:21 ../upgrade.py:49
 msgid "Error"
 msgstr "Ошибка"
 
@@ -78,7 +78,7 @@ msgstr ""
 "необходимо перегрузить. Вставьте загрузочный диск Red Hat и нажмите \"Ok\" "
 "для перезагрузки системы.\n"
 
-#: ../fstab.py:483 ../fstab.py:747 ../fstab.py:1171
+#: ../fstab.py:483 ../fstab.py:747 ../fstab.py:1184
 msgid "Formatting"
 msgstr "Форматирование"
 
@@ -96,7 +96,7 @@ msgstr "Ошибка создания свопинга на устройстве "
 msgid "Error unmounting %s: %s"
 msgstr "Ошибка отмонтирования %s: %s"
 
-#: ../fstab.py:641 ../todo.py:583
+#: ../fstab.py:641 ../todo.py:590
 msgid "Creating"
 msgstr "Создание"
 
@@ -113,7 +113,7 @@ msgstr "Loopback"
 msgid "Creating loopback filesystem on device /dev/%s..."
 msgstr "Создание файловой системы loopback на устройстве /dev/%s..."
 
-#: ../fstab.py:748 ../fstab.py:1172
+#: ../fstab.py:748 ../fstab.py:1185
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Форматирование файловой системы %s..."
@@ -133,7 +133,7 @@ msgstr ""
 "\n"
 "Нажмите ОК для перезагрузки системы."
 
-#: ../gui.py:170
+#: ../gui.py:171
 msgid ""
 "An exceptional condition has occured.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a bug report at "
@@ -143,7 +143,7 @@ msgstr ""
 "скопируйте полный текст исключения и заполните отчет об ошибке на "
 "http://bugzilla.redhat.com/bugzilla"
 
-#: ../gui.py:306 ../text.py:955
+#: ../gui.py:307 ../text.py:956
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
@@ -151,22 +151,22 @@ msgstr ""
 "Вставьте, пожалуйста, дискету. Будьте внимательны, так как все содержимое "
 "этой дискеты будет удалено."
 
-#: ../gui.py:405 ../gui.py:837
+#: ../gui.py:413 ../gui.py:781
 msgid "Next"
 msgstr "Далее"
 
-#: ../gui.py:406 ../gui.py:836 ../libfdisk/newtfsedit.c:1463
-#: ../libfdisk/newtfsedit.c:1471 ../loader/cdrom.c:34 ../loader/devices.c:93
-#: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:577
-#: ../loader/loader.c:283 ../loader/loader.c:797 ../loader/loader.c:834
-#: ../loader/loader.c:948 ../loader/loader.c:1040 ../loader/loader.c:1492
+#: ../gui.py:414 ../gui.py:780 ../libfdisk/newtfsedit.c:1474
+#: ../libfdisk/newtfsedit.c:1482 ../loader/cdrom.c:34 ../loader/devices.c:93
+#: ../loader/devices.c:215 ../loader/devices.c:312 ../loader/lang.c:582
+#: ../loader/loader.c:288 ../loader/loader.c:810 ../loader/loader.c:847
+#: ../loader/loader.c:961 ../loader/loader.c:1053 ../loader/loader.c:1505
 #: ../loader/net.c:164 ../loader/net.c:251 ../loader/net.c:336
-#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:76 ../text.py:64
-#: ../text.py:75 ../text.py:146 ../text.py:191 ../text.py:238 ../text.py:241
-#: ../text.py:316 ../text.py:371 ../text.py:389 ../text.py:392 ../text.py:411
-#: ../text.py:414 ../text.py:436 ../text.py:439 ../text.py:496 ../text.py:499
-#: ../text.py:525 ../text.py:529 ../text.py:538 ../text.py:607 ../text.py:609
-#: ../text.py:619 ../text.py:621 ../textw/bootdisk_text.py:30
+#: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:87 ../text.py:64
+#: ../text.py:75 ../text.py:151 ../text.py:203 ../text.py:210 ../text.py:240
+#: ../text.py:243 ../text.py:318 ../text.py:373 ../text.py:391 ../text.py:394
+#: ../text.py:413 ../text.py:416 ../text.py:438 ../text.py:441 ../text.py:498
+#: ../text.py:501 ../text.py:526 ../text.py:530 ../text.py:539 ../text.py:608
+#: ../text.py:610 ../text.py:620 ../text.py:622 ../textw/bootdisk_text.py:30
 #: ../textw/firewall_text.py:9 ../textw/lilo_text.py:34
 #: ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -185,50 +185,58 @@ msgstr "Далее"
 msgid "Back"
 msgstr "Назад"
 
-#: ../gui.py:407 ../gui.py:842
+#: ../gui.py:415 ../gui.py:786
 msgid "Show Help"
 msgstr "Показать помощь"
 
-#: ../gui.py:408 ../gui.py:841
+#: ../gui.py:416 ../gui.py:785
 msgid "Hide Help"
 msgstr "Скрыть помощь"
 
-#: ../gui.py:409 ../gui.py:840
+#: ../gui.py:417 ../gui.py:784
 msgid "Finish"
 msgstr "Готово"
 
-#: ../gui.py:412 ../gui.py:872
+#: ../gui.py:420 ../gui.py:816
 msgid "Online Help"
 msgstr "Помощь"
 
-#: ../gui.py:413 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:69 ../text.py:1027 ../text.py:1059
+#: ../gui.py:421 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:69 ../text.py:1028 ../text.py:1061
 msgid "Language Selection"
 msgstr "Выбор языка"
 
-#: ../gui.py:567 ../gui.py:839
+#: ../gui.py:522 ../libfdisk/gnomefsedit.c:1292 ../libfdisk/gnomefsedit.c:1309
+msgid "Close"
+msgstr "Закрыть"
+
+#: ../gui.py:527 ../gui.py:783
 msgid "Release Notes"
 msgstr "Что нового"
 
-#: ../gui.py:744
+#: ../gui.py:558
+msgid "Unable to load file!"
+msgstr ""
+
+#: ../gui.py:688
 msgid "Red Hat Linux Installer"
 msgstr "Программа установки Red Hat Linux"
 
-#: ../gui.py:748
+#: ../gui.py:692
 msgid "Red Hat Linux Install Shell"
 msgstr "Оболочка программы установки Red Hat Linux"
 
-#: ../gui.py:759
+#: ../gui.py:703
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Программа установки Red Hat Linux на %s"
 
-#: ../gui.py:760
+#: ../gui.py:704
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Оболочка программы установки Red Hat Linux на %s"
 
-#: ../gui.py:921
+#: ../gui.py:865
 msgid "Install Window"
 msgstr "Окно установки"
 
@@ -274,12 +282,20 @@ msgstr "Этот диск не является необходимым Red Hat CD-ROM"
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM не может быть смонтирован."
 
-#: ../rescue.py:43
+#: ../rescue.py:26
+msgid "WARNING: no valid block devices were found.\n"
+msgstr ""
+
+#: ../rescue.py:28
+msgid "ERROR: unknown error encountered reading partition tables.\n"
+msgstr ""
+
+#: ../rescue.py:54
 #, fuzzy
 msgid "System to Rescue"
 msgstr "Система для обновления"
 
-#: ../rescue.py:44 ../text.py:387
+#: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
 msgstr "Укажите корневой раздел вашей установки."
 
@@ -287,22 +303,22 @@ msgstr "Укажите корневой раздел вашей установки."
 #: ../loader/devices.c:236 ../loader/devices.c:243 ../loader/devices.c:312
 #: ../loader/devices.c:410 ../loader/devices.c:455 ../loader/devices.c:475
 #: ../loader/devices.c:507 ../loader/kickstart.c:58 ../loader/kickstart.c:68
-#: ../loader/kickstart.c:107 ../loader/lang.c:97 ../loader/lang.c:289
-#: ../loader/lang.c:577 ../loader/loader.c:283 ../loader/loader.c:510
-#: ../loader/loader.c:520 ../loader/loader.c:574 ../loader/loader.c:834
-#: ../loader/loader.c:893 ../loader/loader.c:948 ../loader/loader.c:1040
-#: ../loader/loader.c:1118 ../loader/loader.c:1123 ../loader/loader.c:1220
-#: ../loader/loader.c:1229 ../loader/loader.c:1260 ../loader/loader.c:1492
-#: ../loader/loader.c:2127 ../loader/loader.c:2173 ../loader/loader.c:2236
-#: ../loader/loader.c:2249 ../loader/net.c:164 ../loader/net.c:251
+#: ../loader/kickstart.c:107 ../loader/lang.c:99 ../loader/lang.c:293
+#: ../loader/lang.c:582 ../loader/loader.c:288 ../loader/loader.c:515
+#: ../loader/loader.c:525 ../loader/loader.c:579 ../loader/loader.c:847
+#: ../loader/loader.c:906 ../loader/loader.c:961 ../loader/loader.c:1053
+#: ../loader/loader.c:1131 ../loader/loader.c:1136 ../loader/loader.c:1233
+#: ../loader/loader.c:1242 ../loader/loader.c:1273 ../loader/loader.c:1505
+#: ../loader/loader.c:2140 ../loader/loader.c:2186 ../loader/loader.c:2249
+#: ../loader/loader.c:2262 ../loader/net.c:164 ../loader/net.c:251
 #: ../loader/net.c:336 ../loader/net.c:645 ../loader/net.c:678
 #: ../loader/pcmcia.c:104 ../loader/pcmcia.c:114 ../loader/pcmcia.c:131
 #: ../loader/urls.c:155 ../loader/urls.c:233 ../loader/urls.c:238
-#: ../loader/urls.c:375 ../rescue.py:46 ../rescue.py:63 ../rescue.py:70
-#: ../text.py:146 ../text.py:191 ../text.py:238 ../text.py:316 ../text.py:389
-#: ../text.py:436 ../text.py:454 ../text.py:496 ../text.py:525 ../text.py:607
-#: ../text.py:619 ../text.py:648 ../text.py:669 ../text.py:839 ../text.py:897
-#: ../text.py:923 ../text.py:949 ../text.py:957 ../text.py:972 ../text.py:1205
+#: ../loader/urls.c:375 ../rescue.py:57 ../rescue.py:74 ../rescue.py:81
+#: ../text.py:151 ../text.py:240 ../text.py:318 ../text.py:391 ../text.py:438
+#: ../text.py:456 ../text.py:498 ../text.py:526 ../text.py:608 ../text.py:620
+#: ../text.py:649 ../text.py:670 ../text.py:840 ../text.py:898 ../text.py:924
+#: ../text.py:950 ../text.py:958 ../text.py:973 ../text.py:1213
 #: ../textw/bootdisk_text.py:52 ../textw/bootdisk_text.py:54
 #: ../textw/firewall_text.py:9 ../textw/firewall_text.py:122
 #: ../textw/firewall_text.py:124 ../textw/lilo_text.py:33
@@ -325,17 +341,17 @@ msgstr "Укажите корневой раздел вашей установки."
 msgid "OK"
 msgstr "Ok"
 
-#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:46
-#: ../rescue.py:50
+#: ../iw/congrats_gui.py:13 ../iw/congrats_gui.py:62 ../rescue.py:57
+#: ../rescue.py:61
 msgid "Exit"
 msgstr "Выход"
 
-#: ../rescue.py:59 ../rescue.py:65
+#: ../rescue.py:70 ../rescue.py:76
 #, fuzzy
 msgid "Rescue"
 msgstr "_Перезагрузить"
 
-#: ../rescue.py:60
+#: ../rescue.py:71
 msgid ""
 "Your system has been mounted under /mnt/sysimage.\n"
 "\n"
@@ -343,7 +359,7 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:66
+#: ../rescue.py:77
 msgid ""
 "An error occured trying to mount some or all of your system. Some of it may "
 "be mounted under /mnt/sysimage.\n"
@@ -352,18 +368,18 @@ msgid ""
 "exit from the shell."
 msgstr ""
 
-#: ../rescue.py:72
+#: ../rescue.py:83
 #, fuzzy
 msgid "Rescue Mode"
 msgstr "Метод восстановления"
 
-#: ../rescue.py:73
+#: ../rescue.py:84
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
 
-#: ../rescue.py:84
+#: ../rescue.py:95
 msgid "Your system is mounted under the /mnt/sysimage directory."
 msgstr ""
 
@@ -388,15 +404,16 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:346 ../libfdisk/newtfsedit.c:574
 #: ../libfdisk/newtfsedit.c:636 ../libfdisk/newtfsedit.c:669
 #: ../libfdisk/newtfsedit.c:695 ../libfdisk/newtfsedit.c:714
-#: ../libfdisk/newtfsedit.c:834 ../libfdisk/newtfsedit.c:1463
-#: ../libfdisk/newtfsedit.c:1471 ../libfdisk/newtfsedit.c:1596
-#: ../libfdisk/newtfsedit.c:1617 ../libfdisk/newtfsedit.c:1645
-#: ../libfdisk/newtfsedit.c:1729 ../loader/urls.c:78 ../loader/urls.c:87
+#: ../libfdisk/newtfsedit.c:845 ../libfdisk/newtfsedit.c:1474
+#: ../libfdisk/newtfsedit.c:1482 ../libfdisk/newtfsedit.c:1607
+#: ../libfdisk/newtfsedit.c:1628 ../libfdisk/newtfsedit.c:1656
+#: ../libfdisk/newtfsedit.c:1740 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:64 ../text.py:66
-#: ../text.py:538 ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
-#: ../textw/mouse_text.py:27 ../textw/partitioning_text.py:154
-#: ../textw/partitioning_text.py:395 ../textw/silo_text.py:136
-#: ../textw/silo_text.py:149 ../textw/silo_text.py:205
+#: ../text.py:203 ../text.py:539 ../textw/lilo_text.py:123
+#: ../textw/lilo_text.py:208 ../textw/mouse_text.py:27
+#: ../textw/partitioning_text.py:154 ../textw/partitioning_text.py:395
+#: ../textw/silo_text.py:136 ../textw/silo_text.py:149
+#: ../textw/silo_text.py:205
 msgid "Ok"
 msgstr "Ok"
 
@@ -404,59 +421,59 @@ msgstr "Ok"
 msgid "What language would you like to use during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
-#: ../text.py:149
+#: ../text.py:153
 #, fuzzy
 msgid "Choose the languages to be installed:"
 msgstr "Носитель какого типа содержит пакеты для установки?"
 
-#: ../text.py:155 ../text.py:1061
+#: ../text.py:158 ../text.py:1124
 #, fuzzy
 msgid "Language Support"
 msgstr "Поддержка лэптопов"
 
-#: ../text.py:194
-#, fuzzy
-msgid "Choose the default language:"
-msgstr "Выберите язык"
-
-#: ../text.py:200
+#: ../text.py:205
 #, fuzzy
 msgid "Default Language"
 msgstr "Выберите язык"
 
-#: ../text.py:236 ../text.py:1029 ../text.py:1065
+#: ../text.py:206
+#, fuzzy
+msgid "Choose the default language: "
+msgstr "Выберите язык"
+
+#: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
 msgstr "Тип клавиатуры"
 
-#: ../text.py:237
+#: ../text.py:239
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Укажите модель клавиатуры, подключенной к этому компьютеру"
 
-#: ../text.py:292
+#: ../text.py:294
 msgid "Upgrade Existing Installation"
 msgstr "Обновить существующую установку"
 
-#: ../text.py:314 ../text.py:1068
+#: ../text.py:316 ../text.py:1070
 msgid "Installation Type"
 msgstr "Тип установки"
 
-#: ../text.py:315
+#: ../text.py:317
 msgid "What type of system would you like to install?"
 msgstr "Система какого типа должна быть установлена?"
 
-#: ../text.py:369
+#: ../text.py:371
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Не задан ни один раздел Linux. Обновление системы невозможно!"
 
-#: ../text.py:386
+#: ../text.py:388
 msgid "System to Upgrade"
 msgstr "Система для обновления"
 
-#: ../text.py:403
+#: ../text.py:405
 msgid "Customize Packages to Upgrade"
 msgstr "Уточните пакеты для обновления"
 
-#: ../text.py:404
+#: ../text.py:406
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -465,40 +482,40 @@ msgstr ""
 "Подготовлен список пакетов, необходимых для обновления ранее установленных. "
 "Хотите ли вы уточнить набор пакетов для обновления?"
 
-#: ../iw/rootpartition_gui.py:430 ../iw/welcome_gui.py:90
+#: ../iw/rootpartition_gui.py:430 ../iw/welcome_gui.py:89
 #: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
 #: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
 #: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
 #: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
-#: ../libfdisk/newtfsedit.c:860 ../libfdisk/newtfsedit.c:1666
-#: ../libfdisk/newtfsedit.c:1684 ../libfdisk/newtfsedit.c:1771
-#: ../loader/devices.c:207 ../loader/loader.c:797 ../loader/net.c:812
-#: ../text.py:411 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
+#: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
+#: ../loader/devices.c:207 ../loader/loader.c:810 ../loader/net.c:812
+#: ../text.py:413 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:218
 #: ../textw/partitioning_text.py:377
 msgid "Yes"
 msgstr "Да"
 
-#: ../iw/rootpartition_gui.py:432 ../iw/welcome_gui.py:93
+#: ../iw/rootpartition_gui.py:432 ../iw/welcome_gui.py:92
 #: ../libfdisk/fsedit.c:948 ../libfdisk/gnomefsedit.c:733
 #: ../libfdisk/gnomefsedit.c:1141 ../libfdisk/gnomefsedit.c:1280
 #: ../libfdisk/gnomefsedit.c:1302 ../libfdisk/gnomefsedit.c:2368
 #: ../libfdisk/gnomefsedit.c:2655 ../libfdisk/gnomefsedit.c:2710
 #: ../libfdisk/newtfsedit.c:612 ../libfdisk/newtfsedit.c:739
-#: ../libfdisk/newtfsedit.c:860 ../libfdisk/newtfsedit.c:1666
-#: ../libfdisk/newtfsedit.c:1684 ../libfdisk/newtfsedit.c:1771
-#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:411 ../text.py:417
+#: ../libfdisk/newtfsedit.c:871 ../libfdisk/newtfsedit.c:1677
+#: ../libfdisk/newtfsedit.c:1695 ../libfdisk/newtfsedit.c:1782
+#: ../loader/devices.c:208 ../loader/net.c:812 ../text.py:413 ../text.py:419
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:377
 msgid "No"
 msgstr "Нет"
 
-#: ../text.py:427 ../text.py:446
+#: ../text.py:429 ../text.py:448
 msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
-#: ../text.py:428
+#: ../text.py:430
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -518,7 +535,7 @@ msgstr ""
 "Если вы приобрели Официальный Red Hat Linux, не забудьте зарегистрировать "
 "вашу покупку на нашем web-сайте, http://www.redhat.com."
 
-#: ../text.py:447
+#: ../text.py:449
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -536,43 +553,43 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:818 ../libfdisk/gnomefsedit.c:1925
 #: ../libfdisk/gnomefsedit.c:2487 ../libfdisk/newtfsedit.c:575
-#: ../libfdisk/newtfsedit.c:1684 ../loader/devices.c:215
-#: ../loader/devices.c:507 ../loader/loader.c:2236 ../loader/pcmcia.c:104
-#: ../text.py:454 ../text.py:457 ../text.py:839 ../text.py:840 ../text.py:957
-#: ../text.py:959 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../libfdisk/newtfsedit.c:1695 ../loader/devices.c:215
+#: ../loader/devices.c:507 ../loader/loader.c:2249 ../loader/pcmcia.c:104
+#: ../text.py:456 ../text.py:459 ../text.py:840 ../text.py:841 ../text.py:958
+#: ../text.py:960 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ../text.py:494
+#: ../text.py:496
 msgid "X probe results"
 msgstr "Результаты проверки Х"
 
-#: ../text.py:514 ../text.py:534
+#: ../text.py:516 ../text.py:535
 msgid "Unlisted Card"
 msgstr "Неуказанная карта"
 
-#: ../text.py:522
+#: ../text.py:523
 msgid "Video Card Selection"
 msgstr "Выбор видеокарты"
 
-#: ../text.py:523
+#: ../text.py:524
 msgid "Which video card do you have?"
 msgstr "Укажите тип видеокарты"
 
-#: ../text.py:536
+#: ../text.py:537
 msgid "X Server Selection"
 msgstr "Выбор Х-сервера"
 
-#: ../text.py:536
+#: ../text.py:537
 msgid "Choose a server"
 msgstr "Выберите сервер"
 
-#: ../text.py:603
+#: ../text.py:604
 msgid "Installation to begin"
 msgstr "Начало установки"
 
-#: ../iw/confirm_gui.py:45 ../text.py:604
+#: ../iw/confirm_gui.py:45 ../text.py:605
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -580,11 +597,11 @@ msgstr ""
 "Полный протокол установки вашей системы после перезагрузки будет находиться "
 "в /tmp/install.log. Возможно вам понадобится к нему обратиться."
 
-#: ../text.py:615
+#: ../text.py:616
 msgid "Upgrade to begin"
 msgstr "Начало обновления"
 
-#: ../iw/confirm_gui.py:41 ../text.py:616
+#: ../iw/confirm_gui.py:41 ../text.py:617
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -592,17 +609,17 @@ msgstr ""
 "Полный протокол обновления вашей системы после перезагрузки будет находиться "
 "в /tmp/install.log. Возможно вам понадобится к нему обратиться."
 
-#: ../text.py:635
+#: ../text.py:636
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 
-#: ../text.py:637 ../text.py:660
+#: ../text.py:638 ../text.py:661
 msgid "Complete"
 msgstr "Готово"
 
-#: ../iw/congrats_gui.py:34 ../text.py:638
+#: ../iw/congrats_gui.py:34 ../text.py:639
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -624,13 +641,13 @@ msgstr ""
 "Информация о настойке и использовании вашей системы содержится в "
 "руководствах пользователя Red Hat Linux."
 
-#: ../text.py:656
+#: ../text.py:657
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 
-#: ../text.py:661
+#: ../text.py:662
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -649,59 +666,59 @@ msgstr ""
 "Информацию о дальнейшей настройке вашей системы можно почерпнуть в разделе "
 "\"post install\" Официального руководства пользователя Red Hat Linux."
 
-#: ../text.py:728
+#: ../text.py:729
 msgid "Package Installation"
 msgstr "Установка пакета"
 
-#: ../text.py:730
+#: ../text.py:731
 msgid "Name   : "
 msgstr "Имя    :"
 
-#: ../text.py:731
+#: ../text.py:732
 msgid "Size   : "
 msgstr "Размер :"
 
-#: ../text.py:732
+#: ../text.py:733
 msgid "Summary: "
 msgstr "Сведения:"
 
-#: ../text.py:758
+#: ../text.py:759
 msgid "    Packages"
 msgstr "      Пакеты"
 
-#: ../text.py:759
+#: ../text.py:760
 msgid "       Bytes"
 msgstr "        Байт"
 
-#: ../text.py:760
+#: ../text.py:761
 msgid "        Time"
 msgstr "       Время"
 
-#: ../text.py:762
+#: ../text.py:763
 msgid "Total    :"
 msgstr "Всего    :"
 
-#: ../text.py:769
+#: ../text.py:770
 msgid "Completed:   "
 msgstr "Завершено:   "
 
-#: ../text.py:779
+#: ../text.py:780
 msgid "Remaining:  "
 msgstr " Осталось:  "
 
-#: ../text.py:895
+#: ../text.py:896
 msgid "Help not available"
 msgstr "Помощь отсутствует"
 
-#: ../text.py:896
+#: ../text.py:897
 msgid "No help is available for this install."
 msgstr "Для этой установки помощь отсутствует."
 
-#: ../text.py:954
+#: ../text.py:955
 msgid "Save Crash Dump"
 msgstr "Сохранение аварийного образа"
 
-#: ../text.py:965
+#: ../text.py:966
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -715,212 +732,212 @@ msgstr ""
 "дискету, и помочь Red Hat устранить проблему.\n"
 "\n"
 
-#: ../text.py:972 ../text.py:975
+#: ../text.py:973 ../text.py:976
 msgid "Save"
 msgstr "Сохранить"
 
-#: ../text.py:972 ../text.py:973
+#: ../text.py:973 ../text.py:974
 msgid "Debug"
 msgstr "Отладка"
 
-#: ../text.py:983
+#: ../text.py:984
 msgid " "
 msgstr ""
 
-#: ../text.py:987
+#: ../text.py:988
 #, fuzzy
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
-#: ../text.py:990
+#: ../text.py:991
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> помощь | <Tab> между элементами | <Space> выбор | <F12> следующий экран"
 
-#: ../text.py:992
+#: ../text.py:993
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1025
-#: ../text.py:1067
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1026
+#: ../text.py:1069
 msgid "Welcome"
 msgstr "Welcome"
 
-#: ../text.py:1031 ../text.py:1113
+#: ../text.py:1032 ../text.py:1115
 msgid "Hostname Setup"
 msgstr "Имя компьютера"
 
-#: ../text.py:1033 ../text.py:1110
+#: ../text.py:1034 ../text.py:1112
 msgid "Network Setup"
 msgstr "Настройка сети"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1035 ../text.py:1115
+#: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
 #, fuzzy
 msgid "Firewall Configuration"
 msgstr "Конфигурация LILO"
 
-#: ../text.py:1042 ../text.py:1121
+#: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
 msgstr "Выбор часового пояса"
 
-#: ../text.py:1044 ../text.py:1123 ../textw/userauth_text.py:9
+#: ../text.py:1046 ../text.py:1131 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Пароль пользователя root"
 
-#: ../text.py:1046 ../text.py:1125 ../textw/userauth_text.py:172
+#: ../text.py:1048 ../text.py:1133 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Создание учетной записи пользователя"
 
-#: ../text.py:1048 ../text.py:1127
+#: ../text.py:1050 ../text.py:1135
 msgid "Authentication"
 msgstr "Аутентификация"
 
-#: ../text.py:1054
+#: ../text.py:1056
 msgid "Configuration Complete"
 msgstr "Настройка завершена"
 
-#: ../text.py:1063
-#, fuzzy
-msgid "Language Default"
-msgstr "Выбор языка"
-
-#: ../text.py:1076 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1078 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Конфигурация SILO"
 
-#: ../text.py:1082 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1084 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Конфигурация LILO"
 
-#: ../text.py:1086
+#: ../text.py:1088
 msgid "Automatic Partition"
 msgstr "Автоматическое разбиение"
 
 #: ../iw/lilo_gui.py:205 ../iw/lilo_gui.py:364 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1088 ../text.py:1092
+#: ../iw/silo_gui.py:280 ../text.py:1090 ../text.py:1094
 msgid "Partition"
 msgstr "Разбиение"
 
-#: ../text.py:1090
+#: ../text.py:1092
 msgid "Manually Partition"
 msgstr "Ручное разбиение"
 
-#: ../text.py:1094 ../textw/partitioning_text.py:310
+#: ../text.py:1096 ../textw/partitioning_text.py:310
 msgid "Root Filesystem Size"
 msgstr "Размер корневой файловой системы"
 
-#: ../text.py:1096
+#: ../text.py:1098
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1098 ../textw/partitioning_text.py:365
+#: ../text.py:1100 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "Автоматическое разбиение"
 
-#: ../text.py:1100
+#: ../text.py:1102
 msgid "Filesystem Formatting"
 msgstr "Форматирование файловых систем"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1117 ../text.py:1119
+#: ../iw/mouse_gui.py:56 ../text.py:1119 ../text.py:1121
 msgid "Mouse Configuration"
 msgstr "Выбор мыши"
 
-#: ../text.py:1129
+#: ../text.py:1126
+#, fuzzy
+msgid "Language Default"
+msgstr "Выбор языка"
+
+#: ../text.py:1137
 msgid "Package Groups"
 msgstr "Группы пакетов"
 
-#: ../text.py:1131 ../text.py:1159
+#: ../text.py:1139 ../text.py:1167
 msgid "Individual Packages"
 msgstr "Индивидуальный выбор пакетов"
 
-#: ../text.py:1133 ../textw/packages_text.py:304
+#: ../text.py:1141 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Зависимости пакетов"
 
-#: ../iw/xconfig_gui.py:1010 ../text.py:1135 ../text.py:1143
+#: ../iw/xconfig_gui.py:1007 ../text.py:1143 ../text.py:1151
 msgid "X Configuration"
 msgstr "Настройка Х"
 
-#: ../text.py:1137
+#: ../text.py:1145
 msgid "Installation Begins"
 msgstr "Начало установки"
 
-#: ../text.py:1139
+#: ../text.py:1147
 msgid "Install System"
 msgstr "Установка системы"
 
-#: ../text.py:1140 ../text.py:1142 ../text.py:1163 ../text.py:1165
+#: ../text.py:1148 ../text.py:1150 ../text.py:1171 ../text.py:1173
 msgid "Boot Disk"
 msgstr "Загрузочный диск"
 
-#: ../text.py:1145
+#: ../text.py:1153
 msgid "Installation Complete"
 msgstr "Установка завершена"
 
-#: ../text.py:1150
+#: ../text.py:1158
 msgid "Examine System"
 msgstr "Проверка системы"
 
-#: ../text.py:1157
+#: ../text.py:1165
 msgid "Customize Upgrade"
 msgstr "Уточнить обновление"
 
-#: ../text.py:1160
+#: ../text.py:1168
 msgid "Upgrade Begins"
 msgstr "Обновление начинается"
 
-#: ../text.py:1162
+#: ../text.py:1170
 msgid "Upgrade System"
 msgstr "Обновление системы"
 
-#: ../text.py:1166
+#: ../text.py:1174
 msgid "Upgrade Complete"
 msgstr "Обновление завершено"
 
-#: ../text.py:1202
+#: ../text.py:1210
 msgid "Cancelled"
 msgstr "Отменено"
 
-#: ../text.py:1203
+#: ../text.py:1211
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "С этого места невозможно вернуться к предыдущему этапу. Вам придется "
 "повторить попытку."
 
-#: ../todo.py:583
+#: ../todo.py:590
 msgid "Creating boot disk..."
 msgstr "Создание загрузочного диска..."
 
-#: ../todo.py:602
+#: ../todo.py:609
 msgid "Reading"
 msgstr "Чтение"
 
-#: ../todo.py:603
+#: ../todo.py:610
 msgid "Reading package information..."
 msgstr "Чтение информации о пакетах..."
 
-#: ../todo.py:852
+#: ../todo.py:858
 msgid "Dependency Check"
 msgstr "Проверка зависимостей"
 
-#: ../todo.py:853
+#: ../todo.py:859
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Проверяются зависимости выбранных для установки пакетов..."
 
-#: ../todo.py:880 ../todo.py:922 ../todo.py:928 ../todo.py:945 ../todo.py:1070
+#: ../todo.py:886 ../todo.py:928 ../todo.py:934 ../todo.py:951 ../todo.py:1076
 msgid "no suggestion"
 msgstr "нет вариантов"
 
-#: ../todo.py:960
+#: ../todo.py:966
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -929,7 +946,7 @@ msgstr ""
 "могут быть смонтированы. Устраните эту проблему и повторите попытку "
 "обновления."
 
-#: ../todo.py:978
+#: ../todo.py:984
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -940,33 +957,33 @@ msgstr ""
 "поддерживаются во время обновления. Замените их, пожалуйста, на "
 "относительные символические связи и повторите попытку обновления.\n"
 
-#: ../todo.py:992
+#: ../todo.py:998
 msgid "Finding"
 msgstr "Поиск"
 
-#: ../todo.py:993
+#: ../todo.py:999
 msgid "Finding packages to upgrade..."
 msgstr "Поиск пакетов для обновления..."
 
-#: ../todo.py:1008
+#: ../todo.py:1014
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Произошла ошибка перестройки базы RPM. Возможная причина - отсутствие места "
 "на диске."
 
-#: ../todo.py:1021
+#: ../todo.py:1027
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Произошла ошибка при поиске пакетов для обновления."
 
-#: ../todo.py:1358
+#: ../todo.py:1364
 msgid "Processing"
 msgstr "Обработка"
 
-#: ../todo.py:1359
+#: ../todo.py:1365
 msgid "Preparing to install..."
 msgstr "Подготовка к установке..."
 
-#: ../todo.py:1393
+#: ../todo.py:1399
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -975,17 +992,17 @@ msgstr ""
 "Невозможно открыть файл %s из-за отсутствия файла, дефекта пакета или "
 "носителя. Нажмите <return>, чтобы повторить попытку."
 
-#: ../todo.py:1623
+#: ../todo.py:1642
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Обновление %s.\n"
 
-#: ../todo.py:1625
+#: ../todo.py:1644
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Установка %s.\n"
 
-#: ../todo.py:1670
+#: ../todo.py:1689
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -995,15 +1012,15 @@ msgstr ""
 "Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1673 ../todo.py:1689
+#: ../libfdisk/gnomefsedit.c:3033 ../todo.py:1692 ../todo.py:1708
 msgid "Mount Point"
 msgstr "Точка монтирования"
 
-#: ../todo.py:1673
+#: ../todo.py:1692
 msgid "Space Needed"
 msgstr "Мало места"
 
-#: ../todo.py:1686
+#: ../todo.py:1705
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1014,20 +1031,20 @@ msgstr ""
 "Вам необходимо больше места на следующих файловых системах:\n"
 "\n"
 
-#: ../todo.py:1689
+#: ../todo.py:1708
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Мало места"
 
-#: ../todo.py:1695
+#: ../todo.py:1714
 msgid "Disk Space"
 msgstr "Дисковое пространство"
 
-#: ../todo.py:1730
+#: ../todo.py:1749
 msgid "Post Install"
 msgstr "Настройка после установки"
 
-#: ../todo.py:1731
+#: ../todo.py:1750
 msgid "Performing post install configuration..."
 msgstr "Выполняется настройка после установки..."
 
@@ -1170,20 +1187,20 @@ msgstr "Подтвердите пароль"
 msgid "Full Name"
 msgstr "Полное имя"
 
-#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1469
+#: ../iw/account_gui.py:279 ../libfdisk/newtfsedit.c:1480
 #: ../textw/userauth_text.py:198
 msgid "Add"
 msgstr "Добавить"
 
-#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1462
-#: ../libfdisk/newtfsedit.c:1470 ../textw/lilo_text.py:208
+#: ../iw/account_gui.py:281 ../libfdisk/newtfsedit.c:1473
+#: ../libfdisk/newtfsedit.c:1481 ../textw/lilo_text.py:208
 #: ../textw/lilo_text.py:231 ../textw/partitioning_text.py:63
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:199
 msgid "Edit"
 msgstr "Редактировать"
 
-#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1470
+#: ../iw/account_gui.py:283 ../libfdisk/newtfsedit.c:1481
 #: ../textw/userauth_text.py:198
 msgid "Delete"
 msgstr "Удалить"
@@ -1438,55 +1455,55 @@ msgstr "Обновление"
 msgid "Keyboard Configuration"
 msgstr "Конфигурация клавиатуры"
 
-#: ../iw/keyboard_gui.py:80
+#: ../iw/keyboard_gui.py:86
 msgid "Model"
 msgstr "Модель"
 
-#: ../iw/keyboard_gui.py:99
+#: ../iw/keyboard_gui.py:105
 msgid "Layout"
 msgstr "Раскладка"
 
-#: ../iw/keyboard_gui.py:118
+#: ../iw/keyboard_gui.py:124
 msgid "Dead Keys"
 msgstr "Специальные последовательности (dead keys)"
 
-#: ../iw/keyboard_gui.py:127
+#: ../iw/keyboard_gui.py:133
 msgid "Enable dead keys"
 msgstr "Разрешить специальные последовательности"
 
-#: ../iw/keyboard_gui.py:128
+#: ../iw/keyboard_gui.py:134
 msgid "Disable dead keys"
 msgstr "Запретить специальные последовательности"
 
-#: ../iw/keyboard_gui.py:137
+#: ../iw/keyboard_gui.py:143
 msgid "Test your selection here:"
 msgstr "Проверьте ваш выбор здесь:"
 
-#: ../iw/language_gui.py:39 ../loader/lang.c:287
+#: ../iw/language_gui.py:40 ../loader/lang.c:291
 msgid "What language should be used during the installation process?"
 msgstr "Какой язык должен использоваться в процессе установки?"
 
-#: ../iw/language_support_gui.py:140
+#: ../iw/language_support_gui.py:145
 #, fuzzy
 msgid "Choose the default language:   "
 msgstr "Выберите язык"
 
-#: ../iw/language_support_gui.py:158
+#: ../iw/language_support_gui.py:156
 #, fuzzy
 msgid "Choose the languages to install:"
 msgstr "Выберите язык"
 
-#: ../iw/language_support_gui.py:197
+#: ../iw/language_support_gui.py:211
 #, fuzzy
 msgid "Select all"
 msgstr "Выбрать группу"
 
-#: ../iw/language_support_gui.py:202
+#: ../iw/language_support_gui.py:217
 #, fuzzy
 msgid "Reset"
 msgstr "_Перезагрузить"
 
-#: ../iw/language_support_gui.py:224
+#: ../iw/language_support_gui.py:231
 msgid "Select as default"
 msgstr ""
 
@@ -1600,7 +1617,7 @@ msgstr "Адрес IP"
 msgid "Netmask"
 msgstr "Маска подсети"
 
-#: ../iw/network_gui.py:187 ../loader/loader.c:268
+#: ../iw/network_gui.py:187 ../loader/loader.c:273
 msgid "Network"
 msgstr "Сеть"
 
@@ -1923,7 +1940,7 @@ msgstr "Расположение"
 msgid "UTC Offset"
 msgstr "Сдвиг относительно UTC"
 
-#: ../iw/welcome_gui.py:82
+#: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
 msgstr "Хотите ли вы изменить настройки системы?"
 
@@ -1943,87 +1960,87 @@ msgstr "Сбой теста"
 msgid "Customize Graphics Configuration"
 msgstr "Уточнить конфигурацию графики"
 
-#: ../iw/xconfig_gui.py:257
+#: ../iw/xconfig_gui.py:255
 msgid "Color Depth:"
 msgstr "Глубина цвета:"
 
-#: ../iw/xconfig_gui.py:285
+#: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
 msgstr "Разрешение экрана:"
 
-#: ../iw/xconfig_gui.py:395
+#: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
 msgstr "    Проверить     "
 
-#: ../iw/xconfig_gui.py:412
+#: ../iw/xconfig_gui.py:410
 msgid "Please choose your default desktop environment:"
 msgstr "Выберите, пожалуйста, окружение рабочего стола по умолчанию:"
 
-#: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:487
+#: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
 msgstr "GNOME"
 
-#: ../iw/xconfig_gui.py:424 ../iw/xconfig_gui.py:501
+#: ../iw/xconfig_gui.py:422 ../iw/xconfig_gui.py:499
 msgid "KDE"
 msgstr "KDE"
 
-#: ../iw/xconfig_gui.py:467
+#: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
 msgstr "Окружение рабочего стола:"
 
-#: ../iw/xconfig_gui.py:512
+#: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
 msgstr "Выберите, пожалуйста, тип входа в систему"
 
-#: ../iw/xconfig_gui.py:521
+#: ../iw/xconfig_gui.py:519
 #, fuzzy
 msgid "Text"
 msgstr "Далее"
 
-#: ../iw/xconfig_gui.py:522
+#: ../iw/xconfig_gui.py:520
 #, fuzzy
 msgid "Graphical"
 msgstr "Использовать графический вход в систему"
 
-#: ../iw/xconfig_gui.py:562
+#: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
 msgstr "Бит на пиксель"
 
-#: ../iw/xconfig_gui.py:582
+#: ../iw/xconfig_gui.py:580
 msgid "Monitor Configuration"
 msgstr "Конфигурация монитора"
 
-#: ../iw/xconfig_gui.py:934
+#: ../iw/xconfig_gui.py:931
 msgid "Horizontal Sync"
 msgstr "Строчная развертка"
 
-#: ../iw/xconfig_gui.py:943
+#: ../iw/xconfig_gui.py:940
 msgid "Vertical Sync"
 msgstr "Кадровая развертка"
 
-#: ../iw/xconfig_gui.py:955 ../iw/xconfig_gui.py:1754
+#: ../iw/xconfig_gui.py:952 ../iw/xconfig_gui.py:1763
 msgid "Restore original values"
 msgstr "Восстановить первоначальные параметры"
 
-#: ../iw/xconfig_gui.py:967
+#: ../iw/xconfig_gui.py:964
 #, fuzzy
 msgid "Horizontal Sync:"
 msgstr "Строчная развертка"
 
-#: ../iw/xconfig_gui.py:969
+#: ../iw/xconfig_gui.py:966
 #, fuzzy
 msgid "Vertical Sync:"
 msgstr "Кадровая развертка"
 
-#: ../iw/xconfig_gui.py:975
+#: ../iw/xconfig_gui.py:972
 msgid "Hz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:978
+#: ../iw/xconfig_gui.py:975
 msgid "kHz"
 msgstr ""
 
-#: ../iw/xconfig_gui.py:1160
+#: ../iw/xconfig_gui.py:1165
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
@@ -2031,7 +2048,7 @@ msgstr ""
 "Объем видеопамяти не может быть определен автоматически. Выберите объем "
 "видеопамяти из списка:"
 
-#: ../iw/xconfig_gui.py:1171 ../iw/xconfig_gui.py:1192
+#: ../iw/xconfig_gui.py:1176 ../iw/xconfig_gui.py:1197
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
@@ -2039,7 +2056,7 @@ msgstr ""
 "В большинстве случаев оптимальные настройки вашей видеокарты и монитора "
 "могут быть установлены автоматически."
 
-#: ../iw/xconfig_gui.py:1180
+#: ../iw/xconfig_gui.py:1185
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
@@ -2047,15 +2064,15 @@ msgstr ""
 "Если найденные параметры не соответствуют вашему оборудованию, выберите "
 "правильные установки из списка ниже:"
 
-#: ../iw/xconfig_gui.py:1201
+#: ../iw/xconfig_gui.py:1206
 msgid "Autoprobe results:"
 msgstr "Результаты автоматического определения"
 
-#: ../iw/xconfig_gui.py:1687
+#: ../iw/xconfig_gui.py:1692
 msgid "Video card RAM: "
 msgstr "Видеокарта RAM"
 
-#: ../iw/xconfig_gui.py:1758
+#: ../iw/xconfig_gui.py:1767
 msgid "Skip X Configuration"
 msgstr "Пропустить конфигурацию Х"
 
@@ -2148,7 +2165,7 @@ msgstr ""
 msgid "Mail (SMTP)"
 msgstr "Всего (M)"
 
-#: ../loader/loader.c:1220 ../loader/loader.c:1229
+#: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
 msgid "FTP"
 msgstr "FTP"
@@ -2355,7 +2372,7 @@ msgstr ""
 "двух первых жестких дисков вашей системы, чтобы вы могли загружать Linux с "
 "помощью LILO."
 
-#: ../loader/loader.c:333 ../loader/loader.c:358
+#: ../loader/loader.c:338 ../loader/loader.c:363
 #: ../textw/partitioning_text.py:63
 msgid "Done"
 msgstr "Готово"
@@ -2809,11 +2826,11 @@ msgstr "<Раздел SWAP>"
 msgid "<RAID Partition>"
 msgstr "<Раздел RAID>"
 
-#: ../libfdisk/gnomefsedit.c:733 ../libfdisk/newtfsedit.c:860
+#: ../libfdisk/gnomefsedit.c:733 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
 msgstr "Удалить этот раздел?"
 
-#: ../libfdisk/gnomefsedit.c:734 ../libfdisk/newtfsedit.c:861
+#: ../libfdisk/gnomefsedit.c:734 ../libfdisk/newtfsedit.c:872
 msgid "Are you sure you want to delete this partition?"
 msgstr "Вы уверены, что хотите удалить этот раздел?"
 
@@ -2957,10 +2974,6 @@ msgstr ""
 msgid "No Drives Specified"
 msgstr "Диски не указаны"
 
-#: ../libfdisk/gnomefsedit.c:1292 ../libfdisk/gnomefsedit.c:1309
-msgid "Close"
-msgstr "Закрыть"
-
 #: ../libfdisk/gnomefsedit.c:1293
 msgid "You must constrain this partition to at least one drive."
 msgstr "Необходимо приписать этот раздел хотя бы к одному устройству."
@@ -2987,11 +3000,11 @@ msgstr ""
 "Вы сконфигурировали раздел RAID, но не приписали его к единому устройству "
 "RAID. Выберите устройство, к которому будет принадлежать этот раздел."
 
-#: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:834
+#: ../libfdisk/gnomefsedit.c:1430 ../libfdisk/newtfsedit.c:845
 msgid "Cannot Add Partitions"
 msgstr "Невозможно добавить разделы"
 
-#: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:835
+#: ../libfdisk/gnomefsedit.c:1431 ../libfdisk/newtfsedit.c:846
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
@@ -3030,7 +3043,7 @@ msgstr ""
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
-#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1665
+#: ../libfdisk/newtfsedit.c:138 ../libfdisk/newtfsedit.c:1676
 msgid "Unallocated Partitions"
 msgstr "Нераспределенные разделы"
 
@@ -3206,11 +3219,11 @@ msgstr "Удалить устройство RAID?"
 msgid "Are you sure you want to remove this RAID device?"
 msgstr "Вы уверены, что хотите удалить это устройство RAID?"
 
-#: ../libfdisk/gnomefsedit.c:2709 ../libfdisk/newtfsedit.c:1770
+#: ../libfdisk/gnomefsedit.c:2709 ../libfdisk/newtfsedit.c:1781
 msgid "Reset Partition Table"
 msgstr "Сброс таблицы разделов"
 
-#: ../libfdisk/gnomefsedit.c:2711 ../libfdisk/newtfsedit.c:1772
+#: ../libfdisk/gnomefsedit.c:2711 ../libfdisk/newtfsedit.c:1783
 msgid "Reset partition table to original contents? "
 msgstr "Вернуть начальное состояние таблицы разделов?"
 
@@ -3258,11 +3271,11 @@ msgstr "Исп. (M)"
 msgid "Used (%)"
 msgstr "Исп. (%)"
 
-#: ../libfdisk/gnomefsedit.c:3456
+#: ../libfdisk/gnomefsedit.c:3462
 msgid "Unallocated Partitions Exist..."
 msgstr "Существуют нераспределенные разделы..."
 
-#: ../libfdisk/gnomefsedit.c:3462 ../libfdisk/gnomefsedit.c:3480
+#: ../libfdisk/gnomefsedit.c:3468 ../libfdisk/gnomefsedit.c:3486
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
@@ -3270,36 +3283,36 @@ msgstr ""
 "Вы должны назначить назначить корневой (/) раздел на раздел Linux native "
 "(ext2) или раздел RAID для продолжения установки."
 
-#: ../libfdisk/gnomefsedit.c:3551
+#: ../libfdisk/gnomefsedit.c:3557
 msgid "Partitions"
 msgstr "Разделы"
 
-#: ../libfdisk/gnomefsedit.c:3581
+#: ../libfdisk/gnomefsedit.c:3587
 msgid "_Add..."
 msgstr "_Добавить..."
 
-#: ../libfdisk/gnomefsedit.c:3588
+#: ../libfdisk/gnomefsedit.c:3594
 msgid "_Edit..."
 msgstr "_Редактировать..."
 
-#: ../libfdisk/gnomefsedit.c:3589
+#: ../libfdisk/gnomefsedit.c:3595
 msgid "_Reset"
 msgstr "_Перезагрузить"
 
-#: ../libfdisk/gnomefsedit.c:3594
+#: ../libfdisk/gnomefsedit.c:3600
 msgid "_Delete"
 msgstr "_Удалить"
 
 #. try having make raid device button available in read-only mode too
-#: ../libfdisk/gnomefsedit.c:3607
+#: ../libfdisk/gnomefsedit.c:3613
 msgid "_Make RAID Device"
 msgstr "_Создание устройства RAID"
 
-#: ../libfdisk/gnomefsedit.c:3617
+#: ../libfdisk/gnomefsedit.c:3623
 msgid "Auto Partition"
 msgstr "Автоматическое разбиение"
 
-#: ../libfdisk/gnomefsedit.c:3626
+#: ../libfdisk/gnomefsedit.c:3632
 msgid "Drive Summary"
 msgstr "Сведения о диске"
 
@@ -3327,33 +3340,33 @@ msgstr "Тип:"
 msgid "Unknown"
 msgstr "Неизвестный"
 
-#: ../libfdisk/newtfsedit.c:1447
+#: ../libfdisk/newtfsedit.c:1458
 msgid "Current Disk Partitions"
 msgstr "Текущие разделы диска"
 
-#: ../libfdisk/newtfsedit.c:1453
+#: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
 msgstr ""
 
-#: ../libfdisk/newtfsedit.c:1477
+#: ../libfdisk/newtfsedit.c:1488
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
 "    F1-Помощь   F2-Добавить F3-Редакт. F4-Удалить  F5-Сброс    F12-Ok        "
 
-#: ../libfdisk/newtfsedit.c:1480
+#: ../libfdisk/newtfsedit.c:1491
 msgid "Drive Summaries"
 msgstr "Статистика диска"
 
-#: ../libfdisk/newtfsedit.c:1482
+#: ../libfdisk/newtfsedit.c:1493
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
 msgstr "  Привод     Геом [C/H/S]      Всего  Использ. Своб."
 
-#: ../libfdisk/newtfsedit.c:1596
+#: ../libfdisk/newtfsedit.c:1607
 msgid "No Root Partition"
 msgstr "Не указан корневой раздел"
 
-#: ../libfdisk/newtfsedit.c:1597
+#: ../libfdisk/newtfsedit.c:1608
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
@@ -3361,19 +3374,19 @@ msgstr ""
 "Для продолжения установки необходимо назначить корневому (/) разделу тип "
 "Linux Native (ext2)."
 
-#: ../libfdisk/newtfsedit.c:1616
+#: ../libfdisk/newtfsedit.c:1627
 msgid "No Swap Partition"
 msgstr "Нет раздела свопинга"
 
-#: ../libfdisk/newtfsedit.c:1618
+#: ../libfdisk/newtfsedit.c:1629
 msgid "You must assign a swap partition for the install to proceed."
 msgstr "Необходимо назначить раздел свопинга для продолжения установки."
 
-#: ../libfdisk/newtfsedit.c:1644
+#: ../libfdisk/newtfsedit.c:1655
 msgid "No /boot/efi Partition"
 msgstr "Нет раздела /boot/efi"
 
-#: ../libfdisk/newtfsedit.c:1646
+#: ../libfdisk/newtfsedit.c:1657
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
@@ -3381,7 +3394,7 @@ msgstr ""
 "Вы должны назначить точку монтирования /boot/efi на первичный раздел FAT для "
 "продолжения установки."
 
-#: ../libfdisk/newtfsedit.c:1667
+#: ../libfdisk/newtfsedit.c:1678
 msgid ""
 "There are unallocated partitions left. If you quit now they will not be "
 "written to the disk.\n"
@@ -3393,15 +3406,15 @@ msgstr ""
 "\n"
 "Вы хотите выйти из программы?"
 
-#: ../libfdisk/newtfsedit.c:1683
+#: ../libfdisk/newtfsedit.c:1694
 msgid "Save Changes"
 msgstr "Сохранить изменения"
 
-#: ../libfdisk/newtfsedit.c:1685
+#: ../libfdisk/newtfsedit.c:1696
 msgid "Save changes to partition table(s)?"
 msgstr "Сохранить изменения таблиц(ы) разделов?"
 
-#: ../libfdisk/newtfsedit.c:1730
+#: ../libfdisk/newtfsedit.c:1741
 msgid "You may only delete NFS mounts."
 msgstr "Удалять можно только точки монтирования NFS."
 
@@ -3439,7 +3452,7 @@ msgid "Module Parameters"
 msgstr "Параметры модуля"
 
 #: ../loader/devices.c:207 ../loader/devices.c:214 ../loader/devices.c:333
-#: ../loader/loader.c:281 ../loader/loader.c:342 ../loader/loader.c:358
+#: ../loader/loader.c:286 ../loader/loader.c:347 ../loader/loader.c:363
 msgid "Devices"
 msgstr "Устройства"
 
@@ -3489,7 +3502,7 @@ msgstr "Ошибка монтирования диска драйвера: %s."
 msgid "The wrong diskette was inserted."
 msgstr "Вставлена неверная дискета."
 
-#: ../loader/devices.c:488 ../loader/loader.c:445 ../loader/loader.c:447
+#: ../loader/devices.c:488 ../loader/loader.c:450 ../loader/loader.c:452
 msgid "Loading"
 msgstr "Загрузка"
 
@@ -3526,25 +3539,25 @@ msgstr "Ошибка чтения содержимого файла kickstart %s: %s"
 msgid "Error on line %d of kickstart file %s."
 msgstr "Ошибка в строке %d файла kickstart %s"
 
-#: ../loader/lang.c:287
+#: ../loader/lang.c:291
 msgid "Choose a Language"
 msgstr "Выберите язык"
 
-#: ../loader/lang.c:336 ../loader/loader.c:148
+#: ../loader/lang.c:341 ../loader/loader.c:153
 msgid "Welcome to Red Hat Linux"
 msgstr "Добро пожаловать в Red Hat Linux"
 
-#: ../loader/lang.c:337 ../loader/loader.c:150
+#: ../loader/lang.c:342 ../loader/loader.c:155
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 " <Tab>/<Alt-Tab> между элементами | <Space> выбор | <F12> следующий экран "
 
-#: ../loader/lang.c:575
+#: ../loader/lang.c:580
 msgid "Keyboard Type"
 msgstr "Тип клавиатуры"
 
-#: ../loader/lang.c:576
+#: ../loader/lang.c:581
 msgid "What type of keyboard do you have?"
 msgstr "Укажите тип клавиатуры"
 
@@ -3560,23 +3573,23 @@ msgstr "Образ NFS"
 msgid "Hard drive"
 msgstr "Жесткий диск"
 
-#: ../loader/loader.c:268
+#: ../loader/loader.c:273
 msgid "SCSI"
 msgstr "SCSI"
 
-#: ../loader/loader.c:282
+#: ../loader/loader.c:287
 msgid "What kind of device would you like to add"
 msgstr "Устройство какого типа вы хотите добавить?"
 
-#: ../loader/loader.c:331
+#: ../loader/loader.c:336
 msgid "I have found the following devices in your system:"
 msgstr "В вашей системе удалось обнаружить следующие устройства:"
 
-#: ../loader/loader.c:333 ../loader/loader.c:358
+#: ../loader/loader.c:338 ../loader/loader.c:363
 msgid "Add Device"
 msgstr "Добавить устройство"
 
-#: ../loader/loader.c:359
+#: ../loader/loader.c:364
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
@@ -3584,25 +3597,25 @@ msgstr ""
 "Не загружен ни один драйвер специальных устройств. Вы хотите загрузить их "
 "сейчас?"
 
-#: ../loader/loader.c:500
+#: ../loader/loader.c:505
 #, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Загружается виртуальный диск %s..."
 
-#: ../loader/loader.c:510
+#: ../loader/loader.c:515
 msgid "Error loading ramdisk."
 msgstr "Ошибка загрузки виртуального диска."
 
-#: ../loader/loader.c:575 ../loader/loader.c:2174
+#: ../loader/loader.c:580 ../loader/loader.c:2187
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Ошибка чтения каталога %s: %s"
 
-#: ../loader/loader.c:797
+#: ../loader/loader.c:810
 msgid "Hard Drives"
 msgstr "Жесткие диски"
 
-#: ../loader/loader.c:798
+#: ../loader/loader.c:811
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
@@ -3610,7 +3623,7 @@ msgstr ""
 "В вашей системе не обнаружен ни один жесткий диск. Будете ли вы "
 "конфигурировать дополнительные устройства?"
 
-#: ../loader/loader.c:812
+#: ../loader/loader.c:825
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
@@ -3620,20 +3633,20 @@ msgstr ""
 "(iso9660) для Red Hat Linux. Если диск отсутствует в списке, нажмите F2 для "
 "конфигурирования дополнительных устройств."
 
-#: ../loader/loader.c:826
+#: ../loader/loader.c:839
 msgid "Directory holding images:"
 msgstr "Каталог, содержащий образы:"
 
-#: ../loader/loader.c:846
+#: ../loader/loader.c:859
 msgid "Select Partition"
 msgstr "Выбор раздела"
 
-#: ../loader/loader.c:894
+#: ../loader/loader.c:907
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Устройство %s не содержит образы Red Hat CDROM."
 
-#: ../loader/loader.c:949
+#: ../loader/loader.c:962
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
@@ -3641,11 +3654,11 @@ msgstr ""
 "Ни в одном из ваших приводов CD-ROM не удалось найти Red Hat CD-ROM. "
 "Пожалуйста вставьте Red Hat CD и нажмите \"OK\" для продолжения."
 
-#: ../loader/loader.c:1036
+#: ../loader/loader.c:1049
 msgid "Networking Device"
 msgstr "Сетевое устройство"
 
-#: ../loader/loader.c:1037
+#: ../loader/loader.c:1050
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3653,59 +3666,59 @@ msgstr ""
 "В вашей системе имеется несколько сетевых адаптеров. Какой из них должен "
 "использоваться для установки?"
 
-#: ../loader/loader.c:1119
+#: ../loader/loader.c:1132
 msgid "That directory does not seem to contain a Red Hat installation tree."
 msgstr "Этот каталог не содержит установочное дерево Red Hat."
 
-#: ../loader/loader.c:1124
+#: ../loader/loader.c:1137
 msgid "I could not mount that directory from the server"
 msgstr "Невозможно смонтировать этот каталог с сервера"
 
-#: ../loader/loader.c:1220 ../loader/loader.c:1229
+#: ../loader/loader.c:1233 ../loader/loader.c:1242
 msgid "HTTP"
 msgstr "HTTP"
 
-#: ../loader/loader.c:1221
+#: ../loader/loader.c:1234
 msgid "Unable to retrieve the first install image"
 msgstr "Невозможно получить первый установочный образ"
 
-#: ../loader/loader.c:1230
+#: ../loader/loader.c:1243
 msgid "Unable to retrieve the second install image"
 msgstr "Невозможно получить второй установочный образ"
 
-#: ../loader/loader.c:1260
+#: ../loader/loader.c:1273
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr "Установка FTP и HTTP требует не менее 20МБайт  системной памяти."
 
-#: ../loader/loader.c:1484
+#: ../loader/loader.c:1497
 msgid "Rescue Method"
 msgstr "Метод восстановления"
 
-#: ../loader/loader.c:1485
+#: ../loader/loader.c:1498
 msgid "Installation Method"
 msgstr "Метод установки"
 
-#: ../loader/loader.c:1487
+#: ../loader/loader.c:1500
 msgid "What type of media contains the rescue image?"
 msgstr "Какой носитель содержит спасательный образ?"
 
-#: ../loader/loader.c:1489
+#: ../loader/loader.c:1502
 msgid "What type of media contains the packages to be installed?"
 msgstr "Носитель какого типа содержит пакеты для установки?"
 
-#: ../loader/loader.c:2128
+#: ../loader/loader.c:2141
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Невозможно найти ks.cfg на загрузочной дискете."
 
-#: ../loader/loader.c:2236
+#: ../loader/loader.c:2249
 msgid "Updates Disk"
 msgstr "Диск обновлений"
 
-#: ../loader/loader.c:2237
+#: ../loader/loader.c:2250
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Вставьте диск обновлений и нажмите \"OK\" для продолжения."
 
-#: ../loader/loader.c:2242
+#: ../loader/loader.c:2255
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -3714,26 +3727,26 @@ msgstr ""
 "Вставленная вами дискета не является диском драйверов от этой версии Red Hat "
 "Linux."
 
-#: ../loader/loader.c:2250
+#: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
 msgstr "Ошибка монтирования дискеты."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2268
 msgid "Updates"
 msgstr "Обновления"
 
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2268
 msgid "Reading anaconda updates..."
 msgstr "Чтение обновлений anaconda..."
 
-#: ../loader/loader.c:2457
+#: ../loader/loader.c:2471
 msgid "IDE"
 msgstr "IDE"
 
-#: ../loader/loader.c:2457
+#: ../loader/loader.c:2471
 msgid "Initializing IDE modules..."
 msgstr "Инициализация модулей IDE..."
 
