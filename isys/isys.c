@@ -1263,6 +1263,8 @@ static PyObject * doIsScsiRemovable(PyObject * s, PyObject * args) {
 	rc = -1;
     }
 
+    close (fd);
+    
     return Py_BuildValue("i", rc); 
 }
 
