@@ -1,5 +1,4 @@
  
-splash.lss
 
  -  To install or upgrade 02Red Hat07 Linux in graphical mode, 
     press the 0f<ENTER>07 key.
