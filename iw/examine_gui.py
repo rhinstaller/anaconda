@@ -144,7 +144,7 @@ class UpgradeExamineWindow (InstallWindow):
 	# more indentation
 	box1 = gtk.HBox(gtk.FALSE)
 	crackhbox = gtk.HBox(gtk.FALSE)
-	crackhbox.set_size_request(65, -1)
+	crackhbox.set_size_request(35, -1)
 	box1.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
 	box1.pack_start(self.upgradeoption, gtk.FALSE, gtk.FALSE)
 	upboxtmp.pack_start(box1, gtk.FALSE, gtk.FALSE)
