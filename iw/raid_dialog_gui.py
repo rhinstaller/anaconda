@@ -132,7 +132,7 @@ class RaidEditor:
 	    # doesn't make sense for RAID device
 	    request.badblocks = None
             if not self.origrequest.getPreExisting():
-                filesystem = self.fstypeoptionMenu.get_active().get_data("type")
+                filesystem = self.fstypeCombo.get_active_value()
                 request.fstype = filesystem
 
 		if request.fstype.isMountable():
@@ -291,18 +291,18 @@ class RaidEditor:
 	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():
-            (self.fstypeoption, self.fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype,
-                                                                          fstypechangeCB,
-                                                                          self.mountCombo,
-                                                                          ignorefs = ["software RAID", "PPC PReP Boot"])
-	    lbl.set_mnemonic_widget(self.fstypeoption)
+            self.fstypeCombo = createFSTypeMenu(origrequest.fstype,
+                                                fstypechangeCB,
+                                                self.mountCombo,
+                                                ignorefs = ["software RAID", "PPC PReP Boot"])
+	    lbl.set_mnemonic_widget(self.fstypeCombo)
         else:
             if origrequest.fstype.getName():
-                self.fstypeoption = gtk.Label(origrequest.fstype.getName())
+                self.fstypeCombo = gtk.Label(origrequest.fstype.getName())
             else:
-                self.fstypeoption = gtk.Label(_("Unknown"))
+                self.fstypeCombo = gtk.Label(_("Unknown"))
             
-	maintable.attach(self.fstypeoption, 1, 2, row, row + 1)
+	maintable.attach(self.fstypeCombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	# raid minors

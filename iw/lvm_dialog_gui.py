@@ -17,6 +17,7 @@ import copy
 
 import gobject
 import gtk
+import datacombo
 
 from rhpl.translate import _, N_
 
@@ -35,7 +36,7 @@ class VolumeGroupEditor:
 
     def computeSpaceValues(self, alt_pvlist=None, usepe=None):
 	if usepe is None:
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+            pesize = int(self.peCombo.get_active_value())
 	else:
 	    pesize = usepe
 
@@ -135,16 +136,17 @@ class VolumeGroupEditor:
 
         return 1
             
-    def peChangeCB(self, widget, peOption):
+    def peChangeCB(self, widget, *args):
         """ handle changes in the Physical Extent option menu
 
         widget - menu item which was activated
         peOption - the Option menu containing the items. The data value for
                    "lastval" is the previous PE value.
         """
-        curval = widget.get_data("value")
-        lastval = peOption.get_data("lastpe")
-	lastidx = peOption.get_data("lastidx")
+
+        curval = int(widget.get_active_value())
+        lastval = widget.get_data("lastpe")
+	lastidx = widget.get_data("lastidx")
 
 	# see if PE is too large compared to smallest PV
 	# remember PE is in KB, PV size is in MB
@@ -156,7 +158,7 @@ class VolumeGroupEditor:
 				      "(%10.2f MB) is larger than the smallest "
 				      "physical volume (%10.2f MB) in the "
 				      "volume group.") % (curval/1024.0, maxpvsize), custom_icon="error")
-	    peOption.set_history(lastidx)
+	    widget.set_active(lastidx)
             return 0
 
 	# see if new PE will make any PV useless due to overhead
@@ -171,7 +173,7 @@ class VolumeGroupEditor:
 				      "volume group.") % (curval/1024.0,
                                                           maxpvsize),
                                     custom_icon="error")
-	    peOption.set_history(lastidx)
+	    widget.set_active(lastidx)
             return 0
 	    
 
@@ -185,14 +187,14 @@ class VolumeGroupEditor:
 					 type="custom", custom_icon="error",
 					   custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
-		peOption.set_history(lastidx)
+		widget.set_active(lastidx)
 		return 0
 
 	# now see if we need to fixup effect PV and LV sizes based on PE
         if curval > lastval:
             rc = self.reclampLV(curval)
             if not rc:
-		peOption.set_history(lastidx)
+		widget.set_active(lastidx)
 		return 0
             else:
                 self.updateLogVolStore()
@@ -211,11 +213,11 @@ class VolumeGroupEditor:
 					      "currently defined logical "
 					      "volumes.") % (maxlv,),
 					    custom_icon="error")
-		    peOption.set_history(lastidx)
+		    widget.set_active(lastidx)
 		    return 0
             
-        peOption.set_data("lastpe", curval)
-	peOption.set_data("lastidx", peOption.get_history())
+        widget.set_data("lastpe", curval)
+	widget.set_data("lastidx", widget.get_active())
         self.updateAllowedLvmPartitionsList(self.availlvmparts,
 					    self.partitions,
 					    self.lvmlist)
@@ -230,8 +232,7 @@ class VolumeGroupEditor:
             return "%s GB" % (val/1024/1024,)
 
     def createPEOptionMenu(self, default=4096):
-	peOption = gtk.OptionMenu()
-	peOptionMenu = gtk.Menu()
+        peCombo = datacombo.DataComboBox()
 
 	idx = 0
 	defindex = None
@@ -243,26 +244,21 @@ class VolumeGroupEditor:
 	    
             val = self.prettyFormatPESize(curpe)
 
-            item = gtk.MenuItem(val)
-            item.set_data("value", curpe)
-	    item.show()
-	    peOptionMenu.add(item)
-            item.connect("activate", self.peChangeCB, peOption)
+            peCombo.append(val, curpe)
 
 	    if default == curpe:
 		defindex = idx
 		
 	    idx = idx + 1
 
-	peOption.set_menu(peOptionMenu)
-        peOption.set_data("lastpe", default)
-
 	if defindex:
-	    peOption.set_history(defindex)
+            peCombo.set_active(defindex)
 
-        peOption.set_data("lastidx", peOption.get_history())
-	
-	return (peOption, peOptionMenu)
+        peCombo.set_data("lastidx", peCombo.get_active())
+        peCombo.connect("changed", self.peChangeCB)
+        peCombo.set_data("lastpe", default)
+
+	return peCombo
 
     def clickCB(self, row, data):
 	model = self.lvmlist.get_model()
@@ -315,7 +311,7 @@ class VolumeGroupEditor:
 		partname = "md%d" % (request.raidminor,)
 
 	    # clip size to current PE
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampPVSize(size, pesize)
 	    partsize = "%10.2f MB" % size
 	    if used or not reqlvmpart:
@@ -339,7 +335,7 @@ class VolumeGroupEditor:
 	row = 0
 	for uid, size, used in alllvmparts:
 	    # clip size to current PE
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampPVSize(size, pesize)
 	    partsize = "%10.2f MB" % size
 
@@ -383,19 +379,19 @@ class VolumeGroupEditor:
         if not logrequest or not logrequest.getPreExisting():
             lbl = createAlignedLabel(_("_File System Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
-            (newfstype, newfstypeMenu) = createFSTypeMenu(logrequest.fstype,
-                                                          fstypechangeCB,
-                                                          mountCombo,
-                                                          ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "PPC PReP Boot"])
-            lbl.set_mnemonic_widget(newfstype)
+            newfstypeCombo = createFSTypeMenu(logrequest.fstype,
+                                              fstypechangeCB,
+                                              mountCombo,
+                                              ignorefs = ["software RAID", "physical volume (LVM)", "vfat", "PPC PReP Boot"])
+            lbl.set_mnemonic_widget(newfstypeCombo)
         else:
             maintable.attach(createAlignedLabel(_("Original File System Type:")),
                              0, 1, row, row + 1)
             if logrequest.origfstype and logrequest.origfstype.getName():
-                newfstype = gtk.Label(logrequest.origfstype.getName())
+                newfstypeCombo = gtk.Label(logrequest.origfstype.getName())
             else:
-                newfstype = gtk.Label(_("Unknown"))
-	maintable.attach(newfstype, 1, 2, row, row + 1)
+                newfstypeCombo = gtk.Label(_("Unknown"))
+	maintable.attach(newfstypeCombo, 1, 2, row, row + 1)
 	row = row+1
 
 
@@ -430,7 +426,7 @@ class VolumeGroupEditor:
         row = row + 1
 
         if not logrequest or not logrequest.getPreExisting():
-            pesize = self.peOptionMenu.get_active().get_data("value")
+            pesize = int(self.peCombo.get_active_value())
             (tspace, uspace, fspace) = self.computeSpaceValues(usepe=pesize)
             maxlv = min(lvm.getMaxLVSize(pesize), fspace)
 
@@ -454,7 +450,7 @@ class VolumeGroupEditor:
 		return
 
             if not logrequest or not logrequest.getPreExisting():
-                fsystem = newfstypeMenu.get_active().get_data("type")
+                fsystem = newfstypeCombo.get_active_value()
                 format = 1
                 migrate = 0
             else:
@@ -571,7 +567,7 @@ class VolumeGroupEditor:
 
 	    # create potential request
 	    request = copy.copy(logrequest)
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    pesize = int(self.peCombo.get_active_value())
 	    size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
 
 	    # do some final tests
@@ -843,7 +839,7 @@ class VolumeGroupEditor:
 		return None
 
 	    pvlist = self.getSelectedPhysicalVolumes(self.lvmlist.get_model())
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    pesize = int(self.peCombo.get_active_value())
 	    availSpaceMB = self.computeVGSize(pvlist, pesize)
 	    neededSpaceMB = self.computeLVSpaceNeeded(self.logvolreqs)
 
@@ -884,7 +880,7 @@ class VolumeGroupEditor:
 		del tmpreq
 
 	    # get physical extent
-	    pesize = self.peOptionMenu.get_active().get_data("value")
+	    pesize = int(self.peCombo.get_active_value())
 
 	    # everything ok
 	    break
@@ -969,19 +965,18 @@ class VolumeGroupEditor:
 
         if not origvgrequest.getPreExisting():
             lbl = createAlignedLabel(_("_Physical Extent:"))
-            (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)
-            lbl.set_mnemonic_widget(self.peOption)
+            self.peCombo = self.createPEOptionMenu(self.origvgrequest.pesize)
+            lbl.set_mnemonic_widget(self.peCombo)
         else:
             # FIXME: this is a nice hack -- if we create the option menu, but
             # don't display it, getting the value always returns what we init'd
             # it to
             lbl = createAlignedLabel(_("Physical Extent:"))
-            (self.peOption, self.peOptionMenu) = self.createPEOptionMenu(self.origvgrequest.pesize)            
-            self.peOption = gtk.Label(self.prettyFormatPESize(origvgrequest.pesize))
+            self.peCombo = gtk.Label(self.prettyFormatPESize(origvgrequest.pesize))
 
         maintable.attach(lbl, 0, 1, row, row + 1,
                          gtk.EXPAND|gtk.FILL, gtk.SHRINK)
-        maintable.attach(self.peOption, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
+        maintable.attach(self.peCombo, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
         row = row + 1
 
         (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, self.origvgrequest.physicalVolumes, self.partitions, origvgrequest.getPreExisting())

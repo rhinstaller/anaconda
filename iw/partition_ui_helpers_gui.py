@@ -17,6 +17,7 @@
 import gobject
 import gtk
 import checklist
+import datacombo
 
 from constants import *
 from fsset import *
@@ -113,7 +114,7 @@ def setMntPtComboStateFromType(fstype, mountCombo):
     mountCombo.set_data("prevmountable", fstype.isMountable())
     
 def fstypechangeCB(widget, mountCombo):
-    fstype = widget.get_data("type")
+    fstype = widget.get_active_value()
     setMntPtComboStateFromType(fstype, mountCombo)
 
 def createAllowedDrivesList(disks, reqdrives):
@@ -146,8 +147,9 @@ def createAllowedDrivesList(disks, reqdrives):
 # pass in callback for when fs changes because of python scope issues
 def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
                      availablefstypes = None, ignorefs = None):
-    fstypeoption = gtk.OptionMenu()
-    fstypeoptionMenu = gtk.Menu()
+    store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_PYOBJECT)
+    fstypecombo = datacombo.DataComboBox(store)
+    
     types = fileSystemTypeGetTypes()
     if availablefstypes:
         names = availablefstypes
@@ -159,7 +161,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
         default = fileSystemTypeGetDefault()
         
     names.sort()
-    defindex = None
+    defindex = 0
     i = 0
     for name in names:
         if not fileSystemTypeGet(name).isSupported():
@@ -169,39 +171,33 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
             continue
         
         if fileSystemTypeGet(name).isFormattable():
-            item = gtk.MenuItem(name)
-            item.set_data("type", types[name])
-            # XXX gtk bug, if you don't show then the menu will be larger
-            # than the largest menu item
-            item.show()
-            fstypeoptionMenu.add(item)
+            fstypecombo.append(name, types[name])
             if default and default.getName() == name:
                 defindex = i
                 defismountable = types[name].isMountable()
-            if fstypechangeCB and mountCombo:
-                item.connect("activate", fstypechangeCB, mountCombo)
             i = i + 1
 
-    fstypeoption.set_menu(fstypeoptionMenu)
-
     if defindex:
-        fstypeoption.set_history(defindex)
+        fstypecombo.set_active(defindex)
+
+    if fstypechangeCB and mountCombo:
+        fstypecombo.connect("changed", fstypechangeCB, mountCombo)
 
     if mountCombo:
         mountCombo.set_data("prevmountable",
-                            fstypeoptionMenu.get_active().get_data("type").isMountable())
+                            fstypecombo.get_active_value().isMountable())
 
-    return (fstypeoption, fstypeoptionMenu)
+    return fstypecombo
 
 def formatOptionCB(widget, data):
-    (menuwidget, menu, mntptcombo, ofstype) = data
-    menuwidget.set_sensitive(widget.get_active())
+    (combowidget, mntptcombo, ofstype) = data
+    combowidget.set_sensitive(widget.get_active())
 
     # inject event for fstype menu
     if widget.get_active():
-	fstype = menu.get_active().get_data("type")
+	fstype = combowidget.get_active_value()
 	setMntPtComboStateFromType(fstype, mntptcombo)
-        menuwidget.grab_focus()
+        combowidget.grab_focus()
     else:
 	setMntPtComboStateFromType(ofstype, mntptcombo)
 
@@ -209,8 +205,8 @@ def noformatCB(widget, badblocks):
     badblocks.set_sensitive(widget.get_active())
 
 def noformatCB2(widget, data):
-    (menuwidget, menu, mntptcombo, ofstype) = data
-    menuwidget.set_sensitive(not widget.get_active())
+    (combowidget, mntptcombo, ofstype) = data
+    combowidget.set_sensitive(not widget.get_active())
 
     # inject event for fstype menu
     if widget.get_active():
@@ -259,20 +255,20 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	formatrb.set_active(1)
 
     maintable.attach(formatrb, 0, 1, row, row + 1)
-    (fstype, fstypeMenu) = createFSTypeMenu(ofstype, fstypechangeCB,
-					    mountCombo, ignorefs=ignorefs)
-    fstype.set_sensitive(formatrb.get_active())
-    maintable.attach(fstype, 1, 2, row, row + 1)
+    fstypeCombo = createFSTypeMenu(ofstype, fstypechangeCB,
+                                   mountCombo, ignorefs=ignorefs)
+    fstypeCombo.set_sensitive(formatrb.get_active())
+    maintable.attach(fstypeCombo, 1, 2, row, row + 1)
     row = row + 1
 
     if not formatrb.get_active() and not origrequest.migrate:
 	mountCombo.set_data("prevmountable", ofstype.isMountable())
 
     formatrb.connect("toggled", formatOptionCB,
-		     (fstype, fstypeMenu, mountCombo, ofstype))
+		     (fstypeCombo, mountCombo, ofstype))
 
     noformatrb.connect("toggled", noformatCB2,
-		     (fstype, fstypeMenu, mountCombo, origrequest.origfstype))
+		     (fstypeCombo, mountCombo, origrequest.origfstype))
 
     if origrequest.origfstype.isMigratable():
 	migraterb = gtk.RadioButton(label=_("Mi_grate partition to:"),
@@ -284,18 +280,17 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
 	migtypes = origrequest.origfstype.getMigratableFSTargets()
 
 	maintable.attach(migraterb, 0, 1, row, row + 1)
-	(migfstype, migfstypeMenu)=createFSTypeMenu(ofstype, None, None,
-						    availablefstypes = migtypes)
-	migfstype.set_sensitive(migraterb.get_active())
-	maintable.attach(migfstype, 1, 2, row, row + 1)
+	migfstypeCombo = createFSTypeMenu(ofstype, None, None,
+                                          availablefstypes = migtypes)
+	migfstypeCombo.set_sensitive(migraterb.get_active())
+	maintable.attach(migfstypeCombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	migraterb.connect("toggled", formatOptionCB,
-			       (migfstype, migfstypeMenu, mountCombo, ofstype))
+                          (migfstypeCombo, mountCombo, ofstype))
     else:
 	migraterb = None
-	migfstype = None
-	migfstypeMenu = None
+	migfstypeCombo = None
 
     if showbadblocks:
         badblocks = gtk.CheckButton(_("Check for _bad blocks?"))
@@ -314,8 +309,8 @@ def createPreExistFSOptionSection(origrequest, maintable, row, mountCombo,
     row = row + 1
 
     rc = {}
-    for var in ['noformatrb', 'formatrb', 'fstype', 'fstypeMenu',
-	    'migraterb', 'migfstype', 'migfstypeMenu', 'badblocks' ]:
+    for var in ['noformatrb', 'formatrb', 'fstypeCombo',
+                'migraterb', 'migfstypeCombo', 'badblocks' ]:
         if eval("%s" % (var,)) is not None:
             rc[var] = eval("%s" % (var,))
 

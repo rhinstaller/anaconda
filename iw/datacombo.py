@@ -21,8 +21,11 @@ class DataComboBox(gtk.ComboBox):
     """A class derived from gtk.ComboBox to allow setting a user visible
     string and (not-visible) data string"""
 
-    def __init__(self):
-        self.store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+    def __init__(self, store = None):
+        if store is None:
+            self.store = gtk.TreeStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        else:
+            self.store = store
         gtk.ComboBox.__init__(self, self.store)
 
         cell = gtk.CellRendererText()

@@ -112,7 +112,7 @@ class PartitionEditor:
 
             if self.origrequest.type == REQUEST_NEW:
                 # read out UI into a partition specification
-                filesystem = self.newfstypeMenu.get_active().get_data("type")
+                filesystem = self.newfstypeCombo.get_active_value()
 
                 request = copy.copy(self.origrequest)
                 request.fstype = filesystem
@@ -197,7 +197,7 @@ class PartitionEditor:
 		if formatrb:
                     request.format = formatrb.get_active()
                     if request.format:
-                        request.fstype = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                        request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
                     if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
                         request.badblocks = gtk.TRUE
                     else:
@@ -214,7 +214,7 @@ class PartitionEditor:
 		if migraterb:
                     request.migrate = migraterb.get_active()
                     if request.migrate:
-                        request.fstype =self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
+                        request.fstype =self.fsoptionsDict["migfstypeCombo"].get_active_value()
                 else:
                     request.migrate = 0
 
@@ -295,12 +295,12 @@ class PartitionEditor:
 	    lbl = createAlignedLabel(_("File System _Type:"))
             maintable.attach(lbl, 0, 1, row, row + 1)
 
-            (self.newfstype, self.newfstypeMenu) = createFSTypeMenu(self.origrequest.fstype,
-                                                          fstypechangeCB,
-                                                          self.mountCombo,
-                                                          availablefstypes = restrictfs)
-	    lbl.set_mnemonic_widget(self.newfstype)
-            maintable.attach(self.newfstype, 1, 2, row, row + 1)
+            self.newfstypeCombo = createFSTypeMenu(self.origrequest.fstype,
+                                                   fstypechangeCB,
+                                                   self.mountCombo,
+                                                   availablefstypes = restrictfs)
+	    lbl.set_mnemonic_widget(self.newfstypeCombo)
+            maintable.attach(self.newfstypeCombo, 1, 2, row, row + 1)
         else:
             maintable.attach(createAlignedLabel(_("Original File System "
                                                   "Type:")),
@@ -317,8 +317,7 @@ class PartitionEditor:
 
             fstypelabel = gtk.Label(typestr)
             maintable.attach(fstypelabel, 1, 2, row, row + 1)
-            self.newfstype = None
-            self.newfstypeMenu = None
+            self.newfstypeCombo = None
             
         row = row + 1
 

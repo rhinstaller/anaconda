@@ -18,6 +18,7 @@ import gobject
 import iutil
 import partedUtils
 import gui
+import datacombo
 from rhpl.translate import _, N_
 from constants import *
 
@@ -169,26 +170,21 @@ class OSBootWidget:
                 parts.append(partedUtils.get_partition_name(part))
             del pedparts
             parts.sort()
-            
-            deviceOption = gtk.OptionMenu()
-            deviceMenu = gtk.Menu()
-            defindex = None
+
+            deviceCombo = datacombo.DataComboBox()
+            defindex = 0
             i = 0
             for part in  parts:
-                item = gtk.MenuItem("/dev/" + part)
-                item.set_data("part", part)
-                # XXX gtk bug -- have to show so that the menu is sized right
-                item.show()
-                deviceMenu.add(item)
+                deviceCombo.append("/dev/%s" %(part,), part)
                 if oldDevice and oldDevice == part:
                     defindex = i
                 i = i + 1
-            deviceOption.set_menu(deviceMenu)
-            if defindex:
-                deviceOption.set_history(defindex)
+
+
+            deviceCombo.set_active(defindex)
             
-            table.attach(deviceOption, 1, 2, 2, 3, gtk.FILL, 0, 10)
-            label.set_mnemonic_widget(deviceOption)
+            table.attach(deviceCombo, 1, 2, 2, 3, gtk.FILL, 0, 10)
+            label.set_mnemonic_widget(deviceCombo)
         else:
             table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
 
@@ -215,7 +211,7 @@ class OSBootWidget:
             label = labelEntry.get_text()
 
             if not isRoot:
-                dev = deviceMenu.get_active().get_data("part")
+                dev = deviceCombo.get_active_value()
             else:
                 dev = oldDevice
 
