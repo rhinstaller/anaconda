@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2002-07-18 23:21-0400\n"
-"PO-Revision-Date: 2002-07-18 12:16+0200\n"
+"PO-Revision-Date: 2002-07-19 22:39+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -340,6 +340,8 @@ msgid ""
 "substantially more packages than just the ones in all the other package "
 "groups on this page."
 msgstr ""
+"Denna grupp innehåller alla tillgängliga paket. Observera att detta är "
+"avsevärt fler paket än de som finns i alla andra paketgrupper på denna sida."
 
 #: ../exception.py:167 ../text.py:236
 msgid "Exception Occurred"
@@ -457,7 +459,7 @@ msgid "Master Boot Record (MBR)"
 msgstr "Huvudstartposten (MBR)"
 
 #: ../fsset.py:1016
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
 "serious, and the install cannot continue.\n"
@@ -467,7 +469,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att initiera växlingsutrymme på enheten %s. "
 "Detta problem är allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1035
 #, python-format
@@ -485,7 +487,7 @@ msgstr ""
 "Tryck OK för att starta om ditt system."
 
 #: ../fsset.py:1082
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Bad blocks have been detected on device /dev/%s. We do not recommend you use "
 "this device.\n"
@@ -495,10 +497,10 @@ msgstr ""
 "Felaktiga block har hittats på enheten /dev/%s. Vi rekommenderar inte att du "
 "använder denna enhet.\n"
 "\n"
-"Tryck på Retur för att starta om ditt system"
+"Tryck på <Retur> för att starta om ditt system"
 
 #: ../fsset.py:1093
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
 "and the install cannot continue.\n"
@@ -508,10 +510,10 @@ msgstr ""
 "Ett fel inträffade vid sökning efter skadade block på %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1129
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -521,10 +523,10 @@ msgstr ""
 "Ett fel inträffade vid försöket att formatera %s. Detta problem är "
 "allvarligt och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1179
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
 "install cannot continue.\n"
@@ -534,14 +536,14 @@ msgstr ""
 "Ett fel inträffade vid försöket att migrera %s. Detta problem är allvarligt "
 "och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1199 ../fsset.py:1208
 msgid "Invalid mount point"
 msgstr "Ogiltig monteringspunkt"
 
 #: ../fsset.py:1200
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
 "not a directory. This is a fatal error and the install cannot continue.\n"
@@ -552,10 +554,10 @@ msgstr ""
 "en katalog. Detta är ett ödesdigert fel och installationen kan inte "
 "fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1209
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
 "the install cannot continue.\n"
@@ -565,7 +567,7 @@ msgstr ""
 "Ett fel inträffade vid försöket att skapa %s: %s. Detta problem är "
 "ödesdigert och installationsprogrammet kan inte fortsätta.\n"
 "\n"
-"Tryck på Retur för att för att starta om ditt system."
+"Tryck på <Retur> för att för att starta om ditt system."
 
 #: ../fsset.py:1222
 #, python-format
@@ -867,6 +869,10 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Kan inte skapa symbolisk länk för /var/tmp. Detta bör bara hända om det "
+"uppstod fel vid skapandet av dina filsystem.\n"
+"\n"
+"Tryck på OK-knappen för att starta om ditt system."
 
 #: ../packages.py:581
 msgid "Setting up RPM transaction..."
@@ -1140,7 +1146,7 @@ msgid "Please specify a mount point for this partition."
 msgstr "Ange en monteringspunkt för denna partition."
 
 #: ../partIntfHelpers.py:104
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You cannot %s this partition, as it is holding the data for the hard drive "
 "install."
@@ -1504,10 +1510,11 @@ msgid "a partition which is a member of a LVM Volume Group."
 msgstr "en partition som är medlem i en LVM-volymgrupp."
 
 #: ../partRequests.py:214
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "Monteringspunkten är ogiltig. Katalogen måste vara på /-filsystemet."
+msgstr ""
+"Denna monteringspunkt är ogiltig. Katalogen %s måste vara på /-filsystemet."
 
 #: ../partRequests.py:219
 msgid "This mount point must be on a linux file system."
@@ -2479,6 +2486,23 @@ msgid ""
 "to install or avoid installing. Check the box below to customize your "
 "installation."
 msgstr ""
+"Standardskrivbordsmiljön innehåller våra rekommendationer för nya användare "
+"och bland annat:\n"
+"\n"
+"\tSkrivbordsskal (GNOME)\n"
+"\tKontorsprogramvara (OpenOffice)\n"
+"\tWebbläsare (Mozilla) \n"
+"\tE-post (Evolution)\n"
+"\tSnabbmeddelanden\n"
+"\tProgram för ljud och video\n"
+"\tSpel\n"
+"\n"
+"Efter installationen kan ytterligare programvara läggas till eller tas bort "
+"genom användning av verktyget \"redhat-config-package\".\n"
+"\n"
+"Om du är bekant med %s kanske du har vissa specifika paket som du vill "
+"installera eller undvika att installera. Kryssa i rutan nedan för att "
+"anpassa din installation."
 
 #: ../iw/desktop_choice_gui.py:77
 msgid "_Accept the current package list"
@@ -2730,9 +2754,9 @@ msgid "Make Logical Volume"
 msgstr "Skapa logisk volym"
 
 #: ../iw/lvm_dialog_gui.py:332
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Redigera logisk volym"
+msgstr "Redigera logisk volym: %s"
 
 #: ../iw/lvm_dialog_gui.py:334
 msgid "Edit Logical Volume"
@@ -2810,7 +2834,7 @@ msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr "Det logiska volymnamnet \"%s\" används redan. Välj ett annat."
 
 #: ../iw/lvm_dialog_gui.py:549
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). To increase this limit you can increase the Physical "
@@ -2884,7 +2908,6 @@ msgid "Not enough physical volumes"
 msgstr "Inte tillräckligt med logiska volymer"
 
 #: ../iw/lvm_dialog_gui.py:861
-#, fuzzy
 msgid ""
 "At least one unused physical volume partition is needed to create an LVM "
 "Volume Group.\n"
@@ -2894,23 +2917,21 @@ msgid ""
 msgstr ""
 "Minst en oanvänd fysisk volym krävs för att skapa en LVM-volymgrupp.\n"
 "\n"
-"Skapa först en partition eller raid-kedja av typen \"fysisk volym (LVM)\" "
-"och välj sedan alternativet \"LVM\" igen."
+"Skapa en partition eller RAID-kedja av typen \"fysisk volym (LVM)\" och välj "
+"sedan alternativet \"LVM\" igen."
 
 #: ../iw/lvm_dialog_gui.py:872
-#, fuzzy
 msgid "Make LVM Volume Group"
-msgstr "LVM-volymgrupper"
+msgstr "Skapa LVM-volymgrupp"
 
 #: ../iw/lvm_dialog_gui.py:875
-#, fuzzy, python-format
+#, python-format
 msgid "Edit LVM Volume Group: %s"
-msgstr "LVM-volymgrupper"
+msgstr "Redigera LVM-volymgrupp: %s"
 
 #: ../iw/lvm_dialog_gui.py:877
-#, fuzzy
 msgid "Edit LVM Volume Group"
-msgstr "LVM-volymgrupper"
+msgstr "Redigera LVM-volymgrupp"
 
 #: ../iw/lvm_dialog_gui.py:893
 msgid "_Volume Group Name:"
@@ -3063,13 +3084,12 @@ msgstr ""
 "%s"
 
 #: ../iw/network_gui.py:168
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error occurred converting the value entered for \"%s\":\n"
 "%s"
 msgstr ""
 "Ett fel inträffade vid konvertering av värdet som angavs för \"%s\":\n"
-"\n"
 "%s"
 
 #: ../iw/network_gui.py:174
@@ -3082,13 +3102,12 @@ msgid "The IP information you have entered is invalid."
 msgstr "IP-informationen du angav är inte giltig."
 
 #: ../iw/network_gui.py:182
-#, fuzzy
 msgid ""
 "You have no active network devices.  Your system will not be able to "
 "communicate over a network by default without at least one device active."
 msgstr ""
 "Du har inga aktiva nätverksenheter. Ditt system kommer inte att kunna "
-"kommunicera över ett nätverk som standard utan åtminstone en aktive enhet."
+"kommunicera över ett nätverk som standard utan åtminstone en aktiv enhet."
 
 #: ../iw/network_gui.py:201
 #, python-format
@@ -3286,7 +3305,7 @@ msgstr "Val av paketgrupper"
 #: ../iw/package_gui.py:667
 #, python-format
 msgid "Details for '%s'"
-msgstr ""
+msgstr "Detaljer för \"%s\""
 
 #: ../iw/package_gui.py:676
 msgid ""
@@ -3295,21 +3314,22 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
+"En paketgrupp kan ha både baspaketmedlemmar och valfria paketmedlemmar. "
+"Baspaket väljs alltid så länge paketgruppen väljs.\n"
+"\n"
+"Välj de valfria paket som ska installeras:"
 
 #: ../iw/package_gui.py:716
-#, fuzzy
 msgid "Base Packages"
-msgstr "Paket"
+msgstr "Baspaket"
 
 #: ../iw/package_gui.py:744
-#, fuzzy
 msgid "Optional Packages"
-msgstr "Alla paket"
+msgstr "Valfria paket"
 
 #: ../iw/package_gui.py:920
-#, fuzzy
 msgid "Details"
-msgstr "Danska"
+msgstr "Detaljer"
 
 #: ../iw/package_gui.py:980
 msgid "_Select individual packages"
@@ -3340,9 +3360,9 @@ msgid "Add Partition"
 msgstr "Lägg till partition"
 
 #: ../iw/partition_dialog_gui.py:261
-#, fuzzy, python-format
+#, python-format
 msgid "Edit Partition: /dev/%s"
-msgstr "Redigera partitioner"
+msgstr "Redigera partition: /dev/%s"
 
 #: ../iw/partition_dialog_gui.py:263
 msgid "Edit Partition"
@@ -3624,9 +3644,10 @@ msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
 #: ../iw/partition_gui.py:1388
-#, fuzzy, python-format
+#, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
-msgstr "Du måste välja minst en hårddisk som du vill installera %s på."
+msgstr ""
+"Du måste välja minst en hårddisk som du vill att %s ska installeras på."
 
 #: ../iw/partition_gui.py:1430
 msgid "I want to have automatic partitioning:"
@@ -3757,9 +3778,9 @@ msgid "Make RAID Device"
 msgstr "Skapa RAID-enhet"
 
 #: ../iw/raid_dialog_gui.py:278
-#, fuzzy, python-format
+#, python-format
 msgid "Edit RAID Device: /dev/md%s"
-msgstr "RAID-enhet: /dev/"
+msgstr "Redigera RAID-enhet: /dev/md%s"
 
 #: ../iw/raid_dialog_gui.py:280 ../textw/partition_text.py:869
 msgid "Edit RAID Device"
@@ -3800,7 +3821,6 @@ msgid "Source Drive Error"
 msgstr "Källhårddiskfel"
 
 #: ../iw/raid_dialog_gui.py:491
-#, fuzzy
 msgid ""
 "The source drive selected has partitions on it which are not of type "
 "'software RAID'.\n"
@@ -3813,7 +3833,7 @@ msgstr ""
 "Dessa partitioner måste tas bort innan denna hårddisk kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:503
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The source drive selected has partitions which are not constrained to the "
 "drive /dev/%s.\n"
@@ -3824,10 +3844,9 @@ msgstr ""
 "Källhårddisken har partitioner som inte begränsas till hårddisken /dev/%s.\n"
 "\n"
 "Dessa partitioner kommer att behöva tas bort eller begränsas till denna "
-"hårddisk innan denna hårddisk kan klonas."
+"hårddisk innan denna hårddisk kan klonas. "
 
 #: ../iw/raid_dialog_gui.py:516
-#, fuzzy
 msgid ""
 "The source drive selected has software RAID partition(s) which are members "
 "of an active software RAID device.\n"
@@ -5801,18 +5820,16 @@ msgstr ""
 "autentiseringsinställningar."
 
 #: ../installclasses/personal_desktop.py:10
-#, fuzzy
 msgid "Personal Desktop"
-msgstr "Standardskrivbord:"
+msgstr "Personligt skrivbord"
 
 #: ../installclasses/personal_desktop.py:12
-#, fuzzy
 msgid ""
 "Perfect for peronal computers or laptops, select this installation type to "
 "install a graphical desktop environment and create a system ideal for home "
 "or desktop use."
 msgstr ""
-"Denna installationstyp är perfekt för arbetsstationer eller bärbara datorer. "
+"Denna installationstyp är perfekt för persondatorer eller bärbara datorer. "
 "Välj denna installationstyp för att installera en grafisk skrivbordsmiljö "
 "och skapa ett system som är perfekt för hem- eller skrivbordsanvändning."
 
@@ -5821,7 +5838,6 @@ msgid "Server"
 msgstr "Server"
 
 #: ../installclasses/server.py:12
-#, fuzzy
 msgid ""
 "Select this installation type if you would like to set up file sharing, "
 "print sharing, and Web services. Additional services can also be enabled, "
@@ -5829,7 +5845,7 @@ msgid ""
 msgstr ""
 "Välj denna installationstyp om du vill konfigurera fildelning, "
 "utskriftsdelning och webbtjänster. Ytterligare tjänster kan dessutom "
-"aktiveras."
+"aktiveras, och du kan välja huruvida du vill installera en grafisk miljö."
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -5849,6 +5865,9 @@ msgid ""
 "development and system adminstration.A good choice for programmers and "
 "system administrators."
 msgstr ""
+"Detta alternativ installerar en grafisk skrivbordsmiljö med verktyg för "
+"programvaruutveckling och systemadministration. Ett bra val för "
+"programmerare och systemadministratörer."
 
 #: ../loader/cdrom.c:31
 msgid "CDROM type"
@@ -6239,9 +6258,8 @@ msgstr ""
 "drivrutiner nu?"
 
 #: ../loader/loader.c:3693
-#, fuzzy
 msgid "Running the anaconda system installer - please wait...\n"
-msgstr "Kör anaconda - var vänlig vänta...\n"
+msgstr "Kör systeminstallationsprogrammet anaconda - var vänlig vänta...\n"
 
 #: ../loader/mediacheck.c:193
 msgid ""
@@ -7450,6 +7468,15 @@ msgstr "Ukrainska"
 #~ msgstr ""
 #~ "Välj denna installationstyp för att installera en grafisk skrivbordsmiljö "
 #~ "som innefattar verktyg för programvaruutveckling."
+
+#~ msgid ""
+#~ "This option installs a graphical desktop environment with tools for "
+#~ "software development and system adminstration. A good choice for "
+#~ "programmers and system administrators."
+#~ msgstr ""
+#~ "Detta alternativ installerar en grafisk skrivbordsmiljö med verktyg för "
+#~ "programvaruutveckling och systemadministration. Ett bra val för "
+#~ "programmerare och systemadministratörer."
 
 #~ msgid "Partition Request Sanity Check Errors"
 #~ msgstr "Fel i vettighetskontroll av partitionsbegäran"
