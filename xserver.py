@@ -58,12 +58,14 @@ def startX():
         raise XServerError, "Unable to find a mouse!"
 
     device = None
-    protocol = None
+    mouseProtocol = None
     (mouseDev, driver, descr) = mice[0]
     if mouseDev == 'psaux':
-        protocol = "PS/2"
+        mouseProtocol = "PS/2"
+	mouseEmulate = 0
     else:
-        protocol = "Microsoft"
+        mouseProtocol = "Microsoft"
+	mouseEmulate = 1
 
     cards = kudzu.probe (kudzu.CLASS_VIDEO,
                          kudzu.BUS_UNSPEC,
@@ -104,7 +106,7 @@ def startX():
     f = open ('/tmp/XF86Config', 'w')
 
     settings = { "mouseDev" : '/tmp/' + mouseDev ,
-                 "mouseProto" : protocol }
+                 "mouseProto" : mouseProtocol }
 
     f.write ("""
 Section "Files"
@@ -222,3 +224,5 @@ EndSection
         pid, status = os.waitpid(child, 0)
         os.kill(server, 15)
         sys.exit(status)
+
+    return ((mouseProtocol, mouseEmulate, mouseDev),)

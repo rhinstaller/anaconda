@@ -29,6 +29,7 @@ forceMount = 0
 mode = 'g'
 method = None
 traceOnly = 0
+mouseInfo = None
 
 for n in args:
     (str, arg) = n
@@ -83,8 +84,11 @@ import isys
 
 if (mode == 'g' and not os.environ.has_key('DISPLAY')):
     import xserver
-    if xserver.startX ():
+    result = xserver.startX ()
+    if not result:
         mode = 't'
+    else:
+	(mouseInfo,) = (result)
 
 if (mode == 'g'):
     if not test and not localInstall:
@@ -150,7 +154,7 @@ if forceMount:
 
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
-                setupFilesystems = setupFilesystems)
+                setupFilesystems = setupFilesystems, mouse = mouseInfo)
     intf.run(todo)
 except:
     (type, value, tb) = sys.exc_info()

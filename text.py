@@ -36,6 +36,86 @@ class LanguageWindow:
         todo.language.set (languages.keys()[choice])
         return INSTALL_OK
 
+class MouseDeviceWindow:
+    def __call__(self, screen, todo):
+	choices = { _("/dev/ttyS0 (COM1 under DOS)") : "ttyS0",
+		    _("/dev/ttyS1 (COM2 under DOS)") : "ttyS1",
+		    _("/dev/ttyS2 (COM3 under DOS)") : "ttyS2",
+		    _("/dev/ttyS3 (COM4 under DOS)") : "ttyS3" }
+
+	i = 0
+	default = 0
+	mouse = todo.mouse.getDevice()
+	if (mouse[0:4] != "ttyS"): return INSTALL_NOOP
+
+	l = choices.keys()
+	l.sort()
+	for choice in l:
+	    if choices[choice] == mouse:
+		default = i
+		break
+	    i = i + 1
+
+	(button, result) = ListboxChoiceWindow(screen, _("Device"),
+		    _("What device is your mouse located on? %s %i") % (mouse, default), l,
+		    [ _("Ok"), _("Back") ], default = default )
+	if (button == string.lower(_("Back"))): return INSTALL_BACK
+
+	todo.mouse.setDevice(choices[l[result]])
+
+	#import sys; sys.exit(0)
+
+	return INSTALL_OK
+
+class MouseWindow:
+    def __call__(self, screen, todo):
+        mice = todo.mouse.available ().keys ()
+        mice.sort ()
+	(default, emulate) = todo.mouse.get ()
+        default = mice.index (default)
+
+	bb = ButtonBar(screen, [_("OK"), _("Back")])
+	t = TextboxReflowed(30, 
+		_("Which model mouse is attached to this computer?"))
+	l = Listbox(6, scroll = 1, returnExit = 0)
+
+        key = 0
+        for mouse in mice:
+	    l.append(mouse, key)
+	    key = key + 1
+	l.setCurrent(default)
+
+	c = Checkbox(_("Emulate 3 Buttons?"), isOn = emulate)
+
+	g = GridForm(screen, _("Mouse Selection"), 1, 4)
+	g.add(t, 0, 0)
+	g.add(l, 0, 1, padding = (0, 1, 0, 1))
+	g.add(c, 0, 2, padding = (0, 0, 0, 1))
+	g.add(bb, 0, 3, growx = 1)
+
+	rc = g.runOnce()
+
+        button = bb.buttonPressed(rc)
+        
+        if button == string.lower (_("Back")):
+            return INSTALL_BACK
+
+	choice = l.current()
+	emulate = c.selected()
+
+        todo.mouse.set(mice[choice], emulate)
+
+	oldDev = todo.mouse.getDevice()
+	if (oldDev):
+	    newDev = todo.mouse.available()[mice[choice]][2]
+	    if ((oldDev[0:4] == "ttyS" and newDev[0:4] == "ttyS") or
+		(oldDev == newDev)):
+		pass
+	    else:
+		todo.mouse.setDevice(newDev)
+
+	return INSTALL_OK
+
 class KeyboardWindow:
     def __call__(self, screen, todo):
         keyboards = todo.keyboard.available ()
@@ -613,23 +693,6 @@ class PackageDepWindow:
             return INSTALL_BACK
         return INSTALL_OK
 
-class MouseWindow:
-    def __call__(self, screen, todo):
-        mice = todo.mouse.available ().keys ()
-        mice.sort ()
-        default = mice.index (todo.mouse.get ())
-
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("Mouse Selection"),
-                                _("Which model mouse is attached to this computer?"), mice, 
-                                buttons = [_("OK"), _("Back")], width = 30, scroll = 1, height = 8,
-                                default = default)
-        
-        if button == string.lower (_("Back")):
-            return INSTALL_BACK
-        todo.mouse.set (mice[choice])
-        return INSTALL_OK
-
 class BootDiskWindow:
     def __call__(self, screen, todo):
         rc = ButtonChoiceWindow(screen, _("Bootdisk"), 
@@ -928,8 +991,8 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 1999 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
-#	self.screen.suspendCallback(killSelf, self.screen)
-#	self.screen.suspendCallback(debugSelf, self.screen)
+#       self.screen.suspendCallback(killSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
@@ -950,10 +1013,11 @@ class InstallInterface:
 #            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
-            [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
-            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
-            [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
+            #[_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
+            #[_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            #[_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
+            [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo)],
             [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("Boot Disk"), BootDiskWindow, (self.screen, todo)],

@@ -8,6 +8,8 @@ import crypt
 import whrandom
 import _balkan
 import pcmcia
+from simpleconfig import SimpleConfigFile
+from mouse import Mouse
 
 def _(x):
     return x
@@ -25,37 +27,6 @@ class LogFile:
     def getFile (self):
         return self.logFile.fileno ()
             
-class SimpleConfigFile:
-    def __str__ (self):
-        s = ""
-        keys = self.info.keys ()
-        keys.sort ()
-        for key in keys:
-            # FIXME - use proper escaping
-            s = s + key + "=\"" + self.info[key] + "\"\n"
-        return s
-            
-    def __init__ (self):
-        self.info = {}
-
-    def set (self, *args):
-        for (key, data) in args:
-            self.info[string.upper (key)] = data
-
-    def unset (self, *keys):
-        for key in keys:
-            key = string.upper (key)
-            if self.info.has_key (key):
-               del self.info[key] 
-
-    def get (self, key):
-        key = string.upper (key)
-        if self.info.has_key (key):
-            return self.info[key]
-        else:
-            return ""
-
-
 class NetworkDevice (SimpleConfigFile):
     def __str__ (self):
         s = ""
@@ -185,84 +156,6 @@ class Language (SimpleConfigFile):
         else:
             return "C"
 
-class Mouse (SimpleConfigFile):
-    # XXX fixme - externalize
-    def __init__ (self):
-        self.info = {}
-        self.mice = {
-            "ALPS - GlidePoint (PS/2)" :
-                    ("ps/2", "GlidePointPS/2", "psaux"),
-            "ASCII - MieMouse (serial)" :
-                    ("ms3", "IntelliMouse", "ttyS"),
-            "ASCII - MieMouse (PS/2)" : 
-                    ("ps/2", "NetMousePS/2", "psaux"),
-            "ATI - Bus Mouse" :
-                    ("Busmouse", "BusMouse", "atibm"),
-            "Generic - 2 Button Mouse (serial)" :
-                    ("Microsoft", "Microsoft", "ttyS"),
-            "Generic - 3 Button Mouse (serial)" :
-                    ("Microsoft", "Microsoft", "ttyS"),
-            "Generic - 2 Button Mouse (PS/2)" :
-                    ("ps/2", "PS/2", "psaux"),
-            "Generic - 3 Button Mouse (PS/2)" :
-	            ("ps/2", "PS/2", "psaux"),
-            "Genius - NetMouse (serial)" :
-        	   ("ms3", "IntelliMouse", "ttyS"),
-            "Genius - NetMouse (PS/2)" :
-	            ("netmouse", "NetMousePS/2", "psaux"),
-            "Genius - NetMouse Pro (PS/2)" :
-	            ("netmouse", "NetMousePS/2", "psaux"),
-            "Genius - NetScroll (PS/2)" :
-	            ("netmouse", "NetScrollPS/2", "psaux"),
-            "Kensington - Thinking Mouse (PS/2)" :
-            	    ("ps/2", "ThinkingMousePS/2", "psaux"),
-            "Logitech - C7 Mouse (serial, old C7 type)" :
-            	    ("Logitech", "Logitech", "ttyS"),
-            "Logitech - CC Series (serial)" :
-	            ("logim", "MouseMan", "ttyS"),
-            "Logitech - Bus Mouse" :
-            	    ("Busmouse", "BusMouse", "logibm"),
-            "Logitech - MouseMan/FirstMouse (serial)" :
-            	    ("MouseMan", "MouseMan", "ttyS"),
-            "Logitech - MouseMan/FirstMouse (ps/2)" :
-            	    ("ps/2", "PS/2", "psaux"),
-            "Logitech - MouseMan+/FirstMouse+ (serial)" :
-	            ("pnp", "IntelliMouse", "ttyS"),
-            "Logitech - MouseMan+/FirstMouse+ (PS/2)" :
-	            ("ps/2", "MouseManPlusPS/2", "psaux"),
-            "Microsoft - Compatible Mouse (serial)" :
-            	    ("Microsoft",    "Microsoft", "ttyS"),
-            "Microsoft - Rev 2.1A or higher (serial)" :
-                    ("pnp", "Auto", "ttyS"),
-            "Microsoft - IntelliMouse (serial)" :
-                    ("ms3", "IntelliMouse", "ttyS"),
-            "Microsoft - IntelliMouse (PS/2)" :
-            	    ("imps2", "IMPS/2", "psaux"), 
-            "Microsoft - Bus Mouse" :
-	            ("Busmouse", "BusMouse", "inportbm"),
-            "Mouse Systems - Mouse (serial)" :
-            	    ("MouseSystems", "MouseSystems", "ttyS"), 
-            "MM - Series (serial)" :
-	            ("MMSeries", "MMSeries", "ttyS"),
-            "MM - HitTablet (serial)" :
-	            ("MMHitTab", "MMHittab", "ttyS"),
-            }
-
-    def available (self):
-        return self.mice
-
-    def get (self):
-        if self.info.has_key ("FULLNAME"):
-            return self.info ["FULLNAME"]
-        else:
-            return "Generic - 3 Button Mouse (PS/2)"
-
-    def set (self, mouse):
-        (gpm, x11, dev) = self.mice[mouse]
-        self.info["MOUSETYPE"] = gpm
-        self.info["XMOUSETYPE"] = x11
-        self.info["FULLNAME"] = mouse
-
 class Keyboard (SimpleConfigFile):
     # XXX fixme - externalize
     def __init__ (self):
@@ -378,7 +271,7 @@ rpmFD = None
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1):
+		 installSystem = 1, mouse = None):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -390,7 +283,7 @@ class ToDo:
         self.language = Language ()
         self.network = Network ()
         self.rootpassword = Password ()
-        self.mouse = Mouse ()
+        self.mouse = Mouse (xmouseType = mouse)
         self.keyboard = Keyboard ()
         self.auth = Authentication ()
         self.ddruid = None;
@@ -526,6 +419,7 @@ class ToDo:
 	f = open(self.instPath + "/etc/sysconfig/mouse", "w")
 	f.write(str (self.mouse))
 	f.close()
+	self.mouse.makeLink(self.instPath)
 
     def writeKeyboard(self):
 	f = open(self.instPath + "/etc/sysconfig/keyboard", "w")
