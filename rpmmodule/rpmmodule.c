@@ -218,7 +218,8 @@ extern int _rpmio_debug;
 void initrpm(void) {
     PyObject * m, * d, * tag, * dict;
     int i;
-    const struct headerSprintfExtension * ext = rpmHeaderFormats;
+    const struct headerSprintfExtension * extensions = rpmHeaderFormats;
+    struct headerSprintfExtension * ext;
 
 /*      _rpmio_debug = -1;  */
     rpmReadConfigFiles(NULL, NULL);
@@ -238,12 +239,13 @@ void initrpm(void) {
         PyDict_SetItem(dict, tag, PyString_FromString(rpmTagTable[i].name + 7));
     }
 
-    while (ext->name) {
-	if (ext->type == HEADER_EXT_TAG) {
-            PyDict_SetItemString(d, ext->name, PyCObject_FromVoidPtr(ext, NULL));
+    while (extensions->name) {
+	if (extensions->type == HEADER_EXT_TAG) {
+            (const struct headerSprintfExtension *) ext = extensions;
+            PyDict_SetItemString(d, extensions->name, PyCObject_FromVoidPtr(ext, NULL));
             PyDict_SetItem(dict, tag, PyString_FromString(ext->name + 7));
         }
-        ext++;
+        extensions++;
     }
 
     PyDict_SetItemString(d, "tagnames", dict);
