@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2000-2003 by
+# Copyright (C) 2000-2004 by
 #        Bernhard Rosenkraenzer <bero@redhat.com>
 #        Oliver Paukstadt <opaukstadt@millenux.com>
 #        Karsten Hopp <karsten@redhat.de>
@@ -102,7 +102,7 @@ route add -host 127.0.0.1 dev lo 2>/dev/null
 
 LO=""
 
-[ -L /sbin/insmod ] && LO=".o"
+[ -L /sbin/insmod ] && LO=".ko"
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
