@@ -311,7 +311,6 @@ class KickstartBase(BaseInstallClass):
 	startX = 0
         defaultdesktop = ""
 
-        # XXX make sure new xconfig args get documented
 	for n in args:
 	    (str, arg) = n
 	    if (str == "--noprobe"):
@@ -348,11 +347,6 @@ class KickstartBase(BaseInstallClass):
 
 
     def doUpgrade(self, id, args):
-	#
-	# XXX
-	#
-	# this won't work. it needs to much with the set of install steps
-	#
 	self.installType = "upgrade"
 
     def doNetwork(self, id, args):
@@ -398,7 +392,6 @@ class KickstartBase(BaseInstallClass):
             self.setLanguageDefault (id, args[0][1])
         self.setLanguageSupport(id, extra)
 
-        # XXX make sure langsupport command gets documented
         self.skipSteps.append("languagesupport")
 
     def doKeyboard(self, id, args):
