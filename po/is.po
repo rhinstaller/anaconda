@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.29\n"
+"Project-Id-Version: install 1.30\n"
 "POT-Creation-Date: 1999-09-19 11:17-0400\n"
-"PO-Revision-Date: 1999-09-18 00:42+0000\n"
+"PO-Revision-Date: 1999-09-20 11:53+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -671,13 +671,12 @@ msgid "Skip boot disk creation"
 msgstr "Sleppa ræsidiskling"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Setja upp"
+msgstr "Uppsetning að hefjast"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Veldu Í lagi til að byrja uppsetningu  Red Hat Linux."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -765,9 +764,8 @@ msgid "Upgrade"
 msgstr "Uppfæra"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Nota fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -1950,22 +1948,27 @@ msgstr "Tæki"
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr ""
+"Settu rekladisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader/devices.c:175
 msgid "Failed to mount floppy disk."
-msgstr ""
+msgstr "Gat ekki tengt disklinginn."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Disklingurinn sem þú settir í drifið er ekki gildur rekladisklingur fyrir "
+"þessa útgáfu af Red Hat Linux."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Hvaða rekil viltu reyna?. Ef rekillinn sem þú þarft er ekki á þessum lista "
+"og þú ert með sérstakann rekladiskling veldu þá F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
@@ -2370,6 +2373,3 @@ msgstr "Gátt HTTP sels:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Les inn SCSI rekil"
-
-#~ msgid "Use fdisk to format drives"
-#~ msgstr "Nota fdisk til að sneiða diska"
