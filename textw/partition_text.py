@@ -51,7 +51,61 @@ class PartitionWindow:
         # independent bits...
         self.lb.clear()
 
-        # first, add the drives and partitions to the list
+	# first do LVM
+        lvmrequests = self.partitions.getLVMRequests()
+        if lvmrequests:
+            for vgname in lvmrequests.keys():
+		vgrequest = self.partitions.getRequestByVolumeGroupName(vgname)
+		size = vgrequest.getActualSize(self.partitions, self.diskset)
+		device = "VG %s" % (vgname,)
+                self.lb.append(["%s" % (device,),
+                                "", "", "%dM" %(size),
+                                "VolGroup", ""], str(vgrequest.uniqueID),
+                               [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+		
+		for lvrequest in lvmrequests[vgname]:
+		    lvdevice = "LV %s" % (lvrequest.logicalVolumeName,)
+		    if lvrequest.fstype and lvrequest.mountpoint:
+			mntpt = lvrequest.mountpoint
+		    else:
+			mntpt = ""
+		    lvsize = lvrequest.getActualSize(self.partitions, self.diskset)
+                    ptype = lvrequest.fstype.getName()
+		    self.lb.append(["%s" %(lvdevice),
+				    "", "", "%dM" %(lvsize),
+				    "%s" %(ptype), "%s" %(mntpt)], str(lvrequest.uniqueID),
+				   [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+
+
+        # next, add the raid partitions
+        raidcounter = 0
+        raidrequests = self.partitions.getRaidRequests()
+        if raidrequests:
+            for request in raidrequests:
+                if request and request.mountpoint:
+                    mount = request.mountpoint
+                else:
+                    mount = ""
+
+                if request.fstype:
+                    ptype = request.fstype.getName()
+                else:
+                    ptype = _("None")
+
+		try:
+		    device = "/dev/md%d" % (request.raidminor,)
+		except:
+		    device = _("RAID Device %s" %(str(raidcounter)))
+		    
+                size = request.size
+                self.lb.append(["%s" %(device),
+                                "", "", "%dM" %(size),
+                                "%s" %(ptype), "%s" %(mount)], request.device,
+                               [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
+                raidcounter = raidcounter + 1
+        
+
+        # next, add the drives and partitions to the list
         drives = self.diskset.disks.keys()
         drives.sort()
         for drive in drives:
@@ -132,30 +186,6 @@ class PartitionWindow:
                                     "%s" %(mount)], part,
                                    [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
                 part = disk.next_partition(part)
-
-        # next, add the raid partitions
-        raidcounter = 0
-        raidrequests = self.partitions.getRaidRequests()
-        if raidrequests:
-            for request in raidrequests:
-                if request and request.mountpoint:
-                    mount = request.mountpoint
-                else:
-                    mount = ""
-
-                if request.fstype:
-                    ptype = request.fstype.getName()
-                else:
-                    ptype = _("None")
-
-                device = _("RAID Device %s" %(str(raidcounter)))
-                size = request.size
-                self.lb.append(["%s" %(device),
-                                "", "", "%dM" %(size),
-                                "%s" %(ptype), "%s" %(mount)], request.device,
-                               [LEFT, RIGHT, RIGHT, RIGHT, LEFT, LEFT])
-                raidcounter = raidcounter + 1
-        
 
     def refresh(self):
         # XXX need some way to stay at the same place in the list after
@@ -639,6 +669,11 @@ class PartitionWindow:
             
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
+        elif origrequest.type == REQUEST_LV or origrequest.type == REQUEST_VG:
+	    self.intf.messageWindow("Not Supported", "Cant edit this type yet")
+	    return
+
+
         row = row + 1
         if origrequest.type == REQUEST_NEW or origrequest.getProtected():
             popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON))
@@ -938,7 +973,6 @@ class PartitionWindow:
 
     def editCb(self):
         part = self.lb.current()
-
         (type, request) = doEditPartitionByRequest(self.intf, self.partitions, part)
         if request:
             if type == "RAID":
