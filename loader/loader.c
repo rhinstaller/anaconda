@@ -213,7 +213,7 @@ int main(int argc, char ** argv) {
 	eth0.isPtp=0;
 	eth0.isUp=0;
 	eth0.ip.s_addr=inet_addr("207.175.42.47");
-	eth0.netmask.s_addr=htonl(0xffffff00);
+	eth0.netmask.s_addr=inet_addr("255.255.254.0");
 	eth0.broadcast.s_addr=inet_addr("207.175.42.255");
 	eth0.network.s_addr=inet_addr("207.175.42.0");
 
@@ -229,8 +229,9 @@ int main(int argc, char ** argv) {
 	doPwMount("207.175.42.68:/mnt/test/msw/i386",
 		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
 
-	symlink("/mnt/source/RedHat/instimage/usr", "/usr");
-	symlink("/mnt/source/RedHat/instimage/lib", "/lib");
+	symlink("mnt/source/RedHat/instimage/usr/bin", "/usr/bin");
+	symlink("mnt/source/RedHat/instimage/usr/lib/rpm", "/usr/lib/rpm");
+	symlink("mnt/source/RedHat/instimage/lib", "/lib");
 
 	if (access("/usr/bin/anaconda", R_OK)) {
 	    printf("NFS mount does not appear to be a Red Hat 6.1 tree\n");
@@ -247,6 +248,6 @@ int main(int argc, char ** argv) {
     execv(anacondaArgs[0], anacondaArgs);
     perror("exec");
  
-    return 0;
+    return 1;
 }
 

@@ -1,6 +1,7 @@
 from snack import *
 import _balkan
 import sys
+import isys
 
 class WelcomeWindow:
     def run(self, screen):
@@ -48,7 +49,9 @@ class PartitionWindow:
 
         device = 'hda';
 
-	table = _balkan.readTable('/dev/' + device)
+	isys.mkdevinode(device, '/tmp/' + device)
+
+	table = _balkan.readTable('/tmp/' + device)
 	partList = []
 	for i in range(0, len(table) - 1):
 	    (type, start, size) = table[i]
