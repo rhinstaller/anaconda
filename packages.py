@@ -539,29 +539,26 @@ def doPreInstall(method, id, intf, instPath, dir):
     def select(hdrlist, name):
         if hdrlist.has_key(name):
             hdrlist[name].select(isManual = 1)
+            return 1
+        return 0
 
     if not upgrade:
-	# this is NICE and LATE. It lets kickstart/server/workstation
-	# installs detect this properly
-        if arch == "s390":
-	    if (string.find(os.uname()[2], "tape") > -1):
-		select(id.grpset.hdrlist, 'kernel-tape')
-        elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
-            select(id.grpset.hdrlist, 'kernel-pseries')
-        elif arch == "ppc" and iutil.getPPCMachine() == "iSeries":
-            select(id.grpset.hdrlist, "kernel-iseries")
-                
+        foundkernel = 0
 	if isys.smpAvailable() or isys.htavailable():
-            select(id.grpset.hdrlist, 'kernel-smp')
+            if select(id.grpset.hdrlist, 'kernel-smp'):
+                foundkernel = 1
 
         if iutil.needsEnterpriseKernel():
-            select(id.grpset.hdrlist, "kernel-bigmem")
+            if select(id.grpset.hdrlist, "kernel-bigmem"):
+                foundkernel = 1
 
         if isys.summitavailable():
-            select(id.grpset.hdrlist, "kernel-summit")
+            if select(id.grpset.hdrlist, "kernel-summit"):
+                foundkernel = 1
 
-	# we *always* need a kernel installed
-        select(id.grpset.hdrlist, 'kernel')
+        if found kernel == 0:
+            # we *always* need to have some sort of kernel installed
+            select(id.grpset.hdrlist, 'kernel')
 
 	# if NIS is configured, install ypbind and dependencies:
 	if id.auth.useNIS:
