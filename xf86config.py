@@ -170,8 +170,9 @@ class XF86Config:
             self.server = self.vidCards[self.primary]["SERVER"]
 
     def probe (self, probeMonitor = 1):
-        if self.probed:
-            return
+# XXX defer monitor probe, then re-enable this check
+#        if self.probed:
+#            return
         self.probed = 1
 	self.device = None
 	self.primary = 0
