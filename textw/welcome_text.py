@@ -9,7 +9,7 @@ class WelcomeWindow:
                                 _("Welcome to Red Hat Linux!\n\n"
                                   "This installation process is outlined in detail in the "
                                   "Official Red Hat Linux Installation Guide available from "
-                                  "Red Hat Software. If you have access to this manual, you "
+                                  "Red Hat, Inc. If you have access to this manual, you "
                                   "should read the installation section before continuing.\n\n"
                                   "If you have purchased Official Red Hat Linux, be sure to "
                                   "register your purchase through our web site, "
