@@ -1152,11 +1152,10 @@ def readFstab (path, fstab):
 
 	if len(fields) >= 6 and fields[0][0:6] == "LABEL=":
 	    label = fields[0][6:]
-	    device = labelsByMount[label]
-
-	    fsystem = fields[2]
-
-	    fstab.addMount(device, fields[1], fsystem)
+            if labelsByMount.has_key(label):
+                device = labelsByMount[label]
+                fsystem = fields[2]
+                fstab.addMount(device, fields[1], fsystem)
 	elif fields[0][0:7] == "/dev/md":
 	    fstab.addExistingRaidDevice(fields[0][5:], fields[1], 
 				    fields[2], raidByDev[int(fields[0][7:])])
