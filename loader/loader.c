@@ -3690,7 +3690,8 @@ int main(int argc, char ** argv) {
     closeLog();
 
     if (!FL_TESTING(flags)) {
-	printf(_("Running the anaconda system installer - please wait...\n"));
+	char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), PRODUCTNAME);
+	printf("%s", buf);
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
