@@ -366,13 +366,14 @@ def doMigrateFilesystems(dir, thefsset, diskset, upgrade, instPath):
     thefsset.migrateFilesystems (instPath)
     
 
-def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
+def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
     if dir == DISPATCH_BACK:
 	thefsset.umountFilesystems(instPath)
 	return
 
     if flags.setupFilesystems:
 	if not upgrade.get():
+            partitions.doMetaDeletes()
             thefsset.setActive(diskset)
             if not thefsset.isActive():
                 diskset.savePartitions ()
