@@ -523,7 +523,7 @@ static int I2OGetDevices(struct knownDevices * devices) {
     struct kddevice newDevice;
     int fd, i;
     char *buf;
-    char * start, *chptr, *next;
+    char * start, *chptr, *next, *end;
     char ctl[40];
 
     /* Read from /proc/partitions */
@@ -552,7 +552,8 @@ static int I2OGetDevices(struct knownDevices * devices) {
     if (!start) goto bye;
 
     start++;
-    while (*start) {
+    end = start + strlen(start);
+    while (*start && start < end) {
 	/* parse till end of line and store the start of next line. */
 	chptr = start;
 	while (*chptr != '\n') chptr++;
@@ -588,6 +589,7 @@ static int I2OGetDevices(struct knownDevices * devices) {
 		}
 	    } /* end of if it is an i2o device */
 	start = next;
+	end = start + strlen(start);
     } /* end of while */
  bye:
     free (buf);
