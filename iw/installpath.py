@@ -70,6 +70,12 @@ class InstallPathWindow (InstallWindow):
         ics.setNextEnabled (1)
 
     def getNext(self):
+	if not self.__dict__.has_key("upgradeButton"):
+	    print "okay"
+	    return
+
+	print "ACK"
+
 	if self.upgradeButton.get_active():
 	    self.todo.upgrade = 1
             self.ics.getICW ().setStateList (self.commonSteps + 
@@ -100,6 +106,17 @@ class InstallPathWindow (InstallWindow):
 	    self.installBox.set_sensitive(0)
 
     def getScreen (self):
+	if (self.todo.instClass.installType == "install"):
+            self.ics.getICW ().setStateList (self.commonSteps + 
+				self.installSteps, len (self.commonSteps)-1)
+            self.todo.upgrade = 0
+	    return None
+	elif (self.todo.instClass.installType == "upgrade"):
+            self.ics.getICW ().setStateList (self.commonSteps + 
+				self.upgradeSteps, len (self.commonSteps)-1)
+            self.todo.upgrade = 1
+	    return None
+
 	box = GtkVBox (FALSE, 5)
 	installButton = GtkRadioButton (None, _("Install"))
         installButton.connect ("toggled", self.toggled, INSTALL)
