@@ -101,7 +101,7 @@ LO=""
 
 [ -L /sbin/insmod ] && LO=".o"
 
-# read in configuration as set by the parm fil
+# read in configuration as set by the parm file
 if [ -n "$HOST" ]; then
         set -- `echo $HOST |sed 's/:/ /g'`
         HOSTNAME=$1
