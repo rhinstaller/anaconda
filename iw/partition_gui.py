@@ -1480,8 +1480,9 @@ class AutoPartitionWindow(InstallWindow):
 
         self.inspect = gtk.CheckButton()
         gui.widgetExpander(self.inspect)
-        label = gtk.Label(_("Review (allows you to see and change the "
-                            "automatic partitioning results)"))
+        label = gui.MnemonicLabel(_("Re_view (allows you to see and change "
+                                    "the automatic partitioning results)"))
+        label.set_mnemonic_widget(self.inspect)
         label.set_line_wrap(gtk.TRUE)
         gui.widgetExpander(label, self.inspect)
         label.set_alignment(0.0, 1.0)

@@ -61,6 +61,9 @@ class IPEditor:
 
     def getWidget(self):
 	return self.widget
+
+    def getFocusableWidget(self):
+        return self.entrys['entry1']
 	
     def clear_entries (self):
 	for name in ip_fields:
