@@ -269,10 +269,12 @@ class InstallProgressWindow (InstallWindow):
 	    vbox.pack_start(statusTable, gtk.FALSE, gtk.FALSE)
 	    statusTable.attach (gtk.Label(_("Status: ")), 0, 1, 0, 1, gtk.SHRINK)
 	    statusTable.attach (self.pkgstatus, 1, 2, 0, 1, gtk.FILL, gtk.FILL, ypadding=2)
+	    vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
+	else:
+	    self.pkgstatus = None
 	
 	self.progress = gtk.ProgressBar ()
         self.totalProgress = gtk.ProgressBar ()
-        vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
 
         progressTable = gtk.Table (2, 2, gtk.FALSE)
         label = gtk.Label (_("Package Progress: "))
