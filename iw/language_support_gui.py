@@ -25,8 +25,8 @@ class LanguageSupportWindow (InstallWindow):
         self.supportedLangs = []
 
         for row in range(self.maxrows):
-            if self.language.get_active(row) == 1:
-                selected = self.language.get_text (row, 1)
+            if self.languageList.get_active(row) == 1:
+                selected = self.languageList.get_text (row, 1)
                 self.supportedLangs.append (selected)
 
         self.defaultLang = self.combo.entry.get_text()
@@ -35,12 +35,22 @@ class LanguageSupportWindow (InstallWindow):
 
         return None
 
+    def toggled_language(self, data, row):
+#        row = int(row)
+#        lang = self.languageList.get_text(row, 1)
+# 	 val = self.languageList.get_active(row)
+#
+	# may be too slow to redo everytime they select/deselect a lang
+	# but worth trying since its simple
+	self.rebuild_combo_box()
+	
+
     def rebuild_combo_box(self):
         list = []
 
 	for row in range(self.maxrows):
-	    if self.language.get_active(row) == 1:
-		selected = self.language.get_text (row, 1)
+	    if self.languageList.get_active(row) == 1:
+		selected = self.languageList.get_text (row, 1)
 		list.append (selected)
 	
 	if len(list) == 0:
@@ -62,7 +72,7 @@ class LanguageSupportWindow (InstallWindow):
     def select_all (self, data):
         self.ics.setNextEnabled (gtk.TRUE)
         for row in range(self.maxrows):
-            self.language.set_active(row, gtk.TRUE)
+            self.languageList.set_active(row, gtk.TRUE)
 
 	self.rebuild_combo_box()
 
@@ -71,13 +81,13 @@ class LanguageSupportWindow (InstallWindow):
 	list = []
 
         for row in range(self.maxrows):
-            item = self.language.get_text (row, 1)
+            item = self.languageList.get_text (row, 1)
 
 	    if item in self.origLangs:
-                self.language.set_active(row, gtk.TRUE)
+                self.languageList.set_active(row, gtk.TRUE)
                 list.append (item)
             else:
-                self.language.set_active(row, gtk.FALSE)                
+                self.languageList.set_active(row, gtk.FALSE)                
 
 	self.defaultLang = self.oldDefaultLang
 	self.combo.set_popdown_strings(list)
@@ -87,16 +97,16 @@ class LanguageSupportWindow (InstallWindow):
     def setCurrent(self, currentDefault, recenter=1):
         parent = None
 
-        store = self.language.get_model()
+        store = self.languageList.get_model()
         row = 0
 
         # iterate over the list looking for the default locale
-        while (row < self.language.num_rows):
-            if self.language.get_text(row, 1) == currentDefault:
+        while (row < self.languageList.num_rows):
+            if self.languageList.get_text(row, 1) == currentDefault:
                 path = store.get_path(store.get_iter((row,)))
-                col = self.language.get_column(0)
-                self.language.set_cursor(path, col, gtk.FALSE)
-                self.language.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                col = self.languageList.get_column(0)
+                self.languageList.set_cursor(path, col, gtk.FALSE)
+                self.languageList.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
                 break
             row = row + 1
 
@@ -143,7 +153,7 @@ class LanguageSupportWindow (InstallWindow):
         hbox = gtk.HBox (gtk.FALSE)
 
         # langs we want to support
-        self.language = checklist.CheckList(1)
+        self.languageList = checklist.CheckList(1)
 
         self.maxrows = 0
         list = []
@@ -153,7 +163,7 @@ class LanguageSupportWindow (InstallWindow):
 
         for locale in self.languages:
 	    if locale == self.defaultLang or (locale in self.supportedLangs):
-		self.language.append_row((locale, ""), gtk.TRUE)
+		self.languageList.append_row((locale, ""), gtk.TRUE)
 		list.append(locale)
 
 		if locale == self.defaultLang:
@@ -162,7 +172,7 @@ class LanguageSupportWindow (InstallWindow):
 		else:
 		    comboCurr = comboCurr + 1
 	    else:
-		self.language.append_row((locale, ""), gtk.FALSE)
+		self.languageList.append_row((locale, ""), gtk.FALSE)
 
             self.maxrows = self.maxrows + 1
 
@@ -175,7 +185,7 @@ class LanguageSupportWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        sw.add (self.language)
+        sw.add (self.languageList)
         sw.set_shadow_type(gtk.SHADOW_IN)
 
         vbox2 = gtk.VBox (gtk.FALSE, 12)
@@ -202,5 +212,9 @@ class LanguageSupportWindow (InstallWindow):
         alignment = gtk.Alignment (0.0, 0.0)
         button = gtk.Button (_("Select as default"))
         alignment.add (button)
+
+	# connect CB for when they change selected langs
+        self.languageList.checkboxrenderer.connect("toggled",
+					       self.toggled_language)
 
         return vbox
