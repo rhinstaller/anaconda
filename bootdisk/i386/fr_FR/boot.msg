@@ -21,7 +21,4 @@
  o  Utilisez les touches de fonction ci-dessous pour plus d'informations.
 
 
-
-
 05[F1-Principal] [F2-Général] [F3-Expert] [F4-Noyau] [F5-Secours]07
-
