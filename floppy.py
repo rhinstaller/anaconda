@@ -49,14 +49,14 @@ def probeFloppyDevice():
     log("anaconda floppy device is %s", fdDevice)
     return fdDevice
 
-def makeBootdisk (intf, dir, floppyDevice, hdList, instPath, bootloader):
+def makeBootdisk (intf, dir, floppyDevice, grpset, instPath, bootloader):
     if dir == DISPATCH_BACK:
 	return DISPATCH_NOOP
     
     if flags.test:
 	return DISPATCH_NOOP
 
-    kernel = hdList['kernel']
+    kernel = grpset.hdrlist['kernel']
     kernelTag = "-%s-%s" % (kernel[rpm.RPMTAG_VERSION],
 			    kernel[rpm.RPMTAG_RELEASE])
 
