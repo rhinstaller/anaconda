@@ -3,6 +3,10 @@
 #include <fcntl.h>
 #include <netinet/in.h>
 #include <newt.h>
+
+#include <glob.h>   /* XXX rpmlib.h */
+#include <dirent.h> /* XXX rpmlib.h */
+
 #include <rpmio.h>
 #include <rpmlib.h>
 #include <rpmurl.h>
@@ -72,7 +76,7 @@ FD_t urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
     strcpy(buf, ui->urlprefix);
     strcat(buf, "/RedHat/");
     strcat(buf, filename);
-    fd = ufdOpen(buf, O_RDONLY, 600);
+    fd = Fopen(buf, "r.ufdio");
 
     return fd;
 }
@@ -102,7 +106,7 @@ char * addrToIp(char * hostname) {
 int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 		      char * doSecondarySetup) {
     newtComponent form, okay, cancel, siteEntry, dirEntry;
-    newtComponent answer, text, cb = NULL;
+    newtComponent answer, text;
     char * site, * dir;
     char * reflowedText = NULL;
     int width, height, len;

@@ -1,8 +1,8 @@
 include ../Makefile.inc
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
-ARCH := $(patsubst sparc%,sparc,$(ARCH))
-CFLAGS = -I/usr/include/python1.5 -I.. -g
+ARCH := $(patsubst sparc%,sparc,$(ARCH)) 
+CFLAGS = -I/usr/include/python1.5 -I.. -g -I/usr/include/rpm
 OBJECTS = nfsmount.o dns.o mount_clnt.o mount_xdr.o imount.o \
           smp.o moduleinfo.o devnodes.o cpio.o probe.o
 STATICOBJS = otherinsmod.o

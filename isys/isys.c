@@ -366,8 +366,8 @@ static PyObject * doGetOpt(PyObject * s, PyObject * pyargs) {
 
     argv[i] = NULL;
 
-    optCon = poptGetContext("", PyList_Size(argList), argv, options, 
-			    POPT_CONTEXT_KEEP_FIRST);
+    optCon = poptGetContext("", PyList_Size(argList), (const char **) argv,
+			    options, POPT_CONTEXT_KEEP_FIRST);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
 	i = strlen(poptBadOption(optCon, POPT_BADOPTION_NOALIAS)) +
@@ -725,7 +725,7 @@ static PyObject * doPoptParse(PyObject * s, PyObject * args) {
 
     if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
 
-    if (poptParseArgvString(str, &argc, &argv)) {
+    if (poptParseArgvString(str, &argc, (const char ***) &argv)) {
 	PyErr_SetString(PyExc_ValueError, "bad string for parsing");
 	return NULL;
     }

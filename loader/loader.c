@@ -28,6 +28,10 @@
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
+
+#include <glob.h>   /* XXX rpmlib.h */
+#include <dirent.h> /* XXX rpmlib.h */
+
 #include <rpmio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -960,7 +964,7 @@ static char * mountUrlImage(struct installMethod * method,
 
 	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
 	    
-	    if (fd == NULL || fdFileno(fd) < 0) {
+	    if (fd == NULL || Ferror(fd)) {
 		newtPopWindow();
 		snprintf(buf, sizeof(buf), "%s/RedHat/base/stage2.img",
 			 ui.urlprefix);
@@ -971,7 +975,7 @@ static char * mountUrlImage(struct installMethod * method,
 		break;
 	    }
 	    
-	    rc = loadStage2Ramdisk(fdFileno(fd), 0, flags);
+	    rc = loadStage2Ramdisk(Fileno(fd), 0, flags);
 	    urlinstFinishTransfer(fd);
 	    if (!rc)
 		stage = URL_STAGE_DONE;
@@ -1150,7 +1154,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	};
 
     if (!ksGetCommand(KS_CMD_DRIVERDISK, NULL, &ksArgc, &ksArgv)) {
-	optCon = poptGetContext(NULL, ksArgc, ksArgv, diskTable, 0);
+	optCon = poptGetContext(NULL, ksArgc, (const char **) ksArgv, diskTable, 0);
 
 	do {
 	    if ((rc = poptGetNextOpt(optCon)) < -1) {
@@ -1161,7 +1165,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 		break;
 	    }
 
-	    fs = poptGetArg(optCon);
+	    fs = (char *) poptGetArg(optCon);
 
 	    if (!fs || poptGetArg(optCon)) {
 		logMessage("bad arguments to kickstart driverdisk command");
@@ -1193,7 +1197,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
     while (!ksGetCommand(KS_CMD_DEVICE, ksArgv, &ksArgc, &ksArgv)) {
 	opts = NULL;
 
-	optCon = poptGetContext(NULL, ksArgc, ksArgv, table, 0);
+	optCon = poptGetContext(NULL, ksArgc, (const char **) ksArgv, table, 0);
 
 	if ((rc = poptGetNextOpt(optCon)) < -1) {
 	    logMessage("bad argument to kickstart device command %s: %s",
@@ -1202,8 +1206,8 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    continue;
 	}
 
-	type = poptGetArg(optCon);
-	device = poptGetArg(optCon);
+	type = (char *) poptGetArg(optCon);
+	device = (char *) poptGetArg(optCon);
 
 	if (!type || !device || poptGetArg(optCon)) {
 	    logMessage("bad arguments to kickstart device command");
@@ -1217,7 +1221,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	}
 
         if (opts)
-	    poptParseArgvString(opts, &rc, &optv);
+	    poptParseArgvString(opts, &rc, (const char ***) &optv);
 	else
 	    optv = NULL;
 
@@ -1332,7 +1336,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     if (table) {
 	ksGetCommand(ksType, NULL, &ksArgc, &ksArgv);
 
-	optCon = poptGetContext(NULL, ksArgc, ksArgv, table, 0);
+	optCon = poptGetContext(NULL, ksArgc, (const char **) ksArgv, table, 0);
 
 	if ((rc = poptGetNextOpt(optCon)) < -1) {
 	    logMessage("bad argument to kickstart method command %s: %s",
@@ -1447,7 +1451,7 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	cmdLine = buf;
     }
 
-    if (poptParseArgvString(cmdLine, &argc, &argv)) return flags;
+    if (poptParseArgvString(cmdLine, &argc, (const char ***) &argv)) return flags;
 
     for (i = 0; i < argc; i++) {
         if (!strcasecmp(argv[i], "expert"))
@@ -1842,7 +1846,7 @@ int main(int argc, char ** argv) {
 	    flags |= LOADER_FLAGS_SERIAL;
     }
 
-    optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
+    optCon = poptGetContext(NULL, argc, (const char **) argv, optionTable, 0);
 
     if ((rc = poptGetNextOpt(optCon)) < -1) {
 	fprintf(stderr, "bad option %s: %s\n",
@@ -1851,7 +1855,7 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    if ((arg = poptGetArg(optCon))) {
+    if ((arg = (char *) poptGetArg(optCon))) {
 	fprintf(stderr, "unexpected argument: %s\n", arg);
 	exit(1);
     }

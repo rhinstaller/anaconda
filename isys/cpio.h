@@ -3,7 +3,11 @@
 
 #include <zlib.h>
 #define HAVE_ZLIB_H 1
-#include <rpm/rpmio.h>
+#include <glob.h>   /* XXX rpmlib.h */
+#include <dirent.h> /* XXX rpmlib.h */
+
+#define HAVE_LIBIO 1
+#include <rpmlib.h>
 
 #define CPIO_MAP_PATH           (1 << 0)
 #define CPIO_MAP_MODE           (1 << 1)
@@ -49,9 +53,9 @@ typedef struct CFD {
 typedef void (*cpioCallback)(struct cpioCallbackInfo * filespec, void * data);
 
 /* librpm provides these */
-int cpioInstallArchive(CFD_t *cfd, struct cpioFileMapping * mappings,
-                       int numMappings, cpioCallback cb, void * cbData,
-                       char ** failedFile);
+int cpioInstallArchive(FD_t cfd, struct cpioFileMapping * mappings, 
+		       int numMappings, cpioCallback cb, void * cbData,
+		       const char ** failedFile);
 const char *cpioStrerror(int rc);
 
 int installCpioFile(FD_t fd, char * cpioName, char * outName, int inWin);

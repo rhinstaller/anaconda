@@ -56,8 +56,8 @@ int ourInsmodCommand(int argc, char ** argv) {
 	/* Try two balls on sparc64, one elsewhere */
 	for (i = 0; ; i++) {
 	    /* it might be having a ball */
-	    fd = fdOpen(ballPath, O_RDONLY, 0);
-	    if (fdFileno(fd) < 0) {
+	    fd = Fopen(ballPath, "r.fdio");
+	    if (!fd || Ferror(fd)) {
 		free(ballPath);
 		return 1;
 	    }

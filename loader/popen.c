@@ -24,7 +24,7 @@ FILE * popen(const char * command, const char * type) {
     if (strcmp(type, "r") || lastRequest.f)
 	return NULL;
 
-    if (poptParseArgvString(command, &argc, &argv)) {
+    if (poptParseArgvString(command, &argc, (const char ***) &argv)) {
 	return NULL;
     }
 

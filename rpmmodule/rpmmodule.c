@@ -4,6 +4,8 @@
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <unistd.h>
+#include <glob.h>	/* XXX rpmio.h */
+#include <dirent.h>	/* XXX rpmio.h */
 
 #include "Python.h"
 #include "rpmlib.h"
@@ -60,7 +62,7 @@ static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args);
 static PyObject * rpmtransOrder(rpmtransObject * s, PyObject * args);
 static void rpmtransDealloc(PyObject * o);
 static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name);
-static int rpmtransSetAttr(rpmtransObject * o, char * name, 
+static int rpmtransSetAttr(rpmtransObject * o, char * name,
 			   PyObject * val);
 
 /* Types */
@@ -74,7 +76,7 @@ static PyMethodDef rpmModuleMethods[] = {
     { "headerLoad", (PyCFunction) hdrLoad, METH_VARARGS, NULL },
     { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
     { "rebuilddb", (PyCFunction) rebuildDB, METH_VARARGS, NULL },
-    { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },    
+    { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },
     { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
     { "errorSetCallback", (PyCFunction) errorSetCallback, METH_VARARGS, NULL },
     { "errorString", (PyCFunction) errorString, METH_VARARGS, NULL },
@@ -202,7 +204,7 @@ static struct PyMethodDef hdrMethods[] = {
 
 /* External functions */
 int mdfile(const char *fn, unsigned char *digest);
-    
+
 /* Code */
 
 void initrpm(void) {
@@ -228,22 +230,22 @@ void initrpm(void) {
 
     PyDict_SetItemString(d, "tagnames", dict);
 
-    PyDict_SetItemString(d, "RPMFILE_STATE_NORMAL", 
+    PyDict_SetItemString(d, "RPMFILE_STATE_NORMAL",
 			 PyInt_FromLong(RPMFILE_STATE_NORMAL));
-    PyDict_SetItemString(d, "RPMFILE_STATE_REPLACED", 
+    PyDict_SetItemString(d, "RPMFILE_STATE_REPLACED",
 			 PyInt_FromLong(RPMFILE_STATE_REPLACED));
-    PyDict_SetItemString(d, "RPMFILE_STATE_NOTINSTALLED", 
+    PyDict_SetItemString(d, "RPMFILE_STATE_NOTINSTALLED",
 			 PyInt_FromLong(RPMFILE_STATE_NOTINSTALLED));
-    PyDict_SetItemString(d, "RPMFILE_CONFIG", 
+    PyDict_SetItemString(d, "RPMFILE_CONFIG",
 			 PyInt_FromLong(RPMFILE_CONFIG));
     PyDict_SetItemString(d, "RPMFILE_MISSINGOK",
 			 PyInt_FromLong(RPMFILE_MISSINGOK));
-    PyDict_SetItemString(d, "RPMFILE_DOC", 
+    PyDict_SetItemString(d, "RPMFILE_DOC",
 			 PyInt_FromLong(RPMFILE_DOC));
 
-    PyDict_SetItemString(d, "RPMDEP_SENSE_REQUIRES", 
+    PyDict_SetItemString(d, "RPMDEP_SENSE_REQUIRES",
 			 PyInt_FromLong(RPMDEP_SENSE_REQUIRES));
-    PyDict_SetItemString(d, "RPMDEP_SENSE_CONFLICTS", 
+    PyDict_SetItemString(d, "RPMDEP_SENSE_CONFLICTS",
 			 PyInt_FromLong(RPMDEP_SENSE_CONFLICTS));
 
     PyDict_SetItemString(d, "RPMSENSE_SERIAL",
@@ -421,12 +423,12 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
 	list.packages[i]->selected = 0;
 	list.packages[i]->data = hdr;
 
-	headerGetEntry(hdr->h, RPMTAG_NAME, NULL, 
+	headerGetEntry(hdr->h, RPMTAG_NAME, NULL,
 		      (void **) &list.packages[i]->name, NULL);
     }
 
     pkgSort (&list);
-    
+
     if (ugFindUpgradePackages(&list, root)) {
 	PyErr_SetString(pyrpmError, "error during upgrade check");
 	return NULL;
@@ -457,7 +459,7 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
 	char * errmsg = "cannot open database in %s";
 	char * errstr = NULL;
 	int errsize;
-	
+
 	Py_DECREF(o);
 	/* PyErr_SetString should take varargs... */
 	errsize = strlen(errmsg) + *root == '\0' ? 15 /* "/var/lib/rpm" */ : strlen(root);
@@ -518,12 +520,12 @@ static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args) {
     FD_t fd;
     int fileno;
     PyObject * list;
-    
+
     if (!PyArg_ParseTuple(args, "i", &fileno)) return NULL;
     fd = fdDup(fileno);
- 
+
     list = rpmReadHeaders (fd);
-    fdClose(fd);
+    Fclose(fd);
 
     return list;
 }
@@ -548,7 +550,7 @@ static PyObject * hdrLoad(PyObject * self, PyObject * args) {
     h->fileList = h->linkList = h->md5list = NULL;
     h->uids = h->gids = h->mtimes = h->fileSizes = NULL;
     h->modes = h->rdevs = NULL;
-    
+
     return (PyObject *) h;
 }
 
@@ -558,7 +560,7 @@ static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
     PyObject * list;
 
     if (!PyArg_ParseTuple(args, "s", &filespec)) return NULL;
-    fd = fdOpen(filespec, O_RDONLY, 0);
+    fd = Fopen(filespec, "r.fdio");
 
     if (!fd) {
 	PyErr_SetFromErrno(pyrpmError);
@@ -566,8 +568,8 @@ static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
     }
 
     list = rpmReadHeaders (fd);
-    fdClose(fd);
-    
+    Fclose(fd);
+
     return list;
 }
 
@@ -577,7 +579,7 @@ static void errorcb (void)
 {
     PyObject * result, * args = NULL;
 
-    if (errorData) 
+    if (errorData)
 	args = Py_BuildValue("(O)", errorData);
 
     result = PyEval_CallObject(errorCB, args);
@@ -602,15 +604,15 @@ static PyObject * errorSetCallback (PyObject * self, PyObject * args) {
     }
 
     if (!PyArg_ParseTuple(args, "O|O", &errorCB, &errorData)) return NULL;
-    
+
     if (!PyCallable_Check (errorCB)) {
 	PyErr_SetString(PyExc_TypeError, "parameter must be callable");
 	return NULL;
-    }   
+    }
 
     Py_INCREF (errorCB);
     Py_XINCREF (errorData);
-    
+
     rpmErrorSetCallback (errorcb);
 
     Py_INCREF(Py_None);
@@ -623,7 +625,7 @@ static PyObject * errorString (PyObject * self, PyObject * args) {
 
 static PyObject * versionCompare (PyObject * self, PyObject * args) {
     hdrObject * h1, * h2;
-    
+
     if (!PyArg_ParseTuple(args, "O!O!", &hdrType, &h1, &hdrType, &h2)) return NULL;
 
     return Py_BuildValue("i", rpmVersionCompare(h1->h, h2->h));
@@ -639,7 +641,7 @@ static PyObject * labelCompare (PyObject * self, PyObject * args) {
 
     if (e1 && !e2)
 	return Py_BuildValue("i", 1);
-    else if (!e1 && e2) 
+    else if (!e1 && e2)
 	return Py_BuildValue("i", -1);
     else if (e1 && e2) {
 	int ep1, ep2;
@@ -650,7 +652,7 @@ static PyObject * labelCompare (PyObject * self, PyObject * args) {
 	else if (ep1 > ep2)
 	    return Py_BuildValue("i", 1);
     }
-	
+
     rc = rpmvercmp(v1, v2);
     if (rc)
 	return Py_BuildValue("i", rc);
@@ -670,7 +672,7 @@ static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args) {
     fd = fdDup(rawFd);
 
     rc = rpmReadPackageHeader(fd, &header, &isSource, NULL, NULL);
-    fdClose(fd);
+    Fclose(fd);
 
     switch (rc) {
       case 0:
@@ -808,7 +810,7 @@ static int rpmdbLength(rpmdbObject * s) {
 static hdrObject * rpmdbSubscript(rpmdbObject * s, PyObject * key) {
     int offset;
     hdrObject * h;
-    
+
     if (!PyInt_Check(key)) {
 	PyErr_SetString(PyExc_TypeError, "integer expected");
 	return NULL;
@@ -827,7 +829,7 @@ static hdrObject * rpmdbSubscript(rpmdbObject * s, PyObject * key) {
 	PyErr_SetString(pyrpmError, "cannot read rpmdb entry");
 	return NULL;
     }
-    
+
     return h;
 }
 
@@ -872,7 +874,7 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
     }
 
     switch (tag) {
-      case RPMTAG_FILENAMES:
+      case RPMTAG_OLDFILENAMES:
       case RPMTAG_FILESIZES:
       case RPMTAG_FILESTATES:
       case RPMTAG_FILEMODES:
@@ -952,7 +954,7 @@ static PyObject * hdrSubscript(hdrObject * s, PyObject * item) {
       case RPM_STRING_TYPE:
 	if (count != 1 || forceArray) {
 	    stringArray = data;
-	    
+
 	    metao = PyList_New(0);
 	    for (i=0; i < count; i++) {
 		o = PyString_FromString(stringArray[i]);
@@ -1009,7 +1011,7 @@ static PyObject * hdrUnload(hdrObject * s, PyObject * args) {
 
     len = headerSizeof(s->h, 0);
     buf = headerUnload(s->h);
-    
+
     rc = PyString_FromStringAndSize(buf, len);
     free(buf);
 
@@ -1050,7 +1052,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
     if (!verifyResult) return list;
 
     if (!s->fileList) {
-	headerGetEntry(s->h, RPMTAG_FILENAMES, &type, (void **) &s->fileList, 
+	headerGetEntry(s->h, RPMTAG_OLDFILENAMES, &type, (void **) &s->fileList,
 		 &count);
     }
 
@@ -1058,14 +1060,14 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_MD5) {
 	if (!s->md5list) {
-	    headerGetEntry(s->h, RPMTAG_FILEMD5S, &type, (void **) &s->md5list, 
+	    headerGetEntry(s->h, RPMTAG_FILEMD5S, &type, (void **) &s->md5list,
 		     &count);
 	}
-	
+
 	if (mdfile(s->fileList[fileNumber], buf)) {
 	    strcpy(buf, "(unknown)");
-	} 
-	
+	}
+
 	tuple = PyTuple_New(3);
 	attrName = PyString_FromString("checksum");
 	PyTuple_SetItem(tuple, 0, attrName);
@@ -1076,7 +1078,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_FILESIZE) {
 	if (!s->fileSizes) {
-	    headerGetEntry(s->h, RPMTAG_FILESIZES, &type, (void **) &s->fileSizes, 
+	    headerGetEntry(s->h, RPMTAG_FILESIZES, &type, (void **) &s->fileSizes,
 		     &count);
 
 	}
@@ -1094,7 +1096,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_LINKTO) {
 	if (!s->linkList) {
-	    headerGetEntry(s->h, RPMTAG_FILELINKTOS, &type, (void **) &s->linkList, 
+	    headerGetEntry(s->h, RPMTAG_FILELINKTOS, &type, (void **) &s->linkList,
 		     &count);
 	}
 
@@ -1114,7 +1116,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_MTIME) {
 	if (!s->mtimes) {
-	    headerGetEntry(s->h, RPMTAG_FILEMTIMES, &type, (void **) &s->mtimes, 
+	    headerGetEntry(s->h, RPMTAG_FILEMTIMES, &type, (void **) &s->mtimes,
 		     &count);
 	}
 
@@ -1138,7 +1140,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_RDEV) {
 	if (!s->rdevs) {
-	    headerGetEntry(s->h, RPMTAG_FILERDEVS, &type, (void **) &s->rdevs, 
+	    headerGetEntry(s->h, RPMTAG_FILERDEVS, &type, (void **) &s->rdevs,
 		     &count);
 	}
 
@@ -1157,7 +1159,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
        doesn't do these correctly either. At least this is consisten */
     if (verifyResult & RPMVERIFY_USER) {
 	if (!s->uids) {
-	    headerGetEntry(s->h, RPMTAG_FILEUIDS, &type, (void **) &s->uids, 
+	    headerGetEntry(s->h, RPMTAG_FILEUIDS, &type, (void **) &s->uids,
 		     &count);
 	}
 
@@ -1173,7 +1175,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_GROUP) {
 	if (!s->gids) {
-	    headerGetEntry(s->h, RPMTAG_FILEGIDS, &type, (void **) &s->gids, 
+	    headerGetEntry(s->h, RPMTAG_FILEGIDS, &type, (void **) &s->gids,
 		     &count);
 	}
 
@@ -1189,7 +1191,7 @@ static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args) {
 
     if (verifyResult & RPMVERIFY_MODE) {
 	if (!s->modes) {
-	    headerGetEntry(s->h, RPMTAG_FILEMODES, &type, (void **) &s->modes, 
+	    headerGetEntry(s->h, RPMTAG_FILEMODES, &type, (void **) &s->modes,
 		     &count);
 	}
 
@@ -1235,7 +1237,7 @@ static void rpmtransDealloc(PyObject * o) {
     if (trans->dbo) {
 	Py_DECREF(trans->dbo);
     }
-    if (trans->scriptFd) fdClose(trans->scriptFd);
+    if (trans->scriptFd) Fclose(trans->scriptFd);
     /* this will free the keyList, and decrement the ref count of all
        the items on the list as well :-) */
     Py_DECREF(trans->keyList);
@@ -1318,10 +1320,10 @@ static PyObject * rpmtransDepCheck(rpmtransObject * s, PyObject * args) {
 	list = PyList_New(0);
 
 	for (i = 0; i < numConflicts; i++) {
-	    cf = Py_BuildValue("((sss)(ss)iOi)", conflicts[i].byName, 
+	    cf = Py_BuildValue("((sss)(ss)iOi)", conflicts[i].byName,
 			       conflicts[i].byVersion, conflicts[i].byRelease,
 
-			       conflicts[i].needsName, 
+			       conflicts[i].needsName,
 			       conflicts[i].needsVersion,
 
 			       conflicts[i].needsFlags,
@@ -1347,7 +1349,7 @@ struct tsCallbackType {
     int pythonError;
 };
 
-static void * tsCallback(const Header h, const rpmCallbackType what, 
+static void * tsCallback(const Header h, const rpmCallbackType what,
 		         const unsigned long amount, const unsigned long total,
 	                 const void * pkgKey, void * data) {
     struct tsCallbackType * cbInfo = data;
@@ -1379,7 +1381,7 @@ static void * tsCallback(const Header h, const rpmCallbackType what,
     }
 
     if (what == RPMCALLBACK_INST_CLOSE_FILE) {
-	fdClose (fdt);
+	Fclose (fdt);
     }
 
     Py_DECREF(result);
@@ -1395,16 +1397,16 @@ static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args) {
     struct tsCallbackType cbInfo;
 
     if (!PyArg_ParseTuple(args, "iiOO", &flags, &ignoreSet, &cbInfo.cb,
-			  &cbInfo.data)) 
+			  &cbInfo.data))
 	return NULL;
 
     cbInfo.pythonError = 0;
 
-    rc = rpmRunTransactions(s->ts, tsCallback, &cbInfo, NULL, &probs, flags, 
+    rc = rpmRunTransactions(s->ts, tsCallback, &cbInfo, NULL, &probs, flags,
 			    ignoreSet);
 
     if (cbInfo.pythonError) {
-	if (rc > 0) 
+	if (rc > 0)
 	    rpmProblemSetFree(probs);
 	return NULL;
     }

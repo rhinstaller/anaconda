@@ -516,12 +516,12 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    ksArgc = 1;
 	}
 
-	optCon = poptGetContext(NULL, ksArgc, ksArgv, ksOptions, 0);
+	optCon = poptGetContext(NULL, ksArgc, (const char **) ksArgv, ksOptions, 0);
 	while ((rc = poptGetNextOpt(optCon)) >= 0) {
 	    parseAddress = NULL;
 	    netSet = 0;
 
-	    arg = poptGetOptArg(optCon);
+	    arg = (char *) poptGetOptArg(optCon);
 
 	    switch (rc) {
 	      case 'g':

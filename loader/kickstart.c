@@ -103,7 +103,7 @@ int ksReadCommands(char * cmdFile) {
 	} else if (!strcmp(start, "%packages")) {
 	    inPackages = 1;
 	} else {
-	    if (poptParseArgvString(start, &argc, &argv) || !argc) {
+	    if (poptParseArgvString(start, &argc, (const char ***) &argv) || !argc) {
 		newtWinMessage(_("Kickstart Error"), _("OK"), 
 			       _("Error on line %d of kickstart file %s."),
 				argv[0], line, cmdFile);

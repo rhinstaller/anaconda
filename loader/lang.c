@@ -10,6 +10,10 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <zlib.h>
+
+#include <glob.h>   /* XXX rpmlib.h */
+#include <dirent.h> /* XXX rpmlib.h */
+
 #include <rpm/rpmio.h>
 #include <linux/keyboard.h>
 #include <linux/kd.h>
@@ -121,18 +125,18 @@ void loadLanguage (char * file, int flags) {
 	    sprintf(filename, "/etc/loader.tr");
     }
 
-    stream = fdOpen(file, O_RDONLY, 0644);
+    stream = Fopen (file, "r.fdio");
 
-    if (fdFileno(stream) < 0) {
+    if (!stream || Ferror (stream)) {
 	newtWinMessage("Error", "OK", "Cannot open %s: %s. Installation will "
-			"proceed in English.", file, strerror(errno));
+			"proceed in English.", file, Fstrerror(stream));
 	return ;
     }
     
     sprintf(filename, "%s.tr", key);
 
     rc = installCpioFile(stream, filename, "/tmp/translation", 1);
-    fdClose(stream);
+    Fclose(stream);
 
     if (rc || access("/tmp/translation", R_OK)) {
 	newtWinMessage("Error", "OK", "Cannot get translation file %s.\n", 
@@ -181,15 +185,15 @@ static int loadFont(char * fontFile, int flags) {
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
-	stream = fdOpen("/etc/fonts.cgz", O_RDONLY, 0644);
-	if (fdFileno(stream) < 0) {
+	stream = Fopen("/etc/fonts.cgz", "r.fdio");
+	if (!stream || Ferror (stream)) {
 	    newtWinMessage("Error", "OK", 
-			"Cannot open fonts: %s", strerror(errno));
+			"Cannot open fonts: %s", Fstrerror(stream));
 	    return LOADER_ERROR;
 	}
 
 	rc = installCpioFile(stream, fontFile, "/tmp/font", 1);
-	fdClose(stream);
+        Fclose(stream);
 	if (rc || access("/tmp/font", R_OK)) {
 	    return LOADER_ERROR;
 	}

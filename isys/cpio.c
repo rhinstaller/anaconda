@@ -10,8 +10,8 @@
 int installCpioFile(FD_t fd, char * cpioName, char * outName, int inWin) {
     struct cpioFileMapping map;
     int rc;
-    char * failedFile;
-    CFD_t cfdbuf, *cfd = &cfdbuf;
+    const char * failedFile;
+    FD_t cfd;
 
     if (outName) {
 	map.archivePath = cpioName;
@@ -19,12 +19,12 @@ int installCpioFile(FD_t fd, char * cpioName, char * outName, int inWin) {
 	map.mapFlags = CPIO_MAP_PATH;
     }
 
-    cfd->cpioIoType = cpioIoTypeGzFd;
-    cfd->cpioGzFd = gzdFdopen(fdDup(fdFileno(fd)), "r");
-    
+    (void) Fflush(fd);
+    cfd = Fdopen(fdDup(Fileno(fd)), "r.gzdio");
+
     rc = cpioInstallArchive(cfd, outName ? &map : NULL, 1, NULL, NULL, 
 			    &failedFile);
-    gzdClose(cfd->cpioGzFd);
+    Fclose(cfd);
 
     if (rc || access(outName, R_OK)) {
 	return -1;
