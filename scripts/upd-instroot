@@ -202,6 +202,7 @@ lib/ld-*
 lib/libc*
 lib/libcom_err*
 lib/libcrypt*
+usr/lib/libcrypt*
 lib/libdb-*
 lib/libdb-3.0
 lib/libdb.so.2
@@ -318,7 +319,7 @@ sbin/swapoff
 sbin/mkswap
 sbin/tune2fs
 bin/dd
-bin/gawk-3.1.0
+bin/gawk*
 bin/gettext
 bin/mknod
 bin/login
@@ -342,7 +343,7 @@ lib/libutil-*.so*
 lib/libcrypt*
 lib/libc.so*
 lib/libc-*so*
-lib/ld.so*
+lib/ld*.so*
 lib/ld-*.so*
 lib/libresolv.so*
 lib/libresolv-*.so*
@@ -357,6 +358,7 @@ usr/lib/locale/ja_JP*/*
 etc/motd
 etc/issue.net
 usr/X11R6/bin/xauth
+usr/share/anaconda/*
 EOF
 fi
       

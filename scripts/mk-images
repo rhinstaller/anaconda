@@ -456,14 +456,18 @@ makeinitrd() {
 	$MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh $MBD_DIR/mnt/source \
 	$MBD_DIR/etc/locale/{de,en,ja}/LC_MESSAGES
        for links in X11R6 bin sbin share; do
-          ln -sf mnt/runtime/usr/$links $MBD_DIR/usr/$links
+          ln -sf /mnt/runtime/usr/$links $MBD_DIR/usr/$links
        done
        cp -f $IMGPATH/linuxrc $MBD_DIR/linuxrc
        ln -s ../linuxrc $MBD_DIR/sbin/init
        cp -f $IMGPATH/usr/bin/ksh $MBD_DIR/sbin/ksh
        ln -sf ksh $MBD_DIR/sbin/sh
        cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
-       cp -f $IMGPATH/usr/bin/gawk-3.1.0 $MBD_DIR/sbin/awk
+       if [ "$BUILDARCH" = "s390" ]; then
+          cp -f $IMGPATH/usr/bin/gawk-3.1.0 $MBD_DIR/sbin/awk
+       else
+          cp -f $IMGPATH/usr/bin/gawk-3.0.6 $MBD_DIR/sbin/awk
+       fi
        cp -f $IMGPATH/usr/bin/formatmnt $MBD_DIR/sbin/formatmnt
        cp -f $IMGPATH/usr/bin/netsetup $MBD_DIR/sbin/netsetup
        cp -f $IMGPATH/usr/bin/gettext $MBD_DIR/sbin/gettext
@@ -513,7 +517,7 @@ makeinitrd() {
           cp -pRf $IMGPATH/usr/lib/locale/$loc/* \
 		$MBD_DIR/usr/lib/locale/$loc/
        done
-       ln -sf $MBD_DIR/usr/lib/locale/ja_JP.eucjp ja_JP
+       ln -sf ja_JP.eucjp $MBD_DIR/usr/lib/locale/ja_JP
        cp -f $IMGPATH/etc/services $MBD_DIR/etc/
        #cp -f $IMGPATH/etc/motd $MBD_DIR/etc/
        #cp -f $IMGPATH/etc/issue.net $MBD_DIR/etc/
@@ -527,10 +531,15 @@ makeinitrd() {
        cp -df $IMGPATH/lib/libnss_files* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libutil-*.so* $MBD_DIR/lib
-       cp -df $IMGPATH/lib/libcrypt* $MBD_DIR/lib
+       cp -df $IMGPATH/lib/libcrypt*so* $MBD_DIR/lib
+       cp -df $IMGPATH/usr/lib/libcrypt*so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libc.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libc-*.so* $MBD_DIR/lib
-       cp -df $IMGPATH/lib/ld.so* $MBD_DIR/lib
+       if [ "$BUILDARCH" = "s390" ]; then
+          cp -df $IMGPATH/lib/ld.so* $MBD_DIR/lib
+       else   # (s390x)
+          cp -df $IMGPATH/lib/ld64.so* $MBD_DIR/lib
+       fi
        cp -df $IMGPATH/lib/ld-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libresolv-*.so* $MBD_DIR/lib
@@ -538,7 +547,11 @@ makeinitrd() {
        cp -df $IMGPATH/lib/libm.so* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libm-*.so* $MBD_DIR/lib
        cp -df $IMGPATH/usr/lib/libz.so* $MBD_DIR/lib
-       cp -df $IMGPATH/lib/libssl* $MBD_DIR/lib
+       if [ "$BUILDARCH" = "s390" ]; then
+         cp -df $IMGPATH/lib/libssl* $MBD_DIR/lib
+       else
+         cp -df $IMGPATH/usr/lib/libssl* $MBD_DIR/lib
+       fi
        cp -df $IMGPATH/lib/libext2* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libcom_err* $MBD_DIR/lib
        cp -df $IMGPATH/lib/libe2p* $MBD_DIR/lib
