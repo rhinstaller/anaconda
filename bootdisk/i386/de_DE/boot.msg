@@ -1,12 +1,12 @@
 
  
-              09Willkommen bei 0cRed Hat09 Linux 6.9!07
+              09Willkommen bei 0cRed Hat09 Linux 7.0!07
 
  o  Um eine grafische Installation oder Aktualisierung auf einem System
-    vorzunehmen, auf dem 0cRed Hat07 Linux 2.0 oder sp„ter ausgefhrt
+    vorzunehmen, auf dem 0cRed Hat07 Linux 3.0.3 oder sp„ter ausgefhrt
     wird, drcken Sie die 0f<EINGABETASTE>07.
  o  Um eine textbasierte Installation oder Aktualisierung auf einem System
-    vorzunehmen, auf dem 0cRed Hat07 Linux 2.0 oder sp„ter ausgefhrt
+    vorzunehmen, auf dem 0cRed Hat07 Linux 3.0.3 oder sp„ter ausgefhrt
     wird, geben Sie Folgendes ein: 0ftext <EINGABETASTE>07.
  o  Um den Expertenmodus zu aktivieren, geben Sie ein:
 0fexpert <EINGABETASTE>07.  Drcken Sie 05<F3>07, um weitere
