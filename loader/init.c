@@ -5,7 +5,7 @@
  *
  * Erik Troan (ewt@redhat.com)
  *
- * Copyright 1996 Red Hat Software 
+ * Copyright 1996 - 2002 Red Hat Software 
  *
  * This software may be freely redistributed under the terms of the GNU
  * public license.
