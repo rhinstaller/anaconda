@@ -44,8 +44,13 @@ fi
 
 modversions=$(rpm -ql kernel-source-$version | grep modversions.h)
 
-if [ ! -f "$srcname" -o ! -f "$modversions" ]; then
-    echo "either $srcname or $modversions doesn't exist"
+if [ ! -f "$srcname" ]; then
+    echo "$srcname does not exist"
+    usage
+fi
+
+if [ ! -f "$modversions" ]; then
+    echo "$modversions doesn't exist"
     usage
 fi
 
@@ -77,7 +82,7 @@ for kinfo in $klist; do
 
     mkdir $dir
 
-    gcc $defines -I/usr/src/linux-2.4.2/include -include $modversions -DMODVERSIONS -DMODULE -D__KERNEL__ -Wall -Wstrict-prototypes -O6 -c $srcname -o $dir/$obj
+    gcc $defines -I/usr/src/linux-${version}/include -include $modversions -DMODVERSIONS -DMODULE -D__KERNEL__ -Wall -Wstrict-prototypes -O6 -c $srcname -o $dir/$obj
 
     rc=$?
     echo
@@ -91,7 +96,7 @@ cd /tmp/modules
 find ${version}* -type f | cpio --quiet -H crc -o | gzip -9 > modules.cgz
 rm -rf ${version}*
 echo "$name driver disk" > rhdd-6.1
-touch pcitable
+grep "$name" /usr/share/kudzu/pcitable > pcitable
 touch modules.dep
 
 /usr/lib/anaconda-runtime/modlist -m -f /usr/lib/anaconda-runtime/loader/module-info $name | sed 's/	"/	"Updated /' > modinfo 
