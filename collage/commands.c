@@ -441,3 +441,17 @@ int lsCommand(int argc, char ** argv) {
 
     return 0;
 }
+
+int gunzipCommand(int argc, char ** argv) {
+    gzFile f;
+    char buf[16384];
+    int i;
+
+    f = gzdopen(0, "r");
+    while ((i = gzread(f, buf, sizeof(buf))) > 0)
+	write(1, buf, i);
+
+    gzclose(f);
+
+    return 0;
+}
