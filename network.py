@@ -20,6 +20,7 @@ import string
 import isys
 import socket
 import os
+import iutil
 
 from rhpl.log import log
 from rhpl.translate import _, N_
@@ -113,7 +114,7 @@ class Network:
                 netinf = string.splitfields(line, '=')
                 info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
-            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU"):
+            for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU", "REMIP"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
             if info.has_key("GATEWAY"):
@@ -166,6 +167,10 @@ class Network:
         self.gateway = gw
 
     def lookupHostname(self):
+        # don't reconfigure the network on s390, this can take up to 
+        # 2 minutes and nfs times out:
+        if iutil.getArch() != 's390':
+            return None
 	# can't look things up if they don't exist!
 	if not self.hostname or self.hostname == "localhost.localdomain":
             return None
