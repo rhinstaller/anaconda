@@ -352,8 +352,8 @@ def getDasdDevPort():
 
     return ret
 
-+# get active/ready state of a dasd device
-+# returns 0 if we're fine, 1 if not
+# get active/ready state of a dasd device
+# returns 0 if we're fine, 1 if not
 def getDasdState(dev):
     devs = getDasdDevPort()
     if not devs.has_key(dev):
