@@ -18,6 +18,7 @@ from dependencies import *
 from lilo import *
 from examine import *
 from bootdisk import *
+from timezone import *
 from gui import _
 
 UPGRADE = 0
@@ -34,7 +35,7 @@ class InstallPathWindow (InstallWindow):
         self.commonSteps = [LanguageWindow, KeyboardWindow, MouseWindow,
                             WelcomeWindow, InstallPathWindow]
 
-        self.installSteps = [NetworkWindow, PartitionWindow, FormatWindow, PackageSelectionWindow,
+        self.installSteps = [TimezoneWindow, NetworkWindow, PartitionWindow, FormatWindow, PackageSelectionWindow,
 	                     UnresolvedDependenciesWindow, LiloWindow, AuthWindow, AccountWindow,
                              InstallProgressWindow, BootdiskWindow, CongratulationWindow]
 
