@@ -1,3 +1,9 @@
+2005-03-31  Chris Lumens  <clumens@redhat.com>
+
+	* iw/network_gui.py  (NetworkWindow.setHostOptionsSensitivity): Make
+	sure automatic hostname option isn't greyed out when using a static IP
+	for installation (#149116).
+
 2005-03-30  Jeremy Katz  <katzj@redhat.com>
 	
 	* anaconda.spec: Bump version.
