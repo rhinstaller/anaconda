@@ -565,6 +565,7 @@ class XConfigWindow (InstallWindow):
 #        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
 #        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
 #        self.todo.videoCardOriginalNode = ""
+#        self.todo.videoCardRamState = 
 
         
         if self.skipme:
@@ -674,7 +675,8 @@ class XConfigWindow (InstallWindow):
 
         except:
             pass
-
+        
+        self.todo.videoRamState = self.default_ram
         self.ramOption.remove_menu ()
         self.ramMenu.set_active(self.default_ram)
         self.ramOption.set_menu (self.ramMenu)
@@ -1202,7 +1204,7 @@ class XConfigWindow (InstallWindow):
             hbox = GtkHBox()
             hbox.set_border_width(3)
             
-            label = GtkLabel (_("RAM present on video card: "))
+            label = GtkLabel (_("Video card RAM: "))
 
             self.ramOption = GtkOptionMenu()
             self.ramOption.set_usize (40, 20)
@@ -1235,6 +1237,7 @@ class XConfigWindow (InstallWindow):
 
             self.default_ram = 0
             count = 0
+
             for size in ("256k", "512k", "1024k", "2048k", "4096k",
                          "8192k", "16384k", "32768k"):
                 if size[:-1] == self.todo.x.vidRam:
