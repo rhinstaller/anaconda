@@ -215,6 +215,24 @@ int set_wep_key(char * ifname, char * key) {
     return 0;
 }
 
+enum { MODE_AUTO, MODE_ADHOC, MODE_MANAGED, MODE_MASTER, MODE_REPEATER,
+       MODE_SECONDARY, MODE_MONITOR };
+
+int set_managed(char * ifname) {
+    int sock = get_socket();
+    struct iwreq wreq = get_wreq(ifname);
+
+    wreq.u.mode = MODE_MANAGED;
+    int rc = ioctl(sock, SIOCSIWMODE, &wreq);
+    close(sock);
+
+    if (rc < 0) {
+        fprintf(stderr, "failed to set wep key: %s\n", strerror(errno));
+        return -1;
+    }
+
+    return 0;
+}
 
 #ifdef STANDALONE
 int main(int argc, char **argv) {
