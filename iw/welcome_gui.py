@@ -18,7 +18,6 @@ class WelcomeWindow (InstallWindow):
         frame.set_shadow_type (SHADOW_IN)
 
         image = configFileData["WelcomeScreen"]
-        print "try to load", image
         pix = self.ics.readPixmap(image)
         
         if pix:
@@ -47,7 +46,7 @@ class ReconfigWelcomeWindow (InstallWindow):
         if self.cancelChoice.get_active():
             import sys
 
-            print "Exitting"
+            print (_("Exiting anaconda now"))
             sys.exit(0)
         else:
             self.beingDisplay = 0
