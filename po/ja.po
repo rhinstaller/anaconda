@@ -60,11 +60,11 @@ msgstr ""
 
 #: ../installclass.py:248
 msgid "You are about to erase any preexisting Linux installations on your system."
-msgstr ""
+msgstr "今から、システム上の既にあるLinuxインストールを削除します。"
 
 #: ../installclass.py:288
 msgid "You are about to erase ALL DATA on your hard drive to make room for your Linux installation."
-msgstr ""
+msgstr "今から、ハード ディスクのすべてのデータを削除します。"
 
 #: ../text.py:50
 msgid "What language would you like to use during the installation process?"
@@ -158,7 +158,7 @@ msgstr "エラー"
 
 #: ../text.py:232
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Linux パーティションが存在しません。このシステムをアップグレードすることはできません。"
+msgstr "Linux パーティションが存在しません。このシステムをアップグレードすることはできません！"
 
 #: ../text.py:245
 msgid "System to Upgrade"
@@ -196,7 +196,7 @@ msgid ""
 "\n"
 "If you have purchased Official Red Hat Linux, be sure to register your purchase through our web site, http://www.redhat.com/."
 msgstr ""
-"Red Hat Linux へようこそ!\n"
+"Red Hat Linux へようこそ！\n"
 "\n"
 "このインストールの手順については、Red Hat Software が提供している『Official Red Hat Linux Installation Guide』で詳しく説明しています。このマニュアルをお持ちの場合は、先に進む前にインストールについての説明をお読みください。\n"
 "\n"
@@ -744,7 +744,7 @@ msgstr ""
 
 #: ../iw/confirm.py:27
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "「次」をクリックすると、Red Hat Linuxのインストールを開始します。"
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -780,7 +780,7 @@ msgid ""
 " You can't upgrade this sytem!"
 msgstr ""
 "Linux パーティションが存在しません。\n"
-"このシステムをアップグレードすることはできません。"
+"このシステムをアップグレードすることはできません！"
 
 #: ../iw/examine.py:59
 msgid "Customize packages to be upgraded"
@@ -908,7 +908,7 @@ msgstr "ブート ラベル"
 
 #: ../iw/mouse.py:134
 msgid "Emulate 3 Buttons"
-msgstr "3 ボタン マウスのエミュレーションを設定しますか?"
+msgstr "3 ボタン マウスのエミュレーションを設定しますか？"
 
 #: ../iw/network.py:148
 msgid "Configure using DHCP"
@@ -1032,7 +1032,7 @@ msgstr "メモリ不足"
 
 #: ../iw/rootpartition.py:44 ../textw/partitioning.py:161
 msgid "As you don't have much memory in this machine, we need to turn on swap space immediately. To do this we'll have to write your new partition table to the disk immediately. Is that okay?"
-msgstr "マシンのメモリが不足しているため、今すぐスワップ スペースを有効にする必要がスワップ スペースを有効にするためには、直ちにディスクに新しいパーティション テーブルを書き込む必要があります。新しいパーティション テーブルを書き込みますか?"
+msgstr "マシンのメモリが不足しているため、今すぐスワップ スペースを有効にする必要がスワップ スペースを有効にするためには、直ちにディスクに新しいパーティション テーブルを書き込む必要があります。新しいパーティション テーブルを書き込みますか？"
 
 #: ../iw/rootpartition.py:143 ../textw/partitioning.py:123
 msgid "Automatic Partitioning"
@@ -1217,7 +1217,7 @@ msgstr ""
 
 #: ../textw/userauth.py:10
 msgid "Pick a root password. You must type it twice to ensure you know what it is and didn't make a mistake in typing. Remember that the root password is a critical part of system security!"
-msgstr "root パスワードを決めてください。確認のため、パスワードは 2 回入力する必要があります。システムのセキュリティ上、root パスワードは慎重に決めてください。"
+msgstr "root パスワードを決めてください。確認のため、パスワードは 2 回入力する必要があります。システムのセキュリティ上、root パスワードは慎重に決めてください！"
 
 #: ../loader/urls.c:298 ../textw/userauth.py:23
 msgid "Password:"
@@ -1448,7 +1448,7 @@ msgstr "パーティションの削除"
 
 #: ../libfdisk/gnomefsedit.c:602 ../libfdisk/newtfsedit.c:692
 msgid "Are you sure you want to delete this partition?"
-msgstr "このパーティションを削除してもよろしいですか?"
+msgstr "このパーティションを削除してもよろしいですか？"
 
 #: ../libfdisk/gnomefsedit.c:660 ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:670 ../libfdisk/gnomefsedit.c:672 ../libfdisk/newtfsedit.c:259 ../libfdisk/newtfsedit.c:265 ../libfdisk/newtfsedit.c:269 ../libfdisk/newtfsedit.c:271
 msgid "Edit Partition"
@@ -1496,7 +1496,7 @@ msgstr "マウント ポイントが見つかりません"
 
 #: ../libfdisk/gnomefsedit.c:1002 ../libfdisk/newtfsedit.c:499
 msgid "You have not selected a mount point for this partition. Are you sure you want to do this?"
-msgstr "このパーティションにはマウント ポイントが選択されていません。このまま続行しますか?"
+msgstr "このパーティションにはマウント ポイントが選択されていません。このまま続行しますか？"
 
 #: ../libfdisk/gnomefsedit.c:1045 ../libfdisk/gnomefsedit.c:1887 ../libfdisk/newtfsedit.c:539
 msgid "Mount Point Error"
@@ -1533,7 +1533,7 @@ msgid ""
 " Are you sure you want to do this?"
 msgstr ""
 "パーティションを 1 台のドライブに制限しないで RAID パーティションを設定しました。\n"
-"このまま続行しますか?"
+"このまま続行しますか？"
 
 #: ../libfdisk/gnomefsedit.c:1114
 msgid "Close"
@@ -1631,11 +1631,11 @@ msgstr "ブート パーティション (/boot) は RAID-1 でしか指定できません。"
 #: ../libfdisk/gnomefsedit.c:2027
 #, c-format
 msgid "The partition %s is a pre-existing partition in the set of partitions for this RAID device.  The mount point is set to /boot. Are you sure that it is possible to boot from this partition?"
-msgstr "パーティション %s は、この RAID デバイスを構成するパーティションに既に存在するパーティションです。マウント ポイントは /boot に設定されています。このパーティションはブート可能になっていますか?"
+msgstr "パーティション %s は、この RAID デバイスを構成するパーティションに既に存在するパーティションです。マウント ポイントは /boot に設定されています。このパーティションはブート可能になっていますか？"
 
 #: ../libfdisk/gnomefsedit.c:2034
 msgid "Use Pre-existing Partition?"
-msgstr "既に存在するパーティションを使用しますか?"
+msgstr "既に存在するパーティションを使用しますか？"
 
 #: ../libfdisk/gnomefsedit.c:2143
 msgid "Auto-Partition"
@@ -1664,11 +1664,11 @@ msgstr "ワークステーション"
 
 #: ../libfdisk/gnomefsedit.c:2305
 msgid "Delete RAID Device?"
-msgstr "RAID デバイスを削除しますか?"
+msgstr "RAID デバイスを削除しますか？"
 
 #: ../libfdisk/gnomefsedit.c:2306
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "この RAID デバイスを削除してもよろしいですか?"
+msgstr "この RAID デバイスを削除してもよろしいですか？"
 
 #: ../libfdisk/gnomefsedit.c:2357 ../libfdisk/newtfsedit.c:1579
 msgid "Reset Partition Table"
@@ -1676,7 +1676,7 @@ msgstr "パーティション テーブルのリセット"
 
 #: ../libfdisk/gnomefsedit.c:2359 ../libfdisk/newtfsedit.c:1581
 msgid "Reset partition table to original contents? "
-msgstr "パーティション テーブルを元の内容にリセットしますか?"
+msgstr "パーティション テーブルを元の内容にリセットしますか？"
 
 #: ../libfdisk/gnomefsedit.c:2395 ../libfdisk/gnomefsedit.c:2446
 msgid "<Swap>"
@@ -1704,23 +1704,23 @@ msgstr "パーティション"
 
 #: ../libfdisk/gnomefsedit.c:3201
 msgid "_Add..."
-msgstr "追加(_A)..."
+msgstr "追加\n(_A)"
 
 #: ../libfdisk/gnomefsedit.c:3213
 msgid "_Edit..."
-msgstr "編集(_E)..."
+msgstr "編集\n(_E)"
 
 #: ../libfdisk/gnomefsedit.c:3214
 msgid "_Delete"
-msgstr "削除(_D)"
+msgstr "削除\n(_D)"
 
 #: ../libfdisk/gnomefsedit.c:3215
 msgid "_Reset"
-msgstr "リセット(_R)"
+msgstr "リセット\n(_R)"
 
 #: ../libfdisk/gnomefsedit.c:3244
 msgid "_Make RAID Device"
-msgstr "RAID デバイスの作成(_M)"
+msgstr "RAID デバイスの\n作成(_M)"
 
 #: ../libfdisk/gnomefsedit.c:3253
 msgid "Auto Partition"
@@ -1766,7 +1766,7 @@ msgid ""
 msgstr ""
 "未割り当てのパーティションが残っています。今、終了すると、未割り当てのパーティションはディスクに書き込まれません。\n"
 "\n"
-"終了してもよろしいですか?"
+"終了してもよろしいですか？"
 
 #: ../libfdisk/newtfsedit.c:1494
 msgid "Save Changes"
@@ -1774,7 +1774,7 @@ msgstr "変更内容を保存する"
 
 #: ../libfdisk/newtfsedit.c:1496
 msgid "Save changes to partition table(s)?"
-msgstr "変更内容をパーティション テーブルに保存しますか?"
+msgstr "変更内容をパーティション テーブルに保存しますか？"
 
 #: ../libfdisk/newtfsedit.c:1540
 msgid "You may only delete NFS mounts."
@@ -1830,7 +1830,7 @@ msgstr ""
 
 #: ../loader/devices.c:211
 msgid "Which driver should I try?"
-msgstr "どのドライバを試しますか?"
+msgstr "どのドライバを試しますか？"
 
 #: ../loader/devices.c:219
 msgid "Specify module parameters"
@@ -1905,7 +1905,7 @@ msgstr "デバイスの追加"
 
 #: ../loader/loader.c:322
 msgid "I don't have any special device drivers loaded for your system. Would you like to load some now?"
-msgstr "このシステム用の特別なデバイス ドライバはロードされていません。今すぐロードしますか?"
+msgstr "このシステム用の特別なデバイス ドライバはロードされていません。今すぐロードしますか？"
 
 #: ../loader/loader.c:406 ../loader/loader.c:408
 msgid "Loading"
@@ -1925,7 +1925,7 @@ msgstr "ハード ディスク ドライブ"
 
 #: ../loader/loader.c:597
 msgid "You don't seem to have any hard drives on your system! Would you like to configure additional devices?"
-msgstr "このシステムにはハード ディスク ドライブが接続されていないようです。追加のデバイスの設定を行いますか?"
+msgstr "このシステムにはハード ディスク ドライブが接続されていないようです！追加のデバイスの設定を行いますか？"
 
 #: ../loader/loader.c:610
 msgid "What partition and directory on that partition hold the RedHat/RPMS and RedHat/base directories? If you don't see the disk drive you're using listed here, press F2 to configure additional devices."
@@ -1974,11 +1974,11 @@ msgstr "インストール方法"
 
 #: ../loader/loader.c:1098
 msgid "What type of media contains the rescue image?"
-msgstr "どのタイプのメディアにレスキュー イメージが含まれていますか?"
+msgstr "どのタイプのメディアにレスキュー イメージが含まれていますか？"
 
 #: ../loader/loader.c:1100
 msgid "What type of media contains the packages to be installed?"
-msgstr "どのタイプのメディアにインストールするパッケージが含まれていますか?"
+msgstr "どのタイプのメディアにインストールするパッケージが含まれていますか？"
 
 #: ../loader/loader.c:1610
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2020,7 +2020,10 @@ msgstr ""
 
 #: ../loader/net.c:228
 msgid "Please enter the IP configuration for this machine. Each item should be entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
-msgstr "このマシンの IP 設定を入力してください。各項目にはドットで区切られた 10 進表記の IP アドレス (例: 1.2.3.4) を入力してください。"
+msgstr ""
+"このマシンの IP 設定を入力してください。\n"
+"各項目にはドットで区切られた 10 進表記の\n"
+"IP アドレス (例: 1.2.3.4) を入力してください。"
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -2098,7 +2101,7 @@ msgstr "ネットワークの設定"
 
 #: ../loader/net.c:702
 msgid "Would you like to set up networking?"
-msgstr "ネットワークの設定を行いますか?"
+msgstr "ネットワークの設定を行いますか？"
 
 #: ../loader/urls.c:62 ../loader/urls.c:65
 msgid "Retrieving"
