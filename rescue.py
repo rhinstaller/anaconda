@@ -2,8 +2,9 @@
 # rescue.py - anaconda rescue mode setup
 #
 # Mike Fulbright <msf@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001-2003 Red Hat, Inc.
+# Copyright 2001-2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -349,6 +350,9 @@ def runRescue(instPath, mountroot, id):
 			fs.turnOnSwap("/")
 		    except:
 			log("Error enabling swap")
+
+                # now that dev is udev, bind mount the installer dev there
+                isys.mount("/dev", "/mnt/sysimage/dev", bindMount = 1)
 
 		# set a library path to use mounted fs
 		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/X11R6/lib"
