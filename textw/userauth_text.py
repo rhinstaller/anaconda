@@ -85,7 +85,7 @@ class UsersWindow:
 	    helptag = "edituser"
 	else:
 	    title = _("Add User")
-	    helptag = "newuser"
+	    helptag = "adduser"
 
         while 1:
             (rc, ent) = EntryWindow (self.screen, title, text,
@@ -181,7 +181,7 @@ class UsersWindow:
 		return INSTALL_OK
 	    self.users[user["id"]] = user
         
-        g = GridFormHelp (screen, _("User Account Setup"), "addusers", 1, 4)
+        g = GridFormHelp (screen, _("User Account Setup"), "newusers", 1, 4)
 
 	t = TextboxReflowed(60, _("What user account would you like to have "
 	    "on the system? You should have at least one non-root account "

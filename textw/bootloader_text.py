@@ -26,7 +26,7 @@ class BootloaderChoiceWindow:
     def __call__(self, screen, dispatch, bl, fsset, diskSet):
         # XXX need more text here
         t = TextboxReflowed(53,
-                   _("Which bootloader would you like to use?"))
+                   _("Which boot loader would you like to use?"))
 
         if dispatch.stepInSkipList("instbootloader"):
             useGrub = 0
@@ -47,7 +47,8 @@ class BootloaderChoiceWindow:
         skipbl = blradio.add(_("No Boot Loader"), "nobl", noBl)
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
 
-        grid = GridFormHelp(screen, _("Boot Loader Configuration"), "bootloader", 1, 5)
+        grid = GridFormHelp(screen, _("Boot Loader Configuration"),
+                            "btloadinstall", 1, 5)
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(grub, 0, 1, (0,0,0,0))
         grid.add(lilo, 0, 2, (0,0,0,0))
@@ -324,13 +325,13 @@ class bootloaderPassword:
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON])
 
 	text = TextboxReflowed(55,
-		    _("A GRUB password prevents users from passing arbitrary"
-                      "options to the kernel.  For highest security, we"
-                      "recommend setting a password, but this is not"
+		    _("A GRUB password prevents users from passing arbitrary "
+                      "options to the kernel.  For highest security, we "
+                      "recommend setting a password, but this is not "
                       "necessary for more casual users."))
 
 	g = GridFormHelp(screen, _("Boot Loader Configuration"), 
-			 "grubpass", 1, 6)
+			 "grubpasswd", 1, 6)
 	g.add(text, 0, 0, (0,0,0,1), anchorLeft = 1)
 
 

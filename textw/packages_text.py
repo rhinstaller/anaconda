@@ -55,7 +55,7 @@ class PackageGroupWindow:
 	ct.setCallback(self.updateSize, (la, comps, ct))
 
         g = GridFormHelp (screen, _("Package Group Selection"), 
-			  "components", 1, 4)
+			  "packagetree", 1, 4)
 
         g.add (la, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
         g.add (ct, 0, 1, (0, 0, 0, 1))
@@ -234,8 +234,8 @@ class IndividualPackageWindow:
 	self.lbl = Label ("")
 	self.printTotal()
 
-	g = GridFormHelp (screen, _("Individual Package Selection"), "packagetree", 
-			    1, 3)
+	g = GridFormHelp (screen, _("Individual Package Selection"),
+                          "indvpackage", 1, 3)
 	g.add (ct, 0, 0, (0, 0, 0, 0))
 	g.add (self.lbl, 0, 1, (4, 0, 0, 1), anchorLeft = 1)
 	g.add (bb, 0, 2, growx = 1)

@@ -157,7 +157,7 @@ class XCustomWindow:
                                      TEXT_BACK_BUTTON))
 
             toplevel = GridFormHelp (screen, _("X Customization"),
-                                     "xcustomization", 1, 5)
+                                     "custom", 1, 5)
 
             text = _("Select the color depth and video mode you want to "
                      "use for your system. "
@@ -375,7 +375,7 @@ class MonitorWindow:
                                      TEXT_BACK_BUTTON))
 
             toplevel = GridFormHelp (screen, _("Monitor Configuration"),
-                                     "monitorconfig", 1, 5)
+                                     "monitor", 1, 5)
 
             text = _("Select the monitor for your system.  Use the '%s' "
                      "button to reset to the probed values." % (_("Default")))
