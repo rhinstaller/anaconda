@@ -31,7 +31,7 @@ HWLIBS = -lkudzu_loader  -lpci
 
 DEBUG = -ggdb
 COPTS = $(DEBUG) -Os -Wall -DVERSION='"$(VERSION)"'
-CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H -DPRODUCTNAME='$(PRODUCTNAME)'
+CFLAGS = $(COPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BITS=64 -DHAVE_LIBIO_H 
 STATIC = -static
 
 ifeq (1, $(USEDIET))

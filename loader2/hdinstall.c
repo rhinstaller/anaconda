@@ -386,7 +386,7 @@ char * mountHardDrive(struct installMethod * method,
 			   "partition hold the CD (iso9660) images "
 			   "for %s? If you don't see the disk drive "
 			   "you're using listed here, press F2 "
-			   "to configure additional devices."), PRODUCTNAME);
+			   "to configure additional devices."), getProductName());
 	text = newtTextboxReflowed(-1, -1, buf, 62, 5, 5, 0);
 	free(buf);
 	

@@ -135,8 +135,8 @@ static char * mediaCheckCdrom(char *cddriver) {
 static void wrongCDMessage(void) {
     char *buf = sdupprintf(_("The %s CD was not found "
 			     "in any of your CDROM drives. Please insert "
-			     "the %s CD and press %s to retry."), PRODUCTNAME,
-			   PRODUCTNAME, _("OK"));
+			     "the %s CD and press %s to retry."), getProductName(),
+			   getProductName(), _("OK"));
     newtWinMessage(_("Error"), _("OK"), buf, _("OK"));
     free(buf);
 }
@@ -342,13 +342,13 @@ char * setupCdrom(char * location,
             if (foundinvalid)
                 buf = sdupprintf(_("No %s CD was found which matches your "
                                    "boot media.  Please insert the %s CD "
-                                   "and press %s to retry."), PRODUCTNAME,
-                                 PRODUCTNAME, _("OK"));
+                                   "and press %s to retry."), getProductName(),
+                                 getProductName(), _("OK"));
             else
                 buf = sdupprintf(_("The %s CD was not found in any of your "
                                    "CDROM drives. Please insert the %s CD "
-                                   "and press %s to retry."), PRODUCTNAME,
-                                 PRODUCTNAME, _("OK"));
+                                   "and press %s to retry."), getProductName(),
+                                 getProductName(), _("OK"));
 
             rc = newtWinChoice(_("CD Not Found"),
                                _("OK"), _("Back"), buf, _("OK"));

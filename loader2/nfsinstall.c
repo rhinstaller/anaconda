@@ -48,7 +48,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
     entries[1].flags = NEWT_FLAG_SCROLL;
     entries[2].text = NULL;
     entries[2].value = NULL;
-    buf = sdupprintf(_(netServerPrompt), "NFS", PRODUCTNAME);
+    buf = sdupprintf(_(netServerPrompt), "NFS", getProductName());
     rc = newtWinEntries(_("NFS Setup"), buf, 60, 5, 15,
                         24, entries, _("OK"), _("Back"), NULL);
     free(buf);
@@ -208,11 +208,11 @@ char * mountNfsImage(struct installMethod * method,
                 if (foundinvalid) 
                     buf = sdupprintf(_("The %s installation tree in that "
                                        "directory does not seem to match "
-                                       "your boot media."), PRODUCTNAME);
+                                       "your boot media."), getProductName());
                 else
                     buf = sdupprintf(_("That directory does not seem to "
                                        "contain a %s installation tree."),
-                                     PRODUCTNAME);
+                                     getProductName());
                 newtWinMessage(_("Error"), _("OK"), buf);
                 break;
             } else {

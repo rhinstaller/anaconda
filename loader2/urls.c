@@ -249,12 +249,12 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
     
     switch (protocol) {
     case URL_METHOD_FTP:
-        buf = sdupprintf(_(netServerPrompt), "FTP", PRODUCTNAME);
+        buf = sdupprintf(_(netServerPrompt), "FTP", getProductName());
         reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
         free(buf);
         break;
     case URL_METHOD_HTTP:
-        buf = sdupprintf(_(netServerPrompt), "Web", PRODUCTNAME);
+        buf = sdupprintf(_(netServerPrompt), "Web", getProductName());
         reflowedText = newtReflowText(buf, 47, 5, 5, &width, &height);
         free(buf);
         break;

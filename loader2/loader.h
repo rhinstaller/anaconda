@@ -72,6 +72,7 @@
 
 void startNewt(int flags);
 void stopNewt();
+char * getProductName(void);
 
 
 /* JKFIXME: I don't like all of the _set attribs, but without them,

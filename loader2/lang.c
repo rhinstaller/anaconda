@@ -246,7 +246,7 @@ static int setupLanguage(int choice, int flags) {
 	buf[i] = ' ';
     newtDrawRootText(0, 0, buf);
 
-    buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+    buf = sdupprintf(_(topLineWelcome), getProductName());
     newtDrawRootText(0, 0, buf);
     free(buf);
     newtPopHelpLine();

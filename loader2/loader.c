@@ -163,7 +163,7 @@ void doSuspend(void) {
 
 void startNewt(int flags) {
     if (!newtRunning) {
-        char *buf = sdupprintf(_("Welcome to %s"), PRODUCTNAME);
+        char *buf = sdupprintf(_("Welcome to %s"), getProductName());
         newtInit();
         newtCls();
         newtDrawRootText(0, 0, buf);
@@ -180,6 +180,27 @@ void startNewt(int flags) {
 void stopNewt(void) {
     if (newtRunning) newtFinished();
     newtRunning = 0;
+}
+
+char * getProductName(void) {
+    static char * productName = NULL;
+    FILE *f;
+
+    if (!productName) {
+        f = fopen("/.buildstamp", "r");
+        if (!f) {
+            productName = strdup("anaconda");
+        } else {
+            productName = malloc(256);
+            fgets(productName, 256, f); /* stamp time */
+            fgets(productName, 256, f); /* product name */
+            return productName;
+        }
+    } else {
+        return productName;
+    }
+
+    return NULL;
 }
 
 void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
@@ -546,7 +567,7 @@ static void checkForRam(int flags) {
     if (totalMemory() < MIN_RAM) {
         char *buf;
         buf = sdupprintf(_("You do not have enough RAM to install %s "
-                           "on this machine."), PRODUCTNAME);
+                           "on this machine."), getProductName());
         startNewt(flags);
         newtWinMessage(_("Error"), _("OK"), buf);
         free(buf);
@@ -1146,7 +1167,7 @@ int main(int argc, char ** argv) {
     closeLog();
     
     if (!FL_TESTING(flags)) {
-        char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), PRODUCTNAME);
+        char *buf = sdupprintf(_("Running anaconda, the %s system installer - please wait...\n"), getProductName());
         printf("%s", buf);
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
