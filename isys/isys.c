@@ -1302,7 +1302,7 @@ static PyObject * doResetFileContext(PyObject * s, PyObject * args) {
     ret = matchpathcon(fn, 0, &buf);
     /*    fprintf(stderr, "matchpathcon returned %d: set %s to %s\n", ret, fn, buf);*/
     if (ret == 0) {
-        ret = setfilecon(fn, buf);
+        ret = lsetfilecon(fn, buf);
     }
 
     return Py_BuildValue("s", buf);
