@@ -41,7 +41,7 @@ def findRootParts(intf, id, dispatch, dir, chroot):
     for (dev, fs, meta) in id.rootParts:
         id.upgradeRoot.append( (dev, fs) )
 
-    if id.rootParts is not None:
+    if id.rootParts is not None and len(id.rootParts) > 0:
         dispatch.skipStep("findinstall", skip = 0)
     else:
         dispatch.skipStep("findinstall", skip = 1)
