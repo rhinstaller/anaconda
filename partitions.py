@@ -638,6 +638,15 @@ class Partitions:
             
         return bootreq
 
+    def getBootableMountpoints(self):
+        """Return a list of bootable valid mountpoints for this arch."""
+        # FIXME: should be somewhere else, preferably some sort of arch object
+
+        if iutil.getArch() == "ia64":
+            return [ "/boot/efi" ]
+        else:
+            return [ "/boot", "/" ]
+
     def isBootable(self, request):
         """Returns if the request should be considered a 'bootable' request.
 
