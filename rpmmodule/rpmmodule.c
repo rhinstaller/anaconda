@@ -42,6 +42,8 @@ static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args);
 static PyObject * archScore(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromFD(PyObject * self, PyObject * args);
 static PyObject * findUpgradeSet(PyObject * self, PyObject * args);
+static PyObject * errorSetCallback (PyObject * self, PyObject * args);
+static PyObject * errorString (PyObject * self, PyObject * args);
 
 static PyObject * rpmtransCreate(PyObject * self, PyObject * args);
 static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args);
@@ -64,6 +66,8 @@ static PyMethodDef rpmModuleMethods[] = {
     { "opendb", (PyCFunction) rpmOpenDB, METH_VARARGS, NULL },
     { "readHeaderListFromFD", (PyCFunction) rpmHeaderFromFD, METH_VARARGS, NULL },    
     { "readHeaderListFromFile", (PyCFunction) rpmHeaderFromFile, METH_VARARGS, NULL },
+    { "errorSetCallback", (PyCFunction) errorSetCallback, METH_VARARGS, NULL },
+    { "errorString", (PyCFunction) errorString, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -511,6 +515,56 @@ static PyObject * rpmHeaderFromFile(PyObject * self, PyObject * args) {
     fdClose(fd);
     
     return list;
+}
+
+static PyObject * errorCB = NULL, * errorData = NULL;
+
+static void errorcb (void)
+{
+    PyObject * result, * args = NULL;
+
+    if (errorData) 
+	args = Py_BuildValue("(O)", errorData);
+
+    result = PyEval_CallObject(errorCB, args);
+    Py_XDECREF(args);
+
+    if (result == NULL) {
+	PyErr_Print();
+	PyErr_Clear();
+    }
+    Py_DECREF (result);
+}
+
+static PyObject * errorSetCallback (PyObject * self, PyObject * args) {
+    if (errorCB != NULL) {
+	Py_DECREF (errorCB);
+	errorCB = NULL;
+    }
+
+    if (errorData != NULL) {
+	Py_DECREF (errorData);
+	errorData = NULL;
+    }
+
+    if (!PyArg_ParseTuple(args, "O|O", &errorCB, &errorData)) return NULL;
+    
+    if (!PyCallable_Check (errorCB)) {
+	PyErr_SetString(PyExc_TypeError, "parameter must be callable");
+	return NULL;
+    }   
+
+    Py_INCREF (errorCB);
+    Py_XINCREF (errorData);
+    
+    rpmErrorSetCallback (errorcb);
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * errorString (PyObject * self, PyObject * args) {
+    return PyString_FromString(rpmErrorString ());
 }
 
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args) {

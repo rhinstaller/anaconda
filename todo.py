@@ -807,6 +807,9 @@ class ToDo:
         for package in packages:
             self.hdList[package[rpm.RPMTAG_NAME]].selected = 1
         win.pop ()
+
+    def rpmError (self):
+        todo.instLog.write (rpm.errorString () + "\n")
         
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -831,8 +834,9 @@ class ToDo:
 	    try:
 	        os.mkdir(self.instPath + i)
 	    except os.error, (errno, msg):
-                self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
-
+                # self.intf.messageWindow("Error", "Error making directory %s: %s" % (i, msg))
+                pass
+        
 	db = rpm.opendb(1, self.instPath)
 	ts = rpm.TransactionSet(self.instPath, db)
 
@@ -889,6 +893,8 @@ class ToDo:
                 intf.completePackage(h)
             else:
                 pass
+
+        rpm.errorSetCallback (self.rpmError)
 
         # XXX FIXME FIXME: -1 IGNORES all problems
         ts.run(0, -1, instCallback, p)
