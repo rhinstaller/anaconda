@@ -38,6 +38,17 @@ PKGTYPE_MANDATORY = 0
 PKGTYPE_DEFAULT = 1
 PKGTYPE_OPTIONAL = 2
 
+EVERYTHING_DESCRIPTION = N_("This group includes all the packages available.  "
+                            "Note that there are substantially more packages "
+                            "than just the ones in all the other package "
+                            "groups on this page.")
+
+EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
+                     'kernel-smp' : None,	'kernel-bigmem' : None,
+                     'kernel-summit' : None,    'kernel-enterprise' : None,
+                     'kernel-tape' : None,      'kernel-BOOTtape' : None,
+                     'kernel-pseries': None,    'kernel-iseries': None}
+
 def showMem():
     f = open("/proc/self/status", "r")
     lines = f.readlines()
@@ -540,6 +551,18 @@ class GroupSet:
             group = Group(self, xmlgrp)
             self.groups[xmlgrp.id] = group
 
+        # build up an Everything group 
+        everything = rhpl.comps.Group(self.compsxml)
+        everything.name = N_("Everything")
+        everything.id = "everything"
+        everything.description = EVERYTHING_DESCRIPTION
+        for pkgname in hdrlist.pkgnames.keys():
+            if EverythingExclude.has_key(pkgname):
+                continue
+            everything.packages[pkgname] = (u'mandatory', pkgname)
+        self.compsxml.groups["Everything"] = everything
+        self.groups["everything"] = Group(self, everything)
+
         # have to do includes and metagroups in a second pass so that
         # we can make sure the group is defined.  
         for xmlgrp in compsxml.groups.values():
@@ -551,6 +574,7 @@ class GroupSet:
                     continue
                 group.addGroupRequires(id)
             # FIXME: need to add back metapkgs
+        
 
     def mergePackageDeps(self):
         self.hdrlist.mergePackageDeps(self.compsxml.packages)
@@ -826,3 +850,5 @@ if __name__ == "__main__":
     print depcheck.added
     sys.exit(0)
     ts.run(simpleInstallCallback, 0)
+
+
