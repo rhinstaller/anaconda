@@ -162,7 +162,7 @@ class InstallInterface:
             f = None
 
             if self.configFileData.has_key("helptag"):
-                helpTag = "-%s" % (self.cw.configFileData["helptag"],)
+                helpTag = "-%s" % (self.configFileData["helptag"],)
             else:
                 helpTag = ""
             arch = "-%s" % (iutil.getArch(),)
