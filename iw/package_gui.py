@@ -307,7 +307,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     name = header[rpm.RPMTAG_NAME]
                     size = header[rpm.RPMTAG_SIZE]
                     size = size/1000000
-                    if size > 1:   #We don't want packages with > 1MB to appear as 0 MB in the list
+                    if size < 1:   #We don't want packages with > 1MB to appear as 0 MB in the list
                         size = 1
 
                     desc = header[rpm.RPMTAG_DESCRIPTION]
