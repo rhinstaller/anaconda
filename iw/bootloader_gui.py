@@ -49,13 +49,13 @@ class BootloaderWindow (InstallWindow):
                 #sys.exit(0)
 
     def getNext (self):
-        if not self.bootloader.get_active ():
+        if self.none_radio.get_active ():
 	    self.dispatch.skipStep("instbootloader")
         elif len(self.bootDevice.keys()) > 0:
 	    self.dispatch.skipStep("instbootloader", skip = 0)
 
 	    for (widget, device) in self.bootDevice.items():
-		if widget.get_active():
+		if not widget.get_active():
 		    self.bl.setDevice(device)
 
         self.bl.setUseGrub(self.grub_radio.get_active())
@@ -124,15 +124,19 @@ class BootloaderWindow (InstallWindow):
         if self.ignoreSignals:
             return
         
-        if widget.get_active ():
+        if not widget.get_active ():
             state = TRUE
+            if self.checkLiloReqs():
+                self.ics.setNextEnabled (1)
+            else:
+                self.ics.setNextEnabled (0)            
         else:
             state = FALSE
+            self.ics.setNextEnabled(1)
 
         list = self.bootDevice.keys()
         list.extend ([self.appendEntry, self.editBox, self.imageList,
-                      self.liloLocationBox, self.radioBox, self.sw,
-                      self.radio_hbox])
+                      self.liloLocationBox, self.radioBox, self.sw])
         for n in list:
             n.set_sensitive (state)
 
@@ -234,6 +238,8 @@ class BootloaderWindow (InstallWindow):
             selected = "lilo"
         elif self.grub_radio.get_active():
             selected = "grub"
+        elif self.none_radio.get_active():
+            return
 
         if not self.lastselected or selected == self.lastselected:
             return
@@ -304,46 +310,50 @@ class BootloaderWindow (InstallWindow):
         
         box = GtkVBox (FALSE, 0)
 
-        optionBox = GtkVBox (FALSE, 5)
-        optionBox.set_border_width (5)
+        label = GtkLabel(_("Please select the boot loader that the computer will use.  GRUB is the default boot loader. "
+                           "However, if you do not wish to overwrite your current boot loader, "
+                           "select \"Do not install a boot loader.\"  "))
+        label.set_usize(400, -1)
+        label.set_line_wrap(TRUE)
+        label.set_alignment(0.0, 0.0)
+        self.editBox = GtkVBox ()
+        self.imageList = GtkCList (4, ( _("Default"), _("Device"),
+                                        _("Partition type"), _("Boot label")))
+        self.sw = GtkScrolledWindow ()
 
-        self.bootloader = GtkCheckButton (_("Install Boot Loader"))
+                           
+        self.grub_radio = GtkRadioButton(None, (_("Use GRUB as the boot loader")))
+        self.lilo_radio = GtkRadioButton(self.grub_radio, (_("Use LILO as the boot loader")))
+        self.none_radio = GtkRadioButton(self.grub_radio, (_("Do not install a boot loader")))
 
-	if not dispatch.stepInSkipList("instbootloader"):
-	    self.bootloader.set_active (TRUE)
-	else:
-            self.bootloader.set_active (FALSE)
-            self.toggled (self.bootloader)
 
-            for n in (self.appendEntry, self.editBox, 
-                      self.imageList, self.liloLocationBox, self.radioBox ):
-                n.set_sensitive (FALSE)
-
-        self.bootloader.connect ("toggled", self.toggled)
-        optionBox.pack_start (self.bootloader, FALSE)
-
-        box.pack_start (optionBox, FALSE)
-
-        box.pack_start(GtkHSeparator(), FALSE)
-        label = GtkLabel(_("Boot Loader To Be Installed:"))
-        self.grub_radio = GtkRadioButton(None, (_("GRUB")))
-        self.lilo_radio = GtkRadioButton(self.grub_radio, (_("LILO")))
-        self.lastselected = None
         self.lilo_radio.connect("toggled", self.bootloaderchange)
         self.grub_radio.connect("toggled", self.bootloaderchange)
+        self.none_radio.connect("toggled", self.toggled)
 
-        self.radio_hbox = GtkHBox(FALSE, 5)
-        self.radio_hbox.set_border_width(5)
-        self.radio_hbox.pack_start(label, FALSE)
-        self.radio_hbox.pack_start(self.grub_radio, FALSE)
-        self.radio_hbox.pack_start(self.lilo_radio, FALSE)
-        box.pack_start(self.radio_hbox, FALSE)
+ 	if not dispatch.stepInSkipList("instbootloader"):
+ 	    self.none_radio.set_active (FALSE)
+ 	else:
+             self.none_radio.set_active (TRUE)
+             self.toggled (self.none_radio)
+
+             for n in (self.appendEntry, self.editBox, 
+                       self.imageList, self.liloLocationBox, self.radioBox ):
+                 n.set_sensitive (FALSE)
+
+        self.lastselected = None
+
+        self.radio_vbox = GtkVBox(FALSE, 2)
+        self.radio_vbox.set_border_width(5)
+        self.radio_vbox.pack_start(label, FALSE)
+        self.radio_vbox.pack_start(self.grub_radio, FALSE)
+        self.radio_vbox.pack_start(self.lilo_radio, FALSE)
+        self.radio_vbox.pack_start(self.none_radio, FALSE)
+        
+        box.pack_start(self.radio_vbox, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE)
         box.pack_start (self.radioBox, FALSE)
-
-        self.imageList = GtkCList (4, ( _("Default"), _("Device"),
-                                        _("Partition type"), _("Boot label")))
 
         sortedKeys = imageList.keys()
         sortedKeys.sort()
@@ -409,7 +419,6 @@ class BootloaderWindow (InstallWindow):
         tempBox2.pack_start(self.labelLabel, FALSE)
         tempBox2.pack_start(self.labelEntry, FALSE)
 
-        self.editBox = GtkVBox ()
         self.editBox.pack_start (tempBox, FALSE)
         self.editBox.pack_start (self.defaultCheck, FALSE)
         self.editBox.pack_start (tempBox2, FALSE)
@@ -420,7 +429,6 @@ class BootloaderWindow (InstallWindow):
 
         self.imageList.set_selection_mode (SELECTION_BROWSE)
 
-        self.sw = GtkScrolledWindow ()
         self.sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
         self.sw.add (self.imageList)
         box.pack_start (self.sw, TRUE)
