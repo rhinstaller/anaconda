@@ -156,11 +156,11 @@ def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
 	instPath = "/mnt/loophost"
 	prefix = "/initrd/loopfs"
 
-    file = "/SWAP"
+    file = mntPoint + "/SWAP"
     count = 0
     while (os.access(instPath + file, os.R_OK)):
 	count = count + 1
-	file = "/SWAP-%d" % count
+	file = "%s/SWAP-%d" % mntPoint, count
 
     theFstab.addMount(file, size, "swap")
     theFstab.turnOnSwap(instPath, progressWindow)
@@ -169,3 +169,11 @@ def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
     f.write(fstab.fstabFormatString % (prefix + file, "swap", "swap", "defaults",
 	    0, 0))
     f.close()
+
+
+
+
+
+
+
+
