@@ -251,20 +251,23 @@ class InstallControlWindow (Thread):
         self.stateListIndex = pos
         
     def prevClicked (self, *args):
-        prev = self.currentScreen.getPrev ()
-        if prev:
-            instantiated = 0
-            for x in self.windowList:
-                if isinstance (x, prev):
-                    self.currentScreen = x
-                    instantiated = 1
-                    break
-            if not instantiated:
-                self.currentScreen = self.instantiateWindow (prev)
+#          prev = self.currentScreen.getPrev ()
+#          if prev:
+#              instantiated = 0
+#              for x in self.windowList:
+#                  if isinstance (x, prev):
+#                      self.currentScreen = x
+#                      instantiated = 1
+#                      break
+#              if not instantiated:
+#                  self.currentScreen = self.instantiateWindow (prev)
             
-        else:
-            self.stateListIndex = self.stateListIndex - 1
-            self.currentScreen = self.stateList[self.stateListIndex]
+#          else:
+#              self.stateListIndex = self.stateListIndex - 1
+#              self.currentScreen = self.stateList[self.stateListIndex]
+
+        self.prevList.pop ()
+        (self.currentScreen, self.stateListIndex) = self.prevList[-1]
         self.setScreen (self.currentScreen, self.prevClicked)
 
     def nextClicked (self, *args):
@@ -331,6 +334,10 @@ class InstallControlWindow (Thread):
         if not self.initialScreenShown:
             self.initialScreenShown = 1
             screen.getICS ().setPrevEnabled (FALSE)
+            self.prevList = []
+
+        if not direction == self.prevClicked:
+            self.prevList.append ((screen, self.stateListIndex))
 
         if self.helpState != self.displayHelp:
             if self.displayHelp:
