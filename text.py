@@ -1,5 +1,4 @@
 from snack import *
-import parted
 import sys
 import isys
 import os
