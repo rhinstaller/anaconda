@@ -57,7 +57,7 @@ install-reconfig: all
 	cp -a reconfig.init $(RECFGDESTDIR)/etc/rc.d/init.d/reconfig
 	cp -a anaconda $(RECFGDESTDIR)/usr/sbin/anaconda
 	cp -var $(PYFILES) $(RECFGDESTDIR)/$(PYTHONLIBDIR)
-	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
+	cp -a lang-table $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(RECFGDESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
 	cp -a kudzu/kudzumodule.so $(RECFGDESTDIR)/$(PYTHONLIBDIR)
