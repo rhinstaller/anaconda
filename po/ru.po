@@ -117,34 +117,34 @@ msgstr "Выбор языка"
 
 #: ../gui.py:486
 msgid "Red Hat Linux Installer"
-msgstr "Инсталлятор Red Hat Linux"
+msgstr "Программа установки Red Hat Linux"
 
 #: ../gui.py:490
 msgid "Red Hat Linux Install Shell"
-msgstr "Оболочка инсталлятора Red Hat Linux"
+msgstr "Оболочка программы установки Red Hat Linux"
 
 #: ../gui.py:501
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Инсталлятор Red Hat Linux на %s"
+msgstr "Программа установки Red Hat Linux на %s"
 
 #: ../gui.py:502
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Оболочка инсталлятора Red Hat Linux на %s"
+msgstr "Оболочка программы установки Red Hat Linux на %s"
 
 #: ../installclass.py:250
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
-msgstr "Вы собираетесь удалить все существующие инсталляции Linux."
+msgstr "Вы собираетесь удалить все существующие установки Linux."
 
 #: ../installclass.py:287
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
-"Вы собираетесь удалить ВСЕ ДАННЫЕ с ваших жестких дисков для новой "
-"инсталляции Linux."
+"Вы собираетесь удалить ВСЕ ДАННЫЕ с ваших жестких дисков для новой установки "
+"Linux."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
@@ -174,7 +174,7 @@ msgstr "Ok"
 
 #: ../text.py:55
 msgid "What language would you like to use during the installation process?"
-msgstr "Какой язык должен использоваться в процессе инсталляции?"
+msgstr "Какой язык должен использоваться в процессе установки?"
 
 #: ../text.py:80
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -267,11 +267,11 @@ msgstr "Установить систему по выбору"
 
 #: ../text.py:232
 msgid "Upgrade Existing Installation"
-msgstr "Обновить существующую инсталляцию"
+msgstr "Обновить существующую установку"
 
 #: ../text.py:233 ../text.py:1046
 msgid "Installation Type"
-msgstr "Тип инсталляции"
+msgstr "Тип установки"
 
 #: ../text.py:234
 msgid "What type of system would you like to install?"
@@ -287,7 +287,7 @@ msgstr "Система для обновления"
 
 #: ../text.py:301
 msgid "What partition holds the root partition of your installation?"
-msgstr "Укажите корневой раздел вашей инсталляции."
+msgstr "Укажите корневой раздел вашей установки."
 
 #: ../text.py:316
 msgid "Customize Packages to Upgrade"
@@ -341,9 +341,9 @@ msgid ""
 msgstr ""
 "Добро пожаловать в Red Hat Linux!\n"
 "\n"
-"Процесс установки подробно описан в Официальном руководстве по инсталляции "
-"Red Hat Linux, доступном от Red Hat Software. Если у вас есть доступ к этому "
-"руководству, рекомендуется прочесть его перед продолжением инсталляции.\n"
+"Процесс установки подробно описан в Официальном руководстве по установке Red "
+"Hat Linux, доступном от Red Hat Software. Если у вас есть доступ к этому "
+"руководству, рекомендуется прочесть его перед продолжением установки.\n"
 "\n"
 "Если вы приобрели Официальный Red Hat Linux, не забудьте зарегистрировать "
 "вашу покупку на нашем web-сайте, http://www.redhat.com."
@@ -480,15 +480,15 @@ msgstr "Выберите сервер"
 
 #: ../text.py:686
 msgid "Installation to begin"
-msgstr "Начало инсталляции"
+msgstr "Начало установки"
 
 #: ../iw/confirm.py:33 ../text.py:687
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Полный протокол инсталляции вашей системы после перезагрузки будет "
-"находиться в /tmp/install.log. Возможно вам понадобится к нему обратиться."
+"Полный протокол установки вашей системы после перезагрузки будет находиться "
+"в /tmp/install.log. Возможно вам понадобится к нему обратиться."
 
 #: ../text.py:704 ../text.py:719 ../text.py:739
 msgid "Complete"
@@ -556,7 +556,7 @@ msgstr ""
 
 #: ../text.py:833
 msgid "Package Installation"
-msgstr "Инсталляция пакета"
+msgstr "Установка пакета"
 
 #: ../text.py:835
 msgid "Name   : "
@@ -698,11 +698,11 @@ msgstr "Настройка Х"
 
 #: ../text.py:1108
 msgid "Installation Begins"
-msgstr "Начало инсталляции"
+msgstr "Начало установки"
 
 #: ../text.py:1110
 msgid "Install System"
-msgstr "Инсталляция системы"
+msgstr "Установка системы"
 
 #: ../text.py:1111 ../text.py:1113 ../text.py:1132 ../text.py:1134
 msgid "Boot Disk"
@@ -710,7 +710,7 @@ msgstr "Загрузочный диск"
 
 #: ../text.py:1116
 msgid "Installation Complete"
-msgstr "Инсталляция завершена"
+msgstr "Установка завершена"
 
 #: ../text.py:1121
 msgid "Examine System"
@@ -765,7 +765,7 @@ msgstr "Поиск"
 
 #: ../todo.py:651
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Поиск инсталляций Red Hat Linux..."
+msgstr "Поиск установок Red Hat Linux..."
 
 #: ../todo.py:663 ../todo.py:694
 #, c-format
@@ -783,6 +783,8 @@ msgstr "Поиск пакетов для обновления..."
 #: ../todo.py:749
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
+"Произошла ошибка перестройки базы RPM. Возможная причина - отсутствие места "
+"на диске."
 
 #: ../todo.py:967
 msgid "Processing"
@@ -790,7 +792,7 @@ msgstr "Обработка"
 
 #: ../todo.py:968
 msgid "Preparing to install..."
-msgstr "Подготовка к инсталляции..."
+msgstr "Подготовка к установке..."
 
 #: ../todo.py:1165
 #, c-format
@@ -800,7 +802,7 @@ msgstr "Обновление %s.\n"
 #: ../todo.py:1167
 #, c-format
 msgid "Installing %s.\n"
-msgstr "Инсталляция %s.\n"
+msgstr "Установка %s.\n"
 
 #: ../todo.py:1188
 msgid ""
@@ -830,7 +832,7 @@ msgstr "Post Install"
 
 #: ../todo.py:1229
 msgid "Performing post install configuration..."
-msgstr "выполняется настройка после инсталляции..."
+msgstr "выполняется настройка после установки..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:256
 msgid "Video Card"
@@ -963,11 +965,11 @@ msgstr "Пропустить создание загрузочного диска"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
-msgstr "Начало инсталляции"
+msgstr "Начало установки"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Нажмите \"Далее\" для начала инсталляции Red Hat Linux."
+msgstr "Нажмите \"Далее\" для начала установки Red Hat Linux."
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
 msgid "Congratulations"
@@ -1062,11 +1064,11 @@ msgstr "По выбору"
 
 #: ../iw/installpath.py:93
 msgid "Install Type"
-msgstr "Тип инсталляции"
+msgstr "Тип установки"
 
 #: ../iw/installpath.py:187
 msgid "Install"
-msgstr "Инсталляция"
+msgstr "Установка"
 
 #: ../iw/installpath.py:189
 msgid "Upgrade"
@@ -1106,7 +1108,7 @@ msgstr "Проверьте ваш выбор здесь:"
 
 #: ../iw/language.py:21 ../loader/lang.c:275
 msgid "What language should be used during the installation process?"
-msgstr "Какой язык должен использоваться в процессе инсталляции?"
+msgstr "Какой язык должен использоваться в процессе установки?"
 
 #: ../iw/lilo.py:18
 msgid "Lilo Configuration"
@@ -1238,7 +1240,7 @@ msgstr "Индивидуальный выбор пакетов"
 
 #: ../iw/progress.py:29
 msgid "Installing Packages"
-msgstr "Инсталляция пакетов"
+msgstr "Установка пакетов"
 
 #: ../iw/progress.py:128 ../iw/progress.py:163
 msgid "Size"
@@ -1331,7 +1333,7 @@ msgstr ""
 "%s\n"
 "\n"
 "Если такое разбиение вас не устраивает, вы можете изменить разбиение вручную "
-"и продолжить эту инсталляцию или вернуться назад и перейти к инсталляции по "
+"и продолжить эту установку или вернуться назад и перейти к установке по "
 "выбору."
 
 #: ../iw/rootpartition.py:249
@@ -1502,7 +1504,7 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
-"Для инсталляции некоторых выбранных вами пакетов требуются другие пакеты, "
+"Для установки некоторых выбранных вами пакетов требуются другие пакеты, "
 "которые не были выбраны. Если вы просто нажмете ', будут установлены все "
 "необходимые пакеты."
 
@@ -1532,7 +1534,7 @@ msgid ""
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"Для инсталляции Red Hat Linux вам необходим хотя бы один раздел в 150 MB, "
+"Для установки Red Hat Linux вам необходим хотя бы один раздел в 150 MB, "
 "выделенный под Linux. Мы рекомендуем расположить этот раздел на одном из "
 "двух первых жестких дисков вашей системы, чтобы вы могли загружать Linux с "
 "помощью LILO."
@@ -2237,7 +2239,7 @@ msgid ""
 "RAID partition for the install to proceed."
 msgstr ""
 "Вы должны назначить назначить корневой (/) раздел на раздел Linux native "
-"(ext2) или раздел RAID для продолжения инсталляции."
+"(ext2) или раздел RAID для продолжения установки."
 
 #: ../libfdisk/gnomefsedit.c:3289
 msgid "Partitions"
@@ -2520,7 +2522,7 @@ msgstr "Выбор раздела"
 #: ../loader/loader.c:706
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr "Устройство %s не содержит инсталляционное дерево Red Hat."
+msgstr "Устройство %s не содержит установочное дерево Red Hat."
 
 #: ../loader/loader.c:758
 msgid ""
@@ -2532,7 +2534,7 @@ msgstr ""
 
 #: ../loader/loader.c:915
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr "Этот каталог не содержит инсталляционное дерево Red Hat."
+msgstr "Этот каталог не содержит установочное дерево Red Hat."
 
 #: ../loader/loader.c:920
 msgid "I could not mount that directory from the server"
@@ -2552,7 +2554,7 @@ msgstr "Метод восстановления"
 
 #: ../loader/loader.c:1156
 msgid "Installation Method"
-msgstr "Метод инсталляции"
+msgstr "Метод установки"
 
 #: ../loader/loader.c:1158
 msgid "What type of media contains the rescue image?"
@@ -2560,7 +2562,7 @@ msgstr "Какой носитель содержит спасательный образ?"
 
 #: ../loader/loader.c:1160
 msgid "What type of media contains the packages to be installed?"
-msgstr "Носитель какого типа содержит пакеты для инсталляции?"
+msgstr "Носитель какого типа содержит пакеты для установки?"
 
 #: ../loader/loader.c:1696
 msgid "Cannot find ks.cfg on boot floppy."
