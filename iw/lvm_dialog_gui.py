@@ -325,7 +325,12 @@ class VolumeGroupEditor:
 
 
     def editLogicalVolume(self, logrequest, isNew = 0):
-        dialog = gtk.Dialog(_("Make Logical Volume"), self.parent)
+	if isNew:
+	    tstr = _("Make Logical Volume")
+	else:
+	    tstr = _("Edit Logical Volume")
+	    
+        dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
         dialog.add_button('gtk-cancel', 2)
         dialog.add_button('gtk-ok', 1)
@@ -850,7 +855,12 @@ class VolumeGroupEditor:
 	    self.dialog = None
             return
 
-        dialog = gtk.Dialog(_("Make LVM Device"), self.parent)
+	if isNew:
+	    tstr = _("Make LVM Device")
+	else:
+	    tstr = _("Edit LVM Device")
+	    
+        dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(dialog)
         dialog.add_button('gtk-cancel', 2)
         dialog.add_button('gtk-ok', 1)

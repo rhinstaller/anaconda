@@ -272,7 +272,12 @@ class RaidEditor:
 	    dlg.destroy()
 	    return
 
-	dialog = gtk.Dialog(_("Make RAID Device"), self.parent)
+	if isNew:
+	    tstr = _("Make RAID Device")
+	else:
+	    tstr = _("Edit RAID Device")
+	    
+	dialog = gtk.Dialog(tstr, self.parent)
 	gui.addFrame(dialog)
 	dialog.add_button('gtk-cancel', 2)
 	dialog.add_button('gtk-ok', 1)

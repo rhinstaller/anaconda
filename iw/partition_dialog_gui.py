@@ -255,7 +255,12 @@ class PartitionEditor:
 	self.intf = intf
 	self.parent = parent
 
-        self.dialog = gtk.Dialog(_("Add Partition"), self.parent)
+	if isNew:
+	    tstr = _("Add Partition")
+	else:
+	    tstr = _("Edit Partition")
+	    
+        self.dialog = gtk.Dialog(tstr, self.parent)
         gui.addFrame(self.dialog)
         self.dialog.add_button('gtk-cancel', 2)
         self.dialog.add_button('gtk-ok', 1)
