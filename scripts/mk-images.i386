@@ -30,10 +30,6 @@ prepareBootTree() {
 		sed -e "s/ vga=[0-9]*//g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
 		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
 	    fi
-	    if [ -n $BOOTDIR ]; then
-		sed -e "s/initrd.img/initrd.img lang=$BOOTDIR/g" < $MBD_BOOTTREE/syslinux.cfg > $MBD_BOOTTREE/syslinux.cf2
-		mv -f $MBD_BOOTTREE/syslinux.cf2 $MBD_BOOTTREE/syslinux.cfg
-	    fi
 	    for file in $BOOTDISKDIR/$BOOTLANG/*.msg; do
 		filename=`basename $file`
 		sed -e "s/@VERSION@/$VERSION/g" $file > $MBD_BOOTTREE/$filename
