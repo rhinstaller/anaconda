@@ -137,7 +137,7 @@ char * mountNfsImage(struct installMethod * method,
                 logMessage("mounted %s on /mnt/source", fullPath);
 		snprintf(mntPath, sizeof(mntPath), "/mnt/source/%s/base/stage2.img", getProductPath());
                 if (!access(mntPath, R_OK)) {
-                    logMessage("can access stage2.img");
+                    logMessage("can access %s", mntPath);
                     rc = mountStage2(mntPath);
                     logMessage("after mountStage2, rc is %d", rc);
                     if (rc) {
@@ -150,7 +150,9 @@ char * mountNfsImage(struct installMethod * method,
                         url = "nfs://mnt/source/.";
                         break;
                     }
-                } 
+                } else {
+                    logMessage("unable to access %s", mntPath);
+                }
 
                 if ((path = validIsoImages("/mnt/source"))) {
 		    logMessage("Path to valid iso is %s", path);
