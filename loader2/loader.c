@@ -190,7 +190,8 @@ void initializeConsole(moduleList modLoaded, moduleDeps modDeps,
     printf("\033%%G");
     fflush(stdout);
     isysLoadFont();
-    isysSetUnicodeKeymap();
+    if (!FL_TESTING(flags))
+        isysSetUnicodeKeymap();
 }
 
 static void spawnShell(int flags) {
