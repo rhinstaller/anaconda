@@ -32,6 +32,7 @@
 #define LOADER_FLAGS_KSHTTP             (1 << 24)
 #define LOADER_FLAGS_MEDIACHECK         (1 << 25)
 #define LOADER_FLAGS_NOUSBSTORAGE       (1 << 26)
+#define LOADER_FLAGS_ASKMETHOD          (1 << 27)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -60,6 +61,7 @@
 #define FL_KSHTTP(a)        ((a) & LOADER_FLAGS_KSHTTP)
 #define FL_MEDIACHECK(a)    ((a) & LOADER_FLAGS_MEDIACHECK)
 #define FL_NOUSBSTORAGE(a)  ((a) & LOADER_FLAGS_NOUSBSTORAGE)
+#define FL_ASKMETHOD(a)     ((a) & LOADER_FLAGS_ASKMETHOD)
 
 #define CODE_PCMCIA	1
 
