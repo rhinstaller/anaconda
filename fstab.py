@@ -191,7 +191,7 @@ class Fstab:
 
 	self.ddruid = self.fsedit(0, self.driveList(), fstab, self.zeroMbr,
 				  self.readOnly, self.upgrade,
-                                  self.expert)
+                                  self.expert, self.edd)
 	del self.cachedFstab
 
     def closeDrives(self, clearFstabCache = 0):
@@ -871,7 +871,7 @@ class Fstab:
 	return self.fsedit(0, list, fstab, self.zeroMbr, 
 			   self.readOnly,
                            (self.upgrade or ignoreBadDrives),
-                           self.expert)
+                           self.expert, self.edd)
 
     def getRunDruid(self):
 	return self.shouldRunDruid
@@ -901,6 +901,11 @@ class Fstab:
         self.ignoreRemovable = ignoreRemovable
         self.expert = expert
         self.upgrade = upgrade
+        if iutil.getArch() == "i386":
+            import edd
+            self.edd = edd.detect()
+        else:
+            self.edd = 0
 
         #
         # extraFilesystems used for upgrades when /etc/fstab is read as
