@@ -453,7 +453,7 @@ class ToDo:
                                              searchPath = 1)
                 if rc:
                     raise ToDoError, "error making swap on " + device
-                isys.swapon ('/tmp/' + device)
+#                isys.swapon ('/tmp/' + device)
             else:
                 pass
 
