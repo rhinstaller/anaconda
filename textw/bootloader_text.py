@@ -206,7 +206,6 @@ class BootloaderImagesWindow:
 	subgrid.setField(device, 1, 0, padding = (1, 0, 0, 0), anchorLeft = 1)
 	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
 	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
-
 	g = GridFormHelp(screen, _("Edit Boot Label Please"), "bootlabel", 1, 2)
 	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
 	g.add(buttons, 0, 1, growx = 1)
@@ -296,6 +295,8 @@ class BootloaderImagesWindow:
 	g.add(buttons, 0, 3, growx = 1)
         g.addHotKey("F2")
 #        g.addHotKey(" ")
+        screen.pushHelpLine(_(" <Space> selects button | <F2> select default boot entry | <F12> next screen>"))
+
         
 	rootdev = fsset.getEntryByMountPoint("/").device.getDevice()
 
@@ -338,6 +339,7 @@ class BootloaderImagesWindow:
 				    item)
 		    listbox.setCurrent(item)
 
+        screen.popHelpLine()
 	screen.popWindow()
 
 	if (result == TEXT_BACK_CHECK):
