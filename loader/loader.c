@@ -1077,6 +1077,10 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     device = kd->known[i].name;
     logMessage("kickstarting through device %s", device);
 
+    if (!ksGetCommand(KS_CMD_XDISPLAY, NULL, &ksArgc, &ksArgv)) {
+	setenv("DISPLAY", ksArgv[1], 1);
+    }
+
     if (table) {
 	ksGetCommand(ksType, NULL, &ksArgc, &ksArgv);
 
@@ -1091,7 +1095,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     }
 
     if (ksType == KS_CMD_NFS || ksType == KS_CMD_URL) {
-logMessage("need to kickstart network");
+	startNewt(flags);
 	if (kickstartNetwork(device, &netDev, flags)) return NULL;
 	writeNetInfo("/tmp/netinfo", &netDev);
     }
