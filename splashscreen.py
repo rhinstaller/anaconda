@@ -52,6 +52,7 @@ def splashScreenShow(configFileData):
             try:
                 im = GdkImlib.Image("" + file)
             except:
+                im = None
                 print "Unable to load", file
 
         return im
