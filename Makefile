@@ -91,8 +91,8 @@ install:
 
 CVSTAG=anaconda-$(subst .,_,$(VERSION)-$(RELEASE))
 tag:
-        @cvs tag -cR $(CVSTAG)
-        @echo "Tagged as $(CVSTAG)"
+	@cvs tag -cR $(CVSTAG)
+	@echo "Tagged as $(CVSTAG)"
 
 archive: create-archive
 
