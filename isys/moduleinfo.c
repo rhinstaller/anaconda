@@ -200,7 +200,7 @@ int isysReadModuleInfo(const char * filename, moduleInfoSet mis, void * ident) {
     }
 
     /* do we need to add in this last module? */
-    if ((nextModule - mis->moduleList) == mis->numModules)
+    if (nextModule && ((nextModule - mis->moduleList) == mis->numModules))
 	mis->numModules++;
 
     return 0;
