@@ -503,14 +503,26 @@ class ToDo:
         keys = self.mounts.keys ()
 
 	keys.sort()
+
+        arch = iutil.getArch ()
+
+        if arch == "alpha":
+            if keys.has_key ('/boot'):
+                kernelPart = '/boot'
+            else:
+                kernelPart = '/'
+        
 	for mntpoint in keys:
 	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
                 args = [ "mke2fs", '/tmp/' + device ]
-                if iutil.getArch () == "alpha":
-                    args = args + ["-r", "0"]
+                # FORCE the partition that MILO has to read
+                # to have 1024 block size.  It's the only
+                # thing that our milo seems to read.
+                if arch == "alpha" and mntpoint == kernelPart:
+                    args = args + ["-b", "1024"]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
                     for (rmnt, rdevice, fsType, raidType, makeup) in raid:
