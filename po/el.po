@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2003-10-14 20:17-0400\n"
+"POT-Creation-Date: 2003-10-15 14:38-0400\n"
 "PO-Revision-Date: 2003-02-14 02:39+0200\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
@@ -99,7 +99,7 @@ msgstr ""
 #: ../anaconda:550 ../anaconda:732 ../gui.py:238 ../gui.py:982 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
 #: ../rescue.py:409 ../rescue.py:415 ../text.py:325 ../text.py:471
-#: ../textw/confirm_text.py:25 ../textw/confirm_text.py:51
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:52
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:32 ../textw/network_text.py:166
 #: ../textw/network_text.py:394 ../textw/network_text.py:402
@@ -778,8 +778,8 @@ msgid ""
 msgstr ""
 
 #: ../fsset.py:2018 ../gui.py:1092 ../image.py:72 ../packages.py:1372
-#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../iw/congrats_gui.py:29
-#: ../textw/confirm_text.py:37 ../textw/confirm_text.py:63
+#: ../iw/confirm_gui.py:68 ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:64
 #, fuzzy
 msgid "_Reboot"
 msgstr "Reset"
@@ -923,8 +923,8 @@ msgstr ""
 
 #
 #: ../gui.py:1180 ../packages.py:1372 ../iw/confirm_gui.py:68
-#: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:37
-#: ../textw/confirm_text.py:63 ../textw/firewall_text.py:201
+#: ../iw/confirm_gui.py:98 ../textw/confirm_text.py:38
+#: ../textw/confirm_text.py:64 ../textw/firewall_text.py:201
 msgid "_Back"
 msgstr "_Πίσω"
 
@@ -2573,14 +2573,14 @@ msgstr ""
 msgid "About to Install"
 msgstr "Αυτόματη Εγκατάσταση"
 
-#: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:34
-#: ../textw/confirm_text.py:60
+#: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
+#: ../textw/confirm_text.py:61
 #, fuzzy
 msgid "Reboot?"
 msgstr "Reset"
 
-#: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:35
-#: ../textw/confirm_text.py:61
+#: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
+#: ../textw/confirm_text.py:62
 msgid "The system will be rebooted now."
 msgstr ""
 
@@ -2620,6 +2620,11 @@ msgstr ""
 #: ../iw/congrats_gui.py:23
 msgid "Congratulations"
 msgstr "Συγχαρητήρια"
+
+#: ../iw/congrats_gui.py:29
+#, fuzzy
+msgid "Reboo_t"
+msgstr "Reset"
 
 #: ../iw/congrats_gui.py:56
 msgid ""
@@ -4897,12 +4902,12 @@ msgstr "Ολοκληρώθηκε"
 msgid "Reboot"
 msgstr "Reset"
 
-#: ../textw/confirm_text.py:21
+#: ../textw/confirm_text.py:22
 #, fuzzy
 msgid "Installation to begin"
 msgstr "Πρόβλημα Εγκατάστασης"
 
-#: ../textw/confirm_text.py:22
+#: ../textw/confirm_text.py:23
 #, python-format
 msgid ""
 "A complete log of your installation will be in %s after rebooting your "
@@ -4910,8 +4915,8 @@ msgid ""
 msgstr ""
 
 #
-#: ../textw/confirm_text.py:25 ../textw/confirm_text.py:27
-#: ../textw/confirm_text.py:51 ../textw/confirm_text.py:53
+#: ../textw/confirm_text.py:26 ../textw/confirm_text.py:28
+#: ../textw/confirm_text.py:52 ../textw/confirm_text.py:54
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:389
 #: ../loader2/driverdisk.c:252 ../loader2/driverdisk.c:267
@@ -4924,12 +4929,12 @@ msgstr ""
 msgid "Back"
 msgstr "Πίσω"
 
-#: ../textw/confirm_text.py:47
+#: ../textw/confirm_text.py:48
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "Επιλογές Αναβάθμισης"
 
-#: ../textw/confirm_text.py:48
+#: ../textw/confirm_text.py:49
 #, python-format
 msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
