@@ -125,7 +125,7 @@ class PartitionWindow:
         window.destroy()
         return self.rc
 
-class InstallMethod:
+class InstallInterface:
     def run(self):
         rc_parse("gtkrc")
 

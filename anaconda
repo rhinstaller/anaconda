@@ -46,11 +46,14 @@ if (mode == 'g' and not os.environ.has_key('DISPLAY')):
 	sys.exit(0)
 
 if (mode == 'g'):
-    import gui
-    gui.run()
+    from gui import InstallMethod
 elif (mode == 't'):
-    import text
-    text.run()
+    from text import InstallMethod
 else:
     print "No mode was specified"
+    sys.exit(1)
+
+method = InstallInterface()
+method.run()
+
 
