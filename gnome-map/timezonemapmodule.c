@@ -595,7 +595,7 @@ create_location_list (MapData *mapdata)
 {
     TimeZoneLocation   *loc;
     GtkWidget *scrolledwin;
-    gchar *titles[] = { "Location", NULL };
+    /* gchar *titles[] = { "Current Selection", NULL }; */
     gchar *row[1];
     gint i;
 
@@ -605,11 +605,11 @@ create_location_list (MapData *mapdata)
 	scrolledwin = gtk_scrolled_window_new (NULL, NULL);
     
 	gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (scrolledwin),
-					GTK_POLICY_AUTOMATIC, GTK_POLICY_ALWAYS);
+					GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
 	
 	gtk_widget_show (scrolledwin);
 	
-	mapdata->locationlist = gtk_clist_new_with_titles (1, titles);
+	mapdata->locationlist = gtk_clist_new (1);
 	
 	gtk_clist_set_selection_mode (GTK_CLIST(mapdata->locationlist), 
 				      GTK_SELECTION_BROWSE);
@@ -636,6 +636,7 @@ create_location_list (MapData *mapdata)
 	gtk_clist_set_row_data (GTK_CLIST (mapdata->locationlist), newrow, 
 				GINT_TO_POINTER (i));
     }
+    gtk_clist_columns_autosize (GTK_CLIST (mapdata->locationlist));
 
     /* restore selection of location in list now we've recreated it */
     list_mark_location_selected(WorldMap, mapdata->curselection, TRUE);
