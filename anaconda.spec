@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.31
+Version: 10.2.0.32
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,12 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Mar 24 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.32-1
+- Switch theme to clearlooks
+- Add new Solaris partition id
+- Mark some more strings for translation
+- Fix xfs fs creation (Lars Hamann, #151378)
+
 * Wed Mar 23 2005 Chris Lumens <clumens@redhat.com> 10.2.0.31-1
 - Add libgcc for images.
 - Rewrite language handling.
