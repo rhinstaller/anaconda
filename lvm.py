@@ -227,6 +227,26 @@ def vglist():
 
     return vgs
 
+def partialvgs():
+    global lvmDevicePresent
+    if lvmDevicePresent == 0:
+        return []
+    
+    vgs = []
+    args = ["lvm", "vgdisplay", "-C", "--noheadings", "--units", "b"]
+    scanout = iutil.execWithCapture(args[0], args, searchPath = 1,
+                                    stderr = "/dev/tty6")
+    for line in scanout.split("\n"):
+        try:
+            (vg, numpv, numlv, numsn, attr, size, free) = line.strip()[:-1].split()
+        except:
+            continue
+        if attr.find("p") != -1:
+            log("vg %s, attr is %s" %(vg, attr))
+            vgs.append(vg)
+
+    return vgs
+
 # FIXME: this is a hack.  we really need to have a --force option.
 def unlinkConf():
     lvmroot = "/etc/lvm"
