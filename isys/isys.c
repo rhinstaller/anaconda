@@ -32,12 +32,14 @@ static PyObject * createProbedList(PyObject * s, PyObject * args);
 static PyObject * doChroot(PyObject * s, PyObject * args);
 static PyObject * doCheckBoot(PyObject * s, PyObject * args);
 static PyObject * doSwapon(PyObject * s, PyObject * args);
+static PyObject * doPoptParse(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "findmoduleinfo", (PyCFunction) doFindModInfo, METH_VARARGS, NULL },
 /*
     { "insmod", (PyCFunction) doInsmod, METH_VARARGS, NULL },
 */
+    { "poptParseArgv", (PyCFunction) doPoptParse, METH_VARARGS, NULL },
     { "mkdevinode", (PyCFunction) makeDevInode, METH_VARARGS, NULL },
     { "modulelist", (PyCFunction) getModuleList, METH_VARARGS, NULL },
     { "pciprobe", (PyCFunction) doPciProbe, METH_VARARGS, NULL },
@@ -515,4 +517,26 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
     }
 
     return Py_BuildValue("(sss)", class, po->list.known[item].name, model);
+}
+
+static PyObject * doPoptParse(PyObject * s, PyObject * args) {
+    char * str;
+    int argc, i;
+    char ** argv;
+    PyObject * list;
+
+    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
+
+    if (poptParseArgvString(str, &argc, &argv)) {
+	PyErr_SetString(PyExc_ValueError, "bad string for parsing");
+	return NULL;
+    }
+
+    list = PyList_New(argc);
+    for (i = 0; i < argc; i++)
+	PyList_SetItem(list, i, PyString_FromString(argv[i]));
+
+    free(argv);
+
+    return list;
 }

@@ -116,3 +116,6 @@ def inet_calcNS (net):
         netaddr = net
 
     return inet_ntoa (netaddr + 1)
+
+def parseArgv(str):
+    return _isys.poptParseArgv(str)
