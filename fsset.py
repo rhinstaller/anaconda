@@ -449,6 +449,10 @@ class jfsFileSystem(FileSystemType):
             del f
         except:
             self.supported = 0
+
+        if not os.access("/usr/sbin/mkfs.jfs", os.X_OK):
+            self.supported = 0
+            
         self.name = "jfs"
 
         self.maxSizeMB = 2 * 1024 * 1024
