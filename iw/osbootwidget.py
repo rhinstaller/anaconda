@@ -61,7 +61,7 @@ class OSBootWidget:
         self.osStore = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
                                      gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
         self.osTreeView = gtk.TreeView(self.osStore)
-        theColumns = [ "Default", "Label", "Device" ]
+        theColumns = [ _("Default"), _("Label"), _("Device") ]
 
         self.checkboxrenderer = gtk.CellRendererToggle()
         column = gtk.TreeViewColumn(theColumns[0], self.checkboxrenderer,
