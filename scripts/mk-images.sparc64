@@ -80,7 +80,7 @@ makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
 	     --imagename boot64.img \
 	     --bootdisksize 1440 \
 	     --initrdflags '--initrdsize 2000 \
-			    --loaderbin loader \
+			    --loaderbin loader-local \
 			    --modules "$SCSIMODULES" \
 			    --moduleballname modules64.cgz'
 
