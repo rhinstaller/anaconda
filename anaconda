@@ -232,8 +232,13 @@ try:
                           "install chapter of the Official Red Hat Linux User's Guide."))
 
 except:
-    exc = sys.exc_info()
-    intf.exceptionWindow (exc)
+    (type, value, tb) = sys.exc_info()
+    import traceback
+    from string import joinfields
+    list = traceback.format_exception (type, value, tb)
+    text = joinfields (list, "")
+    intf.messageWindow (_("Exception Occured"), text)
+    intf.__del__ ()
     os._exit (1)
 
 del intf

@@ -230,16 +230,15 @@ class PartitionWindow:
         from newtpyfsedit import fsedit        
 
         fstab = []
-        for (dev, dir, reformat) in todo.mounts:
-            fstab.append ((dev, dir))
+        for (mntpoint, (dev, fstype, reformat)) in todo.mounts.items ():
+            fstab.append ((dev, mntpoint))
 
         if not todo.ddruid:
             todo.ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
         dir = todo.ddruid.edit ()
-        if dir == INSTALL_OK:
-            for (partition, mount, size) in todo.ddruid.getFstab ():
-                todo.addMount(partition, mount)
-
+        for (partition, mount, fstype, size) in todo.ddruid.getFstab ():
+            todo.addMount(partition, mount, fstype)
+                
         return dir
 
 class PackageGroupWindow:
@@ -544,15 +543,6 @@ class InstallInterface:
 
     def packageProgressWindow(self, total, totalSize):
 	return InstallProgressWindow(self.screen, total, totalSize)
-
-    def exceptionWindow(self, (type, value, tb)):
-        import traceback
-        list = traceback.format_exception (type, value, tb)
-        text = string.joinfields (list, "")
-        ButtonChoiceWindow(self.screen, _("Exception occured"), 
-                           text, buttons = [_("Exit")],
-                           width = 70)
-        self.screen.finish ()
 
     def __init__(self):
         self.screen = SnackScreen()

@@ -96,16 +96,16 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def exceptionWindow(self, (type, value, tb)):
-        import traceback
-        traceback.print_exception (type, value, tb)
+    def messageWindow(self, title, text):
+        print text
+#        dialog = GnomeOkDialog (text)
+#        dialog.set_position (WIN_POS_CENTER)
 
     def getDDruid (self, drives):
         return fsedit (1, drives)
 
     def run (self, todo):
         start_new_thread (GtkMainThread ().run, ())
-        
         steps = [WelcomeWindow, LanguageWindow, MouseWindow, KeyboardWindow, NetworkWindow, PartitionWindow,
                  PackageSelectionWindow, AuthWindow, AccountWindow, InstallProgressWindow]
 

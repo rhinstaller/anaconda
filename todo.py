@@ -213,7 +213,7 @@ class Mouse (SimpleConfigFile):
         if self.info.has_key ("FULLNAME"):
             return self.info ["FULLNAME"]
         else:
-            return "PS/2"
+            return "Generic - 3 Button Mouse (PS/2)"
 
     def set (self, mouse):
         (gpm, x11, dev) = self.mice[mouse]
@@ -337,7 +337,7 @@ class ToDo:
 		 installSystem = 1):
 	self.intf = intf
 	self.method = method
-	self.mounts = []
+	self.mounts = {}
 	self.hdList = None
 	self.comps = None
 	self.instPath = rootPath
@@ -355,18 +355,20 @@ class ToDo:
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
-	self.mounts.sort(mountListCmp)
-	self.mounts.reverse()
-	for n in self.mounts:
-	    isys.makeDevInode(n, '/tmp/' + n)
+        mounts = self.mounts.keys ()
+	keys.sort()
+	keys.reverse()
+	for n in keys:
+            (device, filesystem, format) = self.mounts[n]
+	    isys.makeDevInode(n, '/tmp/' + device)
 	    isys.umount(n)
-            os.remove('/tmp/' + n)
+            os.remove('/tmp/' + device)
 
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
-	for n in self.mounts:
-	    (device, mntpoint, format) = n
+	for n in self.mounts.items ():
+            (mntpoint, (device, filesystem, format)) = n
             isys.makeDevInode(device, '/tmp/' + device)
 	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
 	    os.remove( '/tmp/' + device);
@@ -374,9 +376,10 @@ class ToDo:
     def makeFilesystems(self):
 	if (not self.setupFilesystems): return 
 
-	self.mounts.sort(mountListCmp)
-	for n in self.mounts:
-	    (device, mntpoint, format) = n
+        keys = self.mounts.keys ()
+	keys.sort()
+	for mntpoint in self.mounts:
+	    (device, fsystem, format) = self.mounts[mntpoint]
 	    if not format: continue
 	    w = self.intf.waitWindow("Formatting", 
 			"Formatting %s filesystem..." % (mntpoint,))
@@ -386,20 +389,26 @@ class ToDo:
             os.remove('/tmp/' + device)
 	    w.pop()
 
-    def addMount(self, device, location, reformat = 1):
-	self.mounts.append((device, location, reformat))
+    def addMount(self, device, location, fsystem, reformat = 1):
+        if fsystem == "swap":
+            location = "swap"
+        self.mounts[location] = (device, fsystem, reformat)
 
     def writeFstab(self):
 	format = "%-23s %-23s %-7s %-15s %d %d\n";
 
 	f = open (self.instPath + "/etc/fstab", "w")
-	self.mounts.sort (mountListCmp)
-	for n in self.mounts: 
-	    (dev, fs, reformat) = n
-	    if (fs == '/'):
-		f.write (format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
+        keys = self.mounts.keys ()
+	keys.sort ()
+	for mntpoint in keys: 
+	    (dev, fs, reformat) = self.mounts[mntpoint]
+	    if (mntpoint == '/'):
+		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
 	    else:
-		f.write (format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
+                if (fs == "ext2"):
+                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
+                else:
+                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
 	f.write (format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
@@ -438,10 +447,8 @@ class ToDo:
 	sl = LiloConfiguration()
 	sl.addEntry("label", "linux")
 
-	for n in self.mounts:
-	    (dev, fs, reformat) = n
-	    if fs == '/':
-		sl.addEntry("root", '/dev/' + dev)
+        (dev, type, size) = self.mounts['/']
+        sl.addEntry("root", '/dev/' + dev)
 	sl.addEntry("read-only")
 
 	kernelFile = '/boot/vmlinuz-' +  \
@@ -531,6 +538,14 @@ class ToDo:
         f.writelines (lines)
         f.close ()
 
+    def copyConfModules (self):
+        try:
+            inf = open ("/tmp/conf.modules", "r")
+        except:
+            pass
+        out = open (self.instPath + "/etc/conf.modules", "w")
+        out.write (inf.read ())
+
     def doInstall(self, intf):
 	# make sure we have the header list and comps file
 	self.getHeaderList()
@@ -588,8 +603,7 @@ class ToDo:
                 intf.setPackageScale(0, 1)
                 fn = method.getFilename(h)
                 d = os.open(fn, os.O_RDONLY)
-                # XXX FIX ME - rpmmodule is broken
-                return (d,)
+                return d
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
             elif (what == rpm.RPMCALLBACK_INST_CLOSE_FILE):
@@ -613,14 +627,7 @@ class ToDo:
         self.writeNetworkConfig ()
         self.writeRootPassword ()
 	self.installLilo ()
-
+        self.copyConfModules ()
+        
         w.pop ()
 
-def mountListCmp(first, second):
-    mnt1 = first[1]
-    mnt2 = first[2]
-    if (first < second):
-	return -1
-    elif (first == second):
-	return 0
-    return 1

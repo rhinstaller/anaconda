@@ -64,7 +64,6 @@ class InstallProgressWindow (InstallWindow):
 	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 
     def setPackage(self, header):
-	print header[rpm.RPMTAG_SUMMARY]
         threads_enter ()
         self.name.set_text (header[rpm.RPMTAG_NAME])
         self.size.set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
