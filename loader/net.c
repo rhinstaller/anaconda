@@ -569,7 +569,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
 	fprintf(f, "NETMASK=%s\n", inet_ntoa(dev->dev.netmask));
 	if (dev->dev.set & PUMP_NETINFO_HAS_GATEWAY) {
 	  fprintf(f, "GATEWAY=%s\n", inet_ntoa(dev->dev.gateway));
-	  if (!strncmp(dev->dev.device, "ctc", 3)) 
+	  if (!strncmp(dev->dev.device, "ctc", 3) || \
+	      !strncmp(dev->dev.device, "iucv", 4)) 
 	    fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.gateway));
 	}
 	if (dev->dev.set & PUMP_INTFINFO_HAS_BROADCAST)
