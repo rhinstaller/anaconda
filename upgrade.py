@@ -461,7 +461,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                  h[rpm.RPMTAG_VERSION],
                  h[rpm.RPMTAG_RELEASE]))
             found = 1
-        if h[rpm.RPMTAG_NAME] == "XFree86":
+        if h[rpm.RPMTAG_NAME] == "XFree86" or h[rpm.RPMTAG_NAME] == "xorg-x11"
             hasX = 1
 	if h[rpm.RPMTAG_NAME] == "nautilus":
 	    hasFileManager = 1

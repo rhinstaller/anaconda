@@ -726,7 +726,7 @@ class XConfigWindowCard:
         card_data = primary_card.getCardData()
         if (card_data.has_key("DRIVER") and
             not card_data.has_key("UNSUPPORTED")):
-            server = "XFree86"
+            server = "XOrg"
         else:
             server = "XF86_" + card_data["SERVER"]
 
