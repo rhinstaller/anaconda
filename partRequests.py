@@ -229,7 +229,10 @@ class RequestSpec:
 
         return None
 
-    def isMountPointInUse(self, partitions):
+    # requestSkipList is a list of uids for requests to ignore when
+    # looking for a conflict on the mount point name.  Used in lvm
+    # editting code in disk druid, for example.
+    def isMountPointInUse(self, partitions, requestSkipList=None):
         """Return whether my mountpoint is in use by another request."""
         mntpt = self.mountpoint
         if not mntpt:
@@ -237,6 +240,9 @@ class RequestSpec:
 
         if partitions and partitions.requests:
             for request in partitions.requests:
+		if requestSkipList is not None and request.uniqueID in requestSkipList:
+		    continue
+
                 if request.mountpoint == mntpt:
                     if (not self.uniqueID or
                         request.uniqueID != self.uniqueID):
@@ -261,7 +267,9 @@ class RequestSpec:
         
         return None
 
-    def sanityCheckRequest(self, partitions):
+    # set skipMntPtExistCheck to non-zero if you want to handle this
+    # check yourself. Used in lvm volume group editting code, for example.
+    def sanityCheckRequest(self, partitions, skipMntPtExistCheck=0):
         """Run the basic sanity checks on the request."""
         # see if mount point is valid if its a new partition request
         mntpt = self.mountpoint
@@ -276,9 +284,10 @@ class RequestSpec:
         if rc:
             return rc
 
-        rc = self.isMountPointInUse(partitions)
-        if rc:
-            return rc
+	if not skipMntPtExistCheck:
+	    rc = self.isMountPointInUse(partitions)
+	    if rc:
+		return rc
 
         rc = self.doMountPointLinuxFSChecks()
         if rc:

@@ -553,7 +553,7 @@ class VolumeGroupEditor:
 		origlvname = logrequest.logicalVolumeName
 	    else:
 		origlvname = None
-		
+
 	    for lv in self.logvolreqs:
 		if origlvname and lv.logicalVolumeName == origlvname:
 		    continue
@@ -600,7 +600,18 @@ class VolumeGroupEditor:
             request.migrate = migrate
 	    request.badblock = None
 	    
- 	    err = request.sanityCheckRequest(self.partitions)
+	    # make list of original logvol requests so we can skip them
+	    # in tests below. We check for mount point name conflicts
+	    # above within the current volume group, so it is not
+	    # necessary to do now.
+ 	    err = request.sanityCheckRequest(self.partitions, skipMntPtExistCheck=1)
+	    if err is None:
+		skiplist = []
+		for lv in self.origvolreqs:
+		    skiplist.append(lv.uniqueID)
+		    
+		err = request.isMountPointInUse(self.partitions, requestSkipList=skiplist)
+
  	    if err:
  		self.intf.messageWindow(_("Error With Request"),
  					"%s" % (err), custom_icon="error")
