@@ -144,22 +144,15 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 PCMCIAMODULES="$PCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 
 makeBootImages() {
-    echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
+ if [ "$KERNELARCH" = "i386" ]; then
+    echo "Building $KERNELARCH $TOPDESTPATH/images/pxeboot/initrd.img"
     makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--pcmcia --nobogl \
 	--initrdsize 4750 \
 	--loaderbin loader \
 	--modules "$COMMONMODULES"
 
-    echo "Building initrd-everything.img"
-    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
-	--pcmcia \
-	--initrdsize 7000 \
-	--loaderbin loader \
-	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
-    [ $? = 0 ] || exit 1
-
-    echo "Building bootdisk.img"
+    echo "Building $KERNELARCH bootdisk.img"
     makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
 	--bootdisksize 1440 \
 	--imagename $BOOTDIR/bootdisk.img \
@@ -168,7 +161,7 @@ makeBootImages() {
 
     rm -f $TOPDESTPATH/images/pxeboot/initrd.img
 
-    echo "Building drvblock.img"
+    echo "Building $KERNELARCH drvblock.img"
     makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "=scsi"
     # JKFIXME: was exit 1
     [ $? = 0 ] || echo "ERROR: failed to write drvblock" 
@@ -176,9 +169,23 @@ makeBootImages() {
     makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "=net"
     [ $? = 0 ] || echo "ERROR: failed to write drvnet"
 
-    echo "Building pcmciadd.img"
+    echo "Building $KERNELARCH pcmciadd.img"
     makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
     [ $? = 0 ] || echo "ERROR: failed to write pcmciadd" 
+
+  fi
+
+  # FIXME: this is so that we can switch back and forth.  if we want both
+  # on the CD, then more needs to be done, esp for things like isolinux.cfg
+  # Right now, last one wins
+  if [ "$KERNELARCH" = "i686" -o "$KERNELARCH" = "i386" -o "$KERNELARCH" = "i586" -o "$KERNELARCH" = "athlon" ]; then
+    echo "Building $KERNELARCH initrd-everything.img"
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
+	--pcmcia \
+	--initrdsize 7000 \
+	--loaderbin loader \
+	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
+    [ $? = 0 ] || exit 1
 
     if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
@@ -224,6 +231,7 @@ vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of Red Hat Linux
 EOF
+  fi
 }
 
 makeSecondStage() {
