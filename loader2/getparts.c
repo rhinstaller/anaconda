@@ -32,7 +32,8 @@ static int isPartitionName(char *pname) {
 	return 0;
 
     /* if it has a '/' in it then treat it specially */
-    if (strchr(pname, '/') && !strstr(pname, "iseries")) {
+    if (strchr(pname, '/') && !strstr(pname, "iseries") && 
+        !strstr(pname, "i2o")) {
 	/* assume its either a /dev/ida/ or /dev/cciss device */
 	/* these have form of c?d?p? if its a partition */
 	return strchr(pname, 'p') != NULL;
