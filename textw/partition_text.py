@@ -407,7 +407,8 @@ class PartitionWindow:
         row = row + 1
         subgrid = Grid(2, 5)
         srow = 0
-        noformatrb = SingleRadioButton(_("Do not format"), None, not format and not migrate)
+        noformatrb = SingleRadioButton(_("Leave unchanged (preserve data)"),
+                                       None, not format and not migrate)
         subgrid.setField(noformatrb, 0, srow, (0,0,0,1),anchorLeft = 1)
         
         if origrequest.fstype and origrequest.fstype.isFormattable():
@@ -521,11 +522,12 @@ class PartitionWindow:
             row = row + 1
             primary = Checkbox(_("Force to be a primary partition"))
             poplevel.add(primary, 0, row, (0,1,0,0))
-        
+
+            fsoptLbl = None
         else:
             subgrid = Grid(2, 4)
             # filesystem type selection
-            typeLbl = Label(_("Filesystem type:"))
+            typeLbl = Label(_("Filesystem Type:"))
             subgrid.setField(typeLbl, 0, 0, (0,0,2,0), anchorLeft = 1)
             type = Label(origrequest.fstype.getName())
             subgrid.setField(type, 1, 0, anchorRight = 1)
@@ -533,6 +535,11 @@ class PartitionWindow:
             subgrid.setField(sizeLbl, 0, 1, (0,1,2,0), anchorLeft = 1)
             size = Label("%s" %(int(origrequest.size)))
             subgrid.setField(size, 1, 1, (0,1,0,0), anchorRight = 1)
+            tmpLbl = Label(_("Filesystem Option:"))
+            subgrid.setField(tmpLbl, 0, 2, (0,1,2,0), anchorLeft = 1)
+            fsoptLbl = Label(_(""))
+            subgrid.setField(fsoptLbl, 1, 2, (0,1,2,0), anchorLeft = 1)
+            
             poplevel.add(subgrid, 0, row, (0,1,0,0))
 
             format = origrequest.format
@@ -546,6 +553,15 @@ class PartitionWindow:
         poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
 
         while 1:
+            
+            if fsoptLbl:
+                if format:
+                    fsoptLbl.setText(_("Format as %s") % (newfstype.getName()))
+                elif migrate:
+                    fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
+                else:
+                    fsoptLbl.setText(_("Leave unchanged"))
+
             res = poplevel.run()
 
             # if the user hit cancel, do nothing
