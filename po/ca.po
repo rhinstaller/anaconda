@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-09-17 09:39+0200\n"
+"PO-Revision-Date: 2004-10-18 15:14+0200\n"
 "Last-Translator: Josep Puigdemont <josep@imatge-sintetica.com>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -2521,15 +2521,14 @@ msgstr ""
 "en un estat inutilitzable. Voleu continuar amb l'actualització?"
 
 #: ../upgrade.py:546
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"L'arquitectura de la versió de %s que esteu actualitzant sembla ser %s, que "
-"no coincideix amb l'arquitectura prèviament instal·lada de %s. És molt "
-"probable que l'actualització no funcioni. Esteu segur que voleu continuar el "
-"procés d'actualització?"
+"El sistema des del que esteu fent servir és massa antic per actualitzar-lo a "
+"aquesta versió de %s. Esteu segur que voleu continuar amb el procés "
+"d'actualització?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -6783,7 +6782,6 @@ msgstr ""
 
 #: ../installclasses/personal_desktop.py:18
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6795,7 +6793,7 @@ msgid ""
 msgstr ""
 "\tEntorn d'escriptori (GNOME)\n"
 "\tConjunt de programes ofimàtics (OpenOffice.org)\n"
-"\tNavegador web (Mozilla)\n"
+"\tNavegador web\n"
 "\tCorreu electrònic (Evolution)\n"
 "\tMissatgeria instantània\n"
 "\tAplicacions d'àudio i vídeo\n"
@@ -6803,7 +6801,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6813,21 +6811,25 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tEntorn d'escriptori (GNOME)\n"
+"\tEines d'administració\n"
+"\tEnies de configuració de servidors\n"
+"\tServidor de web\n"
+"\tServidor de fitxers Windoes (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Escriptori Red Hat Enterprise Linux"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice.org)\n"
@@ -6841,7 +6843,7 @@ msgid ""
 msgstr ""
 "\tEntorn d'escriptori (GNOME)\n"
 "\tConjunt de programes ofimàtics (OpenOffice.org)\n"
-"\tNavegador web (Mozilla)\n"
+"\tNavegador web\n"
 "\tCorreu electrònic (Evolution)\n"
 "\tMissatgeria instantània\n"
 "\tAplicacions d'àudio i vídeo\n"
