@@ -9,7 +9,8 @@ from autopart import getAutopartitionBoot, autoCreatePartitionRequests
 class InstallClass(BaseInstallClass):
     name = N_("Custom")
     pixmap = "custom.png"
-        
+    description = N_("Use this option to have the most control over "
+		     "the software installed and configuration options.")
     sortPriority = 10000
 
     def setInstallData(self, id):

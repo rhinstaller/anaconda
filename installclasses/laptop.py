@@ -6,7 +6,8 @@ import pcmcia
 class InstallClass(workstation.InstallClass):
     name = N_("Laptop")
     pixmap = "laptop-class.png"
-
+    description = N_("Similar to 'Workstation' option, with laptop support.")
+    
     sortPriority = 5000
     arch = 'i386'
 

@@ -9,6 +9,9 @@ class InstallClass(BaseInstallClass):
 
     name = N_("Server")
     pixmap = "server.png"
+    description = N_("Includes services for file and print sharing, "
+		     "hosting web serving, and necessary config tools.")
+    
     sortPriority = 10
 
     def setSteps(self, dispatch):
