@@ -198,17 +198,24 @@ class UrlInstallMethod(InstallMethod):
     def __init__(self, url, rootPath):
 	InstallMethod.__init__(self, rootPath)
 
-	i = string.index(url, '://') + 2
-	self.baseUrl = url[0:i]
-	rem = url[i:]
-	new = string.replace(rem, "//", "/")
-	while (new != rem):
-	    rem = new
-	    new = string.replace(rem, "//", "/")
-	rem = new
-        if rem and rem[-1] == "/":
-            rem = rem[:-1]
-	self.baseUrl = self.baseUrl + rem
+        # build up the url.  this is tricky so that we can replace
+        # the first instance of // with /%3F to do absolute URLs right
+        i = string.index(url, '://') + 3
+        self.baseUrl = url[:i]
+        rem = url[i:]
+
+        i = string.index(rem, '/') + 1
+        self.baseUrl = self.baseUrl + rem[:i]
+        rem = rem[i:]
+        
+        # encoding fun so that we can handle absolute paths
+        if rem.startswith("/"):
+            rem = "%2F" + rem[1:]
+
+        self.baseUrl = self.baseUrl + rem
+
+        if self.baseUrl[-1] == "/":
+            self.baseUrl = self.baseUrl[:-1]
 
 	# self.baseUrl points at the path which contains the 'RedHat'
 	# directory with the hdlist.
