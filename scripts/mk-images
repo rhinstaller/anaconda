@@ -604,7 +604,6 @@ makeinitrd() {
     mkdir -p $MBD_DIR/var/state
     mkdir -p $MBD_DIR/var/run
     mkdir -p $MBD_DIR/var/lock/rpm
-    ln -s /tmp $MBD_DIR/var/state/xkb
 
     if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
 	mkdir -p $MBD_DIR/dev/iseries
@@ -635,9 +634,8 @@ EOF
 	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
-	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/linuxrc
+	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/init
 	install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
-	ln -s ../linuxrc $MBD_DIR/sbin/init
     fi
 
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
