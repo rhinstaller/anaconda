@@ -45,10 +45,10 @@ edd_py_detect (PyObject * s, PyObject * args) {
   if (!(childpid = fork())) {
       if ((ec = edd_supported(device))) {
 	free (ec);
-	exit(1);
+	_exit(1);
       }
 
-      exit(0);
+      _exit(0);
   }
 
   waitpid(childpid, &status, 0);
