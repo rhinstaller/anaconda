@@ -37,6 +37,10 @@ CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
 
+# XXX this is made up and used by the size spinner; should just be set with
+# a callback
+MAX_PART_SIZE = 1024*1024*1024
+
 # these are used for kickstart
 CHECK_DEPS = 0
 IGNORE_DEPS = 1
