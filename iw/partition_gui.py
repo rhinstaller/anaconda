@@ -1198,14 +1198,14 @@ class PartitionWindow(InstallWindow):
 	newminor = availminors[0]
         radioBox = gtk.VBox (gtk.FALSE)
 
-        createRAIDpart = gtk.RadioButton(None, _("Create a software RAID partition."))
+        createRAIDpart = gtk.RadioButton(None, _("Create a software RAID _partition."))
 	radioBox.pack_start(createRAIDpart, gtk.FALSE, gtk.FALSE, padding=10)
         createRAIDdev = gtk.RadioButton(createRAIDpart,
-		    _("Create a RAID device [default=/dev/md%s].") % newminor)
+		    _("Create a RAID _device [default=/dev/md%s].") % newminor)
 	radioBox.pack_start(createRAIDdev, gtk.FALSE, gtk.FALSE, padding=10)
 
         doRAIDclone = gtk.RadioButton(createRAIDpart,
-				      _("Clone a drive to create a "
+				      _("Clone a _drive to create a "
 					"RAID device [default=/dev/md%s].") % newminor)
 	radioBox.pack_start(doRAIDclone, gtk.FALSE, gtk.FALSE, padding=10)
 
@@ -1339,7 +1339,7 @@ class PartitionWindow(InstallWindow):
 	
         box.pack_start(sw, gtk.TRUE)
 
-	self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume Group members"))
+	self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume _Group members"))
 	self.toggleViewButton.set_active(not self.show_uneditable)
 	self.toggleViewButton.connect("toggled", self.viewButtonCB)
 	box.pack_start(self.toggleViewButton, gtk.FALSE, gtk.FALSE)

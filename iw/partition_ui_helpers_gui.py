@@ -55,6 +55,7 @@ class WideCheckList(checklist.CheckList):
 def createAlignedLabel(text):
     label = gtk.Label(text)
     label.set_alignment(0.0, 0.5)
+    label.set_property("use-underline", gtk.TRUE)
 
     return label
 

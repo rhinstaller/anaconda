@@ -57,9 +57,9 @@ class PartitionEditor:
 	sizeoptiontable.set_row_spacings(5)
 	sizeoptiontable.set_border_width(4)
 
-	fixedrb     = gtk.RadioButton(label=_("Fixed size"))
+	fixedrb     = gtk.RadioButton(label=_("_Fixed size"))
 	fillmaxszrb = gtk.RadioButton(group=fixedrb,
-				      label=_("Fill all space up "
+				      label=_("Fill all space _up "
 					      "to (MB):"))
 	maxsizeAdj = gtk.Adjustment(value = 1, lower = 1,
 				    upper = MAX_PART_SIZE, step_incr = 1)
@@ -69,7 +69,7 @@ class PartitionEditor:
 	fillmaxszhbox.pack_start(fillmaxszrb)
 	fillmaxszhbox.pack_start(fillmaxszsb)
 	fillunlimrb = gtk.RadioButton(group=fixedrb,
-				     label=_("Fill to maximum allowable "
+				     label=_("Fill to maximum _allowable "
 					     "size"))
 
 	fillmaxszrb.connect("toggled", fillmaxszCB, fillmaxszsb)
@@ -276,20 +276,22 @@ class PartitionEditor:
             self.newbycyl = self.origrequest.start != None
 
         # Mount Point entry
-        maintable.attach(createAlignedLabel(_("Mount Point:")),
-                                            0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("_Mount Point:"))
+        maintable.attach(lbl, 0, 1, row, row + 1)
         self.mountCombo = createMountPointCombo(origrequest)
+	lbl.set_mnemonic_widget(self.mountCombo.entry)
         maintable.attach(self.mountCombo, 1, 2, row, row + 1)
         row = row + 1
 
         # Partition Type
         if self.origrequest.type == REQUEST_NEW:
-            maintable.attach(createAlignedLabel(_("Filesystem Type:")),
-                             0, 1, row, row + 1)
+	    lbl = createAlignedLabel(_("Filesystem _Type:"))
+            maintable.attach(lbl, 0, 1, row, row + 1)
 
             (self.newfstype, self.newfstypeMenu) = createFSTypeMenu(self.origrequest.fstype,
                                                           fstypechangeCB,
                                                           self.mountCombo)
+	    lbl.set_mnemonic_widget(self.newfstype)
             maintable.attach(self.newfstype, 1, 2, row, row + 1)
         else:
             maintable.attach(createAlignedLabel(_("Original Filesystem "
@@ -315,12 +317,12 @@ class PartitionEditor:
         # allowable drives
         if self.origrequest.type == REQUEST_NEW:
             if not self.newbycyl:
-                maintable.attach(createAlignedLabel(_("Allowable Drives:")),
-                                 0, 1, row, row + 1)
+		lbl = createAlignedLabel(_("Allowable _Drives:"))
+                maintable.attach(lbl, 0, 1, row, row + 1)
 
                 self.driveview = createAllowedDrivesList(self.diskset.disks,
 							 self.origrequest.drive)
-
+		lbl.set_mnemonic_widget(self.driveview)
                 sw = gtk.ScrolledWindow()
                 sw.add(self.driveview)
                 sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
@@ -349,8 +351,8 @@ class PartitionEditor:
         if self.origrequest.type == REQUEST_NEW:
             if not self.newbycyl:
                 # Size specification
-                maintable.attach(createAlignedLabel(_("Size (MB):")),
-                                 0, 1, row, row + 1)
+		lbl = createAlignedLabel(_("_Size (MB):"))
+                maintable.attach(lbl, 0, 1, row, row + 1)
                 sizeAdj = gtk.Adjustment(value = 1, lower = 1,
                                          upper = MAX_PART_SIZE, step_incr = 1)
                 self.sizespin = gtk.SpinButton(sizeAdj, digits = 0)
@@ -359,6 +361,7 @@ class PartitionEditor:
                 if self.origrequest.size:
                     self.sizespin.set_value(self.origrequest.size)
 
+		lbl.set_mnemonic_widget(self.sizespin)
                 maintable.attach(self.sizespin, 1, 2, row, row + 1)
                 bycyl_sizelabel = None
             else:
@@ -370,8 +373,9 @@ class PartitionEditor:
                 bycyl_sizelabel = createAlignedLabel("")
                 maintable.attach(bycyl_sizelabel, 1, 2, row, row + 1)
                 row = row + 1
-                maintable.attach(createAlignedLabel(_("Start Cylinder:")),
-                                 0, 1, row, row + 1)
+
+		lbl = createAlignedLabel(_("_Start Cylinder:"))
+                maintable.attach(lbl, 0, 1, row, row + 1)
 
                 maxcyl = self.diskset.disks[origrequest.drive[0]].dev.cylinders
                 cylAdj = gtk.Adjustment(value=origrequest.start,
@@ -380,6 +384,7 @@ class PartitionEditor:
                                         step_incr=1)
                 self.startcylspin = gtk.SpinButton(cylAdj, digits=0)
                 self.startcylspin.set_property('numeric', gtk.TRUE)
+		lbl.set_mnemonic_widget(self.startcylspin)
                 maintable.attach(self.startcylspin, 1, 2, row, row + 1)
                 row = row + 1
                 
@@ -387,10 +392,11 @@ class PartitionEditor:
                                            lower=origrequest.start,
                                            upper=maxcyl,
                                            step_incr=1)
-                maintable.attach(createAlignedLabel(_("End Cylinder:")),
-                                 0, 1, row, row + 1)
+		lbl = createAlignedLabel(_("_End Cylinder:"))		
+                maintable.attach(lbl, 0, 1, row, row + 1)
                 self.endcylspin = gtk.SpinButton(endcylAdj, digits = 0)
                 self.endcylspin.set_property('numeric', gtk.TRUE)
+		lbl.set_mnemonic_widget(self.endcylspin)
                 maintable.attach(self.endcylspin, 1, 2, row, row + 1)
 
                 self.startcylspin.connect("changed", self.cylspinchangedCB,
@@ -437,7 +443,7 @@ class PartitionEditor:
 
         # create only as primary
         if self.origrequest.type == REQUEST_NEW:
-            self.primonlycheckbutton = gtk.CheckButton(_("Force to be a primary "
+            self.primonlycheckbutton = gtk.CheckButton(_("Force to be a _primary "
                                                     "partition"))
             self.primonlycheckbutton.set_active(0)
             if self.origrequest.primary:
@@ -445,7 +451,7 @@ class PartitionEditor:
             maintable.attach(self.primonlycheckbutton, 0, 2, row, row+1)
             row = row + 1
 
-            self.badblocks = gtk.CheckButton(_("Check for bad blocks"))
+            self.badblocks = gtk.CheckButton(_("Check for _bad blocks"))
             self.badblocks.set_active(0)
             maintable.attach(self.badblocks, 0, 1, row, row + 1)
             row = row + 1

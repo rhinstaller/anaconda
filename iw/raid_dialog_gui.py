@@ -289,21 +289,23 @@ class RaidEditor:
 	row = 0
 
 	# Mount Point entry
-	maintable.attach(createAlignedLabel(_("Mount Point:")),
-					    0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("_Mount Point:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
 	self.mountCombo = createMountPointCombo(origrequest)
+	lbl.set_mnemonic_widget(self.mountCombo.entry)
 	maintable.attach(self.mountCombo, 1, 2, row, row + 1)
 	row = row + 1
 
 	# Filesystem Type
-	maintable.attach(createAlignedLabel(_("Filesystem type:")),
-					    0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("Filesystem _Type:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():
             (self.fstypeoption, self.fstypeoptionMenu) = createFSTypeMenu(origrequest.fstype,
                                                                           fstypechangeCB,
                                                                           self.mountCombo,
                                                                           ignorefs = ["software RAID"])
+	    lbl.set_mnemonic_widget(self.fstypeoption)
         else:
             if origrequest.fstype.getName():
                 self.fstypeoption = gtk.Label(origrequest.fstype.getName())
@@ -314,8 +316,8 @@ class RaidEditor:
 	row = row + 1
 
 	# raid minors
-	maintable.attach(createAlignedLabel(_("RAID Device:")),
-                         0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("RAID _Device:"))	
+	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():
             availminors = self.partitions.getAvailableRaidMinors()[:16]
@@ -325,14 +327,15 @@ class RaidEditor:
 
             availminors.sort()
             (self.minorOption, self.minorOptionMenu) = self.createRaidMinorMenu(availminors, reqminor)
+	    lbl.set_mnemonic_widget(self.minorOption)
         else:
             self.minorOption = gtk.Label("md%s" %(origrequest.raidminor,))
 	maintable.attach(self.minorOption, 1, 2, row, row + 1)
 	row = row + 1
 
 	# raid level
-	maintable.attach(createAlignedLabel(_("RAID Level:")),
-					    0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("RAID _Level:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
 
         if not origrequest.getPreExisting():
             # Create here, pack below
@@ -365,6 +368,7 @@ class RaidEditor:
             (self.leveloption, self.leveloptionmenu) = \
                                self.createRaidLevelMenu(availRaidLevels,
                                                         origrequest.raidlevel)
+	    lbl.set_mnemonic_widget(self.leveloption)
         else:
             self.leveloption = gtk.Label(origrequest.raidlevel)
 
@@ -372,14 +376,15 @@ class RaidEditor:
 	row = row + 1
 
 	# raid members
-	maintable.attach(createAlignedLabel(_("RAID Members:")),
-			 0, 1, row, row + 1)
+	lbl=createAlignedLabel(_("_RAID Members:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
 
 	# XXX need to pass in currently used partitions for this device
 	(self.raidlist, sw) = self.createAllowedRaidPartitionsList(availraidparts,
                                                                    origrequest.raidmembers,
                                                                    origrequest.getPreExisting())
 
+	lbl.set_mnemonic_widget(self.raidlist)
 	self.raidlist.set_size_request(275, 80)
 	maintable.attach(sw, 1, 2, row, row + 1)
 	row = row + 1
@@ -388,16 +393,17 @@ class RaidEditor:
             self.raidlist.set_sensitive(gtk.FALSE)
 
 	# number of spares - created widget above
-	maintable.attach(createAlignedLabel(_("Number of spares:")),
-			 0, 1, row, row + 1)
+	lbl = createAlignedLabel(_("Number of _spares:"))
+	maintable.attach(lbl, 0, 1, row, row + 1)
 	maintable.attach(self.sparesb, 1, 2, row, row + 1)
+	lbl.set_mnemonic_widget(self.sparesb)
 	row = row + 1
 
 	# format or not?
 	self.formatButton = None
 	self.fsoptionsDict = {}
 	if (origrequest.fstype and origrequest.fstype.isFormattable()) and not origrequest.getPreExisting():
-	    self.formatButton = gtk.CheckButton(_("Format partition?"))
+	    self.formatButton = gtk.CheckButton(_("_Format partition?"))
 	    if origrequest.format == None or origrequest.format != 0:
 		self.formatButton.set_active(1)
 	    else:
