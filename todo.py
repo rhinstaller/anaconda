@@ -1009,12 +1009,16 @@ class ToDo:
 	    os.system(command)
 
 	    for n in kernelVersions:
-		self.log("from %s/lib/modules/%s/%s.o" % (self.instPath, n, name))
-		self.log("to %s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
-							subdir, name))
-		os.rename("%s/lib/modules/%s/%s.o" % (self.instPath, n, name),
-			  "%s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
-							subdir, name))
+		fromFile = "%s/lib/modules/%s/%s.o" % (self.instPath, n, name)
+		to = "%s/lib/modules/%s/%s/%s.o" % (self.instPath, n, 
+							subdir, name)
+
+		if (os.access(fromFile, os.R_OK)):
+		    self.log("copying %s to %s" % (fromFile, to))
+		    os.rename(fromFile, to)
+		else:
+		    self.log("missing DD module %s (this may be okay)" % 
+				fromFile)
 
     def writeConfiguration(self):
         self.writeLanguage ()
