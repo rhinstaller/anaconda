@@ -1326,14 +1326,13 @@ def betaNagScreen(intf, dir):
     for (key, val) in publicBetas.items():
         if productName.startswith(key):
             fileagainst = val
-
     if fileagainst is None:
         fileagainst = "%s Beta" %(productName,)
     
     while 1:
-	rc = intf.messageWindow( _("Warning! This is a beta!"),
+	rc = intf.messageWindow( _("Warning! This is pre-release software!"),
 				 _("Thank you for downloading this "
-				   "%s Beta release.\n\n"
+				   "pre-release of %s.\n\n"
 				   "This is not a final "
 				   "release and is not intended for use "
 				   "on production systems.  The purpose of "
@@ -1345,7 +1344,7 @@ def betaNagScreen(intf, dir):
 				   "and file a report against '%s'.\n"
                                    %(productName, fileagainst)),
 				   type="custom", custom_icon="warning",
-				   custom_buttons=[_("_Exit"), _("_Install BETA")])
+				   custom_buttons=[_("_Exit"), _("_Install anyway")])
 
 	if not rc:
 	    rc = intf.messageWindow( _("Rebooting System"),
