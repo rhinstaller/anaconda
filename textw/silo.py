@@ -42,44 +42,67 @@ class SiloAppendWindow:
 
 class SiloWindow:
     def __call__(self, screen, todo):
-        if '/' not in todo.mounts.keys (): return INSTALL_NOOP
+	if '/' not in todo.mounts.keys (): return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
-	(bootpart, boothd) = todo.getLiloOptions()
+	(bootpart, boothd) = todo.silo.getSiloOptions()
 
-	if (todo.getLiloLocation () == "mbr"):
-	    default = 1
-	elif (todo.getLiloLocation () == "partition"):
-	    default = 0
+	format = "/dev/%-11s %s%*s" 
+	str1 = _("First sector of boot partition")
+	str2 = _("Master Boot Record (MBR)")
+	str3 = _("Create PROM alias `linux'")
+	str4 = _("Set default PROM boot device")
+	len1 = len(str1) + 17
+	len2 = len(str2) + 17
+	len3 = len(str3)
+	len4 = len(str4) 
+	lenmax = max((len1, len2, len3, len4))
+	rc1 = SingleRadioButton (format % (bootpart, str1, lenmax - len1, ""), None, 1 )
+	rc2 = SingleRadioButton (format % (boothd, str2, lenmax - len2, ""), rc1)
+
+	prompath = todo.silo.disk2PromPath(bootpart)
+	default = prompath and len(prompath) > 0 and todo.silo.hasAliases()
+	linuxAlias = Checkbox ("%s%*s" % (str3, lenmax - len3, ""), default)
+	if not default:
+	    linuxAlias.setFlags (FLAG_DISABLED, FLAGS_SET)
+	bootDevice = Checkbox ("%s%*s" % (str4, lenmax - len4, ""), 1)
+
+	bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+
+	g = GridForm (screen, _("SILO Configuration"), 1, 8)
+
+	g.add (Label (_("Where do you want to install the bootloader?")), 0, 0)
+	g.add (rc1, 0, 1)
+	g.add (rc2, 0, 2, padding = (0, 0, 0, 1))
+	g.add (linuxAlias, 0, 3)
+	g.add (bootDevice, 0, 4, padding = (0, 0, 0, 1))
+	g.add (bb, 0, 5, growx = 1)
+
+	result = g.runOnce()
+
+	if rc1.selected():
+	    todo.setLiloLocation("mbr")
 	else:
-	    default = 1
-            
-        format = "/dev/%-11s %s" 
-        locations = []
-        locations.append (format % (bootpart, "First sector of boot partition"))
-        locations.append (format % (boothd, "Master Boot Record (MBR)"))
+	    todo.setLiloLocation("partition")
 
-	title = _("SILO Configuration")
-        (rc, sel) = ListboxChoiceWindow (screen, title,
-                                         _("Where do you want to install the bootloader?"),
-                                         locations, default = default,
-                                         buttons = [ _("OK"), _("Back") ])
+	lAlias = linuxAlias.selected() != 0
+	bDevice = bootDevice.selected() != 0
 
-        if sel == 1:
-            todo.setLiloLocation("mbr")
-        else:
-            todo.setLiloLocation("partition")
+	todo.silo.setPROM(lAlias, bDevice)
 
-        if rc == string.lower (_("Back")):
-            return INSTALL_BACK
-        return INSTALL_OK
+	rc = bb.buttonPressed (result)
+
+	if rc == "back":
+	    return INSTALL_BACK
+	return INSTALL_OK
+
 
 class SiloImagesWindow:
     def editItem(self, screen, partition, itemLabel):
 	devLabel = Label(_("Device") + ":")
 	bootLabel = Label(_("Boot label") + ":")
 	device = Label("/dev/" + partition)
-        newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
+	newLabel = Entry (20, scroll = 1, returnExit = 1, text = itemLabel)
 
 	buttons = ButtonBar(screen, [_("Ok"), _("Clear"), _("Cancel")])
 
@@ -113,7 +136,7 @@ class SiloImagesWindow:
 	if (type == 2):
 	    type = "Linux extended"
 	elif (type == 6):
-	    type = "SunOS/Solaris"
+	    type = "UFS"
 	else:
 	    type = "Other"
 
@@ -125,7 +148,7 @@ class SiloImagesWindow:
 	return "%-10s  %-25s %-7s %-10s" % ( "/dev/" + device, type, default, label)
 
     def __call__(self, screen, todo):
-	images = todo.getLiloImages()
+	images = todo.silo.getSiloImages()
 	if not images: return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
