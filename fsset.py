@@ -1076,7 +1076,7 @@ class FileSystemSet:
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
             
-            rootDev = root.device.getDevice()
+            rootDev = "/dev/%s" % (root.device.getDevice(),)
             os.makedirs(instPath + rootDev[:string.rfind(rootDev, "/")])
             iutil.copyDeviceNode(rootDev, instPath + rootDev)
 
@@ -1385,7 +1385,7 @@ class VolumeGroupDevice(Device):
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
             if rc:
-                raise SystemError
+                raise SystemError, "vgscan failed"
             
             nodes = []
             for volume in self.physicalVolumes:
@@ -1404,9 +1404,18 @@ class VolumeGroupDevice(Device):
                                             stderr = "/tmp/lvmout",
                                             searchPath = 1)
                 if rc:
-                    raise SystemError
+                    raise SystemError, "pvcreate failed for %s" % (volume,)
 
                 nodes.append(node)
+
+            # rescan now that we've recreated pvs.  ugh.
+            rc = iutil.execWithRedirect("/usr/sbin/vgscan",
+                                        ["vgscan", "-v"],
+                                        stdout = "/tmp/lvmout",
+                                        stderr = "/tmp/lvmout",
+                                        searchPath = 1)
+            if rc:
+                raise SystemError, "vgscan failed"
 
 
             args = [ "/usr/sbin/vgcreate", "-v", self.name ]
@@ -1415,6 +1424,9 @@ class VolumeGroupDevice(Device):
                                         stdout = "/tmp/lvmout",
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
+
+            if rc:
+                raise SystemError, "vgcreate failed for %s" %(self.name,)
 
             self.isSetup = 1
             
@@ -1450,11 +1462,11 @@ class LogicalVolumeDevice(Device):
                                         stderr = "/tmp/lvmout",
                                         searchPath = 1)
             if rc:
-                raise SystemError
+                raise SystemError, "lvcreate failed for %s" %(self.name,)
             
             self.isSetup = 1
 
-        return self.getDevice()
+        return "/dev/%s" % (self.getDevice(),)
 
     def getDevice(self, asBoot = 0):
         return "%s/%s" % (self.volumeGroup, self.name)
