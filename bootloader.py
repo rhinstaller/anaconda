@@ -71,6 +71,11 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     
 
 def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
+    def dosync():
+        isys.sync()
+        isys.sync()
+        isys.sync()
+        
     justConfigFile = not flags.setupFilesystems
 
     if bl.defaultDevice == -1:
@@ -117,7 +122,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
 	    plainLabelUsed = 1
 
-
+    dosync()
     try:
         bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
                  justConfigFile, intf)
@@ -129,6 +134,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
                                _("No kernel packages were installed on your "
                                  "system.  Your boot loader configuration "
                                  "will not be changed."))
+    dosync()
 
 # note that this function no longer actually creates an initrd.
 # the kernel's %post does this now
