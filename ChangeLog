@@ -1,3 +1,8 @@
+2004-11-19  Jeremy Katz  <katzj@redhat.com>
+
+	* packages.py (doPreInstall): Don't remove the directories as
+	they may not be empty (#133773)
+
 2004-11-17  Jeremy Katz  <katzj@redhat.com>
 
 	* textw/upgrade_bootloader_text.py
