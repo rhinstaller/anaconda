@@ -137,6 +137,15 @@ class KeyboardWindow:
     
 class InstallPathWindow:
     def __call__ (self, screen, todo, intf):
+	if (todo.instClass.installType == "install"):
+            intf.steps = intf.commonSteps + intf.installSteps
+            todo.upgrade = 0
+	    return INSTALL_NOOP
+	elif (todo.instClass.installType == "upgrade"):
+            intf.steps = intf.commonSteps + intf.upgradeSteps
+            todo.upgrade = 1
+	    return INSTALL_NOOP
+
 	choices = [ _("Install GNOME Workstation"), 
 		    _("Install KDE Workstation"),
 		    _("Install Server System"),
@@ -1373,8 +1382,8 @@ class InstallInterface:
         self.welcomeText = _("Red Hat Linux (C) 1999 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
         self.screen.pushHelpLine (_("  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next screen"))
-	self.screen.suspendCallback(killSelf, self.screen)
-#	self.screen.suspendCallback(debugSelf, self.screen)
+#	self.screen.suspendCallback(killSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
@@ -1390,7 +1399,7 @@ class InstallInterface:
 		    (self.screen, todo), "keyboard" ],
             [_("Welcome"), WelcomeWindow, (self.screen,), "welcome" ],
             [_("Installation Type"), InstallPathWindow, 
-		    (self.screen, todo, self), "installtype" ],
+		    (self.screen, todo, self) ],
             ]
         
         self.installSteps = [
