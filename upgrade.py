@@ -35,7 +35,7 @@ from product import productName
 from rhpl.log import log
 from rhpl.translate import _
 
-upgrade_remove_blacklist = ("linuxconf", "linuxconf-devel", "gnome-linuxconf")
+upgrade_remove_blacklist = ()
 
 def findRootParts(intf, id, dispatch, dir, chroot):
     if dir == DISPATCH_BACK:
