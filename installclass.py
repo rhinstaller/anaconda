@@ -14,7 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import os, iutil
+import os, sys, iutil
 import string
 import language
 
@@ -511,8 +511,14 @@ def availableClasses(showHidden=0):
 
     if os.access("installclasses", os.R_OK):
 	path = "installclasses"
+    elif os.access("/tmp/product/installclasses", os.R_OK):
+        path = "/tmp/product/installclasses"
     else:
 	path = "/usr/lib/anaconda/installclasses"
+
+    # append the location of installclasses to the python path so we
+    # can import them
+    sys.path.append(path)
 
     files = os.listdir(path)
     done = {}
