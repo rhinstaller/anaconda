@@ -54,12 +54,12 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
           XFree86-Sun XFree86-75dpi-fonts XFree86-100dpi-fonts
           XFree86-ISO8859-2 XFree86-cyrillic-fonts XFree86-3.
 	  xpm-3 glib- gtk+- gnome-libs python-1 newt imlib-1 libpng
-	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel ash- bash-
+	  libtiff libjpeg- libtermcap-2 zlib rpm rpm-devel rpm-python ash- bash-
 	  pygtk- pygnome- util-linux procps esound-0 audiofile-0
 	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja
           open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
           netkit-base- traceroute- sh-utils- textutils- pine- less- rsh-
-          ncurses-"
+          ncurses- popt"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -84,6 +84,7 @@ lib/libnss_files*
 lib/libpthread*
 lib/libresolv*
 lib/libNoVersion*
+usr/lib/libpopt*
 etc/group
 etc/passwd
 etc/services
@@ -107,6 +108,7 @@ lib/libss*
 lib/libuuid*
 usr/X11R6/lib/X11/Cards
 usr/X11R6/share/Xconfigurator/MonitorsDB
+usr/lib/python1.5/site-packages/rpmmodule.so
 EOF
 
 KEEPFILEGR=/tmp/keepfilegr.$$
