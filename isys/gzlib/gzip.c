@@ -65,8 +65,6 @@ static char rcsid[] = "$Id$";
 
 #if defined STDC_HEADERS || defined HAVE_STDLIB_H
 #  include <stdlib.h>
-#else
-   extern int errno;
 #endif
 
 #ifdef HAVE_DIRENT_H
