@@ -51,5 +51,5 @@ else
     $MK_IMAGES $p/RedHat/RPMS $p $p/image-template $BUILDARCH
 fi
 
-#rm -rf $BUILDINSTDIR
-#rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
+rm -rf $BUILDINSTDIR
+rm -rf $p/image-template $p/RedHat/instimage/usr/lib/anaconda-runtime
