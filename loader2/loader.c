@@ -1582,7 +1582,7 @@ int main(int argc, char ** argv) {
             pid = 1;
         } else {
             char * buf = malloc(256);
-            int ret;
+            char *ret;
 
             ret = fgets(buf, 256, f);
             pid = atoi(buf);
