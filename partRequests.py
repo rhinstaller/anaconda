@@ -715,6 +715,11 @@ class LogicalVolumeRequestSpec(RequestSpec):
             fsname = self.fstype.getName()
         else:
             fsname = "None"
+
+        if self.size:
+            size = self.size
+        else:
+            size = "%s%%" %(self.percent,)
         
         str = ("LV Request -- mountpoint: %(mount)s  uniqueID: %(id)s\n"
                "  type: %(fstype)s  format: %(format)s  badblocks: %(bb)s\n"
@@ -722,7 +727,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
-                "size": self.size})
+                "size": size})
         return str
     
     def getDevice(self, partitions):
@@ -735,4 +740,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
 
     def getActualSize(self, partitions, diskset):
         """Return the actual size allocated for the request in megabytes."""
-	return self.size
+        if self.percent:
+            vgreq = partitions.getRequestByID(self.volumeGroup)
+            return int(self.percent * 0.01 * vgreq.size)
+        else:
+            return self.size
