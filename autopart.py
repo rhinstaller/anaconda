@@ -1336,6 +1336,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 req.fstype = request.fstype
         else:
             req = copy.copy(request)
+
             if req.type == REQUEST_NEW and not req.drive:
                 req.drive = drives
             # if this is a multidrive request, we need to create one per drive
@@ -1354,6 +1355,7 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass, dispatch):
                 # add _all_ physical volumes we can find
                 if ((len(req.physicalVolumes) == 0)
                     or (req.physicalVolumes is None)):
+                    req.physicalVolumes = []
                     for r in partitions.requests:
                         if isinstance(r.fstype,
                                       fsset.lvmPhysicalVolumeDummyFileSystem):
