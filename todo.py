@@ -78,13 +78,13 @@ class Network:
             lines = f.readlines ()
 	    f.close ()
             info = {}
+	    self.isConfigured = 1
             for line in lines:
                 netinf = string.splitfields (line, '=')
                 info [netinf[0]] = string.strip (netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice (info["DEVICE"])
             if info.has_key ("IPADDR"):
                 self.netdevices [info["DEVICE"]].set (("IPADDR", info["IPADDR"]))
-                self.isConfigured = 1
             if info.has_key ("NETMASK"):
                 self.netdevices [info["DEVICE"]].set (("NETMASK", info["NETMASK"]))
             if info.has_key ("BOOTPROTO"):
@@ -495,7 +495,11 @@ class ToDo:
         f = open (self.instPath + "/etc/sysconfig/network", "w")
         f.write ("NETWORKING=yes\n"
                  "FORWARD_IPV4=false\n"
-                 "HOSTNAME=" + self.network.hostname + "\n")
+                 "HOSTNAME=")
+	if self.network.hostname:
+	    f.write(self.network.hostname + "\n")
+	else:
+	    f.write("localhost.localdomain" + "\n")
 	if self.network.gateway:
 	    f.write("GATEWAY=" + self.network.gateway + "\n")
         f.close ()

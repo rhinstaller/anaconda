@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-02-17 15:22-0500\n"
+"POT-Creation-Date: 2000-02-17 18:41-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,8 +30,8 @@ msgstr ""
 #: ../loader/loader.c:910 ../loader/loader.c:915 ../loader/loader.c:1692
 #: ../loader/loader.c:1738 ../loader/loader.c:1809 ../loader/urls.c:70
 #: ../loader/urls.c:79 ../loader/urls.c:86 ../loader/urls.c:223
-#: ../loader/urls.c:228 ../text.py:281 ../text.py:765 ../todo.py:325
-#: ../todo.py:639 ../todo.py:670
+#: ../loader/urls.c:228 ../text.py:281 ../text.py:765 ../todo.py:336
+#: ../todo.py:654 ../todo.py:685
 msgid "Error"
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Error unmounting %s: %s"
 msgstr ""
 
-#: ../fstab.py:349 ../todo.py:408
+#: ../fstab.py:349 ../todo.py:419
 msgid "Creating"
 msgstr ""
 
@@ -687,90 +687,90 @@ msgstr ""
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 
-#: ../todo.py:326
+#: ../todo.py:337
 #, c-format
 msgid "Error copying file: %s"
 msgstr ""
 
-#: ../todo.py:408
+#: ../todo.py:419
 msgid "Creating boot disk..."
 msgstr ""
 
-#: ../todo.py:428
+#: ../todo.py:439
 msgid "Reading"
 msgstr ""
 
-#: ../todo.py:429
+#: ../todo.py:440
 msgid "Reading package information..."
 msgstr ""
 
-#: ../todo.py:609 ../todo.py:622
+#: ../todo.py:624 ../todo.py:637
 msgid "no suggestion"
 msgstr ""
 
-#: ../todo.py:628
+#: ../todo.py:643
 msgid "Searching"
 msgstr ""
 
-#: ../todo.py:629
+#: ../todo.py:644
 msgid "Searching for Red Hat Linux installations..."
 msgstr ""
 
-#: ../todo.py:640 ../todo.py:671
+#: ../todo.py:655 ../todo.py:686
 #, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
 msgstr ""
 
-#: ../todo.py:682
+#: ../todo.py:697
 msgid "Finding"
 msgstr ""
 
-#: ../todo.py:683
+#: ../todo.py:698
 msgid "Finding packages to upgrade..."
 msgstr ""
 
-#: ../todo.py:939
+#: ../todo.py:954
 msgid "Processing"
 msgstr ""
 
-#: ../todo.py:940
+#: ../todo.py:955
 msgid "Preparing to install..."
 msgstr ""
 
-#: ../todo.py:1119
+#: ../todo.py:1134
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr ""
 
-#: ../todo.py:1121
+#: ../todo.py:1136
 #, c-format
 msgid "Installing %s.\n"
 msgstr ""
 
-#: ../todo.py:1142
+#: ../todo.py:1157
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
 
-#: ../todo.py:1145
+#: ../todo.py:1160
 msgid "Mount Point"
 msgstr ""
 
-#: ../todo.py:1145
+#: ../todo.py:1160
 msgid "Space Needed"
 msgstr ""
 
-#: ../todo.py:1158
+#: ../todo.py:1173
 msgid "Disk Space"
 msgstr ""
 
-#: ../todo.py:1182
+#: ../todo.py:1197
 msgid "Post Install"
 msgstr ""
 
-#: ../todo.py:1183
+#: ../todo.py:1198
 msgid "Performing post install configuration..."
 msgstr ""
 
