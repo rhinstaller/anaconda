@@ -171,13 +171,21 @@ def loadFont(font):
 def loadKeymap(keymap):
     return _isys.loadKeymap (keymap)
 
+probedList = None
+
+def flushDriveDict():
+    global probedList
+    probedList = None
+
 def driveDict(klassArg):
-    p = _isys.ProbedList()
-    p.updateIde()
-    p.updateScsi()
+    global probedList
+    if not probedList:
+        probedList = _isys.ProbedList()
+        probedList.updateIde()
+        probedList.updateScsi()
 
     dict = {}
-    for (klass, dev, descr) in p:
+    for (klass, dev, descr) in probedList:
 	if (klass == klassArg):
 	    dict[dev] = descr
     return dict
