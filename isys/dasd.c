@@ -105,7 +105,7 @@ char *getDasdPorts() {
 #else
         char * line, *ports = NULL;
 	char devname[7];
-        char port[6];
+        char port[10];
         FILE *fd;
 	int ret;
         fd = fopen ("/proc/dasd/devices", "r");
