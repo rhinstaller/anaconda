@@ -111,13 +111,14 @@ class LiloImagesWindow:
 	subgrid.setField(bootLabel, 0, 1, anchorLeft = 1)
 	subgrid.setField(newLabel, 1, 1, padding = (1, 0, 0, 0), anchorLeft = 1)
 
-	g = GridForm(screen, _("Edit Boot Label"), 1, 2)
+	g = GridForm(screen, _("Edit Boot Label Please"), 1, 2)
 	g.add(subgrid, 0, 0, padding = (0, 0, 0, 1))
 	g.add(buttons, 0, 1, growx = 1)
 
 	result = ""
 	while (result != "ok" and result != "F12" and result != newLabel):
 	    result = g.run()
+
 	    if (buttons.buttonPressed(result)):
 		result = buttons.buttonPressed(result)
 
@@ -126,6 +127,15 @@ class LiloImagesWindow:
 		return itemLabel
 	    elif (result == "clear"):
 		newLabel.set("")
+            elif (result == "ok" or result == "F12" or result == newLabel):
+		import regex
+
+                if (regex.search (" ", newLabel.value()) != -1):
+                    rc = ButtonChoiceWindow (screen, _("Invalid Boot Label"),
+                                             _("Boot labels cannot contain "
+                                               "space(s)."),
+                                             [ _("OK") ])
+                    result = ""
 
 	screen.popWindow()
 
