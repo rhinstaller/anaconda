@@ -32,6 +32,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <sys/signal.h>
 #include <sys/socket.h>
 #include <sys/sysmacros.h>
 #include <sys/utsname.h>
@@ -167,6 +168,9 @@ static void spawnShell(int flags) {
 	    if (ioctl(0, TIOCSCTTY, NULL)) {
 		logMessage("could not set new controlling tty");
 	    }
+
+	    signal(SIGINT, SIG_DFL);
+	    signal(SIGTSTP, SIG_DFL);
 
 	    setenv("LD_LIBRARY_PATH",
 		    "/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"

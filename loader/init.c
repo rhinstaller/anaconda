@@ -490,6 +490,9 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
+    signal(SIGINT, SIG_IGN);
+    signal(SIGTSTP, SIG_IGN);
+
     for (i = 1; i < argc; i++)
 	if (!strcmp (argv[i], "serial")) {
 	    isSerial = 1;

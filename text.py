@@ -8,6 +8,7 @@ import rpm
 import time
 import gettext_rh
 import glob
+import signal
 
 cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
@@ -1002,6 +1003,8 @@ class InstallInterface:
         self.individual = Flag(0)
         self.step = 0
         self.dir = 1
+	signal.signal(signal.SIGINT, signal.SIG_IGN)
+	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 
     def __del__(self):
         self.screen.finish()

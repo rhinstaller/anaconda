@@ -82,7 +82,8 @@ class ManualPartitionWindow:
                 except:
                     # XXX FIXME
                     pass
-		iutil.execWithRedirect (path, [ path, "/tmp/" + device ])
+		iutil.execWithRedirect (path, [ path, "/tmp/" + device ],
+					ignoreTermSigs = 1)
                 try:
                     os.remove ('/tmp/' + device)
                 except:

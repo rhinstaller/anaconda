@@ -45,6 +45,8 @@ static inline _syscall2(int,symlink,const char *,a,const char *,b)
 static inline _syscall2(int,chmod,const char * ,path,mode_t,mode)
 static inline _syscall2(int,sethostname,const char *,name,int,len)
 static inline _syscall2(int,setdomainname,const char *,name,int,len)
+static inline _syscall2(int,setpgid,int,name,int,len)
+static inline _syscall2(int,signal,int,num,void *,len)
 static inline _syscall1(int,umount,const char *,dir)
 static inline _syscall1(int,unlink,const char *,fn)
 static inline _syscall1(int,close,int,fd)
@@ -104,3 +106,8 @@ char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, int len);
 
 void printstr(char * string);
+
+#define SIGINT		 2
+#define SIGTSTP		20
+
+#define SIG_IGN		 ((void *) 1)

@@ -1,5 +1,5 @@
 
-import types, os, sys, isys, select, string, stat
+import types, os, sys, isys, select, string, stat, signal
 
 def getArch ():
     arch = os.uname ()[4]
@@ -24,7 +24,8 @@ def getfd(filespec, readOnly = 0):
     return os.open(filespec, flags)
 
 def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,	
-		     searchPath = 0, root = '/'):
+		     searchPath = 0, root = '/', newPgrp = 0,
+		     ignoreTermSigs = 0):
     stdin = getfd(stdin)
     if stdout == stderr:
 	stdout = getfd(stdout)
@@ -42,6 +43,10 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
     childpid = os.fork()
     if (not childpid):
         if (root and root != '/'): isys.chroot (root)
+
+	if ignoreTermSigs:
+	    signal.signal(signal.SIGTSTP, signal.SIG_IGN)
+	    signal.signal(signal.SIGINT, signal.SIG_IGN)
 
 	if type(stdin) == type("a"):
 	    stdin == os.open(stdin, os.O_RDONLY)
@@ -67,7 +72,16 @@ def execWithRedirect(command, argv, stdin = 0, stdout = 1, stderr = 2,
 	    os.execv(command, argv)
 
 	sys.exit(1)
+
+    if newPgrp:
+	os.setpgid(childpid, childpid)
+	oldPgrp = os.tcgetpgrp(0)
+	os.tcsetpgrp(0, childpid)
+
     (pid, status) = os.waitpid(childpid, 0)
+
+    if newPgrp:
+	os.tcsetpgrp(0, oldPgrp)
 
     return status
 
