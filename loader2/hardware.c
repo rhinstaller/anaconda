@@ -308,6 +308,8 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 
     mlLoadModuleSet("cdrom:ide-cd", modLoaded, modDeps, modInfo, flags);
 
+    /* nuke this for now */
+#if 0
     /* FIXME: having dma on for CD devices seems to break media check
      * as well as causing other problems for people.  To avoid having
      * to tell everyone to use ide=nodma all the time, let's do it 
@@ -337,6 +339,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
         close(fd);
         unlink("/tmp/cdrom");
     }
+#endif
     
 }
 
