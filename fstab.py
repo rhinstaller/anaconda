@@ -1026,10 +1026,9 @@ def readFstab (path, fstab):
 	    # this skips swap files! todo has to put them back for upgrades
 
 	    device = fields[0][5:]
+	    fsystem = fields[2]
 	    if loopIndex.has_key(device):
 		(device, fsystem) = loopIndex[device]
-
-	    fsystem = fields[2]
 
 	    fstab.addMount(device, fields[1], fsystem)
 
