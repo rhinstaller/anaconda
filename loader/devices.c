@@ -14,6 +14,7 @@
 #include "loader.h"
 #include "misc.h"
 #include "modules.h"
+#include "windows.h"
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     struct newtWinEntry * entries;
@@ -160,24 +161,31 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps modDeps, int flags, int cancelNotBack) {
     int rc;
+    int done = 0;
 
-    rc = newtWinChoice(_("Devices"), _("OK"), 
-	    cancelNotBack ? _("Cancel") : _("Back"),
-	    _("Insert your driver disk and press \"OK\" to continue."));
+    do { 
+	rc = newtWinChoice(_("Devices"), _("OK"), 
+		cancelNotBack ? _("Cancel") : _("Back"),
+		_("Insert your driver disk and press \"OK\" to continue."));
 
-    if (rc == 2) return LOADER_BACK;
+	if (rc == 2) return LOADER_BACK;
 
-    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
+	mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
-    devMakeInode("fd0", "/tmp/fd0");
+	devMakeInode("fd0", "/tmp/fd0");
 
-    if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
-	newtWinMessage(_("Error"), _("OK"), _("Failed to mount floppy disk."));
+	if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
+	    newtWinMessage(_("Error"), _("OK"), 
+			   _("Failed to mount floppy disk."));
 
-    if (devCopyDriverDisk(modInfo, modLoaded, modDeps, flags, "/tmp/drivers"))
-	newtWinMessage(_("Error"), _("OK"),
-	    _("The floppy disk you inserted is not a valid driver disk "
-	      "for this release of Red Hat Linux."));
+	if (devCopyDriverDisk(modInfo, modLoaded, modDeps, 
+			      flags, "/tmp/drivers"))
+	    newtWinMessage(_("Error"), _("OK"),
+		_("The floppy disk you inserted is not a valid driver disk "
+		  "for this release of Red Hat Linux."));
+	else
+	    done = 1;
+    } while (!done);
 
     return 0;
 }
