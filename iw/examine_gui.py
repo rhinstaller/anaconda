@@ -118,7 +118,7 @@ class UpgradeExamineWindow (InstallWindow):
 	crackhbox = gtk.HBox(gtk.FALSE)
 	crackhbox.set_size_request(70, -1)
 	ipbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
+#	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
 	r.packWidgetInEntry(UPGRADE_STR, ipbox)
 
 
