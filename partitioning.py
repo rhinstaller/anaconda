@@ -160,7 +160,8 @@ def partitioningComplete(bl, fsset, diskSet, partitions, intf, instPath, dir):
         if rc == 0:
             sys.exit(0)
         return DISPATCH_FORWARD
-        
+
+    partitions.sortRequests()
     fsset.reset()
     for request in partitions.requests:
         # XXX improve sanity checking

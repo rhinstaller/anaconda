@@ -413,12 +413,27 @@ class Partitions:
         n = 0
         while n < len(self.requests):
             for request in self.requests:
-                if (request.size and self.requests[n].size and
+                # for raid requests, the only thing that matters for sorting
+                # is the raid device since ordering by size is mostly
+                # irrelevant.  this also keeps things more consistent
+                if (request.type == REQUEST_RAID or
+                    self.requests[n].type == REQUEST_RAID):
+                    if (request.type == self.requests[n].type and
+                        (self.requests[n].raidminor != None) and
+                        ((request.raidminor is None) or
+                         request.raidminor > self.requests[n].raidminor)):
+                        tmp = self.requests[n]
+                        index = self.requests.index(request)
+                        self.requests[n] = request
+                        self.requests[index] = tmp
+                # for sized requests, we want the larger ones first
+                elif (request.size and self.requests[n].size and
                     (request.size < self.requests[n].size)):
                     tmp = self.requests[n]
                     index = self.requests.index(request)
                     self.requests[n] = request
                     self.requests[index] = tmp
+                # for cylinder-based, sort by order on the drive
                 elif (request.start and self.requests[n].start and
                       (request.drive == self.requests[n].drive) and
                       (request.type == self.requests[n].type) and 
@@ -427,6 +442,8 @@ class Partitions:
                     index = self.requests.index(request)
                     self.requests[n] = request
                     self.requests[index] = tmp
+                # finally just use when they defined the partition so
+                # there's no randomness thrown in
                 elif (request.size and self.requests[n].size and
                       (request.size == self.requests[n].size) and
                       (request.uniqueID < self.requests[n].uniqueID)):
@@ -474,13 +491,13 @@ class Partitions:
         slash = self.getRequestByMountPoint('/')
         if not slash:
             errors.append(_("You have not defined a root partition (/), "
-                            "which is required for installation of Red "
-                            "Hat Linux to continue."))
+                            "which is required for installation of %s "
+                            "to continue.") % (productName,))
 
         if slash and requestSize(slash, diskset) < 250:
             warnings.append(_("Your root partition is less than 250 "
                               "megabytes which is usually too small to "
-                              "install Red Hat Linux."))
+                              "install %s.") % (productName,))
 
         if iutil.getArch() == "ia64":
             bootreq = self.getRequestByMountPoint("/boot/efi")
@@ -495,8 +512,8 @@ class Partitions:
             if requestSize(req, diskset) < size:
                 warnings.append(_("Your %s partition is less than %s "
                                   "megabytes which is lower than recommended "
-                                  "for a normal Red Hat Linux install.")
-                                %(mount, size))
+                                  "for a normal %s install.")
+                                %(mount, size, productName))
 
         foundSwap = 0
         swapSize = 0
@@ -538,8 +555,8 @@ class Partitions:
         # XXX number of swaps not exported from kernel and could change
         if foundSwap >= 32:
             warnings.append(_("You have specified more than 32 swap devices.  "
-                              "The kernel for Red Hat Linux only supports 32 "
-                              "swap devices."))
+                              "The kernel for %s only supports 32 "
+                              "swap devices.") % (productName,))
 
         mem = iutil.memInstalled(corrected = 0)
         rem = mem % 16384

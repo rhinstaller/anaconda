@@ -232,11 +232,12 @@ def checkDiskLabel(disk, intf):
         rc = intf.messageWindow(_("Warning"),
                        _("The partition table on device /dev/%s is of an "
                          "unexpected type %s for your architecture.  To "
-                         "use this disk for installation of Red Hat Linux, "
+                         "use this disk for installation of %s, "
                          "it must be re-initialized causing the loss of "
                          "ALL DATA on this drive.\n\n"
                          "Would you like to initialize this drive?")
-                       % (disk.dev.path[5:], disk.type.name), type = "yesno")
+                       % (disk.dev.path[5:], disk.type.name, productName),
+                                type = "yesno")
         if rc == 0:
             return 1
         else:
@@ -322,12 +323,6 @@ class DiskSet:
                     break
                 except SystemError, (errno, msg):
                     pass
-
-            if not found:
-                intf.messageWindow(_("Error"),
-                                   _("Error mounting filesystem "
-                                     "on %s: %s") % (dev, msg))
-                continue
 
             if os.access (mountpoint + '/etc/fstab', os.R_OK):
                 rootparts.append ((dev, fs))

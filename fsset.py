@@ -511,7 +511,7 @@ class ext2FileSystem(extFileSystem):
             return
 
         rc = iutil.execWithRedirect("/usr/sbin/tune2fs",
-                                    ["tunefs", "-j", devicePath ],
+                                    ["tune2fs", "-j", devicePath ],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
 
@@ -799,6 +799,24 @@ class FileSystemSet:
                                           entry.options, entry.fsck,
                                           entry.order)
         return fstab
+
+    def mtab (self):
+        format = "%s %s %s %s 0 0\n"
+        mtab = ""
+        for entry in self.entries:
+            if entry.mountpoint:
+                # swap doesn't end up in the mtab
+                if entry.fsystem.getName() == "swap":
+                    continue
+                if entry.options:
+                    options = "rw," + entry.options
+                else:
+                    options = "rw"
+                mtab = mtab + format % (devify(entry.device.getDevice()),
+                                        entry.mountpoint,
+                                        entry.fsystem.getName(),
+                                        options)
+        return mtab
 
     def raidtab(self):
         # set up raidtab...
@@ -1102,6 +1120,19 @@ class FileSystemSet:
             else:
                 self.labelEntry(entry, chroot)
 
+        # go through and have labels for the ones we don't format
+        for entry in notformatted:
+            dev = entry.device.getDevice()
+            if not dev or dev == "none":
+                continue
+            if not entry.mountpoint:
+                continue
+            label = isys.readExt2Label(dev)
+            if label:
+                entry.setLabel(label)
+            else:
+                self.labelEntry(entry, chroot)
+
     def haveMigratedFilesystems(self):
         return self.migratedfs
 
@@ -1295,8 +1326,14 @@ class FileSystemSetEntry:
 
     def mount(self, chroot='/', devPrefix='/tmp', readOnly = 0):
         device = self.device.setupDevice(chroot, devPrefix=devPrefix)
-        self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
-                           readOnly = readOnly)
+        # FIXME: we really should migrate before turnOnFilesystems.
+        # but it's too late now
+        if (self.migrate == 1) and (self.origfsystem is not None):
+            self.origfsystem.mount(device, "%s/%s" % (chroot, self.mountpoint),
+                                   readOnly = readOnly)
+        else:
+            self.fsystem.mount(device, "%s/%s" % (chroot, self.mountpoint,
+                                                  readOnly = readOnly)
         self.mountcount = self.mountcount + 1
 
     def umount(self, chroot='/'):
@@ -1734,10 +1771,10 @@ def readFstab (path):
         if len(fields) < 4:
             continue
         elif len(fields) == 4:
-            fields[4] = 0
-            fields[5] = 0
+            fields.append(0)
+            fields.append(0)            
         elif len(fields) == 5:
-            fields[5] = 0
+            fields.append(0)                        
         elif len(fields) > 6:
             continue
 
