@@ -5,6 +5,14 @@ import types
 import iutil
 import urllib
 
+XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
+			'XFree86-AGX' : 1, 	'XFree86-I128' : 1,
+			'XFree86-Mach32' : 1, 	'XFree86-Mach64' : 1,
+			'XFree86-Mach8' : 1, 	'XFree86-Mono' : 1,
+			'XFree86-P9000' : 1, 	'XFree86-S3' : 1,
+			'XFree86-S3V' : 1, 	'XFree86-SVGA' : 1,
+			'XFree86-W32' : 1 }
+
 class Package:
     def __getitem__(self, item):
 	return self.h[item]
@@ -238,7 +246,11 @@ class ComponentSet:
                     
         everything = Component("Everything", 0, 0)
         for package in packages.keys ():
-            everything.addPackage (packages[package])
+	    if (packages[package]['name'] != 'kernel' and
+	        	packages[package]['name'] != 'kernel-BOOT' and
+	        	packages[package]['name'] != 'kernel-smp' and
+		  not XFreeServerPackages.has_key(packages[package]['name'])):
+		everything.addPackage (packages[package])
         self.comps.append (everything)
         self.compsDict["Everything"] = everything
 
