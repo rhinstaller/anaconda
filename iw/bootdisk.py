@@ -54,7 +54,7 @@ class BootdiskWindow (InstallWindow):
         
         label = None
         if BootdiskWindow.initial:
-            label = GtkLabel (_("Insert a blank floppy in the first floppy drive. "
+            label = GtkLabel (_("Please remove the install floppy (if used) and insert a blank floppy in the first floppy drive. "
                                 "All data on this disk will be erased during creation "
                                 "of the boot disk."))
         else:

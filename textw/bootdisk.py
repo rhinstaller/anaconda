@@ -50,7 +50,9 @@ class MakeBootDiskWindow:
             return INSTALL_NOOP
 
         rc = ButtonChoiceWindow (screen, _("Bootdisk"),
-		     _("Insert a blank floppy in the first floppy drive. "
+		     _("If you have the install floppy in your drive, first "
+                       "remove it. Then insert a blank floppy in the first "
+                       "floppy drive. "
 		       "All data on this disk will be erased during creation "
 		       "of the boot disk."),
 		     [ _("OK"), _("Skip") ])                
