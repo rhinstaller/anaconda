@@ -77,14 +77,7 @@ class InstallProgressWindow (InstallWindow):
         threads_leave ()
         
         return
-
-#        self.clist.set_text ("%d" % self.numComplete,
-#                             status["completed"]["packages"]["row"],
-#                             status["completed"]["packages"]["xxx"]
-
-
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-
 	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 
     def setPackage(self, header):
@@ -92,7 +85,10 @@ class InstallProgressWindow (InstallWindow):
         self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                                            header[rpm.RPMTAG_VERSION],
                                                            header[rpm.RPMTAG_RELEASE]))
-        self.curPackage["size"].set_text ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0))
+        size = str (header[rpm.RPMTAG_SIZE] / 1024)
+        if len (size) > 3:
+            size = size [0:len(size) - 3] + ',' + size[len(size) - 3:]
+        self.curPackage["size"].set_text ("%s KBytes" % size)
         summary = header[rpm.RPMTAG_SUMMARY]
 	if (summary == None):
             summary = "(none)"
