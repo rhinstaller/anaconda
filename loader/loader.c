@@ -2705,6 +2705,7 @@ int main(int argc, char ** argv) {
     mlLoadModule("msdos", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, modInfo, flags);
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("reiserfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 
