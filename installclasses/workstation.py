@@ -31,6 +31,7 @@ class InstallClass(BaseInstallClass):
             comp.unselect()
 
         comps["Workstation Common"].includeMembers()
+        comps["GNOME Desktop Environment"].select()
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
