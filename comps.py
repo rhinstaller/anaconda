@@ -62,6 +62,11 @@ CHECK_COMPS	= 0
 FORCE_SELECT	= 1
 FORCE_UNSELECT	= 2
 
+
+PKGTYPE_MANDATORY = 0
+PKGTYPE_DEFAULT = 1
+PKGTYPE_OPTIONAL = 2
+
 class Package:
     def __getitem__(self, item):
 	return self.h[item]
@@ -124,6 +129,13 @@ class Package:
 
     def registerComponent(self, comp):
 	self.comps.append(comp)
+
+    def unregisterComponent(self, comp):
+        try:
+            self.comps.remove(comp)
+        except:
+            log("WARNING: Unable to unregister %s for pkg %s" % (comp, self.name))
+            pass
 
     def __init__(self, header):
 	self.h = header
@@ -227,15 +239,15 @@ class HeaderListFD (HeaderList):
 
 class Component:
     def __len__(self):
-	return len(self.pkgs)
+	return len(self.pkgDict.keys())
 
     def __repr__(self):
 	return "comp %s" % (self.name)
 
     def packages(self):
-	return self.pkgs
+	return self.pkgDict.keys()
 
-    def includesPackage(self, pkg):
+    def includesPackage(self, pkg, includeDeps = 0):
         if not self.pkgDict.has_key(pkg):
             return 0
         if self.pkgDict[pkg] == None:
@@ -310,21 +322,114 @@ class Component:
     def addInclude(self, comp):
 	self.includes.append(comp)
 
-    def addPackage(self, p):
-	self.pkgs.append(p)
-	p.registerComponent(self)
-	self.pkgDict[p] = None
-
-    def addPackageWithExpression(self, expr, p):
-        if not self.pkgDict.has_key (p):
-            self.pkgDict[p] = [ expr ]
-            self.pkgs.append(p)
+    def addPackage(self, p, pkgtype):
+        if pkgtype == PKGTYPE_MANDATORY:
             p.registerComponent(self)
+            self.newpkgDict[p] = (pkgtype, 1)
+            self.pkgDict[p] = None
+            self.updateDependencyCountForAddition(p)            
+        elif pkgtype == PKGTYPE_DEFAULT:
+            p.registerComponent(self)
+            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
+            self.pkgDict[p] = None
+            self.updateDependencyCountForAddition(p)            
+        elif pkgtype == PKGTYPE_OPTIONAL:
+            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
         else:
-            if type (self.pkgDict[p]) == type ([]):
-                self.pkgDict[p].append (expr)
-            else:
-                self.pkgDict[p] = [ expr ]
+            log("Unable to add package %s to component %s because it has an unknown pkgtype of %d" %(p.name, self.name, pkgtype))
+
+    def addDependencyPackage(self, p):
+        if not self.depsDict.has_key(p):
+            self.depsDict[p] = 0
+
+    def selectOptionalPackage(self, p):
+        if p not in self.newpkgDict.keys():
+            log("%s not in pkgDict for component %s" % (p.name, self.name))
+        else:
+            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 1)
+            p.registerComponent(self)
+            self.pkgDict[p] = None
+            self.updateDependencyCountForAddition(p)
+
+    def unselectOptionalPackage(self, p):
+        if p not in self.pkgDict.keys():
+            log("%s not in pkgDict for component %s" % (p.name, self.name))
+        else:
+            self.newpkgDict[p] = (PKGTYPE_OPTIONAL, 0)
+            p.unregisterComponent(self)
+            if self.pkgDict.has_key(p):
+                del self.pkgDict[p]
+            self.updateDependencyCountForRemoval(p)                
+
+    def updateDependencyCountForAddition(self, p):
+        pkgs = [ p ]
+        checked = []
+        while len(pkgs) > 0:
+            tocheck = pkgs
+            pkgs = []
+            for pkg in tocheck:
+                pkg = pkg.name
+                # make sure the package is in the package list
+                if not self.set.compsxml.packages.has_key(pkg):
+                    log("Component %s needs package %s which doesn't exist"
+                        %(self.name, pkg))
+                    continue
+                deps = self.set.compsxml.packages[pkg].dependencies
+                for dep in deps:
+                    # really needs to be in the hdlist
+                    if not self.set.packages.has_key(dep):
+                        log("Package %s requires %s which we don't have"
+                            %(tocheck, dep))
+                        continue
+                    # if we've already checked for this package, don't worry
+                    if dep in checked:
+                        continue
+                    # up the refcount on the dependency
+                    if dep in self.depsDict.keys():
+                        self.depsDict[dep] = self.depsDict[dep] + 1
+                    else:
+                        self.depsDict[dep] = 1
+                        # make sure it's registered in this component
+                        self.set.packages[dep].registerComponent(self)
+                        # and it also has to be in the pkgDict
+                        self.pkgDict[self.set.packages[dep]] = None
+                    pkgs.append(self.set.packages[dep])
+                    checked.append(dep)
+
+    def updateDependencyCountForRemoval(self, p):
+        pkgs = [ p ]
+        checked = []
+        while len(pkgs) > 0:
+            tocheck = pkgs
+            pkgs = []
+            for pkg in tocheck:
+                pkg = pkg.name
+                # make sure the package is in the package list
+                if not self.set.compsxml.packages.has_key(pkg):
+                    log("Component %s needs package %s which doesn't exist"
+                        %(self.name, pkg))
+                    continue
+                deps = self.set.compsxml.packages[pkg].dependencies
+                for dep in deps:
+                    # really needs to be in the hdlist
+                    if not self.set.packages.has_key(dep):
+                        log("Package %s requires %s which we don't have"
+                            %(tocheck, dep))
+                        continue
+                    # if we've already checked for this package, don't worry
+                    if dep in checked:
+                        continue
+                    # up the refcount on the dependency
+                    if dep in self.depsDict.keys():
+                        self.depsDict[dep] = self.depsDict[dep] - 1
+                        if self.depsDict[dep] == 0:
+                            self.set.packages[dep].unregisterComponent(self)
+                            # remove it from the pkgDict
+                            del self.pkgDict[self.set.packages[dep]]
+                    else:
+                        log("WARNING: trying to reduce refcount on dep %s in group %s without being in deps dict" % (dep, self.name))
+                    pkgs.append(self.set.packages[dep])
+                    checked.append(dep)
 
     def setDefault(self, default):
         self.default = default
@@ -353,20 +458,29 @@ class Component:
         self.conditionalKey = conditionalKey
         self.parent = parent
 
-        self.pkgs = []
         self.pkgDict = {}
+        self.newpkgDict = {}
         self.includes = []
         self.manuallySelected = 0
         self.selectionCount = 0
+        self.depsDict = {}
 
-        # FIXME: we need to properly go through and use the dependency
-        # lists
         for pkg in compgroup.packages.keys():
             if not packages.has_key(pkg):
                 log("%s references package %s which doesn't exist"
                     %(self.name, pkg))
                 continue
-            self.addPackage(packages[pkg])
+            (type, name) = compgroup.packages[pkg]
+            if type == u'default':
+                pkgtype = PKGTYPE_MANDATORY
+            elif type == u'default':
+                pkgtype = PKGTYPE_DEFAULT
+            elif type == u'optional':
+                pkgtype = PKGTYPE_OPTIONAL
+            else:
+                log("Invalid package type of %s for %s in %s; defaulting to optional" % (type, pkg, self.name))
+                pkgtype = PKGTYPE_OPTIONAL
+            self.addPackage(packages[pkg], pkgtype)
                 
 
 class ComponentSet:
@@ -548,38 +662,6 @@ class ComponentSet:
                     continue
                 comp.addInclude(self.compsById[id].name)
 
-        # now, let's set up all of the dependencies
-        for comp in self.comps:
-            # kind of pointless for everything since it's all packages
-            if comp.name == "Everything":
-                continue
-#            print "looking at %s" %(comp.name)
-            pkgs = comp.packages()
-#            print "packages is", pkgs
-            while len(pkgs) > 0:
-                tocheck = pkgs
-                pkgs = []
-                for pkg in tocheck:
-                    pkg = pkg.name
-                    # make sure the package is in the package list
-                    if not self.compsxml.packages.has_key(pkg):
-                        log("Component %s needs package %s which doesn't exist"
-                            %(comp.name, pkg))
-                        continue
-                    deps = self.compsxml.packages[pkg].dependencies
-                    for dep in deps:
-                        # really needs to be in the hdlist
-                        if not packages.has_key(dep):
-                            log("Package %s requires %s which we don't have"
-                                %(tocheck, dep))
-                            continue
-                        # if the package is already in this group, don't
-                        # worry about it
-                        if comp.includesPackage(packages[dep]):
-                            continue
-#                        print "adding %s as depedency of %s in %s" % (dep, pkg, comp.name)
-                        comp.addPackage(packages[dep])
-                        pkgs.append(packages[dep])
             
 
 ##         everything = Component(self, N_("Everything"), 0, 0)
