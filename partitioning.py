@@ -734,7 +734,7 @@ class PartitionSpec:
                  drive = None, primary = None,
                  format = None, options = None, 
                  constraint = None, migrate = None,
-                 raidmembers = None, raidlevel = None, 
+                 raidmembers = None, raidlevel = None, raidminor = None,
                  raidspares = None, badblocks = None, fslabel = None):
         #
         # requesttype: REQUEST_PREEXIST or REQUEST_NEW or REQUEST_RAID
@@ -771,6 +771,7 @@ class PartitionSpec:
         self.raidmembers = raidmembers
         self.raidlevel = raidlevel
         self.raidspares = raidspares
+        self.raidminor = raidminor
 
         # fs label (if pre-existing, otherwise None)
         self.fslabel = fslabel
@@ -816,7 +817,7 @@ class PartitionSpec:
             for member in self.raidmembers:
                 raidmems.append(partitions.getRequestByID(member).device)
             device = fsset.RAIDDevice(int(self.raidlevel[-1:]),
-                                      raidmems,
+                                      raidmems, minor = self.raidminor,
                                       spares = self.raidspares)
         else:
             device = fsset.PartitionDevice(self.device)
