@@ -50,7 +50,7 @@ def findExistingRoots (intf, id, chroot):
 
 def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 		       raiseErrors = 0):
-    (root, rootFs) = rootInfo
+    (root, rootFs) = rootInfo[0]
 
     diskset = DiskSet()
     diskset.openDevices()
