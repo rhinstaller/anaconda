@@ -1022,7 +1022,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
      * you keep using that device */
     for (i = 0; devs[i]; i++) {
         if (strcmp(loaderData->netDev, devices[i]))
-            pumpDisableInterface(devs[i]->device);
+            if (!FL_TESTING(flags))
+                pumpDisableInterface(devs[i]->device);
     }
 
     return LOADER_OK;
