@@ -121,6 +121,7 @@ class BaseInstallClass:
 		 "install",
 		 "enablefilesystems",
                  "migratefilesystems",
+                 "setuptime",
                  "preinstallconfig",
 		 "installpackages",
                  "postinstallconfig",

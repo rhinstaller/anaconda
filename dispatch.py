@@ -26,6 +26,7 @@ from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
 from packages import selectLanguageSupportGroups
+from packages import setupTimezone
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -117,6 +118,8 @@ installSteps = [
     ("migratefilesystems", doMigrateFilesystems, ("dir", "id.fsset",
                                               "id.diskset", "id.upgrade",
                                               "instPath")),
+    ("setuptime", setupTimezone, ("id.timezone", "id.upgrade", "instPath",
+                                  "dir")),
     ("preinstallconfig", doPreInstall, ("method", "id", "intf", "instPath",
                                         "dir")),
     ("installpackages", doInstall, ("method", "id", "intf", "instPath")),

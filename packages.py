@@ -466,6 +466,36 @@ def turnOnFilesystems(dir, thefsset, diskset, partitions, upgrade, instPath):
 	    thefsset.makeFilesystems (instPath)
             thefsset.mountFilesystems (instPath)
 
+def setupTimezone(timezone, upgrade, instPath, dir):
+    # we don't need this on an upgrade or going backwards
+    if upgrade.get() or (dir == DISPATCH_BACK):
+        return
+    
+    tzfile = "/usr/share/zoneinfo/" + timezone.tz
+    if not os.access(tzfile, os.R_OK):
+        log("unable to set timezone")
+    else:
+        try:
+            iutil.copyFile(tzfile, "/etc/localtime")
+        except OSError, (errno, msg):
+            log("Error copying timezone (from %s): %s" %(tzfile, msg))
+
+    args = [ "/usr/sbin/hwclock", "--hctosys" ]
+    if timezone.utc:
+        args.append("-u")
+    elif timezone.arc:
+        args.append("-a")
+    else:
+        flags = None
+
+    try:
+        iutil.execWithRedirect(args[0], args, stdin = None,
+                               stdout = "/dev/tty5", stderr = "/dev/tty5")
+    except RuntimeError:
+        log("Failed to set clock")
+    
+            
+
 def doPreInstall(method, id, intf, instPath, dir):
     if flags.test:
 	return
