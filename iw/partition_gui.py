@@ -1285,6 +1285,14 @@ class PartitionWindow(InstallWindow):
                                                        self.partitions,
                                                        raidrequest)
 
+        # if no raid partitions exist, raise an error message and return
+        if len(availraidparts) < 2:
+            dlg = GnomeMessageBox(_("At least two software RAID partitions are needed."),
+                                  MESSAGE_BOX_ERROR,STOCK_BUTTON_OK)
+            dlg.show()
+            dlg.run_and_close
+            return
+
         # Mount Point entry
         maintable.attach(createAlignedLabel(_("Mount Point:")),
                                             0, 1, row, row + 1)

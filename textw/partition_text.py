@@ -387,6 +387,7 @@ class PartitionWindow:
         disks = self.diskset.disks.keys()
         drivelist = CheckboxTree(height=2, scroll=1)
         avail = get_available_raid_partitions(self.diskset, self.partitions, request)
+
         # XXX
         if not request.raidmembers:
             for (part, size, used) in avail:
@@ -798,6 +799,17 @@ class PartitionWindow:
 
         row = row + 1
         drivegrid = Grid(2, 1)
+
+        #Let's see if we have any RAID partitions to make a RAID device with
+        avail = get_available_raid_partitions(self.diskset, self.partitions, raidrequest)
+        
+        #If we don't, then tell the user that none exist
+        if len(avail) < 2:
+            ButtonChoiceWindow (self.screen, _("No RAID partitions"),
+                                _("At least two software RAID partitions are needed."),
+                                [ TEXT_OK_BUTTON ])
+            return
+
         (self.drivelist, drivesubgrid) = self.makeRaidDriveList(raidrequest)
         drivegrid.setField(drivesubgrid, 0, 0, (0,0,4,0), anchorLeft = 1, anchorTop = 1)
 
