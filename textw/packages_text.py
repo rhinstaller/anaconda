@@ -87,19 +87,19 @@ class IndividualPackageWindow:
 	sg = Grid(2, 2)
 	bb = ButtonBar (screen, ((_("OK"), "ok"),))
 
-	sg.setField (Label (_("Package:")), 0, 0, (0, 0, 4, 0))
+	sg.setField (Label (_("Package :")), 0, 0, (0, 0, 1, 0), anchorLeft = 1)
 	sg.setField (Label ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
 	                                  header[rpm.RPMTAG_VERSION],
 	                                  header[rpm.RPMTAG_RELEASE])),
-	             1, 0)
-	sg.setField (Label (_("Size:")), 0, 1, (0, 0, 4, 0))
+	             1, 0, anchorLeft = 1)
+	sg.setField (Label (_("Size    :")), 0, 1, (0, 0, 1, 0), anchorLeft = 1)
 	sg.setField (Label ("%.1f KBytes" % (header[rpm.RPMTAG_SIZE] / 1024.0)),
-	             1, 1)
+	             1, 1, anchorLeft= 1)
 
 	txt = TextboxReflowed(60, self.get_rpm_desc(header), maxHeight = 10)
 
-	g = GridFormHelp (screen, header[rpm.RPMTAG_NAME], 1, 3)
-	g.add (sg, 0, 0, (0, 0, 0, 1))
+	g = GridForm (screen, header[rpm.RPMTAG_NAME], 1, 3)
+	g.add (sg, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
 	g.add (txt, 0, 1, (0, 0, 0, 1))
 	g.add (bb, 0, 2, growx = 1)
 
