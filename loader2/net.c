@@ -203,11 +203,6 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                               int flags) {
     struct in_addr addr;
 
-
-    if (loaderData->ipinfo_set == 0) {
-        return;
-    }
-    
     /* set to 1 to get ks network struct logged */
 #if 0
     printLoaderDataIPINFO(loaderData);
@@ -227,8 +222,13 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
                       _("Sending request for IP information for %s..."), 
                       loaderData->netDev, 0);
 
-            waitForLink(loaderData->netDev);
-            chptr = pumpDhcpRun(loaderData->netDev, 0, 0, NULL, &cfg->dev, NULL);
+            if (!FL_TESTING(flags)) {
+                waitForLink(loaderData->netDev);
+                chptr = pumpDhcpRun(loaderData->netDev, 0, 0, NULL, &cfg->dev, NULL);
+            } else {
+                chptr = NULL;
+            }
+
             newtPopWindow();
             if (chptr) {
                 logMessage("pump told us: %s", chptr);
@@ -317,19 +317,19 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     c.gwEntry = newtEntry(-1, -1, NULL, 16, &c.gw, 0);
     c.nsEntry = newtEntry(-1, -1, NULL, 16, &c.ns, 0);
 
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_IP)
+        newtEntrySet(c.ipEntry, inet_ntoa(cfg->dev.ip), 1);
+
+    if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
+        newtEntrySet(c.nmEntry, inet_ntoa(cfg->dev.netmask), 1);
+    
+    if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
+        newtEntrySet(c.gwEntry, inet_ntoa(cfg->dev.gateway), 1);
+    
+    if (cfg->dev.numDns)
+        newtEntrySet(c.nsEntry, inet_ntoa(cfg->dev.dnsServers[0]), 1);
+
     if (!cfg->isDynamic) {
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_IP)
-            newtEntrySet(c.ipEntry, inet_ntoa(cfg->dev.ip), 1);
-
-        if (cfg->dev.set & PUMP_INTFINFO_HAS_NETMASK)
-            newtEntrySet(c.nmEntry, inet_ntoa(cfg->dev.netmask), 1);
-
-        if (cfg->dev.set & PUMP_NETINFO_HAS_GATEWAY)
-            newtEntrySet(c.gwEntry, inet_ntoa(cfg->dev.gateway), 1);
-
-        if (cfg->dev.numDns)
-            newtEntrySet(c.nsEntry, inet_ntoa(cfg->dev.dnsServers[0]), 1);
-
         dhcpChoice = ' ';
     } else {
         dhcpChoice = '*';
