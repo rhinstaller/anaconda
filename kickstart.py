@@ -420,8 +420,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("mouse")
 
     def doReboot(self, id, args):
-        pass
-#        self.skipSteps.append("complete")
+        self.skipSteps.append("complete")
 
     def doSkipX(self, id, args):
         self.skipSteps.append("videocard")
