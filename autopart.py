@@ -799,15 +799,16 @@ def setPreexistParts(diskset, requests, newParts):
                 request.device = partedUtils.get_partition_name(part)
                 if request.fstype:
                     if request.fstype.getName() != request.origfstype.getName():
-                        if request.fstype.getName() == "software RAID":
-                            part.set_flag(parted.PARTITION_RAID, 1)
-                        else:
-                            part.set_flag(parted.PARTITION_RAID, 0)
-
-                        if request.fstype.getName() == "physical volume (LVM)":
-                            part.set_flag(parted.PARTITION_LVM, 1)
-                        else:
-                            part.set_flag(parted.PARTITION_LVM, 0)
+                        if part.is_flag_available(parted.PARTITION_RAID):
+                            if request.fstype.getName() == "software RAID":
+                                part.set_flag(parted.PARTITION_RAID, 1)
+                            else:
+                                part.set_flag(parted.PARTITION_RAID, 0)
+                        if part.is_flag_available(parted.PARTITION_LVM):
+                            if request.fstype.getName() == "physical volume (LVM)":
+                                part.set_flag(parted.PARTITION_LVM, 1)
+                            else:
+                                part.set_flag(parted.PARTITION_LVM, 0)
 
                         partedUtils.set_partition_file_system_type(part, request.fstype)
                             

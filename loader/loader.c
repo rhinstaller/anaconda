@@ -45,7 +45,7 @@
 #include <sys/vt.h>
 #include <linux/fb.h>
 
-#if defined(__i386__) || defined(__ia64__) || defined(__alpha__)
+#if defined(__i386__) || defined(__ia64__) || defined(__alpha__) || defined(__sparc__) || defined(__sparc64__)
 #include <linux/cdrom.h>
 #endif
 

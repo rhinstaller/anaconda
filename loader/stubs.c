@@ -115,6 +115,8 @@ int _nl_C_LC_PAPER() { return 0; }
 int _nl_C_LC_ADDRESS() { return 0; }
 int _dl_clktck() { return 0;}
 int _dl_aux_init() { return 0;}
+int _dl_non_dynamic_init() { return 0; }
+void * _dl_important_hwcaps() { return 0; }
 void * __libc_dlopen() {return 0;}
 void * __libc_dlsym() {return 0;}
 void * __libc_dlclose() {return 0;}

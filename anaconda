@@ -98,7 +98,7 @@ try:
           [ 'text', 'xmode', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
-            'lang=', 'keymap=', 'module=', 'class=',
+            'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
             'autostep', 'resolution=', 'skipddc'])
 except TypeError, msg:
@@ -152,7 +152,7 @@ mousehw = None
 lang = None
 method = None
 keymap = None
-kbdtpye = None
+kbdtype = None
 progmode = None
 customClass = None
 kbd = None
@@ -231,6 +231,8 @@ for n in args:
 	display_mode = 't'
     elif (str == '-x' or str == '--xmode'):
 	xmode = 1
+    elif (str == '--kbdtype'):
+        kbdtype = arg
 
 # s390s don't have ttys
 if iutil.getArch() == "s390":
