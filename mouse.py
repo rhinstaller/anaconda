@@ -88,8 +88,8 @@ class Mouse (SimpleConfigFile):
 		("MMSeries", "MMSeries", "ttyS", 1, "mmseries"),
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
-        "None - None" :
-                ("none", "none", "null", 0, "none"),
+#        "None - None" :
+#                ("none", "none", "null", 0, "none"),
 	"Sun - Mouse":
 		("sun", "sun", "sunmouse", 0, "sun"),
 	}
@@ -113,6 +113,11 @@ class Mouse (SimpleConfigFile):
 	if not skipProbe:
 	    self.probe()
 
+        self.orig_mouse = self.get()
+
+    def get_Orig(self):
+        return self.orig_mouse
+        
     def probed(self):
 	return self.wasProbed
 

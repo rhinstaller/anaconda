@@ -130,6 +130,27 @@ class MouseWindow (InstallWindow):
 	    self.locList.set_sensitive(FALSE)
 	    self.ics.setNextEnabled (TRUE)
 
+    def reset (self, *args):
+        self.selectMouseInTree(self.mouse.get_Orig())
+
+    def selectMouseInTree(self, mouse):
+        (currMouse, emulate3) = mouse
+
+	splitv = string.split (currMouse, " - ", 1)
+	nodes = self.ctree.base_nodes ()
+        # do a simple search on the root nodes, since leaf reduction creates
+        # a special case
+        found = 0
+	for x in nodes:
+            if self.ctree.get_node_info (x)[0] == "%s %s" % tuple (splitv):
+                found = 1
+                self.ctree.select (x)
+                break
+        if not found:
+            self.selectMouse (nodes, splitv)
+            
+        self.emulate3.set_active (emulate3)
+
     # MouseWindow tag="mouse"
     def getScreen (self, mouse):
 	self.mouse = mouse
@@ -140,7 +161,6 @@ class MouseWindow (InstallWindow):
         sorted_mice_keys.sort ()
 
         currentDev = mouse.getDevice ()
-	(currentMouse, emulate3) = mouse.get ()
 
 	deviceList = [ (_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
     		       (_("/dev/ttyS1 (COM2 under DOS)"), "ttyS1" ),
@@ -194,24 +214,14 @@ class MouseWindow (InstallWindow):
 	    self.locList.unselect_all();
 	    self.serialDevice = None
 
-	splitv = string.split (currentMouse, " - ", 1)
-	nodes = self.ctree.base_nodes ()
-        # do a simple search on the root nodes, since leaf reduction creates
-        # a special case
-        found = 0
-	for x in nodes:
-            if self.ctree.get_node_info (x)[0] == "%s %s" % tuple (splitv):
-                found = 1
-                self.ctree.select (x)
-                break
-        if not found:
-            self.selectMouse (nodes, splitv)
+        self.selectMouseInTree(mouse.get())
+        
+        lowerHBox = GtkHBox(FALSE, 5)
+        lowerHBox.pack_start(self.emulate3)
 
-        self.emulate3.set_active (emulate3)
-
-        align = GtkAlignment ()
-        align.add (self.emulate3)
-        align.set_border_width (5)
+        resetButton = GtkButton(_("Reset to default"))
+        resetButton.connect("clicked", self.reset)
+        lowerHBox.pack_start(resetButton)
 
         hbox = GtkHBox(FALSE, 5)
 
@@ -230,7 +240,6 @@ class MouseWindow (InstallWindow):
             
         box.pack_start (sw)
         box.pack_start (self.locList, FALSE)
-        box.pack_start (align, FALSE)
+        box.pack_start(lowerHBox, FALSE)
 
         return box
-
