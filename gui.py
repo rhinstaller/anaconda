@@ -23,6 +23,7 @@ import isys
 import sys
 import parted
 import gtk
+import gtk.glade
 import htmlbuffer
 import rpm
 import kudzu
@@ -494,9 +495,6 @@ class ExceptionWindow:
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
         hbox = gtk.HBox (gtk.FALSE)
-##         file = pixmap_file('gnome-warning.png')
-##         if file:
-##             hbox.pack_start (GnomePixmap (file), gtk.FALSE)
 
         if floppyDevices > 0:
             info = WrappingLabel(exceptionText)
@@ -514,7 +512,6 @@ class ExceptionWindow:
         win.show_all ()
         self.window = win
         self.rc = self.window.run ()
-#        self.window.destroy()
         
     def getrc (self):
         # I did it this way for future expantion
@@ -756,10 +753,26 @@ class InstallControlWindow:
 
         self.reloadRcQueued = 1
 
+        # need to reload our widgets
         self.setLtR()
-	self.updateStockButtons()
 	self.loadReleaseNotes()
-        self.refreshHelp(recreate = 1)
+
+        # reload the glade file, although we're going to keep our toplevel
+        self.loadGlade()
+        win = self.mainxml.get_widget("mainWindow")
+        win.hide()
+
+        # gtk reparenting leaves us with non-working buttons, so
+        # do our own reparenting per the FAQ
+        orig = self.window.get_child()
+        child = win.get_child()
+        win.remove(child)
+        orig.hide() # don't flicker!
+        self.window.remove(orig)
+        self.window.add(child)
+        
+        self.createWidgets()
+        self.connectSignals()
 
     def setLtR(self):
         ltrrtl = gettext.dgettext("gtk20", "default:LTR")
@@ -772,6 +785,10 @@ class InstallControlWindow:
             gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
         
     def prevClicked (self, *args):
+        ics = self.currentWindow.getICS()
+        if not ics.getPrevEnabled():
+            return
+        
 	try:
 	    self.currentWindow.getPrev ()
 	except StayOnScreen:
@@ -782,7 +799,11 @@ class InstallControlWindow:
 
         self.setScreen ()
 
-    def nextClicked (self, *args):
+    def nextClicked (self, widget, *args):
+        ics = self.currentWindow.getICS()
+        if not ics.getNextEnabled():
+            return
+        
 	try:
 	    rc = self.currentWindow.getNext ()
 	except StayOnScreen:
@@ -869,15 +890,7 @@ class InstallControlWindow:
 	if not still_running:
 	    self.releaseNotesViewerPid = None
 	    gtk.timeout_remove(self.releaseNotesViewerIdleID)
-	    
-	    # resensitize buttons
-	    ics = self.currentWindow.getICS()
-	    self.prevButtonStock.set_sensitive (ics.getPrevEnabled ())
-	    self.nextButtonStock.set_sensitive (ics.getNextEnabled ())
-	    self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
-	    self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
-	    self.releaseButton.set_sensitive(gtk.TRUE)
-
+            self.mainxml.get_widget("buttonBar").set_sensitive(gtk.TRUE)
 	    self.releaseNotesModalDummy.destroy()
 	    
 	    return gtk.FALSE
@@ -973,12 +986,8 @@ class InstallControlWindow:
 	    args =(fn,)
 	    
 	    child = os.fork()
-
 	    if (child == 0):
 		# close unneeded fd's
-		# Could not find any info on way to get list of existing fds
-		# other than scanning /proc/<pid>/fds (YUCK), so this will
-		# have to do.
 		for i in range(3,255):
 		    try:
 			os.close(i)
@@ -999,9 +1008,7 @@ class InstallControlWindow:
 	    self.releaseNotesViewerPid = child
 	    
 	    #desensitize button bar at bottom of screen
-	    for (icon, name, text, func) in self.stockButtons:
-		if self.__dict__.has_key(name):
-		    self.__dict__[name].set_sensitive(gtk.FALSE)
+            self.mainxml.get_widget("buttonBar").set_sensitive(gtk.FALSE)
 
 	    return 0
 	else:
@@ -1012,30 +1019,25 @@ class InstallControlWindow:
 
 	    return 1
 
-    def helpClicked (self, widget, simulated=0):
-        self.hbox.remove (widget)
-        if widget == self.hideHelpButton:
-            self.bin.remove (self.table)
-            self.installFrame.reparent (self.bin)
-            self.showHelpButton.show ()
-            self.showHelpButton.set_state (gtk.STATE_NORMAL)
-            self.hbox.pack_start (self.showHelpButton, gtk.FALSE)
-            self.hbox.reorder_child (self.showHelpButton, 0)
-            self.showHelpButton.grab_focus()            
-            self.displayHelp = gtk.FALSE
+    def helpClicked (self, *args):
+        if self.displayHelp:
+            self.displayHelp = False
+            self.mainxml.get_widget("hideHelpButton").hide()
+            self.mainxml.get_widget("showHelpButton").show()
+            self.mainxml.get_widget("showHelpButton").grab_focus()
+
+            self.mainxml.get_widget("help").hide_all()
+            self.mainxml.get_widget("mainTable").set_homogeneous(False)
         else:
-            self.bin.remove (self.installFrame)
-            self.table.attach (self.installFrame, 1, 3, 0, 1,
-                               gtk.FILL | gtk.EXPAND,
-                               gtk.FILL | gtk.EXPAND)
-            self.bin.add (self.table)
+            self.displayHelp = True
+            self.mainxml.get_widget("showHelpButton").hide()
+            self.mainxml.get_widget("hideHelpButton").show()
+            self.mainxml.get_widget("hideHelpButton").grab_focus()            
+
+            self.mainxml.get_widget("help").show_all()
+            self.mainxml.get_widget("mainTable").set_homogeneous(True)
+
             self.refreshHelp()
-            self.hideHelpButton.show ()
-            self.showHelpButton.set_state (gtk.STATE_NORMAL)
-            self.hbox.pack_start (self.hideHelpButton, gtk.FALSE)
-            self.hbox.reorder_child (self.hideHelpButton, 0)
-            self.hideHelpButton.grab_focus()
-            self.displayHelp = gtk.TRUE
 
     def debugClicked (self, *args):
         try:
@@ -1054,19 +1056,12 @@ class InstallControlWindow:
         except SystemError:
             pass
         
-    def refreshHelp(self, recreate = 0):
+    def refreshHelp(self):
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
         textbuffer = buffer.get_buffer()
-        if recreate == 0:
-            self.help.set_buffer(textbuffer)
-        else:
-            self.help_sw.remove(self.help)
-            self.help = TextViewBrowser()
-            self.help_sw.add(self.help)
-            self.help.set_buffer(textbuffer)
-            self.help.show()
+        self.help.set_buffer(textbuffer)
         # scroll to the top.  Do this with a mark so it's done in the idle loop
         iter = textbuffer.get_iter_at_offset(0)
         mark = textbuffer.create_mark("top", iter, gtk.FALSE)
@@ -1161,75 +1156,25 @@ class InstallControlWindow:
 	self.currentWindow = None
 
     def update (self, ics):
-	prevButton = self.prevButtonStock
-	nextButton = self.nextButtonStock
+        self.mainxml.get_widget("backButton").set_sensitive(ics.getPrevEnabled())
+        self.mainxml.get_widget("nextButton").set_sensitive(ics.getNextEnabled())
+        self.mainxml.get_widget("hideHelpButton").set_sensitive(ics.getHelpEnabled())
+        self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpEnabled())
 
-	if ics.getNextButton():
-	    (icon, text) = ics.getNextButton()
-            button = gtk.Button()
-            box = gtk.HBox(gtk.FALSE, 0)
-            image = gtk.Image()
-            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
-            box.pack_start(image, gtk.FALSE, gtk.FALSE)
-            label = gtk.Label(_(text))
-            label.set_property("use-underline", gtk.TRUE)
-            box.pack_start(label, gtk.TRUE, gtk.TRUE)
-            button.add(box)
-	    button.connect("clicked", self.nextClicked)
-	    button.show_all()
-            button.label = label
-            nextButton = button
-
-        children = self.buttonBox.get_children()
-
-        if not nextButton in children and self.nextButtonStock in children:
-            pos = children.index(self.nextButtonStock)
-            self.buttonBox.remove(self.nextButtonStock)
-            self.buttonBox.pack_end(nextButton)
-            self.buttonBox.reorder_child(nextButton, pos)
-            self.nextButtonStock = nextButton
-
-        prevButton.set_sensitive (ics.getPrevEnabled ())
-        nextButton.set_sensitive (ics.getNextEnabled ())
-        self.hideHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
-        self.showHelpButton.set_sensitive (ics.getHelpButtonEnabled ())
-
-        if ics.getHelpEnabled () == gtk.FALSE:
-            if self.displayHelp:
-                self.helpClicked (self.hideHelpButton, 1)
-        elif ics.getHelpEnabled () == gtk.TRUE:
-            if not self.displayHelp:
-                self.helpClicked (self.showHelpButton, 1)
- 
-        if (ics.getGrabNext ()):
-            nextButton.grab_focus ()
+        if ics.getHelpEnabled() == gtk.FALSE and self.displayHelp:
+            self.helpClicked()
+        elif ics.getHelpEnabled() == gtk.TRUE and not self.displayHelp:
+            self.helpClicked()
+        if ics.getGrabNext():
+            self.mainxml.get_widget("nextButton").grab_focus()
 
     def __init__ (self, ii, dispatch, locale):
-        self.prevButtonStock = None
-        self.nextButtonStock = None
-        self.releaseButton = None
-        self.showHelpButton = None
-        self.hideHelpButton = None
-        self.debugButton = None
-
-	self.stockButtons = (('gtk-go-back', "prevButtonStock",
-                              N_("_Back"), self.prevClicked),
-                             ('gtk-go-forward', "nextButtonStock",
-                              N_("_Next"), self.nextClicked),
-                             ('gtk-new', "releaseButton",
-			       N_("_Release Notes"), self.releaseNotesButtonClicked),
-                             ('gtk-help', "showHelpButton",
-                              N_("Show _Help"), self.helpClicked),
-                             ('gtk-help', "hideHelpButton",
-                              N_("Hide _Help"), self.helpClicked),
-                             ('gtk-execute', 'debugButton',
-                              N_("_Debug"), self.debugClicked))
-
         self.reloadRcQueued = 0
         self.ii = ii
         self.dispatch = dispatch
 	self.setLanguage(locale)
         self.handle = None
+        self.displayHelp = True
 
 	self.releaseNotesContents = None
 	self.releaseNotesType = None
@@ -1251,195 +1196,60 @@ class InstallControlWindow:
 	      and event.state & gtk.gdk.SHIFT_MASK):
 	    takeScreenShot()
 
-    def buildStockButtons(self):
-	for (icon, item, text, action) in self.stockButtons:
-            button = gtk.Button()
-            box = gtk.HBox(gtk.FALSE, 0)
-            image = gtk.Image()
-            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
-            box.pack_start(image, gtk.FALSE, gtk.FALSE)
-            label = gtk.Label(_(text))
-            label.set_property("use-underline", gtk.TRUE)
-            box.pack_start(label, gtk.TRUE, gtk.TRUE)
-            button.add(box)
-	    button.connect("clicked", action)
-	    button.show_all()
-            button.label = label
-	    self.__dict__[item] = button
-
-    def updateStockButtons(self):
-	for (icon, item, text, action) in self.stockButtons:
-	    button = self.__dict__[item]
-
-            for child in button.get_children():
-                button.remove(child)
-
-            # FIXME: this is cut and pasted from above; make a nicer
-            # function that knows how to replace the contents in the
-            # button for a future release
-            box = gtk.HBox(gtk.FALSE, 0)
-            image = gtk.Image()
-            image.set_from_stock(icon, gtk.ICON_SIZE_BUTTON)
-            box.pack_start(image, gtk.FALSE, gtk.FALSE)
-            label = gtk.Label(_(text))
-            label.set_property("use-underline", gtk.TRUE)
-            box.pack_start(label, gtk.TRUE, gtk.TRUE)
-            button.add(box)
-            button.show_all()
-            button.label = label
-            button.queue_resize()
-
-                
-    def setup_window (self, runres):
-        self.window = gtk.Window ()
-        # Quick hack to make rootpath mode not suck by letting the user delete the window.
-        def no_delete (window, event):
-            return True
-        self.window.connect('delete-event', no_delete)
-        global mainWindow
-        mainWindow = self.window
-        self.window.set_events (gtk.gdk.KEY_RELEASE_MASK)
-        self.window.set_resizable (False)
-
-        if runres == '640x480':
-            self.window.set_default_size (640, 480)
-            self.window.set_size_request (640, 480)
+    def createWidgets (self):
+        self.window.set_title(_("%s Installer") %(productName,))
+        
+        # FIXME: doesn't handle the lowres case
+        # FIXME: and this is a hack...
+        ics = InstallControlState (self)
+        p = ics.readPixmapDithered("anaconda_header.png")
+        if p is not None:
+            i = self.mainxml.get_widget("headerImage")
+            apply(i.set_from_pixmap, p.get_pixmap())
         else:
-            self.window.set_default_size (800, 600)
-            self.window.set_size_request (800, 600)
+            print _("Unable to load title bar")
 
-        self.window.set_border_width (10)
+        if DEBUG:
+            self.mainxml.get_widget("debugButton").set_visible(True)
+        self.installFrame = self.mainxml.get_widget("installFrame")
 
-	title = _("%s Installer") % (productName,)
-	if os.environ["DISPLAY"][:1] != ':':
-	    # from gnome.zvt import *
-	    # zvtwin = gtk.Window ()
-#	    shtitle = _("Red Hat Linux Install Shell")
-	    try:
-		f = open ("/tmp/netinfo", "r")
-	    except:
-		pass
-	    else:
-		lines = f.readlines ()
-		f.close ()
-		for line in lines:
-		    netinf = string.splitfields (line, '=')
-		    if netinf[0] == "HOSTNAME":
-			title = _("%s Installer on %s") % (productName, string.strip (netinf[1]))
-#			shtitle = _("Red Hat Linux Install Shell on %s") % string.strip (netinf[1])
-			break
+        self.help = TextViewBrowser()
+        self.mainxml.get_widget("helpView").add(self.help)
+        self.help.show_all()
 
-	    # zvtwin.set_title (shtitle)
-	    # zvt = ZvtTerm (80, 24)
-	    # if zvt.forkpty() == 0:
-	    #     os.execv ("/bin/sh", [ "/bin/sh" ])
-	    # zvt.show ()
-	    # zvtwin.add (zvt)
-	    # zvtwin.show_all ()
+    def connectSignals(self):
+        def noop (window, event):
+            return True
+        sigs = { "on_nextButton_clicked": self.nextClicked,
+                 "on_rebootButton_clicked": self.nextClicked,                 
+                 "on_backButton_clicked": self.prevClicked,
+                 "on_hideHelpButton_clicked": self.helpClicked,
+                 "on_showHelpButton_clicked": self.helpClicked,
+                 "on_relnotesButton_clicked": self.releaseNotesButtonClicked,
+                 "on_debugButton_clicked": self.debugClicked,
+                 
+                 "on_mainWindow_key_release_event": self.keyRelease,
+                 "on_mainWindow_delete_event": noop,
+                 }
+        self.mainxml.signal_autoconnect(sigs)
 
-	self.window.set_title (title)
-        self.window.set_position (gtk.WIN_POS_CENTER)
-        self.window.set_border_width(0)
-        vbox = gtk.VBox (gtk.FALSE, 10)
+    def loadGlade(self):
+        self.mainxml = gtk.glade.XML("anaconda.glade", domain="anaconda")
 
-        # Create header at the top of the installer
-        if runres != '640x480':
-            # FIXME: this is a hack
-            ics = InstallControlState (self)            
-            p = ics.readPixmapDithered("anaconda_header.png")
-            if p is not None:
-                a = gtk.Alignment()
-                a.set(0.5, 0.5, 1.0, 1.0)
-                a.add(p)
-                vbox.pack_start(a, gtk.FALSE, gtk.TRUE, 0)
-            else:
-                print _("Unable to load title bar")
-
-
+    def setup_window (self, runres):
         self.setLtR()
 	self.loadReleaseNotes()
 
-        vbox.set_spacing(0)
+        self.loadGlade()
+        self.window = self.mainxml.get_widget("mainWindow")
 
-        self.buttonBox = gtk.HButtonBox ()
-        self.buttonBox.set_layout (gtk.BUTTONBOX_END)
-        self.buttonBox.set_spacing (30)
+        self.createWidgets()
+        self.connectSignals()
 
-	self.buildStockButtons()
-
-        group = gtk.AccelGroup()
-        self.window.add_accel_group(group)
-        self.nextButtonStock.add_accelerator('clicked', group,
-                                             gtk.keysyms.F12,
-                                             gtk.gdk.RELEASE_MASK, 0);
-
-        # set up ctrl+alt+delete handler
-        self.window.connect ("key-release-event", self.keyRelease)
-
-        if DEBUG:
-            self.buttonBox.add (self.debugButton)
-            
-        self.buttonBox.add (self.prevButtonStock)
-        self.buttonBox.add (self.nextButtonStock)
-
-	self.hbox = gtk.HBox ()
-        self.hbox.set_border_width(5)
-	self.hbox.pack_start (self.hideHelpButton, gtk.FALSE)
-        self.hbox.set_spacing (24)
-        self.hbox.pack_start (self.releaseButton, gtk.FALSE)
-	self.hbox.pack_start (self.buttonBox)
-
-        vbox.pack_end (self.hbox, gtk.FALSE)
-
-        self.help = TextViewBrowser()
-
-        self.displayHelp = gtk.TRUE
-        self.helpState = gtk.TRUE
-
-        self.helpFrame = gtk.Frame () 
-        self.box = gtk.VBox (gtk.FALSE, 0)
-        self.box.set_spacing(0)
-
-        self.help_sw = gtk.ScrolledWindow()
-        self.help_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.help_sw.set_shadow_type(gtk.SHADOW_IN)
-        self.help_sw.add(self.help)
-        self.box.pack_start(self.help_sw, gtk.TRUE)
-        
-        self.helpFrame.add (self.box)
-        self.helpFrame.set_shadow_type(gtk.SHADOW_NONE)
-
-        table = gtk.Table (1, 3, gtk.TRUE)
-        table.attach (self.helpFrame, 0, 1, 0, 1,
-                      gtk.FILL | gtk.EXPAND,
-                      gtk.FILL | gtk.EXPAND)
-
-        self.installFrame = gtk.Frame ()
-        self.installFrame.set_shadow_type(gtk.SHADOW_NONE)
-
-        self.windowList = []
-
-        #self.setStateList (self.steps, 0)
-        self.setScreen ()
-                          
-        table.attach (self.installFrame, 1, 3, 0, 1,
-                      gtk.FILL | gtk.EXPAND,
-                      gtk.FILL | gtk.EXPAND)
-        table.set_col_spacing (0, 12)
-
-        self.bin = gtk.Frame ()
-        self.bin.set_shadow_type (gtk.SHADOW_NONE)
-        self.bin.add (table)
-        vbox.pack_end (self.bin, gtk.TRUE, gtk.TRUE)
-        self.table = table
-
-        self.window.add (vbox)
-
-        # Popup the ICW and wait for it to wake us back up
-        self.window.show_all ()
-
+        self.setScreen()
+        self.window.show()
         splashScreenPop()
-
+            
     def busyCursorPush(self):
         rootPushBusyCursor()
         
@@ -1456,20 +1266,13 @@ class InstallControlState:
         self.searchPath = ("/mnt/source/RHupdates",
                            "./", "/usr/share/anaconda/")
         self.cw = cw
-        self.prevEnabled = 1
-        self.nextEnabled = 1
-	self.nextButtonInfo = None
-        self.helpButtonEnabled = gtk.TRUE
+        self.prevEnabled = gtk.TRUE
+        self.nextEnabled = gtk.TRUE
         self.title = _("Install Window")
         self.html = ""
         self.htmlFile = None
-        self.nextButton = 'gtk-next'
-        self.prevButton = 'gtk-prev'
-        self.nextButtonLabel = None
-        self.prevButtonLabel = None
-        # Values other than gtk.TRUE or gtk.FALSE don't change the help setting        
-        self.helpEnabled = 3 
-        self.grabNext = 0
+        self.helpEnabled = gtk.TRUE
+        self.grabNext = False
 
     def setTitle (self, title):
         self.title = title
@@ -1636,9 +1439,3 @@ class InstallControlState:
 
     def getICW (self):
         return self.cw
-
-    def setNextButton(self, icon, text):
-	self.nextButtonInfo = (icon, text)
-
-    def getNextButton(self):
-	return self.nextButtonInfo

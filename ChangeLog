@@ -1,5 +1,8 @@
 2005-01-12  Jeremy Katz  <katzj@redhat.com>
 
+	* gui.py: Switch to using glade.  Nuke some dead code.  Note that
+	low-res isn't currently 100% functional.
+
 	* ui/anaconda.glade: Add glade file for base anaconda UI.
 
 	* ui/: New directory for glade files.
