@@ -751,7 +751,11 @@ def doAutoPartition(dir, diskset, partitions, intf):
 
     doClearPartAction(partitions, diskset)
 
+    # XXX clearpartdrives is overloaded as drives we want to use for linux
+    drives = partitions.autoClearPartDrives
+
     for request in partitions.autoPartitionRequests:
+        request.drive = drives
         partitions.addRequest(request)
 
     try:
