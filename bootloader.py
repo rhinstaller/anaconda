@@ -32,6 +32,15 @@ from rhpl.translate import _
 from booty import *
 from bootloaderInfo import *
 
+showLilo = 0
+try:
+    f = open("/proc/cmdline", "r")
+    if f.read().find("lilo") != -1:
+        showLilo = 1
+except:
+    pass
+
+
 
 def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
     if dir == DISPATCH_BACK:

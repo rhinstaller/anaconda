@@ -18,6 +18,7 @@ import gobject
 import iutil
 import partedUtils
 import gui
+import bootloader
 from iw_gui import *
 from rhpl.translate import _, N_
 
@@ -137,7 +138,7 @@ class MainBootloaderWindow(InstallWindow):
                            
         self.grub_radio = gtk.RadioButton(None, (_("Use _GRUB as the "
                                                    "boot loader")))
-        if 0:
+        if bootloader.showLilo:
             self.lilo_radio = gtk.RadioButton(self.grub_radio,
                                               (_("Use _LILO as the boot "
                                                  "loader")))
@@ -156,7 +157,7 @@ class MainBootloaderWindow(InstallWindow):
 
         if self.blname is None:
             self.none_radio.set_active(gtk.TRUE)
-        elif 0 and self.blname == "LILO" and iutil.getArch() == "i386":
+        elif self.lilo_radio is not None and self.blname == "LILO" and iutil.getArch() == "i386":
             self.lilo_radio.set_active(gtk.TRUE)
         else:
             self.grub_radio.set_active(gtk.TRUE)
