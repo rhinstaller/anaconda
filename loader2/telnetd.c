@@ -46,10 +46,10 @@
 int beTelnet(int flags) {
     int sock;
     int conn;
-    int addrLength;
+    unsigned int addrLength;
     pid_t child;
     int i;
-    int masterFd;
+    int masterFd, ttyFd;
     struct sockaddr_in address;
     char buf[4096];
     struct pollfd fds[3];
@@ -162,6 +162,7 @@ int beTelnet(int flags) {
 	    }
 
 	    if (fds[1].revents) {
+		int ret;
 		i = read(conn, buf, sizeof(buf));
 
 		/* connection went away */
@@ -169,7 +170,7 @@ int beTelnet(int flags) {
 		    break;
 
 		i = telnet_process_input(&ts, buf, i);
-		write(masterFd, buf, i);
+		ret = write(masterFd, buf, i);
 
 #ifdef DEBUG_TELNET
 		{
@@ -206,9 +207,13 @@ int beTelnet(int flags) {
     close(1);
     close(2);
 
-    open("/dev/ttyp0", O_RDWR);
-    dup(0);
-    dup(0);
+    ttyFd = open("/dev/ttyp0", O_RDWR);
+    if (ttyFd != 0) {
+	dup2(ttyFd, 0);
+	close(ttyFd);
+    }
+    dup2(0, 1);
+    dup2(0, 2);
 
     /* brand new tty! */
     setenv("TERM", termType, 1);
