@@ -448,7 +448,7 @@ if (display_mode != 't' and method and
 if iutil.getArch() != "s390":
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if display_mode != 't' and mousedev[0] == "No - Mouse":
+    if display_mode != 't' and mousedev[0] == "No - mouse":
         # ask for the mouse type
         if mouse.mouseWindow(mousehw) == 0:
             print _("No mouse was detected.  A mouse is required for graphical "
