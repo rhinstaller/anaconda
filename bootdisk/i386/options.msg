@@ -8,7 +8,7 @@
  -  To test the install media you are using, type: linux mediacheck <ENTER>.  
 
  -  To enable rescue mode, type: linux rescue <ENTER>.  
-    Press <F4> for more information about rescue mode.
+    Press <F5> for more information about rescue mode.
 
  -  If you have a driver disk, type: linux dd <ENTER>.
 
