@@ -55,7 +55,11 @@ struct device {
     	class;
 };
 
-int testing = 0;
+#define LOADER_FLAGS_TESTING		(1 << 0)
+
+#define FL_TESTING(a) ((a) && LOADER_FLAGS_TESTING)
+
+int flags = 0;
 struct device knownDevices[100];		/* arbitrary limit <shrug> */
 int numKnownDevices = 0;
 
@@ -64,15 +68,15 @@ struct installMethod {
     enum deviceClass deviceRequired;
     int (*mountImage)(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
-		      moduleDeps modDeps, int testing);
+		      moduleDeps modDeps, int flags);
 };
 
 static int mountCdromImage(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
-		      moduleDeps modDeps, int testing);
+		      moduleDeps modDeps, int flags);
 static int mountNfsImage(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
-		      moduleDeps modDeps, int testing);
+		      moduleDeps modDeps, int flags);
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), DEVICE_CDROM, mountCdromImage },
@@ -106,7 +110,7 @@ static void spawnShell(void) {
     pid_t pid;
     int fd;
 
-    if (!testing) {
+    if (!FL_TESTING(flags)) {
 	fd = open("/dev/tty2", O_RDWR);
 	if (fd < 0) {
 	    logMessage("cannot open /dev/tty2 -- no shell will be provided");
@@ -132,6 +136,8 @@ static void spawnShell(void) {
 	}
 
 	close(fd);
+    } else {
+	logMessage("not spawning a shell as we're in test mode");
     }
 
     return;
@@ -543,7 +549,7 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods, i;
 
     probePciFreeDrivers();
-    if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
+    if (probePciReadDrivers(FL_TESTING(flags) ? "../isys/pci/pcitable" :
 			              "/modules/pcitable")) {
         logMessage("An error occured while reading the PCI ID table");
 	return LOADER_ERROR;
@@ -603,8 +609,8 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    printf("%s\n", modList[i]->moduleName);
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				     testing);
+			mlLoadModule(modList[i]->moduleName, modLoaded, 
+				     modDeps, flags);
 		    }
 		}
 	    }
@@ -616,7 +622,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 testing);
+				 flags);
 		    newtPopWindow();
 		}
 	    }
@@ -632,7 +638,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 static int mountCdromImage(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
-		      moduleDeps modDeps, int testing) {
+		      moduleDeps modDeps, int flags) {
     int i;
 
     for (i = 0; i < numKnownDevices; i++) {
@@ -645,7 +651,7 @@ static int mountCdromImage(char * location, int numKnownDevices,
 	return LOADER_BACK;
     }
 
-    logMessage("trying to mount device %s\n", knownDevices[i].name);
+    logMessage("trying to mount device %s", knownDevices[i].name);
     devMakeInode(knownDevices[i].name, "/tmp/cdrom");
     doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, NULL);
 
@@ -654,7 +660,7 @@ static int mountCdromImage(char * location, int numKnownDevices,
 
 static int mountNfsImage(char * location, int numKnownDevices, 
     		      struct device * knownDevices, moduleList modLoaded,
-		      moduleDeps modDeps, int testing) {
+		      moduleDeps modDeps, int flags) {
     struct intfInfo netDev;
 
     readNetConfig("eth0", &netDev);
@@ -663,8 +669,8 @@ static int mountNfsImage(char * location, int numKnownDevices,
     configureNetDevice(&netDev);
     addDefaultRoute(&netDev);
 
-    if (!testing) {
-	mlLoadModule("nfs", modLoaded, modDeps, testing);
+    if (!FL_TESTING(flags)) {
+	mlLoadModule("nfs", modLoaded, modDeps, flags);
 
 	doPwMount("207.175.42.68:/mnt/test/msw/i386",
 		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
@@ -675,7 +681,7 @@ static int mountNfsImage(char * location, int numKnownDevices,
     
 static int doMountImage(char * location, int numKnownDevices, 
     		        struct device * knownDevices, moduleList modLoaded,
-		        moduleDeps modDeps, int testing) {
+		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
     int i, j, rc;
     int validMethods[10];
@@ -714,7 +720,7 @@ static int doMountImage(char * location, int numKnownDevices,
     if (rc == 2) return LOADER_BACK;
 
     return installMethods[validMethods[methodNum]].mountImage(location,
-    		numKnownDevices, knownDevices, modLoaded, modDeps, testing);
+    		numKnownDevices, knownDevices, modLoaded, modDeps, flags);
 }
 
 int main(int argc, char ** argv) {
@@ -728,6 +734,7 @@ int main(int argc, char ** argv) {
     moduleDeps modDeps;
     int local = 0;
     int i, rc;
+    int testing = 0;
     moduleInfoSet modInfo;
     struct poptOption optionTable[] = {
 	    { "local", '\0', POPT_ARG_NONE, &local, 0 },
@@ -752,7 +759,9 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    arg = testing ? "/boot/module-info" : "/modules/module-info";
+    if (testing) flags |= LOADER_FLAGS_TESTING;
+
+    arg = FL_TESTING(flags) ? "/boot/module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo)) {
         fprintf(stderr, "failed to read %s\n", arg);
@@ -760,14 +769,14 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
-    openLog(testing);
+    openLog(FL_TESTING(flags));
 
     findIdeList();
     findScsiList();
     findNetList();
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
-    mlLoadDeps(modDeps, "/modules/modules.dep");
+    mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     pciProbe(modInfo, modLoaded, modDeps, probeOnly);
     if (probeOnly) exit(0);
@@ -775,9 +784,9 @@ int main(int argc, char ** argv) {
     startNewt();
 
     doMountImage("/mnt/source", numKnownDevices, knownDevices, 
-    		 modLoaded, modDeps, testing);
+    		 modLoaded, modDeps, flags);
 
-    if (!testing) {
+    if (!FL_TESTING(flags)) {
      
 	symlink("mnt/source/RedHat/instimage/usr", "/usr");
 	symlink("mnt/source/RedHat/instimage/lib", "/lib");
@@ -797,9 +806,11 @@ int main(int argc, char ** argv) {
 		"/modules/pcitable");
     }
 
+    spawnShell();			/* we can attach gdb now :-) */
+
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
-    mlLoadDeps(modDeps, "/modules/modules.dep");
+    mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo)) {
@@ -826,14 +837,12 @@ int main(int argc, char ** argv) {
 	    printf("\n");
     }
 
-    spawnShell();
-
     argptr = anacondaArgs;
     *argptr++ = "/usr/bin/anaconda";
     *argptr++ = "-p";
     *argptr++ = "/mnt/source";
 
-    if (!testing) {
+    if (!FL_TESTING(flags)) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
