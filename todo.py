@@ -94,6 +94,7 @@ class Network:
         self.domains = []
         for dev in self.netdevices.values ():
             ip = dev.get ("ipaddr")
+            print ip
             if ip:
                 try:
                     (hostname, aliases, ipaddrs) = socket.gethostbyaddr (ip)
@@ -104,7 +105,7 @@ class Network:
                     if '.' in hostname:
                         # chop off everything before the leading '.'
                         self.domains.append (hostname[(string.find (hostname, '.') + 1):])
-                if self.hostname == "localhost.localdomain":
+                #if self.hostname == "localhost.localdomain":
                     self.hostname = hostname
             else:
                 dev.hostname = "localhost.localdomain"
