@@ -1866,12 +1866,12 @@ msgstr "点击“下一步”以开始安装 %s。"
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"重新引导后，完整的安装日志将会保存在 /tmp/install.log 中。你可能需要保留此文"
+"重新引导后，完整的安装日志将会保存在 /root/install.log 中。你可能需要保留此文"
 "件供以后参考。此外，反冲启动文件 /root/anaconda-ks.cfg 中将会存有你所有的安装"
 "选择。"
 
@@ -1885,10 +1885,10 @@ msgstr "点击“下一步”以开始升级 %s。"
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"重新引导后，完整的安装日志将会保存在 /tmp/upgrade.log 中。 你可能需要保留此文"
+"重新引导后，完整的安装日志将会保存在 /root/upgrade.log 中。 你可能需要保留此文"
 "件供以后参考。"
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3150,10 +3150,10 @@ msgstr "即将开始安装"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"重新引导系统后，一份完整的安装日志将会保存在 /tmp/install.log 。你可能需要保"
+"重新引导系统后，一份完整的安装日志将会保存在 /root/install.log 。你可能需要保"
 "留此文件供以后参考。"
 
 #: ../textw/confirm_text.py:32

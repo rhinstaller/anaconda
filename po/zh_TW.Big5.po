@@ -1922,12 +1922,12 @@ msgstr "按下一步開始安裝 %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"重新開機後，完整的安裝過程會記錄在 /tmp/install.log. \n"
+"重新開機後，完整的安裝過程會記錄在 /root/install.log. \n"
 "您可以留下這個檔案以便日後參考.\n"
 "另外,會有一份 kickstart 設定檔在 /root/anaconda-ks.cfg."
 
@@ -1942,10 +1942,10 @@ msgstr "按下一步開始升級 %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"重新開機後，完整的升級過程會記錄在 /tmp/upgrade.log. \n"
+"重新開機後，完整的升級過程會記錄在 /root/upgrade.log. \n"
 "您可以留下這個檔案以便日後參考。"
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3228,12 +3228,12 @@ msgstr "開始安裝"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "重新開機後，完整的安裝\n"
 "過程會記錄在\n"
-" /tmp/install.log. \n"
+" /root/install.log. \n"
 "您可以留下這個檔案以便\n"
 "日後參考。"
 

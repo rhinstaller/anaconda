@@ -1846,13 +1846,13 @@ msgstr "Red Hat Linux kurulumuna baþlamak için Ýleri'ye týklayýn."
 #: ../iw/confirm_gui.py:61
 #, fuzzy
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
-"sonra /tmp/install.log dosyasýnda bulabilirsiniz."
+"sonra /root/install.log dosyasýnda bulabilirsiniz."
 
 #: ../iw/confirm_gui.py:68
 msgid "About to Upgrade"
@@ -1865,11 +1865,11 @@ msgstr "Red Hat Linux güncellemesine baþlamak için Ýleri'ye týklayýn."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Güncelleme boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
-"sonra /tmp/upgrade.log dosyasýnda bulabilirsiniz."
+"sonra /root/upgrade.log dosyasýnda bulabilirsiniz."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
 msgid "Congratulations"
@@ -3192,11 +3192,11 @@ msgstr "Kuruluma baþlangýç"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Kurulum boyunca yapýlan iþlemlerin kaydýný sisteminizi yeniden açtýktan "
-"sonra /tmp/install.log dosyasýnda bulabilirsiniz."
+"sonra /root/install.log dosyasýnda bulabilirsiniz."
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"

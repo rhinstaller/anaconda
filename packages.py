@@ -487,7 +487,7 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     for i in ( '/var', '/var/lib', '/var/lib/rpm', '/tmp', '/dev', '/etc',
 	       '/etc/sysconfig', '/etc/sysconfig/network-scripts',
-	       '/etc/X11' ):
+	       '/etc/X11', '/root' ):
 	try:
 	    os.mkdir(instPath + i)
 	except os.error, (errno, msg):
@@ -552,9 +552,9 @@ def doInstall(method, id, intf, instPath):
 	ts.order()
 
     if upgrade:
-	logname = '/tmp/upgrade.log'
+	logname = '/root/upgrade.log'
     else:
-	logname = '/tmp/install.log'
+	logname = '/root/install.log'
 
     instLogName = instPath + logname
     try:
@@ -726,9 +726,9 @@ def doPostInstall(method, id, intf, instPath):
     arch = iutil.getArch ()
 
     if upgrade:
-	logname = '/tmp/upgrade.log'
+	logname = '/root/upgrade.log'
     else:
-	logname = '/tmp/install.log'
+	logname = '/root/install.log'
 
     instLogName = instPath + logname
     instLog = open(instLogName, "a")

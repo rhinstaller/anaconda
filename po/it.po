@@ -2001,13 +2001,13 @@ msgstr "Premere Avanti per iniziare l'installazione di %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in "
 "/root/anaconda-ks.cfg."
 msgstr ""
 "Al riavvio del sistema il file di log dell'installazione si troverà in "
-"/tmp/install.log. Si consiglia di conservare il file per eventuali "
+"/root/install.log. Si consiglia di conservare il file per eventuali "
 "consultazioni future. In /root/anaconda-ks.cfg sarà disponibile un file "
 "kickstart contenente le scelte effettuate."
 
@@ -2021,11 +2021,11 @@ msgstr "Scegliere Avanti per iniziare l'aggiornamento di %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Al riavvio del sistema il file di log dell'aggiornamento sarà disponibile in "
-"/tmp/upgrade.log nel filesystem. "
+"/root/upgrade.log nel filesystem. "
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
 msgid "Congratulations"
@@ -3328,11 +3328,11 @@ msgstr "L'installazione sta per iniziare"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Al riavvio del sistema sarà possibile trovare il file di log "
-"dell'installazione in /tmp/install.log."
+"dell'installazione in /root/install.log."
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"

@@ -1987,7 +1987,7 @@ msgstr "Kliknìte na Dal¹í pro zahájení instalace Red Hat Linuxu."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
@@ -2007,7 +2007,7 @@ msgstr "Kliknìte na Dal¹í pro zahájení aktualiazace Red Hat Linuxu."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Úplný protokol o aktualizaci bude po restartu systému v souboru /tmp/upgrade."
@@ -3321,7 +3321,7 @@ msgstr "Zahájení instalace"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Úplný protokol o instalaci bude po restartu systému v souboru /tmp/install."

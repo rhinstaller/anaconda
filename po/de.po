@@ -2014,12 +2014,12 @@ msgstr "Klicken Sie auf Weiter, um mit der Installation von %s zu beginnen."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in "
 "/root/anaconda-ks.cfg."
 msgstr ""
-"Nach dem Neustart des Systems befindet sich im Verzeichnis /tmp/install.log "
+"Nach dem Neustart des Systems befindet sich im Verzeichnis /root/install.log "
 "ein vollständiges Protokoll der Installation. Sie sollten diese Datei für "
 "Referenzzwecke dauerhaft speichern. Eine Kickstart-Datei mit Ihrer Auswahl "
 "befindet sich im Verzeichnis /root/anaconda-ks.cfg."
@@ -2034,11 +2034,11 @@ msgstr "Klicken Sie auf Weiter, um mit dem Aktualisieren von %s zu beginnen."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Ein komplettes Protokoll mit Angaben zu Ihrem Upgrade steht Ihnen nach dem "
-"Neustart Ihres Systems in /tmp/upgrade.log zur Verfügung. Sie sollten diese "
+"Neustart Ihres Systems in /root/upgrade.log zur Verfügung. Sie sollten diese "
 "Datei für Referenzzwecke dauerhaft speichern."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3356,10 +3356,10 @@ msgstr "Installation beginnt"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Nach dem Neustart des Systems befindet sich im Verzeichnis /tmp/install.log "
+"Nach dem Neustart des Systems befindet sich im Verzeichnis /root/install.log "
 "ein vollständiges Protokoll der Installation. Sie sollten diese Datei für "
 "Referenzzwecke dauerhaft speichern."
 

@@ -2018,13 +2018,13 @@ msgstr "Cliquer sur Suivant pour commencer l'installation de %s."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in "
 "/root/anaconda-ks.cfg."
 msgstr ""
 "Un historique complet de votre installation figurera dans le fichier journal "
-"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
+"/root/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement. Un fichier kickstart "
 "contenant les choix que vous avez faits figurera dans /root/anaconda-ks.cfg."
 
@@ -2038,11 +2038,11 @@ msgstr "Cliquer sur Suivant pour commencer la mise à jour de %s."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Un historique complet de votre mise à jour figurera dans le fichier journal "
-"/tmp/upgrade.log après le redémarrage de votre système. Vous pouvez "
+"/root/upgrade.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3361,11 +3361,11 @@ msgstr "Début de l'installation"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Un historique complet de votre installation figurera dans le fichier journal "
-"/tmp/install.log après le redémarrage de votre système. Vous pouvez "
+"/root/install.log après le redémarrage de votre système. Vous pouvez "
 "conserver ce fichier pour le consulter ultérieurement."
 
 #: ../textw/confirm_text.py:32

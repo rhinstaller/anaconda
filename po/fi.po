@@ -1863,12 +1863,12 @@ msgstr ""
 #: ../iw/confirm_gui.py:61
 #, fuzzy
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /tmp/install.log. "
+"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /root/install.log. "
 "Voit säilyttää sen myöhempiä tarpeita varten."
 
 #: ../iw/confirm_gui.py:68
@@ -1884,10 +1884,10 @@ msgstr ""
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 #, fuzzy
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /tmp/install.log. "
+"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /root/install.log. "
 "Voit säilyttää sen myöhempiä tarpeita varten."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3257,10 +3257,10 @@ msgstr "Asennusvaiheet"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /tmp/install.log. "
+"Täydellinen loki asennuksesta  kirjoitetaan tiedostoon /root/install.log. "
 "Voit säilyttää sen myöhempiä tarpeita varten."
 
 #: ../textw/confirm_text.py:32
@@ -7205,11 +7205,11 @@ msgstr ""
 #~ msgstr "Selaan paketteja..."
 
 #~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the "
+#~ "A complete log of your upgrade will be in /root/upgrade.log when the "
 #~ "upgrade is finished. After rebooting, please read it to ensure "
 #~ "configuration files are properly updated."
 #~ msgstr ""
-#~ "Täydellinen loki päivityksestä  kirjoitetaan tiedostoon /tmp/upgrade.log. "
+#~ "Täydellinen loki päivityksestä  kirjoitetaan tiedostoon /root/upgrade.log. "
 #~ "Lue se käynnistyksen jälkeen tarkistaaksesi, että konfigurointitiedostot "
 #~ "päivitettiin oikein."
 

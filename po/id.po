@@ -1865,12 +1865,12 @@ msgstr "Tekan next untuk memulai instalasi Red Hat Linux."
 #: ../iw/confirm_gui.py:61
 #, fuzzy
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
+"Log lengkap dari proses instalasi disimpan di /root/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
 #: ../iw/confirm_gui.py:68
@@ -1886,10 +1886,10 @@ msgstr "Tekan next untuk memulai instalasi Red Hat Linux."
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 #, fuzzy
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
+"Log lengkap dari proses instalasi disimpan di /root/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3242,10 +3242,10 @@ msgstr "Instalasi dimulai"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Log lengkap dari proses instalasi disimpan di /tmp/install.log setelah "
+"Log lengkap dari proses instalasi disimpan di /root/install.log setelah "
 "sistem diboot. Simpanlah file ini bila perlu."
 
 #: ../textw/confirm_text.py:32
@@ -7333,11 +7333,11 @@ msgstr ""
 #~ msgstr "Mencari paket..."
 
 #~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the "
+#~ "A complete log of your upgrade will be in /root/upgrade.log when the "
 #~ "upgrade is finished. After rebooting, please read it to ensure "
 #~ "configuration files are properly updated."
 #~ msgstr ""
-#~ "Log lengkap dari proses upgrade disimpan di /tmp/install.log setelah "
+#~ "Log lengkap dari proses upgrade disimpan di /root/install.log setelah "
 #~ "sistem diboot. Bacalah file ini untuk memastikan proses upgrade berjalan "
 #~ "dengan baik."
 

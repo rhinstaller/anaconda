@@ -59,7 +59,7 @@ class InstallConfirmWindow (ConfirmWindow):
 	return ConfirmWindow.getScreen(self,
 	    _("Click next to begin installation of %s.") % (productName,),
 	    _("A complete log of your installation will be in "
-	      "/tmp/install.log after rebooting your system. You "
+	      "/root/install.log after rebooting your system. You "
 	      "may want to keep this file for later reference. "
               "A kickstart file representing the choices you have made "
               "will be in /root/anaconda-ks.cfg."))
@@ -72,6 +72,6 @@ class UpgradeConfirmWindow (ConfirmWindow):
 	return ConfirmWindow.getScreen(self,
             _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of your upgrade will be in "
-	      "/tmp/upgrade.log after rebooting your system. You "
+	      "/root/upgrade.log after rebooting your system. You "
 	      "may want to keep this file for later reference."))
 

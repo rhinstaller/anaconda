@@ -2006,13 +2006,13 @@ msgstr "Нажмите \"Далее\" для начала установки Red Hat Linux."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
 "Полный протокол установки вашей системы после перезагрузки будет находиться "
-"в /tmp/install.log. Возможно вам понадобится к нему обратиться. Файл "
+"в /root/install.log. Возможно вам понадобится к нему обратиться. Файл "
 "конфигурации kickstart, отражающий сделанные вами изменения, будет "
 "находиться в /root/anaconda-ks.cfg."
 
@@ -2027,11 +2027,11 @@ msgstr "Нажмите \"Далее\" для начала обновления Red Hat Linux."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Полный протокол обновления вашей системы после перезагрузки будет находиться "
-"в /tmp/install.log. Возможно вам понадобится к нему обратиться."
+"в /root/install.log. Возможно вам понадобится к нему обратиться."
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
 msgid "Congratulations"
@@ -3343,11 +3343,11 @@ msgstr "Начало установки"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Полный протокол установки вашей системы после перезагрузки будет находиться "
-"в /tmp/install.log. Возможно вам понадобится к нему обратиться."
+"в /root/install.log. Возможно вам понадобится к нему обратиться."
 
 #: ../textw/confirm_text.py:32
 msgid "Upgrade to begin"

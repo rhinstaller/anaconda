@@ -1936,12 +1936,12 @@ msgstr "[次]をクリックすると %s. のインストールを開始します"
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"完全なインストール記録はシステムの再起動後も /tmp/install.log に残っていま"
+"完全なインストール記録はシステムの再起動後も /root/install.log に残っていま"
 "す。後で参照できるようにこのファイルを保管しておくことをお勧めします。選択結"
 "果を表す kickstartファイルは /root/anacocnda-ks.cfgに保存されています。"
 
@@ -1955,10 +1955,10 @@ msgstr "[次]をクリックすると %s. のアップグレードを開始します"
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"完全なアップグレード記録はシステムの再起動後でも /tmp/upgrade.log に保存され"
+"完全なアップグレード記録はシステムの再起動後でも /root/upgrade.log に保存され"
 "ています。後で参照できるようにこのファイルを保管しておくことをお勧めします"
 
 #: ../iw/congrats_gui.py:23 ../iw/congrats_gui.py:85
@@ -3241,10 +3241,10 @@ msgstr "インストール開始"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"完全なインストール記録はシステムの再起動後でも /tmp/install.log に保存されて"
+"完全なインストール記録はシステムの再起動後でも /root/install.log に保存されて"
 "います。後で参照できるようにこのファイルを保管しておくことをお勧めします"
 
 #: ../textw/confirm_text.py:32

@@ -1850,12 +1850,12 @@ msgstr "Kattintson a Következõ-re a Red Hat Linux telepítés elkezdéséhez."
 #: ../iw/confirm_gui.py:61
 #, fuzzy
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"A telepítés teljes jegyzõkönyve megtalálható lesz a /tmp/install.log file-"
+"A telepítés teljes jegyzõkönyve megtalálható lesz a /root/install.log file-"
 "ban a rendszer újraindítása után. Késõbb esetleg szüksége lehet erre a file-"
 "ra."
 
@@ -1870,10 +1870,10 @@ msgstr "Kattintson a Következõ-re a Red Hat Linux frissítés elkezdéséhez."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"A frissítés teljes jegyzõkönyve megtalálható lesz a /tmp/upgrade.log file-"
+"A frissítés teljes jegyzõkönyve megtalálható lesz a /root/upgrade.log file-"
 "ban a rendszer újraindítása után. Késõbb esetleg szüksége lehet erre a file-"
 "ra."
 
@@ -3215,10 +3215,10 @@ msgstr "Telepítés elkezdése"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"A telepítés teljes jegyzõkönyve megtalálható lesz a /tmp/install.log file-"
+"A telepítés teljes jegyzõkönyve megtalálható lesz a /root/install.log file-"
 "ban a rendszer újraindítása után. Késõbb esetleg szüksége lehet erre a file-"
 "ra."
 

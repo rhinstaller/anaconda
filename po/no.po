@@ -2014,12 +2014,12 @@ msgstr "Klikk neste for å starte installasjonen av Red Hat Linux."
 
 #: ../iw/confirm_gui.py:61
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
 msgstr ""
-"En komplett logg av installasjonen vil befinne seg i /tmp/install.log etter "
+"En komplett logg av installasjonen vil befinne seg i /root/install.log etter "
 "omstart av systemet. Du vil kanskje beholde denne filen som et "
 "referansepunkt til senere. En kickstart-fil som representerer valgene du "
 "gjorde vil være i /root/anaconda-ks.cfg."
@@ -2035,10 +2035,10 @@ msgstr "Klikk neste for å starte oppgradering av Red Hat Linux."
 
 #: ../iw/confirm_gui.py:74 ../textw/confirm_text.py:33
 msgid ""
-"A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
+"A complete log of your upgrade will be in /root/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log etter "
+"En komplett logg av oppgraderingen vil befinne seg i /root/upgrade.log etter "
 "omstart av systemet. Du vil kanskje beholde denne filen som referansepunkt "
 "til senere."
 
@@ -3351,10 +3351,10 @@ msgstr "Installeringen startes"
 
 #: ../textw/confirm_text.py:21
 msgid ""
-"A complete log of your installation will be in /tmp/install.log after "
+"A complete log of your installation will be in /root/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"En komplett logg av installeringen vil befinne seg i /tmp/install.log etter "
+"En komplett logg av installeringen vil befinne seg i /root/install.log etter "
 "omstart av systemet. Du vil kanskje beholde denne filen som et "
 "referansepunkt til senere."
 
