@@ -376,7 +376,7 @@ class ext2FileSystem(extFileSystem):
                              % (devicePath, devicePath), type = "yesno")
                 if rc == 0:
                     sys.exit(0)
-                entry.fsystem = entry.origfsystem
+            entry.fsystem = entry.origfsystem
         else:
             extFileSystem.removeForcedFsck(self, entry, message, chroot)
 
