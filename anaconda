@@ -2,9 +2,10 @@
 
 import sys, getopt, os
 
+# fixme - first stage install passes --method
 (args, extra) = getopt.getopt(sys.argv[1:], 'p:gTtdr:f', 
           [ 'gui', 'text', 'test', 'debug', 'rootpath=', 
-	    'testpath=', 'mountfs' ])
+	    'testpath=', 'mountfs', 'method' ])
 
 mode = None
 test = 0
