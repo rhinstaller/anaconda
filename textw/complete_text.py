@@ -15,7 +15,7 @@ from snack import *
 from constants_text import *
 from translate import _
 import iutil
-import isys
+import _isys
 import string
 
 

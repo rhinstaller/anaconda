@@ -16,6 +16,7 @@ from gnome.ui import *
 from iw_gui import *
 from translate import _, N_
 import iutil
+import _isys
 
 class CongratulationWindow (InstallWindow):		
 
