@@ -1,3 +1,9 @@
+2005-02-21  Chris Lumens  <clumens@redhat.com>
+
+	* iw/network_gui.py  (NetworkWindow.setHostOptionsSensitivity):
+	Properly set hostname option sensitivity to follow which option is
+	selected (#149116).
+
 2005-02-21  Jeremy Katz  <katzj@redhat.com>
 
 	* fsset.py (FileSystemSet.mtab): Don't write out filesystems we

@@ -141,8 +141,10 @@ class NetworkWindow(InstallWindow):
 		self.hostnameManual.set_sensitive(1)
 	    else:
 		self.hostnameUseDHCP.set_active(1)
+		self.hostnameUseDHCP.set_sensitive(1)
 	else:
 	    self.hostnameManual.set_active(1)
+	    self.hostnameUseDHCP.set_sensitive(0)
 
     def setIPTableSensitivity(self):
 	numactive = self.getNumberActiveDevices()
