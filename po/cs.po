@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-05-27 11:48+0200\n"
+"PO-Revision-Date: 2004-06-09 10:25+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -977,16 +977,14 @@ msgstr "Ignorovat"
 msgid "Cancel"
 msgstr "Zrušit"
 
-# FIXME: s/n\\n/\\n/
 #: ../gui.py:638 ../text.py:283
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
 msgstr ""
-"Při zpracovávání vašeho nastavení kickstart byla nalezena následující "
-"chyba:\n"
+"Při zpracovávání vašeho nastavení kickstart byla nalezena následující chyba:\n"
 "%s"
 
 #: ../gui.py:640 ../text.py:285
@@ -1156,9 +1154,9 @@ msgid "Change CDROM"
 msgstr "Vyměnit CD-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Vložte prosím disk %d pro pokračování."
+msgstr "Vložte prosím %s disk %d pro pokračování."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1171,7 +1169,7 @@ msgstr "Toto není správné %s CD-ROM."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Nemohu přistupovat k CD-ROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -2442,9 +2440,8 @@ msgid "Connecting..."
 msgstr "Připojuji se..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Nemohu přečíst soubor!"
+msgstr "Nemohu spustit X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2452,32 +2449,32 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"Na vašem počítači nešlo spustit X. Chcete spustit VNC, abyste se k tomuto\n"
+"počítači mohli připojit z jiného počítače a provést grafickou instalaci,\n"
+"nebo pokračovat v instalaci v textovém režimu?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Použít textový režim"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Startuji VNC..."
+msgstr "Spustit VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Nastavení SILO"
+msgstr "Nastavení VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Heslo správce systému"
+msgstr "Žádné heslo"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "Heslo zabrání neautorizovaným posluchačům, aby se připojili a sledovali průběh vaší instalace. Zadejte prosím heslo, které používat pro instalaci"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2500,7 +2497,6 @@ msgid "Password Length"
 msgstr "Délka hesla"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
 msgstr "Heslo musí mít délku nejméně 6 znaků."
 
@@ -2545,7 +2541,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "Účet root se používá pro správu systému. Zadejte heslo pro uživatele root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3197,7 +3193,7 @@ msgstr "Po_volit firewall"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Umožnit ostatním na Internetu přistupovat k těmto službám."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3205,21 +3201,19 @@ msgstr "Povo_lit příchozí:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Vzdálené přihlášení (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Server"
+msgstr "WWW server"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Pošta (SMTP)"
+msgstr "Poštovní server (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Přenos souborů (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -6736,32 +6730,26 @@ msgstr ""
 "načtení ovladačů. Vyberte zařízení, ze kterého chcete ovladače načíst."
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"V počítači je k dispozici více zařízení, která by mohla být použita pro "
-"načtení ovladačů. Vyberte zařízení, ze kterého chcete ovladače načíst."
+msgstr "Na tomto zařízení je více oddílů, které by mohly obsahovat obraz diskety s ovladači. Který chcete použít?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Nemohu připojit disketu s aktualizací"
+msgstr "Nemohu připojit oddíl."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Vybrat ovladač"
+msgstr "Zvolte obraz diskety s ovladači"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Zvolte soubor, který je obraz vaší diskety s ovladači."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Nemohu připojit disketu s aktualizací."
+msgstr "Nemohu načíst disketu s ovladači ze souboru."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -6771,7 +6759,7 @@ msgstr ""
 
 #: ../loader2/driverdisk.c:381
 msgid "Insert Driver Disk"
-msgstr "Vložení média s ovladači"
+msgstr "Vložení diskety s ovladači"
 
 #: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
@@ -8281,17 +8269,8 @@ msgstr "Velština"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CD-ROM nelze připojit."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Vložte heslo pro správce systému (root, administrátor)."
-
 #~ msgid "_Custom firewall"
 #~ msgstr "_Vlastní firewall"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Které služby by měly mít povolen průchod firewallem?"
 
 #~ msgid ""
 #~ "If you would like to allow all traffic from a device, select it below."
