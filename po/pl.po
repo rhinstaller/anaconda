@@ -1,27 +1,26 @@
 # Plik z zasobami dla polskiego u¿ytkownika.
-# Copyright (C) 1998 Free Software Foundation, Inc.
 # Jacek Smyda <smyda@posexperts.com.pl>, 1998.
+# Rafa³ Maszkowski <rzm@icm.edu.pl>, 1999, 2000
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
 "POT-Creation-Date: 2000-02-02 17:43-0500\n"
-"PO-Revision-Date: 1998-11-12 12:00\n"
-"Last-Translator: Jacek Smyda <smyda@posexperts.com.pl>\n"
+"PO-Revision-Date: 2000-01-19 13:50\n"
+"Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../fstab.py:234 ../fstab.py:390
-#, fuzzy
 msgid "Formatting"
 msgstr "Formatowanie"
 
 #: ../fstab.py:235
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formatowanie obszaru swap w urz±dzeniu %s..."
+msgstr "Formatowanie partycji swap w urz±dzeniu /dev/%s..."
 
 #: ../fstab.py:245 ../fstab.py:322 ../fstab.py:456
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:178
@@ -35,46 +34,44 @@ msgid "Error"
 msgstr "B³±d"
 
 #: ../fstab.py:245
-#, fuzzy
 msgid "Error creating swap on device "
-msgstr "Formatowanie obszaru swap w urz±dzeniu %s..."
+msgstr "B³±d tworzenia partycji swap w urz±dzeniu "
 
 #: ../fstab.py:323
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "B³±d otwarcia pliku kickstart %s: %s"
+msgstr "B³±d odmontowania %s: %s"
 
 #: ../fstab.py:345 ../todo.py:410
 msgid "Creating"
-msgstr ""
+msgstr "Tworzenie"
 
 #: ../fstab.py:345
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "Tworzenie dysku bootuj±cego..."
+msgstr "Tworzenie urz±dzeñ RAID..."
 
 #: ../fstab.py:391
-#, fuzzy, c-format
+#, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Tworzenie ext2 systemu pliów na /dev/%s..."
+msgstr "Tworzenie systemu pliów %s..."
 
 #: ../fstab.py:413
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:414
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Tworzenie systemu plików montowanego przez loopback na urz±dzeniu /dev/%s..."
 
 #: ../fstab.py:457
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "B³±d otwarcia pliku kickstart %s: %s"
+msgstr "B³±d montowania %s: %s"
 
 #: ../gui.py:270 ../gui.py:516
 msgid "Next"
-msgstr ""
+msgstr "Nastêpny"
 
 #: ../gui.py:271 ../gui.py:515 ../libfdisk/newtfsedit.c:1292
 #: ../libfdisk/newtfsedit.c:1300 ../loader/cdrom.c:34 ../loader/devices.c:67
@@ -101,55 +98,56 @@ msgstr "Powrót"
 
 #: ../gui.py:272 ../gui.py:520
 msgid "Show Help"
-msgstr ""
+msgstr "Poka¿ pomoc"
 
 #: ../gui.py:273 ../gui.py:519
 msgid "Hide Help"
-msgstr ""
+msgstr "Schowaj pomoc"
 
 #: ../gui.py:274 ../gui.py:518
 msgid "Finish"
-msgstr ""
+msgstr "Zakoñcz"
 
 #: ../gui.py:277 ../gui.py:545
 msgid "Online Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: ../gui.py:278 ../iw/language.py:10 ../text.py:59 ../text.py:1005
 #: ../text.py:1034
 msgid "Language Selection"
-msgstr ""
+msgstr "Wybór jêzyka"
 
 #: ../gui.py:482
 msgid "Red Hat Linux Installer"
-msgstr ""
+msgstr "Instalator Linuxa Red Hat"
 
 #: ../gui.py:486
-#, fuzzy
 msgid "Red Hat Linux Install Shell"
-msgstr "Witamy w Red Hat Linux"
+msgstr "Shell instalatora Linuxa Red Hat"
 
 #: ../gui.py:497
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Witamy w Red Hat Linux"
+msgstr "Instalator Linuxa Red Hat na %s"
 
 #: ../gui.py:498
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr ""
+msgstr "Shell instalatora Linuxa Red Hat na %s"
 
 #: ../installclass.py:251
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
+"Zmierzasz do skasowania jakichkolwiek istniej±cych instalacji Linuxa."
 
 #: ../installclass.py:289
-#, fuzzy
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
-msgstr "Mo¿esz zniszczyæ dane! Jeste¶ pewien, ¿e chcesz to wykonaæ?"
+msgstr ""
+"Za chwilê zostan± zniszczone WSZYSTKIE DANE na towim twardym dysku ¿eby zrobiæ "
+"miejsce na instalacje Linuxa."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
@@ -175,28 +173,27 @@ msgstr "Mo¿esz zniszczyæ dane! Jeste¶ pewien, ¿e chcesz to wykonaæ?"
 #: ../textw/lilo.py:177 ../textw/silo.py:124 ../textw/silo.py:137
 #: ../textw/silo.py:185
 msgid "Ok"
-msgstr "OK"
+msgstr "TAK"
 
 #: ../text.py:60
-#, fuzzy
 msgid "What language would you like to use during the installation process?"
-msgstr "Jakie pakiety powinny byæ zainstalowane?"
+msgstr "Jakiego jêzyka chcesz u¿ywaæ w czasie instalowania?"
 
 #: ../text.py:80
 msgid "/dev/ttyS0 (COM1 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM1 w DOS)"
 
 #: ../text.py:81
 msgid "/dev/ttyS1 (COM2 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM2 w DOS)"
 
 #: ../text.py:82
 msgid "/dev/ttyS2 (COM3 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM3 w DOS)"
 
 #: ../text.py:83
 msgid "/dev/ttyS3 (COM4 under DOS)"
-msgstr ""
+msgstr "/dev/ttyS0 (COM4 w DOS)"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../text.py:98 ../textw/lilo.py:100
 #: ../textw/lilo.py:168 ../textw/silo.py:119 ../textw/silo.py:176
@@ -206,7 +203,7 @@ msgstr "Urz±dzenie"
 #: ../text.py:99
 #, c-format
 msgid "What device is your mouse located on? %s %i"
-msgstr ""
+msgstr "Do jakiego urz±dzenia jest pod³±czonamysz? %s %i"
 
 #: ../loader/cdrom.c:34 ../loader/devices.c:66 ../loader/devices.c:167
 #: ../loader/devices.c:178 ../loader/devices.c:183 ../loader/devices.c:218
@@ -233,81 +230,70 @@ msgstr ""
 #: ../textw/userauth.py:106 ../textw/userauth.py:115 ../textw/userauth.py:176
 #: ../textw/userauth.py:248
 msgid "OK"
-msgstr ""
+msgstr "TAK"
 
 #: ../text.py:122
 msgid "Which model mouse is attached to this computer?"
-msgstr ""
+msgstr "Jaki jest typ pod³±czonej myszy?"
 
 #: ../text.py:131
 msgid "Emulate 3 Buttons?"
-msgstr ""
+msgstr "Emulowaæ 3 klawisze?"
 
 #: ../text.py:133
-#, fuzzy
 msgid "Mouse Selection"
-msgstr "Opcje modu³u"
+msgstr "Wybór myszy"
 
 #: ../text.py:171 ../text.py:1007 ../text.py:1036
-#, fuzzy
 msgid "Keyboard Selection"
-msgstr "Typ klawiatury"
+msgstr "Wybór klawiatury"
 
 #: ../text.py:172
 msgid "Which model keyboard is attached to this computer?"
-msgstr ""
+msgstr "Jaki jest typ klawiatury?"
 
 #: ../text.py:222
-#, fuzzy
 msgid "Install GNOME Workstation"
-msgstr "Stacja robocza"
+msgstr "Instalacja stacji roboczej z GNOME"
 
 #: ../text.py:223
-#, fuzzy
 msgid "Install KDE Workstation"
-msgstr "Stacja robocza"
+msgstr "Instalacja stascji roboczej z KDE"
 
 #: ../text.py:224
-#, fuzzy
 msgid "Install Server System"
-msgstr "System instalacyjny"
+msgstr "Instalacja serwera"
 
 #: ../text.py:225
-#, fuzzy
 msgid "Install Custom System"
-msgstr "System instalacyjny"
+msgstr "Instalacja pakietów wybranych przez u¿ytkownika"
 
 #: ../text.py:226
-#, fuzzy
 msgid "Upgrade Existing Installation"
-msgstr "Instalacja Lilo"
+msgstr "Uaktualnienie istniej±cej instalacji"
 
 #: ../text.py:227 ../text.py:1039
-#, fuzzy
 msgid "Installation Type"
-msgstr "Kroki instalacji"
+msgstr "Rodzaj instalacji"
 
 #: ../text.py:228
-#, fuzzy
 msgid "What type of system would you like to install?"
-msgstr "Jaki jest typ no¶nika zawierajacego pakiety do instalacji?"
+msgstr "Jaki rodzaj systemu chcesz zainstalowaæ?"
 
 #: ../text.py:281
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr ""
-"Nie masz ¿adnej partycji Linuxowej. Nie mo¿esz uaktualniæ tego systemu!"
+"Nie masz ¿adnej partycji linuxowej. Nie mo¿esz uaktualniæ tego systemu!"
 
 #: ../text.py:294
-#, fuzzy
 msgid "System to Upgrade"
-msgstr "B³±d systemu %d"
+msgstr "System do uaktualnienia"
 
 #: ../text.py:295
 msgid "What partition holds the root partition of your installation?"
 msgstr "Jaka partycja zawiera partycjê root twojej instalacji?"
 
 #: ../text.py:310
-#, fuzzy
 msgid "Customize Packages to Upgrade"
 msgstr "Wybierz pakiety do uaktualnienia"
 
@@ -316,7 +302,10 @@ msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
-msgstr "Czy chcesz wybraæ pakiety jakie powinny zostaæ zaktualizowane?"
+msgstr ""
+"Zosta³y wybrane pakiety które masz ju¿ zainstalowane oraz wszystkie inne, od "
+"których te s± zale¿ne. Czy chcesz z nich wybieraæ pakiety jakie powinny "
+"zostaæ zaktualizowane?"
 
 #: ../iw/welcome.py:88 ../libfdisk/fsedit.c:761 ../libfdisk/gnomefsedit.c:713
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:1220
@@ -341,12 +330,10 @@ msgid "No"
 msgstr "Nie"
 
 #: ../text.py:333 ../text.py:351
-#, fuzzy
 msgid "Red Hat Linux"
-msgstr "Witamy w Red Hat Linux"
+msgstr "Witamy w Linuxie Red Hat"
 
 #: ../text.py:334
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -357,14 +344,14 @@ msgid ""
 "If you have purchased Official Red Hat Linux, be sure to register your "
 "purchase through our web site, http://www.redhat.com/."
 msgstr ""
-"Witamy w Red Hat Linux!\n"
+"Witamy w Linuxie Red Hat!\n"
 "\n"
 "Proces instalacji jest opisany szczegó³owo w Red Hat Linux Installation "
-"Guide dostêpnego z Red Hat Software. Je¿eli masz dostêp do tego podrêcznika "
+"Guide dostêpnym z Red Hat Software. Je¿eli masz dostêp do tego podrêcznika "
 "powiniene¶ go przeczytaæ zanim dalej bêdziesz kontynuowa³.\n"
 "\n"
-"Je¿eli naby³e¶ oficjalny Red Hat Linux, zarejestruj go na naszej stronie "
-"Web, http://www.redhat.com."
+"Je¿eli naby³e¶ Oficjalnego Linuxa Red Hat, zarejestruj go na naszej stronie "
+"WWW: http://www.redhat.com/ ."
 
 #: ../text.py:352
 msgid ""
@@ -375,6 +362,11 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Witamy w Linuxie Red Hat!\n"
+"\n"
+"Jeste¶ w trybie konfiguracji opcji specyficznych dla twojego komputera.\n"
+"\n"
+"¯eby wyj¶æ bez zmiany konfiguracji, wybierz przycisk Anuluj."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
@@ -386,11 +378,11 @@ msgstr "Anuluj"
 
 #: ../text.py:423
 msgid "Use bootp/dhcp"
-msgstr ""
+msgstr "U¿yj bootp/dhcp"
 
 #: ../loader/net.c:234 ../text.py:428
 msgid "IP address:"
-msgstr "IP adres:"
+msgstr "Adres IP:"
 
 #: ../loader/net.c:237 ../text.py:429
 msgid "Netmask:"
@@ -398,7 +390,7 @@ msgstr "Maska sieci:"
 
 #: ../loader/net.c:240 ../text.py:430
 msgid "Default gateway (IP):"
-msgstr "Standardowy Gateway (IP):"
+msgstr "Domy¶lny gateway (IP):"
 
 #: ../loader/net.c:243 ../text.py:431
 msgid "Primary nameserver:"
@@ -409,32 +401,30 @@ msgid "Network Configuration"
 msgstr "Konfiguracja sieci"
 
 #: ../text.py:469
-#, fuzzy
 msgid "Invalid information"
 msgstr "B³êdna informacja"
 
 #: ../text.py:470
-#, fuzzy
 msgid "You must enter valid IP information to continue"
-msgstr "Musisz wprowadziæ poprawny IP adres i maskê."
+msgstr "Musisz wprowadziæ poprawny adres IP i maskê."
 
 #: ../text.py:498
-#, fuzzy
 msgid "Hostname Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja nazwy komputera"
 
 #: ../text.py:499
 msgid ""
 "The hostname is the name of your computer.  If your computer is attached to "
 "a network, this may be assigned by your network administrator."
 msgstr ""
+"Wybór nazwy komputera (hostname). Je¿eli Twój komputer jest pod³±czony do "
+"sieci nazwa mo¿e byæ przydzielona przez jej administratora."
 
 #: ../iw/network.py:210 ../loader/net.c:459 ../loader/net.c:638 ../text.py:502
 msgid "Hostname"
-msgstr "Nazwa hosta"
+msgstr "Nazwa komputera"
 
 #: ../text.py:518
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -445,12 +435,13 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Dyskietka bootuj±ca umo¿liwia wystartowanie systemu Linux niezale¿nie od "
-"bootloadera. Jest to szczególnie zalecane je¿eli nie chcesz instalowaæ lilo, "
-"inny system usun±³ ju¿ lilo lub lilo nie chce dzia³aæ z obecn± konfiguracj± "
-"sprzêtu.\n"
+"Dyskietka startowa umo¿liwia wystartowanie systemu Linux niezale¿nie od "
+"bootloadera. Jest to u¿yteczne je¿eli nie chcesz instalowaæ lilo, inny "
+"system usunie lilo lub lilo nie chce dzia³aæ z obecn± konfiguracj± sprzêtu. "
+"Dyskietka mo¿e byæ równie¿ u¿yta z dyskietk± ratunkow± Red Hata, co pozwoli "
+"³atwiej naprawiæ ewentualne powa¿ne b³êdy systemu.\n"
 "\n"
-"Czy chcesz utworzyæ dyskietkê bootuj±c± system?"
+"Czy chcesz utworzyæ dyskietkê startow±?"
 
 #: ../text.py:537
 msgid ""
@@ -458,59 +449,56 @@ msgid ""
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
+"\n"
+"Na maszynach Ultra zrobionych przez SMCC startowanie z dyskietki "
+"prawdopodobnie nie dzia³a\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
-msgstr "Dyskietka bootuj±ca"
+msgstr "Dyskietka startowa"
 
 #: ../text.py:583
-#, fuzzy
 msgid "X probe results"
-msgstr "Automatyczne rozpoznanie"
+msgstr "Wyniki próbkowania X-Window"
 
 #: ../text.py:602 ../text.py:621
 msgid "Unlisted Card"
-msgstr ""
+msgstr "Inna karta"
 
 #: ../text.py:610
-#, fuzzy
 msgid "Video Card Selection"
-msgstr "Typ klawiatury"
+msgstr "Wybór karty graficznej"
 
 #: ../text.py:611
-#, fuzzy
 msgid "Which video card do you have?"
-msgstr "Jaki typ klawiatury posiadasz?"
+msgstr "Jaki jest typ Twojej karty graficznej?"
 
 #: ../text.py:623
-#, fuzzy
 msgid "X Server Selection"
-msgstr "Opcje modu³u"
+msgstr "Wybór serwera X-Window"
 
 #: ../text.py:623
-#, fuzzy
 msgid "Choose a server"
-msgstr "Wybierz grupê do spawdzenia:"
+msgstr "Wybierz rodzaj serwera"
 
 #: ../text.py:681
-#, fuzzy
 msgid "Installation to begin"
-msgstr "Kroki instalacji"
+msgstr "Pocz±tek instalacji"
 
 #: ../iw/confirm.py:31 ../text.py:682
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
-"Kompletny log twojej instalacji bêdzie znajdowa³ siê w /tmp/install.log.Mo¿e "
-"bêdziesz chcia³ zachowaæ goaby pó¼niej go przejrzeæ."
+"Po reboocie kompletny zapis twojej instalacji bêdzie znajdowa³ siê w "
+"/tmp/install.log. Mo¿e bêdziesz chcia³ go zachowaæ do pó¼niejszego "
+"przejrzenia."
 
 #: ../text.py:699 ../text.py:714 ../text.py:734
 msgid "Complete"
-msgstr "Skoñczone"
+msgstr "Zakoñczone"
 
 #: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -522,15 +510,15 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
-"Gratujacje, instalacja jest kompletna.\n"
+"Gratulacje, instalacja jest kompletna.\n"
 "\n"
-"Usuñ dyskietkê z napêdu i naci¶nij Enter aby prze³adowaæ system.\n"
+"Naci¶nij Enter aby prze³adowaæ system. Usuñ dyskietkê aby instalacja nie "
+"zosta³a ponowiona. Informacje o poprawkach do tej wersji Linuxa Red Hat mo¿esz "
+"znale¼æ w erracie w http://www.redhat.com/errata/.\n"
 "\n"
-"Informacje o konfiguracji systemu umieszczone s± w rozdziale w oficjalnym "
-"Red Hat Linux User's Guide."
+"Informacje o konfiguracji systemu umieszczone s± w manualach Linuxa Red Hat."
 
 #: ../text.py:715 ../text.py:735
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -540,18 +528,21 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratujacje, instalacja jest kompletna.\n"
+"Gratulacje, instalacja jest kompletna.\n"
 "\n"
-"Usuñ dyskietkê z napêdu i naci¶nij Enter aby prze³adowaæ system.\n"
+"Informacje o poprawkach do tej wersji Linuxa Red Hat mo¿esz znale¼æ w erracie "
+"w http://www.redhat.com/errata/.\n"
 "\n"
-"Informacje o konfiguracji systemu umieszczone s± w rozdziale w oficjalnym "
-"Red Hat Linux User's Guide."
+"Informacje o dalszej konfiguracji systemu umieszczone s± w rozdziale o "
+"postêpowaniu po instalacji w Official Red Hat Linux User's Guide."
 
 #: ../iw/bootdisk.py:50 ../text.py:754
 msgid ""
 "Insert a blank floppy in the first floppy drive. All data on this disk will "
 "be erased during creation of the boot disk."
 msgstr ""
+"W³ó¿ pust± dyskietkê do pierwszego napêdu. Je¿eli s± na niej jakie¶ dane, "
+"bêd± skasowane podczas tworzenia dyskietki startowej."
 
 #: ../text.py:757 ../text.py:758 ../text.py:769 ../text.py:770
 #: ../textw/lilo.py:30 ../textw/silo.py:25
@@ -563,208 +554,182 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
+"Podczas tworzenia dyskietki startowej wyst±pi³ b³±d. Upewnij siê, ¿e "
+"sformatowana dyskietka jest w pierwszym napêdzie."
 
 #: ../text.py:828
-#, fuzzy
 msgid "Package Installation"
-msgstr "Instalacja Lilo"
+msgstr "Instalacja pakietu"
 
 #: ../text.py:830
-#, fuzzy
 msgid "Name   : "
-msgstr "Nazwa kolejki:"
+msgstr "Nazwa  :"
 
 #: ../text.py:831
-#, fuzzy
 msgid "Size   : "
 msgstr "Rozmiar:"
 
 #: ../text.py:832
 msgid "Summary: "
-msgstr ""
+msgstr "Opis   :"
 
 #: ../text.py:858
-#, fuzzy
 msgid "    Packages"
-msgstr "Pakiet"
+msgstr "     Pakiety"
 
 #: ../text.py:859
 msgid "       Bytes"
-msgstr ""
+msgstr "       Bajty"
 
 #: ../text.py:860
 msgid "        Time"
-msgstr ""
+msgstr "        Czas"
 
 #: ../text.py:862
 msgid "Total    :"
-msgstr ""
+msgstr "Razem    :"
 
 #: ../text.py:869
-#, fuzzy
 msgid "Completed:   "
-msgstr "Skoñczone"
+msgstr "Gotowe   :   "
 
 #: ../text.py:879
 msgid "Remaining:  "
-msgstr ""
+msgstr "Pozosta³o:  "
 
 #: ../text.py:968 ../text.py:969
 msgid "Debug"
-msgstr ""
+msgstr "Debugowanie"
 
 #: ../text.py:981
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr ""
+msgstr "Linux Red Hat (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
-"  <Tab>/<Alt-Tab> nastêpny element  | <Space> wybór | <F12> nastêpny ekran "
+"  <Tab>/<Alt-Tab> nastêpne pole | <Spacja> wybór | <F12> nastêpny ekran "
 
 #: ../iw/welcome.py:11 ../iw/welcome.py:38 ../text.py:1003 ../text.py:1038
 msgid "Welcome"
-msgstr ""
+msgstr "Witamy"
 
 #: ../text.py:1009 ../text.py:1077
-#, fuzzy
 msgid "Hostname Setup"
-msgstr "Nazwa hosta"
+msgstr "Nazwa komputera"
 
 #: ../text.py:1011 ../text.py:1079
-#, fuzzy
 msgid "Network Setup"
-msgstr "Ustawienia NFS"
+msgstr "Konfiguracja sieci"
 
 #: ../text.py:1017 ../text.py:1085
 msgid "Time Zone Setup"
-msgstr ""
+msgstr "Konfiguracja strefy czaswoej"
 
 #: ../text.py:1019 ../text.py:1087 ../textw/userauth.py:8
 msgid "Root Password"
-msgstr "Has³o root"
+msgstr "Has³o roota"
 
 #: ../text.py:1021 ../text.py:1089 ../textw/userauth.py:152
 msgid "User Account Setup"
-msgstr ""
+msgstr "Konfiguracja konta u¿ytkownika"
 
 #: ../text.py:1023 ../text.py:1091
-#, fuzzy
 msgid "Authentication"
-msgstr "Konfiguracja strefy czasowej"
+msgstr "Autentykacja"
 
 #: ../text.py:1029
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja zakoñczona"
 
 #: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:89
 #: ../textw/silo.py:193
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja SILO"
 
 #: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
-#, fuzzy
 msgid "LILO Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja LILO"
 
 #: ../iw/lilo.py:122 ../iw/lilo.py:245 ../iw/silo.py:125 ../iw/silo.py:269
 #: ../text.py:1057 ../text.py:1063
-#, fuzzy
 msgid "Partition"
-msgstr "Zmiana partycji"
+msgstr "Partycja"
 
 #: ../text.py:1059
-#, fuzzy
 msgid "Manually Partition"
-msgstr "Zmiana partycji"
+msgstr "Rêczny podzia³ na partycje"
 
 #: ../text.py:1061
-#, fuzzy
 msgid "Automatic Partition"
-msgstr "Edycja partycji"
+msgstr "Automatyczny podzia³ na partycje"
 
 #: ../text.py:1065 ../textw/partitioning.py:255
-#, fuzzy
 msgid "Root Filesystem Size"
-msgstr "System instalacyjny"
+msgstr "Rozmiar filesystemu root"
 
 #: ../text.py:1067
 msgid "Swap"
-msgstr ""
+msgstr "Swap"
 
 #: ../text.py:1069
-#, fuzzy
 msgid "Filesystem Formatting"
-msgstr "Formatowanie"
+msgstr "Formatowanie systemu plików"
 
 #: ../iw/mouse.py:55 ../text.py:1081 ../text.py:1083
-#, fuzzy
 msgid "Mouse Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja myszy"
 
 #: ../text.py:1093
-#, fuzzy
 msgid "Package Groups"
-msgstr "Pakiet"
+msgstr "Grupy pakietów"
 
 #: ../text.py:1095 ../text.py:1123
-#, fuzzy
 msgid "Individual Packages"
-msgstr "Wybierz indywidualne pakiety"
+msgstr "Poszczególne pakiety"
 
 #: ../text.py:1097 ../textw/packages.py:122
-#, fuzzy
 msgid "Package Dependencies"
-msgstr "Nierozpoznane zale¿no¶ci"
+msgstr "Zale¿no¶ci miêdzy pakietami"
 
 #: ../iw/xconfig.py:249 ../text.py:1099 ../text.py:1107
-#, fuzzy
 msgid "X Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja X-Window"
 
 #: ../text.py:1101
-#, fuzzy
 msgid "Installation Begins"
-msgstr "Kroki instalacji"
+msgstr "Instalowanie siê zaczyna"
 
 #: ../text.py:1103
-#, fuzzy
 msgid "Install System"
-msgstr "System instalacyjny"
+msgstr "Zainstaluj system"
 
 #: ../text.py:1104 ../text.py:1106 ../text.py:1125 ../text.py:1127
-#, fuzzy
 msgid "Boot Disk"
-msgstr "Dyskietka bootuj±ca"
+msgstr "Dyskietka startowa"
 
 #: ../text.py:1109
-#, fuzzy
 msgid "Installation Complete"
-msgstr "Klasa instalacji"
+msgstr "Instalacja zakoñczona"
 
 #: ../text.py:1114
 msgid "Examine System"
-msgstr ""
+msgstr "Sprawdzenie systemu"
 
 #: ../text.py:1121
 msgid "Customize Upgrade"
-msgstr ""
+msgstr "Dobranie pakietów do aktualizacji"
 
 #: ../text.py:1124
-#, fuzzy
 msgid "Upgrade System"
 msgstr "Uaktualnienie systemu"
 
 #: ../text.py:1128
-#, fuzzy
 msgid "Upgrade Complete"
-msgstr "Uaktualnienie systemu"
+msgstr "Uaktualnienie zakoñczone"
 
 #: ../text.py:1162
 msgid "Cancelled"
@@ -776,70 +741,64 @@ msgstr ""
 "Nie mogê cofn±æ siê do poprzedniego kroku. Mo¿esz spróbowaæ jeszcze raz."
 
 #: ../todo.py:329
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying file: %s"
-msgstr "b³±d nag³ówka pliku: %s"
+msgstr "B³±d kopiowania pliku: %s"
 
 #: ../todo.py:410
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Tworzenie dysku bootuj±cego..."
+msgstr "Tworzenie dyskietki startowej"
 
 #: ../todo.py:430
-#, fuzzy
 msgid "Reading"
-msgstr "Przebudowanie"
+msgstr "Czytanie"
 
 #: ../todo.py:431
-#, fuzzy
 msgid "Reading package information..."
-msgstr "Wysy³anie ¿±dania DHCP..."
+msgstr "Czytanie informacji o pakiecie..."
 
 #: ../todo.py:627 ../todo.py:640
 msgid "no suggestion"
 msgstr "bez podpowiedzi"
 
 #: ../todo.py:646
-#, fuzzy
 msgid "Searching"
-msgstr "Wszystko"
+msgstr "Szukanie"
 
 #: ../todo.py:647
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Wyszukiwanie instalacji Linuxa Red Hat..."
 
 #: ../todo.py:658 ../todo.py:689
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "B³±d otwarcia pliku kickstart %s: %s"
+msgstr "B³±d montowania systemu plików ext2 na %s: %s"
 
 #: ../todo.py:700
-#, fuzzy
 msgid "Finding"
-msgstr "Przebudowanie"
+msgstr "Znalezienie"
 
 #: ../todo.py:701
 msgid "Finding packages to upgrade..."
-msgstr "Wyszukiwanie pakietów do uaktualnienia..."
+msgstr "Szukanie pakietów do uaktualnienia..."
 
 #: ../todo.py:944
 msgid "Processing"
-msgstr ""
+msgstr "Przetwarzanie"
 
 #: ../todo.py:945
-#, fuzzy
 msgid "Preparing to install..."
-msgstr "Wyszukiwanie pakietów do uaktualnienia..."
+msgstr "Przygotowanie do instalowania..."
 
 #: ../todo.py:1112
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "Upgrade %s.\n"
 
 #: ../todo.py:1114
-#, fuzzy, c-format
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Instalacja"
+msgstr "Instalacja %s.\n"
 
 #: ../todo.py:1135
 msgid ""
@@ -847,114 +806,101 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
+"Nie ma wystarczaj±cej ilo¶ci miejsca ¿eby zainstalowac wybrane pakiety. "
+"Potrzeba wiêcej miejsca w nastepuj±cych systemach plików:\n"
 
 #: ../todo.py:1138
-#, fuzzy
 msgid "Mount Point"
-msgstr "Brak punktu montowania"
+msgstr "Miejsce zamontowania"
 
 #: ../todo.py:1138
-#, fuzzy
 msgid "Space Needed"
-msgstr "Wymagane prze³adowanie systemu"
+msgstr "Wymagane miejsce"
 
 #: ../todo.py:1151
 msgid "Disk Space"
-msgstr "Rozmiar dysku"
+msgstr "Miejsce na dysku"
 
 #: ../todo.py:1175
-#, fuzzy
 msgid "Post Install"
-msgstr "Instalacja"
+msgstr "Po instalacji"
 
 #: ../todo.py:1176
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja po instalacji..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:243
 msgid "Video Card"
-msgstr ""
+msgstr "Karta graficzna"
 
 #: ../iw/xconfig.py:12 ../xf86config.py:245
 msgid "Video Ram"
-msgstr ""
+msgstr "Pamiêæ RAM karty graficznej"
 
 #: ../xf86config.py:247
-#, fuzzy
 msgid "X server"
-msgstr "Serwer"
+msgstr "Serwer X"
 
 #: ../xf86config.py:249
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Tworzenie inicjacyjnego ramdysku..."
+msgstr "Nie uda³o siê wykryæ karty graficznej"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:256 ../xf86config.py:258
 msgid "Monitor"
-msgstr ""
+msgstr "Monitor"
 
 #: ../xf86config.py:258
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Monitor Plug and Play"
 
 #: ../xf86config.py:260
 msgid "Horizontal frequency range"
-msgstr ""
+msgstr "Zakres czêstotliwo¶ci synchronizacji poziomej"
 
 #: ../xf86config.py:262
 msgid "Vertical frequency range"
-msgstr ""
+msgstr "Zakres czêstotliwo¶ci synchronizacji pionowej"
 
 #: ../iw/account.py:14
-#, fuzzy
 msgid "Account Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja konta"
 
 #: ../iw/account.py:35
-#, fuzzy
 msgid "Root password accepted."
-msgstr "Has³o root"
+msgstr "Has³o roota zaakceptowane."
 
 #: ../iw/account.py:38
-#, fuzzy
 msgid "Root password is too short."
-msgstr "Has³o root"
+msgstr "Has³o roota za krótkie."
 
 #: ../iw/account.py:40
-#, fuzzy
 msgid "Root password does not match."
-msgstr "B³êdne has³o"
+msgstr "Ró¿ne has³a."
 
 #: ../iw/account.py:138
-#, fuzzy
 msgid "Root Password: "
-msgstr "Has³o root"
+msgstr "Has³o roota:   "
 
 #: ../iw/account.py:141
-#, fuzzy
 msgid "Confirm: "
-msgstr "Konfiguracja TCP/IP"
+msgstr "Potwierd¼:"
 
 #: ../iw/account.py:197 ../iw/account.py:236
-#, fuzzy
 msgid "Account Name"
 msgstr "Nazwa konta:"
 
 #: ../iw/account.py:201 ../textw/userauth.py:79
-#, fuzzy
 msgid "Password"
 msgstr "Has³o:"
 
 #: ../iw/account.py:205 ../textw/userauth.py:80
-#, fuzzy
 msgid "Password (confirm)"
 msgstr "Has³o (ponownie):"
 
 #: ../iw/account.py:209 ../iw/account.py:236 ../textw/userauth.py:78
 #: ../textw/userauth.py:164
 msgid "Full Name"
-msgstr ""
+msgstr "Imiê i  nazwisko"
 
 #: ../iw/account.py:218 ../libfdisk/newtfsedit.c:1298 ../textw/userauth.py:175
 msgid "Add"
@@ -970,73 +916,65 @@ msgstr "Edycja"
 #: ../iw/account.py:222 ../libfdisk/newtfsedit.c:1291
 #: ../libfdisk/newtfsedit.c:1299 ../textw/userauth.py:175
 msgid "Delete"
-msgstr "Usuñ"
+msgstr "Usuniêcie"
 
 #: ../iw/account.py:224
 msgid "New"
-msgstr ""
+msgstr "Nowe"
 
 #: ../iw/auth.py:11 ../textw/userauth.py:250
-#, fuzzy
 msgid "Authentication Configuration"
-msgstr "Konfiguracja sieci"
+msgstr "Autentykacja zakoñczona"
 
 #: ../iw/auth.py:50
 msgid "Enable MD5 passwords"
-msgstr ""
+msgstr "W³±cz has³a MD5"
 
 #: ../iw/auth.py:51
-#, fuzzy
 msgid "Enable shadow passwords"
-msgstr "Ustawienie has³a root"
+msgstr "W³±cz plik shadow"
 
 #: ../iw/auth.py:53 ../textw/userauth.py:255
 msgid "Enable NIS"
-msgstr ""
+msgstr "W³±cz NIS"
 
 #: ../iw/auth.py:54
 msgid "Use broadcast to find NIS server"
-msgstr ""
+msgstr "Serwer NIS lokalizowany przez broadcast"
 
 #: ../iw/auth.py:66
 msgid "NIS Domain: "
-msgstr ""
+msgstr "Domena NIS: "
 
 #: ../iw/auth.py:68
-#, fuzzy
 msgid "NIS Server: "
-msgstr "Serwer:"
+msgstr "Serwer NIS:"
 
 #: ../iw/bootdisk.py:10
-#, fuzzy
 msgid "Bootdisk Creation"
-msgstr "Dyskietka bootuj±ca"
+msgstr "Utworzenie dyskietki startowej"
 
 #: ../iw/bootdisk.py:61
 msgid "Skip boot disk creation"
-msgstr ""
+msgstr "Pomiñ tworzenie dyskietki"
 
 #: ../iw/confirm.py:11
-#, fuzzy
 msgid "About to Install"
-msgstr "Komponenty do instalacji"
+msgstr "Zaraz nast±pi instalacja"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Naci¶nij NEXT ¿eby zacz±æ instalacjê Linuxa Red Hat."
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
-#, fuzzy
 msgid "Congratulations"
-msgstr "Konfiguracja strefy czasowej"
+msgstr "Gratulacje"
 
 #: ../iw/congrats.py:13 ../iw/congrats.py:60
-#, fuzzy
 msgid "Exit"
-msgstr "Edycja"
+msgstr "Wyj¶cie"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1046,12 +984,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratujacje, instalacja jest kompletna.\n"
+"Gratulacje, instalacja jest kompletna.\n"
 "\n"
-"Usuñ dyskietkê z napêdu i naci¶nij Enter aby prze³adowaæ system.\n"
+"Informacje o poprawkach do do tej wersji Linuxa Red Hat mo¿esz znale¼æ w "
+"erracie w http://www.redhat.com/errata/ .\n"
 "\n"
-"Informacje o konfiguracji systemu umieszczone s± w rozdziale w oficjalnym "
-"Red Hat Linux User's Guide."
+"Informacje o konfiguracji systemu umieszczone s± w Official Red Hat Linux "
+"User's Guide w rozdziale o czynno¶ciach po instalacji."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -1070,20 +1009,18 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Zainstaluj pakiety aby spe³niæ zale¿no¶ci"
 
 #: ../iw/examine.py:10
-#, fuzzy
 msgid "Upgrade Examine"
 msgstr "Uaktualnienie"
 
 #: ../iw/examine.py:35
-#, fuzzy
 msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"Nie masz ¿adnej partycji Linuxowej. Nie mo¿esz uaktualniæ tego systemu!"
+"Nie masz ¿adnej partycji linuxowej.\n"
+" Nie mo¿esz uaktualniæ tego systemu!"
 
 #: ../iw/examine.py:60
-#, fuzzy
 msgid "Customize packages to be upgraded"
 msgstr "Wybierz pakiety do uaktualnienia"
 
@@ -1092,29 +1029,24 @@ msgid "fdisk"
 msgstr "fdisk"
 
 #: ../iw/fdisk.py:80
-#, fuzzy
 msgid "Select drive to run fdisk on"
-msgstr "Wybierz po³±czenie drukarki"
+msgstr "Wybierz dysk dla fdisku"
 
 #: ../iw/format.py:12
-#, fuzzy
 msgid "Choose partitions to Format"
-msgstr "Wybierz partycjê do formatowania"
+msgstr "Wybierz partycje do formatowania"
 
 #: ../iw/format.py:47
-#, fuzzy
 msgid "Check for bad blocks while formatting"
 msgstr "Sprawdzenie b³êdnych bloków podczas formatowania"
 
 #: ../iw/installpath.py:38
-#, fuzzy
 msgid "GNOME Workstation"
-msgstr "Stacja robocza"
+msgstr "Stacja robocza GNOME"
 
 #: ../iw/installpath.py:40
-#, fuzzy
 msgid "KDE Workstation"
-msgstr "Stacja robocza"
+msgstr "Stacja robocza KDE"
 
 #: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346
 #: ../libfdisk/gnomefsedit.c:2366
@@ -1123,12 +1055,11 @@ msgstr "Serwer"
 
 #: ../iw/installpath.py:43
 msgid "Custom"
-msgstr "Normalny"
+msgstr "Wybór pakietów przez u¿utkownika"
 
 #: ../iw/installpath.py:93
-#, fuzzy
 msgid "Install Type"
-msgstr "System instalacyjny"
+msgstr "Rodzaj instalacji"
 
 #: ../iw/installpath.py:181
 msgid "Install"
@@ -1139,63 +1070,56 @@ msgid "Upgrade"
 msgstr "Uaktualnienie"
 
 #: ../iw/installpath.py:236
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "U¿ycie fdisku"
 
 #: ../iw/keyboard.py:13
-#, fuzzy
 msgid "Keyboard Configuration"
-msgstr "Konfiguracja sieci"
+msgstr "Konfiguracja klawiatury"
 
 #: ../iw/keyboard.py:56
 msgid "Model"
-msgstr ""
+msgstr "Typ"
 
 #: ../iw/keyboard.py:75
 msgid "Layout"
-msgstr ""
+msgstr "Rodzaj"
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr ""
+msgstr "Martwe klawisze"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr ""
+msgstr "W³±cz martwe klawisze"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr ""
+msgstr "Wy³±cz martwe klawisze"
 
 #: ../iw/keyboard.py:113
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "Typ klawiatury"
+msgstr "Sprawd¼ tutaj swój wybór:"
 
 #: ../iw/language.py:21 ../loader/lang.c:267
-#, fuzzy
 msgid "What language should be used during the installation process?"
-msgstr "Jakie pakiety powinny byæ zainstalowane?"
+msgstr "Jaki jêzyk powinien byæ u¿yty w trakcie instalacji?"
 
 #: ../iw/lilo.py:18
-#, fuzzy
 msgid "Lilo Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja LILO"
 
 #: ../iw/lilo.py:125 ../iw/lilo.py:246 ../iw/silo.py:130 ../iw/silo.py:270
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: ../iw/lilo.py:164
-#, fuzzy
 msgid "Install LILO boot record on:"
-msgstr "Instalacja bootloadera"
+msgstr "Instalacja LILO w:"
 
 #: ../iw/lilo.py:171 ../iw/silo.py:167 ../textw/silo.py:61
-#, fuzzy
 msgid "Master Boot Record (MBR)"
-msgstr "Master Boot Record"
+msgstr "Master Boot Record (MBR)"
 
 #: ../iw/lilo.py:175 ../iw/silo.py:170 ../textw/silo.py:62
 msgid "First sector of boot partition"
@@ -1203,26 +1127,24 @@ msgstr "Pierwszy sektor partycji bootuj±cej"
 
 #: ../iw/lilo.py:179 ../textw/lilo.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "U¿yj linearnego trybu (wymagany dla niektórych napêdów SCSI)"
+msgstr "U¿yj trybu linearnego (wymagany przez niektóre dyski SCSI)"
 
 #: ../iw/lilo.py:189 ../iw/silo.py:197
-#, fuzzy
 msgid "Kernel parameters"
-msgstr "Parametry modu³u"
+msgstr "Parametry j±dra"
 
 #: ../iw/lilo.py:206 ../iw/silo.py:215
-#, fuzzy
 msgid "Create boot disk"
-msgstr "Utworzenie dyskietki bootuj±cej"
+msgstr "Utworzenie dyskietki startowej"
 
 #: ../iw/lilo.py:210
 msgid "Do not install LILO"
-msgstr ""
+msgstr "Bez instalacji LILO"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
 #: ../textw/silo.py:176
 msgid "Default"
-msgstr "Standard"
+msgstr "Domy¶lnie"
 
 #: ../iw/lilo.py:221 ../iw/silo.py:246 ../textw/lilo.py:168
 #: ../textw/silo.py:176
@@ -1233,137 +1155,123 @@ msgstr "Rodzaj partycji"
 #: ../textw/lilo.py:101 ../textw/lilo.py:168 ../textw/silo.py:120
 #: ../textw/silo.py:176
 msgid "Boot label"
-msgstr "Etykieta bootowa"
+msgstr "Etykieta bootowania"
 
 #: ../iw/mouse.py:134
 msgid "Emulate 3 Buttons"
-msgstr ""
+msgstr "Emuluj trzeci klawisz"
 
 #: ../iw/network.py:148
-#, fuzzy
 msgid "Configure using DHCP"
-msgstr "Konfiguracja strefy czasowej"
+msgstr "Konfiguracja przez DHCP"
 
 #: ../iw/network.py:154
 msgid "Activate on boot"
-msgstr ""
+msgstr "W³±cz przy starcie"
 
 #: ../iw/network.py:163
-#, fuzzy
 msgid "IP Address"
-msgstr "IP adres:"
+msgstr "Adres IP"
 
 #: ../iw/network.py:164 ../loader/net.c:636
-#, fuzzy
 msgid "Netmask"
-msgstr "Maska sieci:"
+msgstr "Maska sieci"
 
 #: ../iw/network.py:165 ../loader/loader.c:240
 msgid "Network"
-msgstr ""
+msgstr "Sieæ"
 
 #: ../iw/network.py:166
 msgid "Broadcast"
-msgstr ""
+msgstr "Broadcast"
 
 #: ../iw/network.py:211
 msgid "Gateway"
-msgstr ""
+msgstr "Gateway"
 
 #: ../iw/network.py:211
 msgid "Primary DNS"
-msgstr ""
+msgstr "Pierwszy serwer DNS"
 
 #: ../iw/network.py:211
 msgid "Secondary DNS"
-msgstr ""
+msgstr "Drugi serwer DNS"
 
 #: ../iw/network.py:211
 msgid "Ternary DNS"
-msgstr ""
+msgstr "Trzeci serwer DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr ""
+msgstr "Wybór poszczególnych pakietów"
 
 #: ../iw/package.py:176
 msgid "Up"
-msgstr ""
+msgstr "W górê"
 
 #: ../iw/package.py:324
 msgid "Name: "
-msgstr ""
+msgstr "Nazwa: "
 
 #: ../iw/package.py:329
-#, fuzzy
 msgid "Package Details"
-msgstr "Pakiet"
+msgstr "Informacja szczegó³owa o pakiecie"
 
 #: ../iw/package.py:335
-#, fuzzy
 msgid "Size: "
-msgstr "Rozmiar:"
+msgstr "Rozmiar: "
 
 #: ../iw/package.py:341
-#, fuzzy
 msgid "Select Package For Installation"
-msgstr "Instalacja Silo"
+msgstr "Wybierz pakiet do instalacji"
 
 #: ../iw/package.py:376 ../textw/packages.py:22 ../textw/packages.py:87
 msgid "Package Group Selection"
-msgstr ""
+msgstr "Wybranie grupy pakietów"
 
 #: ../iw/package.py:454 ../textw/packages.py:18
 msgid "Select individual packages"
-msgstr "Wybierz indywidualne pakiety"
+msgstr "Wybierz poszczególne pakiety"
 
 #: ../iw/progress.py:29
-#, fuzzy
 msgid "Installing Packages"
-msgstr "Instalacja"
+msgstr "Instalacja pakietów"
 
 #: ../iw/progress.py:122 ../iw/progress.py:157
-#, fuzzy
 msgid "Size"
-msgstr "Rozmiar:"
+msgstr "Rozmiar"
 
 #: ../iw/progress.py:123
-#, fuzzy
 msgid "Summary"
-msgstr "(bez podsumowania)"
+msgstr "Podsumowanie"
 
 #: ../iw/progress.py:157
-#, fuzzy
 msgid "Status"
-msgstr "Status instalacji"
+msgstr "Stan"
 
 #: ../iw/progress.py:157
-#, fuzzy
 msgid "Packages"
-msgstr "Pakiet"
+msgstr "Pakiety"
 
 #: ../iw/progress.py:157
 msgid "Time"
-msgstr ""
+msgstr "Czas"
 
 #: ../iw/progress.py:162
-#, fuzzy
 msgid "Total"
-msgstr "Lokalna"
+msgstr "Razem"
 
 #: ../iw/progress.py:163
-#, fuzzy
 msgid "Completed"
-msgstr "Skoñczone"
+msgstr "Zakoñczone"
 
 #: ../iw/progress.py:164
-#, fuzzy
 msgid "Remaining"
-msgstr "Przebudowanie"
+msgstr "Pozosta³o"
 
 #: ../iw/rootpartition.py:16
 msgid "Confirm Partitioning Selection"
-msgstr ""
+msgstr "Potwierdzenie wyboru partycji"
 
 #: ../iw/rootpartition.py:32 ../textw/partitioning.py:22
 msgid "Disk Druid"
@@ -1371,7 +1279,7 @@ msgstr "Disk Druid"
 
 #: ../iw/rootpartition.py:43 ../textw/partitioning.py:170
 msgid "Low Memory"
-msgstr ""
+msgstr "Ma³o pamiêci"
 
 #: ../iw/rootpartition.py:44 ../textw/partitioning.py:171
 msgid ""
@@ -1379,6 +1287,9 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Poniewa¿ masz w tej maszynie ma³o pamiêci trzeba w³±czyæ swapa (dyskow± "
+"czê¶æ pamiêci wirtualnej). ¯eby to zrobiæ trzeba natychmiast zapisaæ now± "
+"tablicê partycji. Czy zapisaæ?"
 
 #: ../iw/rootpartition.py:115 ../textw/partitioning.py:256
 #, c-format
@@ -1388,21 +1299,21 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Wybra³e¶ za³o¿enie systemu plików root w pliku w istniej±cym ju¿ filesystemie "
+"DOS lub Windows. Ile MB ma mieæ filesystem root, ile ma byæ obszaru swap? W "
+"sumie musz± byæ mniejsze ni¿ %d MB."
 
 #: ../iw/rootpartition.py:135
-#, fuzzy
 msgid "Root filesystem size:"
-msgstr "System instalacyjny"
+msgstr "Wielko¶æ filesystemu root:"
 
 #: ../iw/rootpartition.py:140
-#, fuzzy
 msgid "Swap space size:"
-msgstr "Rozmiar papieru:"
+msgstr "Rozmiar obszaru swap:"
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:124
-#, fuzzy
 msgid "Automatic Partitioning"
-msgstr "Edycja partycji"
+msgstr "Automatyczny podzia³ dysku"
 
 #: ../iw/rootpartition.py:225 ../textw/partitioning.py:125
 #, c-format
@@ -1413,136 +1324,135 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
+"%s\n"
+"\n"
+"Je¿eli nie chcesz tego zrobiæ, mo¿esz kontynuowaæ instalacjê dziel±æ dysk "
+"samodzielnie albo mo¿esz siê wycofaæ i przeprowadziæ instalacjê z "
+"mo¿liwo¶ci± wyboru."
 
 #: ../iw/rootpartition.py:239
-#, fuzzy
 msgid "Remove data"
-msgstr "Zdalny lpd"
+msgstr "Skasowanie danych"
 
 #: ../iw/rootpartition.py:242 ../textw/partitioning.py:129
-#, fuzzy
 msgid "Manually partition"
-msgstr "Zmiana partycji"
+msgstr "Partycjonowanie rêczne"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja SILO"
 
 #: ../iw/silo.py:162
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "Instalacja bootloadera"
+msgstr "Instalacja SILO w:"
 
 #: ../iw/silo.py:175
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Utworzenie dyskietki bootuj±cej"
+msgstr "Utworzenie aliasu PROM"
 
 #: ../iw/silo.py:193
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Ustawienie domy¶lnego urz±dzenia bootowania w PROMie na Linux"
 
 #: ../iw/silo.py:225
 msgid "Do not install SILO"
-msgstr ""
+msgstr "Bez instalacji SILO"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:84
 msgid "Time Zone Selection"
-msgstr ""
+msgstr "Wybór strefy czasowej"
 
 #: ../iw/timezone.py:143
 msgid "View:"
-msgstr ""
+msgstr "Widok:"
 
 #: ../iw/timezone.py:151 ../iw/timezone.py:152
 msgid "System clock uses UTC"
-msgstr ""
+msgstr "Zegar systemowy u¿ywa GMT"
 
 #: ../iw/timezone.py:200
 msgid "Use Daylight Saving Time (US only)"
-msgstr ""
+msgstr "U¿ycie czasu letniego (tylko USA)"
 
 #: ../iw/timezone.py:214
-#, fuzzy
 msgid "Location"
-msgstr "Stacja robocza"
+msgstr "Po³o¿enie"
 
 #: ../iw/timezone.py:215
 msgid "UTC Offset"
-msgstr ""
+msgstr "Ró¿nica z GMT"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Czy chcesz skonfigurowaæ drukarkê?"
+msgstr "Chcesz skonfigurowaæ system?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
-msgstr ""
+msgstr "Zakres czêstotliwo¶ci synchronizacji poziomej"
 
 #: ../iw/xconfig.py:14
 msgid "Vertical Frequency Range"
-msgstr ""
+msgstr "Zakres czêstotliwo¶ci synchronizacji pionowej"
 
 #: ../iw/xconfig.py:15
 msgid "Test failed"
-msgstr ""
+msgstr "Test sie nie powiód³"
 
 #: ../iw/xconfig.py:23 ../iw/xconfig.py:413
-#, fuzzy
 msgid "Customize X Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Dok³adniejsza konfiguracja X-Window"
 
 #: ../iw/xconfig.py:87
-#, fuzzy
 msgid "Bits per Pixel"
-msgstr "Bitów na pixel:"
+msgstr "Bitów na piksel:"
 
 #: ../iw/xconfig.py:97 ../iw/xconfig.py:409
-#, fuzzy
 msgid "Test this configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Testowanie tej konfiguracji"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Konfiguracja monitora"
 
 #: ../iw/xconfig.py:215
 msgid "Horizontal Sync"
-msgstr ""
+msgstr "Synchronizacja pozioma"
 
 #: ../iw/xconfig.py:224
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Synchronizacja pionowa"
 
 #: ../iw/xconfig.py:329
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
+"Nie mo¿na wykryæ automatycznie wielko¶ci pamiêci twojej karty graficznej. "
+"Wybierz wielko¶æ RAM z poni¿szej listy:"
 
 #: ../iw/xconfig.py:340
 msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
+"Na ogó³ karta graficzna mo¿e byæ sprawdzona automatycznie dla dobrania "
+"najlepszych ustawieñ."
 
 #: ../iw/xconfig.py:361
 msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Je¿eli sprawdzone ustawienie nie pasuje do twojego urz±dzenia, wybierz "
+"prawid³owe ustawienia poni¿ej:"
 
 #: ../iw/xconfig.py:418
 msgid "Use Graphical Login"
-msgstr ""
+msgstr "U¿ycie trybu graficznego przy logowaniu siê do systemu"
 
 #: ../iw/xconfig.py:419
-#, fuzzy
 msgid "Skip X Configuration"
-msgstr "Konfiguracja SCSI"
+msgstr "Ominiêcie konfiguracji X-Window"
 
 #: ../textw/lilo.py:18 ../textw/silo.py:14
 msgid ""
@@ -1551,13 +1461,13 @@ msgid ""
 "kernel, enter them now. If you don't need any or aren't sure, leave this "
 "blank."
 msgstr ""
-"Niektóre systemy wymagaj± specjalnych opcji przekazywanych do kernela "
-"podczas bootowania systemu. Je¿eli potrzebujesz przekazaæ te parametry "
-"wprowad¼ je teraz. W przeciwnym wypadku zostaw pole puste."
+"Niektóre systemy wymagaj± przekazania j±dru specjalnych opcji podczas startu "
+"systemu. Je¿eli potrzebujesz przekazaæ te parametry wprowad¼ je teraz. W "
+"przeciwnym wypadku albo je¿eli nie jeste¶ pewna/pewien, zostaw puste miejsce."
 
 #: ../textw/lilo.py:85 ../textw/silo.py:91
 msgid "Where do you want to install the bootloader?"
-msgstr "Gdzie chcesz zainstalowaæ bootloadera?"
+msgstr "Gdzie chcesz zainstalowaæ bootloader?"
 
 #: ../textw/lilo.py:105 ../textw/silo.py:124 ../textw/silo.py:145
 msgid "Clear"
@@ -1565,7 +1475,7 @@ msgstr "Wyczy¶æ"
 
 #: ../textw/lilo.py:114 ../textw/silo.py:132
 msgid "Edit Boot Label"
-msgstr "Edycja etykiety bootowej"
+msgstr "Edycja etykiety bootowania"
 
 #: ../textw/lilo.py:181 ../textw/silo.py:188
 msgid ""
@@ -1573,7 +1483,7 @@ msgid ""
 "need to tell me what partitions you would like to be able to boot and what "
 "label you want to use for each of them."
 msgstr ""
-"Boot manager mo¿e bootowaæ inne systemy operacyjne. Mo¿esz wyszczególniæ "
+"Boot manager mo¿e startowaæ inne systemy operacyjne. Mo¿esz wyszczególniæ "
 "jakie partycje mog± byæ wybierane podczas bootowania oraz mo¿esz podaæ "
 "etykiety tych partycji."
 
@@ -1584,7 +1494,7 @@ msgid ""
 "installed."
 msgstr ""
 "Niektóre z wybranych pakietów potrzebuj± pakietów, których nie wybra³e¶. "
-"Wybierz OK to zostan± zainstalowane wymagane pakiety."
+"Je¿li naci¶niesz OK, zostan± zainstalowane wymagane pakiety."
 
 #: ../textw/partitioning.py:14 ../textw/partitioning.py:56
 msgid "Disk Setup"
@@ -1600,22 +1510,22 @@ msgid ""
 "Which tool would you like to use?"
 msgstr ""
 "Disk Druid jest narzêdziem do partycjonowania i zmiany ustawieñ dysków. Jest "
-"zaprojektowany jako proste w obs³udze Linuxowe narzêdzie. Tradycyjny fdisk, "
+"zaprojektowany jako proste w obs³udze linuxowe narzêdzie. Tradycyjny fdisk, "
 "s³u¿±cy tak¿e do partycjonowania, jest narzêdziem o wiêkszych "
 "mo¿liwo¶ciach.\n"
 "\n"
 "Które narzêdzie chcia³by¶ u¿yæ?"
 
 #: ../textw/partitioning.py:57
-#, fuzzy
 msgid ""
 "To install Red Hat Linux, you must have at least one partition of 150 MB "
 "dedicated to Linux. We suggest placing that partition on one of the first "
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
-"Aby zainstalowaæ Red Hat Linux musisz posiadaæ co najmniej 150MB partycjê. "
-"Sugerujê umieszczenie tej partycji na jednym z pierwszych dwóch dysków "
-"twardych, z których bêdziesz móg³ wystartowaæ Linux'a poprzez LILO."
+"Aby zainstalowaæ Linuxa Red Hat musisz przeznaczyæ na Linuxa co najmniej "
+"jedn± partycjê o rozmiarze 150 MB. Sugerujemy umieszczenie tej partycji na "
+"jednym z pierwszych dwóch dysków twardych, z których bêdziesz móg³ "
+"wystartowaæ Linuxa poprzez LILO."
 
 #: ../loader/loader.c:303 ../loader/loader.c:328 ../textw/partitioning.py:62
 msgid "Done"
@@ -1633,8 +1543,8 @@ msgid ""
 "previous install."
 msgstr ""
 "Jak± partycjê chcesz sformatowaæ? Sugerujê sformatowaæ wszystkie partycje "
-"systemu, w³±czaj±c /, /usr oraz /var. Nie trzeba natomiast formatowaæ /home "
-"oraz /usr/local je¿eli katalogi te by³y ju¿ formatowane w poprzedniej "
+"systemu, w³±cznie z /, /usr oraz /var. Nie trzeba natomiast formatowaæ /home "
+"oraz /usr/local je¿eli katalogi te by³y ju¿ formatowane przy poprzedniej "
 "instalacji."
 
 #: ../textw/partitioning.py:211
@@ -1642,28 +1552,24 @@ msgid "Check for bad blocks during format"
 msgstr "Sprawdzenie b³êdnych bloków podczas formatowania"
 
 #: ../textw/partitioning.py:216
-#, fuzzy
 msgid "Choose Partitions to Format"
-msgstr "Wybierz partycjê do formatowania"
+msgstr "Wybierz partycje do formatowania"
 
 #: ../textw/partitioning.py:261
-#, fuzzy
 msgid "Root filesystem size"
-msgstr "Ustawienia systemów plików"
+msgstr "Wielko¶æ filesystemu root"
 
 #: ../textw/partitioning.py:262
-#, fuzzy
 msgid "Swap space"
-msgstr "Brak obszaru swap"
+msgstr "Obszar swap"
 
 #: ../textw/partitioning.py:271 ../textw/partitioning.py:277
-#, fuzzy
 msgid "Bad Size"
-msgstr "Rozmiar:"
+msgstr "Z³y rozmiar"
 
 #: ../textw/partitioning.py:272
 msgid "The size you enter must be a number."
-msgstr ""
+msgstr "Podana wielko¶c musi byæ liczb±."
 
 #: ../textw/partitioning.py:278
 #, c-format
@@ -1671,23 +1577,24 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
+"Ca³kowita wielko¶c musi byc mniejsza od wolnego miejsca na dysku, które wynosi "
+"%d MB."
 
 #: ../textw/silo.py:63
-#, fuzzy
 msgid "Create PROM alias `linux'"
-msgstr "Utworzenie dyskietki bootuj±cej"
+msgstr "Utworzenie w PROMie aliasu `linux'"
 
 #: ../textw/silo.py:64
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "Ustawienie domy¶lnego urz±dzenia bootowania w PROMie"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
-msgstr ""
+msgstr "W jakiej jeste¶ strefie czasowej?"
 
 #: ../textw/timezone.py:81
 msgid "Hardware clock set to GMT?"
-msgstr ""
+msgstr "Czy zegar sprzêtowy ma byæ w GMT?"
 
 #: ../textw/userauth.py:10
 msgid ""
@@ -1696,7 +1603,7 @@ msgid ""
 "critical part of system security!"
 msgstr ""
 "Wybierz has³o roota. Musisz wprowadziæ je dwa razy aby upewniæ siê, ¿e nie "
-"pope³ni³e¶ b³êdu podczas pisania. Zapamiêtaj, ¿e has³o roota jest krytycznym "
+"pope³ni³e¶ b³êdu podczas pisania. Zapamiêtaj, ¿e has³o roota jest wa¿nym "
 "elementem bezpieczeñstwa systemu!"
 
 #: ../loader/urls.c:337 ../textw/userauth.py:23
@@ -1708,9 +1615,8 @@ msgid "Password (again):"
 msgstr "Has³o (ponownie):"
 
 #: ../textw/userauth.py:40 ../textw/userauth.py:95
-#, fuzzy
 msgid "Password Length"
-msgstr "B³êdne has³o"
+msgstr "D³ugo¶æ has³a"
 
 #: ../textw/userauth.py:41
 msgid "The root password must be at least 6 characters long."
@@ -1718,48 +1624,43 @@ msgstr "Has³o roota musi zawieraæ co najmniej 6 znaków."
 
 #: ../textw/userauth.py:45 ../textw/userauth.py:103
 msgid "Password Mismatch"
-msgstr "B³êdne has³o"
+msgstr "Niezgodne has³a"
 
 #: ../textw/userauth.py:46 ../textw/userauth.py:104
 msgid "The passwords you entered were different. Please try again."
 msgstr "Has³a, które poda³e¶ s± ró¿ne. Wprowad¼ je ponownie."
 
 #: ../textw/userauth.py:71
-#, fuzzy
 msgid "Edit User"
-msgstr "Edycja"
+msgstr "Edycja u¿ytkownika"
 
 #: ../textw/userauth.py:73
-#, fuzzy
 msgid "Add User"
-msgstr "Dodaj drukarkê"
+msgstr "Dodaj u¿ytkownika"
 
 #: ../textw/userauth.py:77
-#, fuzzy
 msgid "User ID"
-msgstr "U¿ytkownik:"
+msgstr "Identyfikator u¿ytkownika:"
 
 #: ../textw/userauth.py:90
-#, fuzzy
 msgid "Missing User ID"
-msgstr "B³êdne has³o"
+msgstr "Brakuje identyfikatora u¿ytkownika"
 
 #: ../textw/userauth.py:91
 msgid "You must provide a user ID"
-msgstr ""
+msgstr "Musisz podaæ identyfikator u¿ytkownika"
 
 #: ../textw/userauth.py:96
-#, fuzzy
 msgid "The password must be at least 6 characters long."
-msgstr "Has³o roota musi zawieraæ co najmniej 6 znaków."
+msgstr "Has³o musi mieæ co najmniej 6 znaków."
 
 #: ../textw/userauth.py:113
 msgid "User Exists"
-msgstr ""
+msgstr "u¿ytkownik ju¿ istnieje"
 
 #: ../textw/userauth.py:114
 msgid "This user id already exists.  Choose another."
-msgstr ""
+msgstr "Ten identyfikator ju¿ istnieje. Wybierz inny."
 
 #: ../textw/userauth.py:141
 msgid ""
@@ -1767,6 +1668,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Do wiêkszo¶ci prac przy systemie powiniene¶/powinna¶ u¿ywaæ zwyk³ego konta "
+"u¿ytkownika. Nie u¿ywaj±c do wszystkiego konta roota zmniejszasz "
+"niebezpieczeñstwo przypadkowego popsucia konfiguracji systemu."
 
 #: ../textw/userauth.py:154
 msgid ""
@@ -1774,47 +1678,45 @@ msgid ""
 "least one non-root account for normal work, but multi-user systems can have "
 "any number of accounts set up."
 msgstr ""
+"Jakie konto u¿ytkownika chcesz mieæ w systemie? Do normalnej pracy "
+"powinna¶/powiniene¶ mieæ co najmniej jedno konto inne niz konto roota. "
+"Mo¿esz za³o¿yæ dowoln± ilo¶æ kont."
 
 #: ../textw/userauth.py:164
-#, fuzzy
 msgid "User name"
-msgstr "Nazwa u¿ytkownika:"
+msgstr "Nazwa u¿ytkownika"
 
 #: ../textw/userauth.py:188
 msgid "Enter the information for the user."
-msgstr ""
+msgstr "Wpisz informacje o u¿ytkowniku."
 
 #: ../textw/userauth.py:200
 msgid "Change the information for this user."
-msgstr ""
+msgstr "Zmieñ informacje o tym uzytkowniku."
 
 #: ../textw/userauth.py:251
-#, fuzzy
 msgid "Use Shadow Passwords"
-msgstr "Has³o root"
+msgstr "U¿ywanie pliku shadow"
 
 #: ../textw/userauth.py:253
-#, fuzzy
 msgid "Enable MD5 Passwords"
-msgstr "Ustawienie has³a root"
+msgstr "W³±czenie hase³ MD5"
 
 #: ../textw/userauth.py:260
-#, fuzzy
 msgid "NIS Domain:"
-msgstr "Nazwa domeny:"
+msgstr "Domena NIS:"
 
 #: ../textw/userauth.py:262
-#, fuzzy
 msgid "NIS Server:"
-msgstr "Serwer:"
+msgstr "Serwer NIS:"
 
 #: ../textw/userauth.py:264
 msgid "or use:"
-msgstr ""
+msgstr "albo u¿ycie:"
 
 #: ../textw/userauth.py:267
 msgid "Request server via broadcast"
-msgstr ""
+msgstr "Po³±cz siê z serwerem przez broadcast"
 
 #: ../libfdisk/fsedit.c:728 ../libfdisk/fsedit.c:735 ../libfdisk/fsedit.c:742
 #: ../libfdisk/fsedit.c:751 ../libfdisk/fsedit.c:778 ../libfdisk/fsedit.c:788
@@ -1846,7 +1748,7 @@ msgid ""
 msgstr ""
 "Punkt montowania %s jest nieprawid³owy.\n"
 "\n"
-"Nie mo¿e koñczy¶ siê /."
+"Nie mo¿e koñczyæ siê /."
 
 #: ../libfdisk/fsedit.c:752
 #, c-format
@@ -1866,6 +1768,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Wybra³e¶ za³o¿enie systemu plików root (/) w istniej±cym ju¿ filesystemie "
+"DOS. Mo¿esz to zrobiæ, ale nie mo¿esz wtedy u¿yæ ¿adnego innego filesysystemu "
+"dla Linuxa. Poza tym dostêp do plików bêdzie wolniejszy ni¿ przez partycje "
+"linuxow±. Chcesz kontynuowaæ?"
 
 #: ../libfdisk/fsedit.c:779
 #, c-format
@@ -1887,7 +1793,8 @@ msgid ""
 msgstr ""
 "Punkt montowania %s jest nieprawid³owy.\n"
 "\n"
-"/usr musi znajdowaæ siê na partycji Linux Native lub w katalogu NFS."
+"/usr musi znajdowaæ siê na partycji Linux Native lub na dysku montowanym "
+"przez NFS."
 
 #: ../libfdisk/fsedit.c:817
 msgid "Too Many Drives"
@@ -1899,8 +1806,8 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
-"Masz wiêcej dysków ni¿ ten program wspiera. U¿yj standardowego programufdisk "
-"aby ustawiæ parametry dysków i daj znaæ firmie Red Hat Software, ¿e "
+"Masz wiêcej dysków ni¿ mo¿e u¿yæ ten program. U¿yj standardowego programu "
+"fdisk aby ustawiæ parametry dysków i daj znaæ firmie Red Hat Software, ¿e "
 "zobaczy³e¶ ten komunikat."
 
 #: ../libfdisk/fsedit.c:833
@@ -1916,7 +1823,7 @@ msgstr ""
 "swój sprzêt i znajd¼ przyczynê problemu."
 
 #: ../libfdisk/fsedit.c:1146 ../libfdisk/fsedit.c:1208
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
@@ -1972,21 +1879,18 @@ msgid "Fdisk Error"
 msgstr "B³±d fdisk"
 
 #: ../libfdisk/gnomefsedit.c:537 ../libfdisk/gnomefsedit.c:827
-#, fuzzy
 msgid "<Swap Partition>"
-msgstr "Partycja swap"
+msgstr "<Partycja swap>"
 
 #: ../libfdisk/gnomefsedit.c:545 ../libfdisk/gnomefsedit.c:829
-#, fuzzy
 msgid "<RAID Partition>"
-msgstr "Partycja root"
+msgstr "<Partycja RAID>"
 
 #: ../libfdisk/gnomefsedit.c:713 ../libfdisk/newtfsedit.c:692
 msgid "Delete Partition"
 msgstr "Usuñ partycjê"
 
 #: ../libfdisk/gnomefsedit.c:714 ../libfdisk/newtfsedit.c:693
-#, fuzzy
 msgid "Are you sure you want to delete this partition?"
 msgstr "Czy je¶te¶ pewien, ¿e chcesz usun±æ tê partycjê?"
 
@@ -1998,18 +1902,16 @@ msgid "Edit Partition"
 msgstr "Edycja partycji"
 
 #: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
-#, fuzzy
 msgid "Mount Point:"
-msgstr "Brak punktu montowania"
+msgstr "Miejsce zamontowania:"
 
 #: ../libfdisk/gnomefsedit.c:842
-#, fuzzy
 msgid "Size (Megs):"
-msgstr "Rozmiar:"
+msgstr "Rozmiar (MB):"
 
 #: ../libfdisk/gnomefsedit.c:873
 msgid "Grow to fill disk?"
-msgstr ""
+msgstr "Mo¿e rosn±æ do wype³nienia dysku?"
 
 #: ../libfdisk/gnomefsedit.c:892 ../libfdisk/newtfsedit.c:332
 msgid "Allocation Status:"
@@ -2028,25 +1930,23 @@ msgid "Failure Reason:"
 msgstr "B³êdny powód:"
 
 #: ../libfdisk/gnomefsedit.c:925 ../libfdisk/gnomefsedit.c:1813
-#, fuzzy
 msgid "Partition Type:"
 msgstr "Rodzaj partycji"
 
 #: ../libfdisk/gnomefsedit.c:1008
 msgid "Allowable Drives:"
-msgstr ""
+msgstr "Mo¿liwe dyski:"
 
 #: ../libfdisk/gnomefsedit.c:1114 ../libfdisk/gnomefsedit.c:2005
 #: ../libfdisk/newtfsedit.c:499
 msgid "No Mount Point"
-msgstr "Brak punktu montowania"
+msgstr "Brak miejsca zamontowania"
 
 #: ../libfdisk/gnomefsedit.c:1115 ../libfdisk/newtfsedit.c:500
 msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
-msgstr ""
-"Niewyspecyfikowa³e¶ punktu montowania dla tej partycji. Czy jeste¶ pewien?"
+msgstr "Nie wybra³e¶ miejsca montowania dla tej partycji. Czy jeste¶ pewien?"
 
 #: ../libfdisk/gnomefsedit.c:1158 ../libfdisk/gnomefsedit.c:2013
 #: ../libfdisk/newtfsedit.c:540
@@ -2066,13 +1966,12 @@ msgid "Size Error"
 msgstr "B³±d rozmiaru"
 
 #: ../libfdisk/gnomefsedit.c:1185 ../libfdisk/newtfsedit.c:559
-#, fuzzy
 msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
 "Wymagany rozmiar jest b³êdny. Sprawd¼ czy rozmiar jest wiêkszy ni¿ zero (0) "
-"i jest podany dziesiêtnie."
+"i jest liczb± c±³kowita w zapisie dziesi±tkowym."
 
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
 #: ../libfdisk/newtfsedit.c:576
@@ -2081,43 +1980,44 @@ msgstr "B³±d rozmiaru swap"
 
 #: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
 #: ../libfdisk/newtfsedit.c:577
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
-"Chcesz stworzyæ partycjê swap, która jest zbyt du¿a. Maksymalny rozmiar "
-"wynosi %d MB."
+"Stworzy³e¶ partycjê swap, która jest zbyt du¿a. Maksymalny rozmiar wynosi "
+"%ld MB."
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
-msgstr ""
+msgstr "Brak ograniczenia dysku RAID"
 
 #: ../libfdisk/gnomefsedit.c:1221
-#, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Niewyspecyfikowa³e¶ punktu montowania dla tej partycji. Czy jeste¶ pewien?"
+"Skonfigurowa³e¶ partycje RAID bez ograniczenia jej do pojedyñczego dysku.\n"
+" Jeste¶ pewien, ¿e tka chcesz?"
 
 #: ../libfdisk/gnomefsedit.c:1227
-#, fuzzy
 msgid "Close"
-msgstr "Wyczy¶æ"
+msgstr "Zamknij"
 
 #: ../libfdisk/gnomefsedit.c:1228
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
+"Skonfigurowa³e¶ partycje RAID bez ograniczenia jej do pojedyñczego dysku. "
+"Wybierz dysk, do którego ma sie ograniczaæ ta partycja."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
 #: ../libfdisk/gnomefsedit.c:1414
 msgid "RAID Entry Incomplete"
-msgstr ""
+msgstr "Niekompletna informacja o RAID"
 
 #: ../libfdisk/gnomefsedit.c:1415
 #, c-format
@@ -2126,6 +2026,9 @@ msgid ""
 "raid device /dev/%s will now be decomposed into its component partitions. "
 "Please recompose the raid device with allocated partitions."
 msgstr ""
+"Urz±dzenie RAID /dev/%s zawiera nie alokowane partycje. Urz±dzenie to "
+"zostanie teraz roz³o¿one na partycje sk³adowe. Proszê u¿yæ alokowanych "
+"partycji do ponownego z³o¿enia urz±dzenia RAID."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1514 ../libfdisk/gnomefsedit.c:1533
@@ -2144,60 +2047,54 @@ msgstr ""
 "partycji. Niezaalokowane partycje s± wyszczególnione poni¿ej."
 
 #: ../libfdisk/gnomefsedit.c:1799
-#, fuzzy
 msgid "<Swap Partition"
-msgstr "Partycja swap"
+msgstr "<Partycja swap>"
 
 #: ../libfdisk/gnomefsedit.c:1857
 msgid "RAID Device: /dev/"
-msgstr ""
+msgstr "Urz±dzenie RAID: /dev/"
 
 #: ../libfdisk/gnomefsedit.c:1880
 msgid "RAID Type:"
-msgstr ""
+msgstr "Typ RAID:"
 
 #: ../libfdisk/gnomefsedit.c:1917
-#, fuzzy
 msgid "Partitions For RAID Array:"
-msgstr "Partycje do sformatowania"
+msgstr "Partycje macierzy RAID:"
 
 #: ../libfdisk/gnomefsedit.c:2006
-#, fuzzy
 msgid "You have not selected a mount point. A mount point is required."
-msgstr ""
-"Niewyspecyfikowa³e¶ punktu montowania dla tej partycji. Czy jeste¶ pewien?"
+msgstr "Nie poda³e¶ wymaganego miejsca zamontowania dla tej partycji."
 
 #: ../libfdisk/gnomefsedit.c:2014
-#, fuzzy
 msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
-msgstr ""
-"Punkt montowania zawiera b³êdn± ¶cie¿kê lub ju¿ jest u¿ywany. Wybierz "
-"poprawny punkt."
+msgstr "To katalog zamontowania ju¿ jest u¿ywane. Wybierz poprawny katalog."
 
 #: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
-msgstr ""
+msgstr "Botowanie z RAID, uwaga"
 
 #: ../libfdisk/gnomefsedit.c:2028
 msgid ""
 "You have made this raid device mount as a booting partition.  Please make "
 "sure all the component partitions are bootable."
 msgstr ""
+"Ustawi³e¶ to urz±dzenie RAID jako bootowalne. Upewij siê, ¿e wszystkie "
+"partycje sk³adowe s± bootowalne."
 
 #: ../libfdisk/gnomefsedit.c:2038
-#, fuzzy
 msgid "No RAID Device"
-msgstr "Urz±dzenie"
+msgstr "Brak urz±dzenia RAID"
 
 #: ../libfdisk/gnomefsedit.c:2039
 msgid "You need to selected a RAID device."
-msgstr ""
+msgstr "Musisz wybraæ urz±dzenie RAID"
 
 #: ../libfdisk/gnomefsedit.c:2045
 msgid "Used Raid Device"
-msgstr ""
+msgstr "Wybrane urz±dzenie RAID"
 
 #: ../libfdisk/gnomefsedit.c:2046
 #, c-format
@@ -2205,33 +2102,35 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
+"Urz±dzenie RAID \"/dev/%s\" ju¿ jest skonfigurowane jako RAID. Proszê wybraæ "
+"inne."
 
 #: ../libfdisk/gnomefsedit.c:2059
-#, fuzzy
 msgid "Not Enough Partitions"
-msgstr "Brak partrycji root"
+msgstr "Za ma³o partrycji"
 
 #: ../libfdisk/gnomefsedit.c:2061
 msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
+"Nie skonfigurowa³e¶ wystarczaj±cej ilo¶ci partycji dla podanego typu RAID."
 
 #: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
-msgstr ""
+msgstr "Nielegalny typ RAID /boot"
 
 #: ../libfdisk/gnomefsedit.c:2070
 msgid "Boot partitions (/boot) are only allowed on RAID-1."
-msgstr ""
+msgstr "Partycje bootuj±ce (/boot) s± dozwolone tylko dla RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2077
 msgid "Illegal RAID mountpoint"
-msgstr ""
+msgstr "Z³y katalog zamontowania RAID"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "Parycje RAID nie mog± byæ zamontowane jako root (/) na Alphach."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2240,34 +2139,34 @@ msgid ""
 "this RAID device.  The mount point is set to /boot. Are you sure that it is "
 "possible to boot from this partition?"
 msgstr ""
+"Partycja %s jest juz istniej±ca partycj± w zestawie partycji teog urz±dzenia "
+"RAID. Katalog zamontowania jest ustawiony jako /boot. Jestes pewien, ¿e "
+"bootwanie z tej partycji jest mo¿liwe?"
 
 #: ../libfdisk/gnomefsedit.c:2169
-#, fuzzy
 msgid "Use Pre-existing Partition?"
-msgstr "Usuñ partycjê"
+msgstr "U¿yæ istniej±c± partycjê?"
 
 #: ../libfdisk/gnomefsedit.c:2278
-#, fuzzy
 msgid "Auto-Partition"
-msgstr "Edycja partycji"
+msgstr "Samoczynny podzia³ na partycje"
 
 #: ../libfdisk/gnomefsedit.c:2285
 msgid "Using Existing Disk Space"
-msgstr ""
+msgstr "U¿ycie istniej±cego miejsca na dysku"
 
 #: ../libfdisk/gnomefsedit.c:2304
-#, fuzzy
 msgid "Remove Linux partitions"
-msgstr "Zresetowaæ tabelê partycji"
+msgstr "Usuniêcie partycji linuxowej"
 
 #: ../libfdisk/gnomefsedit.c:2315
 msgid "Use existing free space"
-msgstr ""
+msgstr "U¿ycie wolnego± miejsca na dysku"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2327
 msgid "Intended Use"
-msgstr ""
+msgstr "Zamierzone zastosowanie"
 
 #: ../libfdisk/gnomefsedit.c:2366
 msgid "Workstation"
@@ -2275,16 +2174,15 @@ msgstr "Stacja robocza"
 
 #: ../libfdisk/gnomefsedit.c:2440
 msgid "Delete RAID Device?"
-msgstr ""
+msgstr "Usun±æ urz±dzenie RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2441
-#, fuzzy
 msgid "Are you sure you want to remove this RAID device?"
-msgstr "Czy je¶te¶ pewien, ¿e chcesz usun±æ tê partycjê?"
+msgstr "Czy je¶te¶ pewien, ¿e chcesz usun±æ tê partycjê RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
-msgstr "Zresetowaæ tabelê partycji"
+msgstr "Zresetowanie tabelê partycji"
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
@@ -2292,69 +2190,60 @@ msgstr "Przywróciæ tabelê partycji do originalnej zawarto¶ci?"
 
 #: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
-msgstr ""
+msgstr "<Swap>"
 
 #: ../libfdisk/gnomefsedit.c:2532
 msgid "<RAID>"
-msgstr ""
+msgstr "<RAID>"
 
 #: ../libfdisk/gnomefsedit.c:2534
 msgid "<not set>"
-msgstr ""
+msgstr "<nie ustawione>"
 
 #: ../libfdisk/gnomefsedit.c:3198
-#, fuzzy
 msgid "Unallocated Partitions Exist..."
-msgstr "Niezaalokowane partycje"
+msgstr "Istniej± niezaalokowane partycje..."
 
 #: ../libfdisk/gnomefsedit.c:3204 ../libfdisk/gnomefsedit.c:3218
-#, fuzzy
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Musisz przydzieliæ partycjê root (/) dla partycji Linux native (ext2) dla "
-"procesu instalacji."
+"Musisz przyporz±dkowaæ katalog root (/) partycji linuxowej (ext2) albo RAID "
+"dla procesu instalacji."
 
 #: ../libfdisk/gnomefsedit.c:3289
-#, fuzzy
 msgid "Partitions"
-msgstr "Zmiana partycji"
+msgstr "Partycje"
 
 #: ../libfdisk/gnomefsedit.c:3319
-#, fuzzy
 msgid "_Add..."
-msgstr "Dodaj"
+msgstr "_Dodaj..."
 
 #: ../libfdisk/gnomefsedit.c:3326
-#, fuzzy
 msgid "_Edit..."
-msgstr "Edycja"
+msgstr "_Edycja..."
 
 #: ../libfdisk/gnomefsedit.c:3327
 msgid "_Reset"
-msgstr ""
+msgstr "_Zresetowanie"
 
 #: ../libfdisk/gnomefsedit.c:3332
-#, fuzzy
 msgid "_Delete"
-msgstr "Usuñ"
+msgstr "_Usuniêcie..."
 
 #. try having make raid device button available in read-only mode too
 #: ../libfdisk/gnomefsedit.c:3345
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Urz±dzenie"
+msgstr "Utworzneie urz±dzenia RAID"
 
 #: ../libfdisk/gnomefsedit.c:3355
-#, fuzzy
 msgid "Auto Partition"
-msgstr "Edycja partycji"
+msgstr "Samoczynne podzielenie na partycje"
 
 #: ../libfdisk/gnomefsedit.c:3364
-#, fuzzy
 msgid "Drive Summary"
-msgstr "Podsumowanie napêdu"
+msgstr "Podsumowanie dla napêdu"
 
 #: ../libfdisk/newtfsedit.c:139
 msgid "Swap Partition"
@@ -2429,9 +2318,8 @@ msgid "Initializing CDROM..."
 msgstr "Inicjalizacja CR-ROM'u"
 
 #: ../loader/devices.c:51
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "Ró¿ne opcje:"
+msgstr "Ró¿ne opcje"
 
 #: ../loader/devices.c:60
 msgid ""
@@ -2439,47 +2327,49 @@ msgid ""
 "know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
+"Temu modu³owi mo¿na podaæ parametry wp³ywaj±ce na jego dzia³anie. Je¿eli nie "
+"wiesz jakie, omiñ podawanie naciskaj±c \"OK\"."
 
 #: ../loader/devices.c:65
-#, fuzzy
 msgid "Module Parameters"
 msgstr "Parametry modu³u"
 
 #: ../loader/devices.c:167 ../loader/devices.c:242 ../loader/loader.c:253
 #: ../loader/loader.c:312 ../loader/loader.c:328 ../loader/loader.c:1774
-#, fuzzy
 msgid "Devices"
-msgstr "Urz±dzenie"
+msgstr "Urz±dzenia"
 
 #: ../loader/devices.c:169
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "W³ó¿ dyskietkê ze sterownikami i naci¶nij \"OK\"."
 
 #: ../loader/devices.c:179 ../loader/loader.c:1783
-#, fuzzy
 msgid "Failed to mount floppy disk."
-msgstr "B³±d po³±czenia z serwerem FTP"
+msgstr "Nie uda³o siê zamontowaæ dyskietki."
 
 #: ../loader/devices.c:184
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Dyskietka, któr± w³o¿y³e¶ nie jest prawid³ow± dyskietk± ze staerownikami dla "
+"tej wersji Linuxa Red Hat."
 
 #: ../loader/devices.c:206
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Który sterownik spróbowaæ? Je¿eli potrzebnego sterownika nie ma na tej "
+"li¶cie, a masz osobny dysk ze sterownikami, proszê nacisn±æ F2."
 
 #: ../loader/devices.c:211
 msgid "Which driver should I try?"
-msgstr "Które sterownik powinienem wypróbowaæ?"
+msgstr "Który sterownik powinienem wypróbowaæ?"
 
 #: ../loader/devices.c:219
-#, fuzzy
 msgid "Specify module parameters"
-msgstr "Parametry modu³u"
+msgstr "Podaj parametry modu³u"
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -2501,109 +2391,96 @@ msgid "Error on line %d of kickstart file %s."
 msgstr "B³±d w lini %d w pliku kickstart %s."
 
 #: ../loader/lang.c:267
-#, fuzzy
 msgid "Choose a Language"
-msgstr "Wybierz grupê do spawdzenia:"
+msgstr "Wybierz jêzyk"
 
 #: ../loader/lang.c:534
-#, fuzzy
 msgid "Keyboard Type"
-msgstr "Typ klawiatury"
+msgstr "Rodzaj klawiatury"
 
 #: ../loader/lang.c:535
-#, fuzzy
 msgid "What type of keyboard do you have?"
-msgstr "Jaki posiadasz typ drukarki?"
+msgstr "Jaki masz typ klawiatury?"
 
 #: ../loader/loader.c:101
 msgid "Local CDROM"
-msgstr ""
+msgstr "Lokalny CDROM"
 
 #: ../loader/loader.c:104
 msgid "NFS image"
-msgstr ""
+msgstr "Przez NFS"
 
 #: ../loader/loader.c:109
-#, fuzzy
 msgid "Hard drive"
-msgstr "Dyski twarde"
+msgstr "Dysk twardy"
 
 #: ../loader/loader.c:128
-#, fuzzy
 msgid "Welcome to Red Hat Linux"
-msgstr "Witamy w Red Hat Linux"
+msgstr "Witamy w Linuxie Red Hat"
 
 #: ../loader/loader.c:130
-#, fuzzy
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
-"  <Tab>/<Alt-Tab> nastêpny element  | <Space> wybór | <F12> nastêpny ekran "
+"  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
 
 #: ../loader/loader.c:240
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:254
-#, fuzzy
 msgid "What kind of device would you like to add"
-msgstr "Jaki jest typ no¶nika zawierajacego pakiety do instalacji?"
+msgstr "Jaki rodzaj urz±dzenia chcesz dodaæ"
 
 #: ../loader/loader.c:301
-#, fuzzy
 msgid "I have found the following devices in your system:"
-msgstr ""
-"Zosta³y znalezione pastêpuj±ce typu urz±dzeñ SCSCI w twoim systemie:\n"
-"\n"
+msgstr "W twoim systemie zosta³y znalezione urz±dzenia:"
 
 #: ../loader/loader.c:303 ../loader/loader.c:328
-#, fuzzy
 msgid "Add Device"
-msgstr "Urz±dzenie"
+msgstr "Dodanie urz±dzenia"
 
 #: ../loader/loader.c:329
 msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Nie mam ¿adnych specjalnych sterowników za³adowanych dla twoejgo systemu. "
+"Chce dodaæ teraz jakie¶?"
 
 #: ../loader/loader.c:413 ../loader/loader.c:415
-#, fuzzy
 msgid "Loading"
-msgstr "Stacja robocza"
+msgstr "£adowanie"
 
 #: ../loader/loader.c:467
-#, fuzzy
 msgid "Loading second stage ramdisk..."
-msgstr "Wczytywanie dysku supplemental..."
+msgstr "£adowanie ramdysku second stage..."
 
 #: ../loader/loader.c:471
-#, fuzzy
 msgid "Error loading ramdisk."
-msgstr "Tworzenie inicjacyjnego ramdysku..."
+msgstr "B³±d ³adowania ramdysku."
 
 #: ../loader/loader.c:603
 msgid "Hard Drives"
 msgstr "Dyski twarde"
 
 #: ../loader/loader.c:604
-#, fuzzy
 msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Nie zdefiniowa³e¶ obszaru swap. Czy chcesz kontynuowaæ czy te¿ poprawiæ "
-"ustawienia dysku?"
+"Wygl±da, ¿e nie masz ¿adnego dysku twardego! Chcesz skonfigurowac dodatkowe "
+"urz±dzenia?"
 
 #: ../loader/loader.c:617
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the RedHat/RPMS and "
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
 "Podaj nazwê i katalog partycji zawieraj±cec± katalogi RedHat/RPMS oraz "
-"RedHat/base."
+"RedHat/base. Je¿eli nie widzisz w spisie dysku, którego chcesz u¿yæ, "
+"nacisnij F2 ¿eby skonfigurowaæ dodatkowe urz±dzenia"
 
 #: ../loader/loader.c:631
 msgid "Directory holding Red Hat:"
@@ -2623,6 +2500,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"Nie mogê znale¼æ CDROMu z Red Hatem w ¿adnym napêdzie CDROM. Proszê w³o¿yæ "
+"CD z Red Hatem i nacisn±æ \"OK\" ¿eby ponowic próbê."
 
 #: ../loader/loader.c:906
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2634,16 +2513,15 @@ msgstr "Nie mogê zamontowaæ tego katalogu z serwera"
 
 #: ../loader/loader.c:995
 msgid "FTP"
-msgstr ""
+msgstr "FTP"
 
 #: ../loader/loader.c:996
-#, fuzzy
 msgid "Unable to retrieve the second stage ramdisk"
-msgstr "Tworzenie inicjacyjnego ramdysku..."
+msgstr "Niemo¿liwe za³adowanie ramdysku second stage"
 
 #: ../loader/loader.c:1131
 msgid "Rescue Method"
-msgstr ""
+msgstr "Metoda ratunkowa"
 
 #: ../loader/loader.c:1132
 msgid "Installation Method"
@@ -2651,58 +2529,55 @@ msgstr "Metoda instalacji"
 
 #: ../loader/loader.c:1134
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Jakiego rodzaju no¶nik zawiera dyskietke ratunkow±?"
 
 #: ../loader/loader.c:1136
-#, fuzzy
 msgid "What type of media contains the packages to be installed?"
-msgstr "Jaki jest typ no¶nika zawierajacego pakiety do instalacji?"
+msgstr "Jaki rodzaj no¶nika zawiera pakiety do instalacji?"
 
 #: ../loader/loader.c:1666
 msgid "Cannot find ks.cfg on boot floppy."
-msgstr "Nie mogê znale¼æ ks.cfg na dyskietce bootuj±cej."
+msgstr "Nie mogê znale¼æ ks.cfg na dyskietce startowej."
 
 #: ../loader/loader.c:1712
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Nie mogê utworzyæ %s: %s\n"
+msgstr "Nie mo¿na przeczytaæ katalogu %s: %s"
 
 #: ../loader/loader.c:1775
 msgid "Insert your updates disk and press \"OK\" to continue."
-msgstr ""
+msgstr "W³ó¿ dyskietkê aktualizuj±c± i naci¶nij \"OK\" ¿eby kontynuowaæ."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
 #: ../loader/loader.c:1788
 msgid "Updates"
-msgstr ""
+msgstr "Aktualizacja"
 
 #: ../loader/loader.c:1788
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Wczytywanie aktualizacji anacondy..."
 
 #: ../loader/loader.c:1942
 msgid "PC Card"
-msgstr ""
+msgstr "PC Card"
 
 #: ../loader/loader.c:1942
-#, fuzzy
 msgid "Initializing PC Card Devices..."
-msgstr "Inicjalizacja CR-ROM'u"
+msgstr "Inicjalizacja urz±dzeñ PC Card..."
 
 #: ../loader/net.c:147
 msgid "NFS server name:"
-msgstr "Nazwa NFS serwera:"
+msgstr "Nazwa serwera NFS:"
 
 #: ../loader/net.c:150 ../loader/urls.c:182
 msgid "Red Hat directory:"
 msgstr "Katalog Red Hat:"
 
 #: ../loader/net.c:156
-#, fuzzy
 msgid "NFS Setup"
-msgstr "Ustawienia SMB"
+msgstr "Ustawienia NFS"
 
 #: ../loader/net.c:157
 msgid ""
@@ -2728,34 +2603,31 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "U¿cie dynamicznej konfiguracji IP (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
 msgstr "Konfiguracja TCP/IP"
 
 #: ../loader/net.c:329
-#, fuzzy
 msgid "Missing Information"
-msgstr "Informacja drukarki"
+msgstr "Brakuj±ca informacja"
 
 #: ../loader/net.c:330
-#, fuzzy
 msgid "You must enter both a valid IP address and a netmask."
 msgstr "Musisz wprowadziæ poprawny IP adres i maskê."
 
 #: ../loader/net.c:338 ../loader/net.c:574
 msgid "Dynamic IP"
-msgstr ""
+msgstr "Dynamiczny IP"
 
 #: ../loader/net.c:339 ../loader/net.c:575
-#, fuzzy
 msgid "Sending request for IP information..."
-msgstr "Wysy³anie ¿±dania DHCP..."
+msgstr "Wysy³anie ¿±dania informacji o IP..."
 
 #: ../loader/net.c:460
 msgid "Determining host name and domain..."
-msgstr "Rozpoznawanie nazwy hosta i domeny..."
+msgstr "Ustalenie nazwy hosta i domeny..."
 
 #: ../loader/net.c:560 ../loader/net.c:591
 msgid "kickstart"
@@ -2767,41 +2639,35 @@ msgid "bad argument to kickstart network command %s: %s"
 msgstr "b³êdny argument w komendzie network kickstart %s: %s"
 
 #: ../loader/net.c:592
-#, fuzzy, c-format
+#, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr "b³êdny numer ip w komendzie sieciowej: %s"
+msgstr "B³êdny protokó³ %s w komendzie sieciowej"
 
 #: ../loader/net.c:628
-#, fuzzy
 msgid "Boot protocol to use"
-msgstr "Protokó³ Boot"
+msgstr "Protokó³ bootowania"
 
 #: ../loader/net.c:630
-#, fuzzy
 msgid "Network gateway"
-msgstr "Ustawienia NFS"
+msgstr "Router"
 
 #: ../loader/net.c:632
-#, fuzzy
 msgid "IP address"
-msgstr "IP adres:"
+msgstr "Adres IP:"
 
 #: ../loader/net.c:634
-#, fuzzy
 msgid "Nameserver"
-msgstr "Serwer"
+msgstr "Serwer nazw"
 
 #: ../loader/net.c:641
 msgid "Domain name"
-msgstr ""
+msgstr "Nazwa domeny"
 
 #: ../loader/net.c:644
-#, fuzzy
 msgid "Network device"
-msgstr "Ustawienia NFS"
+msgstr "Urz±dzenie sieciowe"
 
 #: ../loader/net.c:716
-#, fuzzy
 msgid ""
 " <Tab>/<Alt-Tab> between elements   |   <Space> selects  |   <F12> next "
 "screen"
@@ -2811,31 +2677,29 @@ msgstr ""
 #: ../loader/net.c:717
 #, c-format
 msgid "netconfig %s  (C) 1999 Red Hat, Inc."
-msgstr ""
+msgstr "netconfig %s  (C) 1999 Red Hat, Inc."
 
 #: ../loader/net.c:719
-#, fuzzy
 msgid "Network configuration"
 msgstr "Konfiguracja sieci"
 
 #: ../loader/net.c:720
-#, fuzzy
 msgid "Would you like to set up networking?"
-msgstr "Nie ustawiaj sieci"
+msgstr "Chcesz skonfigurowaæ sieæ?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Nie mogê utworzyæ %s: %s\n"
+msgstr "Nie uda³o siê zalogowaæ do %s: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Nie mogê utworzyæ %s: %s\n"
+msgstr "Nie mogê za³adowaæ %s: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
-msgstr "Odzyskiwanie"
+msgstr "£adowanie"
 
 #: ../loader/urls.c:151
 msgid ""
@@ -2847,12 +2711,11 @@ msgid ""
 msgstr ""
 "Wprowad¼ nastêpuj±ce informacje:\n"
 "\n"
-"    o nazwê lub IP adres serwera FTP\n"
+"    o nazwê lub adres IP serwera FTP\n"
 "    o katalog zawieraj±cy\n"
 "      Red Hat Linux dla twojej architektury\n"
 
 #: ../loader/urls.c:160
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -2862,7 +2725,7 @@ msgid ""
 msgstr ""
 "Wprowad¼ nastêpuj±ce informacje:\n"
 "\n"
-"    o nazwê lub IP adres serwera FTP\n"
+"    o nazwê lub adres IP serwera WWW\n"
 "    o katalog zawieraj±cy\n"
 "      Red Hat Linux dla twojej architektury\n"
 
@@ -2871,44 +2734,41 @@ msgid "FTP site name:"
 msgstr "Nazwa serwera FTP:"
 
 #: ../loader/urls.c:179
-#, fuzzy
 msgid "Web site name:"
-msgstr "Nazwa serwera FTP:"
+msgstr "Nazwa serwera WWW:"
 
 #: ../loader/urls.c:198
 msgid "Use non-anonymous ftp or a proxy server"
-msgstr "U¿ycie nieanonimowego ftp lub proxy serwera"
+msgstr "U¿ycie nieanonimowego ftp lub serwera proxy"
 
 #: ../loader/urls.c:202
-#, fuzzy
 msgid "Use proxy server"
-msgstr "Wybierz grupê do spawdzenia:"
+msgstr "Wybierz serwer proxy"
 
 #: ../loader/urls.c:213
 msgid "FTP Setup"
 msgstr "Ustawienia FTP"
 
 #: ../loader/urls.c:214
-#, fuzzy
 msgid "HTTP Setup"
-msgstr "Ustawienia FTP"
+msgstr "Ustawienia HTTP"
 
 #: ../loader/urls.c:224
 msgid "You must enter a server name."
-msgstr ""
+msgstr "Musisz podaæ nazwê serwera."
 
 #: ../loader/urls.c:229
 msgid "You must enter a directory."
-msgstr ""
+msgstr "Musisz podaæ katalog."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Nieznany host"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s nie jest prawid³ow± nazw± hosta."
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2923,1153 +2783,28 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
+msgstr "Jêzeli u¿ywasz proxy HTTP, podaj jego nazwê."
 
 #: ../loader/urls.c:334
-#, fuzzy
 msgid "Account name:"
 msgstr "Nazwa konta:"
 
 #: ../loader/urls.c:342
 msgid "FTP Proxy:"
-msgstr "FTP proxy:"
+msgstr "Proxy FTP:"
 
 #: ../loader/urls.c:343
-#, fuzzy
 msgid "HTTP Proxy:"
-msgstr "FTP proxy:"
+msgstr "Proxy HTTP:"
 
 #: ../loader/urls.c:347
-#, fuzzy
 msgid "FTP Proxy Port:"
-msgstr "FTP proxy:"
+msgstr "Port proxy FTP:"
 
 #: ../loader/urls.c:348
-#, fuzzy
 msgid "HTTP Proxy Port:"
-msgstr "FTP proxy:"
+msgstr "Port proxy HTTP:"
 
 #: ../loader/windows.c:46
-#, fuzzy
 msgid "Loading SCSI driver"
-msgstr "Wczytywanie dysku supplemental..."
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Przebudowanie"
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Przebudowanie dazy RPM..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr ""
-#~ "B³±d podczas przebudowy bazy RPM. Mo¿e masz za ma³o miejsca na sysku?"
-
-#, fuzzy
-#~ msgid "Autoprobe results:"
-#~ msgstr "Automatyczne rozpoznanie"
-
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "Zosta³ wykryty b³±d podczas czytania dysku z etykiet± Sun w napêdzie "
-#~ "%s.Musisz u¿yæ fdisk aby utworzyæ i zapisaæ now± etykietê dla tego napêdu."
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "B³êdna etykieta Sun"
-
-#, fuzzy
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Musisz przydzieliæ partycjê root (/) dla partycji Linux native (ext2) dla "
-#~ "procesu instalacji."
-
-#, fuzzy
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Musisz przydzieliæ partycjê root (/) dla partycji Linux native (ext2) dla "
-#~ "procesu instalacji."
-
-#, fuzzy
-#~ msgid "Root Partition Selection"
-#~ msgstr "Partycja root"
-
-#, fuzzy
-#~ msgid "Welcome to Red Hat Linux!"
-#~ msgstr "Witamy w Red Hat Linux"
-
-#~ msgid "Warning"
-#~ msgstr "Ostrze¿enie"
-
-#~ msgid "There is not enough disk space for this type of installation."
-#~ msgstr "Brak odpowiedniej ilo¶ci miejsca na dysku dla tego typu instalacji."
-
-#, fuzzy
-#~ msgid "There is not enough disk space for the chosen partitioning."
-#~ msgstr "Brak odpowiedniej ilo¶ci miejsca na dysku dla tego typu instalacji."
-
-#, fuzzy
-#~ msgid "Skip LILO install"
-#~ msgstr "Instalacja SILO"
-
-#~ msgid "No BOOTP reply received"
-#~ msgstr "Brak odpowiedzi BOOTP"
-
-#~ msgid "No DHCP reply received"
-#~ msgstr "Brak odpowiedzi DHCP"
-
-#~ msgid "Base IO port:"
-#~ msgstr "Port bazowy IO:"
-
-#~ msgid "IRQ level:"
-#~ msgstr "Numer przerwania IRQ:"
-
-#~ msgid "IO base, IRQ:"
-#~ msgstr "Port IO, IRQ:"
-
-#~ msgid "Use other options"
-#~ msgstr "U¿yj innych opcji"
-
-#~ msgid "Interrupt level (IRQ):"
-#~ msgstr "Przerwanie (IRQ):"
-
-#~ msgid "IO base, IRQ, label:"
-#~ msgstr "Port IO, IRQ, Label:"
-
-#~ msgid "Specify options"
-#~ msgstr "Specyficzne ustawienia"
-
-#~ msgid "mknod() failed: %s"
-#~ msgstr "b³±d mknod(): %s"
-
-#~ msgid "Load module"
-#~ msgstr "£adowanie modu³u"
-
-#~ msgid "Probe"
-#~ msgstr "Rozpoznanie"
-
-#~ msgid "A %s card has been found on your system."
-#~ msgstr "Karta %s nie zosta³a znaleziona."
-
-#~ msgid "device command"
-#~ msgstr "polecenie sterownika"
-
-#~ msgid "bad argument to kickstart device command %s: %s"
-#~ msgstr "b³êdny argument dla polecenia device kickstart %s: %s"
-
-#~ msgid "bad arguments to kickstart device command"
-#~ msgstr "b³êdny argument dla polecenia device kickstart"
-
-#~ msgid "No module exists for %s"
-#~ msgstr "Nie istnieje modu³ dla %s"
-
-#~ msgid "I can't find the device anywhere on your system!"
-#~ msgstr "Nie mogê znale¼æ sterownika w twoim systemie!"
-
-#~ msgid ""
-#~ "In some cases, the %s driver needs to have extra information to work "
-#~ "properly, although it normally works fine without. Would you like to specify "
-#~ "extra options for it or allow the driver to probe your machine for the "
-#~ "information it needs? Occasionally, probing will hang a computer, but it "
-#~ "should not cause any damage."
-#~ msgstr ""
-#~ "W niektórych przypadkach sterownik %s potrzebuje dodatkowej informacji do "
-#~ "poprawnej pracy, chcia¿ normalnie dzia³a dobrze bez niej. Czy chcesz podaæ "
-#~ "tê informacjê czy pozwalasz aby sterownik zrobi³ to za ciebie?"
-
-#~ msgid ""
-#~ "In many cases, the %s driver needs to be provided with extra information on "
-#~ "your hardware. If you prefer, some common values for those parameters will "
-#~ "be tried. This process can hang a machine, although it should not cause any "
-#~ "damage."
-#~ msgstr ""
-#~ "W niektórych przypadkach sterownik %s potrzebuje dodatkowych informacji o "
-#~ "twoim sprzêcie. Je¿eli chcesz najczê¶ciej u¿ywane warto¶ci zostan± "
-#~ "wypróbowane."
-
-#~ msgid "Module options:"
-#~ msgstr "Opcje modu³u:"
-
-#~ msgid "Cannot open /proc/filesystems: %d"
-#~ msgstr "Nie mogê otworzyæ /proc/filesystems: %d"
-
-#~ msgid "Failed to open %s. No upgrade log will be kept."
-#~ msgstr "B³±d otwarcia %s. Nie zostanie zachowany log aktualizacji."
-
-#~ msgid "Fatal error opening RPM database"
-#~ msgstr "Powa¿ny b³±d otwarcia bazy RPM"
-
-#~ msgid "Error ordering package list: %s"
-#~ msgstr "B³±d sortowania listy pakietów: %s"
-
-#, fuzzy
-#~ msgid "Install anyway"
-#~ msgstr "Instalacja"
-
-#, fuzzy
-#~ msgid "Fatal error reopening RPM database"
-#~ msgstr "Powa¿ny b³±d otwarcia bazy RPM"
-
-#, fuzzy
-#~ msgid "Finding overlapping files..."
-#~ msgstr "Szukanie plików instalacyjnych"
-
-#, fuzzy
-#~ msgid "Removing old files..."
-#~ msgstr "Wyszukiwanie pakietów..."
-
-#~ msgid "Error installing package: cannot open RPM file for %s: %s"
-#~ msgstr "B³±d instalacji pakietu: nie mogê otworzyæ pliku RPM %s: %s"
-
-#~ msgid "Force supplemental disk"
-#~ msgstr "Wymuszenie dysku supplemental"
-
-#~ msgid "Note"
-#~ msgstr "Notatka"
-
-#~ msgid "Insert your Red Hat CD into your CD drive now"
-#~ msgstr "W³ó¿ Red Hat CD do twojego napêdu"
-
-#~ msgid "I could not mount a CD on device /dev/%s"
-#~ msgstr "Nie mogê zamontowaæ CD w napêdzie /dev/%s"
-
-#~ msgid "That CDROM device does not seem to contain a Red Hat CDROM."
-#~ msgstr "Ten CD-ROM nie zawiera instalacji Red Hat Linux."
-
-#~ msgid "nfs command"
-#~ msgstr "polecenie nfs"
-
-#~ msgid "bad argument to kickstart nfs command %s: %s"
-#~ msgstr "b³êdny argument polecenia nfs kickstart %s: %s"
-
-#~ msgid "nfs command incomplete"
-#~ msgstr "polecenie nfs jest niekompletne"
-
-#, fuzzy
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat PCMCIA disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Nie moge zamontowaæ dyskietki. W³ó¿ dyskietkê Red Hat Supplementary lub "
-#~ "wybierz Anuluj, aby wybraæ inn± metodê instalacji."
-
-#, fuzzy
-#~ msgid "Loading PCMCIA Support"
-#~ msgstr "Wczytywanie wsparcia PCMCIA..."
-
-#~ msgid "Supplemental Disk"
-#~ msgstr "Dysk Supplemental"
-
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Supplementary "
-#~ "Install disk, or choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Nie moge zamontowaæ dyskietki. W³ó¿ dyskietkê Red Hat Supplementary lub "
-#~ "wybierz Anuluj, aby wybraæ inn± metodê instalacji."
-
-#, fuzzy
-#~ msgid "Loading Supplemental Disk..."
-#~ msgstr "Wczytywanie dysku supplemental..."
-
-#, fuzzy
-#~ msgid "Driver Disk"
-#~ msgstr "Podsumowanie napêdu"
-
-#, fuzzy
-#~ msgid ""
-#~ "This install method requires a driver disk. Please remove the supplemental "
-#~ "disk currently in your drive and replace it with the Red Hat Modules disk."
-#~ msgstr ""
-#~ "Ta metoda instalacji wymaga drugiej dyskietki. Wyjmij bootuj±c± dyskietkê i "
-#~ "w³ó¿ dyskietkê Red Hat Supplementary."
-
-#, fuzzy
-#~ msgid ""
-#~ "I failed to mount the floppy. Please insert the Red Hat Module disk, or "
-#~ "choose Cancel to pick a different installation process."
-#~ msgstr ""
-#~ "Nie moge zamontowaæ dyskietki. W³ó¿ dyskietkê Red Hat Supplementary lub "
-#~ "wybierz Anuluj, aby wybraæ inn± metodê instalacji."
-
-#, fuzzy
-#~ msgid ""
-#~ "This install method requires two additional disks. Please remove the boot "
-#~ "disk currently in your drive and replace it with the Red Hat Supplementary "
-#~ "Install disk."
-#~ msgstr ""
-#~ "Ta metoda instalacji wymaga drugiej dyskietki. Wyjmij bootuj±c± dyskietkê i "
-#~ "w³ó¿ dyskietkê Red Hat Supplementary."
-
-#, fuzzy
-#~ msgid "hd command"
-#~ msgstr "polecenie nfs"
-
-#, fuzzy
-#~ msgid "bad argument to kickstart hd command %s: %s"
-#~ msgstr "b³êdny argument polecenia nfs kickstart %s: %s"
-
-#, fuzzy
-#~ msgid "hd command incomplete"
-#~ msgstr "polecenie nfs jest niekompletne"
-
-#~ msgid "Failed to create /tmp/rhimage symlink: %s"
-#~ msgstr "Nie mo¿na utworzyæ linku: %s do /tmp/rhimage"
-
-#, fuzzy
-#~ msgid "url command"
-#~ msgstr "polecenie lilo"
-
-#, fuzzy
-#~ msgid "bad argument to kickstart url command %s: %s"
-#~ msgstr "b³êdny argument polecenia lilo kickstart %s: %s"
-
-#, fuzzy
-#~ msgid "url command incomplete"
-#~ msgstr "polecenie nfs jest niekompletne"
-
-#~ msgid "Mount points must begin with a leading /."
-#~ msgstr "Punkt montowania musi rozpoczynaæ siê /."
-
-#~ msgid "Mount points may not end with a /."
-#~ msgstr "Punkt montowania nie mo¿e koñczyæ sie /."
-
-#~ msgid "Mount points may only printable characters."
-#~ msgstr "Punkt montowania mo¿e zawieraæ jedynie drukowalne znaki."
-
-#~ msgid "System partitions must be on Linux Native partitions."
-#~ msgstr "Partycja systemowa musi byæ na partycji Linux Native."
-
-#~ msgid "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr "/usr musi byæ na pertycji Linux Native lub w katalogu NFS."
-
-#~ msgid "Edit Network Mount Point"
-#~ msgstr "Edycja punktu montowania"
-
-#~ msgid "Running"
-#~ msgstr "Dzia³a"
-
-#, fuzzy
-#~ msgid "nfs mount failed: %s"
-#~ msgstr "b³êdne montowanie: %s"
-
-#~ msgid "mount failed: %s"
-#~ msgstr "b³êdne montowanie: %s"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions it "
-#~ "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
-#~ "to have this done automatically"
-#~ msgstr ""
-#~ "Tabela partycji w urz±dzeniu %s jest uszkodzona. Aby utworzyæ now± partycjê "
-#~ "nale¿y j± zainicjowaæ. Mo¿esz wybraæ \"zerombr yes\" w pliku kickstart aby "
-#~ "zrobiæ to automatycznie"
-
-#~ msgid "Zero Partition Table"
-#~ msgstr "Brak tabeli partycji"
-
-#~ msgid ""
-#~ "bad argument to kickstart zerombr command: %s.\n"
-#~ "Must be 'on', '1', or 'yes' to enable, or 'off', '0', or 'no' to disable."
-#~ msgstr ""
-#~ "z³y argument polecenia zerombr kickstart: %s.\n"
-#~ "Musi byæ 'on', '1' lub 'yes' aby w³±czyæ lub 'off', '0' lub 'no' aby "
-#~ "wy³±czyæ."
-
-#~ msgid "Clear Partition Command"
-#~ msgstr "Polecenie czyszczenia partycji"
-
-#~ msgid "bad argument to kickstart clearpart command %s: %s"
-#~ msgstr "z³y argument polecenia clearpart kickstart %s: %s"
-
-#~ msgid "Partition Command"
-#~ msgstr "Polecenie partycji"
-
-#~ msgid "bad argument to kickstart part command %s: %s"
-#~ msgstr "z³y argument polecenia part kickstart %s: %s"
-
-#~ msgid "Option Ignored"
-#~ msgstr "Zignorowana opcja"
-
-#~ msgid ""
-#~ "The --maxsize option for the partition %s was ignored. Check that it is "
-#~ "larger than the --size option."
-#~ msgstr ""
-#~ "Opcja --maxsize dla partycji %s zosta³a zignorowana. Sprawd¼, ¿e jej warto¶æ "
-#~ "jest wiêksza ni¿ opcji --size."
-
-#~ msgid "The mount point %s is already in use."
-#~ msgstr "Punkt montowania %s ju¿ istnieje."
-
-#~ msgid "Failed Allocation"
-#~ msgstr "B³êdna alokacja"
-
-#~ msgid "The partition %s could not be allocated."
-#~ msgstr "Partycja %s nie mo¿e zostaæ zaalokowana."
-
-#, fuzzy
-#~ msgid "Success"
-#~ msgstr "Poprawne"
-
-#, fuzzy
-#~ msgid "Bad server response"
-#~ msgstr "B³±d odpowiedzi serwera FTP"
-
-#, fuzzy
-#~ msgid "Server IO error"
-#~ msgstr "B³±d IO FTP"
-
-#, fuzzy
-#~ msgid "Server timeout"
-#~ msgstr "Przekroczony czas FTP"
-
-#, fuzzy
-#~ msgid "Unable to lookup server host address"
-#~ msgstr "Nie mogê rozpoznaæ adresu serwera FTP"
-
-#, fuzzy
-#~ msgid "Unable to lookup server host name"
-#~ msgstr "Nie mogê rozpoznaæ nazwy serwera FTP"
-
-#, fuzzy
-#~ msgid "Failed to establish data connection to server"
-#~ msgstr "B³±d podczas ustalania po³±czenia z FTP serwerem"
-
-#~ msgid "IO error to local file"
-#~ msgstr "B³±d IO dla lokalnego pliku"
-
-#~ msgid "Error setting remote server to passive mode"
-#~ msgstr "B³±d podczas ustawienia serwera w tryb passive"
-
-#~ msgid "File not found on server"
-#~ msgstr "Nieznaleziony plik na serwerze"
-
-#, fuzzy
-#~ msgid "Unknown or unexpected error"
-#~ msgstr "Nieznany FTP lub niespodziewany b³±d"
-
-#~ msgid "Whole disk"
-#~ msgstr "Ca³y dysk"
-
-#~ msgid "Linux swap"
-#~ msgstr "Linux swap"
-
-#~ msgid "Linux native"
-#~ msgstr "Linux native"
-
-#~ msgid "DOS 12-bit FAT"
-#~ msgstr "DOS 12-bit FAT"
-
-#~ msgid "DOS 16-bit <32M"
-#~ msgstr "DOS 16-bit <32M"
-
-#~ msgid "DOS 16-bit >=32"
-#~ msgstr "DOS 16-bit >=32"
-
-#~ msgid "OS/2 HPFS"
-#~ msgstr "OS/2 HPFS"
-
-#~ msgid "Win95 FAT32"
-#~ msgstr "Win95 FAT32"
-
-#~ msgid "Scanning hard drives..."
-#~ msgstr "Wyszukiwanie dysków twardych..."
-
-#~ msgid ""
-#~ "You don't have any hard drives available! You probably forgot to configure a "
-#~ "SCSI controller."
-#~ msgstr ""
-#~ "Nie masz ¿adnych dostêpnych dysków! Prawdopodobnie zapomnia³e¶ skonfigurowaæ "
-#~ "kontrolera SCSI."
-
-#, fuzzy
-#~ msgid ""
-#~ "To install Red Hat Linux, you must have at least one partition of 150 MB "
-#~ "dedicated to Linux."
-#~ msgstr ""
-#~ "Aby zainstalowaæ Red Hat Linux musisz posiadaæ co najmniej 150MB partycjê."
-
-#~ msgid "Partition Disks"
-#~ msgstr "Partycja dysków"
-
-#~ msgid "Reboot Needed"
-#~ msgstr "Wymagane prze³adowanie systemu"
-
-#~ msgid ""
-#~ "The kernel is unable to read your new partitioning information, probably "
-#~ "because you modified extended partitions. While this is not critical, you "
-#~ "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
-#~ "and press Return to reboot your system.\n"
-#~ "\n"
-#~ "If you have a ZIP or JAZ drive, make sure there is a disk in the drive as an "
-#~ "empty SCSI drive can also cause this problem."
-#~ msgstr ""
-#~ "J±dro systemu nie mo¿e przeczytaæ informacji o nowej partycji, "
-#~ "prawdopodobnie zosta³a zmodyfikowana rozszerzona partycja. Nie jest to du¿y "
-#~ "problem jednak musisz prze³adowaæ system. W tym celu w³ó¿ dyskietkê "
-#~ "bootuj±c± z Red Hat Linux i naci¶nij Enter.\n"
-#~ "\n"
-#~ "Je¿eli posiadasz napêd ZIP lub JAZ, sprawd¼ czy dysk jest w napêdzie. Pusty "
-#~ "napêd SCSI mo¿e tak¿e powodowaæ powstanie tego komunikatu."
-
-#~ msgid "lilo command"
-#~ msgstr "polecenie lilo"
-
-#~ msgid "bad argument to kickstart lilo command %s: %s"
-#~ msgstr "b³êdny argument polecenia lilo kickstart %s: %s"
-
-#~ msgid "PCMCIA Support"
-#~ msgstr "Wsparcie PCMCIA"
-
-#, fuzzy
-#~ msgid ""
-#~ "Do you need to use PCMCIA devices during the install? Answer no to this "
-#~ "question if only need PCMCIA support after the install. You do not need "
-#~ "install-time PCMCIA support if you are installing Red Hat Linux on a laptop "
-#~ "with a built-in CDROM drive."
-#~ msgstr ""
-#~ "Czy potrzebujesz u¿yæ PCMCIA podczas instalacji? Odpowiedz nie je¿eli "
-#~ "wsparcie PCMCIA jest potrzebne dopiero po instalacji. Nie potrzebujesz "
-#~ "wsparcia PCMCIA je¿eli instalujesz Red Hat z wbudowanego napêdu CD-ROM."
-
-#, fuzzy
-#~ msgid "PCMCIA Support Disk"
-#~ msgstr "Wsparcie PCMCIA"
-
-#, fuzzy
-#~ msgid ""
-#~ "PCMCIA support requires a PCMCIA support disk. Please remove the boot disk "
-#~ "currently in your drive and replace it with the Red Hat PCMCIA support disk."
-#~ msgstr ""
-#~ "Ta metoda instalacji wymaga drugiej dyskietki. Wyjmij bootuj±c± dyskietkê i "
-#~ "w³ó¿ dyskietkê Red Hat Supplementary."
-
-#~ msgid "Starting PCMCIA services..."
-#~ msgstr "Startowanie us³ug PCMCIA..."
-
-#~ msgid ""
-#~ "\n"
-#~ "\n"
-#~ "Type <exit> to return to the install program.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "\n"
-#~ "\n"
-#~ "Napisz <exit> aby wróciæ do programu instalacyjnego.\n"
-#~ "\n"
-
-#~ msgid "No kickstart configuration file server can be found."
-#~ msgstr "Nie znaleziono pliku konfiguracyjnego kickstart."
-
-#~ msgid "I could not mount the kickstart path %s.\n"
-#~ msgstr "Nie mogê zamontowaæ katalogu kickstart %s.\n"
-
-#~ msgid "I could not mount the boot floppy."
-#~ msgstr "Nie mogê zamontowaæ dyskietki bootuj±cej."
-
-#~ msgid "Error opening files for kickstart copy: %s\n"
-#~ msgstr "B³±d otwarcia pliku dla kopii kickstart: %s\n"
-
-#~ msgid "Error copying kickstart file from floppy."
-#~ msgstr "B³±d kopiowania pliku kickstart z dyskietki."
-
-#~ msgid "Select installation path"
-#~ msgstr "Wprowad¼ ¶cie¿kê instalacyjn±"
-
-#~ msgid "Select installation class"
-#~ msgstr "Wybierz klasê instalacji"
-
-#~ msgid "Setup SCSI"
-#~ msgstr "Ustawienia SCSI"
-
-#~ msgid "Setup swap space"
-#~ msgstr "Ustawienia obszaru swap"
-
-#~ msgid "Find installation files"
-#~ msgstr "Szukanie plików instalacyjnych"
-
-#~ msgid "Choose packages to install"
-#~ msgstr "Wybierz pakiety do instalacji"
-
-#~ msgid "Configure networking"
-#~ msgstr "Konfiguracja sieci"
-
-#~ msgid "Configure timezone"
-#~ msgstr "Konfiguracja strefy czasowej"
-
-#~ msgid "Configure services"
-#~ msgstr "Konfiguracja us³ug"
-
-#~ msgid "Configure printer"
-#~ msgstr "Konfiguracja drukarki"
-
-#, fuzzy
-#~ msgid "Exit install"
-#~ msgstr "Instalacja"
-
-#~ msgid "Find current installation"
-#~ msgstr "Szukanie aktualnej instalacji"
-
-#~ msgid "Scanning packages..."
-#~ msgstr "Wyszukiwanie pakietów..."
-
-#~ msgid "Install log"
-#~ msgstr "Log instalacyjny"
-
-#~ msgid "Upgrade log"
-#~ msgstr "Log uaktualnienia"
-
-#~ msgid ""
-#~ "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
-#~ "is finished. After rebooting, please read it to ensure configuration files "
-#~ "are properly updated."
-#~ msgstr ""
-#~ "Kompletny log twojego uaktualnienia bêdzie znajdowa³ siê w "
-#~ "/tmp/upgrade.log.Po ponownym prze³adowaniu systemu przeczytaj ten plik czy "
-#~ "system zosta³ poprawnie uaktualniony."
-
-#~ msgid "rootpw command"
-#~ msgstr "polecenie rootpw"
-
-#~ msgid "bad argument to kickstart rootpw command %s: %s"
-#~ msgstr "b³êdny argument polecenia rootpw kickstart %s: %s"
-
-#~ msgid "Unexpected arguments"
-#~ msgstr "Niespodziewany argument"
-
-#~ msgid "Installation Path"
-#~ msgstr "¦cie¿ka instalacyjna"
-
-#~ msgid ""
-#~ "Would you like to install a new system or upgrade a system which already "
-#~ "contains Red Hat Linux 2.0 or later?"
-#~ msgstr ""
-#~ "Czy chcesz zainstalowaæ nowy system czy uaktualniæ zawieraj±cy ju¿ Red Hat "
-#~ "Linux 2.0 lub pó¼niejszy?"
-
-#~ msgid ""
-#~ "What type of machine are you installing? For maximum flexibility, choose "
-#~ "\"Custom\"."
-#~ msgstr ""
-#~ "Na jakim typie maszyny chcesz zainstalowaæ system? Dla wiêkszo¶ci przypadków "
-#~ "wybierz \"Normalny\"."
-
-#~ msgid "Converting RPM database..."
-#~ msgstr "Konwertowanie bazy RPM..."
-
-#~ msgid "Previous"
-#~ msgstr "Poprzedni"
-
-#~ msgid "Menu"
-#~ msgstr "Menu"
-
-#~ msgid ""
-#~ "An error occured during step \"%s\" of the install.\n"
-#~ "\n"
-#~ "You may retry that step, return to the previous step in the install, or see "
-#~ "a menu of installation steps which will allow you to move around in the "
-#~ "install more freely. It is not recommended to use the menu unless you are "
-#~ "already familiar with Red Hat Linux. What would you like to do?"
-#~ msgstr ""
-#~ "B³±d w kroku \"%s\" podczas instalacji.\n"
-#~ "\n"
-#~ "Mo¿esz ponowiæ ten krok, wróciæ do poprzedniego kroku instalacji lub wybraæ "
-#~ "inny krok z menu. Nie jest zalecane u¿ycie menu je¿eli nie jeste¶ obeznany z "
-#~ "Red Hat Linux. Co wybierasz?"
-
-#~ msgid "  Continue with install"
-#~ msgstr "  Kontynuacja instalacji"
-
-#~ msgid ""
-#~ "What step would you like to run? Steps with a * next to them have already "
-#~ "been completed."
-#~ msgstr "Jaki krok chcesz wykonaæ? Kroki z * zosta³y ju¿ wykonane w ca³o¶ci."
-
-#~ msgid "Insert a blank floppy in the first drive /dev/fd0."
-#~ msgstr "W³ó¼ czyst± dyskietkê do napêdu /dev/fd0."
-
-#, fuzzy
-#~ msgid "error reading from file %s: %s"
-#~ msgstr "b³±d nag³ówka pliku: %s"
-
-#, fuzzy
-#~ msgid "Copying kernel from floppy..."
-#~ msgstr "B³±d kopiowania pliku kickstart z dyskietki."
-
-#~ msgid "Unknown command %s on line %d of kickstart file %s."
-#~ msgstr "Nierozpoznane polecenie %s w linii %d w pliku kickstart %s."
-
-#~ msgid "Failed to create /mnt/tmp/ks.script: %s"
-#~ msgstr "B³±d podczas tworzenia /mnt/tmp/ks.script: %s"
-
-#~ msgid "Failed to write ks post script: %s"
-#~ msgstr "B³±d zapisu skryptu: %s"
-
-#~ msgid "Failed to create symlink for package source."
-#~ msgstr "B³±d tworzenia linku symbolicznego do ¼róde³ pakietu."
-
-#~ msgid "ftp"
-#~ msgstr "ftp"
-
-#, fuzzy
-#~ msgid "I'm having trouble getting %s. Would you like to retry?"
-#~ msgstr "Mam problem z pobraniem %s. Mam kontynuowaæ?"
-
-#, fuzzy
-#~ msgid "SILO"
-#~ msgstr "LILO"
-
-#~ msgid "LILO"
-#~ msgstr "LILO"
-
-#~ msgid "Creating initial ramdisk..."
-#~ msgstr "Tworzenie inicjacyjnego ramdysku..."
-
-#~ msgid "Device:"
-#~ msgstr "Urz±dzenie:"
-
-#~ msgid "Boot label:"
-#~ msgstr "Etykieta bootowa:"
-
-#~ msgid "Installing boot loader..."
-#~ msgstr "Instalacja bootloadera..."
-
-#~ msgid "Bootable Partitions"
-#~ msgstr "Partycje bootuj±ce"
-
-#~ msgid ""
-#~ "What partitions would you like to use for swap space? This will destroy any "
-#~ "information already on the partition."
-#~ msgstr ""
-#~ "Jak± partycjê chcesz u¿yæ jako partycjê swap? To mo¿e zniszczyæ wszyskie "
-#~ "dane jakie mog± znajdowaæ sie na tej partycji."
-
-#~ msgid "Active Swap Space"
-#~ msgstr "Uaktywnienie obszaru swap"
-
-#~ msgid "Could not mount automatically selected device."
-#~ msgstr "Nie mo¿na automatycznie zamontowaæ wyszczególnionych napêdów."
-
-#~ msgid "Cannot read /mnt/etc/fstab: %s"
-#~ msgstr "Nie mogê przeczytaæ /mnt/etc/fstab: %s"
-
-#~ msgid "Bad line in /mnt/etc/fstab -- aborting"
-#~ msgstr "B³±d w pliku /mnt/etc/fstab -- przerwane"
-
-#~ msgid "Ethernet Probe"
-#~ msgstr "Test Ethernetu"
-
-#~ msgid ""
-#~ "The Ethernet probe failed to find a card on your system. Press <Enter> to "
-#~ "manually configure one."
-#~ msgstr ""
-#~ "Test Ethernetu zakoñczy³ siê z b³êdem, nie mogê znale¼æ karty w twoim "
-#~ "systemie. Naci¶nij <Enter> i rêcznie j± skonfiguruj."
-
-#~ msgid "Static IP address"
-#~ msgstr "Statyczny IP adres"
-
-#~ msgid "BOOTP"
-#~ msgstr "BOOTP"
-
-#~ msgid "DHCP"
-#~ msgstr "DHCP"
-
-#~ msgid "kickstart network command is missing ip address"
-#~ msgstr "polecenie network kickstart wykry³ b³êdny ip adres"
-
-#~ msgid ""
-#~ "How should the IP information be set? If your system administrator gave you "
-#~ "an IP address, choose static IP."
-#~ msgstr ""
-#~ "Jak powinna byæ ustawiona IP informacja? Je¿eli twój administrator poda³ Ci  "
-#~ "IP adres wybierz statyczny IP."
-
-#~ msgid "Sending BOOTP request..."
-#~ msgstr "Wysy³anie ¿±dania BOOTP..."
-
-#~ msgid "Cannot create %s: %s\n"
-#~ msgstr "Nie mogê utworzyæ %s: %s\n"
-
-#~ msgid "cannot create network device config file: %s"
-#~ msgstr "nie mogê utworzyæ konfiguracji urz±dzenia sieciowego: %s"
-
-#~ msgid "cannot open file: %s"
-#~ msgstr "nie mogê otworzyæ pliku: %s"
-
-#~ msgid ""
-#~ "I cannot automatically determine the hostname. Press <Enter> to enter "
-#~ "hostname information."
-#~ msgstr ""
-#~ "Nie mogê automatycznie wykryæ nazwy hosta. Naci¶niej <Enter> aby wprowadziæ "
-#~ "nazwê hosta."
-
-#~ msgid ""
-#~ "Please enter your domain name, host name, and the IP addresses of any "
-#~ "additional nameservers. Your host name should be a fully-qualified host "
-#~ "name, such as mybox.mylab.myco.com. If you don't have any additional "
-#~ "nameservers, leave the nameserver entries blank."
-#~ msgstr ""
-#~ "Wpisz nazwê domeny, nazwê hosta oraz IP adresy dodatkowych serwerów nazw. "
-#~ "Nazwa twojego hosta powinna zawieraæ pe³n± nazwê np. mybox.mylab.myco.com. "
-#~ "Je¿eli nie posiadasz dodatkowych serwerów nazw, pozostaw odpowiednie pola "
-#~ "puste."
-
-#~ msgid "Host name:"
-#~ msgstr "Nazwa hosta:"
-
-#~ msgid "Secondary nameserver (IP):"
-#~ msgstr "Drugi serwer nazw (IP):"
-
-#~ msgid "Tertiary nameserver (IP):"
-#~ msgstr "Trzeci serwer nazw (IP):"
-
-#~ msgid "Configure Network"
-#~ msgstr "Konfiguracja sieci"
-
-#~ msgid "Keep the current IP configuration"
-#~ msgstr "Zachowaj aktualn± konfiguracjê IP"
-
-#~ msgid "Reconfigure network now"
-#~ msgstr "Przekonfiguruj sieæ"
-
-#~ msgid "LAN networking has already been configured. Do you want to:"
-#~ msgstr "LAN jest ju¿ skonfigurowany. Czy chcesz:"
-
-#~ msgid ""
-#~ "Do you want to configure LAN (not dialup) networking for your installed "
-#~ "system?"
-#~ msgstr "Czy chcesz konfigurowaæ LAN dla twojego systemu?"
-
-#~ msgid "Cannot open components file: %s"
-#~ msgstr "Nie mogê otworzyæ elementu pliku: %s"
-
-#~ msgid "Cannot read components file: %s"
-#~ msgstr "Nie mogê przeczytaæ komponentu pliku: %s"
-
-#~ msgid "Comps file is not version 0.1 as expected"
-#~ msgstr "Plik comps nie zawiera wersji 0.1 tak jak siê spodziewano"
-
-#~ msgid "bad comps file at line %d"
-#~ msgstr "b³êdna nazwa w pliku comps w lini %d"
-
-#~ msgid "comps Error"
-#~ msgstr "b³±d comps"
-
-#~ msgid "missing component name at line %d"
-#~ msgstr "b³êdna nazwa komponentu w lini %d"
-
-#~ msgid "package %s at line %d does not exist"
-#~ msgstr "nie istnieje pakiet %s w lini %d"
-
-#~ msgid "Component %s does not exist.\n"
-#~ msgstr "Komponent %s nie istnieje.\n"
-
-#~ msgid "Package %s does not exist.\n"
-#~ msgstr "Pakiet %s nie istnieje.\n"
-
-#~ msgid "Choose components to install:"
-#~ msgstr "Wybierz komponenty do instalacji:"
-
-#, fuzzy
-#~ msgid "Choose a group to examine"
-#~ msgstr "Wybierz grupê do spawdzenia:"
-
-#~ msgid "Select Group"
-#~ msgstr "Wybierz grupê"
-
-#~ msgid "(none available)"
-#~ msgstr "(niedostêpny)"
-
-#~ msgid "Package:"
-#~ msgstr "Pakiet :"
-
-#~ msgid "Upgrade Packages"
-#~ msgstr "Uaktualnienie pakietów"
-
-#~ msgid "<F1> will give you information on a particular printer type"
-#~ msgstr "<F1> informacja o konkretnym typie drukarki"
-
-#~ msgid "Configure Printer"
-#~ msgstr "Konfiguracja drukarki"
-
-#~ msgid "<F1> will give you information on this printer driver."
-#~ msgstr "<F1> wy¶wietlenie informacji dla danego sterownika drukarki"
-
-#~ msgid ""
-#~ "You may now configure the paper size and resolution for this printer."
-#~ msgstr "Mo¿esz podaæ rozmiar papieru oraz rodzielczo¶æ dla tej drukarki."
-
-#~ msgid "Paper Size"
-#~ msgstr "Rozmiar papieru"
-
-#~ msgid "Resolution"
-#~ msgstr "Rozdzielczo¶æ"
-
-#~ msgid "Fix stair-stepping of text?"
-#~ msgstr "Ustawiæ antialiasing dla tekstu?"
-
-#~ msgid "You may now configure the color options for this printer."
-#~ msgstr "Mo¿esz wyspecyfikowaæ opcje kolorów dla tej drukarki."
-
-#, fuzzy
-#~ msgid "You may now configure the uniprint options for this printer."
-#~ msgstr "Mo¿esz wyspecyfikowaæ opcje kolorów dla tej drukarki."
-
-#~ msgid "Configure Color Depth"
-#~ msgstr "Konfiguracja g³êbi kolorów"
-
-#, fuzzy
-#~ msgid "Configure Uniprint Driver"
-#~ msgstr "Konfiguracja drukarki"
-
-#~ msgid ""
-#~ "What device is your printer connected to (note that /dev/lp0 is equivalent "
-#~ "to LPT1:)?"
-#~ msgstr ""
-#~ "Do jakiego urz±dzenia jest pod³±czona drukarka (/dev/lp0 jest równoznaczne z "
-#~ "LPT1:)?"
-
-#~ msgid ""
-#~ "Auto-detected ports:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Autodetekcja portów:\n"
-#~ "\n"
-
-#~ msgid "Not "
-#~ msgstr "Nie "
-
-#~ msgid "Detected\n"
-#~ msgstr "Rozpoznane\n"
-
-#~ msgid "Printer Device:"
-#~ msgstr "Urz±dzenie drukarki:"
-
-#~ msgid "Local Printer Device"
-#~ msgstr "Lokalne urz±dzenie drukarki"
-
-#~ msgid "Remote hostname:"
-#~ msgstr "Nazwa zdalnego hosta:"
-
-#~ msgid "Remote queue:"
-#~ msgstr "Zdalna kolejka:"
-
-#~ msgid "Remote lpd Printer Options"
-#~ msgstr "Opcje dla zdalnej drukarki lpd"
-
-#~ msgid ""
-#~ "To use a remote lpd print queue, you need to supply the hostname of the "
-#~ "printer server and the queue name on that server which jobs should be placed "
-#~ "in."
-#~ msgstr ""
-#~ "Aby u¿yc zdalnej kolejki lpd musisz podaæ nazwê hosta oraz nazwê kolejki, w "
-#~ "której bêd± umieszczane wydruki."
-
-#, fuzzy
-#~ msgid "Printer Server:"
-#~ msgstr "Sterownik drukarki:"
-
-#, fuzzy
-#~ msgid "Print Queue Name:"
-#~ msgstr "Typ drukarki:"
-
-#, fuzzy
-#~ msgid "NetWare Printer Options"
-#~ msgstr "Standardowe opcje drukarki"
-
-#, fuzzy
-#~ msgid ""
-#~ "To print to a NetWare printer, you need to provide the NetWare print server "
-#~ "name (this is not always the same as the machines TCP/IP hostname) as well "
-#~ "as the print queue name for the printer you wish to access and any "
-#~ "applicable user name and password."
-#~ msgstr ""
-#~ "Aby drukowaæ za pomoc± LAN managera musisz podaæ nazwê LAN managera "
-#~ "(niekiedy nie jest to ta sama nazwa co TCP/IP host) i prawdopodobnie IP "
-#~ "adres serwera druku, nazwê zasobu oraz nazwê u¿ytkownika i has³o."
-
-#, fuzzy
-#~ msgid "SMB server host:"
-#~ msgstr "Nazwa serwera SMB:"
-
-#, fuzzy
-#~ msgid "SMB server IP:"
-#~ msgstr "Nazwa serwera SMB:"
-
-#~ msgid "Share name:"
-#~ msgstr "Nazwa zasobu:"
-
-#, fuzzy
-#~ msgid "SMB/Windows 95/NT Printer Options"
-#~ msgstr "Standardowe opcje drukarki"
-
-#, fuzzy
-#~ msgid ""
-#~ "To print to a SMB printer, you need to provide the SMB host name (this is "
-#~ "not always the same as the machines TCP/IP hostname) and possibly the IP "
-#~ "address of the print server, as well as the share name for the printer you "
-#~ "wish to access and any applicable user name, password, and workgroup "
-#~ "information."
-#~ msgstr ""
-#~ "Aby drukowaæ za pomoc± LAN managera musisz podaæ nazwê LAN managera "
-#~ "(niekiedy nie jest to ta sama nazwa co TCP/IP host) i prawdopodobnie IP "
-#~ "adres serwera druku, nazwê zasobu oraz nazwê u¿ytkownika i has³o."
-
-#~ msgid "Spool directory:"
-#~ msgstr "Katalog spool:"
-
-#~ msgid "Standard Printer Options"
-#~ msgstr "Standardowe opcje drukarki"
-
-#~ msgid ""
-#~ "Every print queue (which print jobs are directed to) needs a name (often lp) "
-#~ "and a spool directory associated with it. What name and directory should be "
-#~ "used for this queue?"
-#~ msgstr ""
-#~ "Ka¿da kolejka drukarki potrzebuje nazwy (najczê¶niej lp) oraz katalogu "
-#~ "spool. Jaka nazwa i katalog powinny byæ u¿yte dla tej kolejki?"
-
-#~ msgid "Would you like to add another printer?"
-#~ msgstr "Czy chcesz dodaæ nastêpn± drukarkê?"
-
-#~ msgid "How is this printer connected?"
-#~ msgstr "Jak jest po³±czona drukarka?"
-
-#~ msgid "Printer type:"
-#~ msgstr "Typ drukarki:"
-
-#~ msgid "Queue:"
-#~ msgstr "Kolejka:"
-
-#~ msgid "Printer device:"
-#~ msgstr "Urz±dzenie drukarki:"
-
-#~ msgid "Remote host:"
-#~ msgstr "Zdalny host:"
-
-#~ msgid "Share:"
-#~ msgstr "Zasób:"
-
-#~ msgid "Printer driver:"
-#~ msgstr "Sterownik drukarki:"
-
-#~ msgid "Resolution:"
-#~ msgstr "Rozdzielczo¶æ:"
-
-#, fuzzy
-#~ msgid "Uniprint driver:"
-#~ msgstr "Sterownik drukarki:"
-
-#~ msgid ""
-#~ "Please verify that this printer information is correct:\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Sprawd¼ czy informacja o drukarce jest poprawna:\n"
-#~ "\n"
-
-#~ msgid "Printer device"
-#~ msgstr "Urz±dzenie drukarki"
-
-#~ msgid "Verify Printer Configuration"
-#~ msgstr "Weryfikacja konfiguracji drukarki"
-
-#~ msgid ""
-#~ "\n"
-#~ "Do you have any more SCSI adapters on your system?"
-#~ msgstr ""
-#~ "\n"
-#~ "Czy masz jakie¶ inne sterowniki SCSI?"
-
-#~ msgid "Do you have any SCSI adapters?"
-#~ msgstr "Czy masz jaki¶ sterownik SCSI?"
-
-#, fuzzy
-#~ msgid "SMB server name  :"
-#~ msgstr "Nazwa NFS serwera:"
-
-#~ msgid "Share volume     :"
-#~ msgstr "Nazwa zasobu     :"
-
-#~ msgid "Account name     :"
-#~ msgstr "Nazwa konta      :"
-
-#~ msgid "Password         :"
-#~ msgstr "Has³o            :"
-
-#~ msgid ""
-#~ "Please enter the following information:\n"
-#~ "\n"
-#~ "    o the name or IP number of your SMB server\n"
-#~ "    o the volume to share which contains\n"
-#~ "      Red Hat Linux for your architecture"
-#~ msgstr ""
-#~ "Wprowad¼ nastêpuj±ce informacje:\n"
-#~ "\n"
-#~ "    o nazwê lub IP adres serwera SMB\n"
-#~ "    o katalog dzielony z zawarto¶ci±\n"
-#~ "      Red Hat Linux dla twojej architektury"
-
-#, fuzzy
-#~ msgid "Password for %s@%s: "
-#~ msgstr "Has³o:"
-
-#, fuzzy
-#~ msgid "failed to create %s\n"
-#~ msgstr "Nie mogê utworzyæ %s: %s\n"
-
-#~ msgid "open of %s failed: %s\n"
-#~ msgstr "otwarcie %s z b³êdem: %s\n"
-
-#, fuzzy
-#~ msgid ""
-#~ "Error transferring file %s:\n"
-#~ "%s"
-#~ msgstr "B³±d otwarcia pliku kickstart %s: %s"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  The "
-#~ "error was:"
-#~ msgstr ""
-#~ "Znaleziono b³±d podczas czytania tabeli partycji w urz±dzeniu %s. B³±d: "
-
-#~ msgid "LAN manager host:"
-#~ msgstr "Nazwa LAN managera:"
-
-#~ msgid "LAN manager IP:"
-#~ msgstr "LAN manager IP:"
-
-#~ msgid "LAN Manager Printer Options"
-#~ msgstr "Opcje drukarki LAN managera"
-
-#~ msgid "LAN Manager"
-#~ msgstr "LAN manager"
-
-#~ msgid "RPM install of %s failed: %s"
-#~ msgstr "B³êdna instalacja RPM %s: %s"
-
-#~ msgid "<F1> will show you a size and description of a package"
-#~ msgstr "<F1> umo¿liwi pokazanie rozmiaru i opisu pakietu"
-
-#~ msgid "Size of all selected packages:"
-#~ msgstr "Rozmiar wybranych pakietów:"
-
-#~ msgid "Select Packages"
-#~ msgstr "Wybierz pakiety"
-
-#~ msgid "I cannot get file %s: %s\n"
-#~ msgstr "Nie mogê otrzymaæ pliku %s: %s\n"
-
-#~ msgid "I cannot log into machine: %s\n"
-#~ msgstr "Nie mogê siê zalogowaæ do maszyny: %s\n"
-
-#~ msgid ""
-#~ "Would you like to install or configure the SILO bootloader on your system?"
-#~ msgstr ""
-#~ "Czy chcesz zainstalowaæ i skonfigurowaæ bootloader SILO w twoim systemie?"
+msgstr "£adowanie sterownika SCSI"
