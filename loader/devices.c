@@ -1,14 +1,18 @@
 #include <alloca.h>
 #include <ctype.h>
+#include <fcntl.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "devices.h"
+#include "isys/imount.h"
 #include "../isys/isys.h"
 #include "lang.h"
 #include "loader.h"
+#include "misc.h"
 #include "modules.h"
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
@@ -21,6 +25,7 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     char ** args;
     int argc;
     int rc;
+    char * text;
 
     entries = alloca(sizeof(*entries) * (mod->numArgs + 2));
     values = alloca(sizeof(*values) * (mod->numArgs + 2));
@@ -51,11 +56,14 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
 
     entries[i].text = (void *) entries[i].value = NULL;
 
-    rc = newtWinEntries(_("Module Parameters"), _("This module can take "
-		    "parameters which affects its operation. If you don't "
-		    "know what parameters to supply, just skip this "
-		    "screen by pressing the \"OK\" button now."),
-		    40, 5, 15, 20, entries, _("OK"), _("Back"), NULL);
+    text = _("This module can take parameters which affects its "
+		    "operation. If you don't know what parameters to supply, "
+		    "just skip this screen by pressing the \"OK\" button "
+		    "now.");
+
+    rc = newtWinEntries(_("Module Parameters"), text,
+		        40, 5, 15, 20, entries, _("OK"), 
+		        _("Back"), NULL);
 
     if (rc == 2) {
         for (i = 0; i < numArgs; i++)
@@ -109,50 +117,144 @@ static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     return 0;
 }
 
-static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
-		      moduleList modLoaded, struct moduleInfo * suggestion,
-		      struct moduleInfo ** modp, int * specifyParams) {
-    int i;
-    newtComponent form, text, listbox, answer, checkbox, ok, back;
-    newtGrid buttons, grid, subgrid;
-    char specifyParameters = *specifyParams ? '*' : ' ';
+#define CDD_MOUNT_FAILED    1
+#define CDD_BAD_DISK	    2
+static int copyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded, 
+			  moduleDeps modDeps, int flags) {
+    char * files[] = { "modules.cgz", "modinfo", "modules.dep", NULL };
+    char * dirName;
+    char ** file;
+    int badDisk = 0;
+    static int diskNum = 0;
+    char from[200], to[200];
 
-    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?"),
-				20, 0, 10, 0);
-    listbox = newtListbox(-1, -1, 6, NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
-    for (i = 0; i < modInfo->numModules; i++) {
-	if (modInfo->moduleList[i].major == type && 
-	    !mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
-	    newtListboxAppendEntry(listbox, modInfo->moduleList[i].description,
-				   (void *) i);
-	    if (modp && (modInfo->moduleList + i) == *modp)
-		newtListboxSetCurrentByKey(listbox, (void *) i);
-	}
+    devMakeInode("fd0", "/tmp/fd0");
+
+    if (doPwMount("/tmp/fd0", "/tmp/drivers", "vfat", 1, 0, NULL, NULL))
+	return CDD_BAD_DISK;
+
+    if (access("/tmp/drivers/rhdd-6.1", R_OK))
+	badDisk = 1;
+
+    dirName = malloc(80);
+    sprintf(dirName, "/tmp/DD-%d", diskNum);
+    mkdir(dirName, 0755);
+    for (file = files; *file; file++) {
+	sprintf(from, "/tmp/drivers/%s", *file);
+	sprintf(to, "%s/%s", dirName, *file);
+
+	if (copyFile(from, to))
+	    badDisk = 1;
     }
 
-    buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
-    checkbox = newtCheckbox(-1, -1, _("Specify module parameters"),
-			    specifyParameters, NULL, &specifyParameters);
-    subgrid = newtGridVStacked(NEWT_GRID_COMPONENT, listbox,
-			       NEWT_GRID_COMPONENT, checkbox, NULL);
-    grid = newtGridBasicWindow(text, subgrid, buttons);
+    umount("/tmp/drivers");
 
-    newtGridWrappedWindow(grid, _("Devices"));
+    if (badDisk) {
+	return CDD_BAD_DISK;
+    }
 
-    form = newtForm(NULL, NULL, 0);
-    newtGridAddComponentsToForm(grid, form, 1);
+    sprintf(from, "%s/modinfo", dirName);
+    isysReadModuleInfo(from, modInfo, dirName);
+    sprintf(from, "%s/modules.dep", dirName);
+    mlLoadDeps(&modDeps, from);
 
-    answer = newtRunForm(form);
-    newtPopWindow();
+    diskNum++;
 
-    i = (int) newtListboxGetCurrent(listbox);
+    return 0;
+}
 
-    newtGridFree(grid, 1);
-    newtFormDestroy(form);
+static int setupDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
+			   moduleDeps modDeps, int flags) {
+    int rc;
 
-    if (answer == back) return LOADER_BACK;
-    
+    rc = newtWinChoice(_("Devices"), _("OK"), _("Back"),
+	    _("Insert your driver disk and press \"OK\" to continue."));
+
+    if (rc == 2) return LOADER_BACK;
+
+    rc = copyDriverDisk(modInfo, modLoaded, modDeps, flags);
+
+    if (rc == CDD_MOUNT_FAILED)
+	newtWinMessage(_("Error"), _("OK"), _("Failed to mount floppy disk."));
+    else if (rc)
+	newtWinMessage(_("Error"), _("OK"),
+	    _("The floppy disk you inserted is not a valid driver disk "
+	      "for this release of Red Hat Linux."));
+
+    return 0;
+}
+
+static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
+		      moduleList modLoaded, moduleDeps modDeps, 
+		      struct moduleInfo * suggestion,
+		      struct moduleInfo ** modp, int * specifyParams,
+		      int flags) {
+    int i;
+    newtComponent form, text, listbox, checkbox, ok, back;
+    newtGrid buttons, grid, subgrid;
+    char specifyParameters = *specifyParams ? '*' : ' ';
+    struct newtExitStruct es;
+
+    do {
+	if (FL_EXPERT(flags) || FL_NOPROBE(flags)) {
+	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
+		    "If the driver you need does not appear in this list, and "
+		    "you have a separate driver disk, please press F2."),
+					30, 0, 10, 0);
+	} else {
+	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?"),
+					20, 0, 10, 0);
+	}
+
+	listbox = newtListbox(-1, -1, 6, 
+			NEWT_FLAG_SCROLL | NEWT_FLAG_RETURNEXIT);
+
+	buttons = newtButtonBar(_("OK"), &ok, _("Back"), &back, NULL);
+	checkbox = newtCheckbox(-1, -1, _("Specify module parameters"),
+				specifyParameters, NULL, &specifyParameters);
+
+	form = newtForm(NULL, NULL, 0);
+
+	if (FL_EXPERT(flags) || FL_NOPROBE(flags))
+	    newtFormAddHotKey(form, NEWT_KEY_F2);
+
+	for (i = 0; i < modInfo->numModules; i++) {
+	    if (modInfo->moduleList[i].major == type && 
+		!mlModuleInList(modInfo->moduleList[i].moduleName, modLoaded)) {
+		newtListboxAppendEntry(listbox, 
+				       modInfo->moduleList[i].description,
+				       (void *) i);
+		if (modp && (modInfo->moduleList + i) == *modp)
+		    newtListboxSetCurrentByKey(listbox, (void *) i);
+	    }
+	}
+
+	subgrid = newtGridVStacked(NEWT_GRID_COMPONENT, listbox,
+				   NEWT_GRID_COMPONENT, checkbox, NULL);
+	grid = newtGridBasicWindow(text, subgrid, buttons);
+	newtGridAddComponentsToForm(grid, form, 1);
+	newtGridWrappedWindow(grid, _("Devices"));
+
+	newtFormRun(form, &es);
+
+	i = (int) newtListboxGetCurrent(listbox);
+
+	newtGridFree(grid, 1);
+	newtFormDestroy(form);
+	newtPopWindow();
+
+	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
+	    return LOADER_BACK;
+	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
+	    setupDriverDisk(modInfo, modLoaded, modDeps, flags);
+	    continue;
+	} else {
+	    break;
+	}
+    } while (1);
+
     *specifyParams = (specifyParameters != ' ');
     *modp = modInfo->moduleList + i;
 
@@ -171,8 +273,8 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
     while (stage != S_DONE) {
     	switch (stage) {
 	  case S_MODULE:
-	    if ((rc = pickModule(modInfo, type, modLoaded, mod, &mod, 
-				 &specifyArgs)))
+	    if ((rc = pickModule(modInfo, type, modLoaded, modDeps, mod, &mod, 
+				 &specifyArgs, flags)))
 		return LOADER_BACK;
 	    stage = S_ARGS;
 	    break;
@@ -196,7 +298,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	scsiWindow(mod->moduleName);
 	sleep(1);
     }
-    rc = mlLoadModule(mod->moduleName, modLoaded, modDeps, args,
+    rc = mlLoadModule(mod->moduleName, mod->path, modLoaded, modDeps, args,
 		      FL_TESTING(flags));
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 

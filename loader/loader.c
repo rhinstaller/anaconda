@@ -48,6 +48,7 @@
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
+#include "misc.h"
 #include "modules.h"
 #include "net.h"
 #include "pcmcia.h"
@@ -345,7 +346,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    printf("%s\n", modList[i]->moduleName);
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
-			mlLoadModule(modList[i]->moduleName, modLoaded, 
+			mlLoadModule(modList[i]->moduleName, NULL, modLoaded, 
 				     modDeps, NULL, flags);
 		    }
 		}
@@ -356,8 +357,8 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    startNewt(flags);
 
 		    scsiWindow(modList[i]->moduleName);
-		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 NULL, flags);
+		    mlLoadModule(modList[i]->moduleName, NULL, modLoaded, 
+			         modDeps, NULL, flags);
 		    sleep(1);
 		    newtPopWindow();
 		}
@@ -540,7 +541,7 @@ static char * mountHardDrive(struct installMethod * method,
     char * url = NULL;
     int numPartitions;
 
-    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
     while (!done) {
 	numPartitions = 0;
@@ -828,7 +829,7 @@ static char * mountNfsImage(struct installMethod * method,
 		break;
 	    }
 
-	    mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
+	    mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, flags);
 	    fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	    sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1142,7 +1143,7 @@ logMessage("got device command");
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, modLoaded, modDeps, optv, flags);
+	rc = mlLoadModule(device, NULL, modLoaded, modDeps, optv, flags);
 	if (optv) free(optv);
 
 	if (rc)
@@ -1277,7 +1278,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_NETWORK
     if (ksType == KS_CMD_NFS) {
-	mlLoadModule("nfs", modLoaded, modDeps, NULL, flags);
+	mlLoadModule("nfs", NULL, modLoaded, modDeps, NULL, flags);
 	fullPath = alloca(strlen(host) + strlen(dir) + 2);
 	sprintf(fullPath, "%s:%s", host, dir);
 
@@ -1387,28 +1388,6 @@ struct moduleDependency_s {
     char ** deps;
 };
 
-static int copyFile(char * source, char * dest) {
-    int infd = -1, outfd = -1;
-    char buf[4096];
-    int i;
-
-    outfd = open(dest, O_CREAT | O_RDWR, 0666);
-    infd = open(source, O_RDONLY);
-
-    if (infd < 0) {
-	logMessage("failed to open %s: %s", source, strerror(errno));
-    }
-
-    while ((i = read(infd, buf, sizeof(buf))) > 0) {
-	if (write(outfd, buf, i) != i) break;
-    }
-
-    close(infd);
-    close(outfd);
-
-    return 0;
-}
-
 int kickstartFromHardDrive(char * location, 
 			   moduleList modLoaded, moduleDeps modDeps, 
 			   char * source, int flags) {
@@ -1416,7 +1395,7 @@ int kickstartFromHardDrive(char * location,
     char * fileName;
     char * fullFn;
 
-    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
     fileName = strchr(source, '/');
     *fileName = '\0';
@@ -1446,7 +1425,7 @@ int kickstartFromHardDrive(char * location,
 
 int kickstartFromFloppy(char * location, moduleList modLoaded,
 			moduleDeps modDeps, int flags) {
-    mlLoadModule("vfat", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
     if (devMakeInode("fd0", "/tmp/fd0"))
 	return 1;
@@ -1537,7 +1516,7 @@ int main(int argc, char ** argv) {
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
-    if (isysReadModuleInfo(arg, modInfo)) {
+    if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
@@ -1553,7 +1532,7 @@ int main(int argc, char ** argv) {
 #ifdef __sparc__
     /* XXX: sparc -BOOT kernels should compile openprom in. */
     if (!FL_TESTING(flags))
-	insmod ("openprom", NULL);
+	insmod ("openprom", NULL, NULL);
 #endif
 
     if (FL_KSFLOPPY(flags)) {
@@ -1625,7 +1604,7 @@ int main(int argc, char ** argv) {
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
     modInfo = isysNewModuleInfoSet();
-    if (isysReadModuleInfo(arg, modInfo)) {
+    if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
 	sleep(5);
 	exit(1);
@@ -1649,9 +1628,9 @@ int main(int argc, char ** argv) {
 	}
     }
 
-    mlLoadModule("raid0", modLoaded, modDeps, NULL, flags);
-    mlLoadModule("raid1", modLoaded, modDeps, NULL, flags);
-    mlLoadModule("raid5", modLoaded, modDeps, NULL, flags);
+    mlLoadModule("raid0", NULL, modLoaded, modDeps, NULL, flags);
+    mlLoadModule("raid1", NULL, modLoaded, modDeps, NULL, flags);
+    mlLoadModule("raid5", NULL, modLoaded, modDeps, NULL, flags);
 
     stopNewt();
     closeLog();

@@ -55,15 +55,15 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
 
     logMessage("need to load %s", pcic);
 
-    if (mlLoadModule("pcmcia_core", modLoaded, modDeps, NULL, flags)) {
+    if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, NULL, flags)) {
 	logMessage("failed to load pcmcia_core");
 	return;
     }
-    if (mlLoadModule(pcic, modLoaded, modDeps, NULL, flags)) {
+    if (mlLoadModule(pcic, NULL, modLoaded, modDeps, NULL, flags)) {
 	logMessage("failed to load pcic");
 	return;
     }
-    if (mlLoadModule("ds", modLoaded, modDeps, NULL, flags)) {
+    if (mlLoadModule("ds", NULL, modLoaded, modDeps, NULL, flags)) {
 	logMessage("failed to load ds");
 	return;
     }

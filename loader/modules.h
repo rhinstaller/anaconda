@@ -8,6 +8,7 @@ struct loadedModuleInfo {
     char * name;
     char ** args;
     int weLoaded;
+    char * path;
 };
 
 struct moduleList_s {
@@ -19,7 +20,7 @@ int mlReadLoadedList(moduleList * list);
 void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
-int mlLoadModule(char * modName, moduleList modLoaded,
+int mlLoadModule(char * modName, char * path, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, int flags);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 int mlModuleInList(const char * modName, moduleList list);

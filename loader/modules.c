@@ -164,7 +164,7 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
     return 0;
 }
 
-int mlLoadModule(char * modName, moduleList modLoaded,
+int mlLoadModule(char * modName, char * path, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, int flags) {
     moduleDeps dep;
     char ** nextDep, ** argPtr;
@@ -182,7 +182,7 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    mlLoadModule(*nextDep, modLoaded, modDeps, NULL, flags);
+	    mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, flags);
 
 	    nextDep++;
 	}
@@ -201,12 +201,13 @@ int mlLoadModule(char * modName, moduleList modLoaded,
 	rc = 0;
     } else {
 	logMessage("going to insmod %s", fileName);
-	rc = insmod(fileName, args);
+	rc = insmod(fileName, path, args);
     }
 
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
 	modLoaded->mods[modLoaded->numModules].weLoaded = 1;
+	modLoaded->mods[modLoaded->numModules].path = path;
 
 	if (args) {
 	    for (i = 0, arg = args; *arg; arg++, i++);
