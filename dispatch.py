@@ -30,6 +30,7 @@ from bootloader import writeBootloader, bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeFindPackages, upgradeMountFilesystems
 from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
+from upgrade import findRootParts
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -51,6 +52,7 @@ installSteps = [
     ("reconfigwelcome", ()),
     ("reconfigkeyboard", ("id.instLanguage", "id.keyboard")),
     ("installtype", ("dispatch", "id", "method", "intf")),
+    ("findrootparts", findRootParts, ("intf", "id", "instPath")),
     ("findinstall", ("dispatch", "intf", "id", "instPath")),
     ("partitionmethod", ("id.partitions", "id.instClass")),
     ("partitionobjinit", partitionObjectsInitialize, ("id.diskset",

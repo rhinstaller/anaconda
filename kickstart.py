@@ -775,7 +775,18 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("autopartition")
 
     def setSteps(self, dispatch):
-	BaseInstallClass.setSteps(self, dispatch)
+        if self.installType == "upgrade":
+            from upgradeonly import InstallClass
+            BaseInstallClass = InstallClass(0)
+            BaseInstallClass.setSteps(dispatch)
+            
+            # we have no way to specify migrating yet
+            dispatch.skipStep("upgrademigfind")
+            dispatch.skipStep("upgrademigratefs")
+            dispatch.skipStep("upgradecontinue")
+            dispatch.skipStep("findinstall")
+        else:
+            BaseInstallClass.setSteps(self, dispatch)
 
         if self.interactive or flags.autostep:
             dispatch.skipStep("installtype")
@@ -808,6 +819,7 @@ class KickstartBase(BaseInstallClass):
 	self.preScripts = []
 
 	self.installType = "install"
+        self.id = id
 	self.readKickstart(id, self.file)
 
 	for script in self.preScripts:

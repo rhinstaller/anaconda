@@ -183,7 +183,7 @@ class UpgradeSwapWindow:
 class UpgradeExamineWindow:
     def __call__ (self, screen, dispatch, intf, id, chroot):
         self.parts = upgrade.findExistingRoots(intf, id, chroot)
-        parts = upgrade.findExistingRoots (intf, id, chroot)
+        parts = id.upgradeRoot
 
         if not parts:
             ButtonChoiceWindow(screen, _("Error"),
@@ -227,7 +227,7 @@ class UpgradeExamineWindow:
             if rc == TEXT_BACK_CHECK:
                 return INSTALL_BACK
                 
-        id.upgradeRoot = root
+        id.upgradeRoot = [root]
 
         # if root is on vfat we want to always display boot floppy screen
         # otherwise they can't boot!

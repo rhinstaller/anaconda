@@ -16,7 +16,7 @@ class UpgradeExamineWindow (InstallWindow):
 	    self.root = newPart
 
     def getNext (self):
-        self.id.upgradeRoot = self.root
+        self.id.upgradeRoot = [self.root]
 	if self.individualPackages.get_active():
 	    self.dispatch.skipStep("indivpackage", skip = 0)
 	else:
@@ -30,9 +30,9 @@ class UpgradeExamineWindow (InstallWindow):
         self.intf = intf
         self.id = id
         self.chroot = chroot
-        
-        self.parts = findExistingRoots(intf, id, chroot)
 
+        self.parts = self.id.upgradeRoot
+        
 	box = GtkVBox (FALSE)
         if not self.parts:
             box.pack_start (GtkLabel (_("You don't have any Linux partitions."

@@ -27,6 +27,10 @@ from partitioning import *
 from log import log
 from translate import _
 
+def findRootParts(intf, id, chroot):
+    parts = findExistingRoots(intf, id, chroot)
+    id.upgradeRoot = parts
+
 def findExistingRoots (intf, id, chroot):
     if not flags.setupFilesystems: return [ (chroot, 'ext2') ]
 
@@ -196,7 +200,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 
     if flags.setupFilesystems:
 	try:
-	    mountRootPartition(intf, rootInfo, oldfsset, instPath,
+	    mountRootPartition(intf, rootInfo[0], oldfsset, instPath,
                                allowDirty = 0)
 	except SystemError, msg:
 	    intf.messageWindow(_("Dirty Filesystems"),

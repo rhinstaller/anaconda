@@ -21,6 +21,7 @@ class InstallClass(BaseInstallClass):
 		    "mouse",
 		    "welcome",
 		    "installtype",
+                    "findrootparts",
 		    "findinstall",
                     "partitionobjinit",
                     "upgrademount",
