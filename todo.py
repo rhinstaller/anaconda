@@ -395,6 +395,7 @@ class ToDo:
 
     def makeBootdisk (self):
 	# this is faster then waiting on mkbootdisk to fail
+	self.setFdDevice()
 	device = self.fdDevice[5:]
 	file = "/tmp/floppy"
 	isys.makeDevInode(device, file)
