@@ -33,7 +33,8 @@ prepareBootImage() {
 	fi
 }
 
-COMMONMODULES="vfat usb-ohci uhci usbkbd usbmouse"
+USBMODS="usb-ohci uhci hid keybdev mousedev"
+COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray
 	     aacraid aic7xxx BusLogic qlogicisp advansys eata_dma initio"
 NETWORKMODULES="$COMMONMODULES 3c509 3c59x 3c90x 8390 ac3200 at1700 de4x5
