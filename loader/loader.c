@@ -39,6 +39,18 @@
 #include <unistd.h>
 #include <zlib.h>
 
+#include <popt.h>
+/* Need to tell loop.h what the actual dev_t type is. */
+#undef dev_t
+#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
+#define dev_t unsigned int
+#else
+#define dev_t unsigned short
+#endif
+#include <linux/loop.h>
+#undef dev_t
+#define dev_t dev_t
+
 #include "balkan/balkan.h"
 #include "isys/imount.h"
 #include "isys/isys.h"
@@ -724,6 +736,48 @@ static char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
+static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
+    struct loop_info loopInfo;
+    int targfd, loopfd;
+
+    mkdirChain(mntpoint);
+
+    targfd = open(fsystem, O_RDONLY);
+
+    devMakeInode(device, "/tmp/loop");
+    loopfd = open("/tmp/loop", O_RDONLY);
+    logMessage("loopfd is %d", loopfd);
+
+    if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
+	logMessage("LOOP_SET_FD failed: %s", strerror(errno));
+	close(targfd);
+	close(loopfd);
+	return LOADER_ERROR;
+    }
+
+    close(targfd);
+
+    memset(&loopInfo, 0, sizeof(loopInfo));
+    strcpy(loopInfo.lo_name, fsystem);
+
+    if (ioctl(loopfd, LOOP_SET_STATUS, &loopInfo)) {
+	logMessage("LOOP_SET_STATUS failed: %s", strerror(errno));
+	close(loopfd);
+	return LOADER_ERROR;
+    }
+
+    close(loopfd);
+
+    if (doPwMount("/tmp/loop", "/mnt/runtime", "ext2", 1,
+	      0, NULL, NULL)) {
+	logMessage("failed to mount loop: %s", 
+		   strerror(errno));
+	return LOADER_ERROR;
+    }
+
+    return 0;
+}
+
 /* XXX this ignores "location", which should be fixed */
 static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
@@ -745,11 +799,10 @@ static char * setupCdrom(struct installMethod * method,
 	    if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, NULL, 
 			  NULL)) {
 		if (!needRedHatCD || 
-		    !access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
-			    X_OK)) {
-		    unlink("/mnt/runtime");
-		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
-		    return "dir://mnt/source/.";
+		    !access("/mnt/source/RedHat/base/stage2.img", R_OK)) {
+		    if (!mountLoopback("/mnt/source/RedHat/base/stage2.img",
+				       "/mnt/runtime", "loop0"))
+			return "cdrom://mnt/source/.";
 		}
 		umount("/mnt/source");
 	    }
@@ -775,7 +828,7 @@ static char * setupCdrom(struct installMethod * method,
     if (getenv("DISPLAY"))
 	flags |= LOADER_FLAGS_TEXT;
     
-    return "dir://mnt/source/.";
+    return "cdrom://mnt/source/.";
 }
 
 static char * mountCdromImage(struct installMethod * method,
@@ -949,7 +1002,7 @@ static char * mountNfsImage(struct installMethod * method,
     free(host);
     free(dir);
 
-    return "dir://mnt/source/.";
+    return "nfs://mnt/source/.";
 }
 
 #endif
@@ -1147,7 +1200,7 @@ static char * doMountImage(char * location,
 
     /* This is a check for NFS or CD-ROM rooted installs */
     if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
-	return "dir://mnt/source/.";
+	return "cdrom://mnt/source/.";
     
 #if defined (INCLUDE_LOCAL) || defined (__sparc__) || defined (__alpha__)
 # if defined (__sparc__) || defined (__alpha__)
@@ -1491,7 +1544,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	umount("/mnt/runtime");
 	symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
 
-	imageUrl = "dir://mnt/source/.";
+	imageUrl = "nfs://mnt/source/.";
     } else if (ksType == KS_CMD_URL) {
 	memset(&ui, 0, sizeof(ui));
 
