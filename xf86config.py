@@ -351,6 +351,7 @@ Section "Files"
 # By default, Red Hat 6.0 and later now use a font server independent of
 # the X server to render fonts.
 
+    FontPath   "/usr/X11R6/lib/X11/fonts/TrueType"
     FontPath   "unix/:-1"
 
 EndSection
