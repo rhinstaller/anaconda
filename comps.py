@@ -251,6 +251,9 @@ class Component:
     def packagesFullInfo(self):
 	return self.newpkgDict
     
+    def metapackagesFullInfo(self):
+	return self.metapkgs
+    
     def includesPackage(self, pkg, includeDeps = 0):
         if not self.pkgDict.has_key(pkg):
             return 0
@@ -485,7 +488,8 @@ class Component:
         self.default = compgroup.default
         self.comp = compgroup
         self.id = compgroup.id
-
+	self.description = compgroup.description
+	
         # do we use these anymore?
         self.conditionalKey = conditionalKey
         self.parent = parent
@@ -947,13 +951,13 @@ def orderPackageGroups(curgroups):
 				     "KDE Desktop Environment"],
 		       "Applications" : ["Editors",
 					 "Engineering and Scientific",
-					 "Internet Applications",
-					 "Office/Productivity Applications",
-					 "Sound and Video Applications",
-					 "Graphics Applications",
+					 "Graphical Internet",
+					 "Text-based Internet",
+					 "Office/Productivity",
+					 "Sound and Video",
+					 "Graphics",
 					 "Games and Entertainment",
-					 "Authoring and Publishing",
-					 "Text Based Applications"],
+					 "Authoring and Publishing"],
 		       "Servers" : [ "Server Configuration Tools",
 				     "Web Server",
                                      "Mail Server",
@@ -971,7 +975,8 @@ def orderPackageGroups(curgroups):
 					 "X Software Development",
 					 "GNOME Software Development",
 					 "KDE Software Development"],
-		       "System" : [ "System Tools",
+		       "System" : [ "Administration Tools",
+	                            "System Tools",
 				    "Printing Support",
 				    "X Window System"] }
 
@@ -1010,6 +1015,17 @@ def orderPackageGroups(curgroups):
 		    
     return (retlist, retdict)
 
-def getCompGroupDescription(compname):
-    return ("This is the group %s. Its got stuff in it that you probably want."
-	    " If not you can turn off the optional stuff.  Anyhow, enjoy %s!") % (compname, compname)
+def getCompGroupDescription(comp):
+    if comp.name == u"Everything":
+	return _("This group includes all the packages available.  Note that "
+		 "this is substantially more packages than just the ones "
+		 "in all the other package groups on this page.")
+    
+    descr = comp.description
+    if descr:
+	return _(descr)
+    else:
+	return None
+    
+#    return ("This is the group %s. Its got stuff in it that you probably want."
+#	    " If not you can turn off the optional stuff.  Anyhow, enjoy %s!") % (compname, compname)
