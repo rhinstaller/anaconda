@@ -76,10 +76,10 @@ install:
 archive: create-archive
 
 src: create-archive
-	@rpm -ts anaconda-$(VERSION).tar.bz2
+	@rpm -ts --nodeps anaconda-$(VERSION).tar.bz2
 
 snapsrc: create-snapshot
-	@rpm -ts anaconda-$(VERSION).tar.bz2
+	@rpm -ts --nodeps anaconda-$(VERSION).tar.bz2
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
