@@ -1,4 +1,6 @@
 import rpm, os
+rpm.addMacro("_i18ndomains", "redhat-dist");
+
 import iutil, isys
 from lilo import LiloConfiguration
 arch = iutil.getArch ()
