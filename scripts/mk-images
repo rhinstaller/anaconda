@@ -158,7 +158,14 @@ expandModuleSet() {
 	elif [ $char = '+' ]; then
 	    NAME=$(echo $name | cut -c2-)
 
-	    SET=$( ($MODLIST --modinfo-file $MODINFO $NAME; cat $MODULESUSED) | sort | uniq -u)
+	    # all of the modules of this type
+	    $MODLIST --modinfo-file $MODINFO $NAME > /tmp/emsAll.$$
+	    # the modules used that are of this type
+	    cat $MODULESUSED /tmp/emsAll.$$ | sort | uniq -d > /tmp/emsUsed.$$
+	    # the modules that are of this type, but not used
+	    SET=$(cat /tmp/emsAll.$$ /tmp/emsUsed.$$ | sort | uniq -u)
+
+	    rm -f /tmp/emsAll.$$ /tmp/emsUsed.$$
 	else
 	    SET="$SET $name"
 	fi
@@ -172,9 +179,10 @@ makemoduleball() {
     MMB_MODINFO="module-info"
 
     if [ $1 = "--dd" ]; then
-        MMB_DD=1
-	MMB_MODINFO="modinfo"
 	shift
+        MMB_DD="$1"
+	shift
+	MMB_MODINFO="modinfo"
     fi
 
     MMB_DIR=$1
@@ -196,8 +204,8 @@ makemoduleball() {
     # create the pcitable
     $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
 
-    if [ -n "$MMB_DD"]; then
-	touch rhdd-6.1
+    if [ -n "$MMB_DD" ]; then
+	echo $MMB_DD > $MMB_DIR/rhdd-6.1
     fi
 
     mkdir $version
@@ -347,12 +355,12 @@ EOF
     rmdir $MBD_BOOTTREE 
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
-    rm -rf $MBD_TMPIMAGE
+    rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE
 }
 
 makeinstimage () {
     imagename=$1
-    modlist=$(expandModuleSet $2)
+    modlist=$(expandModuleSet "$2")
     tmpimage=/tmp/instimage.img
     mntpoint=/tmp/instimage.mnt
     tmpdir=/tmp/instimage.dir
@@ -386,14 +394,15 @@ makeinstimage () {
 }
 
 makedriverdisk () {
-    diskname=$1
-    modlist=$(expandModuleSet $2)
-    diskpath=/tmp/makedriverdisk.$$/$diskname
+    modlabel=$1
+    diskname=$2
+    modlist=$(expandModuleSet "$3")
+    diskpath=/tmp/makedriverdisk.$$
 
     rm -rf $diskpath
     mkdir -p $diskpath
 
-    makemoduleball $diskpath "$modlist"
+    makemoduleball --dd "$modlabel" $diskpath "$modlist"
 
     size=$(expr 60 + $(du -sk $diskpath | awk '{print $1}'))
     if [ $size -lt 57 ]; then
