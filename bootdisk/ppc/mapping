@@ -1,0 +1,27 @@
+# Example filename mapping file
+#
+# yaboot		Raw	'UNIX'	'boot'	"Bootstrap"
+# vmlinux		Raw	'UNIX'	'boot'	"Bootstrap"
+#
+# EXTN          XLate   CREATOR   TYPE     Comment
+COPYING         Ascii   'ttxt'  'ttro'  "Text File"
+CREDITS         Ascii   'ttxt'  'ttro'  "Text File"
+README          Ascii   'ttxt'  'ttro'  "Text File"
+RPM-GPG-KEY     Ascii   'ttxt'  'ttro'  "Text File"
+RELEASE_NOTES   Ascii   'ttxt'  'ttro'  "Text File"
+.b              Raw     'chrp'  'tbxi'  "Macintosh Toolbox ROM file"
+.gif            Raw     '8BIM'  'GIFf'  "Gif File"
+.jpg            Raw     '8BIM'  'JPEG'  "Jpeg File"
+.tif            Raw     '8BIM'  'TIFF'  "Photoshop TIFF image"
+.hqx            Ascii   'BnHq'  'TEXT'  "BinHex file"
+.doc            Raw     'MSWD'  'WDBN'  "Word file"
+.mov            Raw     'TVOD'  'MooV'  "QuickTime Movie"
+.html           Ascii   'MOSS'  'TEXT'  "HTML File"
+.htm            Ascii   'MOSS'  'TEXT'  "HTML File"
+.conf           Ascii   'ttxt'  'TEXT'  "config file"
+.txt            Ascii   'ttxt'  'TEXT'  "Text File"
+.tbxi           Raw     'chrp'  'tbxi'  "Macintosh Toolbox ROM file"
+.sea            Raw     'aust'  'APPL'  "Self Expanding Archive"
+.sit            Raw     'SIT!'  'SITD'  "Stuffit Expander file"
+*               Raw     '????'  '????'  "Unknown"
+
