@@ -41,7 +41,7 @@ clean:
 	for d in $(SUBDIRS); do make -C $$d clean; done
 
 subdirs:
-	for d in $(SUBDIRS); do make -C $$d; done
+	for d in $(SUBDIRS); do make -C $$d; [ $$? = 0 ] || exit 1; done
 
 install: 
 	@if [ "$(DESTDIR)" = "" ]; then \
@@ -61,7 +61,7 @@ install:
 	cp -a lang-table $(DESTDIR)/$(PYTHONLIBDIR)
 	./py-compile --basedir $(DESTDIR)/$(PYTHONLIBDIR) $(PYFILES)
 	cp -a *.so $(DESTDIR)/$(PYTHONLIBDIR)
-	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
+	for d in $(SUBDIRS); do make DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; [ $$? = 0 ] || exit 1; done
 
 archive: create-archive
 
