@@ -177,7 +177,7 @@ class AccountWindow (InstallWindow):
         self.win.destroy()
         
     def close (self, widget, button, flag):
-        if button == 0:
+        if button == 1:
             if flag == "addUser":
                 self.addUser_cb()
             elif flag == "editUser":
@@ -189,8 +189,8 @@ class AccountWindow (InstallWindow):
     def addUser (self, widget):
         title = _("Add a New User")
         self.win = self.userWindow(title, 0)
-        self.win.add_button('gtk-ok', 0)
-        self.win.add_button('gtk-cancel', 1)
+        self.win.add_button('gtk-cancel', 0)
+        self.win.add_button('gtk-ok', 1)
         self.win.connect("response", self.close, "addUser")
         self.win.show_all()
         self.win.run()
@@ -407,12 +407,12 @@ class AccountWindow (InstallWindow):
 
         sw.add (self.userlist)
 
-        self.add = gtk.Button (_("Add"))
+        self.add = gtk.Button (_("_Add"))
 	self.add.connect("clicked", self.addUser)
-        self.edit = gtk.Button (_("Edit"))
+        self.edit = gtk.Button (_("_Edit"))
 	self.edit.connect("clicked", self.editUser)
         self.edit.set_sensitive(gtk.FALSE)
-        self.delete = gtk.Button (_("Delete"))
+        self.delete = gtk.Button (_("_Delete"))
 	self.delete.connect("clicked", self.deleteUser)
         self.delete.set_sensitive(gtk.FALSE)
 
