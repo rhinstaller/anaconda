@@ -172,12 +172,12 @@ class Fstab:
 
     def formatAllFilesystems(self):
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
-	    if mount[0] == '/':
+	    if mount[0] == '/' and fsystem == "ext2":
 		self.fsCache[(partition, mount)] = (1,)
         (devices, raid) = self.ddruid.partitionList()
 	for (mount, partition, fsystem, level, i, j, deviceList) in \
 	    self.raidList()[1]:
-	    if mount[0] == '/':
+	    if mount[0] == '/' and fsystem == "ext2":
 		self.fsCache[(partition, mount)] = (1,)
 
     def partitionList(self):
