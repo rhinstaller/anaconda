@@ -478,9 +478,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                  !strncasecmp(argv[i], "driverdisk=", 11)) {
             loaderData->ddsrc = strdup(argv[i] + 
                                        (argv[i][1] == 'r' ? 11 : 3));
-        } else if (!strcasecmp(argv[i], "dd"))
-            flags |= LOADER_FLAGS_MODDISK;
-        else if (!strcasecmp(argv[i], "driverdisk"))
+        } else if (!strcasecmp(argv[i], "dd") || 
+                   !strcasecmp(argv[i], "driverdisk"))
             flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
             flags |= LOADER_FLAGS_RESCUE;
