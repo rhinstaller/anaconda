@@ -432,10 +432,12 @@ void getDDFromSource(struct loaderData_s * loaderData,
         }
     /* FIXME: this is a hack so that you can load a driver disk from, eg, 
      * scsi cdrom drives */
+#if !defined(__s390__) && !defined(__s390x__)
     } else if (!strncmp(src, "cdrom", 5)) {
         loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
                         loaderData->modDepsPtr, loaderData->modInfo, flags);
         return;
+#endif
     } else if (!strncmp(src, "path:", 5)) {
 	path = src + 5;
     } else {
