@@ -70,7 +70,7 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return cs
 
-    def getFilename(self, h, timer):
+    def getFilename(self, h, timer, callback=None):
 	if self.mediaIsMounted != h[1000002]:
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])

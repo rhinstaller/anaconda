@@ -36,7 +36,7 @@ class ImageInstallMethod(InstallMethod):
 	#
 	return ComponentSet(fname, hdlist)
 
-    def getFilename(self, h, timer):
+    def getFilename(self, h, timer, callback=None):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def readHeaders(self):
