@@ -655,17 +655,21 @@ class LiloWindow:
 
         # XXX fixme restore state
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
-                                         _("Where do you want to install the bootloader?"),
-                                         locations,
-                                         buttons = [ _("OK"), _("Back") ])
-
-        if sel == 0:
-            todo.setLiloLocation(boothd)
-        else:
-            todo.setLiloLocation(bootpart)
+			 _("Where do you want to install the bootloader?"),
+			 locations,
+			 buttons = [ _("OK"), _("Skip"), _("Back") ])
 
         if rc == string.lower (_("Back")):
             return INSTALL_BACK
+
+        if rc == string.lower (_("Skip")):
+	    todo.setLiloLocation(None)
+	else:
+	    if sel == 0:
+		todo.setLiloLocation(boothd)
+	    else:
+		todo.setLiloLocation(bootpart)
+
         return INSTALL_OK
 
 class BeginInstallWindow:
