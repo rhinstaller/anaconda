@@ -220,6 +220,10 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
                     partType = parted.PARTITION_LOGICAL
                     if request.primary: # they've required a primary and we can't do it
                         return PARTITION_FAIL
+                    # check to make sure we can still create more logical parts
+                    if (len(partedUtils.get_logical_partitions(disk)) ==
+                        partedUtils.get_max_logical_partitions(disk)):
+                        return PARTITION_FAIL
                 else:
                     partType = parted.PARTITION_PRIMARY
             else:
@@ -329,12 +333,14 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 ##                 print "Trying drive", drive
                 disk = diskset.disks[drive]
                 numPrimary = len(partedUtils.get_primary_partitions(disk))
+                numLogical = len(partedUtils.get_logical_partitions(disk))
 
                 # if there is an extended partition add it in
 		if disk.extended_partition:
 		    numPrimary = numPrimary + 1
 		    
                 maxPrimary = disk.max_primary_partition_count
+                maxLogical = partedUtils.get_max_logical_partitions(disk)
 
                 for part in free[drive]:
 		    # if this is a free space outside extended partition
@@ -342,6 +348,9 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 		    if not part.type & parted.PARTITION_LOGICAL:
 			if numPrimary == maxPrimary:
 			    continue
+                    else:
+                        if numLogical == maxLogical:
+                            continue
 		    
 #                    log( "Trying partition %s" % (printFreespaceitem(part),))
                     partSize = partedUtils.getPartSizeMB(part)
