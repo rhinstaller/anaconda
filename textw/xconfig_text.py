@@ -612,7 +612,7 @@ class XConfigWindowCard:
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
             self.xconfig.skipx = 1
-            return
+            return INSTALL_OK
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
