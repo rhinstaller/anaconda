@@ -161,7 +161,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     win.pop()
 
-    if id.dependencies:
+    if id.dependencies and id.comps.canResolveDeps(id.dependencies):
 	disp.skipStep("dependencies", skip = 0)
     else:
 	disp.skipStep("dependencies")

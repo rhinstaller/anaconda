@@ -740,6 +740,14 @@ class ComponentSet:
 	    if self.packages.has_key(dep):
 		self.packages[dep].unselect ()
 
+    def canResolveDeps (self, deps):
+        canresolve = 0
+        if deps:
+            for (who, dep) in deps:
+                if dep != _("no suggestion"):
+                    canresolve = 1
+        return canresolve
+
     def kernelVersionList(self):
 	kernelVersions = []
 
