@@ -398,6 +398,23 @@ def sniffFilesystemType(device):
 	    pass
 	return None
 
+    # physical volumes start with HM (see linux/lvm.h
+    # and LVM/ver/tools/lib/pv_copy.c)
+    if buf.startswith("HM"):
+        return "physical volume (LVM)"
+    # sniff for LVM2 label.  see LVM/ver/lib/label/label.[ch] for a
+    # description of the label and LVM/ver/lib/format_text/layout.h 
+    for sec in range(0, 4):
+        off = (sec * 512) + 24
+        if buf[off:].startswith("LVM2"):
+            return "physical volume (LVM)"
+
+    try:
+        isys.raidsbFromDevice(dev)
+        return "software RAID"
+    except:
+        pass
+
     # ext2 check
     if struct.unpack("<H", buf[1080:1082]) == (0xef53,):
         if isys.ext2HasJournal(dev, makeDevNode = 0):
@@ -405,10 +422,6 @@ def sniffFilesystemType(device):
         else:
             return "ext2"
 
-    # physical volumes start with HM (see linux/lvm.h
-    # and LVM/ver/tools/lib/pv_copy.c)
-    if buf.startswith("HM"):
-        return "physical volume (LVM)"
     # xfs signature
     if buf.startswith("XFSB"):
         return "xfs"
@@ -416,12 +429,6 @@ def sniffFilesystemType(device):
     if (buf[pagesize - 10:] == "SWAP-SPACE" or
         buf[pagesize - 10:] == "SWAPSPACE2"):
         return "swap"
-
-    try:
-        isys.raidsbFromDevice(dev)
-        return "software RAID"
-    except:
-        pass
 
     if fsset.isValidReiserFS(dev):
         return "reiserfs"
