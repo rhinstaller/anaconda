@@ -12,17 +12,15 @@
 #
 
 import copy
-from constants_text import *
+import iutil
 from snack import *
-
+from constants_text import *
+from desktop import ENABLE_DESKTOP_CHOICE
 from rhpl.translate import _
 from rhpl.monitor import isValidSyncRange
 
-from desktop import ENABLE_DESKTOP_CHOICE
-
 ddc_monitor_string = _("DDC Probed Monitor")
 unprobed_monitor_string = _("Unprobed Monitor")
-
 
 class XCustomWindow:
 
@@ -94,14 +92,14 @@ class XCustomWindow:
 	self.origres = self.xsetup.xhwstate.get_resolution()
 	self.origdepth = self.xsetup.xhwstate.get_colordepth()
 
-	if not xsetup.imposed_sane_default:
-	    xsetup.xhwstate.choose_sane_default()
-	else:
-	    xsetup.imposed_sane_default = 1
+        # dont do anything on ppc - we want to use default fb setting
+        if iutil.getArch() != "ppc":
+            if not xsetup.imposed_sane_default:
+                xsetup.xhwstate.choose_sane_default()
+                xsetup.imposed_sane_default = 1
 
         availableRes    = self.xsetup.xhwstate.available_resolutions()
 	availableDepths = self.xsetup.xhwstate.available_color_depths()
-
         self.selectedDepth = self.xsetup.xhwstate.get_colordepth()
         self.selectedRes   = self.xsetup.xhwstate.get_resolution()
 
@@ -480,7 +478,7 @@ class MonitorWindow:
 	    self.xsetup.xhwstate.set_hsync(hval)
 	    self.xsetup.xhwstate.set_vsync(vval)
 	    self.xsetup.xhwstate.recalc_mode()
-        
+       
         return INSTALL_OK
 
 class XConfigWindowCard:
@@ -558,6 +556,9 @@ class XConfigWindowCard:
         self.cardslist = self.cards.keys()
         self.cardslist.sort()
 
+	# yuck on fb driver works on ppc currently
+	self.force_ppc_fb = iutil.getArch() == "ppc" or 1
+
         self.ramlist = []
         for ram in self.videocard.possible_ram_sizes():
             self.ramlist.append(str(ram))
@@ -598,31 +599,48 @@ class XConfigWindowCard:
             toplevel = GridFormHelp (screen, _("Video Card Configuration"),
                                      "videocard", 1, 5)
 
-            text = _("Select the video card and video RAM for your system.")
-
             videogrid = Grid(3, 2)
-            label = Label(_("Video Card:"))
-            videogrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-            if self.selectedCard != None:
-                cardlbl =  self.cardslist[self.selectedCard]
-            else:
-                cardlbl = _("Unknown card")
+
+	    if self.force_ppc_fb:
+		text = _("Your system will be setup to "
+		  "use the frame buffer driver for "
+		  "the X Window System.  If you do "
+		  "not want setup the X Window "
+		  "System, choose "
+		  "'Skip X Configuration' below.")
+		
+	    else:
+		text = _("Select the video card and video RAM for your system.")
+
+		label = Label(_("Video Card:"))
+		videogrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
+		if self.selectedCard != None:
+		    cardlbl =  self.cardslist[self.selectedCard]
+		else:
+		    cardlbl = _("Unknown card")
                 
-            cardlabel = Textbox(28, 1, cardlbl)
+		cardlabel = Textbox(28, 1, cardlbl)
                 
-            videogrid.setField (cardlabel, 1, 0, (0, 0, 0, 1), anchorLeft = 1)
-            cardchangebutton = CompactButton(_("Change"))
-            videogrid.setField (cardchangebutton, 2, 0, (0, 0, 0, 1), anchorLeft = 1)
+		videogrid.setField (cardlabel, 1, 0, (0, 0, 0, 1), anchorLeft = 1)
+		cardchangebutton = CompactButton(_("Change"))
+		videogrid.setField (cardchangebutton, 2, 0, (0, 0, 0, 1), anchorLeft = 1)
         
-            label = Label(_("Video RAM:"))
-            videogrid.setField (label, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
-            ramlabel = Textbox(12, 1, self.ramlist[self.selectedRam])
-            videogrid.setField (ramlabel, 1, 1, (0, 0, 0, 0), anchorLeft = 1)
-            ramchangebutton = CompactButton(_("Change"))
-            videogrid.setField (ramchangebutton, 2, 1, (0, 0, 0, 0), anchorLeft = 1)
+		label = Label(_("Video RAM:"))
+		videogrid.setField (label, 0, 1, (0, 0, 0, 0), anchorLeft = 1)
+		ramlabel = Textbox(12, 1, self.ramlist[self.selectedRam])
+		videogrid.setField (ramlabel, 1, 1, (0, 0, 0, 0), anchorLeft = 1)
+		ramchangebutton = CompactButton(_("Change"))
+		videogrid.setField (ramchangebutton, 2, 1, (0, 0, 0, 0), anchorLeft = 1)
+		
             toplevel.add(TextboxReflowed(60, text), 0, 0, (0, 0, 0, 0))
-            toplevel.add(videogrid, 0, 1, (0, 1, 0, 1), growx = 1)
-            toplevel.add(bb, 0, 4, (0, 0, 0, 0), growx = 1)
+
+	    # tweak packing
+	    if not self.force_ppc_fb:
+		toplevel.add(videogrid, 0, 1, (0, 1, 0, 1), growx = 1)
+		toplevel.add(bb, 0, 4, (0, 0, 0, 0), growx = 1)
+	    else:
+		toplevel.add(bb, 0, 4, (0, 1, 0, 1), growx = 1)
+		
 
 	    result = toplevel.run ()
 	    rc = bb.buttonPressed (result)
@@ -663,6 +681,10 @@ class XConfigWindowCard:
             self.dispatch.skipStep("xcustom", skip = 0)
             self.dispatch.skipStep("writexconfig", skip = 0)
             self.xsetup.skipx = 0
+
+	# bail at this point if we're doing ppc configuration
+	if self.force_ppc_fb:
+	    return INSTALL_OK
 
         # store selected videocard
         selection = self.cards[self.cardslist[self.selectedCard]]

@@ -219,9 +219,11 @@ class XCustomWindow (InstallWindow):
         self.desktop = desktop
 	self.instClass = instClass
 
-	if not xsetup.imposed_sane_default:
-	    xsetup.xhwstate.choose_sane_default()
-	    xsetup.imposed_sane_default = 1
+        # dont do anything on ppc - we want to use default fb setting
+        if iutil.getArch() != "ppc":
+            if not xsetup.imposed_sane_default:
+                xsetup.xhwstate.choose_sane_default()
+                xsetup.imposed_sane_default = 1
 
 	# save so we can restore if necessary going back
 	self.origres = self.xsetup.xhwstate.get_resolution()
@@ -952,11 +954,11 @@ class XConfigWindow (InstallWindow):
                                           "ram size from the choices below:"))
             box.pack_start (label, gtk.FALSE)
 	elif arch == "ppc":
-            label = makeFormattedLabel (_("Your system will be configured to "
+            label = makeFormattedLabel (_("Your system will be setup to "
 					  "use the frame buffer driver for "
 					  "the X Window System.  If you do "
-					  "not want to have the X Window "
-					  "System configured, choose "
+					  "not want to setup the X Window "
+					  "System , choose "
 					  "'Skip X Configuration' below."))
             box.pack_start (label, gtk.FALSE, gtk.FALSE)
 	    self.force_ppc_fb = 1
