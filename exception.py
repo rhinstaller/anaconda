@@ -293,13 +293,6 @@ def handleException(dispatch, intf, (type, value, tb)):
 	    log("Failed to copy anacdump.txt to floppy")
             pass
 
-        # write out any syslog information as well
-        try:
-            iutil.copyFile("/tmp/syslog", "/tmp/crash/syslog")
-        except:
-	    log("Failed to copy syslog to floppy")
-            pass
-        
 	isys.umount("/tmp/crash")
 
 	intf.messageWindow(_("Dump Written"),
