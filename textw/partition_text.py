@@ -278,7 +278,38 @@ class PartitionWindow:
             mount.setFlags(FLAG_DISABLED, FLAGS_SET)
             mount.set(_("<Not Applicable>"))
         return (mount, mountgrid)
-        
+
+    # make the entry for the lv name and it's label
+    def makeLVNameEntry(self, request):
+        lvnamegrid = Grid(2, 1)
+        lvnameLbl = Label(_("Logical Volume Name:"))
+        lvnamegrid.setField(lvnameLbl, 0, 0, (0,0,0,0), anchorLeft = 1)
+        lvn = request.logicalVolumeName
+        if lvn:
+            lvname = Entry(20, lvn)
+        else:
+            lvname = Entry(20, "")
+        lvnamegrid.setField(lvname, 1, 0, anchorRight = 1, growx = 1)
+        if request.preexist:
+            lvname.setFlags(FLAG_DISABLED, FLAGS_SET)
+        return (lvname, lvnamegrid)
+
+    # make the size entry for a logical volume
+    def makeLVSize(self, request):
+        grid = Grid(3, 1)
+        lbl = Label(_("Size (MB):"))
+        grid.setField(lbl, 0, 0, (0,0,0,0), anchorLeft = 1)
+        if request.size:
+            size = Entry(8, "%d" %(request.size,))
+        else:
+            size = Entry(8, "")
+        grid.setField(size, 1, 0, anchorRight = 1, growx = 1)
+#        maxLbl = Label(_("(Max is %s MB") %(maxlv,))
+#        grid.setField(maxLbl, 2, 0, anchorRight = 1)
+        if request.preexist:
+            size.setFlags(FLAG_DISABLED, FLAGS_SET)
+        return (size, grid)
+
 
     # make the list of available filesystems and it's label
     def makeFsList(self, request, usecallback=1, uselabel=1, usetypes=None,
@@ -439,6 +470,27 @@ class PartitionWindow:
         
         return (cylopts, start, end, size, subgrid)
 
+    # make the list of VGs
+    def makeVGList(self, request):
+        subgrid = Grid(1, 2)
+        vgLbl = Label(_("Volume Group:"))
+        subgrid.setField(vgLbl, 0, 0)
+        vgs = self.partitions.getLVMVGRequests()
+        if len(vgs) > 3:
+            scroll = 1
+        else:
+            scroll = 0
+        vgBox = Listbox(height=3, scroll=scroll)
+        current = None
+        for vg in vgs:
+            vgBox.append(vg.volumeGroupName, vg)
+            if vg.uniqueID == request.volumeGroup:
+                current = vg
+        if request.volumeGroup is not None:
+            vgBox.setCurrent(current)
+
+        subgrid.setField(vgBox, 0, 1)
+        return (vgBox, subgrid)
         
     # make the list of RAID levels
     def makeRaidList(self, request):
@@ -1075,9 +1127,259 @@ class PartitionWindow:
         self.shutdownUI()
         self.screen.popWindow()
         
+    # isNew implies that this request has never been successfully used before
+    def editLVRequest(self, lvrequest, isNew = 0):
+	preexist = lvrequest and lvrequest.preexist
+	if preexist:
+	    tmpstr = _("Edit Logical Volume")
+	else:
+	    tmpstr = _("Make Logical Volume")
+        self.drivelist = None            
+        poplevel = GridFormHelp(self.screen, tmpstr, "makelv", 1, 8)
+
+        # mount point entry
+        row = 0
+        (self.mount, mountgrid) = self.makeMountEntry(lvrequest)
+        poplevel.add(mountgrid, 0, row)
+        row = row + 1
+
+        (self.lvname, lvgrid) = self.makeLVNameEntry(lvrequest)
+        poplevel.add(lvgrid, 0, row)
+        row = row + 1
+
+        (lvsize, lvsizegrid) = self.makeLVSize(lvrequest)
+        poplevel.add(lvsizegrid, 0, row)
+        row = row + 1
+
+	# initialize holder for temporary mount point value
+	self.oldMount = None
+
+	if preexist:
+            # set some defaults
+            format = lvrequest.format
+            migrate = lvrequest.migrate
+            newfstype = lvrequest.fstype
+            badblocks = lvrequest.badblocks
+
+            (subgrid, fsoptLbl, fstypeLbl) = self.fsOptionsGrid(lvrequest, newfstype)
+            poplevel.add(subgrid, 0, row, (0,1,0,0))
+	    self.drivelist = None
+	else:
+	    subgrid = Grid(2, 1)
+	    (fstype, fsgrid) = self.makeFsList(lvrequest, ignorefs = ["software RAID", "PPC PReP Boot"])
+	    subgrid.setField(fsgrid, 0, 0, anchorLeft = 1, anchorTop=1)
+
+            vgs = self.partitions.getLVMVGRequests()
+            if len(vgs) < 1:
+                ButtonChoiceWindow (self.screen, _("No Volume Groups"),
+                                    _("No volume groups to create a logical "
+                                      "volume in."), [ TEXT_OK_BUTTON ])
+                return
+
+            (vgtype, vggrid) = self.makeVGList(lvrequest)
+	    subgrid.setField(vggrid, 1, 0, (2,0,0,0), anchorRight=1, anchorTop=1)
+	    poplevel.add(subgrid, 0, row, (0,1,0,0))
+
+	    row = row + 1
+
+	    miscgrid = Grid(1, 3)
+
+	    if lvrequest.fstype and lvrequest.fstype.isFormattable():
+		format = Checkbox(_("Format partition?"))
+		miscgrid.setField(format, 0, 1)
+	    else:
+		format = None
+
+	    if lvrequest.format == 1 or lvrequest.format == None:
+		format.setValue("*")
+
+	    poplevel.add(miscgrid, 0, row, (0,1,0,0))        
+
+        row = row + 1
+	if preexist:
+            popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,
+                                            (_("File System Options"), "fsopts"),
+                                            TEXT_CANCEL_BUTTON))
+	else:
+	    popbb = ButtonBar(self.screen, (TEXT_OK_BUTTON,TEXT_CANCEL_BUTTON))
+        poplevel.add(popbb, 0, row, (0,1,0,0), growx = 1)        
+
+        while 1:
+            res = poplevel.run()
+
+            if popbb.buttonPressed(res) == 'cancel':
+                self.screen.popWindow()
+                return
+
+            if popbb.buttonPressed(res) == 'fsopts':
+                (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(lvrequest, format, migrate, newfstype, badblocks, showbadblocks=0)
+                self.fstypeSet((newfstype, self.mount))
+                fstypeLbl.setText(newfstype.getName())
+
+                if fsoptLbl:
+                    if format:
+                        fsoptLbl.setText(_("Format as %s") % (newfstype.getName()))
+                    elif migrate:
+                        fsoptLbl.setText(_("Migrate to %s") %(newfstype.getName()))
+                    else:
+                        fsoptLbl.setText(_("Leave unchanged"))
+                
+                continue
+
+            request = copy.copy(lvrequest)
+
+	    if not preexist:
+		request.fstype = fstype.current()
+	    else:
+		request.fstype = newfstype
+
+            if request.fstype.isMountable():
+                request.mountpoint = self.mount.value()
+            else:
+                request.mountpoint = None
+
+	    if not preexist:
+		if format:
+		    request.format = format.selected()
+		else:
+		    request.format = 0
+
+                # set the vg
+                vgreq = vgtype.current()
+                request.volumeGroup = vgreq.uniqueID
+
+                if vgreq is None:
+                    raise RuntimeError, "Somehow ended up with a None volume group!"
+
+                # get the lv name, check for a "valid" name
+                lvn = self.lvname.value().strip()
+                err = sanityCheckLogicalVolumeName(lvn)
+                if err:
+                    self.intf.messageWindow(_("Illegal Logical Volume Name"), err, custom_icon="error")
+                    
+                    continue
+
+                # make sure we don't have an LV in this volume group by
+                # this name already
+                used = 0
+                origlvname = lvrequest.logicalVolumeName
+                for lv in self.partitions.getLVMLVRequests():
+                    if origlvname and lvn == origlvname:
+                        break
+                    if ((lv.logicalVolumeName == lvn) and
+                        (lv.volumeGroup == vgreq.uniqueID)):
+                        used = 1
+                        break
+
+                if used:
+                    self.intf.messageWindow(_("Illegal logical volume name"),
+                                            _("The logical volume name \"%s\" "
+                                              "is already in use. Please "
+                                              "pick another.") % (lvname,),
+                                            custom_icon="error")
+                    continue
+                    
+                request.logicalVolumeName = lvn
+
+                size = int(lvsize.value().strip())
+                pesize = vgreq.pesize
+                size = lvm.clampLVSizeRequest(size, pesize, roundup=1)
+
+                maxlv = lvm.getMaxLVSize(pesize)
+                if size > lvm.getMaxLVSize(pesize):
+                    self.intf.messageWindow(_("Not enough space"),
+                                            _("The current requested size "
+                                              "(%10.2f MB) is larger than "
+                                              "maximum logical volume "
+                                              "size (%10.2f MB). ") % (size,
+                                                                       maxlv),
+                                            custom_icon="error")
+                    continue
+                    
+                vgsize = vgreq.getActualSize(self.partitions, self.diskset)
+                avail = vgsize
+                for req in self.partitions.requests:
+                    if ((req.type == REQUEST_LV) and 
+                        (req.volumeGroup == vgreq.uniqueID)):
+                        avail -= req.size
+                if lvrequest.size:
+                    avail += lvrequest.size
+
+                if size > avail:
+                    self.intf.messageWindow(_("Not enough space"),
+                                            _("The current requested size "
+                                              "(%10.2f MB) is larger than "
+                                              "the available size in "
+                                              "the volume group "
+                                              "(%10.2f MB).") %(size, avail),
+                                            custom_icon="error")
+                    continue
+
+                request.size = size
+                request.grow = 0
+                request.dev = None
+	    else:                
+		request.format = format
+		request.migrate = migrate
+		request.fstype = newfstype
+		request.badblocks = badblocks
+
+            err = request.sanityCheckRequest(self.partitions)
+            if err:
+                self.intf.messageWindow(_("Error With Request"),
+                                        "%s" % (err))
+                continue
+
+            if not isNew:
+                self.partitions.removeRequest(lvrequest)
+
+            self.partitions.addRequest(request)
+
+            if self.refresh():
+                # how can this fail?  well, if it does, do the remove new,
+                # add old back in dance
+                self.partitions.removeRequest(request)
+                if not isNew:
+                    self.partitions.addRequest(lvrequest)
+                if self.refresh():
+                    raise RuntimeError, "Returning partitions to state prior to RAID edit failed"
+            else:
+                break
+
+            break
+
+        # clean up
+        self.shutdownUI()
+        self.screen.popWindow()
+
     def newCb(self):
-        request = NewPartitionSpec(fileSystemTypeGetDefault(), 1)
-        self.editPartitionRequest(request, isNew = 1)
+        hasvg = 0
+        dolv = 0
+        for request in self.partitions.requests:
+            if request.type == REQUEST_VG:
+                hasvg = 1
+                break
+        if hasvg:
+            rc = ListboxChoiceWindow(self.screen,
+                                     _("New Partition or Logical Volume?"),
+                                     _("Would you like to create a new "
+                                       "partition or a new logical volume?"),
+                                     [ _("partition"), _("logical volume") ],
+                                     [ TEXT_OK_BUTTON, TEXT_CANCEL_BUTTON ],
+                                     width = 30, scroll = 0, height = 2)
+            (button, choice) = rc
+            if button == TEXT_CANCEL_CHECK:
+                return
+            if choice == 1:
+                dolv = 1
+
+        if not dolv:
+            request = NewPartitionSpec(fileSystemTypeGetDefault(), 1)
+            self.editPartitionRequest(request, isNew = 1)
+        else:
+            request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
+                                               size=1)
+            self.editLVRequest(request, isNew = 1)
 
     def makeraidCb(self):
         request = RaidRequestSpec(fileSystemTypeGetDefault())
@@ -1089,6 +1391,8 @@ class PartitionWindow:
         if request:
             if type == "RAID":
                 self.editRaidRequest(request)
+            elif type == "LVMLV":
+                self.editLVRequest(request)
             elif type == "NEW":
                 self.editPartitionRequest(request, isNew = 1)
             else:
