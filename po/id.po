@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"PERHATIAN!!! Server VNC berjalan TANPA PASSWORD!\n"
+"PERINGATAN!!! Server VNC berjalan TANPA PASSWORD!\n"
 "Anda dapat mempergunakan opsi boot vncpassword=<password>\n"
 "jika anda ingin mengamankan server.\n"
 
@@ -61,7 +61,7 @@ msgstr "Berusaha untuk melakukan koneksi ke klien vnc di host %s..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr "Saya menyerah setelah mencoba melakukan koneksi sebanyak 50 kali\n"
+msgstr "Menyerah setelah mencoba melakukan koneksi sebanyak 50 kali!\n"
 
 #: ../anaconda:198
 #, c-format
@@ -74,7 +74,7 @@ msgstr "Koneksikan klien vnc anda secara manual untuk mulai menginstal."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr "Saya akan mencoba melakukan koneksi kembali dalam 15 detik..."
+msgstr "Akan mencoba melakukan koneksi kembali dalam 15 detik..."
 
 #: ../anaconda:208
 msgid "Connected!"
@@ -154,7 +154,7 @@ msgstr ""
 #: ../anaconda:789
 msgid "Install class forcing text mode installation"
 msgstr ""
-"Install class yang anda pilih memaksa instalasi dilakukan dalam mode teks"
+"Kelas Instalasi yang anda pilih memaksa instalasi dilakukan dalam mode teks"
 
 #: ../anaconda:816
 msgid "No video hardware found, assuming headless"
@@ -189,7 +189,7 @@ msgstr "Mempergunakan tipe mouse: %s"
 #: ../anaconda:969
 #, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Mencari instalasi %s..."
+msgstr "Memulai instalasi mode grafis..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -230,18 +230,23 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"Partisi boot %s bukanlah partisi VFAT. EFI tidak akan dapat melakukan boot dari "
+"partisi ini."
 
 #: ../autopart.py:1023
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
+"Partisi boot tidak berada di lokasi awal disk. OpenFirmware tidak akan "
+"dapat melakukan booting pada instalasi ini."
 
 #: ../autopart.py:1030
 #, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
+"Partisi boot %s tidak memenuhi ketentuan boot untuk arsitektur anda."
 
 #: ../autopart.py:1056
 #, python-format
@@ -249,6 +254,8 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"Menambah partisi ini tidak akan menyisakan ruang disk yang cukup untuk "
+"logical volume yang telah dialokasikan di %s."
 
 #: ../autopart.py:1223
 msgid "Requested Partition Does Not Exist"
@@ -267,7 +274,7 @@ msgstr ""
 
 #: ../autopart.py:1249
 msgid "Requested Raid Device Does Not Exist"
-msgstr "Devais Raid yang diminta tidak ditemukan"
+msgstr "Perangkat Raid yang diminta tidak ditemukan"
 
 #: ../autopart.py:1250
 #, python-format
@@ -291,6 +298,9 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Tidak dapat menemukan volume grup %s untuk dipergunakan sebagai %s.\n"
+"\n"
+"Tekan 'OK' untuk mem-boot ulang sistem."
 
 #: ../autopart.py:1315
 msgid "Requested Logical Volume Does Not Exist"
@@ -303,10 +313,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"Tidak dapat menemukan volume logikal %s untuk dipergunakan sebagai %s.\n"
+"\n"
+"Tekan 'OK' untuk mem-boot ulang sistem."
 
 #: ../autopart.py:1389 ../autopart.py:1437
 msgid "Automatic Partitioning Errors"
-msgstr ""
+msgstr "Kesalahan Mempartisi secara Otomatis"
 
 #: ../autopart.py:1390
 #, python-format
@@ -334,6 +347,10 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Peringatan-peringatan berikut ini terjadi selama mempartisi secara "
+"otomatis:\n"
+"\n"
+"%s"
 
 #: ../autopart.py:1414 ../autopart.py:1431
 msgid ""
@@ -387,6 +404,12 @@ msgid ""
 "This can happen if there is not enough space on your hard drive(s) for the "
 "installation.%s"
 msgstr ""
+"Kesalahan-kesalahan berikut ini terjadi pada saat mempartisi:\n"
+"\n"
+"%s\n"
+"\n"
+"Ini dapat terjadi jika tidak tersedia cukup ruang pada harddisk anda untuk"
+"instalasi.%s"
 
 #: ../autopart.py:1449
 msgid "Unrecoverable Error"
@@ -419,12 +442,20 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
+"Partisi Otomatis menentukan partisi berdasarkan tipe instalasi yang dipilih. "
+"Anda juga dapat mengkustomisasi partisi setelah partisi selesai dibuat.\n"
+"\n"
+"Alat bantu partisi disk secara manual, Disk Druid, mengijinkan anda untuk "
+"membuat partisi di lingkungan yang interaktif. Anda dapat menentukan tipe "
+"file sistem, mount poin, ukuran partisi, dan lainnya."
 
 #: ../autopart.py:1614
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
 msgstr ""
+"Sebelum proses pembuatan partisi secara otomatis dapat jalankan oleh program "
+"instalasi, anda harus memilih bagaimana penggunaan ruang pada hard drive anda."
 
 #: ../autopart.py:1619
 msgid "Remove all partitions on this system"
@@ -524,6 +555,8 @@ msgid ""
 "Choose this group to get the minimal possible set of packages.  Useful for "
 "creating small router/firewall boxes, for example."
 msgstr ""
+"Pilih group ini untuk mendapatkan paket minimal. Berguna untuk membuat "
+"router/firewall, sebagai contohnya."
 
 #: ../constants.py:72
 msgid ""
@@ -532,6 +565,10 @@ msgid ""
 "file a detailed bug report against anaconda at http://bugzilla.redhat.com/"
 "bugzilla/"
 msgstr ""
+"Terjadi sesuatu yang tidak tertangani. Sepertinya ini adalah bug. Copy-kan "
+"kejadian ini secara lengkap atau simpan hasil crash dump ke floppy kemudian "
+"lampirkan laporan lengkap bug tentang anaconda ke http://bugzilla.redhat.com/"
+"bugzilla/"
 
 #: ../constants.py:79
 msgid ""
@@ -539,6 +576,9 @@ msgid ""
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
+"Terjadi sesuatu yang tidak tertangani. Sepertinya ini adalah bug. Copy-kan "
+"kejadian ini secara lengkap dan masukkan laporan detail bug tentang anaconda "
+"ke http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:241
 msgid "Exception Occurred"
@@ -553,18 +593,20 @@ msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
+"Status sistem anda telah berhasil ditulis ke dalam floppy. Sistem anda "
+"sekarang akan direset."
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Remote Login (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Server Web (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transfer File (FTP)"
 
 #: ../firewall.py:58
 #, fuzzy
@@ -679,7 +721,7 @@ msgstr ""
 
 #: ../fsset.py:1189
 msgid "RAID Device"
-msgstr "Divais RAID"
+msgstr "Perangkat RAID"
 
 #: ../fsset.py:1193 ../fsset.py:1199
 msgid "Apple Bootstrap"
@@ -825,7 +867,7 @@ msgstr ""
 
 #: ../fsset.py:2131
 msgid "Duplicate Labels"
-msgstr ""
+msgstr "Label Ganda"
 
 #: ../fsset.py:2132
 #, python-format
@@ -858,7 +900,7 @@ msgstr "Memformat %s sistem file..."
 
 #: ../gui.py:107
 msgid "An error occurred copying the screenshots over."
-msgstr ""
+msgstr "Terjadi kesalahan pada proses mengkopi screenshot."
 
 #: ../gui.py:119
 msgid "Screenshots Copied"
@@ -946,6 +988,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"Berikut ini ditemukan kesalahan ketika memparsing konfigurasi kickstart anda:\n"
+"\n"
+"%s"
 
 #: ../gui.py:658 ../text.py:286
 #, fuzzy
@@ -961,9 +1006,8 @@ msgstr ""
 "tolong pilih disket anda dengan hati-hati."
 
 #: ../gui.py:763
-#, fuzzy
 msgid "default:LTR"
-msgstr "Default"
+msgstr "default:LTR"
 
 #: ../gui.py:837 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1047,7 +1091,7 @@ msgstr "Instaler %s pada %s"
 
 #: ../gui.py:1354
 msgid "Unable to load title bar"
-msgstr "Tidak dapat memuat title bar"
+msgstr "Tidak dapat memuat baris judul"
 
 #: ../gui.py:1461
 msgid "Install Window"
@@ -1112,10 +1156,12 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Terjadi kesalahan waktu mentransfer install image ke hard drive anda. "
+"Anda kemungkinan kehabisan ruang disk."
 
 #: ../image.py:283
 msgid "Change CDROM"
-msgstr "Ubah CDROM"
+msgstr "Ganti CDROM"
 
 #: ../image.py:284
 #, fuzzy, python-format
@@ -1133,7 +1179,7 @@ msgstr "Ini bukan CDROM %s yang benar."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Tidak dapat mengakses CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1166,10 +1212,12 @@ msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
 "not exist. Would you like to continue or abort your installation?"
 msgstr ""
+"Anda menginginkan agar grup '%s' diinstal. Akan tetapi grup ini tidak ada. "
+"Apakah anda ingin melanjutkan atau membatalkan proses instalasi anda?"
 
 #: ../network.py:41
 msgid "Hostname must be 64 or less characters in length."
-msgstr "Panjang nama host harus kurang dari 64 karakter"
+msgstr "Panjang nama host harus kurang dari atau sama dengan 64 karakter"
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
@@ -1254,7 +1302,7 @@ msgstr "Memproses"
 
 #: ../packages.py:354
 msgid "Preparing to install..."
-msgstr "Mempersiapkan untuk menginstal..."
+msgstr "Persiapan Instalasi..."
 
 #: ../packages.py:413
 #, python-format
@@ -1265,6 +1313,11 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
+"Paket %s-%s-%s tidak dapat dibuka. Ini disebabkan karena file tidak ditemukan "
+"atau paket yang rusak. Jika anda menginstal dari CD ini biasanya berarti "
+"media CD rusak, atau drive CD tidak dapat membaca media.\n"
+"\n"
+"Tekan <return> untuk mencoba kembali."
 
 #: ../packages.py:421
 msgid "Installing..."
@@ -1272,7 +1325,7 @@ msgstr "Menginstal..."
 
 #: ../packages.py:442
 msgid "Error Installing Package"
-msgstr "Kesalahan pada saat menginstal Paket"
+msgstr "Kesalahan waktu menginstal Paket"
 
 #: ../packages.py:443
 #, python-format
@@ -1284,6 +1337,12 @@ msgid ""
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
+"Ada kesalahan waktu menginstal %s. Ini menandakan kegagalan media, kekurangan "
+"ruang disk, dan/atau permasalahan perangkat keras. Ini merupakan kesalahan "
+"fatal dan instalasi anda akan dibatalkan. Verifikasi media anda dan coba "
+"instalasi anda kembali.\n"
+"\n"
+"Tekan tombol OK untuk mem-boot ulang sistem anda."
 
 #: ../packages.py:816
 msgid "Preparing RPM transaction..."
@@ -1369,6 +1428,10 @@ msgid ""
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
+"Anda tampaknya tidak memiliki cukup node file untuk menginstal paket-paket "
+"yang telah anda pilih. Anda membutuhkan lebih banyak node file pada file "
+"sistem berikut ini:\n"
+"\n"
 
 #: ../packages.py:1000
 msgid "Nodes Needed"
@@ -1408,7 +1471,7 @@ msgstr ""
 
 #: ../packages.py:1482
 msgid "Warning! This is pre-release software!"
-msgstr "Peringatan! Ini merupakan software yang belum dirilis"
+msgstr "Peringatan! Ini merupakan software pra-rilis"
 
 #: ../packages.py:1483
 #, python-format
@@ -1425,6 +1488,17 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
+"Terima kasih telah mendownload pra-rilis dari %s.\n"
+"\n"
+"Ini bukanlah rilis akhir dan tidak dimaksudkan untuk penggunaan di sistem "
+"produksi. Tujuan dari rilis ini adalah untuk mengumpulkan umpan balik dari "
+"tester, dan ini tidak cocok untuk penggunaan sehari-hari.\n"
+"\n"
+"Untuk melaporkan umpan balik, silahkan kunjungi:\n"
+"\n"
+"   http://bugzilla.redhat.com/bugzilla\n"
+"\n"
+"dan tulislah laporan tentang '%s'.\n"
 
 #: ../packages.py:1496
 msgid "_Install anyway"
@@ -1444,6 +1518,12 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"Devais %s memiliki format LDL bukan format CDL. DASD dengan format LDL "
+"penggunaannya tidak didukung selama masa instalasi %s. Jika anda ingin "
+"mempergunakan disk ini untuk instalasi, maka disk ini harus diinisiasi "
+"ulang yang mana akan berakibat pada hilangnya SELURUH DATA pada drive ini.\n"
+"\n"
+"Apakah anda ingin memformat ulang DASD ini mempergunakan format CDL?"
 
 #: ../partedUtils.py:308
 #, python-format
@@ -1456,14 +1536,12 @@ msgid ""
 msgstr ""
 
 #: ../partedUtils.py:317
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Abaikan"
+msgstr "Aba_ikan drive"
 
 #: ../partedUtils.py:318
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Format"
+msgstr "_Format drive"
 
 #: ../partedUtils.py:651
 #, python-format
@@ -1516,16 +1594,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
-msgstr "Isikan nama volume group."
+msgstr "Isikan nama grup volume."
 
 #: ../partIntfHelpers.py:39
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "Nama Volume Group harus kurang dari 128 karakter"
+msgstr "Nama Grup Volume harus kurang dari 128 karakter"
 
 #: ../partIntfHelpers.py:42
 #, python-format
 msgid "Error - the volume group name %s is not valid."
-msgstr "Kesalahan - nama volume group %s tidak valid."
+msgstr "Kesalahan - nama grup volume %s tidak valid."
 
 #: ../partIntfHelpers.py:47
 msgid ""
@@ -1535,16 +1613,16 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "Isikan nama logical volume."
+msgstr "Isikan nama volume logikal."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "Nama Logical Volume harus kurang dari 128 karakter"
+msgstr "Nama Volume Logikal harus kurang dari 128 karakter"
 
 #: ../partIntfHelpers.py:65
 #, python-format
 msgid "Error - the logical volume name %s is not valid."
-msgstr "Kesalahan - nama volume logical %s tidak valid."
+msgstr "Kesalahan - nama volume logikal %s tidak valid."
 
 #: ../partIntfHelpers.py:71
 msgid ""
@@ -1578,11 +1656,11 @@ msgstr "Partisi ini merupakan bagian dari devais RAID."
 #: ../partIntfHelpers.py:123
 #, python-format
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "Partisi ini merupakan bagian dari LVM volume group '%s'."
+msgstr "Partisi ini merupakan bagian dari grup volume LVM '%s'."
 
 #: ../partIntfHelpers.py:126
 msgid "This partition is part of a LVM volume group."
-msgstr "Partisi ini merupakan bagian dari LVM volume group."
+msgstr "Partisi ini merupakan bagian dari grup volume LVM."
 
 #: ../partIntfHelpers.py:141 ../partIntfHelpers.py:149
 #: ../partIntfHelpers.py:156 ../partIntfHelpers.py:166
@@ -2333,7 +2411,7 @@ msgstr "Password"
 
 #: ../vnc.py:89 ../textw/userauth_text.py:45
 msgid "Password (confirm):"
-msgstr ""
+msgstr "Password (konfirmasi):"
 
 #: ../vnc.py:111 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
@@ -2341,16 +2419,15 @@ msgstr "Password Tidak Cocok"
 
 #: ../vnc.py:112 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "Password yang anda masukkan berbeda. Silahkan coba lagi."
 
 #: ../vnc.py:117 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
-msgstr ""
+msgstr "Panjang Password"
 
 #: ../vnc.py:118
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Panjang password root minimal enam karakter."
+msgstr "Panjang password minimal enam karakter."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2365,9 +2442,8 @@ msgid ""
 msgstr ""
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Device"
+msgstr "Nomer Devais"
 
 #: ../zfcp.py:30
 msgid "You have not specified a device number or the number is invalid"
@@ -2375,15 +2451,15 @@ msgstr ""
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "Id SCSI"
 
 #: ../zfcp.py:33
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr ""
+msgstr "Anda belum menentukan ID SCSI atau ID nya tidak valid."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:102
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 msgid "You have not specified a worldwide port name or the name is invalid."
@@ -2391,19 +2467,19 @@ msgstr ""
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr ""
+msgstr "Anda belum menentukan SCSI LUN atau nomernya tidak valid."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:102
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr ""
+msgstr "Anda belum menentukan FCP LUN atau nomernya tidak valid."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -2443,6 +2519,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"Account root dipergunakan untuk administrasi sistem. Masukkan password untuk "
+"user root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2458,15 +2536,15 @@ msgstr "Konfigurasi Otentikasi"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr ""
+msgstr "Aktifkan password _MD5"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr ""
+msgstr "Aktifkan password shado_w"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr ""
+msgstr "Aktifkan N_IS"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
@@ -2482,11 +2560,11 @@ msgstr "_Server NIS: "
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
-msgstr ""
+msgstr "Aktifkan LDAP"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr ""
+msgstr "Gunakan pencarian _TLS"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
@@ -2498,7 +2576,7 @@ msgstr ""
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr ""
+msgstr "Aktifkan _Kerberos"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
@@ -2514,7 +2592,7 @@ msgstr "Server _Admin:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr ""
+msgstr "Aktifkan _Authentikasi SMB"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
