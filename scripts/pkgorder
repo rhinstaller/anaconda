@@ -21,6 +21,20 @@ def cmpHeaderByName(h1, h2):
 
     return 1
 
+# returns 1 if comp is in the parent chain for subcomp
+def isParent(comp, subcomp):
+    if not subcomp:
+        return 0
+    if subcomp.parent == comp:
+        return 1
+    return isParent(comp, comp.parent)
+
+# turns on a whole comp chain
+def selectComp(comp):
+    comp.select()
+    if comp.parent:
+        selectComp(comp.parent)
+
 if len(sys.argv) != 3:
     print "pkgorder <toppath> <arch>"
     sys.exit(1)
@@ -36,65 +50,107 @@ disc1Dir = distDir + "-disc1"
 disc1SrcDir = distDir + "-srpms"
 disc2Dir = distDir + "-disc2"
 
+# pull in the hdlist
 f = distDir + "/RedHat/base/hdlist"
 try:
     hdlist = comps.HeaderListFromFile(f, noscore = 1)
 except rpm.error:
     print "Failed to read header list", f
     sys.exit(1)
+# and read the comps file
 comps = comps.ComponentSet(distDir + "/RedHat/base/comps", hdlist, 
-			    arch = arch, matchAllLang = 1)
-
-filenamesByPkgName = {}
-for p in hdlist.hdlist:
-    n = p[rpm.RPMTAG_NAME]
-    if filenamesByPkgName.has_key(n):
-	filenamesByPkgName[n].append(p[1000000] )
-    else:
-	filenamesByPkgName[n] = [ p[1000000] ]
+			    arch = arch, matchAllLang = 0)
 
 # work out the order we'd like to install everything in
 pkgOrder = []
-list = []
 pkgHash = {}
 
+# We always want all the kernels-.* in our package list, except for a few
 for package in hdlist.keys():
     if ((len(package) >= 7 and package[:7] == "kernel-")
         and not (len(package) >= 10 and package[:10] == "kernel-doc")
         and not (len(package) >= 13 and package[:13] == "kernel-source")
+        and not (len(package) >= 12 and package[:12] == "kernel-debug")
         and not (len(package) >= 11 and package[:11] == "kernel-BOOT")):
         hdlist[package].selected = 1
         pkgOrder.append(hdlist[package].h)
         pkgHash[hdlist[package].h] = None
 
+# Tier 1 language packages get priority.
+os.environ["LINGUAS"] = ("ja_JP.eucJP:ja_JP:ja:de_DE:de:fr_FR:fr:it_IT:it:"
+                         "es_ES:es:ko_KR.eucKR:ko_KR:ko")
+
+
+# Form a dictionary of _all_ the components, even sub comps
+compsDict = {}
+subComps = {}
+for h in hdlist.keys():
+    hdlist[h].selected = 0
+    for comp in hdlist[h].comps:
+        compsDict[comp.name] = comp
+
+# make a list of all the names of all the components.
+allComps = compsDict.values()
+
+# go through all our toplevel components and add children to it.
+for comp in comps:
+    compsDict[comp.name] = comp
+    subComps[comp] = []
+    for c in allComps:
+        if isParent(comp, c):
+            subComps[comp].append(c)
+#print subComps
+#print compsDict
+
 # for each comp, staring with base, list the packages
 # in alphabetical order.
 for comp in comps:
     list = []
-    if comp.name != 'Everything':
-        comp.select(1)
+    # We don't want to pay any attention to everything.
+    if len(comp.name) >= 10 and comp.name[:10] == 'Everything':
+        continue
+
+    # don't update the hdlist selection state yet, we're going to do
+    # a lot of toggling here.
+    comps.freeze()
+    # make sure all the components are off
+    for n in compsDict.values():
+        n.unselect ()
+
+    # turn on this component, and anything that this component needs
+    # to have on in order to be on.
+    selectComp(comp)
+    if comp.conditionalKey:
+    	selectComp(comps[comp.conditionalKey])
+
+    # Do the same for each subcomponent
+    for c in subComps[comp]:
+        selectComp(c)
+        if c.conditionalKey:
+            selectComp(compsDict[c.conditionalKey])
+    # update the hdlist selection states
+    comps.thaw()
+
+    # append what got turned on to our order.
+
     for p in hdlist.selected():
         list.append(p.h)
-
     list.sort(cmpHeaderByName)
-
     for item in list:
         if not pkgHash.has_key (item):
             pkgOrder.append(item)
             pkgHash[item] = None
 
-    comp.unselect(1)
-
+# add all of the packages that haven't been added yet.
 list = []
 for p in hdlist.packages.values():
     if not pkgHash.has_key (p.h):
         list.append(p.h)
-
 list.sort(cmpHeaderByName)
-
 for item in list:
     pkgOrder.append(item)
 
+# Now set up rpm to run the transaction deporder
 testpath = '/tmp/pkgorder-' + str (os.getpid ())
 os.system ("mkdir -p " + testpath + "/var/lib/rpm")
 
@@ -102,17 +158,19 @@ db = rpm.opendb(1, testpath)
 
 ts = rpm.TransactionSet(testpath, db)
 for h in pkgOrder:
-    #print h[1000000]
+    #print "in:", h[1000000]
     ts.add(h, h, 'i')
 pkgOrder = []
 
 ts.order()
 
+# Get the order back out...
 try:
     pkgOrder = ts.getKeys()
 except AttributeError:
     print "you don't have the latest RPM!"
 
+# print the results.
 for p in pkgOrder:
     print "%s-%s-%s" % (p['name'], p['version'], p['release'])
 

@@ -581,8 +581,17 @@ class ComponentSet:
 	    comp.setDefaultSelection()
 
     def updateSelections(self):
-        for pkg in self.packages.values():
-            pkg.updateSelectionCache()
+        if not self.frozen:
+            for pkg in self.packages.values():
+                pkg.updateSelectionCache()
+
+    def freeze(self):
+        self.frozen = self.frozen + 1
+
+    def thaw(self):
+        self.frozen = self.frozen - 1
+        if not self.frozen:
+            self.updateSelections()
         
     def __repr__(self):
 	s = ""
@@ -754,23 +763,25 @@ class ComponentSet:
 	return kernelVersions
 
     def __init__(self, file, hdlist, arch = None, matchAllLang = 0):
+        self.frozen = 0
         self.allLangs = matchAllLang
         self.archList = []
 	self.verifiedState = None
 	if not arch:
 	    import iutil
 	    arch = iutil.getArch()
-
-        self.archList.append(arch)
-
-# always set since with can have i386 arch with i686 arch2, for example
-#	arch2 = None
-#	if arch == "sparc" and os.uname ()[4] == "sparc64":
-#	    arch2 = "sparc64"
-#
-        arch2 = os.uname ()[4]
-        if not arch2 in self.archList:
-            self.archList.append (arch2)
+            self.archList.append(arch)
+            # always set since with can have i386 arch with i686 arch2,
+            # for example:
+            #   arch2 = None
+            #   if arch == "sparc" and os.uname ()[4] == "sparc64":
+            #	    arch2 = "sparc64"
+            #
+            arch2 = os.uname ()[4]
+            if not arch2 in self.archList:
+                self.archList.append (arch2)
+        else:
+            self.archList.append(arch)
         
 	self.packages = hdlist
 	self.readCompsFile(file, self.packages)
