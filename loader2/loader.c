@@ -81,6 +81,8 @@
 
 /* maximum number of extra arguments that can be passed to the second stage */
 #define MAX_EXTRA_ARGS 128
+static char * extraArgs[MAX_EXTRA_ARGS];
+static int hasGraphicalOverride();
 
 static int newtRunning = 0;
 
@@ -107,7 +109,6 @@ static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 /* JKFIXME: bad hack for second stage modules without module-info */
 struct moduleBallLocation * secondStageModuleLocation;
-    
 
 #if 0
 #if !defined(__s390__) && !defined(__s390x__)
@@ -419,7 +420,7 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
  * NOTE: in test mode, can specify a cmdline with --cmdline
  */
 static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
-                             char * cmdLine, char * extraArgs[]) {
+                             char * cmdLine) {
     int fd;
     char buf[500];
     int len;
@@ -839,7 +840,7 @@ static char *doLoaderMain(char * location,
 
         case STEP_NETWORK:
             if ( (installMethods[validMethods[methodNum]].deviceType != 
-                  CLASS_NETWORK) && (!FL_VNC(flags)) ) {
+                  CLASS_NETWORK) && (!hasGraphicalOverride())) {
                 needsNetwork = 0;
                 if (dir == 1) 
                     step = STEP_URL;
@@ -998,7 +999,7 @@ static void migrate_runtime_directory(char * dirname) {
 }
 
 
-static int hasGraphicalOverride(char *extraArgs[]) {
+static int hasGraphicalOverride() {
     int i;
 
     if (getenv("DISPLAY"))
@@ -1019,7 +1020,6 @@ int main(int argc, char ** argv) {
     FILE *f;
 
     char twelve = 12;
-    char * extraArgs[MAX_EXTRA_ARGS];
 
     struct knownDevices kd;
     moduleInfoSet modInfo;
@@ -1108,9 +1108,9 @@ int main(int argc, char ** argv) {
     memset(&loaderData, 0, sizeof(loaderData));
 
     extraArgs[0] = NULL;
-    flags = parseCmdLineFlags(flags, &loaderData, cmdLine, extraArgs);
+    flags = parseCmdLineFlags(flags, &loaderData, cmdLine);
 
-    if (FL_SERIAL(flags) && !hasGraphicalOverride(extraArgs))
+    if (FL_SERIAL(flags) && !hasGraphicalOverride())
         flags |= LOADER_FLAGS_TEXT;
 
     setupRamfs();
