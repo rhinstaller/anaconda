@@ -28,8 +28,8 @@ PYFILES = $(wildcard *.py)
 all: subdirs _xkb.so xmouse.so $(CATALOGS) lang-table
 
 _xkb.so: xkb.c
-	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `gtk-config --cflags gtk` -c xkb.c 
-	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `gtk-config --libs gtk`
+	gcc -Wall -o _xkb.o -O2 -fPIC -I$(PYTHONINCLUDE) `pkg-config --cflags gtk+-2.0` -c xkb.c 
+	gcc -o _xkb.so -shared _xkb.o /usr/X11R6/lib/libxkbfile.a `pkg-config --libs gtk+-2.0`
 
 xmouse.so: xmouse.c
 	gcc -Wall -o xmouse.o -fPIC -I/usr/X11R6/include -I$(PYTHONINCLUDE) -I $(PYTHONINCLUDE) -c xmouse.c 
