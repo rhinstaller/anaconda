@@ -9,6 +9,14 @@ import string
 # set up rpm dependency whiteouts
 import whiteout
 
+# set up logging so that information on missing packages isn't in the
+# pkgorder file
+import rhpl.log as log
+from anaconda_log import anaconda_log
+anaconda_log.open(sys.stderr)
+log.handler = anaconda_log
+
+
 rpmFD = None
 
 import comps
