@@ -155,7 +155,7 @@ sbin/mkraid
 etc/nsswitch.conf
 lib/ld-*
 lib/libc*
-lib/libm*
+lib/libm[-.]*
 lib/libcrypt*
 lib/libdl*
 lib/libdb-3.0
@@ -388,7 +388,6 @@ usr/share/fonts/ISO8859-9/75dpi/tr*tim*
 usr/share/fonts/ISO8859-9/misc/fonts*
 usr/share/fonts/ISO8859-9/misc/tr*6x*
 usr/share/fonts/ISO8859-9/misc/tr*9x*
-usr/share/i18n/*
 usr/share/locale/*
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
 usr/share/pixmaps/gnome-default-dlg.png
@@ -461,6 +460,17 @@ rm -f $DESTGR/usr/lib/anaconda/rpmmodule.so
 if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
 fi
+
+# Remove locales unused during the install
+cat $DESTGR/usr/lib/anaconda/lang-table* | awk '
+{ print $5; print gensub(/\..*$/,"","",$5); print gensub(/_.*$/,"","",$5); }
+' | LC_ALL=C sort -u > $DESTGR/locales
+for p in lib share; do (
+cd $DESTGR/usr/$p/locale;
+ls | grep -v locale.alias | LC_ALL=C sort > $DESTGR/locales.list
+LC_ALL=C comm -13 $DESTGR/locales $DESTGR/locales.list | xargs rm -rf
+); done
+rm -f $DESTGR/locales $DESTGR/locales.list
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then

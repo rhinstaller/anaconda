@@ -604,28 +604,15 @@ findloopdevice () {
 makemainimage () {
     imagename=$1
     tmpimage=/tmp/instimage.img.$$
-    mntpoint=/tmp/instimage.mnt.$$
 
-    rm -rf $mntpoint $tmpimage
-    mkdir $mntpoint
+    rm -f $tmpimage
 
-    SIZE=$(du -sk $IMGPATH | awk '{print $1}')
-
-    dd if=/dev/zero of=$tmpimage bs=1k count=$SIZE 2>/dev/null
-    echo y | /sbin/mke2fs -m 0 -i 4096 $tmpimage  > /dev/null 2>/dev/null
-    mount -o loop $tmpimage $mntpoint
-    (cd $IMGPATH; find . | cpio --quiet -p $mntpoint)
-
-    # Doing this on two lines keeps the df output from being broken apart
-    left=$(df $mntpoint | tail +2)
-    left=$(echo $left | awk '{print $4'})
-
-    umount $mntpoint
-    rmdir $mntpoint
+    mkisofs -R -o $tmpimage $IMGPATH 2>&1 | grep -v '^Using'
+    SIZE=$(du -sk $tmpimage | awk '{print $1}')
 
     cp $tmpimage $INSTIMGPATH/${imagename}.img
 
-    echo "Wrote $INSTIMGPATH/${imagename}.img (${left}k of ${SIZE}k free)"
+    echo "Wrote $INSTIMGPATH/${imagename}.img (${SIZE}k)"
 
     rm $tmpimage
 }
