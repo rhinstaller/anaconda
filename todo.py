@@ -343,8 +343,6 @@ class ToDo:
 
         log.open (serial, reconfigOnly, test)
 
-        log ("In todo mouse = %s" % self.mouse)
-
         self.fstab = None
 
 	# liloDevice, liloLinear, liloAppend are initialized form the
@@ -691,7 +689,7 @@ class ToDo:
             args.append ("--hesiodrhs")
             args.append (self.auth.hesiodRhs)
 
-        log ("running authentication cmd |%s|" % args)
+#        log ("running authentication cmd |%s|" % args)
         iutil.execWithRedirect(args[0], args,
                               stdout = None, stderr = None, searchPath = 1,
                               root = self.instPath)
@@ -1454,7 +1452,7 @@ class ToDo:
 	for p in l:
             ts.add(p.h, p.h, how)
             total = total + 1
-            totalSize = totalSize + (p['size'] / 1024 / 1024)
+            totalSize = totalSize + (p['size'] / 1024 )
 
 	ts.order()
 
