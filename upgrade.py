@@ -63,6 +63,12 @@ def findExistingRoots(intf, id, chroot):
 
     win.pop()
 
+    # close the devices to make sure we don't leave things sitting open 
+    diskset.closeDevices()
+
+    # this is a hack... need to clear the skipped disk list after this
+    partedUtils.DiskSet.skippedDisks = []
+
     return rootparts
 
 def getDirtyDevString(dirtyDevs):
