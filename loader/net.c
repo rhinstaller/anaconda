@@ -66,7 +66,7 @@ typedef int int32;
 #ifdef __STANDALONE__
 static FILE * logfile = NULL;
 
-#define FL_TESTING(foo) 0
+#define FL_TESTING(foo) 1
 
 void logMessage(const char * s, ...) {
 	va_list args;
@@ -419,6 +419,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
 	    if (!chptr) {
 		newCfg.isDynamic = 1;
+#ifdef __STANDALONE__
+		i = 2;
+#else		    
 		if (!(newCfg.dev.set & PUMP_NETINFO_HAS_DNS)) {
 		    logMessage("pump worked, but didn't return a DNS server");
 		    i = getDnsServers(&newCfg);
@@ -426,6 +429,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 		} else {
 		    i = 2; 
 		}
+#endif		    
 	    } else {
 		logMessage("pump told us: %s", chptr);
 		i = 0;
@@ -433,6 +437,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	}
     } while (i != 2);
 
+#ifdef __STANDALONE__
+    if (!newCfg.isDynamic)
+#endif	  
     cfg->dev = newCfg.dev;
     cfg->isDynamic = newCfg.isDynamic;
 
@@ -460,6 +467,9 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 	writeResolvConf(cfg);
     }
 
+#ifdef __STANDALONE__
+    writeResolvConf(cfg);
+#endif
     return 0;
 }
 
@@ -839,6 +849,7 @@ int main(int argc, const char **argv) {
 		    exit(0);
 	    }
 	    if (!device) device="eth0";
+	    strncpy(netDev->dev.device,device,10);
 	    if (readNetConfig(device,netDev,0) != LOADER_BACK) {
 		    snprintf(path,256,"/etc/sysconfig/network-scripts/ifcfg-%s",device);
 		    writeNetInfo(path,netDev, NULL);
