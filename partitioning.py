@@ -283,8 +283,20 @@ def doPartitionSizeCheck(newrequest):
     # XXX need to figure out the size for partitions specified by cyl range
     if newrequest.size and newrequest.size > newrequest.fstype.getMaxSize():
         return _("The size of the %s partition (size = %s MB) exceeds the maximum size of %s MB.") %(newrequest.fstype.getName(), newrequest.size, newrequest.fstype.getMaxSize())
-    else:
-        return None
+
+    if newrequest.size and newrequest.maxSize and (newrequest.size > newrequest.maxSize):
+        return _("The size of the requested partition (size = %s MB) exceeds the maximum size of %s MB.") %(newrequest.size, newrequest.maxSize)
+
+    if newrequest.size and newrequest.size < 0:
+        return _("The size of the requested partition is negative! (size = %s MB)") %(newrequest.size)
+
+    if newrequest.start and newrequest.start < 1:
+        return _("Partitions can't start below the first cylinder.")
+
+    if newrequest.end and newrequest.end < 1:
+        return _("Partitions can't end on a negative cylinder.")
+
+    return None
 
 
 # returns error string if something not right about request
