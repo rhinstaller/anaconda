@@ -53,7 +53,7 @@ makeBootImages() {
 
 	# FIXME: this assumes the file gets there by magic
 	cp $TOPDESTPATH/boot_image $TOPDESTPATH/isopath/boot_image
-	mkisofs -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/pseries/boot.iso $TOPDESTPATH/isopath
+	mkisofs -quiet -generic-boot $TOPDESTPATH/isopath/boot_image -A "$PRODUCT $VERSION" -V "PBOOT" -J -R -T -allow-multidot -l -o $TOPDESTPATH/images/pseries/boot.iso $TOPDESTPATH/isopath
 	rm -rf $TOPDESTPATH/isopath/
 	
 	cat > $TOPDESTPATH/images/pseries/README <<EOF
@@ -101,7 +101,7 @@ EOF
         cp $TOPDESTPATH/ppc/mac/* $TOPDESTPATH/isopath/ppc/mac/
 
         # Create the boot.iso
-	mkisofs -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 2 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
+	mkisofs -quiet -o $TOPDESTPATH/images/mac/boot.iso -part -hfs -T -r -l -J -A "$PRODUCT $VERSION" -sysid PPC -V "PBOOT" -volset "$VERSION" -volset-size 2 -volset-seqno 1 -hfs-volid "$VERSION" -hfs-bless "$TOPDESTPATH/isopath/ppc/mac" -map $BOOTDISKDIR/mapping -magic $BOOTDISKDIR/magic -no-desktop -allow-multidot $TOPDESTPATH/isopath
         rm -rf $TOPDESTPATH/isopath/
     else
         echo "Unknown kernel arch: $KERNELARCH"
