@@ -496,8 +496,10 @@ class InstallControlWindow:
 	self.buff = _("Release notes are missing.\n")
 
     def handleRenderCallback(self):
+        threads_enter()
         self.currentWindow.renderCallback()
         idle_remove(self.handle)
+        threads_leave()
 
     def setScreen (self):
 	(step, args) = self.dispatch.currentStep()
@@ -532,8 +534,7 @@ class InstallControlWindow:
         self.installFrame.add (new_screen)
         self.installFrame.show_all ()
 
-	#self.handle = idle_add(self.handleRenderCallback)
-        self.currentWindow.renderCallback()
+	self.handle = idle_add(self.handleRenderCallback)
 
         if self.reloadRcQueued:
             self.window.reset_rc_styles ()
