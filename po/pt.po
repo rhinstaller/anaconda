@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: anaconda-po\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-06 11:59+0100\n"
+"PO-Revision-Date: 2004-09-02 11:13+0100\n"
 "Last-Translator: Pedro Morais <morais@kde.org>\n"
 "Language-Team: pt <morais@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -234,9 +234,8 @@ msgid "Using mouse type: %s"
 msgstr "A utilizar o tipo de rato: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "A procurar instalações do %s..."
+msgstr "A iniciar a instalação gráfica..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -1123,7 +1122,7 @@ msgstr "_Repetir"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "O instalador vai agora terminar..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2658,50 +2657,44 @@ msgid ""
 msgstr ""
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Dispositivo"
+msgstr "Número do dispositivo"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Não indicou um nome de máquina."
+msgstr "Não indicou um número de dispositivo ou o número é inválido."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "Id SCSI"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Não indicou um nome de máquina."
+msgstr "Não indicou um ID SCSI ou o ID é inválido."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Não indicou um nome de máquina."
+msgstr "Não indicou um nome de porto global (WWPN) ou o nome é inválido."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "LUN SCSI"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Não indicou um nome de máquina."
+msgstr "Não indicou um LUN SCSI ou o número é inválido."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "LUN FCP"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Não indicou um nome de máquina."
+msgstr "Não indicou um LUN FCP ou o número é inválido."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -5265,28 +5258,25 @@ msgid "_Skip X configuration"
 msgstr "Não efectuar a configuração do _X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Configuração do VNC"
+msgstr "Configuração do ZFCP"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Remover"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Dispositivos"
+msgstr "Dispositivos FCP"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Adicionar Dispositivo"
+msgstr "Adicionar dispositivo FCP"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Editar o Dispositivo RAID"
+msgstr "Editar o dispositivo FCP %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
@@ -6017,9 +6007,8 @@ msgid "End Cylinder:"
 msgstr "Cilindro final:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Nome do grupo de volumes:"
+msgstr "Grupo de volumes:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6144,9 +6133,8 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "O número máximo de unidades reserva com RAID0 é 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "Grupos de Volumes LVM"
+msgstr "Sem Grupos de Volumes"
 
 #: ../textw/partition_text.py:1175
 #, fuzzy
@@ -6171,9 +6159,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Editar Volumes Lógicos"
+msgstr "Nova Partição ou Volume Lógico?"
 
 #: ../textw/partition_text.py:1365
 #, fuzzy
@@ -6181,14 +6168,12 @@ msgid "Would you like to create a new partition or a new logical volume?"
 msgstr "Partições de arranque não são permitidas em volumes lógicos."
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partição"
+msgstr "partição"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Volumes Lógicos"
+msgstr "volume lógico"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6795,40 +6780,36 @@ msgid "Video RAM:"
 msgstr "Memória da placa gráfica:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Dispositivo"
+msgstr "Número do dispositivo:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "ID SCSI:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "LUN SCSI:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "LUN FCP:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Dispositivo"
+msgstr "Dispositivo FCP"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Dispositivo"
+msgstr "Dispositivo #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Remover"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7255,7 +7236,7 @@ msgstr "Não foi possível encontrar o ficheiro 'kickstart' no disco rígido."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Não foi possível encontrar o disco rígido para o disco %s da BIOS"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7907,7 +7888,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7987,7 +7968,7 @@ msgstr "Ilhas Chatham"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8145,7 +8126,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8252,10 +8233,8 @@ msgid "most locations"
 msgstr "maior parte dos locais"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
-"maior parte dos locais (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "maior parte dos locais (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8398,11 +8377,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8450,7 +8429,7 @@ msgstr "Tibete e a maior parte de Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8462,7 +8441,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8521,9 +8500,8 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Hungaro"
+msgstr "Bulgaro"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8614,9 +8592,8 @@ msgid "Persian"
 msgstr "Persa"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Inglês"
+msgstr "Polaco"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8669,52 +8646,3 @@ msgstr "Galês"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "E Argentina (BA, DF, SC, TF)"
-
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Porto indicado inválido: %s.  O formato correcto é 'porto:protocolo', em "
-#~ "que o porto está entre 1 e 65535, e o protocolo poderá ser 'tcp' ou "
-#~ "'udp'.\n"
-#~ "\n"
-#~ "Por exemplo, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Aviso: Valor Inválido"
-
-#~ msgid "Allow others on the internet to access these services."
-#~ msgstr "Permitir a outras pessoas na internet o acesso a estes serviços."
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "Permitir a _entrada:"
-
-#~ msgid "Other _ports:"
-#~ msgstr "Outros _portos:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Extensões _Security Enhanced Linux (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Dispositivos de confiança:"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Pode personalizar a sua 'firewall' de duas maneira. Primeiro, pode "
-#~ "permitir todo o tráfego de algumas das interfaces de rede. Em segundo "
-#~ "lugar, pode permitir a passagem de alguns protocolos pela 'firewall'. "
-#~ "Indique portos adicionais no formato 'serviço:protocolo'; por exemplo "
-#~ "'imap:tcp'. "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Aviso: %s não é um porto válido."
