@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-01-13 14:23-0500\n"
-"PO-Revision-Date: 2005-01-27 18:35+0200\n"
+"PO-Revision-Date: 2005-02-05 16:15+0200\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -206,11 +206,11 @@ msgstr "Viga kiirstardi (kickstart) seadete teise osa laadimisel: %s!"
 
 #: ../anaconda:745
 msgid "You do not have enough RAM to use the graphical installer.  Starting text mode."
-msgstr "Arvutil pole piisavalt mälu graafiliselt installeerimiseks. Käivitatakse tekstirežiimis."
+msgstr "Arvutil pole piisavalt mälu graafiliselt installeerimiseks. Käivitatakse tekstiolekus."
 
 #: ../anaconda:797
 msgid "Install class forcing text mode installation"
-msgstr "Installatsiooni sunniti jätkama tekstirežiimis"
+msgstr "Installatsiooni sunniti jätkama tekstiolekus"
 
 #: ../anaconda:824
 msgid "No video hardware found, assuming headless"
@@ -223,11 +223,11 @@ msgstr "Ei suudetud luua X riistvaralise oleku objekti."
 
 #: ../anaconda:859
 msgid "Graphical installation not available...  Starting text mode."
-msgstr "Graafiline installeerimine ei ole võimalik... Käivitatakse tekstirežiimis."
+msgstr "Graafiline installeerimine ei ole võimalik... Käivitatakse tekstiolekus."
 
 #: ../anaconda:874
 msgid "No mouse was detected.  A mouse is required for graphical installation.  Starting text mode."
-msgstr "Hiirt ei tuvastatud. Graafiliselt installeerimiseks on vaja hiirt.  Käivitatakse tekstirežiimis."
+msgstr "Hiirt ei tuvastatud. Graafiliselt installeerimiseks on vaja hiirt.  Käivitatakse tekstiolekus."
 
 #: ../anaconda:884
 #, c-format
@@ -545,11 +545,11 @@ msgstr "Töötlemisel...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr "Käsurearežiimis ei ole küsimused lubatud!"
+msgstr "Käsureaolekus ei ole küsimused lubatud!"
 
 #: ../cmdline.py:87
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr "Parted vigu ei saa käsurearežiimis töödelda!"
+msgstr "Parted vigu ei saa käsureaolekus töödelda!"
 
 #: ../cmdline.py:132
 #, python-format
@@ -2179,7 +2179,7 @@ msgstr ""
 
 #: ../rescue.py:420
 msgid "Rescue Mode"
-msgstr "Päästerežiim"
+msgstr "Päästeolek"
 
 #: ../rescue.py:421
 msgid "You don't have any Linux partitions. Press return to get a shell. The system will reboot automatically when you exit from the shell."
@@ -2360,12 +2360,12 @@ msgstr "X-i käivitamine ebaõnnestus!"
 
 #: ../vnc.py:55
 msgid "X was unable to start on your machine.  Would you like to start VNC to connect to this computer from another computer and perform a graphical install or continue with a text mode install?"
-msgstr "X ei suutnud käivituda. Soovid sa käivitada VNC-d ühendamaks oma arvutit teise arvutiga, et proovida graafilist installeerimist või jätkad tekstirežiimis installeerimist?"
+msgstr "X ei suutnud käivituda. Soovid sa käivitada VNC-d ühendamaks oma arvutit teise arvutiga, et proovida graafilist installeerimist või jätkad tekstiolekus installeerimist?"
 
 #: ../vnc.py:62
 #: ../vnc.py:65
 msgid "Use text mode"
-msgstr "Kasuta tekstirežiimi"
+msgstr "Kasuta tekstiolekut"
 
 #: ../vnc.py:63
 msgid "Start VNC"
@@ -2683,7 +2683,7 @@ msgid ""
 msgstr ""
 "Arvuti ei pruugi käivituda, kui alglaadur on sunnitud kasutama LBA32, kuid BIOS seda ei toeta.\n"
 "\n"
-"Kas soovid kasutada LBA32 režiimi?"
+"Kas soovid kasutada LBA32 olekut?"
 
 #: ../iw/bootloader_advanced_gui.py:49
 msgid "Force LBA32"
@@ -6015,7 +6015,7 @@ msgstr "X seadistamine"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr "Sisesta kasutatav värvisügavus ja videorežiim. "
+msgstr "Sisesta kasutatav värvisügavus ja videoolek. "
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6630,7 +6630,7 @@ msgstr "Tere tulemast %s"
 #: ../loader2/lang.c:53
 #, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Tere tulemast %s - Päästeviis"
+msgstr "Tere tulemast %s - Pääste olek"
 
 #: ../loader2/lang.c:54
 #: ../loader2/loader.c:138
@@ -6751,7 +6751,7 @@ msgstr "laadija on juba käivitatud.  Shell-i laadimine.\n"
 #: ../loader2/loader.c:1517
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "Anaconda käivitamine %s päästerežiimis  - palun oota...\n"
+msgstr "Anaconda käivitamine %s päästeolekus  - palun oota...\n"
 
 #: ../loader2/loader.c:1519
 #, c-format
