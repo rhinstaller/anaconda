@@ -1061,7 +1061,7 @@ class Partitions:
 
     def deleteAllLogicalPartitions(self, part):
         """Add delete specs for all logical partitions in part."""
-        for partition in partedUtils.get_logical_partitions(part.geom.disk):
+        for partition in partedUtils.get_logical_partitions(part.disk):
             partName = partedUtils.get_partition_name(partition)
             request = self.getRequestByDeviceName(partName)
             self.removeRequest(request)
@@ -1079,7 +1079,7 @@ class Partitions:
         if not part.type & parted.PARTITION_EXTENDED:
             return None
 
-        disk = part.geom.disk
+        disk = part.disk
         while part:
             if not part.is_active():
                 part = disk.next_partition(part)

@@ -193,7 +193,7 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
                 drive = partedUtils.get_partition_drive(partition)
 
                 if partition.type & parted.PARTITION_EXTENDED:
-                    requestlist.deleteAllLogicalPartitions(partition)
+                    requestlist.deleteAllLogicalPartitions(disk, partition)
 
                 delete = partRequests.DeleteSpec(drive, partition.geom.start,
                                                  partition.geom.end)
@@ -335,9 +335,9 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	return (None, None)
     elif part.type & parted.PARTITION_FREESPACE:
         request = partRequests.PartitionSpec(fsset.fileSystemTypeGetDefault(),
-            start = partedUtils.start_sector_to_cyl(part.geom.disk.dev,
+            start = partedUtils.start_sector_to_cyl(part.geom.dev,
                                                     part.geom.start),
-            end = partedUtils.end_sector_to_cyl(part.geom.disk.dev,
+            end = partedUtils.end_sector_to_cyl(part.geom.dev,
                                                 part.geom.end),
             drive = [ partedUtils.get_partition_drive(part) ])
 

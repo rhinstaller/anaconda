@@ -60,7 +60,7 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
         bootDev = fsset.getEntryByMountPoint("/boot")
     part = partedUtils.get_partition_by_name(diskSet.disks,
                                               bootDev.device.getDevice())
-    if part and partedUtils.end_sector_to_cyl(part.geom.disk.dev,
+    if part and partedUtils.end_sector_to_cyl(part.geom.dev,
                                                part.geom.end) >= 1024:
         bl.above1024 = 1
     

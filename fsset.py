@@ -672,7 +672,7 @@ fileSystemTypeRegister(swapFileSystem())
 class FATFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
-        self.partedFileSystemType = parted.file_system_type_get("FAT")
+        self.partedFileSystemType = parted.file_system_type_get("fat32")
         self.formattable = 1
         self.checked = 0
         self.maxSizeMB = 2 * 1024

@@ -54,7 +54,7 @@ def bootRequestCheck(requests, diskset):
             return BOOTEFI_NOT_VFAT
         pass
     elif iutil.getArch() == "i386":
-        if partedUtils.end_sector_to_cyl(part.geom.disk.dev, part.geom.end) >= 1024:
+        if partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end) >= 1024:
             return BOOT_ABOVE_1024
     elif iutil.getArch() == "alpha":
         return bootAlphaCheckRequirements(part, diskset)
@@ -75,7 +75,7 @@ def bootRequestCheck(requests, diskset):
 #     (or so says the aboot manual.)
 
 def bootAlphaCheckRequirements(part, diskset):
-    disk = part.geom.disk
+    disk = part.disk
 
     # Disklabel check
     if not disk.type.name == "bsd":
@@ -100,9 +100,9 @@ def printNewRequestsCyl(diskset, newRequest):
             continue
         
         part = partedUtils.get_partition_by_name(diskset.disks, req.device)
-        print req
-        print "Start Cyl:%s    End Cyl: %s" % (partedUtils.start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
-                                 partedUtils.end_sector_to_cyl(part.geom.disk.dev, part.geom.end))
+##         print req
+##         print "Start Cyl:%s    End Cyl: %s" % (partedUtils.start_sector_to_cyl(part.geom.dev, part.geom.start),
+##                                  partedUtils.end_sector_to_cyl(part.geom.dev, part.geom.end))
 
 def printFreespaceitem(part):
     return partedUtils.get_partition_name(part), part.geom.start, part.geom.end, partedUtils.getPartSizeMB(part)
@@ -295,7 +295,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
     for num in number:
         for request in todo[num]:
-#            print "\nInserting ->",request
+##             print "\nInserting ->",request
             if requests.isBootable(request):
                 isBoot = 1
             else:
@@ -310,7 +310,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 # drives.  this keeps us on the first possible drive
                 if isBoot and largestPart[1]:
                     break
-#                print "Trying drive", drive
+##                 print "Trying drive", drive
                 disk = diskset.disks[drive]
                 numPrimary = len(partedUtils.get_primary_partitions(disk))
 
@@ -345,7 +345,8 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             freeStartSec = freespace.geom.start
             freeEndSec = freespace.geom.end
 
-            disk = freespace.geom.disk
+            dev = freespace.geom.dev
+            disk = freespace.disk
 
             startSec = freeStartSec
             endSec = startSec + long(((request.requestSize * 1024L * 1024L) / disk.dev.sector_size)) - 1
@@ -366,7 +367,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                     partType = parted.PARTITION_PRIMARY
                 elif ret == parted.PARTITION_EXTENDED:
                     newp = disk.partition_new(parted.PARTITION_EXTENDED, None, startSec, endSec)
-                    constraint = disk.constraint_any()
+                    constraint = dev.constraint_any()
                     disk.add_partition(newp, constraint)
                     disk.maximize_partition (newp, constraint)
                     newParts.parts.append(newp)
@@ -404,7 +405,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
             fsType = request.fstype.getPartedFileSystemType()
 #            log("creating newp with start=%s, end=%s, len=%s" % (startSec, endSec, endSec - startSec))
             newp = disk.partition_new (partType, fsType, startSec, endSec)
-            constraint = disk.constraint_any ()
+            constraint = dev.constraint_any ()
 
             try:
                 disk.add_partition (newp, constraint)
@@ -419,7 +420,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 newp.set_flag(flag, 1)
 
             request.device = fsset.PartedPartitionDevice(newp).getDevice()
-            drive = newp.geom.disk.dev.path[5:]
+            drive = newp.geom.dev.path[5:]
             request.currentDrive = drive
             newParts.parts.append(newp)
             free = findFreespace(diskset)
@@ -579,11 +580,11 @@ def growParts(diskset, requests, newParts):
     ####
     newRequest = requests.copy()
 
-#    print "new requests"
-#    printNewRequestsCyl(diskset, requests)
-#    print "orig requests"
-#    printNewRequestsCyl(diskset, newRequest)
-#    print "\n\n\n"
+##     print "new requests"
+##     printNewRequestsCyl(diskset, requests)
+##     print "orig requests"
+##     printNewRequestsCyl(diskset, newRequest)
+##     print "\n\n\n"
     
     (free, freeSize) = getFreeSpace(diskset)
 
@@ -605,9 +606,9 @@ def growParts(diskset, requests, newParts):
     if not growable.keys():
         return PARTITION_SUCCESS
     
-#    print "new requests before looping"
-#    printNewRequestsCyl(diskset, requests)
-#    print "\n\n\n"
+##     print "new requests before looping"
+##     printNewRequestsCyl(diskset, requests)
+##     print "\n\n\n"
 
     # loop over all drives, grow all growable partitions one at a time
     grownList = []
@@ -675,8 +676,8 @@ def growParts(diskset, requests, newParts):
 #                    print "leaving inner loop because no more space on %s\n\n" % drive
                     break
 
-#                print "\nprocessing ID",request.uniqueID, request.mountpoint
-#                print "growSize, freeSize = ",growSize[drive], freeSize[drive]
+##                 print "\nprocessing ID",request.uniqueID, request.mountpoint
+##                 print "growSize, freeSize = ",growSize[drive], freeSize[drive]
 
                 donegrowing = 0
 
@@ -692,9 +693,9 @@ def growParts(diskset, requests, newParts):
                     growby = cylsectors;
                 maxsect = startSize + growby
 
-#                print request
-#                print "percent, growby, maxsect, free", percent, growby, maxsect,freeSize[drive], startSize, lastFreeSize
-#                print "max is ",maxsect
+##                 print request
+##                 print "percent, growby, maxsect, free", percent, growby, maxsect,freeSize[drive], startSize, lastFreeSize
+##                 print "max is ",maxsect
 
                 imposedMax = 0
                 if request.maxSizeMB:
@@ -716,8 +717,8 @@ def growParts(diskset, requests, newParts):
                     maxsect = long(maxFSSize)
                     imposedMax = 1
 
-#                print "freesize, max = ",freeSize[drive],maxsect
-#                print "startsize = ",startSize
+##                 print "freesize, max = ",freeSize[drive],maxsect
+##                 print "startsize = ",startSize
 
                 min = startSize
                 max = maxsect
@@ -726,21 +727,21 @@ def growParts(diskset, requests, newParts):
                 lastDiff = 0
 
                 # binary search
-#                print "start min, max, cur, diffs = ",min,max,cur,diff,lastDiff
+##                 print "start min, max, cur, diffs = ",min,max,cur,diff,lastDiff
                 inner_iter = 0
                 ret = PARTITION_SUCCESS # request succeeded with initial size
                 while (max != min) and (lastDiff != diff) and (inner_iter < 2000):
-#                    printNewRequestsCyl(diskset, newRequest)
+##                     printNewRequestsCyl(diskset, newRequest)
 
                     # XXX need to request in sectors preferably, more accurate
-#		    print "trying cur=%s" % cur
+## 		    print "trying cur=%s" % cur
                     request.requestSize = (cur*sector_size)/1024.0/1024.0
 
                     # try adding
                     (ret, msg) = processPartitioning(diskset, newRequest, newParts)
-#                    if ret == PARTITION_FAIL:
-#                        print "!!!!!!!!!!! processPartitioning failed - %s" % msg
-                        
+##                     if ret == PARTITION_FAIL:
+##                         print "!!!!!!!!!!! processPartitioning failed - %s" % msg
+                       
                     if ret == PARTITION_SUCCESS:
                         min = cur
                     else:
@@ -833,7 +834,7 @@ def processPartitioning(diskset, requests, newParts):
 
     for part in newParts.parts:
         if part.type == parted.PARTITION_EXTENDED:
-            extendeds[part.geom.disk.dev.path] = None
+            extendeds[part.geom.dev.path] = None
 
     # Go through the list again and check for each logical partition we have.
     # If we created the extended partition on the same device as the logical
@@ -842,7 +843,7 @@ def processPartitioning(diskset, requests, newParts):
     dellist = []
     for part in newParts.parts:
         if (part.type & parted.PARTITION_LOGICAL
-            and extendeds.has_key(part.geom.disk.dev.path)):
+            and extendeds.has_key(part.geom.dev.path)):
             dellist.append(part)
 
     for part in dellist:
@@ -851,9 +852,7 @@ def processPartitioning(diskset, requests, newParts):
     # Finally, remove all of the partitions we added in the last try from
     # the disks.  We'll start again from there.
     for part in newParts.parts:
-        disk = part.geom.disk
-#        disk = diskset.disks[partedUtils.get_partition_drive(part)]
-        disk.delete_partition(part)
+        part.disk.delete_partition(part)
 
     newParts.reset()
 

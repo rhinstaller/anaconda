@@ -81,7 +81,7 @@ def getPartSize(partition):
 
 def getPartSizeMB(partition):
     """Return the size of partition in megabytes."""
-    return (partition.geom.length * partition.geom.disk.dev.sector_size
+    return (partition.geom.length * partition.geom.dev.sector_size
             / 1024.0 / 1024.0)
 
 def getDeviceSizeMB(dev):
@@ -104,7 +104,7 @@ def get_partition_by_name(disks, partname):
         part = disk.next_partition()
         while part:
             if get_partition_name(part) == partname:
-               return part
+                return part
 
             part = disk.next_partition(part)
 
@@ -112,11 +112,11 @@ def get_partition_by_name(disks, partname):
 
 def get_partition_name(partition):
     """Return the device name for the PedPartition partition."""
-    if (partition.geom.disk.dev.type == parted.DEVICE_DAC960
-        or partition.geom.disk.dev.type == parted.DEVICE_CPQARRAY):
-        return "%sp%d" % (partition.geom.disk.dev.path[5:],
+    if (partition.geom.dev.type == parted.DEVICE_DAC960
+        or partition.geom.dev.type == parted.DEVICE_CPQARRAY):
+        return "%sp%d" % (partition.geom.dev.path[5:],
                           partition.num)
-    return "%s%d" % (partition.geom.disk.dev.path[5:],
+    return "%s%d" % (partition.geom.dev.path[5:],
                      partition.num)
 
 
@@ -161,7 +161,7 @@ def set_partition_file_system_type(part, fstype):
 
 def get_partition_drive(partition):
     """Return the device name for disk that PedPartition partition is on."""
-    return "%s" %(partition.geom.disk.dev.path[5:])
+    return "%s" %(partition.geom.dev.path[5:])
 
 def map_foreign_to_fsname(type):
     """Return the partition type associated with the numeric type.""" 
@@ -535,7 +535,7 @@ class DiskSet:
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
             disk.write()
-            disk.close()
+            #disk.close()
             del disk
         self.refreshDevices()
 
@@ -549,7 +549,7 @@ class DiskSet:
     def closeDevices (self):
         """Close all of the disks which are open."""
         for disk in self.disks.keys():
-            self.disks[disk].close()
+            #self.disks[disk].close()
             del self.disks[disk]
 
     def dasdFmt (self, intf = None, drive = None):
@@ -652,14 +652,14 @@ class DiskSet:
                              or drive in clearDevs) and not flags.test):
                 try:
                     dev.disk_create(getDefaultDiskType())
-                    disk = parted.PedDisk.open(dev)
+                    disk = parted.PedDisk.new(dev)
                     self.disks[drive] = disk
                 except parted.error, msg:
                     DiskSet.skippedDisks.append(drive)
                 continue
                 
             try:
-                disk = parted.PedDisk.open(dev)
+                disk = parted.PedDisk.new(dev)
                 self.disks[drive] = disk
             except parted.error, msg:
                 recreate = 0
@@ -695,7 +695,7 @@ class DiskSet:
                             DiskSet.skippedDisks.append(drive)
                             continue
                     try:
-                        disk = parted.PedDisk.open(dev)
+                        disk = parted.PedDisk.new(dev)
                         self.disks[drive] = disk
                     except parted.error, msg:
                         DiskSet.skippedDisks.append(drive)
@@ -718,7 +718,7 @@ class DiskSet:
                         DiskSet.skippedDisks.append(drive)
                         continue
                 try:
-                    disk = parted.PedDisk.open(dev)
+                    disk = parted.PedDisk.new(dev)
                     self.disks[drive] = disk
                 except parted.error, msg:
                     DiskSet.skippedDisks.append(drive)
