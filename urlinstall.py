@@ -23,6 +23,10 @@ import string
 import struct
 import socket
 
+from snack import *
+
+from rhpl.translate import _
+
 # we import these explicitly because urllib loads them dynamically, which
 # stinks -- and we need to have them imported for the --traceonly option
 import ftplib
@@ -34,18 +38,43 @@ from rhpl.log import log
 FILENAME = 1000000
 DISCNUM  = 1000002
 
-def urlretrieve(location, file):
+def urlretrieve(location, file, callback=None):
     """Downloads from location and saves to file."""
 
+    if callback is not None:
+	callback(_("Connecting..."), 0)
+	
     try:
         url = urllib2.urlopen(location)
     except urllib2.HTTPError, e:
         raise IOError(e.code, e.msg)
     except urllib2.URLError, e:
 	raise IOError(-1, e.reason)
-	
+
+    # see if there is a size
+    try:
+	filesize = int(url.info()["Content-Length"])
+    except:
+	filesize = None
+
+    # create output file
     f = open(file, 'w+')
-    f.write(url.read())
+
+    # if they dont want a status callback just do it in one big swoop
+    if callback is None:
+	f.write(url.read())
+    else:
+	buf = url.read(65535)
+	tot = len(buf)
+	while len(buf) > 0:
+	    if filesize is not None:
+		callback("downloading", "%3d%%" % ((100*tot)/filesize,))
+	    else:
+		callback("downloading", "%dKB" % (tot/1024,))
+	    f.write(buf)
+	    buf = url.read(65535)
+	    tot += len(buf)
+
     f.close()
     url.close()
     
@@ -59,7 +88,8 @@ class UrlInstallMethod(InstallMethod):
 	    log("Comps not in update dirs, using %s",fname)
 	return ComponentSet(fname, hdlist)
 
-    def getFilename(self, h, timer):
+    def getFilename(self, h, timer, callback=None):
+
         tmppath = self.getTempPath()
         
 	# h doubles as a filename -- gross
@@ -78,7 +108,7 @@ class UrlInstallMethod(InstallMethod):
         tries = 0
         while tries < 5:
             try:
-                urlretrieve(fullPath, file)
+                rc=urlretrieve(fullPath, file, callback=callback)
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s"
                     %(errnum, fullPath, str(msg)))
@@ -89,7 +119,7 @@ class UrlInstallMethod(InstallMethod):
 
         if tries >= 5:
             raise FileCopyException
-                
+               
 	return file
 
     def copyFileToTemp(self, filename):
@@ -173,6 +203,9 @@ class UrlInstallMethod(InstallMethod):
 	hdlist.mergeFullHeaders(fn)
 	os.unlink(fn)
 
+    def setIntf(self, intf):
+	self.intf = intf
+
     def __init__(self, url, rootPath):
 	InstallMethod.__init__(self, rootPath)
 
@@ -197,3 +230,6 @@ class UrlInstallMethod(InstallMethod):
 	else:
 	    self.multiDiscs = 0
 	    self.pkgUrl = self.baseUrl
+
+	self.intf = None
+	
