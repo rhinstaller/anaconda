@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-11 23:17+0200\n"
+"PO-Revision-Date: 2004-07-12 22:42+0200\n"
 "Last-Translator: Arpad Biro <biro_arpad@yahoo.com>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -684,7 +684,7 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"Hiba történt a rendszerindító floppy elkészítése közben. Kérem ellenőrizze, "
+"Hiba történt a rendszerindító floppy elkészítése közben. Ellenőrizze, "
 "hogy az első floppymeghajtóban van-e lemez."
 
 #: ../floppy.py:141
@@ -693,14 +693,14 @@ msgstr "Létrehozás"
 
 #: ../floppy.py:141
 msgid "Creating boot disk..."
-msgstr "Boot lemez létrehozása..."
+msgstr "Rendszerindító lemez létrehozása..."
 
 #: ../floppy.py:170
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
 msgstr ""
-"Hiba történt a rendszerindító lemez ellenőrzése közben. Kérem ellenőrizze, "
+"Hiba történt a rendszerindító lemez ellenőrzése közben. Ellenőrizze, "
 "hogy az első floppymeghajtóban van-e lemez, és az megfelelő-e."
 
 #: ../floppy.py:201
@@ -1016,8 +1016,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Most helyezzen be egy floppyt. A lemez teljes tartalma törlésre kerül, ehhez "
-"tartsa magát."
+"Most helyezzen be egy floppyt. A lemez teljes tartalma törlésre kerül, óvatosan "
+"válasszon tehát lemezt."
 
 #: ../gui.py:746
 msgid "default:LTR"
@@ -1443,7 +1443,7 @@ msgstr "Több fájlcsomópont szükséges"
 
 #: ../packages.py:994
 msgid "Disk Space"
-msgstr "Lemez terület"
+msgstr "Lemezterület"
 
 #: ../packages.py:1043
 msgid "Post Install"
@@ -1749,7 +1749,7 @@ msgstr "Törölni készül a '/dev/%s' eszközön található partíciókat."
 #: ../iw/lvm_dialog_gui.py:733 ../iw/lvm_dialog_gui.py:1087
 #: ../iw/osbootwidget.py:103 ../iw/partition_gui.py:1361
 msgid "_Delete"
-msgstr "_Törlés"
+msgstr "Tör_lés"
 
 #: ../partIntfHelpers.py:290
 msgid "Notice"
@@ -2139,7 +2139,7 @@ msgstr "Leállítva"
 
 #: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr "Innen nem tudok visszalépni. Sajna újra kell próbálkoznia."
+msgstr "Az előző lépésre való visszalépés nem lehetséges. Újra kell próbálkoznia."
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2331,8 +2331,8 @@ msgid ""
 "checked and shut down cleanly to upgrade.\n"
 "%s"
 msgstr ""
-"A rendszer következő fájlrendszerei nem lettek rendben leválasztva. Kérem "
-"indítsa el a rendszert, hagyja, hogy a fájlrendszerek ellenőrzése "
+"A rendszer következő fájlrendszerei nem lettek rendben leválasztva. "
+"Indítsa el a rendszert, hagyja, hogy a fájlrendszerek ellenőrzése "
 "megtörténjen, majd rendben állítsa le a rendszert a frissítés megkezdése "
 "előtt.\n"
 "%s"
@@ -2523,7 +2523,7 @@ msgid ""
 "installation"
 msgstr ""
 "Jelszó használatával lehet megakadályozni, hogy illetéktelenek férjenek hozzá "
-"a telepítési folyamathoz. Kérem adja meg a telepítési jelszót."
+"a telepítési folyamathoz. Adja meg a telepítési jelszót."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2600,7 +2600,7 @@ msgstr "Rendszer_gazdai jelszó : "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr "Még _egyszer: "
+msgstr "Még egy_szer: "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
@@ -2706,7 +2706,7 @@ msgstr "Jelszó h_asználata a rendszerindítóban"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr "A jelszó megválto_ztatása"
+msgstr "A _jelszó megváltoztatása"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
@@ -2875,7 +2875,7 @@ msgstr "Nem lesz rendszerindító telepítve."
 
 #: ../iw/bootloader_main_gui.py:227
 msgid "_Change boot loader"
-msgstr "A rendszerindító meg_változtatása"
+msgstr "A rendszer_indító megváltoztatása"
 
 #: ../iw/bootloader_main_gui.py:255
 msgid "Configure advanced boot loader _options"
@@ -3146,7 +3146,7 @@ msgstr ""
 #: ../iw/examine_gui.py:67
 #, python-format
 msgid "_Install %s"
-msgstr "%s _telepítése"
+msgstr "%s tele_pítése"
 
 #: ../iw/examine_gui.py:69
 msgid ""
@@ -3228,7 +3228,7 @@ msgstr ""
 
 #: ../iw/firewall_gui.py:88
 msgid "N_o firewall"
-msgstr "N_e legyen tűzfal"
+msgstr "Ne legyen tűzfa_l"
 
 #: ../iw/firewall_gui.py:90
 msgid "_Enable firewall"
@@ -3303,7 +3303,7 @@ msgstr "Válassza ki a rendszer ala_pértelmezett nyelvét:   "
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr "További nyelvek tele_pítése:"
+msgstr "T_ovábbi nyelvek telepítése:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
@@ -3311,7 +3311,7 @@ msgstr "Min_den kijelölése"
 
 #: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
-msgstr "Csak az alapértelmezett ki_választása"
+msgstr "_Csak az alapértelmezett kiválasztása"
 
 #: ../iw/language_support_gui.py:273
 msgid "Rese_t"
@@ -4000,7 +4000,7 @@ msgstr "A kijelölések megs_züntetése a csomagban"
 
 #: ../iw/package_gui.py:470 ../textw/packages_text.py:63
 msgid "Package Group Selection"
-msgstr "Csomag csoport kiválasztás"
+msgstr "Csomagcsoport-kiválasztás"
 
 #: ../iw/package_gui.py:677
 msgid "Minimal"
@@ -4057,7 +4057,7 @@ msgstr "Kitöltés a max. meg_engedett méretig"
 
 #: ../iw/partition_dialog_gui.py:174
 msgid "The end cylinder must be greater than the start cylinder."
-msgstr "A záró cilinder számának nagyobbnak kell lennie a kezdő cilinderénél."
+msgstr "A zárócilinder számának nagyobbnak kell lennie a kezdőcilinderénél."
 
 #: ../iw/partition_dialog_gui.py:263 ../textw/partition_text.py:655
 msgid "Add Partition"
@@ -4315,7 +4315,7 @@ msgstr "_Alapállapotba"
 
 #: ../iw/partition_gui.py:1363
 msgid "R_AID"
-msgstr "R_AID"
+msgstr "RAI_D"
 
 #: ../iw/partition_gui.py:1364
 msgid "_LVM"
@@ -4717,7 +4717,7 @@ msgstr "PROM alias létrehozása"
 
 #: ../iw/silo_gui.py:212
 msgid "Set default PROM boot device to linux"
-msgstr "Alapértelmezett PROM boot device linux-ra állítása"
+msgstr "Alapértelmezett PROM indítási eszköz linux-ra állítása"
 
 #: ../iw/silo_gui.py:216
 msgid "Kernel parameters"
@@ -5005,7 +5005,7 @@ msgstr "Az eredeti értékek v_isszaállítása"
 
 #: ../iw/xconfig_gui.py:748
 msgid "Hori_zontal Sync:"
-msgstr "_Vízszintes frissítés:"
+msgstr "Vízszi_ntes frissítés:"
 
 #: ../iw/xconfig_gui.py:751
 msgid "_Vertical Sync:"
@@ -5214,19 +5214,19 @@ msgstr "Törlés"
 
 #: ../textw/bootloader_text.py:225 ../textw/silo_text.py:155
 msgid "Edit Boot Label"
-msgstr "Boot címke szerkesztése"
+msgstr "Rendszerindítási címke szerkesztése"
 
 #: ../textw/bootloader_text.py:243 ../textw/bootloader_text.py:248
 msgid "Invalid Boot Label"
-msgstr "Érvénytelen boot címke"
+msgstr "Érvénytelen rendszerindítási címke"
 
 #: ../textw/bootloader_text.py:244
 msgid "Boot label may not be empty."
-msgstr "A boot címke nem lehet üres."
+msgstr "A rendszerindítási címke nem lehet üres."
 
 #: ../textw/bootloader_text.py:249
 msgid "Boot label contains illegal characters."
-msgstr "A boot címke hibás karaktereket tartalmaz."
+msgstr "A rendszerindítási címke hibás karaktereket tartalmaz."
 
 #: ../textw/bootloader_text.py:298 ../textw/fdisk_text.py:41
 #: ../textw/partition_text.py:1135 ../textw/silo_text.py:216
@@ -5799,7 +5799,7 @@ msgstr "Kezdeti cilinder:"
 
 #: ../textw/partition_text.py:419
 msgid "End Cylinder:"
-msgstr "Záró cilinder:"
+msgstr "Zárócilinder:"
 
 #: ../textw/partition_text.py:443
 msgid "RAID Level:"
@@ -6186,7 +6186,7 @@ msgstr "A \"root\" felhasználónév már be van állítva, nem kell itt felvenn
 
 #: ../textw/userauth_text.py:163
 msgid "This system user is already configured. You don't need to add this user here."
-msgstr "A \"system\" felhasználónév már be van állítva, nem kell itt felvenni."
+msgstr "Ez a rendszerfelhasználói név már be van állítva, nem kell itt felvenni."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6535,7 +6535,7 @@ msgstr "Chandev-sor "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
-msgstr "_Egyéni"
+msgstr "Egyé_ni"
 
 #: ../installclasses/custom.py:13
 msgid ""
@@ -6579,7 +6579,7 @@ msgstr ""
 
 #: ../installclasses/server.py:11
 msgid "_Server"
-msgstr "Kisz_olgáló"
+msgstr "K_iszolgáló"
 
 #: ../installclasses/server.py:13
 msgid ""
