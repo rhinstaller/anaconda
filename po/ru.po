@@ -11,7 +11,6 @@ msgstr ""
 "Date: 1999-04-03 12:20+0200\n"
 
 #: ../comps.py:441
-#, fuzzy
 msgid "Everything"
 msgstr "Поиск"
 
@@ -162,7 +161,6 @@ msgid "Red Hat Linux Install Shell on %s"
 msgstr "Оболочка программы установки Red Hat Linux на %s"
 
 #: ../gui.py:678
-#, fuzzy
 msgid "Install Window"
 msgstr "Установка"
 
@@ -175,7 +173,6 @@ msgid "Transferring install image to hard drive..."
 msgstr ""
 
 #: ../image.py:58
-#, fuzzy
 msgid "Change CDROM"
 msgstr "Другой CD-ROM"
 
@@ -185,7 +182,6 @@ msgid "Please insert disc %d to continue."
 msgstr ""
 
 #: ../image.py:68
-#, fuzzy
 msgid "Wrong CDROM"
 msgstr "Другой CD-ROM"
 
@@ -429,12 +425,10 @@ msgstr ""
 "в /tmp/install.log. Возможно вам понадобится к нему обратиться."
 
 #: ../text.py:492
-#, fuzzy
 msgid "Upgrade to begin"
 msgstr "Обновление системы"
 
 #: ../iw/confirm_gui.py:40 ../text.py:493
-#, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
 "your system. You may want to keep this file for later reference."
@@ -559,7 +553,6 @@ msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
 msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:837
-#, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
@@ -685,7 +678,6 @@ msgid "Customize Upgrade"
 msgstr "Уточнить обновление"
 
 #: ../text.py:991
-#, fuzzy
 msgid "Upgrade Begins"
 msgstr "Обновление проверяет"
 
@@ -772,7 +764,6 @@ msgstr ""
 "на диске."
 
 #: ../todo.py:945
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Поиск пакетов для обновления..."
 
@@ -857,7 +848,6 @@ msgid "Vertical frequency range"
 msgstr "Диапазон кадровой развертки"
 
 #: ../xserver.py:26
-#, fuzzy
 msgid "Mouse Not Detected"
 msgstr "Выбор мыши"
 
@@ -890,12 +880,10 @@ msgid "Root password is too short."
 msgstr "Пароль пользователя root слишком краток."
 
 #: ../iw/account_gui.py:43
-#, fuzzy
 msgid "Root passwords do not match."
 msgstr "Введенные пароли не совпадают."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
 msgstr "Пароль пользователя root принят"
 
@@ -908,12 +896,10 @@ msgid "Please enter user password."
 msgstr ""
 
 #: ../iw/account_gui.py:65
-#, fuzzy
 msgid "User password is too short."
 msgstr "Пароль пользователя root слишком краток."
 
 #: ../iw/account_gui.py:67
-#, fuzzy
 msgid "User passwords do not match."
 msgstr "Введенные пароли не совпадают."
 
@@ -993,12 +979,10 @@ msgid "NIS Server: "
 msgstr "Сервер NIS:"
 
 #: ../iw/auth_gui.py:118 ../textw/userauth_text.py:332
-#, fuzzy
 msgid "Enable LDAP"
 msgstr "Разрешить NIS"
 
 #: ../iw/auth_gui.py:121 ../textw/userauth_text.py:338
-#, fuzzy
 msgid "LDAP Server:"
 msgstr "Сервер NIS:"
 
@@ -1007,7 +991,6 @@ msgid "LDAP Base DN:"
 msgstr ""
 
 #: ../iw/auth_gui.py:150 ../textw/userauth_text.py:357
-#, fuzzy
 msgid "Enable Kerberos"
 msgstr "Разрешить специальные последовательности"
 
@@ -1020,7 +1003,6 @@ msgid "KDC:"
 msgstr ""
 
 #: ../iw/auth_gui.py:158 ../textw/userauth_text.py:368
-#, fuzzy
 msgid "Admin Server:"
 msgstr "Сервер NIS:"
 
@@ -1029,7 +1011,6 @@ msgid "Bootdisk Creation"
 msgstr "Создание загрузочного диска"
 
 #: ../iw/bootdisk_gui.py:57
-#, fuzzy
 msgid ""
 "Please remove the install floppy (if used) and insert a blank floppy in the "
 "first floppy drive. All data on this disk will be erased during creation of "
@@ -1051,7 +1032,6 @@ msgid "Skip boot disk creation"
 msgstr "Пропустить создание загрузочного диска"
 
 #: ../iw/confirm_gui.py:13
-#, fuzzy
 msgid "About to Upgrade"
 msgstr "Система для обновления"
 
@@ -1060,7 +1040,6 @@ msgid "About to Install"
 msgstr "Начало установки"
 
 #: ../iw/confirm_gui.py:33
-#, fuzzy
 msgid "Click next to begin upgrade of Red Hat Linux."
 msgstr "Нажмите \"Далее\" для начала установки Red Hat Linux."
 
@@ -1118,12 +1097,10 @@ msgid "Install packages to satisfy dependencies"
 msgstr "Установить пакеты для удовлетворения зависимостей"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
-#, fuzzy
 msgid "Do not install packages that have dependencies"
 msgstr "Установить пакеты для удовлетворения зависимостей"
 
 #: ../iw/dependencies_gui.py:93 ../textw/packages_text.py:329
-#, fuzzy
 msgid "Ignore package dependencies"
 msgstr "Зависимости пакетов"
 
@@ -1140,7 +1117,6 @@ msgstr ""
 " Обновление системы невозможно!"
 
 #: ../iw/examine_gui.py:44
-#, fuzzy
 msgid "Please select the device containing the root filesystem: "
 msgstr "Каталог %s должен быть на корневой файловой системе"
 
@@ -1458,7 +1434,6 @@ msgstr ""
 "выбору."
 
 #: ../iw/rootpartition_gui.py:275
-#, fuzzy
 msgid "Automatic Partitioning Failed"
 msgstr "Автоматическое разбиение"
 
@@ -1474,7 +1449,6 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:283
-#, fuzzy
 msgid "Manual Partitioning"
 msgstr "Ручное разбиение"
 
@@ -1486,12 +1460,10 @@ msgid ""
 msgstr ""
 
 #: ../iw/rootpartition_gui.py:298
-#, fuzzy
 msgid "Automatically partition and REMOVE DATA"
 msgstr "Автоматическое разбиение"
 
 #: ../iw/rootpartition_gui.py:305
-#, fuzzy
 msgid "Manually partition with Disk Druid"
 msgstr "Ручное разбиение"
 
@@ -1620,7 +1592,6 @@ msgid "Skip X Configuration"
 msgstr "Пропустить конфигурацию Х"
 
 #: ../iw/xconfig_gui.py:491
-#, fuzzy
 msgid "Default Desktop:"
 msgstr "По умолчанию"
 
@@ -1665,7 +1636,6 @@ msgid "Skip"
 msgstr "Пропустить"
 
 #: ../textw/bootdisk_text.py:57
-#, fuzzy
 msgid ""
 "If you have the install floppy in your drive, first remove it. Then insert a "
 "blank floppy in the first floppy drive. All data on this disk will be erased "
@@ -1696,12 +1666,10 @@ msgid "Clear"
 msgstr "Очистить"
 
 #: ../textw/lilo_text.py:126
-#, fuzzy
 msgid "Edit Boot Label Please"
 msgstr "Изменить метку загрузки"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
-#, fuzzy
 msgid "Invalid Boot Label"
 msgstr "Изменить метку загрузки"
 
@@ -1714,7 +1682,6 @@ msgid "Boot label contains illegal characters."
 msgstr ""
 
 #: ../textw/lilo_text.py:206
-#, fuzzy
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -1742,7 +1709,6 @@ msgid "/dev/ttyS3 (COM4 under DOS)"
 msgstr "/dev/ttyS1 (COM2 в DOS)"
 
 #: ../textw/mouse_text.py:26
-#, fuzzy
 msgid "What device is your mouse located on?"
 msgstr "К какому устройству подключена ваша мышь? %s %i"
 
@@ -1799,17 +1765,14 @@ msgstr ""
 "имя компьютера может быть уже назначено вашим сетевым администратором."
 
 #: ../textw/packages_text.py:90
-#, fuzzy
 msgid "Package :"
 msgstr "Пакет"
 
 #: ../textw/packages_text.py:95
-#, fuzzy
 msgid "Size    :"
 msgstr "Размер :"
 
 #: ../textw/packages_text.py:116
-#, fuzzy
 msgid "Total size"
 msgstr "Всего"
 
@@ -2196,7 +2159,6 @@ msgstr ""
 "сообщение."
 
 #: ../libfdisk/fsedit.c:1077
-#, fuzzy
 msgid "Error Creating Device Nodes"
 msgstr "Ошибка создания свопинга на устройстве "
 
@@ -2294,7 +2256,6 @@ msgid "Are you sure you want to delete this partition?"
 msgstr "Вы уверены, что хотите удалить этот раздел?"
 
 #: ../libfdisk/gnomefsedit.c:777 ../libfdisk/newtfsedit.c:344
-#, fuzzy
 msgid "Cannot Edit Partitions"
 msgstr "Редактировать раздел"
 
@@ -2321,7 +2282,6 @@ msgid "Size (Megs):"
 msgstr "Размер (Мег):"
 
 #: ../libfdisk/gnomefsedit.c:897
-#, fuzzy
 msgid "Use remaining space?"
 msgstr "Использовать имеющееся свободное пространство"
 
@@ -2412,7 +2372,6 @@ msgstr ""
 "должен превышать %ld мегабайт."
 
 #: ../libfdisk/gnomefsedit.c:1265
-#, fuzzy
 msgid "No Drives Specified"
 msgstr "Диски не найдены"
 
@@ -2421,7 +2380,6 @@ msgid "Close"
 msgstr "Закрыть"
 
 #: ../libfdisk/gnomefsedit.c:1267
-#, fuzzy
 msgid "You must constrain this partition to at least one drive."
 msgstr "Необходимо назначить раздел свопинга для продолжения установки."
 
@@ -2448,7 +2406,6 @@ msgstr ""
 "RAID. Выберите устройство, к которому будет принадлежать этот раздел."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
-#, fuzzy
 msgid "Cannot Add Partitions"
 msgstr "Нераспределенные разделы"
 
@@ -2603,7 +2560,6 @@ msgid "Use Pre-existing Partition?"
 msgstr "Использовать существующее разбиение?"
 
 #: ../libfdisk/gnomefsedit.c:2394
-#, fuzzy
 msgid "Cannot Add RAID Devices"
 msgstr "Не является устройством RAID"
 
@@ -2679,7 +2635,6 @@ msgid "Actual"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3151
-#, fuzzy
 msgid "Drive"
 msgstr "Пропустить диск"
 
@@ -2688,7 +2643,6 @@ msgid "Geom [C/H/S]"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:3153
-#, fuzzy
 msgid "Total (M)"
 msgstr "Всего"
 
@@ -2754,27 +2708,22 @@ msgid "Swap Partition"
 msgstr "Раздел свопинга"
 
 #: ../libfdisk/newtfsedit.c:208
-#, fuzzy
 msgid "Raid Partition"
 msgstr "Редактировать раздел"
 
 #: ../libfdisk/newtfsedit.c:363
-#, fuzzy
 msgid "Edit New Partition"
 msgstr "Редактировать раздел"
 
 #: ../libfdisk/newtfsedit.c:428
-#, fuzzy
 msgid "Use remaining space?:"
 msgstr "Использовать имеющееся свободное пространство"
 
 #: ../libfdisk/newtfsedit.c:472
-#, fuzzy
 msgid "Type:"
 msgstr "Тип"
 
 #: ../libfdisk/newtfsedit.c:486
-#, fuzzy
 msgid "Unknown"
 msgstr "Неизвестный сервер"
 
@@ -2816,12 +2765,10 @@ msgid "You must assign a swap partition for the install to proceed."
 msgstr "Необходимо назначить раздел свопинга для продолжения установки."
 
 #: ../libfdisk/newtfsedit.c:1617
-#, fuzzy
 msgid "No /boot/efi Partition"
 msgstr "Не указан корневой раздел"
 
 #: ../libfdisk/newtfsedit.c:1619
-#, fuzzy
 msgid ""
 "You must assign the mount point /boot/efi to a FAT-style primary partition "
 "for the install to proceed."
@@ -2898,7 +2845,6 @@ msgid "Insert your driver disk and press \"OK\" to continue."
 msgstr "Вставьте диск драйверов и нажмите \"OK\" для продолжения."
 
 #: ../loader/devices.c:237
-#, fuzzy
 msgid "Failed to mount driver disk."
 msgstr "Ошибка монтирования дискеты."
 
@@ -2923,12 +2869,12 @@ msgid "Specify module parameters"
 msgstr "Укажите параметры модуля"
 
 #: ../loader/devices.c:410
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to insert %s module."
 msgstr "Ошибка подключения к %s: %s"
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
 msgstr "Ошибка монтирования дискеты."
 
@@ -2937,7 +2883,6 @@ msgid "The wrong diskette was inserted."
 msgstr ""
 
 #: ../loader/devices.c:503
-#, fuzzy
 msgid "Driver Disk"
 msgstr "Статистика диска"
 
@@ -3028,7 +2973,7 @@ msgid "Loading"
 msgstr "Загрузка"
 
 #: ../loader/loader.c:494
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s ramdisk..."
 msgstr "Загружается виртуальный диск..."
 
@@ -3080,12 +3025,10 @@ msgstr ""
 "Пожалуйста вставьте Red Hat CD и нажмите \"OK\" для продолжения."
 
 #: ../loader/loader.c:940
-#, fuzzy
 msgid "Networking Device"
 msgstr "Сетевое устройство"
 
 #: ../loader/loader.c:941
-#, fuzzy
 msgid ""
 "You have multiple network devices on this system. Which would you like to "
 "install through?"
@@ -3108,12 +3051,10 @@ msgid "HTTP"
 msgstr ""
 
 #: ../loader/loader.c:1072
-#, fuzzy
 msgid "Unable to retrieve the first install image"
 msgstr "Невозможно получить виртуальный диск второго этапа"
 
 #: ../loader/loader.c:1081
-#, fuzzy
 msgid "Unable to retrieve the second install image"
 msgstr "Невозможно получить виртуальный диск второго этапа"
 
@@ -3143,7 +3084,6 @@ msgid "Failed to read directory %s: %s"
 msgstr "Ошибка чтения каталога %s: %s"
 
 #: ../loader/loader.c:2069
-#, fuzzy
 msgid "Updates Disk"
 msgstr "Обновления"
 
@@ -3201,7 +3141,6 @@ msgstr ""
 "      Red Hat Linux для вашей архитектуры"
 
 #: ../loader/net.c:239
-#, fuzzy
 msgid "Nameserver IP"
 msgstr "Сервер имен"
 
@@ -3218,12 +3157,10 @@ msgid ""
 msgstr ""
 
 #: ../loader/net.c:254
-#, fuzzy
 msgid "Invalid IP Information"
 msgstr "Неверная информация"
 
 #: ../loader/net.c:255
-#, fuzzy
 msgid "You entered an invalid IP address."
 msgstr "Для продолжения необходимо ввести верный адрес IP и маску подсети."
 
@@ -3441,12 +3378,10 @@ msgid "Loading SCSI driver"
 msgstr "Загрузка драйвера SCSI"
 
 #: ../installclasses/custom.py:7
-#, fuzzy
 msgid "Custom System"
 msgstr "Установить систему по выбору"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
 msgstr "Установить сервер"
 
@@ -3463,145 +3398,83 @@ msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr "Вы собираетесь удалить все существующие установки Linux."
 
-# ../comps/comps-master:3
 msgid "Base"
 msgstr ""
 
-# ../comps/comps-master:150
 msgid "Printer Support"
 msgstr ""
 
-#, fuzzy
 msgid "X Window System"
 msgstr "Проверка системы"
 
-# ../comps/comps-master:259
 msgid "GNOME"
 msgstr ""
 
-# ../comps/comps-master:315
 msgid "KDE"
 msgstr ""
 
-# ../comps/comps-master:332
 msgid "Mail/WWW/News Tools"
 msgstr ""
 
-# ../comps/comps-master:360
 msgid "DOS/Windows Connectivity"
 msgstr ""
 
-# ../comps/comps-master:371
 msgid "Graphics Manipulation"
 msgstr ""
 
-# ../comps/comps-master:389
 msgid "Games"
 msgstr ""
 
-# ../comps/comps-master:417
 msgid "Multimedia Support"
 msgstr ""
 
-# ../comps/comps-master:446
 msgid "Laptop Support"
 msgstr ""
 
-#, fuzzy
 msgid "Networked Workstation"
 msgstr "Конфигурация сети"
 
-#, fuzzy
 msgid "Dialup Workstation"
 msgstr "Рабочая станция KDE"
 
-#, fuzzy
 msgid "News Server"
 msgstr "Сервер имен"
 
-#, fuzzy
 msgid "NFS Server"
 msgstr "Сервер NIS:"
 
-# ../comps/comps-master:517
 msgid "SMB (Samba) Server"
 msgstr ""
 
-# ../comps/comps-master:524
 msgid "IPX/Netware(tm) Connectivity"
 msgstr ""
 
-# ../comps/comps-master:531
 msgid "Anonymous FTP Server"
 msgstr ""
 
-#, fuzzy
 msgid "Web Server"
 msgstr "Сервер"
 
-#, fuzzy
 msgid "DNS Name Server"
 msgstr "Сервер имен"
 
-# ../comps/comps-master:557
 msgid "Postgres (SQL) Server"
 msgstr ""
 
-#, fuzzy
 msgid "Network Management Workstation"
 msgstr "Конфигурация сети"
 
-# ../comps/comps-master:574
 msgid "Authoring/Publishing"
 msgstr ""
 
-# ../comps/comps-master:597
 msgid "Emacs"
 msgstr ""
 
-# ../comps/comps-master:610
 msgid "Development"
 msgstr ""
 
-#, fuzzy
 msgid "Kernel Development"
 msgstr "Параметры модуля"
 
-# ../comps/comps-master:738
 msgid "Utilities"
 msgstr ""
-
-#, fuzzy
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Ошибка копирования файла: %s"
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "Установить рабочую станцию GNOME"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "Установить рабочую станцию KDE"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "Рабочая станция GNOME"
-
-#~ msgid "Custom"
-#~ msgstr "По выбору"
-
-#~ msgid "Use fdisk"
-#~ msgstr "Использовать fdisk"
-
-#~ msgid "Remove data"
-#~ msgstr "Удалить данные"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Увеличить до конца диска?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Вы сконфигурировали это устройство RAID как загрузочный раздел. Убедитесь, "
-#~ "что все его компоненты могут быть загружаемыми."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Какой драйвер необходимо попробовать?"
