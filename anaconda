@@ -564,6 +564,20 @@ for n in args:
 	    if len(cargs[1]) > 0:
 		vncconnectport = cargs[1]
 
+# set up anaconda logging
+anaconda_log.open (logFile)
+log.handler=anaconda_log
+    
+# now let's set up our selinux stuff.  whee!
+if flags.setupFilesystems:
+    os.mkdir("/selinux")
+    isys.mount("/selinux", "/selinux", fstype="selinuxfs")
+    if os.access("/selinux/load", os.W_OK):
+        dup_log("Loading selinux policy...")
+        args = ["/usr/sbin/load_policy",
+                "/mnt/runtime/etc/security/selinux/policy.15"]
+        iutil.execWithRedirect(args[0], args, stdout="/dev/tty5", stderr="/dev/tty5")
+
 #
 # must specify install, rescue mode
 #
@@ -574,9 +588,6 @@ if (progmode == 'rescue'):
 	sys.exit(1)
 
     import rescue, instdata, configFileData
-    
-    anaconda_log.open (logFile)
-    log.handler=anaconda_log
     
     configFile = configFileData.configFileData()
     configFileData = configFile.getConfigData()
@@ -590,9 +601,6 @@ else:
     if (not method):
 	sys.stderr.write('no install method specified\n')
 	sys.exit(1)
-
-anaconda_log.open (logFile)
-log.handler = anaconda_log
 
 #
 # Here we have a hook to pull in second half of kickstart file via https
@@ -933,7 +941,7 @@ configFile = configFileData.configFileData()
 configFileData = configFile.getConfigData()
 
 # setup links required for all install types
-for i in ( "services", "protocol", "nsswitch.conf", "joe"):
+for i in ( "services", "protocol", "nsswitch.conf", "joe", "security"):
     try:
         os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
     except:

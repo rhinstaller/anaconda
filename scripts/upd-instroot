@@ -111,7 +111,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
 	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
- 	 xfsprogs xfsdump dmapi libacl libattr attr acl"
+ 	 xfsprogs xfsdump dmapi libacl libattr attr acl policy policycoreutils"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"
@@ -158,7 +158,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data convertdb1
            vnc-server libjpeg tcp_wrappers system-config-date
-           xfsprogs xfsdump dmapi libacl libattr attr acl"
+           xfsprogs xfsdump dmapi attr acl policy policycoreutils"
 
 #
 # stuff ONLY included for rescue mode
@@ -223,6 +223,7 @@ etc/group
 etc/passwd
 etc/protocols
 etc/services
+etc/security/selinux/policy.15
 $LIBDIR/ld*.so*
 $LIBDIR/libblkid*
 $LIBDIR/libc*
@@ -354,6 +355,7 @@ usr/sbin/dmidecode
 usr/sbin/mkofboot
 usr/sbin/ofpath
 usr/sbin/ybin
+usr/sbin/load_policy
 usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/b/bterm
@@ -1014,7 +1016,6 @@ echo "Creating debug dir"
 for p in $DEST $DESTGR ; do
     mkdir -p $p/usr/lib/debug
 done
-
 
 if [ $ARCH = "alpha" ]; then
     rm -rf $DEST/usr/share/locale
