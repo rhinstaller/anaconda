@@ -26,6 +26,18 @@ import GdkImlib
 splashwindow = None
 
 def splashScreenShow(configFileData):
+    #set the background to a dark gray
+    path = ("/usr/X11R6/bin/xsetroot",)
+    args = ("-solid", "gray45")
+
+    child = os.fork ()
+    if (child == 0):
+        os.execv (path[0], path + args)
+    try:
+        pid, status = os.waitpid(child, 0)
+    except OSError, (errno, msg):
+        print __name__, "waitpid:", msg
+
     root = _root_window ()
     cursor = cursor_new (GDK.LEFT_PTR)
     root.set_cursor (cursor)

@@ -408,18 +408,6 @@ if display_mode == 'g':
             else:
                 xcfg = xserver.startX (runres, nofbmode, videohw, monitorhw,
                                        mousehw)
-
-            #set the background to a dark gray
-            path = ("/usr/X11R6/bin/xsetroot",)
-            args = ("-solid", "gray45")
-
-            child = os.fork ()
-            if (child == 0):
-                os.execv (path[0], path + args)
-            try:
-                pid, status = os.waitpid(child, 0)
-            except OSError, (errno, msg):
-                print __name__, "waitpid:", msg
             
         except RuntimeError:
             print " X startup failed, falling back to text mode"
