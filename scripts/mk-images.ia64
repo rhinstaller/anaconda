@@ -1,10 +1,10 @@
 # LATEUSBMODS go in the second stage
-USBMODS="usb-uhci hid keybdev"
+USBMODS="usb-uhci usb-ohci hid keybdev"
 LATEUSBMODS="mousedev"
 
 SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
-NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin"
-SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx"
+NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
+SCSIMODULES="DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx mptscsih mptbase"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
 
 prepareBootImage() {
