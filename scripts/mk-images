@@ -30,9 +30,6 @@ TOPDIR=$(cd $TOPDIR; pwd)
     BUILDARCH=$4
 
     KERNELNAME=vmlinuz
-    if [ "$BUILDARCH" = ia64 ]; then
-	KERNELNAME=vmlinux
-    fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
