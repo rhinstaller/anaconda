@@ -1168,14 +1168,19 @@ class ToDo:
     def migrateXinetd(self):
         if not os.access (self.instPath + "/usr/sbin/inetdconvert", os.X_OK):
             log("did not find %s" % self.instPath + "/usr/sbin/inetdconvert")
+            return
+
+        if not os.access (self.instPath + "/etc/inetd.conf.rpmsave", os.R_OK):
+            log("did not run inetdconvert because no inetd.conf.rpmsave found")
+            return
 
         argv = [ "/usr/sbin/inetdconvert", "--convertremaining",
-                 "--inetdfile", "/etc/inetd.rpmsave" ]
+                 "--inetdfile", "/etc/inetd.conf.rpmsave" ]
         
         log("found inetdconvert, executing %s" % argv)
         devnull = os.open("/dev/null", os.O_RDWR)
         iutil.execWithRedirect(argv[0], argv, root = self.instPath,
-                               stdout = devnull)
+                               stdout = devnull, stderr = devnull)
 
         
     def instCallback(self, what, amount, total, h, intf):
