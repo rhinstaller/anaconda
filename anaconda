@@ -4,6 +4,7 @@ import sys, getopt, os
 import gettext
 import traceback
 import string
+from installclass import CustomInstall
 
 setverPath = None
 
@@ -155,7 +156,8 @@ if forceMount:
 
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
-                setupFilesystems = setupFilesystems, mouse = mouseInfo)
+                setupFilesystems = setupFilesystems, mouse = mouseInfo,
+		instClass = CustomInstall())
     intf.run(todo, test = test)
 except:
     (type, value, tb) = sys.exc_info()

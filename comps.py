@@ -107,6 +107,9 @@ class ComponentSet:
 	    return self.comps[key]
 	return self.compsDict[key]
 
+    def keys(self):
+	return self.compsDict.keys()
+
     def readCompsFile(self, arch, filename, packages):
 	file = urllib.urlopen(filename)
 	lines = file.readlines()

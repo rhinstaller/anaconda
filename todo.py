@@ -271,7 +271,7 @@ rpmFD = None
         
 class ToDo:
     def __init__(self, intf, method, rootPath, setupFilesystems = 1,
-		 installSystem = 1, mouse = None):
+		 installSystem = 1, mouse = None, instClass = None):
 	self.intf = intf
 	self.method = method
 	self.mounts = {}
@@ -296,6 +296,9 @@ class ToDo:
 	self.lilo = LiloConfiguration()
 	self.initrdsMade = {}
 	self.liloImages = {} 
+	if (not instClass):
+	    raise TypeError, "installation class expected"
+	self.setClass(instClass)
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -586,8 +589,22 @@ class ToDo:
 
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
 	    self.hdList['kernel-smp'].selected = 1
+
+	self.updateInstClassComps()
             
 	return self.comps
+
+    def updateInstClassComps(self):
+	# don't load it just for this
+	if (not self.comps): return
+	group = self.instClass.getGroups()
+	if (group == None): return 0
+	for n in self.comps.keys():
+	    self.comps[n].select(0)
+
+	self.comps['Base'].select(1)
+	for n in group:
+	    self.comps[n].select(1)
 
     def writeNetworkConfig (self):
         # /etc/sysconfig/network-scripts/ifcfg-*
@@ -765,6 +782,20 @@ class ToDo:
 
     def rpmError (todo):
         todo.instLog.write (rpm.errorString () + "\n")
+
+    def setClass(todo, instClass):
+	todo.instClass = instClass
+	todo.hostname = todo.instClass.getHostname()
+	todo.updateInstClassComps()
+	( useShadow, useMd5, useNIS, nisDomain, nisBroadcast,
+		      nisServer) = todo.instClass.getAuthentication()
+        todo.auth.useShadow = useShadow
+        todo.auth.useMD5 = useMd5
+        todo.auth.useNIS = useNIS
+        todo.auth.domain = nisDomain
+        todo.auth.useBroadcast = nisBroadcast
+        todo.auth.server = nisServer
+	todo.bootdisk = todo.instClass.getMakeBootdisk()
         
     def doInstall(self):
 	# make sure we have the header list and comps file

@@ -8,6 +8,7 @@ import time
 import gettext
 import glob
 from newtpyfsedit import fsedit        
+import installclass
 
 INSTALL_OK = 0
 INSTALL_BACK = -1
@@ -136,20 +137,26 @@ class KeyboardWindow:
     
 class InstallPathWindow:
     def __call__ (self, screen, todo, intf):
-        rc = ButtonChoiceWindow(screen, _("Installation Path"),
-                                _("Would you like to install a new system "
-                                  "or upgrade a system which already contains "
-                                  "Red Hat Linux 2.0 or later?"),
-                                buttons = [_("Install"), _("Upgrade"), _("Back")], width = 35)
+	choices = [ _("Install GNOME Workstation"), 
+		    _("Install KDE Workstation"),
+		    _("Install Server System"),
+		    _("Install Custom System"),
+		    _("Upgrade Existing Installation") ]
+	(button, choice) = ListboxChoiceWindow(screen, _("Installation Type"),
+			_("What type of system would you like to install?"),
+			    choices, [(_("OK"), "ok"), (_("Back"), "back")],
+			    width = 40)
 
-        if rc == string.lower(_("Back")):
+        if button == "back":
             return INSTALL_BACK
-        if rc == string.lower(_("Upgrade")):
+	if (choice == 4):
             intf.steps = intf.commonSteps + intf.upgradeSteps
             todo.upgrade = 1
         else:
             intf.steps = intf.commonSteps + intf.installSteps
             todo.upgrade = 0
+	    if (choice == 0):
+		todo.setClass(installclass.Workstation())
         return INSTALL_OK
 
 class UpgradeExamineWindow:
@@ -1016,14 +1023,14 @@ class InstallWindow:
 class FinishedWindow:
     def __call__ (self, screen):
         rc = ButtonChoiceWindow (screen, _("Complete"), 
-                                 _("Congratulations, installation is complete.\n\n"
-                                   "Remove the boot media and "
-                                   "press return to reboot. For information on fixes which are "
-                                   "available for this release of Red Hat Linux, consult the "
-                                   "Errata available from http://www.redhat.com.\n\n"
-                                   "Information on configuring your system is available in the post "
-                                   "install chapter of the Official Red Hat Linux User's Guide."),
-                                 [ _("OK") ])
+	 _("Congratulations, installation is complete.\n\n"
+	   "Remove the boot media and "
+	   "press return to reboot. For information on fixes which are "
+	   "available for this release of Red Hat Linux, consult the "
+	   "Errata available from http://www.redhat.com.\n\n"
+	   "Information on configuring your system is available in the post "
+	   "install chapter of the Official Red Hat Linux User's Guide."),
+	 [ _("OK") ])
         return INSTALL_OK
 
 class BootdiskWindow:
@@ -1032,10 +1039,10 @@ class BootdiskWindow:
             return INSTALL_NOOP
 
         rc = ButtonChoiceWindow (screen, _("Bootdisk"),
-                                 _("Insert a blank floppy in the first floppy drive. "
-                                   "All data on this disk will be erased during creation "
-                                   "of the boot disk."),
-                                 [ _("OK"), _("Skip") ])                
+		     _("Insert a blank floppy in the first floppy drive. "
+		       "All data on this disk will be erased during creation "
+		       "of the boot disk."),
+		     [ _("OK"), _("Skip") ])                
         if rc == string.lower (_("Skip")):
             return INSTALL_OK
             
@@ -1044,10 +1051,10 @@ class BootdiskWindow:
                 todo.makeBootdisk ()
             except:
                 rc = ButtonChoiceWindow (screen, _("Error"),
-                                    _("An error occured while making the boot disk. "
-                                      "Please make sure that there is a formatted floppy "
-                                      "in the first floppy drive."),
-                                      [ _("OK"), _("Skip")] )
+			_("An error occured while making the boot disk. "
+			  "Please make sure that there is a formatted floppy "
+			  "in the first floppy drive."),
+			  [ _("OK"), _("Skip")] )
                 if rc == string.lower (_("Skip")):
                     break
                 continue
@@ -1297,30 +1304,40 @@ class InstallInterface:
             [_("Language Selection"), LanguageWindow, (self.screen, todo)],
             [_("Keyboard Selection"), KeyboardWindow, (self.screen, todo)],
             [_("Welcome"), WelcomeWindow, (self.screen,)],
-            [_("Installation Path"), InstallPathWindow, (self.screen, todo, self)],
+            [_("Installation Type"), InstallPathWindow, (self.screen, todo, self)],
             ]
         
         self.installSteps = [
-            [_("Network Setup"), NetworkWindow, (self.screen, todo)],
+            [_("Network Setup"), NetworkWindow, (self.screen, todo), 
+		    "network"],
             [_("Time zone Setup"), TimezoneWindow, (self.screen, todo, test)],
-            [_("Hostname Setup"), HostnameWindow, (self.screen, todo)],
+            [_("Hostname Setup"), HostnameWindow, (self.screen, todo), 
+		    "hostname"],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
             [_("Filesystem Formatting"), FormatWindow, (self.screen, todo)],
-            [_("Package Groups"), PackageGroupWindow, (self.screen, todo, self.individual)],
-            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [_("Package Groups"), PackageGroupWindow, 
+		(self.screen, todo, self.individual), "package-selection" ],
+            [_("Individual Packages"), IndividualPackageWindow, 
+		(self.screen, todo, self.individual), "package-selection" ],
             [_("Package Dependencies"), PackageDepWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseWindow, (self.screen, todo)],
             [_("Mouse Configuration"), MouseDeviceWindow, (self.screen, todo)],
-            [_("Authentication"), AuthConfigWindow, (self.screen, todo)],
+            [_("Authentication"), AuthConfigWindow, (self.screen, todo),
+		"authentication" ],
             [_("Root Password"), RootPasswordWindow, (self.screen, todo)],
             [_("User Account Setup"), UsersWindow, (self.screen, todo)],
-            [_("Boot Disk"), BootDiskWindow, (self.screen, todo)],
-            [_("LILO Configuration"), LiloWindow, (self.screen, todo)],
-	    [_("LILO Configuration"), LiloImagesWindow, (self.screen, todo)],
+            [_("Boot Disk"), BootDiskWindow, (self.screen, todo),
+		"bootdisk" ],
+            [_("LILO Configuration"), LiloWindow, 
+		    (self.screen, todo), "lilo"],
+	    [_("LILO Configuration"), LiloImagesWindow, 
+		    (self.screen, todo), "lilo"],
             [_("Installation Begins"), BeginInstallWindow, (self.screen, todo)],
-            [_("Install System"), InstallWindow, (self.screen, todo)],
-            [_("Bootdisk"), BootdiskWindow, (self.screen, todo)],
-            [_("Installation Complete"), FinishedWindow, (self.screen,)]
+            [_("Install System"), InstallWindow, (self.screen, todo),
+		"install-pause"],
+            [_("Bootdisk"), BootdiskWindow, (self.screen, todo), "bootdisk"],
+            [_("Installation Complete"), FinishedWindow, (self.screen,),
+		"complete" ]
             ]
 
         self.upgradeSteps = [
@@ -1334,18 +1351,27 @@ class InstallInterface:
         self.steps = self.commonSteps
 
         while self.step >= 0 and self.step < len(self.steps) and self.steps[self.step]:
-            # clear out the old root text by writing spaces in the blank
-            # area on the right side of the screen
-            self.screen.drawRootText (len(self.welcomeText), 0,
-                                     (self.screen.width - len(self.welcomeText)) * " ")
-            self.screen.drawRootText (0 - len(self.steps[self.step][0]),
-                                     0, self.steps[self.step][0])
-            rc = apply (self.steps[self.step][1](), self.steps[self.step][2])
-            if rc == -1:
-                dir = -1
-            elif rc == 0:
-                dir = 1
-            self.step = self.step + dir
+	    step = self.steps[self.step]
+
+	    rc = INSTALL_OK
+	    if (len(step) == 4):
+		if (todo.instClass.skipStep(step[3])):
+		    rc = INSTALL_NOOP
+
+	    if (rc != INSTALL_NOOP):
+		# clear out the old root text by writing spaces in the blank
+		# area on the right side of the screen
+		self.screen.drawRootText (len(self.welcomeText), 0,
+			     (self.screen.width - len(self.welcomeText)) * " ")
+		self.screen.drawRootText (0 - len(step[0]),
+					 0, step[0])
+		rc = apply (step[1](), step[2])
+
+	    if rc == -1:
+		dir = -1
+	    elif rc == 0:
+		dir = 1
+	    self.step = self.step + dir
         self.screen.finish ()
 
 def killSelf(screen):
