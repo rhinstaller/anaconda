@@ -2880,6 +2880,7 @@ int main(int argc, char ** argv) {
 	    *argptr++ = "--overhead";
 	    *argptr = malloc(20);
 	    sprintf(*argptr, "%d", memoryOverhead);
+	    argptr++;
 	}
 
 	for (i = 0; i < modLoaded->numModules; i++) {
