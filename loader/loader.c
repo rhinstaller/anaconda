@@ -542,17 +542,21 @@ static char * setupIsoImages(char * device, char * type, char * dirName,
 	/* Walk through the directories looking for a Red Hat CD image. */
 	errno = 0;
 	while ((ent = readdir(dir))) {
+	    if(!strncmp(ent->d_name,".",strlen(ent->d_name))) continue;
+	    if(!strncmp(ent->d_name,"..",strlen(ent->d_name))) continue;
 	    sprintf(filespec, "/tmp/hdimage/%s/%s", dirName, ent->d_name);
 
 	    if (fileIsIso(filespec)) {
 		errno = 0;
 		continue;
 	    }
+else
 
 	    if (mountLoopback(filespec, "/tmp/loopimage", "loop0")) {
 		errno = 0;
 		continue;
 	    }
+else
 
 	    rc = loadLocalImages("/tmp/loopimage", "/", flags, "loop1",
 				 "/mnt/runtime");
@@ -761,12 +765,13 @@ static char * mountHardDrive(struct installMethod * method,
     #endif
 
 #if !defined (__s390__) && !defined (__s390x__)
-
     mlLoadModule("vfat", NULL, modLoaded, *modDepsPtr, 
 		 NULL, modInfo, flags);
+#endif
 
     while (!done) {
 	numPartitions = 0;
+#if !defined (__s390__) && !defined (__s390x__)
 	for (i = 0; i < kd->numKnown; i++) {
 	    if (kd->known[i].class == CLASS_HD) {
 		devMakeInode(kd->known[i].name, "/tmp/hddevice");
@@ -833,7 +838,6 @@ static char * mountHardDrive(struct installMethod * method,
 #else
 	char c;
 	/* s390 */
-	numPartitions = 0;
 	for(c = 'a'; c <= 'z'; c++) {
 	  for(i = 1; i < 4; i++) {
 	    char dev[7];
@@ -846,15 +850,23 @@ static char * mountHardDrive(struct installMethod * method,
 	      partitions[numPartitions].type = BALKAN_PART_EXT2;
 	      numPartitions++;					
 	    }
-	}
+	  }
+        }
+	mlLoadModule("isofs", NULL, modLoaded, *modDepsPtr,
+                 NULL, modInfo, flags);
 
 #endif
 
 	text = newtTextboxReflowed(-1, -1,
+#if !defined (__s390__) && !defined (__s390x__)
 		_("What partition and directory on that partition hold the "
 		  "CD (iso9660) images for Red Hat Linux? If you don't "
 		  "see the disk drive you're using listed here, press F2 "
 		  "to configure additional devices."), 62, 5, 5, 0);
+#else
+		_("What partition and directory on that partition hold the "
+		  "CD (iso9660) images for Red Hat Linux?  "), 62, 3, 3, 0);
+#endif
 
 	listbox = newtListbox(-1, -1, numPartitions > 5 ? 5 : numPartitions,
 			      NEWT_FLAG_RETURNEXIT | 
@@ -911,13 +923,16 @@ static char * mountHardDrive(struct installMethod * method,
 
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return NULL;
-	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
+	} 
+#if !defined (__s390__) && !defined (__s390x__)
+	else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
 	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
 			  floppyDevice, flags, 
 			  NULL);
 	    kdFindScsiList(kd, 0);
 	    continue;
 	}
+#endif
 
 	logMessage("partition %s selected", part->name);
 	
