@@ -1414,7 +1414,7 @@ def readFstab (path):
                      "could not be found on any filesystem", label)
                 # bad luck, skip this entry.
                 continue
-	elif (fields[2] == "swap" and not fields[0].startswith('/dev/'):
+	elif fields[2] == "swap" and not fields[0].startswith('/dev/'):
 	    # swap files
 	    file = fields[0]
 
