@@ -12,6 +12,7 @@
 #
 
 import gtk
+import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 
@@ -94,12 +95,12 @@ class AuthWindow (InstallWindow):
 
         nb = gtk.Notebook ()
 
-        self.md5 = gtk.CheckButton (_("Enable MD5 passwords"))
-        self.shadow = gtk.CheckButton (_("Enable shadow passwords"))
+        self.md5 = gtk.CheckButton (_("Enable _MD5 passwords"))
+        self.shadow = gtk.CheckButton (_("Enable shado_w passwords"))
 
         # nis
-        self.nis = gtk.CheckButton (_("Enable NIS"))
-        self.nisBroadcast = gtk.CheckButton (_("Use broadcast to find NIS server"))
+        self.nis = gtk.CheckButton (_("Enable N_IS"))
+        self.nisBroadcast = gtk.CheckButton (_("Use _broadcast to find NIS server"))
         self.nisDomain = gtk.Entry ()
         self.nisServer = gtk.Entry ()
 
@@ -111,10 +112,12 @@ class AuthWindow (InstallWindow):
         self.nisBroadcast.set_active (self.auth.nisuseBroadcast)
         self.nisServer.set_text (self.auth.nisServer )
 
-        self.nisDomainLabel = gtk.Label (_("NIS Domain: "))
+        self.nisDomainLabel = gui.MnemonicLabel (_("NIS _Domain: "))
         self.nisDomainLabel.set_alignment (0, 0)
-        self.nisServerLabel = gtk.Label (_("NIS Server: "))
+        self.nisDomainLabel.set_mnemonic_widget(self.nisDomain)
+        self.nisServerLabel = gui.MnemonicLabel (_("NIS _Server: "))
         self.nisServerLabel.set_alignment (0, 0)
+        self.nisServerLabel.set_mnemonic_widget(self.nisServer)
 
         self.nis.connect ("toggled", self.setSensitivities)
         self.nisBroadcast.connect ("toggled", self.setSensitivities)
@@ -136,14 +139,16 @@ class AuthWindow (InstallWindow):
         nistable.attach (self.nisServer, 3, 10, 3, 4, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
         # ldap
-        self.ldap = gtk.CheckButton (_("Enable LDAP"))
+        self.ldap = gtk.CheckButton (_("Enable _LDAP"))
         self.ldapServer = gtk.Entry ()
         self.ldapBasedn = gtk.Entry ()
-        self.ldapTLS = gtk.CheckButton (_("Use TLS lookups"))
-        self.ldapServerLabel = gtk.Label (_("LDAP Server:"))
+        self.ldapTLS = gtk.CheckButton (_("Use _TLS lookups"))
+        self.ldapServerLabel = gui.MnemonicLabel (_("LDAP _Server:"))
         self.ldapServerLabel.set_alignment (0, 0)
-        self.ldapBasednLabel = gtk.Label (_("LDAP Base DN:"))
+        self.ldapServerLabel.set_mnemonic_widget(self.ldapServer)
+        self.ldapBasednLabel = gui.MnemonicLabel (_("LDAP _Base DN:"))
         self.ldapBasednLabel.set_alignment (0, 0)
+        self.ldapBasednLabel.set_mnemonic_widget(self.ldapBasedn)
 
 	# restore ldap settings
         self.ldap.set_active (self.auth.useLdap)
@@ -169,16 +174,19 @@ class AuthWindow (InstallWindow):
         self.ldap.connect ("toggled", self.setSensitivities)
 
         # krb5
-        self.krb5 = gtk.CheckButton (_("Enable Kerberos"))
+        self.krb5 = gtk.CheckButton (_("Enable _Kerberos"))
         self.krb5Realm = gtk.Entry ()
         self.krb5Kdc = gtk.Entry ()
         self.krb5Admin = gtk.Entry ()
-        self.krb5RealmLabel = gtk.Label (_("Realm:"))
+        self.krb5RealmLabel = gui.MnemonicLabel (_("R_ealm:"))
         self.krb5RealmLabel.set_alignment (0, 0)
-        self.krb5KdcLabel = gtk.Label (_("KDC:"))
+        self.krb5RealmLabel.set_mnemonic_widget(self.krb5Realm)        
+        self.krb5KdcLabel = gui.MnemonicLabel (_("K_DC:"))
         self.krb5KdcLabel.set_alignment (0, 0)
-        self.krb5AdminLabel = gtk.Label (_("Admin Server:"))
+        self.krb5KdcLabel.set_mnemonic_widget(self.krb5Kdc)
+        self.krb5AdminLabel = gui.MnemonicLabel (_("_Admin Server:"))
         self.krb5AdminLabel.set_alignment (0, 0)
+        self.krb5AdminLabel.set_mnemonic_widget(self.krb5Admin)
 
         # restore krb5 settings
         self.krb5.set_active (self.auth.useKrb5)
@@ -205,13 +213,15 @@ class AuthWindow (InstallWindow):
         self.krb5.connect ("toggled", self.setSensitivities)
 
         # samba
-        self.samba = gtk.CheckButton (_("Enable SMB Authentication"))
+        self.samba = gtk.CheckButton (_("Enable SMB _Authentication"))
         self.sambaServer = gtk.Entry ()
         self.sambaWorkgroup = gtk.Entry ()
-        self.sambaLabel1 = gtk.Label (_("SMB Server:"))
+        self.sambaLabel1 = gui.MnemonicLabel (_("SMB _Server:"))
         self.sambaLabel1.set_alignment (0, 0)
-        self.sambaLabel2 = gtk.Label (_("SMB Workgroup:"))
+        self.sambaLabel1.set_mnemonic_widget(self.sambaServer)
+        self.sambaLabel2 = gui.MnemonicLabel (_("SMB Work_group:"))
         self.sambaLabel2.set_alignment (0, 0)
+        self.sambaLabel2.set_mnemonic_widget(self.sambaWorkgroup)
 
  	# restore ldap settings
         self.samba.set_active (self.auth.useSamba)
