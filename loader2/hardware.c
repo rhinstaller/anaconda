@@ -208,7 +208,7 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
 		 moduleDeps modDeps, struct knownDevices * kd, int flags) {
     /* this is a hack since we can't really probe on iSeries */
 #ifdef __powerpc__
-    if (access("/proc/iSeries", X_OK)) {
+    if (!access("/proc/iSeries", X_OK)) {
 	mlLoadModuleSet("veth", modLoaded, modDeps, modInfo, flags);
 	updateKnownDevices(kd);
     }
