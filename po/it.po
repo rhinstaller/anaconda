@@ -17,7 +17,7 @@ msgstr ""
 "Project-Id-Version: it\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-09-03 11:05+1000\n"
+"PO-Revision-Date: 2004-09-03 12:07+1000\n"
 "Last-Translator: Francesco Valente <fvalen@redhat.com>\n"
 "Language-Team: Italian <i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -250,7 +250,7 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
-"La partizione di avvio %s non é una partizione VFAT.  EFI non sará in grado "
+"La partizione boot %s non é una partizione VFAT.  EFI non sará in grado "
 "di effettuare un avvio da questa partizione."
 
 #: ../autopart.py:1023
@@ -265,7 +265,7 @@ msgstr ""
 #, python-format
 msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"La partizione d'avvio %s potrebbe non rispondere alle esigenze d'avvio "
+"La partizione boot %s potrebbe non rispondere alle esigenze d'avvio "
 "della vostra architettura."
 
 #: ../autopart.py:1056
@@ -776,7 +776,7 @@ msgstr "Avvio di PPC PReP"
 
 #: ../fsset.py:1200 ../iw/silo_gui.py:184 ../textw/silo_text.py:76
 msgid "First sector of boot partition"
-msgstr "Primo settore della partizione di boot"
+msgstr "Primo settore della partizione boot"
 
 #: ../fsset.py:1201 ../iw/silo_gui.py:181 ../textw/silo_text.py:75
 msgid "Master Boot Record (MBR)"
@@ -2034,7 +2034,7 @@ msgstr "Creare una partizione /boot/efi di tipo FAT di 50 megabyte."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
-msgstr "E' necessario creare una partizione di boot PPC PReP. "
+msgstr "E' necessario creare una partizione boot PPC PReP. "
 
 #: ../partitions.py:804 ../partitions.py:815
 #, python-format
@@ -2047,7 +2047,7 @@ msgstr ""
 
 #: ../partitions.py:844 ../partRequests.py:652
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "Le partizioni di boot (/boot) possono trovarsi solo su dispositivi RAID1."
+msgstr "Le partizioni boot (/boot) possono trovarsi solo su dispositivi RAID1."
 
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
