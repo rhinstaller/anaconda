@@ -30,7 +30,7 @@ class DataComboBox(gtk.ComboBox):
 
         cell = gtk.CellRendererText()
         self.pack_start(cell, True)
-        self.set_attributes(cell, markup = 0)
+        self.set_attributes(cell, text = 0)
 
     def append(self, text, data):
         iter = self.store.append(None)
