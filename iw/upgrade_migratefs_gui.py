@@ -15,6 +15,7 @@
 
 from iw_gui import *
 from translate import _, N_
+from constants import *
 import string
 import isys 
 import iutil
@@ -50,12 +51,13 @@ class UpgradeMigrateFSWindow (InstallWindow):
         box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
-	text = N_("This release of Red Hat Linux supports "
+	text = N_("This release of %s supports "
                  "the ext3 journalling filesystem.  It has several "
                  "benefits over the ext2 filesystem traditionally shipped "
-                 "in Red Hat Linux.  It is possible to migrate the ext2 "
+                 "in %s.  It is possible to migrate the ext2 "
                  "formatted partitions to ext3 without data loss.\n\n"
-                 "Which of these partitions would you like to migrate?")
+                 "Which of these partitions would you like to migrate?" %
+                  (productName, productName))
         
 	label = gtk.Label (_(text))
         label.set_alignment (0.5, 0.0)

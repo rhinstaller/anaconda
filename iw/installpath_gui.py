@@ -168,6 +168,8 @@ class InstallPathWindow (InstallWindow):
 		table.attach(box, 1, 3, row, row + 1)
 		row = row + 1
 
+                self.toggled(button)
+
 	box = gtk.VBox (gtk.FALSE, 5)
 	box.pack_start(table, gtk.FALSE)
         box.set_border_width (5)

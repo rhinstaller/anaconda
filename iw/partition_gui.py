@@ -33,6 +33,7 @@ from partIntfHelpers import *
 from partedUtils import *
 from fsset import *
 from partRequests import *
+from constants import *
 
 STRIPE_HEIGHT = 32.0
 LOGICAL_INSET = 3.0
@@ -447,7 +448,7 @@ def createMountPointCombo(request):
 	mntptlist.append(request.fslabel)
     
     for p in defaultMountPoints:
-	if not p in mntptlist:
+	if not p in mntptlist and (p[0] == "/"):
 	    mntptlist.append(p)
 	
     mountCombo.set_popdown_strings (mntptlist)
@@ -760,7 +761,7 @@ class PartitionWindow(InstallWindow):
                            "scheme.")
             labelstr2 = _("These errors must be corrected prior "
                           "to continuing with your install of "
-                          "Red Hat Linux.")
+                          "%s.") % (productName,)
 
             commentstr = string.join(errors, "\n\n")
             
@@ -2324,8 +2325,8 @@ class AutoPartitionWindow(InstallWindow):
             dlg = gtk.MessageDialog(self.parent, 0, gtk.MESSAGE_ERROR,
                                     gtk.BUTTONS_OK,
                                     _("You need to select at least one "
-                                      "drive to have Red Hat Linux installed "
-                                      "onto."))
+                                      "drive to have %s installed "
+                                      "onto.") % (productName,))
             gui.addFrame(dlg)
             dlg.show_all()
             rc = dlg.run()

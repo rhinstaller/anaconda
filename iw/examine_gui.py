@@ -16,6 +16,7 @@ import gtk
 from iw_gui import *
 from package_gui import *
 from translate import _, N_
+from constants import *
 from upgrade import *
 
 class UpgradeExamineWindow (InstallWindow):		
@@ -85,9 +86,9 @@ class UpgradeExamineWindow (InstallWindow):
             # if there is only one partition, go on.
             self.ics.setNextEnabled (gtk.TRUE)
             self.root = self.parts[0]
-	    label = gtk.Label (_("Upgrading the Red Hat Linux installation "
+	    label = gtk.Label (_("Upgrading the %s installation "
                                 "on partition /dev/%s")
-                              % (self.root[0] + "\n\n",))
+                              % (productName, self.root[0] + "\n\n",))
 	    label.set_alignment(0.0, 0.5)
 	    vbox.pack_start(label, gtk.FALSE)
             

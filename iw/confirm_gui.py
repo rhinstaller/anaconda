@@ -14,6 +14,7 @@
 import gtk
 from iw_gui import *
 from translate import _, N_
+from constants import *
 from package_gui import queryUpgradeContinue
 import gui
 
@@ -56,9 +57,9 @@ class InstallConfirmWindow (ConfirmWindow):
 
     def getScreen(self):
 	return ConfirmWindow.getScreen(self,
-	    _("Click next to begin installation of Red Hat Linux."),
+	    _("Click next to begin installation of %s.") % (productName,),
 	    _("A complete log of your installation will be in "
-	      "/tmp/install.log after rebooting your system. You "
+	      "/root/install.log after rebooting your system. You "
 	      "may want to keep this file for later reference. "
               "A kickstart file representing the choices you have made "
               "will be in /root/anaconda-ks.cfg."))
@@ -69,8 +70,8 @@ class UpgradeConfirmWindow (ConfirmWindow):
 
     def getScreen(self):
 	return ConfirmWindow.getScreen(self,
-            _("Click next to begin upgrade of Red Hat Linux."),
+            _("Click next to begin upgrade of %s.") % (productName,),
             _("A complete log of your upgrade will be in "
-	      "/tmp/upgrade.log after rebooting your system. You "
+	      "/root/upgrade.log after rebooting your system. You "
 	      "may want to keep this file for later reference."))
 
