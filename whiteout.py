@@ -37,7 +37,8 @@ whiteout="""
         perl>perl-Filter                \
         coreutils>pam                   \
         perl>mrtg                       \
-        perl-Date-Calc>perl-Bit-Vector  
+        perl-Date-Calc>perl-Bit-Vector  \
+        glibc-debug>glibc-devel
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
