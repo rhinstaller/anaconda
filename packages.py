@@ -79,10 +79,18 @@ def writeKSConfiguration(id, instPath):
     id.writeKS(fn)
 
 def writeXConfiguration(id, instPath):
-    if flags.test:
+    testmode = flags.test
+
+#
+# use to test writing X config in test mode
+#
+#    testmode = 0
+#    instPath = '/'
+    
+    if testmode:
         return
 
-    if id.xconfig.skipx:
+    if id.xsetup.skipx:
         return
     
     xserver = id.videocard.primaryCard().getXServer()
@@ -90,7 +98,7 @@ def writeXConfiguration(id, instPath):
         return
 
     log("Writing X configuration")
-    if not flags.test:
+    if not testmode:
         fn = instPath
 
         if os.access (instPath + "/etc/X11/X", os.R_OK):
@@ -107,7 +115,7 @@ def writeXConfiguration(id, instPath):
     else:
         fn = "/tmp/"
 
-    id.xconfig.write(fn+"/etc/X11")
+    id.xsetup.write(fn+"/etc/X11", id.mouse, id.keyboard)
     id.desktop.write(instPath)
 
 def readPackages(intf, method, id):
@@ -158,7 +166,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         disp.skipStep("monitor")
         disp.skipStep("xcustom")
         disp.skipStep("writexconfig")
-        id.xconfig.skipx = 1
+        id.xsetup.skipx = 1
     elif disp.stepInSkipList("videocard"):
         # if X is being installed, but videocard step skipped
         # need to turn it back on
@@ -166,7 +174,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         disp.skipStep("monitor", skip=0)
         disp.skipStep("xcustom", skip=0)
         disp.skipStep("writexconfig", skip=0)
-        id.xconfig.skipx = 0
+        id.xsetup.skipx = 0
 
     # set default runlevel based on packages
     gnomeSelected = (id.comps.packages.has_key('gnome-session')

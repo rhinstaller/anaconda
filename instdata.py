@@ -97,8 +97,8 @@ class InstallData:
         self.monitor = monitor
 
     # expects a XF86Config object
-    def setXconfig(self, xconfig):
-        self.xconfig = xconfig
+    def setXSetup(self, xsetup):
+        self.xsetup = xsetup
 
     def write(self, instPath):
         self.langSupport.write (instPath) 
@@ -125,7 +125,7 @@ class InstallData:
 	self.langSupport.writeKS(f)
 	self.keyboard.writeKS(f)
         self.mouse.writeKS(f)
-        self.xconfig.writeKS(f, self.desktop)
+        self.xsetup.writeKS(f, self.desktop)
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)
@@ -191,7 +191,7 @@ class InstallData:
         self.mouse = None
         self.monitor = None
         self.videocard = None
-        self.xconfig = None
+        self.xsetup = None
 	self.extraModules = extraModules
 	self.floppyDevice = floppyDevice
 	self.fsset = fsset.FileSystemSet()

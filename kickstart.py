@@ -502,7 +502,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("xcustom")
         self.skipSteps.append("handleX11pkgs")
         self.skipSteps.append("writexconfig")
-        id.xconfig.skipx = 1
+        id.xsetup.skipx = 1
 
     def doInteractive(self, id, args):
         self.interactive = 1
