@@ -179,7 +179,7 @@ class CdromInstallMethod(ImageInstallMethod):
     def getRPMFilename(self, h, timer, callback=None):
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
-                 "on the current CD", h[1000000])
+                 "on the current CD" %(h[1000000],))
         elif h[1000002] not in self.currentDisc:
 	    timer.stop()
             log("switching from iso %s to %s for %s-%s-%s.%s" %(self.currentDisc, h[1000002], h['name'], h['version'], h['release'], h['arch']))
