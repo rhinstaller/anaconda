@@ -262,6 +262,8 @@ makebootdisk() {
     mkdir -p $MBD_DIR/proc
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/l
+    mkdir -p $MBD_DIR/var/state
+    ln -s /tmp $MBD_DIR/var/state/xkb
 
     makemoduleball $MBD_DIR/modules "$MODSET"
 
