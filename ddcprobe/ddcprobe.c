@@ -92,8 +92,8 @@ int main(int argc, char **argv)
 	edid_info = vbe_get_edid_info();
 
 	/* Interpret results. */
-	if(edid_info == NULL) {
-		printf("EDID failed. (No DDC-capable monitor attached?)\n");
+	if((edid_info == NULL) || (edid_info->version == 0)) {
+		printf("EDID read failed. (No DDC-capable monitor attached?)\n");
 		exit(0);
 	}
 
