@@ -195,8 +195,6 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods, i;
     char *driver;
 
-    freeDeviceList();
-
     logMessage("probing buses");
 
     devices = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
@@ -2073,6 +2071,9 @@ int main(int argc, char ** argv) {
     /* XXX should free old Deps */
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+    /* merge in any new pci ids */
+    pciReadDrivers("/modules/pcitable");
 
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
