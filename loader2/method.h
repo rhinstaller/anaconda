@@ -37,7 +37,7 @@ void copyUpdatesImg(char * path);
 int copyDirectory(char * from, char * to);
 
 
-/* JKFIXME: nfs specific */
+/* JKFIXME: move these to specific include files*/
 struct nfsInstallData {
     char * host;
     char * directory;
@@ -45,7 +45,23 @@ struct nfsInstallData {
 void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr);
 
+struct hdInstallData {
+    char * partition;
+    char * directory;
+};
+void setKickstartHD(struct loaderData_s * loaderData, int argc,
+		    char ** argv, int * flagsPtr);
+
+/* no install data for CD, we just use the first one */
+void setKickstartCD(struct loaderData_s * loaderData, int argc,
+		    char ** argv, int * flagsPtr);
+
 /* JKFIXME: url stuff */
+struct urlInstallData {
+    char * url;
+};
+void setKickstartUrl(struct loaderData_s * loaderData, int argc,
+		     char ** argv, int * flagsPtr);
 int kickstartFromUrl(char * url, struct knownDevices * kd,
                      struct loaderData_s * loaderData, int flags);
 
