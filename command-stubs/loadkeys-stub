@@ -19,7 +19,10 @@ def main():
     if len(sys.argv) != 2:
         usage()
 
-    isys.loadKeymap(sys.argv[1])
+    try:
+        isys.loadKeymap(sys.argv[1])
+    except SystemError:
+        pass
     sys.exit(0)
 
 if __name__ == "__main__":
