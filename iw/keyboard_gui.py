@@ -23,8 +23,6 @@ from flags import flags
 from translate import _, N_
 
 class KeyboardWindow (InstallWindow):
-    hasrun = 0
-
     windowTitle = N_("Keyboard Configuration")
     htmlTag = "kybd"
 
@@ -37,20 +35,20 @@ class KeyboardWindow (InstallWindow):
 	self.rulesbase = rules[string.rfind(rules, "/")+1:]
 
     def getNext (self):
-        if self.hasrun:
-            if self.flags.setupFilesystems:
-                self.kb.setRule(self.model, self.layout, self.variant,
-                                 "complete")
-            
-            self.x.setKeyboard(self.rulesbase, self.model,
-                                self.layout, self.variant, "")
+        if self.flags.setupFilesystems:
+            self.kb.setRule(self.model, self.layout, self.variant,
+                             "complete")
 
-            self.kbd.setfromx(self.model, self.layout, self.variant)
+        self.x.setKeyboard(self.rulesbase, self.model,
+                            self.layout, self.variant, "")
 
-	    try:
-	    	isys.loadKeymap(self.kbd.get())
-	    except:
-		log("failed to load keymap")
+        self.kbd.setfromx(self.model, self.layout, self.variant)
+        self.kbd.beenset = 1
+
+        try:
+            isys.loadKeymap(self.kbd.get())
+        except:
+            log("failed to load keymap")
 
         return None
 
@@ -74,7 +72,7 @@ class KeyboardWindow (InstallWindow):
         self.layout = layout
         self.variant = variant
 
-        if not self.hasrun:
+        if not self.kbd.beenset:
             default = instLang.getDefaultKeyboard()
             
             if Keyboard.console2x.has_key(default):
@@ -182,5 +180,4 @@ class KeyboardWindow (InstallWindow):
         entry.connect("grab-focus", self.setMap)
 
         box.set_border_width(5)
-        KeyboardWindow.hasrun = 1
         return box

@@ -20,15 +20,13 @@ from log import *
 from flags import flags
 
 class KeyboardWindow:
-    beenRun = 0
-
     def __call__(self, screen, instLang, kbd, xconfig):
 	if flags.serial:
 	    return INSTALL_NOOP
         keyboards = kbd.available ()
         keyboards.sort ()
 
-	if self.beenRun:
+	if kbd.beenset:
 	    default = kbd.get ()
 	else:
 	    default = instLang.getDefaultKeyboard()
@@ -43,7 +41,7 @@ class KeyboardWindow:
             return INSTALL_BACK
 
         kbd.set (keyboards[choice])
-	self.beenRun = 1
+	kbd.beenset = 1
 
 	if flags.reconfig:
 	    iutil.execWithRedirect ("/bin/loadkeys",

@@ -101,6 +101,7 @@ class Keyboard (SimpleConfigFile):
 	self.type = "PC"
 	self.model = None
 	self.layout = None
+        self.beenset = 0
         self.info = {}
 	list = kudzu.probe(kudzu.CLASS_KEYBOARD, kudzu.BUS_UNSPEC,
 			   kudzu.PROBE_ONE)

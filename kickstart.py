@@ -396,6 +396,7 @@ class KickstartBase(BaseInstallClass):
 
     def doKeyboard(self, id, args):
         self.setKeyboard(id, args[0])
+        id.keyboard.beenset = 1
 	self.skipSteps.append("keyboard")
 
     def doZeroMbr(self, id, args):
