@@ -63,6 +63,7 @@ char * environ[] = {
     "HOME=/",
     "TERM=linux",
     "DEBUG=",
+    "TERMINFO_DIRS=/etc/terminfo",
     NULL
 };
 

@@ -38,7 +38,7 @@ class ToDo:
 	    if not format: continue
 	    w = self.intf.waitWindow("Formatting", 
 			"Formatting %s filesystem..." % (mntpoint,))
-	    util.execWithRedirect("mke2fs", [ "mke2fs", device ],
+	    util.execWithRedirect("mke2fs", [ "mke2fs", '/tmp/' + device ],
 				  stdout = None, searchPath = 1)
 	    w.pop()
 
@@ -47,7 +47,7 @@ class ToDo:
 
 	for n in self.mounts:
 	    (device, mntpoint, format) = n
-	    isys.mount(device, self.instPath + mntpoint)
+	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
 
     def doInstall(self):
 	# make sure we have the header list and comps file
@@ -98,7 +98,7 @@ class ToDo:
 	# FIXME: make an initrd here
 
 	l = LiloConfiguration()
-	l.addEntry("boot", self.liloDevice)
+	l.addEntry("boot", '/dev/' + self.liloDevice)
 	l.addEntry("map", "/boot/map")
 	l.addEntry("install", "/boot/boot.b")
 	l.addEntry("prompt")
@@ -110,7 +110,7 @@ class ToDo:
 	for n in self.mounts:
 	    (dev, fs, reformat) = n
 	    if fs == '/':
-		sl.addEntry("root", dev)
+		sl.addEntry("root", '/dev/' + dev)
 	sl.addEntry("read-only")
 
 	kernelFile = '/boot/vmlinuz-' +  \
@@ -131,12 +131,12 @@ class ToDo:
 	for n in self.mounts: 
 	    (dev, fs, reformat) = n
 	    if (fs == '/'):
-		f.write(format % (dev, fs, 'ext2', 'defaults', 1, 1))
+		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 1))
 	    else:
-		f.write(format % (dev, fs, 'ext2', 'defaults', 1, 2))
+		f.write(format % ( '/dev/' + dev, fs, 'ext2', 'defaults', 1, 2))
 	f.write(format % ("/mnt/floppy", "/dev/fd0", 'ext', 'noauto', 0, 0))
 	f.write(format % ("none", "/proc", 'proc', 'defaults', 0, 0))
-	f.write(format % ("none", "/dev/pts", 'devpts', 'mode=0622', 0, 0))
+	f.write(format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 	f.close()
 
     def addMount(self, device, location, reformat = 1):

@@ -2,6 +2,7 @@
 
 from gtk import *
 import GdkImlib
+import isys
 import sys
 import _balkan
 import thread
@@ -89,7 +90,8 @@ class PartitionWindow:
 	numext2 = 0
 
         try:
-            table = _balkan.readTable('/dev/' + device)
+    	    isys.makeDevInode(device, '/tmp/' + device)
+            table = _balkan.readTable('/tmp/' + device)
     	    if len(table) - 1 > 0:
         	partbox = GtkVBox (FALSE, 5)
                 for i in range(0, len(table) - 1):

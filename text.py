@@ -56,7 +56,7 @@ class PartitionWindow:
 	for i in range(0, len(table) - 1):
 	    (type, start, size) = table[i]
 	    if (type == 0x83 and size):
-		fullName = '/dev/%s%d' % (device, i + 1)
+		fullName = '%s%d' % (device, i + 1)
 		partList.append((fullName, fullName))
 
 	rc = ListboxChoiceWindow(screen, 'Root Partition',
@@ -120,7 +120,7 @@ class InstallInterface:
 		dir = 1
 	    step = step + dir
 
-	todo.liloLocation("/dev/hda")
+	todo.liloLocation("hda")
 
 def killSelf(screen):
     print "HERE"
