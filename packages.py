@@ -602,16 +602,20 @@ def doPreInstall(method, id, intf, instPath, dir):
 
     if flags.setupFilesystems:
 	try:
-	    if os.path.exists("/var/tmp") and not os.path.islink("/var/tmp"):
-		iutil.rmrf("/var/tmp")
-	    if not os.path.islink("/var/tmp"):
-		os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
-	    else:
-		log("/var/tmp already exists as a symlink to %s" %(os.readlink("/var/tmp"),))
-	except:
+            # FIXME: making the /var/lib/rpm symlink here is a hack to
+            # workaround db->close() errors from rpm
+            iutil.mkdirChain("/var/lib")
+            for path in ("/var/tmp", "/var/lib/rpm"):
+                if os.path.exists(path) and not os.path.islink(path):
+                    iutil.rmrf(path)
+                if not os.path.islink(path):
+                    os.symlink("/mnt/sysimage/%s" %(path,), "%s" %(path,))
+                else:
+                    log("%s already exists as a symlink to %s" %(path, os.readlink(path),))
+	except Exception, e:
 	    # how this could happen isn't entirely clear; log it in case
 	    # it does and causes problems later
-	    log("unable to create symlink for /var/tmp.  assuming already created")
+	    log("error creating symlink, continuing anyway: %s" %(e,))
 
     # try to copy the comps package.  if it doesn't work, don't worry about it
     try:
@@ -900,6 +904,13 @@ def doInstall(method, id, intf, instPath):
             os.unlink("%s/var/lib/rpm/%s" %(instPath, file))
         except Exception, e:
             log("failed to unlink /var/lib/rpm/%s: %s" %(file,e))
+    # FIXME: remove the /var/lib/rpm symlink that keeps us from having
+    # db->close error messages shown.  I don't really like this though :(
+    try:
+        os.unlink("/var/lib/rpm")
+    except Exception, e:
+        log("failed to unlink /var/lib/rpm: %s" %(e,))
+            
 
     if upgrade:
         instLog.write(_("\n\nThe following packages were available in "
