@@ -186,9 +186,9 @@ class FirewallWindow (InstallWindow):
 
         hbox = gtk.HBox (gtk.FALSE)
 
-        self.sec_high_radio = gtk.RadioButton (None, (_("High")))
-        self.sec_med_radio = gtk.RadioButton (self.sec_high_radio, (_("Medium")))
-        self.sec_none_radio = gtk.RadioButton (self.sec_high_radio, (_("No firewall")))
+        self.sec_high_radio = gtk.RadioButton (None, (_("Hi_gh")))
+        self.sec_med_radio = gtk.RadioButton (self.sec_high_radio, (_("_Medium")))
+        self.sec_none_radio = gtk.RadioButton (self.sec_high_radio, (_("N_o firewall")))
         self.sec_none_radio.connect ("clicked", self.activate_firewall)
 
         hbox.pack_start (self.sec_high_radio)
@@ -204,8 +204,8 @@ class FirewallWindow (InstallWindow):
         hsep = gtk.HSeparator ()
         box.pack_start (hsep, gtk.FALSE)
 
-        self.default_radio = gtk.RadioButton (None, (_("Use default firewall rules")))
-        self.custom_radio = gtk.RadioButton (self.default_radio, (_("Customize")))
+        self.default_radio = gtk.RadioButton (None, (_("Use _default firewall rules")))
+        self.custom_radio = gtk.RadioButton (self.default_radio, (_("_Customize")))
         self.default_radio.set_active (gtk.TRUE)
 
         self.default_radio.connect ("clicked", self.activate_firewall)
@@ -218,10 +218,11 @@ class FirewallWindow (InstallWindow):
         box.pack_start (table)
 
         hbox = gtk.HBox(gtk.FALSE, 10)
-        self.label1 = gtk.Label (_("Trusted devices:"))
+        self.label1 = gui.MnemonicLabel (_("_Trusted devices:"))
         self.label1.set_alignment (0.2, 0.0)
 
         self.trusted = checklist.CheckList(1)
+        self.label1.set_mnemonic_widget(self.trusted)
 
         trustedSW = gtk.ScrolledWindow()
         trustedSW.set_border_width(5)
@@ -242,9 +243,10 @@ class FirewallWindow (InstallWindow):
                     self.firewall.dhcp = 1
 
         hbox = gtk.HBox(gtk.FALSE, 10)        
-        self.label2 = gtk.Label (_("Allow incoming:"))
+        self.label2 = gui.MnemonicLabel (_("_Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
+        self.label2.set_mnemonic_widget(self.incoming)
 
         incomingSW = gtk.ScrolledWindow()
         incomingSW.set_border_width(5)
@@ -265,8 +267,9 @@ class FirewallWindow (InstallWindow):
         for item in self.knownPorts.keys():
             self.incoming.append_row ((item, ""), self.knownPorts[item])
 
-        self.label3 = gtk.Label (_("Other ports:"))
+        self.label3 = gui.MnemonicLabel (_("Other _ports:"))
         self.ports = gtk.Entry ()
+        self.label3.set_mnemonic_widget(self.ports)
 
         table.attach (self.label3, 0, 1, 2, 3, gtk.FILL, gtk.FILL, 5, 5)
         table.attach (self.ports, 1, 2, 2, 3, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
