@@ -1,5 +1,12 @@
 2004-12-03  Jeremy Katz  <katzj@redhat.com>
 
+	* lvm.py (partialvgs): Detect partial volume groups.
+
+	* partitions.py (Partitions.getPartialLVMRequests): Get partial
+	volume group requests
+	(Partitions.isVolumeGroupNameInUse): If we have a partial by the
+	requested name, let it be known so that we avoid conflicts.
+
 	* partRequests.py (PartialVolumeGroupRequestSpec.__init__): Add
 	partial volume group request for handling non-complete volume
 	groups so we avoid conflicting names.
