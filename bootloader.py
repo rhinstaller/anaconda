@@ -131,6 +131,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
         return
 
     plainLabelUsed = 0
+    defkern = "kernel"
     for (version, nick) in comps.kernelVersionList():
 	if plainLabelUsed:
             kernelList.append(("%s-%s" %(kernelLabel, nick),
@@ -138,7 +139,18 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
                                version))
 	else:
 	    kernelList.append((kernelLabel, kernelLongLabel, version))
+            if nick != "up":
+                defkern = "kernel-%s" %(nick,)
 	    plainLabelUsed = 1
+
+    f = open(instRoot + "/etc/sysconfig/kernel", "w+")
+    f.write("# UPDATEDEFAULT specifies if new-kernel-pkg should make\n"
+            "# new kernels the default\n")
+    f.write("UPDATEDEFAULT=yes\n")
+    f.write("\n")
+    f.write("# DEFAULTKERNEL specifies the default kernel package type\n")
+    f.write("DEFAULTKERNEL=%s" %(defkern,))
+    f.close()
 
     dosync()
     try:

@@ -1,3 +1,9 @@
+2004-10-13  Jeremy Katz  <katzj@redhat.com>
+
+	* bootloader.py: Write out /etc/sysconfig/kernel with the default
+	kernel type and to change the bootloader default on new kernel
+	installation (#135161)
+
 2004-10-13  Karsten Hopp <karsten@redhat.com>
 	* scripts/mk-images: add /etc/pam.d/remote for telnet logins
 	                     (mainframe)
