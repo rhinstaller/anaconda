@@ -46,7 +46,7 @@
 int beTelnet(int flags) {
     int sock;
     int conn;
-    unsigned int addrLength;
+    socklen_t addrLength;
     pid_t child;
     int i;
     int masterFd, ttyFd;
