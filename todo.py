@@ -613,7 +613,7 @@ class ToDo:
                 intf.setPackage(h)
                 intf.setPackageScale(0, 1)
                 fn = method.getFilename(h)
-                instCallbsack.d = os.open(fn, os.O_RDONLY)
+                instCallback.d = os.open(fn, os.O_RDONLY)
                 return instCallback.d
             elif (what == rpm.RPMCALLBACK_INST_PROGRESS):
                 intf.setPackageScale(amount, total)
