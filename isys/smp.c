@@ -155,6 +155,36 @@ typedef struct MPFPS {
     u_char      mpfb5;
 } mpfps_t;
 
+/* MP Configuration Table Header */
+typedef struct MPCTH {
+    char        signature[ 4 ];
+    u_short     base_table_length;
+    u_char      spec_rev;
+    u_char      checksum;
+    u_char      oem_id[ 8 ];
+    u_char      product_id[ 12 ];
+    void*       oem_table_pointer;
+    u_short     oem_table_size;
+    u_short     entry_count;
+    void*       apic_address;
+    u_short     extended_table_length;
+    u_char      extended_table_checksum;
+    u_char      reserved;
+} mpcth_t;
+
+typedef struct PROCENTRY {
+    u_char      type;
+    u_char      apicID;
+    u_char      apicVersion;
+    u_char      cpuFlags;
+    u_long      cpuSignature;
+    u_long      featureFlags;
+    u_long      reserved1;
+    u_long      reserved2;
+} ProcEntry;
+
+#define PROCENTRY_FLAG_EN       0x01
+
 static void seekEntry( vm_offset_t addr );
 static void apic_probe( vm_offset_t* paddr, int* where );
 static void readEntry( void* entry, int size );
@@ -164,11 +194,34 @@ static int     pfd;            /* physical /dev/mem fd */
 static int     verbose = 0;
 static int     grope = 0;
 
+static int
+readType()
+{
+    u_char      type;
+
+    if ( read( pfd, &type, sizeof( u_char ) ) != sizeof( u_char ) ) {
+        perror( "type read" );
+        fprintf( stderr, "\npfd: %d", pfd );
+        fflush( stderr );
+        exit( 1 );
+    }
+
+    if ( lseek( pfd, -1, SEEK_CUR ) < 0 ) {
+        perror( "type seek" );
+        exit( 1 );
+    }
+
+    return (int)type;
+}
+
 static int intelDetectSMP(void)
 {
-  vm_offset_t paddr;
-  int         where;
-
+    vm_offset_t paddr;
+    int         where;
+    mpfps_t     mpfps;
+    int		rc = 0;
+    int		ncpus = 0;
+    
     /* open physical memory for access to MP structures */
     if ( (pfd = open( "/dev/mem", O_RDONLY )) < 0 ) {
 	return 0;
@@ -176,12 +229,45 @@ static int intelDetectSMP(void)
 
     /* probe for MP structures */
     apic_probe( &paddr, &where );
-    close (pfd);
-
     if ( where <= 0 )
 	return 0;
 
-    return 1;
+    seekEntry( paddr );
+    readEntry( &mpfps, sizeof( mpfps_t ) );
+
+    if (mpfps.mpfb1)
+	/* old style */
+	rc = 1;
+    else {
+	/* go to the config table */
+	mpcth_t     cth;
+	int count, i;
+	    
+	paddr = (vm_offset_t) mpfps.pap;
+	seekEntry( paddr );
+	readEntry( &cth, sizeof( cth ) );
+	/* if we don't have any entries, the kernel sure
+	   won't be able to set up mp.  Needs at least one entry
+	   for smp kernel */
+	if (cth.entry_count <= 1) {
+	    close (pfd);
+	    return 0;
+	}
+	count = cth.entry_count;
+	for (i = 0; i < count; i++) {
+	    if ( readType() == 0 ) {
+		ProcEntry   entry;
+		readEntry( &entry, sizeof( entry ) );
+		if (entry.cpuFlags & PROCENTRY_FLAG_EN)
+		    ncpus++;
+	    }
+	}
+	if (ncpus > 1)
+	    rc = 1;
+    }
+
+    close (pfd);
+    return rc;
 }
 
 /*
