@@ -511,7 +511,7 @@ class ComponentSet:
 
         # be leet and construct an everything group
         everything = rhpl.comps.Group(self.compsxml)
-        everything.name = _("Everything")
+        everything.name = N_("Everything")
         everything.id = "everything"
         for pkg in packages.keys():
             if ExcludePackages.has_key(packages[pkg]['name']):
@@ -542,7 +542,7 @@ class ComponentSet:
         # now, let's set up all of the dependencies
         for comp in self.comps:
             # kind of pointless for everything since it's all packages
-            if comp.name == _("Everything"):
+            if comp.name == "Everything":
                 continue
 #            print "looking at %s" %(comp.name)
             pkgs = comp.packages()
