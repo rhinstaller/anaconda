@@ -96,25 +96,21 @@ class KickstartBase(BaseInstallClass):
 	
     def doFirewall(self, id, args):
 	(args, extra) = isys.getopt(args, '',
-		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp',
+		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp', 'enabled',
 		  'port=', 'high', 'medium', 'disabled', 'trust=' ])
 		  
-	dhcp = 0
 	ssh = 0
 	telnet = 0
 	smtp = 0
 	http = 0
 	ftp = 0
-	policy = 0
 	enable = -1
 	trusts = []
 	ports = ""
 	
 	for n in args:
 	    (str, arg) = n
-	    if str == '--dhcp':
-		dhcp = 1
-	    elif str == '--ssh':
+	    if str == '--ssh':
 		ssh = 1
 	    elif str == '--telnet':
 		telnet = 1
@@ -124,11 +120,10 @@ class KickstartBase(BaseInstallClass):
 		http = 1
 	    elif str == '--ftp':
 		ftp = 1
-	    elif str == '--high':
-		policy = 0
+	    elif str == '--high' or str == '--medium':
+                log("used deprecated firewall option: %s" %(str[2:],))
 		enable = 1
-	    elif str == '--medium':
-		policy = 1
+	    elif str == '--enabled':
 		enable = 1
 	    elif str == '--disabled':
 		enable = 0
@@ -140,7 +135,7 @@ class KickstartBase(BaseInstallClass):
 		else:
 		    ports = arg
 	    
-	self.setFirewall(id, enable, policy, trusts, ports, dhcp, ssh, telnet,
+	self.setFirewall(id, enable, trusts, ports, ssh, telnet,
 			smtp, http, ftp)
 	    
     def doAuthconfig(self, id, args):

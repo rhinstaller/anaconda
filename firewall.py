@@ -22,7 +22,7 @@ from rhpl.log import log
 
 class Firewall:
     def __init__ (self):
-	self.enabled = -1
+	self.enabled = 1
 	self.ssh = 0
 	self.telnet = 0
 	self.smtp = 0
@@ -30,15 +30,12 @@ class Firewall:
 	self.ftp = 0
 	self.portlist = ""
 	self.ports = []
-	self.policy = 1
-	self.dhcp = 0
 	self.trustdevs = []
-        self.custom = 1
 
     def writeKS(self, f):
 	f.write("firewall")
 
-	if self.enabled > 0:
+        if self.enabled:
 	    for arg in self.getArgList():
 		f.write(" " + arg)
 	else:
@@ -49,12 +46,12 @@ class Firewall:
     def getArgList(self):
 	args = []
 
-	if self.policy:
-	    args.append ("--medium")
-	else:
-	    args.append ("--high")
-	if self.dhcp:
-	    args.append ("--dhcp")
+        if self.enabled:
+            args.append ("--enabled")
+        else:
+            args.append("--disabled")
+            return args
+        
 	if self.portlist:
 	    ports = string.split(self.portlist,',')
 	    for port in ports:
@@ -85,7 +82,7 @@ class Firewall:
     def write (self, instPath):
 	args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
 
-	if self.enabled > 0:
+        if self.enabled:
 	    args = args + self.getArgList()
 
             try:
@@ -107,8 +104,8 @@ class Firewall:
                 f.close()
                     
         else:
-            # remove /etc/sysconfig/ipchains
-	    file = instPath + "/etc/sysconfig/ipchains"
+            # remove /etc/sysconfig/iptables
+	    file = instPath + "/etc/sysconfig/iptables"
 	    if os.access(file, os.O_RDONLY):
                 os.remove(file)
 
