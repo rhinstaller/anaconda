@@ -1,16 +1,16 @@
 #
 # define destination locations
 #
-VERSION = 9.1.2
-RELEASE = 2.RHEL
+VERSION = 9.1.3
+RELEASE = 0.RHEL
 TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
 SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
 ANACONDADATADIR = /usr/share/anaconda
-PYTHON = python2.2
-PYTHONINCLUDE = /usr/include/python2.2
+PYTHON = python2.3
+PYTHONINCLUDE = /usr/include/python2.3
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
