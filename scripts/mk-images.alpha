@@ -23,7 +23,7 @@ EOF
 }
 
 NETMODULES="nfs 3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
-SCSIMODULES="DAC960 ide-cd"
+SCSIMODULES="aic7xxx DAC960 ide-cd"
 
 mkdir -p $TOPDESTPATH/boot
 cp $BOOTDISKDIR/bootlx $TOPDESTPATH/boot
