@@ -87,12 +87,3 @@ char ** probePciDriverList(void) {
 
     return drivers;
 }
-
-void main() {
-    char ** d, ** p;
-
-    d = probePciDriverList();
-    p = d;
-    while (p && *p)
-	printf("%s\n", *p), p++;
-}
