@@ -112,7 +112,8 @@ int insmod(char * modName, char ** args) {
     argv = malloc(sizeof(*argv) * (argc + 1));
     argv[0] = "/bin/insmod";
     argv[1] = modName;
-    memcpy(argv + 2, args, argc - 1);
+    if (args)
+	memcpy(argv + 2, args, argc - 1);
 
     if ((child = fork()) == 0) {
 	exit(ourInsmodCommand(argc, argv));
