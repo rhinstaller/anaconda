@@ -1218,15 +1218,31 @@ class TimezoneWindow:
 
     def __call__(self, screen, todo, test):
 	timezones = self.getTimezoneList(test)
-        (button, choice) = \
-            ListboxChoiceWindow(screen, _("Time zone Selection"),
-			_("What time zone are you located in?"),
-			timezones, buttons = [(_("OK"), "ok"),
-			(_("Back"), "back")], width = 40, height = 8, 
-			default = "US/Eastern")
 
-	if (button == "back"):
-	    return INSTALL_BACK
+	bb = ButtonBar(screen, [_("OK"), _("Back")])
+	t = TextboxReflowed(30, 
+			_("What time zone are you located in?"))
+		
+	l = Listbox(8, scroll = 1, returnExit = 0)
+
+        for tz in timezones:
+	    l.append(tz, tz)
+	l.setCurrent("US/Eastern")
+
+	c = Checkbox(_("Hardware clock set to GMT?"), isOn = 0)
+
+	g = GridForm(screen, _("Mouse Selection"), 1, 4)
+	g.add(t, 0, 0)
+	g.add(c, 0, 1, padding = (0, 1, 0, 1), anchorLeft = 1)
+	g.add(l, 0, 2, padding = (0, 0, 0, 1))
+	g.add(bb, 0, 3, growx = 1)
+
+	rc = g.runOnce()
+
+        button = bb.buttonPressed(rc)
+        
+        if button == string.lower (_("Back")):
+            return INSTALL_BACK
 
 	return INSTALL_OK
 
