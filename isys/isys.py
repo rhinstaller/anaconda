@@ -113,7 +113,7 @@ def umount(what, removeDir = 1):
 	raise ValueError, "isys.umount() can only umount by mount point"
 
     if mountCount.has_key(what) and mountCount[what] > 1:
-	mountCount[what] = mountCount - 1
+	mountCount[what] = mountCount[what] - 1
 	return
 
     rc = _isys.umount(what)
