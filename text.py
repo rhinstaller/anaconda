@@ -486,6 +486,7 @@ class IndividualPackageWindow:
         if not individual.get():
             return
 	todo.getHeaderList()
+        todo.getCompsList()
 
         ct = CheckboxTree(height = 10, scroll = 1)
         groups = {}
