@@ -30,12 +30,17 @@ class InstallMethod:
 	hl = []
 	path = "/tmp/hdimage" + self.path + "/RedHat/RPMS"
 	for n in os.listdir(path):
-	    if (n[len(n) - 4:] == '.rpm'):
-		fd = os.open(path + "/" + n, 0)
-		(h, isSource) = rpm.headerFromPackage(fd)
-		self.fnames[h] = n
-		hl.append(h)
-		os.close(fd)
+# no gurantee on suffix - do a copy onto msdos filesytem from
+# linux and you don't get .rpm
+#	    if (n[len(n) - 4:] == '.rpm'):
+            fd = os.open(path + "/" + n, 0)
+            try:
+                (h, isSource) = rpm.headerFromPackage(fd)
+            except:
+                continue
+            self.fnames[h] = n
+            hl.append(h)
+            os.close(fd)
 		
 	isys.umount("/tmp/hdimage")
 	return HeaderList(hl)
