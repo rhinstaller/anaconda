@@ -154,7 +154,12 @@ def startVNCServer(vncpassword=None, root='/'):
 
 	# write password again
 	os.write(fd, passwd + "\n")
-	
+
+	# write out a 'n\n' to answer question about creating a view only pw
+	os.read(fd, 1000)
+	os.read(fd, 1000)
+	os.write(fd, "n\n")
+        
 	# read remaining output
 	os.read(fd, 1000)
 
@@ -247,7 +252,7 @@ def doStartupX11Actions():
 	except:
 	    sys.stderr.write("X SERVER STARTED, THEN FAILED");
 	    raise RuntimeError, "X server failed to start"
-    
+
 def doShutdownX11Actions():
     global miniwm_pid
     
