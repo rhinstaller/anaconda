@@ -103,7 +103,8 @@ class MainBootloaderWindow(InstallWindow):
                 if newrc != 1:
                     continue
                 blname = None
-            elif self.lilo_radio.get_active() == gtk.TRUE:
+            elif ((self.lilo_radio is not None)
+                  and (self.lilo_radio.get_active() == gtk.TRUE)):
                 blname = "LILO"
             else:
                 blname = "GRUB"
@@ -133,8 +134,12 @@ class MainBootloaderWindow(InstallWindow):
                            
         self.grub_radio = gtk.RadioButton(None, (_("Use _GRUB as the "
                                                    "boot loader")))
-        self.lilo_radio = gtk.RadioButton(self.grub_radio,
-                                          (_("Use _LILO as the boot loader")))
+        if iutil.getArch() == "i386":
+            self.lilo_radio = gtk.RadioButton(self.grub_radio,
+                                              (_("Use _LILO as the boot "
+                                                 "loader")))
+        else:
+            self.lilo_radio = None
         self.none_radio = gtk.RadioButton(self.grub_radio, (_("_Do not "
                                                               "install a "
                                                               "boot loader")))
@@ -142,12 +147,13 @@ class MainBootloaderWindow(InstallWindow):
 
         radio_vbox.pack_start(label, gtk.FALSE)
         radio_vbox.pack_start(self.grub_radio, gtk.FALSE)
-        radio_vbox.pack_start(self.lilo_radio, gtk.FALSE)
+        if self.lilo_radio:
+            radio_vbox.pack_start(self.lilo_radio, gtk.FALSE)
         radio_vbox.pack_start(self.none_radio, gtk.FALSE)
 
         if self.blname is None:
             self.none_radio.set_active(gtk.TRUE)
-        elif self.blname == "LILO":
+        elif self.blname == "LILO" and iutil.getArch() == "i386":
             self.lilo_radio.set_active(gtk.TRUE)
         else:
             self.grub_radio.set_active(gtk.TRUE)

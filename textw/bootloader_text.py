@@ -44,7 +44,10 @@ class BootloaderChoiceWindow:
 
         blradio = RadioGroup()
         grub = blradio.add(_("Use GRUB Boot Loader"), "grub", useGrub)
-        lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
+        if iutil.getArch == "i386":
+            lilo = blradio.add(_("Use LILO Boot Loader"), "lilo", useLilo)
+        else:
+            lilo = None
         skipbl = blradio.add(_("No Boot Loader"), "nobl", noBl)
 	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON ] )
 
@@ -52,7 +55,8 @@ class BootloaderChoiceWindow:
                             "btloadinstall", 1, 5)
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(grub, 0, 1, (0,0,0,0))
-        grid.add(lilo, 0, 2, (0,0,0,0))
+        if lilo is not None:
+            grid.add(lilo, 0, 2, (0,0,0,0))
         grid.add(skipbl, 0, 3, (0,0,0,1))
         grid.add(buttons, 0, 4, growx = 1)
 
