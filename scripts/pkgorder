@@ -6,8 +6,6 @@ import os.path
 import rpm
 import string
 
-sys.path.append("/home/ewt/redhat/anaconda")
-sys.path.append("/home/ewt/redhat/anaconda/isys")
 rpmFD = None
 fns = {}
 
