@@ -115,8 +115,6 @@ class InstallProgressWindow (InstallWindow):
         threads_leave ()
         
         return
-	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))
-	self.timeTotalW.setText("%12s" % formatTime(finishTime))
 
     def setPackage(self, header):
         threads_enter ()
