@@ -694,7 +694,6 @@ class KickstartBase(BaseInstallClass):
 		maxSize = int(arg)
 	    elif str == '--grow':
 		grow = 1
-            # XXX hook this back up again
 	    elif str == '--onpart' or str == '--usepart':
 		onPart = arg
 	    elif str == '--ondisk' or str == '--ondrive':
@@ -758,6 +757,9 @@ class KickstartBase(BaseInstallClass):
             request.uniqueID = uniqueID
         if badblocks:
             request.badblocks = badblocks
+        if onPart:
+            request.device = onPart
+        
         
         id.partitions.autoPartitionRequests.append(request)
 
