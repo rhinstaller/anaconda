@@ -68,19 +68,23 @@ class LanguageWindow (InstallWindow):
 	self.instLang = instLang
 
         self.listStore = gtk.ListStore(gobject.TYPE_STRING,
+                                       gobject.TYPE_STRING,
                                        gobject.TYPE_STRING)
 
         for locale in instLang.available():
             iter = self.listStore.append()
-            self.listStore.set_value(iter, 0,
-                                     "%s (%s)" % (_(locale),
-                                               instLang.getNativeLangName(locale)))
+            lang = '%s (<span lang="%s">%s</span>)' % (
+                _(locale),
+                "%s" % (instLang.getLangNick(locale).split('.')[0],),
+                instLang.getNativeLangName(locale))
+            self.listStore.set_value(iter, 0, lang)
             self.listStore.set_value(iter, 1, locale)
+            self.listStore.set_value(iter, 2, _(locale))
 
-        self.listStore.set_sort_column_id(0, gtk.SORT_ASCENDING)
+        self.listStore.set_sort_column_id(2, gtk.SORT_ASCENDING)
 
         self.listView = gtk.TreeView(self.listStore)
-        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
+        col = gtk.TreeViewColumn(None, gtk.CellRendererText(), markup=0)
         self.listView.append_column(col)
         self.listView.set_property("headers-visible", gtk.FALSE)
 
