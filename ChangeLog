@@ -1,3 +1,10 @@
+2004-10-21  Bill Nottingham <notting@redhat.com>
+
+	* scripts/mk-images: re-add pci.ids bits. Use trimpciids to
+	trim the IDs to those that match stuff on the initrd
+	
+	* utils/trimpciids: New file
+
 2004-10-12  Jeremy Katz  <katzj@redhat.com>
 
 	* partitions.py (Partitions.setProtected): Backport from HEAD --
