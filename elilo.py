@@ -70,7 +70,7 @@ class EliloConfiguration:
             if (drive == rootDev) and label:
                 main = label
             elif label:
-                otherList.append (label, "/dev/" + drive)
+                otherList.append ((label, "/dev/" + drive))
 
 	label = main
 
