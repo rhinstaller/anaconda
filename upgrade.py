@@ -325,7 +325,14 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     global rebuildTime
     if not rebuildTime:
 	rebuildTime = str(int(time.time()))
-    method.mergeFullHeaders(id.hdList)
+    try:
+        method.mergeFullHeaders(id.hdList)
+    except FileCopyException:
+        method.unmountCD()
+        intf.messageWindow(_("Error"),
+                           _("Unable to merge header list.  This may be "
+                             "due to a missing file or bad media.  "
+                             "Press <return> to try again."))
 
     # if we've been through here once for this root, then short-circuit
     if ((id.upgradeInfoFound is not None) and 
