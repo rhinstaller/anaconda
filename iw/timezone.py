@@ -108,12 +108,12 @@ class TimezoneWindow (InstallWindow):
 
     def getScreen (self):
         try:
-            f = open ("/usr/share/anaconda/map480.png")
+            f = open ("/usr/share/anaconda/pixmaps/map480.png")
             f.close ()
         except:
             path = "gnome-map/map480.png"
         else:
-            path = "/usr/share/anaconda/map480.png"
+            path = "/usr/share/anaconda/pixmaps/map480.png"
         
 	nb = GtkNotebook ()
         self.nb = nb
