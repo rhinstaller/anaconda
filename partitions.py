@@ -952,6 +952,9 @@ class Partitions:
             # first argument is mountpoint, which can also be swap
             if request.fstype.getName() == "swap":
                 args.append("swap")
+            elif request.fstype.getName() == "physical volume (LVM)":
+                # see above about uniqueIDs being ints
+                args.append("pv.%s" % (request.uniqueID))
             elif request.mountpoint:
                 args.append(request.mountpoint)
             else:
