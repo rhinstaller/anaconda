@@ -2430,9 +2430,8 @@ msgstr ""
 "eller ikke er sikker, kan du la dette stå tomt."
 
 #: ../textw/lilo_text.py:52
-#, fuzzy
 msgid "Skip LILO"
-msgstr "Hopp over"
+msgstr "Hopp over LILO"
 
 #: ../textw/lilo_text.py:53
 msgid ""
@@ -2443,6 +2442,11 @@ msgid ""
 "\n"
 "Are you sure you want to skip LILO installation?"
 msgstr ""
+"Du har valgt å ikke installere LILO. Det anbefales at du installerer LILO, "
+"med mindre du har et avansert behov. LILO er nesten alltid nødvendig for å "
+"starte systemet med Linux direkte fra harddisken.\n"
+"\n"
+"Er du sikker på at du vil hoppe over LILO?"
 
 #: ../textw/lilo_text.py:106 ../textw/silo_text.py:103
 msgid "Where do you want to install the bootloader?"
@@ -5236,6 +5240,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "Upgrading the Red Hat Linux installation on partition /dev/"
-#~ msgstr "Oppgraderer Red Hat Linux-systemet på partisjonen /dev/"
