@@ -122,7 +122,7 @@ class BaseInstallClass:
 	    dispatch.skipStep("keyboard", permanent = 1)
 	    dispatch.skipStep("mouse", permanent = 1)
 
-            #dispatch.skipStep("partitionmethod", permanent = 1)
+            dispatch.skipStep("partitionmethod", permanent = 1)
             #dispatch.skipStep("partitionobjinit", permanent = 1)
             #dispatch.skipStep("partitionmethodsetup", permanent = 1)
             #dispatch.skipStep("autopartition", permanent = 1)
@@ -130,12 +130,14 @@ class BaseInstallClass:
             #dispatch.skipStep("fdisk", permanent = 1)
             #dispatch.skipStep("partition", permanent = 1)
             #dispatch.skipStep("partitiondone", permanent = 1)
-            dispatch.skipStep("bootloadersetup", permanent = 1)
-            dispatch.skipStep("bootloader",  permanent = 1)
-            dispatch.skipStep("bootloaderpassword",  permanent = 1)
+            #dispatch.skipStep("bootloadersetup", permanent = 1)
+            #dispatch.skipStep("bootloader",  permanent = 1)
+            #dispatch.skipStep("bootloaderpassword",  permanent = 1)
 
 	    #dispatch.skipStep("network", permanent = 1)
 
+                 
+	    dispatch.skipStep("handleX11pkgs", permanent = 1)
 	    dispatch.skipStep("monitor", permanent = 1)
 	    dispatch.skipStep("xcustom", permanent = 1)
 	    dispatch.skipStep("videocard", permanent = 1)

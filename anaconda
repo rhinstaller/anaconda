@@ -24,8 +24,14 @@
 #
 
 # This toplevel file is a little messy at the moment...
-
 import sys, os
+
+#import pdb
+#
+#def cleanup(last_exit):
+#    pdb.set_trace()
+#
+#sys.exitfunc = cleanup
 
 # For anaconda in test mode
 if (os.path.exists('isys')):

@@ -681,7 +681,7 @@ def getDefaultDiskType():
 
 archLabels = {'i386': ['msdos'],
               'alpha': ['bsd'],
-              's390': ['msdos', 'dasd'],
+              's390': ['dasd'],
               'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
