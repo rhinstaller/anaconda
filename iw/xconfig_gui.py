@@ -560,19 +560,8 @@ class XConfigWindow (InstallWindow):
 	    self.sunServer = 0            
         ics.setTitle (_("X Configuration"))
         ics.readHTML ("xconf")
-
         
-#        self.videoCard = ""
-#        self.videoRam = ""
-#        self.didTest = 0
-#        self.videoCardState = ""
-
     def getNext (self):
-#        original_parent_node, cardname2 = self.ctree.node_get_row_data(self.todo.videoCardOriginalNode)
-#        print "self.videoCardOriginalNode : ", original_parent_node , " - ", cardname2
-#        self.todo.videoCardOriginalNode = ""
-#        self.todo.videoCardRamState = 
-
         if self.skipme:
             return None
 
