@@ -215,7 +215,7 @@ class TurnOnSwapWindow:
 			 "need to turn on swap space immediately. To do this "
 			 "we'll have to write your new partition table to the "
 			 "disk immediately. Is that okay?"),
-		       [ (_("Yes"), "yes"), (_("No"), "back") ], width = 50,
+		       [ (_("Yes"), "yes"), (_("Back"), "back") ], width = 50,
 		       help = "earlyswapon")
 
 	    if (rc == "back"):
