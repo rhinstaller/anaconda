@@ -856,7 +856,7 @@ class Partitions:
                     warnings.append(_("Your %s partition is less than %s "
                                       "megabytes which is lower than "
                                       "recommended for a normal %s install.")
-                                    %(_("PPC PReP Boot"), size, productName))
+                                    %(_("PPC PReP Boot"), minsize, productName))
                     
 
         for (mount, size) in checkSizes:
