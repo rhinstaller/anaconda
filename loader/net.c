@@ -579,8 +579,16 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    return -1;
 	}
 	netDev->isDynamic = 1;
-    } else {
+    } else if (!strcmp(bootProto, "static")) {
        strcpy(netDev->dev.device, device);
+    } else if (!strcmp(bootProto, "query")) {
+	strcpy(netDev->dev.device, device);
+	readNetConfig("eth0", netDev, flags);
+    } else {
+	newtWinMessage(_("kickstart"), _("OK"),
+		    _("Bad bootproto %s specified in network command"),
+		    bootProto);
+	return -1;
     }
 
     fillInIpInfo(netDev);
