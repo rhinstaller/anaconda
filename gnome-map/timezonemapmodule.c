@@ -351,12 +351,12 @@ set_hilited (MapData *mapdata, gint index, double item_x, double item_y)
 
 	gtk_statusbar_pop (GTK_STATUSBAR (mapdata->statusbar), 1);
 	newstr = (char *) malloc (strlen (_(loc->zone)) + strlen (sep) + 
-				  ((loc->comment) ? strlen (loc->comment) : 0) + 1);
+				  ((loc->comment) ? strlen (_(loc->comment)) : 0) + 1);
 	strcpy (newstr, _(loc->zone));
 	if (loc->comment)
 	  {
 	    strcat (newstr, sep);
-	    strcat (newstr, loc->comment);
+	    strcat (newstr, _(loc->comment));
 	  }
 	
 	gtk_statusbar_push (GTK_STATUSBAR (mapdata->statusbar), 1, newstr);
@@ -659,7 +659,7 @@ create_location_list (MapData *mapdata)
 	    continue;
 
 	row[0] = _(loc->zone);
-	row[1] = loc->comment;
+	row[1] = _(loc->comment);
 	newrow = gtk_clist_append (GTK_CLIST (mapdata->locationlist), row);
 	gtk_clist_set_row_data (GTK_CLIST (mapdata->locationlist), newrow, 
 				GINT_TO_POINTER (i));

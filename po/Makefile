@@ -17,14 +17,20 @@ POTFILES = ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
            ../libfdisk/*.c ../loader/*.c \
            ../gnome-map/*.c \
-	   ../comps/comps-master
+
+NONPOTFILES = ../comps/comps-master \
+	   /usr/share/zoneinfo/zone.tab \
+	   ../lang-table
+
 
 all: $(FMTCATALOGS)
 
-$(NLSPACKAGE).pot: $(POTFILES)
+$(NLSPACKAGE).pot: $(POTFILES) $(NONPOTFILES)
 	xgettext --default-domain=$(NLSPACKAGE) \
 		--add-comments --keyword=_ --keyword=N_ $(POTFILES)
 	./compsgettext ../comps/comps-master >> $(NLSPACKAGE).po
+	cat /usr/share/zoneinfo/zone.tab | cut -f4 | grep "^[a-zA-Z]" | sort | uniq -u | while read line; do echo -e "\n#. generated from zone.tab\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
+	cat ../lang-table | cut -f1 | while read line; do echo -e "\n#. generated from lang-table\nmsgid \"$$line\"\nmsgstr \"\""; done >> $(NLSPACKAGE).po
 	if cmp -s $(NLSPACKAGE).po $(NLSPACKAGE).pot; then \
 	    rm -f $(NLSPACKAGE).po; \
 	else \

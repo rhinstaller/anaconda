@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat installation\n"
-"POT-Creation-Date: 2001-03-06 15:32-0500\n"
+"POT-Creation-Date: 2001-03-07 11:04-0500\n"
 "PO-Revision-Date: 2000-02-21 21:00+0100\n"
 "Last-Translator: Rafa³ Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish\n"
@@ -18,7 +18,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Szukanie"
 
-#: ../exception.py:13 ../text.py:955
+#: ../exception.py:13 ../text.py:949
 msgid "Exception Occurred"
 msgstr ""
 
@@ -60,8 +60,8 @@ msgstr "Szukanie"
 #: ../loader/devices.c:498 ../loader/lang.c:99 ../loader/loader.c:520
 #: ../loader/loader.c:530 ../loader/loader.c:584 ../loader/loader.c:966
 #: ../loader/loader.c:1021 ../loader/loader.c:1191 ../loader/loader.c:1196
-#: ../loader/loader.c:1278 ../loader/loader.c:2156 ../loader/loader.c:2186
-#: ../loader/loader.c:2264 ../loader/loader.c:2476 ../loader/pcmcia.c:114
+#: ../loader/loader.c:1278 ../loader/loader.c:2162 ../loader/loader.c:2192
+#: ../loader/loader.c:2270 ../loader/loader.c:2482 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../text.py:374 ../textw/bootdisk_text.py:69 ../todo.py:1157 ../todo.py:1170
@@ -135,17 +135,17 @@ msgid ""
 "http://bugzilla.redhat.com/bugzilla"
 msgstr ""
 
-#: ../gui.py:325 ../text.py:973
+#: ../gui.py:325 ../text.py:967
 msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
 
-#: ../gui.py:421 ../gui.py:789
+#: ../gui.py:421 ../gui.py:788
 msgid "Next"
 msgstr "Nastêpny"
 
-#: ../gui.py:422 ../gui.py:788 ../libfdisk/newtfsedit.c:1477
+#: ../gui.py:422 ../gui.py:787 ../libfdisk/newtfsedit.c:1477
 #: ../libfdisk/newtfsedit.c:1485 ../loader/cdrom.c:34 ../loader/devices.c:93
 #: ../loader/devices.c:238 ../loader/devices.c:335 ../loader/lang.c:585
 #: ../loader/loader.c:291 ../loader/loader.c:870 ../loader/loader.c:907
@@ -154,9 +154,9 @@ msgstr "Nastêpny"
 #: ../loader/urls.c:155 ../loader/urls.c:375 ../rescue.py:123 ../text.py:58
 #: ../text.py:69 ../text.py:129 ../text.py:193 ../text.py:200 ../text.py:222
 #: ../text.py:225 ../text.py:305 ../text.py:377 ../text.py:395 ../text.py:398
-#: ../text.py:412 ../text.py:413 ../text.py:428 ../text.py:431 ../text.py:453
-#: ../text.py:456 ../text.py:513 ../text.py:516 ../text.py:542 ../text.py:546
-#: ../text.py:555 ../text.py:629 ../text.py:631 ../text.py:641 ../text.py:643
+#: ../text.py:407 ../text.py:408 ../text.py:423 ../text.py:426 ../text.py:448
+#: ../text.py:451 ../text.py:508 ../text.py:511 ../text.py:537 ../text.py:541
+#: ../text.py:550 ../text.py:623 ../text.py:625 ../text.py:635 ../text.py:637
 #: ../textw/bootdisk_text.py:30 ../textw/firewall_text.py:9
 #: ../textw/lilo_text.py:34 ../textw/lilo_text.py:93 ../textw/lilo_text.py:101
 #: ../textw/lilo_text.py:209 ../textw/mouse_text.py:27
@@ -175,59 +175,59 @@ msgstr "Nastêpny"
 msgid "Back"
 msgstr "Powrót"
 
-#: ../gui.py:423 ../gui.py:542 ../gui.py:791
-msgid "Release Notes"
-msgstr ""
-
-#: ../gui.py:424 ../gui.py:794
+#: ../gui.py:423 ../gui.py:793
 msgid "Show Help"
 msgstr "Poka¿ pomoc"
 
-#: ../gui.py:425 ../gui.py:793
+#: ../gui.py:424 ../gui.py:792
 msgid "Hide Help"
 msgstr "Schowaj pomoc"
 
-#: ../gui.py:426 ../gui.py:792
+#: ../gui.py:425 ../gui.py:791
 msgid "Finish"
 msgstr "Zakoñcz"
 
-#: ../gui.py:429 ../gui.py:824
+#: ../gui.py:428 ../gui.py:823
 msgid "Online Help"
 msgstr "Pomoc"
 
-#: ../gui.py:430 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
-#: ../text.py:63 ../text.py:1045 ../text.py:1078
+#: ../gui.py:429 ../iw/language_gui.py:10 ../iw/language_support_gui.py:25
+#: ../text.py:63 ../text.py:1039 ../text.py:1072
 msgid "Language Selection"
 msgstr "Wybór jêzyka"
 
-#: ../gui.py:537 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
+#: ../gui.py:536 ../iw/firewall_gui.py:123 ../libfdisk/gnomefsedit.c:1388
 #: ../libfdisk/gnomefsedit.c:1405
 msgid "Close"
 msgstr "Zamknij"
 
-#: ../gui.py:573
+#: ../gui.py:541 ../gui.py:790
+msgid "Release Notes"
+msgstr ""
+
+#: ../gui.py:572
 msgid "Unable to load file!"
 msgstr ""
 
-#: ../gui.py:712
+#: ../gui.py:711
 msgid "Red Hat Linux Installer"
 msgstr "Instalator Linuxa Red Hat"
 
-#: ../gui.py:716
+#: ../gui.py:715
 msgid "Red Hat Linux Install Shell"
 msgstr "Shell instalatora Linuxa Red Hat"
 
-#: ../gui.py:727
+#: ../gui.py:726
 #, c-format
 msgid "Red Hat Linux Installer on %s"
 msgstr "Instalator Linuxa Red Hat na %s"
 
-#: ../gui.py:728
+#: ../gui.py:727
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
 msgstr "Shell instalatora Linuxa Red Hat na %s"
 
-#: ../gui.py:873
+#: ../gui.py:872
 #, fuzzy
 msgid "Install Window"
 msgstr "Instalacja"
@@ -284,17 +284,17 @@ msgstr ""
 #: ../loader/loader.c:966 ../loader/loader.c:1021 ../loader/loader.c:1113
 #: ../loader/loader.c:1191 ../loader/loader.c:1196 ../loader/loader.c:1238
 #: ../loader/loader.c:1247 ../loader/loader.c:1278 ../loader/loader.c:1516
-#: ../loader/loader.c:2156 ../loader/loader.c:2186 ../loader/loader.c:2249
-#: ../loader/loader.c:2264 ../loader/loader.c:2476 ../loader/net.c:185
+#: ../loader/loader.c:2162 ../loader/loader.c:2192 ../loader/loader.c:2255
+#: ../loader/loader.c:2270 ../loader/loader.c:2482 ../loader/net.c:185
 #: ../loader/net.c:272 ../loader/net.c:357 ../loader/net.c:678
 #: ../loader/net.c:711 ../loader/pcmcia.c:104 ../loader/pcmcia.c:114
 #: ../loader/pcmcia.c:131 ../loader/urls.c:155 ../loader/urls.c:233
 #: ../loader/urls.c:238 ../loader/urls.c:375 ../rescue.py:19 ../rescue.py:91
 #: ../rescue.py:109 ../rescue.py:117 ../text.py:129 ../text.py:168
-#: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:453 ../text.py:471
-#: ../text.py:513 ../text.py:542 ../text.py:629 ../text.py:641 ../text.py:670
-#: ../text.py:691 ../text.py:861 ../text.py:915 ../text.py:941 ../text.py:967
-#: ../text.py:975 ../text.py:990 ../text.py:1234 ../textw/bootdisk_text.py:52
+#: ../text.py:222 ../text.py:305 ../text.py:395 ../text.py:448 ../text.py:466
+#: ../text.py:508 ../text.py:537 ../text.py:623 ../text.py:635 ../text.py:664
+#: ../text.py:685 ../text.py:855 ../text.py:909 ../text.py:935 ../text.py:961
+#: ../text.py:969 ../text.py:984 ../text.py:1228 ../textw/bootdisk_text.py:52
 #: ../textw/bootdisk_text.py:54 ../textw/firewall_text.py:9
 #: ../textw/firewall_text.py:126 ../textw/firewall_text.py:128
 #: ../textw/firewall_text.py:191 ../textw/lilo_text.py:33
@@ -403,7 +403,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:1631 ../libfdisk/newtfsedit.c:1659
 #: ../libfdisk/newtfsedit.c:1743 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:244 ../text.py:58 ../text.py:60
-#: ../text.py:193 ../text.py:348 ../text.py:412 ../text.py:555
+#: ../text.py:193 ../text.py:348 ../text.py:407 ../text.py:550
 #: ../textw/lilo_text.py:123 ../textw/lilo_text.py:208
 #: ../textw/mouse_text.py:27 ../textw/partitioning_text.py:155
 #: ../textw/partitioning_text.py:420 ../textw/silo_text.py:136
@@ -430,7 +430,7 @@ msgstr "_Zresetowanie"
 msgid "Choose the languages to be installed:"
 msgstr "Jaki rodzaj no¶nika zawiera pakiety do instalacji?"
 
-#: ../text.py:135 ../text.py:1141
+#: ../text.py:135 ../text.py:1135
 #, fuzzy
 msgid "Language Support"
 msgstr "Wybór jêzyka"
@@ -455,7 +455,7 @@ msgstr "Wybierz jêzyk"
 msgid "Choose the default language: "
 msgstr "Wybierz jêzyk"
 
-#: ../text.py:220 ../text.py:1047 ../text.py:1084
+#: ../text.py:220 ../text.py:1041 ../text.py:1078
 msgid "Keyboard Selection"
 msgstr "Wybór klawiatury"
 
@@ -467,7 +467,7 @@ msgstr "Jaki jest typ klawiatury?"
 msgid "Upgrade Existing Installation"
 msgstr "Uaktualnienie istniej±cej instalacji"
 
-#: ../text.py:303 ../text.py:1087
+#: ../text.py:303 ../text.py:1081
 msgid "Installation Type"
 msgstr "Rodzaj instalacji"
 
@@ -501,20 +501,20 @@ msgstr ""
 msgid "System to Upgrade"
 msgstr "System do uaktualnienia"
 
-#: ../text.py:410
+#: ../text.py:405
 #, fuzzy
 msgid "Upgrade Partition"
 msgstr "Edycja partycji"
 
-#: ../text.py:411
+#: ../text.py:406
 msgid "Going to upgrade partition /dev/"
 msgstr ""
 
-#: ../text.py:420
+#: ../text.py:415
 msgid "Customize Packages to Upgrade"
 msgstr "Wybierz pakiety do uaktualnienia"
 
-#: ../text.py:421
+#: ../text.py:416
 msgid ""
 "The packages you have installed, and any other packages which are needed to "
 "satisfy their dependencies, have been selected for installation. Would you "
@@ -533,7 +533,7 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
 #: ../loader/devices.c:230 ../loader/loader.c:870 ../loader/net.c:845
-#: ../text.py:428 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
+#: ../text.py:423 ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:38 ../textw/partitioning_text.py:219
 #: ../textw/partitioning_text.py:402
 msgid "Yes"
@@ -547,17 +547,17 @@ msgstr "Tak"
 #: ../libfdisk/newtfsedit.c:615 ../libfdisk/newtfsedit.c:742
 #: ../libfdisk/newtfsedit.c:874 ../libfdisk/newtfsedit.c:1680
 #: ../libfdisk/newtfsedit.c:1698 ../libfdisk/newtfsedit.c:1785
-#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:428 ../text.py:434
+#: ../loader/devices.c:231 ../loader/net.c:845 ../text.py:423 ../text.py:429
 #: ../textw/bootdisk_text.py:12 ../textw/bootdisk_text.py:30
 #: ../textw/bootdisk_text.py:41 ../textw/partitioning_text.py:402
 msgid "No"
 msgstr "Nie"
 
-#: ../text.py:444 ../text.py:463
+#: ../text.py:439 ../text.py:458
 msgid "Red Hat Linux"
 msgstr "Witamy w Linuxie Red Hat"
 
-#: ../text.py:445
+#: ../text.py:440
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -577,7 +577,7 @@ msgstr ""
 "Je¿eli naby³e¶ Oficjalnego Linuxa Red Hat, zarejestruj go na naszej stronie "
 "WWW: http://www.redhat.com/ ."
 
-#: ../text.py:464
+#: ../text.py:459
 msgid ""
 "Welcome to the Red Hat Linux!\n"
 "\n"
@@ -595,42 +595,42 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:914 ../libfdisk/gnomefsedit.c:2024
 #: ../libfdisk/gnomefsedit.c:2586 ../libfdisk/newtfsedit.c:578
 #: ../libfdisk/newtfsedit.c:1698 ../loader/devices.c:238
-#: ../loader/devices.c:530 ../loader/loader.c:2249 ../loader/pcmcia.c:104
-#: ../text.py:471 ../text.py:474 ../text.py:861 ../text.py:862 ../text.py:975
-#: ../text.py:977 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
+#: ../loader/devices.c:530 ../loader/loader.c:2255 ../loader/pcmcia.c:104
+#: ../text.py:466 ../text.py:469 ../text.py:855 ../text.py:856 ../text.py:969
+#: ../text.py:971 ../textw/lilo_text.py:124 ../textw/silo_text.py:136
 #: ../textw/silo_text.py:154 ../textw/userauth_text.py:63
 msgid "Cancel"
 msgstr "Anuluj"
 
-#: ../text.py:511
+#: ../text.py:506
 msgid "X probe results"
 msgstr "Wyniki próbkowania X-Window"
 
-#: ../text.py:531 ../text.py:551
+#: ../text.py:526 ../text.py:546
 msgid "Unlisted Card"
 msgstr "Inna karta"
 
-#: ../text.py:539
+#: ../text.py:534
 msgid "Video Card Selection"
 msgstr "Wybór karty graficznej"
 
-#: ../text.py:540
+#: ../text.py:535
 msgid "Which video card do you have?"
 msgstr "Jaki jest typ Twojej karty graficznej?"
 
-#: ../text.py:553
+#: ../text.py:548
 msgid "X Server Selection"
 msgstr "Wybór serwera X-Window"
 
-#: ../text.py:553
+#: ../text.py:548
 msgid "Choose a server"
 msgstr "Wybierz rodzaj serwera"
 
-#: ../text.py:625
+#: ../text.py:619
 msgid "Installation to begin"
 msgstr "Pocz±tek instalacji"
 
-#: ../iw/confirm_gui.py:45 ../text.py:626
+#: ../iw/confirm_gui.py:45 ../text.py:620
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference."
@@ -639,12 +639,12 @@ msgstr ""
 "/tmp/install.log. Mo¿e bêdziesz chcia³ go zachowaæ do pó¼niejszego "
 "przejrzenia."
 
-#: ../text.py:637
+#: ../text.py:631
 #, fuzzy
 msgid "Upgrade to begin"
 msgstr "Uaktualnienie systemu"
 
-#: ../iw/confirm_gui.py:41 ../text.py:638
+#: ../iw/confirm_gui.py:41 ../text.py:632
 #, fuzzy
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log after rebooting "
@@ -654,17 +654,17 @@ msgstr ""
 "/tmp/install.log. Mo¿e bêdziesz chcia³ go zachowaæ do pó¼niejszego "
 "przejrzenia."
 
-#: ../text.py:657
+#: ../text.py:651
 msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
 
-#: ../text.py:659 ../text.py:682
+#: ../text.py:653 ../text.py:676
 msgid "Complete"
 msgstr "Zakoñczone"
 
-#: ../iw/congrats_gui.py:34 ../text.py:660
+#: ../iw/congrats_gui.py:34 ../text.py:654
 #, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
@@ -685,13 +685,13 @@ msgstr ""
 "\n"
 "Informacje o konfiguracji systemu umieszczone s± w manualach Linuxa Red Hat."
 
-#: ../text.py:678
+#: ../text.py:672
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
 
-#: ../text.py:683
+#: ../text.py:677
 #, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
@@ -710,59 +710,59 @@ msgstr ""
 "Informacje o dalszej konfiguracji systemu umieszczone s± w rozdziale o "
 "postêpowaniu po instalacji w Official Red Hat Linux User's Guide."
 
-#: ../text.py:750
+#: ../text.py:744
 msgid "Package Installation"
 msgstr "Instalacja pakietu"
 
-#: ../text.py:752
+#: ../text.py:746
 msgid "Name   : "
 msgstr "Nazwa  :"
 
-#: ../text.py:753
+#: ../text.py:747
 msgid "Size   : "
 msgstr "Rozmiar:"
 
-#: ../text.py:754
+#: ../text.py:748
 msgid "Summary: "
 msgstr "Opis   :"
 
-#: ../text.py:780
+#: ../text.py:774
 msgid "    Packages"
 msgstr "     Pakiety"
 
-#: ../text.py:781
+#: ../text.py:775
 msgid "       Bytes"
 msgstr "       Bajty"
 
-#: ../text.py:782
+#: ../text.py:776
 msgid "        Time"
 msgstr "        Czas"
 
-#: ../text.py:784
+#: ../text.py:778
 msgid "Total    :"
 msgstr "Razem    :"
 
-#: ../text.py:791
+#: ../text.py:785
 msgid "Completed:   "
 msgstr "Gotowe   :   "
 
-#: ../text.py:801
+#: ../text.py:795
 msgid "Remaining:  "
 msgstr "Pozosta³o:  "
 
-#: ../text.py:913
+#: ../text.py:907
 msgid "Help not available"
 msgstr ""
 
-#: ../text.py:914
+#: ../text.py:908
 msgid "No help is available for this install."
 msgstr ""
 
-#: ../text.py:972
+#: ../text.py:966
 msgid "Save Crash Dump"
 msgstr ""
 
-#: ../text.py:983
+#: ../text.py:977
 msgid ""
 "An internal error occurred in the installation program. Please report this "
 "error to Red Hat (through the bugzilla.redhat.com web site) as soon as "
@@ -771,183 +771,183 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../text.py:990 ../text.py:993
+#: ../text.py:984 ../text.py:987
 msgid "Save"
 msgstr ""
 
-#: ../text.py:990 ../text.py:991
+#: ../text.py:984 ../text.py:985
 msgid "Debug"
 msgstr "Debugowanie"
 
-#: ../text.py:1001
+#: ../text.py:995
 msgid " "
 msgstr ""
 
-#: ../text.py:1005
+#: ../text.py:999
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
 msgstr "Linux Red Hat (C) 2001 Red Hat, Inc."
 
-#: ../text.py:1008
+#: ../text.py:1002
 #, fuzzy
 msgid ""
 " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> nastêpny element | <Space> wybór | <F12> nastêpny ekran "
 
-#: ../text.py:1010
+#: ../text.py:1004
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
 msgstr ""
 "  <Tab>/<Alt-Tab> nastêpne pole | <Spacja> wybór | <F12> nastêpny ekran "
 
-#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1043
-#: ../text.py:1086
+#: ../iw/welcome_gui.py:11 ../iw/welcome_gui.py:39 ../text.py:1037
+#: ../text.py:1080
 msgid "Welcome"
 msgstr "Witamy"
 
-#: ../text.py:1049 ../text.py:1132
+#: ../text.py:1043 ../text.py:1126
 msgid "Hostname Setup"
 msgstr "Nazwa komputera"
 
-#: ../text.py:1051 ../text.py:1129
+#: ../text.py:1045 ../text.py:1123
 msgid "Network Setup"
 msgstr "Konfiguracja sieci"
 
-#: ../iw/firewall_gui.py:12 ../text.py:1053 ../text.py:1134
+#: ../iw/firewall_gui.py:12 ../text.py:1047 ../text.py:1128
 #: ../textw/firewall_text.py:11
 #, fuzzy
 msgid "Firewall Configuration"
 msgstr "Konfiguracja LILO"
 
-#: ../text.py:1061 ../text.py:1146
+#: ../text.py:1055 ../text.py:1140
 msgid "Time Zone Setup"
 msgstr "Konfiguracja strefy czaswoej"
 
-#: ../text.py:1063 ../text.py:1148 ../textw/userauth_text.py:9
+#: ../text.py:1057 ../text.py:1142 ../textw/userauth_text.py:9
 msgid "Root Password"
 msgstr "Has³o roota"
 
-#: ../text.py:1065 ../text.py:1150 ../textw/userauth_text.py:172
+#: ../text.py:1059 ../text.py:1144 ../textw/userauth_text.py:172
 msgid "User Account Setup"
 msgstr "Konfiguracja konta u¿ytkownika"
 
-#: ../text.py:1067 ../text.py:1152
+#: ../text.py:1061 ../text.py:1146
 msgid "Authentication"
 msgstr "Autentykacja"
 
-#: ../text.py:1073
+#: ../text.py:1067
 msgid "Configuration Complete"
 msgstr "Konfiguracja zakoñczona"
 
-#: ../text.py:1095 ../textw/silo_text.py:28 ../textw/silo_text.py:101
+#: ../text.py:1089 ../textw/silo_text.py:28 ../textw/silo_text.py:101
 #: ../textw/silo_text.py:213
 msgid "SILO Configuration"
 msgstr "Konfiguracja SILO"
 
-#: ../text.py:1101 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
+#: ../text.py:1095 ../textw/lilo_text.py:36 ../textw/lilo_text.py:90
 #: ../textw/lilo_text.py:217
 msgid "LILO Configuration"
 msgstr "Konfiguracja LILO"
 
-#: ../text.py:1105
+#: ../text.py:1099
 msgid "Automatic Partition"
 msgstr "Automatyczny podzia³ na partycje"
 
 #: ../iw/lilo_gui.py:230 ../iw/lilo_gui.py:393 ../iw/silo_gui.py:127
-#: ../iw/silo_gui.py:280 ../text.py:1107 ../text.py:1111
+#: ../iw/silo_gui.py:280 ../text.py:1101 ../text.py:1105
 msgid "Partition"
 msgstr "Partycja"
 
-#: ../text.py:1109
+#: ../text.py:1103
 msgid "Manually Partition"
 msgstr "Rêczny podzia³ na partycje"
 
-#: ../text.py:1113 ../textw/partitioning_text.py:333
+#: ../text.py:1107 ../textw/partitioning_text.py:333
 msgid "Root Filesystem Size"
 msgstr "Rozmiar filesystemu root"
 
-#: ../text.py:1115
+#: ../text.py:1109
 msgid "Swap"
 msgstr "Swap"
 
-#: ../text.py:1117 ../textw/partitioning_text.py:390
+#: ../text.py:1111 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
 #, fuzzy
 msgid "Boot Partition Warning"
 msgstr "Automatyczny podzia³ dysku"
 
-#: ../text.py:1119
+#: ../text.py:1113
 msgid "Filesystem Formatting"
 msgstr "Formatowanie systemu plików"
 
-#: ../iw/mouse_gui.py:56 ../text.py:1136 ../text.py:1138
+#: ../iw/mouse_gui.py:56 ../text.py:1130 ../text.py:1132
 msgid "Mouse Configuration"
 msgstr "Konfiguracja myszy"
 
-#: ../text.py:1143
+#: ../text.py:1137
 #, fuzzy
 msgid "Language Default"
 msgstr "Wybór jêzyka"
 
-#: ../text.py:1154
+#: ../text.py:1148
 msgid "Package Groups"
 msgstr "Grupy pakietów"
 
-#: ../text.py:1156 ../text.py:1184
+#: ../text.py:1150 ../text.py:1178
 msgid "Individual Packages"
 msgstr "Poszczególne pakiety"
 
-#: ../text.py:1158 ../text.py:1185 ../textw/packages_text.py:304
+#: ../text.py:1152 ../text.py:1179 ../textw/packages_text.py:304
 msgid "Package Dependencies"
 msgstr "Zale¿no¶ci miêdzy pakietami"
 
-#: ../iw/xconfig_gui.py:846 ../text.py:1160 ../text.py:1168
+#: ../iw/xconfig_gui.py:846 ../text.py:1154 ../text.py:1162
 msgid "X Configuration"
 msgstr "Konfiguracja X-Window"
 
-#: ../text.py:1162
+#: ../text.py:1156
 msgid "Installation Begins"
 msgstr "Instalowanie siê zaczyna"
 
-#: ../text.py:1164
+#: ../text.py:1158
 msgid "Install System"
 msgstr "Zainstaluj system"
 
-#: ../text.py:1165 ../text.py:1167 ../text.py:1190 ../text.py:1192
+#: ../text.py:1159 ../text.py:1161 ../text.py:1184 ../text.py:1186
 msgid "Boot Disk"
 msgstr "Dyskietka startowa"
 
-#: ../text.py:1170
+#: ../text.py:1164
 msgid "Installation Complete"
 msgstr "Instalacja zakoñczona"
 
-#: ../text.py:1175
+#: ../text.py:1169
 msgid "Examine System"
 msgstr "Sprawdzenie systemu"
 
-#: ../text.py:1182
+#: ../text.py:1176
 msgid "Customize Upgrade"
 msgstr "Dobranie pakietów do aktualizacji"
 
-#: ../text.py:1187
+#: ../text.py:1181
 #, fuzzy
 msgid "Upgrade Begins"
 msgstr "Uaktualnienie"
 
-#: ../text.py:1189
+#: ../text.py:1183
 msgid "Upgrade System"
 msgstr "Uaktualnienie systemu"
 
-#: ../text.py:1193
+#: ../text.py:1187
 msgid "Upgrade Complete"
 msgstr "Uaktualnienie zakoñczone"
 
-#: ../text.py:1231
+#: ../text.py:1225
 msgid "Cancelled"
 msgstr "Anulowane"
 
-#: ../text.py:1232
+#: ../text.py:1226
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Nie mogê cofn±æ siê do poprzedniego kroku. Mo¿esz spróbowaæ jeszcze raz."
@@ -1042,7 +1042,7 @@ msgstr ""
 "Nie ma wystarczaj±cej ilo¶ci miejsca ¿eby zainstalowac wybrane pakiety. "
 "Potrzeba wiêcej miejsca w nastepuj±cych systemach plików:\n"
 
-#: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1790 ../todo.py:1806
+#: ../libfdisk/gnomefsedit.c:3132 ../todo.py:1790 ../todo.py:1808
 msgid "Mount Point"
 msgstr "Miejsce zamontowania"
 
@@ -1050,7 +1050,7 @@ msgstr "Miejsce zamontowania"
 msgid "Space Needed"
 msgstr "Wymagane miejsce"
 
-#: ../todo.py:1803
+#: ../todo.py:1805
 #, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
@@ -1060,20 +1060,20 @@ msgstr ""
 "Nie ma wystarczaj±cej ilo¶ci miejsca ¿eby zainstalowac wybrane pakiety. "
 "Potrzeba wiêcej miejsca w nastepuj±cych systemach plików:\n"
 
-#: ../todo.py:1806
+#: ../todo.py:1808
 #, fuzzy
 msgid "Nodes Needed"
 msgstr "Wymagane miejsce"
 
-#: ../todo.py:1812
+#: ../todo.py:1814
 msgid "Disk Space"
 msgstr "Miejsce na dysku"
 
-#: ../todo.py:1847
+#: ../todo.py:1849
 msgid "Post Install"
 msgstr "Po instalacji"
 
-#: ../todo.py:1848
+#: ../todo.py:1850
 msgid "Performing post install configuration..."
 msgstr "Konfiguracja po instalacji..."
 
@@ -1097,35 +1097,35 @@ msgid ""
 "checked, and shut down cleanly to upgrade."
 msgstr ""
 
-#: ../iw/xconfig_gui.py:12 ../xf86config.py:933
+#: ../iw/xconfig_gui.py:12 ../xf86config.py:934
 msgid "Video Card"
 msgstr "Karta graficzna"
 
-#: ../iw/xconfig_gui.py:14 ../xf86config.py:935
+#: ../iw/xconfig_gui.py:14 ../xf86config.py:936
 msgid "Video Ram"
 msgstr "Pamiêæ RAM karty graficznej"
 
-#: ../xf86config.py:938
+#: ../xf86config.py:939
 msgid "X server"
 msgstr "Serwer X"
 
-#: ../xf86config.py:941
+#: ../xf86config.py:942
 msgid "Unable to detect video card"
 msgstr "Nie uda³o siê wykryæ karty graficznej"
 
-#: ../iw/xconfig_gui.py:13 ../xf86config.py:948 ../xf86config.py:950
+#: ../iw/xconfig_gui.py:13 ../xf86config.py:949 ../xf86config.py:951
 msgid "Monitor"
 msgstr "Monitor"
 
-#: ../xf86config.py:950
+#: ../xf86config.py:951
 msgid "Plug and Play Monitor"
 msgstr "Monitor Plug and Play"
 
-#: ../xf86config.py:952
+#: ../xf86config.py:953
 msgid "Horizontal frequency range"
 msgstr "Zakres czêstotliwo¶ci synchronizacji poziomej"
 
-#: ../xf86config.py:954
+#: ../xf86config.py:955
 msgid "Vertical frequency range"
 msgstr "Zakres czêstotliwo¶ci synchronizacji pionowej"
 
@@ -1382,7 +1382,7 @@ msgid "Total install size: %s"
 msgstr ""
 
 #: ../iw/dependencies_gui.py:69 ../iw/package_gui.py:380
-#: ../iw/progress_gui.py:198 ../textw/packages_text.py:312
+#: ../iw/progress_gui.py:191 ../textw/packages_text.py:312
 msgid "Package"
 msgstr "Pakiet"
 
@@ -1771,45 +1771,45 @@ msgstr "Instalacja pakietów"
 msgid "%s KBytes"
 msgstr ""
 
-#: ../iw/progress_gui.py:199 ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:192 ../iw/progress_gui.py:245
 msgid "Size"
 msgstr "Rozmiar"
 
-#: ../iw/progress_gui.py:200
+#: ../iw/progress_gui.py:193
 msgid "Summary"
 msgstr "Podsumowanie"
 
-#: ../iw/progress_gui.py:230
+#: ../iw/progress_gui.py:223
 #, fuzzy
 msgid "Package Progress: "
 msgstr "Grupy pakietów"
 
-#: ../iw/progress_gui.py:235
+#: ../iw/progress_gui.py:228
 #, fuzzy
 msgid "Total Progress:   "
 msgstr "Razem    :"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:245
 msgid "Status"
 msgstr "Stan"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:245
 msgid "Packages"
 msgstr "Pakiety"
 
-#: ../iw/progress_gui.py:252
+#: ../iw/progress_gui.py:245
 msgid "Time"
 msgstr "Czas"
 
-#: ../iw/progress_gui.py:262
+#: ../iw/progress_gui.py:255
 msgid "Total"
 msgstr "Razem"
 
-#: ../iw/progress_gui.py:263
+#: ../iw/progress_gui.py:256
 msgid "Completed"
 msgstr "Zakoñczone"
 
-#: ../iw/progress_gui.py:264
+#: ../iw/progress_gui.py:257
 msgid "Remaining"
 msgstr "Pozosta³o"
 
@@ -3689,7 +3689,7 @@ msgstr "£adowanie ramdysku second stage..."
 msgid "Error loading ramdisk."
 msgstr "B³±d ³adowania ramdysku."
 
-#: ../loader/loader.c:585 ../loader/loader.c:2187
+#: ../loader/loader.c:585 ../loader/loader.c:2193
 #, c-format
 msgid "Failed to read directory %s: %s"
 msgstr "Nie mo¿na przeczytaæ katalogu %s: %s"
@@ -3793,20 +3793,20 @@ msgstr "Jakiego rodzaju no¶nik zawiera dyskietke ratunkow±?"
 msgid "What type of media contains the packages to be installed?"
 msgstr "Jaki rodzaj no¶nika zawiera pakiety do instalacji?"
 
-#: ../loader/loader.c:2157
+#: ../loader/loader.c:2163
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nie mogê znale¼æ ks.cfg na dyskietce startowej."
 
-#: ../loader/loader.c:2249
+#: ../loader/loader.c:2255
 #, fuzzy
 msgid "Updates Disk"
 msgstr "Aktualizacja"
 
-#: ../loader/loader.c:2250
+#: ../loader/loader.c:2256
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "W³ó¿ dyskietkê aktualizuj±c± i naci¶nij \"OK\" ¿eby kontynuowaæ."
 
-#: ../loader/loader.c:2255
+#: ../loader/loader.c:2261
 #, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
@@ -3815,26 +3815,26 @@ msgstr ""
 "Dyskietka, któr± w³o¿y³e¶ nie jest prawid³ow± dyskietk± ze staerownikami dla "
 "tej wersji Linuxa Red Hat."
 
-#: ../loader/loader.c:2265
+#: ../loader/loader.c:2271
 msgid "Failed to mount floppy disk."
 msgstr "Nie uda³o siê zamontowaæ dyskietki."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
 #. about this at some point.
-#: ../loader/loader.c:2270
+#: ../loader/loader.c:2276
 msgid "Updates"
 msgstr "Aktualizacja"
 
-#: ../loader/loader.c:2270
+#: ../loader/loader.c:2276
 msgid "Reading anaconda updates..."
 msgstr "Wczytywanie aktualizacji anacondy..."
 
-#: ../loader/loader.c:2476
+#: ../loader/loader.c:2482
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
 
-#: ../loader/loader.c:2934
+#: ../loader/loader.c:2940
 #, fuzzy
 msgid "Running anaconda - please wait...\n"
 msgstr "Wczytywanie aktualizacji anacondy..."
@@ -4281,6 +4281,700 @@ msgstr "Parametry j±dra"
 
 # ../comps/comps-master:738
 msgid "Utilities"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Acre"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Alagoas, Sergipe"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Alaska Time"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Alaska Time - Alaska panhandle"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Alaska Time - Alaska panhandle neck"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Alaska Time - west Alaska"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Aleutian Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Amapa, E Para"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Amundsen-Scott Station, South Pole"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Atlantic islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Atlantic Time - E Labrador"
+msgstr ""
+
+#. generated from zone.tab
+msgid ""
+"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Azores"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Bayan-Olgiy, Hovd, Uvs"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Borneo & Celebes"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Canary Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Casey Station, Bailey Peninsula"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Catamarca (CT)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "central Crimea"
+msgstr ""
+
+#. generated from zone.tab
+msgid "central Kazakhstan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Standard Time - Saskatchewan - midwest"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Standard Time - Saskatchewan - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Campeche, Yucatan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Manitoba & west Ontario"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Michigan - Wisconsin border"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Quintana Roo"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - Rainy River & Fort Frances, Ontario"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Central Time - west Nunavut"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Ceuta & Melilla"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Chatham Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "China coast"
+msgstr ""
+
+#. generated from zone.tab
+msgid "China mountains"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Davis Station, Vestfold Hills"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Dumont-d'Urville Base, Terre Adelie"
+msgstr ""
+
+#. generated from zone.tab
+msgid "E Amazonas"
+msgstr ""
+
+#. generated from zone.tab
+msgid "E Argentina (BA, DF, SC, TF)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Dem. Rep. of Congo"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Easter Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - central Nunavut"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - east Nunavut"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - Crawford County"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - Starke County"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Indiana - Switzerland County"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Standard Time - Pangnirtung, Nunavut"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time - Kentucky - Louisville area"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time - Kentucky - Wayne County"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time - Michigan - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time - Ontario & Quebec - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid ""
+"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Time - Thunder Bay, Ontario"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Eastern Turkestan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Greenland"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Kazakhstan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "east Uzbekistan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Galapagos Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Gambier Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Gilbert Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Great Britain"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Hawaii"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Irian Jaya & the Moluccas"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Jan Mayen"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Java & Sumatra"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Johnston Atoll"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Jujuy (JY)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Kosrae"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Kwajalein"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Line Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Lord Howe Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Madeira Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Marquesas Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mato Grosso, Mato Grosso do Sul"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mawson Station, Holme Bay"
+msgstr ""
+
+#. generated from zone.tab
+msgid "McMurdo Station, Ross Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mendoza (MZ)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Midway Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+00 - west Russia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+01 - Caspian Sea"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow-01 - Kaliningrad"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+02 - Urals"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+03 - Novosibirsk"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+03 - west Siberia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+04 - Yenisei River"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+05 - Lake Baikal"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+06 - Lena River"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+07 - Amur River"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+08 - Magadan & Sakhalin"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+09 - Kamchatka"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Moscow+10 - Bering Sea"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Standard Time - Arizona"
+msgstr ""
+
+#. generated from zone.tab
+msgid ""
+"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Standard Time - Sonora"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - central Northwest Territories"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - Chihuahua"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - Navajo"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - south Idaho & east Oregon"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Mountain Time - west Northwest Territories"
+msgstr ""
+
+#. generated from zone.tab
+msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "NE Brazil (MA, PI, CE, RN, PR)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Newfoundland Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "New South Wales - Broken Hill"
+msgstr ""
+
+#. generated from zone.tab
+msgid "New South Wales - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "northeast Mali"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Northern Ireland"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Northern Territory"
+msgstr ""
+
+#. generated from zone.tab
+msgid "north Manchuria"
+msgstr ""
+
+#. generated from zone.tab
+msgid "northwest Greenland"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Pacific Time - north Yukon"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Pacific Time - south Yukon"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Pacific Time - west British Columbia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Palmer Station, Anvers Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "peninsular Malaysia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Pernambuco"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Phoenix Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Ponape (Pohnpei)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Queensland - Holiday Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Queensland - most locations"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Roraima"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Ruthenia"
+msgstr "Autentykacja"
+
+#. generated from zone.tab
+msgid "Sabah & Sarawak"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Society Islands"
+msgstr ""
+
+#. generated from zone.tab
+msgid "South Australia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "southwest Greenland"
+msgstr ""
+
+#. generated from zone.tab
+msgid "southwest Mali"
+msgstr ""
+
+#. generated from zone.tab
+msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Svalbard"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Syowa Station, E Ongul I"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Tasmania"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Tibet & Xinjiang"
+msgstr ""
+
+#. generated from zone.tab
+#, fuzzy
+msgid "Tocantins"
+msgstr "Po³o¿enie"
+
+#. generated from zone.tab
+msgid "Transdniestria"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Truk (Chuuk)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Victoria"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Wake Island"
+msgstr ""
+
+#. generated from zone.tab
+msgid "W Amazonas"
+msgstr ""
+
+#. generated from zone.tab
+msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
+msgstr ""
+
+#. generated from zone.tab
+msgid "west Dem. Rep. of Congo"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Western Australia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "west Kazakhstan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "west Uzbekistan"
+msgstr ""
+
+#. generated from zone.tab
+msgid "W Para, Rondonia"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Yap"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Zaporozh'ye, E Lugansk"
+msgstr ""
+
+#. generated from lang-table
+msgid "Czech"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "English"
+msgstr "Zakoñcz"
+
+#. generated from lang-table
+#, fuzzy
+msgid "Danish"
+msgstr "Zakoñcz"
+
+#. generated from lang-table
+msgid "French"
+msgstr ""
+
+#. generated from lang-table
+msgid "German"
+msgstr ""
+
+#. generated from lang-table
+msgid "Hungarian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Icelandic"
+msgstr ""
+
+#. generated from lang-table
+msgid "Italian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Japanese"
+msgstr ""
+
+#. generated from lang-table
+msgid "Norwegian"
+msgstr ""
+
+#. generated from lang-table
+msgid "Portuguese"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Romanian"
+msgstr "Pozosta³o"
+
+#. generated from lang-table
+msgid "Russian"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Serbian"
+msgstr "Szukanie"
+
+#. generated from lang-table
+msgid "Slovak"
+msgstr ""
+
+#. generated from lang-table
+msgid "Slovenian"
+msgstr ""
+
+#. generated from lang-table
+#, fuzzy
+msgid "Spanish"
+msgstr "Zakoñcz"
+
+#. generated from lang-table
+msgid "Swedish"
+msgstr ""
+
+#. generated from lang-table
+msgid "Turkish"
+msgstr ""
+
+#. generated from lang-table
+msgid "Ukrainian"
 msgstr ""
 
 #~ msgid "Horizontal Sync"

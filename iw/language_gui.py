@@ -30,8 +30,7 @@ class LanguageWindow (InstallWindow):
 
     def select_row (self, clist, row, col, event):
         if self.running:
-            lang = clist.get_text (clist.selection[0], 0)
-            self.lang = lang
+            self.lang = clist.get_row_data (clist.selection[0])
 
     # LanguageWindow tag="lang"
     def getScreen (self):
@@ -49,7 +48,9 @@ class LanguageWindow (InstallWindow):
         default = -1
         n = 0
         for locale in self.languages:
-            row = self.language.append ((locale,))
+            row = self.language.append ((_(locale),))
+            self.language.set_row_data (row, locale)
+
             if locale == self.todo.instTimeLanguage.getCurrent():
                 self.lang = locale
                 default = n
