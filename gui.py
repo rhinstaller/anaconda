@@ -718,6 +718,7 @@ class InstallControlWindow:
         self.buttonBox.add (self.nextButtonStock)
 
 	self.hbox = GtkHBox ()
+        self.hbox.set_border_width(5)
 	self.hbox.pack_start (self.hideHelpButton, FALSE)
         self.hbox.set_spacing (25)
         self.hbox.pack_start (self.releaseButton, FALSE)
