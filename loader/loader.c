@@ -3042,6 +3042,7 @@ static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     logMessage("found firewire controller %s", devices[0]->driver);
 
+    startNewt(flags);
     /* not the best message in the world, but better than sitting
      * and looking silly */
     winStatus(40, 3, _("Loading"), _("Loading %s driver..."), 
@@ -3403,7 +3404,6 @@ int main(int argc, char ** argv) {
 	   a system w/o USB keyboard support, which would be bad. */
 	usbInitialize(modLoaded, modDeps, modInfo, flags);
 
-        startNewt(flags);
 	/* now let's initialize any possible firewire.  fun */
 	firewireInitialize(modLoaded, modDeps, modInfo, flags);
     }
