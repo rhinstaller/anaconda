@@ -5,7 +5,7 @@ usage () {
     exit 0
 }
 
-if [ -z "$1" -o -z "$2" -o -z "$3" -o -z "$4" -o -z "$5" ]; then usage; fi
+if [ -z "$1" -o -z "$2" -o -z "$3" ]; then usage; fi
 
 TOPDIR=$(echo $0 | sed "s,/[^/]*$,,")
 if [ $TOPDIR = $0 ]; then
@@ -18,10 +18,10 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELPATH=$1
     TOPDESTPATH=$2
     IMAGEPATH=$2/images
-    FULLMODPATH=$3
-    INSTIMGPATH=$4
-    INSTIMGTEMPLATE=$5
-    IMGPATH=$(echo $FULLMODPATH | sed 's,/[^/]*$,,')
+    FULLMODPATH=$2/RedHat/instimage/modules
+    INSTIMGPATH=$2/RedHat/base
+    INSTIMGTEMPLATE=$3
+    IMGPATH=$2/RedHat/instimage
     KERNELROOT=/tmp/updboot.kernel.$$
     MODDEPS=$KERNELROOT/moddeps
     ARCH=$(uname -m | sed 's/i.86/i386/')
@@ -350,7 +350,7 @@ EOF
     rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
 
     rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
-    dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE
+    dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 
     # Create the bootdisk image as $MBD_TMPIMAGE, mount it, copy
     # $MBD_FSIMAGE (the initrd) to it, add a kernel, umount it. It should be
@@ -392,9 +392,9 @@ EOF
 makeinstimage () {
     imagename=$1
     modlist=$(expandModuleSet "$2")
-    tmpimage=/tmp/instimage.img
-    mntpoint=/tmp/instimage.mnt
-    tmpdir=/tmp/instimage.dir
+    tmpimage=/tmp/instimage.img.$$
+    mntpoint=/tmp/instimage.mnt.$$
+    tmpdir=/tmp/instimage.dir.$$
 
     rm -rf $tmpimage $mntpoint $tmpdir
     mkdir -p $mntpoint $tmpdir
@@ -420,6 +420,32 @@ makeinstimage () {
     rm -rf $tmpdir
 
     gzip -9 < $tmpimage > $INSTIMGPATH/${imagename}.img
+
+    rm $tmpimage
+}
+
+makemainimage () {
+    imagename=$1
+    tmpimage=/tmp/instimage.img.$$
+    mntpoint=/tmp/instimage.mnt.$$
+
+    rm -rf $mntpoint $tmpimage
+    mkdir $mntpoint
+
+    size=$(du -sk $IMGPATH | awk '{print $1}')
+
+    dd if=/dev/zero of=$tmpimage bs=1k count=$size 2>/dev/null
+    echo y | mke2fs -m 0 -i 4096 $tmpimage  > /dev/null 2>/dev/null
+    mount -o loop $tmpimage $mntpoint
+    (cd $IMGPATH; find . | cpio --quiet -p $mntpoint)
+
+    df $mntpoint
+    df -i $mntpoint
+
+    umount $mntpoint
+    rmdir $mntpoint
+
+    cp $tmpimage $INSTIMGPATH/${imagename}.img
 
     rm $tmpimage
 }

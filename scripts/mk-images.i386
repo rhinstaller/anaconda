@@ -21,4 +21,4 @@ makedriverdisk "Parallel port IDE Drivers" "paride" "parport_pc parport pcd pari
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage "netstg2" "=scsi $SECSTAGE"
-makeinstimage "hdstg2" "=scsi $SECSTAGE"
+makemainimage "stage2"
