@@ -87,7 +87,7 @@ int ksReadCommands(char * cmdFile) {
     int line = 0;
     char ** argv; 
     int argc;
-    int inPackages = 0;
+    int inSection = 0; /* in a section such as %post, %pre or %packages */
     struct ksCommandNames * cmd;
     int commandsAlloced = 5;
 
@@ -117,7 +117,7 @@ int ksReadCommands(char * cmdFile) {
     commands = malloc(sizeof(*commands) * commandsAlloced);
 
     start = buf;
-    while (*start && !inPackages) {
+    while (*start && !inSection) {
         line++;
         if (!(end = strchr(start, '\n')))
             end = start + strlen(start);
@@ -137,8 +137,9 @@ int ksReadCommands(char * cmdFile) {
 
         if (!*start || *start == '#') {
             /* do nothing */
-        } else if (!strcmp(start, "%packages")) {
-            inPackages = 1;
+        } else if (!strcmp(start, "%packages") || !strcmp(start, "%post") 
+                   || !strcmp(start, "%pre")) {
+            inSection = 1;
         } else if  (*chptr == '\\') {
             /* JKFIXME: this should be handled better, but at least we 
              * won't segfault now */
