@@ -115,6 +115,7 @@ static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(file, "/tmp/ramfs/DD-%d", disknum);
     mkdirChain(file);
 
+    startNewt(flags);
     winStatus(40, 3, _("Loading"), _("Reading driver disk..."));
 
     for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
@@ -411,7 +412,7 @@ static void loadFromLocation(struct knownDevices * kd,
     }
 
     loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
-                        loaderData->modDepsPtr, dir, flags);
+                   loaderData->modDepsPtr, dir, flags);
     busProbe(loaderData->modInfo, loaderData->modLoaded, *
              loaderData->modDepsPtr, 0, kd, flags);
 }

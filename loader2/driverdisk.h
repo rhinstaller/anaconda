@@ -25,4 +25,8 @@ void useKickstartDD(struct knownDevices * kd,
                     struct loaderData_s * loaderData, int argc, 
                     char ** argv, int * flagsPtr);
 
+void getDDFromSource(struct knownDevices * kd,
+                     struct loaderData_s * loaderData,
+                     char * src, int flags);
+
 #endif

@@ -474,7 +474,11 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
             flags |= LOADER_FLAGS_ISA;
-        else if (!strcasecmp(argv[i], "dd"))
+        else if (!strncasecmp(argv[i], "dd=", 3) || 
+                 !strncasecmp(argv[i], "driverdisk=", 11)) {
+            loaderData->ddsrc = strdup(argv[i] + 
+                                       (argv[i][1] == 'r' ? 11 : 3));
+        } else if (!strcasecmp(argv[i], "dd"))
             flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "driverdisk"))
             flags |= LOADER_FLAGS_MODDISK;
@@ -1158,22 +1162,30 @@ int main(int argc, char ** argv) {
 
     if (!canProbeDevices() || FL_MODDISK(flags)) {
         startNewt(flags);
-
+        
         loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
                         modInfo, &kd, flags);
     }
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
+    /* JKFIXME: should probably not be doing this, but ... */
+    loaderData.modLoaded = modLoaded;
+    loaderData.modDepsPtr = &modDeps;
+    loaderData.modInfo = modInfo;
+
+    /* JKFIXME: we'd really like to do this before the busprobe, but then
+     * we won't have network devices available (and that's the only thing
+     * we support with this right now */
+    if (loaderData.ddsrc != NULL) {
+        getDDFromSource(&kd, &loaderData, loaderData.ddsrc, flags);
+    }
+
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
      * and then getKickstartFile() changes it and sets FL_KICKSTART.  
      * kind of weird. */
     if (loaderData.ksFile || ksFile) {
         logMessage("getting kickstart file");
-        /* JKFIXME: should probably not be doing this, but ... */
-        loaderData.modLoaded = modLoaded;
-        loaderData.modDepsPtr = &modDeps;
-        loaderData.modInfo = modInfo;
 
         if (!ksFile)
             getKickstartFile(&kd, &loaderData, &flags);
@@ -1182,11 +1194,6 @@ int main(int argc, char ** argv) {
                             flags) != LOADER_ERROR)) {
             runKickstart(&kd, &loaderData, &flags);
         }
-        
-        /* JKFIXME: this is kind of gross, but we need to do it in case
-         * a driver disk was loaded.  but we should really load them earlier
-         * but we have a nice chicken and the egg problem.  ick */
-        busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
     }
 
     if (FL_TELNETD(flags))

@@ -82,6 +82,7 @@ struct loaderData_s {
     int ipinfo_set;
     char * ksFile;
     char * method;
+    char * ddsrc;
     void * methodData;
 
     moduleList modLoaded;
