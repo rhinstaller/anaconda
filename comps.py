@@ -38,6 +38,10 @@ ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'kernel-BOOTtape' : None,	'kernel-BOOTvrdr' : None,
                     'kernel-summit' : None,
 
+
+                    # XXX this is a hack.  remove me.
+                    "rpm404-python",
+
                     'kinput2-canna' : None,	'kinput-canna-wnn4' : None,
                     'kinput2-wnn4' : None,	'kinput2-wnn6' : None }
 
