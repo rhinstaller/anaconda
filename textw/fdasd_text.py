@@ -49,7 +49,7 @@ class fdasdPartitionWindow:
             (button, choice) = \
                      ListboxChoiceWindow(screen, _("Disk Setup"),
                      listboxtext, choices,
-                     buttons, width = 50, help = fdisk_name)
+                     buttons, width = 50, help = "fdasd-s390")
 
             if button == "edit":
                 device = choices[choice]

@@ -48,7 +48,7 @@ class ZiplWindow:
 			     TEXT_BACK_BUTTON ] )
 
 	grid = GridFormHelp(screen, _("z/IPL Configuration"), 
-			    "ziplkernelopts", 1, 3)
+			    "zipl-s390", 1, 3)
 	grid.add(t, 0, 0)
         sg = Grid(2, 1)
 	sg.setField(Label(_("Kernel Parameters") + ": "), 0, 0, anchorLeft=1)
