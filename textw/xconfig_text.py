@@ -551,17 +551,16 @@ class XConfigWindowCard:
             vidRam = 1024
 
         count = 0
+        self.selectedRam = 0
         for size in self.videocard.possible_ram_sizes():
             #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram
             #  than it should
             small = size - 64
             if size == vidRam or small == vidRam:
+                self.selectedRam = count
                 break
             count = count + 1
 
-        print vidRam, count
-
-        self.selectedRam = count
 
         try:
             vidRam = string.atoi(self.videocard.primaryCard(useProbed=1).getVideoRam())
@@ -569,15 +568,16 @@ class XConfigWindowCard:
             vidRam = 1024
 
         count = 0
+        self.origRam = 0
         for size in self.videocard.possible_ram_sizes():
             #--Cards such as Mach64 and ATI Rage Mobility report 64k less ram
             #  than it should
             small = size - 64
             if size == vidRam or small == vidRam:
+                self.origRam = count
                 break
             count = count + 1
 
-        self.origRam = count
             
         skipx = 0
 	while 1:
