@@ -441,7 +441,7 @@ int httpGetFileDesc(char * hostname, int port, char * remotename) {
         return FTPERR_FAILED_CONNECT;
     }
 
-    buf = alloca(strlen(remotename) + 20);
+    buf = alloca(strlen(remotename) + strlen(hostname) + 25);
     sprintf(buf, "GET %s HTTP/1.1\t\nHost: %s\r\n\r\n", remotename, hostname);
     write(sock, buf, strlen(buf));
 
