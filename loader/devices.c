@@ -443,7 +443,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 }
 
 static char * filterDriverModules(struct driverDiskInfo * ddi,
-				  const char * const * modNames) {
+				  char * const * modNames) {
     struct utsname un;
     gzFile from;
     gzFile to;
@@ -470,8 +470,11 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
     for (i = 0, p = pattern; modNames[i]; i++, p++) {
 	*p = alloca(strlen(modNames[i]) + strlen(un.release) + 5);
 	sprintf(*p, "%s*/%s.o", un.release, modNames[i]);
-	logMessage("extracting pattern %s", *p);
+	logMessage("extracting pattern %s%s%s", *p,
+		    ddi->title ? " from " : "",
+		    ddi->title ? ddi->title : "");
     }
+    *p = NULL;
 
     if (ddi->device)
 	devMakeInode(ddi->device, ddi->mntDevice);
@@ -529,7 +532,6 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 	    gzclose(to);
 	    umount("/tmp/drivers");
 
-	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
 	    return toPath;
 	}
 
@@ -545,12 +547,12 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 }
 
 char ** extractModules(struct driverDiskInfo * ddi, 
-			const char * const * modNames, char ** oldPaths) {
+			char * const * modNames, char ** oldPaths) {
     gzFile fd;
     char * ballPath;
     struct cpioFileMapping * map;
     int i, numMaps;
-    const char * const * m;
+    char * const * m;
     struct utsname u;
     int rc;
     const char * failedFile;
@@ -594,6 +596,9 @@ char ** extractModules(struct driverDiskInfo * ddi,
 	    numMaps++;
 	}
     }
+
+    /* nothing to do */
+    if (!numMaps) return oldPaths;
 
     qsort(map, numMaps, sizeof(*map), myCpioFileMapCmp);
     rc = myCpioInstallArchive(fd, map, numMaps, NULL, NULL, &failedFile);
