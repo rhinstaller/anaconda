@@ -35,36 +35,39 @@ msgstr "确定"
 
 #: ../anaconda:370
 msgid "Probing for video card:   "
-msgstr ""
+msgstr "调查显卡:"
 
 #: ../anaconda:378
 #, fuzzy
 msgid "Unable to probe\n"
-msgstr "无法检测到视频卡"
+msgstr "无法检测到视频卡\n"
 
 #: ../anaconda:380
 msgid "Probing for monitor type: "
-msgstr ""
+msgstr "调查显示器的类型:"
 
 #: ../anaconda:387
 msgid "Probing for mouse type:   "
-msgstr ""
+msgstr "调查鼠标的类型:"
 
 #: ../anaconda:391
 msgid "Skipping mouse probe.\n"
-msgstr ""
+msgstr "跳过鼠标调查.\n"
 
 #: ../anaconda:405
 #, c-format
 msgid ""
 "Graphical installation not available for %s installs.  Starting text mode."
 msgstr ""
+"%s 安装不支持图形方式安装.开始文本方式安装."
 
 #: ../anaconda:413
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
+"没有发现鼠标.图形方式安装需要鼠标."
+"开始文本方式安装."
 
 #: ../autopart.py:729
 #, c-format
@@ -435,7 +438,7 @@ msgstr ""
 
 #: ../gui.py:472
 msgid "Unable to load file!"
-msgstr ""
+msgstr "不能装入文件!"
 
 #: ../gui.py:493
 msgid "Release notes are missing.\n"
@@ -487,15 +490,15 @@ msgstr "安装"
 #: ../harddrive.py:172
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "缺少安装用CD#%d."
 
 #: ../image.py:62
 msgid "Copying File"
-msgstr ""
+msgstr "正在拷贝文件"
 
 #: ../image.py:63
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "正在拷贝安装图像到硬盘..."
 
 #: ../image.py:66
 msgid ""
@@ -511,7 +514,7 @@ msgstr "其它 CDROM"
 #: ../image.py:120
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "请插入CD#%d再继续."
 
 #: ../image.py:137
 #, fuzzy
@@ -520,11 +523,11 @@ msgstr "其它 CDROM"
 
 #: ../image.py:138
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "这不是正确的RedHat CDROM"
 
 #: ../image.py:143
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "CDROM不能被挂起."
 
 #: ../installclass.py:27
 msgid "Install"
@@ -532,11 +535,11 @@ msgstr "安装"
 
 #: ../monitor.py:152 ../mouse.py:184 ../videocard.py:130
 msgid "Unable to probe"
-msgstr ""
+msgstr "不能调查"
 
 #: ../iw/package_gui.py:16 ../packages.py:37
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "升级吗?"
 
 #: ../iw/package_gui.py:17 ../packages.py:38
 msgid ""
@@ -560,7 +563,7 @@ msgstr "正在读取软件包信息..."
 
 #: ../packages.py:153
 msgid "Dependency Check"
-msgstr ""
+msgstr "依存性检查"
 
 #: ../packages.py:154
 msgid "Checking dependencies in packages selected for installation..."
@@ -644,7 +647,7 @@ msgstr "正在执行安装后配置..."
 
 #: ../partitioning.py:171
 msgid "Foreign"
-msgstr ""
+msgstr "外语"
 
 #: ../partitioning.py:338
 #, fuzzy
@@ -1086,7 +1089,7 @@ msgstr ""
 
 #: ../text.py:174
 msgid "Help not available"
-msgstr ""
+msgstr "帮助无效"
 
 #: ../text.py:175
 msgid "No help is available for this step of the install."
@@ -1094,11 +1097,11 @@ msgstr ""
 
 #: ../text.py:246
 msgid "Save Crash Dump"
-msgstr ""
+msgstr "保存CrashDump"
 
 #: ../text.py:265 ../text.py:268
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #: ../text.py:265 ../text.py:266
 msgid "Debug"
@@ -1427,27 +1430,27 @@ msgstr "验证"
 #: ../iw/auth_gui.py:211
 #, fuzzy
 msgid "SMB Server:"
-msgstr "NIS 服务器："
+msgstr "SMB 服务器："
 
 #: ../iw/auth_gui.py:213
 msgid "SMB Workgroup:"
-msgstr ""
+msgstr "SMB 工作群"
 
 #: ../iw/auth_gui.py:240
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:241
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:242
 msgid "Kerberos 5"
-msgstr ""
+msgstr "Kerberos 5"
 
 #: ../iw/auth_gui.py:243
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../iw/bootdisk_gui.py:23
 #, fuzzy
@@ -1897,7 +1900,7 @@ msgstr "重置(_R)"
 
 #: ../iw/language_support_gui.py:213
 msgid "Select as default"
-msgstr ""
+msgstr "选成缺省"
 
 #: ../iw/mouse_gui.py:13
 msgid "Mouse Configuration"
@@ -5138,7 +5141,7 @@ msgstr ""
 #. generated from zone.tab
 #, fuzzy
 msgid "Tocantins"
-msgstr "位置"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
@@ -5211,12 +5214,12 @@ msgstr ""
 #. generated from lang-table
 #, fuzzy
 msgid "English"
-msgstr "完成"
+msgstr "英语"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Danish"
-msgstr "完成"
+msgstr "丹麦语"
 
 #. generated from lang-table
 msgid "French"
@@ -5225,12 +5228,12 @@ msgstr ""
 #. generated from lang-table
 #, fuzzy
 msgid "German"
-msgstr "正在搜索"
+msgstr "德语"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Hungarian"
-msgstr "变量"
+msgstr ""
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -5238,15 +5241,15 @@ msgstr ""
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "意大利语"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "日语"
 
 #. generated from lang-table
 msgid "Korean"
-msgstr ""
+msgstr "韩语"
 
 #. generated from lang-table
 msgid "Norwegian"
@@ -5259,11 +5262,11 @@ msgstr ""
 #. generated from lang-table
 #, fuzzy
 msgid "Romanian"
-msgstr "剩余"
+msgstr "罗马语"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "俄语"
 
 #. generated from lang-table
 #, fuzzy
@@ -5281,7 +5284,7 @@ msgstr ""
 #. generated from lang-table
 #, fuzzy
 msgid "Spanish"
-msgstr "完成"
+msgstr "西班牙语"
 
 #. generated from lang-table
 msgid "Swedish"
