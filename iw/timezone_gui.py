@@ -176,8 +176,8 @@ class TimezoneWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	self.ulist = gtk.CList (2)
-        self.ulist.connect ("expose-event", lambda widget, area, self=self:
-                            self.ulist.moveto (self.old_ulist_row))
+##         self.ulist.connect ("expose-event", lambda widget, area, self=self:
+##                             self.ulist.moveto (self.old_ulist_row))
         self.ulist.set_selection_mode (gtk.SELECTION_BROWSE)
         self.ulist.freeze ()
         for zone in self.timeZones:
