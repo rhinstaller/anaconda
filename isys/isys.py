@@ -257,6 +257,9 @@ def cdromList():
     list.sort()
     return list
 
+def getDasdPorts():
+    return _isys.getDasdPorts()
+
 def moduleListByType(type):
     return _isys.modulelist(type)
 

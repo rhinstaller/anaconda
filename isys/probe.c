@@ -150,41 +150,66 @@ bye:
     free (buf);
     return 0;
 }
+char *getDasdPorts() {
+        char * line, *ports = NULL;
+        char port[6];
+        FILE *fd;
+        fd = fopen ("/proc/dasd/devices", "r");
+        if(!fd) {
+                return;
+        }
+        line = (char *)malloc(100*sizeof(char));
+        while (fgets (line, 100, fd) != NULL) {
+                if ((strstr(line, "unknown") != NULL)) {
+                        continue;
+                }
+                if(sscanf (line, "%[A-Za-z0-9](%*s", port)) {
+                        if(!ports) {
+                                ports = (char *)malloc(strlen("dasd=") + strlen(port) + 1);
+                                strcpy(ports, port);
+                        } else {
+                                ports = (char *)realloc(ports, strlen(ports) + strlen(port) +
+ 2);   /* portnumber + ',' */
+                                strcat(ports, ",");
+                                strcat(ports, port);
+                        }
+                }
+        }
+        if (fd) fclose(fd);
+        return ports;
+}
 
 int kdFindDasdList(struct knownDevices * devices, int code) {
-  char format[10], devname[10], port[6];
-  char *line;
-  int ret;
-  FILE *fd;
+        char format[10], devname[10];
+        char *line;
+        int ret;
+        FILE *fd;
 
-  struct kddevice device;
+        struct kddevice device;
 
-  fd = fopen ("/proc/dasd/devices", "r");
-  if(!fd) {
-    return 0;
-  }
+        fd = fopen ("/proc/dasd/devices", "r");
+        if(!fd) {
+                return 0;
+        }
 
-  line = (char *)malloc(100*sizeof(char));
-  while (fgets (line, 100, fd) != NULL) {
-      if ((strstr(line, "active") == NULL)) {
-	  continue;
-      }
-      ret = sscanf (line, "%[A-Za-z0-9](%[A-Z]) at ( %*d: %*d) is %s : %*s",
-		    port, format, devname);
-      if (ret == 3) {
-	      if(!deviceKnown(devices, devname)) {
-		  device.code = code;
-		  device.class = CLASS_HD;
-		  device.name = strdup(devname);
-		  device.model = strdup(format);
-		  addDevice(devices, device);
-	       }
-      } 
-  }
-  if (fd) fclose(fd);
-  qsort(devices->known, devices->numKnown, sizeof(*devices->known),
-        sortDevices);
-  return 0;
+        line = (char *)malloc(100*sizeof(char));
+        while (fgets (line, 100, fd) != NULL) {
+                ret = sscanf (line, "%*[A-Za-z0-9](%[A-Z]) at ( %*d: %*d) is %s : %*s",
+                                format, devname);
+                if (ret == 2) {
+                        if(!deviceKnown(devices, devname)) {
+                                device.code = code;
+                                device.class = CLASS_HD;
+                                device.name = strdup(devname);
+                                device.model = strdup(format);
+                                addDevice(devices, device);
+                        }
+                }
+        }
+        if (fd) fclose(fd);
+        qsort(devices->known, devices->numKnown, sizeof(*devices->known),
+                        sortDevices);
+        return 0;
 }
 
 int kdFindIdeList(struct knownDevices * devices, int code) {

@@ -93,6 +93,7 @@ static PyObject * printObject(PyObject * s, PyObject * args);
 static PyObject * doGetPageSize(PyObject * s, PyObject * args);
 static PyObject * py_bind_textdomain_codeset(PyObject * o, PyObject * args);
 static PyObject * getLinkStatus(PyObject * s, PyObject * args);
+static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -139,6 +140,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "printObject", (PyCFunction) printObject, METH_VARARGS, NULL},
     { "bind_textdomain_codeset", (PyCFunction) py_bind_textdomain_codeset, METH_VARARGS, NULL},
     { "getLinkStatus", (PyCFunction) getLinkStatus, METH_VARARGS, NULL },
+    { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -689,9 +691,7 @@ static PyObject * probedListScsi(probedListObject * o, PyObject * args) {
 static PyObject * probedListDasd(probedListObject * o, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
-#if defined (__s390__) || defined (__s390x__)
     kdFindDasdList(&o->list, 0);
-#endif
 
     Py_INCREF(Py_None);
     return Py_None;
@@ -1410,6 +1410,10 @@ static PyObject * getLinkStatus(PyObject * s, PyObject * args) {
     ret = get_link_status(dev);
     /* returns 1 for link, 0 for no link, -1 for unknown */
     return Py_BuildValue("i", ret);
+}
+
+static PyObject * py_getDasdPorts(PyObject * o, PyObject * args) {
+    return Py_BuildValue("s", getDasdPorts());
 }
 
 static PyObject * printObject (PyObject * o, PyObject * args) {
