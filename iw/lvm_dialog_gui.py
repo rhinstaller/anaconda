@@ -592,11 +592,22 @@ class VolumeGroupEditor:
     def addLogicalVolumeCB(self, widget):
 	if self.numAvailableLVSlots() < 1:
 	    self.intf.messageWindow(_("No free slots"),
-				    "You cannot create more than %s logical "
-				    "volumes per volume group." % (lvm.MAX_LV_SLOTS,))
+				    _("You cannot create more than %s logical "
+				    "volumes per volume group.") % (lvm.MAX_LV_SLOTS,))
 	    return
 	
         (tspace, uspace, fspace) = self.computeSpaceValues()
+	if fspace <= 0:
+	    self.intf.messageWindow(_("No free space"),
+				    _("There is no room left in the "
+				      "volume group to create new logical "
+				      "volumes. "
+				      "To nadd a logical volume you will need "
+				      "to reduce the size of one or more of "
+				      "the currently existing "
+				      "logical volumes"))
+	    return
+	    
         request = LogicalVolumeRequestSpec(fileSystemTypeGetDefault(),
 					   size = fspace/2)
 	self.editLogicalVolume(request, isNew = 1)
