@@ -482,14 +482,12 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
-#ifndef __alpha__
     printf("mounting /dev/pts (unix98 pty) filesystem... "); 
     if (!testing) {
 	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
 	    fatal_error(1);
     }
     printf("done\n");
-#endif
 
     for (i = 1; i < argc; i++)
 	if (!strcmp (argv[i], "serial")) {

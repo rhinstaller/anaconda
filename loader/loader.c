@@ -963,7 +963,6 @@ static char * mountUrlImage(struct installMethod * method,
 	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
 	    
 	    if (fd < 0) {
-		newtPopWindow();
 		newtWinMessage(_("FTP"), _("OK"), 
 		       _("Unable to retrieve the second stage ramdisk"));
 		stage = URL_STAGE_MAIN;
