@@ -439,7 +439,7 @@ int main(int argc, const char ** argv) {
 	while ((fgets(b, sizeof(b) - 1, f))) {
 	    if (numpkgs == nalloced) {
 		depOrder = realloc (depOrder, sizeof (char *) * (nalloced + 6));
-		memset (depOrder + numpkgs, '\0', 6);
+		memset (depOrder + numpkgs, '\0', sizeof (char *) * 6);
 		nalloced += 5;
 	    }
 
