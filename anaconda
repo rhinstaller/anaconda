@@ -90,6 +90,14 @@ intf.popWaitWindow(w)
 intf.run(hdlist, rootPath)
 
 comps['Base'].select(1)
+
+try:
+    os.mkdir(rootPath + '/var')
+    os.mkdir(rootPath + '/var/lib')
+    os.mkdir(rootPath + '/var/lib/rpm')
+except:
+    print "error creating directory"
+
 db = rpm.opendb(1, rootPath)
 ts = rpm.TransactionSet(rootPath, db)
 

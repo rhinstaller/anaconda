@@ -4,6 +4,7 @@ from gtk import *
 import GdkImlib
 import sys
 import _balkan
+import thread
 
 class WelcomeWindow:		
     def next(self, win):
@@ -68,7 +69,9 @@ class PartitionWindow:
     def __init__(self):
         self.rc = 0
 
-    def run(self):
+    def run(self, rootPath):
+	if (rootPath): return -2
+
         window = GtkWindow()
         window.set_border_width(10)
         window.set_title("Choose a partition")
@@ -125,8 +128,29 @@ class PartitionWindow:
         window.destroy()
         return self.rc
 
+
+class InstallProgressWindow:
+    def setPackage(self, name):
+	print name
+        self.label.set_text (name)
+  	while events_pending():
+	    mainiteration(FALSE)
+
+    def __del__(self):
+       	self.window.destroy()
+
+    def __init__(self):
+        self.window = GtkWindow()
+        self.window.set_border_width(10)
+        self.window.set_title('Installing Packages')
+        self.window.set_position(WIN_POS_CENTER)
+        self.label = GtkLabel()
+        self.label.set_line_wrap (TRUE)
+	self.window.add(self.label)
+	self.window.show_all()
+
 class InstallInterface:
-    def waitWindow(self, title, text):
+    def showWaitWindow(self, title, text, lock):
         window = GtkWindow()
         window.set_border_width(10)
         window.set_title(title)
@@ -135,25 +159,38 @@ class InstallInterface:
         label.set_line_wrap (TRUE)
 	window.add(label)
 	window.show_all()
-	while events_pending():
-	    mainiteration(TRUE)
-        return window
+	while lock.locked():
+    	    while events_pending():
+	        mainiteration(FALSE)
+       	window.destroy()
+        thread.exit()
 
-    def popWaitWindow(self, window):
-	window.destroy()
+    def waitWindow(self, title, text):
+	lock = thread.allocate_lock()
+	lock.acquire()
+	thread.start_new_thread (self.showWaitWindow, (title, text, lock))
+        return lock
+
+    def packageProgessWindow(self):
+	return InstallProgressWindow()
+
+    def popWaitWindow(self, lock):
+	lock.release()
 
     def run(self, hdlist, rootPath):
         rc_parse("gtkrc")
 
         steps = [
             ["Welcome", WelcomeWindow, ()],
-            ["Partition", PartitionWindow, ()]
+            ["Partition", PartitionWindow, (rootPath,)]
         ]
 
         step = 0
+	dir = 0
         while step >= 0 and step < len(steps) and steps[step]:
-            if apply(steps[step][1]().run,steps[step][2]) == -1:
-                step = step - 1
+            rc =  apply(steps[step][1]().run, steps[step][2])
+	    if rc == -1:
+		dir = -1
             else:
-                step = step + 1
-
+		dir = 1
+	    step = step + dir
