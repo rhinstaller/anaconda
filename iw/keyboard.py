@@ -2,6 +2,7 @@ from gtk import *
 from iw import *
 import xkb
 import string
+import keyboard
 from gui import _
 
 class KeyboardWindow (InstallWindow):
@@ -18,6 +19,9 @@ class KeyboardWindow (InstallWindow):
 	self.rulesbase = rules[string.rfind (rules, "/")+1:]
         self.model = "pc101"
         self.layout = "en_US"
+	if self.todo.keyboard.type == "Sun":
+	    self.model = self.todo.keyboard.model
+	    self.layout = self.todo.keyboard.layout
         self.variant = ""
         self.hasrun = 0
 
@@ -57,7 +61,7 @@ class KeyboardWindow (InstallWindow):
         for (key, model) in self.rules[0].items ():
             loc = self.modelList.append ((model,))
 	    self.modelList.set_row_data (loc, key)
-            if key == "pc101":
+            if key == self.model:
                 self.modelList.select_row (loc, 0)
         self.modelList.sort ()
         self.modelList.connect ("select_row", self.select_row)
@@ -76,7 +80,7 @@ class KeyboardWindow (InstallWindow):
         for (key, layout) in self.rules[1].items ():
             loc = self.layoutList.append ((layout,))
 	    self.layoutList.set_row_data (loc, key)
-            if key == "en_US":
+            if key == self.layout:
                 self.layoutList.select_row (loc, 0)
         self.layoutList.sort ()
         self.layoutList.connect ("select_row", self.select_row)

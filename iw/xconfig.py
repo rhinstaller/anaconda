@@ -24,7 +24,6 @@ class XCustomWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
         
         self.didTest = 0
-	self.sunServer = 0
 
     def getNext (self):
         newmodes = {}
@@ -105,6 +104,7 @@ class XConfigWindow (InstallWindow):
         self.ics.setNextEnabled (TRUE)
 
         self.todo = ics.getToDo ()
+	self.sunServer = 0
 	if self.todo.x.server and len (self.todo.x.server) >= 3 and self.todo.x.server[0:3] == 'Sun':
 	    self.sunServer = 1
         ics.setTitle (_("X Configuration"))
