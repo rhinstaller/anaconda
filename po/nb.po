@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install FC4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-02-21 15:47+0100\n"
+"PO-Revision-Date: 2005-03-04 18:10+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -206,16 +206,12 @@ msgid "Could not allocate partitions"
 msgstr "Kunne ikke allokere partisjoner"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
-msgstr ""
-"Oppstartspartisjonen %s ligger ikke på en disk med BSD diskbetegnelse. SRM "
-"vil ikke være i stand til å starte operativsystemet fra denne partisjonen. "
-"Bruk en partisjon med BSD diskbetegnelse, eller skift betegnelse på denne "
-"disken."
+msgstr "Oppstartspartisjonen %s ligger ikke på en disk med BSD diskbetegnelse. SRM vil ikke kunne starte operativsystemet fra denne partisjonen. Bruk en partisjon med BSD diskbetegnelse, eller skift betegnelse på denne disken."
 
 #: ../autopart.py:1024
 #, python-format
@@ -1207,20 +1203,17 @@ msgstr "Installer på systemet"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Feil med skript"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Det oppstod en feil ved installering av %s. Dette kan tyde på feil ved "
-"installeringsmediumet, mangel på diskplass og/eller problemer med "
-"maskinvaren. Dette er en fatal feil, og din installasjon vil avbrytes. Sjekk "
-"installeringsmediumet og prøv på nytt.\n"
+"Det oppsto en feil ved kjøring av skriptet. Du kan undersøke meldingen i %s. Dette er en fatal feil og installasjonen vil bli avbrutt.\n"
 "\n"
 "Trykk OK for å starte maskinen på nytt."
 
@@ -2037,9 +2030,8 @@ msgid ""
 msgstr "Du må lage en /boot/efi-partisjon av type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Du må opprette en PReP-oppstartspartisjon for PPC."
+msgstr "Du må opprette en Apple-oppstartspartisjon."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3073,15 +3065,11 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Fjern installasjonsmedie (disketter eller CD-ROM) som ble brukt under "
-"installasjonen og trykk på knappen «Start på nytt» for å starte systemet på "
-"nytt.\n"
+msgstr "Fjern installasjonsmediet som ble brukt under installasjonen og klikk på «Start på nytt» for å starte systemet på nytt.\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5383,14 +5371,11 @@ msgid "<Enter> to exit"
 msgstr "<Linjeskift> for å avslutte"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
-msgstr ""
-"Fjern installasjonsmedie (disketter eller CD-ROM) som ble brukt under "
-"installasjonen og trykk <Linjeskift> for å starte systemet på nytt.\n"
+msgstr "Fjern installasjonsmediet som ble brukt under installasjonen og trykk <Linjeskift> for å starte systemet på nytt.\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to reboot"
@@ -8573,19 +8558,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "no suggestion"
-#~ msgstr "ingen forslag"
-
-#~ msgid "Use _LILO as the boot loader"
-#~ msgstr "Bruk _LILO som oppstartslaster"
-
-#~ msgid "Unable to Change Drive Order for LILO"
-#~ msgstr "Kan ikke endre rekkefølge på stasjonene for LILO"
-
-#~ msgid "We do not support changing the drive order for use with LILO."
-#~ msgstr ""
-#~ "Vi støtter ikke endring av rekkefølge på stasjonene for bruk med LILO."
-
-#~ msgid "Use LILO Boot Loader"
-#~ msgstr "Bruk LILO oppstartslaster"
