@@ -457,9 +457,8 @@ msgid "Invalid Choice"
 msgstr "Неверный выбор"
 
 #: ../text.py:170
-#, fuzzy
 msgid "You select at least one language to install."
-msgstr "Поддержку каких языков установить?"
+msgstr "Вы должны установить поддержку хотя бы одного языка."
 
 #: ../text.py:198
 msgid "Default Language"
@@ -702,11 +701,11 @@ msgstr "Установка пакета"
 
 #: ../text.py:726
 msgid "Name   : "
-msgstr "Имя    :"
+msgstr "Имя    : "
 
 #: ../text.py:727
 msgid "Size   : "
-msgstr "Размер :"
+msgstr "Размер:  "
 
 #: ../text.py:728
 msgid "Summary: "
@@ -1425,7 +1424,7 @@ msgstr "%s не является допустимым именем сервера."
 
 #: ../iw/firewall_gui.py:122
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Формат: 'порт:протокол'. Например, '1234:udp'"
 
 #: ../iw/firewall_gui.py:206
 msgid "Please choose your security level:  "
@@ -2736,6 +2735,9 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Вы хотите поместить корневой (/) раздел на раздел FAT. Вы можете сделать "
+"это, но тогда вы не сможете использовать другие файловые системы для Linux. "
+"Кроме того, это приведет к значительным потерям производительности."
 
 #: ../libfdisk/fsedit.c:969
 #, c-format
@@ -2872,6 +2874,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Это произошло потому, что геометрия диска, определенная ядром, оказалась "
+"отличной от геометрии, которая использовалась при разбиении диска на "
+"разделы. Может быть исправлено указанием геометрии диска в командной строке "
+"ядра при загрузке установщика. "
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2885,7 +2891,7 @@ msgstr "<Раздел RAID>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Невозможно найти раздел с именем %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
 msgid "Root partition"
@@ -2897,6 +2903,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Похоже, рост корневого (/) раздела RAID был ограничен пределом 1024 "
+"цилиндра. В этом случае создание раздела /boot (50 Мб достаточно) может "
+"позволить растянуть корневой раздел до конца диска."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2904,6 +2913,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Похоже, рост корневого (/) раздела был ограничен пределом 1024 цилиндра. В "
+"этом случае создание раздела /boot (50 Мб достаточно) может позволить "
+"растянуть корневой раздел до конца диска."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -3826,7 +3838,7 @@ msgstr "Чтение обновлений anaconda..."
 
 #: ../loader/loader.c:2469
 msgid "You don't have enough system memory to install Red Hat on this machine."
-msgstr ""
+msgstr "На этой машине недостаточно системной памяти для установки Red Hat."
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4243,6 +4255,3 @@ msgstr "Средства разработки ядра"
 
 msgid "Utilities"
 msgstr "Утилиты"
-
-#~ msgid "America/New_York"
-#~ msgstr "America/New_York"
