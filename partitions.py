@@ -792,9 +792,9 @@ class Partitions:
 
             if bestreq is not None:
                 if (iutil.getPPCMachine() == "pSeries"):
-                    minsize = 4
+                    minsize = 2
                 else:
-                    minsize = 16
+                    minsize = 12
                 if bestreq.getActualSize(self, diskset) < minsize:
                     warnings.append(_("Your %s partition is less than %s "
                                       "megabytes which is lower than "
