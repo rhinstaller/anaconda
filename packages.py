@@ -24,6 +24,7 @@ import string
 import pcmcia
 import language
 import fsset
+import kudzu
 from flags import flags
 from constants import *
 from syslogd import syslog
@@ -571,6 +572,39 @@ def doPreInstall(method, id, intf, instPath, dir):
         if os.access("/tmp/modules.conf", os.R_OK):
             iutil.copyFile("/tmp/modules.conf", 
                            instPath + "/etc/modules.conf")
+
+    # add lines for usb to modules.conf
+    # these aren't handled in the loader since usb is built into kernel
+    # so we don't insert the modules there
+    try:
+	usbcontrollers = kudzu.probe(kudzu.CLASS_USB, kudzu.BUS_PCI, kudzu.PROBE_ALL)
+    except:
+	usbcontrollers = []
+	
+    ohcifnd = 0
+    ehcifnd = 0
+    for u in usbcontrollers:
+	if u.driver == "usb-ohci":
+	    ohcifnd = 1
+	elif u.driver == "ehci-hcd":
+	    ehcifnd = 1
+
+    if ohcifnd or ehcifnd:
+	f = open(instPath + "/etc/modules.conf", "a")
+	if ohcifnd:
+	    f.write("alias usb-controller usb-ohci\n")
+	if ehcifnd:
+	    if ohcifnd:
+		f.write("alias usb-controller1 ehci-hcd\n")
+	    else:
+		f.write("alias usb-controller ehci-hcd\n")
+	f.close()
+	    
+    # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
+    f = open(instPath + "/etc/mtab", "w+")
+    f.write(id.fsset.mtab())
+    f.close()
+     
 #    delay writing migrate adjusted fstab till later, in case
 #    rpm transaction set determines they don't have enough space to upgrade
 #    else:
