@@ -272,6 +272,7 @@ int chooseLanguage(char ** lang, int flags) {
     char * currentLangName = getenv("LANG");
     int numLangs = 0;
     char * langPicked;
+    char * buf;
 
     if (!languages) loadLanguageList(flags);
 
@@ -386,7 +387,10 @@ int chooseLanguage(char ** lang, int flags) {
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
 
-    newtDrawRootText(0, 0, _(topLineWelcome));
+    
+    buf = sdupprintf(_(topLineWelcome), PRODUCTNAME);
+    newtDrawRootText(0, 0, buf);
+    free(buf);
     newtPushHelpLine(_(bottomHelpLine));
 
     return 0;
