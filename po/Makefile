@@ -56,6 +56,12 @@ refresh-po: Makefile
 		fi \
 	done
 
+report:
+	@for cat in $(SHORT_PO) $(LONG_PO); do \
+		echo -n "$$cat: "; \
+		msgfmt -v --statistics -o /dev/null $$cat; \
+	done
+
 clean:
 	rm -f *mo $(NLSPACKAGE).pot
 
