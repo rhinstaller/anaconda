@@ -1760,8 +1760,9 @@ def getFStoTry(device):
         rc.append("xfs")
 
     if isValidExt2(device):
+        if isys.ext2HasJournal(device):
+            rc.append("ext3")
         rc.append("ext2")
-        rc.append("ext3")
 
     # XXX check for reiserfs signature, jfs signature, and others ?
     return rc
