@@ -3498,12 +3498,7 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
-    mlLoadModuleSet("cramfs:vfat:nfs", modLoaded, modDeps, modInfo, flags);
-
-
-#if defined (__s390__) || defined (__s390x__)
-    mlLoadModule("loop", NULL, modLoaded, modDeps, NULL, modInfo, flags);
-#endif
+    mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, modInfo, flags);
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
