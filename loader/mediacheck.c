@@ -188,7 +188,10 @@ int doMediaCheck(int isofd, char *mediasum, char *computedsum, long long *isosiz
 
     if (parsepvd(isofd, mediasum, isosize) < 0) {
 	newtWinMessage(_("Error"), _("OK"),
-		       _("Unable to read primary volume descriptor"));
+		       _("Unable to read the disc checksum from the "
+			 "primary volume descriptor.  This probably "
+			 "means the disc was created without adding the "
+			 "checksum."));
 	return -1;
     }
 
