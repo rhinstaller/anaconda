@@ -24,6 +24,15 @@ mount -t proc proc $p/proc
 rm -f $p/usr/sbin/ldconfig $p/etc/ld.so.conf
 
 (cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
+
+(cd $p/usr/bin;
+set $(mv busybox.anaconda busybox; ./busybox  2>&1| awk '/^\t([a-z\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
+while [ -n "$1" ]; do
+    ln -sf ./busybox $1
+    shift
+done
+)
+
 umount $p/proc
 
 for l in `find $p -type f -perm +100 | grep -v "usr/X11R6/lib/modules" | xargs file | sed -n 's/^\([^:]*\):.*ELF.*$/\1/p'`; do
