@@ -28,15 +28,6 @@ Video_cardslist = {}
 
 def Video_cardsDBLookup(thecard):
     card = Video_cardslist[thecard]
-    origcard = copy.copy(card)
-
-    count = 0
-    while count < 16 and card.has_key ("SEE"):
-        card = Video_cardslist[card["SEE"]]
-        count = count + 1
-        
-        if count >= 16:
-            raise RuntimeError, "Could not find card %s" % (origcard,)
 
     return card
 
@@ -308,6 +299,22 @@ class VideoCardInfo:
             
             if len (line) > 4 and line[0:4] == 'NAME':
                 name = line[5:]
+
+            if len (line) > 3 and line[0:3] == 'SEE':
+                info = string.splitfields (line, ' ')
+                seecard = string.joinfields(info[1:], ' ')
+                refcard = Video_cardslist[seecard]
+
+                for k in ["CHIPSET", "SERVER", "RAMDAC", "CLOCKCHIP",
+                          "DACSPEED", "DRIVER", "UNSUPPORTED", "NOCLOCKPROBE"]:
+                    if not card.has_key(k) and refcard.has_key(k):
+                        card[k] = refcard[k]
+
+                if refcard.has_key("LINE"):
+                    if not card.has_key("LINE"):
+                        card["LINE"] = refcard["LINE"]
+                    else:
+                        card["LINE"] = card["LINE"] + "\n" + refcard["LINE"]
                 
             info = string.splitfields (line, ' ')
             if card.has_key (info[0]):
