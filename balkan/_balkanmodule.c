@@ -103,7 +103,17 @@ static PyObject * tableGetAttr(PyObject * o, char * name) {
 }
 
 void init_balkan(void) {
-    Py_InitModule("_balkan", balkanModuleMethods);
+    PyObject * d, * m;
+
+    m = Py_InitModule("_balkan", balkanModuleMethods);
+
+    d = PyModule_GetDict(m);
+
+    PyDict_SetItemString(d, "DOS", PyInt_FromLong(BALKAN_PART_DOS));
+    PyDict_SetItemString(d, "EXT2", PyInt_FromLong(BALKAN_PART_EXT2));
+    PyDict_SetItemString(d, "SWAP", PyInt_FromLong(BALKAN_PART_SWAP));
+    PyDict_SetItemString(d, "RAID", PyInt_FromLong(BALKAN_PART_RAID));
+    PyDict_SetItemString(d, "UFS", PyInt_FromLong(BALKAN_PART_UFS));
 }
 
 static void emptyDestructor(PyObject * s) {
