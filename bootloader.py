@@ -128,6 +128,8 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
     if kernelLabel is None:
         log("unable to find default image, bailing")
+	if not justConfigFile:
+	    w.pop()
         return
 
     plainLabelUsed = 0
@@ -156,9 +158,11 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
     try:
         bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
                  justConfigFile, intf)
-        w.pop()
+	if not justConfigFile:
+	    w.pop()
     except BootyNoKernelWarning:
-        w.pop()
+	if not justConfigFile:
+	    w.pop()
         if intf:
             intf.messageWindow(_("Warning"),
                                _("No kernel packages were installed on your "
