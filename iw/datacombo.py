@@ -41,6 +41,8 @@ class DataComboBox(gtk.ComboBox):
         return self.get_stored_data(row, col)
 
     def get_stored_data(self, row, col = 1):
+        if row < 0:
+            return None
         iter = self.store.get_iter(row)
         val = self.store.get_value(iter, col)
         return val

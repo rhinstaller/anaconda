@@ -179,8 +179,7 @@ def createFSTypeMenu(fstype, fstypechangeCB, mountCombo,
                 defismountable = types[name].isMountable()
             i = i + 1
 
-    if defindex:
-        fstypecombo.set_active(defindex)
+    fstypecombo.set_active(defindex)
 
     if fstypechangeCB and mountCombo:
         fstypecombo.connect("changed", fstypechangeCB, mountCombo)
