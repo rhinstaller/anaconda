@@ -78,12 +78,14 @@ class MouseWindow (InstallWindow):
 	cur = self.getCurrentKey()
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
         self.todo.mouse.set (cur, self.emulate3.get_active ())
-	if (device == "ttyS"):
-	    self.todo.mouse.setDevice(self.serialDevice)
-	else:
-	    self.todo.mouse.setDevice(device)
 
-        self.todo.mouse.setXProtocol ()
+	if self.todo.setupFilesystems:
+	    if (device == "ttyS"):
+		self.todo.mouse.setDevice(self.serialDevice)
+	    else:
+		self.todo.mouse.setDevice(device)
+
+	    self.todo.mouse.setXProtocol ()
 
         return None
     
