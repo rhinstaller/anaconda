@@ -33,6 +33,11 @@ class AccountWindow (InstallWindow):
         self.rootPw.set (self.pw.get_text ())
 	accounts = []
 
+        # XXX hack
+        if self.users == 0:
+            self.accounts.setUserList(accounts)
+            return None
+
 	iter = self.userstore.get_iter_root()
 	next = iter
 	while next:
@@ -140,6 +145,9 @@ class AccountWindow (InstallWindow):
 
         self.accountName.grab_focus ()
 	self.passwords[accountName] = password1
+
+        # XXX hack
+        self.users = self.users + 1        
 
 	self.userlist.get_selection().select_iter(iter)
         self.win.destroy()
@@ -285,6 +293,9 @@ class AccountWindow (InstallWindow):
         self.edit.set_sensitive(gtk.FALSE)
         self.delete.set_sensitive(gtk.FALSE)
 
+        # XXX hack
+        self.users = self.users - 1
+
     def filter(self, widget, text, len, pos):
         # XXX this doesn't check copy/pase
         if len != 1:
@@ -312,6 +323,10 @@ class AccountWindow (InstallWindow):
 	self.rootPw = rootPw
 
 	self.passwords = {}
+
+        # XXX hack because store.get_iter_root ALWAYS returns a
+        # GtkTreeIter so we can't just iterate over them and find the empty one
+        self.users = 0
 
         box = gtk.VBox ()
 
@@ -377,6 +392,7 @@ class AccountWindow (InstallWindow):
 
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        sw.set_shadow_type(gtk.SHADOW_ETCHED_IN)
 
 	self.userstore = gtk.ListStore(gobject.TYPE_STRING,
 				       gobject.TYPE_STRING)
@@ -442,6 +458,9 @@ class AccountWindow (InstallWindow):
 	    self.userstore.set_value(iter, 0, user)
 	    self.userstore.set_value(iter, 1, name)
 	    self.passwords[user] = password
+
+            # XXX hack
+            self.users = self.users + 1
 
         if flags.reconfig:
             label.set_sensitive(gtk.FALSE)
