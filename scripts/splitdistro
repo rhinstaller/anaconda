@@ -7,7 +7,7 @@ disc2dirs = [ "preview" ]
 jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun",
                "GPL", "EULA"]
 
-targetSize = 645 * 1024.0 * 1024.0
+targetSize = 648 * 1024.0 * 1024.0
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
@@ -127,7 +127,7 @@ if not packageOrderFile:
 
 arch = extra[1]
 distDir = os.path.normpath(extra[0] + "/" + arch)
-srcDir = os.path.normpath(extra[0] + "/SRPMS")
+srcDir = os.path.normpath(extra[0] + "/" + arch + "/SRPMS")
 
 if not os.path.isdir(distDir):
     print "error: %s is not a directory" % distDir
@@ -176,12 +176,13 @@ for dir in disc2dirs:
     what = distDir + "/" + dir
     if os.access(what, os.R_OK):
         dirsize = dirsize + spaceUsed(distDir + "/" + dir)
+srpmsize = spaceUsed(distDir + "/SRPMS")
 
-disc1used = totalsize - rpmsize - dirsize
+disc1used = totalsize - rpmsize - dirsize - srpmsize
 
 os.system("rm -rf %s %s %s %s" % ( disc1Dir, disc2Dir, disc1SrcDir,
 				   disc2SrcDir))
-os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" % 
+os.system("mkdir -p %s %s/SRPMS %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" % 
 	    (disc1Dir, disc1SrcDir, disc2SrcDir, disc2Dir, 
              disc3Dir, disc3SrcDir))
 
@@ -190,15 +191,23 @@ print "Creating disc1..."
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
 stamp(disc1Dir, releasestr, "1", arch, startedAt)
 
+# remove the srpms dir from disc1 since it shouldn't be there
+os.system("rm -rf %s/SRPMS" % (disc1Dir,))
+
 print "Creating disc2..."
 stamp(disc2Dir, releasestr, "2", arch, startedAt)
 
 for file in jointfiles:
     linkFile(disc1Dir, disc2Dir, file)
 
+print targetSize / (1024.0 * 1024.0)
+print disc1used / (1024.0 * 1024.0)
+print fudgeFactor / (1024.0 * 1024.0)
+print compsSize / (1024.0 * 1024.0)
+print (targetSize - disc1used - fudgeFactor - compsSize) / (1024.0 * 1024.0)
 disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
 			targetSize - disc1used - fudgeFactor - compsSize)
-
+print "first to move to disc2 is", disc2pkgs[0]
 moveFiles("%s/RedHat/RPMS" % disc1Dir, 
 	  "%s/RedHat/RPMS" % disc2Dir, 
 	  disc2pkgs);
@@ -213,21 +222,23 @@ for file in jointfiles:
 disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
 			targetSize + disc1Size - disc1used - fudgeFactor)
 
+print "first to move to disc3 is", disc3pkgs[0]
 moveFiles("%s/RedHat/RPMS" % disc2Dir, 
 	  "%s/RedHat/RPMS" % disc3Dir, 
 	  disc3pkgs);
 disc3used = spaceUsed(disc3Dir)
 
 print "Creating first source disc..."
-os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
+os.system("cp -al %s %s" % (srcDir, disc1SrcDir))
 
 print "Creating second source disc..."
 stamp(disc2SrcDir, releasestr, "4", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
-disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
+disc2pkgs = excessFiles(srcDir, srcPkgList,
 			targetSize - disc3used - fudgeFactor)
+print "first src pkg to move to 2nd src cd is", disc2pkgs[0]
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
@@ -235,8 +246,9 @@ srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
 stamp(disc2SrcDir, releasestr, "5", arch, startedAt)
-disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
+disc3pkgs = excessFiles(srcDir, srcPkgList,
                         srcDisc1Size - disc3used + targetSize - fudgeFactor)
+print "first src pkg to move to 3rd src cd is", disc3pkgs[0]
 moveFiles("%s/SRPMS" % disc2SrcDir,
           "%s/SRPMS" % disc3SrcDir,
           disc3pkgs)
