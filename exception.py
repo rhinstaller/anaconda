@@ -125,9 +125,9 @@ def dumpException(out, text, tb, dispatch):
 #    dispatch.dispatch = None
 
     try:
-        if dispatch.id.xconfig and dispatch.id.xconfig.monitor:
-            dispatch.id.xconfig.monitor.monlist = None
-            dispatch.id.xconfig.monitor.monids = None
+        if dispatch.id.xsetup and dispatch.id.xsetup.monitor:
+            dispatch.id.xsetup.monitor.monlist = None
+            dispatch.id.xsetup.monitor.monids = None
         dispatch.id.langSupport.langNicks = None
         dispatch.id.langSupport.langList = None
         dispatch.id.langSupport.allSupportedLangs = None
