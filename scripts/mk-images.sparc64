@@ -55,13 +55,13 @@ cp $BOOTDISKDIR/silo.conf $TOPDESTPATH/etc
 
 # set up aout kernel images
 rm -rf $TOPDESTPATH/kernels
-elf2aout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
+elftoaout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
 gzip -9 $TOPDESTPATH/kernels/vmlinux64
 
-makekinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
-	    --initrdsize 2000 \
-	    --loaderbin loader \
-            --modules "=scsi =net"
+makeinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
+	   --initrdsize 2000 \
+	   --loaderbin loader \
+           --modules "=scsi =net"
 
 maketftp --kernel $TOPDESTPATH/kernels/vmlinux64.gz \
 	 --imagename $TOPDESTPATH/boot/tftp64.img \
