@@ -21,7 +21,7 @@ struct moduleInfo {
     int numArgs;
     struct moduleArg * args;
     int flags;
-    char * path;
+    char * locationID;
 };
 
 struct moduleInfoSet_s {
