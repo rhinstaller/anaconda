@@ -648,7 +648,7 @@ static char *doLoaderMain(char * location,
         validMethods[numValidMethods] = i;
 
         /* have we preselected this to be our install method? */
-        if (loaderData->method && 
+        if (loaderData->method && *loaderData->method && 
             !strcmp(loaderData->method, installMethods[i].shortname)) {
             methodNum = numValidMethods;
         }
