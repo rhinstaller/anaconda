@@ -3,6 +3,9 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <sys/stat.h>
+#include <glob.h>
+#include <dirent.h>
 #include <rpmlib.h>
 #include <stdlib.h>
 #include <string.h>
@@ -14,10 +17,11 @@
 #define FILESIZE_TAG 1000001
 
 int tags[] =  { RPMTAG_NAME, RPMTAG_VERSION, RPMTAG_RELEASE, RPMTAG_SERIAL,
-		RPMTAG_FILENAMES, RPMTAG_FILESIZES, RPMTAG_GROUP,
-		RPMTAG_REQUIREFLAGS, RPMTAG_REQUIRENAME, RPMTAG_REQUIREVERSION,
-		RPMTAG_DESCRIPTION, RPMTAG_SUMMARY, RPMTAG_PROVIDES,
-		RPMTAG_SIZE, RPMTAG_OBSOLETES };
+		RPMTAG_COMPFILEDIRS, RPMTAG_COMPFILELIST, RPMTAG_COMPDIRLIST,
+		RPMTAG_FILESIZES, RPMTAG_GROUP, RPMTAG_REQUIREFLAGS, 
+		RPMTAG_REQUIRENAME, RPMTAG_REQUIREVERSION, RPMTAG_DESCRIPTION, 
+		RPMTAG_SUMMARY, RPMTAG_PROVIDES, RPMTAG_SIZE, 
+		RPMTAG_OBSOLETES };
 int numTags = sizeof(tags) / sizeof(int);
 
 int main(int argc, char ** argv) {
@@ -58,7 +62,7 @@ int main(int argc, char ** argv) {
 
     unlink(buf);
     
-    outfd = fdOpen(buf, O_WRONLY | O_TRUNC | O_CREAT, 0644);
+    outfd = fdio->open(buf, O_WRONLY | O_TRUNC | O_CREAT, 0644);
     if (!outfd) {
 	fprintf(stderr,"error creating file %s: %s\n", buf, strerror(errno));
 	return 1;
@@ -74,14 +78,14 @@ int main(int argc, char ** argv) {
     while (ent) {
        int i = strlen (ent->d_name);
        if (i > 4 && strcasecmp (&ent->d_name [i - 4], ".rpm") == 0) {
-	    fd = fdOpen(ent->d_name, O_RDONLY, 0666);
+	    fd = fdio->open(ent->d_name, O_RDONLY, 0666);
 
 	    if (!fd) {
 		perror("open");
 		exit(1);
 	    }
 
-	    fstat(fdFileno(fd), &sb);
+	    fstat(fdio->fileno(fd), &sb);
 	    size = sb.st_size;
 
 	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
@@ -118,7 +122,7 @@ int main(int argc, char ** argv) {
 		headerWrite(outfd, h, HEADER_MAGIC_YES);
 		headerFree(h);
 	    }
-	    fdClose(fd);
+	    fdio->close(fd);
 	}
 
 	errno = 0;
@@ -130,7 +134,7 @@ int main(int argc, char ** argv) {
     } 
 
     closedir(dir);
-    fdClose(outfd);
+    fdio->close(outfd);
 
     return 0;
 }
