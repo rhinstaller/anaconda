@@ -1039,12 +1039,23 @@ class Partitions:
             args.extend(["--name=%s" %(request.logicalVolumeName,),
                          "--vgname=%s" %(vg.volumeGroupName,)])
 
-            if request.percent is not None:
-                args.append("--percent=%s" %(request.percent,))
-            elif request.size is not None:
-                args.append("--size=%s" %(request.size,))
-            else:
-                continue
+	    if request.grow:
+		if request.startSize is not None:
+		    args.append("--size=%s" %(request.startSize,))
+		else:
+		    # shouldnt happen
+		    continue
+		
+		args.append("--grow")
+		if request.maxSizeMB is not None and int(request.maxSizeMB) > 0:
+		    args.append("--maxsize=%s",%(request.maxSizeMB,))
+	    else:
+		if request.percent is not None:
+		    args.append("--percent=%s" %(request.percent,))
+		elif request.size is not None:
+		    args.append("--size=%s" %(request.size,))
+		else:
+		    continue
             
             f.write("#logvol %s\n" % (string.join(args)))            
 
