@@ -1,11 +1,7 @@
 #ifndef H_LOADER_NET
 #define H_LOADER_NET
 
-#ifdef __STANDALONE__
 #include "pump.h"
-#else
-#include "pump/pump.h"
-#endif
 
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
