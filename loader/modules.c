@@ -11,6 +11,7 @@
 #include "isys/isys.h"
 
 #include "loader.h"
+#include "log.h"
 #include "modules.h"
 
 struct moduleDependency_s {
@@ -165,8 +166,8 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 int mlLoadModule(char * modName, moduleList modLoaded,
 	         moduleDeps modDeps, char ** args, int flags) {
     moduleDeps dep;
-    char ** nextDep;
-    char fileName[80];
+    char ** nextDep, ** argPtr;
+    char fileName[200];
     int rc, i;
     char ** arg, ** newArgs;
 
@@ -187,11 +188,20 @@ int mlLoadModule(char * modName, moduleList modLoaded,
     }
 
     sprintf(fileName, "%s.o", modName);
+    for (argPtr = args; argPtr && *argPtr; argPtr++)  {
+	strcat(fileName, " ");
+	strcat(fileName, *argPtr);
+    }
 
-    if (FL_TESTING(flags)) 
+    sprintf(fileName, "%s.o", modName);
+
+    if (FL_TESTING(flags)) {
+	logMessage("would have insmod %s", fileName);
 	rc = 0;
-    else
+    } else {
+	logMessage("going to insmod %s", fileName);
 	rc = insmod(fileName, args);
+    }
 
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
