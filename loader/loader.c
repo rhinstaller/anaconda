@@ -2456,8 +2456,8 @@ static void checkForRam(int flags) {
 	startNewt(flags);
 	newtWinMessage(_("Error"), _("OK"), _("You do not have enough "
 			"RAM to install Red Hat Linux on this machine."
-	                "You need at least 32 MB of RAM to complete the "
-	                "installation."));
+	                "You need at least %d MB of RAM to complete the "
+	                "installation.", MIN_RAM/1000));
 	stopNewt();
 	exit(0);
     }
