@@ -216,8 +216,7 @@ class reiserfsFileSystem(FileSystemType):
         self.linuxnativefs = 1
         self.name = "reiserfs"
 
-        # XXX probably wrong
-        self.maxSize = 4 * 1024 * 1024
+        self.maxSize = 2 * 1024 * 1024
 
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -245,7 +244,7 @@ class extFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
-        self.maxSize = 4 * 1024 * 1024
+        self.maxSize = 2 * 1024 * 1024
         self.extraFormatArgs = []
 
     def formatDevice(self, entry, progress, chroot='/'):
@@ -324,7 +323,7 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.checked = 0
         self.linuxnativefs = 1
         self.name = "software RAID"
-        self.maxSize = 4 * 1024 * 1024
+        self.maxSize = 2 * 1024 * 1024
         self.supported = 1
 
     def formatDevice(self, entry, progress, chroot='/'):
