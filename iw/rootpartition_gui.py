@@ -394,7 +394,7 @@ class LBA32WarningWindow(InstallWindow):
             vbox = GtkVBox (FALSE, 5)
 
 
-            if not self.todo.fstab.edd or 1:
+            if not self.todo.fstab.edd:
                 label = GtkLabel (
                     _("You have put the partition containing the kernel (the "
                       "boot partition) above the 1023 cylinder limit, and "
@@ -415,7 +415,7 @@ class LBA32WarningWindow(InstallWindow):
                       "booting from above this limit. \n\n"
                       "It is HIGHLY recommended you make a boot floppy when "
                       "asked by the installer, as this is a new feature in "
-                      "recent motherboard and is not always reliable. "
+                      "recent motherboards and is not always reliable. "
                       "Making a boot disk will guarantee you can boot "
                       "your system once installed."))
 
@@ -424,7 +424,7 @@ class LBA32WarningWindow(InstallWindow):
             label.set_alignment(0.0, 0.0)
             vbox.pack_start (label, FALSE, FALSE)
 
-            if not self.todo.fstab.edd or 1:            
+            if not self.todo.fstab.edd:
                 vbox2 = GtkVBox (FALSE, 5)
                 
                 self.proceed = GtkRadioButton (None, _("Yes"))

@@ -351,25 +351,40 @@ class LBA32WarningWindow:
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
-	ButtonChoiceWindow(screen, "", "%s" % todo.fstab.getBootPartitionMaxCyl(),
-                           buttons = [ _("OK") ])
-
-        if todo.fstab.getBootPartitionMaxCyl() > 1023 and not todo.fstab.edd:
-            rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
-                    _("You have put the partition containing the kernel (the "
+        if todo.fstab.getBootPartitionMaxCyl() > 1023:
+            if not todo.fstab.edd:
+                rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
+                     _("You have put the partition containing the kernel (the "
                       "boot partition) above the 1023 cylinder limit, and "
                       "it appears that this systems BIOS does not support "
                       "booting from above this limit. Proceeding will "
                       "most likely make the system unable to reboot into "
                       "Linux.\n\n"
+                      "If you choose to proceed, it is HIGHLY recommended "
+                      "you make a boot floppy when asked. This will "
+                      "guarantee you have a way to boot into the system "
+                      "after installation.\n\n"
                       "Are you sure you want to proceed?"),
-	    [ (_("Yes"), "yes") , (_("No"), "no") ], width = 50,
-                                    help = "lba32warning")
+                     [ (_("Yes"), "yes") , (_("No"), "no") ], width = 50,
+                     help = "lba32warning")
 
-            if rc == "no":
-                return INSTALL_BACK
+                if rc == "no":
+                    return INSTALL_BACK
+                else:
+                    return INSTALL_OK
             else:
-                return INSTALL_OK
+                rc = ButtonChoiceWindow(screen, _("Boot Partition Warning"),
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1023 cylinder limit. "
+                      "It appears that this systems BIOS supports "
+                      "booting from above this limit. \n\n"
+                      "It is HIGHLY recommended you make a boot floppy when "
+                      "asked by the installer, as this is a new feature in "
+                      "recent motherboards and is not always reliable. "
+                      "Making a boot disk will guarantee you can boot "
+                      "your system once installed."),
+                     [ (_("Ok"), "ok") ], width = 50,
+                     help = "lba32warning")
         else:
             return INSTALL_NOOP
             
