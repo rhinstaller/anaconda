@@ -7,6 +7,7 @@ import os
 from flags import flags
 import dispatch
 import rpm
+from translate import _
 
 def probeFloppyDevice():
     fdDevice = "fd0"
