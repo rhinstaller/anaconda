@@ -50,7 +50,7 @@ class MiloInstall:
 		pass
         else:
             confprefix = self.todo.instPath + "/etc"
-            kernelprefix = '/boot'
+            kernelprefix = '/boot/'
             partition = partitionNum (self.todo.mounts['/'])
             abootdev = wholeDevice (self.todo.mounts['/'])
 
@@ -70,7 +70,7 @@ class MiloInstall:
                 self.todo.hdList[package].selected):
                 kernel = self.todo.hdList[package]
                 version = "%s-%s" % (kernel['version'], kernel['release'])
-                f.write ("%d:%d%s/vmlinuz-%s%s root=/dev/%s\n" %
+                f.write ("%d:%d%svmlinuz-%s%s root=/dev/%s\n" %
                          (lines, partition, kernelprefix, version, tag, rootdev))
                 lines = lines + 1
 
@@ -99,7 +99,7 @@ class MiloInstall:
 		pass
         else:
             hasboot = 0
-            kernelroot = '/boot'            
+            kernelroot = '/boot/'
 
         f = open (self.todo.instPath + "/etc/milo.conf")
         if hasboot:
@@ -119,7 +119,7 @@ class MiloInstall:
                 else:
                     kernels.append ((version, "linux"))
         for version, label in kernels:
-            f.write ("image=%s/vmlinuz-%s\n" % (kernelroot, version))
+            f.write ("image=%svmlinuz-%s\n" % (kernelroot, version))
             f.write ("\tlabel=%s\n" % label)
             f.write ("\troot=/dev/%s" % self.todo.mounts ['/'])
                 
