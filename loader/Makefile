@@ -31,7 +31,7 @@ endif
 ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
-#OBJS += stubs.o 
+OBJS += stubs.o 
 endif
 
 ifeq (alpha, $(ARCH))
