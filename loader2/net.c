@@ -799,6 +799,8 @@ int chooseNetworkInterface(struct loaderData_s * loaderData,
     devices = alloca((i + 1) * sizeof(*devices));
     deviceNames = alloca((i + 1) * sizeof(*devices));
     for (i = 0; devs[i]; i++) {
+        if (!devs[i]->device)
+	    continue;
         if (devs[i]->desc) {
                 deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
                                           strlen(devs[i]->desc) + 4);
