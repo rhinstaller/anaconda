@@ -38,10 +38,10 @@ PKGTYPE_MANDATORY = 0
 PKGTYPE_DEFAULT = 1
 PKGTYPE_OPTIONAL = 2
 
-EVERYTHING_DESCRIPTION = N_("This group includes all the packages available.  "
-                            "Note that there are substantially more packages "
-                            "than just the ones in all the other package "
-                            "groups on this page.")
+EVERYTHING_DESCRIPTION = _("This group includes all the packages available.  "
+                           "Note that there are substantially more packages "
+                           "than just the ones in all the other package "
+                           "groups on this page.")
 
 EverythingExclude = {'kernel' : None,		'kernel-BOOT' : None,
                      'kernel-smp' : None,	'kernel-bigmem' : None,
@@ -553,7 +553,7 @@ class GroupSet:
 
         # build up an Everything group 
         everything = rhpl.comps.Group(self.compsxml)
-        everything.name = N_("Everything")
+        everything.name = _("Everything")
         everything.id = "everything"
         everything.description = EVERYTHING_DESCRIPTION
         for pkgname in hdrlist.pkgnames.keys():
