@@ -470,7 +470,10 @@ class PartitionWindow:
 	ptype = origrequest.fstype.getName()
 	if ptype == "foreign":
 	    part = get_partition_by_name(self.diskset.disks, origrequest.device)
-	    ptype = map_foreign_to_fsname(part.native_type)
+            if part is not None:
+                ptype = map_foreign_to_fsname(part.native_type)
+            else:
+                pytype = _("Foreign")
 	type = Label(ptype)
 	subgrid.setField(type, 1, srow, (0,0,0,1), anchorRight = 1)
 	srow = srow +1
