@@ -68,7 +68,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.update_radio = gtk.RadioButton(None, _("_Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
-        if self.type != None and self.bootDev != None:
+        if self.type is not None and self.bootDev is not None:
             current = _("The installer has detected the %s boot loader "
                         "currently installed on %s.") % (self.type,
                                                          self.bootDev)
