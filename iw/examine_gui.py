@@ -12,9 +12,7 @@ class UpgradeExamineWindow (InstallWindow):
 
     def toggled (self, widget, newPart):
         if widget.get_active ():
-	    for part in self.parts:
-		if part == newPart:
-		    self.root = part
+	    self.root = newPart
 
     def getNext (self):
         threads_leave ()
@@ -59,9 +57,9 @@ class UpgradeExamineWindow (InstallWindow):
             self.root = self.parts[0]
             group = None
 	    row = 1
-            for part in self.parts:
+            for (part, filesystem) in self.parts:
                 group = GtkRadioButton (group, part)
-                group.connect ("toggled", self.toggled, part)
+                group.connect ("toggled", self.toggled, (part, filesystem))
 		table.attach(group, 1, 2, row, row+1)
 		row = row + 1
 
