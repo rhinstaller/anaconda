@@ -18,7 +18,7 @@ everything: $(DEPTARGET)
 all: $(TARGET) _balkanmodule.so
 
 _balkanmodule.so: _balkanmodule.o libbalkan.a
-	gcc -shared -o $@ _balkanmodule.o libbalkan.a
+	gcc -shared -fPIC -o $@ _balkanmodule.o libbalkan.a
 
 _balkanmodule.o: _balkanmodule.c balkan.h
 	gcc $(CFLAGS) -c -fPIC -o $@ $< 

@@ -35,7 +35,7 @@ all: subdirs $(PYMODULES) libisys.a
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
-	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
+	gcc -shared -fPIC -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
