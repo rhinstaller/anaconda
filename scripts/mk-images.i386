@@ -88,7 +88,7 @@ LATEUSBMODS="mousedev usb-storage"
 IDEMODS=""
 SCSIMODS="sd_mod sr_mod st"
 
-FSMODS="msdos vfat ext3 reiserfs"
+FSMODS="msdos vfat ext3 reiserfs jfs"
 SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb"
