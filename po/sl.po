@@ -1,4 +1,4 @@
-# Slovenian message catalogue for rhinstall.
+# SLOVENIAN MESSAGE CATALOGUE FOR RHINSTALL.
 # Copyright (C) 1999 Free Software Foundation, Inc.
 # Primoz Peterlin <primoz.peterlin@biofiz.mf.uni-lj.si>, 1999.
 # Roman Maurer <roman.maurer@hermes.si>, 1999.
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.1\n"
 "POT-Creation-Date: 1999-09-13 14:19-0400\n"
-"PO-Revision-Date: 1999-09-15 12:30+0200\n"
+"PO-Revision-Date: 1999-09-15 22:30+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -170,7 +170,7 @@ msgstr "Napaka"
 
 #: ../text.py:192
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
-msgstr "Nimate nobene particije Linuxa. Tega sistema ne morete nadgraditi!"
+msgstr "Nimate nobene razdelitve Linuxa. Tega sistema ne morete nadgraditi!"
 
 #: ../text.py:205
 msgid "System to Upgrade"
@@ -178,7 +178,7 @@ msgstr "Nadgraditev sistema"
 
 #: ../text.py:206
 msgid "What partition holds the root partition of your installation?"
-msgstr "Katera particija je korenska particija va¹ega sistema?"
+msgstr "Katera razdelitev je korenska razdelitev va¹ega sistema?"
 
 #: ../text.py:221
 msgid "Customize Packages to Upgrade"
@@ -703,7 +703,7 @@ msgid ""
 "You don't have any Linux partitions.\n"
 " You can't upgrade this sytem!"
 msgstr ""
-"Nimate nobene particije Linuxa.\n"
+"Nimate nobene razdelitve Linuxa.\n"
 " Tega sistema ne morete nadgraditi!"
 
 #: ../iw/examine.py:53
@@ -720,7 +720,7 @@ msgstr "Izberite pogon na katerem boste poganjali fdisk"
 
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
-msgstr "Izberite particije za formatiranje"
+msgstr "Izberite razdelitve za formatiranje"
 
 #: ../iw/format.py:47
 msgid "Check for bad blocks while formatting"
@@ -757,7 +757,7 @@ msgstr "Nadgradnja"
 
 #: ../iw/installpath.py:183
 msgid "Use fdisk to format drives"
-msgstr ""
+msgstr "Uporabite fdisk za formatiranje diskov"
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
@@ -797,7 +797,7 @@ msgstr "Glavni zagonski zapis (MBR)"
 
 #: ../iw/lilo.py:137
 msgid "First sector of boot partition"
-msgstr "Prvi sektor zaganjalne particije"
+msgstr "Prvi sektor zaganjalne razdelitve"
 
 #: ../iw/lilo.py:141 ../textw/lilo.py:18
 msgid "Use linear mode (needed for some SCSI drives)"
@@ -821,7 +821,7 @@ msgstr "Privzeta"
 
 #: ../iw/lilo.py:174 ../textw/lilo.py:135
 msgid "Partition type"
-msgstr "Vrsta particije"
+msgstr "Vrsta razdelitve"
 
 #: ../iw/lilo.py:174 ../iw/lilo.py:209 ../textw/lilo.py:78
 #: ../textw/lilo.py:135
@@ -1092,7 +1092,7 @@ msgid ""
 "label you want to use for each of them."
 msgstr ""
 "Zagonski upravljalnik, ki ga uporablja Red Hat, lahko zaganja tudi druge "
-"operacijske sisteme. Doloèiti morate, s katerih particij bi radi zaganjali "
+"operacijske sisteme. Doloèiti morate, s katerih razdelitev bi radi zaganjali "
 "sistem in kak¹ne oznake bi radi uporabljali za njih."
 
 #: ../textw/packages.py:117
@@ -1132,7 +1132,7 @@ msgid ""
 "two hard drives in your system so you can boot into Linux with LILO."
 msgstr ""
 "Za namestitev Red Hat Linuxa, morate imeti zanj posveèeno najmanj eno "
-"particijo velikosti 150 MB. Priporoèamo vam, da je ta particija na enem od "
+"razdelitev velikosti 150 MB. Priporoèamo vam, da je ta razdelitev na enem od "
 "prvih dveh diskov v va¹em sistemu, da boste lahko zaganjali Linux z "
 "nalagalnikom LILO."
 
@@ -1146,7 +1146,7 @@ msgstr "Nadaljevanje"
 
 #: ../textw/partitioning.py:130
 msgid "Low Memory"
-msgstr ""
+msgstr "Premajhen pomnilnik"
 
 #: ../textw/partitioning.py:131
 msgid ""
@@ -1154,6 +1154,8 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
+"Ker nimate dovolj pomnilnika, moramo takoj ugasniti izmenjalni prostor. Za "
+"to bomo morali takoj zapisati razdelitveno tabelo na disk.  Je to v redu?"
 
 #: ../textw/partitioning.py:150
 msgid ""
@@ -1162,9 +1164,10 @@ msgid ""
 "format /home or /usr/local if they have already been configured during a "
 "previous install."
 msgstr ""
-"Katere particije bi ¾eleli formatirati? Moèno priporoèamo formatiranje vseh "
-"sistemskih particij, vkljuèno z /, /usr in /var. Formatiranje particij /home "
-"ali /usr/local ni potrebno, èe so bile nastavljene med prej¹no namestitvijo."
+"Katere razdelitve bi ¾eleli formatirati? Moèno priporoèamo formatiranje vseh "
+"sistemskih razdelitev, vkljuèno z /, /usr in /var. Formatiranje razdelitev "
+"/home ali /usr/local ni potrebno, èe so bile nastavljene med prej¹no "
+"namestitvijo."
 
 #: ../textw/partitioning.py:170
 msgid "Check for bad blocks during format"
@@ -1172,7 +1175,7 @@ msgstr "Iskanje slabih blokov med formatiranjem"
 
 #: ../textw/partitioning.py:174
 msgid "Choose Partitions to Format"
-msgstr "Izberite particije za formatiranje"
+msgstr "Izberite razdelitve za formatiranje"
 
 #: ../textw/userauth.py:12
 msgid ""
@@ -1340,7 +1343,7 @@ msgid ""
 msgstr ""
 "Toèka priklopa %s ni dobra.\n"
 "\n"
-"Sistemske particije morajo biti v particijah tipa Linux."
+"Sistemske razdelitve morajo biti v razdelitvah tipa Linux."
 
 #: ../libfdisk/fsedit.c:651
 #, c-format
@@ -1351,7 +1354,7 @@ msgid ""
 msgstr ""
 "Toèka priklopa %s ni dovoljena.\n"
 "\n"
-"/usr mora biti na particiji tipa Linux ali NFS."
+"/usr mora biti na razdelitvi tipa Linux ali NFS."
 
 #: ../libfdisk/fsedit.c:679
 msgid "Too Many Drives"
@@ -1405,7 +1408,7 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
-"Med branjem particijske tabele blokovne naprave je pri¹lo do napake. Napaka "
+"Med branjem razdelitvene tabele blokovne naprave je pri¹lo do napake. Napaka "
 "je bila"
 
 #: ../libfdisk/fsedit.c:1005
@@ -1414,13 +1417,13 @@ msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive."
 msgstr ""
-"Particijska tabela naprave %s je po¹kodovana.  Èe ¾elite ustvarjati na njej "
-"nove particije, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
+"Razdelitvena tabela naprave %s je po¹kodovana.  Èe ¾elite ustvarjati na njej "
+"nove razdelitve, jo morate inicializirati, kar bo povzroèilo izgubo VSEH "
 "PODATKOV na tem pogonu."
 
 #: ../libfdisk/fsedit.c:1010
 msgid "Bad Partition Table"
-msgstr "Slaba particijska tabela"
+msgstr "Slaba razdelitvena tabela"
 
 #: ../libfdisk/fsedit.c:1011
 msgid "Initialize"
@@ -1463,7 +1466,7 @@ msgstr "<Razdelitev RAID>"
 
 #: ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
 msgid "Delete Partition"
-msgstr "Odstranitev particije"
+msgstr "Odstranitev razdelitve"
 
 #: ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
 msgid "Are you sure you want to delete this partition?"
@@ -1474,7 +1477,7 @@ msgstr "Ste preprièani, da ¾elite odstraniti to razdelitev?"
 #: ../libfdisk/newtfsedit.c:263 ../libfdisk/newtfsedit.c:269
 #: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
 msgid "Edit Partition"
-msgstr "Uredi particijo"
+msgstr "Uredi razdelitev"
 
 #: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
 msgid "Mount Point:"
@@ -1506,7 +1509,7 @@ msgstr "Razlog neuspeha:"
 
 #: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
 msgid "Partition Type:"
-msgstr "Vrsta particije:"
+msgstr "Vrsta razdelitve:"
 
 #: ../libfdisk/gnomefsedit.c:851
 msgid "Allowable Drives:"
@@ -1522,7 +1525,7 @@ msgid ""
 "You have not selected a mount point for this partition. Are you sure you "
 "want to do this?"
 msgstr ""
-"Niste izbrali toèku priklopa za to particijo. Ste preprièani, da ¾elite to "
+"Niste izbrali toèke priklopa za to razdelitev. Ste preprièani, da ¾elite to "
 "storiti?"
 
 #: ../libfdisk/gnomefsedit.c:1000 ../libfdisk/gnomefsedit.c:1854
@@ -1553,7 +1556,7 @@ msgstr ""
 #: ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
 #: ../libfdisk/newtfsedit.c:581
 msgid "Swap Size Error"
-msgstr "Napaka zaradi velikosti izmenjalne particije"
+msgstr "Napaka zaradi velikosti izmenjalnega prostora"
 
 #: ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
 #: ../libfdisk/newtfsedit.c:582
@@ -1562,8 +1565,8 @@ msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
-"Napravili ste preveliko izmenjalno particiju. Maksimalna velikost te "
-"particije je %ld megabajtov."
+"Napravili ste preveliko izmenjalno razdelitev. Maksimalna velikost te "
+"razdelitve je %ld megabajtov."
 
 #: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
 msgid "No RAID Drive Constraint"
@@ -1752,15 +1755,15 @@ msgstr "Ste preprièani, da ¾elite odstraniti to napravo RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
 msgid "Reset Partition Table"
-msgstr "Povrni particijsko tabelo"
+msgstr "Povrni razdelitveno tabelo"
 
 #: ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
 msgid "Reset partition table to original contents? "
-msgstr "Vzpostavimo prvotno stanje particijske tabele?"
+msgstr "Vzpostavimo prvotno stanje razdelitvene tabele?"
 
 #: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
 msgid "<Swap>"
-msgstr "<izmenjalna>"
+msgstr "<Izmenjalna>"
 
 #: ../libfdisk/gnomefsedit.c:2382
 msgid "<RAID>"
@@ -1834,11 +1837,11 @@ msgstr "Povzetki vsebine diskov"
 
 #: ../libfdisk/newtfsedit.c:142
 msgid "Swap Partition"
-msgstr "Izmenjalna particija"
+msgstr "Izmenjalna razdelitev"
 
 #: ../libfdisk/newtfsedit.c:1282
 msgid "Current Disk Partitions"
-msgstr "Trenutne particije diska"
+msgstr "Trenutne razdelitve diska"
 
 #: ../libfdisk/newtfsedit.c:1315
 msgid "Drive Summaries"
@@ -1846,24 +1849,24 @@ msgstr "Povzetki vsebine diskov"
 
 #: ../libfdisk/newtfsedit.c:1430
 msgid "No Root Partition"
-msgstr "Korenske particije ni"
+msgstr "Korenske razdelitve ni"
 
 #: ../libfdisk/newtfsedit.c:1431
 msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Eni od particij tipa Linux morate dodeliti korensko (/) particijo, da se "
+"Eni od razdelitev tipa Linux morate dodeliti korensko (/) razdelitev, da se "
 "lahko namestitev nadaljuje."
 
 #: ../libfdisk/newtfsedit.c:1451
 msgid "No Swap Partition"
-msgstr "Izmenjalne particije ni"
+msgstr "Izmenjalne razdelitve ni"
 
 #: ../libfdisk/newtfsedit.c:1452
 msgid "You must assign a swap partition for the install to proceed."
 msgstr ""
-"Dodeliti morate izmenjalno particijo, da se lahko namestitev nadaljuje."
+"Dodeliti morate izmenjalno razdelitev, da se lahko namestitev nadaljuje."
 
 #: ../libfdisk/newtfsedit.c:1484
 msgid ""
@@ -1872,7 +1875,7 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"©e nekaj nedodeljenih particij je ostalo. Èe zapustimo program, ne bodo "
+"©e nekaj nedodeljenih razdelitev je ostalo. Èe zapustimo program, ne bodo "
 "zapisane na disk.\n"
 "\n"
 "Naj res zapustimo program?"
@@ -1883,7 +1886,7 @@ msgstr "Shrani spremembe"
 
 #: ../libfdisk/newtfsedit.c:1502
 msgid "Save changes to partition table(s)?"
-msgstr "Shrani spremembe v particijsko tabelo"
+msgstr "Shrani spremembe v razdelitveno tabelo"
 
 #: ../libfdisk/newtfsedit.c:1546
 msgid "You may only delete NFS mounts."
@@ -1991,7 +1994,7 @@ msgstr ""
 
 #: ../loader/loader.c:226
 msgid "SCSI"
-msgstr ""
+msgstr "SCSI"
 
 #: ../loader/loader.c:238
 msgid "What kind of device would you like to add"
@@ -2010,6 +2013,8 @@ msgid ""
 "I don't have any special device drivers loaded for your system. Would you "
 "like to load some now?"
 msgstr ""
+"Za va¹ sistem ¹e ni nalo¾enih posebnih gonilnikov.  Bi jih radi nalo¾ili "
+"zdaj?"
 
 #: ../loader/loader.c:393 ../loader/loader.c:395
 msgid "Loading"
@@ -2041,7 +2046,7 @@ msgid ""
 "RedHat/base directories? If you don't see the disk drive you're using listed "
 "here, press F2 to configure additional devices."
 msgstr ""
-"Na kateri particiji in v katerem imeniku se nahajata imenika RedHat/RPMS in "
+"Na kateri razdelitvi in v katerem imeniku se nahajata imenika RedHat/RPMS in "
 "RedHat/base?  Èe ne vidite diskovnega pogona, ki ste ga tukaj navedli, "
 "pritisnite F2 za nastavitev dodatnih naprav."
 
@@ -2051,7 +2056,7 @@ msgstr "Imenik z Red Hatom:"
 
 #: ../loader/loader.c:620
 msgid "Select Partition"
-msgstr "Izberite particijo"
+msgstr "Izberite razdelitev"
 
 #: ../loader/loader.c:664
 #, c-format
@@ -2063,6 +2068,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"CD-ROM-a z Red Hat Linuxom ne najdem v nobenem od va¹ih pogonov CD-ROM. "
+"Prosim vstavite CD Red Hata in pritisnite \"V redu\" za ponoven poskus."
 
 #: ../loader/loader.c:842
 msgid "That directory does not seem to contain a Red Hat installation tree."
@@ -2090,7 +2097,7 @@ msgstr "Metoda namestitve"
 
 #: ../loader/loader.c:1060
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Kak¹ne vrste nosilec vsebuje re¹ilno sliko?"
 
 #: ../loader/loader.c:1062
 msgid "What type of media contains the packages to be installed?"
@@ -2144,7 +2151,7 @@ msgstr ""
 
 #: ../loader/net.c:270
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
-msgstr ""
+msgstr "Uporaba dinamiène nastavitve IP (BOOTP/DHCP)"
 
 #: ../loader/net.c:298
 msgid "Configure TCP/IP"
