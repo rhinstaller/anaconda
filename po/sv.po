@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2000-06-30 14:48-0400\n"
-"PO-Revision-Date: 2000-06-29 18:46+0200\n"
+"POT-Creation-Date: 2000-06-01 11:33-0400\n"
+"PO-Revision-Date: 2000-07-03 00:23+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -447,11 +447,11 @@ msgid ""
 msgstr ""
 "Gratulerar, installationen är färdig.\n"
 "\n"
-"Tryck enter för att starta om och se till att ta bort ditt bootmedia när "
+"Tryck enter för att starta om och se till att ta bort ditt bootmedium när "
 "systemet startar om, annars kommer installationsprogrammet att startas igen. "
-"För information om vilka uppdateringar som finns för denna utgåva av Red Hat "
-"Linux, ta en titt på fellistan som du finner på "
-"http://www.redhat.com/errata.\n"
+"Ta en titt på fellistan (som du finner på http://www.redhat.com/errata) för "
+"information om vilka uppdateringar som finns för denna utgåva av Red Hat "
+"Linux.\n"
 "\n"
 "Information om konfigurering och användning av ditt Red Hat Linux-system "
 "finns i Red Hat Linux-manualerna."
@@ -481,15 +481,15 @@ msgstr "Paketinstallation"
 
 #: ../text.py:580
 msgid "Name   : "
-msgstr "Namn   : "
+msgstr "Namn    : "
 
 #: ../text.py:581
 msgid "Size   : "
-msgstr "Storlek: "
+msgstr "Storlek : "
 
 #: ../text.py:582
 msgid "Summary: "
-msgstr "Sammanf: "
+msgstr "Sammanf.: "
 
 #: ../text.py:608
 msgid "    Packages"
@@ -707,7 +707,12 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
 
-#: ../todo.py:488
+#: ../todo.py:350
+#, c-format
+msgid "Error copying timezone (from %s): %s"
+msgstr "Fel vid kopiering av tidszon (från %s): %s"
+
+#: ../todo.py:417
 msgid "Creating boot disk..."
 msgstr "Skapar bootdiskett..."
 
@@ -1767,7 +1772,7 @@ msgstr "Nätmask:"
 
 #: ../loader/net.c:290 ../textw/network_text.py:71
 msgid "Default gateway (IP):"
-msgstr "Standard gateway (IP):"
+msgstr "Standard-gateway (IP):"
 
 #: ../loader/net.c:293 ../textw/network_text.py:72
 msgid "Primary nameserver:"
@@ -1871,8 +1876,8 @@ msgid ""
 "previous install."
 msgstr ""
 "Vilka partitioner vill du formatera? Vi rekommenderar varmt att samtliga "
-"systempartitioner, inkluderandes /, /usr och /var, formateras. Du behöver "
-"inte formatera /home eller /usr/local om de redan har konfigurerats under en "
+"systempartitioner inklusive /, /usr och /var formateras. Du behöver inte "
+"formatera /home eller /usr/local om de redan har konfigurerats under en "
 "tidigare installation."
 
 #: ../textw/partitioning_text.py:254
@@ -1991,27 +1996,27 @@ msgstr "Lägg till användare"
 
 #: ../textw/userauth_text.py:80
 msgid "User ID"
-msgstr "Användarid"
+msgstr "Användar-ID"
 
 #: ../textw/userauth_text.py:95
 msgid "Bad User ID"
-msgstr "Användarid"
+msgstr "Användar-ID"
 
 #: ../textw/userauth_text.py:96
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
-"Användarid måste innehålla färre än 8 tecken, och endast tecknen A-Z, a-z "
-"och 0-9."
+"Användar-ID måste vara färre än 8 tecken och endast innehålla tecknen A-Z, "
+"a-z och 0-9."
 
 #: ../textw/userauth_text.py:103
 msgid "Missing User ID"
-msgstr "Användarid saknas"
+msgstr "Användar-ID saknas"
 
 #: ../textw/userauth_text.py:104
 msgid "You must provide a user ID"
-msgstr "Du måste ange ett användarid"
+msgstr "Du måste ange ett användar-ID"
 
 #: ../textw/userauth_text.py:109
 msgid "The password must be at least 6 characters long."
@@ -2030,7 +2035,7 @@ msgstr ""
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
-msgstr "Detta användarid finns redan. Välj ett annat."
+msgstr "Detta användar-ID finns redan. Välj ett annat."
 
 #: ../textw/userauth_text.py:161
 msgid ""
@@ -2062,7 +2067,7 @@ msgstr "Ange användarens information."
 
 #: ../textw/userauth_text.py:220
 msgid "Change the information for this user."
-msgstr "Ändra denna användares information."
+msgstr "Ändra den här användarens information."
 
 #: ../textw/userauth_text.py:291
 msgid "Use Shadow Passwords"
@@ -2800,7 +2805,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1448
 msgid "Drive Summaries"
-msgstr "Hårddisköversikter"
+msgstr "Hårddisksummeringar"
 
 #: ../libfdisk/newtfsedit.c:1450
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
