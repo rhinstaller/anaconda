@@ -21,6 +21,7 @@ class InstallClass(BaseInstallClass):
 	self.showGroups(comps, 
 			  [ "KDE", 
 			    ("GNOME", 0),
+                            "Classic X Window System",
 			    ("X Window System", 0),
                             "DNS Name Server",
                             "Web Server",
