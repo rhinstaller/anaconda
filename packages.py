@@ -235,7 +235,7 @@ def handleX11Packages(dir, intf, disp, id, instPath):
     elif kdeSelected:
         id.desktop.setDefaultDesktop("KDE")
 
-    if (gnomeSelected or kdeSelected) and (xinstalled) and (not flags.serial):
+    if (gnomeSelected or kdeSelected) and (xinstalled) and (not flags.serial) and (not flags.virtpconsole):
         id.desktop.setDefaultRunLevel(5)
 
 # verifies that monitor is not Unprobed, and if so we can skip monitor question
