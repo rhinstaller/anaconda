@@ -591,9 +591,6 @@ class ToDo:
 	    if not format: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2" and createFs:
-		w = self.intf.waitWindow(_("Formatting"),
-			      _("Formatting %s filesystem...") % (mntpoint,))
-
                 args = [ "mke2fs", '/tmp/' + device ]
                 # set up raid options for md devices.
                 if device[:2] == 'md':
@@ -609,6 +606,9 @@ class ToDo:
                         
                 if self.badBlockCheck:
                     args.append ("-c")
+
+		w = self.intf.waitWindow(_("Formatting"),
+			      _("Formatting %s filesystem...") % (mntpoint,))
 
                 iutil.execWithRedirect ("/usr/sbin/mke2fs",
                                         args,
