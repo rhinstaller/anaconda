@@ -21,4 +21,4 @@ install:
 	@echo "nothing to do"		
 
 clean:	
-	rm -f modlist *.o
+	rm -f modlist genhdlist moddeps snarffont *.o 
