@@ -14,8 +14,6 @@ while (<STDIN>) {
 	print "$_\n";
     } elsif ($a[4] =~ /\"ignore\"/) {
 	print "$_\n";
-    } elsif ($a[4] =~ /\"unknown\"/) {
-	print "$_\n";
     }
 
 }
