@@ -89,14 +89,18 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     mkdirChain(mntpoint);
 
+#ifdef O_DIRECT
     targfd = open(fsystem, O_RDONLY | O_DIRECT);
     if (targfd == -1) {
+#endif
 	targfd = open(fsystem, O_RDONLY);
 	if (targfd == -1) {
 	    logMessage("open file to loop mount %s failed", fsystem);
 	    return LOADER_ERROR;
 	}
+#ifdef O_DIRECT
     }
+#endif
 
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
