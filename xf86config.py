@@ -547,12 +547,11 @@ class XF86Config:
 #        self.monHoriz = "31.5"
 #        self.monVert = "60"
 
-        self.res = ""
+#        self.res = ""
         self.res = resolution
 
         self.monHoriz = "30-70"
         self.monVert = "50-100"
-
 
 	self.monSect = ""
         self.monID = "Unprobed Monitor"
