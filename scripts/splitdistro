@@ -4,9 +4,9 @@
 disc2dirs = [ "preview" ]
 
 # These files appear on all binary CDs
-jointfiles = [ "COPYING", "RPM-GPG-KEY", "README", "autorun" ]
+jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun" ]
 
-targetSize = 640 * 1024 * 1024
+targetSize = 640 * 1024.0 * 1024.0
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
@@ -40,6 +40,7 @@ def moveFiles(srcDir, destDir, files):
 def excessFiles(path, fileList, maxSize):
     total = 0
     moveList = []
+    found = 0
 
     for fns in fileList:
 	if type(fns) == types.StringType:
@@ -54,6 +55,9 @@ def excessFiles(path, fileList, maxSize):
 	    total = total + size
 	else:
 	    # once we're done, we're done
+            if found == 0:
+#                print "straw was %s" % (fns,)
+                found = 1
 	    total = maxSize
 	    moveList.extend(fns)
 
@@ -187,6 +191,7 @@ disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList,
 moveFiles("%s/RedHat/RPMS" % disc1Dir, 
 	  "%s/RedHat/RPMS" % disc2Dir, 
 	  disc2pkgs);
+disc1Size = spaceUsed(disc1Dir)
 
 print "Creating disc3..."
 stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
@@ -200,7 +205,7 @@ for file in jointfiles:
 	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
 
 disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
-			targetSize * 2 - disc1used - fudgeFactor)
+			targetSize + disc1Size - disc1used - fudgeFactor)
 
 moveFiles("%s/RedHat/RPMS" % disc2Dir, 
 	  "%s/RedHat/RPMS" % disc3Dir, 
@@ -220,11 +225,11 @@ disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
-srcDisc1Used = spaceUsed(disc1SrcDir)
+srcDisc1Size = spaceUsed(disc1SrcDir)
 
 print "Dropping remainder of sources on third disc..."
 disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
-                        srcDisc1Used + targetSize - fudgeFactor)
+                        srcDisc1Size + targetSize - fudgeFactor)
 moveFiles("%s/SRPMS" % disc2SrcDir,
           "%s/SRPMS" % disc3SrcDir,
           disc3pkgs)
