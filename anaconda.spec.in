@@ -12,6 +12,8 @@ Requires: rpm-python
 
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
+ExcludeArch: alpha
+
 %description
 The anaconda package contains portions of the Red Hat Linux installer which
 may be run be the user for reconfiguration and advanced installation
