@@ -14,7 +14,7 @@ from translate import _
 import checklist
 import time
 from threading import *
-
+import os
 
 class IndividualPackageSelectionWindow (InstallWindow):
 
@@ -423,25 +423,29 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 
 class ErrorWindow:
-    def __init__ (self):
+    def __init__ (self, text):
         win = GnomeDialog ("File not found")
-        win.connect ("clicked", self.quit)
+        win.connect ("clicked", self.exit)
 
-        info = GtkLabel (_("An error has occurred while retreiving hdlist or comps files.  "
-                           "The installation media or image is probably corrupt.  Installer will exit now."))
+        info = GtkLabel (text)
+#        info = GtkLabel (_("An error has occurred while retreiving hdlist or comps files.  "
+#                           "The installation media or image is probably corrupt.  Installer will exit now."))
         info.set_line_wrap (TRUE)
-        info.set_usize (400, -1)
 
+        hbox = GtkHBox (FALSE)
+        hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), FALSE)
+        hbox.pack_start (info)
 
-        exit = GtkButton ("Ok")
-        exit.connect ("clicked", self.quit)
+#        exit = GtkButton (_("Ok"))
+#        exit.connect ("clicked", self.exit)
+#        exit.set_border_width (20)
+        win.append_button (_("Ok"))
+        win.button_connect (0 , self.exit)
 
-#        hbox = GtkHBox (FALSE)
+        win.vbox.pack_start (hbox, FALSE)
+#        win.vbox.pack_start (exit, FALSE, FALSE, 10)
 
-#        hbox.pack_start (sw, TRUE)
-        win.vbox.pack_start (info, FALSE)            
-        win.vbox.pack_start (exit, TRUE)
-        win.set_usize (500, 300)
+        win.set_usize (450, 180)
         win.set_position (WIN_POS_CENTER)
         win.show_all ()
         self.window = win
@@ -456,12 +460,8 @@ class ErrorWindow:
             self.mutex = Event ()
             self.mutex.wait ()
         
-    def quit (self, dialog, button):
-        self.rc = button
-        if self.mutex:
-            self.mutex.set ()
-        sys.exit (0)
-
+    def exit (self, args):
+        os._exit(0)
 
 class PackageSelectionWindow (InstallWindow):
     def __init__ (self, ics):
@@ -472,7 +472,7 @@ class PackageSelectionWindow (InstallWindow):
         ics.readHTML ("sel-group")
         self.selectIndividualPackages = FALSE
 
-        self.files = "TRUE"
+        self.files_found = "TRUE"
         
     def getPrev (self):
 	self.todo.comps.setSelectionState(self.origSelection)
@@ -506,33 +506,20 @@ class PackageSelectionWindow (InstallWindow):
 
 
     def getScreen (self):
-#            threads_leave ()
+        #--If we can't retreive hdlist or comps files, raise an error
         try:
 	    threads_leave ()
 	    self.todo.getHeaderList ()
 	    self.todo.getCompsList()
 	    threads_enter ()
-
         except:
-            print "Cannot read either header or comps or both"
-            self.files = "FALSE"
+            self.files_found = "FALSE"
 
-#        print self.files
-
-#        threads_enter ()
-
-#        threads_leave ()
-        if self.files == "FALSE":
-#            self.raiseDialog ()
-            win = ErrorWindow ()
-#            win = self.ExceptionWindow ("Halloooooooooooo")
-
-#            threads_enter ()
+        if self.files_found == "FALSE":
+            text = (_("An error has occurred while retreiving hdlist file.  The installation media or image is probably corrupt.  Installer will exit now."))
+            win = ErrorWindow (text)
         else:
             self.origSelection = self.todo.comps.getSelectionState()
-#        threads_enter ()
-
-
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
