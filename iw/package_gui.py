@@ -591,8 +591,12 @@ class PackageSelectionWindow (InstallWindow):
 	(selpkg, totpkg) = self.getStats(comp)
         if not comp.isSelected(justManual = 1):
             selpkg = 0
-		    
-	txt = "<b>%s [%d/%d]</b>" % (_(comp.name), selpkg, totpkg)
+
+	if comp.name == u"Everything":
+	    txt = "<b>%s</b>" % (_(comp.name),)
+	else:
+	    txt = "<b>%s [%d/%d]</b>" % (_(comp.name), selpkg, totpkg)
+	    
 	label.set_markup(txt)
 
     def editDetails(self, button, data):
@@ -659,6 +663,7 @@ class PackageSelectionWindow (InstallWindow):
 
         mainvbox = self.dialog.vbox
 
+	lblhbox = gtk.HBox(gtk.FALSE)
         lbl = gtk.Label(_("A package group can have both Base and "
                           "Optional package members.  Base packages "
                           "are always selected as long as the package group "
@@ -667,7 +672,23 @@ class PackageSelectionWindow (InstallWindow):
         lbl.set_line_wrap(gtk.TRUE)
 	lbl.set_size_request(450, -1)
 	lbl.set_alignment(0.0, 0.5)
-        mainvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
+	lblhbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
+
+	pixname = string.lower(comp.id) + ".png"
+	fn = self.ics.findPixmap("comps/"+pixname)
+	if not fn:
+	    pix = None
+	else:
+	    rawpix = gtk.gdk.pixbuf_new_from_file(fn)
+	    pix = gtk.Image()
+	    pix.set_from_pixbuf(rawpix)
+
+	if pix is not None:
+	    al = gtk.Alignment(0.0, 0.0)
+	    al.add(pix)
+	    lblhbox.pack_start(al, gtk.FALSE, gtk.FALSE)
+	    
+        mainvbox.pack_start(lblhbox, gtk.FALSE, gtk.FALSE)
 
         cbvbox = gtk.VBox(gtk.FALSE)
 	cbvbox.set_border_width(5)
