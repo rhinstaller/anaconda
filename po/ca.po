@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: ca\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-04-15 10:29-0400\n"
-"PO-Revision-Date: 2004-03-26 14:05+0100\n"
+"PO-Revision-Date: 2004-04-15 17:36+0200\n"
 "Last-Translator: Josep Puigdemont <baldrick@terra.es>\n"
 "Language-Team: Catalan <fedora@softcatala.net>\n"
 "MIME-Version: 1.0\n"
@@ -54,8 +54,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"AVÍS: S'executarà el servidor VNC sense cap contrasenya.\n"
-"Podeu fer servir la opció d'arrencada vncpassword=<contrasenya>\n"
+"Avís: S'executarà el servidor VNC sense cap contrasenya.\n"
+"Podeu fer servir l'opció d'arrencada vncpassword=<contrasenya>\n"
 "si voleu tenir més seguretat.\n"
 "\n"
 
@@ -145,7 +145,7 @@ msgstr "Error desconegut"
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
 msgstr ""
-"Hi ha hagut un error en extreure la segona part del fitxer kickstart: %s"
+"Hi ha hagut un error en extreure la segona part del fitxer d'inici ràpid: %s"
 
 #: ../anaconda:726
 msgid ""
@@ -180,7 +180,7 @@ msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"No s'ha detectat el ratolí. Per a la instal·lació gràfica és necessari "
+"No s'ha detectat cap ratolí. Per a la instal·lació gràfica és necessari "
 "disposar-ne d'un. S'està iniciant en mode text."
 
 #: ../anaconda:865
@@ -266,8 +266,8 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"Si afegiu aquesta partició no tindreu prou espai de disc lliure pels volums "
-"lògics que ja heu ubicat a %s."
+"Si afegiu aquesta partició no tindreu prou espai de disc lliure per als "
+"volums lògics que ja heu ubicat a %s."
 
 #: ../autopart.py:1195
 msgid "Requested Partition Does Not Exist"
@@ -280,7 +280,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"No es pot localitzar la partició %s per usar-la per a %s.\n"
+"No s'ha pogut localitzar la partició %s per usar-la per a %s.\n"
 "\n"
 "Premeu 'D'acord' per arrencar de nou el sistema."
 
@@ -623,7 +623,7 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
-"Els mòduls del nucli per a aquesta màquina són massa grans i no cabran en un "
+"Els mòduls del nucli per a aquesta màquina ocupen massa i no cabran en un "
 "disquet."
 
 #: ../floppy.py:113
@@ -681,8 +681,8 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"S'ha produït un error quan es creava el disquet d'arrencada. Assegureu-vos "
-"que hi ha un disquet formatat en la primera unitat de disquet."
+"S'ha produït un error en crear el disquet d'arrencada. Assegureu-vos que hi "
+"ha un disquet formatat en la primera unitat de disquet."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -707,8 +707,8 @@ msgid ""
 "drive."
 msgstr ""
 "El disquet d'arrencada sembla no ser vàlid. El més probable és que es tracti "
-"d'un disquet defectuós. Assegureu-vos que que el disquet de la primera "
-"unitat de disquet està en bones condicions."
+"d'un disquet defectuós. Assegureu-vos que el disquet de la primera unitat de "
+"disquet està en bones condicions."
 
 #: ../fsset.py:178
 msgid "Checking for Bad Blocks"
@@ -788,8 +788,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"S'han detectat blocs defectuosos el el dispositiu /dev/%s. No us recomanem "
-"que feu servir aquest dispositiu.\n"
+"S'han detectat blocs malmesos en el dispositiu /dev/%s. No us recomanem que "
+"feu servir aquest dispositiu.\n"
 "\n"
 "Premeu <Retorn> per arrencar de nou el sistema"
 
@@ -1002,11 +1002,11 @@ msgstr ""
 
 #: ../gui.py:810 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr "No hi ha notes del llançament.\n"
+msgstr "No hi ha quant el llançament.\n"
 
 #: ../gui.py:980
 msgid "The release notes are missing."
-msgstr "No hi ha les notes del llançament."
+msgstr "No hi ha les notes quant el llançament."
 
 #: ../gui.py:1080
 msgid "Error!"
@@ -1052,7 +1052,7 @@ msgstr "Següe_nt"
 
 #: ../gui.py:1184
 msgid "_Release Notes"
-msgstr "N_otes del llançament"
+msgstr "N_otes quant el llançament"
 
 #: ../gui.py:1186
 msgid "Show _Help"
@@ -2390,8 +2390,8 @@ msgid ""
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
 "El programa d'instal·lació no pot actualitzar sistemes amb bases de dades "
-"d'rpm anteriors a la versió 4.x. Instal·leu els paquets d'errates per a la "
-"vostra versió i després torneu a executar el procediment d'actualització."
+"d'rpm anteriors a la versió 4.x. Instal·leu els paquets d'errates per en "
+"aquesta versió i després torneu a executar el procediment d'actualització."
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
@@ -2423,7 +2423,7 @@ msgstr ""
 "Aquest sistema sembla tenir instal·lats paquets de tercers que s'encavalquen "
 "amb paquets inclosos a %s. Donat aquest fet, si continueu amb el procés "
 "d'actualització pot ser que deixin de funcionar degudament o causin "
-"inestabilitat al sistema. Llegiu les notes del llançament per a més "
+"inestabilitat al sistema. Llegiu les notes quant el llançament per a més "
 "informació.\n"
 "\n"
 "Voleu continuar amb l'actualització?"
@@ -4616,7 +4616,7 @@ msgstr "Unitats"
 
 #: ../iw/release_notes_viewer_gui.py:142
 msgid "Release Notes"
-msgstr "Informació quant a la versió"
+msgstr "Informació quant el llançament"
 
 #: ../iw/release_notes_viewer_gui.py:146
 msgid "Unable to load file!"
@@ -4783,10 +4783,10 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
-"El nucli 2.4 necessita força més memòria d'intercanvi que els nuclis "
-"anteriors, gairebé dues vegades la quantitat de memòria RAM del sistema. En "
-"aquest moment teniu configurats %d MB per a intercanvi, però podeu crear "
-"espai d'intercanvi addicional en el sistema de fitxers."
+"El nucli 2.4 necessita força més memòria d'intercanvi que anteriors nuclis, "
+"tanta com el doble de la memòria RAM del sistema. Actualmetn teniu %dMB de "
+"memòria d'intercanvi configurada, però podeu crear espai d'intercanvi "
+"addicional en un dels sistemes de fitxers ara."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4805,7 +4805,7 @@ msgstr "Crea un fitxer d'_intercanvi"
 
 #: ../iw/upgrade_swap_gui.py:129
 msgid "Select the _partition to put the swap file on:"
-msgstr "Seleccioneu en quina _partició posareu el fitxer d'intercanvi:"
+msgstr "Seleccioneu la _partició on posareu el fitxer d'intercanvi:"
 
 #: ../iw/upgrade_swap_gui.py:148
 msgid "Free Space (MB)"
@@ -5839,7 +5839,7 @@ msgstr "Escolliu com voleu preparar el sistema de fitxers en aquesta partició."
 
 #: ../textw/partition_text.py:548
 msgid "Check for bad blocks"
-msgstr "Comprova blocs defectuosos"
+msgstr "Comprova si hi ha blocs malmesos"
 
 #: ../textw/partition_text.py:552
 msgid "Leave unchanged (preserve data)"
@@ -8213,9 +8213,8 @@ msgid "Norwegian"
 msgstr "Noruec"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "Alemany"
+msgstr "Persa"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8258,7 +8257,7 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #~ msgid "Farsi"
-#~ msgstr "Farsi"
+#~ msgstr "Persa"
 
 #~ msgid "Workstation Defaults"
 #~ msgstr "Predeterminats de l'estació de treball"
