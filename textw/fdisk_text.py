@@ -15,6 +15,7 @@
 #
 
 import os
+import isys
 import iutil
 from snack import *
 from translate import _, cat, N_
@@ -40,7 +41,6 @@ class fdiskPartitionWindow:
                        TEXT_BACK_BUTTON ], width = 50, help = "fdisk")
 
             if button != "done" and button != TEXT_BACK_CHECK:
-                screen.suspend()
                 device = choices[choice]
                 
                 if os.access("/sbin/fdisk", os.X_OK):
@@ -53,15 +53,15 @@ class fdiskPartitionWindow:
                 except:
                     pass
 
+                screen.suspend()
                 iutil.execWithRedirect (path, [ path, "/tmp/" + device ],
                                         ignoreTermSigs = 1)
+                screen.resume()
 
                 try:
                     os.remove('/tmp/' + device)
                 except:
                     pass
-
-                screen.resume()
 
             partrequests.setFromDisk(diskset)
 
