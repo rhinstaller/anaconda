@@ -443,17 +443,9 @@ int main(int argc, const char ** argv) {
 		nalloced += 5;
 	    }
 
-	    p = b + strlen(b);
-	    i = 0;
-	    /* trim off two '.' worth of data */
-	    while (p > b && i < 2) {
-		p--;
-		if (*p == '.')
-		    i++;
-	    }
-	    *p = '\0';
-
 	    len = strlen(b);
+	    /* chop */
+	    b[--len] = '\0';
 	    depOrder[numpkgs] = malloc (len + 1);
 	    strcpy (depOrder[numpkgs], b);
 	    numpkgs++;
