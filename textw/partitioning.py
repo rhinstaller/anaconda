@@ -69,7 +69,14 @@ class ManualPartitionWindow:
 		    path = "/sbin/fdisk"
 		else:
 		    path = "/usr/sbin/fdisk"
+                    
+                try:
+                    isys.makeDevInode(device, '/tmp/' + device)
+                except:
+                    # XXX FIXME
+                    pass
 		iutil.execWithRedirect (path, [ path, "/tmp/" + device ])
+                os.remove ('/tmp/' + device)
 		screen.resume ()
 
 	if button == "back":
