@@ -94,19 +94,11 @@ class XF86Config:
     def cards (self, thecard = None):
         cards = {}
         # all the straight servers
-        cards["3DLabs"] = { "SERVER" : "3DLabs" }
-        cards["8514"]   = { "SERVER" : "8514" }
-        cards["FBDev"]  = { "SERVER" : "FBDev" } 
-        cards["I128"]   = { "SERVER" : "I128" }
-        cards["Mach8"]  = { "SERVER" : "Mach8" }
-        cards["Mach64"] = { "SERVER" : "Mach64" }
-        cards["Mach32"] = { "SERVER" : "Mach32" }
-        cards["Mono"]   = { "SERVER" : "Mono" }
-        cards["P9000"]  = { "SERVER" : "P9000" }
-        cards["S3"]     = { "SERVER" : "S3" }
-        cards["S3V"]    = { "SERVER" : "S3V" }
-        cards["SVGA"]   = { "SERVER" : "SVGA" }        
-        cards["W32"]    = { "SERVER" : "W32" }
+        for server in [ "3DLabs", "8514", "FBDev", "I128",
+                        "Mach8", "Mach32", "Mach64", "Mono",
+                        "P9000", "S3", "S3V", "SVGA", "W32" ]:
+            cards["Generic " + server] = { "SERVER" : server,
+                                           "NAME"   : "Generic " + server }
         
         db = open ('/usr/X11R6/lib/X11/Cards')
         lines = db.readlines ()
@@ -205,7 +197,7 @@ class XF86Config:
             if len (server) > 5 and server[0:5] == "Card:":
                 self.vidCards.append (self.cards (server[5:]))
             if len (server) > 7 and server[0:7] == "Server:":
-                info = { "NAME" : string.split (descr, '|')[1],
+                info = { "NAME" : "Generic " + server[7:],
                          "SERVER" : server[7:] }
                 self.vidCards.append (info)
 
