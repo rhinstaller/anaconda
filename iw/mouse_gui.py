@@ -128,10 +128,10 @@ class MouseWindow (InstallWindow):
         currentDev = self.todo.mouse.getDevice ()
 	(currentMouse, emulate3) = self.todo.mouse.get ()
 
-	deviceList = [ ("/dev/ttyS0 (COM1 under DOS)", "ttyS0" ),
-    		       ("/dev/ttyS1 (COM2 under DOS)", "ttyS1" ),
-		       ("/dev/ttyS2 (COM3 under DOS)", "ttyS2" ),
-		       ("/dev/ttyS3 (COM4 under DOS)", "ttyS3" ) ]
+	deviceList = [ (_("/dev/ttyS0 (COM1 under DOS)"), "ttyS0" ),
+    		       (_("/dev/ttyS1 (COM2 under DOS)"), "ttyS1" ),
+		       (_("/dev/ttyS2 (COM3 under DOS)"), "ttyS2" ),
+		       (_("/dev/ttyS3 (COM4 under DOS)"), "ttyS3" ) ]
 
         self.emulate3 = GtkCheckButton (_("Emulate 3 Buttons"))
         box = GtkVBox (FALSE)
@@ -139,7 +139,7 @@ class MouseWindow (InstallWindow):
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        self.locList = GtkCList (2, ("Port", "Device"))
+        self.locList = GtkCList (2, (_("Port"), _("Device")))
         self.locList.set_selection_mode (SELECTION_SINGLE)
 
 	for (descrip, dev) in deviceList:
