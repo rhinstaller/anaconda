@@ -59,11 +59,16 @@ prunePackageList() {
 	PATTERN=""
 	PACKAGEFILES=""
 	for PKG in $PACKAGES; do
-	    this="$(ls $PACKAGEPATH/../Updates/${PKG}*{${ARCH},noarch}.rpm $PACKAGEPATH/${PKG}*{${ARCH},noarch}.rpm | head -n 1 2>/dev/null)"
-	    PACKAGEFILES="$PACKAGEFILES $(echo $this | egrep "(^$PKG )" | sed 's/.* //')"
-	    echo "PKG is $PKG"
-	    echo "this is $this"
-	    echo "PACKAGEFILES is $PACKAGEFILES"
+	    path=$PACKAGEPATH/../Updates/
+	    this=$path/${PKG}*{${ARCH},noarch}.rpm
+	    if [ -z "$this" ]; then
+		path=$PACKAGEPATH
+		this=$path/${PKG}*{${ARCH},noarch}.rpm
+	    fi
+	    PACKAGEFILES="$PACKAGEFILES $(rpm -qp $this --qf "%{NAME} $path/%{NAME}-%{VERSION}-%{RELEASE}.%{ARCH}.rpm"  | egrep "(^$PKG )" | sed 's/.* //')"
+#	    echo "PKG is $PKG"
+#	    echo "this is $this"
+#	    echo "PACKAGEFILES is $PACKAGEFILES"
 	done
 
 	ls -1 $PACKAGEFILES |sort -u
