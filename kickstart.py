@@ -618,7 +618,7 @@ class KickstartBase(BaseInstallClass):
 	for n in args:
 	    (str, arg) = n
 	    if str == '--level':
-		level = int(arg)
+		level = arg
 	    elif str == "--device":
 		raidDev = arg
             elif str == "--spares":
