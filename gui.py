@@ -127,14 +127,14 @@ def partedExceptionWindow(exc):
     numButtons = 0
     buttonToAction = {}
     
-    flags = ((parted.EXCEPTION_FIX, N_("Fix")),
+    exflags = ((parted.EXCEPTION_FIX, N_("Fix")),
              (parted.EXCEPTION_YES, N_("Yes")),
              (parted.EXCEPTION_NO, N_("No")),
              (parted.EXCEPTION_OK, N_("OK")),
              (parted.EXCEPTION_RETRY, N_("Retry")),
              (parted.EXCEPTION_IGNORE, N_("Ignore")),
              (parted.EXCEPTION_CANCEL, N_("Cancel")))
-    for flag, string in flags:
+    for flag, string in exflags:
         if exc.options & flag:
             win.add_button(_(string), flag)
     win.show_all()

@@ -25,6 +25,7 @@ from fsset import *
 from partRequests import *
 from partition_ui_helpers_gui import *
 from constants import *
+import lvm
 
 
 class VolumeGroupEditor:
@@ -800,7 +801,7 @@ class VolumeGroupEditor:
 					    custom_icon="error")
 		    del tmpreq
 		    continue
-
+		
 		del tmpreq
 
 	    # get physical extent
