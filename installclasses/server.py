@@ -40,8 +40,8 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setInstallData(self, id)
 	self.setHostname(id, "localhost.localdomain")
 
-        autorequests = [ ("/", None,256, None, 1, 1),
-                         ("/usr", None, 800, None, 0, 1),
+        autorequests = [ ("/", None,384, None, 1, 1),
+                         ("/usr", None, 900, None, 0, 1),
                          ("/var", None, 256, None, 0, 1),
                          ("/home", None, 512, None, 1, 1) ]
 
