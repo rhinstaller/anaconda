@@ -80,7 +80,7 @@ class InstallProgressWindow (InstallWindow):
 	remainingTime = finishTime - elapsedTime
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
-        self.totalProgress.update (float (self.sizeComplete) / self.totalSize) 
+        self.totalProgress.update (float (self.sizeComplete) / self.totalSize)
         threads_leave ()
         
         return
@@ -89,6 +89,19 @@ class InstallProgressWindow (InstallWindow):
 
     def setPackage(self, header):
         threads_enter ()
+        if not (self.numComplete) % (self.numTotal / len(self.pixmaps)):
+            if self.numComplete:
+                num = self.numComplete * len(self.pixmaps) / self.numTotal
+            else:
+                num = 0
+            im = self.ics.readPixmap (self.pixmaps[num])
+            im.render ()
+            pix = im.make_pixmap ()
+            self.adbox.remove (self.adpix)
+            self.adbox.add (pix)
+            self.adpix = pix
+            self.adbox.show_all()
+
         self.curPackage["package"].set_text ("%s-%s-%s" % (header[rpm.RPMTAG_NAME],
                                                            header[rpm.RPMTAG_VERSION],
                                                            header[rpm.RPMTAG_RELEASE]))
@@ -124,6 +137,19 @@ class InstallProgressWindow (InstallWindow):
 
             
     def getScreen (self):
+        import glob
+        pixmaps1 = glob.glob("/usr/share/anaconda/pixmaps/progress_*")
+        pixmaps2 = glob.glob("pixmaps/progress_*")
+        if len(pixmaps1) < len(pixmaps2):
+            files = pixmaps2
+        else:
+            files = pixmaps1
+        pixmaps = []
+        for pixmap in files:
+            if string.find (pixmap, "progress_first.png") < 0:
+                pixmaps.append(pixmap[string.find(pixmap, "progress_"):])
+        self.pixmaps = pixmaps
+        
 	table = GtkTable (3, 2)
         self.curPackage = { "package" : _("Package"),
                             "size"    : _("Size"),
@@ -186,18 +212,19 @@ class InstallProgressWindow (InstallWindow):
         vbox.pack_start (hbox, FALSE)
         vbox.pack_start (self.totalProgress, FALSE)
 
-        im = self.ics.readPixmap ("first-progress.png")
+        im = self.ics.readPixmap ("progress_first.png")
         
         if im:
             frame = GtkFrame()
             frame.set_shadow_type (SHADOW_IN)
             im.render ()
             box = GtkEventBox ()
-            pix = im.make_pixmap ()
+            self.adpix = im.make_pixmap ()
             style = box.get_style ().copy ()
             style.bg[STATE_NORMAL] = style.white
             box.set_style (style)
-            box.add (pix)
+            box.add (self.adpix)
+            self.adbox = box
             frame.add (box)
             vbox.pack_start (frame, FALSE);
 
