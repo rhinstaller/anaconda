@@ -18,7 +18,6 @@ from translate import _
 
 class XCustomWindow:
 
-
     def depthchangeCB(self, screen):
         (button, result) = ListboxChoiceWindow(screen, _("Color Depth"),
                             _("Please select the color depth you "
@@ -505,7 +504,7 @@ class XConfigWindowCard:
             
 
     
-    def __call__(self, screen, dispatch, xconfig, videocard):
+    def __call__(self, screen, dispatch, xconfig, videocard, intf):
         
         self.dispatch = dispatch
         self.videocard = videocard
@@ -522,8 +521,17 @@ class XConfigWindowCard:
         for ram in self.videocard.possible_ram_sizes():
             self.ramlist.append(str(ram))
 
-        self.selectedCard = self.findCardInList(self.videocard.primaryCard().getCardData(dontResolve=1)["NAME"])
-        self.origCard = self.findCardInList(self.videocard.primaryCard(useProbed=1).getCardData(dontResolve=1)["NAME"])
+        carddata = self.videocard.primaryCard().getCardData(dontResolve=1)
+        if carddata:
+            self.selectedCard = self.findCardInList(carddata["NAME"])
+        else:
+            self.selectedCard = None
+
+        carddata = self.videocard.primaryCard(useProbed=1).getCardData(dontResolve=1)
+        if carddata:
+            self.origCard = self.findCardInList(carddata["NAME"])
+        else:
+            self.origCard = None
 
         try:
             tmp = self.videocard.possible_ram_sizes()
@@ -550,7 +558,13 @@ class XConfigWindowCard:
             videogrid = Grid(3, 2)
             label = Label(_("Video Card:"))
             videogrid.setField (label, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-            cardlabel = Textbox(28, 1, self.cardslist[self.selectedCard])
+            if self.selectedCard != None:
+                cardlbl =  self.cardslist[self.selectedCard]
+            else:
+                cardlbl = _("Unknown card")
+                
+            cardlabel = Textbox(28, 1, cardlbl)
+                
             videogrid.setField (cardlabel, 1, 0, (0, 0, 0, 1), anchorLeft = 1)
             cardchangebutton = CompactButton(_("Change"))
             videogrid.setField (cardchangebutton, 2, 0, (0, 0, 0, 1), anchorLeft = 1)
@@ -573,6 +587,14 @@ class XConfigWindowCard:
 		return INSTALL_BACK
             elif rc == TEXT_OK_CHECK or result == TEXT_F12_CHECK:
                 # we're done
+                # see if they have not specified card yet
+                if self.selectedCard == None:
+                    intf.messageWindow(_("Unspecified video card"),
+                                    _("You need to pick a video card before "
+                                      "X configuration can continue.  If you "
+                                      "want to skip X configuration entirely "
+                                  "choose the 'Skip X Configuration' button."))
+                    continue
                 break
             elif rc == "skipx":
                 skipx = 1
@@ -589,6 +611,8 @@ class XConfigWindowCard:
             self.dispatch.skipStep("monitor")
             self.dispatch.skipStep("xcustom")
             self.dispatch.skipStep("writexconfig")
+            
+            return
         else:
             self.dispatch.skipStep("monitor", skip = 0)
             self.dispatch.skipStep("xcustom", skip = 0)
@@ -617,134 +641,3 @@ class XConfigWindowCard:
         self.xconfig.filterModesByMemory ()
 
         return INSTALL_OK
-
-#
-#
-# XXX this is old stuff and is probably going to get chopped
-#
-#  class XconfiguratorWindow:
-#      def __call__ (self, screen, todo):
-#          if not todo.x.server: return INSTALL_NOOP
-
-#  	# if serial install, we can't run it.
-#  	if todo.serial:
-#  	    todo.x.skip = 1
-#  	    return INSTALL_NOOP
-
-#          # if Xconfigurator isn't installed, we can't run it.
-#          if not os.access (todo.instPath + '/usr/X11R6/bin/Xconfigurator',
-#                            os.X_OK):
-#              log("Could not find Xconfigurator, skipping X configuration.")
-#              return INSTALL_NOOP
-
-#          f = open (todo.instPath + "/var/run/SERVER", "w")
-#  	if todo._cardindex == -1:
-#  	    f.write ("%d\n" % todo._cardindex)
-#  	else:
-#  	    f.write ("%s %d\n" % (todo.x.server, todo._cardindex))
-#          f.close ()
-
-#  	args = ["xconfigurator", "--continue"]
-#  	if todo.expert:
-#  	    args = args + [ '--noddcprobe' ]
-
-#          screen.suspend ()
-#          iutil.execWithRedirect ("/usr/X11R6/bin/Xconfigurator", args,
-#                                  root = todo.instPath)
-#          screen.resume ()
-#  	todo.x.skip = 1
-#          return INSTALL_NOOP
-
-#  class XConfigWindow:
-#      def __call__(self, screen, todo):
-#          #
-#          # if in reconfigOnly mode we query existing rpm db
-#          # if X not installed, just skip this step
-#          #
-#          if todo.reconfigOnly:
-#              return None
-#          else:
-#              # we need to get the package list here for things like
-#              # workstation install - which will not have read the
-#              # package list yet.
-#              todo.getCompsList ()
-
-#              if not todo.hdList.packages.has_key('XFree86') or \
-#                 not todo.hdList.packages['XFree86'].selected:
-#                  return None
-
-#          todo.x.probe (probeMonitor = 0)
-#  #        todo.x.server = None  #-hack
-#          if todo.x.server:
-#              rc = ButtonChoiceWindow (screen, _("X probe results"),
-#                                       todo.x.probeReport (),
-#                                       buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ],
-#                                       help = 'xprobe')
-        
-#              if rc == TEXT_BACK_CHECK:
-#                  return INSTALL_BACK
-
-#  	    todo._cardindex = -1
-#              return INSTALL_OK
-
-#  	if todo.serial:
-#  	    # if doing serial installation and no card was probed,
-#  	    # assume no card is present (typical case).
-#  	    return INSTALL_NOOP
-
-#  	# if we didn't find a server, we need the user to choose...
-#  	carddb = todo.x.cards()
-#  	cards = carddb.keys ()
-#  	cards.sort ()
-#  	cards.append (_("Unlisted Card"))
-
-#  	servers = [ "Mono", "VGA16", "SVGA", "S3", "Mach32", "Mach8", "8514", "P9000", "AGX",
-#  		    "W32", "W32", "Mach64", "I128", "S3V", "3DLabs" ]
-
-#  	rc = INSTALL_NOOP
-#          server = None
-#  	while rc != INSTALL_OK:
-#  	    (rc, choice) = ListboxChoiceWindow(screen, _("Video Card Selection"),
-#  					       _("Which video card do you have?"),
-#  					       cards,
-#  					       buttons = [TEXT_OK_BUTTON, TEXT_BACK_BUTTON],
-#  					       width = 70, scroll = 1,
-#  					       height = screen.height - 14,
-#  					       help = "videocard")
-#  	    if rc == TEXT_BACK_CHECK:
-#  		return INSTALL_BACK
-
-#  	    todo._cardindex = -1
-
-#  	    if cards[choice] == _("Unlisted Card"):
-#  		(rc , choice) = \
-#  		    ListboxChoiceWindow(screen, _("X Server Selection"), _("Choose a server"),
-#  					servers,
-#  					buttons = [ TEXT_OK_BUTTON, TEXT_BACK_BUTTON ],
-#  					scroll = 1,
-#  					height = screen.height - 14,
-#  					help = "xserver")
-
-#  		if (rc == TEXT_BACK_CHECK):
-#  		    rc = INSTALL_BACK
-#  		else:
-#  		    rc = INSTALL_OK
-#  		    server = servers[choice]
-#  	    else:
-#  		todo._cardindex = choice
-#  		rc = INSTALL_OK
-
-#  	if server:
-#  	    todo.x.setVidcard ( { "NAME" : "Generic " + server,
-#  				  "SERVER" : server } )
-#  	else:
-#  	    card = carddb[cards[choice]]
-
-#              depth = 0
-#              while depth < 16 and card.has_key ("SEE"):
-#                  card = carddb[card["SEE"]]
-#                  depth = depth + 1
-
-#  	    todo.x.setVidcard (card)
-	
-#  	return INSTALL_OK
