@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2000-07-31 14:21-0400\n"
-"PO-Revision-Date: 2000-08-04 01:30+02:00\n"
+"PO-Revision-Date: 2000-08-06 21:26+02:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@online.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -15,7 +15,7 @@ msgstr "Alt"
 
 #: ../exception.py:13 ../text.py:788
 msgid "Exception Occurred"
-msgstr "Unntak oppstod"
+msgstr "Uventet hendelse oppstod"
 
 #: ../fstab.py:379 ../fstab.py:604 ../fstab.py:614 ../fstab.py:638
 msgid "Formatting"
@@ -24,7 +24,7 @@ msgstr "Formaterer"
 #: ../fstab.py:380
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formaterer swap område på /dev/%s..."
+msgstr "Formaterer swap-område på /dev/%s..."
 
 #: ../fstab.py:390 ../fstab.py:490 ../fstab.py:695 ../image.py:73
 #: ../libfdisk/newtfsedit.c:1701 ../loader/devices.c:236
@@ -41,7 +41,7 @@ msgstr "Feil"
 
 #: ../fstab.py:390
 msgid "Error creating swap on device "
-msgstr "Feil under oppretting av swapområde på enhet "
+msgstr "Feil under oppretting av swap-område på enhet "
 
 #: ../fstab.py:491
 #, c-format
@@ -54,12 +54,12 @@ msgstr "Oppretter"
 
 #: ../fstab.py:535
 msgid "Creating RAID devices..."
-msgstr "Oppretter RAID enheter..."
+msgstr "Oppretter RAID-enheter..."
 
 #: ../fstab.py:605 ../fstab.py:615 ../fstab.py:639
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Formaterer %s filsystem..."
+msgstr "Formaterer %s-filsystem..."
 
 #: ../fstab.py:627
 msgid "Loopback"
@@ -68,7 +68,7 @@ msgstr "Loopback"
 #: ../fstab.py:628
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "Oppretter loopback filsystem på enhet /dev/%s..."
+msgstr "Oppretter loopback-filsystem på enhet /dev/%s..."
 
 #: ../fstab.py:696
 #, c-format
@@ -191,7 +191,7 @@ msgstr "Feil CD-ROM"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr "Dette er ikke den korrekte Red Hat CDROM'en."
+msgstr "Dette er ikke den korrekte Red Hat CD-ROMen."
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
@@ -314,7 +314,7 @@ msgid ""
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
 "Pakkene du har installert og eventuelle andre pakker som er nødvendige for å "
-"tilfredstille deres avhengiheter, er valgt for installasjon. Ønsker du å "
+"tilfredstille deres avhengigheter, er valgt for installasjon. Ønsker du å "
 "endre pakkesettet som skal oppgraderes?"
 
 #: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:996
@@ -383,7 +383,7 @@ msgstr ""
 "Du har gått til rekonfigurasjonsmodus, som lar deg konfigurere "
 "steds-spesifikke alternativer for din maskin.\n"
 "\n"
-"For å avslutte uten å endre oppsettet velg Avbryt knappen under."
+"For å avslutte uten å endre oppsettet velg Avbryt-knappen under."
 
 #: ../libfdisk/gnomefsedit.c:812 ../libfdisk/gnomefsedit.c:1886
 #: ../libfdisk/gnomefsedit.c:2436 ../libfdisk/newtfsedit.c:573
@@ -397,7 +397,7 @@ msgstr "Avbryt"
 
 #: ../text.py:374
 msgid "X probe results"
-msgstr "Resultater etter X søk"
+msgstr "Resultater etter X-søk"
 
 #: ../text.py:394 ../text.py:414
 msgid "Unlisted Card"
@@ -421,7 +421,7 @@ msgstr "Velg en tjener"
 
 #: ../text.py:480
 msgid "Installation to begin"
-msgstr "Installasjon som skal starte"
+msgstr "Installasjonen startes"
 
 #: ../iw/confirm_gui.py:44 ../text.py:481
 msgid ""
@@ -434,7 +434,7 @@ msgstr ""
 
 #: ../text.py:492
 msgid "Upgrade to begin"
-msgstr "Oppgradering starter"
+msgstr "Oppgraderingen startes"
 
 #: ../iw/confirm_gui.py:40 ../text.py:493
 msgid ""
@@ -442,8 +442,8 @@ msgid ""
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "En komplett logg av oppgraderingen vil befinne seg i /tmp/upgrade.log etter "
-"omstart av systemet. Du vil kanskje beholde denne filen som referanse til "
-"senere."
+"omstart av systemet. Du vil kanskje beholde denne filen som referansepunkt "
+"til senere."
 
 #: ../text.py:510 ../text.py:531
 msgid "Complete"
@@ -463,10 +463,10 @@ msgid ""
 msgstr ""
 "Gratulerer, installasjonen er ferdig.\n"
 "\n"
-"Trykk linjeskift for å starte opp på nytt, og forsikre deg om at oppstarts- "
-"mediet er fjernet før maskinen starter på nytt, ellers vil installasjonen "
-"Starte på nytt. For informasjon om feilrettinger som er tilgjengelig for "
-"denne utgaven av Red Hat Linux, se errataen som finnes på "
+"Trykk linjeskift for å starte opp på nytt, og forsikre deg om at "
+"oppstartsmediet er fjernet før maskinen starter på nytt, ellers vil "
+"installasjonen starte på nytt. For informasjon om feilrettinger som er "
+"tilgjengelig for denne utgaven av Red Hat Linux, se errataen som finnes på "
 "http://www.redhat.com/errata.\n"
 "\n"
 "Informasjon om konfigurasjon av systemet er tilgjengelig i brukerhåndbøkene "
@@ -487,9 +487,8 @@ msgstr ""
 "For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
 "Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om videre konfigurasjon av systemet er tilgjengelig i \"etter "
-"installasjonen\" kapittelet i den offisielle brukermanualen for Red Hat "
-"Linux."
+"Informasjon om videre konfigurasjon av systemet er tilgjengelig i \"post "
+"install\"-kapittelet i den offisielle brukermanualen for Red Hat Linux."
 
 #: ../text.py:598
 msgid "Package Installation"
@@ -552,7 +551,7 @@ msgid ""
 "\n"
 msgstr ""
 "En intern feil oppsto i installasjonsprogrammet. Vennligst rapportér denne "
-"feilen til Red Hat (gjennom buzilla.redhat.com websidene) så snart som "
+"feilen til Red Hat (gjennom websidene på bugzilla.redhat.com) så snart som "
 "mulig. Informasjon om denne feilen kan lagres til en diskett, og dette vil "
 "hjelpe Red Hat med å rette opp feilen.\n"
 "\n"
@@ -603,7 +602,7 @@ msgstr "Oppsett av tidssone"
 
 #: ../text.py:886 ../text.py:954 ../textw/userauth_text.py:9
 msgid "Root Password"
-msgstr "Passord for root"
+msgstr "Root-passord"
 
 #: ../text.py:888 ../text.py:956 ../textw/userauth_text.py:172
 msgid "User Account Setup"
@@ -638,7 +637,7 @@ msgstr "Manuell partisjonering"
 
 #: ../text.py:928
 msgid "Automatic Partition"
-msgstr "Automatisk partisjon"
+msgstr "Automatisk partisjonering"
 
 #: ../text.py:932 ../textw/partitioning_text.py:301
 msgid "Root Filesystem Size"
@@ -726,7 +725,7 @@ msgstr "Leser"
 
 #: ../todo.py:523
 msgid "Reading package information..."
-msgstr "Leser pakkeinformasjon"
+msgstr "Leser pakkeinformasjon..."
 
 #: ../todo.py:710
 msgid "Dependency Check"
@@ -746,7 +745,7 @@ msgstr "Søker"
 
 #: ../todo.py:809
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Søker etter Red Hat Linux installasjoner..."
+msgstr "Søker etter Red Hat Linux-installasjoner..."
 
 #: ../todo.py:820 ../todo.py:848
 #, c-format
@@ -767,8 +766,8 @@ msgid ""
 "cleanly. Please boot your Linux installation, let the filesystems be "
 "checked, and shut down cleanly to upgrade."
 msgstr ""
-"Ett eller flere av filsystemene i ditt Linux system ble ikke riktig "
-"avmontert. Vennligst start opp din Linux installasjon, la filsystemene gå "
+"Ett eller flere av filsystemene i ditt Linux-system ble ikke riktig "
+"avmontert. Vennligst start opp din Linux-installasjon, la filsystemene gå "
 "gjennom sjekk, og steng ned på riktig måte før du prøver å oppgradere."
 
 #: ../todo.py:906
@@ -776,9 +775,9 @@ msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Ett eller flere av filsystemene som er listet i /etc/fstab på ditt Linux "
-"system kan ikke monteres. Vennligst rett opp dette problemet og forsøk å "
-"oppgradere igjen."
+"Ett eller flere av filsystemene som er listet i /etc/fstab på ditt "
+"Linux-system kan ikke monteres. Vennligst rett opp dette problemet og forsøk "
+"å oppgradere igjen."
 
 #: ../todo.py:932
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
@@ -858,7 +857,7 @@ msgstr "Skjerm"
 
 #: ../xf86config.py:867
 msgid "Plug and Play Monitor"
-msgstr "Plug and Play skjerm"
+msgstr "Plug and Play-skjerm"
 
 #: ../xf86config.py:869
 msgid "Horizontal frequency range"
@@ -881,7 +880,7 @@ msgid ""
 msgstr ""
 "Musen din ble ikke funnet automatisk. For å fortsette i grafisk "
 "installasjonsmodus, vennligst fortsett til neste skjerm og oppgi informasjon "
-"om din mus. Du kan også bruke tekstmodus installasjon som ikke er avhengig "
+"om din mus. Du kan også bruke tekstmodus-installasjon som ikke er avhengig "
 "av mus."
 
 #: ../xserver.py:33 ../xserver.py:34
@@ -890,19 +889,19 @@ msgstr "Bruk tekstmodus"
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
-msgstr "Konfigurasjon av kontoer"
+msgstr "Konfigurasjon av konti"
 
 #: ../iw/account_gui.py:36
 msgid "Root password accepted."
-msgstr "Passord for root godtatt."
+msgstr "Root-passord godtatt."
 
 #: ../iw/account_gui.py:39
 msgid "Please enter root password."
-msgstr "Vennligst skriv inn passord for root."
+msgstr "Vennligst skriv inn root-passord."
 
 #: ../iw/account_gui.py:41
 msgid "Root password is too short."
-msgstr "Passord for root er for kort."
+msgstr "Root-passord er for kort."
 
 #: ../iw/account_gui.py:43
 msgid "Root passwords do not match."
@@ -914,7 +913,7 @@ msgstr "Brukerpassord godtatt."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
-msgstr "Root kontoen kan ikke legges til her."
+msgstr "Root-kontoen kan ikke legges til her."
 
 #: ../iw/account_gui.py:63
 msgid "Please enter user password."
@@ -930,7 +929,7 @@ msgstr "Brukerpassordene er ikke like."
 
 #: ../iw/account_gui.py:183
 msgid "Root Password: "
-msgstr "Passord for root: "
+msgstr "Root-passord: "
 
 #: ../iw/account_gui.py:186
 msgid "Confirm: "
@@ -964,7 +963,7 @@ msgstr "Legg til"
 #: ../textw/silo_text.py:205 ../textw/silo_text.py:227
 #: ../textw/userauth_text.py:196
 msgid "Edit"
-msgstr "Rediger"
+msgstr "Redigér"
 
 #: ../iw/account_gui.py:274 ../libfdisk/newtfsedit.c:1445
 #: ../textw/userauth_text.py:195
@@ -981,7 +980,7 @@ msgstr "Konfigurasjon av autentisering"
 
 #: ../iw/auth_gui.py:75
 msgid "Enable MD5 passwords"
-msgstr "Bruk MD5 passord"
+msgstr "Bruk MD5-passord"
 
 #: ../iw/auth_gui.py:76
 msgid "Enable shadow passwords"
@@ -993,7 +992,7 @@ msgstr "Bruk NIS"
 
 #: ../iw/auth_gui.py:80
 msgid "Use broadcast to find NIS server"
-msgstr "Bruk kringkasting til å finne NIS-tjener"
+msgstr "Bruk kringkasting for å finne NIS-tjener"
 
 #: ../iw/auth_gui.py:92
 msgid "NIS Domain: "
@@ -1063,7 +1062,7 @@ msgstr "I ferd med å oppgradere"
 
 #: ../iw/confirm_gui.py:16
 msgid "About to Install"
-msgstr "Starter installasjonen"
+msgstr "I ferd med å installere"
 
 #: ../iw/confirm_gui.py:33
 msgid "Click next to begin upgrade of Red Hat Linux."
@@ -1096,8 +1095,8 @@ msgstr ""
 "For informasjon om feilrettinger som er tilgjengelig for denne utgaven av "
 "Red Hat Linux, se errataen som finnes på http://www.redhat.com.\n"
 "\n"
-"Informasjon om konfigurasjon av systemet er tilgjengelig i \"etter "
-"installasjonen\" i den offisielle brukermanualen for Red Hat Linux."
+"Informasjon om konfigurasjon av systemet er tilgjengelig i kapittelet "
+"\"Etter installasjonen\" i den offisielle brukermanualen for Red Hat Linux."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1156,7 +1155,7 @@ msgstr "fdisk"
 
 #: ../iw/fdisk_gui.py:109
 msgid "Select drive to run fdisk on"
-msgstr "Velg disk fdisk skal kjøres på"
+msgstr "Velg disk som fdisk skal kjøres på"
 
 #: ../iw/format_gui.py:12
 msgid "Choose partitions to Format"
@@ -1268,11 +1267,11 @@ msgstr "Partisjonstype"
 #: ../iw/silo_gui.py:291 ../textw/lilo_text.py:113 ../textw/lilo_text.py:193
 #: ../textw/silo_text.py:132 ../textw/silo_text.py:196
 msgid "Boot label"
-msgstr "Oppstartsetikett"
+msgstr "Oppstartsnavn"
 
 #: ../iw/mouse_gui.py:136
 msgid "Emulate 3 Buttons"
-msgstr "Emuler 3 knapper"
+msgstr "Emulér 3 knapper"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:94
 msgid "Network Configuration"
@@ -1325,7 +1324,7 @@ msgstr "Tertiær DNS"
 
 #: ../iw/package_gui.py:20
 msgid "Individual Package Selection"
-msgstr "Indiviuelt pakkevalg"
+msgstr "Individuelt pakkevalg"
 
 #: ../iw/package_gui.py:182
 msgid "Up"
@@ -1337,7 +1336,7 @@ msgstr "Navn: "
 
 #: ../iw/package_gui.py:338
 msgid "Package Details"
-msgstr "Pakke"
+msgstr "Pakkedetaljer"
 
 #: ../iw/package_gui.py:344
 msgid "Size: "
@@ -1426,18 +1425,18 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"Du har valgt å legge rot filsystemet i en fil på et allerede eksisterende "
-"DOS eller Windows filsystem. Hvor stor, i megabytes, ønsker du at rot "
-"filsystemet skal være, og hvor stort swap område ønsker du? Totalt må dette "
-"være mindre enn %d megabytes."
+"Du har valgt å legge rot-filsystemet i en fil på et allerede eksisterende "
+"DOS eller Windows filsystem. Hvor stor, i megabytes, ønsker du at "
+"rot-filsystemet skal være, og hvor stort swap-område ønsker du? Totalt må "
+"dette være mindre enn %d megabytes."
 
 #: ../iw/rootpartition_gui.py:144
 msgid "Root filesystem size:"
-msgstr "Størrelse på rot filsystem:"
+msgstr "Størrelse på rot-filsystem:"
 
 #: ../iw/rootpartition_gui.py:149
 msgid "Swap space size:"
-msgstr "Størrelse på swap område:"
+msgstr "Størrelse på swap-område:"
 
 #: ../iw/rootpartition_gui.py:217 ../iw/rootpartition_gui.py:267
 #: ../textw/partitioning_text.py:149
@@ -1540,11 +1539,11 @@ msgstr "Systemklokken bruker UTC"
 
 #: ../iw/timezone_gui.py:208
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Bruk \"Daylight Saving Time\""
+msgstr "Bruk \"Daylight Savings Time\" (kun USA)"
 
 #: ../iw/timezone_gui.py:222
 msgid "Location"
-msgstr "Arbeidsstasjon"
+msgstr "Plassering"
 
 #: ../iw/timezone_gui.py:223
 msgid "UTC Offset"
@@ -1572,7 +1571,7 @@ msgstr "Tilpass konfigurasjon av X"
 
 #: ../iw/xconfig_gui.py:87
 msgid "Bits per Pixel"
-msgstr "Biter pr. piksel"
+msgstr "Bits per piksel"
 
 #: ../iw/xconfig_gui.py:97 ../iw/xconfig_gui.py:434
 msgid "Test this configuration"
@@ -1657,7 +1656,7 @@ msgid ""
 "\n"
 msgstr ""
 "\n"
-"På Ultra maskiner laget av SMCC, virker sannsynligvis ikke oppstart fra "
+"På Ultra-maskiner laget av SMCC, virker sannsynligvis ikke oppstart fra "
 "diskett.\n"
 
 #: ../textw/bootdisk_text.py:35 ../textw/bootdisk_text.py:56
@@ -1703,19 +1702,19 @@ msgstr "Slett"
 
 #: ../textw/lilo_text.py:126
 msgid "Edit Boot Label Please"
-msgstr "Vennligst rediger oppstartsetikett"
+msgstr "Vennligst redigér oppstartsnavn"
 
 #: ../textw/lilo_text.py:144 ../textw/lilo_text.py:149
 msgid "Invalid Boot Label"
-msgstr "Ugyldig oppstartsetikett"
+msgstr "Ugyldig oppstartsnavn"
 
 #: ../textw/lilo_text.py:145
 msgid "Boot label may not be empty."
-msgstr "Oppstartsetiketten kan ikke være tom."
+msgstr "Oppstartsnavnet kan ikke være tomt."
 
 #: ../textw/lilo_text.py:150
 msgid "Boot label contains illegal characters."
-msgstr "Oppstartsetiketten inneholder ugyldige tegn."
+msgstr "Oppstartsnavnet inneholder ugyldige tegn."
 
 #: ../textw/lilo_text.py:206
 msgid ""
@@ -1841,8 +1840,8 @@ msgid ""
 "Which tool would you like to use?"
 msgstr ""
 "Disk Druid er et verktøy for partisjonering og oppsett av monteringspunkter. "
-"Det er laget for å være lettere å bruke enn Linux's tradisjonelle disk- "
-"partisjoneringsprogramvare, fdisk, i tillegg til å være kraftigere. Likevel "
+"Det er laget for å være lettere å bruke enn Linux's tradisjonelle "
+"partisjoneringsverktøy, fdisk, i tillegg til å være kraftigere. Likevel "
 "finnes det tilfeller hvor fdisk kan være å foretrekke.\n"
 "\n"
 "Hvilket verktøy vil du bruke?"
@@ -1893,11 +1892,11 @@ msgstr "Velg partisjoner som skal formateres"
 
 #: ../textw/partitioning_text.py:307
 msgid "Root filesystem size"
-msgstr "Størrelse på rot filsystem"
+msgstr "Størrelse på rot-filsystem"
 
 #: ../textw/partitioning_text.py:308
 msgid "Swap space"
-msgstr "Swap område"
+msgstr "Swap-område"
 
 #: ../textw/partitioning_text.py:318 ../textw/partitioning_text.py:324
 #: ../textw/partitioning_text.py:331
@@ -1934,7 +1933,7 @@ msgstr "Sett standard PROM oppstartsenhet"
 
 #: ../textw/silo_text.py:144
 msgid "Edit Boot Label"
-msgstr "Rediger oppstartsetikett"
+msgstr "Redigér oppstartsnavn"
 
 #: ../textw/silo_text.py:208
 msgid ""
@@ -1944,7 +1943,7 @@ msgid ""
 msgstr ""
 "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
 "også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
-"fra og hvilket navn du vil gi hver av dem."
+"fra og hvilket navn du vil gi hvert av dem."
 
 #: ../textw/timezone_text.py:71
 msgid "What time zone are you located in?"
@@ -2032,7 +2031,7 @@ msgstr "Brukeren eksisterer"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
-"Root brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
+"Root-brukeren er allerede konfigurert. Du trenger ikke å legge til denne "
 "brukeren her."
 
 #: ../textw/userauth_text.py:134
@@ -2046,7 +2045,7 @@ msgid ""
 "your system's configuration."
 msgstr ""
 "Du bør bruke en vanlig brukerkonto for de fleste aktivitetene på systemet "
-"ditt Ved å ikke bruke root kontoen reduserer du sjansene for å ødelegge "
+"ditt. Ved å ikke bruke root-kontoen reduserer du sjansene for å ødelegge "
 "systemets konfigurasjon."
 
 #: ../textw/userauth_text.py:174
@@ -2097,7 +2096,7 @@ msgstr "Forespør tjener via kringkasting"
 
 #: ../libfdisk/fsedit.c:448
 msgid "partitioning did not meet requirements"
-msgstr "partisjonering møtte ikke kravene"
+msgstr "partisjonering tilfredsstilte ikke kravene"
 
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
 #: ../libfdisk/fsedit.c:988 ../libfdisk/fsedit.c:1015
@@ -2108,7 +2107,7 @@ msgstr "Ugyldig monteringspunkt"
 #: ../libfdisk/fsedit.c:966
 #, c-format
 msgid "The %s directory must be on the root filesystem."
-msgstr "Katalogen %s må være på rotfilsystemet."
+msgstr "Katalogen %s må være på rot-filsystemet."
 
 #: ../libfdisk/fsedit.c:973
 #, c-format
@@ -2150,10 +2149,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Du har bedt om å legge rot (/) filsystemet på en DOS-stil FAT partisjon. Du "
+"Du har bedt om å legge rotfilsystemet (/) på en DOS-stil FAT partisjon. Du "
 "kan gjøre dette, men du vil ikke kunne bruke andre filsystemer for ditt "
-"Linux system. I tillegg vil det gå utover ytelsen når du ikke bruker Linux "
-"partisjoner. Vil du fortsette?"
+"Linux-system. I tillegg vil det gå utover ytelsen når du ikke bruker "
+"Linux-partisjoner. Vil du fortsette?"
 
 #: ../libfdisk/fsedit.c:1016
 #, c-format
@@ -2169,7 +2168,7 @@ msgstr ""
 #: ../libfdisk/fsedit.c:1029
 #, c-format
 msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-msgstr "På denne plattformen må /boot være på et DOS kompatibelt filsystem %x."
+msgstr "På denne plattformen må /boot være på et DOS-kompatibelt filsystem %x."
 
 #: ../libfdisk/fsedit.c:1039
 #, c-format
@@ -2208,7 +2207,7 @@ msgid ""
 msgstr ""
 "En feil har oppstått under forsøk på å opprette enhetsnoder for harddiskene "
 "i ditt system. Dette kan være forårsaket av at du har gått tom for diskplass "
-"på /tmp partisjonen."
+"på /tmp-partisjonen."
 
 #: ../libfdisk/fsedit.c:1094
 msgid "No Drives Found"
@@ -2246,7 +2245,7 @@ msgstr "Ugyldig partisjonstabell"
 
 #: ../libfdisk/fsedit.c:1471
 msgid "Initialize"
-msgstr "Initialisér"
+msgstr "Initiér"
 
 #: ../libfdisk/fsedit.c:1471 ../libfdisk/fsedit.c:1492
 msgid "Skip Drive"
@@ -2305,7 +2304,7 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
-"Du har definert '/' filsystemet på en partisjon av en annen type enn ext2. "
+"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
 "Du kan derfor ikke redigere andre partisjoner."
 
 #: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
@@ -2378,7 +2377,7 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"Du har forsøkt å tildele '/' monteringspunktet til en FAT-partisjon. Du kan "
+"Du har forsøkt å tildele '/'-monteringspunktet til en FAT-partisjon. Du kan "
 "ikke gjøre dette nå fordi monteringspunkter er satt opp for ext2 partisjoner "
 "også. Fjern disse monteringspunktene, så vil du kunne tildele '/' til denne "
 "partisjonen."
@@ -2401,7 +2400,7 @@ msgid ""
 "and is specified int decimal (base 10) format."
 msgstr ""
 "Størrelsen du ba om er ugyldig. Sørg for at størrelsen er større enn null "
-"(0), og at den er spesifisert i desimal format (base 10)."
+"(0), og at den er spesifisert i desimalformat (base 10)."
 
 #: ../libfdisk/gnomefsedit.c:1250 ../libfdisk/gnomefsedit.c:2265
 #: ../libfdisk/newtfsedit.c:712
@@ -2440,7 +2439,7 @@ msgid ""
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Du har konfigurert en RAID partisjon uten å begrense partisjonen til en "
+"Du har konfigurert en RAID-partisjon uten å begrense partisjonen til en "
 "enkelt stasjon.\n"
 " Er du sikker på at du vil gjøre dette?"
 
@@ -2461,8 +2460,8 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
-"Du har definert '/' filsystemet på en partisjon av en annen type enn ext2 Du "
-"kan derfor ikke legge til andre partisjoner."
+"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
+"Du kan derfor ikke legge til andre partisjoner."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2507,7 +2506,7 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
-"Du har definert '/' filsystemet på en partisjon av en annen type enn ext2. "
+"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
 "Du kan derfor ikke redigere RAID-enheter."
 
 #: ../libfdisk/gnomefsedit.c:1915
@@ -2564,7 +2563,7 @@ msgstr "Du må velge en RAID-enhet."
 
 #: ../libfdisk/gnomefsedit.c:2193
 msgid "Used Raid Device"
-msgstr "Brukt Raid enhet"
+msgstr "Brukt RAID-enhet"
 
 #: ../libfdisk/gnomefsedit.c:2194
 #, c-format
@@ -2600,7 +2599,7 @@ msgstr "Ugyldig RAID monteringspunkt"
 
 #: ../libfdisk/gnomefsedit.c:2227
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "RAID partisjoner kan ikke monteres som rot (/) på Alpha."
+msgstr "RAID-partisjoner kan ikke monteres som rot (/) på Alpha."
 
 #: ../libfdisk/gnomefsedit.c:2310
 #, c-format
@@ -2626,12 +2625,12 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
-"Du har definert '/' filsystemet på en partisjon av en annen type enn ext2 Du "
-"kan derfor ikke legge til RAID-enheter."
+"Du har definert '/'-filsystemet på en partisjon av en annen type enn ext2. "
+"Du kan derfor ikke legge til RAID-enheter."
 
 #: ../libfdisk/gnomefsedit.c:2436
 msgid "Auto-Partition"
-msgstr "Auto-partisjoner"
+msgstr "Auto-partisjonér"
 
 #: ../libfdisk/gnomefsedit.c:2443
 msgid "Using Existing Disk Space"
@@ -2639,7 +2638,7 @@ msgstr "Bruk eksisterende diskplass"
 
 #: ../libfdisk/gnomefsedit.c:2462
 msgid "Remove Linux partitions"
-msgstr "Fjern Linux partisjoner"
+msgstr "Fjern Linux-partisjoner"
 
 #: ../libfdisk/gnomefsedit.c:2473
 msgid "Use existing free space"
@@ -2660,7 +2659,7 @@ msgstr "Arbeidsstasjon"
 
 #: ../libfdisk/gnomefsedit.c:2600
 msgid "Delete RAID Device?"
-msgstr "Slett RAID enhet?"
+msgstr "Slett RAID-enhet?"
 
 #: ../libfdisk/gnomefsedit.c:2601
 msgid "Are you sure you want to remove this RAID device?"
@@ -2727,8 +2726,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) or a "
 "RAID partition for the install to proceed."
 msgstr ""
-"Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native- "
-"partisjon (ext2), eller en RAID-partisjon for at installasjonen skal "
+"Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux "
+"Native-partisjon (ext2), eller en RAID-partisjon for at installasjonen skal "
 "fortsette."
 
 #: ../libfdisk/gnomefsedit.c:3483
@@ -2741,7 +2740,7 @@ msgstr "_Legg til"
 
 #: ../libfdisk/gnomefsedit.c:3520
 msgid "_Edit..."
-msgstr "R_ediger"
+msgstr "R_edigér"
 
 #: ../libfdisk/gnomefsedit.c:3521
 msgid "_Reset"
@@ -2758,7 +2757,7 @@ msgstr "_Opprett RAID-enhet"
 
 #: ../libfdisk/gnomefsedit.c:3549
 msgid "Auto Partition"
-msgstr "Auto-partisjoner"
+msgstr "Auto-partisjonér"
 
 #: ../libfdisk/gnomefsedit.c:3558
 msgid "Drive Summary"
@@ -2796,7 +2795,7 @@ msgstr "Nåværende diskpartisjoner"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
-"    F1-Hjelp    F2-Legg til F3-Rediger F4-Slett    F5-Nullstill F12-Ok       "
+"    F1-Hjelp    F2-Legg til F3-Redigér F4-Slett    F5-Nullstill F12-Ok       "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
@@ -2815,8 +2814,8 @@ msgid ""
 "You must assign a root (/) partition to a Linux native partition (ext2) for "
 "the install to proceed."
 msgstr ""
-"Du må tilegne systemet en rot-partisjon (/) plassert på  en Linux Native- "
-"partisjon (ext2) for at installasjonen skal fortsette."
+"Du må tilegne systemet en rot-partisjon (/) plassert på en Linux "
+"Native-partisjon (ext2) for at installasjonen skal fortsette."
 
 #: ../libfdisk/newtfsedit.c:1591
 msgid "No Swap Partition"
@@ -2829,7 +2828,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1617
 msgid "No /boot/efi Partition"
-msgstr "Ingen /boot/efi partisjon"
+msgstr "Ingen /boot/efi-partisjon"
 
 #: ../libfdisk/newtfsedit.c:1619
 msgid ""
@@ -2865,19 +2864,19 @@ msgstr "Du kan bare slette NFS-monteringer."
 
 #: ../loader/cdrom.c:26
 msgid "Other CDROM"
-msgstr "Andre CDROM"
+msgstr "Annen CD-ROM"
 
 #: ../loader/cdrom.c:32
 msgid "CDROM type"
-msgstr "CDROM-type"
+msgstr "CD-ROM-type"
 
 #: ../loader/cdrom.c:32
 msgid "What type of CDROM do you have?"
-msgstr "Hvilken type CDROM har du?"
+msgstr "Hvilken type CD-ROM har du?"
 
 #: ../loader/cdrom.c:89
 msgid "Initializing CDROM..."
-msgstr "Initialiserer CDROM..."
+msgstr "Initierer CD-ROM..."
 
 #: ../loader/devices.c:77
 msgid "Miscellaneous"
@@ -2891,7 +2890,7 @@ msgid ""
 msgstr ""
 "Denne modulen kan ta parametere som har innvirkning på måten den virker. "
 "Hvis du ikke vet hvilke parametere du skal oppgi, kan du hoppe over denne "
-"skjermen ved å trykke \"OK\" knappen nå."
+"skjermen ved å trykke \"OK\"-knappen nå."
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -2932,12 +2931,12 @@ msgstr ""
 
 #: ../loader/devices.c:313
 msgid "Specify module parameters"
-msgstr "Spesifiser parametere modul"
+msgstr "Spesifiser parametere for modul"
 
 #: ../loader/devices.c:410
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Klarte ikke å laste %s modul."
+msgstr "Klarte ikke å laste %s-modul."
 
 #: ../loader/devices.c:456
 #, c-format
@@ -2955,7 +2954,7 @@ msgstr "Driverdisk"
 #: ../loader/devices.c:504
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr "Vennligst sett inn %s driverdisketten nå."
+msgstr "Vennligst sett inn %s-driverdisketten nå."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3000,7 +2999,7 @@ msgstr "Hvilken type tastatur har du?"
 
 #: ../loader/loader.c:121
 msgid "Local CDROM"
-msgstr "Lokal CDROM"
+msgstr "Lokal CD-ROM"
 
 #: ../loader/loader.c:124
 msgid "NFS image"
@@ -3041,7 +3040,7 @@ msgstr "Laster"
 #: ../loader/loader.c:494
 #, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Laster %s ramdisk..."
+msgstr "Laster %s-ramdisk..."
 
 #: ../loader/loader.c:504
 msgid "Error loading ramdisk."
@@ -3087,8 +3086,8 @@ msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Kunne ikke finne en Red Hat Linux CDROM i noen av dine CDROM stasjoner. "
-"Vennligst sett inn Red Hat CD'en og trykk \"OK\" for å pvøve igjen."
+"Kunne ikke finne en Red Hat Linux CD-ROM i noen av dine CD-ROM stasjoner. "
+"Vennligst sett inn Red Hat-CDen og trykk \"OK\" for å pvøve på nytt."
 
 #: ../loader/loader.c:940
 msgid "Networking Device"
@@ -3172,7 +3171,7 @@ msgstr "Oppdateringer"
 
 #: ../loader/loader.c:2083
 msgid "Reading anaconda updates..."
-msgstr "Leser anaconda oppdateringer..."
+msgstr "Leser anaconda-oppdateringer..."
 
 #: ../loader/loader.c:2396
 msgid "PC Card"
@@ -3180,7 +3179,7 @@ msgstr "PC-kort"
 
 #: ../loader/loader.c:2396
 msgid "Initializing PC Card Devices..."
-msgstr "Initialiserer enheter på PC-kort..."
+msgstr "Initierer enheter på PC-kort..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3188,7 +3187,7 @@ msgstr "Navn på NFS-tjener:"
 
 #: ../loader/net.c:152 ../loader/urls.c:185
 msgid "Red Hat directory:"
-msgstr "Red Hat katalog:"
+msgstr "Red Hat-katalog:"
 
 #: ../loader/net.c:158
 msgid "NFS Setup"
@@ -3267,7 +3266,7 @@ msgstr "Dynamisk IP"
 
 #: ../loader/net.c:389 ../loader/net.c:660
 msgid "Sending request for IP information..."
-msgstr "Sender forespørsel for IP-informasjon"
+msgstr "Sender forespørsel om IP-informasjon..."
 
 #: ../loader/net.c:532
 msgid "Determining host name and domain..."
@@ -3293,7 +3292,7 @@ msgstr "Oppstartsprotokoll som skal brukes"
 
 #: ../loader/net.c:721
 msgid "Network gateway"
-msgstr "Nettverkets portner (gateway)"
+msgstr "Nettverkets gateway"
 
 #: ../loader/net.c:723
 msgid "IP address"
@@ -3350,7 +3349,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Vær snill å skriv inn følgende informasjon:\n"
+"Vennligst skriv inn følgende informasjon:\n"
 "\n"
 "    o navnet eller IP-adressen til din FTP-tjener\n"
 "    o katalogen på den tjeneren som inneholder\n"
@@ -3364,7 +3363,7 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"Vær snill å skriv inn følgende informasjon:\n"
+"Vennligst skriv inn følgende informasjon:\n"
 "\n"
 "    o navnet eller IP-adressen til din web-tjener\n"
 "    o katalogen på den tjeneren som inneholder\n"
@@ -3418,8 +3417,8 @@ msgid ""
 "proxy server to use."
 msgstr ""
 "Hvis du bruker ikke-anonym ftp, skriv inn kontonavnet og passordet du ønsker "
-"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til FTP- "
-"proxytjeneren som skal brukes."
+"å bruke under. Hvis du bruker en FTP-proxy, skriv inn navnet til "
+"FTP-proxytjeneren som skal brukes."
 
 #: ../loader/urls.c:316
 msgid ""
@@ -3467,13 +3466,13 @@ msgid ""
 "Linux installation."
 msgstr ""
 "Du er i ferd med å slette ALLE DATA på din harddisk for å gjøre plass til "
-"din Linux installasjon."
+"din Linux-installasjon."
 
 #: ../installclasses/workstation.py:31
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-"Du er i ferd med å slette alle eksisterende Linux installasjoner på ditt "
+"Du er i ferd med å slette alle eksisterende Linux-installasjoner på ditt "
 "system."
 
 msgid "Base"
@@ -3495,7 +3494,7 @@ msgid "Mail/WWW/News Tools"
 msgstr "E-post/Web/Nyhetsverktøy"
 
 msgid "DOS/Windows Connectivity"
-msgstr "DOS/Windows støtte"
+msgstr "DOS/Windows-støtte"
 
 msgid "Graphics Manipulation"
 msgstr "Grafikkmanipulasjon"
@@ -3522,10 +3521,10 @@ msgid "NFS Server"
 msgstr "NFS-tjener"
 
 msgid "SMB (Samba) Server"
-msgstr "SMB (Samba) tjener"
+msgstr "SMB-tjener (Samba)"
 
 msgid "IPX/Netware(tm) Connectivity"
-msgstr "IPX/Netware(tm) støtte"
+msgstr "IPX/Netware(tm)-støtte"
 
 msgid "Anonymous FTP Server"
 msgstr "Anonym FTP-tjener"
@@ -3537,7 +3536,7 @@ msgid "DNS Name Server"
 msgstr "DNS navnetjener"
 
 msgid "Postgres (SQL) Server"
-msgstr "Postgres (SQL) tjener"
+msgstr "Postgres-tjener (SQL)"
 
 msgid "Network Management Workstation"
 msgstr "Arbeidsstasjon for nettverksadministrasjon"
