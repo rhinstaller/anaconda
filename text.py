@@ -566,7 +566,7 @@ class ReconfigFinishedWindow:
         return INSTALL_OK
 
 class InstallProgressWindow:
-    def completePackage(self, header):
+    def completePackage(self, header, timer):
         def formatTime(amt):
             hours = amt / 60 / 60
             amt = amt % (60 * 60)
@@ -584,9 +584,7 @@ class InstallProgressWindow:
 	self.sizeRemainingW.setText("%10dM" % (self.sizeTotal/1024 - self.sizeComplete/1024))
 	self.total.set(self.sizeComplete)
 
-        if self.timeStarted == -1:
-            self.timeStarted = time.time()
-	elapsedTime = time.time() - self.timeStarted
+	elapsedTime = timer.elapsed()
         if not elapsedTime:
             elapsedTime = 1
 	self.timeCompleteW.setText("%12s" % formatTime(elapsedTime))

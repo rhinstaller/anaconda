@@ -16,7 +16,7 @@ class ImageInstallMethod(InstallMethod):
     def readComps(self, hdlist):
 	return ComponentSet(self.tree + '/RedHat/base/comps', hdlist)
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 
     def readHeaders(self):
@@ -63,11 +63,13 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.makeDevInode("loop0", "/tmp/loop")
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
                  "on the current CD", h[1000000])
         elif h[1000002] != self.currentDisc:
+	    timer.stop()
+
 	    self.currentDisc = h[1000002]
 	    isys.umount("/mnt/source")
 
@@ -115,6 +117,8 @@ class CdromInstallMethod(ImageInstallMethod):
 		except:
 		    self.messageWindow(_("Error"), 
 			    _("The CDROM could not be mounted."))
+
+	    timer.start()
 
 	return self.tree + "/RedHat/RPMS/" + h[1000000]
 

@@ -47,7 +47,7 @@ class OldHardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return cs
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
 	return self.tree + self.path + "/RedHat/RPMS/" + self.fnames[h]
 
     def readHeaders(self):
@@ -149,7 +149,7 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return cs
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
 	if self.mediaIsMounted != h[1000002]:
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])

@@ -26,7 +26,7 @@ class UrlInstallMethod(InstallMethod):
 	return ComponentSet(self.baseUrl + '/RedHat/base/comps',
                             hdlist)
 
-    def getFilename(self, h):
+    def getFilename(self, h, timer):
 	root = "/mnt/sysimage"
 	pathlist = [ "/var/tmp", "/tmp",
 		     "/." ]

@@ -2,7 +2,6 @@ from gtk import *
 from iw_gui import *
 import string
 import rpm
-import time
 import os
 from threading import *
 from translate import _
@@ -83,11 +82,9 @@ class InstallProgressWindow (InstallWindow):
                ("%d M" % (self.totalSize/1024 - self.sizeComplete/1024),))
 
         # check to see if we've started yet
-        if (self.timeStarted == -1):
-            self.timeStarted = time.time ()
-            elapsedTime = 1
-        else:
-            elapsedTime = time.time() - self.timeStarted
+	elapsedTime = timer.elapsed()
+	if not elapsedTime:
+	    elapsedTime = 1
 
         apply (self.clist.set_text, self.status["completed"]["time"] + ("%s" % formatTime(elapsedTime),))
 
