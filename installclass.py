@@ -55,7 +55,8 @@ class BaseInstallClass:
 	[ 0, 1, 5 ].index(level)
 	for device in devices:
 	    found = 0
-	    for (otherMountPoint, sizespc, locspc, fsopts) in self.partitions:
+
+            for (otherMountPoint, sizespc, (devX, partX, primOnlyX), typespecX, fsoptsX) in self.partitions:
 		if otherMountPoint == device:
 		    found = 1
 	    if not found:
