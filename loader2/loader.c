@@ -969,6 +969,14 @@ int main(int argc, char ** argv) {
     if (!strcmp(argv[0] + strlen(argv[0]) - 5, "rmmod"))
         return combined_insmod_main(argc, argv);
 
+    if (!testing && !access("/.loaderrun", R_OK)) {
+        printf(_("loader has already been run.  Starting shell."));
+        execl("/bin/sh", "-/bin/sh", NULL);
+        exit(0);
+    }
+    i = open("/.loaderrun", O_CREAT | O_TRUNC | O_RDWR, 0600);
+    close(i);
+
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
