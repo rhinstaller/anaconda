@@ -2126,7 +2126,7 @@ int kickstartFromHttp(struct knownDevices * kd, char * location,
 
     fd = urlinstStartTransfer(&ui, file, 1);
     if (fd < 0) {
-        logMessage("failed to retrieve http:/%s/%s", ksPath, file);
+        logMessage("failed to retrieve http:/%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
     }
 
