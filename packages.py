@@ -792,6 +792,15 @@ def doPostInstall(method, id, intf, instPath):
     finally:
 	pass
 
+    # XXX hack - we should really write a proper /etc/lvmtab
+    if os.access(instPath + "/sbin/vgscan", os.X_OK):
+        rc = iutil.execWithRedirect("/usr/sbin/vgscan",
+                                    ["vgscan", "-v"],
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5",
+                                    root = instPath,
+                                    searchPath = 1)
+        
     w.pop ()
 
     sys.stdout.flush()
