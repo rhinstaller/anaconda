@@ -331,8 +331,6 @@ class FATFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        label = labelFactory.createLabel(entry.mountpoint)
-        entry.setLabel(label)
         args = [ "/usr/sbin/mkdosfs", devicePath ]
         args.extend(devArgs)
         
@@ -349,8 +347,6 @@ class FATFileSystem(FileSystemType):
                                      "Press Enter to reboot your system.")
                                    % (entry.device.getDevice(),))
                 sys.exit(0)
-            
-            raise SystemError
         
 fileSystemTypeRegister(FATFileSystem())
 
