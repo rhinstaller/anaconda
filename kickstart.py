@@ -263,8 +263,8 @@ class KickstartBase(BaseInstallClass):
             elif str == '--location':
                 location = arg
             elif str == '--useLilo':
-                log("used deprecated option --useLilo, ignoring")
-#                useLilo = 1
+#                log("used deprecated option --useLilo, ignoring")
+                useLilo = 1
 	    elif str == '--linear':
 		linear = 1
 	    elif str == '--nolinear':
