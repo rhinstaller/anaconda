@@ -20,6 +20,7 @@ METHOBJS = method.o cdinstall.o hdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
 	lang.o kbd.o modstubs.o driverdisk.o selinux.o \
 	md5.o mediacheck.o kickstart.o driverselect.o \
+	getparts.o dirbrowser.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
 NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
@@ -144,7 +145,7 @@ install: all
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 font.bgf.gz $(DESTDIR)/$(RUNTIMEDIR)/loader
 
-dirbrowser:
+dirbrowser: dirbrowser.c
 	gcc -DSTANDALONE -Wall -Werror -ggdb -o dirbrowser dirbrowser.c -lnewt -lslang
 
 ifeq (.depend,$(wildcard .depend))
