@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-03-22 15:24-0500\n"
-"PO-Revision-Date: 2001-03-18 15:06+0100\n"
+"PO-Revision-Date: 2001-03-25 17:21+0200\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -139,6 +139,10 @@ msgid ""
 "\n"
 "Press Enter to reboot your system."
 msgstr ""
+"Ocorreu un erro ó formatar %s. Este problema é serio, e a instalación non "
+"pode continuar.\n"
+"\n"
+"Prema Enter para reiniciar o sistema."
 
 #: ../fstab.py:784 ../fstab.py:1243
 #, c-format
@@ -3137,6 +3141,10 @@ msgid ""
 "This logical partition was most likely created by the partitioning program "
 "of another OS, so you may be able to correct the problem using that utility."
 msgstr ""
+"Isto acontece porque hai na unidade unha partición lóxica de tipo cero (0). "
+"Isto non está soportado polo instalador Anaconda. O máis probable é que esta "
+"partición fose creada polo programa de particionamento doutro SO, polo que "
+"terá que arranxar o problema usando esa utilidade."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
