@@ -1331,7 +1331,7 @@ class LoopbackDevice(Device):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
 def makeDevice(dev):
-    if dev[:2] == "md":
+    if dev.startswith('md'):
         try:
             mdname, devices, level, numActive = \
                     partitioning.lookup_raid_device(dev)
@@ -1377,12 +1377,12 @@ def readFstab (path):
 
         # pick up the magic comment in fstab that tells us which
         # device is the loop host in a partionless upgrade
-	if fields[0] == "#" and len(fields) > 4 and fields[1][:4] == "LOOP":
+        if fields[0] == "#" and fields[1].startswith("LOOP"):
 	    device = string.lower(fields[1])
 	    if device[len(device) - 1] == ":":
 		device = device[:len(device) - 1]
 	    realDevice = fields[2]
-	    if realDevice[:5] == "/dev/":
+            if realDevice.startswith('/dev/'):
 		realDevice = realDevice[5:]
 	    loopIndex[device] = (realDevice, fields[3])
 
@@ -1404,7 +1404,7 @@ def readFstab (path):
 
 	if fields[0] == "none":
             device = Device()
-        elif len(fields) >= 6 and fields[0][:6] == "LABEL=":
+        elif len(fields) >= 6 and fields[0].startswith('LABEL='):
             label = fields[0][6:]
             if labelToDevice.has_key(label):
                 device = makeDevice(labelToDevice[label])
@@ -1413,23 +1413,23 @@ def readFstab (path):
                      "could not be found on any filesystem", label)
                 # bad luck, skip this entry.
                 continue
-	elif (fields[2] == "swap" and fields[0][:5] != "/dev/"):
+	elif (fields[2] == "swap" and not fields[0].startswith('/dev/')[:5]):
 	    # swap files
 	    file = fields[0]
 
-	    if file[:15] == "/initrd/loopfs/":
+            if file.startswith('/initrd/loopfs/'):
 		file = file[14:]
                 device = PiggybackSwapFileDevice("/mnt/loophost", file)
             else:
                 device = SwapFileDevice(file)
-        elif fields[0][:9] == "/dev/loop":
+        elif fields[0].startswith('/dev/loop'):
 	    # look up this loop device in the index to find the
             # partition that houses the filesystem image
             # XXX currently we assume /dev/loop1
 	    if loopIndex.has_key(device):
 		(dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
-	elif fields[0][:5] == "/dev/":
+	elif fields[0].startswith('/dev/'):
             device = makeDevice(fields[0][5:])
 	else:
             continue
