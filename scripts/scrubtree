@@ -50,7 +50,7 @@ mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
 (cd $p/usr/bin;
 set $(./busybox 2>&1| awk '/^\t([[:alnum:]_\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
 while [ -n "$1" ]; do
-    if [ $1 != "busybox" -a $1 != "sh" ]; then
+    if [ $1 != "busybox" -a $1 != "sh" -a $1 != "shutdown" -a $1 != "poweroff" -a $1 != "reboot" ]; then
         # if file doesnt already exist, link to busybox
 	if [ ! -f "$1" ]; then
 	    ln -sf ./busybox $1
