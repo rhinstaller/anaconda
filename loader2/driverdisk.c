@@ -13,6 +13,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <errno.h>
 #include <fcntl.h>
 #include <kudzu/kudzu.h>
 #include <newt.h>
@@ -34,6 +35,8 @@
 #include "windows.h"
 #include "hardware.h"
 #include "driverdisk.h"
+#include "getparts.h"
+#include "dirbrowser.h"
 
 #include "nfsinstall.h"
 #include "urlinstall.h"
@@ -214,9 +217,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
                         int flags, int usecancel, int noprobe) {
 
-    char * device = NULL;
+    char * device = NULL, * part = NULL, * ddfile = NULL;
     char ** devNames = NULL;
-    enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_PROBE, 
+    enum { DEV_DEVICE, DEV_PART, DEV_CHOOSEFILE, DEV_LOADFILE, 
+           DEV_INSERT, DEV_LOAD, DEV_PROBE, 
            DEV_DONE } stage = DEV_DEVICE;
     int rc, num = 0;
     int dir = 1;
@@ -235,7 +239,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 if (dir == -1)
                     return LOADER_BACK;
                 
-                stage = DEV_INSERT;
+                stage = DEV_PART;
                 break;
             }
             dir = 1;
@@ -256,7 +260,109 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
             device = strdup(devNames[num]);
             free(devNames);
 
-            stage = DEV_INSERT;
+            stage = DEV_PART;
+        case DEV_PART: {
+            char ** part_list = getPartitionsList(NULL);
+            if (part != NULL) free(part);
+
+            if ((num = lenPartitionsList(part_list)) == 0) {
+                if (dir == -1)
+                    stage = DEV_DEVICE;
+                else
+                    stage = DEV_INSERT;
+                break;
+            }
+            dir = 1;
+
+            startNewt(flags);
+            rc = newtWinMenu(_("Driver Disk Source"),
+                             _("There are multiple partitions on this device "
+                               "which could contain the driver disk image.  "
+                               "Which would you like to use?"), 40, 10, 10,
+                             num < 6 ? num : 6, part_list, &num, _("OK"),
+                             (usecancel) ? _("Cancel") : _("Back"), NULL);
+
+            if (rc == 2) {
+                freePartitionsList(part_list);
+                stage = DEV_DEVICE;
+                break;
+            }
+
+            part = strdup(part_list[num]);
+            stage = DEV_CHOOSEFILE;
+
+            /* FIXME: this is where I am.  add code to mount the partition
+             * and then load the dir browser pointing there.  then do
+             * a mount of the image, load DD from there, and go to DEV_PROBE.
+             * set found before loading.
+             */
+        }
+
+        case DEV_CHOOSEFILE: {
+            if (part == NULL) {
+                logMessage("somehow got to choosing file with a NULL part, going back");
+                stage = DEV_PART;
+                break;
+            }
+            /* make sure nothing is mounted when we get here */
+            num = umount("/tmp/dpart");
+            if (num == -1) { 
+                logMessage("error unmounting: %s", strerror(errno));
+                if (errno != EINVAL)
+                    exit(1);
+            }
+
+            logMessage("trying to mount %s as partition", part);
+            devMakeInode(part + 5, "/tmp/ddpart");
+            if (doPwMount("/tmp/ddpart", "/tmp/dpart", "vfat", 1, 0, NULL, NULL, 0, 0)) {
+                if (doPwMount("/tmp/ddpart", "/tmp/dpart", "ext3", 1, 0, NULL, NULL, 0, 0)) {
+                    if (doPwMount("/tmp/ddpart", "/tmp/dpart", "iso9660", 1, 0, NULL, NULL, 0, 0)) {
+                        newtWinMessage(_("Error"), _("OK"),
+                                       _("Failed to mount partition."));
+                        stage = DEV_PART;
+                        break;
+                    }
+                }
+            }
+
+            
+            ddfile = newt_select_file(_("Select driver disk image"),
+                                      _("Select the file which is your driver "
+                                        "disk image."),
+                                      "/tmp/dpart", NULL);
+            if (ddfile == NULL) {
+                umount("/tmp/dpart");
+                stage = DEV_PART;
+                dir = -1;
+                break;
+            }
+            dir = 1;
+
+            stage = DEV_LOADFILE;
+        }
+
+        case DEV_LOADFILE: {
+            if(ddfile == NULL) {
+                logMessage("trying to load dd from NULL");
+                stage = DEV_CHOOSEFILE;
+                break;
+            }
+            if (dir == -1) {
+                umountLoopback("/tmp/drivers", "loop6");
+                unlink("/tmp/drivers");
+                ddfile = NULL;
+                stage = DEV_CHOOSEFILE;
+                break;
+            }
+            if (mountLoopback(ddfile, "/tmp/drivers", "loop6")) {
+                newtWinMessage(_("Error"), _("OK"),
+                               _("Failed to load driver disk from file."));
+                stage = DEV_CHOOSEFILE;
+                break;
+            }
+            stage = DEV_LOAD;
+        }
+
         case DEV_INSERT: {
             char * buf;
 
@@ -306,11 +412,21 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                                 "/tmp/drivers", flags);
             umount("/tmp/drivers");
             if (rc == LOADER_BACK) {
-                stage = DEV_INSERT;
+                dir = -1;
+                if (ddfile != NULL)
+                    stage = DEV_CHOOSEFILE;
+                else
+                    stage = DEV_INSERT;
                 break;
             }
             /* fall through to probing */
             stage = DEV_PROBE;
+
+            if (ddfile != NULL) {
+                umountLoopback("/tmp/drivers", "loop6");
+                unlink("/tmp/drivers");
+                umount("/tmp/dpart");
+            }
 
         case DEV_PROBE:
             /* if they didn't specify that we should probe, then we should
