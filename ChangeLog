@@ -1,3 +1,8 @@
+2004-10-14  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/hdinstall.c: Fix segfault when using biospart for hard
+	drive kickstart install.  Patch from Rez Kabir (#135609)
+
 2004-10-13  Jeremy Katz  <katzj@redhat.com>
 
 	* bootloader.py: Write out /etc/sysconfig/kernel with the default

@@ -488,8 +488,8 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
             logMessage("Unable to location BIOS partition %s", biospart);
             return;
         }
-        partition = malloc(strlen(dev) + strlen(p) + 2);
-        sprintf(partition, "%s%s", dev, p);
+        partition = malloc(strlen(dev) + strlen(p + 1) + 2);
+        sprintf(partition, "%s%s", dev, p + 1);
     }
 
     loaderData->method = strdup("hd");
