@@ -168,7 +168,7 @@ char * mountUrlImage(struct installMethod * method,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDeps, int flags) {
     int rc;
-    char * url;
+    char * url, *p;
     struct iurlinfo ui;
     char needsSecondary = ' ';
     int dir = 1;
@@ -267,6 +267,12 @@ char * mountUrlImage(struct installMethod * method,
 
     url = malloc(strlen(finalPrefix) + 25 + strlen(ui.address) +
                  strlen(login));
+
+    /* sanitize url so we dont have problems like bug #101265 */
+    /* basically avoid duplicate /'s                          */
+    for (p=finalPrefix; *p == '/'; p++);
+
+    finalPrefix = p;
 
     sprintf(url, "%s://%s%s/%s", 
 	    ui.protocol == URL_METHOD_FTP ? "ftp" : "http",
