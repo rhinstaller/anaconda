@@ -633,7 +633,7 @@ class Partitions:
             return bootreq
         elif iutil.getPPCMachine() == "pSeries":
             for req in self.requests:
-                if request.fs_type == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                if req.fs_type == fsset.fileSystemTypeGet("PPC PReP Boot"):
                     return req
             return None
         
