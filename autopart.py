@@ -1437,6 +1437,8 @@ def getAutopartitionBoot():
         return [ (None, "PPC PReP Boot", 16, None, 0, 1) ]
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasIbmSis():
         return []
+    elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen == "NewWorld":
+        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1) ]
     else:
         return [ ("/boot", None, 100, None, 0, 1) ]
 
