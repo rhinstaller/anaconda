@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-27 11:26+0530\n"
+"PO-Revision-Date: 2004-11-02 11:47+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -1021,11 +1021,11 @@ msgstr "default:LTR"
 
 #: ../gui.py:837 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
-msgstr "આવૃત્તિ નોંધો ખોવાયેલ છે.\n"
+msgstr "પ્રકાશન નોંધો ખોવાયેલ છે.\n"
 
 #: ../gui.py:1007
 msgid "The release notes are missing."
-msgstr "આવૃત્તિ નોંધો ખોવાયેલ છે."
+msgstr "પ્રકાશન નોંધો ખોવાયેલ છે."
 
 #: ../gui.py:1107
 msgid "Error!"
@@ -1075,7 +1075,7 @@ msgstr "આગળ વધો (_N)"
 
 #: ../gui.py:1218
 msgid "_Release Notes"
-msgstr "આવૃત્તિ નોંધો (_R)"
+msgstr "પ્રકાશન નોંધો (_R)"
 
 #: ../gui.py:1220
 msgid "Show _Help"
@@ -1293,7 +1293,7 @@ msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
 msgstr ""
-"તમે મશીન કે જેને %s ની આ આવૃત્તિનો આધાર નથી તેના ઉપર સ્થાપન કરવાનો પ્રયત્ન કરી રહ્યા "
+"તમે મશીન કે જેને %s ની આ પ્રકાશનનો આધાર નથી તેના ઉપર સ્થાપન કરવાનો પ્રયત્ન કરી રહ્યા "
 "છો."
 
 #: ../packages.py:293
@@ -1462,7 +1462,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"નીચેના પેકેજો આ આવૃત્તિ માટે ઉપ્લબ્ધ છે પરંતુ સુધારાયેલ નથી:\n"
+"નીચેના પેકેજો આ પ્રકાશન માટે ઉપ્લબ્ધ છે પરંતુ સુધારાયેલ નથી:\n"
 
 #: ../packages.py:1238
 msgid ""
@@ -1472,7 +1472,7 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"નીચેના પેકેજો આ આવૃત્તિ માટે ઉપ્લબ્ધ છે પરંતુ સ્થાપિત થયેલ નથી:\n"
+"નીચેના પેકેજો આ પ્રકાશન માટે ઉપ્લબ્ધ છે પરંતુ સ્થાપિત થયેલ નથી:\n"
 
 #: ../packages.py:1482
 msgid "Warning! This is pre-release software!"
@@ -2381,7 +2381,7 @@ msgid ""
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
 "સ્થાપનનો કાર્યક્રમ pre-rpm 4.x ડેટાબેઝ સાથે સિસ્ટમને સુધારવા માટેઅસમર્થ છે. મહેરબાની કરીને "
-"આવૃત્તિ નોંધોમાં દર્શાવ્યા પ્રમાણે તમારી આવૃત્તિ માટે errata rpm પેકેજો સ્થાપિત કરો અને પછી "
+"પ્રકાશન નોંધોમાં દર્શાવ્યા પ્રમાણે તમારા પ્રકાશન માટે errata rpm પેકેજો સ્થાપિત કરો અને પછી "
 "સુધારાની પ્રક્રિયા શરુ કરો."
 
 #: ../upgrade.py:402
@@ -2395,8 +2395,8 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
-"%s ની આવૃત્તિનો આર્ક કે જે તમે સુધારવા જઈ રહ્યા છો તે %s તરીકે દેખાશે અને %s ની પહેલાની "
-"આવૃત્તિ સાથે બંધબેસતું નથી. આ સફળતા જેવુ નથી. શું તમે ચોક્કસ છો કે તમે સુધારાની પ્રક્રિયા સાથે "
+"%s ના પ્રકાશનનું આર્કીટેક્ચર કે જે તમે સુધારવા જઈ રહ્યા છો તે %s તરીકે દેખાશે અને %s ના પહેલાના "
+"આર્કીટેક્ચર સાથે બંધબેસતું નથી. આ સફળતા જેવુ નથી. શું તમે ચોક્કસ છો કે તમે સુધારાની પ્રક્રિયા સાથે "
 "આગળ વધવા માંગો છો?"
 
 #: ../upgrade.py:483
@@ -2413,7 +2413,7 @@ msgstr ""
 "આ સિસ્ટમમાં ત્રીજી વ્યક્તિના પેકેજો સ્થાપિત થયા હોય એમ લાગે છે કે જે %s માંના પેકેજો સાથે "
 "મળતા આવે છે. આ પેકેજો એક ઉપર એક બેસવાથી સુધારાની પ્રક્રિયા તેમને કદાચ યોગ્ય રીતે કામ "
 "કરવાનું બંધ કરી દે અથવા કદાચ બીજી સિસ્ટમ તેમનું સ્થાયિત્વ બગાડી દે. મહેરબાની કરીને વધુ "
-"જાણકારી માટે આવૃત્તિની નોંધો જુઓ.\n"
+"જાણકારી માટે પ્રકાશનની નોંધો જુઓ.\n"
 "\n"
 "શું તમે સુધારાની પ્રક્રિયા ચાલુ રાખવા માંગો છો?"
 
@@ -2433,7 +2433,7 @@ msgstr ""
 msgid ""
 "You appear to be upgrading from a system which is too old to upgrade to this "
 "version of %s.  Are you sure you wish to continue the upgrade process?"
-msgstr "તમે સિસ્ટમનો સુધારો કરી રહ્યા છો કે જે %s ની આવૃત્તિ માટે સુધારો કરવા માટે ખૂબ જૂની હોય એમ દેખાય છે.  શું તમે ખરેખર સુધારાની પ્રક્રિયા સાથે ચાલુ રાખવા માંગો છો?"
+msgstr "તમે સિસ્ટમનો સુધારો કરી રહ્યા છો કે જે %s ની પ્રકાશન માટે સુધારો કરવા માટે ખૂબ જૂની હોય એમ દેખાય છે.  શું તમે ખરેખર સુધારાની પ્રક્રિયા સાથે ચાલુ રાખવા માંગો છો?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
@@ -3945,7 +3945,7 @@ msgid ""
 "Version: %s\n"
 msgstr ""
 "પેકેજ: %s\n"
-"આવૃત્તિ: %s\n"
+"પ્રકાશન: %s\n"
 
 #: ../iw/package_gui.py:357
 msgid "_Tree View"
