@@ -45,8 +45,6 @@ class FDiskWindow (InstallWindow):
 
 	# free our fd's to the hard drive -- we have to 
 	# fstab.rescanDrives() after this or bad things happen!
-	self.todo.fstab.setReadonly(1)
-
         if os.access("/sbin/fdisk", os.X_OK):
             path = "/sbin/fdisk"
         else:

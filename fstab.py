@@ -588,6 +588,7 @@ class Fstab:
 			   self.readOnly)
 
     def getRunDruid(self):
+        print "getRunDruid returns", self.shouldRunDruid
 	return self.shouldRunDruid
 
     def setRunDruid(self, state):
