@@ -33,8 +33,6 @@ class InstallClass:
 
 	    attempt.append((mntpoint, size, type, grow, -1))
 
-	ddruid.attempt (attempt, "Junk Argument", self.clearParts)
-
 	try:
 	    ddruid.attempt (attempt, "Junk Argument", self.clearParts)
 	    return 1
