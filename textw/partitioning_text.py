@@ -25,10 +25,10 @@ class PartitionMethod:
 
 	if rc == "back":
 	    return INSTALL_BACK
-	elif rc == "dd":
-	    todo.skipFdisk = 1
-	else:
+	elif rc == "fd":
 	    todo.skipFdisk = 0
+	else:
+	    todo.skipFdisk = 1
 
 	return INSTALL_OK
 
