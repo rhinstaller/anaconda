@@ -490,8 +490,12 @@ for p in $DEST $DESTGR; do
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
 
-	REALPATH=`(cd $p; /bin/pwd)`
-        runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+	if [ -x /usr/bin/runroot ]; then
+	    REALPATH=`(cd $p; /bin/pwd)`
+            runroot dist-7.0 --arch $ARCH "cd $REALPATH\; usr/lib/anaconda-runtime/scrubtree $REALPATH"
+	else
+	    $p/usr/lib/anaconda-runtime/scrubtree $p
+	fi
 	echo -n -e "\rScrubbing trees..." "$(echo $p | sed 's/./ /g')"
 done
 
