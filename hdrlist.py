@@ -296,10 +296,6 @@ class HeaderListFromFile (HeaderList):
 
 class Group:
     def __init__(self, grpset, xmlgrp):
-        # dict of package info.  nevra and type are obvious
-        # state is one of the ON/OFF states
-        def makePackageDict(pkgnevra, type, installed = 0):
-            return { "nevra": pkgnevra, "type": type, "state": installed }
         
         self.id = xmlgrp.id
         self.basename = xmlgrp.name
@@ -347,18 +343,7 @@ class Group:
                     %(self.id, pkg))
                 continue
 
-            if type == u'mandatory':
-                pkgtype = PKGTYPE_MANDATORY
-            elif type == u'default':
-                pkgtype = PKGTYPE_DEFAULT
-            elif type == u'optional':
-                pkgtype = PKGTYPE_OPTIONAL
-            else:
-                log("Invalid package type of %s for %s in %s; defaulting to "
-                    "optional" % (type, pkgnevra, self.id))
-                pkgtype = PKGTYPE_OPTIONAL
-
-            self.packages[pkgnevra] = makePackageDict(pkgnevra, pkgtype)
+            self.packages[pkgnevra] = self.makePackageDict(pkgnevra, type)
 
     def getState(self):
         return (self.usecount, self.manual_state)
@@ -369,6 +354,30 @@ class Group:
     def addGroupRequires(self, grpid):
         if grpid not in self.groupreqs:
             self.groupreqs.append(grpid)
+
+    def addMetaPkg(self, metapkginfo):
+        (type, id) = metapkginfo
+        if id in self.packages.keys():
+            log("already have %s in %s" %(id, self.id))
+            return
+        self.packages[id] = self.makePackageDict(id, type, isMeta = 1)
+
+    # dict of package info.  nevra and type are obvious
+    # state is one of the ON/OFF states
+    def makePackageDict(self, pkgnevra, type, installed = 0, isMeta = 0):
+        if type == u'mandatory':
+            pkgtype = PKGTYPE_MANDATORY
+        elif type == u'default':
+            pkgtype = PKGTYPE_DEFAULT
+        elif type == u'optional':
+            pkgtype = PKGTYPE_OPTIONAL
+        else:
+            log("Invalid package type of %s for %s in %s; defaulting to "
+                "optional" % (type, pkgnevra, self.id))
+            pkgtype = PKGTYPE_OPTIONAL
+        
+        return { "nevra": pkgnevra, "type": pkgtype, "state": installed,
+                 "meta": isMeta }
 
     # FIXME: this doesn't seem like the right place for it, but ... :/
     def selectDeps(self, pkgs, uses = 1):
@@ -445,8 +454,11 @@ class Group:
             if pkg["type"] == PKGTYPE_OPTIONAL:
                 continue
             pkg["state"] = ON
-            hdrlist[pkgnevra].select()
-            selected.append(pkgnevra)
+            if pkg["meta"] == 0:
+                hdrlist[pkgnevra].select()
+                selected.append(pkgnevra)
+            else:
+                self.grpset.groups[pkgnevra].select(forInclude = 1)
         self.selectDeps(selected)
 
         for grpid in self.groupreqs:
@@ -458,8 +470,11 @@ class Group:
         if pkg["state"] in ON_STATES:
             return
         pkg["state"] = ON
-        self.grpset.hdrlist[pkgnevra].select()
-        self.selectDeps([pkgnevra])
+        if pkg["meta"] == 0:
+            self.grpset.hdrlist[pkgnevra].select()
+            self.selectDeps([pkgnevra])
+        else:
+            self.grpset.groups[pkgnevra].select(forInclude = 1)
             
     def unselect(self, forInclude = 0):
         hdrlist = self.grpset.hdrlist
@@ -479,9 +494,12 @@ class Group:
             pkgnevra = pkg["nevra"]
             if pkg["state"] not in ON_STATES:
                 continue
-            hdrlist[pkgnevra].unselect()
             pkg["state"] = OFF
-            selected.append(pkgnevra)
+            if pkg["meta"] == 0:
+                hdrlist[pkgnevra].unselect()
+                selected.append(pkgnevra)
+            else:
+                self.grpset.groups[pkgnevra].unselect(forInclude = 1)
         self.unselectDeps(selected)
         
         for grpid in self.groupreqs:
@@ -491,9 +509,12 @@ class Group:
         pkg = self.packages[pkgnevra]
         if pkg["state"] not in ON_STATES:
             return
-        self.grpset.hdrlist[pkgnevra].unselect()
         pkg["state"] = OFF
-        self.unselectDeps([pkgnevra])        
+        if pkg["meta"] == 0:
+            self.grpset.hdrlist[pkgnevra].unselect()
+            self.unselectDeps([pkgnevra])
+        else:
+            self.grpset.groups[pkgnevra].unselect(forInclude = 1)
 
     def isSelected(self, justManual = 0):
         if justManual:
@@ -531,13 +552,7 @@ class Group:
                         tocheck.append(m)
         return 0
             
-
     def getDescription(self):
-        if self.id == "everything":
-            return _("This group includes all the packages available.  "
-                     "Note that there are substantially more packages than "
-                     "just the ones in all the other package groups on "
-                     "this page.")
         return self.description
         
 
@@ -573,7 +588,13 @@ class GroupSet:
                         %(xmlgrp.id, id))
                     continue
                 group.addGroupRequires(id)
-            # FIXME: need to add back metapkgs
+
+            for id in xmlgrp.metapkgs.keys():
+                if not self.groups.has_key(id):
+                    log("%s references component %s which doesn't exist"
+                        %(xmlgrp.id, id))
+                    continue
+                group.addMetaPkg(xmlgrp.metapkgs[id])
         
 
     def mergePackageDeps(self):

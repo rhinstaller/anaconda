@@ -165,17 +165,27 @@ class InstallData:
                     and group.id != "core"):
 		    f.write("@ %s\n" % group.id)
 
-#                 for metapkg in comp.metapkgs.keys():
-#                     (type, on) = comp.metapkgs[metapkg]
-#                     default = comp.metadef[metapkg]
-#                     if on == 1 and default == 0:
-#                         f.write("@ %s\n" % metapkg.name)
-#                     elif on == 0 and default == 1:
-#                         # this isn't quite right
-#                         for pkg in metapkg.newpkgDict.keys():
-#                             forcedoff[pkg.name] = 1
-
+                # handle metapkgs.  this is a little weird 
                 for (pkgnevra, pkg) in group.packages.items():
+                    if pkg["meta"] == 0:
+                        continue
+                    metapkg = self.grpset.groups[pkgnevra]
+                    # if it's optional and turned on, put it in the ks.cfg
+                    if (metapkg.isSelected() and
+                        pkg["type"] == hdrlist.PKGTYPE_OPTIONAL):
+                        f.write("@ %s\n" %(metapkg.id,))
+                    # if it's default and turned off, then turn off the
+                    # component packages (we dont' have a -@grp syntax)
+                    elif (not metapkg.isSelected() and
+                          pkg["type"] == hdrlist.PKGTYPE_DEFAULT):
+                        for (pkgnevra, pkg) in metapkg.packages.items():
+                            name = self.grpset.hdrlist[pkgnevra].name
+                            forcedoff[name] = 1
+
+                # handle packages
+                for (pkgnevra, pkg) in group.packages.items():
+                    if pkg["meta"] != 0:
+                        continue
                     name = self.grpset.hdrlist[pkgnevra].name
                     # if it's in base or core, it really should be installed
                     if group.id == "base" or group.id == "core":
