@@ -342,6 +342,13 @@ if (display_mode == 'g'):
             display_mode = 't'
             from text import InstallInterface
 elif (display_mode == 't'):
+    if ((len (method) >= 6 and method[:6] == "ftp://")
+        or (len (method) >= 7 and method[:7] == "http://")):
+        print _("Graphical installation not available for %s installs.  "
+                "Starting text mode.") % (string.split(method, ':')[0],)
+    elif len (method) >= 5 and method[:5] == "hd://":
+        print _("Graphical installation not available for hard drive installs.  "
+                "Starting text mode.")
     from text import InstallInterface
 else:
     sys.exit(1)
@@ -426,11 +433,9 @@ if not reconfigOnly:
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
     elif (method[0:6] == "ftp://" or method[0:7] == "http://"):
-        print _("Graphical installation not available for %s installs.  Starting text mode.") % (string.split(method, ':')[0],)
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method)
     elif (method[0:5] == "hd://"):
-        print _("Graphical installation not available for hard drive installs.  Starting text mode.")
         method = method[5:]
 
         i = string.index(method, ":")
