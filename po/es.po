@@ -3,7 +3,7 @@
 # Tullio Dovera <tdovera@redhat.it>, 2000.
 # Núria Soriano <nsoriano@redhat.es>,2001.
 # Fernando Ruiz-Tapiador Gutiérrez <frtapiador@redhat.es>, 2001.
-# 
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: 1.3\n"
@@ -348,7 +348,7 @@ msgstr "Aviso"
 # ../autopart.py:951
 # ../autopart.py:951
 #: ../autopart.py:954
-#, fuzzy
+
 msgid ""
 "Automatic Partitioning sets up your partitioning based on your installation "
 "type. You also can customize the resulting partitions to meet your needs.\n"
@@ -447,20 +447,22 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
+"No se ha instalado ningún paquete del kernel en su sistema. La configuración del "
+"gestor de arranque no cambiará. "
 
 # ../bootloader.py:656
 # ../bootloader.py:682
 # ../bootloader.py:710
 #: ../bootloader.py:737
 msgid "Bootloader"
-msgstr "Cargador de arranque"
+msgstr "Gestor de arranque"
 
 # ../bootloader.py:656
 # ../bootloader.py:682
 # ../bootloader.py:710
 #: ../bootloader.py:737
 msgid "Installing bootloader..."
-msgstr "Instalación del cargador de arranque..."
+msgstr "Instalación del gestor de arranque..."
 
 # ../comps.py:562
 # ../comps.py:562
@@ -907,8 +909,8 @@ msgstr "Cancelar"
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception or save the crash dump to a floppy then file "
-"a detailed bug report against anaconda at http://bugzilla.redhat.com/"
-"bugzilla/"
+"a detailed bug report against anaconda at "
+"http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Se ha producido una situación excepcional. Se trata probablemente de un "
 "error. Por favor copie el texto completo de esta excepción o guarde un "
@@ -952,7 +954,7 @@ msgstr "Cerrar"
 # ../gui.py:445 ../gui.py:607
 #: ../gui.py:445 ../gui.py:607
 msgid "Release Notes"
-msgstr "Notas de Última Hora"
+msgstr "Notas de última hora"
 
 # ../gui.py:476
 # ../gui.py:476
@@ -1210,7 +1212,7 @@ msgstr "Lectura"
 # ../packages.py:97
 #: ../packages.py:100
 msgid "Reading package information..."
-msgstr "Lectura de la información de los paquetes..."
+msgstr "Lectura de la información del paquete..."
 
 # ../packages.py:153
 # ../packages.py:153
@@ -1561,8 +1563,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Ha asignado menos espacio swap (%dM) del que RAM tiene a su disposición (%"
-"dM) en su sistema.  Esto podría afectar negativamente al rendimiento."
+"Ha asignado menos espacio swap (%dM) del que RAM tiene a su disposición "
+"(%dM) en su sistema.  Esto podría afectar negativamente al rendimiento."
 
 # ../partitioning.py:676
 # ../partitioning.py:692
@@ -2077,8 +2079,8 @@ msgid ""
 msgstr ""
 "Su sistema se ha montado bajo /mnt/sysimage.\n"
 "\n"
-"Pulse <Intro> para obtener una shell. Si desea que su sistema sea el "
-"entorno /, ejecute el comando\n"
+"Pulse <Intro> para obtener una shell. Si desea que su sistema sea el entorno "
+"/, ejecute el comando\n"
 "\tchroot /mnt/sysimage\n"
 "\n"
 "El sistema reinicializará automáticamente cuando salga de la shell."
@@ -2608,9 +2610,9 @@ msgstr "Borrar"
 #: ../iw/account_gui.py:358
 msgid ""
 "Additional accounts can be created for other users of this system. Such "
-"accounts could be for a personal login account, or for other non-"
-"administrative users who need to use this system. Use the <Add> button to "
-"enter additional user accounts."
+"accounts could be for a personal login account, or for other "
+"non-administrative users who need to use this system. Use the <Add> button "
+"to enter additional user accounts."
 msgstr ""
 "Se pueden crear otras cuenta para otros usuarios de este sistema. Dichas "
 "cuentas pueden ser para una cuenta personal, o para otros usuarios que "
@@ -2622,7 +2624,7 @@ msgstr ""
 # ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:319
 msgid "Authentication Configuration"
-msgstr "Configuración de la autentificación"
+msgstr "Configuración de la autenticación"
 
 # ../iw/auth_gui.py:97
 # ../iw/auth_gui.py:97
@@ -2727,7 +2729,7 @@ msgstr "Servidor Admin:"
 # ../iw/auth_gui.py:208
 #: ../iw/auth_gui.py:208
 msgid "Enable SMB Authentication"
-msgstr "Habilitar autentificación SMB"
+msgstr "Habilitar autenticación SMB"
 
 # ../iw/auth_gui.py:211
 # ../iw/auth_gui.py:211
@@ -3104,8 +3106,8 @@ msgstr "Haga click en siguiente para empezar la instalación de Red Hat Linux."
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
-"kickstart file representing the choices you have made will be in /root/"
-"anaconda-ks.cfg."
+"kickstart file representing the choices you have made will be in "
+"/root/anaconda-ks.cfg."
 msgstr ""
 "Encontrará un completo registro de su instalación en /tmp/install.log "
 "después de reiniciar su sistema. Lo podrá necesitar más tarde. Encontrará un "
@@ -3166,8 +3168,8 @@ msgid ""
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
@@ -3181,8 +3183,8 @@ msgstr ""
 "disponibles, visite http://www.redhat.com/errata.\n"
 " \n"
 "Encontrará información sobre el uso y la configuración de su sistema en los "
-"manuales oficiales Red Hat Linux disponibles en http://www.redhat.com/"
-"support/manuals."
+"manuales oficiales Red Hat Linux disponibles en "
+"http://www.redhat.com/support/manuals."
 
 # ../iw/congrats_gui.py:94
 # ../iw/congrats_gui.py:102
@@ -3191,8 +3193,8 @@ msgstr ""
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
@@ -3203,8 +3205,8 @@ msgstr ""
 "disponibles, visite http://www.redhat.com/errata.\n"
 " \n"
 "Encontrará información sobre el uso y la configuración de su sistema en los "
-"manuales oficiales Red Hat Linux disponibles en http://www.redhat.com/"
-"support/manuals."
+"manuales oficiales Red Hat Linux disponibles en "
+"http://www.redhat.com/support/manuals."
 
 # ../iw/dependencies_gui.py:20
 # ../iw/dependencies_gui.py:20
@@ -3234,7 +3236,7 @@ msgstr "Tamaño total de la instalación: %s"
 #: ../iw/dependencies_gui.py:66 ../iw/package_gui.py:423
 #: ../iw/progress_gui.py:191 ../textw/packages_text.py:301
 msgid "Package"
-msgstr "Paquetes"
+msgstr "Paquete"
 
 # ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
 # ../iw/dependencies_gui.py:64 ../textw/packages_text.py:301
@@ -3686,7 +3688,7 @@ msgstr "DNS Terciario"
 # ../iw/package_gui.py:41 ../textw/packages_text.py:237
 #: ../iw/package_gui.py:41 ../textw/packages_text.py:237
 msgid "Individual Package Selection"
-msgstr "Selección Individual de Paquetes"
+msgstr "Selección individual de paquetes"
 
 # ../iw/package_gui.py:276
 # ../iw/package_gui.py:277
@@ -4303,14 +4305,14 @@ msgstr "Tamaño"
 # ../iw/progress_gui.py:193
 #: ../iw/progress_gui.py:193
 msgid "Summary"
-msgstr "Sumario"
+msgstr "Descripción"
 
 # ../iw/progress_gui.py:223
 # ../iw/progress_gui.py:223
 # ../iw/progress_gui.py:223
 #: ../iw/progress_gui.py:223
 msgid "Package Progress: "
-msgstr "Progreso de los paquetes: "
+msgstr "Progreso del paquete: "
 
 # ../iw/progress_gui.py:228
 # ../iw/progress_gui.py:228
@@ -5095,8 +5097,8 @@ msgid ""
 "Remove any floppy diskettes you used during the installation process and "
 "press <Enter> to reboot your system. \n"
 "\n"
-"%sFor information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"%sFor information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
@@ -5110,8 +5112,8 @@ msgstr ""
 "disponibles, visite http://www.redhat.com/errata.\n"
 "\n"
 "Encontrará información sobre el uso y la configuración de su sistema en los "
-"manuales oficiales Red Hat Linux disponibles en http://www.redhat.com/"
-"support/manuals."
+"manuales oficiales Red Hat Linux disponibles en "
+"http://www.redhat.com/support/manuals."
 
 # ../textw/complete_text.py:48
 # ../textw/complete_text.py:54
@@ -5153,8 +5155,8 @@ msgstr "<Intro> para salir"
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
-"For information on errata (updates and bug fixes), visit http://www.redhat."
-"com/errata.\n"
+"For information on errata (updates and bug fixes), visit "
+"http://www.redhat.com/errata.\n"
 "\n"
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
@@ -5537,14 +5539,14 @@ msgstr "Tamaño total"
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
-" <Espacio>,<+>,<-> selección | <F1> ayuda | <F2> descripción de los paquetes "
+" <Espacio>,<+>,<-> selección | <F1> ayuda | <F2> descripción del paquete "
 
 # ../textw/packages_text.py:293
 # ../textw/packages_text.py:293
 # ../textw/packages_text.py:293
 #: ../textw/packages_text.py:293
 msgid "Package Dependencies"
-msgstr "Dependencias de los paquetes"
+msgstr "Dependencias del paquete"
 
 # ../textw/packages_text.py:295
 # ../textw/packages_text.py:295
@@ -5803,7 +5805,7 @@ msgstr "Disk Druid"
 # ../textw/progress_text.py:79
 #: ../textw/progress_text.py:79
 msgid "Package Installation"
-msgstr "Instalación de los paquetes"
+msgstr "Instalación del paquete"
 
 # ../textw/progress_text.py:81
 # ../textw/progress_text.py:81
@@ -6111,8 +6113,8 @@ msgstr "ID de usuario erróneo"
 # ../textw/userauth_text.py:116
 #: ../textw/userauth_text.py:116
 msgid ""
-"User IDs must be less than 8 characters and contain only characters A-Z, a-"
-"z, and 0-9."
+"User IDs must be less than 8 characters and contain only characters A-Z, "
+"a-z, and 0-9."
 msgstr ""
 "El ID del usuario debe ser de al menos 8 caracteres y contener sólamente "
 "caracteres A-Z, a-z, y 0-9."
@@ -6567,8 +6569,9 @@ msgstr "RAM de vídeo"
 #: ../textw/xconfig_text.py:496
 #, c-format
 msgid ""
-"Please select the amount of video RAM present on your video card. Choose '%"
-"s' to reset the selection to the amount the installer detected on your card."
+"Please select the amount of video RAM present on your video card. Choose "
+"'%s' to reset the selection to the amount the installer detected on your "
+"card."
 msgstr ""
 "Seleccione la cantidad de RAM de vídeo presente en su tarjeta de vídeo. "
 "Escoja '%s' para reiniciar la selección hasta la cantidad que el instalador "
@@ -6614,7 +6617,7 @@ msgstr "RAM de vídeo:"
 # ../installclasses/custom.py:12
 #: ../installclasses/custom.py:12
 msgid "Custom"
-msgstr "Personalizado"
+msgstr "Personalizada"
 
 # ../comps/comps-master:151
 # ../installclasses/laptop.py:7
