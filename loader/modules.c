@@ -29,9 +29,11 @@ struct moduleDependency_s {
     char ** deps;
 };
 
+struct extractedModule {
+    char * path;
+    char * location;
+};
 
-static char ** extractModules(struct driverDiskInfo * location, 
-			char * const * modNames, char ** oldPaths);
 static int ethCount(void);
 static int scsiCount(void);
 int mlReadLoadedList(moduleList * mlp);
@@ -40,12 +42,13 @@ moduleDeps mlNewDeps(void);
 int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path);
 char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args, 
 			    int depth, char *** listPtr, int * listSizePtr);
-static int loadModule(const char * modName, char * path, moduleList modLoaded,
-	         char ** args, moduleInfoSet modInfo, int flags);
+static int loadModule(const char * modName, struct extractedModule * path, 
+		      moduleList modLoaded, char ** args, 
+		      moduleInfoSet modInfo, int flags);
 static char * filterDriverModules(struct driverDiskInfo * ddi,
 				  char * const * modNames);
-static char ** extractModules(struct driverDiskInfo * ddi, 
-			      char * const * modNames, char ** oldPaths);
+static struct extractedModule * extractModules (struct driverDiskInfo * ddi, 
+		char * const * modNames, struct extractedModule * oldPaths);
 static int doLoadModules(const char * origModNames, moduleList modLoaded, 
 		    moduleDeps modDeps, moduleInfoSet modInfo, int flags,
 		    const char * argModule, char ** args);
@@ -325,8 +328,9 @@ char ** tsortModules(moduleList modLoaded, moduleDeps ml, char ** args,
     return list;
 }
 
-static int loadModule(const char * modName, char * path, moduleList modLoaded,
-	         char ** args, moduleInfoSet modInfo, int flags) {
+static int loadModule(const char * modName, struct extractedModule * path, 
+		      moduleList modLoaded, char ** args, 
+		      moduleInfoSet modInfo, int flags) {
     char fileName[200];
     int rc, i;
     char ** arg, ** newArgs, ** argPtr;
@@ -377,7 +381,7 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
 	    dup2(fd, 2);
 	    close(fd);
 
-	    rc = insmod(path, NULL, args);
+	    rc = insmod(path->path, NULL, args);
 	    _exit(rc);
 	}
 
@@ -400,7 +404,8 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     if (!rc) {
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
 	modLoaded->mods[modLoaded->numModules].weLoaded = 1;
-	modLoaded->mods[modLoaded->numModules].path = strdup(path);
+	modLoaded->mods[modLoaded->numModules].path = 
+	    path->location ? strdup(path->location) : NULL;
 	modLoaded->mods[modLoaded->numModules].firstDevNum = -1;
 	modLoaded->mods[modLoaded->numModules].lastDevNum = -1;
 	modLoaded->mods[modLoaded->numModules].written = 0;
@@ -543,8 +548,8 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
     }
 }
 
-static char ** extractModules(struct driverDiskInfo * ddi, 
-			      char * const * modNames, char ** oldPaths) {
+static struct extractedModule * extractModules (struct driverDiskInfo * ddi, 
+		char * const * modNames, struct extractedModule * oldPaths) {
     gzFile fd;
     char * ballPath;
     struct cpioFileMapping * map;
@@ -573,6 +578,7 @@ static char ** extractModules(struct driverDiskInfo * ddi,
 	free(ballPath);
 	return NULL;
     }
+    free(ballPath);
 
     for (m = modNames, i = 0; *m; i++, m++);
     
@@ -583,7 +589,7 @@ static char ** extractModules(struct driverDiskInfo * ddi,
 	oldPaths = calloc(i + 1, sizeof(*oldPaths));
 
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
-	if (!oldPaths[i]) {
+	if (!oldPaths[i].path) {
 	    map[numMaps].archivePath = alloca(strlen(u.release) + 
 						strlen(*m) + 25);
 	    sprintf(map[numMaps].archivePath, "%s/%s.o", u.release, *m);
@@ -607,14 +613,17 @@ static char ** extractModules(struct driverDiskInfo * ddi,
     gunzip_close(fd);
 
     for (m = modNames, i = 0, numMaps = 0; *m; m++, i++) {
-	if (!oldPaths[i]) {
+	if (!oldPaths[i].path) {
 	    /* can't trust map; the order changed thanks to qsort */
 	    sprintf(fn, "/tmp/%s.o", modNames[i]);
 	    if (!stat(fn, &sb)) {
 		if (ddi)
 		    logMessage("module %s found on driver disk %s (%d bytes)", 
 				modNames[i], ddi->title, sb.st_size);
-		oldPaths[i] = strdup(fn);
+		oldPaths[i].path = strdup(fn);
+		/* null otherwise from calloc() */
+		if (ddi)
+		    oldPaths[i].location = strdup(ballPath);
 	    }
 	    numMaps++;
 	}
@@ -631,7 +640,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     char ** initialList;
     int i;
     char ** list, ** l;
-    char ** paths, ** p;
+    struct extractedModule * paths, * p;
     struct moduleInfo * mi;
     char items[1024] = "";
 
@@ -679,7 +688,7 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
     paths = NULL;
     if (modInfo) {
 	for (i = 0; list[i]; i++) {
-	    if (paths && paths[i]) continue;
+	    if (paths && paths[i].path) continue;
 	    mi = isysFindModuleInfo(modInfo, list[i]);
 
 	    if (mi && mi->locationID)
@@ -697,24 +706,24 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 
 	/* if any modules weren't found, holler */
 	for (l = list, p = paths; *l && p; l++, p++) {
-	    if (!*p) {
+	    if (!p->path) {
 		if (*items) strcat(items, " ");
 		strcat(items, *l);
 		i++;
 	    }
 	}
 
-	if (*items) logMessage("modules %s not found", items);
+	if (*items) logMessage("module(s) %s not found", items);
     }
 
     /* insert the modules now */
     for (l = list, p = paths; paths && *l; l++, p++) {
-	if (*p && loadModule(*l, *p, modLoaded, 
+	if (p->path && loadModule(*l, p, modLoaded, 
 		       (argModule && !strcmp(argModule, *l)) ? args : NULL, 
 		       modInfo, flags)) {
 	    logMessage("failed to insert %s", *p);
-	} else if (*p) {
-	    logMessage("inserted %s", *p);
+	} else if (p->path) {
+	    logMessage("inserted %s", p->path);
 	}
     }
 
@@ -732,9 +741,10 @@ static int doLoadModules(const char * origModNames, moduleList modLoaded,
 	}
     }
 
-    for (p = paths; p && *p; p++) {
-	unlink(*p);
-	free(*p);
+    for (p = paths; p->path; p++) {
+	unlink(p->path);
+	free(p->path);
+	if (p->location) free(p->location);
     }
 
     free(paths);
@@ -919,7 +929,7 @@ int reloadUnloadedModule(char * modName, void * location,
     char fileName[200];
     int rc, status;
     pid_t child;
-    char ** path;
+    struct extractedModule * path;
     char ** argPtr;
     char * list[2];
 
@@ -931,7 +941,7 @@ int reloadUnloadedModule(char * modName, void * location,
     list[1] = NULL;
 
     if (location)
-	path = extractModules(location, tsortModules(modLoaded, NULL, list, 0, NULL, NULL), (char **) NULL);
+	path = extractModules(location, tsortModules(modLoaded, NULL, list, 0, NULL, NULL), NULL);
 
     sprintf(fileName, "%s.o", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++)  {
