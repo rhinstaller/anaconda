@@ -356,3 +356,5 @@ def isPsudoTTY (fd):
 def sync ():
     return _isys.sync ()
 
+def isIsoImage(file):
+    return _isys.isisoimage(file)

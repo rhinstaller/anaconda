@@ -47,4 +47,7 @@ int devMakeInode(char * devName, char * path);
 int insmod(char * modName, char * path, char ** args);
 int rmmod(char * modName);
 
+/* returns 0 for true, !0 for false */
+int fileIsIso(const char * file);
+
 #endif

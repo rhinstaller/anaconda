@@ -88,6 +88,7 @@ static PyObject * doEjectCdrom(PyObject * s, PyObject * args);
 static PyObject * doVtActivate(PyObject * s, PyObject * args);
 static PyObject * doisPsudoTTY(PyObject * s, PyObject * args);
 static PyObject * doSync(PyObject * s, PyObject * args);
+static PyObject * doisIsoImage(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -135,6 +136,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "vtActivate", (PyCFunction) doVtActivate, METH_VARARGS, NULL},
     { "isPsudoTTY", (PyCFunction) doisPsudoTTY, METH_VARARGS, NULL},
     { "sync", (PyCFunction) doSync, METH_VARARGS, NULL},
+    { "isisoimage", (PyCFunction) doisIsoImage, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1387,7 +1389,6 @@ static PyObject * doisPsudoTTY(PyObject * s, PyObject * args) {
 
 static PyObject * doSync(PyObject * s, PyObject * args) {
     int fd;
-    struct stat sb;
 
     if (!PyArg_ParseTuple(args, "", &fd)) return NULL;
     sync();
@@ -1395,3 +1396,15 @@ static PyObject * doSync(PyObject * s, PyObject * args) {
     Py_INCREF(Py_None);
     return Py_None;
 }
+
+static PyObject * doisIsoImage(PyObject * s, PyObject * args) {
+    char * fn;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &fn)) return NULL;
+    /* ! returns proper true/false */
+    rc = !fileIsIso(fn);
+    
+    return Py_BuildValue("i", rc);
+}
+int fileIsIso(const char * file);
