@@ -29,6 +29,7 @@ BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-dev
 Prereq: chkconfig /etc/init.d
 Requires: rpm-python
 Excludearch: sparc sparc64
+ExclusiveArch: ia64
 
 BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
 
