@@ -65,7 +65,6 @@ class FDiskWindow (InstallWindow):
 	isys.makeDevInode(drive, '/tmp/' + drive)
 
         if zvt.forkpty() == 0:
-            lang = self.ics.getICW().locale
             env = os.environ
             os.execve (path, (path, '/tmp/' + drive), env)
         zvt.show ()
