@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-07-07 14:54+0200\n"
+"PO-Revision-Date: 2004-09-05 19:51+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -202,9 +202,8 @@ msgid "Using mouse type: %s"
 msgstr "Muistype dat nu wordt gebruikt: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Bezig met zoeken naar %s installaties..."
+msgstr "Grafische installatie wordt nu opgestart..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -264,12 +263,12 @@ msgstr ""
 "zal niet in staat zijn om van deze partitie op te starten."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartpartitie %s voldoet mogelijk niet aan de opstart-voorwaarden voor uw "
-"architectuur. Het maken van een opstartdiskette wordt sterk aanbevolen."
+"architectuur."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1100,7 +1099,7 @@ msgstr "Op_nieuw"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Het installatieprogramma zal nu afsluiten..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2655,52 +2654,50 @@ msgid ""
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
 msgstr ""
+"zSeries machines kunnen industrie-standaard SCSI apparaten benaderen via "
+"Fibre Channel (FCP). U dient 5 parameters op te geven voor elk apparaat: een "
+"16 bit apparaatnummer, een 16 bit SCSI ID, een 64 bit World Wide Port Number "
+"(WWPN), een 16 bit SCSI LUN en een 64 bit FCP LUN."
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Apparaat"
+msgstr "Apparaatnummer"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "U hebt geen computernaam opgegeven."
+msgstr "U heeft geen apparaatnummer opgegeven of het nummer is ongeldig."
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "U hebt geen computernaam opgegeven."
+msgstr "U heeft geen SCSI ID opgegeven of het ID is ongeldig."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "U hebt geen computernaam opgegeven."
+msgstr "U heeft geen 'worldwide port name' opgegeven of de naam is ongeldig."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "U hebt geen computernaam opgegeven."
+msgstr "U heeft geen SCSI LUN opgegeven of het nummer is ongeldig."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "U hebt geen computernaam opgegeven."
+msgstr "U heeft geen FCP LUN opgegeven of het nummer is ongeldig."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3419,7 +3416,6 @@ msgstr ""
 "uw computer aan anderen.  Tot welke services wilt u toegang verlenen?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
@@ -3428,9 +3424,9 @@ msgid ""
 msgstr ""
 "Security Enhanced Linux (SELinux) biedt meer verfijnde beveiligingscontroles "
 "dan gebruikelijk in een traditioneel Linux systeem.  SELinux kan worden "
-"uitgezet zodat het alleen waarschuwt over bepaalde zaken die niet zouden "
-"zijn toegestaan. SELinux kan ook worden aangezet zodat het volledig actief "
-"is."
+"uitgezet zodat het niet actief is. Het kan ook worden ingesteld zodat het "
+"alleen waarschuwt over zaken die niet zouden zijn toegestaan. SELinux kan "
+"ook worden ingesteld zodat het volledig actief is."
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -5296,35 +5292,33 @@ msgid "_Skip X configuration"
 msgstr "X configureren _overslaan"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC configuratie"
+msgstr "ZFCP configuratie"
 
 #: ../iw/zfcp_gui.py:99
-#, fuzzy
 msgid "_Remove"
-msgstr "_Resetten"
+msgstr "_Verwijderen"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Apparaten"
+msgstr "FCP apparaten"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Apparaat toevoegen"
+msgstr "FCP apparaat toevoegen"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "RAID-opstelling bewerken"
+msgstr "FCP apparaat %s bewerken"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
 msgstr ""
+"U staat op het punt om een FCP schijf te verwijderen uit uw configuratie. "
+"Weet u zeker dat u verder wilt gaan?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -6060,9 +6054,8 @@ msgid "End Cylinder:"
 msgstr "Eind-cylinder:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Volumegroepnaam:"
+msgstr "Volume Group:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6186,24 +6179,21 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Het maximum aantal reserves bij een RAID0 opstelling is 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM Volumegroepen"
+msgstr "Geen Volumegroepen"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Voer een naam in voor het logische volume."
+msgstr "Er zijn geen volumegroepen om een logisch volume in aan te maken."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de maximum "
-"logische volume-grootte (%10.2f MB). Om deze limiet te verhogen, kunt u de "
-"fysieke afmeting voor deze Volumegroep vergroten."
+"logische volume-grootte (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6211,27 +6201,25 @@ msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
 msgstr ""
+"De grootte (%10.2f MB) die momenteel verzocht wordt is groter dan de "
+"beschikbare grootte in de volumegroep (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Logisch Volume bewerken"
+msgstr "Nieuwe partitie of Logisch Volume?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Opstartpartities mogen niet op een logisch volume staan."
+msgstr "Wilt u een nieuwe partitie aanmaken of een nieuw logisch volume?"
 
 # werkwoord of znw?
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partitie"
+msgstr "partitie"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Logische Volumes"
+msgstr "logisch volume"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6842,40 +6830,36 @@ msgid "Video RAM:"
 msgstr "Video-RAM:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Apparaat"
+msgstr "Apparaatnummer:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Apparaat"
+msgstr "FCP apparaat"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Apparaat"
+msgstr "Apparaat #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Verwijderen"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7310,7 +7294,7 @@ msgstr "Kan het kickstart bestand niet vinden op de harddisk."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Kan geen harde schijf voor BIOS schijf %s vinden"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7965,7 +7949,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -8045,7 +8029,7 @@ msgstr "Chatham Eilanden"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8204,7 +8188,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8311,9 +8295,8 @@ msgid "most locations"
 msgstr "meeste lokaties"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "meeste lokaties (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "meeste lokaties (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8455,11 +8438,11 @@ msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8507,7 +8490,7 @@ msgstr "Tibet & grootste gedeelte van Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8519,7 +8502,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8578,9 +8561,8 @@ msgid "Bengali"
 msgstr "Bengaals"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Hongaars"
+msgstr "Bulgaars"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8673,9 +8655,8 @@ msgid "Persian"
 msgstr "Persisch"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Engels"
+msgstr "Pools"
 
 #. generated from lang-table
 msgid "Portuguese"
