@@ -24,8 +24,12 @@ class LiloWindow (InstallWindow):
         self.bootdisk = None
         self.lilo = None
 
+    def getPrev (self):
+	# avoid coming back in here if the user backs past and then tries
+	# to skip this screen
+	self.bootdisk = None
+
     def getNext (self):
-        # XXX
         if not self.bootdisk: return None
 
         if self.bootdisk.get_active ():
