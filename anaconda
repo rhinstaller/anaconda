@@ -112,10 +112,13 @@ def startVNCServer(vncpassword=None, root='/', vncconnecthost=None,
 	else:
 	    for dev in netinfo.netdevices.keys():
 		try:
-		    ip = netinfo.netdevices[dev].get("ipaddr")
-		except:
+                    ip = isys.getIPAddress(dev)
+                    log("ip of %s is %s" %(dev, ip))
+		except Exception, e:
+                    log("Got an exception trying to get the ip addr of %s: "
+                        "%s" %(dev, e))
 		    continue
-		if ip == '127.0.0.1':
+		if ip == '127.0.0.1' or ip is None:
 		    continue
 		srvname = ip
 		break
