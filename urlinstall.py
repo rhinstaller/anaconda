@@ -76,13 +76,13 @@ class UrlInstallMethod(InstallMethod):
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
 
-        if self.multiDics:
+        if self.multiDiscs:
             base = "%s/disc1" % (self.pkgUrl,)
         else:
             base = self.pkgUrl
-        fullPath = base + filename
+        fullPath = base + "/" + filename
 
-        file = tmppath + os.path.basename(fullPath)
+        file = tmppath + "/" + os.path.basename(fullPath)
 
         connected = 0
         while not connected:
