@@ -93,7 +93,7 @@ IDEMODS="cdrom ide-cd"
 SCSIMODS="cdrom scsi_mod sd_mod sg sr_mod st"
 
 FSMODS="fat msdos vfat ext3 reiserfs jfs xfs"
-SECSTAGE="agpgart md raid0 raid1 raid5 dm_mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
+SECSTAGE="agpgart md raid0 raid1 raid5 dm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 BTERMMODULES="vga16fb vgastate"
 COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop $USBMODS $BTERMMODULES"
