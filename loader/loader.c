@@ -167,6 +167,10 @@ static void spawnShell(int flags) {
 	logMessage("not spawning a shell over a serial connection");
 	return;
     }
+    if (FL_NOSHELL(flags)) {
+	logMessage("not spawning a shell when noshell used");
+	return;
+    }
     if (!FL_TESTING(flags)) {
 	fd = open("/dev/tty2", O_RDWR);
 	if (fd < 0) {
@@ -1926,6 +1930,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource,
         if (!strcasecmp(argv[i], "expert"))
 	    flags |= LOADER_FLAGS_EXPERT | LOADER_FLAGS_NOPROBE |
 		     LOADER_FLAGS_MODDISK;
+        else if (!strcasecmp(argv[i], "noshell"))
+	    flags |= LOADER_FLAGS_NOSHELL;
         else if (!strcasecmp(argv[i], "nousb"))
 	    flags |= LOADER_FLAGS_NOUSB;
         else if (!strcasecmp(argv[i], "noprobe"))
