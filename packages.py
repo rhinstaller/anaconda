@@ -543,8 +543,9 @@ def doPreInstall(method, id, intf, instPath, dir):
 
 
     try:
-        if not os.path.islink("/var/tmp"):
+        if os.path.exists("/var/tmp") and not os.path.islink("/var/tmp"):
             iutil.rmrf("/var/tmp")
+        if not os.path.islink("/var/tmp"):
             os.symlink("/mnt/sysimage/var/tmp", "/var/tmp")
         else:
             log("/var/tmp already exists as a symlink to %s" %(os.readlink("/var/tmp"),))
