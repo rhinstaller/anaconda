@@ -1,3 +1,8 @@
+2004-09-23  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/hardware.c: We can always probe devices with current
+	supported hardware. (#132592)
+
 2004-09-23  Bill Nottingham <notting@redhat.com>
 
 	* loader2/module-info, scripts/mk-images.*: fix megaraid module name
