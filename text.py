@@ -46,9 +46,15 @@ import installclass
 class LanguageWindow:
     def __call__(self, screen, todo, textInterface):
         languages = todo.language.available ()
+
+        haveKon = os.access ("/sbin/continue", os.X_OK)
+        if languages.has_key ("Japanese") and not haveKon:
+            del languages["Japanese"]
+
         descriptions = languages.keys ()
         descriptions.sort ()
         current = todo.language.get ()
+
         for lang in descriptions:
             if languages[lang] == current:
                 default = descriptions.index (lang)
