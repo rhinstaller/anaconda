@@ -79,8 +79,8 @@ expandPackageSet() {
 
     for n in $RPMS; do 
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
-	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "glibc-common" ] ; then
-	    GLIBC=$n
+	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "tzdata" ] ; then
+	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." "$(basename $n | sed 's/./ /g')"
@@ -770,10 +770,9 @@ echo "Expanding graphical packages..."
 echo "retrieving timezones"
 TZDIR=/tmp/glibc-timezone-$$
 mkdir -p $TZDIR/usr/share/zoneinfo
-rpm2cpio $GLIBC | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
+rpm2cpio $TZDATA | (cd $TZDIR; cpio --quiet -iumd usr/share/zoneinfo ./usr/share/zoneinfo ./usr/share/zoneinfo/* usr/share/zoneinfo/*)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DEST; tar xSpf -)
 (cd $TZDIR; tar cSpf - $TIMEZONES) | (cd $DESTGR; tar xSpf -)
-rm -rf $TZDIR
 
 chown -R root:root $DEST $DESTGR
 chmod -R a+rX-w $DEST $DESTGR
@@ -966,9 +965,13 @@ for p in $DEST $DESTGR; do
 	   (cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
 	fi
 
-	(cd /usr/share/zoneinfo; find . -type f -or -type l | 
+	if [ -d $TZDIR/usr/share/zoneinfo ]; then
+	    (cd $TZDIR/usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
+	else
+	    echo "ERROR: unable to explode tzdata for small images"
+	fi
 
 	if [ -x /usr/bin/runroot -a -n "$COMPONENT" ]; then
             runroot $COMPONENT --onlyone --arch $ARCH "cd $p\; usr/lib/anaconda-runtime/scrubtree $DEBUG $p"
@@ -1063,6 +1066,8 @@ rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/email/
 rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/curses/
 rm -f $DESTGR/usr/$LIBDIR/python?.?/site-packages/pydoc.py
 
+# clean up tzdata
+rm -rf $TZDIR
 
 # this is only for the minimal second stage
 echo "Cleaning ramdisk install images..."
