@@ -1,5 +1,6 @@
 import sys
 import rpm
+import os
 from string import *
 import types
 import iutil
@@ -175,6 +176,9 @@ class ComponentSet:
 
     def readCompsFile(self, filename, packages):
 	arch = iutil.getArch()
+	arch2 = None
+	if arch == "sparc" and os.uname ()[4] == "sparc64":
+	    arch2 = "sparc64"
 	file = urllib.urlopen(filename)
 	lines = file.readlines()
 
@@ -203,7 +207,7 @@ class ComponentSet:
 		archList = split(archList)
 		found = 0
 		for n in archList:
-		    if (n == arch): 
+		    if n == arch or (arch2 and n == arch2): 
 			found = 1
 			break
 		if ((found and skipIfFound) or 

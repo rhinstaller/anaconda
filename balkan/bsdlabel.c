@@ -104,13 +104,13 @@ int bsdlReadTable(int fd, struct partitionTable * table) {
 	if (label.d_partitions[i].p_size && label.d_partitions[i].p_fstype) {
 	    table->parts[i].startSector = label.d_partitions[i].p_offset;
 	    table->parts[i].size = label.d_partitions[i].p_size;
-	    table->parts[i].type = label.d_partitions[i].p_size;
 
 	    switch (label.d_partitions[i].p_fstype) {
 	      case 1: s = BALKAN_PART_SWAP; break;
 	      case 8: s = BALKAN_PART_EXT2; break;
 	      default: s = BALKAN_PART_OTHER; break;
 	    }
+	    table->parts[i].type = s;
 	}
     }
 

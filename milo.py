@@ -48,7 +48,7 @@ class MiloInstall:
 		pass
             # XXX stat /etc/aboot.conf and do the right thing
             try:
-		os.remove(todo.instPath + "/etc/aboot.conf")
+		os.remove(self.todo.instPath + "/etc/aboot.conf")
             except:
                 pass
             os.symlink("../boot/etc/aboot.conf",

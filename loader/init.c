@@ -58,9 +58,9 @@
 
 char * env[] = {
     "PATH=/usr/bin:/bin:/sbin:/usr/sbin:/mnt/sysimage/usr/bin:"
-        "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin",
+    "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin",
     "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
-        "/mnt/sysimage/lib:/mnt/sysimage/usr/lib",
+    "/mnt/sysimage/lib:/mnt/sysimage/usr/lib",
     "HOME=/",
     "TERM=linux",
     "DEBUG=",
@@ -99,7 +99,7 @@ void fatal_error(int usePerror) {
 }
 
 int doMke2fs(char * device, char * size) {
-    char * args[] = { "/usr/bin/mke2fs", NULL, NULL, NULL };
+    char * args[] = { "/usr/sbin/mke2fs", NULL, NULL, NULL };
     int pid, status;
 
     args[1] = device;
@@ -107,7 +107,7 @@ int doMke2fs(char * device, char * size) {
 
     if (!(pid = fork())) {
 	/* child */
-	execve("/usr/bin/mke2fs", args, env);
+	execve("/usr/sbin/mke2fs", args, env);
 	fatal_error(1);
     }
 
@@ -498,7 +498,7 @@ int main(int argc, char **argv) {
 
     setsid();
     if (ioctl(0, TIOCSCTTY, NULL)) {
-	printf("could not set new controlling tty");
+	printf("could not set new controlling tty\n");
     }
 
     if (!testing) {

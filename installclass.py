@@ -10,7 +10,7 @@ FSEDIT_CLEAR_LINUX  = (1 << 1)
 FSEDIT_CLEAR_ALL    = (1 << 2)
 FSEDIT_USE_EXISTING = (1 << 3)
 
-import gettext_rh, os
+import gettext_rh, os, iutil
 from xf86config import XF86Config
 
 cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
@@ -209,6 +209,10 @@ class InstallClass:
 	self.earlySwapOn = 0
         self.desktop = ""
 	self.raidList = []
+
+        if iutil.getArch () == "alpha":
+            self.addToSkipList("bootdisk")
+            self.addToSkipList("lilo")
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):

@@ -700,13 +700,14 @@ class ToDo:
 
         # /etc/hosts
         f = open (self.instPath + "/etc/hosts", "w")
-        localline = "127.0.0.1\t\tlocalhost.localdomain localhost "
+        localline = "127.0.0.1\t\t"
         if self.network.hostname != "localhost.localdomain":
-            localline = localline + self.network.hostname
-        f.write (localline + "\n")
+            localline = localline + self.network.hostname + " "
+	localline = localline + "localhost.localdomain localhost\n"
+        f.write (localline)
         for dev in self.network.netdevices.values ():
             ip = dev.get ("ipaddr")
-            if dev.hostname and ip:
+            if dev.hostname and ip and dev.hostname != "localhost.localdomain":
                 f.write ("%s\t\t%s\n" % (ip, dev.hostname))
         f.close ()
 
@@ -979,10 +980,6 @@ class ToDo:
 
 	if (todo.instClass.x):
 	    todo.x = todo.instClass.x
-
-        if iutil.getArch () == "alpha":
-            instClass.addToSkipList("bootdisk")
-            instClass.addToSkipList("lilo")
 
         if todo.instClass.desktop:
             todo.desktop.set (todo.instClass.desktop)

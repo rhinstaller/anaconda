@@ -1060,8 +1060,12 @@ static char * doMountImage(char * location,
 	exit(1);
     }
 
-#if defined (INCLUDE_LOCAL) || defined (__sparc__)
-# ifdef __sparc__
+    /* This is a check for NFS or CD-ROM rooted installs */
+    if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", X_OK))
+	return "dir://mnt/source/.";
+    
+#if defined (INCLUDE_LOCAL) || defined (__sparc__) || defined (__alpha__)
+# if defined (__sparc__) || defined (__alpha__)
     /* Check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
     if (!FL_EXPERT(flags)) {

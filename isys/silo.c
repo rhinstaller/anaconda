@@ -709,6 +709,7 @@ int main(void) {
 #include <Python.h>
 
 static PyObject *disk2PromPath (PyObject *, PyObject *);
+static PyObject *zeroBasedPart (PyObject *, PyObject *);
 static PyObject *hasAliases (void);
 static PyObject *promRootName (void);
 static PyObject *setPromVars (PyObject *, PyObject *);
@@ -717,6 +718,7 @@ static PyMethodDef _siloMethods[] = {
     { "disk2PromPath", disk2PromPath, 1 },
     { "hasAliases", hasAliases, 1 },
     { "promRootName", promRootName, 1 },
+    { "zeroBasedPart", zeroBasedPart, 1 },
     { "setPromVars", setPromVars, 1 },
     { NULL, NULL }
 };
@@ -780,7 +782,39 @@ disk2PromPath (PyObject *self, PyObject *args)
     }
     return Py_BuildValue ("s", prompath);
 }
-          
+
+#include "../balkan/balkan.h"
+#include "../balkan/sun.h"
+
+static PyObject *
+zeroBasedPart (PyObject *self, PyObject *args)
+{
+    unsigned char *disk;
+    int part = 3, fd, i;
+    struct partitionTable table;
+
+    if (!PyArg_ParseTuple (args, "s", &disk))
+	return NULL;
+
+    fd = open(disk, O_RDONLY);
+    if (fd < 0) return NULL;
+    if (sunpReadTable(fd, &table)) {
+	close(fd);
+    	return NULL;
+    }
+    if (table.parts[2].type == -1 || table.parts[2].startSector) {
+	for (i = 0; i < 8; i++) {
+	    if (table.parts[i].type == -1) continue;
+	    if (!table.parts[i].startSector) {
+		part = i + 1;
+		break;
+	    }
+	}
+    }
+    close(fd);
+    return Py_BuildValue ("i", part);
+}
+
 static PyObject *
 hasAliases (void)
 {

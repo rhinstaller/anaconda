@@ -48,7 +48,7 @@ class InstallMethod:
 	hl = []
 	while (raw):
 	    info = struct.unpack("iiii", raw)
-	    magic1 = socket.ntohl(info[0])
+	    magic1 = socket.ntohl(info[0]) & 0xffffffff
 	    if (magic1 != 0x8eade801 or info[1]):
 		raise TypeError, "bad magic in header"
 

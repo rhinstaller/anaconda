@@ -22,7 +22,7 @@ _isys.so: isys.o $(OBJECTS) $(STATICLIBS)
 	gcc -shared -g -o $@ isys.o $(OBJECTS) $(STATICLIBS) $(LOADLIBES)
 
 _silo.so: silo.c
-	gcc -shared $(CFLAGS) -fpic -o $@ silo.c
+	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
 
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 

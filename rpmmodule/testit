@@ -16,7 +16,7 @@ import os
 
 db = rpm.opendb ()
 
-rc = db.findbyname ("XFree86d")
+rc = db.findbyname ("XFree86")
     
 print len(rc)
 for rec in rc:

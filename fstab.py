@@ -431,6 +431,22 @@ class Fstab:
     def addMount(self, partition, mount, fsystem, doFormat = 0, size = 0):
 	self.extraFilesystems.append(mount, partition, fsystem, doFormat,
 				     size)
+# XXX code from sparc merge
+#          if fsystem == "swap":
+#              ufs = 0
+#              try:
+#                  isys.makeDevInode(device, '/tmp/' + device)
+#              except:
+#                  pass
+#              try:
+#                  ufs = isys.checkUFS ('/tmp/' + device)
+#              except:
+#                  pass
+#              if not ufs:
+#                  location = "swap"
+#                  reformat = 1
+#          self.mounts[location] = (device, fsystem, reformat)
+
 
     def mountList(self, skipExtra = 0):
 	def sortMounts(one, two):

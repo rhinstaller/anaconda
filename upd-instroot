@@ -187,6 +187,7 @@ usr/X11R6/bin/XF86_SVGA
 usr/X11R6/bin/XF86_S3
 usr/X11R6/bin/XF86_S3V
 usr/X11R6/bin/XF86_VGA16
+usr/X11R6/bin/XF86_TGA
 usr/X11R6/bin/XsunMono
 usr/X11R6/bin/Xsun
 usr/X11R6/bin/Xsun24
@@ -302,7 +303,7 @@ EOF
 fi
 
 for I in $PACKAGES; do
-    for J in `ls $SRC/$I*`; do
+    for J in `ls $SRC/$I* 2> /dev/null`; do
 	if [ "$I" != "rpm-devel" ]; then
             if ! echo $J | egrep "(devel|sparcv9)" > /dev/null; then
 	        RPMS="$RPMS $J"

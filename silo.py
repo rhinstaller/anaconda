@@ -235,6 +235,12 @@ class SiloInstall:
 
 	if todo.liloDevice == "mbr":
 	    device = mbrpart
+	    try:
+		num = _silo.zeroBasedPart(todo.instPath + "/dev/" + boothd)
+		if num:
+		    device = boothd + "%d" % num
+	    except:
+		pass
 	else:
 	    device = bootpart
 	    args.append("-t")
