@@ -217,6 +217,9 @@ class InstallClass:
         if iutil.getArch () == "alpha":
             self.addToSkipList("bootdisk")
             self.addToSkipList("lilo")
+        elif iutil.getArch () == "ia64":
+            self.addToSkipList("bootdisk")
+            self.addToSkipList("lilo")
 
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):
