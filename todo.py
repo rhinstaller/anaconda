@@ -544,9 +544,10 @@ class ToDo:
             if comp.selected:
                 comp.select(1)
 
-        self.ddruid.save ()
-	self.makeFilesystems ()
-	self.mountFilesystems ()
+        if self.setupFilesystems:
+            self.ddruid.save ()
+            self.makeFilesystems ()
+            self.mountFilesystems ()
 
 	if not self.installSystem: 
 	    return

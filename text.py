@@ -232,11 +232,13 @@ class PartitionWindow:
         fstab = []
         for (dev, dir, reformat) in todo.mounts:
             fstab.append ((dev, dir))
-        
-        ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
-        (dir, res) = ddruid.edit ()
-        for (partition, mount, size) in res:
-            todo.addMount(partition, mount)
+
+        if not todo.ddruid:
+            todo.ddruid = fsedit(0, todo.drives.available ().keys (), fstab)
+        dir = todo.ddruid.edit ()
+        if dir == INSTALL_OK:
+            for (partition, mount, size) in todo.ddruid.getFstab ():
+                todo.addMount(partition, mount)
 
         return dir
 
@@ -343,7 +345,7 @@ class IndividualPackageWindow:
 
 class MouseWindow:
     def run(self, screen, todo):
-        mice = todo.mouse.available ()
+        mice = todo.mouse.available ().keys ()
         mice.sort ()
         default = mice.index (todo.mouse.get ())
 

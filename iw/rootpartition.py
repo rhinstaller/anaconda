@@ -44,7 +44,10 @@ class PartitionWindow (InstallWindow):
             window.window = bin
             return window
 
-        self.todo.addMount(rootpart, '/')
+        fstab = ddruid.getFstab ()
+        for (partition, mount, size) in fstab:
+            todo.addMount(partition, mount)
+
         return None
 
     def enableCallback (self, value):
