@@ -26,7 +26,7 @@ case "$1" in
 
 	;;
  stop)
- 	rm -f /var/lock/subsys/kudzu
+ 	rm -f /var/lock/subsys/reconfig
  	;;
  *)
  	echo "Usage: reconfig {start|stop}"
