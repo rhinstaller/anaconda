@@ -28,7 +28,7 @@ makeBootImages() {
 	makeinitrd --initrdto $TOPDESTPATH/ppc/chrp/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES $USBMODULES =scsi =net"
 
 	mkdir -p $TOPDESTPATH/etc $TOPDESTPATH/ppc/chrp
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/chrp/vmlinux
@@ -70,7 +70,7 @@ EOF
 	makeinitrd --initrdto $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz \
 	    --initrdsize 8192 \
 	    --loaderbin loader \
-	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES"
+	    --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $IDEMODS $ISOMODULES $ISERIESMODULES =scsi =net"
 
 	cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/iSeries/vmlinux
 	cp $KERNELROOT/boot/System.map-* $TOPDESTPATH/ppc/iSeries/System.map
@@ -86,7 +86,7 @@ EOF
         makeinitrd --initrdto $TOPDESTPATH/ppc/mac/ramdisk.image.gz \
             --initrdsize 8192 \
             --loaderbin loader \
-            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES"
+            --modules "$COMMONMODULES $NETMODULES $SCSIMODULES $SCSIMODS $IDEMODS $ISOMODULES =scsi =net"
 
         mkdir -p $TOPDESTPATH/ppc/mac
         cp $KERNELROOT/boot/vmlinuz-* $TOPDESTPATH/ppc/mac/vmlinux
@@ -108,8 +108,8 @@ EOF
 }
 
 makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS"
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODS =scsi"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODS =net"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODS =scsi =net"
     makemainimage "stage2" "cramfs"
 }

@@ -43,7 +43,7 @@ makeBootImages() {
 	--initrdflags '--initrdto $TOPDESTPATH/images/ramdisk.img \
 		     	    --initrdsize 8192 \
 			    --loaderbin loader \
-			    --modules "$COMMONMODULES $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES"' 
+			    --modules "$COMMONMODULES $USBMODS $NETMODULES $SCSIMODULES $IDEMODULES =scsi =net"' 
 
     # now make a boot iso
     mkdir -p $TOPDESTPATH/images/isopath
@@ -54,8 +54,8 @@ makeBootImages() {
 }
 
 makeSecondStage() {
-    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES"
-    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES"
-    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES"
+    makeinstimage "netstg" "$SECSTAGE $SCSIMODULES $IDEMODULES =scsi"
+    makeinstimage "hdstg" "$SECSTAGE $NETMODULES $IDEMODULES =net"
+    makemainmodules "$SECSTAGE $NETMODULES $SCSIMODULES $IDEMODULES =scsi =net"
     makemainimage "stage2" "cramfs"
 }
