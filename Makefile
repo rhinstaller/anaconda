@@ -73,6 +73,9 @@ install:
 
 archive: create-archive
 
+src: create-archive
+	@rpm -ts anaconda-$(VERSION).tar.gz
+
 create-archive:
 	@rm -rf /tmp/anaconda
 	@rm -rf /tmp/anaconda-$(VERSION)
