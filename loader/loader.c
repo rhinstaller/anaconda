@@ -1423,6 +1423,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
+        else if (!strcasecmp(argv[i], "ks"))
+	    flags |= LOADER_FLAGS_KICKSTART;
         else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
@@ -1491,7 +1493,7 @@ int kickstartFromNfs(char * location, moduleList modLoaded, moduleDeps modDeps,
     }
 
     fullFn = malloc(strlen(file) + 20);
-    sprintf(fullFn, "/tmp/ks/%s", file);
+    sprintf(fullFn, "/tmp/nfskd/%s", file);
     copyFile(fullFn, location);
 
     umount("/tmp/nfs");
