@@ -35,6 +35,7 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         self.buffer = gtk.TextBuffer(None)
         self.ignoreData = 0
         self.inList = 0
+        self.inOList = 0
         self.pInListCounter = 0
         self.startOfP = 0
         self.lastTag = None
@@ -68,11 +69,15 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('weight', pango.WEIGHT_BOLD)        
 
         tag = self.buffer.create_tag('h2')
-        tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 6))
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
         tag = self.buffer.create_tag('h3')
-        tag.set_property('font', '%s %d' % (baseFont, baseSize + 3))
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 4))
+        tag.set_property('weight', pango.WEIGHT_BOLD)
+
+        tag = self.buffer.create_tag('h4')
+        tag.set_property('font', '%s %d' % (baseFont, baseSize + 1))
         tag.set_property('weight', pango.WEIGHT_BOLD)
 
         tag = self.buffer.create_tag('b')
@@ -85,6 +90,9 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         tag.set_property('style', pango.STYLE_ITALIC)
 
         tag = self.buffer.create_tag('ul')
+        tag.set_property('left-margin', 20)
+
+        tag = self.buffer.create_tag('ol')
         tag.set_property('left-margin', 20)
 
         self.buffer.create_tag('p')
@@ -120,11 +128,17 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         self.pushTag(tag, self.iter.get_offset())
         if tag == 'li':
             self.inList += 1
-            self.buffer.insert(self.iter, u'\u2022 ')
+            if not self.inOList:
+                self.buffer.insert(self.iter, u'\u2022 ')
+            else:
+                self.buffer.insert(self.iter, u'%d ' %(self.inOList,))
+                self.inOList += 1
         elif tag == 'p':
             self.startOfP = 1
             if self.inList:
                 self.pInListCounter += 1
+        elif tag == "ol":
+            self.inOList = 1
 
     def handle_endtag(self, tag):
         self.lastTag = tag
@@ -134,6 +148,9 @@ class HTMLBuffer(HTMLParser.HTMLParser):
         if tag == 'li':
             self.inList -= 1
             self.pInListCounter = 0
+        elif tag == "ol":
+            self.inOList = 0
+            
         if tag in self.noTagTags:
             return
         offset = self.popTag(tag)
@@ -208,6 +225,6 @@ if __name__ == '__main__':
     win.connect('destroy', quit)
     win.add(sw)
     win.show_all()
-    win.set_size_request(300, 300)
+    win.set_size_request(600, 600)
     gtk.main()
 
