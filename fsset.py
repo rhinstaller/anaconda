@@ -2049,15 +2049,24 @@ def readFstab (path, intf = None):
             fields.append(0)                        
         elif len(fields) > 6:
             continue
-
-        # if we don't support mounting the filesystem, continue
-        if not fileSystemTypes.has_key(fields[2]):
-	    continue
 	if string.find(fields[3], "noauto") != -1: continue
 
-        fsystem = fileSystemTypeGet(fields[2])
+        # shenanigans to handle ext3,ext2 format in fstab
+        fstotry = fields[2]
+        if fstotry.find(","):
+            fs = fstotry.split(",")
+        else:
+            fs = [ fstotry ]
+        for fs in fstotry:
+            # if we don't support mounting the filesystem, continue
+            if not fileSystemTypes.has_key(fs):
+                continue
+            fsystem = fileSystemTypeGet(fs)
+            break
+        if fsystem is None:
+            continue
+        
         label = None
-
 	if fields[0] == "none":
             device = Device()
         elif ((string.find(fields[3], "bind") != -1) and
