@@ -295,7 +295,6 @@ class ToDo:
 	self.timezone = None
         self.upgrade = 0
 	self.ddruidAlreadySaved = 0
-	self.initrdsMade = {}
         self.initlevel = 3
 	self.expert = expert
         self.progressWindow = None
@@ -398,19 +397,6 @@ class ToDo:
 	f.write(str (self.keyboard))
 	f.close()
 
-    def makeInitrd (self, kernelTag):
-	initrd = "/boot/initrd%s.img" % (kernelTag, )
-	if not self.initrdsMade.has_key(initrd):
-            iutil.execWithRedirect("/sbin/mkinitrd",
-                                  [ "/sbin/mkinitrd",
-				    "--ifneeded",
-                                    initrd,
-                                    kernelTag[1:] ],
-                                  stdout = None, stderr = None, searchPath = 1,
-                                  root = self.instPath)
-	    self.initrdsMade[kernelTag] = 1
-	return initrd
-
     def needBootdisk (self):
 	if self.bootdisk or self.fstab.rootOnLoop(): return 1
 
@@ -428,7 +414,6 @@ class ToDo:
 	kernel = self.hdList['kernel']
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
 
-        self.makeInitrd (kernelTag)
         w = self.intf.waitWindow (_("Creating"), _("Creating boot disk..."))
 	self.setFdDevice ()
         rc = iutil.execWithRedirect("/sbin/mkbootdisk",
@@ -1231,14 +1216,17 @@ class ToDo:
 	    iutil.execWithRedirect(argv[0], argv, root = self.instPath,
 				   stdout = devnull)
         
-        if arch == "sparc":
-            self.silo.installSilo ()
-        elif arch == "i386":
-            self.lilo.install (self.fstab)
-        elif arch == "alpha":
-            self.milo.write ()
-        else:
-            raise RuntimeError, "What kind of machine is this, anyway?!"
+        # XXX make me "not test mode"
+        if self.setupFilesystems:
+	    if arch == "sparc":
+		self.silo.installSilo ()
+	    elif arch == "i386":
+		self.lilo.install (self.fstab, self.instPath, self.hdList, 
+				   self.upgrade)
+	    elif arch == "alpha":
+		self.milo.write ()
+	    else:
+		raise RuntimeError, "What kind of machine is this, anyway?!"
 
 	if self.instClass.postScript:
 	    scriptRoot = "/"
