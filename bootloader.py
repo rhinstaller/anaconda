@@ -486,7 +486,8 @@ def availableBootDevices(diskSet, fsset):
 	elif type == 'ntfs' or type =='hpfs':
 	    devs.append((dev, type))
 
-    devs.append((fsset.getEntryByMountPoint('/').device.getDevice(), 'ext2'))
+    slash = fsset.getEntryByMountPoint('/')
+    devs.append((slash.device.getDevice(), slash.fsystem.getName()))
 
     devs.sort()
 
