@@ -219,12 +219,12 @@ usr/share/fonts/ISO8859-2/75dpi/fonts*
 usr/share/fonts/ISO8859-2/misc/6x*
 usr/share/fonts/ISO8859-2/misc/9x*
 usr/share/fonts/ISO8859-2/misc/fonts*
-usr/share/fonts/ISO8859-9/75dpi/cour*
-usr/share/fonts/ISO8859-9/75dpi/helv*
-usr/share/fonts/ISO8859-9/75dpi/tim*
+usr/share/fonts/ISO8859-9/75dpi/tr*cour*
+usr/share/fonts/ISO8859-9/75dpi/tr*helv*
+usr/share/fonts/ISO8859-9/75dpi/tr*tim*
 usr/share/fonts/ISO8859-9/75dpi/fonts*
-usr/share/fonts/ISO8859-9/misc/6x*
-usr/share/fonts/ISO8859-9/misc/9x*
+usr/share/fonts/ISO8859-9/misc/tr*6x*
+usr/share/fonts/ISO8859-9/misc/tr*9x*
 usr/share/fonts/ISO8859-9/misc/fonts*
 usr/X11R6/lib/X11/locale/*
 usr/X11R6/lib/X11/xkb/*
@@ -359,7 +359,7 @@ if [ $ARCH = sparc ]; then
     rm -f $DESTGR/usr/X11R6/bin/XF86_VGA16
 fi
 
-for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/*; do
+for I in $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*; do
     mkfontdir $I
 done
 
