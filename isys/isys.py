@@ -76,6 +76,12 @@ def swapon (path):
 def fbconProbe(path):
     return _isys.fbconprobe (path)
 
+def loadFont(font):
+    return _isys.loadFont (font)
+
+def loadKeymap(keymap):
+    return _isys.loadKeymap (keymap)
+
 def probePciDevices():
     # probes all probeable buses and returns a list of 
     # ( driver, major, minor, description, args ) tuples, where args is a

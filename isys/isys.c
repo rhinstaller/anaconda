@@ -25,6 +25,7 @@
 #include "isys.h"
 #include "probe.h"
 #include "smp.h"
+#include "lang.h"
 #include "../pump/pump.h"
 #include "../balkan/byteswap.h"
 
@@ -62,6 +63,8 @@ static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
+static PyObject * doLoadFont(PyObject * s, PyObject * args);
+static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "devSpaceFree", (PyCFunction) doDevSpaceFree, METH_VARARGS, NULL },
@@ -97,6 +100,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
+    { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
+    { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1048,6 +1053,40 @@ static PyObject * doRaidStop(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doLoadFont (PyObject * s, PyObject * args) {
+    char * font;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &font)) return NULL;
+
+    ret = isysLoadFont (font);
+    if (ret) {
+	errno = -ret;
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+    
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doLoadKeymap (PyObject * s, PyObject * args) {
+    char * keymap;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &keymap)) return NULL;
+
+    ret = isysLoadKeymap (keymap);
+    if (ret) {
+	errno = -ret;
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+    
     Py_INCREF(Py_None);
     return Py_None;
 }
