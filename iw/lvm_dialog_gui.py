@@ -119,7 +119,7 @@ class VolumeGroupEditor:
 					   "physical extent.\n\nThis change "
 					   "will take affect immediately."),
 					 type="custom",
-					 custom_buttons=["gtk-cancel", _("Continue")])
+					 custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
 		return 0
         
@@ -162,7 +162,7 @@ class VolumeGroupEditor:
 					   "of the phyical volumes in the "
 					   "volume group."),
 					 type="custom",
-					   custom_buttons=["gtk-cancel", _("Continue")])
+					   custom_buttons=["gtk-cancel", _("C_ontinue")])
 	    if not rc:
 		peOption.set_history(lastidx)
 		return 0
@@ -621,7 +621,7 @@ class VolumeGroupEditor:
 	rc = self.intf.messageWindow(_("Confirm Delete"),
 				_("Are you sure you want to Delete the "
 				"logical volume \"%s\"?") % (logvolname,),
-				type = "custom", custom_buttons=["gtk-cancel", _("Delete")])
+				type = "custom", custom_buttons=["gtk-cancel", _("_Delete")])
 	if not rc:
 	    return
 
