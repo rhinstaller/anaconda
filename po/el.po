@@ -1,7 +1,7 @@
 # Greek translation for anaconda.
 # Copyright (c) 2002 Simos Xenitellis.
 # Simos Xenitellis <simos@hellug.gr>, 2002.
-# Nikos Charonitakis <charosn@her.forthnet.gr>, 2002
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2002, 2005.
 # ############################
 # Simos initial translation
 # Nikos start updating
@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: anaconda 1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2005-03-29 02:44+0300\n"
+"PO-Revision-Date: 2005-03-29 16:05+0300\n"
 "Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
 "Language-Team: Greek <nls@hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -30,9 +30,9 @@ msgid "%s %s installation on host %s"
 msgstr "Το %s εγκαθιστά την έκδοση %s"
 
 #: ../anaconda:139
-#, fuzzy, c-format
+#, c-format
 msgid "%s %s installation"
-msgstr "Προετοιμασία εγκατάστασης"
+msgstr "%s %s εγκατάσταση"
 
 #: ../anaconda:159
 msgid "Unable to set vnc password - using no password!"
@@ -342,9 +342,8 @@ msgstr ""
 
 #: ../autopart.py:1440 ../iw/partition_gui.py:995
 #: ../textw/partition_text.py:224
-#, fuzzy
 msgid "Error Partitioning"
-msgstr "Κατατμήσεις"
+msgstr "Σφάλμα Κατατμήσης"
 
 #: ../autopart.py:1441
 #, fuzzy, python-format
@@ -480,7 +479,7 @@ msgstr ""
 #: ../cmdline.py:132
 #, python-format
 msgid "Done [%d/%d]"
-msgstr ""
+msgstr "Ολοκληρώθηκαν [%d/%d]"
 
 #: ../cmdline.py:138
 #, fuzzy, python-format
@@ -909,9 +908,8 @@ msgid ""
 msgstr ""
 
 #: ../gui.py:846
-#, fuzzy
 msgid "default:LTR"
-msgstr "Εξ ορισμού"
+msgstr "προεπιλογή:LTR"
 
 #: ../gui.py:914 ../iw/release_notes_viewer_gui.py:44
 #, fuzzy
@@ -943,9 +941,8 @@ msgid "_Exit"
 msgstr "_Έξοδος"
 
 #: ../gui.py:1167 ../packages.py:444
-#, fuzzy
 msgid "_Retry"
-msgstr "Προσπάθεια ξανά"
+msgstr "_Επανάληψη"
 
 #: ../gui.py:1170 ../packages.py:1561
 msgid "The installer will now exit..."
@@ -1210,9 +1207,8 @@ msgid ""
 msgstr ""
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
-msgstr "Επανεκκίνηση"
+msgstr "Επανε_κκίνηση"
 
 #: ../packages.py:447
 msgid ""
@@ -1421,9 +1417,8 @@ msgid "_Ignore drive"
 msgstr "Αγνόηση"
 
 #: ../partedUtils.py:330
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Μορφοποίηση"
+msgstr "_Μορφοποίηση δίσκου"
 
 #: ../partedUtils.py:663
 #, python-format
@@ -1629,9 +1624,8 @@ msgstr "Θα εγκατασταθούν τα παρακάτω πακέτα"
 
 #: ../partIntfHelpers.py:308 ../partIntfHelpers.py:321
 #: ../partIntfHelpers.py:347 ../partIntfHelpers.py:358
-#, fuzzy
 msgid "Unable To Edit"
-msgstr "Αναίρεση Επεξεργασίας"
+msgstr "Αδυναμία Επεξεργασίας"
 
 #: ../partIntfHelpers.py:309
 #, fuzzy
@@ -1677,7 +1671,6 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:410
-#, fuzzy
 msgid "Format?"
 msgstr "Μορφοποίηση;"
 
@@ -1705,9 +1698,8 @@ msgid ""
 msgstr ""
 
 #: ../partIntfHelpers.py:433
-#, fuzzy
 msgid "Partitioning Warning"
-msgstr "Κατατμήσεις"
+msgstr "Προειδοποίηση Κατάτμησης"
 
 #: ../partIntfHelpers.py:434
 #, python-format
@@ -1975,9 +1967,8 @@ msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 
 #: ../rescue.py:262 ../rescue.py:331 ../rescue.py:339 ../rescue.py:413
-#, fuzzy
 msgid "Rescue"
-msgstr "Συνέχιση"
+msgstr ""
 
 #: ../rescue.py:263
 #, python-format
@@ -2000,9 +1991,8 @@ msgid "Continue"
 msgstr "Συνέχεια"
 
 #: ../rescue.py:273 ../rescue.py:282
-#, fuzzy
 msgid "Read-Only"
-msgstr "Μόνο για ανάγνωση"
+msgstr "Μόνο Ανάγνωση"
 
 #
 #: ../rescue.py:273 ../rescue.py:275 ../textw/silo_text.py:36
@@ -2158,9 +2148,8 @@ msgid ""
 msgstr ""
 
 #: ../upgrade.py:266 ../upgrade.py:272
-#, fuzzy
 msgid "Mount failed"
-msgstr "σύνδεση απέτυχε"
+msgstr "Απέτυχε η προσάρτηση"
 
 #: ../upgrade.py:267
 msgid ""
@@ -2283,9 +2272,8 @@ msgid "Use text mode"
 msgstr ""
 
 #: ../vnc.py:63
-#, fuzzy
 msgid "Start VNC"
-msgstr "Έναρξη"
+msgstr "Έναρξη VNC"
 
 #: ../vnc.py:73
 msgid "VNC Configuration"
@@ -2745,7 +2733,7 @@ msgstr "Επανεκκίνηση;"
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:62
 msgid "The system will be rebooted now."
-msgstr ""
+msgstr "Θα γίνει επανεκκίνηση συστήματος τώρα."
 
 #: ../iw/confirm_gui.py:79
 #, fuzzy, python-format
@@ -2798,6 +2786,9 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Συγχαρητήρια, η εγκατάσταση ολοκληρώθηκε.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:67
 msgid ""
@@ -2896,7 +2887,6 @@ msgid "_Customize software packages to be installed"
 msgstr "Προσδιορισμός πακέτων προς αναβάθμιση"
 
 #: ../iw/driveorderwidget.py:44
-#, fuzzy
 msgid "Drive"
 msgstr "Οδηγός"
 
@@ -2947,7 +2937,7 @@ msgstr "Άγνωστο σύστημα Linux"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
 #, fuzzy
@@ -2961,9 +2951,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/fdisk_gui.py:26
-#, fuzzy
 msgid "Partitioning with fdisk"
-msgstr "Γίνεται κατάτμηση"
+msgstr "Κατάτμηση με fdisk"
 
 #: ../iw/fdisk_gui.py:103
 #, fuzzy
@@ -2972,11 +2961,10 @@ msgstr "Επιλέξτε πρώτα επιφάνεια εργασίας"
 
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:173
 msgid "Disabled"
-msgstr ""
+msgstr "Απενεργοποιημένο"
 
 #
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:175
-#, fuzzy
 msgid "Warn"
 msgstr "Προειδοποίηση"
 
@@ -3002,9 +2990,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:45
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Ρύθμιση "
+msgstr "_Ρύθμιση Firewall"
 
 #: ../iw/firewall_gui.py:45 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:120
@@ -3023,9 +3010,8 @@ msgid "N_o firewall"
 msgstr "firewall"
 
 #: ../iw/firewall_gui.py:92
-#, fuzzy
 msgid "_Enable firewall"
-msgstr "firewall"
+msgstr "_Ενεργοποίηση firewall"
 
 #: ../iw/firewall_gui.py:109
 msgid ""
@@ -3131,9 +3117,8 @@ msgstr ""
 #
 #: ../iw/lvm_dialog_gui.py:128 ../iw/lvm_dialog_gui.py:188
 #: ../iw/network_gui.py:160 ../iw/network_gui.py:164 ../iw/network_gui.py:187
-#, fuzzy
 msgid "C_ontinue"
-msgstr "Συνέχεια"
+msgstr "Συ_νέχεια"
 
 #: ../iw/lvm_dialog_gui.py:156
 #, python-format
@@ -3587,9 +3572,8 @@ msgstr ""
 
 #
 #: ../iw/network_gui.py:254
-#, fuzzy
 msgid "Hardware address:"
-msgstr "Διεύθυνση IP:"
+msgstr "Διεύθυνση υλικού:"
 
 #: ../iw/network_gui.py:293
 #, python-format
@@ -3597,9 +3581,8 @@ msgid "Configure %s"
 msgstr "Ρύθμιση %s"
 
 #: ../iw/network_gui.py:467
-#, fuzzy
 msgid "Active on Boot"
-msgstr "Ενεργοποίηση στην εκκίνηση"
+msgstr "Ενεργοποίηση στην Εκκίνηση"
 
 #
 #: ../iw/network_gui.py:469 ../iw/osbootwidget.py:67
@@ -3641,9 +3624,8 @@ msgid "Hostname"
 msgstr "Όνομα Host:"
 
 #: ../iw/network_gui.py:618
-#, fuzzy
 msgid "Miscellaneous Settings"
-msgstr "Διάφορα"
+msgstr "Διάφορες Ρυθμίσεις"
 
 #: ../iw/osbootwidget.py:43
 msgid ""
@@ -3715,9 +3697,8 @@ msgid "This device is already being used for another boot entry."
 msgstr "Το όνομα υπάρχει ήδη στο σύστημα"
 
 #: ../iw/osbootwidget.py:332
-#, fuzzy
 msgid "Cannot Delete"
-msgstr " Επιβεβαίωση αντικατάστασης "
+msgstr "Αδυναμία Διαγραφής"
 
 #: ../iw/osbootwidget.py:333
 #, python-format
@@ -3785,9 +3766,9 @@ msgid "Minimal"
 msgstr ""
 
 #: ../iw/package_gui.py:740
-#, fuzzy, python-format
+#, python-format
 msgid "Details for '%s'"
-msgstr "Λεπτομέρειες για το '%s'"
+msgstr "Λεπτομέρειες για '%s'"
 
 #: ../iw/package_gui.py:749
 msgid ""
@@ -3820,9 +3801,8 @@ msgid "Additional Size Options"
 msgstr "Επιλογές Γραφής Δύο-Κατευθύνσεων"
 
 #: ../iw/partition_dialog_gui.py:63
-#, fuzzy
 msgid "_Fixed size"
-msgstr "Μέγεθος πεδίου"
+msgstr "_Σταθερό μέγεθος"
 
 #: ../iw/partition_dialog_gui.py:65
 msgid "Fill all space _up to (MB):"
@@ -4119,9 +4099,8 @@ msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Πρέπει να επιλέξτε ένα μαραφέτι στο οποίο να επικολλήσετε"
 
 #: ../iw/partition_gui.py:1485
-#, fuzzy
 msgid "I want to have automatic partitioning:"
-msgstr "Τί τύπου partitioning;"
+msgstr ""
 
 #: ../iw/partition_gui.py:1516
 #, fuzzy
@@ -4136,9 +4115,8 @@ msgstr ""
 #: ../iw/partition_ui_helpers_gui.py:114 ../textw/partition_text.py:248
 #: ../textw/partition_text.py:250 ../textw/partition_text.py:252
 #: ../textw/partition_text.py:277
-#, fuzzy
 msgid "<Not Applicable>"
-msgstr "Μη Διαθέσιμος"
+msgstr "<Μη Διαθέσιμο>"
 
 #: ../iw/partition_ui_helpers_gui.py:245
 #, fuzzy
@@ -4413,9 +4391,8 @@ msgid "Release Notes"
 msgstr "Σημειώσεις Έκδοσης"
 
 #: ../iw/release_notes_viewer_gui.py:146
-#, fuzzy
 msgid "Unable to load file!"
-msgstr "Αδύνατη η Αναπαραγωγή Αρχείου"
+msgstr "Αδύνατη η φόρτωση αρχείου!"
 
 #: ../iw/silo_gui.py:29
 msgid "Silo Configuration"
@@ -4666,7 +4643,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:262 ../textw/xconfig_text.py:108
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Αληθινό Χρώμα (24 Bit)"
 
 #
 #: ../iw/xconfig_gui.py:282
@@ -4721,7 +4698,7 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr ""
+msgstr "_Επιλογή τύπου οθόνης"
 
 #: ../iw/xconfig_gui.py:625
 msgid ""
@@ -4810,18 +4787,16 @@ msgid "_Skip X configuration"
 msgstr "Ρυθμίσεις ISDN"
 
 #: ../iw/zfcp_gui.py:24
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "Ρύθμιση SILO"
+msgstr "Ρύθμιση ZFCP"
 
 #: ../iw/zfcp_gui.py:104
 msgid "_Remove"
 msgstr ""
 
 #: ../iw/zfcp_gui.py:111 ../textw/zfcp_text.py:116
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Συσκευές"
+msgstr "Συσκευές FCP"
 
 #: ../iw/zfcp_gui.py:122
 #, fuzzy
@@ -4991,9 +4966,8 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:386
-#, fuzzy
 msgid "Use a GRUB Password"
-msgstr "Red Carpet - Συνθηματικό"
+msgstr "Χρήση ενός κωδικού GRUB"
 
 #: ../textw/bootloader_text.py:398
 #, fuzzy
@@ -5188,14 +5162,12 @@ msgid "Customize"
 msgstr "Προσαρμογή"
 
 #: ../textw/firewall_text.py:44
-#, fuzzy
 msgid "Enable firewall"
-msgstr "firewall"
+msgstr "Ενεργοποίηση firewall"
 
 #: ../textw/firewall_text.py:47
-#, fuzzy
 msgid "No firewall"
-msgstr "firewall"
+msgstr "Χωρίς firewall"
 
 #: ../textw/firewall_text.py:54
 #, fuzzy
@@ -5314,7 +5286,7 @@ msgstr ""
 
 #: ../textw/network_text.py:75 ../loader2/net.c:226
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../textw/network_text.py:76 ../loader2/net.c:227
 msgid "Encryption Key"
@@ -5333,7 +5305,7 @@ msgstr "Περιγραφή %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Διεύθυνση Υλικού: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -5388,9 +5360,8 @@ msgid "automatically via DHCP"
 msgstr "αυτόματα μέσω DCHP"
 
 #: ../textw/network_text.py:359
-#, fuzzy
 msgid "manually"
-msgstr "_χειρονακτικά"
+msgstr "χειρονακτικά"
 
 #: ../textw/network_text.py:378
 #, fuzzy
@@ -5530,9 +5501,8 @@ msgid "Allowable Drives:"
 msgstr "Δ&ιαθέσιμες είναι:"
 
 #: ../textw/partition_text.py:409
-#, fuzzy
 msgid "Fixed Size:"
-msgstr "Μέγεθος Αρχείου:"
+msgstr "Σταθερό Μέγεθος:"
 
 #: ../textw/partition_text.py:411
 msgid "Fill maximum size of (MB):"
@@ -5580,9 +5550,8 @@ msgid "File System Label:"
 msgstr "Χρήση Συστημάτων Αρχείων"
 
 #: ../textw/partition_text.py:571
-#, fuzzy
 msgid "File System Option:"
-msgstr "Τύποι συστήματος αρχείων:"
+msgstr "Επιλογή Συστήματος Αρχείων:"
 
 #: ../textw/partition_text.py:574 ../textw/partition_text.py:812
 #: ../textw/partition_text.py:1049 ../textw/partition_text.py:1219
@@ -5995,9 +5964,8 @@ msgstr "Ονοματεπώνυμο"
 
 #
 #: ../textw/userauth_text.py:125
-#, fuzzy
 msgid "Bad User Name"
-msgstr "Όνομα Xρήστη"
+msgstr "Ακατάλληλο Όνομα Xρήστη"
 
 #: ../textw/userauth_text.py:126
 msgid "User names must contain only characters A-Z, a-z, and 0-9."
@@ -6311,7 +6279,7 @@ msgstr "Φατνίο συγχρονισμού"
 
 #: ../textw/xconfig_text.py:473
 msgid "Choose monitor type"
-msgstr ""
+msgstr "Επιλογή τύπου οθόνης"
 
 #: ../textw/xconfig_text.py:473
 msgid "Proceed"
@@ -6429,7 +6397,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6442,15 +6410,15 @@ msgstr ""
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Desktop"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16 ../installclasses/workstation.py:14
 msgid ""
@@ -7061,7 +7029,7 @@ msgstr ""
 #: ../loader2/method.c:419
 #, fuzzy
 msgid "Checksum Test"
-msgstr "Bit επαλήθευσης"
+msgstr "Έλεγχος Εγκυρότητας"
 
 #: ../loader2/modules.c:969
 #, c-format
