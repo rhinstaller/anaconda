@@ -1,12 +1,16 @@
 include Makefile.inc
 
 VERSION = 7.3
-RELEASE = 7
+RELEASE = 13
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
 ifneq (ia64, $(ARCH))
 MINISLANG=minislang
 STUBS=stubs
+endif
+
+ifeq (, $(VARIANT))
+VARIANT=%{nil}
 endif
 
 SUBDIRSHD = balkan isys collage $(MINISLANG) loader po \
