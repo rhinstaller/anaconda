@@ -48,6 +48,7 @@
 #include "smp.h"
 #include "lang.h"
 #include "getmacaddr.h"
+#include "wireless.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -109,6 +110,7 @@ static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
 static PyObject * doResetFileContext(PyObject * s, PyObject * args);
+static PyObject * isWireless(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -165,6 +167,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "getMacAddress", (PyCFunction) doGetMacAddress, METH_VARARGS, NULL},
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
     { "resetFileContext", (PyCFunction) doResetFileContext, METH_VARARGS, NULL },
+    { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
     { NULL }
 } ;
 
@@ -1278,6 +1281,18 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args) {
     ret = getMacAddr(dev);
 
     return Py_BuildValue("s", ret);
+}
+
+static PyObject * isWireless(PyObject * s, PyObject * args) {
+    char *dev;
+    int ret;
+
+    if (!PyArg_ParseTuple(args, "s", &dev))
+	return NULL;
+
+    ret = is_wireless_interface(dev);
+
+    return Py_BuildValue("i", ret);
 }
 
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args) {

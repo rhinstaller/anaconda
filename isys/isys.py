@@ -712,6 +712,9 @@ def getLinkStatus(dev):
 def getMacAddress(dev):
     return _isys.getMacAddress(dev)
 
+def isWireless(dev):
+    return _isys.isWireless(dev)
+
 def getIPAddress(dev):
     return _isys.getIPAddress(dev)
 
