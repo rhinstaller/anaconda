@@ -447,9 +447,11 @@ class LiloConfiguration:
 
 	lilo.write(instRoot + "/etc/lilo.conf", perms = perms)
 
-	iutil.execWithRedirect(instRoot + '/sbin/lilo' ,
-			       [ "lilo", "-r", instRoot ],
-			       stdout = None)
+	# throw away stdout, catch stderr
+	str = iutil.execWithCapture(instRoot + '/sbin/lilo' ,
+			            [ "lilo", "-r", instRoot ],
+			            catchfd = 2, closefd = 1)
+	return str
 
     def setDevice(self, device):
 	if (type(device) == type((1,))):
