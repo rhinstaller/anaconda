@@ -107,7 +107,7 @@ do-beehive-build:
 	@tag=`cvs status Makefile | awk ' /Sticky Tag/ { print $$3 } '` 2> /dev/null; \
 	[ x"$$tag" = x"(none)" ] && tag=HEAD; \
 	[ x"$$TAG" != x ] && tag=$$TAG; \
-	cvsroot=`cat CVS/Root` 2>/dev/null; \
+	cvsroot=`cat CVS/Root |cut -d @ -f 2-` 2>/dev/null; \
         echo "*** Building $$tag from $$cvsroot!"; \
 	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
 
