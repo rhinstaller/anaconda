@@ -94,7 +94,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python bzip2 dosfstools pciutils reiserfs-utils parted"
+	 kudzu db3 rpm-python bzip2 bzip2-libs osfstools pciutils reiserfs-utils parted"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs"
