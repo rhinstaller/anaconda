@@ -18,7 +18,7 @@ from constants_text import *
 from rhpl.translate import _
 
 class FirewallWindow:
-    def __call__(self, screen, intf, network, firewall):
+    def __call__(self, screen, intf, network, firewall, security):
         self.intf = intf
 	
 	bb = ButtonBar (screen, (TEXT_OK_BUTTON, (_("Customize"), "customize"), TEXT_BACK_BUTTON))

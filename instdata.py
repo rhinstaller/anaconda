@@ -18,6 +18,7 @@ import string
 import language
 import network
 import firewall
+import security
 import timezone
 import desktop
 import users
@@ -57,6 +58,7 @@ class InstallData:
 	self.instClass = None
 	self.network = network.Network()
 	self.firewall = firewall.Firewall()
+        self.security = security.Security()
 	self.timezone = timezone.Timezone()
 	self.accounts = users.Accounts()
         self.rootPassword = users.RootPassword ()
@@ -117,6 +119,7 @@ class InstallData:
         self.timezone.write (instPath)
         self.auth.write (instPath)
 	self.firewall.write (instPath)
+        self.security.write (instPath)
         self.rootPassword.write (instPath, self.auth)
         self.accounts.write (instPath, self.auth)
 
@@ -171,6 +174,7 @@ class InstallData:
 	self.network.writeKS(f)
 	self.rootPassword.writeKS(f, self.auth)
 	self.firewall.writeKS(f)
+        self.security.writeKS(f)
 	self.auth.writeKS(f)
 	self.timezone.writeKS(f)
         self.bootloader.writeKS(f)

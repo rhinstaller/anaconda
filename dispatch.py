@@ -99,7 +99,7 @@ installSteps = [
                             "id.diskset")),
     ("networkdevicecheck", networkDeviceCheck, ("id.network", "dispatch")),
     ("network", ("id.network", "dir", "intf")),
-    ("firewall", ("intf", "id.network", "id.firewall")),
+    ("firewall", ("intf", "id.network", "id.firewall", "id.security")),
     ("languagesupport", ("id.langSupport",)),
     ("timezone", ("id.instLanguage", "id.timezone")),
     ("accounts", ("intf", "id.rootPassword")),
