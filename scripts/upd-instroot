@@ -94,7 +94,7 @@ mkdir -p $DESTGR
 PACKAGES="glibc glibc-common setup openssl python newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
-	 kudzu db3 rpm-python bzip2 bzip2-libs dosfstools pciutils 
+	 kudzu hwdata db3 rpm-python bzip2 bzip2-libs dosfstools pciutils 
 	 reiserfs-utils parted busybox-anaconda anaconda-help"
 
 if [ $ARCH = i386 ]; then
@@ -244,8 +244,10 @@ usr/share/anaconda/locale-list
 usr/share/anaconda/anaconda.conf
 usr/share/terminfo/l/linux
 usr/share/doc/kon2*/terminfo.kon
-usr/share/kudzu/pcitable
-usr/share/pci.ids
+usr/share/hwdata/pcitable
+usr/share/hwdata/pci.ids
+usr/share/hwdata/Cards
+usr/share/hwdata/MonitorsDB
 usr/share/themes/Raleigh/gtk/gtkrc
 EOF
 
@@ -696,7 +698,7 @@ echo "Cleaning ramdisk install images..."
 
 if [ -n "$NEEDGR" ]; then
     cd $ORIGDIR
-    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/kudzu/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
+    $DESTGR/usr/lib/anaconda-runtime/checkcards.py $DESTGR/usr/share/hwdata/pcitable $DESTGR/usr/X11R6/lib/X11/Cards
 fi
 
 # pick Raleigh theme as default
