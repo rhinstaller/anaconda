@@ -14,7 +14,7 @@ msgstr ""
 "Project-Id-Version: th\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-08-10 01:19+0700\n"
+"PO-Revision-Date: 2004-09-18 21:55+0700\n"
 "Last-Translator: Kamthorn Krairaksa <kamthorn_k@yahoo.com>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -177,8 +177,7 @@ msgstr "การติดตั้งแบบกราฟิกไม่สา
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
-msgstr ""
-"ตรวจสอบไม่พบเมาส์ แต่การติดตั้งแบบกราฟิกจำเป็นต้องใช้เมาส์ กำลังเริ่มการติดตั้งโหมดตัวอักษร"
+msgstr "ตรวจสอบไม่พบเมาส์ แต่การติดตั้งแบบกราฟิกจำเป็นต้องใช้เมาส์ กำลังเริ่มการติดตั้งโหมดตัวอักษร"
 
 #: ../anaconda:876
 #, c-format
@@ -248,8 +247,7 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, fuzzy, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr "บูตพาร์ทิชัน %s อาจจะไม่สามารถบูตได้บนเครื่องของคุณ แนะนำอย่างยิ่งให้สร้างแผ่นบูต"
 
 #: ../autopart.py:1056
@@ -501,8 +499,7 @@ msgstr "การติดตั้งบูตโหลดเดอร์..."
 msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
-msgstr ""
-"ไม่มีแพ็กเกจของเคอร์เนลถูกติดตั้งอยู่บนระบบของคุณ การตั้งค่าของบูตโหลดเดอร์จะไม่ถูกเปลี่ยนแปลง"
+msgstr "ไม่มีแพ็กเกจของเคอร์เนลถูกติดตั้งอยู่บนระบบของคุณ การตั้งค่าของบูตโหลดเดอร์จะไม่ถูกเปลี่ยนแปลง"
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:472 ../iw/progress_gui.py:673
 msgid "Completed"
@@ -592,8 +589,7 @@ msgstr "เขียนถ่ายข้อมูล"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
+msgstr "สถานะของระบบของคุณถูกเขียนเก็บลงบนฟลอปปี้เรียบร้อยแล้ว ขณะนี้ระบบของคุณกำลังจะเริ่มต้นใหม่"
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -676,8 +672,7 @@ msgstr "เกิดข้อผิดพลาด"
 msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
-msgstr ""
-"เกิดข้อผิดพลาดขณะที่กำลังสร้างแผ่นบูต โปรดดูให้แน่ใจว่ามีแผ่นดิสก์อยู่ในไดร์ฟฟลอปปี้ตัวแรกหรือไม่"
+msgstr "เกิดข้อผิดพลาดขณะที่กำลังสร้างแผ่นบูต โปรดดูให้แน่ใจว่ามีแผ่นดิสก์อยู่ในไดร์ฟฟลอปปี้ตัวแรกหรือไม่"
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -691,8 +686,7 @@ msgstr "กำลังสร้างแผ่นบูต..."
 msgid ""
 "An error occurred while attempting to verify the boot disk.  Please make "
 "sure that you have a good floppy in the first floppy drive."
-msgstr ""
-"เกิดข้อผิดพลาดขึ้นขณะตรวจสอบแผ่นบูต โปรดดูให้แน่ใจว่ามีแผ่นดิสก์ที่ใช้ได้อยู่ในไดร์ฟฟลอปปี้ตัวแรกหรือไม่"
+msgstr "เกิดข้อผิดพลาดขึ้นขณะตรวจสอบแผ่นบูต โปรดดูให้แน่ใจว่ามีแผ่นดิสก์ที่ใช้ได้อยู่ในไดร์ฟฟลอปปี้ตัวแรกหรือไม่"
 
 #: ../floppy.py:201
 msgid ""
@@ -1894,8 +1888,7 @@ msgid "Confirm Reset"
 msgstr "ยืนยันการรีเซ็ต"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตตารางพาร์ทิชันกลับไปยังสถานะดั้งเดิมของมัน?"
 
 #: ../partitioning.py:77
@@ -1940,8 +1933,7 @@ msgid ""
 msgstr "พาร์ทิชัน root ของคุณ (/) มีขนาดเล็กกว่า 250 เมกะไบต์ ซึ่งเล็กเกินไปที่จะติดตั้ง %s"
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "คุณจะต้องสร้างพาร์ทิชันที่มีตำแหน่งเมานท์ที่ /boot/efi สำหรับพาร์ทิชันชนิด FAT และมีขนาด 50 "
 "เมกะไบต์"
@@ -2007,8 +1999,7 @@ msgstr "พาร์ทิชันนี้เป็นสมาชิกหน
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr "ตำแหน่งเมานท์ที่กำหนดไม่ถูกต้อง ไดเรกทอรี %s จะต้องอยู่บนระบบไฟล์ / เท่านั้น"
 
 #: ../partRequests.py:236
@@ -2041,8 +2032,7 @@ msgstr "ขนาดของพาร์ทิชัน %s (%10.2f เมกะ
 msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
-msgstr ""
-"ขนาดของพาร์ทิชันที่คุณต้องการ (ขนาด = %s \tเมกะไบต์) ใหญ่เกินขนาดสูงสุด %s \tเมกะไบต์"
+msgstr "ขนาดของพาร์ทิชันที่คุณต้องการ (ขนาด = %s \tเมกะไบต์) ใหญ่เกินขนาดสูงสุด %s \tเมกะไบต์"
 
 #: ../partRequests.py:474
 #, python-format
@@ -2208,8 +2198,7 @@ msgstr "โหมดกู้ระบบ"
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
-msgstr ""
-"คุณไม่มีพาร์ทิชันของลินุกซ์เลย กด return เพื่อเข้าสู่เชลล์ โดยระบบจะรีบูตอัตโนมัติเมื่อคุณออกจากเชลล์"
+msgstr "คุณไม่มีพาร์ทิชันของลินุกซ์เลย กด return เพื่อเข้าสู่เชลล์ โดยระบบจะรีบูตอัตโนมัติเมื่อคุณออกจากเชลล์"
 
 #: ../rescue.py:429
 #, python-format
@@ -2242,16 +2231,14 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr " <F1> คำแนะนำ | <Tab> ระหว่าง elements | <Space> เลือก | <F12> หน้าจอถัดไป"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> ระหว่าง elements   |  <Space> เลือก   |  <F12> หน้าจอถัดไป"
+msgstr "  <Tab>/<Alt-Tab> ระหว่าง elements   |  <Space> เลือก   |  <F12> หน้าจอถัดไป"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2557,8 +2544,7 @@ msgstr "รหัสผ่านผิดพลาด"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"คุณจะต้องกำหนดรหัสผ่านของ root และทำการยืนยันโดยพิมพ์มันซ้ำในช่องถัดมา จึงจะดำเนินการต่อได้"
+msgstr "คุณจะต้องกำหนดรหัสผ่านของ root และทำการยืนยันโดยพิมพ์มันซ้ำในช่องถัดมา จึงจะดำเนินการต่อได้"
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
@@ -3123,8 +3109,7 @@ msgstr "_อัพเกรดระบบที่ติดตั้งไว�
 msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
-msgstr ""
-"เลือกตัวเลือกนี้หากคุณต้องการอัพเกรด %s ที่ติดตั้งอยู่แล้ว ซึ่งการติดตั้งจะยังรักษา ข้อมูลของคุณไว้"
+msgstr "เลือกตัวเลือกนี้หากคุณต้องการอัพเกรด %s ที่ติดตั้งอยู่แล้ว ซึ่งการติดตั้งจะยังรักษา ข้อมูลของคุณไว้"
 
 #: ../iw/examine_gui.py:130 ../iw/pixmapRadioButtonGroup_gui.py:197
 msgid "The following installed system will be upgraded:"
@@ -3695,16 +3680,14 @@ msgstr "เกิดข้อผิดพลาดกับข้อมูล"
 msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
-msgstr ""
-"คุณไม่ได้ระบุชื่อโฮสต์  ซึ่งอาจจะทำให้เกิดปัญหาตามมาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
+msgstr "คุณไม่ได้ระบุชื่อโฮสต์  ซึ่งอาจจะทำให้เกิดปัญหาตามมาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
 #: ../iw/network_gui.py:162
 #, python-format
 msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
-msgstr ""
-"คุณไม่ได้ระบุในช่อง \"%s\" ซึ่งอาจก่อให้เกิดปัญหาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
+msgstr "คุณไม่ได้ระบุในช่อง \"%s\" ซึ่งอาจก่อให้เกิดปัญหาภายหลัง ขึ้นอยู่กับสภาพแวดล้อมเน็ตเวิร์คของคุณ"
 
 #: ../iw/network_gui.py:166 ../textw/network_text.py:410
 #, python-format
@@ -4097,14 +4080,12 @@ msgid "Partitioning"
 msgstr "การแบ่งพาร์ทิชัน"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "นี้คือข้อผิดพลาดร้ายแรงที่เกิดจากรูปแบบการแบ่งพาร์ทิชันที่คุณต้องการ"
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "ข้อผิดพลาดเหล่านี้จะต้องแก้ไขให้ถูกต้องก่อนที่จะดำเนินการติดตั้ง %s ต่อไป"
 
 #: ../iw/partition_gui.py:637
@@ -4329,8 +4310,7 @@ msgstr "ต้องการตรวจสอบ_พื้นที่เส�
 msgid ""
 "Partitions of type '%s' must be constrained to a single drive.  This is done "
 "by selecting the drive in the 'Allowable Drives' checklist."
-msgstr ""
-"พาร์ทิชันชนิด '%s' จะต้องอยู่บนไดรฟ์เดียว  ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
+msgstr "พาร์ทิชันชนิด '%s' จะต้องอยู่บนไดรฟ์เดียว  ทำได้โดยการเลือกไดรฟ์ในรายการ 'ไดรฟ์ที่อนุญาต'"
 
 #: ../iw/partmethod_gui.py:25 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -4719,8 +4699,7 @@ msgstr "กำลังจะอัพเดตบูตโหลดเดอร
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "ตัวติดตั้งได้ตรวจสอบพบบูตโหลดเดอร์ของ %s ซึ่งถูกติดตั้งไว้ที่ %s"
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4741,8 +4720,7 @@ msgstr "_ติดตั้งบูตโหลดเดอร์ใหม่"
 msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
-msgstr ""
-"ตัวเลือกนี้จะทำให้คุณติดตั้งบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ คุณควรจะเลือกหัวข้อนี้"
+msgstr "ตัวเลือกนี้จะทำให้คุณติดตั้งบูตโหลดเดอร์ใหม่ ถ้าคุณจะเปลี่ยนบูตโหลดเดอร์ คุณควรจะเลือกหัวข้อนี้"
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4849,8 +4827,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "ไฟล์สวอปจะต้องมีขนาดอยู่ระหว่าง 1 - 2000 เมกะไบต์"
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "ฮาร์ดดิสก์ของคุณมีพื้นที่ไม่เพียงพอต่อการสร้างพาร์ทิชันสวอป"
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5207,8 +5184,7 @@ msgstr ""
 "คุณจำเป็นต้องบอกเราว่าพาร์ทิชันใดบ้างที่ต้องการให้บูต และบอกชื่อที่คุณต้องการใช้สำหรับแต่ละรายการ"
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr " <Space> เลือกปุ่ม | <F2> เลือกตัวที่จะบูตเป็นค่าปริยาย | <F12> หน้าถัดไป>"
 
 #: ../textw/bootloader_text.py:394
@@ -5634,10 +5610,8 @@ msgid "Select individual packages"
 msgstr "เลือกแพ็กเกจเป็นรายตัว"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Space>,<+>,<-> การเลือก   |   <F2> รายละเอียดของกลุ่ม   |   <F12> หน้าจอถัดไป"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5661,10 +5635,8 @@ msgid "Total size"
 msgstr "ขนาดทั้งหมด"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> การเลือก   |   <F1> คำแนะนำ   |   <F2> รายละเอียดแพ็กเกจ"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> การเลือก   |   <F1> คำแนะนำ   |   <F2> รายละเอียดแพ็กเกจ"
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5937,8 +5909,7 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 "    F1-แนะนำ     F2-สร้างใหม่      F3-แก้ไข   F4-ลบ    F5-รีเซต    F12-"
 "ตกลง        "
@@ -6182,13 +6153,11 @@ msgid "User Exists"
 msgstr "ผู้ใช้นี้มีแล้ว"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "ผู้ใช้ชื่อ root มีอยู่แล้ว คุณไม่จำเป็นต้องเพิ่มผู้ใช้นี้อีก"
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr "ผู้ใช้ชื่อนี้มีอยู่แล้วในระบบ คุณไม่จำเป็นต้องเพิ่มผู้ใช้นี้อีก"
 
 #: ../textw/userauth_text.py:171
@@ -6864,8 +6833,7 @@ msgstr ""
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr ""
-"เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
+msgstr "เกิดข้อผิดพลาดขณะอ่านตัวติดตั้งจากไฟล์ ISO กรุณาตรวจสอบไฟล์ ISO ของคุณ แล้วลองใหม่อีกครั้ง"
 
 #: ../loader2/hdinstall.c:327
 msgid ""
@@ -6948,8 +6916,7 @@ msgid "Welcome to %s"
 msgstr "ยินดีต้อนรับสู่ %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr "  <Tab>/<Alt-Tab> ระหว่าง elements  | <Space> เลือก | <F12> หน้าถัดไป "
 
 #: ../loader2/lang.c:372
@@ -7067,17 +7034,17 @@ msgstr "เสร็จ"
 
 #: ../loader2/loader.c:1026
 msgid "Add Device"
-msgstr "เพิ่มอุปกรณ์"
+msgstr "Add Device"
 
 #: ../loader2/loader.c:1144
 #, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr ""
+msgstr "loader has already been run.  Starting shell.\n"
 
 #: ../loader2/loader.c:1505
-#, fuzzy, c-format
+#, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr "กำลังรันโปรแกรมอนาคอนดา ตัวติดตั้งระบบ %s - กรุณารอสักครู่...\n"
+msgstr "Running anaconda, the %s rescue mode - please wait...\n"
 
 #: ../loader2/loader.c:1507
 #, c-format
@@ -7208,9 +7175,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "การตั้งค่าอื่นๆ"
+msgstr "Wireless Settings"
 
 #: ../loader2/net.c:219
 msgid "Nameserver IP"
@@ -7317,9 +7283,9 @@ msgid "NFS server name:"
 msgstr "ชื่อเซิร์ฟเวอร์ NFS:"
 
 #: ../loader2/nfsinstall.c:47 ../loader2/urls.c:286
-#, fuzzy, c-format
+#, c-format
 msgid "%s directory:"
-msgstr "ไดเรกทอรีที่เก็บลินุกซ์ทะเล:"
+msgstr "%s ไดเรกทอรี:"
 
 #: ../loader2/nfsinstall.c:53
 msgid "NFS Setup"
@@ -7371,16 +7337,16 @@ msgstr ""
 #: ../loader2/urlinstall.c:432
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
-msgstr ""
+msgstr "วิธี kickstart แบบ url มีอาร์กิวเมนต์ที่ไม่ถูกต้องสำหรับคำสั่ง %s: %s"
 
 #: ../loader2/urlinstall.c:441
 msgid "Must supply a --url argument to Url kickstart method."
-msgstr ""
+msgstr "ต้องใส่อาร์กิวเมนต์ --url เพื่อใช้วิธี kickstart แบบ url"
 
 #: ../loader2/urlinstall.c:452
 #, c-format
 msgid "Unknown Url method %s"
-msgstr "ไม่รู้จัก URL %s"
+msgstr "ไม่รู้จัก URL ชนิดนี้ %s"
 
 #: ../loader2/urls.c:173
 #, c-format
@@ -7437,7 +7403,7 @@ msgstr "ชื่อ %s ใช้เป็นชื่อโฮสต์ไม�
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
-msgstr "ถ้าคุณใช้ non anonymous ftp ให้ป้อนชื่อบัญชีผู้ใช้ และรหัสผ่านของคุณ ข้างล่างนี้"
+msgstr "ถ้าคุณไม่ได้ใช้ anonymous ftp ให้ป้อนชื่อบัญชีผู้ใช้ และรหัสผ่านของคุณ ข้างล่างนี้"
 
 #: ../loader2/urls.c:410
 msgid ""
@@ -7447,7 +7413,7 @@ msgstr "ถ้าคุณใช้พรอกซีเซิร์ฟเวอ
 
 #: ../loader2/urls.c:432
 msgid "Account name:"
-msgstr "ชื่อบัญชีผู้ใช้:"
+msgstr "ชื่อบัญชี:"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -7455,700 +7421,695 @@ msgstr "กำลังโหลดไดรเวอร์ SCSI"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Acre"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Alaska Time"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska Time - Alaska panhandle neck"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Alaska Time - west Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutian Islands"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, E Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Amundsen-Scott Station, South Pole"
 
 #. generated from zone.tab
 msgid "Aqtobe (Aktobe)"
-msgstr ""
+msgstr "Aqtobe (Aktobe)"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantic islands"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantic Time - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
+msgstr "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
-msgstr ""
+msgstr "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azores"
 
 #. generated from zone.tab
 msgid "Bahia"
-msgstr ""
+msgstr "Bahia"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
-msgstr ""
+msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Buenos Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Canary Islands"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
-msgstr ""
+msgstr "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "central Crimea"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - midwest"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Central Time"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Central Time - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Central Time - Manitoba & west Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Central Time - Michigan - Wisconsin border"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Central Time - most locations"
 
 #. generated from zone.tab
 msgid "Central Time - North Dakota - Oliver County"
-msgstr ""
+msgstr "Central Time - North Dakota - Oliver County"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Central Time - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Central Time - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Central Time - west Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham Islands"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis Station, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar"
-msgstr ""
+msgstr "Dornod, Sukhbaatar"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "E Amazonas"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "east China - Beijing, Guangdong, Shanghai, etc."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
-msgstr ""
+msgstr "east coast, north of Scoresbysund"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "east Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
-msgstr ""
+msgstr "Easter Island & Sala y Gomez"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - central Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - east Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Eastern Standard Time - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Eastern Standard Time - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Eastern Time"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Louisville area"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Eastern Time - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Eastern Time - Michigan - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Eastern Time - Ontario - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Eastern Time - Quebec - most locations"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Eastern Time - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "east Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Galapagos Islands"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier Islands"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert Islands"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Great Britain"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Heilongjiang"
-msgstr ""
+msgstr "Heilongjiang"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & the Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston Atoll"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe Island"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira Islands"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "mainland"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas Islands"
 
 #. generated from zone.tab
 msgid "Mato Grosso"
-msgstr ""
+msgstr "Mato Grosso"
 
 #. generated from zone.tab
 msgid "Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson Station, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo Station, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway Islands"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moscow+00 - west Russia"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moscow+01 - Caspian Sea"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moscow-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moscow+02 - Urals"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moscow+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moscow+03 - west Siberia"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moscow+04 - Yenisei River"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moscow+05 - Lake Baikal"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moscow+06 - Lena River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moscow+07 - Amur River"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
-msgstr ""
+msgstr "Moscow+07 - Sakhalin Island"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Moscow+08 - Magadan"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moscow+09 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moscow+10 - Bering Sea"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr ""
+msgstr "most locations"
 
 #. generated from zone.tab
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr ""
+msgstr "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Mountain Standard Time - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Mountain Standard Time - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Mountain Time"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - central Northwest Territories"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Mountain Time - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Mountain Time - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Mountain Time - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Mountain Time - south Idaho & east Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Mountain Time - west Northwest Territories"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "NE Brazil (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland Island"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "New South Wales - most locations"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "New South Wales - Yancowinna"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "northeast Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Northern Ireland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Northern Territory"
 
 #. generated from zone.tab
 msgid "Pacific Time"
-msgstr ""
+msgstr "Pacific Time"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Pacific Time - north Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Pacific Time - south Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacific Time - west British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers Island"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "peninsular Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix Islands"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - most locations"
 
 #. generated from zone.tab
 msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
-msgstr ""
+msgstr "Qyzylorda (Kyzylorda, Kzyl-Orda)"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Rothera Station, Adelaide Island"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah & Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
-msgstr ""
+msgstr "Scoresbysund / Ittoqqortoormiit"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "South Australia"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "southwest Mali"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "southwest Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, E Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmania"
 
 #. generated from zone.tab
 msgid "Thule / Pituffik"
-msgstr ""
+msgstr "Thule / Pituffik"
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Tibet & most of Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Vostok Station, S Magnetic Pole"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "W Amazonas"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "west & central Borneo"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "west Dem. Rep. of Congo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "ออสเตรเลียตะวันตก"
 
 #. generated from zone.tab
 msgid "West Kazakhstan"
-msgstr ""
+msgstr "คาซัคสถานตะวันตก"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "อุซเบกิสถานตะวันตก"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "W Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, E Lugansk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Arabic"
-msgstr "อัฟริกา"
+msgstr "ภาษาอาหรับ"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "ภาษาเบนการี"
 
 #. generated from lang-table
 msgid "Bengali(India)"
-msgstr ""
+msgstr "ภาษาเบนการี (อินเดีย)"
 
 #. generated from lang-table
 msgid "Bulgarian"
-msgstr ""
+msgstr "ภาษาบัลแกเรีย"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Catalan"
-msgstr "ภาษาอิตาลี"
+msgstr "ภาษาแคตาแลน"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -8172,7 +8133,7 @@ msgstr "ภาษาเดนมาร์ก"
 
 #. generated from lang-table
 msgid "Dutch"
-msgstr "ภาษาดัทช์"
+msgstr "ภาษาดัตช์"
 
 #. generated from lang-table
 msgid "English"
@@ -8180,12 +8141,11 @@ msgstr "ภาษาอังกฤษ"
 
 #. generated from lang-table
 msgid "Estonian"
-msgstr ""
+msgstr "ภาษาเอสโทเนีย"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Finnish"
-msgstr "ภาษาเดนมาร์ก"
+msgstr "ภาษาฟินแลนด์"
 
 #. generated from lang-table
 msgid "French"
@@ -8197,16 +8157,15 @@ msgstr "ภาษาเยอรมัน"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "ภาษากูจาราติ"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "การค้นหา"
+msgstr "ภาษาฮินดี"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "ภาษาฮังการี"
 
 #. generated from lang-table
 msgid "Icelandic"
@@ -8226,25 +8185,23 @@ msgstr "ภาษาเกาหลี"
 
 #. generated from lang-table
 msgid "Macedonian"
-msgstr ""
+msgstr "ภาษามาซีโดเนีย"
 
 #. generated from lang-table
 msgid "Malay"
-msgstr ""
+msgstr "ภาษามาเลย์"
 
 #. generated from lang-table
 msgid "Norwegian"
 msgstr "ภาษานอร์วีเจียน"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Persian"
-msgstr "ภาษาเยอรมัน"
+msgstr "ภาษาเปอร์เซีย"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "ภาษาอังกฤษ"
+msgstr "ภาษาโปแลนด์"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8256,7 +8213,7 @@ msgstr "ภาษาโปรตุเกส (บราซิล)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "ภาษาปัญจาบ"
 
 #. generated from lang-table
 msgid "Russian"
@@ -8275,9 +8232,8 @@ msgid "Swedish"
 msgstr "ภาษาสวีเดน"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "ไทย"
+msgstr "ภาษาทมิฬ"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8285,45 +8241,18 @@ msgstr "ภาษาตุรกี"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
+msgstr "ภาษายูเครน"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "ภาษาเวียดนาม"
 
 #. generated from lang-table
 msgid "Welsh"
-msgstr ""
+msgstr "ภาษาเวลส์"
 
 #. generated from lang-table
 #, fuzzy
 msgid "Zulu"
-msgstr "ซูลู"
+msgstr "ภาษาซูลู"
 
-#~ msgid "Connecting..."
-#~ msgstr "กำลังเชื่อมต่อ..."
-
-#~ msgid "Physical Extent:"
-#~ msgstr "ส่วนยืดขยายกายภาพ:"
-
-#~ msgid ""
-#~ "Security Enhanced Linux (SELinux) provides stricter access controls to "
-#~ "improve the security of your system.  How would you like this support "
-#~ "enabled?"
-#~ msgstr ""
-#~ "Security Enhanced Linux (SELinux) ทำให้ควบคุมการเข้าถึงได้เข้มงวดมากขึ้น "
-#~ "ทำให้เพิ่มความปลอดภัยบนระบบของคุณ  คุณต้องการให้เปิดใช้งานหรือไม่ อย่างไร?"
-
-#~ msgid "Disable SELinux"
-#~ msgstr "ไม่ใช้ SELinux"
-
-#~ msgid "Warn on violations"
-#~ msgstr "เตือนเมื่อมีเหตุการณ์ไม่น่าไว้ใจ"
-
-#, fuzzy
-#~ msgid "Device number:"
-#~ msgstr "อุปกรณ์"
-
-#, fuzzy
-#~ msgid "SCSI ID:"
-#~ msgstr "ESSID"
