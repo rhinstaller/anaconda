@@ -5,7 +5,7 @@ class InstallMethod:
     def protectedPartitions(self):
         return None
 
-    def readCompsViaMethod(self):
+    def readCompsViaMethod(self, hdlist):
 	pass
 
     def readComps(self, hdlist):
@@ -21,7 +21,7 @@ class InstallMethod:
 	if path:
 	    return ComponentSet(path, hdlist)
 	else:
-	    return self.readCompsViaMethod()
+	    return self.readCompsViaMethod(hdlist)
 	pass
 
     def getFilename(self, h, timer):
