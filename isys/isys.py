@@ -413,9 +413,12 @@ def ext2HasJournal(device, makeDevNode = 1):
         hasjournal = _isys.e2hasjournal(device);
     return hasjournal
 
-def ejectCdrom(device):
-    makeDevInode(device, "/tmp/cdrom")
-    fd = os.open("/tmp/cdrom", os.O_RDONLY)
+def ejectCdrom(device, makeDevice = 1):
+    if makeDevice:
+        makeDevInode(device, "/tmp/cdrom")
+        fd = os.open("/tmp/cdrom", os.O_RDONLY)
+    else:
+        fd = os.open(device, os.O_RDONLY)
 
     # this is a best effort
     try:
@@ -424,7 +427,9 @@ def ejectCdrom(device):
 	pass
 
     os.close(fd)
-    os.unlink("/tmp/cdrom")
+
+    if makeDevice:
+        os.unlink("/tmp/cdrom")
 
 def driveIsRemovable(device):
     # assume ide if starts with 'hd', and we don't have to create
