@@ -25,6 +25,8 @@ import sys
 from translate import _
 from log import log
 
+fstabFormatString = "%-23s %-23s %-7s %-15s %d %d\n";
+
 def isValidExt2(device):
     file = '/tmp/' + device
     isys.makeDevInode(device, file)
@@ -261,15 +263,17 @@ class Fstab:
 
 	raise ValueError, "no root device has been set"
 
-    def getLoopbackSize(self):
-	return (self.loopbackSize, self.loopbackSwapSize)
-
-    def setLoopbackSwapSize(self, swapSize):
-	self.loopbackSwapSize = swapSize
-
     def setLoopbackSize(self, size, swapSize):
 	self.loopbackSize = size
-	self.loopbackSwapSize = swapSize
+	self.addMount("/mnt/loophost/rh-swap.img", swapSize, "swap")
+
+    def getLoopbackSize(self):
+	lSize = 0
+	for (device, rel, size) in self.swapList(devices = 1, files = 1):
+	    if device == "/mnt/loophost/rh-swap.img":
+		lSize = size
+
+	return (self.loopbackSize, lSize)
 
     def setDruid(self, druid, raid):
 	self.ddruid = druid
@@ -354,7 +358,6 @@ class Fstab:
 
         return 0
 
-
     def filesystemSpace(self, topMount):
 	space = []
 	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
@@ -432,73 +435,77 @@ class Fstab:
     def drivesByName(self):
 	return isys.hardDriveDict()
 
-    def swapList(self):
+    # returns a list of tuples
+    # each tuple is (swapArea, relative, size)
+    # if relative is true, instPath needs to be added to the name of the
+    # swap file. if false, the swapArea is relative to /
+    # if the swapArea is a device, no leading / is used at all
+    # size is only valid (i.e. an integer) if we expect to create the 
+    # swap space
+    def swapList(self, devices = 1, files = 0):
 	fstab = []
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
 	    if fsystem != "swap": continue
-
-	    fstab.append((partition, 1))
+	    fstab.append((partition, 1, None))
 
 	# Add raid mounts to mount list
         (devices, raid) = self.raidList()
 	for (mntpoint, device, fsType, raidType, start, size, makeup) in raid:
 	    if fsType != "swap": continue
-	    fstab.append((device, 1))
+	    fstab.append((device, 1, None))
 
 	for n in self.extraFilesystems:
 	    (mntpoint, device, fsType, doFormat, size) = n
 	    if fsType != "swap": continue
-	    fstab.append((device, 1))
+
+	    onDev = device[0] != '/'
+	    if (onDev and devices) or ((not onDev) and files):
+		relative = 1
+		if device[0:14] == '/mnt/loophost/':
+		    relative = 0
+		# for swap, the mntpoint doubles as the size
+		fstab.append((device, relative, mntpoint))
 
 	return fstab
 
-    def turnOffSwap(self):
-	if not self.swapOn: return
-	self.swapOn = 0
+    def turnOffSwap(self, devices = 1, files = 0):
+	for n in enabledSwapDict().keys():
+	    isys.swapoff(n)
 
-	if self.rootOnLoop() and self.loopbackSwapSize:
-	    isys.swapoff("/mnt/loophost/rh-swap.img")
-
-	for (device, doFormat) in self.swapList():
-	    file = '/tmp/swap/' + device
-	    isys.swapoff(file)
-
-    def turnOnSwap(self, formatSwap = 1):
-	# we could be smarter about this
-	if self.swapOn: return
-	self.swapOn = 1
-
-	if self.rootOnLoop() and self.loopbackSwapSize:
-	    (rootDev, rootFs) = self.getRootDevice()
-
-	    isys.mount(rootDev, "/mnt/loophost", fstype = "vfat")
-
-	    # loopbackSwapSize = -1 turns on existing swap space rather
-	    # then creating a new one
-	    if self.loopbackSwapSize > 0:
-		isys.ddfile("/mnt/loophost/rh-swap.img", 
-			    self.loopbackSwapSize)
-
-	    iutil.execWithRedirect ("/usr/sbin/mkswap",
-			     [ "mkswap", '-v1', 
-			       '/mnt/loophost/rh-swap.img' ],
-			     stdout = None, stderr = None)
-
-	    isys.swapon("/mnt/loophost/rh-swap.img")
-
-	    return
-
+    def turnOnSwap(self, instPath, progressWindow, formatSwap = 1):
+	swaps = enabledSwapDict()
 
 	iutil.mkdirChain('/tmp/swap')
 
-	for (device, doFormat) in self.swapList():
-	    file = '/tmp/swap/' + device
-	    isys.makeDevInode(device, file)
+	for (device, rel, size) in self.swapList(devices = 1, files = 1):
+	    formatThisSwap = formatSwap
 
-	    if formatSwap:
+	    if device[0] == '/':
+		if rel:
+		    file = os.path.normpath(instPath + device)
+		else:
+		    file = device
+
+		if swaps.has_key(file): continue
+		
+		if not os.access(file, os.R_OK):
+		    isys.ddfile(file, size, (progressWindow, _("Swap Space"),
+				      _("Creating swap space...")))
+
+		    iutil.execWithRedirect ("/usr/sbin/mkswap", 
+				  [ "mkswap", '-v1', file ],
+				     stdout = None, stderr = None)
+
+		    formatThisSwap = 1
+		    
+	    else:
+		file = '/tmp/swap/' + device
+		if swaps.has_key(file): continue
+		isys.makeDevInode(device, file)
+
+	    if formatThisSwap:
 		w = self.waitWindow(_("Formatting"),
-			      _("Formatting swap space on /dev/%s...") % 
-				    (device,))
+			      _("Formatting swap space..."))
 
 		rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
 					 [ "mkswap", '-v1', file ],
@@ -507,7 +514,8 @@ class Fstab:
 		w.pop()
 
 		if rc:
-		    self.messageWindow(_("Error"), _("Error creating swap on device ") + device)
+		    self.messageWindow(_("Error"), _("Error creating swap on device ") + file)
+		    raise ValueError
 		else:
 		    isys.swapon (file)
 	    else:
@@ -611,8 +619,10 @@ class Fstab:
 			    _("Error unmounting %s: %s") % (device, msg))
 
 	if self.rootOnLoop():
-	    isys.makeDevInode("loop1", '/tmp/' + "loop1")
-	    isys.unlosetup("/tmp/loop1")
+	    self.loopbackMountCount = self.loopbackMountCount - 1
+	    if self.loopbackMountCount == 0:
+		isys.makeDevInode("loop1", '/tmp/' + "loop1")
+		isys.unlosetup("/tmp/loop1")
 
 	self.stopExistingRaid()
 
@@ -788,7 +798,7 @@ class Fstab:
 
 	return 0
 
-    def mountFilesystems(self, instPath, raiseErrors = 0):
+    def mountFilesystems(self, instPath, raiseErrors = 0, readOnly = 0):
 	if (not self.setupFilesystems): return 
 
 	self.startExistingRaid()
@@ -797,17 +807,22 @@ class Fstab:
             if fsystem == "swap":
 		continue
 	    elif fsystem == "vfat" and mntpoint == "/":
-		isys.mount(device, "/mnt/loophost", fstype = "vfat")
+		self.loopbackMountCount = self.loopbackMountCount + 1
+		if self.loopbackMountCount == 1:
+		    isys.mount(device, "/mnt/loophost", fstype = "vfat",
+			       readOnly = readOnly)
 
-		isys.makeDevInode("loop1", '/tmp/' + "loop1")
+		    isys.makeDevInode("loop1", '/tmp/' + "loop1")
 
-		isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
-		isys.mount("loop1", instPath)
+		    isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img",
+				 readOnly = readOnly)
+		    isys.mount("loop1", instPath, readOnly = readOnly)
 	    elif fsystem == "ext2" or fsystem == "ext3" or \
 			(fsystem == "vfat" and mntpoint == "/boot/efi"):
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
-		    isys.mount(device, instPath + mntpoint, fstype = fsystem)
+		    isys.mount(device, instPath + mntpoint, fstype = fsystem, 
+			       readOnly = readOnly)
 		except SystemError, (errno, msg):
 		    if raiseErrors:
 			raise SystemError, (errno, msg)
@@ -826,7 +841,7 @@ class Fstab:
 	isys.mount('/proc', instPath + '/proc', 'proc')
 
     def write(self, prefix):
-	format = "%-23s %-23s %-7s %-15s %d %d\n";
+	format = fstabFormatString
 
 	f = open (prefix + "/etc/fstab", "w")
 	labels = self.readLabels()
@@ -859,12 +874,14 @@ class Fstab:
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 
 			    0, 0))
 
-	if self.loopbackSwapSize:
-	    f.write(format % ("/initrd/loopfs/rh-swap.img", 'swap',
-				'swap', 'defaults', 0, 0))
-
-	for (partition, doFormat) in self.swapList():
-	    f.write (format % ("/dev/" + partition, 'swap', 'swap', 
+	for (partition, relative, size) in self.swapList(devices = 1, files = 1):
+	    if not relative:
+		# if it's not relative, it's in /mnt/loophost/, and needs
+		# to be in /initrd/loopfs instead
+		partition = "/initrd/loopfs/" + partition[14:]
+	    else:
+		partition = "/dev/" + partition
+	    f.write (format % (partition, 'swap', 'swap', 
 			       'defaults', 0, 0))
 
 	f.close ()
@@ -877,7 +894,11 @@ class Fstab:
     def clearMounts(self):
 	self.extraFilesystems = []
 
+    # gross, but the "mount" parameter doubles as the size of swap partitions
+    # that need to be created
     def addMount(self, partition, mount, fsystem, doFormat = 0, size = 0):
+	partition = os.path.normpath(partition)
+
 	self.extraFilesystems.append(mount, partition, fsystem, doFormat,
 				     size)
 # XXX code from sparc merge
@@ -1025,7 +1046,7 @@ class Fstab:
 	self.existingRaid = []
 	self.ddruid = self.createDruid()
 	self.loopbackSize = 0
-	self.loopbackSwapSize = 0
+	self.loopbackMountCount = 0
 	# I intentionally don't initialize this, as all install paths should
 	# initialize this automatically
 	#self.shouldRunDruid = 0
@@ -1155,7 +1176,7 @@ def readFstab (path, fstab):
               fields[0][0:8] == "/dev/rd/" or
               fields[0][0:9] == "/dev/ida/" or
               fields[0][0:11] == "/dev/cciss/"): 
-	    # this skips swap files! todo has to put them back for upgrades
+	    # this gets things on devices
 
 	    device = fields[0][5:]
 	    fsystem = fields[2]
@@ -1163,6 +1184,16 @@ def readFstab (path, fstab):
 		(device, fsystem) = loopIndex[device]
 
 	    fstab.addMount(device, fields[1], fsystem)
+	elif (fields[2] == "swap" and fields[0][0:5] != "/dev/"):
+	    # swap files
+	    file = fields[0]
+
+	    # the loophost looks like /mnt/loophost to the install, not
+	    # like /initrd/loopfs
+	    if file[0:15] == "/initrd/loopfs/":
+		file = "/mnt/loophost/" + file[14:]
+
+	    fstab.addMount(file, "swap", "swap")
 
 def createLabel(labels, newLabel):
     if len(newLabel) > 16:
@@ -1258,3 +1289,20 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     os.close(fd)
 
     w.pop()
+
+def enabledSwapDict():
+    # returns a dict of swap areas currently being used
+    f = open("/proc/swaps", "r")
+    lines = f.readlines()
+    f.close()
+
+    # the first line is header
+    lines = lines[1:]
+
+    swaps = {}
+    for line in lines:
+	l = string.split(line)
+	swaps[l[0]] = 1
+
+    return swaps
+
