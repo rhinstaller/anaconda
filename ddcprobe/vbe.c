@@ -235,7 +235,7 @@ int32_t vbe_get_mode()
 
 	/* Save the returned value. */
 	if((regs.eax & 0xffff) == 0x004f) {
-		ret = regs.ebx && 0xffff;
+		ret = regs.ebx & 0xffff;
 	} else {
 		ret = -1;
 	}
@@ -503,4 +503,115 @@ struct vbe_modeline *vbe_get_edid_modelines()
 	qsort(ret, modeline_count, sizeof(ret[0]), compare_vbe_modelines);
 
 	return ret;
+}
+
+const void *vbe_save_svga_state()
+{
+	struct vm86_regs regs;
+	unsigned char *ram;
+	u_int16_t block_size;
+	void *data;
+
+	memset(&regs, 0, sizeof(regs));
+	regs.eax = 0x4f04;
+	regs.ecx = 0xffff;
+	regs.edx = 0;
+
+	/* Get memory for the bios call. */
+	ram = vm86_ram_alloc();
+	if(ram == MAP_FAILED) {
+		return NULL;
+	}
+
+	/* Find out how much memory we need. */
+	bioscall(0x10, &regs, ram);
+	if((regs.eax & 0xff) != 0x4f) {
+		fprintf(stderr, "Get SuperVGA Video State not supported.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return NULL;
+	}
+	if((regs.eax & 0xffff) != 0x004f) {
+		fprintf(stderr, "Get SuperVGA Video State Info failed.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return NULL;
+	}
+
+	block_size = 64 * (regs.ebx & 0xffff);
+	memset(&regs, 0, sizeof(regs));
+	regs.eax = 0x4f04;
+	regs.ecx = 0x000f;
+	regs.edx = 0x0001;
+	regs.es  = 0x2000;
+	regs.ebx = 0x0000;
+	memset(&ram[regs.es * 16 + regs.ebx], 0, block_size);
+	bioscall(0x10, &regs, ram);
+	if((regs.eax & 0xffff) != 0x004f) {
+		fprintf(stderr, "Get SuperVGA Video State Save failed.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return NULL;
+	}
+
+	data = malloc(block_size);
+	if(data == NULL) {
+		vm86_ram_free(ram);
+		return NULL;
+	}
+
+	memcpy(data, &ram[regs.es * 16 + regs.ebx], block_size);
+
+	/* Clean up and return. */
+	vm86_ram_free(ram);
+	return data;
+}
+
+void vbe_restore_svga_state(const void *state)
+{
+	struct vm86_regs regs;
+	unsigned char *ram;
+	u_int16_t block_size;
+
+	memset(&regs, 0, sizeof(regs));
+	regs.eax = 0x4f04;
+	regs.ecx = 0x000f;
+	regs.edx = 0;
+
+	/* Get memory for the bios call. */
+	ram = vm86_ram_alloc();
+	if(ram == MAP_FAILED) {
+		return;
+	}
+
+	/* Find out how much memory we need. */
+	bioscall(0x10, &regs, ram);
+	if((regs.eax & 0xff) != 0x4f) {
+		fprintf(stderr, "Get SuperVGA Video State not supported.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return;
+	}
+	if((regs.eax & 0xffff) != 0x004f) {
+		fprintf(stderr, "Get SuperVGA Video State Info failed.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return;
+	}
+
+	block_size = 64 * (regs.ebx & 0xffff);
+	memset(&regs, 0, sizeof(regs));
+	regs.eax = 0x4f04;
+	regs.ecx = 0x000f;
+	regs.edx = 0x0002;
+	regs.es  = 0x2000;
+	regs.ebx = 0x0000;
+	memcpy(&ram[regs.es * 16 + regs.ebx], state, block_size);
+	bioscall(0x10, &regs, ram);
+	if((regs.eax & 0xffff) != 0x004f) {
+		fprintf(stderr, "Get SuperVGA Video State Restore failed.\n");
+		dump_regs(&regs);
+		vm86_ram_free(ram);
+		return;
+	}
 }
