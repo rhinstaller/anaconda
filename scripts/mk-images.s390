@@ -188,7 +188,7 @@ EOF
         ln -s loader $MBD_DIR/sbin/$n
     done
 
-    mkdir -p $MBD_DIR/$LIBDIR $MBD_DIR/usr/kerberos/$LIBDIR $MBD_DIR/mnt1 \
+    mkdir -p $MBD_DIR/$LIBDIR $MBD_DIR/mnt1 \
      $MBD_DIR/mnt/runtime $MBD_DIR/etc/ssh $MBD_DIR/mnt/source \
      $MBD_DIR/usr/$LIBDIR/gconv/ $MBD_DIR/lib $MBD_DIR/etc/xinetd.d
     for links in X11R6 bin sbin share; do
@@ -219,6 +219,9 @@ EOF
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libX11* $MBD_DIR/$LIBDIR/
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXmuu* $MBD_DIR/$LIBDIR/
     cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXext* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libXt.so* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libSM.so* $MBD_DIR/$LIBDIR/
+    cp -df $IMGPATH/usr/X11R6/$LIBDIR/libICE.so* $MBD_DIR/$LIBDIR/
     install -m 755 $IMGPATH/usr/sbin/dasdfmt $MBD_DIR/sbin/dasdfmt
     install -m 755 $IMGPATH/usr/sbin/fdasd $MBD_DIR/sbin/fdasd
     install -m 755 $IMGPATH/usr/sbin/ldconfig $MBD_DIR/sbin/ldconfig
@@ -317,10 +320,10 @@ EOF
     cp -df $IMGPATH/$LIBDIR/libssl* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libext2* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libcom_err* $MBD_DIR/$LIBDIR
-    cp -df $IMGPATH/usr/kerberos/$LIBDIR/libgssapi_krb5* $MBD_DIR/usr/kerberos/$LIBDIR
-    cp -df $IMGPATH/usr/kerberos/$LIBDIR/libkrb5.so* $MBD_DIR/usr/kerberos/$LIBDIR
-    cp -df $IMGPATH/usr/kerberos/$LIBDIR/libk5crypto.so* $MBD_DIR/usr/kerberos/$LIBDIR
-    cp -df $IMGPATH/usr/kerberos/$LIBDIR/libcom_err.so* $MBD_DIR/usr/kerberos/$LIBDIR
+    cp -df $IMGPATH/usr/$LIBDIR/libgssapi_krb5* $MBD_DIR/usr/$LIBDIR
+    cp -df $IMGPATH/usr/$LIBDIR/libkrb5.so* $MBD_DIR/usr/$LIBDIR
+    cp -df $IMGPATH/usr/$LIBDIR/libk5crypto.so* $MBD_DIR/usr/$LIBDIR
+    cp -df $IMGPATH/usr/$LIBDIR/libcom_err.so* $MBD_DIR/usr/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libe2p* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libuuid* $MBD_DIR/$LIBDIR
     cat >>$MBD_DIR/etc/ld.so.conf <<EOF
@@ -443,7 +446,7 @@ NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6 lcs qdio qeth"
 
 makeBootImages() {
 	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
-	    --initrdsize 15000 \
+	    --initrdsize 20000 \
 	    --loaderbin loader \
 	    --modules "$NETWORKMODULES"
 	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
