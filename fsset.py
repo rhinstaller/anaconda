@@ -476,6 +476,9 @@ class jfsFileSystem(FileSystemType):
 	                            ["jfs_tune", "-L", label, devicePath],
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
+        if rc:
+            raise SystemError
+        entry.setLabel(label)
 
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
