@@ -15,7 +15,7 @@ class XF86Config:
     def __init__ (self, mouse = None):
         if mouse:
             (mouseProtocol, mouseEmulate, mouseDev) = mouse
-            self.mouse = { "mouseDev" : "/dev/mouse",
+            self.mouse = { "mouseDev" : "/dev/" + mouseDev,
                            "mouseProto" : mouseProtocol }
         else:
             self.mouse = { "mouseDev" : "/dev/mouse",
@@ -191,9 +191,29 @@ class XF86Config:
 
     def write (self, path):
         config = open (path, 'w')
+        config.write (
+"""
+Section "Files"
+    RgbPath	"/usr/X11R6/lib/X11/rgb"
+    FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
+    FontPath	"/usr/X11R6/lib/X11/fonts/Type1/"
+    FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
+    FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
+    FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
+EndSection
+""")
         config.write (self.preludeSection ())
         config.write (self.inputSection ())
-        config.write (self.mouseSection ())
+        config.write (
+"""
+Section "Pointer"
+    Protocol    "%(mouseProto)s"
+    Device      "%(mouseDev)s"
+    Emulate3Buttons
+    Emulate3Timeout    50
+EndSection
+""" % settings)
+
         config.write (self.monitorSection ())
         config.write (self.deviceSection ())
         config.write (self.screenSection ())
@@ -356,7 +376,7 @@ EndSection
 
 Section "Pointer"
     Protocol    "%(mouseProto)s"
-    Device      "%(mouseDev)s"
+    Device      "/dev/mouse"
 
 # When using XQUEUE, comment out the above two lines, and uncomment
 # the following line.
