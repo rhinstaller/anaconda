@@ -129,7 +129,7 @@ class Kickstart(InstallClass):
 		     "lilo"		: self.doLilo		,
 		     "network"		: None			,
 		     "nfs"		: None			,
-		     "partition"	: self.definePartition	,
+		     "part"		: self.definePartition	,
 		     "rootpw"		: self.doRootPw		,
 		     "timezone"		: self.doTimezone	,
 		     "upgrade"		: self.doUpgrade	,
@@ -146,9 +146,9 @@ class Kickstart(InstallClass):
 	    if handlers[cmd]: handlers[cmd](args[1:])
 
     def doClearPart(self, args):
-	if args[0] == '--linux'
+	if args[0] == '--linux':
 	    clear = FSEDIT_CLEAR_LINUX
-	elif args[0] == '--all'
+	elif args[0] == '--all':
 	    clear = FSEDIT_CLEAR_ALL
 	self.setClearPart(clear)
 

@@ -26,8 +26,10 @@ class InstallClass:
 
 	    attempt.append((mntpoint, size, type, grow, -1))
 
+	ddruid.attempt (attempt, "Junk Argument", self.clearParts)
+
 	try:
-	    ddruid.attempt (attempt, "Junk Argument", self.createParts)
+	    ddruid.attempt (attempt, "Junk Argument", self.clearParts)
 	    return 1
 	except:
 	    # life's a female dog <shrug> -- we should log something though
@@ -48,7 +50,7 @@ class InstallClass:
 	self.lilo = (location, linear, appendLine)
 
     def setClearPart(self, clear):
-	self.clearPart = clear
+	self.clearParts = clear
 
     def getLiloInformation(self):
 	return self.lilo
