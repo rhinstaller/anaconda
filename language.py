@@ -26,7 +26,10 @@ def expandLangs(str):
 class InstallTimeLanguage:
 
     def __init__ (self):
-        self.current = "en_US"
+        if os.environ.has_key("LANG"):
+            self.current = os.environ["LANG"]
+        else:
+            self.current = "en_US"
 	if os.access("lang-table", os.R_OK):
 	    f = open("lang-table", "r")
 	elif os.access("/etc/lang-table", os.R_OK):

@@ -14,9 +14,6 @@
 #
 
 import os
-# msw says this is a good idea
-os.environ["LC_ALL"] = "C"
-
 import GDK
 import gdkpixbuf
 import iutil
