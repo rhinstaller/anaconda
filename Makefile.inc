@@ -4,7 +4,7 @@
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
 ANACONDADATADIR = /usr/share/anaconda
-PYTHON = python2.3
+PYTHON = python2.4
 PYTHONINCLUDE = /usr/include/$(PYTHON)
 
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
