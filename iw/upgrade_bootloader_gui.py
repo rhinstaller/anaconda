@@ -67,14 +67,14 @@ class UpgradeBootloaderWindow (InstallWindow):
 
 
         self.update_radio = GtkRadioButton(None, _("Update current settings"))
-        self.update_label = GtkLabel(_("This will keep your current boot "
-                                       "loader configuration adding new "
-                                       "kernels."))
+        updatestr = _("This will update your current boot loader.")
 
         if self.type != None:
             current = _("The installer has detected the %s boot loader "
                         "currently installed on %s.") % (self.type,
                                                          self.bootDev)
+            self.update_label = GtkLabel(N_("%s  %s") % (updatestr,
+                                         _("This is the recommended option.")))
             self.update_radio.set_active(FALSE)
             update = 1
         else:
@@ -99,7 +99,7 @@ class UpgradeBootloaderWindow (InstallWindow):
         self.nobl_label = GtkLabel(_("This will make no changes to boot "
                                      "loader configuration.  If you are "
                                      "using a third party boot loader, you "
-                                     "will want to do this."))
+                                     "should choose this."))
         self.nobl_radio.set_active(FALSE)
 
         for label in [self.update_label, self.nobl_label, self.newbl_label]:
