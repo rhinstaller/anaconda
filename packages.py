@@ -356,6 +356,9 @@ def doInstall(method, id, intf, instPath):
 	    id.hdList['krbafs'].selected = 1
 	    id.hdList['krb5-libs'].selected = 1
 
+        if id.auth.useSamba:
+            id.hdList['pam_smb'].selected = 1
+
         xserver = id.videocard.primaryCard().getXServer()
         if (xserver and id.comps.packages.has_key('XFree86')
             and id.comps.packages['XFree86'].selected
@@ -560,7 +563,7 @@ def doInstall(method, id, intf, instPath):
                 dev = fsset.PartitionDevice(id.floppyDevice)
                 fs = fsset.fileSystemTypeGet("auto")
                 entry = fsset.FileSystemSetEntry(dev, '/mnt/floppy', fs,
-                                                 "nodefaults")
+                                                 "noauto,owner")
 		id.fsset.add(entry)
 
 	    w.set(1)
