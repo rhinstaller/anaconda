@@ -18,6 +18,7 @@ import os
 import errno
 import iutil
 import string
+import time
 import isys
 import sys
 import parted
@@ -80,8 +81,6 @@ if iutil.getArch() == 'sparc':
     stepToClass["bootloader"] = ("silo_gui", "SiloWindow")
 elif iutil.getArch() == 's390':
     stepToClass["bootloader"] = ("zipl_gui", "ZiplWindow")
-
-
 
 #
 # Stuff for screenshots
@@ -1051,6 +1050,11 @@ class InstallControlWindow:
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
         if flags.autostep:
+	    if flags.autoscreenshot:
+		# let things settle down graphically
+		processEvents()
+		time.sleep(1)
+		takeScreenShot()
             self.nextClicked()
         else:
             gtk.idle_remove(self.handle)
@@ -1105,7 +1109,7 @@ class InstallControlWindow:
         self.update (ics)
 
         l = gtk.Label()
-        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
+#        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
         self.installFrame.set_label_widget(l)
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
