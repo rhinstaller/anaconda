@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
 "POT-Creation-Date: 1999-09-06 11:04-0400\n"
-"PO-Revision-Date: 1999-09-07 22:20+02:00\n"
+"PO-Revision-Date: 1999-09-08 18:35+02:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
 "MIME-Version: 1.0\n"
@@ -1815,13 +1815,11 @@ msgstr "Zapísa» zmeny tabuµky/tabuliek rozdelenia?"
 msgid "You may only delete NFS mounts."
 msgstr "Mô¾ete zru¹i» iba body pripojenia NFS."
 
-#, fuzzy
 msgid "Warning"
-msgstr "Zostáva"
+msgstr "Varovanie"
 
-#, fuzzy
 msgid "You are about to lose data! Are you sure you want to do this?"
-msgstr "Nezadali ste bod pripojenia tohoto oddielu. Naozaj to tak chcete?"
+msgstr "Stratíte údaje! Naozaj to tak chcete?"
 
 msgid "Disk Space"
 msgstr "Diskový priestor"
@@ -1829,17 +1827,14 @@ msgstr "Diskový priestor"
 msgid "There is not enough disk space for this type of installation."
 msgstr "Nie je dostatok miesta na disku pre tento typ in¹talácie."
 
-#, fuzzy
 msgid "There is not enough disk space for the chosen partitioning."
-msgstr "Nie je dostatok miesta na disku pre tento typ in¹talácie."
+msgstr "Pre zvolené rozdelenie nie je dostatok miesta na disku."
 
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "®iadne RAID zariadenie"
+msgstr "Vytvori» RAID zariadenie"
 
-#, fuzzy
 msgid "Skip LILO install"
-msgstr "SILO in¹talácia"
+msgstr "Vynecha» in¹taláciu LILO"
 
 msgid "No BOOTP reply received"
 msgstr "Nebola prijatá ¾iadna BOOTP odpoveï"
@@ -1853,9 +1848,8 @@ msgstr "Iná CDROM"
 msgid "CDROM type"
 msgstr "Typ CDROM"
 
-#, fuzzy
 msgid "What type of CDROM do you have?"
-msgstr "Aký typ grafickej karty máte?"
+msgstr "Aký typ mechaniky CDROM máte?"
 
 msgid "Initializing CDROM..."
 msgstr "Inicializujem CDROM..."
@@ -1937,9 +1931,8 @@ msgstr ""
 msgid "Miscellaneous options:"
 msgstr "Rôzne voµby:"
 
-#, fuzzy
 msgid "Module options:"
-msgstr "Výber my¹i"
+msgstr "Voµby pre modul:"
 
 msgid "Cannot open /proc/filesystems: %d"
 msgstr "Nie je mo¾né otvori» /proc/filesystems: %d"
@@ -1966,9 +1959,8 @@ msgstr ""
 msgid "Space Needed"
 msgstr "Potrebný priestor"
 
-#, fuzzy
 msgid "Install anyway"
-msgstr "Typ in¹talácie"
+msgstr "In¹talova» aj tak"
 
 msgid "Fatal error reopening RPM database"
 msgstr "Fatálna chyba pri znovuotváraní RPM databázy"
@@ -1994,9 +1986,8 @@ msgstr "Chyba pri in¹talácii balíka: nie je mo¾né otvori» RPM súbor pre %s: %s"
 msgid "Force supplemental disk"
 msgstr "Vynúti» pou¾itie doplnkovej diskety"
 
-#, fuzzy
 msgid "Installation Method"
-msgstr "Typ in¹talácie"
+msgstr "Spôsob in¹talácie"
 
 msgid ""
 "Please enter the following information:\n"
@@ -2011,16 +2002,14 @@ msgstr ""
 "    o adresár na tomto serveri obsahujúci\n"
 "      Red Hat Linux pre va¹u architektúru"
 
-#, fuzzy
 msgid "NFS server name:"
-msgstr "NIS server:"
+msgstr "Názov NFS servera:"
 
 msgid "Red Hat directory:"
 msgstr "Red Hat adresár:"
 
-#, fuzzy
 msgid "Note"
-msgstr "Nie"
+msgstr "Poznámka"
 
 msgid "Insert your Red Hat CD into your CD drive now"
 msgstr "Vlo¾te Red Hat CD do va¹ej CD jednotky"
@@ -2075,9 +2064,8 @@ msgstr ""
 msgid "Loading Supplemental Disk..."
 msgstr "Naèítava sa doplnková disketa..."
 
-#, fuzzy
 msgid "Driver Disk"
-msgstr "Súhrny pre disky"
+msgstr "Disketa ovládaèov"
 
 msgid ""
 "This install method requires a driver disk. Please remove the supplemental "
@@ -2127,9 +2115,8 @@ msgstr ""
 msgid "Directory holding Red Hat:"
 msgstr "Adresár obsahujúci Red Hat:"
 
-#, fuzzy
 msgid "Select Partition"
-msgstr "Zru¹enie oddielu"
+msgstr "Výber oddielu"
 
 msgid "Failed to create /tmp/rhimage symlink: %s"
 msgstr "Nie je mo¾né vytvori» symbolický odkaz /tmp/rhimage: %s"
@@ -2152,51 +2139,29 @@ msgstr "url príkaz neúplný"
 msgid "Unable to retrieve the second stage ramdisk: %s"
 msgstr "Nepodarilo sa naèíta» ramdisk druhej fázy: %s"
 
-#, fuzzy
 msgid "Mount points must begin with a leading /."
-msgstr ""
-"Bod pripojenia %s je chybný.\n"
-"\n"
-"Tieto body musia zaèína» /."
+msgstr "Body pripojenia musia zaèína» /."
 
-#, fuzzy
 msgid "Mount points may not end with a /."
-msgstr ""
-"Bod pripojenia %s je chybný.\n"
-"\n"
-"Tieto body nesmú konèi» /."
+msgstr "Body pripojenia nesmú konèi» /."
 
-#, fuzzy
 msgid "Mount points may only printable characters."
-msgstr ""
-"Bod pripojenia %s je chybný.\n"
-"\n"
-"Tieto body musia obsahova» iba tlaèiteµné znaky."
+msgstr "Body pripojenia mô¾u obsahova» iba tlaèiteµné znaky."
 
-#, fuzzy
 msgid "System partitions must be on Linux Native partitions."
-msgstr ""
-"Bod pripojenia %s je chybný.\n"
-"\n"
-"Systémové oddiely musia by» v oddieli typu Linux Native."
+msgstr "Systémové oddiely musia by» v oddieloch typu Linux Native."
 
-#, fuzzy
 msgid "/usr must be on a Linux Native partition or an NFS volume."
-msgstr ""
-"Bod pripojenia %s je chybný.\n"
-"\n"
-"/usr musí by» v oddieli typu Linux Native alebo na zväzku NFS."
+msgstr "/usr musí by» v oddieli typu Linux Native alebo na zväzku NFS."
 
-#, fuzzy
 msgid "Edit Network Mount Point"
-msgstr "Chýba bod pripojenia"
+msgstr "Zmena sie»ového bodu pripojenia"
 
 msgid "Making ext2 filesystem on /dev/%s..."
-msgstr "Vytváram ext2 súborový systém na /dev/%s..."
+msgstr "Vytvára sa ext2 súborový systém na /dev/%s..."
 
-#, fuzzy
 msgid "Running"
-msgstr "Zostáva"
+msgstr "Be¾í"
 
 msgid "nfs mount failed: %s"
 msgstr "nfs pripojenie sa nepodarilo: %s"
@@ -2204,19 +2169,17 @@ msgstr "nfs pripojenie sa nepodarilo: %s"
 msgid "mount failed: %s"
 msgstr "pripojenie sa nepodarilo: %s"
 
-#, fuzzy
 msgid ""
 "The partition table on device %s is corrupted.  To create new partitions it "
 "must be initialized. You can specify \"zerombr yes\" in the kickstart file "
 "to have this done automatically"
 msgstr ""
 "Tabuµka rozdelenia na zariadení %s je po¹kodená. Pre vytvorenie nových "
-"oddielov musí by» inicializovaná, èo spôsobí stratu V©ETKÝCH ÚDAJOV na tomto "
-"disku."
+"oddielov musí by» inicializovaná. Mô¾ete zada» \"zerombr yes\" v kickstart "
+"súbore, pokiaµ to chcete urobi» automaticky."
 
-#, fuzzy
 msgid "Zero Partition Table"
-msgstr "Vráti» tabuµku rozdelenia"
+msgstr "Vynulova» tabuµku rozdelenia"
 
 msgid ""
 "bad argument to kickstart zerombr command: %s.\n"
@@ -2226,16 +2189,14 @@ msgstr ""
 "Musí by» 'on', '1', alebo 'yes' pre povolenie, alebo 'off', '0', alebo 'no' "
 "pre zákaz."
 
-#, fuzzy
 msgid "Clear Partition Command"
-msgstr "Výber oddielov pre formátovanie"
+msgstr "Príkaz pre inicializáciu oddielu"
 
 msgid "bad argument to kickstart clearpart command %s: %s"
 msgstr "chybný argument kickstart príkazu clearpart %s: %s"
 
-#, fuzzy
 msgid "Partition Command"
-msgstr "Oddiel"
+msgstr "Príkaz pre oddiel"
 
 msgid "bad argument to kickstart part command %s: %s"
 msgstr "chybný argument kickstart príkazu part %s: %s"
@@ -2250,10 +2211,8 @@ msgstr ""
 "Voµba --maxsize pre oddiel %s bola ignorovaná. Skontrolujte, èi je väè¹ia "
 "ako voµba --size."
 
-#, fuzzy
 msgid "The mount point %s is already in use."
-msgstr ""
-"Po¾adovaný bod pripojenia je u¾ pou¾itý. Zadajte platný bod pripojenia."
+msgstr "Bod pripojenia %s je u¾ pou¾itý."
 
 msgid "Failed Allocation"
 msgstr "Alokácia zlyhala"
@@ -2261,9 +2220,8 @@ msgstr "Alokácia zlyhala"
 msgid "The partition %s could not be allocated."
 msgstr "Oddiel %s nemô¾e by» pridelený."
 
-#, fuzzy
 msgid "Disk Setup"
-msgstr "Nastavenie siete"
+msgstr "Nastavenie disku"
 
 msgid ""
 "There are partitions that can be resized nondestructively to make room for "
@@ -2273,7 +2231,6 @@ msgstr ""
 "vytvori» tak miesto pre va¹u in¹taláciu Red Hat Linuxu. ®eláte si teraz "
 "zmeni» veµkosti týchto oddielov?"
 
-#, fuzzy
 msgid "Success"
 msgstr "Úspe¹né"
 
@@ -2283,9 +2240,8 @@ msgstr "Chybná odpoveï servera"
 msgid "Server IO error"
 msgstr "Chyba vstupu/výstupu servera"
 
-#, fuzzy
 msgid "Server timeout"
-msgstr "Výber X servera"
+msgstr "Server neodpovedal v limite"
 
 msgid "Unable to lookup server host address"
 msgstr "Nie je mo¾né zisti» adresu servera"
@@ -2338,9 +2294,8 @@ msgstr "OS/2 HPFS"
 msgid "Win95 FAT32"
 msgstr "Win95 FAT32"
 
-#, fuzzy
 msgid "Hard Drives"
-msgstr "Priveµa jednotiek"
+msgstr "Pevné disky"
 
 msgid "Scanning hard drives..."
 msgstr "Prehliadajú sa pevné disky..."
@@ -2369,9 +2324,8 @@ msgstr ""
 "Pre in¹taláciu Red Hat Linuxu potrebujete aspoò jeden 150 MB oddiel "
 "vyhradený pre Linux."
 
-#, fuzzy
 msgid "Partition Disks"
-msgstr "Oddiely"
+msgstr "Diskové oddiely"
 
 msgid "Done"
 msgstr "Hotovo"
@@ -2440,9 +2394,8 @@ msgstr ""
 "Napí¹te <exit> pre návrat do in¹talaèného programu.\n"
 "\n"
 
-#, fuzzy
 msgid "Kickstart Error"
-msgstr "Chyba fdisk-u"
+msgstr "Chyba kickstart-u"
 
 msgid "No kickstart configuration file server can be found."
 msgstr "Nie je mo¾né nájs» súborový systém konfigurácie kickstartu."
@@ -2462,13 +2415,11 @@ msgstr "Chyba poèas otvárania súborov pre kickstart kopírovanie: %s\n"
 msgid "Error copying kickstart file from floppy."
 msgstr "Chyba pri kopírovaní kickstart súboru z diskety."
 
-#, fuzzy
 msgid "Select installation path"
-msgstr "Výber balíkov pre in¹taláciu"
+msgstr "Výber cesty in¹talácie"
 
-#, fuzzy
 msgid "Select installation class"
-msgstr "Výber balíkov pre in¹taláciu"
+msgstr "Výber triedy in¹talácie"
 
 msgid "Setup SCSI"
 msgstr "Nastavenie SCSI"
@@ -2479,43 +2430,35 @@ msgstr "Nastavenie súborových systémov"
 msgid "Setup swap space"
 msgstr "Nastavenie odkladacieho priestoru"
 
-#, fuzzy
 msgid "Find installation files"
-msgstr "In¹talácia zaèína"
+msgstr "Vyhµadávanie in¹talaèných súborov"
 
 msgid "Choose packages to install"
 msgstr "Výber balíkov pre in¹taláciu"
 
-#, fuzzy
 msgid "Configure networking"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia siete"
 
-#, fuzzy
 msgid "Configure timezone"
-msgstr "Konfigurácia X"
+msgstr "Konfigurácia èasového pásma"
 
-#, fuzzy
 msgid "Configure services"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia slu¾ieb"
 
-#, fuzzy
 msgid "Configure printer"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia tlaèiarne"
 
-#, fuzzy
 msgid "Exit install"
-msgstr "In¹talácia"
+msgstr "Ukonèi» in¹taláciu"
 
-#, fuzzy
 msgid "Find current installation"
-msgstr "In¹talácia balíkov"
+msgstr "Vyhµadanie súèasnej in¹talácie"
 
 msgid "Disk Druid"
 msgstr "Disk Druid"
 
-#, fuzzy
 msgid "fdisk"
-msgstr "Zavádzacia disketa"
+msgstr "fdisk"
 
 msgid ""
 "Disk Druid is a tool for partitioning and setting up mount points. It is "
@@ -2532,17 +2475,14 @@ msgstr ""
 "\n"
 "Ktorý nástroj chcete pou¾i»?"
 
-#, fuzzy
 msgid "Scanning packages..."
-msgstr "In¹talácia balíkov"
+msgstr "Prehµadávanie balíkov..."
 
-#, fuzzy
 msgid "Install log"
-msgstr "In¹talácia"
+msgstr "Záznam o in¹talácii"
 
-#, fuzzy
 msgid "Upgrade log"
-msgstr "Aktualizácia"
+msgstr "Záznam o aktualizácii"
 
 msgid ""
 "A complete log of your upgrade will be in /tmp/upgrade.log when the upgrade "
@@ -2571,9 +2511,8 @@ msgstr "Chýbajúce heslo"
 msgid "Unexpected arguments"
 msgstr "Neoèakávané argumenty"
 
-#, fuzzy
 msgid "Installation Path"
-msgstr "Typ in¹talácie"
+msgstr "Cesta in¹talácie"
 
 msgid ""
 "Would you like to install a new system or upgrade a system which already "
@@ -2592,9 +2531,8 @@ msgstr ""
 msgid "Converting RPM database..."
 msgstr "Konvertujem RPM databázu..."
 
-#, fuzzy
 msgid "Finding packages to upgrade..."
-msgstr "Výber balíkov pre aktualizáciu"
+msgstr "Vyhµadávanie balíkov pre aktualizáciu..."
 
 msgid "Previous"
 msgstr "Predchádzajúci"
@@ -2625,9 +2563,8 @@ msgid ""
 "been completed."
 msgstr "Ktoré kroky si prajete vykona»? Kroky oznaèené * u¾ boli ukonèené."
 
-#, fuzzy
 msgid "Cancelled"
-msgstr "Zru¹i»"
+msgstr "Zru¹ené"
 
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
@@ -2680,9 +2617,8 @@ msgstr "Nie je mo¾né vytvori» /mnt/tmp/ks.script: %s"
 msgid "Failed to write ks post script: %s"
 msgstr "Nie je mo¾né zapísa» ks post script: %s"
 
-#, fuzzy
 msgid "Choose a Language"
-msgstr "Vyberte server"
+msgstr "Výber jazyka"
 
 msgid "Failed to create symlink for package source."
 msgstr "Nie je mo¾né vytvori» symbolický odkaz na zdroj balíkov."
@@ -2702,29 +2638,24 @@ msgstr "LILO"
 msgid "Creating initial ramdisk..."
 msgstr "Vytvára sa poèiatoèný ramdisk..."
 
-#, fuzzy
 msgid "Device:"
-msgstr "Zariadenie"
+msgstr "Zariadenie:"
 
-#, fuzzy
 msgid "Boot label:"
-msgstr "Popis"
+msgstr "Popis zavádzaèa:"
 
 msgid "Installing boot loader..."
 msgstr "In¹taluje sa zavádzaè..."
 
-#, fuzzy
 msgid "Bootable Partitions"
-msgstr "Chýba koreòový oddiel"
+msgstr "Zavediteµné oddiely"
 
-#, fuzzy
 msgid "Creating bootdisk..."
-msgstr "Vytvorenie zavádzacej diskety"
+msgstr "Vytvorenie zavádzacej diskety..."
 
 msgid "Formatting swap space on device %s..."
 msgstr "Formátuje sa odkladací priestor na zariadení %s..."
 
-#, fuzzy
 msgid "No Swap Space"
 msgstr "®iadny odkladací priestor"
 
@@ -2774,13 +2705,11 @@ msgstr ""
 "Zadajte IP konfiguráciu tohoto poèítaèa. Ka¾dý záznam by mal by» zadaný ako "
 "IP adresa v dekadickom tvare oddelenom bodkami (napr. 1.2.3.4)."
 
-#, fuzzy
 msgid "Configure TCP/IP"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia TCP/IP"
 
-#, fuzzy
 msgid "Static IP address"
-msgstr "IP adresa:"
+msgstr "Statická IP adresa"
 
 msgid "BOOTP"
 msgstr "BOOTP"
@@ -2843,25 +2772,20 @@ msgstr ""
 "mojepc.mojeoddelenie.mojafirma.sk. Pokiaµ nemáte ¾iadne ïal¹ie nameservery, "
 "nechajte príslu¹né záznamy prázdne."
 
-#, fuzzy
 msgid "Host name:"
-msgstr "Názov poèítaèa"
+msgstr "Názov poèítaèa:"
 
-#, fuzzy
 msgid "Secondary nameserver (IP):"
-msgstr "Primárny nameserver:"
+msgstr "Sekundárny nameserver (IP):"
 
-#, fuzzy
 msgid "Tertiary nameserver (IP):"
-msgstr "Primárny nameserver:"
+msgstr "Terciárny nameserver (IP):"
 
-#, fuzzy
 msgid "Configure Network"
-msgstr "Konfigurácia X"
+msgstr "Konfigurácia siete"
 
-#, fuzzy
 msgid "Keep the current IP configuration"
-msgstr "Otestova» túto konfiguráciu"
+msgstr "Zachova» túto IP konfiguráciu"
 
 msgid "Reconfigure network now"
 msgstr "Prekonfigurova» sie»"
@@ -2891,9 +2815,8 @@ msgstr "Súbor súèastí nie je v oèakávanej verzii 0.1"
 msgid "bad comps file at line %d"
 msgstr "chybný súbor súèastí na riadku %d"
 
-#, fuzzy
 msgid "comps Error"
-msgstr "Chyba fdisk-u"
+msgstr "Chyba comps"
 
 msgid "missing component name at line %d"
 msgstr "chýba názov súèasti na riadku %d"
@@ -2936,9 +2859,8 @@ msgstr "Súèasti pre in¹taláciu"
 msgid "error opening header file: %s"
 msgstr "chyba pri otváraní hlavièkového súboru: %s"
 
-#, fuzzy
 msgid "Installed system size:"
-msgstr "In¹talácia systému"
+msgstr "Veµkos» in¹talovaného systému:"
 
 msgid "Choose a group to examine"
 msgstr "Vyberte skupinu, ktorú chcete preskúma»"
@@ -2952,28 +2874,23 @@ msgstr "Výber skupiny"
 msgid "(none available)"
 msgstr "(nie sú k dispozícii)"
 
-#, fuzzy
 msgid "Package:"
-msgstr "Balík"
+msgstr "Balík:"
 
-#, fuzzy
 msgid "Upgrade Packages"
-msgstr "Balíky"
+msgstr "Aktualizova» balíky"
 
-#, fuzzy
 msgid "Printer Information"
-msgstr "Neprípustná informácia"
+msgstr "Informácia o tlaèiarni"
 
 msgid "<F1> will give you information on a particular printer type"
 msgstr "<F1> zobrazí informáciu o konkrétnom type tlaèiarne"
 
-#, fuzzy
 msgid "What type of printer do you have?"
-msgstr "Aký typ grafickej karty máte?"
+msgstr "Aký typ tlaèiarne máte?"
 
-#, fuzzy
 msgid "Configure Printer"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia tlaèiarne"
 
 msgid "<F1> will give you information on this printer driver."
 msgstr "<F1> zobrazí informáciu o tomto ovládaèi tlaèiarne."
@@ -3001,9 +2918,8 @@ msgstr "Teraz mô¾ete nakonfigurova» uniprint voµby pre túto tlaèiareò."
 msgid "Configure Color Depth"
 msgstr "Konfigurácia farebnej håbky"
 
-#, fuzzy
 msgid "Configure Uniprint Driver"
-msgstr "Konfigurácia s pou¾itím DHCP"
+msgstr "Konfigurácia ovládaèa Uniprint"
 
 msgid ""
 "What device is your printer connected to (note that /dev/lp0 is equivalent "
@@ -3018,13 +2934,11 @@ msgstr ""
 "Automaticky zistené porty:\n"
 "\n"
 
-#, fuzzy
 msgid "Not "
-msgstr "Nie"
+msgstr "Ne"
 
-#, fuzzy
 msgid "Detected\n"
-msgstr "Zru¹i»"
+msgstr "zistené\n"
 
 msgid "Printer Device:"
 msgstr "Zariadenie tlaèiarne:"
@@ -3038,9 +2952,8 @@ msgstr "Názov vzdialeného poèítaèa:"
 msgid "Remote queue:"
 msgstr "Vzdialená fronta:"
 
-#, fuzzy
 msgid "Remote lpd Printer Options"
-msgstr "Zru¹i» Linux oddiely"
+msgstr "Voµby vzdialenej lpd tlaèiarne"
 
 msgid ""
 "To use a remote lpd print queue, you need to supply the hostname of the "
@@ -3051,9 +2964,8 @@ msgstr ""
 "tlaèového servera a názov fronty na tomto serveri, do ktorej majú by» úlohy "
 "zaraïované."
 
-#, fuzzy
 msgid "Printer Server:"
-msgstr "Primárny nameserver:"
+msgstr "Tlaèový server:"
 
 msgid "Print Queue Name:"
 msgstr "Názov tlaèovej fronty:"
@@ -3074,13 +2986,11 @@ msgstr ""
 msgid "SMB server host:"
 msgstr "Názov SMB servera:"
 
-#, fuzzy
 msgid "SMB server IP:"
-msgstr "NIS server:"
+msgstr "IP SMB servera:"
 
-#, fuzzy
 msgid "Share name:"
-msgstr "Meno pou¾ívateµa"
+msgstr "Meno zväzku:"
 
 msgid "Workgroup:"
 msgstr "Pracovná skupina:"
@@ -3133,9 +3043,8 @@ msgstr "Voµba pripojenia tlaèiarne"
 msgid "How is this printer connected?"
 msgstr "Ako je pripojená táto tlaèiareò?"
 
-#, fuzzy
 msgid "Printer type:"
-msgstr "Typ oddielu"
+msgstr "Typ tlaèiarne:"
 
 msgid "Queue:"
 msgstr "Fronta:"
@@ -3143,9 +3052,8 @@ msgstr "Fronta:"
 msgid "Printer device:"
 msgstr "Tlaèové zariadenie:"
 
-#, fuzzy
 msgid "Remote host:"
-msgstr "Odstráni» údaje"
+msgstr "Vzdialený poèítaè:"
 
 msgid "Share:"
 msgstr "Zdieµané zariadenie:"
@@ -3172,9 +3080,8 @@ msgstr ""
 msgid "Printer device"
 msgstr "Tlaèové zariadenie"
 
-#, fuzzy
 msgid "Verify Printer Configuration"
-msgstr "Konfigurácia siete"
+msgstr "Overi» konfiguráciu tlaèiarne"
 
 msgid ""
 "I have found the following types of SCSI adapters on your system:\n"
@@ -3199,13 +3106,11 @@ msgstr "Názov SMB serveru:"
 msgid "Share volume     :"
 msgstr "Názov zväzku     :"
 
-#, fuzzy
 msgid "Account name     :"
-msgstr "Názov úètu"
+msgstr "Názov úètu       :"
 
-#, fuzzy
 msgid "Password         :"
-msgstr "Heslo:"
+msgstr "Heslo            :"
 
 msgid "SMB Setup"
 msgstr "Nastavenie SMB"
@@ -3223,9 +3128,8 @@ msgstr ""
 "    o zväzok (share) obsahujúci\n"
 "      Red Hat Linux pre va¹u architektúru"
 
-#, fuzzy
 msgid "Password for %s@%s: "
-msgstr "Heslo:"
+msgstr "Heslo pre %s@%s: "
 
 msgid "error: %sport must be a number\n"
 msgstr "chyba: %sport musí by» èíslo\n"
@@ -3242,9 +3146,8 @@ msgstr "nepodarilo sa otvori» %s\n"
 msgid "failed to create %s\n"
 msgstr "Nie je mo¾né vytvori» %s\n"
 
-#, fuzzy
 msgid "Retrieving"
-msgstr "Zostáva"
+msgstr "Naèíta sa"
 
 msgid "open of %s failed: %s\n"
 msgstr "otvorenie %s zlyhalo: %s\n"
@@ -3282,13 +3185,11 @@ msgstr ""
 "    o adresár na tomto serveri, ktorý obsahuje\n"
 "      Red Hat Linux pre va¹u architektúru\n"
 
-#, fuzzy
 msgid "FTP site name:"
-msgstr "Meno pou¾ívateµa"
+msgstr "Meno poèítaèa pre FTP:"
 
-#, fuzzy
 msgid "Web site name:"
-msgstr "Meno pou¾ívateµa"
+msgstr "Meno poèítaèa pre web:"
 
 msgid "Use non-anonymous ftp or a proxy server"
 msgstr "Pou¾i» neanonymný ftp alebo proxy server"
@@ -3333,7 +3234,6 @@ msgstr "FTP proxy port:"
 msgid "HTTP Proxy Port:"
 msgstr "HTTP proxy port:"
 
-#, fuzzy
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was:"
@@ -3361,9 +3261,8 @@ msgstr "<F1> zobrazí veµkos» a popis balíku"
 msgid "Size of all selected packages:"
 msgstr "Veµkos» v¹etkých vybraných balíkov:"
 
-#, fuzzy
 msgid "Select Packages"
-msgstr "Balíky"
+msgstr "Výber balíkov"
 
 msgid "I cannot get file %s: %s\n"
 msgstr "nie je mo¾né získa» súbor %s: %s\n"
