@@ -165,11 +165,12 @@ static int copyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     return 0;
 }
 
-static int setupDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
-			   moduleDeps modDeps, int flags) {
+int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags, int cancelNotBack) {
     int rc;
 
-    rc = newtWinChoice(_("Devices"), _("OK"), _("Back"),
+    rc = newtWinChoice(_("Devices"), _("OK"), 
+	    cancelNotBack ? _("Cancel") : _("Back"),
 	    _("Insert your driver disk and press \"OK\" to continue."));
 
     if (rc == 2) return LOADER_BACK;
@@ -198,7 +199,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
     struct newtExitStruct es;
 
     do {
-	if (FL_EXPERT(flags) || FL_NOPROBE(flags)) {
+	if (FL_MODDISK(flags)) {
 	    text = newtTextboxReflowed(-1, -1, _("Which driver should I try?. "
 		    "If the driver you need does not appear in this list, and "
 		    "you have a separate driver disk, please press F2."),
@@ -217,7 +218,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 
 	form = newtForm(NULL, NULL, 0);
 
-	if (FL_EXPERT(flags) || FL_NOPROBE(flags))
+	if (FL_MODDISK(flags))
 	    newtFormAddHotKey(form, NEWT_KEY_F2);
 
 	for (i = 0; i < modInfo->numModules; i++) {
@@ -248,7 +249,7 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return LOADER_BACK;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    setupDriverDisk(modInfo, modLoaded, modDeps, flags);
+	    devLoadDriverDisk(modInfo, modLoaded, modDeps, flags, 0);
 	    continue;
 	} else {
 	    break;
