@@ -58,6 +58,11 @@ while [ $# -gt 0 ]; do
     esac
 done
 
+if [ "$(echo $1 |grep rawhide)" ];
+    echo "not going to build rawhide images"
+    exit 1
+fi
+
 if [ -z "$PRODUCTSTR" ]; then
     usage
 fi
