@@ -1,3 +1,18 @@
+2004-11-16  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/net.c (setKickstartNetwork): Allow passing --notksdevice
+	to your network lines so that you don't try to use them as your
+	device (#136903)
+
+	* kickstart.py (KickstartBase.doNetwork): Handle --notksdevice
+	here too.
+
+	* loader2/net.c: Allow going back and manually changing the
+	network device used even if ksdevice= is passed (#136903)
+
+	* loader2/loader.c: Fix for serial console magic to work again
+	with just console= and not explicit serial (#137971)
+
 2004-11-15  Jeremy Katz  <katzj@redhat.com>
 
 	* anaconda.spec: Bump version.

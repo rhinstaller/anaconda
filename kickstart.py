@@ -530,7 +530,7 @@ class KickstartBase(BaseInstallClass):
 	(args, extra) = isys.getopt(args, '',
 		[ 'bootproto=', 'ip=', 'netmask=', 'gateway=', 'nameserver=',
 		  'nodns', 'device=', 'hostname=', 'ethtool=', 'onboot=',
-		  'dhcpclass=', 'essid=', 'wepkey='])
+		  'dhcpclass=', 'essid=', 'wepkey=', 'notksdevice'])
 	bootProto = "dhcp"
 	ip = None
 	netmask = ""
