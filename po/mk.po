@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-02 00:00+0200\n"
+"PO-Revision-Date: 2004-07-02 18:25+0200\n"
 "Last-Translator: Blagoja Gjakovski <blgj@freemail.com.mk>\n"
 "Language-Team: Macedonian <info@slobodensoftver.org.mk>\n"
 "MIME-Version: 1.0\n"
@@ -1453,6 +1453,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
+"Уредот %s е форматиран во LDL наместо во CDL.  LDL форматираните "
+"DASD-ови не може да се користат за инсталирање на %s.  Ако сакате да го користите овој диск за инсталирање ќе мора повторно да се иницијализира со што ќе ги изгубите СИТЕ ПОДАТОЦИ од дискот.\n"
+"\n"
+"Дали сакате повторно да го форматирате DASD користејќи CDL формат?"
 
 #: ../partedUtils.py:304
 #, python-format
@@ -1463,6 +1467,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
+"Партицијата /dev/%s моментално има %s распоред.  За користење на овој диск за инсталирање на %s, тој мора повторно да се иницијализира, со што ќе ги изгубите СИТЕ ПОДАТОЦИ од дискот.\n"
+"\n"
+"Дали сакате да го форматирате дискот?"
 
 #: ../partedUtils.py:313
 msgid "_Ignore drive"
@@ -1498,6 +1505,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Партиционата табела на уредот %s (%s) не е читлива. За креирање на нови партиции мора да се иницијализира, со што ќе ги изгубите СИТЕ ПОДАТОЦИ од дискот.\n"
+"\n"
+"Оваа операција ќе ги избегне сите претходни поставки за инсталацијата, за тоа кои дискови ќе бидат игнорирани.\n"
+"\n"
+"Дали сакате да го иницијализирате овој диск, бришејќи ги СИТЕ ПОДАТОЦИ?"
 
 #: ../partedUtils.py:870
 #, python-format
@@ -1510,6 +1522,11 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
+"Партиционата табела на уредот %s не е читлива. За креирање на нови партиции мора да се иницијализира, со што ќе ги изгубите СИТЕ ПОДАТОЦИ од дискот.\n"
+"\n"
+"Оваа операција ќе ги избегне сите претходни поставки за инсталацијата, за тоа кои дискови ќе бидат игнорирани.\n"
+"\n"
+"Дали сакате да го иницијализирате овој диск, бришејќи ги СИТЕ ПОДАТОЦИ?"
 
 #: ../partedUtils.py:988 ../textw/fdasd_text.py:100
 msgid "No Drives Found"
@@ -1519,7 +1536,7 @@ msgstr "Не се пронајдени дискови"
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
-msgstr ""
+msgstr "Се појави грешка - не се најдени валидни уреди на кои би се креирале новите датотечни системи. Ве молиме проверете го вашиот хардвер за причината на овој проблем."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1539,6 +1556,8 @@ msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"Грешка - името на група дискови содржи недозволени карактери или празни места.  "
+"Прифатливи карактери се букви, броеви, '.' или '_'."
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
@@ -1558,12 +1577,14 @@ msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
 msgstr ""
+"Грешка - името на логичкиот диск содржи недозволени карактери или празни места.  "
+"Прифатливи карактери се букви, броеви, '.' или '_'."
 
 #: ../partIntfHelpers.py:94
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
-msgstr ""
+msgstr "Монтирачката папка е невалидна.  Монтирачките папки мора да започнуваат со '/' и не може да завршуваат со '/', и мора да содржат печатливи карактери и да не содржат празни места."
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
@@ -1614,14 +1635,14 @@ msgstr "Не можете да избришите партиција од LDL ф
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr "Не можете да ја избришите оваа партиција, затоа што е проширена партиција која што содржи %s"
+msgstr "Не може да ја избришите оваа партиција, затоа што е проширена партиција која што содржи %s"
 
 #: ../partIntfHelpers.py:184
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"Не можете да ја избришите оваа партиција:\n"
+"Не може да ја избришите оваа партиција:\n"
 "\n"
 
 #: ../partIntfHelpers.py:228 ../partIntfHelpers.py:519
@@ -1677,7 +1698,7 @@ msgstr ""
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
+msgstr "Не може да ја уредите оваа партиција, затоа што е проширена партиција која што содржи %s"
 
 #: ../partIntfHelpers.py:379
 msgid "Format as Swap?"
@@ -1691,6 +1712,9 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
+"Партицијата /dev/%s е од видот 0x82 (Linux swap) но изгледа не е форматирана како Linux swap партиција.\n"
+"\n"
+"Дали сакате да ја форматирате оваа партиција како swap партиција?"
 
 #: ../partIntfHelpers.py:401
 msgid ""
@@ -1818,18 +1842,18 @@ msgstr ""
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
+msgstr "Не ја одредивте root партицијата (/), која што е потребна за инсталацијата на %s да продолжи."
 
 #: ../partitions.py:766
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
+msgstr "Вашата root партиција е помала од 250 мегабајти што е обично премалку за инсталирање на %s."
 
 #: ../partitions.py:773
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
+msgstr "Мора да ја креирате FAT партицијата /boot/efi со големина 50 мегабајти."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -1840,7 +1864,7 @@ msgstr "Морате да креирате PPC PReP партиција за ст
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
+msgstr "Вашата партиција %s е помала од %s мегабајти што е помалку од препорачаното за нормална инсталација на %s."
 
 #: ../partitions.py:844 ../partRequests.py:651
 msgid "Bootable partitions can only be on RAID1 devices."
@@ -1885,7 +1909,7 @@ msgstr "партиција која што е член на LVM групата �
 #: ../partRequests.py:233
 #, python-format
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
+msgstr "Оваа монтирачка папка е невалидна.  Директориумот %s мора да е на / датотечниот систем."
 
 #: ../partRequests.py:236
 #, python-format
@@ -1939,7 +1963,7 @@ msgstr ""
 #: ../partRequests.py:655
 #, python-format
 msgid "A RAID device of type %s requires at least %s members."
-msgstr ""
+msgstr "RAID уред од видот %s бара најмалку %s членови."
 
 #: ../partRequests.py:661
 #, python-format
@@ -6872,7 +6896,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Централно време - Река Рејни и Форт Францес, Онтарио"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
@@ -6904,11 +6928,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "Источна Аргентина (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east China - Beijing, Guangdong, Shanghai, etc."
-msgstr ""
+msgstr "источна Кина - Пекинг, Гуангдонг, Шангај, итн."
 
 #. generated from zone.tab
 msgid "east coast, north of Scoresbysund"
@@ -6916,7 +6940,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "источна Демократска Република Конго"
 
 #. generated from zone.tab
 msgid "Easter Island & Sala y Gomez"
@@ -6936,7 +6960,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Источно стандардно време - Индијана - повеќето локации"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
@@ -6956,7 +6980,7 @@ msgstr "Источно време"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Источно време - Кентаки - област Луисвил"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
@@ -6964,19 +6988,19 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Источно време - Мичиген - повеќето локации"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario - most locations"
-msgstr ""
+msgstr "Источно време - Онтарио - повеќето локации"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Источно време - Онтарио и Квебек - места кои не ги набљудувале DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Quebec - most locations"
-msgstr ""
+msgstr "Источно време - Квебек - повеќето локации"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -6992,7 +7016,7 @@ msgstr "источен Узбекистан"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Острови Галапагос"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
@@ -7024,7 +7048,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Јава и Суматра"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
@@ -7052,11 +7076,11 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Острови Мадера"
 
 #. generated from zone.tab
 msgid "mainland"
-msgstr ""
+msgstr "копно"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
@@ -7076,27 +7100,27 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "Станица Мекмурдо, Остров Рос"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Мендоза (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Острови Мидвеј"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Москва+00 - западна Русија"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Москва+01 - Касписко море"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Москва-01 - Калининград"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
@@ -7104,27 +7128,27 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Москва+03 - Новосибирск"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Москва+03 - Западен Сибир"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Москва+04 - Река Јенисеј"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Москва+05 - Бајкалско езеро"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Москва+06 - Река Лена"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Москва+07 - Река Амур"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Sakhalin Island"
@@ -7132,35 +7156,35 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan"
-msgstr ""
+msgstr "Москва+08 - Магадан"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Москва+09 - Камчатка"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Москва+10 - Берингово море"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "повеќе локации"
+msgstr "повеќето локации"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
+msgstr "повеќето локации (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Планинско стандардно време - Аризона"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "Планинско стандардно време - Доусон Крик и Форт Сент Џон, Британска Колумбија"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Планинско стандардно време - Сонора"
 
 #. generated from zone.tab
 msgid "Mountain Time"
@@ -7168,19 +7192,19 @@ msgstr "Планинско време"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "Планинско време - Алберта, источна Британска Колумбиа и западен Саскачеуан"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Планинско време - централни Северозападни Територии"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Планинско време - Чиуауа"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Планинско време - Навахо"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
@@ -7188,27 +7212,27 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Планинско време - јужен Ајдахо и источен Орегон"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Планинско време - западни Северозападни Територии"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PB)"
-msgstr ""
+msgstr "Североисточен Бразил (MA, PI, CE, RN, PB)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Остров Њуфаундленд"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "Нов Јужен Велс - повеќето локации"
 
 #. generated from zone.tab
 msgid "New South Wales - Yancowinna"
-msgstr ""
+msgstr "Нов Јужен Велс - Јанковина"
 
 #. generated from zone.tab
 msgid "northeast Mali"
@@ -7216,7 +7240,7 @@ msgstr "североисточен Мали"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Северна Ирска"
 
 #. generated from zone.tab
 msgid "Northern Territory"
@@ -7228,31 +7252,31 @@ msgstr "Пацифичко време"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Пацифичко време - северен Јукон"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Пацифичко време - јужен Јукон"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Пацифичко време - западна Британска Колумбија"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Станица Палмер, остров Анверс"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "полуостров Малезија"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Пернамбуко"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Острови Феникс"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
@@ -7260,7 +7284,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Квинсленд - острови Холидеј"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
@@ -7276,7 +7300,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Rothera Station, Adelaide Island"
-msgstr ""
+msgstr "Станица Ротера, остров Аделаида"
 
 #. generated from zone.tab
 msgid "Ruthenia"
@@ -7304,11 +7328,11 @@ msgstr "југозападен Мали"
 
 #. generated from zone.tab
 msgid "southwest Xinjiang Uyghur"
-msgstr ""
+msgstr "југозападен Зинјанг Ујгур"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "Јужен и југоисточен Бразил (GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -7328,7 +7352,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Tibet & most of Xinjiang Uyghur"
-msgstr ""
+msgstr "Тибет и поголемиот дел од Зинјанг Ујгур"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -7344,7 +7368,7 @@ msgstr "Викторија"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "Станица Восток, Јужно магнетно поле"
 
 #. generated from zone.tab
 msgid "Wake Island"
@@ -7352,7 +7376,7 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "Западен Амазон"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -7384,19 +7408,19 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Запорожје, Источен Луганск"
 
 #. generated from lang-table
 msgid "Arabic"
-msgstr ""
+msgstr "Арапски"
 
 #. generated from lang-table
 msgid "Bengali"
-msgstr ""
+msgstr "Бенгалски"
 
 #. generated from lang-table
 msgid "Catalan"
-msgstr ""
+msgstr "Каталонски"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
@@ -7444,7 +7468,7 @@ msgstr "Германски"
 
 #. generated from lang-table
 msgid "Hindi"
-msgstr ""
+msgstr "Индиски"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -7452,7 +7476,7 @@ msgstr "Унгарски"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "Исландски"
 
 #. generated from lang-table
 msgid "Italian"
@@ -7492,7 +7516,7 @@ msgstr "Португалски(Бразилски)"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr ""
+msgstr "Пунџаби"
 
 #. generated from lang-table
 msgid "Russian"
@@ -7512,7 +7536,7 @@ msgstr "Шведски"
 
 #. generated from lang-table
 msgid "Tamil"
-msgstr ""
+msgstr "Тамилски"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -7524,7 +7548,7 @@ msgstr "Украински"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Виетнамски"
 
 #. generated from lang-table
 msgid "Welsh"
