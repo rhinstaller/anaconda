@@ -216,7 +216,7 @@ int mediaCheckFile(char *file) {
 	result = "NA.\n\nNo checksum information available, unable to verify media.";
 
     fprintf(stderr, "The media check is complete, the "
-		      "result is: %s", result);
+		      "result is: %s\n", result);
 
     return rc;
 }
