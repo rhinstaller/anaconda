@@ -70,7 +70,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     else:
 	isys.umount(instPath)        
 
-    if not allowDirty and oldfsset.hasDirtyFilesystems():
+    if not allowDirty and oldfsset.hasDirtyFilesystems(instPath):
         import sys
         diskset.stopAllRaid()
 	intf.messageWindow(_("Dirty Filesystems"),
