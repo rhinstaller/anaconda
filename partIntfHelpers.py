@@ -134,7 +134,11 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         return 0
 
     # see if device is in our partition requests, remove
-    request = requestlist.getRequestByDeviceName(device)
+    if type(partition) == type("RAID"):
+	request = requestlist.getRequestByID(device)
+    else:
+	request = requestlist.getRequestByDeviceName(device)
+	    
     if request:
         if request.getProtected():
             intf.messageWindow(_("Unable To Remove"),
@@ -284,16 +288,6 @@ def checkForSwapNoMatch(intf, diskset, partitions):
                 partedUtils.set_partition_file_system_type(part,
                                                            request.fstype)
      
-def queryFormatPreExisting(intf):
-    """Ensure the user intends to format a pre-existing partition."""
-    rc = intf.messageWindow(_("Format?"),
-                            _("You have chosen to format a pre-existing "
-                              "partition.  This will destroy all data "
-                              "that was previously on it.\n\n"
-                              "Are you sure you want to do this?"),
-                            type = "yesno", default = "no")
-    return rc
-
 def queryNoFormatPreExisting(intf):
     """Ensure the user wants to use a partition without formatting."""
     txt = _("You have chosen to use a pre-existing "
@@ -303,11 +297,12 @@ def queryNoFormatPreExisting(intf):
             "do not cause problems with this installation of Linux. "
             "However, if this partition contains files that you need "
             "to keep, such as a users home directories, then you should "
-            "continue without formatting this partition. \n\n"
-            "Are you sure you want to continue without formatting "
-            "the partition ?")
+            "continue without formatting this partition.")
+#            "\n\nAre you sure you want to continue without formatting "
+#            "the partition ?")
 
-    rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
+#    rc = intf.messageWindow(_("Format?"), txt, type = "yesno", default = "no")
+    rc = intf.messageWindow(_("Format?"), txt, type = "custom", custom_buttons=["gtk-cancel", _("Do Not Format")])
     return rc
 
 def partitionSanityErrors(intf, errors):
