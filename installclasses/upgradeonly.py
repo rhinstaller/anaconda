@@ -22,6 +22,9 @@ class InstallClass(BaseInstallClass):
                     "upgrademigfind",
                     "upgrademigratefs",
                     "upgradecontinue",
+                    "bootloadersetup",
+		    "bootloader",
+                    "bootloaderpassword"
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",
@@ -33,6 +36,10 @@ class InstallClass(BaseInstallClass):
 		    "bootdisk",
 		    "complete"
 		)
+
+        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
+	    dispatch.skipStep("bootdisk")
+            dispatch.skipStep("bootloader")
     
     def __init__(self, expert):
 	BaseInstallClass.__init__(self, expert)
