@@ -81,8 +81,8 @@ The following driver disks are available:
 EOF
 
 # LATEUSBMODS go in the second stage.  
-# FIXME: bleah, have to include sd_mod for usb-storage
-USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod"
+# FIXME: bleah, have to include sd_mod, sr_mod for usb-storage
+USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
 LATEUSBMODS="mousedev usb-storage"
 IDEMODS=""
