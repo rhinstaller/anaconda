@@ -1,5 +1,8 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (KickstartBase.setPackageSelection): Fix a thinko
+	in the arch-specific case.  Also, add arch-specific removal (#133396)
+
 	* lang-table: Fix Polish (#134554)
 
 	* dispatch.py (installSteps): 

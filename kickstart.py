@@ -1450,7 +1450,7 @@ class KickstartBase(BaseInstallClass):
                     for (nevra, parch) in pkgs:
                         if parch == arch:
                             hdlist.pkgs[nevra].select()
-                            break
+                            continue
             
             if hdlist.has_key(n):
                 hdlist[n].select()
@@ -1500,6 +1500,18 @@ class KickstartBase(BaseInstallClass):
                         pass
 
         for n in self.excludedList:
+            # allow arch:name syntax
+            if n.find("."):
+                fields = n.split(".")
+                name = string.join(fields[:-1], ".")
+                arch = fields[-1]
+                if grpset.hdrlist.pkgnames.has_key(name):
+                    pkgs = grpset.hdrlist.pkgnames[name]
+                    for (nevra, parch) in pkgs:
+                        if parch == arch:
+                            grpset.hdrlist.pkgs[nevra].unselect(isManual = 1)
+                            continue
+            
             if grpset.hdrlist.has_key(n):
                 grpset.hdrlist[n].unselect(isManual = 1)
             else:
