@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.25
+Version: 10.2.0.26
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Mon Mar  7 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.26-1
+- urlgrabber stuff is in its own package now
+
 * Sun Mar  6 2005 Peter Jones <pjones@redhat.com> 10.2.0.25-1
 - Empty blacklist in upgrade.py (notting, #142893)
 - Add new font package names (katzj)
