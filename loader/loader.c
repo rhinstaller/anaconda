@@ -2665,7 +2665,7 @@ int kickstartFromHttp(struct knownDevices * kd, char * location,
         }
     }
 
-    logMessage("ks location: http:/%s/%s", ksPath, file);
+    logMessage("ks location: http://%s/%s", ksPath, file);
 
     ui.protocol = URL_METHOD_HTTP;
     chptr = strchr(ksPath, '/');
@@ -2682,7 +2682,7 @@ int kickstartFromHttp(struct knownDevices * kd, char * location,
 
     fd = urlinstStartTransfer(&ui, file, 1);
     if (fd < 0) {
-        logMessage("failed to retrieve http:/%s/%s/%s", ui.address, ui.prefix, file);
+        logMessage("failed to retrieve http://%s/%s/%s", ui.address, ui.prefix, file);
         return 1;
     }
 
