@@ -1816,17 +1816,14 @@ msgstr "Space disk"
 msgid "There is not enough disk space for this type of installation."
 msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
 
-#, fuzzy
 msgid "There is not enough disk space for the chosen partitioning."
-msgstr "Spasi disk tidak cukup untuk melanjutkan instalasi"
+msgstr "Spasi disk tidak cukup untuk partisi yang dipilih"
 
-#, fuzzy
 msgid "_Make RAID Device"
-msgstr "Perangkat"
+msgstr "_Buat Perangkat RAID"
 
-#, fuzzy
 msgid "Skip LILO install"
-msgstr "Instalasi SILO"
+msgstr "Tidak pakai Instalasi LILO"
 
 msgid "No BOOTP reply received"
 msgstr "Tidak ada balasan BOOTP"
@@ -3216,11 +3213,12 @@ msgstr "Port Proxy FTP:"
 msgid "HTTP Proxy Port:"
 msgstr "Port Proxy HTTP:"
 
-#, fuzzy
 msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was:"
-msgstr "Ada error sewaktu membaca tabel partisi pada device blok %s, yaitu "
+msgstr ""
+"Ada error sewaktu membaca tabel partisi pada device blok %s, Errornya  "
+"yaitu: "
 
 msgid "LAN manager host:"
 msgstr "Host LAN manager:"
@@ -3228,16 +3226,14 @@ msgstr "Host LAN manager:"
 msgid "LAN manager IP:"
 msgstr "IP LAN manager:"
 
-#, fuzzy
 msgid "LAN Manager Printer Options"
-msgstr "Setting Printer Standar"
+msgstr "Setting Printer LAN Manager"
 
 msgid "LAN Manager"
 msgstr "LAN Manager"
 
-#, fuzzy
 msgid "RPM install of %s failed: %s"
-msgstr "saya gagal membuka %s: %s\n"
+msgstr "saya gagal membuka %s: %s"
 
 msgid "<F1> will show you a size and description of a package"
 msgstr "Tekan <F1> untuk mengetahui ukuran dan deskripsi paket ini"
@@ -3245,19 +3241,15 @@ msgstr "Tekan <F1> untuk mengetahui ukuran dan deskripsi paket ini"
 msgid "Size of all selected packages:"
 msgstr "Ukuran seluruh paket terpilih:"
 
-#, fuzzy
 msgid "Select Packages"
 msgstr "Pilih beberapa paket"
 
-#, fuzzy
 msgid "I cannot get file %s: %s\n"
-msgstr "saya tidak dapat membuka file: %s"
+msgstr "saya tidak dapat membuka file %s: %s\n"
 
-#, fuzzy
 msgid "I cannot log into machine: %s\n"
-msgstr "saya tidak dapat membuka file: %s"
+msgstr "saya tidak dapat masuk ke mesin: %s\n"
 
-#, fuzzy
 msgid ""
 "Would you like to install or configure the SILO bootloader on your system?"
-msgstr "Apakah ingin mengkonfigurasi printer sekarang?"
+msgstr "Anda ingin install/konfigurasi bootloader SILO di sistem ini?"
