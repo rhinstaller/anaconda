@@ -197,16 +197,22 @@ class UpgradeExamineWindow:
             scroll = 0
         partList = []
         for (drive, fs, desc) in parts:
-            partList.append("/dev/%s (%s)" %(drive, desc))
-        partList.append("Don't Upgrade")
+	    if drive[:5] != "/dev/":
+		devname = "/dev/" + drive
+	    else:
+		devname = drive
+            partList.append("%s (%s)" %(desc, drive))
+        partList.append("Reinstall System")
 
         (button, choice) =  ListboxChoiceWindow(screen, _("System to Upgrade"),
-                            _("The following root partitions have been found "
-                              "on your system. FIXME: I NEED BETTER TEXT "
-                              "HERE."), partList,
+                            _("One or more existing Linux installations "
+			      "have been found "
+                              "on your system.\n\nPlease choose one to upgrade, "
+			      "or select 'Reinstall System' to freshly install "
+			      "your system."), partList,
                                                 [ TEXT_OK_BUTTON,
                                                   TEXT_BACK_BUTTON ],
-                                                width = 30, scroll = scroll,
+                                                width = 55, scroll = scroll,
                                                 height = height,
                                                 help = "upgraderoot")
 
