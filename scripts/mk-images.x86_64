@@ -85,7 +85,7 @@ mkdir -p $TOPDESTPATH/images/pxeboot
 
 makeBootImages() {
     echo "Building initrd-everything.img"
-    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
 	--pcmcia \
 	--initrdsize 8192 \
 	--loaderbin loader \
@@ -95,7 +95,7 @@ makeBootImages() {
     if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
-	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.img
+	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd.img
 	mkdir $MBD_BOOTTREE
 	cp $IMGPATH/usr/lib/syslinux/isolinux.bin $MBD_BOOTTREE/isolinux.bin
 
@@ -106,6 +106,9 @@ makeBootImages() {
     else
 	echo "No isolinux binaries.  Skipping isolinux creation"
     fi
+
+    # symlink the kernel for pxe dir
+    ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/images/pxeboot/vmlinuz
 
     # now make a boot iso
     mkdir -p $TOPDESTPATH/images/isopath
