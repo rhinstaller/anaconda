@@ -213,7 +213,7 @@ for i in "$DNS"; do echo "nameserver $i"; done   >> /etc/resolv.conf
 # transfer options into install environment
 cat >> /etc/profile <<EOF
 CHANDEV="$CHANDEV"
-HNAME="$HNAME"
+HOSTNAME="$HNAME"
 DEVICE="$DEVICE"
 NETTYPE="$NETTYPE"
 IPADDR="$IPADDR"
