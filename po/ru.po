@@ -359,6 +359,12 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Добро пожаловать в Red Hat Linux!\n"
+"\n"
+"Вы вошли в режим изменения настроек, который позволит вам настроить "
+"специфические опции вашего компьютера.\n"
+"\n"
+"Для выхода без изменения текущих настроек нажмите кнопку \"Отмена\" ниже."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
@@ -442,6 +448,9 @@ msgid ""
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
+"\n"
+"На машинах Ultra производства SMCC загрузка с дискет возжно не работает\n"
+"\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
@@ -659,7 +668,7 @@ msgstr "Автоматическое разбиение"
 
 #: ../text.py:1065 ../textw/partitioning.py:255
 msgid "Root Filesystem Size"
-msgstr ""
+msgstr "Размер корневой файловой системы"
 
 #: ../text.py:1067
 msgid "Swap"
@@ -797,6 +806,9 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
+"Похоже, у вас недостаточно места для установки всех выбранных вами пакетов. "
+"Вам необходимо больше места на следующих файловых системах:\n"
+"\n"
 
 #: ../todo.py:1146
 msgid "Mount Point"
@@ -804,7 +816,7 @@ msgstr "Точка монтирования"
 
 #: ../todo.py:1146
 msgid "Space Needed"
-msgstr ""
+msgstr "Мало места"
 
 #: ../todo.py:1159
 msgid "Disk Space"
@@ -1772,6 +1784,11 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Вы решили разместить корневую (/) файловую систему на разделе FAT. Это "
+"возможно, но исключает использование других файловых систем для вашей "
+"Linux-системы. Кроме этого, будет наблюдаться значительная потеря "
+"производительности по сравнению с использованием разделов типа Linux-native. "
+"Вы согласны продолжить?"
 
 #: ../libfdisk/fsedit.c:779
 #, c-format
