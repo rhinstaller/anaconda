@@ -281,8 +281,6 @@ int chooseLanguage(char ** lang, int flags) {
 	/* If we're running in kon, only offer languages which use the
 	   Kon or default8x16 fonts. Don't display languages which require
 	   Kon font if we have no way of providing it. */
-	if (!haveKon && !strcmp(languages[i].font, "Kon"))
-	    continue;
 	if (continuing && strcmp(languages[i].font, "Kon") &&
 	    continuing && strcmp(languages[i].font, "default8x16"))
 	    continue;
@@ -374,14 +372,15 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* If we need kon and have it, or if it's not kon or none, load the lang */
-    if ((strcmp(languages[choice].font, "None"))) {
-	loadLanguage (NULL, flags);
-    } else {
+    if ((!strcmp(languages[choice].font, "None")) ||
+	((!strcmp(languages[choice].font, "Kon")) && (!haveKon))) {
 	newtWinMessage("Language Unavailable", "OK", 
 		       "%s display is unavailable in text mode.  The "
 		       "installation will continue in English until the "
 		       "display of %s is possible.", languages[choice].lang,
 		       languages[choice].lang);
+    } else {
+	loadLanguage (NULL, flags);
     }
 
     if (languages[choice].map)

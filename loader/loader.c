@@ -42,6 +42,7 @@
 #include <sys/utsname.h>
 #include <unistd.h>
 #include <sys/vt.h>
+#include <linux/fb.h>
 
 #if defined(__i386__) || defined(__ia64__) || defined(__alpha__)
 #include <linux/cdrom.h>
@@ -3088,6 +3089,22 @@ static void verifyImagesMatched() {
     }
 }
 
+static int checkFrameBuffer() {
+    int fd;
+    int rc = 0;
+    struct fb_fix_screeninfo fix;
+
+    if ((fd = open("/dev/fb0", O_RDONLY)) == -1) {
+	return 0;
+    }
+
+    if (ioctl(fd, FBIOGET_FSCREENINFO, &fix) >= 0) {
+	rc = 1;
+    }
+    close(fd);
+    return rc;
+}
+
 
 int main(int argc, char ** argv) {
     char ** argptr;
@@ -3199,6 +3216,8 @@ int main(int argc, char ** argv) {
     /* turn on for testing */
     flags |= LOADER_FLAGS_MEDIACHECK;
 
+    /* we can't do kon on fb console (#60844) */
+    if (checkFrameBuffer() == 1)  haveKon = 0;
 
 #if defined (__s390__) && !defined (__s390x__)
     flags |= LOADER_FLAGS_NOSHELL | LOADER_FLAGS_NOUSB;
