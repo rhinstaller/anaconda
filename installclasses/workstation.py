@@ -7,9 +7,7 @@ class InstallClass(personal_desktop.InstallClass):
     pixmap = "workstation.png"
     description = N_("This option installs a graphical desktop "
 		     "environment with tools for software "
-		     "development and system adminstration."
-		     "A good choice for programmers and system administrators.")
-
+		     "development and system adminstration. ")
 
     sortPriority = 2
 
