@@ -35,7 +35,7 @@
 #include <unistd.h>
 
 #include "isys/imount.h"
-#include "isys/inet.h"
+#include "pump/pump.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
 #include "isys/pci/pciprobe.h"
@@ -207,7 +207,7 @@ static int nfsGetSetup(char ** hostptr, char ** dirptr) {
     return 0;
 }
 
-int readNetConfig(char * device, struct intfInfo * dev) {
+int readNetConfig(char * device, struct pumpNetIntf * dev) {
     newtComponent text, f, okay, back, answer;
     newtGrid grid, subgrid, buttons;
     struct intfconfig_s c;
@@ -279,11 +279,13 @@ int readNetConfig(char * device, struct intfInfo * dev) {
 	if (*c.ip && inet_aton(c.ip, &addr)) {
 	    i++;
 	    dev->ip = addr;
+	    dev->set |= PUMP_INTFINFO_HAS_IP;
 	}
 
 	if (*c.nm && inet_aton(c.nm, &addr)) {
 	    i++;
 	    dev->netmask = addr;
+	    dev->set |= PUMP_INTFINFO_HAS_NETMASK;
 	}
 
 	if (i != 2) {
@@ -296,17 +298,19 @@ int readNetConfig(char * device, struct intfInfo * dev) {
     *((int32 *) &dev->broadcast) = (*((int32 *) &dev->ip) & 
 		       *((int32 *) &dev->netmask)) | 
 		       ~(*((int32 *) &dev->netmask));
+    dev->set |= PUMP_INTFINFO_HAS_BROADCAST;
 
     *((int32 *) &dev->network) = 
 	    *((int32 *) &dev->ip) &
 	    *((int32 *) &dev->netmask);
+    dev->set |= PUMP_INTFINFO_HAS_NETWORK;
 
     if (*c.gw && inet_aton(c.gw, &addr)) {
 	dev->gateway = addr;
+	dev->set = PUMP_NETINFO_HAS_GATEWAY;
     }
 
     strcpy(dev->device, device);
-    dev->isPtp = dev->isUp = 0;
 
     newtPopWindow();
 
@@ -481,7 +485,7 @@ static int ensureNetDevice(struct knownDevices * kd,
 static int mountNfsImage(char * location, struct knownDevices * kd,
     		         moduleInfoSet modInfo, moduleList modLoaded,
 		         moduleDeps modDeps, int flags) {
-    struct intfInfo netDev;
+    struct pumpNetIntf netDev;
     char * devName;
     int i;
     char * host = NULL;
@@ -495,8 +499,8 @@ static int mountNfsImage(char * location, struct knownDevices * kd,
     nfsGetSetup(&host, &dir);
     
     if (!FL_TESTING(flags)) {
-	configureNetDevice(&netDev);
-	addDefaultRoute(&netDev);
+	pumpSetupInterface(&netDev);
+	pumpSetupDefaultGateway(&netDev.gateway);
 
 	mlLoadModule("nfs", modLoaded, modDeps, flags);
 
