@@ -29,10 +29,17 @@ class KeyboardWindow (InstallWindow):
         self.hasrun = 0
 
     def getNext (self):
+        print "Inside getNext"
+        print self.rulesbase, self.model, self.layout, self.variant
+#        self.todo.kbdVariant = self.variant
+
+#        if self.variant == "nodeadkeys":
+#            self.layout = self.variant
+
         if self.hasrun:
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
-            self.todo.keyboard.setfromx (self.model, self.layout)
+            self.todo.keyboard.setfromx (self.model, self.layout, self.variant)
 	    try:
 	    	isys.loadKeymap(self.todo.keyboard.get())
 	    except:
