@@ -1004,6 +1004,11 @@ if [ -n "$NEEDGR" ]; then
     rm -f $DESTGR/usr/bin/fc-cache
 fi
 
+echo "Creating debug dir"
+for p in $DEST $DESTGR ; do
+    mkdir -p $p/usr/lib/debug
+fi
+
 
 if [ $ARCH = "alpha" ]; then
     rm -rf $DEST/usr/share/locale
