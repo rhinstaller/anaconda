@@ -223,7 +223,10 @@ static void xprintf(const char *fmt, va_list args)
 			if (!s)
 				s = "(null)";
 got_string:
-			len = strnlen(s, precision);
+			if (precision >= 0)
+			    len = strnlen(s, precision);
+			else
+			    len = strlen(s);
 
 			check(field_width > len ? field_width : len);
 			if (!(flags & LEFT))
