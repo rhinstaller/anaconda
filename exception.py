@@ -215,8 +215,9 @@ def handleException(dispatch, intf, (type, value, tb)):
     # see if /mnt/sysimage is present and put exception there as well
     if os.access("/mnt/sysimage/root", os.X_OK):
         try:
-            iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/")
+            iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/anacdump.txt")
         except:
+	    log("Failed to copy anacdump.txt to /mnt/sysimage/root")
             pass
 	
     # run kickstart traceback scripts (if necessary)
@@ -242,6 +243,7 @@ def handleException(dispatch, intf, (type, value, tb)):
         try:
             iutil.copyFile("/tmp/anacdump.txt", "/tmp/test-anacdump.txt")
         except:
+	    log("Failed to copy anacdump.txt to /tmp/test-anacdump.txt")
             pass
 
         intf.__del__ ()
@@ -286,14 +288,16 @@ def handleException(dispatch, intf, (type, value, tb)):
 
 	# copy trace dump we wrote to local storage to floppy
         try:
-            iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash")
+            iutil.copyFile("/tmp/anacdump.txt", "/tmp/crash/anacdump.txt")
         except:
+	    log("Failed to copy anacdump.txt to floppy")
             pass
 
         # write out any syslog information as well
         try:
-            iutil.copyFile("/tmp/syslog", "/tmp/crash")
+            iutil.copyFile("/tmp/syslog", "/tmp/crash/syslog")
         except:
+	    log("Failed to copy syslog to floppy")
             pass
         
 	isys.umount("/tmp/crash")
