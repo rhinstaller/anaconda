@@ -32,7 +32,7 @@ ExcludePackages = { 'XFree86-3DLabs' : None, 	'XFree86-8514' : None,
                     'XFree86-VGA16' : None,	'XFree86-W32' : None,
 
                     'kernel' : None,		'kernel-BOOT' : None,
-                    'kernel-smp' : None,	'kernel-enterprise' : None,
+                    'kernel-smp' : None,	'kernel-bigmem' : None,
                     'kernel-vrdr' : None,	'kernel-tape' : None,
                     'kernel-BOOTtape' : None,	'kernel-BOOTvrdr' : None,
 
@@ -752,7 +752,7 @@ class ComponentSet:
 	kernelVersions = []
 
 	# nick is used to generate the lilo name
-	for (ktag, nick) in [ ('kernel-enterprise', 'nick'),
+	for (ktag, nick) in [ ('kernel-bigmem', 'bigmem'),
 			      ('kernel-smp', 'smp'),
 			      ('kernel-tape', 'tape') ]:
 	    tag = split(ktag, '-')[1]
