@@ -4,6 +4,7 @@ from comps import ComponentSet, HeaderList
 import os
 import isys
 import rpm
+import string
 
 import todo
 
@@ -11,24 +12,46 @@ FILENAME = 1000000
 
 class InstallMethod:
 
-    def readComps(self, hdlist):
+    def mountMedia(self):
+	if (self.isMounted):
+	    raise SystemError, "trying to mount already-mounted image!"
+	
+	f = open("/proc/mounts", "r")
+	l = f.readlines()
+	f.close()
+
+	for line in l:
+	    s = string.split(line)
+	    if s[0] == "/tmp/" + self.device:
+		self.tree = s[1] + "/"
+		return
+	
 	isys.makeDevInode(self.device, '/tmp/' + self.device)
 	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
 		   fstype = self.fstype);
-	cs = ComponentSet("/tmp/hdimage/" + self.path + 
+	self.tree = "/tmp/hdimage/"
+	self.isMounted = 1
+
+    def umountMedia(self):
+	if self.isMounted:
+	    isys.umount(self.tree)
+	    self.tree = None
+	    self.isMounted = 0
+	
+    def readComps(self, hdlist):
+	self.mountMedia()
+	cs = ComponentSet(self.tree + self.path + 
                           '/RedHat/base/comps', hdlist)
-	isys.umount("/tmp/hdimage")
+	self.umountMedia()
 	return cs
 
     def getFilename(self, h):
-	return self.tree + "/RedHat/RPMS/" + self.fnames[h]
+	return self.tree + self.path + "/RedHat/RPMS/" + self.fnames[h]
 
     def readHeaders(self):
-	isys.makeDevInode(self.device, '/tmp/' + self.device)
-	isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
-		   fstype = self.fstype);
+	self.mountMedia()
 	hl = []
-	path = "/tmp/hdimage" + self.path + "/RedHat/RPMS"
+	path = self.tree + self.path + "/RedHat/RPMS"
 	for n in os.listdir(path):
             fd = os.open(path + "/" + n, 0)
             try:
@@ -40,26 +63,14 @@ class InstallMethod:
 		pass
             os.close(fd)
 		
-	isys.umount("/tmp/hdimage")
+	self.umountMedia()
 	return HeaderList(hl)
 
     def targetFstab(self, fstab):
-	self.isMounted = 0
-	for (mntpoint, device, fsystem, reformat, size) in fstab.mountList():
-	    if (device == self.device and fsystem == "ext2"):
-		self.isMounted = 1
-		self.tree = "/mnt/sysimage" + mntpoint + "/" + self.path
-		self.needsUnmount = 0
-
-	if (not self.isMounted):
-	    isys.mount('/tmp/' + self.device, "/tmp/hdimage", 
-		       fstype = self.fstype)
-	    self.tree = "/tmp/hdimage/" + self.path
-	    self.needsUnmount = 1
+	self.mountMedia()
 	    
     def filesDone(self):
-	if (self.needsUnmount):
-	    isys.umount("/tmp/hdimage")
+	self.umountMedia()
 
     def unlinkFilename(self, fullName):
 	pass
@@ -69,3 +80,5 @@ class InstallMethod:
 	self.path = path
 	self.fstype = type
 	self.fnames = {}
+        self.isMounted = 0
+        

@@ -1106,7 +1106,7 @@ static PyObject * doRaidStart(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    if (ioctl(fd, START_ARRAY, sb.st_rdev)) {
+    if (ioctl(fd, START_ARRAY, (unsigned long) sb.st_rdev)) {
 	PyErr_SetFromErrno(PyExc_SystemError);
 	return NULL;
     }

@@ -301,8 +301,9 @@ class Fstab:
 	    rt.write("#nr-spare-disks	    0\n")
 	    i = 0
 	    for subDevName in makeup:
-		isys.makeDevInode(deviceDict[subDevName], '%s/%s' % 
-			    (devPrefix, deviceDict[subDevName]))
+                if createDevices:
+                    isys.makeDevInode(deviceDict[subDevName], '%s/%s' % 
+                                      (devPrefix, deviceDict[subDevName]))
 		rt.write("    device	    %s/%s\n" % 
 		    (devPrefix, deviceDict[subDevName],))
 		rt.write("    raid-disk     %d\n" % (i,))

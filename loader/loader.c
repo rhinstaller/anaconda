@@ -193,8 +193,6 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods, i;
     char *driver;
 
-    freeDeviceList();
-
     logMessage("probing buses");
 
     devices = probeDevices(CLASS_UNSPEC,BUS_PCI|BUS_SBUS,PROBE_ALL);
@@ -1823,6 +1821,7 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
     } while (!done);
 
     chdir("/tmp/updates");
+    setenv("PYTHONPATH", "/tmp/updates", 1);
 
     return;
 }
@@ -2075,6 +2074,9 @@ int main(int argc, char ** argv) {
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
 
+    /* merge in any new pci ids */
+    pciReadDrivers("/modules/pcitable");
+
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
         fprintf(stderr, "failed to read %s\n", arg);
@@ -2148,7 +2150,11 @@ int main(int argc, char ** argv) {
     if (FL_RESCUE(flags)) {
 	*argptr++ = "/bin/sh";
     } else {
-	*argptr++ = "/usr/bin/anaconda";
+	if (!access("./anaconda", X_OK))
+	    *argptr++ = "./anaconda";
+	else
+	    *argptr++ = "/usr/bin/anaconda";
+
 	*argptr++ = "-m";
 	*argptr++ = url;
 

@@ -138,10 +138,12 @@ class Network:
 	    for dev in self.netdevices.values():
 		if dev.get('bootproto') == "dhcp":
 		    self.primaryNS = isys.pumpNetDevice(dev.get('device'))
+		    break
 		elif dev.get('ipaddr') and dev.get('netmask'):
 		    isys.configNetDevice(dev.get('device'),
 			    dev.get('ipaddr'), dev.get('netmask'),
 			    self.gateway)
+		    break
 
 	if not self.primaryNS: return
 
@@ -569,21 +571,13 @@ class ToDo:
 	if pure:
 	    self.setPassword("root", pure)
 	else:
-	    # we need to splice in an already crypted password for kickstart
-	    f = open (self.instPath + "/etc/passwd", "r")
-	    lines = f.readlines ()
-	    f.close ()
-	    index = 0
-	    for line in lines:
-		if line[0:4] == "root":
-		    entry = string.splitfields (line, ':')
-		    entry[1] = self.rootpassword.getCrypted ()
-		    lines[index] = string.joinfields (entry, ':')
-		    break
-		index = index + 1
-	    f = open (self.instPath + "/etc/passwd", "w")
-	    f.writelines (lines)
-	    f.close ()
+            crypt = self.rootpassword.getCrypted ()
+            devnull = os.open("/dev/null", os.O_RDWR)
+
+            argv = [ "/usr/sbin/usermod", "-p", crypt, "root" ]
+            iutil.execWithRedirect(argv[0], argv, root = self.instPath,
+                                   stdout = devnull, stderr = None)
+            os.close(devnull)
 
     def setupAuthentication (self):
         args = [ "/usr/sbin/authconfig", "--kickstart", "--nostart" ]

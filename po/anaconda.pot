@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2000-03-14 11:28+0900\n"
+"POT-Creation-Date: 2000-03-26 23:16-0500\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: ../fstab.py:244 ../fstab.py:328 ../fstab.py:462
 #: ../libfdisk/newtfsedit.c:1564 ../loader/devices.c:184
-#: ../loader/devices.c:189 ../loader/lang.c:89 ../loader/loader.c:473
+#: ../loader/devices.c:189 ../loader/lang.c:90 ../loader/loader.c:473
 #: ../loader/loader.c:483 ../loader/loader.c:703 ../loader/loader.c:755
 #: ../loader/loader.c:912 ../loader/loader.c:917 ../loader/loader.c:1695
 #: ../loader/loader.c:1741 ../loader/loader.c:1812 ../loader/urls.c:70
@@ -77,7 +77,7 @@ msgstr ""
 
 #: ../gui.py:280 ../gui.py:529 ../libfdisk/newtfsedit.c:1313
 #: ../libfdisk/newtfsedit.c:1321 ../loader/cdrom.c:34 ../loader/devices.c:68
-#: ../loader/devices.c:172 ../loader/devices.c:251 ../loader/lang.c:569
+#: ../loader/devices.c:172 ../loader/devices.c:251 ../loader/lang.c:568
 #: ../loader/loader.c:257 ../loader/loader.c:610 ../loader/loader.c:646
 #: ../loader/loader.c:755 ../loader/loader.c:1169 ../loader/net.c:162
 #: ../loader/net.c:284 ../loader/urls.c:146 ../loader/urls.c:361 ../text.py:49
@@ -207,7 +207,7 @@ msgstr ""
 #: ../loader/cdrom.c:34 ../loader/devices.c:67 ../loader/devices.c:171
 #: ../loader/devices.c:184 ../loader/devices.c:189 ../loader/devices.c:251
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
-#: ../loader/lang.c:89 ../loader/lang.c:280 ../loader/lang.c:569
+#: ../loader/lang.c:90 ../loader/lang.c:282 ../loader/lang.c:568
 #: ../loader/loader.c:257 ../loader/loader.c:473 ../loader/loader.c:483
 #: ../loader/loader.c:646 ../loader/loader.c:703 ../loader/loader.c:755
 #: ../loader/loader.c:912 ../loader/loader.c:917 ../loader/loader.c:1005
@@ -979,68 +979,51 @@ msgstr ""
 msgid "Check for bad blocks while formatting"
 msgstr ""
 
-#: ../iw/installpath.py:38
-msgid "GNOME Workstation"
-msgstr ""
-
-#: ../iw/installpath.py:40
-msgid "KDE Workstation"
-msgstr ""
-
-#: ../iw/installpath.py:42 ../libfdisk/gnomefsedit.c:2346
-#: ../libfdisk/gnomefsedit.c:2366
-msgid "Server"
-msgstr ""
-
-#: ../iw/installpath.py:43
-msgid "Custom"
-msgstr ""
-
-#: ../iw/installpath.py:93
+#: ../iw/installpath.py:96
 msgid "Install Type"
 msgstr ""
 
-#: ../iw/installpath.py:187
+#: ../iw/installpath.py:190
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:189
+#: ../iw/installpath.py:192
 msgid "Upgrade"
 msgstr ""
 
-#: ../iw/installpath.py:229
+#: ../iw/installpath.py:232
 msgid "Use fdisk"
 msgstr ""
 
-#: ../iw/keyboard.py:13
+#: ../iw/keyboard.py:15
 msgid "Keyboard Configuration"
 msgstr ""
 
-#: ../iw/keyboard.py:56
+#: ../iw/keyboard.py:65
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:75
+#: ../iw/keyboard.py:84
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:94
+#: ../iw/keyboard.py:103
 msgid "Dead Keys"
 msgstr ""
 
-#: ../iw/keyboard.py:103
+#: ../iw/keyboard.py:112
 msgid "Enable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:104
+#: ../iw/keyboard.py:113
 msgid "Disable dead keys"
 msgstr ""
 
-#: ../iw/keyboard.py:113
+#: ../iw/keyboard.py:122
 msgid "Test your selection here:"
 msgstr ""
 
-#: ../iw/language.py:21 ../loader/lang.c:278
+#: ../iw/language.py:39 ../loader/lang.c:280
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -1286,27 +1269,27 @@ msgstr ""
 msgid "Do not install SILO"
 msgstr ""
 
-#: ../iw/timezone.py:30 ../textw/timezone.py:83
+#: ../iw/timezone.py:31 ../textw/timezone.py:83
 msgid "Time Zone Selection"
 msgstr ""
 
-#: ../iw/timezone.py:147
+#: ../iw/timezone.py:148
 msgid "View:"
 msgstr ""
 
-#: ../iw/timezone.py:155 ../iw/timezone.py:156
+#: ../iw/timezone.py:156 ../iw/timezone.py:157
 msgid "System clock uses UTC"
 msgstr ""
 
-#: ../iw/timezone.py:204
+#: ../iw/timezone.py:205
 msgid "Use Daylight Saving Time (US only)"
 msgstr ""
 
-#: ../iw/timezone.py:218
+#: ../iw/timezone.py:219
 msgid "Location"
 msgstr ""
 
-#: ../iw/timezone.py:219
+#: ../iw/timezone.py:220
 msgid "UTC Offset"
 msgstr ""
 
@@ -2017,6 +2000,10 @@ msgstr ""
 msgid "Intended Use"
 msgstr ""
 
+#: ../libfdisk/gnomefsedit.c:2346 ../libfdisk/gnomefsedit.c:2366
+msgid "Server"
+msgstr ""
+
 #: ../libfdisk/gnomefsedit.c:2366
 msgid "Workstation"
 msgstr ""
@@ -2225,15 +2212,24 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:278
+#: ../loader/lang.c:280
 msgid "Choose a Language"
 msgstr ""
 
-#: ../loader/lang.c:567
+#: ../loader/lang.c:329 ../loader/loader.c:127
+msgid "Welcome to Red Hat Linux"
+msgstr ""
+
+#: ../loader/lang.c:330 ../loader/loader.c:129
+msgid ""
+"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr ""
+
+#: ../loader/lang.c:566
 msgid "Keyboard Type"
 msgstr ""
 
-#: ../loader/lang.c:568
+#: ../loader/lang.c:567
 msgid "What type of keyboard do you have?"
 msgstr ""
 
@@ -2247,15 +2243,6 @@ msgstr ""
 
 #: ../loader/loader.c:110
 msgid "Hard drive"
-msgstr ""
-
-#: ../loader/loader.c:127
-msgid "Welcome to Red Hat Linux"
-msgstr ""
-
-#: ../loader/loader.c:129
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader/loader.c:242
@@ -2384,11 +2371,11 @@ msgstr ""
 msgid "Reading anaconda updates..."
 msgstr ""
 
-#: ../loader/loader.c:1978
+#: ../loader/loader.c:1979
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1978
+#: ../loader/loader.c:1979
 msgid "Initializing PC Card Devices..."
 msgstr ""
 

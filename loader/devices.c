@@ -155,7 +155,8 @@ int devCopyDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     sprintf(from, "%s/modules.dep", dirName);
     mlLoadDeps(modDepsPtr, from);
     sprintf(from, "%s/pcitable", dirName);
-    pciReadDrivers(from);
+    badDisk = pciReadDrivers(from);
+    logMessage("read %s, rc %d", from, badDisk);
 
     diskNum++;
 
