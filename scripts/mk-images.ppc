@@ -34,6 +34,7 @@ makeBootImages() {
 	cp $BOOTDISKDIR/yaboot.conf $TOPDESTPATH/etc/yaboot.conf
 	cp $BOOTDISKDIR/bootinfo.txt $TOPDESTPATH/ppc/bootinfo.txt
 	cp $IMGPATH/usr/lib/yaboot/yaboot $TOPDESTPATH/ppc/chrp
+	$IMGPATH/usr/lib/yaboot/addnote $TOPDESTPATH/ppc/chrp/yaboot
 
 	# we also want to make a boot.iso here 
 	mkdir -p $TOPDESTPATH/isopath/ppc/chrp $TOPDESTPATH/isopath/etc
