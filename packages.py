@@ -412,6 +412,9 @@ def doPreInstall(method, id, intf, instPath, dir):
                 id.hdList['XFree86-' + xserver[5:]].selected = 1
             except ValueError, message:
                 log ("Error selecting XFree86 server package: %s", message)
+            except KeyError:
+                log ("Error selecting XFree86 server package, "
+                     "package not available")
                 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
