@@ -183,6 +183,9 @@ class HardDriveInstallMethod(InstallMethod):
     def systemMounted(self, fsset, mntPoint, selected):
 	self.mountMedia(1)
 	    
+    def systemUnmounted(self):
+	self.umountMedia()
+
     def filesDone(self):
 	self.umountMedia()
 
