@@ -183,7 +183,7 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 		echo $"CTC, ESCON and LCS need two subchannels:"
 		echo $"(e.g. \"0.0.0600,0.0.0601\" will configure the CTC or ESCON interface"
 		echo $"with the subchannels 0x600 and 0x601)"
-		echo $"QETH and HSI need three subchannels p.e. 0.0.03000,0.0.03001,0.0.03002"
+		echo $"QETH and HSI need three subchannels p.e. 0.0.0300,0.0.0301,0.0.0302"
 		read SUBCHANNELS
    done
 	if [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
@@ -285,6 +285,7 @@ elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
 elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
    insmod ccwgroup$LO
 	insmod qdio$LO
+	insmod ipv6$LO
 	insmod qeth$LO
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
