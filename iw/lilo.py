@@ -30,13 +30,13 @@ class LiloWindow (InstallWindow):
         else:
             self.todo.bootdisk = 0
 
-        if self.lilo.get_active ():
-            self.todo.setLiloLocation (None)
-        else:
-            if self.mbr.get_active ():
-                self.todo.setLiloLocation ("mbr")
-            else:
-                self.todo.setLiloLocation ("partition")
+	if self.lilo.get_active ():
+	    self.todo.setLiloLocation (None)
+	elif self.todo.allowLiloLocationConfig():
+	    if self.mbr.get_active ():
+		self.todo.setLiloLocation ("mbr")
+	    else:
+		self.todo.setLiloLocation ("partition")
 
 	self.todo.setLiloImages(self.images)
 
@@ -59,8 +59,15 @@ class LiloWindow (InstallWindow):
         else:
 	    state = TRUE
 
-	for n in [self.radioBox, self.editBox, self.imageList ]:
+	for n in [self.mbr, self.part, self.appendEntry, self.editBox, 
+		  self.imageList, self.liloLocationBox, self.radioBox ]:
             n.set_sensitive (state)
+
+	if state and not self.todo.allowLiloLocationConfig():
+	    self.liloLocationBox.set_sensitive(0)
+	    self.mbr.set_sensitive(0)
+	    self.part.set_sensitive(0)
+	    self.linearCheck.set_sensitive(0)
 
     def labelUpdated(self, *args):
 	index = self.imageList.selection[0]
@@ -117,7 +124,9 @@ class LiloWindow (InstallWindow):
         self.ignoreSignals = 0
 
 	if self.todo.fstab.mountList()[0][0] != '/': return None
-	(bootpart, boothd) = self.todo.getLiloOptions()
+
+	bootpart = self.todo.fstab.getBootDevice()
+	boothd = self.todo.fstab.getMbrDevice()
             
         format = "/dev/%s"
 
@@ -130,20 +139,28 @@ class LiloWindow (InstallWindow):
 
 	label = GtkLabel(_("Install LILO boot record on:"))
 	label.set_alignment(0.0, 0.5)
-	self.radioBox.attach(label, 0, 2, 1, 2)
+        self.liloLocationBox = GtkVBox (FALSE, 0)
+	self.liloLocationBox.pack_start(label)
+	self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
 
         self.mbr = GtkRadioButton(None, 
 	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
 	self.radioBox.attach(self.mbr, 1, 2, 2, 3)
-        part = GtkRadioButton(self.mbr, 
+        self.part = GtkRadioButton(self.mbr, 
 	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
-	self.radioBox.attach(part, 1, 2, 3, 4)
+	self.radioBox.attach(self.part, 1, 2, 3, 4)
 
 	self.linearCheck = GtkCheckButton(
 	    _("Use linear mode (needed for some SCSI drives)"))
 	self.linearCheck.set_active(self.todo.liloLinear)
 	self.radioBox.attach(self.linearCheck, 0, 2, 4, 5)
+
+	if not self.todo.allowLiloLocationConfig():
+	    self.liloLocationBox.set_sensitive(0)
+	    self.mbr.set_sensitive(0)
+	    self.part.set_sensitive(0)
+	    self.linearCheck.set_sensitive(0)
 
 	label = GtkLabel(_("Kernel parameters") + ":")
 	label.set_alignment(0.0, 0.5)

@@ -14,9 +14,6 @@
 # we always store as much of the fstab within the disk druid structure
 # as we can -- Don't Duplicate Data.
 
-	    #self.todo.setLiloLocation(("raid", liloBoot))
-	    #self.todo.instClass.addToSkipList("lilo")
-
 import isys
 import iutil
 import os
@@ -51,6 +48,23 @@ class Fstab:
 	    pass
 
 	return None
+
+    def getMbrDevice(self):
+	return self.driveList()[0]
+
+    def getBootDevice(self):
+	bootDevice = None
+	rootDevice = None
+	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
+	    if mntpoint == '/':
+		rootDevice = partition
+	    elif mntpoint == '/boot':
+		bootDevice = partition
+
+	if not bootDevice:
+	    bootDevice = rootDevice
+
+	return bootDevice
 
     def setDruid(self, druid, raid):
 	self.ddruid = druid

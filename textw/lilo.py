@@ -58,7 +58,8 @@ class LiloWindow:
 	if mount != '/': return INSTALL_NOOP
 	if todo.skipLilo: return INSTALL_NOOP
 
-	(bootpart, boothd) = todo.getLiloOptions()
+	bootpart = self.fstab.getBootDevice()
+	boothd = self.fstab.getMbrDevice()
 
 	if (todo.getLiloLocation () == "mbr"):
 	    default = 0

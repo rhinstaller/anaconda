@@ -95,6 +95,7 @@ class InstallPathWindow (InstallWindow):
 
     def getNext(self):
 	# This makes the error message delivery come at a sane place
+	print "here"
 	if not self.todo.fstab:
 	    from fstab import GuiFstab
 

@@ -376,24 +376,13 @@ class ToDo:
     def setTimezoneInfo(self, timezone, asUtc = 0, asArc = 0):
 	self.timezone = (timezone, asUtc, asArc)
 
-    def getLiloOptions(self):
-	mountPoints = {}
-	for (mntpoint, device, fsystem, doFormat, size) in \
-		    self.fstab.mountList():
-	    mountPoints[mntpoint] = device
+    def allowLiloLocationConfig(self):
+	bootDevice = self.fstab.getBootDevice()
+	if bootDevice[0:2] == "md":
+	    self.setLiloLocation(("raid", bootDevice))
+	    return None
 
-        if mountPoints.has_key ('/boot'):
-            bootpart = mountPoints['/boot']
-        else:
-            bootpart = mountPoints['/']
-        i = len (bootpart) - 1
-        while i < 0 and bootpart[i] in digits:
-            i = i - 1
-	drives = self.drives.available().keys()
-	drives.sort(isys.compareDrives)
-        boothd = drives[0]
-
-	return (bootpart, boothd)
+	return 1
 
     def setLiloImages(self, images):
 	self.liloImages = images
@@ -410,6 +399,10 @@ class ToDo:
 		    self.fstab.mountList():
 	    mountsByDev[device] = mntpoint
 
+	for (mntpoint, device, fstype, raidType, start, size, makeup) in raid:
+	    mountsByDev[device] = mntpoint
+	    drives.append(device, "", 2, 0, 0)
+
 	oldImages = {}
 	for dev in self.liloImages.keys():
 	    oldImages[dev] = self.liloImages[dev]
@@ -417,7 +410,7 @@ class ToDo:
 	self.liloImages = {}
         foundDos = 0
 	for (dev, devName, type, start, size) in drives:
-	    # ext2 partitions get listed if 
+	    # ext2 and raid partitions get listed if 
 	    #	    1) they're /
 	    #	    2) they're not mounted
 
@@ -559,7 +552,9 @@ class ToDo:
 	    os.rename(self.instPath + '/etc/lilo.conf',
 		      self.instPath + '/etc/lilo.conf.rpmsave')
 
-	(bootpart, boothd) = self.getLiloOptions()
+	bootpart = self.fstab.getBootDevice()
+	boothd = self.fstab.getMbrDevice()
+
 	if (type((1,)) == type(bootpart)):
 	    (kind, self.liloDevice) = bootpart
 	elif (self.liloDevice == "mbr"):
