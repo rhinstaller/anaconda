@@ -431,9 +431,11 @@ class InstallControlWindow:
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
         buffer.feed(ics.getHTML(self.langSearchPath))
-        self.help.set_buffer(buffer.get_buffer())
-#       iter = self.help.get_iter_at_offset(0)
-#       self.help.scroll_to_iter(iter, 0.0, gtk.FALSE, 0.0, 0.0)
+        textbuffer = buffer.get_buffer()
+        self.help.set_buffer(textbuffer)
+        iter = textbuffer.get_iter_at_offset(0)
+        mark = textbuffer.create_mark("top", iter, gtk.FALSE)
+        self.help.scroll_to_mark(mark, 0.0, gtk.FALSE, 0.0, 0.0)
 
     def close (self, *args):
         self.textWin.destroy()
