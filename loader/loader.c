@@ -84,10 +84,10 @@ static char * mountUrlImage(struct installMethod * method,
 
 static struct installMethod installMethods[] = {
     { N_("Local CDROM"), 0, DEVICE_CDROM, mountCdromImage },
+    { N_("NFS image"), 1, DEVICE_NET, mountNfsImage },
     { "FTP", 1, DEVICE_NET, mountUrlImage },
     { "HTTP", 1, DEVICE_NET, mountUrlImage },
     { N_("Hard drive"), 0, DEVICE_DISK, mountHardDrive },
-    { N_("NFS image"), 1, DEVICE_NET, mountNfsImage },
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -240,7 +240,6 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
     newtGrid grid, buttons;
     int numItems;
     int maxWidth;
-    char * t;
 
     while (1) {
 	numItems = 0;
@@ -248,17 +247,15 @@ int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
 	for (i = 0, *buf = '\0'; i < modLoaded->numModules; i++) {
 	    if (!modLoaded->mods[i].weLoaded) continue;
 
-	    strcat(buf, "    ");
-
-	    if ((mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
-		t = mi->description;
-	    } else {
-		t = modLoaded->mods[i].name;
+	    if (!(mi = isysFindModuleInfo(modInfo, modLoaded->mods[i].name))) {
+		continue;
 	    }
 
-	    strcat(buf, t);
+	    strcat(buf, "    ");
+	    strcat(buf, mi->description);
 
-	    if (maxWidth < strlen(t)) maxWidth = strlen(t);
+	    if (maxWidth < strlen(mi->description)) 
+		maxWidth = strlen(mi->description);
 
 	    strcat(buf, "\n");
 	    numItems++;
@@ -334,8 +331,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 	    	if (modList[i]->major == DRIVER_SCSI) {
 		    startNewt(flags);
 
-		    winStatus(40, 3, _("Loading SCSI driver"), 
-		    	      "Loading %s driver...", modList[i]->moduleName);
+		    scsiWindow(modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
 				 NULL, flags);
 		    newtPopWindow();
@@ -615,10 +611,10 @@ static char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
-static char * mountCdromImage(struct installMethod * method,
+static char * setupCdrom(struct installMethod * method,
 		      char * location, struct knownDevices * kd,
     		      moduleInfoSet modInfo, moduleList modLoaded,
-		      moduleDeps modDeps, int flags) {
+		      moduleDeps modDeps, int flags, int probeQuickly) {
     int i;
     int rc;
     int hasCdrom = 0;
@@ -636,11 +632,13 @@ static char * mountCdromImage(struct installMethod * method,
 		if (!access("/mnt/source/RedHat/instimage/usr/bin/anaconda", 
 			    X_OK)) {
 		    symlink("/mnt/source/RedHat/instimage", "/mnt/runtime");
-		    return 0;
+		    return "dir://mnt/source/.";
 		}
 		umount("/mnt/source");
 	    }
 	}
+
+	if (probeQuickly) return NULL;
 
 	if (hasCdrom) {
 	    rc = newtWinChoice(_("Error"), _("Ok"), _("Back"), 
@@ -655,6 +653,14 @@ static char * mountCdromImage(struct installMethod * method,
     } while (1);
 
     return "dir://mnt/source/.";
+}
+
+static char * mountCdromImage(struct installMethod * method,
+		      char * location, struct knownDevices * kd,
+    		      moduleInfoSet modInfo, moduleList modLoaded,
+		      moduleDeps modDeps, int flags) {
+    return setupCdrom(method, location, kd, modInfo, modLoaded, modDeps,
+		      flags, 0);
 }
 
 static int ensureNetDevice(struct knownDevices * kd,
@@ -870,7 +876,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 			moduleList modLoaded,
 		        moduleDeps modDeps, int flags) {
     static int defaultMethod = 0;
-    int i, j, rc;
+    int i, rc;
     int validMethods[10];
     int numValidMethods = 0;
     char * installNames[10];
@@ -892,6 +898,8 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 
 #ifdef INCLUDE_PCMCIA
     for (i = 0; i < numMethods; i++) {
+	int j;
+
 	for (j = 0; j < kd->numKnown; j++)
 	    if (installMethods[i].deviceType == kd->known[j].class) break;
 
@@ -920,6 +928,16 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	logMessage("no install methods have the required devices!\n");
 	exit(1);
     }
+
+    /* If no network is available, check any attached CDROM device for a
+       Red Hat CD. If there is one there, just die happy */
+    if (!networkAvailable && !FL_EXPERT(flags)) {
+	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps,
+			 flags, 1);
+	if (url) return url;
+    }
+
+    startNewt(flags);
 
     do { 
 	rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
@@ -1059,8 +1077,6 @@ int main(int argc, char ** argv) {
 
     pciProbe(modInfo, modLoaded, modDeps, probeOnly, &kd, flags);
     if (probeOnly) exit(0);
-
-    startNewt(flags);
 
     url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, flags);
 
