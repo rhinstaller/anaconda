@@ -375,17 +375,17 @@ class KickstartBase(BaseInstallClass):
             id.bootloader.kickstart = 1
             id.bootloader.doUpgradeOnly = 1
 
-        
-        self.showSteps.append("bootloadersetup")
-                
-        self.setBootloader(id, useLilo, location, linear, forceLBA,
+        if location is None:
+            self.skipSteps.append("bootloadersetup")
+            self.skipSteps.append("instbootloader")
+        else:
+            self.showSteps.append("bootloadersetup")
+            self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine, driveorder)
+
         self.skipSteps.append("upgbootloader")
         self.skipSteps.append("bootloader")
         self.skipSteps.append("bootloaderadvanced")
-
-        if location is None:
-            self.skipSteps.append("instbootloader")
 
     def doLilo	(self, id, args):
         self.doBootloader(id, args, useLilo = 1)

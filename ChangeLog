@@ -1,5 +1,9 @@
 2005-03-02  Jeremy Katz  <katzj@redhat.com>
 
+	* kickstart.py (KickstartBase.doBootloader):  Don't install a
+	bootloader if --location=none is provided in the kickstart config
+	file (clumens, #146448).
+
 	* autopart.py (fitConstrained):  Allow logical partitions to go all
 	the way to the end of the extended partition.  (clumens, #101432)
 
