@@ -26,17 +26,17 @@ def addNewPackageToUpgSet(pkgDict, pkg):
             pkgDict[(name,arch)] = pkg
 
 def comparePackageForUpgrade(updDict, h, pkg):
-            val = rpm.versionCompare(h, pkg)
-            if (val > 0):
-                dEBUG("found older version of %(name)s %(arch)s" % h)
-                pass
-            elif (val < 0):
-                dEBUG("found newer version of %(name)s %(arch)s" % h)
-                # check if we already have this package in our dictionary
-                addNewPackageToUpgSet(updDict, pkg)
-            else:
-                dEBUG("found same verison of %(name)s %(arch)s" % h)
-                pass
+    val = rpm.versionCompare(h, pkg)
+    if (val > 0):
+        dEBUG("found older version of %(name)s %(arch)s" % h)
+        pass
+    elif (val < 0):
+        dEBUG("found newer version of %(name)s %(arch)s" % h)
+        # check if we already have this package in our dictionary
+        addNewPackageToUpgSet(updDict, pkg)
+    else:
+        dEBUG("found same verison of %(name)s %(arch)s" % h)
+        pass
 
 def findBestArch(arch, archlist):
     bestarch = arch
