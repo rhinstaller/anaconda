@@ -7,6 +7,7 @@
 
 #include "Python.h"
 #include "rpmlib.h"
+#include "rpmmacro.h"
 #include "upgrade.h"
 
 /* from lib/misc.c */
@@ -38,6 +39,7 @@ static PyObject * hdrUnload(hdrObject * s, PyObject * args);
 static PyObject * hdrVerifyFile(hdrObject * s, PyObject * args);
 
 void initrpm(void);
+static PyObject * doAddMacro(PyObject * self, PyObject * args);
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args);
 static PyObject * hdrLoad(PyObject * self, PyObject * args);
 static PyObject * rpmHeaderFromPackage(PyObject * self, PyObject * args);
@@ -65,6 +67,7 @@ static int rpmtransSetAttr(rpmtransObject * o, char * name,
 
 static PyMethodDef rpmModuleMethods[] = {
     { "TransactionSet", (PyCFunction) rpmtransCreate, METH_VARARGS, NULL },
+    { "addMacro", (PyCFunction) doAddMacro, METH_VARARGS, NULL },
     { "archscore", (PyCFunction) archScore, METH_VARARGS, NULL },
     { "findUpgradeSet", (PyCFunction) findUpgradeSet, METH_VARARGS, NULL },
     { "headerFromPackage", (PyCFunction) rpmHeaderFromPackage, METH_VARARGS, NULL },
@@ -415,6 +418,8 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
     return result;
 }
 
+
+
 static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
     rpmdbObject * o;
     char * root = "";
@@ -425,13 +430,6 @@ static rpmdbObject * rpmOpenDB(PyObject * self, PyObject * args) {
     o = PyObject_NEW(rpmdbObject, &rpmdbType);
     o->db = NULL;
 
-    /* XXX --gafton
-     * I would like this root argument to behave like the --dbpath in the plain
-     * rpm command line. What it does now it re-roots the /var/lib/rpm to whatever
-     * I am passing on, so if I pass in /ftp/updates/rpmdb/i386 it will end up looking
-     * for the rpm database in /ftp/updates/rpmdb/i386/var/lib/rpm.
-     * I'm stuck.
-     */
     if (rpmdbOpen(root, &o->db, forWrite ? O_RDWR | O_CREAT: O_RDONLY, 0)) {
 	char * errmsg = "cannot open database in %s";
 	char * errstr = NULL;
@@ -1415,4 +1413,16 @@ static PyObject * archScore(PyObject * self, PyObject * args) {
     score = rpmMachineScore(RPM_MACHTABLE_INSTARCH, arch);
 
     return Py_BuildValue("i", score);
+}
+
+static PyObject * doAddMacro(PyObject * self, PyObject * args) {
+    char * name, * val;
+
+    if (!PyArg_ParseTuple(args, "ss", &name, &val))
+	return NULL;
+
+    addMacro(NULL, name, NULL, val, RMIL_DEFAULT);
+
+    Py_INCREF(Py_None);
+    return Py_None;
 }
