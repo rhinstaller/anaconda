@@ -35,6 +35,9 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Наступн╕ розд╕ли було т╕льки що створено, але вони не вибран╕ для "
+"форматування. Це може викликати помилку при встановленн╕.\n"
+"\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -43,6 +46,10 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Натиснiть ОК для продовження, або Скасувати для повернення та вибора "
+"розд╕л╕в, що будуть в╕дформатирован╕ (РЕКОМЕНДОВАНО)."
 
 #: ../fstab.py:74
 msgid "Warning"
@@ -126,6 +133,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Помилка монтування пристрою %s як %s: %s\n"
+"\n"
+"Це скор╕ше за все означа╓, що розд╕л не було в╕дформатовано.\n"
+"\n"
+"Натиснiть OK для перезавантаження системи."
 
 #: ../gui.py:170
 msgid ""
@@ -202,7 +214,7 @@ msgstr "Виб╕р мови"
 
 #: ../gui.py:567 ../gui.py:839
 msgid "Release Notes"
-msgstr ""
+msgstr "Новини"
 
 #: ../gui.py:744
 msgid "Red Hat Linux Installer"
@@ -229,7 +241,7 @@ msgstr "В╕кно встановлення"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "В╕дсутн╕й CD N %d, який потр╕бен для встановлення."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -334,6 +346,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Вашу систему було змонтовано п╕д /mnt/sysimage.\n"
+"\n"
+"Натисн╕ть <Enter> для повернення в оболонку. Систему буде перезавантежено "
+"автоматично п╕сля вашого виходу з оболонки."
 
 #: ../rescue.py:66
 msgid ""
@@ -343,6 +359,11 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Сталася помилка при монтуванн╕ вашо╖ системи або ╖╖ частини. Вашу систему "
+"було частково змонтовано п╕д /mnt/sysimage.\n"
+"\n"
+"Натисн╕ть <Enter> для повернення в оболонку. Систему буде перезавантежено "
+"автоматично п╕сля вашого виходу з оболонки."
 
 #: ../rescue.py:72
 msgid "Rescue Mode"
@@ -356,7 +377,7 @@ msgstr ""
 
 #: ../rescue.py:84
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Вашу систему було змонтовано п╕д каталогом /mnt/sysimage."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -584,6 +605,8 @@ msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
+"                         <Enter> для перезавантаження                        "
+" "
 
 #: ../text.py:637 ../text.py:660
 msgid "Complete"
@@ -615,6 +638,8 @@ msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                               <Enter> для виходу                            "
+" "
 
 #: ../text.py:661
 msgid ""
@@ -649,7 +674,7 @@ msgstr "Обсяг :"
 
 #: ../text.py:732
 msgid "Summary: "
-msgstr "П╕дсумок: "
+msgstr "П╕дсумок:"
 
 #: ../text.py:758
 msgid "    Packages"
@@ -711,7 +736,7 @@ msgstr "В╕дладка"
 
 #: ../text.py:983
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:987
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
