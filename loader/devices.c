@@ -607,8 +607,12 @@ char ** extractModules(struct driverDiskInfo * ddi,
 	if (!oldPaths[i]) {
 	    /* can't trust map; the order changed thanks to qsort */
 	    sprintf(fn, "/tmp/%s.o", modNames[i]);
-	    if (!access(fn, R_OK))
+	    if (!access(fn, R_OK)) {
+		logMessage("module %s found%s%s", modNames[i],
+			ddi ? " on driver disk " : "",
+			ddi ? ddi->title : "");
 		oldPaths[i] = strdup(fn);
+	    }
 	    numMaps++;
 	}
     }
