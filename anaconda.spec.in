@@ -54,10 +54,12 @@ already installed systems.
 %setup -q
 
 %build
+
 %if %{_ws_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Workstation"/' < Makefile.inc > Makefile.inc.product
 %endif
-if %{_as_var}
+
+%if %{_as_var}
 sed 's/PRODUCTNAME=.*/PRODUCTNAME="Red Hat Linux Advanced Server"/' < Makefile.inc > Makefile.inc.product
 %endif
 
