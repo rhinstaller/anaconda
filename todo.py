@@ -885,21 +885,24 @@ class ToDo:
 	if not todo.users: return
 
 	for (account, name, password) in todo.users:
-	    print "creating account for", account
+	    devnull = os.open("/dev/null", os.O_RDWR)
 
 	    argv = [ "/usr/sbin/useradd", account ]
-	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath,
+				   stdout = devnull)
 
 	    argv = [ "/usr/bin/chfn", "-f", name, account]
-	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath)
+	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath,
+				   stdout = devnull)
         
 	    argv = [ "/usr/bin/passwd", "--stdin", account ]
 	    p = os.pipe()
 	    os.write(p[1], password + "\n")
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
-				   stdin = p[0])
+				   stdin = p[0], stdout = devnull)
 	    os.close(p[0])
 	    os.close(p[1])
+	    os.close(devnull)
 
     def createCdrom(self):
 	list = isys.cdromList()
