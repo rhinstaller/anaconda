@@ -190,7 +190,9 @@ class Dispatcher:
                     else:
                         self.skipSteps[name] = 1
 		elif self.skipSteps.has_key(name):
-		    del self.skipSteps[name]
+		    # if marked as permanent then dont change
+		    if self.skipSteps[name] != 2:
+			del self.skipSteps[name]
 		return
 
 	raise KeyError, ("unknown step %s" % stepToSkip)
