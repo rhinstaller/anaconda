@@ -236,7 +236,11 @@ class Language (SimpleConfigFile):
         for (key, value) in self.langs.items ():
             self.abbrevMap[value] = key
 
-	self.setByAbbrev("en_US")
+        self.japanesehack = 0
+        if self.abbrevMap.has_key ("ja_JP.eucJP"):
+            self.japanesehack = 1
+            
+        self.setByAbbrev("en_US")
 
     def available (self):
         return self.langs
@@ -246,8 +250,15 @@ class Language (SimpleConfigFile):
     
     def set (self, lang):
         self.lang = self.langs[lang]
-        self.info["LANG"] = self.langs[lang]
         os.environ["LANG"] = self.langs[lang]
+        if self.japanesehack:
+            self.info["LANG"] = "ja_JP.eucJP"
+            rpm.addMacro("_install_langs", "ja_JP.eucJP");
+            os.environ["LINGUAS"] = "ja_JP.eucJP"
+        else:
+            self.info["LANG"] = self.langs[lang]
+            rpm.addMacro("_install_langs", self.langs[lang]);
+            os.environ["LINGUAS"] = self.langs[lang]
 
 	if self.font[lang] != "None":
 	    self.info["SYSFONT"] = self.font[lang]
@@ -258,8 +269,6 @@ class Language (SimpleConfigFile):
             if self.info.has_key("SYSFONTACM"):
                 del self.info["SYSFONTACM"]
 
-	rpm.addMacro("_install_langs", self.langs[lang]);
-        os.environ["LINGUAS"] = self.langs[lang]
         
     def get (self):
 	return self.lang
