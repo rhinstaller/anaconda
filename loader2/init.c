@@ -384,7 +384,7 @@ static int copyDirectory(char * from, char * to) {
 static void createDevices(void) {
     int i;
 
-    for (i = 0; devnodes[i].devname; i++) {
+    for (i = 0; devnodes[i].devname != NULL; i++) {
         char devname[64];
         int type = -1;
 
@@ -394,6 +394,7 @@ static void createDevices(void) {
             if (mkdir(devname, devnodes[i].perms) < 0) {
                 fprintf(stderr, "Unable to create directory %s: %s\n", 
                         devname, strerror(errno));
+            }
             break;
         case CHARDEV:
             type = S_IFCHR;
@@ -408,7 +409,6 @@ static void createDevices(void) {
                   makedev(devnodes[i].major, devnodes[i].minor)) < 0)
             fprintf(stderr, "Unable to create device %s: %s\n", devname, 
                     strerror(errno));
-        }
     }
 }
 

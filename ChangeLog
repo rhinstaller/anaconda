@@ -1,8 +1,13 @@
+2004-12-21  Jeremy Katz  <katzj@redhat.com>
+
+	* loader2/init.c (createDevices): Fix silly typo breaking creation
+	of devices under /dev
+
 2004-12-21  Chris Lumens  <clumens@redhat.com>
 
-        * fsset.py (turnOnSwap): Print out a more descriptive error
+	* fsset.py (turnOnSwap): Print out a more descriptive error
         message if swap partition cannot be mounted (#143000).
-        * upgrade.py (createSwapFile,upgradeMountFilesystems): Likewise.
+	* upgrade.py (createSwapFile,upgradeMountFilesystems): Likewise.
 
 2004-12-21  Jeremy Katz  <katzj@redhat.com>
 
