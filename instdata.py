@@ -22,6 +22,7 @@ import desktop
 import users
 import fsset
 import bootloader
+from flags import *
 
 from simpleconfig import SimpleConfigFile
 
@@ -46,7 +47,7 @@ class InstallData:
 	#	- The install language
 	#	- The keyboard
 
-	self.langSupport = language.Language(0)
+	self.langSupport = language.Language(flags.reconfig)
 	self.instClass = None
 	self.network = network.Network()
 	self.firewall = firewall.Firewall()
