@@ -551,7 +551,9 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (!strncasecmp(argv[i], "allowcddma", 10))
             flags |= LOADER_FLAGS_ENABLECDDMA;
         else if (!strncasecmp(argv[i], "selinux=0", 9))
-            flags |= LOADER_FLAGS_NOSELINUX;
+            flags &= ~LOADER_FLAGS_SELINUX;
+        else if (!strncasecmp(argv[i], "selinux", 7))
+            flags |= LOADER_FLAGS_SELINUX;
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
@@ -1348,14 +1350,14 @@ int main(int argc, char ** argv) {
 
     /* now load SELinux policy before exec'ing anaconda (unless we've
      * specified not to */
-    if (!FL_NOSELINUX(flags)) {
+    if (FL_SELINUX(flags)) {
         if (mount("/selinux", "/selinux", "selinuxfs", 0, NULL)) {
             logMessage("failed to mount /selinux: %s", strerror(errno));
         } else {
             if (loadpolicy() == 0) {
                 setexeccon(ANACONDA_CONTEXT);
             } else {
-                flags |= LOADER_FLAGS_NOSELINUX;
+                flags &= ~LOADER_FLAGS_SELINUX;
             }
         }
     }
