@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 CFLAGS = -Wall -g -O2
 LDFLAGS = -g
-LOADLIBES = -L../isys -lz -lisys -lresolv -lpopt
+LOADLIBES = -L../isys -lisys -lresolv -lz
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
@@ -14,7 +14,7 @@ everything: $(TARGET)
 
 all:	collage
 
-collage:	collage.o commands.o idmap.o ls.o mount_by_label.o
+collage:	collage.o commands.o mount_by_label.o
 
 install:
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)

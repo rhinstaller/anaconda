@@ -9,19 +9,9 @@ struct commandTableEntry {
 };
 
 struct commandTableEntry commandTable[] = {
-	{ "cat", catCommand },
-	{ "chmod", chmodCommand },
-	{ "chroot", chrootCommand },
-	{ "df", dfCommand },
-	{ "gunzip", gunzipCommand },
-	{ "ln", lnCommand },
-	{ "ls", lsCommand },
-	{ "lsmod", lsmodCommand },
-	{ "mkdir", mkdirCommand },
 	{ "mknod", mknodCommand },
-	{ "umount", umountCommand },
 	{ "mount", mountCommand },
-	{ "rm", rmCommand },
+	{ "mount", mountCommand },
 	{ "uncpio", uncpioCommand },
 	{ NULL, NULL }
 };
