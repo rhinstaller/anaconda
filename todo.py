@@ -583,6 +583,9 @@ class ToDo:
 	if (not self.comps):
 	    self.getHeaderList()
 	    self.comps = self.method.readComps(self.hdList)
+	    for comp in self.comps:
+		if comp.selected:
+		    comp.select (1)
 	self.comps['Base'].select(1)
 	self.kernelPackage = self.hdList['kernel']
 
