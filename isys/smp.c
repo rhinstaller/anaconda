@@ -50,7 +50,7 @@ int sparcDetectSMP(void)
 	char buff[1024];
 	
 	while (fgets (buff, 1024, f) != NULL) {
-	    if (!strncmp (buff, "ncpus active\t: ", 15)) {
+	    if (!strncmp (buff, "ncpus probed\t: ", 15)) {
 		if (strtoul (buff + 15, NULL, 0) > 1)
 		    issmp = 1;
 		break;
