@@ -121,7 +121,7 @@ install: all
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)/loader
 	for n in $(BINS); do \
 	    install -m 755 $$n $(DESTDIR)/$(RUNTIMEDIR)/loader; \
-	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n; \
+	    strip $(DESTDIR)/$(RUNTIMEDIR)/loader/$$n || :; \
 	done
 	install -m 644 loader.tr $(DESTDIR)/$(RUNTIMEDIR)/loader
 	install -m 644 module-info $(DESTDIR)/$(RUNTIMEDIR)/loader
