@@ -706,6 +706,8 @@ static PyObject * probedListSubscript(probedListObject * o, int item) {
 	class = "cdrom"; break;
       case CLASS_HD:
 	class = "disk"; break;
+      case CLASS_TAPE:
+	class = "tape"; break;
       case CLASS_NETWORK:
 	class = "net"; break;
     }
