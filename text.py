@@ -302,7 +302,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def drawFrame(self):
-        self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
+        self.welcomeText = _("Red Hat Linux (C) 2002 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
 	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
@@ -333,7 +333,7 @@ class InstallInterface:
 #	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-#	self.screen.suspendCallback(debugSelf, self.screen)
+	self.screen.suspendCallback(debugSelf, self.screen)
 
 	if flags.serial:
 	    self.screen.suspendCallback(spawnShell, self.screen)
