@@ -605,20 +605,20 @@ msgstr ""
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Mewngofnod Pell (SSH)"
 
 #: ../firewall.py:55
 msgid "Web Server (HTTP, HTTPS)"
-msgstr ""
+msgstr "Gwasanaethwr Gwe (HTTP, HTTPS)"
 
 #: ../firewall.py:56
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Trosglwyddiad Ffeil (FTP)"
 
 #: ../firewall.py:58
-#, fuzzy
+#
 msgid "Mail Server (SMTP)"
-msgstr "Post (SMTP)"
+msgstr "Gwasanaethwr Ebost (SMTP)"
 
 #: ../floppy.py:103
 msgid "Unable to make boot floppy"
@@ -1011,9 +1011,9 @@ msgid ""
 msgstr ""
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
+#
 msgid "Error Parsing Kickstart Config"
-msgstr "Gwall wrth agor y ffeil kickstart %s: %s"
+msgstr "Gwall Wrth Dosrannu Y Ffeil Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1024,9 +1024,8 @@ msgstr ""
 "dewiswch eich ddisgen yn ofalus."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Rhagosodyn"
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1181,7 +1180,7 @@ msgstr "Newid CDd-ROM"
 #: ../image.py:284
 #, fuzzy, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Rhowch ddisg %d i mewn i barhau."
+msgstr "Rhowch %s ddisg %d i mewn i barhau."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1194,7 +1193,7 @@ msgstr "Nid y CDd-ROM %s cywir yw hwnna."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Methu cyrchu'r CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1554,14 +1553,12 @@ msgstr ""
 "A hoffech ymgychwyn y gyrrydd yma?"
 
 #: ../partedUtils.py:313
-#, fuzzy
 msgid "_Ignore drive"
-msgstr "Anwybyddu"
+msgstr "_Anwybyddu disc"
 
 #: ../partedUtils.py:314
-#, fuzzy
 msgid "_Format drive"
-msgstr "_Fformadu"
+msgstr "_Fformadu disc"
 
 #: ../partedUtils.py:633
 #, python-format
@@ -2496,9 +2493,8 @@ msgid "Connecting..."
 msgstr "Yn cysylltu..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Methu llwytho ffeil!"
+msgstr "Methu dechrau X"
 
 #: ../vnc.py:37
 msgid ""
@@ -2509,22 +2505,19 @@ msgstr ""
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Defynddio modd testun"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Yn Dechrau VNC..."
+msgstr "Yn Dechrau VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Cyfluniad Silo"
+msgstr "Cyfluniad VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Cyfrinair Gwraidd"
+msgstr "Heb cyfrinair"
 
 #: ../vnc.py:62
 msgid ""
@@ -2555,9 +2548,8 @@ msgid "Password Length"
 msgstr "Hyd Cyfrinair"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Rhaid i'r cyfrinair fod o leiaf 6 nod o hyd."
+msgstr "Rhaid i'r cyfrinair fod o leiaf six nod o hyd."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -3255,9 +3247,8 @@ msgid ""
 msgstr ""
 
 #: ../iw/firewall_gui.py:155
-#, fuzzy
 msgid "Enable _SELinux?:"
-msgstr "Analluogi SELinux"
+msgstr "Galluogi SELinux?:"
 
 #: ../iw/firewall_gui.py:161
 msgid "Disabled"
@@ -3822,11 +3813,11 @@ msgstr "_Pwynt i Bwynt (IP)"
 
 #: ../iw/network_gui.py:238
 msgid "_ESSID"
-msgstr ""
+msgstr "_ESSID"
 
 #: ../iw/network_gui.py:239
 msgid "Encryption _Key"
-msgstr ""
+msgstr "_Allwedd Amgryptio"
 
 #: ../iw/network_gui.py:279
 #, python-format
@@ -5607,7 +5598,7 @@ msgstr ""
 
 #: ../textw/network_text.py:76 ../loader2/net.c:187
 msgid "Encryption Key"
-msgstr ""
+msgstr "Alwedd Amgryptio"
 
 #: ../textw/network_text.py:88
 #, python-format
@@ -7130,9 +7121,8 @@ msgid "Add Device"
 msgstr "Ychwanegu Dyfais"
 
 #: ../loader2/loader.c:1136
-#, fuzzy, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "rhedwyd y llwythwr eisioes.  Yn decharu plisgyn."
+msgstr "rhedwyd y llwythwr eisioes.  Yn decharu plisgyn.\n"
 
 #: ../loader2/loader.c:1484
 #, c-format
@@ -7273,9 +7263,8 @@ msgid ""
 msgstr ""
 
 #: ../loader2/net.c:190
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Gosodiadau Amrywiol"
+msgstr "Gosodiadau Di-wifr"
 
 #: ../loader2/net.c:203
 msgid "Nameserver IP"
@@ -8243,9 +8232,8 @@ msgid "German"
 msgstr "Almaeneg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Yn canfod"
+msgstr "Hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -8312,9 +8300,8 @@ msgid "Swedish"
 msgstr "Swedeg"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "Tamileg"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8326,7 +8313,7 @@ msgstr "Wcraineg"
 
 #. generated from lang-table
 msgid "Vietnamese"
-msgstr ""
+msgstr "Fietnameg"
 
 #. generated from lang-table
 msgid "Welsh"
@@ -8336,108 +8323,3 @@ msgstr "Cymraeg"
 msgid "Zulu"
 msgstr "Zwlŵeg"
 
-#~ msgid ""
-#~ "Invalid port given: %s.  The proper format is 'port:protocol', where port "
-#~ "is between 1 and 65535, and protocol is either 'tcp' or 'udp'.\n"
-#~ "\n"
-#~ "For example, '1234:udp'"
-#~ msgstr ""
-#~ "Rhoddwyd porth annilys: %s.  'porth:protocol' yw'r fformat cywir, lle bo "
-#~ "porth rhwng 1 a 65535, a bo protocol naill ai yn 'tcp' neu 'udp'.\n"
-#~ "\n"
-#~ "Er enghraifft, '1234:udp'"
-
-#~ msgid "Warning: Bad Token"
-#~ msgstr "Rhybudd: Tocyn Gwael"
-
-#~ msgid "_Allow incoming:"
-#~ msgstr "_Caniatáu i gyrraedd:"
-
-#, fuzzy
-#~ msgid "Web Server"
-#~ msgstr "_Gweinydd"
-
-#~ msgid "Other _ports:"
-#~ msgstr "_Pyrth eraill:"
-
-#~ msgid "_Security Enhanced Linux (SELinux) Extensions:"
-#~ msgstr "Estyniadau Linux _Diogelwch Dyrchafedig (SELinux):"
-
-#~ msgid "Trusted Devices:"
-#~ msgstr "Dyfeisiau Ymddiriedig:"
-
-#~ msgid "SSH"
-#~ msgstr "SSH"
-
-#~ msgid "WWW (HTTP)"
-#~ msgstr "WWW (HTTP)"
-
-#~ msgid "Mail (SMTP)"
-#~ msgstr "Post (SMTP)"
-
-#~ msgid "FTP"
-#~ msgstr "FTP"
-
-#~ msgid "Other ports"
-#~ msgstr "Pyrth eraill"
-
-#~ msgid "Firewall Configuration - Customize"
-#~ msgstr "Cyflunio Mur Cadarn - Addasu"
-
-#~ msgid ""
-#~ "You can customize your firewall in two ways. First, you can select to "
-#~ "allow all traffic from certain network interfaces. Second, you can allow "
-#~ "certain protocols explicitly through the firewall. In a comma separated "
-#~ "list, specify additional ports in the form 'service:protocol' such as "
-#~ "'imap:tcp'. "
-#~ msgstr ""
-#~ "Gallwch addasu'ch mur cadarn mewn dwy ffordd. Yn gyntaf, gallwch ddewis "
-#~ "caniatáu'r holl drafnidiaeth o ryngwynebau rhwydwaith penodol. Yn ail, "
-#~ "gallwch ganiatáu rhai protocolau'n ddiamwys drwy'r mur cadarn. Mewn "
-#~ "rhestr wedi'i gwahanu gan atalnodau, penodwch byrth ychwanegol yn y ffurf "
-#~ "'gwasanaeth:protocol' megis 'imap:tcp'. "
-
-#~ msgid "Warning: %s is not a valid port."
-#~ msgstr "Rhybudd: nid yw %s yn borth ddilys."
-
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "Nid oedd modd gosod y CDd-ROM."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Rhowch gyfrinair y gwraidd (rheolwr) ar gyfer y system."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "Mur Cadarn _Addasiedig"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Pa wasanaethau dylid eu caniatáu i dreiddio'r mur cadarn?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Os hoffech ganiatáu'r holl drafnidiaeth o ddyfais, dewiswch hi isod."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "Dyfeisiau _Ymddiriedig:"
-
-#~ msgid "Workstation Defaults"
-#~ msgstr "Rhagosodion Gweithfan"
-
-#~ msgid ""
-#~ "Welcome to %s!\n"
-#~ "\n"
-#~ "This installation process is outlined in detail in the Official %s "
-#~ "Installation Guide available from Red Hat, Inc. If you have access to "
-#~ "this manual, you should read the installation section before continuing.\n"
-#~ "\n"
-#~ "If you have purchased Official %s, be sure to register your purchase "
-#~ "through our web site, http://www.redhat.com/."
-#~ msgstr ""
-#~ "Croeso i %s!\n"
-#~ "\n"
-#~ "Amlinellir y broses arsefydlu'n fanwl yn y Canllaw Arsefydlu %s Swyddogol "
-#~ "sydd ar gael oddiwrth Red Hat, Inc. Os yw'r llawlyfr yma ar gael i chi, "
-#~ "dylech ddarllen yr adran arsefydlu cyn parhau.\n"
-#~ "\n"
-#~ "Os ydych wedi prynu %s Swyddogol, byddwch yn sicr â chofrestri'ch pryniad "
-#~ "drwy ein safwe, http://www.redhat.com/."
