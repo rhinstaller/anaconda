@@ -38,7 +38,8 @@ def nvra(pkgfile):
     fd = os.open(pkgfile, os.O_RDONLY)
     h = _ts.hdrFromFdno(fd)
     os.close(fd)
-    return "%s-%s-%s.%s" %(h['name'], h['version'], h['release'], h['arch'])
+    return "%s-%s-%s.%s.rpm" %(h['name'], h['version'], h['release'],
+                               h['arch'])
     
 
 class Timber:
