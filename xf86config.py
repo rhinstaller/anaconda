@@ -855,8 +855,9 @@ class XF86Config:
 		    pass
 
             # kludge to handle i810 displays which require at least 16 Meg
-            if (self.vidCards[self.primary].has_key("DRIVER") and
-                (self.vidCards[self.primary]["DRIVER"] == "i810")):
+            if (self.vidCards
+                and self.vidCards[self.primary].has_key("DRIVER")
+                and (self.vidCards[self.primary]["DRIVER"] == "i810")):
                 self.vidRam = "16384"
 
 
