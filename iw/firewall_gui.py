@@ -40,9 +40,10 @@ class FirewallWindow (InstallWindow):
 	    
 	    if rc2 == 0:
 		raise gui.StayOnScreen
-        else:
             self.firewall.enabled = 0
-
+        else:
+            self.firewall.enabled = 1
+            
             count = 0
             self.firewall.trustdevs = []
 
