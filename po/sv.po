@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
-"POT-Creation-Date: 2001-03-09 11:30-0500\n"
+"POT-Creation-Date: 2001-03-10 09:38-0500\n"
 "PO-Revision-Date: 2001-03-10 02:56+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -68,8 +68,8 @@ msgstr "Varning"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1157
-#: ../todo.py:1170 ../todo.py:1490 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1162
+#: ../todo.py:1175 ../todo.py:1495 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Fel"
 
@@ -937,7 +937,7 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "Kontrollerar beroenden hos de paket som valts för installation..."
 
 #: ../todo.py:1025 ../todo.py:1069 ../todo.py:1075 ../todo.py:1092
-#: ../todo.py:1220
+#: ../todo.py:1225
 msgid "no suggestion"
 msgstr "inget förslag"
 
@@ -962,32 +962,32 @@ msgstr ""
 "starta om uppgraderingen.\n"
 "\n"
 
-#: ../todo.py:1142
+#: ../todo.py:1147
 msgid "Finding"
 msgstr "Letar"
 
-#: ../todo.py:1143
+#: ../todo.py:1148
 msgid "Finding packages to upgrade..."
 msgstr "Letar efter paket att uppgradera..."
 
-#: ../todo.py:1158
+#: ../todo.py:1163
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
-#: ../todo.py:1171
+#: ../todo.py:1176
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Ett fel inträffade vid sökning av paketen att uppgradera."
 
-#: ../todo.py:1456
+#: ../todo.py:1461
 msgid "Processing"
 msgstr "Bearbetar"
 
-#: ../todo.py:1457
+#: ../todo.py:1462
 msgid "Preparing to install..."
 msgstr "Förbereder installation..."
 
-#: ../todo.py:1491
+#: ../todo.py:1496
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -996,17 +996,17 @@ msgstr ""
 "Filen %s kan inte öppnas. Detta kan bero på att filen saknas, ett felaktigt "
 "paket, eller felaktigt medium. Tryck <Enter> för att försöka igen."
 
-#: ../todo.py:1743
+#: ../todo.py:1748
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Uppgraderar %s.\n"
 
-#: ../todo.py:1745
+#: ../todo.py:1750
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerar %s.\n"
 
-#: ../todo.py:1790
+#: ../todo.py:1795
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1016,16 +1016,16 @@ msgstr ""
 "du har valt. Du behöver mer utrymme på följande filsystem:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1793
-#: ../todo.py:1811
+#: ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1798
+#: ../todo.py:1816
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1793
+#: ../todo.py:1798
 msgid "Space Needed"
 msgstr "Nödvändigt utrymme"
 
-#: ../todo.py:1808
+#: ../todo.py:1813
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1035,23 +1035,23 @@ msgstr ""
 "har valt. Du behöver fler filnoder på följande filsystem:\n"
 "\n"
 
-#: ../todo.py:1811
+#: ../todo.py:1816
 msgid "Nodes Needed"
 msgstr "Noder som behövs"
 
-#: ../todo.py:1817
+#: ../todo.py:1822
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../todo.py:1852
+#: ../todo.py:1857
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../todo.py:1853
+#: ../todo.py:1858
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
-#: ../todo.py:1991
+#: ../todo.py:1996
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1069,7 +1069,7 @@ msgstr ""
 "Felet som rapporterades var:\n"
 "\n"
 
-#: ../todo.py:1997
+#: ../todo.py:2002
 msgid "Bootloader Errors"
 msgstr "Fel med bootladdaren"
 
@@ -4439,37 +4439,6 @@ msgid "Utilities"
 msgstr "Verktyg"
 
 #. generated from zone.tab
-msgid "#"
-msgstr "#"
-
-#. generated from zone.tab
-msgid "# 1.  ISO 3166 2-character country code.  See the file `iso3166.tab'."
-msgstr "# 1. ISO 3166-landskod med två tecken. Se filen \"iso3166.tab\"."
-
-#. generated from zone.tab
-msgid "# (1) makes some geographical sense, and"
-msgstr "# (1) är lite vettigt geografiskt, och"
-
-#. generated from zone.tab
-msgid "# 2.  Latitude and longitude of the zone's principal location"
-msgstr "# 2. Latitud och longitud för zonens huvudort"
-
-#. generated from zone.tab
-msgid ""
-"# (2) puts the most populous zones first, where that does not contradict (1)."
-msgstr ""
-"# (2) gör att de tättbefolkade zonerna hamnar först, där det inte motsäger "
-"(1)."
-
-#. generated from zone.tab
-msgid "# 3.  Zone name used in value of TZ environment variable."
-msgstr "# 3. Zonnamn som används i värdet på TZ-miljövariabeln."
-
-#. generated from zone.tab
-msgid "# 4.  Comments; present if and only if the country has multiple rows."
-msgstr "# 4. Kommentarer; finns om och endast om landet har flera rader."
-
-#. generated from zone.tab
 msgid "Acre"
 msgstr "Acre"
 
@@ -4616,14 +4585,6 @@ msgid "China mountains"
 msgstr "Kina, bergen"
 
 #. generated from zone.tab
-msgid "# Columns are separated by a single tab."
-msgstr "# Kolumner åtskiljs med ett enkelt tabbsteg."
-
-#. generated from zone.tab
-msgid "#country-"
-msgstr "#land-"
-
-#. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
 msgstr "Davis-stationen, Vestfold Hills"
 
@@ -4722,18 +4683,6 @@ msgid "east Uzbekistan"
 msgstr "östra Uzbekistan"
 
 #. generated from zone.tab
-msgid "#     either +-DDMM+-DDDMM or +-DDMMSS+-DDDMMSS,"
-msgstr "#    antingen +-DDMM+-DDDMM eller +-DDMMSS+-DDDMMSS,"
-
-#. generated from zone.tab
-msgid "#     first latitude (+ is north), then longitude (+ is east)."
-msgstr "#    först latituden (+ är norr), sedan longituden (+ är öster)."
-
-#. generated from zone.tab
-msgid "# From Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-msgstr "# Från Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-
-#. generated from zone.tab
 msgid "Galapagos Islands"
 msgstr "Galapagosöarna"
 
@@ -4752,10 +4701,6 @@ msgstr "Storbritannien"
 #. generated from zone.tab
 msgid "Hawaii"
 msgstr "Hawaii"
-
-#. generated from zone.tab
-msgid "#     in ISO 6709 sign-degrees-minutes-seconds format,"
-msgstr "#    i ISO 6709-tecken-grader-minuter-sekunder-format,"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -4788,10 +4733,6 @@ msgstr "Kwajalein"
 #. generated from zone.tab
 msgid "Line Islands"
 msgstr "Lineöarna"
-
-#. generated from zone.tab
-msgid "# Lines beginning with `#' are comments."
-msgstr "# Rader som börjar med \"#\" är kommentarer."
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
@@ -5047,16 +4988,6 @@ msgid "Tasmania"
 msgstr "Tasmanien"
 
 #. generated from zone.tab
-msgid ""
-"# The table is sorted first by country, then an order within the country that"
-msgstr ""
-"# Tabellen sorteras först efter land, sedan en ordning inom det landet som"
-
-#. generated from zone.tab
-msgid "# This file contains a table with the following columns:"
-msgstr "# Denna fil innehåller en tabell med följande kolumner:"
-
-#. generated from zone.tab
 msgid "Tibet & Xinjiang"
 msgstr "Tibet och Xinjiang"
 
@@ -5071,10 +5002,6 @@ msgstr "Transdnjestrrepubliken"
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
 msgstr "Truk (Chuuk)"
-
-#. generated from zone.tab
-msgid "# TZ zone descriptions"
-msgstr "# TZ-zonbeskrivningar"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -5203,3 +5130,61 @@ msgstr "Turkiska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
+
+#~ msgid "#"
+#~ msgstr "#"
+
+#~ msgid ""
+#~ "# 1.  ISO 3166 2-character country code.  See the file `iso3166.tab'."
+#~ msgstr "# 1. ISO 3166-landskod med två tecken. Se filen \"iso3166.tab\"."
+
+#~ msgid "# (1) makes some geographical sense, and"
+#~ msgstr "# (1) är lite vettigt geografiskt, och"
+
+#~ msgid "# 2.  Latitude and longitude of the zone's principal location"
+#~ msgstr "# 2. Latitud och longitud för zonens huvudort"
+
+#~ msgid ""
+#~ "# (2) puts the most populous zones first, where that does not contradict (1)."
+#~ msgstr ""
+#~ "# (2) gör att de tättbefolkade zonerna hamnar först, där det inte motsäger "
+#~ "(1)."
+
+#~ msgid "# 3.  Zone name used in value of TZ environment variable."
+#~ msgstr "# 3. Zonnamn som används i värdet på TZ-miljövariabeln."
+
+#~ msgid ""
+#~ "# 4.  Comments; present if and only if the country has multiple rows."
+#~ msgstr "# 4. Kommentarer; finns om och endast om landet har flera rader."
+
+#~ msgid "# Columns are separated by a single tab."
+#~ msgstr "# Kolumner åtskiljs med ett enkelt tabbsteg."
+
+#~ msgid "#country-"
+#~ msgstr "#land-"
+
+#~ msgid "#     either +-DDMM+-DDDMM or +-DDMMSS+-DDDMMSS,"
+#~ msgstr "#    antingen +-DDMM+-DDDMM eller +-DDMMSS+-DDDMMSS,"
+
+#~ msgid "#     first latitude (+ is north), then longitude (+ is east)."
+#~ msgstr "#    först latituden (+ är norr), sedan longituden (+ är öster)."
+
+#~ msgid "# From Paul Eggert <eggert@twinsun.com> (1996-08-05):"
+#~ msgstr "# Från Paul Eggert <eggert@twinsun.com> (1996-08-05):"
+
+#~ msgid "#     in ISO 6709 sign-degrees-minutes-seconds format,"
+#~ msgstr "#    i ISO 6709-tecken-grader-minuter-sekunder-format,"
+
+#~ msgid "# Lines beginning with `#' are comments."
+#~ msgstr "# Rader som börjar med \"#\" är kommentarer."
+
+#~ msgid ""
+#~ "# The table is sorted first by country, then an order within the country that"
+#~ msgstr ""
+#~ "# Tabellen sorteras först efter land, sedan en ordning inom det landet som"
+
+#~ msgid "# This file contains a table with the following columns:"
+#~ msgstr "# Denna fil innehåller en tabell med följande kolumner:"
+
+#~ msgid "# TZ zone descriptions"
+#~ msgstr "# TZ-zonbeskrivningar"

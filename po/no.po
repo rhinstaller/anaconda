@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-03-09 11:30-0500\n"
+"POT-Creation-Date: 2001-03-10 09:38-0500\n"
 "PO-Revision-Date: 2001-02-18 20:15+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -68,8 +68,8 @@ msgstr "Advarsel"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:89
-#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1157
-#: ../todo.py:1170 ../todo.py:1490 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:95 ../textw/upgrade_text.py:145 ../todo.py:1162
+#: ../todo.py:1175 ../todo.py:1495 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Feil"
 
@@ -936,7 +936,7 @@ msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
 #: ../todo.py:1025 ../todo.py:1069 ../todo.py:1075 ../todo.py:1092
-#: ../todo.py:1220
+#: ../todo.py:1225
 msgid "no suggestion"
 msgstr "ingen forslag"
 
@@ -961,31 +961,31 @@ msgstr ""
 "oppgraderingen på nytt.\n"
 "\n"
 
-#: ../todo.py:1142
+#: ../todo.py:1147
 msgid "Finding"
 msgstr "Finner"
 
-#: ../todo.py:1143
+#: ../todo.py:1148
 msgid "Finding packages to upgrade..."
 msgstr "Finner pakker som skal oppgraderes..."
 
-#: ../todo.py:1158
+#: ../todo.py:1163
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
-#: ../todo.py:1171
+#: ../todo.py:1176
 msgid "An error occured when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../todo.py:1456
+#: ../todo.py:1461
 msgid "Processing"
 msgstr "Arbeider"
 
-#: ../todo.py:1457
+#: ../todo.py:1462
 msgid "Preparing to install..."
 msgstr "Forbereder installasjon..."
 
-#: ../todo.py:1491
+#: ../todo.py:1496
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -994,17 +994,17 @@ msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
-#: ../todo.py:1743
+#: ../todo.py:1748
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../todo.py:1745
+#: ../todo.py:1750
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1790
+#: ../todo.py:1795
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1014,16 +1014,16 @@ msgstr ""
 "valgt. Du må ha mer plass på følgende filsystemer:\n"
 "\n"
 
-#: ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1793
-#: ../todo.py:1811
+#: ../libfdisk/gnomefsedit.c:3132 ../textw/upgrade_text.py:39 ../todo.py:1798
+#: ../todo.py:1816
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1793
+#: ../todo.py:1798
 msgid "Space Needed"
 msgstr "Nødvendig plass"
 
-#: ../todo.py:1808
+#: ../todo.py:1813
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1032,23 +1032,23 @@ msgstr ""
 "Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
 "valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
-#: ../todo.py:1811
+#: ../todo.py:1816
 msgid "Nodes Needed"
 msgstr "Manglende noder"
 
-#: ../todo.py:1817
+#: ../todo.py:1822
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../todo.py:1852
+#: ../todo.py:1857
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../todo.py:1853
+#: ../todo.py:1858
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
-#: ../todo.py:1991
+#: ../todo.py:1996
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1059,7 +1059,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../todo.py:1997
+#: ../todo.py:2002
 msgid "Bootloader Errors"
 msgstr ""
 
@@ -4419,35 +4419,6 @@ msgid "Utilities"
 msgstr "Verktøy"
 
 #. generated from zone.tab
-msgid "#"
-msgstr ""
-
-#. generated from zone.tab
-msgid "# 1.  ISO 3166 2-character country code.  See the file `iso3166.tab'."
-msgstr ""
-
-#. generated from zone.tab
-msgid "# (1) makes some geographical sense, and"
-msgstr ""
-
-#. generated from zone.tab
-msgid "# 2.  Latitude and longitude of the zone's principal location"
-msgstr ""
-
-#. generated from zone.tab
-msgid ""
-"# (2) puts the most populous zones first, where that does not contradict (1)."
-msgstr ""
-
-#. generated from zone.tab
-msgid "# 3.  Zone name used in value of TZ environment variable."
-msgstr ""
-
-#. generated from zone.tab
-msgid "# 4.  Comments; present if and only if the country has multiple rows."
-msgstr ""
-
-#. generated from zone.tab
 msgid "Acre"
 msgstr "Acre"
 
@@ -4593,14 +4564,6 @@ msgid "China mountains"
 msgstr ""
 
 #. generated from zone.tab
-msgid "# Columns are separated by a single tab."
-msgstr ""
-
-#. generated from zone.tab
-msgid "#country-"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
 msgstr ""
 
@@ -4698,18 +4661,6 @@ msgid "east Uzbekistan"
 msgstr "øst-Uzbekistan"
 
 #. generated from zone.tab
-msgid "#     either +-DDMM+-DDDMM or +-DDMMSS+-DDDMMSS,"
-msgstr ""
-
-#. generated from zone.tab
-msgid "#     first latitude (+ is north), then longitude (+ is east)."
-msgstr ""
-
-#. generated from zone.tab
-msgid "# From Paul Eggert <eggert@twinsun.com> (1996-08-05):"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Galapagos Islands"
 msgstr "Galapagos-øyene"
 
@@ -4727,10 +4678,6 @@ msgstr "Storbritania"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
-
-#. generated from zone.tab
-msgid "#     in ISO 6709 sign-degrees-minutes-seconds format,"
 msgstr ""
 
 #. generated from zone.tab
@@ -4763,10 +4710,6 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
-
-#. generated from zone.tab
-msgid "# Lines beginning with `#' are comments."
 msgstr ""
 
 #. generated from zone.tab
@@ -5023,15 +4966,6 @@ msgid "Tasmania"
 msgstr "Tasmania"
 
 #. generated from zone.tab
-msgid ""
-"# The table is sorted first by country, then an order within the country that"
-msgstr ""
-
-#. generated from zone.tab
-msgid "# This file contains a table with the following columns:"
-msgstr ""
-
-#. generated from zone.tab
 msgid "Tibet & Xinjiang"
 msgstr "Tibet og Xinjiang"
 
@@ -5045,10 +4979,6 @@ msgstr ""
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
-
-#. generated from zone.tab
-msgid "# TZ zone descriptions"
 msgstr ""
 
 #. generated from zone.tab
