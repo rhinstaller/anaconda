@@ -449,7 +449,7 @@ if "__main__" == __name__:
     else:
         usage("You forgot to specify --srcdir")
     
-    if (options.has_key("--productpath"):
+    if options.has_key("--productpath"):
 	timber.product_path = options["--productpath"]
 
     logfile = timber.main()
