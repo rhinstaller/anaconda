@@ -643,16 +643,16 @@ create_location_list (MapData *mapdata)
     return scrolledwin;
 }
 
-MapData * new_mapdata (void)
+MapData * new_mapdata (char * path)
 {
     MapData * mapdata;
     mapdata = g_new0 (MapData, 1);
 
     /* make a new map view */
-    WorldMap = gnome_map_new ("map480.png", 390, 180, FALSE);
+    WorldMap = gnome_map_new (path, 390, 180, FALSE);
     if (!WorldMap) {
 	g_warning ("Could not create map view.");
-	exit (1);
+	return NULL;
     }
     WorldMap->data = mapdata;
     mapdata->map = WorldMap;
@@ -666,7 +666,7 @@ MapData * new_mapdata (void)
     mapdata->Locations = loadTZDB ();
     if (!mapdata->Locations) {
 	g_warning (_("Cannot load timezone data"));
-	exit (1);
+	return NULL;
     }
 
     mapdata->citylist = create_location_list (mapdata);
@@ -802,12 +802,15 @@ static PyMethodDef timezoneMethods[] = {
 
 static tzObject * doNewTZ (PyObject * s, PyObject * args) {
     tzObject *o;
+    char * path;
     
+    if (!PyArg_ParseTuple(args, "s", &path))
+        
     o = (tzObject *) PyObject_NEW(tzObject, &tzType);
     
-    o->mapdata = new_mapdata ();
+    o->mapdata = new_mapdata (path);
     
-    if (!WorldMap) {
+    if (!WorldMap || !o->mapdata) {
 	PyErr_SetString(PyExc_TypeError, "Could not create map view.");
 	return NULL;
     }
