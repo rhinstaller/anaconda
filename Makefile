@@ -148,12 +148,13 @@ pycheck-file:
 	PYTHONPATH=.:isys:textw:iw:installclasses:booty:booty/edd pychecker $(CHECK) | grep -v "__init__() not called" 
 
 PKGNAME=anaconda
-local:
+local: clean
 	@rm -rf ${PKGNAME}-$(VERSION).tar.gz
 	@rm -rf /tmp/${PKGNAME}-$(VERSION) /tmp/${PKGNAME}
 	@dir=$$PWD; cd /tmp; cp -a $$dir ${PKGNAME}
+	@pushd /tmp/${PKGNAME} ; sed -e "s/@@VERSION@@/$(VERSION)/g" -e "s/@@RELEASE@@/$(SNAPRELEASE)/g" < anaconda.spec.in > anaconda.spec ; popd
 	@mv /tmp/${PKGNAME} /tmp/${PKGNAME}-$(VERSION)
-	@dir=$$PWD; cd /tmp; tar --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
+	@dir=$$PWD; cd /tmp; tar --exclude CVS --bzip2 -cvf $$dir/${PKGNAME}-$(VERSION).tar.bz2 ${PKGNAME}-$(VERSION)
 	@rm -rf /tmp/${PKGNAME}-$(VERSION)
 	@echo "The archive is in ${PKGNAME}-$(VERSION).tar.bz2"
 
