@@ -658,7 +658,7 @@ class PackageSelectionWindow (InstallWindow):
         mainvbox = self.dialog.vbox
 
         lbl = gtk.Label(_("A package group can have both Base and "
-                          "Optional package members.  Base packagess "
+                          "Optional package members.  Base packages "
                           "are always selected as long as the package group "
 			  "is selected.\n\nSelect the optional packages "
 			  "to be installed:"))
