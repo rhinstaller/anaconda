@@ -946,7 +946,16 @@ class Partitions:
         n = 0
         while n < len(self.requests):
             for request in self.requests:
-                if request.size < self.requests[n].size:
+                if (request.size and self.requests[n].size and
+                    (request.size < self.requests[n].size)):
+                    tmp = self.requests[n]
+                    index = self.requests.index(request)
+                    self.requests[n] = request
+                    self.requests[index] = tmp
+                elif (request.start and self.requests[n].start and
+                      (request.drive == self.requests[n].drive) and
+                      (request.type == self.requests[n].type) and 
+                      (request.start > self.requests[n].start)):
                     tmp = self.requests[n]
                     index = self.requests.index(request)
                     self.requests[n] = request
