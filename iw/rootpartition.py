@@ -47,6 +47,7 @@ class PartitionWindow (InstallWindow):
 		     "disk immediately. Is that okay?"), "okcancel")
 
 	if (message.getrc () == 1):
+	    threads_enter ()
 	    return 0
 
 	self.todo.ddruid.save ()
