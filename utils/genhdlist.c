@@ -56,11 +56,11 @@ int getOrder (char * fn)
     while (p && *p && strncmp (fn, p, strlen(p))) {
 	p = depOrder[++i];
     } 
-    
-    if (p) {
-	return i - 1;
-    }
 
+    if (p) {
+	return i;
+    }
+    
     return -1;
 }
 
@@ -76,7 +76,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
     struct stat sb;
     int_32 * fileSizes;
     int fileCount;
-    int order = 0;
+    int order = -1;
 
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
@@ -205,7 +205,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 }
 
 static void usage(void) {
-    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--pkgorder <path>] [--hdlist <path>] <paths>+\n");
+    fprintf(stderr, "genhdlist:		genhdlist [--withnumbers] [--fileorder <path>] [--hdlist <path>] <paths>+\n");
     exit(1);
 }
 
