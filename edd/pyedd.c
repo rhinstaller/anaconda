@@ -18,6 +18,7 @@
 #include "edd.h"
 
 #include <sys/wait.h>
+#include <sys/resource.h>
 #include <unistd.h>
 
 #include <Python.h>
@@ -43,6 +44,12 @@ edd_py_detect (PyObject * s, PyObject * args) {
      The child returns 1 if edd works, and 0 if it doesn't. */
 
   if (!(childpid = fork())) {
+      /* lets not drop core file if we do segv */
+      struct rlimit lims;
+
+      lims.rlim_cur = 0;
+      setrlimit(RLIMIT_CORE, &lims);
+
       if ((ec = edd_supported(device))) {
 	free (ec);
 	_exit(1);
