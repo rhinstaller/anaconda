@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-22 12:18+0530\n"
+"PO-Revision-Date: 2004-07-22 14:11+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -222,6 +222,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
+"બુટ પાર્ટીશન %s એ બુટ લોડરને ચાલુ રાખવા માટે તેની શરુઆતમાં"
+"પૂરતી જગ્યાવાળી ડિસ્કને અનુસરતુ નથી. ખાતરી કરો કે ત્યાં ઓછામાં ઓછી 5MB "
+"જેટલી ખાલી જગ્યા ડિસ્કની શરુઆતમાં હોવી જોઈએ કે જે /boot સમાવે છે."
 
 #: ../autopart.py:1008
 #, python-format
@@ -229,12 +232,16 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
+"બુટ પાર્ટીશન %s એ VFAT પાર્ટીશન નથી. EFI એ આ પાર્ટીશનમાંથી "
+"ચાલુ થવા માટે સમર્થ નથી."
 
 #: ../autopart.py:1010
 msgid ""
 "Boot partition isn't located early enough on the disk.  OpenFirmware won't "
 "be able to boot this installation."
 msgstr ""
+"બુટ પાર્ટીશન એ પહેલા પૂરતી જગ્યાવાળી ડિસ્ક પર સ્થિત નથી. OpenFirmware "
+"આ સ્થાપનને શરુ કરવામાં સમર્થ નથી."
 
 #: ../autopart.py:1017
 #, python-format
@@ -242,6 +249,8 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
+"બુટ પાર્ટીશન %s તમારા આર્કીટેક્ચર માટે બુટ થવાના પરિમાણો ધરાવતું નથી. "
+"બુટ ડિસ્ક બનાવવાનું મોટે ભાગે પ્રેરિત કરવામાં આવે છે."
 
 #: ../autopart.py:1042
 #, python-format
@@ -249,10 +258,12 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
+"આ પાર્ટીશનને ઉમેરવાનું %s માં પહેલાથી સ્થિત લોજિકલ પાર્ટીશનો માટે "
+"પૂરતી જગ્યા રાખતું નથી."
 
 #: ../autopart.py:1208
 msgid "Requested Partition Does Not Exist"
-msgstr ""
+msgstr "મંજૂર કરાયેલ પાર્ટીશનો હયાત નથી"
 
 #: ../autopart.py:1209
 #, python-format
@@ -261,10 +272,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s વાપરવા માટે પાર્ટીશન %s સ્થિત કરી શકાતું નથી.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../autopart.py:1234
 msgid "Requested Raid Device Does Not Exist"
-msgstr ""
+msgstr "મંજૂર થયેલ Raid ઉપકરણો અસ્તિત્વમાં નથી"
 
 #: ../autopart.py:1235
 #, python-format
@@ -273,10 +287,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s માટે %s raid ઉપકરણો સ્થિત કરવામાં અસમર્થ.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે બરાબર બટન દબાવો."
 
 #: ../autopart.py:1264
 msgid "Requested Volume Group Does Not Exist"
-msgstr ""
+msgstr "મંજૂર થયેલ જગ્યાના જૂથો અસ્તિત્વમાં નથી"
 
 #: ../autopart.py:1265
 #, python-format
@@ -285,10 +302,13 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
+"%s માટે જગ્યાના જૂથો %s સ્થિત કરવામાં અસમર્થ.\n"
+"\n"
+"તમારી સિસ્ટમ રીબુટ કરવા માટે અસમર્થ."
 
 #: ../autopart.py:1300
 msgid "Requested Logical Volume Does Not Exist"
-msgstr ""
+msgstr "મંજૂર થયેલ લોજિકલ જૂથ અસ્તિત્વમાં નથી"
 
 #: ../autopart.py:1301
 #, python-format
