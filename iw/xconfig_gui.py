@@ -83,6 +83,11 @@ class XCustomWindow (InstallWindow):
         self.selectedDepth = self.bit_depth[depth]
         curres = self.selectedRes
         newmodes = self.xconfig.availableModes()[self.selectedDepth]
+	tmpmodes = copy.copy(newmodes)
+	for mode in newmodes:
+	    if mode not in self.res_list:
+		tmpmodes.remove(mode)
+	newmodes = tmpmodes
         self.res_combo.set_popdown_strings(newmodes)
         if curres in newmodes:
             self.res_combo.list.select_item(newmodes.index(curres))
@@ -208,8 +213,18 @@ class XCustomWindow (InstallWindow):
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, TRUE, FALSE, 2)
 
-        self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-                         "1280x1024", "1400x1050", "1600x1200"]
+	if not self.videocard.getSupportedModes():
+	    self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
+			     "1280x1024", "1400x1050", "1600x1200"]
+	else:
+	    self.res_list = self.videocard.getSupportedModes()
+
+	    for depth in availableDepths:
+		tmpavail = copy.copy(available[depth])
+		for mode in available[depth]:
+		    if mode not in self.res_list:
+			tmpavail.remove(mode)
+		available[depth] = tmpavail
 
         self.res_combo = GtkCombo ()
         self.res_combo.entry.set_editable (FALSE)
@@ -697,6 +712,7 @@ class XConfigWindow (InstallWindow):
             primary_card.setDescription (self.selected_card["NAME"])
 
             # pull out resolved version of card data
+	    # see if they actually picked a card, otherwise keep going
             card_data = primary_card.getCardData()
             if (card_data.has_key("SERVER") and
                 card_data.has_key("UNSUPPORTED")):
@@ -718,11 +734,6 @@ class XConfigWindow (InstallWindow):
                               "want to skip X configuration entirely "
                               "choose the 'Skip X Configuration' button."))
             raise gui.StayOnScreen
-
-        
-        # see if they actually picked a card, otherwise keep going
-
-
 
         # sniff out the selected ram size
         menu = self.ramOption.get_menu ().get_active()
@@ -904,6 +915,7 @@ class XConfigWindow (InstallWindow):
         self.current_node = None
         self.orig_node = None
         self.selected_node = None
+	
         if self.videocard.primaryCard():
             carddata = self.videocard.primaryCard().getCardData(dontResolve=1)
             if carddata:
@@ -916,7 +928,9 @@ class XConfigWindow (InstallWindow):
                 probed_card = carddata["NAME"]
             else:
                 probed_card = None
-            
+
+	manufacturers = self.videocard.manufacturerDB()
+	manufacturers.append("Generic")
         for card in cards:
             temp = string.lower(card)
 
@@ -925,8 +939,6 @@ class XConfigWindow (InstallWindow):
                 other_cards.remove(card)
                 continue
 
-            manufacturers = self.videocard.manufacturerDB()
-            manufacturers.append("Generic")
             for man in manufacturers:
                 if string.lower(man) == temp[:len(man)]:
                     node = self.ctree.insert_node (self.manufacturer_nodes[man], None, (card,), 2)
@@ -945,7 +957,7 @@ class XConfigWindow (InstallWindow):
         for card in other_cards:
             node = self.ctree.insert_node (self.manufacturer_nodes["Other"], None, (card,), 2)
             self.ctree.node_set_row_data(node, (self.manufacturer_nodes["Other"], card))
-            
+
             # note location of current selection and probed card
             if card == current_cardsel:
                 self.current_node = node
