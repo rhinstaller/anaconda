@@ -887,7 +887,7 @@ if [ -n "$NEEDGR" ]; then
     fi
     rm -f $DESTGR/usr/bin/pango-querymodules
     # more sick hackery since it doesn't fall back to this like owen thought
-    cat > /etc/pango/pangorc <<EOF
+    cat > $DESTGR/etc/pango/pangorc <<EOF
 [Pango]
 ModuleFiles=/etc/pango/pango.modules
 EOF
