@@ -103,8 +103,13 @@ setupdevice()
    fi
    SYSDIR=${SUBCHANNELS//,*/}   # get first subchannel. This is where the device can be brought online
    sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/group "$SUBCHANNELS"
-   [ -n "$PORTNAME" ] && sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname "$PORTNAME"
-   [ -n "$LCSPORT" ] && sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portno "$LCSPORT"
+   if [ -n "$PORTNAME" ]; then
+		if [ "$DIRNAME" = "lcs" ]; then
+			sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portno "$PORTNAME"
+		else
+			sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/portname "$PORTNAME"
+		fi
+	fi
    sysecho /sys/bus/ccwgroup/drivers/${DIRNAME}/${SYSDIR}/online 1
 }
 
@@ -253,7 +258,7 @@ else  # ctc0, escon0, iucv0
 	 if [ ":$NETTYPE" = ":lcs" -o ":$NETTYPE" = ":tr" ]; then
 			echo $"Enter the relative port number of your LCS device"
 			echo $"(required for OSA-Express ATM cards only):"
-			read LCSPORT
+			read PORTNAME
 	 fi
 fi
 # don't ask for MTU, but use it if it has been set in the .parm file
@@ -375,7 +380,6 @@ BROADCAST="$BROADCAST"
 DNS="$DNS"
 SEARCHDNS="$SEARCHDNS"
 PEERID="$PEERID"
-LCSPORT="$LCSPORT"
 SUBCHANNELS="$SUBCHANNELS"
 ONBOOT="yes"
 export LANG PORTNAME S390ARCH TEXTDOMAIN TEXTDOMAINDIR
@@ -400,7 +404,7 @@ SUBCHANNELS=$SUBCHANNELS
 EOF
 [ "$QETH" != "" ] && echo "QETH=$QETH" >> /tmp/netinfo
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
-[ "$LCSPORT" != "" ] && echo "LCSPORT=$LCSPORT" >> /tmp/netinfo
+[ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 
 # so that the vars get propagated into the sshd shells
 mkdir /.ssh
