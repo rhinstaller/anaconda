@@ -281,7 +281,9 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
                                         _("Web site name:")),
                      0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
     newtGridSetField(entryGrid, 0, 1, NEWT_GRID_COMPONENT,
-                     newtLabel(-1, -1, _("Red Hat directory:")),
+                     newtLabel(-1, -1, 
+                               sdupprintf(_("%s directory:"), 
+                                          getProductName())),
                      0, 0, 1, 0, NEWT_ANCHOR_LEFT, 0);
     newtGridSetField(entryGrid, 1, 0, NEWT_GRID_COMPONENT, siteEntry,
                      0, 0, 0, 0, 0, 0);
