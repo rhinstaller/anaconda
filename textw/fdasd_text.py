@@ -92,6 +92,8 @@ class fdasdPartitionWindow:
 
             elif button == "done" or button == TEXT_BACK_CHECK:
                 diskset.refreshDevices(intf)
+                partitioning.checkNoDisks(diskset, intf)            
+                partrequests.setFromDisk(diskset)
 
                 if len(diskset.disks.keys()) == 0:
                     rc = intf.messageWindow(_("No Drives Found"),
