@@ -175,7 +175,7 @@ def map_foreign_to_fsname(type):
         return _("Foreign")
 
 def query_is_linux_native_by_numtype(numtype):
-    linuxtypes = [0x82, 0x83, 0xfd]
+    linuxtypes = [0x82, 0x83, 0x8e, 0xfd]
 
     for t in linuxtypes:
         if int(numtype) == t:
