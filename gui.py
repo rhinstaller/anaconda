@@ -8,7 +8,6 @@ from GDK import *
 
 im = None
 splashwindow = None
-print "Hello"
 
 width = screen_width()
 
