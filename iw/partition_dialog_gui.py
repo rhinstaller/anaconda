@@ -28,20 +28,6 @@ from constants import *
 
 
 class PartitionEditor:
-    def formatOptionCB(self, widget, data):
-	(menuwidget, menu, mntptcombo, ofstype) = data
-	menuwidget.set_sensitive(widget.get_active())
-
-	# inject event for fstype menu
-	if widget.get_active():
-	    fstype = menu.get_active().get_data("type")
-	    setMntPtComboStateFromType(fstype, mntptcombo)
-	else:
-	    setMntPtComboStateFromType(ofstype, mntptcombo)
-
-    def noformatCB(self, widget, badblocks):
-	badblocks.set_sensitive(widget.get_active())
-
     def sizespinchangedCB(self, widget, fillmaxszsb):
 	size = widget.get_value_as_int()
 	maxsize = fillmaxszsb.get_value_as_int()
@@ -196,29 +182,40 @@ class PartitionEditor:
             else:
                 # preexisting partition, just set mount point and format flag
                 request = copy.copy(self.origrequest)
-                if self.formatrb:
-                    request.format = self.formatrb.get_active()
+		
+		if self.fsoptionsDict.has_key("formatrb"):
+		    formatrb = self.fsoptionsDict["formatrb"]
+		else:
+		    formatrb = None
+
+		if formatrb:
+                    request.format = formatrb.get_active()
                     if request.format:
-                        request.fstype = self.fstypeMenu.get_active().get_data("type")
-                    if self.badblocks and self.badblocks.get_active():
+                        request.fstype = self.fsoptionsDict["fstypeMenu"].get_active().get_data("type")
+                    if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
                         request.badblocks = gtk.TRUE
                     else:
                         request.badblocks = None
-                        
                 else:
                     request.format = 0
                     request.badblocks = None
 
-                if self.migraterb:
-                    request.migrate = self.migraterb.get_active()
+		if self.fsoptionsDict.has_key("migraterb"):
+		    migraterb = self.fsoptionsDict["migraterb"]
+		else:
+		    migraterb = None
+		    
+		if migraterb:
+                    request.migrate = migraterb.get_active()
                     if request.migrate:
-                        request.fstype =self.migfstypeMenu.get_active().get_data("type")
+                        request.fstype =self.fsoptionsDict["migfstypeMenu"].get_active().get_data("type")
                 else:
                     request.migrate = 0
 
                 # set back if we are not formatting or migrating
+		origfstype = self.origrequest.origfstype
                 if not request.format and not request.migrate:
-                    request.fstype = self.origrequest.origfstype
+                    request.fstype = origfstype
 
                 if request.fstype.isMountable():
                     request.mountpoint =  self.mountCombo.entry.get_text()
@@ -409,88 +406,9 @@ class PartitionEditor:
         row = row + 1
 
         # format/migrate options for pre-existing partitions
+	self.fsoptionsDict = {}
         if self.origrequest.type == REQUEST_PREEXIST and self.origrequest.fstype:
-
-            ofstype = self.origrequest.fstype
-            
-            maintable.attach(gtk.HSeparator(), 0, 2, row, row + 1)
-            row = row + 1
-
-            label = gtk.Label(_("How would you like to prepare the filesystem "
-                               "on this partition?"))
-            label.set_line_wrap(1)
-            label.set_alignment(0.0, 0.0)
-#            label.set_size_request(400, -1)
-
-            maintable.attach(label, 0, 2, row, row + 1)
-            row = row + 1
-            
-            self.noformatrb = gtk.RadioButton(label=_("Leave unchanged "
-                                                 "(preserve data)"))
-            self.noformatrb.set_active(1)
-            maintable.attach(self.noformatrb, 0, 2, row, row + 1)
-            row = row + 1
-
-            self.formatrb = gtk.RadioButton(label=_("Format partition as:"),
-					    group =self.noformatrb)
-            self.formatrb.set_active(0)
-            if self.origrequest.format:
-                self.formatrb.set_active(1)
-
-            maintable.attach(self.formatrb, 0, 1, row, row + 1)
-            (self.fstype, self.fstypeMenu) = createFSTypeMenu(ofstype,
-							      fstypechangeCB,
-							      self.mountCombo)
-            self.fstype.set_sensitive(self.formatrb.get_active())
-            maintable.attach(self.fstype, 1, 2, row, row + 1)
-            row = row + 1
-
-            if not self.formatrb.get_active() and not self.origrequest.migrate:
-                self.mountCombo.set_data("prevmountable", ofstype.isMountable())
-
-            self.formatrb.connect("toggled", self.formatOptionCB,
-				  (self.fstype, self.fstypeMenu,
-				   self.mountCombo, ofstype))
-
-            if self.origrequest.origfstype.isMigratable():
-                self.migraterb = gtk.RadioButton(label=_("Migrate partition to:"),
-                                            group=self.noformatrb)
-                self.migraterb.set_active(0)
-                if self.origrequest.migrate:
-                    self.migraterb.set_active(1)
-
-                self.migtypes = self.origrequest.origfstype.getMigratableFSTargets()
-
-                maintable.attach(self.migraterb, 0, 1, row, row + 1)
-                (self.migfstype, self.migfstypeMenu)=createFSTypeMenu(ofstype,
-								      None, None,
-								      availablefstypes = self.migtypes)
-                self.migfstype.set_sensitive(self.migraterb.get_active())
-                maintable.attach(self.migfstype, 1, 2, row, row + 1)
-                row = row + 1
-
-                self.migraterb.connect("toggled", self.formatOptionCB,
-				       (self.migfstype, self.migfstypeMenu,
-					self.mountCombo, ofstype))
-            else:
-                self.migraterb = None
-
-            self.badblocks = gtk.CheckButton(_("Check for bad blocks?"))
-            self.badblocks.set_active(0)
-            maintable.attach(self.badblocks, 0, 1, row, row + 1)
-            self.formatrb.connect("toggled", self.noformatCB, self.badblocks)
-            if not self.origrequest.format:
-                self.badblocks.set_sensitive(0)
-
-            if self.origrequest.badblocks:
-                self.badblocks.set_active(1)
-            
-            row = row + 1
-            
-        else:
-            self.noformatrb = None
-            self.formatrb = None
-            self.migraterb = None
+	    (row, self.fsoptionsDict) = createPreExistFSOptionSection(self.origrequest, maintable, row, self.mountCombo)
 
         # size options
         if self.origrequest.type == REQUEST_NEW:
