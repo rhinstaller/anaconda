@@ -24,11 +24,14 @@ import string
 import getopt
 import time
 import types
+import rpm
 
+global _ts
+_ts = None
 
 # returns n-v-r.a from file filename
 def nvra(pkgfile):
-    global _ts = None
+    global _ts
     if _ts is None:
         _ts = rpm.TransactionSet()
         _ts.setVSFlags(-1)
