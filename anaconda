@@ -204,6 +204,10 @@ def setupRhplUpdates():
         for f in os.listdir("/usr/%s/python2.2/site-packages/rhpl" %(libdir,)):
             if os.access("/tmp/updates/rhpl/%s" %(f,), os.R_OK):
                 continue
+	    elif f.endswith(".pyc") and os.access("/tmp/updates/rhpl/%s" %(f[:-1],), os.R_OK):
+		# dont copy .pyc files we are replacing with updates
+		continue
+	    
             os.symlink("/usr/%s/python2.2/site-packages/rhpl/%s" %(libdir, f),
                        "/tmp/updates/rhpl/%s" %(f,))
     
