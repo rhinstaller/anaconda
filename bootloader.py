@@ -110,7 +110,7 @@ class x86BootloaderInfo:
 
 	bootDev = fsset.getEntryByMountPoint("/boot")
 	grubPath = "/grub"
-	cfPath = ""
+	cfPath = "/"
 	if not bootDev:
 	    bootDev = fsset.getEntryByMountPoint("/")
 	    grubPath = "/boot/grub"
@@ -143,7 +143,7 @@ class x86BootloaderInfo:
 	for (label, device) in chainList:
 	    f.write('title %s (%s)\n' % (label, version))
 	    f.write('\trootnoverify %s\n' % grubbyPartitionName(device))
-            f.write('\tmakeactive')
+            f.write('\tmakeactive\n')
             f.write('\tchainloader +1')
 	    f.write('\n')
 
