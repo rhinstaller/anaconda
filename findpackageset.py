@@ -3,7 +3,7 @@ import rpm
 
 # set DB_PRIVATE to make rpm happy...  do it in here since we include
 # this with all of the useful rpm bits
-rpm.addMacro("__dbi_cdb", "create private")
+#rpm.addMacro("__dbi_cdb", "create private")
 
 
 def dEBUG(str):

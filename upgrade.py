@@ -318,7 +318,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         rpm.addMacro("_dbapi", "-1")
         # have to make sure this isn't set, otherwise rpm won't even
         # *try* to use old-format dbs
-        rpm.addMacro("__dbi_cdb", "")
+        #rpm.addMacro("__dbi_cdb", "")
 
         rebuildpath = instPath + id.dbpath
 
