@@ -1179,13 +1179,9 @@ class KickstartBase(BaseInstallClass):
         # now read the kickstart file for real
 	self.readKickstart(id, self.file)            
 
-    # Note that this assumes setGroupSelection() is called after
+    # Note that this assumes setGroupSelection() is called before
     # setPackageSelection()
     def setPackageSelection(self, hdlist, intf):
-        for h in hdlist.pkgs.values():
-            self.usecount = 0
-            self.manual_state = 0
-            
 	for n in self.packageList:
             if hdlist.has_key(n):
                 hdlist[n].select()
@@ -1208,8 +1204,6 @@ class KickstartBase(BaseInstallClass):
                                 
 
     def setGroupSelection(self, grpset, intf):
-        grpset.unselectAll(unselectPkgs = 0)
-
 	grpset.selectGroup("base")
 	for n in self.groupList:
             try:
@@ -1232,7 +1226,7 @@ class KickstartBase(BaseInstallClass):
                         sys.exit(1)
                     else:
                         pass
-                
+
         for n in self.excludedList:
             if grpset.hdrlist.has_key(n):
                 grpset.hdrlist[n].unselect(isManual = 1)

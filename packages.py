@@ -133,9 +133,11 @@ def readPackages(intf, method, id):
     if id.grpset:
         grpset = id.grpset
         hdrlist = id.grpset.hdrlist
+        doselect = 0
     else:
         grpset = None
         hdrlist = None
+        doselect = 1
         
     while hdrlist is None:
 	w = intf.waitWindow(_("Reading"), _("Reading package information..."))
@@ -151,7 +153,6 @@ def readPackages(intf, method, id):
             continue
 
         w.pop()
-        id.instClass.setPackageSelection(hdrlist, intf)
 
     while grpset is None:
         try:
@@ -163,9 +164,11 @@ def readPackages(intf, method, id):
                                  "due to a missing file or bad media.  "
                                  "Press <return> to try again."))
             continue
-        id.instClass.setGroupSelection(grpset, intf)
     id.grpset = grpset
 
+    if doselect:
+        id.instClass.setGroupSelection(grpset, intf)
+        id.instClass.setPackageSelection(hdrlist, intf)
 
 def handleX11Packages(dir, intf, disp, id, instPath):
 
@@ -229,7 +232,7 @@ def checkDependencies(dir, intf, disp, id, instPath):
 
     win.pop()
 
-    if id.dependencies and id.handleDeps == CHECK_DEPS:
+    if depcheck.added and id.handleDeps == CHECK_DEPS:
 	disp.skipStep("dependencies", skip = 0)
         log("FIXME: had dependency problems.  resolved them without informing the user")
 	disp.skipStep("dependencies")
@@ -1242,10 +1245,10 @@ def selectLanguageSupportGroups(grpset, langSupport):
                 # add to the deps in the dependencies structure for the
                 # package.  this should take care of whenever we're
                 # selected
-                grpset.hdrlist[req].addDeps([package])
+                grpset.hdrlist[req].addDeps([package], main = 0)
                 if grpset.hdrlist[req].isSelected():
                     grpset.hdrlist[package].select()
                     sys.stdout.flush()
                     grpset.hdrlist[package].usecount += grpset.hdrlist[req].usecount - 1
-                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount - 1)
+                    group.selectDeps([package], uses = grpset.hdrlist[req].usecount)
     
