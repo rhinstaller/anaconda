@@ -462,7 +462,7 @@ class VideoCardInfo:
                 #self.primaryCard().setDescription(probe[0].desc)
                 
                 if probe[0].mem != 0:
-                    self.primaryCard().setVideoRam(probe[0].mem)
+                    self.primaryCard().setVideoRam("%d" % (probe[0].mem,))
 
         # try to get frame buffer information if we don't know video ram
         if not self.primaryCard().getVideoRam() and self.primaryCard().getDevice():
