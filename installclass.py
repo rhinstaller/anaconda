@@ -373,7 +373,7 @@ class BaseInstallClass:
         if not resolution and not depth:
             # choose a sane default
             log("resolution and depth not specified, trying to be sane")
-            id.xsetup.xhwsetup.choose_sane_default()
+            id.xsetup.xhwstate.choose_sane_default()
             
         if desktop is not None:
             id.desktop.setDefaultDesktop(desktop)
