@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-12 00:43+0200\n"
+"PO-Revision-Date: 2004-10-18 21:59+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -2471,6 +2471,10 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
+"Програмата за инсталација не може да прави надградба на системот со база на "
+"податоци од пред-рпм 4.x. Ве молам инсталирајте ги ерата рпм пакетите за "
+"Вашето издание како што е опишано во белешките, а потоа започнете ја "
+"повторно процедурата за надградба."
 
 #: ../upgrade.py:402
 msgid "An error occurred when finding the packages to upgrade."
@@ -3435,7 +3439,7 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:118
 msgid "Confirm Physical Extent Change"
-msgstr ""
+msgstr "Потврдете ја промената на физичкиот опсег"
 
 #: ../iw/lvm_dialog_gui.py:119
 msgid ""
@@ -3490,6 +3494,8 @@ msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
+"Не можете да го отстраните овој физички дел затоа што групата ќе биде "
+"премала за моментално дефинираните логички делови."
 
 #: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1134
 msgid "Make Logical Volume"
@@ -3607,7 +3613,7 @@ msgstr "Нема слободни слотови"
 #: ../iw/lvm_dialog_gui.py:695
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
+msgstr "Не можете да креирате повеќе од %s логички партиции во една група."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -3636,7 +3642,7 @@ msgstr "Име во употреба"
 #: ../iw/lvm_dialog_gui.py:876
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
+msgstr "Името на групата \"%s\" е веќе искористено. Одберете друго име."
 
 #: ../iw/lvm_dialog_gui.py:920
 msgid "Not enough physical volumes"
@@ -4570,7 +4576,7 @@ msgstr "_RAID членови:"
 
 #: ../iw/raid_dialog_gui.py:386
 msgid "Number of _spares:"
-msgstr ""
+msgstr "Број на _резерви:"
 
 #: ../iw/raid_dialog_gui.py:396
 msgid "_Format partition?"
@@ -5716,6 +5722,9 @@ msgid ""
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
+"Некои од пакетите кои ги означивте за инсталација зависат од други пакети кои "
+"не ги означивте. Ако одберете „Во ред“ сите пакети кои се клучни ќе бидат "
+"инсталирани."
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
@@ -5793,7 +5802,7 @@ msgstr "Краен цилиндер:"
 
 #: ../textw/partition_text.py:474
 msgid "Volume Group:"
-msgstr ""
+msgstr "Група на партиции:"
 
 #: ../textw/partition_text.py:496
 msgid "RAID Level:"
@@ -5921,7 +5930,7 @@ msgstr "Максималниот број на заштити со RAID0 пол�
 
 #: ../textw/partition_text.py:1172
 msgid "No Volume Groups"
-msgstr ""
+msgstr "Нема групи на партиции"
 
 #: ../textw/partition_text.py:1173
 msgid "No volume groups in which to create a logical volume"
@@ -6140,6 +6149,8 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
+"Пакетите кои ги инсталиравте, заедно со другите клучни пакети потребни од кои зависат истите, се означени за инсталација. Дали сакате да ја преуредите "
+"листата на пакети кои ќе бидат инсталирани?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -6151,6 +6162,9 @@ msgid ""
 "and didn't make a mistake in typing. Remember that the root password is a "
 "critical part of system security!"
 msgstr ""
+"Одберете лозинка за root. Мора да ја внесете двапати поради сигурност и "
+"превенција од погрешно внесување. Запомнете дека лозинката на root "
+"претставува критичен дел за безбедноста на Вашиот систем!"
 
 #: ../textw/userauth_text.py:62
 msgid "The root password must be at least 6 characters long."
@@ -6230,6 +6244,9 @@ msgid ""
 "not using the root account casually, you'll reduce the chance of disrupting "
 "your system's configuration."
 msgstr ""
+"Се препорачува да користите нормална корисничка најава за повеќето "
+"активности на Вашиот систем. Со намалување на употребата на root, ги "
+"намалувате шансите за погрешна системска конфигурација."
 
 #: ../textw/userauth_text.py:209
 msgid "User Account Setup"
@@ -6241,6 +6258,9 @@ msgid ""
 "have at least one non-root account for normal work, but multi-user systems "
 "can have any number of accounts set up."
 msgstr ""
+"Кои кориснички сметки ги сакате во Вашиот систем? Се препорачува да имате "
+"најмалку една сметка (освен root) за секојдневна работа, но повеќе-корисничките "
+"системи може да имаат неограничен број на кориснички сметки."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -6414,7 +6434,7 @@ msgstr "вертикално"
 
 #: ../textw/xconfig_text.py:261
 msgid "Invalid Sync Rates"
-msgstr ""
+msgstr "Погрешни вредности за синхронизација (Sync)"
 
 #: ../textw/xconfig_text.py:262
 #, python-format
@@ -6432,7 +6452,7 @@ msgstr ""
 
 #: ../textw/xconfig_text.py:276
 msgid "Monitor Sync Rates"
-msgstr ""
+msgstr "Надгледувај ги вредностите за синк"
 
 #: ../textw/xconfig_text.py:281
 msgid ""
@@ -6552,7 +6572,7 @@ msgstr "Конфигурација на z/IPL"
 
 #: ../textw/zipl_text.py:64 ../textw/zipl_text.py:68
 msgid "Chandev line "
-msgstr ""
+msgstr "Линија на чендев (Chandev) "
 
 #: ../installclasses/custom.py:11
 msgid "_Custom"
@@ -6767,6 +6787,8 @@ msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr ""
+"Имате повеќе уреди од кои можат да послужат како драјвер диск.  "
+"Кој од нив сакате да го употребите?"
 
 #: ../loader2/driverdisk.c:295
 msgid ""
@@ -6935,7 +6957,7 @@ msgstr ""
 
 #: ../loader2/hdinstall.c:368
 msgid "Directory holding images:"
-msgstr ""
+msgstr "Директориум со слики:"
 
 #: ../loader2/hdinstall.c:395
 msgid "Select Partition"
@@ -6949,7 +6971,7 @@ msgstr "Уредот %s изгледа дека не содржи %s ЦДРОМ 
 #: ../loader2/hdinstall.c:470
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
-msgstr ""
+msgstr "Лош параметар во метод командата на ХД кикстарт %s: %s"
 
 #: ../loader2/hdinstall.c:538 ../loader2/hdinstall.c:594
 msgid "Cannot find kickstart file on hard drive."
@@ -6990,7 +7012,7 @@ msgstr "Не можам да го пронајдам ks.cfg на дискета�
 #: ../loader2/kickstart.c:406
 #, c-format
 msgid "Bad argument to shutdown kickstart method command %s: %s"
-msgstr ""
+msgstr "Лош параметар за исклучување на метод командата на кикстарт %s: %s"
 
 #: ../loader2/lang.c:52 ../loader2/loader.c:172
 #, c-format
@@ -7293,6 +7315,10 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Динамичкото барање за ИП адреса беше успешно, но немаше ниту еден "
+"именски опслужувач (DNS). Доколку знаете кој е Вашиот именски опслужувач, "
+"внесете го сега. Инаку, оставете го тоа поле празно и продолжете со "
+"инсталацијата."
 
 #: ../loader2/net.c:235
 msgid "Invalid IP Information"
