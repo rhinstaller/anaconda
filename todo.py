@@ -520,8 +520,32 @@ class ToDo:
         # /etc/hosts
         f = open (self.instPath + "/etc/hosts", "w")
         localline = "127.0.0.1\t\t"
+
+
+        self.log ("self.network.hostname = %s", self.network.hostname)
+
+        # if user assigned a hostname other than localhost.localdomain then
+        # search devices and see if this hostname has a static IP
+        # assignment. If not put it in loopback line to make X happy
+        #
         if self.network.hostname != "localhost.localdomain":
-            localline = localline + self.network.hostname + " "
+            foundhostname = 0
+            self.log ("Looking for dev to match system hostname")
+            for dev in self.network.netdevices.values ():
+                ip = dev.get ("ipaddr")
+                hostname = dev.hostname
+                self.log ("Checking device %s: ip = %s  hostname = %s",
+                          dev.get ("device"), ip, hostname)
+                if hostname and ip and hostname == self.network.hostname:
+                    foundhostname = 1
+                    self.log ("Device %s matched", dev.get ("device"))
+                    break
+
+            self.log ("foundhostname is %d", foundhostname)
+                
+            if not foundhostname:    
+                localline = localline + self.network.hostname + " "
+                
 	localline = localline + "localhost.localdomain localhost\n"
         f.write (localline)
         for dev in self.network.netdevices.values ():
