@@ -693,7 +693,9 @@ class KickstartBase(BaseInstallClass):
                                                 'size=',
                                                 'name=',
                                                 'fstype=',
-                                                'percent='])
+                                                'percent=',
+						'maxsize=',
+						'grow'])
 
         mountpoint = None
         vgname = None
@@ -701,6 +703,8 @@ class KickstartBase(BaseInstallClass):
         name = None
         fstype = None
         percent = None
+	grow = 0
+	maxSizeMB = 0
         format = 1
 
         for n in args:
@@ -715,6 +719,10 @@ class KickstartBase(BaseInstallClass):
                 fstype = arg
             elif str == '--percent':
                 percent = int(arg)
+	    elif str == '--maxsize':
+		maxSizeMB = int(arg)
+	    elif str == '--grow':
+		grow = 1
             else:
                 print str, " ", arg
 
@@ -748,7 +756,9 @@ class KickstartBase(BaseInstallClass):
                                                         size = size,
                                                         percent = percent,
                                                         volgroup = vgid,
-                                                        lvname = name)
+                                                        lvname = name,
+							grow = grow,
+							maxSizeMB=maxSizeMB)
         id.partitions.autoPartitionRequests.append(request)        
                                                         
 
@@ -761,7 +771,7 @@ class KickstartBase(BaseInstallClass):
         # get the unique ids of each of the physical volumes
         for pv in extra[1:]:
             if pv not in self.ksPVMapping.keys():
-                raise RuntimeError, "Tried to use an undefined partition in RAID specification"
+                raise RuntimeError, "Tried to use an undefined partition in Volume Group specification"
             pvs.append(self.ksPVMapping[pv])
 
         if len(pvs) == 0:

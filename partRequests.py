@@ -714,7 +714,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
     
     def __init__(self, fstype, format = None, mountpoint = None,
                  size = None, volgroup = None, lvname = None,
-                 preexist = 0, percent = None):
+                 preexist = 0, percent = None, grow=0, maxSizeMB=0):
         """Create a new VolumeGroupRequestSpec object.
 
         fstype is the fsset filesystem type.
@@ -725,6 +725,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
         lvname is the name of the logical volume.
         preexist is whether the logical volume previously existed or not.
         percent is the percentage of the volume group's space this should use.
+	grow is whether or not to use free space remaining
+	maxSizeMB is max size to grow to
         """
 
         # if it's preexisting, the original fstype should be set
@@ -736,17 +738,22 @@ class LogicalVolumeRequestSpec(RequestSpec):
 	RequestSpec.__init__(self, fstype = fstype, format = format,
 			     mountpoint = mountpoint, size = size,
 			     preexist = preexist, origfstype = origfs)
-
-
 	    
         self.type = REQUEST_LV
 
         self.logicalVolumeName = lvname
         self.volumeGroup = volgroup
         self.percent = percent
-
+        self.grow = grow
+        self.maxSizeMB = maxSizeMB
+        self.startSize = size
+	
         if not percent and not size:
-            raise RuntimeError, "Logical Volume must specify either percentage of vgsize or size"
+            raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume must specify either percentage of vgsize or size" % (volgroup, lvname)
+
+	if percent and grow:
+            raise RuntimeError, "Error with Volume Group:Logical Volume %s:%s - Logical Volume cannot grow if percentage given" % (volgroup, lvname)
+	    
 
     def __str__(self):
         if self.fstype:
@@ -792,6 +799,10 @@ class LogicalVolumeRequestSpec(RequestSpec):
             return lvsize
         else:
             return self.size
+
+    def getStartSize(self):
+        """Return the starting size allocated for the request in megabytes."""
+	return self.startSize
 
     def setSize(self, size):
 	"""Set the size (in MB) of request (does not clamp to PE however)

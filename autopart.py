@@ -18,6 +18,7 @@ import math
 import copy
 import string, sys
 import fsset
+import lvm
 from partitioning import *
 import partedUtils
 import partRequests
@@ -387,6 +388,111 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
 
     return PARTITION_SUCCESS
 
+# grow logical partitions
+#
+# do this ONLY after all other requests have been allocated
+# we just go through and adjust the size for the logical
+# volumes w/o rerunning process partitions
+#
+def growLogicalVolumes(diskset, requests):
+
+    if vgreq is None or diskset is None:
+	return
+
+    # iterate over each volume group, grow logical volumes in each
+    for vgreq in requests.requests:
+	if vgreq.type != REQUEST_VG:
+	    continue
+
+#	print "In growLogicalVolumes, considering VG ", vgreq
+	log("In growLogicalVolumes, considering VG %s", vgreq)
+	lvreqs = requests.getLVMLVForVG(vgreq)
+
+	if lvreqs is None or len(lvreqs) < 1:
+#	    print "Apparently it had no logical volume requests, skipping..."
+	    log("Apparently it had no logical volume requests, skipping...")
+	    continue
+
+	# come up with list of logvol that are growable
+	growreqs = []
+	for lvreq in lvreqs:
+	    if lvreq.grow:
+		growreqs.append(lvreq)
+
+	# bail if none defined
+        if len(growreqs) < 1:
+	    log("No growable logical volumes defined.")
+	    return
+
+	log("VG %s has these growable logical volumes: %s",  vgreq.volumeGroupName, growreqs)
+
+#	print "VG %s has these growable logical volumes: %s" % (vgreq.volumeGroupName, growreqs)
+
+	# store size we are starting at
+	initsize = {}
+	cursize = {}
+	for req in growreqs:
+	    size = req.getActualSize(requests, diskset)
+	    initsize[req.logicalVolumeName] = size
+	    cursize[req.logicalVolumeName] = size
+#	    print "init sizes",req.logicalVolumeName, size
+
+	# now dolly out free space to all growing LVs
+	bailcount = 0
+	while 1:
+	    nochange = 1
+	    completed = []
+	    for req in growreqs:
+#		print "considering ",req.logicalVolumeName, req.getStartSize()
+		
+		# get remaining free space
+		vgfree = lvm.getVGFreeSpace(vgreq, requests, diskset)
+
+#		print "vgfree = ", vgfree
+		
+		# compute fraction of remaining requests this
+		# particular request represents
+		totsize = 0.0
+		for otherreq in growreqs:
+		    if otherreq in completed:
+			continue
+		    
+#		    print "adding in ", otherreq.logicalVolumeName, otherreq.getStartSize(), otherreq.maxSizeMB
+		    size = otherreq.getActualSize(requests, diskset)
+		    if otherreq.maxSizeMB:
+			if size < otherreq.maxSizeMB:
+			    totsize = totsize + otherreq.getStartSize()
+		    else:
+			totsize = totsize + otherreq.getStartSize()
+
+#		print "totsize ->", totsize
+		fraction = float(req.getStartSize())/float(totsize)
+
+		newsize = cursize[req.logicalVolumeName] + vgfree*fraction
+		if req.maxSizeMB:
+		    newsize = min(newsize, req.maxSizeMB)
+		    
+		req.size = lvm.clampLVSizeRequest(newsize, vgreq.pesize)
+		cursize[req.logicalVolumeName] = req.size
+		
+#		print req.logicalVolumeName, req.size, vgfree, fraction
+		
+		if req.size != cursize[req.logicalVolumeName]:
+		    nochange = 0
+
+		completed.append(req)
+
+	    if nochange:
+		log("In growLogicalVolumes, no changes in size so breaking")
+		break
+		
+	    bailcount = bailcount + 1
+	    if bailcount > 10:
+		log("In growLogicalVolumes, bailing after 10 interations.")
+		break
+		
+
+	
 
 # grow partitions
 def growParts(diskset, requests, newParts):
@@ -752,7 +858,11 @@ def processPartitioning(diskset, requests, newParts):
         if request.type == REQUEST_VG:
             request.size = request.getActualSize(requests, diskset)
         if request.type == REQUEST_LV and request.percent:
-            request.size = request.getActualSize(requests, diskset)
+	    if request.grow:
+		request.size = request.getStartSize()
+	    else:
+		request.size = request.getActualSize(requests, diskset)
+		
             vgreq = requests.getRequestByID(request.volumeGroup)
 
     return (PARTITION_SUCCESS, "success")            
@@ -789,8 +899,16 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     if ret != PARTITION_SUCCESS:
         # more specific message?
         raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest().mountpoint)
- 
+
+    # now grow the logical partitions
+    growLogicalVolumes(diskset, requests)
+    
     # make sure our logical volumes still fit
+    #
+    # XXXX should make all this used lvm.getVGFreeSpace() and
+    # lvm.getVGUsedSpace() at some point
+    #
+    
     vgused = {}
     for request in requests.requests:
         if request.type == REQUEST_LV:
