@@ -3,7 +3,7 @@
                         09Kernel Parameter Help07
 
 Some kernel parameters can be specified on the command line and will be
-passed to the running kernel.  This does not include options to modules
+passed to the kernel.  This does not include options to modules for devices 
 such as ethernet cards or devices such as CD-ROM drives.
 
 To pass an option to the kernel, use the following format:
@@ -15,7 +15,7 @@ type the following:
      0flinux mem=128M expert07
 
 To pass options to modules, you will need to use the expert mode to disable
-PCI autoprobing.  When the installation asks for your device type that needs
+PCI autoprobing.  When the installer asks for your device type that needs
 an option or parameter passed to it, there will be a place to type those
 in at that time. 
 
