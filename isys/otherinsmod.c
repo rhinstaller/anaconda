@@ -106,14 +106,18 @@ int insmod(char * modName, char ** args) {
     pid_t child;
     int status;
 
-    argc = 2;
+
+    argc = 0;
     for (argv = args; argv && *argv; argv++, argc++);
 
-    argv = malloc(sizeof(*argv) * (argc + 1));
+    argv = alloca(sizeof(*argv) * (argc + 3));
     argv[0] = "/bin/insmod";
     argv[1] = modName;
     if (args)
-	memcpy(argv + 2, args, argc - 1);
+	memcpy(argv + 2, args, sizeof(*args) * argc);
+    argv[argc + 2] = NULL;
+
+    argc += 2;
 
     if ((child = fork()) == 0) {
 	exit(ourInsmodCommand(argc, argv));
