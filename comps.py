@@ -4,6 +4,9 @@ import types
 
 class Package:
 
+    def __getitem__(self, item):
+	return self.h[item]
+
     def __repr__(self):
 	return self.name
 
@@ -13,6 +16,14 @@ class Package:
 	self.selected = 0
 
 class HeaderList:
+
+    def selected(self):
+	l = []
+ 	keys = self.packages.keys()
+	keys.sort()
+	for name in keys:
+	    if self.packages[name].selected: l.append(self.packages[name])
+	return l
 
     def has_key(self, item):
 	return self.packages.has_key(item)
@@ -70,14 +81,6 @@ class ComponentSet:
 	if (type(key) == types.IntType):
 	    return self.comps[key]
 	return self.compsDict[key]
-
-    def selected(self):
-	l = []
- 	keys = self.packages.keys()
-	keys.sort()
-	for name in keys:
-	    if self.packages[name].selected: l.append(self.packages[name])
-	return l
 
     def readCompsFile(self, arch, filename, packages):
 	file = open(filename, "r")
