@@ -220,6 +220,7 @@ class BaseInstallClass:
 	self.installType = None
 	self.bootProto = None
 	self.ip = ""
+	self.networkDevice = None
 	self.netmask = ""
 	self.gateway = ""
 	self.nameserver = ""
