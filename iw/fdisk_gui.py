@@ -30,10 +30,20 @@ class FDiskWindow (InstallWindow):
 	self.todo.fstab.rescanPartitions()
 
     def getNext(self):
-        from installpath_gui import InstallPathWindow
-        if ((not InstallPathWindow.fdisk) or
-            (not InstallPathWindow.fdisk.get_active ())):
-               return None
+#        from installpath_gui import InstallPathWindow
+###
+###  msf - 05-11-2000 - change how we determine if we should be run
+###        
+#        if ((not InstallPathWindow.fdisk) or
+#            (not InstallPathWindow.fdisk.get_active ())):
+#               return None
+#
+### here is fix
+#
+        from rootpartition_gui import AutoPartitionWindow
+
+        if not AutoPartitionWindow.manuallyPartitionfdisk.get_active():
+           return None
 
 	self.todo.fstab.rescanPartitions()
 
@@ -73,10 +83,22 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (0)
 
     def getScreen (self):
-        from installpath_gui import InstallPathWindow
-        if ((not InstallPathWindow.fdisk) or
-            (not InstallPathWindow.fdisk.get_active ())):
-               return None
+#        from installpath_gui import InstallPathWindow
+#
+###
+###  msf - 05-11-2000 - change how we determine if we should be run
+###        
+#        if ((not InstallPathWindow.fdisk) or
+#            (not InstallPathWindow.fdisk.get_active ())):
+#               return None
+#
+# 
+###  here is fix
+#
+        from rootpartition_gui import AutoPartitionWindow
+
+        if not AutoPartitionWindow.manuallyPartitionfdisk.get_active():
+           return None
 
 	self.todo.fstab.closeDrives()
 

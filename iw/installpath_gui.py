@@ -49,8 +49,8 @@ class InstallPathWindow (InstallWindow):
             BootloaderSkipname = "lilo"            
 
 	self.installSteps = [
-                     FDiskWindow,
 		     ( AutoPartitionWindow, "partition" ),
+                     FDiskWindow,
 		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( BootloaderWindow, BootloaderSkipname ),
@@ -129,13 +129,16 @@ class InstallPathWindow (InstallWindow):
 				       self.todo.intf.messageWindow,
                                        not self.todo.expert)
 
-        # set state of disk druid to be read-only if needed
-        if (InstallPathWindow.fdisk.get_active()):
-            self.todo.fstab.setReadonly(1)
-        else:
-            self.todo.fstab.setReadonly(0)
-
-	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
+###
+### msf - 05-11-2000 - need to move this code!!!!!!
+###            
+#        # set state of disk druid to be read-only if needed
+#        if (InstallPathWindow.fdisk.get_active()):
+#            self.todo.fstab.setReadonly(1)
+#        else:
+#            self.todo.fstab.setReadonly(0)
+#
+#	self.todo.fstab.setRunDruid(InstallPathWindow.fdisk.get_active())
 
     def toggled (self, widget, type):
         if not widget.get_active (): return
@@ -202,10 +205,13 @@ class InstallPathWindow (InstallWindow):
 
 	spacer = GtkLabel("")
 	spacer.set_usize(60, 1)
+###
+### msf - 05-11-2000 need to move!!!
+###
+#	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
+#	align.add (InstallPathWindow.fdisk)
 
-	InstallPathWindow.fdisk = GtkCheckButton (_("Use fdisk"))
 	align = GtkAlignment ()
-	align.add (InstallPathWindow.fdisk)
 	align.set (0.0, 0.0, 0.0, 0.0)
 
 	table = GtkTable(2, 4)
@@ -218,12 +224,17 @@ class InstallPathWindow (InstallWindow):
 	box.pack_start(table, FALSE)
 
 	hbox = GtkHBox (FALSE)
-	if not InstallPathWindow.__dict__.has_key("fdisk"):
-	    fdiskState = 0
-	else:
-	    fdiskState = InstallPathWindow.fdisk.get_active()
 
-	InstallPathWindow.fdisk.set_active(fdiskState)
+        
+###
+### msf - 05-11-2000 need to move!!!
+###
+#	if not InstallPathWindow.__dict__.has_key("fdisk"):
+#	    fdiskState = 0
+#	else:
+#	    fdiskState = InstallPathWindow.fdisk.get_active()
+#
+#	InstallPathWindow.fdisk.set_active(fdiskState)
 
         self.toggled (installButton, INSTALL)
         self.toggled (self.upgradeButton, UPGRADE)

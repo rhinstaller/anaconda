@@ -8,6 +8,11 @@ from fdisk_gui import *
 import isys
 import iutil
 
+CHOICE_FDISK = 1
+CHOICE_DDRUID = 2
+CHOICE_AUTOPART = 3
+
+
 class ConfirmPartitionWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
@@ -162,32 +167,49 @@ class AutoPartitionWindow(InstallWindow):
 
     def getNext(self):
 	if not self.beingDisplayed: return
-
-	if not self.__dict__.has_key("manuallyPartition"):
-            # if druid wasn't running, must have been in autopartition mode
-            # clear fstab cache so we don't get junk from attempted
-            # autopartitioning
-            clearcache = not self.todo.fstab.getRunDruid()
-	    self.todo.fstab.setRunDruid(1)
-            #print "Rescanning partitions 1 - ", clearcache
-            self.todo.fstab.rescanPartitions(clearcache)
-	    self.todo.instClass.removeFromSkipList("format")
-	elif self.manuallyPartition.get_active():
-            del self.druid
+###
+###    msf - 05/11/2000 - removed this block shouldnt be needed with changes
+###
+#
+#	if not self.__dict__.has_key("manuallyPartitionddruid"):
+#            # if druid wasn't running, must have been in autopartition mode
+#            # clear fstab cache so we don't get junk from attempted
+#            # autopartitioning
+#            print "number 1"
+#            clearcache = not self.todo.fstab.getRunDruid()
+#	    self.todo.fstab.setRunDruid(1)
+#            self.todo.fstab.setReadonly(0)
+#            #print "Rescanning partitions 1 - ", clearcache
+#            self.todo.fstab.rescanPartitions(clearcache)
+#	    self.todo.instClass.removeFromSkipList("format")
+	if AutoPartitionWindow.manuallyPartitionddruid.get_active():
+            if self.druid:
+                del self.druid
             # see comment above about clearing cache
-            clearcache = not self.todo.fstab.getRunDruid()
+
+            if self.lastChoice != CHOICE_DDRUID:
+                clearcache = 1
+            else:
+                clearcache = 0
+#            clearcache = not self.todo.fstab.getRunDruid()
 	    self.todo.fstab.setRunDruid(1)
+            self.todo.fstab.setReadonly(0)
             #print "Rescanning partitions 2 - ", clearcache
 	    self.todo.fstab.rescanPartitions(clearcache)
 	    self.todo.instClass.removeFromSkipList("format")
+            self.lastChoice = CHOICE_DDRUID
+        elif AutoPartitionWindow.manuallyPartitionfdisk.get_active():
+            self.todo.fstab.setRunDruid(0)
+            self.todo.fstab.setReadonly(1)
+            self.lastChoice = CHOICE_FDISK
 	else:
 	    self.todo.fstab.setRunDruid(0)
 	    self.todo.fstab.setDruid(self.druid, self.todo.instClass.raidList)
 	    self.todo.fstab.formatAllFilesystems()
 	    self.todo.instClass.addToSkipList("format")
+            self.lastChoice = CHOICE_AUTOPART
 
 	self.beingDisplayed = 0
-	    
 	return None
 
     def __init__(self, ics):
@@ -195,14 +217,10 @@ class AutoPartitionWindow(InstallWindow):
         ics.setTitle (_("Automatic Partitioning"))
 	self.druid = None
 	self.beingDisplayed = 0
+        self.lastChoice = None
 
     def getScreen (self):   
-        from installpath_gui import InstallPathWindow
 
-        if (InstallPathWindow.fdisk and
-            InstallPathWindow.fdisk.get_active ()):
-		return None
-        
         # XXX hack
         if self.todo.instClass.clearType:
             self.ics.readHTML (self.todo.instClass.clearType)
@@ -210,52 +228,107 @@ class AutoPartitionWindow(InstallWindow):
 	todo = self.todo
 	self.druid = None
 
+# user selected an install type which had predefined partitioning
+# attempt to automatically allocate these partitions.
+#
+# if this fails we drop them into disk druid
+#
+        attemptedPartitioningandFailed = 0
 	if self.todo.instClass.partitions:
 	    self.druid = \
 		todo.fstab.attemptPartitioning(todo.instClass.partitions,
                                                todo.instClass.fstab,
 					       todo.instClass.clearParts)
-	self.ics.setNextEnabled (TRUE)
 
-	if not self.druid:
-	    # auto partitioning failed
-	    self.todo.fstab.setRunDruid(1)
-	    return
+            if not self.druid:
+                attemptedPartitioningandFailed = 1
 
-	if not todo.getPartitionWarningText():
+#
+# if no warning text means we have carte blanc to blow everything away
+# without telling user
+#
+	if not todo.getPartitionWarningText() and self.druid:
+
+            self.ics.setNextEnabled (TRUE)
+
 	    self.todo.fstab.setRunDruid(0)
 	    self.todo.fstab.setDruid(self.druid)
 	    self.todo.fstab.formatAllFilesystems()
 	    self.todo.instClass.addToSkipList("format")
 	    return
 
-	label = \
-           GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
-	      "this install by partitioning manually, or you can go back "
-	      "and perform a fully customized installation.") % 
-		    (_(todo.getPartitionWarningText()), ))
+#
+# see what means the user wants to use to partition
+#
+        self.todo.fstab.setRunDruid(1)
+        self.todo.fstab.setReadonly(0)
 
-	label.set_line_wrap(TRUE)
-	label.set_alignment(0.0, 0.0)
-	label.set_usize(400, -1)
-
+        if self.druid:
+            self.ics.setTitle (_("Automatic Partitioning"))
+            label = \
+                  GtkLabel(_("%s\n\nIf you don't want to do this, you can continue with "
+                             "this install by partitioning manually, or you can go back "
+                             "and perform a fully customized installation.") % 
+                           (_(todo.getPartitionWarningText()), ))
+        else:
+            if attemptedPartitioningandFailed:
+                self.ics.setTitle (_("Automatic Partitioning Failed"))
+                label = GtkLabel(_("\nThere is not sufficient disk space in "
+                                   "order to automatically partition your disk. "
+                                   "You will need to manually partition your "
+                                   "disks for Red Hat Linux to install."
+                                   "\n\nPlease choose the tool you would like to "
+                                   "use to partition your system for Red Hat Linux."))
+            else:
+                self.ics.setTitle (_("Manual Partitioning"))
+                label = GtkLabel(_("\nPlease choose the tool you would like to "
+                                   "use to partition your system for Red Hat Linux."))
+            
+        label.set_line_wrap(TRUE)
+        label.set_alignment(0.0, 0.0)
+        label.set_usize(380, -1)
+            
         box = GtkVBox (FALSE)
 	box.pack_start(label, FALSE)
         box.set_border_width (5)
 
         radioBox = GtkVBox (FALSE)
-	self.continueChoice = GtkRadioButton (None, _("Remove data"))
-	radioBox.pack_start(self.continueChoice, FALSE)
-	self.manuallyPartition = GtkRadioButton(
-		self.continueChoice, _("Manually partition"))
-	radioBox.pack_start(self.manuallyPartition, FALSE)
 
+        if self.druid:
+            self.continueChoice = GtkRadioButton (None, _("Automatically partition and REMOVE DATA"))
+            radioBox.pack_start(self.continueChoice, FALSE)
+            firstbutton = self.continueChoice
+        else:
+            firstbutton = None
+        
+	AutoPartitionWindow.manuallyPartitionddruid = GtkRadioButton(
+		firstbutton, _("Manually partition with Disk Druid"))
+
+        if self.lastChoice == CHOICE_DDRUID:
+            AutoPartitionWindow.manuallyPartitionddruid.set_active(1)
+
+        if firstbutton == None:
+            secondbutton = AutoPartitionWindow.manuallyPartitionddruid
+        else:
+            secondbutton = firstbutton
+            
+	radioBox.pack_start(AutoPartitionWindow.manuallyPartitionddruid, FALSE)
+	AutoPartitionWindow.manuallyPartitionfdisk = GtkRadioButton(
+		secondbutton, _("Manually partition with fdisk [experts only]"))
+	radioBox.pack_start(AutoPartitionWindow.manuallyPartitionfdisk, FALSE)
+
+        if self.lastChoice == CHOICE_FDISK:
+            AutoPartitionWindow.manuallyPartitionfdisk.set_active(1)
+            
 	align = GtkAlignment()
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
 
 	box.pack_start(align, TRUE, TRUE)
 	box.set_border_width (5)
+
+        self.ics.setNextEnabled (TRUE)
+
 	self.beingDisplayed = 1
 	return box
 
