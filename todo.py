@@ -899,7 +899,8 @@ class ToDo:
 	    p = os.pipe()
 	    os.write(p[1], password + "\n")
 	    iutil.execWithRedirect(argv[0], argv, root = todo.instPath, 
-				   stdin = p[0], stdout = devnull)
+				   stdin = p[0], stdout = devnull, 
+				   stderr = devnull)
 	    os.close(p[0])
 	    os.close(p[1])
 	    os.close(devnull)
