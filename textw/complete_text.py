@@ -48,7 +48,7 @@ class FinishedWindow:
                "http://www.redhat.com/errata.\n\n"
                "Information on using your "
                "system is available in the Red Hat Linux manuals at "
-               "http://www.redhat.com/support/manuals.") %
+               "http://www.redhat.com/docs.") %
                                  (floppystr, bootstr),
                                  [ _("OK") ], help = "finished", width=60)
 
