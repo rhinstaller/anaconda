@@ -24,6 +24,7 @@ import partedUtils
 import string
 import shutil
 import lvm
+import hdrlist
 from flags import flags
 from fsset import *
 from partitioning import *
@@ -328,7 +329,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     if not rebuildTime:
 	rebuildTime = str(int(time.time()))
     try:
-        method.mergeFullHeaders(id.hdList)
+        method.mergeFullHeaders(id.grpset.hdrlist)
     except FileCopyException:
         method.unmountCD()
         intf.messageWindow(_("Error"),
@@ -377,7 +378,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             except:
                 log("failed to unlink /var/lib/rpm/%s" %(file,))
 
-	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
+	packages = findpackageset.findpackageset(id.grpset.hdrlist.hdlist,
+                                                 instPath)
     except rpm.error:
         if id.dbpath is not None:
             resetRpmdb(id.dbpath, instPath)
@@ -388,16 +390,16 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 	sys.exit(0)
 	    
     # Turn off all comps
-    for comp in id.comps:
-	comp.unselect()
+    id.grpset.unselectAll()
 
     # unselect all packages
-    for package in id.hdList.packages.values():
-	package.selected = 0
+    for package in id.grpset.hdrlist.pkgs.values():
+	package.usecount = 0
+        package.manual_state = 0
 
     # turn on the packages in the upgrade set
     for package in packages:
-	id.hdList[package[rpm.RPMTAG_NAME]].select()
+	id.grpset.hdrlist[hdrlist.nevra(package)].select()
 
     # open up the database to check dependencies and currently
     # installed packages
@@ -549,7 +551,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
     # FIXME: generalize so that specific bits aren't needed
     if iutil.getArch() == "i386" and id.bootloader.useGrub():
         log("Upgrade: User selected to use GRUB for bootloader")
-        if id.hdList.has_key("grub") and not id.hdList["grub"].isSelected():
+        if id.grpset.hdrlist.has_key("grub") and not id.grpset.hdrlist["grub"].isSelected():
             log("Upgrade: grub is not currently selected to be upgraded")
             h = ts.dbMatch('name', 'grub').next()
             if h is None:
@@ -557,10 +559,10 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         "system, selecting GRUB")
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
                 log(text)
-                id.hdList["grub"].select()
+                id.grpset.hdrlist["grub"].select()
     if iutil.getArch() == "i386" and not id.bootloader.useGrub():
         log("Upgrade: User selected to use LILO for bootloader")
-        if id.hdList.has_key("lilo") and not id.hdList["lilo"].isSelected():
+        if id.grpset.hdrlist.has_key("lilo") and not id.grpset.hdrlist["lilo"].isSelected():
             log("Upgrade: lilo is not currently selected to be upgraded")
             h = ts.dbMatch('name', 'lilo').next()
             if h is None:
@@ -568,7 +570,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         "system, selecting LILO")
                 id.upgradeDeps ="%s%s\n" % (id.upgradeDeps, text)
                 log(text)
-                id.hdList["lilo"].select()
+                id.grpset.hdrlist["lilo"].select()
                 
 
     h = ts.dbMatch('name', 'gnome-core').next()
@@ -578,8 +580,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         for pkg in ("gnome-terminal", "gnome-desktop", "gnome-session",
                     "gnome-panel", "metacity", "file-roller", "yelp",
                     "nautilus"):
-            if id.hdList.has_key(pkg) and not id.hdList[pkg].isSelected():
-                id.hdList[pkg].select()
+            if id.grpset.hdrlist.has_key(pkg) and not id.grpset.hdrlist[pkg].isSelected():
+                id.grpset.hdrlist[pkg].select()
                 upgraded.append(pkg)
 
         text = ("Upgrade: gnome-core is on the system.  Selecting packages "
@@ -588,8 +590,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
     # if they have up2date-gnome, they probably want the applet now too
     # since it works in both gnome and kde
-    if (id.hdList.has_key("rhn-applet")
-        and not id.hdList["rhn-applet"].isSelected()):
+    if (id.grpset.hdrlist.has_key("rhn-applet")
+        and not id.grpset.hdrlist["rhn-applet"].isSelected()):
         log("Upgrade: rhn-applet is not currently selected to be upgraded")
         h = ts.dbMatch('name', 'up2date-gnome').next()
 
@@ -601,7 +603,7 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                         "rhn-applet to be installed")
                 id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
                 log(text)
-                id.hdList["rhn-applet"].select()
+                id.grpset.hdrlist["rhn-applet"].select()
 
     # now some upgrade removal black list checking... there are things that
     # if they were installed in the past, we want to remove them because
@@ -616,14 +618,16 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             id.upgradeRemove.append(pkg)
 
     # new package dependency fixup
-    deps = id.comps.verifyDeps(instPath, 1)
-    for (name, suggest) in deps:
-        if suggest != _("no suggestion"):
-            text = ("Upgrade Dependency: %s needs %s, "
-                    "automatically added." % (name, suggest))
-            log(text)
-            id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
-    id.comps.selectDeps(deps)
+    depcheck = hdrlist.DependencyChecker(id.grpset, how = "u")
+    for p in id.grpset.hdrlist.pkgs.values():
+        if p.isSelected():
+            ts.addInstall(p.hdr, p.hdr, "u")
+    deps = ts.check(depcheck.callback)
+    for pkgnevra in deps:
+        text = ("Upgrade Dependency: Needs %s, "
+                "automatically added." % (pkgnevra,))
+        #            log(text)
+        id.upgradeDeps = "%s%s\n" % (id.upgradeDeps, text)
 
     win.pop()
 

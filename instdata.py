@@ -23,6 +23,7 @@ import fsset
 import bootloader
 import partitions
 import partedUtils
+import hdrlist
 from flags import *
 from constants import *
 
@@ -148,7 +149,6 @@ class InstallData:
 	self.accounts.writeKScommands(f, self.auth)
 
     def writePackagesKS(self, f):
-        return
 	f.write("\n%packages")
         if self.handleDeps == IGNORE_DEPS:
             f.write(" --ignoredeps\n")
@@ -159,66 +159,50 @@ class InstallData:
 	packages = {}
         forcedoff = {}
         forcedon = {}
-	for comp in self.comps:
-	    if comp.isSelected():
-		if (comp.isSelected(justManual = 1) and comp.name != "Base"
-                    and comp.name != "Core"):
-		    f.write("@ %s\n" % comp.name)
+	for group in self.grpset.groups.values():
+	    if group.isSelected():
+		if (group.isSelected(justManual = 1) and group.id != "base"
+                    and group.id != "core"):
+		    f.write("@ %s\n" % group.id)
 
-                for metapkg in comp.metapkgs.keys():
-                    (type, on) = comp.metapkgs[metapkg]
-                    default = comp.metadef[metapkg]
-                    if on == 1 and default == 0:
-                        f.write("@ %s\n" % metapkg.name)
-                    elif on == 0 and default == 1:
-                        # this isn't quite right
-                        for pkg in metapkg.newpkgDict.keys():
-                            forcedoff[pkg.name] = 1
+#                 for metapkg in comp.metapkgs.keys():
+#                     (type, on) = comp.metapkgs[metapkg]
+#                     default = comp.metadef[metapkg]
+#                     if on == 1 and default == 0:
+#                         f.write("@ %s\n" % metapkg.name)
+#                     elif on == 0 and default == 1:
+#                         # this isn't quite right
+#                         for pkg in metapkg.newpkgDict.keys():
+#                             forcedoff[pkg.name] = 1
 
-		for pkg in comp.newpkgDict.keys():
+                for (pkgnevra, pkg) in group.packages.items():
+                    name = self.grpset.hdrlist[pkgnevra].name
                     # if it's in base or core, it really should be installed
-                    if comp.name == "Base" or comp.name == "Core":
-                        packages[pkg.name] = 1
-                    elif comp.newpkgDict.has_key(pkg):
-                        (type, installed) = comp.newpkgDict[pkg]
-                        # if it's mandatory, put it in the dict of ones
-                        # already handled
-                        if type == 0:
-                            packages[pkg.name] = 1
+                    if group.id == "base" or group.id == "core":
+                        packages[name] = 1
+                    else:
+                        if pkg["type"] == hdrlist.PKGTYPE_MANDATORY:
+                            packages[name] = 1
                         else:
-                            if comp.optDict.has_key(pkg):
-                                type = comp.optDict[pkg]
-                                # it's default and selected for installation
-                                if type == 1 and installed == 1:
-                                    packages[pkg.name] = 1
-                                # default and off
-                                elif type == 1 and installed == 0:
-                                    forcedoff[pkg.name] = 1
-                                # optional and on
-                                elif type == 2 and installed == 1:
-                                    forcedon[pkg.name] = 1
-                                # optional and off
-                                elif type == 2 and installed == 0:
-                                    pass
-                            else:
-                                # otherwise it's optional -- if it's off, we
-                                # should mark it as forced off so that it
-                                # gets listed as such in the comps file
-                                if installed == 0:
-                                    forcedoff[pkg.name] = 1
-                    # or if it's there as a dep, pretend we don't care
-                    elif comp.depsDict.has_key(pkg.name):
-                        packages[pkg.name] = 1
+                            if ((pkg["type"] == hdrlist.PKGTYPE_DEFAULT) and
+                                (pkg["state"] in hdrlist.ON_STATES)):
+                                packages[name] = 1
+                            elif ((pkg["type"] == hdrlist.PKGTYPE_DEFAULT) and
+                                  (pkg["state"] in hdrlist.OFF_STATES)):
+                                forcedoff[name] = 1
+                            elif ((pkg["type"] == hdrlist.PKGTYPE_OPTIONAL) and
+                                  (pkg["state"] in hdrlist.ON_STATES)):
+                                forcedon[name] = 1
+                            elif ((pkg["type"] == hdrlist.PKGTYPE_OPTIONAL) and
+                                  (pkg["state"] not in hdrlist.ON_STATES)):
+                                pass
 
-                for pkg in comp.depsDict.keys():
-                    packages[pkg] = 1
-                        
-
-	for pkg in self.hdList.values():
-	    if pkg.isSelected() and (forcedon.has_key(pkg.name) or
-                                     not packages.has_key(pkg.name)):
+	for pkg in self.grpset.hdrlist.values():
+            if ((pkg.isSelected() and pkg.manual_state == 2) or
+                (forcedon.has_key(pkg.name))):
 		f.write("%s\n" % pkg.name)
-            if pkg.wasForcedOff() or forcedoff.has_key(pkg.name):
+            if ((not pkg.isSelected() and pkg.manual_state == -2) or
+                forcedoff.has_key(pkg.name)):
                 f.write("-%s\n" %(pkg.name))
 
     def __init__(self, extraModules, floppyDevice, configFileData, methodstr):
