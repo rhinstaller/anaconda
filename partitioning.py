@@ -50,7 +50,7 @@ def partitionObjectsInitialize(diskset, partitions, dir, intf):
 
     # read in drive info
     diskset.refreshDevices(intf, partitions.reinitializeDisks,
-                           partitions.zeroMbr)
+                           partitions.zeroMbr, partitions.autoClearPartDrives)
 
     diskset.checkNoDisks(intf)
 
