@@ -656,7 +656,8 @@ static char * mountHardDrive(struct installMethod * method,
 			      "additional devices?"));
 	    if (rc == 2) return NULL;
 
-	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
+			  floppyDevice, flags, 
 			  NULL);
 	    kdFindScsiList(kd, 0);
 
@@ -725,7 +726,8 @@ static char * mountHardDrive(struct installMethod * method,
 	if (es.reason == NEWT_EXIT_COMPONENT && es.u.co == back) {
 	    return NULL;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
-	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, flags, 
+	    devDeviceMenu(DRIVER_SCSI, modInfo, modLoaded, modDepsPtr, 
+			  floppyDevice, flags, 
 			  NULL);
 	    kdFindScsiList(kd, 0);
 	    continue;
