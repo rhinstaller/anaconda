@@ -441,7 +441,6 @@ PrintMotd yes
 XAuthLocation /sbin/xauth
 KeepAlive yes
 SyslogFacility AUTHPRIV
-RhostsAuthentication no
 RSAAuthentication yes
 PasswordAuthentication yes
 PermitEmptyPasswords yes
@@ -634,6 +633,9 @@ EOF
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
     if [ "$BUILDARCH" != "s390" -a "$BUILDARCH" != "s390x" ]; then
 	install -s -m 755 $LOADERBINDIR/init $MBD_DIR/sbin
+	ln -s ./init $MBD_DIR/sbin/shutdown
+	ln -s ./init $MBD_DIR/sbin/halt
+	ln -s ./init $MBD_DIR/sbin/poweroff
     else
 	install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
 	install -m 755 $IMGPATH/usr/lib/anaconda-runtime/loader/linuxrc.s390 $MBD_DIR/sbin/init
