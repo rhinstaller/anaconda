@@ -54,7 +54,7 @@ int main(int argc, char ** argv) {
 
     if (verbose) fprintf(stderr, "found %d valid keymaps\n", count);
 
-    if (verbose) fprintf(stderr"creating keymap file %s\n", argv[1]);
+    if (verbose) fprintf(stderr, "creating keymap file %s\n", argv[1]);
     if ((out = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 1) {
 	perror("open keymap");
 	exit(1);
