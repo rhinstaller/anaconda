@@ -169,6 +169,13 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
     int done = 0;
 
     do { 
+	if (FL_EXPERT(flags)) {
+	    rc = newtWinChoice(_("Devices"), _("Yes"),
+			       _("No"),
+			       _("Do you have a driver disk?"));
+	    if (rc == 2) return LOADER_BACK;
+	}
+
 	rc = newtWinChoice(_("Devices"), _("OK"), 
 		cancelNotBack ? _("Cancel") : _("Back"),
 		_("Insert your driver disk and press \"OK\" to continue."));
