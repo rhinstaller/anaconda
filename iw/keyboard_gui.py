@@ -69,7 +69,6 @@ class KeyboardWindow (InstallWindow):
 	self.kbd = kbd
         self.x = x
 
-        print x.getKeyboard()
         rules, model, layout, variant, options = x.getKeyboard()
         self.model = model
         self.layout = layout
