@@ -224,6 +224,7 @@ class reiserfsFileSystem(FileSystemType):
         self.formattable = 1
         self.checked = 1
         self.linuxnativefs = 1
+        self.supported = 0
         self.name = "reiserfs"
 
         self.maxSize = 2 * 1024 * 1024
