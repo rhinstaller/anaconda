@@ -17,7 +17,7 @@
 import os, iutil
 import string
 import language
-from xf86config import XF86Config
+
 from instdata import InstallData
 from partitioning import *
 
@@ -335,7 +335,8 @@ class BaseInstallClass:
     def configureX(self, id, server = None, card = None, videoRam = None, monitorName = None, hsync = None, vsync = None, resolution = None, depth = None, noProbe = 0, startX = 0):
         import rhpl.videocard as videocard
         import rhpl.monitor as monitor
-
+	import rhpl.xhwstate as xhwstate
+	import xsetup
 
         # XXX they could have sensitive hardware, but we need this info =\
         videohw = videocard.VideoCardInfo()
@@ -408,36 +409,44 @@ class BaseInstallClass:
         else:
             id.desktop.setDefaultRunLevel(3)
 
-        xcfg = XF86Config(id.videocard.primaryCard(), id.monitor, id.mouse,
-                          id.keyboard)
-## 	xkb = id.keyboard.getXKB()
-## 	if xkb:
-##             apply(xcfg.setKeyboard, xkb)
-        
+        xcfg = xhwstate.XF86HardwareState(defcard=id.videocard, defmon=id.monitor)
+	availableDepths = xcfg.available_color_depths()
 
-        available = xcfg.availableModes()
-        
         if resolution and depth:
-            if depth not in id.videocard.possible_depths():
+	    if depth not in availableDepths:
                 raise RuntimeError, "Invalid depth specified"
             # XXX should we fallback to our "best possible" here?
-            if resolution not in available[depth]:
-                raise RuntimeError, "Selected resolution and bitdepth not possible with video ram detected.  Perhaps you need to specify video ram"
-        else:
-            if len(available) == 1:
-                depth = "8"
-            elif len(available) >= 2:
-                depth = "16"
 
-            if "1024x768" in available[depth]:
+	    xcfg.set_colordepth(depth)
+	    availableRes = xcfg.available_resolutions()
+	    
+	    if resolution not in availableRes:
+                 fbres = availableRes[-1]
+                 log(_("Resolution requested %s is not supported."),resolution)
+		 log(_("Falling back to %s."), fbres)
+		 log(_("To avoid this you may need to specify the videocard and "))
+		 log(_("monitor specs on the xconfig ks directive if they were "))
+		 log(_("not probed correctly."))
+		 resolution = fbres
+        else:
+            if len(availableDepths) == 1:
+                depth = 8
+            elif len(availableDepths) >= 2:
+                depth = 16
+
+	    xcfg.set_colordepth(depth)
+	    availableRes = xcfg.available_resolutions()
+
+	    if "1024x768" in availableRes:
                 resolution = "1024x768"
-            elif "800x600" in available[depth]:
+            elif "800x600" in availableRes:
                 resolution = "800x600" 
             else:
                 resolution = "640x480"
 
-        xcfg.setManualModes( { depth: [ resolution ] } )
-        id.setXconfig(xcfg)
+	xcfg.set_resolution(resolution)
+	xsetup = xsetup.XSetup(xcfg)
+        id.setXSetup(xsetup)
 
 
     def setMouse(self, id, mouseType, device = None, emulThree = -1):
