@@ -42,6 +42,8 @@ class ManualPartitionWindow:
 	driveNames.sort (isys.compareDrives)
 
 	choices = []
+	haveEdited = 0
+
 	for device in driveNames:
 	    descrip = drives[device]
 	    if descrip:
@@ -62,6 +64,8 @@ class ManualPartitionWindow:
 		  (_("Back"), "back") ], width = 50)
 
 	    if button != "done" and button != "back":
+		haveEdited = 1
+		todo.ddruid = None	# free our fd's to the hard drive
 		device = driveNames[choice]
 		screen.suspend ()
 		if os.access("/sbin/fdisk", os.X_OK):
@@ -82,11 +86,20 @@ class ManualPartitionWindow:
                     pass
 		screen.resume ()
 
+        if haveEdited:
+	    drives = todo.drives.available ().keys ()
+	    drives.sort (isys.compareDrives)
+
+	    fstab = []
+	    for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
+		fstab.append ((dev, mntpoint))
+
+	    todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr)
+
 	if button == "back":
 	    return INSTALL_BACK
 
 	return INSTALL_OK
-
 
 class AutoPartitionWindow:
     def __call__(self, screen, todo):
