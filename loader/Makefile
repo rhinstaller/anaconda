@@ -36,6 +36,9 @@ CFLAGS = $(COPTS) $(OPTS) -ffunction-sections -D_GNU_SOURCE=1 -D_FILE_OFFSET_BIT
 ifeq (i386, $(ARCH))
 CFLAGS += -DGZLIB=1
 endif
+ifeq (ppc, $(ARCH))
+CFLAGS += -DGZLIB=1
+endif
 
 ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 
