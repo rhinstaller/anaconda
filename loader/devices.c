@@ -510,7 +510,7 @@ static char * filterDriverModules(struct driverDiskInfo * ddi,
 	    sprintf(toPath, "/tmp/modules/%s", modNames[0]);
 	    mkdirChain(toPath);
 	    strcat(toPath, "/modules.cgz");
-	    to = gunzip_open(toPath);
+	    to = gzip_open(toPath, O_TRUNC | O_RDWR | O_CREAT, 0600);
 
 	    /* This message isn't good, but it'll do. */
 	    winStatus(50, 3, _("Loading"), _("Loading %s driver..."), 
@@ -549,12 +549,14 @@ char ** extractModules(struct driverDiskInfo * ddi,
     int rc;
     const char * failedFile;
     char fn[255];
+    struct stat sb;
 
     /* this needs to know about modules64.cgz for sparc */
 
     uname(&u);
 
     if (ddi) {
+	logMessage("looking for drivers on driver disk");
 	ballPath = filterDriverModules(ddi, modNames);
     } else {
 	ballPath = strdup("/modules/modules.cgz");
@@ -600,10 +602,10 @@ char ** extractModules(struct driverDiskInfo * ddi,
 	if (!oldPaths[i]) {
 	    /* can't trust map; the order changed thanks to qsort */
 	    sprintf(fn, "/tmp/%s.o", modNames[i]);
-	    if (!access(fn, R_OK)) {
+	    if (!stat(fn, &sb)) {
 		if (ddi)
-		    logMessage("module %s found on driver disk %s", 
-				modNames[i], ddi->title);
+		    logMessage("module %s found on driver disk %s (%d bytes)", 
+				modNames[i], ddi->title, sb.st_size);
 		oldPaths[i] = strdup(fn);
 	    }
 	    numMaps++;
