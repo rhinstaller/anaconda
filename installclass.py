@@ -20,6 +20,9 @@ class InstallClass:
     def setMouseType(self, name, device = None, emulateThreeButtons = 0):
 	self.mouse = (name, device, emulateThreeButtons)
 
+    def postAction(self, rootPath, serial):
+	pass
+
     def setLiloInformation(self, location, linear = 1, appendLine = None):
 	# this throws an exception if there is a problem
 	["mbr", "partition", None].index(location)
@@ -180,10 +183,6 @@ class InstallClass:
 
     def setKeyboard(self, kb):
 	self.keyboard = kb
-
-    def setPostScript(self, postScript, inChroot = 1):
-	self.postScript = postScript
-	self.postInChroot = inChroot
 
     def __init__(self):
 	self.skipSteps = {}
