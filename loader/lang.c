@@ -245,20 +245,22 @@ void setLanguage (char * key, int flags) {
     if (!languages) loadLanguageList(flags);
 
     for (i = 0; i < numLanguages; i++) {
-	if (!strcmp(languages[i].key, key)) {
-	    if (!strcmp(languages[i].font, "Kon") && !haveKon)
-		break;
-	    if (!strcmp(languages[i].font, "None"))
-		break;
-	    setenv("LANG", languages[i].lc_all, 1);
-	    setenv("LANGKEY", languages[i].key, 1);
-	    setenv("LC_ALL", languages[i].lc_all, 1);
-	    setenv("LINGUAS", languages[i].lc_all, 1);
-	    loadLanguage (NULL, flags);
-	    if (languages[i].map)
-		loadFont(languages[i].map, 0);
-	    break;
-	}
+        if (!strcmp(languages[i].key, key)) {
+#if !defined (__s390__) && !defined (__s390x__)
+            if (!strcmp(languages[i].font, "Kon") && !haveKon)
+                break;
+#endif
+            if (!strcmp(languages[i].font, "None"))
+                break;
+            setenv("LANG", languages[i].lc_all, 1);
+            setenv("LANGKEY", languages[i].key, 1);
+            setenv("LC_ALL", languages[i].lc_all, 1);
+            setenv("LINGUAS", languages[i].lc_all, 1);
+            loadLanguage (NULL, flags);
+            if (languages[i].map)
+                loadFont(languages[i].map, 0);
+            break;
+        }
     }
 }
 
@@ -340,13 +342,16 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* only set the environment variables when we actually have a way
        to display the language */
+#if !defined (__s390__) && !defined (__s390x__)
     if ((!strcmp(languages[choice].font, "Kon") && haveKon) ||
 	(strcmp(languages[choice].font, "None") &&
-	 strcmp(languages[choice].font, "Kon"))) {
-	setenv("LANG", languages[choice].lc_all, 1);
-	setenv("LANGKEY", languages[choice].key, 1);
-	setenv("LC_ALL", languages[choice].lc_all, 1);
-	setenv("LINGUAS", languages[choice].lc_all, 1);
+	 strcmp(languages[choice].font, "Kon")))
+#endif
+	{
+	    setenv("LANG", languages[choice].lc_all, 1);
+		 setenv("LANGKEY", languages[choice].key, 1);
+	    setenv("LC_ALL", languages[choice].lc_all, 1);
+		 setenv("LINGUAS", languages[choice].lc_all, 1);
     }
     
     if (strings) {
@@ -373,6 +378,11 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* load the language only if it is displayable */
     /* If we need kon and have it, or if it's not kon or none, load the lang */
+    /* S/390 is different because everything depends on the capabilities */
+    /* of the xterm/kterm... from which anaconda will be started */
+#if defined (__s390__) || defined (__s390x__)
+   loadLanguage (NULL, flags);
+#else
     if ((!strcmp(languages[choice].font, "None")) ||
 	((!strcmp(languages[choice].font, "Kon")) && (!haveKon))) {
 	newtWinMessage("Language Unavailable", "OK", 
@@ -383,6 +393,7 @@ int chooseLanguage(char ** lang, int flags) {
     } else {
 	loadLanguage (NULL, flags);
     }
+#endif	
 
     if (languages[choice].map)
 	loadFont(languages[choice].map, flags);
