@@ -469,7 +469,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         else if (numExtraArgs < (MAX_EXTRA_ARGS - 1)) {
             /* go through and append args we just want to pass on to */
             /* the anaconda script, but don't want to represent as a */
-            /* LOADER_FLAG_XXX since loader doesn't care about these */
+            /* LOADER_FLAGS_XXX since loader doesn't care about these */
             /* particular options.                                   */
 
 	    /* do vncpassword case first */
@@ -491,7 +491,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 numExtraArgs = numExtraArgs + 1;
         
                 if (numExtraArgs > (MAX_EXTRA_ARGS - 2)) {
-                    logMessage("Too many command line arguments (max allowed is %s), "
+                    logMessage("Too many command line arguments (max allowed is %d), "
                                "rest will be dropped.", MAX_EXTRA_ARGS);
                 }
 	    }
