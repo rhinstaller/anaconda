@@ -18,6 +18,7 @@
 #include <sys/vfs.h>
 #include <unistd.h>
 #include <resolv.h>
+#include <pump.h>
 
 #include "Python.h"
 
@@ -27,7 +28,6 @@
 #include "probe.h"
 #include "smp.h"
 #include "lang.h"
-#include "../pump/pump.h"
 #include "../balkan/byteswap.h"
 
 long long llseek(int fd, long long offset, int whence);
