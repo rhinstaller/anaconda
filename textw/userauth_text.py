@@ -80,7 +80,7 @@ class UsersWindow:
                        'mailnull', 'rpm', 'ident', 'rpc', 'rpcuser', 'radvd', 'xfs', 'gdm', 'apache',
                        'squid']
 
-        username = Entry (32, user["id"], scroll=0)
+        username = Entry (16, user["id"], scroll=0)
         currentid = user["id"]
         pass1 = Entry (10, user["password"], password = 1)
         pass2 = Entry (10, user["password"], password = 1)
