@@ -210,7 +210,7 @@ class XCustomWindow (InstallWindow):
         self.display_desktop_pixmap(desktop)
 
     # XCustomWindow tag="xcustom"
-    def getScreen (self, xsetup, monitor, videocard, desktop, comps,
+    def getScreen (self, xsetup, monitor, videocard, desktop, grpset,
                    instClass, instPath):
 
         self.xsetup = xsetup
@@ -318,11 +318,11 @@ class XCustomWindow (InstallWindow):
         self.box.pack_start (hbox1, gtk.FALSE)
 
         #--If both KDE and GNOME are selected
-        if comps:
-            gnomeSelected = (comps.packages.has_key('gnome-session')
-                             and comps.packages['gnome-session'].selected)
-            kdeSelected = (comps.packages.has_key('kdebase')
-                           and comps.packages['kdebase'].selected)
+        if grpset:
+            gnomeSelected = (grpset.hdrlist.has_key('gnome-session')
+                             and grpset.hdrlist['gnome-session'].isSelected())
+            kdeSelected = (grpset.hdrlist.has_key('kdebase')
+                           and grpset.hdrlist['kdebase'].isSelected)()
         else:
             gnomeSelected = 0
             kdeSelected = 0
