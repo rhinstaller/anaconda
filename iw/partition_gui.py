@@ -435,8 +435,9 @@ class DiskTreeModel(gtk.TreeStore):
                 path = self.get_path(parent)
                 self.view.expand_row(path, gtk.TRUE)
                 selection = self.view.get_selection()
-                selection.unselect_all()
-                selection.select_iter(iter)
+                if selection is not None:
+                    selection.unselect_all()
+                    selection.select_iter(iter)
                 path = self.get_path(iter)
                 col = self.view.get_column(0)
                 self.view.set_cursor(path, col, gtk.FALSE)
@@ -519,7 +520,8 @@ class DiskTreeModel(gtk.TreeStore):
 
     def clear(self):
         selection = self.view.get_selection()
-        selection.unselect_all()
+        if selection is not None:
+            selection.unselect_all()
         gtk.TreeStore.clear(self)
         
     def __getitem__(self, iter):
