@@ -1159,7 +1159,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox = GtkVBox (FALSE, 5)
 
         arch = iutil.getArch()
-        if arch == "alpha":
+        if arch == "alpha" or arch == "ia64":
             label = GtkLabel (_("Your video ram size can not be autodetected.  "
                                 "Choose your video ram size from the choices below:"))
             label.set_justify (JUSTIFY_LEFT)
@@ -1213,7 +1213,7 @@ class XConfigWindow (InstallWindow):
             box.pack_start (self.autoBox, FALSE)
             
         # card configuration
-        if arch == "i386" or arch == "alpha":
+        if arch == "i386" or arch == "alpha" or arch == "ia64":
 
         # Monitor selection tree
             self.ctree = GtkCTree ()

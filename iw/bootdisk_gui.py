@@ -16,7 +16,7 @@ class BootdiskWindow (InstallWindow):
         self.bootdisk = None
 
     def getNext (self):
-        if iutil.getArch() == "alpha":
+        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
             return None
         
         if not self.todo.needBootdisk():
@@ -38,7 +38,7 @@ class BootdiskWindow (InstallWindow):
 
     # BootdiskWindow tag="bootdisk"
     def getScreen (self):
-        if iutil.getArch() == "alpha":
+        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
             return None
 
         if not self.todo.needBootdisk(): return None
