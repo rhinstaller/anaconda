@@ -2237,7 +2237,8 @@ void setFloppyDevice(int flags) {
     floppyDevice=malloc(strlen(devices[0]->device)+2);
     sprintf(floppyDevice,"%s1",devices[0]->device);
 #endif
-
+#endif
+	
     logMessage("system floppy device is %s", floppyDevice);
 }
 
