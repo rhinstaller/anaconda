@@ -721,10 +721,13 @@ static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 		  0, NULL, NULL)) {
 	if (doPwMount("/tmp/loop", mntpoint, "ext2", 1,
 		      0, NULL, NULL)) {
+	    if (doPwMount("/tmp/loop", mntpoint, "cramfs", 1,
+			  0, NULL, NULL)) {
 	    
-	    logMessage("failed to mount loop: %s", 
-		       strerror(errno));
-	    return LOADER_ERROR;
+		logMessage("failed to mount loop: %s", 
+			   strerror(errno));
+		return LOADER_ERROR;
+	    }
 	}
     }
 
@@ -2563,6 +2566,8 @@ int main(int argc, char ** argv) {
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+    mlLoadModule("cramfs", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
