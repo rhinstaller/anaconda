@@ -390,40 +390,60 @@ class LBA32WarningWindow(InstallWindow):
         if iutil.getArch() != "i386":
             return INSTALL_NOOP
 
-        if self.todo.fstab.getBootPartitionMaxCyl() > 1023 and not self.todo.fstab.edd:
+        if self.todo.fstab.getBootPartitionMaxCyl() > 1023:
             vbox = GtkVBox (FALSE, 5)
-            
-            label = GtkLabel (
+
+
+            if not self.todo.fstab.edd or 1:
+                label = GtkLabel (
                     _("You have put the partition containing the kernel (the "
                       "boot partition) above the 1023 cylinder limit, and "
                       "it appears that this systems BIOS does not support "
                       "booting from above this limit. Proceeding will "
                       "most likely make the system unable to reboot into "
                       "Linux.\n\n"
+                      "If you choose to proceed, it is HIGHLY recommended "
+                      "you make a boot floppy when asked. This will "
+                      "guarantee you have a way to boot into the system "
+                      "after installation.\n\n"
                       "Are you sure you want to proceed?"))
+            else:
+                label = GtkLabel (
+                    _("You have put the partition containing the kernel (the "
+                      "boot partition) above the 1023 cylinder limit. "
+                      "It appears that this systems BIOS supports "
+                      "booting from above this limit. \n\n"
+                      "It is HIGHLY recommended you make a boot floppy when "
+                      "asked by the installer, as this is a new feature in "
+                      "recent motherboard and is not always reliable. "
+                      "Making a boot disk will guarantee you can boot "
+                      "your system once installed."))
 
             label.set_usize (400, -1)
             label.set_line_wrap (TRUE)
             label.set_alignment(0.0, 0.0)
             vbox.pack_start (label, FALSE, FALSE)
 
-            vbox2 = GtkVBox (FALSE, 5)
-            
-            self.proceed = GtkRadioButton (None, _("Yes"))
-            self.proceed.connect("toggled", self.proceedChanged)
-            self.dontproceed = GtkRadioButton (self.proceed, _("No"))
-            self.dontproceed.set_active()
-            self.dontproceed.connect("toggled", self.proceedChanged)
+            if not self.todo.fstab.edd or 1:            
+                vbox2 = GtkVBox (FALSE, 5)
+                
+                self.proceed = GtkRadioButton (None, _("Yes"))
+                self.proceed.connect("toggled", self.proceedChanged)
+                self.dontproceed = GtkRadioButton (self.proceed, _("No"))
+                self.dontproceed.set_active(1)
+                self.dontproceed.connect("toggled", self.proceedChanged)
+                
+                vbox2.pack_start (self.proceed, FALSE)
+                vbox2.pack_start (self.dontproceed, FALSE)
+                vbox2.set_border_width (25)
+                
+                vbox.pack_start (vbox2, TRUE)
 
-            vbox2.pack_start (self.proceed, FALSE)
-            vbox2.pack_start (self.dontproceed, FALSE)
-            vbox2.set_border_width (25)
-            
-            vbox.pack_start (vbox2, TRUE)
+                self.ics.setNextEnabled (FALSE)
+            else:
+                self.ics.setNextEnabled (TRUE)
+                
             vbox.set_border_width (5)
-
-            self.ics.setNextEnabled (FALSE)
-
             return vbox
         else:
             return None
