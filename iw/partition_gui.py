@@ -585,7 +585,6 @@ class PartitionWindow(InstallWindow):
         if partition:
             self.diskStripeGraph.selectSlice(partition)
 
-
     def newCB(self, widget):
         # create new request of size 1M
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW, 1)
@@ -901,59 +900,9 @@ class PartitionWindow(InstallWindow):
     def deleteCb(self, widget):
         node = self.tree.selection[0]
         partition = self.tree.node_get_row_data (node)
-        if partition == None:
-            dialog = GnomeWarningDialog(_("You must first select a partition"),
-                                        parent=self.parent)
-            dialog.set_position(WIN_POS_CENTER)            
-            dialog.run()
-            return
-        elif type(partition) == type("RAID"):
-            # XXXX evil way to reference RAID device requests!!
-            request = self.partitions.getRequestByDeviceName(partition)
-            if request:
-                self.partitions.removeRequest(request)
-            else: # shouldn't happen
-                raise ValueError, "Deleting a non-existent partition"
-        elif partition.type & parted.PARTITION_FREESPACE:
-            dialog = GnomeWarningDialog(_("You cannot remove free space."),
-                                        parent=self.parent)
-            dialog.set_position(WIN_POS_CENTER)
-            dialog.run()
-            return
-        else:
-            # see if device is in our partition requests, remove
-            request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
-            if request:
-                if request.type == REQUEST_PROTECTED:
-                    dialog = GnomeWarningDialog(_("You cannot remove this "
-                           "partition, as it is holding the data for the "
-                           "hard drive install."))
-                    dialog.set_position(WIN_POS_CENTER)
-                    dialog.run()
-                    return
-                
-                if self.partitions.isRaidMember(request):
-                    dialog = GnomeWarningDialog(_("You cannot remove this "
-                           "partition, as it is part of a RAID device."))
-                    dialog.set_position(WIN_POS_CENTER)
-                    dialog.run()
-                    return
 
-                self.partitions.removeRequest(request)
-                if request.type == REQUEST_PREEXIST:
-                    # get the drive
-                    drive = get_partition_drive(partition)
-
-                    if partition.type & parted.PARTITION_EXTENDED:
-                        deleteAllLogicalPartitions(partition, self.partitions)
-                    
-                    delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
-                    self.partitions.addDelete(delete)
-            else: # shouldn't happen
-                raise ValueError, "Deleting a non-existenent partition"
-
-        # cheating
-        self.refresh()
+        if doDeletePartitionByRequest(self.intf, self.partitions, partition):
+            self.refresh()
             
     def clearTree(self):
         node = self.tree.node_nth(0)
@@ -964,6 +913,9 @@ class PartitionWindow(InstallWindow):
         self.tree.set_selection_mode (SELECTION_BROWSE)
 
     def resetCb(self, *args):
+        if not confirmResetPartitionState(self.intf):
+            return
+        
         self.diskStripeGraph.shutDown()
         self.newFsset = self.fsset.copy()
         self.tree.freeze()
@@ -992,72 +944,18 @@ class PartitionWindow(InstallWindow):
 
     def editCb(self, widget):
         node = self.tree.selection[0]
-        partition = self.tree.node_get_row_data (node)
+        part = self.tree.node_get_row_data (node)
 
-        if partition == None:
-            dialog = GnomeWarningDialog(_("You must first select an existing "
-                                          "partition or free space to edit."),
-                                        parent=self.parent)
-            dialog.set_position(WIN_POS_CENTER)            
-            dialog.run()
-            return
-        elif type(partition) == type("RAID"):
-            # XXXX evil way to reference RAID device requests!!
-            request = self.partitions.getRequestByDeviceName(partition)
-            if request:
-                self.editRaidDevice(request)
-                return
-            else:
-                raise ValueError, "Editting a non-existenent partition"
-        elif partition.type & parted.PARTITION_FREESPACE:
-
-            # create new request of size 1M
-            request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,
-                           start = start_sector_to_cyl(partition.geom.disk.dev,
-                                                       partition.geom.start),
-                           end = end_sector_to_cyl(partition.geom.disk.dev,
-                                                   partition.geom.end),
-                           drive = [get_partition_drive(partition)])
-            self.editPartitionRequest(request)
-            return
-
-        elif (partition.fs_type == None) or (partition.fs_type and not partition.fs_type.name):
-            dialog = GnomeWarningDialog(_("You cannot edit partitions without "
-                                          "a filesystem type."),
-                                        parent = self.parent)
-            dialog.set_position(WIN_POS_CENTER)
-            dialog.run()
-            return
-        
-        elif partition.type & parted.PARTITION_EXTENDED:
-            return
-
-        # otherwise this is a "normal" partition to edit
-        request = self.partitions.getRequestByDeviceName(get_partition_name(partition))
-
+        (type, request) = doEditPartitionByRequest(self.intf, self.partitions, part)
         if request:
-            if request.type == REQUEST_PROTECTED:
-                dialog = GnomeWarningDialog(_("You cannot remove this "
-                       "partition, as it is holding the data for the "
-                       "hard drive install."))
-                dialog.set_position(WIN_POS_CENTER)
-                dialog.run()
-                return
-
-            if self.partitions.isRaidMember(request):
-                dialog = GnomeWarningDialog(_("You cannot edit this "
-                          "partition, as it is part of a RAID device."))
-                dialog.set_position(WIN_POS_CENTER)
-                dialog.run()
-                return
+            if type == "RAID":
+                self.editRaidRequest(request)
             else:
                 self.editPartitionRequest(request)
-        else:
-            raise ValueError, "Editing a non-existent partition"
 
-    def editRaidDevice(self, raidrequest):
+    def editRaidRequest(self, raidrequest):
         #
-        # start of editRaidDevice
+        # start of editRaidRuquest
         #
         dialog = GnomeDialog(_("Make Raid Device"))
         dialog.set_parent(self.parent)
@@ -1220,7 +1118,7 @@ class PartitionWindow(InstallWindow):
 
     def makeraidCB(self, widget):
         request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_RAID, 1)
-        self.editRaidDevice(request)
+        self.editRaidRequest(request)
 
     def getScreen (self, fsset, diskset, partitions, intf):
         self.fsset = fsset

@@ -922,3 +922,119 @@ def autoCreatePartitionRequests(autoreq):
         requests.append(newrequest)
 
     return requests
+
+def confirmDeleteRequest(intf, request):
+    if request.device:
+        errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
+    else:
+        errmsg = _("Are you sure you want to delete this partition?")
+
+    rc = intf.messageWindow(_("Confirm Delete"), errmsg, type="yesno")
+    return rc
+
+def confirmResetPartitionState(intf):
+    rc = intf.messageWindow(_("Confirm Reset"),
+                            _("Are you sure you want to reset the "
+                              "partition table to its original state?"),
+                            type="yesno")
+    return rc
+
+#
+# handle deleting a partition - pass in the list of requests and the
+# partition to be deleted
+#
+def doDeletePartitionByRequest(intf, requestlist, partition):
+    if partition == None:
+        intf.messageWindow(_("Unable To Remove"),
+                           _("You must first select a partition to remove."))
+        return 0
+    elif type(partition) == type("RAID"):
+        device = partition
+    elif partition.type & parted.PARTITION_FREESPACE:
+        intf.messageWindow(_("Unable To Remove"),
+                           _("You cannot remove free space."))
+        return 0
+    else:
+        device = get_partition_name(partition)
+        
+    # see if device is in our partition requests, remove
+    request = requestlist.getRequestByDeviceName(get_partition_name(partition))
+    if request:
+        if request.type == REQUEST_PROTECTED:
+            intf.messageWindow(_("Unable To Remove"),
+                               _("You cannot remove this "
+                                 "partition, as it is holding the data for "
+                                 "the hard drive install."))
+            return 0
+
+        if requestlist.isRaidMember(request):
+            intf.messageWindow(_("Unable To Remove"),
+                               _("You cannot remove this "
+                                 "partition, as it is part of a RAID device."))
+            return 0
+
+        if confirmDeleteRequest(intf, request):
+            requestlist.removeRequest(request)
+        else:
+            return 0
+
+        if request.type == REQUEST_PREEXIST:
+            # get the drive
+            drive = get_partition_drive(partition)
+
+            if partition.type & parted.PARTITION_EXTENDED:
+                deleteAllLogicalPartitions(partition, requsestlist)
+
+            delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
+            requestlist.addDelete(delete)
+    else: # shouldn't happen
+        raise ValueError, "Deleting a non-existenent partition"
+
+    del partition
+    return 1
+
+
+def doEditPartitionByRequest(intf, requestlist, part):
+        
+    if part == None:
+        intf.messageWindow(_("Unable To Edit"),
+                           _("You must select a partition to edit"))
+
+        return (None, None)
+    elif type(part) == type("RAID"):
+        request = requestlist.getRequestByDeviceName(part)
+
+        return ("RAID", request)
+    elif part.type & parted.PARTITION_FREESPACE:
+        request = PartitionSpec(fsset.fileSystemTypeGetDefault(), REQUEST_NEW,
+                                start = start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
+                                end = end_sector_to_cyl(part.geom.disk.dev, part.geom.end),
+                                drive = [ get_partition_drive(part) ])
+
+        return ("PARTITION", request)
+    elif (part.fs_type == None) or (part.fs_type and not part.fs_type.name):
+        intf.messageWindow( _("Filesystem Missing"),
+                           _("You cannot edit partitions "
+                           "without a filesystem type."))
+        return (None, None)
+    elif part.type & parted.PARTITION_EXTENDED:
+        return (None, None)
+
+    request = requestlist.getRequestByDeviceName(get_partition_name(part))
+    if request:
+        if request.type == REQUEST_PROTECTED:
+            intf.messageWindow(_("Cannot Edit"),
+                               _("You cannot edit this "
+                      "partition, as it is in use by the installer."))
+            return (None, None)
+        if requestlist.isRaidMember(request):
+            intf.messageWindow( _("Cannot Edit"),
+                               _("You cannot edit this partition "
+                                 "as it is part of a RAID device"))
+            return (None, None)
+
+        return ("PARTITION", request)
+    else: # shouldn't ever happen
+        raise ValueError, "Trying to edit non-existent partition %s" %(get_partition_name(part))
+    
+    

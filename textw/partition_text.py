@@ -653,104 +653,25 @@ class PartitionWindow:
 
     def editCb(self):
         part = self.lb.current()
-        if part == None:
-            ButtonChoiceWindow(self.screen, _("Not a Partition"),
-                      _("You must select a partition to edit"),
-                               buttons = [ TEXT_OK_BUTTON ] )
-            return
-        elif type(part) == type("RAID"):
-            request = self.partitions.getRequestByDeviceName(part)
-            self.editRaidRequest(request)
-            return
-        elif part.type & parted.PARTITION_FREESPACE:
-            request = PartitionSpec(fileSystemTypeGetDefault(), REQUEST_NEW,
-                                    start = start_sector_to_cyl(part.geom.disk.dev, part.geom.start),
-                                    end = end_sector_to_cyl(part.geom.disk.dev, part.geom.end),
-                                    drive = [ get_partition_drive(part) ])
-            self.editPartitionRequest(request)
-            return
-        elif (part.fs_type == None) or (part.fs_type and not part.fs_type.name):
-            ButtonChoiceWindow(self.screen, _("Filesystem Missing"),
-                               _("You cannot edit partitions "
-                               "without a filesystem type."),
-                               buttons = [ TEXT_OK_BUTTON ] )
-            return
-        elif part.type & parted.PARTITION_EXTENDED:
-            return
 
-        request = self.partitions.getRequestByDeviceName(get_partition_name(part))
+        (type, request) = doEditPartitionByRequest(self.intf, self.partitions, part)
         if request:
-            if request.type == REQUEST_PROTECTED:
-                ButtonChoiceWindow(self.screen, _("Cannot Edit"),
-                                   _("You cannot edit this "
-                          "partition, as it is in use by the installer."),
-                                   buttons = [ TEXT_OK_BUTTON ] )
-                return
-            if self.partitions.isRaidMember(request):
-                ButtonChoiceWindow(self.screen, _("Unable to Remove"),
-                                   _("You cannot remove this partition "
-                                     "as it is part of a RAID device"),
-                                   buttons = [ TEXT_OK_BUTTON ])
-                return
-            
-            self.editPartitionRequest(request)
-        else: # shouldn't ever happen
-            raise ValueError, "Trying to edit non-existent partition %s" %(get_partition_name(part))
-
+            if type == "RAID":
+                self.editRaidRequest(request)
+            else:
+                self.editPartitionRequest(request)
         
     def deleteCb(self):
         partition = self.lb.current()
 
-        if partition == None:
-            ButtonChoiceWindow(self.screen, _("Unable to Remove"),
-                      _("You must first select a partition"),
-                               buttons = [ TEXT_OK_BUTTON ] )
-            return
-        elif type(partition) == type("RAID"):
-            device = partition
-        elif partition.type & parted.PARTITION_FREESPACE:
-            ButtonChoiceWindow(self.screen, _("Unable to Remove"),
-                      _("You cannot remove freespace"),
-                               buttons = [ TEXT_OK_BUTTON ] )
-            return
-        else:
-            device = get_partition_name(partition)
-
-        request = self.partitions.getRequestByDeviceName(device)
-        
-
-        if request:
-            if request.type == REQUEST_PROTECTED:
-                ButtonChoiceWindow(self.screen, _("You cannot edit this "
-                          "partition, as it is part of a RAID device."),
-                                   buttons = [ TEXT_OK_BUTTON ] )
-                return
-            
-            if self.partitions.isRaidMember(request):
-                ButtonChoiceWindow(self.screen, _("Unable to Remove"),
-                                   _("You cannot remove this partition "
-                                     "as it is part of a RAID device"),
-                                   buttons = [ TEXT_OK_BUTTON ])
-                return
-                
-            self.partitions.removeRequest(request)
-            if request.type == REQUEST_PREEXIST:
-                # get the drive
-                drive = get_partition_drive(partition)
-
-                if partition.type & parted.PARTITION_EXTENDED:
-                    deleteAllLogicalPartitions(partition, self.partitions)
-                
-                delete = DeleteSpec(drive, partition.geom.start, partition.geom.end)
-                self.partitions.addDelete(delete)
-        else: # shouldn't happen
-            raise ValueError, "Deleting a non-existent partition"
-            
-        del partition
-        self.refresh()
+        if doDeletePartitionByRequest(self.intf, self.partitions, partition):
+            self.refresh()
         
         
     def resetCb(self):
+        if not confirmResetPartitionState(self.intf):
+            return
+        
         self.diskset.refreshDevices()
         self.partitions.setFromDisk(self.diskset)        
         self.populate()
