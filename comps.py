@@ -47,9 +47,10 @@ class HeaderList:
     def list(self):
 	return self.packages.values()
 
-    def __init__(self, hdlist):
+    def __init__(self, hdlist, compatPackages = None):
         self.hdlist = hdlist
 	self.packages = {}
+	newCompat = []
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
 	    score1 = rpm.archscore(h['arch'])
@@ -57,15 +58,26 @@ class HeaderList:
 		if self.packages.has_key(name):
 		    score2 = rpm.archscore(self.packages[name].h['arch'])
 		    if (score1 < score2):
+			newCompat.append(self.packages[name])
 			self.packages[name] = Package(h)
+		    else:
+			newCompat.append(Package(h))
 		else:
 		    self.packages[name] = Package(h)
 
+	if compatPackages != None:
+	    # don't use list + here, as it creates a new object
+	    for p in newCompat:
+		compatPackages.append(p)
+	print "compatPackages", compatPackages
+
 class HeaderListFromFile (HeaderList):
 
-    def __init__(self, path):
+    def __init__(self, path, compatPackages = None):
 	hdlist = rpm.readHeaderListFromFile(path)
-	HeaderList.__init__(self, hdlist)
+	HeaderList.__init__(self, hdlist, compatPackages = compatPackages)
+
+	print "compatPackages", compatPackages
 
 class HeaderListFD (HeaderList):
     def __init__(self, fd):
