@@ -823,7 +823,9 @@ def orderPackageGroups(curgroups):
     compsParents = ["Desktops", "Applications", "Servers", "Development", "System"]
     compsHierarchy = { "Desktops" : ["GNOME Desktop Environment",
 				     "KDE Desktop Environment"],
-		       "Applications" : ["Internet Applications",
+		       "Applications" : ["Editors",
+					 "Engineering and Scientific",
+					 "Internet Applications",
 					 "Office/Productivity Applications",
 					 "Sound and Video Applications",
 					 "Graphics Applications",
@@ -839,7 +841,7 @@ def orderPackageGroups(curgroups):
 				     "SQL Database Server",
 				     "News Server",
 				     "Network Servers"],
-		       "Development" : [ "Emacs",
+		       "Development" : [ 
 					 "Development Tools",
 					 "Development Libraries",
 					 "Kernel Development",
