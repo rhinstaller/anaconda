@@ -133,7 +133,7 @@ class MonitorWindow (InstallWindow):
     def getNext (self):
         if self.skipme:
             return None
-        
+
         if self.monitor:
             self.todo.x.setMonitor ((self.monitor[0],
                                     (self.hEntry.get_text (),
@@ -256,6 +256,8 @@ class XConfigWindow (InstallWindow):
         if self.skipme:
             return None
 
+        self.todo.instClass.setDesktop(self.newDesktop)
+
         if not self.skip.get_active ():
             if self.xdm.get_active ():
                 self.todo.initlevel = 5
@@ -304,6 +306,9 @@ class XConfigWindow (InstallWindow):
                 card = self.cards[card["SEE"]]
                 depth = depth + 1
             self.todo.x.setVidcard (card)
+
+    def desktopCb (self, widget, desktop):
+        self.newDesktop = desktop
         
     def getScreen (self):
         # Don't configure X in reconfig mode.
@@ -318,6 +323,7 @@ class XConfigWindow (InstallWindow):
         else:
             self.skipme = FALSE
 
+        self.newDesktop = ""
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
 
@@ -463,11 +469,18 @@ class XConfigWindow (InstallWindow):
             menu = GtkMenu()
             gnome = GtkMenuItem()
             gnome.add (pixlabel (self.ics, "GNOME", "gnome-mini.png"))
+            gnome.connect ("activate", self.desktopCb, "GNOME")
             kde = GtkMenuItem()
             kde.add (pixlabel (self.ics, "KDE", "kde-mini.png"))
+            kde.connect ("activate", self.desktopCb, "KDE")            
             menu.add (gnome)
             menu.add (kde)
-            menu.set_active (0)
+            if self.todo.instClass.getDesktop() == "KDE":
+                self.newDesktop = "KDE"
+                menu.set_active (1)
+            else:
+                self.newDesktop = "GNOME"
+                menu.set_active (0)
             option.set_menu (menu)
             v = GtkVBox (FALSE, 5)
             l = GtkLabel (_("Default Desktop:"))

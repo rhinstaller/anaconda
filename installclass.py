@@ -206,6 +206,12 @@ class BaseInstallClass:
     def setKeyboard(self, kb):
 	self.keyboard = kb
 
+    def setDesktop(self, desktop):
+        self.desktop = desktop
+
+    def getDesktop(self):
+        return self.desktop
+
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
