@@ -388,6 +388,7 @@ class ToDo:
         self.ddruid = None;
         self.drives = Drives ()
         self.log = LogFile ()
+        self.bootdisk = 0
 
     def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
@@ -486,20 +487,39 @@ class ToDo:
 	f.write(str (self.keyboard))
 	f.close()
 
-    def installLilo(self):
+    def makeInitrd (self):
+        if not self.__dict__.has_key ("madeinitrd"):
+            initrd = "/boot/initrd-%s.img" % (self.kernelVersion,)
+            
+            util.execWithRedirect("/sbin/mkinitrd",
+                                  [ "/sbin/mkinitrd",
+                                    initrd,
+                                    self.kernelVersion ],
+                                  stdout = None, stderr = None, searchPath = 1,
+                                  root = self.instPath)
+            self.madeinitrd = 1
+
+    def makeBootdisk (self):
+        self.makeInitrd ()
+        w = self.intf.waitWindow ("Creating", "Creating boot disk")
+        util.execWithRedirect("/sbin/mkbootdisk",
+                              [ "/sbin/mkbootdisk",
+                                "--noprompt",
+                                "--device",
+                                "/dev/fd0",
+                                self.kernelVersion ],
+                              stdout = None, stderr = None, searchPath = 1,
+                              root = self.instPath)
+        w.pop()
+
+    def installLilo (self):
 	if not self.liloDevice: return
 
         kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
                                    self.kernelPackage[rpm.RPMTAG_RELEASE])
-
         initrd = "/boot/initrd-%s.img" % (kernelVersion,)
-
-        util.execWithRedirect("/sbin/mkinitrd",
-                              [ "/sbin/mkinitrd",
-                                initrd,
-                                kernelVersion ],
-                              stdout = None, stderr = None, searchPath = 1,
-                              root = self.instPath)
+            
+        self.makeInitrd ()
 
 	l = LiloConfiguration()
 	l.addEntry("boot", '/dev/' + self.liloDevice)
@@ -552,6 +572,9 @@ class ToDo:
 	if (self.hdList.has_key('kernel-smp') and isys.smpAvailable()):
 	    self.hdList['kernel-smp'].selected = 1
 	    self.kernelPackage = self.hdList['kernel-smp']
+            
+        self.kernelVersion = "%s-%s" % (self.kernelPackage[rpm.RPMTAG_VERSION],
+                                        self.kernelPackage[rpm.RPMTAG_RELEASE])
 
 	return self.comps
 
