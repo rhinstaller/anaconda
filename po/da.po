@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: da\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-24 17:14-0400\n"
-"PO-Revision-Date: 2004-09-23 17:19+0200\n"
+"PO-Revision-Date: 2004-09-28 14:51+0200\n"
 "Last-Translator: Keld Simonsen <keld@dkuug.dk>\n"
 "Language-Team: Danish <<dansk@klid.dk>>\n"
 "MIME-Version: 1.0\n"
@@ -195,8 +195,7 @@ msgstr "Starter grafisk installation..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Kunne ikke allokere cylinder-baserede partitioner som primære partitioner"
+msgstr "Kunne ikke allokere cylinder-baserede partitioner som primære partitioner"
 
 #: ../autopart.py:949
 msgid "Could not allocate partitions as primary partitions"
@@ -251,8 +250,7 @@ msgstr ""
 
 #: ../autopart.py:1030
 #, python-format
-msgid ""
-"Boot partition %s may not meet booting constraints for your architecture."
+msgid "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
 "Opstartspartition %s opfylder muligvis ikke opstartsbegrænsningene for din "
 "maskinarkitektur. "
@@ -604,8 +602,7 @@ msgstr "Kopi af stakken skrevet for senere fejlsøgning"
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
-"Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
+msgstr "Dit systems tilstand er skrevet til disketten. Systemet bliver nu genstartet."
 
 #: ../firewall.py:54
 msgid "Remote Login (SSH)"
@@ -1247,8 +1244,7 @@ msgstr "Værtsnavnet skal være højst 64 tegn langt."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
+msgstr "Værtsnavnet skal starte med et gyldigt tegn i området 'a-z' eller 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1940,8 +1936,7 @@ msgid "Confirm Reset"
 msgstr "Bekræft nulstilling"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 "Er du sikker på at du vil nulstille partitionstabellen til oprindelig "
 "tilstand?"
@@ -1993,10 +1988,8 @@ msgstr ""
 "til at installere %s."
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Du skal lave en /boot/efi-partition af type FAT og med størrelse 50 MB."
 
 #: ../partitions.py:796
 msgid "You must create a PPC PReP Boot partition."
@@ -2060,10 +2053,8 @@ msgstr "en partition som er medlem af en LVM-afsnitsgruppe."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Dette monteringspunkt er ugyldigt. Kataloget %s skal ligge på rodfilsystemet."
 
 #: ../partRequests.py:236
 #, python-format
@@ -2310,17 +2301,14 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s © 2004 Red Hat, Inc."
 
 #: ../text.py:367
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> for hjælp | <Tab> imellem punkter | <Mellemrum> vælg | <F12> næste side"
 
 #: ../text.py:369
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
+msgstr "  <Tab>/<Alt-Tab> imellem punkter  | <Mellemrum> vælger  |  <F12> næste side"
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -3547,8 +3535,7 @@ msgstr "Ugyldig størrelse"
 
 #: ../iw/lvm_dialog_gui.py:498
 msgid "The requested size as entered is not a valid number greater than 0."
-msgstr ""
-"Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
+msgstr "Den anmodede størrelse som indtastet er ikke et gyldigt tal større end 0."
 
 #: ../iw/lvm_dialog_gui.py:531
 msgid "Mount point in use"
@@ -3557,8 +3544,7 @@ msgstr "Monteringspunkt i brug"
 #: ../iw/lvm_dialog_gui.py:532
 #, python-format
 msgid "The mount point \"%s\" is in use, please pick another."
-msgstr ""
-"Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
+msgstr "Monteringspunktet %s er i brug. Vælg venligst et andet monteringspunkt."
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1258
 msgid "Illegal Logical Volume Name"
@@ -3641,8 +3627,7 @@ msgstr "Navnet er i brug"
 #: ../iw/lvm_dialog_gui.py:876
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
-msgstr ""
-"Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
+msgstr "Det logiske afsnitsnavn '%s' er allerede i brug. Vælg venligst et andet."
 
 #: ../iw/lvm_dialog_gui.py:920
 msgid "Not enough physical volumes"
@@ -4214,14 +4199,12 @@ msgid "Partitioning"
 msgstr "Partitionering"
 
 #: ../iw/partition_gui.py:628
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "Følgende kritiske fejl opstod med dit forespurgte partitionsoplæg."
 
 #: ../iw/partition_gui.py:631
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Disse fejl skal rettes op før du fortsætter med installationen af %s."
 
 #: ../iw/partition_gui.py:637
@@ -4846,10 +4829,8 @@ msgstr "Dette vil opdatere din nuværende opstartsindlæser."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr "Installeringen har fundet %s opstartsindlæseren aktuelt installeret på %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4984,8 +4965,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swapfilen skal være mellem 1 og 2000 Mb stor."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Der er ikke plads nok til swappartitionen på den enhed, du valgte."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -5354,10 +5334,8 @@ msgstr ""
 "hvilket navn du vil bruge for hvert af dem."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-"<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr "<mellemrum> vælger knap | <F2> standard-opstartsindgang | <F12> næste skærm>"
 
 #: ../textw/bootloader_text.py:394
 msgid ""
@@ -5785,10 +5763,8 @@ msgid "Select individual packages"
 msgstr "Vælg individuelle pakker"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Mellemrum>,<+>,<-> valg   |   <F1> gruppedetaljer   |   <F12> næste skærm"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5812,10 +5788,8 @@ msgid "Total size"
 msgstr "Totalt"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Mellemrum>,<+>,<-> valg   |   <F1> hjælp   |   <F2> pakkebeskrivelse "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Mellemrum>,<+>,<-> valg   |   <F1> hjælp   |   <F2> pakkebeskrivelse "
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5959,8 +5933,7 @@ msgstr "Filsystemsvalgmuligheder"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
+msgstr "Venligst vælg hvordan du ønsker at forberede filsystemet på denne partition."
 
 #: ../textw/partition_text.py:607
 msgid "Check for bad blocks"
@@ -5988,8 +5961,7 @@ msgstr "Ikke understøttet"
 
 #: ../textw/partition_text.py:770
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
+msgstr "LVM-afsnitgrupper kan kun redigeres i det grafiske installationsprogram."
 
 #: ../textw/partition_text.py:846 ../textw/partition_text.py:899
 msgid "Invalid Entry for Partition Size"
@@ -6086,10 +6058,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1447
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Hjælp    F2-Ny      F3-Redigér   F4-Fjern   F5-Nulstil  F12-O.k. "
 
 #: ../textw/partition_text.py:1476
 msgid "No Root Partition"
@@ -6333,15 +6303,13 @@ msgid "User Exists"
 msgstr "Bruger eksisterer"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "'root'-brugeren er allerede konfigureret. Du behøver ikke at tilføje denne "
 "bruger her."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Systembrugeren er allerede konfigureret. Du behøver ikke at tilføje denne "
 "bruger her."
@@ -6749,7 +6717,7 @@ msgstr ""
 
 #: ../installclasses/rhel_as.py:9 ../installclasses/rhel_as.py:11
 msgid "Red Hat Enterprise Linux AS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux AS"
 
 #: ../installclasses/rhel_as.py:16 ../installclasses/rhel_es.py:16
 msgid ""
@@ -6759,13 +6727,17 @@ msgid ""
 "\tWeb Server\n"
 "\tWindows File Server (SMB)\n"
 msgstr ""
+"\tSkrivebordsskál (GNOME)\n"
+"\tAdministrationsværktøjer\n"
+"\tKonfigurationværktøjer for server\n"
+"\tWebserver\n"
+"\tWindows Filserver (SMB)\n"
 
 #: ../installclasses/rhel_desktop.py:9 ../installclasses/rhel_desktop.py:11
 msgid "Red Hat Enterprise Linux Desktop"
-msgstr ""
+msgstr "Red Hat Enterprise Linux Skrivebord"
 
 #: ../installclasses/rhel_desktop.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6776,24 +6748,24 @@ msgid ""
 "\tGames\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tSkrivebordsskal (GNOME)\n"
+"\tSkrivebordsskál (GNOME)\n"
 "\tKontorprogrammel (OpenOffice.org)\n"
 "\tWeblæser (Mozilla) \n"
 "\tE-post (Evolution)\n"
 "\tHurtig-meddelelser\n"
 "\tProgrammer for lyd og video\n"
 "\tSpil\n"
+"\tAdministrationsværktøjer\n"
 
 #: ../installclasses/rhel_es.py:9 ../installclasses/rhel_es.py:11
 msgid "Red Hat Enterprise Linux ES"
-msgstr ""
+msgstr "Red Hat Enterprise Linux ES"
 
 #: ../installclasses/rhel_ws.py:9 ../installclasses/rhel_ws.py:11
 msgid "Red Hat Enterprise Linux WS"
-msgstr ""
+msgstr "Red Hat Enterprise Linux WS"
 
 #: ../installclasses/rhel_ws.py:16
-#, fuzzy
 msgid ""
 "\tDesktop shell (GNOME)\n"
 "\tOffice suite (OpenOffice)\n"
@@ -6805,8 +6777,8 @@ msgid ""
 "\tSoftware Development Tools\n"
 "\tAdministration Tools\n"
 msgstr ""
-"\tSkrivebordsskal (GNOME)\n"
-"\tKontorprogrammel (OpenOffice.org)\n"
+"\tSkrivebordsskál (GNOME)\n"
+"\tKontorprogrammel (OpenOffice)\n"
 "\tWeblæser (Mozilla) \n"
 "\tE-post (Evolution)\n"
 "\tHurtig-meddelelser\n"
@@ -7216,10 +7188,8 @@ msgid "Welcome to %s"
 msgstr "Velkommen til %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:178
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> imellem elementer | <Mellemrum> vælg | <F12> næste side "
 
 #: ../loader2/lang.c:372
 msgid "Choose a Language"
@@ -7252,8 +7222,7 @@ msgstr ""
 #: ../loader2/loader.c:337
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
+msgstr "Indsæt din opdateringsdiskette i /dev/%s og tryk \"O.k.\" for at fortsætte."
 
 #: ../loader2/loader.c:339
 msgid "Updates Disk"
@@ -7733,8 +7702,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr ""
-"Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
+msgstr "Hvis du bruger en HTTP-proxy så indtast navnet på den proxy, du vil benytte."
 
 #: ../loader2/urls.c:432
 msgid "Account name:"
@@ -7793,15 +7761,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantisk tid - Østlabrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantisk tid - (det meste af) Nova Scotia, NB, Vestlabrador, Østquebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
+msgstr "Atlantisk tid - Nova Scotia - steder, der ikke havde sommertid i 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7984,8 +7949,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Østamerikansk tid - Ontario - de fleste steder"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 "Østamerikansk tid - Ontario & Québec - steder, der ikke havde sommertid i "
 "1967-1973"
@@ -8175,8 +8139,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Amerikansk bjerg-standardtid - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 "Amerikansk bjerg-standardtid - Dawson Creek & Fort Saint John, Britisk "
 "Columbia"
@@ -8692,3 +8655,4 @@ msgstr "Zulu"
 
 #~ msgid "_Trusted devices:"
 #~ msgstr "_Troværdige enheder:"
+
