@@ -68,6 +68,7 @@ def vgactivate(volgroup = None):
 
     volgroup - optional single volume group to activate
     """
+    global lvmDevicePresent
     if flags.test or lvmDevicePresent == 0:
         return
 
@@ -87,6 +88,7 @@ def vgdeactivate(volgroup = None):
 
     volgroup - optional single volume group to deactivate
     """
+    global lvmDevicePresent
     if flags.test or lvmDevicePresent == 0:
         return
 
@@ -108,6 +110,7 @@ def lvremove(lvname, vgname):
     lvname - name of logical volume to remove.
     vgname - name of volume group lv is in.
     """
+    global lvmDevicePresent
     if flags.test or lvmDevicePresent == 0:
         return
 
@@ -128,6 +131,7 @@ def vgremove(vgname):
 
     vgname - name of volume group.
     """
+    global lvmDevicePresent
     if flags.test or lvmDevicePresent == 0:
         return
 
