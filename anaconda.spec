@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.33
+Version: 10.2.0.34
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,10 +69,15 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
-* Mon Mar 28 2005 XXX <XXX@redhat.com> - XXX-XXX
-- Adjust pcmcia module loading for new in-kernel ds (#151235)
-- Make the rescue images identify which arch they're for (#151501)
-- Delete LV snapshots before the parent LV (#151524)
+* Tue Mar 29 2005 Chris Lumens <clumens@redhat.com> 10.2.0.34-1
+- Adjust pcmcia module loading for new in-kernel ds (pjones, #151235)
+- Make the rescue images identify which arch they're for (pjones, #151501)
+- Delete LV snapshots before the parent LV (pjones, #151524)
+- Check various forms of a language nick.
+- Allow setting MTU on the command line (katzj, #151789)
+- Remove dead code in config file handling and sparc booting (katzj)
+- Product name and path simplification (katzj)
+- Fixes for lang-table format change (katzj, clumens)
 
 * Fri Mar 25 2005 Bill Nottingham <notting@redhat.com> - 10.2.0.33-1
 - fix typo in partedUtils.py
