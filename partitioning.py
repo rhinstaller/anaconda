@@ -1238,7 +1238,7 @@ class DiskSet:
                 isys.mount(dev, '/mnt/sysimage', readOnly = 1)
             except SystemError, (errno, msg):
                 try:
-                    isys.mount(dev, '/mnt/sysimage', readOnly = 1, "ext3")
+                    isys.mount(dev, '/mnt/sysimage', "ext3", readOnly = 1)
                 except SystemError, (errno, msg):
                     intf.messageWindow(_("Error"),
                                        _("Error mounting filesystem "
