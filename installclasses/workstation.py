@@ -20,8 +20,7 @@ class InstallClass(BaseInstallClass):
 
         self.showgroups = [ "KDE",
                             "GNOME",
-                            "Games",
-                            "Application Development" ]
+                            "Games" ]
 
 	if os.uname ()[4] != 'sparc64':
 	    self.addNewPartition('/boot', (16, -1, 0), (None,-1,0), (0,0))
