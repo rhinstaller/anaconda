@@ -1,7 +1,7 @@
 ExcludeArch: ppc64
 Name: anaconda
 Version: 9.1.4.0
-Release: 3.RHEL
+Release: 4.RHEL
 License: GPL
 Summary: The Red Hat Linux installation program.
 Group: Applications/System
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Oct  6 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.0-4.RHEL
+- take three
+
 * Tue Oct  5 2004 Jeremy Katz <katzj@redhat.com> - 9.1.4.0-3.RHEL
 - another attempt to get bootdisk.img to fit
 
