@@ -222,7 +222,8 @@ class MouseWindow(InstallWindow):
         self.setCurrent(currentDev, currentMouse, emulate3)
 
         # set up the box for this screen
-        box = gtk.VBox(gtk.FALSE)
+        box = gtk.VBox(gtk.FALSE, 5)
+        box.set_border_width(5)
 
         # top header, includes graphic and instructions
         hbox = gtk.HBox(gtk.FALSE, 5)
@@ -240,7 +241,6 @@ class MouseWindow(InstallWindow):
 
         # next is the mouse tree
         sw = gtk.ScrolledWindow()
-        sw.set_border_width(5)
         sw.set_shadow_type(gtk.SHADOW_IN)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add(self.mouseview)
@@ -250,16 +250,13 @@ class MouseWindow(InstallWindow):
 	setupTreeViewFixupIdleHandler(self.mouseview, self.mousestore)
 
         # then the port list
-        frame = gtk.Frame()
-        frame.set_shadow_type(gtk.SHADOW_IN)
-        frame.add(self.devview)
-        box.pack_start(frame, gtk.FALSE)
+        serial_sw = gtk.ScrolledWindow()
+        serial_sw.set_shadow_type(gtk.SHADOW_IN)
+        serial_sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
+        serial_sw.add(self.devview)
+        box.pack_start(serial_sw, gtk.FALSE)
 
         # finally the emulate 3 buttons
-        align = gtk.Alignment()
-        align.add(self.emulate3)
-        align.set_border_width(5)
-        box.pack_start(align, gtk.FALSE)
-
+        box.pack_start(self.emulate3, gtk.FALSE)
         return box
 
