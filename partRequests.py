@@ -166,7 +166,7 @@ class RequestSpec:
                {"mount": self.mountpoint, "id": self.uniqueID,
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "dev": self.device, "migrate": self.migrate,
-                "bytesPerInode": self.bytesPerInode, "options": self.fsopts})
+                "bytesPerInode": self.bytesPerInode, "fsopts": self.fsopts})
         return str
 
     def getActualSize(self, partitions, diskset):
@@ -494,7 +494,7 @@ class PartitionSpec(RequestSpec):
                 "grow": self.grow, "max": self.maxSizeMB,
                 "start": self.start, "end": self.end, "bb": self.badblocks,
                 "migrate": self.migrate, "origfs": oldfs,
-                "bytesPerInode": self.bytesPerInode, "options": self.fsopts})
+                "bytesPerInode": self.bytesPerInode, "fsopts": self.fsopts})
         return str
 
 
@@ -911,7 +911,7 @@ class LogicalVolumeRequestSpec(RequestSpec):
                 "fstype": fsname, "format": self.format, "bb": self.badblocks,
                 "lvname": self.logicalVolumeName, "vgid": self.volumeGroup,
 		"size": size, "bytesPerInode": self.bytesPerInode,
-                "options": self.fsopts})
+                "fsopts": self.fsopts})
         return str
     
     def getDevice(self, partitions):
