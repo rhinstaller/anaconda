@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.0\n"
 "POT-Creation-Date: 2001-02-07 13:19-0500\n"
-"PO-Revision-Date: 2000-08-23 22:23+0100\n"
-"Last-Translator: Milan Kerslager <milan.kerslager@spsselib.hiedu.cz>\n"
+"PO-Revision-Date: 2001-02-08 09:40+0100\n"
+"Last-Translator: Milan Kerslager <kerslage@linux.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-2\n"
@@ -19,13 +19,13 @@ msgstr "Nastala výjimka"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr ""
+msgstr "Výpis zapsán"
 
 #: ../exception.py:92
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
-msgstr ""
+msgstr "Stav systému byl úspì¹nì zapsán na disketu a bude nyní restartován."
 
 #: ../fstab.py:65
 msgid ""
@@ -33,6 +33,8 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Následující oddíly byly novì vytvoøeny, ale nebyly zvoleny ke zformátování, "
+"co¾ mù¾e pozdìji pøi instalaci zpùsobit chybu.\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -41,11 +43,14 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Stisknìte Ok pro pokraèování nebo tlaèítko Zru¹it, abyste se mohli vrátit o "
+"krok zpìt a oznaèit tyto oddíly k formátování (DOPORUÈENO)."
 
 #: ../fstab.py:74 ../iw/rootpartition_gui.py:81 ../iw/rootpartition_gui.py:97
-#, fuzzy
 msgid "Warning"
-msgstr "Hledání"
+msgstr "Varování"
 
 #: ../fstab.py:320 ../fstab.py:514 ../fstab.py:614 ../fstab.py:823
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -320,16 +325,15 @@ msgstr "Ok"
 
 #: ../rescue.py:36
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "VAROVÁNÍ: nebylo nalezeno ¾ádné blokové zaøízení.\n"
 
 #: ../rescue.py:38
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "CHYBA: pøi ètení tabulky oddílù nastala neznámá chyba.\n"
 
 #: ../rescue.py:64
-#, fuzzy
 msgid "System to Rescue"
-msgstr "Upgrade systému"
+msgstr "Opravit systém"
 
 #: ../rescue.py:65 ../text.py:388
 msgid "What partition holds the root partition of your installation?"
@@ -341,9 +345,8 @@ msgid "Exit"
 msgstr "Ukonèit"
 
 #: ../rescue.py:81 ../rescue.py:88
-#, fuzzy
 msgid "Rescue"
-msgstr "_Obnovit"
+msgstr "Záchrana"
 
 #: ../rescue.py:82
 msgid ""
@@ -363,9 +366,8 @@ msgid ""
 msgstr ""
 
 #: ../rescue.py:95
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Metoda zotavení"
+msgstr "Záchranný re¾im"
 
 #: ../rescue.py:96
 msgid ""
@@ -417,34 +419,28 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Jaký jazyk chcete pou¾ívat bìhem instalace?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
-msgstr "Výbìr oddílu"
+msgstr "Vybrat v¹e"
 
 #: ../iw/language_support_gui.py:199 ../text.py:146
-#, fuzzy
 msgid "Reset"
-msgstr "_Obnovit"
+msgstr "Reset"
 
 #: ../text.py:148
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Na jakém druhu média jsou balíèky, které chcete instalovat?"
+msgstr "Zvolte jazyky, které mají být nainstalovány:"
 
 #: ../text.py:152 ../text.py:1124
-#, fuzzy
 msgid "Language Support"
-msgstr "Laptop"
+msgstr "Podpora jazykù"
 
 #: ../text.py:207
-#, fuzzy
 msgid "Default Language"
-msgstr "Vyberte jazyk"
+msgstr "Preferovaný jazyk"
 
 #: ../text.py:208
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Vyberte jazyk"
+msgstr "Vyberte preferovaný jazyk: "
 
 #: ../text.py:232 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -628,7 +624,6 @@ msgid "Complete"
 msgstr "Hotovo"
 
 #: ../iw/congrats_gui.py:34 ../text.py:643
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -642,10 +637,10 @@ msgid ""
 msgstr ""
 "Blahopøejeme k dokonèení instalace.\n"
 "\n"
-"Nyní vyjmìte zavádìcí disketu nebo CDROM, aby se nespustila znovu instalace, "
-"a stiskem klávesy Enter systém restartujte. Na http://www.redhat.com/errata "
-"naleznete informace o opravách, které jsou k dispozici pro tuto verzi "
-"systému Red Hat Linux.\n"
+"Pro restart systému stisknìte klávesu Enter. Vyndejte média, ze kterých byl "
+"systém zaveden, jinak se znovu spustí instalaèní program. Na adrese "
+"http://www.redhat.com/errata naleznete informace o opravách, které jsou k "
+"dispozici pro tuto verzi systému Red Hat Linuxu.\n"
 "\n"
 "Informace o nastavování a pou¾ívání systému jsou obsa¾eny v pøíruèkách pro "
 "Red Hat Linux."
@@ -655,9 +650,9 @@ msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                                <Enter> pro ukonèení                         "
 
 #: ../text.py:666
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -667,12 +662,13 @@ msgid ""
 "Information on further configuring your system is available at "
 "http://www.redhat.com/support/manuals/"
 msgstr ""
-"Nastavení systému dokonèeno, blahopøejeme!\n"
+"Blahopøejeme k nastavení systému!\n"
 "\n"
-"Informace o opravách naleznete na http://www.redhat.com v dokumentu Errata.\n"
+"Informace o opravách pro tuto verzi Red Hat Linuxu naleznete na adrese "
+"http://www.redhat.com v dokumentu Errata.\n"
 "\n"
-"Informace o dal¹ím nastavování systému jsou obsa¾eny v poinstalaèní kapitole "
-"pøíruèky \"Official Red Hat Linux User's Guide\"."
+"Informace o dal¹ím nastavování systému jsou obsa¾eny v pøíruèkách dostupných "
+"na adrese http://www.redhat.com/support/manuals/"
 
 #: ../text.py:733
 msgid "Package Installation"
@@ -750,7 +746,7 @@ msgstr "Ladìní"
 
 #: ../text.py:984
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:988
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
@@ -784,9 +780,8 @@ msgstr "Nastavení sítì"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "Nastavení LILO"
+msgstr "Nastavení firewallu"
 
 #: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
@@ -841,9 +836,8 @@ msgstr "Odkládací"
 
 #: ../text.py:1100 ../textw/partitioning_text.py:390
 #: ../textw/partitioning_text.py:410
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Automatické rozdìlování na oddíly"
+msgstr "Varování o boot oddílu"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -854,9 +848,8 @@ msgid "Mouse Configuration"
 msgstr "Nastavení my¹i"
 
 #: ../text.py:1126
-#, fuzzy
 msgid "Language Default"
-msgstr "Výbìr jazyka"
+msgstr "Defaultní jazyk"
 
 #: ../text.py:1137
 msgid "Package Groups"
@@ -1010,7 +1003,7 @@ msgid ""
 "\n"
 msgstr ""
 "Nemáte dostatek místa na disku pro v¹echny balíèky, které jste si vybrali. "
-"Potøebujete více místa na následujících systémech svazcích:\n"
+"Potøebujete více místa na následujících souborových systémech:\n"
 "\n"
 
 #: ../libfdisk/gnomefsedit.c:3131 ../todo.py:1808 ../todo.py:1824
@@ -1019,23 +1012,21 @@ msgstr "Bod pøipojení"
 
 #: ../todo.py:1808
 msgid "Space Needed"
-msgstr "Chybí místo"
+msgstr "Nedostatek místa"
 
 #: ../todo.py:1821
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Nemáte dostatek místa na disku pro v¹echny balíèky, které jste si vybrali. "
-"Potøebujete více místa na následujících systémech svazcích:\n"
+"Nemáte dostatek volných inodù pro balíèky, které jste si vybrali. "
+"Potøebujete více volných inodù na následujících souborových systémech:\n"
 "\n"
 
 #: ../todo.py:1824
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Chybí místo"
+msgstr "Nedostatek inodù"
 
 #: ../todo.py:1830
 msgid "Disk Space"
@@ -1317,7 +1308,6 @@ msgid "Congratulations"
 msgstr "Gratulujeme"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1327,13 +1317,14 @@ msgid ""
 "Information on further configuring your system is available in the Official "
 "Red Hat Linux Manuals available at http://www.redhat.com/support/manuals/."
 msgstr ""
-"Nastavení systému dokonèeno, blahopøejeme!\n"
+"Nastavení systému je dokonèeno, blahopøejeme!\n"
 "\n"
-" Informace o opravách této verze Red hat Linuxu naleznete na "
+"Informace o opravách této verze Red hat Linuxu naleznete na "
 "http://www.redhat.com v dokumentu Errata.\n"
 "\n"
-"Informace o dal¹ím nastavování systému jsou obsa¾eny v poinstalaèní kapitole "
-"pøíruèky \"Official Red Hat Linux User's Guide\"."
+"Informace o dal¹ím nastavování systému jsou obsa¾eny v oficiálních "
+"pøíruèkách k Red Hat Linuxu, které naleznete na adrese "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1395,56 +1386,52 @@ msgid "Select drive to run fdisk on"
 msgstr "Vyberte jednotku, na kterou spustit fsck"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Hledání"
+msgstr "Varování: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s není platné jméno poèítaèe."
+msgstr " je neplatný port."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Formát je 'port:protokol', napøíklad: '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
-msgstr ""
+msgstr "Zvolte prosím úroveò zabezpeèení:  "
 
 #: ../iw/firewall_gui.py:254 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Vysoká"
 
 #: ../iw/firewall_gui.py:255 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Støední"
 
 #: ../iw/firewall_gui.py:256 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "®ádný firewall"
 
 #: ../iw/firewall_gui.py:273
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Pou¾ít defaultní pravidla pro firewall"
 
 #: ../iw/firewall_gui.py:274 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Úprava aktualizace"
+msgstr "Vlastní úpravy"
 
 #: ../iw/firewall_gui.py:287
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Pou¾ito RAID zaøízení"
+msgstr "Bezpeèná zaøízení:"
 
 #: ../iw/firewall_gui.py:319 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Povolit pøíchozí:"
 
 #: ../iw/firewall_gui.py:348
 msgid "Other ports:"
-msgstr ""
+msgstr "Ostatní porty:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1499,23 +1486,20 @@ msgid "What language should be used during the installation process?"
 msgstr "Jakým jazykem má s vámi komunikovat instalaèní program?"
 
 #: ../iw/language_support_gui.py:137
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Vyberte jazyk"
+msgstr "Zvolte preferovaný jazyk:   "
 
 #: ../iw/language_support_gui.py:148
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Vyberte jazyk"
+msgstr "Vyberte jazyky, které se mají nainstalovat:"
 
 #: ../iw/language_support_gui.py:193
-#, fuzzy
 msgid "Select all"
-msgstr "Výbìr oddílu"
+msgstr "Vybrat v¹echny"
 
 #: ../iw/language_support_gui.py:213
 msgid "Select as default"
-msgstr ""
+msgstr "Zvolit preferovaný"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1553,9 +1537,8 @@ msgid "Create boot disk"
 msgstr "Vytvoøení zavádìcí diskety"
 
 #: ../iw/lilo_gui.py:310
-#, fuzzy
 msgid "Install LILO"
-msgstr "Instalace"
+msgstr "Instalovat LILO"
 
 #: ../iw/lilo_gui.py:337 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1581,9 +1564,8 @@ msgid "Boot label"
 msgstr "Jméno systému"
 
 #: ../iw/lilo_gui.py:372 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Nastavit implicitní zavádìcí zaøízení PROM"
+msgstr "Implicitní obraz pro zavedení systému"
 
 #: ../iw/mouse_gui.py:134 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1667,26 +1649,24 @@ msgid "Total install size: "
 msgstr "Celkem k instalaci: "
 
 #: ../iw/package_gui.py:382
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Velikost (MB):"
+msgstr "Velikost (MB)"
 
 #: ../iw/package_gui.py:413
-#, fuzzy
 msgid "Total size: "
-msgstr "Celkem"
+msgstr "Celkem: "
 
 #: ../iw/package_gui.py:416
 msgid "Select all in group"
-msgstr ""
+msgstr "Vybrat v¹echny ve skupinì"
 
 #: ../iw/package_gui.py:420
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Odebrat v¹echny ve skupinì"
 
 #: ../iw/package_gui.py:455
 msgid "File not found"
-msgstr ""
+msgstr "Soubor nenalezen"
 
 #: ../iw/package_gui.py:498 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1731,14 +1711,12 @@ msgid "Summary"
 msgstr "Popis"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Skupiny balíèkù"
+msgstr "Prùbìh balíèku:   "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
-msgstr "Celkem   :"
+msgstr "Celkový prùbìh:   "
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
@@ -1975,25 +1953,24 @@ msgid "Test failed"
 msgstr "Test selhal"
 
 #: ../iw/xconfig_gui.py:25
-#, fuzzy
 msgid "Customize Graphics Configuration"
-msgstr "Vlastní nastavení X"
+msgstr "Vlastní nastavení grafického systému"
 
 #: ../iw/xconfig_gui.py:255
 msgid "Color Depth:"
-msgstr ""
+msgstr "Barevná hloubka:"
 
 #: ../iw/xconfig_gui.py:283
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Rozli¹ení obrazovky:"
 
 #: ../iw/xconfig_gui.py:393
 msgid "   Test Setting   "
-msgstr ""
+msgstr "   Otestovat nastavení   "
 
 #: ../iw/xconfig_gui.py:410
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Zvolte prosím preferované prostøedí desktopu:"
 
 #: ../iw/xconfig_gui.py:420 ../iw/xconfig_gui.py:485
 msgid "GNOME"
@@ -2005,21 +1982,19 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:465
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "Va¹e prostøedí desktopu je:"
 
 #: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Zvolte prosím typ pøihla¹ování:"
 
 #: ../iw/xconfig_gui.py:519
-#, fuzzy
 msgid "Text"
-msgstr "Dále"
+msgstr "Textové"
 
 #: ../iw/xconfig_gui.py:520
-#, fuzzy
 msgid "Graphical"
-msgstr "Nastavit pøihla¹ování v grafice"
+msgstr "Grafické"
 
 #: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
@@ -2031,25 +2006,23 @@ msgstr "Nastavení monitoru"
 
 #: ../iw/xconfig_gui.py:849 ../iw/xconfig_gui.py:1645
 msgid "Restore original values"
-msgstr ""
+msgstr "Obnovit pùvodní hodnoty"
 
 #: ../iw/xconfig_gui.py:857
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Øádkový kmitoèet (horizontal)"
+msgstr "Horizontální kmitoèet:"
 
 #: ../iw/xconfig_gui.py:859
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Snímkový kmitoèet (vertical)"
+msgstr "Vertikální kmitoèet:"
 
 #: ../iw/xconfig_gui.py:865
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:868
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:1053
 msgid ""
@@ -2078,9 +2051,8 @@ msgid "Autoprobe results:"
 msgstr "Výsledky automatické detekce:"
 
 #: ../iw/xconfig_gui.py:1580
-#, fuzzy
 msgid "Video card RAM: "
-msgstr "Videokarta"
+msgstr "Pamì» videokarty: "
 
 #: ../iw/xconfig_gui.py:1649
 msgid "Skip X Configuration"
@@ -2147,33 +2119,31 @@ msgstr ""
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Úroveò bezpeènosti:"
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Pou¾ito RAID zaøízení"
+msgstr "Bezpeèné porty:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Smazat"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Po¹ta (SMTP)"
 
 #: ../loader/loader.c:1237 ../loader/loader.c:1246
 #: ../textw/firewall_text.py:90
@@ -2181,23 +2151,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Podpora tisku"
+msgstr "Ostatní porty"
 
 #: ../textw/firewall_text.py:120 ../textw/firewall_text.py:185
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Neplatné jméno systému"
+msgstr "Neplatná volba"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Nelze nastavovat zakázaný firewall."
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Nastavení dokonèeno"
+msgstr "Vlastní nastavení firewallu"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -2208,9 +2175,9 @@ msgid ""
 msgstr ""
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s není platné jméno poèítaèe."
+msgstr "Varování: %s není platný port."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2295,14 +2262,12 @@ msgid "Primary nameserver:"
 msgstr "Primární DNS server:"
 
 #: ../textw/network_text.py:75
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Primární DNS server:"
+msgstr "Sekundární DNS server:"
 
 #: ../textw/network_text.py:76
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Primární DNS server:"
+msgstr "Terciální DNS server:"
 
 #: ../textw/network_text.py:121
 msgid "Invalid information"
@@ -2754,15 +2719,13 @@ msgid "Error Creating Device Nodes"
 msgstr "Chyba pøi vytváøení zaøízení"
 
 #: ../libfdisk/fsedit.c:1031
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
 "on the /tmp partition."
 msgstr ""
-"Vyskytla se chyba pøi vytváøení speciálních souborù, pomocí nih¾ jsou "
-"pøipojována zaøízení. Mù¾e to být tím, ¾e na disku není v adresáøi /tmp ji¾ "
-"volné místo."
+"Vyskytla se chyba pøi vytváøení zaøízení pro pevné disky. Chyba mù¾e být "
+"zpùsobena nedostatkem místa na oddílu /tmp."
 
 #: ../libfdisk/fsedit.c:1047
 msgid "No Drives Found"
@@ -2855,12 +2818,11 @@ msgstr "<RAID oddíl>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Nemohu najít oddíl pojmenovaný %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Chybí koøenový oddíl"
+msgstr "Koøenový oddíl"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -3198,11 +3160,12 @@ msgid "Illegal RAID mountpoint"
 msgstr "©patný pøipojovací bod pro RAID"
 
 #: ../libfdisk/gnomefsedit.c:2374
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
-msgstr "Pro koøenový (/) oddíl nelze na poèítaèích Alpha pou¾ít RAID."
+msgstr ""
+"Oddíl s RAID mù¾e být na platformì Alpha zvolen jako koøenový (/) pouze "
+"pokud oddíl s /boot není RAID."
 
 #: ../libfdisk/gnomefsedit.c:2458
 #, c-format
@@ -3553,9 +3516,9 @@ msgid "Loading"
 msgstr "Zavádìní"
 
 #: ../loader/devices.c:511 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "Naèítám %s ramdisk..."
+msgstr "Zavádím ivladaè %s ..."
 
 #: ../loader/devices.c:530
 msgid "Driver Disk"
@@ -3646,11 +3609,11 @@ msgstr ""
 #: ../loader/loader.c:509
 #, c-format
 msgid "Loading %s ramdisk..."
-msgstr "Naèítám %s ramdisk..."
+msgstr "Zavádím ramdisk %s..."
 
 #: ../loader/loader.c:519
 msgid "Error loading ramdisk."
-msgstr "Chyba pøi naèítání RAM disku."
+msgstr "Chyba pøi zavádìní ramdisku."
 
 #: ../loader/loader.c:584 ../loader/loader.c:2178
 #, c-format
@@ -3670,29 +3633,27 @@ msgstr ""
 "pøipojená zaøízení?"
 
 #: ../loader/loader.c:884
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"Který oddíl a adresáø v tomto oddílu obsahuje adresáøe RedHat/RPMS a "
-"RedHat/base? Pokud nevidíte vypsanou diskovou jednotku, kterou pou¾íváte, "
-"stisknìte F2 a nastavte dal¹í zaøízení."
+"Který oddíl a adresáø na tomto oddílu obsahuje obrazy s instalaèními CD pro "
+"Red Hat Linux? Pokud tento disk nenaleznete na ní¾e uvedeném seznamu, "
+"stisknìte klávesu F2, abyste mohli nakonfigurovat dal¹í zaøízení."
 
 #: ../loader/loader.c:898
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Adresáø obsahující Red Hat:"
+msgstr "Adresáø obsahující obrazy:"
 
 #: ../loader/loader.c:918
 msgid "Select Partition"
 msgstr "Výbìr oddílu"
 
 #: ../loader/loader.c:966
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "Zaøízení %s zøejmì neobsahuje instalaèní strom distribuce Red Hat."
+msgstr "Zaøízení %s zøejmì neobsahuje soubory s obrazy CD Red Hat Linuxu."
 
 #: ../loader/loader.c:1021
 msgid ""
@@ -3765,7 +3726,6 @@ msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr "Pro pokraèování vlo¾te disk s updaty a stisknìte \"Ok\"."
 
 #: ../loader/loader.c:2246
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
@@ -3945,21 +3905,19 @@ msgstr "Inicializuji PC Card zaøízení..."
 
 #: ../loader/pcmcia.c:104
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:105
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
 msgstr "Vlo¾te prosím disketu %s s ovladaèi."
 
 #: ../loader/pcmcia.c:114
-#, fuzzy
 msgid "Failed to mount disk."
-msgstr "Nelze pøipojit disketu s ovladaèi."
+msgstr "Selhalo pøipojení disku."
 
 #: ../loader/pcmcia.c:132
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
-msgstr ""
+msgstr "Tato disketa nevypadá jako Red Hat PCMCIA driver disk."
 
 #: ../loader/urls.c:79
 #, c-format
@@ -4012,9 +3970,8 @@ msgid "Web site name:"
 msgstr "Jméno WWW serveru:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
-msgstr "Pou¾ít neanonymní ftp nebo proxy server"
+msgstr "Pou¾ít neanonymní ftp"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
@@ -4046,13 +4003,12 @@ msgid "%s is not a valid hostname."
 msgstr "%s není platné jméno poèítaèe."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Pou¾íváte-li neanonymní FTP, zadejte jméno u¾ivatele a heslo, které chcete "
-"pou¾ít. Pou¾íváte-li FTP proxy, zadejte jméno va¹eho FTP proxy serveru."
+"Nepou¾íváte-li anonymní FTP, zadejte jméno u¾ivatele a heslo, které chcete "
+"pou¾ít."
 
 #: ../loader/urls.c:321
 msgid ""
@@ -4082,7 +4038,7 @@ msgstr "HTTP proxy port:"
 
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
-msgstr "Naèítám SCSI ovladaè"
+msgstr "Zavádím SCSI ovladaè"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
@@ -4190,9 +4146,8 @@ msgstr "Propojení s IPX/Netware(tm)"
 msgid "Anonymous FTP Server"
 msgstr "Anonymní FTP server"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "NFS server"
+msgstr "SQL server"
 
 msgid "Web Server"
 msgstr "WWW Server"
@@ -4217,74 +4172,3 @@ msgstr "Vývoj jádra"
 
 msgid "Utilities"
 msgstr "Pomocné nástroje"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Øádkový kmitoèet (horizontal)"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Snímkový kmitoèet (vertical)"
-
-#, fuzzy
-#~ msgid "IDE"
-#~ msgstr "KDE"
-
-#, fuzzy
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Inicializuji CD-ROM..."
-
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Hotovo"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Odkládací oddíl"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Otestovat nastavení"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "Vlastní nastavení X"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Implicitní desktop:"
-
-#~ msgid "Pacific Rim"
-#~ msgstr "Tichý oceán"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Chyba pøi pøipojování %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Neinstalovat LILO"
-
-#~ msgid "Up"
-#~ msgstr "Nahoru"
-
-#~ msgid "Name: "
-#~ msgstr "Jméno: "
-
-#~ msgid "Package Details"
-#~ msgstr "Detaily o balíèku"
-
-#~ msgid "Size: "
-#~ msgstr "Velikost: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Výbìr balíèku pro instalaci"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Potvrïte vybraný zpùsob rozdìlování"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "Zavadìè, který pou¾ívá systém Red Hat, lze pou¾ít i pro zavádìní jiných "
-#~ "operaèních systémù. Zadejte prosím, ve kterých oddílech jsou tyto systémy a "
-#~ "jméno, které bude pou¾ito pro jejich výbìr pøi startu poèítaèe.\n"
-#~ "\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Postgres (SQL) server"
