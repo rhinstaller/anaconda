@@ -418,7 +418,7 @@ Section "Keyboard"
 #
 # If you'd like to switch the positions of your capslock and
 # control keys, use:
-     XkbOptions  "ctrl:nocaps"
+#    XkbOptions  "ctrl:nocaps"
 
     XkbRules    "%s"
     XkbModel    "%s"
