@@ -54,7 +54,7 @@ int ourInsmodCommand(int argc, char ** argv) {
 	/* Try two balls on sparc64, one elsewhere */
 	for (i = 0; ; i++) {
 	    /* it might be having a ball */
-	    fd = gunzip_open(ballPath, 0);
+	    fd = gunzip_open(ballPath);
 	    if (!fd) {
 		free(ballPath);
 		return 1;
