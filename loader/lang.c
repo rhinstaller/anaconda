@@ -187,6 +187,7 @@ static int loadFont(char * fontFile, int flags) {
     gzFile stream;
     int rc;
 
+    if (!strcmp(fontFile, "None")) return 0;
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
@@ -239,8 +240,8 @@ void setLanguage (char * key) {
 	    setenv("LC_ALL", languages[i].lc_all, 1);
 	    setenv("LINGUAS", languages[i].key, 1);
 	    loadLanguage (NULL, 0);
-	    if (languages[i].font)
-		loadFont(languages[i].font, 0);
+	    if (languages[i].map)
+		loadFont(languages[i].map, 0);
 	    break;
 	}
     }
@@ -300,8 +301,8 @@ int chooseLanguage(char ** lang, int flags) {
     }
 
     loadLanguage (NULL, flags);
-    if (languages[choice].font)
-	loadFont(languages[choice].font, flags);
+    if (languages[choice].map)
+	loadFont(languages[choice].map, flags);
 
     return 0;
 }

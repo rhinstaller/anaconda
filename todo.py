@@ -211,7 +211,7 @@ class Language (SimpleConfigFile):
 	    string.strip(line)
 	    l = string.split(line)
 	    self.langs[l[0]] = l[4]
-	    self.font[l[0]] = l[2]
+	    self.font[l[0]] = l[3]
 	
         # kickstart needs this
         self.abbrevMap = {}
