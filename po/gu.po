@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-07-23 11:02+0530\n"
+"PO-Revision-Date: 2004-07-23 13:25+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
@@ -2435,6 +2435,10 @@ msgid ""
 "does not match your previously installed arch of %s.  This is likely to not "
 "succeed.  Are you sure you wish to continue the upgrade process?"
 msgstr ""
+"%s ની આવૃત્તિનો આર્ક કે જે તમે સુધારવા જઈ રહ્યા છો તે %s તરીકે દેખાશે"
+"અને %s ની પહેલાની આવૃત્તિ સાથે બંધબેસતું નથી. આ સફળતા જેવુ"
+"નથી. શું તમે ચોક્કસ છો કે તમે સુધારાની પ્રક્રિયા સાથે આગળ વધવા "
+"માંગો છો?"
 
 #: ../upgrade.py:475
 #, python-format
@@ -2447,6 +2451,13 @@ msgid ""
 "\n"
 "Do you wish to continue the upgrade process?"
 msgstr ""
+"આ સિસ્ટમમાં ત્રીજી વ્યક્તિના પેકેજો સ્થાપિત થયા હોય એમ લાગે છે કે"
+"જે %s માંના પેકેજો સાથે મળતા આવે છે. આ પેકેજો એક ઉપર એક બેસવાથી"
+"સુધારાની પ્રક્રિયા તેમને કદાચ યોગ્ય રીતે કામ કરવાનું બંધ કરી દે અથવા કદાચ"
+"બીજી સિસ્ટમ તેમનું સ્થાયિત્વ બગાડી દે. મહેરબાની કરીને વધુ જાણકારી માટે"
+"આવૃત્તિની નોંધો જુઓ.\n"
+"\n"
+"શું તમે સુધારાની પ્રક્રિયા ચાલુ રાખવા માંગો છો?"
 
 #: ../upgrade.py:498
 #, python-format
@@ -2455,6 +2466,9 @@ msgid ""
 "this is not a %s system. Continuing with the upgrade process may leave the "
 "system in an unusable state.  Do you wish to continue the upgrade process?"
 msgstr ""
+"સિસ્ટમ પાસે /etc/redhat-release ફાઈલ નથી. એ શક્ય છે કે આ %s સિસ્ટમ નહિં "
+"હોય. સુધારાની પ્રક્રિયા ચાલુ રાખતાં સિસ્ટમ અસ્થાયી સ્થિતિમાં ચાલી જશે."
+"શું તમે સુધારાની પ્રક્રિયા ચાલુ રાખવા માંગો છો?"
 
 #: ../upgrade.py:544
 #, python-format
@@ -2463,14 +2477,17 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
+"%s ની આ આવૃત્તિ માટે સુધારો માત્ર Red Hat Linux 6.2 દ્વારા આધારભૂત છે અથવા"
+"ઊંચી આવૃત્તિ દ્વારા. આ જૂની સિસ્ટમ હોય એમ લાગે છે. શું તમે સુધારાની પ્રક્રિયા "
+"ચાલુ રાખવા માંગો છો?"
 
 #: ../urlinstall.py:46
 msgid "Connecting..."
-msgstr ""
+msgstr "જોડાઈ રહ્યા છીએ..."
 
 #: ../vnc.py:36
 msgid "Unable to Start X"
-msgstr ""
+msgstr "X શરુ કરવામાં અસમર્થ"
 
 #: ../vnc.py:37
 msgid ""
@@ -2478,22 +2495,25 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"તમારા મશીન પર X શરુ કરવા માટે અસમર્થ છે. શું તમે આ કમ્પ્યુટરને બીજા "
+"કમ્પ્યુટર સાથે જોડવા માટે VNC શરુ કરવા માંગો છો અને ગ્રાફિકવાળું સ્થાપન "
+"શરુ કરવા માંગો છો અથવા લખાણવાળી સ્થિતિ સાથે સ્થાપન ચાલુ રાખવા માંગો છો?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "લખાણવાળી સ્થિતિ વાપરો"
 
 #: ../vnc.py:45
 msgid "Start VNC"
-msgstr ""
+msgstr "VNC શરુ કરો"
 
 #: ../vnc.py:55
 msgid "VNC Configuration"
-msgstr ""
+msgstr "VNC રુપરેખાંકન"
 
 #: ../vnc.py:59
 msgid "No password"
-msgstr ""
+msgstr "પાસવર્ડ નથી"
 
 #: ../vnc.py:62
 msgid ""
@@ -2501,165 +2521,174 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"પાસવર્ડ એ સત્તાધિકરણ વગરના માણસોને તમારી સ્થાપનની પ્રક્રિયાની સાથે "
+"જોડાવા અને ધ્યાન રાખવાથી બચાવે છે. મહેરબાની કરીને સ્થાપન માટે "
+"વાપરવાનો પાસવર્ડ દાખલ કરો."
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
-msgstr ""
+msgstr "પાસવર્ડ:"
 
 #: ../vnc.py:71 ../textw/userauth_text.py:45
 msgid "Password (confirm):"
-msgstr ""
+msgstr "પાસવર્ડ (ખાતરી):"
 
 #: ../vnc.py:93 ../textw/userauth_text.py:66 ../textw/userauth_text.py:146
 msgid "Password Mismatch"
-msgstr ""
+msgstr "પાસવર્ડ બંધબેસતો નથી"
 
 #: ../vnc.py:94 ../textw/userauth_text.py:67 ../textw/userauth_text.py:147
 msgid "The passwords you entered were different. Please try again."
-msgstr ""
+msgstr "તમે દાખલ કરેલા પાસવર્ડો અલગ અલગ છે. મહેરબાની કરીને ફરીથી પ્રયત્ન કરો."
 
 #: ../vnc.py:99 ../textw/userauth_text.py:61 ../textw/userauth_text.py:138
 msgid "Password Length"
-msgstr ""
+msgstr "પાસવર્ડની લંબાઈ"
 
 #: ../vnc.py:100
 msgid "The password must be at least six characters long."
-msgstr ""
+msgstr "પાસવર્ડ ઓછામાં ઓછો ૬ અક્ષરોની લંબાઈનો હોવો જ જોઈએ."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC પ્રોબવાળું મોનિટર"
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
-msgstr ""
+msgstr "રુટ પાસવર્ડ સુયોજિત કરો"
 
 #: ../iw/account_gui.py:41 ../iw/account_gui.py:49 ../iw/account_gui.py:56
 #: ../iw/account_gui.py:65 ../textw/userauth_text.py:71
 msgid "Error with Password"
-msgstr ""
+msgstr "પાસવર્ડ સાથે ભૂલ છે"
 
 #: ../iw/account_gui.py:42
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
 msgstr ""
+"તમારે તમારો રુટ પાસવર્ડ દાખલ કરવો જ પડશે અને તેને બીજી વાર લખીને "
+"ખાતરી કરવી જ જોઈએ."
 
 #: ../iw/account_gui.py:50
 msgid "The passwords you entered were different.  Please try again."
-msgstr ""
+msgstr "તમે દાખલ કરેલ બંને પાસવર્ડો અલગ છે. મહેરબાની કરીને ફરીથી પ્રયત્ન કરો."
 
 #: ../iw/account_gui.py:57
 msgid "The root password must be at least six characters long."
-msgstr ""
+msgstr "રુટ પાસવર્ડ ઓછામાં ઓછો ૬ અક્ષરોની લંબાઈનો તો હોવો જ જોઈએ."
 
 #: ../iw/account_gui.py:66 ../textw/userauth_text.py:72
 msgid ""
 "Requested password contains non-ascii characters which are not allowed for "
 "use in password."
 msgstr ""
+"મંજૂરી કરાયેલ પાસવર્ડ આસ્કી સિવાયના (non-ascii) અક્ષરો સમાવે છે જે "
+"પાસવર્ડ માટે વાપરવા માન્ય નથી."
 
 #: ../iw/account_gui.py:93
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"રુટ ખાતુ એ સિસ્ટમના સંચાલન માટે વપરાય છે. રુટ વપરાશકર્તા માટે "
+"પાસવર્ડ દાખલ કરો."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
-msgstr ""
+msgstr "રુટ પાસવર્ડ (_P): "
 
 #: ../iw/account_gui.py:113
 msgid "_Confirm: "
-msgstr ""
+msgstr "ખાતરી (_C): "
 
 #: ../iw/auth_gui.py:22 ../textw/userauth_text.py:337
 msgid "Authentication Configuration"
-msgstr ""
+msgstr "સત્તાધિકરણ રુપરેખાંકન"
 
 #: ../iw/auth_gui.py:98
 msgid "Enable _MD5 passwords"
-msgstr ""
+msgstr "_MD5 પાસવર્ડો સક્રિય કરો"
 
 #: ../iw/auth_gui.py:99
 msgid "Enable shado_w passwords"
-msgstr ""
+msgstr "શેડો પાસવર્ડો સક્રિય કરો (_w)"
 
 #: ../iw/auth_gui.py:102
 msgid "Enable N_IS"
-msgstr ""
+msgstr "N_IS સક્રિય કરો"
 
 #: ../iw/auth_gui.py:103
 msgid "Use _broadcast to find NIS server"
-msgstr ""
+msgstr "NIS સર્વર શોધવા માટે બ્રોડકાસ્ટ વાપરો (_b)"
 
 #: ../iw/auth_gui.py:115
 msgid "NIS _Domain: "
-msgstr ""
+msgstr "NIS ડોમેઈન (_D): "
 
 #: ../iw/auth_gui.py:118
 msgid "NIS _Server: "
-msgstr ""
+msgstr "NIS સર્વર (_S): "
 
 #: ../iw/auth_gui.py:142
 msgid "Enable _LDAP"
-msgstr ""
+msgstr "_LDAP સક્રિય કરો"
 
 #: ../iw/auth_gui.py:145
 msgid "Use _TLS lookups"
-msgstr ""
+msgstr "_TLS લુકઅપ વાપરો"
 
 #: ../iw/auth_gui.py:146
 msgid "LDAP _Server:"
-msgstr ""
+msgstr "LDAP સર્વર (_S):"
 
 #: ../iw/auth_gui.py:149
 msgid "LDAP _Base DN:"
-msgstr ""
+msgstr "LDAP _Base DN:"
 
 #: ../iw/auth_gui.py:177
 msgid "Enable _Kerberos"
-msgstr ""
+msgstr "કર્બરોઝ સક્રિય કરો (_K)"
 
 #: ../iw/auth_gui.py:181
 msgid "R_ealm:"
-msgstr ""
+msgstr "R_ealm:"
 
 #: ../iw/auth_gui.py:184
 msgid "K_DC:"
-msgstr ""
+msgstr "K_DC:"
 
 #: ../iw/auth_gui.py:187
 msgid "_Admin Server:"
-msgstr ""
+msgstr "_Admin સર્વર:"
 
 #: ../iw/auth_gui.py:216
 msgid "Enable SMB _Authentication"
-msgstr ""
+msgstr "SMB સત્તાધિકરણ સક્રિય કરો (_A)"
 
 #: ../iw/auth_gui.py:219
 msgid "SMB _Server:"
-msgstr ""
+msgstr "SMB સર્વર (_S):"
 
 #: ../iw/auth_gui.py:222
 msgid "SMB Work_group:"
-msgstr ""
+msgstr "SMB Work_group:"
 
 #: ../iw/auth_gui.py:250
 msgid "NIS"
-msgstr ""
+msgstr "NIS"
 
 #: ../iw/auth_gui.py:251
 msgid "LDAP"
-msgstr ""
+msgstr "LDAP"
 
 #: ../iw/auth_gui.py:252
 msgid "Kerberos 5"
-msgstr ""
+msgstr "કર્બરોઝ ૫"
 
 #: ../iw/auth_gui.py:253
 msgid "SMB"
-msgstr ""
+msgstr "SMB"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2667,40 +2696,44 @@ msgid ""
 "kernel.  For greater system security, it is recommended that you set a "
 "password."
 msgstr ""
+"બુટ લોડર પાસવર્ડ વપરાશકર્તાઓને કર્નલને વિકલ્પો પસાર કરવાથી બચાવે છે. "
+"મોટી સિસ્ટમોની સુરક્ષા માટે, એ જરુરી છે કે તમે તમારો પાસવર્ડ સુયોજિત કરો."
 
 #: ../iw/blpasswidget.py:42
 msgid "_Use a boot loader password"
-msgstr ""
+msgstr "બુટ લોડર પાસવર્ડ વાપરો (_U)"
 
 #: ../iw/blpasswidget.py:76
 msgid "Change _password"
-msgstr ""
+msgstr "પાસવર્ડ બદલો (_p)"
 
 #: ../iw/blpasswidget.py:99
 msgid "Enter Boot Loader Password"
-msgstr ""
+msgstr "બુટલોડર પાસવર્ડ દાખલ કરો"
 
 #: ../iw/blpasswidget.py:105
 msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
+"બુટલોડર પાસવર્ડ દાખલ કરો અને પછી તેની ખાતરી કરો. (નોંધ કરો કે "
+"કદાચ તમારું BIOS કીમેપ મૂળ કીમેપ કરતાં અલગ હોય.)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
-msgstr ""
+msgstr "પાસવર્ડ (_P):"
 
 #: ../iw/blpasswidget.py:118
 msgid "Con_firm:"
-msgstr ""
+msgstr "ખાતરી (_f):"
 
 #: ../iw/blpasswidget.py:139
 msgid "Passwords don't match"
-msgstr ""
+msgstr "પાસવર્ડો બંધબેસતા નથી"
 
 #: ../iw/blpasswidget.py:140 ../textw/bootloader_text.py:447
 msgid "Passwords do not match"
-msgstr ""
+msgstr "પાસવર્ડ મળતા નથી"
 
 #: ../iw/blpasswidget.py:149 ../textw/bootloader_text.py:457
 msgid ""
@@ -2709,10 +2742,14 @@ msgid ""
 "\n"
 "Would you like to continue with this password?"
 msgstr ""
+"તમારુ બુટ લોડર પાસવર્ડ એ ૬ અક્ષરો કરતાં નાનો છે. અમે મોટો બુટ લોડર "
+"પાસવર્ડનો આગ્રહ રાખીએ છીએ\n"
+"\n"
+"શું તમે આ પાસવર્ડ સાથે ચાલુ રાખવા માંગો છો?"
 
 #: ../iw/bootdisk_gui.py:23
 msgid "Boot Diskette Creation"
-msgstr ""
+msgstr "બુટ ડિસ્ક બનાવવાનું"
 
 #: ../iw/bootdisk_gui.py:54
 #, python-format
