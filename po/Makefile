@@ -75,8 +75,8 @@ install:	all
 missing: Makefile
 	mkdir -p missing; \
 	for n in $(CATALOGS); do \
-	    msghack --missing $$n > missing/$$n-; \
-            msghack --empty missing/$$n- | grep -v "^#," > missing/$$n; \
+	    msghack -w 999999 --missing $$n > missing/$$n-; \
+            msghack -w 999999 --empty missing/$$n- | grep -v "^#," > missing/$$n; \
 	    rm missing/$$n-; \
 	done
 
