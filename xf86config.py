@@ -890,9 +890,9 @@ class XF86Config:
         # PCI descr, (horiz, vert), modes
         laptops = (("ATI|Rage Mobility",
                     ("30-60", "60-90"),
-                    { "8" : ["1024x768"],
-                      "16" : ["1024x768"],
-                      "32" : ["1024x768"]}),
+                    { "8" : ["800x600", "1024x768"],
+                      "16" : ["800x600", "1024x768"],
+                      "32" : ["800x600", "1024x768"]}),
                    )
         for (card, (horiz, vert), modes) in laptops:
             if (len(self.descr) >= len (card)
