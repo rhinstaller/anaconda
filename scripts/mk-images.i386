@@ -169,6 +169,19 @@ makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
 	     --imagename ../dosutils/autoboot/cdboot.img \
 	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd.img
 
+makeinitrd --initrdto $TOPDESTPATH/dosutils/autoboot/initrd-ja.img \
+	   --initrdsize 4100 \
+	   --japanese \
+	   --pcmcia \
+	   --loaderbin loader-pcmcia \
+	   --modules "$COMMONMODULES $PCMCIAMODULES nfs =scsi $IDEMODS 
+		      $SCSIMODS"
+
+makebootdisk --kernelto $TOPDESTPATH/dosutils/autoboot/vmlinuz  \
+	     --bootdisksize 2880 \
+	     --imagename ../dosutils/autoboot/cdboot-ja.img \
+	     --initrd $TOPDESTPATH/dosutils/autoboot/initrd-ja.img
+
 makemainmodules "=scsi =net $SECSTAGE"
 
 makeinstimage --size1 3300 --size2 4608 "netstg" "=scsi $SECSTAGE"
