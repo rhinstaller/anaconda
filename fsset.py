@@ -1538,9 +1538,7 @@ class VolumeGroupDevice(Device):
                 # there be a PhysicalVolumeDevice(PartitionDevice) ?
                 rc = iutil.execWithRedirect("/usr/sbin/pvcreate",
                                             ["pvcreate", "-ff", "-y",
-                                             "-v", "-p",
-                                             "%sk" %(self.physicalextentsize,),
-                                             node],
+                                             "-v", node],
                                             stdout = "/tmp/lvmout",
                                             stderr = "/tmp/lvmout",
                                             searchPath = 1)
@@ -1552,7 +1550,9 @@ class VolumeGroupDevice(Device):
             # rescan now that we've recreated pvs.  ugh.
             lvm.vgscan()
 
-            args = [ "/usr/sbin/vgcreate", "-v", self.name ]
+            args = [ "/usr/sbin/vgcreate", "-v",
+                     "-p", "%sk" %(self.physicalextentsize,),
+                     self.name ]
             args.extend(nodes)
             rc = iutil.execWithRedirect(args[0], args,
                                         stdout = "/tmp/lvmout",
