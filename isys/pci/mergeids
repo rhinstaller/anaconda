@@ -106,8 +106,6 @@ while (<F>) {
 
 close(F);
 
-print DRIVERS "};\n";
-
 if ($gotunknown) {
     print "Go read the unsupported file and move those entries to better locations!\n";
     exit 1
