@@ -80,10 +80,10 @@ class CdromInstallMethod(ImageInstallMethod):
 	    # this isn't the exact right place, but it's close enough
 	    target = "%s/rhinstall-stage2.img" % self.mntPoint
 	    os.unlink(target)
-	except:
+            isys.umount("/mnt/source")
+            isys.ejectCdrom(self.device)
+	except SystemError:
 	    pass
-	isys.umount("/mnt/source")
-	isys.ejectCdrom(self.device)
 
     def writeCleanupPath(self, f):
 	isys.makeDevInode("loop0", "/tmp/loop0")
