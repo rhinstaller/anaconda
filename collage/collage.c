@@ -10,8 +10,8 @@ struct commandTableEntry {
 
 struct commandTableEntry commandTable[] = {
 	{ "mknod", mknodCommand },
-	{ "umount", umountCommand },
-	{ "mount", mountCommand },
+	/*	{ "umount", umountCommand },
+		{ "mount", mountCommand },*/
 	{ "uncpio", uncpioCommand },
 	{ NULL, NULL }
 };
