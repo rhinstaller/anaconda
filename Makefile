@@ -1,6 +1,6 @@
 SUBDIRS = rpmmodule isys balkan loader
 TOPDIR = ../../..
-DESTDIR = $TOPDIR/RedHat/instimage/usr/bin
+DESTDIR = $(TOPDIR)/RedHat/instimage/usr/bin
 
 all: subdirs
 
