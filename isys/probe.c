@@ -229,7 +229,6 @@ int isUsableDasd(char *device) {
 	}
 	ret = read_vlabel(&dasd_info, f, blksize, &vlabel);
         close(f);
-        unlink(devname);
 
 	if (ret == 2) {
 		return 0;
