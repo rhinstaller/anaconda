@@ -369,7 +369,7 @@ class InstallInterface:
     def run(self, id, dispatch, configFileData):
         # set up for CJK text mode if needed
         if (flags.setupFilesystems and
-            id.instLanguage.getFontFile(id.instLanguage.getCurrent())
+            (id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "bterm")
             and not isys.isPsudoTTY(0)
             and not flags.serial):
             log("starting bterm")
