@@ -236,7 +236,7 @@ class IndividualPackageWindow:
         # go through all the headers and grok out the group names, placing
         # packages in lists in the groups dictionary.
         
-        for key in todo.hdList.keys():
+        for key in todo.hdList.packages.keys():
             header = todo.hdList.packages[key]
             if not groups.has_key (header[rpm.RPMTAG_GROUP]):
                 groups[header[rpm.RPMTAG_GROUP]] = []
