@@ -23,7 +23,7 @@ struct extractedModule {
 };
 
 struct moduleList_s {
-    struct loadedModuleInfo mods[50];
+    struct loadedModuleInfo mods[100];
     int numModules;
 };
 
