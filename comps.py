@@ -172,19 +172,6 @@ class Component:
     def select(self, forInclude = 0):
 	if forInclude:
 	    self.selectionCount = self.selectionCount + 1
-	    if self.manuallySelected or self.selectionCount > 1:
-		# We're already selected -- no need to redo the work
-		return
-	else:
-	    alreadySelected = self.manuallySelected or self.selectionCount
-	    self.manuallySelected = 1
-	    
-	    if alreadySelected:
-		# We're already selected -- no need to redo the work
-		return
-
-	if forInclude:
-	    self.selectionCount = 1
 	else:
 	    self.manuallySelected = 1
 
@@ -202,15 +189,10 @@ class Component:
 	return self.manuallySelected or (self.selectionCount > 0)
 
     def unselect(self, forInclude = 0):
-	if not forInclude and not self.manuallySelected:
-	    # redundant manual deselection
-	    return
-	elif forInclude and not self.selectionCount:
-	    # redundant include deselection
-	    return
-
 	if forInclude:
 	    self.selectionCount = self.selectionCount - 1
+	    if self.selectionCount < 0:
+		self.selectCount = 0
 	else:
 	    self.manuallySelected = 0
 
