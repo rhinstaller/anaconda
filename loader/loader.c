@@ -179,16 +179,20 @@ int main(int argc, char ** argv) {
     }
     
     modules = probePciDriverList();
-    module = *modules++;
-    while (module && *module) {
-	if (!testing) {
-	    printf("Inserting module %s\n", module);
-	    insmod(module, NULL);
-	} else {
-	    printf("If I were not testing, I would run insmod(%s, NULL);\n",
-		   module);
+    if (modules == NULL) {
+	printf("No PCI devices found :(\n");
+    } else {
+	module = *modules;
+	while (module) {
+	    if (!testing) {
+		printf("Inserting module %s\n", module);
+		insmod(module, NULL);
+	    } else {
+		printf("If I were not testing, I would run insmod(%s, NULL);\n",
+		       module);
+	    }
+	    module = *modules++;
 	}
-	module = *modules++;
     }
     
     /*

@@ -10,7 +10,7 @@ else
 TARGET=depend $(PROGS)
 endif
 
-OPTS = -O2
+OPTS = -O2 -g
 
 CFLAGS = $(DEBUG) $(OPTS) -Wall -D_GNU_SOURCE=1 -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1
 
@@ -41,7 +41,7 @@ install: all
 	install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
 
 loader: $(OBJS)
-	$(CC) $(STATIC) -o $@ $(OBJS) -lpopt     \
+	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \
         ../isys/pci/libpciprobe.a ../isys/isys.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
