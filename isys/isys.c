@@ -36,7 +36,6 @@
 #include <scsi/scsi_ioctl.h>
 #include <sys/vt.h>
 #include <sys/types.h>
-#include <linux/hdreg.h>
 #include <linux/fb.h>
 #include <libintl.h>
 #include <selinux/selinux.h>

@@ -10,7 +10,6 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <linux/hdreg.h>
 
 #ifdef DIET
 #include <sys/mount.h>

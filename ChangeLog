@@ -1,3 +1,11 @@
+2005-01-19  Jeremy Katz  <katzj@redhat.com>
+
+	* isys/pdc.c: Fix build if HDIO_GETGEO_BIG_RAW isn't defined.
+	* isys/silraid.c: Likewise.
+
+	* isys/hpt.c: Remove unused include.
+	* isys/isys.c: Likewise.
+
 2005-01-19  Chris Lumens  <clumens@redhat.com>
 
 	* anaconda.spec: Bump version.

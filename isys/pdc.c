@@ -8,7 +8,6 @@
 #include <sys/ioctl.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <linux/hdreg.h>
 
 #ifdef DIET
 #include <sys/mount.h>
@@ -30,6 +29,18 @@ typedef unsigned int uint32_t;
 
 #ifndef BLKSSZGET
 #define BLKSSZGET  _IO(0x12,104)/* get block device sector size */
+#endif
+
+#ifndef HDIO_GETGEO_BIG_RAW
+#define HDIO_GETGEO_BIG_RAW  0x0331
+
+/* BIG GEOMETRY */
+struct hd_big_geometry {
+    unsigned char heads;
+    unsigned char sectors;
+    unsigned int cylinders;
+    unsigned long start;
+};
 #endif
 
 struct promise_raid_conf {
