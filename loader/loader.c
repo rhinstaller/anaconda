@@ -995,7 +995,7 @@ static char * mountUrlImage(struct installMethod * method,
 	    }
 
 #ifdef __i386__
-	    fd = urlinstStartTransfer(&ui, "base/netstg2.img";)
+	    fd = urlinstStartTransfer(&ui, "base/netstg2.img");
 #else
 	    fd = urlinstStartTransfer(&ui, "base/stage2.img");
 #endif
