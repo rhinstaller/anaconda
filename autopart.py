@@ -621,6 +621,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     ret = growParts(diskset, requests, newParts)
 
     for part in newParts.parts:
+        newParts.parts.remove(part)
         del part
 
     if ret == PARTITION_SUCCESS:
