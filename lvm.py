@@ -229,6 +229,7 @@ def vglist():
 
 # FIXME: this is a hack.  we really need to have a --force option.
 def unlinkConf():
+    lvmroot = "/etc/lvm"
     if os.path.exists("%s/lvm.conf" %(lvmroot,)):
         os.unlink("%s/lvm.conf" %(lvmroot,))
         
