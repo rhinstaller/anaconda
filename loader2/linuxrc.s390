@@ -252,7 +252,7 @@ elif [ ":$NETTYPE" = ":iucv" ]; then
 	insmod netiucv$LO $IUCV
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	if [ -n "$IUCV" ]; then
-		 echo "options netiucv $IUCV" >> /tmp/modules.conf
+		 echo "options netiucv $IUCV" >> /tmp/modprobe.conf
 	fi
 elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    insmod ccwgroup$LO
@@ -260,7 +260,7 @@ elif [ "$NETTYPE" = "lcs" -o "$NETTYPE" = "tr" ]; then
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-   echo "alias $DEVICE lcs" >> /tmp/modules.conf
+   echo "alias $DEVICE lcs" >> /tmp/modprobe.conf
 elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
    insmod ccwgroup$LO
 	insmod qdio$LO
@@ -268,7 +268,7 @@ elif [ "$NETTYPE" = "eth" -o "$NETTYPE" = "hsi" ]; then
    setupdevice
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
-	echo "alias $DEVICE qeth" >> /tmp/modules.conf
+	echo "alias $DEVICE qeth" >> /tmp/modprobe.conf
 else
    echo $"Unknown network device, aborting installation"
    exit 1
