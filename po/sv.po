@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"POT-Creation-Date: 2003-02-05 01:45-0500\n"
+"POT-Creation-Date: 2003-02-11 10:57-0500\n"
 "PO-Revision-Date: 2003-02-05 11:28+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
@@ -22,9 +22,9 @@ msgstr ""
 "Du har inte tillräckligt med minne för att använda det grafiska "
 "installationsprogrammet. Startar textläge."
 
-#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
-#: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
-#: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:224
+#: ../rescue.py:252 ../rescue.py:262 ../rescue.py:331 ../rescue.py:337
+#: ../text.py:324 ../text.py:456 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:154 ../textw/silo_text.py:110
@@ -33,25 +33,26 @@ msgstr ""
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
 #: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
 #: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
-#: ../loader2/driverdisk.c:200 ../loader2/driverdisk.c:216
-#: ../loader2/driverdisk.c:227 ../loader2/driverselect.c:73
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:255
-#: ../loader2/hdinstall.c:422 ../loader2/hdinstall.c:473
-#: ../loader2/hdinstall.c:504 ../loader2/hdinstall.c:554 ../loader2/kbd.c:125
-#: ../loader2/kickstart.c:97 ../loader2/kickstart.c:106
-#: ../loader2/kickstart.c:149 ../loader2/kickstart.c:249 ../loader2/lang.c:100
-#: ../loader2/lang.c:387 ../loader2/loader.c:297 ../loader2/loader.c:309
-#: ../loader2/loader.c:320 ../loader2/loader.c:580 ../loader2/loader.c:696
-#: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:158 ../loader2/method.c:366
-#: ../loader2/method.c:451 ../loader2/net.c:170 ../loader2/net.c:334
+#: ../loader2/driverdisk.c:202 ../loader2/driverdisk.c:218
+#: ../loader2/driverdisk.c:230 ../loader2/driverdisk.c:376
+#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
+#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
+#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
+#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
+#: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:373
+#: ../loader2/loader.c:297 ../loader2/loader.c:309 ../loader2/loader.c:320
+#: ../loader2/loader.c:580 ../loader2/loader.c:702 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
+#: ../loader2/method.c:158 ../loader2/method.c:366 ../loader2/method.c:451
+#: ../loader2/modules.c:922 ../loader2/net.c:170 ../loader2/net.c:334
 #: ../loader2/net.c:658 ../loader2/net.c:681 ../loader2/net.c:744
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:217
 #: ../loader2/nfsinstall.c:220 ../loader2/nfsinstall.c:258
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
 #: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
-#: ../loader2/urlinstall.c:367 ../loader2/urlinstall.c:376
-#: ../loader2/urlinstall.c:387 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
+#: ../loader2/urlinstall.c:386 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:248 ../loader2/urls.c:309
 #: ../loader2/urls.c:314 ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
@@ -147,11 +148,13 @@ msgstr ""
 "Att lägga till denna partition skulle inte lämna tillräckligt med utrymme "
 "för redan allokerade logiska volymer i %s."
 
-#: ../autopart.py:1159
+#: ../autopart.py:1160 ../autopart.py:1186 ../autopart.py:1216
+#: ../autopart.py:1252
 msgid "Requested Partition Does Not Exist"
 msgstr "Begärd partition finns inte"
 
-#: ../autopart.py:1160
+#: ../autopart.py:1161 ../autopart.py:1187 ../autopart.py:1217
+#: ../autopart.py:1253
 #, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -162,11 +165,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1191 ../autopart.py:1231
+#: ../autopart.py:1285 ../autopart.py:1325
 msgid "Automatic Partitioning Errors"
 msgstr "Fel vid automatisk partitionering"
 
-#: ../autopart.py:1192
+#: ../autopart.py:1286
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -181,11 +184,11 @@ msgstr ""
 "\n"
 "Tryck \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1201
+#: ../autopart.py:1295
 msgid "Warnings During Automatic Partitioning"
 msgstr "Varningar under automatisk partitionering"
 
-#: ../autopart.py:1202
+#: ../autopart.py:1296
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -196,7 +199,7 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1215
+#: ../autopart.py:1309
 msgid ""
 "\n"
 "\n"
@@ -206,12 +209,12 @@ msgstr ""
 "\n"
 "Tryck på \"OK\" för att starta om ditt system."
 
-#: ../autopart.py:1216 ../iw/partition_gui.py:981
+#: ../autopart.py:1310 ../iw/partition_gui.py:983
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Fel vid partitionering"
 
-#: ../autopart.py:1217
+#: ../autopart.py:1311
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -222,7 +225,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1232
+#: ../autopart.py:1326
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -246,9 +249,9 @@ msgstr ""
 "\n"
 "Tryck på \"OK\" för att fortsätta."
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
-#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
-#: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
+#: ../autopart.py:1404 ../bootloader.py:123 ../image.py:380
+#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
+#: ../upgrade.py:444 ../upgrade.py:464 ../upgrade.py:506
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -259,7 +262,7 @@ msgstr ""
 msgid "Warning"
 msgstr "Varning"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1410
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
 "type. You also can customize the partitions once they have been created.\n"
@@ -276,7 +279,7 @@ msgstr ""
 "partitioner i en interaktiv miljö. Du kan ange filsystemstyper, "
 "monteringspunkter, storlek med mera."
 
-#: ../autopart.py:1327
+#: ../autopart.py:1421
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
 "must choose how to use the space on your hard drives."
@@ -284,19 +287,19 @@ msgstr ""
 "Innan installationsprogrammet kan genomföra automatisk partitionering måste "
 "du välja hur utrymmet på dina hårddiskar ska användas."
 
-#: ../autopart.py:1332
+#: ../autopart.py:1426
 msgid "Remove all partitions on this system"
 msgstr "Ta bort alla partitioner på detta system"
 
-#: ../autopart.py:1333
+#: ../autopart.py:1427
 msgid "Remove all Linux Partitions on this system"
 msgstr "Ta bort alla Linuxpartitioner på detta system"
 
-#: ../autopart.py:1334
+#: ../autopart.py:1428
 msgid "Keep all partitions and use existing free space"
 msgstr "Behåll alla partitioner och använd befintligt ledigt utrymme"
 
-#: ../autopart.py:1336
+#: ../autopart.py:1430
 #, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -307,7 +310,7 @@ msgstr ""
 "s\n"
 "Är du säker på att du vill göra detta?"
 
-#: ../autopart.py:1340
+#: ../autopart.py:1434
 #, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -338,7 +341,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:624
 msgid "no suggestion"
 msgstr "inget förslag"
 
@@ -386,15 +389,15 @@ msgstr ""
 "undantagsfel och skapa en detaljerad felrapport för anaconda på http://"
 "bugzilla.redhat.com/bugzilla/"
 
-#: ../exception.py:167 ../text.py:240
+#: ../exception.py:168 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Ett undantagsfel inträffade"
 
-#: ../exception.py:234
+#: ../exception.py:235
 msgid "Dump Written"
 msgstr "Minnesdump skriven"
 
-#: ../exception.py:235
+#: ../exception.py:236
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -441,19 +444,19 @@ msgstr "_Skapa startdiskett"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
+#: ../harddrive.py:217 ../image.py:76 ../image.py:107 ../image.py:243
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
-#: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:368
+#: ../upgrade.py:390 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
 #: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:227
-#: ../loader2/driverdisk.c:291 ../loader2/hdinstall.c:255
+#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:230
+#: ../loader2/driverdisk.c:295 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
-#: ../loader2/kickstart.c:249 ../loader2/lang.c:100 ../loader2/loader.c:320
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:320
 #: ../loader2/loader.c:580 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:158 ../loader2/method.c:366
 #: ../loader2/method.c:451 ../loader2/nfsinstall.c:217
@@ -658,11 +661,11 @@ msgstr ""
 "\n"
 "Tryck OK för att starta om ditt system."
 
-#: ../fsset.py:1988
+#: ../fsset.py:1990
 msgid "Formatting"
 msgstr "Formaterar"
 
-#: ../fsset.py:1989
+#: ../fsset.py:1991
 #, python-format
 msgid "Formatting %s file system..."
 msgstr "Formaterar %s-filsystem..."
@@ -717,8 +720,8 @@ msgstr "Fixa"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
-#: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:340
+#: ../loader2/driverdisk.c:351 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
 msgid "Yes"
 msgstr "Ja"
@@ -727,7 +730,7 @@ msgstr "Ja"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:340 ../loader2/driverdisk.c:351
 #: ../loader2/loader.c:345
 msgid "No"
 msgstr "Nej"
@@ -746,7 +749,7 @@ msgstr "Ignorera"
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:203
 #: ../loader2/loader.c:309
 msgid "Cancel"
 msgstr "Avbryt"
@@ -763,7 +766,7 @@ msgstr ""
 msgid "Online Help"
 msgstr "Hjälp"
 
-#: ../gui.py:740 ../iw/language_gui.py:23 ../textw/language_text.py:37
+#: ../gui.py:740 ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Språkval"
 
@@ -795,7 +798,7 @@ msgstr ""
 "\n"
 "className = %s"
 
-#: ../gui.py:952 ../packages.py:1258 ../iw/congrats_gui.py:29
+#: ../gui.py:952 ../packages.py:1245 ../iw/congrats_gui.py:29
 msgid "_Exit"
 msgstr "_Avsluta"
 
@@ -803,19 +806,19 @@ msgstr "_Avsluta"
 msgid "_Retry"
 msgstr "_Försök igen"
 
-#: ../gui.py:955 ../packages.py:1261
+#: ../gui.py:955 ../packages.py:1248
 msgid "Rebooting System"
 msgstr "Startar om system"
 
-#: ../gui.py:956 ../packages.py:1262
+#: ../gui.py:956 ../packages.py:1249
 msgid "Your system will now be rebooted..."
 msgstr "Ditt system kommer nu att startas om..."
 
-#: ../gui.py:959 ../packages.py:1264
+#: ../gui.py:959 ../packages.py:1251
 msgid "_Reboot"
 msgstr "Starta _om"
 
-#: ../gui.py:1050 ../packages.py:1264
+#: ../gui.py:1050 ../packages.py:1251
 msgid "_Back"
 msgstr "Till_baka"
 
@@ -857,7 +860,7 @@ msgstr "Kan inte läsa in titelrad"
 msgid "Install Window"
 msgstr "Installationsfönster"
 
-#: ../harddrive.py:209
+#: ../harddrive.py:218
 #, python-format
 msgid ""
 "Missing ISO image for CD #%d, which is required for the install.\n"
@@ -868,7 +871,7 @@ msgstr ""
 "\n"
 "Systemet kommer nu att startas om."
 
-#: ../image.py:73
+#: ../image.py:77
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
@@ -878,15 +881,15 @@ msgstr ""
 "inte försöker komma åt %s från skalet på tty2 och klicka sedan på OK för att "
 "försöka igen."
 
-#: ../image.py:100
+#: ../image.py:104
 msgid "Copying File"
 msgstr "Kopierar fil"
 
-#: ../image.py:101
+#: ../image.py:105
 msgid "Transferring install image to hard drive..."
 msgstr "Överför installationsavbilden till hårddisken..."
 
-#: ../image.py:104
+#: ../image.py:108
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -894,25 +897,25 @@ msgstr ""
 "Ett fel inträffade vid överföringen av installationsavbilden till din "
 "hårddisk. Du har troligtvis slut på diskutrymme."
 
-#: ../image.py:197
+#: ../image.py:201
 msgid "Change CDROM"
 msgstr "Byt cd-romskiva"
 
-#: ../image.py:198
+#: ../image.py:202
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Sätt i skiva %d för att fortsätta."
 
-#: ../image.py:233
+#: ../image.py:237
 msgid "Wrong CDROM"
 msgstr "Fel cd-romskiva"
 
-#: ../image.py:234
+#: ../image.py:238
 #, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "Detta är inte rätt %s-cd."
 
-#: ../image.py:240
+#: ../image.py:244
 msgid "The CDROM could not be mounted."
 msgstr "Cd-romskivan kunde inte monteras."
 
@@ -920,11 +923,11 @@ msgstr "Cd-romskivan kunde inte monteras."
 msgid "Install on System"
 msgstr "Installera på system"
 
-#: ../kickstart.py:1140
+#: ../kickstart.py:1168
 msgid "Missing Package"
 msgstr "Paket saknas"
 
-#: ../kickstart.py:1141
+#: ../kickstart.py:1169
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
@@ -933,19 +936,19 @@ msgstr ""
 "Du har angivit att paketet \"%s\" ska installeras. Detta paket finns inte. "
 "Vill du fortsätta eller avbryta din installation?"
 
-#: ../kickstart.py:1147 ../kickstart.py:1173
+#: ../kickstart.py:1175 ../kickstart.py:1201
 msgid "_Abort"
 msgstr "_Avbryt"
 
-#: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
+#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
 msgid "_Continue"
 msgstr "_Fortsätt"
 
-#: ../kickstart.py:1166
+#: ../kickstart.py:1194
 msgid "Missing Group"
 msgstr "Grupp saknas"
 
-#: ../kickstart.py:1167
+#: ../kickstart.py:1195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1067,7 +1070,7 @@ msgid ""
 msgstr ""
 "Du försöker installera på en maskin som inte stöds av denna version av %s."
 
-#: ../packages.py:578
+#: ../packages.py:578 ../upgrade.py:334
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
 "media.  Press <return> to try again."
@@ -1097,12 +1100,12 @@ msgstr ""
 "Installerar %s paket\n"
 "\n"
 
-#: ../packages.py:777 ../packages.py:1096
+#: ../packages.py:777 ../packages.py:1083
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Uppgraderar %s-%s-%s.\n"
 
-#: ../packages.py:779 ../packages.py:1098
+#: ../packages.py:779 ../packages.py:1085
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Installerar %s-%s-%s.\n"
@@ -1170,7 +1173,7 @@ msgstr "Noder som behövs"
 msgid "Disk Space"
 msgstr "Diskutrymme"
 
-#: ../packages.py:917
+#: ../packages.py:921
 msgid ""
 "\n"
 "\n"
@@ -1180,19 +1183,19 @@ msgstr ""
 "\n"
 "Följande paket är tillgängliga i denna version men uppgraderades INTE:\n"
 
-#: ../packages.py:938
+#: ../packages.py:942
 msgid "Post Install"
 msgstr "Postinstallation"
 
-#: ../packages.py:939
+#: ../packages.py:943
 msgid "Performing post install configuration..."
 msgstr "Utför postinstallationskonfiguration..."
 
-#: ../packages.py:1244
+#: ../packages.py:1231
 msgid "Warning! This is a beta!"
 msgstr "Varning! Detta är en beta!"
 
-#: ../packages.py:1245
+#: ../packages.py:1232
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1218,7 +1221,7 @@ msgstr ""
 "\n"
 "och fyller i en felrapport mot \"Red Hat Public Beta\".\n"
 
-#: ../packages.py:1258
+#: ../packages.py:1245
 msgid "_Install BETA"
 msgstr "_Installera BETA"
 
@@ -1411,8 +1414,8 @@ msgstr "Du är på väg att ta bort alla partitioner på enheten \"/dev/%s\"."
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
-#: ../iw/partition_gui.py:1344
+#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:1346
 msgid "_Delete"
 msgstr "_Ta bort"
 
@@ -1539,7 +1542,7 @@ msgstr ""
 "\n"
 "Vill du fortsätta med ditt begärda partitioneringsschema?"
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:658
+#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:660
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1627,7 +1630,7 @@ msgstr ""
 "växlingsutrymmet (swap) direkt. För att göra detta måste vi omedelbart "
 "skriva din nya partitionstabell till hårddisken. Är det okej?"
 
-#: ../partitions.py:746
+#: ../partitions.py:749
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1636,7 +1639,7 @@ msgstr ""
 "Du har inte angivit någon rotpartition (/), vilket krävs för att "
 "installationen av %s ska kunna fortsätta."
 
-#: ../partitions.py:751
+#: ../partitions.py:754
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1645,14 +1648,14 @@ msgstr ""
 "Din rotpartition är mindre än 250 megabyte, vilket normalt är för litet för "
 "att installera %s."
 
-#: ../partitions.py:758
+#: ../partitions.py:761
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Du måste skapa en /boot/efi-partition av FAT-typ och med en storlek på 50 "
 "megabyte."
 
-#: ../partitions.py:766
+#: ../partitions.py:769
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1661,15 +1664,15 @@ msgstr ""
 "Din %s-partition är mindre än %s megabyte vilket är mindre än rekommenderat "
 "för en normal installation av %s."
 
-#: ../partitions.py:793 ../partRequests.py:635
+#: ../partitions.py:796 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Startbara partitioner kan endast finnas på RAID1-enheter."
 
-#: ../partitions.py:799
+#: ../partitions.py:802
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Startbara partitioner kan endast finnas på en logisk volym."
 
-#: ../partitions.py:803
+#: ../partitions.py:806
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1678,7 +1681,7 @@ msgstr ""
 "alla lägen kommer det att markant förbättra prestanda för de flesta "
 "installationer."
 
-#: ../partitions.py:810
+#: ../partitions.py:813
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1687,7 +1690,7 @@ msgstr ""
 "Du har angivit mer än 32 växlingsenheter. Kärnan i %s stöder endast 32 "
 "växlingsenheter."
 
-#: ../partitions.py:821
+#: ../partitions.py:824
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1696,15 +1699,15 @@ msgstr ""
 "Du har allokerat mindre växlingsutrymme (%d MB) än tillgängligt arbetsminne "
 "(%d MB) på ditt system. Detta kan påverka prestanda negativt."
 
-#: ../partitions.py:1102
+#: ../partitions.py:1105
 msgid "the partition in use by the installer."
 msgstr "partitionen som används av installationsprogrammet."
 
-#: ../partitions.py:1105
+#: ../partitions.py:1108
 msgid "a partition which is a member of a RAID array."
 msgstr "en partition som är medlem i en RAID-kedja."
 
-#: ../partitions.py:1108
+#: ../partitions.py:1111
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "en partition som är medlem i en LVM-volymgrupp."
 
@@ -1792,16 +1795,16 @@ msgstr "Konfigurera nätverk"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr "Vill du starta nätverksgränssnitten på detta system?"
 
-#: ../rescue.py:165 ../rescue.py:200 ../rescue.py:353
+#: ../rescue.py:159 ../rescue.py:194 ../rescue.py:347
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr ""
 "När du är färdig avslutar du skalet. Systemet kommer då att startas om."
 
-#: ../rescue.py:184 ../rescue.py:253 ../rescue.py:261 ../rescue.py:332
+#: ../rescue.py:178 ../rescue.py:247 ../rescue.py:255 ../rescue.py:326
 msgid "Rescue"
 msgstr "Räddning"
 
-#: ../rescue.py:185
+#: ../rescue.py:179
 #, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1825,34 +1828,34 @@ msgstr ""
 "direkt.\n"
 "\n"
 
-#: ../rescue.py:195 ../iw/partition_gui.py:560 ../loader2/cdinstall.c:116
-#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:292
+#: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:116
+#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:296
 msgid "Continue"
 msgstr "Fortsätt"
 
-#: ../rescue.py:195 ../rescue.py:204
+#: ../rescue.py:189 ../rescue.py:198
 msgid "Read-Only"
 msgstr "Skrivskyddad"
 
-#: ../rescue.py:195 ../rescue.py:197 ../textw/silo_text.py:36
+#: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:260 ../loader2/method.c:413
 msgid "Skip"
 msgstr "Hoppa över"
 
-#: ../rescue.py:227
+#: ../rescue.py:221
 msgid "System to Rescue"
 msgstr "System att rädda"
 
-#: ../rescue.py:228
+#: ../rescue.py:222
 msgid "What partition holds the root partition of your installation?"
 msgstr "Vilken partition innehåller rotpartitionen i din installation?"
 
-#: ../rescue.py:230 ../rescue.py:234
+#: ../rescue.py:224 ../rescue.py:228
 msgid "Exit"
 msgstr "Avsluta"
 
-#: ../rescue.py:254
+#: ../rescue.py:248
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
 "return to get a shell from which you can fsck and mount your partitions.  "
@@ -1863,7 +1866,7 @@ msgstr ""
 "partitioner. Systemet kommer automatiskt att startas om när du avslutar "
 "skalet."
 
-#: ../rescue.py:262
+#: ../rescue.py:256
 #, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1884,7 +1887,7 @@ msgstr ""
 "\n"
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:333
+#: ../rescue.py:327
 #, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1899,11 +1902,11 @@ msgstr ""
 "Tryck på <Retur> för att komma till ett skal. Systemet kommer automatiskt "
 "att startas om när du avslutar skalet."
 
-#: ../rescue.py:339
+#: ../rescue.py:333
 msgid "Rescue Mode"
 msgstr "Räddningsläge"
 
-#: ../rescue.py:340
+#: ../rescue.py:334
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1911,7 +1914,7 @@ msgstr ""
 "Du har inga Linuxpartitioner. Tryck på Retur för att komma till ett skal. "
 "Systemet kommer automatiskt att startas om när du avslutar skalet."
 
-#: ../rescue.py:350
+#: ../rescue.py:344
 #, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Ditt system är monterat under katalogen %s."
@@ -1956,11 +1959,11 @@ msgstr ""
 "  <Tab>/<Alt-Tab> mellan element   |  <Blanksteg> väljer  |  <F12> nästa "
 "skärm"
 
-#: ../text.py:449
+#: ../text.py:452
 msgid "Cancelled"
 msgstr "Avbruten"
 
-#: ../text.py:450
+#: ../text.py:453
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Jag kan inte gå till det föregående steget härifrån. Du måste försöka igen."
@@ -1973,20 +1976,20 @@ msgstr "Uppgradera befintligt system"
 msgid "Upgrade"
 msgstr "Uppgradera"
 
-#: ../upgrade.py:59
+#: ../upgrade.py:61
 msgid "Searching"
 msgstr "Söker"
 
-#: ../upgrade.py:60
+#: ../upgrade.py:62
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Söker efter %s-installationer..."
 
-#: ../upgrade.py:111 ../upgrade.py:119
+#: ../upgrade.py:113 ../upgrade.py:121
 msgid "Dirty File Systems"
 msgstr "Nedsmutsade filsystem"
 
-#: ../upgrade.py:112
+#: ../upgrade.py:114
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1999,7 +2002,7 @@ msgstr ""
 "korrekt för att uppgradera.\n"
 "%s"
 
-#: ../upgrade.py:120
+#: ../upgrade.py:122
 #, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -2010,11 +2013,11 @@ msgstr ""
 "montera dem ändå?\n"
 "%s"
 
-#: ../upgrade.py:249 ../upgrade.py:255
+#: ../upgrade.py:251 ../upgrade.py:257
 msgid "Mount failed"
 msgstr "Montering misslyckades"
 
-#: ../upgrade.py:250
+#: ../upgrade.py:252
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
@@ -2023,7 +2026,7 @@ msgstr ""
 "Linuxsystem kan inte monteras. Var vänlig och åtgärda detta problem och "
 "prova sedan att uppgradera igen."
 
-#: ../upgrade.py:256
+#: ../upgrade.py:258
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
@@ -2033,7 +2036,7 @@ msgstr ""
 "Linuxsystem är inkonsekvent och kan inte monteras. Var vänlig och åtgärda "
 "detta problem och prova sedan att uppgradera igen."
 
-#: ../upgrade.py:273
+#: ../upgrade.py:275
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2045,11 +2048,11 @@ msgstr ""
 "starta om uppgraderingen.\n"
 "\n"
 
-#: ../upgrade.py:279
+#: ../upgrade.py:281
 msgid "Absolute Symlinks"
 msgstr "Absoluta symboliska länkar"
 
-#: ../upgrade.py:290
+#: ../upgrade.py:292
 msgid ""
 "The following are directories which should instead be symbolic link, which "
 "will cause problems with the upgrade.  Please return them to their original "
@@ -2061,33 +2064,33 @@ msgstr ""
 "till deras ursprungliga tillstånd och starta om uppgraderingen.\n"
 "\n"
 
-#: ../upgrade.py:296
+#: ../upgrade.py:298
 msgid "Invalid Directories"
 msgstr "Ogiltiga kataloger"
 
-#: ../upgrade.py:302
+#: ../upgrade.py:304
 #, python-format
 msgid "%s not found"
 msgstr "%s hittades inte"
 
-#: ../upgrade.py:332
+#: ../upgrade.py:346
 msgid "Finding"
 msgstr "Letar"
 
-#: ../upgrade.py:333
+#: ../upgrade.py:347
 msgid "Finding packages to upgrade..."
 msgstr "Letar efter paket att uppgradera..."
 
-#: ../upgrade.py:354
+#: ../upgrade.py:369
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ombyggnad av RPM-databasen misslyckades. Du kanske har slut på diskutrymme?"
 
-#: ../upgrade.py:377
+#: ../upgrade.py:391
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Ett fel inträffade vid sökning efter paketen att uppgradera."
 
-#: ../upgrade.py:431
+#: ../upgrade.py:445
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2101,7 +2104,7 @@ msgstr ""
 "ordentligt eller orsaka instabilitet i systemet. Vill du fortsätta "
 "uppgraderingsprocessen?"
 
-#: ../upgrade.py:450
+#: ../upgrade.py:465
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2113,7 +2116,7 @@ msgstr ""
 "uppgraderingsprocessen kan lämna systemet i ett oanvändbart tillstånd. Vill "
 "du fortsätta uppgraderingsprocessen?"
 
-#: ../upgrade.py:491
+#: ../upgrade.py:507
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -2256,26 +2259,26 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1401
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1403
 #: ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
 msgstr "Automatisk partitionering"
 
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1429
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1431
 #, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr ""
 "Du måste välja minst en hårddisk som du vill att %s ska installeras på."
 
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1471
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1473
 msgid "I want to have automatic partitioning:"
 msgstr "Jag vill ha automatisk partitionering:"
 
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1502
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1504
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Välj den eller de hårddiskar som ska användas för denna installation:"
 
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1526
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1528
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr "_Visa på nytt (och ändra om det behövs) de partitioner som skapas"
 
@@ -2802,7 +2805,7 @@ msgstr ""
 msgid "_Customize packages to be upgraded"
 msgstr "_Välj paket att uppgradera"
 
-#: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:194
+#: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:195
 msgid "The following Red Hat product will be upgraded:"
 msgstr "Följande Red Hat-produkt kommer att uppgraderas:"
 
@@ -2907,7 +2910,7 @@ msgstr "IP-adresser får bara innehålla tal mellan 1 och 255"
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr "IP-adresser får bara innehålla tal mellan 0 och 255"
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:38 ../loader2/lang.c:385
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:371
 msgid "What language would you like to use during the installation process?"
 msgstr "Vilket språk vill du använda under installationen?"
 
@@ -2927,11 +2930,11 @@ msgstr "Välj _ytterligare språk som du vill installera på systemet:"
 msgid "_Select All"
 msgstr "V_älj alla"
 
-#: ../iw/language_support_gui.py:260
+#: ../iw/language_support_gui.py:262
 msgid "Select Default _Only"
 msgstr "Välj _endast standardalternativet"
 
-#: ../iw/language_support_gui.py:266
+#: ../iw/language_support_gui.py:273
 msgid "Rese_t"
 msgstr "_Återställ"
 
@@ -3257,8 +3260,8 @@ msgid "_Add"
 msgstr "_Lägg till"
 
 #: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
-#: ../iw/partition_gui.py:1343
+#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1339
+#: ../iw/partition_gui.py:1345
 msgid "_Edit"
 msgstr "_Redigera"
 
@@ -3747,112 +3750,112 @@ msgstr ""
 "Storlek\n"
 "(MB)"
 
-#: ../iw/partition_gui.py:534 ../textw/partition_text.py:1108
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1108
 msgid "Partitioning"
 msgstr "Partitionering"
 
-#: ../iw/partition_gui.py:626
+#: ../iw/partition_gui.py:628
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 "De följande ödesdigra felen finns hos ditt begärda partitioneringsschema."
 
-#: ../iw/partition_gui.py:629
+#: ../iw/partition_gui.py:631
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Dessa fel måste åtgärdas innan du kan fortsätta med installationen av %s."
 
-#: ../iw/partition_gui.py:635
+#: ../iw/partition_gui.py:637
 msgid "Partitioning Errors"
 msgstr "Partitioneringsfel"
 
-#: ../iw/partition_gui.py:641
+#: ../iw/partition_gui.py:643
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "De följande varningarna finns hos ditt begärda partitioneringsschema."
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Vill du fortsätta med ditt begärda partitioneringsschema?"
 
-#: ../iw/partition_gui.py:648
+#: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
 msgstr "Partitioneringsvarningar"
 
-#: ../iw/partition_gui.py:670
+#: ../iw/partition_gui.py:672
 msgid "Format Warnings"
 msgstr "Formateringsvarningar"
 
-#: ../iw/partition_gui.py:675
+#: ../iw/partition_gui.py:677
 msgid "_Format"
 msgstr "_Formatera"
 
-#: ../iw/partition_gui.py:710
+#: ../iw/partition_gui.py:712
 msgid "LVM Volume Groups"
 msgstr "LVM-volymgrupper"
 
-#: ../iw/partition_gui.py:745
+#: ../iw/partition_gui.py:747
 msgid "RAID Devices"
 msgstr "RAID-enheter"
 
-#: ../iw/partition_gui.py:773 ../iw/partition_gui.py:890
+#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:892
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 msgid "None"
 msgstr "Ingen"
 
-#: ../iw/partition_gui.py:791 ../loader2/hdinstall.c:368
+#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:368
 msgid "Hard Drives"
 msgstr "Hårddiskar"
 
-#: ../iw/partition_gui.py:853 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:855 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
 msgstr "Ledigt utrymme"
 
-#: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:857 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr "Utökad"
 
-#: ../iw/partition_gui.py:857 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:859 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr "programvaru-RAID"
 
-#: ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:894
 msgid "Free"
 msgstr "Ledigt"
 
-#: ../iw/partition_gui.py:982 ../textw/partition_text.py:214
+#: ../iw/partition_gui.py:984 ../textw/partition_text.py:214
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Kunde inte allokera begärda partitioner: %s."
 
-#: ../iw/partition_gui.py:991
+#: ../iw/partition_gui.py:993
 #, python-format
 msgid "Warning: %s."
 msgstr "Varning: %s."
 
-#: ../iw/partition_gui.py:993
+#: ../iw/partition_gui.py:995
 msgid "_Modify Partition"
 msgstr "_Ändra partition"
 
-#: ../iw/partition_gui.py:1171 ../iw/partition_gui.py:1185
+#: ../iw/partition_gui.py:1173 ../iw/partition_gui.py:1187
 msgid "Not supported"
 msgstr "Stöds inte"
 
-#: ../iw/partition_gui.py:1172
+#: ../iw/partition_gui.py:1174
 msgid "LVM is NOT supported on this platform."
 msgstr "LVM stöds INTE på denna plattform."
 
-#: ../iw/partition_gui.py:1186
+#: ../iw/partition_gui.py:1188
 msgid "Software RAID is NOT supported on this platform."
 msgstr "Programvaru-RAID stöds INTE på denna plattform."
 
-#: ../iw/partition_gui.py:1193
+#: ../iw/partition_gui.py:1195
 msgid "No RAID minor device numbers available"
 msgstr "Inga undre RAID-enhetsnummer tillgängliga"
 
-#: ../iw/partition_gui.py:1194
+#: ../iw/partition_gui.py:1196
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
@@ -3860,11 +3863,11 @@ msgstr ""
 "En programvaru-RAID-enhet kan inte skapas eftersom alla tillgängliga undre "
 "RAID-enhetsnummer har använts."
 
-#: ../iw/partition_gui.py:1208
+#: ../iw/partition_gui.py:1210
 msgid "RAID Options"
 msgstr "RAID-alternativ"
 
-#: ../iw/partition_gui.py:1219
+#: ../iw/partition_gui.py:1221
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3883,7 +3886,7 @@ msgstr ""
 "Du har för tillfället %s programvaru-RAID-partitioner lediga att använda.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1230
+#: ../iw/partition_gui.py:1232
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3895,57 +3898,57 @@ msgstr ""
 "och monteras.\n"
 "\n"
 
-#: ../iw/partition_gui.py:1236
+#: ../iw/partition_gui.py:1238
 msgid "What do you want to do now?"
 msgstr "Vad vill du göra nu?"
 
-#: ../iw/partition_gui.py:1245
+#: ../iw/partition_gui.py:1247
 msgid "Create a software RAID _partition."
 msgstr "Skapa en programvaru-RAID-partition."
 
-#: ../iw/partition_gui.py:1248
+#: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr "Skapa en RAID-_enhet [standard=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1252
+#: ../iw/partition_gui.py:1254
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr "Klona en _hårddisk för att skapa en RAID-enhet [standard=/dev/md%s]."
 
-#: ../iw/partition_gui.py:1291
+#: ../iw/partition_gui.py:1293
 msgid "Couldn't Create Drive Clone Editor"
 msgstr "Kunde inte skapa hårddiskkloningsredigerare"
 
-#: ../iw/partition_gui.py:1292
+#: ../iw/partition_gui.py:1294
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Hårddiskkloningsredigeraren kunde av någon anledning inte skapas."
 
-#: ../iw/partition_gui.py:1339
+#: ../iw/partition_gui.py:1341
 msgid "_Reset"
 msgstr "_Återställ"
 
-#: ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:1342
 msgid "Make _RAID"
 msgstr "Skapa _RAID"
 
-#: ../iw/partition_gui.py:1342
+#: ../iw/partition_gui.py:1344
 msgid "Ne_w"
 msgstr "N_y"
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1347
 msgid "Re_set"
 msgstr "_Återställ"
 
-#: ../iw/partition_gui.py:1346
+#: ../iw/partition_gui.py:1348
 msgid "R_AID"
 msgstr "R_AID"
 
-#: ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:1349
 msgid "_LVM"
 msgstr "_LVM"
 
-#: ../iw/partition_gui.py:1386
+#: ../iw/partition_gui.py:1388
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr "Dölj RAID-enhetsmedlemmar/LVM-volym_gruppsmedlemmar"
 
@@ -4896,11 +4899,11 @@ msgstr ""
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
-#: ../loader2/driverdisk.c:201 ../loader2/driverdisk.c:216
+#: ../loader2/driverdisk.c:203 ../loader2/driverdisk.c:218
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
 #: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:297
-#: ../loader2/loader.c:696 ../loader2/loader.c:724 ../loader2/net.c:170
+#: ../loader2/loader.c:702 ../loader2/loader.c:730 ../loader2/net.c:170
 #: ../loader2/net.c:334 ../loader2/net.c:744 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -5069,7 +5072,7 @@ msgid "Other ports"
 msgstr "Andra portar"
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:151
+#: ../textw/language_text.py:160
 msgid "Invalid Choice"
 msgstr "Ogiltigt val"
 
@@ -5111,31 +5114,31 @@ msgstr "Tangentbordsval"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Vilken typ av tangentbord är ansluten till denna dator?"
 
-#: ../textw/language_text.py:114
+#: ../textw/language_text.py:123
 msgid "Select All"
 msgstr "Välj alla"
 
-#: ../textw/language_text.py:114
+#: ../textw/language_text.py:123
 msgid "Reset"
 msgstr "Återställ"
 
-#: ../textw/language_text.py:116
+#: ../textw/language_text.py:125
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr "Välj ytterligare språk som du vill använda på detta system:"
 
-#: ../textw/language_text.py:120
+#: ../textw/language_text.py:129
 msgid "Language Support"
 msgstr "Språkstöd"
 
-#: ../textw/language_text.py:152
+#: ../textw/language_text.py:161
 msgid "You must select at least one language to install."
 msgstr "Du måste välja minst ett språk att installera."
 
-#: ../textw/language_text.py:180
+#: ../textw/language_text.py:189
 msgid "Default Language"
 msgstr "Standardspråk"
 
-#: ../textw/language_text.py:181
+#: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
 msgstr "Välj standardspråket för detta system: "
 
@@ -6235,19 +6238,19 @@ msgstr "Cd hittades inte"
 msgid "Cannot find kickstart file on CDROM."
 msgstr "Kan inte hitta kickstartfil på cdrom-skiva."
 
-#: ../loader2/driverdisk.c:90 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:92 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Läser in"
 
-#: ../loader2/driverdisk.c:90
+#: ../loader2/driverdisk.c:92
 msgid "Reading driver disk..."
 msgstr "Läser drivrutinsdisketten..."
 
-#: ../loader2/driverdisk.c:195
+#: ../loader2/driverdisk.c:197
 msgid "Driver Disk Source"
 msgstr "Källa för drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:196
+#: ../loader2/driverdisk.c:198
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
@@ -6255,29 +6258,29 @@ msgstr ""
 "Du har flera enheter som kan tjäna som källor för en drivrutinsdiskett. "
 "Vilken vill du använda?"
 
-#: ../loader2/driverdisk.c:214
+#: ../loader2/driverdisk.c:216
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Sätt i din drivrutinsdiskett i /dev/%s och tryck på \"OK\" för att fortsätta."
 
-#: ../loader2/driverdisk.c:216
+#: ../loader2/driverdisk.c:218
 msgid "Insert Driver Disk"
 msgstr "Sätt i drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:228
+#: ../loader2/driverdisk.c:231
 msgid "Failed to mount driver disk."
 msgstr "Montering av drivrutinsdisketten misslyckades."
 
-#: ../loader2/driverdisk.c:291
+#: ../loader2/driverdisk.c:295
 msgid "Manually choose"
 msgstr "Välj manuellt"
 
-#: ../loader2/driverdisk.c:292
+#: ../loader2/driverdisk.c:296
 msgid "Load another disk"
 msgstr "Läs in en annan diskett"
 
-#: ../loader2/driverdisk.c:293
+#: ../loader2/driverdisk.c:297
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
@@ -6287,21 +6290,30 @@ msgstr ""
 "drivrutinen manuellt, fortsätta ändå, eller läsa in en annan "
 "drivrutinsdiskett?"
 
-#: ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:340
 msgid "Driver disk"
 msgstr "Drivrutinsdiskett"
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:341
 msgid "Do you have a driver disk?"
 msgstr "Har du en drivrutinsdiskett?"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:351
 msgid "More Driver Disks?"
 msgstr "Fler drivrutinsdisketter?"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:352
 msgid "Do you wish to load any more driver disks?"
 msgstr "Vill du läsa in fler drivrutinsdisketter?"
+
+#: ../loader2/driverdisk.c:376 ../loader2/hdinstall.c:504
+#: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
+#: ../loader2/kickstart.c:154 ../loader2/modules.c:922 ../loader2/net.c:658
+#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
+#: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
+#: ../loader2/urlinstall.c:386
+msgid "Kickstart Error"
+msgstr "Kickstartfel"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6397,14 +6409,6 @@ msgstr "Välj partition"
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Enheten %s ser inte ut att innehålla avbilder av Red Hat-cd-romskivor."
 
-#: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
-#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:149 ../loader2/net.c:658
-#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
-#: ../loader2/urlinstall.c:367 ../loader2/urlinstall.c:376
-#: ../loader2/urlinstall.c:387
-msgid "Kickstart Error"
-msgstr "Kickstartfel"
-
 #: ../loader2/hdinstall.c:505
 #, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
@@ -6422,37 +6426,37 @@ msgstr "Tangentbordstyp"
 msgid "What type of keyboard do you have?"
 msgstr "Vilken typ av tangentbord har du?"
 
-#: ../loader2/kickstart.c:98
+#: ../loader2/kickstart.c:102
 #, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Fel vid öppnande av kickstartfilen %s: %s"
 
-#: ../loader2/kickstart.c:107
+#: ../loader2/kickstart.c:112
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Fel vid läsning av innehållet i kickstartfil %s: %s"
 
-#: ../loader2/kickstart.c:150
+#: ../loader2/kickstart.c:155
 #, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Fel i %s på rad %d i kickstartfilen %s."
 
-#: ../loader2/kickstart.c:250
+#: ../loader2/kickstart.c:255
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Hittade inte ks.cfg på startdisketten."
 
-#: ../loader2/lang.c:50 ../loader2/loader.c:166
+#: ../loader2/lang.c:51 ../loader2/loader.c:166
 #, c-format
 msgid "Welcome to %s"
 msgstr "Välkommen till %s"
 
-#: ../loader2/lang.c:51 ../loader2/loader.c:172
+#: ../loader2/lang.c:52 ../loader2/loader.c:172
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> mellan element | <Blanksteg> väljer | <F12> nästa skärm "
 
-#: ../loader2/lang.c:384
+#: ../loader2/lang.c:370
 msgid "Choose a Language"
 msgstr "Välj ett språk"
 
@@ -6518,35 +6522,35 @@ msgid "You do not have enough RAM to install %s on this machine."
 msgstr ""
 "Du har inte tillräckligt med minne för att installera %s på denna maskin."
 
-#: ../loader2/loader.c:688
+#: ../loader2/loader.c:694
 msgid "Rescue Method"
 msgstr "Räddningsmetod"
 
-#: ../loader2/loader.c:689
+#: ../loader2/loader.c:695
 msgid "Installation Method"
 msgstr "Installationsmetod"
 
-#: ../loader2/loader.c:691
+#: ../loader2/loader.c:697
 msgid "What type of media contains the rescue image?"
 msgstr "Vilket medium innehåller räddningsavbilden?"
 
-#: ../loader2/loader.c:693
+#: ../loader2/loader.c:699
 msgid "What type of media contains the packages to be installed?"
 msgstr "Vilket medium innehåller paketen som ska installeras?"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:729
 msgid "No driver found"
 msgstr "Ingen drivrutin hittades"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:729
 msgid "Select driver"
 msgstr "Välj drivrutin"
 
-#: ../loader2/loader.c:724
+#: ../loader2/loader.c:730
 msgid "Use a driver disk"
 msgstr "Använd en drivrutinsdiskett"
 
-#: ../loader2/loader.c:725
+#: ../loader2/loader.c:731
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
@@ -6555,11 +6559,11 @@ msgstr ""
 "installationstyp. Vill du välja din drivrutin manuellt eller använda en "
 "drivrutinsdiskett?"
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:825
 msgid "The following devices have been found on your system."
 msgstr "Följande enheter har hittats i ditt system."
 
-#: ../loader2/loader.c:820
+#: ../loader2/loader.c:827
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
@@ -6567,19 +6571,19 @@ msgstr ""
 "Inga enhetsdrivrutiner för ditt system har lästs in. Vill du läsa in några "
 "nu?"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:831
 msgid "Devices"
 msgstr "Enheter"
 
-#: ../loader2/loader.c:826
+#: ../loader2/loader.c:832
 msgid "Done"
 msgstr "Färdig"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:833
 msgid "Add Device"
 msgstr "Lägg till enhet"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1211
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr ""
@@ -6837,16 +6841,16 @@ msgstr "Kan inte hämta %s://%s/%s/%s."
 msgid "Unable to retrieve the install image."
 msgstr "Kan inte hämta installationsavbilden."
 
-#: ../loader2/urlinstall.c:368
+#: ../loader2/urlinstall.c:367
 #, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "Felaktigt argument till Url-kickstartmetodkommandot %s: %s"
 
-#: ../loader2/urlinstall.c:377
+#: ../loader2/urlinstall.c:376
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr "Måste ange ett --url-argument till Url-kickstartmetoden."
 
-#: ../loader2/urlinstall.c:388
+#: ../loader2/urlinstall.c:387
 #, c-format
 msgid "Unknown Url method %s"
 msgstr "Url-metoden %s är okänd"
@@ -7623,9 +7627,6 @@ msgstr "Portugisiska"
 msgid "Portuguese(Brazilian)"
 msgstr "Portugisiska(brasiliansk)"
 
-msgid "Portuguese (Brazilian)"
-msgstr "Portugisiska (brasiliansk)"
-
 #. generated from lang-table
 msgid "Russian"
 msgstr "Ryska"
@@ -7645,6 +7646,9 @@ msgstr "Svenska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainska"
+
+#~ msgid "Portuguese (Brazilian)"
+#~ msgstr "Portugisiska (brasiliansk)"
 
 #~ msgid "Absolute Symbolic Links"
 #~ msgstr "Absoluta symboliska länkar"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.3\n"
-"POT-Creation-Date: 2003-02-05 01:45-0500\n"
+"POT-Creation-Date: 2003-02-11 10:57-0500\n"
 "PO-Revision-Date: 2002-04-02 07:20+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@amis.net>\n"
 "Language-Team: Slovenian <translation-team-sl@lists.sourceforge.net>\n"
@@ -23,9 +23,9 @@ msgstr ""
 "Nimate dovolj sistemskega pomnilnika, da bi nameščali sistem v grafičnem "
 "načinu. Namestitev se zaganja v besedilnem načinu."
 
-#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:230
-#: ../rescue.py:258 ../rescue.py:268 ../rescue.py:337 ../rescue.py:343
-#: ../text.py:324 ../text.py:453 ../textw/complete_text.py:54
+#: ../anaconda:412 ../gui.py:239 ../rescue.py:40 ../rescue.py:224
+#: ../rescue.py:252 ../rescue.py:262 ../rescue.py:331 ../rescue.py:337
+#: ../text.py:324 ../text.py:456 ../textw/complete_text.py:54
 #: ../textw/confirm_text.py:24 ../textw/confirm_text.py:36
 #: ../textw/constants_text.py:36 ../textw/fdisk_text.py:41
 #: ../textw/network_text.py:154 ../textw/silo_text.py:110
@@ -34,25 +34,26 @@ msgstr ""
 #: ../loader2/cdinstall.c:257 ../loader2/cdinstall.c:260
 #: ../loader2/cdinstall.c:352 ../loader2/cdinstall.c:357
 #: ../loader2/cdinstall.c:360 ../loader2/cdinstall.c:429
-#: ../loader2/driverdisk.c:200 ../loader2/driverdisk.c:216
-#: ../loader2/driverdisk.c:227 ../loader2/driverselect.c:73
-#: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:255
-#: ../loader2/hdinstall.c:422 ../loader2/hdinstall.c:473
-#: ../loader2/hdinstall.c:504 ../loader2/hdinstall.c:554 ../loader2/kbd.c:125
-#: ../loader2/kickstart.c:97 ../loader2/kickstart.c:106
-#: ../loader2/kickstart.c:149 ../loader2/kickstart.c:249 ../loader2/lang.c:100
-#: ../loader2/lang.c:387 ../loader2/loader.c:297 ../loader2/loader.c:309
-#: ../loader2/loader.c:320 ../loader2/loader.c:580 ../loader2/loader.c:696
-#: ../loader2/mediacheck.c:255 ../loader2/mediacheck.c:312
-#: ../loader2/mediacheck.c:354 ../loader2/method.c:158 ../loader2/method.c:366
-#: ../loader2/method.c:451 ../loader2/net.c:170 ../loader2/net.c:334
+#: ../loader2/driverdisk.c:202 ../loader2/driverdisk.c:218
+#: ../loader2/driverdisk.c:230 ../loader2/driverdisk.c:376
+#: ../loader2/driverselect.c:73 ../loader2/driverselect.c:213
+#: ../loader2/hdinstall.c:255 ../loader2/hdinstall.c:422
+#: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:504
+#: ../loader2/hdinstall.c:554 ../loader2/kbd.c:125 ../loader2/kickstart.c:101
+#: ../loader2/kickstart.c:111 ../loader2/kickstart.c:154
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/lang.c:373
+#: ../loader2/loader.c:297 ../loader2/loader.c:309 ../loader2/loader.c:320
+#: ../loader2/loader.c:580 ../loader2/loader.c:702 ../loader2/mediacheck.c:255
+#: ../loader2/mediacheck.c:312 ../loader2/mediacheck.c:354
+#: ../loader2/method.c:158 ../loader2/method.c:366 ../loader2/method.c:451
+#: ../loader2/modules.c:922 ../loader2/net.c:170 ../loader2/net.c:334
 #: ../loader2/net.c:658 ../loader2/net.c:681 ../loader2/net.c:744
 #: ../loader2/nfsinstall.c:54 ../loader2/nfsinstall.c:217
 #: ../loader2/nfsinstall.c:220 ../loader2/nfsinstall.c:258
 #: ../loader2/telnetd.c:86 ../loader2/urlinstall.c:58
 #: ../loader2/urlinstall.c:98 ../loader2/urlinstall.c:111
-#: ../loader2/urlinstall.c:367 ../loader2/urlinstall.c:376
-#: ../loader2/urlinstall.c:387 ../loader2/urls.c:168 ../loader2/urls.c:178
+#: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
+#: ../loader2/urlinstall.c:386 ../loader2/urls.c:168 ../loader2/urls.c:178
 #: ../loader2/urls.c:186 ../loader2/urls.c:248 ../loader2/urls.c:309
 #: ../loader2/urls.c:314 ../loader2/urls.c:320 ../loader2/urls.c:433
 msgid "OK"
@@ -137,11 +138,13 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 
-#: ../autopart.py:1159
+#: ../autopart.py:1160 ../autopart.py:1186 ../autopart.py:1216
+#: ../autopart.py:1252
 msgid "Requested Partition Does Not Exist"
 msgstr "Zahtevani razdelek ne obstaja"
 
-#: ../autopart.py:1160
+#: ../autopart.py:1161 ../autopart.py:1187 ../autopart.py:1217
+#: ../autopart.py:1253
 #, fuzzy, python-format
 msgid ""
 "Unable to locate partition %s to use for %s.\n"
@@ -152,12 +155,12 @@ msgstr ""
 "\n"
 "Pritisnite V redu za vnovičen zagon sistema."
 
-#: ../autopart.py:1191 ../autopart.py:1231
+#: ../autopart.py:1285 ../autopart.py:1325
 #, fuzzy
 msgid "Automatic Partitioning Errors"
 msgstr "Samodejna razdelitev"
 
-#: ../autopart.py:1192
+#: ../autopart.py:1286
 #, fuzzy, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -172,11 +175,11 @@ msgstr ""
 "\n"
 "Pritisnite V redu za vnovičen zagon sistema."
 
-#: ../autopart.py:1201
+#: ../autopart.py:1295
 msgid "Warnings During Automatic Partitioning"
 msgstr "Opozorila med samodejno razdelitvijo"
 
-#: ../autopart.py:1202
+#: ../autopart.py:1296
 #, python-format
 msgid ""
 "Following warnings occurred during automatic partitioning:\n"
@@ -187,19 +190,19 @@ msgstr ""
 "\n"
 "%s"
 
-#: ../autopart.py:1215
+#: ../autopart.py:1309
 msgid ""
 "\n"
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
 
-#: ../autopart.py:1216 ../iw/partition_gui.py:981
+#: ../autopart.py:1310 ../iw/partition_gui.py:983
 #: ../textw/partition_text.py:213
 msgid "Error Partitioning"
 msgstr "Napaka pri razdelitvi"
 
-#: ../autopart.py:1217
+#: ../autopart.py:1311
 #, python-format
 msgid ""
 "Could not allocate requested partitions: \n"
@@ -210,7 +213,7 @@ msgstr ""
 "\n"
 "%s.%s"
 
-#: ../autopart.py:1232
+#: ../autopart.py:1326
 #, python-format
 msgid ""
 "The following errors occurred with your partitioning:\n"
@@ -224,9 +227,9 @@ msgid ""
 "Press 'OK' to continue."
 msgstr ""
 
-#: ../autopart.py:1310 ../bootloader.py:123 ../image.py:380
-#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:301
-#: ../upgrade.py:430 ../upgrade.py:449 ../upgrade.py:490
+#: ../autopart.py:1404 ../bootloader.py:123 ../image.py:380
+#: ../partedUtils.py:247 ../partedUtils.py:732 ../upgrade.py:303
+#: ../upgrade.py:444 ../upgrade.py:464 ../upgrade.py:506
 #: ../iw/blpasswidget.py:148 ../iw/bootloader_advanced_gui.py:42
 #: ../iw/bootloader_main_gui.py:88 ../iw/fdasd_gui.py:93
 #: ../iw/upgrade_swap_gui.py:200 ../iw/upgrade_swap_gui.py:208
@@ -237,7 +240,7 @@ msgstr ""
 msgid "Warning"
 msgstr "Opozorilo"
 
-#: ../autopart.py:1316
+#: ../autopart.py:1410
 #, fuzzy
 msgid ""
 "Automatic Partitioning sets partitions based on the selected installation "
@@ -258,7 +261,7 @@ msgstr ""
 "ponuja Red Hat. Čeprav ga ni preprosto uporabljati, ga je v določenih "
 "primerih bolje uporabiti."
 
-#: ../autopart.py:1327
+#: ../autopart.py:1421
 #, fuzzy
 msgid ""
 "Before automatic partitioning can be set up by the installation program, you "
@@ -267,19 +270,19 @@ msgstr ""
 "Preden lahko namestitveni program nastavi samodejno razdeljevanje, morate "
 "izbrati, kako porabiti prostor v diskih."
 
-#: ../autopart.py:1332
+#: ../autopart.py:1426
 msgid "Remove all partitions on this system"
 msgstr "Odstranimo vse razdelke v tem sistemu"
 
-#: ../autopart.py:1333
+#: ../autopart.py:1427
 msgid "Remove all Linux Partitions on this system"
 msgstr "Odstrani vse razdelke z Linuxom v tem sistemu"
 
-#: ../autopart.py:1334
+#: ../autopart.py:1428
 msgid "Keep all partitions and use existing free space"
 msgstr "Obdrži vse razdelke in uporabi obstoječi prosti prostor"
 
-#: ../autopart.py:1336
+#: ../autopart.py:1430
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all partitions (ALL DATA) on the following "
@@ -292,7 +295,7 @@ msgstr ""
 "pogonih:%s\n"
 "Ste prepričani, da to želite tudi res storiti?"
 
-#: ../autopart.py:1340
+#: ../autopart.py:1434
 #, fuzzy, python-format
 msgid ""
 "You have selected to remove all Linux partitions (and ALL DATA on them) on "
@@ -325,7 +328,7 @@ msgstr ""
 msgid "Everything"
 msgstr "Vse"
 
-#: ../comps.py:916 ../comps.py:981 ../upgrade.py:607
+#: ../comps.py:916 ../comps.py:981 ../upgrade.py:624
 msgid "no suggestion"
 msgstr "ni predloga"
 
@@ -370,15 +373,15 @@ msgstr ""
 "pa izpolnite podrobno poročilo o hrošču v programu anaconda na http://"
 "bugzilla.redhat.com/bugzilla"
 
-#: ../exception.py:167 ../text.py:240
+#: ../exception.py:168 ../text.py:240
 msgid "Exception Occurred"
 msgstr "Prišlo je do izjeme"
 
-#: ../exception.py:234
+#: ../exception.py:235
 msgid "Dump Written"
 msgstr "Posmrtni ostanek zapisan"
 
-#: ../exception.py:235
+#: ../exception.py:236
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -428,19 +431,19 @@ msgstr "Izdelava zagonske diskete"
 #: ../floppy.py:117 ../floppy.py:142 ../floppy.py:157 ../floppy.py:188
 #: ../fsset.py:559 ../fsset.py:1031 ../fsset.py:1050 ../fsset.py:1097
 #: ../fsset.py:1108 ../fsset.py:1144 ../fsset.py:1194 ../fsset.py:1237
-#: ../harddrive.py:208 ../image.py:72 ../image.py:103 ../image.py:239
+#: ../harddrive.py:217 ../image.py:76 ../image.py:107 ../image.py:243
 #: ../packages.py:132 ../packages.py:146 ../packages.py:333 ../packages.py:505
 #: ../packages.py:577 ../partedUtils.py:531 ../partIntfHelpers.py:147
-#: ../partIntfHelpers.py:332 ../upgrade.py:353 ../upgrade.py:376
-#: ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
+#: ../partIntfHelpers.py:332 ../upgrade.py:333 ../upgrade.py:368
+#: ../upgrade.py:390 ../iw/osbootwidget.py:222 ../iw/osbootwidget.py:231
 #: ../iw/raid_dialog_gui.py:616 ../iw/raid_dialog_gui.py:655
 #: ../textw/fdasd_text.py:73 ../textw/partition_text.py:1066
 #: ../textw/partition_text.py:1077 ../textw/upgrade_text.py:165
 #: ../textw/upgrade_text.py:172 ../loader2/cdinstall.c:144
-#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:227
-#: ../loader2/driverdisk.c:291 ../loader2/hdinstall.c:255
+#: ../loader2/cdinstall.c:429 ../loader2/driverdisk.c:230
+#: ../loader2/driverdisk.c:295 ../loader2/hdinstall.c:255
 #: ../loader2/hdinstall.c:473 ../loader2/hdinstall.c:554
-#: ../loader2/kickstart.c:249 ../loader2/lang.c:100 ../loader2/loader.c:320
+#: ../loader2/kickstart.c:254 ../loader2/lang.c:101 ../loader2/loader.c:320
 #: ../loader2/loader.c:580 ../loader2/mediacheck.c:255
 #: ../loader2/mediacheck.c:312 ../loader2/method.c:158 ../loader2/method.c:366
 #: ../loader2/method.c:451 ../loader2/nfsinstall.c:217
@@ -643,11 +646,11 @@ msgstr ""
 "\n"
 "Pritisnite V redu za vnovičen zagon sistema."
 
-#: ../fsset.py:1988
+#: ../fsset.py:1990
 msgid "Formatting"
 msgstr "Formatiranje"
 
-#: ../fsset.py:1989
+#: ../fsset.py:1991
 #, fuzzy, python-format
 msgid "Formatting %s file system..."
 msgstr "Formatira se datotečni sistem %s..."
@@ -695,8 +698,8 @@ msgstr "Popravi"
 
 #: ../gui.py:237 ../rescue.py:141 ../text.py:322 ../textw/bootdisk_text.py:22
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:48
-#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:336
-#: ../loader2/driverdisk.c:347 ../loader2/hdinstall.c:368
+#: ../textw/upgrade_text.py:253 ../loader2/driverdisk.c:340
+#: ../loader2/driverdisk.c:351 ../loader2/hdinstall.c:368
 #: ../loader2/loader.c:345
 msgid "Yes"
 msgstr "Da"
@@ -705,7 +708,7 @@ msgstr "Da"
 #: ../textw/bootdisk_text.py:22 ../textw/bootdisk_text.py:35
 #: ../textw/bootloader_text.py:83 ../textw/constants_text.py:52
 #: ../textw/upgrade_text.py:253 ../textw/upgrade_text.py:260
-#: ../loader2/driverdisk.c:336 ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:340 ../loader2/driverdisk.c:351
 #: ../loader2/loader.c:345
 msgid "No"
 msgstr "Ne"
@@ -724,7 +727,7 @@ msgstr "Prezri"
 #: ../iw/bootloader_advanced_gui.py:50 ../iw/bootloader_main_gui.py:100
 #: ../textw/bootloader_text.py:216 ../textw/constants_text.py:40
 #: ../textw/silo_text.py:147 ../textw/silo_text.py:165
-#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:201
+#: ../textw/userauth_text.py:88 ../loader2/driverdisk.c:203
 #: ../loader2/loader.c:309
 msgid "Cancel"
 msgstr "Prekliči"
@@ -741,7 +744,7 @@ msgstr ""
 msgid "Online Help"
 msgstr "Pomoč na zvezi"
 
-#: ../gui.py:740 ../iw/language_gui.py:23 ../textw/language_text.py:37
+#: ../gui.py:740 ../iw/language_gui.py:23 ../textw/language_text.py:38
 msgid "Language Selection"
 msgstr "Izbira jezika"
 
@@ -770,7 +773,7 @@ msgid ""
 "className = %s"
 msgstr ""
 
-#: ../gui.py:952 ../packages.py:1258 ../iw/congrats_gui.py:29
+#: ../gui.py:952 ../packages.py:1245 ../iw/congrats_gui.py:29
 #, fuzzy
 msgid "_Exit"
 msgstr "Izhod"
@@ -780,21 +783,21 @@ msgstr "Izhod"
 msgid "_Retry"
 msgstr "Ponovno"
 
-#: ../gui.py:955 ../packages.py:1261
+#: ../gui.py:955 ../packages.py:1248
 #, fuzzy
 msgid "Rebooting System"
 msgstr "Nadgradi obstoječi sistem"
 
-#: ../gui.py:956 ../packages.py:1262
+#: ../gui.py:956 ../packages.py:1249
 msgid "Your system will now be rebooted..."
 msgstr ""
 
-#: ../gui.py:959 ../packages.py:1264
+#: ../gui.py:959 ../packages.py:1251
 #, fuzzy
 msgid "_Reboot"
 msgstr "_Resetirajmo"
 
-#: ../gui.py:1050 ../packages.py:1264
+#: ../gui.py:1050 ../packages.py:1251
 #, fuzzy
 msgid "_Back"
 msgstr "Nazaj"
@@ -842,7 +845,7 @@ msgstr "Naslovne vrstice ni moč naložiti"
 msgid "Install Window"
 msgstr "Namestitveno okno"
 
-#: ../harddrive.py:209
+#: ../harddrive.py:218
 #, fuzzy, python-format
 msgid ""
 "Missing ISO image for CD #%d, which is required for the install.\n"
@@ -850,22 +853,22 @@ msgid ""
 "The system will now reboot."
 msgstr "Manjka CD #%d, ki ga potrebujete za namestitev."
 
-#: ../image.py:73
+#: ../image.py:77
 #, python-format
 msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
 
-#: ../image.py:100
+#: ../image.py:104
 msgid "Copying File"
 msgstr "Datoteka se prepisuje"
 
-#: ../image.py:101
+#: ../image.py:105
 msgid "Transferring install image to hard drive..."
 msgstr "Namestitvena slika se prenaša v disk..."
 
-#: ../image.py:104
+#: ../image.py:108
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
@@ -873,25 +876,25 @@ msgstr ""
 "Med prenosom namestitvene slike v vaš disk je prišlo do napake. Verjetno vam "
 "je zmanjkalo diskovnega prostora."
 
-#: ../image.py:197
+#: ../image.py:201
 msgid "Change CDROM"
 msgstr "Spremeni CDROM"
 
-#: ../image.py:198
+#: ../image.py:202
 #, python-format
 msgid "Please insert disc %d to continue."
 msgstr "Prosimo, za nadaljevanje vstavite ploščo %d."
 
-#: ../image.py:233
+#: ../image.py:237
 msgid "Wrong CDROM"
 msgstr "Napačen CDROM"
 
-#: ../image.py:234
+#: ../image.py:238
 #, fuzzy, python-format
 msgid "That's not the correct %s CDROM."
 msgstr "To ni pravi CD-ROM z Red Hat."
 
-#: ../image.py:240
+#: ../image.py:244
 msgid "The CDROM could not be mounted."
 msgstr "CD-ROM-a ni moč priklopiti."
 
@@ -900,34 +903,34 @@ msgstr "CD-ROM-a ni moč priklopiti."
 msgid "Install on System"
 msgstr "Vrsta namestitve"
 
-#: ../kickstart.py:1140
+#: ../kickstart.py:1168
 #, fuzzy
 msgid "Missing Package"
 msgstr "Nameščamo pakete"
 
-#: ../kickstart.py:1141
+#: ../kickstart.py:1169
 #, python-format
 msgid ""
 "You have specified that the package '%s' should be installed.  This package "
 "does not exist. Would you like to continue or abort your installation?"
 msgstr ""
 
-#: ../kickstart.py:1147 ../kickstart.py:1173
+#: ../kickstart.py:1175 ../kickstart.py:1201
 #, fuzzy
 msgid "_Abort"
 msgstr "_Resetirajmo"
 
-#: ../kickstart.py:1148 ../kickstart.py:1174 ../iw/partition_gui.py:995
+#: ../kickstart.py:1176 ../kickstart.py:1202 ../iw/partition_gui.py:997
 #, fuzzy
 msgid "_Continue"
 msgstr "Nadaljuj"
 
-#: ../kickstart.py:1166
+#: ../kickstart.py:1194
 #, fuzzy
 msgid "Missing Group"
 msgstr "Manjkajoči podatki"
 
-#: ../kickstart.py:1167
+#: ../kickstart.py:1195
 #, python-format
 msgid ""
 "You have specified that the group '%s' should be installed.  This group does "
@@ -1041,7 +1044,7 @@ msgid ""
 "of %s."
 msgstr ""
 
-#: ../packages.py:578
+#: ../packages.py:578 ../upgrade.py:334
 #, fuzzy
 msgid ""
 "Unable to merge header list.  This may be due to a missing file or bad "
@@ -1072,12 +1075,12 @@ msgstr ""
 "Nameščajo se paketi %s\n"
 "\n"
 
-#: ../packages.py:777 ../packages.py:1096
+#: ../packages.py:777 ../packages.py:1083
 #, python-format
 msgid "Upgrading %s-%s-%s.\n"
 msgstr "Nadgrajuje se %s-%s-%s.\n"
 
-#: ../packages.py:779 ../packages.py:1098
+#: ../packages.py:779 ../packages.py:1085
 #, python-format
 msgid "Installing %s-%s-%s.\n"
 msgstr "Namešča se %s-%s-%s.\n"
@@ -1147,7 +1150,7 @@ msgstr "Potrebni vozli"
 msgid "Disk Space"
 msgstr "Prostor na disku"
 
-#: ../packages.py:917
+#: ../packages.py:921
 msgid ""
 "\n"
 "\n"
@@ -1157,19 +1160,19 @@ msgstr ""
 "\n"
 "Naslednji paketi so na voljo v tej različici, a NISO bili nadgrajeni:\n"
 
-#: ../packages.py:938
+#: ../packages.py:942
 msgid "Post Install"
 msgstr "Po namestitvi"
 
-#: ../packages.py:939
+#: ../packages.py:943
 msgid "Performing post install configuration..."
 msgstr "Izvajamo nastavitve po namestitvi..."
 
-#: ../packages.py:1244
+#: ../packages.py:1231
 msgid "Warning! This is a beta!"
 msgstr ""
 
-#: ../packages.py:1245
+#: ../packages.py:1232
 msgid ""
 "Thank you for downloading this Red Hat Beta release.\n"
 "\n"
@@ -1184,7 +1187,7 @@ msgid ""
 "and file a report against 'Red Hat Public Beta'.\n"
 msgstr ""
 
-#: ../packages.py:1258
+#: ../packages.py:1245
 #, fuzzy
 msgid "_Install BETA"
 msgstr "Namestitev"
@@ -1390,8 +1393,8 @@ msgstr ""
 
 #: ../partIntfHelpers.py:231 ../partIntfHelpers.py:528
 #: ../iw/lvm_dialog_gui.py:728 ../iw/lvm_dialog_gui.py:1082
-#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1338
-#: ../iw/partition_gui.py:1344
+#: ../iw/osbootwidget.py:102 ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:1346
 msgid "_Delete"
 msgstr "_Pobriši"
 
@@ -1515,7 +1518,7 @@ msgstr ""
 "\n"
 "Bi radi nadaljevali z vašo zahtevano razdelitveno shemo?"
 
-#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:658
+#: ../partIntfHelpers.py:455 ../iw/partition_gui.py:660
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
@@ -1610,7 +1613,7 @@ msgstr ""
 "Ker nimate dovolj pomnilnika, moramo takoj ugasniti izmenjalni prostor. Za "
 "to bomo morali takoj zapisati razdelitveno tabelo na disk.  Je to v redu?"
 
-#: ../partitions.py:746
+#: ../partitions.py:749
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
@@ -1619,7 +1622,7 @@ msgstr ""
 "Niste določili korenskega razdelka (/), ki je obvezen za nadaljevanje "
 "namestitve sistema %s."
 
-#: ../partitions.py:751
+#: ../partitions.py:754
 #, python-format
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
@@ -1628,13 +1631,13 @@ msgstr ""
 "Vaš korenski razdelek je manjši od 250 megabajtov, kar je običajno premalo "
 "za namestitev sistema %s."
 
-#: ../partitions.py:758
+#: ../partitions.py:761
 msgid ""
 "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 "Ustvariti morate razdelek /boot/efi vrste FAT in velikosti 50 megabajtov."
 
-#: ../partitions.py:766
+#: ../partitions.py:769
 #, python-format
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
@@ -1643,16 +1646,16 @@ msgstr ""
 "Vaš razdelek %s je manjši od %s megabajtov, kar je manj od priporočene "
 "velikosti za običajno namestitev sistema %s."
 
-#: ../partitions.py:793 ../partRequests.py:635
+#: ../partitions.py:796 ../partRequests.py:635
 msgid "Bootable partitions can only be on RAID1 devices."
 msgstr "Zagonski razdelki so lahko le na napravah RAID1."
 
-#: ../partitions.py:799
+#: ../partitions.py:802
 #, fuzzy
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr "Zagonski razdelki so lahko le na napravah RAID1."
 
-#: ../partitions.py:803
+#: ../partitions.py:806
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
@@ -1660,7 +1663,7 @@ msgstr ""
 "Niste določili izmenjalnega razdelka. Čeprav v vseh primerih ni nujen, pa v "
 "večini namestitev znatno izboljša odzivnost sistema."
 
-#: ../partitions.py:810
+#: ../partitions.py:813
 #, python-format
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
@@ -1669,7 +1672,7 @@ msgstr ""
 "Določili ste več kot 32 izmenjevalnih naprav.  Jedro %s podpira le do 32 "
 "izmenjevalnih naprav."
 
-#: ../partitions.py:821
+#: ../partitions.py:824
 #, python-format
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
@@ -1678,15 +1681,15 @@ msgstr ""
 "Dodelili ste manj izmenjevalnega prostora (%dM) kot je v vašem sistemu "
 "dostopnega pomnilnika RAM (%dM). To lahko slabo vpliva na odzivnost."
 
-#: ../partitions.py:1102
+#: ../partitions.py:1105
 msgid "the partition in use by the installer."
 msgstr "razdelek, ki ga uporablja namestitveni program."
 
-#: ../partitions.py:1105
+#: ../partitions.py:1108
 msgid "a partition which is a member of a RAID array."
 msgstr "razdelek, ki je član polja RAID."
 
-#: ../partitions.py:1108
+#: ../partitions.py:1111
 #, fuzzy
 msgid "a partition which is a member of a LVM Volume Group."
 msgstr "razdelek, ki je član polja RAID."
@@ -1776,15 +1779,15 @@ msgstr "Mreža"
 msgid "Do you want to start the network interfaces on this system?"
 msgstr ""
 
-#: ../rescue.py:165 ../rescue.py:200 ../rescue.py:353
+#: ../rescue.py:159 ../rescue.py:194 ../rescue.py:347
 msgid "When finished please exit from the shell and your system will reboot."
 msgstr "Ko končate, se odjavite iz lupine in vaš sistem se bo znova zagnal."
 
-#: ../rescue.py:184 ../rescue.py:253 ../rescue.py:261 ../rescue.py:332
+#: ../rescue.py:178 ../rescue.py:247 ../rescue.py:255 ../rescue.py:326
 msgid "Rescue"
 msgstr "Rešuj"
 
-#: ../rescue.py:185
+#: ../rescue.py:179
 #, fuzzy, python-format
 msgid ""
 "The rescue environment will now attempt to find your Red Hat Linux "
@@ -1807,34 +1810,34 @@ msgstr ""
 "ta korak bo preskočen tako, da boste lahko šli neposredno v ukazno lupino.\n"
 "\n"
 
-#: ../rescue.py:195 ../iw/partition_gui.py:560 ../loader2/cdinstall.c:116
-#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:292
+#: ../rescue.py:189 ../iw/partition_gui.py:562 ../loader2/cdinstall.c:116
+#: ../loader2/cdinstall.c:124 ../loader2/driverdisk.c:296
 msgid "Continue"
 msgstr "Nadaljuj"
 
-#: ../rescue.py:195 ../rescue.py:204
+#: ../rescue.py:189 ../rescue.py:198
 msgid "Read-Only"
 msgstr "Le branje"
 
-#: ../rescue.py:195 ../rescue.py:197 ../textw/silo_text.py:36
+#: ../rescue.py:189 ../rescue.py:191 ../textw/silo_text.py:36
 #: ../textw/upgrade_text.py:123 ../loader2/cdinstall.c:258
 #: ../loader2/cdinstall.c:260 ../loader2/method.c:413
 msgid "Skip"
 msgstr "Preskoči"
 
-#: ../rescue.py:227
+#: ../rescue.py:221
 msgid "System to Rescue"
 msgstr "Reševanje sistema"
 
-#: ../rescue.py:228
+#: ../rescue.py:222
 msgid "What partition holds the root partition of your installation?"
 msgstr "Katera razdelitev je korenska razdelitev vašega sistema?"
 
-#: ../rescue.py:230 ../rescue.py:234
+#: ../rescue.py:224 ../rescue.py:228
 msgid "Exit"
 msgstr "Izhod"
 
-#: ../rescue.py:254
+#: ../rescue.py:248
 #, fuzzy
 msgid ""
 "Your system had dirty file systems which you chose not to mount.  Press "
@@ -1846,7 +1849,7 @@ msgstr ""
 "svoje razdelke. Ko boste zapustili lupino, se bo sistem samodejno vnovič "
 "zagnal."
 
-#: ../rescue.py:262
+#: ../rescue.py:256
 #, fuzzy, python-format
 msgid ""
 "Your system has been mounted under %s.\n"
@@ -1867,7 +1870,7 @@ msgstr ""
 "\n"
 "Po izhodu iz lupine se bo sistem samodejno vnovič zagnal."
 
-#: ../rescue.py:333
+#: ../rescue.py:327
 #, fuzzy, python-format
 msgid ""
 "An error occurred trying to mount some or all of your system. Some of it may "
@@ -1882,11 +1885,11 @@ msgstr ""
 "Pritisnite <Enter> za ukazno lupino. Po izhodu iz lupine se bo sistem "
 "samodejno vnovič zagnal."
 
-#: ../rescue.py:339
+#: ../rescue.py:333
 msgid "Rescue Mode"
 msgstr "Način reševanja"
 
-#: ../rescue.py:340
+#: ../rescue.py:334
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
@@ -1894,7 +1897,7 @@ msgstr ""
 "Nimate razdelitev Linuxa. Pritisnite Enter, da dobite ukazno lupino. Ko "
 "boste zapustili lupino, se bo sistem samodejno vnovič zagnal."
 
-#: ../rescue.py:350
+#: ../rescue.py:344
 #, fuzzy, python-format
 msgid "Your system is mounted under the %s directory."
 msgstr "Vaš sistem je priklopljen pod imenikom /mnt/sysimage."
@@ -1937,11 +1940,11 @@ msgid ""
 msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <presl.> izbere  | <F12> naslednji zaslon"
 
-#: ../text.py:449
+#: ../text.py:452
 msgid "Cancelled"
 msgstr "Preklicano"
 
-#: ../text.py:450
+#: ../text.py:453
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Ne moremo se vrniti na prejšnji korak. Poskusiti boste morali ponovno."
 
@@ -1953,21 +1956,21 @@ msgstr "Nadgradi obstoječi sistem"
 msgid "Upgrade"
 msgstr "Nadgradnja"
 
-#: ../upgrade.py:59
+#: ../upgrade.py:61
 msgid "Searching"
 msgstr "Iskanje"
 
-#: ../upgrade.py:60
+#: ../upgrade.py:62
 #, python-format
 msgid "Searching for %s installations..."
 msgstr "Iščemo namestitve sistema %s..."
 
-#: ../upgrade.py:111 ../upgrade.py:119
+#: ../upgrade.py:113 ../upgrade.py:121
 #, fuzzy
 msgid "Dirty File Systems"
 msgstr "Umazani datotečni sistemi"
 
-#: ../upgrade.py:112
+#: ../upgrade.py:114
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1979,7 +1982,7 @@ msgstr ""
 "Prosimo, zaženite vašo namestitev Linuxa, pustite, da se datotečni sistemi "
 "preverijo, in zaustavite sistem na čisti način, če želite sistem nadgraditi."
 
-#: ../upgrade.py:120
+#: ../upgrade.py:122
 #, fuzzy, python-format
 msgid ""
 "The following file systems for your Linux system were not unmounted "
@@ -1989,11 +1992,11 @@ msgstr ""
 "Eden ali več datotečnih sistemov za Linux ni bil pravilno odklopljen.  Bi "
 "jih radi kljub temu priklopili?"
 
-#: ../upgrade.py:249 ../upgrade.py:255
+#: ../upgrade.py:251 ../upgrade.py:257
 msgid "Mount failed"
 msgstr "Priklop neuspešen"
 
-#: ../upgrade.py:250
+#: ../upgrade.py:252
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
@@ -2003,7 +2006,7 @@ msgstr ""
 "Linux, ni moč priklopiti. Prosimo, odpravite to težavo in znova poskusite "
 "nadgraditi sistem."
 
-#: ../upgrade.py:256
+#: ../upgrade.py:258
 #, fuzzy
 msgid ""
 "One or more of the file systems listed in the /etc/fstab of your Linux "
@@ -2014,7 +2017,7 @@ msgstr ""
 "Linux, ni moč priklopiti. Prosimo, odpravite to težavo in znova poskusite "
 "nadgraditi sistem."
 
-#: ../upgrade.py:273
+#: ../upgrade.py:275
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -2026,11 +2029,11 @@ msgstr ""
 "pa vnovič zaženite nadgradnjo.\n"
 "\n"
 
-#: ../upgrade.py:279
+#: ../upgrade.py:281
 msgid "Absolute Symlinks"
 msgstr ""
 
-#: ../upgrade.py:290
+#: ../upgrade.py:292
 #, fuzzy
 msgid ""
 "The following are directories which should instead be symbolic link, which "
@@ -2043,35 +2046,35 @@ msgstr ""
 "pa vnovič zaženite nadgradnjo.\n"
 "\n"
 
-#: ../upgrade.py:296
+#: ../upgrade.py:298
 #, fuzzy
 msgid "Invalid Directories"
 msgstr "Neveljavna izbira"
 
-#: ../upgrade.py:302
+#: ../upgrade.py:304
 #, python-format
 msgid "%s not found"
 msgstr "%s ni moč najti"
 
-#: ../upgrade.py:332
+#: ../upgrade.py:346
 msgid "Finding"
 msgstr "Iščem"
 
-#: ../upgrade.py:333
+#: ../upgrade.py:347
 msgid "Finding packages to upgrade..."
 msgstr "Iščem pakete za nadgradnjo..."
 
-#: ../upgrade.py:354
+#: ../upgrade.py:369
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Ponovna gradnja baze podatkov o RPM neuspešna. Morda zmanjkuje prostora na "
 "disku?"
 
-#: ../upgrade.py:377
+#: ../upgrade.py:391
 msgid "An error occurred when finding the packages to upgrade."
 msgstr "Med iskanjem paketov, ki jih je treba nadgraditi, je prišlo do napake."
 
-#: ../upgrade.py:431
+#: ../upgrade.py:445
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -2085,7 +2088,7 @@ msgstr ""
 "povzroči kako drugo nestabilnost v delovanju. Ali želite nadaljevati "
 "postopek nadgradnje?"
 
-#: ../upgrade.py:450
+#: ../upgrade.py:465
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -2096,7 +2099,7 @@ msgstr ""
 "Red Hat Linuxom. Nadaljevanje postopka nadgradnje lahko pusti sistem v "
 "neuporabnem stanju. Ali želite postopek nadgradnje nadaljevati?"
 
-#: ../upgrade.py:491
+#: ../upgrade.py:507
 #, python-format
 msgid ""
 "Upgrades for this version of %s are only supported from Red Hat Linux 6.2 or "
@@ -2256,26 +2259,26 @@ msgstr "Kerberos 5"
 msgid "SMB"
 msgstr "SMB"
 
-#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1401
+#: ../iw/autopartition_gui.py:34 ../iw/partition_gui.py:1403
 #: ../textw/partition_text.py:1205
 msgid "Automatic Partitioning"
 msgstr "Samodejna razdelitev"
 
-#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1429
+#: ../iw/autopartition_gui.py:62 ../iw/partition_gui.py:1431
 #, fuzzy, python-format
 msgid "You need to select at least one hard drive to have %s installed onto."
 msgstr "Izbrati morate vsaj en pogon, v katerega želite namestiti %s."
 
-#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1471
+#: ../iw/autopartition_gui.py:104 ../iw/partition_gui.py:1473
 msgid "I want to have automatic partitioning:"
 msgstr "Želim samodejno razdelitev:"
 
-#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1502
+#: ../iw/autopartition_gui.py:135 ../iw/partition_gui.py:1504
 #, fuzzy
 msgid "Select the drive(s) to use for this installation:"
 msgstr "Katere pogone bi radi uporabili za to namestitev?"
 
-#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1526
+#: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1528
 msgid "Re_view (and modify if needed) the partitions created"
 msgstr ""
 
@@ -2743,7 +2746,7 @@ msgstr ""
 msgid "_Customize packages to be upgraded"
 msgstr "Prikrojitev paketov za nadgradnjo"
 
-#: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:194
+#: ../iw/examine_gui.py:127 ../iw/pixmapRadioButtonGroup_gui.py:195
 #, fuzzy
 msgid "The following Red Hat product will be upgraded:"
 msgstr "Namestitev je zaznala zagonski nalagalnik %s, trenutno nameščen v %s."
@@ -2857,7 +2860,7 @@ msgstr ""
 msgid "IP Addresses must contain numbers between 0 and 255"
 msgstr ""
 
-#: ../iw/language_gui.py:62 ../textw/language_text.py:38 ../loader2/lang.c:385
+#: ../iw/language_gui.py:62 ../textw/language_text.py:39 ../loader2/lang.c:371
 msgid "What language would you like to use during the installation process?"
 msgstr "Kateri jezik bi radi uporabljali med namestitvenim postopkom?"
 
@@ -2880,12 +2883,12 @@ msgstr "Izberite dodatne jezike, ki bi jih radi uporabljali v tem sistemu:"
 msgid "_Select All"
 msgstr "Izberite vse"
 
-#: ../iw/language_support_gui.py:260
+#: ../iw/language_support_gui.py:262
 #, fuzzy
 msgid "Select Default _Only"
 msgstr "Izberi kot privzeto"
 
-#: ../iw/language_support_gui.py:266
+#: ../iw/language_support_gui.py:273
 #, fuzzy
 msgid "Rese_t"
 msgstr "Resetiraj"
@@ -3196,8 +3199,8 @@ msgid "_Add"
 msgstr "Dodajmo"
 
 #: ../iw/lvm_dialog_gui.py:1079 ../iw/network_gui.py:488
-#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1337
-#: ../iw/partition_gui.py:1343
+#: ../iw/osbootwidget.py:98 ../iw/partition_gui.py:1339
+#: ../iw/partition_gui.py:1345
 msgid "_Edit"
 msgstr "_Uredi"
 
@@ -3703,127 +3706,127 @@ msgid ""
 "(MB)"
 msgstr "Velikost (MB)"
 
-#: ../iw/partition_gui.py:534 ../textw/partition_text.py:1108
+#: ../iw/partition_gui.py:536 ../textw/partition_text.py:1108
 msgid "Partitioning"
 msgstr "Razdeljevanje"
 
-#: ../iw/partition_gui.py:626
+#: ../iw/partition_gui.py:628
 msgid ""
 "The following critical errors exist with your requested partitioning scheme."
 msgstr "Pri vaši razdelitveni shemi se pojavljajo naslednje kritične napake."
 
-#: ../iw/partition_gui.py:629
+#: ../iw/partition_gui.py:631
 #, python-format
 msgid ""
 "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 "Te napake morate popraviti, preden nadaljujete z nameščanjem sistema %s."
 
-#: ../iw/partition_gui.py:635
+#: ../iw/partition_gui.py:637
 msgid "Partitioning Errors"
 msgstr "Napake pri razdeljevanju"
 
-#: ../iw/partition_gui.py:641
+#: ../iw/partition_gui.py:643
 msgid "The following warnings exist with your requested partition scheme."
 msgstr "Pri vaši razdelitveni shemi se pojavljajo naslednja opozorila."
 
-#: ../iw/partition_gui.py:643
+#: ../iw/partition_gui.py:645
 msgid "Would you like to continue with your requested partitioning scheme?"
 msgstr "Bi radi nadaljevali z vašo zahtevano razdelitveno shemo?"
 
-#: ../iw/partition_gui.py:648
+#: ../iw/partition_gui.py:650
 msgid "Partitioning Warnings"
 msgstr "Opozorila pri razdeljevanju"
 
-#: ../iw/partition_gui.py:670
+#: ../iw/partition_gui.py:672
 msgid "Format Warnings"
 msgstr "Opozorila pri formatiranju"
 
-#: ../iw/partition_gui.py:675
+#: ../iw/partition_gui.py:677
 #, fuzzy
 msgid "_Format"
 msgstr "Formatiraj"
 
-#: ../iw/partition_gui.py:710
+#: ../iw/partition_gui.py:712
 msgid "LVM Volume Groups"
 msgstr ""
 
-#: ../iw/partition_gui.py:745
+#: ../iw/partition_gui.py:747
 #, fuzzy
 msgid "RAID Devices"
 msgstr "Naprava RAID %s"
 
-#: ../iw/partition_gui.py:773 ../iw/partition_gui.py:890
+#: ../iw/partition_gui.py:775 ../iw/partition_gui.py:892
 #: ../textw/partition_text.py:93 ../textw/partition_text.py:151
 msgid "None"
 msgstr "Nič"
 
-#: ../iw/partition_gui.py:791 ../loader2/hdinstall.c:368
+#: ../iw/partition_gui.py:793 ../loader2/hdinstall.c:368
 msgid "Hard Drives"
 msgstr "Trdi diski"
 
-#: ../iw/partition_gui.py:853 ../textw/partition_text.py:133
+#: ../iw/partition_gui.py:855 ../textw/partition_text.py:133
 #: ../textw/partition_text.py:172
 msgid "Free space"
 msgstr "Prosti prostor"
 
-#: ../iw/partition_gui.py:855 ../textw/partition_text.py:135
+#: ../iw/partition_gui.py:857 ../textw/partition_text.py:135
 msgid "Extended"
 msgstr "Podaljšan"
 
-#: ../iw/partition_gui.py:857 ../textw/partition_text.py:137
+#: ../iw/partition_gui.py:859 ../textw/partition_text.py:137
 msgid "software RAID"
 msgstr "programski RAID"
 
-#: ../iw/partition_gui.py:892
+#: ../iw/partition_gui.py:894
 msgid "Free"
 msgstr "Prosto"
 
-#: ../iw/partition_gui.py:982 ../textw/partition_text.py:214
+#: ../iw/partition_gui.py:984 ../textw/partition_text.py:214
 #, python-format
 msgid "Could not allocate requested partitions: %s."
 msgstr "Ni moč dodeliti zahtevanih razdelkov: %s."
 
-#: ../iw/partition_gui.py:991
+#: ../iw/partition_gui.py:993
 #, python-format
 msgid "Warning: %s."
 msgstr "Opozorilo: %s."
 
-#: ../iw/partition_gui.py:993
+#: ../iw/partition_gui.py:995
 #, fuzzy
 msgid "_Modify Partition"
 msgstr "Spremeni razdelek"
 
-#: ../iw/partition_gui.py:1171 ../iw/partition_gui.py:1185
+#: ../iw/partition_gui.py:1173 ../iw/partition_gui.py:1187
 #, fuzzy
 msgid "Not supported"
 msgstr "Podpora za mrežo"
 
-#: ../iw/partition_gui.py:1172
+#: ../iw/partition_gui.py:1174
 msgid "LVM is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1186
+#: ../iw/partition_gui.py:1188
 msgid "Software RAID is NOT supported on this platform."
 msgstr ""
 
-#: ../iw/partition_gui.py:1193
+#: ../iw/partition_gui.py:1195
 #, fuzzy
 msgid "No RAID minor device numbers available"
 msgstr "Pomoč ni na voljo"
 
-#: ../iw/partition_gui.py:1194
+#: ../iw/partition_gui.py:1196
 msgid ""
 "A software RAID device cannot be created because all of the available RAID "
 "minor device numbers have been used."
 msgstr ""
 
-#: ../iw/partition_gui.py:1208
+#: ../iw/partition_gui.py:1210
 #, fuzzy
 msgid "RAID Options"
 msgstr "Ni razdelkov RAID"
 
-#: ../iw/partition_gui.py:1219
+#: ../iw/partition_gui.py:1221
 #, python-format
 msgid ""
 "Software RAID allows you to combine several disks into a larger RAID "
@@ -3835,7 +3838,7 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1230
+#: ../iw/partition_gui.py:1232
 msgid ""
 "To use RAID you must first create at least two partitions of type 'software "
 "RAID'.  Then you can create a RAID device which can be formatted and "
@@ -3843,63 +3846,63 @@ msgid ""
 "\n"
 msgstr ""
 
-#: ../iw/partition_gui.py:1236
+#: ../iw/partition_gui.py:1238
 #, fuzzy
 msgid "What do you want to do now?"
 msgstr "Kaj bi radi storili?"
 
-#: ../iw/partition_gui.py:1245
+#: ../iw/partition_gui.py:1247
 #, fuzzy
 msgid "Create a software RAID _partition."
 msgstr "Potrebna sta vsaj dva programska razdelka RAID."
 
-#: ../iw/partition_gui.py:1248
+#: ../iw/partition_gui.py:1250
 #, python-format
 msgid "Create a RAID _device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1252
+#: ../iw/partition_gui.py:1254
 #, python-format
 msgid "Clone a _drive to create a RAID device [default=/dev/md%s]."
 msgstr ""
 
-#: ../iw/partition_gui.py:1291
+#: ../iw/partition_gui.py:1293
 msgid "Couldn't Create Drive Clone Editor"
 msgstr ""
 
-#: ../iw/partition_gui.py:1292
+#: ../iw/partition_gui.py:1294
 #, fuzzy
 msgid "The drive clone editor could not be created for some reason."
 msgstr "Tega imenika ni bilo moč priklopiti s strežnika"
 
-#: ../iw/partition_gui.py:1339
+#: ../iw/partition_gui.py:1341
 msgid "_Reset"
 msgstr "_Resetirajmo"
 
-#: ../iw/partition_gui.py:1340
+#: ../iw/partition_gui.py:1342
 msgid "Make _RAID"
 msgstr "Izdelaj _RAID"
 
-#: ../iw/partition_gui.py:1342
+#: ../iw/partition_gui.py:1344
 #, fuzzy
 msgid "Ne_w"
 msgstr "Nov"
 
-#: ../iw/partition_gui.py:1345
+#: ../iw/partition_gui.py:1347
 #, fuzzy
 msgid "Re_set"
 msgstr "Resetiraj"
 
-#: ../iw/partition_gui.py:1346
+#: ../iw/partition_gui.py:1348
 #, fuzzy
 msgid "R_AID"
 msgstr "RAID"
 
-#: ../iw/partition_gui.py:1347
+#: ../iw/partition_gui.py:1349
 msgid "_LVM"
 msgstr ""
 
-#: ../iw/partition_gui.py:1386
+#: ../iw/partition_gui.py:1388
 msgid "Hide RAID device/LVM Volume _Group members"
 msgstr ""
 
@@ -4821,11 +4824,11 @@ msgstr ""
 #: ../textw/confirm_text.py:36 ../textw/confirm_text.py:38
 #: ../textw/constants_text.py:44 ../textw/silo_text.py:110
 #: ../textw/userauth_text.py:202 ../loader2/cdinstall.c:360
-#: ../loader2/driverdisk.c:201 ../loader2/driverdisk.c:216
+#: ../loader2/driverdisk.c:203 ../loader2/driverdisk.c:218
 #: ../loader2/driverselect.c:73 ../loader2/driverselect.c:187
 #: ../loader2/driverselect.c:213 ../loader2/hdinstall.c:368
 #: ../loader2/hdinstall.c:422 ../loader2/kbd.c:125 ../loader2/loader.c:297
-#: ../loader2/loader.c:696 ../loader2/loader.c:724 ../loader2/net.c:170
+#: ../loader2/loader.c:702 ../loader2/loader.c:730 ../loader2/net.c:170
 #: ../loader2/net.c:334 ../loader2/net.c:744 ../loader2/nfsinstall.c:54
 #: ../loader2/urls.c:248 ../loader2/urls.c:433
 msgid "Back"
@@ -4987,7 +4990,7 @@ msgid "Other ports"
 msgstr "Druga vrata"
 
 #: ../textw/firewall_text.py:130 ../textw/firewall_text.py:193
-#: ../textw/language_text.py:151
+#: ../textw/language_text.py:160
 msgid "Invalid Choice"
 msgstr "Neveljavna izbira"
 
@@ -5029,31 +5032,31 @@ msgstr "Izbira tipkovnice"
 msgid "Which model keyboard is attached to this computer?"
 msgstr "Kateri model tipkovnice je priključen na ta računalnik?"
 
-#: ../textw/language_text.py:114
+#: ../textw/language_text.py:123
 msgid "Select All"
 msgstr "Izberite vse"
 
-#: ../textw/language_text.py:114
+#: ../textw/language_text.py:123
 msgid "Reset"
 msgstr "Resetiraj"
 
-#: ../textw/language_text.py:116
+#: ../textw/language_text.py:125
 msgid "Choose additional languages that you would like to use on this system:"
 msgstr "Izberite dodatne jezike, ki bi jih radi uporabljali v tem sistemu:"
 
-#: ../textw/language_text.py:120
+#: ../textw/language_text.py:129
 msgid "Language Support"
 msgstr "Podpora jezikov"
 
-#: ../textw/language_text.py:152
+#: ../textw/language_text.py:161
 msgid "You must select at least one language to install."
 msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
 
-#: ../textw/language_text.py:180
+#: ../textw/language_text.py:189
 msgid "Default Language"
 msgstr "Privzeti jezik"
 
-#: ../textw/language_text.py:181
+#: ../textw/language_text.py:190
 msgid "Choose the default language for this system: "
 msgstr "Izberite privzeti jezik za ta sistem: "
 
@@ -6154,75 +6157,84 @@ msgstr "CD najden"
 msgid "Cannot find kickstart file on CDROM."
 msgstr ""
 
-#: ../loader2/driverdisk.c:90 ../loader2/firewire.c:50
+#: ../loader2/driverdisk.c:92 ../loader2/firewire.c:50
 msgid "Loading"
 msgstr "Nalaganje"
 
-#: ../loader2/driverdisk.c:90
+#: ../loader2/driverdisk.c:92
 #, fuzzy
 msgid "Reading driver disk..."
 msgstr "Diskete ni moč priklopiti."
 
-#: ../loader2/driverdisk.c:195
+#: ../loader2/driverdisk.c:197
 #, fuzzy
 msgid "Driver Disk Source"
 msgstr "Povzetki vsebine diskov"
 
-#: ../loader2/driverdisk.c:196
+#: ../loader2/driverdisk.c:198
 #, fuzzy
 msgid ""
 "You have multiple devices which could serve as sources for a driver disk.  "
 "Which would you like to use?"
 msgstr "Katero vrsto sistema bi radi namestili?"
 
-#: ../loader2/driverdisk.c:214
+#: ../loader2/driverdisk.c:216
 #, fuzzy, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
 msgstr ""
 "Vstavite disketo z gonilnikom in pritisnite \"V redu\" za nadaljevanje."
 
-#: ../loader2/driverdisk.c:216
+#: ../loader2/driverdisk.c:218
 #, fuzzy
 msgid "Insert Driver Disk"
 msgstr "Povzetki vsebine diskov"
 
-#: ../loader2/driverdisk.c:228
+#: ../loader2/driverdisk.c:231
 msgid "Failed to mount driver disk."
 msgstr "Diskete ni moč priklopiti."
 
-#: ../loader2/driverdisk.c:291
+#: ../loader2/driverdisk.c:295
 msgid "Manually choose"
 msgstr ""
 
-#: ../loader2/driverdisk.c:292
+#: ../loader2/driverdisk.c:296
 msgid "Load another disk"
 msgstr ""
 
-#: ../loader2/driverdisk.c:293
+#: ../loader2/driverdisk.c:297
 msgid ""
 "No devices of the appropriate type were found on this driver disk.  Would "
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
 
-#: ../loader2/driverdisk.c:336
+#: ../loader2/driverdisk.c:340
 #, fuzzy
 msgid "Driver disk"
 msgstr "Povzetki vsebine diskov"
 
-#: ../loader2/driverdisk.c:337
+#: ../loader2/driverdisk.c:341
 msgid "Do you have a driver disk?"
 msgstr "Ali imate disketo z gonilnikom?"
 
-#: ../loader2/driverdisk.c:347
+#: ../loader2/driverdisk.c:351
 #, fuzzy
 msgid "More Driver Disks?"
 msgstr "Povzetki vsebine diskov"
 
-#: ../loader2/driverdisk.c:348
+#: ../loader2/driverdisk.c:352
 #, fuzzy
 msgid "Do you wish to load any more driver disks?"
 msgstr "Ali imate disketo z gonilnikom?"
+
+#: ../loader2/driverdisk.c:376 ../loader2/hdinstall.c:504
+#: ../loader2/kickstart.c:101 ../loader2/kickstart.c:111
+#: ../loader2/kickstart.c:154 ../loader2/modules.c:922 ../loader2/net.c:658
+#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
+#: ../loader2/urlinstall.c:366 ../loader2/urlinstall.c:375
+#: ../loader2/urlinstall.c:386
+msgid "Kickstart Error"
+msgstr "Napaka hitrega zagona"
 
 #: ../loader2/driverselect.c:60
 #, fuzzy, c-format
@@ -6322,14 +6334,6 @@ msgstr "Izberite razdelitev"
 msgid "Device %s does not appear to contain Red Hat CDROM images."
 msgstr "Videti je, da naprava %s ne vsebuje slik zgoščenk Red Hata."
 
-#: ../loader2/hdinstall.c:504 ../loader2/kickstart.c:97
-#: ../loader2/kickstart.c:106 ../loader2/kickstart.c:149 ../loader2/net.c:658
-#: ../loader2/net.c:681 ../loader2/nfsinstall.c:258
-#: ../loader2/urlinstall.c:367 ../loader2/urlinstall.c:376
-#: ../loader2/urlinstall.c:387
-msgid "Kickstart Error"
-msgstr "Napaka hitrega zagona"
-
 #: ../loader2/hdinstall.c:505
 #, fuzzy, c-format
 msgid "Bad argument to HD kickstart method command %s: %s"
@@ -6348,37 +6352,37 @@ msgstr "Vrsta tipkovnice"
 msgid "What type of keyboard do you have?"
 msgstr "Kakšno tipkovnico imate?"
 
-#: ../loader2/kickstart.c:98
+#: ../loader2/kickstart.c:102
 #, fuzzy, c-format
 msgid "Error opening kickstart file %s: %s"
 msgstr "Napaka pri odpiranju: datoteka za hitri zagon %s: %s"
 
-#: ../loader2/kickstart.c:107
+#: ../loader2/kickstart.c:112
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Napaka pri branju vsebine datoteke za hitri zagon %s: %s"
 
-#: ../loader2/kickstart.c:150
+#: ../loader2/kickstart.c:155
 #, fuzzy, c-format
 msgid "Error in %s on line %d of kickstart file %s."
 msgstr "Napaka v vrstici %d datoteke za hitri zagon %s."
 
-#: ../loader2/kickstart.c:250
+#: ../loader2/kickstart.c:255
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Ne moremo najti ks.cfg na zagonski disketi."
 
-#: ../loader2/lang.c:50 ../loader2/loader.c:166
+#: ../loader2/lang.c:51 ../loader2/loader.c:166
 #, c-format
 msgid "Welcome to %s"
 msgstr "Dobrodošli v %s"
 
-#: ../loader2/lang.c:51 ../loader2/loader.c:172
+#: ../loader2/lang.c:52 ../loader2/loader.c:172
 msgid ""
 "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> med elementi    | <Space> izbere  | <F12> naslednji zaslon"
 
-#: ../loader2/lang.c:384
+#: ../loader2/lang.c:370
 msgid "Choose a Language"
 msgstr "Izberite jezik"
 
@@ -6443,49 +6447,49 @@ msgstr ""
 msgid "You do not have enough RAM to install %s on this machine."
 msgstr "Nimate dovolj pomnilnika za namestitev sistema %s v ta stroj."
 
-#: ../loader2/loader.c:688
+#: ../loader2/loader.c:694
 msgid "Rescue Method"
 msgstr "Metoda rešitve"
 
-#: ../loader2/loader.c:689
+#: ../loader2/loader.c:695
 msgid "Installation Method"
 msgstr "Metoda namestitve"
 
-#: ../loader2/loader.c:691
+#: ../loader2/loader.c:697
 msgid "What type of media contains the rescue image?"
 msgstr "Kakšne vrste nosilec vsebuje rešilno sliko?"
 
-#: ../loader2/loader.c:693
+#: ../loader2/loader.c:699
 msgid "What type of media contains the packages to be installed?"
 msgstr "Katero vrsto nosilca vsebuje paket, ki bi ga radi namestili?"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:729
 #, fuzzy
 msgid "No driver found"
 msgstr "Noben pogon ni bil najden"
 
-#: ../loader2/loader.c:723
+#: ../loader2/loader.c:729
 #, fuzzy
 msgid "Select driver"
 msgstr "Izberite pogon na katerem boste poganjali fdisk"
 
-#: ../loader2/loader.c:724
+#: ../loader2/loader.c:730
 #, fuzzy
 msgid "Use a driver disk"
 msgstr "Ali imate disketo z gonilnikom?"
 
-#: ../loader2/loader.c:725
+#: ../loader2/loader.c:731
 msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
 
-#: ../loader2/loader.c:818
+#: ../loader2/loader.c:825
 #, fuzzy
 msgid "The following devices have been found on your system."
 msgstr "V vašem sistemu so bile najdene naslednje naprave:"
 
-#: ../loader2/loader.c:820
+#: ../loader2/loader.c:827
 #, fuzzy
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
@@ -6494,19 +6498,19 @@ msgstr ""
 "Za vaš sistem še ni naloženih posebnih gonilnikov.  Bi jih radi naložili "
 "zdaj?"
 
-#: ../loader2/loader.c:825
+#: ../loader2/loader.c:831
 msgid "Devices"
 msgstr "Naprave"
 
-#: ../loader2/loader.c:826
+#: ../loader2/loader.c:832
 msgid "Done"
 msgstr "Opravljeno"
 
-#: ../loader2/loader.c:827
+#: ../loader2/loader.c:833
 msgid "Add Device"
 msgstr "Dodajmo napravo"
 
-#: ../loader2/loader.c:1176
+#: ../loader2/loader.c:1211
 #, fuzzy, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
 msgstr "Anaconda teče - prosimo, počakajte ...\n"
@@ -6757,16 +6761,16 @@ msgstr "Ni moč naložiti %s: %s"
 msgid "Unable to retrieve the install image."
 msgstr "Ne moremo naložiti drugostopenjskega pomnilniškega diska: %s"
 
-#: ../loader2/urlinstall.c:368
+#: ../loader2/urlinstall.c:367
 #, fuzzy, c-format
 msgid "Bad argument to Url kickstart method command %s: %s"
 msgstr "slab argument za hitri zagon omrežnega ukaza %s: %s"
 
-#: ../loader2/urlinstall.c:377
+#: ../loader2/urlinstall.c:376
 msgid "Must supply a --url argument to Url kickstart method."
 msgstr ""
 
-#: ../loader2/urlinstall.c:388
+#: ../loader2/urlinstall.c:387
 #, fuzzy, c-format
 msgid "Unknown Url method %s"
 msgstr "Neznana kartica"
