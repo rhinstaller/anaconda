@@ -1062,6 +1062,7 @@ class AutoPartitionWindow:
                          0, 0)
         cleardrives = partitions.autoClearPartDrives
         disks = diskset.disks.keys()
+        disks.sort()
         drivelist = CheckboxTree(height=3, scroll=1)
         if not cleardrives or len(cleardrives) < 1:
             for disk in disks:
