@@ -206,9 +206,8 @@ from kickstart import Kickstart
 # override display mode if machine cannot nicely run X
 #
 if (not test):
-    if (iutil.memInstalled() < 30000):
+    if (iutil.memInstalled() < 35000):
 	forced_display_mode = 't'
-
 
 #
 # handle class passed from loader
