@@ -86,17 +86,17 @@ EOF
 
 # LATEUSBMODS go in the second stage.  
 # FIXME: bleah, have to include sd_mod, sr_mod for usb-storage
-USBMODS="usb-ohci usb-uhci hid keybdev usb-storage sd_mod sr_mod"
+USBMODS="usbcore ohci-hcd uhci-hcd hid usb-storage sd_mod sr_mod"
 # usb-storage goes on both so we can reload it.  *sigh*
-LATEUSBMODS="mousedev usb-storage"
-IDEMODS="ide-cd"
-SCSIMODS="sd_mod sg sr_mod st"
+LATEUSBMODS="usb-storage"
+IDEMODS="cdrom ide-cd"
+SCSIMODS="cdrom scsi_mod sd_mod sg sr_mod st"
 
-FSMODS="msdos vfat ext3 reiserfs jfs xfs"
+FSMODS="fat msdos vfat ext3 reiserfs jfs xfs"
 SECSTAGE="agpgart md raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
-BTERMMODULES="vga16fb"
-COMMONMODULES="vfat nfs sunrpc lockd floppy cramfs loop $USBMODS $BTERMMODULES"
+BTERMMODULES="vga16fb vgastate"
+COMMONMODULES="fat vfat nfs sunrpc lockd floppy cramfs loop $USBMODS $BTERMMODULES"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 
 	     sym53c8xx $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES 3c59x 
@@ -106,7 +106,7 @@ NETWORKMODULES="$COMMONMODULES 3c59x
 PCMCIAMAINMODULES="$COMMONMODULES nfs $IDEMODS $SCSIMODS"
 
 # images we only want on the CD (usually for space reasons)
-ISOLINUXMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
+ISOLINUXMODULES="usbcore ehci-hcd ieee1394 ohci1394 sbp2"
 
 # XXX hack hack
 PCMCIAMODULES_EXCLUDED="
