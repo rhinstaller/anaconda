@@ -86,6 +86,7 @@ static int hasGraphicalOverride();
 
 static int newtRunning = 0;
 
+int num_link_checks = 15;
 
 #ifdef INCLUDE_LOCAL
 #include "cdinstall.h"
