@@ -23,6 +23,7 @@ import sys
 import string
 import pcmcia
 import dispatch
+import fsset
 from log import log
 from flags import flags
 
