@@ -427,6 +427,10 @@ class DevptsFileSystem(PsudoFileSystem):
 
 fileSystemTypeRegister(DevptsFileSystem())
 
+class DevshmFileSystem(PsudoFileSystem):
+    def __init__(self):
+        PsudoFileSystem.__init__(self, "tmpfs")
+
 class AutoFileSystem(PsudoFileSystem):
     def __init__(self):
         PsudoFileSystem.__init__(self, "auto")
@@ -452,6 +456,7 @@ class FileSystemSet:
         pts = FileSystemSetEntry(Device(), '/dev/pts',
                                  fileSystemTypeGet("devpts"), "gid=5,mode=620")
         self.add(pts)
+        shm = FileSystemSetEntry(Device(), '/dev/shm', fileSystemTypeGet("tmpfs"))
 
     def verify (self):
         for entry in self.entries:
