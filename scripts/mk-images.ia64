@@ -24,6 +24,7 @@ prepareBootImage() {
 	cat > $MBD_BOOTTREE/EFI/boot/elilo.conf << EOF
 prompt	
 timeout=50
+relocatable
 
 image=vmlinuz
         label=linux
