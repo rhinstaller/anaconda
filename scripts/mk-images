@@ -475,7 +475,7 @@ EOF
        cp -f $IMGPATH/usr/sbin/tune2fs $MBD_DIR/sbin/tune2fs
        cp -f $IMGPATH/usr/sbin/mke2fs $MBD_DIR/sbin/mke2fs
        cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
-       for i in uname tee sed rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
+       for i in cp uname tee sed rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
           ln -sf busybox $MBD_DIR/sbin/$i
        done
        cp -f $IMGPATH/usr/bin/mount_save $MBD_DIR/sbin/mount
@@ -528,6 +528,12 @@ EOF
 /lib
 /mnt/runtime/lib
 /mnt/runtime/usr/lib
+EOF
+	echo >$MBD_DIR/etc/motd <<EOF
+Welcome to the Red Hat Linux install environment (v0.34) for S/390.
+ 
+Now run 'rhsetup' or 'loader' to install Red Hat Linux.
+ 
 EOF
        #cp -f $KERNELROOT/lib/modules/*/kernel/drivers/s390/*/* $MBD_DIR/lib/modules/misc
        #if [ -d $IMGPATH/lib/modules/ibm-2.4*/kernel/drivers/net ]; then
