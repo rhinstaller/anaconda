@@ -7,7 +7,7 @@ DESTDIR = ../../../RedHat/instimage
 CATALOGS = po/anaconda.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
 
-PYFILES = $(wildcard *.py)
+PYFILES = $(wildcard *.py) $(wildcard iw/*.py)
 
 all: subdirs _xkb.so $(CATALOGS)
 
@@ -29,10 +29,10 @@ install-hd: all
 	fi
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
-	mkdir -p $(DESTDIR)/usr/bin/iw
 	cp -a anaconda $(DESTDIR)/usr/bin
 	cp -a *.py $(DESTDIR)/usr/lib/python1.5/site-packages
-	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
+	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages/iw
+	cp -a iw/*.py $(DESTDIR)/usr/lib/python1.5/site-packages/iw
 	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	for d in $(SUBDIRSHD); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
 
