@@ -687,11 +687,15 @@ int main(int argc, char **argv) {
 	printf("rebooting system\n");
 	sleep(2);
 
-	#if USE_MINILIBC
-	    reboot(0xfee1dead, 672274793, 0x1234567);
-	#else
-	    reboot(RB_AUTOBOOT);
-	#endif
+#if USE_MINILIBC
+	reboot(0xfee1dead, 672274793, 0x1234567);
+#else
+# ifdef __alpha__
+	reboot(RB_HALT_SYSTEM);
+# else
+	reboot(RB_AUTOBOOT);
+# endif
+#endif
     } else {
 	printf("you may safely reboot your system\n");
 	while (1);
