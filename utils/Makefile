@@ -61,7 +61,7 @@ install: all
 
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap \
-	moduledeps.c moduleinfo.c *.o
+	moduledeps.c moduleinfo.c .depend *.o
 
 depend:
 	$(CPP) -M $(RPMCFLAGS) *.c > .depend
