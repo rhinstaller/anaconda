@@ -65,6 +65,8 @@ Section "Files"
     FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
     FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
     FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
+    FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic/"
+    FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
 EndSection
 
 Section "ServerFlags"
