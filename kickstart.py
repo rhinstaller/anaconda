@@ -326,9 +326,6 @@ class Kickstart(InstallClass):
 	else:
 	    self.partitions.append((extra[0], size, maxSize, grow))
 
-        self.addToSkipList("partition")
-        self.addToSkipList("format")
-
     def __init__(self, file):
 	InstallClass.__init__(self)
 	self.addToSkipList("bootdisk")

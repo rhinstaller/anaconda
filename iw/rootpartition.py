@@ -154,7 +154,10 @@ class AutoPartitionWindow(InstallWindow):
 	    return
 
 	if not todo.getPartitionWarningText():
-	    self.fstab.setRunDruid(0)
+	    self.todo.fstab.setRunDruid(0)
+	    self.todo.fstab.setDruid(self.druid)
+	    self.todo.fstab.formatAllFilesystems()
+	    self.todo.instClass.addToSkipList("format")
 	    return
 
 	label = \

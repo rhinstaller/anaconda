@@ -197,8 +197,6 @@ class Fstab:
 	# naturally
         (devices, raid) = self.ddruid.partitionList()
 
-	print 'in make filesystems'
-
 	if raid:
 	    self.createRaidTab("/tmp/raidtab", "/tmp", createDevices = 1)
 
@@ -223,13 +221,10 @@ class Fstab:
             else:
                 kernelPart = '/'
 
-	print 'mount list is', self.mountList()
-        
 	for (mntpoint, device, fsystem, doFormat, size) in self.mountList():
 	    if not doFormat: continue
 	    isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "ext2":
-		print '\tcreating filesystem on', device
                 args = [ "mke2fs", '/tmp/' + device ]
                 # FORCE the partition that MILO has to read
                 # to have 1024 block size.  It's the only

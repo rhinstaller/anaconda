@@ -98,20 +98,24 @@ class ManualPartitionWindow:
 
 class AutoPartitionWindow:
     def __call__(self, screen, todo):
-        fstab = []
-        for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
-            fstab.append ((dev, mntpoint))
+	druid = None
 
-        if not todo.ddruid:
-            drives = todo.drives.available ().keys ()
-            drives.sort (isys.compareDrives)
-            todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr,
-				 todo.ddruidReadOnly)
-	    if not todo.instClass.finishPartitioning(todo.ddruid):
-		todo.log ("Autopartitioning FAILED\n")
+	if todo.instClass.partitions:
+	    druid = \
+		todo.fstab.attemptPartitioning(todo.instClass.partitions,
+					       todo.instClass.clearParts)
 
-	if not todo.getPartitionWarningText(): 
-	    return INSTALL_NOOP
+	if not druid:
+	    # auto partitioning failed
+	    todo.fstab.setRunDruid(1)
+	    return
+
+	if not todo.getPartitionWarningText():
+	    todo.fstab.setRunDruid(0)
+	    todo.fstab.setDruid(druid)
+	    todo.fstab.formatAllFilesystems()
+	    todo.instClass.addToSkipList("format")
+	    return
 
 	(rc, choice) = ListboxChoiceWindow(screen, _("Automatic Partitioning"),
 	    _("%s\n\nIf you don't want to do this, you can continue with "
@@ -121,19 +125,31 @@ class AutoPartitionWindow:
 	    [_("Continue"), _("Manually partition")], 
 	    buttons = basicButtons, default = _("Continue"))
 
-	if (rc == "back"): return INSTALL_BACK
+	if (rc == "back"): 
+	    # This happens automatically when we go out of scope, but it's
+	    # important so let's be explicit
+	    druid = None
+	    return INSTALL_BACK
 
         if (choice == 1):
-            drives = todo.drives.available ().keys ()
-            drives.sort (isys.compareDrives)
-            todo.ddruid = fsedit(0, drives, fstab, 0, todo.ddruidReadOnly)
-	    todo.manuallyPartition()
+	    todo.fstab.setRunDruid(1)
+	    todo.fstab.rescanPartitions()
+	    todo.instClass.removeFromSkipList("format")
+	else:
+	    todo.fstab.setRunDruid(0)
+	    todo.fstab.setDruid(druid)
+	    todo.fstab.formatAllFilesystems()
+	    todo.instClass.addToSkipList("format")
 
 class PartitionWindow:
     def __call__(self, screen, todo):
 	dir = INSTALL_NOOP
-	if not todo.getSkipPartitioning():
+	if todo.fstab.getRunDruid():
 	    dir = todo.fstab.runDruid()
+
+	# runDruid returns None when it means INSTALL_OK
+        if not dir:
+	    dir = INSTALL_OK
 
         return dir
 
