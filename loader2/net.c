@@ -755,6 +755,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
     int deviceNums = 0;
     int deviceNum;
     char ** devices;
+    char ** deviceNames;
     int foundDev = 0;
 
     /* JKFIXME: this is a lot bigger than it has to be.. */
@@ -764,14 +765,16 @@ int chooseNetworkInterface(struct knownDevices * kd,
             continue;
 
         if (kd->known[i].model) {
-                devices[deviceNums++] = alloca(strlen(kd->known[i].name) +
-                                       strlen(kd->known[i].model) + 4);
-                sprintf(devices[deviceNums-1],"%s - %s",
+                deviceNames[deviceNums] = alloca(strlen(kd->known[i].name) +
+                                          strlen(kd->known[i].model) + 4);
+                sprintf(deviceNames[deviceNums],"%s - %s",
                         kd->known[i].name, kd->known[i].model);
-                if (strlen(devices[deviceNums-1]) > max)
-                        max = strlen(devices[deviceNums-1]);
+                if (strlen(deviceNames[deviceNums]) > max)
+                        max = strlen(deviceNames[deviceNums]);
+                devices[deviceNums++] = kd->known[i].name;
         } else {
-            devices[deviceNums++] = kd->known[i].name;
+            devices[deviceNums] = kd->known[i].name;
+            deviceNames[deviceNums++] = kd->known[i].name;
         }
 
         /* this device has been set and we don't really need to ask 
@@ -824,7 +827,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
     rc = newtWinMenu(_("Networking Device"), 
 		     _("You have multiple network devices on this system. "
 		       "Which would you like to install through?"), max, 10, 10,
-		     deviceNums < 6 ? deviceNums : 6, devices,
+		     deviceNums < 6 ? deviceNums : 6, deviceNames,
 		     &deviceNum, _("OK"), _("Back"), NULL);
     if (rc == 2)
         return LOADER_BACK;
