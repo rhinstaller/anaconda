@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: install 1.84\n"
+"Project-Id-Version: install 1.130\n"
 "POT-Creation-Date: 2001-06-27 02:55-0400\n"
-"PO-Revision-Date: 2001-07-06 15:21+0000\n"
+"PO-Revision-Date: 2001-07-06 18:32+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -2897,6 +2897,10 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"Vinsamlegast sláðu inn tíðnisvið skjásins þíns. \n"
+"\n"
+"ATH - Það er venjulega ekki nauðsynlegt að breyta tíðnisviðunum handvirkt og "
+"gætt skal að því að hafa þau rétt fyrir skjáinn þinn."
 
 #: ../textw/xconfig_text.py:276
 msgid "HSync Rate: "
@@ -2931,6 +2935,15 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
+"Tíðnisviðið %s er ógilt:\n"
+"\n"
+"      %s\n"
+"\n"
+"Gilt tíðnisvið er á forminu:\n"
+"\n"
+"      31.5                   stök tala\n"
+"    50.1-90.2                svið talna\n"
+"31.5,35.0,39.3-40.0          listi af tölum/sviðum\n"
 
 #: ../textw/xconfig_text.py:372
 #, c-format
@@ -2938,6 +2951,8 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
+"Veldu skjáinn sem er á vélinni þinni.  Notaðu '%s' hnappinn til að "
+"endurstilla gildin sem sjálfvirka leitin fann."
 
 #: ../textw/xconfig_text.py:376
 msgid "Monitor:"
@@ -2957,6 +2972,8 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
+"Vinsamlegast veldu skjákortið sem er í vélinni þinni. Notaðu '%s' hnappinn "
+"til að endurstilla gildin sem sjálfvirka leitin fann."
 
 #: ../textw/xconfig_text.py:481
 msgid "Video RAM"
@@ -2969,6 +2986,8 @@ msgid ""
 "'%s' to reset the selection to the amount the installer detected on your "
 "card."
 msgstr ""
+"Vinsamlegast veldu það magn skjáminnis sem er til staðar á skjákortinu þínu. "
+"Notaðu '%s' hnappinn til að endurstilla gildin sem sjálfvirka leitin fann."
 
 #: ../textw/xconfig_text.py:537
 msgid "Video Card Configuration"
@@ -3214,6 +3233,11 @@ msgid ""
 "supported by the anaconda installer.  You may be able to set the partition "
 "type correctly using your other operating system's partitioning program."
 msgstr ""
+"Þessi villa kom upp vegna þess að það er lógísk disksneið á disknum sem er "
+"af gerð núll (0). Disksneið af gerð núll þýðir venjulega að sneiðing "
+"disksins er ekki alveg lokið og er líklega afleiðing sneiðingatóls annars "
+"stýrikerfis. Þetta ástand er ekki stutt af anaconda uppsetningarforritinu. "
+"Þú gætir sett tegund sneiðarinnar með sneiðingartóli hins stýrikerfisins."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
