@@ -27,9 +27,10 @@ class InstallClass(BaseInstallClass):
 	    self.addNewPartition('/boot', (32, -1, 0), (None,-1,0), (0,0))
 	self.addNewPartition('/', (1100, -1, 1), (None, -1, 0), (0,0))
 	self.setClearParts(FSEDIT_CLEAR_LINUX, 
-	    warningText = N_("You are about to erase any preexisting Linux "
+#	    warningText = N_("You are about to erase any preexisting Linux "
+#			     "installations on your system."))
+	    warningText = N_("any preexisting Linux "
 			     "installations on your system."))
-
 
         # 2.4 kernel requires more swap, so base amount we try to get
         # on amount of memory

@@ -35,7 +35,7 @@ class InstallClass(BaseInstallClass):
 	self.addNewPartition('/var', (256, -1, 0), (None, -1, 0), (0,0))
 	self.addNewPartition('/home',(512, -1, 1), (None, -1, 0), (0,0))
 	self.setClearParts(FSEDIT_CLEAR_ALL, 
-	    warningText = N_("You are about to erase ALL DATA on your hard "
+	    warningText = N_("ALL DATA on your hard "
 			     "drive to make room for your Linux installation."))
 
 #	self.addNewPartition('swap', (64, 256, 1), (None, -1, 0), (0,0))
