@@ -740,8 +740,10 @@ class InstallControlWindow:
         self.reloadRcQueued = 1
 
 	self.updateStockButtons()
-        self.helpFrame.set_label (_("Online Help"))
-        self.installFrame.set_label (_("Language Selection"))
+#        self.helpFrame.set_label (_("Online Help"))
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(_("Language Selection"),))
+        self.installFrame.set_label_widget(l)
 	self.loadReleaseNotes()
         self.refreshHelp(recreate = 1)
 
@@ -1098,7 +1100,9 @@ class InstallControlWindow:
 
         self.update (ics)
 
-        self.installFrame.set_label(ics.getTitle ())
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
+        self.installFrame.set_label_widget(l)
         self.installFrame.add(new_screen)
         self.installFrame.show_all()
 
@@ -1120,6 +1124,10 @@ class InstallControlWindow:
 	self.currentWindow = None
 
     def update (self, ics):
+        l = gtk.Label()
+        l.set_markup("<b>%s</b>" %(ics.getTitle(),))
+        self.installFrame.set_label_widget(l)
+        
         self.installFrame.set_label (ics.getTitle ())
 
 	prevButton = self.prevButtonStock
@@ -1351,7 +1359,7 @@ class InstallControlWindow:
 	self.hbox = gtk.HBox ()
         self.hbox.set_border_width(5)
 	self.hbox.pack_start (self.hideHelpButton, gtk.FALSE)
-        self.hbox.set_spacing (25)
+        self.hbox.set_spacing (24)
         self.hbox.pack_start (self.releaseButton, gtk.FALSE)
 	self.hbox.pack_start (self.buttonBox)
 
@@ -1362,7 +1370,9 @@ class InstallControlWindow:
         self.displayHelp = gtk.TRUE
         self.helpState = gtk.TRUE
 
-        self.helpFrame = gtk.Frame (_("Online Help"))
+#        label = gtk.Label()
+#        label.set_markup("<b>%s</b>" %(_("Online Help")))
+        self.helpFrame = gtk.Frame () 
         self.box = gtk.VBox (gtk.FALSE, 0)
         self.box.set_spacing(0)
 
@@ -1373,6 +1383,7 @@ class InstallControlWindow:
         self.box.pack_start(self.help_sw, gtk.TRUE)
         
         self.helpFrame.add (self.box)
+        self.helpFrame.set_shadow_type(gtk.SHADOW_NONE)
 
         table = gtk.Table (1, 3, gtk.TRUE)
         table.attach (self.helpFrame, 0, 1, 0, 1,
@@ -1380,6 +1391,7 @@ class InstallControlWindow:
                       gtk.FILL | gtk.EXPAND)
 
         self.installFrame = gtk.Frame ()
+        self.installFrame.set_shadow_type(gtk.SHADOW_NONE)
 
         self.windowList = []
 
@@ -1389,7 +1401,7 @@ class InstallControlWindow:
         table.attach (self.installFrame, 1, 3, 0, 1,
                       gtk.FILL | gtk.EXPAND,
                       gtk.FILL | gtk.EXPAND)
-        table.set_col_spacing (0, 5)
+        table.set_col_spacing (0, 12)
 
         self.bin = gtk.Frame ()
         self.bin.set_shadow_type (gtk.SHADOW_NONE)
