@@ -14,6 +14,7 @@
 #
 
 import os, string
+import iutil
 from flags import flags
 
 from rhpl.log import log
