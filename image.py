@@ -75,7 +75,7 @@ class CdromInstallMethod(ImageInstallMethod):
     def ejectCD(self):
         if len(self.currentDisc) > 0:
             self.unmountCD()
-        isys.ejectCdrom(self.device)
+        isys.ejectCdrom("/tmp/cdrom")
 
     def systemUnmounted(self):
 	if self.loopbackFile:
@@ -186,7 +186,7 @@ class CdromInstallMethod(ImageInstallMethod):
 		    break
 
 	    if not done:
-		isys.ejectCdrom("/tmp/cdrom")
+		isys.ejectCdrom(self.device)
 
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 
