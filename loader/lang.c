@@ -201,7 +201,7 @@ static int loadFont(char * fontFile, int flags) {
     gzFile stream;
     int rc;
 
-    if (!strcmp(fontFile, "None")) return 0;
+    if (!strcmp(fontFile, "None") || !strcmp(fontFile, "Kon")) return 0;
 #if 0
     if (!FL_TESTING(flags)) {
 #endif
@@ -319,8 +319,9 @@ int chooseLanguage(char ** lang, int flags) {
 
     /* only set the environment variables when we actually have a way
        to display the language */
-    if ((!strcmp (languages[choice].font, "Kon") && haveKon) ||
-	(strcmp (languages[choice].font, "None"))) {
+    if ((!strcmp(languages[choice].font, "Kon") && haveKon) ||
+	(strcmp(languages[choice].font, "None") &&
+	 strcmp(languages[choice].font, "Kon"))) {
 	setenv("LANG", languages[choice].lc_all, 1);
 	setenv("LANGKEY", languages[choice].key, 1);
 	setenv("LC_ALL", languages[choice].lc_all, 1);
@@ -351,8 +352,10 @@ int chooseLanguage(char ** lang, int flags) {
     }
 
     /* load the language only if it is displayable */
-    if ((!strcmp (languages[choice].font, "Kon") && haveKon) ||
-	(strcmp (languages[choice].font, "None"))) {
+    /* If we need kon and have it, or if it's not kon or none, load the lang */
+    if ((!strcmp(languages[choice].font, "Kon") && haveKon) ||
+	(strcmp(languages[choice].font, "None") &&
+	 strcmp(languages[choice].font, "Kon"))) {
 	loadLanguage (NULL, flags);
     } else {
 	newtWinMessage("Language Unavailable", "OK", 
