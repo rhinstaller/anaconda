@@ -23,7 +23,11 @@ whiteout="""
 	ghostscript-fonts>ghostscript	\
         usermode>util-linux             \
         control-center>xscreensaver     \
-        kdemultimedia-arts>kdemultimedia-libs
+        kdemultimedia-arts>kdemultimedia-libs \
+        perl>perl-NDBM_File \
+        perl>perl-DB_File \
+        perl>perl-CPAN \
+        perl>perl-CGI
 """
 
 rpm.addMacro("_dependency_whiteout", whiteout)
