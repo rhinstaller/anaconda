@@ -35,6 +35,10 @@ class BadBlocksError(Exception):
 
 defaultMountPoints = ['/', '/home', '/tmp', '/usr', '/var', '/usr/local', '/opt']
 
+if iutil.getArch() == "s390":
+    # Many s390 have 2G DASDs, we recomment putting /usr/share on its on DASD
+    defaultMountPoints.insert(4, '/usr/share')
+
 if iutil.getArch() == "ia64":
     defaultMountPoints.insert(1, '/boot/efi')
 else:
@@ -484,7 +488,8 @@ class extFileSystem(FileSystemType):
                                     stderr = "/dev/tty5")
         if rc:
             raise SystemError
-        entry.setLabel(label)
+        if entry.device.getName() != "RAIDDevice":
+            entry.setLabel(label)
         
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
