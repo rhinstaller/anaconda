@@ -77,13 +77,13 @@ class NetworkDeviceWindow:
             options.extend(wireopt)
 
 	descr = dev.get("desc")
-	if descr is not None and len(descr) > 0:
-	    toprows = 2
-	else:
+        hwaddr = dev.get("hwaddr")
+	if descr is None or len(descr) == 0:
 	    descr = None
-	    toprows = 1
+        if hwaddr is None or len(hwaddr) == 0:
+            hwaddr = None
 
-	topgrid = Grid(1, toprows)
+	topgrid = Grid(1, 3)
 
         topgrid.setField(Label (_("Network Device: %s")
                                 %(dev.info['DEVICE'],)),
@@ -94,6 +94,10 @@ class NetworkDeviceWindow:
 	    topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
 			     0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
 			     growx = 1)
+        if hwaddr is not None:
+            topgrid.setField(Label (_("Hardware Address: %s") %(hwaddr,)),
+                             0, 2, padding = (0, 0, 0, 0), anchorLeft = 1,
+                             growx = 1)
 
 	botgrid = Grid(2, 2+len(options))
         self.dhcpCb = Checkbox(_("Configure using DHCP"),

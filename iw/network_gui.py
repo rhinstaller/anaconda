@@ -241,22 +241,30 @@ class NetworkWindow(InstallWindow):
                       (_("Encryption _Key"), "wepkey")]
             devopts.extend(newopt)
             
-        ipTable = gtk.Table(len(options), 2)
+        ipTable = gtk.Table(len(options) + 1, 2)
 	DHCPcb.connect("toggled", self.DHCPtoggled, (self.devices[dev], ipTable))
 	# go ahead and set up DHCP on the first device
 	DHCPcb.set_active(bootproto == 'DHCP')
 	entrys = {}
+
+        hwaddr = self.devices[dev].get("hwaddr")
+        if hwaddr is not None and len(hwaddr) > 0:
+            label = gui.MnemonicLabel(_("Hardware address:"), (0.0, 0.5))
+            ipTable.attach(label, 0, 1, 0, 1, gtk.FILL, 0, 10, 5)
+            hwlabel = gtk.Label("%s" %(hwaddr,))
+            ipTable.attach(hwlabel, 1, 2, 0, 1)
+        
 	for t in range(len(options)):
 	    label = gtk.Label("%s:" %(options[t][0],))
 	    label.set_alignment(0.0, 0.5)
 	    label.set_property("use-underline", gtk.TRUE)
-	    ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
+	    ipTable.attach(label, 0, 1, t+1, t+2, gtk.FILL, 0, 10)
 
 	    entry = ipwidget.IPEditor()
 	    entry.hydrate(self.devices[dev].get(options[t][1]))
 	    entrys[t] = entry
 	    label.set_mnemonic_widget(entry.getFocusableWidget())
-	    ipTable.attach(entry.getWidget(), 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
+	    ipTable.attach(entry.getWidget(), 1, 2, t+1, t+2, 0, gtk.FILL|gtk.EXPAND)
 
 	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 6)
         devbox.set_border_width(6)

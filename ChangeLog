@@ -1,3 +1,9 @@
+2004-11-07  Jeremy Katz  <katzj@redhat.com>
+
+	* iw/network_gui.py (NetworkWindow.editDevice): Add hardware
+	address as another way to figure out which device is which (#131814)
+	* textw/network_text.py (NetworkDeviceWindow.runScreen): Likewise.
+
 2004-11-05  Jeremy Katz  <katzj@redhat.com>
 
 	* isys/isys.py (readJFSLabel_int): Fix exception handling.
