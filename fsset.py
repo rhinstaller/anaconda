@@ -374,7 +374,7 @@ class FATFileSystem(FileSystemType):
     def formatDevice(self, entry, progress, chroot='/'):
         devicePath = entry.device.setupDevice(chroot)
         devArgs = self.getDeviceArgs(entry.device)
-        args = [ "/usr/sbin/mkdosfs", devicePath ]
+        args = [ "mkdosfs", devicePath ]
         args.extend(devArgs)
         
         rc = iutil.execWithRedirect("/usr/sbin/mkdosfs", args,
