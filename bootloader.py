@@ -81,7 +81,6 @@ class KernelArguments:
                 str = str + "dasd=" + os.environ["DASD"]
 
         cdrw = isys.ideCdRwList()
-        str = ""
         for device in cdrw:
             if str: str = str + " "
             str = str + ("%s=ide-scsi" % device)
