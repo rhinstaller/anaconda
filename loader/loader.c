@@ -323,7 +323,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		} else {
 		    if (modList[i]->major == DRIVER_NET) {
 			mlLoadModule(modList[i]->moduleName, modLoaded, 
-				     modDeps, NULL, FL_TESTING(flags));
+				     modDeps, NULL, flags);
 		    }
 		}
 	    }
@@ -335,7 +335,7 @@ int pciProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
-				 NULL, FL_TESTING(flags));
+				 NULL, flags);
 		    newtPopWindow();
 		}
 	    }
@@ -906,9 +906,14 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     }
 
     do { 
-	rc = newtWinMenu(_("Installation Method"), 
-			 _("What type of media contains the packages to be "
-			   "installed?"), 30, 10, 20, 6, installNames, 
+	rc = newtWinMenu(FL_RESCUE(flags) ? _("Rescue Method") :
+				_("Installation Method"), 
+			 FL_RESCUE(flags) ?
+			   _("What type of media contains the rescue image?")
+			 :
+			   _("What type of media contains the packages to be "
+			     "installed?"), 
+			 30, 10, 20, 6, installNames, 
 			 &methodNum, _("Ok"), NULL);
 
 	if (rc) continue;
@@ -946,6 +951,8 @@ static int parseCmdLineFlags(int flags, char * cmdLine) {
 	    flags |= LOADER_FLAGS_EXPERT;
         else if (!strcasecmp(argv[i], "text"))
 	    flags |= LOADER_FLAGS_TEXT;
+        else if (!strcasecmp(argv[i], "rescue"))
+	    flags |= LOADER_FLAGS_RESCUE;
     }
 
     return flags;
@@ -974,6 +981,13 @@ int main(int argc, char ** argv) {
 	    POPT_AUTOHELP
 	    { 0, 0, 0, 0, 0 }
     };
+
+#ifdef INCLUDE_PCMCIA
+    if (!strcmp(argv[0] - strlen(argv[0]) - 7, "cardmgr"))
+	cardmgr_main(argv, argc);
+    else if (!strcmp(argv[0] - strlen(argv[0]) - 5, "probe"))
+	probe_main(argv, argc);
+#endif
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -1017,8 +1031,7 @@ int main(int argc, char ** argv) {
 
     startNewt(flags);
 
-    url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
-		 FL_TESTING(flags));
+    url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, flags);
 
     if (!FL_TESTING(flags)) {
      
@@ -1089,12 +1102,18 @@ int main(int argc, char ** argv) {
     }
 
     argptr = anacondaArgs;
-    *argptr++ = "/usr/bin/anaconda";
-    *argptr++ = "-m";
-    *argptr++ = url;
+    if (FL_RESCUE(flags)) {
+	*argptr++ = "/bin/sh";
+    } else {
+	*argptr++ = "/usr/bin/anaconda";
+	*argptr++ = "-m";
+	*argptr++ = url;
 
-    if (FL_TEXT(flags))
-	*argptr++ = "-T";
+	if (FL_TEXT(flags))
+	    *argptr++ = "-T";
+    }
+
+    *argptr = NULL;
     
     if (!FL_TESTING(flags)) {
     	execv(anacondaArgs[0], anacondaArgs);
