@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 10\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-08-14 09:19+1000\n"
+"PO-Revision-Date: 2003-09-05 10:44+1000\n"
 "Last-Translator: Ben Wu <hpwu@redhat.com>\n"
 "Language-Team: Traditional Chinese <i18n-list@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -1004,13 +1004,13 @@ msgstr "複製檔案中"
 
 #: ../image.py:113
 msgid "Transferring install image to hard drive..."
-msgstr "轉換安裝影像檔到硬碟..."
+msgstr "轉換安裝映像檔到硬碟..."
 
 #: ../image.py:116
 msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
-msgstr "在轉換安裝影像檔到硬碟時發生了一個錯誤。 你的硬碟空間可能不夠。"
+msgstr "在轉換安裝映像檔到硬碟時發生了一個錯誤。 你的硬碟空間可能不夠。"
 
 #: ../image.py:210
 msgid "Change CDROM"
@@ -6318,7 +6318,7 @@ msgstr "這個目錄中的 %s 安裝樹似乎與您的開機媒體不相符。"
 msgid ""
 "An error occured reading the install from the ISO images. Please check your "
 "ISO images and try again."
-msgstr "讀取 ISO 影像檔時發生錯誤。 請檢查您的 ISO 影像檔然後再試一次。"
+msgstr "讀取 ISO 映像檔時發生錯誤。 請檢查您的 ISO 映像檔然後再試一次。"
 
 #: ../loader2/hdinstall.c:386
 msgid ""
@@ -6333,12 +6333,12 @@ msgid ""
 "for %s? If you don't see the disk drive you're using listed here, press F2 "
 "to configure additional devices."
 msgstr ""
-"在該分割區上那一個分割區與目錄含有 %s 的 CD (iso9660) 影像檔？ 如果您在這裡沒"
+"在該分割區上那一個分割區與目錄含有 %s 的 CD (iso9660) 映像檔？ 如果您在這裡沒"
 "有看到您使用中的硬碟，按下 F2 來設定其他裝置。"
 
 #: ../loader2/hdinstall.c:424
 msgid "Directory holding images:"
-msgstr "存放影像檔的目錄:"
+msgstr "存放映像檔的目錄:"
 
 #: ../loader2/hdinstall.c:451
 msgid "Select Partition"
@@ -6347,7 +6347,7 @@ msgstr "選擇分割區"
 #: ../loader2/hdinstall.c:491
 #, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr "裝置 %s 並沒有包含 Red Hat CDROM 的影像檔。"
+msgstr "裝置 %s 並沒有包含 Red Hat CDROM 的映像檔。"
 
 #: ../loader2/hdinstall.c:524
 #, c-format
@@ -6541,7 +6541,7 @@ msgstr "檢查媒體中..."
 #: ../loader2/mediacheck.c:312
 #, c-format
 msgid "Unable to find install image %s"
-msgstr "找不到安裝影像檔 %s"
+msgstr "找不到安裝映像檔 %s"
 
 #: ../loader2/mediacheck.c:322
 msgid ""
@@ -6588,7 +6588,7 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
-"影像檔:\n"
+"映像檔:\n"
 "\n"
 "%s\n"
 "\n"
@@ -6610,7 +6610,7 @@ msgid ""
 "\n"
 "   %s?"
 msgstr ""
-"您想要對 ISO 影像檔執行 Checksum 測試嗎:\n"
+"您想要對 ISO 映像檔執行 Checksum 測試嗎:\n"
 "\n"
 "   %s？"
 
@@ -6778,7 +6778,7 @@ msgstr "無法擷取 %s://%s/%s/%s。"
 
 #: ../loader2/urlinstall.c:113
 msgid "Unable to retrieve the install image."
-msgstr "無法讀取安裝影像檔。"
+msgstr "無法讀取安裝映像檔。"
 
 #: ../loader2/urlinstall.c:387
 #, c-format

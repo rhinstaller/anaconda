@@ -1,6 +1,7 @@
 # translation of es.po to 
 # translation of es.po to
 # translation of es.po to
+# translation of es.po to
 # translation of tmp.po to
 # translation of es.po to
 # translation of es.po to
@@ -14,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "POT-Creation-Date: 2003-08-11 19:06-0400\n"
-"PO-Revision-Date: 2003-09-04 09:49+1000\n"
+"PO-Revision-Date: 2003-09-09 09:09+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4353,7 +4354,7 @@ msgstr "Seleccione una unidad para particionar con fdisk:"
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:23 ../textw/firewall_text.py:26
 msgid "Firewall"
-msgstr "Firewall"
+msgstr "Cortafuegos"
 
 #: ../iw/firewall_gui.py:115
 #, python-format
@@ -4388,25 +4389,25 @@ msgstr ""
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:155
 msgid "N_o firewall"
-msgstr "N_ingún firewall"
+msgstr "Ningún c_ortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:157
 msgid "_Enable firewall"
-msgstr "Activar fir_ewall"
+msgstr "Activar cortafu_egos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../iw/firewall_gui.py:159
 msgid "_Custom firewall"
-msgstr "Per_sonalizar firewall"
+msgstr "Personalizar _cortafuegos"
 
 #: ../iw/firewall_gui.py:178
 msgid "What services should be allowed to pass through the firewall?"
-msgstr "¿Qué servicios se deberían permitir pasar a través del cortafuegos?"
+msgstr "¿Qué servicios se deberían permitir pasar a través del cortafuegos o firewall?"
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
@@ -7642,14 +7643,14 @@ msgstr "Personalizar"
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../textw/firewall_text.py:45
 msgid "Enable firewall"
-msgstr "Permitir firewall"
+msgstr "Activar cortafuegos"
 
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 # ../iw/firewall_gui.py:230 ../textw/firewall_text.py:53
 #: ../textw/firewall_text.py:48
 msgid "No firewall"
-msgstr "Ningún firewall"
+msgstr "Ningún cortafuegos"
 
 # ../textw/firewall_text.py:73
 # ../textw/firewall_text.py:73
@@ -7725,14 +7726,14 @@ msgstr "Elección incorrecta"
 # ../textw/firewall_text.py:136
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr "No puede personalizar un firewall deshabilitado."
+msgstr "No puede personalizar un cortafuegos inhabilitado."
 
 # ../textw/firewall_text.py:141
 # ../textw/firewall_text.py:141
 # ../textw/firewall_text.py:141
 #: ../textw/firewall_text.py:126
 msgid "Firewall Configuration - Customize"
-msgstr "Configuración del Firewall - Personalización"
+msgstr "Configuración del cortafuegos - Personalización"
 
 # ../textw/firewall_text.py:143
 # ../textw/firewall_text.py:143
@@ -7744,9 +7745,9 @@ msgid ""
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
 msgstr ""
-"Puede personalizar su firewall de dos maneras. Primera, permitiendo el "
+"Puede personalizar su cortafuegos de dos maneras. Primera, permitiendo el "
 "tráfico proveniente de ciertas interfaces de red. Segunda, permitiendo "
-"ciertos protocolos explícitamente a través del firewall. Especifique puertos "
+"ciertos protocolos explícitamente a través del cortafuegos. Especifique puertos "
 "adicionales en una lista separada por comas, de la forma siguiente: "
 "'servicio:protocolo', tal como 'imap:tcp'."
 
