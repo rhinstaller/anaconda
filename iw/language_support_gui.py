@@ -84,14 +84,27 @@ class LanguageSupportWindow (InstallWindow):
 
 	self.combo.list.select_item(list.index(self.defaultLang))
 
+    def setCurrent(self, currentDefault, recenter=1):
+        parent = None
+
+        store = self.language.get_model()
+        row = 0
+
+        # iterate over the list looking for the default locale
+        while (row < self.language.num_rows):
+            if self.language.get_text(row, 1) == currentDefault:
+                path = store.get_path(store.get_iter(row))
+                col = self.language.get_column(0)
+                self.language.set_cursor(path, col, gtk.FALSE)
+                self.language.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                break
+            row = row + 1
+
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self, langs):
 	self.langs = langs
 
         self.languages = self.langs.getAllSupported ()
-
-	def moveto (widget, event, item):
-            widget.moveto (item, 0, 0.5, 0.5)
 
         self.supportedLangs = self.langs.getSupported()
 	self.origLangs = []
@@ -156,7 +169,7 @@ class LanguageSupportWindow (InstallWindow):
 
             self.maxrows = self.maxrows + 1
 
-        self.language.connect_after ("expose-event", moveto, firstItem)
+        self.setCurrent(self.defaultLang)
             
         self.combo.set_popdown_strings (list)
         self.combo.list.select_item(sel)
