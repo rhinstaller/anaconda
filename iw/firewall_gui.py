@@ -15,6 +15,9 @@ class FirewallWindow (InstallWindow):
         self.todo = ics.getToDo ()
 
     def getNext (self):
+        if not self.__dict__.has_key("radio3"):
+            return None
+
         if self.radio3.get_active ():
             self.todo.firewall.enabled = 0
             self.todo.firewall.policy = 1
