@@ -26,6 +26,7 @@ import language
 import fsset
 import kudzu
 from flags import flags
+from product import *
 from constants import *
 from syslogd import syslog
 from comps import PKGTYPE_MANDATORY, PKGTYPE_DEFAULT
@@ -475,6 +476,15 @@ def doPreInstall(method, id, intf, instPath, dir):
         return
 
     arch = iutil.getArch ()
+
+    # this is a crappy hack, but I don't want bug reports from these people
+    if (arch == "i386") and (not hdList.has_key("kernel")):
+        intf.messageWindow(_("Error"),
+                           _("You are trying to install on a machine "
+                             "which isn't supported by this release of "
+                             "%s.") %(productName,),
+                           type = "error")
+        sys.exit(0)
 
     # shorthand
     upgrade = id.upgrade.get()
