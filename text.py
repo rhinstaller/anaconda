@@ -532,6 +532,10 @@ class InstallWindow:
 
 class FinishedWindow:
     def __call__ (self, screen, todo):
+
+
+        screen.pushHelpLine (_("                              <Return> to reboot                              "))
+
 	rc = ButtonChoiceWindow (screen, _("Complete"), 
 		 _("Congratulations, installation is complete.\n\n"
 		   "Press return to reboot, and be sure to remove your "
@@ -550,6 +554,8 @@ class FinishedWindow:
 
 class ReconfigFinishedWindow:
     def __call__ (self, screen, todo):
+
+        screen.pushHelpLine (_("                                <Return> to exit                              "))
 
         todo.writeConfiguration()
             
