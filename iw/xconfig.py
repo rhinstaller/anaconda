@@ -27,7 +27,7 @@ class XCustomWindow (InstallWindow):
 
     def getNext (self):
         newmodes = {}
-        
+
         for depth in self.toggles.keys ():
             newmodes[depth] = []
             for (res, button) in self.toggles[depth]:
@@ -44,7 +44,16 @@ class XCustomWindow (InstallWindow):
             pass
         else:
             self.didTest = 1
-            
+
+    def numCompare (self, first, second):
+        first = string.atoi (first)
+        second = string.atoi (second)
+        if first > second:
+            return 1
+        elif first < second:
+            return -1
+        return 0
+    
     def getScreen (self):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
@@ -52,7 +61,7 @@ class XCustomWindow (InstallWindow):
         hbox = GtkHBox (FALSE, 5)
 
         depths = self.todo.x.modes.keys ()
-        depths.sort ()
+        depths.sort (self.numCompare)
 
         self.toggles = {}
         for depth in depths:
@@ -160,7 +169,7 @@ class XConfigWindow (InstallWindow):
         self.autoBox.pack_start (result, FALSE)
 
         self.monlist = None
-        if not self.todo.x.monID:
+        if self.todo.x.monID == "My Monitor":
             label = GtkLabel (_("Your monitor could not be "
                                 "autodetected. Please choose it "
                                 "from the list below:"))

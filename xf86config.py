@@ -50,6 +50,21 @@ class XF86Config:
             self.mouse = { "mouseDev" : "/dev/mouse",
                            "mouseProto" : "PS/2" }
 
+    def areaCompare (self, first, second):
+        (sx1, sy1) = string.split (first, 'x')
+        (sx2, sy2) = string.split (second, 'x')
+
+        x1 = string.atoi (sx1)
+        y1 = string.atoi (sy1)
+        x2 = string.atoi (sx2)
+        y2 = string.atoi (sy2)
+
+        if ((x1 * y1) > (x2 * y2)):
+            return -1
+        elif ((x1 * y1) < (x2 * y2)):
+            return 1
+        return 0
+        
     def filterModesByMemory (self):
         if not self.vidRam:
             return
@@ -710,6 +725,10 @@ Section "Device"
     def screenSection (self):
         info = { "DEVICE"  : self.devID,
                  "MONITOR" : self.monID }
+
+        for (depth, modes) in self.modes.items ():
+            modes.sort (self.areaCompare)
+        
         section = """
 # **********************************************************************
 # Screen section
@@ -776,14 +795,15 @@ if __name__ == "__main__":
     sys.path.append ("kudzu")
     x = XF86Config ()
     print x.cards ("ATI Mach64 3D RAGE II")
-#    x.probe ()
-    sys.exit (0)
+    x.probe ()
+#    sys.exit (0)
+    x.filterModesByMemory ()
     print x.preludeSection ()
     print x.keyboardSection ()
     print x.mouseSection ()
     print x.monitorSection ()
     print x.deviceSection ()
-    x.modes["8"] = [ "640x480" ]
-    x.modes["16"] = [ "640x480" ]
-    x.modes["32"] = [ "640x480" ]
+#    x.modes["8"] = [ "640x480" ]
+#    x.modes["16"] = [ "640x480" ]
+#    x.modes["32"] = [ "640x480" ]
     print x.screenSection ()
