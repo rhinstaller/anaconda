@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2000-12-14 13:43-0500\n"
-"PO-Revision-Date: 2000-12-12 23:01+0100\n"
+"PO-Revision-Date: 2000-12-19 23:14+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -19,13 +19,15 @@ msgstr "Ocorreu unha Excepción"
 
 #: ../exception.py:91
 msgid "Dump Written"
-msgstr ""
+msgstr "Envorcado Gardado"
 
 #: ../exception.py:92
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
 msgstr ""
+"O estado do sistema escribiuse correctamente no disquete. O sistema será "
+"agora reiniciado."
 
 #: ../fstab.py:216 ../fstab.py:410 ../fstab.py:510 ../fstab.py:714
 #: ../harddrive.py:168 ../image.py:61 ../image.py:123
@@ -105,6 +107,11 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
+"Erro montando o dispositivo %s como %s: %s\n"
+"\n"
+"Probablemente isto significa que a partición non está formatada.\n"
+"\n"
+"Prema Aceptar para reiniciar o seu sistema."
 
 #: ../gui.py:167
 msgid ""
@@ -198,7 +205,7 @@ msgstr "Shell de Instalación de Red Hat Linux en %s"
 
 #: ../gui.py:745
 msgid "Release Notes"
-msgstr ""
+msgstr "Notas da Versión"
 
 #: ../gui.py:827
 msgid "Install Window"
@@ -207,7 +214,7 @@ msgstr "Fiestra de Instalación"
 #: ../harddrive.py:169
 #, c-format
 msgid "Missing CD #%d, which is required for the install."
-msgstr ""
+msgstr "Falla o CD #%d, que é necesario para a instalación."
 
 #: ../image.py:58
 msgid "Copying File"
@@ -244,7 +251,7 @@ msgstr "Ese non é o CDROM de Red Hat correcto."
 
 #: ../image.py:124
 msgid "The CDROM could not be mounted."
-msgstr "Non se puido montar o CDROM."
+msgstr "Non foi posible montar o CDROM."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:451 ../libfdisk/fsedit.c:916 ../libfdisk/fsedit.c:923
@@ -828,6 +835,10 @@ msgid ""
 "the upgrade.\n"
 "\n"
 msgstr ""
+"Os seguintes ficheiros son ligazóns simbólicas absolutas, e non están "
+"soportadas nunha actualización. Por favor, cámbieas a ligazóns simbólicas "
+"relativas e reinicie a actualización.\n"
+"\n"
 
 #: ../todo.py:1003
 msgid "Finding"
@@ -840,7 +851,7 @@ msgstr "Buscando os paquetes a actualizar..."
 #: ../todo.py:1019
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"Fallo ó reconstruír a base de datos RPM. ¿Pode que ficase sen espacio no "
+"Fallo ó reconstruír a base de datos RPM. ¿Pode que quedase sen espacio no "
 "disco?"
 
 #: ../todo.py:1032
@@ -861,6 +872,9 @@ msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
 "or bad media. Press <return> to try again."
 msgstr ""
+"Non é posible abrir o ficheiro %s. Isto é por mor dun ficheiro que falta, un "
+"paquete erróneo, ou un medio en mal estado. Prema <enter> para tentar de "
+"novo."
 
 #: ../todo.py:1606
 #, c-format
@@ -1073,7 +1087,7 @@ msgstr "Activar LDAP"
 
 #: ../iw/auth_gui.py:139
 msgid "Use TLS lookups"
-msgstr ""
+msgstr "Usar lookups TLS"
 
 #: ../iw/auth_gui.py:140 ../textw/userauth_text.py:347
 msgid "LDAP Server:"
@@ -1314,9 +1328,8 @@ msgid "Create boot disk"
 msgstr "Crear disquete de arrinque"
 
 #: ../iw/lilo_gui.py:300
-#, fuzzy
 msgid "Install LILO"
-msgstr "Instalar"
+msgstr "Instalar o LILO"
 
 #: ../iw/lilo_gui.py:327 ../iw/silo_gui.py:257 ../textw/lilo_text.py:199
 #: ../textw/silo_text.py:196
@@ -1342,9 +1355,8 @@ msgid "Boot label"
 msgstr "Etiqueta de Inicio"
 
 #: ../iw/lilo_gui.py:359 ../iw/silo_gui.py:288
-#, fuzzy
 msgid "Default boot image"
-msgstr "Establecer o dispositivo de arrinque por defecto da PROM"
+msgstr "Imaxe de arrinque por defecto"
 
 #: ../iw/mouse_gui.py:132 ../textw/mouse_text.py:7
 msgid "/dev/ttyS0 (COM1 under DOS)"
@@ -1368,7 +1380,7 @@ msgstr "Emular 3 Botóns"
 
 #: ../iw/mouse_gui.py:143
 msgid "Port"
-msgstr ""
+msgstr "Porto"
 
 #: ../iw/network_gui.py:11 ../textw/network_text.py:105
 msgid "Network Configuration"
@@ -1428,26 +1440,24 @@ msgid "Total install size: "
 msgstr "Tamaño total da instalación: "
 
 #: ../iw/package_gui.py:367
-#, fuzzy
 msgid "Size (MB)"
-msgstr "Tamaño (Megas):"
+msgstr "Tamaño (MB)"
 
 #: ../iw/package_gui.py:396
-#, fuzzy
 msgid "Total size: "
-msgstr "Tamaño total"
+msgstr "Tamaño total: "
 
 #: ../iw/package_gui.py:399
 msgid "Select all in group"
-msgstr ""
+msgstr "Seleccionar todo o grupo"
 
 #: ../iw/package_gui.py:403
 msgid "Unselect all in group"
-msgstr ""
+msgstr "Deseleccionar todo o grupo"
 
 #: ../iw/package_gui.py:436
 msgid "File not found"
-msgstr ""
+msgstr "Ficheiro non atopado"
 
 #: ../iw/package_gui.py:479 ../textw/packages_text.py:60
 #: ../textw/packages_text.py:241
@@ -1459,6 +1469,8 @@ msgid ""
 "An error has occurred while retreiving hdlist file.  The installation media "
 "or image is probably corrupt.  Installer will exit now."
 msgstr ""
+"Ocorreu un erro recibindo o ficheiro hdlist.  A orixe de instalación ou a "
+"imaxe está probablemente corrupta.  O instalador sairá de seguido."
 
 #: ../iw/package_gui.py:592 ../textw/packages_text.py:54
 msgid "Select individual packages"
@@ -1471,7 +1483,7 @@ msgstr "Instalando Paquetes"
 #: ../iw/progress_gui.py:132
 #, c-format
 msgid "%s KBytes"
-msgstr ""
+msgstr "%s KBytes"
 
 #: ../iw/progress_gui.py:182 ../iw/progress_gui.py:223
 msgid "Size"
@@ -1679,25 +1691,24 @@ msgid "Test failed"
 msgstr "A proba fallou"
 
 #: ../iw/xconfig_gui.py:24
-#, fuzzy
 msgid "Customize Graphics Configuration"
-msgstr "Personalizar a Configuración das X"
+msgstr "Personalizar a Configuración Gráfica"
 
 #: ../iw/xconfig_gui.py:214
 msgid "Color Depth:"
-msgstr ""
+msgstr "Profundidade de Cor:"
 
 #: ../iw/xconfig_gui.py:242
 msgid "Screen Resolution:"
-msgstr ""
+msgstr "Resolución de Pantalla:"
 
 #: ../iw/xconfig_gui.py:318
 msgid "   Test Setting   "
-msgstr ""
+msgstr "Probar Configuración"
 
 #: ../iw/xconfig_gui.py:336
 msgid "Please choose your default desktop environment:"
-msgstr ""
+msgstr "Escolla o ambiente de escritorio por defecto:"
 
 #: ../iw/xconfig_gui.py:346 ../iw/xconfig_gui.py:395
 msgid "GNOME"
@@ -1709,11 +1720,11 @@ msgstr "KDE"
 
 #: ../iw/xconfig_gui.py:376
 msgid "Your desktop environment is:"
-msgstr ""
+msgstr "O seu ambiente de escritorio é:"
 
 #: ../iw/xconfig_gui.py:428
 msgid "Please choose your login type:"
-msgstr ""
+msgstr "Escolla o tipo de login:"
 
 #: ../iw/xconfig_gui.py:478
 msgid "Bits per Pixel"
@@ -1733,7 +1744,7 @@ msgstr "Sincronismo Vertical"
 
 #: ../iw/xconfig_gui.py:857 ../iw/xconfig_gui.py:1653
 msgid "Restore original values"
-msgstr ""
+msgstr "Restaurar valores orixinais"
 
 #: ../iw/xconfig_gui.py:1027
 msgid ""
@@ -1764,9 +1775,8 @@ msgid "Autoprobe results:"
 msgstr "Resultados da autodetección:"
 
 #: ../iw/xconfig_gui.py:1553
-#, fuzzy
 msgid "Video card RAM: "
-msgstr "Tarxeta Gráfica"
+msgstr "RAM da tarxeta gráfica: "
 
 #: ../iw/xconfig_gui.py:1644
 msgid "Test this configuration"
@@ -1923,14 +1933,12 @@ msgid "Primary nameserver:"
 msgstr "Servidor de nomes primario:"
 
 #: ../textw/network_text.py:73
-#, fuzzy
 msgid "Secondary nameserver:"
-msgstr "Servidor de nomes primario:"
+msgstr "Servidor de nomes secundario:"
 
 #: ../textw/network_text.py:74
-#, fuzzy
 msgid "Ternary nameserver:"
-msgstr "Servidor de nomes primario:"
+msgstr "Servidor de nomes terciario:"
 
 #: ../textw/network_text.py:122
 msgid "Invalid information"
@@ -1963,7 +1971,7 @@ msgstr "Tamaño  :"
 #: ../textw/packages_text.py:97
 #, c-format
 msgid "%.1f KBytes"
-msgstr ""
+msgstr "%.1f KBytes"
 
 #: ../textw/packages_text.py:116
 msgid "Total size"
@@ -2244,7 +2252,7 @@ msgstr "Facer petición do servidor por broadcast"
 
 #: ../textw/userauth_text.py:359
 msgid "Use TLS connections"
-msgstr ""
+msgstr "Usar conexións TLS"
 
 #: ../installclasses/custom.py:9
 msgid "Custom System"
@@ -2259,7 +2267,7 @@ msgstr ""
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
-msgstr ""
+msgstr "Portátil"
 
 #: ../installclasses/server.py:8
 msgid "Server System"
@@ -2385,7 +2393,6 @@ msgid "Error Creating Device Nodes"
 msgstr "Erro Creando os Ficheiros de Dispositivo"
 
 #: ../libfdisk/fsedit.c:1029
-#, fuzzy
 msgid ""
 "An error has occurred while trying to create device nodes for the hard "
 "drives in your system.  This may be because you have run out of disk space "
@@ -2669,13 +2676,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1530
 msgid "Cannot Remove /boot"
-msgstr ""
+msgstr "Non é posible eliminar /boot"
 
 #: ../libfdisk/gnomefsedit.c:1531
 msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
+"Non se pode quitar \"/boot\" se \"/\" está nun dispositivo RAID.  Mova "
+"primeiro \"/\" a un dispositivo non-RAID."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1595 ../libfdisk/gnomefsedit.c:1614
@@ -2792,11 +2801,12 @@ msgid "Illegal RAID mountpoint"
 msgstr "Punto de montaxe RAID ilegal"
 
 #: ../libfdisk/gnomefsedit.c:2240
-#, fuzzy
 msgid ""
 "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
 "partition (non-RAID) as well."
-msgstr "As particións RAID non poden ser montadas como raíz (/) en Alpha."
+msgstr ""
+"As particións RAID non poden ser montadas como raíz (/) en Alpha se non hai "
+"unha partición /boot non-RAID."
 
 #: ../libfdisk/gnomefsedit.c:2323
 #, c-format
@@ -3145,9 +3155,9 @@ msgid "Loading"
 msgstr "Cargando"
 
 #: ../loader/devices.c:488 ../loader/windows.c:47
-#, fuzzy, c-format
+#, c-format
 msgid "Loading %s driver..."
-msgstr "Cargando o disco RAM %s..."
+msgstr "Cargando o controlador %s..."
 
 #: ../loader/devices.c:507
 msgid "Driver Disk"
@@ -3262,39 +3272,36 @@ msgstr ""
 "dispositivos adicionais?"
 
 #: ../loader/loader.c:812
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux? If you don't see the disk drive you're using listed here, "
 "press F2 to configure additional devices."
 msgstr ""
-"¿Que partición e que directorio nesa partición contén os directorios "
-"RedHat/RPMS e RedHat/base? Se non ve a unidade de disco que está a utilizar "
+"¿Que partición e que directorio nesa partición contén as imaxes de CD "
+"(iso9660) de Red Hat Linux? Se non ve a unidade de disco que está a utilizar "
 "listada aquí, prema F2 para configurar dispositivos adicionais."
 
 #: ../loader/loader.c:826
-#, fuzzy
 msgid "Directory holding images:"
-msgstr "Directorio que contén a Red Hat:"
+msgstr "Directorio que contén as imaxes:"
 
 #: ../loader/loader.c:846
 msgid "Select Partition"
 msgstr "Escoller Partición"
 
 #: ../loader/loader.c:894
-#, fuzzy, c-format
+#, c-format
 msgid "Device %s does not appear to contain Red Hat CDROM images."
-msgstr ""
-"O dispositivo %s non semella conter unha árbore de instalación de Red Hat."
+msgstr "O dispositivo %s non semella conter as imaxes dos CDROM de Red Hat."
 
 #: ../loader/loader.c:949
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
-"Non se puido atopar un CDROM de Red Hat Linux en ningunha das súas unidades "
-"de CDROM. Por favor, insira o CD de Red Hat e prema \"Aceptar\" para tentar "
-"de novo."
+"Non se atopou un CDROM de Red Hat Linux en ningunha das súas unidades de "
+"CDROM. Por favor, insira o CD de Red Hat e prema \"Aceptar\" para tentar de "
+"novo."
 
 #: ../loader/loader.c:1036
 msgid "Networking Device"
@@ -3314,7 +3321,7 @@ msgstr ""
 
 #: ../loader/loader.c:1124
 msgid "I could not mount that directory from the server"
-msgstr "Non se puido montar ese directorio do servidor"
+msgstr "Non foi posible montar ese directorio do servidor"
 
 #: ../loader/loader.c:1220 ../loader/loader.c:1229
 msgid "FTP"
@@ -3326,15 +3333,16 @@ msgstr "HTTP"
 
 #: ../loader/loader.c:1221
 msgid "Unable to retrieve the first install image"
-msgstr "Non se puido cargar a primeira imaxe de instalación"
+msgstr "Non foi posible cargar a primeira imaxe de instalación"
 
 #: ../loader/loader.c:1230
 msgid "Unable to retrieve the second install image"
-msgstr "Non se puido cargar a segunda imaxe de instalación"
+msgstr "Non foi posible cargar a segunda imaxe de instalación"
 
 #: ../loader/loader.c:1260
 msgid "FTP and HTTP installs require 20MB or more of system memory."
 msgstr ""
+"As instalacións por FTP e HTTP necesitan 20 MB ou máis de memoria de sistema."
 
 #: ../loader/loader.c:1484
 msgid "Rescue Method"
@@ -3381,14 +3389,12 @@ msgid "Reading anaconda updates..."
 msgstr "Lendo as actualizacións de anaconda..."
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "IDE"
-msgstr "KDE"
+msgstr "IDE"
 
 #: ../loader/loader.c:2444
-#, fuzzy
 msgid "Initializing IDE modules..."
-msgstr "Inicializando CDROM..."
+msgstr "Inicializando os módulos IDE..."
 
 #: ../loader/net.c:149
 msgid "NFS server name:"
@@ -3545,21 +3551,20 @@ msgstr "Inicializando Dispositivos PCMCIA..."
 
 #: ../loader/pcmcia.c:91
 msgid "PCMCIA"
-msgstr ""
+msgstr "PCMCIA"
 
 #: ../loader/pcmcia.c:92
-#, fuzzy
 msgid "Please insert your PCMCIA driver disk into your floppy drive now."
-msgstr "Insira agora o disquete co controlador de %s."
+msgstr "Insira o disquete de controladores PCMCIA na disquetera."
 
 #: ../loader/pcmcia.c:101
-#, fuzzy
 msgid "Failed to mount disk."
-msgstr "Fallo ó montar o disquete de controlador."
+msgstr "Non foi posible montar o disquete."
 
 #: ../loader/pcmcia.c:119
 msgid "That floppy does not look like a Red Hat PCMCIA driver disk."
 msgstr ""
+"O disquete non parece ser un disquete de controladores PCMCIA de Red Hat."
 
 #: ../loader/urls.c:79
 #, c-format
@@ -3612,9 +3617,8 @@ msgid "Web site name:"
 msgstr "Nome do sitio Web:"
 
 #: ../loader/urls.c:206
-#, fuzzy
 msgid "Use non-anonymous ftp"
-msgstr "Usar ftp non anónimo ou un servidor proxy"
+msgstr "Usar ftp non anónimo"
 
 #: ../loader/urls.c:211
 msgid "Use proxy server"
@@ -3646,14 +3650,12 @@ msgid "%s is not a valid hostname."
 msgstr "%s non é un nome de máquina válido."
 
 #: ../loader/urls.c:316
-#, fuzzy
 msgid ""
 "If you are using non anonymous ftp, enter the account name and password you "
 "wish to use below."
 msgstr ""
-"Se está a usar ftp non anónimo, introduza o nome e o contrasinal da conta "
-"que desexa utilizar. Se está usando un proxy FTP, introduza o nome do "
-"servidor proxy FTP a usar."
+"Se está a usar ftp non anónimo, indique embaixo o nome e o contrasinal da "
+"conta que desexa utilizar."
 
 #: ../loader/urls.c:321
 msgid ""
@@ -3793,9 +3795,8 @@ msgstr "Servidor Web"
 msgid "DNS Name Server"
 msgstr "Servidor de Nomes DNS"
 
-#, fuzzy
 msgid "SQL Server"
-msgstr "Servidor NFS"
+msgstr "Servidor SQL"
 
 msgid "Network Management Workstation"
 msgstr "Estación de Traballo de Xestión de Rede"
@@ -3814,41 +3815,3 @@ msgstr "Desenvolvemento do Kernel"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid "Error mounting %s: %s"
-#~ msgstr "Erro ó montar %s: %s"
-
-#~ msgid "Do not install LILO"
-#~ msgstr "Non instalar LILO"
-
-#~ msgid "Up"
-#~ msgstr "Arriba"
-
-#~ msgid "Name: "
-#~ msgstr "Nome: "
-
-#~ msgid "Package Details"
-#~ msgstr "Detalles do Paquete"
-
-#~ msgid "Size: "
-#~ msgstr "Tamaño: "
-
-#~ msgid "Select Package For Installation"
-#~ msgstr "Escoller o Paquete para Instalar"
-
-#~ msgid "Confirm Partitioning Selection"
-#~ msgstr "Confirmar a Selección de Particións"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. You "
-#~ "need to tell me what partitions you would like to be able to boot and what "
-#~ "label you want to use for each of them.\n"
-#~ "\n"
-#~ msgstr ""
-#~ "O xestor de arrinque que usa Red Hat pode arrincar tamén outros sistemas "
-#~ "operativos. Ten que indicar que particións quere ser capaz de iniciar e a "
-#~ "etiqueta que quere usar para cada un deles.\n"
-#~ "\n"
-
-#~ msgid "Postgres (SQL) Server"
-#~ msgstr "Servidor Postgres (SQL)"
