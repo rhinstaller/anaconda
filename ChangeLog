@@ -1,5 +1,9 @@
 2005-02-02  Jeremy Katz  <katzj@redhat.com>
 
+	* iw/congrats_gui.py (CongratulationWindow.getScreen): Fix up
+	reference to media to not get stale (#138688)
+	* textw/complete_text.py (FinishedWindow.__call__): Likewise.
+
 	* fsset.py (FileSystemSet.reset): Mount pseudo-filesystems with a
 	device name other than "none" for clarity (#136820)
 	(Device.__init__): Allow specification of device for generic devices.

@@ -27,8 +27,8 @@ class FinishedWindow:
           floppystr = _("Press <Enter> to end the installation process.\n\n")
           bottomstr = _("<Enter> to exit")
         else:
-          floppystr = _("Remove any installation media (diskettes or "
-                        "CD-ROMs) used during the installation process "
+          floppystr = _("Remove any installation media "
+                        "used during the installation process "
                         "and press <Enter> to reboot your system."
                         "\n\n")
           bottomstr = _("<Enter> to reboot")
