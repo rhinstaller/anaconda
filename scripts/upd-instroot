@@ -95,7 +95,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt libtermcap zlib
 	 ash kon2 e2fsprogs util-linux raidtools popt mount procps rpm
 	 XFree86 Xconfigurator anaconda anaconda-runtime kudzu-devel
 	 kudzu db3 rpm-python2.2 bzip2 bzip2-libs dosfstools pciutils 
-	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help openssl096b"
+	 reiserfs-utils parted busybox-anaconda rpm-python anaconda-help"
 
 if [ $ARCH = i386 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs lilo"
