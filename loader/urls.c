@@ -55,13 +55,19 @@ static const char * urlfilter(const char * u)
 int urlinstStartTransfer(struct iurlinfo * ui, char * filename) {
     char * buf;
     int fd;
+    char * finalPrefix;
+
+    if (!strcmp(ui->prefix, "/"))
+	finalPrefix = "/.";
+    else
+	finalPrefix = ui->prefix;
     
     logMessage("transferring %s://%s/%s/RedHat/%s to a fd",
 	       ui->protocol == URL_METHOD_FTP ? "ftp" : "http",
-	       ui->address, ui->prefix, filename);
+	       ui->address, finalPrefix, filename);
 
-    buf = alloca(strlen(ui->prefix) + strlen(filename) + 20);
-    sprintf(buf, "%s/RedHat/%s", ui->prefix, filename);
+    buf = alloca(strlen(finalPrefix) + strlen(filename) + 20);
+    sprintf(buf, "%s/RedHat/%s", finalPrefix, filename);
 
     if (ui->protocol == URL_METHOD_FTP) {
 	ui->ftpPort = ftpOpen(ui->address, 
