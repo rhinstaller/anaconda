@@ -106,6 +106,11 @@ ISOLINUXMODULES="ehci-hcd ieee1394 ohci1394 sbp2"
 # XXX hack hack
 PCMCIAMODULES_EXCLUDED="
 	apa1480_cb
+	airo
+	airo_cs
+	aironet4500_core
+	aironet4500_proc
+	hermes
 	iflash2+_mtd
 	iflash2_mtd
 	memory_cb
@@ -130,7 +135,7 @@ do
 done
 PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
-# need to make sure the bsae modules are included
+# need to make sure the base modules are included
 PCMCIAMODULES="$PCMCIAMODULES yenta_socket pcmcia_core ds"
 
 echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
