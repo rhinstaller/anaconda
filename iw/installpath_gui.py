@@ -82,10 +82,12 @@ class InstallPathWindow (InstallWindow):
 	# this points to the class for the current install class object
 	currentClass = None
 
+        names = []
 	for (name, object, pixmap) in self.installTypes:
 	    (parentName, parentPixmap) = object.parentClass
 	    if not topButtons.has_key(parentName):
 		topButtons[parentName] = []
+                names.append(parentName)
 
 	    topButtons[parentName].append(object)
 
@@ -97,8 +99,6 @@ class InstallPathWindow (InstallWindow):
 	if not currentClass:
 	    currentClass = defaultClass
 
-	names = topButtons.keys()
-	names.sort()
 	topLevelGroup = None
 	tableRows = 0
 	# tuples of (button, box) (box may be None)
