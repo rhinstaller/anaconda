@@ -340,11 +340,13 @@ static int pickModule(moduleInfoSet modInfo, enum driverMajor type,
 	newtFormAddHotKey(form, NEWT_KEY_F2);
 
 	for (i = 0; i < numSorted; i++) {
+	    char buf[80];
 	    int num = sortedOrder[i].index;
 
-	    newtListboxAppendEntry(listbox, 
-				   modInfo->moduleList[num].description,
-				   (void *) num);
+	    snprintf (buf, sizeof(buf), "%s (%s)",
+		      modInfo->moduleList[num].description,
+		      modInfo->moduleList[num].moduleName);
+	    newtListboxAppendEntry(listbox, buf, (void *) num);
 	    if (modp && (modInfo->moduleList + num) == *modp)
 		newtListboxSetCurrentByKey(listbox, (void *) num);
 	}
