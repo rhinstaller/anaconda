@@ -42,6 +42,7 @@ stepToClasses = {
     "addswap" : ("upgrade_text", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow"),
+    "fdasd" : ("fdasd_text", "fdasdPartitionWindow"),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod")),
     "partition": ("partition_text", ("PartitionWindow")),
     "findinstall" : ("upgrade_text", ("UpgradeExamineWindow",
@@ -80,7 +81,8 @@ if iutil.getArch() == 'sparc':
     stepToClasses["bootloader"] = ("silo_text", ("SiloAppendWindow",
                                                  "SiloWindow"
                                                  "SiloImagesWindow"))
-    
+if iutil.getArch() == 's390' or iutil.getArch() == 's390x':
+    stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:
     def __call__ (self, screen, todo):

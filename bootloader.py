@@ -74,13 +74,19 @@ class KernelArguments:
 	self.args = args
 
     def __init__(self):
-	cdrw = isys.ideCdRwList()
-	str = ""
-	for device in cdrw:
-	    if str: str = str + " "
-	    str = str + ("%s=ide-scsi" % device)
+        str = ""
 
-	self.args = str
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+	    if os.environ.has_key("DASD"):
+                str = str + "dasd=" + os.environ["DASD"]
+
+        cdrw = isys.ideCdRwList()
+        str = ""
+        for device in cdrw:
+            if str: str = str + " "
+            str = str + ("%s=ide-scsi" % device)
+                
+        self.args = str
 
 class BootImages:
 
@@ -672,6 +678,200 @@ class x86BootloaderInfo(bootloaderInfo):
         self.password = None
         self.pure = None
 
+class s390BootloaderInfo(bootloaderInfo):
+    def getBootloaderConfig(self, instRoot, fsset, bl, langs, kernelList,
+                            chainList, defaultDev):
+	images = bl.images.getImages()
+
+        # on upgrade read in the lilo config file
+	lilo = LiloConfigFile ()
+	self.perms = 0644
+        if os.access (instRoot + self.configfile, os.R_OK):
+	    self.perms = os.stat(instRoot + self.configfile)[0] & 0777
+	    lilo.read (instRoot + self.configfile)
+	    os.rename(instRoot + self.configfile,
+		      instRoot + self.configfile + '.rpmsave')
+
+	# Remove any invalid entries that are in the file; we probably
+	# just removed those kernels. 
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
+	    if fsType == "other": continue
+
+	    if not os.access(instRoot + sl.getPath(), os.R_OK):
+		lilo.delImage(label)
+
+        #lilo.addEntry("prompt", replace = 0)
+	#lilo.addEntry("timeout", "50", replace = 0)
+
+        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
+	if not rootDev:
+            raise RuntimeError, "Installing zilo, but there is no root device"
+
+	if rootDev == defaultDev:
+	    lilo.addEntry("default", kernelList[0][0])
+	else:
+	    lilo.addEntry("default", chainList[0][0])
+
+	for (label, longlabel, version) in kernelList:
+	    kernelTag = "-" + version
+	    kernelFile = self.kernelLocation + "vmlinuz" + kernelTag
+
+	    try:
+		lilo.delImage(label)
+	    except IndexError, msg:
+		pass
+
+	    sl = LiloConfigFile(imageType = "image", path = kernelFile)
+
+	    initrd = makeInitrd (kernelTag, instRoot)
+
+	    sl.addEntry("label", label)
+	    if os.access (instRoot + initrd, os.R_OK):
+		sl.addEntry("initrd",
+                            "%sinitrd%s.img" %(self.kernelLocation, kernelTag))
+
+	    sl.addEntry("read-only")
+	    sl.addEntry("root", '/dev/' + rootDev)
+            sl.addEntry("ipldevice", '/dev/' + rootDev[:-1])
+
+	    if self.args.get():
+		sl.addEntry('append', '"%s"' % self.args.get())
+		
+	    lilo.addImage (sl)
+
+	for (label, longlabel, device) in chainList:
+            if ((not label) or (label == "")):
+                continue
+	    try:
+		(fsType, sl) = lilo.getImage(label)
+		lilo.delImage(label)
+	    except IndexError:
+		sl = LiloConfigFile(imageType = "other",
+                                    path = "/dev/%s" %(device))
+		sl.addEntry("optional")
+
+	    sl.addEntry("label", label)
+	    lilo.addImage (sl)
+
+	# Sanity check #1. There could be aliases in sections which conflict
+	# with the new images we just created. If so, erase those aliases
+	imageNames = {}
+	for label in lilo.listImages():
+	    imageNames[label] = 1
+
+	for label in lilo.listImages():
+	    (fsType, sl) = lilo.getImage(label)
+	    if sl.testEntry('alias'):
+		alias = sl.getEntry('alias')
+		if imageNames.has_key(alias):
+		    sl.delEntry('alias')
+		imageNames[alias] = 1
+
+	# Sanity check #2. If single-key is turned on, go through all of
+	# the image names (including aliases) (we just built the list) and
+	# see if single-key will still work.
+	if lilo.testEntry('single-key'):
+	    singleKeys = {}
+	    turnOff = 0
+	    for label in imageNames.keys():
+		l = label[0]
+		if singleKeys.has_key(l):
+		    turnOff = 1
+		singleKeys[l] = 1
+	    if turnOff:
+		lilo.delEntry('single-key')
+
+        return lilo
+
+    def writeChandevConf(self, instroot):   # S/390 only 
+	cf = "/etc/chandev.conf"
+	self.perms = 0644
+	if os.environ.has_key("CHANDEV"):
+	    fd = os.open(instroot + "/etc/chandev.conf",
+                         os.O_WRONLY | os.O_CREAT)
+	    os.write(fd, os.environ["CHANDEV"])
+	    os.close(fd)
+	return ""
+	
+    
+    def writeZipl(self, instRoot, fsset, bl, langs, kernelList, chainList,
+		  defaultDev, justConfigFile):
+	images = bl.images.getImages()
+        rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
+        
+	cf = '/etc/zipl.conf'
+	self.perms = 0600
+        if os.access (instRoot + cf, os.R_OK):
+	    self.perms = os.stat(instRoot + cf)[0] & 0777
+	    os.rename(instRoot + cf,
+		      instRoot + cf + '.rpmsave')
+
+	f = open(instRoot + cf, "w+")        
+
+        f.write('[defaultboot]\n')
+        f.write('default=' + kernelList[0][0] + '\n')
+
+        cfPath = "/boot/"
+	for (label, longlabel, version) in kernelList:
+	    kernelTag = "-" + version
+	    kernelFile = "%svmlinuz%s" % (cfPath, kernelTag)
+
+	    initrd = makeInitrd (kernelTag, instRoot)
+	    f.write('[%s]\n' % (label))
+	    f.write('\ttarget=%s\n' % (self.kernelLocation))
+	    f.write('\timage=%s\n' % (kernelFile))
+	    if os.access (instRoot + initrd, os.R_OK):
+		f.write("ramdisk=%sinitrd%s.img\n" %(self.kernelLocation,
+                                                     kernelTag))
+	    if self.args.get():
+		f.write('\tparameters="root=/dev/%s %s"\n' % (rootDev,
+                                                              self.args.get()))
+	    f.write('\n')
+
+	f.close()
+
+	if not justConfigFile:
+            argv = [ "/sbin/zipl" ]
+            iutil.execWithRedirect(argv[0], argv, root = instRoot,
+                                   stdout = "/dev/tty5",
+                                   stderr = "/dev/tty5")
+            
+	return ""
+
+    def writeZilo(self, instRoot, fsset, bl, langs, kernelList, 
+                  chainList, defaultDev, justConfig):
+        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+                                          kernelList, chainList, defaultDev)
+	config.write(instRoot + self.configfile, perms = self.perms)
+
+        if not justConfig:
+	    # throw away stdout, catch stderr
+	    str = iutil.execWithCapture(instRoot + '/sbin/zilo' ,
+					[ "zilo", "-r", instRoot ],
+					catchfd = 2, closefd = 1)
+	else:
+	    str = ""
+
+	return str
+
+    def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
+		  defaultDev, justConfig, intf):
+        str = self.writeZilo(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev,
+                             justConfig | (self.useZiplVal))
+        str = self.writeZipl(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev,
+                             justConfig | (not self.useZiplVal))
+	str = self.writeChandevConf(instRoot)
+    
+    def __init__(self):
+        bootloaderInfo.__init__(self)
+        self.useZiplVal = 1      # only used on s390
+        self.kernelLocation = "/boot/"
+        self.configfile = "/etc/zilo.conf"
+
+
 def availableBootDevices(diskSet, fsset):
     devs = []
     foundDos = 0
@@ -833,5 +1033,7 @@ def getBootloader():
         return x86BootloaderInfo()
     elif iutil.getArch() == 'ia64':
         return ia64BootloaderInfo()
+    elif iutil.getArch() == 's390' or iutil.getArch() == "s390x":
+        return s390BootloaderInfo()
     else:
         return bootloaderInfo()

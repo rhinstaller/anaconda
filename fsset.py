@@ -35,7 +35,11 @@ else:
 
 fileSystemTypes = {}
 
-availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
+# XXX define availraidlevels and defaultmntpts as arch characteristics
+if (iutil.getArch() != "s390" and iutil.getArch() != "s390x"):
+    availRaidLevels = ['RAID0', 'RAID1', 'RAID5']
+else:    
+    availRaidLevels = ['RAID0', 'RAID5']
 
 def fileSystemTypeGetDefault():
     if fileSystemTypeGet('ext3').isSupported():
@@ -1545,18 +1549,22 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
                 except:
                     pass
             else:
-                if num:
+                if num and len(num):
                     l = string.split(num, '/')
-                    val = (int(l[0]) * 100) / int(l[1])
-                    w and w.set(val)
-                    # sync every 10%
-                    if sync + 10 < val:
-                        isys.sync()
-                        sync = val
+                    try:
+                        val = (int(l[0]) * 100) / int(l[1])
+                    except IndexError, TypeError:
+                        pass
+                    else:
+                        w and w.set(val)
+                        # sync every 10%
+                        if sync + 10 < val:
+                            isys.sync()
+                            sync = val
                 num = ''
         except OSError, args:
-            (num, str) = args
-            if (num != 4):
+            (errno, str) = args
+            if (errno != 4):
                 raise IOError, args
 
     try:

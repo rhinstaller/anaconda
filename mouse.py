@@ -88,7 +88,7 @@ class Mouse (SimpleConfigFile):
 	N_("MM - HitTablet (serial)"):
         ("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
 #        "None - None" :
-#                ("none", "none", "null", 0, "none"),
+#                ("none", "none", None, 0, "none"),
 	N_("Sun - Mouse"): ("sun", "sun", "sunmouse", 0, "sun"),
 	}
     

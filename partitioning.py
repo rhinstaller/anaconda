@@ -2,6 +2,9 @@
 # partitioning.py: partitioning and other disk management
 #
 # Matt Wilson <msw@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
+# Mike Fulbright <msf@redhat.com>
+# Harald Hoyer <harald@redhat.de>
 #
 # Copyright 2001 Red Hat, Inc.
 #
@@ -519,6 +522,7 @@ def sanityCheckRaidRequest(reqpartitions, newraid, doPartitionCheck = 1):
     # XXX fix this code to look to see if there is a bootable partition
     bootreq = reqpartitions.getBootableRequest()
     if not bootreq and newraid.mountpoint:
+        # XXX 390 can't have boot on raid
         if ((newraid.mountpoint == "/boot" or newraid.mountpoint == "/")
             and not isRaid1(newraid.raidlevel)):
             return _("Bootable partitions can only be on RAID1 devices.")
@@ -609,6 +613,7 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
                     errors.append(rc)
 
     bootreq = requests.getBootableRequest()
+    # XXX 390 can't have boot on RAID
     if (bootreq and (bootreq.type == REQUEST_RAID) and
         (not isRaid1(bootreq.raidlevel))):
         errors.append(_("Bootable partitions can only be on RAID1 devices."))
@@ -682,12 +687,18 @@ def getDefaultDiskType():
         return parted.disk_type_get("msdos")
     elif iutil.getArch() == "ia64":
         return parted.disk_type_get("GPT")
+    elif iutil.getArch() == "s390":
+        return parted.disk_type_get("dasd")
+    elif iutil.getArch() == "s390x":
+        return parted.disk_type_get("dasd")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
 
 archLabels = {'i386': ['msdos'],
               'alpha': ['bsd'],
+              's390': ['dasd'],
+              's390x': ['dasd'],
               'ia64': ['msdos', 'GPT']}
 
 def checkDiskLabel(disk, intf):
@@ -702,12 +713,12 @@ def checkDiskLabel(disk, intf):
     if intf:
         rc = intf.messageWindow(_("Warning"),
                        _("The partition table on device /dev/%s is of an "
-                         "unexpected type for your architecture.  To use this "
-                         "disk for installation of Red Hat Linux, it must be "
-                         "re-initialized causing the loss of ALL DATA on this "
-                         "drive.\n\n"
+                         "unexpected type %s for your architecture.  To "
+                         "use this disk for installation of Red Hat Linux, "
+                         "it must be re-initialized causing the loss of "
+                         "ALL DATA on this drive.\n\n"
                          "Would you like to initialize this drive?")
-                       % (disk.dev.path[5:]), type = "yesno")
+                       % (disk.dev.path[5:], disk.type.name), type = "yesno")
         if rc == 0:
             return 1
         else:
@@ -1394,6 +1405,84 @@ class DiskSet:
         for disk in self.disks.keys():
             del self.disks[disk]
 
+    def dasdFmt (self, intf = None, drive = None):
+        w = intf.progressWindow (_("Initializing"),
+                             _("Please wait while formatting drive %s...\n"
+                               ) % (drive,), 100)
+        try:
+            isys.makeDevInode(drive, '/tmp/' + drive)
+        except:
+            pass
+
+        argList = [ "/sbin/dasdfmt",
+                    "-y",
+                    "-b", "4096",
+                    "-d", "cdl",
+                    "-P",
+                    "-f",
+                    "/tmp/%s" % drive]
+        
+        fd = os.open("/dev/null", os.O_RDWR | os.O_CREAT | os.O_APPEND)
+        p = os.pipe()
+        childpid = os.fork()
+        if not childpid:
+            os.close(p[0])
+            os.dup2(p[1], 1)
+            os.dup2(fd, 2)
+            os.close(p[1])
+            os.close(fd)
+            os.execv(argList[0], argList)
+            log("failed to exec %s", argList)
+            sys.exit(1)
+			    
+        os.close(p[1])
+
+        num = ''
+        sync = 0
+        s = 'a'
+        while s:
+            try:
+                s = os.read(p[0], 1)
+                os.write(fd, s)
+
+                if s != '\n':
+                    try:
+                        num = num + s
+                    except:
+                        pass
+                else:
+                    if num:
+                        val = string.split(num)
+                        if (val[0] == 'cyl'):
+                            # printf("cyl %5d of %5d |  %3d%%\n",
+                            val = int(val[5][:-1])
+                            w and w.set(val)
+                            # sync every 10%
+                            if sync + 10 <= val:
+                                isys.sync()
+                                sync = val
+                    num = ''
+            except OSError, args:
+                (errno, str) = args
+                if (errno != 4):
+                    raise IOError, args
+
+        try:
+            (pid, status) = os.waitpid(childpid, 0)
+        except OSError, (num, msg):
+            print __name__, "waitpid:", msg
+            
+        os.close(fd)
+
+        w and w.pop()
+        
+        isys.flushDriveDict()
+            
+        if os.WIFEXITED(status) and (os.WEXITSTATUS(status) == 0):
+            return 0
+
+        return 1
+
     def openDevices (self, intf = None, initAll = 0, zeroMbr = 0):
         if self.disks:
             return
@@ -1442,9 +1531,19 @@ class DiskSet:
                         continue
                     else:
                         recreate = 1
+
                 if recreate == 1 and not flags.test:
+                    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                        if (self.dasdFmt(intf, drive)):
+                            DiskSet.skippedDisks.append(drive)
+                            continue
+                    else:                    
+                        try:
+                            dev.disk_create(getDefaultDiskType())
+                        except parted.error, msg:
+                            DiskSet.skippedDisks.append(drive)
+                            continue
                     try:
-                        dev.disk_create(getDefaultDiskType())
                         disk = parted.PedDisk.open(dev)
                         self.disks[drive] = disk
                     except parted.error, msg:
@@ -1457,8 +1556,17 @@ class DiskSet:
                 DiskSet.skippedDisks.append(drive)
                 continue
             elif ret == -1:
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    if (self.dasdFmt(intf, drive)):
+                        DiskSet.skippedDisks.append(drive)
+                        continue                    
+                else:
+                    try:
+                        dev.disk_create(getDefaultDiskType())
+                    except parted.error, msg:
+                        DiskSet.skippedDisks.append(drive)
+                        continue
                 try:
-                    dev.disk_create(getDefaultDiskType())
                     disk = parted.PedDisk.open(dev)
                     self.disks[drive] = disk
                 except parted.error, msg:
@@ -1528,6 +1636,10 @@ def checkNoDisks(diskset, intf):
         sys.exit(0)
 
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        partitions.useAutopartitioning = 0
+        partitions.useFdisk = 1
+            
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         return
@@ -1560,7 +1672,10 @@ def partitionMethodSetup(partitions, dispatch):
                       skip = not partitions.useAutopartitioning)
     dispatch.skipStep("autopartitionexecute",
                       skip = not partitions.useAutopartitioning)
-    dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
+    if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+        dispatch.skipStep("fdasd", skip = not partitions.useFdisk)
+    else:
+        dispatch.skipStep("fdisk", skip = not partitions.useFdisk)
 
     setProtected(partitions, dispatch)
 

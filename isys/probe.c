@@ -422,10 +422,12 @@ int kdFindDasdList(struct knownDevices * devices, int code) {
 
    /* Every line in this file is a harddisk */
    while ((fgets(line, 190, fd)) != NULL) {
-      sscanf(line, "%*X %*[(A-Z)] at (%*d:%*d) is %[a-z0-9]:%s ", name, status);
+      int num;
+      num = sscanf(line, "%*X %*[(A-Z)] at (%*d:%*d) is %[a-z0-9] : %s ", 
+				   name, status);
       /* Take every dasd, formated and unformated */
 
-      if (!deviceKnown(devices, name)) {
+      if ((num == 2) && (strlen(name) <= 6) && !deviceKnown(devices, name)) {
          snprintf(model, sizeof(model), "IBM DASD (%s)", status);
          device.class = CLASS_HD;
          device.name = strdup(name);

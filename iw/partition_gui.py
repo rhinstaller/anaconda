@@ -1388,6 +1388,12 @@ class PartitionWindow(InstallWindow):
     def deleteCb(self, widget):
         partition = self.tree.getCurrentPartition()
 
+        if (iutil.getArch() == "s390" or iutil.getArch() == "s390x") \
+           and type(partition) != type("RAID"):
+            self.intf.messageWindow(_("Error"),
+                                    _("DASD partitions can only be deleted with fdasd"))
+            return
+
         if doDeletePartitionByRequest(self.intf, self.partitions, partition):
             self.refresh()
             
@@ -1449,7 +1455,11 @@ class PartitionWindow(InstallWindow):
             if type == "RAID":
                 self.editRaidRequest(request)
             elif type == "NEW":
-                self.editPartitionRequest(request, isNew = 1)
+                if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+                    self.intf.messageWindow(_("Error"),
+                        _("You must go back and use fdasd to inititalize this partition"))
+                else:
+                    self.editPartitionRequest(request, isNew = 1)
             else:
                 self.editPartitionRequest(request)
 
@@ -1655,11 +1665,17 @@ class PartitionWindow(InstallWindow):
         buttonBox = gtk.HButtonBox()
         buttonBox.set_layout(gtk.BUTTONBOX_SPREAD)
 
-        ops = ((_("_New"), self.newCB),
-               (_("_Edit"), self.editCb),
-               (_("_Delete"), self.deleteCb),
-               (_("_Reset"), self.resetCb),
-               (_("Make _RAID"), self.makeraidCB))
+	if iutil.getArch() == "s390" or iutil.getArch() == "s390x":
+            ops = ((_("_Edit"), self.editCb),
+                   (_("_Delete"), self.deleteCb),
+                   (_("_Reset"), self.resetCb),
+                   (_("Make _RAID"), self.makeraidCB),)
+        else:
+            ops = ((_("_New"), self.newCB),
+                   (_("_Edit"), self.editCb),
+                   (_("_Delete"), self.deleteCb),
+                   (_("_Reset"), self.resetCb),
+                   (_("Make _RAID"), self.makeraidCB))
         
         for label, cb in ops:
             button = gtk.Button(label)

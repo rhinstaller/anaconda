@@ -787,6 +787,7 @@ class KickstartBase(BaseInstallClass):
         self.skipSteps.append("partitionmethod")
         self.skipSteps.append("partitionmethodsetup")
         self.skipSteps.append("fdisk")
+        self.skipSteps.append("fdasd")
         self.skipSteps.append("autopartition")
 
     def setSteps(self, dispatch):
@@ -808,6 +809,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("partitionmethod")
             dispatch.skipStep("partitionmethodsetup")
             dispatch.skipStep("fdisk")
+            dispatch.skipStep("fdasd")
             dispatch.skipStep("autopartition")
             dispatch.skipStep("bootdisk")            
             return
