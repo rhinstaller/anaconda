@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "devices.h"
 #include "../isys/isys.h"
 #include "lang.h"
 #include "loader.h"
