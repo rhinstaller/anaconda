@@ -41,6 +41,17 @@
 #include <sys/reboot.h>
 #include <termios.h>
 
+/* Need to tell loop.h what the actual dev_t type is. */
+#undef dev_t
+#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
+#define dev_t unsigned int
+#else
+#define dev_t unsigned short
+#endif
+#include <linux/loop.h>
+#undef dev_t
+#define dev_t dev_t
+
 #define syslog klogctl
 #endif
 
