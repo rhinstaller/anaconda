@@ -864,6 +864,7 @@ class InstallControlWindow:
 		    gtk.timeout_remove(self.releaseNotesStartViewerIdleID)
 		    self.releaseNotesStartViewer = 0
 		    self.releaseNotesStartViewerAttempts = 0
+		    setCursorToNormal()
 		else:
 		    self.releaseNotesStartViewer = 1
 	    else:
@@ -895,7 +896,7 @@ class InstallControlWindow:
 	
 	self.releaseNotesStartViewerAttempts = 0
 	self.releaseNotesStartViewer = 1
-	self.releaseNotesStartViewerIdleID = gtk.timeout_add(50, self.releaseNotesPollStartViewerCB, None)
+	self.releaseNotesStartViewerIdleID = gtk.timeout_add(250, self.releaseNotesPollStartViewerCB, None)
 
 	# we make cursor busy, on assumption when viewer app runs it will
 	# make it normal
