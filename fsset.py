@@ -876,6 +876,8 @@ class LoopbackDevice(Device):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
 # XXX fix RAID
+# XXX don't reserve labels on filesystems that are going to be
+#     reformatted
 def readFstab (path):
     fsset = FileSystemSet()
 
