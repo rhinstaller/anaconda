@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
-"POT-Creation-Date: 2001-03-29 17:46-0500\n"
+"POT-Creation-Date: 2001-03-29 18:52-0500\n"
 "PO-Revision-Date: 2001-03-26 12:00-0500\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
@@ -70,8 +70,8 @@ msgstr "Advarsel"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1238
-#: ../todo.py:1251 ../todo.py:1571 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
+#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Feil"
 
@@ -112,7 +112,7 @@ msgstr "Feil under oppretting av swap-område på enhet "
 msgid "Error unmounting %s: %s"
 msgstr "Feil ved avmontering av %s: %s"
 
-#: ../fstab.py:689 ../todo.py:740
+#: ../fstab.py:689 ../todo.py:741
 msgid "Creating"
 msgstr "Oppretter"
 
@@ -927,36 +927,36 @@ msgstr "Avbrutt"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Kan ikke gå tilbake til forrige steg herfra. Du må forsøke igjen."
 
-#: ../todo.py:740
+#: ../todo.py:741
 msgid "Creating boot disk..."
 msgstr "Oppretter oppstartsdiskett..."
 
-#: ../todo.py:759
+#: ../todo.py:760
 msgid "Reading"
 msgstr "Leser"
 
-#: ../todo.py:760
+#: ../todo.py:761
 msgid "Reading package information..."
 msgstr "Leser pakkeinformasjon..."
 
-#: ../todo.py:1057
+#: ../todo.py:1058
 msgid "Dependency Check"
 msgstr "Sjekk av avhengigheter"
 
-#: ../todo.py:1058
+#: ../todo.py:1059
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Sjekker avhengigheter i pakker valgt for installasjon..."
 
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1301
+#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
+#: ../todo.py:1308
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:1188 ../upgrade.py:99
+#: ../todo.py:1189 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr "Filsystemer merket \"dirty\" (må gjennom filsystemsjekk)"
 
-#: ../todo.py:1189
+#: ../todo.py:1190
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -965,7 +965,7 @@ msgstr ""
 "Linux-system kan ikke monteres. Vennligst rett opp dette problemet og forsøk "
 "å oppgradere igjen."
 
-#: ../todo.py:1204
+#: ../todo.py:1205
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -977,31 +977,31 @@ msgstr ""
 "oppgraderingen på nytt.\n"
 "\n"
 
-#: ../todo.py:1223
+#: ../todo.py:1226
 msgid "Finding"
 msgstr "Finner"
 
-#: ../todo.py:1224
+#: ../todo.py:1227
 msgid "Finding packages to upgrade..."
 msgstr "Finner pakker som skal oppgraderes..."
 
-#: ../todo.py:1239
+#: ../todo.py:1244
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Gjenoppbygging av RPM-databasen feilet. Ikke mer diskplass?"
 
-#: ../todo.py:1252
+#: ../todo.py:1259
 msgid "An error occured when finding the packages to upgrade."
 msgstr "En feil oppsto under søk etter pakker som skal oppgraderes."
 
-#: ../todo.py:1537
+#: ../todo.py:1544
 msgid "Processing"
 msgstr "Arbeider"
 
-#: ../todo.py:1538
+#: ../todo.py:1545
 msgid "Preparing to install..."
 msgstr "Forbereder installasjon..."
 
-#: ../todo.py:1572
+#: ../todo.py:1579
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1010,17 +1010,17 @@ msgstr ""
 "Filen %s kan ikke åpnes. Dette pga. en manglende fil, en dårlig pakke, eller "
 "et dårlig media. Trykk <Enter> for å prøve igjen."
 
-#: ../todo.py:1826
+#: ../todo.py:1833
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Oppgraderer %s.\n"
 
-#: ../todo.py:1828
+#: ../todo.py:1835
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1873
+#: ../todo.py:1880
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1031,15 +1031,15 @@ msgstr ""
 "\n"
 
 #: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1876 ../todo.py:1894
+#: ../textw/upgrade_text.py:55 ../todo.py:1883 ../todo.py:1901
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1876
+#: ../todo.py:1883
 msgid "Space Needed"
 msgstr "Nødvendig plass"
 
-#: ../todo.py:1891
+#: ../todo.py:1898
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1048,23 +1048,23 @@ msgstr ""
 "Det ser ikke ut til at du har nok filnoder til å installere pakkene du har "
 "valgt. Du må ha flere filnoder på følgende filsystemer:\n"
 
-#: ../todo.py:1894
+#: ../todo.py:1901
 msgid "Nodes Needed"
 msgstr "Manglende noder"
 
-#: ../todo.py:1900
+#: ../todo.py:1907
 msgid "Disk Space"
 msgstr "Diskplass"
 
-#: ../todo.py:1935
+#: ../todo.py:1942
 msgid "Post Install"
 msgstr "Etter-installasjon"
 
-#: ../todo.py:1936
+#: ../todo.py:1943
 msgid "Performing post install configuration..."
 msgstr "Utfører etter-installasjons konfigurasjon..."
 
-#: ../todo.py:2075
+#: ../todo.py:2082
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1082,7 +1082,7 @@ msgstr ""
 "Den rapporterte feilen var:\n"
 "\n"
 
-#: ../todo.py:2081
+#: ../todo.py:2088
 msgid "Bootloader Errors"
 msgstr "Bootloader-feil"
 
@@ -1164,6 +1164,10 @@ msgstr "Bruk tekstmodus"
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
 msgstr "Leter etter mus..."
+
+#: ../xserver.py:189
+msgid "Waiting for X server to start...log located in /tmp/X.log\n"
+msgstr ""
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"

@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2001-03-29 17:46-0500\n"
+"POT-Creation-Date: 2001-03-29 18:52-0500\n"
 "PO-Revision-Date: 2001-03-29 11:39GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
@@ -70,8 +70,8 @@ msgstr "Advarsel"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1238
-#: ../todo.py:1251 ../todo.py:1571 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
+#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Fejl"
 
@@ -112,7 +112,7 @@ msgstr "Kunne ikke oprette swap på enhed "
 msgid "Error unmounting %s: %s"
 msgstr "Kunne ikke afmontere %s: %s"
 
-#: ../fstab.py:689 ../todo.py:740
+#: ../fstab.py:689 ../todo.py:741
 msgid "Creating"
 msgstr "Opretter"
 
@@ -925,36 +925,36 @@ msgstr "Annulleret"
 msgid "I can't go to the previous step from here. You will have to try again."
 msgstr "Jeg kan ikke gå til forrige trin herfra. Du må prøve igen."
 
-#: ../todo.py:740
+#: ../todo.py:741
 msgid "Creating boot disk..."
 msgstr "Opretter opstartsdiskette..."
 
-#: ../todo.py:759
+#: ../todo.py:760
 msgid "Reading"
 msgstr "Læser"
 
-#: ../todo.py:760
+#: ../todo.py:761
 msgid "Reading package information..."
 msgstr "Læser pakkeinformation..."
 
-#: ../todo.py:1057
+#: ../todo.py:1058
 msgid "Dependency Check"
 msgstr "Afhængighedstjek"
 
-#: ../todo.py:1058
+#: ../todo.py:1059
 msgid "Checking dependencies in packages selected for installation..."
 msgstr "Tjekker afhængigheder i pakkerne som er valgt til installering....."
 
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1301
+#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
+#: ../todo.py:1308
 msgid "no suggestion"
 msgstr "ingen forslag"
 
-#: ../todo.py:1188 ../upgrade.py:99
+#: ../todo.py:1189 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr "Urene filsystemer"
 
-#: ../todo.py:1189
+#: ../todo.py:1190
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -962,7 +962,7 @@ msgstr ""
 "Et eller flere af de filsystemer der står i din /etc/fstab kunne ikke "
 "monteres. Ret venligst dette problem, og prøv opgraderingen igen."
 
-#: ../todo.py:1204
+#: ../todo.py:1205
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -973,31 +973,31 @@ msgstr ""
 "opgradering. Ret dem til relative symlænker og genstart opgraderingen.\n"
 "\n"
 
-#: ../todo.py:1223
+#: ../todo.py:1226
 msgid "Finding"
 msgstr "Finder"
 
-#: ../todo.py:1224
+#: ../todo.py:1227
 msgid "Finding packages to upgrade..."
 msgstr "Finder pakker som skal opgraderes..."
 
-#: ../todo.py:1239
+#: ../todo.py:1244
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Genopbygning af RPM-database mislykkedes. Har du nok ledig diskplads?"
 
-#: ../todo.py:1252
+#: ../todo.py:1259
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
 
-#: ../todo.py:1537
+#: ../todo.py:1544
 msgid "Processing"
 msgstr "Behandler"
 
-#: ../todo.py:1538
+#: ../todo.py:1545
 msgid "Preparing to install..."
 msgstr "Forbereder installation..."
 
-#: ../todo.py:1572
+#: ../todo.py:1579
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1006,17 +1006,17 @@ msgstr ""
 "Filen %s kan ikke åbnes. Dette skyldes en manglende fil, en defekt "
 "pakke,eller defekt medie. Tryk <return> for at prøve igen."
 
-#: ../todo.py:1826
+#: ../todo.py:1833
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Opgraderer %s.\n"
 
-#: ../todo.py:1828
+#: ../todo.py:1835
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installerer %s.\n"
 
-#: ../todo.py:1873
+#: ../todo.py:1880
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1027,15 +1027,15 @@ msgstr ""
 "\n"
 
 #: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1876 ../todo.py:1894
+#: ../textw/upgrade_text.py:55 ../todo.py:1883 ../todo.py:1901
 msgid "Mount Point"
 msgstr "Monteringspunkt"
 
-#: ../todo.py:1876
+#: ../todo.py:1883
 msgid "Space Needed"
 msgstr "Nødvendig plads"
 
-#: ../todo.py:1891
+#: ../todo.py:1898
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1045,23 +1045,23 @@ msgstr ""
 "valgt. Du har brug for mere plads på følgende filsystemer:\n"
 "\n"
 
-#: ../todo.py:1894
+#: ../todo.py:1901
 msgid "Nodes Needed"
 msgstr "Nødvendige filpladser"
 
-#: ../todo.py:1900
+#: ../todo.py:1907
 msgid "Disk Space"
 msgstr "Diskplads"
 
-#: ../todo.py:1935
+#: ../todo.py:1942
 msgid "Post Install"
 msgstr "Efter installation"
 
-#: ../todo.py:1936
+#: ../todo.py:1943
 msgid "Performing post install configuration..."
 msgstr "Konfigurerer systemet efter installation..."
 
-#: ../todo.py:2075
+#: ../todo.py:2082
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1079,7 +1079,7 @@ msgstr ""
 "Den rapporterede fejl var:\n"
 "\n"
 
-#: ../todo.py:2081
+#: ../todo.py:2088
 msgid "Bootloader Errors"
 msgstr "Opstartsindlæser-fejl"
 
@@ -1161,6 +1161,10 @@ msgstr "Benyt tekst-tilstand"
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
 msgstr "Søger efter musetype..."
+
+#: ../xserver.py:189
+msgid "Waiting for X server to start...log located in /tmp/X.log\n"
+msgstr ""
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"

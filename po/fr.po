@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2001-03-29 17:46-0500\n"
+"POT-Creation-Date: 2001-03-29 18:52-0500\n"
 "PO-Revision-Date: 2001-03-23 10:33+0100\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -76,8 +76,8 @@ msgstr "Avertissement"
 #: ../loader/pcmcia.c:131 ../loader/urls.c:78 ../loader/urls.c:87
 #: ../loader/urls.c:94 ../loader/urls.c:233 ../loader/urls.c:238
 #: ../textw/bootdisk_text.py:69 ../textw/upgrade_text.py:107
-#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1238
-#: ../todo.py:1251 ../todo.py:1571 ../upgrade.py:24 ../upgrade.py:52
+#: ../textw/upgrade_text.py:113 ../textw/upgrade_text.py:152 ../todo.py:1243
+#: ../todo.py:1258 ../todo.py:1578 ../upgrade.py:24 ../upgrade.py:52
 msgid "Error"
 msgstr "Erreur"
 
@@ -118,7 +118,7 @@ msgstr "Erreur lors de la création de l'espace swap sur le disque "
 msgid "Error unmounting %s: %s"
 msgstr "Erreur lors du démontage de %s : %s"
 
-#: ../fstab.py:689 ../todo.py:740
+#: ../fstab.py:689 ../todo.py:741
 msgid "Creating"
 msgstr "Création"
 
@@ -937,38 +937,38 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
 
-#: ../todo.py:740
+#: ../todo.py:741
 msgid "Creating boot disk..."
 msgstr "Création de la disquette d'amorçage..."
 
-#: ../todo.py:759
+#: ../todo.py:760
 msgid "Reading"
 msgstr "Lecture"
 
-#: ../todo.py:760
+#: ../todo.py:761
 msgid "Reading package information..."
 msgstr "Lecture des informations sur les paquetages..."
 
-#: ../todo.py:1057
+#: ../todo.py:1058
 msgid "Dependency Check"
 msgstr "Vérification des dépendances"
 
-#: ../todo.py:1058
+#: ../todo.py:1059
 msgid "Checking dependencies in packages selected for installation..."
 msgstr ""
 "Vérification des dépendances dans les paquetages sélectionnés pour "
 "l'installation..."
 
-#: ../todo.py:1092 ../todo.py:1136 ../todo.py:1145 ../todo.py:1171
-#: ../todo.py:1301
+#: ../todo.py:1093 ../todo.py:1137 ../todo.py:1146 ../todo.py:1172
+#: ../todo.py:1308
 msgid "no suggestion"
 msgstr "Pas de suggestion"
 
-#: ../todo.py:1188 ../upgrade.py:99
+#: ../todo.py:1189 ../upgrade.py:99
 msgid "Dirty Filesystems"
 msgstr "Système de fichiers non démonté correctement"
 
-#: ../todo.py:1189
+#: ../todo.py:1190
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -977,7 +977,7 @@ msgstr ""
 "système Linux n'ont pu être montés. Veuillez corriger ce problème, puis "
 "essayez à nouveau d'effectuer la mise à jour."
 
-#: ../todo.py:1204
+#: ../todo.py:1205
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -988,35 +988,35 @@ msgstr ""
 "supportés durant une mise à jour. Transformez-les en liens symboliques "
 "relatifs et recommencez la mise à jour.\n"
 
-#: ../todo.py:1223
+#: ../todo.py:1226
 msgid "Finding"
 msgstr "Recherche"
 
-#: ../todo.py:1224
+#: ../todo.py:1227
 msgid "Finding packages to upgrade..."
 msgstr "Recherche des paquetages à mettre à jour..."
 
-#: ../todo.py:1239
+#: ../todo.py:1244
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Impossible de reconstruire la base de données RPM. Votre disque est "
 "peut-être plein."
 
-#: ../todo.py:1252
+#: ../todo.py:1259
 msgid "An error occured when finding the packages to upgrade."
 msgstr ""
 "Une erreur s'est produite lors de la recherche des paquetages à mettre à "
 "jour."
 
-#: ../todo.py:1537
+#: ../todo.py:1544
 msgid "Processing"
 msgstr "Traitement"
 
-#: ../todo.py:1538
+#: ../todo.py:1545
 msgid "Preparing to install..."
 msgstr "Préparation de l'installation..."
 
-#: ../todo.py:1572
+#: ../todo.py:1579
 #, c-format
 msgid ""
 "The file %s cannot be opened. This is due to a missing file, a bad package, "
@@ -1026,17 +1026,17 @@ msgstr ""
 "un mauvais paquetage ou à un support endommagé. Appuyer sur <Entrée> pour "
 "essayer à nouveau."
 
-#: ../todo.py:1826
+#: ../todo.py:1833
 #, c-format
 msgid "Upgrading %s.\n"
 msgstr "Mise à jour de %s.\n"
 
-#: ../todo.py:1828
+#: ../todo.py:1835
 #, c-format
 msgid "Installing %s.\n"
 msgstr "Installation de %s.\n"
 
-#: ../todo.py:1873
+#: ../todo.py:1880
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following filesystems:\n"
@@ -1048,15 +1048,15 @@ msgstr ""
 "\n"
 
 #: ../iw/upgrade_swap_gui.py:130 ../libfdisk/gnomefsedit.c:3132
-#: ../textw/upgrade_text.py:55 ../todo.py:1876 ../todo.py:1894
+#: ../textw/upgrade_text.py:55 ../todo.py:1883 ../todo.py:1901
 msgid "Mount Point"
 msgstr "Point de montage"
 
-#: ../todo.py:1876
+#: ../todo.py:1883
 msgid "Space Needed"
 msgstr "Espace nécessaire"
 
-#: ../todo.py:1891
+#: ../todo.py:1898
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
@@ -1067,23 +1067,23 @@ msgstr ""
 "noeuds d'index sur les systèmes de fichiers suivants : \n"
 "\n"
 
-#: ../todo.py:1894
+#: ../todo.py:1901
 msgid "Nodes Needed"
 msgstr "Noeuds d'index nécessaires"
 
-#: ../todo.py:1900
+#: ../todo.py:1907
 msgid "Disk Space"
 msgstr "Espace disque"
 
-#: ../todo.py:1935
+#: ../todo.py:1942
 msgid "Post Install"
 msgstr "Post-installation"
 
-#: ../todo.py:1936
+#: ../todo.py:1943
 msgid "Performing post install configuration..."
 msgstr "Exécution de la configuration post-installation..."
 
-#: ../todo.py:2075
+#: ../todo.py:2082
 msgid ""
 "An error occured while installing the bootloader.\n"
 "\n"
@@ -1102,7 +1102,7 @@ msgstr ""
 "L'erreur est :\n"
 "\n"
 
-#: ../todo.py:2081
+#: ../todo.py:2088
 msgid "Bootloader Errors"
 msgstr "Erreurs de chargeurs de démarrage"
 
@@ -1185,6 +1185,10 @@ msgstr "Utiliser le mode caractère"
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
 msgstr "Détection du type de souris..."
+
+#: ../xserver.py:189
+msgid "Waiting for X server to start...log located in /tmp/X.log\n"
+msgstr ""
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
