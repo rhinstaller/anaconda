@@ -21,7 +21,7 @@ prepareBootTree() {
 	
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-	pngtopnm $BOOTDISKDIR/syslinux-splash.png | ppmtolss16 \#000000=0 \#fefefd=7 \#ce0202=2 > $BOOTDISKDIR/splash.lss
+	pngtopnm $BOOTDISKDIR/syslinux-splash.png | ppmtolss16 \#000000=0 \#fefefe=7 \#ce0202=2 > $BOOTDISKDIR/splash.lss
 	cp $BOOTDISKDIR/splash.lss $MBD_BOOTTREE/splash.lss
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
 	    # fb console and kon don't get along...
