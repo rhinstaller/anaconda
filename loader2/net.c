@@ -527,7 +527,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
         }
     }
 
-    if (!(cfg->dev.numDns)) {
+    if (!cfg->isDynamic || !(cfg->dev.numDns)) {
         if (c.ns && *c.ns && inet_aton(c.ns, &addr)) {
             cfg->dev.dnsServers[0] = addr;
             cfg->dev.numDns = 1;
