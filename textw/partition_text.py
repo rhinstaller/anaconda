@@ -145,7 +145,7 @@ class PartitionWindow:
             rc = 0
         except PartitioningError, msg:
             self.intf.messageWindow(_("Error Partitioning"),
-                   _("Could not allocated requested partitions: %s.") % (msg))
+                   _("Could not allocate requested partitions: %s.") % (msg))
             rc = -1
         except PartitioningWarning, msg:
             rc = ButtonChoiceWindow(self.screen, _("Warning"), _("Warning: %s") %(msg),
