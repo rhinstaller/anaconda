@@ -389,7 +389,6 @@ class MessageWindow:
     
     def __init__ (self, title, text, type="ok", default=None, custom_buttons=None, custom_icon=None):
         if flags.autostep:
-            print title, text, type
             self.rc = 1
             return
         self.rc = None
