@@ -504,6 +504,8 @@ if iutil.getArch() != "s390":
     mousedev = mousehw.get()
     if display_mode != 't' and mousedev[0] == "No - mouse":
         # ask for the mouse type
+	import rhpl.mouse as mouse
+
         if mouse.mouseWindow(mousehw) == 0:
 	    dup_log(_("No mouse was detected.  A mouse is required for "
 		      "graphical installation.  Starting text mode."))
