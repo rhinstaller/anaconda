@@ -640,7 +640,7 @@ class InstallInterface:
         return self.messageWindow(_("Error Parsing Kickstart Config"),
                                   s,
                                   type = "custom",
-                                  custom_buttons = [_("_Reboot")]
+                                  custom_buttons = [_("_Reboot")],
                                   custom_icon = "error")
 
     def dumpWindow(self):
