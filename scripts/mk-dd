@@ -58,7 +58,7 @@ rm -rf /tmp/modules
 mkdir /tmp/modules
 
 name=$(echo $srcname | sed 's/\.c$//')
-obj=${name}.o
+obj=${name}.ko
 
 klist="UP- SMP-smp ENTERPRISE-enterprise BOOT-BOOT"
 

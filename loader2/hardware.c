@@ -174,7 +174,7 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
         return 0;
     }
 
-    logMessage("scsi tape device(s) found, loading st.o");
+    logMessage("scsi tape device(s) found, loading st.ko");
 
     if (mlLoadModuleSetLocation("st", modLoaded, modDeps, 
 				modInfo, flags, 

@@ -1286,7 +1286,7 @@ int main(int argc, char ** argv) {
      * describing which scsi disks go with which scsi adapters */
     writeScsiDisks(modLoaded);
 
-    /* if we are in rescue mode lets load st.o for tape support */
+    /* if we are in rescue mode lets load st.ko for tape support */
     if (FL_RESCUE(flags))
 	scsiTapeInitialize(modLoaded, modDeps, modInfo, flags);
 

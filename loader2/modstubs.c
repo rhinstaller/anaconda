@@ -37,7 +37,7 @@ extern long init_module(void *, unsigned long, const char *);
 extern long delete_module(const char *, unsigned int);
 
 static int usage() {
-    fprintf(stderr, "usage: insmod [-p <path>] <module>.o\n");
+    fprintf(stderr, "usage: insmod [-p <path>] <module>.ko\n");
     return 1;
 }
 

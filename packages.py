@@ -1316,10 +1316,10 @@ def copyExtraModules(instPath, grpset, extraModules):
                 pkg = "kernel-%s" %(tag,)
             arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
             # version 1 path
-            pattern = pattern + " %s/%s/%s.o " % (n, arch, name)
+            pattern = pattern + " %s/%s/%s.ko " % (n, arch, name)
             # version 0 path
-            pattern = pattern + " %s/%s.o " % (n, name)
-            names = names + " %s.o" % (name,)
+            pattern = pattern + " %s/%s.ko " % (n, name)
+            names = names + " %s.ko" % (name,)
 	command = ("cd %s/lib/modules; gunzip < %s | "
                    "%s/bin/cpio --quiet -iumd %s" % 
                    (instPath, path, instPath, pattern))
@@ -1334,7 +1334,7 @@ def copyExtraModules(instPath, grpset, extraModules):
             
 	    toDir = "%s/lib/modules/%s/updates" % \
 		    (instPath, n)
-	    to = "%s/%s.o" % (toDir, name)
+	    to = "%s/%s.ko" % (toDir, name)
 
             if (os.path.isdir("%s/lib/modules/%s" %(instPath, n)) and not
                 os.path.isdir("%s/lib/modules/%s/updates" %(instPath, n))):
@@ -1343,7 +1343,7 @@ def copyExtraModules(instPath, grpset, extraModules):
                 continue
 
             arch = grpset.hdrlist[pkg][rpm.RPMTAG_ARCH]
-            for p in ("%s/%s.o" %(arch, name), "%s.o" %(name,)):
+            for p in ("%s/%s.ko" %(arch, name), "%s.ko" %(name,)):
                 fromFile = "%s/lib/modules/%s/%s" % (instPath, n, p)
 
                 if (os.access(fromFile, os.R_OK)):

@@ -276,7 +276,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
         }
     }
 
-    sprintf(fileName, "%s.o", modName);
+    sprintf(fileName, "%s.ko", modName);
     for (argPtr = args; argPtr && *argPtr; argPtr++) {
         strcat(fileName, " ");
         strcat(fileName, *argPtr);
