@@ -121,7 +121,7 @@ int kdFindNetList(struct knownDevices * devices, int code) {
     s = readFD(fd, &buf);
     close(fd);
     if (s < 0) {
-	fprintf(stderr, "error reading /proc/net/dev!\n");
+        /*	fprintf(stderr, "error reading /proc/net/dev!\n");*/
 	return 1;
     }
 
@@ -708,7 +708,7 @@ static int ProcPartitionsGetDevices(struct knownDevices * devices) {
     if (i < 1) {
         close(fd);
         free (buf);
-	fprintf(stderr, "error reading /proc/partitions!\n");
+        /*	fprintf(stderr, "error reading /proc/partitions!\n");*/
         return 1;
     }
     close(fd);
@@ -793,7 +793,7 @@ static int ataraidGetDevices(struct knownDevices * devices) {
     if (i < 1) {
         close(fd);
         free (buf);
-        fprintf(stderr, "error reading /proc/partitions!\n");
+        /*fprintf(stderr, "error reading /proc/partitions!\n");*/
         return 1;
     }
     close(fd);
