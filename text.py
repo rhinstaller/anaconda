@@ -191,7 +191,7 @@ class PartitionWindow:
 
         return 0
 
-class PackageWindow:
+class PackageGroupWindow:
     def run(self, screen, todo):
         # be sure that the headers and comps files have been read.
 	todo.headerList()
@@ -213,11 +213,75 @@ class PackageWindow:
         # turn off all the comps
         for comp in todo.comps:
             if not comp.hidden: comp.unselect(0)
+
+        screen.suspend()
         # turn on all the comps we selected
         for comp in ct.getSelection():
+            print "select", comp.name
             comp.select (0)
+        time.sleep(5)
+        screen.resume()
+        screen.refresh()
             
         rc = bb.buttonPressed (result)
+
+        if rc == "ok":
+            return 0
+        return -1
+
+class IndividualPackageWindow:
+    def run(self, screen, todo):
+	todo.headerList()
+
+        ct = CheckboxTree(height = 10, scroll = 1)
+        groups = {}
+
+        # go through all the headers and grok out the group names, placing
+        # packages in lists in the groups dictionary.
+        
+        for key in todo.hdList.keys():
+            header = todo.hdList.packages[key]
+            if not groups.has_key (header[rpm.RPMTAG_GROUP]):
+                groups[header[rpm.RPMTAG_GROUP]] = []
+            groups[header[rpm.RPMTAG_GROUP]].append (header)
+
+        # now insert the groups into the list, then each group's packages
+        # after sorting the list
+        def cmpHdrName(first, second):
+            if first[rpm.RPMTAG_NAME] < second[rpm.RPMTAG_NAME]:
+                return -1
+            elif first[rpm.RPMTAG_NAME] == second[rpm.RPMTAG_NAME]:
+                return 0
+            return 1
+        
+        keys = groups.keys ()
+        keys.sort ()
+        index = 0
+        for key in keys:
+            groups[key].sort (cmpHdrName)
+            ct.append (key)
+            for header in groups[key]:
+                ct.addItem (header[rpm.RPMTAG_NAME], (index, snackArgs['append']),
+                            header, header.selected)
+            index = index + 1
+                
+        bb = ButtonBar (screen, ((_("OK"), "ok"), (_("Back"), "back")))
+
+        g = GridForm (screen, _("Package Group Selection"), 1, 2)
+        g.add (ct, 0, 0, (0, 0, 0, 1))
+        g.add (bb, 0, 1, growx = 1)
+
+        result = g.runOnce ()
+ 
+        rc = bb.buttonPressed (result)
+
+        # turn off all the packages
+        for key in todo.hdList.keys ():
+            todo.hdList.packages[key].selected = 0
+
+        # turn on all the packages we selected
+        for package in ct.getSelection ():
+            package.selected = 1
 
         if rc == "ok":
             return 0
@@ -245,7 +309,8 @@ class InstallInterface:
         steps = [
             [_("Welcome"), WelcomeWindow, (self.screen,)],
             [_("Partition"), PartitionWindow, (self.screen, todo)],
-            [_("Packages"), PackageWindow, (self.screen, todo)]            
+            [_("Packages"), PackageGroupWindow, (self.screen, todo)],
+            [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo)],
         ]
 
         step = 0
@@ -269,3 +334,4 @@ def killSelf(screen):
     print "HERE"
     del screen
     sys.exit(0) 
+
