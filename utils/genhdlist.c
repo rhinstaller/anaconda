@@ -18,6 +18,26 @@
 #define FILESIZE_TAG 1000001
 #define CDNUM_TAG    1000002
 
+struct onePackageInfo {
+    char * name;
+    char * arch;
+};
+
+int pkgInfoCmp(const void * a, const void * b) {
+    const struct onePackageInfo * one = a;
+    const struct onePackageInfo * two = b;
+    int i;
+
+    i = strcmp(one->name, two->name);
+    if (i) return i;
+
+    return strcmp(one->arch, two->arch);
+}
+
+struct onePackageInfo * pkgList;
+int pkgListItems = 0;
+int pkgListAlloced = 0;
+
 int onePass(FD_t outfd, const char * dirName, int cdNum) {
     FD_t fd;
     struct dirent * ent;
@@ -68,6 +88,21 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
 
 	    if (!rc) {
+		if (pkgListItems == pkgListAlloced) {
+		    pkgListAlloced += 100;
+		    pkgList = realloc(pkgList, 
+				      sizeof(*pkgList) * pkgListAlloced);
+		}
+
+		headerGetEntry(h, RPMTAG_NAME, NULL, 
+			       (void **) &pkgList[pkgListItems].name, NULL);
+		headerGetEntry(h, RPMTAG_ARCH, NULL, 
+			       (void **) &pkgList[pkgListItems].arch, NULL);
+
+		pkgList[pkgListItems].name = strdup(pkgList[pkgListItems].name);
+		pkgList[pkgListItems].arch = strdup(pkgList[pkgListItems].arch);
+		pkgListItems++;
+
   	        headerRemoveEntry(h, RPMTAG_POSTIN);
 		headerRemoveEntry(h, RPMTAG_POSTUN);
 		headerRemoveEntry(h, RPMTAG_PREIN);
@@ -107,7 +142,7 @@ int onePass(FD_t outfd, const char * dirName, int cdNum) {
 		    for (fileNum = 0; fileNum < fileCount; fileNum++)
 			newSize += ((fileSizes[fileNum] + 4093) / 4096) * 4096;
 
-		    headerGetEntry(h, RPMTAG_SIZE, NULL, &p, NULL);
+		    headerGetEntry(h, RPMTAG_SIZE, NULL, (void **) &p, NULL);
 
 		    headerRemoveEntry(h, RPMTAG_SIZE);
 		    headerAddEntry(h, RPMTAG_SIZE, RPM_INT32_TYPE, 
@@ -149,6 +184,7 @@ int main(int argc, const char ** argv) {
     const char ** args;
     int doNumber = 0;
     int rc;
+    int i;
     char * hdListFile = NULL;
     poptContext optCon;
     struct poptOption options[] = {
@@ -199,5 +235,15 @@ int main(int argc, const char ** argv) {
 
     poptFreeContext(optCon);
 
-    return 0;
+    qsort(pkgList, pkgListItems, sizeof(*pkgList), pkgInfoCmp);
+    rc = 0;
+    for (i = 1; i < pkgListItems; i++) {
+	if (!pkgInfoCmp(pkgList + i - 1, pkgList + i)) {
+	    fprintf(stderr, "duplicate package for %s on %s\n",
+		    pkgList[i].name, pkgList[i].arch);
+	    rc = 1;
+	}
+    }
+
+    return rc;
 }
