@@ -101,7 +101,7 @@ PACKAGES="glibc glibc-common setup openssl python python2 newt slang
 	 libtermcap zlib ash e2fsprogs util-linux raidtools popt
 	 mount procps rpm XFree86 Xconfigurator anaconda
 	 anaconda-runtime kudzu-devel kudzu hwdata db3 bzip2
-	 bzip2-libs dosfstools pciutils reiserfs-utils parted
+	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python anaconda-help booty hdparm lvm
 	 rhpl pyxf86config libxml2 libxml2-python rdate glib2
 	 elfutils-libelf bogl-bterm krb5-libs"
@@ -116,7 +116,7 @@ fi
 
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
-	sed net-tools inetd openssh openssh-server coreutils modutils
+	net-tools inetd openssh openssh-server coreutils modutils
 	initscripts mount gawk xauth
 	portmap telnet-server login ssh_keys"
 fi
@@ -152,8 +152,12 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
 #
 # these packages are combined with the PACKAGES and PACKAGESGR for big stage 2
 #
-PACKAGESRESCUE="findutils ftp gzip iputils less modutils mtools mt-st 
-                net-tools open pciutils pine rsh sed traceroute tar"
+PACKAGESRESCUE=" bzip2 bzip2-libs dump
+                findutils ftp gzip iputils krb5-libs less 
+                modutils mtools mt-st mtr net-tools open 
+                openssh openssh-clients 
+                pciutils pine rsh
+                traceroute tar"
 
 # turn off options we dont want, ie. set package list to something harmless
 if [ -z "$NEEDGR" ]; then
@@ -185,7 +189,7 @@ fi
 #
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
-	sed net-tools inetd openssh openssh-server coreutils login 
+	net-tools inetd openssh openssh-server coreutils login 
 	wget initscripts xauth
 	modutils portmap openssl telnet-server strace ssh_keys"
 fi
@@ -209,6 +213,7 @@ boot/efi/EFI/redhat/elilo.efi
 bin/ash
 bin/fdisk*
 bin/mkfs*
+bin/sed
 etc/group
 etc/passwd
 etc/protocols
@@ -465,8 +470,6 @@ bin/mv
 bin/ps
 bin/rm
 bin/rpm
-bin/sed
-bin/sync
 bin/touch
 bin/umount
 boot/*.b
@@ -654,11 +657,12 @@ bin/gunzip
 bin/gzip
 bin/mt
 bin/ping
-bin/sed
+bin/sync
 bin/tar
 bin/zcat
 sbin/arp
 sbin/depmod
+sbin/dump
 sbin/ifconfig
 sbin/insmod
 sbin/lsmod
@@ -666,8 +670,13 @@ sbin/lspci
 sbin/modinfo
 sbin/modprobe
 sbin/netstat
+sbin/restore
+sbin/rrestore
 sbin/rmmod
 sbin/route
+usr/bin/bunzip2
+usr/bin/bzcat
+usr/bin/bzip2
 usr/bin/find
 usr/bin/ftp
 usr/bin/less
@@ -698,7 +707,15 @@ usr/bin/pico
 usr/bin/rcp
 usr/bin/rlogin
 usr/bin/rsh
+usr/bin/scp
+usr/bin/sftp
+usr/bin/ssh
 usr/bin/xargs
+usr/kerberos/lib/libgssapi*
+usr/kerberos/lib/libkrb5*
+usr/kerberos/lib/libk5crypto*
+usr/kerberos/lib/libcom_err*
+usr/sbin/mtr
 usr/sbin/traceroute
 EOF
 
