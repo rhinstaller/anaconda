@@ -743,6 +743,11 @@ static char * setupCdrom(struct installMethod * method,
 	}
     } while (1);
 
+    /* FIXME: For GUI installs to other host (with display=)
+       we need to set up networking.  */
+    if (getenv("DISPLAY"))
+	flags |= LOADER_FLAGS_TEXT;
+    
     return "dir://mnt/source/.";
 }
 
