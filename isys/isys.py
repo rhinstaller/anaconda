@@ -325,8 +325,8 @@ def getDasdDevPort():
         dasdnum = line[:index]
         
         start = line[index:].find("dasd")
-        end = line[start:].find(":")
-        dev = line[start:end + start].strip()
+        end = line[index + start:].find(":")
+        dev = line[index + start:end + start + index].strip()
         
         ret[dev] = dasdnum
 
