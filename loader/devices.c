@@ -15,6 +15,7 @@
 #include "misc.h"
 #include "modules.h"
 #include "windows.h"
+#include "../kudzu/kudzu.h"
 
 static int getModuleArgs(struct moduleInfo * mod, char *** argPtr) {
     struct newtWinEntry * entries;
@@ -173,7 +174,8 @@ int devLoadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
 
 	if (rc == 2) return LOADER_BACK;
 
-	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, flags);
+	mlLoadModule("vfat", NULL, modLoaded, (*modDepsPtr), NULL, 
+		     modInfo, flags);
 
 	devMakeInode("fd0", "/tmp/fd0");
 
@@ -333,7 +335,7 @@ int devDeviceMenu(enum driverMajor type, moduleInfoSet modInfo,
 	sleep(1);
     }
     rc = mlLoadModule(mod->moduleName, mod->path, modLoaded, modDeps, args,
-		      FL_TESTING(flags));
+		      modInfo, flags);
     if (mod->major == DRIVER_SCSI) newtPopWindow();
 
     if (args) {

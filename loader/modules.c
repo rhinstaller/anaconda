@@ -19,6 +19,32 @@ struct moduleDependency_s {
     char ** deps;
 };
 
+static int ethCount(void) {
+    int fd;
+    char buf[16384];
+    int i;
+    char * chptr;
+    int count = 0;
+
+    fd = open("/proc/net/dev", O_RDONLY);
+    i = read(fd, buf, sizeof(buf) - 1);
+    buf[i] = '\0';
+
+    /* skip first two header lines */
+    chptr = strchr(buf, '\n') + 1;
+    chptr = strchr(chptr, '\n') + 1;
+
+    while (chptr) {
+	while (*chptr && isspace(*chptr)) chptr++;
+	if (!strncmp(chptr, "eth", 3))
+	    count++;
+	chptr = strchr(chptr, '\n');
+	if (chptr) chptr++;
+    }
+
+    return count;
+}
+
 int mlReadLoadedList(moduleList * mlp) {
     int fd;
     char * start;
@@ -165,15 +191,24 @@ int mlLoadDeps(moduleDeps * moduleDepListPtr, const char * path) {
 }
 
 int mlLoadModule(char * modName, char * path, moduleList modLoaded,
-	         moduleDeps modDeps, char ** args, int flags) {
+	         moduleDeps modDeps, char ** args, moduleInfoSet modInfo,
+		 int flags) {
     moduleDeps dep;
     char ** nextDep, ** argPtr;
     char fileName[200];
     int rc, i;
     char ** arg, ** newArgs;
+    struct moduleInfo * mi;
+    int ethDevices = -1;
 
     if (mlModuleInList(modName, modLoaded)) {
 	return 0;
+    }
+
+    if (modInfo && (mi = isysFindModuleInfo(modInfo, modName))) {
+	if (mi->major == DRIVER_NET && mi->minor == DRIVER_MINOR_ETHERNET) {
+	    ethDevices = ethCount();
+	}
     }
 
     for (dep = modDeps; dep->name && strcmp(dep->name, modName);
@@ -182,8 +217,8 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
     if (dep && dep->deps) {
 	nextDep = dep->deps;
 	while (*nextDep) {
-	    if (mlLoadModule(*nextDep, path, modLoaded, modDeps, NULL, flags) && path)
-		  mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, flags);
+	    if (mlLoadModule(*nextDep, path, modLoaded, modDeps, NULL, modInfo, flags) && path)
+		  mlLoadModule(*nextDep, NULL, modLoaded, modDeps, NULL, modInfo, flags);
 	    nextDep++;
 	}
     }
@@ -209,6 +244,13 @@ int mlLoadModule(char * modName, char * path, moduleList modLoaded,
 	modLoaded->mods[modLoaded->numModules].name = strdup(modName);
 	modLoaded->mods[modLoaded->numModules].weLoaded = 1;
 	modLoaded->mods[modLoaded->numModules].path = path;
+	modLoaded->mods[modLoaded->numModules].firstDevNum = -1;
+	modLoaded->mods[modLoaded->numModules].lastDevNum = -1;
+
+	if (ethDevices >= 0) {
+	    modLoaded->mods[modLoaded->numModules].firstDevNum = ethDevices;
+	    modLoaded->mods[modLoaded->numModules].lastDevNum = ethCount() - 1;
+	}
 
 	if (args) {
 	    for (i = 0, arg = args; *arg; arg++, i++);
@@ -253,7 +295,7 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
     char buf[200], buf2[200];
     struct moduleInfo * mi;
     int scsiNum = 0;
-    int ethNum = 0;
+    int ethNum;
     int trNum = 0;
     char ** arg;
 
@@ -280,8 +322,16 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 	      case DRIVER_NET:
 	        switch (mi->minor) {
 		  case DRIVER_MINOR_ETHERNET:
-		      sprintf(buf2, "eth%d ", ethNum++);
-		      strcat(buf, buf2);
+		      for (ethNum = lm->firstDevNum; 
+				ethNum <= lm->lastDevNum; ethNum++) {
+			  sprintf(buf2, "eth%d ", ethNum);
+			  if (ethNum != lm->lastDevNum) {
+			      strcat(buf2, lm->name);
+			      strcat(buf2, "\nalias ");
+			  }
+			  strcat(buf, buf2);
+		      }
+			  
 		      break;
 		  case DRIVER_MINOR_TR:
 		      sprintf(buf2, "tr%d ", trNum++);
