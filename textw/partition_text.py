@@ -215,7 +215,7 @@ class PartitionWindow:
         else:
             mount = Entry(20, "")
         mountgrid.setField(mount, 1, 0, anchorRight = 1, growx = 1)
-        if request.fstype and request.fstype.isMountable():
+        if request.fstype and not request.fstype.isMountable():
             mount.setFlags(FLAG_DISABLED, FLAGS_SET)
             mount.set(_("<Not Applicable>"))
         return (mount, mountgrid)
