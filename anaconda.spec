@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.11
+Version: 10.2.0.12
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -70,6 +70,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Wed Jan 19 2005 Chris Lumens <clumens@redhat.com> 10.2.0.12-1 
+- Fix partitioning bugs (#101432, #137119)
+- Support --bytes-per-inode on a per-partition basis (#57550)
+
 * Thu Jan 13 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.11-1
 - Fix some tracebacks with the new glade code
 - Use busybox ash instead of ash for netstg2.img/hdstg2.img
