@@ -415,6 +415,17 @@ def doPreInstall(method, id, intf, instPath, dir):
             except KeyError:
                 log ("Error selecting XFree86 server package, "
                      "package not available")
+
+            # XXX remove me once we have dependency resolution after
+            # videocard selection
+            try:
+                id.hdList['XFree86-compat-modules'].selected = 1
+            except ValueError, message:
+                log ("Error selecting XFree86-compat-modules package")
+            except KeyError:
+                log ("Error selecting XFree86-compat-modules, "
+                     "package not available")
+                
                 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn
