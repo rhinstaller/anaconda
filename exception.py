@@ -4,7 +4,7 @@
 # Matt Wilson <msw@redhat.com>
 # Erik Troan <ewt@redhat.com>
 #
-# Copyright 2000-2002 Red Hat, Inc.
+# Copyright 2000-2003 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -78,12 +78,10 @@ def dumpClass(instance, fd, level=0, parentkey=""):
 	else:
 	    curkey = key
 
-#	print "curkey:", curkey
 	if curkey in keySkipList:
 	    continue
 	    
         if type(value) == types.ListType:
-#            fd.write("%s%s: [" % (pad, key))
             fd.write("%s%s: [" % (pad, curkey))
             first = 1
             for item in value:
@@ -97,12 +95,10 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                     fd.write("%s" % (item,))
             fd.write("]\n")
         elif type(value) == types.DictType:
-#            fd.write("%s%s: {" % (pad, key))
             fd.write("%s%s: {" % (pad, curkey))
             first = 1
             for k, v in value.items():
 		newkey = curkey+"."+k
-#		print "newkey:",newkey
 		if newkey in keySkipList:
 		    continue
 		
@@ -120,11 +116,9 @@ def dumpClass(instance, fd, level=0, parentkey=""):
                     fd.write("%s" % (v,))
             fd.write("}\n")
         elif type(value) == types.InstanceType:
-#            fd.write("%s%s: " % (pad, key))
             fd.write("%s%s: " % (pad, curkey))
             dumpClass(value, fd, level + 1, parentkey=curkey)
         else:
-#            fd.write("%s%s: %s\n" % (pad, key, value))
             fd.write("%s%s: %s\n" % (pad, curkey, value))
 
 def dumpException(out, text, tb, dispatch):
@@ -218,6 +212,13 @@ def handleException(dispatch, intf, (type, value, tb)):
     dumpException (out, text, tb, dispatch)
     out.close()
 
+    # see if /mnt/sysimage is present and put exception there as well
+    if os.access("/mnt/sysimage/root", os.X_OK):
+        try:
+            iutil.copyFile("/tmp/anacdump.txt", "/mnt/sysimage/root/")
+        except:
+            pass
+	
     # run kickstart traceback scripts (if necessary)
     try:
 	if dispatch.id.instClass.name and dispatch.id.instClass.name == "kickstart":
