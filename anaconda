@@ -215,7 +215,7 @@ if (debug):
 #
 # don't let a developer reinstall their box unknowingly
 #
-if (not reconfigOnly and not test and not localInstall and os.getpid() > 50):
+if (not reconfigOnly and not test and not localInstall and os.getpid() > 90):
     print "you're running me on a live system! that's incredibly stupid."
     sys.exit(1)
 
