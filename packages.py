@@ -413,7 +413,8 @@ def doPreInstall(method, id, intf, instPath, dir):
 	    pass
 
     # write out the fstab
-    id.fsset.write(instPath)
+    if not upgrade:
+        id.fsset.write(instPath)
 
 def doInstall(method, id, intf, instPath):
     if flags.test:
