@@ -418,17 +418,20 @@ class DiskSet:
         """Write the partition tables out to the disks."""
         for disk in self.disks.values():
             disk.write()
+            disk.close()
             del disk
         self.refreshDevices()
 
     def refreshDevices (self, intf = None, initAll = 0, zeroMbr = 0):
         """Reread the state of the disks as they are on disk."""
+        self.closeDevices()
         self.disks = {}
         self.openDevices(intf, initAll, zeroMbr)
 
     def closeDevices (self):
         """Close all of the disks which are open."""
         for disk in self.disks.keys():
+            self.disks[disk].close()
             del self.disks[disk]
 
     def dasdFmt (self, intf = None, drive = None):
