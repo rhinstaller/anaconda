@@ -195,7 +195,7 @@ static int detectHardware(moduleInfoSet modInfo,
     int numMods, i;
     char *driver;
 
-    initializeDeviceList();
+    freeDeviceList();
 
     logMessage("probing buses");
 
@@ -1970,7 +1970,7 @@ int main(int argc, char ** argv) {
     startNewt(flags);
 
     winStatus(40, 3, _("PC Card"), _("Initializing PC Card Devices..."));
-    startPcmcia(modLoaded, modDeps, flags);
+    startPcmcia(modLoaded, modDeps, modInfo, flags);
     newtPopWindow();
 #endif
 

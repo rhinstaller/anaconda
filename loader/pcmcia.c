@@ -10,7 +10,8 @@
 int probe_main (int argc, char ** argv);
 int cardmgr_main (int argc, char ** argv);
 
-void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
+void startPcmcia(moduleList modLoaded, moduleDeps modDeps,
+		 moduleInfoSet modInfo, int flags) {
     pid_t child;
     char * probeArgs[] = { "/sbin/probe", NULL };
     char * cardmgrArgs[] = { "/sbin/cardmgr", "-o", "-m", "/modules", "-d", 
@@ -66,16 +67,16 @@ void startPcmcia(moduleList modLoaded, moduleDeps modDeps, int flags) {
     logMessage("need to load %s", pcic);
 
     if (mlLoadModule("pcmcia_core", NULL, modLoaded, modDeps, NULL,
-		     NULL, flags)) {
+		     modInfo, flags)) {
 	logMessage("failed to load pcmcia_core");
 	return;
     }
-    if (mlLoadModule(pcic, NULL, modLoaded, modDeps, NULL, NULL,
+    if (mlLoadModule(pcic, NULL, modLoaded, modDeps, NULL, modInfo,
 		     flags)) {
 	logMessage("failed to load pcic");
 	return;
     }
-    if (mlLoadModule("ds", NULL, modLoaded, modDeps, NULL, NULL,
+    if (mlLoadModule("ds", NULL, modLoaded, modDeps, NULL, modInfo,
 		     flags)) {
 	logMessage("failed to load ds");
 	return;
