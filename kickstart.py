@@ -64,7 +64,7 @@ class KickstartBase(BaseInstallClass):
     def doFirewall(self, args):
 	(args, extra) = isys.getopt(args, '',
 		[ 'dhcp', 'ssh', 'telnet', 'smtp', 'http', 'ftp',
-		  'port=', 'policy=', 'trust=' ])
+		  'port=', 'high', 'medium', 'trust=' ])
 		  
 	dhcp = 0
 	ssh = 0
@@ -91,8 +91,10 @@ class KickstartBase(BaseInstallClass):
 		http = 1
 	    elif str == '--ftp':
 		ftp = 1
-	    elif str == '--policy':
-		policy = arg
+	    elif str == '--high':
+		policy = 0
+	    elif str == '--medium':
+		policy = 1
 	    elif str == '--trust':
 		trusts.append(arg)
 	    elif str == '--port':
