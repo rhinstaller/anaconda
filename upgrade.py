@@ -22,6 +22,7 @@ import sys
 import os.path
 import partedUtils
 import string
+import shutil
 import lvm
 from flags import flags
 from fsset import *
@@ -311,6 +312,11 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
     if flags.setupFilesystems:
         oldfsset.turnOnSwap(instPath)
 
+# move the old pre-convert db back in case of problems
+def resetRpmdb(olddb):
+    iutil.rmrf(instPath + "/var/lib/rpm")
+    os.rename (olddb, instPath + "/var/lib/rpm")    
+
 rebuildTime = None
 
 def upgradeFindPackages(intf, method, id, instPath, dir):
@@ -338,12 +344,13 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
     # we should only have to rebuild for upgrades of pre rpm 4.0.x systems
     # according to jbj
-    if os.access(instPath + "/var/lib/rpm/packages.rpm", os.R_OK):
-        id.dbpath = None
-        rebuildpath = None
+    if (os.access(instPath + "/var/lib/rpm/packages.rpm", os.R_OK) and
+        not os.access(instPath + "/var/lib/rpm/Packages", os.R_OK)):
+        id.dbpath = "%s/var/lib/rpm-%s" %(instPath, rebuildTime)
+        shutil.copytree("%s/var/lib/rpm" %(instPath,), id.dbpath)
         
         args = [ "/usr/libexec/convertdb1",
-                 instPath + "/var/lib/rpm/packages.rpm" ]
+                 "-r", instPath, "/var/lib/rpm/packages.rpm" ]
         rc = iutil.execWithRedirect(args[0], args,
                                     stdout = "/dev/tty5",
                                     stderr = "/dev/tty5")
@@ -356,7 +363,6 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
             sys.exit(0)
     else:
         id.dbpath = None
-        rebuildpath = None
         
     try:
         import findpackageset
@@ -370,8 +376,8 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
 
 	packages = findpackageset.findpackageset(id.hdList.hdlist, instPath)
     except rpm.error:
-        if rebuildpath is not None:
-            iutil.rmrf(rebuildpath)
+        if id.dbpath is not None:
+            resetRpmdb(id.dbpath)
 	win.pop()
 	intf.messageWindow(_("Error"),
                            _("An error occurred when finding the packages to "
@@ -440,8 +446,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                 type="yesno")
         if rc == 0:
             try:
-                iutil.rmrf(rebuildpath)
-            except:
+                resetRpmdb(id.dbpath)
+            except Exception, e:
+                logMessage("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -456,8 +463,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                   type="yesno")
         if rc == 0:
             try:
-                iutil.rmrf(rebuildpath)
-            except:
+                resetRpmdb(id.dbpath)
+            except Exception, e:
+                logMessage("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 
@@ -496,8 +504,9 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                                 type="yesno")
         if rc == 0:
             try:
-                iutil.rmrf(rebuildpath)
-            except:
+                resetRpmdb(id.dbpath)
+            except Exception, e:
+                logMessage("error returning rpmdb to old state: %s" %(e,))
                 pass
             sys.exit(0)
 

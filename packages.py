@@ -1045,26 +1045,9 @@ def doPostInstall(method, id, intf, instPath):
 	w.set(4)
 
         if upgrade and id.dbpath is not None:
-	    # move the rebuilt db into place.
+            # remove the old rpmdb
 	    try:
-		iutil.rmrf (instPath + "/var/lib/rpm.rpmsave")
-	    except OSError:
-		pass
-            try:
-                os.rename (instPath + "/var/lib/rpm",
-                           instPath + "/var/lib/rpm.rpmsave")
-            except OSError:
-                # XXX hack..., if the above move failed, we'll just stash it in
-                # a (hopefully) unique location. (#50339)
-                os.rename (instPath + "/var/lib/rpm",
-                           instPath + "/var/lib/rpm.rpmsave-%s" %
-                           (str(int(time.time())),))
-            os.rename (instPath + id.dbpath,
-		       instPath + "/var/lib/rpm")
-
-	    # XXX - rpm 4.0.2 %post braindeadness support
-	    try:
-		os.unlink (instPath + "/etc/rpm/macros.db1")
+		iutil.rmrf (id.dbpath)
 	    except OSError:
 		pass
 
