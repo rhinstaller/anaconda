@@ -1,0 +1,11 @@
+#!/bin/sh
+#
+# setup install environment for rescue mode
+#
+
+# link from instimage to /etc so things work
+
+for i in "services protocols group"; do
+   ln -s /mnt/source/RedHat/sysimage/etc/$i /etc/$i
+
+exec /bin/sh
