@@ -110,6 +110,7 @@ class BaseInstallClass:
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
 	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
+            dispatch.skipStep("bootloaderpassword")
 
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist):
