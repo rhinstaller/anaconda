@@ -406,8 +406,11 @@ class InstallInterface:
                 log("old language was %s" %(oldlang,))
                 id.instLanguage.setRuntimeLanguage("English")
                 id.instLanguage.setRuntimeDefaults(oldlang)
-                
-                
+
+        if id.instLanguage.getFontFile(id.instLanguage.getCurrent()) == "none":
+            oldlang = id.instLanguage.getCurrent()
+            id.instLanguage.setRuntimeLanguage("English")
+            id.instLanguage.setRuntimeDefaults(oldlang)
         
         self.screen = SnackScreen()
         self.configFileData = configFileData
