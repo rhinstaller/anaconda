@@ -41,7 +41,7 @@ class TimezoneWindow (InstallWindow):
             path = "/usr/share/anaconda/map480.png"
         
         mainBox = GtkVBox (FALSE, 0)
-        tz = timezonemap.new ()
+        tz = timezonemap.new (path)
         map = Map (tz.map)
         list = List (tz.citylist)
         status = Status (tz.statusbar)
