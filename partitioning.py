@@ -16,7 +16,6 @@
 if __name__ == "__main__":
     import sys
     sys.path.append ("isys")
-    sys.path.append ("balkan")
 
 import isys
 import parted
