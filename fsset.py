@@ -324,10 +324,34 @@ class FATFileSystem(FileSystemType):
     def __init__(self):
         FileSystemType.__init__(self)
         self.partedFileSystemType = parted.file_system_type_get("FAT")
-        self.formattable = 0
+        self.formattable = 1
         self.checked = 0
         self.name = "vfat"
 
+    def formatDevice(self, entry, progress, chroot='/'):
+        devicePath = entry.device.setupDevice(chroot)
+        devArgs = self.getDeviceArgs(entry.device)
+        label = labelFactory.createLabel(entry.mountpoint)
+        entry.setLabel(label)
+        args = [ "/usr/sbin/mkdosfs", devicePath ]
+        args.extend(devArgs)
+        
+        rc = iutil.execWithRedirect("/usr/sbin/mkdosfs", args,
+                                    stdout = "/dev/tty5",
+                                    stderr = "/dev/tty5")
+        if rc:
+            if self.messageWindow:
+                self.messageWindow(_("Error"),
+                                   _("An error occurred trying to "
+                                     "format %s.  This problem is "
+                                     "serious, and the install cannot "
+                                     "continue.\n\n"
+                                     "Press Enter to reboot your system.")
+                                   % (entry.device.getDevice(),))
+                sys.exit(0)
+            
+            raise SystemError
+        
 fileSystemTypeRegister(FATFileSystem())
 
 class ForeignFileSystem(FileSystemType):
@@ -483,7 +507,9 @@ class FileSystemSet:
         for entry in self.entries:
 	    mntDict[entry.mountpoint] = entry.device
 
-	if mntDict.has_key("/boot"):
+        if iutil.getArch() == "ia64" and mntDict.has_key("/boot/efi"):
+            bootDev = mntDict['/boot/efi']
+	elif mntDict.has_key("/boot"):
 	    bootDev = mntDict['/boot']
 	else:
 	    bootDev = mntDict['/']

@@ -69,7 +69,7 @@ class InstallData:
         self.autoPartitionRequests = []
         self.autoClearPartType = None
         self.autoClearPartDrives = []
-	self.bootloader = bootloader.x86BootloaderInfo()
+        self.bootloader = bootloader.getBootloader()
         self.dependencies = []
         self.dbpath = None
         self.useFdisk = 0
