@@ -2244,8 +2244,10 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 	logMessage("found video card controller %s", p->driver);
 
     /* HACK - need to have list of cards which match!! */
-	if (!strcmp(p->driver, "Card:Intel 810")) {
-	    logMessage("found i810 card requiring agpgart, loading module");
+	if (!strcmp(p->driver, "Card:Intel 810") ||
+	    !strcmp(p->driver, "Card:Intel 815")) {
+	    logMessage("found %s card requiring agpgart, loading module",
+		       p->driver+5);
 	    
 	    if (mlLoadModule("agpgart", NULL, modLoaded, modDeps, NULL, 
 			     modInfo, flags)) {
