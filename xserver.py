@@ -97,9 +97,9 @@ EndSection
 """ % settings)
     f.write (x.monitorSection ())
     f.write (x.deviceSection ())
-    x.modes["8"] = [ "640x480" ]
-    x.modes["16"] = [ "640x480" ]
     x.modes["32"] = [ "640x480" ]
+    x.modes["16"] = [ "640x480" ]
+    x.modes["8"] = [ "640x480" ]
     f.write (x.screenSection ())
     f.close ()
 
