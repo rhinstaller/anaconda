@@ -75,11 +75,8 @@ class Mouse (SimpleConfigFile):
 		("ms3", "IntelliMouse", "ttyS", 0, "msintelli"),
 	"Microsoft - IntelliMouse (PS/2)" :
 		("imps2", "IMPS/2", "psaux", 0, "msintellips/2"),
-
 	"Microsoft - IntelliMouse (USB)" :
 		("ps/2", "IMPS/2", "input/mice", 0, "msintelliusb"),
-        
-        
 	"Microsoft - Bus Mouse" :
 		("Busmouse", "BusMouse", "inportbm", 1, "msbm"),
 	"Mouse Systems - Mouse (serial)" :
@@ -89,7 +86,7 @@ class Mouse (SimpleConfigFile):
 	"MM - HitTablet (serial)" :
 		("MMHitTab", "MMHittab", "ttyS", 1, "mmhittab"),
         "None - None" :
-                ("none", "none", "null", 0, "none"),
+                ("none", "none", None, 0, "none"),
 	"Sun - Mouse":
 		("sun", "sun", "sunmouse", 0, "sun"),
 	}
@@ -129,7 +126,7 @@ class Mouse (SimpleConfigFile):
                 try:
                     f = open ('/dev/psaux')
                     f.write ('1')
-                    f.close
+                    f.close()
                 except:
                     pass
 
