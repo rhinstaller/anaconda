@@ -32,47 +32,33 @@ class LanguageSupportWindow (InstallWindow):
         self.running = 0
 
     def getNext (self):
-#        self.todo.language.setSupported (self.langs)
-#        self.todo.language.setByAbbrev (self.defaultLang)
-
         self.langs = []
         support_all = TRUE
 
         for row in range(self.maxrows):
             (val, row_data, header) = self.language.get_row_data (row)
-
             
             if val == 1:
-#                print "selected"
                 selected = self.language.get_text (row, 1)
                 self.langs.append (self.languages[selected])
             else:
-#                print "not selected"
                 support_all = FALSE
 
         if support_all == TRUE:
-#            print "Supporting all langs"
             self.langs = None
 
-
         self.defaultLang = self.languages[self.combo.entry.get_text()]        
-
-#        print "langs = ", self.langs
-#        print "self.defaultLang = ", self.defaultLang
-
+        self.todo.language.setTempDefault (self.defaultLang)
         self.todo.language.setSupported (self.langs)
         self.todo.language.setByAbbrev (self.defaultLang)
-
 
         return None
 
     def support_select_row (self, clist, event):
-#        print "support_select_row"
         list = []
         try:
             row, col  = self.language.get_selection_info (event.x, event.y)
             selected = self.language.get_text (row, 1)
-#            print "selected = ", selected
             self.toggle_row (row)
 
             for row in range(self.maxrows):
@@ -81,7 +67,6 @@ class LanguageSupportWindow (InstallWindow):
                     selected = self.language.get_text (row, 1)
                     list.append (selected)
             
-#            print len(list)        
             if len(list) == 0:
                 list = [""]
                 self.ics.setNextEnabled (FALSE)
@@ -92,17 +77,14 @@ class LanguageSupportWindow (InstallWindow):
 
             for row in range(self.maxrows):
                 if self.languages[self.language.get_text (row, 1)] == self.defaultLang:
-#                    print "self.defaultLang is ", self.defaultLang
                     default = self.language.get_text (row, 1)
                     index = list.index(default)
-#                    print "self.defaultLang is at index ", index
                     self.combo.list.select_item(index)
         except:
             pass
 
     def toggle_row (self, row):
         (val, row_data, header) = self.language.get_row_data(row)
-#        print val, row_data, header
         val = not val
         self.language.set_row_data(row, (val, row_data, header))
         self.language._update_row (row)
@@ -118,10 +100,8 @@ class LanguageSupportWindow (InstallWindow):
 
         for row in range(self.maxrows):
             if self.languages[self.language.get_text (row, 1)] == self.defaultLang:
-#                print "self.defaultLang is ", self.defaultLang
                 default = self.language.get_text (row, 1)
                 index = self.language_keys.index(default)
-#                print "self.defaultLang is at index ", index
                 self.combo.list.select_item(index)
 
     def reset (self, data):
@@ -133,32 +113,28 @@ class LanguageSupportWindow (InstallWindow):
             if selected == self.defaultLang:
                 self.language.set_row_data(row, (1, row_data, header))
                 self.language._update_row (row)
-
                 selected = self.language.get_text (row, 1)
                 list = []
                 list.append (selected)
                 self.combo.set_popdown_strings(list)
-#                index = list.index(selected)
-#                print index
-#                self.combo.list.select_item(index)
             else:
                 self.language.set_row_data(row, (0, row_data, header))
                 self.language._update_row (row)
 
-
     # LanguageSupportWindow tag="langsupport"
     def getScreen (self):
         self.langs = self.todo.language.getSupported()
+#        print "self.langs = ", self.langs
 
         self.lastLangs = self.langs
-#        print "Supported Langs are: ", self.langs
         self.sensitiveList = []
         self.running = 0
 
-        self.defaultLang = self.icw.getLanguage ()
-#        print "self.defaultLang", self.defaultLang
-#        self.defaultPosition = 0
-
+        if self.todo.language.getTempDefault () == "":
+            self.defaultLang = self.icw.getLanguage ()
+        else:
+            self.defaultLang = self.todo.language.getTempDefault ()
+            
  	self.language_keys = self.languages.keys ()
         self.language_keys.sort ()
 
@@ -169,8 +145,6 @@ class LanguageSupportWindow (InstallWindow):
         hbox.pack_start (label, FALSE, 20)
 
         self.combo = GtkCombo ()
-#        combo.set_popdown_strings (language_keys)
-
 
         hbox.pack_start (self.combo, FALSE, 20)
         vbox.pack_start (hbox, FALSE, 50)
@@ -195,96 +169,26 @@ class LanguageSupportWindow (InstallWindow):
         sel = 0
         for locale in self.language_keys:
             if self.languages[locale] == self.defaultLang or self.langs == None:
-#                print "here"
                 self.language.append_row((locale, ""), TRUE)
                 list.append(locale)
-                sel = comboCurr
+                
+                if self.languages[locale] == self.defaultLang:      #-
+                    sel = comboCurr
+                else:
+                    comboCurr = comboCurr + 1
             else:
                 try:
                     if self.langs.index(self.languages[locale]) >= 0:
                         self.language.append_row((locale, ""), TRUE)
                         list.append(locale)
-#                        print self.defaultLang, self.languages[locale]
                         comboCurr = comboCurr + 1
-
-
-#                    if self.langs.index(self.languages[locale]) >= 0:
-#                        self.language.append_row((locale, ""), TRUE)
-#                        list.append(locale)
-#                        comboCurr = comboCurr + 1
                 except:
                     self.language.append_row((locale, ""), FALSE)
                     
             self.maxrows = self.maxrows + 1
             
         self.combo.set_popdown_strings (list)
-#        print sel
         self.combo.list.select_item(sel)
-#        self.combo.list.select_item(comboCurr)
-
-
-
-
-
-
-#        for locale in self.language_keys:
-#            print locale
-#            if self.langs == []:
-#                print "ALL :", self.languages
-#                self.language.append_row((locale, ""), TRUE)
-
-#                for locale2 in self.language_keys:
-#                    list.append(locale2)
-#                list.append (locale)
-
-#                self.combo.set_popdown_strings (list)
-
-#                if self.languages[locale] == self.defaultLang:
-#                    print "dddddddd", locale
-
-#                    print self.language_keys.index(self.languages[locale])
-#                    index = self.language_keys.index(locale)
-#                    print self.language_keys
-#                    print index
-#                    self.combo.list.select_item(5)
-
-#                    except:
-#                        pass
-                
-#                index = self.languages[self.defaultLang]
-
-#                self.combo.list.select_item(index)
-
-
-#            elif self.languages[locale] == self.defaultLang:
-#                print "B"
-#                self.language.append_row((locale, ""), TRUE)
-#                list.append (locale)
-#                self.combo.set_popdown_strings (list)
-#            else:
-#                print "C"
-#                try:
-#                    print self.lastLangs.index(self.languages[locale])
-#                    self.language.append_row((locale, ""), TRUE)
-#                    list.append (locale)
-#                    self.combo.set_popdown_strings (list)
-#                except:
-#                    self.language.append_row((locale, ""), FALSE)
-
-#            self.combo.set_popdown_strings (list)
-#            print self.defaultLang
-            
-#            if self.languages[locale] == self.defaultLang:
-#                print "dddddddd", self.lastLangs
-#                try:
-#                    print self.lastLangs.index(self.languages[locale])
-#                    index = self.lastLangs.index(self.languages[locale])
-#                    self.combo.list.select_item(index)
-#                except:
-#                    pass
-            
-#            self.maxrows = self.maxrows + 1
-
 
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -316,13 +220,11 @@ class LanguageSupportWindow (InstallWindow):
         button = GtkButton (_("Select as default"))
         alignment.add (button)
 
-
         self.running = 1
 
-        # set up initial state
-#        self.allToggled (self.supportAll)
-
         return vbox
-#        return table
+
+
+
 
 
