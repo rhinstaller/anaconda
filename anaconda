@@ -298,8 +298,14 @@ from flags import flags
 from anaconda_log import anaconda_log
 
 from rhpl.log import log
-from rhpl.translate import _, textdomain
+from rhpl.translate import _, textdomain, addPoPath
 
+if os.path.isdir("/mnt/source/RHupdates/po"):
+    log("adding RHupdates/po")
+    addPoPath("/mnt/source/RHupdates/po")
+if os.path.isdir("/tmp/updates/po"):
+    log("adding /tmp/updates/po")    
+    addPoPath("/tmp/updates/po")
 textdomain("anaconda")
 
 # reset python's default SIGINT handler

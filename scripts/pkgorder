@@ -88,7 +88,12 @@ def runTsAndOutput(pkglist):
     ts.setVSFlags(~(rpm.RPMVSF_NORSA|rpm.RPMVSF_NODSA))
     ts.setFlags(rpm.RPMTRANS_FLAG_ANACONDA)
 
+    done = []
     for item in pkglist:
+        # make sure we don't double add package names
+        if item.hdr['name'] in done:
+            continue
+        done.append(item.hdr['name'])
 #        print >> sys.stderr, "adding %s" %(item.name,)
         ts.addInstall(item.hdr, item.hdr, "i")
 
