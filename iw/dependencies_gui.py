@@ -52,7 +52,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
         list.freeze ()
         for (name, suggest) in self.deps:
             list.append ((name, suggest))
-	list.columns_autosize ()
+        list.set_column_width(0, 160)
         list.thaw ()
         sw.add (list)
 
