@@ -616,26 +616,27 @@ class Partitions:
                 return [ bootreq ]
             else:
                 return None
-        elif iutil.getPPCMachine() == "PMac":
-            for req in self.requests:
-                if req.fstype == fsset.fileSystemTypeGet("Apple Bootstrap"):
-                    return [ req ]
-            return None
         elif iutil.getPPCMachine() == "iSeries":
             for req in self.requests:
                 if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
                     return [ req ]
             return None
-        elif iutil.getPPCMachine() == "pSeries":
-            # pSeries bootable requests are odd.
-            # have to consider both the PReP partition (with potentially > 1
-            # existing) as well as /boot,/
+        elif (iutil.getPPCMachine() == "pSeries" or
+              iutil.getPPCMachine() == "PMac"):
+            # pSeries and Mac bootable requests are odd.
+            # have to consider both the PReP or Bootstrap partition (with
+            # potentially > 1 existing) as well as /boot,/
 
+            if iutil.getPPCMachine() == "pSeries":
+                boottype = "PPC PReP Boot"
+            else
+                boottype = "Apple Bootstrap"
+            
             # for the prep partition, we want either the first or the
             # first non-preexisting one
             bestprep = None
             for req in self.requests:
-                if req.fstype == fsset.fileSystemTypeGet("PPC PReP Boot"):
+                if req.fstype == fsset.fileSystemTypeGet(boottype):
                     if ((bestprep is None) or
                         (bestprep.getPreExisting() and
                          not req.getPreExisting())):
