@@ -541,7 +541,7 @@ class x86BootloaderInfo(bootloaderInfo):
         if not self.useLinear:
             args.append("--nolinear")
         if self.password:
-            args.append("--md5pass=%s" %(password))
+            args.append("--md5pass=%s" %(self.password))
         
         
         # XXX add location of bootloader here too
