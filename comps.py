@@ -69,8 +69,11 @@ class Package:
 		if not comp.isSelected(justManual = 0):
 		    on = 0
                 else:
-                    if not comp.set.exprMatch (comp.pkgDict[self]):
+                    if comp.pkgDict[self] != None:
                         on = 0
+                        for expr in comp.pkgDict[self]:
+                            if comp.set.exprMatch (expr):
+                                on = 1
 	    if on: 
 		self.selected = 1
 
@@ -230,9 +233,15 @@ class Component:
 	self.pkgDict[p] = None
 
     def addPackageWithExpression(self, expr, p):
-	self.pkgs.append(p)
-	p.addSelectionChain([self])
-	self.pkgDict[p] = expr
+        if not self.pkgDict.has_key (p):
+            self.pkgDict[p] = [ expr ]
+            self.pkgs.append(p)
+            p.addSelectionChain([self])
+        else:
+            if type (self.pkgDict[p]) == type ([]):
+                self.pkgDict[p].append (expr)
+            else:
+                self.pkgDict[p] = [ expr ]
 
     def addConditionalPackage(self, condComponent, p):
 	self.pkgs.append(p)
@@ -318,21 +327,32 @@ class ComponentSet:
 	return self.compsDict.keys()
 
     def exprMatch(self, expr, tags = [ "lang", "arch" ]):
+        theTags = []
+        for tag in tags:
+            theTags.append(tag)
+
         # no expression == true
         if not expr:
             return 1
 
         # XXX preserve backwards compatible behavior
-        if self.allLangs and "lang" in tags:
-            tags.remove ("lang")
+        if self.allLangs and "lang" in theTags:
+            theTags.remove ("lang")
 
-	if os.environ.has_key('LINGUAS'):
-            langs = split (os.environ['LINGUAS'], ':')
-        else:
-            if os.environ.has_key('LANG'):
-                langs = [ os.environ['LANG'] ]
+        if "lang" in theTags:
+            if os.environ.has_key('LINGUAS'):
+                langs = split (os.environ['LINGUAS'], ':')
+                if len (langs) == 1 and not langs[0]:
+                    langs = None
             else:
-                langs = []
+                if os.environ.has_key('LANG'):
+                    langs = [ os.environ['LANG'] ]
+                else:
+                    langs = None
+
+            if langs == None:
+                # no languages specified, install them all
+                theTags.remove ("lang")
 
 	if expr[0] != '(':
 	    raise ValueError, "leading ( expected"
@@ -347,7 +367,7 @@ class ComponentSet:
 	    l = split(expr)
 
             if l[0] == "lang":
-                if tags and "lang" not in tags:
+                if theTags and "lang" not in theTags:
                     newTruth = 1
                 else:
 		    #print "check", l, "in", langs
@@ -358,7 +378,7 @@ class ComponentSet:
                     else:
                         newTruth = l[1] in langs
 	    elif l[0] == "arch":
-                if tags and "arch" not in tags:
+                if theTags and "arch" not in theTags:
                     newTruth = 1
                 if len(l) != 2:
                     raise ValueError, "too many arguments for arch"
