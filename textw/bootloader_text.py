@@ -279,7 +279,6 @@ class BootloaderImagesWindow:
 
 	sortedKeys = images.keys()
 	sortedKeys.sort()
-        print sortedKeys
 
 	for dev in sortedKeys:
 	    (label, longlabel, isRoot) = images[dev]
