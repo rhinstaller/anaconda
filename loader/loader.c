@@ -1438,7 +1438,7 @@ static char * doMountImage(char * location,
 # else
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
-    if (!networkAvailable && !FL_EXPERT(flags)) {
+    if (!FL_EXPERT(flags)) {
 # endif
 	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDepsPtr,
 			 flags, 1, 1);
