@@ -2227,13 +2227,11 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     /* loop thru cards, see if we need agpgart */
-/*    for (p = devices[0]; p; p++) {*/
     for (i=0; devices[i]; i++) {
 	p = devices[i];
 	logMessage("found video card controller %s", p->driver);
 
     /* HACK - need to have list of cards which match!! */
-#if 0
 	if (!strcmp(p->driver, "Card:Intel 810")) {
 	    logMessage("found i810 card requiring agpgart, loading module");
 	    
@@ -2247,7 +2245,6 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
 	    }
 
 	}
-#endif
     }
 
     return 0;
@@ -2363,13 +2360,8 @@ int main(int argc, char ** argv) {
        a system w/o USB keyboard support, which would be bad. */
     usbInitialize(modLoaded, modDeps, modInfo, flags);
 
-    printf("1\n"); sleep(2);
-
-
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
-
-    printf("2\n"); sleep(2);
 
     if (FL_KSFLOPPY(flags)) {
 	startNewt(flags);
