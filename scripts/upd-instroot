@@ -116,7 +116,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 anaconda-runtime kudzu hwdata bzip2 beecrypt
 	 bzip2-libs dosfstools pciutils reiserfs-utils parted sed
 	 busybox-anaconda rpm-python booty hdparm lvm2 beecrypt device-mapper
-	 rhpl pyxf86config libxml2 libxml2-python glib2
+	 rhpl pyxf86config libxml2 libxml2-python glib2 sqlite3 neon
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl bogl-devel yum
          policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
@@ -351,7 +351,10 @@ usr/$LIBDIR/libnewt*
 usr/$LIBDIR/libparted*
 usr/$LIBDIR/libpopt*
 usr/$LIBDIR/libpython*
+usr/$LIBDIR/libneon*
+usr/$LIBDIR/libsqlite3*
 usr/$LIBDIR/librpm-*4.?.so*
+usr/$LIBDIR/librpmbuild-*4.?.so*
 usr/$LIBDIR/librpmdb*4.?.so*
 usr/$LIBDIR/librpmio*4.?.so*
 usr/$LIBDIR/libslang*
