@@ -20,8 +20,16 @@ prepareBootImage() {
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
 	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
 	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
+	    if [ $? != 0 ]; then
+		echo $0: Failed to copy messages from $BOOTDISKDIR/$BOOTLANG to $MBD_BOOTTREE.
+		exit 1
+	    fi
 	else
 	    cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+	    if [ $? != 0 ]; then
+		echo $0: Failed to copy messages from $BOOTDISKDIR to $MBD_BOOTTREE.
+		exit 1
+	    fi
 	fi
 }
 
