@@ -222,8 +222,6 @@ class Fstab:
 	if self.swapOn: return
 	self.swapOn = 1
 
-	print "turning on swap", self.swapList()
-
 	iutil.mkdirChain('/tmp/swap')
 
 	for (device, doFormat) in self.swapList():
@@ -353,7 +351,7 @@ class Fstab:
 	    w.pop()
         
 	    # XXX remove extraneous inodes here
-	    print "created raid"
+#	    print "created raid"
 
         if not self.setupFilesystems: return
 
