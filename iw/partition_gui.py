@@ -16,8 +16,8 @@
 from iw_gui import *
 from gtk import *
 from GDK import *
-import GdkImlib
 from gnome.ui import *
+from gnome.util import *
 from translate import _, N_
 from partitioning import *
 from fsset import *
@@ -462,39 +462,31 @@ class PartitionWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
         ics.setTitle (_("Disk Setup"))
-        ics.setNextEnabled (FALSE)
+        ics.setNextEnabled (TRUE)
         ics.readHTML("partition")
         self.parent = ics.getICW().window
 
     def quit(self):
         pass
 
-    def presentPartitioningComments(self, type, comments):
-        if type == "errors":
-            win = GnomeDialog(_("Partitioning Errors"))
+    def presentPartitioningComments(self, type,
+                                    title, labelstr1, labelstr2, comments):
+        win = GnomeDialog(title)
+        
+        if type == "ok":
             win.append_button(_("OK"))
-
-            labelstr1 =  _("The following critical errors exist "
-                           "with your requested partitioning "
-                           "scheme.")
-            labelstr2 = _("These errors must be corrected prior "
-                          "to continuing with your install of "
-                          "Red Hat Linux.")
-        else:
-            win = GnomeDialog(_("Partitioning Warnings"))
+        elif type == "yesno":
             win.append_button(_("Yes"))
             win.append_button(_("No"))
 
-            labelstr1 = _("The following warnings exist with "
-                         "your requested partition scheme.")
-            labelstr2 = _("Would you like to continue with "
-                         "your requested partitioning "
-                         "scheme?")
-            
+        hbox = GtkHBox(FALSE)
+        file = pixmap_file('gnome-warning.png')
+        if file:
+            hbox.pack_start(GnomePixmap(file), FALSE)
+
         win.connect ("clicked", self.quit)
-        commentstr = string.join(comments, "\n\n")
         textbox = GtkText()
-        textbox.insert_defaults (commentstr)
+        textbox.insert_defaults (comments)
         textbox.set_word_wrap(1)
         textbox.set_editable(0)
         
@@ -510,11 +502,14 @@ class PartitionWindow(InstallWindow):
         info2.set_line_wrap(TRUE)
         info2.set_usize(300, -1)
         
-        win.vbox.pack_start(info1, FALSE)
-        win.vbox.pack_start(sw, TRUE)
-        win.vbox.pack_start(info2, FALSE)
+        vbox = GtkVBox(FALSE)
+        vbox.pack_start(info1, FALSE)
+        vbox.pack_start(sw, TRUE)
+        vbox.pack_start(info2, FALSE)
+        hbox.pack_start(vbox, FALSE)
 
-        win.set_usize(350,300)
+        win.vbox.pack_start(hbox)
+        win.set_usize(400,300)
         win.set_position(WIN_POS_CENTER)
         win.show_all()
         rc = win.run()
@@ -522,16 +517,63 @@ class PartitionWindow(InstallWindow):
         return not rc
         
     def getNext(self):
-        (errors, warnings) = sanityCheckAllRequests(self.partitions, self.diskset)
+        (errors, warnings) = sanityCheckAllRequests(self.partitions,
+                                                    self.diskset)
 
         if errors:
-            rc = self.presentPartitioningComments("errors", errors)
+            labelstr1 =  _("The following critical errors exist "
+                           "with your requested partitioning "
+                           "scheme.")
+            labelstr2 = _("These errors must be corrected prior "
+                          "to continuing with your install of "
+                          "Red Hat Linux.")
+
+            commentstr = string.join(errors, "\n\n")
+
+            rc = self.presentPartitioningComments("ok",
+                                                  _("Partitioning Errors"),
+                                                  labelstr1, labelstr2,
+                                                  commentstr)
             raise gui.StayOnScreen
         
         if warnings:
-            rc = self.presentPartitioningComments("warnings", warnings)
+            labelstr1 = _("The following warnings exist with "
+                         "your requested partition scheme.")
+            labelstr2 = _("Would you like to continue with "
+                         "your requested partitioning "
+                         "scheme?")
+            
+            commentstr = string.join(warnings, "\n\n")
+            rc = self.presentPartitioningComments("yesno",
+                                                  _("Partitioning Warnings"),
+                                                  labelstr1, labelstr2,
+                                                  commentstr)
             if rc != 1:
                 raise gui.StayOnScreen
+
+        formatWarnings = getPreExistFormatWarnings(self.partitions,
+                                                   self.diskset)
+        if formatWarnings:
+            labelstr1 = _("The following pre-existing partitions have been "
+                          "selected to be formatted, destroying all data.")
+
+            labelstr2 = _("Selected 'Yes' to continue and format these "
+                          "partitions, or 'No' to go back and change these "
+                          "settings.")
+
+            commentstr = ""
+            for (dev, type, mntpt) in formatWarnings:
+                commentstr = commentstr +
+                        "/dev/%s         %s         %s\n" % (dev,type,mntpt)
+
+            commentstr = string.join(formatWarnings, "\n")
+            rc = self.presentPartitioningComments("yesno",
+                                                  _("Format Warnings"),
+                                                  labelstr1, labelstr2,
+                                                  commentstr)
+            if rc != 1:
+                raise gui.StayOnScreen
+
         
         self.diskStripeGraph.shutDown()
         self.tree.freeze()
@@ -545,14 +587,7 @@ class PartitionWindow(InstallWindow):
         self.clearTree()
         del self.parent
         return None
-
-    def checkNextConditions(self):
-        request = self.partitions.getRequestByMountPoint("/")
-        if request:
-            self.ics.setNextEnabled(TRUE)
-        else:
-            self.ics.setNextEnabled(FALSE)
-        
+    
     def populate (self, initial = 0):
         drives = self.diskset.disks.keys()
         drives.sort()
@@ -1126,9 +1161,9 @@ class PartitionWindow(InstallWindow):
                                             "%s" % (err))
                     continue
 
-                if not origrequest.format and request.format:
-                    if not queryFormatPreExisting(self.intf):
-                        continue
+#                if not origrequest.format and request.format:
+#                    if not queryFormatPreExisting(self.intf):
+#                        continue
 
                 if not request.format and request.mountpoint and isFormatOnByDefault(request):
                     if not queryNoFormatPreExisting(self.intf):
@@ -1212,8 +1247,6 @@ class PartitionWindow(InstallWindow):
 
         self.populate()
         self.tree.thaw()
-        self.checkNextConditions()
-
         return rc
 
     def editCb(self, widget):
@@ -1470,7 +1503,6 @@ class PartitionWindow(InstallWindow):
         
         # do the initial population of the tree and the graph
         self.populate (initial = 1)
-        self.checkNextConditions()
 
         box = GtkVBox(FALSE, 5)
         sw = GtkScrolledWindow()

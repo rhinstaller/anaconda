@@ -743,9 +743,9 @@ class PartitionWindow:
                                             "%s" % (err))
                     continue
 
-                if not origrequest.format and request.format:
-                    if not queryFormatPreExisting(self.intf):
-                        continue
+#                if not origrequest.format and request.format:
+#                    if not queryFormatPreExisting(self.intf):
+#                        continue
 
                 if not request.format and request.mountpoint and isFormatOnByDefault(request):
                     if not queryNoFormatPreExisting(self.intf):
@@ -967,12 +967,19 @@ class PartitionWindow:
                         _("Must have a / partition to install on."))
                     continue
                 
-                (errors, warnings) = sanityCheckAllRequests(self.partitions, self.diskset)
+                (errors, warnings) = sanityCheckAllRequests(self.partitions,
+                                                            self.diskset)
                 rc = partitionSanityErrors(self.intf, errors)
                 if rc != 1:
                     continue
         
                 rc = partitionSanityWarnings(self.intf, warnings)
+                if rc != 1:
+                    continue
+
+                warnings = getPreExistFormatWarnings(self.partitions,
+                                                     self.diskset)
+                rc = partitionPreExistFormatWarnings(self.intf, warnings)
                 if rc != 1:
                     continue
 

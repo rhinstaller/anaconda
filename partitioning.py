@@ -592,6 +592,35 @@ def sanityCheckAllRequests(requests, diskset, baseChecks = 0):
 
     return (errors, warnings)
 
+# create nice text formatted list of pre-existing partitions which will be
+# formatted
+def getPreExistFormatWarnings(partitions, diskset):
+
+    devs = []
+    for request in partitions.requests:
+        if request.type == REQUEST_PREEXIST and request.device:
+            devs.append(request.device)
+
+    devs.sort()
+    
+    rc = []
+    for dev in devs:
+        request = partitions.getRequestByDeviceName(dev)
+        if request.format:
+            if request.fstype.isMountable():
+                mntpt = request.mountpoint
+            else:
+                mntpt = ""
+                
+            rc.append((request.device, request.fstype.getName(), mntpt))
+
+    if len(rc) == 0:
+        return None
+    else:
+        return rc
+            
+
+
 # add delete specs to requests for all logical partitions in part
 def deleteAllLogicalPartitions(part, requests):
     for partition in get_logical_partitions(part.geom.disk):
@@ -1684,6 +1713,24 @@ def partitionSanityWarnings(intf, warnings):
                                        "your requested partitioning "
                                        "scheme?") % (warningstr),
                                      type="yesno")
+    return rc
+
+def partitionPreExistFormatWarnings(intf, warnings):
+    rc = 1
+    if warnings:
+
+        labelstr1 = _("The following pre-existing partitions have been "
+                      "selected to be formatted, destroying all data.")
+
+        labelstr2 = _("Selected 'Yes' to continue and format these "
+                      "partitions, or 'No' to go back and change these "
+                      "settings.")
+        commentstr = ""
+        for (dev, type, mntpt) in warnings:
+            commentstr = commentstr + "/dev/%s %s %s\n" % (dev,type,mntpt)
+        rc = intf.messageWindow(_("Format Warning"), "%s\n\n%s\n\n%s" %
+                                (labelstr1, labelstr2, commentstr),
+                                type="yesno")
     return rc
 
 # XXX is this all of the possibilities?
