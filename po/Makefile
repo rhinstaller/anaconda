@@ -13,7 +13,7 @@ FMTCATALOGS = $(patsubst %.po,%.mo,$(POS))
 
 POTFILES = ../anaconda ../*.py ../iw/*.py ../textw/*.py \
            ../installclasses/*.py \
-           ../libfdisk/*.c ../loader/*.c \
+           ../loader/*.c \
            ../gnome-map/*.c \
 
 NONPOTFILES = ../comps/comps-master \
