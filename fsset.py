@@ -701,7 +701,7 @@ class NTFSFileSystem(FileSystemType):
         self.checked = 0
         self.name = "ntfs"
 
-fileSystemTypeRegister(FATFileSystem())
+fileSystemTypeRegister(NTFSFileSystem())
 
 class ForeignFileSystem(FileSystemType):
     def __init__(self):
