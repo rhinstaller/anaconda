@@ -616,16 +616,22 @@ class Fstab:
 	#self.shouldRunDruid = 0
 
 class GuiFstab(Fstab):
+    def accel (self, widget, area):
+        self.accelgroup = self.GtkAccelGroup (_obj = widget.get_data ("accelgroup"))
+        self.toplevel = widget.get_toplevel()
+        self.toplevel.add_accel_group (self.accelgroup)
 
     def runDruid(self, callback):
         self.ddruid.setCallback (callback)
-
         bin = self.GtkFrame (None, _obj = self.ddruid.getWindow ())
+        bin.connect ("draw", self.accel)
         bin.set_shadow_type (self.SHADOW_NONE)
         self.ddruid.edit ()
 	return bin
 
     def runDruidFinished(self):
+        if self.accelgroup:
+            self.toplevel.remove_accel_group (self.accelgroup)        
 	self.ddruid.next ()
 	self.updateFsCache()
 	# yikes! this needs to be smarter
@@ -640,7 +646,9 @@ class GuiFstab(Fstab):
 		       readOnly, waitWindow, messageWindow)
 
 	self.GtkFrame = GtkFrame
+        self.GtkAccelGroup = GtkAccelGroup
 	self.SHADOW_NONE = SHADOW_NONE
+        self.accelgroup = None
 
 class NewtFstab(Fstab):
 
