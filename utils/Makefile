@@ -30,6 +30,7 @@ install: all
 	install -m755 -s moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 -s filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 -s modlist $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 -s checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
 
 #
 # removed genhdlist from clean line so it will be distributed on CDROM image
