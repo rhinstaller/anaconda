@@ -49,6 +49,7 @@
 #include "lang.h"
 #include "getmacaddr.h"
 #include "wireless.h"
+#include "eddsupport.h"
 
 #ifndef CDROMEJECT
 #define CDROMEJECT 0x5309
@@ -111,6 +112,8 @@ static PyObject * doGetMacAddress(PyObject * s, PyObject * args);
 static PyObject * doGetIPAddress(PyObject * s, PyObject * args);
 static PyObject * doResetFileContext(PyObject * s, PyObject * args);
 static PyObject * isWireless(PyObject * s, PyObject * args);
+static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args);
+static PyObject * doGetBiosDisk(PyObject * s, PyObject * args); 
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -168,6 +171,8 @@ static PyMethodDef isysModuleMethods[] = {
     { "getIPAddress", (PyCFunction) doGetIPAddress, METH_VARARGS, NULL},
     { "resetFileContext", (PyCFunction) doResetFileContext, METH_VARARGS, NULL },
     { "isWireless", (PyCFunction) isWireless, METH_VARARGS, NULL },
+    { "biosDiskProbe", (PyCFunction) doProbeBiosDisks, METH_VARARGS,NULL},
+    { "getbiosdisk",(PyCFunction) doGetBiosDisk, METH_VARARGS,NULL},
     { NULL }
 } ;
 
@@ -1434,4 +1439,22 @@ static PyObject * start_bterm(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     return Py_BuildValue("i", isysStartBterm());
+}
+
+static PyObject * doProbeBiosDisks(PyObject * s, PyObject * args) {
+    if (!PyArg_ParseTuple(args, "")) return NULL;
+
+
+    return Py_BuildValue("i", probeBiosDisks());
+}
+
+static PyObject * doGetBiosDisk(PyObject * s, PyObject * args) {
+    char *mbr_sig;
+    char *diskname;
+            
+    if (!PyArg_ParseTuple(args, "s", &mbr_sig)) return NULL;
+
+    diskname = getBiosDisk(mbr_sig);
+    return Py_BuildValue("s", diskname);
+
 }

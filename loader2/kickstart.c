@@ -330,6 +330,10 @@ void getKickstartFile(struct loaderData_s * loaderData, int * flagsPtr) {
         if (kickstartFromHD(c, *flagsPtr)) 
             return;
         loaderData->ksFile = strdup("/tmp/ks.cfg");
+    } else if (!strncmp(c, "ks=bd:", 6)) {
+        if (kickstartFromBD(c, *flagsPtr))
+            return;
+        loaderData->ksFile = strdup("/tmp/ks.cfg");
     } else if (!strncmp(c, "ks=cdrom", 8)) {
         if (kickstartFromCD(c, *flagsPtr)) 
             return;

@@ -1,10 +1,11 @@
 #
-# isys.py - installer utilitiy functions and glue for C module
+# isys.py - installer utility functions and glue for C module
 #
 # Matt Wilson <msw@redhat.com>
 # Erik Troan <ewt@redhat.com>
+# Jeremy Katz <katzj@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2001 - 2004 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -723,6 +724,13 @@ def resetFileContext(fn):
 
 def startBterm():
     return _isys.startBterm()
+
+def doProbeBiosDisks():
+    return _isys.biosDiskProbe()
+
+def doGetBiosDisk(mbrSig):
+    return _isys.getbiosdisk(mbrSig)
+
 
 printObject = _isys.printObject
 bind_textdomain_codeset = _isys.bind_textdomain_codeset

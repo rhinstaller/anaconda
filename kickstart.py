@@ -1138,7 +1138,7 @@ class KickstartBase(BaseInstallClass):
                                         'type=', 'fstype=', 'asprimary',
                                         'noformat', 'start=', 'end=',
                                         'badblocks', 'recommended',
-                                        'ondrive='])
+                                        'ondrive=', 'onbiosdisk=' ])
 
 	for n in args:
 	    (str, arg) = n
@@ -1152,6 +1152,10 @@ class KickstartBase(BaseInstallClass):
 		onPart = arg
 	    elif str == '--ondisk' or str == '--ondrive':
 		disk = arg
+            elif str == '--onbiosdisk':
+                disk = isys.doGetBiosDisk(arg)
+                if disk is None:
+                    raise KickstartValueError, "Specified BIOS disk %s cannot be determined" %(arg,)
             elif str == '--bytes-per-inode':
                 fsopts = ['-i', arg]
             # XXX this doesn't do anything right now

@@ -40,7 +40,7 @@
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
-
+#include "../isys/eddsupport.h"
 
 
 /* pull in second stage image for hard drive install */
@@ -447,14 +447,17 @@ char * mountHardDrive(struct installMethod * method,
 
 void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
-    char *partition, *dir;
+    char *biospart, *partition, *dir, *p;
     poptContext optCon;
     int rc;
+
     struct poptOption ksHDOptions[] = {
+        { "biospart", '\0', POPT_ARG_STRING, &biospart, 0 },
         { "partition", '\0', POPT_ARG_STRING, &partition, 0 },
         { "dir", '\0', POPT_ARG_STRING, &dir, 0 },
         { 0, 0, 0, 0, 0 }
     };
+  
 
     logMessage("kickstartFromHD");
     optCon = poptGetContext(NULL, argc, (const char **) argv, ksHDOptions, 0);
@@ -466,6 +469,24 @@ void setKickstartHD(struct loaderData_s * loaderData, int argc,
                        poptBadOption(optCon, POPT_BADOPTION_NOALIAS), 
                        poptStrerror(rc));
         return;
+    }
+
+    if (biospart) {
+        char * dev;
+
+        p = strchr(biospart,'p');
+        if(!p){
+            logMessage("Bad argument for --biospart");
+            return;
+        }
+        *p = '\0';
+        dev = getBiosDisk(biospart);
+        if (dev == NULL) {
+            logMessage("Unable to location BIOS partition %s", biospart);
+            return;
+        }
+        partition = malloc(strlen(dev) + strlen(p) + 2);
+        sprintf(partition, "%s%s", dev, p);
     }
 
     loaderData->method = strdup("hd");
@@ -506,6 +527,62 @@ int kickstartFromHD(char *kssrc, int flags) {
     ksdev = p+1;
     kspath = q+1;
 
+    logMessage("Loading ks from device %s on path %s", ksdev, kspath);
+    if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
+	if (rc == 3) {
+	    startNewt(flags);
+	    newtWinMessage(_("Error"), _("OK"),
+			   _("Cannot find kickstart file on hard drive."));
+	}
+	return 1;
+    }
+
+    return 0;
+}
+
+
+int kickstartFromBD(char *kssrc, int flags) {
+    int rc;
+    char *p, *q = NULL, *r = NULL, *tmpstr, *ksdev, *kspath, *biosksdev;
+
+    logMessage("getting kickstart file from biosdrive");
+
+    /* format is ks=bd:[device]:/path/to/ks.cfg */
+    /* split of pieces */
+    tmpstr = strdup(kssrc);
+    p = strchr(tmpstr, ':');
+    if (p)
+	q = strchr(p+1, ':');
+    
+    if (!p || !q) {
+	logMessage("Format of command line is ks=bd:device:/path/to/ks.cfg");
+	free(tmpstr);
+	return 1;
+    }
+
+    *q = '\0';
+    kspath = q+1;
+
+    r = strchr(p+1,'p');
+    if(!r){
+        logMessage("Format of biosdisk is 80p1");
+        free(tmpstr);
+        return 1;
+    }                                                          
+
+    *r = '\0';
+    biosksdev = getBiosDisk((p + 1));
+    if(!biosksdev){
+        startNewt(flags);
+        newtWinMessage(_("Error"), _("OK"),
+                       _("Cannot find hard drive for BIOS disk %s"),
+                       p + 1);
+        return 1;
+    }
+
+
+    ksdev = malloc(strlen(biosksdev) + 3);
+    sprintf(ksdev, "%s%s", biosksdev, r + 1);
     logMessage("Loading ks from device %s on path %s", ksdev, kspath);
     if ((rc=getKickstartFromBlockDevice(ksdev, kspath))) {
 	if (rc == 3) {
