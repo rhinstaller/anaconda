@@ -530,7 +530,7 @@ class PartitionSpec:
         return "mountpoint: %s   type: %s   uniqueID:%s\n" %(self.mountpoint, fsname, self.uniqueID) +\
                "  size: %sM   requestSize: %sM  grow: %s   max: %s\n" %(self.size, self.requestSize, self.grow, self.maxSize) +\
                "  start: %s   end: %s   partnum: %s\n" %(self.start, self.end, self.partnum) +\
-               "  drive: %s   primary: %s  secondary: %s\n" %(self.drive, self.primary, self.secondary) +\
+               "  drive: %s   primary: %s  \n" %(self.drive, self.primary) +\
                "  format: %s, options: %s" %(self.format, self.options) +\
                "  device: %s, realDevice: %s\n" %(self.device, self.realDevice)+\
                "  raidlevel: %s" % (self.raidlevel)+\
