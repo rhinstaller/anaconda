@@ -792,8 +792,7 @@ static PyObject * setcurrent (tzObject * o, PyObject * args) {
     
     set_selection (o->mapdata, index, TRUE);
 
-    Py_INCREF(Py_None);
-    return Py_None;
+    return Py_BuildValue("i", index);
 }
 
 
