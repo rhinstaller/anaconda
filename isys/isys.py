@@ -12,6 +12,9 @@ def spaceAvailable(device, fsystem = "ext2"):
     umount("/mnt/space")
     return space
 
+def fsSpaceAvailable(fsystem):
+    return _isys.devSpaceFree(fsystem)
+
 def raidstop(mdDevice):
     makeDevInode(mdDevice, "/tmp/md")
     fd = os.open("/tmp/md", os.O_RDONLY)
