@@ -263,12 +263,13 @@ class MessageWindow:
     def getrc (self):
         return self.rc
     
-    def __init__ (self, title, text, type="ok", default=None):
+    def __init__ (self, title, text, type="ok", default=None, custom_buttons=None):
         if flags.autostep:
             print title, text, type
             self.rc = 1
             return
         self.rc = None
+	docustom = 0
         if type == 'ok':
             buttons = gtk.BUTTONS_OK
             style = gtk.MESSAGE_INFO
@@ -281,25 +282,44 @@ class MessageWindow:
         elif type == 'yesno':
             buttons = gtk.BUTTONS_YES_NO
             style = gtk.MESSAGE_QUESTION
+	elif type == 'custom':
+	    docustom = 1
+	    buttons = gtk.BUTTONS_NONE
+	    style = gtk.MESSAGE_QUESTION
 
-        dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
+	dialog = gtk.MessageDialog(mainWindow, 0, style, buttons, text)
 
-        if default == "no":
-            dialog.set_default_response(0)
-        elif default == "yes" or default == "ok":
-            dialog.set_default_response(1)
-        else:
-            dialog.set_default_response(0)
+	if docustom:
+	    rid=0
+	    for button in custom_buttons:
+		widget = dialog.add_button(button, rid)
+		rid = rid + 1
+
+	    dialog.set_default_response(len(custom_buttons)-1)
+#	    widget.set_flags(gtk.CAN_DEFAULT)
+#	    widget.grab_default()
+	else:
+	    if default == "no":
+		dialog.set_default_response(0)
+	    elif default == "yes" or default == "ok":
+		dialog.set_default_response(1)
+	    else:
+		dialog.set_default_response(0)
 
         addFrame(dialog)
         dialog.set_position (gtk.WIN_POS_CENTER)
         dialog.show_all ()
         rc = dialog.run()
+
         if rc == gtk.RESPONSE_OK or rc == gtk.RESPONSE_YES:
             self.rc = 1
         elif (rc == gtk.RESPONSE_CANCEL or rc == gtk.RESPONSE_NO
             or rc == gtk.RESPONSE_CLOSE):
             self.rc = 0
+	elif rc == gtk.RESPONSE_DELETE_EVENT:
+	    self.rc = 0
+	else:
+	    self.rc = rc
         dialog.destroy()
     
 class InstallInterface:
@@ -329,8 +349,8 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text, type="ok", default = None):
-        rc = MessageWindow (title, text, type, default).getrc()
+    def messageWindow(self, title, text, type="ok", default = None, custom_buttons=None):
+        rc = MessageWindow (title, text, type, default, custom_buttons).getrc()
         return rc
 
     def exceptionWindow(self, title, text):
