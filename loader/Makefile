@@ -115,32 +115,32 @@ loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	-lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-	-lpump -lbz2 -lz -lresolv -lnewt -lslang -lpci
+	-lpump -lbz2 -lz -lresolv -lnewt ../minislang/libslang.a -lpci
 
 loader-local: loader-local.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L ../stubs -lz -lresolv -lnewt -lslang -lpci
+        -L ../stubs -lz -lresolv -lnewt ../minislang/libslang.a -lpci
 
 loader-local-kon: loader-local-kon.o $(OBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -L ../stubs -lz -lresolv -lnewt -lslang -lpci \
+        -L ../stubs -lz -lresolv -lnewt ../minislang/libslang.a -lpci \
 	$(KONOBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -lpump -lbz2 -lz -lresolv -lnewt ../minislang/libslang.a -lpci
 
 loader-network-kon: loader-net-kon.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt -lslang -lpci \
+        -lpump -lbz2 -lz -lresolv -lnewt ../minislang/libslang.a -lpci \
 	$(KONOBJS)
 
 loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
@@ -149,7 +149,7 @@ loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt -lslang -lpci
+        -lpump -lbz2 -lz -lresolv -lnewt ../minislang/libslang.a -lpci
 
 loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
 	$(CC) -g $(STATIC) -o $@ loader-pcmcia-kon.o $(OBJS) \
@@ -157,7 +157,7 @@ loader-pcmcia-kon: loader-pcmcia-kon.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
         -lpopt     \
         -lkudzu_loader ../isys/libisys.a ../balkan/libbalkan.a \
 	$(MODULELINKAGE) \
-        -lpump -lbz2 -lz -lresolv -lnewt -lslang -lpci \
+        -lpump -lbz2 -lz -lresolv -lnewt ../minislang/libslang.a -lpci \
         $(KONOBJS)
 
 loader.o: loader.c
