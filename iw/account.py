@@ -128,17 +128,21 @@ class AccountWindow (InstallWindow):
 	self.fullName.set_text("")
 
     def filter(self, widget, text, len, pos):
+        # XXX this doesn't check copy/pase
+        if len != 1:
+            return
+        
         # first character case:
         if not widget.get_text ():
-            if (text[0:len] not in string.uppercase and
-                text[0:len] not in string.lowercase):
+            if (text[0] not in string.uppercase and
+                text[0] not in string.lowercase):
                 widget.emit_stop_by_name ("insert-text")
 
         # everything else:
-        if (text[0:len] not in string.uppercase and
-            text[0:len] not in string.lowercase and
-            text[0:len] not in string.digits and
-            text[0:len] not in [ '.', '-', '_' ]):
+        if (text[0] not in string.uppercase and
+            text[0] not in string.lowercase and
+            text[0] not in string.digits and
+            text[0] not in [ '.', '-', '_' ]):
             widget.emit_stop_by_name ("insert-text")
 
     def getScreen (self):
