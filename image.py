@@ -81,9 +81,15 @@ class CdromInstallMethod(ImageInstallMethod):
                                    % ("/mnt/source",))
 
     def ejectCD(self):
+	log("ejecting CD")
+
+	# make /tmp/cdrom again so cd gets ejected
+	isys.makeDevInode(self.device, "/tmp/cdrom")
+	    
         try:
             isys.ejectCdrom("/tmp/cdrom", makeDevice = 0)
-        except:
+        except Exception, e:
+	    log("eject failed %s" % (e,))
             pass
 
     def systemUnmounted(self):
