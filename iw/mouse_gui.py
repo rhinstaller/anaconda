@@ -202,6 +202,8 @@ class MouseWindow (InstallWindow):
         align.add (self.emulate3)
         align.set_border_width (5)
 
+        hbox = GtkHBox(FALSE, 5)
+
         im = self.ics.readPixmap ("gnome-mouse.png")
         if im:
             im.render ()
@@ -209,7 +211,12 @@ class MouseWindow (InstallWindow):
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)
-            box.pack_start (a, FALSE)
+            hbox.pack_start (a, FALSE)
+
+        label = GtkLabel (_("Which model mouse is attached to the computer?"))
+        label.set_line_wrap (TRUE)
+        hbox.pack_start(label, FALSE)
+        box.pack_start(hbox, FALSE)
             
         box.pack_start (sw)
         box.pack_start (self.locList, FALSE)

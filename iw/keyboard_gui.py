@@ -84,6 +84,7 @@ class KeyboardWindow (InstallWindow):
 
 
 	box = GtkVBox (FALSE, 5)
+        hbox = GtkHBox (FALSE, 5)
         im = self.ics.readPixmap ("gnome-keyboard.png")
         if im:
             im.render ()
@@ -91,7 +92,12 @@ class KeyboardWindow (InstallWindow):
             a = GtkAlignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)
-            box.pack_start (a, FALSE)
+            hbox.pack_start (a, FALSE)
+
+        label = GtkLabel (_("Which model keyboard is attached to the computer?"))
+        label.set_line_wrap (TRUE)
+        hbox.pack_start(label, FALSE)
+        box.pack_start(hbox, FALSE)
 
 	def moveto (widget, *args):
             widget.moveto (widget.selection[0], 0, 0.5, 0.5)
