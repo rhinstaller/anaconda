@@ -4,7 +4,7 @@
 #define _(x) translateString (x)
 #define N_(foo) (foo)
 
-int chooseLanguage(int flags);
+int chooseLanguage(char ** lang, int flags);
 int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags);
 char * translateString(char * str);
 

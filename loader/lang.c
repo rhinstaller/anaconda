@@ -213,7 +213,7 @@ static int loadFont(char * fontFile, int flags) {
     return 0;
 }
 
-int chooseLanguage(int flags) {
+int chooseLanguage(char ** lang, int flags) {
     int choice = 0;
     char ** langs;
     int i;
@@ -245,6 +245,8 @@ int chooseLanguage(int flags) {
     newtWinMenu(_("Choose a Language"), _("What language should be used "
 		"during the installation process?"), 40, 5, 5, 8,
 		langs, &choice, _("OK"), NULL);
+
+    *lang = languages[choice].key;
 
     if (choice == english) {
 	/* stick with the default (English) */

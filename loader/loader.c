@@ -957,10 +957,15 @@ static char * mountUrlImage(struct installMethod * method,
 
 #endif
     
-static char * doMountImage(char * location, struct knownDevices * kd,
-    		        moduleInfoSet modInfo,
-			moduleList modLoaded,
-		        moduleDeps modDeps, int flags) {
+static char * doMountImage(char * location,
+			   struct knownDevices * kd,
+			   moduleInfoSet modInfo,
+			   moduleList modLoaded,
+			   moduleDeps modDeps,
+			   char ** lang,
+			   char ** keymap,
+			   char ** kbdtype,
+			   int flags) {
     static int defaultMethod = 0;
     int i, rc;
     int validMethods[10];
@@ -971,8 +976,6 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     int localAvailable = 0;
     void * class;
     char * url = NULL;
-    char * keymap = NULL;
-    char * kbdtype = NULL;
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_URL, STEP_DONE } step;
 
     if ((class = isysGetModuleList(modInfo, DRIVER_NET))) {
@@ -1039,12 +1042,12 @@ static char * doMountImage(char * location, struct knownDevices * kd,
     while (step != STEP_DONE) {
 	switch (step) {
 	case STEP_LANG:
-	    chooseLanguage(flags);
+	    chooseLanguage(lang, flags);
 	    step = STEP_KBD;
 	    break;
 	    
 	case STEP_KBD:
-	    rc = chooseKeyboard (&keymap, &kbdtype, flags);
+	    rc = chooseKeyboard (keymap, kbdtype, flags);
 
 	    if (rc == LOADER_BACK)
 		step = STEP_LANG;
@@ -1410,6 +1413,9 @@ int main(int argc, char ** argv) {
     int i, rc;
     int flags = 0;
     int testing = 0;
+    char * lang = NULL;
+    char * keymap = NULL;
+    char * kbdtype = NULL;
     struct knownDevices kd;
     moduleInfoSet modInfo;
     char * ksFile = NULL, * ksSource = NULL;
@@ -1518,8 +1524,9 @@ logMessage("Flags are 0x%x\n", flags);
     }
 
     if (!url) {
-	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps, 
-			    flags);
+	url = doMountImage("/mnt/source", &kd, modInfo, modLoaded, modDeps,
+			   &lang, &keymap, &kbdtype,
+			   flags);
     }
 
     if (!FL_TESTING(flags)) {
@@ -1613,6 +1620,15 @@ logMessage("Flags are 0x%x\n", flags);
 	*argptr++ = ksFile;
     }
 
+    *argptr++ = "--lang";
+    *argptr++ = lang;
+    
+    *argptr++ = "--keymap";
+    *argptr++ = keymap;
+
+    *argptr++ = "--kbdtype";
+    *argptr++ = kbdtype;
+    
     *argptr = NULL;
     
     if (!FL_TESTING(flags)) {

@@ -18,8 +18,9 @@ gettext.textdomain("anaconda")
 _ = gettext.gettext
 
 (args, extra) = isys.getopt(sys.argv[1:], 'GTtdr:fm:', 
-          [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=', 
+          [ 'gui', 'text', 'test', 'debug', 'method=', 'rootpath=',
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
+            'lang=', 'keymap=', 'kbdtype=',
 	    'expert'])
 
 # remove the arguments - gnome_init doesn't understand them
@@ -40,6 +41,9 @@ mouseInfo = None
 x = None
 kickstart = None
 expert = 0
+lang = None
+keymap = None
+kbdtpye = None
 
 for n in args:
     (str, arg) = n
@@ -65,6 +69,12 @@ for n in args:
 	traceOnly = 1
     elif (str == '--expert'):
 	expert = 1
+    elif (str == '--lang'):
+        lang = arg
+    elif (str == '--keymap'):
+        keymap = arg
+    elif (str == '--kbdtype'):
+        kbdtype = arg
 
 if (not method):
     print "no install method specified"
@@ -183,6 +193,14 @@ if kickstart:
     instClass = Kickstart(kickstart)
 else:
     instClass = CustomInstall()
+
+if lang
+    instClass.addToSkipList("language")
+    instClass.setLanguage(lang):
+            
+if keymap and kbdtype:
+    instClass.addToSkipList("keyboard")
+    instClass.setKeyboard(keymap):
 
 try:
     todo = ToDo(intf, method, rootPath, installSystem = installPackages,
