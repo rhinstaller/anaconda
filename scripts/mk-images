@@ -386,8 +386,10 @@ EOF
     install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
     install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
     install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
-    install -m 644 /usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
+    install -m 644 $IMGPATH/usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
     if [ -n "$JAPANESE" ]; then
+        mkdir -p $MBD_DIR/etc/terminfo/k
+        install -m 644 $IMGPATH/usr/share/terminfo/k/kon $MBD_DIR/etc/terminfo/k/kon
 	install -m 644 $LOADERBINDIR/kon.cfg $MBD_DIR/etc
 	install -m 644 $LOADERBINDIR/minikon.fnt $MBD_DIR/etc
 	ln -s loader $MBD_DIR/sbin/continue
