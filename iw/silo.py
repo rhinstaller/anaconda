@@ -161,14 +161,18 @@ class SiloWindow (InstallWindow):
 	label.set_alignment(0.0, 0.5)
 	self.radioBox.attach(label, 0, 2, 1, 2)
 
-        part = GtkRadioButton(None,
+        self.mbr = GtkRadioButton(None, 
+	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
+        part = GtkRadioButton(self.mbr,
 	    ("/dev/%s %s" % (bootpart, 
 		_("First sector of boot partition"))))
-        self.mbr = GtkRadioButton(part, 
-	    ("/dev/%s %s" % (boothd, _("Master Boot Record (MBR)"))))
 	self.radioBox.attach(part, 1, 2, 2, 3)
 	self.radioBox.attach(self.mbr, 1, 2, 3, 4)
 	self.mbr.connect("toggled", self.mbr_toggled)
+	if self.todo.silo.getSiloMbrDefault() == 'mbr':
+	    self.mbr.set_active (TRUE)
+	else:
+	    part.set_active (TRUE);
 
 	# FIXME: Position this correctly
         self.linuxAlias = GtkCheckButton(
