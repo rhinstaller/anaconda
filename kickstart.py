@@ -382,7 +382,7 @@ class KickstartBase(BaseInstallClass):
             elif (str == "--resolution"):
                 resolution = arg
             elif (str == "--depth"):
-                depth = arg
+                depth = string.atoi(arg)
 	    elif (str == "--startxonboot"):
 		startX = 1
             elif (str == "--defaultdesktop"):
