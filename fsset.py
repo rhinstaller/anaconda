@@ -135,6 +135,9 @@ class FileSystemType:
             self.readProcFilesystems()
 
         return FileSystemType.kernelFilesystems.has_key(self.getName())
+
+    def isSupported(self):
+        return self.isMountable()
         
     def isChecked(self):
         return self.checked
@@ -223,6 +226,10 @@ class raidMemberDummyFileSystem(FileSystemType):
         self.linuxnativefs = 0
         self.name = "software raid component"
 
+    def isSupported(self):
+        # XXX look at /proc/mdset ?
+        return 1
+
     def formatDevice(self, entry, progress, message, chroot='/'):
         # mkraid did all we need to format this partition...
         pass
@@ -245,6 +252,9 @@ class swapFileSystem(FileSystemType):
         # unfortunately, turning off swap is bad.
         pass
 
+    def isSupported(self):
+        return 1
+    
     def formatDevice(self, entry, progress, message, chroot='/'):
         file = entry.device.setupDevice(chroot)
         rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
