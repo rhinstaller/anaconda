@@ -465,28 +465,17 @@ class DiskTreeModel(gtk.TreeStore):
             iter = self.iter_next(iter)
             # if there isn't a next row and we had a parent, go to the next
             # node after our parent
-            if not iter and parent:
-		while not iter and parent:
-                    parent = self.iter_next(parent)
-                    iter = parent
-
-		    # if we found a new iter, set parent to last
-		    # thing on parentstack w/o popping because we want
-		    # last item in parentstack to match the parent
-		    # of the current iter
-		    #
-		    # otherwise pop off next parent and resume search there
-		    #
-		    # otherwise we're in trouble
-		    #
-		    if iter:
-			parent = parentstack[-1]
-		    elif len(parentstack) > 0:
-			parent = parentstack.pop()
-                    else:
-                        # we've fallen off the end of the model, and we have
-                        # not found the partition
-                        raise RuntimeError, "could not find partition"
+            while not iter and parent:
+                # pop last parent off of parentstack and resume search at next
+                # node after the last parent... and don't forget to update the
+                # variable "parent" to its new value
+                if len(parentstack) > 0:
+                    iter = self.iter_next(parentstack.pop())
+                    parent = parentstack[-1]
+                else:
+                    # we've fallen off the end of the model, and we have
+                    # not found the partition
+                    raise RuntimeError, "could not find partition"
 
     """ returns partition 'id' of current selection in tree """
     def getCurrentPartition(self):
