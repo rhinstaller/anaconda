@@ -38,7 +38,7 @@ class UpgradeSwapWindow (InstallWindow):
         if self.option2.get_active():
             rc = self.warning()
 
-            if rc == 1:
+            if rc == 0:
                 raise gui.StayOnScreen
             else:
                 return None
