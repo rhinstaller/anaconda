@@ -114,7 +114,7 @@ class Mouse (SimpleConfigFile):
             elif device == "psaux":
                 self.set("Generic - 3 Button Mouse (PS/2)", 0)
             elif device == "input/mice":
-                if module == "generic3usb":
+                if module == "generic3usb" or module == "mousedev":
                     self.set("Generic - 3 Button Mouse (USB)", 0)
                 elif module == "genericusb":
                     self.set("Generic - 2 Button Mouse (USB)", 1)
