@@ -4,6 +4,7 @@ from iw import *
 from string import *
 from xpms import *
 from thread import *
+from upgrade import *
 import rpm
 import GdkImlib
 import string
