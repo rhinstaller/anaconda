@@ -6,6 +6,8 @@ if [ -z "$1" -o ! -d "$1" ]; then
 	exit 1
 fi
 
+ARCH=`uname -m | sed -e 's/sparc64/sparc/' -e 's/i.86/i386/`
+
 HOMEDIR=`pwd`
 echo HOMEDIR $HOMEDIR
 
@@ -15,6 +17,10 @@ pythondeps() {
 
 	mkdir -p $DIR/proc
 	mount -t proc /proc $DIR/proc
+        if [ $ARCH = "sparc" ]; then
+	    mkdir $DIR/dev
+	    mknod $DIR/dev/openprom c 10 139
+	fi
 	(chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
 	cd $DIR; find usr/lib/python* -type f | sed 's,^,/,' ) | sort | uniq -u |
 	sed s,^,./, | while read fn; do
@@ -22,6 +28,7 @@ pythondeps() {
   	done
 	umount $DIR/proc
 	rmdir $DIR/proc
+	rm -rf $DIR/dev
 }
 
 SRC=$1/RedHat/RPMS
@@ -183,7 +190,7 @@ EOF
 # sparc needs 100dpi fonts as well, otherwise
 # things look ugly
 
-if [ `uname -m | sed 's/sparc64/sparc/'` = sparc ]; then
+if [ $ARCH = sparc ]; then
     cat >> $KEEPFILEGR <<-EOF
 usr/X11R6/lib/X11/fonts/100dpi/cour*
 usr/X11R6/lib/X11/fonts/100dpi/helv*
