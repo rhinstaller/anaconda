@@ -83,29 +83,29 @@ class PartitionWindow:
         hbox = GtkHBox (FALSE, 10)
 
         device = 'hda'
+
+        buttons = {}
+        buttons[0] = None;
+	numext2 = 0
+
         try:
             table = _balkan.readTable('/dev/' + device)
-            if len(table) - 1 > 0:
-                partbox = GtkVBox (FALSE, 5)
-                button1 = None;
+    	    if len(table) - 1 > 0:
+        	partbox = GtkVBox (FALSE, 5)
                 for i in range(0, len(table) - 1):
                     (type, start, size) = table[i]
                     if (type == 0x83 and size):
-                        if button1:
-                            button = GtkRadioButton(button1,
-                                                '/dev/%s%d' % (device, i + 1))
-                            partbox.pack_start(button, FALSE, FALSE, 0)
-                        else:
-                            button1 = GtkRadioButton(None,
-                                                 '/dev/%s%d' % (device, i + 1))
-                            partbox.pack_start(button1, FALSE, FALSE, 0)
+                        buttons[numext2] = GtkRadioButton(buttons[0],
+                                        '/dev/%s%d' % (device, i + 1))
+                        partbox.pack_start(buttons[numext2], FALSE, FALSE, 0)
+                        numext2 = numext2 + 1
             hbox.pack_start(partbox, FALSE, FALSE, 0)
             hbox.pack_start(label, FALSE, FALSE, 0)
         except:
             label = GtkLabel("Unable to read partition information")
             hbox.pack_start(label, TRUE, TRUE, 0)
             print "unable to read partitions"
-
+ 
         buttonbox = GtkHButtonBox()
         buttonbox.set_spacing(5)
         buttonbox.set_layout(BUTTONBOX_END)
@@ -125,7 +125,16 @@ class PartitionWindow:
 #        window.set_default_size(640, 480)
         window.show_all()
         mainloop()
+	
+	rootpart = ""
+        for i in range(0, numext2):
+            if buttons[i].active:
+                rootpart = "/dev/%s%d" % (device, i + 1)
+
+	todo.addMount(rootpart, '/')
+
         window.destroy()
+
         return self.rc
 
 
@@ -159,8 +168,8 @@ class InstallProgressWindow:
 	self.window.add(vbox)
 	self.window.show_all()
 
-class InstallInterface:
-    def showWaitWindow(self, title, text, lock):
+class WaitWindow:
+    def showWaitWindow(self, title, text):
         window = GtkWindow()
         window.set_border_width(10)
         window.set_title(title)
@@ -169,23 +178,26 @@ class InstallInterface:
         label.set_line_wrap (TRUE)
 	window.add(label)
 	window.show_all()
-	while lock.locked():
+	while self.lock.locked():
     	    while events_pending():
 	        mainiteration(FALSE)
        	window.destroy()
         thread.exit()
 
+    def __init__(self, title, text):
+	self.lock = thread.allocate_lock()
+	self.lock.acquire()
+	thread.start_new_thread (self.showWaitWindow, (title, text))
+
+    def pop(self):
+	self.lock.release()
+
+class InstallInterface:
     def waitWindow(self, title, text):
-	lock = thread.allocate_lock()
-	lock.acquire()
-	thread.start_new_thread (self.showWaitWindow, (title, text, lock))
-        return lock
+	return WaitWindow(title, text)
 
     def packageProgessWindow(self):
 	return InstallProgressWindow()
-
-    def popWaitWindow(self, lock):
-	lock.release()
 
     def run(self, todo):
         rc_parse("gtkrc")
