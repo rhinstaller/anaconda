@@ -14,3 +14,5 @@ class InstallClass(workstation.InstallClass):
 
     def __init__(self, expert):
 	workstation.InstallClass.__init__(self, expert)
+        # XXX better interface for manipulating this stuff?
+	self.groups.append("Laptop Support")
