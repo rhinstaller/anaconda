@@ -83,6 +83,12 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if flags.setupFilesystems:
         oldfsset.mountFilesystems(instPath)
 
+    # XXX we should properly support 'auto' at some point
+    if (not oldfsset.getEntryByMountPoint("/") or
+        not oldfsset.getEntryByMountPoint("/").fsystem or
+        not oldfsset.getEntryByMountPoint("/").fsystem.isMountable()):
+        raise RuntimeError, "/etc/fstab did not list a fstype for the root partition which we support"
+
 # returns None if no filesystem exist to migrate
 def upgradeMigrateFind(dispatch, thefsset):
     migents = thefsset.getMigratableEntries()
@@ -215,6 +221,13 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
 		  "/etc/fstab on your Linux system cannot be mounted. "
 		  "Please fix this problem and try to upgrade again."))
 	    sys.exit(0)
+        except RuntimeError, msg:
+            intf.messageWindow(_("Mount failed"),
+		_("One or more of the filesystems listed in the "
+                  "/etc/fstab of your Linux system are inconsistent and "
+                  "cannot be mounted.  Please fix this problem and try to "
+                  "upgrade again."))
+            sys.exit(0)
 
 	checkLinks = [ '/etc', '/var', '/var/lib', '/var/lib/rpm',
 		       '/boot', '/tmp', '/var/tmp' ]
