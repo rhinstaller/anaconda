@@ -64,8 +64,8 @@ def writeKSConfiguration(id, instPath):
     id.writeKS(fn)
 
 def writeXConfiguration(id, instPath):
-    if flags.test:
-        return
+##     if flags.test:
+##         return
 
     if id.xconfig.skipx:
         return
@@ -73,7 +73,8 @@ def writeXConfiguration(id, instPath):
     xserver = id.videocard.primaryCard().getXServer()
     if not xserver:
         return
-    
+
+    print "would symlink " + xserver
     log("Writing X configuration")
     if not flags.test:
         fn = instPath
@@ -249,11 +250,11 @@ class InstallCallback:
 		    self.rpmFD = os.open(fn, os.O_RDONLY)
 		    # Make sure this package seems valid
 		    try:
-			(h, isSource) = rpm.headerFromPackage(self.rpmFD)
+			(hdr, isSource) = rpm.headerFromPackage(self.rpmFD)
 			os.lseek(self.rpmFD, 0, 0)
                         
                         # if we don't have a valid package, throw an error
-                        if not h:
+                        if not hdr:
                             raise SystemError
 		    except:
 			self.rpmFD = -1
@@ -264,6 +265,8 @@ class InstallCallback:
 			_("The file %s cannot be opened. This is due to "
 			  "a missing file, a bad package, or bad media. "
 			  "Press <return> to try again.") % fn)
+                    # FIXME: get should probably be inside the loop
+                    fn = self.method.getFilename(h, self.pkgTimer)
 
 	    fn = self.method.unlinkFilename(fn)
 	    return self.rpmFD
