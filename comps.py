@@ -359,6 +359,7 @@ class Component:
             p.registerComponent(self)
             self.pkgDict[p] = None
             self.updateDependencyCountForAddition(p)
+            self.set.updateSelections()            
 
     def unselectOptionalPackage(self, p):
         if p not in self.pkgDict.keys():
@@ -368,7 +369,8 @@ class Component:
             p.unregisterComponent(self)
             if self.pkgDict.has_key(p):
                 del self.pkgDict[p]
-            self.updateDependencyCountForRemoval(p)                
+            self.updateDependencyCountForRemoval(p)
+            self.set.updateSelections()
 
     def updateDependencyCountForAddition(self, p):
         pkgs = [ p ]
