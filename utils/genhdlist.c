@@ -21,7 +21,7 @@
 int onePass(FD_t outfd, const char * dirName, int cdNum) {
     FD_t fd;
     struct dirent * ent;
-    char * subdir = alloca(strlen(dirName)) + 20;
+    char * subdir = alloca(strlen(dirName) + 20);
     int errno;
     Header h;
     int isSource, rc;
