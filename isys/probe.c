@@ -506,8 +506,9 @@ static int CompaqSmartArrayGetDevices(struct knownDevices * devices) {
 	    }
 	}
 	sprintf(ctl, "%s/ida%d", path, ctlNum++);
+        fclose(f);
     }
-    fclose(f);
+
     
     return 0;
 }
@@ -547,8 +548,9 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
 	    }
 	}
 	sprintf(ctl, "%s/cciss%d", path, ctlNum++);
+	fclose(f);
     }
-    fclose(f);
+
     
     return 0;
 }
