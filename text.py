@@ -1153,6 +1153,8 @@ class InstallInterface:
 	    [_("Customize Upgrade"), CustomizeUpgradeWindow, 
 		    (self.screen, todo, self.individual), "custom-upgrade" ],
             [_("Individual Packages"), IndividualPackageWindow, (self.screen, todo, self.individual)],
+            [N_("Package Dependencies"), PackageDepWindow, (self.screen, todo),
+		"package-selection" ],
             [N_("Upgrade Begins"), BeginUpgradeWindow, 
 		(self.screen, todo), "confirm-upgrade" ],
             [_("Upgrade System"), InstallWindow, (self.screen, todo)],
