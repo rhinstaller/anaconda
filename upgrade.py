@@ -170,9 +170,16 @@ def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
         file = mntPoint + "/SWAP"
     else:
         file = "/SWAP"
+
+    existingSwaps = theFstab.swapList(files = 1)
+    swapFileDict = {}
+    for n in existingSwaps:
+	dev = n[0]
+	swapFileDict[dev] = 1
         
     count = 0
-    while (swapfileExists(instPath + file)):
+    while (swapfileExists(instPath + file) or 
+	   swapFileDict.has_key(file)):
 	count = count + 1
 	tmpFile = "/SWAP-%d" % (count)
         if mntPoint != "/":
