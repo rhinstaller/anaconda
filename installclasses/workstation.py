@@ -12,8 +12,8 @@ class InstallClass(personal_desktop.InstallClass):
 
     sortPriority = 2
 
-    def setGroupSelection(self, comps):
-        personal_desktop.InstallClass.setGroupSelection(self, comps)
+    def setGroupSelection(self, comps, intf):
+        personal_desktop.InstallClass.setGroupSelection(self, comps, intf)
         comps["Emacs"].select()
         comps["GNOME Software Development"].select()
 	comps["X Software Development"].select()

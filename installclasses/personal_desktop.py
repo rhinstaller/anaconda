@@ -25,7 +25,7 @@ class InstallClass(BaseInstallClass):
         dispatch.skipStep("desktopchoice", skip = 0)
         dispatch.skipStep("package-selection", skip = 1)
 
-    def setGroupSelection(self, comps):
+    def setGroupSelection(self, comps, intf):
 	BaseInstallClass.__init__(self, comps)
 
         for comp in comps.comps:

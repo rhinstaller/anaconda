@@ -22,7 +22,7 @@ class InstallClass(BaseInstallClass):
 	BaseInstallClass.setSteps(self, dispatch);
 	dispatch.skipStep("authentication")
 
-    def setGroupSelection(self, comps):
+    def setGroupSelection(self, comps, intf):
 	BaseInstallClass.__init__(self, comps)
 
         for comp in comps.comps:
