@@ -137,8 +137,8 @@ def handleX11Packages(dir, intf, disp, id, instPath):
         id.xconfig.skipx = 0
 
     # set default runlevel based on packages
-    gnomeSelected = (id.comps.packages.has_key('gnome-core')
-                     and id.comps.packages['gnome-core'].selected)
+    gnomeSelected = (id.comps.packages.has_key('gnome-session')
+                     and id.comps.packages['gnome-session'].selected)
     kdeSelected = (id.comps.packages.has_key('kdebase')
                    and id.comps.packages['kdebase'].selected)
 
