@@ -96,9 +96,9 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
-    if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbdevfs", 0, 0, 
+    if (doPwMount("/proc/bus/usb", "/proc/bus/usb", "usbfs", 0, 0, 
 		  NULL, NULL, 0, 0))
-	logMessage("failed to mount device usbdevfs: %s", strerror(errno));
+	logMessage("failed to mount device usbfs: %s", strerror(errno));
 
     /* sleep so we make sure usb devices get properly enumerated.
        that way we should block when initializing each usb driver until

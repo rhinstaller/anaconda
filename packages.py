@@ -1073,7 +1073,7 @@ def doPostInstall(method, id, intf, instPath):
 		    
                 unmountUSB = 0
                 try:
-                    isys.mount('/usbdevfs', instPath+'/proc/bus/usb', 'usbdevfs')
+                    isys.mount('/usbfs', instPath+'/proc/bus/usb', 'usbfs')
                     unmountUSB = 1
                 except:
                     log("Mount of /proc/bus/usb in chroot failed")
@@ -1109,7 +1109,7 @@ def doPostInstall(method, id, intf, instPath):
                         usbWasMounted = 0
 
 		if usbWasMounted:
-                    isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
+                    isys.mount('/usbfs', '/proc/bus/usb', 'usbfs')
 
 	w.set(4)
 
