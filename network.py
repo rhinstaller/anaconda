@@ -183,6 +183,10 @@ class Network:
 	#
 	devNames = self.netdevices.keys()
 	devNames.sort()
+    
+        if len(devNames) == 0:
+            return
+        
 	dev = self.netdevices[devNames[0]]
 
 	if dev.get('bootproto') == 'dhcp' or dev.get('ipaddr'):
@@ -190,8 +194,8 @@ class Network:
 	    if dev.get('bootproto') == 'dhcp':
 		f.write(" --bootproto dhcp")
 	    else:
-		f.write(" --ip %s --network %s --netmask %s" % 
-		    (dev.get('ipaddr'), dev.get('netmask'), dev.get('gateway')))
+		f.write(" --bootproto static --ip %s --netmask %s --gateway %s" % 
+		    (dev.get('ipaddr'), dev.get('netmask'), self.gateway))
 
 	    if dev.get('nameserver'):
 		f.write(" --nameserver %s" % dev.get('nameserver'))
