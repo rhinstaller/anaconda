@@ -22,6 +22,7 @@ class XSetup:
 
     def __init__(self, hwstate):
 	self.skipx = 0
+	self.imposed_sane_default = 0
 	self.xhwstate = hwstate
 
     #
@@ -35,11 +36,6 @@ class XSetup:
 			     standalone = 0)	
 
     def writeKS(self, f, desktop=None):
-	return
-    
-	#
-	# this needs lots of work
-	#
 	if self.skipx:
 	    f.write("skipx\n")
 	    return
@@ -61,17 +57,18 @@ class XSetup:
 
     def getArgList(self, res, depth):
         args = []
-        vc = self.videocard
+        monitor = self.xhwstate.monitor
+	vc = self.xhwstate.videocard
 
-        args = args + [ "--card", '"' + vc.shortDescription() + '"' ]
-        args = args + [ "--videoram", vc.getVideoRam() ]
-        args = args + [ "--hsync", self.monitor.getMonitorHorizSync() ]
-        args = args + [ "--vsync", self.monitor.getMonitorVertSync() ]
+        args = args + [ "--card", '"' + vc.primaryCard().shortDescription() + '"' ]
+        args = args + [ "--videoram", vc.primaryCard().getVideoRam() ]
+        args = args + [ "--hsync", monitor.getMonitorHorizSync() ]
+        args = args + [ "--vsync", monitor.getMonitorVertSync() ]
 
         # XXX this isn't really quite right, but it works for the way
         # things are now
         args = args + [ "--resolution", res ]
-        args = args + [ "--depth", depth ]
+        args = args + [ "--depth", str(depth) ]
 
         return args
 
