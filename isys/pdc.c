@@ -72,8 +72,6 @@ struct promise_raid_conf {
 };
 
 
-long long lseek64(int fd, long long offset, int whence);
-
 static unsigned long calc_pdcblock_offset (int fd) {
 	unsigned long lba = 0;
 	struct hd_big_geometry g;
