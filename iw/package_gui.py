@@ -16,9 +16,7 @@ import gui
 import string
 import sys
 import checklist
-import gdkpixbuf
-from gtk import *
-from gnome.ui import *
+import gtk
 from iw_gui import *
 from string import *
 from thread import *
@@ -44,16 +42,16 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         self.ics = ics
-        self.ics.setHelpEnabled (FALSE)
+        self.ics.setHelpEnabled (gtk.FALSE)
         self.DIR = 0
         self.DIR_UP = 1
         self.RPM = 2
         self.rownum = 0
         self.maxrows = 0
-        self.updatingIcons = FALSE
+        self.updatingIcons = gtk.FALSE
 
     def getPrev (self):
-        self.ics.setHelpEnabled (TRUE)
+        self.ics.setHelpEnabled (gtk.TRUE)
         return None
     
     def build_tree (self, x):
@@ -75,15 +73,17 @@ class IndividualPackageSelectionWindow (InstallWindow):
     def build_ctree (self, list, cur_parent = None, prev_node = None, path = ""):
         if (list == ()): return
         
-        if (len (list) > 1 and isinstance (list[1], type (()))): leaf = FALSE
-        else: leaf = TRUE
+        if (len (list) > 1 and isinstance (list[1], type (()))): leaf = gtk.FALSE
+        else: leaf = gtk.TRUE
     
         if isinstance (list[0], type (())):
             self.build_ctree (list[0], prev_node, None, self.ctree.node_get_row_data (prev_node))
             self.build_ctree (list[1:], cur_parent, None, path)
         else:
+##             node = self.ctree.insert_node (cur_parent, None, (list[0],), 2,
+##                                            self.closed_p, self.closed_b, self.open_p, self.open_b, leaf)
             node = self.ctree.insert_node (cur_parent, None, (list[0],), 2,
-                                           self.closed_p, self.closed_b, self.open_p, self.open_b, leaf)
+                                           is_leaf=leaf)
             cur_path = path + "/" + list[0]
             self.ctree.node_set_row_data (node, cur_path)
             self.build_ctree (list[1:], cur_parent, node, path)
@@ -153,10 +153,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
              (val, row_data, header) = self.packageList.get_row_data (i)
              if select_all == 1:
                  header.select ()
-                 self.packageList.set_row_data (i, (TRUE, row_data, header)) 
+                 self.packageList.set_row_data (i, (gtk.TRUE, row_data, header)) 
              elif select_all == 0:
                  header.unselect()
-                 self.packageList.set_row_data (i, (FALSE, row_data, header)) 
+                 self.packageList.set_row_data (i, (gtk.FALSE, row_data, header)) 
              self.packageList._update_row (i)
 
         self.updateSize()
@@ -241,10 +241,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
                 dirSize = dirSize/1000000
                 if dirSize > 1:
-                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), TRUE, dirDesc)
+                    self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), gtk.TRUE, dirDesc)
                 else:
                     row = [ "", dirName, "1"]
-                    self.rownum = self.packageList.append_row((dirName, "1"), TRUE, dirDesc)
+                    self.rownum = self.packageList.append_row((dirName, "1"), gtk.TRUE, dirDesc)
 
                 if header.isSelected():
                     self.packageList.set_row_data(self.rownum, (1, dirDesc, header))
@@ -262,12 +262,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 self.sort_list (args, 0)
 
             self.packageList.column_titles_active ()
-            self.selectAllButton.set_sensitive (TRUE)
-            self.unselectAllButton.set_sensitive (TRUE)
+            self.selectAllButton.set_sensitive (gtk.TRUE)
+            self.unselectAllButton.set_sensitive (gtk.TRUE)
             
         except:
-            self.selectAllButton.set_sensitive (FALSE)
-            self.unselectAllButton.set_sensitive (FALSE)
+            self.selectAllButton.set_sensitive (gtk.FALSE)
+            self.unselectAllButton.set_sensitive (gtk.FALSE)
             pass
 
         self.packageList.thaw ()
@@ -316,10 +316,10 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     desc = header[rpm.RPMTAG_DESCRIPTION]
                     
                     if header.isSelected():
-                        self.rownum = self.packageList.append_row((name, "%s" %size), TRUE, desc)
+                        self.rownum = self.packageList.append_row((name, "%s" %size), gtk.TRUE, desc)
                         self.packageList.set_row_data(self.rownum, (1, desc, header))
                     else:
-                        self.rownum = self.packageList.append_row((name, "%s" %size), FALSE, desc)
+                        self.rownum = self.packageList.append_row((name, "%s" %size), gtk.FALSE, desc)
                         self.packageList.set_row_data(self.rownum, (0, desc, header))
             self.packageList.thaw()
             
@@ -330,28 +330,24 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.pkgs = hdList
         
         self.path_mapping = {}
-        self.ctree = GtkCTree()
-        self.ctree.set_selection_mode (SELECTION_BROWSE)
-        self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
-        self.ctree.set_line_style(CTREE_LINES_NONE)
+        self.ctree = gtk.CTree()
+        self.ctree.set_selection_mode (gtk.SELECTION_BROWSE)
 
-        self.ctreeAllPkgs = GtkCTree()
-        self.ctreeAllPkgs.set_selection_mode (SELECTION_BROWSE)
-        self.ctreeAllPkgs.set_expander_style(CTREE_EXPANDER_TRIANGLE)
-        self.ctreeAllPkgs.set_line_style(CTREE_LINES_NONE)
+        self.ctreeAllPkgs = gtk.CTree()
+        self.ctreeAllPkgs.set_selection_mode (gtk.SELECTION_BROWSE)
 
         # Kludge to get around CTree s extremely broken focus behavior
         # self.ctree.unset_flags (CAN_FOCUS)     
 
-        if (not self.__dict__.has_key ("open_p")):
-            fn = self.ics.findPixmap("directory-open.png")
-            p = gdkpixbuf.new_from_file (fn)
-            if p:
-                self.open_p, self.open_b = p.render_pixmap_and_mask()
-            fn = self.ics.findPixmap("directory-closed.png")
-            p = gdkpixbuf.new_from_file (fn)
-            if p:
-                self.closed_p, self.closed_b = p.render_pixmap_and_mask()
+##         if (not self.__dict__.has_key ("open_p")):
+##             fn = self.ics.findPixmap("directory-open.png")
+##             p = gdkpixbuf.new_from_file (fn)
+##             if p:
+##                 self.open_p, self.open_b = p.render_pixmap_and_mask()
+##             fn = self.ics.findPixmap("directory-closed.png")
+##             p = gdkpixbuf.new_from_file (fn)
+##             if p:
+##                 self.closed_p, self.closed_b = p.render_pixmap_and_mask()
             
         groups = {}
 
@@ -393,37 +389,33 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.ctree.thaw ()
 
         self.ctree.connect ("tree_select_row", self.select)
-        self.sw = GtkScrolledWindow ()
-        self.sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
-
-        # Set the style for the tree
-        self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
-        self.ctree.set_line_style(CTREE_LINES_NONE)
+        self.sw = gtk.ScrolledWindow ()
+        self.sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 
         self.sw.add(self.ctree)
-        packageHBox = GtkHBox()
+        packageHBox = gtk.HBox()
 
-        self.leftVBox = GtkVBox(FALSE)
-        optionHBox = GtkHBox()
+        self.leftVBox = gtk.VBox(gtk.FALSE)
+        optionHBox = gtk.HBox()
 
-        self.treeRadio = GtkRadioButton(None, (_("Tree View")))
+        self.treeRadio = gtk.RadioButton(None, (_("Tree View")))
         self.treeRadio.connect("clicked", self.changePkgView)
-        self.flatRadio = GtkRadioButton(self.treeRadio, (_("Flat View")))
+        self.flatRadio = gtk.RadioButton(self.treeRadio, (_("Flat View")))
 
         optionHBox.pack_start(self.treeRadio)
         optionHBox.pack_start(self.flatRadio)
         
-        self.leftVBox.pack_start(optionHBox, FALSE)
-        self.leftVBox.pack_start(self.sw, TRUE)
-        packageHBox.pack_start(self.leftVBox, FALSE)
+        self.leftVBox.pack_start(optionHBox, gtk.FALSE)
+        self.leftVBox.pack_start(self.sw, gtk.TRUE)
+        packageHBox.pack_start(self.leftVBox, gtk.FALSE)
 
         self.packageList = checklist.CheckList(2)
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("Package")))
-        self.packageList.set_column_auto_resize (1, TRUE)
+        self.packageList.set_column_auto_resize (1, gtk.TRUE)
         self.packageList.set_column_title (2, (_("Size (MB)")))
-        self.packageList.set_column_auto_resize (2, TRUE)
+        self.packageList.set_column_auto_resize (2, gtk.TRUE)
         self.packageList.column_titles_show ()
 
         self.packageList.set_column_min_width(0, 16)
@@ -434,9 +426,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.connect ('button_press_event', self.button_press)
         self.packageList.connect ("key_press_event", self.key_press_cb)
 
-        self.packageListSW = GtkScrolledWindow ()
+        self.packageListSW = gtk.ScrolledWindow ()
         self.packageListSW.set_border_width (5)
-        self.packageListSW.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.packageListSW.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.packageListSW.add(self.packageList)
 
         self.packageListVAdj = self.packageListSW.get_vadjustment ()
@@ -446,47 +438,47 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         packageHBox.pack_start (self.packageListSW)
 
-        descVBox = GtkVBox ()        
-        descVBox.pack_start (GtkHSeparator (), FALSE, padding=2)
+        descVBox = gtk.VBox ()        
+        descVBox.pack_start (gtk.HSeparator (), gtk.FALSE, padding=2)
 
-        hbox = GtkHBox ()
-        bb = GtkHButtonBox ()
+        hbox = gtk.HBox ()
+        bb = gtk.HButtonBox ()
         bb.set_layout (BUTTONBOX_END)
 
-        self.totalSizeLabel = GtkLabel (_("Total size: "))
-        hbox.pack_start (self.totalSizeLabel, FALSE, FALSE, 0)
+        self.totalSizeLabel = gtk.Label (_("Total size: "))
+        hbox.pack_start (self.totalSizeLabel, gtk.FALSE, gtk.FALSE, 0)
 
-        self.selectAllButton = GtkButton (_("Select all in group"))
-        bb.pack_start (self.selectAllButton, FALSE)
+        self.selectAllButton = gtk.Button (_("Select all in group"))
+        bb.pack_start (self.selectAllButton, gtk.FALSE)
         self.selectAllButton.connect ('clicked', self.select_all, 1)
 
-        self.unselectAllButton = GtkButton(_("Unselect all in group"))
-        bb.pack_start(self.unselectAllButton, FALSE)
+        self.unselectAllButton = gtk.Button(_("Unselect all in group"))
+        bb.pack_start(self.unselectAllButton, gtk.FALSE)
         self.unselectAllButton.connect ('clicked', self.select_all, 0)
         
         hbox.pack_start (bb)
 
-        self.selectAllButton.set_sensitive (FALSE)
-        self.unselectAllButton.set_sensitive (FALSE)
+        self.selectAllButton.set_sensitive (gtk.FALSE)
+        self.unselectAllButton.set_sensitive (gtk.FALSE)
 
-        descVBox.pack_start (hbox, FALSE)
+        descVBox.pack_start (hbox, gtk.FALSE)
 
-        descSW = GtkScrolledWindow ()
+        descSW = gtk.ScrolledWindow ()
         descSW.set_border_width (5)
-        descSW.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        descSW.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        self.packageDesc = GtkText ()
-        self.packageDesc.set_word_wrap (TRUE)
-        self.packageDesc.set_line_wrap (TRUE)
-        self.packageDesc.set_editable (FALSE)
+        self.packageDesc = gtk.Text ()
+        self.packageDesc.set_word_wrap (gtk.TRUE)
+        self.packageDesc.set_line_wrap (gtk.TRUE)
+        self.packageDesc.set_editable (gtk.FALSE)
         descSW.add (self.packageDesc)
         descSW.set_usize (-1, 100)
 
         descVBox.pack_start (descSW)
 
-        vbox = GtkVBox ()
+        vbox = gtk.VBox ()
         vbox.pack_start (packageHBox)
-        vbox.pack_start (descVBox, FALSE)
+        vbox.pack_start (descVBox, gtk.FALSE)
 
 	self.updateSize()
 
@@ -500,7 +492,7 @@ class PackageSelectionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         self.ics = ics
         self.ics.setNextEnabled (1)
-        self.files_found = "FALSE"
+        self.files_found = "gtk.FALSE"
         
     def getPrev (self):
 	self.comps.setSelectionState(self.origSelection)
@@ -533,10 +525,10 @@ class PackageSelectionWindow (InstallWindow):
 
 	self.origSelection = self.comps.getSelectionState()
             
-        sw = GtkScrolledWindow ()
-        sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        sw = gtk.ScrolledWindow ()
+        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        box = GtkVBox (FALSE, 2)
+        box = gtk.VBox (gtk.FALSE, 2)
 
         self.checkButtons = []
         for comp in self.comps:
@@ -550,23 +542,23 @@ class PackageSelectionWindow (InstallWindow):
                 checkButton = None
                 pix = self.ics.readPixmap (pixname)
                 if pix:
-                    hbox = GtkHBox (FALSE, 5)
-                    hbox.pack_start (pix, FALSE, FALSE, 0)
-                    label = GtkLabel (_(comp.name))
+                    hbox = gtk.HBox (gtk.FALSE, 5)
+                    hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
+                    label = gtk.Label (_(comp.name))
                     label.set_alignment (0.0, 0.5)
-                    hbox.pack_start (label, TRUE, TRUE, 0)
-                    checkButton = GtkCheckButton ()
+                    hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
+                    checkButton = gtk.CheckButton ()
                     checkButton.add (hbox)
                 else:
-                    checkButton = GtkCheckButton (comp.name)
+                    checkButton = gtk.CheckButton (comp.name)
 
                 checkButton.set_active (comp.isSelected(justManual = 1))
                 checkButton.connect('toggled', self.componentToggled, comp)
                 self.checkButtons.append ((checkButton, comp))
                 box.pack_start (checkButton)
 
-        wrapper = GtkVBox (FALSE, 0)
-        wrapper.pack_start (box, FALSE)
+        wrapper = gtk.VBox (gtk.FALSE, 0)
+        wrapper.pack_start (box, gtk.FALSE)
         
         sw.add_with_viewport (wrapper)
         viewport = sw.children()[0]
@@ -574,21 +566,21 @@ class PackageSelectionWindow (InstallWindow):
         box.set_focus_hadjustment(sw.get_hadjustment ())
         box.set_focus_vadjustment(sw.get_vadjustment ())
 
-        hbox = GtkHBox (FALSE, 5)
+        hbox = gtk.HBox (gtk.FALSE, 5)
 
-        self.individualPackages = GtkCheckButton (
+        self.individualPackages = gtk.CheckButton (
 		_("Select individual packages"))
         self.individualPackages.set_active (
 		not dispatch.stepInSkipList("indivpackage"))
-        hbox.pack_start (self.individualPackages, FALSE)
+        hbox.pack_start (self.individualPackages, gtk.FALSE)
 
-        self.sizelabel = GtkLabel ("")
+        self.sizelabel = gtk.Label ("")
         self.setSize()
-        hbox.pack_start (self.sizelabel, TRUE)
+        hbox.pack_start (self.sizelabel, gtk.TRUE)
         
-        vbox = GtkVBox (FALSE, 5)
-        vbox.pack_start (sw, TRUE)
-        vbox.pack_start (hbox, FALSE)
+        vbox = gtk.VBox (gtk.FALSE, 5)
+        vbox.pack_start (sw, gtk.TRUE)
+        vbox.pack_start (hbox, gtk.FALSE)
         vbox.set_border_width (5)
 
         return vbox

@@ -13,23 +13,30 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gettext_rh
+import gettext
+import iconvcodec
 
 class i18n:
     def __init__(self):
-	self.langs = []
-        self.cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
+        try:
+            self.cat = gettext.translation("anaconda")
+        except IOError:
+            self.cat = None
 
     def getlangs(self):
 	return self.langs
         
     def setlangs(self, langs):
+        self.__init__()
 	self.langs = langs
-        gettext_rh.setlangs (langs)
-        self.cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
 
     def gettext(self, string):
-        return self.cat.gettext(string)
+        if not self.cat:
+            return string
+        try:
+            return self.cat.ugettext(string)
+        except TypeError:
+            return string
 
 def N_(str):
     return str

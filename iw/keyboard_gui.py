@@ -15,8 +15,8 @@ import isys
 import iutil
 import string
 import xkb
+import gtk
 from iw_gui import *
-from gtk import *
 from kbd import Keyboard
 from log import log
 from flags import flags
@@ -90,30 +90,29 @@ class KeyboardWindow (InstallWindow):
 		    self.layout = kbd.layout
 
 
-	box = GtkVBox(FALSE, 5)
-        hbox = GtkHBox(FALSE, 5)
+	box = gtk.VBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(gtk.FALSE, 5)
         pix = self.ics.readPixmap("gnome-keyboard.png")
         if pix:
-            a = GtkAlignment()
+            a = gtk.Alignment(0.0, 0.0, 0.0, 0.0)
             a.add(pix)
-            a.set(0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start(a, FALSE)
+            hbox.pack_start(a, gtk.FALSE)
 
-        label = GtkLabel(_("Which model keyboard is attached to the computer?"))
-        label.set_line_wrap(TRUE)
+        label = gtk.Label(_("Which model keyboard is attached to the computer?"))
+        label.set_line_wrap(gtk.TRUE)
         label.set_usize(350, -1)
-        hbox.pack_start(label, FALSE)
-        box.pack_start(hbox, FALSE)
+        hbox.pack_start(label, gtk.FALSE)
+        box.pack_start(hbox, gtk.FALSE)
 
 	def moveto(widget, *args):
             widget.moveto(widget.selection[0], 0, 0.5, 0.5)
 
-	box.pack_start(GtkLabel(_("Model")), FALSE)
-        sw = GtkScrolledWindow()
-        sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        self.modelList = GtkCList()
+	box.pack_start(gtk.Label(_("Model")), gtk.FALSE)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.modelList = gtk.CList(1)
 	self.modelList.freeze()
-        self.modelList.set_selection_mode(SELECTION_BROWSE)
+        self.modelList.set_selection_mode(gtk.SELECTION_BROWSE)
         for key, model in self.rules[0].items():
             loc = self.modelList.append((model,))
 	    self.modelList.set_row_data(loc, key)
@@ -122,18 +121,18 @@ class KeyboardWindow (InstallWindow):
         self.modelList.sort()
         self.modelList.connect("select_row", self.select_row)
         self.modelList.columns_autosize()
-        self.modelList.connect_after("draw", moveto)
+        self.modelList.connect_after("size-allocate", moveto)
 	self.modelList.thaw()
         sw.add(self.modelList)
-        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
-        box.pack_start(sw, TRUE)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        box.pack_start(sw, gtk.TRUE)
 
-	box.pack_start(GtkLabel(_("Layout")), FALSE)
-        sw = GtkScrolledWindow()
-        sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        self.layoutList = GtkCList()
+	box.pack_start(gtk.Label(_("Layout")), gtk.FALSE)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.layoutList = gtk.CList(1)
 	self.layoutList.freeze()
-        self.layoutList.set_selection_mode(SELECTION_BROWSE)
+        self.layoutList.set_selection_mode(gtk.SELECTION_BROWSE)
         for key, layout in self.rules[1].items():
             loc = self.layoutList.append((layout,))
 	    self.layoutList.set_row_data(loc, key)
@@ -142,17 +141,17 @@ class KeyboardWindow (InstallWindow):
         self.layoutList.sort()
         self.layoutList.connect("select_row", self.select_row)
         self.layoutList.columns_autosize()
-	self.layoutList.connect_after("draw", moveto)
+	self.layoutList.connect_after("size-allocate", moveto)
 	self.layoutList.thaw()
         sw.add(self.layoutList)
-        sw.set_policy(POLICY_NEVER, POLICY_AUTOMATIC)
-	box.pack_start(sw, TRUE)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+	box.pack_start(sw, gtk.TRUE)
 
-	box.pack_start(GtkLabel(_("Dead Keys")), FALSE)
-        sw = GtkScrolledWindow()
-        sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
-        self.variantList = GtkCList()
-        self.variantList.set_selection_mode(SELECTION_BROWSE)
+	box.pack_start(gtk.Label(_("Dead Keys")), gtk.FALSE)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+        self.variantList = gtk.CList(1)
+        self.variantList.set_selection_mode(gtk.SELECTION_BROWSE)
 #  For now, the only variant is deadkeys, so we'll just handle that
 #  as special case, so the text can be less confusing.
 #        self.variantList.append(("None",))
@@ -170,14 +169,14 @@ class KeyboardWindow (InstallWindow):
         self.variantList.connect("select_row", self.select_row)
         self.variantList.columns_autosize()
         sw.add(self.variantList)
-	box.pack_start(sw, FALSE)
+	box.pack_start(sw, gtk.FALSE)
 
-        label = GtkLabel(_("Test your selection here:"))
+        label = gtk.Label(_("Test your selection here:"))
         label.set_alignment(0.0, 0.5)
-        box.pack_start(label, FALSE)
+        box.pack_start(label, gtk.FALSE)
 
-        entry = GtkEntry()
-        box.pack_start(entry, FALSE)
+        entry = gtk.Entry()
+        box.pack_start(entry, gtk.FALSE)
 
         entry.connect("grab-focus", self.setMap)
 

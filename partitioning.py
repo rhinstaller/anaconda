@@ -1471,7 +1471,7 @@ class DiskSet:
                         ptype = part.fs_type.name
                     else:
                         ptype = None
-                    rc.append (device, ptype)
+                    rc.append((device, ptype))
                 part = disk.next_partition (part)
       
         return rc

@@ -263,7 +263,7 @@ class Mouse (SimpleConfigFile):
 # maybe doesnt belong here - just ask user what mouse they have on
 # startup if kudzu didn't find one
 def mouseWindow(mouse):
-    from snack import *
+    from snack import ButtonChoiceWindow, SnackScreen
     from mouse_text import MouseWindow, MouseDeviceWindow
     from constants_text import INSTALL_BACK, INSTALL_OK
     import string

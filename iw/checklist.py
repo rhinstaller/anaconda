@@ -14,16 +14,15 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
-import GTK
+import gtk
 
-class CheckList (GtkCList):
-    """A class (derived from GtkCList) that provides a list of
+class CheckList (gtk.CList):
+    """A class (derived from gtk.CList) that provides a list of
     checkbox / text string pairs"""
     CHECK_SIZE = 13
 
     def __init__ (self, columns = 1):
-        GtkCList.__init__ (self, columns+1)
+        gtk.CList.__init__ (self, columns+1)
 
         self.set_column_auto_resize(0, 1)
         #for i in range(columns):
@@ -51,14 +50,14 @@ class CheckList (GtkCList):
         self.set_row_data (row, (not not init_value, row_data, ""))
         self.n_rows = self.n_rows + 1
 
-        if (self.flags() & GTK.REALIZED):
+        if (self.flags() & gtk.REALIZED):
             self._update_row (row)
 
         return row
 
     def clear (self):
         "Remove all rows"
-        GtkCList.clear(self)
+        gtk.CList.clear(self)
         self.n_rows = 0
 
     def set_toggled_func (self, func):
@@ -77,8 +76,8 @@ class CheckList (GtkCList):
 
     def _color_pixmaps(self):
         style = self.get_style()
-        base_gc = self.on_pixmap.new_gc(foreground = style.base[GTK.STATE_NORMAL])
-        text_gc = self.on_pixmap.new_gc(foreground = style.text[GTK.STATE_NORMAL])
+        base_gc = self.on_pixmap.new_gc(foreground = style.base[gtk.STATE_NORMAL])
+        text_gc = self.on_pixmap.new_gc(foreground = style.text[gtk.STATE_NORMAL])
         
         self.mask = create_pixmap(None,CheckList.CHECK_SIZE,CheckList.CHECK_SIZE,1)
         # HACK - we really want to just use a color with a pixel value of 1
@@ -110,7 +109,7 @@ class CheckList (GtkCList):
         self.on_pixmap = create_pixmap(self.get_window(), CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
         self.off_pixmap = create_pixmap(self.get_window(), CheckList.CHECK_SIZE,CheckList.CHECK_SIZE)
 
-        # We can't connect this callback before because of a bug in PyGtk where it doesn't
+        # We can't connect this callback before because of a bug in Pygtk. where it doesn't
         # like style_set to be called with a NULL old_style
         self.connect ("style_set", lambda self, old_style: self._color_pixmaps)
         self._color_pixmaps()

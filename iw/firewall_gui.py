@@ -11,12 +11,11 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
-from gnome.ui import *
+import checklist
+import gtk
 from iw_gui import *
 from isys import *
 from translate import _, N_
-import checklist
 
 class FirewallWindow (InstallWindow):		
 
@@ -111,12 +110,12 @@ class FirewallWindow (InstallWindow):
                     from gnome.ui import *
                     import gui
                     self.textWin = GnomeDialog ()
-                    self.textWin.set_modal (TRUE)
+                    self.textWin.set_modal (gtk.TRUE)
 
-                    vbox = GtkVBox()
-                    hbox = GtkHBox()
+                    vbox = gtk.VBox()
+                    hbox = gtk.HBox()
 
-                    hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), FALSE)
+                    hbox.pack_start (GnomePixmap ('/usr/share/pixmaps/gnome-warning.png'), gtk.FALSE)
                     self.textWin.vbox.pack_start(hbox)
                     hbox.pack_start(vbox)
                     
@@ -126,10 +125,10 @@ class FirewallWindow (InstallWindow):
                     self.textWin.set_usize (500, 200)
                     self.textWin.set_position (WIN_POS_CENTER)
 
-                    label = GtkLabel((_("Warning: ")) + bad_token + (_(" is an invalid port.")))
+                    label = gtk.Label((_("Warning: ")) + bad_token + (_(" is an invalid port.")))
                     vbox.pack_start(label)
 
-                    label = GtkLabel(_("The format is 'port:protocol'.  For example, '1234:udp'"))
+                    label = gtk.Label(_("The format is 'port:protocol'.  For example, '1234:udp'"))
                     vbox.pack_start(label)
                     
                     self.textWin.append_button(_("Close"))
@@ -156,8 +155,8 @@ class FirewallWindow (InstallWindow):
             self.label2.set_sensitive(active)
             self.label3.set_sensitive(active)
         else:
-            self.default_radio.set_sensitive (TRUE)
-            self.custom_radio.set_sensitive (TRUE) 
+            self.default_radio.set_sensitive (gtk.TRUE)
+            self.custom_radio.set_sensitive (gtk.TRUE) 
 
             if self.custom_radio.get_active ():
                 self.trusted.set_sensitive(self.custom_radio.get_active())
@@ -213,88 +212,88 @@ class FirewallWindow (InstallWindow):
         
 	self.netCBs = {}
 
-        box = GtkVBox (FALSE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
         box.set_border_width (5)
 
-        label = GtkLabel (_("Please choose your security level:  "))
+        label = gtk.Label (_("Please choose your security level:  "))
         label.set_alignment (0.0, 0.5)
 
-        label.set_line_wrap (TRUE)
+        label.set_line_wrap (gtk.TRUE)
         
-        box.pack_start(label, FALSE)
+        box.pack_start(label, gtk.FALSE)
 
-        hbox = GtkHBox (FALSE)
+        hbox = gtk.HBox (gtk.FALSE)
 
-        self.sec_high_radio = GtkRadioButton (None, (_("High")))
-        self.sec_med_radio = GtkRadioButton (self.sec_high_radio, (_("Medium")))
-        self.sec_none_radio = GtkRadioButton (self.sec_high_radio, (_("No firewall")))
+        self.sec_high_radio = gtk.RadioButton (None, (_("High")))
+        self.sec_med_radio = gtk.RadioButton (self.sec_high_radio, (_("Medium")))
+        self.sec_none_radio = gtk.RadioButton (self.sec_high_radio, (_("No firewall")))
         self.sec_none_radio.connect ("clicked", self.activate_firewall)
 
         hbox.pack_start (self.sec_high_radio)
         hbox.pack_start (self.sec_med_radio)
         hbox.pack_start (self.sec_none_radio)
 
-        a = GtkAlignment ()
+        a = gtk.Alignment ()
         a.add (hbox)
         a.set (1.0, 0.5, 0.7, 1.0)
 
-        box.pack_start (a, FALSE)
+        box.pack_start (a, gtk.FALSE)
 
-        hsep = GtkHSeparator ()
-        box.pack_start (hsep, FALSE)
+        hsep = gtk.HSeparator ()
+        box.pack_start (hsep, gtk.FALSE)
 
-        self.default_radio = GtkRadioButton (None, (_("Use default firewall rules")))
-        self.custom_radio = GtkRadioButton (self.default_radio, (_("Customize")))
-        self.default_radio.set_active (TRUE)
+        self.default_radio = gtk.RadioButton (None, (_("Use default firewall rules")))
+        self.custom_radio = gtk.RadioButton (self.default_radio, (_("Customize")))
+        self.default_radio.set_active (gtk.TRUE)
 
         self.default_radio.connect ("clicked", self.activate_firewall)
         self.custom_radio.connect ("clicked", self.activate_firewall)
         
-        box.pack_start (self.default_radio, FALSE)
-        box.pack_start (self.custom_radio, FALSE)
+        box.pack_start (self.default_radio, gtk.FALSE)
+        box.pack_start (self.custom_radio, gtk.FALSE)
 
-        table = GtkTable (2, 3)
+        table = gtk.Table (2, 3)
         box.pack_start (table)
 
-        hbox = GtkHBox(FALSE, 10)
-        self.label1 = GtkLabel (_("Trusted devices:"))
+        hbox = gtk.HBox(gtk.FALSE, 10)
+        self.label1 = gtk.Label (_("Trusted devices:"))
         self.label1.set_alignment (0.2, 0.0)
         self.trusted = checklist.CheckList(1)
         self.trusted.connect ('button_press_event', self.trusted_select_row)
         self.trusted.connect ("key_press_event", self.trusted_key_press)
 
         if self.devices != []:
-            table.attach (self.label1, 0, 1, 0, 1, FILL, FILL, 5, 5)
-            table.attach (self.trusted, 1, 2, 0, 1, EXPAND|FILL, FILL, 5, 5)
+            table.attach (self.label1, 0, 1, 0, 1, gtk.FILL, gtk.FILL, 5, 5)
+            table.attach (self.trusted, 1, 2, 0, 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
             count = 0
             for device in self.devices:
                 if self.firewall.trustdevs == []:
-                    self.trusted.append_row ((device, device), FALSE)
+                    self.trusted.append_row ((device, device), gtk.FALSE)
                 else:
                     if device in self.firewall.trustdevs:
-                        self.trusted.append_row ((device, device), TRUE)
+                        self.trusted.append_row ((device, device), gtk.TRUE)
                     else:
-                        self.trusted.append_row ((device, device), FALSE)
+                        self.trusted.append_row ((device, device), gtk.FALSE)
                 if self.network.netdevices[device].get('bootproto') == 'dhcp':
                     self.firewall.dhcp = 1
 
             count = count + 1
 
-        hbox = GtkHBox(FALSE, 10)        
-        self.label2 = GtkLabel (_("Allow incoming:"))
+        hbox = gtk.HBox(gtk.FALSE, 10)        
+        self.label2 = gtk.Label (_("Allow incoming:"))
         self.label2.set_alignment (0.2, 0.0)
         self.incoming = checklist.CheckList(1)
         self.incoming.connect ('button_press_event', self.incoming_select_row)
         self.incoming.connect ("key_press_event", self.incoming_key_press)
-        table.attach (self.label2, 0, 1, 1, 2, FILL, FILL, 5, 5)
-        table.attach (self.incoming, 1, 2, 1, 2, EXPAND|FILL, FILL, 5, 5)
+        table.attach (self.label2, 0, 1, 1, 2, gtk.FILL, gtk.FILL, 5, 5)
+        table.attach (self.incoming, 1, 2, 1, 2, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
         self.list = ["DHCP", "SSH", "Telnet", "WWW (HTTP)", "Mail (SMTP)", "FTP"]
 
         count = 0
         for item in self.list:
-            self.incoming.append_row ((item, ""), FALSE)
+            self.incoming.append_row ((item, ""), gtk.FALSE)
 
             if item == "DHCP":
                 self.incoming.set_row_data (count, (self.firewall.dhcp, item, item)) 
@@ -311,31 +310,31 @@ class FirewallWindow (InstallWindow):
 
             count = count + 1
 
-        self.label3 = GtkLabel (_("Other ports:"))
-        self.ports = GtkEntry ()
+        self.label3 = gtk.Label (_("Other ports:"))
+        self.ports = gtk.Entry ()
 
-        table.attach (self.label3, 0, 1, 2, 3, FILL, FILL, 5, 5)
-        table.attach (self.ports, 1, 2, 2, 3, EXPAND|FILL, FILL, 5, 5)
+        table.attach (self.label3, 0, 1, 2, 3, gtk.FILL, gtk.FILL, 5, 5)
+        table.attach (self.ports, 1, 2, 2, 3, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
         if self.firewall.enabled == 0:
-            self.sec_none_radio.set_active (TRUE)
+            self.sec_none_radio.set_active (gtk.TRUE)
         elif self.firewall.policy == 0:
-            self.sec_high_radio.set_active (TRUE)
+            self.sec_high_radio.set_active (gtk.TRUE)
         elif self.firewall.policy == 1:
-            self.sec_med_radio.set_active (TRUE)
+            self.sec_med_radio.set_active (gtk.TRUE)
 
         if self.firewall.portlist != "":
             self.ports.set_text (self.firewall.portlist)
 
         if self.firewall.custom == 1:
-            self.custom_radio.set_active(TRUE)
+            self.custom_radio.set_active(gtk.TRUE)
         else:
-            self.trusted.set_sensitive(FALSE)
-            self.incoming.set_sensitive(FALSE)
-            self.ports.set_sensitive(FALSE)
-            self.label1.set_sensitive(FALSE)
-            self.label2.set_sensitive(FALSE)
-            self.label3.set_sensitive(FALSE)
+            self.trusted.set_sensitive(gtk.FALSE)
+            self.incoming.set_sensitive(gtk.FALSE)
+            self.ports.set_sensitive(gtk.FALSE)
+            self.label1.set_sensitive(gtk.FALSE)
+            self.label2.set_sensitive(gtk.FALSE)
+            self.label3.set_sensitive(gtk.FALSE)
 
         return box
 

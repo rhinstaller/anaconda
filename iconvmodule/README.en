@@ -1,0 +1,66 @@
+Iconv-based codec library for Python
+====================================
+Written by Martin v. Loewis
+
+This package provides a set of codecs to Python based on the
+underlying iconv library of the operating system, as available on
+glibc 2, Solaris, or other Unix variants. It consists of two modules:
+iconv and iconvcodec.
+
+Installation
+------------
+To install the module, simply type
+
+python setup.py install
+
+This module package requires atleast Python 2.0.
+
+Module iconv
+------------
+The iconv module exposes a global function to create iconv objects:
+
+open(tocode, fromcode)
+Return descriptor for character set conversion. If the conversion
+of fromcode to tocode is not known to the system, a ValueError is
+raised.
+
+Iconv objects provide a single method to convert a string
+
+iconv(in[, outlen[, return_unicode[, count_only]]])
+Return the string resulting from the conversion of in. The parameter
+in can be a byte or unicode string, or an arbitrary buffer object.
+It is the caller's responsibility to guarantee that the internal
+representation of the in object indeed uses fromcode of the Iconv
+object. The parameter outlen represents an estimate of the resulting
+string size (in bytes, or in characters if return_unicode is true).
+If the buffer is to small, an exception is thrown. If return_unicode
+is set, a Unicode object is the result. If count_only is set,
+no conversion is attempted, but the number of necessary bytes is
+returned.
+
+In case of an error, the iconv method raises the exception iconv.error.
+This exception has four arguments:
+  - the error string as returned from strerror
+  - the error number
+  - the number of input bytes processed
+  - the output string produced so far
+
+Module iconvcodecs
+------------------
+This module encapsulates the iconv module into a set of codecs. To use it,
+simply import it. As a result, the C library's codecs will be available:
+
+  unicode("Hello","T.61")
+  u"World".encode("JOHAB")
+
+License
+-------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or
+(at your option) any later version.
+
+Author
+------
+Martin v. Loewis
+loewis@informatik.hu-berlin.de

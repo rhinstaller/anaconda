@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
+import gtk
 from iw_gui import *
 from translate import _, N_
 from package_gui import queryUpgradeContinue
@@ -21,29 +21,29 @@ class ConfirmWindow (InstallWindow):
 
     # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
     def getScreen (self, labelText, longText):
-        hbox = GtkHBox (TRUE, 5)
-        box = GtkVBox (FALSE, 5)
+        hbox = gtk.HBox (gtk.TRUE, 5)
+        box = gtk.VBox (gtk.FALSE, 5)
 
         pix = self.ics.readPixmap ("about-to-install.png")
         if pix:
-            a = GtkAlignment ()
+            a = gtk.Alignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
-            hbox.pack_start (a, FALSE)
+            hbox.pack_start (a, gtk.FALSE)
 
-	label = GtkLabel (labelText)
-        label.set_line_wrap (TRUE)
+	label = gtk.Label (labelText)
+        label.set_line_wrap (gtk.TRUE)
         label.set_usize(190, -1)
 
-	label2 = GtkLabel (longText)
-        label2.set_line_wrap (TRUE)
+	label2 = gtk.Label (longText)
+        label2.set_line_wrap (gtk.TRUE)
         label2.set_usize(190, -1)
         
-        box.pack_start (label, FALSE)
-        box.pack_start (label2, FALSE)
+        box.pack_start (label, gtk.FALSE)
+        box.pack_start (label2, gtk.FALSE)
         box.set_border_width (5)
 
-        a = GtkAlignment ()
+        a = gtk.Alignment ()
         a.add (box)
         a.set (0.5, 0.5, 0.0, 0.0)
 

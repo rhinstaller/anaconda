@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python2.2
 #
 # anaconda: The Red Hat Linux Installation program
 #
@@ -38,6 +38,7 @@ if (os.path.exists('isys')):
     sys.path.append('iw')
     sys.path.append('installclasses')
     sys.path.append('edd')
+    sys.path.append('iconvmodule')
 else:
     sys.path.append('/usr/lib/anaconda')
     sys.path.append('/usr/lib/anaconda/textw')

@@ -11,11 +11,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gdkpixbuf
 import checklist
-from gtk import *
+import gtk
 from iw_gui import *
-from gnome.ui import *
 from flags import flags
 from translate import _, N_
 
@@ -59,9 +57,9 @@ class LanguageSupportWindow (InstallWindow):
 	
 	if len(list) == 0:
 	    list = [""]
-	    self.ics.setNextEnabled (FALSE)
+	    self.ics.setNextEnabled (gtk.FALSE)
 	else:
-	    self.ics.setNextEnabled (TRUE)
+	    self.ics.setNextEnabled (gtk.TRUE)
 
         self.defaultLang = self.combo.entry.get_text()
 	self.combo.set_popdown_strings(list)
@@ -80,16 +78,16 @@ class LanguageSupportWindow (InstallWindow):
         self.language._update_row (row)
         
     def select_all (self, data):
-        self.ics.setNextEnabled (TRUE)
+        self.ics.setNextEnabled (gtk.TRUE)
         for row in range(self.maxrows):
             (val, row_data, header) = self.language.get_row_data (row)
-            self.language.set_row_data (row, (TRUE, row_data, header)) 
+            self.language.set_row_data (row, (gtk.TRUE, row_data, header)) 
             self.language._update_row (row)
 
 	self.rebuild_combo_box()
 
     def reset (self, data):
-        self.ics.setNextEnabled (TRUE)
+        self.ics.setNextEnabled (gtk.TRUE)
 	list = []
 
         for row in range(self.maxrows):
@@ -135,32 +133,32 @@ class LanguageSupportWindow (InstallWindow):
         if self.origLangs == []:
             self.origLangs.append(self.defaultLang)
         
-        vbox = GtkVBox (FALSE, 10)
-        hbox = GtkHBox (FALSE)
+        vbox = gtk.VBox (gtk.FALSE, 10)
+        hbox = gtk.HBox (gtk.FALSE)
         
-        label = GtkLabel (_("Choose the default language for this system:   "))
-        hbox.pack_start (label, FALSE, 20)
+        label = gtk.Label (_("Choose the default language for this system:   "))
+        hbox.pack_start (label, gtk.FALSE, 20)
 
-        self.combo = GtkCombo ()
+        self.combo = gtk.Combo ()
 
-        hbox.pack_start (self.combo, FALSE, 20)
-        vbox.pack_start (hbox, FALSE, 50)
+        hbox.pack_start (self.combo, gtk.FALSE, 20)
+        vbox.pack_start (hbox, gtk.FALSE, 50)
 
-        sep = GtkHSeparator ()
-        vbox.pack_start (sep, FALSE, 15)
+        sep = gtk.HSeparator ()
+        vbox.pack_start (sep, gtk.FALSE, 15)
 
         if flags.reconfig:
-            label = GtkLabel (_("Currently installed languages:"))
+            label = gtk.Label (_("Currently installed languages:"))
         else:
-            label = GtkLabel (_("Choose additional languages you would "
+            label = gtk.Label (_("Choose additional languages you would "
                                 "like to use on this system:"))
 
         label.set_alignment (0.0, 0.5)
-        label.set_line_wrap (TRUE)
+        label.set_line_wrap (gtk.TRUE)
         label.set_usize(400, -1)
-        vbox.pack_start (label, FALSE)
+        vbox.pack_start (label, gtk.FALSE)
         
-        hbox = GtkHBox (FALSE)
+        hbox = gtk.HBox (gtk.FALSE)
 
         # langs we want to support
         self.language = checklist.CheckList(1)
@@ -175,7 +173,7 @@ class LanguageSupportWindow (InstallWindow):
 
         for locale in self.languages:
 	    if locale == self.defaultLang or (locale in self.supportedLangs):
-		self.language.append_row((locale, ""), TRUE)
+		self.language.append_row((locale, ""), gtk.TRUE)
 		list.append(locale)
 
 		if locale == self.defaultLang:
@@ -184,49 +182,49 @@ class LanguageSupportWindow (InstallWindow):
 		else:
 		    comboCurr = comboCurr + 1
 	    else:
-		self.language.append_row((locale, ""), FALSE)
+		self.language.append_row((locale, ""), gtk.FALSE)
 
             self.maxrows = self.maxrows + 1
 
-        self.language.connect_after ("draw", moveto, firstItem)
+        self.language.connect_after ("expose-event", moveto, firstItem)
             
         self.combo.set_popdown_strings (list)
         self.combo.list.select_item(sel)
-        self.combo.entry.set_editable(FALSE)
+        self.combo.entry.set_editable(gtk.FALSE)
 
-        sw = GtkScrolledWindow ()
+        sw = gtk.ScrolledWindow ()
         sw.set_border_width (5)
-        sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+        sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.add (self.language)
 
-        vbox2 = GtkVBox (FALSE, 12)
+        vbox2 = gtk.VBox (gtk.FALSE, 12)
 
-        all_button = GtkButton (_("Select all"))
+        all_button = gtk.Button (_("Select all"))
         all_button.set_usize(160, -1)
         all_button.connect ('clicked', self.select_all)
-        a1 = GtkAlignment (0.5, 0.5)
+        a1 = gtk.Alignment (0.5, 0.5)
         a1.add (all_button)
 
-        reset_button = GtkButton (_("Reset"))
+        reset_button = gtk.Button (_("Reset"))
         reset_button.set_usize(160, -1)
         reset_button.connect ('clicked', self.reset)
-        a2 = GtkAlignment (0.5, 0.5)
+        a2 = gtk.Alignment (0.5, 0.5)
         a2.add (reset_button)
 
-        vbox2.pack_start (a1, FALSE, 10)
-        vbox2.pack_start (a2, FALSE)
-        hbox.pack_start (sw, TRUE, 10)
-        hbox.pack_start (vbox2, FALSE, 10)
-        vbox.pack_start (hbox, TRUE)
+        vbox2.pack_start (a1, gtk.FALSE, 10)
+        vbox2.pack_start (a2, gtk.FALSE)
+        hbox.pack_start (sw, gtk.TRUE, 10)
+        hbox.pack_start (vbox2, gtk.FALSE, 10)
+        vbox.pack_start (hbox, gtk.TRUE)
 
         # default button
-        alignment = GtkAlignment (0.0, 0.0)
-        button = GtkButton (_("Select as default"))
+        alignment = gtk.Alignment (0.0, 0.0)
+        button = gtk.Button (_("Select as default"))
         alignment.add (button)
 
         # in reconfig mode make some widgets unchangable
         if flags.reconfig:
-            self.language.set_sensitive(FALSE)
-            all_button.set_sensitive(FALSE)
+            self.language.set_sensitive(gtk.FALSE)
+            all_button.set_sensitive(gtk.FALSE)
 
         return vbox

@@ -12,7 +12,7 @@
 #
 
 import installclass
-from gtk import *
+import gtk
 from iw_gui import InstallWindow
 from flags import flags
 from translate import _, N_
@@ -65,15 +65,15 @@ class InstallPathWindow (InstallWindow):
     def pixRadioButton (self, group, label, pixmap):
         pix = self.ics.readPixmap (pixmap)
         if pix:
-            hbox = GtkHBox (FALSE, 5)
-            hbox.pack_start (pix, FALSE, FALSE, 0)
-            label = GtkLabel (label)
+            hbox = gtk.HBox (gtk.FALSE, 5)
+            hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
+            label = gtk.Label (label)
             label.set_alignment (0.0, 0.5)
-            hbox.pack_start (label, TRUE, TRUE, 15)
-            button = GtkRadioButton (group)
+            hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 15)
+            button = gtk.RadioButton (group)
             button.add (hbox)
         else:
-            button = GtkRadioButton (group, label)
+            button = gtk.RadioButton (group, label)
         return button
 
     # InstallPathWindow tag="instpath"
@@ -131,7 +131,7 @@ class InstallPathWindow (InstallWindow):
 		topLevelGroup = self.pixRadioButton(topLevelGroup,
 		    _(parentName), parentPixmap)
 
-		box = GtkVBox (FALSE, 0)
+		box = gtk.VBox (gtk.FALSE, 0)
 		box.set_usize(300, -1)
 		group = None
 
@@ -141,7 +141,7 @@ class InstallPathWindow (InstallWindow):
 		    group = self.pixRadioButton(group, _(name), pixmap)
 		    self.buttonToObject[group] = obj
 		    buttons.append(group)
-		    box.pack_start (group, FALSE)
+		    box.pack_start (group, gtk.FALSE)
 
 		    if currentClass == obj:
 			group.set_active(1)
@@ -154,21 +154,22 @@ class InstallPathWindow (InstallWindow):
 	    if box:
 		tableRows = tableRows + 1
 
-	table = GtkTable(2, tableRows + 1)
+	table = gtk.Table(2, tableRows + 1)
 	row = 0
 
 	for (button, box, buttons) in self.topLevelButtonList:
-	    table.attach(button, 0, 3, row, row + 1, xoptions = FILL | EXPAND)
+	    table.attach(button, 0, 3, row, row + 1,
+                         xoptions = gtk.FILL | gtk.EXPAND)
 
-	    #table.attach(align, 2, 3, row, row + 1, xoptions = FALSE)
+	    #table.attach(align, 2, 3, row, row + 1, xoptions = gtk.FALSE)
 	    row = row + 1
 
 	    if box:
 		table.attach(box, 1, 3, row, row + 1)
 		row = row + 1
 
-	box = GtkVBox (FALSE, 5)
-	box.pack_start(table, FALSE)
+	box = gtk.VBox (gtk.FALSE, 5)
+	box.pack_start(table, gtk.FALSE)
         box.set_border_width (5)
 
         return box

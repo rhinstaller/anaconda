@@ -17,7 +17,7 @@ import os
 import gui
 import sys
 import timer
-from gtk import *
+import gtk
 from iw_gui import *
 from translate import _, N_
 from packages import doInstall
@@ -31,10 +31,10 @@ class InstallProgressWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setPrevEnabled (FALSE)
-        ics.setNextEnabled (FALSE)
+        ics.setPrevEnabled (gtk.FALSE)
+        ics.setNextEnabled (gtk.FALSE)
         
-        ics.setHelpButtonEnabled (FALSE)
+        ics.setHelpButtonEnabled (gtk.FALSE)
 
 	self.numComplete = 0
 	self.sizeComplete = 0
@@ -188,47 +188,47 @@ class InstallProgressWindow (InstallWindow):
         self.pixtimer = timer.Timer()
         self.pixcurnum = 0
         
-	table = GtkTable (3, 2)
+	table = gtk.Table (3, 2)
         self.curPackage = { "package" : _("Package"),
                             "size"    : _("Size"),
                             "summary" : _("Summary") }
         i = 0
         for key in ("package", "size", "summary"):
-            label = GtkLabel ("%s: " % (self.curPackage[key],))
+            label = gtk.Label ("%s: " % (self.curPackage[key],))
             label.set_alignment (0, 0)
             if key == "summary":
-                fillopts = EXPAND|FILL
+                fillopts = gtk.EXPAND|gtk.FILL
             else:
-                fillopts = FILL
+                fillopts = gtk.FILL
 
-            table.attach (label, 0, 1, i, i+1, FILL, fillopts)
-            label = GtkLabel ()
+            table.attach (label, 0, 1, i, i+1, gtk.FILL, fillopts)
+            label = gtk.Label ("")
             label.set_alignment (0, 0)
-            label.set_line_wrap (TRUE)
+            label.set_line_wrap (gtk.TRUE)
             if key == "summary":
                 label.set_text ("\n\n")
                 label.set_usize(450, 35)
 #                label.set_usize(-1, 1)
             self.curPackage[key] = label
-            table.attach (label, 1, 2, i, i+1, FILL, fillopts)
+            table.attach (label, 1, 2, i, i+1, gtk.FILL, fillopts)
             i = i + 1
 
 
-        vbox = GtkVBox (FALSE, 10)
-        vbox.pack_start (table, FALSE, FALSE)
+        vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox.pack_start (table, gtk.FALSE, gtk.FALSE)
 
-	self.progress = GtkProgressBar ()
-        self.totalProgress = GtkProgressBar ()
+	self.progress = gtk.ProgressBar ()
+        self.totalProgress = gtk.ProgressBar ()
 
-        progressTable = GtkTable (2, 2, FALSE)
-        label = GtkLabel (_("Package Progress: "))
+        progressTable = gtk.Table (2, 2, gtk.FALSE)
+        label = gtk.Label (_("Package Progress: "))
         label.set_alignment (0, 0)
-        progressTable.attach (label, 0, 1, 0, 1, SHRINK)
+        progressTable.attach (label, 0, 1, 0, 1, gtk.SHRINK)
         progressTable.attach (self.progress, 1, 2, 0, 1)
 
-        label = GtkLabel (_("Total Progress:   "))
+        label = gtk.Label (_("Total Progress:   "))
         label.set_alignment (0, 0)
-        progressTable.attach (label, 0, 1, 1, 2, SHRINK)
+        progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
         progressTable.attach (self.totalProgress, 1, 2, 1, 2)
 
         self.status =  {
@@ -243,16 +243,16 @@ class InstallProgressWindow (InstallWindow):
                             "time"     : (2, 3) }
             }
 
-        clist = GtkCList (4, (_("Status"), _("Packages"), _("Size"), _("Time")))
+        clist = gtk.CList (4, (_("Status"), _("Packages"), _("Size"), _("Time")))
         clist.column_titles_passive ()
-        clist.set_column_resizeable (0, FALSE)
-        clist.set_column_resizeable (1, FALSE)
-        clist.set_column_resizeable (2, FALSE)
-        clist.set_column_resizeable (3, FALSE)
-        clist.set_column_justification (0, JUSTIFY_LEFT)
-        clist.set_column_justification (1, JUSTIFY_RIGHT)
-        clist.set_column_justification (2, JUSTIFY_RIGHT)
-        clist.set_column_justification (3, JUSTIFY_RIGHT)
+        clist.set_column_resizeable (0, gtk.FALSE)
+        clist.set_column_resizeable (1, gtk.FALSE)
+        clist.set_column_resizeable (2, gtk.FALSE)
+        clist.set_column_resizeable (3, gtk.FALSE)
+        clist.set_column_justification (0, gtk.JUSTIFY_LEFT)
+        clist.set_column_justification (1, gtk.JUSTIFY_RIGHT)
+        clist.set_column_justification (2, gtk.JUSTIFY_RIGHT)
+        clist.set_column_justification (3, gtk.JUSTIFY_RIGHT)
         clist.append ((_("Total"),     "0", "0 M", "0:00:00"))
         clist.append ((_("Completed"), "0", "0 M", "0:00:00"))
         clist.append ((_("Remaining"), "0", "0 M", "0:00:00"))
@@ -262,32 +262,30 @@ class InstallProgressWindow (InstallWindow):
         for x in range (4):
             clist.column_title_passive (x)
         for x in range (3):
-            clist.set_selectable (x, FALSE)
-        clist['can_focus'] = FALSE
+            clist.set_selectable (x, gtk.FALSE)
+        clist.set_property('can_focus', gtk.FALSE)
         self.clist = clist
-#        align = GtkAlignment (0.5, 0.5)
+#        align = gtk.Alignment (0.5, 0.5)
 #        align.add (clist)
-#        vbox.pack_start (align, FALSE)
-        hbox = GtkHBox (FALSE, 5)
+#        vbox.pack_start (align, gtk.FALSE)
+        hbox = gtk.HBox (gtk.FALSE, 5)
         
-        vbox.pack_start (progressTable, FALSE)
-        hbox.pack_start (clist, TRUE)
-        vbox.pack_start (hbox, FALSE)
+        vbox.pack_start (progressTable, gtk.FALSE)
+        hbox.pack_start (clist, gtk.TRUE)
+        vbox.pack_start (hbox, gtk.FALSE)
         
         pix = self.ics.readPixmap ("progress_first.png")
         if pix:
-            frame = GtkFrame()
-            frame.set_shadow_type (SHADOW_IN)
-            box = GtkEventBox ()
+            frame = gtk.Frame()
+            frame.set_shadow_type(gtk.SHADOW_IN)
+            box = gtk.EventBox()
             self.adpix = pix
-            style = box.get_style ().copy ()
-            style.bg[STATE_NORMAL] = style.white
-            box.set_style (style)
+            box.modify_bg(gtk.STATE_NORMAL, box.get_style().white)
 #            self.adpix.set_alignment (0, 0)
-            box.add (self.adpix)
+            box.add(self.adpix)
             self.adbox = box
             frame.add (box)
-            vbox.pack_start (frame);
+            vbox.pack_start(frame);
 
 	intf.setPackageProgressWindow (self)
 	id.setInstallProgressClass(self)

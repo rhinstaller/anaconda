@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
+import gtk
 from iw_gui import *
 from isys import *
 from translate import _, N_
@@ -122,7 +122,7 @@ class NetworkWindow(InstallWindow):
         ip = ip.get_text()
         dots = 0
         valid_list = ("1", "2", "3", "4", "5", "6", "7", "8" , "9", "0", ".")
-        valid_ip = TRUE
+        valid_ip = gtk.TRUE
 
         for x in ip:
             if x == '.':
@@ -130,10 +130,10 @@ class NetworkWindow(InstallWindow):
             #-if there's an invalid char in the widget, don't calculate netmask
             if x not in valid_list:
                 print "found invalid char"
-                valid_ip = FALSE
+                valid_ip = gtk.FALSE
         if dots != 3: return
 
-        if valid_ip == TRUE:
+        if valid_ip == gtk.TRUE:
             try:
                 new_nm = inet_calcNetmask(ip)
                 if(new_nm != nm.get_text()):
@@ -161,43 +161,43 @@ class NetworkWindow(InstallWindow):
 
     # NetworkWindow tag="netconf"
     def getScreen(self, network):
-        box = GtkVBox()
+        box = gtk.VBox()
         box.set_border_width(5)
 	self.network = network
         
-        notebook = GtkNotebook()
+        notebook = gtk.Notebook()
         devs = self.network.available()
         if not devs: return None
 
         devs.keys().sort()
         num = 0
         for i in devs.keys():
-            devbox = GtkVBox()
-            align = GtkAlignment()
-            DHCPcb = GtkCheckButton(_("Configure using DHCP"))
+            devbox = gtk.VBox()
+            align = gtk.Alignment()
+            DHCPcb = gtk.CheckButton(_("Configure using DHCP"))
 
             align.add(DHCPcb)
-            devbox.pack_start(align, FALSE)
+            devbox.pack_start(align, gtk.FALSE)
 
-            align = GtkAlignment()
-            bootcb = GtkCheckButton(_("Activate on boot"))
+            align = gtk.Alignment()
+            bootcb = gtk.CheckButton(_("Activate on boot"))
             onboot = devs[i].get("onboot")
 	    bootcb.connect("toggled", self.onBootToggled, devs[i])
             bootcb.set_active((num == 0 and not onboot)
                                or onboot == "yes")
             align.add(bootcb)
 
-            devbox.pack_start(align, FALSE)
+            devbox.pack_start(align, gtk.FALSE)
 
-            devbox.pack_start(GtkHSeparator(), FALSE, padding=3)
+            devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
 
             options = [(_("IP Address"), "ipaddr"),
                        (_("Netmask"),    "netmask"),
                        (_("Network"),    "network"),
                        (_("Broadcast"),  "broadcast")]
-            ipTable = GtkTable(len(options), 2)
+            ipTable = gtk.Table(len(options), 2)
             # this is the iptable used for DNS, et. al
-            self.ipTable = GtkTable(len(options), 2)
+            self.ipTable = gtk.Table(len(options), 2)
 
             DHCPcb.connect("toggled", self.DHCPtoggled, (devs[i], ipTable))
             bootproto = devs[i].get("bootproto")
@@ -210,17 +210,17 @@ class NetworkWindow(InstallWindow):
             forward = lambda widget, box=box: box.focus(DIR_TAB_FORWARD)
 
             for t in range(len(options)):
-                label = GtkLabel("%s:" %(options[t][0],))
+                label = gtk.Label("%s:" %(options[t][0],))
                 label.set_alignment(0.0, 0.5)
-                ipTable.attach(label, 0, 1, t, t+1, FILL, 0, 10)
-                entry = GtkEntry(15)
+                ipTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
+                entry = gtk.Entry(15)
           # entry.set_usize(gdk_char_width(entry.get_style().font, '0')*15, -1)
                 entry.set_usize(7 * 15, -1)
                 entry.connect("activate", forward)
 
                 entry.set_text(devs[i].get(options[t][1]))
                 options[t] = entry
-                ipTable.attach(entry, 1, 2, t, t+1, 0, FILL|EXPAND)
+                ipTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
 
             for t in range(len(options)):
                 if t == 0 or t == 1:
@@ -240,31 +240,31 @@ class NetworkWindow(InstallWindow):
             options[2].connect("focus_out_event", self.focusOutNW, devs[i])
             options[3].connect("focus_out_event", self.focusOutBC, devs[i])
 
-            devbox.pack_start(ipTable, FALSE, FALSE, 5)
+            devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 5)
 
             devbox.show_all()
-            notebook.append_page(devbox, GtkLabel(i))
+            notebook.append_page(devbox, gtk.Label(i))
 
-        box.pack_start(notebook, FALSE)
-        box.pack_start(GtkHSeparator(), FALSE, padding=10)
+        box.pack_start(notebook, gtk.FALSE)
+        box.pack_start(gtk.HSeparator(), gtk.FALSE, padding=10)
 
         options = [_("Hostname"), _("Gateway"), _("Primary DNS"),
                    _("Secondary DNS"), _("Ternary DNS")]
 
         for i in range(len(options)):
-            label = GtkLabel("%s:" %(options[i],))
+            label = gtk.Label("%s:" %(options[i],))
             label.set_alignment(0.0, 0.0)
-            self.ipTable.attach(label, 0, 1, i, i+1, FILL, 0, 10)
+            self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0, 10)
             if i == 0:
-                options[i] = GtkEntry()
+                options[i] = gtk.Entry()
                 options[i].set_usize(7 * 30, -1)
             else:
-                options[i] = GtkEntry(15)
+                options[i] = gtk.Entry(15)
                 options[i].set_usize(7 * 15, -1)
             options[i].connect("activate", forward)
-            align = GtkAlignment(0, 0.5)
+            align = gtk.Alignment(0, 0.5)
             align.add(options[i])
-            self.ipTable.attach(align, 1, 2, i, i+1, FILL, 0)
+            self.ipTable.attach(align, 1, 2, i, i+1, gtk.FILL, 0)
         self.ipTable.set_row_spacing(0, 5)
 
         self.hostname = options[0]
@@ -284,7 +284,7 @@ class NetworkWindow(InstallWindow):
 
         self.ns3 = options[4]
         self.ns3.set_text(self.network.ternaryNS)
-        box.pack_start(self.ipTable, FALSE, FALSE, 5)
+        box.pack_start(self.ipTable, gtk.FALSE, gtk.FALSE, 5)
 
         return box
 

@@ -1,6 +1,6 @@
 include ../Makefile.inc
 
-CFLAGS=-Wall -O -g -fpic -I/usr/include/python1.5# -DDEBUG
+CFLAGS=-Wall -O -g -fpic -I$(PYTHONINCLUDE)# -DDEBUG
 
 TARGETS=eddmodule.so libedd.a(edd.o lrmi.o)
 

@@ -13,8 +13,9 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
+import gtk
+from gui import WrappingLabel
 from iw_gui import *
-from gtk import *
 from translate import _
 from autopart import PARTMETHOD_TYPE_DESCR_TEXT
 
@@ -43,27 +44,25 @@ class PartitionMethodWindow(InstallWindow):
 
         self.partitions = partitions
         
-        box = GtkVBox (FALSE)
+        box = gtk.VBox (gtk.FALSE)
         box.set_border_width (5)
 
-        label=GtkLabel(_(PARTMETHOD_TYPE_DESCR_TEXT))
-        label.set_line_wrap(1)
+        label=WrappingLabel(_(PARTMETHOD_TYPE_DESCR_TEXT))
         label.set_alignment(0.0, 0.0)
-        label.set_usize(400, -1)
 
-        box.pack_start(label, FALSE, FALSE)
+        box.pack_start(label, gtk.TRUE, gtk.TRUE)
 
-        radioBox = GtkVBox (FALSE)
+        radioBox = gtk.VBox (gtk.FALSE)
 
-        self.useAuto = GtkRadioButton(
+        self.useAuto = gtk.RadioButton(
             None, _("Have the installer automatically partition for you"))
-	radioBox.pack_start(self.useAuto, FALSE, FALSE)
-        self.useDS = GtkRadioButton(
+	radioBox.pack_start(self.useAuto, gtk.FALSE, gtk.FALSE)
+        self.useDS = gtk.RadioButton(
             self.useAuto, _("Manually partition with Disk Druid"))
-	radioBox.pack_start(self.useDS, FALSE, FALSE)
-        self.useFdisk = GtkRadioButton(
+	radioBox.pack_start(self.useDS, gtk.FALSE, gtk.FALSE)
+        self.useFdisk = gtk.RadioButton(
             self.useAuto, _("Manually partition with fdisk [experts only]"))
-	radioBox.pack_start(self.useFdisk, FALSE, FALSE)
+	radioBox.pack_start(self.useFdisk, gtk.FALSE, gtk.FALSE)
 
         if partitions.useAutopartitioning:
             self.useAuto.set_active(1)
@@ -72,17 +71,17 @@ class PartitionMethodWindow(InstallWindow):
         else:
             self.useDS.set_active(1)
             
-	align = GtkAlignment()
+	align = gtk.Alignment()
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
 
-	box.pack_start(align, FALSE, FALSE, 10)
+	box.pack_start(align, gtk.FALSE, gtk.FALSE, 10)
 
 	box.set_border_width (5)
 
-        self.ics.setNextEnabled (TRUE)
+        self.ics.setNextEnabled (gtk.TRUE)
 
-        align = GtkAlignment()
+        align = gtk.Alignment()
         align.add(box)
         align.set(0.5, 0.5, 0.0, 0.0)
 

@@ -11,21 +11,14 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-# must replace with explcit form so update disks will work
-from iw_gui import *
-
-from gtk import *
-from gnome.ui import *
-from translate import _, N_
-import gdkpixbuf
+import gtk
 import iutil
-from package_gui import queryUpgradeContinue
 import gui
+from iw_gui import *
+from translate import _, N_
+from package_gui import queryUpgradeContinue
 
 class BootloaderWindow (InstallWindow):
-    checkMark = None
-    checkMark_Off = None
-
     windowTitle = N_("Boot Loader Configuration")
     htmlTag = "bootloader"
 
@@ -150,13 +143,13 @@ class BootloaderWindow (InstallWindow):
             return
         
         if not widget.get_active ():
-            state = TRUE
+            state = gtk.TRUE
             if self.checkLiloReqs():
                 self.ics.setNextEnabled (1)
             else:
                 self.ics.setNextEnabled (0)            
         else:
-            state = FALSE
+            state = gtk.FALSE
             self.ics.setNextEnabled(1)
 
         list = self.bootDevice.keys()
@@ -192,11 +185,11 @@ class BootloaderWindow (InstallWindow):
 
         # cannot allow user to select as default is zero length
         if label:
-            self.defaultCheck.set_sensitive (TRUE)
+            self.defaultCheck.set_sensitive (gtk.TRUE)
         else:
             self.ignoreSignals = 1
             self.defaultCheck.set_active(0)
-            self.defaultCheck.set_sensitive (FALSE)
+            self.defaultCheck.set_sensitive (gtk.FALSE)
             if self.default != None and self.default == index:
                 self.imageList.set_text(self.default, 0, "")
                 self.default = None
@@ -248,7 +241,7 @@ class BootloaderWindow (InstallWindow):
         # do not allow blank label to be default
         if not label:
             self.defaultCheck.set_active(0)
-            self.defaultCheck.set_sensitive (FALSE)
+            self.defaultCheck.set_sensitive (gtk.FALSE)
 
         self.ignoreSignals = 1
         if index == self.default:
@@ -279,10 +272,14 @@ class BootloaderWindow (InstallWindow):
 
     # LiloWindow tag="lilo"
     def getScreen(self, dispatch, bl, fsset, diskSet):
-        if not BootloaderWindow.checkMark:
-            BootloaderWindow.checkMark = self.ics.readPixmap("checkbox-on.png")
-        if not BootloaderWindow.checkMark_Off:
-            BootloaderWindow.checkMark_Off = self.ics.readPixmap("checkbox-off.png")            
+        fn = self.ics.findPixmap("checkbox-on.png")
+        if fn:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+            self.checkMark = pixbuf.render_pixmap_and_mask()[0]
+        fn = self.ics.findPixmap("checkbox-off.png")
+        if fn:
+            pixbuf = gtk.gdk.pixbuf_new_from_file(fn)
+            self.checkMark_Off = pixbuf.render_pixmap_and_mask()[0]
 
 	self.dispatch = dispatch
 	self.bl = bl
@@ -294,17 +291,17 @@ class BootloaderWindow (InstallWindow):
 	defaultDevice = bl.images.getDefault()
         self.ignoreSignals = 0
 
-        self.radioBox = GtkTable(2, 6)
+        self.radioBox = gtk.Table(2, 6)
 	self.bootDevice = {}
         self.radioBox.set_border_width (5)
         
-        spacer = GtkLabel("")
+        spacer = gtk.Label("")
         spacer.set_usize(10, 1)
-        self.radioBox.attach(spacer, 0, 1, 2, 4, FALSE)
+        self.radioBox.attach(spacer, 0, 1, 2, 4, gtk.FALSE)
 
-        label = GtkLabel(_("Install Boot Loader record on:"))
+        label = gtk.Label(_("Install Boot Loader record on:"))
         label.set_alignment(0.0, 0.5)
-        self.liloLocationBox = GtkVBox (FALSE, 0)
+        self.liloLocationBox = gtk.VBox (gtk.FALSE, 0)
         self.liloLocationBox.pack_start(label)
         self.radioBox.attach(self.liloLocationBox, 0, 2, 1, 2)
 
@@ -313,7 +310,7 @@ class BootloaderWindow (InstallWindow):
 	    radio = None
 	    count = 0
 	    for (device, desc) in choices:
-		radio = GtkRadioButton(radio,  
+		radio = gtk.RadioButton(radio,  
 				("/dev/%s %s" % (device, _(desc))))
 		self.radioBox.attach(radio, 1, 2, count + 2, count + 3)
 		self.bootDevice[radio] = device
@@ -323,41 +320,42 @@ class BootloaderWindow (InstallWindow):
 
 		count = count + 1
 
-        label = GtkLabel(_("Kernel Parameters") + ":")
+        label = gtk.Label(_("Kernel Parameters") + ":")
         label.set_alignment(0.0, 0.5)
-        self.appendEntry = GtkEntry()
+        self.appendEntry = gtk.Entry()
         if bl.args.get():
             self.appendEntry.set_text(bl.args.get())
-        box = GtkHBox(FALSE, 5)
+        box = gtk.HBox(gtk.FALSE, 5)
         box.pack_start(label)
         box.pack_start(self.appendEntry)
-        alignment = GtkAlignment()
+        alignment = gtk.Alignment()
         alignment.set(0.0, 0.5, 0, 1.0)
         alignment.add(box)
-        self.lba = GtkCheckButton(_("Force use of LBA32 (not normally required)"))
+        self.lba = gtk.CheckButton(_("Force use of LBA32 (not normally required)"))
         self.lba.set_active(self.bl.forceLBA32)
-        vbox = GtkVBox(FALSE, 5)
+        vbox = gtk.VBox(gtk.FALSE, 5)
         vbox.pack_start(alignment)
         vbox.pack_end(self.lba)
         self.radioBox.attach(vbox, 0, 2, 5, 6)
         
-        box = GtkVBox (FALSE, 0)
+        box = gtk.VBox (gtk.FALSE, 0)
 
-        label = GtkLabel(_("Please select the boot loader that the computer will use.  GRUB is the default boot loader. "
-                           "However, if you do not wish to overwrite your current boot loader, "
-                           "select \"Do not install a boot loader.\"  "))
-        label.set_usize(400, -1)
-        label.set_line_wrap(TRUE)
+        label = gui.WrappingLabel(_("Please select the boot loader that "
+                                    "the computer will use.  GRUB is the "
+                                    "default boot loader. However, if you "
+                                    "do not wish to overwrite your current "
+                                    "boot loader, select \"Do not install "
+                                    "a boot loader.\"  "))
         label.set_alignment(0.0, 0.0)
-        self.editBox = GtkVBox ()
-        self.imageList = GtkCList (4, ( _("Default"), _("Device"),
+        self.editBox = gtk.VBox ()
+        self.imageList = gtk.CList (4, ( _("Default"), _("Device"),
                                         _("Partition type"), _("Boot label")))
-        self.sw = GtkScrolledWindow ()
+        self.sw = gtk.ScrolledWindow ()
 
                            
-        self.grub_radio = GtkRadioButton(None, (_("Use GRUB as the boot loader")))
-        self.lilo_radio = GtkRadioButton(self.grub_radio, (_("Use LILO as the boot loader")))
-        self.none_radio = GtkRadioButton(self.grub_radio, (_("Do not install a boot loader")))
+        self.grub_radio = gtk.RadioButton(None, (_("Use GRUB as the boot loader")))
+        self.lilo_radio = gtk.RadioButton(self.grub_radio, (_("Use LILO as the boot loader")))
+        self.none_radio = gtk.RadioButton(self.grub_radio, (_("Do not install a boot loader")))
 
 
         self.lilo_radio.connect("toggled", self.bootloaderchange)
@@ -365,28 +363,28 @@ class BootloaderWindow (InstallWindow):
         self.none_radio.connect("toggled", self.toggled)
 
  	if not dispatch.stepInSkipList("instbootloader"):
- 	    self.none_radio.set_active (FALSE)
+ 	    self.none_radio.set_active (gtk.FALSE)
  	else:
-             self.none_radio.set_active (TRUE)
+             self.none_radio.set_active (gtk.TRUE)
              self.toggled (self.none_radio)
 
              for n in (self.appendEntry, self.editBox, 
                        self.imageList, self.liloLocationBox, self.radioBox ):
-                 n.set_sensitive (FALSE)
+                 n.set_sensitive (gtk.FALSE)
 
         self.lastselected = None
 
-        self.radio_vbox = GtkVBox(FALSE, 2)
+        self.radio_vbox = gtk.VBox(gtk.FALSE, 2)
         self.radio_vbox.set_border_width(5)
-        self.radio_vbox.pack_start(label, FALSE)
-        self.radio_vbox.pack_start(self.grub_radio, FALSE)
-        self.radio_vbox.pack_start(self.lilo_radio, FALSE)
-        self.radio_vbox.pack_start(self.none_radio, FALSE)
+        self.radio_vbox.pack_start(label, gtk.FALSE)
+        self.radio_vbox.pack_start(self.grub_radio, gtk.FALSE)
+        self.radio_vbox.pack_start(self.lilo_radio, gtk.FALSE)
+        self.radio_vbox.pack_start(self.none_radio, gtk.FALSE)
         
-        box.pack_start(self.radio_vbox, FALSE)
+        box.pack_start(self.radio_vbox, gtk.FALSE)
 
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start (self.radioBox, FALSE)
+        box.pack_start (gtk.HSeparator (), gtk.FALSE)
+        box.pack_start (self.radioBox, gtk.FALSE)
         
         sortedKeys = imageList.keys()
         sortedKeys.sort()
@@ -429,53 +427,53 @@ class BootloaderWindow (InstallWindow):
         self.imageList.column_title_passive (1)
         self.imageList.set_border_width (5)
 
-        self.deviceLabel = GtkLabel(_("Partition") + ":")
-        self.typeLabel = GtkLabel(_("Type") + ":")
+        self.deviceLabel = gtk.Label(_("Partition") + ":")
+        self.typeLabel = gtk.Label(_("Type") + ":")
 
-        tempBox = GtkHBox(TRUE)
+        tempBox = gtk.HBox(gtk.TRUE)
         self.deviceLabel.set_alignment(0.0, 0.0)
         self.typeLabel.set_alignment(0.0, 0.0)
-        tempBox.pack_start(self.deviceLabel, FALSE)
-        tempBox.pack_start(self.typeLabel, FALSE)
-        self.defaultCheck = GtkCheckButton(_("Default boot image"))
+        tempBox.pack_start(self.deviceLabel, gtk.FALSE)
+        tempBox.pack_start(self.typeLabel, gtk.FALSE)
+        self.defaultCheck = gtk.CheckButton(_("Default boot image"))
 
         # Alliteration!
-        self.labelLabel = GtkLabel(_("Boot label") + ":")
-        self.labelEntry = GtkEntry(15)
+        self.labelLabel = gtk.Label(_("Boot label") + ":")
+        self.labelEntry = gtk.Entry(15)
 
         self.imageList.connect("select_row", self.labelSelected)
         self.defaultCheck.connect("toggled", self.defaultUpdated)
         self.labelEntry.connect("changed", self.labelUpdated)
         self.labelEntry.connect("insert_text", self.labelInsertText)
 
-        tempBox2 = GtkHBox(FALSE, 5)
+        tempBox2 = gtk.HBox(gtk.FALSE, 5)
         self.labelLabel.set_alignment(0.0, 0.5)
-        tempBox2.pack_start(self.labelLabel, FALSE)
-        tempBox2.pack_start(self.labelEntry, FALSE)
+        tempBox2.pack_start(self.labelLabel, gtk.FALSE)
+        tempBox2.pack_start(self.labelEntry, gtk.FALSE)
 
-        self.editBox.pack_start (tempBox, FALSE)
-        self.editBox.pack_start (self.defaultCheck, FALSE)
-        self.editBox.pack_start (tempBox2, FALSE)
+        self.editBox.pack_start (tempBox, gtk.FALSE)
+        self.editBox.pack_start (self.defaultCheck, gtk.FALSE)
+        self.editBox.pack_start (tempBox2, gtk.FALSE)
         self.editBox.set_border_width (5)
 
-        box.pack_start (GtkHSeparator (), FALSE)
-        box.pack_start (self.editBox, FALSE)
+        box.pack_start (gtk.HSeparator (), gtk.FALSE)
+        box.pack_start (self.editBox, gtk.FALSE)
 
-        self.imageList.set_selection_mode (SELECTION_BROWSE)
+        self.imageList.set_selection_mode (gtk.SELECTION_BROWSE)
 
-        self.sw.set_policy (POLICY_AUTOMATIC, POLICY_AUTOMATIC)
+        self.sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         self.sw.add (self.imageList)
-        box.pack_start (self.sw, TRUE)
+        box.pack_start (self.sw, gtk.TRUE)
 
 	if not dispatch.stepInSkipList("instbootloader"):
-            self.editBox.set_sensitive(TRUE)
-            tempBox2.set_sensitive(TRUE)
-            self.radioBox.set_sensitive(TRUE)
-            self.sw.set_sensitive(TRUE)
+            self.editBox.set_sensitive(gtk.TRUE)
+            tempBox2.set_sensitive(gtk.TRUE)
+            self.radioBox.set_sensitive(gtk.TRUE)
+            self.sw.set_sensitive(gtk.TRUE)
         else:
-            self.editBox.set_sensitive(FALSE)
-            self.radioBox.set_sensitive(FALSE)
-            self.sw.set_sensitive(FALSE)
+            self.editBox.set_sensitive(gtk.FALSE)
+            self.radioBox.set_sensitive(gtk.FALSE)
+            self.sw.set_sensitive(gtk.FALSE)
             
         self.ignoreSignals = 0
 

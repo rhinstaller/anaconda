@@ -2,7 +2,7 @@ include ../Makefile.inc
 
 all: gglobe-canvas timezonemapmodule.so
 
-CFLAGS=-g -O2 -Wall -fPIC `gnome-config --cflags gnomeui gtk` -I/usr/include/python1.5 -DENABLE_NLS
+CFLAGS=-g -O2 -Wall -fPIC `gnome-config --cflags gnomeui gtk` -I$(PYTHONINCLUDE) -DENABLE_NLS
 LDFLAGS=`gnome-config --libs gnomeui gtk`
 
 install: timezonemapmodule.so

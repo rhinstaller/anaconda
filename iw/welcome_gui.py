@@ -11,8 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
-from gnome.ui import *
+import gtk
 from iw_gui import *
 from translate import _, N_
 
@@ -27,17 +26,15 @@ class WelcomeWindow (InstallWindow):
 
     # WelcomeWindow tag="wel"
     def getScreen (self, configFileData):
-        frame = GtkFrame ()
-        frame.set_shadow_type (SHADOW_IN)
+        frame = gtk.Frame ()
+        frame.set_shadow_type (gtk.SHADOW_IN)
 
         image = configFileData["WelcomeScreen"]
         pix = self.ics.readPixmap(image)
         
         if pix:
-            box = GtkEventBox ()
-            style = box.get_style ().copy ()
-            style.bg[STATE_NORMAL] = style.white
-            box.set_style (style)
+            box = gtk.EventBox ()
+            box.modify_bg(gtk.STATE_NORMAL, box.get_style ().white)
             box.add (pix)
             frame.add (box)
 
@@ -69,42 +66,40 @@ class ReconfigWelcomeWindow (InstallWindow):
     def getScreen (self):
 
 
-	frame = GtkFrame ()
-        frame.set_shadow_type (SHADOW_IN)
+	frame = gtk.Frame ()
+        frame.set_shadow_type (gtk.SHADOW_IN)
 
-        box = GtkVBox (FALSE)
+        box = gtk.VBox (gtk.FALSE)
         box.set_border_width (5)
         frame.add (box)
 
         pix = self.ics.readPixmap ("first-375.png")
         
         if pix:
-            ebox = GtkEventBox ()
-            style = ebox.get_style ().copy ()
-            style.bg[STATE_NORMAL] = style.white
-            ebox.set_style (style)
+            ebox = gtk.EventBox ()
+            ebox.modify_bg(gtk.STATE_NORMAL, ebox.get_style ().white)
             ebox.add (pix)
-            box.pack_start (ebox, FALSE)
+            box.pack_start (ebox, gtk.FALSE)
 
-        label = GtkLabel(_("Would you like to configure your system?"))
-	label.set_line_wrap(TRUE)
+        label = gtk.Label(_("Would you like to configure your system?"))
+	label.set_line_wrap(gtk.TRUE)
 	label.set_alignment(0.0, 0.0)
 	label.set_usize(400, -1)
 
         box.pack_start(label)
         
-        radioBox = GtkVBox (FALSE)
-	self.continueChoice = GtkRadioButton (None, _("Yes"))
-	radioBox.pack_start(self.continueChoice, FALSE)
-	self.cancelChoice = GtkRadioButton(
+        radioBox = gtk.VBox (gtk.FALSE)
+	self.continueChoice = gtk.RadioButton (None, _("Yes"))
+	radioBox.pack_start(self.continueChoice, gtk.FALSE)
+	self.cancelChoice = gtk.RadioButton(
 		self.continueChoice, _("No"))
-	radioBox.pack_start(self.cancelChoice, FALSE)
+	radioBox.pack_start(self.cancelChoice, gtk.FALSE)
 
-	align = GtkAlignment()
+	align = gtk.Alignment()
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
 
-	box.pack_start(align, TRUE, TRUE)
+	box.pack_start(align, gtk.TRUE, gtk.TRUE)
 	box.set_border_width (5)
 	self.beingDisplayed = 1
 
