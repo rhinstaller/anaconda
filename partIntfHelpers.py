@@ -104,12 +104,22 @@ def isNotChangable(request, requestlist):
 		     "for the hard drive install.")
 
         if requestlist.isRaidMember(request):
-	    return _("You cannot %s this partition as it is part of "
-		     "a RAID device")
+	    parentreq = requestlist.getRaidMemberParent(request)
+	    if parentreq.raidminor is not None:
+		return _("You cannot %%s this partition as it is part of "
+			 "the RAID device /dev/md%s.") % (parentreq.raidminor,)
+	    else:
+		return _("You cannot %s this partition as it is part of a "
+			 "RAID device.")
 
 	if requestlist.isLVMVolumeGroupMember(request):
-	    return _("You cannot %s this partition, as it is part of a LVM "
-		     "volume group.")
+	    parentreq = requestlist.getLVMVolumeGroupMemberParent(request)
+	    if parentreq.volumeGroupName is not None:
+		return _("You cannot %%s this partition, as it is part of the "
+			 "LVM volume group '%s'.") % (parentreq.volumeGroupName,)
+	    else:
+		return _("You cannot %s this partition, as it is part of a "
+			 "LVM volume group.")
 
     return None
     
