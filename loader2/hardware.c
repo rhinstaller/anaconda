@@ -182,6 +182,7 @@ void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
 }
 
 void updateKnownDevices(struct knownDevices * kd) {
+    kdFindIdeList(kd, 0);
     kdFindScsiList(kd, 0);
     kdFindNetList(kd, 0);
 }
