@@ -48,6 +48,7 @@ class Keyboard (SimpleConfigFile):
             ("sk-qwerty"         , ('pc102', 'us_sk_qwerty')),
             ("uk"                , ('pc101', 'gb')),
             ("us"                , ('pc105', 'us')),
+            ("ua"                , ('pc102', 'ua')),
             ]
 
     console2xsun = {
