@@ -54,7 +54,7 @@ def exposeCB(widget, event, data):
     
     width = gtk.gdk.screen_width()
     height = gtk.gdk.screen_height()
-    gc = gtk.gdk.gc_new(widget.window)
+    gc = gtk.gdk.GC(widget.window)
     screenshot.render_to_drawable(widget.window,
 				  gc,
 				  0, 0,
