@@ -76,7 +76,6 @@ etc/services
 usr/bin/python*
 usr/lib/python*
 usr/lib/libnewt*
-usr/lib/gconv/*
 lib/libtermcap*
 usr/lib/libz.*
 usr/lib/rpm/rpmpopt
@@ -124,6 +123,7 @@ usr/X11R6/lib/libICE*
 usr/X11R6/lib/libSM*
 usr/X11R6/lib/libX11*
 usr/X11R6/lib/libXext*
+usr/X11R6/bin/setxkbmap
 usr/X11R6/bin/XF86_3DLabs
 usr/X11R6/bin/XF86_I128
 usr/X11R6/bin/XF86_FBDev
@@ -156,6 +156,7 @@ usr/X11R6/lib/libXpm*
 usr/lib/libglib*
 usr/lib/libthread*
 etc/gtk/gtkrc*
+usr/lib/gconv/*
 usr/lib/libgtk*
 usr/lib/libgdk*
 usr/lib/libart*
