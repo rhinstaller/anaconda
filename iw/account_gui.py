@@ -12,6 +12,7 @@
 #
 
 import gtk
+import gobject
 import re
 import string
 from gui import WrappingLabel
@@ -32,10 +33,14 @@ class AccountWindow (InstallWindow):
         self.rootPw.set (self.pw.get_text ())
 	accounts = []
 
-	for n in range(len(self.passwords.keys())):
-	    accounts.append((self.userList.get_text(n, 0),
-                             self.userList.get_text(n, 1),
-                             self.passwords[self.userList.get_text(n, 0)]))
+	iter = self.userstore.get_iter_root()
+	next = iter
+	while next:
+	    accounts.append((self.userstore.get_value(iter, 0),
+                             self.userstore.get_value(iter, 1),
+                             self.passwords[self.userstore.get_value(iter, 0)]))
+
+	    next = self.userstore.iter_next(iter)
             
 	self.accounts.setUserList(accounts)
         return None
@@ -90,18 +95,30 @@ class AccountWindow (InstallWindow):
 	    else:
 		self.userPwLabel.set_text (_("User passwords do not match."))
 
-    def userSelected(self, *args):
-	index = self.userList.selection
-	if (not index): return
-	index = index[0]
-	accountName = self.userList.get_text(index, 0)
-	fullName = self.userList.get_text(index, 1)
+    def getSelectedIter(self):
+	selection = self.userlist.get_selection()
+        rc = selection.get_selected()
+        if rc is None:
+            return None
+	
+        model, iter = rc
+	return iter
+
+    def getSelectedData(self):
+	iter = self.getSelectedIter()
+
+	if iter is None:
+	    return None
+	
+	accountName = self.userstore.get_value(iter, 0)
+	fullName = self.userstore.get_value(iter, 1)
 	password = self.passwords[accountName]
+
+	return (accountName, fullName, password)
+
+    def userSelected(self, selection, *args):
         self.edit.set_sensitive(gtk.TRUE)
         self.delete.set_sensitive(gtk.TRUE)
-        # Keep track of the data in the CList so we can edit the entry
-        # when Edit button is clicked
-        self.data = [index, accountName, password, password, fullName]
 
     def addUser_cb(self):
 	accountName = self.accountName.get_text()
@@ -117,45 +134,39 @@ class AccountWindow (InstallWindow):
         if self.passwords.has_key (accountName):
             return
 
-        if (self.editingUser != None):
-	    index = self.editingUser
-	    self.userList.set_text(index, 0, accountName)
-	    self.userList.set_text(index, 1, fullName)
-	else:
-	    index = self.userList.append((accountName, fullName))
+	iter = self.userstore.append()
+	self.userstore.set_value(iter, 0, accountName)
+	self.userstore.set_value(iter, 1, fullName)
+
         self.accountName.grab_focus ()
 	self.passwords[accountName] = password1
 
-        self.edit.set_sensitive(gtk.FALSE)
-        self.delete.set_sensitive(gtk.FALSE)
+	self.userlist.get_selection().select_iter(iter)
         self.win.destroy()
         
-    def editUser_cb(self):
-	index = self.userList.selection
-	if (not index): return
-
+    def editUser_cb(self, *args):
 	accountName = self.accountName.get_text()
 	password1 = self.userPass1.get_text()
 	fullName = self.fullName.get_text()
-        # Get first item in the list
-        index = index[0]
 
+	iter = self.getSelectedIter()
+	if iter is None:
+	    print "bad no selection and we're in editUser_cb"
+	    return None
+	
         # if the username has not changed, reset the password
         if accountName in self.passwords.keys():
             self.passwords[accountName] = password1
         else:
             # the username has changed, we need to remove that
             # username from password dictionary
-            currAccount = self.userList.get_text(index, 0)
+            currAccount = self.userstore.get_value(iter, 0)
             del self.passwords[currAccount]
             self.passwords[accountName] = password1
 
-        self.userList.set_text(index, 0, accountName)
-        self.userList.set_text(index, 1, fullName)
+        self.userstore.set_value(iter, 0, accountName)
+        self.userstore.set_value(iter, 1, fullName)
 
-        self.edit.set_sensitive(gtk.FALSE)
-        self.delete.set_sensitive(gtk.FALSE)
-        self.userList.unselect_all()
         self.win.destroy()
         
     def close (self, widget, button, flag):
@@ -170,7 +181,7 @@ class AccountWindow (InstallWindow):
 
     def addUser (self, widget):
         title = _("Add a New User")
-        self.win = self.userWindow(title, None)
+        self.win = self.userWindow(title, 0)
         self.win.add_button('gtk-ok', 0)
         self.win.add_button('gtk-cancel', 1)
         self.win.connect("response", self.close, "addUser")
@@ -179,15 +190,19 @@ class AccountWindow (InstallWindow):
 
     def editUser (self, widget):
         title = _("Edit User")
-        if self.data:
-            # if there is data there to edit
-            self.win = self.userWindow(title, self.data)
-            self.win.add_button('gtk-ok', 0)
-            self.win.add_button('gtk-cancel', 1)
-            self.win.connect("response", self.close, "editUser")
-            self.win.show_all()
 
-    def userWindow (self, title, data=None):
+	iter = self.getSelectedIter()
+	if iter is None:
+	    return
+	
+        # if there is data there to edit
+	self.win = self.userWindow(title, 1)
+	self.win.add_button('gtk-ok', 0)
+	self.win.add_button('gtk-cancel', 1)
+	self.win.connect("response", self.close, "editUser")
+	self.win.show_all()
+
+    def userWindow (self, title, editting):
         userWin = gtk.Dialog()
         userWin.set_modal(gtk.TRUE)
         userWin.set_size_request(350, 200)		
@@ -237,8 +252,9 @@ class AccountWindow (InstallWindow):
         self.fullName = gtk.Entry ()
         userTable.attach(self.fullName, 1, 2, 3, 4, gtk.EXPAND, gtk.EXPAND)
 
-        if data:
-            index, account, password, password, name = data
+	rc = self.getSelectedData()
+	if rc and editting:
+            (account, name, password) = rc
             self.accountName.set_text(account)
             self.fullName.set_text(name)
             self.userPass1.set_text(password)
@@ -254,13 +270,18 @@ class AccountWindow (InstallWindow):
         return userWin
         
     def deleteUser(self, *args):
-	index = self.userList.selection
-	if (not index): return
-	index = index[0]
-	accountName = self.userList.get_text(index, 0)
+	selection = self.userlist.get_selection()
+        rc = selection.get_selected()
+        if rc is None:
+            return
+	
+        model, iter = rc
+
+	accountName = self.userstore.get_value(iter, 0)
 
 	del self.passwords[accountName]
-	self.userList.remove(index)
+
+	self.userstore.remove(iter)
         self.edit.set_sensitive(gtk.FALSE)
         self.delete.set_sensitive(gtk.FALSE)
 
@@ -291,7 +312,6 @@ class AccountWindow (InstallWindow):
 	self.rootPw = rootPw
 
 	self.passwords = {}
-	self.editingUser = None
 
         box = gtk.VBox ()
 
@@ -358,12 +378,21 @@ class AccountWindow (InstallWindow):
         sw = gtk.ScrolledWindow ()
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        self.userList = gtk.CList (2, (_("Account Name"), _("Full Name")))
-        for x in range (2):
-            self.userList.column_title_passive (x)
+	self.userstore = gtk.ListStore(gobject.TYPE_STRING,
+				       gobject.TYPE_STRING)
+	self.userlist = gtk.TreeView(self.userstore)
 
-	self.userList.connect("select_row", self.userSelected)
-        sw.add (self.userList)
+	column = gtk.TreeViewColumn(_("Account Name"),
+				    gtk.CellRendererText(), text = 0)
+	self.userlist.append_column(column)
+	column = gtk.TreeViewColumn(_("Full Name"),
+				    gtk.CellRendererText(), text = 1)
+	self.userlist.append_column(column)
+
+	selection = self.userlist.get_selection()
+	selection.connect("changed", self.userSelected)
+
+        sw.add (self.userlist)
 
         self.add = gtk.Button (_("Add"))
 	self.add.connect("clicked", self.addUser)
@@ -408,11 +437,11 @@ class AccountWindow (InstallWindow):
         hbox.pack_start(bb, gtk.FALSE)
         box.pack_start(hbox)
         
-        index = 0
 	for (user, name, password) in self.accounts.getUserList():
-	    self.userList.append((user, name))
+	    iter = self.userstore.append()
+	    self.userstore.set_value(iter, 0, user)
+	    self.userstore.set_value(iter, 1, name)
 	    self.passwords[user] = password
-	    index = index + 1
 
         if flags.reconfig:
             label.set_sensitive(gtk.FALSE)
