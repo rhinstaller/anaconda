@@ -19,13 +19,13 @@ from timezone_map_gui import TimezoneMap, ZoneTab
 from iw_gui import *
 from translate import _
 
-class TimezoneWindow (InstallWindow):
-    def __init__ (self, ics):
-	InstallWindow.__init__ (self, ics)
+class TimezoneWindow(InstallWindow):
+    def __init__(self, ics):
+	InstallWindow.__init__(self, ics)
 
-        ics.setTitle (_("Time Zone Selection"))
-        ics.setNextEnabled (1)
-        ics.readHTML ("timezone")
+        ics.setTitle(_("Time Zone Selection"))
+        ics.setNextEnabled(1)
+        ics.readHTML("timezone")
         self.old_page = 0
         self.old_use_dst = 0
 
@@ -57,14 +57,14 @@ class TimezoneWindow (InstallWindow):
                           (("+11", ""), ("Etc/GMT+11", "Etc/GMT+11")),
                           (("+12", ""), ("Etc/GMT+12", "Etc/GMT+12")))                    
 
-    def getNext (self):
-        self.old_page = self.nb.get_current_page ()
-        self.timezone.utcOffset = self.nb.get_current_page ()
-        self.timezone.dst = self.daylightCB.get_active ()
+    def getNext(self):
+        self.old_page = self.nb.get_current_page()
+        self.timezone.utcOffset = self.nb.get_current_page()
+        self.timezone.dst = self.daylightCB.get_active()
         
         if self.old_page == 0:
             newzone = self.tz.getCurrent().tz
-            self.timezone.setTimezoneInfo (newzone, self.systemUTC.get_active ())
+            self.timezone.setTimezoneInfo(newzone, self.systemUTC.get_active())
         else:
 	    selection = self.uview.get_selection()
 	    rc = selection.get_selected()
@@ -85,108 +85,94 @@ class TimezoneWindow (InstallWindow):
 		print "unknown utc selected!!"
 		timezone = self.timeZones[12][1]
 		
-            if self.daylightCB.get_active ():
+            if self.daylightCB.get_active():
                 timezone = timezone[1]
             else:
                 timezone = timezone[0]
 
-            self.timezone.setTimezoneInfo (timezone, self.systemUTC.get_active ())
+            self.timezone.setTimezoneInfo(timezone, self.systemUTC.get_active())
         return None
 
-    def copy_toggled (self, cb1, cb2):
-        if cb1.get_data ("toggling"): return
+    def copy_toggled(self, cb1, cb2):
+        if cb1.get_data("toggling"): return
         
-        cb2.set_data ("toggling", 1)
-        cb2.set_active (cb1.get_active ())
-        cb2.set_data ("toggling", 0)
+        cb2.set_data("toggling", 1)
+        cb2.set_active(cb1.get_active ())
+        cb2.set_data("toggling", 0)
 
-    def view_change (self, widget, *args):
+    def view_change(self, widget, *args):
         if not self.tz.getCurrent():
-            self.ics.setNextEnabled (gtk.FALSE)
+            self.ics.setNextEnabled(gtk.FALSE)
         else:
-            self.ics.setNextEnabled (gtk.TRUE)
-
-    def setcurrent (self, widget, area):
-        try:
-            self.tz.setcurrent(self.default)
-        except SystemError:
-            self.default = _(self.langDefault)
-            try:
-                self.tz.setcurrent(self.default)
-            except:
-                pass
+            self.ics.setNextEnabled(gtk.TRUE)
 
     # TimezoneWindow tag="timezone"
-    def getScreen (self, instLang, timezone):
+    def getScreen(self, instLang, timezone):
 	self.timezone = timezone
 
         try:
-            f = open ("/usr/share/anaconda/pixmaps/map480.png")
-            f.close ()
+            f = open("/usr/share/anaconda/pixmaps/map480.png")
+            f.close()
         except:
             path = "pixmaps/map480.png"
         else:
             path = "/usr/share/anaconda/pixmaps/map480.png"
         
-	nb = gtk.Notebook ()
+	nb = gtk.Notebook()
         self.nb = nb
 
-        mainBox = gtk.VBox (gtk.FALSE, 5)
+        mainBox = gtk.VBox(gtk.FALSE, 5)
 
         zonetab = ZoneTab()
         self.tz = TimezoneMap(zonetab=zonetab, map=path)
 
 	(self.default, asUTC, asArc) = self.timezone.getTimezoneInfo()
-        print "default is", self.default
-        entry = zonetab.findEntryByTZ(self.default)
-        if entry:
-            self.tz.setCurrent(entry)
 
         self.old_page = timezone.utcOffset
         self.old_use_dst = timezone.dst
         self.langDefault = instLang.getDefaultTimeZone()
-	if self.default:
-            self.default = _(self.default)
-	else:
-            self.default = _(self.langDefault)
+
+	if not self.default:
+            self.default = self.langDefault
 	    asUTC = 0
 
-        if (string.find (self.default, "UTC") != -1):
-            # self.default = _("America/New_York")
+        if (string.find(self.default, "UTC") != -1):
             self.default = "America/New_York"
 
-        self.nb.connect ("realize", lambda widget, self=self:
-                         self.nb.set_current_page (self.old_page))
+        self.tz.setCurrent(zonetab.findEntryByTZ(self.default))
 
-        systemUTCCopy = gtk.CheckButton (_("System clock uses UTC"))
-        self.systemUTC = gtk.CheckButton (_("System clock uses UTC"))
+        self.nb.connect("realize", lambda widget, self=self:
+                        self.nb.set_current_page(self.old_page))
 
-        systemUTCCopy.connect ("toggled", self.copy_toggled, self.systemUTC)
-        self.systemUTC.connect ("toggled", self.copy_toggled, systemUTCCopy)
+        systemUTCCopy = gtk.CheckButton(_("System clock uses UTC"))
+        self.systemUTC = gtk.CheckButton(_("System clock uses UTC"))
 
-        self.systemUTC.set_active (asUTC)
+        systemUTCCopy.connect("toggled", self.copy_toggled, self.systemUTC)
+        self.systemUTC.connect("toggled", self.copy_toggled, systemUTCCopy)
+
+        self.systemUTC.set_active(asUTC)
 
         hbox = gtk.HBox(gtk.FALSE, 5)
-        align = gtk.Alignment (0.5, 0.5)
-        align.add (self.systemUTC)
-        hbox.pack_start (align, gtk.FALSE)
+        align = gtk.Alignment(0.5, 0.5)
+        align.add(self.systemUTC)
+        hbox.pack_start(align, gtk.FALSE)
 
-        pix = self.ics.readPixmap ("timezone.png")
+        pix = self.ics.readPixmap("timezone.png")
         if pix:
-            a = gtk.Alignment ()
-            a.add (pix)
-            a.set (1.0, 0.0, 0.0, 0.0)
-            hbox.pack_start (a, gtk.TRUE)
+            a = gtk.Alignment()
+            a.add(pix)
+            a.set(1.0, 0.0, 0.0, 0.0)
+            hbox.pack_start(a, gtk.TRUE)
         
         mainBox.pack_start(hbox, gtk.FALSE)
         mainBox.pack_start(self.tz, gtk.TRUE, gtk.TRUE)
-        mainBox.set_border_width (5)
-       	nb.append_page (mainBox, gtk.Label (_("Location")))
+        mainBox.set_border_width(5)
+       	nb.append_page(mainBox, gtk.Label(_("Location")))
         
         # set up page 2
-	tzBox = gtk.VBox (gtk.FALSE)
-        sw = gtk.ScrolledWindow ()
-        sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
+	tzBox = gtk.VBox(gtk.FALSE)
+        sw = gtk.ScrolledWindow()
+        sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	self.ustore = gtk.ListStore(gobject.TYPE_STRING,
 				    gobject.TYPE_STRING)
 
@@ -225,41 +211,41 @@ class TimezoneWindow (InstallWindow):
 	self.uview.append_column(col)
 	self.uview.set_headers_visible(gtk.FALSE)
 
-        sw.add (self.uview)
-        tzBox.pack_start (sw)
-        box = gtk.HBox (gtk.FALSE)
-        align = gtk.Alignment (0.5, 0.5)
-        self.daylightCB = gtk.CheckButton (_("Use Daylight Saving Time (US only)"))
-        self.daylightCB.set_active (self.old_use_dst)
-        align.add (self.daylightCB)
-        box.pack_start (align, gtk.FALSE)
+        sw.add(self.uview)
+        tzBox.pack_start(sw)
+        box = gtk.HBox(gtk.FALSE)
+        align = gtk.Alignment(0.5, 0.5)
+        self.daylightCB = gtk.CheckButton(_("Use Daylight Saving Time (US only)"))
+        self.daylightCB.set_active(self.old_use_dst)
+        align.add(self.daylightCB)
+        box.pack_start(align, gtk.FALSE)
 
-        align = gtk.Alignment (1.0, 0.5)
-        align.add (systemUTCCopy)
+        align = gtk.Alignment(1.0, 0.5)
+        align.add(systemUTCCopy)
 
-        box.pack_start (align, gtk.TRUE)
-        tzBox.pack_start (box, gtk.FALSE)
-        tzBox.set_border_width (5)
+        box.pack_start(align, gtk.TRUE)
+        tzBox.pack_start(box, gtk.FALSE)
+        tzBox.set_border_width(5)
         self.tzBox = tzBox
 
-        nb.append_page (tzBox, gtk.Label (_("UTC Offset")))
+        nb.append_page(tzBox, gtk.Label(_("UTC Offset")))
 
-        def switch_page (widget, page, page_num, self=self):
+        def switch_page(widget, page, page_num, self=self):
             if page_num == 1:
-                self.ics.setNextEnabled (gtk.TRUE)
+                self.ics.setNextEnabled(gtk.TRUE)
             else:
-                self.view_change (None)
+                self.view_change(None)
                 
-        nb.connect ("switch_page", switch_page)
+        nb.connect("switch_page", switch_page)
         
-        box = gtk.VBox (gtk.FALSE, 5)
-        box.pack_start (nb)
-#        self.systemUTC = gtk.CheckButton (_("System clock uses UTC"))
-#        self.systemUTC.set_active (asUTC)
-#        align = gtk.Alignment (0, 0)
-#        align.add (self.systemUTC)
-#        box.pack_start (align, gtk.FALSE)
-        box.set_border_width (5)
+        box = gtk.VBox(gtk.FALSE, 5)
+        box.pack_start(nb)
+#        self.systemUTC = gtk.CheckButton(_("System clock uses UTC"))
+#        self.systemUTC.set_active(asUTC)
+#        align = gtk.Alignment(0, 0)
+#        align.add(self.systemUTC)
+#        box.pack_start(align, gtk.FALSE)
+        box.set_border_width(5)
 
         return box
 

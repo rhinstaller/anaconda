@@ -127,8 +127,8 @@ class TimezoneMap(gtk.VBox):
         if rc is None:
             return
         model, iter = rc
-        tz = self.listStore.get_value(iter, self.columns.TZ)
-        self.setCurrent(self.zonetab.findEntryByTZ(tz), skipList=1)
+        entry = self.listStore.get_value(iter, self.columns.ENTRY)
+        self.setCurrent(entry, skipList=1)
 
     def mapEvent(self, widget, event=None):
         if event.type == gtk.gdk.MOTION_NOTIFY:
@@ -138,10 +138,10 @@ class TimezoneMap(gtk.VBox):
             self.highlightedEntry = self.zonetab.findNearest(lat, long)
             if last != self.highlightedEntry:
                 self.status.pop(self.statusContext)
-                status = self.highlightedEntry.tz
+                status = _(self.highlightedEntry.tz)
                 if self.highlightedEntry.comments:
                     status = "%s - %s" % (status,
-                                          self.highlightedEntry.comments)
+                                          _(self.highlightedEntry.comments))
                 self.status.push(self.statusContext, status)
 
             x2, y2 = self.map2canvas(self.highlightedEntry.lat,
