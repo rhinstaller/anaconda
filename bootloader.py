@@ -371,6 +371,9 @@ class x86BootloaderInfo(bootloaderInfo):
 	images = bl.images.getImages()
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 
+        if not os.path.isdir(instRoot + '/boot/grub/'):
+            os.mkdir(instRoot + '/boot/grub', 0755)
+
 	cf = '/boot/grub/grub.conf'
 	self.perms = 0600
         if os.access (instRoot + cf, os.R_OK):
@@ -501,12 +504,12 @@ class x86BootloaderInfo(bootloaderInfo):
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfig):
-	if self.useGrubVal:
-	    str = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
-				 chainList, defaultDev, justConfig)
-	else:
-	    str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
-				 chainList, defaultDev, justConfig)
+        str = self.writeGrub(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev,
+                             justConfig | (not self.useGrubVal))
+        str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
+                             chainList, defaultDev,
+                             justConfig | (self.useGrubVal))
 
     def getArgList(self):
         args = bootloaderInfo.getArgList(self)
