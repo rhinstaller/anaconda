@@ -36,26 +36,24 @@ class InstallPathWindow (InstallWindow):
 			 (SERVER, _("Server")))
 
     installSteps = [ PartitionWindow,
-			  LiloWindow,
-			  TimezoneWindow,
-			  NetworkWindow,
-			  PartitionWindow,
-			  FormatWindow,
-			  PackageSelectionWindow,
-			  UnresolvedDependenciesWindow,
-			  LiloWindow,
-			  AuthWindow,
-			  AccountWindow,
-			  InstallProgressWindow,
-			  BootdiskWindow,
-			  CongratulationWindow
-			  ]
+		     FormatWindow,
+		     LiloWindow,
+		     NetworkWindow,
+		     TimezoneWindow,
+		     AuthWindow,
+		     PackageSelectionWindow,
+		     UnresolvedDependenciesWindow,
+		     AccountWindow,
+		     InstallProgressWindow,
+		     BootdiskWindow,
+		     CongratulationWindow
+		   ]
 
     upgradeSteps = [ UpgradeExamineWindow,
-			  UnresolvedDependenciesWindow,
-			  InstallProgressWindow,
-			  CongratulationWindow
-			  ]
+		     UnresolvedDependenciesWindow,
+		     InstallProgressWindow,
+		     CongratulationWindow
+		   ]
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
