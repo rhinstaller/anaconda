@@ -77,11 +77,13 @@ class BootloaderWindow (InstallWindow):
         if self.none_radio.get_active ():
 	    self.dispatch.skipStep("instbootloader")
             self.dispatch.skipStep("bootloaderpassword")
+            return
         elif self.lilo_radio.get_active ():
             self.dispatch.skipStep("bootloaderpassword")
         elif self.grub_radio.get_active ():
             self.dispatch.skipStep("bootloaderpassword", skip = 0)
-        elif len(self.bootDevice.keys()) > 0:
+
+        if len(self.bootDevice.keys()) > 0:
 	    self.dispatch.skipStep("instbootloader", skip = 0)
 
 	    for (widget, device) in self.bootDevice.items():
