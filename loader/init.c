@@ -708,7 +708,7 @@ int main(int argc, char **argv) {
     if (!WIFEXITED(waitStatus) || WEXITSTATUS(waitStatus)) {
 	printf("install exited abnormally ");
 	if (WIFSIGNALED(waitStatus)) {
-	    printf("-- recieved signal %d", WTERMSIG(waitStatus));
+	    printf("-- received signal %d", WTERMSIG(waitStatus));
 	}
 	printf("\n");
     } else {
