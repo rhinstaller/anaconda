@@ -201,6 +201,14 @@ class HeaderList:
         self.hasFullHeaders = 0
 	for h in hdlist:
 	    name = h[rpm.RPMTAG_NAME]
+
+            # we should only keep kernel-pseries and kernel-iseries on
+            # the appropriate machine
+            if name == "kernel-pseries" and iutil.getPPCMachine() != "pSeries":
+                continue
+            if name == "kernel-iseries" and iutil.getPPCMachine() != "iSeries":
+                continue
+            
             if noscore:
                 self.packages[name] = Package(h)
                 continue
@@ -990,7 +998,9 @@ class ComponentSet:
 	for (ktag, nick) in [ ('kernel-summit', 'summit'),
                               ('kernel-bigmem', 'bigmem'),
 			      ('kernel-smp', 'smp'),
-			      ('kernel-tape', 'tape') ]:
+			      ('kernel-tape', 'tape'),
+                              ('kernel-pseries', ''),
+                              ('kernel-iseries', '') ]:
 	    tag = split(ktag, '-')[1]
 	    if (self.packages.has_key(ktag) and 
 		self.packages[ktag].selected):

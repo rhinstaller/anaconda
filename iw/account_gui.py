@@ -29,6 +29,30 @@ class AccountWindow (InstallWindow):
 	if not self.__dict__.has_key("pw"): return None
 
         pw = self.pw.get_text()
+        confirm = self.confirm.get_text()
+
+        if not pw or not confirm:
+            self.intf.messageWindow(_("Error with Password"),
+                                    _("You must enter your root password "
+                                      "and confirm it by typing it a second "
+                                      "time to continue."),
+                                    custom_icon="error")
+            raise gui.StayOnScreen
+
+        if pw != confirm:
+            self.intf.messageWindow(_("Error with Password"),
+                                    _("The passwords you entered were "
+                                      "different.  Please try again."),
+                                    custom_icon="error")
+            raise gui.StayOnScreen
+
+        if len(pw) < 6:
+            self.intf.messageWindow(_("Error with Password"),
+                                    _("The root password must be at least "
+                                      "six characters long."),
+                                    custom_icon="error")
+            raise gui.StayOnScreen
+        
         allowed = string.digits + string.ascii_letters + string.punctuation + " "
         for letter in pw:
             if letter not in allowed:
@@ -41,23 +65,6 @@ class AccountWindow (InstallWindow):
 
         self.rootPw.set (self.pw.get_text ())
         return None
-
-    def rootPasswordsMatch (self, *args):
-        pw = self.pw.get_text ()
-        confirm = self.confirm.get_text ()
-
-        if pw == confirm and len (pw) >= 6:
-            self.ics.setNextEnabled (gtk.TRUE)
-            self.rootStatus.set_text (_("Root password accepted."))
-        else:
-	    if not pw and not confirm:
-                self.rootStatus.set_text ("")
-            elif len (pw) < 6:
-                self.rootStatus.set_text (_("Root password is too short."))
-            else:
-                self.rootStatus.set_text (_("Root passwords do not match."))
-                
-            self.ics.setNextEnabled (gtk.FALSE)
 
     def setFocus (self, area, data):
         self.pw.grab_focus ()
@@ -103,14 +110,12 @@ class AccountWindow (InstallWindow):
         pass1.set_mnemonic_widget(self.pw)
         
         self.pw.connect ("activate", self.forward)
-        self.pw.connect ("changed", self.rootPasswordsMatch)
         self.pw.connect ("map-event", self.setFocus)
         self.pw.set_visibility (gtk.FALSE)
         self.confirm = gtk.Entry (128)
         pass2.set_mnemonic_widget(self.confirm)
         self.confirm.connect ("activate", self.forward)
         self.confirm.set_visibility (gtk.FALSE)
-        self.confirm.connect ("changed", self.rootPasswordsMatch)
         table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
         table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
 
@@ -120,7 +125,6 @@ class AccountWindow (InstallWindow):
 
         # root password statusbar
         self.rootStatus = gtk.Label ("")
-        self.rootPasswordsMatch ()
         wrapper = gtk.HBox(0, gtk.FALSE)
         wrapper.pack_start (self.rootStatus)
         box.pack_start (wrapper, gtk.FALSE)

@@ -118,7 +118,8 @@ char * mountNfsImage(struct installMethod * method,
 	    setupNetworkDeviceConfig(&netDev, loaderData, flags);
 
             rc = readNetConfig(devName, &netDev, flags);
-            if (rc) {
+            if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
+                ((dir == -1) && (rc == LOADER_NOOP))) {
                 stage = NFS_STAGE_IFACE;
                 dir = -1;
                 break;
@@ -128,7 +129,7 @@ char * mountNfsImage(struct installMethod * method,
             
         case NFS_STAGE_NFS:
             logMessage("going to do nfsGetSetup");
-            if (loaderData->method &&
+            if (loaderData->method && *loaderData->method &&
                 !strncmp(loaderData->method, "nfs", 3) &&
                 loaderData->methodData) {
                 host = ((struct nfsInstallData *)loaderData->methodData)->host;

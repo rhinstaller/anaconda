@@ -140,43 +140,44 @@ PCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 # need to make sure the base modules are included
 PCMCIAMODULES="$PCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
 
-echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
-makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-           --pcmcia \
-	   --initrdsize 4750 \
-	   --loaderbin loader \
-	   --modules "$COMMONMODULES"
+makeBootImages() {
+    echo "Building $TOPDESTPATH/images/pxeboot/initrd.img"
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+	--pcmcia \
+	--initrdsize 4750 \
+	--loaderbin loader \
+	--modules "$COMMONMODULES"
 
-echo "Building initrd-everything.img"
-makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
-	   --pcmcia \
-	   --initrdsize 7000 \
-	   --loaderbin loader \
-	   --modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
-[ $? = 0 ] || exit 1
+    echo "Building initrd-everything.img"
+    makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd-everything.img \
+	--pcmcia \
+	--initrdsize 7000 \
+	--loaderbin loader \
+	--modules "$LOCALMODULES $NETWORKMODULES $PCMCIAMAINMODULES $PCMCIAMODULES $ISOLINUXMODULES =scsi =net"
+    [ $? = 0 ] || exit 1
 
-echo "Building bootdisk.img"
-makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
-             --bootdisksize 1440 \
-             --imagename $BOOTDIR/bootdisk.img \
-	     --initrd $TOPDESTPATH/images/pxeboot/initrd.img
-[ $? = 0 ] || exit 1
+    echo "Building bootdisk.img"
+    makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
+	--bootdisksize 1440 \
+	--imagename $BOOTDIR/bootdisk.img \
+	--initrd $TOPDESTPATH/images/pxeboot/initrd.img
+    [ $? = 0 ] || exit 1
 
-rm -f $TOPDESTPATH/images/pxeboot/initrd.img
+    rm -f $TOPDESTPATH/images/pxeboot/initrd.img
 
-echo "Building drvblock.img"
-makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "=scsi"
-# JKFIXME: was exit 1
-[ $? = 0 ] || echo "ERROR: failed to write drvblock" 
-echo "Building drvnet.img"
-makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "=net"
-[ $? = 0 ] || echo "ERROR: failed to write drvnet"
+    echo "Building drvblock.img"
+    makedriverdisk --padsize 1440 "Supplemental Block Device Drivers" "drvblock" "=scsi"
+    # JKFIXME: was exit 1
+    [ $? = 0 ] || echo "ERROR: failed to write drvblock" 
+    echo "Building drvnet.img"
+    makedriverdisk --padsize 1440 "Supplemental Network Drivers" "drvnet" "=net"
+    [ $? = 0 ] || echo "ERROR: failed to write drvnet"
 
-echo "Building pcmciadd.img"
-makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
-[ $? = 0 ] || echo "ERROR: failed to write pcmciadd" 
+    echo "Building pcmciadd.img"
+    makedriverdisk --padsize 1440 "PCMCIA Driver Diskette" "pcmciadd" "$PCMCIAMODULES"
+    [ $? = 0 ] || echo "ERROR: failed to write pcmciadd" 
 
-if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
+    if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 	echo "Building isolinux directory"
 	MBD_BOOTTREE=$TOPDESTPATH/isolinux
 	MBD_FSIMAGE=$TOPDESTPATH/images/pxeboot/initrd-everything.img
@@ -187,26 +188,12 @@ if [ -f $IMGPATH/usr/lib/syslinux/isolinux.bin ]; then
 
 	# isolinux needs the config file to be isolinux.cfg
 	mv $MBD_BOOTTREE/syslinux.cfg $MBD_BOOTTREE/isolinux.cfg
-else
+    else
 	echo "No isolinux binaries.  Skipping isolinux creation"
-fi
+    fi
 
-echo "Building main moduleball"
-makemainmodules "=scsi =net $SECSTAGE"
-[ $? = 0 ] || exit 1
-
-echo "Building netstg.img"
-makeinstimage "netstg" "=scsi $SECSTAGE"
-[ $? = 0 ] || exit 1
-echo "Building hdstg.img"
-makeinstimage "hdstg" "=net $SECSTAGE"
-[ $? = 0 ] || exit 1
-echo "Building stage2.img"
-makemainimage "stage2" "cramfs"
-[ $? = 0 ] || exit 1
-
-# clean up time -- being very explicit about what's linked
-if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;then
+    # clean up time -- being very explicit about what's linked
+    if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;then
 	echo "Cleaning up images"
 	# links for the pxeboot bits
 	rm -f $TOPDESTPATH/images/pxeboot/*
@@ -218,15 +205,15 @@ if [ -f $TOPDESTPATH/isolinux/vmlinuz -a -f $TOPDESTPATH/isolinux/initrd.img ] ;
 	mkdir -p $TOPDESTPATH/dosutils/autoboot/
 	ln $TOPDESTPATH/isolinux/vmlinuz $TOPDESTPATH/dosutils/autoboot/vmlinuz
 	ln $TOPDESTPATH/isolinux/initrd.img $TOPDESTPATH/dosutils/autoboot/initrd.img
-fi
+    fi
 
-# now make a boot iso
-mkdir -p $TOPDESTPATH/images/isopath
-cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
-mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
-rm -rf $TOPDESTPATH/images/isopath
-	
-cat > $TOPDESTPATH/images/pxeboot/README <<EOF
+    # now make a boot iso
+    mkdir -p $TOPDESTPATH/images/isopath
+    cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
+    mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V -T $TOPDESTPATH/images/isopath
+    rm -rf $TOPDESTPATH/images/isopath
+    
+    cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
 
 The following files are available:
@@ -234,3 +221,20 @@ vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
     drivers supported for installation of Red Hat Linux
 EOF
+}
+
+makeSecondStage() {
+    echo "Building main moduleball"
+    makemainmodules "=scsi =net $SECSTAGE"
+    [ $? = 0 ] || exit 1
+
+    echo "Building netstg.img"
+    makeinstimage "netstg" "=scsi $SECSTAGE"
+    [ $? = 0 ] || exit 1
+    echo "Building hdstg.img"
+    makeinstimage "hdstg" "=net $SECSTAGE"
+    [ $? = 0 ] || exit 1
+    echo "Building stage2.img"
+    makemainimage "stage2" "cramfs"
+    [ $? = 0 ] || exit 1
+}

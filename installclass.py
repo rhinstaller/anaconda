@@ -147,29 +147,33 @@ class BaseInstallClass:
 	if not BETANAG:
 	    dispatch.skipStep("betanag")
 
-        # XXX ugh, this badly needs some clean up
-        if iutil.getArch() == "x86_64":
+        if iutil.getArch() != "i386":
             dispatch.skipStep("bootdisk")
-        elif (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
+
+        if (iutil.getArch() == "alpha" or iutil.getArch() == "ia64" or
             iutil.getArch() == "sparc" or iutil.getArch() == "ppc"):
-	    dispatch.skipStep("bootdisk")
             dispatch.skipStep("bootloader")
-	elif iutil.getArch() == "s390":
-	    dispatch.skipStep("keyboard", permanent = 1)
-	    dispatch.skipStep("mouse", permanent = 1)
-	    dispatch.skipStep("fdisk", permanent = 1)
-	    dispatch.skipStep("handleX11pkgs", permanent = 1)
-	    dispatch.skipStep("videocard", permanent = 1)
-	    dispatch.skipStep("monitor", permanent = 1)
-	    dispatch.skipStep("xcustom", permanent = 1)
-	    dispatch.skipStep("writexconfig", permanent = 1)
-	    dispatch.skipStep("bootdisk", permanent = 1)
 
         # 'noupgrade' can be used on the command line to force not looking
         # for partitions to upgrade.  useful in some cases...
         cmdline = open("/proc/cmdline", "r").read()
         if cmdline.find("noupgrade") != -1:
             dispatch.skipStep("findrootparts")
+
+    # called from anaconda so that we can skip steps in the headless case
+    # in a perfect world, the steps would be able to figure this out
+    # themselves by looking at instdata.headless.  but c'est la vie.
+    def setAsHeadless(self, dispatch, isHeadless = 0):
+        if isHeadless == 0:
+            pass
+        else:
+	    dispatch.skipStep("keyboard", permanent = 1)
+	    dispatch.skipStep("mouse", permanent = 1)
+	    dispatch.skipStep("handleX11pkgs", permanent = 1)
+	    dispatch.skipStep("videocard", permanent = 1)
+	    dispatch.skipStep("monitor", permanent = 1)
+	    dispatch.skipStep("xcustom", permanent = 1)
+	    dispatch.skipStep("writexconfig", permanent = 1)
 
     # This is called after the hdlist is read in.
     def setPackageSelection(self, hdlist, intf):

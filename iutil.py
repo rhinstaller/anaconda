@@ -459,17 +459,18 @@ def isUSBDevFSMounted():
 def getPPCMachine():
     machine = None
     # ppc machine hash
-    # PPC XXX: add MAI
     ppcType = { 'Mac'      : 'PMac',
                 'Book'     : 'PMac',
                 'CHRP IBM' : 'pSeries',
                 'iSeries'  : 'iSeries',
                 'PReP'     : 'PReP',
-                'CHRP'     : 'CHRP',
+                'CHRP'     : 'pSeries',
                 'Amiga'    : 'APUS',
                 'Gemini'   : 'Gemini',
                 'Shiner'   : 'ANS',
-                'BRIQ'     : 'BRIQ'
+                'BRIQ'     : 'BRIQ',
+                'Teron'    : 'Teron',
+                'AmigaOne' : 'Teron'
                 }
 
     if getArch() != "ppc":
@@ -489,7 +490,6 @@ def getPPCMachine():
 
     for type in ppcType.items():
         if machine.find(type[0]) != -1:
-            log("PowerPC machine type: %s", type[1])
             return type[1]
 
     log("Unknown PowerPC machine type: %s" %(machine,))
@@ -511,7 +511,6 @@ def getPPCMacID():
       if line.find('machine') != -1:
         machine = line.split(':')[1]
         machine = machine.strip()
-        log("Power Mac machine id: %s", machine)
         return machine
 
     log("WARNING: No Power Mac machine id")
@@ -541,7 +540,6 @@ def getPPCMacGen():
 
     for type in pmacGen:
       if gen.find(type) != -1:
-          log("Power Mac generation: %s", type)
           return type
 
     log("Unknown Power Mac generation: %s" %(gen,))
@@ -560,6 +558,5 @@ def getPPCMacBook():
 
     for line in lines:
       if not string.find(string.lower(line), 'book') == -1:
-        log("PowerBook/iBook: 1")
         return 1
     return 0

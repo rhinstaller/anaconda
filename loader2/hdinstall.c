@@ -199,6 +199,17 @@ static int loadHDImages(char * prefix, char * dir, int flags,
 	return 1;
     } 
 
+    if (!verifyStamp(mntpoint)) {
+        char * buf;
+        buf = sdupprintf(_("The %s installation tree in that directory does "
+                           "not seem to match your boot media."), 
+                         getProductName());
+        
+        newtWinMessage(_("Error"), _("OK"), buf);
+        umountLoopback(mntpoint, device);
+        return 1;
+    }
+
     /* handle updates.img now before we copy stage2 over... this allows
      * us to keep our ramdisk size as small as possible */
     sprintf(path, "%s/%s/RedHat/base/updates.img", prefix, dir ? dir : "");

@@ -39,22 +39,7 @@
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
-
-/* JKFIXME: this is a pile of crap... should at least only be done once */
-/* Need to tell loop.h what the actual dev_t type is. */
-#undef dev_t
-#if defined(__alpha) || (defined(__sparc__) && defined(__arch64__))
-#define dev_t unsigned int
-#else
-#if defined(__x86_64__)
-#define dev_t unsigned long
-#else
-#define dev_t unsigned short
-#endif
-#endif
-#include <linux/loop.h>
-#undef dev_t
-#define dev_t dev_t
+#include "devt.h"
 
 #include "nfsinstall.h"
 #include "hdinstall.h"
@@ -107,7 +92,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     devMakeInode(device, filename);
     loopfd = open(filename, O_RDONLY);
     if (loopfd == -1) {
-	logMessage("unable to open loop device", filename);
+	logMessage("unable to open loop device %s", filename);
 	return LOADER_ERROR;
     }
     logMessage("mntloop %s on %s as %s fd is %d", 
@@ -115,6 +100,7 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
 
     if (ioctl(loopfd, LOOP_SET_FD, targfd)) {
         logMessage("LOOP_SET_FD failed: %s", strerror(errno));
+        ioctl(loopfd, LOOP_CLR_FD, 0);
         close(targfd);
         close(loopfd);
         return LOADER_ERROR;
@@ -139,9 +125,9 @@ int mountLoopback(char * fsystem, char * mntpoint, char * device) {
                       0, NULL, NULL, 0)) {
             if (doPwMount(filename, mntpoint, "cramfs", 1,
                           0, NULL, NULL, 0)) {
-            
                 logMessage("failed to mount loop: %s", 
                            strerror(errno));
+                ioctl(loopfd, LOOP_CLR_FD, 0);
                 return LOADER_ERROR;
             }
         }
@@ -597,7 +583,7 @@ int copyFileAndLoopbackMount(int fd, char * dest, int flags,
 
     rc = copyFileFd(fd, dest);
     stat(dest, &sb);
-    logMessage("copied %d bytes to %s (%s)", sb.st_size, dest, 
+    logMessage("copied %lld bytes to %s (%s)", sb.st_size, dest, 
                ((rc) ? " incomplete" : "complete"));
     
     if (rc) {

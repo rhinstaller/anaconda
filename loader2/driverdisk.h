@@ -1,6 +1,7 @@
 #ifndef DRIVERDISK_H
 #define DRIVERDISK_H
 
+#include "loader.h"
 #include "modules.h"
 #include "moduledeps.h"
 #include "moduleinfo.h"

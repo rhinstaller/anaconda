@@ -33,12 +33,28 @@ TOPDIR=$(cd $TOPDIR; pwd)
     MODDEPS=$KERNELROOT/moddeps
     BUILDARCH=$4
 
-    KERNELNAME=vmlinuz
+    if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+	KERNELNAME=vmlinux
+	KERNELARCH=ppc64
+    else
+	KERNELNAME=vmlinuz
+	KERNELARCH=$BUILDARCH
+    fi
     
     if [ "$BUILDARCH" = "sparc64" ]; then
 	BASEARCH=sparc
     else
 	BASEARCH=$BUILDARCH
+    fi
+
+    # explicit block size setting for some arches (FIXME: we compose 
+    # ppc64-ish trees as ppc, so we have to set the "wrong" block size)
+    if [ "$BUILDARCH" = "sparc64" ]; then
+	CRAMBS="--blocksize 8192"
+    elif [ "$BUILDARCH" = "sparc" ]; then
+	CRAMBS="--blocksize 4096"
+    else
+	CRAMBS=""
     fi
 
     if [ ! -d "$1" ]; then
@@ -109,7 +125,7 @@ findPackage() {
     dir=$1
     name=$2
     
-    for n in $dir/$name*{${BUILDARCH},noarch}.rpm; do
+    for n in $dir/$name*{${KERNELARCH},noarch}.rpm; do
 	thisName=$(rpm --qf '%{NAME}' -qp $n)
 	if [ -z "$thisName" ]; then
 	    continue
@@ -173,7 +189,11 @@ getmoddeps () {
     what=$1
     final=$2
 
-    egrep $(echo $what | sed 's/\.o  */|^/g;s/\.o$//') $MODDEPS > $final
+    for mod in $what ; do
+	mod=$(echo $mod | sed 's/\.o  */|^/g;s/\.o$//;s/.*\///')
+	egrep $mod $MODDEPS >> $final.foo
+    done
+    mv $final.foo $final
 }
 
 padfile () {
@@ -194,10 +214,14 @@ intcopymodules () {
             echo "Module $n not found in kernel rpm" >&2
         else 
 	    echo $n >> $MODULESUSED
-	    echo $n
-	    if ! cp $m $dir ; then
-		echo "Failed to copy $m to $dir (for module $n)"
-	    fi
+	    for o in $m ; do 
+		echo $n
+		ver=$(echo $o |cut -d / -f 6)
+		if ! [ -d $dir/$ver ] ; then mkdir $dir/$ver ; fi
+		if ! cp $o $dir/$ver; then
+		    echo "Failed to copy $o to $dir/$ver (for module $n)" >&2
+		fi
+	    done
         fi
     done
 }
@@ -286,19 +310,16 @@ makemoduleball() {
     $MODLIST --modinfo-file $MODINFO --ignore-missing --modinfo \
 	$MMB_MODULESET > ../$MMB_MODINFO
 
-    getmoddeps "*.o" ../modules.dep
+    getmoddeps "$(find . -name *.o)" ../modules.dep
 
     # create the pcitable
-    $TRIMPCITABLE *.o < $PCITABLE > ../pcitable
+    $TRIMPCITABLE $(find . -name *.o -exec basename {} \;) < $PCITABLE > ../pcitable
 
     if [ -n "$MMB_DD" ]; then
 	echo $MMB_DD > $MMB_DIR/rhdd-6.1
     fi
 
-    mkdir $version
-    mv *.o $version
-
-    find $version -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
+    find . -type f | cpio --quiet -H crc -o | gzip -9 > ../$MMB_NAME
     cd ..
     rm -rf modules
     chmod 644 *
@@ -509,6 +530,8 @@ EOF
 	$MBD_DIR nst0 c 9 128 666 root:root
 	$MBD_DIR random c 1 8 644 root:root
 	$MBD_DIR urandom c 1 9 644 root:root
+	$MBD_DIR nvram c 10 144 644 root:root
+	$MBD_DIR adb c 56 0 644 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
@@ -674,7 +697,8 @@ makeinstimage () {
     makemoduleball $tmpdir/modules "$modlist"
     makeproductfile $tmpdir
 
-    mkcramfs $tmpdir $INSTIMGPATH/${imagename}2.img
+    echo "Running mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img"
+    mkcramfs $CRAMBS $tmpdir $INSTIMGPATH/${imagename}2.img
     size=$(ls -l $INSTIMGPATH/${imagename}2.img | awk '{print $5}')
     size=$(expr $size / 1024)
     echo "Wrote $INSTIMGPATH/${imagename}2.img (${size}k)..."
@@ -719,7 +743,8 @@ makemainimage () {
         rmdir $mmi_mntpoint
     elif [ $type = "cramfs" ]; then
         makeproductfile $IMGPATH
-        mkcramfs $IMGPATH $mmi_tmpimage
+        echo "Running mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage"
+        mkcramfs $CRAMBS $IMGPATH $mmi_tmpimage
         SIZE=$(expr `cat $mmi_tmpimage | wc -c` / 1024)
     fi
     
@@ -797,10 +822,22 @@ makedriverdisk () {
     fi
 }
 
+# source the architecture specific mk-images file so we can call functions
+# in it
+if [ ${BUILDARCH} = s390x ]; then
+    # FIXME: this is a bad hack for s390, but better than copying for now
+    source $TOPDIR/mk-images.s390
+else
+    source $TOPDIR/mk-images.${BUILDARCH}
+fi
+
 # Find the kernel, unpack it, and verify it
 vertag="BOOT"
 if [ "$BUILDARCH" = "s390" -o "$BUILDARCH" = "s390x" ]; then
-    vertag="BOOT BOOTtape"
+    vertag="dummyvar tape"
+fi
+if [ "$BUILDARCH" = "ppc" -o "$BUILDARCH" = "ppc64" ]; then
+    vertag="pseries iseries"
 fi
 for kernelvers in $vertag; do
     kpackage=$($LATEST $KERNELPATH kernel-$kernelvers)
@@ -845,13 +882,14 @@ for kernelvers in $vertag; do
 
     rundepmod "$allmods" $MODDEPS
     rm -f $MODDEPS.foo
+    find $KERNELROOT/lib/modules/$version > $CACHE
 
-  # this is a bad hack, but better than copying for now
-  if [ ${BUILDARCH} = s390x ]; then
-      . $TOPDIR/mk-images.s390
-  else
-      . $TOPDIR/mk-images.${BUILDARCH}
-  fi
-
-rm -rf $KERNELROOT
+    # make the boot images
+    makeBootImages
 done
+
+# make the second stage
+find $KERNELROOT/lib/modules/ > $CACHE
+makeSecondStage
+rm -rf $KERNELROOT
+

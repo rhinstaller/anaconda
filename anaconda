@@ -42,7 +42,14 @@ def dup_log(format, *args):
 def startMiniWM(root='/'):
     childpid = os.fork()
     if not childpid:
-	args = [root + '/usr/bin/mini-wm', '--display', ':1']
+        if os.access("./mini-wm", os.X_OK):
+            cmd = "./mini-wm"
+        elif os.access(root + "/usr/bin/mini-wm", os.X_OK):
+            cmd = root + "/usr/bin/mini-wm"
+        else:
+            return None
+        
+	args = [cmd, '--display', ':1']
 	os.execv(args[0], args)
 	sys.exit (1)
 
@@ -125,6 +132,82 @@ def startVNCServer(vncpassword=None, root='/'):
     doStartupX11Actions()
 
 	
+# startup vnc X server
+def startVNCServer(vncpassword=None, root='/'):
+    
+    def set_vnc_password(root, passwd, passwd_file):
+	(pid, fd) = os.forkpty()
+
+	if not pid:
+	    os.execv(root + "/usr/bin/vncpasswd", [root + "/usr/bin/vncpasswd", passwd_file])
+	    sys.exit(1)
+
+	# read password prompt
+	os.read(fd, 1000)
+
+	# write password
+	os.write(fd, passwd + "\n")
+
+	# read challenge again, and newline
+	os.read(fd, 1000)
+	os.read(fd, 1000)
+
+	# write password again
+	os.write(fd, passwd + "\n")
+	
+	# read remaining output
+	os.read(fd, 1000)
+
+	# wait for status
+	try:
+	    (pid, status) = os.waitpid(pid, 0)
+	except OSError, (errno, msg):
+	    print __name__, "waitpid:", msg
+
+	return status
+	
+    dup_log(_("Starting VNC..."))
+
+    vncpid = os.fork()
+
+    if not vncpid:
+	args = [ root + "/usr/bin/Xvnc", ":1", "-nevershared",
+		 "-depth", "16", "-geometry", "800x600" "-dontdisconnect"]
+
+	# set passwd if necessary
+	if vncpassword is not None:
+	    rc = set_vnc_password(root, vncpassword, "/tmp/vncpasswd_file")
+	    if rc:
+		dup_log(_("Unable to set vnc password - using no password!"))
+		dup_log(_("Make sure your password is at least 6 characters in length."))
+	    else:
+		args = args + ["-rfbauth", "/tmp/vncpasswd_file"]
+			     
+	tmplogFile = "/tmp/vncserver.log"
+	try:
+	    err = os.open(tmplogFile, os.O_RDWR | os.O_CREAT)
+	    if err < 0:
+		sys.stderr.write("error opening %s\n", tmplogFile)
+	    else:
+		os.dup2(err, 2)
+		os.close(err)
+	except:
+	    # oh well
+	    pass
+
+	os.execv(args[0], args)
+	sys.exit (1)
+
+    if vncpassword is None:
+	dup_log(_("\n\nWARNING!!! VNC server running with NO PASSWORD!"))
+	dup_log(_("You can use the vncpasswd=<password> boot option"))
+	dup_log(_("if you would like to secure the server.\n\n"))
+	
+    dup_log(_("VNC server now running - please connect to install..."))
+
+    os.environ["DISPLAY"]=":1"
+    doStartupX11Actions()
+
 # function to handle X startup special issues for anaconda
 def doStartupX11Actions():
     global miniwm_pid
@@ -249,13 +332,14 @@ if os.environ.has_key("LD_PRELOAD"):
     del os.environ["LD_PRELOAD"]
 
 try:
-    (args, extra) = isys.getopt(theargs, 'GTRxtdr:fm:', 
+    (args, extra) = isys.getopt(theargs, 'CGTRxtdr:fm:', 
           [ 'graphical', 'text', 'test', 'debug', 'nofallback',
             'method=', 'rootpath=', 'pcic=', "overhead=",
 	    'testpath=', 'mountfs', 'traceonly', 'kickstart=',
             'lang=', 'keymap=', 'kbdtype=', 'module=', 'class=',
 	    'expert', 'serial', 'lowres', 'nofb', 'rescue', 'nomount',
-            'autostep', 'resolution=', 'skipddc', 'vnc'])
+            'autostep', 'resolution=', 'skipddc', 'vnc', 'cmdline',
+            'headless'])
 except TypeError, msg:
     sys.stderr.write("Error %s\n:" % msg)
     sys.exit(-1)
@@ -293,11 +377,11 @@ display_mode = None
 # should we ever try to probe for X stuff?  this will give us a convenient
 # out eventually to circumvent all probing and just fall back to text mode
 # on hardware where we break things if we probe
-doXProbe = 1
+isHeadless = 0
 
 # probing for hardware on an s390 seems silly...
 if iutil.getArch() == "s390":
-    doXProbe = 0
+    isHeadless = 1
 
 #
 # xcfg       - xserver info (?)
@@ -377,7 +461,6 @@ for n in args:
     elif (str == '--traceonly'):
 	traceOnly = 1
     elif (str == '--serial'):
-	logFile = "/tmp/install.log"
 	flags.serial = 1
     elif (str == '-t' or str == '--test'):
 	flags.test = 1
@@ -385,8 +468,12 @@ for n in args:
 	logFile = "/tmp/anaconda-debug.log"
     elif (str == '-T' or str == '--text'):
 	display_mode = 't'
+    elif (str == "-C" or str == "--cmdline"):
+        display_mode = 'c'
     elif (str == '--kbdtype'):
         kbdtype = arg
+    elif (str == '--headless'):
+        isHeadless = 1
     elif (str == '--vnc'):
 	flags.usevnc = 1
 
@@ -401,11 +488,6 @@ for n in args:
 	    pass
 
 	
-# s390s don't have ttys
-if iutil.getArch() == "s390":
-    logFile = "/tmp/anaconda-s390.log"
-    #display_mode = 't'
-
 #
 # must specify install, rescue mode
 #
@@ -490,7 +572,7 @@ import isys
 import instdata
 import floppy
 
-if doXProbe:
+if not isHeadless:
     import xsetup
     import rhpl.xhwstate as xhwstate
 import rhpl.keyboard as keyboard
@@ -602,7 +684,7 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-if doXProbe:
+if not isHeadless:
     #
     # Probe what is available for X and setup a hardware state
     #
@@ -613,13 +695,21 @@ if doXProbe:
 
     (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
                                                     skipMouseProbe = skipmouseprobe)
-
-    # setup a X hw state for use later with configuration.  
-    try:
-        xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
-    except Exception, e:
-        print _("Unable to instantiate a X hardware state object.")
-        xcfg = None
+    # if the len(videocards) is zero, then let's assume we're isHeadless
+    if len(videohw.videocards) == 0:
+        print _("No video hardware found, assuming headless")
+        videohw = None
+        monitorhw = None
+        mousehw = None
+        isHeadless = 1
+    else:
+        # setup a X hw state for use later with configuration.  
+        try:
+            xcfg = xhwstate.XF86HardwareState(defcard=videohw,
+                                              defmon=monitorhw)
+        except Exception, e:
+            print _("Unable to instantiate a X hardware state object.")
+            xcfg = None
 else:
     videohw = None
     monitorhw = None
@@ -647,10 +737,10 @@ if not flags.test and not os.access("/mnt/runtime/usr/X11R6/bin/XFree86", os.X_O
      time.sleep(2)
      display_mode = 't'
 
-if doXProbe:
+if not isHeadless:
     # if no mouse we force text mode
     mousedev = mousehw.get()
-    if display_mode != 't' and mousedev[0] == "No - mouse":
+    if display_mode == 'g' and mousedev[0] == "No - mouse":
         # ask for the mouse type
 	import rhpl.mouse as mouse
 
@@ -661,8 +751,9 @@ if doXProbe:
             time.sleep(2)
         else:
 	    dup_log(_("Using mouse type: %s"), mousehw.shortDescription())
-else: # s390 checks
-    if display_mode == 'g' and not os.environ.has_key('DISPLAY'):
+else: # s390/iSeries checks
+    if display_mode == 'g' and not (os.environ.has_key('DISPLAY') or
+                                    flags.usevnc):
 	dup_log("DISPLAY variable not set. Starting text mode!")
         display_mode = 't'
         time.sleep(2)
@@ -736,9 +827,11 @@ for i in ( "services", "protocol", "nsswitch.conf", "joe"):
 #
 if (display_mode == 'g'):
     if not flags.test and flags.setupFilesystems:
-        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts"):
+        for i in ( "imrc", "im_palette.pal", "gtk-2.0", "pango", "fonts",
+                   "fb.modes"):
             try:
-                os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
+                if os.path.exists("/mnt/runtime/etc/%s" %(i,)):
+                    os.symlink ("../mnt/runtime/etc/" + i, "/etc/" + i)
             except:
                 pass
 
@@ -768,7 +861,9 @@ if (display_mode == 'g'):
 
 if (display_mode == 't'):
     from text import InstallInterface
-    from text import stepToClasses
+
+if (display_mode == 'c'):
+    from cmdline import InstallInterface
 
 
 # go ahead and set up the interface
@@ -843,7 +938,7 @@ if monitorhw:
 #
 # not sure what to do here - somehow we didnt detect anything
 #
-if xcfg is None and doXProbe:
+if xcfg is None and not isHeadless:
     try:
 	xcfg = xhwstate.XF86HardwareState()
     except Exception, e:
@@ -868,6 +963,11 @@ if lang:
 if keymap:
     dispatch.skipStep("keyboard", permanent = 1)
     instClass.setKeyboard(id, keymap)
+
+# set up the headless case
+if isHeadless == 1:
+    id.setHeadless(isHeadless)
+    instClass.setAsHeadless(dispatch, isHeadless)
 
 instClass.setSteps(dispatch)
 

@@ -225,6 +225,32 @@ int devMakeInode(char * devName, char * path) {
 	{
 		minor = minor + atoi(devName + 7);
 	}
+    } else if (!strncmp(devName, "iseries/vcd", 11)) {
+        /* IBM virtual cdrom (iseries) */
+        type = S_IFBLK;
+        major = 113;
+        minor = devName[11] - 'a';
+    } else if (!strncmp(devName, "iseries/vd", 10)) {
+	int drive = 0;
+	char * num = NULL;
+
+        /* IBM virtual disk (iseries) */
+        type = S_IFBLK;
+        major = 112;
+
+	if (devName[11] && isdigit(devName[11])) {
+	  drive = devName[10] - 'a';
+	  num = devName + 11;
+	} else if (devName[11] && islower(devName[11])) {
+	  drive = ((devName[10] - 'a' + 1) * 26) + devName[11] - 'a';
+	  num = devName + 12;
+	} else {
+	  drive = devName[10] - 'a';
+	}
+
+	minor = (drive * 8);
+	if (num && num[0])
+	    minor += (num[0] - '0');
     } else {
 	for (i = 0; i < numDevices; i++) {
 	    if (!strcmp(devices[i].name, devName)) break;

@@ -102,6 +102,7 @@ static PyObject * hasIdeRaidMagic(PyObject * s, PyObject * args);
 static PyObject * start_bterm(PyObject * s, PyObject * args);
 static PyObject * py_getDasdPorts(PyObject * s, PyObject * args);
 static PyObject * py_isUsableDasd(PyObject * s, PyObject * args);
+static PyObject * py_isLdlDasd(PyObject * s, PyObject * args);
 
 static PyMethodDef isysModuleMethods[] = {
     { "ejectcdrom", (PyCFunction) doEjectCdrom, METH_VARARGS, NULL },
@@ -153,6 +154,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "startBterm", (PyCFunction) start_bterm, METH_VARARGS, NULL },
     { "getDasdPorts", (PyCFunction) py_getDasdPorts, METH_VARARGS, NULL},
     { "isUsableDasd", (PyCFunction) py_isUsableDasd, METH_VARARGS, NULL},
+    { "isLdlDasd", (PyCFunction) py_isLdlDasd, METH_VARARGS, NULL},
     { NULL }
 } ;
 
@@ -1385,6 +1387,14 @@ static PyObject * py_isUsableDasd(PyObject * o, PyObject * args) {
 	return NULL;
     return Py_BuildValue("i", isUsableDasd(devname));
 }
+
+static PyObject * py_isLdlDasd(PyObject * o, PyObject * args) {
+    char *devname;
+    if (!PyArg_ParseTuple(args, "s", &devname))
+	return NULL;
+    return Py_BuildValue("i", isLdlDasd(devname));
+}
+
 
 static PyObject * printObject (PyObject * o, PyObject * args) {
     PyObject * obj;

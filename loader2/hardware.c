@@ -204,6 +204,18 @@ void updateKnownDevices(struct knownDevices * kd) {
     kdFindNetList(kd, 0);
 }
 
+int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded, 
+		 moduleDeps modDeps, struct knownDevices * kd, int flags) {
+    /* this is a hack since we can't really probe on iSeries */
+#ifdef __powerpc__
+    if (!access("/proc/iSeries", X_OK)) {
+	mlLoadModuleSet("veth:viodasd:viocd", modLoaded, modDeps, modInfo, flags);
+	updateKnownDevices(kd);
+    }
+#endif
+    return 0;
+}
+
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
              int justProbe, struct knownDevices * kd, int flags) {
     int i;
@@ -215,6 +227,9 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     initializePcmciaController(modLoaded, modDeps, modInfo, flags);
 
     if (FL_NOPROBE(flags)) return 0;
+
+    /* we can't really *probe* on iSeries, but we can pretend */
+    probeiSeries(modInfo, modLoaded, modDeps, kd, flags);
     
     if (canProbeDevices()) {
         /* autodetect whatever we can */

@@ -14,8 +14,6 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import kudzu
-import parted
 import _isys
 import string
 import os
@@ -251,6 +249,8 @@ def driveDict(klassArg):
     return dict
 
 def hardDriveDict():
+    import parted
+
     dict = driveDict("disk")
 
     # this is kind of ugly, but it's much easier to do this from python
@@ -309,6 +309,9 @@ def getDasdPorts():
 
 def isUsableDasd(device):
     return _isys.isUsableDasd(device)
+
+def isLdlDasd(device):
+    return _isys.isLdlDasd(device)
 
 def makeDevInode(name, fn=None):
     if fn:

@@ -23,3 +23,6 @@ s390:
 
 s390x:
 	./updkmaps s390
+
+ppc:
+	./updkmaps ppc

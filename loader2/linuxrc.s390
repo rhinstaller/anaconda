@@ -28,13 +28,6 @@ VERSION=1.01
 export TEXTDOMAIN=s390installer
 export TEXTDOMAINDIR=/usr/lib/locale
 
-debugshell()
-{
-	echo $"You have defined DEBUG, so here is a shell. You can use 'exit'"
-	echo $"to go on with the normal installation process."
-	/bin/sh
-}
-
 startinetd()
 {
 	echo
@@ -47,11 +40,14 @@ startinetd()
 
 	/sbin/xinetd -stayalive -reuse -pidfile /tmp/xinetd.pid
 	/sbin/sshd
-	while : ; do
-		echo
-		echo $"Please connect now to $IPADDR and start 'loader' from this shell."
-      ls -l /bin/sh | grep -q bash && /bin/sh --login || /bin/sh -l
-	done
+	if [ -z "$RUNKS" ]; then
+  	  while : ; do
+			echo
+			echo $"Please connect now to $IPADDR and start 'loader' from this shell."
+			/bin/sh --login
+			[ $? = 0 ] || break
+	  done
+	fi
 }
 
 S390ARCH=`uname -m`
@@ -79,10 +75,16 @@ export HOME
 PYTHONPATH=/tmp/updates
 export PYTHONPATH
 
-# limit output on x3270 console
+# remount root fs rw
+mount /dev/root /  -o remount,rw
+
 mount -t proc none /proc
 mount -t devpts /dev/pts /dev/pts
+# limit output on x3270 console
 echo "1 4 1 1" > /proc/sys/kernel/printk
+
+# make /tmp/ramfs
+mount -t ramfs none /tmp
 
 mkdir /OCO
 mount -t ext2 /dev/ram /OCO >/dev/null 2>&1
@@ -95,49 +97,9 @@ fi
 ifconfig lo 127.0.0.1 netmask 255.0.0.0
 route add -host 127.0.0.1 dev lo 2>/dev/null
 
-[ -n "$DEBUG" ] && debugshell
-
 LO=""
 
 [ -L /sbin/insmod ] && LO=".o"
-
-# read in configuration as set by the parm file
-if [ -n "$HOST" ]; then
-        set -- `echo $HOST |sed 's/:/ /g'`
-        HOSTNAME=$1
-        DEVICE=$2
-        NETTYPE=`echo $DEVICE |sed -e 's/[0-9].*//'`
-        IPADDR=$3
-        if [ ":$NETTYPE" = ":iucv" ]; then
-                IUCV="iucv=$4"
-                GATEWAY=$5
-                MTU=$6
-        elif [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
-                GATEWAY=$4
-                MTU=$5
-        else
-                echo $4 | grep -q "\." && MTU=$4 || echo "Invalid MTU $4, skipping"
-        fi
-fi
-if [ -n "$MTU" ]; then
-	MMTU="mtu $MTU"
-else
-	if [ "$NETTYPE" = "ctc" ]; then
-		MMTU="mtu 4096"
-		MTU="4096"
-		IMTU="1"
-	fi
-fi
-if [ -n "$NETWORK" ]; then
-	set -- `echo $NETWORK | sed 's/:/ /g'`
-	NETWORKIP=$1
-	NETMASK=$2
-	BROADCAST=$3
-	if [ ":$NETTYPE" != ":ctc" -a ":$NETTYPE" != ":iucv" -a ":$NETTYPE" != ":escon" ]; then
-		GATEWAY=$4
-	fi
-fi
-
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary
@@ -204,56 +166,58 @@ if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi"
 		  echo $"Enter the broadcast address for the new Linux guest:"
 		  read BROADCAST
 	 done
-fi
-
-if [ ":$NETTYPE" = ":eth" ] || [ ":$NETTYPE" = ":tr" ] || [ ":$NETTYPE" = ":hsi" ]; then
-	while [ -z "$GATEWAY" ]; do
-		echo $"Please enter your default gateway:"
-		read GATEWAY
-	done
-   if echo "$CHANDEV" |grep -q "lcs"; then
-      LCS="on"
-   fi
-   # qeth and nettype!= eth  is hipersockets ! 
-   if echo "$CHANDEV" |grep -q "qeth"; then
-      if echo "$NETTYPE" |grep -q "eth"; then
-         QETH="on"
-		elif echo "$NETTYPE" |grep -q "hsi"; then
-			HSI="on"
-		elif echo "$NETTYPE" |grep -q "tr"; then
-			TR="on"
-		fi
-   fi
+	 while [ -z "$GATEWAY" ]; do
+		  echo $"Please enter your default gateway:"
+		  read GATEWAY
+	 done
+    if echo "$CHANDEV" |grep -q "lcs"; then
+        LCS="on"
+    fi
+    # qeth and nettype!= eth  is hipersockets ! 
+    if echo "$CHANDEV" |grep -q "qeth"; then
+        if echo "$NETTYPE" |grep -q "eth"; then
+            QETH="on"
+		  elif echo "$NETTYPE" |grep -q "hsi"; then
+			   HSI="on"
+		  elif echo "$NETTYPE" |grep -q "tr"; then
+			   TR="on"
+		  fi
+    fi
 else  # ctc0, escon0, iucv0
-	while [ -z "$GATEWAY" ]; do
-		echo $"Enter the IP of your ctc/escon/iucv point-to-point partner:"
-		read GATEWAY
-	done
-   if [ "$NETTYPE" = "ctc" ]; then
-      MMTU="mtu 4096"
-      MTU="4096"
-      IMTU="1"
-   else
-      echo $"Enter the maximal transfer unit (MTU) for this connection or leave empty:"
-      read MTU
-      if [ -n "$MTU" ]; then
-         MMTU="mtu 4096"
-      fi
-   fi
+	 while [ -z "$GATEWAY" ]; do
+		  echo $"Enter the IP of your ctc/escon/iucv point-to-point partner:"
+		  read GATEWAY
+	 done
 
-	if [ ":$NETTYPE" = ":iucv" ]; then
-		while [ -z "$IUCV" ]; do
-			echo $"Enter iucv kernel module options (usually iucv=HOST,"
-         echo $"where HOST is TCPIP for VM, \$TCPIP for VIF):"
-			read IUCV
-		done
-	fi
+	 if [ "$NETTYPE" = "ctc" ]; then
+# 		 if [ -z "$MTU" ]; then
+#			   echo $"Enter the maximal transfer unit (MTU) for this connection or leave empty:"
+#			   read MTU
+#		 fi
+		 if [ -z "$MTU" ]; then
+			   MTU="1500"
+		 fi
+		 MMTU="mtu 1500"   # always use mtu 1500 for the installer
+	 fi
+	 if [ ":$NETTYPE" = ":iucv" ]; then
+		  while [ -z "$IUCV" ]; do
+			   echo $"Enter iucv kernel module options (usually iucv=HOST,"
+			   echo $"where HOST is TCPIP for VM, \$TCPIP for VIF):"
+			   read IUCV
+		  done
+	 fi
+fi
+# don't ask for MTU, but use it if it has been set in the .parm file
+# don't overwrite MMTU if it has been set for CTC
+if [ -n "$MTU" -a -z "$MMTU" ]; then
+	 MMTU="mtu $MTU"
 fi
 
 # configure network-interface
 KERNELVERSION=`cat /proc/version | awk '{ print $3 }'`
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
-	insmod ctc$LO $CTC
+	insmod fsm$LO
+	insmod ctc$LO
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
 	route add -host $IPADDR dev $DEVICE 2>/dev/null
 elif [ ":$NETTYPE" = ":iucv" ]; then
@@ -270,7 +234,7 @@ else   # lcs, tr, qeth, hsi or older kernel without opensource-lcs
 		if [ "$?" = "1" ]; then
 			echo $"warning: no lcs module found in the first initrd, "
 			echo $"  looking for second initrd"
-      else
+		else
 		   ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 		   route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 		fi
@@ -317,8 +281,6 @@ fi
 ifconfig -a
 route -n
 
-[ -n "$DEBUG" ] && debugshell
-
 echo $"Starting portmap."
 portmap
 
@@ -338,13 +300,6 @@ if [ "$?" != "0" ]; then
   insmod ext3$LO
 fi
 
-
-# Don't add MTU to the installed system's config. It was
-# set to 4096 for the installer only
-if [ "$IMTU" = "1" ]; then
-	MTU=
-fi
-
 # transfer options into install environment
 cat > /tmp/install.cfg << EOF
 LANG="$LANG"
@@ -362,23 +317,18 @@ MTU="$MTU"
 NETWORK="$NETWORK"
 NETMASK="$NETMASK"
 BROADCAST="$BROADCAST"
-INTERACTIVE="$INTERACTIVE"
 DNS="$DNS"
 SEARCHDNS="$SEARCHDNS"
-FORCEDASDFORMAT="$FORCEDASDFORMAT"
 LCS="$LCS"
 QETH="$QETH"
 HSI="$HSI"
 TR="$TR"
 IUCV="$IUCV"
-CTC="$CTC"
-ROOTPW="$ROOTPW"
-CROOTPW="$CROOTPW"
 ONBOOT="yes"
 export LANG CHANDEV QETHPARM S390ARCH TEXTDOMAIN TEXTDOMAINDIR HSI
 export HOSTNAME DEVICE NETTYPE IPADDR GATEWAY MTU
 export NETWORK NETMASK BROADCAST DNS SEARCHDNS
-export LCS QETH IUCV ROOTPW CROOTPW ONBOOT
+export LCS QETH IUCV ONBOOT
 export TR
 EOF
 # immediately read it in again to export these into the shell below
@@ -406,12 +356,19 @@ PYTHONPATH=$PYTHONPATH
 export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
-echo $DEVICE | grep ctc && echo "REMIP=$GATEWAY" >> /tmp/netinfo 
-echo $DEVICE | grep ctc && echo "export REMIP=$GATEWAY" >> /etc/profile
+if [ "$NETTYPE" = "ctc" ]; then
+   echo "REMIP=$GATEWAY" >> /tmp/netinfo 
+   echo "export REMIP=$GATEWAY" >> /etc/profile
+fi
 
-[ -n "$DEBUG" ] && debugshell
+# I'm tired of typing this out...
+echo "loader" >> /.bash_history
 
 startinetd
+
+if [ -n "$RUNKS" ]; then
+	 /sbin/loader
+fi
 
 umount -a
 umount /proc

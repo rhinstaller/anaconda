@@ -32,6 +32,7 @@
 #include "moduleinfo.h"
 #include "windows.h"
 #include "hardware.h"
+#include "driverdisk.h"
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"

@@ -1,5 +1,3 @@
-
-
 prepareBootImage() {
         dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=/$MBD_TMPIMAGE 2>/dev/null
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
@@ -111,6 +109,9 @@ makeS390initrd() {
     mkdir -p $MBD_DIR/tmp
     mkdir -p $MBD_DIR/etc/terminfo/{a,d,k,l,s,v,x}
     mkdir -p $MBD_DIR/var/state
+    mkdir -p $MBD_DIR/var/empty/sshd
+    mkdir -p $MBD_DIR/etc/{pam.d,security}
+    mkdir -p $MBD_DIR/$LIBDIR/security
     ln -s /tmp $MBD_DIR/var/state/xkb
 
     if [ -n "$LOADERMODULES" ]; then
@@ -123,23 +124,43 @@ root::0:0:root:/:/bin/bash
 sshd:x:74:74:Privilege-separated SSH:/var/empty/sshd:/sbin/nologin
 EOF
     echo "sshd:x:74:" >> $MBD_DIR/etc/group
-    mkdir -p $MBD_DIR/var/empty/sshd $MBD_DIR/etc/pam.d $MBD_DIR/lib/security \
-         $MBD_DIR/etc/security $MBD_DIR/$LIBDIR/security
     chmod 111 $MBD_DIR/var/empty/sshd
     for i in pam_stack.so pam_nologin.so pam_limits.so pam_console.so \
-         pam_securetty.so pam_env.so pam_unix.so pam_deny.so pam_cracklib.so \
+         pam_env.so pam_unix.so pam_deny.so \
          pam_limits.so; do
        cp -f $IMGPATH/$LIBDIR/security/$i $MBD_DIR/$LIBDIR/security
     done
     cp -f $IMGPATH/$LIBDIR/libpam_misc.so* $IMGPATH/$LIBDIR/libpam.so* $MBD_DIR/$LIBDIR
-    for i in sshd login system-auth other; do 
+    for i in sshd other; do 
        cp -f $IMGPATH/etc/pam.d/$i $MBD_DIR/etc/pam.d
     done
+    cat > $MBD_DIR/etc/pam.d/login << EOF
+#%PAM-1.0
+auth       required     pam_securetty.so
+auth       required     pam_stack.so service=system-auth
+auth       required     pam_nologin.so
+account    required     pam_stack.so service=system-auth
+password   required     pam_stack.so service=system-auth
+session    required     pam_stack.so service=system-auth
+session    optional     pam_console.so
+EOF
+    cat > $MBD_DIR/etc/pam.d/system-auth << EOF
+#%PAM-1.0
+auth        required      pam_env.so
+auth        sufficient    pam_unix.so likeauth nullok
+auth        required      pam_deny.so
+account     required      pam_unix.so
+password    sufficient    pam_unix.so nullok use_authtok md5 shadow
+password    required      pam_deny.so
+session     required      pam_limits.so
+session     required      pam_unix.so
+EOF
     cp -f $IMGPATH/etc/security/{limits.conf,pam_env.conf} $MBD_DIR/etc/security/
     cp -f $IMGPATH/usr/bin/login $MBD_DIR/sbin/login
     cp -f $IMGPATH/usr/sbin/sshd $MBD_DIR/sbin/sshd
 
     install -s -m 755 $LOADERBINDIR/$LOADERBIN $MBD_DIR/sbin/loader
+    install -s -m 755 $LOADERBINDIR/shutdown $MBD_DIR/sbin/shutdown
     #install -s -m 755 $LOADERBINDIR/load_anaconda $MBD_DIR/sbin/loader
     # install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
     # install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
@@ -177,11 +198,10 @@ EOF
     cp -f $IMGPATH/usr/bin/gawk $MBD_DIR/sbin/awk
     cp -f $IMGPATH/usr/bin/sort_save $MBD_DIR/sbin/sort
     cp -f $IMGPATH/usr/sbin/chroot $MBD_DIR/sbin/chroot
-    cp -f $IMGPATH/usr/sbin/consoletype $MBD_DIR/sbin/consoletype
     cp -f $IMGPATH/usr/sbin/mke2fs $MBD_DIR/sbin/mke2fs
     cp -f $IMGPATH/usr/bin/busybox $MBD_DIR/sbin/busybox
     for i in cp uname tee rm ps mv more mkdir ls ln hostname head \
-             gzip grep dd chmod cat; do
+             lsmod gzip grep dd chmod cat; do
        ln -sf busybox $MBD_DIR/sbin/$i
     done
     cp -f $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
@@ -202,6 +222,18 @@ EOF
     cp -f $IMGPATH/usr/sbin/ifconfig $MBD_DIR/sbin/ifconfig
     cp -f $IMGPATH/usr/sbin/xinetd $MBD_DIR/sbin/xinetd
     cp -f $IMGPATH/usr/sbin/in.telnetd $MBD_DIR/sbin/in.telnetd
+    cat > $MBD_DIR/etc/xinetd.d/telnet <<EOF
+service telnet
+{
+        flags           = REUSE
+        socket_type     = stream
+        wait            = no
+        user            = root
+        server          = /sbin/in.telnetd
+        log_on_failure  += USERID
+        disable         = no
+}
+EOF
     cp -f $IMGPATH/usr/sbin/route $MBD_DIR/sbin/route
     cp -f $IMGPATH/usr/sbin/portmap $MBD_DIR/sbin/portmap
     cp -f $IMGPATH/etc/xinetd.conf $MBD_DIR/etc/xinetd.conf
@@ -210,21 +242,20 @@ EOF
     echo -n "Generating SSH1 RSA host key: "
     /usr/bin/ssh-keygen -q -t rsa1 -f $MBD_DIR/etc/ssh/ssh_host_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_key.pub
     echo
     echo -n "Generating SSH2 RSA host key: "
     /usr/bin/ssh-keygen -q -t rsa -f $MBD_DIR/etc/ssh/ssh_host_rsa_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_rsa_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_rsa_key.pub
     echo
     echo -n "Generating SSH2 DSA host key: "
     /usr/bin/ssh-keygen -q -t dsa -f $MBD_DIR/etc/ssh/ssh_host_dsa_key \
                         -C '' -N '' >&/dev/null
-    chmod 600 $MBD_DIR/etc/ssh/ssh_host_dsa_key
-    chmod 644 $MBD_DIR/etc/ssh/ssh_host_dsa_key.pub
     echo
+pwd
+    (cd $MBD_DIR/etc/ssh; \
+        chmod 600 ssh_host_key ssh_host_rsa_key ssh_host_dsa_key; \
+        chmod 644 ssh_host_key.pub ssh_host_rsa_key.pub ssh_host_dsa_key.pub; )
+pwd
     cat > $MBD_DIR/etc/ssh/sshd_config <<EOF
 Port 22
 HostKey /etc/ssh/ssh_host_key
@@ -244,11 +275,13 @@ RSAAuthentication yes
 PasswordAuthentication yes
 PermitEmptyPasswords yes
 EOF
+    chmod 600 $MBD_DIR/etc/ssh/sshd_config
 
     for file in ISO8859-15.so EUC-JP.so libJIS.so gconv-modules; do
        cp -f $IMGPATH/usr/$LIBDIR/gconv/$file $MBD_DIR/usr/$LIBDIR/gconv/$file
     done
-    cp -f $IMGPATH/etc/services $MBD_DIR/etc/
+    echo "telnet          23/tcp" > $MBD_DIR/etc/services 
+    echo "tcp     6       TCP" > $MBD_DIR/etc/protocols
     cp -df $IMGPATH/$LIBDIR/libpam.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl.so* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libdl-*.so* $MBD_DIR/$LIBDIR
@@ -279,7 +312,6 @@ EOF
     cp -df $IMGPATH/$LIBDIR/libssl* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libext2* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/$LIBDIR/libcom_err* $MBD_DIR/$LIBDIR
-    cp -df $IMGPATH/$LIBDIR/libcrack* $MBD_DIR/$LIBDIR
     cp -df $IMGPATH/usr/kerberos/$LIBDIR/libgssapi_krb5* $MBD_DIR/usr/kerberos/$LIBDIR
     cp -df $IMGPATH/usr/kerberos/$LIBDIR/libkrb5.so* $MBD_DIR/usr/kerberos/$LIBDIR
     cp -df $IMGPATH/usr/kerberos/$LIBDIR/libk5crypto.so* $MBD_DIR/usr/kerberos/$LIBDIR
@@ -300,7 +332,7 @@ EOF
            printf("chmod %s %s/dev/%s\n", $6, $1, $2);
            printf("chown %s %s/dev/%s\n", $7, $1, $2);
          }' <<EOF | sh
-        $MBD_DIR console c 4 64 600 root:root
+        $MBD_DIR console c 5 1 600 root:root
         $MBD_DIR random c 1 8 644 root:root
         $MBD_DIR ram0 b 1 1 640 root:root
         $MBD_DIR ram1 b 1 2 640 root:root
@@ -333,8 +365,6 @@ EOF
         $MBD_DIR ttyp7 c 3 7 644 root:root
         $MBD_DIR ttyp8 c 3 8 644 root:root
         $MBD_DIR ttyp9 c 3 9 644 root:root
-        $MBD_DIR fd0 b 2 0 644 root:root
-        $MBD_DIR fd1 b 2 1 644 root:root
 EOF
     ln -s ram1 $MBD_DIR/dev/ram
     for i in `seq 2 9`; do
@@ -404,41 +434,31 @@ COMMONMODULES="loop cramfs dasd_diag_mod dasd_eckd_mod dasd_fba_mod dasd_mod tap
 LOCALMODULES="$COMMONMODULES tape390 $IDEMODS $SCSIMODS"
 NETWORKMODULES="$COMMONMODULES nfs ctc netiucv ipv6"
 
-echo "In mk-images.s390: kernelvers is $kernelvers"
-if [ "$kernelvers" = "BOOT" ]; then
-    makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
-	   --initrdsize 15000 \
-	   --loaderbin loader \
-	   --modules "$NETWORKMODULES"
-    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
-fi
-
-if [ "$kernelvers" = "BOOTtape" ]; then
-    makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
-	   --initrdsize 15000 \
-	   --loaderbin loader \
-	   --modules "$NETWORKMODULES"
-    cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
-fi
-
-for I in `find $BOOTDISKDIR -type d`; do
-    BOOTLANG=`basename $I`
-    BOOTDIR=`basename $I | cut -d'_' -f1`
-
-    if [ $BOOTLANG = "boot" ]; then
-	BOOTLANG=""
-	BOOTDIR=""
+makeBootImages() {
+    echo "In mk-images.s390: kernelvers is $kernelvers"
+    if [ "$kernelvers" = "" ]; then
+	makeS390initrd --initrdto $TOPDESTPATH/images/initrd.img \
+	    --initrdsize 15000 \
+	    --loaderbin loader \
+	    --modules "$NETWORKMODULES"
+	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/kernel.img
     fi
-done
 
-unset BOOTLANG
-unset BOOTDIR
+    if [ "$kernelvers" = "tape" ]; then
+	makeS390initrd --initrdto $TOPDESTPATH/images/tapeinrd.img \
+	    --initrdsize 15000 \
+	    --loaderbin loader \
+	    --modules "$NETWORKMODULES"
+	cp -vf $KERNELROOT/boot/${KERNELNAME}-${version} $TOPDESTPATH/images/tapekrnl.img
+    fi
+}
 
-if [ "$kernelvers" = "BOOT" ]; then
-makemainmodules "=scsi =net $SECSTAGE"
+makeSecondStage() {
+    makemainmodules "=scsi =net $SECSTAGE"
 
-makeinstimage "netstg" "=scsi $SECSTAGE"
+    makeinstimage "netstg" "=scsi $SECSTAGE"
 
-makeinstimage "hdstg" "=net $SECSTAGE"
-makemainimage "stage2" "cramfs"
-fi
+    makeinstimage "hdstg" "=net $SECSTAGE"
+    makemainimage "stage2" "cramfs"
+}
+

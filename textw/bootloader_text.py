@@ -86,6 +86,9 @@ class BootloaderChoiceWindow:
                     continue
                 dispatch.skipStep("instbootloader", skip = (rc == "yes"))
                 dispatch.skipStep("bootloaderadvanced", skip = (rc == "yes"))
+
+                # kind of a hack...
+                bl.defaultDevice = None
             elif blradio.getSelection() == "lilo":
                 bl.setUseGrub(0)
                 dispatch.skipStep("instbootloader", 0)

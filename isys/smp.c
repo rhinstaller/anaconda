@@ -336,7 +336,8 @@ static int groupForSMP(int mode)
 	if (mode == MODE_SUMMIT_CHECK) {
 	    if (!strncmp(cth.oem_id, "IBM ENSW", 8) &&
 		(!strncmp(cth.product_id, "NF 6000R", 8) ||
-		 !strncmp(cth.product_id, "VIGIL SMP", 9)))
+		 !strncmp(cth.product_id, "VIGIL SMP", 9) ||
+		 !strncmp(cth.product_id, "RUTHLESS", 8)))
 		return 1;
 	    return 0;
 	}

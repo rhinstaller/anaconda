@@ -54,6 +54,11 @@ def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
             log("MBR not suitable as boot device; installing to partition")
             bl.defaultDevice = "boot"
         bl.setDevice(choices[bl.defaultDevice][0])
+    elif choices and choices.has_key("mbr"):
+        bl.setDevice(choices["mbr"][0])
+    elif choices and choices.has_key("boot"):
+        bl.setDevice(choices["boot"][0])
+    
 
     bootDev = fsset.getEntryByMountPoint("/")
     if not bootDev:

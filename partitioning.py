@@ -40,10 +40,6 @@ from rhpl.log import log
 
 
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
-    if iutil.getArch() == "s390":
-        partitions.useAutopartitioning = 0
-        partitions.useFdisk = 1
-            
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
         return

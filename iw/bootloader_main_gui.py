@@ -48,6 +48,9 @@ class MainBootloaderWindow(InstallWindow):
             # screen and don't worry about other options
             self.dispatch.skipStep("instbootloader", skip = 1)
             self.dispatch.skipStep("bootloaderadvanced", skip = 1)
+
+            # kind of a hack...
+            self.bl.defaultDevice = None
             return
         else:
             self.dispatch.skipStep("instbootloader", skip = 0)

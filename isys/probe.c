@@ -21,11 +21,12 @@ static int dac960GetDevices(struct knownDevices * devices);
 static int CompaqSmartArrayGetDevices(struct knownDevices * devices);
 static int CompaqSmartArray5300GetDevices(struct knownDevices * devices);
 static int ataraidGetDevices(struct knownDevices * devices);
-/* Added support for I2O Block devices: Boji Kannanthanam 
-	<boji.t.Kannanthanam@intel.com> */
+static int viodGetDevices(struct knownDevices * devices);
+/* Added support for I2O Block devices: Boji Kannanthanam
+       <boji.t.Kannanthanam@intel.com> */
 static int ProcPartitionsGetDevices(struct knownDevices * devices);
 
-static int readFD (int fd, char **buf)
+int readFD (int fd, char **buf)
 {
     char *p;
     size_t size = 4096;
@@ -64,7 +65,7 @@ static int sortDevices(const void * a, const void * b) {
     return strcmp(one->name, two->name);
 }
 
-static int deviceKnown(struct knownDevices * devices, char * dev) {
+int deviceKnown(struct knownDevices * devices, char * dev) {
     int i;
 
     for (i = 0; i < devices->numKnown; i++)
@@ -73,7 +74,7 @@ static int deviceKnown(struct knownDevices * devices, char * dev) {
     return 0;
 }
 
-static void addDevice(struct knownDevices * devices, struct kddevice dev) {
+void addDevice(struct knownDevices * devices, struct kddevice dev) {
     if (devices->numKnown == devices->numKnownAlloced) {
     	devices->numKnownAlloced += 5;
     	devices->known = realloc(devices->known, 
@@ -135,13 +136,13 @@ int kdFindNetList(struct knownDevices * devices, int code) {
 	*end = '\0';
 	
     	if (strcmp(start, "lo")) {
-	    if (deviceKnown(devices, start)) continue;
-
-	    newDevice.name = strdup(start);
-	    newDevice.model = NULL;
-	    newDevice.class = CLASS_NETWORK;
-	    newDevice.code = code;
-	    addDevice(devices, newDevice);
+	    if (!deviceKnown(devices, start)) {
+                newDevice.name = strdup(start);
+                newDevice.model = NULL;
+                newDevice.class = CLASS_NETWORK;
+                newDevice.code = code;
+                addDevice(devices, newDevice);
+            }
 	}
 
 	start = strchr(end + 1, '\n');
@@ -174,27 +175,12 @@ int vtoc_read_volume_label (int fd, unsigned long vlabel_start,
 }
 
 int read_vlabel(dasd_information_t *dasd_info, int fd, int blksize, volume_label_t *vlabel) {
-	volume_label_t tmp;
 	unsigned long  pos;
-	int ret;
 
 	pos = dasd_info->label_block * blksize;
 
 	memset(vlabel, 0, sizeof(volume_label_t));
-	if ((strncmp(dasd_info->type, "ECKD", 4) == 0) &&
-			(!dasd_info->FBA_layout)) {
-		/* OS/390 and zOS compatible disk layout */
-		return vtoc_read_volume_label(fd, pos, vlabel);
-	}
-	else {
-		/* standard LINUX disk layout */
-		ret = vtoc_read_volume_label(fd, pos, &tmp);
-		if(!ret) {
-			memcpy(vlabel->vollbl, &tmp, sizeof(tmp)-4);
-			return 0;
-		}
-		return ret;
-	}
+	return vtoc_read_volume_label(fd, pos, vlabel);
 }
 #endif
 
@@ -204,8 +190,8 @@ int isUsableDasd(char *device) {
 #else
 	char devname[16];
 	char label[5], v4_hex[9];
-	char v4ebcdic_hex[] = "e5d6d3f1";  /* VOL1 */
 	char l4ebcdic_hex[] = "d3d5e7f1";  /* LNX1 */
+	char cms1_hex[] = "c3d4e2f1";      /* CMS1 */
 	int f, ret, blksize;
 	dasd_information_t dasd_info;
 	volume_label_t vlabel;
@@ -245,12 +231,18 @@ int isUsableDasd(char *device) {
 	memset(v4_hex, 0, 9);
 	strncpy(label, vlabel.volkey, 4);
 	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
-	if(!strncmp(v4_hex, v4ebcdic_hex, 9) || !strncmp(v4_hex, l4ebcdic_hex, 9)) {
-		/* fprintf(stderr, "Found a usable device: %s\n", devname); */
-		return 1;
+	if(!strncmp(v4_hex, cms1_hex, 9)) {
+		return 0;
 	}
-        return 0;
+	if(!strncmp(v4_hex, l4ebcdic_hex, 9)) {
+		return 2;
+	}
+        return 1;
 #endif
+}
+
+int isLdlDasd(char * device) {
+   return (isUsableDasd(device) == 2);
 }
 
 char *getDasdPorts() {
@@ -414,6 +406,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	viodGetDevices(devices);
 	return 0;
     }
 
@@ -432,6 +425,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
 	dac960GetDevices(devices);
 	CompaqSmartArrayGetDevices(devices);
 	CompaqSmartArray5300GetDevices(devices);
+	viodGetDevices(devices);
 	goto bye;
     }
 
@@ -563,6 +557,7 @@ int kdFindScsiList(struct knownDevices * devices, int code) {
     dac960GetDevices(devices);
     CompaqSmartArrayGetDevices(devices);
     CompaqSmartArray5300GetDevices(devices);
+    viodGetDevices(devices);
     /* we can't really sanely do ataraid devs yet (#82848) */
 #if 0
     ataraidGetDevices(devices);
@@ -896,3 +891,18 @@ static int CompaqSmartArray5300GetDevices(struct knownDevices * devices) {
     
     return 0;
 }
+
+static int viodGetDevices(struct knownDevices * devices) {
+    if (access("/proc/iSeries", X_OK))
+	return 0;
+
+    vioGetCdDevs(devices);
+    vioGetDasdDevs(devices);
+
+    return 0;
+}
+
+
+
+
+

@@ -86,11 +86,8 @@ if iutil.getArch() == 's390':
     stepToClasses["bootloader"] = ("zipl_text", ( "ZiplWindow"))
 
 class InstallWindow:
-    def __call__ (self, screen, todo):
-        if todo.doInstall ():
-            return INSTALL_BACK
-
-        return INSTALL_OK
+    def __call__ (self, screen):
+        raise RuntimeError, "Unimplemented screen"
 
 class WaitWindow:
     def pop(self):
@@ -198,7 +195,7 @@ class InstallInterface:
                                    buttons=[TEXT_OK_BUTTON])
                 return None
 
-	    l = f.readlines()
+	    lines = f.readlines()
             for l in lines:
                 l = l.replace("@RHL@", productName)
                 l = l.replace("@RHLVER@", productVersion)

@@ -511,9 +511,6 @@ def setupTimezone(timezone, upgrade, instPath, dir):
             
 
 def doPreInstall(method, id, intf, instPath, dir):
-    if flags.test:
-	return
-
     if dir == DISPATCH_BACK:
         return
 
@@ -542,7 +539,12 @@ def doPreInstall(method, id, intf, instPath, dir):
         if arch == "s390":
 	    if (string.find(os.uname()[2], "tape") > -1):
 		select(id.hdList, 'kernel-tape')
-	elif isys.smpAvailable() or isys.htavailable():
+        elif arch == "ppc" and iutil.getPPCMachine() == "pSeries":
+            select(id.hdList, 'kernel-pseries')
+        elif arch == "ppc" and iutil.getPPCMachine() == "iSeries":
+            select(id.hdList, "kernel-iseries")
+                
+	if isys.smpAvailable() or isys.htavailable():
             select(id.hdList, 'kernel-smp')
 
 	if (id.hdList.has_key('kernel-bigmem')):
@@ -580,9 +582,18 @@ def doPreInstall(method, id, intf, instPath, dir):
             select(id.hdList, 'lilo')
         elif iutil.getArch() == "i386" and id.bootloader.useGrubVal == 1:
             select(id.hdList, 'grub')
+        elif iutil.getArch() == "s390":
+            select(id.hdList, 's390utils')
+        elif iutil.getArch() == "ppc":
+            select(id.hdList, 'yaboot')
+        elif iutil.getArch() == "ia64":
+            select(id.hdList, 'elilo')
 
         if pcmcia.pcicType():
             select(id.hdList, 'kernel-pcmcia-cs')
+
+    if flags.test:
+	return
 
     # make sure that all comps that include other comps are
     # selected (i.e. - recurse down the selected comps and turn

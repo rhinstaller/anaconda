@@ -51,7 +51,7 @@ class Anaconda_LogFile:
                 self.logFile2 = None
 
     def __call__ (self, format, *args):
-        if not self.logFile:
+        if not self.logFile and not self.logFile2:
             raise RuntimeError, "log file not open yet"
 
         for file in [self.logFile, self.logFile2]:

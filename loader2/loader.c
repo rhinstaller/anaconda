@@ -93,15 +93,13 @@ static int newtRunning = 0;
 #endif
 
 static struct installMethod installMethods[] = {
-#if defined(INCLUDE_LOCAL)
+#if !defined(__s390__) && !defined(__s390x__)
     { N_("Local CDROM"), "cdrom", 0, CLASS_CDROM, mountCdromImage },
-    { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
 #endif
-#if defined(INCLUDE_NETWORK)
+    { N_("Hard drive"), "hd", 0, CLASS_HD, mountHardDrive },
     { N_("NFS image"), "nfs", 1, CLASS_NETWORK, mountNfsImage },
     { "FTP", "ftp", 1, CLASS_NETWORK, mountUrlImage },
     { "HTTP", "http", 1, CLASS_NETWORK, mountUrlImage },
-#endif
 };
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
@@ -359,12 +357,44 @@ static void checkForHardDrives(struct knownDevices * kd, int * flagsPtr) {
     return;
 }
 
-static writeVNCPasswordFile(char *pfile, char *password) {
+static void writeVNCPasswordFile(char *pfile, char *password) {
     FILE *f;
 
     f = fopen(pfile, "w+");
     fprintf(f, "%s\n", password);
     fclose(f);
+}
+
+/* read information that's passed as environmental variables */
+static void readEnvVars(int flags, struct loaderData_s ** ld) {
+  struct loaderData_s * loaderData = *ld;
+   char * env;
+
+   env = getenv("IPADDR");
+   if (env && *env) {
+     loaderData->ip = strdup(env);
+     loaderData->ipinfo_set = 1;
+   }
+   env = getenv("NETMASK");
+   if (env && *env) {
+     loaderData->netmask = strdup(env);
+   }
+   env = getenv("GATEWAY");
+   if (env && *env) {
+     loaderData->gateway = strdup(env);
+   }
+   env = getenv("DNS");
+   if (env && *env) {
+     loaderData->dns = strdup(env);
+   }
+   env = getenv("MTU");
+   if (env && *env) {
+     loaderData->mtu = atoi(env);
+   }
+   env = getenv("REMIP");
+   if (env && *env) {
+     loaderData->ptpaddr = strdup(env);
+   }
 }
 
 /* parses /proc/cmdline for any arguments which are important to us.  
@@ -421,6 +451,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             flags |= LOADER_FLAGS_TEXT;
         else if (!strcasecmp(argv[i], "graphical"))
             flags |= LOADER_FLAGS_GRAPHICAL;
+        else if (!strcasecmp(argv[i], "cmdline"))
+            flags |= LOADER_FLAGS_CMDLINE;
         else if (!strcasecmp(argv[i], "updates"))
             flags |= LOADER_FLAGS_UPDATES;
         else if (!strcasecmp(argv[i], "isa"))
@@ -471,7 +503,6 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
             /* the anaconda script, but don't want to represent as a */
             /* LOADER_FLAGS_XXX since loader doesn't care about these */
             /* particular options.                                   */
-
 	    /* do vncpassword case first */
             if (!strncasecmp(argv[i], "vncpassword=", 12)) {
 		if (!FL_TESTING(flags))
@@ -481,6 +512,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
                 !strncasecmp(argv[i], "skipddc", 7) ||
                 !strncasecmp(argv[i], "nomount", 7) ||
                 !strncasecmp(argv[i], "vnc", 3)) {
+                !strncasecmp(argv[i], "headless", 8)) {
                 int arglen;
 
                 arglen = strlen(argv[i])+3;
@@ -495,6 +527,8 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
 	    }
 	}
     }
+
+    readEnvVars(flags, &loaderData);
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
@@ -617,7 +651,7 @@ static char *doLoaderMain(char * location,
         validMethods[numValidMethods] = i;
 
         /* have we preselected this to be our install method? */
-        if (loaderData->method && 
+        if (loaderData->method && *loaderData->method && 
             !strcmp(loaderData->method, installMethods[i].shortname)) {
             methodNum = numValidMethods;
         }
@@ -986,7 +1020,7 @@ int main(int argc, char ** argv) {
     checkForRam(flags);
 
     
-    mlLoadModuleSet("cramfs:vfat:nfs:loop", modLoaded, modDeps, 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs", modLoaded, modDeps, 
                     modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
@@ -1181,6 +1215,8 @@ int main(int argc, char ** argv) {
             *argptr++ = "-T";
         else if (FL_GRAPHICAL(flags))
             *argptr++ = "--graphical";
+        if (FL_CMDLINE(flags))
+            *argptr++ = "-C";
         if (FL_EXPERT(flags))
             *argptr++ = "--expert";
         

@@ -432,7 +432,7 @@ sunqe
 
 tg3
 	eth
-	"Broadcom Tigon3 ethernet driver"
+	"Broadcom Tigon3 Ethernet"
 
 tlan
 	eth
@@ -498,6 +498,28 @@ netiucv
 ctc
 	eth
 	"S/390 Channel to Channel"
+
+# iSeries
+veth
+	eth
+	"iSeries Virtual Ethernet"
+
+# Mac stuff
+bmac	
+	eth
+	"Apple BMAC/BMAC+"
+
+mace
+	eth
+	"Apple MACE"
+
+sungem
+	eth
+	"Apple GMAC"
+
+airport
+	eth
+	"Apple Airport"
 
 
 # NOT YET MODULARIZED!

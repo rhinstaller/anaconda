@@ -129,9 +129,11 @@ def get_partition_file_system_type(part):
     Return:
     Filesystem object (as defined in fsset.py)
     """
-    if part.fs_type == None:
+    if part.fs_type is None and part.native_type == 0x41:
+        ptype = fsset.fileSystemTypeGet("PPC PReP Boot")
+    elif part.fs_type == None:
         return None
-    if part.fs_type.name == "linux-swap":
+    elif part.fs_type.name == "linux-swap":
         ptype = fsset.fileSystemTypeGet("swap")
     elif (part.fs_type.name == "FAT" or part.fs_type.name == "fat16"
           or part.fs_type.name == "fat32"):
@@ -222,6 +224,8 @@ def getDefaultDiskType():
         return parted.disk_type_get("bsd")
     elif iutil.getArch() == "sparc":
         return parted.disk_type_get("sun")
+    elif iutil.getArch() == "ppc":
+        return parted.disk_type_get("msdos")
     else:
         # XXX fix me for alpha at least
         return parted.disk_type_get("msdos")
@@ -231,7 +235,8 @@ archLabels = {'i386': ['msdos'],
               's390': ['dasd'],
               'alpha': ['bsd', 'msdos'],
               'sparc': ['sun'],
-              'ia64': ['msdos', 'gpt']}
+              'ia64': ['msdos', 'gpt'],
+              'ppc': ['msdos', 'mac']}
 
 def checkDiskLabel(disk, intf):
     """Check that the disk label on disk is valid for this machine type."""
@@ -362,7 +367,10 @@ def sniffFilesystemType(device):
     except:
         pass
 
-    # FIXME:  we don't look for reiserfs, jfs, or vfat
+    if fsset.isValidReiserFS(dev):
+        return "reiserfs"
+
+    # FIXME:  we don't look for jfs, or vfat
 
     return None
 
@@ -406,6 +414,15 @@ class DiskSet:
     mdList = []
     def __init__ (self):
         self.disks = {}
+        self.onlyPrimary = None
+
+    def onlyPrimaryParts(self):
+        for disk in self.disks.values():
+            if disk.type.check_feature(parted.DISK_TYPE_EXTENDED):
+                return 0
+
+        return 1
+        
 
     def startAllRaid(self):
         """Start all of the raid devices associated with the DiskSet."""
@@ -518,9 +535,6 @@ class DiskSet:
                 if (part.is_active()
                     and (part.get_flag(parted.PARTITION_RAID)
                          or part.get_flag(parted.PARTITION_LVM))):
-                    # skip RAID and LVM partitions.
-                    # XXX check for raid superblocks on non-autoraid partitions
-                    #  (#32562)
                     pass
                 elif (part.fs_type and
                       part.fs_type.name in fsset.getUsableLinuxFs()):
@@ -625,6 +639,7 @@ class DiskSet:
                     "-b", "4096",
                     "-d", "cdl",
                     "-P",
+                    "-F",
                     "-f",
                     "/tmp/%s" % drive]
         
@@ -677,7 +692,7 @@ class DiskSet:
             (pid, status) = os.waitpid(childpid, 0)
         except OSError, (num, msg):
             print __name__, "waitpid:", msg
-            
+
         os.close(fd)
 
         w and w.pop()
