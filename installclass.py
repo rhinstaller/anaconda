@@ -320,8 +320,15 @@ class BaseInstallClass:
         if videoRam in id.videocard.possible_ram_sizes():
             id.videocard.primaryCard().setVideoRam(videoRam)
 
-        if (id.monitor.getMonitorID() != "Unprobed monitor") and monitorName:
-            (model, eisa, vert, horiz) = id.monitor.lookupMonitor(monitorName)
+        if id.monitor.getMonitorID() != "Unprobed monitor":
+            usemon = id.monitor.getMonitorID()
+        elif monitorName:
+            usemon = monitorName
+        else:
+            usemon = None
+
+        if usemon:
+            (model, eisa, vert, horiz) = id.monitor.lookupMonitor(usemon)
             id.monitor.setSpecs(horiz, vert, id=model, name=model)
         elif hsync and vsync:
             id.monitor.setSpecs(hsync, vsync)
