@@ -141,10 +141,18 @@ Section "Monitor"
     Identifier  "Generic Monitor"
     VendorName  "Unknown"
     ModelName   "Unknown"
-    HorizSync   31.5
-    VertRefresh 60
-    ModeLine  "640x480"   25.175  640 664 760 800
-                                  480 491 493 525
+#    HorizSync   31.5
+#    VertRefresh 60
+    HorizSync   35.15
+    VertRefresh 56
+
+#    ModeLine  "640x480"   25.175  640 664 760 800
+#                                  480 491 493 525
+
+# 800x600 @ 56 Hz, 35.15 kHz hsync
+    ModeLine "800x600"     36     800  824  896 1024
+                                  600  601  603  625
+
 EndSection
 
 %(fbProbedMonitor)s
@@ -389,7 +397,7 @@ Section "Screen"
     Device      "Generic VGA Card"
     Monitor     "%(monitorID)s"
     Subsection  "Display"
-#        Depth       16
+        Depth       16
         Modes       "default"
     EndSubsection
 EndSection
@@ -536,8 +544,13 @@ class XF86Config:
         self.vidRam = None
         self.monEisa = None
         self.monName = None
-        self.monHoriz = "31.5"
-        self.monVert = "60"
+#        self.monHoriz = "31.5"
+#        self.monVert = "60"
+
+        self.monHoriz = "35.15"
+        self.monVert = "56"
+
+
 	self.monSect = ""
         self.monID = "Unprobed Monitor"
         self.state = ""
@@ -546,7 +559,8 @@ class XF86Config:
         self.skip = 0
 	self.primary = 0
         self.manualModes = {}
-        self.modes = { "8" :  ["640x480"] }
+#        self.modes = { "8" :  ["640x480"] }
+        self.modes = { "16" :  ["800x600"] }
 	self.device = None
         self.keyRules = "xfree86"
         self.keyModel = "pc101"
@@ -602,7 +616,8 @@ class XF86Config:
         return 0
 
     def availableModes (self):
-        modes = { "8" : [ "640x480" ] }
+#        modes = { "8" : [ "640x480" ] }
+        modes = { "16" : [ "800x600" ] }
         if not self.vidRam:
             return modes
         laptop = self.laptop()
@@ -868,9 +883,14 @@ class XF86Config:
             probe = probe + _("Video Card") + ": " + self.vidCards[self.primary]["NAME"] + "\n"
             if self.vidRam:
                 probe = probe + "\t" + _("Video Ram") + ": " + self.vidRam + " kb\n"
+        print self.server
         if self.server:
+            print "Inside probeReport in xf86config.py  - if self.server"
+            time.sleep(5)
             probe = probe + "\t" + _("X server") + ": " + self.server + "\n"
         if not self.server:
+            print "Inside probeReport in xf86config.py  - if not self.server"
+            time.sleep(5)
             probe = probe + "\t" + _("Unable to detect video card")
 
         return probe
@@ -953,7 +973,9 @@ class XF86Config:
 
         self.files = files
         self.modes = modes
-        
+
+#        print self.server
+#        time.sleep(5)
         serverPath = "/usr/X11R6/bin/" + self.server
 
         server = os.fork()
@@ -1171,9 +1193,9 @@ Section "Screen"
         # see if 16 bpp is available, and if it should be the
         # default depth
         if self.keyVariant:
-            data["enableVariant"] = ""
+            info["enableVariant"] = ""
         if self.keyOptions:
-            data["enableOptions"] = ""
+            info["enableOptions"] = ""
         if maxdepth > 0:
             if maxdepth > 16 and '16' in self.modes.keys() and self.modes['16']:
                 data["defaultDepth"] = "\n\tDefaultDepth\t16"
