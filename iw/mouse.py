@@ -91,15 +91,13 @@ class MouseWindow (InstallWindow):
     def getNext (self):
 	cur = self.getCurrentKey()
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
-
-    def set (self, mouse, emulateThreeButtons):
-        self.todo.mouse.set (cur, 0)
+        self.todo.mouse.set (cur, self.emulate3.get_active ())
 	if (device == "ttyS"):
 	    self.todo.mouse.setDevice(self.serialDevice)
 	else:
 	    self.todo.mouse.setDevice(device)
         return None
-
+    
     def selectDeviceType(self, *args):
 	self.ics.setNextEnabled (TRUE)
 
@@ -107,6 +105,7 @@ class MouseWindow (InstallWindow):
         if not node.is_leaf:
 	    self.locList.unselect_all ()
 	    self.locList.set_sensitive (FALSE)
+            self.emulate3.set_sensitive (FALSE)
             self.ics.setNextEnabled (FALSE)
 	    return
 
@@ -115,7 +114,9 @@ class MouseWindow (InstallWindow):
             self.ics.setNextEnabled (FALSE)
 	    return
 
+        self.emulate3.set_sensitive (TRUE)
 	(gpm, xdev, device, emulate) = self.availableMice[cur]
+        self.emulate3.set_active (emulate)
 	if device == "ttyS":
 	    print "device is", self.serialDevice
 	    if (self.serialDevice):
@@ -144,7 +145,8 @@ class MouseWindow (InstallWindow):
 		    ("/dev/ttyS2 (COM3 under DOS)", "ttyS2" ),
 		    ("/dev/ttyS3 (COM4 under DOS)", "ttyS3" ) ]
 
-        box = GtkVBox (FALSE, 5)
+        self.emulate3 = GtkCheckButton ("Emulate 3 Buttons")
+        box = GtkVBox (FALSE)
         
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
@@ -197,12 +199,16 @@ class MouseWindow (InstallWindow):
                 found = 1
                 self.ctree.select (x)
                 break
-
         if not found:
             self.selectMouse (nodes, splitv)
-                
+
+        align = GtkAlignment ()
+        align.add (self.emulate3)
+        align.set_border_width (5)
+        
         box.pack_start (sw)
         box.pack_start (self.locList, FALSE)
+        box.pack_start (align, FALSE)
 
         return box
 
