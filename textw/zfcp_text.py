@@ -19,6 +19,7 @@ from constants_text import *
 from rhpl.translate import _
 from flags import flags
 from rhpl.log import log
+import isys,iutil
 import copy
 
 class ZFCPWindow:
@@ -170,4 +171,14 @@ class ZFCPWindow:
             return INSTALL_BACK
 
         fcp.fcpdevices = fcpdevs
+
+        # FIXME: this should be common between tui & gui
+        fcp.writeFcpSysfs(self.fcpdevices)
+        isys.flushDriveDict()
+        self.diskset.refreshDevices(self.intf)
+        try:
+            iutil.makeDriveDeviceNodes()
+        except:
+            pass
+        
         return INSTALL_OK
