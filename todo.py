@@ -672,8 +672,8 @@ class ToDo:
         self.writeKeyboard ()
         self.writeNetworkConfig ()
         self.writeRootPassword ()
-	self.installLilo ()
         self.copyConfModules ()
+	self.installLilo ()
         
         w.pop ()
 
