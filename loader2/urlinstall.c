@@ -20,6 +20,7 @@
 #include <popt.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mount.h>
 #include <unistd.h>
 
 #include "../isys/getmacaddr.h"
@@ -41,10 +42,10 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
                               char * dest, char * mntpoint, char * device,
                               int silentErrors) {
     int fd;
-    int rc;
+    int rc = 0;
     char * newFile = NULL;
     char filepath[1024];
-	
+
     /* BNFIXME: hack - all callers want RedHat/<foo>, so add prefix here */
     snprintf(filepath, sizeof(filepath), "%s/%s", getProductPath(), file);
 
@@ -55,7 +56,7 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
     if (fd < 0) {
         /* file not found */
 
-        newFile = alloca(strlen(device) + 20);
+        newFile = alloca(strlen(filepath) + 20);
         sprintf(newFile, "disc1/%s", filepath);
 
         fd = urlinstStartTransfer(ui, newFile, NULL, 1, flags);
@@ -72,12 +73,14 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
         }
     }
 
-    rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
+    if (dest != NULL) {
+        rc = copyFileAndLoopbackMount(fd, dest, flags, device, mntpoint);
+    }
 
     urlinstFinishTransfer(ui, fd, flags);
 
     if (newFile) {
-        newFile = malloc(strlen(ui->prefix ) + 20);
+        newFile = malloc(strlen(ui->prefix) + 20);
         sprintf(newFile, "%s/disc1", ui->prefix);
         free(ui->prefix);
         ui->prefix = newFile;
@@ -267,7 +270,9 @@ char * mountUrlImage(struct installMethod * method,
 	    /* before trying to pull one over network         */
 	    cdurl = findRedHatCD(location, modInfo, modLoaded, 
 				 *modDeps, flags, 0);
-	    if (cdurl) {
+	    if (cdurl && 
+                (loadSingleUrlImage(&ui, "base/hdlist", flags, NULL, 
+                                    NULL, NULL, 0) == 0)) {
 		logMessage("Detected stage 2 image on CD");
 		winStatus(50, 3, _("Media Detected"), 
 			  _("Local installation media detected..."), 0);
@@ -276,6 +281,12 @@ char * mountUrlImage(struct installMethod * method,
 
                 stage = URL_STAGE_DONE;
                 dir = 1;
+            } else if (cdurl) { 
+                /* clean up as we found a cd, but the path was bad */
+                umountStage2();
+                umount("/mnt/source");
+                stage = URL_STAGE_MAIN;
+                dir = -1;
             } else {
 		/* need to find stage 2 on remote site */
 		if (loadUrlImages(&ui, flags)) {
