@@ -280,6 +280,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
 
     newtPopWindow();
 
+    configureNetwork(cfg);
     findHostAndDomain(cfg, flags);
     writeResolvConf(cfg);
 
@@ -346,19 +347,16 @@ int writeResolvConf(struct networkDeviceConfig * net) {
 }
 
 int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
-    char ips[50];
     char * name, * chptr;
 
     if (!FL_TESTING(flags)) {
 	writeResolvConf(dev);
-	strcpy(ips, inet_ntoa(dev->dev.ip));
     }
 
     if (!(dev->dev.set & PUMP_NETINFO_HAS_HOSTNAME)) {
 	winStatus(40, 3, _("Hostname"), 
 		  _("Determining host name and domain..."));
-	name = mygethostbyaddr(ips);
-	if (name) name = mygethostbyaddr(ips);
+	name = mygethostbyaddr(inet_ntoa(dev->dev.ip));
 	newtPopWindow();
 
 	if (!name) {
