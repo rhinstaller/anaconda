@@ -101,26 +101,24 @@ def sanityCheckMountPoint(mntpt, fstype, preexisting):
 def isNotChangable(request, requestlist):
     if request:
 	if request.getProtected():
-	    return _("You cannot %s this partition, as it is holding the data "
+	    return _("This partition is holding the data "
 		     "for the hard drive install.")
 
         if requestlist.isRaidMember(request):
 	    parentreq = requestlist.getRaidMemberParent(request)
 	    if parentreq.raidminor is not None:
-		return _("You cannot %%s this partition as it is part of "
+		return _("This partition is part of "
 			 "the RAID device /dev/md%s.") % (parentreq.raidminor,)
 	    else:
-		return _("You cannot %s this partition as it is part of a "
-			 "RAID device.")
+		return _("This partition is part of a RAID device.")
 
 	if requestlist.isLVMVolumeGroupMember(request):
 	    parentreq = requestlist.getLVMVolumeGroupMemberParent(request)
 	    if parentreq.volumeGroupName is not None:
-		return _("You cannot %%s this partition, as it is part of the "
+		return _("This partition is part of the "
 			 "LVM volume group '%s'.") % (parentreq.volumeGroupName,)
 	    else:
-		return _("You cannot %s this partition, as it is part of a "
-			 "LVM volume group.")
+		return _("This partition is part of a LVM volume group.")
 
     return None
     
@@ -176,7 +174,9 @@ def doDeletePartitionByRequest(intf, requestlist, partition,
 	state = isNotChangable(request, requestlist)
 	if state is not None:
             if not quiet:
-                intf.messageWindow(_("Unable To Delete"), state % ("delete",), custom_icon="error")
+                intf.messageWindow(_("Unable To Delete"),
+				   _("You cannot delete this partition:\n\n") + state,
+				   custom_icon="error")
 	    return (None, None)
 
         if confirm and not confirmDeleteRequest(intf, request):
@@ -311,7 +311,8 @@ def doEditPartitionByRequest(intf, requestlist, part):
 	if request:
 	    state = isNotChangable(request, requestlist)
 	    if state is not None:
-		intf.messageWindow(_("Unable To Edit"), state % ("edit",), custom_icon="error")
+		intf.messageWindow(_("Unable To Edit"), _("You cannot edit this partition:\n\n") + state,
+				   custom_icon="error")
 		return (None, None)
 
 	if request.type == REQUEST_RAID:
@@ -352,7 +353,8 @@ def doEditPartitionByRequest(intf, requestlist, part):
     if request:
 	state = isNotChangable(request, requestlist)
 	if state is not None:
-	    intf.messageWindow(_("Unable To Edit"), state % ("edit",), custom_icon="error")
+	    intf.messageWindow(_("Unable To Edit"),
+			       _("You cannot edit this partition:\n\n") + state, custom_icon="error")
 	    return (None, None)
 	
         return ("PARTITION", request)

@@ -553,7 +553,7 @@ class RaidCloneDialog:
                                               "This partition must be removed "
                                               "before "
                                               "this drive can be a target.") %
-                                            (drive, rc % (_("delete"),)), custom_icon="error")
+                                            (drive, rc), custom_icon="error")
                     return 1
 
         return 0
