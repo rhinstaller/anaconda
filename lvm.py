@@ -14,6 +14,7 @@
 import iutil
 import os,sys
 import string
+import math
 
 output = "/tmp/lvmout"
 
@@ -132,13 +133,35 @@ def clampLVSizeRequest(size, pe):
 
 def clampPVSize(pvsize, pesize):
     """Given a PV size and a PE, returns the usable space of the PV.
+    Takes into account both overhead of the physical volume and 'clamping'
+    to the PE size.
 
     pvsize - size (in MB) of PV request
     pesize - PE size (in KB)
     """
 
-    return (long(pvsize*1024/pesize)*pesize)/1024
-    
+    # calculate the number of physical extents.  this is size / pesize
+    # with an appropriate factor for kb/mb matchup
+    numpes = math.floor(pvsize * 1024 / pesize)
+
+    # now, calculate our "real" overhead.  4 bytes for each PE + 128K
+    overhead = (4 * numpes / 1024) + 128
+
+    # now, heuristically, the max of ceil(pesize + 2*overhead) and
+    # ceil(2*overhead) is greater than the real overhead, so we won't
+    # get people in a situation where they overcommit the vg
+    one = math.ceil(pesize + 2 * overhead)
+    two = math.ceil(2 * overhead)
+
+    # now we have to do more unit conversion since our overhead in in KB
+    if one > two:
+        usable = pvsize - math.ceil(one / 1024.0)
+    else:
+        usable = pvsize - math.ceil(two / 1024.0)
+
+    # finally, clamp to being at a pesize boundary
+    return (long(usable*1024/pesize)*pesize)/1024
+
 def getMaxLVSize(pe):
     """Given a PE size in KB, returns maximum size (in MB) of a logical volume.
 
