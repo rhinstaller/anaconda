@@ -3107,7 +3107,7 @@ int main(int argc, char ** argv) {
     /* We must look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs", 
+    mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod", 
 		    modLoaded, modDeps, modInfo, flags);
 
 
