@@ -372,6 +372,7 @@ class ToDo:
 	self.expert = expert
         self.progressWindow = None
 	self.fdDevice = None
+        self.lilostate = ""
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
