@@ -31,8 +31,10 @@ class PartitionWindow (InstallWindow):
         from gnomepyfsedit import fsedit
 
         if not self.todo.ddruid:
+            drives = self.todo.drives.available ().keys ()
+            drives.sort ()
             self.todo.ddruid = \
-                fsedit(1, self.todo.drives.available ().keys (), [])
+                fsedit(1, drives, [])
             self.todo.ddruid.setCallback (self.enableCallback, self)
 
 
