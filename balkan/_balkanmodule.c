@@ -60,6 +60,11 @@ static pythonPartTable * readTable(PyObject * s, PyObject * args) {
     table = PyObject_NEW(pythonPartTable, &pythonPartTableType);
 
     fd = open(device, O_RDONLY | O_RDONLY);
+    if (fd < 0) {
+	PyErr_SetFromErrno(PyExc_SystemError);
+	return NULL;
+    }
+
     balkanReadTable(fd, &table->table);
     close(fd);
 
