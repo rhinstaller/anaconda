@@ -67,7 +67,7 @@ def handleException( id, intf, (type, value, tb)):
         os.kill(os.getpid(), signal.SIGKILL)
 
     if not flags.setupFilesystems:
-        out = open("anacdump.txt", "w")
+        out = open("/tmp/anacdump.txt", "w")
         dumpException (out, text, tb, id)
         out.close()
         intf.__del__ ()
