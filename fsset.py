@@ -757,6 +757,9 @@ class prepbootFileSystem(FileSystemType):
         self.name = "PPC PReP Boot"
         self.maxSizeMB = 10
 
+        if iutil.getPPCMachine() == "iSeries":
+            self.maxSizeMB = 64
+
         # supported for use on the pseries
         if (iutil.getPPCMachine() == "pSeries" or
             iutil.getPPCMachine() == "iSeries"):
