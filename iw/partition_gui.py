@@ -23,7 +23,6 @@ import parted
 import string
 import copy
 import types
-from gui import WrappingLabel, widgetExpander
 from iw_gui import *
 from translate import _, N_
 from partitioning import *
@@ -1766,13 +1765,13 @@ class AutoPartitionWindow(InstallWindow):
         box = gtk.VBox(gtk.FALSE)
         box.set_border_width(5)
 
-        label = WrappingLabel(_(autopart.AUTOPART_DISK_CHOICE_DESCR_TEXT))
+        label = gui.WrappingLabel(_(autopart.AUTOPART_DISK_CHOICE_DESCR_TEXT))
         label.set_alignment(0.0, 0.0)
         box.pack_start(label, gtk.FALSE, gtk.FALSE)
 
         # what partition types to remove
         clearbox = gtk.VBox(gtk.FALSE)
-        label = WrappingLabel(_("I want to have automatic partitioning:"))
+        label = gui.WrappingLabel(_("I want to have automatic partitioning:"))
         label.set_alignment(0.0, 0.0)
         clearbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
         
@@ -1803,8 +1802,8 @@ class AutoPartitionWindow(InstallWindow):
 
         # which drives to use?
         drivesbox = gtk.VBox(gtk.FALSE)
-        label = WrappingLabel(_("Which drive(s) do you want to use for this "
-                                "installation?"))
+        label = gui.WrappingLabel(_("Which drive(s) do you want to use for "
+                                    "this installation?"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
         self.driveclist = createAllowedDrivesClist(diskset.disks,
@@ -1825,11 +1824,11 @@ class AutoPartitionWindow(InstallWindow):
         box.pack_start(drivesbox, gtk.FALSE, gtk.FALSE)
 
         self.inspect = gtk.CheckButton()
-        widgetExpander(self.inspect)
+        gui.widgetExpander(self.inspect)
         label = gtk.Label(_("Review (allows you to see and change the "
                             "automatic partitioning results)"))
         label.set_line_wrap(gtk.TRUE)
-        widgetExpander(label, self.inspect)
+        gui.widgetExpander(label, self.inspect)
         label.set_alignment(0.0, 1.0)
         self.inspect.add(label)
 
