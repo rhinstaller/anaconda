@@ -119,7 +119,7 @@ PACKAGES="glibc glibc-common setup openssl python newt slang libselinux
 	 rhpl pyxf86config libxml2 libxml2-python glib2
 	 elfutils-libelf bogl-bterm bogl krb5-libs convertdb1 jfsutils
  	 xfsprogs xfsdump dmapi libacl libattr attr acl 
-         policy policycoreutils pyparted xorg-x11"
+         policy policycoreutils pyparted xorg-x11 selinux-policy-targeted"
 
 if [ $ARCH = i386 -o $ARCH = x86_64 ]; then
     PACKAGES="$PACKAGES kernel-pcmcia-cs kernel-utils"

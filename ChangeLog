@@ -1,5 +1,8 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* scripts/upd-instroot (PACKAGES): Add selinux-policy-targeted so
+	that text-mode installs will have working SELinux (#134549)
+
 	* kickstart.py (KickstartBase.readKickstart): Handle having a
 	%include inside a scriptlet. (#120252)
 
