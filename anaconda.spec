@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.1.10
+Version: 10.1.1.11
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Dec 16 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.11-1
+- more powerpc console fixing (nasrat, #134397)
+
 * Tue Dec 14 2004 Jeremy Katz <katzj@redhat.com> - 10.1.1.10-1
 - Add support for specifying biosdisk in the driverdisk kickstart 
   directive, patch from Rez Kabir (#142738)
