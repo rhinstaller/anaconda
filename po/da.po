@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 7 installer/anaconda\n"
-"POT-Creation-Date: 2001-02-07 13:19-0500\n"
-"PO-Revision-Date: 2001-01-31 23:35GMT\n"
+"POT-Creation-Date: 2001-02-05 12:49-0500\n"
+"PO-Revision-Date: 2001-02-07 22:18GMT\n"
 "Last-Translator: Claus Hindsgaul <claus_h@image.dk>\n"
 "Language-Team: dansk <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -440,9 +440,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket sprog ønsker du at benytte under installationsprocessen?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
-msgstr "Vælg alt"
+msgstr "Markér Alt"
 
 #: ../iw/language_support_gui.py:199 ../text.py:146
 msgid "Reset"
@@ -592,7 +591,7 @@ msgstr "Resultat af X-test"
 
 #: ../text.py:515 ../text.py:535
 msgid "Unlisted Card"
-msgstr "Unævnt kort"
+msgstr "Andet kort"
 
 #: ../text.py:523
 msgid "Video Card Selection"
@@ -2741,6 +2740,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Du har ønsket at placere dit rod-filsystem (/) på en DOS FAT-partition. Det "
+"kan du godt, men så kan du ikke bruge andre filsystemer i dit Linux-system. "
+"Tilmed vil systemet køre langsommere, når du ikke benytter Linux's egne "
+"partititionstyper. Vil du gerne fortsætte?"
 
 #: ../libfdisk/fsedit.c:969
 #, c-format
@@ -2878,6 +2881,11 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Dette sker, fordi der er forskel mellem den harddisk-geometri, "
+"installationsprogrammet har fundet frem til og den geometri, der blev "
+"benyttet under partitioneringen af disken. Dette kan rettes ved at angive "
+"diskens geometri på kernens kommandolinie ved opstart af "
+"installationsprogrammet."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2891,12 +2899,11 @@ msgstr "<RAID-partition>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Kunne ikke finde nogen partition kaldet %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Ingen rodpartition"
+msgstr "Rodpartition"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -2904,6 +2911,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Udvidelsen af rod-RAID-partitionen (/) lader til at have stødt mod "
+"1024-cylinder opstartsgrænsen. Hvis det er tilfældet, vil tilføjelse af en "
+"'/boot'-partition måske tillade rodpartitionen at udfylde disken."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2911,6 +2921,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Udvidelsen af rodpartition (/) lader til at have stødt mod 1024-cylinder "
+"opstartsgrænsen. Hvis det er tilfældet, vil tilføjelse af en "
+"'/boot'-partition måske tillade rodpartitionen at udfylde disken."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -4262,24 +4275,3 @@ msgstr "Kerneudvikling"
 
 msgid "Utilities"
 msgstr "Tilbehør"
-
-#~ msgid "Partitionless upgrades are NOT supported in this beta"
-#~ msgstr "Partitionsløse opgraderinger understøttes IKKE i denne beta"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Vandret synkron."
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Lodret synkron."
-
-#~ msgid ""
-#~ "\n"
-#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
-#~ "so do NOT report errors if you choose to do this.\n"
-#~ " Do you want to continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "ADVARSEL: Det er en kendt fejl at partitionsløse installationer ofte "
-#~ "mislykkes med denne BETA, så rapportér IKKE fejl, hvis du vælger at gøre "
-#~ "dette.\n"
-#~ " Vil du alligevel fortsætte?"
