@@ -109,7 +109,7 @@ do-beehive-build:
 	[ x"$$TAG" != x ] && tag=$$TAG; \
 	cvsroot=`cat CVS/Root` 2>/dev/null; \
         echo "*** Building $$tag from $$cvsroot!"; \
-	echo bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
+	bhc $(COLLECTION) cvs://$$cvsroot?anaconda\#$$tag
 
 build: 
 	make TAG=$(CVSTAG) do-beehive-build
