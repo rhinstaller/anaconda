@@ -421,7 +421,7 @@ msgstr "        Èas"
 
 #: ../text.py:668
 msgid "Total    :"
-msgstr "Celekm   :"
+msgstr "Celkem   :"
 
 #: ../text.py:675
 msgid "Completed:   "
@@ -669,13 +669,12 @@ msgid "Skip boot disk creation"
 msgstr "Pøeskoèit vytváøení zavádìcí diskety"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Souèásti pro instalaci"
+msgstr "Zahájení instalace"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Kliknìte na Pokraèovat pro zahájení instalace Red Hat Linuxu."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -763,9 +762,8 @@ msgid "Upgrade"
 msgstr "Aktualizace"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Pou¾ít fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -862,7 +860,7 @@ msgstr "Sí»"
 
 #: ../iw/network.py:147
 msgid "Broadcast"
-msgstr "Broadcast"
+msgstr "V¹esmìrová adresa"
 
 #: ../iw/network.py:188
 msgid "Gateway"
@@ -1059,7 +1057,7 @@ msgstr ""
 
 #: ../iw/xconfig.py:194
 msgid "Use Graphical Login"
-msgstr "Nastavit pøihlá¹ování v grafice"
+msgstr "Nastavit pøihla¹ování v grafice"
 
 #: ../iw/xconfig.py:196
 msgid "Skip X Configuration"
@@ -1937,24 +1935,27 @@ msgstr "Zaøízení"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Vlo¾te disk s ovladaèi a stisknìte \"OK\"."
 
 #: ../loader/devices.c:175
-#, fuzzy
 msgid "Failed to mount floppy disk."
-msgstr "Nelze se pøipojit k serveru"
+msgstr "Nelze pøipojit disketu."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Disketa, kterou jste vlo¾ili, není správnou disketou s ovladaèi pro tuto "
+"verzi Red Hat Linuxu."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Který ovladaè mám pou¾ít? Pokud ovladaè, který potøebujete, není uveden v "
+"tomto seznamu a máte dal¹í disk s ovladaèi, prosím stisknìte F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
