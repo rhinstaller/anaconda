@@ -43,13 +43,12 @@ class InstallClass(BaseInstallClass):
                     "postinstallconfig",
                     "instbootloader",
                     "dopostaction",
-		    "bootdisk",
+                    "bootdisk",
                     "methodcomplete",
 		    "complete"
 		)
 
-        if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
-	    dispatch.skipStep("bootdisk")
+        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
             dispatch.skipStep("bootloaderadvanced")
 

@@ -32,7 +32,7 @@ class DesktopChoiceWindow:
 		      "you may customize the selection of software "
 		      "installed if you want.")
 			  
-	toplevel.add (TextboxReflowed(55, _(labeltxt) % (productName, productName)), 0, 0, (0, 0, 0, 1))
+	toplevel.add (TextboxReflowed(55, _(labeltxt) % (productName,)), 0, 0, (0, 0, 0, 1))
 	custom = not dispatch.stepInSkipList("package-selection")
 	customize = Checkbox (_("Customize software selection"), custom)
 	toplevel.add (customize, 0, 3, (0, 0, 0, 1))	 

@@ -954,6 +954,10 @@ class PackageSelectionWindow (InstallWindow):
 	everythingComp = None
 	everythingCB = None
 	for par in parlist:
+            # don't show the top-level if there aren't any groups in it
+            if len(pardict[par]) == 0:
+                continue
+            
             # set the background to our selection color
 	    eventBox = gtk.EventBox()
 	    eventBox.modify_bg(gtk.STATE_NORMAL,

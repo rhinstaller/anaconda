@@ -181,7 +181,7 @@ class BaseInstallClass:
 	    if not floppyDevices:
 		dispatch.skipStep("bootdisk")
             
-        if iutil.getArch() != "i386" or iutil.getArch() != "x86_64":
+        if iutil.getArch() != "i386" and iutil.getArch() != "x86_64":
             dispatch.skipStep("bootloader")
 
         # 'noupgrade' can be used on the command line to force not looking
@@ -461,8 +461,9 @@ class BaseInstallClass:
                 raise RuntimeError, "Unknown videocard specified: %s" %(card,)
 
         if videoRam:
-            id.videocard.primaryCard().setVideoRam(videoRam)
-            id.xsetup.xhwstate.set_videocard_ram(videoRam)
+            # FIXME: this required casting is ugly
+            id.videocard.primaryCard().setVideoRam(str(videoRam))
+            id.xsetup.xhwstate.set_videocard_ram(int(videoRam))
 
         if server is not None:
             log("unable to really do anything with server right now")

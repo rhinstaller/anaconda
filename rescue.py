@@ -162,7 +162,8 @@ def startNetworking(network, intf):
     
 def runRescue(instPath, mountroot, id):
 
-    for file in [ "services", "protocols", "group", "joe", "man.config" ]:
+    for file in [ "services", "protocols", "group", "joe", "man.config",
+                  "nsswitch.conf" ]:
        os.symlink('/mnt/runtime/etc/' + file, '/etc/' + file)
 
     # see if they would like networking enabled
