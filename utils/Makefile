@@ -50,14 +50,16 @@ depends:
 install: all
 	mkdir -p $(DESTDIR)/usr/bin
 	mkdir -p $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s genhdlist $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 genhdlist $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 trimpcitable $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s moddeps $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 moddeps $(DESTDIR)/$(RUNTIMEDIR)
 	install -m755 filtermoddeps $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s modlist $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
-	install -m755 -s implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 modlist $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 checkcards.py $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 readmap $(DESTDIR)/$(RUNTIMEDIR)
+	install -m755 mapshdr $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:	
 	rm -f modlist moddeps snarffont genhdlist mapshdr readmap *.o 
