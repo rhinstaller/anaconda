@@ -97,7 +97,11 @@ src: create-archive
 	@rm -f anaconda-$(VERSION).tar.bz2
 
 build: src
-	bhc $(COLLECTION) $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+	@rm -rf /tmp/anaconda
+	@mkdir /tmp/anaconda
+	cd /tmp/anaconda ; cvs co common ; cd common ; ./cvs-import.sh $(SRPMDIR)/anaconda-$(VERSION)-$(RELEASE).src.rpm
+	@rm -rf /tmp/anaconda
+	bhc $(COLLECTION) 'cvs://cvs.devel.redhat.com/cvs/dist?devel/anaconda#$(CVSTAG)'
 
 create-snapshot:
 	@rm -rf /tmp/anaconda
