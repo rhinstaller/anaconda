@@ -32,8 +32,7 @@ class KeyboardWindow (InstallWindow):
             self.todo.x.setKeyboard (self.rulesbase, self.model,
                                      self.layout, self.variant, "")
             self.todo.keyboard.setfromx (self.model, self.layout)
-# XXX
-#	    isys.loadKeymap(self.todo.keyboard.get())
+	    isys.loadKeymap(self.todo.keyboard.get())
         return None
 
     def select_row (self, clist, row, col, event):
