@@ -286,6 +286,17 @@ def upgradeFindPackages (intf, method, id, instPath):
     # open up the database to check dependencies
     db = rpm.opendb (0, instPath)
 
+    # check the installed system to see if the packages just
+    # are not newer in this release.
+    if hasX and not hasFileManager:
+        for name in ("gmc", "kdebase"):
+            try:
+                db.findbyname (name)
+                hasFileManager = 1
+                break
+            except rpm.error:
+                continue
+
     # if we have X but not gmc, we need to turn on GNOME.  We only
     # want to turn on packages we don't have installed already, though.
     if hasX and not hasFileManager:
