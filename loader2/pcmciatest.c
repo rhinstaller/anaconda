@@ -18,7 +18,7 @@
 #define LOADER_BACK 1
 #define LOADER_ERROR -1
 
-char * strcasestr(char * haystack1, char * needle1) {
+char * strcasestr(const char * haystack1, const char * needle1) {
     char * haystack = strdup(haystack1);
     char * needle = strdup(needle1);
     char * chptr;
@@ -29,7 +29,7 @@ char * strcasestr(char * haystack1, char * needle1) {
     chptr = strstr(needle, haystack);
     if (!chptr) return NULL;
 
-    return (chptr - haystack) + haystack1;
+    return (chptr - haystack) + (char *)haystack1;
 }
 
 void logMessage(const char * s, ...) {
@@ -176,7 +176,7 @@ int initializePcmciaController() {
     if (!pcic)
         return 0;
 
-    mods = sdupprintf("pcmcia_core:%s:ds", pcic);
+    mods = sdupprintf("pcmcia_core:%s", pcic);
     mlLoadModuleSet(mods);
 
     return 0;
