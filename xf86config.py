@@ -289,7 +289,7 @@ EndSection
         child = os.fork()
         if (not child):
             os.environ["DISPLAY"] = ":9"
-            os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--noinitlevel"])
+            os.execv("/usr/X11R6/bin/Xtest", ["Xtest", "--nostart", "--norunlevel"])
         else:
             pid, status = os.waitpid(child, 0)
             os.kill (server, 15)
