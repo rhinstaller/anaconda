@@ -246,8 +246,10 @@ class InstallInterface:
         if todo.instClass.keyboard:
             from xkb import XKB
             kb = XKB()
-            (rules, model, layout, variant, options) = todo.keyboard.getXKB()
-            kb.setRule (model, layout, variant, "complete")
+	    info = todo.keyboard.getXKB()
+	    if info:
+                (rules, model, layout, variant, options) = info
+                kb.setRule (model, layout, variant, "complete")
         self.icw = InstallControlWindow (self, commonSteps, todo)
         self.icw.start ()
         self.finishedTODO.wait ()
