@@ -35,7 +35,7 @@ def getRaidLevels():
     return avail
 
 # XXX define availraidlevels and defaultmntpts as arch characteristics
-availRaidLevels = raid.getRaidLevels()
+availRaidLevels = getRaidLevels()
 
 import parted
 import isys
