@@ -104,7 +104,7 @@ class PartitionWindow (InstallWindow):
 	else:
 	    liloBoot = rootPartition
 
-	if liloBoot[0:2] == "md":
+	if liloBoot and len (liloBoot) >= 2 and liloBoot[0:2] == "md":
 	    self.todo.setLiloLocation(("raid", liloBoot))
 	    self.todo.instClass.addToSkipList("lilo")
 
