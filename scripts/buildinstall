@@ -86,7 +86,7 @@ if [ -z "$DISCSTR" ]; then
 fi
 
 if [ -z "$BUGURL" ]; then
-    BUGURL="your distribution provider's bug reporting tool."
+    BUGURL="your distribution provided bug reporting tool."
 fi
 
 p=`cd $DIR; /bin/pwd`

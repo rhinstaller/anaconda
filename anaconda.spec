@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.35
+Version: 10.2.0.36
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,9 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Mar 29 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.36-1
+- tree build fix
+
 * Tue Mar 29 2005 Jeremy Katz <katzj@redhat.com> - 10.2.0.35-1
 - dead files can't really be installed (aka, fix the build)
 

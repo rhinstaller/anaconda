@@ -23,7 +23,7 @@ else:
 productName = "anaconda"
 productVersion = "bluesky"
 productPath = "anaconda"
-bugUrl = "your distribution provider's bug reporting tool."    
+bugUrl = "your distribution provided bug reporting tool."    
 
 if path is not None:
     f = open(path, "r")
