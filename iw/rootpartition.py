@@ -49,9 +49,12 @@ class PartitionWindow (InstallWindow):
         return None
 
     def enableCallback (self, value):
+        print "enable", value
         self.ics.setNextEnabled (value)
 
-    def getScreen (self):   
+    def getScreen (self):
+        self.todo.ddruid.setCallback (self.enableCallback)
+
 	if self.skippedScreen:
 	    # if we skipped it once, skip it again
 	    return None
@@ -72,8 +75,6 @@ class AutoPartitionWindow(InstallWindow):
 
         self.todo = ics.getToDo ()
         ics.setTitle (_("Automatic Partitioning"))
-        ics.setHTML ("<HTML><BODY>Confirm automatic partitioning"
-                     "</BODY></HTML>")
 	ics.setNextEnabled (TRUE)
 
     def getNext(self):
