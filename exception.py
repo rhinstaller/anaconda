@@ -25,6 +25,7 @@ import rpm
 from string import joinfields
 from cPickle import Pickler
 from rhpl.translate import _
+from rhpl.log import log
 from flags import flags
 
 dumpHash = {}
