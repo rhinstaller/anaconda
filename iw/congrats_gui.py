@@ -12,6 +12,7 @@
 #
 
 import gtk
+import gui
 from iw_gui import *
 from rhpl.translate import _, N_
 from constants import *
@@ -42,7 +43,7 @@ class CongratulationWindow (InstallWindow):
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
 	    a.set_size_request(200, -1)
-            hbox.pack_start (a, gtk.FALSE)
+            hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
         if iutil.getArch() != "ia64":
             bootstr = _("If you created a boot diskette to boot the "
@@ -51,7 +52,7 @@ class CongratulationWindow (InstallWindow):
             bootstr = ""
             
 
-	label = gtk.Label(
+	label = gui.WrappingLabel(
              _("Congratulations, the installation is complete.\n\n"
                "Remove any installation media (diskettes or CD-ROMs) used during the "
                "installation."
@@ -68,14 +69,7 @@ class CongratulationWindow (InstallWindow):
 	       "To register the product for support, visit:\n"
 	       "\thttp://www.redhat.com/apps/activate/\n\n"
 	       "Click 'Exit' to reboot the system.") % (bootstr,))
-                
-        label.set_line_wrap (gtk.TRUE)
-	label.set_size_request(500, -1)
-        label.set_alignment (0.0, 0.5)
 
-        box = gtk.VBox (gtk.FALSE, 10)
-        box.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
-
-        hbox.pack_start (box, gtk.TRUE, gtk.TRUE)
+        hbox.pack_start (label, gtk.TRUE, gtk.TRUE)
         return hbox
 
