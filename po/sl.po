@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 6.2\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-02-20 21:50+0100\n"
+"PO-Revision-Date: 2000-09-05 21:40+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -10,9 +10,8 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../comps.py:444
-#, fuzzy
 msgid "Everything"
-msgstr "Iskanje"
+msgstr "Vse"
 
 #: ../exception.py:13 ../text.py:795
 msgid "Exception Occurred"
@@ -39,6 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
+"Jedro ne more prebrati va¹ih novih podatkov o razdelitvi, verjetno zato, ker "
+"ste spremenili raz¹irjene razdelitve. To sicer ni kritièno, preden "
+"nadaljujete pa morate vseeno vnoviè zagnati stroj. Zdaj vstavite zagonsko "
+"disketo Red Hat in pritisnite \"V redu\", da boste vnoviè zagnali sistem.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
 msgid "Formatting"
@@ -47,7 +50,7 @@ msgstr "Formatiranje"
 #: ../fstab.py:394
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr "Formatiramo izmenjalni prostor v napravi /dev/%s..."
+msgstr "Formatira se izmenjalni prostor v napravi /dev/%s..."
 
 #: ../fstab.py:404
 msgid "Error creating swap on device "
@@ -60,16 +63,16 @@ msgstr "Napaka pri odklapljanju %s: %s"
 
 #: ../fstab.py:551 ../todo.py:507
 msgid "Creating"
-msgstr "Ustvarjamo"
+msgstr "Ustvarja se"
 
 #: ../fstab.py:551
 msgid "Creating RAID devices..."
-msgstr "Ustvarjamo naprave RAID..."
+msgstr "Ustvarjajo se naprave RAID..."
 
 #: ../fstab.py:621 ../fstab.py:631 ../fstab.py:655
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr "Formatiramo datoteèni sistem %s..."
+msgstr "Formatira se datoteèni sistem %s..."
 
 #: ../fstab.py:643
 msgid "Loopback"
@@ -78,7 +81,7 @@ msgstr "Zaprta zanka"
 #: ../fstab.py:644
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr "Ustvarjamo zaprtozanèni datoteèni sistem na napravi /dev/%s..."
+msgstr "Ustvarja se zaprtozanèni datoteèni sistem na napravi /dev/%s..."
 
 #: ../fstab.py:712
 #, c-format
@@ -180,17 +183,19 @@ msgstr "Namestitveno okno"
 
 #: ../image.py:52
 msgid "Copying File"
-msgstr "Prepisujem datoteko"
+msgstr "Datoteka se prepisuje"
 
 #: ../image.py:53
 msgid "Transferring install image to hard drive..."
-msgstr "Prena¹am namestitveno sliko v disk..."
+msgstr "Prena¹a se namestitveno sliko v disk..."
 
 #: ../image.py:56
 msgid ""
 "An error occured transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
+"Med prenosom namestitvene slike v va¹ disk je pri¹lo do napake. Verjetno vam "
+"je zmanjkalo diskovnega prostora."
 
 #: ../image.py:78
 msgid "Change CDROM"
@@ -799,9 +804,8 @@ msgstr ""
 "disku?"
 
 #: ../todo.py:965
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "I¹èemo pakete za nadgradnjo..."
+msgstr "Med iskanjem paketov, ki jih je treba nadgraditi, je pri¹lo do napake."
 
 #: ../todo.py:1274
 msgid "Processing"
@@ -924,9 +928,8 @@ msgid "Root passwords do not match."
 msgstr "Gesli za root se ne ujemata."
 
 #: ../iw/account_gui.py:56
-#, fuzzy
 msgid "User password accepted."
-msgstr "Geslo za root sprejeto."
+msgstr "Uporabni¹ko geslo sprejeto."
 
 #: ../iw/account_gui.py:61
 msgid "Root account can not be added here."
@@ -1037,7 +1040,7 @@ msgstr "Omogoèi Kerberos"
 
 #: ../iw/auth_gui.py:154 ../textw/userauth_text.py:364
 msgid "Realm:"
-msgstr ""
+msgstr "Obmoèje:"
 
 #: ../iw/auth_gui.py:156 ../textw/userauth_text.py:366
 msgid "KDC:"
@@ -2051,6 +2054,7 @@ msgstr "Uporabnik obstaja"
 msgid ""
 "The root user is already configured. You don't need to add this user here."
 msgstr ""
+"Uporabnik root je ¾e pripravljen. Tega uporabnika vam tu ni treba dodajati."
 
 #: ../textw/userauth_text.py:134
 msgid "This user id already exists.  Choose another."
@@ -2117,9 +2121,8 @@ msgid "Custom System"
 msgstr "Namestitev sistema po meri"
 
 #: ../installclasses/server.py:8
-#, fuzzy
 msgid "Server System"
-msgstr "Namestitev stre¾ni¹kega sistema"
+msgstr "Stre¾ni¹ki sistem"
 
 #: ../installclasses/server.py:34
 msgid ""
@@ -2193,10 +2196,11 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Va¹ korenski datoteèni sistem (/) ste ¾eleli postaviti na dosovsko particijo "
-"FAT. To lahko storite, a v va¹em sistemu Linux potem ne smete uporabljati "
-"nobenih drugih datoteènih sistemov. Poleg tega bo uporaba nedomorodnih "
-"particij za Linux upoèasnila delovanje sistema. ®elite vseeno nadaljevati?"
+"Va¹ korenski datoteèni sistem (/) ste ¾eleli postaviti na dosovsko "
+"razdelitev FAT. To lahko storite, a v va¹em sistemu Linux potem ne smete "
+"uporabljati nobenih drugih datoteènih sistemov. Poleg tega bo uporaba "
+"nedomorodnih razdelitev za Linux upoèasnila delovanje sistema. ®elite vseeno "
+"nadaljevati?"
 
 #: ../libfdisk/fsedit.c:1018
 #, c-format
@@ -2249,6 +2253,8 @@ msgid ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
+"Med ustvarjanjem nodov naprav za va¹e diske je pri¹lo do napake. Morda vam "
+"je zmanjkalo prostora v disku, v razdelitvi /tmp."
 
 #: ../libfdisk/fsedit.c:1096
 msgid "No Drives Found"
@@ -2346,13 +2352,15 @@ msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit other partitions."
 msgstr ""
+"Korenski datoteèni sistem ,/` ste definirali na razdelitvi, ki ni vrste "
+"ext2, zato zdaj ne morete urejati drugih razdelitev."
 
 #: ../libfdisk/gnomefsedit.c:796 ../libfdisk/gnomefsedit.c:802
 #: ../libfdisk/gnomefsedit.c:806 ../libfdisk/gnomefsedit.c:808
 #: ../libfdisk/newtfsedit.c:368 ../libfdisk/newtfsedit.c:374
 #: ../libfdisk/newtfsedit.c:378 ../libfdisk/newtfsedit.c:380
 msgid "Edit Partition"
-msgstr "Uredimo razdelitev"
+msgstr "Uredi razdelitev"
 
 #: ../libfdisk/gnomefsedit.c:823 ../libfdisk/gnomefsedit.c:1895
 #: ../libfdisk/newtfsedit.c:389
@@ -2365,7 +2373,7 @@ msgstr "Velikost (MB):"
 
 #: ../libfdisk/gnomefsedit.c:897
 msgid "Use remaining space?"
-msgstr "Uporabimo obstojeèi prostor?"
+msgstr "Uporabi obstojeèi prostor?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2417,6 +2425,10 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
+"Toæko priklopa za ,/` ste ¾eleli prirediti razdelitvi vrste FAT.  Tega zdaj "
+"ne morete storiti, ker so bile nekatere toèke priklopa ¾e prirejene "
+"razdelitvam vrste ext2.  Odstranite te toèke priklopa, potem pa boste lahko "
+"priredili ,/` tej razdelitvi."
 
 #: ../libfdisk/gnomefsedit.c:1198 ../libfdisk/newtfsedit.c:668
 msgid ""
@@ -2485,17 +2497,19 @@ msgid ""
 "single drive. Please select one drive to constrain this partition to."
 msgstr ""
 "Nastavili ste razdelitev RAID ne da bi omejili razdelitev na en sam disk. "
-"Prosim, izberite disk na katerega boste omejili razdelitev."
+"Prosimo, izberite disk na katerega boste omejili razdelitev."
 
 #: ../libfdisk/gnomefsedit.c:1404 ../libfdisk/newtfsedit.c:810
 msgid "Cannot Add Partitions"
-msgstr "Ne moremo dodajati razdelitev"
+msgstr "Razdelitev ni moæ dodajati"
 
 #: ../libfdisk/gnomefsedit.c:1405 ../libfdisk/newtfsedit.c:811
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add other partitions."
 msgstr ""
+"Korenski datoteèni sistem ,/` ste ustvarili na razdelitvi, ki ni vrste ext2, "
+"zato ne morete dodajati drugih razdelitev."
 
 #. XXXXX - for now destroy the raid entry since it
 #. now contains unallocated partitions!
@@ -2532,13 +2546,15 @@ msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1877
 msgid "Cannot Edit Raid"
-msgstr "Ne moremo urediti RAID"
+msgstr "Naprav RAID ni moæ urediti"
 
 #: ../libfdisk/gnomefsedit.c:1878
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "edit RAID devices."
 msgstr ""
+"Korenski datoteèni sistem ,/` ste priredili razdelitvi, ki ni vrste ext2, "
+"zato zdaj ne morete urejati naprav RAID."
 
 #: ../libfdisk/gnomefsedit.c:1915
 msgid "<Swap Partition"
@@ -2575,6 +2591,10 @@ msgid ""
 "\n"
 "These drives are: "
 msgstr ""
+"Zaganjalna naprava RAID lahko vsebuje le razdelitve v prvih dveh pogonih "
+"va¹ega sistema.\n"
+"\n"
+"Ta pogona sta: "
 
 #: ../libfdisk/gnomefsedit.c:2175
 msgid "Booting From RAID Warning"
@@ -2621,11 +2641,11 @@ msgstr "Zagonske razdelitve (/boot) so dovoljene le z RAID-1."
 
 #: ../libfdisk/gnomefsedit.c:2224
 msgid "Illegal RAID mountpoint"
-msgstr "Neveljavna toèka priklopa diskov RAID"
+msgstr "Neveljavna toèka priklopa polja RAID"
 
 #: ../libfdisk/gnomefsedit.c:2226
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr "Particije RAID na Alphi ne morejo biti priklopljene kot korenske (/)."
+msgstr "Razdelitve RAID na Alphi ne morejo biti priklopljene kot korenske (/)."
 
 #: ../libfdisk/gnomefsedit.c:2309
 #, c-format
@@ -2644,13 +2664,15 @@ msgstr "Uporabimo obstojeèo razdelitev?"
 
 #: ../libfdisk/gnomefsedit.c:2393
 msgid "Cannot Add RAID Devices"
-msgstr "Ni naprave RAID"
+msgstr "Naprav RAID ni moè dodajati"
 
 #: ../libfdisk/gnomefsedit.c:2394
 msgid ""
 "You have defined the '/' filesystem on a non-ext2 partition, so you cannot "
 "add RAID devices."
 msgstr ""
+"Korenski datoteèni sistem ,/` ste doloèili na razdelitvi, ki ni vrste ext2, "
+"zato ne morete dodajati naprav RAID."
 
 #: ../libfdisk/gnomefsedit.c:2435
 msgid "Auto-Partition"
@@ -2723,19 +2745,19 @@ msgstr "Geom [C/G/S]"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Total (M)"
-msgstr "Skupno"
+msgstr "Skupno (MB)"
 
 #: ../libfdisk/gnomefsedit.c:3153
 msgid "Free (M)"
-msgstr ""
+msgstr "Prosto (MB)"
 
 #: ../libfdisk/gnomefsedit.c:3154
 msgid "Used (M)"
-msgstr ""
+msgstr "Poraba (MB)"
 
 #: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (%)"
-msgstr ""
+msgstr "Poraba (%)"
 
 #: ../libfdisk/gnomefsedit.c:3391
 msgid "Unallocated Partitions Exist..."
@@ -2814,6 +2836,7 @@ msgstr "Trenutne razdelitve diska"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"    F1-Pomoè   F2-Dodaj    F3-Uredi   F4-Zbri¹i    F5-Povrni   F12-V redu    "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
@@ -2821,7 +2844,7 @@ msgstr "Povzetki vsebine diskov"
 
 #: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Pogon      Geom [C/H/S]      Skupaj   Poraba  Prosto"
 
 #: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
@@ -2920,15 +2943,16 @@ msgstr "Naprave"
 
 #: ../loader/devices.c:209
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "Ali imate disketo z gonilnikom?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr "Vstavite disketo z gonilnikom in pritisnite \"V redu\" za nadaljevanje"
+msgstr ""
+"Vstavite disketo z gonilnikom in pritisnite \"V redu\" za nadaljevanje."
 
 #: ../loader/devices.c:237
 msgid "Failed to mount driver disk."
-msgstr "Ne moremo priklopiti diskete."
+msgstr "Diskete ni moè priklopiti."
 
 #: ../loader/devices.c:244
 msgid ""
@@ -2956,13 +2980,13 @@ msgid "Failed to insert %s module."
 msgstr "Ne moremo zapisovati dnevnika v %s: %s"
 
 #: ../loader/devices.c:456
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Ne moremo priklopiti diskete."
+msgstr "Ni moè priklopiti diskete z gonilniki: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Vstavljena je bila napaèna disketa."
 
 #: ../loader/devices.c:503
 msgid "Driver Disk"
@@ -2971,7 +2995,7 @@ msgstr "Povzetki vsebine diskov"
 #: ../loader/devices.c:504
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Zdaj, prosimo, vstavite disketo z gonilnikom %s."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3130,7 +3154,7 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1072
 msgid "Unable to retrieve the first install image"
@@ -3224,11 +3248,11 @@ msgstr ""
 
 #: ../loader/net.c:239
 msgid "Nameserver IP"
-msgstr "Imenski tre¾nik"
+msgstr "IP imenskega stre¾nika"
 
 #: ../loader/net.c:243 ../loader/net.c:725
 msgid "Nameserver"
-msgstr "Imenski tre¾nik"
+msgstr "Imenski stre¾nik"
 
 #: ../loader/net.c:244
 msgid ""
@@ -3237,22 +3261,26 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Va¹a zahteva za dinamièno ¹tevilko IP je vrnila podatke z nastavitvijo IP, "
+"vendar ti ne vkljuèujejo imenskega stre¾nika DNS. Èe veste, kaj je va¹ "
+"imenski stre¾nik, zdaj to, prosimo, vstavite. Èe tega podatkanimate, pustite "
+"to polje prazno, namestitev pa se bo vseeno nadaljevala."
 
 #: ../loader/net.c:254
 msgid "Invalid IP Information"
-msgstr "Neveljavni podatki"
+msgstr "Neveljavni podatki o IP"
 
 #: ../loader/net.c:255
 msgid "You entered an invalid IP address."
-msgstr "Vnesti morate veljaven naslov IP in mre¾no masko."
+msgstr "Vnesti morate veljaven naslov IP."
 
 #: ../loader/net.c:278
 msgid ""
 "Please enter the IP configuration for this machine. Each item should be "
 "entered as an IP address in dotted-decimal notation (for example, 1.2.3.4)."
 msgstr ""
-"Prosim vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot naslov "
-"IP v zapisu decimalnih ¹tevilk, loèenih s piko (na primer 1.2.3.4)."
+"Prosimo, vnesite nastavitev IP za ta stroj. Vsako postavko vnesite kot "
+"naslov IP v zapisu decimalnih ¹tevilk, loèenih s piko (na primer 1.2.3.4)."
 
 #: ../loader/net.c:320
 msgid "Use dynamic IP configuration (BOOTP/DHCP)"
@@ -3463,175 +3491,138 @@ msgstr "Nalagamo gonilnik za SCSI"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Slika z zemljevidom, ki naj se prika¾e"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "©irina zemljevida (v pikah)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Omogoèi glajenje robov"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Svet"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Severna Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Ju¾na Amerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Pacifi¹ki obroè"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Evropa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afrika"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Azija"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Podatkov o èasovnih obmoèjih ni moè nalo¾iti"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Pogled:"
+msgstr "Pogled: "
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Europe/Ljubljana"
 
 msgid "Base"
-msgstr ""
+msgstr "Osnova"
 
 msgid "Printer Support"
-msgstr ""
+msgstr "Podpora za tiskalnik"
 
 msgid "X Window System"
-msgstr "Prei¹èi sistem"
+msgstr "Okenski sistem X"
 
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Orodja za po¹to/splet/novice"
 
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "Povezljivost z DOS/Windows"
 
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Obdelava slik"
 
 msgid "Games"
-msgstr ""
+msgstr "Igre"
 
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Podpora za veèpredstavnost"
 
 msgid "Laptop Support"
-msgstr ""
+msgstr "Podpora za prenosnike"
 
 msgid "Networked Workstation"
-msgstr "Mre¾ne nastavitve"
+msgstr "Delovna postaja na mre¾i"
 
 msgid "Dialup Workstation"
-msgstr "Delovna postaja KDE"
+msgstr "Delovna postaja na klic"
 
 msgid "News Server"
-msgstr "Imenski tre¾nik"
+msgstr "Novièarski tre¾nik"
 
 msgid "NFS Server"
-msgstr "Stre¾nik NIS:"
+msgstr "Stre¾nik NFS"
 
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "Stre¾nik SMB (Samba)"
 
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "Povezljivost z IPX/Netware"
 
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Stre¾nik za brezimni FTP"
 
 msgid "Web Server"
-msgstr "Stre¾nik"
+msgstr "Spletni stre¾nik"
 
 msgid "DNS Name Server"
-msgstr "Imenski tre¾nik"
+msgstr "Imenski stre¾nik DNS"
 
-# ../comps/comps-master:596
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Stre¾nik za Postgres (SQL)"
 
 msgid "Network Management Workstation"
-msgstr "Mre¾ne nastavitve"
+msgstr "Delovna postaja za upravljanje omre¾ja"
 
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Avtorstvo/zalo¾ni¹tvo"
 
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
 msgid "Development"
-msgstr ""
+msgstr "Razvoj"
 
 msgid "Kernel Development"
 msgstr "Razvoj jedra"
 
 msgid "Utilities"
-msgstr ""
-
-#, fuzzy
-#~ msgid "Error copying timezone (from %s): %s"
-#~ msgstr "Napaka pri prepisovanju datoteke: %s"
-
-#~ msgid "Install GNOME Workstation"
-#~ msgstr "Namestitev delovne postaje GNOME"
-
-#~ msgid "Install KDE Workstation"
-#~ msgstr "Namestitev delovne postaje KDE"
-
-#~ msgid "GNOME Workstation"
-#~ msgstr "Delovna postaja GNOME"
-
-#~ msgid "Custom"
-#~ msgstr "Uporabni¹ko prilagojen izbor"
-
-#~ msgid "Use fdisk"
-#~ msgstr "Uporabite fdisk"
-
-#~ msgid "Remove data"
-#~ msgstr "Odstranitev podatkov"
-
-#~ msgid "Grow to fill disk?"
-#~ msgstr "Naj zapolnimo disk?"
-
-#~ msgid ""
-#~ "You have made this raid device mount as a booting partition.  Please make "
-#~ "sure all the component partitions are bootable."
-#~ msgstr ""
-#~ "Napravili ste, da se bo naprava RAID priklopila kot zagonska razdelitev. "
-#~ "Prosim, preverite, da so vse sestavne razdelitve zagonske."
-
-#~ msgid "Which driver should I try?"
-#~ msgstr "Kateri gonilnik poskusimo?"
+msgstr "Pripomoèki"
