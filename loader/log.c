@@ -35,7 +35,7 @@ void openLog(int useLocal) {
 	if (logfile)
 	    logfd = open("/dev/tty3", O_WRONLY);
 	else {
-	    logfile = fopen("/tmp/install.log", "a");
+	    logfile = fopen("/tmp/install.log", "w");
 	    logfd = open("/tmp/install.log", O_WRONLY| O_APPEND);
 	}
     } else {
