@@ -66,6 +66,8 @@ static void setGraphicalMode(struct loaderData_s * loaderData, int argc,
                              char ** argv, int * flagsPtr);
 static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
                            char ** argv, int * flagsPtr);
+static void setSELinux(struct loaderData_s * loaderData, int argc, 
+                       char ** argv, int * flagsPtr);
 void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr);
 
@@ -82,6 +84,7 @@ struct ksCommandNames ksTable[] = {
     { KS_CMD_DD, "driverdisk", useKickstartDD },
     { KS_CMD_DEVICE, "device", loadKickstartModule },
     { KS_CMD_CMDLINE, "cmdline", setCmdlineMode },
+    { KS_CMD_SELINUX, "selinux", setSELinux },
     { KS_CMD_NONE, NULL, NULL }
 };
 
@@ -349,6 +352,12 @@ static void setGraphicalMode(struct loaderData_s * loaderData, int argc,
 static void setCmdlineMode(struct loaderData_s * loaderData, int argc, 
                            char ** argv, int * flagsPtr) {
     (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_CMDLINE;
+    return;
+}
+
+static void setSELinux(struct loaderData_s * loaderData, int argc, 
+                       char ** argv, int * flagsPtr) {
+    (*flagsPtr) = (*flagsPtr) | LOADER_FLAGS_SELINUX;
     return;
 }
 
