@@ -1828,7 +1828,6 @@ def readFstab (path):
         fsystem = fileSystemTypeGet(fields[2])
         label = None
 
-
 	if fields[0] == "none":
             device = Device()
         elif len(fields) >= 6 and fields[0].startswith('LABEL='):
@@ -1860,7 +1859,18 @@ def readFstab (path):
             device = makeDevice(fields[0][5:])
 	else:
             continue
-        
+
+        # if they have a filesystem being mounted as auto, we need
+        # to sniff around a bit to figure out what it might be
+        # if we fail at all, though, just ignore it
+        if fsystem == "auto" and device.getDevice() != "none":
+            try:
+                tmp = partedUtils.sniffFilesystemType("/dev/%s" %(device.setupDevice(),))
+                if tmp is not None:
+                    fsystem = tmp
+            except:
+                pass
+
         entry = FileSystemSetEntry(device, fields[1], fsystem, fields[3],
                                    origfsystem=fsystem)
         if label:
