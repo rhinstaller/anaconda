@@ -109,7 +109,7 @@ class InstallMethod:
                 size += h[1000001] # FILESIZE_TAG
                 num += 1
         # make sure it looks like we have space + a fudge factor
-        if not size > isys.fsSpaceAvailable("/var") + 50:
+        if not (size / 1024.0 / 1024.0) > (isys.fsSpaceAvailable("/mnt/sysimage/var") + 50):
             log("only %s free on var and want %s, not caching updates" %(isys.fsSpaceAvailable, size))
             return
         if num == 0:
