@@ -456,7 +456,19 @@ class DiskTreeModel(gtk.TreeStore):
 		while not iter and parent:
                     parent = self.iter_next(parent)
                     iter = parent
-		    if len(parentstack) > 0:
+
+		    # if we found a new iter, set parent to last
+		    # thing on parentstack w/o popping because we want
+		    # last item in parentstack to match the parent
+		    # of the current iter
+		    #
+		    # otherwise pop off next parent and resume search there
+		    #
+		    # otherwise we're in trouble
+		    #
+		    if iter:
+			parent = parentstack[-1]
+		    elif len(parentstack) > 0:
 			parent = parentstack.pop()
                     else:
                         # we've fallen off the end of the model, and we have
