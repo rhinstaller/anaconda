@@ -139,7 +139,8 @@ int onePrePass(const char * dirName) {
 	    fd = Fopen(ent->d_name, "r");
 
 	    if (!fd) {
-		perror("open");
+	        fprintf(stderr, "Error opening '%s': %s\n", ent->d_name,
+			strerror(errno));
 		exit(1);
 	    }
 
