@@ -190,8 +190,8 @@ int isUsableDasd(char *device) {
 #else
 	char devname[16];
 	char label[5], v4_hex[9];
-	char v4ebcdic_hex[] = "e5d6d3f1";  /* VOL1 */
 	char l4ebcdic_hex[] = "d3d5e7f1";  /* LNX1 */
+	char cms1_hex[] = "c3d4e2f1";      /* CMS1 */
 	int f, ret, blksize;
 	dasd_information_t dasd_info;
 	volume_label_t vlabel;
@@ -231,13 +231,13 @@ int isUsableDasd(char *device) {
 	memset(v4_hex, 0, 9);
 	strncpy(label, vlabel.volkey, 4);
 	sprintf(v4_hex, "%02x%02x%02x%02x", label[0], label[1], label[2], label[3]);
-	if(!strncmp(v4_hex, v4ebcdic_hex, 9)) {
-		return 1;
+	if(!strncmp(v4_hex, cms1_hex, 9)) {
+		return 0;
 	}
 	if(!strncmp(v4_hex, l4ebcdic_hex, 9)) {
 		return 2;
 	}
-        return 0;
+        return 1;
 #endif
 }
 
