@@ -14,7 +14,9 @@ prepareBootImage() {
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 
 	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
-	cp $KERNELROOT/boot/efi/vmlinuz-* $MBD_BOOTTREE/vmlinuz
+	mkdir -p $MBD_BOOTTREE/efi/boot
+	cp $KERNELROOT/boot/efi/redhat/vmlinuz-* $MBD_BOOTTREE/vmlinuz
+	cp $MBD_BOOTTREE/elilo.efi $MBD_BOOTTREE/efi/boot/bootia64.efi
 	cat > $MBD_BOOTTREE/elilo.conf << EOF
 prompt	
 timeout=50

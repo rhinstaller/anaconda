@@ -436,7 +436,7 @@ class ia64BootloaderInfo(bootloaderInfo):
         bootloaderInfo.__init__(self)
 	self.useGrubVal = 1
         self.kernelLocation = ""
-        self.configfile = "/boot/efi/elilo.conf"
+        self.configfile = "/boot/efi/redhat/elilo.conf"
     
 	
 class x86BootloaderInfo(bootloaderInfo):
@@ -938,7 +938,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 # the kernel's %post does this now
 def makeInitrd (kernelTag, instRoot):
     if iutil.getArch() == 'ia64':
-	initrd = "/boot/efi/initrd%s.img" % (kernelTag, )
+	initrd = "/boot/efi/redhat/initrd%s.img" % (kernelTag, )
     else:
 	initrd = "/boot/initrd%s.img" % (kernelTag, )
 
