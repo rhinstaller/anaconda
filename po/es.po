@@ -1,4 +1,5 @@
 # translation of es.po to 
+# translation of es.po to
 # translation of es.po to Español
 # Copyright (C) 2000,2003,2004 Free Software Foundation, Inc.
 # Tullio Dovera <tdovera@redhat.it>, 2000.
@@ -13,7 +14,7 @@ msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-06-18 11:47+1000\n"
+"PO-Revision-Date: 2004-06-28 11:36+1000\n"
 "Last-Translator: Yelitza Louze <ylouze@redhat.com>\n"
 "Language-Team:  <es@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1446,14 +1447,15 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: ../gui.py:638 ../text.py:283
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
 msgstr ""
-"Se encontró en error siguiente durante el análisis de su configuración "
-"kickstart:n\n"
+"Se encontró el error siguiente durante el análisis de su configuración "
+"kickstart:\n"
+"\n"
 "%s"
 
 # ../loader/kickstart.c:59
@@ -1786,9 +1788,9 @@ msgstr "Cambie CDROM"
 # ../image.py:120
 # ../image.py:120
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Por favor, introduzca el disco %d para continuar."
+msgstr "Por favor, introduzca %s disco %d para continuar."
 
 # ../image.py:137
 # ../image.py:137
@@ -1807,7 +1809,7 @@ msgstr "Éste no es el CDROM %s correcto."
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "No se puede acceder al CDROM."
 
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
 # ../iw/installpath_gui.py:35 ../textw/installpath_text.py:45
@@ -3591,9 +3593,8 @@ msgstr "Conectando.."
 # ../anaconda:383
 # ../anaconda:383
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Imposible probarlo"
+msgstr "No se pudo arrancar X"
 
 #: ../vnc.py:37
 msgid ""
@@ -3601,6 +3602,9 @@ msgid ""
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
 msgstr ""
+"X no puede arrancar en su máquina. ¿Le gustaría iniciar VNC para conectarse "
+"a este computador desde otra máquina y realizar una instalación gráfica o "
+"continuar con una instalación en modo texto?"
 
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
 # ../mouse.py:280 ../mouse.py:281 ../xserver.py:51 ../xserver.py:52
@@ -3610,25 +3614,22 @@ msgid "Use text mode"
 msgstr "Utilizar modo texto"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Iniciando VNC..."
+msgstr "Iniciar VNC"
 
 # ../iw/silo_gui.py:28
 # ../iw/silo_gui.py:28
 # ../iw/silo_gui.py:28
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Configuración de Silo"
+msgstr "Configuración de VNC"
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
 # ../textw/userauth_text.py:22
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Contraseña de root"
+msgstr "Sin contraseña"
 
 #: ../vnc.py:62
 msgid ""
@@ -3636,6 +3637,9 @@ msgid ""
 "your installation progress.  Please enter a password to be used for the "
 "installation"
 msgstr ""
+"Una contraseña evitará que oyentes no autorizados se conecten y monitoricen  el "
+"progreso de su instalación. Por favor introduzca una contraseña a utilizar "
+"para la instalación"
 
 # ../iw/account_gui.py:187 ../iw/bootloaderpassword_gui.py:87
 # ../loader/urls.c:357 ../textw/userauth_text.py:36
@@ -3681,9 +3685,8 @@ msgstr "Longitud de la contraseña"
 # ../textw/userauth_text.py:129
 # ../textw/userauth_text.py:129
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "La contraseña debe ser de al menos 6 caracteres."
+msgstr "La contraseña debe tener al menos 6 caracteres de largo."
 
 # ../iw/xconfig_gui.py:573
 # ../iw/xconfig_gui.py:581
@@ -3744,6 +3747,8 @@ msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
 msgstr ""
+"La cuenta root se utiliza para la administración del sistema. Introduzca una "
+"contraseña para el usuario root."
 
 # ../textw/userauth_text.py:21
 # ../textw/userauth_text.py:22
@@ -4685,7 +4690,7 @@ msgstr "_Habilitar cortafuegos"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Permitir a otros en internet acceder a estos servicios."
 
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
 # ../iw/firewall_gui.py:285 ../textw/firewall_text.py:90
@@ -4696,27 +4701,25 @@ msgstr "_Permitir la entrada:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Conexión remota (SSH)"
 
 # ../installclasses/server.py:9
 # ../installclasses/server.py:9
 # ../installclasses/server.py:9
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Servidor"
+msgstr "Servidor Web"
 
 # ../textw/firewall_text.py:103
 # ../textw/firewall_text.py:103
 # ../textw/firewall_text.py:103
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Correo (SMTP)"
+msgstr "Servidor de Correo (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Transferencia de archivos (FTP)"
 
 # ../iw/firewall_gui.py:314
 # ../iw/firewall_gui.py:314
@@ -10145,41 +10148,37 @@ msgstr ""
 # ../loader/loader.c:1058
 # ../loader/loader.c:1058
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
 msgstr ""
-"Tiene múltiples dispositivos que pueden servir como fuentes para un disco de "
-"controladores. ¿Cuál le gustaría utilizar?"
+"Hay múltiples particiones en este dispositivo que podrían  contener la imagen "
+"del controlador de disco. ¿Cuál le gustaría utilizar?"
 
 # ../loader/pcmcia.c:114
 # ../loader/pcmcia.c:114
 # ../loader/pcmcia.c:114
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Fallo al montar el disco."
+msgstr "Falló al montar la partición."
 
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
 # ../iw/fdisk_gui.py:93
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Seleccione el controlador"
+msgstr "Seleccione la imagen del controlador del disco"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Seleccione el archivo que es su imagen de controlador de disco."
 
 # ../loader/devices.c:260
 # ../loader/devices.c:260
 # ../loader/devices.c:260
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Fallo al montar el disco de drivers."
+msgstr "Falló al montar el disco de controladores desde el archivo."
 
 # ../loader/devices.c:239
 # ../loader/devices.c:239
@@ -10203,7 +10202,7 @@ msgstr "Inserte el disco de controladores"
 # ../loader/devices.c:260
 #: ../loader2/driverdisk.c:396
 msgid "Failed to mount driver disk."
-msgstr "Fallo al montar el disco de drivers."
+msgstr "Falló al montar el disco de controladores."
 
 #: ../loader2/driverdisk.c:462
 msgid "Manually choose"
@@ -10570,7 +10569,7 @@ msgstr "Disco de actualización"
 # ../loader/devices.c:260
 #: ../loader2/loader.c:347
 msgid "Failed to mount updates disk"
-msgstr "Fallo al montar el disco de actualización"
+msgstr "Falló al montar el disco de actualización"
 
 # ../loader/loader.c:2321
 # ../loader/loader.c:2321
@@ -11166,7 +11165,7 @@ msgstr "Método %s Url desconocido "
 #: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Fallo al acceder a %s: %s"
+msgstr "Falló al acceder a %s: %s"
 
 # ../loader/urls.c:90 ../loader/urls.c:98
 # ../loader/urls.c:90 ../loader/urls.c:98
