@@ -145,7 +145,12 @@ class ProgressWindow:
 	self.screen.refresh()
 
 class InstallInterface:
-    def helpWindow(self, screen, key, firstTime=1):
+    def helpWindow(self, screen, key):
+        if key == "helponhelp":
+            if self.showingHelpOnHelp:
+                return None
+            else:
+                self.showingHelpOnHelp = 1
 	try:
             f = None
 
@@ -165,15 +170,12 @@ class InstallInterface:
                     continue
                 break
                     
-
             if not f:
-		if firstTime:	
-		    return self.helpWindow(screen, "helponhelp", firstTime=0)
-		else:
-		    ButtonChoiceWindow(screen, _("Help not available"), 
-				_("No help is available for this install."),
-				       buttons=[TEXT_OK_BUTTON])
-		    return None
+                ButtonChoiceWindow(screen, _("Help not available"), 
+                                   _("No help is available for this "
+                                     "step of the install."),
+                                   buttons=[TEXT_OK_BUTTON])
+                return None
 
 	    l = f.readlines()
 	    while not string.strip(l[0]):
@@ -206,6 +208,7 @@ class InstallInterface:
 	    g.add(bb, 0, 1, growx=1)
 
 	    g.runOnce()
+            self.showingHelpOnHelp = 0
 	except:
 	    import traceback
 	    (type, value, tb) = sys.exc_info()
@@ -305,6 +308,7 @@ class InstallInterface:
 	signal.signal(signal.SIGINT, signal.SIG_IGN)
 	signal.signal(signal.SIGTSTP, signal.SIG_IGN)
 	self.screen = None
+        self.showingHelpOnHelp = 0
 
     def __del__(self):
 	if self.screen:
