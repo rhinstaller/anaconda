@@ -22,6 +22,8 @@ import sys
 import time
 from xf86config import *
 
+from flags import flags
+
 from snack import *
 from constants_text import *
 from mouse_text import MouseWindow, MouseDeviceWindow
@@ -82,11 +84,11 @@ def mouseWindow(mouse):
 def startMiniWM(root='/'):
     childpid = os.fork()
     if not childpid:
-	args = [root+'/'+'/usr/bin/mini-wm', '--display', ':1']
+	args = [root + '/usr/bin/mini-wm', '--display', ':1']
 	os.execv(args[0], args)
 	sys.exit (1)
 
-    return
+    return childpid
 	
 
 # start X server for install process ONLY
@@ -212,7 +214,16 @@ def testx(x):
 	count = count + 1
 
     print _(" X server started successfully.")
-    
+
+    # now start up mini-wm
+    if not flags.test:
+        try:
+            miniwm_pid = startMiniWM()
+            log("Started mini-wm")
+        except:
+            miniwm_pid = None
+            log("Unable to start mini-wm")
+
     child = os.fork()
     if (child):
 	# here we fork and wait on our child, which will contine
@@ -226,6 +237,15 @@ def testx(x):
             print __name__, "waitpid:", msg
 	    sys.exit (-1)
 
+	# kill miniwm first
+	if miniwm_pid is not None:
+            try:
+                os.kill(miniwm_pid, 15)
+                os.waitpid(miniwm_pid, 0)
+            except:
+                pass
+
+        # now the X server
 	try:
 	    os.kill(server, 15)
 	    os.waitpid(server, 0)
