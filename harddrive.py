@@ -7,6 +7,7 @@ import isys
 import iutil
 import rpm
 import string
+from translate import _, cat, N_
 
 import todo
 
