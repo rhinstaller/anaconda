@@ -163,7 +163,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            libgnomecanvas libart_lgpl libgcc libacl libattr libstdc++ expat
            anaconda-images anaconda-help XFree86-base-fonts
            ttfonts-ko taipeifonts XFree86-ISO8859-15-75dpi-fonts rhpl
-           system-config-keyboard Xft fontconfig redhat-artwork
+           system-config-keyboard Xft fontconfig gtk2-engines gnome-themes
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts fonts-arabic
            comps-extras XFree86-libs-data convertdb1 fonts-bengali
            vnc-server libjpeg tcp_wrappers system-config-date
@@ -641,9 +641,9 @@ usr/sbin/prelink
 usr/sbin/smartctl
 usr/share/anaconda/*
 usr/share/icons/default/*
-usr/share/icons/Bluecurve/cursors/*
-usr/share/icons/Bluecurve/*/stock/*
-usr/share/icons/Bluecurve/index.theme
+usr/share/icons/gnome/cursors/*
+usr/share/icons/gnome/*/stock/*
+usr/share/icons/gnome/index.theme
 usr/share/fonts/default/Type1/n019003l*
 usr/share/fonts/default/Type1/n019004l*
 usr/share/fonts/default/Type1/n019023l*
@@ -687,8 +687,8 @@ usr/share/terminfo/l/linux
 usr/share/terminfo/x/xterm
 usr/share/terminfo/v/vt100
 usr/share/terminfo/v/vt100-nav
-usr/share/themes/Bluecurve/gtk-2.0/*
-usr/share/themes/Bluecurve/index.theme
+usr/share/themes/Clearlooks/gtk-2.0/*
+usr/share/themes/Clearlooks/index.theme
 usr/share/vte/termcap/xterm
 usr/share/zoneinfo/zone.tab
 EOF
