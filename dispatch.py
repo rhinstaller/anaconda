@@ -89,13 +89,13 @@ installSteps = [
                                           "id.bootloader", "id.langSupport",
                                           "id.comps") ),
     ( "bootdisk", ("dir", "dispatch") ),
+    ( "makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
+				     "id.hdList", "instPath") ),
     ( "monitor", ("id.xconfig", "id.monitor") ),
     ( "xcustom", ("id.xconfig", "id.monitor", "id.videocard",
                   "id.desktop", "id.comps") ),
     ( "writexconfig", writeXConfiguration, ("id", "instPath")),
     ( "writeksconfig", writeKSConfiguration, ("id", "instPath")),
-    ( "makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
-				     "id.hdList", "instPath") ),
     ( "complete", () ),
     ( "reconfigcomplete", () )
     ]
