@@ -228,7 +228,22 @@ class HardDriveInstallMethod(InstallMethod):
 		for num in range(1, 10):
 		    discTag = "/mnt/cdimage/.disc%d-%s" % (num, arch)
 		    if os.access(discTag, os.R_OK):
-			self.discImages[num] = file
+                        import stat
+
+                        # warn user if images appears to be wrong size
+                        if os.stat(what)[stat.ST_SIZE] % 2048:
+                            rc = messageWindow(_("Warning"),
+                                               "The ISO image %s has a size which is not "
+                                               "a multiple of 2048 bytes.  This may mean "
+                                               "it was corrupted on transfer to this computer."
+                                               "\n\nPress OK to continue (but installation will "
+                                               "probably fail), or Cancel to exit the "
+                                               "installer (RECOMMENDED). " % file, type = "okcancel").getrc()
+                            if rc:
+                                import sys
+                                sys.exit(0)
+
+                        self.discImages[num] = file
 
 		isys.umount("/mnt/cdimage")
 	    except SystemError:
