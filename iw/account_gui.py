@@ -333,8 +333,8 @@ class AccountWindow (InstallWindow):
             pix = im.make_pixmap ()
             a = GtkAlignment ()
             a.add (pix)
-            a.set (0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start (a, FALSE)
+            a.set (0.5, 0.5, 0, 0)
+            hbox.pack_start (a, FALSE, padding=7)
 
         a = GtkAlignment (0.0, 0.5)
         label = GtkLabel (_("Additional accounts can be created for other "
