@@ -74,7 +74,6 @@ def writeXConfiguration(id, instPath):
             
         os.symlink ("../../usr/X11R6/bin/" + xserver,
 			    instPath + "/etc/X11/X")
-        print "linked ../../usr/X11R6/bin/",xserver," to ",instPath,"/etc/X11/X"
     else:
         fn = "/tmp/"
 
@@ -290,18 +289,18 @@ class rpmErrorClass:
     def __init__(self, f):
 	self.f = f
 
-def turnOnFilesystems(dir, fsset, diskset, upgrade, instPath):
+def turnOnFilesystems(dir, thefsset, diskset, upgrade, instPath):
     if dir == dispatch.DISPATCH_BACK:
-	fsset.umountFilesystems(instPath)
+	thefsset.umountFilesystems(instPath)
 	return
 
     if flags.setupFilesystems:
 	if not upgrade.get():
 	    diskset.savePartitions ()
-            fsset.formatSwap(instPath)
-            fsset.turnOnSwap(instPath)
-	    fsset.makeFilesystems (instPath)
-            fsset.mountFilesystems (instPath)
+            thefsset.formatSwap(instPath)
+            thefsset.turnOnSwap(instPath)
+	    thefsset.makeFilesystems (instPath)
+            thefsset.mountFilesystems (instPath)
 
 def doInstall(method, id, intf, instPath):
     if flags.test:
@@ -555,10 +554,13 @@ def doInstall(method, id, intf, instPath):
 
     try:
 	if not upgrade:
-	    # XXX
-	    #if self.fdDevice[0:2] == "fd":
-		#self.fstab.addMount(self.fdDevice, "/mnt/floppy", "auto")
-	    #self.fstab.write (instPath)
+            # XXX should this go here?
+	    if self.fdDevice[0:2] == "fd":
+                dev = PartitionDevice(self.fdDevice)
+                fs = fileSystemTypeGet("auto")
+                entry = FileSystemSetEntry(dev, '/mnt/floppy', fs,
+                                           "nodefaults")
+		id.fsset.add(entry)
 
 	    w.set(1)
 
@@ -575,20 +577,6 @@ def doInstall(method, id, intf, instPath):
 	    if os.access("/tmp/modules.conf", os.R_OK):
 		iutil.copyFile("/tmp/modules.conf", 
 			       instPath + "/etc/modules.conf")
-
-	    # XXX
-	    #if not self.x.skip and self.x.server:
-		#if os.access (instPath + "/etc/X11/X", os.R_OK):
-		    #os.rename (instPath + "/etc/X11/X",
-			       #instPath + "/etc/X11/X.rpmsave")
-		#try:
-		    #os.unlink (instPath + "/etc/X11/X")
-		#except OSError:
-		    #pass
-		#os.symlink ("../../usr/X11R6/bin/" + self.x.server,
-			    #instPath + "/etc/X11/X")
-
-		#self.x.write (instPath + "/etc/X11")
 
 	    w.set(3)
 
