@@ -1275,7 +1275,7 @@ class PiggybackSwapFileDevice(SwapFileDevice):
         SwapFileDevice.__init__(self, file)
         self.piggypath = piggypath
         
-    def setupDevice (self, chroot, devPrefix='/tmp'):
+    def setupDevice(self, chroot, devPrefix='/tmp'):
         return SwapFileDevice.setupDevice(self, self.piggypath, devPrefix)
 
 class LoopbackDevice(Device):
@@ -1292,12 +1292,17 @@ class LoopbackDevice(Device):
             if not self.device:
                 raise SystemError, "Unable to allocate loopback device"
             self.isSetup = 1
-        return "/tmp/" + self.device
+            path = '%s/%s' % (devPrefix, self.getDevice())
+        else:
+            path = '%s/%s' % (devPrefix, self.getDevice())
+            isys.makeDevInode(self.getDevice(), path)
+        path = os.path.normpath(path)
+        return path
 
     def getComment (self):
         return "# LOOP1: %s %s /redhat.img\n" % (self.host, self.hostfs)
 
-def getDevice(dev):
+def makeDevice(dev):
     if dev[:2] == "md":
         try:
             mdname, devices, level, numActive = \
@@ -1374,7 +1379,7 @@ def readFstab (path):
         elif len(fields) >= 6 and fields[0][:6] == "LABEL=":
             label = fields[0][6:]
             if labelToDevice.has_key(label):
-                device = getDevice(labelToDevice[label])
+                device = makeDevice(labelToDevice[label])
             else:
                 log ("Warning: fstab file has LABEL=%s, but this label "
                      "could not be found on any filesystem", label)
@@ -1397,7 +1402,7 @@ def readFstab (path):
 		(dev, fs) = loopIndex[device]
                 device = LoopbackDevice(dev, fs)
 	elif fields[0][:5] == "/dev/":
-            device = getDevice(fields[0][5:])
+            device = makeDevice(fields[0][5:])
 	else:
             continue
         
