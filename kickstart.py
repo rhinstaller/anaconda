@@ -138,6 +138,24 @@ class KickstartBase(BaseInstallClass):
 	    
 	self.setFirewall(id, enable, trusts, ports, ssh, telnet,
 			smtp, http, ftp)
+
+    def doSELinux(self, id, args):
+	(args, extra) = isys.getopt(args, '',
+                                    [ 'disabled', 'enforcing',
+                                      'permissive' ] )
+
+        sel = 2
+
+        for n in args:
+            (str, arg) = n
+            if str == "--disabled":
+                sel = 0
+            elif str == "--permissive":
+                sel = 1
+            elif str == "--enforcing":
+                sel = 2
+
+        self.setSELinux(id, sel)
 	    
     def doAuthconfig(self, id, args):
 	(args, extra) = isys.getopt(args, '',

@@ -339,6 +339,9 @@ class BaseInstallClass:
     def setDesktop(self, id, desktop):
 	id.desktop.setDefaultDesktop (desktop)
 
+    def setSELinux(self, id, sel):
+        id.security.setSELinux(sel)
+
     def setFirewall(self, id, enable = 1, trusts = [], ports = "",
 		    ssh = 0, telnet = 0, smtp = 0, http = 0, ftp = 0):
 	id.firewall.enabled = enable

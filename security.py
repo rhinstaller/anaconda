@@ -41,8 +41,11 @@ class Security:
         return self.selinux
 
     def writeKS(self, f):
-        # FIXME: we don't support setting this up via kickstart yet
-        pass
+        if not selinux_states.has_key(self.selinux):
+            log("ERROR: unknown selinux state: %s" %(self.selinux,))
+            return
+
+	f.write("selinux --%s\n" %(selinux_states[self.selinux],))
 
     def write(self, instPath):
         args = [ "/usr/sbin/lokkit", "--quiet", "--nostart" ]
