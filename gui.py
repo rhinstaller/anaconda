@@ -1074,24 +1074,8 @@ class InstallControlWindow:
 	    return 1
 
     def helpClicked (self, *args):
-        if self.displayHelp:
-            self.displayHelp = False
-            self.mainxml.get_widget("hideHelpButton").hide()
-            self.mainxml.get_widget("showHelpButton").show()
-            self.mainxml.get_widget("showHelpButton").grab_focus()
-
-            self.mainxml.get_widget("help").hide_all()
-            self.mainxml.get_widget("mainTable").set_homogeneous(False)
-        else:
-            self.displayHelp = True
-            self.mainxml.get_widget("showHelpButton").hide()
-            self.mainxml.get_widget("hideHelpButton").show()
-            self.mainxml.get_widget("hideHelpButton").grab_focus()            
-
-            self.mainxml.get_widget("help").show_all()
-            self.mainxml.get_widget("mainTable").set_homogeneous(True)
-
-            self.refreshHelp()
+        self.displayHelp = not self.displayHelp
+        self.refreshHelp()
 
     def debugClicked (self, *args):
         try:
@@ -1114,6 +1098,21 @@ class InstallControlWindow:
         # make sure we're refreshing the help for an actual screen
         if self.currentWindow is None:
             return
+
+        if self.displayHelp:
+            self.mainxml.get_widget("showHelpButton").hide()
+            self.mainxml.get_widget("hideHelpButton").show()
+            self.mainxml.get_widget("hideHelpButton").grab_focus()            
+
+            self.mainxml.get_widget("help").show_all()
+            self.mainxml.get_widget("mainTable").set_homogeneous(True)
+        else:
+            self.mainxml.get_widget("hideHelpButton").hide()
+            self.mainxml.get_widget("showHelpButton").show()
+            self.mainxml.get_widget("showHelpButton").grab_focus()
+
+            self.mainxml.get_widget("help").hide_all()
+            self.mainxml.get_widget("mainTable").set_homogeneous(False)
         
         buffer = htmlbuffer.HTMLBuffer()
         ics = self.currentWindow.getICS()
@@ -1220,9 +1219,9 @@ class InstallControlWindow:
         self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpEnabled())
 
         if ics.getHelpEnabled() == gtk.FALSE and self.displayHelp:
-            self.helpClicked()
+            self.refreshHelp()
         elif ics.getHelpEnabled() == gtk.TRUE and not self.displayHelp:
-            self.helpClicked()
+            self.refreshHelp()
         if ics.getGrabNext():
             self.mainxml.get_widget("nextButton").grab_focus()
 

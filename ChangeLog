@@ -1,3 +1,8 @@
+2005-02-07  Chris Lumens  <clumens@redhat.com>
+
+	* gui.py (helpClicked, refreshHelp):  If help is disabled, don't
+	redraw the help pane when the next button is clicked (#145691).
+
 2005-02-07  Matt Wilson  <msw@specifixinc.com>
 
 	* exception.py: Import log handler
