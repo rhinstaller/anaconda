@@ -453,28 +453,43 @@ if os.environ.has_key('DISPLAY') and display_mode == 'g':
 else:
     x_already_set = 0
 
-#
-# Probe what is available for X and setup a hardware state
-#
-# try to probe interesting hw
-import rhpl.xserver as xserver
-skipddcprobe = (skipddc or (x_already_set and flags.test))
-skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
+# should we ever try to probe for X stuff?  this will give us a convenient
+# out eventually to circumvent all probing and just fall back to text mode
+# on hardware where we break things if we probe
+doXProbe = 1
 
-(videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
-						skipMouseProbe = skipmouseprobe)
+# probing for hardware on an s390 seems silly...
+if iutil.getArch() == "s390":
+    doXProbe = 0
+
+if doXProbe:
+    #
+    # Probe what is available for X and setup a hardware state
+    #
+    # try to probe interesting hw
+    import rhpl.xserver as xserver
+    skipddcprobe = (skipddc or (x_already_set and flags.test))
+    skipmouseprobe = not (not os.environ.has_key('DISPLAY') or flags.setupFilesystems)
+
+    (videohw, monitorhw, mousehw) = xserver.probeHW(skipDDCProbe=skipddcprobe,
+                                                    skipMouseProbe = skipmouseprobe)
+
+    # setup a X hw state for use later with configuration.  
+    try:
+        xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
+    except Exception, e:
+        print _("Unable to instantiate a X hardware state object.")
+        xcfg = None
+else:
+    videohw = None
+    monitorhw = None
+    mousehw = None
+    xcfg = None
 
 # keyboard
 kbd = keyboard.Keyboard()
 if keymap:
     kbd.set(keymap)
-
-# setup a X hw state for use later with configuration.  
-try:
-    xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
-except:
-    print _("Unable to instantiate a X hardware state object.")
-    xcfg = None
 
 #
 # delay to let use see status of attempt to probe hw 
@@ -495,8 +510,7 @@ if (display_mode != 't' and method and
     display_mode = 't'
     time.sleep(2)
 
-# XXX should be fixed to be more generic instead of just ifarching
-if iutil.getArch() != "s390":
+if doXProbe:
     # if no mouse we force text mode
     mousedev = mousehw.get()
     if display_mode != 't' and mousedev[0] == "No - mouse":
@@ -596,7 +610,7 @@ if (display_mode == 'g'):
 	    splashScreenShow(configFileData)
 	    
             from gui import InstallInterface
-        except:
+        except Exception, e:
             # if we're not going to really go into GUI mode, we need to get
             # back to vc1 where the text install is going to pop up.
 	    if not x_already_set:
@@ -683,10 +697,10 @@ if monitorhw:
 #
 # not sure what to do here - somehow we didnt detect anything
 #
-if xcfg is None:
+if xcfg is None and doXProbe:
     try:
 	xcfg = xhwstate.XF86HardwareState()
-    except:
+    except Exception, e:
 	print _("Unable to instantiate a X hardware state object.")
 	xcfg = None
 
