@@ -17,6 +17,7 @@
 #include <sys/time.h>
 #include <sys/vfs.h>
 #include <unistd.h>
+#include <resolv.h>
 
 #include "Python.h"
 
@@ -63,6 +64,7 @@ static PyObject * doRaidStop(PyObject * s, PyObject * args);
 static PyObject * doConfigNetDevice(PyObject * s, PyObject * args);
 static PyObject * doPumpNetDevice(PyObject * s, PyObject * args);
 static PyObject * doResetResolv(PyObject * s, PyObject * args);
+static PyObject * doSetResolvRetry(PyObject * s, PyObject * args);
 static PyObject * doLoadFont(PyObject * s, PyObject * args);
 static PyObject * doLoadKeymap(PyObject * s, PyObject * args);
 
@@ -100,6 +102,7 @@ static PyMethodDef isysModuleMethods[] = {
     { "swapoff",  (PyCFunction) doSwapoff, METH_VARARGS, NULL },
     { "fbconprobe", (PyCFunction) doFbconProbe, METH_VARARGS, NULL },
     { "resetresolv", (PyCFunction) doResetResolv, METH_VARARGS, NULL },
+    { "setresretry", (PyCFunction) doSetResolvRetry, METH_VARARGS, NULL },
     { "loadFont", (PyCFunction) doLoadFont, METH_VARARGS, NULL },
     { "loadKeymap", (PyCFunction) doLoadKeymap, METH_VARARGS, NULL },
     { NULL }
@@ -1116,6 +1119,17 @@ static PyObject * doResetResolv(PyObject * s, PyObject * args) {
     if (!PyArg_ParseTuple(args, "")) return NULL;
 
     res_init();		/* reinit the resolver so DNS changes take affect */
+
+    Py_INCREF(Py_None);
+    return Py_None;
+}
+
+static PyObject * doSetResolvRetry(PyObject * s, PyObject * args) {
+    int count;
+
+    if (!PyArg_ParseTuple(args, "i", &count)) return NULL;
+
+    _res.retry = count;
 
     Py_INCREF(Py_None);
     return Py_None;
