@@ -523,6 +523,10 @@ class InstallControlWindow (Thread):
         self.prevButtonStock.connect ("clicked", self.prevClicked)
         self.nextButtonStock.connect ("clicked", self.nextClicked)
 
+        group = GtkAccelGroup()
+        self.nextButtonStock.add_accelerator ("clicked", group, F12, RELEASE_MASK, 0);
+        self.window.add_accel_group (group)
+
         self.buttonBox.add (self.prevButtonStock)
         self.buttonBox.add (self.nextButtonStock)
 
