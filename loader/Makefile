@@ -102,8 +102,8 @@ tr/%.tr: ../po/%.po loader.po
 	msgmerge $< loader.po | ./simplemot > $@
 
 dirs:
-	for n in $(DIRS); do \
-	    (cd $$n; make) \
+	for n in . $(DIRS); do \
+	    [ "$$n" = "." ] || make -C $$n ;\
 	done
 
 install: all
