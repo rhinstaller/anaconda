@@ -68,7 +68,7 @@ loader-local: loader-local.o $(OBJS)
 
 loader-network: loader-net.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-        ../kudzu/libkudzu.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../kudzu/libkudzu_loader.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
