@@ -226,6 +226,8 @@ class PartitionWindow:
         if request.fstype and request.fstype.getName() in names and \
            request.fstype.isFormattable():
             fstype.setCurrent(request.fstype)
+        else:
+            fstype.setCurrent(fileSystemTypeGetDefault())
         subgrid.setField(fstype, 0, row)
         if usecallback:
             fstype.setCallback(self.fstypeSetCB, (fstype, self.mount))
