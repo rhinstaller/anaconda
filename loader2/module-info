@@ -549,34 +549,14 @@ BusLogic
 	scsi_hostadapter
 	"BusLogic MultiMaster SCSI"
 
-NCR53c406a
-	scsi_hostadapter
-	"NCR53c406a-based SCSI"
-
-# not a module
-#a2091
-#a3000
-a100u2w
-	scsi_hostadapter
-	"Initio INI-9100UW"
-	aha152x "ioport, irq, host scsiid"
-
 aacraid
         scsi_hostadapter
         "Adaptec AACRAID"
-
-advansys
-	scsi_hostadapter
-	"AdvanSys SCSI"
 
 aha152x
 	scsi_hostadapter
 	"Adaptec AHA-152x"
 	aha152x "ioport, irq, host scsiid"
-
-aha1542
-	scsi_hostadapter
-	"Adaptec AHA-154x and 631x-based"
 
 aic7xxx
 	scsi_hostadapter
@@ -606,50 +586,17 @@ cpqarray
 	scsi_hostadapter
 	"Compaq Smart/2 RAID Controller"
 
-cpqfc
-	scsi_hostadapter
-	"Compaq FibreChannel Controller"
-
 DAC960
 	scsi_hostadapter
 	"Mylex DAC960 RAID Controller"
-
-dmx319ld
-	scsi_hostadapter
-	"Domex DMX3191D"
 
 dpt_i2o
 	scsi_hostadapter
 	"Adaptec I2O RAID Driver"
 	
-# deprecated
-eata
-	scsi_hostadapter
-	"All DMA-capable DPT SCSI"
-# deprecated
-eata_dma
-	scsi_hostadapter
-	"All DMA-capable DPT SCSI (dma mode)"
-
-# deprecated
-#eata_pio
-#	scsi_hostadapter
-#	"All PIO-capable DPT SCSI"
-
 fcal
 	scsi_hostadapter
 	"Sun Enterprise Network Array (FC-AL)"
-
-# not a module
-# esp
-
-fdomain
-	scsi_hostadapter
-	"Future Domain TMC-16xx SCSI"
-
-g_NCR5380
-	scsi_hostadapter
-	"NCR5380 (generic driver)"
 
 gdth
 	scsi_hostadapter
@@ -664,10 +611,6 @@ i2o_pci
 i2o_block
         scsi
         "I2O Block driver"
-
-initio
-	scsi_hostadapter
-	"Initio SCSI"
 
 ips
 	scsi_hostadapter
@@ -689,14 +632,6 @@ ncr53c8xx
 	scsi_hostadapter
 	"Symbios/NCR 53C8xx"
 
-pci2000
-	scsi_hostadapter
-	"PCI-2000 IntelliCache"
-
-pci2220i
-	scsi_hostadapter
-	"PCI-2220I EIDE RAID"
-
 pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
@@ -704,15 +639,6 @@ pluto
 pcd
 	block-major-46  cdrom
 	"Parallel-port IDE CDROM"
-
-qlogicfas
-	scsi_hostadapter
-	"Qlogic FAS408 SCSI"
-
-# XXX fixme - need space
-#qlogicfc
-#	scsi_hostadapter
-#	"Qlogic ISP2x00 SCSI"
 
 qla1280
 	scsi_hostadapter
@@ -730,43 +656,9 @@ qla2300
 	scsi_hostadapter
 	"Qlogic 2300"
 
-qlogicisp
-	scsi_hostadapter
-	"QLogic ISP1020 SCSI"
-
 qlogicpti
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI SBUS"
-
-#scsi
-# Can kerneld actually request this?
-#	scsi
-#	"SCSI Protocol support (midlevel driver)"
-
-#sd
-#	block-major-8	sd
-#	"SCSI disk protocol"
-
-seagate
-	scsi_hostadapter
-	"Seagate ST-01/02, Future Domain TMC-8xx"
-
-#sg
-#	char-major-21	sg
-#	"SCSI generic driver for user-level SCSI protocol drivers"
-
-#sr
-#	block-major-11	sr
-#	"SCSI CD-ROM protocol"
-
-#st
-#	char-major-10	st
-#	"SCSI tape protocol"
-
-#not currently used
-#sym53c416
-#	scsi_hostadapter
-#	"sym53c416"
 
 # needed for sparc
 sym53c8xx
@@ -776,22 +668,6 @@ sym53c8xx
 sym53c8xx_2
 	scsi_hostadapter
 	"Alternate Symbios 53C896 Driver"
-
-tmscsim
-	scsi_hostadapter
-	"Tekram DC-390(T) PCI"
-
-u14-34f
-	scsi_hostadapter
-	"UltraStor 14F/34F (not 24F)"
-
-ultrastor
-	scsi_hostadapter
-	"UltraStor 14F/24F/34F"
-
-#wd33c93
-#	scsi_hostadapter
-#	"Amiga A2091/590"
 
 # drivers/cdrom
 
