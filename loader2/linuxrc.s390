@@ -239,6 +239,7 @@ elif [ -n "$LCS" -o -n "$TR" ]; then
 	insmod lcs$LO
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
+   echo "alias $DEVICE lcs" >> /tmp/modules.conf
 elif [ -n "$QETH" -o -n "$HSI" ]; then
 	if [ "$DEVICE" = "eth0" -a "$HSI" = "on" ]; then
 		DEVICE="hsi0"
