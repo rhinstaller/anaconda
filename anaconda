@@ -39,7 +39,7 @@ setverPath = None
 
 gettext_rh.bindtextdomain("anaconda", "/usr/share/locale")
 gettext_rh.textdomain("anaconda")
-_ = gettext.gettext
+_ = gettext_rh.gettext
 
 (args, extra) = isys.getopt(sys.argv[1:], 'GTRtdr:fm:', 
           [ 'gui', 'text', 'reconfig', 'test', 'debug',
