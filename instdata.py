@@ -69,6 +69,7 @@ class InstallData:
         self.dbpath = None
         self.upgradeRoot = None
         self.upgradeSwapInfo = None
+        self.configFileData = self.tmpData
 
     def setInstallProgressClass(self, c):
 	self.instProgress = c
@@ -150,10 +151,12 @@ class InstallData:
 	#
 
 
-    def __init__(self, extraModules, floppyDevice):
+    def __init__(self, extraModules, floppyDevice, configFileData):
 	self.instLanguage = language.InstallTimeLanguage()
 	self.keyboard = kbd.Keyboard()
+        self.tmpData = configFileData
 
+        self.configFileData = None
         self.mouse = None
         self.monitor = None
         self.videocard = None

@@ -45,7 +45,7 @@ installSteps = [
     ( "language", ("intf", "id.instLanguage") ),
     ( "keyboard", ("id.instLanguage", "id.keyboard") ),
     ( "mouse", ("id.mouse", ) ),
-    ( "welcome", () ),
+    ( "welcome", ("id.configFileData", ) ),
     ( "reconfigwelcome", () ),
     ( "reconfigkeyboard", ("id.instLanguage", "id.keyboard" ) ),
     ( "installtype", ("dispatch", "id", "method", "intf") ),

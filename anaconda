@@ -527,7 +527,8 @@ if method:
 
 floppyDevice = floppy.probeFloppyDevice()
 
-id = instClass.installDataClass(extraModules, floppyDevice)
+id = instClass.installDataClass(extraModules, floppyDevice, configFileData)
+#id = instClass.installDataClass(extraModules, floppyDevice)
 
 if mousehw:
     id.setMouse(mousehw)
@@ -572,7 +573,7 @@ instClass.setSteps(dispatch)
 #	    instClass.setMouseType("Sun - Mouse", "sunmouse")
 
 try:
-    intf.run(id, dispatch)
+    intf.run(id, dispatch, configFileData)
 except SystemExit, code:
     intf.shutdown()
 except:

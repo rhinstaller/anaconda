@@ -310,7 +310,7 @@ class InstallInterface:
     def getBootdisk (self):
         return None
 
-    def run(self, id, dispatch):
+    def run(self, id, dispatch, configFileData):
         from xkb import XKB
         kb = XKB()
 
@@ -335,7 +335,7 @@ class InstallInterface:
 	lang = id.instLanguage.getCurrent()
 	lang = id.instLanguage.getLangNick(lang)
         self.icw = InstallControlWindow (self, self.dispatch, lang)
-        self.icw.run (self.runres)
+        self.icw.run (self.runres, configFileData)
 
 class InstallControlWindow:
     def setLanguage (self, locale):
@@ -662,13 +662,15 @@ class InstallControlWindow:
         self.window.set_border_width(0)
         vbox = GtkVBox (FALSE, 10)
 
+        image = self.configFileData["TitleBar"]
+
         # Create header at the top of the installer
         if runres != '640x480':
-            for dir in ["/usr/share/anaconda/pixmaps/",
-                      "pixmaps/",
+            for dir in ["/usr/share/anaconda/",
+                      "",
                       "/tmp/updates"]:
                 try:
-                    im = GdkImlib.Image (dir + "anaconda_header.png")
+                    im = GdkImlib.Image (dir + image)
                 except:
                     im = None
                 else:
@@ -682,7 +684,8 @@ class InstallControlWindow:
                 a.set (0.5, 0.5, 1.0, 1.0)
                 vbox.pack_start (a, FALSE, TRUE, 0)
             else:
-                print _("Unable to load anaconda_header.png")
+                print _("Unable to load title bar")
+
 
 	self.loadReleaseNotes()
 
@@ -752,7 +755,8 @@ class InstallControlWindow:
 
         splashScreenPop()
 
-    def run (self, runres):
+    def run (self, runres, configFileData):
+        self.configFileData = configFileData
         self.setup_window (runres)
         mainloop ()
             
