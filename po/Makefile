@@ -88,6 +88,6 @@ missing-mixed:
 	done
 
 %.mo: %.po
-	msgcat --use-first $< timeconfig/$< | msgfmt --check -o $@ -
+	msgfmt --check -o $@ $<
 
 depend:

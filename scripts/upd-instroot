@@ -156,7 +156,7 @@ PACKAGESGR="anaconda XFree86-libs libpng XFree86-75dpi-fonts
            redhat-config-keyboard Xft fontconfig redhat-artwork
            ttfonts-ja ttfonts-zh_TW bitmap-fonts-cjk urw-fonts 
            comps-extras XFree86-libs-data convertdb1
-           vnc-server libjpeg tcp_wrappers"
+           vnc-server libjpeg tcp_wrappers redhat-config-date"
 
 #
 # stuff ONLY included for rescue mode
@@ -620,6 +620,7 @@ usr/share/fonts/ko/TrueType/dotum.ttf
 usr/share/fonts/ja/TrueType/kochi-gothic-subst.ttf
 usr/share/fonts/zh_TW/TrueType/bsmi00lp.ttf
 usr/share/locale/*/LC_MESSAGES/anaconda.mo
+usr/share/locale/*/LC_MESSAGES/redhat-config-date.mo
 usr/share/locale/*/LC_MESSAGES/redhat-dist.mo
 usr/share/locale/*/LC_MESSAGES/redhat-config-keyboard.mo
 usr/share/locale/*/LC_MESSAGES/gtk20.mo
