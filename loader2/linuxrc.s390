@@ -360,7 +360,7 @@ export LD_LIBRARY_PATH PATH HOME PYTHONPATH
 EOF
 
 
-if [ "$NETTYPE" = "ctc" ]; then
+if [ "$NETTYPE" = "ctc" -o "$NETTYPE" = "escon" -o "$NETTYPE" = "iucv" ]; then
    echo "REMIP=$GATEWAY" >> /tmp/netinfo 
    echo "export REMIP=$GATEWAY" >> /etc/profile
 fi
