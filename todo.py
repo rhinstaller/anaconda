@@ -1820,6 +1820,10 @@ class ToDo:
             logname = '/tmp/install.log'
 
         self.instLogName = self.instPath + logname
+        try:
+            os.unlink (self.instLogName)
+        except OSError:
+            pass
 	self.instLog = open(self.instLogName, "w+")
 	syslog = InstSyslog (self.instPath, self.instPath + logname)
 
