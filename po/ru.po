@@ -666,9 +666,8 @@ msgid "Skip boot disk creation"
 msgstr "Пропустить создание загрузочного диска"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Инсталляция"
+msgstr ""
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
@@ -760,9 +759,8 @@ msgid "Upgrade"
 msgstr "Обновление"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Использовать fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -781,9 +779,8 @@ msgid "Variant"
 msgstr "Вариант"
 
 #: ../iw/keyboard.py:95
-#, fuzzy
 msgid "Test your selection here:"
-msgstr "Тип клавиатуры"
+msgstr "Проверьте ваш выбор здесь:"
 
 #: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
@@ -1574,14 +1571,11 @@ msgid "No RAID Drive Constraint"
 msgstr ""
 
 #: ../libfdisk/gnomefsedit.c:1081
-#, fuzzy
 msgid ""
 "You have configured a RAID partition without constraining the partition to a "
 "single drive.\n"
 " Are you sure you want to do this?"
 msgstr ""
-"Вы не выбрали точку монтирования для этого раздела. Оставить раздел без "
-"точки монтирования?"
 
 #: ../libfdisk/gnomefsedit.c:1087
 msgid "Close"
@@ -2201,9 +2195,8 @@ msgid "Network gateway"
 msgstr "Шлюз сети"
 
 #: ../loader/net.c:611
-#, fuzzy
 msgid "IP address"
-msgstr "IP адрес:"
+msgstr "адрес IP"
 
 #: ../loader/net.c:613
 msgid "Nameserver"
@@ -2315,7 +2308,7 @@ msgstr ""
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
-msgstr "ЕСли вы используете HTTP proxy-сервер, укажите его имя или адрес IP"
+msgstr "Если вы используете HTTP proxy-сервер, укажите его имя или адрес IP"
 
 #: ../loader/urls.c:295
 msgid "Account name:"
