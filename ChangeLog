@@ -1,5 +1,10 @@
 2004-10-26  Jeremy Katz  <katzj@redhat.com>
 
+	* upgrade.py (upgradeFindPackages): firefox replaces
+	mozilla/netscape (#137244)
+	
+2004-10-26  Jeremy Katz  <katzj@redhat.com>	
+
 	* anaconda.spec: Bump version.
 
 	* kickstart.py (KickstartBase.definePartition): More fixing for
