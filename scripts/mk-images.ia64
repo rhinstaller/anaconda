@@ -11,6 +11,7 @@ prepareBootImage() {
 	dd if=/dev/zero bs=1k count=$BOOTDISKSIZE of=$MBD_TMPIMAGE 2>/dev/null
 	mkdosfs -C $MBD_TMPIMAGE $BOOTDISKSIZE >/dev/null
 	mount -o loop -t vfat $MBD_TMPIMAGE $MBD_BOOTTREE
+	mkdir -p $MBD_BOOTTREE/efi/boot
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/efi/boot/initrd.img
 
 	cp -a $BOOTDISKDIR/* $MBD_BOOTTREE/
