@@ -49,15 +49,6 @@ class FirewallWindow (InstallWindow):
             self.firewall.enabled = 1
             
             count = 0
-            self.firewall.trustdevs = []
-
-            for device in self.devices:
-                val = self.trusted.get_active(count)
-                if val == 1:
-                    self.firewall.trustdevs.append(device)
-                count = count + 1
-
-            count = 0
             for service in self.knownPorts.keys():
                 val = self.incoming.get_active(count)
                 if service == "SSH":
@@ -169,10 +160,7 @@ class FirewallWindow (InstallWindow):
         self.disabled_radio = gtk.RadioButton (None, (_("N_o firewall")))
         self.enabled_radio = gtk.RadioButton (self.disabled_radio,
                                                (_("_Enable firewall")))
-        self.custom_radio = gtk.RadioButton (self.disabled_radio,
-                                             (_("_Custom firewall")))
         self.disabled_radio.connect("clicked", self.activate_firewall)
-        self.custom_radio.connect("clicked", self.activate_firewall)
         self.enabled_radio.connect("clicked", self.activate_firewall)
 
         vbox.pack_start (self.disabled_radio)
@@ -188,8 +176,8 @@ class FirewallWindow (InstallWindow):
         box.pack_start (self.table, gtk.FALSE, 5)
 
         y = 0
-        label = gtk.Label (_("What services should be allowed to pass through "
-                             "the firewall?"))
+        label = gtk.Label (_("Allow others on the internet to access "
+                             "these services."))
 	label.set_size_request(450, -1)
         label.set_alignment(0.0, 0.0)
         self.table.attach(label, 0, 2, y, y + 1, gtk.EXPAND | gtk.FILL, gtk.FILL, 5, 5)
@@ -211,14 +199,17 @@ class FirewallWindow (InstallWindow):
 #        self.table.attach (self.label2, 0, 1, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
         self.table.attach (incomingSW, 0, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
-        self.knownPorts = {"SSH": self.firewall.ssh,
-                           "Telnet": self.firewall.telnet,
-                           "WWW (HTTP)": self.firewall.http,
-                           "Mail (SMTP)": self.firewall.smtp,
-                           "FTP": self.firewall.ftp}
+        self.knownPorts = {"SSH": (self.firewall.ssh,
+                                   N_("Remote Login (SSH)")),
+                           "WWW (HTTP)": (self.firewall.http,
+                                          N_("Web Server")),
+                           "Mail (SMTP)": (self.firewall.smtp,
+                                           N_("Mail Server (SMTP)")),
+                           "FTP": (self.firewall.ftp,
+                                   N_("File Transfer (FTP)"))}
 
-        for item in self.knownPorts.keys():
-            self.incoming.append_row ((item, ""), self.knownPorts[item])
+        for (key, (val, disp))   in self.knownPorts.items():
+            self.incoming.append_row ((disp, key), val)
 
         y = y + 1
         self.label3 = gui.MnemonicLabel (_("Other _ports:"))
@@ -227,40 +218,6 @@ class FirewallWindow (InstallWindow):
 
         self.table.attach (self.label3, 0, 1, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
         self.table.attach (self.ports, 1, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 10, 5)
-        y = y + 1
-
-        label = gui.WrappingLabel (_("If you would like to allow all traffic "
-                                     "from a device, select it below."))
-	label.set_size_request(450, -1)        
-        label.set_alignment(0, 1)
-        self.table.attach(label, 0, 2, y, y + 1,
-                     gtk.FILL, gtk.FILL, 5, 5)
-
-        y = y + 1
-        hbox = gtk.HBox(gtk.FALSE, 10)
-        self.label1 = gui.MnemonicLabel (_("_Trusted devices:"))
-        self.label1.set_alignment (0.2, 0.0)
-
-        self.trusted = checklist.CheckList(1)
-	self.trusted.set_size_request(-1, 40)
-        self.label1.set_mnemonic_widget(self.trusted)
-
-        trustedSW = gtk.ScrolledWindow()
-        trustedSW.set_border_width(5)
-        trustedSW.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
-        trustedSW.set_shadow_type(gtk.SHADOW_IN)
-        trustedSW.add(self.trusted)
-
-        if self.devices != []:
-#           self.table.attach (self.label1, 0, 1, y, y + 1, gtk.FILL, gtk.FILL, 5, 5)
-            self.table.attach (trustedSW, 0, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 0)
-
-            for device in self.devices:
-                if device in self.firewall.trustdevs:
-                    self.trusted.append_row ((device, device), gtk.TRUE)
-                else:
-                    self.trusted.append_row ((device, device), gtk.FALSE)
-
 
         y = y + 1
 
