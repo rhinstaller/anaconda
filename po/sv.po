@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2001-03-09 11:30-0500\n"
-"PO-Revision-Date: 2001-03-08 13:43+0100\n"
+"PO-Revision-Date: 2001-03-08 17:51+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1065,10 +1065,17 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"Ett fel uppstod vid installationen av bootladdaren.\n"
+"\n"
+"Vi rekommenderar VARMT att du skapar en bootdiskett när du frågas om detta, "
+"annars kommer du kanske inte att kunna starta Red Hat Linux.\n"
+"\n"
+"Felet som rapporterades var:\n"
+"\n"
 
 #: ../todo.py:1997
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Fel med bootladdaren"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -2086,15 +2093,15 @@ msgstr "Färgdjup:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 färger (8 bitar)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Tusentals färger (16 bitar)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Miljontals färger (24 bitar)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2644,8 +2651,9 @@ msgid "Upgrade Partition"
 msgstr "Uppgradera partition"
 
 #: ../textw/upgrade_text.py:182
+#, fuzzy
 msgid "Going to upgrade partition /dev/"
-msgstr "Kommer att uppgradera partitionen /dev/"
+msgstr "Uppgradera partition"
 
 #: ../textw/upgrade_text.py:191
 msgid "Customize Packages to Upgrade"
@@ -5134,6 +5142,8 @@ msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"Tyska           de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europa/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5195,5 +5205,8 @@ msgstr "Turkiska"
 msgid "Ukrainian"
 msgstr "Ukrainska"
 
-#~ msgid "German"
-#~ msgstr "Tyska"
+#~ msgid ""
+#~ "The Red Hat Linux OS installed on partition /dev/%s will now be upgraded."
+#~ msgstr ""
+#~ "Red Hat Linux-installationen på partitionen /dev/%s kommer nu att "
+#~ "uppgraderas."
