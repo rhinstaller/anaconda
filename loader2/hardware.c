@@ -285,7 +285,7 @@ void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
     return;
 #else
     char **dasd_parms;
-    char *line, *ports = NULL;
+    char *line;
     char *parms = NULL, *parms_end;
     FILE *fd;
 
