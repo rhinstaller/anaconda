@@ -70,14 +70,6 @@
 
 void startNewt(int flags);
 void stopNewt();
-int setupRamdisk(void);
-
-
-#if !defined(__s390__) && !defined(__s390x__)
-#define RAMDISK_DEVICE "/dev/ram"
-#else
-#define RAMDISK_DEVICE "/dev/ram2"
-#endif
 
 
 /* JKFIXME: I don't like all of the _set attribs, but without them,

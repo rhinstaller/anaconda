@@ -30,14 +30,11 @@
 #include "moduledeps.h"
 #include "moduleinfo.h"
 #include "windows.h"
+#include "hardware.h"
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"
 #include "../isys/probe.h"
-
-/* JKFIXME: busProbe et al need to go into a hardware file */
-int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe, struct knownDevices * kd, int flags);
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
                                     "modules.cgz", "rhdd-6.1", NULL };
