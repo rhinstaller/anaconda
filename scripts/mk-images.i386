@@ -148,7 +148,7 @@ makebootdisk --imagename ja/pcmcia.img \
 	     --bootdisksize 1440 \
 	     --initrdflags '--japanese
 			    --pcmcia \
-		     	    --initrdsize 2800 \
+		     	    --initrdsize 3072 \
 			    --loaderbin loader-pcmcia-kon \
 			    --modules "$PCMCIAMAINMODULES"'
 
