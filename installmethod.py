@@ -32,8 +32,8 @@ class InstallMethod:
 	for pre in tryloc:
 	    tmpname = pre + "/" + file
 	    if os.access(tmpname, os.R_OK):
-		log("Using %s", tmpname)
-		return tmpname
+		log("Using file://%s", tmpname)
+		return "file://%s" %(tmpname,)
 
 	log("Unable to find %s", file)
 	return None
