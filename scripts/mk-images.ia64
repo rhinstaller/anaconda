@@ -2,7 +2,7 @@
 USBMODS="usb-uhci usb-ohci hid keybdev"
 LATEUSBMODS="mousedev"
 
-SECSTAGE="nfs fat vfat raid0 raid1 raid5 ext3 $LATEUSBMODS"
+SECSTAGE="nfs fat vfat raid0 raid1 raid5 lvm-mod ext3 $LATEUSBMODS"
 NETMODULES="3c59x acenic bcm5700 e100 e1000 eepro100 hamachi sk98lin starfire sunhme tulip yellowfin tg3"
 SCSIMODULES="sd_mod sr_mod scsi_mod DAC960 cciss cpqarray aic7xxx aic7xxx_mod megaraid qla1280 qla2200 qla2300 sym53c8xx sym53c8xx_2 mptscsih mptbase ips"
 IDEMODULES="ide-mod ide-probe-mod ide-disk ide-cd"
