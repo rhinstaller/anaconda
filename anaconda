@@ -268,6 +268,13 @@ def doShutdownX11Actions():
 
 
 def setupRhplUpdates():
+    import glob
+
+    # get the python version.  first of /usr/lib/python*, strip off the
+    # first 15 chars
+    pyvers = glob.glob("/usr/lib/python*")
+    pyver = pyvers[0][15:]
+    
     try:
         os.mkdir("/tmp/updates")
     except:
@@ -281,19 +288,19 @@ def setupRhplUpdates():
             os.symlink("/mnt/source/RHupdates/rhpl/%s" %(f,),
                        "/tmp/updates/rhpl/%s" %(f,))
 
-    if os.access("/usr/lib64/python2.2/site-packages/rhpl", os.X_OK):
+    if os.access("/usr/lib64/python%s/site-packages/rhpl" %(pyver,), os.X_OK):
         libdir = "lib64"
     else:
         libdir = "lib"
             
-    for f in os.listdir("/usr/%s/python2.2/site-packages/rhpl" %(libdir,)):
+    for f in os.listdir("/usr/%s/python%s/site-packages/rhpl" %(libdir,pyver)):
         if os.access("/tmp/updates/rhpl/%s" %(f,), os.R_OK):
             continue
         elif f.endswith(".pyc") and os.access("/tmp/updates/rhpl/%s" %(f[:-1],), os.R_OK):
             # dont copy .pyc files we are replacing with updates
             continue
         
-        os.symlink("/usr/%s/python2.2/site-packages/rhpl/%s" %(libdir, f),
+        os.symlink("/usr/%s/python%s/site-packages/rhpl/%s" %(libdir, pyver,f),
                    "/tmp/updates/rhpl/%s" %(f,))
     
 # For anaconda in test mode
@@ -688,6 +695,7 @@ if traceOnly:
     import findpackageset
     import libxml2
     import cmdline
+    import encodings.utf_8
 
     installclass.availableClasses()
 
