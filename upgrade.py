@@ -159,7 +159,7 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     dispatch.skipStep("addswap", 0)
     
     # don't do this if we have more then 250 MB
-    if mem > 250:
+   if mem > 250:
         dispatch.skipStep("addswap", 1)
         return
     
@@ -168,6 +168,11 @@ def upgradeSwapSuggestion(dispatch, id, instPath):
     # if we have twice as much swap as ram and at least 192 megs
     # total, we're safe 
     if (swap >= (mem * 1.5)) and (swap + mem >= 192):
+        dispatch.skipStep("addswap", 1)
+	return
+
+    # if our total is 512 megs or more, we should be safe
+    if (swap + mem >= 512):
         dispatch.skipStep("addswap", 1)
 	return
 
