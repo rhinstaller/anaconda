@@ -4,6 +4,20 @@ import isys
 import iutil
 import rpm
 
+def needsEnterpriseKernel():
+    rc = 0
+
+    f = open("/proc/e820info", "r")
+    for l in f.readlines():
+	l = string.split(l)
+	if l[3] == '(reserved)': continue
+
+	regionEnd = (string.atol(l[0], 16) - 1) + string.atol(l[2], 16)
+	if regionEnd > 0xffffffffL:
+	    rc = 1
+
+    return rc
+
 class LiloConfigFile:
     def __repr__ (self, tab = 0):
 	s = ""
@@ -335,6 +349,12 @@ class LiloConfiguration:
 	lilo.addEntry("default", self.default)
 
 	mainLabelUsed = 0
+
+	if (needsEnterpriseKernel() and hdList.has_key('kernel-enterprise') and 
+                        hdList['kernel-enterprise'].selected):
+	    mainLabelUsed = 1
+	    kernelList.append((main,
+			      hdList['kernel-enterprise'], "enterprise"))
 
 	if (smpInstalled):
 	    thisLabel = main
