@@ -447,7 +447,14 @@ def sniffFilesystemType(device):
 def getRedHatReleaseString(mountpoint):
     if os.access(mountpoint + "/etc/redhat-release", os.R_OK):
         f = open(mountpoint + "/etc/redhat-release", "r")
-        lines = f.readlines()
+        try:
+            lines = f.readlines()
+        except IOError:
+            try:
+                f.close()
+            except:
+                pass
+            return ""
         f.close()
         # return the first line with the newline at the end stripped
         if len(lines) == 0:
