@@ -13,7 +13,7 @@
 #
 # ... And many others
 #
-# Copyright 1999-2004 Red Hat, Inc.
+# Copyright 1999-2005 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -380,6 +380,9 @@ if os.environ.has_key('HOME') and not os.environ.has_key("XAUTHORITY"):
 os.environ['HOME'] = '/tmp'
 os.environ['LC_NUMERIC'] = 'C'
 os.environ["GCONF_GLOBAL_LOCKS"] = "1"
+
+# In theory, this gets rid of our LVM file descriptor warnings
+os.environ["LVM_SUPPRESS_FD_WARNINGS"] = "1"
 
 if os.environ.has_key ("ANACONDAARGS"):
     theargs = string.split (os.environ["ANACONDAARGS"])
