@@ -134,6 +134,7 @@ class LanguageSupportWindow:
         for lang in languages:
             if lang == current:
                 ct.append(lang, lang, 1)
+		ct.setCurrent(lang)
             else:
                 ct.append(lang, lang, 0)
 
