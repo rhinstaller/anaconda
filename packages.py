@@ -18,6 +18,7 @@ import isys
 import rpm
 import os
 import timer
+import time
 import sys
 import string
 import pcmcia
