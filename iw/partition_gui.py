@@ -92,7 +92,7 @@ class DiskStripeSlice:
         elif event.type == gtk.gdk._2BUTTON_PRESS:
             self.editCb()
                 
-        return gtk.TRUE
+        return True
 
     def shutDown(self):
         self.parent = None
@@ -171,7 +171,7 @@ class DiskStripeSlice:
                      outline_color='black', width_units=1.0)
         self.text.set(x=2.0, y=texty + 2.0, text=self.sliceText(),
                       fill_color='black',
-                      anchor=gtk.ANCHOR_NW, clip=gtk.TRUE,
+                      anchor=gtk.ANCHOR_NW, clip=True,
                       clip_width=xlength-1, clip_height=yheight-1)
         self.hideOrShowText()
        
@@ -447,15 +447,15 @@ class DiskTreeModel(gtk.TreeStore):
                 rowpart = None
             if rowpart == partition:
                 path = self.get_path(parent)
-                self.view.expand_row(path, gtk.TRUE)
+                self.view.expand_row(path, True)
                 selection = self.view.get_selection()
                 if selection is not None:
                     selection.unselect_all()
                     selection.select_iter(iter)
                 path = self.get_path(iter)
                 col = self.view.get_column(0)
-                self.view.set_cursor(path, col, gtk.FALSE)
-                self.view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                self.view.set_cursor(path, col, False)
+                self.view.scroll_to_cell(path, col, True, 0.5, 0.5)
                 return
             # if this is a parent node, and it didn't point to the partition
             # we're looking for, get the first child and iter over them
@@ -537,7 +537,7 @@ class PartitionWindow(InstallWindow):
     def __init__(self, ics):
 	InstallWindow.__init__(self, ics)
         ics.setTitle(_("Partitioning"))
-        ics.setNextEnabled(gtk.TRUE)
+        ics.setNextEnabled(True)
         ics.readHTML("partition")
         self.parent = ics.getICW().window
 
@@ -575,17 +575,17 @@ class PartitionWindow(InstallWindow):
 	    
         image = gtk.Image()
         image.set_from_stock('gtk-dialog-warning', gtk.ICON_SIZE_DIALOG)
-        hbox = gtk.HBox(gtk.FALSE, 9)
+        hbox = gtk.HBox(False, 9)
 	al=gtk.Alignment(0.0, 0.0)
 	al.add(image)
-        hbox.pack_start(al, gtk.FALSE)
+        hbox.pack_start(al, False)
 
         buffer = gtk.TextBuffer(None)
         buffer.set_text(comments)
         text = gtk.TextView()
         text.set_buffer(buffer)
-        text.set_property("editable", gtk.FALSE)
-        text.set_property("cursor_visible", gtk.FALSE)
+        text.set_property("editable", False)
+        text.set_property("cursor_visible", False)
         text.set_wrap_mode(gtk.WRAP_WORD)
         
         sw = gtk.ScrolledWindow()
@@ -595,26 +595,26 @@ class PartitionWindow(InstallWindow):
         sw.set_shadow_type(gtk.SHADOW_IN)
         
         info1 = gtk.Label(labelstr1)
-        info1.set_line_wrap(gtk.TRUE)
+        info1.set_line_wrap(True)
         info1.set_size_request(400, -1)
 
         info2 = gtk.Label(labelstr2)
-        info2.set_line_wrap(gtk.TRUE)
+        info2.set_line_wrap(True)
         info2.set_size_request(400, -1)
         
-        vbox = gtk.VBox(gtk.FALSE, 9)
+        vbox = gtk.VBox(False, 9)
 
 	al=gtk.Alignment(0.0, 0.0)
 	al.add(info1)
-        vbox.pack_start(al, gtk.FALSE)
+        vbox.pack_start(al, False)
 	
-        vbox.pack_start(sw, gtk.TRUE, gtk.TRUE)
+        vbox.pack_start(sw, True, True)
 
 	al=gtk.Alignment(0.0, 0.0)
 	al.add(info2)
-        vbox.pack_start(al, gtk.TRUE)
+        vbox.pack_start(al, True)
 	
-        hbox.pack_start(vbox, gtk.TRUE, gtk.TRUE)
+        hbox.pack_start(vbox, True, True)
 
         win.vbox.pack_start(hbox)
         win.set_position(gtk.WIN_POS_CENTER)
@@ -738,7 +738,7 @@ class PartitionWindow(InstallWindow):
                     if lvrequest.format:
 			self.tree[iter]['Format'] = self.checkmark_pixbuf
                     self.tree[iter]['IsFormattable'] = lvrequest.fstype.isFormattable()
-		    self.tree[iter]['IsLeaf'] = gtk.TRUE
+		    self.tree[iter]['IsLeaf'] = True
 		    self.tree[iter]['Type'] = ptype
 		    self.tree[iter]['Start'] = ""
 		    self.tree[iter]['End'] = ""
@@ -776,14 +776,14 @@ class PartitionWindow(InstallWindow):
                     self.tree[iter]['IsFormattable'] = request.fstype.isFormattable()
                 else:
                     ptype = _("None")
-                    self.tree[iter]['IsFormattable'] = gtk.FALSE
+                    self.tree[iter]['IsFormattable'] = False
 
 		try:
 		    device = "/dev/md%d" % (request.raidminor,)
 		except:
 		    device = "Auto"
 		    
-                self.tree[iter]['IsLeaf'] = gtk.TRUE
+                self.tree[iter]['IsLeaf'] = True
                 self.tree[iter]['Device'] = device
                 self.tree[iter]['Type'] = ptype
                 self.tree[iter]['Start'] = ""
@@ -833,10 +833,10 @@ class PartitionWindow(InstallWindow):
                         raise RuntimeError, ("crossed logical partition "
                                              "before extended")
                     iter = self.tree.append(extendedParent)
-                    self.tree[iter]['IsLeaf'] = gtk.TRUE
+                    self.tree[iter]['IsLeaf'] = True
                 else:
                     iter = self.tree.append(parent)
-                    self.tree[iter]['IsLeaf'] = gtk.TRUE
+                    self.tree[iter]['IsLeaf'] = True
                     
                 if request and request.mountpoint:
                     self.tree[iter]['Mount Point'] = request.mountpoint
@@ -1258,18 +1258,18 @@ class PartitionWindow(InstallWindow):
 	row = row + 1
 	
 	newminor = availminors[0]
-        radioBox = gtk.VBox (gtk.FALSE)
+        radioBox = gtk.VBox (False)
 
         createRAIDpart = gtk.RadioButton(None, _("Create a software RAID _partition."))
-	radioBox.pack_start(createRAIDpart, gtk.FALSE, gtk.FALSE, padding=10)
+	radioBox.pack_start(createRAIDpart, False, False, padding=10)
         createRAIDdev = gtk.RadioButton(createRAIDpart,
 		    _("Create a RAID _device [default=/dev/md%s].") % newminor)
-	radioBox.pack_start(createRAIDdev, gtk.FALSE, gtk.FALSE, padding=10)
+	radioBox.pack_start(createRAIDdev, False, False, padding=10)
 
         doRAIDclone = gtk.RadioButton(createRAIDpart,
 				      _("Clone a _drive to create a "
 					"RAID device [default=/dev/md%s].") % newminor)
-	radioBox.pack_start(doRAIDclone, gtk.FALSE, gtk.FALSE, padding=10)
+	radioBox.pack_start(doRAIDclone, False, False, padding=10)
 
         createRAIDpart.set_active(1)
         doRAIDclone.set_sensitive(0)
@@ -1345,7 +1345,7 @@ class PartitionWindow(InstallWindow):
 #        self.newFsset = self.fsset.copy()
 
 	# load up checkmark
-	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(new_checkmark), new_checkmark, gtk.FALSE)
+	self.checkmark_pixbuf = gtk.gdk.pixbuf_new_from_inline(len(new_checkmark), new_checkmark, False)
 
         # operational buttons
         buttonBox = gtk.HButtonBox()
@@ -1388,19 +1388,19 @@ class PartitionWindow(InstallWindow):
         frame.add(sw)
 	vpaned.add1(frame)
 
-        box = gtk.VBox(gtk.FALSE, 5)
-        box.pack_start(buttonBox, gtk.FALSE)
+        box = gtk.VBox(False, 5)
+        box.pack_start(buttonBox, False)
         sw = gtk.ScrolledWindow()
         sw.add(self.treeView)
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
 	
-        box.pack_start(sw, gtk.TRUE)
+        box.pack_start(sw, True)
 
 	self.toggleViewButton = gtk.CheckButton(_("Hide RAID device/LVM Volume _Group members"))
 	self.toggleViewButton.set_active(not self.show_uneditable)
 	self.toggleViewButton.connect("toggled", self.viewButtonCB)
-	box.pack_start(self.toggleViewButton, gtk.FALSE, gtk.FALSE)
+	box.pack_start(self.toggleViewButton, False, False)
 	
 	vpaned.add2(box)
 
@@ -1413,7 +1413,7 @@ class AutoPartitionWindow(InstallWindow):
     def __init__(self, ics):
     	InstallWindow.__init__(self, ics)
         ics.setTitle(_("Automatic Partitioning"))
-        ics.setNextEnabled(gtk.TRUE)
+        ics.setNextEnabled(True)
         ics.readHTML("autopart")
         self.parent = ics.getICW().window
 
@@ -1473,29 +1473,29 @@ class AutoPartitionWindow(InstallWindow):
         type = partitions.autoClearPartType
         cleardrives = partitions.autoClearPartDrives
         
-        box = gtk.VBox(gtk.FALSE)
+        box = gtk.VBox(False)
         box.set_border_width(5)
 
         label = gui.WrappingLabel(_(autopart.AUTOPART_DISK_CHOICE_DESCR_TEXT))
         label.set_alignment(0.0, 0.0)
-        box.pack_start(label, gtk.FALSE, gtk.FALSE)
+        box.pack_start(label, False, False)
 
         # what partition types to remove
-        clearbox = gtk.VBox(gtk.FALSE)
+        clearbox = gtk.VBox(False)
         label = gui.WrappingLabel(_("I want to have automatic partitioning:"))
         label.set_alignment(0.0, 0.0)
-        clearbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
+        clearbox.pack_start(label, False, False, 10)
         
-        radioBox = gtk.VBox(gtk.FALSE)
+        radioBox = gtk.VBox(False)
         self.clearLinuxRB = gtk.RadioButton(
             None, _(autopart.CLEARPART_TYPE_LINUX_DESCR_TEXT))
-	radioBox.pack_start(self.clearLinuxRB, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.clearLinuxRB, False, False)
         self.clearAllRB = gtk.RadioButton(
             self.clearLinuxRB, _(autopart.CLEARPART_TYPE_ALL_DESCR_TEXT))
-	radioBox.pack_start(self.clearAllRB, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.clearAllRB, False, False)
         self.clearNoneRB = gtk.RadioButton(
             self.clearLinuxRB, _(autopart.CLEARPART_TYPE_NONE_DESCR_TEXT))
-	radioBox.pack_start(self.clearNoneRB, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.clearNoneRB, False, False)
 
         if type == autopart.CLEARPART_TYPE_LINUX:
             self.clearLinuxRB.set_active(1)
@@ -1507,16 +1507,16 @@ class AutoPartitionWindow(InstallWindow):
 	align = gtk.Alignment()
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
-	clearbox.pack_start(align, gtk.FALSE, gtk.FALSE)
+	clearbox.pack_start(align, False, False)
 
-        box.pack_start(clearbox, gtk.FALSE, gtk.FALSE, 10)
+        box.pack_start(clearbox, False, False, 10)
 
         # which drives to use?
-        drivesbox = gtk.VBox(gtk.FALSE)
+        drivesbox = gtk.VBox(False)
         label = gui.WrappingLabel(_("Select the drive(s) to use for "
                                     "this installation:"))
         label.set_alignment(0.0, 0.0)
-        drivesbox.pack_start(label, gtk.FALSE, gtk.FALSE, 10)
+        drivesbox.pack_start(label, False, False, 10)
         self.drivelist = createAllowedDrivesList(diskset.disks, cleardrives)
 
         # XXX bad use of usize
@@ -1531,25 +1531,25 @@ class AutoPartitionWindow(InstallWindow):
 	align.add(sw)
 	align.set(0.5, 0.5, 0.0, 0.0)
         
-        drivesbox.pack_start(align, gtk.FALSE, gtk.FALSE)
+        drivesbox.pack_start(align, False, False)
 
-        box.pack_start(drivesbox, gtk.FALSE, gtk.FALSE)
+        box.pack_start(drivesbox, False, False)
 
         self.inspect = gtk.CheckButton()
         gui.widgetExpander(self.inspect)
         label = gui.MnemonicLabel(_("Re_view (and modify if needed) "
                                     "the partitions created"))
         label.set_mnemonic_widget(self.inspect)
-        label.set_line_wrap(gtk.TRUE)
+        label.set_line_wrap(True)
         gui.widgetExpander(label, self.inspect)
         label.set_alignment(0.0, 1.0)
         self.inspect.add(label)
 
         self.inspect.set_active(not dispatch.stepInSkipList("partition"))
 
-	box.pack_start(self.inspect, gtk.TRUE, gtk.TRUE, 10)
+	box.pack_start(self.inspect, True, True, 10)
 
-        self.ics.setNextEnabled(gtk.TRUE)
+        self.ics.setNextEnabled(True)
 
 	align = gtk.Alignment()
 	align.add(box)

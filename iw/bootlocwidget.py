@@ -33,7 +33,7 @@ class BootloaderLocationWidget:
         self.driveOrder = bl.drivelist
         self.usingGrub = self.bl.useGrub()
 
-        locationBox = gtk.VBox (gtk.FALSE, 2)
+        locationBox = gtk.VBox (False, 2)
         locationBox.set_border_width(5)
 
         label = gtk.Label(_("Install Boot Loader record on:"))
@@ -42,7 +42,7 @@ class BootloaderLocationWidget:
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        locationBox.pack_start(spacer, gtk.FALSE)
+        locationBox.pack_start(spacer, False)
 
         choices = fsset.bootloaderChoices(diskset, self.bl)
         self.bootDevices = {}
@@ -55,20 +55,20 @@ class BootloaderLocationWidget:
                 (device, desc) = choices[key]
 		radio = gtk.RadioButton(radio,  
 				("/dev/%s %s" % (device, _(desc))))
-                locationBox.pack_start(radio, gtk.FALSE)
+                locationBox.pack_start(radio, False)
                 self.bootDevices[key] = (radio, device, desc)
 
                 if self.bl.getDevice() == device:
-                    radio.set_active(gtk.TRUE)
+                    radio.set_active(True)
                 else:
-                    radio.set_active(gtk.FALSE)
+                    radio.set_active(False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(25, 1)
-        locationBox.pack_start(spacer, gtk.FALSE)
+        locationBox.pack_start(spacer, False)
 
         orderButton = gtk.Button(_("_Change Drive Order"))
-        locationBox.pack_start(orderButton, gtk.FALSE)
+        locationBox.pack_start(orderButton, False)
         orderButton.connect("clicked", self.editDriveOrder)
 
         self.setMbrLabel(self.driveOrder[0])
@@ -81,7 +81,7 @@ class BootloaderLocationWidget:
     def editDriveOrder(self, *args):
         dialog = gtk.Dialog(_("Edit Drive Order"), flags = gtk.DIALOG_MODAL)
         gui.addFrame(dialog)
-        dialog.set_modal(gtk.TRUE)
+        dialog.set_modal(True)
         dialog.set_position(gtk.WIN_POS_CENTER)
 
         label = gui.WrappingLabel(_("Arrange the drives to be in the same "

@@ -94,7 +94,7 @@ class UpgradeExamineWindow (InstallWindow):
 	self.doupgrade = dispatch.stepInSkipList("installtype")
         self.parts = self.id.rootParts 
 
-        vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox = gtk.VBox (False, 10)
 	vbox.set_border_width (8)
 
 	r = self.createUpgradeOption()
@@ -105,10 +105,10 @@ class UpgradeExamineWindow (InstallWindow):
 	    r.setCurrent(REINSTALL_STR)
 
 	r.setToggleCallback(self.optionToggled)
-	box = gtk.VBox (gtk.FALSE)
-        box.pack_start(b, gtk.FALSE)
+	box = gtk.VBox (False)
+        box.pack_start(b, False)
 
-        vbox.pack_start (box, gtk.FALSE)
+        vbox.pack_start (box, False)
         self.root = self.parts[0]
 
 #
@@ -117,17 +117,17 @@ class UpgradeExamineWindow (InstallWindow):
 #        self.individualPackages = gtk.CheckButton (_("_Customize packages to be "
 #                                                    "upgraded"))
 #        self.individualPackages.set_active (not dispatch.stepInSkipList("indivpackage"))
-#	ipbox = gtk.HBox(gtk.FALSE)
-#	crackhbox = gtk.HBox(gtk.FALSE)
+#	ipbox = gtk.HBox(False)
+#	crackhbox = gtk.HBox(False)
 #	crackhbox.set_size_request(70, -1)
-#	ipbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-#	ipbox.pack_start(self.individualPackages, gtk.TRUE, gtk.TRUE)
+#	ipbox.pack_start(crackhbox, False, False)
+#	ipbox.pack_start(self.individualPackages, True, True)
 #	r.packWidgetInEntry(UPGRADE_STR, ipbox)
         self.individualPackages = None
 
 
 	# hack hack hackity hack
-	upboxtmp = gtk.VBox(gtk.FALSE, 5)
+	upboxtmp = gtk.VBox(False, 5)
 	uplabelstr = _("The following installed system will be upgraded:")
 	self.uplabel = gtk.Label(uplabelstr)
 	self.uplabel.set_alignment(0.0, 0.0)
@@ -151,22 +151,22 @@ class UpgradeExamineWindow (InstallWindow):
 	upboxtmp.pack_start(self.uplabel)
 
 	# more indentation
-	box1 = gtk.HBox(gtk.FALSE)
-	crackhbox = gtk.HBox(gtk.FALSE)
+	box1 = gtk.HBox(False)
+	crackhbox = gtk.HBox(False)
 	crackhbox.set_size_request(35, -1)
-	box1.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-	box1.pack_start(self.upgradecombo, gtk.FALSE, gtk.FALSE)
-	upboxtmp.pack_start(box1, gtk.FALSE, gtk.FALSE)
+	box1.pack_start(crackhbox, False, False)
+	box1.pack_start(self.upgradecombo, False, False)
+	upboxtmp.pack_start(box1, False, False)
 
 	# hack indent it
-	upbox = gtk.HBox(gtk.FALSE)
+	upbox = gtk.HBox(False)
 
-	crackhbox = gtk.HBox(gtk.FALSE)
+	crackhbox = gtk.HBox(False)
 	crackhbox.set_size_request(70, -1)
 
-	upbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-#	upbox.pack_start(upboxtmp, gtk.TRUE, gtk.TRUE)
-	upbox.pack_start(upboxtmp, gtk.FALSE, gtk.FALSE)
+	upbox.pack_start(crackhbox, False, False)
+#	upbox.pack_start(upboxtmp, True, True)
+	upbox.pack_start(upboxtmp, False, False)
 
 	# all done phew
 	r.packWidgetInEntry(UPGRADE_STR, upbox)

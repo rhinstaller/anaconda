@@ -49,9 +49,9 @@ class DesktopChoiceWindow (InstallWindow):
         self.instclass = instclass
         self.grpset = grpset
 
-	vbox = gtk.VBox (gtk.FALSE, 0)
+	vbox = gtk.VBox (False, 0)
 	vbox.set_border_width (5)
-	hbox = gtk.HBox (gtk.FALSE, 0)
+	hbox = gtk.HBox (False, 0)
 
         header = _("The default installation environment includes our "
                    "recommended package selection, including:\n\n")
@@ -72,18 +72,18 @@ class DesktopChoiceWindow (InstallWindow):
 	    
 	label = gui.WrappingLabel(labeltxt)
 
-	hbox.pack_start (label, gtk.FALSE, gtk.FALSE, 0)
-	vbox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 0)
+	hbox.pack_start (label, False, False, 0)
+	vbox.pack_start (hbox, False, False, 0)
 	
 	self.acceptRadio = gtk.RadioButton (None, _("_Install default software packages"))
 	self.customizeRadio = gtk.RadioButton (self.acceptRadio, _("_Customize software packages to be installed"))
-	vbox2 = gtk.VBox (gtk.FALSE)
-	vbox2.pack_start (self.acceptRadio, gtk.FALSE, gtk.FALSE, 0)
-	vbox2.pack_start (self.customizeRadio, gtk.FALSE, gtk.FALSE, 0)
+	vbox2 = gtk.VBox (False)
+	vbox2.pack_start (self.acceptRadio, False, False, 0)
+	vbox2.pack_start (self.customizeRadio, False, False, 0)
 	al = gtk.Alignment(0.5, 0)
 	al.add (vbox2)
 	
-	vbox.pack_start (al, gtk.FALSE, gtk.FALSE, 25)
+	vbox.pack_start (al, False, False, 25)
 	custom = not self.dispatch.stepInSkipList("package-selection")
 	if custom:
 	    self.customizeRadio.set_active(1)

@@ -47,7 +47,7 @@ class TimezoneWindow(InstallWindow):
         else:
             path = "/usr/share/anaconda/pixmaps/map480.png"
         
-        mainBox = gtk.VBox(gtk.FALSE, 5)
+        mainBox = gtk.VBox(False, 5)
 
         zonetab = ZoneTab()
         self.tz = TimezoneMap(zonetab=zonetab, map=path)
@@ -68,18 +68,18 @@ class TimezoneWindow(InstallWindow):
         self.systemUTC = gtk.CheckButton(_("System clock uses _UTC"))
         self.systemUTC.set_active(asUTC)
 
-        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(False, 5)
 	pix = gui.readImageFromFile("timezone.png")
         if pix:
-            hbox.pack_start(pix, gtk.FALSE)
+            hbox.pack_start(pix, False)
         
-        hbox.pack_start(gtk.Label(_("Please select the nearest city in your timezone:")), gtk.FALSE)
-        mainBox.pack_start(hbox, gtk.FALSE)
-        mainBox.pack_start(self.tz, gtk.TRUE, gtk.TRUE)
-        mainBox.pack_start(self.systemUTC, gtk.FALSE)
+        hbox.pack_start(gtk.Label(_("Please select the nearest city in your timezone:")), False)
+        mainBox.pack_start(hbox, False)
+        mainBox.pack_start(self.tz, True, True)
+        mainBox.pack_start(self.systemUTC, False)
         mainBox.set_border_width(5)
 
-        box = gtk.VBox(gtk.FALSE, 5)
+        box = gtk.VBox(False, 5)
         box.pack_start(mainBox)
         box.set_border_width(5)
 

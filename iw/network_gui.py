@@ -149,7 +149,7 @@ class NetworkWindow(InstallWindow):
     def setIPTableSensitivity(self):
 	numactive = self.getNumberActiveDevices()
 	if numactive == 0:
-	    state = gtk.FALSE
+	    state = False
 	else:
 	    state = not self.anyUsingDHCP()
 
@@ -206,7 +206,7 @@ class NetworkWindow(InstallWindow):
         editWin = gtk.Dialog(_("Edit Interface %s") % (dev,),
 			     flags=gtk.DIALOG_MODAL)
         gui.addFrame(editWin)
-        editWin.set_modal(gtk.TRUE)
+        editWin.set_modal(True)
 #        editWin.set_size_request(350, 200)
         editWin.set_position (gtk.WIN_POS_CENTER)
 	
@@ -217,7 +217,7 @@ class NetworkWindow(InstallWindow):
 	DHCPcb = gtk.CheckButton(_("Configure using _DHCP"))
 
 	align.add(DHCPcb)
-	devbox.pack_start(align, gtk.FALSE)
+	devbox.pack_start(align, False)
 
 	align = gtk.Alignment()
 	bootcb = gtk.CheckButton(_("_Activate on boot"))
@@ -226,8 +226,8 @@ class NetworkWindow(InstallWindow):
 	bootcb.set_active(onboot)
 	align.add(bootcb)
 
-	devbox.pack_start(align, gtk.FALSE, padding=6)
-#	devbox.pack_start(gtk.HSeparator(), gtk.FALSE, padding=3)
+	devbox.pack_start(align, False, padding=6)
+#	devbox.pack_start(gtk.HSeparator(), False, padding=3)
 
 	options = [(_("_IP Address"), "ipaddr"),
 		   (_("Net_mask"),    "netmask")]
@@ -259,7 +259,7 @@ class NetworkWindow(InstallWindow):
 	for t in range(len(options)):
 	    label = gtk.Label("%s:" %(options[t][0],))
 	    label.set_alignment(0.0, 0.5)
-	    label.set_property("use-underline", gtk.TRUE)
+	    label.set_property("use-underline", True)
 	    ipTable.attach(label, 0, 1, t+1, t+2, gtk.FILL, 0, 10)
 
 	    entry = ipwidget.IPEditor()
@@ -268,7 +268,7 @@ class NetworkWindow(InstallWindow):
 	    label.set_mnemonic_widget(entry.getFocusableWidget())
 	    ipTable.attach(entry.getWidget(), 1, 2, t+1, t+2, 0, gtk.FILL|gtk.EXPAND)
 
-	devbox.pack_start(ipTable, gtk.FALSE, gtk.FALSE, 6)
+	devbox.pack_start(ipTable, False, False, 6)
         devbox.set_border_width(6)
 
         deventrys = {}
@@ -278,7 +278,7 @@ class NetworkWindow(InstallWindow):
             for t in range(len(devopts)):
                 label = gtk.Label("%s:" %(devopts[t][0],))
                 label.set_alignment(0.0, 0.5)
-                label.set_property("use-underline", gtk.TRUE)
+                label.set_property("use-underline", True)
                 devTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
 
                 entry = gtk.Entry()
@@ -288,7 +288,7 @@ class NetworkWindow(InstallWindow):
                 devTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
 
 
-            devbox.pack_start(devTable, gtk.FALSE, gtk.FALSE, 6)
+            devbox.pack_start(devTable, False, False, 6)
 
 	framelab = _("Configure %s") % (dev,)
 	descr = self.devices[dev].get("desc")
@@ -437,9 +437,9 @@ class NetworkWindow(InstallWindow):
         for device in devnames:
 	    onboot = self.devices[device].get("ONBOOT")
 	    if ((num == 0 and not onboot) or onboot == "yes"):
-		active = gtk.TRUE
+		active = True
 	    else:
-		active = gtk.FALSE
+		active = False
 
 	    bootproto = self.devices[device].get("bootproto")
 	    if not bootproto:
@@ -472,7 +472,7 @@ class NetworkWindow(InstallWindow):
         self.ethdevices.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
 #	self.ethdevices.set_column_title(3, (_("Description")))
 #        self.ethdevices.set_column_sizing (3, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-        self.ethdevices.set_headers_visible(gtk.TRUE)
+        self.ethdevices.set_headers_visible(True)
 
 	self.ignoreEvents = 1
 	iter = self.ethdevices.store.get_iter_first()
@@ -495,7 +495,7 @@ class NetworkWindow(InstallWindow):
     # NetworkWindow tag="netconf"
     def getScreen(self, network, dir, intf):
 	self.intf = intf
-        box = gtk.VBox(gtk.FALSE)
+        box = gtk.VBox(False)
         box.set_border_width(6)
 	self.network = network
         
@@ -508,7 +508,7 @@ class NetworkWindow(InstallWindow):
 
 	self.hostname = self.network.hostname
 
-	devhbox = gtk.HBox(gtk.FALSE)
+	devhbox = gtk.HBox(False)
 
 	self.devlist = self.setupDevices()
 
@@ -518,15 +518,15 @@ class NetworkWindow(InstallWindow):
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
 	devlistSW.set_size_request(-1, 100)
-	devhbox.pack_start(devlistSW, gtk.FALSE, padding=10)
+	devhbox.pack_start(devlistSW, False, padding=10)
 
         buttonbar = gtk.VButtonBox()
         buttonbar.set_layout(gtk.BUTTONBOX_START)
         buttonbar.set_border_width(6)
 	edit = gtk.Button(_("_Edit"))
         edit.connect("clicked", self.editDevice)
-	buttonbar.pack_start(edit, gtk.FALSE)
-	devhbox.pack_start(buttonbar, gtk.FALSE)
+	buttonbar.pack_start(edit, False)
+	devhbox.pack_start(buttonbar, False)
 
 	devhbox.set_border_width(12)
         l = gtk.Label()
@@ -535,31 +535,31 @@ class NetworkWindow(InstallWindow):
         frame.set_label_widget(l)
 	frame.add(devhbox)
         frame.set_shadow_type(gtk.SHADOW_NONE)
-	box.pack_start(frame, gtk.FALSE)
+	box.pack_start(frame, False)
 	
 	# show hostname and dns/misc network info and offer chance to modify
 	hostbox = gtk.HBox()
 	hostbox=gtk.VBox()
 	label=gtk.Label(_("Set the hostname:"))
 	label.set_alignment(0.0, 0.0)
-	hostbox.pack_start(label, gtk.FALSE, gtk.FALSE)
+	hostbox.pack_start(label, False, False)
 	tmphbox=gtk.HBox()
         self.hostnameUseDHCP = gtk.RadioButton(label=_("_automatically via DHCP"))
 	self.hostnameUseDHCP.connect("toggled", self.hostnameUseDHCPCB, None)
 	
-	tmphbox.pack_start(self.hostnameUseDHCP, gtk.FALSE, gtk.FALSE, padding=15)
-	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
+	tmphbox.pack_start(self.hostnameUseDHCP, False, False, padding=15)
+	hostbox.pack_start(tmphbox, False, False, padding=5)
 
 	self.hostnameManual  = gtk.RadioButton(group=self.hostnameUseDHCP, label=_("_manually"))
 	tmphbox=gtk.HBox()
-	tmphbox.pack_start(self.hostnameManual, gtk.FALSE, gtk.FALSE, padding=15)
+	tmphbox.pack_start(self.hostnameManual, False, False, padding=15)
 	self.hostnameEntry = gtk.Entry()
 
-	tmphbox.pack_start(self.hostnameEntry, gtk.FALSE, gtk.FALSE, padding=5)
-	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), gtk.FALSE, gtk.FALSE, padding=0)
+	tmphbox.pack_start(self.hostnameEntry, False, False, padding=5)
+	tmphbox.pack_start(gtk.Label(_('(ex. "host.domain.com")')), False, False, padding=0)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
 
-	hostbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE, padding=5)
+	hostbox.pack_start(tmphbox, False, False, padding=5)
 
 	hostbox.set_border_width(12)
         l = gtk.Label()
@@ -568,7 +568,7 @@ class NetworkWindow(InstallWindow):
         frame.set_label_widget(l)
 	frame.add(hostbox)
         frame.set_shadow_type(gtk.SHADOW_NONE)
-	box.pack_start(frame, gtk.FALSE, gtk.FALSE)
+	box.pack_start(frame, False, False)
 
 
         self.setHostOptionsSensitivity()
@@ -580,7 +580,7 @@ class NetworkWindow(InstallWindow):
 	options = {}
 	for i in range(len(global_options)):
 	    label = gtk.Label("%s:" %(global_option_labels[i],))
-	    label.set_property("use-underline", gtk.TRUE)
+	    label.set_property("use-underline", True)
 	    label.set_alignment(0.0, 0.0)
 	    self.ipTable.attach(label, 0, 1, i, i+1, gtk.FILL, 0)
 	    align = gtk.Alignment(0, 0.5)
@@ -620,7 +620,7 @@ class NetworkWindow(InstallWindow):
         frame.set_label_widget(l)
 	frame.add(self.ipTable)
         frame.set_shadow_type(gtk.SHADOW_NONE)
-	box.pack_start(frame, gtk.FALSE, gtk.FALSE, 5)
+	box.pack_start(frame, False, False, 5)
 	box.set_border_width(6)
 
 	self.hostnameEntry.set_sensitive(not self.hostnameUseDHCP.get_active())

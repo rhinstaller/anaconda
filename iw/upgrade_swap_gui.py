@@ -95,7 +95,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.neededSwap = 1
         self.row = 0
-        box = gtk.VBox (gtk.FALSE, 5)
+        box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
 	label = gtk.Label (_("The 2.4 kernel needs significantly more "
@@ -110,26 +110,26 @@ class UpgradeSwapWindow (InstallWindow):
 
         label.set_alignment (0.5, 0.0)
 #        label.set_size_request(400, 200)
-        label.set_line_wrap (gtk.TRUE)
-        box.pack_start(label, gtk.FALSE)
+        label.set_line_wrap (True)
+        box.pack_start(label, False)
 
         hs = gtk.HSeparator()
-        box.pack_start(hs, gtk.FALSE)
+        box.pack_start(hs, False)
 
         self.option1 = gtk.RadioButton(None,
                                       (_("I _want to create a swap file")))
-        box.pack_start(self.option1, gtk.FALSE)
+        box.pack_start(self.option1, False)
 
         (fsList, suggSize, suggMntPoint) = rc
 
-        self.swapbox = gtk.VBox(gtk.FALSE, 5)
-        box.pack_start(self.swapbox, gtk.FALSE)
+        self.swapbox = gtk.VBox(False, 5)
+        box.pack_start(self.swapbox, False)
         
 
         label = gui.MnemonicLabel (_("Select the _partition to put the swap file on:"))
         a = gtk.Alignment(0.2, 0.5)
         a.add(label)
-        self.swapbox.pack_start(a, gtk.FALSE)
+        self.swapbox.pack_start(a, False)
 
 	self.store = gtk.ListStore(gobject.TYPE_STRING,
 				   gobject.TYPE_STRING,
@@ -157,7 +157,7 @@ class UpgradeSwapWindow (InstallWindow):
 	sw.set_size_request(300, 90)
 	a = gtk.Alignment(0.5, 0.5)
         a.add(sw)
-        self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
+        self.swapbox.pack_start(a, False, True, 10)
 
 	rootiter = self.store.get_iter_first()
 	sel = self.view.get_selection()
@@ -167,30 +167,30 @@ class UpgradeSwapWindow (InstallWindow):
                             "least %d MB.  Please enter a size for the swap "
                             "file:") % suggSize)
         label.set_size_request(400, 40)
-        label.set_line_wrap (gtk.TRUE)
+        label.set_line_wrap (True)
         a = gtk.Alignment(0.5, 0.5)
         a.add(label)
-        self.swapbox.pack_start(a, gtk.FALSE, gtk.TRUE, 10)
+        self.swapbox.pack_start(a, False, True, 10)
 
 
-        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(False, 5)
         a = gtk.Alignment(0.4, 0.5)
         a.add(hbox)
-        self.swapbox.pack_start(a, gtk.FALSE)
+        self.swapbox.pack_start(a, False)
 
         label = gui.MnemonicLabel (_("Swap file _size (MB):"))
-        hbox.pack_start(label, gtk.FALSE)
+        hbox.pack_start(label, False)
 
         self.entry = gtk.Entry(4)
         label.set_mnemonic_widget(self.entry)
         self.entry.set_size_request(40, 25)
         self.entry.set_text(str(suggSize))
-        hbox.pack_start(self.entry, gtk.FALSE, gtk.TRUE, 10)
+        hbox.pack_start(self.entry, False, True, 10)
 
         self.option2 = gtk.RadioButton(self.option1,
                                       (_("I _don't want to create a swap "
                                          "file")))
-        box.pack_start(self.option2, gtk.FALSE, gtk.TRUE, 20)
+        box.pack_start(self.option2, False, True, 20)
 
         self.option1.connect("toggled", self.toggle)
         return box

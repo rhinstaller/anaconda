@@ -58,9 +58,9 @@ class FirewallWindow (InstallWindow):
 
     def activate_firewall (self, widget):
         if self.disabled_radio.get_active ():
-            self.table.set_sensitive(gtk.FALSE)            
+            self.table.set_sensitive(False)            
         else:
-            self.table.set_sensitive(gtk.TRUE)
+            self.table.set_sensitive(True)
 
     def getScreen (self, intf, network, firewall, security):
 	self.firewall = firewall
@@ -73,7 +73,7 @@ class FirewallWindow (InstallWindow):
         
 	self.netCBs = {}
 
-        box = gtk.VBox (gtk.FALSE, 5)
+        box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
         label = gui.WrappingLabel (_("A firewall can help prevent "
@@ -83,9 +83,9 @@ class FirewallWindow (InstallWindow):
         label.set_alignment (0.0, 0)
 	label.set_size_request(450, -1)        
 
-        box.pack_start(label, gtk.FALSE)
+        box.pack_start(label, False)
 
-        vbox = gtk.VBox (gtk.FALSE)
+        vbox = gtk.VBox (False)
 
         self.disabled_radio = gtk.RadioButton (None, (_("N_o firewall")))
         self.enabled_radio = gtk.RadioButton (self.disabled_radio,
@@ -100,10 +100,10 @@ class FirewallWindow (InstallWindow):
         a.add (vbox)
         a.set (0.3, 0, 0.7, 1.0)
 
-        box.pack_start (a, gtk.FALSE, 5)
+        box.pack_start (a, False, 5)
 
         self.table = gtk.Table (2, 8)
-        box.pack_start (self.table, gtk.FALSE, 5)
+        box.pack_start (self.table, False, 5)
 
         y = 0
         label = gui.WrappingLabel (_("You can use a firewall to allow "
@@ -116,7 +116,7 @@ class FirewallWindow (InstallWindow):
         self.table.attach(label, 0, 2, y, y + 1, gtk.EXPAND | gtk.FILL, gtk.FILL, 5, 5)
 
         y = y + 1
-        hbox = gtk.HBox(gtk.FALSE, 10)        
+        hbox = gtk.HBox(False, 10)        
         self.incoming = checklist.CheckList(1)
 	self.incoming.set_size_request(-1, 125)
 
@@ -133,9 +133,9 @@ class FirewallWindow (InstallWindow):
         self.table.attach (incomingSW, 0, 2, y, y + 1, gtk.EXPAND|gtk.FILL, gtk.FILL, 5, 5)
 
         if self.firewall.enabled == 0:
-            self.disabled_radio.set_active (gtk.TRUE)
+            self.disabled_radio.set_active (True)
         else:
-            self.enabled_radio.set_active(gtk.TRUE)
+            self.enabled_radio.set_active(True)
             
         self.activate_firewall(None)
 
@@ -153,10 +153,10 @@ class FirewallWindow (InstallWindow):
         l.set_size_request(400, -1)
         l.set_alignment(0.0, 0.0)
 
-        selbox.pack_start(l, gtk.FALSE)
+        selbox.pack_start(l, False)
 
         label = gtk.Label(_("Enable _SELinux?:"))
-        label.set_use_underline(gtk.TRUE)
+        label.set_use_underline(True)
         self.selinux_combo = gtk.combo_box_new_text()
         label.set_mnemonic_widget(self.selinux_combo)
 
@@ -167,16 +167,16 @@ class FirewallWindow (InstallWindow):
         
         hbox = gtk.HBox()
         hbox.set_spacing(8)
-        hbox.pack_start(label, gtk.FALSE)
-        hbox.pack_start(self.selinux_combo, gtk.FALSE)
+        hbox.pack_start(label, False)
+        hbox.pack_start(self.selinux_combo, False)
         selbox.pack_start(hbox)
 
         if flags.selinux == 0:
-            selbox.set_sensitive(gtk.FALSE)
+            selbox.set_sensitive(False)
 
         if (SELINUX_DEFAULT == 1) or flags.selinux:
-            box.pack_start (gtk.HSeparator(), gtk.FALSE)
-            box.pack_start(selbox, gtk.FALSE)
+            box.pack_start (gtk.HSeparator(), False)
+            box.pack_start(selbox, False)
 
         return box
 

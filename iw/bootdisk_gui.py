@@ -25,7 +25,7 @@ class BootdiskWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setPrevEnabled (gtk.FALSE)
+        ics.setPrevEnabled (False)
 
     def getNext (self):
         if iutil.getArch() == "alpha" or iutil.getArch() == "ia64":
@@ -42,13 +42,13 @@ class BootdiskWindow (InstallWindow):
     def getScreen (self, dir, disp, fsset):
 	self.dispatch = disp
 
-        box = gtk.VBox (gtk.FALSE, 5)
+        box = gtk.VBox (False, 5)
         pix = gui.readImageFromFile ("gnome-floppy.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
             a.set (0.0, 0.0, 0.0, 0.0)
-            box.pack_start (a, gtk.FALSE)
+            box.pack_start (a, False)
         
         label = None
 
@@ -62,17 +62,17 @@ class BootdiskWindow (InstallWindow):
 
         label = gtk.Label (text)
 
-        label.set_line_wrap (gtk.TRUE)
-        box.pack_start (label, gtk.FALSE)
+        label.set_line_wrap (True)
+        box.pack_start (label, False)
 
-        radioBox = gtk.VBox (gtk.FALSE)
+        radioBox = gtk.VBox (False)
 
         self.createDisk = gtk.RadioButton(
             None, _("_Yes, I would like to create a boot diskette"))
-	radioBox.pack_start(self.createDisk, gtk.FALSE, gtk.FALSE, padding=10)
+	radioBox.pack_start(self.createDisk, False, False, padding=10)
         self.skipDisk = gtk.RadioButton(
             self.createDisk, _("No, I _do not want to create a boot diskette"))
-	radioBox.pack_start(self.skipDisk, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.skipDisk, False, False)
 
 	self.createDisk.set_active(1)
 

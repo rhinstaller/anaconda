@@ -39,22 +39,22 @@ class PartitionMethodWindow(InstallWindow):
 
         self.partitions = partitions
         
-        box = gtk.VBox (gtk.FALSE)
+        box = gtk.VBox (False)
         box.set_border_width (5)
 
         label=WrappingLabel(_(PARTMETHOD_TYPE_DESCR_TEXT))
         label.set_alignment(0.0, 0.0)
 
-        box.pack_start(label, gtk.TRUE, gtk.TRUE)
+        box.pack_start(label, True, True)
 
-        radioBox = gtk.VBox (gtk.FALSE)
+        radioBox = gtk.VBox (False)
 
         self.useAuto = gtk.RadioButton(
             None, _("_Automatically partition"))
-	radioBox.pack_start(self.useAuto, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.useAuto, False, False)
         self.useDS = gtk.RadioButton(
             self.useAuto, _("Manually partition with _Disk Druid"))
-	radioBox.pack_start(self.useDS, gtk.FALSE, gtk.FALSE)
+	radioBox.pack_start(self.useDS, False, False)
 
         if partitions.useAutopartitioning:
             self.useAuto.set_active(1)
@@ -65,11 +65,11 @@ class PartitionMethodWindow(InstallWindow):
 	align.add(radioBox)
 	align.set(0.5, 0.5, 0.0, 0.0)
 
-	box.pack_start(align, gtk.FALSE, gtk.FALSE, 10)
+	box.pack_start(align, False, False, 10)
 
 	box.set_border_width (5)
 
-        self.ics.setNextEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (True)
 
         align = gtk.Alignment()
         align.add(box)

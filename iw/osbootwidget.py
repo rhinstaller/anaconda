@@ -39,7 +39,7 @@ class OSBootWidget:
 
         self.setIllegalChars()
         
-        self.vbox = gtk.VBox(gtk.FALSE, 5)
+        self.vbox = gtk.VBox(False, 5)
         label = gui.WrappingLabel(_("You can configure the boot loader to boot other operating systems. "
 				    "It will allow you to select an operating system to boot from the list. "
 				    "To add additional operating systems, which are not automatically "
@@ -47,18 +47,18 @@ class OSBootWidget:
 				    "select 'Default' by the desired operating system."))
 	label.set_alignment(0.0, 0.0)
 	label.set_size_request(350, -1)
-        self.vbox.pack_start(label, gtk.FALSE)
+        self.vbox.pack_start(label, False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        self.vbox.pack_start(spacer, gtk.FALSE)
+        self.vbox.pack_start(spacer, False)
 
-        box = gtk.HBox (gtk.FALSE, 5)
+        box = gtk.HBox (False, 5)
         sw = gtk.ScrolledWindow()
         sw.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
         sw.set_size_request(300, 100)
-        box.pack_start(sw, gtk.TRUE)
+        box.pack_start(sw, True)
 
 
         self.osStore = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
@@ -77,10 +77,10 @@ class OSBootWidget:
             renderer = gtk.CellRendererText()
             column = gtk.TreeViewColumn(columnTitle, renderer,
                                         text = theColumns.index(columnTitle))
-            column.set_clickable(gtk.FALSE)
+            column.set_clickable(False)
             self.osTreeView.append_column(column)
 
-        self.osTreeView.set_headers_visible(gtk.TRUE)
+        self.osTreeView.set_headers_visible(True)
         self.osTreeView.columns_autosize()
         self.osTreeView.set_size_request(100, 100)
         sw.add(self.osTreeView)
@@ -94,19 +94,19 @@ class OSBootWidget:
         buttonbar.set_layout(gtk.BUTTONBOX_START)
         buttonbar.set_border_width(5)
         add = gtk.Button(_("_Add"))
-        buttonbar.pack_start(add, gtk.FALSE)
+        buttonbar.pack_start(add, False)
         add.connect("clicked", self.addEntry)
 
         edit = gtk.Button(_("_Edit"))
-        buttonbar.pack_start(edit, gtk.FALSE)
+        buttonbar.pack_start(edit, False)
         edit.connect("clicked", self.editEntry)
 
         delete = gtk.Button(_("_Delete"))
-        buttonbar.pack_start(delete, gtk.FALSE)
+        buttonbar.pack_start(delete, False)
         delete.connect("clicked", self.deleteEntry)
-        box.pack_start(buttonbar, gtk.FALSE)
+        box.pack_start(buttonbar, False)
 
-        self.vbox.pack_start(box, gtk.FALSE)
+        self.vbox.pack_start(box, False)
 
         alignment = gtk.Alignment()
         alignment.set(0.1, 0, 0, 0)
@@ -143,7 +143,7 @@ class OSBootWidget:
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        dialog.vbox.pack_start(spacer, gtk.FALSE)
+        dialog.vbox.pack_start(spacer, False)
 
         table = gtk.Table(2, 5)
         table.set_row_spacings(5)
@@ -191,12 +191,12 @@ class OSBootWidget:
         default = gtk.CheckButton(_("Default Boot _Target"))
         table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
         if isDefault != 0:
-            default.set_active(gtk.TRUE)
+            default.set_active(True)
 
         if self.numentries == 1 and oldDevice != None:
-            default.set_sensitive(gtk.FALSE)
+            default.set_sensitive(False)
         else:
-            default.set_sensitive(gtk.TRUE)
+            default.set_sensitive(True)
         
         dialog.vbox.pack_start(table)
         dialog.show_all()
@@ -380,9 +380,9 @@ class OSBootWidget:
             self.osStore.set_value(iter, 2, "/dev/%s" % (dev,))
             self.osStore.set_value(iter, 3, isRoot)
             if self.defaultDev == dev:
-                self.osStore.set_value(iter, 0, gtk.TRUE)
+                self.osStore.set_value(iter, 0, True)
             else:
-                self.osStore.set_value(iter, 0, gtk.FALSE)
+                self.osStore.set_value(iter, 0, False)
 
         self.numentries = len(keys)
 

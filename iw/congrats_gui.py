@@ -25,9 +25,9 @@ class CongratulationWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__(self, ics)
 
-        ics.setPrevEnabled(gtk.FALSE)
-        ics.setHelpButtonEnabled(gtk.FALSE)
-        ics.setHelpEnabled(gtk.FALSE)
+        ics.setPrevEnabled(False)
+        ics.setHelpButtonEnabled(False)
+        ics.setHelpEnabled(False)
         # this mucks around a bit, but it's the weird case and it's
         # better than adding a lot of complication to the normal
 	ics.cw.mainxml.get_widget("nextButton").hide()
@@ -40,9 +40,9 @@ class CongratulationWindow (InstallWindow):
 
     # CongratulationWindow tag=NA
     def getScreen (self):
-        self.ics.setHelpEnabled (gtk.FALSE)
+        self.ics.setHelpEnabled (False)
 
-        hbox = gtk.HBox (gtk.FALSE, 5)
+        hbox = gtk.HBox (False, 5)
         
         pix = gui.readImageFromFile ("done.png")
         if pix:
@@ -50,7 +50,7 @@ class CongratulationWindow (InstallWindow):
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
 	    a.set_size_request(200, -1)
-            hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
+            hbox.pack_start (a, False, False, 36)
 
         bootstr = ""
         if iutil.getArch() == "s390":
@@ -77,6 +77,6 @@ class CongratulationWindow (InstallWindow):
 
 	label = gui.WrappingLabel(txt)
 
-        hbox.pack_start (label, gtk.TRUE, gtk.TRUE)
+        hbox.pack_start (label, True, True)
         return hbox
 

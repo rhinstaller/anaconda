@@ -23,22 +23,22 @@ class AuthWindow (InstallWindow):
 
     def setSensitivities (self, *args):
 	if (not self.nis.get_active()):
-	    self.nisDomain.set_sensitive (gtk.FALSE)
-	    self.nisBroadcast.set_sensitive (gtk.FALSE)
-	    self.nisServer.set_sensitive (gtk.FALSE)
-	    self.nisDomainLabel.set_sensitive (gtk.FALSE)
-	    self.nisServerLabel.set_sensitive (gtk.FALSE)
+	    self.nisDomain.set_sensitive (False)
+	    self.nisBroadcast.set_sensitive (False)
+	    self.nisServer.set_sensitive (False)
+	    self.nisDomainLabel.set_sensitive (False)
+	    self.nisServerLabel.set_sensitive (False)
 	else:
-	    self.nisDomain.set_sensitive (gtk.TRUE)
-	    self.nisDomainLabel.set_sensitive (gtk.TRUE)
-	    self.nisBroadcast.set_sensitive (gtk.TRUE)
+	    self.nisDomain.set_sensitive (True)
+	    self.nisDomainLabel.set_sensitive (True)
+	    self.nisBroadcast.set_sensitive (True)
 
 	    if (self.nisBroadcast.get_active()):
-		self.nisServerLabel.set_sensitive (gtk.FALSE)
-		self.nisServer.set_sensitive (gtk.FALSE)
+		self.nisServerLabel.set_sensitive (False)
+		self.nisServer.set_sensitive (False)
 	    else:
-		self.nisServerLabel.set_sensitive (gtk.TRUE)
-		self.nisServer.set_sensitive (gtk.TRUE)
+		self.nisServerLabel.set_sensitive (True)
+		self.nisServer.set_sensitive (True)
 
         ldapactive = self.ldap.get_active()
         self.ldapServerLabel.set_sensitive (ldapactive)
@@ -91,7 +91,7 @@ class AuthWindow (InstallWindow):
     def getScreen (self, auth):
 	self.auth = auth
 
-        box = gtk.VBox (gtk.FALSE, 10)
+        box = gtk.VBox (False, 10)
 
         nb = gtk.Notebook ()
 
@@ -125,7 +125,7 @@ class AuthWindow (InstallWindow):
         a = gtk.Alignment (0, 0)
         a.add (self.nisBroadcast)
 
-        nistable = gtk.Table (10, 4, gtk.FALSE)
+        nistable = gtk.Table (10, 4, False)
         nistable.attach (self.nis, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
 	spacer = gtk.Label("")
@@ -155,7 +155,7 @@ class AuthWindow (InstallWindow):
 	self.ldapServer.set_text (self.auth.ldapServer)
         self.ldapBasedn.set_text (self.auth.ldapBasedn)
          
-        ldaptable = gtk.Table (10, 4, gtk.FALSE)
+        ldaptable = gtk.Table (10, 4, False)
 
         ldaptable.attach (self.ldap, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
@@ -194,7 +194,7 @@ class AuthWindow (InstallWindow):
         self.krb5Kdc.set_text (self.auth.krb5Kdc)
         self.krb5Admin.set_text (self.auth.krb5Admin)
         
-        krb5table = gtk.Table (10, 4, gtk.FALSE)
+        krb5table = gtk.Table (10, 4, False)
 
         krb5table.attach (self.krb5, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
@@ -228,7 +228,7 @@ class AuthWindow (InstallWindow):
  	self.sambaServer.set_text (self.auth.sambaServer)
         self.sambaWorkgroup.set_text (self.auth.sambaWorkgroup)
          
-        sambatable = gtk.Table (10, 3, gtk.FALSE)
+        sambatable = gtk.Table (10, 3, False)
 
         sambatable.attach (self.samba, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
@@ -258,9 +258,9 @@ class AuthWindow (InstallWindow):
         nb.append_page(sambatable, sambaLabel)
 
 
-        box.pack_start (self.md5, gtk.FALSE)
-        box.pack_start (self.shadow, gtk.FALSE)
-        box.pack_start (nb, gtk.TRUE)
+        box.pack_start (self.md5, False)
+        box.pack_start (self.shadow, False)
+        box.pack_start (nb, True)
         
 	box.set_border_width (5)
         

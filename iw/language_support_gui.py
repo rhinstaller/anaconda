@@ -56,7 +56,7 @@ class LanguageSupportWindow (InstallWindow):
 	# the UI is confusing because there is no default lang and no
 	# langauges supported
 	if self.defaultLang is None or self.defaultLang == "":
-            self.languageList.set_active(oldidx, gtk.TRUE)
+            self.languageList.set_active(oldidx, True)
 	    self.rebuild_combo()
 
     def rebuild_combo(self):
@@ -69,9 +69,9 @@ class LanguageSupportWindow (InstallWindow):
 	
 	if len(list) == 0:
 	    list = [""]
-	    self.ics.setNextEnabled (gtk.FALSE)
+	    self.ics.setNextEnabled (False)
 	else:
-	    self.ics.setNextEnabled (gtk.TRUE)
+	    self.ics.setNextEnabled (True)
 
 	curidx = self.deflang_combo.get_active()
 	if curidx >= 0 and len(self.deflang_values) > 0:
@@ -89,14 +89,14 @@ class LanguageSupportWindow (InstallWindow):
 	self.deflang_combo.set_active(index)
 
     def select_all (self, data):
-        self.ics.setNextEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (True)
         for row in range(self.maxrows):
-            self.languageList.set_active(row, gtk.TRUE)
+            self.languageList.set_active(row, True)
 
 	self.rebuild_combo()
 
     def select_default (self, data):
-        self.ics.setNextEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (True)
 
 	curidx = self.deflang_combo.get_active()
 	if curidx >= 0:
@@ -104,24 +104,24 @@ class LanguageSupportWindow (InstallWindow):
 
 	    for row in range(self.maxrows):
 		if self.languageList.get_text(row, 1) == deflang:
-		    self.languageList.set_active(row, gtk.TRUE)
+		    self.languageList.set_active(row, True)
 		else:
-		    self.languageList.set_active(row, gtk.FALSE)
+		    self.languageList.set_active(row, False)
 
 	    self.rebuild_combo()
 
     def reset (self, data):
-        self.ics.setNextEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (True)
 	list = []
 
         for row in range(self.maxrows):
             item = self.languageList.get_text (row, 1)
 
 	    if item in self.origLangs:
-                self.languageList.set_active(row, gtk.TRUE)
+                self.languageList.set_active(row, True)
                 list.append (item)
             else:
-                self.languageList.set_active(row, gtk.FALSE)                
+                self.languageList.set_active(row, False)                
 
 	self.defaultLang = self.oldDefaultLang
 	self.createDefaultLangMenu(list)
@@ -138,8 +138,8 @@ class LanguageSupportWindow (InstallWindow):
             if self.languageList.get_text(row, 1) == currentDefault:
                 path = store.get_path(store.get_iter((row,)))
                 col = self.languageList.get_column(0)
-                self.languageList.set_cursor(path, col, gtk.FALSE)
-                self.languageList.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+                self.languageList.set_cursor(path, col, False)
+                self.languageList.scroll_to_cell(path, col, True, 0.5, 0.5)
                 break
             row = row + 1
 
@@ -185,9 +185,9 @@ class LanguageSupportWindow (InstallWindow):
         if self.origLangs == []:
             self.origLangs.append(self.defaultLang)
         
-        vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox = gtk.VBox (False, 10)
         vbox.set_border_width(5)
-        hbox = gtk.HBox (gtk.FALSE)
+        hbox = gtk.HBox (False)
         
 	# create option menu of default langs
         label = gui.MnemonicLabel(_("Select the _default language for the system:   "))
@@ -196,22 +196,22 @@ class LanguageSupportWindow (InstallWindow):
 	self.createDefaultLangMenu(self.supportedLangs)
         label.set_mnemonic_widget(self.deflang_combo)
 
-        hbox.pack_start (label, gtk.FALSE, 20)
-        hbox.pack_start (self.deflang_combo, gtk.FALSE, 20)
-        vbox.pack_start (hbox, gtk.FALSE, 50)
+        hbox.pack_start (label, False, 20)
+        hbox.pack_start (self.deflang_combo, False, 20)
+        vbox.pack_start (hbox, False, 50)
 
         sep = gtk.HSeparator ()
-        vbox.pack_start (sep, gtk.FALSE, 15)
+        vbox.pack_start (sep, False, 15)
 
 	label = gui.MnemonicLabel(_("Select _additional languages to install "
 				    "on the system:"))
         
         label.set_alignment (0.0, 0.5)
-        label.set_line_wrap (gtk.TRUE)
+        label.set_line_wrap (True)
         label.set_size_request(400, -1)
-        vbox.pack_start (label, gtk.FALSE)
+        vbox.pack_start (label, False)
         
-        hbox = gtk.HBox (gtk.FALSE, 5)
+        hbox = gtk.HBox (False, 5)
 
         # langs we want to support
         self.languageList = checklist.CheckList(1)
@@ -222,10 +222,10 @@ class LanguageSupportWindow (InstallWindow):
 
         for locale in self.languages:
 	    if locale == self.defaultLang or (locale in self.supportedLangs):
-		self.languageList.append_row((locale, ""), gtk.TRUE)
+		self.languageList.append_row((locale, ""), True)
 		list.append(locale)
 	    else:
-		self.languageList.append_row((locale, ""), gtk.FALSE)
+		self.languageList.append_row((locale, ""), False)
 
             self.maxrows = self.maxrows + 1
 
@@ -236,7 +236,7 @@ class LanguageSupportWindow (InstallWindow):
         sw.add (self.languageList)
         sw.set_shadow_type(gtk.SHADOW_IN)
 
-        vbox2 = gtk.VBox (gtk.FALSE, 12)
+        vbox2 = gtk.VBox (False, 12)
 
         all_button = gtk.Button (_("_Select All"))
         all_button.set_size_request(160, -1)
@@ -248,7 +248,7 @@ class LanguageSupportWindow (InstallWindow):
         default_button = gtk.Button()
 	label = gui.MnemonicLabel(_("Select Default _Only"))
 	label.set_size_request(150,-1)
-	label.set_line_wrap(gtk.TRUE)
+	label.set_line_wrap(True)
 	label.set_justify(gtk.JUSTIFY_CENTER)
 	label.set_mnemonic_widget(default_button)
 	default_button.add(label)
@@ -263,12 +263,12 @@ class LanguageSupportWindow (InstallWindow):
         a3 = gtk.Alignment (0.5, 0.5)
         a3.add (reset_button)
 
-        vbox2.pack_start (a1, gtk.FALSE, 10)
-        vbox2.pack_start (a2, gtk.FALSE)
-        vbox2.pack_start (a3, gtk.FALSE)
-        hbox.pack_start (sw, gtk.TRUE, 10)
-        hbox.pack_start (vbox2, gtk.FALSE, 10)
-        vbox.pack_start (hbox, gtk.TRUE)
+        vbox2.pack_start (a1, False, 10)
+        vbox2.pack_start (a2, False)
+        vbox2.pack_start (a3, False)
+        hbox.pack_start (sw, True, 10)
+        hbox.pack_start (vbox2, False, 10)
+        vbox.pack_start (hbox, True)
 
         # default button
 #        alignment = gtk.Alignment (0.0, 0.0)

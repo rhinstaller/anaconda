@@ -1,3 +1,24 @@
+2005-03-11  Peter Jones  <pjones@redhat.com>
+
+	* gui.py htmlbuffer.py splashscreen.py iw/account_gui.py
+        iw/auth_gui.py iw/blpasswidget.py iw/bootdisk_gui.py
+        iw/bootloader_advanced_gui.py iw/bootloader_main_gui.py
+        iw/bootlocwidget.py iw/checklist.py iw/confirm_gui.py
+        iw/congrats_gui.py iw/dependencies_gui.py iw/zfcp_gui.py
+        iw/driveorderwidget.py iw/examine_gui.py iw/fdisk_gui.py
+        iw/firewall_gui.py iw/installpath_gui.py iw/ipwidget.py
+        iw/language_gui.py iw/language_support_gui.py iw/lvm_dialog_gui.py
+        iw/mouse_gui.py iw/network_gui.py iw/osbootwidget.py
+        iw/package_gui.py iw/partition_dialog_gui.py iw/partition_gui.py
+        iw/partition_ui_helpers_gui.py iw/partmethod_gui.py
+        iw/pixmapRadioButtonGroup_gui.py iw/progress_gui.py
+        iw/raid_dialog_gui.py iw/release_notes_viewer_gui.py
+        iw/timezone_gui.py iw/timezone_map_gui.py iw/zipl_gui.py
+        iw/upgrade_bootloader_gui.py iw/upgrade_migratefs_gui.py
+        iw/upgrade_swap_gui.py iw/xconfig_gui.py
+	iw/desktop_choice_gui.py: fix warnings about gtk.TRUE and gtk.FALSE,
+	partly based on a patch from Colin Walters.
+
 2005-03-11  Chris Lumens  <clumens@redhat.com>
 
 	* loader/method.c (validIsoImages):  Unmount the loopback mounted ISO

@@ -73,7 +73,7 @@ def splashScreenShow(configFileData):
         splashwindow.show_now()
         gtk.gdk.flush()
         while gtk.events_pending():
-            gtk.main_iteration(gtk.FALSE)
+            gtk.main_iteration(False)
 
 def splashScreenPop():
     global splashwindow

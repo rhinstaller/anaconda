@@ -143,7 +143,7 @@ def takeScreenShot():
 		return
 
     try:
-	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, gtk.FALSE, 8,
+	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
 				    gtk.gdk.screen_width(), gtk.gdk.screen_height())
 	screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
 				     gtk.gdk.colormap_get_system(),
@@ -210,7 +210,7 @@ def scrollToIdleHandler((view, store, iddict)):
 
     path = store.get_path(iter)
     col = view.get_column(0)
-    view.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
+    view.scroll_to_cell(path, col, True, 0.5, 0.5)
 
     if id:
 	gobject.source_remove(id)
@@ -219,7 +219,7 @@ def scrollToIdleHandler((view, store, iddict)):
 def processEvents():
     gtk.gdk.flush()
     while gtk.events_pending():
-        gtk.main_iteration(gtk.FALSE)
+        gtk.main_iteration(False)
 
 def partedExceptionWindow(exc):
     # if our only option is to cancel, let us handle the exception
@@ -312,7 +312,7 @@ class MnemonicLabel(gtk.Label):
 class WrappingLabel(gtk.Label):
     def __init__(self, label=""):
         gtk.Label.__init__(self, label)
-        self.set_line_wrap(gtk.TRUE)
+        self.set_line_wrap(True)
         self.ignoreEvents = 0
 #        self.set_size_request(-1, 1)
         widgetExpander(self)
@@ -369,7 +369,7 @@ def addFrame(dialog, title=None, showtitle = 1):
 	    eventBox.connect("button-press-event", titleBarMousePressCB, data)
 	    eventBox.connect("button-release-event", titleBarMouseReleaseCB, data)
 	    eventBox.connect("motion-notify-event", titleBarMotionEventCB,data)
-	    titleBox = gtk.HBox(gtk.FALSE, 5)
+	    titleBox = gtk.HBox(False, 5)
 	    eventBox.add(titleBox)
 	    eventBox.modify_bg(gtk.STATE_NORMAL,
                                eventBox.rc_get_style().bg[gtk.STATE_SELECTED])
@@ -382,7 +382,7 @@ def addFrame(dialog, title=None, showtitle = 1):
             else:
                 s = gtk.Label("")
                 titleBox.pack_start(s)
-	    box.pack_start(eventBox, gtk.FALSE, gtk.FALSE)
+	    box.pack_start(eventBox, False, False)
         elif flags.rootpath:
             dialog.set_title (title)
     except:
@@ -392,7 +392,7 @@ def addFrame(dialog, title=None, showtitle = 1):
     frame2.set_shadow_type(gtk.SHADOW_NONE)
     frame2.set_border_width(4)
     frame2.add(contents)
-    box.pack_start(frame2, gtk.TRUE, gtk.TRUE, padding=5)
+    box.pack_start(frame2, True, True, padding=5)
     frame.add(box)
     frame.show()
     dialog.add(frame)
@@ -459,7 +459,7 @@ def readImageFromFile(file, height = None, width = None, dither = None):
         source = gtk.IconSource()
         source.set_pixbuf(pixbuf)
         source.set_size(gtk.ICON_SIZE_DIALOG)
-        source.set_size_wildcarded(gtk.FALSE)
+        source.set_size_wildcarded(False)
         iconset = gtk.IconSet()
         iconset.add_source(source)
         p.set_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
@@ -477,7 +477,7 @@ class WaitWindow:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
         self.window.set_title(title)
         self.window.set_position(gtk.WIN_POS_CENTER)
-        self.window.set_modal(gtk.TRUE)
+        self.window.set_modal(True)
         label = WrappingLabel(text)
         box = gtk.Frame()
         box.set_border_width(10)
@@ -505,17 +505,17 @@ class ProgressWindow:
             self.window = gtk.Window(gtk.WINDOW_POPUP)
         self.window.set_title (title)
         self.window.set_position (gtk.WIN_POS_CENTER)
-        self.window.set_modal (gtk.TRUE)
-        box = gtk.VBox (gtk.FALSE, 5)
+        self.window.set_modal (True)
+        box = gtk.VBox (False, 5)
         box.set_border_width (10)
 
         label = WrappingLabel (text)
         label.set_alignment (0.0, 0.5)
-        box.pack_start (label, gtk.FALSE)
+        box.pack_start (label, False)
         
         self.total = total
 	self.progress = gtk.ProgressBar ()
-        box.pack_start (self.progress, gtk.TRUE)
+        box.pack_start (self.progress, True)
         self.window.add(box)
 
         addFrame(self.window, showtitle = 0)
@@ -556,13 +556,13 @@ class ExceptionWindow:
         buffer.set_text(text)
         textbox = gtk.TextView()
         textbox.set_buffer(buffer)
-        textbox.set_property("editable", gtk.FALSE)
-        textbox.set_property("cursor_visible", gtk.FALSE)
+        textbox.set_property("editable", False)
+        textbox.set_property("cursor_visible", False)
         sw = gtk.ScrolledWindow ()
         sw.add (textbox)
         sw.set_policy (gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        hbox = gtk.HBox (gtk.FALSE)
+        hbox = gtk.HBox (False)
 
         if floppyDevices > 0:
             info = WrappingLabel(exceptionText)
@@ -571,9 +571,9 @@ class ExceptionWindow:
             
         info.set_size_request (400, -1)
 
-        hbox.pack_start (sw, gtk.TRUE)
-        win.vbox.pack_start (info, gtk.FALSE)            
-        win.vbox.pack_start (hbox, gtk.TRUE)
+        hbox.pack_start (sw, True)
+        win.vbox.pack_start (info, False)            
+        win.vbox.pack_start (hbox, True)
         win.set_size_request (500, 300)
         win.set_position (gtk.WIN_POS_CENTER)
         addFrame(win)
@@ -777,8 +777,8 @@ class TextViewBrowser(gtk.TextView):
         self.vadj = None
 
         gtk.TextView.__init__(self)
-        self.set_property('editable', gtk.FALSE)
-        self.set_property('cursor_visible', gtk.FALSE)
+        self.set_property('editable', False)
+        self.set_property('cursor_visible', False)
         self.set_left_margin(10)
         self.set_wrap_mode(gtk.WRAP_WORD)
         self.connect('set-scroll-adjustments', self.cacheAdjustments)
@@ -923,7 +923,7 @@ class InstallControlWindow:
 	# dont wait if we arent running a viewer
 	if self.releaseNotesViewerPid is None:
 	    log("Calling releaseNotesViewerPollExitCB but no release viewer running!")
-	    return gtk.TRUE
+	    return True
 
 	# see if release notes viewer has exitted
 	still_running = 1
@@ -944,12 +944,12 @@ class InstallControlWindow:
 	if not still_running:
 	    self.releaseNotesViewerPid = None
 	    gobject.source_remove(self.releaseNotesViewerIdleID)
-            self.mainxml.get_widget("buttonBar").set_sensitive(gtk.TRUE)
+            self.mainxml.get_widget("buttonBar").set_sensitive(True)
 	    self.releaseNotesModalDummy.destroy()
 	    
-	    return gtk.FALSE
+	    return False
 	else:
-	    return gtk.TRUE
+	    return True
 
     # see if we need to start release notes viewer
     # needed because sometimes we get a callback to start viewer
@@ -964,7 +964,7 @@ class InstallControlWindow:
 	    # while release notes are up
 	    self.releaseNotesModalDummy = gtk.Dialog(flags=gtk.DIALOG_MODAL)
 	    self.releaseNotesModalDummy.set_size_request(0, 0)
-	    self.releaseNotesModalDummy.set_decorated(gtk.FALSE)
+	    self.releaseNotesModalDummy.set_decorated(False)
 	    self.releaseNotesModalDummy.show_all()
 	    processEvents()
 	    
@@ -986,7 +986,7 @@ class InstallControlWindow:
 		# started viewer succesfully, remove idle handler
 		gobject.source_remove(self.releaseNotesStartViewerIdleID)
 	    
-	return gtk.TRUE
+	return True
 		
 
     #
@@ -1062,7 +1062,7 @@ class InstallControlWindow:
 	    self.releaseNotesViewerPid = child
 	    
 	    #desensitize button bar at bottom of screen
-            self.mainxml.get_widget("buttonBar").set_sensitive(gtk.FALSE)
+            self.mainxml.get_widget("buttonBar").set_sensitive(False)
 
 	    return 0
 	else:
@@ -1121,8 +1121,8 @@ class InstallControlWindow:
         self.help.set_buffer(textbuffer)
         # scroll to the top.  Do this with a mark so it's done in the idle loop
         iter = textbuffer.get_iter_at_offset(0)
-        mark = textbuffer.create_mark("top", iter, gtk.FALSE)
-        self.help.scroll_to_mark(mark, 0.0, gtk.FALSE, 0.0, 0.0)
+        mark = textbuffer.create_mark("top", iter, False)
+        self.help.scroll_to_mark(mark, 0.0, False, 0.0, 0.0)
 
     def handleRenderCallback(self):
         self.currentWindow.renderCallback()
@@ -1218,9 +1218,9 @@ class InstallControlWindow:
         self.mainxml.get_widget("hideHelpButton").set_sensitive(ics.getHelpEnabled())
         self.mainxml.get_widget("showHelpButton").set_sensitive(ics.getHelpEnabled())
 
-        if ics.getHelpEnabled() == gtk.FALSE and self.displayHelp:
+        if ics.getHelpEnabled() == False and self.displayHelp:
             self.refreshHelp()
-        elif ics.getHelpEnabled() == gtk.TRUE and not self.displayHelp:
+        elif ics.getHelpEnabled() == True and not self.displayHelp:
             self.refreshHelp()
         if ics.getGrabNext():
             self.mainxml.get_widget("nextButton").grab_focus()
@@ -1322,12 +1322,12 @@ class InstallControlState:
         self.searchPath = ("/mnt/source/RHupdates",
                            "./", "/usr/share/anaconda/")
         self.cw = cw
-        self.prevEnabled = gtk.TRUE
-        self.nextEnabled = gtk.TRUE
+        self.prevEnabled = True
+        self.nextEnabled = True
         self.title = _("Install Window")
         self.html = ""
         self.htmlFile = None
-        self.helpEnabled = gtk.TRUE
+        self.helpEnabled = True
         self.grabNext = False
 
     def setTitle (self, title):

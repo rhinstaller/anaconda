@@ -28,7 +28,7 @@ class CheckList (gtk.TreeView):
         for i in range(1, columns + 1):
             renderer = gtk.CellRendererText()
             column = gtk.TreeViewColumn('Text', renderer, text=i)
-            column.set_clickable(gtk.FALSE)
+            column.set_clickable(False)
             self.append_column(column)
 
     # XXX need to handle the multicolumn case better still....
@@ -52,16 +52,16 @@ class CheckList (gtk.TreeView):
         column = gtk.TreeViewColumn('', self.checkboxrenderer, active=0)
 #        column.set_sizing(gtk.TREE_VIEW_COLUMN_FIXED)
 #        column.set_fixed_width(40)
-        column.set_clickable(gtk.TRUE)
+        column.set_clickable(True)
         self.checkboxrenderer.connect ("toggled", self.toggled_item)        
         self.append_column(column)
 
 	self.create_columns(columns)
 
-        self.set_rules_hint(gtk.FALSE)
-        self.set_headers_visible(gtk.FALSE)
+        self.set_rules_hint(False)
+        self.set_headers_visible(False)
         self.columns_autosize()
-        self.set_enable_search(gtk.FALSE)
+        self.set_enable_search(False)
 
         # keep track of the number of rows we have so we can
         # iterate over them all
@@ -164,7 +164,7 @@ def main():
     win = gtk.Window()
     cl = CheckList(1)
     for i in range(1, 10):
-        cl.append_row("%s" %(i,), gtk.FALSE)
+        cl.append_row("%s" %(i,), False)
 
     sw = gtk.ScrolledWindow()
     sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)

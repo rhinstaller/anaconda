@@ -51,9 +51,9 @@ class IPEditor:
 
 	hbox = gtk.HBox()
 	for name in ip_fields:
-	    hbox.pack_start(self.entrys[name], gtk.FALSE, gtk.FALSE)
+	    hbox.pack_start(self.entrys[name], False, False)
 	    if name != 'entry4':
-		hbox.pack_start(gtk.Label('.'), gtk.FALSE, gtk.FALSE)
+		hbox.pack_start(gtk.Label('.'), False, False)
 
 	self.widget = hbox
 
@@ -133,7 +133,7 @@ if __name__ == "__main__":
     vbox.pack_start(ip.getWidget())
     button = gtk.Button("Quit")
     button.connect("pressed", output, ip)
-    vbox.pack_start(button, gtk.FALSE, gtk.FALSE)
+    vbox.pack_start(button, False, False)
     win.add(vbox)
     win.show_all()
     gtk.main()

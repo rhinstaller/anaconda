@@ -37,28 +37,28 @@ class pixmapRadioButtonGroup:
     def pixRadioButton (self, group, labelstr, pixmap, description=None):
         pix = pixmap
 
-	hbox = gtk.HBox (gtk.FALSE, 18)
+	hbox = gtk.HBox (False, 18)
 	if pix != None:
-	    hbox.pack_start (pix, gtk.TRUE, gtk.TRUE, 0)
+	    hbox.pack_start (pix, True, True, 0)
 
 	label = gtk.Label("")
-	label.set_line_wrap(gtk.TRUE)
+	label.set_line_wrap(True)
 	label.set_markup("<b>"+labelstr+"</b>")
 	label.set_alignment (0.0, 0.5)
 	if description is not None:
 	    label.set_markup ("<b>%s</b>\n<small>%s</small>" %(labelstr,
                                                                description))
-	    label.set_line_wrap(gtk.TRUE)
+	    label.set_line_wrap(True)
 	    if  gtk.gdk.screen_width() > 640:
 		wraplen = 350
 	    else:
 		wraplen = 250
 		
 	    label.set_size_request(wraplen, -1)
-	label.set_use_markup (gtk.TRUE)
-	label.set_use_underline(gtk.TRUE)
+	label.set_use_markup (True)
+	label.set_use_underline(True)
 	    
-	hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
+	hbox.pack_start (label, True, True, 0)
 	button = gtk.RadioButton (group)
 	button.add (hbox)
 	label.set_mnemonic_widget(button)
@@ -122,7 +122,7 @@ class pixmapRadioButtonGroup:
 	radioGroup = None
 	buttons = []
 	for item in self.entries:
-	    box = gtk.VBox (gtk.FALSE, 9)
+	    box = gtk.VBox (False, 9)
 	    name = item["name"]
 	    label = item["label"]
 	    pixmap = item["pixmap"]
@@ -135,23 +135,23 @@ class pixmapRadioButtonGroup:
 	    self.topLevelButtonList.append((radioGroup, box, buttons))
 	    radioGroup.connect("toggled", self.toggled)
 
-	finalVBox = gtk.VBox(gtk.FALSE, 18)
+	finalVBox = gtk.VBox(False, 18)
 	finalVBox.set_border_width (5)
 
 	for (button, box, buttons) in self.topLevelButtonList:
-	    vbox = gtk.VBox (gtk.FALSE, 9)
-	    finalVBox.pack_start(vbox, gtk.FALSE, gtk.FALSE)
-	    vbox.pack_start (button, gtk.FALSE, gtk.FALSE)
+	    vbox = gtk.VBox (False, 9)
+	    finalVBox.pack_start(vbox, False, False)
+	    vbox.pack_start (button, False, False)
 	    
 	    if box:
-		tmphbox = gtk.HBox(gtk.FALSE)
+		tmphbox = gtk.HBox(False)
 
-		crackhbox = gtk.HBox(gtk.FALSE)
+		crackhbox = gtk.HBox(False)
 		crackhbox.set_size_request(50, -1)
 
-		tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-		tmphbox.pack_start(box, gtk.TRUE, gtk.TRUE)
-		vbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE)
+		tmphbox.pack_start(crackhbox, False, False)
+		tmphbox.pack_start(box, True, True)
+		vbox.pack_start(tmphbox, False, False)
 		
         return finalVBox
     
@@ -171,7 +171,7 @@ if __name__ == "__main__":
 	source = gtk.IconSource()
 	source.set_pixbuf(pixbuf)
 	source.set_size(gtk.ICON_SIZE_DIALOG)
-	source.set_size_wildcarded(gtk.FALSE)
+	source.set_size_wildcarded(False)
 	iconset = gtk.IconSet()
 	iconset.add_source(source)
 	p = gtk.image_new_from_icon_set(iconset, gtk.ICON_SIZE_DIALOG)
@@ -202,7 +202,7 @@ if __name__ == "__main__":
 	item.show()        
 	upgradeoptionmenu.add(item)
 
-    upboxtmp = gtk.VBox(gtk.FALSE, 5)
+    upboxtmp = gtk.VBox(False, 5)
     l = gtk.Label(label)
     l.set_alignment(0.0, 0.0)
     upboxtmp.pack_start(l)
@@ -212,13 +212,13 @@ if __name__ == "__main__":
     upgradeoption.set_sensitive(0)
     
     # hack indent it
-    upbox = gtk.HBox(gtk.FALSE)
+    upbox = gtk.HBox(False)
 
-    crackhbox = gtk.HBox(gtk.FALSE)
+    crackhbox = gtk.HBox(False)
     crackhbox.set_size_request(80, -1)
 
-    upbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-    upbox.pack_start(upboxtmp, gtk.TRUE, gtk.TRUE)
+    upbox.pack_start(crackhbox, False, False)
+    upbox.pack_start(upboxtmp, True, True)
 
     r = pixmapRadioButtonGroup()
     r.addEntry("upgrade", "_Upgrade Existing Installation", pixmap=readPixmap("/usr/share/anaconda/pixmaps/upgrade.png"),  descr="Choose this option if you would like to upgrade your existing %s system.  This option will preserve the data on your drive" % (productName,), userdata="data")
@@ -231,11 +231,11 @@ if __name__ == "__main__":
     r.packWidgetInEntry("Upgrade Existing Installation", upbox)
 
     vbox = gtk.VBox()
-    vbox.pack_start(b, gtk.FALSE, gtk.FALSE)
+    vbox.pack_start(b, False, False)
     
     button = gtk.Button("Quit")
     button.connect("pressed", nowquit)
-    vbox.pack_start(button, gtk.FALSE, gtk.FALSE)
+    vbox.pack_start(button, False, False)
     
     win.add(vbox)
     win.show_all()

@@ -45,26 +45,26 @@ class LanguageWindow (InstallWindow):
         
         path = self.listStore.get_path(iter)
         col = self.listView.get_column(0)
-        self.listView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
-	self.listView.set_cursor(path, col, gtk.FALSE)
+        self.listView.scroll_to_cell(path, col, True, 0.5, 0.5)
+	self.listView.set_cursor(path, col, False)
 
     # LanguageWindow tag="lang"
     def getScreen (self, intf, instLang):
         self.running = 0
-        mainBox = gtk.VBox (gtk.FALSE, 10)
+        mainBox = gtk.VBox (False, 10)
 
-        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(False, 5)
         pix = gui.readImageFromFile ("gnome-globe.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
-            hbox.pack_start (a, gtk.FALSE)
+            hbox.pack_start (a, False)
             
         label = gtk.Label (_("What language would you like to use during the "
                          "installation process?"))
-        label.set_line_wrap (gtk.TRUE)
+        label.set_line_wrap (True)
         label.set_size_request(350, -1)
-        hbox.pack_start(label, gtk.FALSE)
+        hbox.pack_start(label, False)
         
 	self.instLang = instLang
 
@@ -87,7 +87,7 @@ class LanguageWindow (InstallWindow):
         self.listView = gtk.TreeView(self.listStore)
         col = gtk.TreeViewColumn(None, gtk.CellRendererText(), markup=0)
         self.listView.append_column(col)
-        self.listView.set_property("headers-visible", gtk.FALSE)
+        self.listView.set_property("headers-visible", False)
 
         current = instLang.getCurrent()
         iter = self.listStore.get_iter_first()
@@ -108,8 +108,8 @@ class LanguageWindow (InstallWindow):
 
 	setupTreeViewFixupIdleHandler(self.listView, self.listStore)
 
-        mainBox.pack_start (hbox, gtk.FALSE, gtk.FALSE, 10)
-        mainBox.pack_start (sw, gtk.TRUE, gtk.TRUE)
+        mainBox.pack_start (hbox, False, False, 10)
+        mainBox.pack_start (sw, True, True)
 
         self.running = 1
         

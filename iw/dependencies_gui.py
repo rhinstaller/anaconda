@@ -56,7 +56,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
 
     #UnresolvedDependenciesWindow tag="depend"
     def getScreen (self, comps, deps):
-        self.ics.setHelpEnabled(gtk.TRUE)
+        self.ics.setHelpEnabled(True)
 	self.deps = deps
 	self.comps = comps
 
@@ -86,7 +86,7 @@ class UnresolvedDependenciesWindow (InstallWindow):
         self.sizelabel.set_alignment (1, .5)
         self.updateSize()
 
-        rb = gtk.VBox (gtk.FALSE)
+        rb = gtk.VBox (False)
         self.dependRB = gtk.RadioButton (None, _("_Install packages to "
                                                 "satisfy dependencies"))
         
@@ -107,8 +107,8 @@ class UnresolvedDependenciesWindow (InstallWindow):
         self.causeRB.connect('toggled', self.causeToggled)
         self.ignoreRB.connect('toggled', self.ignoreToggled)
 
-        box = gtk.VBox (gtk.FALSE, 5)
-        box.pack_start (sw, gtk.TRUE)
-        box.pack_start (rb, gtk.FALSE)
+        box = gtk.VBox (False, 5)
+        box.pack_start (sw, True)
+        box.pack_start (rb, False)
 
         return box

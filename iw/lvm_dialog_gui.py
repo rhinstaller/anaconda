@@ -290,10 +290,10 @@ class VolumeGroupEditor:
 				      "volume group will be too small to "
 				      "hold the currently defined logical "
 				      "volumes."), custom_icon="error")
-	    return gtk.FALSE
+	    return False
 
 	self.updateVGSpaceLabels(alt_pvlist = pvlist)
-	return gtk.TRUE
+	return True
 	
 
     def createAllowedLvmPartitionsList(self, alllvmparts, reqlvmpart, partitions, preexist = 0):
@@ -979,7 +979,7 @@ class VolumeGroupEditor:
         self.peCombo = self.createPEOptionMenu(self.origvgrequest.pesize)
         lbl.set_mnemonic_widget(self.peCombo)
         if origvgrequest.getPreExisting():
-            self.peCombo.set_sensitive(gtk.FALSE)
+            self.peCombo.set_sensitive(False)
 
         maintable.attach(lbl, 0, 1, row, row + 1,
                          gtk.EXPAND|gtk.FILL, gtk.SHRINK)
@@ -988,7 +988,7 @@ class VolumeGroupEditor:
 
         (self.lvmlist, sw) = self.createAllowedLvmPartitionsList(self.availlvmparts, self.origvgrequest.physicalVolumes, self.partitions, origvgrequest.getPreExisting())
         if origvgrequest.getPreExisting():
-            self.lvmlist.set_sensitive(gtk.FALSE)
+            self.lvmlist.set_sensitive(False)
         self.lvmlist.set_size_request(275, 80)
         lbl = createAlignedLabel(_("Physical Volumes to _Use:"))
         lbl.set_mnemonic_widget(self.lvmlist)
@@ -1003,12 +1003,12 @@ class VolumeGroupEditor:
 	labelalign = gtk.Alignment()
 	labelalign.set(1.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.usedSpaceLabel)
-	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE)
+	lbox.pack_start(labelalign, False, False)
 	self.usedPercentLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
 	labelalign.set(1.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.usedPercentLabel)
-	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
+	lbox.pack_start(labelalign, False, False, padding=10)
         maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	maintable.set_row_spacing(row, 0)
         row = row + 1
@@ -1020,12 +1020,12 @@ class VolumeGroupEditor:
 	labelalign = gtk.Alignment()
 	labelalign.set(1.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.freeSpaceLabel)
-	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE)
+	lbox.pack_start(labelalign, False, False)
 	self.freePercentLabel = gtk.Label("")
 	labelalign = gtk.Alignment()
 	labelalign.set(1.0, 0.5, 0.0, 0.0)
 	labelalign.add(self.freePercentLabel)
-	lbox.pack_start(labelalign, gtk.FALSE, gtk.FALSE, padding=10)
+	lbox.pack_start(labelalign, False, False, padding=10)
 
         maintable.attach(lbox, 1, 2, row, row + 1, gtk.EXPAND|gtk.FILL, gtk.SHRINK)
 	maintable.set_row_spacing(row, 0)

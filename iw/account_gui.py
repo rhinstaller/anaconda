@@ -88,17 +88,17 @@ class AccountWindow (InstallWindow):
         hbox = gtk.HBox()
         pix = gui.readImageFromFile ("root-password.png")
         if pix:
-            hbox.pack_start (pix, gtk.FALSE)
+            hbox.pack_start (pix, False)
 
         label = gui.WrappingLabel (_("The root account is used for "
                                      "administering the system.  Enter "
                                      "a password for the root user."))
-        label.set_line_wrap(gtk.TRUE)
+        label.set_line_wrap(True)
         label.set_size_request(350, -1)
         label.set_alignment(0.0, 0.5)
-        hbox.pack_start(label, gtk.FALSE)
+        hbox.pack_start(label, False)
 
-        box.pack_start(hbox, gtk.FALSE)
+        box.pack_start(hbox, False)
        
         self.forward = lambda widget, box=box: box.emit('focus', gtk.DIR_TAB_FORWARD)
         
@@ -118,23 +118,23 @@ class AccountWindow (InstallWindow):
         
         self.pw.connect ("activate", self.forward)
         self.pw.connect ("map-event", self.setFocus)
-        self.pw.set_visibility (gtk.FALSE)
+        self.pw.set_visibility (False)
         self.confirm = gtk.Entry (128)
         pass2.set_mnemonic_widget(self.confirm)
         self.confirm.connect ("activate", self.forward)
-        self.confirm.set_visibility (gtk.FALSE)
+        self.confirm.set_visibility (False)
         table.attach (self.pw,      1, 2, 0, 1, gtk.FILL|gtk.EXPAND, 5)
         table.attach (self.confirm, 1, 2, 1, 2, gtk.FILL|gtk.EXPAND, 5)
 
         hbox = gtk.HBox()
-        hbox.pack_start(table, gtk.FALSE)
-        box.pack_start (hbox, gtk.FALSE)
+        hbox.pack_start(table, False)
+        box.pack_start (hbox, False)
 
         # root password statusbar
         self.rootStatus = gtk.Label ("")
-        wrapper = gtk.HBox(0, gtk.FALSE)
+        wrapper = gtk.HBox(0, False)
         wrapper.pack_start (self.rootStatus)
-        box.pack_start (wrapper, gtk.FALSE)
+        box.pack_start (wrapper, False)
 
  	pw = self.rootPw.getPure()
 	if pw:

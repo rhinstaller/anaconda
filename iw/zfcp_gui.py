@@ -50,7 +50,7 @@ class ZFCPWindow(InstallWindow):
             if self.options[i][1] == 1:
                 renderer = gtk.CellRendererText()
                 column = gtk.TreeViewColumn(self.options[i][0], renderer, text=i)
-                column.set_clickable(gtk.FALSE)
+                column.set_clickable(False)
                 column.set_min_width(140)
                 column.set_sizing (gtk.TREE_VIEW_COLUMN_AUTOSIZE)
                 self.view.append_column(column)
@@ -74,13 +74,13 @@ class ZFCPWindow(InstallWindow):
         self.diskset = diskset
         self.intf = intf
         self.options = fcp.options
-        box = gtk.VBox(gtk.FALSE)
+        box = gtk.VBox(False)
         box.set_border_width(6)
         fcp.cleanFcpSysfs(fcp.fcpdevices)
         self.fcp = fcp
         self.fcpdevices = copy.copy(fcp.fcpdevices)
         
-        devvbox = gtk.VBox(gtk.FALSE)
+        devvbox = gtk.VBox(False)
 
         self.devlist = self.setupDevices()
 
@@ -90,21 +90,21 @@ class ZFCPWindow(InstallWindow):
         devlistSW.set_shadow_type(gtk.SHADOW_IN)
         devlistSW.add(self.devlist)
         devlistSW.set_size_request(-1, 350)
-        devvbox.pack_start(devlistSW, gtk.FALSE, padding=10)
+        devvbox.pack_start(devlistSW, False, padding=10)
 
         buttonbar = gtk.HButtonBox()
         buttonbar.set_layout(gtk.BUTTONBOX_START)
         buttonbar.set_border_width(6)
         add = gtk.Button(_("_Add"))
         add.connect("clicked", self.addDevice)
-        buttonbar.pack_start(add, gtk.FALSE)
+        buttonbar.pack_start(add, False)
         edit = gtk.Button(_("_Edit"))
         edit.connect("clicked", self.editDevice)
-        buttonbar.pack_start(edit, gtk.FALSE)
+        buttonbar.pack_start(edit, False)
         remove = gtk.Button(_("_Remove"))
         remove.connect("clicked", self.removeDevice)
-        buttonbar.pack_start(remove, gtk.FALSE)
-        devvbox.pack_start(buttonbar, gtk.FALSE)
+        buttonbar.pack_start(remove, False)
+        devvbox.pack_start(buttonbar, False)
 
         devvbox.set_border_width(12)
         l = gtk.Label()
@@ -113,7 +113,7 @@ class ZFCPWindow(InstallWindow):
         frame.set_label_widget(l)
         frame.add(devvbox)
         frame.set_shadow_type(gtk.SHADOW_NONE)
-        box.pack_start(frame, gtk.FALSE)
+        box.pack_start(frame, False)
         return box
 
     def addDevice(self, data):
@@ -122,7 +122,7 @@ class ZFCPWindow(InstallWindow):
         addWin = gtk.Dialog(_("Add FCP device"),
                              flags=gtk.DIALOG_MODAL)
         gui.addFrame(addWin)
-        addWin.set_modal(gtk.TRUE)
+        addWin.set_modal(True)
         addWin.set_position (gtk.WIN_POS_CENTER)
         devbox = gtk.VBox()
         fcpTable = gtk.Table(len(self.options), 2)
@@ -130,12 +130,12 @@ class ZFCPWindow(InstallWindow):
         for t in range(len(self.options)):
             label = gtk.Label("%s:" %(self.options[t][0],))
             label.set_alignment(0.0, 0.5)
-            label.set_property("use-underline", gtk.TRUE)
+            label.set_property("use-underline", True)
             fcpTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
             entrys[t] = gtk.Entry(18)
             fcpTable.attach(entrys[t], 1, 2, t, t+1, gtk.FILL, 0, 10)
 
-        devbox.pack_start(fcpTable, gtk.FALSE, gtk.FALSE, 6)
+        devbox.pack_start(fcpTable, False, False, 6)
         devbox.set_border_width(6)
         frame = gtk.Frame()
         frame.set_border_width(12)
@@ -185,7 +185,7 @@ class ZFCPWindow(InstallWindow):
         editWin = gtk.Dialog(_("Edit FCP device %s") % (devicenum,),
                              flags=gtk.DIALOG_MODAL)
         gui.addFrame(editWin)
-        editWin.set_modal(gtk.TRUE)
+        editWin.set_modal(True)
         editWin.set_position (gtk.WIN_POS_CENTER)
         devbox = gtk.VBox()
         fcpTable = gtk.Table(len(self.options), 2)
@@ -193,12 +193,12 @@ class ZFCPWindow(InstallWindow):
         for t in range(len(self.options)):
             label = gtk.Label("%s:" %(self.options[t][0],))
             label.set_alignment(0.0, 0.5)
-            label.set_property("use-underline", gtk.TRUE)
+            label.set_property("use-underline", True)
             fcpTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
             entrys[t] = gtk.Entry(18)
             entrys[t].set_text(model.get_value(iter, t))
             fcpTable.attach(entrys[t], 1, 2, t, t+1, gtk.FILL, 0, 10)
-        devbox.pack_start(fcpTable, gtk.FALSE, gtk.FALSE, 6)
+        devbox.pack_start(fcpTable, False, False, 6)
         devbox.set_border_width(6)
         frame = gtk.Frame()
         frame.set_border_width(12)

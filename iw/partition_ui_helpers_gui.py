@@ -32,11 +32,11 @@ from rhpl.translate import _, N_
 class WideCheckList(checklist.CheckList):
     def toggled_item(self, data, row):
 
-	rc = gtk.TRUE
+	rc = True
 	if self.clickCB:
 	    rc = self.clickCB(data, row)
 
-	if rc == gtk.TRUE:
+	if rc == True:
 	    checklist.CheckList.toggled_item(self, data, row)
 
     
@@ -57,7 +57,7 @@ class WideCheckList(checklist.CheckList):
 def createAlignedLabel(text):
     label = gtk.Label(text)
     label.set_alignment(0.0, 0.5)
-    label.set_property("use-underline", gtk.TRUE)
+    label.set_property("use-underline", True)
 
     return label
 

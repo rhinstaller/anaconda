@@ -381,7 +381,7 @@ class RaidEditor:
 	row = row + 1
 
         if origrequest.getPreExisting():
-            self.raidlist.set_sensitive(gtk.FALSE)
+            self.raidlist.set_sensitive(False)
 
 	# number of spares - created widget above
 	lbl = createAlignedLabel(_("Number of _spares:"))
@@ -433,7 +433,7 @@ class RaidCloneDialog:
             iter = store.append()
             store.set_value(iter, 0, drive)
             
-        view.set_property("headers-visible", gtk.FALSE)
+        view.set_property("headers-visible", False)
 
         col = gtk.TreeViewColumn("", gtk.CellRendererText(), text=0)
         view.append_column(col)

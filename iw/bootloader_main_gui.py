@@ -88,7 +88,7 @@ class MainBootloaderWindow(InstallWindow):
             if rc == 2:
                 break
 
-            if self.none_radio.get_active() == gtk.TRUE:
+            if self.none_radio.get_active() == True:
                 newrc = self.intf.messageWindow(_("Warning"),
                                                 _("You have elected to not install any boot loader. It is strongly recommended that you install a boot loader unless you have an advanced need.  A boot loader is almost always required in order to reboot your system into Linux directly from the hard drive.\n\nWould you like to continue and not install a boot loader?"),
                                                 type = "custom",
@@ -114,7 +114,7 @@ class MainBootloaderWindow(InstallWindow):
             
 
     def setupChooseBootloaderRadioBox(self):
-        radio_vbox = gtk.VBox(gtk.FALSE, 2)
+        radio_vbox = gtk.VBox(False, 2)
         radio_vbox.set_border_width(5)
 
         label = gui.WrappingLabel(_("Please select the boot loader that "
@@ -132,14 +132,14 @@ class MainBootloaderWindow(InstallWindow):
                                                               "boot loader")))
 
 
-        radio_vbox.pack_start(label, gtk.FALSE)
-        radio_vbox.pack_start(self.grub_radio, gtk.FALSE)
-        radio_vbox.pack_start(self.none_radio, gtk.FALSE)
+        radio_vbox.pack_start(label, False)
+        radio_vbox.pack_start(self.grub_radio, False)
+        radio_vbox.pack_start(self.none_radio, False)
 
         if self.blname is None:
-            self.none_radio.set_active(gtk.TRUE)
+            self.none_radio.set_active(True)
         else:
-            self.grub_radio.set_active(gtk.TRUE)
+            self.grub_radio.set_active(True)
 
         return radio_vbox
         
@@ -149,10 +149,10 @@ class MainBootloaderWindow(InstallWindow):
             self.bllabel.set_text(_("The %s boot loader will be "
                                     "installed on /dev/%s.") %
                                   (self.blname, self.bldev))
-            active = gtk.TRUE
+            active = True
         else:
             self.bllabel.set_text(_("No boot loader will be installed."))
-            active = gtk.FALSE
+            active = False
 
         for widget in [ self.oslist.getWidget(), self.blpass.getWidget(),
                         self.advanced ]:
@@ -171,10 +171,10 @@ class MainBootloaderWindow(InstallWindow):
             self.usePass = 0
             self.password = None
 
-        thebox = gtk.VBox (gtk.FALSE, 10)
+        thebox = gtk.VBox (False, 10)
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        thebox.pack_start(spacer, gtk.FALSE)
+        thebox.pack_start(spacer, False)
 
         if self.bl.useGrub():
             self.blname = "GRUB"
@@ -198,45 +198,45 @@ class MainBootloaderWindow(InstallWindow):
         
         self.bllabel.set_alignment(0.0, 0.5)
 
-        hbox = gtk.HBox(gtk.FALSE, 10)
-        hbox.pack_start(self.bllabel, gtk.FALSE)
+        hbox = gtk.HBox(False, 10)
+        hbox.pack_start(self.bllabel, False)
 
         button = gtk.Button(_("_Change boot loader"))
-        hbox.pack_start(button, gtk.FALSE)
+        hbox.pack_start(button, False)
         button.connect("clicked", self.changeBootloaderCallback)
 
         alignment = gtk.Alignment()
         alignment.set(0.1, 0, 0, 0)
         alignment.add(hbox)
         
-        thebox.pack_start(alignment, gtk.FALSE)
+        thebox.pack_start(alignment, False)
 
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        thebox.pack_start(spacer, gtk.FALSE)
+        thebox.pack_start(spacer, False)
 
         # configure the systems available to boot from the boot loader
         self.oslist = OSBootWidget(bl, fsset, diskSet, self.parent,
                                    self.intf, self.blname)
-        thebox.pack_start(self.oslist.getWidget(), gtk.FALSE)
+        thebox.pack_start(self.oslist.getWidget(), False)
 
-        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
+        thebox.pack_start (gtk.HSeparator(), False)
 
         # control whether or not there's a boot loader password and what it is
         self.blpass = BootloaderPasswordWidget(bl, self.parent, self.intf)
-        thebox.pack_start(self.blpass.getWidget(), gtk.FALSE)
+        thebox.pack_start(self.blpass.getWidget(), False)
 
-        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
+        thebox.pack_start (gtk.HSeparator(), False)
 
         # check box to control showing the advanced screen
         self.advanced = gtk.CheckButton(_("Configure advanced boot loader "
                                           "_options"))
         if dispatch.stepInSkipList("bootloaderadvanced"):
-            self.advanced.set_active(gtk.FALSE)
+            self.advanced.set_active(False)
         else:
-            self.advanced.set_active(gtk.TRUE)
+            self.advanced.set_active(True)
             
-        thebox.pack_start(self.advanced, gtk.FALSE)
+        thebox.pack_start(self.advanced, False)
 
         # finally, update the label and activate widgets appropriately
         self.updateBootLoaderLabel()

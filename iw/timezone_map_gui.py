@@ -39,7 +39,7 @@ class TimezoneMap(gtk.VBox):
     
     def __init__(self, zonetab, default="America/New_York",
                  map='/usr/share/anaconda/pixmaps/map480.png'):
-        gtk.VBox.__init__(self, gtk.FALSE, 5)
+        gtk.VBox.__init__(self, False, 5)
 
         # set up class member objects
         self.zonetab = zonetab
@@ -68,7 +68,7 @@ class TimezoneMap(gtk.VBox):
         x1, y1, x2, y2 = root.get_bounds()
         self.canvas.set_scroll_region(x1, y1, x2, y2)
         self.canvas.set_size_request(int(x2), int(y2))
-        self.pack_start(self.canvas, gtk.FALSE, gtk.FALSE)
+        self.pack_start(self.canvas, False, False)
 
         self.current = root.add(gnomecanvas.CanvasText, text='x',
                                 fill_color='red', anchor=gtk.ANCHOR_CENTER,
@@ -80,8 +80,8 @@ class TimezoneMap(gtk.VBox):
         self.arrow = root.add(gnomecanvas.CanvasLine,
                               fill_color='limegreen',
                               width_pixels=2,
-                              first_arrowhead=gtk.FALSE,
-                              last_arrowhead=gtk.TRUE,
+                              first_arrowhead=False,
+                              last_arrowhead=True,
                               arrow_shape_a=4.0,
                               arrow_shape_b=8.0,
                               arrow_shape_c=4.0,
@@ -90,9 +90,9 @@ class TimezoneMap(gtk.VBox):
 
         # set up status bar
         self.status = gtk.Statusbar()
-        self.status.set_has_resize_grip(gtk.FALSE)
+        self.status.set_has_resize_grip(False)
         self.statusContext = self.status.get_context_id("")
-        self.pack_start(self.status, gtk.FALSE, gtk.FALSE)
+        self.pack_start(self.status, False, False)
 
         self.columns = Enum("TZ", "COMMENTS", "ENTRY")
         
@@ -125,7 +125,7 @@ class TimezoneMap(gtk.VBox):
         self.listView = gtk.TreeView(self.listStore)
         selection = self.listView.get_selection()
         selection.connect("changed", self.selectionChanged)
-        self.listView.set_property("headers-visible", gtk.TRUE)
+        self.listView.set_property("headers-visible", True)
         col = gtk.TreeViewColumn(_("_Location"), gtk.CellRendererText(), text=0)
         self.listView.append_column(col)
         col = gtk.TreeViewColumn(_("Description"), gtk.CellRendererText(), text=1)
@@ -134,7 +134,7 @@ class TimezoneMap(gtk.VBox):
         sw = gtk.ScrolledWindow ()
         sw.add(self.listView)
         sw.set_shadow_type(gtk.SHADOW_IN)
-        self.pack_start(sw, gtk.TRUE, gtk.TRUE)
+        self.pack_start(sw, True, True)
 
         self.setCurrent(self.currentEntry)
 
@@ -188,8 +188,8 @@ class TimezoneMap(gtk.VBox):
                 selection.select_iter(iter)
                 path = self.listStore.get_path(iter)
                 col = self.listView.get_column(0)
-                self.listView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
-                self.listView.set_cursor(path, col, gtk.FALSE)
+                self.listView.scroll_to_cell(path, col, True, 0.5, 0.5)
+                self.listView.set_cursor(path, col, False)
                 break
             iter = self.listStore.iter_next(iter)
         
@@ -296,7 +296,7 @@ if __name__ == "__main__":
     vbox.pack_start(map)
     button = gtk.Button("Quit")
     button.connect("pressed", gtk.mainquit)
-    vbox.pack_start(button, gtk.FALSE, gtk.FALSE)
+    vbox.pack_start(button, False, False)
     win.add(vbox)
     win.show_all()
     gtk.main()

@@ -67,7 +67,7 @@ class PartitionEditor:
 	maxsizeAdj = gtk.Adjustment(value = 1, lower = 1,
 				    upper = MAX_PART_SIZE, step_incr = 1)
 	fillmaxszsb = gtk.SpinButton(maxsizeAdj, digits = 0)
-	fillmaxszsb.set_property('numeric', gtk.TRUE)
+	fillmaxszsb.set_property('numeric', True)
 	fillmaxszhbox = gtk.HBox()
 	fillmaxszhbox.pack_start(fillmaxszrb)
 	fillmaxszhbox.pack_start(fillmaxszsb)
@@ -116,7 +116,7 @@ class PartitionEditor:
 
                 request = copy.copy(self.origrequest)
                 request.fstype = filesystem
-                request.format = gtk.TRUE
+                request.format = True
                 
                 if request.fstype.isMountable():
                     request.mountpoint = self.mountCombo.get_children()[0].get_text()
@@ -124,12 +124,12 @@ class PartitionEditor:
                     request.mountpoint = None
                     
                 if self.primonlycheckbutton.get_active():
-                    primonly = gtk.TRUE
+                    primonly = True
                 else:
                     primonly = None
 
                 if self.badblocks and self.badblocks.get_active():
-                    request.badblocks = gtk.TRUE
+                    request.badblocks = True
                 else:
                     request.badblocks = None
 
@@ -137,7 +137,7 @@ class PartitionEditor:
                     if self.fixedrb.get_active():
                         grow = None
                     else:
-                        grow = gtk.TRUE
+                        grow = True
 
                     self.sizespin.update()
 
@@ -205,7 +205,7 @@ class PartitionEditor:
                     if request.format:
                         request.fstype = self.fsoptionsDict["fstypeCombo"].get_active_value()
                     if self.fsoptionsDict.has_key("badblocks") and self.fsoptionsDict["badblocks"].get_active():
-                        request.badblocks = gtk.TRUE
+                        request.badblocks = True
                     else:
                         request.badblocks = None
                 else:
@@ -369,7 +369,7 @@ class PartitionEditor:
                 sizeAdj = gtk.Adjustment(value = 1, lower = 1,
                                          upper = MAX_PART_SIZE, step_incr = 1)
                 self.sizespin = gtk.SpinButton(sizeAdj, digits = 0)
-                self.sizespin.set_property('numeric', gtk.TRUE)
+                self.sizespin.set_property('numeric', True)
 
                 if self.origrequest.size:
                     self.sizespin.set_value(self.origrequest.size)
@@ -396,7 +396,7 @@ class PartitionEditor:
                                         upper=maxcyl,
                                         step_incr=1)
                 self.startcylspin = gtk.SpinButton(cylAdj, digits=0)
-                self.startcylspin.set_property('numeric', gtk.TRUE)
+                self.startcylspin.set_property('numeric', True)
 		lbl.set_mnemonic_widget(self.startcylspin)
                 maintable.attach(self.startcylspin, 1, 2, row, row + 1)
                 row = row + 1
@@ -408,7 +408,7 @@ class PartitionEditor:
 		lbl = createAlignedLabel(_("_End Cylinder:"))		
                 maintable.attach(lbl, 0, 1, row, row + 1)
                 self.endcylspin = gtk.SpinButton(endcylAdj, digits = 0)
-                self.endcylspin.set_property('numeric', gtk.TRUE)
+                self.endcylspin.set_property('numeric', True)
 		lbl.set_mnemonic_widget(self.endcylspin)
                 maintable.attach(self.endcylspin, 1, 2, row, row + 1)
 

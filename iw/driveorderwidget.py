@@ -29,7 +29,7 @@ class DriveOrderWidget:
         self.driveOrder = driveorder
         self.diskset = diskset
         
-        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(False, 5)
 
         # different widget for this maybe?
         self.driveOrderStore = gtk.ListStore(gobject.TYPE_STRING,
@@ -45,41 +45,41 @@ class DriveOrderWidget:
             renderer = gtk.CellRendererText()
             column = gtk.TreeViewColumn(columnName, renderer, text = i)
             i = i + 1
-            column.set_clickable(gtk.FALSE)
+            column.set_clickable(False)
             self.driveOrderView.append_column(column)
 
             
-        self.driveOrderView.set_rules_hint(gtk.FALSE)
-        self.driveOrderView.set_headers_visible(gtk.FALSE)
-        self.driveOrderView.set_enable_search(gtk.FALSE)
+        self.driveOrderView.set_rules_hint(False)
+        self.driveOrderView.set_headers_visible(False)
+        self.driveOrderView.set_enable_search(False)
 
         self.makeDriveOrderStore()
 
         sw.add(self.driveOrderView)
         self.driveOrderView.set_size_request(375, 80)
-        hbox.pack_start(sw, gtk.FALSE)
+        hbox.pack_start(sw, False)
 
-        arrowbox = gtk.VBox(gtk.FALSE, 5)
+        arrowbox = gtk.VBox(False, 5)
         arrowButton = gtk.Button()
         arrow = gtk.Arrow(gtk.ARROW_UP, gtk.SHADOW_ETCHED_IN)
         arrowButton.add(arrow)
         arrowButton.connect("clicked", self.arrowClicked, gtk.ARROW_UP)
-        arrowbox.pack_start(arrowButton, gtk.FALSE)
+        arrowbox.pack_start(arrowButton, False)
         
         spacer = gtk.Label("")
         spacer.set_size_request(10, 1)
-        arrowbox.pack_start(spacer, gtk.FALSE)
+        arrowbox.pack_start(spacer, False)
 
         arrowButton = gtk.Button()
         arrow = gtk.Arrow(gtk.ARROW_DOWN, gtk.SHADOW_ETCHED_IN)
         arrowButton.add(arrow)
         arrowButton.connect("clicked", self.arrowClicked, gtk.ARROW_DOWN)
-        arrowbox.pack_start(arrowButton, gtk.FALSE)
+        arrowbox.pack_start(arrowButton, False)
 
         alignment = gtk.Alignment()
         alignment.set(0, 0.5, 0, 0)
         alignment.add(arrowbox)
-        hbox.pack_start(alignment, gtk.FALSE)
+        hbox.pack_start(alignment, False)
 
         self.widget = hbox
 

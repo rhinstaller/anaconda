@@ -74,14 +74,14 @@ class UpgradeBootloaderWindow (InstallWindow):
                                                          self.bootDev)
             self.update_label = gtk.Label("%s  %s" % (updatestr,
                                          _("This is the recommended option.")))
-            self.update_radio.set_active(gtk.FALSE)
+            self.update_radio.set_active(False)
             update = 1
         else:
             current = _("The installer is unable to detect the boot loader "
                         "currently in use on your system.")
             self.update_label = gtk.Label("%s" % (updatestr,))
-            self.update_radio.set_sensitive(gtk.FALSE)
-            self.update_label.set_sensitive(gtk.FALSE)
+            self.update_radio.set_sensitive(False)
+            self.update_label.set_sensitive(False)
             update = 0
             
     
@@ -93,19 +93,19 @@ class UpgradeBootloaderWindow (InstallWindow):
                                       "you wish to switch boot loaders, you "
                                       "should choose this."))
                                       
-        self.newbl_radio.set_active(gtk.FALSE)
+        self.newbl_radio.set_active(False)
         self.nobl_radio = gtk.RadioButton(self.update_radio,
                                          _("_Skip boot loader updating"))
         self.nobl_label = gtk.Label(_("This will make no changes to boot "
                                      "loader configuration.  If you are "
                                      "using a third party boot loader, you "
                                      "should choose this."))
-        self.nobl_radio.set_active(gtk.FALSE)
+        self.nobl_radio.set_active(False)
 
         for label in [self.update_label, self.nobl_label, self.newbl_label]:
             label.set_alignment(0.8, 0)
             label.set_size_request(275, -1)
-            label.set_line_wrap(gtk.TRUE)
+            label.set_line_wrap(True)
 
 
         str = _("What would you like to do?")
@@ -118,33 +118,33 @@ class UpgradeBootloaderWindow (InstallWindow):
         
 
         if not dispatch.stepInSkipList("bootloader"):
-            self.newbl_radio.set_active(gtk.TRUE)
+            self.newbl_radio.set_active(True)
         elif dispatch.stepInSkipList("instbootloader"):
-            self.nobl_radio.set_active(gtk.TRUE)
+            self.nobl_radio.set_active(True)
         else:
-            default.set_active(gtk.TRUE)
+            default.set_active(True)
 
 
-        box = gtk.VBox(gtk.FALSE, 5)
+        box = gtk.VBox(False, 5)
 
         label = gtk.Label(current)
-        label.set_line_wrap(gtk.TRUE)
+        label.set_line_wrap(True)
         label.set_alignment(0.5, 0.0)
         label.set_size_request(300, -1)
         label2 = gtk.Label(str)
-        label2.set_line_wrap(gtk.TRUE)
+        label2.set_line_wrap(True)
         label2.set_alignment(0.5, 0.0)
         label2.set_size_request(300, -1)
 
-        box.pack_start(label, gtk.FALSE)
-        box.pack_start(label2, gtk.FALSE, padding = 10)
+        box.pack_start(label, False)
+        box.pack_start(label2, False, padding = 10)
 
-        box.pack_start(self.update_radio, gtk.FALSE)
-        box.pack_start(self.update_label, gtk.FALSE)
-        box.pack_start(self.nobl_radio, gtk.FALSE)
-        box.pack_start(self.nobl_label, gtk.FALSE)
-        box.pack_start(self.newbl_radio, gtk.FALSE)
-        box.pack_start(self.newbl_label, gtk.FALSE)        
+        box.pack_start(self.update_radio, False)
+        box.pack_start(self.update_label, False)
+        box.pack_start(self.nobl_radio, False)
+        box.pack_start(self.nobl_label, False)
+        box.pack_start(self.newbl_radio, False)
+        box.pack_start(self.newbl_label, False)        
 
         a = gtk.Alignment(0.2, 0.1)
         a.add(box)

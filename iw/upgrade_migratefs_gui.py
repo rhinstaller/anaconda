@@ -49,7 +49,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         self.migent = fsset.getMigratableEntries()
         self.fsset = fsset
         
-        box = gtk.VBox (gtk.FALSE, 5)
+        box = gtk.VBox (False, 5)
         box.set_border_width (5)
 
 	text = N_("This release of %s supports "
@@ -63,10 +63,10 @@ class UpgradeMigrateFSWindow (InstallWindow):
 	label = gtk.Label (_(text))
         label.set_alignment (0.5, 0.0)
         label.set_size_request(400, -1)
-        label.set_line_wrap (gtk.TRUE)
-        box.pack_start(label, gtk.FALSE)
+        label.set_line_wrap (True)
+        box.pack_start(label, False)
 
-        cbox = gtk.VBox(gtk.FALSE, 5)
+        cbox = gtk.VBox(False, 5)
         self.cbs = []
         for entry in self.migent:
             if entry.fsystem.getName() != entry.origfsystem.getName():
@@ -78,7 +78,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
                                               entry.origfsystem.getName(),
                                               entry.mountpoint))
             cb.set_active(migrating)
-            cbox.pack_start(cb, gtk.FALSE)
+            cbox.pack_start(cb, False)
 
             self.cbs.append((cb, entry))
 
@@ -93,7 +93,7 @@ class UpgradeMigrateFSWindow (InstallWindow):
         a = gtk.Alignment(0.25, 0.5)
         a.add(sw)
 
-        box.pack_start(a, gtk.TRUE)
+        box.pack_start(a, True)
         
         a = gtk.Alignment(0.5, 0.5)
         a.add(box)

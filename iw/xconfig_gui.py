@@ -39,7 +39,7 @@ unprobed_monitor_string = _("Unprobed Monitor")
 def makeFormattedLabel(text):
     label = gtk.Label (text)
     label.set_justify (gtk.JUSTIFY_LEFT)
-    label.set_line_wrap (gtk.TRUE)        
+    label.set_line_wrap (True)        
     label.set_alignment (0.0, 0.5)
     label.set_size_request (400, -1)
     return label
@@ -52,7 +52,7 @@ class XCustomWindow (InstallWindow):
 
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
-        self.ics.setNextEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (True)
 
 
     def getPrev(self):
@@ -155,7 +155,7 @@ class XCustomWindow (InstallWindow):
             self.monitor_align = gtk.Alignment ()
             self.monitor_align.add (pix)
             self.monitor_align.set (0.5, 0.5, 1.0, 1.0)
-            self.hbox.pack_start (self.monitor_align, gtk.TRUE, gtk.TRUE)
+            self.hbox.pack_start (self.monitor_align, True, True)
         self.hbox.show_all()
 
     def swap_monitor (self, num):
@@ -199,7 +199,7 @@ class XCustomWindow (InstallWindow):
             a = gtk.Alignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
-            self.vbox4.pack_start (a, gtk.TRUE, gtk.TRUE)
+            self.vbox4.pack_start (a, True, True)
 
         self.hbox4.pack_start (self.vbox4)
         self.hbox4.show_all ()
@@ -232,27 +232,27 @@ class XCustomWindow (InstallWindow):
         self.instPath = instPath
 
         # create toplevel packing structure
-        self.box = gtk.VBox (gtk.FALSE)
+        self.box = gtk.VBox (False)
         self.box.set_border_width (5)
 
         # hbox and alignment used for monitor preview area
         # list of pixmaps for monitor preview
         self.monitor_pixmaps = None
-        self.hbox = gtk.HBox (gtk.FALSE, 5)
+        self.hbox = gtk.HBox (False, 5)
         self.monitor_align = None
         self.desktop_align = None
         self.load_monitor_preview_pixmap("monitor.png")
         self.box.pack_start (self.hbox)
 
-        hbox1 = gtk.HBox (gtk.FALSE, 5)
-        hbox3 = gtk.HBox (gtk.FALSE, 5)
-        hbox4 = gtk.HBox (gtk.FALSE, 5)
+        hbox1 = gtk.HBox (False, 5)
+        hbox3 = gtk.HBox (False, 5)
+        hbox4 = gtk.HBox (False, 5)
 
         frame1 = gtk.Frame (_("_Color Depth:"))
-        frame1.get_label_widget().set_property("use-underline", gtk.TRUE)
+        frame1.get_label_widget().set_property("use-underline", True)
         frame1.set_shadow_type (gtk.SHADOW_NONE)
         frame1.set_border_width (10)
-        hbox1.pack_start(frame1, gtk.TRUE, gtk.FALSE, 0)
+        hbox1.pack_start(frame1, True, False, 0)
 
         # determine video modes available for this card/monitor combo
 	self.avail_depth = self.xsetup.xhwstate.available_color_depths()
@@ -280,10 +280,10 @@ class XCustomWindow (InstallWindow):
 
 	# now we do screen resolution
         frame2 = gtk.Frame (_("_Screen Resolution:"))
-        frame2.get_label_widget().set_property("use-underline", gtk.TRUE)
+        frame2.get_label_widget().set_property("use-underline", True)
         frame2.set_shadow_type (gtk.SHADOW_NONE)
         frame2.set_border_width (10)
-        hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
+        hbox1.pack_start (frame2, True, False, 2)
 
         self.avail_res = self.xsetup.xhwstate.available_resolutions()
 	
@@ -315,7 +315,7 @@ class XCustomWindow (InstallWindow):
 	self.ignore_res_cb = 0
         self.res_optionmenu.connect ("changed", self.res_cb)
 
-        self.box.pack_start (hbox1, gtk.FALSE)
+        self.box.pack_start (hbox1, False)
 
         #--If both KDE and GNOME are selected
         if grpset:
@@ -340,7 +340,7 @@ class XCustomWindow (InstallWindow):
                 frame3 = gtk.Frame (_("Your desktop environment is:"))
                 
             frame3.set_shadow_type (gtk.SHADOW_NONE)
-            hbox3.pack_start (frame3, gtk.TRUE, gtk.FALSE, 2)
+            hbox3.pack_start (frame3, True, False, 2)
 
             self.hbox4 = gtk.HBox ()
             frame3.add (self.hbox4)
@@ -353,9 +353,9 @@ class XCustomWindow (InstallWindow):
                 vbox3 = gtk.VBox()
                 
                 gnome_radio = gtk.RadioButton (None, (_("GNO_ME")))
-                vbox3.pack_start (gnome_radio, gtk.TRUE, gtk.FALSE, 2)
+                vbox3.pack_start (gnome_radio, True, False, 2)
                 kde_radio = gtk.RadioButton(gnome_radio, (_("_KDE")))            
-                vbox3.pack_start (kde_radio, gtk.TRUE, gtk.FALSE, 2)
+                vbox3.pack_start (kde_radio, True, False, 2)
 
                 self.hbox4.pack_start (vbox3)
 
@@ -363,10 +363,10 @@ class XCustomWindow (InstallWindow):
                 
                 #--Set the desktop GUI widget to what the user has selected
                 if self.origDesktop == "GNOME":
-                    gnome_radio.set_active (gtk.TRUE)
+                    gnome_radio.set_active (True)
                     self.display_desktop_pixmap("GNOME")
                 elif self.origDesktop == "KDE":
-                    kde_radio.set_active (gtk.TRUE)
+                    kde_radio.set_active (True)
                     self.display_desktop_pixmap("KDE")
 
                 gnome_radio.connect ("clicked", self.desktop_cb, "GNOME")
@@ -375,7 +375,7 @@ class XCustomWindow (InstallWindow):
                 self.hbox4.pack_start(gtk.Label(self.origDesktop))
                 self.display_desktop_pixmap(self.origDesktop)
 
-            self.box.pack_start (hbox3, gtk.FALSE, gtk.TRUE, 2)
+            self.box.pack_start (hbox3, False, True, 2)
         else:
             gnome_radio = None
             kde_radio = None
@@ -387,9 +387,9 @@ class XCustomWindow (InstallWindow):
 	if self.instClass.showLoginChoice:
 	    frame4 = gtk.Frame (_("Please choose your login type:"))
 	    frame4.set_shadow_type (gtk.SHADOW_NONE)
-	    hbox4.pack_start (frame4, gtk.TRUE, gtk.FALSE, 2)
+	    hbox4.pack_start (frame4, True, False, 2)
 
-	    self.hbox5 = gtk.HBox (gtk.TRUE, 2)
+	    self.hbox5 = gtk.HBox (True, 2)
 	    frame4.add (self.hbox5)
 
 	    self.text = gtk.RadioButton (None, (_("_Text")))
@@ -398,14 +398,14 @@ class XCustomWindow (InstallWindow):
 	    self.runLevel = self.desktop.getDefaultRunLevel()
 
 	    if self.runLevel == 3:
-		self.text.set_active (gtk.TRUE)
+		self.text.set_active (True)
 	    elif self.runLevel == 5:
-		self.graphical.set_active (gtk.TRUE)
+		self.graphical.set_active (True)
 
-	    self.hbox5.pack_start (self.graphical, gtk.FALSE, 2)
-	    self.hbox5.pack_start (self.text, gtk.FALSE, 2)
+	    self.hbox5.pack_start (self.graphical, False, 2)
+	    self.hbox5.pack_start (self.text, False, 2)
 
-	    self.box.pack_start (hbox4, gtk.FALSE, gtk.TRUE, 2)
+	    self.box.pack_start (hbox4, False, True, 2)
 
         return self.box
 
@@ -415,8 +415,8 @@ class MonitorWindow (InstallWindow):
 
     def __init__ (self, ics):
         InstallWindow.__init__ (self, ics)
-        self.ics.setNextEnabled (gtk.FALSE)
-        self.ics.setPrevEnabled (gtk.TRUE)
+        self.ics.setNextEnabled (False)
+        self.ics.setPrevEnabled (True)
         
     def getNext (self):
         if self.currentMonitor:
@@ -476,9 +476,9 @@ class MonitorWindow (InstallWindow):
         aval = entry.get_text()
         bval = other.get_text()
         if isValidSyncRange(aval) and isValidSyncRange(bval):
-            self.ics.setNextEnabled (gtk.TRUE)
+            self.ics.setNextEnabled (True)
         else:
-            self.ics.setNextEnabled (gtk.FALSE)
+            self.ics.setNextEnabled (False)
 
     def setCurrent(self, monitorname, recenter=1):
 	self.ignoreEvents = 1
@@ -497,15 +497,15 @@ class MonitorWindow (InstallWindow):
             # if it's not a parent node and the mouse matches, select it.
             elif self.monitorstore.get_value(iter, 0) == monitorname:
                 path = self.monitorstore.get_path(parent)
-                self.monitorview.expand_row(path, gtk.TRUE)
+                self.monitorview.expand_row(path, True)
                 selection = self.monitorview.get_selection()
                 selection.unselect_all()
                 selection.select_iter(iter)
                 path = self.monitorstore.get_path(iter)
                 col = self.monitorview.get_column(0)
-                self.monitorview.set_cursor(path, col, gtk.FALSE)
+                self.monitorview.set_cursor(path, col, False)
                 if recenter:
-                    self.monitorview.scroll_to_cell(path, col, gtk.TRUE,
+                    self.monitorview.scroll_to_cell(path, col, True,
                                                   0.0, 0.5)
                 break
             # get the next row.
@@ -620,14 +620,14 @@ class MonitorWindow (InstallWindow):
 
 	self.lastvalidselection = None
 
-        box = gtk.VBox (gtk.FALSE, 5)
+        box = gtk.VBox (False, 5)
 
 	label = makeFormattedLabel (_("In most cases, the monitor can be "
 				      "automatically detected. If the "
 				      "detected settings are not correct "
 				      "for the monitor, select the right "
 				      "settings."))
-	box.pack_start (label, gtk.FALSE)
+	box.pack_start (label, False)
 
         # Monitor selection tree
 	self.monitorstore = gtk.TreeStore(gobject.TYPE_STRING,
@@ -716,7 +716,7 @@ class MonitorWindow (InstallWindow):
                     self.currentMonitor = amonitor[0]
 
         self.monitorview = gtk.TreeView(self.monitorstore)
-        self.monitorview.set_property("headers-visible", gtk.FALSE)
+        self.monitorview.set_property("headers-visible", False)
         col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
         self.monitorview.append_column(col)
 
@@ -724,7 +724,7 @@ class MonitorWindow (InstallWindow):
         sw.add (self.monitorview)
         sw.set_policy (gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
 	sw.set_shadow_type(gtk.SHADOW_IN)
-        box.pack_start (sw, gtk.TRUE, gtk.TRUE)
+        box.pack_start (sw, True, True)
 
 	self.setCurrent(self.currentMonitor)
         selection = self.monitorview.get_selection()
@@ -744,7 +744,7 @@ class MonitorWindow (InstallWindow):
         align = gtk.Alignment (1, 0.5)
         align.add (self.reset)
         
-        synctable = gtk.Table(2, 4, gtk.FALSE)
+        synctable = gtk.Table(2, 4, False)
         hlabel = gui.MnemonicLabel (_("Hori_zontal Sync:"))
         hlabel.set_alignment (0, 0.5)
         hlabel.set_mnemonic_widget(self.hEntry)
@@ -769,7 +769,7 @@ class MonitorWindow (InstallWindow):
         synctable.attach(khz, 2, 3, 1, 2, gtk.FILL, gtk.FILL, 5)
         synctable.attach(align, 3, 4, 1, 2)
         
-        box.pack_start (synctable, gtk.FALSE, gtk.FALSE)
+        box.pack_start (synctable, False, False)
 	
 	setupTreeViewFixupIdleHandler(self.monitorview, self.monitorstore)
 
@@ -782,7 +782,7 @@ class XConfigWindow (InstallWindow):
         
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setPrevEnabled (gtk.FALSE)
+        ics.setPrevEnabled (False)
         self.ics = ics
 
     def getNext (self):
@@ -918,15 +918,15 @@ class XConfigWindow (InstallWindow):
             # if it's not a parent node and the mouse matches, select it.
             elif self.cardstore.get_value(iter, 0) == cardname:
                 path = self.cardstore.get_path(parent)
-                self.cardview.expand_row(path, gtk.TRUE)
+                self.cardview.expand_row(path, True)
                 selection = self.cardview.get_selection()
                 selection.unselect_all()
                 selection.select_iter(iter)
                 path = self.cardstore.get_path(iter)
                 col = self.cardview.get_column(0)
-                self.cardview.set_cursor(path, col, gtk.FALSE)
+                self.cardview.set_cursor(path, col, False)
                 if recenter:
-                    self.cardview.scroll_to_cell(path, col, gtk.TRUE,
+                    self.cardview.scroll_to_cell(path, col, True,
                                                   0.0, 0.5)
                 break
             # get the next row.
@@ -952,7 +952,7 @@ class XConfigWindow (InstallWindow):
 
     # XConfigWindow tag="xconf"
     def getScreen (self, dispatch, xsetup, videocard, intf):
-        self.ics.setHelpEnabled (gtk.TRUE)
+        self.ics.setHelpEnabled (True)
 
         self.dispatch = dispatch
         self.videocard = videocard
@@ -961,10 +961,10 @@ class XConfigWindow (InstallWindow):
 
 	self.lastvalidselection = None
 
-        box = gtk.VBox (gtk.FALSE, 0)
+        box = gtk.VBox (False, 0)
         box.set_border_width (0)
 
-        self.autoBox = gtk.VBox (gtk.FALSE, 5)
+        self.autoBox = gtk.VBox (False, 5)
 
 	self.force_ppc_fb = 0
         arch = iutil.getArch()
@@ -977,24 +977,24 @@ class XConfigWindow (InstallWindow):
 					  "not want to setup the X Window "
 					  "System, choose "
 					  "'Skip X Configuration' below."))
-            box.pack_start (label, gtk.FALSE, gtk.FALSE)
+            box.pack_start (label, False, False)
 	    self.force_ppc_fb = 1
         elif arch != "i386":
             label = makeFormattedLabel (_("Your video ram size can not be "
                                           "autodetected.  Choose your video "
                                           "ram size from the choices below:"))
-            box.pack_start (label, gtk.FALSE)
+            box.pack_start (label, False)
         else:
-            self.autoBox = gtk.VBox (gtk.FALSE, 5)
+            self.autoBox = gtk.VBox (False, 5)
 
             label = makeFormattedLabel (_("In most cases, the video hardware "
                                           "can be automatically detected. "
                                           "If the detected settings are not "
                                           "correct for the hardware, select "
 					  "the right settings."))
-            self.autoBox.pack_start (label, gtk.FALSE)
+            self.autoBox.pack_start (label, False)
 
-            box.pack_start (self.autoBox, gtk.FALSE)
+            box.pack_start (self.autoBox, False)
 
 	# load in card database
         self.cards = self.videocard.cardsDB()
@@ -1055,7 +1055,7 @@ class XConfigWindow (InstallWindow):
 	    self.cardstore.set_value(iter, 0, card)
 
         self.cardview = gtk.TreeView(self.cardstore)
-        self.cardview.set_property("headers-visible", gtk.FALSE)
+        self.cardview.set_property("headers-visible", False)
         col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=0)
         self.cardview.append_column(col)
         selection = self.cardview.get_selection()
@@ -1069,7 +1069,7 @@ class XConfigWindow (InstallWindow):
 
 	# only show this option on non-ppc
 	if not self.force_ppc_fb:
-	    box.pack_start (sw, gtk.TRUE)
+	    box.pack_start (sw, True)
 
         #Memory configuration menu
         hbox = gtk.HBox()
@@ -1091,33 +1091,33 @@ class XConfigWindow (InstallWindow):
             memitem = gtk.MenuItem(tag)
             self.ramMenu.add(memitem)
 
-        hbox.pack_start(label, gtk.FALSE)
-        hbox.pack_start(self.ramOption, gtk.TRUE, gtk.TRUE, 25)
+        hbox.pack_start(label, False)
+        hbox.pack_start(self.ramOption, True, True, 25)
 
         self.ramOption.set_menu (self.ramMenu)
 
 	# only show this option on non-ppc
 	if not self.force_ppc_fb:
-	    box.pack_start (hbox, gtk.FALSE)
+	    box.pack_start (hbox, False)
 
         restore = gtk.Button (_("Restore _original values"))
         restore.connect ("clicked", self.restorePressed)
-        hbox.pack_start(restore, gtk.FALSE, 25)
+        hbox.pack_start(restore, False, 25)
         
         self.skip = gtk.CheckButton (_("_Skip X configuration"))
         self.skip.connect ("toggled", self.skipToggled) 
         
-        hbox = gtk.HBox (gtk.TRUE, 5)
+        hbox = gtk.HBox (True, 5)
         
-        self.topbox = gtk.VBox (gtk.FALSE, 5)
+        self.topbox = gtk.VBox (False, 5)
         self.topbox.set_border_width (5)
 	if self.force_ppc_fb:
 	    # tweak packing
-	    self.topbox.pack_start (box, gtk.FALSE, gtk.FALSE)
-	    self.topbox.pack_start (self.skip, gtk.FALSE, gtk.FALSE)
+	    self.topbox.pack_start (box, False, False)
+	    self.topbox.pack_start (self.skip, False, False)
 	else:
-	    self.topbox.pack_start (box, gtk.TRUE, gtk.TRUE)
-	    self.topbox.pack_start (self.skip, gtk.FALSE)
+	    self.topbox.pack_start (box, True, True)
+	    self.topbox.pack_start (self.skip, False)
         
         self.configbox = box
         

@@ -73,7 +73,7 @@ class InstallPathWindow (InstallWindow):
 	self.method = method
 	self.dispatch = dispatch
 	
-        vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox = gtk.VBox (False, 10)
 	vbox.set_border_width (8)
 
 	self.r = self.createInstallTypeOption()
@@ -105,10 +105,10 @@ class InstallPathWindow (InstallWindow):
 
 	self.r.setCurrent(self.currentClassName)
 	
-	box = gtk.VBox (gtk.FALSE)
-        box.pack_start(b, gtk.FALSE)
+	box = gtk.VBox (False)
+        box.pack_start(b, False)
 
-        vbox.pack_start (box, gtk.FALSE)
+        vbox.pack_start (box, False)
         return vbox
 
 

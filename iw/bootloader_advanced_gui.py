@@ -64,18 +64,18 @@ class AdvancedBootloaderWindow(InstallWindow):
 
     # set up the vbox with force lba32 and kernel append
     def setupOptionsVbox(self):
-        self.options_vbox = gtk.VBox(gtk.FALSE, 5)
+        self.options_vbox = gtk.VBox(False, 5)
         self.options_vbox.set_border_width(5)
         
         self.forceLBA = gtk.CheckButton(_("_Force LBA32 (not normally required)"))
-        self.options_vbox.pack_start(self.forceLBA, gtk.FALSE)
+        self.options_vbox.pack_start(self.forceLBA, False)
         self.forceLBA.set_active(self.bl.forceLBA32)
 
         label = gui.WrappingLabel(_("If you wish to add default options to the "
 			    "boot command, enter them into "
 			    "the 'General kernel parameters' field."))
 	label.set_alignment(0.0, 0.0)
-        self.options_vbox.pack_start(label, gtk.FALSE)
+        self.options_vbox.pack_start(label, False)
 
         label = gui.MnemonicLabel(_("_General kernel parameters"))
         self.appendEntry = gtk.Entry()
@@ -83,12 +83,12 @@ class AdvancedBootloaderWindow(InstallWindow):
         args = self.bl.args.get()
         if args:
             self.appendEntry.set_text(args)
-        box = gtk.HBox(gtk.FALSE, 0)
+        box = gtk.HBox(False, 0)
         box.pack_start(label)
         box.pack_start(self.appendEntry)
 	al = gtk.Alignment(0.0, 0.0)
 	al.add(box)
-        self.options_vbox.pack_start(al, gtk.FALSE)
+        self.options_vbox.pack_start(al, False)
 
 
     def getScreen(self, dispatch, bl, fsset, diskset):
@@ -96,18 +96,18 @@ class AdvancedBootloaderWindow(InstallWindow):
         self.bl = bl
         self.intf = dispatch.intf
 
-        thebox = gtk.VBox (gtk.FALSE, 10)
+        thebox = gtk.VBox (False, 10)
 
         # boot loader location bits (mbr vs boot, drive order)
         self.blloc = BootloaderLocationWidget(bl, fsset, diskset,
                                               self.parent, self.intf)
-        thebox.pack_start(self.blloc.getWidget(), gtk.FALSE)
+        thebox.pack_start(self.blloc.getWidget(), False)
 
-        thebox.pack_start (gtk.HSeparator(), gtk.FALSE)
+        thebox.pack_start (gtk.HSeparator(), False)
 
         # some optional things
         self.setupOptionsVbox()
-        thebox.pack_start(self.options_vbox, gtk.FALSE)
+        thebox.pack_start(self.options_vbox, False)
 
 
         return thebox

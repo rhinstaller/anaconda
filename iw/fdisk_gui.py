@@ -61,7 +61,7 @@ class FDiskWindow(InstallWindow):
         term.set_color_background(gtk.gdk.color_parse('white'))
         term.set_color_foreground(gtk.gdk.color_parse('black'))
         term.connect("child_exited", self.child_died, widget)
-        term.reset(gtk.TRUE, gtk.TRUE)
+        term.reset(True, True)
 
         self.drive = drive
 
@@ -95,8 +95,8 @@ class FDiskWindow(InstallWindow):
         self.partrequests = partrequests
         self.intf = intf
         
-        self.windowContainer = gtk.VBox(gtk.FALSE)
-        self.buttonBox = gtk.VBox(gtk.FALSE, 5)
+        self.windowContainer = gtk.VBox(False)
+        self.buttonBox = gtk.VBox(False, 5)
         self.buttonBox.set_border_width(5)
         box = gtk.VButtonBox()
         box.set_layout("start")
@@ -121,8 +121,8 @@ class FDiskWindow(InstallWindow):
         viewport.set_shadow_type(gtk.SHADOW_ETCHED_IN)
         sw.set_size_request(-1, 400)
 
-        self.buttonBox.pack_start(label, gtk.FALSE)
-        self.buttonBox.pack_start(sw, gtk.FALSE)
+        self.buttonBox.pack_start(label, False)
+        self.buttonBox.pack_start(sw, False)
         self.windowContainer.pack_start(self.buttonBox)
 
         self.ics.setNextEnabled(1)

@@ -77,7 +77,7 @@ if __name__ == "__main__":
     if take_screenshot:
 	width = gtk.gdk.screen_width()
 	height = gtk.gdk.screen_height()
-	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, gtk.FALSE, 8,
+	screenshot = gtk.gdk.Pixbuf(gtk.gdk.COLORSPACE_RGB, False, 8,
 					width, height)
 
 	screenshot.get_from_drawable(gtk.gdk.get_default_root_window(),
@@ -102,7 +102,7 @@ if __name__ == "__main__":
     
     textWin = gtk.Dialog(flags=gtk.DIALOG_MODAL)
 
-    table = gtk.Table(3, 3, gtk.FALSE)
+    table = gtk.Table(3, 3, False)
     textWin.vbox.pack_start(table)
     textWin.add_button('gtk-close', gtk.RESPONSE_NONE)
     textWin.connect("response", relnotes_closed)

@@ -137,12 +137,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.packageList.clear()
 
             if not self.flat_groups.has_key(currentGroup):
-                self.selectAllButton.set_sensitive(gtk.FALSE)
-                self.unselectAllButton.set_sensitive(gtk.FALSE)
+                self.selectAllButton.set_sensitive(False)
+                self.unselectAllButton.set_sensitive(False)
                 return
 
-            self.selectAllButton.set_sensitive(gtk.TRUE)
-            self.unselectAllButton.set_sensitive(gtk.TRUE)
+            self.selectAllButton.set_sensitive(True)
+            self.unselectAllButton.set_sensitive(True)
             
             packages = self.flat_groups[currentGroup]
             self.add_packages(packages)
@@ -299,7 +299,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 		if self.ignoreKeypress:
 		    if (package, val) == self.ignoreKeypress:
 			self.ignoreKeypress = None
-			return gtk.TRUE
+			return True
 		    else:
 			# didnt match for some reason, lets plow ahead
 			self.ignoreKeypress = None
@@ -312,9 +312,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
 		    self.pkgs[package].unselect()
 
 		self.updateSize()
-                return gtk.TRUE
+                return True
 
-	return gtk.FALSE
+	return False
 	    
 		
     # IndividualPackageSelectionWindow tag="sel-indiv"
@@ -327,11 +327,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         renderer = gtk.CellRendererText()
         column = gtk.TreeViewColumn('Groups', renderer, text=0)
-        column.set_clickable(gtk.TRUE)
+        column.set_clickable(True)
         self.packageTreeView.append_column(column)
-        self.packageTreeView.set_headers_visible(gtk.FALSE)
-        self.packageTreeView.set_rules_hint(gtk.FALSE)
-        self.packageTreeView.set_enable_search(gtk.FALSE)
+        self.packageTreeView.set_headers_visible(False)
+        self.packageTreeView.set_rules_hint(False)
+        self.packageTreeView.set_enable_search(False)
         
         self.flat_groups = self.make_group_list(grpset)
         self.build_packagelists(self.flat_groups)
@@ -349,7 +349,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         
         packageHBox = gtk.HBox()
 
-        self.leftVBox = gtk.VBox(gtk.FALSE)
+        self.leftVBox = gtk.VBox(False)
 
         # FIXME should these stay or go?
         # tree/flat radio buttons... 
@@ -359,30 +359,30 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.flatRadio = gtk.RadioButton(self.treeRadio, (_("_Flat View")))
         optionHBox.pack_start(self.treeRadio)
         optionHBox.pack_start(self.flatRadio)
-        self.leftVBox.pack_start(optionHBox, gtk.FALSE)
+        self.leftVBox.pack_start(optionHBox, False)
         
-        self.leftVBox.pack_start(self.sw, gtk.TRUE)
-        packageHBox.pack_start(self.leftVBox, gtk.FALSE)
+        self.leftVBox.pack_start(self.sw, True)
+        packageHBox.pack_start(self.leftVBox, False)
 
         self.packageList = PackageCheckList(2)
         self.packageList.checkboxrenderer.connect("toggled",
 						  self.toggled_package)
 
-        self.packageList.set_enable_search(gtk.TRUE)
+        self.packageList.set_enable_search(True)
 
         self.sortType = "Package"
         self.packageList.set_column_title (1, (_("_Package")))
         self.packageList.set_column_sizing (1, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
         self.packageList.set_column_title (2, (_("_Size (MB)")))
         self.packageList.set_column_sizing (2, gtk.TREE_VIEW_COLUMN_GROW_ONLY)
-        self.packageList.set_headers_visible(gtk.TRUE)
+        self.packageList.set_headers_visible(True)
 
         self.packageList.set_column_min_width(0, 16)
-        self.packageList.set_column_clickable(0, gtk.FALSE)
+        self.packageList.set_column_clickable(0, False)
         
-        self.packageList.set_column_clickable(1, gtk.TRUE)
+        self.packageList.set_column_clickable(1, True)
         self.packageList.set_column_sort_id(1, 1)
-        self.packageList.set_column_clickable(2, gtk.TRUE)
+        self.packageList.set_column_clickable(2, True)
         self.packageList.set_column_sort_id(2, 2)
 
 	sort_id = 1
@@ -418,29 +418,29 @@ class IndividualPackageSelectionWindow (InstallWindow):
         packageHBox.pack_start (self.packageListSW)
 
         descVBox = gtk.VBox ()        
-        descVBox.pack_start (gtk.HSeparator (), gtk.FALSE, padding=2)
+        descVBox.pack_start (gtk.HSeparator (), False, padding=2)
 
         hbox = gtk.HBox ()
         bb = gtk.HButtonBox ()
         bb.set_layout (gtk.BUTTONBOX_END)
 
         self.totalSizeLabel = gtk.Label (_("Total size: "))
-        hbox.pack_start (self.totalSizeLabel, gtk.FALSE, gtk.FALSE, 0)
+        hbox.pack_start (self.totalSizeLabel, False, False, 0)
 
         self.selectAllButton = gtk.Button (_("Select _all in group"))
-        bb.pack_start (self.selectAllButton, gtk.FALSE)
+        bb.pack_start (self.selectAllButton, False)
         self.selectAllButton.connect ('clicked', self.select_all, 1)
 
         self.unselectAllButton = gtk.Button(_("_Unselect all in group"))
-        bb.pack_start(self.unselectAllButton, gtk.FALSE)
+        bb.pack_start(self.unselectAllButton, False)
         self.unselectAllButton.connect ('clicked', self.select_all, 0)
         
         hbox.pack_start (bb)
 
-        self.selectAllButton.set_sensitive (gtk.FALSE)
-        self.unselectAllButton.set_sensitive (gtk.FALSE)
+        self.selectAllButton.set_sensitive (False)
+        self.unselectAllButton.set_sensitive (False)
 
-        descVBox.pack_start (hbox, gtk.FALSE)
+        descVBox.pack_start (hbox, False)
 
         descSW = gtk.ScrolledWindow ()
         descSW.set_border_width (5)
@@ -451,8 +451,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         buffer = gtk.TextBuffer(None)
         self.packageDesc.set_buffer(buffer)
-        self.packageDesc.set_editable(gtk.FALSE)
-        self.packageDesc.set_cursor_visible(gtk.FALSE)
+        self.packageDesc.set_editable(False)
+        self.packageDesc.set_cursor_visible(False)
         self.packageDesc.set_wrap_mode(gtk.WRAP_WORD)
         descSW.add (self.packageDesc)
         descSW.set_size_request (-1, 100)
@@ -461,7 +461,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         vbox = gtk.VBox ()
         vbox.pack_start (packageHBox)
-        vbox.pack_start (descVBox, gtk.FALSE)
+        vbox.pack_start (descVBox, False)
 
 	self.updateSize()
 
@@ -475,7 +475,7 @@ class PackageSelectionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
         self.ics = ics
         self.ics.setNextEnabled (1)
-        self.files_found = "gtk.FALSE"
+        self.files_found = "False"
         
     def getPrev (self):
 	self.grpset.setSelectionState(self.origSelection)
@@ -745,27 +745,27 @@ class PackageSelectionWindow (InstallWindow):
 
         mainvbox = self.dialog.vbox
 
-	lblhbox = gtk.HBox(gtk.FALSE)
+	lblhbox = gtk.HBox(False)
         lbl = gtk.Label(_("A package group can have both Base and "
                           "Optional package members.  Base packages "
                           "are always selected as long as the package group "
 			  "is selected.\n\nSelect the optional packages "
 			  "to be installed:"))
-        lbl.set_line_wrap(gtk.TRUE)
+        lbl.set_line_wrap(True)
 	lbl.set_size_request(475, -1)
 	lbl.set_alignment(0.0, 0.5)
-	lblhbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
+	lblhbox.pack_start(lbl, True, True)
 
         pix = gui.readImageFromFile("package-selection.png")
 
 	if pix is not None:
 	    al = gtk.Alignment(0.0, 0.0)
 	    al.add(pix)
-	    lblhbox.pack_start(al, gtk.FALSE, gtk.FALSE)
+	    lblhbox.pack_start(al, False, False)
 	    
-        mainvbox.pack_start(lblhbox, gtk.FALSE, gtk.FALSE)
+        mainvbox.pack_start(lblhbox, False, False)
 
-        cbvbox = gtk.VBox(gtk.FALSE)
+        cbvbox = gtk.VBox(False)
 	cbvbox.set_border_width(5)
 	
 	# will pack this last, need to create it for toggle callback below
@@ -785,7 +785,7 @@ class PackageSelectionWindow (InstallWindow):
 	    lbl = gtk.Label("")
 	    lbl.set_markup("<b>%s</b>" % (_("Base Packages"),))
 	    lbl.set_alignment(0.0, 0.0)
-	    cbvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE);
+	    cbvbox.pack_start(lbl, False, False);
 	    while 1:
 		next = getNextMember(goodpkgs, comp, domandatory = 1)
 		if next is None:
@@ -795,27 +795,27 @@ class PackageSelectionWindow (InstallWindow):
 		desc = getDescription(next, comp)
 		lbl = gtk.Label(desc)
 		lbl.set_alignment(0.0, 0.0)
-		lbl.set_property("use-underline", gtk.FALSE)
+		lbl.set_property("use-underline", False)
 
-		thbox = gtk.HBox(gtk.FALSE)
-		chbox = gtk.HBox(gtk.FALSE)
+		thbox = gtk.HBox(False)
+		chbox = gtk.HBox(False)
 		chbox.set_size_request(10,-1)
-		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
-		thbox.pack_start(lbl, gtk.TRUE, gtk.TRUE)
+		thbox.pack_start(chbox, False, False)
+		thbox.pack_start(lbl, True, True)
 
-		cbvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
+		cbvbox.pack_start(thbox, False, False)
 
 	# now the optional parts, if any
 	next = getNextMember(goodpkgs, comp, domandatory = 0)
 	if next is not None:
 	    spacer = gtk.Fixed()
 	    spacer.set_size_request(-1, 10)
-	    cbvbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+	    cbvbox.pack_start(spacer, False, False)
 	    
 	    lbl = gtk.Label("")
 	    lbl.set_markup("<b>%s</b>" % (_("Optional Packages"),))
 	    lbl.set_alignment(0.0, 0.0)
-	    cbvbox.pack_start(lbl, gtk.FALSE, gtk.FALSE)
+	    cbvbox.pack_start(lbl, False, False)
 	    while 1:
 		next = getNextMember(goodpkgs, comp, domandatory = 0)
 		if next is None:
@@ -826,7 +826,7 @@ class PackageSelectionWindow (InstallWindow):
 		desc = getDescription(next, comp)
 		lbl = gtk.Label(desc)
 		lbl.set_alignment(0.0, 0.0)
-		lbl.set_property("use-underline", gtk.FALSE)
+		lbl.set_property("use-underline", False)
 		cb = gtk.CheckButton()
 		cb.add(lbl)
 		(ptype, sel) = comp.packageInfo()[next]
@@ -834,19 +834,19 @@ class PackageSelectionWindow (InstallWindow):
 		cb.connect("toggled", self.pkgGroupMemberToggled,
 			   (comp, sizeLabel, next))
 
-		thbox = gtk.HBox(gtk.FALSE)
-		chbox = gtk.HBox(gtk.FALSE)
+		thbox = gtk.HBox(False)
+		chbox = gtk.HBox(False)
 		chbox.set_size_request(10,-1)
-		thbox.pack_start(chbox, gtk.FALSE, gtk.FALSE)
-		thbox.pack_start(cb, gtk.TRUE, gtk.TRUE)
+		thbox.pack_start(chbox, False, False)
+		thbox.pack_start(cb, True, True)
 
-		cbvbox.pack_start(thbox, gtk.FALSE, gtk.FALSE)
+		cbvbox.pack_start(thbox, False, False)
 
         sw = gtk.ScrolledWindow()
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
 
-        wrapper = gtk.VBox (gtk.FALSE, 0)
-        wrapper.pack_start (cbvbox, gtk.FALSE)
+        wrapper = gtk.VBox (False, 0)
+        wrapper.pack_start (cbvbox, False)
         
         sw.add_with_viewport (wrapper)
         viewport = sw.get_children()[0]
@@ -855,9 +855,9 @@ class PackageSelectionWindow (InstallWindow):
         cbvbox.set_focus_hadjustment(sw.get_hadjustment ())
         cbvbox.set_focus_vadjustment(sw.get_vadjustment ())
         
-        mainvbox.pack_start(sw, gtk.TRUE, gtk.TRUE, 10)
+        mainvbox.pack_start(sw, True, True, 10)
 
-        mainvbox.pack_start(sizeLabel, gtk.FALSE, gtk.FALSE)
+        mainvbox.pack_start(sizeLabel, False, False)
                             
         self.dialog.set_size_request(550, 420)
         self.dialog.show_all()
@@ -935,7 +935,7 @@ class PackageSelectionWindow (InstallWindow):
 
 	(parlist, pardict) = orderPackageGroups(self.grpset)
 
-        topbox = gtk.VBox(gtk.FALSE, 3)
+        topbox = gtk.VBox(False, 3)
         topbox.set_border_width(3)
         
         checkGroup = gtk.SizeGroup(gtk.SIZE_GROUP_BOTH)
@@ -980,11 +980,11 @@ class PackageSelectionWindow (InstallWindow):
                                             height = ICON_SIZE,
                                             width = ICON_SIZE)
 
-                compbox = gtk.HBox(gtk.FALSE, 5)                
+                compbox = gtk.HBox(False, 5)                
 
                 spacer = gtk.Fixed()
                 spacer.set_size_request(30, -1)
-                compbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+                compbox.pack_start(spacer, False, False)
 
 		# create check button and edit button
 		# make the comps title + edit button
@@ -1001,15 +1001,15 @@ class PackageSelectionWindow (InstallWindow):
 		count.set_alignment (1.0, 0.5)
 		self.setCompCountLabel(comp, count)
                 countGroup.add_widget(count)
-                compbox.pack_start(count, gtk.FALSE, gtk.FALSE)
+                compbox.pack_start(count, False, False)
 
                 spacer = gtk.Fixed()
                 spacer.set_size_request(15, -1)
-                compbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+                compbox.pack_start(spacer, False, False)
                 
                 buttonal = gtk.Alignment(0.5, 0.5)
                 detailGroup.add_widget(buttonal)
-                compbox.pack_start(buttonal, gtk.FALSE, gtk.FALSE)
+                compbox.pack_start(buttonal, False, False)
 
 		# now make the url looking button for details
 		if comp.id != "everything" and comp.id != "base":
@@ -1029,24 +1029,24 @@ class PackageSelectionWindow (InstallWindow):
 
                 topbox.pack_start(compbox)
 
-                detailbox = gtk.HBox(gtk.FALSE)
+                detailbox = gtk.HBox(False)
 
                 spacer = gtk.Fixed()
                 spacer.set_size_request(45, -1)
-                detailbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+                detailbox.pack_start(spacer, False, False)
                 
 		# icon
 		if pix is not None:
 		    al = gtk.Alignment(0.5, 0.5)
 		    al.add(pix)
-                    detailbox.pack_start(al, gtk.FALSE, gtk.FALSE, 10)
+                    detailbox.pack_start(al, False, False, 10)
                     
 		# add description if it exists
 		descr = getGroupDescription(comp)
 		if descr is not None:
 		    label=gtk.Label("")
 		    label.set_alignment (0.0, 0.0)
-		    label.set_line_wrap(gtk.TRUE)
+		    label.set_line_wrap(True)
 
                     if  gtk.gdk.screen_width() > 640:
                         wraplen = 350
@@ -1055,7 +1055,7 @@ class PackageSelectionWindow (InstallWindow):
 
 		    label.set_size_request(wraplen, -1)
 		    label.set_markup("%s" % (_(descr),))
-                    detailbox.pack_start(label, gtk.TRUE)
+                    detailbox.pack_start(label, True)
                 topbox.pack_start(detailbox)
 
 		state = self.setCheckButtonState(checkButton, comp)
@@ -1076,7 +1076,7 @@ class PackageSelectionWindow (InstallWindow):
             # add some extra space to the end of each group
             spacer = gtk.Fixed()
             spacer.set_size_request(-1, 3)
-            topbox.pack_start(spacer, gtk.FALSE, gtk.FALSE)
+            topbox.pack_start(spacer, False, False)
 
 	# hack to make everything and minimal act right
         sw = gtk.ScrolledWindow()
@@ -1107,21 +1107,21 @@ class PackageSelectionWindow (InstallWindow):
 	    self.idleid = gobject.idle_add(self.focusIdleHandler, None)
 
 	# pack rest of screen
-        hbox = gtk.HBox (gtk.FALSE, 5)
+        hbox = gtk.HBox (False, 5)
 
         self.individualPackages = gtk.CheckButton (
 		_("_Select individual packages"))
         self.individualPackages.set_active (
 		not dispatch.stepInSkipList("indivpackage"))
-#        hbox.pack_start (self.individualPackages, gtk.FALSE)
+#        hbox.pack_start (self.individualPackages, False)
 
         self.sizelabel = gtk.Label ("")
         self.setSize()
-        hbox.pack_start (self.sizelabel, gtk.TRUE)
+        hbox.pack_start (self.sizelabel, True)
         
-        vbox = gtk.VBox (gtk.FALSE, 5)
-        vbox.pack_start (sw, gtk.TRUE)
-        vbox.pack_start (hbox, gtk.FALSE)
+        vbox = gtk.VBox (False, 5)
+        vbox.pack_start (sw, True)
+        vbox.pack_start (hbox, False)
         vbox.set_border_width (5)
 
         return vbox
@@ -1132,12 +1132,12 @@ class PackageCheckList(checklist.CheckList):
     def create_columns(self, columns):
         renderer = gtk.CellRendererText()
         column = gtk.TreeViewColumn('Text', renderer, text = 1)
-        column.set_clickable(gtk.FALSE)
+        column.set_clickable(False)
         self.append_column(column)
 
         renderer = gtk.CellRendererText()
         column = gtk.TreeViewColumn('Size', renderer, text = 2)
-        column.set_clickable(gtk.FALSE)
+        column.set_clickable(False)
         self.append_column(column)
     
     def __init__(self, columns = 2):

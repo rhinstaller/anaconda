@@ -46,7 +46,7 @@ class MouseWindow(InstallWindow):
         (model, iter) = selection.get_selected()
         if iter:
             self.serialDevice = model.get_value(iter, 1)
-            self.ics.setNextEnabled(gtk.TRUE)
+            self.ics.setNextEnabled(True)
         else:
             self.serialDevice = None
 
@@ -59,14 +59,14 @@ class MouseWindow(InstallWindow):
 
         if model.iter_has_child(iter):
 	    self.devview.get_selection().unselect_all()
-	    self.devview.set_sensitive(gtk.FALSE)
-            self.emulate3.set_sensitive(gtk.FALSE)
-            self.ics.setNextEnabled(gtk.FALSE)
+	    self.devview.set_sensitive(False)
+            self.emulate3.set_sensitive(False)
+            self.ics.setNextEnabled(False)
 	    return
 
 	cur = model.get_value(iter, 1)
 
-	self.emulate3.set_sensitive(gtk.TRUE)
+	self.emulate3.set_sensitive(True)
         (make, model, gpmproto, xproto, device, emulate) = self.mice[cur]
 
 	if device == "ttyS":
@@ -133,7 +133,7 @@ class MouseWindow(InstallWindow):
 
         self.mousestore.set_sort_column_id(0, gtk.SORT_ASCENDING)
         self.mouseview = gtk.TreeView(self.mousestore)
-        self.mouseview.set_property("headers-visible", gtk.TRUE)
+        self.mouseview.set_property("headers-visible", True)
         col = gtk.TreeViewColumn(_("_Model"), gtk.CellRendererText(), text=0)
         self.mouseview.append_column(col)
         selection = self.mouseview.get_selection()
@@ -157,15 +157,15 @@ class MouseWindow(InstallWindow):
             elif self.mousestore.get_value(iter, 1) == currentMouse:
 		if parent:
 		    path = self.mousestore.get_path(parent)
-		    self.mouseview.expand_row(path, gtk.TRUE)
+		    self.mouseview.expand_row(path, True)
                 selection = self.mouseview.get_selection()
                 selection.unselect_all()
                 selection.select_iter(iter)
                 path = self.mousestore.get_path(iter)
                 col = self.mouseview.get_column(0)
-                self.mouseview.set_cursor(path, col, gtk.FALSE)
+                self.mouseview.set_cursor(path, col, False)
                 if recenter:
-                    self.mouseview.scroll_to_cell(path, col, gtk.TRUE,
+                    self.mouseview.scroll_to_cell(path, col, True,
                                                   0.5, 0.5)
 		fndmouse = 1
                 break
@@ -184,15 +184,15 @@ class MouseWindow(InstallWindow):
             path = (int(self.serialDevice[4]),)
             selection.select_path(path)
             col = self.devview.get_column(0)
-            self.devview.set_cursor(path, col, gtk.FALSE)
+            self.devview.set_cursor(path, col, False)
             if recenter:
-                self.devview.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
-            self.ics.setNextEnabled(gtk.TRUE)
-            self.devview.set_sensitive(gtk.TRUE)
+                self.devview.scroll_to_cell(path, col, True, 0.5, 0.5)
+            self.ics.setNextEnabled(True)
+            self.devview.set_sensitive(True)
 	elif currentDev:
 	    self.devview.get_selection().unselect_all();
-            self.devview.set_sensitive(gtk.FALSE)
-            self.ics.setNextEnabled(gtk.TRUE)
+            self.devview.set_sensitive(False)
+            self.ics.setNextEnabled(True)
         else:
 	    # XXX - see if this is the 'No - mouse' case
 	    if fndmouse:
@@ -203,15 +203,15 @@ class MouseWindow(InstallWindow):
 
 	    if xdev == "none":
 		self.devview.get_selection().unselect_all();
-		self.devview.set_sensitive(gtk.FALSE)
-		self.ics.setNextEnabled(gtk.TRUE)
+		self.devview.set_sensitive(False)
+		self.ics.setNextEnabled(True)
 		    
 	    else:
 		# otherwise disable the list
 		self.devview.get_selection().unselect_all();
 		self.serialDevice = None
-		self.ics.setNextEnabled(gtk.FALSE)
-		self.devview.set_sensitive(gtk.TRUE)
+		self.ics.setNextEnabled(False)
+		self.devview.set_sensitive(True)
             
         self.emulate3.set_active(emulate3)
         self.ignoreEvents = 0
@@ -236,22 +236,22 @@ class MouseWindow(InstallWindow):
         self.setCurrent(currentDev, currentMouse, emulate3)
 
         # set up the box for this screen
-        box = gtk.VBox(gtk.FALSE, 5)
+        box = gtk.VBox(False, 5)
         box.set_border_width(5)
 
         # top header, includes graphic and instructions
-        hbox = gtk.HBox(gtk.FALSE, 5)
+        hbox = gtk.HBox(False, 5)
         pix = gui.readImageFromFile ("gnome-mouse.png")
         if pix:
             a = gtk.Alignment()
             a.add(pix)
             a.set(0.0, 0.0, 0.0, 0.0)
-            hbox.pack_start(a, gtk.FALSE)
+            hbox.pack_start(a, False)
         label = gui.MnemonicLabel(_("Select the appropriate mouse for the system."))
-        label.set_line_wrap(gtk.TRUE)
+        label.set_line_wrap(True)
         label.set_size_request(350, -1)
-        hbox.pack_start(label, gtk.FALSE)
-        box.pack_start(hbox, gtk.FALSE)
+        hbox.pack_start(label, False)
+        box.pack_start(hbox, False)
 
         # next is the mouse tree
         sw = gtk.ScrolledWindow()
@@ -268,9 +268,9 @@ class MouseWindow(InstallWindow):
         serial_sw.set_shadow_type(gtk.SHADOW_IN)
         serial_sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_NEVER)
         serial_sw.add(self.devview)
-        box.pack_start(serial_sw, gtk.FALSE)
+        box.pack_start(serial_sw, False)
 
         # finally the emulate 3 buttons
-        box.pack_start(self.emulate3, gtk.FALSE)
+        box.pack_start(self.emulate3, False)
         return box
 

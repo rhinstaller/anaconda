@@ -32,29 +32,29 @@ class BootloaderPasswordWidget:
             usePass = 0
             self.password = None
         
-        vbox = gtk.VBox(gtk.FALSE, 5)
+        vbox = gtk.VBox(False, 5)
         
         label = gui.WrappingLabel(_("A boot loader password prevents users from changing options passed to the kernel.  For greater system security, it is recommended that you set a password."))
         label.set_alignment(0.0, 0.5)
-        vbox.pack_start(label, gtk.FALSE)
+        vbox.pack_start(label, False)
 
         # password widgets + callback
         self.usePassCb = gtk.CheckButton(_("_Use a boot loader password"))
         self.passButton = gtk.Button("No password")
         if usePass:
-            self.usePassCb.set_active(gtk.TRUE)
-            self.passButton.set_sensitive(gtk.TRUE)
+            self.usePassCb.set_active(True)
+            self.passButton.set_sensitive(True)
         else:
-            self.usePassCb.set_active(gtk.FALSE)
-            self.passButton.set_sensitive(gtk.FALSE)
+            self.usePassCb.set_active(False)
+            self.passButton.set_sensitive(False)
         self.usePassCb.connect("toggled", self.passCallback)
         self.passButton.connect("clicked", self.passButtonCallback)
         self.setPassLabel()
             
-        box = gtk.HBox(gtk.FALSE, 5)
+        box = gtk.HBox(False, 5)
         box.pack_start(self.usePassCb)
         box.pack_start(self.passButton)
-        vbox.pack_start(box, gtk.FALSE)
+        vbox.pack_start(box, False)
 
         alignment = gtk.Alignment()
         alignment.set(0.1, 0, 0, 0)
@@ -75,14 +75,14 @@ class BootloaderPasswordWidget:
     def setPassLabel(self):
         self.passButton.set_label(_("Change _password"))        
         if not self.usePassCb.get_active() or not self.password:
-            self.passButton.set_sensitive(gtk.FALSE)
+            self.passButton.set_sensitive(False)
         else:
-            self.passButton.set_sensitive(gtk.TRUE)
+            self.passButton.set_sensitive(True)
 
     # callback for when the password checkbox is clicked
     def passCallback(self, widget, *args):
         if not widget.get_active():
-            self.passButton.set_sensitive(gtk.FALSE)
+            self.passButton.set_sensitive(False)
             self.setPassLabel()
         else:
             if self.passwordWindow() == 2:
@@ -112,13 +112,13 @@ class BootloaderPasswordWidget:
         label = gui.MnemonicLabel(_("_Password:"))
         table.attach(label, 0, 1, 2, 3, gtk.FILL, 0, 10)
         pwEntry = gtk.Entry (16)
-        pwEntry.set_visibility (gtk.FALSE)
+        pwEntry.set_visibility (False)
         label.set_mnemonic_widget(pwEntry)
         table.attach(pwEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
         label = gui.MnemonicLabel(_("Con_firm:"))        
         table.attach(label, 0, 1, 3, 4, gtk.FILL, 0, 10) 
         confirmEntry = gtk.Entry (16)
-        confirmEntry.set_visibility (gtk.FALSE)
+        confirmEntry.set_visibility (False)
         label.set_mnemonic_widget(confirmEntry)
         table.attach(confirmEntry, 1, 2, 3, 4, gtk.FILL, 0, 10)
         dialog.vbox.pack_start(table)

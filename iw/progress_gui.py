@@ -56,10 +56,10 @@ class InstallProgressWindow_NEW (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
 
-        ics.setPrevEnabled (gtk.FALSE)
-        ics.setNextEnabled (gtk.FALSE)
+        ics.setPrevEnabled (False)
+        ics.setNextEnabled (False)
         
-        ics.setHelpButtonEnabled (gtk.FALSE)
+        ics.setHelpButtonEnabled (False)
 
 	self.numComplete = 0
 	self.sizeComplete = 0
@@ -311,7 +311,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 #	self.timeLog = open("/tmp/timelog", "w")
 
 	# Create vbox to contain components of UI
-        vbox = gtk.VBox (gtk.FALSE, 10)
+        vbox = gtk.VBox (False, 10)
 
         # Create rnote area
         pix = gui.readImageFromFile ("progress_first.png")
@@ -329,7 +329,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 	self.progress = gtk.ProgressBar ()
         self.totalProgress = gtk.ProgressBar ()
 
-	progressTable = gtk.Table (2, 2, gtk.FALSE)
+	progressTable = gtk.Table (2, 2, False)
 	progressTable.attach (self.totalProgress, 1, 2, 0, 1, ypadding=2)
 
 #	label = gtk.Label (_("Package Progress: "))
@@ -337,16 +337,16 @@ class InstallProgressWindow_NEW (InstallWindow):
 #	progressTable.attach (label, 0, 1, 1, 2, gtk.SHRINK)
 #	progressTable.attach (self.progress, 1, 2, 1, 2, ypadding=2)
 
-        vbox.pack_start (progressTable, gtk.FALSE)
+        vbox.pack_start (progressTable, False)
 
 	# total time remaining
 	self.remainingTimeLabel = gtk.Label("")
 	self.remainingTimeLabel.set_alignment(0.5, 0.5)
-	vbox.pack_start(self.remainingTimeLabel, gtk.FALSE, gtk.FALSE)
+	vbox.pack_start(self.remainingTimeLabel, False, False)
 
 	# Create table for current package info
 	table = gtk.Table (3, 1)
-        vbox.pack_start (table, gtk.FALSE, gtk.FALSE)
+        vbox.pack_start (table, False, False)
 
         self.curPackage = { "package" : _("Package"),
                             "summary" : _("Summary") }
@@ -355,7 +355,7 @@ class InstallProgressWindow_NEW (InstallWindow):
         for key in ("package", "summary"):
             label = gtk.Label ("")
             label.set_alignment (0, 0)
-            label.set_line_wrap (gtk.TRUE)
+            label.set_line_wrap (True)
             if key == "summary":
                 label.set_text ("\n\n")
                 label.set_size_request(450, 35)
@@ -374,11 +374,11 @@ class InstallProgressWindow_NEW (InstallWindow):
 		break
 
 	if statusflag:
-	    statusTable = gtk.Table (2, 2, gtk.FALSE)
+	    statusTable = gtk.Table (2, 2, False)
 	    self.pkgstatus = gtk.Label("")
 	    statusTable.attach (gtk.Label(_("Status: ")), 0, 1, 0, 1, gtk.SHRINK)
 	    statusTable.attach (self.pkgstatus, 1, 2, 0, 1, gtk.FILL, gtk.FILL, ypadding=2)
-	    vbox.pack_start (statusTable, gtk.FALSE, gtk.FALSE)
+	    vbox.pack_start (statusTable, False, False)
 	else:
 	    self.pkgstatus = None
 	

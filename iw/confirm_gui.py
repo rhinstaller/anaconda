@@ -24,26 +24,26 @@ class ConfirmWindow (InstallWindow):
 
     # ConfirmWindow tag="aboutupgrade" or "aboutinstall"
     def getScreen (self, labelText, longText):
-        hbox = gtk.HBox (gtk.TRUE, 5)
-        box = gtk.VBox (gtk.FALSE, 5)
+        hbox = gtk.HBox (True, 5)
+        box = gtk.VBox (False, 5)
 
         pix = gui.readImageFromFile ("about-to-install.png")
         if pix:
             a = gtk.Alignment ()
             a.add (pix)
             a.set (0.5, 0.5, 1.0, 1.0)
-            hbox.pack_start (a, gtk.FALSE)
+            hbox.pack_start (a, False)
 
 	label = gtk.Label (labelText)
-        label.set_line_wrap (gtk.TRUE)
+        label.set_line_wrap (True)
         label.set_size_request(190, -1)
 
 	label2 = gtk.Label (longText)
-        label2.set_line_wrap (gtk.TRUE)
+        label2.set_line_wrap (True)
         label2.set_size_request(190, -1)
         
-        box.pack_start (label, gtk.FALSE)
-        box.pack_start (label2, gtk.FALSE)
+        box.pack_start (label, False)
+        box.pack_start (label2, False)
         box.set_border_width (5)
 
         a = gtk.Alignment ()
