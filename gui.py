@@ -21,7 +21,7 @@ import sys
 import parted
 import gtk
 import htmlbuffer
-import rpm
+import rpm404 as rpm
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
@@ -407,6 +407,8 @@ class MessageWindow:
 		    tbutton = "gtk-cancel"
 		else:
 		    tbutton = button
+
+		print "adding button ",tbutton
 		widget = dialog.add_button(tbutton, rid)
 		rid = rid + 1
 
