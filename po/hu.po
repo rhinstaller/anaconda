@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 2000-02-22 18:05+0200\n"
+"PO-Revision-Date: 2000-02-24 17:44+0100\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -41,7 +41,7 @@ msgstr "Hiba %s unmount-olásánál: %s"
 
 #: ../fstab.py:349 ../todo.py:419
 msgid "Creating"
-msgstr "Letrehozás"
+msgstr "Létrehozás"
 
 #: ../fstab.py:349
 msgid "Creating RAID devices..."
@@ -95,7 +95,7 @@ msgstr "Vissza"
 
 #: ../gui.py:279 ../gui.py:527
 msgid "Show Help"
-msgstr "Súgó kiírása"
+msgstr "Súgó megjelenítése"
 
 #: ../gui.py:280 ../gui.py:526
 msgid "Hide Help"
@@ -125,18 +125,19 @@ msgstr "Red Hat Linux Telepítõ Shell"
 #: ../gui.py:504
 #, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux Telepítõ %s-en"
+msgstr "Red Hat Linux Telepítõ: %s"
 
 #: ../gui.py:505
 #, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux Telepítõ Shell %s-en"
+msgstr "Red Hat Linux Telepítõ Shell: %s"
 
 #: ../installclass.py:252
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
-"Arra készül, hogy minden meglévõ Linux rendszert eltávolítson a rendszerbõl."
+"Arra készül, hogy minden meglévõ Linux rendszert eltávolítson a "
+"számítógéprõl."
 
 #: ../installclass.py:289
 msgid ""
@@ -959,11 +960,11 @@ msgstr "Boot lemez létrehozásának kihagyása"
 
 #: ../iw/confirm.py:11
 msgid "About to Install"
-msgstr "A telepítés kezdése"
+msgstr "A telepítés megkezdése"
 
 #: ../iw/confirm.py:28
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr "Kattintson a következõ-re a Red Hat Linux telepítés elkezdéséhez."
+msgstr "Kattintson a Következõ-re a Red Hat Linux telepítés elkezdéséhez."
 
 #: ../iw/congrats.py:11 ../iw/congrats.py:58
 msgid "Congratulations"
@@ -1202,7 +1203,7 @@ msgstr "Harmadlagos DNS"
 
 #: ../iw/package.py:20
 msgid "Individual Package Selection"
-msgstr "Egyedi csomag-kiválasztás"
+msgstr "Egyéni csomag-kiválasztás"
 
 #: ../iw/package.py:176
 msgid "Up"
@@ -1214,7 +1215,7 @@ msgstr "Név: "
 
 #: ../iw/package.py:329
 msgid "Package Details"
-msgstr "Csomag részletezés"
+msgstr "A csomag részletes leírása"
 
 #: ../iw/package.py:335
 msgid "Size: "
@@ -1230,7 +1231,7 @@ msgstr "Csomag csoport kiválasztás"
 
 #: ../iw/package.py:454 ../textw/packages.py:18
 msgid "Select individual packages"
-msgstr "Csomagok egyedi kiválasztása"
+msgstr "Csomagok egyéni kiválasztása"
 
 #: ../iw/progress.py:29
 msgid "Installing Packages"
@@ -1270,7 +1271,7 @@ msgstr "Hátralévõ"
 
 #: ../iw/rootpartition.py:16
 msgid "Confirm Partitioning Selection"
-msgstr "Erõsítse meg a partícionálást"
+msgstr "Erõsítse meg a partícionálás beállításait"
 
 #: ../iw/rootpartition.py:32 ../textw/partitioning.py:22
 msgid "Disk Druid"
@@ -1330,7 +1331,7 @@ msgstr ""
 
 #: ../iw/rootpartition.py:248
 msgid "Remove data"
-msgstr "Adat eltávolítása"
+msgstr "Adatok törlése"
 
 #: ../iw/rootpartition.py:251 ../textw/partitioning.py:130
 msgid "Manually partition"
@@ -1358,7 +1359,7 @@ msgstr "Ne telepítse a SILO-t"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:83
 msgid "Time Zone Selection"
-msgstr "Idõzóna kiválasztás"
+msgstr "Idõzóna választás"
 
 #: ../iw/timezone.py:147
 msgid "View:"
@@ -1406,7 +1407,7 @@ msgstr "Bit / pixel"
 
 #: ../iw/xconfig.py:97 ../iw/xconfig.py:423
 msgid "Test this configuration"
-msgstr "A beállítás kipróbálása"
+msgstr "A beállítás tesztelése"
 
 #: ../iw/xconfig.py:112
 msgid "Monitor Configuration"
@@ -1450,7 +1451,7 @@ msgstr "Automatikus keresés eredménye:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
-msgstr "Grafikus login használata"
+msgstr "Grafikus bejelentkezõ képernyõ"
 
 #: ../iw/xconfig.py:433
 msgid "Skip X Configuration"
@@ -1638,7 +1639,7 @@ msgstr "Felhasználó módosítás"
 
 #: ../textw/userauth.py:74
 msgid "Add User"
-msgstr "Felhasználó hozzáadása"
+msgstr "Felhasználó hozzáadás"
 
 #: ../textw/userauth.py:78
 msgid "User ID"
@@ -1911,7 +1912,7 @@ msgstr "Biztosan törölni akarja ezt a partíciót?"
 #: ../libfdisk/newtfsedit.c:260 ../libfdisk/newtfsedit.c:266
 #: ../libfdisk/newtfsedit.c:270 ../libfdisk/newtfsedit.c:272
 msgid "Edit Partition"
-msgstr "Partíció szerkesztés"
+msgstr "Partíció-szerkesztés"
 
 #: ../libfdisk/gnomefsedit.c:799 ../libfdisk/gnomefsedit.c:1779
 msgid "Mount Point:"
