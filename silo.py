@@ -114,7 +114,7 @@ class SiloInstall:
 	else:
 	    raise RuntimeError, "Installing silo, but there is no root device"
 
-	args = [ "silo", "-r", todo.instPath ]
+	args = [ "silo" ]
 
 	if (todo.liloDevice != "mbr"):
 	    args.append("-t")
