@@ -640,12 +640,6 @@ class XF86Config:
         # see if 16 bpp is available, and if it should be the
         # default depth
 
-        # HACK: if we have nodri in the Cards file, let's make sure it
-        # really gets disabled since all of the drivers in X don't
-        # seem to listen :(
-        if string.find(cardoptions, 'Option "nodri"') != -1:
-            data["driMod"] = '\n#\tLoad  "dri"',
-
         if self.keyboard["variant"]:
             data["enableVariant"] = ""
         if self.keyboard["options"]:
