@@ -278,7 +278,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.show_all ()
 
     def updateSize(self):
-        self.totalSizeLabel.set_text("Total install size: "+ str(self.todo.comps.sizeStr()))
+        self.totalSizeLabel.set_text(_("Total install size: ")+ str(self.todo.comps.sizeStr()))
 
     def getScreen (self):
         threads_leave ()
@@ -355,9 +355,9 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList = checklist.CheckList(2)
 
         self.sortType = "Package"
-        self.packageList.set_column_title (1, ("Package"))
+        self.packageList.set_column_title (1, (_("Package")))
         self.packageList.set_column_auto_resize (1, TRUE)
-        self.packageList.set_column_title (2, ("Size (MB)"))
+        self.packageList.set_column_title (2, (_("Size (MB)")))
         self.packageList.set_column_auto_resize (2, TRUE)
         self.packageList.column_titles_show ()
 
@@ -386,14 +386,14 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         hbox = GtkHButtonBox ()
 
-        self.totalSizeLabel = GtkLabel("Total size: ")
+        self.totalSizeLabel = GtkLabel(_("Total size: "))
         hbox.pack_start(self.totalSizeLabel, FALSE, FALSE, 0)
 
-        selectAllButton = GtkButton("Select all in directory")
+        selectAllButton = GtkButton(_("Select all in group"))
         hbox.pack_start(selectAllButton, FALSE)
         selectAllButton.connect('clicked', self.select_all)
 
-        unselectAllButton = GtkButton("Unselect all in directory")
+        unselectAllButton = GtkButton(_("Unselect all in group"))
         hbox.pack_start(unselectAllButton, FALSE)
         unselectAllButton.connect('clicked', self.unselect_all)        
 
@@ -423,7 +423,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
 class ErrorWindow:
     def __init__ (self, text):
-        win = GnomeDialog ("File not found")
+        win = GnomeDialog (_("File not found"))
         win.connect ("clicked", self.exit)
 
         info = GtkLabel (text)
