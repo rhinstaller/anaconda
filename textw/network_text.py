@@ -201,7 +201,7 @@ class NetworkWindow:
             return INSTALL_OK
 
 class HostnameWindow:
-    def __call__(self, screen, network, dispatch):
+    def __call__(self, screen, network, dispatch, intf):
         devices = network.available ()
         if not devices:
             return INSTALL_NOOP
