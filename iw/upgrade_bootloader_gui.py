@@ -66,7 +66,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                     checkbootloader.getBootloaderTypeAndBoot("/mnt/sysimage")
 
 
-        self.update_radio = GtkRadioButton(None, _("Update current settings"))
+        self.update_radio = GtkRadioButton(None, _("Update boot loader configuration"))
         updatestr = _("This will update your current boot loader.")
 
         if self.type != None:
@@ -86,7 +86,7 @@ class UpgradeBootloaderWindow (InstallWindow):
             
     
         self.newbl_radio = GtkRadioButton(self.update_radio,
-                                          _("Customize new boot loader "
+                                          _("Create new boot loader "
                                             "configuration"))
         self.newbl_label = GtkLabel(_("This will let you create a "
                                       "new boot loader configuration.  If "
@@ -95,7 +95,7 @@ class UpgradeBootloaderWindow (InstallWindow):
                                       
         self.newbl_radio.set_active(FALSE)
         self.nobl_radio = GtkRadioButton(self.update_radio,
-                                         _("Do nothing"))
+                                         _("Skip boot loader updating"))
         self.nobl_label = GtkLabel(_("This will make no changes to boot "
                                      "loader configuration.  If you are "
                                      "using a third party boot loader, you "
@@ -141,10 +141,10 @@ class UpgradeBootloaderWindow (InstallWindow):
 
         box.pack_start(self.update_radio, FALSE)
         box.pack_start(self.update_label, FALSE)
-        box.pack_start(self.newbl_radio, FALSE)
-        box.pack_start(self.newbl_label, FALSE)        
         box.pack_start(self.nobl_radio, FALSE)
         box.pack_start(self.nobl_label, FALSE)
+        box.pack_start(self.newbl_radio, FALSE)
+        box.pack_start(self.newbl_label, FALSE)        
 
         a = GtkAlignment(0.2, 0.1)
         a.add(box)

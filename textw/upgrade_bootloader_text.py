@@ -50,20 +50,20 @@ class UpgradeBootloaderWindow:
                                   "loader currently installed on %s.")
                                 % (self.type, self.bootDev))
 
-            self.update_radio = blradio.add(_("Update current settings"),
+            self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
         else:
             t = TextboxReflowed(53,
                   _("The installer is unable to detect the boot loader "
                     "currently in use on your system."))
 
-            self.update_radio = blradio.add(_("Update current settings"),
+            self.update_radio = blradio.add(_("Update boot loader configuration"),
                                             "update", update)
             self.update_radio.w.checkboxSetFlags(FLAG_DISABLED, FLAGS_SET)
 
-        self.nobl_radio = blradio.add(_("Do nothing"),
+        self.nobl_radio = blradio.add(_("Skip boot loader updating"),
                                       "nobl", nobl)
-        self.newbl_radio = blradio.add(_("Customize new boot loader "
+        self.newbl_radio = blradio.add(_("Create new boot loader "
                                          "configuration"),
                                        "newbl", newbl)
 
@@ -74,8 +74,8 @@ class UpgradeBootloaderWindow:
 
         grid.add(t, 0, 0, (0,0,0,1))
         grid.add(self.update_radio, 0, 1, (0,0,0,0))
-        grid.add(self.newbl_radio, 0, 2, (0,0,0,0))
-        grid.add(self.nobl_radio, 0, 3, (0,0,0,1))
+        grid.add(self.nobl_radio, 0, 2, (0,0,0,0))
+        grid.add(self.newbl_radio, 0, 3, (0,0,0,1))
         grid.add(buttons, 0, 4, growx = 1)
 
 
