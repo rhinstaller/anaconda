@@ -24,6 +24,8 @@
 #include <popt.h>
 #include <newt.h>
 #include "isys/imount.h"
+#include "isys/isys.h"
+#include "isys/pci/pciprobe.h"
 
 #define _(x) x
 
@@ -31,6 +33,7 @@ int main(int argc, char ** argv) {
     char * arg;
     poptContext optCon;
     int testing, rc;
+    char ** modules, *module;
     struct poptOption optionTable[] = {
 	    { "test", '\0', POPT_ARG_NONE, &testing, 0 },
 	    { 0, 0, 0, 0, 0 }
@@ -50,13 +53,31 @@ int main(int argc, char ** argv) {
 	exit(1);
     }
 
+    if (probePciReadDrivers(testing ? "../isys/pci/pcitable" :
+			              "/etc/pcitable")) {
+	perror("error reading pci table");
+	return 1;
+    }
+    
+    modules = probePciDriverList();
+    module = *modules++;
+    while (module && *module) {
+	if (!testing)
+	    insmod(module, NULL);
+	else
+	    printf("If I were not testing, I would run insmod(%s, NULL);\n",
+		   module);
+	module = *modules++;
+    }
+    
+    /*
     newtInit();
     newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
 
     newtPushHelpLine(_("  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "));
 
     newtFinished();
-    
+    */
     execv(testing ? "../anaconda" : "/sbin/anaconda", argv);
 
     return 0;

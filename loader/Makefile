@@ -38,7 +38,12 @@ install: all
 	install -s init $(DESTDIR)/sbin/loader
 
 loader: $(OBJS)
-	$(CC) $(STATIC) -o $@ $(OBJS) -lpopt -lnewt -lslang
+	$(CC) $(STATIC) -o $@ $(OBJS) -lpopt     \
+        ../isys/pci/libpciprobe.a ../isys/isys.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -lrpm -lz
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
