@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-01-24 22:20-0500\n"
-"PO-Revision-Date: 2001-01-24 14:12+01:00\n"
+"PO-Revision-Date: 2001-01-29 15:39+01:00\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnu.org>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -1403,18 +1403,16 @@ msgid "Select drive to run fdisk on"
 msgstr "Velg disk som fdisk skal kjøres på"
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid "Warning: "
-msgstr "Advarsel"
+msgstr "Advarsel: "
 
 #: ../iw/firewall_gui.py:137
-#, fuzzy
 msgid " is an invalid port."
-msgstr "%s er ikke et gyldig vertsnavn."
+msgstr " er en ugyldig port."
 
 #: ../iw/firewall_gui.py:141
 msgid "The format is 'port:protocol'.  For example, '1234:udp'"
-msgstr ""
+msgstr "Formatet er 'port:protokoll'. For eksempel '1234:udp'"
 
 #: ../iw/firewall_gui.py:245
 msgid "Please choose your security level:  "
@@ -1803,6 +1801,17 @@ msgid ""
 "\n"
 "Press OK to proceed, or Cancel to go back and reassign the boot partition."
 msgstr ""
+"Du har plassert partisjonen som inneholder kjernen (oppstartspartisjonen) "
+"over grensen på 1024 sylindre, og det ser ut til at dette systemets BIOS "
+"ikke støtter å starte fra området over denne grensen. Hvis du fortsetter vil "
+"systemet sannsynligvis ikke kunne starte opp i Linux.\n"
+"\n"
+"Hvis du velger å fortsette anbefales det PÅ DET STERKESTE at du lager en "
+"oppstartsdiskett når du blir spurt om dette. Dette vil garantere at du har "
+"en mulighet til å starte opp systemet etter installasjonen.\n"
+"\n"
+"Trykk OK for å fortsette, eller avbryt for å gå tilbake og plassere "
+"oppstartspartisjonen et annet sted."
 
 #: ../iw/rootpartition_gui.py:98 ../iw/rootpartition_gui.py:485
 #: ../textw/partitioning_text.py:411
@@ -1815,6 +1824,14 @@ msgid ""
 "as this is a new feature in recent motherboards and is not always reliable. "
 "Making a boot disk will guarantee you can boot your system once installed."
 msgstr ""
+"Du har plassert partisjonen som inneholder kjernen (oppstartspartisjonen) "
+"over grensen på 1024 sylindere. Det ser ut til at dette systemets BIOS "
+"støtter oppstart fra området over denne grensen.\n"
+"\n"
+"Det anbefales PÅ DET STERKESTE at du lager en oppstartsdiskett når du blir "
+"spurt om dette, siden dette er en ny funksjon på nyere hovedkort som ikke "
+"alltid er til å stole på. Ved å lage en oppstartsdiskett vil du garantert ha "
+"en mulighet til å starte systemet når det er installert."
 
 #: ../iw/rootpartition_gui.py:219 ../textw/partitioning_text.py:334
 #, c-format
@@ -2161,6 +2178,10 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"En brannvegg beskytter mot innbrudd på nettverket. Høy sikkerhet blokkerer "
+"all innkommende trafikk. Medium blokkerer tilgang til systemtjenester (slik "
+"som telnet og utskrift), men tillater andre tilkoblinger. Ingen brannvegg "
+"tillater alle tilkoblinger og er ikke anbefalt."
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
@@ -2220,9 +2241,9 @@ msgid ""
 msgstr "for"
 
 #: ../textw/firewall_text.py:186
-#, fuzzy, c-format
+#, c-format
 msgid "Warning: %s is not a valid port."
-msgstr "%s er ikke et gyldig vertsnavn."
+msgstr "Advarsel: %s er ikke en gyldig port."
 
 #: ../textw/lilo_text.py:21 ../textw/silo_text.py:14
 msgid ""
@@ -2993,6 +3014,11 @@ msgid ""
 "\n"
 "Are you sure you want to do this?"
 msgstr ""
+"Det anbefales at rotpartisjonen (/) har en minste størrelse på %ld megabyte. "
+"Du prøver å opprette en som er %ld megabyte, noe som kan få installasjonen "
+"til å feile.\n"
+"\n"
+"Er du sikker på at du vil gjøre dette?"
 
 #: ../libfdisk/gnomefsedit.c:1279 ../libfdisk/newtfsedit.c:739
 msgid "Warning: Root FS Size"
@@ -3066,6 +3092,8 @@ msgid ""
 "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" to a "
 "non-RAID device first."
 msgstr ""
+"Du kan ikke fjerne \"/boot\" hvis \"/\" er på en RAID-enhet. Flytt \"/\" til "
+"en ikke-RAID-enhet først."
 
 #. build list of why they all failed
 #: ../libfdisk/gnomefsedit.c:1620 ../libfdisk/gnomefsedit.c:1639
@@ -3374,7 +3402,7 @@ msgstr "Nåværende diskpartisjoner"
 
 #: ../libfdisk/newtfsedit.c:1464
 msgid "   Mount Point          Device     Requested   Actual         Type"
-msgstr ""
+msgstr "   Monteringspunkt      Enhet      Forespurt   Faktisk        Type"
 
 #: ../libfdisk/newtfsedit.c:1488
 msgid ""
@@ -4191,9 +4219,3 @@ msgstr "Kjerneutvikling"
 
 msgid "Utilities"
 msgstr "Verktøy"
-
-#~ msgid "IDE"
-#~ msgstr "IDE"
-
-#~ msgid "Initializing IDE modules..."
-#~ msgstr "Initierer IDE-moduler..."
