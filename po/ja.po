@@ -966,6 +966,9 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"要求されたパーティション設定に次のような致命的なエラーが存在しています。これらのエラーは Red Hat Linux をインストールの前に必ず修正しなければなりません\n"
+"\n"
+"%s"
 
 #: ../partitioning.py:1657
 msgid "Partitioning Warning"
@@ -980,6 +983,11 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme."
 msgstr ""
+"要求されたパーティション設定について次のような警告があります\n"
+"\n"
+"%s\n"
+"\n"
+"このままこのパーティション設定で続けますか?"
 
 #: ../iw/account_gui.py:149 ../iw/account_gui.py:160
 #: ../iw/partition_gui.py:728 ../iw/partition_gui.py:1181 ../loader/urls.c:79
@@ -996,7 +1004,7 @@ msgstr "OK"
 
 #: ../rescue.py:48 ../rescue.py:84 ../rescue.py:163
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
+msgstr "終了時にはシェルから抜けてシステムを再起動して下さい"
 
 #: ../rescue.py:70 ../rescue.py:125 ../rescue.py:143
 msgid "Rescue"
@@ -1013,6 +1021,10 @@ msgid ""
 "will be skipped and you will go directly to a command shell.\n"
 "\n"
 msgstr ""
+"レスキューシステムはこれからインストール済みの Red Hat Linux を探し、/mnt/sysimage 以下にマウントしようと試みます。そうすることで、そのシステムのお望みの変更が可能となります。このプロセスを続ける場合は、[続ける]を選択して下さい。\n"
+"\n"
+"何らかの原因でこのプロセスが失敗した場合は[スキップ]を選択し、この手続きをとばして直接コマンド行シェルを使うことができます\n"
+"\n"
 
 #: ../rescue.py:79
 msgid "Continue"
@@ -1231,19 +1243,19 @@ msgstr "テキストモードを使用"
 
 #: ../xserver.py:101
 msgid "Attempting to start framebuffer based X server"
-msgstr ""
+msgstr "X サーバベースのフレームバッファを起動中"
 
 #: ../xserver.py:109
 msgid "Attempting to start native X server"
-msgstr ""
+msgstr "ネイティブ X サーバを起動中"
 
 #: ../xserver.py:117
 msgid "Attempting to start VGA16 X server"
-msgstr ""
+msgstr "VGA16 X サーバを起動中"
 
 #: ../xserver.py:176
 msgid "Waiting for X server to start...log located in /tmp/X.log\n"
-msgstr "Xサーバの起動を待ち中...ログは/tmp/X.logに置かれます\n"
+msgstr "X サーバの起動を待っています...記録は /tmp/X.log に出力されます\n"
 
 #: ../xserver.py:203
 msgid " X server started successfully."
@@ -1360,7 +1372,7 @@ msgid ""
 "accounts could be for a personal login account, or for other non-"
 "administrative users who need to use this system. Use the <Add> button to "
 "enter additional user accounts."
-msgstr ""
+msgstr "このシステムの追加の他のユーザのアカウントをつくることができます。それらは私用のためのものえあったり、他の非管理者ユーザがシステムを使うためのものなどです。ユーザアカウントを追加するには[Add]ボタンを押して下さい"
 
 #: ../iw/auth_gui.py:21 ../textw/userauth_text.py:311
 msgid "Authentication Configuration"
@@ -1462,13 +1474,16 @@ msgid ""
 "Please remove any diskettes from the floppy drive and insert a blank "
 "diskette. All data will be ERASED during creation of the boot disk."
 msgstr ""
+"ブートディスクで、Red Hat Linux システムをフロッピーディスクから起動できます\n"
+"\n"
+"フロッピードライブからディスクを抜いて、空のディスクを挿入して下さい。ブートディスクを作ることでその内容は完全に消去されます。"
 
 #: ../iw/bootdisk_gui.py:63 ../textw/bootdisk_text.py:83
 msgid ""
 "\n"
 "\n"
 "A boot disk is REQUIRED to boot a partitionless install."
-msgstr ""
+msgstr "\n\nパーティション設定なしインストールでは必ずブートディスクが必要です"
 
 #: ../iw/bootdisk_gui.py:66 ../textw/bootdisk_text.py:89
 msgid ""
@@ -1496,6 +1511,9 @@ msgid ""
 "\n"
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
+"BIOSが未サポートでブートできない場合はブートローダの LBA32 を強制的に使用します。なお、後でインストール中に尋ねられる際にブートディスクをつくることを強くお勧めします。\n"
+"\n"
+"LBA32モードを強制し、続けますか?"
 
 #: ../iw/bootloader_gui.py:251 ../iw/bootloader_gui.py:438
 #: ../iw/silo_gui.py:127 ../iw/silo_gui.py:280 ../iw/upgrade_swap_gui.py:121
@@ -1519,14 +1537,14 @@ msgstr "カーネルパラメータ"
 
 #: ../iw/bootloader_gui.py:341 ../textw/bootloader_text.py:106
 msgid "Force use of LBA32 (not normally required)"
-msgstr ""
+msgstr "LBA32 の使用の強制(通常は不必要)"
 
 #: ../iw/bootloader_gui.py:350
 msgid ""
 "Please select the boot loader that the computer will use.  GRUB is the "
 "default boot loader. However, if you do not wish to overwrite your current "
 "boot loader, select \"Do not install a boot loader.\"  "
-msgstr ""
+msgstr "使用するブートローダを選択して下さい。GRUB は標準のブートローダですが、今のブートローダを上書きしたくないなら、\"ブートローダをインストールしない\"を選択して下さい"
 
 #: ../iw/bootloader_gui.py:357 ../iw/silo_gui.py:257
 #: ../textw/bootloader_text.py:259 ../textw/silo_text.py:207
@@ -1558,11 +1576,11 @@ msgstr "ブートラベル"
 
 #: ../iw/bootloader_gui.py:362
 msgid "Use GRUB as the boot loader"
-msgstr ""
+msgstr "GRUBをブートローダとして使用"
 
 #: ../iw/bootloader_gui.py:363
 msgid "Use LILO as the boot loader"
-msgstr ""
+msgstr "LILOをブートローダとして使用"
 
 #: ../iw/bootloader_gui.py:364
 msgid "Do not install a boot loader"
@@ -1589,7 +1607,7 @@ msgid ""
 "A GRUB password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
 "not necessary for more casual users."
-msgstr ""
+msgstr "GRUB パスワードによってユーザが任意のオプションをカーネルに渡すことを防げます。高度なセキュリティ確保のためにはパスワードを設定を推奨しますが、これは一般的なユーザには必要ありません"
 
 #: ../iw/bootloaderpassword_gui.py:69
 msgid "Use a GRUB Password?"
@@ -1608,15 +1626,12 @@ msgid "Click next to begin installation of Red Hat Linux."
 msgstr "[次]をクリックすると Red Hat Linux のインストールを開始します"
 
 #: ../iw/confirm_gui.py:49
-#, fuzzy
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. A "
 "kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
-msgstr ""
-"完全なインストール記録はシステムの再起動後でも /tmp/install.log に保存されて"
-"います。後で参照できるようにこのファイルを保管しておくことをお勧めします"
+msgstr "完全なインストール記録はシステムの再起動後も /tmp/install.log に残っています。後で参照できるようにこのファイルを保管しておくことをお勧めします。選択結果を表す kickstartファイルは /root/anacocnda-ks.cfgに保存されています。"
 
 #: ../iw/confirm_gui.py:56
 msgid "About to Upgrade"
@@ -1639,7 +1654,6 @@ msgid "Congratulations"
 msgstr "おめでとうございます"
 
 #: ../iw/congrats_gui.py:35
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -1655,16 +1669,17 @@ msgid ""
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
 msgstr ""
-"設定が完了しました\n"
+"おめでとうございます、Red Hat Linux インストールが完了しました\n"
 "\n"
-"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/"
-"errata/ を参照して下さい\n"
+"インストールで使用した CDROM、フロッピーディスクを抜き、[Enter]を押してシステムを再起動して下さい\n"
 "\n"
-"システムの追加設定については http://www.redhat.com/support/manuals/ で入手で"
-"きる『Red Hat Linux オフィシャルマニュアル』を参照して下さい"
+"Red Hat Linux を起動するのにブートディスクをつくっているなら、[Enter]を押す前に挿入しておいて下さい\n"
+"\n"
+"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata/ を参照して下さい\n"
+"\n"
+"システムの使い方や追加設定などについては http://www.redhat.com/support/manuals/ で情報を入手できます"
 
 #: ../iw/congrats_gui.py:85
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1674,13 +1689,11 @@ msgid ""
 "Information on using and configuring your system is available in the Red Hat "
 "Linux manuals at http://www.redhat.com/support/manuals."
 msgstr ""
-"設定が完了しました\n"
+"おめでとうございます、設定が完了しました\n"
 "\n"
-"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata "
-"を参照して下さい\n"
+"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata を参照して下さい\n"
 "\n"
-"システムの追加設定については『Official Red Hat Linux ユーザーズガイド』のイン"
-"ストール後の作業についての章を参照して下さい"
+"システムの追加設定については『Official Red Hat Linux ユーザーズガイド』のインストール後の作業についての章を参照して下さい"
 
 #: ../iw/dependencies_gui.py:7
 msgid "Unresolved Dependencies"
@@ -2225,7 +2238,7 @@ msgstr "このインストール方法をどのドライブに使用しますか?"
 #: ../iw/partition_gui.py:1537
 msgid ""
 "Review (allows you to see and change the automatic partitioning results)"
-msgstr ""
+msgstr "レビュー(自動パーティション設定の結果を確認し、変更できます)"
 
 #: ../iw/partmethod_gui.py:24 ../textw/partmethod_text.py:24
 msgid "Disk Partitioning Setup"
@@ -2233,7 +2246,7 @@ msgstr "ディスクパーティション設定"
 
 #: ../iw/partmethod_gui.py:59
 msgid "Have the installer automatically partition for you"
-msgstr ""
+msgstr "インストーラが自動的にパーティション設定を行う"
 
 #: ../iw/partmethod_gui.py:62
 msgid "Manually partition with Disk Druid"
@@ -2356,23 +2369,20 @@ msgid ""
 "without data loss.\n"
 "\n"
 "Which of these partitions would you like to migrate?"
-msgstr ""
+msgstr "Red Hat Linux のこのリリースでは ext3 ジャーナリングファイルシステムをサポートしています。ext3 は旧来の Red Hat Linux で伝統的に使われてきた ext2 に比較していくつかの優れた点を持っています。また、データを失わずに ext2 を ext3 に統合することも可能です"
 
 #: ../iw/upgrade_swap_gui.py:30
 msgid "Upgrade Swap Partition"
 msgstr "スワップパーティションを更新"
 
 #: ../iw/upgrade_swap_gui.py:88
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The 2.4 kernel needs significantly more swap than older kernels, as much as "
 "twice as much swap space as RAM on the system.  You currently have %dMB of "
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
-msgstr ""
-"2.4 系カーネルでは古いカーネルよりも著しく多くのスワップ領域、システムの RAM "
-"の二倍のスワップ領域が必要です。現在 %dMBのスワップ領域を確保していますが今さ"
-"らに領域を追加することも可能です。"
+msgstr "2.4 系カーネルでは古いカーネルよりも著しく多くのスワップ領域、システムの RAM の二倍のスワップ領域が必要です。現在 %dMBのスワップ領域を確保していますが今さらに領域を追加することもできます"
 
 #: ../iw/upgrade_swap_gui.py:95
 #, c-format
@@ -2380,7 +2390,7 @@ msgid ""
 "\n"
 "\n"
 "The installer has detected %s MB of RAM.\n"
-msgstr ""
+msgstr "\n\nインストーラは %s MB の RAM を検出しました\n"
 
 #: ../iw/upgrade_swap_gui.py:107
 msgid "I want to create a swap file"
@@ -2519,7 +2529,7 @@ msgstr "モニタの設定"
 
 #: ../iw/xconfig_gui.py:532 ../iw/xconfig_gui.py:843
 msgid "Generic"
-msgstr ""
+msgstr "汎用"
 
 #: ../iw/xconfig_gui.py:569
 msgid "DDC Probed Monitor"
@@ -2590,7 +2600,6 @@ msgid "Skip X Configuration"
 msgstr "X の設定を行わない"
 
 #: ../textw/bootdisk_text.py:26
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal boot loader. This is useful if you don't want to "
@@ -2601,12 +2610,7 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"カスタムブートディスクを使用すると、通常のブートローダに依存せずに Linux シス"
-"テムをブートすることができます。これは、LILO をシステム内にインストールしたく"
-"ない場合、他のオペレーティングシステムが LILO を削除してしまう場合、ハード"
-"ウェア的な理由で LILO が正しく機能しない場合に便利です。カスタムブートディス"
-"クは、Red Hat レスキューイメージと共に使用し、より簡単にシステムを深刻なシス"
-"テムダウンから復旧させることができます。\n"
+"カスタムブートディスクを使用すると、通常のブートローダに依存せずに Linux システムを起動できます。これはブートローダをシステム内にインストールしたくないか、他のオペレーティングシステムがブートローダを削除してしまう、あるいはハードウェア的な理由でブートローダが正しく機能しない場合に便利です。カスタムブートディスクは Red Hat レスキューイメージと共に使用し、システムを深刻なシステムダウンからより簡単に復旧させることができます。\n"
 "\n"
 "システムのブートディスクを作成しますか?"
 
@@ -2635,7 +2639,6 @@ msgid "Skip Boot Loader"
 msgstr "ブートローダ(設定)をスキップ"
 
 #: ../textw/bootloader_text.py:67
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2644,11 +2647,9 @@ msgid ""
 "\n"
 "Are you sure you want to skip boot loader installation?"
 msgstr ""
-"あなたはLILOをインストールしないように選択しましたが、何らかの理由がない限"
-"り、LILOをインストールすることを強く推奨します。LILOはハードディスクからLinux"
-"を直接起動するほとんどの場合に必要となります。\n"
+"あなたはブートローダをインストールしないように選択しましたが、何らかの理由がない限り、ブートローダをインストールすることを強く推奨します。ブートローダはハードディスクからLinuxを直接起動するほとんどの場合に必要となります。\n"
 "\n"
-"本当にLILOインストールを省略しますか?"
+"本当にブートローダインストールを省略しますか?"
 
 #: ../textw/bootloader_text.py:97 ../textw/silo_text.py:25
 msgid ""
@@ -2738,6 +2739,15 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
 msgstr ""
+"おめでとうございます、Red Hat Linux インストールが完了しました\n"
+"\n"
+"インストールで使用した CDROM、フロッピーディスクを抜き、[Enter]を押してシステムを再起動して下さい\n"
+"\n"
+"Red Hat Linux を起動するのにブートディスクをつくっているなら、[Enter]を押す前に挿入しておいて下さい\n"
+"\n"
+"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata/ を参照して下さい\n"
+"\n"
+"システムの使い方や追加設定などについては http://www.redhat.com/support/manuals/ で情報を入手できます"
 
 #: ../textw/complete_text.py:48
 msgid "<Return> to continue"
@@ -2752,13 +2762,17 @@ msgid ""
 "Information on configuring and using your Red Hat Linux system is contained "
 "in the Red Hat Linux manuals."
 msgstr ""
+"パッケージインストールが完了しました\n"
+"\n"
+"[enter]を押して続けて下さい\n"
+"\n"
+"Red Hat Linux システムの設定や使い方についてはマニュアルに記載されています"
 
 #: ../textw/complete_text.py:62
 msgid "<Return> to exit"
 msgstr "終了するには <Return> を押して下さい"
 
 #: ../textw/complete_text.py:66
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -2768,13 +2782,11 @@ msgid ""
 "Information on using your system is available in the Red Hat Linux manuals "
 "at http://www.redhat.com/support/manuals."
 msgstr ""
-"設定が完了しました\n"
+"おめでとうございます、設定が完了しました\n"
 "\n"
-"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata "
-"を参照して下さい\n"
+"本リリースの Red Hat Linux の修正情報については http://www.redhat.com/errata を参照して下さい\n"
 "\n"
-"システムの追加設定については『Official Red Hat Linux ユーザーズガイド』のイン"
-"ストール後の作業についての章を参照して下さい"
+"システムの利用方法について http://www.redhat.com/support/manuals/ からたどれる Red Hat Linux のマニュアルを参照して下さい"
 
 #: ../textw/confirm_text.py:20
 msgid "Installation to begin"
@@ -2860,17 +2872,12 @@ msgid "Firewall Configuration - Customize"
 msgstr "ファイアウォール設定 - カスタマイズ"
 
 #: ../textw/firewall_text.py:143
-#, fuzzy
 msgid ""
 "You can customize your firewall in two ways. First, you can select to allow "
 "all traffic from certain network interfaces. Second, you can allow certain "
 "protocols explicitly through the firewall. In a comma separated list, "
 "specify additional ports in the form 'service:protocol' such as 'imap:tcp'. "
-msgstr ""
-"2 種類の方法でファイアウォールをカスタマイズできます。まず一定のネットワーク"
-"インタフェースからのすべてのトラフィックを許可する選択ができます。次に一定プ"
-"ロトコルのファイアウォールの通過を明示的に許可できます。追加のポート"
-"を'service:protocol' の形式、たとえば 'imap:tcp' として指定します"
+msgstr "2 種類の方法でファイアウォールをカスタマイズすることができます。まず一定のネットワークインタフェースからのすべてのトラフィックを許可する選択ができます。次に一定プロトコルのファイアウォールの通過を明示的に許可できます。追加のポートを'service:protocol' の形式、たとえば 'imap:tcp' として指定します"
 
 #: ../textw/firewall_text.py:200
 #, c-format
@@ -2895,7 +2902,7 @@ msgstr "すべて選択"
 
 #: ../textw/language_text.py:117
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
+msgstr "システムにインストールする追加の言語を選択して下さい:"
 
 # ../comps/comps-master:446
 #: ../textw/language_text.py:121
@@ -3024,11 +3031,11 @@ msgstr "固定容量:"
 
 #: ../textw/partition_text.py:297
 msgid "Fill maximum size of (MB):"
-msgstr ""
+msgstr "最大容量 (MB):"
 
 #: ../textw/partition_text.py:301
 msgid "Fill all available space:"
-msgstr ""
+msgstr "利用できるスペースをすべて利用:"
 
 #: ../textw/partition_text.py:397
 msgid "Number of spares?"
@@ -3039,13 +3046,9 @@ msgid "Filesystem Options"
 msgstr "ファイルシステムオプション"
 
 #: ../textw/partition_text.py:418
-#, fuzzy
 msgid ""
 "Please choose how you would like to prepare the filesystem on this partition."
-msgstr ""
-"\n"
-"Red Hat Linuxをインストールするシステムのパーティションを設定するためのツール"
-"を選択して下さい"
+msgstr "このパーティションに用意するファイルシステムを選択して下さい"
 
 #: ../textw/partition_text.py:435
 msgid "Format as:"
@@ -3205,7 +3208,7 @@ msgstr "自由領域"
 
 #: ../textw/upgrade_text.py:122
 msgid "RAM detected (MB):"
-msgstr ""
+msgstr "検出 RAM 容量 (MB):"
 
 #: ../textw/upgrade_text.py:125
 msgid "Suggested size (MB):"
@@ -3401,7 +3404,6 @@ msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
 #: ../textw/welcome_text.py:22
-#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -3414,12 +3416,9 @@ msgid ""
 msgstr ""
 "Red Hat Linux へようこそ！\n"
 "\n"
-"インストール手順については Red Hat Software から入手可能な『Official Red Hat "
-"Linux インストールガイド』で詳しく説明されています。このマニュアルをお持ちの"
-"場合はあらかじめインストールの章をお読み下さい。\n"
+"インストール手順については弊社提供の『Official Red Hat Linux インストールガイド』で詳しく説明されています。このマニュアルをお持ちの場合はあらかじめインストールの章をお読み下さい。\n"
 "\n"
-"Official Red Hat Linux をお買い求めいただいた場合は弊社の Web サイトhttp://"
-"www.redhat.com/ で登録をお済ませ下さい"
+"Official Red Hat Linux をお買い求めいただいた場合は弊社 Web サイトhttp://www.redhat.com/ での登録をお済ませ下さい"
 
 #: ../textw/welcome_text.py:41
 msgid ""
@@ -3466,7 +3465,7 @@ msgstr "X 設定のカスタマイズ"
 msgid ""
 "Select the color depth and video mode you want to use for your system. Use "
 "the '%s' button to test the video mode."
-msgstr ""
+msgstr "システムで使いたい色深度とビデオモードを選択します。ビデオモードを試すには '%s' ボタンを押します"
 
 #: ../textw/xconfig_text.py:171 ../textw/xconfig_text.py:178
 #: ../textw/xconfig_text.py:387 ../textw/xconfig_text.py:398
@@ -3501,6 +3500,9 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
+"モニターの同期レートを入力して下さい\n"
+"\n"
+"注意 - 通常は手動で同期レートを編集する必要はありませんが、入力値が正確である必要もありません"
 
 #: ../textw/xconfig_text.py:283
 msgid "HSync Rate: "
@@ -3535,13 +3537,21 @@ msgid ""
 "    50.1-90.2                a range of numbers\n"
 "31.5,35.0,39.3-40.0          a list of numbers/ranges\n"
 msgstr ""
+"不適切な %s 同期レート:\n"
+"\n"
+"     %s\n"
+"\n"
+"適切な同期レートは次の形式になっています:\n"
+"      31.5                   単一の数字\n"
+"    50.1-90.2                領域を表す数字\n"
+"31.5,35.0,39.3-40.0          数字のリスト\n"
 
 #: ../textw/xconfig_text.py:379
 #, c-format
 msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
-msgstr ""
+msgstr "システムのモニタを選択します。検出された値をリセットするには '%s' ボタンを押します"
 
 #: ../textw/xconfig_text.py:383
 msgid "Monitor:"
@@ -3560,7 +3570,7 @@ msgstr "垂直同期レート:"
 msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
-msgstr ""
+msgstr "システムのビデオカードを選択します。インストーラが検出したカードの選択をリセットするには '%s' を押します"
 
 #: ../textw/xconfig_text.py:488
 msgid "Video RAM"
@@ -3571,7 +3581,7 @@ msgstr "ビデオメモリ"
 msgid ""
 "Please select the amount of video RAM present on your video card. Choose '%"
 "s' to reset the selection to the amount the installer detected on your card."
-msgstr ""
+msgstr "ビデオカードのビデオ RAM 容量を選択します。インストーラの検出値をリセットするには '%s' ボタンを押します"
 
 #: ../textw/xconfig_text.py:553
 msgid "Video Card Configuration"
@@ -3602,7 +3612,7 @@ msgid ""
 "You need to pick a video card before X configuration can continue.  If you "
 "want to skip X configuration entirely choose the 'Skip X Configuration' "
 "button."
-msgstr ""
+msgstr "X の設定を続けるにはビデオカードを選択する必要があります。X 設定を完全にとばしたいなら [X 設定をスキップ] を選択して下さい"
 
 #: ../installclasses/custom.py:12
 msgid "Custom"
@@ -4468,15 +4478,11 @@ msgid "Miscellaneous"
 msgstr "その他"
 
 #: ../loader/devices.c:86
-#, fuzzy
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
 "know what parameters to supply, just skip this screen by pressing the \"Ok\" "
 "button now."
-msgstr ""
-"このモジュールにパラメータを渡してモジュールの動きを調整することができます。"
-"指定するパラメータが不明である場合は、ここで [OK] ボタンを押してこの画面をス"
-"キップして下さい。"
+msgstr "このモジュールにはその振舞いを調整するためのパラメータを渡すことができます。指定するパラメータが不明な場合は [OK] ボタンを押してこの画面をスキップして下さい"
 
 #: ../loader/devices.c:91
 msgid "Module Parameters"
@@ -4492,9 +4498,8 @@ msgid "Do you have a driver disk?"
 msgstr "ドライバディスクがありますか?"
 
 #: ../loader/devices.c:239
-#, fuzzy
 msgid "Insert your driver disk and press \"Ok\" to continue."
-msgstr "ドライバディスクを挿入してから [OK] を押して続行して下さい。"
+msgstr "ドライバディスクを挿入し、[OK] を押して続行して下さい"
 
 #: ../loader/devices.c:260
 msgid "Failed to mount driver disk."
@@ -4705,9 +4710,9 @@ msgid "I could not mount that directory from the server"
 msgstr "指定されたディレクトリをサーバからマウントすることができません"
 
 #: ../loader/loader.c:1186
-#, fuzzy, c-format
+#, c-format
 msgid "File %s/%s not found on server."
-msgstr "ファイルが見つかりませんでした"
+msgstr "ファイル %s/%s はサーバ上にはみつかりませんでした"
 
 #: ../loader/loader.c:1213
 msgid "HTTP"
@@ -4776,9 +4781,8 @@ msgid "Reading anaconda updates..."
 msgstr "anaconda アップデートを読み込み中..."
 
 #: ../loader/loader.c:2527
-#, fuzzy
 msgid "You do not have enough RAM to install Red Hat Linux on this machine."
-msgstr "Red Hat をこのマシンにインストールするのに十分なメモリがありません。"
+msgstr "Red Hat をインストールするために十分なメモリがありません"
 
 #: ../loader/loader.c:3022
 msgid "Running anaconda - please wait...\n"
@@ -4966,7 +4970,6 @@ msgid "Retrieving"
 msgstr "取得"
 
 #: ../loader/urls.c:163
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4974,14 +4977,13 @@ msgid ""
 "    o the directory on that server containing\n"
 "      Red Hat Linux for your architecure\n"
 msgstr ""
-"以下の情報を入力して下さい:\n"
+"次の情報を入力して下さい:\n"
 "\n"
 "    o FTP サーバの名前または IP アドレス\n"
-"    o 使用アーキテクチャ用の Red Hat Linux を含む、サーバ\n"
-"      上のディレクトリ\n"
+"    o サーバ上の、使用アーキテクチャ用の Red Hat Linux を\n"
+"      含むディレクトリ\n"
 
 #: ../loader/urls.c:172
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4992,8 +4994,8 @@ msgstr ""
 "以下の情報を入力して下さい:\n"
 "\n"
 "    o Web サーバ名または IP アドレス\n"
-"    o 使用アーキテクチャ用の Red Hat Linux を含む、サーバ\n"
-"      上のディレクトリ\n"
+"    o サーバ上の、使用アーキテクチャ用の Red Hat Linux を含む\n"
+"      ディレクトリ\n"
 
 #: ../loader/urls.c:190
 msgid "FTP site name:"
@@ -5134,14 +5136,12 @@ msgid "Base"
 msgstr "基本"
 
 # ../comps/comps-master:146
-#, fuzzy
 msgid "Printing Support"
 msgstr "プリンタサポート"
 
 # ../comps/comps-master:168
-#, fuzzy
 msgid "Classic X Window System"
-msgstr "X Window システム"
+msgstr "旧 X Window システム"
 
 # ../comps/comps-master:168
 msgid "X Window System"
@@ -5152,70 +5152,60 @@ msgid "Laptop Support"
 msgstr "ラップトップサポート"
 
 # ../comps/comps-master:409
-#, fuzzy
 msgid "Sound and Multimedia Support"
 msgstr "マルチメディアサポート"
 
-#, fuzzy
 msgid "Network Support"
-msgstr "ネットワークの設定"
+msgstr "ネットワークサポート"
 
 # ../comps/comps-master:446
-#, fuzzy
 msgid "Dialup Support"
-msgstr "ラップトップサポート"
+msgstr "ダイアルアップサポート"
 
 # ../comps/comps-master:577
 msgid "Messaging and Web Tools"
-msgstr ""
+msgstr "メッセージ、ウェブツール"
 
 # ../comps/comps-master:363
-#, fuzzy
 msgid "Graphics and Image Manipulation"
-msgstr "グラフィック操作"
+msgstr "画像処理"
 
 # ../comps/comps-master:519
 msgid "News Server"
 msgstr "ニュースサーバ:"
 
 # ../comps/comps-master:525
-#, fuzzy
 msgid "NFS File Server"
-msgstr "NFS サーバ:"
+msgstr "NFS ファイルサーバ"
 
 # ../comps/comps-master:552
-#, fuzzy
 msgid "Windows File Server"
-msgstr "Web サーバ:"
+msgstr "Windows ファイルサーバ"
 
 # ../comps/comps-master:545
 msgid "Anonymous FTP Server"
 msgstr "Anonymous (匿名) FTP サーバ"
 
 # ../comps/comps-master:525
-#, fuzzy
 msgid "SQL Database Server"
-msgstr "SQL サーバ:"
+msgstr "SQL データベースサーバ"
 
 # ../comps/comps-master:552
 msgid "Web Server"
 msgstr "Web サーバ:"
 
-#, fuzzy
 msgid "Router / Firewall"
-msgstr "ファイアウォールなし"
+msgstr "ルーター/ファイアウォール"
 
 # ../comps/comps-master:563
 msgid "DNS Name Server"
 msgstr "DNS ネームサーバ"
 
 # ../comps/comps-master:577
-#, fuzzy
 msgid "Network Managed Workstation"
 msgstr "ネットワーク管理ワークステーション"
 
 # ../comps/comps-master:588
-#, fuzzy
 msgid "Authoring and Publishing"
 msgstr "著作/出版"
 
@@ -5228,14 +5218,12 @@ msgid "Utilities"
 msgstr "ユーティリティ"
 
 # ../comps/comps-master:446
-#, fuzzy
 msgid "Legacy Application Support"
-msgstr "ラップトップサポート"
+msgstr "旧式アプリケーションサポート"
 
 # ../comps/comps-master:735
-#, fuzzy
 msgid "Software Development"
-msgstr "カーネル開発"
+msgstr "ソフトウェア開発"
 
 # ../comps/comps-master:735
 msgid "Kernel Development"
@@ -5243,18 +5231,17 @@ msgstr "カーネル開発"
 
 # ../comps/comps-master:1055
 msgid "Windows Compatibility / Interoperability"
-msgstr ""
+msgstr "Windows互換/相互運用"
 
 # ../comps/comps-master:1073
 msgid "Games and Entertainment"
-msgstr ""
+msgstr "ゲーム"
 
 #. generated from zone.tab
 msgid "Acre"
 msgstr "Acre"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Alagoas, Sergipe"
 msgstr "アラゴス、セルジペ"
 
@@ -5263,12 +5250,10 @@ msgid "Alaska Time"
 msgstr "アラスカ時間"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Alaska Time - Alaska panhandle"
 msgstr "アラスカ時間 - アラスカ パンハンドル"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Alaska Time - Alaska panhandle neck"
 msgstr "アラスカ時間 - アラスカ パンハンドル ネック"
 
@@ -5285,7 +5270,6 @@ msgid "Amapa, E Para"
 msgstr "Amapa, E Para"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Amundsen-Scott Station, South Pole"
 msgstr "アムンゼン-スコット基地、南極"
 
@@ -5294,7 +5278,6 @@ msgid "Atlantic islands"
 msgstr "アトランティック諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Atlantic Time - E Labrador"
 msgstr "アトランティック時間 - E Labrador"
 
@@ -5312,17 +5295,14 @@ msgstr ""
 "1971"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Azores"
 msgstr "アゾレス"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Canary Islands"
 msgstr "カナリア諸島"
 
@@ -5331,17 +5311,14 @@ msgid "Casey Station, Bailey Peninsula"
 msgstr "Casey Station, Bailey Peninsula"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Catamarca (CT)"
 msgstr "カタマルカ (CT)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central Crimea"
 msgstr "中央クリミア"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "central Kazakhstan"
 msgstr "中央カザフスタン"
 
@@ -5355,150 +5332,152 @@ msgstr "Central Standard Time - Saskatchewan - most locations"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "中央時間"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "中央時間 - カンペチェ、ユカタン"
 
+# Mexico
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "中央時間 - コアウィラ、デュランゴ、ヌエボ=レオン、タモゥリパス"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "中央時間 - マニトバ、西オンタリオ"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "中央時間 - ミシガン・ウィスコンシン境界"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "中央時間 - 一般"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "中央時間 - キンタナロー"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "中央時間 - レイニー川、フォートフランセス、オンタリオ"
 
+# イヌイット自治州
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "中央時間 - 西ヌナブット"
 
+# スペイン領北アフリカ
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "セウタ・メリリャ"
 
+# ガラパゴス諸島一部?
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "チャタム島"
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "中国海岸"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "中国山脈"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "デーヴィス基地、ヴェストフォールド丘陵"
 
+# モンゴル
 #. generated from zone.tab
 msgid "Dornod, Sukhbaatar (unsure about this)"
-msgstr ""
+msgstr "ドルノド、サクバータ州"
 
+# 南極
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "デュモン-デュルヴィル基地、テレ=アデリー"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "E Amazonas"
 msgstr "E アマゾン"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "東アルゼンチン (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "東コンゴ民主共和国"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Easter Island & Sala y Gomez"
 msgstr "イースター諸島"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "東部時間 - 中央ヌナブット"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "東部時間 - 東ヌナブット"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "東部時間 - インディアナ、クロフォード郡"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "東部時間 - インディアナ、一般"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "東部時間 - インディアナ、スターク郡"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "東部時間 - インディアナ、スイス郡"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "東部時間 - パングニルチュング、ヌナブット"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "東部時間"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "東部時間 - ケンタッキー、ルイスヴィレ"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "東部時間 - ケンタッキー、ウェイネ郡"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "東部時間 - ミシガン一般"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "東部時間 - オンタリオ、ケベック一般"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "東部時間 - オンタリオ、ケベック - DST 1967-1973 で未認識の地域"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "東部時間 - サンダーベイ、オンタリオ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Eastern Turkestan"
 msgstr "東トルキスタン"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "east Greenland"
 msgstr "東グリーンランド"
 
@@ -5508,10 +5487,9 @@ msgstr "東カザフスタン"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
-msgstr ""
+msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "east Uzbekistan"
 msgstr "東ウズベキスタン"
 
@@ -5520,12 +5498,10 @@ msgid "Galapagos Islands"
 msgstr "ガラパゴス諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gambier Islands"
 msgstr "ガンビア諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Gilbert Islands"
 msgstr "ギルバート諸島"
 
@@ -5539,11 +5515,11 @@ msgstr "ハワイ"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "イリアンジャヤ、モルサス"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "ジャンマイェン"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
@@ -5551,58 +5527,56 @@ msgstr "ジャワ、スマトラ"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "ジョンストンアトール"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "ジュジュイ (JY)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Kosrae"
 msgstr "コスラエ"
 
+# フィリピン?
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "カワジャライン"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "ライン諸島"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "ロードハウ諸島"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
 msgstr "マデリア諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Marquesas Islands"
 msgstr "マルケサス諸島"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "マトグロッソ、マトグロッソ=デュ=ソル"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "モウソン基地、ホルメ湾"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "マクマルド基地、ロス諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mendoza (MZ)"
 msgstr "メンドーザ (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "ミッドウェー諸島"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
@@ -5613,17 +5587,14 @@ msgid "Moscow+01 - Caspian Sea"
 msgstr "モスクワ+01 - カスピ海"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow-01 - Kaliningrad"
 msgstr "モスクワ-01 - カリニングラッド"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+02 - Urals"
 msgstr "モスクワ+01 - ウラル"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+03 - Novosibirsk"
 msgstr "モスクワ+03 - ノボシビルスク"
 
@@ -5632,7 +5603,6 @@ msgid "Moscow+03 - west Siberia"
 msgstr "モスクワ+03 - 西シベリア"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+04 - Yenisei River"
 msgstr "モスクワ+06 - ヤニセイ川"
 
@@ -5641,7 +5611,6 @@ msgid "Moscow+05 - Lake Baikal"
 msgstr "モスクワ+05 - バイカル湖"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+06 - Lena River"
 msgstr "モスクワ+06 - レナ川"
 
@@ -5650,7 +5619,6 @@ msgid "Moscow+07 - Amur River"
 msgstr "モスクワ+07 - アムール川"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Moscow+08 - Magadan & Sakhalin"
 msgstr "モスクワ+08 - マガダン、サハリン"
 
@@ -5664,57 +5632,54 @@ msgstr "モスクワ+10 - ベーリング海"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "米国山岳標準時 - アリゾナ"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
+msgstr "米国山岳標準時 - ドーソン川、フォートセントジョン、ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "米国山岳標準時 - ソノラ"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "米国山岳標準時"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
+msgstr "米国山岳標準時 - アルベルタ、東ブリティッシュコロンビア、西サスカチュワーン"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "米国山岳標準時 - 中央北西地方"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "米国山岳標準時 - チワワ"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "米国山岳標準時 - ナバホ"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "米国山岳標準時 - 南バハ、ナヤリット、シナロア"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Mountain Time - south Idaho & east Oregon"
 msgstr "Mountatin Time - 南アイダホ、東オレゴン"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "米国山岳標準時 - 西北西地方"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 msgstr "NE アルゼンチン (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
 msgstr "NE ブラジル (MA, PI, CE, RN, PR)"
 
@@ -5723,12 +5688,10 @@ msgid "Newfoundland Island"
 msgstr "ニューファンドランド諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - most locations"
 msgstr "ニューサウスウェールズ - most locations"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "New South Wales - Yancowinna"
 msgstr "ニューサウスウェールズ - ブロークンヒル"
 
@@ -5737,49 +5700,45 @@ msgid "northeast Mali"
 msgstr "北東マリ"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Northern Ireland"
 msgstr "ノーザーン諸島"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "北部地方"
 
 #. generated from zone.tab
 msgid "north Manchuria"
-msgstr ""
+msgstr "北マンチュリア"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "northwest Greenland"
 msgstr "北西グリーンランド"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time - north Yukon"
 msgstr "太平洋時間 - 北ユーコン"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time - south Yukon"
 msgstr "太平洋時間 - 南ユーコン"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Pacific Time - west British Columbia"
 msgstr "太平洋時間 - 西ブリティッシュコロンビア"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "パーマーステーション、アンバーズ島"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "西マレーシア"
 
+# ブラジルの州名らしい
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "ペルナンブッコ"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
@@ -5790,57 +5749,54 @@ msgid "Ponape (Pohnpei)"
 msgstr "ポナペ (ポンペイ)"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Queensland - Holiday Islands"
 msgstr "クィーンズランド - ホリディ諸島"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Queensland - most locations"
 msgstr "クィーンズランド - most locations"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "ロライマ"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "ルテニア"
 
+# ボルネオ半島、東マレーシア
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "サバ・サラワク"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "ソシエテ諸島"
 
 #. generated from zone.tab
 msgid "South Australia"
 msgstr "南オーストラリア"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "southwest Greenland"
 msgstr "南西グリーンランド"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "southwest Mali"
 msgstr "南西マリ"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "S & SE ブラジル(BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
+# Norway
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "スバールバル"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Syowa Station, E Ongul I"
-msgstr "昭和基地、E Engul I"
+msgstr "昭和基地、東オングル島"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -5848,15 +5804,15 @@ msgstr "タスマニア"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
-msgstr ""
+msgstr "チベット、新彊"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "トカンチン"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "トラック(チューク環礁)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -5864,28 +5820,27 @@ msgstr "ヴィクトリア"
 
 #. generated from zone.tab
 msgid "Vostok Station, S Magnetic Pole"
-msgstr ""
+msgstr "ヴォストーク基地、南極"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Wake Island"
 msgstr "ウェイク諸島"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "西アマゾン"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "西アルゼンチン (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
-msgstr ""
+msgstr "西、中央ボルネオ"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "西コンゴ民主共和国"
 
 #. generated from zone.tab
 msgid "Western Australia"
@@ -5901,7 +5856,7 @@ msgstr "西ウズベキスタン"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "東パラ、ロンドニア"
 
 #. generated from zone.tab
 msgid "Yap"
@@ -5909,15 +5864,15 @@ msgstr "ヤップ"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "ウクライナ/ルガンスク州"
 
 #. generated from lang-table
 msgid "Chinese(Simplified)"
-msgstr ""
+msgstr "中国(簡体)"
 
 #. generated from lang-table
 msgid "Chinese(Traditional)"
-msgstr ""
+msgstr "中国(繁体)"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5956,9 +5911,8 @@ msgid "Japanese"
 msgstr "日本語"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Korean"
-msgstr "コスラエ"
+msgstr "韓国"
 
 #. generated from lang-table
 msgid "Norwegian"
