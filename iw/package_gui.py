@@ -27,6 +27,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.DIR = 0
         self.DIR_UP = 1
         self.RPM = 2
+        self.rownum = 0
+        self.maxrows = 0
 
         self.updatingIcons = FALSE
 
@@ -155,6 +157,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         #--For empty groups, don't sort.  Just return.
         if self.rownum == 0:
+#        if self.rownum:
             return
 
         for i in range(self.rownum):
@@ -184,14 +187,14 @@ class IndividualPackageSelectionWindow (InstallWindow):
         
 #        for i in range(mid):
 
-    def mergesort (self, min, max):
-        if min < max:
-            total = min + max
-            mid = total / 2
-            print "Min=", min, " Max=", max, " Mid=", mid
-            self.mergesort (min, mid)
-            self.mergesort (mid + 1, max)
-            self.merge (min, max)
+#    def mergesort (self, min, max):
+#        if min < max:
+#            total = min + max
+#            mid = total / 2
+#            print "Min=", min, " Max=", max, " Mid=", mid
+#            self.mergesort (min, mid)
+#            self.mergesort (mid + 1, max)
+#            self.merge (min, max)
 
 
 
