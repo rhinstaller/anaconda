@@ -76,12 +76,14 @@ class BootloaderChoiceWindow:
 				[ (_("Yes"), "yes"), (_("No"), "no") ],
 				width = 50)
 	    dispatch.skipStep("instbootloader", skip = (rc == "yes"))
+            dispatch.skipStep("bootloaderpassword")            
         elif blradio.getSelection() == "lilo":
             bl.setUseGrub(0)
             dispatch.skipStep("instbootloader", 0)            
 	else:
             bl.setUseGrub(1)
-            dispatch.skipStep("instbootloader", 0)            
+            dispatch.skipStep("instbootloader", 0)
+            dispatch.skipStep("bootloaderpassword", 0)                        
 
         return INSTALL_OK
         
