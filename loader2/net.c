@@ -738,6 +738,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "PORTNAME=%s\n", dev->portname);
     if (dev->nettype)
         fprintf(f, "NETTYPE=%s\n", dev->nettype);
+    if (dev->ctcprot)
+        fprintf(f, "CTCPROT=%s\n", dev->ctcprot);
 
     if (dev->essid)
         fprintf(f, "ESSID=%s\n", dev->essid);

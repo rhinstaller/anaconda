@@ -448,6 +448,9 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "NETTYPE")) {
                loaderData->nettype = strdup(vparm);
            }
+           if (strstr(vname, "CTCPROT")) {
+               loaderData->ctcprot = strdup(vparm);
+           }
        }
    }
    fclose(f);
