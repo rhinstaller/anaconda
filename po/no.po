@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install 7.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-08-21 09:25+0200\n"
+"PO-Revision-Date: 2004-09-05 02:35+0200\n"
 "Last-Translator: Trond Varslot <varslot@math.ntnu.no>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -185,9 +185,8 @@ msgid "Using mouse type: %s"
 msgstr "Bruker mustype: %s"
 
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Leter etter installert %s..."
+msgstr "Starter grafisk installasjon..."
 
 #: ../autopart.py:946
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -247,12 +246,10 @@ msgstr ""
 "starte denne installasjonen."
 
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
-msgstr ""
-"Oppstartspartisjon %s oppfyller muligens ikke kravene til oppstart for din "
-"arkitektur. Det er sterkt anbefalt å opprette en oppstartsdiskett."
+msgstr "Oppstartspartisjon %s oppfyller muligens ikke kravene til oppstart for din arkitektur."
 
 #: ../autopart.py:1056
 #, python-format
@@ -1067,7 +1064,7 @@ msgstr "P_røv igjen"
 
 #: ../gui.py:1116 ../packages.py:1493
 msgid "The installer will now exit..."
-msgstr ""
+msgstr "Installasjonsprogrammet avsluttes nå..."
 
 #: ../gui.py:1119 ../packages.py:1496
 msgid "Your system will now be rebooted..."
@@ -2574,53 +2571,47 @@ msgid ""
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
 "number, a 16bit SCSI ID, a 64 bit World Wide Port Number (WWPN), a 16bit "
 "SCSI LUN and a 64 bit FCP LUN."
-msgstr ""
+msgstr "zSeries-maskiner kan aksessere industristandard SCSI-enheter via Fibre Channel (FCP). Du må oppgi 5 parametere for hver enhet: et 16-bit enhetsnummer, en 16-bit SCSI-ID, en 64-bit World Wide Port Number (WWPN), et 16-bit SCSI-LUN og et 64-bit FCP-LUN"
 
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Enhet"
+msgstr "Enhetsnummer"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "Enhetsnummeret er ikke gyldig eller ble ikke oppgitt"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI Id"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "SCSI ID er ikke gyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
-#, fuzzy
 msgid "You have not specified a worldwide port name or the name is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "Worldwide port er ugyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI-LUN"
 
 #: ../zfcp.py:39
-#, fuzzy
 msgid "You have not specified a SCSI LUN or the number is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "SCSI-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../zfcp.py:41 ../textw/zfcp_text.py:105
 msgid "FCP LUN"
-msgstr ""
+msgstr "FCP-LUN"
 
 #: ../zfcp.py:42
-#, fuzzy
 msgid "You have not specified a FCP LUN or the number is invalid."
-msgstr "Du har ikke oppgitt et vertsnavn."
+msgstr "FC-LUN er ugyldig eller ble ikke oppgitt."
 
 #: ../iw/account_gui.py:25
 msgid "Set Root Password"
@@ -3319,16 +3310,12 @@ msgstr ""
 "datamaskin med en brannvegg. Hvilke tjenester vil du gi tilgang til?"
 
 #: ../iw/firewall_gui.py:145
-#, fuzzy
 msgid ""
 "Security Enhanced Linux (SELinux) provides finer-grained security controls "
 "than those available in a traditional Linux system.  It can be set up in a "
 "disabled state, a state which only warns about things which would be denied, "
 "or a fully active state."
-msgstr ""
-"Security Enhanced Linux (SELinux) gir mer finkornet kontroll over sikkerhet "
-"enn det som er tilgjengelig på et vanlig Linux-system. Det kan settes opp "
-"slik at det kun gis advarsler om ting som ville blitt nektet i aktiv modus."
+msgstr "Security Enhanced Linux (SELinux) gir mer finkornet kontroll over sikkerhet enn det som er tilgjengelig på et vanlig Linux-system. Det kan settes i deaktivert modus hvor det kun gis advarsler om ting som ville blitt nektet i aktiv modus."
 
 #: ../iw/firewall_gui.py:157
 msgid "Enable _SELinux?:"
@@ -5149,34 +5136,31 @@ msgid "_Skip X configuration"
 msgstr "_Hopp over konfigurasjon av X"
 
 #: ../iw/zfcp_gui.py:23
-#, fuzzy
 msgid "ZFCP Configuration"
-msgstr "VNC-konfigurasjon"
+msgstr "ZFCP-konfigurasjon"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "Fje_rn"
 
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Enheter"
+msgstr "FCP-enheter"
 
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Legg til enhet"
+msgstr "Legg til FCP-enhet"
 
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Rediger RAID-enhet"
+msgstr "Rediger FCP-enhet %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
 "You're about to remove a FCP disk from your configuration. Are you sure that "
 "you wish to continue?"
-msgstr ""
+msgstr "Du er i ferd med å fjerne en FCP-disk fra din konfigurasjon. Er du sikker på at du ønsker å fortsette?"
 
 #: ../iw/zipl_gui.py:32
 msgid "z/IPL Boot Loader Configuration"
@@ -5903,9 +5887,8 @@ msgid "End Cylinder:"
 msgstr "Sluttsylinder:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Gruppenavn for volum:"
+msgstr "Volumgruppe:"
 
 #: ../textw/partition_text.py:498
 msgid "RAID Level:"
@@ -6030,51 +6013,42 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "Maksimalt antall reservedisker med for et RAID0 array er 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM-volumgrupper"
+msgstr "Ingen volumgrupper"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups to create a logical volume in."
-msgstr "Vennligst oppgi navn på logisk volum."
+msgstr "Ingen volumgrupper å opprette logisk volum i."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
-msgstr ""
-"Nåværende forespurt størrelse (%10.2f MB) er større enn maksimal størrelse "
-"på logiske volum (%10.2f MB). For å øke denne grensen kan du øke størrelsen "
-"for Fysisk område i denne volumgruppen."
+msgstr "Nåværende forespurt størrelse (%10.2f MB) er større enn maksimal størrelse på logiske volum (%10.2f MB)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than the available size in "
 "the volume group (%10.2f MB)."
-msgstr ""
+msgstr "Nåværende forespurt størrelse (%10.2f MB) er større en tilgjengelig størrelse i volumgruppe (%10.2f MB)."
 
 #: ../textw/partition_text.py:1364
-#, fuzzy
 msgid "New Partition or Logical Volume?"
-msgstr "Rediger logisk volum"
+msgstr "Ny partisjon eller logisk volum?"
 
 #: ../textw/partition_text.py:1365
-#, fuzzy
 msgid "Would you like to create a new partition or a new logical volume?"
-msgstr "Oppstartbare partisjoner kan ikke ligge på et logisk volum."
+msgstr "Vil du opprette en ny partisjon eller et et logisk volum?"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Partisjon"
+msgstr "partisjon"
 
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "logical volume"
-msgstr "Logiske volumer"
+msgstr "logisk volum"
 
 #: ../textw/partition_text.py:1441
 msgid "New"
@@ -6677,40 +6651,36 @@ msgid "Video RAM:"
 msgstr "Video-RAM:"
 
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Enhet"
+msgstr "Enhetsnummer:"
 
 #: ../textw/zfcp_text.py:34
-#, fuzzy
 msgid "SCSI ID:"
-msgstr "ESSID"
+msgstr "SCSI-ID:"
 
 #: ../textw/zfcp_text.py:36
 msgid "WWPN:"
-msgstr ""
+msgstr "WWPN:"
 
 #: ../textw/zfcp_text.py:38
 msgid "SCSI LUN:"
-msgstr ""
+msgstr "SCSI-LUN:"
 
 #: ../textw/zfcp_text.py:40
 msgid "FCP LUN:"
-msgstr ""
+msgstr "FCP-LUN:"
 
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Enhet"
+msgstr "FCP-enhet"
 
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Enhet"
+msgstr "Enhetsnr"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
-msgstr ""
+msgstr "Fjern"
 
 #: ../textw/zipl_text.py:24
 msgid ""
@@ -7135,7 +7105,7 @@ msgstr "Kan ikke finne kickstart-fil på harddisken."
 #: ../loader2/hdinstall.c:578
 #, c-format
 msgid "Cannot find hard drive for BIOS disk %s"
-msgstr ""
+msgstr "Kan ikke finne harddisk for BIOS-disk %s"
 
 #: ../loader2/kbd.c:123
 msgid "Keyboard Type"
@@ -7780,7 +7750,7 @@ msgstr "Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan"
 
 #. generated from zone.tab
 msgid "Buenos Aires (BA, CF)"
-msgstr ""
+msgstr "Bueno Aires (BA, CF)"
 
 #. generated from zone.tab
 msgid "Canary Islands"
@@ -7860,7 +7830,7 @@ msgstr "Chatham-øyene"
 
 #. generated from zone.tab
 msgid "Chubut (CH)"
-msgstr ""
+msgstr "Chubut (CH)"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
@@ -8018,7 +7988,7 @@ msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "La Rioja (LR)"
-msgstr ""
+msgstr "La Rioja (LR)"
 
 #. generated from zone.tab
 msgid "Line Islands"
@@ -8125,9 +8095,8 @@ msgid "most locations"
 msgstr "de fleste steder"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "de fleste steder (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "de fleste lokasjoner (CC, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -8269,11 +8238,11 @@ msgstr "Sabah og Sarawak"
 
 #. generated from zone.tab
 msgid "San Juan (SJ)"
-msgstr ""
+msgstr "San Juan (SJ)"
 
 #. generated from zone.tab
 msgid "Santa Cruz (SC)"
-msgstr ""
+msgstr "Santa Cruz (SC)"
 
 #. generated from zone.tab
 msgid "Scoresbysund / Ittoqqortoormiit"
@@ -8321,7 +8290,7 @@ msgstr "Tibet og det meste av Xinjiang Uyghur"
 
 #. generated from zone.tab
 msgid "Tierra del Fuego (TF)"
-msgstr ""
+msgstr "Tierra del Fuego (TF)"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -8333,7 +8302,7 @@ msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Tucuman (TM)"
-msgstr ""
+msgstr "Tucuman (TM)"
 
 #. generated from zone.tab
 msgid "Victoria"
@@ -8392,9 +8361,8 @@ msgid "Bengali"
 msgstr "Bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "Ungarsk"
+msgstr "Bulgarsk"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -8485,9 +8453,8 @@ msgid "Persian"
 msgstr "Persisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "Engelsk"
+msgstr "Polsk"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -8540,6 +8507,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "E Argentina (BA, DF, SC, TF)"
-#~ msgstr "Østre Argentina (BA, DF, SC, TF)"
