@@ -11,13 +11,12 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-01 23:26-0400\n"
-"PO-Revision-Date: 2004-04-28 19:12+0300\n"
+"PO-Revision-Date: 2004-09-11 17:54+0300\n"
 "Last-Translator: Lauri Nurmi <lanurmi@iki.fi>\n"
 "Language-Team: Finnish <>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
@@ -231,9 +230,8 @@ msgstr "Käytetään hiirityyppiä: %s"
 
 # ../upgrade.py:43
 #: ../anaconda:966
-#, fuzzy
 msgid "Starting graphical installation..."
-msgstr "Etsitään %s -asennuksia..."
+msgstr "Käynnistetään graafinen asennus..."
 
 # ../autopart.py:684
 #: ../autopart.py:946
@@ -295,12 +293,11 @@ msgstr ""
 
 # ../autopart.py:741
 #: ../autopart.py:1030
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s may not meet booting constraints for your architecture."
 msgstr ""
-"Käynnistysosio %s ei ehkä täytä arkkitehtuurisi käynnistysrajoituksia. "
-"Käynnistyslevykkeen luonti on hyvin suositeltavaa."
+"Käynnistysosio %s ei ehkä täytä arkkitehtuurin käynnistysrajoituksia. "
 
 #: ../autopart.py:1056
 #, python-format
@@ -2953,27 +2950,24 @@ msgstr ""
 # ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 # ../textw/silo_text.py:207
 #: ../zfcp.py:29
-#, fuzzy
 msgid "Device number"
-msgstr "Laite"
+msgstr "Laitenumero"
 
 #: ../zfcp.py:30
-#, fuzzy
 msgid "You have not specified a device number or the number is invalid"
-msgstr "Et ole määritellyt konenimeä."
+msgstr "Et ole määritellyt laitenumeroa tai numero on virheellinen"
 
 #: ../zfcp.py:32
 msgid "SCSI Id"
-msgstr ""
+msgstr "SCSI-ID"
 
 #: ../zfcp.py:33
-#, fuzzy
 msgid "You have not specified a SCSI ID or the ID is invalid."
-msgstr "Et ole määritellyt konenimeä."
+msgstr "Et ole määritellyt konenimeä SCSI-ID:tä tai ID on virheellinen."
 
 #: ../zfcp.py:35 ../textw/zfcp_text.py:105
 msgid "WWPN"
-msgstr ""
+msgstr "WWPN"
 
 #: ../zfcp.py:36
 #, fuzzy
@@ -2982,7 +2976,7 @@ msgstr "Et ole määritellyt konenimeä."
 
 #: ../zfcp.py:38
 msgid "SCSI LUN"
-msgstr ""
+msgstr "SCSI LUN"
 
 #: ../zfcp.py:39
 #, fuzzy
@@ -5915,26 +5909,24 @@ msgstr "VNC-asetukset"
 
 #: ../iw/zfcp_gui.py:99
 msgid "_Remove"
-msgstr ""
+msgstr "_Poista"
 
 # ../loader/devices.c:230 ../loader/devices.c:237 ../loader/devices.c:358
 # ../loader/loader.c:321 ../loader/loader.c:382 ../loader/loader.c:398
 #: ../iw/zfcp_gui.py:106 ../textw/zfcp_text.py:119
-#, fuzzy
 msgid "FCP Devices"
-msgstr "Laitteet"
+msgstr "FCP-laitteet"
 
 # ../loader/loader.c:373 ../loader/loader.c:398
 #: ../iw/zfcp_gui.py:118
-#, fuzzy
 msgid "Add FCP device"
-msgstr "Lisää laite"
+msgstr "Lisää FCP-laite"
 
 # ../iw/partition_gui.py:1323 ../textw/partition_text.py:806
 #: ../iw/zfcp_gui.py:181
-#, fuzzy, python-format
+#, python-format
 msgid "Edit FCP device %s"
-msgstr "Muokkaa RAID-laitetta"
+msgstr "Muokkaa FCP-laitetta %s"
 
 #: ../iw/zfcp_gui.py:237
 msgid ""
@@ -6788,9 +6780,8 @@ msgid "End Cylinder:"
 msgstr "Loppusylinteri:"
 
 #: ../textw/partition_text.py:476
-#, fuzzy
 msgid "Volume Group:"
-msgstr "Taltioryhmän nimi:"
+msgstr "Taltioryhmä:"
 
 # ../iw/partition_gui.py:1368 ../textw/partition_text.py:382
 #: ../textw/partition_text.py:498
@@ -6940,9 +6931,8 @@ msgid "The maximum number of spares with a RAID0 array is 0."
 msgstr "RAID 0 -ryhmässä varalevyjen maksimimäärä on 0."
 
 #: ../textw/partition_text.py:1174
-#, fuzzy
 msgid "No Volume Groups"
-msgstr "LVM-taltioryhmät"
+msgstr "Ei taltioryhmiä"
 
 # ../iw/account_gui.py:192
 #: ../textw/partition_text.py:1175
@@ -6951,14 +6941,13 @@ msgid "No volume groups to create a logical volume in."
 msgstr "Syötä taltioryhmän nimi."
 
 #: ../textw/partition_text.py:1291
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "The current requested size (%10.2f MB) is larger than maximum logical volume "
 "size (%10.2f MB). "
 msgstr ""
 "Pyydetty koko (%10.2f Mt) on suurempi kuin loogisen taltion enimmäiskoko (%"
-"10.2f Mt). Voit muuttaa rajaa nostamalla tämän taltioryhmän fyysisen "
-"varausyksikön kokoa."
+"10.2f Mt)."
 
 #: ../textw/partition_text.py:1310
 #, python-format
@@ -6982,9 +6971,8 @@ msgstr "Käynnistysosio ei voi olla taltioryhmässä."
 # ../iw/silo_gui.py:135 ../iw/silo_gui.py:286 ../iw/upgrade_swap_gui.py:123
 # ../textw/upgrade_text.py:107
 #: ../textw/partition_text.py:1367
-#, fuzzy
 msgid "partition"
-msgstr "Osio"
+msgstr "osio"
 
 #: ../textw/partition_text.py:1367
 #, fuzzy
@@ -7731,9 +7719,8 @@ msgstr "Näyttömuisti:"
 # ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 # ../textw/silo_text.py:207
 #: ../textw/zfcp_text.py:32
-#, fuzzy
 msgid "Device number:"
-msgstr "Laite"
+msgstr "Laitenumero:"
 
 #: ../textw/zfcp_text.py:34
 msgid "SCSI ID:"
@@ -7757,9 +7744,8 @@ msgstr ""
 # ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 # ../textw/silo_text.py:207
 #: ../textw/zfcp_text.py:53
-#, fuzzy
 msgid "FCP Device"
-msgstr "Laite"
+msgstr "FCP-Laite"
 
 # ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
 # ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
@@ -7767,9 +7753,8 @@ msgstr "Laite"
 # ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 # ../textw/silo_text.py:207
 #: ../textw/zfcp_text.py:105
-#, fuzzy
 msgid "Device #"
-msgstr "Laite"
+msgstr "Laite #"
 
 #: ../textw/zfcp_text.py:113
 msgid "Remove"
@@ -8441,9 +8426,9 @@ msgid "Add Device"
 msgstr "Lisää laite"
 
 #: ../loader2/loader.c:1142
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "latain on jo ajettu. Käynnistetään kuori."
+msgstr "latain on jo ajettu. Käynnistetään kuori.\n"
 
 # ../loader/loader.c:3019
 #: ../loader2/loader.c:1496
@@ -9312,9 +9297,8 @@ msgid "most locations"
 msgstr "useimmat paikat"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "most locations (CB, CC, CN, ER, FM, LP, MN, NQ, RN, SA, SE, SF, SL)"
-msgstr "useimmat paikat (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "useimmat sijainnit (CB, CC, CH, CN, ER, FM, LP, LR, MN, NQ, RN, SA, SE, SF, SJ, SL, TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
@@ -9582,9 +9566,8 @@ msgid "Bengali"
 msgstr "bengali"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bulgarian"
-msgstr "unkari"
+msgstr "bulgaria"
 
 #. generated from lang-table
 msgid "Catalan"
@@ -9637,9 +9620,8 @@ msgstr "saksa"
 
 # ../upgrade.py:262
 #. generated from lang-table
-#, fuzzy
 msgid "Hindi"
-msgstr "Etsitään"
+msgstr "hindi"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -9678,9 +9660,8 @@ msgid "Persian"
 msgstr "persia"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Polish"
-msgstr "englanti"
+msgstr "puola"
 
 #. generated from lang-table
 msgid "Portuguese"
@@ -9711,9 +9692,8 @@ msgid "Swedish"
 msgstr "ruotsi"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Tamil"
-msgstr "Tasmania"
+msgstr "tamili"
 
 #. generated from lang-table
 msgid "Turkish"
