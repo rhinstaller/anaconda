@@ -262,7 +262,7 @@ def runRescue(instPath, mountroot, id):
 			log("Error enabling swap")
 
 		# set a library path to use mounted fs
-		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/kerberos/lib"
+		os.environ["LD_LIBRARY_PATH"] =  "/lib:/usr/lib:/usr/X11R6/lib:/usr/kerberos/lib:/mnt/usr/lib:/mnt/sysimage/lib:/mnt/sysimage/usr/lib:/mnt/sysimage/usr/kerberos/lib:/mnt/sysimage/usr/X11R6/lib"
 		    
 	except:
 	    # This looks horrible, but all it does is catch every exception,
