@@ -103,7 +103,7 @@ class UpgradeSwapWindow (InstallWindow):
 		 "kernels, as much as twice as much swap space as RAM on the "
 		 "system. You currently have %dMB of swap configured, but "
 		 "you may create additional swap space on one of your "
-		 "file systems now." % (iutil.swapAmount() / 1024)))
+		 "file systems now.") % (iutil.swapAmount() / 1024))
 
         label.set_alignment (0.5, 0.0)
         label.set_usize(400, 80)
@@ -142,7 +142,7 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.clist.select_row(0, 0)
 
-        label = GtkLabel (_("It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:" % suggSize))
+        label = GtkLabel (_("It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:") % suggSize)
         label.set_usize(400, 40)
         label.set_line_wrap (TRUE)
         a = GtkAlignment(0.5, 0.5)
