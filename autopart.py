@@ -15,6 +15,7 @@
 
 import parted
 import math
+import string, sys
 import fsset
 from partitioning import *
 from constants import *
@@ -823,6 +824,20 @@ def doAutoPartition(dir, diskset, partitions, intf):
     for request in partitions.autoPartitionRequests:
         request.drive = drives
         partitions.addRequest(request)
+
+    # sanity checks for the auto partitioning requests; mostly only useful
+    # for kickstart as our installclass defaults SHOULD be sane 
+    (errors, warnings) = sanityCheckAllRequests(partitions, baseChecks = 1)
+    if warnings:
+        for warning in warnings:
+            log("WARNING: %s" % (warning))
+    if errors:
+        errortxt = string.join(errors, '\n')
+        intf.messageWindow(_("Partition Request Sanity Check Errors"),
+                           _("The following errors occurred with your "
+                             "partitioning:\n\n%s\n\n"
+                             "Press OK to reboot your system.") % (errortxt))
+        sys.exit(0)
 
     try:
         doPartitioning(diskset, partitions, doRefresh = 0)

@@ -492,7 +492,9 @@ def sanityCheckRaidRequest(reqpartitions, newraid):
 # can make sure you don't have anything silly (like no /, a really small /,
 # etc).  returns (errors, warnings) where each is a list of strings or None
 # if there are none
-def sanityCheckAllRequests(requests):
+# if baseChecks is set, the basic sanity tests which the UI runs prior to
+# accepting a partition will be run on the requests
+def sanityCheckAllRequests(requests, baseChecks = 0):
     checkSizes = [('/usr', 250), ('/tmp', 50), ('/var', 50),
                   ('/home', 100), ('/boot', 20)]
     warnings = []
@@ -517,6 +519,17 @@ def sanityCheckAllRequests(requests):
             foundSwap = foundSwap + 1
             swapSize = swapSize + request.size
             break
+        if baseChecks:
+            rc = doPartitionSizeCheck(request)
+            if rc:
+                warnings.append(rc)
+            rc = doMountPointLinuxFSChecks(request)
+            if rc:
+                errors.append(rc)
+            if request.type == REQUEST_RAID:
+                rc = sanityCheckRaidRequest(requests, request)
+                if rc:
+                    errors.append(rc)
         
     if foundSwap == 0:
         warnings.append(_("You have not specified a swap partition.  Although not strictly required in all cases, it will significantly improve performance for most installations."))
