@@ -208,6 +208,7 @@ class FirewallWindow:
                 
         screen.popWindow()
 
+        todo.firewall.trustdevs = []
 	for device in self.netCBs.keys():
 	    if self.netCBs[device].selected():
 		todo.firewall.trustdevs.append(device)
