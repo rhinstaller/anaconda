@@ -154,7 +154,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     
     /* we always want to try to find out about pcmcia controllers even
      * if using noprobe */
-    cardbusControllerInitialize(modLoaded, modDeps, modInfo, flags);
+    initializePcmciaController(modLoaded, modDeps, modInfo, flags);
 
     if (FL_NOPROBE(flags)) return 0;
     

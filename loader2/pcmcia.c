@@ -60,8 +60,8 @@ char * getPcicController() {
     }
 }
 
-int cardbusControllerInitialize(moduleList modLoaded, moduleDeps modDeps,
-                                moduleInfoSet modInfo, int flags) {
+int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
+                               moduleInfoSet modInfo, int flags) {
     char * pcic = NULL;
     char * mods;
     int i;
@@ -184,8 +184,10 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
         return;
 
     devices = probeDevices(CLASS_UNSPEC, BUS_PCMCIA, PROBE_ALL);
-    if (!devices)
+    if (!devices) {
+        logMessage("no devices to activate\n");
         return;
+    }
 
     for (i = 0; devices[i]; i++) {
         if (devices[i]->bus != BUS_PCMCIA)
@@ -196,7 +198,8 @@ void startPcmciaDevices(moduleList modLoaded, int flags) {
             continue;
         if (!mlModuleInList(devices[i]->driver, modLoaded))
             continue;
-
+        
+        logMessage("going to activate device using %s", devices[i]->driver);
         activate_pcmcia_device((struct pcmciaDevice *)devices[i]);
     }
 }

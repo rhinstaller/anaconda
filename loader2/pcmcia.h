@@ -3,7 +3,7 @@
 
 #include <kudzu/kudzu.h>
 
-int cardbusControllerInitialize(moduleList modLoaded, moduleDeps modDeps,
+int initializePcmciaController(moduleList modLoaded, moduleDeps modDeps,
                                 moduleInfoSet modInfo, int flags);
 int has_pcmcia(void);
 int activate_pcmcia_device(struct pcmciaDevice *pdev);
