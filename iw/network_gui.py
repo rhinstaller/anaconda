@@ -262,20 +262,22 @@ class NetworkWindow(InstallWindow):
         devbox.set_border_width(6)
 
         deventrys = {}
-        devTable = gtk.Table(len(devopts), 2)
-	for t in range(len(devopts)):
-	    label = gtk.Label("%s:" %(devopts[t][0],))
-	    label.set_alignment(0.0, 0.5)
-	    label.set_property("use-underline", gtk.TRUE)
-	    devTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
-
-	    entry = gtk.Entry()
-            entry.set_text(self.devices[dev].get(devopts[t][1]))
-	    deventrys[t] = entry
-	    label.set_mnemonic_widget(entry)
-	    devTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
-
         if len(devopts) > 0:
+            devTable = gtk.Table(len(devopts), 2)
+
+            for t in range(len(devopts)):
+                label = gtk.Label("%s:" %(devopts[t][0],))
+                label.set_alignment(0.0, 0.5)
+                label.set_property("use-underline", gtk.TRUE)
+                devTable.attach(label, 0, 1, t, t+1, gtk.FILL, 0, 10)
+
+                entry = gtk.Entry()
+                entry.set_text(self.devices[dev].get(devopts[t][1]))
+                deventrys[t] = entry
+                label.set_mnemonic_widget(entry)
+                devTable.attach(entry, 1, 2, t, t+1, 0, gtk.FILL|gtk.EXPAND)
+
+
             devbox.pack_start(devTable, gtk.FALSE, gtk.FALSE, 6)
 
 	framelab = _("Configure %s") % (dev,)
