@@ -3,11 +3,14 @@
 import rpm
 import os
 
-fd = os.open('/mnt/redhat/comps/dist/6.1/i386/fileutils-4.0-2.i386.rpm', 0)
-(h, isSource) = rpm.headerFromPackage(fd)
+db = rpm.opendb()
 
-print "name", h[1000]
-print "name", h['NAME']
+for n in db.findbyprovides('libc.so.6'):
+     print "match:", db[n]['name']
 
-for n in h.keys(): 
-    print rpm.tagnames[n], h[n]
+for n in db.findbyname('glibc'):
+     print "match:", db[n]['name']
+
+for n in db.findbyfile('/bin/bash'):
+     print "match:", db[n]['name']
+

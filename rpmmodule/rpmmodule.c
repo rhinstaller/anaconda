@@ -21,6 +21,9 @@ static void rpmdbDealloc(rpmdbObject * s);
 static PyObject * rpmdbGetAttr(rpmdbObject * s, char * name);
 static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args);
 static PyObject * rpmdbNext(rpmdbObject * s, PyObject * args);
+static PyObject * rpmdbByName(rpmdbObject * s, PyObject * args);
+static PyObject * rpmdbByProvides(rpmdbObject * s, PyObject * args);
+static PyObject * rpmdbByFile(rpmdbObject * s, PyObject * args);
 static int rpmdbLength(rpmdbObject * s);
 static hdrObject * rpmdbSubscript(rpmdbObject * s, PyObject * key);
 
@@ -158,8 +161,11 @@ static PyTypeObject rpmtransType = {
 };
 
 static struct PyMethodDef rpmdbMethods[] = {
-	{"firstkey",	(PyCFunction) rpmdbFirst,	1 },
-	{"nextkey",	(PyCFunction) rpmdbNext,	1 },
+	{"firstkey",	    (PyCFunction) rpmdbFirst,	1 },
+	{"nextkey",	    (PyCFunction) rpmdbNext,	1 },
+	{"findbyfile",	    (PyCFunction) rpmdbByFile, 1 },
+	{"findbyname",	    (PyCFunction) rpmdbByName, 1 },
+	{"findbyprovides",  (PyCFunction) rpmdbByProvides, 1 },
 	{NULL,		NULL}		/* sentinel */
 };
 
@@ -583,6 +589,60 @@ static PyObject * rpmdbNext(rpmdbObject * s, PyObject * args) {
     }
 
     return Py_BuildValue("i", where);
+}
+
+static PyObject * handleDbResult(int rc, dbiIndexSet matches) {
+    PyObject * list;
+    int i;
+
+    if (rc == -1) {
+	PyErr_SetString(pyrpmError, "error reading from database");
+	return NULL;
+    } else if (rc) {
+	Py_INCREF(Py_None);
+	return Py_None;
+    }
+
+    list = PyList_New(0);
+    for (i = 0; i < matches.count; i++)
+	PyList_Append(list, PyInt_FromLong(matches.recs[i].recOffset));
+
+    dbiFreeIndexRecord(matches);
+
+    return list;
+}
+
+static PyObject * rpmdbByName(rpmdbObject * s, PyObject * args) {
+    char * str;
+    dbiIndexSet matches;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
+
+    rc = rpmdbFindPackage(s->db, str, &matches);
+    return handleDbResult(rc, matches);
+}
+
+static PyObject * rpmdbByFile(rpmdbObject * s, PyObject * args) {
+    char * str;
+    dbiIndexSet matches;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
+
+    rc = rpmdbFindByFile(s->db, str, &matches);
+    return handleDbResult(rc, matches);
+}
+
+static PyObject * rpmdbByProvides(rpmdbObject * s, PyObject * args) {
+    char * str;
+    dbiIndexSet matches;
+    int rc;
+
+    if (!PyArg_ParseTuple(args, "s", &str)) return NULL;
+
+    rc = rpmdbFindByProvides(s->db, str, &matches);
+    return handleDbResult(rc, matches);
 }
 
 static int rpmdbLength(rpmdbObject * s) {
