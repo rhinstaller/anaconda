@@ -830,8 +830,9 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
     hdrObject * h;
     PyObject * key;
     char * how = NULL;
+    int isUpgrade = 0;
 
-    if (!PyArg_ParseTuple(args, "OO|s", &h, &key, &s)) return NULL;
+    if (!PyArg_ParseTuple(args, "OO|s", &h, &key, &how)) return NULL;
     if (h->ob_type != &hdrType) {
 	PyErr_SetString(PyExc_TypeError, "bad type for header argument");
 	return NULL;
@@ -840,12 +841,13 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
     if (how && strcmp(how, "a") && strcmp(how, "u")) {
 	PyErr_SetString(PyExc_TypeError, "how argument must be \"u\" or \"a\"");
 	return NULL;
-    }
+    } else if (how && !strcmp(how, "u"))
+    	isUpgrade = 1;
 
     if (how && strcmp(how, "a"))
-	rpmtransAvailablePackage(s->ts, h->h, key);
+	rpmtransAvailablePackage(s->ts, h, key);
     else
-	rpmtransAddPackage(s->ts, h->h, NULL, key, how ? 1 : 0, NULL);
+	rpmtransAddPackage(s->ts, h->h, NULL, key, isUpgrade, NULL);
 
     if (key) PyList_Append(s->keyList, key);
 
