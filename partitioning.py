@@ -42,6 +42,7 @@ from rhpl.log import log
 def partitionObjectsInitialize(diskset, partitions, dir, intf):
     if dir == DISPATCH_BACK:
         diskset.closeDevices()
+        isys.flushDriveDict()
         return
 
     # read in drive info
