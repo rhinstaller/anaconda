@@ -1,5 +1,14 @@
 2004-10-04  Jeremy Katz  <katzj@redhat.com>
 
+	* dispatch.py (installSteps): 
+	* installclass.py (BaseInstallClass.setSteps): 
+	* upgradeclass.py (InstallClass.setSteps): 
+	Add copylogs step.
+
+	* packages.py (copyAnacondaLogs): Copy /tmp/anaconda.log and
+	/tmp/syslog to /var/log/anaconda.log and /var/log/anaconda.syslog
+	so that they exist post-install (#124370)
+
 	* kickstart.py: Add logging of kickstart scripts with --log to
 	%post/%pre, etc.  Note that the filename is relative to use of
 	--chroot or not. (#124370)

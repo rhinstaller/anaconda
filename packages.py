@@ -83,6 +83,16 @@ def writeKSConfiguration(id, instPath):
 
     id.writeKS(fn)
 
+def copyAnacondaLogs(instPath):
+    log("Copying anaconda logs")
+    for (fn, dest) in (("/tmp/anaconda.log", "anaconda.log"),
+                       ("/tmp/syslog", "anaconda.syslog")):
+        if os.access(fn, os.R_OK):
+            try:
+                iutil.copyFile(fn, "%s/var/log/%s" %(instPath, dest))
+            except:
+                pass
+
 def writeXConfiguration(id, instPath):
     testmode = flags.test
 

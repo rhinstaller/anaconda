@@ -22,7 +22,7 @@ from packages import checkMonitorOK, setSaneXSettings
 from packages import writeKSConfiguration, turnOnFilesystems
 from packages import doMigrateFilesystems
 from packages import queryUpgradeContinue
-from packages import doPreInstall, doPostInstall, doPostAction
+from packages import doPreInstall, doPostInstall, doPostAction,copyAnacondaLogs
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
@@ -154,6 +154,7 @@ installSteps = [
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
     ("setfilecon", setFileCons, ("instPath","id.partitions")),
+    ("copylogs", copyAnacondaLogs, ("instPath",))
     ("dopostaction", doPostAction, ("id", "instPath")),
     ("methodcomplete", doMethodComplete, ("method",)),
     ("complete", ()),
