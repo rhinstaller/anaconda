@@ -17,6 +17,38 @@
 
 #include <kudzu/kudzu.h>
 
+static int readFD (int fd, char **buf)
+{
+    char *p;
+    size_t size = 4096;
+    int s, filesize;
+
+    *buf = malloc (size);
+    if (*buf == 0)
+      return -1;
+
+    filesize = 0;
+    do {
+	p = &(*buf) [filesize];
+	s = read (fd, p, 4096);
+	if (s < 0)
+	    break;
+	filesize += s;
+	if (s != 4096)
+	    break;
+	size += 4096;
+	*buf = realloc (*buf, size);
+    } while (1);
+
+    if (filesize == 0 && s < 0) {
+	free (*buf);     
+	*buf = NULL;
+	return -1;
+    }
+
+    return filesize;
+}
+
 int isVioConsole(void) {
 #if !defined(__powerpc__)
     return 0;
