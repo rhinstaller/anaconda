@@ -78,6 +78,7 @@ class BaseInstallClass:
 		 "partitiondone",
 		 "bootloadersetup",                 
 		 "bootloader",
+                 "bootloaderpassword",
 		 "network",
 		 "firewall",
 		 "languagesupport",

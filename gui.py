@@ -53,6 +53,7 @@ stepToClass = {
     "fdisk" : ("fdisk_gui", "FDiskWindow"),
     "format" : ("format_gui", "FormatWindow"),
     "bootloader": ("bootloader_gui", "BootloaderWindow"), 
+    "bootloaderpassword" : ("bootloaderpassword_gui", "BootloaderPasswordWindow"),
     "network" : ("network_gui", "NetworkWindow"),
     "firewall" : ("firewall_gui", "FirewallWindow"),
     "languagesupport" : ("language_support_gui", "LanguageSupportWindow"),

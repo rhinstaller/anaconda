@@ -77,6 +77,7 @@ installSteps = [
                                                  "id.fsset", "id.diskset",
                                                  "dir")),
     ("bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset")),
+    ("bootloaderpassword", ("id.bootloader",)),
     ("network", ("id.network",)),
     ("firewall", ("id.network", "id.firewall")),
     ("languagesupport", ("id.langSupport",)),

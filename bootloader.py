@@ -352,6 +352,9 @@ class x86BootloaderInfo(bootloaderInfo):
             self.password = crypt.crypt (val, salt)
             self.pure = val
         
+    def getPassword (self):
+        return self.pure
+
     def setForceLBA(self, val):
         self.forceLBA32 = val
         
