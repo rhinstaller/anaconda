@@ -6,8 +6,8 @@
 %define reltag .WS
 %else
 %if "%{variant}" == "as"
-%define _as_var 0
-%define _ws_var 1
+%define _as_var 1
+%define _ws_var 0
 %define reltag .AS
 %else
 %define _as_var 0
@@ -125,6 +125,9 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
+* Thu Nov 20 2003 Jeremy Katz <katzj@redhat.com> 7.3-13.1
+- fix typo for building AS
+
 * Sun Nov  9 2003 Jeremy Katz <katzj@redhat.com> 7.3-13
 - add some modules to module-info
 - fix typo in HTTP GET that causes problems with some versions of IIS (#108652)
