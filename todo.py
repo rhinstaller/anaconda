@@ -429,7 +429,8 @@ class ToDo:
                 os.mkdir (self.instPath + mntpoint)
             except:
                 pass
-	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+            if fsystem != "swap":
+                isys.mount( '/tmp/' + device, self.instPath + mntpoint)
 	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self):
@@ -455,7 +456,7 @@ class ToDo:
                                              searchPath = 1)
                 if rc:
                     raise ToDoError, "error making swap on " + device
-#                isys.swapon ('/tmp/' + device)
+                isys.swapon ('/tmp/' + device)
             else:
                 pass
 
@@ -592,6 +593,7 @@ class ToDo:
                 if not isys.checkBoot ('/tmp/' + device):
                     self.lilo.delImage (name)
                 os.remove ('/tmp/' + device)
+            # XXX remove duplicate entries
 
 	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
