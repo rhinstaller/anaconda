@@ -223,8 +223,8 @@ class Network:
 		    if desc is not None and len(desc) > 0:
 			self.netdevices[device].set(("desc", desc))
 
-		    # add hwaddr
-		    self.netdevices[device].set(("hwaddr", isys.getMacAddress(device)))
+		# add hwaddr
+		self.netdevices[device].set(("hwaddr", isys.getMacAddress(device)))
 		    
 
     def getDevice(self, device):
