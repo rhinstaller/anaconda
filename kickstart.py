@@ -597,8 +597,8 @@ class KickstartBase(BaseInstallClass):
                 type = CLEARPART_TYPE_LINUX
             elif str == '--all':
                 type = CLEARPART_TYPE_ALL
-            elif str == '--drive':
-                drives = arg
+            elif str == '--drives':
+                drives = string.split(arg, ',')
             elif str == '--initlabel':
                 initAll = 1
             
@@ -679,7 +679,7 @@ class KickstartBase(BaseInstallClass):
         end = None
         badblocks = None
         recommended = None
-        
+
 	(args, extra) = isys.getopt(args, '', [ 'size=', 'maxsize=', 
 					'grow', 'onpart=', 'ondisk=',
                                         'bytes-per-inode=', 'usepart=',
