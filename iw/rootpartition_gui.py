@@ -183,7 +183,28 @@ class LoopSizeWindow(InstallWindow):
     def getScreen (self):
         # XXX error check mount that this check tries
         if self.todo.setupFilesystems:
-            avail = apply(isys.spaceAvailable, self.todo.fstab.getRootDevice())
+            rootdev = self.todo.fstab.getRootDevice()
+            avail = apply(isys.spaceAvailable, rootdev)
+            
+            # add in size of loopback files if they exist
+            extra = 0
+            try:
+                import os, stat
+                isys.mount(rootdev[0], "/mnt/space", fstype = rootdev[1])
+                extra = extra + os.stat("/mnt/space/redhat.img")[stat.ST_SIZE]
+                extra = extra + os.stat("/mnt/space/rh-swap.img")[stat.ST_SIZE]
+                isys.umount("/mnt/space")
+            except:
+                pass
+
+            # do this separate since we dont know when above failed
+            try:
+                isys.umount("/mnt/space")
+            except:
+                pass
+
+            extra = extra / 1024 / 1024
+            avail = avail + extra
         else:
             # test mode
             avail = 5000

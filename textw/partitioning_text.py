@@ -296,7 +296,29 @@ class LoopSizeWindow:
 	if not todo.fstab.rootOnLoop():
 	    return INSTALL_NOOP
 
-	avail = apply(isys.spaceAvailable, todo.fstab.getRootDevice())
+        rootdev = todo.fstab.getRootDevice()
+	avail = apply(isys.spaceAvailable, rootdev)
+
+        # add in size of loopback files if they exist
+        extra = 0
+        try:
+            import os, stat
+            isys.mount(rootdev[0], "/mnt/space", fstype = rootdev[1])
+            extra = extra + os.stat("/mnt/space/redhat.img")[stat.ST_SIZE]
+            extra = extra + os.stat("/mnt/space/rh-swap.img")[stat.ST_SIZE]
+            isys.umount("/mnt/space")
+        except:
+            pass
+
+        # do this separate since we dont know when above failed
+        try:
+            isys.umount("/mnt/space")
+        except:
+            pass
+
+        extra = extra / 1024 / 1024
+        avail = avail + extra
+        
 	(size, swapSize) = todo.fstab.getLoopbackSize()
 	if not size:
 	    size = avail / 2
