@@ -15,9 +15,10 @@ import isys
 import iutil
 from snack import *
 from constants_text import *
-from rhpl.translate import _
-from log import *
 from flags import flags
+
+from rhpl.log import log
+from rhpl.translate import _
 
 class KeyboardWindow:
     def __call__(self, screen, instLang, kbd, xconfig):
@@ -49,6 +50,6 @@ class KeyboardWindow:
 	try:
 	    isys.loadKeymap(keyboards[choice])
 	except SystemError, (errno, msg):
-	    log("Could not install keymap %s: %s" % (keyboards[choice], msg))
+	    log.log("Could not install keymap %s: %s" % (keyboards[choice], msg))
         return INSTALL_OK
 
