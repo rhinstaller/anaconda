@@ -125,6 +125,7 @@ class LanguageSupportWindow (InstallWindow):
         self.sensitiveList = []
         self.running = 0
         self.defaultLang = self.todo.language.get()
+#        print self.defaultLang
 
 
  	language_keys = self.languages.keys ()
