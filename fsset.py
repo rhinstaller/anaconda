@@ -1846,8 +1846,7 @@ class RAIDDevice(Device):
                                                     devPrefix=devPrefix)
 
             args = ["/usr/sbin/mdadm", "--create", "/dev/%s" %(self.device,),
-                    "--really-force",
-                    "--chunk=%s" %(self.chunksize,),
+                    "--run", "--chunk=%s" %(self.chunksize,),
                     "--level=%s" %(self.level,),
                     "--raid-devices=%s" %(self.numDisks,)]
 
