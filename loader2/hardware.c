@@ -218,11 +218,11 @@ static int probeVirtualPPCDevs(moduleInfoSet modInfo, moduleList modLoaded,
         loadvscsi = 1;
 
     if (loadveth && loadvscsi)
-        buf = strdup("ibmveth:ibmvscsi");
+        buf = strdup("ibmveth:ibmvscsic");
     else if (loadveth)
         buf = strdup("ibmveth");
     else if (loadvscsi)
-        buf = strdup("ibmvscsi");
+        buf = strdup("ibmvscsic");
 
     if (buf != NULL) {
 	mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
