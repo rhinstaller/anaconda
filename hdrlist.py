@@ -720,10 +720,15 @@ class GroupSet:
                 return
         raise KeyError, "No such group %s" %(group,)
 
-    def unselectAll(self):
+    def unselectAll(self, unselectPkgs = 0):
         for group in self.groups.values():
             if group.isSelected(justManual = 1):
                 group.unselect()
+        if unselectPkgs:
+            # force packages into an off state
+            for pkg in self.hdrlist.pkgs.values():
+                self.usecount = 0
+                self.manual_state = MANUAL_NONE
 
     def getSelectionState(self):
         grpst = []
@@ -787,7 +792,7 @@ class GroupSet:
 	return kernelVersions
 
 
-def groupSetFromCompsFile(filename, hdrlist):
+def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
     import urllib2
     
     tries = 0
@@ -820,9 +825,10 @@ def groupSetFromCompsFile(filename, hdrlist):
         for prov in grpset.hdrlist[pnevra][rpm.RPMTAG_PROVIDENAME]:
             cached[prov] = pnevra
 
-    for group in grpset.groups.values():
-        if group.default:
-            group.select()
+    if doSelect:
+        for group in grpset.groups.values():
+            if group.default:
+                group.select()
     return grpset
 
 def getGroupDescription(group):
