@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-03-14 11:37-0500\n"
-"PO-Revision-Date: 2000-02-02 18:00+0200\n"
+"PO-Revision-Date: 2000-03-16 19:00+0200\n"
 "Last-Translator: Roman Maurer <roman.maurer@hermes.si>\n"
 "Language-Team: Slovenian <sl@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -86,23 +86,20 @@ msgstr ""
 "disketo Red Hat in pritisnite \"V redu\", da boste vnoviè zagnali sistem.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
 msgstr "Izmenjalni prostor"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formatira se izmenjalni prostor v napravi /dev/%s..."
+msgstr "Izdeluje se izmenjalni prostor..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formatiranje"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formatira se izmenjalni prostor v napravi /dev/%s..."
+msgstr "Formatira se izmenjalni prostor..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -455,7 +452,6 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Kateri jezik bi radi uporabljali med namestitvenim postopkom?"
 
 #: ../text.py:135
-#, fuzzy
 msgid "Select All"
 msgstr "Izberite vse"
 
@@ -476,9 +472,8 @@ msgid "Invalid Choice"
 msgstr "Neveljavna izbira"
 
 #: ../text.py:173
-#, fuzzy
 msgid "You must select at least one language to install."
-msgstr "Izberite jezike, ki naj se namestijo:"
+msgstr "Izbrati morate vsaj en jezik, ki naj se namesti."
 
 #: ../text.py:201
 msgid "Default Language"
@@ -888,9 +883,8 @@ msgid "Examine System"
 msgstr "Prei¹èi sistem"
 
 #: ../text.py:1065
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Izmenjalni prostor"
+msgstr "Sistemski izmenjalni prostor"
 
 #: ../text.py:1072
 msgid "Customize Upgrade"
@@ -1061,10 +1055,17 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"Med name¹èanjem zagonskega nalagalnika je pri¹lo do napake.\n"
+"\n"
+"MOÈNO priporoèamo, da naredite re¹ilno zagonsko disketo, ko vam sistem to "
+"predlaga, sicer morda ne boste mogli zagnati Red Hat Linuxa.\n"
+"\n"
+"Sporoèena je bila napaka:\n"
+"\n"
 
 #: ../todo.py:2039
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Napake v zagonskem nalagalniku"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -1143,7 +1144,7 @@ msgstr "Uporabi tekstovni naèin"
 
 #: ../xserver.py:69
 msgid "Probing for mouse type..."
-msgstr ""
+msgstr "Ugotavlja se vrsta mi¹ke..."
 
 #: ../iw/account_gui.py:15
 msgid "Account Configuration"
@@ -1520,7 +1521,7 @@ msgstr "Izberite privzeti jezik:   "
 
 #: ../iw/language_support_gui.py:155
 msgid "Currently installed languages:"
-msgstr ""
+msgstr "Trenutno name¹èeni jeziki:"
 
 #: ../iw/language_support_gui.py:157
 msgid "Choose the languages to install:"
@@ -1540,7 +1541,7 @@ msgstr "Nastavitev LILO"
 
 #: ../iw/lilo_gui.py:50 ../textw/upgrade_text.py:111
 msgid "Proceed with upgrade?"
-msgstr ""
+msgstr "Naj se nadgradnja nadaljuje?"
 
 #: ../iw/lilo_gui.py:51 ../textw/upgrade_text.py:112
 msgid ""
@@ -1548,16 +1549,17 @@ msgid ""
 "already been mounted. You cannot go back past this point. \n"
 "\n"
 msgstr ""
+"Datoteèni sistemi namestitve Linuxa, ki ste jo izbrali, so ¾e priklopljeni. "
+"S te toèke se ne morete vrniti.\n"
+"\n"
 
 #: ../iw/lilo_gui.py:55
-#, fuzzy
 msgid "Would you like to continue with the upgrade?"
-msgstr "Bi radi nastavili va¹ sistem?"
+msgstr "Bi radi nadaljevali z nadgradnjo?"
 
 #: ../iw/lilo_gui.py:64
-#, fuzzy
 msgid "Aborting upgrade"
-msgstr "Nadgraditev sistema"
+msgstr "Nadgradnja je prekinjena"
 
 #: ../iw/lilo_gui.py:233 ../iw/lilo_gui.py:394 ../iw/silo_gui.py:132
 #: ../iw/silo_gui.py:281 ../libfdisk/gnomefsedit.c:3136
@@ -1891,9 +1893,8 @@ msgid "Automatic Partitioning"
 msgstr "Samodejna razdelitev"
 
 #: ../iw/rootpartition_gui.py:375
-#, fuzzy
 msgid "Disk Partitioning"
-msgstr "Roèna razdelitev"
+msgstr "Razdelitev diska"
 
 #: ../iw/rootpartition_gui.py:377
 #, c-format
@@ -1904,6 +1905,11 @@ msgid ""
 "\n"
 "Selecting manual partitioning allows you to create the partitions by hand."
 msgstr ""
+"Prosimo, izberite ¾eleni naèin razdeljevanja diska.\n"
+"\n"
+"Samodejno razdeljevanje bo zbrisalo %s\n"
+"\n"
+"Èe izberete roèno razdelitev, lahko sami roèno dodate razdelke."
 
 #: ../iw/rootpartition_gui.py:383
 msgid "Automatic Partitioning Failed"
@@ -2055,9 +2061,8 @@ msgid "UTC Offset"
 msgstr "Popravek UTC"
 
 #: ../iw/upgrade_swap_gui.py:17
-#, fuzzy
 msgid "Upgrade Swap Partition"
-msgstr "Uredimo razdelitev"
+msgstr "Nadgradi izmenjalni razdelek"
 
 #: ../iw/upgrade_swap_gui.py:66 ../textw/upgrade_text.py:22
 #, c-format
@@ -2067,19 +2072,23 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Jedro 2.4 potrebuje znatno veè izmenjevalnega prostora na disku (swap) kot "
+"starej¹a jedra; do dvakrat toliko izmenjalnega prostora kot je v sistemu "
+"pomnilnika RAM.  Trenutno imate nastavljenega %d MB izmenjevalnega prostora, "
+"zdaj pa lahko ustvarite v enem od va¹ih datoteènih sistemov ¹e dodaten "
+"izmenjevalni prostor."
 
 #: ../iw/upgrade_swap_gui.py:80
 msgid "I want to create a swap file"
-msgstr ""
+msgstr "®elim ustvariti izmenjevalno datoteko"
 
 #: ../iw/upgrade_swap_gui.py:94
 msgid "Select the partition to put the swap file on:"
-msgstr ""
+msgstr "Izberite razdelek, v katerega ¾elite postaviti izmenjevalno datoteko:"
 
 #: ../iw/upgrade_swap_gui.py:99
-#, fuzzy
 msgid "Free Space (MB)"
-msgstr "Prostor na disku"
+msgstr "Nezaseden prostor (MB)"
 
 #: ../iw/upgrade_swap_gui.py:114
 #, c-format
@@ -2087,15 +2096,16 @@ msgid ""
 "It is recommended that your swap file be at least %d MB.  Please enter a "
 "size for the swap file:"
 msgstr ""
+"Priporoèeno je, da je va¹a izmenjevalna datoteka velika vsaj %d MB.Prosimo, "
+"vnesite velikost va¹e izmenjevalne datoteke:"
 
 #: ../iw/upgrade_swap_gui.py:127 ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Velikost izmenjalnega prostora:"
+msgstr "Velikost izmenjalnega prostora (MB):"
 
 #: ../iw/upgrade_swap_gui.py:135
 msgid "I don't want to create a swap file"
-msgstr ""
+msgstr "Ne ¾elim ustvariti izmenjevalne datoteke"
 
 #: ../iw/upgrade_swap_gui.py:145
 msgid ""
@@ -2103,15 +2113,18 @@ msgid ""
 "could cause the installer to abort abnormally.  Are you sure that you wish "
 "to continue?"
 msgstr ""
+"Moèno vam priporoèamo, da ustvarite izmenjevalno datoteko.  Èe tega ne "
+"storite, se lahko namestitveni program prekine v èudnih okoli¹èinah. Ste "
+"preprièani, da ¾elite nadaljevati?"
 
 #: ../iw/upgrade_swap_gui.py:154
 msgid "The swap file must be between 0 and 2000 MB in size."
-msgstr ""
+msgstr "Velikost izmenjevalne datoteke mora biti med 0 in 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:161 ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "Na izbrani napravi ni dovolj prostora ¹e za izmenjevalni razdelek."
 
 #: ../iw/welcome_gui.py:81
 msgid "Would you like to configure your system?"
@@ -2139,15 +2152,15 @@ msgstr "Barvna globina:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 barv (8 bitov)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Raznobarvnost (16 bitov)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Prave barve (24 bitov)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2195,7 +2208,7 @@ msgstr "Nastavitev monitorja"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC je preskusil monitor"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2556,7 +2569,7 @@ msgid "Done"
 msgstr "Opravljeno"
 
 #: ../textw/partitioning_text.py:150
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Automatic partitioning will erase %s\n"
 "\n"
@@ -2564,7 +2577,7 @@ msgid ""
 "partitioning manually, or you can go back and perform a fully customized "
 "installation."
 msgstr ""
-"%s\n"
+"Samodejna razdelitev bo zbrisala %s\n"
 "\n"
 "Èe ne ¾elite storiti tega, lahko nadaljujete z namestitvijo tako, da roèno "
 "razdelite disk, ali pa se lahko vrnete in izberete popolnoma prilagojeno "
@@ -2653,30 +2666,28 @@ msgid "Hardware clock set to GMT?"
 msgstr "Je strojna ura nastavljena na GMT?"
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
 msgstr "Prostor na disku"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Velikost (MB)"
+msgstr "Priporoèena velikost (MB):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Izmenjalna"
+msgstr "Dodaj izmenjalni prostor"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Velikost, ki jo vnesete, mora biti ¹tevilèna."
+msgstr "Vne¹ena vrednost ni veljavno ¹tevilo."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
 "If you would like to exit the upgrade select Exit, or choose Ok to continue "
 "with the upgrade."
 msgstr ""
+"Èe ¾elite zapustiti nadgradnjo, izberite Izhod, sicer izberite V redu in "
+"nadaljujte z nadgradnjo."
 
 #: ../textw/upgrade_text.py:146
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
@@ -2687,14 +2698,12 @@ msgid "System to Upgrade"
 msgstr "Nadgraditev sistema"
 
 #: ../textw/upgrade_text.py:181
-#, fuzzy
 msgid "Upgrade Partition"
-msgstr "Uredimo razdelitev"
+msgstr "Nadgradi razdelek"
 
 #: ../textw/upgrade_text.py:182
-#, fuzzy
 msgid "Going to upgrade partition /dev/"
-msgstr "Uredimo razdelitev"
+msgstr "Gremo na nadgrajevani razdelek /dev/"
 
 #: ../textw/upgrade_text.py:191
 msgid "Customize Packages to Upgrade"
@@ -2859,9 +2868,8 @@ msgid "Custom System"
 msgstr "Namestitev sistema po meri"
 
 #: ../installclasses/custom.py:22 ../installclasses/workstation.py:32
-#, fuzzy
 msgid "any preexisting Linux installations on your system."
-msgstr "Nameravate pobrisati vse obstojeèe namestitve Linuxa na sistemu."
+msgstr "vse obstojeèe namestitve Linuxa v sistemu."
 
 #: ../installclasses/laptop.py:7
 msgid "Laptop"
@@ -2872,11 +2880,9 @@ msgid "Server System"
 msgstr "Stre¾ni¹ki sistem"
 
 #: ../installclasses/server.py:38
-#, fuzzy
 msgid "ALL DATA on your hard drive to make room for your Linux installation."
 msgstr ""
-"Pobrisali boste VSE PODATKE na va¹em disku, da boste napravili prostor za "
-"namestitev Linuxa."
+"VSE PODATKE na va¹em disku, da boste napravili prostor za namestitev Linuxa."
 
 #: ../installclasses/workstation.py:8 ../libfdisk/gnomefsedit.c:2674
 msgid "Workstation"
@@ -2937,6 +2943,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Za svoj korenski datoteèni sistem (/) ste izbrali dosovski razdelek vrste "
+"FAT.  To sicer lahko storite, a morda v va¹em sistemu Linux ne boste mogli "
+"uporabljati drugih datoteènih sistemov.  Poleg tega je raba poèasnej¹a od "
+"rabe domorodnih razdelkov za Linux.  Ali ¾elite nadaljevati?"
 
 #: ../libfdisk/fsedit.c:972
 #, c-format
@@ -3073,6 +3083,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"To se pojavlja, ker se geometrija pogona, ki jo je zaznalo jedro, razlikuje "
+"od geometrije pogona, ko je bil ta razdeljen.  To lahko odpravite tako, da "
+"med zaganjanjem programa za namestitev v ukazno vrstico za jedro vpi¹ete "
+"podatke o geometriji pogona."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:952
 #: ../libfdisk/gnomefsedit.c:2050
@@ -3086,12 +3100,11 @@ msgstr "<Razdelitev RAID>"
 #: ../libfdisk/gnomefsedit.c:745
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Razdelka %s ni moè najti.\n"
 
 #: ../libfdisk/gnomefsedit.c:755 ../libfdisk/gnomefsedit.c:787
-#, fuzzy
 msgid "Root partition"
-msgstr "Korenske razdelitve ni"
+msgstr "Korenski razdelek"
 
 #: ../libfdisk/gnomefsedit.c:757
 msgid ""
@@ -3099,6 +3112,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Videti je, da je rast korenskega (/) polja RAID omejena s tem, da se sistem "
+"lahko za¾ene le z dela diska do 1024 cilindra.  Èe je to res, si lahko morda "
+"pomagate tako, da naredite posebni zagonski razdelek /boot (50 MB "
+"zadostuje), preostanek korenskega razdelka pa potem lahko napolni ves disk."
 
 #: ../libfdisk/gnomefsedit.c:789
 msgid ""
@@ -3106,6 +3123,10 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "(50 MB is fine) may allow the root partition to grow to fill the disk."
 msgstr ""
+"Videti je, da je rast korenskega razdelka (/) omejena s tem, da se sistem "
+"lahko za¾ene le z dela diska do 1024 cilindra.  Èe je to res, si lahko morda "
+"pomagate tako, da naredite posebni zagonski razdelek /boot (50 MB "
+"zadostuje), preostanek korenskega razdelka pa potem lahko napolni ves disk."
 
 #: ../libfdisk/gnomefsedit.c:829 ../libfdisk/newtfsedit.c:874
 msgid "Delete Partition"
@@ -4031,11 +4052,12 @@ msgstr "Beremo popravke anaconda..."
 #: ../loader/loader.c:2449
 msgid "You don't have enough system memory to install Red Hat on this machine."
 msgstr ""
+"V tem stroju nimate dovolj sistemskega pomnilnika, da bi namestili "
+"distribucijo Red Hat."
 
 #: ../loader/loader.c:2909
-#, fuzzy
 msgid "Running anaconda - please wait...\n"
-msgstr "Beremo popravke anaconda..."
+msgstr "Anaconda teèe - prosimo, poèakajte ...\n"
 
 #: ../loader/net.c:170
 msgid "NFS server name:"
@@ -4456,720 +4478,696 @@ msgstr "Pripomoèki"
 
 #. generated from zone.tab
 msgid "Acre"
-msgstr ""
+msgstr "Akra"
 
 #. generated from zone.tab
 msgid "Alagoas, Sergipe"
-msgstr ""
+msgstr "Alagoas, Sergipe"
 
 #. generated from zone.tab
 msgid "Alaska Time"
-msgstr ""
+msgstr "Aljaska"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Aljaska - Aljaskin pas"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Aljaska - vrh pasu na Aljaski"
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
-msgstr ""
+msgstr "Aljaska - zahodna Aljaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "Aleutski otoki"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr ""
+msgstr "Amapa, V. Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
-msgstr ""
+msgstr "Postaja Amundsen-Scott, Ju¾ni teèaj"
 
 #. generated from zone.tab
 msgid "Atlantic islands"
-msgstr ""
+msgstr "Atlantski otoki"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "Atlantski èas - V. Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
+"Atlantski èas - Nova ©kotska (veèina krajev), NB, Z. Labrador, V. Quebec & "
+"PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
+"Atlantski èas - Nova ©kotska - kraji, ki jih ni upo¹teval DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Azores"
-msgstr ""
+msgstr "Azuri"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
-msgstr ""
+msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
 msgid "Borneo & Celebes"
-msgstr ""
+msgstr "Borneo & Celebes"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Kanarski otoki"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Postaja Casey, Bailey Peninsula"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Katamarka (CT)"
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "centralna Crimea"
 
 #. generated from zone.tab
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "centralni Kazahstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "Srednjeameri¹ki standardni èas - Saskatchewan - srednji zahod"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Srednjeameri¹ki standardni èas - Saskatchewan - veèina krajev"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "Srednjeameri¹ki èas"
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Manitoba & zahodni Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Michigan - meja Wisconsina"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - veèina krajev"
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - Rainy River & Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "Srednjeameri¹ki èas - zahodni Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta & Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Èatamski otoki"
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "Kitajska obala"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "Kitajske gore"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Postaja Davis, Vestfold Hills"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville Base, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "V. Amazonka"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "V. Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "vzhodna Dem. Rep. Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island"
-msgstr ""
+msgstr "Velikonoèni otok"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - central Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - centralni Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Indiana - okro¾je Crawford"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Indiana - veèina krajev"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Indiana - okro¾je Starke"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Indiana - okro¾je Switzerland"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Pangnirtung, Nunavu"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Kentucky - podroèje Louisvillea"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Kentucky - okro¾je Wayne"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Michigan - veèina krajev"
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Ontario & Quebec - veèina krajev"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - kraji, ki jih ni upo¹teval DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "Vzhodnjeameri¹ki èas - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "Vzhodni Turkestan"
 
 #. generated from zone.tab
 msgid "east Greenland"
-msgstr ""
+msgstr "vzhodna Grenlandija"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
-msgstr ""
+msgstr "vzhodni Kazahstan"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
-msgstr ""
+msgstr "vzhodni Uzbekistan"
 
 #. generated from zone.tab
 msgid "Galapagos Islands"
-msgstr ""
+msgstr "Galapa¹ko otoèje"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambierjevi otoki"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbertovi otoki"
 
 #. generated from zone.tab
 msgid "Great Britain"
-msgstr ""
+msgstr "Velika Britanija"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Havaji"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya & Moluccas"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
-msgstr ""
+msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java & Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnstonov atol"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Otoki Line"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Otok Lorda Howea"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Otoki Madeira"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marque¹ki otoki"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso, Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Postaja Mawson, Holme Bay"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "Postaja McMurdo, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Otoèje Midway"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moskva+00 - zahodna Rusija"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moskva+01 - Kaspijsko morje"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moskva+02 - Ural"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moskva+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moskva+03 - zahodna Sibirija"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moskva+04 - reka Jenisej"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moskva+05 - Bajkalsko jezero"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moskva+06 - reka Lena"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moskva+07 - reka Amur"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "Moskva+08 - Magadan & Sahalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moskva+09 - Kamèatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moskva+10 - Beringovo morje"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "Standardni gorski èas - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
+"Standardni gorski èas - Dawson Creek in Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "Standardni gorski èas - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "Gorski èas"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
+"Gorski èas - Alberta, vzhodna Britanska Kolumbija in zahodni Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "Gorski èas - centralna Severozahodna podroèja"
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "Gorski èas - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "Gorski èas - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "Gorski èas - J. Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "Gorski èas - ju¾ni Idaho in vzhodni Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "Gorski èas - zahodna Severozahodna podroèja"
 
 #. generated from zone.tab
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr ""
+msgstr "SV Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
+msgstr "SV Brazilija (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Novofundlansko otoèje"
 
 #. generated from zone.tab
 msgid "New South Wales - Broken Hill"
-msgstr ""
+msgstr "Novi Ju¾ni Wales - Broken Hill"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "Novi Ju¾ni Wales - veèina krajev"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "severovzhodni Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Severna Irska"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Severno podroèje"
 
 #. generated from zone.tab
 msgid "north Manchuria"
-msgstr ""
+msgstr "severna Mand¾urija"
 
 #. generated from zone.tab
 msgid "northwest Greenland"
-msgstr ""
+msgstr "severozahodna Grenlandija"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "Pacifi¹ki èas - severni Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "Pacifi¹ki èas - ju¾ni Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "Pacifi¹ki èas - zahodna Britanska Kolumbija"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Postaja Palmer, otok Anvers"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "poloto¹ka Malezija"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Otoki Phoenix"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "Queensland - veèina krajev"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Ruthenia"
-msgstr "Identifikacija"
+msgstr "Rutenija"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah in Sarawak"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "South Australia"
-msgstr "Ju¾na Amerika"
+msgstr "Ju¾na Avstralija"
 
 #. generated from zone.tab
 msgid "southwest Greenland"
-msgstr ""
+msgstr "jugozahodna Grenlandija"
 
 #. generated from zone.tab
 msgid "southwest Mali"
-msgstr ""
+msgstr "jugozahodni Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "J & JV Brazilija (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
-msgstr ""
+msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Postaja Syowa, V.  Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
-msgstr ""
+msgstr "Tasmanija"
 
 #. generated from zone.tab
 msgid "Tibet & Xinjiang"
-msgstr ""
+msgstr "Tibet in Xinjiang"
 
 #. generated from zone.tab
-#, fuzzy
 msgid "Tocantins"
-msgstr "Lokacija"
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Transdniestria"
-msgstr ""
+msgstr "Podnjestrje"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "Z. Amazonka"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "Z. Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "zahodna Dem. Rep. Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Zahodna Avstralija"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
-msgstr ""
+msgstr "zahodni Kazahstan"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
-msgstr ""
+msgstr "zahodni Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "Z. Para, Rondonija"
 
 #. generated from zone.tab
 msgid "Yap"
-msgstr ""
+msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporo¾je, V. Lugansk"
 
 #. generated from lang-table
 msgid "Czech"
-msgstr ""
+msgstr "èe¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "English"
-msgstr "Konec"
+msgstr "angle¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Danish"
-msgstr "Konec"
+msgstr "dan¹èina"
 
 #. generated from lang-table
 msgid "French"
-msgstr ""
+msgstr "franco¹èina"
 
 #. generated from lang-table
 msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"nem¹èina          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
-msgstr ""
+msgstr "mad¾ar¹èina"
 
 #. generated from lang-table
 msgid "Icelandic"
-msgstr ""
+msgstr "island¹èina"
 
 #. generated from lang-table
 msgid "Italian"
-msgstr ""
+msgstr "italijan¹èina"
 
 #. generated from lang-table
 msgid "Japanese"
-msgstr ""
+msgstr "japon¹èina"
 
 #. generated from lang-table
 msgid "Norwegian"
-msgstr ""
+msgstr "norve¹èina"
 
 #. generated from lang-table
 msgid "Portuguese"
-msgstr ""
+msgstr "portugal¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Romanian"
-msgstr "Preostanek"
+msgstr "romun¹èina"
 
 #. generated from lang-table
 msgid "Russian"
-msgstr ""
+msgstr "ru¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Serbian"
-msgstr "Iskanje"
+msgstr "srb¹èina"
 
 #. generated from lang-table
 msgid "Slovak"
-msgstr ""
+msgstr "slova¹èina"
 
 #. generated from lang-table
 msgid "Slovenian"
-msgstr ""
+msgstr "sloven¹èina"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Spanish"
-msgstr "Konec"
+msgstr "¹pan¹èina"
 
 #. generated from lang-table
 msgid "Swedish"
-msgstr ""
+msgstr "¹ved¹èina"
 
 #. generated from lang-table
 msgid "Turkish"
-msgstr ""
+msgstr "tur¹èina"
 
 #. generated from lang-table
 msgid "Ukrainian"
-msgstr ""
-
-#~ msgid "America/New_York"
-#~ msgstr "Europe/Ljubljana"
-
-#~ msgid "Partitionless upgrades are NOT supported in this beta"
-#~ msgstr "V tej beti nadgraditve brez razdelitev NISO podprte"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Horizontalna sinhronizacija"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Vertikalna sinhronizacija"
-
-#~ msgid ""
-#~ "\n"
-#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
-#~ "so do NOT report errors if you choose to do this.\n"
-#~ " Do you want to continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "POZOR: Znano je, da namestitve brez razdelitev v tej BETA razlièici pogosto "
-#~ "ne delujejo, zato NE poroèajte o napakah, èe se odloèite za to.\n"
-#~ "®elite nadaljevati?"
+msgstr "ukrajin¹èina"
