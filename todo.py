@@ -400,10 +400,7 @@ class ToDo:
 	keys.sort()
 	keys.reverse()
 	for n in keys:
-            (device, filesystem, format) = self.mounts[n]
-	    isys.makeDevInode(n, '/tmp/' + device)
-	    isys.umount(n)
-            os.remove('/tmp/' + device)
+	    isys.umount('/mnt/sysimage/' + n)
 
     def mountFilesystems(self):
 	if (not self.setupFilesystems): return 
