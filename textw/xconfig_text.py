@@ -605,7 +605,7 @@ class XConfigWindowCard:
 		text = _("Your system will be setup to "
 		  "use the frame buffer driver for "
 		  "the X Window System.  If you do "
-		  "not want setup the X Window "
+		  "not want to setup the X Window "
 		  "System, choose "
 		  "'Skip X Configuration' below.")
 		
