@@ -59,7 +59,7 @@ PACKAGES="glibc-2 ldconfig setup e2fsprogs-1 XFree86-libs XFree86-SVGA
 	  kernel-pcmcia-cs Xconfigurator raidtools- clock- locale-ja
           open- cpio- tar- fileutils- net-tools- grep- sed- mt-st- gzip-
           iputils- traceroute- sh-utils- textutils- pine- less-
-          rsh- ncurses- popt mtools-"
+          rsh- ncurses- popt mtools- ftp- readline-"
 
 KEEPFILE=/tmp/keepfile.$$
 cat > $KEEPFILE <<EOF
@@ -121,6 +121,7 @@ bin/dd
 bin/du
 bin/grep
 bin/gzip
+bin/ls
 bin/mt
 bin/mv
 bin/ping
@@ -219,6 +220,7 @@ usr/lib/libgnomeui*
 usr/lib/libgnorba*
 usr/lib/libgnorbagtk*
 usr/lib/libgtkxmhtml*
+usr/lib/libreadline*
 usr/share/pixmaps/gnome-default-dlg.png
 usr/share/pixmaps/gnome-error.png
 usr/share/pixmaps/gnome-info.png
@@ -231,6 +233,7 @@ usr/share/zoneinfo/zone.tab
 usr/share/locale/*
 usr/bin/chattr*
 usr/bin/lsattr*
+usr/bin/ftp
 usr/bin/head
 usr/bin/less
 usr/bin/mattrib
@@ -259,6 +262,7 @@ usr/bin/mzip
 usr/bin/open
 usr/bin/pico
 usr/bin/rcp
+usr/bin/rlogin
 usr/bin/rsh
 usr/bin/tail
 usr/bin/tac
