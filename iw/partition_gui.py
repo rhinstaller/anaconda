@@ -350,6 +350,9 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
 
     partclist = GtkCList()
     partclist.set_selection_mode (SELECTION_MULTIPLE)
+    sw = GtkScrolled Window()
+    sw.add(partclist)
+    sw.set_policy(POLICY_AUTOMATIC, POLICY_AUTOMATIC)
 
     partrow = 0
     for (part, used) in allraidparts:
@@ -364,7 +367,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
             partclist.select_row(partrow, 0)
         partrow = partrow + 1
 
-    return partclist
+    return partclist, sw
 
 def createRaidLevelMenu(levels, reqlevel, raidlevelchangeCB, sparesb):
     leveloption = GtkOptionMenu()
@@ -1106,10 +1109,10 @@ class PartitionWindow(InstallWindow):
                          0, 1, row, row + 1)
 
         # XXX need to pass in currently used partitions for this device
-        raidclist = createAllowedRaidPartitionsClist(availraidparts,
+        raidclist, sw = createAllowedRaidPartitionsClist(availraidparts,
                                                      raidrequest.raidmembers)
 
-        maintable.attach(raidclist, 1, 2, row, row + 1)
+        maintable.attach(sw, 1, 2, row, row + 1)
         row = row + 1
 
         # number of spares - created widget above
