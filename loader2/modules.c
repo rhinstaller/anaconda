@@ -325,7 +325,7 @@ static int loadModule(const char * modName, struct extractedModule * path,
 static int doLoadModules(const char * origModNames, moduleList modLoaded,
                          moduleDeps modDeps, moduleInfoSet modInfo,
                          int flags, const char * argModule, char ** args,
-			 struct moduleBallLocation * modLocation) {
+                         struct moduleBallLocation * modLocation) {
     char * modNames;
     char * start, * next, * end;
     char ** initialList;

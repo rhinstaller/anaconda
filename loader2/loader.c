@@ -53,6 +53,8 @@
 #include "moduledeps.h"
 #include "modstubs.h"
 
+#include "driverdisk.h"
+
 /* hardware stuff */
 #include "firewire.h"
 #include "pcmcia.h"
@@ -147,6 +149,11 @@ int setupRamdisk(void) {
         logMessage("failed to mount ramfs image");
     
     return 0;
+}
+
+void setupRamfs(void) {
+    mkdirChain("/ramfs");
+    doPwMount("none", "/tmp/ramfs", "ramfs", 0, 0, NULL, NULL);
 }
 
 
@@ -648,7 +655,7 @@ static char *doLoaderMain(char * location,
                           struct knownDevices * kd,
                           moduleInfoSet modInfo,
                           moduleList modLoaded,
-                          moduleDeps modDeps,
+                          moduleDeps * modDepsPtr,
                           int flags) {
     enum { STEP_LANG, STEP_KBD, STEP_METHOD, STEP_DRIVER, 
            STEP_URL, STEP_DONE } step;
@@ -681,7 +688,7 @@ static char *doLoaderMain(char * location,
     /* JKFIXME: what should we do about rescue mode here? */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
         /* JKFIXME: this might not work right... */
-        url = findRedHatCD(location, kd, modInfo, modLoaded, modDeps, flags);
+        url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags);
         if (url) return url;
     }
 
@@ -745,6 +752,7 @@ static char *doLoaderMain(char * location,
                     kd->known[i].class)
                     found = 1;
             }
+            found = 0;
             
             if (found) {
                 step = STEP_URL;
@@ -752,10 +760,16 @@ static char *doLoaderMain(char * location,
                 break;
             }
             
-            /* JKFIXME: pop up driver stuff */
-            logMessage("would have gone to ask about a driver... but the code's not written, so falling back ;-)");
-            step = STEP_METHOD;
-            dir = -1;
+            rc = loadDriverFromMedia(installMethods[validMethods[methodNum]].deviceType,
+                                     modLoaded, modDepsPtr, modInfo, kd, flags);
+            if (rc == LOADER_BACK) {
+                step = STEP_METHOD;
+                dir = -1;
+                break;
+            }
+
+            step = STEP_URL;
+            dir = 1;
             break;
         }
             
@@ -764,7 +778,7 @@ static char *doLoaderMain(char * location,
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
                                       location, kd, modInfo, modLoaded, 
-                                      &modDeps, flags);
+                                      modDepsPtr, flags);
             logMessage("got url %s", url);
             if (!url) {
                 step = STEP_METHOD;
@@ -879,6 +893,7 @@ int main(int argc, char ** argv) {
         flags |= LOADER_FLAGS_TEXT;
 
     checkForRam(flags);
+    setupRamfs();
 
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = newModuleInfoSet();
@@ -936,7 +951,7 @@ int main(int argc, char ** argv) {
 
     /* JKFIXME: telnetd */
 
-    url = doLoaderMain("/mnt/source", &kd, modInfo, modLoaded, modDeps, flags);
+    url = doLoaderMain("/mnt/source", &kd, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         unlink("/usr");

@@ -131,3 +131,43 @@ char ** mlGetDeps(moduleDeps modDeps, const char * modName) {
 
     return NULL;
 }
+
+/* fun test cases... */
+#if 0
+
+void printDeps(moduleDeps modDeps) {
+    moduleDeps dep;
+    char buf[1024];
+    char **foo;
+
+    for (dep = modDeps; dep && dep->name; dep++) {
+        if (strcmp(dep->name, "pcnet32"))
+            continue;
+        if (!dep->deps)
+            printf("module: %s, no deps\n", dep->name);
+        else {
+            buf[0] = '\0';
+            for (foo = dep->deps; *foo; foo++) {
+                strcat(buf, *foo); 
+                strcat(buf, " ");
+            }
+            printf("module: %s, deps: %s\n", dep->name, buf);
+        }
+    }
+}
+
+int main(int argc, char ** argv) {
+    moduleDeps deps;
+
+    deps = mlNewDeps();
+    printDeps(deps);
+    mlLoadDeps(&deps, "modules.dep.1");
+    printDeps(deps);
+
+    printf("----------------------------------------\n");
+    printf("Loading second set\n");
+    mlLoadDeps(&deps, "modules.dep.2");
+    printDeps(deps);
+
+}
+#endif

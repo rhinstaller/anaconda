@@ -22,7 +22,7 @@ BINS = init
 HWOBJS = pcmcia.o usb.o firewire.o
 METHOBJS = method.o cdinstall.o nfsinstall.o urlinstall.o
 OBJS = log.o moduleinfo.o loadermisc.o modules.o moduledeps.o windows.o \
-	lang.o kbd.o modules.o modstubs.o \
+	lang.o kbd.o modules.o modstubs.o driverdisk.o \
 	md5.o mediacheck.o \
 	$(HWOBJS) $(METHOBJS)
 LOADEROBJS = loader.o loader-pcmcia.o
@@ -81,37 +81,11 @@ loader-local.o: loader.c
 loader-net.o: loader.c
 	$(CC) -DINCLUDE_NETWORK $(CFLAGS) -o $@ -c $<
 
-loader-pcmcia.o: loader.c
-	$(CC) -DINCLUDE_PCMCIA -DINCLUDE_LOCAL -DINCLUDE_NETWORK \
-	    $(CFLAGS) -o $@ -c $<
-
 loader: loader.o $(OBJS) $(NETOBJS)
 	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
 	$(HWLIBS) $(ISYSLIB) \
 	$(MODULELINKAGE) $(GUNZIP) \
 	-lpump $(NEWTLIB) $(SLANGLIB)  $(KONOBJS)
-
-loader-local: loader-local.o $(OBJS)
-	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	$(HWLIBS) $(ISYSLIB) \
-	$(MODULELINKAGE) $(GUNZIP) \
-        -L ../stubs $(NEWTLIB) $(SLANGLIB)  $(KONOBJS)
-
-loader-network: loader-net.o $(OBJS) $(NETOBJS)
-	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
-	$(HWLIBS) $(ISYSLIB) \
-	$(MODULELINKAGE) $(GUNZIP) \
-        -lpump -L ../stubs $(NEWTLIB) $(SLANGLIB)  $(KONOBJS)
-
-loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) $(PCMCIAOBJS)
-	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o $(OBJS) \
-	    $(PCMCIAOBJS) -lcardmgr_loader -lprobe_loader popen.o \
-        -lpopt     \
-        $(HWLIBS) $(ISYSLIB) \
-	$(MODULELINKAGE) $(GUNZIP) \
-        -lpump -lresolv $(NEWTLIB) $(SLANGLIB)  $(KONOBJS)
-
-
 
 clean:
 	rm -f *.o *~ .depend init ctype.c mkctype \

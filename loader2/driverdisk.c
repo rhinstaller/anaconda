@@ -13,20 +13,284 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
+#include <fcntl.h>
+#include <kudzu/kudzu.h>
 #include <newt.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 #include "loader.h"
 #include "log.h"
 #include "loadermisc.h"
 #include "lang.h"
+#include "modules.h"
+#include "moduledeps.h"
+#include "moduleinfo.h"
 
+#include "../isys/isys.h"
+#include "../isys/imount.h"
+#include "../isys/probe.h"
+
+/* JKFIXME: busProbe et al need to go into a hardware file */
+int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
+             int justProbe, struct knownDevices * kd, int flags);
+
+static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
+                                    "modules.cgz", "rhdd-6.1", NULL };
+
+static int verifyDriverDisk(char *mntpt, int flags) {
+    char ** fnPtr;
+    char file[200];
+    struct stat sb;
+
+    for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
+        sprintf(file, "%s/%s", mntpt, *fnPtr);
+        if (access(file, R_OK)) {
+            logMessage("cannot find %s, bad driver disk", file);
+            return LOADER_BACK;
+        }
+    }
+
+    /* side effect: file is still mntpt/rhdd-6.1 */
+    stat(file, &sb);
+    if (!sb.st_size)
+        return LOADER_BACK;
+
+    return LOADER_OK;
+}
+
+/* this copies the contents of the driver disk to a ramdisk and loads
+ * the moduleinfo, etc.  assumes a "valid" driver disk mounted at mntpt */
+static int loadDriverDisk(moduleInfoSet modInfo, moduleList modLoaded,
+                          moduleDeps * modDepsPtr, char *mntpt, int flags) {
+    char file[200], dest[200];
+    char * title;
+    char ** fnPtr;
+    struct moduleBallLocation * location;
+    struct stat sb;
+    static int disknum = 0;
+    int fd;
+
+    sprintf(file, "%s/rhdd-6.1", mntpt);
+    title = malloc(sb.st_size + 1);
+
+    fd = open(file, O_RDONLY);
+    read(fd, title, sb.st_size);
+    if (title[sb.st_size - 1] == '\n')
+        sb.st_size--;
+    title[sb.st_size] = '\0';
+    close(fd);
+
+    sprintf(file, "/ramfs/DD-%d", disknum);
+    mkdirChain(file);
+
+    winStatus(40, 3, _("Loading"), _("Reading driver disk"));
+
+    for (fnPtr = driverDiskFiles; *fnPtr; fnPtr++) {
+        sprintf(file, "%s/%s", mntpt, *fnPtr);
+        sprintf(dest, "/ramfs/DD-%d/%s", disknum, *fnPtr);
+        copyFile(file, dest);
+    }
+
+    location = malloc(sizeof(struct moduleBallLocation));
+    location->title = strdup(title);
+    location->path = sdupprintf("/ramfs/DD-%d/modules.cgz", disknum);
+
+    sprintf(file, "%s/modinfo", mntpt);
+    readModuleInfo(file, modInfo, location, 1);
+
+    sprintf(file, "%s/modules.dep", mntpt);
+    mlLoadDeps(modDepsPtr, file);
+
+    sprintf(file, "%s/pcitable", mntpt);
+    pciReadDrivers(file);
+
+    disknum++;
+    return 0;
+}
+
+/* JKFIXME: need a better name for this I think :) */
+/* Get the best available removable device (floppy/cdrom).  Used regularly
+ * for device disks and update disks.
+ */
+int getRemovableDevice(char ** device, int flags) {
+    struct device **devices, **floppies, **cdroms;
+    char ** devNames;
+    int numDevices = 0;
+    int i = 0, j = 0, rc, num = 0;
+
+    floppies = probeDevices(CLASS_FLOPPY, 
+                            BUS_IDE | BUS_SCSI | BUS_MISC, PROBE_ALL);
+    cdroms = probeDevices(CLASS_CDROM, BUS_IDE | BUS_SCSI, PROBE_ALL);
+
+    /* JKFIMXE: need to handle disconnected devices */
+    if (floppies)
+        for (i = 0; floppies[i]; i++) numDevices++;
+    if (cdroms)
+        for (i = 0; cdroms[i]; i++) numDevices++;
+
+    /* JKFIXME: better error handling */
+    if (!numDevices) {
+        logMessage("no devices found to load drivers from");
+        return LOADER_BACK;
+    }
+
+    devices = malloc((numDevices + 1) * sizeof(**devices));
+
+    i = 0;
+    if (floppies)
+        for (j = 0; floppies[j]; j++) devices[i++] = floppies[j];
+    if (cdroms)
+        for (j = 0; cdroms[j]; j++) devices[i++] = cdroms[j];
+
+    devices[i] = NULL;
+
+    for (i = 0; devices[i]; i++) {
+        logMessage("devices[%d] is %s", i, devices[i]->device);
+    }
+
+    if (numDevices == 1) {
+        logMessage("only one possible device, %s", devices[0]->device);
+        *device = strdup(devices[0]->device);
+	free(devices);
+        return LOADER_OK;
+    }
+
+
+    devNames = malloc((numDevices + 1) * sizeof(*devNames));
+    for (i = 0; devices[i]; i++)
+        devNames[i] = strdup(devices[i]->device);
+    free(devices);
+
+    startNewt(flags);
+    rc = newtWinMenu(_("Device Driver Source"),
+                     _("You have multiple devices which could serve as "
+                       "sources for a driver disk.  Which would you like "
+                       "to use?"), 40, 10, 10,
+                     numDevices < 6 ? numDevices : 6, devNames,
+                     &num, _("OK"), _("Back"), NULL);
+    if (rc == 2) {
+	free(devNames);
+        return LOADER_BACK;
+    }
+
+    *device = strdup(devNames[num]);
+    free(devNames);
+    return LOADER_OK;
+}
 
 /* Prompt for loading a driver from "media"
  *
  * class: type of driver to load.
  */
-int loadDriverFromMedia(int class) {
+int loadDriverFromMedia(int class, moduleList modLoaded, moduleDeps * modDepsPtr,
+                        moduleInfoSet modInfo, struct knownDevices * kd, 
+                        int flags) {
 
+    char * device;
+    enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_DONE } stage = DEV_DEVICE;
+    int rc, i;
+
+    while (stage != DEV_DONE) {
+        switch(stage) {
+        case DEV_DEVICE:
+            rc = getRemovableDevice(&device, flags);
+            if (rc == LOADER_BACK)
+                return rc;
+            stage = DEV_INSERT;
+        case DEV_INSERT: {
+            char * buf;
+
+            buf = sdupprintf(_("Insert your driver disk into /dev/%s and press \"OK\" to continue."), device);
+            rc = newtWinChoice(_("Insert Driver Disk"), _("OK"), _("Back"),
+                               buf);
+            if (rc == 2) {
+                stage = DEV_DEVICE;
+                break;
+            }
+
+            devMakeInode(device, "/tmp/dddev");
+            logMessage("trying to mount %s", device);
+            if (doPwMount("/tmp/dddev", "/tmp/drivers", "vfat", 1, 0, NULL, NULL)) {
+                if (doPwMount("/tmp/dddev", "/tmp/drivers", "ext2", 1, 0, NULL, NULL)) {
+                    newtWinMessage(_("Error"), _("OK"),
+                                   _("Failed to mount driver disk."));
+                    stage = DEV_INSERT;
+                    break;
+                }
+            }
+
+            rc = verifyDriverDisk("/tmp/drivers", flags);
+            if (rc == LOADER_BACK) {
+                stage = DEV_INSERT;
+                break;
+            }
+
+            stage = DEV_LOAD;
+            break;
+        }
+        case DEV_LOAD: {
+            int found = 0;
+
+            rc = loadDriverDisk(modInfo, modLoaded, modDepsPtr, 
+                                "/tmp/drivers", flags);
+            umount("/tmp/drivers");
+            if (rc == LOADER_BACK) {
+                stage = DEV_INSERT;
+                break;
+            }
+
+            busProbe(modInfo, modLoaded, *modDepsPtr, 0, kd, flags);
+
+            if (class != CLASS_UNSPEC) {
+                for (i = 0; i < kd->numKnown; i++) {
+                    if (kd->known[i].class == class) {
+                        stage = DEV_DONE;
+                        found++;
+                        break;
+                    }
+                }
+            } else {
+                /* JKFIXME: for now, we'll just assume that the driver disk
+                 * loading did what they wanted */
+                found = 1;
+            }
+
+            if (found > 0)
+                break;
+            
+            /* if we get here then we couldn't find it */
+            /* JKFIXME: this should allow manual loading of drivers */
+            newtWinMessage(_("Error"), _("OK"),
+                           _("Unable to find a device driver of the needed "
+                             "type on this driver disk."));
+            stage = DEV_INSERT;
+            break;
+        }
+                           
+
+        case DEV_DONE:
+            break;
+        }
+    }
+
+    return LOADER_OK;
 }
+
+
+/* simple test */
+#if 0
+int main(int argc, char **argv) {
+    char * devName = NULL;
+    loadDriverFromMedia(CLASS_NETWORK, &devName, 0);
+
+    stopNewt();
+    fprintf(stdout, "chosen device is %s\n", devName);
+
+
+    return 0;
+}
+#endif
