@@ -1201,6 +1201,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
     int doContinue, missingOkay;	/* obsolete */
     char * fsType = "ext2";
     char * fs;
+    struct moduleInfo * mi;
     struct poptOption diskTable[] = {
 	    { "type", 't', POPT_ARG_STRING, &fsType, 0 },
 	    { 0, 0, 0, 0, 0 }
@@ -1274,7 +1275,7 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	    continue;
 	}
 
-        if (!isysFindModuleInfo(modInfo, device)) {
+        if (!(mi = isysFindModuleInfo(modInfo, device))) {
 	    logMessage("unknown module %s", device);
 	    continue;
 	}
@@ -1284,7 +1285,8 @@ static int kickstartDevices(struct knownDevices * kd, moduleInfoSet modInfo,
 	else
 	    optv = NULL;
 
-	rc = mlLoadModule(device, NULL, modLoaded, modDeps, optv, modInfo, flags);
+	rc = mlLoadModule(device, mi->path, modLoaded, modDeps, 
+			  optv, modInfo, flags);
 	if (optv) free(optv);
 
 	if (rc)
