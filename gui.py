@@ -94,6 +94,7 @@ def partedExceptionWindow(exc):
     print exc.message
     print exc.options
     win = gtk.Dialog(exc.type_string, mainWindow, gtk.DIALOG_MODAL)
+    addFrame(win)
     win.set_position(gtk.WIN_POS_CENTER)
     label = WrappingLabel(exc.message)
     win.vbox.pack_start (label)
@@ -677,10 +678,10 @@ class InstallControlWindow:
 
     def abortInstall (self, *args):
         dlg = gtk.Dialog(_("Warning"), mainWindow, gtk.DIALOG_MODAL)
+        addFrame(dlg)
         dlg.set_modal(gtk.TRUE)
         dlg.set_size_request(350, 200)
         dlg.set_position(gtk.WIN_POS_CENTER)
-        dlg.set_border_width(5)
         dlg.add_button('gtk-yes', 0)
         dlg.add_button('gtk-no', 1)
 
