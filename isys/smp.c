@@ -591,6 +591,8 @@ int detectSMP(void)
     return isSMP = s390DetectSMP();
 #elif __ia64__
     return isSMP = 1;
+#elif __x86_64__
+    return isSMP = 1;
 #else
     #error unknown architecture
 #endif
