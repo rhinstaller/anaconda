@@ -1377,7 +1377,8 @@ class AutoPartitionWindow(InstallWindow):
         drivesbox.pack_start(label, FALSE, FALSE, 10)
         self.driveclist = createAllowedDrivesClist(id.diskset.disks,
                                                    cleardrives)
-        self.driveclist.set_usize(200, -1)
+        # XXX bad use of usize
+        self.driveclist.set_usize(300, -1)
 
 	align = GtkAlignment()
 	align.add(self.driveclist)
