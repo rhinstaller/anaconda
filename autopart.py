@@ -215,6 +215,8 @@ def growParts(diskset, requests):
         for part in free[key]:
             freeSize[key] = freeSize[key] + getPartSize(part)
 
+    print freeSize
+
     # find growable partitions and find out the size of the growable parts
     growable = {}
     growSize = {}
@@ -279,6 +281,19 @@ def growParts(diskset, requests):
     return PARTITION_SUCCESS
 
 
+def setPreexistParts(diskset, requests):
+    for request in requests:
+        if request.type != REQUEST_PREEXIST:
+            continue
+        disk = diskset.disks[request.drive]
+        part = disk.next_partition()
+        while part:
+            if part.geom.start == request.start and part.geom.end == request.end:
+                request.device = get_partition_name(part)
+                break
+            part = disk.next_partition(part)
+
+
 def deletePart(diskset, delete):
     disk = diskset.disks[delete.drive]
     part = disk.next_partition()
@@ -304,7 +319,8 @@ def processPartitioning(diskset, requests):
     # XXX - handle delete requests
     for delete in requests.deletes:
         deletePart(diskset, delete)
-#    diskset.deleteAllPartitions()
+
+    setPreexistParts(diskset, requests.requests)
 
     # sort requests by size
     requests.sortRequests()

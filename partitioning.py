@@ -355,9 +355,11 @@ class PartitionRequests:
                 start = part.geom.start
                 end = part.geom.end
                 size = getPartSize(part)
+                drive = part.geom.disk.dev.path[5:]
                 
                 spec = PartitionSpec(ptype, requesttype = REQUEST_PREEXIST,
-                                     start = start, end = end, size = size)
+                                     start = start, end = end, size = size,
+                                     drive = drive)
                 spec.device = PartedPartitionDevice(part).getDevice()
                 self.addRequest(spec)
                 part = disk.next_partition(part)
