@@ -2557,6 +2557,7 @@ logMessage("getting ready to spawn shell now");
     *argptr = NULL;
 
     if (!FL_TESTING(flags)) {
+	printf("Running anaconda - may take some time to load...\n");
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
