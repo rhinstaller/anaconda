@@ -41,6 +41,11 @@ class AuthWindow (InstallWindow):
         self.krb5AdminLabel.set_sensitive (krb5active)
         self.krb5Admin.set_sensitive (krb5active)
 
+        sambaactive = self.samba.get_active()
+        self.sambaLabel1.set_sensitive(sambaactive)
+        self.sambaLabel2.set_sensitive(sambaactive)
+        self.sambaServer.set_sensitive(sambaactive)
+        self.sambaWorkgroup.set_sensitive(sambaactive)
 
     def getNext(self):
 	if not self.__dict__.has_key("md5"):
@@ -64,6 +69,10 @@ class AuthWindow (InstallWindow):
         self.auth.krb5Realm = self.krb5Realm.get_text ()
         self.auth.krb5Kdc = self.krb5Kdc.get_text ()
         self.auth.krb5Admin = self.krb5Admin.get_text ()
+
+        self.auth.useSamba = self.samba.get_active ()
+        self.auth.sambaServer = self.sambaServer.get_text()
+        self.auth.sambaWorkgroup = self.sambaWorkgroup.get_text()
 
     def getScreen (self, auth):
 	self.auth = auth
@@ -205,6 +214,38 @@ class AuthWindow (InstallWindow):
 
         self.krb5.connect ("toggled", self.setSensitivities)
 
+        # samba
+        self.samba = GtkCheckButton (_("Enable Samba Authentication"))
+        self.sambaServer = GtkEntry ()
+        self.sambaWorkgroup = GtkEntry ()
+        self.sambaLabel1 = GtkLabel (_("Samba Server:"))
+        self.sambaLabel1.set_alignment (0, 0)
+        self.sambaLabel2 = GtkLabel (_("Samba Workgroup:"))
+        self.sambaLabel2.set_alignment (0, 0)
+
+ 	# restore ldap settings
+        self.samba.set_active (self.auth.useSamba)
+ 	self.sambaServer.set_text (self.auth.sambaServer)
+        self.sambaWorkgroup.set_text (self.auth.sambaWorkgroup)
+         
+        sambatable = GtkTable (10, 3)
+
+        sambatable.attach (self.samba, 0, 10, 0, 1)
+
+        spacer = GtkLabel("")
+        spacer.set_usize(10, 1)
+        sambatable.attach (spacer, 0, 1, 1, 2)
+        sambatable.attach (self.sambaLabel1, 2, 3, 1, 2)
+        sambatable.attach (self.sambaServer, 3, 10, 1, 2)
+
+        spacer = GtkLabel("")
+        spacer.set_usize(10, 1)
+        sambatable.attach (spacer, 0, 1, 2, 3)
+        sambatable.attach (self.sambaLabel2, 2, 3, 2, 3)
+        sambatable.attach (self.sambaWorkgroup, 3, 10, 2, 3)
+        
+        self.samba.connect ("toggled", self.setSensitivities)
+
 # pack everything
 
 	self.setSensitivities()
@@ -214,9 +255,9 @@ class AuthWindow (InstallWindow):
         box.pack_start (nistable, FALSE)
         box.pack_start (ldaptable, FALSE)
         box.pack_start (krb5table, FALSE)
+        box.pack_start (sambatable, FALSE)
         
 	box.set_border_width (5)
-
         
         return box
 
