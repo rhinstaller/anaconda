@@ -557,6 +557,7 @@ class KickstartBase(BaseInstallClass):
 		     "rootpw"		: self.doRootPw		,
 		     "skipx"		: self.doSkipX		,
 		     "text"		: None			,
+		     "graphical"	: None			,
 		     "timezone"		: self.doTimezone	,
 		     "url"		: None			,
 		     "upgrade"		: self.doUpgrade	,
