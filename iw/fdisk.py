@@ -21,9 +21,10 @@ class FDiskWindow (InstallWindow):
         except:
             # XXX fixme
             pass
+        self.ics.readHTML ("fdisk")
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
-        self.ics.setHelpEnabled (1)
+#        self.ics.setHelpEnabled (1)
 
     def getPrev(self):
 	self.todo.fstab.rescanPartitions()
@@ -59,7 +60,8 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.remove (self.buttonBox)
         self.windowContainer.pack_start (zvt)
 
-        self.ics.setHelpEnabled (0)
+#        self.ics.setHelpEnabled (0)
+        self.ics.readHTML ("fdiskpart")
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
