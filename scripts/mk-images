@@ -569,7 +569,7 @@ EOF
     rm -f $MBD_DIR/etc/ramfs.img.big
 
 cat > $MBD_DIR/.profile <<EOF
-PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sbin:/mnt/usr/sbin:/mnt/bin:/mnt/usr/bin
+PATH=/bin:/usr/bin:/usr/sbin:/usr/X11R6/bin:/mnt/sysimage/sbin:/mnt/sysimage/usr/sbin:/mnt/sysimage/bin:/mnt/sysimage/usr/bin
 export PATH
 EOF
 
