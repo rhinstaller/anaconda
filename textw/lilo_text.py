@@ -78,8 +78,8 @@ class LiloWindow:
             
         format = "/dev/%-11s %s" 
         locations = []
-        locations.append (format % (boothd, "Master Boot Record (MBR)"))
-        locations.append (format % (bootpart, "First sector of boot partition"))
+        locations.append (format % (boothd, _("Master Boot Record (MBR)")))
+        locations.append (format % (bootpart, _("First sector of boot partition")))
 
         (rc, sel) = ListboxChoiceWindow (screen, _("LILO Configuration"),
                                          _("Where do you want to install the bootloader?"),
