@@ -72,8 +72,8 @@ all: $(BINS) loader.tr font.bgf.gz
 
 font.bgf.gz: /usr/lib/bogl/font.bdf.gz /usr/bin/reduce-font
 	zcat /usr/lib/bogl/font.bdf.gz > font.bdf
-	(for I in ../po/*.po; do msgconv -t utf-8 $$I; done) | reduce-font  > font-reduced.bdf
-	bdftobogl -b font.bdf > font.bgf
+	export LANG=en_US.UTF-8; (for I in ../po/*.po; do msgconv -t utf-8 $$I; done) | reduce-font font.bdf > font-reduced.bdf
+	bdftobogl -b font-reduced.bdf > font.bgf
 	rm -f font.bdf font-reduced.bdf
 	gzip -9 -f font.bgf
 
