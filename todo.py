@@ -700,8 +700,6 @@ class ToDo:
     def upgradeFindPackages (self, root):
         win = self.intf.waitWindow (_("Finding"),
                                     _("Finding packages to upgrade..."))
-        self.getCompsList ()
-	self.getHeaderList ()
         if self.setupFilesystems:
             isys.makeDevInode(root, '/tmp/' + root)
 	    mdList = raid.startAllRaid(self.fstab.driveList())
@@ -711,6 +709,8 @@ class ToDo:
 	    raid.stopAllRaid(mdList)
             self.fstab.mountFilesystems (self.instPath)
 	    self.fstab.turnOnSwap(formatSwap = 0)
+        self.getCompsList ()
+	self.getHeaderList ()
 
         packages = rpm.findUpgradeSet (self.hdList.hdlist, self.instPath)
 
