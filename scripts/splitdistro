@@ -166,10 +166,10 @@ os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS" %
 print "Creating disc1..."
 
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
-stamp(disc1Dir, "disc1", arch, startedAt)
+stamp(disc1Dir, releasestr, "disc1", arch, startedAt)
 
 print "Creating disc2..."
-stamp(disc2Dir, "disc2", arch, startedAt)
+stamp(disc2Dir, releasestr, "disc2", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -188,7 +188,7 @@ moveFiles("%s/RedHat/RPMS" % disc1Dir,
 disc1ReallyUsed = spaceUsed(disc1Dir)
 
 print "Creating disc3..."
-stamp(disc3Dir, "disc3", arch, startedAt)
+stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -207,7 +207,7 @@ moveFiles("%s/RedHat/RPMS" % disc2Dir,
 
 print "Doing first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
-stamp(disc1SrcDir, "disc4", arch, startedAt)
+stamp(disc1SrcDir, releasestr, "disc4", arch, startedAt)
 
 print "Creating second source disc..."
 # don't stamp since right now this disc already has binary stuff
