@@ -12,7 +12,13 @@ TOPDIR=`pwd`
 rm -rf $TMPDIR
 mkdir -p $TMPDIR
 
-find /usr/lib/kbd/keymaps/i386 -name "*.kmap*" | while read n; do
+if [ $ARCH = "sparc" ]; then
+    PATTERN="{i386,sun}"
+else
+    PETTERN="i386"
+fi
+
+find /usr/lib/kbd/keymaps/$PATTERN -name "*.kmap*" | while read n; do
     /usr/bin/loadkeys `basename $n .gz`
     ../utils/readmap $TMPDIR/`basename $n .kmap.gz`.kmap
 done
