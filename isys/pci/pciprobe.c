@@ -61,7 +61,7 @@ int probePciReadDrivers(const char * fn) {
     struct stat sb;
     char * buf;
     int numDrivers;
-    char * start;
+    char * start, * chptr;
     struct pciDevice * nextDevice;
     char module[5000];
     char descrip[5000];
@@ -94,6 +94,9 @@ int probePciReadDrivers(const char * fn) {
 	    if (sscanf(start, "%x %x %s \"%[^\"]", &nextDevice->vendor,
 		       &nextDevice->device, module, descrip ) == 4) {
 		numPciDevices++;
+		chptr = strchr(module, '.');
+		if (chptr) *chptr = '\0';
+
 		nextDevice->driver = strdup(module);
 		nextDevice->desc = strdup(descrip);
 		nextDevice++;
