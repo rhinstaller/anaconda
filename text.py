@@ -178,6 +178,8 @@ class InstallInterface:
                 if found:
                     break
                 for lang in self.langSearchPath:
+                    if found:
+                        break
                     for tag in tags:
                         fn = "%shelp/%s/s1-help-screens-%s%s.txt" \
                              % (path, lang, key, tag)
