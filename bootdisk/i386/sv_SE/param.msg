@@ -14,7 +14,7 @@ att anvaenda expertlaeget skriver du foeljande:
      0flinux mem=128M expert07
 
 Foer att kunna skicka flaggor till moduler maaste du anvaenda expertlaeget
-foer att deaktivera den automatiska PCI-testningen. Naer installations-
+foer att deaktivera den automatiska PCI-undersoekningen. Naer installations-
 programmet fraagar efter vilken enhetstyp som behoever en flagga eller
 parameter skickad till den kommer det daa att finnas en plats att ange detta.
 

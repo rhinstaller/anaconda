@@ -2,13 +2,13 @@
                          09Allmaen uppstartshjaelp07
 
 Du aer nu redo att paaboerja installationsprocessen. I de flesta fall aer det
-enklaste saettet att starta att helt enkelt bara trycka 0f<ENTER>07-tangenten.
+enklaste saettet att starta att helt enkelt bara trycka 0f<RETUR>07-tangenten.
 
 Det grafiska installationsprogrammet anvaender rambufferten ("framebuffer") med
 16-bitars faerg och upploesningen 800x600. Om du har problem med det grafiska
 installationsprogrammet kan du prova ett av foeljande alternativ:
-    -  Starta installationen i upploesningen 640x480 med 0flowres <ENTER>07.
-    -  Undvik att anvaenda framebuffer-laeget genom att ange 0fnofb <ENTER>07.
+    -  Starta installationen i upploesningen 640x480 med 0flowres <RETUR>07.
+    -  Undvik att anvaenda framebuffer-laeget genom att ange 0fnofb <RETUR>07.
     -  Prova en annan upploesning genom att laegga till "vga=xxx" enligt
        foeljande vaerden:
          1024x768x8bpp  -> vga=773        1024x768x16bpp  -> vga=791 

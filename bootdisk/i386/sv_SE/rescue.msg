@@ -3,11 +3,11 @@
 
 0cRed Hat07 Linux-cdrom:en har ett raeddningslaege som kan anvaendas daa
 systemet inte startar korrekt. Raeddningslaeget innehaaller maanga
-anvaendbara verktyg (texteditor, haarddisk- och RAID-verktyg mm.) som goer
-det moejligt att reparera ett system till ett fungerande tillstaand.
+anvaendbara verktyg (textredigerare, haarddisk- och RAID-verktyg mm.) som
+goer det moejligt att reparera ett system till ett fungerande tillstaand.
 
 Foer att gaa in i raeddningslaeget startar du ditt system fraan 0cRed Hat07
-Linux-cdrom:en och skriver 0flinux rescue <ENTER>07.
+Linux-cdrom:en och skriver 0flinux rescue <RETUR>07.
 
 
 
