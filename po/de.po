@@ -1,30 +1,17 @@
-# translation of de.po to 
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to German
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to
-# translation of de.po to
-# translation of anaconda.anaconda-po.po to
-# translation of anaconda.anaconda-po.po to Deutsch
-# translation of de.po to Deutsch
 # Copyright (C) 2001 Red Hat, Inc.
 # Claudia Krug <fhonig@redhat.it>, 2001.
 # Bernd Groh <bgroh@redhat.com>, 2002,2003,2004.
 # Andreas Müller <redhat@andreas-mueller.com>, 2003, 2004.
 # Stefan Hoelldampf <stfn@gmx.net>, 2003.
 # Verena <vfuehrer@redhat.com>, 2004.
-# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004
+# Ronny Buchmann <ronny-vlug@vlugnet.org> 2004,2005
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-03 14:34-0500\n"
-"PO-Revision-Date: 2004-10-18 23:48+0200\n"
+"PO-Revision-Date: 2005-03-23 22:21+0100\n"
 "Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -34,7 +21,7 @@ msgstr ""
 
 #: ../anaconda:102
 msgid "Starting VNC..."
-msgstr "Starte VNC..."
+msgstr "Starte VNC ..."
 
 #: ../anaconda:137
 #, c-format
@@ -232,7 +219,7 @@ msgid "Could not allocate partitions"
 msgstr "Partitionen konnten nicht zugewiesen werden"
 
 #: ../autopart.py:1022
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to "
 "boot from this partition. Use a partition belonging to a BSD disk label or "
@@ -784,7 +771,7 @@ msgstr ""
 "Drücken Sie die <Enter-Taste>, um Ihr System neu zu booten."
 
 #: ../fsset.py:1365
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Error enabling swap device %s: %s\n"
 "\n"
@@ -795,7 +782,7 @@ msgid ""
 msgstr ""
 "Fehler beim Aktivieren des Swap-Geräts %s: %s\n"
 "\n"
-"Das heißt, dass diese Swap-Partition nicht initialisiert wurde.\n"
+"Die Datei /etc/fstab enthält eine ungültige Swap-Partition.\n"
 "\n"
 "Drücken Sie OK, um Ihr System neu zu starten."
 
@@ -917,7 +904,6 @@ msgstr ""
 "Drücken Sie OK, um Ihr System neu zu starten."
 
 #: ../fsset.py:1585
-#, fuzzy
 msgid ""
 "Error finding / entry.\n"
 "\n"
@@ -925,9 +911,9 @@ msgid ""
 "\n"
 "Press OK to reboot your system."
 msgstr ""
-"Fehler beim Einhängen des Geräts %s als %s: %s\n"
+"Fehler beim Suchen des / Eintrags.\n"
 "\n"
-"Das heißt, dass diese Partition nicht formatiert worden ist.\n"
+"Höchstwahrscheinlich ist Ihre fstab nicht korrekt.\n"
 "\n"
 "Drücken Sie OK, um Ihr System neu zu starten."
 
@@ -1256,21 +1242,19 @@ msgstr "Im System installieren"
 
 #: ../kickstart.py:102
 msgid "Scriptlet Failure"
-msgstr ""
+msgstr "Skriptfehler"
 
 #: ../kickstart.py:103
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "There was an error running the scriptlet.  You may examine the output in %"
 "s.  This is a fatal error and your install will be aborted.\n"
 "\n"
 "Press the OK button to reboot your system."
 msgstr ""
-"Beim Installieren von %s ist ein Fehler aufgetreten. Das könnte ein Fehler "
-"des Mediums, mangelnder Platz auf der Festplatte und/oder ein Problem mit "
-"der Hardware sein. Hierbei handelt es sich um einen schwerwiegenden Fehler, "
-"und die Installation wird beendet. Überprüfen Sie Ihr Installations-Medium, "
-"und führen Sie die Installation erneut aus.\n"
+"Beim Ausführen des Skripts trat ein Fehler auf. Sie können die Ausgabe in %s"
+"untersuchen. Hierbei handelt es sich um einen schwerwiegenden Fehler, "
+"und die Installation wird beendet.\n"
 "\n"
 "Klicken Sie auf OK, um das System neu zu starten."
 
@@ -1370,6 +1354,8 @@ msgid ""
 "The comps file in your installation tree is missing critical groups.  Please "
 "ensure that your install tree has been correctly generated."
 msgstr ""
+"Der comps Datei in Ihrem Installationsbaum fehler wichtige Gruppen. Bitte "
+"stellen Sie sicher, dass Ihr Installationsbaum korrekt erzeugt wurde."
 
 #: ../packages.py:197 ../packages.py:631
 #, python-format
@@ -1415,7 +1401,6 @@ msgstr ""
 "Drücken Sie <Enter>, um es erneut zu versuchen."
 
 #: ../packages.py:443
-#, fuzzy
 msgid "Re_boot"
 msgstr "Neu sta_rten"
 
@@ -1424,6 +1409,9 @@ msgid ""
 "If you reboot, your system will be left in an inconsistent state that will "
 "likely require reinstallation.  Are you sure you wish to continue?"
 msgstr ""
+"Wenn Sie jetzt neu starten, wird Ihr System in einem inkonsisten Zustand sein,"
+"der wahrscheinlich eine Neuinstallation erfordert. Sind Sie sicher, dass Sie "
+"neu starten wollen?"
 
 #: ../packages.py:461
 msgid "Installing..."
@@ -2114,9 +2102,8 @@ msgstr ""
 "Megabyte erstellen."
 
 #: ../partitions.py:823
-#, fuzzy
 msgid "You must create an Apple Bootstrap partition."
-msgstr "Sie müssen eine PPC PReP Boot-Partition erzeugen."
+msgstr "Sie müssen eine Apple Bootstrap-Partition erzeugen."
 
 #: ../partitions.py:845
 msgid "You must create a PPC PReP Boot partition."
@@ -3000,7 +2987,6 @@ msgid "Advanced Boot Loader Configuration"
 msgstr "Erweiterte Bootloader Konfiguration"
 
 #: ../iw/bootloader_advanced_gui.py:43 ../textw/bootloader_text.py:126
-#, fuzzy
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.\n"
@@ -3008,9 +2994,7 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Der erzwungene Gebrauch von LBA32 für Ihren Bootloader ohne Unterstützung "
-"des BIOS kann dazu führen, dass Ihr Rechner nicht startet. Sie sollten "
-"unbedingt eine Bootdiskette erstellen, wenn Sie später dazu aufgefordert "
-"werden.\n"
+"des BIOS kann dazu führen, dass Ihr Rechner nicht startet.\n"
 "\n"
 "Möchten Sie fortfahren und den LBA32-Modus erzwingen?"
 
@@ -3045,7 +3029,6 @@ msgid "Change Boot Loader"
 msgstr "Bootloader ändern"
 
 #: ../iw/bootloader_main_gui.py:93
-#, fuzzy
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3059,7 +3042,7 @@ msgstr ""
 "besondere Anforderungen. Ein Bootloader ist fast immer erforderlich, um Ihr "
 "System direkt von der Festplatte aus in Linux zu booten.\n"
 "\n"
-"Möchten Sie die Installation des Bootloaders wirklich überspringen?"
+"Möchten Sie fortfahren und keinen Bootloader installieren?"
 
 #: ../iw/bootloader_main_gui.py:97
 msgid "C_ontinue with no boot loader"
@@ -3135,7 +3118,7 @@ msgstr "Installation beginnt"
 #: ../iw/confirm_gui.py:65 ../iw/confirm_gui.py:95 ../textw/confirm_text.py:35
 #: ../textw/confirm_text.py:61
 msgid "Reboot?"
-msgstr "Neu sta_rten"
+msgstr "Neu sta_rten?"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:96 ../textw/confirm_text.py:36
 #: ../textw/confirm_text.py:62
@@ -3185,15 +3168,13 @@ msgid "Congratulations"
 msgstr "Herzlichen Glückwunsch!"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media  used during the installation process and "
 "press the \"Reboot\" button to reboot your system.\n"
 "\n"
 msgstr ""
-"Entfernen Sie sämtliche Installationsmedien (Disketten oder CD-ROMs), die "
-"Sie bei der Installation verwendet haben, und drücken Sie <Enter>, um das "
-"System neu zu starten.\n"
+"Entfernen Sie sämtliche Installationsmedien, die Sie bei der Installation"
+"verwendet haben, und drücken Sie \"Neu starten\", um Ihr System neu zu starten.\n"
 "\n"
 
 #: ../iw/congrats_gui.py:65
@@ -4059,9 +4040,8 @@ msgid "Encryption _Key"
 msgstr "_Kryptoschlüssel"
 
 #: ../iw/network_gui.py:254
-#, fuzzy
 msgid "Hardware address:"
-msgstr "IP-Adresse:"
+msgstr "Hardware-Adresse:"
 
 #: ../iw/network_gui.py:293
 #, python-format
@@ -5561,15 +5541,13 @@ msgid "<Enter> to exit"
 msgstr "<Eingabetaste> zum Beenden"
 
 #: ../textw/complete_text.py:30
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "<Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Entfernen Sie sämtliche Installationsmedien (Disketten oder CD-ROMs), die "
-"Sie bei der Installation verwendet haben, und drücken Sie <Enter>, um das "
-"System neu zu starten.\n"
+"Entfernen Sie sämtliche Installationsmedien, die Sie bei der Installation "
+"verwendet haben, und drücken Sie <Enter>, um das System neu zu starten.\n"
 "\n"
 
 #: ../textw/complete_text.py:34
@@ -5873,7 +5851,7 @@ msgstr "Beschreibung: %s"
 #: ../textw/network_text.py:98
 #, python-format
 msgid "Hardware Address: %s"
-msgstr ""
+msgstr "Hardware Addresse: %s"
 
 #: ../textw/network_text.py:103
 msgid "Configure using DHCP"
@@ -7373,9 +7351,9 @@ msgid "Welcome to %s"
 msgstr "Willkommen bei %s"
 
 #: ../loader2/lang.c:53
-#, fuzzy, c-format
+#, c-format
 msgid "Welcome to %s - Rescue Mode"
-msgstr "Willkommen bei %s"
+msgstr "Willkommen bei %s - Rettungsmodus"
 
 #: ../loader2/lang.c:54 ../loader2/loader.c:139
 msgid ""
@@ -7914,14 +7892,12 @@ msgid "Account name:"
 msgstr "Accountname:"
 
 #: ../loader2/urls.c:459
-#, fuzzy
 msgid "Further FTP Setup"
-msgstr "FTP-Setup"
+msgstr "Weitere FTP-Einstellungen"
 
 #: ../loader2/urls.c:462
-#, fuzzy
 msgid "Further HTTP Setup"
-msgstr "HTTP-Setup"
+msgstr "Weitere HTTP-Einstellungen"
 
 #: ../loader2/windows.c:64
 msgid "Loading SCSI driver"
@@ -7933,7 +7909,7 @@ msgstr "_Hilfe ausblenden"
 
 #: tmp/anaconda.glade.h:2
 msgid "Reboo_t"
-msgstr "Neu sta_rten"
+msgstr "Neu star_ten"
 
 #: tmp/anaconda.glade.h:3
 msgid "Show _Help"
