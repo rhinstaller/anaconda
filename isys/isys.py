@@ -32,6 +32,6 @@ def makeDevInode(name, fn):
     return _isys.mkdevinode(name, fn)
 	
 try:
-    _isys.readmoduleinfo("/etc/module-info")
+    _isys.readmoduleinfo("/modules/module-info")
 except IOError:
     _isys.readmoduleinfo("/boot/module-info")
