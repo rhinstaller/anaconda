@@ -44,6 +44,7 @@ class InstallProgressWindow (InstallWindow):
 
             return "%01d:%02d.%02d" % (int(hours) ,int(min), int(secs))
 
+        threads_enter ()
         self.numComplete = self.numComplete + 1
         apply (self.clist.set_text, self.status["completed"]["packages"] + ("%d" % self.numComplete,))
 
@@ -66,6 +67,8 @@ class InstallProgressWindow (InstallWindow):
 	remainingTime = finishTime - elapsedTime
         apply (self.clist.set_text, self.status["remaining"]["time"] + ("%s" % formatTime(remainingTime),))
 
+        threads_leave ()
+        
         return
 
 #        self.clist.set_text ("%d" % self.numComplete,
@@ -85,6 +88,7 @@ class InstallProgressWindow (InstallWindow):
         threads_leave ()
 
     def setSizes (self, total, totalSize):
+        threads_enter ()
         self.numTotal = total
         self.totalSize = totalSize
         self.timeStarted = time.time ()
@@ -93,6 +97,7 @@ class InstallProgressWindow (InstallWindow):
         
         apply (self.clist.set_text, self.status["total"]["size"] +
                                     ("%d M" % (totalSize / (1024 * 1024)),))
+        threads_leave ()
 
     def getScreen (self):
 	table = GtkTable (3, 3)
