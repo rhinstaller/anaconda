@@ -321,8 +321,8 @@ class XConfigWindow (InstallWindow):
         self.todo.x.probe ()
         self.todo.x.filterModesByMemory ()
 
-        box = GtkVBox (FALSE, 5)
-        box.set_border_width (5)
+        box = GtkVBox (FALSE, 0)
+        box.set_border_width (0)
 
         self.autoBox = GtkVBox (FALSE, 5)
 
@@ -434,11 +434,11 @@ class XConfigWindow (InstallWindow):
         self.skip.connect ("toggled", self.skipToggled) 
 
         box.pack_start (self.xdm, FALSE)
-        box.pack_start (self.skip, FALSE)
 
         self.topbox = GtkVBox (FALSE, 5)
+        self.topbox.set_border_width (5)
         self.topbox.pack_start (box, TRUE, TRUE)
-#        self.topbox.pack_start (self.skip, FALSE)
+        self.topbox.pack_start (self.skip, FALSE)
 
         self.configbox = box
 
