@@ -668,20 +668,24 @@ class PartitionWindow:
                     continue
             else:
                 # pre-existing partition, just set mount point and format flag
-                if origrequest.fstype.isMountable():
-                    origrequest.mountpoint = self.mount.value()
+                request = copy.copy(origrequest)
+                if request.fstype.isMountable():
+                    request.mountpoint = self.mount.value()
 
-                origrequest.format = format
-                origrequest.migrate = migrate
-                origrequest.fstype = newfstype
-                origrequest.badblocks = badblocks
+                request.format = format
+                request.migrate = migrate
+                request.fstype = newfstype
+                request.badblocks = badblocks
 
-                err = sanityCheckPartitionRequest(self.partitions, origrequest)
+                err = sanityCheckPartitionRequest(self.partitions, request)
                 if err:
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
-                request = origrequest
+
+                if origrequest.format == None and request.format:
+                    if not queryFormatPreExisting(self.intf):
+                        continue
 
             # backup current (known working) configuration
             backpart = self.partitions.copy()

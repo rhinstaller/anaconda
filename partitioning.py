@@ -1288,3 +1288,12 @@ def partitioningComplete(dispatch, bl, fsset, diskSet, partitions):
         entry = request.toEntry(partitions)
         fsset.add (entry)
 
+def queryFormatPreExisting(intf):
+    rc = intf.messageWindow(_("Format?"),
+                            _("You have chosen to format a pre-existing "
+                              "partition.  This will destroy all data "
+                              "that was previously on it.\n\n"
+                              "Are you sure you want to do this?"),
+                            type = "yesno")
+    return rc
+

@@ -1018,6 +1018,10 @@ class PartitionWindow(InstallWindow):
                     self.intf.messageWindow(_("Error With Request"),
                                             "%s" % (err))
                     continue
+
+                if origrequest.format == None and request.format:
+                    if not queryFormatPreExisting(self.intf):
+                        continue
             
             # backup current (known working) configuration
             backpart = self.partitions.copy()
