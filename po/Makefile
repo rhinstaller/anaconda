@@ -94,3 +94,12 @@ missing-mixed:
 	msgfmt --check -o $@ $<
 
 depend:
+
+I18N_LANGS = ja ko zh_CN zh_TW pt_BR es de fr it hi gu bn pa ta
+                                                                                
+report:
+	for lang in $(I18N_LANGS); do \
+                echo -n "$$lang: "; \
+                msgfmt -v --statistics -o /dev/null $$lang; \
+        done
+
