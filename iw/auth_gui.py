@@ -11,7 +11,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-from gtk import *
+import gtk
 from iw_gui import *
 from translate import _, N_
 
@@ -22,22 +22,22 @@ class AuthWindow (InstallWindow):
 
     def setSensitivities (self, *args):
 	if (not self.nis.get_active()):
-	    self.nisDomain.set_sensitive (FALSE)
-	    self.nisBroadcast.set_sensitive (FALSE)
-	    self.nisServer.set_sensitive (FALSE)
-	    self.nisDomainLabel.set_sensitive (FALSE)
-	    self.nisServerLabel.set_sensitive (FALSE)
+	    self.nisDomain.set_sensitive (gtk.FALSE)
+	    self.nisBroadcast.set_sensitive (gtk.FALSE)
+	    self.nisServer.set_sensitive (gtk.FALSE)
+	    self.nisDomainLabel.set_sensitive (gtk.FALSE)
+	    self.nisServerLabel.set_sensitive (gtk.FALSE)
 	else:
-	    self.nisDomain.set_sensitive (TRUE)
-	    self.nisDomainLabel.set_sensitive (TRUE)
-	    self.nisBroadcast.set_sensitive (TRUE)
+	    self.nisDomain.set_sensitive (gtk.TRUE)
+	    self.nisDomainLabel.set_sensitive (gtk.TRUE)
+	    self.nisBroadcast.set_sensitive (gtk.TRUE)
 
 	    if (self.nisBroadcast.get_active()):
-		self.nisServerLabel.set_sensitive (FALSE)
-		self.nisServer.set_sensitive (FALSE)
+		self.nisServerLabel.set_sensitive (gtk.FALSE)
+		self.nisServer.set_sensitive (gtk.FALSE)
 	    else:
-		self.nisServerLabel.set_sensitive (TRUE)
-		self.nisServer.set_sensitive (TRUE)
+		self.nisServerLabel.set_sensitive (gtk.TRUE)
+		self.nisServer.set_sensitive (gtk.TRUE)
 
         ldapactive = self.ldap.get_active()
         self.ldapServerLabel.set_sensitive (ldapactive)
@@ -90,18 +90,18 @@ class AuthWindow (InstallWindow):
     def getScreen (self, auth):
 	self.auth = auth
 
-        box = VBox (FALSE, 10)
+        box = gtk.VBox (gtk.FALSE, 10)
 
-        nb = GtkNotebook ()
+        nb = gtk.Notebook ()
 
-        self.md5 = GtkCheckButton (_("Enable MD5 passwords"))
-        self.shadow = GtkCheckButton (_("Enable shadow passwords"))
+        self.md5 = gtk.CheckButton (_("Enable MD5 passwords"))
+        self.shadow = gtk.CheckButton (_("Enable shadow passwords"))
 
         # nis
-        self.nis = GtkCheckButton (_("Enable NIS"))
-        self.nisBroadcast = GtkCheckButton (_("Use broadcast to find NIS server"))
-        self.nisDomain = GtkEntry ()
-        self.nisServer = GtkEntry ()
+        self.nis = gtk.CheckButton (_("Enable NIS"))
+        self.nisBroadcast = gtk.CheckButton (_("Use broadcast to find NIS server"))
+        self.nisDomain = gtk.Entry ()
+        self.nisServer = gtk.Entry ()
 
         self.md5.set_active (self.auth.useMD5)
         self.shadow.set_active (self.auth.useShadow)
@@ -111,38 +111,38 @@ class AuthWindow (InstallWindow):
         self.nisBroadcast.set_active (self.auth.nisuseBroadcast)
         self.nisServer.set_text (self.auth.nisServer )
 
-        self.nisDomainLabel = GtkLabel (_("NIS Domain: "))
+        self.nisDomainLabel = gtk.Label (_("NIS Domain: "))
         self.nisDomainLabel.set_alignment (0, 0)
-        self.nisServerLabel = GtkLabel (_("NIS Server: "))
+        self.nisServerLabel = gtk.Label (_("NIS Server: "))
         self.nisServerLabel.set_alignment (0, 0)
 
         self.nis.connect ("toggled", self.setSensitivities)
         self.nisBroadcast.connect ("toggled", self.setSensitivities)
 
-        a = GtkAlignment (0, 0)
+        a = gtk.Alignment (0, 0)
         a.add (self.nisBroadcast)
 
-        nistable = GtkTable (10, 4, FALSE)
-        nistable.attach (self.nis, 0, 10, 0, 1, FILL, SHRINK, 0.0, 0.5)
+        nistable = gtk.Table (10, 4, gtk.FALSE)
+        nistable.attach (self.nis, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
-	spacer = GtkLabel("")
+	spacer = gtk.Label("")
 	spacer.set_usize(10, 1)
-        nistable.attach (spacer, 0, 1, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
+        nistable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         
-        nistable.attach (self.nisDomainLabel, 2, 3, 1, 2, FILL, SHRINK, 0.0, 0.5)
-        nistable.attach (self.nisDomain, 3, 15, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
-        nistable.attach (a, 2, 10, 2, 3, SHRINK, SHRINK, 0.0, 0.5)
-        nistable.attach (self.nisServerLabel, 2, 5, 3, 4, FILL, SHRINK, 0.0, 0.5)
-        nistable.attach (self.nisServer, 3, 10, 3, 4, SHRINK, SHRINK, 0.0, 0.5)
+        nistable.attach (self.nisDomainLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        nistable.attach (self.nisDomain, 3, 15, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        nistable.attach (a, 2, 10, 2, 3, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        nistable.attach (self.nisServerLabel, 2, 5, 3, 4, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        nistable.attach (self.nisServer, 3, 10, 3, 4, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
         # ldap
-        self.ldap = GtkCheckButton (_("Enable LDAP"))
-        self.ldapServer = GtkEntry ()
-        self.ldapBasedn = GtkEntry ()
-        self.ldapTLS = GtkCheckButton (_("Use TLS lookups"))
-        self.ldapServerLabel = GtkLabel (_("LDAP Server:"))
+        self.ldap = gtk.CheckButton (_("Enable LDAP"))
+        self.ldapServer = gtk.Entry ()
+        self.ldapBasedn = gtk.Entry ()
+        self.ldapTLS = gtk.CheckButton (_("Use TLS lookups"))
+        self.ldapServerLabel = gtk.Label (_("LDAP Server:"))
         self.ldapServerLabel.set_alignment (0, 0)
-        self.ldapBasednLabel = GtkLabel (_("LDAP Base DN:"))
+        self.ldapBasednLabel = gtk.Label (_("LDAP Base DN:"))
         self.ldapBasednLabel.set_alignment (0, 0)
 
 	# restore ldap settings
@@ -150,34 +150,34 @@ class AuthWindow (InstallWindow):
 	self.ldapServer.set_text (self.auth.ldapServer)
         self.ldapBasedn.set_text (self.auth.ldapBasedn)
          
-        ldaptable = GtkTable (10, 4, FALSE)
+        ldaptable = gtk.Table (10, 4, gtk.FALSE)
 
-        ldaptable.attach (self.ldap, 0, 10, 0, 1, FILL, SHRINK, 0.0, 0.5)
+        ldaptable.attach (self.ldap, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
-	spacer = GtkLabel("")
+	spacer = gtk.Label("")
 	spacer.set_usize(10, 1)
-        ldaptable.attach (spacer, 0, 1, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
-        ldaptable.attach (self.ldapServerLabel, 2, 3, 1, 2, FILL, SHRINK, 0.0, 0.5)
-        ldaptable.attach (self.ldapServer, 3, 10, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
+        ldaptable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        ldaptable.attach (self.ldapServerLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        ldaptable.attach (self.ldapServer, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
-        ldaptable.attach (self.ldapBasednLabel, 2, 3, 2, 3, FILL, SHRINK, 0.0, 0.5)
-        ldaptable.attach (self.ldapBasedn, 3, 10, 2, 3, SHRINK, SHRINK, 0.0, 0.5)
-        a = GtkAlignment (0, 0)
+        ldaptable.attach (self.ldapBasednLabel, 2, 3, 2, 3, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        ldaptable.attach (self.ldapBasedn, 3, 10, 2, 3, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        a = gtk.Alignment (0, 0)
         a.add (self.ldapTLS)
-        ldaptable.attach (a, 2, 3, 3, 4, SHRINK, SHRINK, 0.0, 0.5) 
+        ldaptable.attach (a, 2, 3, 3, 4, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5) 
         
         self.ldap.connect ("toggled", self.setSensitivities)
 
         # krb5
-        self.krb5 = GtkCheckButton (_("Enable Kerberos"))
-        self.krb5Realm = GtkEntry ()
-        self.krb5Kdc = GtkEntry ()
-        self.krb5Admin = GtkEntry ()
-        self.krb5RealmLabel = GtkLabel (_("Realm:"))
+        self.krb5 = gtk.CheckButton (_("Enable Kerberos"))
+        self.krb5Realm = gtk.Entry ()
+        self.krb5Kdc = gtk.Entry ()
+        self.krb5Admin = gtk.Entry ()
+        self.krb5RealmLabel = gtk.Label (_("Realm:"))
         self.krb5RealmLabel.set_alignment (0, 0)
-        self.krb5KdcLabel = GtkLabel (_("KDC:"))
+        self.krb5KdcLabel = gtk.Label (_("KDC:"))
         self.krb5KdcLabel.set_alignment (0, 0)
-        self.krb5AdminLabel = GtkLabel (_("Admin Server:"))
+        self.krb5AdminLabel = gtk.Label (_("Admin Server:"))
         self.krb5AdminLabel.set_alignment (0, 0)
 
         # restore krb5 settings
@@ -186,31 +186,31 @@ class AuthWindow (InstallWindow):
         self.krb5Kdc.set_text (self.auth.krb5Kdc)
         self.krb5Admin.set_text (self.auth.krb5Admin)
         
-        krb5table = GtkTable (10, 4, FALSE)
+        krb5table = gtk.Table (10, 4, gtk.FALSE)
 
-        krb5table.attach (self.krb5, 0, 10, 0, 1, FILL, SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
-	spacer = GtkLabel("")
+	spacer = gtk.Label("")
 	spacer.set_usize(10, 1)
-        krb5table.attach (spacer, 0, 1, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
-        krb5table.attach (self.krb5RealmLabel, 2, 3, 1, 2, FILL, SHRINK, 0.0, 0.5)
-        krb5table.attach (self.krb5Realm, 3, 10, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
+        krb5table.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5RealmLabel, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5Realm, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
-        krb5table.attach (self.krb5KdcLabel, 2, 3, 2, 3, FILL, SHRINK, 0.0, 0.5)
-        krb5table.attach (self.krb5Kdc, 3, 10, 2, 3, SHRINK, SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5KdcLabel, 2, 3, 2, 3, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5Kdc, 3, 10, 2, 3, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
-        krb5table.attach (self.krb5AdminLabel, 2, 3, 3, 4, FILL, SHRINK, 0.0, 0.5)
-        krb5table.attach (self.krb5Admin, 3, 10, 3, 4, SHRINK, SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5AdminLabel, 2, 3, 3, 4, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        krb5table.attach (self.krb5Admin, 3, 10, 3, 4, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
         self.krb5.connect ("toggled", self.setSensitivities)
 
         # samba
-        self.samba = GtkCheckButton (_("Enable SMB Authentication"))
-        self.sambaServer = GtkEntry ()
-        self.sambaWorkgroup = GtkEntry ()
-        self.sambaLabel1 = GtkLabel (_("SMB Server:"))
+        self.samba = gtk.CheckButton (_("Enable SMB Authentication"))
+        self.sambaServer = gtk.Entry ()
+        self.sambaWorkgroup = gtk.Entry ()
+        self.sambaLabel1 = gtk.Label (_("SMB Server:"))
         self.sambaLabel1.set_alignment (0, 0)
-        self.sambaLabel2 = GtkLabel (_("SMB Workgroup:"))
+        self.sambaLabel2 = gtk.Label (_("SMB Workgroup:"))
         self.sambaLabel2.set_alignment (0, 0)
 
  	# restore ldap settings
@@ -218,18 +218,18 @@ class AuthWindow (InstallWindow):
  	self.sambaServer.set_text (self.auth.sambaServer)
         self.sambaWorkgroup.set_text (self.auth.sambaWorkgroup)
          
-        sambatable = GtkTable (10, 3, FALSE)
+        sambatable = gtk.Table (10, 3, gtk.FALSE)
 
-        sambatable.attach (self.samba, 0, 10, 0, 1, FILL, SHRINK, 0.0, 0.5)
+        sambatable.attach (self.samba, 0, 10, 0, 1, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
 
-        spacer = GtkLabel("")
+        spacer = gtk.Label("")
         spacer.set_usize(10, 1)
-        sambatable.attach (spacer, 0, 1, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
-        sambatable.attach (self.sambaLabel1, 2, 3, 1, 2, FILL, SHRINK, 0.0, 0.5)
-        sambatable.attach (self.sambaServer, 3, 10, 1, 2, SHRINK, SHRINK, 0.0, 0.5)
+        sambatable.attach (spacer, 0, 1, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
+        sambatable.attach (self.sambaLabel1, 2, 3, 1, 2, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        sambatable.attach (self.sambaServer, 3, 10, 1, 2, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
 
-        sambatable.attach (self.sambaLabel2, 2, 3, 2, 3, FILL, SHRINK, 0.0, 0.5)
-        sambatable.attach (self.sambaWorkgroup, 3, 10, 2, 3, SHRINK, SHRINK, 0.0, 0.5)
+        sambatable.attach (self.sambaLabel2, 2, 3, 2, 3, gtk.FILL, gtk.SHRINK, 0.0, 0.5)
+        sambatable.attach (self.sambaWorkgroup, 3, 10, 2, 3, gtk.SHRINK, gtk.SHRINK, 0.0, 0.5)
         
         self.samba.connect ("toggled", self.setSensitivities)
 
@@ -237,10 +237,10 @@ class AuthWindow (InstallWindow):
 
 	self.setSensitivities()
 
-        nisLabel = GtkLabel (_("NIS"))
-        ldapLabel = GtkLabel (_("LDAP"))
-        krb5Label = GtkLabel (_("Kerberos 5"))
-        sambaLabel = GtkLabel (_("SMB"))
+        nisLabel = gtk.Label (_("NIS"))
+        ldapLabel = gtk.Label (_("LDAP"))
+        krb5Label = gtk.Label (_("Kerberos 5"))
+        sambaLabel = gtk.Label (_("SMB"))
 
         nb.append_page(nistable, nisLabel)
         nb.append_page(ldaptable, ldapLabel)
@@ -248,9 +248,9 @@ class AuthWindow (InstallWindow):
         nb.append_page(sambatable, sambaLabel)
 
 
-        box.pack_start (self.md5, FALSE)
-        box.pack_start (self.shadow, FALSE)
-        box.pack_start (nb, TRUE)
+        box.pack_start (self.md5, gtk.FALSE)
+        box.pack_start (self.shadow, gtk.FALSE)
+        box.pack_start (nb, gtk.TRUE)
         
 	box.set_border_width (5)
         
