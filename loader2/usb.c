@@ -121,7 +121,7 @@ int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     }
 
     buf = alloca(40);
-    sprintf(buf, "hid:keybdev%s", (loadUsbStorage ? ":usb-storage" : ""));
+    sprintf(buf, "hid:keybdev:%s", (loadUsbStorage ? ":usb-storage" : ""));
     mlLoadModuleSet(buf, modLoaded, modDeps, modInfo, flags);
     sleep(1);
 

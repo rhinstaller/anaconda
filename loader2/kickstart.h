@@ -1,6 +1,5 @@
 #ifndef H_KICKSTART
 
-#include "../isys/probe.h"
 #include "loader.h"
 
 #define KS_CMD_NONE	    0
@@ -21,10 +20,8 @@ int ksReadCommands(char * cmdFile, int flags);
 int ksGetCommand(int cmd, char ** last, int * argc, char *** argv);
 int ksHasCommand(int cmd);
 
-void getKickstartFile(struct knownDevices * kd,
-                      struct loaderData_s * loaderData, int * flagsPtr);
-void runKickstart(struct knownDevices * kd, struct loaderData_s * loaderData, 
-                  int * flagsPtr);
+void getKickstartFile(struct loaderData_s * loaderData, int * flagsPtr);
+void runKickstart(struct loaderData_s * loaderData, int * flagsPtr);
 int getKickstartFromBlockDevice(char *device, char *path);
 void getHostandPath(char * ksSource, char **host, char ** file, char * ip);
 

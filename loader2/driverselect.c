@@ -19,10 +19,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <kudzu/kudzu.h>
 
 #include "modules.h"
 #include "moduleinfo.h"
-#include "../isys/probe.h"
 #include "loader.h"
 #include "loadermisc.h"
 #include "log.h"
@@ -142,7 +142,7 @@ static int getManualModuleArgs(struct moduleInfo * mod, char *** moduleArgs) {
 
 int chooseManualDriver(int class, moduleList modLoaded, 
                        moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                       struct knownDevices * kd, int flags) {
+                       int flags) {
     int i, numSorted, num = 0, done = 0;
     enum driverMajor type;
     struct sortModuleList * sortedOrder;
@@ -190,7 +190,7 @@ int chooseManualDriver(int class, moduleList modLoaded,
             if (i != 1)
                 return LOADER_BACK;
             
-            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
+            loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo,
                                 flags, 1, 1);
             continue;
         } else {
@@ -265,15 +265,14 @@ int chooseManualDriver(int class, moduleList modLoaded,
     if (done == -1) 
         return LOADER_BACK;
     if (done == -2) {
-        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo, kd,
+        loadDriverFromMedia(class, modLoaded, modDepsPtr, modInfo,
                             flags, 1, 1);
         return chooseManualDriver(class, modLoaded, modDepsPtr, modInfo, 
-                                  kd, flags);
+                                  flags);
     }
 
     mlLoadModule(modInfo->moduleList[num].moduleName, modLoaded, modDeps,
                  modInfo, moduleArgs, flags);
-    updateKnownDevices(kd);
     free(sortedOrder);
 
     return LOADER_OK;

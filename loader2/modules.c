@@ -898,8 +898,7 @@ int removeLoadedModule(const char * modName, moduleList modLoaded,
     return rc;
 }
 
-void loadKickstartModule(struct knownDevices * kd, 
-                         struct loaderData_s * loaderData, int argc, 
+void loadKickstartModule(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
     char * opts = NULL;
     char * module = NULL;

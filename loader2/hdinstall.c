@@ -37,7 +37,6 @@
 #include "method.h"
 #include "mediacheck.h"
 
-#include "../isys/probe.h"
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
@@ -388,8 +387,7 @@ static char * setupIsoImages(char * device, char * dirName,  int flags) {
  * ISO images on that filesystem
  */
 char * mountHardDrive(struct installMethod * method,
-		      char * location, struct knownDevices * kd,
-		      struct loaderData_s * loaderData,
+		      char * location, struct loaderData_s * loaderData,
     		      moduleInfoSet modInfo, moduleList modLoaded,
 		      moduleDeps * modDepsPtr, int flags) {
     int rc;
@@ -469,7 +467,7 @@ char * mountHardDrive(struct installMethod * method,
 		return NULL;
 
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, kd, flags, 0, 0);
+				     modInfo, flags, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
@@ -555,7 +553,7 @@ char * mountHardDrive(struct installMethod * method,
 	    return NULL;
 	} else if (es.reason == NEWT_EXIT_HOTKEY && es.u.key == NEWT_KEY_F2) {
             rc = loadDriverFromMedia(CLASS_HD, modLoaded, modDepsPtr, 
-				     modInfo, kd, flags, 0, 0);
+				     modInfo, flags, 0, 0);
             if (rc == LOADER_BACK)
 		return NULL;
 
@@ -583,8 +581,7 @@ char * mountHardDrive(struct installMethod * method,
     return url;
 }
 
-void setKickstartHD(struct knownDevices * kd, 
-                    struct loaderData_s * loaderData, int argc,
+void setKickstartHD(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
     char *partition, *dir;
     poptContext optCon;

@@ -75,7 +75,6 @@
 
 #include "../isys/imount.h"
 #include "../isys/isys.h"
-#include "../isys/probe.h"
 #include "../isys/stubs.h"
 #include "../isys/lang.h"
 
@@ -302,7 +301,7 @@ static void spawnShell(int flags) {
     return;
 }
 
-void loadUpdates(struct knownDevices *kd, int flags) {
+void loadUpdates(int flags) {
     int done = 0;
     int rc;
     char * device = NULL, ** devNames = NULL;
@@ -363,14 +362,13 @@ void loadUpdates(struct knownDevices *kd, int flags) {
     return;
 }
 
-static void checkForHardDrives(struct knownDevices * kd, int * flagsPtr) {
-    int i;
+static void checkForHardDrives(int * flagsPtr) {
     int flags = (*flagsPtr);
-
-    for (i = 0; i < kd->numKnown; i++)
-        if (kd->known[i].class == CLASS_HD) break;
-
-    if (i != kd->numKnown) 
+    int i;
+    struct device ** devices;
+    
+    devices = probeDevices(CLASS_HD, BUS_UNSPEC, PROBE_ALL);
+    if (devices)
         return;
 
     startNewt(flags);
@@ -634,20 +632,18 @@ static void checkForRam(int flags) {
     }
 }
 
-static int haveDeviceOfType(struct knownDevices * kd, int type) {
-    int i;
+static int haveDeviceOfType(int type) {
+    struct device ** devices;
 
-    for (i = 0; i < kd->numKnown; i++) {
-        if (type == kd->known[i].class)
-            return 1;
-    }
+    devices = probeDevices(type, BUS_UNSPEC, PROBE_ALL);
+    if (devices)
+        return 1;
     return 0;
 }
 
 /* fsm for the basics of the loader. */
 static char *doLoaderMain(char * location,
                           struct loaderData_s * loaderData,
-                          struct knownDevices * kd,
                           moduleInfoSet modInfo,
                           moduleList modLoaded,
                           moduleDeps * modDepsPtr,
@@ -693,7 +689,7 @@ static char *doLoaderMain(char * location,
      * we can fast-path the CD and not make people answer questions in 
      * text mode.  */
     if (!FL_ASKMETHOD(flags) && !FL_KICKSTART(flags)) {
-        url = findRedHatCD(location, kd, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
+        url = findRedHatCD(location, modInfo, modLoaded, * modDepsPtr, flags, !FL_RESCUE(flags));
 	/* if we found a CD and we're not in rescue or vnc mode return */
 	/* so we can short circuit straight to stage 2 from CD         */
 	if (url && (!FL_RESCUE(flags) && !hasGraphicalOverride()))
@@ -804,8 +800,7 @@ static char *doLoaderMain(char * location,
             break;
 
         case STEP_DRIVER: {
-            updateKnownDevices(kd);
-            if (needed == -1 || haveDeviceOfType(kd, needed)) {
+            if (needed == -1 || haveDeviceOfType(needed)) {
                 step = STEP_NETWORK;
                 dir = 1;
                 needed = -1;
@@ -830,7 +825,7 @@ static char *doLoaderMain(char * location,
             }
             
             chooseManualDriver(installMethods[validMethods[methodNum]].deviceType,
-                                    modLoaded, modDepsPtr, modInfo, kd, flags);
+                                    modLoaded, modDepsPtr, modInfo, flags);
             /* it doesn't really matter what we return here; we just want
              * to reprobe and make sure we have the driver */
             step = STEP_DRIVER;
@@ -840,7 +835,7 @@ static char *doLoaderMain(char * location,
         case STEP_DRIVERDISK:
 
             rc = loadDriverFromMedia(needed,
-                                     modLoaded, modDepsPtr, modInfo, kd, 
+                                     modLoaded, modDepsPtr, modInfo, 
                                      flags, 0, 0);
             if (rc == LOADER_BACK) {
                 step = STEP_DRIVER;
@@ -865,7 +860,7 @@ static char *doLoaderMain(char * location,
             }
 
             needsNetwork = 1;
-            if (!haveDeviceOfType(kd, CLASS_NETWORK)) {
+            if (!haveDeviceOfType(CLASS_NETWORK)) {
                 needed = CLASS_NETWORK;
                 step = STEP_DRIVER;
                 break;
@@ -879,7 +874,7 @@ static char *doLoaderMain(char * location,
             /* fall through to interface selection */
         case STEP_IFACE:
             logMessage("going to pick interface");
-            rc = chooseNetworkInterface(kd, loaderData, flags);
+            rc = chooseNetworkInterface(loaderData, flags);
             if ((rc == LOADER_BACK) || (rc == LOADER_ERROR) ||
                 ((dir == -1) && (rc == LOADER_NOOP))) {
                 step = STEP_METHOD;
@@ -909,7 +904,7 @@ static char *doLoaderMain(char * location,
                 break;
             }
 
-            writeNetInfo("/tmp/netinfo", &netDev, kd);
+            writeNetInfo("/tmp/netinfo", &netDev);
             step = STEP_URL;
             dir = 1;
             
@@ -924,7 +919,7 @@ static char *doLoaderMain(char * location,
 
             url = installMethods[validMethods[methodNum]].mountImage(
                                       installMethods + validMethods[methodNum],
-                                      location, kd, loaderData, modInfo, modLoaded, 
+                                      location, loaderData, modInfo, modLoaded, 
                                       modDepsPtr, flags);
             if (!url) {
                 step = STEP_IP ;
@@ -946,8 +941,7 @@ static char *doLoaderMain(char * location,
 }
 
 static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
-                             moduleDeps * modDepsPtr, struct knownDevices * kd,
-                             int flags) {
+                             moduleDeps * modDepsPtr, int flags) {
     char ** devices;
     int i, j, rc, num = 0;
     struct moduleInfo * mi;
@@ -995,7 +989,7 @@ static int manualDeviceCheck(moduleInfoSet modInfo, moduleList modLoaded,
             break;
 
         chooseManualDriver(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                           kd, flags);
+                           flags);
     } while (1);
     return 0;
 }
@@ -1046,7 +1040,6 @@ int main(int argc, char ** argv) {
 
     char twelve = 12;
 
-    struct knownDevices kd;
     moduleInfoSet modInfo;
     moduleList modLoaded;
     moduleDeps modDeps;
@@ -1150,7 +1143,6 @@ int main(int argc, char ** argv) {
         sleep(5);
         exit(1);
     }
-    kd = kdInit();
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
@@ -1163,13 +1155,13 @@ int main(int argc, char ** argv) {
     if (isVioConsole())
 	setenv("TERM", "vt100", 1);
     
-    mlLoadModuleSet("cramfs:fat:vfat:sunrpc:lockd:nfs:loop:isofs:floppy", modLoaded, modDeps, 
+    mlLoadModuleSet("cramfs:vfat:nfs:loop:isofs:floppy", modLoaded, modDeps, 
                     modInfo, flags);
 
     /* now let's do some initial hardware-type setup */
-    ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
-    scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
-    dasdSetup(modLoaded, modDeps, modInfo, flags, &kd);
+    ideSetup(modLoaded, modDeps, modInfo, flags);
+    scsiSetup(modLoaded, modDeps, modInfo, flags);
+    dasdSetup(modLoaded, modDeps, modInfo, flags);
 
     /* Note we *always* do this. If you could avoid this you could get
        a system w/o USB keyboard support, which would be bad. */
@@ -1177,8 +1169,6 @@ int main(int argc, char ** argv) {
     
     /* now let's initialize any possible firewire.  fun */
     firewireInitialize(modLoaded, modDeps, modInfo, flags);
-
-    updateKnownDevices(&kd);
 
     /* explicitly read this to let libkudzu know we want to merge
      * in future tables rather than replace the initial one */
@@ -1188,12 +1178,12 @@ int main(int argc, char ** argv) {
         startNewt(flags);
         
         loadDriverDisks(CLASS_UNSPEC, modLoaded, &modDeps, 
-                        modInfo, &kd, flags);
+                        modInfo, flags);
     }
 
     if (!access("/dd.img", R_OK)) {
         logMessage("found /dd.img, loading drivers");
-        getDDFromSource(&kd, &loaderData, "path:/dd.img", flags);
+        getDDFromSource(&loaderData, "path:/dd.img", flags);
     }
     
     /* this allows us to do an early load of modules specified on the
@@ -1202,10 +1192,10 @@ int main(int argc, char ** argv) {
      * FIXME: this syntax is likely to change in a future release
      *        but is done as a quick hack for the present.
      */
-    earlyModuleLoad(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    earlyModuleLoad(modInfo, modLoaded, modDeps, 0, flags);
     
 
-    busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    busProbe(modInfo, modLoaded, modDeps, 0, flags);
 
     /* JKFIXME: should probably not be doing this, but ... */
     loaderData.modLoaded = modLoaded;
@@ -1216,7 +1206,7 @@ int main(int argc, char ** argv) {
      * we won't have network devices available (and that's the only thing
      * we support with this right now */
     if (loaderData.ddsrc != NULL) {
-        getDDFromSource(&kd, &loaderData, loaderData.ddsrc, flags);
+        getDDFromSource(&loaderData, loaderData.ddsrc, flags);
     }
 
     /* JKFIXME: loaderData->ksFile is set to the arg from the command line,
@@ -1226,18 +1216,18 @@ int main(int argc, char ** argv) {
         logMessage("getting kickstart file");
 
         if (!ksFile)
-            getKickstartFile(&kd, &loaderData, &flags);
+            getKickstartFile(&loaderData, &flags);
         if (FL_KICKSTART(flags) && 
             (ksReadCommands((ksFile) ? ksFile : loaderData.ksFile, 
                             flags) != LOADER_ERROR)) {
-            runKickstart(&kd, &loaderData, &flags);
+            runKickstart(&loaderData, &flags);
         }
     }
 
     if (FL_TELNETD(flags))
-        startTelnetd(&kd, &loaderData, modInfo, modLoaded, modDeps, flags);
+        startTelnetd(&loaderData, modInfo, modLoaded, modDeps, flags);
 
-    url = doLoaderMain("/mnt/source", &loaderData, &kd, modInfo, modLoaded, &modDeps, flags);
+    url = doLoaderMain("/mnt/source", &loaderData, modInfo, modLoaded, &modDeps, flags);
 
     if (!FL_TESTING(flags)) {
         /* unlink dirs and link to the ones in /mnt/runtime */
@@ -1264,25 +1254,25 @@ int main(int argc, char ** argv) {
 
 
     /* we might have already loaded these, but trying again doesn't hurt */
-    ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
-    scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
-    busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
+    ideSetup(modLoaded, modDeps, modInfo, flags);
+    scsiSetup(modLoaded, modDeps, modInfo, flags);
+    busProbe(modInfo, modLoaded, modDeps, 0, flags);
 
-    checkForHardDrives(&kd, &flags);
+    checkForHardDrives(&flags);
 
     if ((!canProbeDevices() || FL_ISA(flags) || FL_NOPROBE(flags))
         && !loaderData.ksFile) {
         startNewt(flags);
-        manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
+        manualDeviceCheck(modInfo, modLoaded, &modDeps, flags);
     }
     
     if (FL_UPDATES(flags)) 
-        loadUpdates(&kd, flags);
+        loadUpdates(flags);
 
     /* look for cards which require the agpgart module */
     agpgartInitialize(modLoaded, modDeps, modInfo, flags);
 
-    mlLoadModuleSetLocation("md:raid0:raid1:raid5:fat:msdos:ext3:reiserfs:jfs:xfs:lvm-mod",
+    mlLoadModuleSetLocation("md:raid0:raid1:raid5:fat:msdos:jbd:ext3:reiserfs:jfs:xfs:lvm-mod",
 			    modLoaded, modDeps, modInfo, flags, 
 			    secondStageModuleLocation);
 

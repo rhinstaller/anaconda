@@ -4,13 +4,11 @@
 #include "method.h"
 
 char * mountCdromImage(struct installMethod * method,
-                       char * location, struct knownDevices * kd,
-                       struct loaderData_s * loaderData,
+                       char * location, struct loaderData_s * loaderData,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags);
 
 char * findRedHatCD(char * location, 
-                    struct knownDevices * kd, 
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
@@ -18,9 +16,8 @@ char * findRedHatCD(char * location,
 		    int requirepkgs);
 
 
-void setKickstartCD(struct knownDevices * kd, 
-                    struct loaderData_s * loaderData, int argc,
+void setKickstartCD(struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr);
 
-int kickstartFromCD(char *kssrc, struct knownDevices * kd, int flags);
+int kickstartFromCD(char *kssrc, int flags);
 #endif

@@ -2,7 +2,6 @@
 #define LOADERHW_H
 
 #include "modules.h"
-#include "../isys/probe.h"
 
 int canProbeDevices(void);
 
@@ -13,21 +12,16 @@ int scsiTapeInitialize(moduleList modLoaded, moduleDeps modDeps,
 void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
                             moduleInfoSet modInfo, int flags);
 
-void updateKnownDevices(struct knownDevices * kd);
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe, 
-                    struct knownDevices * kd, int flags);
+                    moduleDeps modDeps, int justProbe, int flags);
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe, struct knownDevices * kd, int flags);
+             int justProbe, int flags);
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags,
-               struct knownDevices * kd);
+               moduleInfoSet modInfo, int flags);
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo, int flags,
-              struct knownDevices * kd);
+              moduleInfoSet modInfo, int flags);
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags,
-               struct knownDevices * kd);
+               moduleInfoSet modInfo, int flags);
 
 #endif

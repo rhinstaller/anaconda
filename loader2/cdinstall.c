@@ -39,7 +39,6 @@
 #include "cdinstall.h"
 #include "mediacheck.h"
 
-#include "../isys/probe.h"
 #include "../isys/imount.h"
 #include "../isys/isys.h"
 
@@ -286,7 +285,6 @@ static void queryCDMediaCheck(char *dev, int flags) {
  * as /mnt/runtime.
  */
 char * setupCdrom(char * location, 
-                  struct knownDevices * kd, 
 		  struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, 
                   moduleList modLoaded, 
@@ -299,25 +297,19 @@ char * setupCdrom(char * location,
     int stage2inram = 0;
     char * buf;
     char *stage2img;
+    struct device ** devices = NULL;
 
-#if 0
-    if (FL_TESTING(flags) && interactive) {
-        for (i = 0; i < kd->numKnown; i++) {
-            if (kd->known[i].class != CLASS_CDROM) continue;
-	    buf = malloc(200);
-	    sprintf(buf, "cdrom://%s:/mnt/source", kd->known[i].name);
-	    return buf;
-	}
+    devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, PROBE_ALL);
+    if (!devices) {
+        logMessage("got to setupCdrom without a CD device");
+        return NULL;
     }
-#endif
-    
+
     /* JKFIXME: ASSERT -- we have a cdrom device when we get here */
     do {
-        for (i = 0; i < kd->numKnown; i++) {
-            if (kd->known[i].class != CLASS_CDROM) continue;
-
-            logMessage("trying to mount CD device %s", kd->known[i].name);
-            devMakeInode(kd->known[i].name, "/tmp/cdrom");
+        for (i = 0; devices[i]; i++) {
+            logMessage("trying to mount CD device %s", devices[i]->device);
+            devMakeInode(devices[i]->device, "/tmp/cdrom");
             if (!doPwMount("/tmp/cdrom", "/mnt/source", "iso9660", 1, 0, 
                            NULL, NULL, 0, 0)) {
 		char path[1024];
@@ -351,7 +343,7 @@ char * setupCdrom(char * location,
                     }
 
                     /* do the media check */
-                    queryCDMediaCheck(kd->known[i].name, flags);
+                    queryCDMediaCheck(devices[i]->device, flags);
 
 		    /* if in rescue mode and we copied stage2 to RAM */
 		    /* we can now unmount the CD                     */
@@ -361,7 +353,7 @@ char * setupCdrom(char * location,
 		    }
 
                     buf = malloc(200);
-                    sprintf(buf, "cdrom://%s:/mnt/source", kd->known[i].name);
+                    sprintf(buf, "cdrom://%s:/mnt/source", devices[i]->device);
                     return buf;
                 }
 
@@ -399,29 +391,26 @@ char * setupCdrom(char * location,
 
 /* try to find a Red Hat CD non-interactively */
 char * findRedHatCD(char * location, 
-                    struct knownDevices * kd, 
                     moduleInfoSet modInfo, 
                     moduleList modLoaded, 
                     moduleDeps modDeps, 
                     int flags,
 		    int requirepkgs) {
-    return setupCdrom(location, kd, NULL, modInfo, modLoaded, modDeps, flags, 0, requirepkgs);
+    return setupCdrom(location, NULL, modInfo, modLoaded, modDeps, flags, 0, requirepkgs);
 }
 
 
 
 /* look for a Red Hat CD and mount it.  if we have problems, ask */
 char * mountCdromImage(struct installMethod * method,
-                       char * location, struct knownDevices * kd,
-                       struct loaderData_s * loaderData,
+                       char * location, struct loaderData_s * loaderData,
                        moduleInfoSet modInfo, moduleList modLoaded,
                        moduleDeps * modDepsPtr, int flags) {
 
-    return setupCdrom(location, kd, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1, 1);
+    return setupCdrom(location, loaderData, modInfo, modLoaded, *modDepsPtr, flags, 1, 1);
 }
 
-void setKickstartCD(struct knownDevices * kd, 
-                    struct loaderData_s * loaderData, int argc,
+void setKickstartCD(struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
     logMessage("kickstartFromCD");
@@ -429,18 +418,15 @@ void setKickstartCD(struct knownDevices * kd,
     loaderData->method = strdup("cdrom");
 }
 
-int kickstartFromCD(char *kssrc, struct knownDevices * kd, int flags) {
+int kickstartFromCD(char *kssrc, int flags) {
     int rc;
-    int i;
     char *p, *kspath;
+    struct device ** devices;
 
     logMessage("getting kickstart file from first CDROM");
 
-    for (i = 0; i < kd->numKnown; i++)
-	if (kd->known[i].class == CLASS_CDROM)
-	    break;
-
-    if (i >= kd->numKnown) {
+    devices = probeDevices(CLASS_CDROM, BUS_UNSPEC, PROBE_ALL);
+    if (!devices) {
 	logMessage("No CDROM devices found!");
 	return 1;
     }
@@ -454,7 +440,7 @@ int kickstartFromCD(char *kssrc, struct knownDevices * kd, int flags) {
     if (!p || strlen(kspath) < 1)
 	kspath = "/ks.cfg";
 
-    if ((rc=getKickstartFromBlockDevice(kd->known[i].name, kspath))) {
+    if ((rc=getKickstartFromBlockDevice(devices[0]->device, kspath))) {
 	if (rc == 3) {
 	    startNewt(flags);
 	    newtWinMessage(_("Error"), _("OK"),

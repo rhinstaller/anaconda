@@ -205,20 +205,12 @@ void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
     }
 }
 
-void updateKnownDevices(struct knownDevices * kd) {
-    kdFindIdeList(kd, 0);
-    kdFindScsiList(kd, 0);
-    kdFindDasdList(kd, 0);
-    kdFindNetList(kd, 0);
-}
-
 int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded, 
-		 moduleDeps modDeps, struct knownDevices * kd, int flags) {
+		 moduleDeps modDeps, int flags) {
     /* this is a hack since we can't really probe on iSeries */
 #ifdef __powerpc__
     if (!access("/proc/iSeries", X_OK)) {
 	mlLoadModuleSet("veth:viodasd:viocd", modLoaded, modDeps, modInfo, flags);
-	updateKnownDevices(kd);
     }
 #endif
     return 0;
@@ -231,8 +223,7 @@ int probeiSeries(moduleInfoSet modInfo, moduleList modLoaded,
  *        but is done as a quick hack for the present.
  */
 int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded, 
-                    moduleDeps modDeps, int justProbe, 
-                    struct knownDevices * kd, int flags) {
+                    moduleDeps modDeps, int justProbe, int flags) {
     int fd, len, i;
     char buf[1024], *cmdLine;
     int argc;
@@ -259,12 +250,11 @@ int earlyModuleLoad(moduleInfoSet modInfo, moduleList modLoaded,
             mlLoadModuleSet(argv[i] + 11, modLoaded, modDeps, modInfo, flags);
         }
     }
-    updateKnownDevices(kd);
     return 0;
 }
 
 int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
-             int justProbe, struct knownDevices * kd, int flags) {
+             int justProbe, int flags) {
     int i;
     char ** modList;
     char modules[1024];
@@ -276,7 +266,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
     if (FL_NOPROBE(flags)) return 0;
 
     /* we can't really *probe* on iSeries, but we can pretend */
-    probeiSeries(modInfo, modLoaded, modDeps, kd, flags);
+    probeiSeries(modInfo, modLoaded, modDeps, flags);
     
     if (canProbeDevices()) {
         /* autodetect whatever we can */
@@ -297,8 +287,6 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
             mlLoadModuleSet(modules, modLoaded, modDeps, modInfo, flags);
 
             startPcmciaDevices(modLoaded, flags);
-
-            updateKnownDevices(kd);
         } else 
             logMessage("found nothing");
     }
@@ -308,14 +296,12 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 
 
 void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags,
-               struct knownDevices * kd) {
+               moduleInfoSet modInfo, int flags) {
     mlLoadModuleSet("scsi_mod:sd_mod:sr_mod", modLoaded, modDeps, modInfo, flags);
 }
 
 void ideSetup(moduleList modLoaded, moduleDeps modDeps,
-              moduleInfoSet modInfo, int flags,
-              struct knownDevices * kd) {
+              moduleInfoSet modInfo, int flags) {
     struct device ** devices;
     int fd, i;
 
@@ -360,8 +346,7 @@ void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 /* then parse proc to find active DASDs */
 /* Reload dasd_mod with correct range of DASD ports */
 void dasdSetup(moduleList modLoaded, moduleDeps modDeps,
-               moduleInfoSet modInfo, int flags,
-               struct knownDevices * kd) {
+               moduleInfoSet modInfo, int flags) {
 #if !defined(__s390__) && !defined(__s390x__)
     return;
 #else

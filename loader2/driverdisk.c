@@ -40,7 +40,6 @@
 
 #include "../isys/isys.h"
 #include "../isys/imount.h"
-#include "../isys/probe.h"
 
 static char * driverDiskFiles[] = { "modinfo", "modules.dep", "pcitable",
                                     "modules.cgz", NULL };
@@ -213,14 +212,13 @@ int getRemovableDevices(char *** devNames) {
  */
 int loadDriverFromMedia(int class, moduleList modLoaded, 
                         moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                        struct knownDevices * kd, int flags, 
-                        int usecancel, int noprobe) {
+                        int flags, int usecancel, int noprobe) {
 
     char * device = NULL;
     char ** devNames = NULL;
     enum { DEV_DEVICE, DEV_INSERT, DEV_LOAD, DEV_PROBE, 
            DEV_DONE } stage = DEV_DEVICE;
-    int rc, i, num = 0;
+    int rc, num = 0;
     int dir = 1;
 
     while (stage != DEV_DONE) {
@@ -298,18 +296,11 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
         }
         case DEV_LOAD: {
             int found = 0, before = 0;
+            struct device ** devices;
 
-            if (class != CLASS_UNSPEC) {
-                for (i = 0; i < kd->numKnown; i++) {
-                    if (kd->known[i].class == class) {
-                        stage = DEV_DONE;
-                        before++;
-                        break;
-                    }
-                }
-            } else {
-                before = kd->numKnown;
-            }
+            devices = probeDevices(class, BUS_UNSPEC, PROBE_ALL);
+            if (devices)
+                for(; devices[before]; before++);
 
             rc = loadDriverDisk(modInfo, modLoaded, modDepsPtr, 
                                 "/tmp/drivers", flags);
@@ -329,19 +320,11 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 break;
             }
 
-            busProbe(modInfo, modLoaded, *modDepsPtr, 0, kd, flags);
+            busProbe(modInfo, modLoaded, *modDepsPtr, 0, flags);
 
-            if (class != CLASS_UNSPEC) {
-                for (i = 0; i < kd->numKnown; i++) {
-                    if (kd->known[i].class == class) {
-                        stage = DEV_DONE;
-                        found++;
-                        break;
-                    }
-                }
-            } else {
-                found = kd->numKnown;
-            }
+            devices = probeDevices(class, BUS_UNSPEC, PROBE_ALL);
+            if (devices)
+                for(; devices[before]; found++);
 
             if (found > before) {
                 stage = DEV_DONE;
@@ -367,11 +350,10 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
                 stage = DEV_DEVICE;
             } else {
                 rc = chooseManualDriver(class, modLoaded, modDepsPtr, modInfo,
-                                        kd, flags);
+                                        flags);
                 /* if they go back from a manual driver, we'll ask again.
                  * if they load something, assume it's what we need */
                 if (rc == LOADER_OK) {
-                    updateKnownDevices(kd);
                     stage = DEV_DONE;
                 }
             }
@@ -392,7 +374,7 @@ int loadDriverFromMedia(int class, moduleList modLoaded,
 /* looping way to load driver disks */
 int loadDriverDisks(int class, moduleList modLoaded, 
                     moduleDeps * modDepsPtr, moduleInfoSet modInfo, 
-                    struct knownDevices * kd, int flags) {
+                    int flags) {
     int rc;
 
     rc = newtWinChoice(_("Driver disk"), _("Yes"), _("No"), 
@@ -401,7 +383,7 @@ int loadDriverDisks(int class, moduleList modLoaded,
         return LOADER_OK;
 
     rc = loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                             kd, flags, 1, 0);
+                             flags, 1, 0);
     if (rc == LOADER_BACK)
         return LOADER_OK;
 
@@ -411,15 +393,14 @@ int loadDriverDisks(int class, moduleList modLoaded,
         if (rc != 1)
             break;
         loadDriverFromMedia(CLASS_UNSPEC, modLoaded, modDepsPtr, modInfo, 
-                            kd, flags, 0, 0);
+                            flags, 0, 0);
     } while (1);
 
     return LOADER_OK;
 }
 
-static void loadFromLocation(struct knownDevices * kd,
-                            struct loaderData_s * loaderData, 
-                            char * dir, int flags) {
+static void loadFromLocation(struct loaderData_s * loaderData, 
+                             char * dir, int flags) {
     if (verifyDriverDisk(dir, flags) == LOADER_BACK) {
         logMessage("not a valid driver disk");
         return;
@@ -428,25 +409,24 @@ static void loadFromLocation(struct knownDevices * kd,
     loadDriverDisk(loaderData->modInfo, loaderData->modLoaded, 
                    loaderData->modDepsPtr, dir, flags);
     busProbe(loaderData->modInfo, loaderData->modLoaded, *
-             loaderData->modDepsPtr, 0, kd, flags);
+             loaderData->modDepsPtr, 0, flags);
 }
 
-void getDDFromSource(struct knownDevices * kd,
-                     struct loaderData_s * loaderData,
+void getDDFromSource(struct loaderData_s * loaderData,
                      char * src, int flags) {
     char *path = "/tmp/dd.img";
     int unlinkf = 0;
 
     if (!strncmp(src, "nfs:", 4)) {
         unlinkf = 1;
-        if (getFileFromNfs(src + 4, "/tmp/dd.img", kd, loaderData, 
+        if (getFileFromNfs(src + 4, "/tmp/dd.img", loaderData, 
                            flags)) {
             logMessage("unable to retrieve driver disk: %s", src);
             return;
         }
     } else if (!strncmp(src, "ftp://", 6) || !strncmp(src, "http://", 7)) {
         unlinkf = 1;
-        if (getFileFromUrl(src, "/tmp/dd.img", kd, loaderData, flags)) {
+        if (getFileFromUrl(src, "/tmp/dd.img", loaderData, flags)) {
             logMessage("unable to retrieve driver disk: %s", src);
             return;
         }
@@ -454,8 +434,7 @@ void getDDFromSource(struct knownDevices * kd,
      * scsi cdrom drives */
     } else if (!strncmp(src, "cdrom", 5)) {
         loadDriverDisks(CLASS_UNSPEC, loaderData->modLoaded, 
-                        loaderData->modDepsPtr, loaderData->modInfo,
-                        kd, flags);
+                        loaderData->modDepsPtr, loaderData->modInfo, flags);
         return;
     } else if (!strncmp(src, "path:", 5)) {
 	path = src + 5;
@@ -466,7 +445,7 @@ void getDDFromSource(struct knownDevices * kd,
     }
 
     if (!mountLoopback(path, "/tmp/drivers", "loop6")) {
-        loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
+        loadFromLocation(loaderData, "/tmp/drivers", flags);
         umountLoopback("/tmp/drivers", "loop6");
         unlink("/tmp/drivers");
         if (unlinkf) unlink(path);
@@ -474,11 +453,10 @@ void getDDFromSource(struct knownDevices * kd,
 
 }
 
-static void getDDFromDev(struct knownDevices * kd,
-                         struct loaderData_s * loaderData, char * dev, 
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
                          char * fstype, int flags);
 
-void useKickstartDD(struct knownDevices * kd, struct loaderData_s * loaderData,
+void useKickstartDD(struct loaderData_s * loaderData,
                     int argc, char ** argv, int * flagsPtr) {
     char * fstype = NULL;
     char * dev = NULL;
@@ -510,14 +488,13 @@ void useKickstartDD(struct knownDevices * kd, struct loaderData_s * loaderData,
     }
 
     if (dev) {
-        return getDDFromDev(kd, loaderData, dev, fstype, flags);
+        return getDDFromDev(loaderData, dev, fstype, flags);
     } else {
-        return getDDFromSource(kd, loaderData, src, flags);
+        return getDDFromSource(loaderData, src, flags);
     }
 }
 
-static void getDDFromDev(struct knownDevices * kd,
-                         struct loaderData_s * loaderData, char * dev, 
+static void getDDFromDev(struct loaderData_s * loaderData, char * dev, 
                         char * fstype, int flags) {
     devMakeInode(dev, "/tmp/dddev");
     if (fstype) {
@@ -535,7 +512,7 @@ static void getDDFromDev(struct knownDevices * kd,
         }
     }
 
-    loadFromLocation(kd, loaderData, "/tmp/drivers", flags);
+    loadFromLocation(loaderData, "/tmp/drivers", flags);
     umount("/tmp/drivers");
     unlink("/tmp/drivers");
     unlink("/tmp/dddev");

@@ -71,8 +71,7 @@ int nfsGetSetup(char ** hostptr, char ** dirptr) {
 
 
 char * mountNfsImage(struct installMethod * method,
-                     char * location, struct knownDevices * kd,
-                     struct loaderData_s * loaderData,
+                     char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDepsPtr, int flags) {
     char * host = NULL;
@@ -230,8 +229,7 @@ char * mountNfsImage(struct installMethod * method,
 }
 
 
-void setKickstartNfs(struct knownDevices * kd, 
-                     struct loaderData_s * loaderData, int argc,
+void setKickstartNfs(struct loaderData_s * loaderData, int argc,
                      char ** argv, int * flagsPtr) {
     char * host = NULL, * dir = NULL;
     poptContext optCon;
@@ -270,13 +268,13 @@ void setKickstartNfs(struct knownDevices * kd,
 }
 
 
-int getFileFromNfs(char * url, char * dest, struct knownDevices * kd,
-                   struct loaderData_s * loaderData, int flags) {
+int getFileFromNfs(char * url, char * dest, struct loaderData_s * loaderData, 
+                   int flags) {
     char * host = NULL, *path = NULL, * file = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
 
-    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return 1;
     }
@@ -337,7 +335,7 @@ int getFileFromNfs(char * url, char * dest, struct knownDevices * kd,
     return failed;
 }
 
-int kickstartFromNfs(char * url, struct knownDevices * kd,
-                     struct loaderData_s * loaderData, int flags) {
-    return getFileFromNfs(url, "/tmp/ks.cfg", kd, loaderData, flags);    
+int kickstartFromNfs(char * url, struct loaderData_s * loaderData, 
+                     int flags) {
+    return getFileFromNfs(url, "/tmp/ks.cfg", loaderData, flags);    
 }

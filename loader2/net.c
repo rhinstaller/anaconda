@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <kudzu/kudzu.h>
 
 #include "../isys/dns.h"
 #include "../isys/isys.h"
@@ -557,19 +558,22 @@ int configureNetwork(struct networkDeviceConfig * dev) {
     return 0;
 }
 
-int writeNetInfo(const char * fn, struct networkDeviceConfig * dev,
-                 struct knownDevices * kd) {
+int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
     FILE * f;
     int i;
+    struct device ** devices;
 
-    for (i = 0; i < kd->numKnown; i++)
-        if (!strcmp(kd->known[i].name, dev->dev.device)) break;
+    devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL);
+    if (!devices)
+        return 0;
+
+    for (i = 0; devices[i]; i++)
+        if (!strcmp(devices[i]->device, dev->dev.device)) break;
     
     if (!(f = fopen(fn, "w"))) return -1;
 
     fprintf(f, "DEVICE=%s\n", dev->dev.device);
 
-    /* JKFIXME: this used kd->known[i].code == CODE_PCMCIA to toggle onboot */
     fprintf(f, "ONBOOT=yes\n");
 
     if (dev->isDynamic) {
@@ -672,8 +676,7 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags) {
     return 0;
 }
 
-void setKickstartNetwork(struct knownDevices * kd, 
-                         struct loaderData_s * loaderData, int argc, 
+void setKickstartNetwork(struct loaderData_s * loaderData, int argc, 
                          char ** argv, int * flagsPtr) {
     char * arg, * bootProto = NULL, * device = NULL, *ethtool = NULL;
     int noDns = 0, rc;
@@ -766,8 +769,7 @@ void setKickstartNetwork(struct knownDevices * kd,
 
 /* if multiple interfaces get one to use from user.   */
 /* NOTE - uses kickstart data available in loaderData */
-int chooseNetworkInterface(struct knownDevices * kd, 
-                           struct loaderData_s * loaderData,
+int chooseNetworkInterface(struct loaderData_s * loaderData,
                            int flags) {
     int i, rc, max = 40;
     int deviceNums = 0;
@@ -775,30 +777,36 @@ int chooseNetworkInterface(struct knownDevices * kd,
     char ** devices;
     char ** deviceNames;
     int foundDev = 0;
+    struct device ** devs;
 
-    /* JKFIXME: this is a lot bigger than it has to be.. */
-    devices = alloca((kd->numKnown + 1) * sizeof(*devices));
-    deviceNames = alloca((kd->numKnown + 1) * sizeof(*devices));
-    for (i = 0; i < kd->numKnown; i++) {
-        if (kd->known[i].class != CLASS_NETWORK)
-            continue;
-        if (kd->known[i].model) {
-                deviceNames[deviceNums] = alloca(strlen(kd->known[i].name) +
-                                          strlen(kd->known[i].model) + 4);
+    devs = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL);
+    if (!devs) {
+        logMessage("no network devices in choose network device!");
+        return LOADER_ERROR;
+    }
+
+    for (i = 0; devs[i]; i++);
+
+    devices = alloca((i + 1) * sizeof(*devices));
+    deviceNames = alloca((i + 1) * sizeof(*devices));
+    for (i = 0; devs[i]; i++) {
+        if (devs[i]->desc) {
+                deviceNames[deviceNums] = alloca(strlen(devs[i]->device) +
+                                          strlen(devs[i]->desc) + 4);
                 sprintf(deviceNames[deviceNums],"%s - %s",
-                        kd->known[i].name, kd->known[i].model);
+                        devs[i]->device, devs[i]->desc);
                 if (strlen(deviceNames[deviceNums]) > max)
                         max = strlen(deviceNames[deviceNums]);
-                devices[deviceNums++] = kd->known[i].name;
+                devices[deviceNums++] = devs[i]->device;
         } else {
-            devices[deviceNums] = kd->known[i].name;
-            deviceNames[deviceNums++] = kd->known[i].name;
+            devices[deviceNums] = devs[i]->device;
+            deviceNames[deviceNums++] = devs[i]->device;
         }
 
         /* this device has been set and we don't really need to ask 
          * about it again... */
         if (loaderData->netDev && (loaderData->netDev_set == 1) &&
-            !strcmp(loaderData->netDev, kd->known[i].name))
+            !strcmp(loaderData->netDev, devs[i]->device))
             foundDev = 1;
     }
     if (foundDev == 1)
@@ -856,9 +864,9 @@ int chooseNetworkInterface(struct knownDevices * kd,
     /* turn off the non-active interface.  this should keep things from
      * breaking when we need the interface to do the install as long as
      * you keep using that device */
-    for (i = 0; i < deviceNums; i++) {
+    for (i = 0; devs[i]; i++) {
         if (strcmp(loaderData->netDev, devices[i]))
-            pumpDisableInterface(kd->known[i].name);
+            pumpDisableInterface(devs[i]->device);
     }
 
     return LOADER_OK;
@@ -867,8 +875,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
 /* JKFIXME: bad name.  this function brings up networking early on a 
  * kickstart install so that we can do things like grab the ks.cfg from
  * the network */
-int kickstartNetworkUp(struct knownDevices * kd, 
-                       struct loaderData_s * loaderData,
+int kickstartNetworkUp(struct loaderData_s * loaderData,
                        struct networkDeviceConfig *netCfgPtr,
                        int flags) {
     int rc;
@@ -881,7 +888,7 @@ int kickstartNetworkUp(struct knownDevices * kd,
     do {
         /* this is smart and does the right thing based on whether or not
          * we have ksdevice= specified */
-        rc = chooseNetworkInterface(kd, loaderData, flags);
+        rc = chooseNetworkInterface(loaderData, flags);
         
         if (rc == LOADER_ERROR) {
             /* JKFIXME: ask for a driver disk? */

@@ -38,8 +38,6 @@
 #include "telnet.h"
 #include "windows.h"
 
-#include "../isys/probe.h"
-
 #ifndef IPPORT_TELNET
 #define IPPORT_TELNET 23
 #endif
@@ -220,12 +218,12 @@ int beTelnet(int flags) {
     return 0;
 }
 
-void startTelnetd(struct knownDevices * kd, struct loaderData_s * loaderData,
+void startTelnetd(struct loaderData_s * loaderData,
                   moduleInfoSet modInfo, moduleList modLoaded, 
                   moduleDeps modDeps, int flags) {
     struct networkDeviceConfig netCfg;
 
-    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return;
     }

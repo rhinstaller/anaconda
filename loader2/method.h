@@ -1,10 +1,10 @@
 #ifndef H_METHOD
 #define H_METHOD
 
-#include "../isys/probe.h"
 #include "modules.h"
 #include "moduledeps.h"
 #include "loader.h"
+#include <kudzu/kudzu.h>
 
 struct installMethod {
     char * name;
@@ -12,8 +12,7 @@ struct installMethod {
     int network;
     enum deviceClass deviceType;			/* for pcmcia */
     char * (*mountImage)(struct installMethod * method,
-                         char * location, struct knownDevices * kd,
-                         struct loaderData_s * loaderData,
+                         char * location, struct loaderData_s * loaderData,
                          moduleInfoSet modInfo, moduleList modLoaded,
                          moduleDeps * modDepsPtr, int flags);
 };

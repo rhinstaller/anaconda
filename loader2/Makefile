@@ -26,7 +26,12 @@ NETOBJS = net.o urls.o ftp.o telnet.o telnetd.o
 PCMCIAOBJS = pcmcia.o $(NETOBJS)
 SOURCES = $(subst .o,.c,$(OBJS)) loader.c
 
-HWLIBS = -lkudzu_loader  -lpci
+HWLIBS = -lkudzu_loader  
+ifeq (1, $(USEDIET))
+HWLIBS += -lpci_loader
+else
+HWLIBS += -lpci
+endif
 
 DEBUG = -ggdb
 COPTS = $(DEBUG) -Os -Wall -DUSE_LOGDEV -DVERSION='"$(VERSION)"' -Werror

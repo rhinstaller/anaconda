@@ -187,8 +187,7 @@ static char * getLoginName(char * login, struct iurlinfo ui) {
 }
 
 char * mountUrlImage(struct installMethod * method,
-                     char * location, struct knownDevices * kd,
-                     struct loaderData_s * loaderData,
+                     char * location, struct loaderData_s * loaderData,
                      moduleInfoSet modInfo, moduleList modLoaded,
                      moduleDeps * modDeps, int flags) {
     int rc;
@@ -266,7 +265,7 @@ char * mountUrlImage(struct installMethod * method,
 
 	    /* ok messy - see if we have a stage2 on local CD */
 	    /* before trying to pull one over network         */
-	    cdurl = findRedHatCD(location, kd, modInfo, modLoaded, 
+	    cdurl = findRedHatCD(location, modInfo, modLoaded, 
 				 *modDeps, flags, 0);
 	    if (cdurl) {
 		logMessage("Detected stage 2 image on CD");
@@ -323,7 +322,7 @@ char * mountUrlImage(struct installMethod * method,
     return url;
 }
 
-int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
+int getFileFromUrl(char * url, char * dest, 
                    struct loaderData_s * loaderData, int flags) {
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
@@ -333,7 +332,7 @@ int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
     struct networkDeviceConfig netCfg;
     char * ehdrs;
 
-    if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
+    if (kickstartNetworkUp(loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
         return 1;
     }
@@ -364,13 +363,12 @@ int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
 	/* find all ethernet devices and make a header entry for each one */
 	int i, hdrlen;
 	char *dev, *mac, tmpstr[128];
+        struct device ** devices;
 
 	hdrlen = 0;
-	for (i = 0; i < kd->numKnown; i++) {
-	    if (kd->known[i].class != CLASS_NETWORK)
-		continue;
-	    
-	    dev = kd->known[i].name;
+        devices = probeDevices(CLASS_NETWORK, BUS_UNSPEC, PROBE_ALL);
+	for (i = 0; devices && devices[i]; i++) {
+	    dev = devices[i]->device;
 	    mac = getMacAddr(dev);
 
 	    if (mac) {
@@ -410,13 +408,12 @@ int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
 }
 
 /* pull kickstart configuration file via http */
-int kickstartFromUrl(char * url, struct knownDevices * kd,
-                     struct loaderData_s * loaderData, int flags) {
-    return getFileFromUrl(url, "/tmp/ks.cfg", kd, loaderData, flags);
+int kickstartFromUrl(char * url, struct loaderData_s * loaderData, 
+                     int flags) {
+    return getFileFromUrl(url, "/tmp/ks.cfg", loaderData, flags);
 }
 
-void setKickstartUrl(struct knownDevices * kd, 
-                     struct loaderData_s * loaderData, int argc,
+void setKickstartUrl(struct loaderData_s * loaderData, int argc,
 		    char ** argv, int * flagsPtr) {
 
     char *url;
