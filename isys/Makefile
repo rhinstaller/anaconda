@@ -8,7 +8,6 @@ OBJECTS = nfsmount.o dns.o nfsmount_clnt.o nfsmount_xdr.o imount.o \
 	  lang.o
 SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
-STATICLIBS = /usr/lib/python1.5/site-packages/kudzumodule.so
 LOADLIBES = -lbz2 -lresolv -lz -lpci -lpopt -L../pump -lpump -lext2fs
 PYMODULES = _isys.so
 SUBDIRS = modutils
@@ -30,8 +29,8 @@ everything: $(TARGET)
 
 all: subdirs $(PYMODULES) libisys.a
 
-_isys.so: isys.o $(OBJECTS) $(STATICLIBS)
-	gcc -shared -g -o $@ isys.o $(OBJECTS) $(STATICLIBS) $(LOADLIBES)
+_isys.so: isys.o $(OBJECTS)
+	gcc -shared -g -o $@ isys.o $(OBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a
