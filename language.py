@@ -203,7 +203,6 @@ class Language:
 
 	self.info['LANG'] = canonNick
 	self.info['SYSFONT'] = self.localeInfo[canonNick][2]
-        self.info['SYSFONTACM'] = "utf8"
 
         # XXX hack - because of exceptional cases on the var - zh_CN.GB2312
 	if nick == "zh_CN.GB18030":
