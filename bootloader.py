@@ -408,7 +408,7 @@ class x86BootloaderInfo(bootloaderInfo):
 	bootDev = bootDev.device.getDevice(asBoot = 1)
 
         f.write('default=0\n')
-        f.write('timeout=30\n')
+        f.write('timeout=10\n')
         f.write('splashimage=%s%sgrub/splash.xpm.gz\n'
                 % (grubbyPartitionName(bootDev), cfPath))
 
