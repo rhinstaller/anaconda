@@ -2,6 +2,7 @@ from gtk import *
 from iw import *
 from gui import _
 import re
+import string
 
 class AccountWindow (InstallWindow):
 
@@ -126,6 +127,20 @@ class AccountWindow (InstallWindow):
 	self.userPass2.set_text("")
 	self.fullName.set_text("")
 
+    def filter(self, widget, text, len, pos):
+        # first character case:
+        if not widget.get_text ():
+            if (text[0:len] not in string.uppercase and
+                text[0:len] not in string.lowercase):
+                widget.emit_stop_by_name ("insert-text")
+
+        # everything else:
+        if (text[0:len] not in string.uppercase and
+            text[0:len] not in string.lowercase and
+            text[0:len] not in string.digits and
+            text[0:len] not in [ '.', '-', '_' ]):
+            widget.emit_stop_by_name ("insert-text")
+
     def getScreen (self):
 	self.passwords = {}
 	self.editingUser = None
@@ -190,6 +205,8 @@ class AccountWindow (InstallWindow):
         self.accountName = GtkEntry (8)
         self.accountName.connect ("activate", forward)
         self.accountName.connect ("changed", self.userOkay)
+        self.accountName.connect ("insert-text", self.filter)
+        
         self.accountName.set_usize (50, -1)
 
         self.fullName = GtkEntry ()
