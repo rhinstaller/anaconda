@@ -139,22 +139,22 @@ class BaseInstallClass:
 	if (not noProbe):
 	    self.x.probe()
 
-	if not self.x.server:
-            if (card != None):
-                self.x.setVidcardByName (card)
-            elif (server != None):
-                self.x.setVidcardByServer (server)
-            else:
-                raise RuntimeError, "Could not probe video card and no fallback specified."
+            if not self.x.server:
+                if (card != None):
+                    self.x.setVidcardByName (card)
+                elif (server != None):
+                    self.x.setVidcardByServer (server)
+                else:
+                    raise RuntimeError, "Could not probe video card and no fallback specified."
                 
 
-	if not self.x.monID and monitor:
-	    self.x.setMonitor((monitor, (None, None)))
-	elif hsync and vsync:
-	    self.x.setMonitor((None, (hsync, vsync)))
+            if not self.x.monID and monitor:
+                self.x.setMonitor((monitor, (None, None)))
+            elif hsync and vsync:
+                self.x.setMonitor((None, (hsync, vsync)))
 
-	if startX:
-	    self.defaultRunlevel = 5
+            if startX:
+                self.defaultRunlevel = 5
 
     # Groups is a list of group names -- the full list can be found in 
     # ths comps file for each release
