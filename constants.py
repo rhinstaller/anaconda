@@ -19,6 +19,10 @@ BETANAG = 1
 
 DEBUG = 0
 
+cmdline = open("/proc/cmdline", "r").read()
+if cmdline.find("debug") != -1:
+    DEBUG = 1
+
 DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
