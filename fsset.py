@@ -1989,7 +1989,7 @@ def makeDevice(dev):
     return device
 
 # XXX fix RAID
-def readFstab (path):
+def readFstab (path, intf = None):
     fsset = FileSystemSet()
 
     # first, we look at all the disks on the systems and get any ext2/3
@@ -2001,7 +2001,23 @@ def readFstab (path):
 
     labelToDevice = {}
     for device, label in labels.items():
-	labelToDevice[label] = device
+        if not labelToDevice.has_key(label):
+            labelToDevice[label] = device
+        elif intf is not None:
+            intf.messageWindow(_("Duplicate Labels"),
+                               _("Multiple devices on your system have are "
+                                 "labelled %s.  Labels across devices must be "
+                                 "unique for your system to function "
+                                 "properly.\n\n"
+                                 "Please fix this problem and restart the "
+                                 "installation process.") %(label,),
+                               type="custom", custom_icon="error",
+                               custom_buttons=[_("_Reboot")])
+            sys.exit(0)
+        else:
+            log("WARNING!!! Duplicate labels for %s, but no intf so trying "
+                "to continue" %(label,))
+                                 
 
     # mark these labels found on the system as used so the factory
     # doesn't give them to another device

@@ -102,7 +102,7 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     isys.mount(root, instPath, rootFs)
 
     oldfsset.reset()
-    newfsset = fsset.readFstab(instPath + '/etc/fstab')
+    newfsset = fsset.readFstab(instPath + '/etc/fstab', intf)
     for entry in newfsset.entries:
         oldfsset.add(entry)
 
@@ -308,7 +308,7 @@ def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
                                   type="ok")
             return DISPATCH_BACK
             
-	newfsset = fsset.readFstab(instPath + '/etc/fstab')
+	newfsset = fsset.readFstab(instPath + '/etc/fstab', intf)
         for entry in newfsset.entries:
             oldfsset.add(entry)
         
