@@ -43,22 +43,22 @@ class LanguageSupportWindow (InstallWindow):
 
             
             if val == 1:
-                print "selected"
+#                print "selected"
                 selected = self.language.get_text (row, 1)
                 self.langs.append (self.languages[selected])
             else:
-                print "not selected"
+#                print "not selected"
                 support_all = FALSE
 
         if support_all == TRUE:
-            print "Supporting all langs"
+#            print "Supporting all langs"
             self.langs = None
 
 
         self.defaultLang = self.languages[self.combo.entry.get_text()]        
 
-        print "langs = ", self.langs
-        print "self.defaultLang = ", self.defaultLang
+#        print "langs = ", self.langs
+#        print "self.defaultLang = ", self.defaultLang
 
         self.todo.language.setSupported (self.langs)
         self.todo.language.setByAbbrev (self.defaultLang)
@@ -67,7 +67,7 @@ class LanguageSupportWindow (InstallWindow):
         return None
 
     def support_select_row (self, clist, event):
-        print "support_select_row"
+#        print "support_select_row"
         list = []
         try:
             row, col  = self.language.get_selection_info (event.x, event.y)
@@ -151,12 +151,12 @@ class LanguageSupportWindow (InstallWindow):
         self.langs = self.todo.language.getSupported()
 
         self.lastLangs = self.langs
-        print "Supported Langs are: ", self.langs
+#        print "Supported Langs are: ", self.langs
         self.sensitiveList = []
         self.running = 0
 
         self.defaultLang = self.icw.getLanguage ()
-        print "self.defaultLang", self.defaultLang
+#        print "self.defaultLang", self.defaultLang
 #        self.defaultPosition = 0
 
  	self.language_keys = self.languages.keys ()
@@ -209,7 +209,7 @@ class LanguageSupportWindow (InstallWindow):
             self.todo.langMaxRows = self.maxrows
             
         self.combo.set_popdown_strings (list)
-        print comboCurr
+#        print comboCurr
         self.combo.list.select_item(comboCurr)
 
 
