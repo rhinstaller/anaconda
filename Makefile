@@ -2,8 +2,10 @@ SUBDIRS = rpmmodule isys balkan po libfdisk collage loader stubs kudzu
 BUILDONLYSUBDIRS = pump
 
 TOPDIR = ../../..
-CATALOGS = po/anaconda-text.pot
+CATALOGS = po/anaconda.pot
 ALLSUBDIRS = $(BUILDONLYSUBDIRS) $(SUBDIRS) 
+
+PYFILES = $(wildcard *.py)
 
 all: subdirs _xkb.so $(CATALOGS)
 
@@ -27,7 +29,8 @@ install: all
 	mkdir -p $(DESTDIR)/usr/lib/python1.5/site-packages
 	mkdir -p $(DESTDIR)/usr/bin/iw
 	cp -a anaconda $(DESTDIR)/usr/bin
-	cp -a *.py $(DESTDIR)/usr/lib/python1.5/site-packages
+	cp -a $(PYFILES) $(DESTDIR)/usr/lib/python1.5/site-packages
+	./py-compile --basedir $(DESTDIR)/usr/lib/python1.5/site-packages $(PYFILES)
 	cp -a iw/*.py $(DESTDIR)/usr/bin/iw
 	cp -a *.py *.so $(DESTDIR)/usr/lib/python1.5/site-packages
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) DESTDIR=`cd $(DESTDIR); pwd` -C $$d install; done
