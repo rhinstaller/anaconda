@@ -8,6 +8,7 @@ prepareBootImage() {
 }
 
 NETMODULES="3c59x de4x5 depca eepro100 ibmtr old_tulip tulip ne"
+SCSIMODULES="DAC960"
 
 mkdir -p $TOPDESTPATH/boot
 cp $BOOTDISKDIR/bootlx $TOPDESTPATH/boot
@@ -16,12 +17,12 @@ makeinitrd --initrdto $TOPDESTPATH/images/ramdisk.img \
 	   --initrdsize 3000 \
 	   --padsize 1440 \
 	   --loaderbin loader \
-	   --modules "$NETMODULES vfat"
+	   --modules "$NETMODULES $SCSIMODULES vfat"
 
 makebootdisk --bootdisksize 1440 --kernelto $TOPDESTPATH/kernels/vmlinux.gz \
 	     --imagename generic.img
 
 makemainmodules "$SECSTAGE"
-makeinstimage --size1 3700 --size2 3600 "netstg" "$SECSTAGE"
-makeinstimage --size1 3700 --size2 3600 "hdstg" "$NETMODULES $SECSTAGE"
+makeinstimage --size1 3700 --size2 3600 "netstg" "$SECSTAGE $SCSIMODULES"
+makeinstimage --size1 3700 --size2 3600 "hdstg" "$SECSTAGE $NETMODULES"
 makemainimage "stage2"
