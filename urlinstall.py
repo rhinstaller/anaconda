@@ -92,22 +92,16 @@ class UrlInstallMethod(InstallMethod):
 	    log("Comps not in update dirs, using %s",fname)
         return groupSetFromCompsFile(fname, hdlist)
 
-    def getFilename(self, h, timer, callback=None):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
 
-        tmppath = self.getTempPath()
-        
-	# h doubles as a filename -- gross
-	if type("/") == type(h):
-	    fullPath = self.baseUrl + "/" + h
+	if destdir is None:
+	    tmppath = self.getTempPath()
 	else:
-	    if self.multiDiscs:
-		base = "%s/disc%d" % (self.pkgUrl, h[DISCNUM])
-	    else:
-		base = self.pkgUrl
+	    tmppath = destdir
+        
+	fullPath = self.baseUrl + "/" + filename
 
-	    fullPath = base + "/RedHat/RPMS/" + h[FILENAME]
-
-	file = tmppath + os.path.basename(fullPath)
+	file = tmppath + "/" + os.path.basename(fullPath)
 
         tries = 0
         while tries < 5:
@@ -116,15 +110,31 @@ class UrlInstallMethod(InstallMethod):
             except IOError, (errnum, msg):
 		log("IOError %s occurred getting %s: %s"
                     %(errnum, fullPath, str(msg)))
+
+		if not retry:
+		    raise FileCopyException
+		
                 time.sleep(5)
             else:
                 break
-            tries = tries + 1
+
+	    tries = tries + 1
 
         if tries >= 5:
             raise FileCopyException
-               
+
 	return file
+
+    def getRPMFilename(self, h, timer, callback=None):
+
+	if self.multiDiscs:
+	    base = "disc%d" % (h[DISCNUM],)
+	else:
+	    base = ""
+
+	fullPath = base + "/RedHat/RPMS/" + h[FILENAME]
+
+	return self.getFilename(fullPath, callback=callback)
 
     def copyFileToTemp(self, filename):
         tmppath = self.getTempPath()
@@ -203,7 +213,7 @@ class UrlInstallMethod(InstallMethod):
 	return HeaderList(hl)
 
     def mergeFullHeaders(self, hdlist):
-	fn = self.getFilename("RedHat/base/hdlist2", None)
+	fn = self.getFilename("RedHat/base/hdlist2", callback=None)
 	hdlist.mergeFullHeaders(fn)
 	os.unlink(fn)
 

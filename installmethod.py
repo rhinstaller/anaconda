@@ -79,7 +79,10 @@ class InstallMethod:
 
         return tmppath
 
-    def getFilename(self, h, timer, callback=None):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+	pass
+
+    def getRPMFilename(self, h, timer, callback=None):
 	pass
 
     def readHeaders(self):

@@ -766,31 +766,46 @@ class InstallControlWindow:
         self.setScreen ()
 
     def loadReleaseNotes(self):
-	langList = self.langSearchPath + [ "" ]
-        sourcepath = self.dispatch.method.getSourcePath()
-        suffixList = []        
-	for lang in langList:
-	    if lang:
-                suffixList.append("-%s.html" % (lang,))
-                suffixList.append(".%s" % (lang,))
+ 	langList = self.langSearchPath + [ "" ]
+	suffixList = []        
+ 	for lang in langList:
+ 	    if lang:
+                 suffixList.append("-%s.html" % (lang,))
+                 suffixList.append(".%s" % (lang,))
             else:
-                suffixList.append(".html")
-                suffixList.append("")
-                
-            for suffix in suffixList:
-                fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
-                if os.access(fn, os.R_OK):
-                    file = open(fn, "r")
-		    self.releaseNotesContents = file.read()
-                    if suffix.endswith('.html'):
-			self.releaseNotesType="html"
-                    else:
-			self.releaseNotesType="text"
-                    file.close()
-                    return
+                 suffixList.append(".html")
+                 suffixList.append("")
+
+	for suffix in suffixList:
+	    fn = "RELEASE-NOTES%s" % (suffix,)
+	    try:
+		tmpfile = self.dispatch.method.getFilename(fn, destdir="/tmp", retry=0)
+
+		if tmpfile is None:
+		    continue
+
+		file = open(tmpfile, "r")
+		self.releaseNotesContents = file.read()
+		file.close()
+
+		# deal with stupid urllib2 creating a zero length file
+		# when the specified FTP URL doesnt exist
+		if len(self.releaseNotesContents) < 1:
+		    self.releaseNotesContents = None
+		    continue
+		
+	    except:
+		continue
+
+	    if suffix.endswith('.html'):
+		self.releaseNotesType="html"
+	    else:
+		self.releaseNotesType="text"
+
+	    return
 
 	self.releaseNotesContents=_("Release notes are missing.\n")
-        self.releaseNotesType="text"
+	self.releaseNotesType="text"
 
     #
     # cant use traditional signals and SIGCHLD to catch viewer exitting,

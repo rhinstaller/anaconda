@@ -35,8 +35,11 @@ class ImageInstallMethod(InstallMethod):
             raise FileCopyException
 	return groupSetFromCompsFile(fname, hdlist)
 
-    def getFilename(self, h, timer, callback=None):
-	return self.tree + "/RedHat/RPMS/" + h[1000000]
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+	return self.tree + "/" + filename
+
+    def getRPMFilename(self, h, timer, callback=None):
+	return self.getFilename("/RedHat/RPMS/" + h[1000000], callback=callback)
 
     def readHeaders(self):
         if not os.access(self.tree + "/RedHat/base/hdlist", os.R_OK):
@@ -121,7 +124,10 @@ class CdromInstallMethod(ImageInstallMethod):
 	isys.makeDevInode("loop0", "/tmp/loop")
 	isys.lochangefd("/tmp/loop", self.loopbackFile)
 
-    def getFilename(self, h, timer, callback=None):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+	return self.tree + "/" + filename
+
+    def getRPMFilename(self, h, timer, callback=None):
         if h[1000002] == None:
             log ("header for %s has no disc location tag, assuming it's"
                  "on the current CD", h[1000000])
@@ -408,12 +414,15 @@ def findIsoImages(path, messageWindow):
     return discImages
 
 class NfsIsoInstallMethod(NfsInstallMethod):
-    def getFilename(self, h, timer, callback=None):
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+	return self.mntPoint + "/" + filename
+    
+    def getRPMFilename(self, h, timer, callback=None):
 	if self.imageMounted != h[1000002]:
 	    self.umountImage()
 	    self.mountImage(h[1000002])
 
-	return self.mntPoint + "/RedHat/RPMS/" + h[1000000]
+	return self.getFilename("/RedHat/RPMS/" + h[1000000])
 
     def readHeaders(self):
 	hl = NfsInstallMethod.readHeaders(self)
@@ -468,7 +477,7 @@ class NfsIsoInstallMethod(NfsInstallMethod):
         try:
             self.umountImage()
         except:
-            log("unable to unmount iimage in filesDone")
+            log("unable to unmount image in filesDone")
             pass
 
     def __init__(self, tree, messageWindow, rootPath):

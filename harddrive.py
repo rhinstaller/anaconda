@@ -103,7 +103,35 @@ class HardDriveInstallMethod(InstallMethod):
 	self.umountMedia()
 	return cs
 
-    def getFilename(self, h, timer, callback=None):
+    # return reference to file specified on ISO #1
+    #
+    # mounts ISO #1, copies file to destdir, umounts ISO #1
+    #
+    # will probably do bad things if called during package installation
+    #
+    # returns None if file doesn't exist
+    def getFilename(self, filename, callback=None, destdir=None, retry=1):
+	if destdir is None:
+	    tmppath = self.getTempPath()
+	else:
+	    tmppath = destdir
+	    
+        fn = tmppath + '/' + os.path.basename(filename)
+
+	self.mountMedia(1)
+	try:
+	    shutil.copy(self.tree + '/' + filename, fn)
+	except:
+	    fn = None
+	    
+        self.umountMedia()
+
+	return fn
+
+
+    # return reference to the RPM file specified by the header
+    # will mount the appropriate ISO image as required by CD # in header
+    def getRPMFilename(self, h, timer, callback=None):
 	if self.mediaIsMounted != h[1000002]:
 	    self.umountMedia()
 	    self.mountMedia(h[1000002])
