@@ -981,11 +981,10 @@ int main(int argc, char ** argv) {
 
     checkForHardDrives(&kd, &flags);
 
-    if (((access("/proc/bus/devices", R_OK) &&
+    if (((access("/proc/bus/pci/devices", R_OK) &&
           access("/proc/openprom", R_OK) &&
           access("/proc/iSeries", R_OK)) ||
-         FL_ISA(flags) || FL_NOPROBE(flags)) && !FL_KICKSTART(flags)) {
-        
+         FL_ISA(flags) || FL_NOPROBE(flags)) && !loaderData.ksFile) {
         startNewt(flags);
         manualDeviceCheck(modInfo, modLoaded, &modDeps, &kd, flags);
     }
