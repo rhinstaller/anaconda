@@ -220,6 +220,9 @@ def expandLangs(str):
     if '.' in str:
 	langs.append(string.split(str, '.')[0])
 
+    if '@' in str:
+	langs.append(string.split(str, '@')[0])
+
     # also add 2 character language code ...
     if len(str) > 2:
 	langs.append(str[:2])
