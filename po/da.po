@@ -363,6 +363,7 @@ msgid "Red Hat Linux"
 msgstr "Red Hat Linux"
 
 #: ../text.py:308
+#, fuzzy
 msgid ""
 "Welcome to Red Hat Linux!\n"
 "\n"
@@ -381,7 +382,7 @@ msgstr ""
 "fortsætter.\n"
 "\n"
 "Har du købt den officielle Red Hat Linux, husk da at registrere dit køb "
-"gennem vores webside, http://www.redhat.com/."
+"gennem vores webside, http://www.redhat.com/"
 
 #: ../text.py:327
 msgid ""
@@ -794,9 +795,8 @@ msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Genopbygning af RPM-database mislykkedes. Har du nok ledig diskplads?"
 
 #: ../todo.py:965
-#, fuzzy
 msgid "An error occured when finding the packages to upgrade."
-msgstr "Finder pakker som skal opgraderes..."
+msgstr "Der skete en fejl under søgning efter pakker som skal opgraderes."
 
 #: ../todo.py:1274
 msgid "Processing"
@@ -1439,8 +1439,8 @@ msgid ""
 msgstr ""
 "Du har valgt at placere dit rodfilsystem i en fil på et allerede "
 "eksisterende DOS eller Windows-filsystem. Hvor stort, i megabyte, vil du "
-"have at rodfilsystemet skal være og hvor megen swapplads vil du have? Totalt "
-"skal de være mindre end %d megabyte i størrelse."
+"have at rodfilsystemet skal være og hvor megen swapplads vil du have?  "
+"Totalt skal de være mindre end %d megabyte i størrelse."
 
 #: ../iw/rootpartition_gui.py:174
 msgid "Root filesystem size:"
@@ -1828,7 +1828,7 @@ msgstr "Totalt"
 msgid ""
 "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
-"   <Mellemrum>,<+>,<-> valg   |   <F1> hjælp   |   <F2> pakkebeskrivelse   "
+"   <Mellemrum>,<+>,<-> valg   |   <F1> hjælp   |   <F2> pakkebeskrivelse "
 
 #: ../textw/packages_text.py:306
 msgid ""
@@ -1855,7 +1855,7 @@ msgid ""
 msgstr ""
 "Diskdruiden er et værktøj til at lave partitioner og opsætte "
 "monteringspunkter. Det er designet til at være lettere at bruge end Linux's "
-"traditionelle diskpartitioneringsprogram 'fdisk', og har flere faciliteter. "
+"traditionelle diskpartitioneringsprogram 'fdisk', og har flere faciliteter.  "
 "Der er dog tilfælde hvor fdisk bør foretrækkes.\n"
 "\n"
 "Hvilket værktøj vil du bruge?"
@@ -2183,6 +2183,7 @@ msgstr ""
 "Monteringspunkter må kun indeholde udskrivbare tegn."
 
 #: ../libfdisk/fsedit.c:999
+#, fuzzy
 msgid ""
 "You've asked to put your root (/) filesystem on a DOS-style FAT partition. "
 "You can do this, but you may not use any other filesystems for your Linux "
@@ -2191,7 +2192,7 @@ msgid ""
 msgstr ""
 "Du har bedt om at lægge dit rodfilsystem (/) på en DOS FAT partition. Det er "
 "tilladt, men så kan du ikke bruge andre filsystemer under Linux. Desuden vil "
-"systemet køre langsommere når du ikke bruger Linux's almindelige filsystem. "
+"systemet køre langsommere når du ikke bruger Linux's almindelige filsystem.  "
 "Vil du fortsætte?"
 
 #: ../libfdisk/fsedit.c:1018
@@ -2418,7 +2419,7 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"Du har forsøgt at tildele '/' monteringspunktet til en FAT-type partition. "
+"Du har forsøgt at tildele '/' monteringspunktet til en FAT-type partition.  "
 "Du kan ikke gøre dette nu, fordi monteringspunkter også er blevet tildelt "
 "til ext2-partitioner.Fjern disse monteringspunkter, så vil du kunne tildele "
 "'/' til denne partition."
@@ -2828,10 +2829,10 @@ msgid "Current Disk Partitions"
 msgstr "Nuværende drevpartitioner"
 
 #: ../libfdisk/newtfsedit.c:1452
+#, fuzzy
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
-msgstr ""
-"    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-Ok        "
+msgstr "    F1-Hjælp   F2-Tilføj   F3-Redigér   F4-Fjern   F5-Nulstil  F12-Ok "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
@@ -3487,61 +3488,60 @@ msgstr "Indlæser SCSI-driver"
 
 #: ../gnome-map/gglobe-canvas.c:24
 msgid "Map Image to display"
-msgstr ""
+msgstr "Kortbillede som skal vises"
 
 #: ../gnome-map/gglobe-canvas.c:25
 msgid "Width of map (in pixels)"
-msgstr ""
+msgstr "Kortbredte (i pixler)"
 
 #: ../gnome-map/gglobe-canvas.c:26
 msgid "Enable antialias"
-msgstr ""
+msgstr "Aktivér antialias"
 
 #: ../gnome-map/gglobe-canvas.c:100
 msgid "World"
-msgstr ""
+msgstr "Verdenen"
 
 #: ../gnome-map/gglobe-canvas.c:101
 msgid "North America"
-msgstr ""
+msgstr "Nordamerika"
 
 #: ../gnome-map/gglobe-canvas.c:102
 msgid "South America"
-msgstr ""
+msgstr "Sydamerika"
 
 #: ../gnome-map/gglobe-canvas.c:103
 msgid "Pacific Rim"
-msgstr ""
+msgstr "Pacific Rim"
 
 #: ../gnome-map/gglobe-canvas.c:104
 msgid "Europe"
-msgstr ""
+msgstr "Europa"
 
 #: ../gnome-map/gglobe-canvas.c:105
 msgid "Africa"
-msgstr ""
+msgstr "Afrika"
 
 #: ../gnome-map/gglobe-canvas.c:106
 msgid "Asia"
-msgstr ""
+msgstr "Asien"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr ""
+msgstr "Kan ikke indlæse data om tidszone"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
-msgstr ""
+msgstr "gglobe-canvas"
 
 #: ../gnome-map/gglobe-canvas.c:764
-#, fuzzy
 msgid "View: "
-msgstr "Vis:"
+msgstr "Vis: "
 
 #. pick New York City as default
 #: ../gnome-map/gglobe-canvas.c:781
 msgid "America/New_York"
-msgstr ""
+msgstr "Amerika/New _York"
 
 msgid "Base"
 msgstr "Basal"
@@ -3580,13 +3580,13 @@ msgid "Networked Workstation"
 msgstr "Netorienteret arbejdsstation"
 
 msgid "Dialup Workstation"
-msgstr "KDE-baseret arbejdsstation"
+msgstr "Ringop-arbejdsstation"
 
 msgid "News Server"
 msgstr "Nyhedstjener"
 
 msgid "NFS Server"
-msgstr "NIS-tjener"
+msgstr "NFS-tjener"
 
 msgid "SMB (Samba) Server"
 msgstr "Samba SMB-tjener"
@@ -3603,9 +3603,8 @@ msgstr "Webtjener"
 msgid "DNS Name Server"
 msgstr "DNS-navnetjener"
 
-#, fuzzy
 msgid "Postgres (SQL) Server"
-msgstr "SQL-tjener"
+msgstr "Postgres SQL-tjener"
 
 msgid "Network Management Workstation"
 msgstr "Arbejdsstation til netværksbetjening"
