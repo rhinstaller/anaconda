@@ -465,7 +465,7 @@ int main(int argc, const char ** argv) {
 	int nalloced = 0;
 	int numpkgs = 0;
 	int len = 0;
-	char b[80];
+	char b[256];
 	
 	if (!(f = fopen(depOrderFile, "r"))) {
 	    fprintf (stderr, "Unable to read %s\n", depOrderFile);
