@@ -206,7 +206,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.iconList.show_all ()
 
     def updateSize(self):
-	print self.todo.comps.sizeStr()
+        self.totalPackageSize.set_text (str(self.todo.comps.sizeStr()))
 
     def installButtonToggled (self, cbutton, *args):
         if not self.currentPackage: return
@@ -347,6 +347,15 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.cbutton.children()[0].set_alignment (1.0, 0.5)
         align.add (self.cbutton)
         hbox.pack_start (align, padding=5)
+        descVBox.pack_start (hbox, FALSE)
+
+        hbox = GtkHBox ()
+        label = GtkLabel (_("Total install size: "))
+        self.totalPackageSize = GtkLabel ()
+        self.totalPackageSize.set_alignment (0.0, 0.5)
+        hbox.pack_start (label, FALSE, padding=5)
+        hbox.pack_start (self.totalPackageSize, FALSE)
+        self.updateSize ()
         descVBox.pack_start (hbox, FALSE)
 
         descSW = GtkScrolledWindow ()
