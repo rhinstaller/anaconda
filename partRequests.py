@@ -561,7 +561,8 @@ class RaidRequestSpec(RequestSpec):
             raidmems.append(partitions.getRequestByID(member).device)
         self.dev = fsset.RAIDDevice(int(self.raidlevel[-1:]),
                                     raidmems, minor = self.raidminor,
-                                    spares = self.raidspares)
+                                    spares = self.raidspares,
+                                    existing = self.preexist)
         return self.dev
 
     def getActualSize(self, partitions, diskset):
@@ -679,7 +680,9 @@ class VolumeGroupRequestSpec(RequestSpec):
         pvs = []
         for pv in self.physicalVolumes:
             pvs.append(partitions.getRequestByID(pv).getDevice(partitions))
-        self.dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs, self.pesize)
+        self.dev = fsset.VolumeGroupDevice(self.volumeGroupName, pvs,
+                                           self.pesize,
+                                           existing = self.preexist)
         return self.dev
 
     def getActualSize(self, partitions, diskset):
@@ -757,7 +760,8 @@ class LogicalVolumeRequestSpec(RequestSpec):
         vg = partitions.getRequestByID(self.volumeGroup)
         vgname = vg.volumeGroupName
         self.dev = fsset.LogicalVolumeDevice(vgname, self.size,
-                                        self.logicalVolumeName)
+                                             self.logicalVolumeName,
+                                             existing = self.preexist)
         return self.dev
 
     def getActualSize(self, partitions, diskset):
