@@ -26,7 +26,24 @@ def _(str):
 class Fstab:
 
     def rescanPartitions(self):
-	pass
+	if self.ddruid:
+	    self.closeDrives()
+
+        fstab = []
+	for (mntpoint, dev, fstype, reformat, size) in self.cachedFstab:
+            fstab.append ((dev, mntpoint))
+
+	self.ddruid = self.fsedit(0, self.driveList(), fstab, self.zeroMbr,
+				  self.readOnly)
+	del self.cachedFstab
+
+    def closeDrives(self):
+	# we expect a rescanPartitions() after this!!!
+	self.cachedFstab = self.mountList(skipExtra = 1)
+	self.ddruid = None
+
+    def setReadonly(self, readOnly):
+	self.readOnly = readOnly
 
     def savePartitions(self):
 	self.ddruid.save()
@@ -51,6 +68,14 @@ class Fstab:
 
     def partitionList(self):
 	return self.ddruid.partitionList()
+
+    def driveList(self):
+	drives = isys.hardDriveList().keys()
+	drives.sort (isys.compareDrives)
+	return drives
+
+    def drivesByName(self):
+	return isys.hardDriveList()
 
     def swapList(self):
 	fstab = []
@@ -117,7 +142,7 @@ class Fstab:
 	rt.write("\n")
 	rt.close()
 
-    def umountFilesystems(self, messageWindow):
+    def umountFilesystems(self):
 	if (not self.setupFilesystems): return 
 
 	isys.umount(self.instPath + '/proc')
@@ -129,7 +154,7 @@ class Fstab:
 		    self.log("unmounting " + mntPoint)
                     isys.umount(mntPoint)
 		except SystemError, (errno, msg):
-		    messageWindow(_("Error"), 
+		    self.messageWindow(_("Error"), 
 			_("Error unmounting %s: %s") % (device, msg))
 
 
@@ -248,7 +273,8 @@ class Fstab:
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 
 	for (partition, doFormat) in self.swapList():
-	    f.write (format % (partition, 'swap', 'swap', 'defaults', 0, 0))
+	    f.write (format % ("/dev" + partition, 'swap', 'swap', 
+			       'defaults', 0, 0))
 
 	f.close ()
         # touch mtab
@@ -261,7 +287,7 @@ class Fstab:
 	self.extraFilesystems.append(mount, partition, fsystem, doFormat,
 				     size)
 
-    def mountList(self):
+    def mountList(self, skipExtra = 0):
 	def sortMounts(one, two):
 	    mountOne = one[0]
 	    mountTwo = two[0]
@@ -280,8 +306,9 @@ class Fstab:
 	    (doFormat,) = self.fsCache[(partition, mount)]
 	    fstab.append((mount, partition, fsystem, doFormat, size ))
 
-	for n in self.extraFilesystems:
-	    fstab.append(n)
+	if not skipExtra:
+	    for n in self.extraFilesystems:
+		fstab.append(n)
 
 	fstab.sort(sortMounts)
 
@@ -298,15 +325,22 @@ class Fstab:
     def getBadBlockCheck(self):
 	return self.badBlockCheck
 
-    def __init__(self, setupFilesystems, serial, waitWindow):
+    def __init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+		 readOnly, waitWindow, messageWindow):
+	self.fsedit = fsedit
 	self.fsCache = {}
 	self.swapOn = 0
 	self.beenSaved = 1
 	self.setupFilesystems = setupFilesystems
 	self.serial = serial
+	self.zeroMbr = zeroMbr
+	self.readOnly = readOnly
 	self.waitWindow = waitWindow
+	self.messageWindow = messageWindow
 	self.badBlockCheck = 0
 	self.extraFilesystems = []
+	self.ddruid = self.fsedit(0, self.driveList(), [], 
+			     zeroMbr, readOnly)
 
 class GuiFstab(Fstab):
 
@@ -324,21 +358,22 @@ class GuiFstab(Fstab):
 	# yikes! this needs to be smarter
 	self.beenSaved = 0
 
-    def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow):
+    def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
+		 messageWindow):
 	from gnomepyfsedit import fsedit        
 	from gtk import *
 
-	Fstab.__init__(self, setupFilesystems, serial, waitWindow)
-	self.ddruid = fsedit(0, isys.hardDriveList().keys(), [], 
-			     zeroMbr, readOnly)
+	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+		       readOnly, waitWindow, messageWindow)
+
 	self.GtkFrame = GtkFrame
 	self.SHADOW_NONE = SHADOW_NONE
 
 class NewtFstab(Fstab):
 
-    def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow):
+    def __init__(self, setupFilesystems, serial, zeroMbr, readOnly, waitWindow,
+		 messageWindow):
 	from newtpyfsedit import fsedit        
 
-	Fstab.__init__(self, setupFilesystems, serial, waitWindow)
-	self.ddruid = fsedit(0, isys.hardDriveList().keys(), [], 
-			     zeroMbr, readOnly)
+	Fstab.__init__(self, fsedit, setupFilesystems, serial, zeroMbr, 
+		       readOnly, waitWindow, messageWindow)

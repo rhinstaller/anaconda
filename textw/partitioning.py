@@ -37,9 +37,8 @@ class ManualPartitionWindow:
 
 	if todo.skipFdisk: return INSTALL_NOOP
 	
-	drives = todo.drives.available ()
-	driveNames = drives.keys()
-	driveNames.sort (isys.compareDrives)
+	driveNames = todo.fstab.driveList()
+	drives = todo.fstab.drivesByName()
 
 	choices = []
 	haveEdited = 0
@@ -65,8 +64,11 @@ class ManualPartitionWindow:
 
 	    if button != "done" and button != "back":
 		haveEdited = 1
-		todo.ddruidReadOnly = 1
-		todo.ddruid = None	# free our fd's to the hard drive
+		# free our fd's to the hard drive -- we have to 
+		# fstab.rescanDrives() after this or bad things happen!
+		if not haveEdited:
+		    todo.fstab.closeDrives()
+		    todo.fstab.setReadonly(1)
 		device = driveNames[choice]
 		screen.suspend ()
 		if os.access("/sbin/fdisk", os.X_OK):
@@ -87,16 +89,7 @@ class ManualPartitionWindow:
                     pass
 		screen.resume ()
 
-        if haveEdited:
-	    drives = todo.drives.available ().keys ()
-	    drives.sort (isys.compareDrives)
-
-	    fstab = []
-	    for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
-		fstab.append ((dev, mntpoint))
-
-	    todo.ddruid = fsedit(0, drives, fstab, todo.zeroMbr,
-				 todo.ddruidReadOnly)
+	todo.fstab.rescanPartitions()
 
 	if button == "back":
 	    return INSTALL_BACK

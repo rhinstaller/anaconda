@@ -24,22 +24,17 @@ class FDiskWindow (InstallWindow):
         self.ics.setNextEnabled (1)
         self.ics.setHelpEnabled (1)
 
+    def getPrev(self):
+	self.todo.fstab.rescanPartitions()
+
     def getNext(self):
-        from gnomepyfsedit import fsedit
         from installpath import InstallPathWindow
         if ((not InstallPathWindow.fdisk) or
             (not InstallPathWindow.fdisk.get_active ())):
                return None
 
-	drives = self.todo.drives.available ().keys ()
-	drives.sort (isys.compareDrives)
+	self.todo.fstab.rescanPartitions()
 
-        fstab = []
-        for mntpoint, (dev, fstype, reformat) in self.todo.mounts.items ():
-            fstab.append ((dev, mntpoint))
-
-	self.todo.ddruid = fsedit(0, drives, fstab, self.todo.zeroMbr,
-				  self.todo.ddruidReadOnly)
 	return None
 
     def button_clicked (self, widget, drive):
@@ -47,20 +42,17 @@ class FDiskWindow (InstallWindow):
         zvt.connect ("child_died", self.child_died, widget)
         self.drive = drive
 
-	# free the file descriptors
-	self.todo.ddruid = None
-	self.todo.ddruidReadOnly = 1
+	# free our fd's to the hard drive -- we have to 
+	# fstab.rescanDrives() after this or bad things happen!
+	self.todo.fstab.setReadonly(1)
 
         if os.access("/sbin/fdisk", os.X_OK):
             path = "/sbin/fdisk"
         else:
             path = "/usr/sbin/fdisk"
-        try:
-            isys.makeDevInode(drive, '/tmp/' + drive)
-        except:
-            # XXX FIXME
-            pass
-        print "running", path, '/tmp/' + drive
+        
+	isys.makeDevInode(drive, '/tmp/' + drive)
+
         if zvt.forkpty() == 0:
             os.execv (path, (path, '/tmp/' + drive))
         zvt.show ()
@@ -72,14 +64,13 @@ class FDiskWindow (InstallWindow):
 	self.ics.setPrevEnabled (0)
         self.ics.setNextEnabled (0)
 
-
     def getScreen (self):
         from installpath import InstallPathWindow
         if ((not InstallPathWindow.fdisk) or
             (not InstallPathWindow.fdisk.get_active ())):
                return None
 
-	self.ddruid = None
+	self.todo.fstab.closeDrives()
 
         self.windowContainer = GtkVBox (FALSE)
         self.buttonBox = GtkVBox (FALSE, 5)
@@ -87,9 +78,7 @@ class FDiskWindow (InstallWindow):
         box = GtkVButtonBox ()
         label = GtkLabel (_("Select drive to run fdisk on"))
 
-        drives = self.todo.drives.available ().keys ()
-	drives.sort(isys.compareDrives)
-        for drive in drives:
+        for drive in self.todo.fstab.driveList():
             button = GtkButton (drive)
             button.connect ("clicked", self.button_clicked, drive)
             box.add (button)

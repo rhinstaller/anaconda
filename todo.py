@@ -331,13 +331,6 @@ class ToDo:
 	# This absolutely, positively MUST BE LAST
 	self.setClass(instClass)
 
-        if self.setupFilesystems:
-            try:
-                f = open("/dev/tty5")
-                f.close ()
-            except:
-                pass
-
     def setFdDevice(self):
 	if self.fdDevice:
 	    return
@@ -1318,8 +1311,7 @@ class ToDo:
 	    self.instLog.close()
 	    del syslog
 
-            if self.setupFilesystems:
-                self.umountFilesystems (self.intf.messageWindow)
+	    self.fstab.umountFilesystems()
             
             return 1
 

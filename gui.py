@@ -10,7 +10,6 @@ from gtk import *
 from gtk import _root_window
 import GdkImlib
 from GDK import *
-from fstab import GuiFstab
 
 im = None
 splashwindow = None

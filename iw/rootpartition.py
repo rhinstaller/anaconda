@@ -84,14 +84,7 @@ class PartitionWindow (InstallWindow):
         self.ics.setNextEnabled (value)
 
     def getScreen (self):
-	if not self.todo.fstab:
-	    from fstab import GuiFstab
-
-	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
-				       self.todo.serial, 0, 0,
-				       self.todo.intf.waitWindow)
-
-	if self.todo.getSkipPartitioning():
+	if 0 and self.todo.getSkipPartitioning():
 	    self.skippedScreen = 1
 	    fstab = self.todo.ddruid.getFstab ()
 	    self.todo.resetMounts()
@@ -123,10 +116,6 @@ class AutoPartitionWindow(InstallWindow):
 
 	if (self.__dict__.has_key("manuallyPartition") and   
 		self.manuallyPartition.get_active()):
-            drives = self.todo.drives.available ().keys ()
-            drives.sort (isys.compareDrives)
-            self.todo.ddruid = fsedit(0, drives, self.fstab, self.todo.zeroMbr,
-				      self.todo.ddruidReadOnly)
 	    self.todo.manuallyPartition()
 	    
 	return None

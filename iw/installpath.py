@@ -94,6 +94,15 @@ class InstallPathWindow (InstallWindow):
         self.ics = ics
 
     def getNext(self):
+	# This makes the error message delivery come at a sane place
+	if not self.todo.fstab:
+	    from fstab import GuiFstab
+
+	    self.todo.fstab = GuiFstab(self.todo.setupFilesystems, 
+				       self.todo.serial, 0, 0,
+				       self.todo.intf.waitWindow,
+				       self.todo.intf.messageWindow)
+
 	if not self.__dict__.has_key("upgradeButton"):
 	    return
 
