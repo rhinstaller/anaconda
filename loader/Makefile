@@ -3,7 +3,7 @@ DESTDIR = ../../trees/initrd
 ARCH := $(patsubst i%86,i386,$(shell uname -m))
 ARCH := $(patsubst sparc%,sparc,$(ARCH))
 
-OBJS = stubs.o log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
+OBJS = log.o windows.o modules.o devices.o cdrom.o urls.o kickstart.o
 LOADEROBJS = loader.o loader-pcmcia.o popen.o
 SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
 BINS = init
@@ -16,6 +16,7 @@ ALLOBJS = $(OBJS) $(PCMCIAOBJS)
 ifeq (i386, $(ARCH))
 BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
+OBJS += stubs.o
 endif
 
 ifeq (alpha, $(ARCH))
