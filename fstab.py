@@ -956,7 +956,7 @@ def readFstab (path, fstab):
 
 	if not fields: continue
 
-	if fields[0] == "#" and fields[1][0:4] == "LOOP":
+	if fields[0] == "#" and len(fields)>4 and fields[1][0:4] == "LOOP":
 	    device = string.lower(fields[1])
 	    if device[len(device) - 1] == ":":
 		device = device[0:len(device) - 1]
