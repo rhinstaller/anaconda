@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: bn\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-11-02 19:25+0530\n"
+"PO-Revision-Date: 2004-11-03 14:06+0530\n"
 "Last-Translator: Runa Bhattacharjee <runab@redhat.com>\n"
 "Language-Team: bangla <redhat-translation@bengalinux.org>\n"
 "MIME-Version: 1.0\n"
@@ -1529,42 +1529,44 @@ msgid "Starting install process, this may take several minutes..."
 msgstr "ইনস্টলেশন প্রক্রিয়া আরম্ভ হচ্ছে, এই কাজে কয়েক মিনিট সময় লাগতে পারে..."
 
 #: ../packages.py:974
+# modified for RHEL
 msgid ""
 "You don't appear to have enough disk space to install the packages you've "
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
-"নির্বাচিত প্যাকেজগুলোকে ইনস্টল করার মত যথেষ্ট ফাঁকা জায়গা ডিস্কে আছে বলে মনে হচ্ছে "
-"না।  নিম্নোক্ত ফাইল সিস্টেমগুলোতে আরো ফাঁকা জায়গা প্রয়োজন:\n"
+"আপনার নির্বাচিত প্যাকেজগুলি ইনস্টল করার জন্য পর্যাপ্ত স্থান সম্ভবত ডিস্কে উপস্থিত নেই। নিম্নলিখিত ফাইল-সিস্টেমগুলিতে অতিরিক্ত ফাঁকা জায়গা প্রয়োজন:\n"
 "\n"
 
 #: ../packages.py:978 ../packages.py:999 ../iw/lvm_dialog_gui.py:1057
 #: ../iw/partition_gui.py:358 ../iw/upgrade_swap_gui.py:148
 #: ../textw/partition_text.py:1435 ../textw/upgrade_text.py:111
+# modified for RHEL
 msgid "Mount Point"
-msgstr "মাউন্ট করার অবস্থান"
+msgstr "মাউন্ট পয়েন্ট"
 
 #: ../packages.py:979
 msgid "Space Needed"
 msgstr "ফাঁকা জায়গা প্রয়োজন"
 
 #: ../packages.py:995
+# modified for RHEL
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
-"বাছাইকৃত প্যাকেজগুলোকে ইনস্টল করার মত যথেষ্ট ফাইল নোড আছে বলে মনে হচ্ছে না। ইনস্টল "
-"করার জন্য নিম্নোক্ত ফাইল সিস্টেমগুলোতে আরো ফাইল নোড প্রয়োজন:\n"
+"আপনার নির্বাচিত প্যাকেজগুলি ইনস্টল করার জন্য পর্যাপ্ত ফাইল-নোড সম্ভবত উপস্থিত নেই। নিম্নলিখিত ফাইল-সিস্টেমগুলিতে অতিরিক্ত ফাইল-নোড প্রয়োজন:\n"
 "\n"
 
 #: ../packages.py:1000
 msgid "Nodes Needed"
-msgstr "ফাইল নোড প্রয়োজন"
+msgstr "ফাইল-নোড প্রয়োজন"
 
 #: ../packages.py:1011
+# modified for RHEL
 msgid "Disk Space"
-msgstr "ডিস্কের জায়গা"
+msgstr "ডিস্কের স্থান"
 
 #: ../packages.py:1060
 msgid "Post Install"
@@ -1575,6 +1577,7 @@ msgid "Performing post install configuration..."
 msgstr "ইনস্টলেশন পরবর্তী কনফিগারেশন করা হচ্ছে..."
 
 #: ../packages.py:1235
+# modified for RHEL
 msgid ""
 "\n"
 "\n"
@@ -1582,9 +1585,10 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"নিম্নোক্ত প্যাকেজগুলো এই সংস্করণের অংশ হলেও এদের আপগ্রেড করা হয় নি:\n"
+"নিম্নলিখিত প্যাকেজগুলি বর্তমান সংস্করণের অংশ হলেও এগুলিকে আপগ্রেড করা হয়নি:\n"
 
 #: ../packages.py:1238
+# modified for RHEL
 msgid ""
 "\n"
 "\n"
@@ -1592,15 +1596,17 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"নিম্নোক্ত প্যাকেজগুলো এই সংস্করণের অংশ হলেও এদের আপগ্রেড করা হয় নি:\n"
+"নিম্নলিখিত প্যাকেজগুলি বর্তমান সংস্করণের অংশ হলেও এগুলিকে ইনস্টল করা হয়নি:\n"
 
 # FIXME
 #: ../packages.py:1482
+# modified for RHEL
 msgid "Warning! This is pre-release software!"
-msgstr "সাবধান! এটি একটি প্রকাশনাপূর্ব সফটওয়্যার!"
+msgstr "সতর্কবাণী! এটি একটি প্রাক-রিলিজ সফটওয়ের!"
 
 #: ../packages.py:1483
 #, python-format
+# modified for RHEL
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1614,30 +1620,30 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"%s-এর এই প্রকাশনাপূর্ব সংস্করণটি ডাউনলোড করার জন্য আপনাকে অশেষ ধন্যবাদ।\n"
+"%s-র এই প্রাক-রিলিজ সংস্করণটি ডাউনলোড করার জন্য আপনাকে অশেষ ধন্যবাদ।\n"
 "\n"
-"এটি কোন চূড়ান্ত সংস্করণ নয় এবং প্রোডাকশন সিস্টেমে ব্যবহার করার জন্যও একে প্রকাশ করা "
-"হয় নি। এটি প্রকাশ করার মূল উদ্দেশ্য হল সফটওয়্যার পরীক্ষকদের (Tester) নিকট থেকে "
-"এটির গুণাগুণ সম্পর্কে মতামত সংগ্রহ। আর প্রতিদিনের কাজকর্মের জন্য এটি মোটেই উপযোগী "
-"নয়।\n"
+"এটি চূড়ান্ত সংস্করণ নয় এবং কোনো প্রোডাকশন সিস্টেমেও ব্যবহার না করা বাঞ্ছনীয়।  এই রিলিজটির মূল উদ্দেশ্য হল সফটওয়ের পরীক্ষকদের থেকে এটির গুণাগুণ সম্পর্কে মতামত সংগ্রহ করা। প্রতিদিনের কাজকর্মের জন্য এটি মোটেই উপযোগী নয়।\n"
 "\n"
-"এই সংস্করণটি সম্পর্কে আপনার কোন মতামত থাকলে অনুগ্রহপূর্বক নিম্ন ঠিকানায় দেখুন:\n"
+"এই সংস্করণটি সম্পর্কে আপনার কোনো মতামত জানাতে হলে, অনুগ্রহ করে নিম্নলিখিত ঠিকানায়:\n"
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"এরপর '%s' এর বিপরীতে আপনার বিবরণ লিখুন।\n"
+"'%s' -র জন্য আপনার মতামত লিখুন।\n"
 
 #: ../packages.py:1496
+# modified for RHEL
 msgid "_Install anyway"
-msgstr "তবুও ইনস্টল করো (_I)"
+msgstr "তথাপি ইনস্টল করো (_I)"
 
 #: ../partedUtils.py:186 ../textw/partition_text.py:555
+# modified for RHEL
 msgid "Foreign"
-msgstr "বাহিরের"
+msgstr "বহিরাগত"
 
 # FIXME
 #: ../partedUtils.py:278
 #, python-format
+# modified for RHEL
 msgid ""
 "The device %s is LDL formatted instead of CDL formatted.  LDL formatted "
 "DASDs are not supported for usage during an install of %s.  If you wish to "
@@ -1646,16 +1652,13 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"%s ডিভাইসটি সি.ডি.এল.-এর পরিবর্তে এল.ডি.এল. ফরম্যাটকৃত।  %s ইনস্টল চলাকালে এল.ডি."
-"এল. ফরম্যাটকৃত DASD-এর ব্যবহার সমর্থিত নয়।  যদি ইনস্টলেশনের কাজে এই ডিস্কটি /যবহার "
-"করতে চান, তবে একে পুনর্বিন্যস্ত (Re-initialize) করতে হবে যার ফলে এই ড্রাইভের সকল "
-"তথ্য হারিয়ে যাবে।\n"
+"%s ডিভাইসটি CDL-র পরিবর্তে LDL ফরম্যাট করা হয়েছে।  %s ইনস্টল করার সময় LDL ফরম্যাটকরা DASD-র ব্যবহার সমর্থিত নয়।  যদি ইনস্টলেশনের কাজে আপনি এই ডিস্কটি ব্যবহার করতে ইচ্ছুক থাকেন, তাহলে এটিকে পুনরায় প্রস্তুত করা প্রয়োজন যার ফলে এই ড্রাইভে উপস্থিত সমস্ত তথ্য মুছে যাবে।\n"
 "\n"
-"এ অবস্থায় আপনি কি সি.ডি.এল. ফরম্যাট ব্যবহার করে এই DASD-কে পুনরায় ফরম্যাট করতে "
-"চান?"
+"আপনি কি এই DASD-টিকে CDL ফরম্যাটের সাহায্যে পুনরায় ফরম্যাট করতে ইচ্ছুক?"
 
 #: ../partedUtils.py:308
 #, python-format
+# modified for RHEL
 msgid ""
 "/dev/%s currently has a %s partition layout.  To use this disk for the "
 "installation of %s, it must be re-initialized, causing the loss of ALL DATA "
@@ -1663,11 +1666,9 @@ msgid ""
 "\n"
 "Would you like to format this drive?"
 msgstr ""
-"বর্তমানে /dev/%s এ %s পার্টিশন বিন্যাস রয়েছে।  এই ডিস্কে %s ইনস্টল করতে হলে "
-"ডিস্কের সবকিছু নতুন করে বিন্যস্ত করতে হবে যার ফলস্বরূপ ডিস্কে ধারণকৃত সকল তথ্য হারিয়ে "
-"যাবে।\n"
+"বর্তমানে /dev/%s এ %s পার্টিশন বিন্যাস রয়েছে।  এই ডিস্কে %s ইনস্টল করতে হলে এটিকে নতুন করে প্রস্তুত করা আবশ্যক, যার ফলে এই ড্রাইভে উপস্থিত সমস্ত ডাটা মুছে যাবে।\n"
 "\n"
-"আপনি কি ড্রাইভটিকে ফরমেট করতে চান?"
+"আপনি কি এই ড্রাইভটিকে ফরম্যাট করতে ইচ্ছুক?"
 
 #: ../partedUtils.py:317
 msgid "_Ignore drive"
@@ -1683,16 +1684,19 @@ msgid "Error mounting file system on %s: %s"
 msgstr "%s এ ফাইল সিস্টেম মাউন্ট করতে সমস্যা: %s"
 
 #: ../partedUtils.py:739
+# modified for RHEL
 msgid "Initializing"
-msgstr "পুনঃর্বিন্যাস করা হচ্ছে"
+msgstr "প্রস্তুত করা হচ্ছে"
 
 #: ../partedUtils.py:740
 #, python-format
+# modified for RHEL
 msgid "Please wait while formatting drive %s...\n"
-msgstr "অনুগ্রহপূর্বক ড্রাইভ %s ফরম্যাট করার সময় অপেক্ষা করুন...\n"
+msgstr "ড্রাইভ %s ফরম্যাট করার সময় অনুগ্রহ করে অপেক্ষা করুন...\n"
 
 #: ../partedUtils.py:831
 #, python-format
+# modified for RHEL
 msgid ""
 "The partition table on device %s (%s) was unreadable. To create new "
 "partitions it must be initialized, causing the loss of ALL DATA on this "
@@ -1703,17 +1707,17 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ডিভাইস %s (%s) এর পার্টিশন তালিকা পড়া যাচ্ছে না।  নতুন কোন পার্টিশন তৈরি করতে "
-"হলে পার্টিশন তালিকাকে পুনর্বিন্যস্ত করতে হবে এবং ফলস্বরূপ এই ড্রাইভে ধারণকৃত সকল তথ্য "
-"হারিয়ে যাবে।\n"
+"ডিভাইস %s (%s) -র পার্টিশন টেবিল পড়া যাচ্ছে না।  নতুন কোনো পার্টিশন তৈরি করতে "
+"হলে পার্টিশন টেবিলটি পুনরায় প্রস্তুত করা আবশ্যক যায় ফলে এই ড্রাইভে অবস্থিত সমস্ত ডাটা "
+"মুছে যাবে।\n"
 "\n"
-"পার্টিশন তালিকা পুনর্বিন্যস্ত করলে, যে কোন ড্রাইভকে ধর্তব্যের বাইরে রাখার ব্যাপারে "
-"ইতিপূর্বে গ্রহণকৃত সিদ্ধান্ত বাতিল করা হবে।\n"
+"ইনস্টলেশন প্রক্রিয়ার সময় উপেক্ষা করার জন্য ড্রাইভ চিহ্নিত করতে পূর্বে নির্ধারিত মান, এই কর্মের ফলে অগ্রাহ্য করা হবে।\n"
 "\n"
-"আপনি কি সকল তথ্য হারিয়ে যাওয়া সত্ত্বেও এই ড্রাইভটিকে পুনর্বিন্যস্ত করতে চান?"
+"সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
 
 #: ../partedUtils.py:888
 #, python-format
+# modified for RHEL
 msgid ""
 "The partition table on device %s was unreadable. To create new partitions it "
 "must be initialized, causing the loss of ALL DATA on this drive.\n"
@@ -1723,103 +1727,111 @@ msgid ""
 "\n"
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
-"ডিভাইস %s এর পার্টিশন তালিকা পড়া যাচ্ছে না। এখন নতুন কোন পার্টিশন তৈরি করতে হলে "
-"পার্টিশন তালিকাকে পুনর্বিন্যস্ত করতে হবে এবং ফলস্বরূপ এই ড্রাইভে ধারণকৃত সকল তথ্য "
-"হারিয়ে যাবে।\n"
+"ডিভাইস %s -র পার্টিশন টেবিল পড়া যাচ্ছে না।  নতুন কোনো পার্টিশন তৈরি করতে "
+"হলে পার্টিশন টেবিলটি পুনরায় প্রস্তুত করা আবশ্যক যায় ফলে এই ড্রাইভে অবস্থিত সমস্ত ডাটা "
+"মুছে যাবে।\n"
 "\n"
-"পার্টিশন তালিকা পুনর্বিন্যস্ত করলে, যে কোন ড্রাইভকে ধর্তব্যের বাইরে রাখার ব্যাপারে "
-"ইতিপূর্বে গ্রহণকৃত সিদ্ধান্ত বাতিল করা হবে।\n"
+"ইনস্টলেশন প্রক্রিয়ার সময় উপেক্ষা করার জন্য ড্রাইভ চিহ্নিত করতে পূর্বে নির্ধারিত মান, এই কর্মের ফলে অগ্রাহ্য করা হবে।\n"
 "\n"
-"আপনি কি সকল তথ্য হারিয়ে যাওয়া সত্ত্বেও এই ড্রাইভটিকে পুনর্বিন্যস্ত করতে চান?"
+"সমস্ত ডাটা হারিয়ে ফেলার সম্ভাবনা সত্ত্বেও কি আপনি এই ড্রাইভটি প্রস্তুত করতে ইচ্ছুক?"
 
 #: ../partedUtils.py:1006 ../textw/fdasd_text.py:100
+# modified for RHEL
 msgid "No Drives Found"
-msgstr "কোন ড্রাইভ পাওয়া যায় নি"
+msgstr "কোনো ড্রাইভ পাওয়া যায়নি"
 
 #: ../partedUtils.py:1007
+# modified for RHEL
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
-msgstr ""
-"একটি সমস্যা দিয়েছে - ফাইল সিস্টেম তৈরি করার মত কোন ডিভাইস পাওয়া যায় নি। "
-"অনুগ্রহপূর্বক সমস্যাটির কারণ অনুসন্ধানের জন্য হার্ডওয়ার পরীক্ষা করুন।"
+msgstr "একটি সমস্যা দেখা দিয়েছে - ফাইল সিস্টেম নির্মাণ করার জন্য কোনো বৈধ ডিভাইসের সন্ধান পাওয়া যায়নি। এই সমস্যাটির সম্ভাব্য কারণ অনুসন্ধানের জন্য অনুগ্রহ করে হার্ডওয়ের পরীক্ষা করুন।"
 
 #: ../partIntfHelpers.py:35
+# modified for RHEL
 msgid "Please enter a volume group name."
-msgstr "অনুগ্রহপূর্বক একটি ভলিম গ্রুপ নাম লিখুন।"
+msgstr "অনুগ্রহ করে একটি ভলিউম গ্রুপের নাম লিখুন।"
 
 #: ../partIntfHelpers.py:39
+# modified for RHEL
 msgid "Volume Group Names must be less than 128 characters"
-msgstr "ভলিউম গ্রুপের নাম অবশ্যই ১২৮ অক্ষরের ভেতর লিখতে হবে"
+msgstr "ভলিউম গ্রুপের নাম ১২৮ অক্ষরের মধ্যে সীমাবদ্ধ রাখা আবশ্যক"
 
 #: ../partIntfHelpers.py:42
 #, python-format
+# modified for RHEL
 msgid "Error - the volume group name %s is not valid."
-msgstr "সমস্যা - ভলিউম গ্রুপের নাম %s কোন বৈধ নাম নয়।"
+msgstr "সমস্যা - ভলিউম গ্রুপের নাম %s বৈধ নয়।"
 
 #: ../partIntfHelpers.py:47
+# modified for RHEL
+
 msgid ""
 "Error - the volume group name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"সমস্যা - ফাইল সিস্টেমের গ্রুপ নামে অবৈধ অক্ষর বা Space রয়েছে।  গ্রহণযোগ্য অক্ষর হল "
-"বিভিন্ন বর্ণ, অংক, '.' বা '_'।"
+msgstr "সমস্যা - ভলিউম গ্রুপের নামের মাঝে অবৈধ অক্ষর অথবা শূণ্যস্থান উপস্থিত রয়েছে।  এই ক্ষেত্রে শুধুমাত্র অক্ষর, সংখ্যা, '.' অথবা '_' গ্রহণযোগ্য।"
 
 #: ../partIntfHelpers.py:57
+# modified for RHEL
 msgid "Please enter a logical volume name."
-msgstr "অনুগ্রহপূর্বক লজিকাল ভলিউমের জন্য একটি নাম লিখুন।"
+msgstr "অনুগ্রহ করে লজিক্যাল ভলিউমের নাম লিখুন।"
 
 #: ../partIntfHelpers.py:61
+# modified for RHEL
 msgid "Logical Volume Names must be less than 128 characters"
-msgstr "লজিকাল ভলিউমের নাম অবশ্যই ১২৮ অক্ষরের ভেতর হতে হবে"
+msgstr "লজিকাল ভলিউমের নাম ১২৮ অক্ষরের মধ্যে সীমাবদ্ধ রাখা আবশ্যক"
 
 #: ../partIntfHelpers.py:65
 #, python-format
+# modified for RHEL
 msgid "Error - the logical volume name %s is not valid."
-msgstr "সমস্যা - লজিকাল ভলিউমের নাম %s কোন বৈধ নাম নয়।"
+msgstr "সমস্যা - লজিকাল ভলিউমের নাম %s বৈধ নয়।"
 
 #: ../partIntfHelpers.py:71
+# modified for RHEL
 msgid ""
 "Error - the logical volume name contains illegal characters or spaces.  "
 "Acceptable characters are letters, digits, '.' or '_'."
-msgstr ""
-"সমস্যা - লজিকাল ভলিউমের নামে অবৈধ অক্ষর বা Space রয়েছে।  গ্রহণযোগ্য অক্ষর হল "
-"বিভিন্ন বর্ণ, অংক, '.' বা '_'।"
+msgstr "সমস্যা - লজিক্যাল ভলিউমের নামের মাঝে অবৈধ অক্ষর অথবা শূণ্যস্থান উপস্থিত রয়েছে।  এই ক্ষেত্রে শুধুমাত্র অক্ষর, সংখ্যা, '.' অথবা '_' গ্রহণযোগ্য।"
 
 #: ../partIntfHelpers.py:94
+# modified for RHEL
 msgid ""
 "The mount point is invalid.  Mount points must start with '/' and cannot end "
 "with '/', and must contain printable characters and no spaces."
-msgstr ""
-"এই মাউন্ট অবস্থানটি অবৈধ।  যে কোন মাউন্ট অবস্থানের নাম '/' দিয়ে শুরু হতে হয়, তার "
-"শেষে '/' থাকতে পারে না, এবং মধ্যবর্তী অক্ষরগুলো অবশ্যই দৃশ্যমান হতে হবে ও কোন space "
-"থাকতে পারবে না।"
+msgstr "এই মাউন্ট পয়েন্টটি অবৈধ।  মাউন্ট পয়েন্টর নাম '/' ব্যবহার করে আরম্ভ করা আবশ্যক এবং এর শেষে '/' লেখা যাবে না। নামের মধ্যবর্তী অক্ষরগুলি প্রদর্শনযোগ্য হওয়া প্রয়োজন এবং কোনো শূণ্যস্থান ব্যবহার করা যাবে না।"
 
 #: ../partIntfHelpers.py:101
+# modified for RHEL
 msgid "Please specify a mount point for this partition."
-msgstr "অনুগ্রহপূর্বক এই পার্টিশনটিকে মাউন্ট করার জন্য একটি অবস্থান উল্লেখ করুন।"
+msgstr "এই পার্টিশনটির জন্য অনুগ্রহ করে একটি মাউন্ট পয়েন্ট উল্লেখ করুন।"
 
 #: ../partIntfHelpers.py:109
+# modified for RHEL
 msgid "This partition is holding the data for the hard drive install."
-msgstr "এই পার্টিশনটিতে হার্ড ড্রাইভ থেকে লিনাক্স ইনস্টল করার জন্য প্রয়োজনীয় তথ্য রয়েছে।"
+msgstr "হার্ড-ড্রাইভ ইনস্টলেশনের জন্য প্রয়োজীয় ডাটা এই পার্টিশনে অবস্থিত রয়েছে।"
 
 #: ../partIntfHelpers.py:115
 #, python-format
+# modified for RHEL
 msgid "This partition is part of the RAID device /dev/md%s."
-msgstr "এই পার্টিশনটি রেইড (RAID) ডিভাইস /dev/md%s এর অংশ।"
+msgstr "এই পার্টিশনটি RAID ডিভাইস /dev/md%s-র অংশ"
 
 #: ../partIntfHelpers.py:118
+# modified for RHE
 msgid "This partition is part of a RAID device."
-msgstr "এই পার্টিশনটি একটি রেইড (RAID) ডিভাইসের অংশ"
+msgstr "এই পার্টিশনটি একটি RAID ডিভাইসের অংশ"
 
 #: ../partIntfHelpers.py:123
 #, python-format
+# modified for RHEL
 msgid "This partition is part of the LVM volume group '%s'."
-msgstr "এই পার্টিশনটি এল.ভি.এম. (LVM) ফাইল সিস্টেম গ্রুপ %s এর অংশ।"
+msgstr "এই পার্টিশনটি LVM লজিক্যাল ভলিউম গ্রুপ %s -র অংশ।"
 
 #: ../partIntfHelpers.py:126
+# modified for RHEL
 msgid "This partition is part of a LVM volume group."
-msgstr "এই পার্টিশনটি একটি এল.ভি.এম. (LVM) ফাইল সিস্টেম গ্রুপের অংশ।"
+msgstr "এই পার্টিশনটি একটি LVM ভলিউম গ্রুপের অংশ।"
 
 #: ../partIntfHelpers.py:141 ../partIntfHelpers.py:149
 #: ../partIntfHelpers.py:156 ../partIntfHelpers.py:166
@@ -1828,64 +1840,70 @@ msgid "Unable To Delete"
 msgstr "মুছে ফেলতে অক্ষম"
 
 #: ../partIntfHelpers.py:142
+# modified for RHEL
 msgid "You must first select a partition to delete."
-msgstr "প্রথমে আপনাকে মুছে ফেলার জন্য অবশ্যই একটি পার্টিশন বাছাই করতে হবে।"
+msgstr "মুছে ফেলার জন্য প্রথমে একটি পার্টিশন নির্বাচন করা আবশ্যক।"
 
 #: ../partIntfHelpers.py:150
+# modified for RHEL
 msgid "You cannot delete free space."
-msgstr "আপনি ফাঁকা জায়গা মুছতে পারেন না।"
+msgstr "আপনি অব্যবহৃত স্থান মুছতে পারবেন না।"
 
 #: ../partIntfHelpers.py:157
+# modified for RHEL
 msgid "You cannot delete a partition of a LDL formatted DASD."
-msgstr ""
-"কোন এল.ডি.এল. (LDL) ফরম্যাটকৃত ডি.এ.এস.ডি. (DASD) পার্টিশনটিকে আপনি মুছতে পারেন "
-"না।"
+msgstr "LDL ফরম্যাট করা কোনো DASD পার্টিশন আপনি মুছতে পারবেন না।"
 
 #: ../partIntfHelpers.py:167
 #, python-format
+# modified for RHEL
 msgid ""
 "You cannot delete this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"আপনি এই পার্টিশনকে মুছে ফেলতে পারেন না , কারণ এটি একটি এক্সটেন্ডেড (Extended) "
-"পার্টিশন যা %s'কে ধারণ করে আছে।"
+msgstr "%s ধারণকারী একটি এক্সটেন্ডেড পার্টিশন হওয়ার দরুন, এই পার্টিশনটি মুছে ফেলা সম্ভব নয়।"
 
 #: ../partIntfHelpers.py:184
+# modified for RHEL
 msgid ""
 "You cannot delete this partition:\n"
 "\n"
 msgstr ""
-"আপনি এই পার্টিশনটিকে মুছতে পারেন না:\n"
+"আপনি এই পার্টিশনটিকে মুছতে পারবেন না:\n"
 "\n"
 
 #: ../partIntfHelpers.py:228 ../partIntfHelpers.py:519
 #: ../iw/lvm_dialog_gui.py:729
+# modified for RHEL
 msgid "Confirm Delete"
-msgstr "মুছে ফেলা হবে কি না তা নিশ্চিত করুন"
+msgstr "মুছে ফেলা হবে কিনা তা নিশ্চিত করুন"
 
 #: ../partIntfHelpers.py:229
 #, python-format
+# modified for RHEL
 msgid "You are about to delete all partitions on the device '/dev/%s'."
-msgstr "আপনি ডিভাইস '/dev/%s' এর সকল পার্টিশনকে মুছে ফেলতে যাচ্ছেন।"
+msgstr "ডিভাইস '/dev/%s' -র উপর অবস্থিত সমস্ত পার্টিশন আপনি মুছে ফেলতে চলেছেন।"
 
 #: ../partIntfHelpers.py:232 ../partIntfHelpers.py:520
 #: ../iw/lvm_dialog_gui.py:732 ../iw/lvm_dialog_gui.py:1080
 #: ../iw/osbootwidget.py:104 ../iw/partition_gui.py:1351
+# modified for RHEL
 msgid "_Delete"
-msgstr "মোছো (_D)"
+msgstr "মুছে ফেল (_D)"
 
 #: ../partIntfHelpers.py:290
+# modified for RHEL
 msgid "Notice"
-msgstr "বিজ্ঞপ্তি"
+msgstr "উল্লেখ্য"
 
 #: ../partIntfHelpers.py:291
 #, python-format
+# modified for RHEL
 msgid ""
 "The following partitions were not deleted because they are in use:\n"
 "\n"
 "%s"
 msgstr ""
-"নিম্নোক্ত পার্টিশনগুলোকে মোছা হয় নি কারণ এগুলো এখনো ব্যবহৃত হচ্ছে:\n"
+"নিম্নোক্ত পার্টিশনগুলি মুছে ফেলা হয়নি কারণ এগুলি এখনো ব্যবহৃত হচ্ছে:\n"
 "\n"
 "%s"
 
@@ -1895,8 +1913,9 @@ msgid "Unable To Edit"
 msgstr "সম্পাদন করা যাচ্ছে না"
 
 #: ../partIntfHelpers.py:308
+# modified for RHEL
 msgid "You must select a partition to edit"
-msgstr "সম্পাদন করার জন্য আপনাকে অবশ্যই একটি পার্টিশন বেছে নিতে হবে"
+msgstr "সম্পাদন করার জন্য একটি পার্টিশন নির্বাচন করা আবশ্যক"
 
 #: ../partIntfHelpers.py:320 ../partIntfHelpers.py:358
 msgid ""
@@ -1908,31 +1927,32 @@ msgstr ""
 
 #: ../partIntfHelpers.py:347
 #, python-format
+# modified for RHEL
 msgid ""
 "You cannot edit this partition, as it is an extended partition which "
 "contains %s"
-msgstr ""
-"আপনি এই পার্টিশনটিকে মুছে ফেলতে পারেন না , কারণ এটি একটি এক্সটেন্ডেড (Extended) "
-"পার্টিশন যা %s'কে ধারণ করে আছে"
+msgstr "%s ধারণকারী একটি এক্সটেন্ডেড পার্টিশন হওয়ার দরুন, এই পার্টিশনটি সম্পাদন করা সম্ভব নয়।"
 
 #: ../partIntfHelpers.py:379
+# modified for RHEL
 msgid "Format as Swap?"
-msgstr "সোয়াপ (Swap) পার্টিশন হিসেবে ফরম্যাট করা হবে কি?"
+msgstr "Swap হিসাবে ফরম্যাট করা হবে কি?"
 
 #: ../partIntfHelpers.py:380
 #, python-format
+# modified for RHEL
 msgid ""
 "/dev/%s has a partition type of 0x82 (Linux swap) but does not appear to be "
 "formatted as a Linux swap partition.\n"
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s এর পার্টিশনের ধরন ০x৮২ (লিনাক্স Swap) হলেও এই পার্টিশনকে কোন লিনাক্স "
-"সোয়াপ (Swap) পার্টিশন বলে মনে হচ্ছে না।\n"
+"0x82 (Linux swap) ধরণ হওয়া সত্ত্বেও, /dev/%s সম্ভবত Linux swap পার্টিশন হিসাবে ফরম্যাট করা হয়নি।\n"
 "\n"
-"আপনি কি এই পার্টিশনকে সোয়াপ পার্টিসন হিসেবে ফরম্যাট করতে চান?"
+"এই পার্টিশনটিকে কি আপনি swap পার্টিশন হিসাবে ফরম্যাট করতে ইচ্ছুক?"
 
 #: ../partIntfHelpers.py:401
+# modified for RHEL
 msgid ""
 "You have chosen to use a pre-existing partition for this installation "
 "without formatting it. We recommend that you format this partition to make "
@@ -1941,11 +1961,10 @@ msgid ""
 "contains files that you need to keep, such as home directories, then  "
 "continue without formatting this partition."
 msgstr ""
-"আপনি একটি পুরনো পার্টিশনকে ফরম্যাট না করেই এই ইনস্টলেশনের জন্য বেছে নিয়েছে।  "
-"এক্ষেত্রে আমাদের পরামর্শ হল, আপনি এই পার্টিশনকে ফরম্যাট করুন যেন, পুরনো অপারেটিং "
-"সিস্টেমের কোন ফাইল এই লিনাক্স ইনস্টলেশনে সমস্যা সৃষ্টি না করে।  তবে যদি এই "
-"পার্টিশনটিতে কোন প্রয়োজনীয় ফাইল থাকে, যেমন ব্যবহারকারীদের ব্যক্তিগত ডিরেক্টরি "
-"(Home), তবে ফরম্যাট না করেই এগিয়ে যান।"
+"আপনি একটি বিদ্যমান পার্টিশনকে ফরম্যাট না করেই এই ইনস্টলেশনের জন্য নির্বাচন করেছেন। "
+"এক্ষেত্রে আমাদের পরামর্শ হল, পুরনো অপারেটিং সিস্টেমের কোনো ফাইল যাতে এই Linux ইনস্টলেশনে সমস্যা সৃষ্টি না করে, তার জন্য এই পার্টিশনটিকে ফরম্যাট করুন।  যদি এই "
+"পার্টিশনটিতে কোনো অতিপ্রয়োজনীয় ফাইল যেমন ব্যবহারকারীদের home ডিরেক্টরি অবস্থিত থাকে"
+"তাহলে ফরম্যাট না করেই অগ্রসর হয়ে যান।"
 
 #: ../partIntfHelpers.py:409
 msgid "Format?"
@@ -1954,36 +1973,41 @@ msgstr "ফরম্যাট করা হবে কি?"
 # FIXME
 # msgstr "পার্টিশন পরিবর্তন করো (_প)"
 #: ../partIntfHelpers.py:409 ../iw/partition_gui.py:1004
+# modified for RHEL
 msgid "_Modify Partition"
-msgstr "ফরম্যাট করো (_M)"
+msgstr "পার্টিশন পরিবর্তন করো (_M)"
 
 #: ../partIntfHelpers.py:409
 msgid "Do _Not Format"
 msgstr "ফরম্যাট করবে না (_N)"
 
 #: ../partIntfHelpers.py:417
+# modified for RHEL
 msgid "Error with Partitioning"
-msgstr "পার্টিশন তৈরিতে সমস্যা"
+msgstr "পার্টিশন নির্মাণে সমস্যা"
 
 #: ../partIntfHelpers.py:418
 #, python-format
+# modified for RHEL
 msgid ""
 "The following critical errors exist with your requested partitioning scheme. "
 "These errors must be corrected prior to continuing with your install of %s.\n"
 "\n"
 "%s"
 msgstr ""
-"আপনার পার্টিশন পরিকল্পনায় নিম্নোক্ত গুরুতর সমস্যাগুলো পাওয়া গিয়েছে।  %s ইনস্টল করার "
-"পূর্বে এই সমস্যাগুলো অবশ্যই দূর করতে হবে।\n"
+"আপনার সিস্টেমের পার্টিশন স্কিমে নিম্নলিখিত গুরুতর সমস্যাগুলি পাওয়া গিয়েছে।  %s ইনস্টল করার "
+"পূর্বে এই সমস্যাগুলির সমাধান করা আবশ্যক।\n"
 "\n"
 "%s"
 
 #: ../partIntfHelpers.py:432
+# modified for RHEL
 msgid "Partitioning Warning"
-msgstr "পার্টিশন তৈরি সংক্রান্ত সতর্কতা"
+msgstr "পার্টিশন নির্মাণ সংক্রান্ত সতর্কতা"
 
 #: ../partIntfHelpers.py:433
 #, python-format
+# modified for RHEL
 msgid ""
 "The following warnings exist with your requested partition scheme.\n"
 "\n"
@@ -1991,29 +2015,30 @@ msgid ""
 "\n"
 "Would you like to continue with your requested partitioning scheme?"
 msgstr ""
-"আপনার পার্টিশন পরিকল্পনা সম্পর্কে নিম্নোক্ত সতর্কবাণী দেওয়া হচ্ছে।\n"
+"আপনার সিস্টেমের পার্টিশন স্কিম সম্পর্কে নিম্নোক্ত সতর্কবাণী দেওয়া হচ্ছে।\n"
 "\n"
 "%s\n"
 "\n"
-"আপনি কি আপনার বর্তমান পার্টিশন পরিকল্পনা নিয়েই এগিয়ে যেতে চান?"
+"আপনি কি এই পার্টিশন স্কিম ব্যবহার করেই অগ্রসর হতে ইচ্ছুক?"
 
 #: ../partIntfHelpers.py:447 ../iw/partition_gui.py:660
+# modified for RHEL
 msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"নিম্নোক্ত বিদ্যমান পার্টিশনগুলোকে ফরম্যাট করার জন্য বাছাই করা হয়েছে; এর ফলে এসব "
-"পার্টিশনের সকল তথ্য হারিয়ে যাবে।"
+"নিম্নোক্ত বিদ্যমান পার্টিশনগুলিকে ফরম্যাট করার জন্য নির্বাচন করা হয়েছে, এবং এর ফলে "
+"এইগুলিতে অবস্থিত সমস্ত ডাটা মুছে যাবে।"
 
 #: ../partIntfHelpers.py:450
+# modified for RHEL
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
-msgstr ""
-"এই পার্টিশনগুলোকে ফরম্যাট করে এগিয়ে যাওয়ার জন্য 'হ্যাঁ' অথবা পূর্বাবস্থানে ফিরে গিয়ে "
-"পার্টিশন সংক্রান্ত বৈশিষ্ট্যাবলী পরিবর্তনের জন্য 'না' বেছে নিন।"
+msgstr "এই পার্টিশনগুলিকে ফরম্যাট করার জন্য 'হ্যাঁ' টিপুন অথবা নির্ধারিত বৈশিষ্ট্যাবলী পরিবর্তনের জন্য 'না' টিপুন।"
 
 #: ../partIntfHelpers.py:456
+# modified for RHEL
 msgid "Format Warning"
 msgstr "ফরম্যাট সংক্রান্ত সতর্কবাণী"
 
@@ -2034,8 +2059,9 @@ msgid "You are about to delete the logical volume \"%s\"."
 msgstr "আপনি লজিকাল ভলিউম \"%s\" মুছে ফেলতে যাচ্ছেন।"
 
 #: ../partIntfHelpers.py:511
+# modified for RHEL
 msgid "You are about to delete a RAID device."
-msgstr "আপনি একটি রেইড (RAID) ডিভাইস মুছে ফেলতে যাচ্ছেন।"
+msgstr "আপনি একটি RAID ডিভাইস মুছে ফেলতে যাচ্ছেন।"
 
 #: ../partIntfHelpers.py:514
 #, python-format
@@ -2043,149 +2069,152 @@ msgid "You are about to delete the /dev/%s partition."
 msgstr "আপনি /dev/%s পার্টিশনটি মুছে ফেলতে যাচ্ছেন।"
 
 #: ../partIntfHelpers.py:517
+# modified for RHEL
 msgid "The partition you selected will be deleted."
-msgstr "আপনি যে পার্টিশনটি বেছে নিয়েছেন তা মুছে ফেলা হবে।"
+msgstr "আপনার নির্বাচিত পার্টিশনটি মুছে ফেলা হবে।"
 
 #: ../partIntfHelpers.py:527
+# modified for RHEL
 msgid "Confirm Reset"
-msgstr "রিসেট (পূর্বাবস্থায় পরিবর্তন) নিশ্চিত করুন"
+msgstr "রিসেট প্রক্রিয়া নিশ্চায়ন করুন"
 
 #: ../partIntfHelpers.py:528
+# modified for RHEL
 msgid "Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"আপনি কি নিশ্চিত যে পার্টিশন তালিকাকে তার মূল অবস্থায় রিসেট (পূর্বাবস্থায় পরিবর্তন) "
-"করা হবে?"
+msgstr "আপনি কি নিশ্চিতরূপে পার্টিশন টেবিলকে মূল অবস্থায় রিসেট (পূর্বাবস্থায় পরিবর্তন) করতে ইচ্ছুক?"
 
 #: ../partitioning.py:77
+# modified for RHEL
 msgid "Installation cannot continue."
-msgstr "ইনস্টলেশনকে আর এগিয়ে নিয়ে যাওয়া সম্ভব হচ্ছে না।"
+msgstr "ইনস্টলেশন প্রক্রিয়া অগ্রসর করা সম্ভব নয়।"
 
 #: ../partitioning.py:78
+# modified for RHEL
 msgid ""
 "The partitioning options you have chosen have already been activated. You "
 "can no longer return to the disk editing screen. Would you like to continue "
 "with the installation process?"
-msgstr ""
-"আপনি যে সব পার্টিশন অপশন বেছে নিয়েছেন তা ইতিমধ্যেই কার্যকর করা হয়েছে।  যে পর্দা "
-"থেকে ডিস্কের পার্টিশন সম্পাদন করা যায়, সেখানে আর ফিরে যাওয়া সম্ভব নয়।  এ অবস্থায় "
-"আপনি কি পার্টিশন তৈরির প্রক্রিয়াকে এগিয়ে নিয়ে যেতে চান?"
+msgstr "আপনার নির্বাচিত পর্টিশনগুলি পূর্বেই স্থাপিত হয়েছে।  এই স্থান থেকে ডিস্ক সম্পাদনের পর্দায় প্রত্যাবর্তন করার সম্ভব নয়। আপনি কি ইনস্টলেশন প্রক্রিয়া অগ্রসর করতে ইচ্ছুক?"
 
 #: ../partitioning.py:108
+# modified for RHEL
 msgid "Low Memory"
-msgstr "মেমরি স্বল্পতা"
+msgstr "অপর্যাপ্ত মেমরি "
 
 #: ../partitioning.py:109
+# modified for RHEL
 msgid ""
 "As you don't have much memory in this machine, we need to turn on swap space "
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that OK?"
-msgstr ""
-"যেহেতু আপনার সিস্টেমে যথেষ্ট মেমরি নেই তাই এখনি সোয়াপ (Swap) পার্টিশনকে সচল করতে "
-"হবে।  এটি করতে হলে নতুন পার্টিশন টেবিলকে তাত্‍ক্ষণিকভাবে ডিস্কে লিখতে হবে। এতে কি "
-"আপনার কোন আপত্তি আছে?"
+msgstr "আপনার মেশিনে মেমরি হ্রাস হওয়ার দরুন অবিলম্বে Swap পার্টিশন সক্রিয় করা আবশ্যক । এই কাজের জন্য নতুন পার্টিশন টেবিলটি ডিস্কে স্থাপন করা আবশ্যক । এই কাজে কি আপনার সম্মতি আছে?"
 
 #: ../partitions.py:761
 #, python-format
+# modified for RHEL
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"আপনি কোন রুট পার্টিশন (/) উল্লেখ করেননি।  %s এর ইনস্টলেশন চালিয়ে যাওয়ার জন্য এটি "
-"অবশ্য প্রয়োজনীয়।"
+msgstr "আপনি কোনো root পার্টিশন (/) উল্লেখ করেননি।  %s -র ইনস্টলেশন প্রক্রিয়া অগ্রসর করার জন্য এটি আবশ্যক।"
 
 #: ../partitions.py:766
 #, python-format
+# modified for RHEL
 msgid ""
 "Your root partition is less than 250 megabytes which is usually too small to "
 "install %s."
-msgstr ""
-"আপনি রুট পার্টিশনের আকার ২৫০ মেগাবাইটের কম দিয়েছেন।  %s ইনস্টল করার জন্য এটি খুবই "
-"কম।"
+msgstr "Root পার্টিশনের জন্য, আপনার উল্লিখিত মাপ ২৫০ মেগাবাইট %s ইনস্টলেশনের জন্য অত্যন্ত কম।"
 
 #: ../partitions.py:773
+# modified for RHEL
 msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"আপনাকে অবশ্যই ফ্যাট (FAT) জাতীয় একটি /boot/efi পার্টিশন তৈরি করতে হবে যার আকার "
-"হবে ৫০ মেগাবাইট।"
+msgstr "FAT ধরনের এবং ৫০ মেগাবাইট মাপের একটি /boot/efi পার্টিশন নির্মাণ করা আবশ্যক।"
 
 #: ../partitions.py:796
+# modified for RHEL
 msgid "You must create a PPC PReP Boot partition."
-msgstr "আপনাকে অবশ্যই একটি পি.পি.সি. (PPC) PReP বুট পার্টিশন তৈরি করতে হবে।"
+msgstr "একটি PPC PReP Boot পার্টিশন নির্মাণ করা আবশ্যক।"
 
 #: ../partitions.py:804 ../partitions.py:815
 #, python-format
+# modified for RHEL
 msgid ""
 "Your %s partition is less than %s megabytes which is lower than recommended "
 "for a normal %s install."
-msgstr ""
-"আপনার %s পার্টিশনের আকার %s মেগাবাইট অপেক্ষা কম।  এই আকার, সাধারণ একটি %s "
-"ইনস্টলেশনের জন্য যে আকার ব্যবহারের পরামর্শ দেওয়া হয়, তা থেকেও কম।"
+msgstr "আপনার %s পার্টিশনে %s মেগাবাইটের থেকে কম, যা %s -র স্বাভাবিক ইনস্টলেশনের জন্য প্রয়োজনীয় মাপের থেকেও কম।"
 
 #: ../partitions.py:844 ../partRequests.py:652
+# modified for RHEL
 msgid "Bootable partitions can only be on RAID1 devices."
-msgstr "শুধুমাত্র রেইড১ (RAID1) ডিভাইসেই বুট করার যোগ্য পার্টিশনগুলো থাকতে পারবে।"
+msgstr "Boot করার জন্য ব্যবহৃত পার্টিশনগুলি শুধুমাত্র RAID1 ডিভাইসের উপর অবস্থান করতে পারবে।"
 
 #: ../partitions.py:851
+# modified for RHEL
 msgid "Bootable partitions cannot be on a logical volume."
-msgstr "বুট করার যোগ্য পার্টিশনগুলো কোন লজিকাল ভলিউমে থাকতে পারবে না।"
+msgstr "Boot করার জন্য ব্যবহৃত পার্টিশনগুলি লজিক্যাল ভলিউমের উপর অবস্থান করতে পারবে না।"
 
 #: ../partitions.py:862
+# modified for RHEL
 msgid ""
 "You have not specified a swap partition.  Although not strictly required in "
 "all cases, it will significantly improve performance for most installations."
 msgstr ""
-"আপনি কোন সোয়াপ (Swap) পার্টিশন উল্লেখ করেননি।  অত্যাবশ্যক না হলেও এটি যথেষ্ট "
+"আপনি কোনো Swap পার্টিশন উল্লেখ করেননি।  অত্যাবশ্যক না হলেও এটি যথেষ্ট "
 "পরিমাণে সিস্টেমের কার্যদক্ষতা বৃদ্ধি করে।"
 
 #: ../partitions.py:869
 #, python-format
+# modified for RHEL
 msgid ""
 "You have specified more than 32 swap devices.  The kernel for %s only "
 "supports 32 swap devices."
 msgstr ""
-"আপনি ৩২টিরও অধিক সোয়াপ (Swap) ডিভাইসের উল্লেখ করছেন।  কিন্তু %s এর কার্নেল ৩২টির "
-"বেশি সোয়াপ ডিভাইস ব্যবহার করতে পারে না।"
+"আপনি ৩২টিরও অধিক Swap ডিভাইসের উল্লেখ করছেন।  কিন্তু %s -র কার্নেল ৩২টির "
+"বেশি Swap ডিভাইস ব্যবহার করতে সক্ষম নয়।"
 
 #: ../partitions.py:880
 #, python-format
+# modified for RHEL
 msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
-msgstr ""
-"আপনার কম্পিউটারে যে পরিমাণ র্যাম (%d মেগাবাইট) আছে, সোয়াপ (Swap) পার্টিশনের জন্য "
-"আপনি তা থেকেও কম জায়গা (%d মেগাবাইট) বরাদ্দ করেছেন। এর ফলস্বরূপ সিস্টেমের "
-"কার্যদক্ষতায় বিরূপ প্রভাব পড়তে পারে।"
+msgstr "আপনার উল্লিখত swap (%dM)-র মাপ, সিস্টেমে উপস্থিত RAM (%dM) -র থেকে কম।  এর ফলে আপনার সিস্টেমের কর্মক্ষমতা হ্রাস হতে পারে।"
 
 #: ../partitions.py:1167
+# modified for RHEL
 msgid "the partition in use by the installer."
-msgstr "ইনস্টলার যে পার্টিশনটি ব্যবহার করছে।"
+msgstr "ইনস্টলারের দ্বারা ব্যবহৃত পার্টিশন"
 
 #: ../partitions.py:1170
+# modified for RHEL
 msgid "a partition which is a member of a RAID array."
-msgstr "এই পার্টিশনটি একটি রেইড (RAID) গুচ্ছের (Array) অংশ।"
+msgstr "এই পার্টিশনটি একটি RAID অ্যারের অংশ।"
 
 #: ../partitions.py:1173
+# modified for RHEL
 msgid "a partition which is a member of a LVM Volume Group."
-msgstr "এই পার্টিশনটি একটি এল.ভি.এম. (LVM) ভলিউম গ্রুপের সদস্য।"
+msgstr "এই পার্টিশনটি একটি LVM ভলিউম গ্রুপের সদস্য।"
 
 #: ../partRequests.py:233
 #, python-format
+# modified for RHEL
 msgid "This mount point is invalid.  The %s directory must be on the / file system."
-msgstr "এই মাউন্ট করার অবস্থানটি সঠিক নয়।  %s ডিরেক্টরি অবশ্যই / ফাইল সিস্টেমে থাকবে।"
+msgstr "এই মাউন্ট পয়েন্টটি অবৈধ।  %s ডিরেক্টরিটি / ফাইল সিস্টেমের উপর অবস্থিত হওয়া আবশ্যক।"
 
 #: ../partRequests.py:236
 #, python-format
+# modified for RHEL
 msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"মাউন্ট করার অবস্থান %s'কে ব্যবহার করা সম্ভব নয়।  সিস্টেম সঠিকভাবে চলানোর জন্য এই "
-"অবস্থানটিকে একটি সিম্বলিক লিঙ্ক হতে হবে।  অনুগ্রহপূর্বক মাউন্ট করার জন্য অন্য একটি "
-"অবস্থান বেছে নিন।"
+"%s মাউন্ট পয়েন্টটি ব্যবহার করা সম্ভব নয়।  সিস্টেমের সঠিক চালনার জন্য এটি "
+"একটি সিম্বলিক লিঙ্ক হওয়া আবশ্যক।  অনুগ্রহ করে একটি পৃথক মাউন্ট পয়েন্ট নির্বাচন করুন।"
 
 #: ../partRequests.py:243
+# modified for RHEL
 msgid "This mount point must be on a linux file system."
-msgstr "এই মাউন্ট করার অবস্থানটি লিনাক্স ফাইল সিস্টেমে অবস্থিত হতে হবে।"
+msgstr "এই মাউন্ট পয়েন্টটি একটি linux ফাইল-সিস্টেমের উপর অবস্থিত হওয়া আবশ্যক।"
 
 #: ../partRequests.py:264
 #, python-format
