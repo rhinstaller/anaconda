@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.77\n"
 "POT-Creation-Date: 2001-01-19 10:09-0500\n"
-"PO-Revision-Date: 2000-12-18 04:31+0000\n"
+"PO-Revision-Date: 2001-01-23 02:06+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -35,6 +35,10 @@ msgid ""
 "format them. This will probably cause an error later in the install.\n"
 "\n"
 msgstr ""
+"Eftirtaldar disksneiðar er nýbúið að búa til en þú hefur kosið að forsníða "
+"þær ekki. Þetta mun líklega valda villum þegar uppsetningin er lengra "
+"komin.\n"
+"\n"
 
 #: ../fstab.py:73
 msgid ""
@@ -43,11 +47,14 @@ msgid ""
 "Press OK to continue, or Cancel to go back and select these partitions to be "
 "formatted (RECOMMENDED)."
 msgstr ""
+"\n"
+"\n"
+"Veldu Í lagi til að halda áfram eða Hætta við til að fara til baka og láta "
+"forsníða þessar disksneiðar (MÆLT ER MEÐ ÞESSU)."
 
 #: ../fstab.py:74
-#, fuzzy
 msgid "Warning"
-msgstr "Leita"
+msgstr "Aðvörun"
 
 #: ../fstab.py:300 ../fstab.py:494 ../fstab.py:594 ../fstab.py:798
 #: ../harddrive.py:168 ../image.py:61 ../image.py:138
@@ -215,7 +222,7 @@ msgstr "Útgáfuupplýsingar"
 
 #: ../gui.py:558
 msgid "Unable to load file!"
-msgstr ""
+msgstr "Get ekki lesið skrá!"
 
 #: ../gui.py:688
 msgid "Red Hat Linux Installer"
@@ -283,16 +290,15 @@ msgstr "Ekki var hægt að tengja geisladiskinn."
 
 #: ../rescue.py:26
 msgid "WARNING: no valid block devices were found.\n"
-msgstr ""
+msgstr "AÐVÖRUN: engin gild blokkartæki fundust.\n"
 
 #: ../rescue.py:28
 msgid "ERROR: unknown error encountered reading partition tables.\n"
-msgstr ""
+msgstr "VILLA: óþekkt villa kom upp við lestur disksneiðatöflunnar.\n"
 
 #: ../rescue.py:54
-#, fuzzy
 msgid "System to Rescue"
-msgstr "Kerfi sem á að uppfæra"
+msgstr "Kerfi sem á að bjarga"
 
 #: ../rescue.py:55 ../text.py:389
 msgid "What partition holds the root partition of your installation?"
@@ -346,9 +352,8 @@ msgid "Exit"
 msgstr "Hætta"
 
 #: ../rescue.py:70 ../rescue.py:76
-#, fuzzy
 msgid "Rescue"
-msgstr "_Endurstilla"
+msgstr "Bjarga"
 
 #: ../rescue.py:71
 msgid ""
@@ -357,6 +362,10 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Diskurinn þinn er tengdur undir /mnt/sysimage.\n"
+"\n"
+"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
+"þegar þú hættir í skelinni."
 
 #: ../rescue.py:77
 msgid ""
@@ -366,21 +375,27 @@ msgid ""
 "Press <return> to get a shell. The system will reboot automatically when you "
 "exit from the shell."
 msgstr ""
+"Villa kom upp þegar reynt var að tengja sum eða öll skráarkerfi á vélinni "
+"þinni. Sum þeirra gætu þó verið tengd undir /mnt/sysimage.\n"
+"\n"
+"Sláðu á <return> til að komast í skel. Vélin mun endurræsa sig sjálfvirkt "
+"þegar þú hættir í skelinni."
 
 #: ../rescue.py:83
-#, fuzzy
 msgid "Rescue Mode"
-msgstr "Gerð neyðardisklings"
+msgstr "Björgunarhamur"
 
 #: ../rescue.py:84
 msgid ""
 "You don't have any Linux partitions. Press return to get a shell. The system "
 "will reboot automatically when you exit from the shell."
 msgstr ""
+"Þú ert ekki með neinar Linux disksneiðar. Sláðu á <return> til að komast í "
+"skel. Vélin mun endurræsa sig sjálfvirkt þegar þú hættir í skelinni."
 
 #: ../rescue.py:95
 msgid "Your system is mounted under the /mnt/sysimage directory."
-msgstr ""
+msgstr "Diskurinn þinn er tengdur undir /mnt/sysimage möppunni."
 
 #. code to create dialog in gtk+
 #: ../iw/package_gui.py:470 ../libfdisk/fsedit.c:917 ../libfdisk/fsedit.c:924
@@ -421,24 +436,20 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 
 #: ../text.py:153
-#, fuzzy
 msgid "Choose the languages to be installed:"
-msgstr "Hverskonar kerfi viltu setja upp?"
+msgstr "Veldu tungumálin sem þú villt setja upp:"
 
 #: ../text.py:158 ../text.py:1124
-#, fuzzy
 msgid "Language Support"
-msgstr "Kjöltutölvustuðningur"
+msgstr "Tungumálastuðningur"
 
 #: ../text.py:205
-#, fuzzy
 msgid "Default Language"
-msgstr "Veldu tungumál"
+msgstr "Sjálfgefið tungumál"
 
 #: ../text.py:206
-#, fuzzy
 msgid "Choose the default language: "
-msgstr "Veldu tungumál"
+msgstr "Veldu sjálfgefna tungumálið: "
 
 #: ../text.py:238 ../text.py:1030 ../text.py:1067
 msgid "Keyboard Selection"
@@ -615,13 +626,14 @@ msgid ""
 "                              <Return> to reboot                             "
 " "
 msgstr ""
+"                           <Return> til að endurræsa                         "
+" "
 
 #: ../text.py:638 ../text.py:661
 msgid "Complete"
 msgstr "Lokið"
 
 #: ../iw/congrats_gui.py:34 ../text.py:639
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -641,16 +653,17 @@ msgstr ""
 "sem gætu verið til staðar í þessari útgáfu af Red Hat Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
+"finna í viðeigandi kafla í Official Red Hat Linux handbókunum."
 
 #: ../text.py:657
 msgid ""
 "                                <Return> to exit                             "
 " "
 msgstr ""
+"                              <Return> til að hætta                          "
+" "
 
 #: ../text.py:662
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -667,7 +680,7 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
+"finna á http://www.redhat.com/support/manuals/"
 
 #: ../text.py:729
 msgid "Package Installation"
@@ -745,7 +758,7 @@ msgstr "Aflúsun"
 
 #: ../text.py:984
 msgid " "
-msgstr ""
+msgstr " "
 
 #: ../text.py:988
 msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
@@ -779,9 +792,8 @@ msgstr "Stillingar nets"
 
 #: ../iw/firewall_gui.py:12 ../text.py:1036 ../text.py:1117
 #: ../textw/firewall_text.py:11
-#, fuzzy
 msgid "Firewall Configuration"
-msgstr "Stillingar Lilo"
+msgstr "Stillingar eldveggjar"
 
 #: ../text.py:1044 ../text.py:1129
 msgid "Time Zone Setup"
@@ -836,9 +848,8 @@ msgstr "Diskminni"
 
 #: ../text.py:1100 ../textw/partitioning_text.py:365
 #: ../textw/partitioning_text.py:385
-#, fuzzy
 msgid "Boot Partition Warning"
-msgstr "Sjálfvirk disksneiðing"
+msgstr "Ræsisneiðaraðvörun"
 
 #: ../text.py:1102
 msgid "Filesystem Formatting"
@@ -849,9 +860,8 @@ msgid "Mouse Configuration"
 msgstr "Stillingar músar"
 
 #: ../text.py:1126
-#, fuzzy
 msgid "Language Default"
-msgstr "Veljið tungumál"
+msgstr "Sjálfgefið tungumál"
 
 #: ../text.py:1137
 msgid "Package Groups"
@@ -1020,20 +1030,18 @@ msgid "Space Needed"
 msgstr "Þarfnast diskrýmis"
 
 #: ../todo.py:1705
-#, fuzzy
 msgid ""
 "You don't appear to have enough file nodes to install the packages you've "
 "selected. You need more file nodes on the following filesystems:\n"
 "\n"
 msgstr ""
-"Þú virðist ekki hafa nægjanlegt diskrými til að setja upp þá pakka sem þú "
-"valdir. Þú þarft meira pláss í eftirtöldum skráarkerfum:\n"
+"Þú virðist ekki hafa nóg af lausum skrám til að setja upp þá pakka sem þú "
+"valdir. Þú þarft fleiri lausar skrár (inóður) í eftirtöldum skráarkerfum:\n"
 "\n"
 
 #: ../todo.py:1708
-#, fuzzy
 msgid "Nodes Needed"
-msgstr "Þarfnast diskrýmis"
+msgstr "Vantar inóður"
 
 #: ../todo.py:1714
 msgid "Disk Space"
@@ -1316,7 +1324,6 @@ msgid "Congratulations"
 msgstr "Til hamingju"
 
 #: ../iw/congrats_gui.py:83
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1333,7 +1340,8 @@ msgstr ""
 "Linux.\n"
 "\n"
 "Frekari upplýsingar um hvernig á að stilla vélina eftir uppsetninguna er að "
-"finna í viðeigandi kafla í Official Red Hat Linux User's Guide bókinni."
+"finna í Red Hat linux handbókunum sem eru fáanlegar á "
+"http://www.redhat.com/support/manuals/."
 
 #: ../iw/dependencies_gui.py:9
 msgid "Unresolved Dependencies"
@@ -1395,43 +1403,40 @@ msgid "Select drive to run fdisk on"
 msgstr "Veldu disk til að keyra fdisk á"
 
 #: ../iw/firewall_gui.py:59
-#, fuzzy
 msgid "Please choose your security level:  "
-msgstr "Vinsamlega veldu kveðju:"
+msgstr "Vinsamlegast veldu öryggisstig:  "
 
 #: ../iw/firewall_gui.py:68 ../textw/firewall_text.py:33
 msgid "High"
-msgstr ""
+msgstr "Hátt"
 
 #: ../iw/firewall_gui.py:69 ../textw/firewall_text.py:36
 msgid "Medium"
-msgstr ""
+msgstr "Miðlungs"
 
 #: ../iw/firewall_gui.py:70 ../textw/firewall_text.py:39
 msgid "No firewall"
-msgstr ""
+msgstr "Enginn eldveggur"
 
 #: ../iw/firewall_gui.py:87
 msgid "Use default firewall rules"
-msgstr ""
+msgstr "Nota sjálfgefnar eldveggjarreglur"
 
 #: ../iw/firewall_gui.py:88 ../textw/firewall_text.py:9
-#, fuzzy
 msgid "Customize"
-msgstr "Sérsníða uppfærslu"
+msgstr "Sérsníða"
 
 #: ../iw/firewall_gui.py:101
-#, fuzzy
 msgid "Trusted devices:"
-msgstr "Raid tæki þegar í notkun"
+msgstr "Tæki sem er treyst:"
 
 #: ../iw/firewall_gui.py:111 ../textw/firewall_text.py:75
 msgid "Allow incoming:"
-msgstr ""
+msgstr "Leyfa tengingar inn:"
 
 #: ../iw/firewall_gui.py:122
 msgid "Other ports:"
-msgstr ""
+msgstr "Önnur port:"
 
 #: ../iw/format_gui.py:14
 msgid "Choose partitions to Format"
@@ -1486,28 +1491,24 @@ msgid "What language should be used during the installation process?"
 msgstr "Hvaða tungumál viltu nota meðan á uppsetningu stendur?"
 
 #: ../iw/language_support_gui.py:145
-#, fuzzy
 msgid "Choose the default language:   "
-msgstr "Veldu tungumál"
+msgstr "Veldu sjálfgefna tungumálið:   "
 
 #: ../iw/language_support_gui.py:156
-#, fuzzy
 msgid "Choose the languages to install:"
-msgstr "Veldu tungumál"
+msgstr "Veldu tungumálin sem þú vilt setja inn:"
 
 #: ../iw/language_support_gui.py:211
-#, fuzzy
 msgid "Select all"
-msgstr "Velja allt í hópnum"
+msgstr "Velja öll"
 
 #: ../iw/language_support_gui.py:217
-#, fuzzy
 msgid "Reset"
-msgstr "_Endurstilla"
+msgstr "Endurstilla"
 
 #: ../iw/language_support_gui.py:231
 msgid "Select as default"
-msgstr ""
+msgstr "Velja sem sjálfgefið"
 
 #: ../iw/lilo_gui.py:30
 msgid "Lilo Configuration"
@@ -1682,7 +1683,7 @@ msgid "Package Group Selection"
 msgstr "Velja pakkahópa"
 
 #: ../iw/package_gui.py:558
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The following error occurred while retreiving hdlist file:\n"
 "\n"
@@ -1690,11 +1691,13 @@ msgid ""
 "\n"
 "Installer will exit now."
 msgstr ""
-"Villa kom upp við að sækja \"hdlist\" skrána. Uppsetningardiskurinn eða "
-"diskmyndin er líklega skemmd. Uppsetningarforritið mun nú hætta."
+"Eftirfarandi villa kom upp við að sækja \"hdlist\" skrána:\n"
+"\n"
+"%s\n"
+"\n"
+"Uppsetningarforritið mun nú hætta."
 
 #: ../iw/package_gui.py:563
-#, fuzzy
 msgid ""
 "An error has occurred while retreiving the hdlist file.  The installation "
 "media or image is probably corrupt.  Installer will exit now."
@@ -1724,14 +1727,12 @@ msgid "Summary"
 msgstr "Lýsing"
 
 #: ../iw/progress_gui.py:223
-#, fuzzy
 msgid "Package Progress: "
-msgstr "Pakkahópar"
+msgstr "Framvinda pakka:  "
 
 #: ../iw/progress_gui.py:228
-#, fuzzy
 msgid "Total Progress:   "
-msgstr "Alls     :"
+msgstr "Heildarframvinda: "
 
 #: ../iw/progress_gui.py:245
 msgid "Status"
@@ -1866,7 +1867,7 @@ msgstr "Sneiða handvirkt með fdisk [fyrir sérfræðinga]"
 
 #: ../iw/rootpartition_gui.py:378
 msgid "Boot Partition Location Warning"
-msgstr ""
+msgstr "Aðvörun um staðsetningu ræsisneiðar"
 
 #: ../iw/rootpartition_gui.py:399 ../textw/partitioning_text.py:366
 msgid ""
@@ -1993,17 +1994,15 @@ msgstr "Sjálfgefið skjáborðsumhverfi er:"
 
 #: ../iw/xconfig_gui.py:510
 msgid "Please choose your login type:"
-msgstr "Vinsamlega veldu kveðju:"
+msgstr "Vinsamlega veldu tegund kveðju:"
 
 #: ../iw/xconfig_gui.py:519
-#, fuzzy
 msgid "Text"
-msgstr "Áfram"
+msgstr "Texti"
 
 #: ../iw/xconfig_gui.py:520
-#, fuzzy
 msgid "Graphical"
-msgstr "Nota grafíska innstimplun"
+msgstr "Myndræn"
 
 #: ../iw/xconfig_gui.py:560
 msgid "Bits per Pixel"
@@ -2026,22 +2025,20 @@ msgid "Restore original values"
 msgstr "Endurheimta fyrri gildi"
 
 #: ../iw/xconfig_gui.py:964
-#, fuzzy
 msgid "Horizontal Sync:"
-msgstr "Lárétt samhæfing"
+msgstr "Lárétt samhæfing:"
 
 #: ../iw/xconfig_gui.py:966
-#, fuzzy
 msgid "Vertical Sync:"
-msgstr "Lóðrétt samhæfing"
+msgstr "Lóðrétt samhæfing:"
 
 #: ../iw/xconfig_gui.py:972
 msgid "Hz"
-msgstr ""
+msgstr "Hz"
 
 #: ../iw/xconfig_gui.py:975
 msgid "kHz"
-msgstr ""
+msgstr "kHz"
 
 #: ../iw/xconfig_gui.py:1165
 msgid ""
@@ -2136,36 +2133,39 @@ msgid ""
 "as telnet or printing), but allows other connections. No firewall allows all "
 "connections and is not recommended. "
 msgstr ""
+"Eldveggur ver vélina gegn óæskilegum nettengingum. Hátt öryggisstig stöðvar "
+"allar tengingar sem eru á leið inn. Miðlungsöryggi lokar á tengingar á ýmsar "
+"kerfisþjónustur (eins og til dæmis telnet og prentun) en leyfir aðrar "
+"tengingar. Ef enginn eldveggur er valinn er öllum tengingum hleypt inn og "
+"það er ekki mælt með því."
 
 #: ../textw/firewall_text.py:29
 msgid "Security Level:"
-msgstr ""
+msgstr "Öryggisstig:"
 
 #: ../textw/firewall_text.py:58
-#, fuzzy
 msgid "Trusted Devices:"
-msgstr "Raid tæki þegar í notkun"
+msgstr "Tæki sem er treyst, þegar í notkun:"
 
 #: ../textw/firewall_text.py:80
 msgid "DHCP"
-msgstr ""
+msgstr "DHCP"
 
 #: ../textw/firewall_text.py:82
 msgid "SSH"
-msgstr ""
+msgstr "SSH"
 
 #: ../textw/firewall_text.py:84
-#, fuzzy
 msgid "Telnet"
-msgstr "Eyða"
+msgstr "Telnet"
 
 #: ../textw/firewall_text.py:86
 msgid "WWW (HTTP)"
-msgstr ""
+msgstr "WWW (HTTP)"
 
 #: ../textw/firewall_text.py:88
 msgid "Mail (SMTP)"
-msgstr ""
+msgstr "Póstur (SMTP)"
 
 #: ../loader/loader.c:1233 ../loader/loader.c:1242
 #: ../textw/firewall_text.py:90
@@ -2173,23 +2173,20 @@ msgid "FTP"
 msgstr "FTP"
 
 #: ../textw/firewall_text.py:94
-#, fuzzy
 msgid "Other ports"
-msgstr "Prentarastuðningur"
+msgstr "Önnur port"
 
 #: ../textw/firewall_text.py:120
-#, fuzzy
 msgid "Invalid Choice"
-msgstr "Ógilt ræsimerki"
+msgstr "Ógilt val"
 
 #: ../textw/firewall_text.py:121
 msgid "You cannot customize a disabled firewall."
-msgstr ""
+msgstr "Þú getur ekki sérsniðið eldvegg sem er ekki virkur."
 
 #: ../textw/firewall_text.py:126
-#, fuzzy
 msgid "Firewall Configuration - Customize"
-msgstr "Stillingum lokið"
+msgstr "Stillingar eldveggs - Sérsníða"
 
 #: ../textw/firewall_text.py:128
 msgid ""
@@ -3728,13 +3725,12 @@ msgstr ""
 "Settu uppfærsludisklinginn í drifið og veldu \"Í lagi\" til að halda áfram."
 
 #: ../loader/loader.c:2255
-#, fuzzy
 msgid ""
 "The floppy disk you inserted is not a valid update disk for this release of "
 "Red Hat Linux."
 msgstr ""
-"Disklingurinn sem þú settir í drifið er ekki gildur rekladisklingur fyrir "
-"þessa útgáfu af Red Hat Linux."
+"Disklingurinn sem þú settir í drifið er ekki gildur uppfærsludisklingur "
+"fyrir þessa útgáfu af Red Hat Linux."
 
 #: ../loader/loader.c:2263
 msgid "Failed to mount floppy disk."
@@ -4174,22 +4170,3 @@ msgstr "Kjarnaþróun"
 
 msgid "Utilities"
 msgstr "Tól"
-
-#, fuzzy
-#~ msgid "None"
-#~ msgstr "Búið"
-
-#~ msgid "<Swap Partition"
-#~ msgstr "<Diskminnissneið"
-
-#~ msgid "Test this configuration"
-#~ msgstr "Prófa þessar stillingar"
-
-#~ msgid "Customize X Configuration"
-#~ msgstr "Sérsníða X stillingar"
-
-#~ msgid "Default Desktop:"
-#~ msgstr "Sjálfgefið skjáborð:"
-
-#~ msgid "Pacific Rim"
-#~ msgstr "Kyrrahafsströnd"
