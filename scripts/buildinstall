@@ -44,6 +44,10 @@ while [ $# -gt 0 ]; do
 	    BUILDINSTDIR=$2
 	    shift; shift
 	    ;;
+	--discs)
+	    DISCSTR=$2
+	    shift; shift
+	    ;;
 	*)
 	    if [ -n "$DIR" -o ! -d $1/RedHat/RPMS ]; then
 		usage
@@ -68,6 +72,10 @@ fi
 
 if [ -z "$RELEASESTR" ]; then
     usage
+fi
+
+if [ -z "$DISCSTR" ]; then
+    DISCSTR="1,2,3"
 fi
 
 p=`cd $DIR; /bin/pwd`
@@ -121,9 +129,9 @@ rm -rf $BUILDINSTDIR/usr
 echo "Going to run buildinstall again"
 # run it again for the second half
 if [ -x /usr/bin/runroot ]; then
-    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' $DIR" 
+    runroot $COMPNAME --onlyone --arch $BUILDARCH "$BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release '\"$RELEASESTR\"' --product '\"$PRODUCTSTR\"' --discs '\"$DISCSTR\"' $DIR" 
 else
-    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" $DIR
+    $BUILDINSTALL --buildinstdir $BUILDINSTDIR --second $PKGORDERSTR --comp $COMPNAME --version $VERSION --release "$RELEASESTR" --product "$PRODUCTSTR" --discs "$DISCSTR" $DIR
 fi
 
 rm -rf $BUILDINSTDIR
@@ -155,7 +163,7 @@ else
 fi
 
 echo "Writing .discinfo file"
-$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="1,2,3" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
+$MK_STAMP --releasestr="$RELEASESTR" --arch=$BUILDARCH --discNum="$DISCSTR" --baseDir=RedHat/base --packagesDir=RedHat/RPMS --pixmapsDir=RedHat/pixmaps --outfile=$p/.discinfo
 
 if [ -x /usr/bin/runroot ]; then
     runroot $COMPNAME --onlyone --arch $BUILDARCH "rm -rf $TREEDIR/image-template $TREEDIR/instimage"
