@@ -657,7 +657,7 @@ int main(int argc, char **argv) {
     unmountFilesystems();
 
     /* If /dev/cdrom exists, eject it */
-    if ((fd = open("/dev/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+    if ((fd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
 	printf("ejecting cdrom\n");
 	if (ioctl(fd, CDROMEJECT, 0)) {
 	    printf("eject failed\n");
