@@ -1385,13 +1385,18 @@ class DiskSet:
                                "Get yourself a coffee and thank\n"
                                "IBM for the lack of a progress bar!\n"
                                ) % (drive,))
+        try:
+            isys.makeDevInode(device, '/tmp/' + device)
+        except:
+            pass
+
         rc = iutil.execWithRedirect("/sbin/dasdfmt",
                                     [ "/sbin/dasdfmt",
                                       "-y",
                                       "-b", "4096",
                                       "-d", "cdl",
                                       "-f",
-                                      "/dev/%s" % drive],
+                                      "/tmp/%s" % drive],
                                     stdin = "/dev/null",
                                     stdout = "/dev/null")
         w.pop()
