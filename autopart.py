@@ -191,6 +191,7 @@ def fitConstrained(diskset, requests, primOnly=0, newParts = None):
 #                raise PartitioningError, msg
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
+                    disk.delete_partition(newp)
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
@@ -352,6 +353,7 @@ def fitSized(diskset, requests, primOnly = 0, newParts = None):
                 raise PartitioningError, msg
             for flag in request.fstype.getPartedPartitionFlags():
                 if not newp.is_flag_available(flag):
+                    disk.delete_partition(newp)                    
                     raise PartitioningError, ("requested FileSystemType needs "
                                            "a flag that is not available.")
                 newp.set_flag(flag, 1)
