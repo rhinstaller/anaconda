@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.9
+Version: 10.0.3.10
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,13 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Fri Oct  1 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.10-1
+- add kickstart zfcp configuration (#133288, #130070)
+- Use NFSv3 for NFS installs.  Fixes NFSISO installs from DVD (#122032)
+- Fix megaraid_mbox module name (#134369)
+- Another uninitialized fix (#133996)
+- Add the zh_CN font (#133330)
+
 * Thu Sep 30 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.9-1
 - translation updates
 - Install compat-arch-support by default (#133514)
