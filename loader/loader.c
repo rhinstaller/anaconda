@@ -949,7 +949,7 @@ static char * doMountImage(char * location, struct knownDevices * kd,
 	free(class);
     }
 
-#ifdef INCLUDE_PCMCIA
+#if !defined(__i386__) || defined(INCLUDE_PCMCIA)
     for (i = 0; i < numMethods; i++) {
 	int j;
 
@@ -1022,7 +1022,7 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
     char * url = NULL, * proxy = NULL, * proxyport = NULL;
     char ** ksArgv;
     char * fullPath;
-    char * device;
+    char * device = NULL;
     int ksArgc;
     int ksType;
     int i, rc, fd, partNum;
@@ -1309,7 +1309,7 @@ int kickstartFromFloppy(char * location, moduleList modLoaded,
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[30];
-    char * arg, * url;
+    char * arg, * url = NULL;
     poptContext optCon;
     int probeOnly = 0;
     moduleList modLoaded;
