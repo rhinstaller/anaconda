@@ -162,6 +162,10 @@ class InstallTimeLanguage:
         self.setRuntimeDefaults(name)
         lang = self.langNicks[name]
 
+        for (runtime, main) in self.runtimeLangs.items():
+            if main == lang:
+                lang = runtime
+
         os.environ["LANG"] = lang
         os.environ["LC_NUMERIC"] = 'C'
         try:
