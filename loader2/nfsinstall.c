@@ -243,13 +243,11 @@ void setKickstartNfs(struct loaderData_s * loaderData, int argc,
 }
 
 
-int kickstartFromNfs(char * url, struct knownDevices * kd,
-                     struct loaderData_s * loaderData, int flags) {
+int getFileFromNfs(char * url, char * dest, struct knownDevices * kd,
+                   struct loaderData_s * loaderData, int flags) {
     char * host = NULL, *path = NULL, * file = NULL;
     int failed = 0;
     struct networkDeviceConfig netCfg;
-
-    logMessage("going to get ks from nfs");
 
     if (kickstartNetworkUp(kd, loaderData, &netCfg, flags)) {
         logMessage("unable to bring up network");
@@ -289,15 +287,15 @@ int kickstartFromNfs(char * url, struct knownDevices * kd,
         host = sdupprintf("%s/%s", host, path);
     }
 
-    logMessage("ks location: nfs://%s/%s", host, file);
+    logMessage("file location: nfs://%s/%s", host, file);
 
-    if (!doPwMount(host, "/tmp/ks", "nfs", 1, 0, NULL, NULL, 0)) {
+    if (!doPwMount(host, "/tmp/mnt", "nfs", 1, 0, NULL, NULL, 0)) {
         char * buf;
 
         buf = alloca(strlen(file) + 10);
-        sprintf(buf, "/tmp/ks/%s", file);
-        if (copyFile(buf, "/tmp/ks.cfg")) {
-            logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+        sprintf(buf, "/tmp/mnt/%s", file);
+        if (copyFile(buf, dest)) {
+            logMessage("failed to copy file to %s", dest);
             failed = 1;
         }
         
@@ -306,8 +304,13 @@ int kickstartFromNfs(char * url, struct knownDevices * kd,
         failed = 1;
     }
 
-    umount("/tmp/ks");
-    unlink("/tmp/ks");
+    umount("/tmp/mnt");
+    unlink("/tmp/mnt");
 
     return failed;
+}
+
+int kickstartFromNfs(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags) {
+    return getFileFromNfs(url, "/tmp/ks.cfg", kd, loaderData, flags);    
 }

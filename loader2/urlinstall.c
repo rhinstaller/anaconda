@@ -261,9 +261,8 @@ char * mountUrlImage(struct installMethod * method,
     return url;
 }
 
-/* pull kickstart configuration file via http */
-int kickstartFromUrl(char * url, struct knownDevices * kd,
-                     struct loaderData_s * loaderData, int flags) {
+int getFileFromUrl(char * url, char * dest, struct knownDevices * kd,
+                   struct loaderData_s * loaderData, int flags) {
     struct iurlinfo ui;
     enum urlprotocol_t proto = 
         !strncmp(url, "ftp://", 6) ? URL_METHOD_FTP : URL_METHOD_HTTP;
@@ -282,7 +281,7 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
     getHostandPath((proto == URL_METHOD_FTP ? url + 6 : url + 7), 
                    &host, &file, inet_ntoa(netCfg.dev.ip));
 
-    logMessage("ks location: %s://%s/%s", 
+    logMessage("file location: %s://%s/%s", 
                (proto == URL_METHOD_FTP ? "ftp" : "http"), host, file);
 
     chptr = strchr(host, '/');
@@ -303,16 +302,22 @@ int kickstartFromUrl(char * url, struct knownDevices * kd,
         return 1;
     }
            
-    rc = copyFileFd(fd, "/tmp/ks.cfg");
+    rc = copyFileFd(fd, dest);
     if (rc) {
-        unlink ("/tmp/ks.cfg");
-        logMessage("failed to copy ks.cfg to /tmp/ks.cfg");
+        unlink (dest);
+        logMessage("failed to copy file to %s", dest);
         return 1;
     }
 
     urlinstFinishTransfer(&ui, fd);
 
     return 0;
+}
+
+/* pull kickstart configuration file via http */
+int kickstartFromUrl(char * url, struct knownDevices * kd,
+                     struct loaderData_s * loaderData, int flags) {
+    return getFileFromUrl(url, "/tmp/ks.cfg", kd, loaderData, flags);
 }
 
 void setKickstartUrl(struct loaderData_s * loaderData, int argc,
