@@ -20,6 +20,8 @@ from rhpl.translate import _, N_
 from flags import flags
 from constants import *
 
+selopts = [ N_("Disabled"), N_("Warn"), N_("Active") ]
+
 class FirewallWindow (InstallWindow):		
 
     windowTitle = N_("Firewall")
@@ -29,7 +31,7 @@ class FirewallWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
     def getNext (self):
-        self.security.setSELinux(self.se_option_menu.get_history())
+        self.security.setSELinux(self.selinux_combo.get_active())
         
         if self.disabled_radio.get_active ():
 	    rc2 = self.intf.messageWindow(_("Warning - No Firewall"),
@@ -154,21 +156,18 @@ class FirewallWindow (InstallWindow):
 
         label = gtk.Label(_("Enable _SELinux?:"))
         label.set_use_underline(gtk.TRUE)
-        self.se_option_menu = gtk.OptionMenu()
-        label.set_mnemonic_widget(self.se_option_menu)
-        se_menu = gtk.Menu()
+        self.selinux_combo = gtk.combo_box_new_text()
+        label.set_mnemonic_widget(self.selinux_combo)
 
-        for i in (_("Disabled"), _("Warn"), _("Active")):
-            se_menu.add(gtk.MenuItem(i))
+        for i in selopts:
+            self.selinux_combo.append_text(_(i))
 
-        self.se_option_menu.set_menu(se_menu)
-
-        self.se_option_menu.set_history(self.security.getSELinux())
+        self.selinux_combo.set_active(self.security.getSELinux())
         
         hbox = gtk.HBox()
         hbox.set_spacing(8)
         hbox.pack_start(label, gtk.FALSE)
-        hbox.pack_start(self.se_option_menu, gtk.FALSE)
+        hbox.pack_start(self.selinux_combo, gtk.FALSE)
         selbox.pack_start(hbox)
 
         if flags.selinux == 0:
