@@ -27,7 +27,7 @@ _silo.so: silo.c
 libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
-	rm -f *.o *.so *.a $(TARGET) $(OBJECTS)
+	rm -f *.o *.so *.a *.pyc $(TARGET) $(OBJECTS)
 	for d in $(SUBDIRS); do make TOPDIR=../$(TOPDIR) -C $$d clean; done
 
 install: all

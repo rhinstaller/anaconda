@@ -156,6 +156,9 @@ init: init.o $(MINILIBC)
 clean: 
 	rm -f *.o .depend *~ loader-local loader-network loader.old loader-pcmcia probe modprobe \
 	      loader.po loader.tr tr/*.tr loader init
+	for n in $(DIRS); do \
+	    (cd $$n; make clean) \
+	done
 
 depend:
 	$(CPP) $(CFLAGS) -DHAVE_CONFIG_H -M $(SOURCES) > .depend

@@ -19,4 +19,4 @@ timezonemapmodule.so: gnome-map.o gnome-canvas-dot.o timezonemapmodule.o gnome-m
 	gcc -g -o timezonemapmodule.so -shared gnome-map.o gnome-canvas-dot.o timezonemapmodule.o timezones.o $(LDFLAGS)
 
 clean:
-	rm -f *.so *.o *~
+	rm -f gglobe-canvas *.so *.o *~
