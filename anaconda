@@ -109,9 +109,6 @@ def startVNCServer(vncpasswd=None, root='/'):
 	
     dup_log(_("VNC server now running - please connect to install..."))
 
-
-dup_
-    
     os.environ["DISPLAY"]=":1"
     doStartupX11Actions()
 
