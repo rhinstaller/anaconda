@@ -588,7 +588,7 @@ class PartitionWindow(InstallWindow):
         hbox.pack_start(vbox, gtk.FALSE)
 
         win.vbox.pack_start(hbox)
-        win.set_size_request(400,300)
+#        win.set_size_request(400,300)
         win.set_position(gtk.WIN_POS_CENTER)
         win.set_default_response(defaultchoice)
         win.show_all()
