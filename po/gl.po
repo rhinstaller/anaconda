@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2000-08-14 16:58-0400\n"
-"PO-Revision-Date: 2000-09-21 20:59+0200\n"
+"PO-Revision-Date: 2000-12-12 23:01+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -38,10 +38,10 @@ msgid ""
 "must reboot your machine before proceeding. Insert the Red Hat boot disk now "
 "and press \"Ok\" to reboot your system.\n"
 msgstr ""
-"O kernel non é capaz de le-la información das novas particións, "
+"O kernel non é capaz de ler a información das novas particións, "
 "probablemente porque modificou particións estendidas. Aínda que isto non é "
-"crítico, terá que reinicia-la máquina antes de continuar. Insira agora o "
-"disquete de arrinque de Red Hat e prema \"Aceptar\" para reinicia-lo "
+"crítico, terá que reiniciar a máquina antes de continuar. Insira agora o "
+"disquete de arrinque de Red Hat e prema \"Aceptar\" para reiniciar o "
 "sistema.\n"
 
 #: ../fstab.py:393 ../fstab.py:620 ../fstab.py:630 ../fstab.py:654
@@ -55,7 +55,7 @@ msgstr "Formatando o espacio de intercambio en /dev/%s..."
 
 #: ../fstab.py:404
 msgid "Error creating swap on device "
-msgstr "Erro ó crea-lo espacio de intercambio no dispositivo "
+msgstr "Erro ó crear o espacio de intercambio no dispositivo "
 
 #: ../fstab.py:505
 #, c-format
@@ -217,7 +217,7 @@ msgstr "Ese non é o CDROM de Red Hat correcto."
 
 #: ../image.py:97
 msgid "The CDROM could not be mounted."
-msgstr "Non se puido monta-lo CDROM."
+msgstr "Non se puido montar o CDROM."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:967 ../libfdisk/fsedit.c:974 ../libfdisk/fsedit.c:981
@@ -335,9 +335,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Os paquetes que ten instalados, e tódolos outros necesarios para "
-"satisface-las dependencias, foron seleccionados para a instalación. ¿Quere "
-"especificar vostede os paquetes que serán actualizados?"
+"Os paquetes que ten instalados, e tódolos outros necesarios para satisfacer "
+"as dependencias, foron seleccionados para a instalación. ¿Quere especificar "
+"vostede os paquetes que serán actualizados?"
 
 #: ../iw/welcome_gui.py:88 ../libfdisk/fsedit.c:998
 #: ../libfdisk/gnomefsedit.c:727 ../libfdisk/gnomefsedit.c:1135
@@ -450,7 +450,7 @@ msgid ""
 "rebooting your system. You may want to keep this file for later reference."
 msgstr ""
 "Un rexistro completo da súa instalación ficará en /tmp/install.log tras "
-"reinicia-lo seu sistema. Pode querer manter este ficheiro para referencia "
+"reiniciar o seu sistema. Pode querer manter este ficheiro para referencia "
 "posterior."
 
 #: ../text.py:495
@@ -463,7 +463,7 @@ msgid ""
 "your system. You may want to keep this file for later reference."
 msgstr ""
 "Un rexistro completo da súa actualización ficará en /tmp/upgrade.log tras "
-"reinicia-lo seu sistema. Pode querer manter este ficheiro para referencia "
+"reiniciar o seu sistema. Pode querer manter este ficheiro para referencia "
 "posterior."
 
 #: ../text.py:513 ../text.py:534
@@ -560,7 +560,7 @@ msgstr "Non hai axuda dispoñible para esta instalación."
 
 #: ../text.py:809
 msgid "Save Crash Dump"
-msgstr "Garda-lo Envorcado do Erro"
+msgstr "Gardar o Envorcado do Erro"
 
 #: ../text.py:820
 msgid ""
@@ -573,7 +573,7 @@ msgstr ""
 "Ocorreu un erro interno no programa de instalación. Por favor, informe deste "
 "erro a Red Hat (a través da páxina web bugzilla.redhat.com) en canto lle "
 "sexa posible. A información sobre este erro pode gardarse nun disquete, e "
-"axudará a Red Hat a arranxa-lo problema.\n"
+"axudará a Red Hat a arranxar o problema.\n"
 "\n"
 
 #: ../text.py:827 ../text.py:830
@@ -803,7 +803,7 @@ msgstr "Buscando os paquetes a actualizar..."
 #: ../todo.py:952
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
-"Fallo ó reconstrui-la base de datos RPM. ¿Pode que ficase sen espacio no "
+"Fallo ó reconstruír a base de datos RPM. ¿Pode que ficase sen espacio no "
 "disco?"
 
 #: ../todo.py:965
@@ -871,7 +871,7 @@ msgstr "Servidor X"
 
 #: ../xf86config.py:862
 msgid "Unable to detect video card"
-msgstr "Non se pode detecta-la tarxeta gráfica"
+msgstr "Non se pode detectar a tarxeta gráfica"
 
 #: ../iw/xconfig_gui.py:11 ../xf86config.py:869 ../xf86config.py:871
 msgid "Monitor"
@@ -902,7 +902,7 @@ msgid ""
 msgstr ""
 "O rato non foi detectado automáticamente.  Para seguir coa instalación en "
 "modo gráfico, vaia á seguinte pantalla e forneza a información sobre o rato. "
-"Tamén pode usa-la instalación en modo texto, que non require o uso dun rato."
+"Tamén pode usar a instalación en modo texto, que non require o uso dun rato."
 
 #: ../xserver.py:33 ../xserver.py:34
 msgid "Use text mode"
@@ -1013,7 +1013,7 @@ msgstr "Activar NIS"
 
 #: ../iw/auth_gui.py:80
 msgid "Use broadcast to find NIS server"
-msgstr "Usar broadcast para atopa-lo servidor NIS"
+msgstr "Usar broadcast para atopar o servidor NIS"
 
 #: ../iw/auth_gui.py:92
 msgid "NIS Domain: "
@@ -1070,7 +1070,7 @@ msgid ""
 "An error occured while making the boot disk. Please make sure that there is "
 "a formatted floppy in the first floppy drive."
 msgstr ""
-"Ocorreu un erro ó crea-lo disquete de arrinque. Asegúrese de que hai un "
+"Ocorreu un erro ó crear o disquete de arrinque. Asegúrese de que hai un "
 "disquete formatado na primeira unidade de disco."
 
 #: ../iw/bootdisk_gui.py:68
@@ -1140,7 +1140,7 @@ msgstr "Requirimento"
 
 #: ../iw/dependencies_gui.py:86 ../textw/packages_text.py:327
 msgid "Install packages to satisfy dependencies"
-msgstr "Instalar paquetes para satisface-las dependencias"
+msgstr "Instalar paquetes para satisfacer as dependencias"
 
 #: ../iw/dependencies_gui.py:89 ../textw/packages_text.py:328
 msgid "Do not install packages that have dependencies"
@@ -1148,7 +1148,7 @@ msgstr "Non instalar paquetes que teñan dependencias"
 
 #: ../iw/dependencies_gui.py:93 ../textw/packages_text.py:329
 msgid "Ignore package dependencies"
-msgstr "Ignora-las dependencias dos paquetes"
+msgstr "Ignorar as dependencias dos paquetes"
 
 #: ../iw/examine_gui.py:10
 msgid "Upgrade Examine"
@@ -1168,7 +1168,7 @@ msgstr "Seleccione o dispositivo que conteña o sistema de ficheiros raíz: "
 
 #: ../iw/examine_gui.py:72
 msgid "Customize packages to be upgraded"
-msgstr "Especifica-los paquetes a actualizar"
+msgstr "Especificar os paquetes a actualizar"
 
 #: ../iw/fdisk_gui.py:12 ../textw/partitioning_text.py:23
 msgid "fdisk"
@@ -1367,7 +1367,7 @@ msgstr "Tamaño: "
 
 #: ../iw/package_gui.py:343
 msgid "Select Package For Installation"
-msgstr "Escolle-lo Paquete para Instalar"
+msgstr "Escoller o Paquete para Instalar"
 
 #: ../iw/package_gui.py:352
 msgid "Total install size: "
@@ -1436,8 +1436,8 @@ msgid ""
 "immediately. To do this we'll have to write your new partition table to the "
 "disk immediately. Is that okay?"
 msgstr ""
-"Como non ten moita memoria nesta máquina, é necesario activa-lo espacio de "
-"intercambio inmediatamente. Para facelo hai que escribi-la nova táboa de "
+"Como non ten moita memoria nesta máquina, é necesario activar o espacio de "
+"intercambio inmediatamente. Para facelo hai que escribir a nova táboa de "
 "particións no disco inmediatamente. ¿Confirmar?"
 
 #: ../iw/rootpartition_gui.py:145 ../textw/partitioning_text.py:302
@@ -1448,7 +1448,7 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
-"Vostede escolleu poñe-lo seu sistema de ficheiros raíz nun sistema de "
+"Vostede escolleu pór o seu sistema de ficheiros raíz nun sistema de "
 "ficheiros DOS ou Windows xa existente. ¿Canto quere que ocupe, en megabytes, "
 "o sistema de ficheiros raíz, e canto espacio de intercambio quere ter? En "
 "total teñen que ocupar menos de %d megabytes."
@@ -1500,7 +1500,7 @@ msgstr ""
 "que particionar manualmente os seus discos para poder instalar Red Hat "
 "Linux.\n"
 "\n"
-"Escolla a ferramenta que quere utilizar para particiona-lo seu sistema para "
+"Escolla a ferramenta que quere utilizar para particionar o seu sistema para "
 "Red Hat Linux."
 
 #: ../iw/rootpartition_gui.py:313
@@ -1514,7 +1514,7 @@ msgid ""
 "Red Hat Linux."
 msgstr ""
 "\n"
-"Escolla a ferramenta que quere usar para particiona-lo seu sistema para Red "
+"Escolla a ferramenta que quere usar para particionar o seu sistema para Red "
 "Hat Linux."
 
 #: ../iw/rootpartition_gui.py:328
@@ -1575,7 +1575,7 @@ msgstr "Desprazamento da Hora Universal"
 
 #: ../iw/welcome_gui.py:80
 msgid "Would you like to configure your system?"
-msgstr "¿Quere configura-lo seu sistema?"
+msgstr "¿Quere configurar o seu sistema?"
 
 #: ../iw/xconfig_gui.py:13
 msgid "Horizontal Frequency Range"
@@ -1664,7 +1664,7 @@ msgid ""
 "\n"
 "Would you like to create a boot disk for your system?"
 msgstr ""
-"Un disquete de arrinque personalizado ofrece un xeito de arrinca-lo seu "
+"Un disquete de arrinque personalizado ofrece un xeito de arrincar o seu "
 "sistema Linux sen depender dun cargador de inicio normal. Isto é útil se non "
 "quere instalar lilo no seu sistema, ou outro sistema operativo borra o lilo, "
 "ou este non funciona coa súa configuración hardware. Un disquete de arrinque "
@@ -1910,7 +1910,7 @@ msgstr ""
 
 #: ../textw/partitioning_text.py:254
 msgid "Check for bad blocks during format"
-msgstr "Comproba-los bloques erróneos ó formatar"
+msgstr "Comprobar os bloques erróneos ó formatar"
 
 #: ../textw/partitioning_text.py:259
 msgid "Choose Partitions to Format"
@@ -2072,7 +2072,7 @@ msgid ""
 msgstr ""
 "Vostede debería usar unha conta de usuario normal para a maioría das "
 "actividades no seu sistema. Ó non usar habitualmente a conta de root, "
-"reducirá a posibilidade de estraga-la configuración do seu sistema."
+"reducirá a posibilidade de estragar a configuración do seu sistema."
 
 #: ../textw/userauth_text.py:174
 msgid ""
@@ -2090,11 +2090,11 @@ msgstr "Nome de usuario"
 
 #: ../textw/userauth_text.py:208
 msgid "Enter the information for the user."
-msgstr "Introduci-la información do usuario."
+msgstr "Introducir a información do usuario."
 
 #: ../textw/userauth_text.py:220
 msgid "Change the information for this user."
-msgstr "Cambia-la información deste usuario."
+msgstr "Cambiar a información deste usuario."
 
 #: ../textw/userauth_text.py:291
 msgid "Use Shadow Passwords"
@@ -2202,8 +2202,8 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
-"Vostede pediu poñe-lo seu sistema de ficheiros raíz (/) nunha partición FAT "
-"de DOS. Pode facer isto, pero non poderá usar ningún outro sistema de "
+"Vostede solicitou pór o seu sistema de ficheiros raíz (/) nunha partición "
+"FAT de DOS. Pode facer isto, pero non poderá usar ningún outro sistema de "
 "ficheiros para o seu sistema Linux. Ademais, haberá unha disminución na "
 "velocidade por non usar particións nativas de Linux. ¿Quere continuar?"
 
@@ -2247,7 +2247,7 @@ msgid ""
 "you saw this message."
 msgstr ""
 "Vostede ten máis unidades das que soporta este programa. Use o programa "
-"fdisk estándar para configura-las súas unidades, e, por favor, notifique a "
+"fdisk estándar para configurar as súas unidades, e, por favor, notifique a "
 "Red Hat Software que viu esta mensaxe."
 
 #: ../libfdisk/fsedit.c:1079
@@ -2260,7 +2260,7 @@ msgid ""
 "in your system.  This may be because you have run out of disk space on the "
 "/tmp partition."
 msgstr ""
-"Ocorreu un erro ó tentar escribi-los ficheiros de dispositivo para os discos "
+"Ocorreu un erro ó tentar escribir os ficheiros de dispositivo para os discos "
 "duros no seu sistema.  Isto pode ser porque quedou sen espacio na partición "
 "/tmp."
 
@@ -2382,7 +2382,7 @@ msgstr "Tamaño (Megas):"
 
 #: ../libfdisk/gnomefsedit.c:897
 msgid "Use remaining space?"
-msgstr "¿Usa-lo espacio restante?"
+msgstr "¿Usar o espacio restante?"
 
 #: ../libfdisk/gnomefsedit.c:916 ../libfdisk/newtfsedit.c:440
 msgid "Allocation Status:"
@@ -2434,7 +2434,7 @@ msgid ""
 "partitions also.  Clear those mount points and then you will be able to "
 "assign '/' to this partition."
 msgstr ""
-"Vostede tentou asigna-lo punto de montaxe '/' a unha partición tipo FAT.  "
+"Vostede tentou asignar o punto de montaxe '/' a unha partición tipo FAT.  "
 "Agora non pode facer iso, porque os puntos de montaxe tamén foron asignados "
 "a particións ext2.  Quite eses puntos de montaxe, e entón poderá asignar '/' "
 "a esta partición."
@@ -2687,15 +2687,15 @@ msgstr "Auto-Particionar"
 
 #: ../libfdisk/gnomefsedit.c:2442
 msgid "Using Existing Disk Space"
-msgstr "Usa-lo Espacio de Disco Existente"
+msgstr "Usar o Espacio de Disco Existente"
 
 #: ../libfdisk/gnomefsedit.c:2461
 msgid "Remove Linux partitions"
-msgstr "Borra-las particións de Linux"
+msgstr "Borrar as particións de Linux"
 
 #: ../libfdisk/gnomefsedit.c:2472
 msgid "Use existing free space"
-msgstr "Usa-lo espacio libre existente"
+msgstr "Usar o espacio libre existente"
 
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2484
@@ -2708,7 +2708,7 @@ msgstr "Servidor"
 
 #: ../libfdisk/gnomefsedit.c:2599
 msgid "Delete RAID Device?"
-msgstr "¿Borra-lo Dispositivo RAID?"
+msgstr "¿Borrar o Dispositivo RAID?"
 
 #: ../libfdisk/gnomefsedit.c:2600
 msgid "Are you sure you want to remove this RAID device?"
@@ -2825,7 +2825,7 @@ msgstr "Editar Nova Partición"
 
 #: ../libfdisk/newtfsedit.c:428
 msgid "Use remaining space?:"
-msgstr "¿Usa-lo espacio restante?:"
+msgstr "¿Usar o espacio restante?:"
 
 #: ../libfdisk/newtfsedit.c:472
 msgid "Type:"
@@ -2960,7 +2960,7 @@ msgstr ""
 
 #: ../loader/devices.c:237
 msgid "Failed to mount driver disk."
-msgstr "Fallo ó monta-lo disquete de controlador."
+msgstr "Fallo ó montar o disquete de controlador."
 
 #: ../loader/devices.c:244
 msgid ""
@@ -2985,12 +2985,12 @@ msgstr "Indicar parámetros para o módulo"
 #: ../loader/devices.c:410
 #, c-format
 msgid "Failed to insert %s module."
-msgstr "Erro ó inseri-lo módulo %s."
+msgstr "Erro ó inserir o módulo %s."
 
 #: ../loader/devices.c:456
 #, c-format
 msgid "Failed to mount driver disk: %s."
-msgstr "Erro ó monta-lo disquete de controlador: %s."
+msgstr "Erro ó montar o disquete de controlador: %s."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
@@ -3093,7 +3093,7 @@ msgstr "Cargando o disco RAM %s..."
 
 #: ../loader/loader.c:504
 msgid "Error loading ramdisk."
-msgstr "Erro ó carga-lo disco RAM."
+msgstr "Erro ó cargar o disco RAM."
 
 #: ../loader/loader.c:656
 msgid "Hard Drives"
@@ -3137,8 +3137,8 @@ msgid ""
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 "Non se puido atopar un CDROM de Red Hat Linux en ningunha das súas unidades "
-"de CDROM. Por favor, insira o CD de Red Hat e prema \"Aceptar\" para "
-"retentar."
+"de CDROM. Por favor, insira o CD de Red Hat e prema \"Aceptar\" para tentar "
+"de novo."
 
 #: ../loader/loader.c:940
 msgid "Networking Device"
@@ -3199,7 +3199,7 @@ msgstr "Non se pode atopar ks.cfg no disquete de arrinque."
 #: ../loader/loader.c:2007
 #, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Fallo ó le-lo directorio %s: %s"
+msgstr "Fallo ó ler o directorio %s: %s"
 
 #: ../loader/loader.c:2069
 msgid "Updates Disk"
@@ -3212,7 +3212,7 @@ msgstr ""
 
 #: ../loader/loader.c:2078
 msgid "Failed to mount floppy disk."
-msgstr "Fallo ó monta-lo disquete."
+msgstr "Fallo ó montar o disquete."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/floppy. We could (and probably should) get smarter
@@ -3376,7 +3376,7 @@ msgstr "Configuración da rede"
 
 #: ../loader/net.c:811
 msgid "Would you like to set up networking?"
-msgstr "¿Quere configura-la rede?"
+msgstr "¿Quere configurar a rede?"
 
 #: ../loader/urls.c:73
 #, c-format
@@ -3545,7 +3545,7 @@ msgstr "Asia"
 
 #: ../gnome-map/gglobe-canvas.c:713 ../gnome-map/timezonemapmodule.c:698
 msgid "Cannot load timezone data"
-msgstr "Non é posible carga-los datos da zona horaria"
+msgstr "Non é posible cargar os datos da zona horaria"
 
 #: ../gnome-map/gglobe-canvas.c:719 ../gnome-map/timezonemapmodule.c:731
 msgid "gglobe-canvas"
