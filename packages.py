@@ -789,7 +789,7 @@ def doInstall(method, id, intf, instPath):
 	ts.addInstall(p.hdr, p.hdr, how)
 	total = total + 1
 	totalSize = totalSize + (p[rpm.RPMTAG_SIZE] / 1024)
-	totalFiles = totalFiles + len(p[rpm.RPMTAG_FILENAMES])
+	totalFiles = totalFiles + len(p[rpm.RPMTAG_BASENAMES])
         i = i + 1
 
 	# HACK - dont overload progress bar with useless requests

@@ -95,7 +95,7 @@ class InstallProgressWindow_NEW (InstallWindow):
 
 	self.sizeComplete = self.sizeComplete + (header[rpm.RPMTAG_SIZE]/1024)
 
-	self.filesComplete = self.filesComplete + (len(header[rpm.RPMTAG_FILENAMES]))
+	self.filesComplete = self.filesComplete + (len(header[rpm.RPMTAG_BASENAMES]))
 
         # check to see if we've started yet
 	elapsedTime = timer.elapsed()
