@@ -1553,7 +1553,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
                     l = string.split(num, '/')
                     try:
                         val = (int(l[0]) * 100) / int(l[1])
-                    except IndexError, TypeError:
+                    except (IndexError, TypeError):
                         pass
                     else:
                         w and w.set(val)
