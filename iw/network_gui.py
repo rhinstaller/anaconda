@@ -127,12 +127,10 @@ class NetworkWindow(InstallWindow):
     def DHCPtoggled(self, widget, (dev, table)):
 	active = widget.get_active()
         table.set_sensitive(not active)
-#        self.ipTable.set_sensitive(not active)
 	
 	bootproto = "dhcp"
 	if not active:
             bootproto = "static"
-	dev.set(("bootproto", bootproto))
 
     def onBootToggled(self, widget, dev):
 	if widget.get_active():
@@ -339,12 +337,28 @@ class NetworkWindow(InstallWindow):
 
 	return 0
 	
-
+    def onbootToggleCB(self, row, data):
+	model = self.ethdevices.get_model()
+	iter = model.get_iter((string.atoi(data),))
+	val = model.get_value(iter, 0)
+	dev = model.get_value(iter, 1)
+	if val:
+	    onboot = "yes"
+	else:
+	    onboot = "no"
+	    
+	self.devices[dev].set(("ONBOOT", onboot))
+	
+	self.setIPTableSensitivity()
+	
+	return
+    
+	
     def setupDevices(self):
 	devnames = self.devices.keys()
 	devnames.sort()
 
-	self.ethdevices = checklist.CheckList(2)
+	self.ethdevices = NetworkDeviceCheckList(2, clickCB=self.onbootToggleCB)
 
         num = 0
         for device in devnames:
@@ -483,6 +497,7 @@ class NetworkWindow(InstallWindow):
 	tmphbox=gtk.HBox()
 	tmphbox.pack_start(self.hostnameManual, gtk.FALSE, gtk.FALSE, padding=15)
 	self.hostnameEntry = gtk.Entry()
+	    
 	tmphbox.pack_start(self.hostnameEntry, gtk.FALSE, gtk.FALSE, padding=15)
 	self.hostnameManual.connect("toggled", self.hostnameManualCB, None)
 
@@ -552,3 +567,16 @@ class NetworkWindow(InstallWindow):
 	self.setHostOptionsSensitivity()
 
 	return box
+
+
+class NetworkDeviceCheckList(checklist.CheckList):
+    def toggled_item(self, data, row):
+	checklist.CheckList.toggled_item(self, data, row)
+
+	if self.clickCB:
+	    rc = self.clickCB(data, row)
+    
+    def __init__(self, columns, clickCB=None):
+	checklist.CheckList.__init__(self, columns=columns)
+
+	self.clickCB = clickCB
