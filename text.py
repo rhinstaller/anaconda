@@ -4,7 +4,7 @@
 # Erik Troan <ewt@redhat.com>
 # Matt Wilson <msw@redhat.com>
 #
-# Copyright 2001 Red Hat, Inc.
+# Copyright 2002 Red Hat, Inc.
 #
 # This software may be freely redistributed under the terms of the GNU
 # library public license.
@@ -311,7 +311,7 @@ class InstallInterface:
 	return WaitWindow(self.screen, title, text)
 
     def drawFrame(self):
-        self.welcomeText = _("Red Hat Linux (C) 2001 Red Hat, Inc.")
+        self.welcomeText = _("Red Hat Linux (C) 2002 Red Hat, Inc.")
         self.screen.drawRootText (0, 0, self.welcomeText)
 	if (os.access("/usr/share/anaconda/help/C/s1-help-screens-lang.txt", os.R_OK)):
 	    self.screen.pushHelpLine(_(" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"))
