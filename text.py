@@ -386,7 +386,7 @@ class InstallInterface:
 #	self.screen.suspendCallback(killSelf, self.screen)
 # uncomment this line to drop into the python debugger on <Ctrl+Z>
 # --VERY handy--
-        if DEBUG:
+        if DEBUG or flags.test:
             self.screen.suspendCallback(debugSelf, self.screen)
 
 	if flags.serial or isys.isPsudoTTY(0) or isys.isVioConsole():
