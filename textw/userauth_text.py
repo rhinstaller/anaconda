@@ -330,7 +330,7 @@ class AuthConfigWindow:
         subgrid.setField (self.broadcast, 2, 1, anchorLeft = 1)
         subgrid.setField (self.nisServer, 2, 2, anchorLeft = 1)
 
-        toplevel.add (subgrid, 0, 2, (0, 0, 0, 1))
+        toplevel.add (subgrid, 0, 2, (0, 0, 0, 0), anchorLeft=1)
 
         # set up callbacks
         self.nis.setCallback (self.nissetsensitive)
