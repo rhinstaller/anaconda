@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 1.84\n"
 "POT-Creation-Date: 2001-03-10 09:38-0500\n"
-"PO-Revision-Date: 2001-03-05 08:21+0000\n"
+"PO-Revision-Date: 2001-03-12 08:21+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -87,23 +87,20 @@ msgstr ""
 "ræsidiskinn og veldu \"Í lagi\" til að endurræsa.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
 msgstr "Diskminni"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Forsníð diskminni á /dev/%s..."
+msgstr "Forsníð diskminni..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Forsníð"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Forsníð diskminni á /dev/%s..."
+msgstr "Forsníð diskminni..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -886,7 +883,6 @@ msgid "Examine System"
 msgstr "Skoða kerfið"
 
 #: ../text.py:1079
-#, fuzzy
 msgid "System Swap Space"
 msgstr "Diskminni"
 
@@ -1058,10 +1054,18 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"Villa kom upp við að setja upp ræsistjórann.\n"
+"\n"
+"Við mælum EINDREGIÐ með að þú búir til ræsidiskling þegar þér er boðið upp á "
+"það hér á eftir því annars er sú hætta til staðar að ekki sé hægt að ræsa "
+"upp Red Hat Linux.\n"
+"\n"
+"Villan er:\n"
+"\n"
 
 #: ../todo.py:2002
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Villur í uppsetningu ræsistjóra"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -2078,15 +2082,15 @@ msgstr "Litadýpt:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 litir (8 bita)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Mjög margir litir (16 bita)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Allir litirnir (24 bita)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2134,7 +2138,7 @@ msgstr "Stillingar skjás"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "Skjár fundinn með DDC"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2584,36 +2588,37 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"Linux 2.4 kjarninn þarfnast meira diskminnis en endri kjarnar. Magn "
+"diskminnis ætti nú að vera allt að tvöfalt vinnsluminni vélarinnar að "
+"stærð.Þú er núna með %dMB af diskminni skilgreint og getur búið til viðbótar "
+"diskminni á einhverju af skráarkerfunum þínum núna."
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Diskpláss"
+msgstr "Laust pláss"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Stærð (MB)"
+msgstr "Stærðartillaga (MB):"
 
 #: ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Stærð diskminnis:"
+msgstr "Stærð diskminnisskráar (MB):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Diskminni"
+msgstr "Bæta við diskminni"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Þú verður að slá inn tölu."
+msgstr "Það sem þú slóst inn er ekki gild tala."
 
 #: ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
 msgstr ""
+"Það er ekki nægjanlegt laust pláss á disknum sem þú valdir fyrir "
+"diskminnissneiðina."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
@@ -5050,6 +5055,8 @@ msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"German          de      lat0-16         iso09           de_DE           "
+"de-latin1-nodeadkeys    Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5110,6 +5117,3 @@ msgstr "Tyrkneska"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Úkraínska"
-
-#~ msgid "German"
-#~ msgstr "Þýska"
