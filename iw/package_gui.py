@@ -7,7 +7,6 @@ from examine_gui import *
 import rpm
 import gui
 import GdkImlib
-import GtkExtra
 import string
 import sys
 import xpms_gui
@@ -91,8 +90,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.freeze ()
         if col == 2:         #sort by column #2
             self.bubblesort(args, col)
-            min = 0
-            max = self.maxrows - 1
             self.sortType = "Size"
         elif col == 1:       #sort by column #1
             self.packageList.set_sort_column (col)
@@ -100,8 +97,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.sortType = "Package"
         elif col == 0:       #sort by column #0
             self.bubblesort(args, col)
-            min = 0
-            max = self.maxrows - 1
             self.sortType = "Selected"            
         self.packageList.thaw () 
 
@@ -160,8 +155,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
                     self.toggle_row (row)
                 elif col == 1 or col == 2:  #--If click pkg name, show description
 
-                    packageName = self.packageList.get_text(row, col)
-
                     (val, row_data, header) = self.packageList.get_row_data(row)
                     description = header[rpm.RPMTAG_DESCRIPTION]
                 
@@ -184,8 +177,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         val = not val
         self.packageList.set_row_data(row, (val, row_data, header))
         self.packageList._update_row (row)
-
-        packageName = self.packageList.get_text(row, 1)
 
         description = header[rpm.RPMTAG_DESCRIPTION]
 
@@ -236,7 +227,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
                 dirSize = dirSize/1000000
                 if dirSize > 1:
-                    row = [ "", dirName, "%s" % dirSize]
                     self.rownum = self.packageList.append_row((dirName, "%s" % dirSize), TRUE, dirDesc)
                 else:
                     row = [ "", dirName, "1"]
@@ -301,7 +291,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
                 pkgList = self.pkgs.packages.keys()
                 pkgList.sort()
 
-                myList = []
                 for key in pkgList:
                     header = self.pkgs.packages[key]
                     name = header[rpm.RPMTAG_NAME]
@@ -346,9 +335,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.closed_p, self.closed_b = create_pixmap_from_xpm_d (self.ctree,
                                                                      None, xpms_gui.DIRECTORY_CLOSE_XPM)
             
-        node = self.ctreeAllPkgs.insert_node (None, None, (_("All Packages"),), 2,
-                                       self.closed_p, self.closed_b, self.open_p, self.open_b, TRUE, FALSE)
-
         groups = {}
 
         # go through all the headers and grok out the group names, placing
@@ -364,7 +350,6 @@ class IndividualPackageSelectionWindow (InstallWindow):
         keys = groups.keys ()
         keys.sort ()
         self.flat_groups = groups
-        index = 0
 
         # now insert the groups into the list, then each group's packages
         # after sorting the list
@@ -544,7 +529,6 @@ class PackageSelectionWindow (InstallWindow):
                 pixname = string.replace (pixname, '(', '-')
                 pixname = string.replace (pixname, ')', '-')
                 pixname = string.lower (pixname) + ".png"
-                picture = None
                 checkButton = None
                 im = self.ics.readPixmap (pixname)
                 if im:
