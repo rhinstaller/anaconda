@@ -4,7 +4,7 @@ from translate import N_
 import os
 
 class InstallClass(BaseInstallClass):
-    name = N_("Install Workstation")
+    name = N_("Workstation")
     pixmap = "workstation.png"
 
     sortPriority = 1

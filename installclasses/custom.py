@@ -4,7 +4,7 @@ from translate import N_
 # custom installs are easy :-)
 class InstallClass(BaseInstallClass):
 
-    name = N_("Install Custom System")
+    name = N_("Custom System")
     pixmap = "custom.png"
     
     sortPriority = 10000

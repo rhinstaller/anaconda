@@ -5,7 +5,7 @@ import os
 
 class InstallClass(BaseInstallClass):
 
-    name = N_('Install Server System')
+    name = N_('Server System')
     pixmap = "server.png"
     sortPriority = 10
 
