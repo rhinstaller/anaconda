@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-29 15:49+0700\n"
+"PO-Revision-Date: 2004-11-01 16:28+0700\n"
 "Last-Translator: Erwien Samantha Y <erwiensamantha@sederhana.or.id>\n"
 "Language-Team: LDP Indonesia <http://www.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -255,12 +255,12 @@ msgstr "Tidak dapat mengalokasikan partisi"
 #: ../autopart.py:1017
 #, python-format
 msgid "Boot partition %s doesn't belong to a BSD disk label. SRM won't be able to boot from this paritition. Use a partition belonging to a BSD disk label or change this device disk label to BSD."
-msgstr ""
+msgstr "Partisi boot %s bukan milik label disk dari BSD.SRM tidak bisa lagi di boot dari partisi ini. Gunakan partisi yang label disknya milik BSD atau rubah label disk devais ini ke BSD. "
 
 #: ../autopart.py:1019
 #, python-format
 msgid "Boot partition %s doesn't belong to a disk with enough free space at its beginning for the bootloader to live on. Make sure that there's at least 5MB of free space at the beginning of the disk that contains /boot"
-msgstr ""
+msgstr "Partisi boot %s sepertinya tidak memiliki cukup space yang kosong untuk dibuat sebagai bootloader bisa jalan. Pastikan kalau ada space kosong paling tidak 5MB pada disk drive untuk partisi yang berisikan /boot"
 
 #: ../autopart.py:1021
 #, python-format
@@ -525,7 +525,7 @@ msgstr "Menginstal bootloader..."
 
 #: ../bootloader.py:152
 msgid "No kernel packages were installed on your system.  Your boot loader configuration will not be changed."
-msgstr ""
+msgstr "Tidak ada paket-paket kernel yang terinstall dalam sistem anda. Konfigurasi boot loader anda tidak ada berubah."
 
 #: ../cmdline.py:42
 #: ../iw/progress_gui.py:472
@@ -575,7 +575,7 @@ msgstr "Lain-lain"
 #: ../hdrlist.py:45
 #: ../hdrlist.py:955
 msgid "This group includes all the packages available.  Note that there are substantially more packages than just the ones in all the other package groups on this page."
-msgstr ""
+msgstr "Didalam group ini sudah termasuk semua paket-paket yang tersedia. Catatan, secara dasar didalam group ini ada lebih banyak paket-paket lagi dari paket yang tersedia."
 
 #: ../comps.py:1118
 #: ../hdrlist.py:959
@@ -625,7 +625,7 @@ msgstr "Tidak dapat membuat boot floppy"
 
 #: ../floppy.py:104
 msgid "The size of the kernel modules needed for your machine make it impossible to create a boot disk that will fit on a floppy diskette."
-msgstr ""
+msgstr "Ukuran dari modul-modul kernel harusnya dibikin untuk tidak bisa dibuat disk boot yang cukup untuk ukuran disket floppy pada mesin anda."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -637,6 +637,9 @@ msgid ""
 "\n"
 "All data will be ERASED during creation of the boot disk."
 msgstr ""
+"Silakan ambil disket dari drive floppy, dan masukan disket floppy yang berisikan disk boot.\n"
+"\n"
+"Semua data akan dihapus selama pembuatan disk boot."
 
 #: ../floppy.py:118
 msgid "_Cancel"
@@ -720,7 +723,7 @@ msgstr "Kesalahan"
 #: ../floppy.py:130
 #: ../floppy.py:155
 msgid "An error occurred while making the boot disk. Please make sure that there is a floppy in the first floppy drive."
-msgstr ""
+msgstr "Ada keselahan disaat pembuatan disk boot. Silakan pastikan floppy sudah dimasukan pada drive floppy yang pertama."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -1211,7 +1214,7 @@ msgstr ""
 
 #: ../image.py:188
 msgid "Copying File"
-msgstr "Mengkopi File"
+msgstr "Mengkopi Berkas"
 
 #: ../image.py:189
 msgid "Transferring install image to hard drive..."
@@ -4575,7 +4578,7 @@ msgstr "True Color (24 Bit)"
 
 #: ../iw/xconfig_gui.py:282
 msgid "_Screen Resolution:"
-msgstr "Resolusi Layar:"
+msgstr "Re_solusi Layar:"
 
 #: ../iw/xconfig_gui.py:338
 msgid "Please choose your default desktop environment:"
@@ -4622,7 +4625,7 @@ msgstr "Anda belum memilih tipe dari monitor, Sangat di rekomendasikan anda memi
 
 #: ../iw/xconfig_gui.py:445
 msgid "_Choose monitor type"
-msgstr "Pilih jenis monitor"
+msgstr "Pilih(_choose)  tipe monitor"
 
 #: ../iw/xconfig_gui.py:625
 msgid "In most cases, the monitor can be automatically detected. If the detected settings are not correct for the monitor, select the right settings."
@@ -4687,11 +4690,11 @@ msgstr ""
 
 #: ../iw/xconfig_gui.py:1078
 msgid "_Video card RAM: "
-msgstr "_Video card RAM: "
+msgstr "RAM kartu _Video:"
 
 #: ../iw/xconfig_gui.py:1107
 msgid "_Skip X configuration"
-msgstr "Lewati konfigurasi X"
+msgstr "Lewati konfigura_si X"
 
 #: ../iw/zfcp_gui.py:23
 msgid "ZFCP Configuration"
