@@ -437,7 +437,7 @@ class ToDo:
         self.depthState = ""
         self.initState = ""
         self.dhcpState = ""
-
+        self.langState = 0
 
         # If reconfig mode, don't probe floppy
         #print self.reconfigOnly
