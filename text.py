@@ -110,7 +110,7 @@ class OkCancelWindow:
 
     def __init__(self, screen, title, text):
 	rc = ButtonChoiceWindow(screen, _(title), _(text),
-			        buttons=[ TEXT_OK_BUTTON, _("Cancel") ])
+			        buttons=[TEXT_OK_BUTTON, _("Cancel")])
 	if rc == string.lower(_("Cancel")):
 	    self.rc = 1
 	else:
@@ -171,7 +171,7 @@ class InstallInterface:
 		else:
 		    ButtonChoiceWindow(screen, _("Help not available"), 
 				_("No help is available for this install."),
-				       buttons=[ TEXT_OK_BUTTON ])
+				       buttons=[TEXT_OK_BUTTON])
 		    return None
 
 	    l = f.readlines()
@@ -197,7 +197,7 @@ class InstallInterface:
 		if len(line) > width:
 		    width = len(line)
 
-	    bb = ButtonBar(screen, [ TEXT_OK_BUTTON ] )
+	    bb = ButtonBar(screen, [TEXT_OK_BUTTON])
 	    t = Textbox(width, height, stream, scroll=scroll)
 
 	    g = GridFormHelp(screen, title, "helponhelp", 1, 2)
@@ -223,10 +223,10 @@ class InstallInterface:
     def messageWindow(self, title, text, type="ok"):
 	if type == "ok":
 	    ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons=[ TEXT_OK_BUTTON ])
+			       buttons=[TEXT_OK_BUTTON])
         elif type == "yesno":
 	    rc = ButtonChoiceWindow(self.screen, _(title), _(text),
-			       buttons=[ TEXT_YES_BUTTON, TEXT_NO_BUTTON ])
+			       buttons=[TEXT_YES_BUTTON, TEXT_NO_BUTTON])
             if rc == "yes":
                 return 1
             else:
@@ -238,7 +238,7 @@ class InstallInterface:
 	rc = ButtonChoiceWindow(self.screen, _("Save Crash Dump"),
 	    _("Please insert a floppy now. All contents of the disk "
 	      "will be erased, so please choose your diskette carefully."),
-	    [ TEXT_OK_BUTTON, _("Cancel") ])
+	    [TEXT_OK_BUTTON, _("Cancel")])
 
         if rc == string.lower(_("Cancel")):
 	    return 1
@@ -253,7 +253,7 @@ class InstallInterface:
 		"and will help Red Hat in fixing the problem.\n\n")
 
 	rc = ButtonChoiceWindow(self.screen, title, ugh + text,
-                           buttons=[ TEXT_OK_BUTTON, _("Save"), _("Debug") ])
+                           buttons=[TEXT_OK_BUTTON, _("Save"), _("Debug")])
         if rc == string.lower(_("Debug")):
             return 1
 	elif rc == string.lower(_("Save")):
@@ -375,7 +375,7 @@ class InstallInterface:
                                        _("I can't go to the previous step "
                                          "from here. You will have to try "
                                          "again."),
-                                       buttons=[ _("OK") ])
+                                       buttons=[_("OK")])
 		dispatch.gotoPrev()
 	    else:
 		dispatch.gotoNext()
