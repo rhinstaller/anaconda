@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: install FC4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-30 11:35-0500\n"
-"PO-Revision-Date: 2005-03-04 18:10+0100\n"
+"PO-Revision-Date: 2005-04-03 02:21+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-nb@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -537,27 +537,20 @@ msgid "Installing %s-%s-%s... "
 msgstr "Installerer %s-%s-%s... "
 
 #: ../constants.py:73
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception or save the crash dump to a floppy then "
 "file a detailed bug report against anaconda at %s"
-msgstr ""
-"Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
-"hele teksten fra unntaksmeldingen, og lagre informasjon om krasjet på en "
-"diskett. Send så inn en detaljert feilrapport for anaconda ved hjelp av "
-"https://bugzilla.redhat.com/bugzilla/"
+msgstr "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier hele teksten fra unntaksmeldingen, og lagre informasjon om krasjet på en diskett. Send så inn en detaljert feilrapport for anaconda på %s"
 
 #: ../constants.py:80
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An unhandled exception has occurred.  This is most likely a bug.  Please "
 "copy the full text of this exception and file a detailed bug report against "
 "anaconda at %s"
-msgstr ""
-"Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier "
-"hele teksten fra feilmeldingen og send så inn en detaljert feilrapport for "
-"anaconda ved hjelp av http://bugzilla.redhat.com/bugzilla/"
+msgstr "Et uhåndtert unntak har oppstått. Dette er sannsynligvis en feil. Kopier hele teksten fra feilmeldingen og send så inn en detaljert feilrapport for anaconda på %s"
 
 #: ../exception.py:228 ../text.py:232
 msgid "Exception Occurred"
@@ -1006,9 +999,8 @@ msgid "Cancel"
 msgstr "Avbryt"
 
 #: ../gui.py:548
-#, fuzzy
 msgid "Exception Occured"
-msgstr "Uventet hendelse oppstod"
+msgstr "Unntak oppstod"
 
 #: ../gui.py:549 tmp/anaconda.glade.h:4
 msgid "_Debug"
@@ -1016,7 +1008,7 @@ msgstr "_Debug"
 
 #: ../gui.py:551
 msgid "_Save to floppy"
-msgstr ""
+msgstr "_Lagre til diskett"
 
 #: ../gui.py:721 ../text.py:275
 #, python-format
@@ -1538,7 +1530,7 @@ msgid "Warning! This is pre-release software!"
 msgstr "Advarsel! Dette er en ikke ferdig utprøvet programvare!"
 
 #: ../packages.py:1544
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1554,13 +1546,11 @@ msgid ""
 msgstr ""
 "Takk for at du lastet ned denne testversjonen av %s.\n"
 "\n"
-"Dette er ikke en ferdig versjon og er ikke ment for bruk på systemer som "
-"står i produksjon. Målet med denne versjonen er å samle tilbakemeldinger fra "
-"testere, og den er ikke passende for daglig bruk.\n"
+"Dette er ikke en ferdig versjon og er ikke ment for bruk på systemer som er i produksjon. Målet med denne versjonen er å samle tilbakemeldinger fra testere, og den er ikke passende for daglig bruk.\n"
 "\n"
 "For å rapportere tilbake gå til:\n"
 "\n"
-"    http://bugzilla.redhat.com/bugzilla\n"
+"    %s\n"
 "\n"
 "og send inn en rapport under «%s».\n"
 
@@ -3081,14 +3071,11 @@ msgid "Congratulations"
 msgstr "Gratulerer"
 
 #: ../iw/congrats_gui.py:59
-#, fuzzy
 msgid ""
 "Remove any installation media used during the installation process and press "
 "the \"Reboot\" button to reboot your system.\n"
 "\n"
-msgstr ""
-"Fjern installasjonsmediet som ble brukt under installasjonen og klikk på "
-"«Start på nytt» for å starte systemet på nytt.\n"
+msgstr "Fjern installasjonsmedier som ble brukt under installasjonen og klikk på «Start på nytt» for å starte systemet på nytt.\n"
 
 #: ../iw/congrats_gui.py:65
 #, python-format
@@ -5014,13 +5001,11 @@ msgid "Unknown video card"
 msgstr "Ukjent skjermkort"
 
 #: ../iw/xconfig_gui.py:813
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to %s."
-msgstr ""
-"En feil har oppstått ved valg av skjermkort %s. Vennligst rapporter denne "
-"feilen til http://bugzilla.redhat.com/bugzilla/."
+msgstr "En feil har oppstått ved valg av skjermkort %s. Vennligst rapporter denne feilen på %s."
 
 #: ../iw/xconfig_gui.py:839 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -6072,9 +6057,8 @@ msgid "What time zone are you located in?"
 msgstr "Hvilken tidssone befinner du deg i?"
 
 #: ../textw/timezone_text.py:94
-#, fuzzy
 msgid "System clock uses UTC"
-msgstr "Systemklokken bruker _UTC"
+msgstr "Systemklokken bruker UTC"
 
 #: ../textw/upgrade_bootloader_text.py:53
 #: ../textw/upgrade_bootloader_text.py:60
@@ -8311,12 +8295,11 @@ msgstr "Zaporozh'ye, østre Lugansk"
 
 #. generated from lang-table
 msgid "Afrikaans"
-msgstr ""
+msgstr "Afrikaans"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Amharic"
-msgstr "Arabisk"
+msgstr "Ahmharisk"
 
 #. generated from lang-table
 msgid "Arabic"
@@ -8399,9 +8382,8 @@ msgid "Icelandic"
 msgstr "Islandsk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Indonesian"
-msgstr "Makedonsk"
+msgstr "Indonesisk"
 
 #. generated from lang-table
 msgid "Italian"
@@ -8428,9 +8410,8 @@ msgid "Norwegian"
 msgstr "Norsk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Northern Sotho"
-msgstr "Nordterritoriet"
+msgstr "Nordre Sotho"
 
 #. generated from lang-table
 msgid "Persian"
@@ -8457,9 +8438,8 @@ msgid "Russian"
 msgstr "Russisk"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Slovak"
-msgstr "Slovensk"
+msgstr "Slovakisk"
 
 #. generated from lang-table
 msgid "Slovenian"
@@ -8478,9 +8458,8 @@ msgid "Tamil"
 msgstr "Tamil"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Thai"
-msgstr "Tamil"
+msgstr "Thai"
 
 #. generated from lang-table
 msgid "Turkish"
@@ -8501,84 +8480,3 @@ msgstr "Walisisk"
 #. generated from lang-table
 msgid "Zulu"
 msgstr "Zulu"
-
-#~ msgid "%s (C) 2004 Red Hat, Inc."
-#~ msgstr "%s © 2004 Red Hat, Inc."
-
-#~ msgid ""
-#~ "For information on Errata (updates and bug fixes), visit:\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For information on automatic updates through Red Hat Network, visit:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For information on using and configuring the system, visit:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "To register the product for support, visit:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-#~ msgstr ""
-#~ "For informasjon om Errata (oppdateringer og feilrettinger), besøk\n"
-#~ "\thttp://www.redhat.com/errata/\n"
-#~ "\n"
-#~ "For informasjon om automatiske oppdateringer gjennom Red Hat Network, "
-#~ "besøk:\n"
-#~ "\thttp://rhn.redhat.com/\n"
-#~ "\n"
-#~ "For informasjon om bruk og konfigurasjon om systemet, besøk:\n"
-#~ "\thttp://www.redhat.com/docs/\n"
-#~ "\thttp://www.redhat.com/apps/support/\n"
-#~ "\n"
-#~ "For å registrere systemet for support, besøk:\n"
-#~ "\thttp://www.redhat.com/apps/activate/\n"
-#~ "\n"
-
-#~ msgid "Silo Configuration"
-#~ msgstr "Silo-konfigurasjon"
-
-#~ msgid "Install SILO boot record on:"
-#~ msgstr "Installer SILO oppstartssektor på:"
-
-#~ msgid "Create PROM alias"
-#~ msgstr "Opprett PROM-alias"
-
-#~ msgid "Set default PROM boot device to linux"
-#~ msgstr "Sett forvalgt PROM-oppstartsenhet til linux"
-
-#~ msgid "Kernel parameters"
-#~ msgstr "Parametere for kjernen"
-
-#~ msgid "Create boot disk"
-#~ msgstr "Lag oppstartsdiskett"
-
-#~ msgid "Do not install SILO"
-#~ msgstr "Ikke installer SILO"
-
-#~ msgid "Partition type"
-#~ msgstr "Partisjonstype"
-
-#~ msgid "Default boot image"
-#~ msgstr "Sett forvalgt oppstartsfil"
-
-#~ msgid "SILO Configuration"
-#~ msgstr "SILO-konfigurasjon"
-
-#~ msgid "Create PROM alias `linux'"
-#~ msgstr "Lag PROM-alias `linux'"
-
-#~ msgid "Set default PROM boot device"
-#~ msgstr "Sett forvalgt PROM-oppstartsenhet"
-
-#~ msgid "Where do you want to install the bootloader?"
-#~ msgstr "Hvor vil du installere oppstartslasteren?"
-
-#~ msgid ""
-#~ "The boot manager Red Hat uses can boot other operating systems as well. "
-#~ "You need to tell me what partitions you would like to be able to boot and "
-#~ "what label you want to use for each of them."
-#~ msgstr ""
-#~ "Oppstartslasteren som brukes av Red Hat kan starte andre operativsystemer "
-#~ "også. Du må fortelle hvilke partisjoner du ønsker å starte andre systemer "
-#~ "fra, og hvilket navn du vil gi hvert av dem."
