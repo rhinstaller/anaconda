@@ -106,7 +106,7 @@ int ksReadCommands(char * cmdFile) {
 	} else {
 	    if (poptParseArgvString(start, &argc, (const char ***) &argv) || !argc) {
 		newtWinMessage(_("Kickstart Error"), _("OK"), 
-			       _("Error on line %d of kickstart file %s."),
+			       _("Error in %s on line %d of kickstart file %s."),
 				argv[0], line, cmdFile);
 	    } else {
 		for (cmd = ksTable; cmd->name; cmd++)
