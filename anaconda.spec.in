@@ -119,9 +119,22 @@ fi
 %define date    %(echo `LC_ALL="C" date +"%a %b %d %Y"`)
 
 %changelog
-* %{date} Anaconda team <bugzilla@redhat.com>
-- built new version from CVS
+* Sun Nov  9 2003 Jeremy Katz <katzj@redhat.com> 
+- add some modules to module-info
+- fix typo in HTTP GET that causes problems with some versions of IIS (#108652)
 
+* Tue Apr 15 2003 Jeremy Katz <katzj@redhat.com> 7.3-12
+- rebuild for new kudzu
+ 
+* Fri Feb 07 2003 Jeremy Katz <katzj@redhat.com>
+- add patch to handle scsi being modular instead of built-in
+ 
+* Mon Sep 09 2002 Anaconda team <bugzilla@redhat.com>
+- built new version from CVS
+ 
+* Tue Aug 20 2002 Jeremy Katz <katzj@redhat.com>
+- sed hackery for installclasses
+ 
 * Tue Apr 02 2002 Michael Fulbright <msf@redhat.com>
 - added some more docs
 
