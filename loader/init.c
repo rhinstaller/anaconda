@@ -289,56 +289,6 @@ void doklog(char * fn) {
     }    
 }
 
-#if defined(__alpha__)
-char * findKernel(void) {
-    char * dev, * file;
-    struct stat sb;
-
-    dev = getenv("bootdevice");
-    file = getenv("bootfile");
-
-    if (!dev || !file) {
-	printf("I can't find your kernel. When you are booting"
-		" from a CDROM, you must pass\n");
-	printf("the bootfile argument to the kernel if your"
-		" boot loader doesn't do so automatically.\n");
-	printf("\n");
-	printf("You should now reboot your system and try "	
-		"again\n");
-
-	while (1) ;
-    }
-
-    if (!strcmp(dev, "fd0")) {
-	if (!strcmp(file, "vmlinux.gz")) {
-	    printf("The kernel on a boot floppy must be named vmlinux.gz. "
-	           "You\n");
-	    printf("are using a kernel named %s instead. You'll have "
-		   "to\n", file);
-	    printf("fix this and try again.\n");
-
-	    while (1) ;
-	}
-
-	return NULL;
-    } else {
-	if (stat(file, &sb)) {
-	    printf("I can't find your kernel. When you are booting"
-		    " from a CDROM, you must pass\n");
-	    printf("the bootfile argument to the kernel if your"
-		    " boot loader doesn't do so automatically.\n");
-	    printf("\n");
-	    printf("You should now reboot your system and try "	
-		    "again\n");
-
-	    while (1) ;
-	}
-
-	return file;
-    }
-}
-#endif 
-
 int setupTerminal(int fd) {
     struct winsize winsize;
 
