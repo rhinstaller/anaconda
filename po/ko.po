@@ -1,0 +1,1496 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 1999-09-11 11:16-0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: ENCODING\n"
+
+#: ../iw/language.py:10 ../text.py:39 ../text.py:818
+msgid "Language Selection"
+msgstr ""
+
+#: ../text.py:40
+msgid "What language would you like to use during the installation process?"
+msgstr ""
+
+#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
+#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
+#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
+#: ../text.py:744 ../text.py:787 ../text.py:791
+msgid "OK"
+msgstr ""
+
+#: ../text.py:54
+msgid "/dev/ttyS0 (COM1 under DOS)"
+msgstr ""
+
+#: ../text.py:55
+msgid "/dev/ttyS1 (COM2 under DOS)"
+msgstr ""
+
+#: ../text.py:56
+msgid "/dev/ttyS2 (COM3 under DOS)"
+msgstr ""
+
+#: ../text.py:57
+msgid "/dev/ttyS3 (COM4 under DOS)"
+msgstr ""
+
+#: ../iw/lilo.py:174 ../text.py:72
+msgid "Device"
+msgstr ""
+
+#: ../text.py:73
+#, c-format
+msgid "What device is your mouse located on? %s %i"
+msgstr ""
+
+#. code to create dialog in gtk+
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
+#: ../libfdisk/fsedit.c:679 ../libfdisk/fsedit.c:695 ../libfdisk/fsedit.c:1048
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1000
+#: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/gnomefsedit.c:1062
+#: ../libfdisk/gnomefsedit.c:1267 ../libfdisk/gnomefsedit.c:1361
+#: ../libfdisk/gnomefsedit.c:1379 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:1846 ../libfdisk/gnomefsedit.c:1854
+#: ../libfdisk/gnomefsedit.c:1868 ../libfdisk/gnomefsedit.c:1879
+#: ../libfdisk/gnomefsedit.c:1886 ../libfdisk/gnomefsedit.c:1901
+#: ../libfdisk/gnomefsedit.c:1910 ../libfdisk/gnomefsedit.c:1967
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:116
+#: ../libfdisk/newtfsedit.c:449 ../libfdisk/newtfsedit.c:527
+#: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
+#: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
+#: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
+msgid "Ok"
+msgstr ""
+
+#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../libfdisk/newtfsedit.c:1305 ../text.py:74 ../text.py:75 ../text.py:90
+#: ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167 ../text.py:194
+#: ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231 ../text.py:253
+#: ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396 ../text.py:415
+#: ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457 ../text.py:460
+#: ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744 ../text.py:766
+msgid "Back"
+msgstr ""
+
+#: ../text.py:92
+msgid "Which model mouse is attached to this computer?"
+msgstr ""
+
+#: ../text.py:101
+msgid "Emulate 3 Buttons?"
+msgstr ""
+
+#: ../text.py:103
+msgid "Mouse Selection"
+msgstr ""
+
+#: ../text.py:139 ../text.py:820
+msgid "Keyboard Selection"
+msgstr ""
+
+#: ../text.py:140
+msgid "Which model keyboard is attached to this computer?"
+msgstr ""
+
+#: ../text.py:160
+msgid "Install GNOME Workstation"
+msgstr ""
+
+#: ../text.py:161
+msgid "Install KDE Workstation"
+msgstr ""
+
+#: ../text.py:162
+msgid "Install Server System"
+msgstr ""
+
+#: ../text.py:163
+msgid "Install Custom System"
+msgstr ""
+
+#: ../text.py:164
+msgid "Upgrade Existing Installation"
+msgstr ""
+
+#: ../text.py:165 ../text.py:823
+msgid "Installation Type"
+msgstr ""
+
+#: ../text.py:166
+msgid "What type of system would you like to install?"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:191 ../text.py:562
+msgid "Error"
+msgstr ""
+
+#: ../text.py:192
+msgid "You don't have any Linux partitions. You can't upgrade this system!"
+msgstr ""
+
+#: ../text.py:205
+msgid "System to Upgrade"
+msgstr ""
+
+#: ../text.py:206
+msgid "What partition holds the root partition of your installation?"
+msgstr ""
+
+#: ../text.py:221
+msgid "Customize Packages to Upgrade"
+msgstr ""
+
+#: ../text.py:222
+msgid ""
+"The packages you have installed, and any other packages which are needed to "
+"satisfy their dependencies, have been selected for installation. Would you "
+"like to customize the set of packages that will be upgraded?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:956
+#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:2020
+#: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
+#: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
+#: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:415 ../text.py:418
+msgid "Yes"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/gnomefsedit.c:956
+#: ../libfdisk/gnomefsedit.c:1080 ../libfdisk/gnomefsedit.c:2020
+#: ../libfdisk/gnomefsedit.c:2290 ../libfdisk/gnomefsedit.c:2343
+#: ../libfdisk/newtfsedit.c:486 ../libfdisk/newtfsedit.c:697
+#: ../libfdisk/newtfsedit.c:1483 ../libfdisk/newtfsedit.c:1501
+#: ../libfdisk/newtfsedit.c:1586 ../text.py:229 ../text.py:234 ../text.py:415
+#: ../text.py:421
+msgid "No"
+msgstr ""
+
+#: ../text.py:244
+msgid "Red Hat Linux"
+msgstr ""
+
+#: ../text.py:245
+msgid ""
+"Welcome to Red Hat Linux!\n"
+"\n"
+"This installation process is outlined in detail in the Official Red Hat "
+"Linux Installation Guide available from Red Hat Software. If you have access "
+"to this manual, you should read the installation section before continuing.\n"
+"\n"
+"If you have purchased Official Red Hat Linux, be sure to register your "
+"purchase through our web site, http://www.redhat.com/."
+msgstr ""
+
+#: ../text.py:315
+msgid "Use bootp/dhcp"
+msgstr ""
+
+#: ../text.py:320
+msgid "IP address:"
+msgstr ""
+
+#: ../text.py:321
+msgid "Netmask:"
+msgstr ""
+
+#: ../text.py:322
+msgid "Default gateway (IP):"
+msgstr ""
+
+#: ../text.py:323
+msgid "Primary nameserver:"
+msgstr ""
+
+#: ../text.py:345
+msgid "Network Configuration"
+msgstr ""
+
+#: ../text.py:361
+msgid "Invalid information"
+msgstr ""
+
+#: ../text.py:362
+msgid "You must enter valid IP information to continue"
+msgstr ""
+
+#: ../text.py:390
+msgid "Hostname Configuration"
+msgstr ""
+
+#: ../text.py:391
+msgid ""
+"The hostname is the name of your computer.  If your computer is attached to "
+"a network, this may be assigned by your network administrator."
+msgstr ""
+
+#: ../iw/network.py:180 ../text.py:394
+msgid "Hostname"
+msgstr ""
+
+#: ../text.py:405 ../text.py:550 ../text.py:875
+msgid "Bootdisk"
+msgstr ""
+
+#: ../text.py:406
+msgid ""
+"A custom bootdisk provides a way of booting into your Linux system without "
+"depending on the normal bootloader. This is useful if you don't want to "
+"install lilo on your system, another operating system removes lilo, or lilo "
+"doesn't work with your hardware configuration. A custom bootdisk can also be "
+"used with the Red Hat rescue image, making it much easier to recover from "
+"severe system failures.\n"
+"\n"
+"Would you like to create a bootdisk for your system?"
+msgstr ""
+
+#: ../text.py:433
+msgid "X probe results"
+msgstr ""
+
+#: ../text.py:446 ../text.py:465
+msgid "Unlisted Card"
+msgstr ""
+
+#: ../text.py:454
+msgid "Video Card Selection"
+msgstr ""
+
+#: ../text.py:455
+msgid "Which video card do you have?"
+msgstr ""
+
+#: ../text.py:467
+msgid "X Server Selection"
+msgstr ""
+
+#: ../text.py:467
+msgid "Choose a server"
+msgstr ""
+
+#: ../text.py:518
+msgid "Installation to begin"
+msgstr ""
+
+#: ../text.py:519
+msgid ""
+"A complete log of your installation will be in /tmp/install.log after "
+"rebooting your system. You may want to keep this file for later reference."
+msgstr ""
+
+#: ../text.py:534
+msgid "Complete"
+msgstr ""
+
+#: ../iw/congrats.py:17 ../text.py:535
+msgid ""
+"Congratulations, installation is complete.\n"
+"\n"
+"Remove the boot media and press return to reboot. For information on fixes "
+"which are available for this release of Red Hat Linux, consult the Errata "
+"available from http://www.redhat.com.\n"
+"\n"
+"Information on configuring your system is available in the post install "
+"chapter of the Official Red Hat Linux User's Guide."
+msgstr ""
+
+#: ../iw/bootdisk.py:40 ../text.py:551
+msgid ""
+"Insert a blank floppy in the first floppy drive. All data on this disk will "
+"be erased during creation of the boot disk."
+msgstr ""
+
+#: ../text.py:554 ../text.py:555 ../text.py:566 ../text.py:567
+msgid "Skip"
+msgstr ""
+
+#: ../iw/bootdisk.py:44 ../text.py:563
+msgid ""
+"An error occured while making the boot disk. Please make sure that there is "
+"a formatted floppy in the first floppy drive."
+msgstr ""
+
+#: ../text.py:625
+msgid "Package Installation"
+msgstr ""
+
+#: ../text.py:627
+msgid "Name   : "
+msgstr ""
+
+#: ../text.py:628
+msgid "Size   : "
+msgstr ""
+
+#: ../text.py:629
+msgid "Summary: "
+msgstr ""
+
+#: ../text.py:655
+msgid "    Packages"
+msgstr ""
+
+#: ../text.py:656
+msgid "       Bytes"
+msgstr ""
+
+#: ../text.py:657
+msgid "        Time"
+msgstr ""
+
+#: ../text.py:659
+msgid "Total    :"
+msgstr ""
+
+#: ../text.py:666
+msgid "Completed:   "
+msgstr ""
+
+#: ../text.py:676
+msgid "Remaining:  "
+msgstr ""
+
+#: ../text.py:746
+msgid "What time zone are you located in?"
+msgstr ""
+
+#: ../text.py:754
+msgid "Hardware clock set to GMT?"
+msgstr ""
+
+#: ../iw/timezone.py:29 ../text.py:756
+msgid "Time Zone Selection"
+msgstr ""
+
+#: ../text.py:791 ../text.py:792
+msgid "Debug"
+msgstr ""
+
+#: ../text.py:804
+msgid "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr ""
+
+#: ../text.py:806
+msgid ""
+"  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
+"screen"
+msgstr ""
+
+#: ../text.py:822
+msgid "Welcome"
+msgstr ""
+
+#: ../iw/lilo.py:94 ../iw/lilo.py:197 ../text.py:828 ../text.py:834
+msgid "Partition"
+msgstr ""
+
+#: ../text.py:830
+msgid "Manually Partition"
+msgstr ""
+
+#: ../text.py:832
+msgid "Automatic Partition"
+msgstr ""
+
+#: ../text.py:836
+msgid "Swap"
+msgstr ""
+
+#: ../text.py:838
+msgid "Filesystem Formatting"
+msgstr ""
+
+#: ../text.py:840 ../text.py:842 ../text.py:844
+msgid "LILO Configuration"
+msgstr ""
+
+#: ../text.py:846
+msgid "Hostname Setup"
+msgstr ""
+
+#: ../text.py:848
+msgid "Network Setup"
+msgstr ""
+
+#: ../text.py:850 ../text.py:852
+msgid "Mouse Configuration"
+msgstr ""
+
+#: ../text.py:854
+msgid "Time Zone Setup"
+msgstr ""
+
+#: ../text.py:856
+msgid "Root Password"
+msgstr ""
+
+#: ../text.py:858
+msgid "User Account Setup"
+msgstr ""
+
+#: ../text.py:860
+msgid "Authentication"
+msgstr ""
+
+#: ../text.py:862
+msgid "Package Groups"
+msgstr ""
+
+#: ../text.py:864 ../text.py:885
+msgid "Individual Packages"
+msgstr ""
+
+#: ../text.py:866
+msgid "Package Dependencies"
+msgstr ""
+
+#: ../iw/xconfig.py:91 ../text.py:868 ../text.py:876
+msgid "X Configuration"
+msgstr ""
+
+#: ../text.py:870
+msgid "Boot Disk"
+msgstr ""
+
+#: ../text.py:872
+msgid "Installation Begins"
+msgstr ""
+
+#: ../text.py:874
+msgid "Install System"
+msgstr ""
+
+#: ../text.py:878
+msgid "Installation Complete"
+msgstr ""
+
+#: ../text.py:883
+msgid "Examine System"
+msgstr ""
+
+#: ../text.py:884
+msgid "Customize Upgrade"
+msgstr ""
+
+#: ../text.py:886
+msgid "Upgrade System"
+msgstr ""
+
+#: ../text.py:887
+msgid "Upgrade Complete"
+msgstr ""
+
+#: ../gui.py:306
+msgid "Red Hat Linux Installer"
+msgstr ""
+
+#: ../gui.py:315
+msgid "Finish"
+msgstr ""
+
+#: ../gui.py:316
+msgid "Hide Help"
+msgstr ""
+
+#: ../gui.py:317
+msgid "Show Help"
+msgstr ""
+
+#: ../gui.py:338
+msgid "Online Help"
+msgstr ""
+
+#: ../iw/account.py:14
+msgid "Account Configuration"
+msgstr ""
+
+#: ../iw/account.py:115
+msgid "Root Password: "
+msgstr ""
+
+#: ../iw/account.py:116
+msgid "Confirm: "
+msgstr ""
+
+#: ../iw/account.py:164 ../iw/account.py:192
+msgid "Account Name"
+msgstr ""
+
+#: ../iw/account.py:166
+msgid "Password"
+msgstr ""
+
+#: ../iw/account.py:168
+msgid "Password (confirm)"
+msgstr ""
+
+#: ../iw/account.py:171 ../iw/account.py:192
+msgid "Full Name"
+msgstr ""
+
+#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+msgid "Add"
+msgstr ""
+
+#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304
+msgid "Edit"
+msgstr ""
+
+#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
+#: ../libfdisk/newtfsedit.c:1304
+msgid "Delete"
+msgstr ""
+
+#: ../iw/account.py:184
+msgid "New"
+msgstr ""
+
+#: ../iw/auth.py:11
+msgid "Authentication Configuration"
+msgstr ""
+
+#: ../iw/auth.py:50
+msgid "Enable MD5 passwords"
+msgstr ""
+
+#: ../iw/auth.py:51
+msgid "Enable shadow passwords"
+msgstr ""
+
+#: ../iw/auth.py:53
+msgid "Enable NIS"
+msgstr ""
+
+#: ../iw/auth.py:54
+msgid "Use broadcast to find NIS server"
+msgstr ""
+
+#: ../iw/auth.py:66
+msgid "NIS Domain: "
+msgstr ""
+
+#: ../iw/auth.py:68
+msgid "NIS Server: "
+msgstr ""
+
+#: ../iw/bootdisk.py:10
+msgid "Bootdisk Creation"
+msgstr ""
+
+#: ../iw/bootdisk.py:51
+msgid "Skip boot disk creation"
+msgstr ""
+
+#: ../iw/congrats.py:11
+msgid "Congratulations"
+msgstr ""
+
+#: ../iw/congrats.py:13
+msgid "Exit"
+msgstr ""
+
+#: ../iw/dependencies.py:9
+msgid "Unresolved Dependencies"
+msgstr ""
+
+#: ../iw/dependencies.py:29 ../iw/progress.py:113
+msgid "Package"
+msgstr ""
+
+#: ../iw/dependencies.py:29
+msgid "Requirement"
+msgstr ""
+
+#: ../iw/dependencies.py:36
+msgid "Install packages to satisfy dependencies"
+msgstr ""
+
+#: ../iw/examine.py:11
+msgid "Upgrade Examine"
+msgstr ""
+
+#: ../iw/examine.py:35
+msgid ""
+"You don't have any Linux partitions.\n"
+" You can't upgrade this sytem!"
+msgstr ""
+
+#: ../iw/examine.py:53
+msgid "Customize packages to be upgraded"
+msgstr ""
+
+#: ../iw/format.py:12
+msgid "Choose partitions to Format"
+msgstr ""
+
+#: ../iw/format.py:47
+msgid "Check for bad blocks while formatting"
+msgstr ""
+
+#: ../iw/installpath.py:34
+msgid "GNOME Workstation"
+msgstr ""
+
+#: ../iw/installpath.py:35
+msgid "KDE Workstation"
+msgstr ""
+
+#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../libfdisk/gnomefsedit.c:2216
+msgid "Server"
+msgstr ""
+
+#: ../iw/installpath.py:37
+msgid "Custom"
+msgstr ""
+
+#: ../iw/installpath.py:73
+msgid "Install Type"
+msgstr ""
+
+#: ../iw/installpath.py:122
+msgid "Install"
+msgstr ""
+
+#: ../iw/installpath.py:124
+msgid "Upgrade"
+msgstr ""
+
+#: ../iw/keyboard.py:11
+msgid "Keyboard Configuration"
+msgstr ""
+
+#: ../iw/keyboard.py:27
+msgid "Model"
+msgstr ""
+
+#: ../iw/keyboard.py:39
+msgid "Layout"
+msgstr ""
+
+#: ../iw/keyboard.py:53
+msgid "Variant"
+msgstr ""
+
+#: ../iw/language.py:14
+msgid "What language should be used during the installation process?"
+msgstr ""
+
+#: ../iw/lilo.py:18
+msgid "Lilo Configuration"
+msgstr ""
+
+#: ../iw/lilo.py:99 ../iw/lilo.py:198
+msgid "Type"
+msgstr ""
+
+#: ../iw/lilo.py:128
+msgid "Install LILO boot record on:"
+msgstr ""
+
+#: ../iw/lilo.py:133
+msgid "Master Boot Record (MBR)"
+msgstr ""
+
+#: ../iw/lilo.py:137
+msgid "First sector of boot partition"
+msgstr ""
+
+#: ../iw/lilo.py:141
+msgid "Use linear mode (needed for some SCSI drives)"
+msgstr ""
+
+#: ../iw/lilo.py:144
+msgid "Kernel parameters"
+msgstr ""
+
+#: ../iw/lilo.py:159
+msgid "Create boot disk"
+msgstr ""
+
+#: ../iw/lilo.py:163
+msgid "Do not install LILO"
+msgstr ""
+
+#: ../iw/lilo.py:174
+msgid "Default"
+msgstr ""
+
+#: ../iw/lilo.py:174
+msgid "Partition type"
+msgstr ""
+
+#: ../iw/lilo.py:174 ../iw/lilo.py:209
+msgid "Boot label"
+msgstr ""
+
+#: ../iw/network.py:127
+msgid "Configure using DHCP"
+msgstr ""
+
+#: ../iw/network.py:133
+msgid "Activate on boot"
+msgstr ""
+
+#: ../iw/network.py:142
+msgid "IP Address"
+msgstr ""
+
+#: ../iw/network.py:142
+msgid "Netmask"
+msgstr ""
+
+#: ../iw/network.py:142
+msgid "Network"
+msgstr ""
+
+#: ../iw/network.py:142
+msgid "Broadcast"
+msgstr ""
+
+#: ../iw/network.py:181
+msgid "Gateway"
+msgstr ""
+
+#: ../iw/network.py:181
+msgid "Primary DNS"
+msgstr ""
+
+#: ../iw/network.py:181
+msgid "Secondary DNS"
+msgstr ""
+
+#: ../iw/network.py:181
+msgid "Ternary DNS"
+msgstr ""
+
+#: ../iw/package.py:20
+msgid "Individual Package Selection"
+msgstr ""
+
+#: ../iw/package.py:178
+msgid "Up"
+msgstr ""
+
+#: ../iw/package.py:324
+msgid "Name: "
+msgstr ""
+
+#: ../iw/package.py:329
+msgid "Package Details"
+msgstr ""
+
+#: ../iw/package.py:335
+msgid "Size: "
+msgstr ""
+
+#: ../iw/package.py:341
+msgid "Select Package For Installation"
+msgstr ""
+
+#: ../iw/package.py:377
+msgid "Package Group Selection"
+msgstr ""
+
+#: ../iw/package.py:445
+msgid "Select individual packages"
+msgstr ""
+
+#: ../iw/progress.py:26
+msgid "Installing Packages"
+msgstr ""
+
+#: ../iw/progress.py:114 ../iw/progress.py:149
+msgid "Size"
+msgstr ""
+
+#: ../iw/progress.py:115
+msgid "Summary"
+msgstr ""
+
+#: ../iw/progress.py:149
+msgid "Status"
+msgstr ""
+
+#: ../iw/progress.py:149
+msgid "Packages"
+msgstr ""
+
+#: ../iw/progress.py:149
+msgid "Time"
+msgstr ""
+
+#: ../iw/progress.py:154
+msgid "Total"
+msgstr ""
+
+#: ../iw/progress.py:155
+msgid "Completed"
+msgstr ""
+
+#: ../iw/progress.py:156
+msgid "Remaining"
+msgstr ""
+
+#: ../iw/rootpartition.py:12
+msgid "Confirm Partitioning Selection"
+msgstr ""
+
+#: ../iw/rootpartition.py:27
+msgid "Root Partition Selection"
+msgstr ""
+
+#: ../iw/rootpartition.py:86
+msgid "Automatic Partitioning"
+msgstr ""
+
+#: ../iw/rootpartition.py:124
+#, c-format
+msgid ""
+"%s\n"
+"\n"
+"If you don't want to do this, you can continue with this install by "
+"partitioning manually, or you can go back and perform a fully customized "
+"installation."
+msgstr ""
+
+#: ../iw/rootpartition.py:136
+msgid "Remove data"
+msgstr ""
+
+#: ../iw/rootpartition.py:139
+msgid "Manually partition"
+msgstr ""
+
+#: ../iw/timezone.py:110
+msgid "View:"
+msgstr ""
+
+#: ../iw/timezone.py:140
+msgid "Use Daylight Saving Time"
+msgstr ""
+
+#: ../iw/timezone.py:147
+msgid "Location"
+msgstr ""
+
+#: ../iw/timezone.py:148
+msgid "UTC Offset"
+msgstr ""
+
+#: ../iw/timezone.py:152
+msgid "System clock uses UTC"
+msgstr ""
+
+#: ../iw/welcome.py:11
+msgid "Welcome to Red Hat Linux!"
+msgstr ""
+
+#: ../iw/xconfig.py:9
+msgid "Video Card"
+msgstr ""
+
+#: ../iw/xconfig.py:10
+msgid "Monitor"
+msgstr ""
+
+#: ../iw/xconfig.py:11
+msgid "Video Ram"
+msgstr ""
+
+#: ../iw/xconfig.py:12
+msgid "Horizontal Frequency Range"
+msgstr ""
+
+#: ../iw/xconfig.py:13
+msgid "Vertical Frequency Range"
+msgstr ""
+
+#: ../iw/xconfig.py:14
+msgid "Test failed"
+msgstr ""
+
+#: ../iw/xconfig.py:22 ../iw/xconfig.py:198
+msgid "Customize X Configuration"
+msgstr ""
+
+#: ../iw/xconfig.py:63
+msgid "Bits per Pixel"
+msgstr ""
+
+#: ../iw/xconfig.py:73 ../iw/xconfig.py:194
+msgid "Test this configuration"
+msgstr ""
+
+#: ../iw/xconfig.py:149
+msgid ""
+"In most cases your video hardware can be probed to automatically determine "
+"the best settings for your display."
+msgstr ""
+
+#: ../iw/xconfig.py:157
+msgid "Autoprobe results:"
+msgstr ""
+
+#: ../iw/xconfig.py:171
+msgid ""
+"Your monitor could not be autodetected. Please choose it from the list below:"
+msgstr ""
+
+#: ../iw/xconfig.py:201
+msgid "Use Graphical Login"
+msgstr ""
+
+#: ../iw/xconfig.py:203
+msgid "Skip X Configuration"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:605 ../libfdisk/fsedit.c:612 ../libfdisk/fsedit.c:619
+#: ../libfdisk/fsedit.c:628 ../libfdisk/fsedit.c:640 ../libfdisk/fsedit.c:650
+msgid "Bad Mount Point"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:606
+#, c-format
+msgid "The %s directory must be on the root filesystem."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:613
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points must begin with a leading /."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:620
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may not end with a /."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:629
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"Mount points may only printable characters."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:641
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"System partitions must be on Linux Native partitions."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:651
+#, c-format
+msgid ""
+"The mount point %s is illegal.\n"
+"\n"
+"/usr must be on a Linux Native partition or an NFS volume."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:679
+msgid "Too Many Drives"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:680
+msgid ""
+"You have more drives than this program supports. Please use the standard "
+"fdisk program to setup your drives and please notify Red Hat Software that "
+"you saw this message."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:695
+msgid "No Drives Found"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:696
+msgid ""
+"An error has occurred - no valid devices were found on which to create new "
+"filesystems.  Please check your hardware for the cause of this problem."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:950
+#, c-format
+msgid ""
+"A disk with a corrupt Sun disklabel has been found while reading block "
+"device %s.  You must use fdisk to create and write a new label to this "
+"device."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:954
+msgid "Corrupt Sun disklabel"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:955 ../libfdisk/fsedit.c:1011
+#: ../libfdisk/fsedit.c:1036
+msgid "Skip Drive"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:964 ../libfdisk/fsedit.c:1032
+#, c-format
+msgid ""
+"An error occurred reading the partition table for the block device %s.  The "
+"error was"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1005
+#, c-format
+msgid ""
+"The partition table on device %s is corrupted.  To create new partitions it "
+"must be initialized, causing the loss of ALL DATA on this drive."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1010
+msgid "Bad Partition Table"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1011
+msgid "Initialize"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1036
+msgid "Retry"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1048
+msgid "BSD Disklabel"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1048
+msgid ""
+"A disk with a BSD disklabel has been found. The Red Hat installation only "
+"supports BSD Disklabels in read-only mode, so you must use a custom install "
+"and fdisk (instead of Disk Druid) for machines with BSD Disklabels."
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1078
+#, c-format
+msgid "System error %d"
+msgstr ""
+
+#: ../libfdisk/fsedit.c:1087 ../libfdisk/fsedit.c:1089
+msgid "Fdisk Error"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:517 ../libfdisk/gnomefsedit.c:686
+msgid "<Swap Partition>"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:525 ../libfdisk/gnomefsedit.c:688
+msgid "<RAID Partition>"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:580 ../libfdisk/newtfsedit.c:697
+msgid "Delete Partition"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:581 ../libfdisk/newtfsedit.c:698
+msgid "Are you sure you want to delete this partition?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:639 ../libfdisk/gnomefsedit.c:645
+#: ../libfdisk/gnomefsedit.c:649 ../libfdisk/gnomefsedit.c:651
+#: ../libfdisk/newtfsedit.c:263 ../libfdisk/newtfsedit.c:269
+#: ../libfdisk/newtfsedit.c:273 ../libfdisk/newtfsedit.c:275
+msgid "Edit Partition"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:655 ../libfdisk/gnomefsedit.c:1619
+#: ../libfdisk/gnomefsedit.c:2128 ../libfdisk/newtfsedit.c:450
+#: ../libfdisk/newtfsedit.c:1501
+msgid "Cancel"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:666 ../libfdisk/gnomefsedit.c:1628
+msgid "Mount Point:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:701
+msgid "Size (Megs):"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:732
+msgid "Grow to fill disk?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:751 ../libfdisk/newtfsedit.c:335
+msgid "Allocation Status:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:755 ../libfdisk/newtfsedit.c:337
+msgid "Successful"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:758 ../libfdisk/newtfsedit.c:339
+msgid "Failed"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:770 ../libfdisk/newtfsedit.c:344
+msgid "Failure Reason:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:784 ../libfdisk/gnomefsedit.c:1654
+msgid "Partition Type:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:851
+msgid "Allowable Drives:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:956 ../libfdisk/gnomefsedit.c:1846
+#: ../libfdisk/newtfsedit.c:486
+msgid "No Mount Point"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:957 ../libfdisk/newtfsedit.c:487
+msgid ""
+"You have not selected a mount point for this partition. Are you sure you "
+"want to do this?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1000 ../libfdisk/gnomefsedit.c:1854
+#: ../libfdisk/newtfsedit.c:527
+msgid "Mount Point Error"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1001 ../libfdisk/newtfsedit.c:528
+msgid ""
+"The mount point requested is either an illegal path or is already in use. "
+"Please select a valid mount point."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1026 ../libfdisk/newtfsedit.c:545
+msgid "Size Error"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1027 ../libfdisk/newtfsedit.c:546
+msgid ""
+"The size requested is illegal. Make sure the size is greater and zero (0), "
+"and is specified int decimal (base 10) format."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1062 ../libfdisk/gnomefsedit.c:1967
+#: ../libfdisk/newtfsedit.c:581
+msgid "Swap Size Error"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1063 ../libfdisk/gnomefsedit.c:1968
+#: ../libfdisk/newtfsedit.c:582
+#, c-format
+msgid ""
+"You have created a swap partition which is too large. The maximum size of a "
+"swap partition is %ld Megabytes."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1079 ../libfdisk/gnomefsedit.c:1086
+msgid "No RAID Drive Constraint"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1081
+msgid ""
+"You have configured a RAID partition without constraining the partition to a "
+"single drive.\n"
+" Are you sure you want to do this?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1087
+msgid "Close"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1088
+msgid ""
+"You have configured a RAID partition without constraining the partition to a "
+"single drive. Please select one drive to constrain this partition to."
+msgstr ""
+
+#. XXXXX - for now destroy the raid entry since it
+#. now contains unallocated partitions!
+#: ../libfdisk/gnomefsedit.c:1267
+msgid "RAID Entry Incomplete"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1268
+#, c-format
+msgid ""
+"The raid device /dev/%s now contains partitions which are unallocated. The "
+"raid device /dev/%s will now be decomposed into its component partitions. "
+"Please recompose the raid device with allocated partitions."
+msgstr ""
+
+#. build list of why they all failed
+#: ../libfdisk/gnomefsedit.c:1361 ../libfdisk/gnomefsedit.c:1380
+#: ../libfdisk/newtfsedit.c:84 ../libfdisk/newtfsedit.c:1482
+msgid "Unallocated Partitions"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1365 ../libfdisk/gnomefsedit.c:1375
+#: ../libfdisk/newtfsedit.c:88
+msgid ""
+"There are currently unallocated partition(s) present in the list of "
+"requested partitions. The unallocated partition(s) are shown below, along "
+"with the reason they were not allocated."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1640
+msgid "<Swap Partition"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1698
+msgid "RAID Device: /dev/"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1721
+msgid "RAID Type:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1758
+msgid "Partitions For RAID Array:"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1847
+msgid "You have not selected a mount point. A mount point is required."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1855
+msgid ""
+"The mount point requested is already in use. Please select a valid mount "
+"point."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1868
+msgid "Booting From RAID Warning"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1869
+msgid ""
+"You have made this raid device mount as a booting partition.  Please make "
+"sure all the component partitions are bootable."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1879
+msgid "No RAID Device"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1880
+msgid "You need to selected a RAID device."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1886
+msgid "Used Raid Device"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1887
+#, c-format
+msgid ""
+"The raid device \"/dev/%s\" is already configured as a raid device. Please "
+"select another."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1900
+msgid "Not Enough Partitions"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1902
+msgid ""
+"You have not configured enough partitions for the RAID type you have "
+"selected."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1909
+msgid "Illegal /boot RAID Type"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:1911
+msgid "Boot partitions (/boot) are only allowed on RAID-1."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2012
+#, c-format
+msgid ""
+"The partition %s is a pre-existing partition in the set of partitions for "
+"this RAID device.  The mount point is set to /boot. Are you sure that it is "
+"possible to boot from this partition?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2019
+msgid "Use Pre-existing Partition?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2128
+msgid "Auto-Partition"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2135
+msgid "Using Existing Disk Space"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2154
+msgid "Remove Linux partitions"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2165
+msgid "Use existing free space"
+msgstr ""
+
+#. workstation or server?
+#: ../libfdisk/gnomefsedit.c:2177
+msgid "Intended Use"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2216
+msgid "Workstation"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2290
+msgid "Delete RAID Device?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2291
+msgid "Are you sure you want to remove this RAID device?"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2342 ../libfdisk/newtfsedit.c:1585
+msgid "Reset Partition Table"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2344 ../libfdisk/newtfsedit.c:1587
+msgid "Reset partition table to original contents? "
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2380 ../libfdisk/gnomefsedit.c:2431
+msgid "<Swap>"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2382
+msgid "<RAID>"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2384
+msgid "<not set>"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2941
+msgid "Unallocated Partitions Exist..."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2952
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) or a "
+"RAID partition for the install to proceed."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2966 ../libfdisk/gnomefsedit.c:2979
+msgid ""
+"You must assign a boot (/boot) partition to a Linux native partition (ext2) "
+"or a RAID-1 partition for the install to proceed."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:2994
+msgid ""
+"Because you have assigned the root partition (/) to a RAID device, you must "
+"also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
+"RAID-1 partition for the install to proceed."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3067
+msgid "Partitions"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3111
+msgid "_Add..."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3123
+msgid "_Edit..."
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3124
+msgid "_Delete"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3125
+msgid "_Reset"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3154
+msgid "_Make RAID Device"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3163
+msgid "Auto Partition"
+msgstr ""
+
+#: ../libfdisk/gnomefsedit.c:3176
+msgid "Drive Summary"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:142
+msgid "Swap Partition"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1282
+msgid "Current Disk Partitions"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1315
+msgid "Drive Summaries"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1430
+msgid "No Root Partition"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1431
+msgid ""
+"You must assign a root (/) partition to a Linux native partition (ext2) for "
+"the install to proceed."
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1451
+msgid "No Swap Partition"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1452
+msgid "You must assign a swap partition for the install to proceed."
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1484
+msgid ""
+"There are unallocated partitions left. If you quit now they will not be "
+"written to the disk.\n"
+"\n"
+"Are you sure you want to exit?"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1500
+msgid "Save Changes"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1502
+msgid "Save changes to partition table(s)?"
+msgstr ""
+
+#: ../libfdisk/newtfsedit.c:1546
+msgid "You may only delete NFS mounts."
+msgstr ""
