@@ -10,7 +10,9 @@ NEWTLIB = ../mininewt/libnewt.a
 ifneq (ia64, $(ARCH))
 ifneq (i386, $(ARCH))
 ifneq (x86_64, $(ARCH))
+ifneq (ppc, $(ARCH))
 OBJS += fnmatch-stub.o printf-stub.o pwd-stub.o dl-stub.o
+endif
 endif
 endif
 endif
@@ -88,8 +90,8 @@ OBJS += stubs.o
 endif
 
 ifeq (ppc, $(ARCH))
-BINS += loader
-OBJS += stubs.o
+BINS += loader loader-local loader-network
+OBJS += dietstubs.o ctype.o
 endif
 
 ifeq (.depend,$(wildcard .depend))
@@ -122,9 +124,24 @@ LDFLAGS = -nostdlib /usr/lib/crt1.o
 LOADERLIBS += -lresolv
 STATIC=-static
 else
+ifeq (ppc, $(ARCH))
+MINILIBC=MINILIBC.o
+COPTS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
+LDFLAGS = -nostdlib /usr/lib/crt1.o
+LOADERLIBS += -lrpc
+ISYS = ../isys/libisys-diet.a
+SLANGLIB = ../minislang/libslang-diet.a
+NEWTLIB = ../mininewt/libnewt-diet.a
+GUNZIP = ../isys/gzlib/libgunzip-diet.a
+DIET=diet
+REALCC=gcc
+CC=$(DIET) $(REALCC)
+STATIC=-static
+else
 CFLAGS+=-DUSE_MINILIBC=0
 STATIC=-static
 LOADERLIBS += -lresolv
+endif
 endif
 endif
 

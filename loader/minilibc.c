@@ -212,3 +212,22 @@ void printf(char * fmt, ...) {
     }
 }
 
+int memcmp(const void *dst, const void *src, size_t count) {
+     int r;
+     const char *d=dst;
+     const char *s=src;
+     while (count--) {
+          if ((r=(*d - *s)))
+	       return r;
+	  ++d;
+	  ++s;
+     }
+     return 0;
+}
+
+void* memset(void * dst, int s, size_t count) {
+     char * a = dst;
+     while (count--)
+          *a++ = s;
+     return dst;
+}

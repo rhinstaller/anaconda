@@ -230,5 +230,7 @@ void printint(int i);
 void printf(char * fmt, ...);
 char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, size_t len);
+int memcmp(const void *dst, const void *src, size_t count);
+void* memset(void * dst, int s, size_t count);
 
 void printstr(char * string);
