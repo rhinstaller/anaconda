@@ -18,7 +18,14 @@ class UnresolvedDependenciesWindow (InstallWindow):
     
     def getScreen (self):
 	threads_leave ()
-        self.deps = self.todo.verifyDeps ()
+        # XXX fixme -- this is broken
+        if self.todo.upgrade:
+            import rpm
+            db = rpm.opendb (0, self.todo.instPath)
+            self.deps = self.todo.verifyDeps (self.todo.instPath, db)
+            del db
+        else:
+            self.deps = self.todo.verifyDeps ()
 	threads_enter ()
         if not self.deps:
             return None
