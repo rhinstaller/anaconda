@@ -777,29 +777,30 @@ msgstr "Tra¾im"
 
 #: ../todo.py:706
 msgid "Finding packages to upgrade..."
-msgstr "Pronalazim pakete za a¾uriranje..."
+msgstr "Tra¾enje paketa za a¾uriranje..."
 
 #: ../todo.py:749
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
+"Oporavak RPM baze nije uspeo. Moguæe je da vam nedostaje prostor na disku."
 
 #: ../todo.py:967
 msgid "Processing"
-msgstr "Obraðujem"
+msgstr "Obrada"
 
 #: ../todo.py:968
 msgid "Preparing to install..."
-msgstr "Pripremam se da instaliram..."
+msgstr "Priprema za instalaciju..."
 
 #: ../todo.py:1165
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr "A¾uriram %s.\n"
+msgstr "A¾uriranje %s.\n"
 
 #: ../todo.py:1167
 #, c-format
 msgid "Installing %s.\n"
-msgstr "Instaliram %s.\n"
+msgstr "Instaliranje %s.\n"
 
 #: ../todo.py:1188
 msgid ""
@@ -807,8 +808,8 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
-"Izgleda da nemate dovoljno prostora na disku da instalirate izabrane "
-"pakete.Potrebno vam je vi¹e prostora na sledeæim sistemima datoteka:\n"
+"Izgleda da nemate dovoljno prostora na disku da instalirate izabrane pakete. "
+"Potrebno vam je vi¹e prostora na sledeæim sistemima datoteka:\n"
 "\n"
 
 #: ../todo.py:1191
@@ -829,7 +830,7 @@ msgstr "Posle instalacije"
 
 #: ../todo.py:1229
 msgid "Performing post install configuration..."
-msgstr "Konfiguri¹em posle instalacije..."
+msgstr "Konfigurisanje posle instalacije..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:256
 msgid "Video Card"
@@ -873,7 +874,7 @@ msgstr "Root lozinka je prihvaæena."
 
 #: ../iw/account.py:39
 msgid "Root password is too short."
-msgstr "Root lozinka je prekratka."
+msgstr "Root lozinka je suvi¹e kratka."
 
 #: ../iw/account.py:41
 msgid "Root password does not match."
@@ -934,7 +935,7 @@ msgstr "Omoguæi MD5 lozinke"
 
 #: ../iw/auth.py:51
 msgid "Enable shadow passwords"
-msgstr "Omoguæi 'shadows' lozinke"
+msgstr "Omoguæi 'shadow' lozinke"
 
 #: ../iw/auth.py:53 ../textw/userauth.py:264
 msgid "Enable NIS"
@@ -1117,7 +1118,7 @@ msgstr "Tip"
 
 #: ../iw/lilo.py:164
 msgid "Install LILO boot record on:"
-msgstr "Instaliraj LILO startni slog na:"
+msgstr "Instaliranje LILO startni slog na:"
 
 #: ../iw/lilo.py:171 ../iw/silo.py:170 ../textw/silo.py:63
 msgid "Master Boot Record (MBR)"
@@ -1129,7 +1130,7 @@ msgstr "Prvi sektor startne particije"
 
 #: ../iw/lilo.py:179 ../textw/lilo.py:24
 msgid "Use linear mode (needed for some SCSI drives)"
-msgstr "Koristi linearni re¾im (potreban nekim SCSI diskovima)"
+msgstr "Kori¹æenje linearnog re¾ima (potreban nekim SCSI diskovima)"
 
 #: ../iw/lilo.py:189 ../iw/silo.py:205
 msgid "Kernel parameters"
@@ -1137,7 +1138,7 @@ msgstr "Parametri kernela"
 
 #: ../iw/lilo.py:206 ../iw/silo.py:223
 msgid "Create boot disk"
-msgstr "Napravi startni disk"
+msgstr "Pravljenje startnog diska"
 
 #: ../iw/lilo.py:210
 msgid "Do not install LILO"
@@ -1217,7 +1218,7 @@ msgstr "Ime: "
 
 #: ../iw/package.py:329
 msgid "Package Details"
-msgstr "Paketni detalji"
+msgstr "Detalji paketa"
 
 #: ../iw/package.py:335
 msgid "Size: "
@@ -1303,7 +1304,7 @@ msgid ""
 msgstr ""
 "Odluèili ste da stavite va¹ osnovni (/) sistem datoteka na DOS ili Windows "
 "sistem datoteka koji veæ postoji. Koliko veliki treba da budu osnovni (/) i "
-"swap sistem datoteka (u megabajtima). Njihov zbir treba da je manji od %d "
+"swap-sistem datoteka (u megabajtima)? Njihov zbir treba da je manji od %d "
 "megabajta."
 
 #: ../iw/rootpartition.py:135
