@@ -119,7 +119,7 @@ class SiloInstall:
 	    args.append("-t")
 
 	i = len (bootpart) - 1
-	while i > 0 and bootpart[i] in digits:
+	while i > 0 and bootpart[i] in string.digits:
 	    i = i - 1
 	silo.addEntry("partition", bootpart[i+1:])
 	silo.addEntry("timeout", "50")
