@@ -219,6 +219,11 @@ def testx(x):
     
     child = os.fork()
     if (child):
+	# here we fork and wait on our child, which will contine
+	# on being anaconda, to finish.  When the child finishes
+	# we kill the X server and exit with the exit status set to
+	# the same exit status of our child (which is now the main
+	# anaconda process).
 	try:
 	    pid, status = os.waitpid(child, 0)
         except OSError, (errno, msg):
@@ -262,25 +267,3 @@ def start_existing_X():
                     "/usr/share/fonts/ISO8859-2/75dpi/,"
                     "/usr/share/fonts/ISO8859-2/100dpi/,"
                     "/usr/share/fonts/KOI8-R/misc/,"
-                    "/usr/share/fonts/KOI8-R/75dpi/")
-                    
-	os.execv(serverPath, args)
-
-    # give time for the server to fail (if it is going to fail...)
-    # FIXME: Should find out if X server is already running
-    # otherwise with NFS installs the X server may be still being
-    # fetched from the network while we already continue to run
-    time.sleep (4)
-    status = 0
-    try:
-        pid, status = os.waitpid (server, os.WNOHANG)
-    except OSError, (errno, msg):
-        print __name__, "waitpid:", msg
-
-    if status:
-        raise RuntimeError, "X server failed to start"
-
-    # startX() function above does a double-fork here, do we need to in
-    # reconfig mode?
-    
-    return (None, None)
