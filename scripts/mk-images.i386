@@ -54,11 +54,11 @@ mkdir -p $TOPDESTPATH/images
 cat > $TOPDESTPATH/images/README <<EOF
 
 The files in this directory are raw disk images.  Some are boot disks
-for booting the Red Hat Linux installation program.  Others are driver
+for booting the $PRODUCT installation program.  Others are driver
 disks to support loading the installation program from less common
 hardware.
 
-Follow the instructions in the Red Hat Linux Installation Guide,
+Follow the instructions in the $PRODUCT Installation Guide,
 Chapter 1, section "Making Installation Diskettes" to create the
 disks.
 
@@ -215,7 +215,7 @@ The files in this directory are useful for booting a machine via PXE.
 The following files are available:
 vmlinuz - the BOOT kernel used for the installer
 initrd.img - an initrd with support for all install methods and
-    drivers supported for installation of Red Hat Linux
+    drivers supported for installation of $PRODUCT
 EOF
 }
 
