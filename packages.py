@@ -979,7 +979,13 @@ def doPostInstall(method, id, intf, instPath):
                         pass
 
                 if unmountUSB:
-                    isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+                    try:
+                        isys.umount(instPath + '/proc/bus/usb', removeDir = 0)
+                    except SystemError:
+                        # if we fail to unmount, then we should just not
+                        # try to remount it.  this protects us from random
+                        # suckage
+                        usbWasMounted = 0
 
 		if usbWasMounted:
                     isys.mount('/usbdevfs', '/proc/bus/usb', 'usbdevfs')
