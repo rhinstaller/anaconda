@@ -27,8 +27,6 @@ if [ $ARCH != s390 -a $ARCH != s390x ]; then
 fi
 rm $p/etc/ld.so.conf
 
-(cd $p/usr/bin; ./collage | $p/usr/lib/anaconda-runtime/mkcollagelinks ./collage)
-
 mv $p/usr/sbin/busybox.anaconda $p/usr/bin/busybox
 (cd $p/usr/bin;
 set $(./busybox 2>&1| awk '/^\t([a-z\[]+,)+/' | sed 's/,//g' | sed 's/ +//');
