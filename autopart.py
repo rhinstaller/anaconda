@@ -822,7 +822,8 @@ def doAutoPartition(dir, diskset, partitions, intf):
     drives = partitions.autoClearPartDrives
 
     for request in partitions.autoPartitionRequests:
-        request.drive = drives
+        if not request.drive:
+            request.drive = drives
         partitions.addRequest(request)
 
     # sanity checks for the auto partitioning requests; mostly only useful
