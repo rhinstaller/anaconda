@@ -1,4 +1,5 @@
-# 
+# translation of ru.po to Russian
+#
 # translation of anaconda to Russian
 # Leonid Kanter <leon@asplinux.ru>, 2004.
 # Valery Suhomlinov <goodguy@goodguy.spb.ru>, 2004.
@@ -9,7 +10,7 @@ msgstr ""
 "Project-Id-Version: ru\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-04-20 19:34+0300\n"
+"PO-Revision-Date: 2004-06-23 01:06+0400\n"
 "Last-Translator: Andrew Martynov <andrewm@inventa.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -145,7 +146,7 @@ msgstr "Неизвестная ошибка"
 #: ../anaconda:617
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr "Error pulling second part of kickstart config: %s!"
+msgstr "Ошибка получения второй части конфигурации kickstart: %s!"
 
 #: ../anaconda:730
 msgid ""
@@ -471,8 +472,7 @@ msgstr "Удалить все разделы Linux на этой системе"
 
 #: ../autopart.py:1501
 msgid "Keep all partitions and use existing free space"
-msgstr ""
-"Сохранить все разделы и использовать существующее свободное пространство"
+msgstr "Сохранить все разделы и использовать существующее свободное пространство"
 
 #: ../autopart.py:1503
 #, python-format
@@ -521,7 +521,7 @@ msgstr "В процессе...   "
 
 #: ../cmdline.py:68
 msgid "Can't have a question in command line mode!"
-msgstr "Can't have a question in command line mode!"
+msgstr "Невозможно задать вопрос в режиме командной строки!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
@@ -990,11 +990,13 @@ msgid ""
 "\n"
 "%s"
 msgstr ""
+"При обработке kickstart конфигурации произошла следующая ошибка:\n"
+"\n"
+"%s"
 
 #: ../gui.py:640 ../text.py:285
-#, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Ошибка открытия файла kickstart %s: %s"
+msgstr "Ошибка при обработки конфигурации Kickstart"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1005,9 +1007,8 @@ msgstr ""
 "этой дискеты будет удалено."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "По умолчанию"
+msgstr ""
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1159,9 +1160,9 @@ msgid "Change CDROM"
 msgstr "Смена CD-ROM"
 
 #: ../image.py:284
-#, fuzzy, python-format
+#, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Вставьте пожалуйста диск %d для продолжения"
+msgstr "Вставьте пожалуйста %s диск %d для продолжения"
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1174,7 +1175,7 @@ msgstr "Этот диск не является необходимым %s CD-ROM
 
 #: ../image.py:327
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "Невозможно получить доступ к CDROM."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1182,7 +1183,7 @@ msgstr "Установка системы"
 
 #: ../kickstart.py:1373
 msgid "Missing Package"
-msgstr "Пакет пропущен"
+msgstr "Пакет отсутствует"
 
 #: ../kickstart.py:1374
 #, python-format
@@ -1199,7 +1200,7 @@ msgstr "_Прервать"
 
 #: ../kickstart.py:1400
 msgid "Missing Group"
-msgstr "Пропущен пакет"
+msgstr "Группа отсутствует"
 
 #: ../kickstart.py:1401
 #, python-format
@@ -2445,42 +2446,38 @@ msgid "Connecting..."
 msgstr "Подключение..."
 
 #: ../vnc.py:36
-#, fuzzy
 msgid "Unable to Start X"
-msgstr "Невозможно загрузить файл!"
+msgstr "Невозможно запустить X"
 
 #: ../vnc.py:37
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "Невозможно запустить X (графическую подсистему) на вашей машине. Хотите ли вы запустить VNC для того, чтобы можно было подключится к данному компьютеру с другой машины и выполнить установку в графическом режиме или продолжить установку в текстовом режиме?"
 
 #: ../vnc.py:44 ../vnc.py:47
 msgid "Use text mode"
-msgstr ""
+msgstr "Использовать текстовый режим"
 
 #: ../vnc.py:45
-#, fuzzy
 msgid "Start VNC"
-msgstr "Запуск VNC..."
+msgstr "Запустить VNC"
 
 #: ../vnc.py:55
-#, fuzzy
 msgid "VNC Configuration"
-msgstr "Настройка SILO"
+msgstr "Настройка VNC"
 
 #: ../vnc.py:59
-#, fuzzy
 msgid "No password"
-msgstr "Пароль пользователя root"
+msgstr "Без пароля"
 
 #: ../vnc.py:62
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "При помощи пароля вы предотвратите несанкционированное подключение и отслеживание процесса установки. Введите пароль, который будет использоваться во время установки"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2503,9 +2500,8 @@ msgid "Password Length"
 msgstr "Длина пароля"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Пароль пользователя должен содержать не менее 6 символов."
+msgstr "Пароль должен содержать не менее 6 символов."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2548,7 +2544,7 @@ msgstr ""
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "Учетная запись root используется для администрирования системы. Введите пароль пользователя root."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -3204,7 +3200,7 @@ msgstr "_Включить брандмауэр"
 
 #: ../iw/firewall_gui.py:179
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Разрешить подключение к данным сервисам из Интернет."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
@@ -3212,25 +3208,23 @@ msgstr "Разрешить входящие:"
 
 #: ../iw/firewall_gui.py:203
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Удаленный вход (SSH)"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Сервер"
+msgstr "Веб Сервер"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Почта (SMTP)"
+msgstr "Почтовый сервер (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Передача файлов (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
-msgstr "Другие порты:"
+msgstr "Другие _порты:"
 
 #: ../iw/firewall_gui.py:236
 msgid "_Security Enhanced Linux (SELinux) Extensions:"
@@ -3282,8 +3276,7 @@ msgstr "Выберите основной язык для этой систем�
 
 #: ../iw/language_support_gui.py:219
 msgid "Select _additional languages to install on the system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе:"
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе:"
 
 #: ../iw/language_support_gui.py:254
 msgid "_Select All"
@@ -3827,11 +3820,11 @@ msgstr "Установить имя компьютера:"
 
 #: ../iw/network_gui.py:502
 msgid "_automatically via DHCP"
-msgstr "автоматически по DHCP"
+msgstr "_автоматически по DHCP"
 
 #: ../iw/network_gui.py:508
 msgid "_manually"
-msgstr "вручную"
+msgstr "_вручную"
 
 #: ../iw/network_gui.py:514
 msgid "(ex. \"host.domain.com\")"
@@ -4276,8 +4269,7 @@ msgstr "Не удается создать редактор клонирован
 
 #: ../iw/partition_gui.py:1315
 msgid "The drive clone editor could not be created for some reason."
-msgstr ""
-"Редактор клонирования дисков не может быть запущен по некоторым причинам."
+msgstr "Редактор клонирования дисков не может быть запущен по некоторым причинам."
 
 #: ../iw/partition_gui.py:1359
 msgid "Ne_w"
@@ -5004,9 +4996,7 @@ msgstr "Неизвестная видеокарта"
 msgid ""
 "An error has occurred selecting the video card %s. Please report this error "
 "to bugzilla.redhat.com."
-msgstr ""
-"Произошла ошибка выбора видеокарты %s. Сообщите об этой ошибке на bugzilla."
-"redhat.com."
+msgstr "Произошла ошибка выбора видеокарты %s. Сообщите об этой ошибке на bugzilla.redhat.com."
 
 #: ../iw/xconfig_gui.py:838 ../textw/xconfig_text.py:684
 msgid "Unspecified video card"
@@ -5557,8 +5547,7 @@ msgstr "Сбросить изменения"
 
 #: ../textw/language_text.py:110
 msgid "Choose additional languages that you would like to use on this system:"
-msgstr ""
-"Выберите дополнительные языки, которые будут использоваться в этой системе."
+msgstr "Выберите дополнительные языки, которые будут использоваться в этой системе."
 
 #: ../textw/language_text.py:114
 msgid "Language Support"
@@ -6738,7 +6727,7 @@ msgstr "Загрузка"
 
 #: ../loader2/driverdisk.c:122
 msgid "Reading driver disk..."
-msgstr "Чтение диска драйверов..."
+msgstr "Чтение диска с драйверами..."
 
 #: ../loader2/driverdisk.c:256 ../loader2/driverdisk.c:288
 msgid "Driver Disk Source"
@@ -6750,35 +6739,29 @@ msgid ""
 "Which would you like to use?"
 msgstr ""
 "В вашей системе имеется несколько устройств, в которые может быть вставлен "
-"диск драйверов. Какое устройство использовать,"
+"диск драйверов. Какое устройство использовать?"
 
 #: ../loader2/driverdisk.c:289
-#, fuzzy
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"В вашей системе имеется несколько устройств, в которые может быть вставлен "
-"диск драйверов. Какое устройство использовать,"
+msgstr "На данном устройстве находятся несколько разделов, которые могут содержать образ диска с драйверами. Какой из разделов использовать?"
 
 #: ../loader2/driverdisk.c:331
-#, fuzzy
 msgid "Failed to mount partition."
-msgstr "Ошибка монтирования диска обновлений"
+msgstr "Ошибка монтирования раздела."
 
 #: ../loader2/driverdisk.c:339
-#, fuzzy
 msgid "Select driver disk image"
-msgstr "Выберите драйвер"
+msgstr "Выберите образ диска с драйверами"
 
 #: ../loader2/driverdisk.c:340
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Укажите файл, который является образом диска с драйверами."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Ошибка монтирования диска драйвера."
+msgstr "Ошибка загрузки диска с драйверами из файла."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7124,21 +7107,19 @@ msgid "Add Device"
 msgstr "Добавить устройство"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Загрузчик уже выполнялся.  Запускается оболочка."
+msgstr "Загрузчик уже выполнялся.  Запускается оболочка.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
 msgid "Running anaconda, the %s rescue mode - please wait...\n"
-msgstr ""
-"Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
+msgstr "Запускается anaconda, спасательный режим %s - подождите, пожалуйста...\n"
 
 #: ../loader2/loader.c:1480
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
+msgstr "Запускается anaconda, программа установки %s - подождите пожалуйста...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7266,20 +7247,19 @@ msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "%s является беспроводным сетевым адаптером.  Укажите ESSID и ключ шифрования, необходимые для доступа к вашей беспроводной сети.  Если ключ не требуется, оставьте данное поле пустыи и продолжите установку."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Ключ шифрования"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Дополнительные параметры"
+msgstr "Настройки беспроводной сети"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
