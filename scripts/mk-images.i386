@@ -111,7 +111,7 @@ done
 BOOTPCMCIAMODULES=`echo $PCMCIAMODULES | eval "$PCMCIAMODULES_EXCLUDED_SED"`
 
 # need to make sure the base modules are included
-BOOTPCMCIAMODULES="$BOOTPCMCIAMODULES yenta_socket i82365 tcic pcmcia_core ds"
+BOOTPCMCIAMODULES="$BOOTPCMCIAMODULES yenta_socket i82365 tcic pcmcia_core pcmcia"
 
 makeBootImages() {
  if [ "$KERNELARCH" = "i386" ]; then

@@ -5,6 +5,8 @@
 
 	* loader2/pcmciatest.c: same as above, plus some gcc4 fixes
 
+	* scripts/mk-images.i386: don't load "ds", do load "pcmcia"
+
 2005-03-25  Bill Nottingham  <notting@redhat.com>
 	
 	* anaconda.spec: Bump version.
