@@ -611,7 +611,7 @@ class DiskSet:
             del self.disks[disk]
 
     def dasdFmt (self, intf = None, drive = None):
-        "Format dasd devices (s390)."""
+        """Format dasd devices (s390)."""
         w = intf.progressWindow (_("Initializing"),
                              _("Please wait while formatting drive %s...\n"
                                ) % (drive,), 100)
