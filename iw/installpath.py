@@ -41,6 +41,7 @@ class InstallPathWindow (InstallWindow):
                     (CUSTOM, _("Custom"), "custom.png"))
 
     installSteps = [ ( AutoPartitionWindow, "partition" ),
+                     FDiskWindow,
 		     ( PartitionWindow, "partition" ),
 		     ( FormatWindow, "format" ),
 		     ( LiloWindow, "lilo" ),
