@@ -359,9 +359,20 @@ class InstallControlWindow:
         gtk_rc_reparse_all ()
 
 	self.langSearchPath = expandLangs(locale) + ['C']
-        
-        found = 0
+
+        # gtk locale rc files encodings are in all lower case.
+        # make sure that any encodings in the search path are converted
+        # before we start looking for it.
+        search = []
         for l in self.langSearchPath:
+            parts = string.split(l, '.', 1)
+            if len(parts) > 1:
+                search.append('%s.%s' % (parts[0], string.lower(parts[1])))
+            else:
+                search.append(parts[0])             
+
+        found = 0
+        for l in search:
             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
                 rc_parse("/etc/gtk/gtkrc." + l)
                 found = 1
