@@ -31,7 +31,9 @@
 #include "net.h"
 #include "method.h"
 #include "urlinstall.h"
+#include "cdinstall.h"
 #include "urls.h"
+#include "windows.h"
 
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
                               char * dest, char * mntpoint, char * device,
@@ -80,6 +82,9 @@ static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags,
 
 
 static int loadUrlImages(struct iurlinfo * ui, int flags) {
+    char *stage2img;
+    char tmpstr1[1024], tmpstr2[1024];
+
     /*    setupRamdisk();*/
 
     /* grab the updates.img before netstg1.img so that we minimize our
@@ -92,9 +97,16 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         unlink("/tmp/ramfs/updates-disk.img");
     }
 
-    if (loadSingleUrlImage(ui, "RedHat/base/netstg2.img", flags,
-                           "/tmp/ramfs/netstg2.img",
-                           "/mnt/runtime", "loop0", 0)) {
+    if (FL_GRAPHICAL(flags))
+	stage2img = "stage2.img";
+    else
+	stage2img = "netstg2.img";
+
+    snprintf(tmpstr1, sizeof(tmpstr1), "RedHat/base/%s", stage2img);
+    snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
+
+    if (loadSingleUrlImage(ui, tmpstr1, flags, tmpstr2,
+			   "/mnt/runtime", "loop0", 0)) {
         newtWinMessage(_("Error"), _("OK"),
                        _("Unable to retrieve the install image."));
         return 1;
@@ -162,6 +174,7 @@ char * mountUrlImage(struct installMethod * method,
     int dir = 1;
     char * login;
     char * finalPrefix;
+    char * cdurl;
 
     enum { URL_STAGE_IFACE, URL_STAGE_IP, URL_STAGE_MAIN, URL_STAGE_SECOND, 
            URL_STAGE_FETCH, URL_STAGE_DONE } stage = URL_STAGE_IFACE;
@@ -260,17 +273,33 @@ char * mountUrlImage(struct installMethod * method,
                 break;
             }
 
-            if (loadUrlImages(&ui, flags)) {
-                stage = URL_STAGE_MAIN;
-                dir = -1;
-                if (loaderData->method) {
-                    free(loaderData->method);
-                    loaderData->method = NULL;
-                }
-            } else {
+	    /* ok messy - see if we have a stage2 on local CD */
+	    /* before trying to pull one over network         */
+	    cdurl = findRedHatCD(location, kd, modInfo, modLoaded, 
+				 *modDeps, flags, 0);
+	    if (cdurl) {
+		logMessage("Detected stage 2 image on CD");
+		winStatus(50, 3, _("Media Detected"), 
+			  _("Local installation media detected..."), 0);
+		sleep(3);
+		newtPopWindow();
+
                 stage = URL_STAGE_DONE;
                 dir = 1;
-            }
+            } else {
+		/* need to find stage 2 on remote site */
+		if (loadUrlImages(&ui, flags)) {
+		    stage = URL_STAGE_MAIN;
+		    dir = -1;
+		    if (loaderData->method) {
+			free(loaderData->method);
+			loaderData->method = NULL;
+		    }
+		} else {
+		    stage = URL_STAGE_DONE;
+		    dir = 1;
+		}
+	    }
             break;
 
         case URL_STAGE_DONE:
