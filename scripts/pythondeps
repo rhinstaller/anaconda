@@ -18,7 +18,7 @@ if [ $ARCH = "sparc" -o $ARCH = "sparc64" ]; then
     <$DIR/dev/openprom
 fi
 (/usr/sbin/chroot $DIR /usr/bin/anaconda -m dir://mnt/source --test --text --traceonly; \
-cd $DIR; find usr/lib/python* usr/lib/anaconda -type f | sed 's,^,/,' ) | \
+cd $DIR; find usr/lib/python* usr/lib/anaconda usr/lib/booty -type f | sed 's,^,/,' ) | \
 sort | uniq -u | sed s,^,./, | while read fn; do
     [ ! -d "$DIR/$fn" ] && rm "$DIR/$fn"
 done
