@@ -32,11 +32,12 @@ int main(int argc, char **argv)
 			modelines = vbe_get_edid_modelines();
 			for(j=0; modelines && (modelines[j].refresh != 0); j++){
 				if(modelines[j].modeline) {
-					printf("# %dx%d, %1.1fHz\n%s\n",
+					printf("# %dx%d, %1.1fHz%s\n%s\n",
 					       modelines[j].width,
 					       modelines[j].height,
 					       modelines[j].refresh,
-					       modelines[j].modeline);
+					       modelines[j].modeline,
+					       modelines[j].interlaced?"i":"");
 					free(modelines[j].modeline);
 				}
 			}
