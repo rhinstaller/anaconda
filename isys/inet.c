@@ -104,3 +104,43 @@ int configureNetDevice(struct intfInfo * intf) {
 
     return 0;
 }
+
+int addDefaultRoute(struct intfInfo * net) {
+    int s;
+    struct rtentry route;
+    struct sockaddr_in addr;
+
+    /* It should be okay to try and setup a machine w/o a default gateway */
+    /* XXX 
+    if (!(net->set & NETINFO_HAS_GATEWAY)) return 0;
+    */
+
+    s = socket(AF_INET, SOCK_DGRAM, 0);
+    if (s < 0) {
+	close(s);
+	perror("socket:");
+	return 1;
+    }
+
+    memset(&route, 0, sizeof(route));
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = 0;
+    addr.sin_addr = net->gateway;
+    memcpy(&route.rt_gateway, &addr, sizeof(addr));
+
+    addr.sin_addr.s_addr = INADDR_ANY;
+    memcpy(&route.rt_dst, &addr, sizeof(addr));
+    memcpy(&route.rt_genmask, &addr, sizeof(addr));
+
+    route.rt_flags = RTF_UP | RTF_GATEWAY;
+    route.rt_metric = 0;
+
+    if (ioctl(s, SIOCADDRT, &route)) {
+	close(s);
+	perror("SIOCADDRT");
+	return 1;
+    }
+
+    return 0;
+}
