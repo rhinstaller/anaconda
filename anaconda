@@ -789,6 +789,7 @@ if method:
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         methodobj = UrlInstallMethod(method, rootPath)
+	methodobj.setIntf(intf)
     elif method.startswith('hd://'):
         tmpmethod = method[5:]
 
