@@ -299,7 +299,16 @@ def createAlignedLabel(text):
 
 def createMountPointCombo(request):
     mountCombo = GtkCombo()
-    mountCombo.set_popdown_strings (defaultMountPoints)
+
+    mntptlist = []
+    if request.type != REQUEST_NEW and request.fslabel:
+	mntptlist.append(request.fslabel)
+
+    for p in defaultMountPoints:
+	if not p in mntptlist:
+	    mntptlist.append(p)
+
+    mountCombo.set_popdown_strings (mntptlist)
 
     mountpoint = request.mountpoint
 
