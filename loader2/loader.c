@@ -884,7 +884,10 @@ static char *doLoaderMain(char * location,
 
             /* fall through to ip config */
         case STEP_IP:
-            if (!needsNetwork) step = STEP_METHOD; /* only hit going back */
+            if (!needsNetwork) {
+                step = STEP_METHOD; /* only hit going back */
+                break;
+            }
 
             logMessage("going to do getNetConfig");
 	    /* populate netDev based on any kickstart data */
