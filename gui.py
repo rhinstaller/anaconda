@@ -503,7 +503,8 @@ class InstallControlWindow:
 	exec s
 
 	ics = InstallControlState (self)
-
+        ics.setPrevEnabled(self.dispatch.canGoBack())
+        
 	self.destroyCurrentWindow()
         self.currentWindow = newScreenClass(ics)
 
@@ -556,7 +557,6 @@ class InstallControlWindow:
         nextButton.set_sensitive (ics.getNextEnabled ())
  
         self.html.source (ics.getHTML(self.langSearchPath))
-
 
         if (ics.getGrabNext ()):
             nextButton.grab_focus ()
@@ -745,7 +745,7 @@ class InstallControlState:
         self.searchPath = [ "./", "/usr/share/anaconda/", "./" ]
         self.cw = cw
         self.prevEnabled = 1
-        self.nextEnabled = 0
+        self.nextEnabled = 1
 	self.nextButtonInfo = None
         self.helpButtonEnabled = TRUE
         self.title = _("Install Window")

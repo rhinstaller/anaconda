@@ -9,7 +9,6 @@ class LanguageWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        ics.setPrevEnabled(FALSE)
 
     def getNext (self):
 	self.instLang.setRuntimeLanguage(self.lang)

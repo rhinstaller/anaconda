@@ -7,8 +7,6 @@ class InstallWindow:
 
     def __init__ (self,ics):
         self.ics = ics
-        ics.setNextEnabled (1)
-        ics.setPrevEnabled (1)
 
 	if self.htmlTag:
 	    ics.readHTML (self.htmlTag)
