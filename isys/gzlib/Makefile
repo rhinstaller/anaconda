@@ -19,7 +19,7 @@ test: libgunzip.a test.c
 	$(CC) $(CFLAGS) -o test test.c libgunzip.a
 
 clean:	
-	rm -f libgunzip.a $(OBJS) $(DOBJS)
+	rm -f libgunzip.a $(OBJS) $(DOBJS) $(DIETLIB)
 
 %.do: %.c
 	diet $(CC) -c $(CFLAGS) -o $@ $<
