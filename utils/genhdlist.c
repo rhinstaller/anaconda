@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <rpm/misc.h>
+#include <rpm/rpmts.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <time.h>
@@ -24,6 +25,9 @@
 #define CDNUM_TAG    1000002
 #define ORDER_TAG    1000003
 #define MATCHER_TAG  1000004
+
+void expandFilelist(Header h);
+void compressFilelist(Header h);
 
 struct onePackageInfo {
     char * name;
@@ -86,9 +90,12 @@ int onePrePass(const char * dirName) {
     FD_t fd;
     int rc;
     Header h;
-    int isSource;
     char ** requires;
     int c;
+    rpmts ts = rpmtsCreate();
+    rpmtsSetRootDir(ts, "/");
+    rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
+    rpmtsCloseDB(ts);
 
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
@@ -119,7 +126,7 @@ int onePrePass(const char * dirName) {
 		exit(1);
 	    }
 
-	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
+            rc = rpmReadPackageFile(ts, fd, ent->d_name,  &h);
 
 	    if (!rc) {
 		if (headerGetEntry(h, RPMTAG_REQUIRENAME, NULL,
@@ -155,7 +162,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
     char * subdir = alloca(strlen(dirName) + 20);
     int errno;
     Header h, nh, h2;
-    int isSource, rc;
+    int rc;
     int_32 size;
     DIR * dir;
     struct stat sb;
@@ -166,6 +173,10 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
     uint_32 * newFileFlags, * fileFlags;
     int newFileListCount;
     int marker = time(NULL);	/* good enough counter; we'll increment it */
+    rpmts ts = rpmtsCreate();
+    rpmtsSetRootDir(ts, "/");
+    rpmtsSetVSFlags(ts, ~RPMVSF_NOHDRCHK);
+    rpmtsCloseDB(ts);
     
     sprintf(subdir, "%s/RedHat/RPMS", dirName);
 
@@ -201,7 +212,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 	    }
 	    size = sb.st_size;
 
-	    rc = rpmReadPackageHeader(fd, &h, &isSource, NULL, NULL);
+	    rc = rpmReadPackageFile(ts, fd, ent->d_name, &h);
 
 	    if (!rc) {
 		if (pkgListItems == pkgListAlloced) {
@@ -296,7 +307,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 				    &order, 1);
 		}
 
-		expandFilelist(h);
+                expandFilelist(h);
 		newFileList = NULL;
 		if (headerGetEntry(h, RPMTAG_OLDFILENAMES, NULL,
 				    (void **) &fileNames, &fileCount)) {
@@ -323,7 +334,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 
 		    /* XXX free fileNames */
 		}
-		compressFilelist(h);
+                compressFilelist(h);
 
 		h2 = headerNew();
 		for (i = 0; tagsInList2[i] > -1; i++) {
@@ -346,7 +357,7 @@ int onePass(FD_t outfd, FD_t out2fd, const char * dirName, int cdNum) {
 				    RPM_INT32_TYPE,
 				    &newFileFlags, newFileListCount);
 
-		    compressFilelist(h);
+                    compressFilelist(h);
 		    while (newFileListCount--) {
 			free(newFileList[newFileListCount]);
 		    }
@@ -428,8 +439,6 @@ int main(int argc, const char ** argv) {
 	int numpkgs = 0;
 	int len = 0;
 	char b[80];
-	char *p;
-	int i;
 	
 	if (!(f = fopen(depOrderFile, "r"))) {
 	    fprintf (stderr, "Unable to read %s\n", depOrderFile);
