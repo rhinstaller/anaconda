@@ -16,6 +16,9 @@ class InstallClass:
 
 	self.lilo = (location, linear, appendLine)
 
+    def getLiloInformation(self):
+	return self.lilo
+
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
 	[ "lilo", "mouse", "hostname", "network", "authentication", "complete",
@@ -53,7 +56,7 @@ class InstallClass:
     def __init__(self):
 	self.skipSteps = {}
 	self.hostname = None
-	self.lilo = None
+	self.lilo = ("mbr", 0, "")
 	self.groups = None
 	self.makeBootdisk = 0
 	self.setAuthentication(1, 1, 0)
@@ -69,10 +72,9 @@ class Workstation(InstallClass):
 
     def __init__(self):
 	InstallClass.__init__(self)
-	self.setLiloInformation("mbr")
 	self.setHostname("localhost.localdomain")
-	self.setGroups(["Workstation"])
-	#self.addToSkipList("lilo")
+	self.setGroups(["Base"])
+	self.addToSkipList("lilo")
 	self.addToSkipList("hostname")
 	self.addToSkipList("network")
 	self.addToSkipList("package-selection")
