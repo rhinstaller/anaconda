@@ -9,6 +9,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
+#include <rpmlib.h>
 #include "misc.h"
 #include "modules.h"
 #include "moduledeps.h"

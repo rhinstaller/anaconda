@@ -6,8 +6,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 ISYSLIB=isys
 
 LOADLIBES =  -L../isys -l$(ISYSLIB) -lpopt
-CFLAGS = -Wall -g -I..
-RPMCFLAGS = -I/usr/include/rpm
+CFLAGS = -Wall -g -I.. -I/usr/include/rpm -I../loader
 LDFLAGS = -g -static
 MODDEPS = moddeps
 
@@ -25,7 +24,7 @@ modlist:    modlist.o
 
 moduledeps.o: ../loader/moduledeps.c
 	cp ../loader/moduledeps.c ./
-	$(CC) $(CFLAGS) -I../loader -c moduledeps.c
+	$(CC) $(CFLAGS) -c moduledeps.c
 
 moddeps: moddeps.o moduledeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o moduledeps.o \
@@ -43,7 +42,7 @@ checkisomd5: checkisomd5.c md5.o
 	gcc -O -g -o checkisomd5 -DTESTING checkisomd5.c md5.o -lm
 
 genhdlist: genhdlist.c hash.c
-	$(CC) $(LDFLAGS) $(CFLAGS) $(RPMCFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
+	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \
 	-lbz2 -lz -lpopt 
 
 depends:
