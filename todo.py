@@ -28,6 +28,7 @@ import raid
 import timer
 import fstab
 import time
+import re
 import gettext_rh
 import os.path
 import upgrade
