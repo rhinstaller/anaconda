@@ -6,7 +6,64 @@ import iutil
 from log import log
 from flags import flags
 from constants_text import *
+from fsset import *
 import upgrade
+
+class UpgradeMigrateFSWindow:
+    def __call__ (self, screen, partitions):
+      
+        migratereq = partitions.getMigratableRequests()
+
+	g = GridFormHelp(screen, _("Migrate Filesystems"), "upmigfs", 1, 4)
+
+	text = _("This release of Red Hat Linux supports "
+                 "the ext3 journalling filesystem.  It has several "
+                 "benefits over the ext2 filesystem traditionally shipped "
+                 "in Red Hat Linux.  It is possible to migrate the ext2 "
+                 "formatted partitions to ext3 without data loss.\n\n"
+                 "Which of these partitions would you like to migrate?")
+
+	tb = TextboxReflowed(60, text)
+	g.add(tb, 0, 0, anchorLeft = 1, padding = (0, 0, 0, 1))
+
+        partlist = CheckboxTree(height=4, scroll=1)
+        for req in migratereq:
+            if req.origfstype.getName() != req.fstype.getName():
+                migrating = 1
+            else:
+                migrating = 0
+            partlist.append("%s - %s - %s" % (req.device,
+                                              req.origfstype.getName(),
+                                              req.mountpoint), req, migrating)
+            
+	g.add(partlist, 0, 1, padding = (0, 0, 0, 1))
+        
+	buttons = ButtonBar(screen, [TEXT_OK_BUTTON, TEXT_BACK_BUTTON] )
+	g.add(buttons, 0, 3, anchorLeft = 1, growx = 1)
+
+	while 1:
+	    result = g.run()
+        
+	    if (buttons.buttonPressed(result)):
+		result = buttons.buttonPressed(result)
+
+	    if result == TEXT_BACK_CHECK:
+		screen.popWindow()
+		return INSTALL_BACK
+
+            # reset
+            for req in migratereq:
+                req.format = 0
+                req.migrate = 0
+                req.fstype = req.origfstype
+
+            for req in partlist.getSelection():
+                req.format = 0
+                req.migrate = 1
+                req.fstype = fileSystemTypeGet("ext3")
+
+            screen.popWindow()
+            return INSTALL_OK
 
 class UpgradeSwapWindow:
     def __call__ (self, screen, intf, fsset, instPath, swapInfo):

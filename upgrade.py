@@ -78,6 +78,15 @@ def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
     if flags.setupFilesystems:
         oldfsset.mountFilesystems (instPath)
 
+# returns None if no filesystem exist to migrate
+def upgradeMigrateFind(dispatch, partitions):
+    migratereq = partitions.getMigratableRequests()
+    if not migratereq or len(migratereq) < 1:
+        dispatch.skipStep("upgrademigratefs")
+    else:
+        dispatch.skipStep("upgrademigratefs", skip = 0)
+    
+
 # returns None if no more swap is needed
 def upgradeSwapSuggestion(dispatch, id, instPath):
     # mem is in kb -- round it up to the nearest 4Mb

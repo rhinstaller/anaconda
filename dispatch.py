@@ -27,7 +27,7 @@ from bootloader import partitioningComplete, writeBootloader
 from bootloader import bootloaderSetupChoices
 from flags import flags
 from upgrade import upgradeFindPackages, upgradeMountFilesystems
-from upgrade import upgradeSwapSuggestion
+from upgrade import upgradeSwapSuggestion, upgradeMigrateFind
 
 # These are all of the install steps, in order. Note that upgrade and
 # install steps are the same thing! Upgrades skip install steps, while
@@ -66,6 +66,8 @@ installSteps = [
     ( "partitiondone", partitioningComplete, ("dispatch", "id.bootloader",
                                               "id.fsset", "id.diskset",
                                               "id.partitions") ),
+    ( "upgrademigfind", upgradeMigrateFind, ("dispatch", "id.partitions")),
+    ( "upgrademigratefs",  ("id.partitions",) ),
     ( "bootloadersetup", bootloaderSetupChoices, ("dispatch", "id.bootloader",
                                                   "id.fsset", "id.diskset") ),
     ( "bootloader", ("dispatch", "id.bootloader", "id.fsset", "id.diskset") ),

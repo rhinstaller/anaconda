@@ -196,8 +196,6 @@ def get_raid_partitions(disk):
             part = disk.next_partition(part)
             continue
 
-        print get_partition_name(part), part.fs_type.name, part.get_flag(parted.PARTITION_RAID)
-        
         if part.get_flag(parted.PARTITION_RAID) == 1:
             rc.append(part)
         part = disk.next_partition(part)

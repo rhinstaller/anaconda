@@ -39,6 +39,7 @@ stepToClasses = {
     "autopartition" : ("partition_text", "AutoPartitionWindow"),
     "custom-upgrade" : ("upgrade_text", "UpgradeExamineWindow" ),
     "addswap" : ("upgrade_text", "UpgradeSwapWindow" ),
+    "upgrademigratefs" : ("upgrade_text", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_text", "fdiskPartitionWindow" ),
     "partitionmethod" : ("partmethod_text", ("PartitionMethod") ),
     "partition": ("partition_text", ("PartitionWindow") ),

@@ -571,7 +571,6 @@ class PartitionWindow(InstallWindow):
                 
                 if request.fstype:
                     ptype = request.fstype.getName()
-                    print request.format
                     if request.format:
                         text[self.titleSlot["Format"]] = _("Yes")
                     else:
@@ -816,7 +815,6 @@ class PartitionWindow(InstallWindow):
                 formatrb = GtkRadioButton (label=_("Format partition as:"),
                                            group = noformatrb)
                 formatrb.set_active(0)
-                print isFormatOnByDefault(origrequest)
                 if origrequest.format:
                     formatrb.set_active(1)
                 elif origrequest.format == None and not origrequest.migrate:

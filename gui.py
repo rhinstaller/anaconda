@@ -48,6 +48,7 @@ stepToClass = {
     "autopartition" : ("partition_gui", "AutoPartitionWindow" ),
     "findinstall" : ( "examine_gui", "UpgradeExamineWindow" ),
     "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
+    "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
     "format" : ( "format_gui", "FormatWindow" ),
     "bootloader": ("bootloader_gui", "BootloaderWindow" ), 

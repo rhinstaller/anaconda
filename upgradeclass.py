@@ -26,6 +26,8 @@ class InstallClass(BaseInstallClass):
                     "upgrademount",
                     "upgradeswapsuggestion",
 		    "addswap",
+                    "upgrademigfind",
+                    "upgrademigratefs",
                     "upgradecontinue",
                     "readcomps",
                     "findpackages",
