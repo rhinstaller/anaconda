@@ -734,9 +734,13 @@ qlogicpti
 	scsi_hostadapter
 	"QLogic ISP1020 SCSI SBUS"
 
-sata_via
+sata_nv
+	scsi_hostadapter
+	"nVidia nForce SATA controllers"
+
+sata_promise
         scsi_hostadapter
-        "VIA SATA controllers"
+        "Promise SATA controllers"
 
 sata_sil
         scsi_hostadapter
@@ -746,17 +750,21 @@ sata_sis
         scsi_hostadapter
         "SIS SATA controllers"
 
-sata_vsc
-        scsi_hostadapter
-        "VSC7174 SATA controllers"
-
 sata_svw
         scsi_hostadapter
         "K2 SATA controllers"
 
-sata_promise
+sata_sx4
+	scsi_hostadapter
+	"Promise SX4 SATA controllers"
+
+sata_via
         scsi_hostadapter
-        "Promise SATA controllers"
+        "VIA SATA controllers"
+
+sata_vsc
+        scsi_hostadapter
+        "VSC7174 SATA controllers"
 
 siimage
         scsi_hostadapter
