@@ -322,7 +322,6 @@ usr/X11R6/bin/XsunMono
 usr/X11R6/bin/Xtest
 usr/X11R6/bin/setxkbmap
 usr/X11R6/bin/xsetroot
-usr/X11R6/bin/mkfontdir
 usr/X11R6/lib/X11/XKeysymDB
 usr/X11R6/lib/X11/fonts/75dpi/cour*
 usr/X11R6/lib/X11/fonts/75dpi/fonts*
@@ -550,7 +549,7 @@ rm -f $DESTGR/usr/X11R6/lib/modules/extensions/lib{GLcore,glx,pex5}*
 
 echo "Running mkfontdir..."
 if [ -n "$NEEDGR" ]; then
-    $DESTGR/usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*
+    /usr/X11R6/bin/mkfontdir -p /usr/X11R6/lib/X11/fonts/encodings/ -e $DESTGR/usr/X11R6/lib/X11/fonts/encodings $DESTGR/usr/X11R6/lib/X11/fonts/* $DESTGR/usr/share/fonts/ISO8859-2/* $DESTGR/usr/share/fonts/ISO8859-9/*
     rm $DESTGR/usr/X11R6/bin/mkfontdir
 fi
 
