@@ -10,6 +10,7 @@ class ConfirmWindow (InstallWindow):
         ics.setPrevEnabled (1)
         ics.setTitle (_("About to Install"))
         ics.setHelpEnabled (FALSE)
+        ics.readHTML ("aboutinstall")
 
     def getScreen (self):
         hbox = GtkHBox (TRUE, 5)

@@ -8,6 +8,7 @@ class UpgradeExamineWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("Upgrade Examine"))
+        ics.readHTML ("upgrade")
 
     def toggled (self, widget, part):
         if widget.get_active ():

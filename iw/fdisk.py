@@ -10,6 +10,7 @@ class FDiskWindow (InstallWindow):
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
         ics.setTitle (_("fdisk"))
+        ics.readHTML ("fdisk")
 
     def child_died (self, widget, button):
         self.windowContainer.remove (self.windowContainer.children ()[0])
