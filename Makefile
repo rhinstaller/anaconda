@@ -1,7 +1,7 @@
 include Makefile.inc
 
 VERSION = 7.0
-DATE = $(shell date "+%Y%m%d%H%m")
+DATE = $(shell date "+%Y%m%d%H%M")
 
 SUBDIRSHD = balkan isys libfdisk collage loader po text-help \
 	    minislang textw utils scripts bootdisk installclasses \
