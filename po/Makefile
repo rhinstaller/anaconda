@@ -5,7 +5,7 @@ PREFIX=$(DESTDIR)/
 INSTALLNLSDIR=usr/share/locale
 
 MSGMERGE = msgmerge
-LONG_MERGE = -w 9999999
+LONG_MERGE = -w 0
 
 NLSPACKAGE = anaconda
 
