@@ -1046,6 +1046,61 @@ logMessage("mount complete");
 
 #ifdef INCLUDE_NETWORK
 
+static int totalMemory(void) {
+    int fd;
+    int bytesRead;
+    char buf[4096];
+    char * chptr, * start;
+    int total = 0;
+
+    fd = open("/proc/meminfo", O_RDONLY);
+    if (fd < 0) {
+	logMessage("failed to open /proc/meminfo: %s", strerror(errno));
+	return 0;
+    }
+
+    bytesRead = read(fd, buf, sizeof(buf) - 1);
+    if (bytesRead < 0) {
+	logMessage("failed to read from /proc/meminfo: %s", strerror(errno));
+	close(fd);
+	return 0;
+    }
+
+    close(fd);
+    buf[bytesRead] = '\0';
+
+    chptr = buf;
+    while (*chptr && !total) {
+	if (*chptr != '\n' || strncmp(chptr + 1, "MemTotal:", 9)) {
+	    chptr++;
+	    continue;
+	}
+
+	start = ++chptr ;
+	while (*chptr && *chptr != '\n') chptr++;
+
+	*chptr = '\0';
+
+	logMessage("found total memory tag: \"%s\"", start);
+	
+	while (!isdigit(*start) && *start) start++;
+	if (!*start) {
+	    logMessage("no number appears after MemTotal tag");
+	    return 0;
+	}
+
+	chptr = start;
+	while (*chptr && isdigit(*chptr)) {
+	    total = (total * 10) + (*chptr - '0');
+	    chptr++;
+	}
+    }
+
+    logMessage("%d kB are available", total);
+
+    return total;
+}
+
 static int loadSingleUrlImage(struct iurlinfo * ui, char * file, int flags, 
 			char * device, char * mntpoint) {
     int fd;
@@ -1105,6 +1160,13 @@ static char * mountUrlImage(struct installMethod * method,
     char * login;
     enum urlprotocol_t proto = 
 	!strcmp(method->name, "FTP") ? URL_METHOD_FTP : URL_METHOD_HTTP;
+
+    if (totalMemory() < 18000) {
+	newtWinMessage(_("Error"), _("OK"), _("FTP and HTTP installs "
+			"require 20M or more of system memory."));
+
+	return NULL;
+    }
 
     initLoopback();
 
