@@ -28,6 +28,10 @@ typedef uint32_t u_int32_t;
 typedef unsigned int uint32_t;
 #endif
 
+#ifndef BLKSSZGET
+#define BLKSSZGET  _IO(0x12,104)/* get block device sector size */
+#endif
+
 struct promise_raid_conf {
     char                promise_id[24];
 #define PR_MAGIC        "Promise Technology, Inc."
