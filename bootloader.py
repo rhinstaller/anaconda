@@ -427,7 +427,7 @@ class ia64BootloaderInfo(bootloaderInfo):
                     
         argv = [ "/usr/sbin/efibootmgr", "-c" , "-w", "-L",
                  "%s" % (productName,), "-d", "/dev/%s" % bootdisk,
-                 "-p", bootpart, "-l", "redhat/elilo.efi" ]
+                 "-p", bootpart, "-l", "redhat\elilo.efi" ]
         iutil.execWithRedirect(argv[0], argv, root = instRoot,
                                stdout = "/dev/tty5",
                                stderr = "/dev/tty5")
