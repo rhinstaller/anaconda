@@ -759,8 +759,11 @@ class ToDo:
 	    ports = string.split(self.firewall.portlist,',')
 	    for port in ports:
 		port = string.strip(port)
-		if not string.index(port,':'):
-		    port = '%s:tcp' % port
+                try:
+                    if not string.index(port,':'):
+                        port = '%s:tcp' % port
+                except:
+                    pass
 		self.firewall.ports.append(port)
 	for port in self.firewall.ports:
 	    args = args + [ "--port", port ]
