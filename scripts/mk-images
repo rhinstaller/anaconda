@@ -481,6 +481,7 @@ makeinitrd() {
        for i in cp uname tee rm ps mv more mkdir ls ln hostname head gzip grep dd chmod cat; do
           ln -sf busybox $MBD_DIR/sbin/$i
        done
+       cp -f $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
        cp -f $IMGPATH/usr/bin/sed_save $MBD_DIR/sbin/sed
        cp -f $IMGPATH/usr/bin/mount_save $MBD_DIR/sbin/mount
        cp -f $IMGPATH/usr/bin/umount $MBD_DIR/sbin/umount

@@ -127,7 +127,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGES="$PACKAGES s390utils oco binutils s390installer pdksh wget 
 	sed net-tools inetd openssh openssh-server fileutils modutils
-	initscripts mount gawk
+	initscripts mount gawk xauth
 	portmap textutils sh-utils telnet-server login ssh_keys"
 fi
 
@@ -182,7 +182,7 @@ fi
 if [ $ARCH = s390 -o $ARCH = s390x ]; then
     PACKAGESGR="$PACKAGESGR s390utils oco binutils s390installer pdksh 
 	sed net-tools inetd openssh openssh-server fileutils login 
-	wget initscripts
+	wget initscripts xauth
 	modutils portmap textutils openssl telnet-server strace ssh_keys"
 fi
 
@@ -351,6 +351,7 @@ etc/inetd.conf
 etc/ssh/*
 etc/motd
 etc/issue.net
+usr/X11R6/bin/xauth
 EOF
 fi
       
