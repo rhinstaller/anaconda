@@ -697,8 +697,6 @@ static int copyFile(struct ourfd * inFd, struct ourfd * outFd,
     int amount;
     size_t size = chp->size;
 
-    printf("copying %s\n", chp->path);
-
     amount = strlen(chp->path) + 1;
     memcpy(pHdr->magic, CPIO_NEWC_MAGIC, sizeof(pHdr->magic));
     gzwrite(outFd->fd, pHdr, PHYS_HDR_SIZE);
