@@ -29,7 +29,6 @@ class NetworkWindow (InstallWindow):
 
         if (self.hostname.get_text () != ""):
             self.todo.network.hostname = self.hostname.get_text ()
-        print self.todo.network.hostname
             
         return None
 
