@@ -12,7 +12,7 @@ class InstallClass(personal_desktop.InstallClass):
 		     "development and system administration. ")
 
     pkgstext = N_("\tDesktop shell (GNOME)\n"
-                  "\tOffice suite (OpenOffice)\n"
+                  "\tOffice suite (OpenOffice.org)\n"
                   "\tWeb browser (Mozilla) \n"
                   "\tEmail (Evolution)\n"
                   "\tInstant messaging\n"
