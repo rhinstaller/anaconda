@@ -1088,10 +1088,7 @@ class InstallControlWindow:
         vbox.pack_end (self.hbox, gtk.FALSE)
 
         self.help = TextViewBrowser()
-        self.help_viewport = gtk.Viewport()
-        self.help_viewport.set_shadow_type(gtk.SHADOW_IN)
-        self.help_viewport.add(self.help)
-       
+
         self.displayHelp = gtk.TRUE
         self.helpState = gtk.TRUE
 
@@ -1101,7 +1098,8 @@ class InstallControlWindow:
 
         self.help_sw = gtk.ScrolledWindow()
         self.help_sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
-        self.help_sw.add(self.help_viewport)
+        self.help_sw.set_shadow_type(gtk.SHADOW_IN)
+        self.help_sw.add(self.help)
         self.box.pack_start(self.help_sw, gtk.TRUE)
         
         self.helpFrame.add (self.box)
