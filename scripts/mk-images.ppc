@@ -20,6 +20,7 @@ prepareBootImage() {
 
 makeBootImages() {
     echo "Building boot images for kernel $kernelvers"
+    FAKEARCH=""
 
     if [ "$KERNELARCH" = "ppc64pseries" ]; then
 	echo "Building pSeries initrd"
@@ -77,6 +78,7 @@ EOF
 	$IMGPATH/usr/sbin/addRamDisk $TOPDESTPATH/ppc/iSeries/ramdisk.image.gz $TOPDESTPATH/ppc/iSeries/System.map $TOPDESTPATH/ppc/iSeries/vmlinux.sm $TOPDESTPATH/ppc/iSeries/boot.img
 	rm -f $TOPDESTPATH/ppc/iSeries/vmlinux.sm
     elif [ "$KERNELARCH" = "ppc" ]; then
+	FAKEARCH="ppc32"
 	mkdir -p $TOPDESTPATH/ppc/mac
 
         echo "Building ppc initrd"
