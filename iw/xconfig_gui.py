@@ -706,8 +706,9 @@ class MonitorWindow (InstallWindow):
                 self.ctree.collapse (old_parent)
 
             self.ctree.select(self.originalNode)
-            self.ctree.node_moveto (self.originalNode, 0, 0.5, 0.0)
             self.ctree.thaw ()
+            self.ctree.node_moveto (self.originalNode, 0, 0.5, 0.0)
+
 
         except:
 #            print "Except"
@@ -1062,8 +1063,9 @@ class XConfigWindow (InstallWindow):
         self.ctree.select(node)
 
         self.ctree.expand(parent_node)
-        self.ctree.node_moveto(node, 0, 0.5, 0)
         self.ctree.thaw()
+        self.ctree.node_moveto(node, 0, 0.5, 0)
+
 
     def movetree2 (self, ctree, area, node):
 #        print "movetree2"
@@ -1075,8 +1077,9 @@ class XConfigWindow (InstallWindow):
         self.ctree.select(node)
         parent_node, cardname = self.ctree.node_get_row_data(node)                        
         self.ctree.expand(parent_node)
-        self.ctree.node_moveto(node, 0, 0.5, 0)
         self.ctree.thaw()
+        self.ctree.node_moveto(node, 0, 0.5, 0)
+
 
     def selectCb_tree (self, ctree, node, column):
         try:
