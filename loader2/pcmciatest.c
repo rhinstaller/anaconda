@@ -15,6 +15,20 @@
 #define LOADER_BACK 1
 #define LOADER_ERROR -1
 
+char * strcasestr(char * haystack1, char * needle1) {
+    char * haystack = strdup(haystack1);
+    char * needle = strdup(needle1);
+    char * chptr;
+
+    for (chptr = haystack; *chptr; chptr++) *chptr = toupper(*chptr);
+    for (chptr = needle; *chptr; chptr++) *chptr = toupper(*chptr);
+
+    chptr = strstr(needle, haystack);
+    if (!chptr) return NULL;
+
+    return (chptr - haystack) + haystack1;
+}
+
 void logMessage(const char * s, ...) {
     va_list args;
 
