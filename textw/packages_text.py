@@ -302,7 +302,7 @@ class PackageDepWindow:
         todo.selectDeps (self.deps)
 
         g = GridFormHelp(screen, _("Package Dependencies"), 
-			 "pacakgedeps", 1, 8)
+			 "packagedeps", 1, 8)
         g.add (TextboxReflowed (45, _("Some of the packages you have "
                                       "selected to install require "
                                       "packages you have not selected. If "
