@@ -90,9 +90,7 @@ class DiskStripeSlice:
             rc = "Free\n"
         else:
             rc = "%s\n" % (get_partition_name(self.partition),)
-        rc = rc + "%d MB" % (self.partition.geom.length
-                             * self.parent.getDisk().dev.sector_size
-                             / 1024.0 / 1024.0,)
+        rc = rc + "%d MB" % (getPartSizeMB(self.partition),)
         return rc
 
     def getDeviceName(self):
@@ -316,13 +314,17 @@ def fstypechangeCB(widget, mountCombo):
 
     mountCombo.set_data("prevmountable", fstype.isMountable())
     
-def createAllowedDrivesClist(drives, reqdrives):
+def createAllowedDrivesClist(disks, reqdrives):
     driveclist = GtkCList()
     driveclist.set_selection_mode (SELECTION_MULTIPLE)
 
     driverow = 0
+    drives = disks.keys()
+    drives.sort()
     for drive in drives:
-        driveclist.append((drive,))
+        size = getDeviceSizeMB(disks[drive].dev)
+        str = "%s: %s - %0.0f MB" % (drive, disks[drive].dev.model, size)
+        driveclist.append((str,))
 
         if reqdrives:
             if drive in reqdrives:
@@ -344,10 +346,7 @@ def createAllowedRaidPartitionsClist(allraidparts, reqraidpart):
     partrow = 0
     for (part, used) in allraidparts:
         partname = "%s: %8.0f MB" % (get_partition_name(part),
-                                     (part.geom.length
-                                      * part.geom.disk.dev.sector_size
-                                      / 1024.0 / 1024.0))
-        
+                                     getPartSizeMB(part))
         partclist.append((partname,))
 
         if used or not reqraidpart:
@@ -504,7 +503,7 @@ class PartitionWindow(InstallWindow):
                              (start_sector_to_cyl(disk.dev, part.geom.start),)
                 text[self.titleSlot["End"]] = "%d" % \
                                 (end_sector_to_cyl(disk.dev, part.geom.end),)
-                size = part.geom.length*disk.dev.sector_size / 1024.0 / 1024.0
+                size = getPartSizeMB(part)
                 if size < 1.0:
                     sizestr = "< 1"
                 else:
@@ -688,7 +687,8 @@ class PartitionWindow(InstallWindow):
                 maintable.attach(createAlignedLabel(_("Allowable Drives:")),
                                  0, 1, row, row + 1)
 
-                driveclist = createAllowedDrivesClist(self.diskset.disks.keys(),                                                      origrequest.drive)
+                driveclist = createAllowedDrivesClist(self.diskset.disks,
+                                                      origrequest.drive)
 
                 maintable.attach(driveclist, 1, 2, row, row + 1)
             else:
@@ -1317,7 +1317,6 @@ class AutoPartitionWindow(InstallWindow):
         self.diskset = diskset
         type = id.autoClearPartType
         cleardrives = id.autoClearPartDrives
-        alldrives = id.diskset.disks.keys()
         
         box = GtkVBox (FALSE)
         box.set_border_width (5)
@@ -1367,7 +1366,8 @@ class AutoPartitionWindow(InstallWindow):
         label = GtkLabel(_("Which drives do you want to use for Linux?"))
         label.set_alignment(0.0, 0.0)
         drivesbox.pack_start(label, FALSE, FALSE, 10)
-        self.driveclist = createAllowedDrivesClist(alldrives, cleardrives)
+        self.driveclist = createAllowedDrivesClist(id.diskset.disks,
+                                                   cleardrives)
         self.driveclist.set_usize(200, -1)
 
 	align = GtkAlignment()

@@ -92,6 +92,12 @@ def getPartSize(partition):
 def getPartSizeMB(partition):
     return partition.geom.length * partition.geom.disk.dev.sector_size / 1024.0 / 1024.0
 
+def getDeviceSizeMB(dev):
+    return (float(dev.heads * dev.cylinders * dev.sectors) / (1024 * 1024)
+            * dev.sector_size)
+
+    return partition.geom.length * partition.geom.disk.dev.sector_size / 1024.0 / 1024.0
+
 def get_partition_by_name(disks, partname):
     for diskname in disks.keys():
         disk = disks[diskname]
