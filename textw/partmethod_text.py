@@ -20,7 +20,7 @@ from constants_text import *
 from autopart import PARTMETHOD_TYPE_DESCR_TEXT
 
 class PartitionMethod:
-    def __call__(self, screen, partitions):
+    def __call__(self, screen, partitions, instclass):
         rc = ButtonChoiceWindow(screen, _("Disk Partitioning Setup"),
                                 PARTMETHOD_TYPE_DESCR_TEXT,
              [ (_("Autopartitioning"), "auto"), (_("Disk Druid"), "ds"),
