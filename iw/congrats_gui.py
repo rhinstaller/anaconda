@@ -50,8 +50,10 @@ class CongratulationWindow (InstallWindow):
             hbox.pack_start (a, gtk.FALSE, gtk.FALSE, 36)
 
         if iutil.getArch() != "ia64":
-            bootstr = _("If you created a boot diskette to boot the "
-			"system, insert it before rebooting.\n\n")
+            bootstr = _("If you created a boot diskette during this "
+			"installation as your primary means of "
+			"booting %s, insert it before "
+			"rebooting your newly installed system.\n\n") % (productName,)
         else:
             bootstr = ""
             
