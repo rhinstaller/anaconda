@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rhinstall unknown\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 2000-02-05 11:28+01:00\n"
+"PO-Revision-Date: 2000-02-22 19:23+01:00\n"
 "Last-Translator: Stanislav Meduna <stano@eunet.sk>\n"
 "Language-Team: Slovak <sk-i18n@rak.isternet.sk>\n"
 "MIME-Version: 1.0\n"
@@ -1448,9 +1448,8 @@ msgstr ""
 "nastavenia z nasledujúcich mo¾ností:"
 
 #: ../iw/xconfig.py:372
-#, fuzzy
 msgid "Autoprobe results:"
-msgstr "Výsledky X skú¹ky"
+msgstr "Výsledky automatického testu:"
 
 #: ../iw/xconfig.py:432
 msgid "Use Graphical Login"
@@ -1649,15 +1648,16 @@ msgid "User ID"
 msgstr "ID pou¾ívateµa"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "ID pou¾ívateµa"
+msgstr "Chybné ID pou¾ívateµa"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"ID pou¾ívateµov musia by» krat¹ie ako 8 znakov a smú obsahova» iba znaky "
+"A-Z, a-z a 0-9."
 
 #: ../textw/userauth.py:99
 msgid "Missing User ID"
@@ -2832,12 +2832,3 @@ msgstr "HTTP proxy port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "Naèítava sa SCSI ovládaè"
-
-#~ msgid "Rebuilding"
-#~ msgstr "Znovyvybudovanie"
-
-#~ msgid "Rebuilding RPM database..."
-#~ msgstr "Znovuvytvorenie RPM databázy..."
-
-#~ msgid "Rebuild of RPM database failed. You may be out of disk space?"
-#~ msgstr "Znovuvytvorenie RPM databázy zlyhalo. Je dos» miesta na disku?"
