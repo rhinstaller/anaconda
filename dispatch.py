@@ -120,7 +120,6 @@ installSteps = [
     ("instbootloader", writeBootloader, ("intf", "instPath", "id.fsset", 
                                          "id.bootloader", "id.langSupport",
                                          "id.comps")),
-    ("dopostaction", doPostAction, ("id", "instPath")),
     ("bootdisk", ("dir", "dispatch", "id.fsset")),
     ("makebootdisk", makeBootdisk, ("intf", "id.floppyDevice",
                                     "id.hdList", "instPath")),
@@ -129,6 +128,7 @@ installSteps = [
                  "id.desktop", "id.comps")),
     ("writexconfig", writeXConfiguration, ("id", "instPath")),
     ("writeksconfig", writeKSConfiguration, ("id", "instPath")),
+    ("dopostaction", doPostAction, ("id", "instPath")),
     ("complete", ()),
     ("reconfigcomplete", ())
     ]
