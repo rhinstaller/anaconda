@@ -1370,6 +1370,19 @@ class FileSystemSetEntry:
     def setLabel (self, label):
         self.label = label
 
+    def __str__(self):
+        if not self.mountpoint:
+            mntpt = "None"
+        else:
+            mntpt = self.mountpoint
+            
+        str = ("fsentry -- device: %(device)s   mountpoint: %(mountpoint)s\n"
+               "           fsystem: %(fsystem)s format: %(format)s\n" %
+               {"device": self.device.getDevice(), "mountpoint": mntpt,
+                "fsystem": self.fsystem.getName(), "format": self.format})
+        return str
+        
+
 class Device:
     def __init__(self):
         self.device = "none"
