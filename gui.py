@@ -160,7 +160,7 @@ def ExceptionWindow():
     hbox.pack_start (sw, TRUE)
     win.vbox.pack_start (info, FALSE)            
     win.vbox.pack_start (hbox, TRUE)
-    win.set_usize (400, 300)
+    win.set_usize (500, 300)
     win.set_position (WIN_POS_CENTER)
     win.show_all ()
     win.run ()
