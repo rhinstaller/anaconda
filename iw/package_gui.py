@@ -124,6 +124,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
             self.packageList.append_row((name, size), header.isSelected())
         
 
+	### XXX Hack to get around fact treeview doesn't seem to resort
+	###     when data is store is changed. By jostling it we can make it
+	self.packageList.store.set_sort_column_id(self.sort_id, not self.sort_order)
+	self.packageList.store.set_sort_column_id(self.sort_id, self.sort_order)	
+
     def select_group(self, selection):
         (model, iter) = selection.get_selected()
         if iter:
@@ -260,6 +265,12 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.clear()
         self.add_packages(packages)
 
+    ### XXX Hack to get around fact treeview doesn't seem to resort
+    ###     Have to keep up with sort state when user changes it
+    def colClickedCB(self, widget, val):
+	self.sort_id = widget.get_sort_column_id()
+	self.sort_order = widget.get_sort_order()
+
             
     # IndividualPackageSelectionWindow tag="sel-indiv"
     def getScreen (self, comps, hdList):
@@ -310,7 +321,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
         self.packageList = PackageCheckList(2)
         self.packageList.checkboxrenderer.connect("toggled",
-                                                  self.toggled_package)
+						  self.toggled_package)
 
         self.packageList.set_enable_search(gtk.TRUE)
 
@@ -328,6 +339,19 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.packageList.set_column_sort_id(1, 1)
         self.packageList.set_column_clickable(2, gtk.TRUE)
         self.packageList.set_column_sort_id(2, 2)
+
+	sort_id = 1
+	sort_order = 0
+	self.packageList.store.set_sort_column_id(sort_id, sort_order)
+
+	### XXX Hack to keep up with state of sorting
+	###     Remove when treeview is fixed
+	self.sort_id = sort_id
+	self.sort_order = sort_order
+	col = self.packageList.get_column(1)
+	col.connect("clicked", self.colClickedCB, None)
+	col = self.packageList.get_column(2)
+	col.connect("clicked", self.colClickedCB, None)
 
         selection = self.packageList.get_selection()
         selection.connect("changed", self.select_package)
