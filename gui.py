@@ -24,7 +24,7 @@ import string
 import isys
 import sys
 import parted
-from translate import cat, _, N_
+from translate import _, N_
 from gnome.ui import *
 from gnome.util import *
 from gnome.xmhtml import *
@@ -585,15 +585,15 @@ class InstallControlWindow:
 
 	self.stockButtons = [ 
 	    (STOCK_BUTTON_PREV, "prevButtonStock",
-             _("Back"), self.prevClicked),
+             N_("Back"), self.prevClicked),
 	    (STOCK_BUTTON_NEXT, "nextButtonStock",
-             _("Next"), self.nextClicked),
+             N_("Next"), self.nextClicked),
 	    (STOCK_BUTTON_HELP, "releaseButton",
-             _("Release Notes"), self.releaseClicked),
+             N_("Release Notes"), self.releaseClicked),
 	    (STOCK_BUTTON_HELP, "showHelpButton",
-             _("Show Help"), self.helpClicked),
+             N_("Show Help"), self.helpClicked),
 	    (STOCK_BUTTON_HELP, "hideHelpButton",
-             _("Hide Help"), self.helpClicked),
+             N_("Hide Help"), self.helpClicked),
 	    ]
 
         self.reloadRcQueued = 0
@@ -610,7 +610,7 @@ class InstallControlWindow:
 
     def buildStockButtons(self):
 	for (icon, item, text, action) in self.stockButtons:
-	    button = GnomePixmapButton(GnomeStock(icon), text)
+	    button = GnomePixmapButton(GnomeStock(icon), _(text))
 	    button.connect("clicked", action)
 	    button.show_all()
 	    self.__dict__[item] = button
@@ -619,7 +619,7 @@ class InstallControlWindow:
 	for (icon, item, text, action) in self.stockButtons:
 	    button = self.__dict__[item]
             label = button.children ()[0].children ()[0].children()[1]
-            label.set_text (text)
+            label.set_text (_(text))
             button.queue_resize()
 
     def setup_window (self, runres):
