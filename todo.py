@@ -7,6 +7,7 @@ import socket
 import crypt
 import whrandom
 import _balkan
+import pcmcia
 
 def _(x):
     return x
@@ -910,6 +911,7 @@ class ToDo:
             self.writeNetworkConfig ()
             self.writeRootPassword ()
             self.setupAuthentication ()
+	    pcmcia.createPcmciaConfig(self.instPath + "/etc/sysconfig/pcmcia")
             self.copyConfModules ()
 	self.installLilo ()
         
