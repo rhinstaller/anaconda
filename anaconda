@@ -10,12 +10,12 @@ if sys.argv[1] == "--syslogd":
     output = sys.argv[3]
     syslog = Syslogd (root, open (output, "w+"))
 
+if (os.path.exists('isys')):
+    sys.path.append('isys')
+
 import gettext
 import traceback
 import string
-
-if (os.path.exists('isys')):
-    sys.path.append('isys')
 
 import isys
 import iutil
