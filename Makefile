@@ -4,22 +4,19 @@ VERSION = 7.1
 RELEASE = 1
 SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
 
-SUBDIRSHD = balkan isys libfdisk collage po text-help \
-	    textw utils scripts bootdisk installclasses \
-	    keymaps fonts gnome-map iw help pixmaps
-SUBDIRS = $(SUBDIRSHD)
-
 ifneq (ia64, $(ARCH))
-SUBDIRSHD += stubs minislang
+MINISLANG=minislang
+STUBS=stubs
 endif
+
+SUBDIRSHD = balkan isys libfdisk collage $(MINISLANG) loader po text-help \
+	    textw utils scripts bootdisk installclasses \
+	    keymaps fonts gnome-map iw help pixmaps $(STUBS)
+SUBDIRS = $(SUBDIRSHD)
 
 ifeq (i386, $(ARCH))
 SUBDIRS := ddcprobe edd $(SUBDIRS)
 endif
-
-# loader needs to be after minislang, and this is the easiest way
-SUBDIRS += loader
-SUBDIRSHD += loader
 
 # DESTDIR        - destination for install image for install purposes
 DESTDIR = ../../../RedHat/instimage
