@@ -379,6 +379,11 @@ class AdvancedBootloaderWindow (InstallWindow):
         table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
         if isDefault != 0:
             default.set_active(gtk.TRUE)
+
+        if self.numentries == 1 and oldDevice != None:
+            default.set_sensitive(gtk.FALSE)
+        else:
+            default.set_sensitive(gtk.TRUE)
         
         dialog.vbox.pack_start(table)
         dialog.show_all()
@@ -504,6 +509,11 @@ class AdvancedBootloaderWindow (InstallWindow):
         (dev, label, isDefault, isRoot) = rc
         if not isRoot:
             del self.imagelist[dev]
+            if isDefault:
+                keys = self.imagelist.keys()
+                keys.sort()
+                self.defaultDev = keys[0]
+                
             self.fillOSList()
         else:
             self.intf.messageWindow(_("Cannot Delete"),
@@ -563,6 +573,8 @@ class AdvancedBootloaderWindow (InstallWindow):
                 self.osStore.set_value(iter, 0, gtk.TRUE)
             else:
                 self.osStore.set_value(iter, 0, gtk.FALSE)
+
+        self.numentries = len(keys)
 
     def arrowClicked(self, widget, direction, *args):
         selection = self.driveOrderView.get_selection()
