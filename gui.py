@@ -561,8 +561,11 @@ class InstallControlWindow:
         self.window = GtkWindow ()
         self.window.set_events (KEY_RELEASE_MASK)
 
-        self.window.set_default_size (640, 480)
-        self.window.set_usize (640, 480)
+#        self.window.set_default_size (640, 480)
+#        self.window.set_usize (640, 480)
+        self.window.set_default_size (800, 600)
+        self.window.set_usize (800, 600)
+
         cursor = cursor_new (LEFT_PTR)
         _root_window ().set_cursor (cursor)
 
@@ -597,10 +600,35 @@ class InstallControlWindow:
 
 	self.window.set_title (title)
         self.window.set_position (WIN_POS_CENTER)
+        self.window.set_border_width(0)
         vbox = GtkVBox (FALSE, 10)
+
+        try:
+            pix, msk = create_pixmap_from_xpm(self.window, None, "/usr/share/anaconda/pixmaps/anaconda_header.xpm")
+            pixmap = GtkPixmap(pix, msk)
+            pixmap.show()
+            vbox.pack_start(pixmap, FALSE, TRUE, 0)
+#            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/first.png")
+        except:
+            try:
+                pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
+                pixmap = GtkPixmap(pix, msk)
+                pixmap.show()
+                vbox.pack_start(pixmap, FALSE, TRUE, 0)
+#                im = GdkImlib.Image ("pixmaps/first.png")
+
+            except:
+                print "Unable to load", file
+
+#        pix, msk = create_pixmap_from_xpm(self.window, None, "pixmaps/anaconda_header.xpm")
+#        pixmap = GtkPixmap(pix, msk)
+#        pixmap.show()
+#        vbox.pack_start(pixmap, FALSE, TRUE, 0)
+        vbox.set_spacing(0)
 
         self.buttonBox = GtkHButtonBox ()
         self.buttonBox.set_layout (BUTTONBOX_END)
+        self.buttonBox.set_spacing (30)
         self.prevButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_PREV), _("Back"))
         self.nextButtonStock = GnomePixmapButton (GnomeStock (STOCK_BUTTON_NEXT), _("Next"))
         
