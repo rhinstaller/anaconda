@@ -6,10 +6,7 @@ ARCH := $(patsubst sparc%,sparc,$(ARCH))
 LOADLIBES =  -L../isys -lisys -lpopt
 CFLAGS = -Wall -g -I/usr/include/rpm
 LDFLAGS = -g -static
-
-ifneq ($(ARCH),ia64)
-MODDEPS=moddeps
-endif
+MODDEPS = moddeps
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=all
