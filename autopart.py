@@ -1007,7 +1007,7 @@ def doPartitioning(diskset, requests, doRefresh = 1):
     elif ret == BOOTEFI_NOT_VFAT:
         raise PartitioningError, _("Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from this partition.") %(requests.getBootableRequest()[0].mountpoint,)
     elif ret == BOOTIPSERIES_TOO_HIGH:
-        raise PartitioningError, _("Boot partition isn't located early enough on the disk.  OpenFirmware wan't be able to boot this installation.")
+        raise PartitioningError, _("Boot partition isn't located early enough on the disk.  OpenFirmware won't be able to boot this installation.")
     elif ret != PARTITION_SUCCESS:
         # more specific message?
         raise PartitioningWarning, _("Boot partition %s may not meet booting constraints for your architecture.  Creation of a boot disk is highly encouraged.") %(requests.getBootableRequest()[0].mountpoint,)
