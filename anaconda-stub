@@ -1,5 +1,8 @@
 #!/bin/sh
 
+cd /mnt/runtime/modules
+rm *
+
 rm /bin/loader
 cd /tmp
 mkdir lib
@@ -24,8 +27,7 @@ done
 
 cd /lib
 uncpio < libs.cgz
-rm -f libs.cgz
-done
+rm libs.cgz
 
 cd /
 
