@@ -2267,7 +2267,7 @@ int main(int argc, char ** argv) {
     /* The fstat checks disallows serial console if we're running through
        a pty. This is handy for Japanese. */
     fstat(0, &sb);
-    if (major(sb.st_rdev) != 3) {
+    if (major(sb.st_rdev) != 3 && major(sb.st_rdev) != 136) {
 	if (ioctl (0, TIOCLINUX, &twelve) < 0)
 	    flags |= LOADER_FLAGS_SERIAL;
     }
