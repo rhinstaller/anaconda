@@ -335,7 +335,7 @@ class LiloConfiguration:
 		sl = LiloConfigFile(imageType = "other", path = device)
 
 	    sl.addEntry("label", label)
-	    lilo.addImage ("other", device, sl)
+	    lilo.addImage (sl)
 
 	lilo.write(instRoot + "/etc/lilo.conf", perms = perms)
 
