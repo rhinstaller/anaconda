@@ -429,7 +429,7 @@ int main(int argc, char ** argv) {
 
 		    winStatus(40, 3, _("Loading SCSI driver"), 
 		    	      "Loading %s driver...", modList[i]->moduleName);
-		    mlLoadModule(modList[i], modLoaded, modDeps);
+		    mlLoadModule(modList[i], modLoaded, modDeps, testing);
 		    newtPopWindow();
 		}
 	    }
