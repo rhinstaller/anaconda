@@ -517,7 +517,7 @@ class PartitionWindow:
 	return (subgrid, fsoptLbl, type)
 	
 
-    def fsOptionsDialog(self, origrequest, format, migrate, newfstype, badblocks, showbadblocks=1):
+    def fsOptionsDialog(self, origrequest, format, migrate, newfstype, badblocks, showbadblocks=0):
 
         def formatChanged((formatrb, badblocksCB)):
             flag = FLAGS_SET
@@ -686,10 +686,14 @@ class PartitionWindow:
             primary = Checkbox(_("Force to be a primary partition"))
             poplevel.add(primary, 0, row, (0,1,0,0))
             row = row + 1
-            badblocksCB = Checkbox(_("Check for bad blocks"))
-            poplevel.add(badblocksCB, 0, row)
-            if origrequest.badblocks:
-                badblocksCB.setValue("*")
+
+	    # XXX We are not allowing badblocks checking
+	    badblocksCB = None
+	    # uncomment code to reactivate
+            #badblocksCB = Checkbox(_("Check for bad blocks"))
+            #poplevel.add(badblocksCB, 0, row)
+            #if origrequest.badblocks:
+	    #     badblocksCB.setValue("*")
 
             fsoptLbl = None
 
@@ -730,10 +734,9 @@ class PartitionWindow:
                 return
 
             if popbb.buttonPressed(res) == 'fsopts':
-		if origrequest.type == REQUEST_LV:
-		    showbad = 0
-		else:
-		    showbad = 1
+		# we do not show the badblock option any longer as it is
+		# not supported.
+		showbad = 0
                 (format, migrate, newfstype, badblocks) = self.fsOptionsDialog(origrequest, format, migrate, newfstype, badblocks, showbadblocks = showbad)
                 self.fstypeSet((newfstype, self.mount))
                 fstypeLbl.setText(newfstype.getName())
@@ -765,7 +768,10 @@ class PartitionWindow:
                 request.format = TRUE
                 request.primary = primonly
 
-                request.badblocks = badblocksCB.selected()
+		if badblocksCB is not None:
+		    request.badblocks = badblocksCB.selected()
+		else:
+		    request.badblocks = 0
 
                 if origrequest.start == None:
                     if invalidInteger(size.value()):
@@ -805,7 +811,11 @@ class PartitionWindow:
                         continue
                     
                     request.start = int(start.value())
-                    request.badblocks = badblocksCB.selected()
+
+		    if badblocksCB is not None:
+			request.badblocks = badblocksCB.selected()
+		    else:
+			request.badblocks = 0
 
                     cyltype = cylopts.getSelection()
                     if cyltype == "end":
