@@ -162,7 +162,11 @@ static int setupRamdisk(void) {
 	int i, j = 0;
 	int fd;
 
+#if !defined(__s390__) && !defined(__s390x__)
 	fd = open("/dev/ram", O_RDWR);
+#else
+	fd = open("/dev/ram2", O_RDWR);
+#endif
 	logMessage("copying file to fd %d", fd);
 
 	while ((i = gzread(f, buf, sizeof(buf))) > 0) {
@@ -174,7 +178,11 @@ static int setupRamdisk(void) {
 	gzclose(f);
     }
 
+#if !defined(__s390__) && !defined(__s390x__)
     doPwMount("/dev/ram", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
+#else
+    doPwMount("/dev/ram2", "/tmp/ramfs", "ext2", 0, 0, NULL, NULL);
+#endif
 
     return 0;
 }

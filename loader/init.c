@@ -690,13 +690,21 @@ int main(int argc, char **argv) {
 
     if (!testing && roRoot) {
 	printf("creating 300k of ramdisk space... ");
+#if !defined(__s390__) && !defined(__s390x__)
 	if (doMke2fs("/dev/ram", "300"))
+#else
+	if (doMke2fs("/dev/ram2", "300"))
+#endif
 	    fatal_error(0);
 
 	printf("done\n");
 	
 	printf("mounting /tmp from ramdisk... ");
+#if !defined(__s390__) && !defined(__s390x__)
 	if (mount("/dev/ram", "/tmp", "ext2", 0, NULL))
+#else
+	if (mount("/dev/ram2", "/tmp", "ext2", 0, NULL))
+#endif
 	    fatal_error(1);
 
 	printf("done\n");
