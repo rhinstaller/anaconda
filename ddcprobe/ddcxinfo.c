@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "vbe.h"
+#ident "$Id$"
 
 int main(int argc, char **argv)
 {

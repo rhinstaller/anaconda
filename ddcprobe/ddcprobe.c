@@ -15,16 +15,33 @@
 #include <netinet/in.h>
 #include "vbe.h"
 #include "vesamode.h"
-#include "bioscall.h"
+#include "lrmi.h"
 #ident "$Id$"
+
+char *snip(char *string)
+{
+	int i;
+	while(((i = strlen(string)) > 0) &&
+	       (isspace(string[i - 1]) ||
+	        (string[i - 1] == '\n') ||
+	        (string[i - 1] == '\r'))) {
+		string[i - 1] = '\0';
+	}
+	return string;
+}
 
 int main(int argc, char **argv)
 {
 	struct vbe_info *vbe_info = NULL;
-	struct vbe_edid_info *edid_info = NULL;
+	struct vbe_edid1_info *edid_info = NULL;
 	u_int16_t *mode_list = NULL;
 	char manufacturer[4];
 	int i;
+
+	assert(sizeof(struct vbe_info) == 512);
+	assert(sizeof(struct vbe_edid1_info) == 256);
+	assert(sizeof(struct vbe_edid_detailed_timing) == 18);
+	assert(sizeof(struct vbe_edid_monitor_descriptor) == 18);
 
 	vbe_info = vbe_get_vbe_info();
 	if(vbe_info == NULL) {
@@ -38,8 +55,16 @@ int main(int argc, char **argv)
 	       vbe_info->signature[2], vbe_info->signature[3],
 	       vbe_info->version[1], vbe_info->version[0]);
 
-	/* OEM */
+	/* OEM Strings. */
 	printf("OEM Name: %s\n", vbe_info->oem_name.string);
+	if(vbe_info->version[1] >= 3) {
+		printf("Vendor Name: %s\n",
+		       vbe_info->vendor_name.string);
+		printf("Product Name: %s\n",
+		       vbe_info->product_name.string);
+		printf("Product Revision: %s\n",
+		       vbe_info->product_revision.string);
+	}
 
 	/* Memory. */
 	printf("Memory installed = %d * 64k blocks = %dkb\n",
@@ -73,36 +98,38 @@ int main(int argc, char **argv)
 	}
 
 	printf("EDID ver. %d rev. %d.\n",
-	       edid_info->edid_version, edid_info->edid_revision);
+	       edid_info->version, edid_info->revision);
 
-	edid_info->manufacturer = ntohs(edid_info->manufacturer);
-	manufacturer[0] = ((edid_info->manufacturer>>10)&0x1f)+ 'A' - 1;
-	manufacturer[1] = ((edid_info->manufacturer>> 5)&0x1f)+ 'A' - 1;
-	manufacturer[2] = ((edid_info->manufacturer>> 0)&0x1f)+ 'A' - 1;
-	manufacturer[3] = 0;
+	manufacturer[0] = edid_info->manufacturer_name.char1 + 'A' - 1;
+	manufacturer[1] = edid_info->manufacturer_name.char2 + 'A' - 1;
+	manufacturer[2] = edid_info->manufacturer_name.char3 + 'A' - 1;
+	manufacturer[3] = '\0';
 	printf("Manufacturer: %s\n", manufacturer);
 
-	if(edid_info->serial != 0xffffffff) {
+	if(edid_info->serial_number != 0xffffffff) {
 		if(strcmp(manufacturer, "MAG") == 0) {
-			edid_info->serial -= 0x7000000;
+			edid_info->serial_number -= 0x7000000;
 		}
 		if(strcmp(manufacturer, "OQI") == 0) {
-			edid_info->serial -= 456150000;
+			edid_info->serial_number -= 456150000;
 		}
 		if(strcmp(manufacturer, "VSC") == 0) {
-			edid_info->serial -= 640000000;
+			edid_info->serial_number -= 640000000;
 		}
 	}
-	printf("Serial number: %08x.\n", edid_info->serial);
+	printf("Serial number: %08x.\n", edid_info->serial_number);
 
 	printf("Manufactured in week %d of %d.\n",
 	       edid_info->week, edid_info->year + 1990);
 
 	printf("Input signal type: %s%s%s%s.\n",
-	       edid_info->video_input.separate_sync ? "separate sync, " : "",
-	       edid_info->video_input.composite_sync ? "composite sync, " : "",
-	       edid_info->video_input.sync_on_green ? "sync on green, " : "",
-	       edid_info->video_input.digital ?
+	       edid_info->video_input_definition.separate_sync ?
+	       "separate sync, " : "",
+	       edid_info->video_input_definition.composite_sync ?
+	       "composite sync, " : "",
+	       edid_info->video_input_definition.sync_on_green ?
+	       "sync on green, " : "",
+	       edid_info->video_input_definition.digital ?
 	       "digital signal" : "analog signal");
 
 	printf("Screen size max %d cm horizontal, %d cm vertical.\n",
@@ -112,10 +139,10 @@ int main(int argc, char **argv)
 	printf("Gamma: %f.\n", edid_info->gamma / 100.0 + 1);
 
 	printf("DPMS flags: %s, %s%s, %s%s, %s%s.\n",
-	       edid_info->dpms_flags.rgb ? "RGB" : "non-RGB",
-	       edid_info->dpms_flags.active_off ? "" : "no ", "active off",
-	       edid_info->dpms_flags.suspend ? "" : "no ", "suspend",
-	       edid_info->dpms_flags.standby ? "" : "no ", "standby");
+	       edid_info->feature_support.rgb ? "RGB" : "non-RGB",
+	       edid_info->feature_support.active_off ? "" : "no ", "active off",
+	       edid_info->feature_support.suspend ? "" : "no ", "suspend",
+	       edid_info->feature_support.standby ? "" : "no ", "standby");
 
 	printf("Established timings:\n");
 	if(edid_info->established_timings.timing_720x400_70)
@@ -161,7 +188,7 @@ int main(int argc, char **argv)
 		if((xres != vfreq) ||
 		   ((xres != 0) && (xres != 1)) ||
 		   ((vfreq != 0) && (vfreq != 1))) {
-			switch(vfreq >> 6) {
+			switch(edid_info->standard_timing[i].aspect) {
 				case 0: aspect = 1; break; /*undefined*/
 				case 1: aspect = 0.750; break;
 				case 2: aspect = 0.800; break;
@@ -176,117 +203,59 @@ int main(int argc, char **argv)
 
 	/* Detailed timing information. */
 	for(i = 0; i < 4; i++) {
-		unsigned char *timing = NULL;
-		timing = edid_info->detailed_timing[i];
-		if((timing[0] != 0) || (timing[1] != 0) || (timing[0] != 0)) {
+		struct vbe_edid_monitor_descriptor *monitor = NULL;
+		struct vbe_edid_detailed_timing *timing = NULL;
+
+		timing = &edid_info->monitor_details.detailed_timing[i];
+		monitor = &edid_info->monitor_details.monitor_descriptor[i];
+
+		if((monitor->zero_flag_1 != 0) || (monitor->zero_flag_2 != 0)) {
 			printf("Detailed timing %d:\n", i);
-			printf("\tHoriz. Sync = %d kHz\n", timing[0]);
-			printf("\tVert. Freq. = %d Hz\n", timing[1]);
-			printf("\tHoriz. Active Time = %d pixels\n",
-			       timing[2]);
-			printf("\tHoriz. Blank Interval = %d pixels\n",
-			       timing[3]);
-			printf("\tHoriz. Active Time 2 / Blanking "
-			       "Interval 2 = %d\n", timing[4]);
-			printf("\tVert. Active Time = %d lines\n",
-			       timing[5]);
-			printf("\tVert. Blanking Interval = %d lines\n",
-			       timing[6]);
-			printf("\tVert. Active Time 2 / Blanking "
-			       "Interval 2 = %d\n", timing[7]);
-			printf("\tHoriz. Sync Offset = %d pixels\n",
-			       timing[8]);
-			printf("\tHoriz. Sync Pulsewidth = %d pixels\n",
-			       timing[9]);
-			printf("\tVert. Sync Offset / Pulsewidth = %d\n",
-			       timing[10]);
-			printf("\tVert. Sync Offset 2 / Pulsewidth 2 = %d\n",
-			       timing[11]);
-			printf("\tImage Size = %dx%d mm\n",
-			       timing[12], timing[13]);
-			printf("\tHoriz. / Vert. Image Size 2 = %d mm\n",
-			       timing[14]);
-			printf("\tHoriz. Border Width = %d pixels\n",
-			       timing[15]);
-			printf("\tVert. Border Height = %d pixels\n",
-			       timing[16]);
-			printf("\tDisplay type: ");
-			if(timing[17] & 0x80) printf("interlaced, ");
-			switch((timing[17] >> 5) & 0x03) {
-				case 0: {
-					printf("non-stereo, ");
-					break;
-				}
-				case 1: {
-					printf("stereo, right stereo "
-					       "sync high, ");
-					break;
-				}
-				case 2: {
-					printf("stereo, left stereo "
-					       "sync high, ");
-					break;
-				}
-				case 0x60: {
-					printf("undefined stereo, ");
-					break;
-				}
-			}
-			switch((timing[17] >> 3) & 0x03) {
-				case 0: {
-					printf("sync analog composite");
-					break;
-				}
-				case 1: {
-					printf("sync bipolar analog "
-					       "composite");
-					break;
-				}
-				case 2: {
-					printf("sync digital "
-					       "composite");
-					break;
-				}
-				case 3: {
-					printf("sync digital separate");
-					break;
-				}
-			}
-			printf(".\n");
-		} else {
-			printf("Text info block %d: ", i);
-			switch(timing[3]) {
-				case 0xff: {
-					printf("serial number: ");
-					break;
-				}
-				case 0xfe: {
-					printf("vendor name: ");
-					break;
-				}
-				case 0xfd: {
-					printf("frequency range: ");
-					break;
-				}
-				case 0xfc: {
-					printf("model name: ");
-					break;
-				}
-			}
-			if(timing[3] != 0xfd) {
-				int j;
-				for(j = 4; j < 18; j++) {
-					if(isprint(timing[j])) {
-						printf("%c", timing[j]);
-					}
-				}
-			} else {
-				printf("hsync = %d-%d kHz, ",
-				       timing[5], timing[6]);
-				printf("vsync = %d-%d Hz.",
-				       timing[7], timing[8]);
-			}
-			printf("\n");
+			printf("\tPixel clock: %d\n",
+			       VBE_EDID_DETAILED_TIMING_PIXEL_CLOCK(*timing));
+			printf("\tHorizontal active time (pixel width): %d\n",
+			       VBE_EDID_DETAILED_TIMING_HORIZONTAL_ACTIVE(*timing));
+			printf("\tHorizontal blank time (pixel width): %d\n",
+			       VBE_EDID_DETAILED_TIMING_HORIZONTAL_BLANKING(*timing));
+			printf("\tVertical active time (pixel height): %d\n",
+			       VBE_EDID_DETAILED_TIMING_VERTICAL_ACTIVE(*timing));
+			printf("\tVertical blank time (pixel height): %d\n",
+			       VBE_EDID_DETAILED_TIMING_VERTICAL_BLANKING(*timing));
+			printf("\tHorizontal sync offset: %d\n",
+			       VBE_EDID_DETAILED_TIMING_HSYNC_OFFSET(*timing));
+			printf("\tHorizontal sync pulse width: %d\n",
+			       VBE_EDID_DETAILED_TIMING_HSYNC_PULSE_WIDTH(*timing));
+			printf("\tVertical sync offset: %d\n",
+			       VBE_EDID_DETAILED_TIMING_VSYNC_OFFSET(*timing));
+			printf("\tVertical sync pulse width: %d\n",
+			       VBE_EDID_DETAILED_TIMING_VSYNC_PULSE_WIDTH(*timing));
+			printf("\tDimensions: %dx%d\n",
+			       VBE_EDID_DETAILED_TIMING_HIMAGE_SIZE(*timing),
+			       VBE_EDID_DETAILED_TIMING_VIMAGE_SIZE(*timing));
+		} else
+		if(monitor->type == vbe_edid_monitor_descriptor_serial) {
+			printf("Monitor details %d:\n", i);
+			printf("\tSerial number: %s\n",
+			       snip(monitor->data.string));
+		} else
+		if(monitor->type == vbe_edid_monitor_descriptor_ascii) {
+			printf("Monitor details %d:\n", i);
+			printf("\tASCII String: %s:\n",
+			       snip(monitor->data.string));
+		} else
+		if(monitor->type == vbe_edid_monitor_descriptor_name) {
+			printf("Monitor details %d:\n", i);
+			printf("\tName: %s\n",
+			       snip(monitor->data.string));
+		} else
+		if(monitor->type == vbe_edid_monitor_descriptor_range) {
+			printf("Monitor details %d:\n", i);
+			printf("\tTiming ranges: "
+			       "horizontal = %d - %d, vertical = %d - %d\n",
+			       monitor->data.range_data.horizontal_min,
+			       monitor->data.range_data.horizontal_max,
+			       monitor->data.range_data.vertical_min,
+			       monitor->data.range_data.vertical_max);
 		}
 	}
 	return 0;
