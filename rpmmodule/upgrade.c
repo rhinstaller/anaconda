@@ -358,6 +358,7 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
     int_32 * availDirIndexes;
     int availFileCount;
     struct packageInfo **pip;
+    int_16 * availFileModes;
 
     count = psp->numPackages;
     pip = psp->packages;
@@ -373,8 +374,12 @@ static int findPackagesWithRelocatedFiles(struct pkgSet *psp,
 			    (void **) &availDirs, NULL);
 		headerGetEntryMinMemory(h, RPMTAG_DIRINDEXES, NULL,
 			    (void **) &availDirIndexes, NULL);
+		headerGetEntryMinMemory(h, RPMTAG_FILEMODES, NULL,
+			    (void **) &availFileModes, NULL);
 
 		for (i = 0; i < availFileCount; i++) {
+		    if (S_ISDIR(availFileModes[i])) continue;
+			
 		    if (htInTable(ht, availDirs[availDirIndexes[i]], 
 				    availFiles[i])) {
 			htRemoveFromTable(ht, availDirs[availDirIndexes[i]],
