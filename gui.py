@@ -293,7 +293,7 @@ class InstallInterface:
         self.ppw.setSizes (total, totalSize)
         return self.ppw
 
-    def messageWindow(self, title, text, type):
+    def messageWindow(self, title, text, type = "ok"):
         return MessageWindow (title, text, type)
 
     def exceptionWindow(self, title, text):
