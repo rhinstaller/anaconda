@@ -691,10 +691,12 @@ def doPreInstall(method, id, intf, instPath, dir):
         # if you're upgrading from a 2.4 dist so that we can get the
         # transition right
         if (os.path.exists(instPath + "/etc/modules.conf") and
-            os.path.exists(instPath + "/etc/modprobe.conf")):
+            os.path.exists(instPath + "/etc/modprobe.conf") and
+            not os.path.exists(instPath + "/etc/modprobe.conf.anacbak")):
             log("renaming old modprobe.conf -> modprobe.conf.anacbak")
             os.rename(instPath + "/etc/modprobe.conf",
                       instPath + "/etc/modprobe.conf.anacbak")
+            
 
     if method.systemMounted (id.fsset, instPath):
 	id.fsset.umountFilesystems(instPath)
@@ -748,20 +750,16 @@ def doPreInstall(method, id, intf, instPath, dir):
     # write out the fstab
     if not upgrade:
         id.fsset.write(instPath)
-
-    # rootpath mode doesn't have this file around
-    # we need this on upgrades now that we move the old modprobe.conf
-    # out of the way and let kudzu regen stuff.  otherwise, initrds
-    # won't end up being right
-    if os.access("/tmp/modprobe.conf", os.R_OK):
-        iutil.copyFile("/tmp/modprobe.conf", 
-                       instPath + "/etc/modprobe.conf")
+        # rootpath mode doesn't have this file around
+        if os.access("/tmp/modprobe.conf", os.R_OK):
+            iutil.copyFile("/tmp/modprobe.conf", 
+                           instPath + "/etc/modprobe.conf")
 
     # make a /etc/mtab so mkinitrd can handle certain hw (usb) correctly
     f = open(instPath + "/etc/mtab", "w+")
     f.write(id.fsset.mtab())
     f.close()
-     
+
 #    delay writing migrate adjusted fstab till later, in case
 #    rpm transaction set determines they don't have enough space to upgrade
 #    else:
@@ -1072,9 +1070,6 @@ def doPostInstall(method, id, intf, instPath):
 		       
 	    w.set(3)
 
-        # we need to run kudzu on upgrades now so that modprobe.conf
-        # gets generated right
-        if 1:
 	    # blah.  If we're on a serial mouse, and we have X, we need to
 	    # close the mouse device, then run kudzu, then open it again.
 
@@ -1169,14 +1164,6 @@ def doPostInstall(method, id, intf, instPath):
             # needed for prior to 2.6 so that mice have some chance
             # of working afterwards. FIXME: this is a hack
             migrateMouseConfig(instPath, instLogName)
-
-            # bye-bye to old modules.conf (see above comment wrt modprobe.conf)
-            if (os.path.exists(instPath + "/etc/modules.conf") and
-                os.path.exists(instPath + "/etc/modprobe.conf")):
-                log("renaming old modules.conf -> modprobe.conf.pre26")
-                os.rename(instPath + "/etc/modules.conf",
-                          instPath + "/etc/modules.conf.pre26")
-            
 
         w.set(5)
 
