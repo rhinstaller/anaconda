@@ -54,6 +54,9 @@ int main(int argc, char ** argv) {
 		  case DRIVER_CDROM: printf("\tcdrom\n"); break;
 		  case DRIVER_SCSI: printf("\tscsi\n"); break;
 		  case DRIVER_FS: printf("\tfs\n"); break;
+                  case DRIVER_PCMCIA: printf("\tpcmcia\n"); break;
+                  case DRIVER_IDE: printf("\tide\n"); break;
+                  case DRIVER_OTHER: printf("\tother\n"); break;
 		  case DRIVER_NET: 
 		    switch (mi->minor) {
 		      case DRIVER_MINOR_ETHERNET: printf("\teth\n"); break;
@@ -68,8 +71,8 @@ int main(int argc, char ** argv) {
 		    break;
 
 		  default:
-		    fprintf(stderr, "unknown device type for %s\n",
-			    mi->moduleName);
+		    fprintf(stderr, "unknown device type for %s (%d)\n",
+			    mi->moduleName, mi->major);
 		    exit(1);
 
 		}
