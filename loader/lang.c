@@ -212,6 +212,20 @@ static int loadFont(char * fontFile, int flags) {
     return 0;
 }
 
+void setLanguage (char * key) {
+    int i;
+    
+    for (i = 0; i < numLanguages; i++) {
+	if (!strcmp(languages[i].key, key))
+	    break;
+    }
+    if (i < numLanguages) {
+	setenv("LANG", languages[i].key, 1);
+	setenv("LC_ALL", languages[i].lc_all, 1);
+	setenv("LINGUAS", languages[i].key, 1);
+    }
+}
+
 int chooseLanguage(char ** lang, int flags) {
     int choice = 0;
     char ** langs;
@@ -356,8 +370,6 @@ int chooseKeyboard(char ** keymap, char ** kbdtypep, int flags) {
     gzFile f;
     struct kmapHeader hdr;
     struct kmapInfo * infoTable;
-    char ** argv;
-    int argc;
     char ** kbds;
     char buf[16384]; 			/* I hope this is big enough */
     int i;

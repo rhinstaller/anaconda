@@ -1456,13 +1456,13 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_KICKSTART;
         else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
-	else if (!strncasecmp(argv[i], "lang=", 5))
-	    setenv("LANG", argv[i] + 5, 1);
 	else if (!strncasecmp(argv[i], "display=", 8))
 	    setenv("DISPLAY", argv[i] + 8, 1);
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
+	} else if (!strncasecmp(argv[i], "lang=", 5)) {
+	    setLanguage (argv[i] + 5);
 	}
     }
 
@@ -1909,6 +1909,9 @@ int main(int argc, char ** argv) {
 	    *argptr++ = ksFile;
 	}
 
+	if (!lang)
+	    lang = getenv ("LC_ALL");
+	
 	if (lang) {
 	    *argptr++ = "--lang";
 	    *argptr++ = lang;
