@@ -25,10 +25,14 @@ class SiloInstall:
 	    try:
 		os.mkdir ("/tmp/ufsmntpoint")
 		isys.makeDevInode (dev, "/tmp/" + dev)
-		isys.mount ("/tmp" + dev, "/tmp/ufsmntpoint", "ufs")
+		isys.mount ("/tmp/" + dev, "/tmp/ufsmntpoint", "ufs")
 	    except:
 		try:
 		    os.remove ("/tmp/" + dev)
+		except:
+		    pass
+		try:
+		    os.rmdir ("/tmp/ufsmntpoint")
 		except:
 		    pass
 		return None
@@ -70,16 +74,17 @@ class SiloInstall:
 
     def getSiloImages(self):
 	todo = self.todo
-	if not todo.ddruid:
-	    raise RuntimeError, "No disk druid object"
 
-	(drives, raid) = todo.ddruid.partitionList()
+	if not todo.__dict__.has_key('fstab'):
+	    raise RuntimeError, "No fstab object"
+
+	(drives, raid) = todo.fstab.partitionList()
 
 	# rearrange the fstab so it's indexed by device
 	mountsByDev = {}
-	for loc in todo.mounts.keys():
-	    (device, fsystem, reformat) = todo.mounts[loc]
-	    mountsByDev[device] = loc
+	for (mntpoint, device, fsystem, doFormat, size) in \
+		self.todo.fstab.mountList():
+	    mountsByDev[device] = mntpoint
 
 	oldImages = {}
 	for dev in todo.liloImages.keys():
@@ -128,10 +133,7 @@ class SiloInstall:
 	return todo.liloImages
 
     def getSiloOptions(self):
-	if self.todo.mounts.has_key ('/boot'):
-	    bootpart = self.todo.mounts['/boot'][0]
-	else:
-	    bootpart = self.todo.mounts['/'][0]
+	bootpart = self.todo.fstab.getBootDevice()
 	i = len (bootpart) - 1
 	while i > 0 and bootpart[i] in string.digits:
 	    i = i - 1
@@ -139,7 +141,7 @@ class SiloInstall:
 
 	mbrpart = None
 
-	(drives, raid) = self.todo.ddruid.partitionList()
+	(drives, raid) = self.todo.fstab.partitionList()
 	for (dev, devName, type, start, size) in drives:
 	    i = len (dev) - 1
 	    while i > 0 and dev[i] in string.digits:
@@ -155,15 +157,12 @@ class SiloInstall:
     def getSiloMbrDefault(self):
 	# Check partition at cylinder 0 on the boot disk
 	# is /, /boot or Linux swap
-	if self.todo.mounts.has_key ('/boot'):
-	    bootpart = self.todo.mounts['/boot'][0]
-	else:
-	    bootpart = self.todo.mounts['/'][0]
+	bootpart = self.todo.fstab.getBootDevice()
 	i = len (bootpart) - 1
 	while i > 0 and bootpart[i] in string.digits:
 	    i = i - 1
 	boothd = bootpart[:i+1]
-	(drives, raid) = self.todo.ddruid.partitionList()
+	(drives, raid) = self.todo.fstab.partitionList()
 	for (dev, devName, type, start, size) in drives:
 	    i = len (dev) - 1
 	    while i > 0 and dev[i] in string.digits:
@@ -175,7 +174,7 @@ class SiloInstall:
 		elif type == 2:
 		    if dev == bootpart:
 			return "mbr"
-		    elif dev == self.todo.mounts['/'][0]:
+		    elif dev == self.todo.fstab.getRootDevice()[0]:
 			return "mbr"
 		return "partition"
 	return "partition"
@@ -225,11 +224,7 @@ class SiloInstall:
 	smpInstalled = (self.todo.hdList.has_key('kernel-smp') and 
 			self.todo.hdList['kernel-smp'].selected)
 
-	if self.todo.mounts.has_key ('/'):
-	    (dev, fstype, format) = self.todo.mounts['/']
-	    rootDev = dev
-	else:
-	    raise RuntimeError, "Installing silo, but there is no root device"
+	rootDev = self.todo.fstab.getRootDevice()[0]
 
 	args = [ "silo" ]
 
@@ -336,7 +331,7 @@ class SiloInstall:
 	    else: # duplicate entry, first entry wins
 		silo.delImage (name)
 
-	if self.todo.mounts.has_key ('/boot'):
+	if self.todo.fstab.getBootDevice() != self.todo.fstab.getRootDevice()[0]:
 	    silo.write(todo.instPath + "/boot/silo.conf")
 	    try:
 		os.remove(todo.instPath + "/etc/silo.conf")

@@ -40,7 +40,7 @@ compile it into a .mo file, ready for use with this module.  Note that you
 will have to use C style strings (ie. use double quotes) for proper string
 extraction.
 """
-import os, string, iutil
+import os, string, iutil, gzread
 
 prefix = '/usr/local'
 localedir = prefix + '/share/locale'
@@ -145,33 +145,22 @@ class Catalog:
 		self.localedir = localedir
 		self.cat = {}
 		if not domain: return
-		import os
 		for self.lang in lang:
 			if self.lang == 'C':
-				del os
 				return
-			catalog = "%s//%s/LC_MESSAGES/%s.mo" % (
+			catalog = "%s/%s/LC_MESSAGES/%s.mo" % (
 				localedir, self.lang, domain)
-			if not os.access (catalog, os.R_OK) and os.access (catalog + ".gz", os.R_OK):
-				os.system ("/usr/bin/gunzip < %s.gz > %s " % (catalog, catalog))
-
 			try:
-				f = open(catalog, "rb")
+				f = gzread.open(catalog)
 				buffer = f.read()
+				f.close()
 				del f
-				if os.access (catalog + ".gz", os.R_OK):
-					try:
-						os.remove (catalog)
-					except:
-						pass
 				break
 			except IOError:
 				pass
 		else:
-			del os
 			return # assume C locale
 
-		del os
 		if _StrToInt(buffer[:4]) != 0x950412de:
 			# magic number doesn't match
 			raise error, 'Bad magic number in %s' % (catalog,)
