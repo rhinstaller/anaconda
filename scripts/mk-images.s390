@@ -9,7 +9,7 @@ prepareBootImage() {
 }
 
 IDEMODS=""
-SCSIMODS=""
+SCSIMODS="zfcp scsi_mod"
 
 FSMODS="vfat msdos ext3 reiserfs jfs xfs"
 SECSTAGE="$IDEMODS $SCSIMODS $FSMODS md raid0 raid1 raid5 raid6 dm-mod"
