@@ -88,6 +88,7 @@ export PYTHONPATH
 
 mount -t proc none /proc
 mount -t devpts /dev/pts /dev/pts
+mount -t sysfs none /sys
 # remount root fs rw
 mount /dev/root /  -o remount,rw
 
@@ -150,6 +151,7 @@ if [ ":$NETTYPE" != ":iucv" ]; then   # iucv is the only interface without chand
 			read QETHPARM
 		fi
 	fi
+	[ -n "$CHANDEV" ] && insmod ccwgroup$LO
 	[ -n "$CHANDEV" ]  && echo "noauto" >/proc/chandev
 	[ -n "$CHANDEV" ]  && echo "$CHANDEV"  >/proc/chandev
    [ -n "$QETHPARM" ] && echo "$QETHPARM" >/proc/chandev
@@ -227,6 +229,7 @@ fi
 # configure network-interface
 KERNELVERSION=`cat /proc/version | awk '{ print $3 }'`
 if [ ":$NETTYPE" = ":ctc" -o ":$NETTYPE" = ":escon" ]; then
+	insmod cu3088$LO
 	insmod fsm$LO
 	insmod ctc$LO
 	ifconfig $DEVICE $IPADDR $MMTU pointopoint $GATEWAY
@@ -248,7 +251,7 @@ elif [ -n "$QETH" -o -n "$HSI" ]; then
 		DEVICE="hsi0"
 	fi
 	insmod qdio$LO
-	insmod qeth$LO
+	insmod qeth_mod$LO
 	ifconfig $DEVICE $IPADDR $MMTU netmask $NETMASK broadcast $BROADCAST
 	route add -net $NETWORK netmask $NETMASK dev $DEVICE 2>/dev/null
 	echo "alias $DEVICE qeth" >> /tmp/modules.conf
