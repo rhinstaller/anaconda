@@ -183,23 +183,24 @@ int main(int argc, char ** argv) {
 	perror("error reading pci table");
 	return 1;
     }
-    
-    modules = probePciDriverList();
-    if (modules == NULL) {
-	printf("No PCI devices found :(\n");
-    } else {
-	while ((module = *modules++)) {
-	    if (!testing) {
-		printf("Inserting module %s\n", module);
-		insmod(module, NULL);
-	    } else {
-		printf("Test mode: I would run insmod(%s, args);\n",
-		       module);
+
+    if (!testing) {
+	modules = probePciDriverList();
+	if (modules == NULL) {
+	    printf("No PCI devices found :(\n");
+	} else {
+	    while ((module = *modules++)) {
+		if (!testing) {
+		    printf("Inserting module %s\n", module);
+		    insmod(module, NULL);
+		} else {
+		    printf("Test mode: I would run insmod(%s, args);\n",
+			   module);
+		}
 	    }
 	}
-    }
     
-    /*
+	/*
     newtInit();
     newtDrawRootText(0, 0, _("Welcome to Red Hat Linux"));
 
@@ -208,35 +209,42 @@ int main(int argc, char ** argv) {
     newtFinished();
     */
 
-    strcpy(eth0.device, "eth0");
-    eth0.isPtp=0;
-    eth0.isUp=0;
-    eth0.ip.s_addr=inet_addr("207.175.42.47");
-    eth0.netmask.s_addr=htonl(0xffffff00);
-    eth0.broadcast.s_addr=inet_addr("207.175.42.255");
-    eth0.network.s_addr=inet_addr("207.175.42.0");
+	strcpy(eth0.device, "eth0");
+	eth0.isPtp=0;
+	eth0.isUp=0;
+	eth0.ip.s_addr=inet_addr("207.175.42.47");
+	eth0.netmask.s_addr=htonl(0xffffff00);
+	eth0.broadcast.s_addr=inet_addr("207.175.42.255");
+	eth0.network.s_addr=inet_addr("207.175.42.0");
 
-    configureNetDevice(&eth0);
+	configureNetDevice(&eth0);
 
-    mkdir("/mnt", 777);
-    mkdir("/mnt/source", 777);
+	mkdir("/mnt", 777);
+	mkdir("/mnt/source", 777);
 
-    insmod("sunrpc.o", NULL);
-    insmod("lockd.o", NULL);
-    insmod("nfs.o", NULL);
+	insmod("sunrpc.o", NULL);
+	insmod("lockd.o", NULL);
+	insmod("nfs.o", NULL);
     
-    doPwMount("207.175.42.68:/mnt/test/msw/i386",
-	      "/mnt/source", "nfs", 1, 0, NULL, NULL);
+	doPwMount("207.175.42.68:/mnt/test/msw/i386",
+		  "/mnt/source", "nfs", 1, 0, NULL, NULL);
 
-    symlink("/mnt/source/RedHat/instimage/usr", "/usr");
-    
+	symlink("/mnt/source/RedHat/instimage/usr", "/usr");
+	symlink("/mnt/source/RedHat/instimage/lib", "/lib");
+
+	if (access("/usr/bin/anaconda", R_OK)) {
+	    printf("NFS mount does not appear to be a Red Hat 6.1 tree\n");
+	    exit (1);
+	}
+    }
     argptr = anacondaArgs;
     *argptr++ = testing ? "../anaconda" : "/usr/bin/anaconda";
 
-    execv(anacondaArgs[0], anacondaArgs);
-
-    sleep(5);
+    printf("Launching anaconda (%s), please wait...\n", anacondaArgs[0]);
     
+    execv(anacondaArgs[0], anacondaArgs);
+    perror("exec");
+ 
     return 0;
 }
 
