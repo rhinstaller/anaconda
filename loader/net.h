@@ -17,5 +17,6 @@ int findHostAndDomain(struct networkDeviceConfig * dev, int flags);
 int writeResolvConf(struct networkDeviceConfig * net);
 int kickstartNetwork(char * device, struct networkDeviceConfig * netDev, 
 		     int flags);
+void initLoopback(void);
 
 #endif
