@@ -18,9 +18,12 @@ class InstallClass(BaseInstallClass):
 	self.addToSkipList("authentication")
 	self.setMakeBootdisk(1)
 
-        self.showgroups = [ "News Server",
+        self.showgroups = [ "KDE", 
+			    (0, "GNOME"),
+			    "News Server",
                             "NFS Server",
                             "Web Server",
+                            "SMB (Samba) Server",
                             "DNS Name Server" ]
 
 	if os.uname ()[4] != 'sparc64':
