@@ -1035,7 +1035,11 @@ def getAutopartitionBoot():
 
 def confirmDeleteRequest(intf, request):
     if request.device:
-        errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
+        if request.type == REQUEST_RAID:
+            errmsg = _("You are about to delete a RAID device.\n\nAre you sure?" % request.device)
+        else:
+            errmsg = _("You are about to delete the /dev/%s partition.\n\nAre you sure?" % request.device)
+            
     else:
         errmsg = _("Are you sure you want to delete this partition?")
 
@@ -1066,9 +1070,9 @@ def doDeletePartitionByRequest(intf, requestlist, partition):
         return 0
     else:
         device = get_partition_name(partition)
-        
+
     # see if device is in our partition requests, remove
-    request = requestlist.getRequestByDeviceName(get_partition_name(partition))
+    request = requestlist.getRequestByDeviceName(device)
     if request:
         if request.type == REQUEST_PROTECTED:
             intf.messageWindow(_("Unable To Remove"),
