@@ -18,6 +18,14 @@ BINS += loader-local loader-network loader-pcmcia
 DIRS += pcmcia-install
 endif
 
+ifeq (alpha, $(ARCH))
+BINS += loader-network
+endif
+
+ifeq (sparc, $(ARCH))
+BINS += loader-network
+endif
+
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
 else
