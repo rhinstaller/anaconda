@@ -177,6 +177,19 @@ class SiloInstall:
     def disk2PromPath(self,dev):
 	return _silo.disk2PromPath(dev)
 
+    def makeInitrd (self, kernelTag, instRoot):
+	initrd = "/boot/initrd%s.img" % (kernelTag, )
+	if not self.initrdsMade.has_key(initrd):
+            iutil.execWithRedirect("/sbin/mkinitrd",
+                                  [ "/sbin/mkinitrd",
+				    "--ifneeded",
+                                    initrd,
+                                    kernelTag[1:] ],
+                                  stdout = None, stderr = None, searchPath = 1,
+                                  root = instRoot)
+	    self.initrdsMade[kernelTag] = 1
+	return initrd
+
     def install(self, fstab, instRoot, hdList, upgrade):
 	silo = LiloConfigFile ()
 
@@ -259,7 +272,7 @@ class SiloInstall:
 
 	for (label, kernel, tag) in kernelList:
 	    kernelTag = "-%s-%s%s" % (kernel['version'], kernel['release'], tag)
-	    initrd = todo.makeInitrd (kernelTag)
+	    initrd = self.makeInitrd (kernelTag, instRoot)
 	    if rootDev == bootpart:
 		kernelFile = "/boot/vmlinuz" + kernelTag
 		initrdFile = initrd
