@@ -26,14 +26,14 @@ class ZFCPWindow(InstallWindow):
     def __init__(self, ics):
         InstallWindow.__init__(self, ics)
 
-    def sortFcpDevs(one, two):
-        if one[0] < two[0]:
-                return -1
-        elif one[0] > two[0]:
-                return 1
-        return 0
-
     def setupDevices(self):
+        def sortFcpDevs(one, two):
+            if one[0] < two[0]:
+                return -1
+            elif one[0] > two[0]:
+                return 1
+            return 0
+        
         self.store = gtk.TreeStore(gobject.TYPE_STRING,
                                    gobject.TYPE_STRING,
                                    gobject.TYPE_STRING,
