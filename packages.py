@@ -871,6 +871,6 @@ def depmodModules(comps, instPath):
 
     for (version, tag) in kernelVersions:
 	iutil.execWithRedirect ("/sbin/depmod",
-				[ "/sbin/depmod", "-a", version ],
+				[ "/sbin/depmod", "-a", version, "-F", "/boot/System.map-" + version ],
 				root = instPath, stderr = '/dev/null')
 
