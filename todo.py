@@ -438,7 +438,10 @@ class ToDo:
 		os.mkdir (self.instPath + mntpoint)
 	    except:
 		pass
-	    isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+            try:
+                isys.mount( '/tmp/' + device, self.instPath + mntpoint)
+            except SystemError, (errno, msg):
+                self.intf.messageWindow("Error", "Error mounting %s directory %s: %s" % (device, msg))
 	    os.remove( '/tmp/' + device);
 
     def makeFilesystems(self):
