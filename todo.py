@@ -429,7 +429,7 @@ class ToDo:
 
     def makeFilesystems(self):
 	if (not self.setupFilesystems): return 
-
+        
         keys = self.mounts.keys ()
 	keys.sort()
 	for mntpoint in keys:
@@ -444,10 +444,12 @@ class ToDo:
                                        stdout = None, stderr = None,
                                        searchPath = 1)
             elif fsystem == "swap":
-                iutil.execWithRedirect ("/usr/sbin/mkswap",
-                                       [ "mkswap", '/tmp/' + device ],
-                                       stdout = None, stderr = None,
-                                       searchPath = 1)
+                rc = iutil.execWithRedirect ("/usr/sbin/mkswap",
+                                             [ "mkswap", '/tmp/' + device ],
+                                             stdout = None, stderr = None,
+                                             searchPath = 1)
+                if rc:
+                    raise ToDoError, "error making swap on " + device
                 isys.swapon ('/tmp/' + device)
             else:
                 pass
@@ -566,7 +568,7 @@ class ToDo:
 
 	kernelFile = "/boot/vmlinuz-" + kernelVersion
 	    
-	self.lilo.addImage("image", kernelFile, sl)
+	self.lilo.addImageetyat("image", kernelFile, sl)
 	self.lilo.write(self.instPath + "/etc/lilo.conf")
 
         for (type, name, config) in self.lilo.images:
