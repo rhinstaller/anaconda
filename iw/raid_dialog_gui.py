@@ -526,6 +526,9 @@ class RaidCloneDialog:
 
         for drive in self.targetDrives:
             requests = self.getInterestingRequestsForDrive(drive)
+	    if requests is None:
+		continue
+	    
             for req in requests:
                 rc = partIntfHelpers.isNotChangable(req, self.partitions)
                 if rc:
