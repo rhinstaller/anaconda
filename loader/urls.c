@@ -271,9 +271,9 @@ int urlMainSetupPanel(struct iurlinfo * ui, urlprotocol protocol,
 	buf[0] = '/';
 	buf[1] = '\0';
 	strcat (buf, dir);
-    }
-	
-    ui->prefix = strdup(dir);
+	ui->prefix = buf;
+    } else
+	ui->prefix = strdup(dir);
 
     /* Get rid of trailing /'s */
     chptr = ui->prefix + strlen(ui->prefix) - 1;
