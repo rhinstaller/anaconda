@@ -348,6 +348,10 @@ if [ -n "$DASD" ]; then
        echo "DASD=$DASD" > /tmp/dasd_ports
 fi
 
+for i in ${!FCP_*}; do
+   echo "${!i}" >> /tmp/fcpconfig
+done
+
 grep -q ext3 /proc/filesystems
 if [ "$?" != "0" ]; then
   insmod jbd$LO
