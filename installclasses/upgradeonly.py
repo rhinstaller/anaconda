@@ -31,6 +31,7 @@ class InstallClass(BaseInstallClass):
 		    "dependencies",
 		    "confirmupgrade",
 		    "install",
+                    "migratefilesystems",                    
                     "preinstallconfig",
                     "installpackages",
                     "postinstallconfig",
