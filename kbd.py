@@ -228,9 +228,6 @@ class Keyboard (SimpleConfigFile):
 	    self.info["KEYTABLE"] = keytable
 
     def setfromx (self, model, layout, variant):
-        print "Inside setfromx"
-        print "Values are", model, layout, variant
-        
 	if self.type == "PC":
             mapping = Keyboard.x2console
         else:
@@ -247,7 +244,6 @@ class Keyboard (SimpleConfigFile):
                 lay = key;
             if model == mod and layout == lay:
                 #--Check to see if keyboard is German and has deadkeys disabled
-                print "Inside compare", mod, lay, variant
                 if lay == "de" and variant == "nodeadkeys":
                     self.info["KEYTABLE"] = "de-latin1-nodeadkeys"
                 else:
