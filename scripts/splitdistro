@@ -6,7 +6,7 @@ disc2dirs = [ "preview" ]
 # These files appear on all binary CDs
 jointfiles = [ "beta_eula.txt", "RPM-GPG-KEY", "README", "autorun" ]
 
-targetSize = 640 * 1024.0 * 1024.0
+targetSize = 645 * 1024.0 * 1024.0
 
 # Leave about 1.2MB of space on the disc
 fudgeFactor = 1.2 * 1024 * 1024
@@ -40,7 +40,6 @@ def moveFiles(srcDir, destDir, files):
 def excessFiles(path, fileList, maxSize):
     total = 0
     moveList = []
-    found = 0
 
     for fns in fileList:
 	if type(fns) == types.StringType:
@@ -55,9 +54,6 @@ def excessFiles(path, fileList, maxSize):
 	    total = total + size
 	else:
 	    # once we're done, we're done
-            if found == 0:
-#                print "straw was %s" % (fns,)
-                found = 1
 	    total = maxSize
 	    moveList.extend(fns)
 
@@ -101,7 +97,7 @@ for n in args:
     if str == '--fileorder':
 	packageOrderFile = arg
     if str == '--release':
-	releasestr = arg
+        releasestr = arg        
 
 if not packageOrderFile:
     print "splitdistro --fileorder <file> [--release <comment>] <toppath> <arch>"
@@ -124,9 +120,7 @@ disc1Dir = distDir + "-disc1"
 disc2Dir = distDir + "-disc2"
 disc3Dir = distDir + "-disc3"
 disc1SrcDir = distDir + "-disc4"
-disc2SrcDir = distDir + "-disc5"
-# we have leftover space on the third disc to use for sources
-disc3SrcDir = distDir + "-disc3"
+disc2SrcDir = distDir + "-disc3"
 
 id = 0
 
@@ -165,17 +159,17 @@ disc1used = totalsize - rpmsize - dirsize
 
 os.system("rm -rf %s %s %s %s" % ( disc1Dir, disc2Dir, disc1SrcDir,
 				   disc2SrcDir))
-os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS %s/SRPMS" % 
+os.system("mkdir -p %s %s %s/SRPMS %s/RedHat/RPMS %s/RedHat/RPMS" % 
 	    (disc1Dir, disc1SrcDir, disc2SrcDir, disc2Dir, 
-             disc3Dir, disc3SrcDir))
+             disc3Dir))
 
 print "Creating disc1..."
 
 os.system("cp -al %s/. %s" % (distDir, disc1Dir))
-stamp(disc1Dir, releasestr, "disc1", arch, startedAt)
+stamp(disc1Dir, "disc1", arch, startedAt)
 
 print "Creating disc2..."
-stamp(disc2Dir, releasestr, "disc2", arch, startedAt)
+stamp(disc2Dir, "disc2", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -191,10 +185,10 @@ disc2pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList,
 moveFiles("%s/RedHat/RPMS" % disc1Dir, 
 	  "%s/RedHat/RPMS" % disc2Dir, 
 	  disc2pkgs);
-disc1Size = spaceUsed(disc1Dir)
+disc1ReallyUsed = spaceUsed(disc1Dir)
 
 print "Creating disc3..."
-stamp(disc3Dir, releasestr, "disc3", arch, startedAt)
+stamp(disc3Dir, "disc3", arch, startedAt)
 
 for file in jointfiles:
     src = "%s/%s" % (disc1Dir, file)
@@ -205,18 +199,19 @@ for file in jointfiles:
 	print "**** WARNING linking %s to %s: %s" % (src, dest, msg)
 
 disc3pkgs = excessFiles(distDir + "/RedHat/RPMS", binPkgList, 
-			targetSize + disc1Size - disc1used - fudgeFactor)
+			targetSize + disc1ReallyUsed - disc1used - fudgeFactor)
 
 moveFiles("%s/RedHat/RPMS" % disc2Dir, 
 	  "%s/RedHat/RPMS" % disc3Dir, 
 	  disc3pkgs);
 
-print "Creating first source disc..."
+print "Doing first source disc..."
 os.system("cp -al %s/. %s" % (srcDir, disc1SrcDir))
-stamp(disc1SrcDir, releasestr, "disc4", arch, startedAt)
+stamp(disc1SrcDir, "disc4", arch, startedAt)
 
 print "Creating second source disc..."
-stamp(disc2SrcDir, releasestr, "disc5", arch, startedAt)
+# don't stamp since right now this disc already has binary stuff
+#stamp(disc2SrcDir, "disc4", arch, startedAt)
 
 srcPkgList = os.listdir("%s/SRPMS" % disc1SrcDir)
 srcPkgList.sort()
@@ -225,18 +220,10 @@ disc2pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
 moveFiles("%s/SRPMS" % disc1SrcDir, 
 	  "%s/SRPMS" % disc2SrcDir, 
 	  disc2pkgs);
-srcDisc1Size = spaceUsed(disc1SrcDir)
-
-print "Dropping remainder of sources on third disc..."
-disc3pkgs = excessFiles(srcDir + "/SRPMS", srcPkgList,
-                        srcDisc1Size + targetSize - fudgeFactor)
-moveFiles("%s/SRPMS" % disc2SrcDir,
-          "%s/SRPMS" % disc3SrcDir,
-          disc3pkgs)
 
 #sys.exit(0)
 
 sys.stdout.flush()
 
-os.system("du -sh %s %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
-                                     disc1SrcDir, disc2SrcDir))
+os.system("du -sh %s %s %s %s" % (disc1Dir, disc2Dir, disc3Dir,
+                                     disc1SrcDir))
