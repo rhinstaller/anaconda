@@ -9,6 +9,7 @@ import urllib
 import string
 import struct
 import socket
+from log import log
 
 # we import these explicitly because urllib loads them dynamically, which stinks
 import ftplib
@@ -42,7 +43,8 @@ class UrlInstallMethod(InstallMethod):
                 urllib.urlretrieve(self.baseUrl + "/RedHat/RPMS/" + h[FILENAME],
                                    file)
             except IOError, (errnum, msg):
-#                print "IOError occurred, trying again"
+		log("IOError %d occured getting %s: %s",
+			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
                 time.sleep(5)
             else:
                 connected = 1
@@ -59,7 +61,8 @@ class UrlInstallMethod(InstallMethod):
             try:
                 url = urllib.urlopen(self.baseUrl + "/RedHat/base/hdlist")
             except IOError, (errnum, msg):
-#                print "IOError occurred, trying again"
+		log("IOError %d occured getting %s: %s",
+			errnum, self.baseUrl + "/RedHat/base/hdlist", msg)
                 time.sleep(5)
             else:
                 connected = 1
