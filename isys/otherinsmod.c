@@ -22,11 +22,13 @@ int ourInsmodCommand(int argc, char ** argv) {
     int rc, rmObj = 0;
     int sparc64 = 0;
     char * ballPath = NULL;
-#ifdef __sparc__
-
+    char fullName[100];
     struct utsname u;
 
-    if (!uname(&u) && !strcmp(u.machine, "sparc64"))
+    uname(&u);
+
+#ifdef __sparc__
+    if (!strcmp(u.machine, "sparc64"))
        sparc64 = 1;
 #endif
 
@@ -38,8 +40,9 @@ int ourInsmodCommand(int argc, char ** argv) {
     if (!strcmp(argv[1], "-p")) {
 	ballPath = malloc(strlen(argv[2]) + 30);
 	sprintf(ballPath, "%s/%s", argv[2], sparc64 ?
-		    "/modules/modules64.cgz" : "/modules/modules.cgz");
+		    "modules64.cgz" : "modules.cgz");
 	argv += 2;
+	argc -= 2;
     } else {
 	ballPath = sparc64 ?
 		    "/modules/modules64.cgz" : "/modules/modules.cgz";
@@ -59,13 +62,16 @@ int ourInsmodCommand(int argc, char ** argv) {
 	if (chptr) file = chptr + 1;
 	sprintf(finalName, "/tmp/%s", file);
 
-	if (installCpioFile(fd, file, finalName, 0))
+	sprintf(fullName, "%s/%s", u.release, file);
+
+	if (installCpioFile(fd, fullName, finalName, 0))
 	    return 1;
 
 	rmObj = 1;
 	file = finalName;
     }
 
+    argv[0] = "insmod";
     argv[1] = file;
 
 #ifdef __sparc__
@@ -121,7 +127,7 @@ int insmod(char * modName, char * path, char ** args) {
 	count += 2;
     }
 
-    argv[1] = modName;
+    argv[count] = modName;
     count++;
 
     if (args)
