@@ -115,12 +115,14 @@ class KeyboardWindow (InstallWindow):
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         sw.set_shadow_type(gtk.SHADOW_IN)
 
-        self.modelStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        self.modelStore = gtk.ListStore(str, str)
 
         for key, model in self.rules[0].items():
             iter = self.modelStore.append()
             self.modelStore.set_value(iter, 0, key)
             self.modelStore.set_value(iter, 1, model)
+
+        self.modelStore.set_sort_column_id(0, gtk.SORT_ASCENDING)
 
         self.modelView = gtk.TreeView(self.modelStore)
         col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=1)
@@ -136,7 +138,6 @@ class KeyboardWindow (InstallWindow):
                 self.modelView.scroll_to_cell(path, col, gtk.TRUE, 0.5, 0.5)
                 break
             next = self.modelStore.iter_next(iter)
-             
 
         sw.add(self.modelView)
         sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
@@ -147,12 +148,14 @@ class KeyboardWindow (InstallWindow):
         sw.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_AUTOMATIC)
         sw.set_shadow_type(gtk.SHADOW_IN)
 
-        self.layoutStore = gtk.ListStore(gobject.TYPE_STRING, gobject.TYPE_STRING)
+        self.layoutStore = gtk.ListStore(str, str)
 
         for key, layout in self.rules[1].items():
             iter = self.layoutStore.append()
             self.layoutStore.set_value(iter, 0, key)
             self.layoutStore.set_value(iter, 1, layout)
+
+        self.layoutStore.set_sort_column_id(0, gtk.SORT_ASCENDING)
 
         self.layoutView = gtk.TreeView(self.layoutStore)
         col = gtk.TreeViewColumn(None, gtk.CellRendererText(), text=1)
