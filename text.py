@@ -475,6 +475,10 @@ class HostnameWindow:
 
 class BootDiskWindow:
     def __call__(self, screen, todo):
+	# we *always* do this for loopback installs
+	if todo.fstab.rootOnLoop():
+	    return INSTALL_NOOP
+
 	buttons = [ _("Yes"), _("No"), _("Back") ]
 	text =  _("A custom boot disk provides a way of booting into your "
 		  "Linux system without depending on the normal bootloader. "
@@ -705,7 +709,7 @@ class ReconfigFinishedWindow:
 
 class BootdiskWindow:
     def __call__ (self, screen, todo):
-        if not todo.bootdisk:
+        if not todo.needBootdisk():
             return INSTALL_NOOP
 
         rc = ButtonChoiceWindow (screen, _("Bootdisk"),

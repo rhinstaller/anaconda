@@ -470,6 +470,9 @@ class ToDo:
 	    self.initrdsMade[kernelTag] = 1
 	return initrd
 
+    def needBootdisk (self):
+	if self.bootdisk or self.fstab.rootOnLoop(): return 1
+
     def makeBootdisk (self):
 	kernel = self.hdList['kernel']
         kernelTag = "-%s-%s" % (kernel['version'], kernel['release'])
@@ -490,6 +493,13 @@ class ToDo:
             raise RuntimeError, "boot disk creation failed"
 
     def installLilo (self):
+	# If self.liloDevice is None, skipping lilo doesn't work
+	if not self.liloDevice: return
+
+	# If the root partition is on a loopback device, lilo won't work!
+	if self.fstab.rootOnLoop():
+	    return 
+
 	lilo = LiloConfiguration ()
 
 	if not self.liloImages:
@@ -500,7 +510,6 @@ class ToDo:
 ##         # on upgrade read in the lilo config file
 ##         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
 ##             lilo.read (self.instPath + '/etc/lilo.conf')
-##         elif not self.liloDevice: return
 
         if os.access (self.instPath + '/etc/lilo.conf', os.R_OK):
 	    os.rename(self.instPath + '/etc/lilo.conf',
@@ -1241,7 +1250,7 @@ class ToDo:
             how = "i"
         
 	for p in self.hdList.selected():
-	    ts.add(p.h, p.h, how)
+	    #ts.add(p.h, p.h, how)
 	    total = total + 1
 	    totalSize = totalSize + p.h[rpm.RPMTAG_SIZE]
 

@@ -40,6 +40,8 @@ class Fstab:
 		mntpoint = "Swap%04d-auto" % swapCount
 		swapCount = swapCount + 1
 		type = 0x82
+	    elif (mntpoint == "raid"):
+		type = 0xfd
 
 	    attempt.append((mntpoint, size, type, grow, -1, device))
 
@@ -84,10 +86,11 @@ class Fstab:
 	raise ValueError, "no root device has been set"
 
     def getLoopbackSize(self):
-	return self.loopbackSize
+	return (self.loopbackSize, self.loopbackSwapSize)
 
-    def setLoopbackSize(self, size):
+    def setLoopbackSize(self, size, swapSize):
 	self.loopbackSize = size
+	self.loopbackSwapSize = swapSize
 
     def setDruid(self, druid, raid):
 	self.ddruid = druid
@@ -157,12 +160,12 @@ class Fstab:
 	return self.ddruid.partitionList()
 
     def driveList(self):
-	drives = isys.hardDriveList().keys()
+	drives = isys.hardDriveDict().keys()
 	drives.sort (isys.compareDrives)
 	return drives
 
     def drivesByName(self):
-	return isys.hardDriveList()
+	return isys.hardDriveDict()
 
     def swapList(self):
 	fstab = []
@@ -263,7 +266,9 @@ class Fstab:
 
 	isys.umount(instPath + '/proc')
 
-	for (n, device, fsystem, doFormat, size) in self.mountList():
+	mounts = self.mountList()
+	mounts.reverse()
+	for (n, device, fsystem, doFormat, size) in mounts:
             if fsystem != "swap":
 		try:
 		    mntPoint = instPath + n
@@ -361,8 +366,8 @@ class Fstab:
 		os.remove( '/tmp/' + device);
 		
 		isys.makeDevInode("loop0", '/tmp/' + "loop0")
-		isys.ddfile("/mnt/loophost/something", self.loopbackSize)
-		isys.losetup("/tmp/loop0", "/mnt/loophost/something")
+		isys.ddfile("/mnt/loophost/redhat.img", self.loopbackSize)
+		isys.losetup("/tmp/loop0", "/mnt/loophost/redhat.img")
 
 		if self.serial:
 		    messageFile = "/tmp/mke2fs.log"
@@ -376,6 +381,15 @@ class Fstab:
 
 		isys.mount('/tmp/loop0', instPath)
 		os.remove('/tmp/loop0')
+
+		if self.loopbackSwapSize:
+		    isys.ddfile("/mnt/loophost/rh-swap.img", 
+				self.loopbackSwapSize)
+		    iutil.execWithRedirect ("/usr/sbin/mkswap",
+				     [ "mkswap", '-v1', 
+				       '/mnt/loophost/rh-swap.img' ],
+				     stdout = None, stderr = None)
+		    isys.swapon("/mnt/loophost/rh-swap.img")
 	    elif fsystem == "ext2":
 		try:
 		    iutil.mkdirChain(instPath + mntpoint)
@@ -400,6 +414,11 @@ class Fstab:
 
 	f = open (prefix + "/etc/fstab", "w")
 	for (mntpoint, dev, fs, reformat, size) in self.mountList():
+	    if fs == "vfat" and mntpoint == "/":
+		f.write("# LOOP0: /dev/%s %s /redhat.img\n" % (dev, fs))
+		dev = "loop0"
+		fs = "ext2"
+
 	    iutil.mkdirChain(prefix + mntpoint)
 	    if mntpoint == '/':
 		f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 1))
@@ -409,12 +428,16 @@ class Fstab:
                 elif fs == "iso9660":
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
 		elif fs == "auto" and (dev == "zip" or dev == "jaz"):
-		    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,ownder', 0, 0))
+		    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
 	f.write (format % (fdDevice, "/mnt/floppy", 'ext2', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
+
+	if self.loopbackSwapSize:
+	    f.write(format % ("/initrd/loopfs/rh-swap.img", 'swap',
+				'swap', 'defaults', 0, 0))
 
 	for (partition, doFormat) in self.swapList():
 	    f.write (format % ("/dev/" + partition, 'swap', 'swap', 
@@ -530,6 +553,7 @@ class Fstab:
 	self.existingRaid = []
 	self.ddruid = self.createDruid()
 	self.loopbackSize = 0
+	self.loopbackSwapSize = 0
 	# I intentionally don't initialize this, as all install paths should
 	# initialize this automatically
 	#self.shouldRunDruid = 0
