@@ -6,6 +6,7 @@ import iutil
 import os
 import isys
 import time
+import kudzu
 import string
 from translate import _
 from log import log
@@ -69,11 +70,30 @@ class CdromInstallMethod(ImageInstallMethod):
         elif h[1000002] != self.currentDisc:
 	    self.currentDisc = h[1000002]
 	    isys.umount("/mnt/source")
-	    isys.ejectCdrom(self.device)
-
-	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
 
 	    done = 0
+	    key = ".disc%d-%s" % (self.currentDisc, iutil.getArch())
+
+	    cdlist = []
+	    for (dev, something, descript) in \
+		    kudzu.probe(kudzu.CLASS_CDROM, kudzu.BUS_UNSPEC, 0):
+		if dev != self.device:
+		    cdlist.append(dev)
+
+	    for dev in cdlist:
+		try:
+		    if not isys.mount(dev, "/mnt/source", fstype = "iso9660", 
+			       readOnly = 1):
+			if os.access("/mnt/source/%s" % key, os.O_RDONLY):
+			    done = 1
+			else:
+			    isys.umount("/mnt/source")
+		except:
+		    pass
+
+	    if not done:
+		isys.ejectCdrom(self.device)
+
 	    while not done:
 		self.messageWindow(_("Change CDROM"), 
 		    _("Please insert disc %d to continue.") % self.currentDisc)
