@@ -175,9 +175,6 @@ class BaseInstallClass:
     def setEarlySwapOn(self, state = 0):
 	self.earlySwapOn = state
 
-    def getDesktop(self):
-        return self.desktop
-
     def setKeyboard(self, id, kb):
 	id.keyboard.set(kb)
 
