@@ -381,7 +381,9 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
         cfg->portname = strdup(loaderData->portname);
     }
 
-    cfg->is_qeth = loaderData->is_qeth;
+    if (loaderData->nettype) {
+        cfg->nettype = strdup(loaderData->nettype);
+    }
 
     if (loaderData->ethtool) {
         char * option, * buf;
@@ -734,8 +736,8 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "SUBCHANNELS=%s\n", dev->subchannels);
     if (dev->portname)
         fprintf(f, "PORTNAME=%s\n", dev->portname);
-    if (dev->is_qeth)
-        fprintf(f, "QETH=yes\n");
+    if (dev->nettype)
+        fprintf(f, "NETTYPE=%s\n", dev->nettype);
 
     if (dev->essid)
         fprintf(f, "ESSID=%s\n", dev->essid);

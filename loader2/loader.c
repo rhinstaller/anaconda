@@ -445,8 +445,8 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "PORTNAME")) {
                loaderData->portname = strdup(vparm);
            }
-           if (strstr(vname, "QETH")) {
-               loaderData->is_qeth = 1;
+           if (strstr(vname, "NETTYPE")) {
+               loaderData->nettype = strdup(vparm);
            }
        }
    }

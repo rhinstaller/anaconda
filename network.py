@@ -59,8 +59,7 @@ def networkDeviceCheck(network, dispatch):
 
 # return if the device is of a type that requires a ptpaddr to be specified
 def isPtpDev(devname):
-    if (devname.startswith("ctc") or devname.startswith("escon") or
-        devname.startswith("iucv")):
+    if (devname.startswith("ctc") or devname.startswith("iucv")):
         return 1
     return 0
 
@@ -174,13 +173,10 @@ class Network:
                     info [netinf[0]] = string.strip(netinf[1])
             self.netdevices [info["DEVICE"]] = NetworkDevice(info["DEVICE"])
             for key in ("IPADDR", "NETMASK", "BOOTPROTO", "ONBOOT", "MTU",
-                        "REMIP", "QETH", "SUBCHANNELS", "PORTNAME",
+                        "NETTYPE", "SUBCHANNELS", "PORTNAME",
                         "PEERID", "ESSID", "KEY"):
                 if info.has_key(key):
                     self.netdevices [info["DEVICE"]].set((key, info[key]))
-            # KH: Hack for special case qeth devices which show up as ethX:
-            if info.has_key("QETH"):
-                self.netdevices [info["DEVICE"]].info["TYPE"] = "QETH";
             if info.has_key("GATEWAY"):
                 self.gateway = info["GATEWAY"]
             if info.has_key("DOMAIN"):

@@ -191,7 +191,6 @@ if [ "$NETTYPE" != "iucv" ]; then   # iucv is the only interface without ccw con
 		read SUBCHANNELS
    done
 	if [ "$NETTYPE" = "qeth" ]; then
-      QETH="yes"
 		if [ -z "$PORTNAME" ]; then
 			echo $"Portname of the OSA-Express feature in QDIO mode and z/VM Guest LAN"
 			echo $"This parameter is optional with z/VM 4.4.0 or z/VM 4.3.0 with"
@@ -399,7 +398,7 @@ HOSTNAME=$HOSTNAME
 MTU=$MTU
 SUBCHANNELS=$SUBCHANNELS
 EOF
-[ "$QETH" != "" ] && echo "QETH=$QETH" >> /tmp/netinfo
+[ "$NETTYPE" != "" ] && echo "NETTYPE=$NETTYPE" >> /tmp/netinfo
 [ "$PEERID" != "" ] && echo "PEERID=$PEERID" >> /tmp/netinfo
 [ "$PORTNAME" != "" ] && echo "PORTNAME=$PORTNAME" >> /tmp/netinfo
 
