@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Installer 7.0\n"
-"POT-Creation-Date: 2001-08-17 14:41-0400\n"
+"POT-Creation-Date: 2001-08-20 11:30-0400\n"
 "PO-Revision-Date: 2001-08-10 10:33+0100\n"
 "Last-Translator: Bettina De Monti <bdemonti@redhat.it>\n"
 "Language-Team: French <fr@li.org>\n"
@@ -192,9 +192,9 @@ msgstr ""
 #: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
+#: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:434
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
+#: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
 msgid "Warning"
 msgstr "Avertissement"
 
@@ -274,11 +274,11 @@ msgstr ""
 "DONNEES) contenues dans les disques suivants :%s\n"
 "Etes-vous sûr de vouloir continuer ?"
 
-#: ../bootloader.py:710
+#: ../bootloader.py:716
 msgid "Bootloader"
 msgstr "Chargeurs de démarrage"
 
-#: ../bootloader.py:710
+#: ../bootloader.py:716
 msgid "Installing bootloader..."
 msgstr "Installation du chargeur de démarrage..."
 
@@ -286,20 +286,20 @@ msgstr "Installation du chargeur de démarrage..."
 msgid "Everything"
 msgstr "Tout"
 
-#: ../comps.py:672 ../upgrade.py:457
+#: ../comps.py:672 ../upgrade.py:456
 msgid "no suggestion"
 msgstr "Pas de suggestion"
 
-#: ../exception.py:95 ../text.py:219
+#: ../exception.py:112 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Une exception s'est produite"
 
 # ../comps/comps-master:483
-#: ../exception.py:162
+#: ../exception.py:179
 msgid "Dump Written"
 msgstr "Dump Written"
 
-#: ../exception.py:163
+#: ../exception.py:180
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -307,9 +307,9 @@ msgstr ""
 "L'état de votre système a été copié sur la disquette. Votre système va "
 "maintenant être réinitialisé."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
-#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
-#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:790
+#: ../fsset.py:809 ../fsset.py:854 ../fsset.py:874 ../fsset.py:908
+#: ../fsset.py:951 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -321,8 +321,8 @@ msgstr ""
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
-#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
-#: ../upgrade.py:305
+#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
+#: ../upgrade.py:304
 msgid "Error"
 msgstr "Erreur"
 
@@ -373,7 +373,7 @@ msgstr "Bloc de démarrage maître (MBR)"
 msgid "First sector of boot partition"
 msgstr "Premier secteur de la partition de démarrage"
 
-#: ../fsset.py:784
+#: ../fsset.py:791
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -387,7 +387,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:803
+#: ../fsset.py:810
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -402,7 +402,7 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
-#: ../fsset.py:848
+#: ../fsset.py:855
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -415,7 +415,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:868
+#: ../fsset.py:875
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -428,7 +428,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:902
+#: ../fsset.py:909
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -441,11 +441,11 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:922 ../fsset.py:931
+#: ../fsset.py:929 ../fsset.py:938
 msgid "Invalid mount point"
 msgstr "Point de montage non valide"
 
-#: ../fsset.py:923
+#: ../fsset.py:930
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -459,7 +459,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:932
+#: ../fsset.py:939
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -472,7 +472,7 @@ msgstr ""
 "\n"
 "Redémarrez le système en appuyant sur Entrée."
 
-#: ../fsset.py:945
+#: ../fsset.py:952
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -487,11 +487,11 @@ msgstr ""
 "\n"
 "Appuyez sur OK pour redémarrer le système."
 
-#: ../fsset.py:1488
+#: ../fsset.py:1495
 msgid "Formatting"
 msgstr "Formatage"
 
-#: ../fsset.py:1489
+#: ../fsset.py:1496
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Formatage du système de fichiers %s ..."
@@ -503,7 +503,7 @@ msgstr "Fixer"
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Oui"
@@ -511,7 +511,7 @@ msgstr "Oui"
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
 #: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
-#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -529,7 +529,7 @@ msgstr "Ignorer"
 #: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
-#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
+#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:202
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 #: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
@@ -1401,19 +1401,19 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Impossible de revenir à l'étape précédente à partir d'ici. Essayer à nouveau."
 
-#: ../upgrade.py:43
+#: ../upgrade.py:42
 msgid "Searching"
 msgstr "Recherche"
 
-#: ../upgrade.py:44
+#: ../upgrade.py:43
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Recherche d'installations précédentes de Red Hat Linux..."
 
-#: ../upgrade.py:77
+#: ../upgrade.py:76
 msgid "Dirty Filesystems"
 msgstr "Système de fichiers non démonté correctement"
 
-#: ../upgrade.py:78
+#: ../upgrade.py:77
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
@@ -1424,11 +1424,11 @@ msgstr ""
 "système procéder à la vérification des systèmes de fichiers, puis arrêtez "
 "correctement le système pour effectuer la mise à jour."
 
-#: ../upgrade.py:214
+#: ../upgrade.py:213
 msgid "Mount failed"
 msgstr "Le montage a échoué"
 
-#: ../upgrade.py:215
+#: ../upgrade.py:214
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1437,7 +1437,7 @@ msgstr ""
 "système Linux n'ont pu être montés. Veuillez corriger ce problème, puis "
 "essayez à nouveau d'effectuer la mise à jour."
 
-#: ../upgrade.py:230
+#: ../upgrade.py:229
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1448,32 +1448,32 @@ msgstr ""
 "supportés durant une mise à jour. Transformez-les en liens symboliques "
 "relatifs et recommencez la mise à jour.\n"
 
-#: ../upgrade.py:241
+#: ../upgrade.py:240
 #, c-format
 msgid "%s not found"
 msgstr "%s non trouvé"
 
-#: ../upgrade.py:263
+#: ../upgrade.py:262
 msgid "Finding"
 msgstr "Recherche"
 
-#: ../upgrade.py:264
+#: ../upgrade.py:263
 msgid "Finding packages to upgrade..."
 msgstr "Recherche des paquetages à mettre à jour..."
 
-#: ../upgrade.py:294
+#: ../upgrade.py:293
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr ""
 "Impossible de reconstruire la base de données RPM. Votre disque est peut-"
 "être plein."
 
-#: ../upgrade.py:306
+#: ../upgrade.py:305
 msgid "An error occured when finding the packages to upgrade."
 msgstr ""
 "Une erreur s'est produite lors de la recherche des paquetages à mettre à "
 "jour."
 
-#: ../upgrade.py:359
+#: ../upgrade.py:358
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1486,7 +1486,7 @@ msgstr ""
 "mise à jour, vous risquez de les endommager ou de causer un autre type "
 "d'instabilité du système. Désirez-vous continuer le processus de mis à jour ?"
 
-#: ../upgrade.py:378
+#: ../upgrade.py:377
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1597,7 +1597,7 @@ msgid "Password:"
 msgstr "Mot de passe :"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:390
+#: ../textw/bootloader_text.py:395
 msgid "Confirm:"
 msgstr "Confirmer : "
 
@@ -1631,7 +1631,7 @@ msgstr "Nom complet"
 msgid "Add"
 msgstr "Ajouter"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:282
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1778,12 +1778,12 @@ msgid "Skip boot disk creation"
 msgstr "Ignorer la création d'une disquette d'amorçage"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
-#: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
+#: ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
+#: ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
 msgid "Boot Loader Configuration"
 msgstr "Configuration du chargeur de démarrage"
 
-#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:129
+#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:134
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -1817,7 +1817,7 @@ msgstr "Installation du bloc du chargeur de démarrage sur :"
 msgid "Kernel Parameters"
 msgstr "Paramètres du noyau"
 
-#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:106
+#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:111
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Forcer l'utilisation de LBA32 (normalement non requise)"
 
@@ -1833,7 +1833,7 @@ msgstr ""
 "pas installer de chargeur de démarrage.\" "
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1842,20 +1842,20 @@ msgstr "Par défaut"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
 #: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:267
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Périphérique"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Partition"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:197
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Etiquette dém."
@@ -1880,7 +1880,7 @@ msgstr "Image de démarrage par défaut"
 msgid "Boot Loader Password Configuration"
 msgstr "Configuration du mot du passe du chargeur de démarrage"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:435
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1903,7 +1903,7 @@ msgstr "Mot de passe trop court."
 msgid "Passwords do not match."
 msgstr "Les mots de passe ne correspondent pas."
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -3030,11 +3030,11 @@ msgstr "Utiliser le chargeur de démarrage LILO"
 msgid "No Boot Loader"
 msgstr "Aucun chargeur de démarrage"
 
-#: ../textw/bootloader_text.py:66
+#: ../textw/bootloader_text.py:68
 msgid "Skip Boot Loader"
 msgstr "Ignorer le chargeur de démarrage"
 
-#: ../textw/bootloader_text.py:67
+#: ../textw/bootloader_text.py:69
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -3050,7 +3050,7 @@ msgstr ""
 "\n"
 "Etes-vous sûr de vouloir ignorer l'installation du chargeur de démarrage ?"
 
-#: ../textw/bootloader_text.py:97 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:102 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -3062,32 +3062,32 @@ msgstr ""
 "des options de démarrage au noyau, faites-le maintenant. Si cela n'est pas "
 "nécessaire ou si vous n'êtes pas sûr de vous, laissez ce champ vide."
 
-#: ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:169
 msgid "Where do you want to install the boot loader?"
 msgstr "Où voulez-vous installer le chargeur de démarrage ?"
 
-#: ../textw/bootloader_text.py:196 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:201 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Réinitialiser"
 
-#: ../textw/bootloader_text.py:205
+#: ../textw/bootloader_text.py:210
 msgid "Edit Boot Label Please"
 msgstr "Modifier l'étiquette de démarrage"
 
-#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
+#: ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 msgid "Invalid Boot Label"
 msgstr "Etiquette de démarrage non valide"
 
-#: ../textw/bootloader_text.py:224
+#: ../textw/bootloader_text.py:229
 msgid "Boot label may not be empty."
 msgstr "L'étiquette de démarrage ne peut pas être vide."
 
-#: ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:234
 msgid "Boot label contains illegal characters."
 msgstr "L'étiquette de démarrage contient des caractères non valides."
 
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:286 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -3097,27 +3097,27 @@ msgstr ""
 "d'exploitation. Vous devez indiquer les partitions que vous souhaitez "
 "pouvoir lancer et l'étiquette que vous voulez utiliser pour chacune d'elles."
 
-#: ../textw/bootloader_text.py:377
+#: ../textw/bootloader_text.py:382
 msgid "Use a GRUB Password"
 msgstr "Utiliser un mot de passe GRUB"
 
-#: ../textw/bootloader_text.py:389
+#: ../textw/bootloader_text.py:394
 msgid "Boot Loader Password:"
 msgstr "Mot de passe du chargeur de démarrage : "
 
-#: ../textw/bootloader_text.py:419
+#: ../textw/bootloader_text.py:424
 msgid "Passwords Do Not Match"
 msgstr "Les mots de passe root ne correspondent pas."
 
-#: ../textw/bootloader_text.py:420
+#: ../textw/bootloader_text.py:425
 msgid "Passwords do not match"
 msgstr "Les mots de passe root ne correspondent pas."
 
-#: ../textw/bootloader_text.py:424
+#: ../textw/bootloader_text.py:429
 msgid "Password Too Short"
 msgstr "Mot de passe trop court"
 
-#: ../textw/bootloader_text.py:425
+#: ../textw/bootloader_text.py:430
 msgid "Boot loader password is too short"
 msgstr "Le mot de passe pour le chargeur d'amorçage est trop court."
 
@@ -4657,7 +4657,6 @@ msgid "Retrieving"
 msgstr "Récupération"
 
 #: ../loader/urls.c:163
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"

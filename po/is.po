@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: install 1.130\n"
-"POT-Creation-Date: 2001-08-17 14:41-0400\n"
-"PO-Revision-Date: 2001-08-16 01:31+0000\n"
+"POT-Creation-Date: 2001-08-20 11:30-0400\n"
+"PO-Revision-Date: 2001-08-18 01:31+0000\n"
 "Last-Translator: Richard Allen <ra@hp.is>\n"
 "Language-Team: is <kde-isl@mmedia.is>\n"
 "MIME-Version: 1.0\n"
@@ -183,9 +183,9 @@ msgstr ""
 #: ../iw/partition_gui.py:1608 ../iw/upgrade_swap_gui.py:171
 #: ../iw/upgrade_swap_gui.py:179 ../iw/upgrade_swap_gui.py:186
 #: ../partitioning.py:694 ../partitioning.py:1401
-#: ../textw/bootloader_text.py:128 ../textw/bootloader_text.py:429
+#: ../textw/bootloader_text.py:133 ../textw/bootloader_text.py:434
 #: ../textw/partition_text.py:167 ../textw/upgrade_text.py:172
-#: ../upgrade.py:240 ../upgrade.py:358 ../upgrade.py:377
+#: ../upgrade.py:239 ../upgrade.py:357 ../upgrade.py:376
 msgid "Warning"
 msgstr "Aðvörun"
 
@@ -262,11 +262,11 @@ msgstr ""
 "eftirtöldum drifum:%s\n"
 "Ertu viss um að þú viljir gera þetta?"
 
-#: ../bootloader.py:710
+#: ../bootloader.py:716
 msgid "Bootloader"
 msgstr "Ræsistjóri"
 
-#: ../bootloader.py:710
+#: ../bootloader.py:716
 msgid "Installing bootloader..."
 msgstr "Set upp ræsistjórann..."
 
@@ -274,19 +274,19 @@ msgstr "Set upp ræsistjórann..."
 msgid "Everything"
 msgstr "Allt"
 
-#: ../comps.py:672 ../upgrade.py:457
+#: ../comps.py:672 ../upgrade.py:456
 msgid "no suggestion"
 msgstr "engin tillaga"
 
-#: ../exception.py:95 ../text.py:219
+#: ../exception.py:112 ../text.py:219
 msgid "Exception Occurred"
 msgstr "Óeðlilegt ástand"
 
-#: ../exception.py:162
+#: ../exception.py:179
 msgid "Dump Written"
 msgstr "Dump ritað"
 
-#: ../exception.py:163
+#: ../exception.py:180
 msgid ""
 "Your system's state has been successfully written to the floppy. Your system "
 "will now be reset."
@@ -294,9 +294,9 @@ msgstr ""
 "Staða vélarinnar þinnar hefur verið vistuð á diskling. Vélin þín mun nú "
 "endurræsa."
 
-#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:783
-#: ../fsset.py:802 ../fsset.py:847 ../fsset.py:867 ../fsset.py:901
-#: ../fsset.py:944 ../harddrive.py:171 ../image.py:65 ../image.py:142
+#: ../floppy.py:62 ../floppy.py:85 ../fsset.py:371 ../fsset.py:790
+#: ../fsset.py:809 ../fsset.py:854 ../fsset.py:874 ../fsset.py:908
+#: ../fsset.py:951 ../harddrive.py:171 ../image.py:65 ../image.py:142
 #: ../loader/devices.c:259 ../loader/devices.c:266 ../loader/devices.c:435
 #: ../loader/devices.c:480 ../loader/devices.c:500 ../loader/lang.c:27
 #: ../loader/lang.c:102 ../loader/loader.c:478 ../loader/loader.c:535
@@ -308,8 +308,8 @@ msgstr ""
 #: ../loader/urls.c:236 ../loader/urls.c:241 ../packages.py:240
 #: ../partitioning.py:1258 ../partitioning.py:1289
 #: ../textw/upgrade_text.py:160 ../textw/upgrade_text.py:167
-#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:293
-#: ../upgrade.py:305
+#: ../textw/upgrade_text.py:190 ../textw/xconfig_text.py:422 ../upgrade.py:292
+#: ../upgrade.py:304
 msgid "Error"
 msgstr "Villa"
 
@@ -359,7 +359,7 @@ msgstr "Aðalræsifærsluna (MBR)"
 msgid "First sector of boot partition"
 msgstr "Fyrsta geira ræsidisksneiðar"
 
-#: ../fsset.py:784
+#: ../fsset.py:791
 #, c-format
 msgid ""
 "An error occurred trying to initialize swap on device %s.  This problem is "
@@ -372,7 +372,7 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:803
+#: ../fsset.py:810
 #, c-format
 msgid ""
 "Error enabling swap device %s: %s\n"
@@ -387,7 +387,7 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
-#: ../fsset.py:848
+#: ../fsset.py:855
 #, c-format
 msgid ""
 "An error occurred searching for bad blocks on %s.  This problem is serious, "
@@ -400,7 +400,7 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:868
+#: ../fsset.py:875
 #, c-format
 msgid ""
 "An error occurred trying to format %s.  This problem is serious, and the "
@@ -413,7 +413,7 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:902
+#: ../fsset.py:909
 #, c-format
 msgid ""
 "An error occurred trying to migrate %s.  This problem is serious, and the "
@@ -426,11 +426,11 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:922 ../fsset.py:931
+#: ../fsset.py:929 ../fsset.py:938
 msgid "Invalid mount point"
 msgstr "Óleyfilegur tengipunktur"
 
-#: ../fsset.py:923
+#: ../fsset.py:930
 #, c-format
 msgid ""
 "An error occurred when trying to create %s.  Some element of this path is "
@@ -444,7 +444,7 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:932
+#: ../fsset.py:939
 #, c-format
 msgid ""
 "An error occurred when trying to create %s: %s.  This is a fatal error and "
@@ -457,7 +457,7 @@ msgstr ""
 "\n"
 "Sláðu á enter til að endurræsa vélina."
 
-#: ../fsset.py:945
+#: ../fsset.py:952
 #, c-format
 msgid ""
 "Error mounting device %s as %s: %s\n"
@@ -472,11 +472,11 @@ msgstr ""
 "\n"
 "Veldu Í lagi til að endurræsa vélina."
 
-#: ../fsset.py:1488
+#: ../fsset.py:1495
 msgid "Formatting"
 msgstr "Forsníð"
 
-#: ../fsset.py:1489
+#: ../fsset.py:1496
 #, c-format
 msgid "Formatting %s filesystem..."
 msgstr "Forsníð %s skráakerfið..."
@@ -488,7 +488,7 @@ msgstr "Laga"
 #: ../gui.py:109 ../iw/partition_gui.py:498 ../iw/partition_gui.py:655
 #: ../iw/partition_gui.py:718 ../iw/welcome_gui.py:97 ../loader/devices.c:230
 #: ../loader/loader.c:816 ../loader/net.c:889 ../text.py:281
-#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:26 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:32 ../textw/upgrade_text.py:252
 msgid "Yes"
 msgstr "Já"
@@ -496,7 +496,7 @@ msgstr "Já"
 #: ../gui.py:110 ../iw/partition_gui.py:499 ../iw/partition_gui.py:657
 #: ../iw/partition_gui.py:720 ../iw/welcome_gui.py:100 ../loader/devices.c:231
 #: ../loader/net.c:889 ../text.py:282 ../textw/bootdisk_text.py:26
-#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:76
+#: ../textw/bootdisk_text.py:55 ../textw/bootloader_text.py:78
 #: ../textw/constants_text.py:36 ../textw/upgrade_text.py:252
 #: ../textw/upgrade_text.py:259
 msgid "No"
@@ -514,7 +514,7 @@ msgstr "Hunsa"
 #: ../iw/partition_gui.py:849 ../iw/partition_gui.py:1326
 #: ../loader/devices.c:238 ../loader/devices.c:532 ../loader/loader.c:2300
 #: ../loader/pcmcia.c:104 ../text.py:115 ../text.py:116 ../text.py:250
-#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:197
+#: ../text.py:252 ../text.py:286 ../textw/bootloader_text.py:202
 #: ../textw/constants_text.py:24 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:165 ../textw/userauth_text.py:76
 #: ../textw/welcome_text.py:48 ../textw/welcome_text.py:51
@@ -1363,19 +1363,19 @@ msgid "I can't go to the previous step from here. You will have to try again."
 msgstr ""
 "Þú kemst ekki í fyrra þrep uppsetningar héðan. Þú þarft að byrja upp á nýtt."
 
-#: ../upgrade.py:43
+#: ../upgrade.py:42
 msgid "Searching"
 msgstr "Leita"
 
-#: ../upgrade.py:44
+#: ../upgrade.py:43
 msgid "Searching for Red Hat Linux installations..."
 msgstr "Leita að Red Hat Linux uppsetningum..."
 
-#: ../upgrade.py:77
+#: ../upgrade.py:76
 msgid "Dirty Filesystems"
 msgstr "Óhrein skráarkerfi"
 
-#: ../upgrade.py:78
+#: ../upgrade.py:77
 msgid ""
 "One or more of the filesystems for your Linux system was not unmounted "
 "cleanly. Please boot your Linux installation, let the filesystems be "
@@ -1385,11 +1385,11 @@ msgstr ""
 "máta. Vinsamlegast ræstu upp Linux kerfið þitt, láttu yfirfara skráarkerfin "
 "og keyrðu svo vélina rétt niður til að uppfæra."
 
-#: ../upgrade.py:214
+#: ../upgrade.py:213
 msgid "Mount failed"
 msgstr "Tenging mistókst"
 
-#: ../upgrade.py:215
+#: ../upgrade.py:214
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab on your Linux system "
 "cannot be mounted. Please fix this problem and try to upgrade again."
@@ -1397,7 +1397,7 @@ msgstr ""
 "Ekki tókst að tengja eitt eða fleiri af skráarkerfunum í /etc/fstab á "
 "vélinni þinni. Vinsamlegast lagfærðu þetta og reyndu svo að uppfæra aftur."
 
-#: ../upgrade.py:230
+#: ../upgrade.py:229
 msgid ""
 "The following files are absolute symbolic links, which we do not support "
 "during an upgrade. Please change them to relative symbolic links and restart "
@@ -1409,28 +1409,28 @@ msgstr ""
 "með \"Absolute\" slóð heldur \"Relative\" og reyndu uppfærsluna aftur.\n"
 "\n"
 
-#: ../upgrade.py:241
+#: ../upgrade.py:240
 #, c-format
 msgid "%s not found"
 msgstr "%s fannst ekki"
 
-#: ../upgrade.py:263
+#: ../upgrade.py:262
 msgid "Finding"
 msgstr "Leita"
 
-#: ../upgrade.py:264
+#: ../upgrade.py:263
 msgid "Finding packages to upgrade..."
 msgstr "Leita að pökkum sem þarf að uppfæra..."
 
-#: ../upgrade.py:294
+#: ../upgrade.py:293
 msgid "Rebuild of RPM database failed. You may be out of disk space?"
 msgstr "Ekki tókst að endurbyggja RPM gagnagrunninn. Er nægilegt diskrými?"
 
-#: ../upgrade.py:306
+#: ../upgrade.py:305
 msgid "An error occured when finding the packages to upgrade."
 msgstr "Það kom upp villa þegar leitað var að pökkum til uppfærslu."
 
-#: ../upgrade.py:359
+#: ../upgrade.py:358
 msgid ""
 "This system appears to have third party packages installed that overlap with "
 "packages included in Red Hat Linux. Because these packages overlap, "
@@ -1443,7 +1443,7 @@ msgstr ""
 "uppfærslan ollið því að þeir hætti að virka eða valdið öðrum vandræðum. "
 "Viltu halda áfram með uppfærsluna ?"
 
-#: ../upgrade.py:378
+#: ../upgrade.py:377
 msgid ""
 "This system does not have an /etc/redhat-release file.  It is possible that "
 "this is not a Red Hat Linux system. Continuing with the upgrade process may "
@@ -1552,7 +1552,7 @@ msgid "Password:"
 msgstr "Lykilorð:"
 
 #: ../iw/account_gui.py:189 ../iw/bootloaderpassword_gui.py:91
-#: ../textw/bootloader_text.py:390
+#: ../textw/bootloader_text.py:395
 msgid "Confirm:"
 msgstr "Staðfesta:"
 
@@ -1585,7 +1585,7 @@ msgstr "Fullt nafn"
 msgid "Add"
 msgstr "Bæta við"
 
-#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:277
+#: ../iw/account_gui.py:332 ../textw/bootloader_text.py:282
 #: ../textw/fdisk_text.py:41 ../textw/partition_text.py:989
 #: ../textw/silo_text.py:216 ../textw/silo_text.py:238
 #: ../textw/userauth_text.py:219
@@ -1729,12 +1729,12 @@ msgid "Skip boot disk creation"
 msgstr "Sleppa ræsidiskling"
 
 #: ../iw/bootloader_gui.py:29 ../textw/bootloader_text.py:50
-#: ../textw/bootloader_text.py:112 ../textw/bootloader_text.py:163
-#: ../textw/bootloader_text.py:286 ../textw/bootloader_text.py:372
+#: ../textw/bootloader_text.py:117 ../textw/bootloader_text.py:168
+#: ../textw/bootloader_text.py:291 ../textw/bootloader_text.py:377
 msgid "Boot Loader Configuration"
 msgstr "Stillingar ræsistjóra"
 
-#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:129
+#: ../iw/bootloader_gui.py:59 ../textw/bootloader_text.py:134
 msgid ""
 "Forcing the use of LBA32 for your bootloader when not supported by the BIOS "
 "can cause your machine to be unable to boot.  We highly recommend you create "
@@ -1768,7 +1768,7 @@ msgstr "Setja ræsifærsluna á:"
 msgid "Kernel Parameters"
 msgstr "Viðföng kjarnans"
 
-#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:106
+#: ../iw/bootloader_gui.py:337 ../textw/bootloader_text.py:111
 msgid "Force use of LBA32 (not normally required)"
 msgstr "Krefjast LBA32-hams (oftast óþarft)"
 
@@ -1783,7 +1783,7 @@ msgstr ""
 "hnappinn \"Ekki setja upp ræsistjóra\".  "
 
 #: ../iw/bootloader_gui.py:353 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
 #: ../textw/xconfig_text.py:377 ../textw/xconfig_text.py:384
 #: ../textw/xconfig_text.py:480 ../textw/xconfig_text.py:481
 #: ../textw/xconfig_text.py:500 ../textw/xconfig_text.py:501
@@ -1792,20 +1792,20 @@ msgstr "Sjálfgefið"
 
 #: ../iw/bootloader_gui.py:353 ../iw/mouse_gui.py:156
 #: ../iw/partition_gui.py:1544 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:191 ../textw/bootloader_text.py:262
+#: ../textw/bootloader_text.py:196 ../textw/bootloader_text.py:267
 #: ../textw/mouse_text.py:38 ../textw/silo_text.py:142
 #: ../textw/silo_text.py:207
 msgid "Device"
 msgstr "Tæki"
 
 #: ../iw/bootloader_gui.py:354 ../iw/silo_gui.py:263
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:207
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:207
 msgid "Partition type"
 msgstr "Tegund sneiðar"
 
 #: ../iw/bootloader_gui.py:354 ../iw/bootloader_gui.py:443
-#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:192
-#: ../textw/bootloader_text.py:262 ../textw/silo_text.py:143
+#: ../iw/silo_gui.py:263 ../iw/silo_gui.py:298 ../textw/bootloader_text.py:197
+#: ../textw/bootloader_text.py:267 ../textw/silo_text.py:143
 #: ../textw/silo_text.py:207
 msgid "Boot label"
 msgstr "Ræsimerki"
@@ -1830,7 +1830,7 @@ msgstr "Sjálfgefin ræsimynd"
 msgid "Boot Loader Password Configuration"
 msgstr "lykilorðastillingar ræsistjóra"
 
-#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:430
+#: ../iw/bootloaderpassword_gui.py:30 ../textw/bootloader_text.py:435
 msgid ""
 "Your boot loader password is less than six characters.  We recommend a "
 "longer boot loader password.\n"
@@ -1854,7 +1854,7 @@ msgstr "Lykilorðið er of stutt."
 msgid "Passwords do not match."
 msgstr "Lykilorðin stemma ekki."
 
-#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:367
+#: ../iw/bootloaderpassword_gui.py:77 ../textw/bootloader_text.py:372
 msgid ""
 "A boot loader password prevents users from passing arbitrary options to the "
 "kernel.  For highest security, we recommend setting a password, but this is "
@@ -2327,7 +2327,7 @@ msgstr "Laust pláss"
 
 #: ../iw/partition_gui.py:644 ../textw/partition_text.py:77
 msgid "Extended"
-msgstr "Framlengt"
+msgstr "Extended"
 
 #: ../iw/partition_gui.py:646 ../textw/partition_text.py:79
 msgid "software RAID"
@@ -2959,11 +2959,11 @@ msgstr "Nota LILO ræsistjórann"
 msgid "No Boot Loader"
 msgstr "Engan ræsistjóra"
 
-#: ../textw/bootloader_text.py:66
+#: ../textw/bootloader_text.py:68
 msgid "Skip Boot Loader"
 msgstr "sleppa ræsistjóra"
 
-#: ../textw/bootloader_text.py:67
+#: ../textw/bootloader_text.py:69
 msgid ""
 "You have elected to not install any boot loader. It is strongly recommended "
 "that you install a boot loader unless you have an advanced need.  A boot "
@@ -2978,7 +2978,7 @@ msgstr ""
 "\n"
 "Ertu viss um að þú viljir sleppa uppsetningu ræsistjóra?"
 
-#: ../textw/bootloader_text.py:97 ../textw/silo_text.py:25
+#: ../textw/bootloader_text.py:102 ../textw/silo_text.py:25
 msgid ""
 "A few systems will need to pass special options to the kernel at boot time "
 "for the system to function properly. If you need to pass boot options to the "
@@ -2989,32 +2989,32 @@ msgstr ""
 "svo vélin virki rétt. Ef vélin þín er ein af þessum vélum sláðu þá inn "
 "viðföngin núna. Ef þú ert ekki viss hafðu þetta autt."
 
-#: ../textw/bootloader_text.py:164
+#: ../textw/bootloader_text.py:169
 msgid "Where do you want to install the boot loader?"
 msgstr "Hvar viltu setja upp ræsistjórann?"
 
-#: ../textw/bootloader_text.py:196 ../textw/silo_text.py:147
+#: ../textw/bootloader_text.py:201 ../textw/silo_text.py:147
 #: ../textw/silo_text.py:168
 msgid "Clear"
 msgstr "Hreinsa"
 
-#: ../textw/bootloader_text.py:205
+#: ../textw/bootloader_text.py:210
 msgid "Edit Boot Label Please"
 msgstr "Vinsamlegast breyttu ræsimerkinu"
 
-#: ../textw/bootloader_text.py:223 ../textw/bootloader_text.py:228
+#: ../textw/bootloader_text.py:228 ../textw/bootloader_text.py:233
 msgid "Invalid Boot Label"
 msgstr "Ógilt ræsimerki"
 
-#: ../textw/bootloader_text.py:224
+#: ../textw/bootloader_text.py:229
 msgid "Boot label may not be empty."
 msgstr "Ræsimerkið má ekki vera tómt."
 
-#: ../textw/bootloader_text.py:229
+#: ../textw/bootloader_text.py:234
 msgid "Boot label contains illegal characters."
 msgstr "Heiti ræsamerkis inniheldur ólöglegt tákn."
 
-#: ../textw/bootloader_text.py:281 ../textw/silo_text.py:219
+#: ../textw/bootloader_text.py:286 ../textw/silo_text.py:219
 msgid ""
 "The boot manager Red Hat uses can boot other operating systems as well. You "
 "need to tell me what partitions you would like to be able to boot and what "
@@ -3024,27 +3024,27 @@ msgstr ""
 "þarft að að merkja við þær sneiðar sem þú vilt geta ræst upp af og hvaða "
 "heiti þær eiga að fá."
 
-#: ../textw/bootloader_text.py:377
+#: ../textw/bootloader_text.py:382
 msgid "Use a GRUB Password"
 msgstr "Nota GRUB lykilorð"
 
-#: ../textw/bootloader_text.py:389
+#: ../textw/bootloader_text.py:394
 msgid "Boot Loader Password:"
 msgstr "Ræsistjóralykilorð:"
 
-#: ../textw/bootloader_text.py:419
+#: ../textw/bootloader_text.py:424
 msgid "Passwords Do Not Match"
 msgstr "Lykilorðin stemma ekki"
 
-#: ../textw/bootloader_text.py:420
+#: ../textw/bootloader_text.py:425
 msgid "Passwords do not match"
 msgstr "Lykilorðin stemma ekki"
 
-#: ../textw/bootloader_text.py:424
+#: ../textw/bootloader_text.py:429
 msgid "Password Too Short"
 msgstr "Lykilorðið er of stutt"
 
-#: ../textw/bootloader_text.py:425
+#: ../textw/bootloader_text.py:430
 msgid "Boot loader password is too short"
 msgstr "Ræsistjóralykilorðið er of stutt"
 
@@ -4018,7 +4018,7 @@ msgstr "Fartölvu"
 
 #: ../installclasses/server.py:9
 msgid "Server"
-msgstr "Þjónn"
+msgstr "Þjón"
 
 #: ../installclasses/upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -4552,7 +4552,6 @@ msgid "Retrieving"
 msgstr "Sæki"
 
 #: ../loader/urls.c:163
-#, fuzzy
 msgid ""
 "Please enter the following information:\n"
 "\n"
@@ -4754,7 +4753,7 @@ msgid "Anonymous FTP Server"
 msgstr "Þjónn fyrir nafnlaust FTP"
 
 msgid "SQL Database Server"
-msgstr "SQL gagnagrunnsþjóns"
+msgstr "SQL gagnagrunnsþjónn"
 
 msgid "Web Server"
 msgstr "Vefþjónn"
