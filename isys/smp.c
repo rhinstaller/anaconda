@@ -225,7 +225,7 @@ typedef struct MPFPS {
     u_char      mpfb3;
     u_char      mpfb4;
     u_char      mpfb5;
-} mpfps_t __attribute__ ((__packed__));
+} mpfps_t;
 
 /* MP Configuration Table Header */
 typedef struct MPCTH {
@@ -242,7 +242,7 @@ typedef struct MPCTH {
     uint16_t    extended_table_length;
     u_char      extended_table_checksum;
     u_char      reserved;
-} mpcth_t __attribute__ ((__packed__));
+} mpcth_t;
 
 typedef struct PROCENTRY {
     u_char      type;
@@ -253,7 +253,7 @@ typedef struct PROCENTRY {
     uint32_t    featureFlags;
     uint32_t    reserved1;
     uint32_t    reserved2;
-} ProcEntry __attribute__ ((__packed__));
+} ProcEntry;
 
 #define PROCENTRY_FLAG_EN       0x01
 
