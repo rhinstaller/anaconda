@@ -3050,6 +3050,7 @@ static int firewireInitialize(moduleList modLoaded, moduleDeps modDeps,
 
     if (FL_TESTING(flags)) return 0;
 
+    sleep(3);
     logMessage("probing for firewire scsi devices");
     devices = probeDevices(CLASS_SCSI, BUS_FIREWIRE, PROBE_ALL);
 
