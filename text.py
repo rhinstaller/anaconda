@@ -71,8 +71,7 @@ stepToClasses = {
     "confirminstall" : ("confirm_text", "BeginInstallWindow"),
     "confirmupgrade" : ("confirm_text", "BeginUpgradeWindow"),
     "install" : ("progress_text", "setupForInstall"),
-    "bootdisk" : ("bootdisk_text", ("BootDiskWindow",
-                                    "MakeBootDiskWindow")),
+    "bootdisk" : ("bootdisk_text", ("BootDiskWindow")),
     "complete" : ("complete_text", "FinishedWindow"),
 }
 
