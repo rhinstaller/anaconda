@@ -88,6 +88,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
+"Пожалуйста втавьте дискету. Все содержимое дискеты будет удалено, поэтому "
+"выберите дискету внимательно."
 
 #: ../gui.py:361 ../gui.py:601
 msgid "Next"
@@ -166,11 +168,11 @@ msgstr "Установка"
 
 #: ../image.py:40
 msgid "Copying File"
-msgstr ""
+msgstr "Копирование файла"
 
 #: ../image.py:41
 msgid "Transferring install image to hard drive..."
-msgstr ""
+msgstr "Установочный образ переносится на жесткий диск..."
 
 #: ../image.py:58
 msgid "Change CDROM"
@@ -179,7 +181,7 @@ msgstr "Другой CD-ROM"
 #: ../image.py:59
 #, c-format
 msgid "Please insert disc %d to continue."
-msgstr ""
+msgstr "Вставьте пожалуйста диск %d для продолжения"
 
 #: ../image.py:68
 msgid "Wrong CDROM"
@@ -187,11 +189,11 @@ msgstr "Другой CD-ROM"
 
 #: ../image.py:69
 msgid "That's not the correct Red Hat CDROM."
-msgstr ""
+msgstr "Это не Red Hat CDROM"
 
 #: ../image.py:74
 msgid "The CDROM could not be mounted."
-msgstr ""
+msgstr "CD-ROM не может быть смонтирован."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:965 ../libfdisk/fsedit.c:972 ../libfdisk/fsedit.c:979
@@ -2629,19 +2631,19 @@ msgstr "<не установлено>"
 
 #: ../libfdisk/gnomefsedit.c:2977
 msgid "Requested"
-msgstr ""
+msgstr "Запрошено"
 
 #: ../libfdisk/gnomefsedit.c:2978
 msgid "Actual"
-msgstr ""
+msgstr "Реально"
 
 #: ../libfdisk/gnomefsedit.c:3151
 msgid "Drive"
-msgstr "Пропустить диск"
+msgstr "Привод"
 
 #: ../libfdisk/gnomefsedit.c:3152
 msgid "Geom [C/H/S]"
-msgstr ""
+msgstr "Геом. [C/H/S]"
 
 #: ../libfdisk/gnomefsedit.c:3153
 msgid "Total (M)"
@@ -2649,15 +2651,15 @@ msgstr "Всего"
 
 #: ../libfdisk/gnomefsedit.c:3154
 msgid "Free (M)"
-msgstr ""
+msgstr "Своб.(M)"
 
 #: ../libfdisk/gnomefsedit.c:3155
 msgid "Used (M)"
-msgstr ""
+msgstr "Исп. (M)"
 
 #: ../libfdisk/gnomefsedit.c:3156
 msgid "Used (%)"
-msgstr ""
+msgstr "Исп. (%)"
 
 #: ../libfdisk/gnomefsedit.c:3392
 msgid "Unallocated Partitions Exist..."
@@ -2736,6 +2738,7 @@ msgstr "Текущие разделы диска"
 msgid ""
 "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-Ok        "
 msgstr ""
+"    F1-Помощь   F2-Добавить F3-Редакт. F4-Удалить  F5-Сброс    F12-Ok        "
 
 #: ../libfdisk/newtfsedit.c:1455
 msgid "Drive Summaries"
@@ -2743,7 +2746,7 @@ msgstr "Статистика диска"
 
 #: ../libfdisk/newtfsedit.c:1457
 msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-msgstr ""
+msgstr "  Привод     Геом [C/H/S]      Всего  Использ. Своб."
 
 #: ../libfdisk/newtfsedit.c:1571
 msgid "No Root Partition"
@@ -2839,7 +2842,7 @@ msgstr "Устройства"
 
 #: ../loader/devices.c:209
 msgid "Do you have a driver disk?"
-msgstr ""
+msgstr "У вас есть диск с драйвером?"
 
 #: ../loader/devices.c:216
 msgid "Insert your driver disk and press \"OK\" to continue."
@@ -2881,7 +2884,7 @@ msgstr "Ошибка монтирования дискеты."
 
 #: ../loader/devices.c:476
 msgid "The wrong diskette was inserted."
-msgstr ""
+msgstr "Вставлена неверная дискета."
 
 #: ../loader/devices.c:503
 msgid "Driver Disk"
@@ -2890,7 +2893,7 @@ msgstr "Статистика диска"
 #: ../loader/devices.c:504
 #, c-format
 msgid "Please insert the %s driver disk now."
-msgstr ""
+msgstr "Вставьте пожалуйста %d диск драйвера."
 
 #: ../loader/kickstart.c:58 ../loader/kickstart.c:68 ../loader/kickstart.c:107
 msgid "Kickstart Error"
@@ -3049,7 +3052,7 @@ msgstr "FTP"
 
 #: ../loader/loader.c:1071 ../loader/loader.c:1080
 msgid "HTTP"
-msgstr ""
+msgstr "HTTP"
 
 #: ../loader/loader.c:1072
 msgid "Unable to retrieve the first install image"
@@ -3156,10 +3159,14 @@ msgid ""
 "enter it now. If you don't have this information, you can leave this field "
 "blank and the install will continue."
 msgstr ""
+"Ваш запрос динамического IP вернул конфигурацию IP, но она не содержит "
+"информации о сервере имен. Если вы знаете адрес вашего сервера имен, укажите "
+"его сейчас. Если такой информации нет, оставьте это поле пустым и установка "
+"будет продолжена."
 
 #: ../loader/net.c:254
 msgid "Invalid IP Information"
-msgstr "Неверная информация"
+msgstr "Неверная информация о IP"
 
 #: ../loader/net.c:255
 msgid "You entered an invalid IP address."
@@ -3400,37 +3407,37 @@ msgid ""
 msgstr "Вы собираетесь удалить все существующие установки Linux."
 
 msgid "Base"
-msgstr ""
+msgstr "Базовый комплект"
 
 msgid "Printer Support"
-msgstr ""
+msgstr "Поддержка принтера"
 
 msgid "X Window System"
 msgstr "Проверка системы"
 
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 msgid "KDE"
-msgstr ""
+msgstr "KDE"
 
 msgid "Mail/WWW/News Tools"
-msgstr ""
+msgstr "Почта/Новости/WWW"
 
 msgid "DOS/Windows Connectivity"
-msgstr ""
+msgstr "Средства обмена с DOS/Windows"
 
 msgid "Graphics Manipulation"
-msgstr ""
+msgstr "Работа с графикой"
 
 msgid "Games"
-msgstr ""
+msgstr "Игры"
 
 msgid "Multimedia Support"
-msgstr ""
+msgstr "Поддержка Multimedia"
 
 msgid "Laptop Support"
-msgstr ""
+msgstr "Поддержка лэптопов"
 
 msgid "Networked Workstation"
 msgstr "Конфигурация сети"
@@ -3445,13 +3452,13 @@ msgid "NFS Server"
 msgstr "Сервер NIS:"
 
 msgid "SMB (Samba) Server"
-msgstr ""
+msgstr "Сервер SMB (Samba)"
 
 msgid "IPX/Netware(tm) Connectivity"
-msgstr ""
+msgstr "Поддержка IPX/Netware(tm)"
 
 msgid "Anonymous FTP Server"
-msgstr ""
+msgstr "Анонимный сервер FTP"
 
 msgid "Web Server"
 msgstr "Сервер"
@@ -3460,22 +3467,22 @@ msgid "DNS Name Server"
 msgstr "Сервер имен"
 
 msgid "Postgres (SQL) Server"
-msgstr ""
+msgstr "Сервер Postgres (SQL)"
 
 msgid "Network Management Workstation"
 msgstr "Конфигурация сети"
 
 msgid "Authoring/Publishing"
-msgstr ""
+msgstr "Издательские системы"
 
 msgid "Emacs"
-msgstr ""
+msgstr "Emacs"
 
 msgid "Development"
-msgstr ""
+msgstr "Разработка"
 
 msgid "Kernel Development"
 msgstr "Параметры модуля"
 
 msgid "Utilities"
-msgstr ""
+msgstr "Утилиты"
