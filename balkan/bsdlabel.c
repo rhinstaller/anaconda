@@ -53,8 +53,6 @@ struct bsd_disklabel {
     } d_partitions[BSD_MAXPARTITIONS];	/* actually may be more */
 };
 
-long long llseek(int fd, long long offset, int whence);
-
 #if 0
 static unsigned short xbsd_dkcksum (struct bsd_disklabel *lp) {
   unsigned short *start, *end;

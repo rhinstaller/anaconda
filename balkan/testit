@@ -2,7 +2,7 @@
 
 import _balkan
 
-p = _balkan.readTable('/dev/sdc')
+p = _balkan.readTable('/dev/hda')
 
 for i in range(0, len(p) - 1):
     (type, start, size) = p[i]

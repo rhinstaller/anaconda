@@ -39,8 +39,6 @@ struct singlePartitionTable {
 #define WHOLE_DISK		5
 #define UFS_SUPER_MAGIC		0x00011954
 
-long long llseek(int fd, long long offset, int whence);
-
 int sunpReadTable(int fd, struct partitionTable * table) {
     struct singlePartitionTable singleTable;
     int i, rc, magic;
@@ -99,7 +97,7 @@ int sunpReadTable(int fd, struct partitionTable * table) {
 
 	  default:
 	    if (table->parts[i].type != WHOLE_DISK &&
-		llseek(fd, (8192 + 0x55c + SECTOR_SIZE *
+		lseek64(fd, (8192 + 0x55c + SECTOR_SIZE *
 			    (unsigned long long)table->parts[i].startSector),
 		       SEEK_SET) >= 0 &&
 		read(fd, &magic, 4) == 4 &&
