@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.0.3.1
+Version: 10.0.3.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,11 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Sep 21 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.2-1
+- some fixes for Arabic (#122228)
+- support using ksdevice=macaddr (#130605)
+- add an images/pxeboot directory on ia64
+
 * Tue Sep 21 2004 Jeremy Katz <katzj@redhat.com> - 10.0.3.1-1
 - improve handling of non-physical consoles on some ppc and ia64 machines
 - add Bengali(India) and Gujarati to the lang-table (#126108)
