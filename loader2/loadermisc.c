@@ -114,3 +114,59 @@ char * sdupprintf(const char *format, ...) {
 
     return buf;
 }
+
+
+/* look for available memory.  note: won't ever report more than the 
+ * 900 megs or so supported by the -BOOT kernel due to not using e820 */
+int totalMemory(void) {
+    int fd;
+    int bytesRead;
+    char buf[4096];
+    char * chptr, * start;
+    int total = 0;
+    
+    fd = open("/proc/meminfo", O_RDONLY);
+    if (fd < 0) {
+        logMessage("failed to open /proc/meminfo: %s", strerror(errno));
+        return 0;
+    }
+    
+    bytesRead = read(fd, buf, sizeof(buf) - 1);
+    if (bytesRead < 0) {
+        logMessage("failed to read from /proc/meminfo: %s", strerror(errno));
+        close(fd);
+        return 0;
+    }
+    
+    close(fd);
+    buf[bytesRead] = '\0';
+    
+    chptr = buf;
+    while (*chptr && !total) {
+        if (*chptr != '\n' || strncmp(chptr + 1, "MemTotal:", 9)) {
+            chptr++;
+            continue;
+        }
+
+        start = ++chptr ;
+        while (*chptr && *chptr != '\n') chptr++;
+
+        *chptr = '\0';
+    
+        while (!isdigit(*start) && *start) start++;
+        if (!*start) {
+            logMessage("no number appears after MemTotal tag");
+            return 0;
+        }
+
+        chptr = start;
+        while (*chptr && isdigit(*chptr)) {
+            total = (total * 10) + (*chptr - '0');
+            chptr++;
+        }
+    }
+
+    logMessage("%d kB are available", total);
+    
+    return total;
+}

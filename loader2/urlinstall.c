@@ -97,10 +97,11 @@ static int loadUrlImages(struct iurlinfo * ui, int flags) {
         unlink("/tmp/ramfs/updates-disk.img");
     }
 
-    if (FL_GRAPHICAL(flags))
-	stage2img = "stage2.img";
-    else
+    /* require 128MB for use of graphical stage 2 due to size of image */
+    if (FL_TEXT(flags) || totalMemory() < 128000)
 	stage2img = "netstg2.img";
+    else
+	stage2img = "stage2.img";
 
     snprintf(tmpstr1, sizeof(tmpstr1), "RedHat/base/%s", stage2img);
     snprintf(tmpstr2, sizeof(tmpstr2), "/tmp/ramfs/%s", stage2img);
