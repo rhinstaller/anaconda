@@ -263,13 +263,24 @@ class bootloaderInfo:
         return lilo
 
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
-		  defaultDev, justConfig):
-
-        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
-                                          kernelList, chainList, defaultDev)
-	config.write(instRoot + self.configfile, perms = self.perms)
+		  defaultDev, justConfig, intf):
+        if len(kernelList) >= 1:
+            config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+                                              kernelList, chainList,
+                                              defaultDev)
+            config.write(instRoot + self.configfile, perms = self.perms)
+        else:
+            self.noKernelsWarn(intf)
 
         return ""
+
+    # XXX in the future we also should do some validation on the config
+    # file that's already there
+    def noKernelsWarn(self, intf):
+        intf.messageWindow(_("Warning"),
+                           _("No kernel packages were installed on your "
+                             "system.  Your boot loader configuration "
+                             "will not be changed."))
 
     def getArgList(self):
         args = []
@@ -336,9 +347,12 @@ class ia64BootloaderInfo(bootloaderInfo):
 	return ""
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
-		  defaultDev, justConfig):
-        str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
-                             chainList, defaultDev, justConfig)
+		  defaultDev, justConfig, intf):
+        if len(kernelList) >= 1:
+            str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
+                                 chainList, defaultDev, justConfig)
+        else:
+            self.noKernelsWarn(intf)
 
         bootdev = fsset.getEntryByMountPoint("/boot/efi").device.getDevice()
         if not bootdev:
@@ -402,6 +416,9 @@ class x86BootloaderInfo(bootloaderInfo):
 
     def writeGrub(self, instRoot, fsset, bl, langs, kernelList, chainList,
 		  defaultDev, justConfigFile):
+        if len(kernelList) < 1:
+            return ""
+        
 	images = bl.images.getImages()
         rootDev = fsset.getEntryByMountPoint("/").device.getDevice()
 
@@ -595,9 +612,10 @@ class x86BootloaderInfo(bootloaderInfo):
 
     def writeLilo(self, instRoot, fsset, bl, langs, kernelList, 
                   chainList, defaultDev, justConfig):
-        config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
+        if len(kernelList) >= 1:
+            config = self.getBootloaderConfig(instRoot, fsset, bl, langs,
                                           kernelList, chainList, defaultDev)
-	config.write(instRoot + self.configfile, perms = self.perms)
+            config.write(instRoot + self.configfile, perms = self.perms)
 
         if not justConfig:
 	    # throw away stdout, catch stderr
@@ -610,7 +628,10 @@ class x86BootloaderInfo(bootloaderInfo):
 	return str
         
     def write(self, instRoot, fsset, bl, langs, kernelList, chainList,
-		  defaultDev, justConfig):
+		  defaultDev, justConfig, intf):
+        if len(kernelList) < 1:
+            self.noKernelsWarn(intf)
+        
         str = self.writeLilo(instRoot, fsset, bl, langs, kernelList, 
                              chainList, defaultDev,
                              justConfig | (self.useGrubVal))
@@ -740,7 +761,7 @@ def writeBootloader(intf, instRoot, fsset, bl, langs, comps):
 
 
     bl.write(instRoot, fsset, bl, langs, kernelList, otherList, defaultDev,
-                 justConfigFile)
+                 justConfigFile, intf)
 
     w.pop()
 

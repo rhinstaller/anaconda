@@ -741,10 +741,12 @@ class ComponentSet:
 		version = (self.packages[ktag][rpm.RPMTAG_VERSION] + "-" +
 			   self.packages[ktag][rpm.RPMTAG_RELEASE] + tag)
 		kernelVersions.append((version, nick))
- 
- 	version = (self.packages['kernel'][rpm.RPMTAG_VERSION] + "-" +
- 		   self.packages['kernel'][rpm.RPMTAG_RELEASE])
- 	kernelVersions.append((version, 'up'))
+
+        if (self.packages.has_key('kernel') and
+            self.packages['kernel'].selected):
+            version = (self.packages['kernel'][rpm.RPMTAG_VERSION] + "-" +
+                       self.packages['kernel'][rpm.RPMTAG_RELEASE])
+            kernelVersions.append((version, 'up'))
  
 	return kernelVersions
 
