@@ -301,7 +301,7 @@ class LiloConfiguration:
 	upKernelLabel = main
 	defaultKernel = main
 
-	if (hdList.has_key('kernel-enterprise') and 
+	if (isys.smpAvailable() and hdList.has_key('kernel-enterprise') and 
                         hdList['kernel-enterprise'].selected):
 	    kernelList.append(('linux-ent', 
 			      hdList['kernel-enterprise'], "enterprise"))
