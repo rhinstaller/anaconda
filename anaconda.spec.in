@@ -7,12 +7,12 @@ Summary: The Red Hat Linux installation program.
 Group: Applications/System
 Source: anaconda-%{PACKAGE_VERSION}.tar.bz2
 Obsoletes: anaconda-reconfig
-BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk+-devel gnome-libs-devel rpm-python, newt-devel, rpm-devel, gettext, dietlibc, modutils-devel
+BuildPreReq: pump-devel, kudzu-devel, pciutils-devel, bzip2-devel, e2fsprogs-devel, python-devel gtk2-devel rpm-python, newt-devel, rpm-devel, gettext, dietlibc, modutils-devel
 Prereq: chkconfig /etc/init.d
 Requires: rpm-python
 Excludearch: sparc sparc64
 
-BuildRoot: /var/tmp/anaconda-%{PACKAGE_VERSION}
+BuildRoot: %{_tmppath}/anaconda-%{PACKAGE_VERSION}
 
 %description
 The anaconda package contains portions of the Red Hat Linux
@@ -76,6 +76,9 @@ fi
 %changelog
 * %{date} Anaconda team <bugzilla@redhat.com>
 - built new version from CVS
+
+* Thu Jan 31 2002 Jeremy Katz <katzj@redhat.com>
+- update the BuildRequires a bit
 
 * Fri Jan  4 2002 Jeremy Katz <katzj@redhat.com>
 - ddcprobe is now done from kudzu
