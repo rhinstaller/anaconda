@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: de\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-30 17:13-0400\n"
-"PO-Revision-Date: 2004-10-18 21:19+0200\n"
+"PO-Revision-Date: 2004-10-18 23:48+0200\n"
 "Last-Translator: Ronny Buchmann <ronny-vlug@vlugnet.org>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -287,7 +287,7 @@ msgid ""
 "allocated logical volumes in %s."
 msgstr ""
 "Durch das Hinzufügen dieser Partition würde nicht genügend Platz für bereits "
-"zugeordnete log. Datenträger (Logical Volumes) in %s gelassen."
+"zugeordnete logische Datenträger (Logical Volumes) in %s gelassen."
 
 #: ../autopart.py:1223
 msgid "Requested Partition Does Not Exist"
@@ -337,7 +337,7 @@ msgstr ""
 
 #: ../autopart.py:1315
 msgid "Requested Logical Volume Does Not Exist"
-msgstr "Der angeforderte log. Datenträger (Logical Volume) existiert nicht"
+msgstr "Der angeforderte logische Datenträger (Logical Volume) existiert nicht"
 
 #: ../autopart.py:1316
 #, python-format
@@ -346,7 +346,7 @@ msgid ""
 "\n"
 "Press 'OK' to reboot your system."
 msgstr ""
-"Der log. Datenträger (Logical Volume) %s zur Verwendung mit %s\n"
+"Der logische Datenträger (Logical Volume) %s zur Verwendung mit %s\n"
 "konnte nicht gefunden werden.\n"
 "\n"
 "Drücken Sie 'OK', um Ihr System neu zu starten."
@@ -1723,7 +1723,7 @@ msgstr ""
 
 #: ../partIntfHelpers.py:57
 msgid "Please enter a logical volume name."
-msgstr "Geben Sie einen Namen für den log. Datenträger (Logical Volume) ein."
+msgstr "Geben Sie einen Namen für den logischen Datenträger (Logical Volume) ein."
 
 #: ../partIntfHelpers.py:61
 msgid "Logical Volume Names must be less than 128 characters"
@@ -1989,7 +1989,7 @@ msgstr ""
 #: ../partIntfHelpers.py:508
 #, python-format
 msgid "You are about to delete the logical volume \"%s\"."
-msgstr "Sie sind dabei, den log. Datenträger (Logical Volume) \"%s\" zu löschen."
+msgstr "Sie sind dabei, den logischen Datenträger (Logical Volume) \"%s\" zu löschen."
 
 #: ../partIntfHelpers.py:511
 msgid "You are about to delete a RAID device."
@@ -2088,7 +2088,7 @@ msgstr "Bootpartitionen sind nur auf RAID1 zulässig."
 #: ../partitions.py:851
 msgid "Bootable partitions cannot be on a logical volume."
 msgstr ""
-"Bootbare Partitionen können sich nicht in einem log. Datenträger (Logical Volume) befinden."
+"Bootbare Partitionen können sich nicht in einem logischen Datenträger (Logical Volume) befinden."
 
 #: ../partitions.py:862
 msgid ""
@@ -3506,8 +3506,8 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Die Größe der physische Einteilungseinheiten (Extent) kann nicht geändert werden, "
-"da sonst der Platz für die derzeit definierten log. Datenträger (Logical Volume) "
+"Die Größe der physischen Einteilungseinheiten (Extents) kann nicht geändert werden, "
+"da sonst der Platz für die derzeit definierten logischen Datenträger (Logical Volumes) "
 "größer als der verfügbare Platz wäre."
 
 #: ../iw/lvm_dialog_gui.py:118
@@ -3523,7 +3523,7 @@ msgid ""
 "This change will take affect immediately."
 msgstr ""
 "Diese Änderung der Größe der physischen Einteilungseinheiten (Extent) erfordert, dass die Größen "
-"für die aktuellen log. Datenträger (Logical Volumes) zu einem ganzen Vielfachen der "
+"für die aktuellen logischen Datenträger (Logical Volumes) zu einem ganzen Vielfachen der "
 "Einteilungseinheiten aufgerundet werden.\n"
 "\n"
 "Diese Änderung wird sofort wirksam."
@@ -3575,30 +3575,30 @@ msgid ""
 "defined logical volumes."
 msgstr ""
 "Die Größe der Einteilungseinheiten (Extent) kann nicht geändert werden, da die resultierende "
-"maximale Größe eines log. Datenträgers (Logical Volume) (%10.2f MB) kleiner ist als einer oder "
-"mehrere der derzeit definierten log. Datenträger."
+"maximale Größe eines logischen Datenträgers (Logical Volume) (%10.2f MB) kleiner ist als einer oder "
+"mehrere der derzeit definierten logischen Datenträger."
 
 #: ../iw/lvm_dialog_gui.py:283
 msgid ""
 "You cannot remove this physical volume because otherwise the volume group "
 "will be too small to hold the currently defined logical volumes."
 msgstr ""
-"Sie können diesen phys. Datenträger (Physical Volume) nicht entfernen, da sonst der "
-"Datenträgerverbund (Volume Group) für die derzeit definierten log. Datenträger "
+"Sie können diesen physischen Datenträger (Physical Volume) nicht entfernen, da sonst der "
+"Datenträgerverbund (Volume Group) für die derzeit definierten logischen Datenträger "
 "(Logical Volumes) zu klein wird."
 
 #: ../iw/lvm_dialog_gui.py:354 ../textw/partition_text.py:1134
 msgid "Make Logical Volume"
-msgstr "Log. Datenträger (Logical Volume) anlegen"
+msgstr "Logischen Datenträger (Logical Volume) anlegen"
 
 #: ../iw/lvm_dialog_gui.py:357
 #, python-format
 msgid "Edit Logical Volume: %s"
-msgstr "Log. Datenträger (Logical Volume) bearbeiten: %s"
+msgstr "Logischen Datenträger (Logical Volume) bearbeiten: %s"
 
 #: ../iw/lvm_dialog_gui.py:359 ../textw/partition_text.py:1132
 msgid "Edit Logical Volume"
-msgstr "Log. Datenträger (Logical Volume) bearbeiten"
+msgstr "Logischen Datenträger (Logical Volume) bearbeiten"
 
 #: ../iw/lvm_dialog_gui.py:372 ../iw/partition_dialog_gui.py:292
 #: ../iw/raid_dialog_gui.py:283
@@ -3620,11 +3620,11 @@ msgstr "Unbekannt"
 
 #: ../iw/lvm_dialog_gui.py:399
 msgid "_Logical Volume Name:"
-msgstr "Name des _log. Datenträgers (Logical Volume):"
+msgstr "_Logical Volume-Name:"
 
 #: ../iw/lvm_dialog_gui.py:407 ../textw/partition_text.py:283
 msgid "Logical Volume Name:"
-msgstr "Name des log. Datenträgers (Logical Volume):"
+msgstr "Logical Volume-Name:"
 
 #: ../iw/lvm_dialog_gui.py:415 ../iw/partition_dialog_gui.py:367
 msgid "_Size (MB):"
@@ -3640,7 +3640,7 @@ msgstr "Größe (MB):"
 #: ../iw/lvm_dialog_gui.py:436
 #, python-format
 msgid "(Max size is %s MB)"
-msgstr "(Max Größe: %s MB)"
+msgstr "(Max. Größe: %s MB)"
 
 #: ../iw/lvm_dialog_gui.py:497
 msgid "Illegal size"
@@ -3664,17 +3664,17 @@ msgstr ""
 
 #: ../iw/lvm_dialog_gui.py:543 ../textw/partition_text.py:1256
 msgid "Illegal Logical Volume Name"
-msgstr "Ungültiger Name des log. Datenträgers (Logical Volume)"
+msgstr "Ungültiger Name des logischen Datenträgers (Logical Volume)"
 
 #: ../iw/lvm_dialog_gui.py:562 ../textw/partition_text.py:1273
 msgid "Illegal logical volume name"
-msgstr "Ungültiger Name des log. Datenträgers (Logical Volume)"
+msgstr "Ungültiger Name des logischen Datenträgers (Logical Volume)"
 
 #: ../iw/lvm_dialog_gui.py:563 ../textw/partition_text.py:1274
 #, python-format
 msgid "The logical volume name \"%s\" is already in use. Please pick another."
 msgstr ""
-"Der Name des log. Datenträgers (Logical Volume) \"%s\" wird bereits verwendet. Wählen Sie "
+"Der Name des logischen Datenträgers (Logical Volume) \"%s\" wird bereits verwendet. Wählen Sie "
 "einen anderen Namen."
 
 #: ../iw/lvm_dialog_gui.py:577
@@ -3685,8 +3685,8 @@ msgid ""
 "Extent size for this Volume Group."
 msgstr ""
 "Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
-"Größe des log. Datenträgers (%10.2f MB). Um diesen Grenzwert zu erhöhen, "
-"können Sie die Größe der Einheiten (Extents) für diesen Datenträgerverbund erhöhen."
+"Größe des logischen Datenträgers (Logical Volume) (%10.2f MB). Um diesen Grenzwert zu erhöhen, "
+"können Sie die Größe der Einheiten (Extents) für diesen Datenträgerverbund (Volume Group) erhöhen."
 
 #: ../iw/lvm_dialog_gui.py:620 ../iw/partition_dialog_gui.py:179
 #: ../iw/partition_dialog_gui.py:191 ../iw/partition_dialog_gui.py:239
@@ -3703,9 +3703,9 @@ msgid ""
 "only has %g MB.  Please either make the volume group larger or make the "
 "logical volume(s) smaller."
 msgstr ""
-"Die von Ihnen konfigurierten log. Datenträger (Logical Volumes) benötigen %g MB, der "
+"Die von Ihnen konfigurierten logischen Datenträger (Logical Volumes) benötigen %g MB, der "
 "Datenträgerverbund (Volume Group) besitzt jedoch nur %g MB. Vergrößern Sie den Datenträgerverbund "
-"oder verkleinern Sie den/die logische/n Datenträger."
+"oder verkleinern Sie den/die logischen Datenträger."
 
 #: ../iw/lvm_dialog_gui.py:694
 msgid "No free slots"
@@ -3715,7 +3715,7 @@ msgstr "Keine freien Plätze"
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
 msgstr ""
-"Sie können nicht mehr als %s log. Datenträger (Logical Volumes) pro Datenträgerverbund anlegen."
+"Sie können nicht mehr als %s logische Datenträger (Logical Volumes) pro Datenträgerverbund anlegen."
 
 #: ../iw/lvm_dialog_gui.py:701
 msgid "No free space"
@@ -3728,8 +3728,8 @@ msgid ""
 "currently existing logical volumes"
 msgstr ""
 "Es ist kein Platz im Datenträgerverbund (Volume Group) verfügbar, um neue logische Datenträger "
-"(Logical Volumes) anzulegen. Wenn Sie einen log. Datenträger hinzufügen möchten, müssen Sie die "
-"Größe von einem oder mehreren der derzeit existierenden log. Datenträger reduzieren."
+"(Logical Volumes) anzulegen. Wenn Sie einen logischen Datenträger hinzufügen möchten, müssen Sie die "
+"Größe von einem oder mehreren der derzeit existierenden logischen Datenträger reduzieren."
 
 #: ../iw/lvm_dialog_gui.py:730
 #, python-format
@@ -3748,7 +3748,7 @@ msgstr "Name in Gebrauch"
 #, python-format
 msgid "The volume group name \"%s\" is already in use. Please pick another."
 msgstr ""
-"Der Name für den Datenträgerverbund \"%s\" wird bereits verwendet. Wählen Sie einen "
+"Der Name für den Datenträgerverbund (Volume Group) \"%s\" wird bereits verwendet. Wählen Sie einen "
 "anderen Namen."
 
 #: ../iw/lvm_dialog_gui.py:920
@@ -3763,11 +3763,11 @@ msgid ""
 "Create a partition or RAID array of type \"physical volume (LVM)\" and then "
 "select the \"LVM\" option again."
 msgstr ""
-"Es ist mindestens eine neue Partition des Typs \"Physical Volume (LVM)\" notwendig, um "
+"Es ist mindestens eine neue Partition des Typs \"physical volume (LVM)\" notwendig, um "
 "einen LVM Datenträgerverbund anzulegen.\n"
 "\n"
-"Legen Sie zunächst eine Partition oder RAID-Array des Typs \"Physical "
-"Volume (LVM)\" an und wählen Sie anschließend erneut die Option \"LVM\"."
+"Legen Sie zunächst eine Partition oder RAID-Array des Typs \"physical "
+"volume (LVM)\" an und wählen Sie anschließend erneut die Option \"LVM\"."
 
 #: ../iw/lvm_dialog_gui.py:932
 msgid "Make LVM Volume Group"
@@ -3792,11 +3792,11 @@ msgstr "Volume Group-Name:"
 
 #: ../iw/lvm_dialog_gui.py:969
 msgid "_Physical Extent:"
-msgstr "_Phys. Einheit:"
+msgstr "_Phys. Einheit (Extent):"
 
 #: ../iw/lvm_dialog_gui.py:984
 msgid "Physical Volumes to _Use:"
-msgstr "Zu verwendende Physical Vol_umes"
+msgstr "Zu n_utzende Physical Volumes"
 
 #: ../iw/lvm_dialog_gui.py:990
 msgid "Used Space:"
@@ -3829,7 +3829,7 @@ msgstr "B_earbeiten"
 
 #: ../iw/lvm_dialog_gui.py:1092
 msgid "Logical Volumes"
-msgstr "Logical Volumes"
+msgstr "Logische Datenträger (Logical Volumes)"
 
 #: ../iw/mouse_gui.py:24
 msgid "Mouse Configuration"
@@ -4512,7 +4512,7 @@ msgstr "R_AID"
 
 #: ../iw/partition_gui.py:1354
 msgid "_LVM"
-msgstr "_LVM"
+msgstr "L_VM"
 
 #: ../iw/partition_gui.py:1395
 msgid "Hide RAID device/LVM Volume _Group members"
@@ -6055,7 +6055,7 @@ msgstr "End-Zylinder:"
 
 #: ../textw/partition_text.py:474
 msgid "Volume Group:"
-msgstr "Volume Groupe:"
+msgstr "Volume Group:"
 
 #: ../textw/partition_text.py:496
 msgid "RAID Level:"
@@ -6137,7 +6137,7 @@ msgstr "Nicht unterstützt"
 #: ../textw/partition_text.py:768
 msgid "LVM Volume Groups can only be edited in the graphical installer."
 msgstr ""
-"LVM Datenträgergruppen (Volume Groups) könnnen nur in der grafischen "
+"Ein LVM Datenträgerverbund (Volume Group) kann nur in der grafischen "
 "Installation bearbeitet werden."
 
 #: ../textw/partition_text.py:844 ../textw/partition_text.py:897
@@ -6186,7 +6186,7 @@ msgstr "Kein Datenträgerverbund (Volume Group)"
 
 #: ../textw/partition_text.py:1173
 msgid "No volume groups in which to create a logical volume"
-msgstr "Kein Datenträgerverbund (Volume Group), um darin einen log. Datenträger "
+msgstr "Kein Datenträgerverbund (Volume Group), um darin einen logischen Datenträger "
 "(Logical Volume) zu erstellen."
 
 #: ../textw/partition_text.py:1289
@@ -6196,7 +6196,7 @@ msgid ""
 "size (%10.2f MB). "
 msgstr ""
 "Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
-"Größe des log. Datenträgers (Logical Volume) (%10.2f MB). "
+"Größe des logischen Datenträgers (Logical Volume) (%10.2f MB). "
 
 #: ../textw/partition_text.py:1308
 #, python-format
@@ -6205,7 +6205,7 @@ msgid ""
 "the volume group (%10.2f MB)."
 msgstr ""
 "Die derzeit erforderliche Größe (%10.2f MB) ist größer als die maximale "
-"Größe im Datenträgerverbudn (Volume Group) (%10.2f MB). "
+"Größe im Datenträgerverbund (Volume Group) (%10.2f MB). "
 
 #: ../textw/partition_text.py:1362
 msgid "New Partition or Logical Volume?"
@@ -6214,7 +6214,7 @@ msgstr "Neue Partition oder Logical Volume?"
 #: ../textw/partition_text.py:1363
 msgid "Would you like to create a new partition or a new logical volume?"
 msgstr ""
-"Möchten Sie eine neue Partition oder eine neuen log. Datenträger (Logical Volume) erstellen?"
+"Möchten Sie eine neue Partition oder eine neuen logischen Datenträger (Logical Volume) erstellen?"
 
 #: ../textw/partition_text.py:1365
 msgid "partition"
