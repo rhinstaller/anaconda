@@ -178,7 +178,7 @@ def testx(x):
 
     for i in range(5):
         time.sleep(1)
-        sys.stdout.write("%s..." % i+1)
+        sys.stdout.write("%s..." % (i+1))
         sys.stdout.flush()
         
     sys.stdout.write("\n")
