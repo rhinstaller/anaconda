@@ -521,6 +521,7 @@ for p in $DEST $DESTGR; do
 	echo -n -e "\rScrubbing trees..." "$p"
 	ln -s ../lib/anaconda/raidstart-stub $p/usr/bin/raidstart
 	ln -s ../lib/anaconda/raidstop-stub $p/usr/bin/raidstop
+	ln -s ../lib/anaconda/losetup-stub $p/usr/bin/losetup
 
 	mv $p/usr/sbin/anaconda $p/usr/bin/anaconda
 	mv $p/usr/sbin/anaconda-runrescue $p/usr/bin/anaconda-runrescue

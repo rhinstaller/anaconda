@@ -61,3 +61,14 @@ class XKB:
     
     def getMouseKeys (self):
         return _xkb.get_mousekeys ()
+
+if __name__ == "__main__":
+    xkb = XKB()
+    print xkb.getVariants()
+        
+
+
+
+
+
+
