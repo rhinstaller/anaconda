@@ -896,12 +896,12 @@ for KERNELARCH in $arches; do
 
     if [ ! -d "$KERNELROOT/lib/modules/$version" ]; then
 	echo "$KERNELROOT/lib/modules/$version is not a valid modules directory" 2>&1
-	usage
+	exit 1
     fi
 
     if [ ! -f "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version" ]; then
 	echo "$KERNELROOT/$KERNELDIR/${KERNELNAME}-$version does not exist"
-	usage
+	exit 1
     fi
 
     if [ -f $KERNELROOT/etc/pcmcia/config ]; then
