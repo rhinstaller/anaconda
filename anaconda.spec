@@ -76,7 +76,7 @@ rm -rf $RPM_BUILD_ROOT
 - fix Xvnc parameters (clumens, #150498)
 - unmount loopback-mounted ISO images to free loop0 (clumens, #150887)
 - fix warnings about gtk.TRUE and gtk.FALSE, partly based on a patch
-  from Colin Walters. (pjones)
+  from Colin Charles. (pjones)
 - sqlite3->sqlite (pnasrat)
 - support longer package names in hdlist (pnasrat, #146820)
 - Fix handling of --debug (Ingo Pakleppa, #150920, #150925)
