@@ -38,7 +38,7 @@ install: all
 	rm -f $(DESTDIR)/sbin/init
 	install -s loader $(DESTDIR)/sbin/loader
 	install -s init $(DESTDIR)/sbin/init
-	install 755 ../isys/pci/pcitable $(DESTDIR)/etc
+	install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
 
 loader: $(OBJS)
 	$(CC) $(STATIC) -o $@ $(OBJS) -lpopt     \
