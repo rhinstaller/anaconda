@@ -935,7 +935,8 @@ class InstallControlWindow:
             try:
                 exec s
                 break
-            except ImportError:            
+            except ImportError, e:
+                print e
                 win = MessageWindow(_("Error!"),
                                    _("An error occurred when attempting "
                                      "to load an installer interface "
