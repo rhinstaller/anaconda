@@ -127,6 +127,7 @@ class InstallPathWindow (InstallWindow):
 				       self.todo.serial, 0, 0,
 				       self.todo.intf.waitWindow,
 				       self.todo.intf.messageWindow,
+				       self.todo.intf.progressWindow,
                                        not self.todo.expert)
 
 ###
