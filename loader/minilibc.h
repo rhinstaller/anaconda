@@ -28,6 +28,7 @@ extern int errno;
 #include <asm/ioctls.h>
 #include <asm/unistd.h>
 #include <asm/fcntl.h>
+#include <asm/signal.h>
 
 #ifndef MINILIBC_INTERNAL
 static inline _syscall5(int,mount,const char *,spec,const char *,dir,const char *,type,unsigned long,rwflag,const void *,data);
@@ -106,8 +107,3 @@ char * strchr(char * str, int ch);
 char * strncpy(char * dst, const char * src, int len);
 
 void printstr(char * string);
-
-#define SIGINT		 2
-#define SIGTSTP		20
-
-#define SIG_IGN		 ((void *) 1)
