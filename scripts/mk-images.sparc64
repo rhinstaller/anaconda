@@ -37,6 +37,8 @@ maketftp() {
 	fi
 	echo "bad argument passed to maketftp"
 	exit 1
+    done
+	
     $TILO vmlinux64 $TFTPKERNEL $TFTPINITRD $TFTPIMAGE
 }
 
