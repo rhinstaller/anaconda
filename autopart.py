@@ -829,9 +829,34 @@ def doAutoPartition(dir, diskset, partitions, intf, instClass):
     drives = partitions.autoClearPartDrives
 
     for request in partitions.autoPartitionRequests:
-        if not request.drive:
-            request.drive = drives
-        partitions.addRequest(request)
+        if request.device:
+            # get the preexisting partition they want to use
+            req = partitions.getRequestByDeviceName(request.device)
+            if not req or not req.type or req.type != REQUEST_PREEXIST:
+                intf.messageWindow(_("Requested Partition Does Not Exist"),
+                                   _("Unable to locate partition %s to use "
+                                     "for %s.\n\n"
+                                     "Press OK to reboot your system.")
+                                   % (request.device, request.mountpoint))
+                sys.exit(0)
+
+            # now go through and set things from the request to the
+            # preexisting partition's request... ladeda
+            if request.mountpoint:
+                req.mountpoint = request.mountpoint
+            if request.badblocks:
+                req.badblocks = request.badblocks
+            if request.uniqueID:  # for raid to work
+                req.uniqueID = request.uniqueID
+            if not request.format:
+                req.format = 0
+            else:
+                req.format = 1
+                req.fstype = request.fstype
+        else:
+            if not request.drive:
+                request.drive = drives
+            partitions.addRequest(request)
 
     # sanity checks for the auto partitioning requests; mostly only useful
     # for kickstart as our installclass defaults SHOULD be sane 
