@@ -15,7 +15,7 @@
 
 from rhpl.translate import N_
 
-BETANAG = 0
+BETANAG = 1
 
 DEBUG = 0
 

@@ -1240,21 +1240,22 @@ def betaNagScreen(intf, dir):
 	return DISPATCH_NOOP
     
     while 1:
-	rc = intf.messageWindow( _("Warning! This is a beta!"),
+	rc = intf.messageWindow( _("Technology Preview"),
 				 _("Thank you for downloading this "
-				   "Red Hat Beta release.\n\n"
-				   "This is not a final "
-				   "release and is not intended for use "
-				   "on production systems.  The purpose of "
-				   "this release is to collect feedback "
-				   "from testers, and it is not suitable "
-				   "for day to day usage.\n\n"
-				   "To report feedback, please visit:\n\n"
-				   "    http://bugzilla.redhat.com/bugzilla\n\n"
-				   "and file a report against 'Red Hat Public "
-				   "Beta'.\n"),
+				   "Red Hat AMD64 technology preview.\n\n"
+				   "This is not a supported product.\n\n"
+                                   "The purpose of this release is to collect "
+                                   "feedback from users.  "
+				   "To report feedback, please visit:\n"
+				   "    http://bugzilla.redhat.com/bugzilla/\n"
+				   "and file a report against 'Red Hat Linux' "
+				   "version 'GinGin64'.\n\n"
+                                   "To discuss your experiences with this AMD64 "
+                                   "technology preview, please subscribe to the "
+                                   "amd64-list@redhat.com mailing list.\n"),
+                                 
 				   type="custom", custom_icon="warning",
-				   custom_buttons=[_("_Exit"), _("_Install BETA")])
+				   custom_buttons=[_("_Exit"), _("_Install Preview")])
 
 	if not rc:
 	    rc = intf.messageWindow( _("Rebooting System"),
