@@ -326,6 +326,8 @@ class KickstartBase(BaseInstallClass):
     def doLang(self, args):
         self.setLanguage(args[0])
         self.addToSkipList("language")
+        self.addToSkipList("languagesupport")
+        self.addToSkipList("languagedefault")
 
     def doKeyboard(self, args):
         self.setKeyboard(args[0])
