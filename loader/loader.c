@@ -2389,7 +2389,7 @@ logMessage("found url image %s", url);
 #endif /* !__alpha__ and !__ia32__ */
     }
 
-logMessage("getting ready to spawn shell now");
+    logMessage("getting ready to spawn shell now");
 
     spawnShell(flags);			/* we can attach gdb now :-) */
 
@@ -2451,9 +2451,6 @@ logMessage("getting ready to spawn shell now");
     mlLoadModule("ext3", NULL, modLoaded, modDeps, NULL, modInfo, flags);
 #endif
 
-    stopNewt();
-    closeLog();
-
 #if 0
     for (i = 0; i < kd.numKnown; i++) {
     	printf("%-5s ", kd.known[i].name);
@@ -2472,18 +2469,17 @@ logMessage("getting ready to spawn shell now");
 
     argptr = anacondaArgs;
     if (FL_RESCUE(flags)) {
+	startNewt(flags);
+
 	if (!lang) {
 	    int rc;
 
 	    do {
-		rc = chooseLanguage(&lang, flags);
-		if (rc) break;
-
+		chooseLanguage(&lang, flags);
 		rc = chooseKeyboard (&keymap, &kbdtype, flags);
 	    } while (rc);
 	}
 	*argptr++ = "/bin/sh";
-	printf("Loading rescue command shell on VC2 - use ALT-F2 to use\n");
     } else {
 	if (!access("./anaconda", X_OK))
 	    *argptr++ = "./anaconda";
@@ -2565,8 +2561,12 @@ logMessage("getting ready to spawn shell now");
     
     *argptr = NULL;
 
+    stopNewt();
+    closeLog();
+
     if (!FL_TESTING(flags)) {
-	printf("Running anaconda - may take some time to load...\n");
+	if (!FL_RESCUE(flags))
+	    printf("Running anaconda - may take some time to load...\n");
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
