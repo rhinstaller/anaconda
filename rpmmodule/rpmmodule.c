@@ -283,7 +283,7 @@ static PyObject * findUpgradeSet(PyObject * self, PyObject * args) {
     struct pkgSet list;
     hdrObject * hdr;
 
-    if (!PyArg_ParseTuple(args, "o|s", &hdrList, &root)) return NULL;
+    if (!PyArg_ParseTuple(args, "O|s", &hdrList, &root)) return NULL;
 
     if (!PyList_Check(hdrList)) {
 	PyErr_SetString(PyExc_TypeError, "list of headers expected");
