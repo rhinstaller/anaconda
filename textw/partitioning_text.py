@@ -241,8 +241,8 @@ class FormatWindow:
 
             # dont format protected partitions
             for n in todo.fstab.getprotectedList():
-                    if n == dev:
-                        continue
+                if n == dev:
+                    continue
                 
             if fstype == "ext2":
 		gotOne = 1
