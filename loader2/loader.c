@@ -365,36 +365,52 @@ static void writeVNCPasswordFile(char *pfile, char *password) {
     fclose(f);
 }
 
-/* read information that's passed as environmental variables */
-static void readEnvVars(int flags, struct loaderData_s ** ld) {
-  struct loaderData_s * loaderData = *ld;
-   char * env;
+/* read information from /tmp/netinfo (written by linuxrc) */
+static void readNetInfo(int flags, struct loaderData_s ** ld) {
+   struct loaderData_s * loaderData = *ld;
+   FILE *f;
+   char *end;
+   char buf[100], *vname, *vparm;
 
-   env = getenv("IPADDR");
-   if (env && *env) {
-     loaderData->ip = strdup(env);
-     loaderData->ipinfo_set = 1;
+   f = fopen("/tmp/netinfo", "r");
+   if (!f) {
+       return;
    }
-   env = getenv("NETMASK");
-   if (env && *env) {
-     loaderData->netmask = strdup(env);
+   vname = (char *)malloc(sizeof(char)*15);
+   vparm = (char *)malloc(sizeof(char)*85);
+
+   while(fgets(buf, 100, f)) {
+       if ((vname = strtok(buf, "="))) {
+           vparm = strtok(NULL, "=");
+           while (isspace(*vparm))
+               vparm++;
+           end = strchr(vparm, '\0');
+           while (isspace(*end))
+               end--;
+           end++;
+           *end = '\0';
+           if (strstr(vname, "IPADDR")) {
+               loaderData->ip = strdup(vparm);
+               loaderData->ipinfo_set = 1;
+           }
+           if (strstr(vname, "NETMASK")) {
+               loaderData->netmask = strdup(vparm);
+           }
+           if (strstr(vname, "GATEWAY")) {
+               loaderData->gateway = strdup(vparm);
+           }
+           if (strstr(vname, "DNS")) {
+               loaderData->dns = strdup(vparm);
+           }
+           if (strstr(vname, "MTU")) {
+               loaderData->mtu = atoi(vparm);
+           }
+           if (strstr(vname, "REMIP")) {
+               loaderData->ptpaddr = strdup(vparm);
+           }
+       }
    }
-   env = getenv("GATEWAY");
-   if (env && *env) {
-     loaderData->gateway = strdup(env);
-   }
-   env = getenv("DNS");
-   if (env && *env) {
-     loaderData->dns = strdup(env);
-   }
-   env = getenv("MTU");
-   if (env && *env) {
-     loaderData->mtu = atoi(env);
-   }
-   env = getenv("REMIP");
-   if (env && *env) {
-     loaderData->ptpaddr = strdup(env);
-   }
+   fclose(f);
 }
 
 /* parses /proc/cmdline for any arguments which are important to us.  
@@ -526,7 +542,7 @@ static int parseCmdLineFlags(int flags, struct loaderData_s * loaderData,
         }
     }
 
-    readEnvVars(flags, &loaderData);
+    readNetInfo(flags, &loaderData);
 
     /* NULL terminates the array of extra args */
     extraArgs[numExtraArgs] = NULL;
