@@ -8,7 +8,7 @@ void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
 int mlLoadModule(struct moduleInfo * modInfo, moduleList modLoaded,
-	         moduleDeps modDeps);
+	         moduleDeps modDeps, int testing);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 
 #endif
