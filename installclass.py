@@ -57,27 +57,6 @@ class BaseInstallClass:
     # we can use a different install data class
     installDataClass = InstallData
 
-    # FIXME: THIS IS A HORRIBLE HACK AND MUST GO AWAY
-    def selectDependentHiddenGroups(self, id):
-        sup = id.langSupport.supported
-        if len(sup) == 0:
-            sup = id.langSupport.getAllSupported()
-
-        for group in id.comps.compsxml.groups.values():
-            for name in sup:
-                try:
-                    lang = id.langSupport.langInfoByName[name][0]
-                    langs = language.expandLangs(lang)
-                except:
-                    continue
-                if group.langonly in langs:
-                    if not id.comps.compsDict.has_key(group.name):
-                        log("Where did the %s component go?"
-                            %(group.name,))
-                        continue
-                    id.comps.compsDict[group.name].select()
-        return
-
     def postAction(self, rootPath, serial):
 	pass
 
@@ -139,8 +118,8 @@ class BaseInstallClass:
 		 "accounts",
 		 "authentication",
 		 "readcomps",
+                 "selectlangpackages",
 		 "package-selection",
-                 "package-group-select-hack",
                  "handleX11pkgs",
 		 "checkdeps",
 		 "dependencies",

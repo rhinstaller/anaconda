@@ -971,6 +971,23 @@ def betaNagScreen(intf, dir):
 	else:
 	    break
 
-# FIXME: this is really a poor way to do this
-def packageGroupSelectHack(instClass, id):
-    instClass.selectDependentHiddenGroups(id)
+# FIXME: this is a kind of poor way to do this, but it will work for now
+def selectLanguageSupportGroups(id):
+    sup = id.langSupport.supported
+    if len(sup) == 0:
+        sup = id.langSupport.getAllSupported()
+
+    for group in id.comps.compsxml.groups.values():
+        for name in sup:
+            try:
+                lang = id.langSupport.langInfoByName[name][0]
+                langs = language.expandLangs(lang)
+            except:
+                continue
+            if group.langonly in langs:
+                if not id.comps.compsDict.has_key(group.name):
+                    log("Where did the %s component go?"
+                        %(group.name,))
+                    continue
+                id.comps.compsDict[group.name].select()
+

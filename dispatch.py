@@ -25,7 +25,7 @@ from packages import doPreInstall, doPostInstall, doPostAction
 from autopart import doAutoPartition
 from packages import firstbootConfiguration
 from packages import betaNagScreen
-from packages import packageGroupSelectHack
+from packages import selectLanguageSupportGroups
 from partitioning import partitionMethodSetup, partitionObjectsInitialize
 from partitioning import partitioningComplete
 from floppy import makeBootdisk
@@ -100,8 +100,8 @@ installSteps = [
     ("desktopchoice", ("intf", "dispatch")),
     ("findpackages", upgradeFindPackages, ("intf", "method", "id",
                                            "instPath", "dir")),
+    ("selectlangpackages", selectLanguageSupportGroups, ("id",)),    
     ("package-selection", ("id.comps", "dispatch")),
-    ("package-group-select-hack", packageGroupSelectHack, ("id.instClass", "id",)),    
     ("indivpackage", ("id.comps", "id.hdList")),
     ("handleX11pkgs", handleX11Packages, ("dir", "intf", "dispatch",
                                           "id", "instPath")),
