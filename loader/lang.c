@@ -269,10 +269,14 @@ struct defaultKeyboardByLang {
     char * lang, * keyboard;
 } defaultKeyboards[] = {
     { "de", "de-latin1" }, 
-    { "fi", "fi-latin1" },   
-    { "se", "se-latin1" },   
-    { "no", "no-latin1" },   
     { "cs", "cz-lat2" },
+    { "fi", "fi-latin1" },
+    { "hu", "hu" },
+    { "is", "is-latin1" },
+    { "it", "it" },
+    { "no", "no-latin1" },   
+    { "ru", "ru" },
+    { "se", "se-latin1" },
     { "tr", "trq" },
     { NULL, NULL } };
 
