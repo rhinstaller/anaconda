@@ -743,6 +743,10 @@ class AdvancedBootloaderWindow (InstallWindow):
         else:
             self.illegalChars = [ "$", "=", " " ]
 
+        # XXX more debug fun
+#        self.driveOrder = ["hda", "hdb"]
+        self.driveOrder = self.bl.drivelist
+            
         # main vbox
         thebox = gtk.VBox (gtk.FALSE, 10)
 
@@ -883,9 +887,6 @@ class AdvancedBootloaderWindow (InstallWindow):
         self.driveOrderView.set_headers_visible(gtk.FALSE)
         self.driveOrderView.set_enable_search(gtk.FALSE)
 
-        # XXX more debug fun
-#        self.driveOrder = ["hda", "hdb"]
-        self.driveOrder = self.bl.drivelist
         self.makeDriveOrderStore()
 
         sw.add(self.driveOrderView)
