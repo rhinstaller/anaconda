@@ -73,7 +73,7 @@ expandPackageSet() {
 
     for n in $RPMS; do 
 	[ -n "$DEBUG" ] && echo -ne "\rExpanding packages..." $(basename $n)
-	if [ $(rpm --nosignature --nodigest -qp --qf '%{NAME}' $n) = "tzdata" ] ; then
+	if [ "$(rpm --nosignature --nodigest -qp --qf '%{NAME}'" $n) = "tzdata" ] ; then
 	    TZDATA=$n
 	fi 
 	rpm2cpio $n | (cd $PKGDEST; cpio -E $KEEPFILES --quiet -iumd)

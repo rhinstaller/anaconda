@@ -7,6 +7,7 @@ usage() {
 
 COMPNAME=dist-7.0
 RUN=1
+DEBUGSTR="--debug"
 
 while [ $# -gt 0 ]; do
     case $1 in
