@@ -1579,7 +1579,8 @@ def getAutopartitionBoot():
     elif (iutil.getPPCMachine() == "iSeries") and iutil.hasiSeriesNativeStorage():
         return []
     elif (iutil.getPPCMachine() == "PMac") and iutil.getPPCMacGen() == "NewWorld":
-        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0) ]
+        return [ ( None, "Apple Bootstrap", 1, 1, 0, 1, 0), 
+                 ("/boot", None, 100, None, 0, 1, 0) ]
     else:
         return [ ("/boot", None, 100, None, 0, 1, 0) ]
 
