@@ -6,7 +6,7 @@
  */
 #include "nfs_mountversion.h"
 
-#if KERNEL_NFS_MOUNT_VERSION >= 3
+#if KERNEL_NFS_MOUNT_VERSION >= 4
 
 #define _LINUX_IN_H 1
 
@@ -28,11 +28,18 @@ struct nfs_fh {
 
 #else /* KERNEL_NFS_MOUNT_VERSION < 3 */
 
+#ifndef NFS_VERSION
+#define NFS_VERSION 2
+#endif
+
 /*
  * We know more than the kernel. Override the kernel defines.
  * Check at runtime whether the running kernel can handle the new stuff.
  */
-#define NFS_MOUNT_VERSION	3
+
+struct nfs_fh {
+        char                    data[NFS_FHSIZE];
+};
 
 struct nfs_mount_data {
 	int		version;		/* 1 */
