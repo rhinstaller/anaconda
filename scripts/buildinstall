@@ -30,6 +30,6 @@ if [ ! -f $MK_IMAGES ]; then
 fi
 
 $UPD_INSTROOT $1/RedHat/RPMS $1
-$MK_IMAGES $1/RedHat/instimage $1/images $1/RedHat/instimage/modules
+$MK_IMAGES $1/RedHat/RPMS $1/images $1/RedHat/instimage/modules
 
 rm -rf $BUILDINSTDIR
