@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: install 7.1\n"
 "POT-Creation-Date: 2001-02-05 12:49-0500\n"
-"PO-Revision-Date: 2001-02-02 12:15-05:00\n"
+"PO-Revision-Date: 2001-02-05 23:10-05:00\n"
 "Last-Translator: Trond Eivind Glomsrød <teg@redhat.com>\n"
 "Language-Team: Norwegian <no@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -437,7 +437,6 @@ msgid "What language would you like to use during the installation process?"
 msgstr "Hvilket språk ønsker du å bruke under installeringen?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
 msgstr "Velg alle"
 
@@ -2741,6 +2740,9 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Du har bedt om å lage rot(/)-filsystemet på en DOS-type FAT-partisjon. Du "
+"kan gjøre det, men vil ikke kunne bruke andre filsystemer for ditt "
+"Linux-system. I tilegg vil det bli et hastighetstap. Ønsker du å fortsette?"
 
 #: ../libfdisk/fsedit.c:969
 #, c-format
@@ -2877,6 +2879,9 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Dette skjer fordi harddiskgeometrien kjernen finner er forskjellig fra det "
+"den var da harddisken ble partisjonert. Dette kan fikses ved å spesifisere "
+"harddiskgeometrien som en kjerneopsjon når installeringsprogrammet startes."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2890,12 +2895,11 @@ msgstr "<RAID-partisjon>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Fant ikke partisjonen med navn %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Ingen rotpartisjon"
+msgstr "Rotpartisjon"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -2903,6 +2907,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Veksten av rot (/)-RAIDet ser ut til å ha blitt stoppet av 1024-sylinders "
+"grensen for oppstart. Hvis dette er tilfelle, kan det å lage en egen "
+"/boot-partisjon gjøre det mulig å lage en større rotpartisjon."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2910,6 +2917,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Veksten av rot (/)-partisjonen ser ut til å ha blitt stoppet av "
+"1024-sylinders grensen for oppstart. Hvis dette er tilfelle, kan det å lage "
+"en egen /boot-partisjon gjøre det mulig å lage en større rotpartisjon."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -4261,23 +4271,3 @@ msgstr "Kjerneutvikling"
 
 msgid "Utilities"
 msgstr "Verktøy"
-
-#~ msgid "Partitionless upgrades are NOT supported in this beta"
-#~ msgstr "Partisjonsløs oppgradering er ikke støttet i denne betaen"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Horisontal synkronisering"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Vertikal synkronisering"
-
-#~ msgid ""
-#~ "\n"
-#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
-#~ "so do NOT report errors if you choose to do this.\n"
-#~ " Do you want to continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "ADVARSEL: Partisjonsløs installering feiler ofte i denne BETA-utgaven, \n"
-#~ "så IKKE rapporter feil hvis du velger å installere på denne måten.\n"
-#~ "Ønsker du å fortsette?"
