@@ -4,7 +4,6 @@ from translate import _, N_
 from xpms_gui import CHECKBOX_ON_XPM
 from xpms_gui import CHECKBOX_OFF_XPM
 import GdkImlib
-from GDK import _2BUTTON_PRESS
 from gnome.ui import *
 from flags import flags
 import checklist

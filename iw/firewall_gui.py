@@ -1,4 +1,5 @@
 from gtk import *
+from gnome.ui import *
 from iw_gui import *
 from isys import *
 from translate import _, N_

@@ -348,7 +348,7 @@ class BootloaderPassword:
         self.entry1.setFlags(FLAG_DISABLED, flag)
         self.entry2.setFlags(FLAG_DISABLED, flag)        
     
-    def __call__(self, screen, bl):
+    def __call__(self, screen, bl, intf):
         if not bl.useGrub():
             return INSTALL_NOOP
 
@@ -409,7 +409,7 @@ class BootloaderPassword:
             confirm = self.entry2.value()
 
             if pw != confirm:
-                dispatch.intf.messageWindow(_("Passwords Do Not Match"),
+                intf.messageWindow(_("Passwords Do Not Match"),
                         _("Passwords do not match"))
                 continue
 

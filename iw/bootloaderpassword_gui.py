@@ -48,7 +48,7 @@ class BootloaderPasswordWindow (InstallWindow):
                 
             self.ics.setNextEnabled (FALSE)
         
-    def getScreen(self, bl):
+    def getScreen(self, bl, intf):
         self.bl = bl
 
         box = GtkVBox(FALSE, 5)
