@@ -122,6 +122,7 @@ class LiloWindow (InstallWindow):
     def getScreen (self):
 	if self.todo.fstab.rootOnLoop():
 	    self.todo.bootdisk = 1
+	    return None
 
 	self.images = self.todo.getLiloImages()
         self.ignoreSignals = 0
