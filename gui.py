@@ -148,6 +148,7 @@ def addFrame(dialog):
     frame = gtk.Frame()
     frame.set_shadow_type(gtk.SHADOW_OUT)
     frame.add(contents)
+    frame.show()
     dialog.add(frame)
 
 class WaitWindow:
@@ -295,19 +296,18 @@ class MessageWindow:
 		widget = dialog.add_button(button, rid)
 		rid = rid + 1
 
-	    dialog.set_default_response(len(custom_buttons)-1)
-#	    widget.set_flags(gtk.CAN_DEFAULT)
-#	    widget.grab_default()
+            defaultchoice = rid - 1
 	else:
 	    if default == "no":
-		dialog.set_default_response(0)
+                defaultchoice = 0
 	    elif default == "yes" or default == "ok":
-		dialog.set_default_response(1)
+                defaultchoice = 1
 	    else:
-		dialog.set_default_response(0)
+                defaultchoice = 0
 
         addFrame(dialog)
         dialog.set_position (gtk.WIN_POS_CENTER)
+        dialog.set_default_response(defaultchoice)
         dialog.show_all ()
         rc = dialog.run()
 
