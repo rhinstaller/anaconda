@@ -1037,7 +1037,7 @@ Section "Screen"
                  "files"        : self.files,
                  "screenModes"  : screens,
                  "ia64Mods"     : "",
-		 "nonSparcMods" : "Load fbdevhw",
+		 "nonSparcMods" : 'Load "fbdevhw"',
                  "XkbRules"     : self.keyRules,
                  "XkbModel"     : self.keyModel,
                  "XkbLayout"    : self.keyLayout,
