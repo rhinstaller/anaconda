@@ -188,8 +188,7 @@ class x86BootloaderInfo:
 	    f.write('\n')
 
 	    if os.access (instRoot + initrd, os.R_OK):
-		f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, 'initrd',
-                                                       kernelTag, '.img'))
+		f.write('\tinitrd %sinitrd%s.img\n' % (cfPath, kernelTag))
 
 	for (label, device) in chainList:
 	    f.write('title %s\n' % (label))
@@ -202,7 +201,7 @@ class x86BootloaderInfo:
 
 	part = grubbyPartitionName(bootDev)
 	prefix = "%s/%s" % (grubbyPartitionName(bootDev), grubPath)
-	cmd = "root %s\ninstall %s/i386-pc/stage1 d (%s) %s/i386-pc/stage2 p %s%s/grub.conf" % \
+	cmd = "root %s\ninstall %s/i386-redhat/stage1 d (%s) %s/i386-redhat/stage2 p %s%s/grub.conf" % \
 	    (part, grubPath, grubbyDiskName(bl.getDevice()), grubPath,
 	     part, grubPath)
 
