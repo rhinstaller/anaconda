@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ -z "$1" ]; then
+    echo "$0: <image> <binary> [<initrdpath>]"
+    exit 1
+fi
+
 if [ ! -f $1 ]; then
     echo "$1 doesn't exist"
     exit 1
