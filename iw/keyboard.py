@@ -23,7 +23,15 @@ class KeyboardWindow (InstallWindow):
     def getScreen (self):
 #        print self.todo.keyboard.available ()
 	box = GtkVBox (FALSE)
-        
+        im = self.ics.readPixmap ("gnome-keyboard.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.0, 0.0, 0.0, 0.0)
+            box.pack_start (a, FALSE)
+
 	box.pack_start (GtkLabel (_("Model")), FALSE)
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)

@@ -24,7 +24,7 @@ class PartitionWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         self.todo = ics.getToDo ()
-        ics.setTitle (_("Root Partition Selection"))
+        ics.setTitle (_("Disk Druid"))
         ics.readHTML ("partition")
 	ics.setNextEnabled (FALSE)
 	self.skippedScreen = 0

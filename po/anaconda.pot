@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 1999-09-12 13:09-0400\n"
+"POT-Creation-Date: 1999-09-13 01:32-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,10 +22,19 @@ msgstr ""
 msgid "What language would you like to use during the installation process?"
 msgstr ""
 
-#: ../text.py:42 ../text.py:90 ../text.py:141 ../text.py:167 ../text.py:208
-#: ../text.py:253 ../text.py:343 ../text.py:363 ../text.py:394 ../text.py:435
-#: ../text.py:457 ../text.py:522 ../text.py:542 ../text.py:554 ../text.py:566
-#: ../text.py:744 ../text.py:787 ../text.py:791
+#: ../loader/cdrom.c:34 ../loader/devices.c:58 ../loader/devices.c:134
+#: ../loader/kickstart.c:56 ../loader/kickstart.c:66 ../loader/kickstart.c:105
+#: ../loader/lang.c:247 ../loader/lang.c:498 ../loader/loader.c:239
+#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
+#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
+#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1064
+#: ../loader/loader.c:1386 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
+#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:42 ../text.py:90
+#: ../text.py:141 ../text.py:167 ../text.py:208 ../text.py:253 ../text.py:343
+#: ../text.py:363 ../text.py:394 ../text.py:435 ../text.py:457 ../text.py:522
+#: ../text.py:542 ../text.py:554 ../text.py:566 ../text.py:744 ../text.py:787
+#: ../text.py:791
 msgid "OK"
 msgstr ""
 
@@ -71,29 +80,22 @@ msgstr ""
 #: ../libfdisk/newtfsedit.c:545 ../libfdisk/newtfsedit.c:581
 #: ../libfdisk/newtfsedit.c:1297 ../libfdisk/newtfsedit.c:1305
 #: ../libfdisk/newtfsedit.c:1430 ../libfdisk/newtfsedit.c:1451
-#: ../libfdisk/newtfsedit.c:1545 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/kickstart.c:56 ../loader/kickstart.c:66
-#: ../loader/kickstart.c:105 ../loader/lang.c:234 ../loader/loader.c:239
-#: ../loader/loader.c:451 ../loader/loader.c:461 ../loader/loader.c:610
-#: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:934 ../loader/loader.c:1046
-#: ../loader/loader.c:1356 ../loader/net.c:162 ../loader/net.c:284
-#: ../loader/net.c:559 ../loader/urls.c:124 ../loader/urls.c:201
-#: ../loader/urls.c:206 ../loader/urls.c:322 ../text.py:74 ../text.py:469
+#: ../libfdisk/newtfsedit.c:1545 ../text.py:74 ../text.py:469
 msgid "Ok"
 msgstr ""
 
-#: ../gui.py:312 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
+#: ../gui.py:316 ../libfdisk/fsedit.c:955 ../libfdisk/newtfsedit.c:1297
 #: ../libfdisk/newtfsedit.c:1305 ../loader/cdrom.c:34 ../loader/devices.c:58
-#: ../loader/devices.c:134 ../loader/loader.c:239 ../loader/loader.c:572
-#: ../loader/loader.c:610 ../loader/loader.c:710 ../loader/net.c:162
-#: ../loader/net.c:284 ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74
-#: ../text.py:75 ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144
-#: ../text.py:167 ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229
-#: ../text.py:231 ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394
-#: ../text.py:396 ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437
-#: ../text.py:457 ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523
-#: ../text.py:744 ../text.py:766
+#: ../loader/devices.c:134 ../loader/lang.c:498 ../loader/loader.c:239
+#: ../loader/loader.c:572 ../loader/loader.c:610 ../loader/loader.c:710
+#: ../loader/loader.c:1064 ../loader/net.c:162 ../loader/net.c:284
+#: ../loader/urls.c:124 ../loader/urls.c:322 ../text.py:74 ../text.py:75
+#: ../text.py:90 ../text.py:113 ../text.py:141 ../text.py:144 ../text.py:167
+#: ../text.py:194 ../text.py:208 ../text.py:210 ../text.py:229 ../text.py:231
+#: ../text.py:253 ../text.py:255 ../text.py:343 ../text.py:394 ../text.py:396
+#: ../text.py:415 ../text.py:424 ../text.py:435 ../text.py:437 ../text.py:457
+#: ../text.py:460 ../text.py:469 ../text.py:522 ../text.py:523 ../text.py:744
+#: ../text.py:766
 msgid "Back"
 msgstr ""
 
@@ -147,7 +149,7 @@ msgstr ""
 
 #: ../libfdisk/newtfsedit.c:1545 ../loader/loader.c:451 ../loader/loader.c:461
 #: ../loader/loader.c:665 ../loader/loader.c:710 ../loader/loader.c:843
-#: ../loader/loader.c:848 ../loader/loader.c:1356 ../loader/urls.c:201
+#: ../loader/loader.c:848 ../loader/loader.c:1386 ../loader/urls.c:201
 #: ../loader/urls.c:206 ../text.py:191 ../text.py:562
 msgid "Error"
 msgstr ""
@@ -253,7 +255,7 @@ msgid ""
 "a network, this may be assigned by your network administrator."
 msgstr ""
 
-#: ../iw/network.py:180 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
+#: ../iw/network.py:187 ../loader/net.c:460 ../loader/net.c:617 ../text.py:394
 msgid "Hostname"
 msgstr ""
 
@@ -509,23 +511,23 @@ msgstr ""
 msgid "Upgrade Complete"
 msgstr ""
 
-#: ../gui.py:306
+#: ../gui.py:310
 msgid "Red Hat Linux Installer"
 msgstr ""
 
-#: ../gui.py:315
+#: ../gui.py:319
 msgid "Finish"
 msgstr ""
 
-#: ../gui.py:316
+#: ../gui.py:320
 msgid "Hide Help"
 msgstr ""
 
-#: ../gui.py:317
+#: ../gui.py:321
 msgid "Show Help"
 msgstr ""
 
-#: ../gui.py:338
+#: ../gui.py:343
 msgid "Online Help"
 msgstr ""
 
@@ -533,45 +535,45 @@ msgstr ""
 msgid "Account Configuration"
 msgstr ""
 
-#: ../iw/account.py:115
+#: ../iw/account.py:122
 msgid "Root Password: "
 msgstr ""
 
-#: ../iw/account.py:116
+#: ../iw/account.py:125
 msgid "Confirm: "
 msgstr ""
 
-#: ../iw/account.py:164 ../iw/account.py:192
+#: ../iw/account.py:176 ../iw/account.py:219
 msgid "Account Name"
 msgstr ""
 
-#: ../iw/account.py:166
+#: ../iw/account.py:180
 msgid "Password"
 msgstr ""
 
-#: ../iw/account.py:168
+#: ../iw/account.py:184
 msgid "Password (confirm)"
 msgstr ""
 
-#: ../iw/account.py:171 ../iw/account.py:192
+#: ../iw/account.py:188 ../iw/account.py:219
 msgid "Full Name"
 msgstr ""
 
-#: ../iw/account.py:178 ../libfdisk/newtfsedit.c:1303
+#: ../iw/account.py:197 ../libfdisk/newtfsedit.c:1303
 msgid "Add"
 msgstr ""
 
-#: ../iw/account.py:180 ../libfdisk/newtfsedit.c:1296
+#: ../iw/account.py:199 ../libfdisk/newtfsedit.c:1296
 #: ../libfdisk/newtfsedit.c:1304
 msgid "Edit"
 msgstr ""
 
-#: ../iw/account.py:182 ../libfdisk/newtfsedit.c:1296
+#: ../iw/account.py:201 ../libfdisk/newtfsedit.c:1296
 #: ../libfdisk/newtfsedit.c:1304
 msgid "Delete"
 msgstr ""
 
-#: ../iw/account.py:184
+#: ../iw/account.py:203
 msgid "New"
 msgstr ""
 
@@ -649,6 +651,14 @@ msgstr ""
 msgid "Customize packages to be upgraded"
 msgstr ""
 
+#: ../iw/fdisk.py:11
+msgid "fdisk"
+msgstr ""
+
+#: ../iw/fdisk.py:42
+msgid "Select drive to run fdisk on"
+msgstr ""
+
 #: ../iw/format.py:12
 msgid "Choose partitions to Format"
 msgstr ""
@@ -657,52 +667,56 @@ msgstr ""
 msgid "Check for bad blocks while formatting"
 msgstr ""
 
-#: ../iw/installpath.py:34
+#: ../iw/installpath.py:35
 msgid "GNOME Workstation"
 msgstr ""
 
-#: ../iw/installpath.py:35
+#: ../iw/installpath.py:36
 msgid "KDE Workstation"
 msgstr ""
 
-#: ../iw/installpath.py:36 ../libfdisk/gnomefsedit.c:2196
+#: ../iw/installpath.py:37 ../libfdisk/gnomefsedit.c:2196
 #: ../libfdisk/gnomefsedit.c:2216
 msgid "Server"
 msgstr ""
 
-#: ../iw/installpath.py:37
+#: ../iw/installpath.py:38
 msgid "Custom"
 msgstr ""
 
-#: ../iw/installpath.py:73
+#: ../iw/installpath.py:74
 msgid "Install Type"
 msgstr ""
 
-#: ../iw/installpath.py:122
+#: ../iw/installpath.py:142
 msgid "Install"
 msgstr ""
 
-#: ../iw/installpath.py:124
+#: ../iw/installpath.py:144
 msgid "Upgrade"
+msgstr ""
+
+#: ../iw/installpath.py:183
+msgid "Use fdisk to format drives"
 msgstr ""
 
 #: ../iw/keyboard.py:11
 msgid "Keyboard Configuration"
 msgstr ""
 
-#: ../iw/keyboard.py:27
+#: ../iw/keyboard.py:35
 msgid "Model"
 msgstr ""
 
-#: ../iw/keyboard.py:39
+#: ../iw/keyboard.py:47
 msgid "Layout"
 msgstr ""
 
-#: ../iw/keyboard.py:53
+#: ../iw/keyboard.py:61
 msgid "Variant"
 msgstr ""
 
-#: ../iw/language.py:14 ../loader/lang.c:232
+#: ../iw/language.py:14 ../loader/lang.c:245
 msgid "What language should be used during the installation process?"
 msgstr ""
 
@@ -754,43 +768,43 @@ msgstr ""
 msgid "Boot label"
 msgstr ""
 
-#: ../iw/network.py:127
+#: ../iw/network.py:131
 msgid "Configure using DHCP"
 msgstr ""
 
-#: ../iw/network.py:133
+#: ../iw/network.py:138
 msgid "Activate on boot"
 msgstr ""
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "IP Address"
 msgstr ""
 
-#: ../iw/network.py:142 ../loader/net.c:615
+#: ../iw/network.py:147 ../loader/net.c:615
 msgid "Netmask"
 msgstr ""
 
-#: ../iw/network.py:142 ../loader/loader.c:226
+#: ../iw/network.py:147 ../loader/loader.c:226
 msgid "Network"
 msgstr ""
 
-#: ../iw/network.py:142
+#: ../iw/network.py:147
 msgid "Broadcast"
 msgstr ""
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Gateway"
 msgstr ""
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Primary DNS"
 msgstr ""
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Secondary DNS"
 msgstr ""
 
-#: ../iw/network.py:181
+#: ../iw/network.py:188
 msgid "Ternary DNS"
 msgstr ""
 
@@ -867,7 +881,7 @@ msgid "Confirm Partitioning Selection"
 msgstr ""
 
 #: ../iw/rootpartition.py:27
-msgid "Root Partition Selection"
+msgid "Disk Druid"
 msgstr ""
 
 #: ../iw/rootpartition.py:86
@@ -910,10 +924,6 @@ msgstr ""
 
 #: ../iw/timezone.py:152
 msgid "System clock uses UTC"
-msgstr ""
-
-#: ../iw/welcome.py:11
-msgid "Welcome to Red Hat Linux!"
 msgstr ""
 
 #: ../iw/xconfig.py:9
@@ -1538,7 +1548,7 @@ msgstr ""
 #: ../loader/devices.c:54
 msgid ""
 "This module can take parameters which affects its operation. If you don't "
-"know what parameters to supply, just skip this screen by pressing the \"Ok\" "
+"know what parameters to supply, just skip this screen by pressing the \"OK\" "
 "button now."
 msgstr ""
 
@@ -1574,8 +1584,16 @@ msgstr ""
 msgid "Error on line %d of kickstart file %s."
 msgstr ""
 
-#: ../loader/lang.c:232
+#: ../loader/lang.c:245
 msgid "Choose a Language"
+msgstr ""
+
+#: ../loader/lang.c:496
+msgid "Keyboard Type"
+msgstr ""
+
+#: ../loader/lang.c:497
+msgid "What type of keyboard do you have?"
 msgstr ""
 
 #: ../loader/loader.c:98
@@ -1670,7 +1688,7 @@ msgstr ""
 #: ../loader/loader.c:711
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
-"insert the Red Hat CD and press \"Ok\" to retry."
+"insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
 
 #: ../loader/loader.c:844
@@ -1689,31 +1707,31 @@ msgstr ""
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr ""
 
-#: ../loader/loader.c:1038
+#: ../loader/loader.c:1056
 msgid "Rescue Method"
 msgstr ""
 
-#: ../loader/loader.c:1039
+#: ../loader/loader.c:1057
 msgid "Installation Method"
 msgstr ""
 
-#: ../loader/loader.c:1041
+#: ../loader/loader.c:1059
 msgid "What type of media contains the rescue image?"
 msgstr ""
 
-#: ../loader/loader.c:1043
+#: ../loader/loader.c:1061
 msgid "What type of media contains the packages to be installed?"
 msgstr ""
 
-#: ../loader/loader.c:1357
+#: ../loader/loader.c:1387
 msgid "Cannot find ks.cfg on boot floppy."
 msgstr ""
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1496
 msgid "PC Card"
 msgstr ""
 
-#: ../loader/loader.c:1466
+#: ../loader/loader.c:1496
 msgid "Initializing PC Card Devices..."
 msgstr ""
 

@@ -208,7 +208,16 @@ class MouseWindow (InstallWindow):
         align = GtkAlignment ()
         align.add (self.emulate3)
         align.set_border_width (5)
-        
+
+        im = self.ics.readPixmap ("gnome-mouse.png")
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            a = GtkAlignment ()
+            a.add (pix)
+            a.set (0.0, 0.0, 0.0, 0.0)
+            box.pack_start (a, FALSE)
+            
         box.pack_start (sw)
         box.pack_start (self.locList, FALSE)
         box.pack_start (align, FALSE)

@@ -113,6 +113,10 @@ class NetworkWindow (InstallWindow):
         if (new_nm != nm.get_text ()):
             nm.set_text (new_nm)
 
+    def DHCPtoggled (self, widget, table):
+        table.set_sensitive (not widget.get_active ())
+        self.ipTable.set_sensitive (not widget.get_active ())
+
     def getScreen (self):
         box = GtkVBox ()
         box.set_border_width (5)
@@ -126,6 +130,7 @@ class NetworkWindow (InstallWindow):
                 align = GtkAlignment ()
                 DHCPcb = GtkCheckButton (_("Configure using DHCP"))
                 DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
+        
                 align.add (DHCPcb)
                 devbox.pack_start (align, FALSE)
                 
@@ -142,11 +147,13 @@ class NetworkWindow (InstallWindow):
                 options = [_("IP Address"), _("Netmask"), _("Network"), _("Broadcast")]
                 ipTable = GtkTable (len (options), 2)
 
+                DHCPcb.connect ("toggled", self.DHCPtoggled, ipTable)
+
 		forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
                 for t in range (len (options)):
                     label = GtkLabel ("%s:" % (options[t],))
-                    label.set_alignment (0.0, 0.0)
+                    label.set_alignment (0.0, 0.5)
                     ipTable.attach (label, 0, 1, t, t+1, FILL, 0, 10)
                     entry = GtkEntry (15)
                     # entry.set_usize (gdk_char_width (entry.get_style ().font, '0')*15, -1)
@@ -196,6 +203,8 @@ class NetworkWindow (InstallWindow):
                 ipTable.attach (align, 1, 2, i, i+1, FILL, 0)
             ipTable.set_row_spacing (0, 5)
 
+            self.ipTable = ipTable
+            
             self.hostname = options[0]
             self.gw = options[1]
             self.ns = options[2]

@@ -32,10 +32,10 @@ SERVER = 5
 
 class InstallPathWindow (InstallWindow):		
 
-    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation")),
-                    (WORKSTATION_KDE, _("KDE Workstation")),
-                    (SERVER, _("Server")),
-                    (CUSTOM, _("Custom")))
+    installTypes = ((WORKSTATION_GNOME, _("GNOME Workstation"), "gnome.png"),
+                    (WORKSTATION_KDE, _("KDE Workstation"), "kde.png"),
+                    (SERVER, _("Server"), "server.png"),
+                    (CUSTOM, _("Custom"), "custom.png"))
 
     installSteps = [ ( AutoPartitionWindow, "partition" ),
 		     ( PartitionWindow, "partition" ),
@@ -73,6 +73,7 @@ class InstallPathWindow (InstallWindow):
 
         ics.setTitle (_("Install Type"))
         ics.setNextEnabled (1)
+        self.ics = ics
 
     def getNext(self):
 	if not self.__dict__.has_key("upgradeButton"):
@@ -108,6 +109,22 @@ class InstallPathWindow (InstallWindow):
         elif type == UPGRADE:
 	    self.installBox.set_sensitive(0)
 
+    def pixRadioButton (self, group, label, pixmap):
+        im = self.ics.readPixmap (pixmap)
+        if im:
+            im.render ()
+            pix = im.make_pixmap ()
+            hbox = GtkHBox (FALSE, 5)
+            hbox.pack_start (pix, FALSE, FALSE, 0)
+            label = GtkLabel (label)
+            label.set_alignment (0.0, 0.5)
+            hbox.pack_start (label, TRUE, TRUE, 15)
+            button = GtkRadioButton (group)
+            button.add (hbox)
+        else:
+            button = GtkRadioButton (group, label)
+        return button
+
     def getScreen (self):
 	if (self.todo.instClass.installType == "install"):
             self.ics.getICW ().setStateList (self.commonSteps + 
@@ -121,9 +138,10 @@ class InstallPathWindow (InstallWindow):
 	    return None
 
 	box = GtkVBox (FALSE, 5)
-	installButton = GtkRadioButton (None, _("Install"))
+
+	installButton = self.pixRadioButton (None, _("Install"), "install.png")
         installButton.connect ("toggled", self.toggled, INSTALL)
-	self.upgradeButton = GtkRadioButton (installButton, _("Upgrade"))
+	self.upgradeButton = self.pixRadioButton (installButton, _("Upgrade"), "upgrade.png")
         self.upgradeButton.connect ("toggled", self.toggled, UPGRADE)
 
 	if (self.todo.upgrade):
@@ -140,18 +158,18 @@ class InstallPathWindow (InstallWindow):
 	    elif isinstance(instClass, installclass.Server):
 		default = SERVER
 
-        self.installBox = GtkVBox (FALSE)
+        self.installBox = GtkVBox (FALSE, 0)
         group = None
 	self.installClasses = []
-	for (type, name) in self.installTypes:
-            group = GtkRadioButton (group, name)
+	for (type, name, pixmap) in self.installTypes:
+            group = self.pixRadioButton (group, name, pixmap)
             self.installBox.pack_start (group, FALSE)
 	    self.installClasses.append ((group, type))
 	    if (type == default):
 		group.set_active (1)
 
 	spacer = GtkLabel("")
-	spacer.set_usize(15, 1)
+	spacer.set_usize(60, 1)
 
 	table = GtkTable(2, 3)
         table.attach(installButton, 0, 2, 0, 1)

@@ -351,6 +351,7 @@ class InstallControlWindow (Thread):
         table.attach (self.helpFrame, 0, 1, 0, 1)
 
         self.installFrame = GtkFrame ()
+#        self.installFrame.set_shadow_type (SHADOW_NONE)
 
         self.windowList = []
 
@@ -430,6 +431,17 @@ class InstallControlState:
         if (self.nextEnabled != 0):
             return TRUE
         return FALSE
+
+    def readPixmap (self, file):
+        try:
+            im = GdkImlib.Image ("/usr/share/anaconda/pixmaps/" + file)
+        except:
+            try:
+                im = GdkImlib.Image ("pixmaps/" + file)
+            except:
+                print "Unable to load", file
+                return None
+        return im
 
     def readHTML (self, file):
         text = None
