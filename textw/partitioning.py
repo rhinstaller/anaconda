@@ -4,7 +4,6 @@ import os
 import isys
 from snack import *
 from textw.constants import *
-from newtpyfsedit import fsedit        
 from text import _
 
 class PartitionMethod:
@@ -35,6 +34,8 @@ class PartitionMethod:
 
 class ManualPartitionWindow:
     def __call__(self, screen, todo):
+	from newtpyfsedit import fsedit        
+
 	if todo.skipFdisk: return INSTALL_NOOP
 	
 	drives = todo.drives.available ()
@@ -105,6 +106,8 @@ class ManualPartitionWindow:
 
 class AutoPartitionWindow:
     def __call__(self, screen, todo):
+	from newtpyfsedit import fsedit        
+
         fstab = []
         for mntpoint, (dev, fstype, reformat) in todo.mounts.items ():
             fstab.append ((dev, mntpoint))
