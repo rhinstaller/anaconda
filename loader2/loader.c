@@ -1039,7 +1039,7 @@ int main(int argc, char ** argv) {
      */
     {
         mlLoadDeps(&modDeps, "/mnt/runtime/modules/modules.dep");
-        pciReadDrivers("/modules/pcitable");
+        pciReadDrivers("/mnt/runtime/modules/pcitable");
         readModuleInfo("/mnt/runtime/modules/module-info", modInfo,
                        secondStageModuleLocation, 0);
     }
