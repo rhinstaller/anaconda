@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-08 23:26-0400\n"
-"PO-Revision-Date: 2004-05-20 10:04+0800\n"
+"PO-Revision-Date: 2004-06-22 16:38+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@myrealbox.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -70,13 +70,11 @@ msgstr "Memberhentikan usaha untuk menyambung selepas 50 kali percubaan!\n"
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
-"Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
+msgstr "Sila sambung secara manual klien vnc anda ke %s untuk memulakan pemasangan."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
-"Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
+msgstr "Sila sambungkan klien vnc anda secara manual untuk memulakan pemasangan."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
@@ -992,16 +990,17 @@ msgstr "Batal"
 
 #: ../gui.py:638 ../text.py:283
 #, python-format
+#, fuzzy
 msgid ""
 "The following error was found while parsing your kickstart configuration:\n"
 "\n"
 "%s"
-msgstr ""
+msgstr "ralat"
 
 #: ../gui.py:640 ../text.py:285
 #, fuzzy
 msgid "Error Parsing Kickstart Config"
-msgstr "Ralat membuka fail kickstart %s: %s"
+msgstr "Ralat"
 
 #: ../gui.py:648 ../text.py:295
 msgid ""
@@ -1012,9 +1011,8 @@ msgstr ""
 "sila pilih disket anda dengan cermat."
 
 #: ../gui.py:746
-#, fuzzy
 msgid "default:LTR"
-msgstr "Default"
+msgstr "default:LTR"
 
 #: ../gui.py:820 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1170,7 +1168,7 @@ msgstr "Tukar CDROM"
 #: ../image.py:284
 #, fuzzy, python-format
 msgid "Please insert %s disc %d to continue."
-msgstr "Sila masukkan cakera %d untuk meneruskan."
+msgstr "s kepada."
 
 #: ../image.py:320
 msgid "Wrong CDROM"
@@ -1182,8 +1180,9 @@ msgid "That's not the correct %s CDROM."
 msgstr "Ianya bukan CDROM %s yang betul."
 
 #: ../image.py:327
+#, fuzzy
 msgid "Unable to access the CDROM."
-msgstr ""
+msgstr "kepada."
 
 #: ../installclass.py:59
 msgid "Install on System"
@@ -1225,8 +1224,7 @@ msgstr "Namahos mesti 64 atau kurang panjang aksara."
 
 #: ../network.py:44
 msgid "Hostname must start with a valid character in the range 'a-z' or 'A-Z'"
-msgstr ""
-"Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
+msgstr "Namahos mesti bermula dengan aksara yang sah dalam julat 'a-z' atau 'A-Z'"
 
 #: ../network.py:49
 msgid "Hostnames can only contain the characters 'a-z', 'A-Z', '-', or '.'"
@@ -1287,8 +1285,7 @@ msgstr ""
 msgid ""
 "You are trying to install on a machine which isn't supported by this release "
 "of %s."
-msgstr ""
-"Anda cuba memasang pada mesin yang tidak disokong oleh keluaran bagi %s."
+msgstr "Anda cuba memasang pada mesin yang tidak disokong oleh keluaran bagi %s."
 
 #: ../packages.py:289
 msgid "Dependency Check"
@@ -1889,8 +1886,7 @@ msgid "Confirm Reset"
 msgstr "Kepastian Ulangtetap"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr "Adakah anda pasti untuk ulangtetap jadual partisyen ke keadaan asal?"
 
 #: ../partitioning.py:77
@@ -1940,10 +1936,8 @@ msgstr ""
 "untuk memasang %s."
 
 #: ../partitions.py:768
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
-msgstr ""
-"Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgstr "Anda mesti mencipta partisyen /boot/efi jenis FAT dan saiznya 50 Megabyte."
 
 #: ../partitions.py:791
 msgid "You must create a PPC PReP Boot partition."
@@ -2007,10 +2001,8 @@ msgstr "partisyen yang menjadi ahli kepada Kumpulan Volum LVM."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Titik lekapan ini tidak sah. Direktori %s mesti berada pada sistem fail / ."
 
 #: ../partRequests.py:236
 #, python-format
@@ -2100,8 +2092,7 @@ msgstr "Dibatal"
 
 #: ../rescue.py:221 ../text.py:480
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
+msgstr "Saya tidak boleh pergi ke langkah terdahulu dari sini. Anda perlu cuba lagi."
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
@@ -2253,8 +2244,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr "%s (C) 2004 Red Hat, Inc."
 
 #: ../text.py:365
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 " <F1> untuk bantuan | <Tab> antara unsur | <Space> pilih | <F12> skrin "
 "berikutnya"
@@ -2454,23 +2444,25 @@ msgstr "Menyambung..."
 #: ../vnc.py:36
 #, fuzzy
 msgid "Unable to Start X"
-msgstr "Tidak dapat memuatkan fail!"
+msgstr "kepada Mula"
 
 #: ../vnc.py:37
+#, fuzzy
 msgid ""
 "X was unable to start on your machine.  Would you like to start VNC to "
 "connect to this computer from another computer and perform a graphical "
 "install or continue with a text mode install?"
-msgstr ""
+msgstr "kepada mula on kepada mula kepada kepada daripada dan atau?"
 
 #: ../vnc.py:44 ../vnc.py:47
+#, fuzzy
 msgid "Use text mode"
-msgstr ""
+msgstr "Guna"
 
 #: ../vnc.py:45
 #, fuzzy
 msgid "Start VNC"
-msgstr "Memulakan VNC..."
+msgstr "Mula"
 
 #: ../vnc.py:55
 #, fuzzy
@@ -2480,14 +2472,15 @@ msgstr "Konfigurasi Silo"
 #: ../vnc.py:59
 #, fuzzy
 msgid "No password"
-msgstr "Katalaluan Root"
+msgstr "Tidak"
 
 #: ../vnc.py:62
+#, fuzzy
 msgid ""
 "A password will prevent unauthorized listeners connecting and monitoring "
 "your installation progress.  Please enter a password to be used for the "
 "installation"
-msgstr ""
+msgstr "A dan kepada for"
 
 #: ../vnc.py:70 ../textw/userauth_text.py:44 ../loader2/urls.c:434
 msgid "Password:"
@@ -2510,9 +2503,8 @@ msgid "Password Length"
 msgstr "Panjang Katalaluan"
 
 #: ../vnc.py:100
-#, fuzzy
 msgid "The password must be at least six characters long."
-msgstr "Katalaluan mestilah sekurang-kurangnya 6 aksara panjang."
+msgstr "Katalaluan mestilah sekurang-kurangnya enam aksara panjang."
 
 #: ../xsetup.py:55 ../iw/xconfig_gui.py:34 ../textw/xconfig_text.py:22
 msgid "DDC Probed Monitor"
@@ -2552,10 +2544,11 @@ msgstr ""
 "untuk digunakan dalam katalaluan."
 
 #: ../iw/account_gui.py:93
+#, fuzzy
 msgid ""
 "The root account is used for administering the system.  Enter a password for "
 "the root user."
-msgstr ""
+msgstr "for Enter for pengguna."
 
 #: ../iw/account_gui.py:110
 msgid "Root _Password: "
@@ -2859,8 +2852,7 @@ msgstr "Tidak dapat Menukar Turutan Pemacu bagi LILO"
 
 #: ../iw/bootlocwidget.py:85
 msgid "We do not support changing the drive order for use with LILO."
-msgstr ""
-"Kami tidak menyokong penukaran turutan pemacu untuk digunakan dengan LILO."
+msgstr "Kami tidak menyokong penukaran turutan pemacu untuk digunakan dengan LILO."
 
 #: ../iw/bootlocwidget.py:92
 msgid "Edit Drive Order"
@@ -3218,30 +3210,30 @@ msgid "_Enable firewall"
 msgstr "_Hidupkan firewall"
 
 #: ../iw/firewall_gui.py:179
+#, fuzzy
 msgid "Allow others on the internet to access these services."
-msgstr ""
+msgstr "Benarkan on kepada."
 
 #: ../iw/firewall_gui.py:187
 msgid "_Allow incoming:"
 msgstr "_Izinkan masukan:"
 
 #: ../iw/firewall_gui.py:203
+#, fuzzy
 msgid "Remote Login (SSH)"
-msgstr ""
+msgstr "Jauh Logmasuk SSH"
 
 #: ../iw/firewall_gui.py:205
-#, fuzzy
 msgid "Web Server"
-msgstr "_Pelayan"
+msgstr "Pelayan Web"
 
 #: ../iw/firewall_gui.py:207
-#, fuzzy
 msgid "Mail Server (SMTP)"
-msgstr "Mel (SMTP)"
+msgstr "Pelayan Mel (SMTP)"
 
 #: ../iw/firewall_gui.py:209
 msgid "File Transfer (FTP)"
-msgstr ""
+msgstr "Pemindahan Fail (FTP)"
 
 #: ../iw/firewall_gui.py:215
 msgid "Other _ports:"
@@ -3528,8 +3520,7 @@ msgstr "Tiada slot kosong"
 #: ../iw/lvm_dialog_gui.py:696
 #, python-format
 msgid "You cannot create more than %s logical volumes per volume group."
-msgstr ""
-"Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
+msgstr "Anda tidak boleh cipta lebih daripada %s volum logikal per kumpulan volum."
 
 #: ../iw/lvm_dialog_gui.py:702
 msgid "No free space"
@@ -4138,15 +4129,12 @@ msgid "Partitioning"
 msgstr "Pempartisyenan"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
-msgstr ""
-"Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
+msgid "The following critical errors exist with your requested partitioning scheme."
+msgstr "Ralat kritikal berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr "Ralat ini mesti diperbaiki sebelum meneruskan pemasangan bagi %s anda."
 
 #: ../iw/partition_gui.py:648
@@ -4159,8 +4147,7 @@ msgstr "Amaran berikut wujud disebabkan skema pempartisyenan yang anda pinta."
 
 #: ../iw/partition_gui.py:656
 msgid "Would you like to continue with your requested partitioning scheme?"
-msgstr ""
-"Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
+msgstr "Adakah anda ingin meneruskan dengan skema pempartisyenan yang anda pinta?"
 
 #: ../iw/partition_gui.py:661
 msgid "Partitioning Warnings"
@@ -4779,8 +4766,7 @@ msgstr "Ini akan mengemaskini pemuat but semasa anda."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr "Pemasang mengesan pemuat but %s kini dipasang Ã¼ada %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4916,10 +4902,8 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Fail swap mestilah bersaiz diantara 1 dan 2000 MB "
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
-msgstr ""
-"Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
+msgid "There is not enough space on the device you selected for the swap partition."
+msgstr "Tidak cukup ruang cakera pada peranti yang anda pilih untuk partisyen swap."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
 msgid "Unprobed Monitor"
@@ -5256,8 +5240,7 @@ msgstr ""
 "digunakan bagi setiap daripadanya."
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 " <Ruang> pilih butang | <F2> pilih kemasukan but default | <F12> skrin "
 "berikutnya>"
@@ -5736,8 +5719,7 @@ msgid "Select individual packages"
 msgstr "Pilih pakej individu"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 "<Ruang>,<+>,<-> pemilihan   |   <F2> Perincian Kumpulan   |   <F12> skrin "
 "berikutnya"
@@ -5764,8 +5746,7 @@ msgid "Total size"
 msgstr "Jumlah saiz"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr "   <Space>,<+>,<-> pilihan   |   <F1> bantuan   |   <F2> huraian pakej"
 
 #: ../textw/packages_text.py:374
@@ -5906,8 +5887,7 @@ msgstr "Opsyen Sistem Fail"
 msgid ""
 "Please choose how you would like to prepare the file system on this "
 "partition."
-msgstr ""
-"Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
+msgstr "Sila pilih bagaimana anda ingin menyediakan sistem fail pada partisyen ini."
 
 #: ../textw/partition_text.py:552
 msgid "Check for bad blocks"
@@ -5990,10 +5970,8 @@ msgid "RAID"
 msgstr "RAD"
 
 #: ../textw/partition_text.py:1140
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Bantuan              F3-Edit   F4-Padam    F5-Ulangtetap    F12-OK    "
 
 #: ../textw/partition_text.py:1169
 msgid "No Root Partition"
@@ -6238,15 +6216,13 @@ msgid "User Exists"
 msgstr "Penguna Wujud"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna root sudah dikonfigurasikan. Anda tidak perlu menambah pengguna itu "
 "di sini."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 "Pengguna sistem telah dikonfigurasikan. Anda tidak perlu menambah pengguna "
 "itu di sini."
@@ -6797,28 +6773,26 @@ msgstr ""
 msgid ""
 "There are multiple partitions on this device which could contain the driver "
 "disk image.  Which would you like to use?"
-msgstr ""
-"Anda mempunyai banyak peranti yang boleh melayan sebagai sumber bagi cakera "
-"jurupacu. Yang mana anda ingin guna?"
+msgstr "on kepada?"
 
 #: ../loader2/driverdisk.c:331
 #, fuzzy
 msgid "Failed to mount partition."
-msgstr "Gagal untuk melekapkan cakera kemaskini"
+msgstr "Gagal kepada."
 
 #: ../loader2/driverdisk.c:339
 #, fuzzy
 msgid "Select driver disk image"
-msgstr "Pilih jurupacu"
+msgstr "Pilih"
 
 #: ../loader2/driverdisk.c:340
+#, fuzzy
 msgid "Select the file which is your driver disk image."
-msgstr ""
+msgstr "Pilih fail."
 
 #: ../loader2/driverdisk.c:369
-#, fuzzy
 msgid "Failed to load driver disk from file."
-msgstr "Gagal untuk melekapkan cakera jurupacu"
+msgstr "Gagal untuk memuatkan cakera pemandu daripada fail."
 
 #: ../loader2/driverdisk.c:379
 #, c-format
@@ -7041,8 +7015,7 @@ msgid "Welcome to %s"
 msgstr "Selamat datang ke %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:174
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 "  <Tab>/<Alt-Tab> Antara unsur   |  <Space> pilih   |  <F12> Skrin "
 "seterusnya "
@@ -7079,8 +7052,7 @@ msgstr ""
 #: ../loader2/loader.c:333
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
+msgstr "Masukkan cekara kemaskini ke /dev/%s  dan tekan \"OK\" untuk meneruskan."
 
 #: ../loader2/loader.c:335
 msgid "Updates Disk"
@@ -7176,9 +7148,9 @@ msgid "Add Device"
 msgstr "Tambah Peranti"
 
 #: ../loader2/loader.c:1130
-#, fuzzy, c-format
+#, c-format
 msgid "loader has already been run.  Starting shell.\n"
-msgstr "Pemuat sudah dilaksanakan. Memulakan shell."
+msgstr "pemuat sudah dilaksanakan.  Memulakan shell.\n"
 
 #: ../loader2/loader.c:1478
 #, c-format
@@ -7312,24 +7284,24 @@ msgstr ""
 
 #: ../loader2/net.c:177
 #, c-format
+#, fuzzy
 msgid ""
 "%s is a wireless network adapter.  Please provide the ESSID and encryption "
 "key needed to access your wireless network.  If no key is needed, leave this "
 "field blank and the install will continue."
-msgstr ""
+msgstr "s dan kepada Jika tidak dan."
 
 #: ../loader2/net.c:183
 msgid "ESSID"
-msgstr ""
+msgstr "ESSID"
 
 #: ../loader2/net.c:184
 msgid "Encryption Key"
-msgstr ""
+msgstr "Kekunci Enkripsi"
 
 #: ../loader2/net.c:187
-#, fuzzy
 msgid "Wireless Settings"
-msgstr "Tetapan Lain-lain"
+msgstr "Tetapan Wireless"
 
 #: ../loader2/net.c:200
 msgid "Nameserver IP"
@@ -7628,8 +7600,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Waktu Atlantik - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 "Waktu Atlantik - Nova Scotia (kebanyakan tempat), NB, W Labrador, E Quebec & "
 "PEI"
@@ -7815,8 +7786,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr "Waktu Timur - Ontario - most locations"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr "Waktu Timur - Ontario & Quebec - tempat tidak diperhati DST 1967-1973"
 
 #. generated from zone.tab
@@ -7993,16 +7963,14 @@ msgstr "kebanyakan lokasi"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
-msgstr ""
-"hampir semua lokasi (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
+msgstr "hampir semua lokasi (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
 msgstr "Waktu Piawai Gunung - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr "Waktu Piawan Gunung - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
@@ -8358,23 +8326,3 @@ msgstr "Welsh"
 msgid "Zulu"
 msgstr "Zulu"
 
-#~ msgid "The CDROM could not be mounted."
-#~ msgstr "CDROM tidak dapat dilekapkan."
-
-#~ msgid "Enter the root (administrator) password for the system."
-#~ msgstr "Masukkan katalaluan root (pentadbir) bagi sistem."
-
-#~ msgid "_Custom firewall"
-#~ msgstr "Firewall _Tersendiri"
-
-#~ msgid "What services should be allowed to pass through the firewall?"
-#~ msgstr "Servis apa yang anda izinkan untuk melepasi firewall?"
-
-#~ msgid ""
-#~ "If you would like to allow all traffic from a device, select it below."
-#~ msgstr ""
-#~ "Jika anda ingin izinkan semua trafik daripada satu peranti, pilih ia "
-#~ "dibawah."
-
-#~ msgid "_Trusted devices:"
-#~ msgstr "_Peranti dipercayai:"
