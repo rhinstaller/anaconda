@@ -44,7 +44,6 @@
 #include "imount.h"
 #include "isys.h"
 #include "net.h"
-#include "probe.h"
 #include "smp.h"
 #include "lang.h"
 #include "getmacaddr.h"
@@ -850,7 +849,7 @@ static PyObject * doDevSpaceFree(PyObject * s, PyObject * args) {
 	return NULL;
     }
 
-    return Py_BuildValue("i", sb.f_bfree * (sb.f_bsize / 1024) / (1024));
+    return Py_BuildValue("l", (long) sb.f_bfree * (sb.f_bsize / 1024) / (1024));
 }
 
 static PyObject * doRaidStop(PyObject * s, PyObject * args) {
