@@ -3,8 +3,10 @@ import _balkan
 import os
 from translate import _
 import raid
+import iutil
 import fstab
 from log import log
+import os.path
 
 def findExistingRoots (intf, theFstab):
     rootparts = []
@@ -102,3 +104,68 @@ def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
 	sys.exit(0)
 
     theFstab.mountFilesystems (instPath, raiseErrors = raiseErrors)
+
+# returns None if no more swap is needed
+def swapSuggestion(instPath, fstab):
+    # mem is in kb -- round it up to the nearest 4Mb
+    mem = iutil.memInstalled(corrected = 0)
+    rem = mem % 16384
+    if (rem):
+	mem = mem + (16384 - rem)
+    mem = mem / 1024
+
+    # don't do this if we have more then 512 MB
+    if mem > 510: return None
+
+    swap = iutil.swapAmount() / 1024
+
+    # if we have twice as much swap as ram, we're safe
+    if swap >= (mem * 2):
+	return None
+
+    fsList = []
+
+    if fstab.rootOnLoop():
+	space = isys.pathSpaceAvailable("/mnt/loophost")
+
+	for info in fstab.mountList():
+	    (mntpoint, partition) = info[0:2]
+	    if mntpoint != '/': continue
+	    info = (mntpoint, partition, space)
+	    fsList.append(info)
+    else:
+	for info in fstab.mountList():
+	    (mntpoint, partition) = info[0:2]
+	    space = isys.pathSpaceAvailable(instPath + mntpoint)
+	    info = (mntpoint, partition, space)
+	    fsList.append(info)
+
+    suggestion = mem * 2 - swap
+    suggSize = 0
+    suggMnt = None
+    for (mnt, part, size) in fsList:
+	if (size > suggSize) and (size > (suggestion + 100)):
+	    suggMnt = mnt
+
+    return (fsList, suggestion, suggMnt)
+
+def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
+    fstabPath = instPath + "/etc/fstab"
+    prefix = None
+    if theFstab.rootOnLoop():
+	instPath = "/mnt/loophost"
+	prefix = "/initrd/loopfs"
+
+    file = "/SWAP"
+    count = 0
+    while (os.access(instPath + file, os.R_OK)):
+	count = count + 1
+	file = "/SWAP-%d" % count
+
+    theFstab.addMount(file, size, "swap")
+    theFstab.turnOnSwap(instPath, progressWindow)
+
+    f = open(fstabPath, "a")
+    f.write(fstab.fstabFormatString % (prefix + file, "swap", "swap", "defaults",
+	    0, 0))
+    f.close()
