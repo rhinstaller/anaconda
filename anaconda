@@ -564,6 +564,9 @@ if method:
     elif method.startswith('nfs:/'):
         from image import NfsInstallMethod
         method = NfsInstallMethod(method[5:])
+    elif method.startswith('nfsiso:/'):
+        from image import NfsIsoInstallMethod
+        method = NfsIsoInstallMethod(method[8:], intf.messageWindow)
     elif method.startswith('ftp://') or method.startswith('http://'):
         from urlinstall import UrlInstallMethod
         method = UrlInstallMethod(method)
@@ -580,7 +583,7 @@ if method:
 
         from harddrive import HardDriveInstallMethod
         method = HardDriveInstallMethod(drive, type, dir, intf.messageWindow)
-    elif method.startwith('oldhd://'):
+    elif method.startswith('oldhd://'):
         method = method[8:]
 
         i = string.index(method, ":")
