@@ -112,6 +112,9 @@ def get_logical_partitions(disk):
     rc = []
     part = disk.next_partition ()
     while part:
+        if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+            part = disk.next_partition(part)
+            continue
         if part.type & parted.PARTITION_LOGICAL:
             rc.append(part)
         part = disk.next_partition (part)
@@ -122,6 +125,9 @@ def get_primary_partitions(disk):
     rc = []
     part = disk.next_partition()
     while part:
+        if part.type & parted.PARTITION_FREESPACE or part.type & parted.PARTITION_METADATA:
+            part = disk.next_partition(part)
+            continue
         if part.type == parted.PARTITION_PRIMARY:
             rc.append(part)
         part = disk.next_partition(part)
@@ -377,6 +383,9 @@ class DeleteSpec:
         self.drive = drive
         self.start = start
         self.end = end
+
+    def __str__(self):
+        return "drive: %s  start: %s  end: %s" %(self.drive, self.start, self.end)
 
 
 class PartitionSpec:
