@@ -269,6 +269,7 @@ makeinitrd() {
     MODULEBALLNAME="modules.cgz"
     MYLANGTABLE=$LANGTABLE
     MYLOADERTR=loader.tr
+    JAPANESE=""
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--initrdto" ]; then
 	    EXTRAINITRDPATH=$2
@@ -305,6 +306,7 @@ makeinitrd() {
 	elif [ $1 = "--japanese" ]; then
 	    MYLANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table-kon
 	    MYLOADERTR=kon-loader.tr
+	    JAPANESE=1
 	    shift; 
 	    continue
 	fi
@@ -354,8 +356,13 @@ EOF
     install -s -m 755 $LOADERBINDIR/$INITBIN $MBD_DIR/sbin
     install -m 644 $KEYMAPS $MBD_DIR/etc/keymaps.gz
     install -m 644 $FONTS $MBD_DIR/etc/fonts.cgz
-    install -m 644 $MYLANGTABLE $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc
+    install -m 644 $MYLANGTABLE $MBD_DIR/etc/lang-table
+    install -m 644 $LOADERBINDIR/$MYLOADERTR $MBD_DIR/etc/loader.tr
     install -m 644 /usr/share/terminfo/l/linux $MBD_DIR/etc/terminfo/l/linux
+    if [ -n "$JAPANESE" ]; then
+	install -m 644 $LOADERBINDIR/kon.cfg $MBD_DIR/etc
+	install -m 644 $LOADERBINDIR/minikon.fnt $MBD_DIR/etc
+    fi
 
     if [ -n "$PCMCIA" ]; then
 	mkdir -p $MBD_BOOTTREE/etc
@@ -406,6 +413,8 @@ EOF
 	$MBD_DIR openprom c 10 139 644 root:root
 	$MBD_DIR sunmouse c 10 6 644 root:root
 	$MBD_DIR kbd c 11 0 644 root:root
+	$MBD_DIR ptyp0 c 2 0 644 root:root
+	$MBD_DIR ttyp0 c 3 0 644 root:root
 EOF
     ln -s fb0 $MBD_DIR/dev/fb
 
@@ -457,6 +466,7 @@ makebootdisk() {
     EXTRAKERNELPATH=""
     INITRDFLAGS=""
     MBD_FILENAME=""
+    INITRDFILE=""
     while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
 	if [ $1 = "--bootdisksize" ]; then
 	     BOOTDISKSIZE=$2
@@ -468,6 +478,10 @@ makebootdisk() {
 	    continue
 	elif [ $1 = "--initrdflags" ]; then
 	    INITRDFLAGS=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "--initrd" ]; then
+	    INITRDFILE=$2
 	    shift; shift
 	    continue
 	elif [ $1 = "--imagename" ]; then
@@ -484,7 +498,9 @@ makebootdisk() {
 	exit 1
     fi
 
-    if [ ! -z "$INITRDFLAGS" ]; then
+    if [ -n "$INITRDFILE" ]; then
+	MBD_FSIMAGE="$INITRDFILE"
+    elif [ -n "$INITRDFLAGS" ]; then
 	eval makeinitrd --keep $INITRDFLAGS
     fi
 
@@ -506,7 +522,10 @@ makebootdisk() {
     mkdir -p `dirname $MBD_FILENAME`
     rm -f $MBD_FILENAME
     mv -f $MBD_TMPIMAGE $MBD_FILENAME
-    rm -rf $MBD_TMPIMAGE $MBD_FSIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+    rm -rf $MBD_TMPIMAGE $MBD_MNTPOINT $MBD_BOOTTREE
+    if [ -z "$INITRDFILE" ]; then
+	rm -f $MBD_FSIMAGE
+    fi
 
     echo "Wrote $MBD_FILENAME (${left}k free)"
 }

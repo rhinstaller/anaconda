@@ -15,38 +15,92 @@ prepareBootImage() {
 	mount -o loop -t msdos $MBD_TMPIMAGE $MBD_BOOTTREE
 
 	(cd $BOOTDISKDIR; find . ! -name "*.msg" -maxdepth 1 ! -type d | cpio --quiet -p $MBD_BOOTTREE)
-
+	
 	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd.img
 	cp $KERNELROOT/boot/vmlinuz-* $MBD_BOOTTREE/vmlinuz
-	cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+	if [ -d $BOOTDISKDIR/$BOOTLANG ]; then
+	    cp $BOOTDISKDIR/$BOOTLANG/*.msg $MBD_BOOTTREE
+	else
+	    cp $BOOTDISKDIR/*.msg $MBD_BOOTTREE
+	fi
 }
 
-makebootdisk --kernelto $TOPDESTPATH/dosutils/autorun/vmlinuz  \
-	     --bootdisksize 1440 \
-	     --imagename boot.img \
-	     --initrdflags '--initrdto $TOPDESTPATH/dosutils/autorun/initrd.img \
-		   	    --initrdsize 2000 \
-			    --loaderbin loader-local \
-			    --modules "vfat AM53C974 ips DAC960
-			    megaraid ncr53c8xx cpqarray aic7xxx
-			    BusLogic qlogicisp advansys eata_dma"'
+COMMONMODULES="vfat"
+LOCALMODULES="$COMMONMODULES AM53C974 ips DAC960 megaraid ncr53c8xx cpqarray
+	    aic7xxx BusLogic qlogicisp advansys eata_dma"
+NETWORKMODULES="$COMMONMODULES 3c59x ac3200 at1700 de4x5 de600 de620
+	       depca dgrs eepro100 eepro hp-plus hp hp100 ibmtr ni52
+	       old_tulip tulip ne nfs vfat"
 
-makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
-	     --bootdisksize 1440 \
-	     --imagename bootnet.img \
-	     --initrdflags '--initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
-		     	    --initrdsize 2000 \
-			    --loaderbin loader-network \
-		 	    --modules "3c59x ac3200 at1700 de4x5 de600
-		  	    de620 depca dgrs eepro100 eepro hp-plus hp
-		  	    hp100 ibmtr ni52 old_tulip tulip ne nfs
-		  	    vfat"'
+makeinitrd --initrdto $TOPDESTPATH/dosutils/autorun/initrd.img \
+	   --initrdsize 2000 \
+	   --loaderbin loader-local \
+	   --modules "$LOCALMODULES"
 
-makebootdisk --imagename pcmcia.img \
+makeinitrd --initrdto $TOPDESTPATH/images/pxeboot/initrd.img \
+	   --initrdsize 2000 \
+	   --loaderbin loader-network \
+	   --modules "$NETWORKMODULES"
+
+makeinitrd --initrdto $TOPDESTPATH/images/initrd-pcmcia.img \
+	   --pcmcia \
+	   --initrdsize 2000 \
+	   --loaderbin loader-pcmcia \
+	   --modules "$PCMCIAMODULES nfs vfat"
+
+for I in `find $BOOTDISKDIR -type d`; do
+    BOOTLANG=`basename $I`
+    BOOTDIR=`basename $I | cut -d'_' -f1`
+
+    if [ $BOOTLANG = "boot" ]; then
+	BOOTLANG=""
+	BOOTDIR=""
+    elif [ $BOOTLANG = "ja_JP" ]; then
+	# this is handled below.
+	continue
+    fi
+
+    makebootdisk --kernelto $TOPDESTPATH/dosutils/autorun/vmlinuz  \
+		 --bootdisksize 1440 \
+		 --imagename $BOOTDIR/boot.img \
+		 --initrd $TOPDESTPATH/dosutils/autorun/initrd.img
+
+    makebootdisk --kernelto $TOPDESTPATH/images/pxeboot/vmlinuz  \
+		 --bootdisksize 1440 \
+		 --imagename $BOOTDIR/bootnet.img \
+		 --initrd $TOPDESTPATH/images/pxeboot/initrd.img
+
+    makebootdisk --imagename $BOOTDIR/pcmcia.img \
+	         --bootdisksize 1440 \
+		 --initrd $TOPDESTPATH/images/initrd-pcmcia.img
+done
+
+rm -f $TOPDESTPATH/images/initrd-pcmcia.img
+
+# --- Japanese
+BOOTLANG="ja_JP"
+BOOTDIR="ja"
+
+makebootdisk --bootdisksize 1440 \
+	     --imagename ja/boot.img \
+	     --initrdflags '--japanese
+			    --initrdsize 2000 \
+			    --loaderbin loader-local-kon \
+			    --modules "$LOCALMODULES"'
+
+makebootdisk --bootdisksize 1440 \
+	     --imagename ja/bootnet.img \
+	     --initrdflags '--japanese
+			    --initrdsize 2000 \
+			    --loaderbin loader-network-kon \
+		 	    --modules "$NETWORKMODULES"'
+
+makebootdisk --imagename ja/pcmcia.img \
 	     --bootdisksize 1440 \
-	     --initrdflags '--pcmcia \
+	     --initrdflags '--japanese
+			    --pcmcia \
 		     	    --initrdsize 2000 \
-			    --loaderbin loader-pcmcia \
+			    --loaderbin loader-pcmcia-kon \
 			    --modules "$PCMCIAMODULES nfs vfat"'
 
 makedriverdisk "Supplemental Drivers" "drivers" "+scsi +net"
