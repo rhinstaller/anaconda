@@ -492,10 +492,10 @@ class ToDo:
                 if (fs == "ext2"):
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 1, 2))
                 elif fs == "iso9660":
-                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,ro', 0, 0))
+                    f.write (format % ( '/dev/' + dev, mntpoint, fs, 'noauto,owner,ro', 0, 0))
                 else:
                     f.write (format % ( '/dev/' + dev, mntpoint, fs, 'defaults', 0, 0))
-	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext', 'noauto', 0, 0))
+	f.write (format % ("/dev/fd0", "/mnt/floppy", 'ext', 'noauto,owner', 0, 0))
 	f.write (format % ("none", "/proc", 'proc', 'defaults', 0, 0))
 	f.write (format % ("none", "/dev/pts", 'devpts', 'gid=5,mode=620', 0, 0))
 	f.close ()
