@@ -1119,7 +1119,6 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 		s = os.read(p[0], 1)
 
 		os.write(fd, s)
-		isys.sync()
 
 		if s != '\b':
 			try:
@@ -1130,6 +1129,7 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
 			if num:
 				l = string.split(num, '/')
 				w.set((int(l[0]) * 100) / int(l[1]))
+				isys.sync()
 			num = ''
 	    except OSError, args:
 		(num, str) = args
