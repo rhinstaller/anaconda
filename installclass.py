@@ -14,7 +14,7 @@
 # Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #
 
-import gettext_rh, os, iutil
+import os, iutil
 import string
 import language
 from xf86config import XF86Config

@@ -20,7 +20,6 @@ import os
 import isys
 import iutil
 import time
-import gettext_rh
 import signal
 import parted
 import string
