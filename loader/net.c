@@ -235,7 +235,7 @@ static void dhcpBoxCallback(newtComponent co, void * ptr) {
 
 static int getDnsServers(struct networkDeviceConfig * cfg) {
     int rc;
-    char * ns = NULL;
+    char * ns = "";
     struct newtWinEntry entry[] = { { N_("Nameserver IP"), &ns, 0 },
 				      { NULL, NULL, 0 } };
 
@@ -250,7 +250,7 @@ static int getDnsServers(struct networkDeviceConfig * cfg) {
 
 	if (rc == 2) return LOADER_BACK;
 
-	if (entry->value && !inet_aton(ns, &cfg->dev.dnsServers[0])) {
+	if (ns && *ns && !inet_aton(ns, &cfg->dev.dnsServers[0])) {
 	    newtWinMessage(_("Invalid IP Information"), _("Retry"),
 			_("You entered an invalid IP address."));
 	    rc = 2;
