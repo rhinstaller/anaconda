@@ -17,7 +17,7 @@ class BootdiskWindow (InstallWindow):
         self.bootdisk = None
 
     def getNext (self):
-        if self.bootdisk:
+        if not self.bootdisk:
             return None
         
         if self.bootdisk.get_active ():
