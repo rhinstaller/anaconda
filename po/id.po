@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ID-rhinstall 1.4\n"
 "POT-Creation-Date: 1999-09-19 11:17-0400\n"
-"PO-Revision-Date: 1998-09-18 06:10+0700\n"
+"PO-Revision-Date: 1998-09-20 17:17+0700\n"
 "Last-Translator: Mohammad DAMT <mdamt@ldp.linux.or.id>\n"
 "Language-Team: LDP Indonesia <http://ldp.linux.or.id>\n"
 "MIME-Version: 1.0\n"
@@ -669,13 +669,12 @@ msgid "Skip boot disk creation"
 msgstr "Tidak buat boot disk"
 
 #: ../iw/confirm.py:10
-#, fuzzy
 msgid "About to Install"
-msgstr "Komponen yang hendak diinstall"
+msgstr "Sedang akan mulai install"
 
 #: ../iw/confirm.py:15
 msgid "Click next to begin installation of Red Hat Linux."
-msgstr ""
+msgstr "Tekan next untuk memulai instalasi Red Hat Linux."
 
 #: ../iw/congrats.py:11
 msgid "Congratulations"
@@ -763,9 +762,8 @@ msgid "Upgrade"
 msgstr "Upgrade"
 
 #: ../iw/installpath.py:188
-#, fuzzy
 msgid "Use fdisk"
-msgstr "fdisk"
+msgstr "Gunakan fdisk"
 
 #: ../iw/keyboard.py:12
 msgid "Keyboard Configuration"
@@ -1926,24 +1924,27 @@ msgstr "Perangkat"
 
 #: ../loader/devices.c:166
 msgid "Insert your driver disk and press \"OK\" to continue."
-msgstr ""
+msgstr "Masukkan driver disk dan kemudian tekan \"OK\"."
 
 #: ../loader/devices.c:175
-#, fuzzy
 msgid "Failed to mount floppy disk."
-msgstr "Saya gagal menghubungkan diri dengan server"
+msgstr "Saya gagal memount floppy disk."
 
 #: ../loader/devices.c:179
 msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Disket yang Anda masukkan tadi tidak berisi disk driver untuk Linux Red Hat "
+"ini."
 
 #: ../loader/devices.c:198
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Driver mana yang hendak dicoba? Bila drivernya tidak ada di daftar, dan Anda "
+"memiliki disk driver lain, silahkan tekan F2."
 
 #: ../loader/devices.c:203
 msgid "Which driver should I try?"
