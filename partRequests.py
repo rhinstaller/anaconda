@@ -612,10 +612,17 @@ class RaidRequestSpec(RequestSpec):
         # XXX fix this code to look to see if there is a bootable partition
         bootreq = partitions.getBootableRequest()
         if not bootreq and self.mountpoint:
-            # XXX 390 can't have boot on raid
-            if ((self.mountpoint == "/boot" or self.mountpoint == "/")
-                and not raid.isRaid1(self.raidlevel)):
-                return _("Bootable partitions can only be on RAID1 devices.")
+            # XXX 390 can't have boot on any kind of raid 
+            if iutil.getArch() != 's390':
+                if ((self.mountpoint == "/boot" or self.mountpoint == "/")
+                    and not raid.isRaid1(self.raidlevel)):
+                    return _("Bootable partitions can only be on RAID1 devices.")
+            else:
+                if ((self.mountpoint == "/boot" or self.mountpoint == "/") and
+                    (raid.isRaid0(self.raidlevel)
+                     or raid.isRaid1(self.raidlevel)
+                     or raid.isRaid5(self.raidlevel))):
+                    return _("Bootable partitions can not be on RAID devices.")
 
         minmembers = raid.get_raid_min_members(self.raidlevel)
         if len(self.raidmembers) < minmembers:
