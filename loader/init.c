@@ -61,6 +61,7 @@ char * env[] = {
         "/mnt/sysimage/usr/bin:/mnt/sysimage/usr/sbin:/mnt/sysimage/sbin",
     "LD_LIBRARY_PATH=/lib:/usr/lib:/usr/X11R6/lib:/mnt/usr/lib:"
         "/mnt/sysimage/lib:/mnt/sysimage/usr/lib",
+    "PYTHONPATH=/tmp/updates",
     "HOME=/",
     "TERM=linux",
     "DEBUG=",
@@ -410,7 +411,7 @@ void unmountFilesystems(void) {
     }
 }
 
-int main(int argc, char **argv) {
+int main(void) {
     pid_t installpid, childpid;
     int waitStatus;
     int fd;
@@ -423,10 +424,8 @@ int main(int argc, char **argv) {
 #ifdef __alpha__
     char * kernel;
 #endif
-    char * argvc[15];
-    char ** argvp = argvc;
-    char twelve = 12;
-    int i;
+    char * argv[15];
+    char ** argvp = argv;
 
     /* getpid() != 1 should work, by linuxrc tends to get a larger pid */
     testing = (getpid() > 50);
@@ -448,41 +447,29 @@ int main(int argc, char **argv) {
     }
     printf("done\n");
 
-#ifndef __alpha__
-    printf("mounting /dev/pts (unix98 pty) filesystem... "); 
+    printf("mounting /dev/pts (unix89 pty) filesystem... "); 
     if (!testing) {
 	if (mount("/dev/pts", "/dev/pts", "devpts", 0, NULL))
 	    fatal_error(1);
     }
     printf("done\n");
-#endif
-
-    for (i = 1; i < argc; i++)
-	if (!strcmp (argv[i], "serial")) {
-	    isSerial = 1;
-	    break;
-	}
-
-    if (ioctl (0, TIOCLINUX, &twelve) < 0)
-	isSerial = 2;
     
     if (isSerial) {
-	char *device = "/dev/ttyS0";
 	printf("Red Hat install init version %s using a serial console\n", 
 		VERSION);
 
 	printf("remember, cereal is an important part of a nutritionally "
 	       "balanced breakfast.\n\n");
 
-	if (isSerial == 2)
-	    device = "/dev/console";
-	fd = open(device, O_RDWR, 0);
+	fd = open("/dev/ttyS0", O_RDWR, 0);
 	if (fd < 0) {
-	    printf("failed to open %s\n", device);
+	    printf("failed to open /dev/ttyS0");
 	    fatal_error(1);
 	}
 
 	setupTerminal(fd);
+
+	close(fd);
     } else {
 	fd = open("/dev/tty1", O_RDWR, 0);
 	if (fd < 0) {
@@ -575,10 +562,9 @@ int main(int argc, char **argv) {
     if (!(installpid = fork())) {
 	/* child */
 	*argvp++ = "/sbin/loader";
-	*argvp++ = NULL;
 
-	printf("running %s\n", argvc[0]);
-	execve(argvc[0], argvc, env);
+	printf("running %s\n", argv[0]);
+	execve(argv[0], argv, env);
 	
 	exit(0);
     }

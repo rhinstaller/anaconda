@@ -33,8 +33,6 @@
 #include <string.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
-#include <sys/sysmacros.h>
-#include <sys/utsname.h>
 #include <unistd.h>
 #include <zlib.h>
 
@@ -112,9 +110,6 @@ static struct installMethod installMethods[] = {
 static int numMethods = sizeof(installMethods) / sizeof(struct installMethod);
 
 static int newtRunning = 0;
-#ifdef INCLUDE_KON
-static int startKon = 1;
-#endif
 
 void doSuspend(void) {
     newtFinished();
@@ -143,10 +138,6 @@ static void spawnShell(int flags) {
     pid_t pid;
     int fd;
 
-    if (FL_SERIAL(flags)) {
-	logMessage("not spawning a shell over a serial connection");
-	return;
-    }
     if (!FL_TESTING(flags)) {
 	fd = open("/dev/tty2", O_RDWR);
 	if (fd < 0) {
@@ -165,7 +156,7 @@ static void spawnShell(int flags) {
 	    close(fd);
 	    setsid();
 	    if (ioctl(0, TIOCSCTTY, NULL)) {
-		logMessage("could not set new controlling tty");
+		perror("could not set new controlling tty");
 	    }
 
 	    execl("/bin/sh", "-/bin/sh", NULL);
@@ -549,9 +540,6 @@ static char * mountHardDrive(struct installMethod * method,
     char * type;
     char * url = NULL;
     int numPartitions;
-    #ifdef __sparc__
-    static int ufsloaded;
-    #endif
 
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
 
@@ -566,17 +554,8 @@ static char * mountHardDrive(struct installMethod * method,
 				   "device %s: %d", kd->known[i].name, rc);
 		    } else {
 			for (j = 0; j < table.maxNumPartitions; j++) {
-			    switch (table.parts[j].type) {
-			    #ifdef __sparc__
-			      case BALKAN_PART_UFS:
-				if (!ufsloaded) {
-				    ufsloaded = 1;
-				    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
-				}
-				/* FALLTHROUGH */
-			    #endif
-			      case BALKAN_PART_DOS:
-			      case BALKAN_PART_EXT2:
+			    if (table.parts[j].type == BALKAN_PART_DOS ||
+				    table.parts[j].type == BALKAN_PART_EXT2) {
 				sprintf(partitions[numPartitions].name, 
 					"/dev/%s%d", kd->known[i].name, j + 1);
 				partitions[numPartitions].type = 
@@ -594,7 +573,7 @@ static char * mountHardDrive(struct installMethod * method,
 		unlink("/tmp/hddevice");
 	    }
 	}
-	
+
 	if (!numPartitions) {
 	    rc = newtWinChoice(_("Hard Drives"), _("Yes"), _("Back"),
 			    _("You don't seem to have any hard drives on "
@@ -679,9 +658,6 @@ static char * mountHardDrive(struct installMethod * method,
 	logMessage("partition %s selected", part->name);
 	
 	switch (part->type) {
-	#ifdef __sparc__
-	  case BALKAN_PART_UFS:     type = "ufs"; 		break;
-	#endif
 	  case BALKAN_PART_EXT2:    type = "ext2"; 		break;
 	  case BALKAN_PART_DOS:	    type = "vfat"; 		break;
 	  default:	continue;
@@ -746,11 +722,6 @@ static char * setupCdrom(struct installMethod * method,
 	}
     } while (1);
 
-    /* FIXME: For GUI installs to other host (with display=)
-       we need to set up networking.  */
-    if (getenv("DISPLAY"))
-	flags |= LOADER_FLAGS_TEXT;
-    
     return "dir://mnt/source/.";
 }
 
@@ -1059,21 +1030,15 @@ static char * doMountImage(char * location,
 	exit(1);
     }
 
-#if defined (INCLUDE_LOCAL) || defined (__sparc__)
-# ifdef __sparc__
-    /* Check any attached CDROM device for a
-       Red Hat CD. If there is one there, just die happy */
-    if (!FL_EXPERT(flags)) {
-# else
+#ifdef INCLUDE_LOCAL
     /* If no network is available, check any attached CDROM device for a
        Red Hat CD. If there is one there, just die happy */
     if (!networkAvailable && !FL_EXPERT(flags)) {
-# endif
 	url = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps,
 			 flags, 1);
 	if (url) return url;
     }
-#endif /* defined (INCLUDE_LOCAL) || defined (__sparc__) */
+#endif
 
     startNewt(flags);
 
@@ -1376,7 +1341,6 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	imageUrl = setupCdrom(NULL, location, kd, modInfo, modLoaded, modDeps, 
 			  flags, 1);
     } else if (ksType == KS_CMD_HD) {
-	char * fsType;
 	logMessage("partname is %s", partname);
 
 	for (i = 0; i < kd->numKnown; i++) {
@@ -1411,14 +1375,11 @@ static char * setupKickstart(char * location, struct knownDevices * kd,
 	    return NULL;
 	}
 
-	switch (partTable.parts[partNum].type) {
-	#ifdef __sparc__
-	  case BALKAN_PART_UFS: fsType = "ufs"; break;
-	#endif
-	  case BALKAN_PART_EXT2: fsType = "ext2"; break;
-	  default: fsType = "vfat"; break;
-	}
-	imageUrl = setupHardDrive(partname, fsType, dir, flags);
+	/* XXX this shouldn't be hard coded to ext2 */
+	imageUrl = setupHardDrive(partname, 
+		partTable.parts[partNum].type == BALKAN_PART_EXT2 ? 
+			"ext2" : "vfat", 
+	        dir, flags);
     } 
 #endif
 
@@ -1465,32 +1426,16 @@ static int parseCmdLineFlags(int flags, char * cmdLine, char ** ksSource) {
 	    flags |= LOADER_FLAGS_MODDISK;
         else if (!strcasecmp(argv[i], "rescue"))
 	    flags |= LOADER_FLAGS_RESCUE;
-	else if (!strcasecmp(argv[i], "serial"))
-	    flags |= LOADER_FLAGS_SERIAL;
         else if (!strcasecmp(argv[i], "ks"))
 	    flags |= LOADER_FLAGS_KICKSTART;
         else if (!strcasecmp(argv[i], "ks=floppy"))
 	    flags |= LOADER_FLAGS_KSFLOPPY;
-	else if (!strncasecmp(argv[i], "display=", 8))
-	    setenv("DISPLAY", argv[i] + 8, 1);
         else if (!strncasecmp(argv[i], "ks=hd:", 6)) {
 	    flags |= LOADER_FLAGS_KSHD;
 	    *ksSource = argv[i] + 6;
-	} else if (!strncasecmp(argv[i], "lang=", 5)) {
-	    setLanguage (argv[i] + 5);
-#ifdef INCLUDE_KON
-	    if (!strcmp (argv[i] + 5, "ja") && startKon) {
-		char * args[5];
-
-		args[0] = "kon";
-		args[1] = "-e";
-		args[2] = "/sbin/continue";
-		args[3] = NULL;
-		
-		execv(FL_TESTING(flags) ? "./loader" : "/sbin/loader", args);
-	    }
-#endif /* INCLUDE_KON */
 	}
+        else if (!strncasecmp(argv[i], "display=", 8))
+	    setenv("DISPLAY", argv[i] + 8, 1);
     }
 
     return flags;
@@ -1568,9 +1513,6 @@ int kickstartFromHardDrive(char * location,
     char * fullFn;
 
     mlLoadModule("vfat", NULL, modLoaded, modDeps, NULL, flags);
-    #ifdef __sparc__
-    mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
-    #endif
 
     fileName = strchr(source, '/');
     *fileName = '\0';
@@ -1641,6 +1583,7 @@ void readExtraModInfo(moduleInfoSet modInfo) {
 	sprintf(fileName, "/tmp/DD-%d/modinfo", ++num);
     }
 }
+
 
 /* Recursive */
 int copyDirectory(char * from, char * to) {
@@ -1744,42 +1687,6 @@ void loadUpdates(struct knownDevices *kd, moduleList modLoaded,
     return;
 }
 
-#ifdef __sparc__
-/* Don't load the large ufs module if it will not be needed
-   to save some memory on lowmem SPARCs. */
-void loadUfs(struct knownDevices *kd, moduleList modLoaded,
-	     moduleDeps modDeps, int flags) {
-    int i, j, fd, rc;
-    struct partitionTable table;
-    int ufsloaded = 0;
-
-    for (i = 0; i < kd->numKnown; i++) {
-	if (kd->known[i].class == CLASS_HD) {
-	    devMakeInode(kd->known[i].name, "/tmp/hddevice");
-	    if ((fd = open("/tmp/hddevice", O_RDONLY)) >= 0) {
-		if ((rc = balkanReadTable(fd, &table))) {
-		    logMessage("failed to read partition table for "
-			       "device %s: %d", kd->known[i].name, rc);
-		} else {
-		    for (j = 0; j < table.maxNumPartitions; j++) {
-			if (table.parts[j].type == BALKAN_PART_UFS) {
-			    if (!ufsloaded)
-				mlLoadModule("ufs", NULL, modLoaded, modDeps, NULL, flags);
-			    ufsloaded = 1;
-			}
-		    }
-		}
-
-		close(fd);
-	    }
-	    unlink("/tmp/hddevice");
-	}
-    }
-}
-#else
-#define loadUfs(kd,modLoaded,modDeps,flags) do { } while (0)
-#endif
-
 int main(int argc, char ** argv) {
     char ** argptr;
     char * anacondaArgs[40];
@@ -1799,9 +1706,7 @@ int main(int argc, char ** argv) {
     moduleInfoSet modInfo;
     char * where;
     struct moduleInfo * mi;
-    char twelve = 12;
     char * ksFile = NULL, * ksSource = NULL;
-    struct stat sb;
     struct poptOption optionTable[] = {
     	    { "cmdline", '\0', POPT_ARG_STRING, &cmdLine, 0 },
 	    { "ksfile", '\0', POPT_ARG_STRING, &ksFile, 0 },
@@ -1818,11 +1723,8 @@ int main(int argc, char ** argv) {
 	return ourInsmodCommand(argc, argv);
 
 #ifdef INCLUDE_KON
-    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon")) {
-	i = kon_main(argc, argv);
-	return i;
-    } else if (!strcmp(argv[0] + strlen(argv[0]) - 8, "continue"))
-	startKon = 0;
+    else if (!strcmp(argv[0] + strlen(argv[0]) - 3, "kon"))
+	return kon_main(argc, argv);
 #endif
 
 #ifdef INCLUDE_PCMCIA
@@ -1831,14 +1733,6 @@ int main(int argc, char ** argv) {
     else if (!strcmp(argv[0] + strlen(argv[0]) - 5, "probe"))
 	return probe_main(argc, argv);
 #endif
-
-    /* The fstat checks disallows serial console if we're running through
-       a pty. This is handy for Japanese. */
-    fstat(0, &sb);
-    if (major(sb.st_rdev) != 3) {
-	if (ioctl (0, TIOCLINUX, &twelve) < 0)
-	    flags |= LOADER_FLAGS_SERIAL;
-    }
 
     optCon = poptGetContext(NULL, argc, argv, optionTable, 0);
 
@@ -1858,9 +1752,6 @@ int main(int argc, char ** argv) {
 
     flags = parseCmdLineFlags(flags, cmdLine, &ksSource);
 
-    if (FL_SERIAL(flags) && !getenv("DISPLAY"))
-	flags |= LOADER_FLAGS_TEXT;
-
     arg = FL_TESTING(flags) ? "./module-info" : "/modules/module-info";
     modInfo = isysNewModuleInfoSet();
     if (isysReadModuleInfo(arg, modInfo, NULL)) {
@@ -1875,6 +1766,12 @@ int main(int argc, char ** argv) {
     mlReadLoadedList(&modLoaded);
     modDeps = mlNewDeps();
     mlLoadDeps(&modDeps, "/modules/modules.dep");
+
+#ifdef __sparc__
+    /* XXX: sparc -BOOT kernels should compile openprom in. */
+    if (!FL_TESTING(flags))
+	insmod ("openprom", NULL, NULL);
+#endif
 
     if (FL_KSFLOPPY(flags)) {
 	ksFile = "/tmp/ks.cfg";
@@ -1935,32 +1832,19 @@ int main(int argc, char ** argv) {
 	symlink("mnt/runtime/usr", "/usr");
 	symlink("mnt/runtime/lib", "/lib");
 
-#ifndef __alpha__ /* the only modules we need for alpha are on the inired */
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
+	unlink("/modules/modules.cgz");
 	unlink("/modules/pcitable");
 
 	symlink("../mnt/runtime/modules/modules.dep",
 		"/modules/modules.dep");
 	symlink("../mnt/runtime/modules/module-info",
 		"/modules/module-info");
-	symlink("../mnt/runtime/modules/pcitable",
-		"/modules/pcitable");
-
-# ifndef __sparc__
-	unlink("/modules/modules.cgz");
-
 	symlink("../mnt/runtime/modules/modules.cgz",
 		"/modules/modules.cgz");
-# else
-	/* All sparc32 modules are on the first stage image, if it is sparc64,
-	   then we must keep both the old /modules/modules.cgz which may
-	   either contain all modules, or the basic set + one of net or scsi
-	   and we extend it with the full set of net + scsi modules. */
-	symlink("../mnt/runtime/modules/modules64.cgz",
-		"/modules/modules65.cgz");
-# endif
-#endif /* !__alpha__ */
+	symlink("../mnt/runtime/modules/pcitable",
+		"/modules/pcitable");
     }
 
     spawnShell(flags);			/* we can attach gdb now :-) */
@@ -1986,11 +1870,6 @@ int main(int argc, char ** argv) {
 	manualDeviceCheck(modInfo, modLoaded, modDeps, &kd, flags);
     }
 
-    if (FL_UPDATES(flags))
-        loadUpdates(&kd, modLoaded, modDeps, flags);
-
-    loadUfs(&kd, modLoaded, modDeps, flags);
-
     if (!FL_TESTING(flags)) {
         int fd;
 
@@ -2000,12 +1879,6 @@ int main(int argc, char ** argv) {
 	    	       strerror(errno));
 	} else {
 	    mlWriteConfModules(modLoaded, modInfo, fd);
-	    /* HACK - notting */
-#ifdef __sparc__
-	    write(fd,"alias parport_lowlevel parport_ax\n",34);
-#else
-	    write(fd,"alias parport_lowlevel parport_pc\n",34);
-#endif
 	    close(fd);
 	}
     }
@@ -2041,8 +1914,6 @@ int main(int argc, char ** argv) {
 	*argptr++ = "-m";
 	*argptr++ = url;
 
-	if (FL_SERIAL(flags))
-	    *argptr++ = "--serial";
 	if (FL_TEXT(flags))
 	    *argptr++ = "-T";
 	if (FL_EXPERT(flags))
@@ -2053,9 +1924,6 @@ int main(int argc, char ** argv) {
 	    *argptr++ = ksFile;
 	}
 
-	if (!lang)
-	    lang = getenv ("LC_ALL");
-	
 	if (lang) {
 	    *argptr++ = "--lang";
 	    *argptr++ = lang;
@@ -2098,6 +1966,9 @@ int main(int argc, char ** argv) {
     	execv(anacondaArgs[0], anacondaArgs);
         perror("exec");
     }
+
+    if (FL_UPDATES(flags))
+        loadUpdates(&kd, modLoaded, modDeps, flags);
 
     return 1;
 }

@@ -12,8 +12,7 @@
 #define LOADER_FLAGS_NOPROBE		(1 << 7)
 #define LOADER_FLAGS_MODDISK		(1 << 8)
 #define LOADER_FLAGS_ISA		(1 << 9)
-#define LOADER_FLAGS_SERIAL		(1 << 10)
-#define LOADER_FLAGS_UPDATES		(1 << 11)
+#define LOADER_FLAGS_UPDATES		(1 << 10)
 
 #define FL_TESTING(a)	    ((a) & LOADER_FLAGS_TESTING)
 #define FL_EXPERT(a)	    ((a) & LOADER_FLAGS_EXPERT)
@@ -25,5 +24,5 @@
 #define FL_NOPROBE(a)	    ((a) & LOADER_FLAGS_NOPROBE)
 #define FL_MODDISK(a)	    ((a) & LOADER_FLAGS_MODDISK)
 #define FL_ISA(a)	    ((a) & LOADER_FLAGS_ISA)
-#define FL_SERIAL(a)	    ((a) & LOADER_FLAGS_SERIAL)
 #define FL_UPDATES(a)	    ((a) & LOADER_FLAGS_UPDATES)
+

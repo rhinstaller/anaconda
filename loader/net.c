@@ -579,6 +579,8 @@ int kickstartNetwork(char * device, struct networkDeviceConfig * netDev,
 	    return -1;
 	}
 	netDev->isDynamic = 1;
+    } else {
+	strcpy(netDev->dev.device, device);
     }
 
     fillInIpInfo(netDev);
