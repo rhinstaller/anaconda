@@ -767,3 +767,13 @@ class LogicalVolumeRequestSpec(RequestSpec):
             return int(self.percent * 0.01 * vgreq.size)
         else:
             return self.size
+
+    def setSize(self, size):
+	"""Set the size (in MB) of request (does not clamp to PE however)
+
+	size - size in MB
+	"""
+	if self.percent:
+	    self.percent = None
+
+	self.size = size
