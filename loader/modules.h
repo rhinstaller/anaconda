@@ -1,6 +1,8 @@
 #ifndef H_MODULES
 #define H_MODULES
 
+#include "isys/isys.h"
+
 typedef struct moduleList_s * moduleList;
 typedef struct moduleDependency_s * moduleDeps;
 
@@ -10,6 +12,8 @@ struct loadedModuleInfo {
     int weLoaded;
     char * path;
     int firstDevNum, lastDevNum;	/* only used for ethernet currently */
+    enum driverMajor major;
+    enum driverMinor minor;
 };
 
 struct moduleList_s {
@@ -27,6 +31,6 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 		 int flags);
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 int mlModuleInList(const char * modName, moduleList list);
-int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd);
+int mlWriteConfModules(moduleList list, int fd);
 
 #endif

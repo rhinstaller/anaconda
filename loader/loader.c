@@ -2781,7 +2781,7 @@ int main(int argc, char ** argv) {
 	    logMessage("error creating /tmp/modules.conf: %s\n", 
 	    	       strerror(errno));
 	} else {
-	    mlWriteConfModules(modLoaded, modInfo, fd);
+	    mlWriteConfModules(modLoaded, fd);
 	    /* HACK - notting */
 #ifdef __sparc__
 	    write(fd,"alias parport_lowlevel parport_ax\n",34);

@@ -215,7 +215,7 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
     char fileName[200];
     int rc, i;
     char ** arg, ** newArgs;
-    struct moduleInfo * mi;
+    struct moduleInfo * mi = NULL;
     int ethDevices = -1;
     pid_t child;
     int status;
@@ -301,6 +301,14 @@ int mlLoadModule(char * modName, void * location, moduleList modLoaded,
 	    modLoaded->mods[modLoaded->numModules].lastDevNum = ethCount() - 1;
 	}
 
+	if (mi) {
+	    modLoaded->mods[modLoaded->numModules].major = mi->major;
+	    modLoaded->mods[modLoaded->numModules].minor = mi->minor;
+	} else {
+	    modLoaded->mods[modLoaded->numModules].major = DRIVER_NONE;
+	    modLoaded->mods[modLoaded->numModules].minor = DRIVER_MINOR_NONE;
+	}
+
 	if (args) {
 	    for (i = 0, arg = args; *arg; arg++, i++);
 	    newArgs = malloc(sizeof(*newArgs) * (i + 1));
@@ -341,11 +349,10 @@ int mlModuleInList(const char * modName, moduleList list) {
     return 0;
 }
 
-int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
+int mlWriteConfModules(moduleList list, int fd) {
     int i;
     struct loadedModuleInfo * lm;
     char buf[200], buf2[200];
-    struct moduleInfo * mi;
     int scsiNum = 0;
     int ethNum;
     int trNum = 0;
@@ -355,9 +362,9 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 
     for (i = 0, lm = list->mods; i < list->numModules; i++, lm++) {
     	if (!lm->weLoaded) continue;
-	if ((mi = isysFindModuleInfo(modInfo, lm->name))) {
+	if (lm->major != DRIVER_NONE) {
 	    strcpy(buf, "alias ");
-	    switch (mi->major) {
+	    switch (lm->major) {
 	      case DRIVER_CDROM:
 		strcat(buf, "cdrom ");
 		break;
@@ -372,7 +379,7 @@ int mlWriteConfModules(moduleList list, moduleInfoSet modInfo, int fd) {
 		break;
 
 	      case DRIVER_NET:
-	        switch (mi->minor) {
+	        switch (lm->minor) {
 		  case DRIVER_MINOR_ETHERNET:
 		      for (ethNum = lm->firstDevNum; 
 				ethNum <= lm->lastDevNum; ethNum++) {
