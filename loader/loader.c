@@ -354,6 +354,7 @@ int busProbe(moduleInfoSet modInfo, moduleList modLoaded, moduleDeps modDeps,
 		    scsiWindow(modList[i]->moduleName);
 		    mlLoadModule(modList[i]->moduleName, modLoaded, modDeps, 
 				 NULL, flags);
+		    sleep(1);
 		    newtPopWindow();
 		}
 	    }
