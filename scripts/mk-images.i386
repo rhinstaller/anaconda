@@ -48,6 +48,11 @@ CD-ROM's boot speed would be an advantage.
 
 To use this image file, burn the file onto CD-R (or CD-RW) media as you
 normally would.
+
+The boot.img file is a VFAT filesystem image that can be written to a
+USB pendrive or other bootable media larger than a floppy.  Note that
+booting via USB is dependent on your BIOS supporting this.  It should
+be written to the device using dd.
 EOF
 
 # LATEUSBMODS go in the second stage.  
@@ -186,6 +191,17 @@ makeBootImages() {
     cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/isopath
     mkisofs -o $TOPDESTPATH/images/boot.iso -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table -R -J -V "$PRODUCT" -T $TOPDESTPATH/images/isopath
     rm -rf $TOPDESTPATH/images/isopath
+    
+    # now make a boot pendrive image
+    mkdir -p $TOPDESTPATH/images/fobpath
+    dd if=/dev/zero of=$TOPDESTPATH/images/boot.img bs=1M count=6 2>/dev/null
+    mkdosfs -r 16 -C $TOPDESTPATH/images/boot.img
+    $SYSLINUX $TOPDESTPATH/images/boot.img
+    mount %TOPDESTPATH/images/boot.img $TOPDESTPATH/images/fobpath
+    cp -rl $TOPDESTPATH/isolinux $TOPDESTPATH/images/fobpath
+    mv $TOPDESTPATH/images/fobpath/isolinux.cfg $TOPDESTPATH/images/fobpath/syslinux.cfg
+    umount -f $TOPDESTPATH/images/fobpath
+    rmdir $TOPDESTPATH/images/fobpath
     
     cat > $TOPDESTPATH/images/pxeboot/README <<EOF
 The files in this directory are useful for booting a machine via PXE.  
