@@ -1,41 +1,44 @@
+# translation of gu.po to Gujarati
 # Gujarati translations for PACKAGE package.
 # Copyright (C) 2004 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Automatically generated, 2004.
+# Ankit Patel <ankit@redhat.com>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Anaconda\n"
+"Project-Id-Version: gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-06-30 16:31-0400\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2004-07-22 12:18+0530\n"
+"Last-Translator: Ankit Patel <ankit@redhat.com>\n"
+"Language-Team: Gujarati\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
 
 #: ../anaconda:94
 msgid "Starting VNC..."
-msgstr ""
+msgstr "VNC શરુ કરી રહ્યા છીએ..."
 
 #: ../anaconda:129
 #, c-format
 msgid "%s %s installation on host %s"
-msgstr ""
+msgstr "%s %s નું સ્થાપન %s યજમાન પર"
 
 #: ../anaconda:131
 #, c-format
 msgid "%s %s installation"
-msgstr ""
+msgstr "%s %s સ્થાપન"
 
 #: ../anaconda:151
 msgid "Unable to set vnc password - using no password!"
-msgstr ""
+msgstr "vnc પાસવર્ડ સુયોજિત કરવામાં અસમર્થ - કોઈ પાસવર્ડ નહિં દ્વારા!"
 
 #: ../anaconda:152
 msgid "Make sure your password is at least 6 characters in length."
-msgstr ""
+msgstr "ખાતરી કરો કે તમારો પાસવર્ડ ઓછામાં આેછો ૬ અક્ષરોનો હોવો જોઈએ."
 
 #: ../anaconda:175
 msgid ""
@@ -46,45 +49,51 @@ msgid ""
 "if you would like to secure the server.\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"ચેતવણી!!! VNC સર્વર NO PASSWORD પાસવર્ડ સાથે ચાલી રહ્યું છે!\n"
+"તમે બુટ માટેનો વિકલ્પ vncpassword=<password> વાપરી શકો છો\n"
+"જો તમે સર્વરને સુરક્ષિત રાખવા માંગતા હોય તો.\n"
+"\n"
 
 #: ../anaconda:179
 msgid "The VNC server is now running."
-msgstr ""
+msgstr "VNC હમણાં ચાલી રહ્યું છે."
 
 #: ../anaconda:182
 #, c-format
 msgid "Attempting to connect to vnc client on host %s..."
-msgstr ""
+msgstr "vnc ક્લાઈન્ટને %s યજમાન સાથે જોડવાનો પ્રયત્ન કરી રહ્યા છીએ..."
 
 #: ../anaconda:196
 msgid "Giving up attempting to connect after 50 tries!\n"
-msgstr ""
+msgstr "૫૦ પ્રયત્નો પછી તમને જોડાવાની તક આપી રહ્યું છે!\n"
 
 #: ../anaconda:198
 #, c-format
 msgid "Please manually connect your vnc client to %s to begin the install."
-msgstr ""
+msgstr "મહેરબાની કરીને તમારા vnc ક્લાઈન્ટને %s સાથે સ્થાપન શરુ કરવા માટે જોડો."
 
 #: ../anaconda:200
 msgid "Please manually connect your vnc client to begin the install."
-msgstr ""
+msgstr "મહેરબાની કરીને તમારા vnc ક્લાઈન્ટને સ્થાપન શરુ કરવા માટે જોડો."
 
 #: ../anaconda:204
 msgid "Will try to connect again in 15 seconds..."
-msgstr ""
+msgstr "અમે ૧૫ સેકન્ડ પછી ફરીથી જોડાવાનો પ્રયત્ન કરીશું..."
 
 #: ../anaconda:208
 msgid "Connected!"
-msgstr ""
+msgstr "જોડાઈ ગયું!"
 
 #: ../anaconda:212
 #, c-format
 msgid "Please connect to %s to begin the install..."
-msgstr ""
+msgstr "મહેરબાની કરીને સ્થાપન શરુ કરવા માટે %s સાથે જોડો..."
 
 #: ../anaconda:214
 msgid "Please connect to begin the install..."
-msgstr ""
+msgstr "મહેરબાની કરીને સ્થાપન શરુ કરવા માટે જોડો..."
 
 #: ../anaconda:563 ../anaconda:745 ../gui.py:239 ../gui.py:992 ../rescue.py:40
 #: ../rescue.py:224 ../rescue.py:302 ../rescue.py:330 ../rescue.py:340
@@ -126,70 +135,74 @@ msgstr ""
 #: ../loader2/urls.c:254 ../loader2/urls.c:319 ../loader2/urls.c:324
 #: ../loader2/urls.c:330 ../loader2/urls.c:444
 msgid "OK"
-msgstr ""
+msgstr "બરાબર"
 
 #: ../anaconda:614
 msgid "Unknown Error"
-msgstr ""
+msgstr "અજાણી ભૂલ"
 
 #: ../anaconda:617
 #, c-format
 msgid "Error pulling second part of kickstart config: %s!"
-msgstr ""
+msgstr "કિકસ્ટાર્ટ રુપરેખાનો બીજો ભાગ ખેંચતી વખતે ભૂલ આવી: %s!"
 
 #: ../anaconda:730
 msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
+"તમારી પાસે ગ્રાફિકવાળુ સ્થાપન શરુ કરવા માટે પૂરતી RAM નથી."
+"લખાણવાળી સ્થિતિ શરુ કરી રહ્યા છીએ."
 
 #: ../anaconda:782
 msgid "Install class forcing text mode installation"
-msgstr ""
+msgstr "લખાણવાળી સ્થિતિવાળુ સ્થાપન શરુ કરવા માટે વર્ગ સ્થાપિત કરો."
 
 #: ../anaconda:809
 msgid "No video hardware found, assuming headless"
-msgstr ""
+msgstr "કોઈ વિડીયો હાર્ડવેર મળ્યું નથી, હેડ વિનાનું માની લીધુ"
 
 #: ../anaconda:820 ../anaconda:1079
 msgid "Unable to instantiate a X hardware state object."
-msgstr ""
+msgstr "X હાર્ડવેર સ્થિતિ ઓબ્જેક્ટ શરુ કરવા અસમર્થ."
 
 #: ../anaconda:844
 msgid "Graphical installation not available...  Starting text mode."
-msgstr ""
+msgstr "ગ્રાફિકવાળુ સ્થાપન ઉપ્લબ્ધ નથી... લખાણવાળી સ્થિતિ શરુ કરી રહ્યા છીએ."
 
 #: ../anaconda:859
 msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
+"કોઈ માઉસ મળ્યું નથી. ગ્રાફિકવાળા સ્થાપન માટે માઉસ જરુરી છે. "
+"લખાણવાળી સ્થિતિ શરુ કરી રહ્યા છીએ."
 
 #: ../anaconda:869
 #, c-format
 msgid "Detected mouse type: %s"
-msgstr ""
+msgstr "મળી આવેલ માઉસનો પ્રકાર: %s"
 
 #: ../anaconda:873
 #, c-format
 msgid "Using mouse type: %s"
-msgstr ""
+msgstr "માઉસનો પ્રકાર વાપરી રહ્યા છીએ: %s"
 
 #: ../autopart.py:933
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
+msgstr "સિલિન્ડર-આધારિત પાર્ટીશનને પ્રાથમિક પાર્ટીશનો તરીકે સ્થિત કરી શકાયા નથી."
 
 #: ../autopart.py:936
 msgid "Could not allocate partitions as primary partitions"
-msgstr ""
+msgstr "પ્રાર્ટીશનોને પ્રાથમિક પાર્ટીશનો તરીકે સ્થિત કરી શકાયા નથી"
 
 #: ../autopart.py:939
 msgid "Could not allocate cylinder-based partitions"
-msgstr ""
+msgstr "સિલિન્ડર-આધારિત પાર્ટીશનો સ્થિત કરી શકાયા નથી"
 
 #: ../autopart.py:942
 msgid "Could not allocate partitions"
-msgstr ""
+msgstr "પાર્ટીશનો સ્થિત કરી શકાયા નથી"
 
 #: ../autopart.py:1004
 #, python-format
@@ -198,6 +211,9 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
+"બુટ પાર્ટીશન %s એ BSD ડિસ્ક લેબલને અનુસરતો નથી. SRM આ પાર્ટીશનમાંથી"
+"બુટ કરવા માટે સમર્થ નથી. BSD ડિસ્ક લેબલને અનુસરતો હોય તેવો પાર્ટીશન"
+"વાપરો અથવા આ ડિવાઈસ ડિસ્ક લેબલને BSD માં બદલી નાંખો."
 
 #: ../autopart.py:1006
 #, python-format
@@ -1613,8 +1629,7 @@ msgid "Confirm Reset"
 msgstr ""
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
+msgid "Are you sure you want to reset the partition table to its original state?"
 msgstr ""
 
 #: ../partitioning.py:77
@@ -1654,8 +1669,7 @@ msgid ""
 msgstr ""
 
 #: ../partitions.py:773
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr ""
 
 #: ../partitions.py:796
@@ -1711,8 +1725,7 @@ msgstr ""
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
 msgstr ""
 
 #: ../partRequests.py:236
@@ -1921,8 +1934,7 @@ msgid "%s (C) 2004 Red Hat, Inc."
 msgstr ""
 
 #: ../text.py:365
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
 msgstr ""
 
 #: ../text.py:367
@@ -3551,14 +3563,12 @@ msgid "Partitioning"
 msgstr ""
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr ""
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
+msgid "These errors must be corrected prior to continuing with your install of %s."
 msgstr ""
 
 #: ../iw/partition_gui.py:648
@@ -4126,8 +4136,7 @@ msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
 msgstr ""
 
 #: ../iw/upgrade_bootloader_gui.py:76
@@ -4239,8 +4248,7 @@ msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr ""
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr ""
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -4528,8 +4536,7 @@ msgid ""
 msgstr ""
 
 #: ../textw/bootloader_text.py:315
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
 msgstr ""
 
 #: ../textw/bootloader_text.py:394
@@ -4925,8 +4932,7 @@ msgid "Select individual packages"
 msgstr ""
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
 msgstr ""
 
 #: ../textw/packages_text.py:117
@@ -4951,8 +4957,7 @@ msgid "Total size"
 msgstr ""
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
 msgstr ""
 
 #: ../textw/packages_text.py:374
@@ -5173,8 +5178,7 @@ msgid "RAID"
 msgstr ""
 
 #: ../textw/partition_text.py:1140
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
 msgstr ""
 
 #: ../textw/partition_text.py:1169
@@ -5403,13 +5407,11 @@ msgid "User Exists"
 msgstr ""
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
+msgid "This system user is already configured. You don't need to add this user here."
 msgstr ""
 
 #: ../textw/userauth_text.py:171
@@ -6099,8 +6101,7 @@ msgid "Welcome to %s"
 msgstr ""
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
 msgstr ""
 
 #: ../loader2/lang.c:372
@@ -6624,8 +6625,7 @@ msgid "Atlantic Time - E Labrador"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
 
 #. generated from zone.tab
@@ -6809,8 +6809,7 @@ msgid "Eastern Time - Ontario - most locations"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
 
 #. generated from zone.tab
@@ -6994,8 +6993,7 @@ msgid "Mountain Standard Time - Arizona"
 msgstr ""
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
 
 #. generated from zone.tab
@@ -7373,3 +7371,4 @@ msgstr ""
 #. generated from lang-table
 msgid "Zulu"
 msgstr ""
+
