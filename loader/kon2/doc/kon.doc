@@ -1,0 +1,393 @@
+              ＫＯＮ      ----- Kanji ON Linux console -----
+
+  このファイルは KON の内部構造をドキュメント化したものです。まだ未完成ですが、
+バグ取りや改造の際の参考にして下さい。
+
+１．文字出力の流れ
+
+  KON では仮想テキスト VRAM を通して画面出力を行っています。PTY からの出力は
+BUFSIZ 単位でフラグメント化されて VT エミュレータに引き渡されます。VT エミュ
+レータは１文字ずつ解析して仮想テキストに出力します。１つのフラグメントが処理さ
+れた時点でコンソールがアクティブならば仮想テキストの内容をそのまま VGA 画面に書
+き込みます。
+
+１.１．疑似端末
+
+１.２．VT エミュレータ
+
+●構造体 con
+
+  VT エミュレータに於けるテキスト状態情報は con 構造体に記憶されています。
+VT エミュレータではテキスト座標系は左端を原点[0, 0]として計算しています。
+
+struct _con_info {
+	char	x,		現在の X 座標
+		y,		現在の Y 座標
+		xmax,		X 座標最大値
+		ymin,		Y 座標最小値
+		ymax,		Y 座標最大値
+		tab;		TAB 個数
+	u_char	fcol,		フォアグランドカラー
+		bcol,		バックグランドカラー
+		attr,		文字属性フラグ
+		sfonth,		半角フォントの高さ
+		wfonth,		全角フォントの高さ
+		knj1;		漢字コード第１バイト
+	enum {
+		ESC_NEUTRAL,	ESC 外
+		ESC_START,	'\x1B' 受信
+		ESC_BRA,	'[' 受信
+		ESC_SI,		'$' 受信
+		ESC_SO,		'(' 受信
+		ESC_QUESTION,	'?' 受信
+	}	esc;		エスケープシーケンスの状態変数
+	bool	knj,		JIS 漢字モードフラグ
+		soft,		ソフトウェアスクロールフラグ
+		ins,		挿入モードフラグ
+		active,		アクティブコンソールフラグ
+		saved,		焼き付け防止状態
+		wrap;		wrap 状態フラグ
+};
+
+●変数 scrollLine
+
+  con.y がリージョン(con.ymin〜con.ymax の範囲)外になればスクロールする必要が
+有ります。しかし、uum などの FEP ではシステムラインに文字出力する際に必ずリー
+ジョン外になります。そこで、\Ey:xH によるカーソル移動に対してはスクロールしない
+ようにしました。これ以外の方法で con.y がリージョン外に出た場合は、変数
+scrollLine に適当なスクロール行数が加算されます。con.ymin より小さい場合は負
+数、con.ymax より大きい場合は正数がそれぞれ加算されます。制御コード(表示不可能
+文字)が入力された時点で変数 scrollLine を実際のスクロールに反映します。
+
+１.３．仮想テキスト
+
+  仮想テキストは３つのバッファからなります。
+
+●テキストバッファ
+
+  テキストのキャラクタコードが格納されます。半角文字はその ASCII コードがそのま
+ま格納されます。漢字の場合は EUC/SJIS ともに JIS コードに変換されて格納されます。
+また、BIG5 では Mule 拡張の "ESC$(0" が来れば BIG5 の 16bit コードに変換されて
+格納されます。また、EUC の場合はどの言語でも漢字同様に 8bit が落されて格納され
+ますので、BIG5 で EUC にすると情報が落ちます。
+
+●色・属性バッファ
+
+  色と属性の情報が格納されます。ただし、全角文字の場合は若いアドレスにしか格納
+されません。各ビットの意味は以下の様なものになっています。
+
+	MSB                   LSB
+	|b7|b6|b5|b4|b3|b2|b1|b0|
+
+	b2〜b0:	フォアグランド色
+	b3:	未使用
+	b6〜b4:	バックグランド色
+	b7:	下線属性
+
+●フラグバッファ
+
+  フラグバッファは該当テキストの変更情報と言語情報を持っています。MSBは変更情
+報で、テキストへの書き込みが起こると 0 になり、それが実画面へ反映されると 1 と
+なります。次の 2bit は Double Byte コードを意味しており、第 1 バイトならば b5
+が、第 2 バイトなら b6 が 1 となります。第 1 バイトの b3-b0 には言語情報が入り
+ます。今後、対応言語が増えれば b4 あるいは 第 2 バイトの空きビットを言語情報に
+割り当てる予定である。言語情報は、
+
+	enum {
+	    DF_GB2312,
+	    DF_JISX0208,
+	    DF_KSC5601,
+	    DF_JISX0212,
+	    DF_BIG5_0,
+	    DF_BIG5_1
+	    };
+
+と定義しています。
+
+	MSB                                   LSB
+	|     b7|     b6|     b5|b4||b3|b2|b1|b0|
+	|CLEAN_S|LATCH_2|LATCH_1|  ||<--------->|
+	|0=latch|  byte2|  byte1|  ||       LANG|
+
+  80x30 の 標準 VGA 画面でテキスト座標[5, 3](左隅は[0, 0])に「1あ」を白色背景色
+無しで表示すると、
+
+	相対アドレス: 80 x 3 + 5 = 245
+	「1」の ASCII コード: 0x31
+	「あ」の JIS コード: 0x2422
+	白色背景色なし: 00000111(B) = 0x07
+
+	textBuff[245] = 0x31
+	attrBuff[245] = 0x07
+	flagBuff[245] = 0x00
+
+	textBuff[246] = 0xA2
+	textBuff[247] = 0x24
+	attrBuff[246] = 0x07
+	attrBuff[247] = 0x07
+	flagBuff[246] = 0x22
+	flagBuff[247] = 0x40
+
+となります。	
+
+２．VGA
+
+  仮想テキストを採用することにより VGA 操作部分を小さくすることができました。
+EGA などへの移植も楽になったと思います。
+
+２.１．レジスタ
+
+２.２．基本操作
+
+●構造体 dInfo
+
+  表示能力を示す情報を保存しています。各値は kon.cfg から読み込まれたもの、
+あるいはそれらにより算出されたものです。
+
+struct dispInfo {
+	int	gsize;		グラフィックメモリサイズ
+				= glineByte * gydim
+	short	gxdim,		グラフィック X ドット数
+				glineChar の整数倍になるように正規化された値
+		gydim,		グラフィック Y ライン数
+		txmax,		テキスト X 最大値(con.xmax の初期値)
+		tymax,		テキスト Y 最大値(con.ymax の初期値)
+		glineChar,	テキスト１行分のグラフィックライン数
+				= gydim / (tymax + 1)
+		glineByte,      グラフィック１行分のバイト数
+				= gxdim / 8
+		tlineByte;      テキスト１行分のグラフィックバイト数
+				= glineChar * glineByte
+};
+
+●構造体 cInfo
+
+  カーソルに関する情報です。点滅回数は偶数なら表示中を意味しており、スクリーン
+セイバーのカウンターにも使われています。addr は VgaSetCursorAddress によって
+計算されます。kanji はカーソル位置が全角なら非０値となります。表示スイッチは
+ESC シーケンスによって操作されます。
+
+struct cursorInfo {
+	short	kanji;			 漢字の上にあれば TRUE
+	u_int	addr;			 VRAM アドレス
+	bool	sw;			 FALSE なら表示禁止
+	int	interval;		 点滅間隔
+	int	count;			 点滅用カウント
+	bool	shown;			 表示中フラグ
+};
+
+２.３．WideText
+
+  KON では VGA を高解像度モードに移行するために VGA の CRT 制御レジスタと MISC
+レジスタを kon.cfg ファイルで指定できる様にしています。VGA 本来の規格からすれば
+800x600 までの解像度であれば CRT 制御レジスタと MISC レジスタのみによって VGA
+の解像度を変更できるように思えるのですが、SVGA カードが持つ複数のモードの殆んど
+は他のレジスタに依存しているようです。
+
+●構造体 regText, regGraph
+
+  VGA のレジスタ情報です。regGraph の場合は CRT 制御レジスタ、misc レジスタは
+kon.cfg から読み込まれます。CRT 制御レジスタは更に計算が施されます。dInfo.gydim
+は kon.cfg から読み込まれる時に表示有効な値に変換されます。この値を基に VGA 側
+の表示ライン数を変更する必要があります。表示ライン数は CRT 制御レジスタにあり、
+	0x12 の全ビット  : 下位16ビット
+	0x07 の第２ビット: 第９ビット
+	0x07 の第７ビット: 第10ビット
+となっていますので、
+        regGraph.crt[0x12] = (dInfo.gydim - 1) & 0xFF;
+        regGraph.crt[7] &= 0xBD;
+        regGraph.crt[7] |= ((dInfo.gydim - 1) & 0x100) >> 7;
+        regGraph.crt[7] |= ((dInfo.gydim - 1) & 0x200) >> 3;
+という操作を施しています。
+
+struct vgaRegs {
+	u_char  crt[VGACRT_CNT],	CRT 制御レジスタ
+		att[VGAATTR_CNT],	属性レジスタ
+		gra[VGAGRP_CNT],	グラフィックス制御レジスタ
+		seq[VGASEQ_CNT],	シーケンサ
+		mis;			misc レジスタ
+};
+
+●変数 LineComp8, LineComp9
+
+  ライン比較レジスタは 0x18 にありますが、その第９ビットと第10ビットはそれぞれ
+0x07 および 0x09 にあります。これらのビット以外の値とレジスタ番号をまとめた物が
+LineComp8 と LineComp9 です。
+
+３．ソケットによる通信
+
+  様々な拡張性を考えてソケットを用意したのですが、まだフォントロードにしか使わ
+れていません。まともなプロトコルを作成・実装する知識も時間もないので通信方式が
+いい加減なものになっています。
+
+３.１．ソケット名
+
+  KON のソケットは /tmp に作成されます。その名前は .kon の後に数文字１文字をと
+もなっています。この数字は KON が利用している疑似端末名の末尾の数文字と等しくな
+ります。また、GON ライブラリの SocketClientOpen 関数を利用すれば自動的に適当な
+ソケット名を使うので、名前を意識すること無くソケットをオープンすることができま
+す。
+
+３.２．基本的な通信方式
+
+  通信は messageHeader 構造体を用いて行われます。
+
+	struct  messageHeader   {
+		u_char  cno,	クライアント番号(未使用)
+			cmd;	機能コード
+	};
+
+  クライアントが機能コードを指定することによって通信が開始されます。機能コード
+は半角文字１文字です。
+
+	S: 半角文字フォントロード
+	W: 全角文字フォントロード
+
+機能コードを認識した KON は ACK を機能コードとしいて送り返します。認識でき
+なかった場合は NAK を返します。以後、データを受信するごとに KON は ACK あるい
+は NAK を送信します。クライアント側は NAK を受け取れば直ちに送信を中止なけれ
+ばなりません。
+
+３.３．フォントロードの方式
+
+  フォントローダが KON にフォントデータを送信する際の手順について説明します。
+
+	フォントローダ (fld.*) <-- /usr/tmp/.kon? --> KON
+
+	Function: S|W          -------------------->
+		S = 半角フォント
+		W = 漢字フォント
+	                       <-------------------- 肯定応答 (ACK)
+	fontInfo 構造体        -------------------->
+	                       <-------------------- 肯定応答 (ACK)
+	フォントデータを BUFSIZ でフラグメント化して以下を繰り返す:
+	データグラム           -------------------->
+	                       <-------------------- 肯定応答 (ACK)
+
+４．マウスドライバ
+
+  マウスドライバは selection-1.4 を参考に書きました。したがって５機種対応となっ
+ていますが、こちらでテストしているのは MircoSoft と Mouse Systems のみです。
+
+●構造体 mInfo
+
+  マウスに関する情報を管理しています。座標情報は全てテキスト座標系で表現されて
+います。カーソル表示寿命はカーソルが点滅するごとにデクリメントされ、０になった
+時点でマウスカーソルが表示されなくなります。マウスの状態が変化した時は常にこの
+値を MOUSE_LIFETIME(デフォルト 22) で初期化するようになっています。
+
+struct mouseInfo {
+	char    x, y,		マウスカーソル位置
+		dx, dy,		マウスカーソル移動値
+		sx, sy,		左ボタンクリック位置
+		sw,		カーソル表示寿命
+		stat;		ボタン状態
+};
+
+●変数 dx, dy
+
+  関数 MouseAnalyzePacket で使われている static 変数 dx, dy はグラフィックス
+座標系のマウス移動値です。マウスをゆっくりと動かした場合でもちゃんと反映される
+様にするために用意しました。
+
+●変数 oldstat
+
+  関数 MouseAnalyzePacket で使われている static 変数 oldstat は mInfo.stat の
+前回の状態です。
+
+●ファイル /tmp/.kontmp
+
+  マウスでカットしたバッファを格納するファイルです。
+
+５．多言語に関する扱い
+
+  フォントは lib/coding.c に登録されているものが利用できます。新たなフォント
+の登録は Single Byte の場合は coding.c:fSRegs, coding.c:fldSRegs に、
+Double Byte の場合は coding.c:fDRegs, coding.c:fldDRegs, そして vt.h の
+DF_?????? に記述して下さい。それぞれの情報は 1 対 1 になっていますので、
+順序を守って下さい。
+
+６．GON ライブラリ
+
+  KON との通信を容易に行うために用意したライブラリです。
+
+６.１．メモリ操作関数
+
+■void PortOutw(u_short value, u_short port)
+
+  I/O ポートへ２バイト単位の出力を行います。
+
+■void PortOutb(char value, u_short port)
+
+  I/O ポートへ１バイト単位の出力を行います。
+
+■u_char PortInb(unsigned short port)
+
+  I/O ポートから１バイト単位の入力を行います。
+
+■void bzero2(void *buff, int n)
+
+  stosb を使った高速なゼロ埋め関数です。結果は bzero と同じです。
+
+■void wzero(void *buff, int n)
+
+  stosw を使った高速なゼロ埋め関数です。n バイトをゼロ埋めすることに注意して
+下さい。
+
+■void lzero(void *buff, int n)
+
+  stosl を使った高速なゼロ埋め関数です。n バイトをゼロ埋めすることに注意して
+下さい。
+
+■void bmove(void *dst, void *src, int n)
+
+  movsb を使った高速なバッファ転送関数です。
+
+■void brmove(void *dst, void *src, int n)
+
+  movsb を使った高速な逆方向バッファ転送関数です。src, dst から逆方向に n
+バイトの転送を行います。
+
+■void wmove(void *dst, void *src, int n)
+
+  movsw を使った高速なバッファ転送関数です。n バイト転送することに注意して下
+さい。
+
+■void lmove(void *dst, void *src, int n)
+
+  movsl を使った高速なバッファ転送関数です。n バイト転送することに注意して下
+さい。
+
+６.２．ソケット操作関数
+
+■void SocketKill(int fd)
+
+  ファイルディスクプリタで指定されたソケットをクローズし、KON のソケットを
+削除する。
+
+■int SocketRecCommand(int fd, struct messageHeader *mh)
+
+  ソケットから、messageHeader 構造体を読み込む
+
+■int SocketSendCommand(int fd, char *cmd)
+
+  クライアントから、KON に機能コードを送ります。
+
+■int SocketClientOpen()
+
+  KON のソケットをオープンします。
+
+■int SocketSendData(u_char *buff, int size, int fd)
+
+  データバッファを BUFSIZ でフラグメント化しながらソケットへ送り出します。
+
+■char socketName[MAX_SOCKET_NAME+1]
+
+  関数 SocketClientOpen で作成されたソケット名が記憶されるバッファです。
+
+６.３．その他
+
+■FILE *CapSearchLabel(char *label)
+
+  kon.cfg から指定されたラベルを検索する関数。ラベルの別名も調べる。一致する
+ラベルを見つけた場合は FILE 構造体へのポインタを返す。

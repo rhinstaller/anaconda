@@ -1,0 +1,31 @@
+# FreeBSD makefile for kon
+# Tatsumi Hosokawa <hosokawa@jp.FreeBSD.org>
+
+PROG=	kon
+BINOWN=		root
+BINMODE=	4555
+SRCS=	vt.c sock.c fnld.c vc.c mouse.c term.c main.c utmp.c errors.c child.c
+LIBS+=	-L${.CURDIR}/display -L${.CURDIR}/../lib -ldisplay -lgon
+NOMAN=	YES
+CFLAGS+=	-I${.CURDIR}/../include
+CLEANFILES=	Makefile
+
+.if exists(${.OBJDIR}/../lib)
+LIBOBJ=	-L${.OBJDIR}/../lib
+.else
+LIBOBJ=	-L${.CURDIR}/../lib
+.endif
+
+.if exists(${.OBJDIR}/display)
+LIBOBJ+=	-L${.OBJDIR}/display
+.else
+LIBOBJ+=	-L${.CURDIR}/display
+.endif
+
+LDADD=	${LIBOBJ} -ldisplay -lgon
+
+.if exists(${.CURDIR}/../.config)
+.include "${.CURDIR}/../.config"
+.endif
+
+.include <bsd.prog.mk>

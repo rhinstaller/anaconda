@@ -1,0 +1,23 @@
+# Tatsumi Hosokawa <hosokawa@jp.FreeBSD.org>
+
+SRCS= fld.c minix.c fontx2.c bdf.c # j3100.c
+CFLAGS+=	-I${.CURDIR}/../include
+CLEANFILES=	Makefile
+
+NOMAN=	YES
+
+.if exists(${.CURDIR}/../.config)
+.include "${.CURDIR}/../.config"
+.endif
+
+PROG=	fld
+
+.if exists(${.OBJDIR}/../lib)
+LIBOBJ=	-L${.OBJDIR}/../lib
+.else
+LIBOBJ=	-L${.CURDIR}/../lib
+.endif
+
+LDADD=	${LIBOBJ} -lgon
+
+.include <bsd.prog.mk>

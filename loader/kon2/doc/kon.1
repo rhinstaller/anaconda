@@ -1,0 +1,292 @@
+.TH KON 1 "Sep 5, 1996"
+.UC 4
+.SH 【名前】
+KON \- 漢字コンソールエミュレータ
+.SH 【書式】
+.B kon
+[
+.B video
+]
+[
+.B -capability
+value ...
+]
+.SH 【概要】
+\fIKON\fP は \fILinux\fP, \fIFreeBSD\fP のコンソール画面上で漢字を表示
+するためのプログラムです。\fIKON\fP では、
+.B pty(4)
+を使ってコンソール入出力をフックし、\fIVGA\fP あるいは \fIDCGA\fP
+に展開する事によって漢字表示を実現しています。また、\fIKON\fP が動作
+しているコンソールから起動された \fIKON\fP は新しい仮想コンソール上で
+動作します。
+.SH 【オプション】
+.PP
+\fIKON\fP はオプションでビデオドライバやいくつかの環境を指定することが
+できます。
+.B video
+には \fIkon.cfg\fP に記述されているビデオドライバエントリ
+の一つを指定します。何も指定しなければ、ビデオドライバとして \fINORMAL\fP
+が指定されたことになります。 \fICursorInterval\fP などの設定はオプション
+.B -capability
+でオーバライトすることができます。例えば、
+
+.br
+   % kon -CursorInterval 10
+.br
+
+とすれば \fICursorInterval\fP の値を 10 にして起動します。
+
+.PP
+.SH 【環境設定】
+表示するビデオドライバやパレットなどの環境は \fIkon.cfg\fP ファイルで設定する
+ことができます。このファイルの文法は以下のようになっています:
+.TP 8
+   \fIエントリ名\fP:[\fI別名1\fP:\fI別名2\fP:...]
+   \fIエントリの値\fP
+.PP
+\fIエントリ名\fPの大文字/小文字は区別しません。ある\fIエントリの値\fPを
+指示する行は必ず \fITAB\fP キャラクタで始めなければなりません。また、
+\fI#\fP から行末まではコメントとして扱われます。
+.PP
+\fIエントリの値\fPの種類には次のようなものがあります:
+.TP 10
+\fIboolean\fP
+On または Off を指定(大文字/小文字の区別なし)
+.TP 10
+\fIchoice\fP
+いくつかの選択肢から一つを指定(大文字/小文字の区別なし)
+.TP 10
+\fInumeric\fP
+10進数値を指定
+.TP 10
+\fIstring\fP
+そのエントリ特有のフォーマットで値を指定
+.PP
+また、以下の2つのエントリは必須です:
+.TP 4
+\fINORMAL\fP(string)
+ビデオドライバを選択します。値の意味は以下の通りです:
+
+.nf
+\fIVGA\fP      VGA, SVGA, EGA用ドライバ
+\fIVGAFM\fP    VGA, SVGA, EGA用ドライバ(フォント変形機能つき)
+\fIJ3100SX\fP  東芝 J3100SX 用ドライバ(DCGA ドライバ)
+.fi
+
+\fIVGA\fP, \fIVGAFM\fP の場合はさらに\fIVGAレジスタ値\fPと画面サイズ
+(ドット数)、行幅(文字数)、行数を指定します。このエントリによって
+表示文字数を変えることができますが、 VGA の解像度(640x480)を除いて
+\fIVGAレジスタ値\fPと表示文字数の関係はビデオカードに依存します。
+付属の \fIkon.cfg\fP では、 \fINORMAL\fP が標準 VGA の別名となっており、
+その他にいくつかのエントリが用意されています。まずこの状況で試して、
+その後お使いのビデオカードにあったものを選んで下さい。
+
+.\" お使いのビデオカード用に新たなエントリを書き加えるには、tools
+.\" ディレクトリにある \fIvacuum.exe\fP を用いて DOS 上で\fIVGAレジスタ値\fP
+.\" を調べる必要があります。
+
+\fIKON\fP は 16 ドットフォントのみを扱いますが、 \fIVGAFM\fP ドライバは、
+ラインを間引いて 16 ラインより少ない幅で 1 行を指定する機能を持っています
+(原案は松井孝雄さん mat@tanasei.cc.u-tokyo.ac.jpによる)。 \fIVGAFM\fP
+ドライバは、 \fINORMAL\fP エントリの縦ドット数と行数から 1 行のライン数を求め、
+必要ならばラインを間引いて通常より多くの行を表示できます。フォントと
+ライン数の組合せにより読みやすさは異なりますが、 MINIX のパブリックフォント
+を用いた場合、 12 ドットでも結構読める表示ができます。その場合、行数
+が3割以上増えるので(480ラインで 40 行、 600 ラインで 50 行)、特にノートパソコン
+などでは便利な時があるでしょう。
+.TP 4
+\fISTARTUP\fP(string)
+スタートアップ時に起動するコマンド文字列を指定します。 1 行 1 コマン
+ドで何行でも記述できます。フォントをロードするコマンドをここで指定
+してやらなければなりません。また、VGA において半角フォントをロード
+しなかった時は \fIVGAフォント\fPが使われます。
+
+.nf
+.I 非圧縮フォント
+  <フォントローダ> <半角フォントファイル>
+  <フォントローダ> <全角フォントファイル>
+.I 圧縮フォント
+  zcat <半角フォントファイル> | <フォントローダ>
+  zcat <全角フォントファイル> | <フォントローダ>
+.fi
+.PP
+次のエントリはビデオドライバに VGA, VGAFM を指定した時に必要になります:
+.TP
+\fIPELS\fP(string)
+パレットの指定を行ないます。フォーマットは、R,G,B のパレット値(10
+進)を 1 行に書き、それを 16 行並べたものです。
+パッケージ付属の \fIkon.cfg\fP では、 \fISTDPEL\fP と \fIREVPEL\fP の
+エントリがあります。 \fISTDPEL\fP は標準パレットで、 \fIREVPEL\fP
+はリバースです。希望するエントリの別名として \fIPELS\fP を指定して下さい。
+.PP
+その他には以下のようなエントリがあります:
+.TP 4
+\fIMOUSE\fP(choice)
+Microsoft, MouseSystems, BusMouse, MMSeries, Logitech, None
+より 1 つ選択。デフォルトは None。
+マウスドライバの種類を選択します。Logitech Mouse Man シリーズが動作
+しない場合は Microsoft を指定してみて下さい。
+.TP 4
+\fIMouseBaud\fP(choice)
+1200, 2400, 4800, 9600より選択。デフォルトは 1200。
+シリアルマウスのボーレートを選択します。 MOUSE に None, BusMouse 以
+外の値を指定した時に有効となります。
+.TP 4
+\fIMouseDev\fP(string)
+マウスのデバイス名を指定します。デフォルトは /dev/mouse です。
+\fIMOUSE\fP に None 以外のエントリを与えた時に有効です。
+.TP 4
+\fIMouse3Buttons\fP(boolean)
+3 ボタンマウスの場合にペーストボタンを中央に設定します。
+デフォルトは Off です。
+.TP 4
+\fIHardScroll\fP(boolean)
+ハードウエアスクロールを使うかどうかを指定します。 デフォルトは
+On です。 VGA, VGAFM, J31SX ドライバで有効です。
+.TP 4
+\fIBeepCounter\fP(numeric)
+ビープ音の長さを 1/100 秒単位で指定します。デフォルトは 5 です。
+.TP 4
+\fICursorInterval\fP(numeric)
+カーソル点滅間隔を 1/10 秒単位で指定します。デフォルトは 4 です。
+カーソルの点滅を止めるには 0 を指定します。
+.TP 4
+\fISaveTime\fP(numeric)
+スクリーンセイバが働くまでの時間を分単位で指定します。
+デフォルトは 4 です。
+.TP 4
+\fIKanjiCursor\fP(boolean)
+漢字の上にカーソルがある時、カーソルを全角幅にするかどうかを
+指定します。デフォルトは On です。
+.TP 4
+\fICursorTop\fP(numeric),\fICursorBottom\fP(numeric)
+この 2 つでカーソルボックスのサイズを指定します。
+.nf
+      0 +--------+
+        |        |
+        |--------| <-- CursorTop
+        |********|
+        |********|
+        |********|
+        |********|
+        |********|
+     15 +--------+ <-- CursorBottom
+.fi
+VGA, VGAFM, CGA ドライバで有効です。
+.TP 4
+\fIBoxCursor\fP(boolean)
+カーソルの形状を下線のみでなく箱型にするかどうかを指定します。
+デフォルトは Off です。 J3100SX ドライバで有効です。
+.TP 4
+\fISavePlane3\fP(boolean)
+VGA メモリ第 3 ページのフォントデータを保存します。Trident 系以外で
+は不要です。デフォルトは Off です。 VGA, VGAFM ドライバで有効です。
+.TP 4
+\fIVgaFontOffset\fP(numeric)
+\fIVGAフォント\fPのオフセット値を指定します。デフォルトは 0 です。
+\fIVGAフォント\fPを半角フォントとして利用する場合、メーカによっては文字の
+下部が欠けることがあります。そのような時にこの値を指定することによって
+文字の位置を調整することができます。
+.TP 4
+\fICoding\fP(string)
+デフォルトで利用するフォントおよび 16bit でのコーディングを指定します。
+記述方法は、
+
+.br
+	<SB font> <DB font> [EUC|SJIS]
+
+となり、それぞれ以下のような指定をすることができます。
+.PP
+.TP 4
+    SB font: Single Byte フォント
+	ISO8859-1,ISO8859-2,ISO8859-3,ISO8859-4,ISO8859-5,
+	ISO8859-6,ISO8859-7,ISO8859-8,ISO8859-9,
+	JISX0201.1976-0
+.PP
+.TP 4
+    DB font: Double Byte フォント
+	GB2312.1980-1,JISX0208.1983-0,KSC5601,BIG5
+.PP
+.TP 4
+\fIStartupMessage\fP(boolean)
+起動時の greeting メッセージを出すかどうかを指定します。デフォルト
+は On です。
+.PP
+.SH 【高解像度モードの設定】
+\fIkon\fP では、ビデオドライバとして VGA, VGAFM を指定した場合に
+\fIkon.cfg\fP の設定によりテキストの広さを変更することができます。
+.TP 4
+\fIエントリ名\fP:
+.br
+	<\fIVGA\fP あるいは \fIVGAFM\fP>
+.br
+	[\fIVGAFM\fP の場合の間引き係数]
+.br
+	<HR> <HS> <HE> <HFL> <VR> <VS> <VE> <VFL>
+.br
+	<\fIクロック番号\fP>
+.br
+	<\fI行幅 - 1\fP> <\fI行数 - 1\fP>
+.PP
+3 行目(VGAドライバでは 2 行目)の画面制御パラメータは
+8 個の 10 進数の数値からなります。これは、Xconfig(4/5)
+におけるビデオモードデータベースとほぼ同じ内容です。
+ただし、\fIKON\fP では 800x600 までの解像度でテキストを
+エミュレートすることができます。
+.TP 4
+画面制御パラメータ
+.br
+.B HR
+水平ドット数
+.br
+.B HS
+水平同期始点
+.br
+.B HE
+水平同期終点
+.br
+.B HFL
+水平総フレーム数
+.br
+.B VR
+垂直ライン数
+.br
+.B VS
+垂直同期始点
+.br
+.B VE
+垂直同期終点
+.br
+.B VFL
+垂直総フレーム数
+.PP
+\fIクロック番号\fP にはそのエントリの画面モードが何番目のクロックを
+使用するかを指定します。実質有効なのは値の下位 2 ビットです。
+したがって、0 〜 3 の値のいずれかです。
+最後の行はエミュレートするテキスト画面の広さの指定です。
+.SH 【ファイル】
+.if n .ta 2.5i
+.if t .ta 1.8i
+/usr/local/lib/kon.cfg	環境設定ファイル
+.br
+/usr/lib/font/*		フォントファイル
+.SH 【関連項目】
+swkon(1), fld(1)
+.SH 【注意事項】
+- テキストを高解像度モードにして \fILinux\fP を起動すると \fIVGAフォント\fP
+のサイズが異なりますので、正常に表示されなくなります。
+.br
+- \fIkon.cfg\fP において同じエントリ名が複数ある場合、最初のものが有効
+となります。また、1 行の長さの最大値は 255 バイトです。
+.br
+- \fIX Window System\fP との相性が良くない場合は \fIswkon(1)\fP で
+テキストモードに移り、マウスを切り離して \fIX Window System\fP をご利用
+下さい。
+.SH 【作者】
+.nf
+MANABE Takashi	<manabe@papilio.tutics.tut.ac.jp>
+MAEDA Atusi	<mad@nak.math.keio.ac.jp>
+KOMEDA Shinji	<komeda@ics.es.osaka-u.ac.jp>
+YOSHIDA Kensyu	<kensyu@rabbit.is.s.u-tokyo.ac.jp>
+obuk@MIX
+.fi

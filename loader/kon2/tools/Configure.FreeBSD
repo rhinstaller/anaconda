@@ -1,0 +1,108 @@
+#! /bin/sh
+
+CONFIG_H=include/config.h
+CONFIG_IN=config.in.FreeBSD
+CONFIG_OUT=config.out
+CONFIG_MK=.config
+
+#if [ -f config.org ]
+#then
+#	echo -n >$CONFIG_OUT
+#else
+#	mv config.in config.org
+#fi
+
+echo -n >$CONFIG_OUT
+
+cat << 'END' > $CONFIG_H
+
+/*
+ * KON2 - Kanji ON Console -
+ * Copyright (C) 1992, 1993 MAEDA Atusi (mad@math.keio.ac.jp)
+ * Copyright (C) 1992-1996 Takashi MANABE (manabe@papilio.tutics.tut.ac.jp)
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *
+ * THIS SOFTWARE IS PROVIDED BY TAKASHI MANABE ``AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ * ARE DISCLAIMED.  IN NO EVENT SHALL THE TERRENCE R. LAMBERT BE LIABLE
+ * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ * SUCH DAMAGE.
+ * 
+ */
+
+/*
+	NOTE: This is automatically generated config.
+	>>>>>>>>>>>>>> DO NOT EDIT !! <<<<<<<<<<<<<<
+*/
+
+#ifndef	CONFIG_H
+#define	CONFIG_H
+
+END
+
+cat << 'END' > $CONFIG_MK
+
+TOPDIR	= /usr/local
+BINDIR	= $(TOPDIR)/bin
+LIBDIR	= $(TOPDIR)/etc
+MANDIR	= $(TOPDIR)/man/ja_JP.EUC/man1
+CONFIG_NAME = kon.cfg
+CFLAGS  += -DCONFIG_NAME=\"$(LIBDIR)/$(CONFIG_NAME)\"
+
+END
+
+echo "KON Kanji ON FreeBSD console"
+
+while read mess
+do
+	echo $mess >>$CONFIG_OUT
+	echo >>$CONFIG_H
+	echo '/*' $mess '*/' >>$CONFIG_H
+	read sig def
+	echo -n $mess '['$def']? '
+	read ans < /dev/tty
+	if [ "$ans" = "" ]
+	then
+		ans=$def
+	fi
+	echo $sig $ans >>$CONFIG_OUT
+	if [ "$def" != "y" -a "$def" != "n" ]
+	then
+		if [ "$sig" = "SELECTION" ]
+		then
+			echo "#define" $ans >>$CONFIG_H
+		else
+			echo $expr >>$CONFIG_OUT
+			echo -n "#define	"$sig"	" >>$CONFIG_H
+		fi
+	else
+		if [ "$ans" = "y" ]
+		then
+			echo "#define" $sig >>$CONFIG_H
+			echo $sig" = "$sig >>$CONFIG_MK
+		fi
+	fi
+	prep=$ans
+done
+
+#mv config.out config.in
+
+echo "#endif" >>$CONFIG_H
+
+cat << 'END'
+
+END

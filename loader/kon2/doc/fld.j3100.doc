@@ -1,0 +1,33 @@
+J-3100 漢字 ROM 専用フォントローダー
+
+  限られた disk 資源を有効に使うため、また、k14 などよりは、見なれたフォント
+で、KON を使うために、J-3100 の内蔵漢字 ROM を利用した、フォントローダーです。
+
+１．インストール
+  * make [install|instbin] で、/usr/local/bin にインストールされます。
+  * /usr/local/lib/kon.cfg の最後に、
+	/usr/local/bin/fld.j3100 ank   standard
+	/usr/local/bin/fld.j3100 kanji standard
+    と、指定します。また、ボールドフォントにしたい場合は、
+	/usr/local/bin/fld.j3100 ank   bold
+	/usr/local/bin/fld.j3100 kanji bold
+    の様に、指定します。さらに、半角フォントはデフォルトで漢字 ROM から
+    読み込みますが、以下のように指定すれば、BIOS ROM から読み込むことが
+    できます。
+	/usr/local/bin/fld.j3100 ank [standard|bold] bios
+    上記指定で、正しく表示されない場合は、以下のように指定して下さい。
+	/usr/local/bin/fld.j3100 ank [standard|bold] bios2
+    ＊漢字 ROM を指定すると、半角の'￥'が表示され、BIOS ROM を指定する
+      と、半角の'＼'が表示されます。BIOS ROM は、機種によりフォントの
+      アドレスが異なるので、[bios|bios1] と bios2 を試して、正しく表示
+      される方を御利用下さい。
+
+２．動作確認
+  * J-3100SX001 + 80Mhdd + 8Mram
+	SLS1.03(93/08/18)
+	linux-0.99.12+
+	KON-0.99.1
+
+３．連絡先
+  * kazu@jl1keo.tama.prug.or.jp
+

@@ -1,0 +1,20 @@
+# Tatsumi Hosokawa <hosokawa@jp.FreeBSD.org>
+
+.if exists(${.CURDIR}/../../.config)
+.include "${.CURDIR}/../../.config"
+.endif
+
+SRCS=	svga.c vga.c
+
+.ifdef	HAS_S3
+SRCS+=	s3.c
+.endif
+
+.ifdef	HAS_J31SX
+SRCS+=	j31sx.c
+.endif
+
+CFLAGS+=	-I${.CURDIR}/../../include
+LIB=display
+
+.include <bsd.lib.mk>

@@ -1,0 +1,89 @@
+KON2 for Linux/FreeBSD は、ほそかわたつみ <hosokawa@jp.FreeBSD.org> が 
+FreeBSD 対応作業を行ないました。作業は主に、従来の kon-0.99.4e (下のド
+キュメントを参照) のパッチの取り込み、GNU make から FreeBSD make への 
+Makefile の修正、FreeBSD 用パッチを当てた後で Linux でコンパイルがうま
+くいかない部分の修正などを行ないました。
+
+make するには、
+
+# tar xvfz kon2-0.1.tar.gz
+# cd kon2-0.1
+# make -f Makefile.FreeBSD
+  (質問にはすべて [Enter] で大丈夫です)
+# make
+# make install
+
+の手順で行なって下さい。
+
+ほそかわ たつみ <hosokawa@jp.FreeBSD.org>
+
+
+
+kon-0.99.4 に対する FreeBSD 用移植については以下の文章を参照して下さい。
+
+----------------------------------------------------------------------------
+
+			KON for FreeBSD ver 0.1
+
+							1995-06-04
+							小倉 貴
+							<ogura@st.rim.or.jp>
+
+  はじめに kon for FreeBSD は、linux の日本語コンソールである kon-0.99.4e
+と kon for NetBSD(NetBSD-0.9 がリリースされた当時に移植されたもの)をベース
+に移植したものです。
+
+  特徴として、シェアードメモリにフォントの情報を置くので多くの仮想コンソー
+ル上で kon を起動してもメモリを多く使用しないことがあります。また、作者の
+手抜き、技術力の低さからオリジナルの kon-0.99.4e より多くの機能が削除され
+ています。対応していない機能については選択できない用にしています。
+
+
+インストールの仕方
+
+  1.1	カーネルにシェアードメモリを設定する。/usr/src/sys/i386/conf/GENERIC
+	ファイルに"options	SYSVSHM"の行を追加後、
+	config GENERIC;cd ../../compile/GENERIC
+	make depend;make all;cp kernel /
+	などを実行してリブートしてください。
+
+  1.2	このディレクトリで make config を実行してください。VGA は必ず[y]に
+	してください。フォントの選択はどれか一つは必ず[y]にしてください。
+
+  1.3	.config ファイルを実行モジュールをインストールするディレクトリや、
+	kon.cfg / man ファイルの格納先などを変更してください。デフォルトで
+	は以下の用になっています。
+		/usr/local/bin			実行モジュール格納先
+		/usr/local/etc			kon.cfg ファイル格納先
+		/usr/local/man/ja_JP.EUC/man1	man ファイル格納先
+
+  1.4	kon.cfg ファイルをフォントにあわせて変更してください。記述方法な
+	どは doc 以下のファイルを参考にしてください。使用するフォントは
+	デフォルトでは linux の日本語パッケージである JE の publicfont 
+	の k14 と ank フォントを gzip 形式で /usr/share/fonts 以下に格納
+	するようになっています。
+
+  1.5	make;make install を実行してください。
+
+
+トラブルシューティング
+
+	  kon がうまく起動しない時には、シェアードメモリが利用できるか確
+	認してください。 また、画面が真っ暗でもほとんどの場合ハングはし
+	ていませんから"exit" や "CTRL+D"、"CTRL+C" などで kon を終了させ
+	"vidcontrol VGA_80x30"を実行して見てください。また、XFree86-3.1
+	とほぼ同じ方法でコンソール上に文字を表示しているのでＸが利用でき
+	ることを確認してみてください。
+
+	
+  本ソフトウェア(kon for FreeBSD)はフリーソフトウェアであり、変更・配布は
+自由に行っていただいて結構です。ただ、バグや感想などを私宛にメールでもし
+ていただければ幸いです。
+  また、kon for FreeBSD を使ってハードウェアや他のソフトウェアに問題が発生
+しても責任をとることはできません。
+
+  最後に、kon の作者である真鍋さん<manabe@papilio.tutics.tut.ac.jp>と
+kon for NetBSD の作者である鵜飼さん<ukai@hplj.hpl.hp.com>、テストに協力し
+てくださった皆様、ありがとうございました。
+
+						小倉 貴<ogura@st.rim.or.jp>

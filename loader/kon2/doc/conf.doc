@@ -1,0 +1,70 @@
+A. kon.cfg の処理
+
+■void ReadConfig(void)
+
+kon.cfg の内容は関数 ReadConfig() によって処理されます。 ReadConfig()
+はエントリ名と初期化関数の対応表をサーチして、読み込んだエントリ１つ１
+つについて対応する初期化関数を呼び出します。 対応表は以下の構造体を並
+べたものです。
+
+	static struct capability {
+		const char *name;	    エントリ名
+		void (*func)(const char*);  初期化関数
+		int initialized;	    初期化が終れば 1
+		const char *def_value;	    デフォルト値。 NULLなら必須エントリ
+	};
+
+処理関数はエントリ値の文字列を受けとり初期化処理を行ないます。
+
+kon.cfg を読み終ると、初期化関数を呼び出さなかったエントリについてデフォ
+ルト値が設定されているかどうか調べ、設定されていればそのデフォルト値で
+初期化関数を呼び出します。 設定されていなければエラーとなります。
+
+
+■void DefineCap(const char *name, initializer *func, const char *def_value)
+
+新たなエントリを初期化テーブルに加えます。 VGA ドライバだけは PELS エ
+ントリを必要とするので、この関数を使って必須エントリを追加しています。
+
+■void DelCap(const char* name)
+
+対応表の中のエントリ名 name の初期化関数を削除します。 再初期化の際に
+使っています。
+
+
+B. ビデオドライバのインターフェース
+
+●構造体 vInfo
+
+ビデオドライバに対する操作はすべて構造体 vInfo を通して行なわれます。
+
+struct videoInfo {
+	bool	has_hard_scroll;	ハードスクロールが使えるかどうか
+	void	(*init)(void),		初期化
+		(*text_mode)(void),	テキストモードに切替え
+		(*graph_mode)(void),	グラフィックモードに切替え
+		(*wput)(u_char *code, u_char fc, u_char bc),
+				        漢字出力
+		(*sput)(u_char *code, u_char fc, u_char bc),
+				        ANK出力
+		(*set_cursor_address)(struct cursorInfo *c, u_int x, u_int y),
+					カーソル c のアドレスを (x, y) に設定
+		(*set_address)(u_int i),次に書く文字のアドレスを i 文字目に設定
+		(*cursor)(bool),	カーソルon/off
+		(*clear_all)(void),	画面クリア
+		(*screen_saver)(bool),	スクリーンセーバ(TRUEでセーブ、FALSEで復帰)
+
+		/* ハードスクロールが使えなければ以下はNULL */
+		(*set_start_address)(),	表示開始アドレス設定
+		(*hard_scroll_up)(int lines),   ハードスクロールアップ
+		(*hard_scroll_down)(int lines); ハードスクロールダウン
+} vInfo;
+
+
+■void ConfigDisplay(const char *config)
+
+ビデオドライバエントリの初期化関数 ConfigDisplay() は、エントリ値文字
+列 config の最初の行をキーとしてビデオドライバ設定関数を選択します。 
+ビデオドライバ設定関数は dInfo と vInfo にそのドライバを使うための値を
+設定します。また、VGA, VGAFM ドライバの場合はレジスタ値を config 文字
+列より得てドライバ内部の変数に記憶します。

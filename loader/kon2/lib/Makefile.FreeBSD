@@ -1,0 +1,9 @@
+# kon libraly makefile for FreeBSD
+# Tatsumi Hosokawa <hosokawa@jp.FreeBSD.org>
+
+SRCS=	sockface.c getcap.c mem.c font.c coding.c
+CFLAGS=	-I${.CURDIR}/../include
+CLEANFILES=	Makefile
+LIB=	gon
+
+.include <bsd.lib.mk>

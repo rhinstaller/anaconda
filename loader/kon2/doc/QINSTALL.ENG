@@ -1,0 +1,26 @@
+For those of you who do not have patience to read through the
+instructions in the "install.eng" file, here is the brief installing
+procedure.
+
+1. "make clean"
+   deletes backup files.  This is not necessary for the first install.
+
+2. "make config"
+   determines your environment and prepares for compiling KON.
+
+3. "make depend"
+   creates the dependency files for compiling KON.
+
+4. "make"
+   creates KON.
+
+5. "make install"
+   installs several files including the KON program.
+   Do this with the root privilege.
+
+6. "kon"
+   runs the program.
+
+And you should be able to display Japanese characters on screen.  I
+recommend that, at first, you use standard VGA screen (640x480 dots)
+to run KON.  Good luck!

@@ -1,0 +1,18 @@
+build MINI KON
+MINI_KON y
+Support VGA driver
+HAS_VGA y
+Support J31SX driver
+HAS_J31SX y
+Support MOUSE driver
+HAS_MOUSE y
+Install Minix/V font loader
+FLD_MINIX y
+Install $fontx2 font loader
+FLD_BDF y
+Install .bdf font loader
+FLD_FONTX2 y
+Install J3100ROM font loader
+FLD_J31ROM y
+Use ROM font
+USE_ROMFONT y

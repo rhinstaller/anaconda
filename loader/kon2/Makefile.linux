@@ -1,0 +1,58 @@
+VERSION	= 0.3
+
+ifeq (.config,$(wildcard .config))
+include .config
+endif
+
+ifdef	MINI_KON
+SUBDIRS = lib src
+else
+SUBDIRS = lib src font tools
+endif
+
+all:	subdirs
+
+version:
+	@expr `cat .VERSION` + 1 > .VERSION
+	@echo \#define	VERSION	\"ver.$(VERSION).`cat .VERSION` \(`date +%m/%d`\)\" > include/version.h
+
+config:
+	@sh tools/Configure.linux < config.in.linux
+	-for i in $(SUBDIRS) src/display; do \
+	(cd $$i && test -f Makefile.linux && cp Makefile.linux Makefile) ; \
+	done
+	cp Makefile.linux Makefile
+
+subdirs:
+	@for i in $(SUBDIRS);\
+	do (cd $$i && echo making all in $$i && $(MAKE)) || exit;\
+	done
+
+depend:
+	@for i in $(SUBDIRS);\
+	do (cd $$i && echo building dependencies in $$i && $(MAKE) depend) || exit;\
+	done
+
+clean:
+	$(RM) -f *~ include/*~ doc/*~ .depend .config include/config.h config.out
+	@for i in $(SUBDIRS);\
+	do (cd $$i && echo cleaning all in $$i && $(MAKE) clean);\
+	done
+
+install: makedir instbin
+	@if [ -f $(LIBDIR)/$(CONFIG_NAME) ]; then\
+		mv $(LIBDIR)/$(CONFIG_NAME) $(LIBDIR)/$(CONFIG_NAME)'.org';\
+		echo $(LIBDIR)/$(CONFIG_NAME)': file exists ... renamed !!';\
+	fi
+	@install -c $(CONFIG_NAME).linux $(LIBDIR)/${CONFIG_NAME}
+	install -c doc/kon.1 $(MANDIR)
+
+makedir:
+	@sh tools/makedir $(BINDIR)
+	@sh tools/makedir $(LIBDIR)
+	@sh tools/makedir $(MANDIR)
+
+instbin:
+	@for i in $(SUBDIRS);\
+	do (cd $$i && echo installing all in $$i && $(MAKE) install);\
+	done

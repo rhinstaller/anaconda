@@ -1,0 +1,30 @@
+# project makefile for kon for FreeBSD
+# Tatsumi Hosokawa <hosokawa@jp.FreeBSD.org>
+
+VERSION= 0.3
+
+SUBDIR=	lib src/display src font
+
+.if exists(${.CURDIR}/.config)
+.include "${.CURDIR}/.config"
+.endif
+
+CLEANFILES=	Makefile config.out .config .VERSION 
+
+version:
+	@expr `cat .VERSION` + 1 > .VERSION
+	@echo \#define	VERSION	\"ver.$(VERSION).`cat .VERSION` \(`date +%m/%d`\)\" > include/version.h
+
+config:
+	@sh tools/Configure.FreeBSD < config.in.FreeBSD
+	-for i in $(SUBDIR); do \
+		(cd ${.CURDIR}/$$i && test -f Makefile.FreeBSD && cp Makefile.FreeBSD Makefile) ; \
+	done
+	cp Makefile.FreeBSD Makefile
+
+install:
+	(cd ${.CURDIR}/src ; make install)
+	(cd ${.CURDIR}/font ; make install)
+	install -g wheel -o root -m 0644  -c kon.cfg.FreeBSD /usr/local/etc/kon.cfg
+
+.include <bsd.prog.mk>

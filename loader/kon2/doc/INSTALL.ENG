@@ -1,0 +1,315 @@
+1. Setting your environment by "make config"
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"make config" is necessary to let the Makefile know your environment.
+Type in "make config" at a prompt and you will be asked as follows:
+
+	$ make config
+	KON Kanji ON Linux console
+	Binary Directory [/usr/local/bin]?
+
+The characters between the brackets are the default settings.  If you
+hit ENTER key without typing in anything, you are accepting the
+setting.  When you execute "make config" for the first time or after
+"make clean", authors' specifications will be shown between the
+brackets.  Otherwise, you will see the settings you specified last
+time.
+
+The followings are the questions asked in the "make config" routine.
+If you do not like the default settings, you must input your
+specifications.
+
+ Binary Directory
+   Specify a directory for installing "kon" and other tools.
+
+ Library Directory
+   Specify a directory for installing "kon.cfg" file.
+
+ Support VGA driver
+   Use VGA screen mode to display Japanese characters.
+
+ Support J31SX driver
+   Use J3100SX (DCGA?) screen to display Japanese characters.
+
+ Support MOUSE driver
+   Link the mouse driver with the "kon" program and use mouse under
+   Japanese screen mode.
+
+ Support Minix/V font loader
+   Install the Minix/V font loader (fld.minix) to "Binary Directory"
+   you specified in the second question.
+
+ Install $fontx1 font loader
+   Install the $fontx1 font loader (fld.fontx) to "Binary Directory"
+   you specified in the second question. You can not answer "y" here
+   if you want to install $fontx2 font loader.
+
+ Install $fontx2 font loader
+   Install the $fontx2 font loader (fld.fontx) to "Binary Directory"
+   you specified in the second question. You can not answer "y" here
+   if you want to install $fontx1 font loader.
+
+ Install J3100ROM font loader
+   Install the font loader for J3100SX ROM fonts (fld.j31rom).
+
+ Install new "syslogk"
+   Install "syslogk" into /etc directory.
+
+
+2. Running "make" to compile kon for your system
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+After finishing the "make config" procedure, you can start compiling
+the program by running "make".  If the program is generated without
+any trouble, try to install the program by running "make install" with
+the root privilege.
+
+In the "make install" procedure, the install program tries to copy the
+"kon.cfg" file to the directory you designated in the "make config"
+questions. If your old "kon.cfg" is already in the directory, the
+install program renames the old one into "kon.cfg.org" and copies the
+new "kon.cfg" file to the directory.
+
+"make instbin" installs binary files only and does not install the
+"kon.cfg" file.  Please make sure to install the new "kon.cfg" file by
+running "make install" because the content of the "kon.cfg" file has
+been changed since the last version.
+
+
+3. Configuring the "kon.cfg" file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"KON" reads the "kon.cfg" file at the time of execution.
+The rule of writing entries in the "kon.cfg" file is:
+
+	entry:[alias 1:alias 2:...]
+		the items for the entry
+
+KON is not case-sensitive about the entry names.  Each line that
+contains the items must begin with a TAB character.  If a line begins
+with a '#' sign, the line is considered as a comment and KON ignores it.
+
+You can specify the following types of items under a entry:
+
+	boolean - on/off
+	choice  - choose one from the lists
+	numeric - write decimal values
+	string  - type in characters in special formats
+
+** ATTENTION **
+You must write the first two items (i.e., NORMAL and STARTUP) in your
+"kon.cfg" file.
+
+==============================================================================
+NORMAL (string type)
+
+Choose one of the video drivers (such as Stealth, ProIIs, VGA9), whose
+first items are as follows:
+
+	VGA     - VGA, SVGA, EGA video driver
+	VGAFM   - VGA, SVGA, EGA video driver with the font modification
+		  feature (see below)
+	J3100SX - TOSHIBA J3100SX video driver
+
+Then write "Normal" as the alias of the name of your video driver.
+
+Numbers that follow the first item are the value of VGA registers, the
+screen size (dots), the number of columns, and the number of lines.
+You can modify the number of characters displayed on screen by
+changing these values.  However, except the standard VGA resolution
+(640x480), the relations between the values of VGA registers and the
+number of characters displayed on screen vary depending on each video
+card.  The standard VGA entry is defined as NORMAL in the original
+"kon.cfg".
+
+If you are fortunate enough, your video card's configuration is
+already in the "kon.cfg" file; just type in "NORMAL" following the
+entry and you may be able to use high-resolution Japanese screen. In
+that case, don't forget to delete "NORMAL" from "VGA" entry.
+
+When you create entries, whose type is either "VGA" or "VGAFM", for your
+video card, you must also write:
+
+	the values of VGA registers
+	the numbers of horizontal and vertical dots
+	the numbers of columns and lines
+
+The values of VGA registers can be retrieved from your video card by
+using "vacuum.exe" in the "tools" directory; the program is for DOS.
+See "tools/README" for details.
+
+==============================================================================
+STARTUP (string type)
+
+The commands you want to run in the startup process are specified
+here.  The number of commands written in this section is arbitrary.
+
+It is necessary to write a command that loads ZENKAKU fonts.  Loading
+HANKAKU fonts is optional.  Examples follow:
+
+to use fontx's fonts:
+	/usr/local/bin/fld.fontx /dos/lib/font/jpnhn16x.fnt
+	/usr/local/bin/fld.fontx /dos/lib/font/jpnzn16x.fnt
+
+to use MINIX's fonts:
+	/usr/local/bin/fld.minix /usr/lib/fonts/publicfont.ank
+	/usr/local/bin/fld.minix /usr/lib/fonts/publicfont.k14
+
+
+to use compressed font files:
+	zcat /dos/lib/font/jpnhn16x.fnt.Z | /usr/local/bin/fld.fontx
+	zcat /dos/lib/font/jpnzn16x.fnt.Z | /usr/local/bin/fld.fontx
+
+or
+	zcat /usr/lib/fonts/publicfont.ank.Z | /usr/local/bin/fld.minix
+	zcat /usr/lib/fonts/publicfont.k14.Z | /usr/local/bin/fld.minix
+
+==============================================================================
+PELS (string type)
+
+"PELS" defines color palettes.  This entry is necessary when you
+choose one of VGA or VGAFM video drivers.  There must be 16 lines
+under this entry, and each line contains 3 decimal values for Red,
+Green, and Blue.
+
+There are "STDPEL" and "REVPEL" entries in the standard "kon.cfg"
+file.  STDPEL stands for standard palette, and REVPEL stands for
+reverse palette.  Define PELS as an alias for either STDPEL or
+REVPEL.
+==============================================================================
+MOUSE (choice type)
+
+Select one of the mouse drivers from the following:
+
+	Microsoft, MouseSystems, BusMouse,
+	MMSeries, Logitech, None
+
+If the Logitech driver does not work with your Logitech mouse, please
+try Microsoft.
+==============================================================================
+MouseBaud (choice type)
+
+Specify the baud rate for your serial mouse. Choose one of the following:
+
+	1200, 2400, 4800, 9600
+
+1200 is the default setting.  This is effective when your mouse driver is
+one of the following:
+
+	Microsoft, MouseSystems, MMSeries, Logitech
+
+==============================================================================
+MouseDev (string type)
+
+Specify the device name of your mouse.  This entry is effective when
+you choose an item other than NONE for the MOUSE entry.
+==============================================================================
+HardScroll (boolean type)
+
+Specify whethter to use hardware scroll.  The default is ON.
+This is effective on VGA, VGAFM, and J31SX.
+==============================================================================
+VgaFontOffset (numeric type)
+
+Specify the offset address when loading VGA fonts.  If '1' is given here
+the fonts will appear one dot higher than usual.  The default is 0.
+==============================================================================
+BeepCounter (numeric type)
+
+Specify the length of beep by 1/100 seconds.  The default is 5.
+==============================================================================
+CursorInterval (numeric type)
+
+Specify the interval time of cursor blinking by 1/10 second.
+the default is 5.  If you do not want the cursor to blink,
+choose 0 (zero).
+==============================================================================
+SaveTime (numeric type)
+
+Specify the length of time before the screen saver start working.
+The default is 4.
+
+** ATTENTION **
+The screen saver does not work if you choose not to blink the cursor,
+because KON times the length by counting the number of blinking.
+==============================================================================
+KanjiCursor (boolean type)
+
+When KanjiCursor is ON, the width of the cursor becomes ZENKAKU size.
+The default is ON.
+==============================================================================
+CursorTop, CursorBottom
+(numeric type : for VGA and VGAFM drivers.)
+
+Specify the size of the cursor.
+
+		 0 +--------+
+		   |        |
+		   |--------| <-- CursorTop
+		   |********|
+		   |********|
+		   |********|
+		   |********|
+		   |********|
+		15 +--------+ <-- CursorBottom
+
+==============================================================================
+BoxCursor (boolean type : for the J3100SX driver)
+
+When BoxCursor is ON, the cursor's shape is a box.
+==============================================================================
+SavePlane3 (boolean type : for VGA and VGAFM drivers)
+
+When SavePlane3 is ON, KON saves the font data that are in
+the third page of VGA.  The default is OFF.  This item is
+not necessary if you do not use Trident video cards.
+==============================================================================
+SjisKanji (boolean type)
+
+When SjisKanji is on, KON uses Shift-JIS code instead of EUC for its
+second kanji code.  The default is OFF (using EUC for the second kanji
+code.)
+==============================================================================
+StartupMessage (boolean type)
+
+When StartupMessage is ON, KON displays the greeting messages
+in the startup procedure.  The default is ON.
+==============================================================================
+
+
+4. The Font Modification Function
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The hight of KON's fonts are 16 dots by default, but the VGAFM driver
+can make the fonts smaller by reducing the hight of a character to
+less than 16 dots.  (The original idea is credited to Mr. Matsui Takao
+: mat@tansei.cc.u-tokyo.ac.jp)
+
+The VGAFM driver calculates the hight (lines) of a character from the
+number of dots in the NORMAL entry and the number of lines.  Then the
+driver displays characters by reducing the hight of a character if
+necessary.
+
+By using MINIX's public fonts, the VGAFM driver can create fonts that
+are fairly readable.  In this case, the number of lines on a screen
+increases by 30 percent.  480-dot screen can have 40 lines, and
+600-dot screen can have 50 lines.  This function may be particularly
+useful for notebook computers.
+
+
+5. Other information about the "kon.cfg" file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+If there are several entries that have the same name, the first
+entry will be effective.
+
+If an entry has an illegal name, the entry will be ignored.
+
+The maximum number of characters in a line is 255.
+
+An entry can have a maximum of 1023 bytes of characters.
+_____________________
+
+If there are any questions regarding this translation, please send
+messages to:
+
+	NBB02702 (NIFTY-Serve)
+	72111,2702 (CompuServe)
+
+or respective Internet addresses.
+					Nakagome Tomoyuki
