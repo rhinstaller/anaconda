@@ -125,9 +125,12 @@ class BaseInstallClass:
                  "handleX11pkgs",
 		 "checkdeps",
 		 "dependencies",
-		 "videocard",
-		 "monitor",
-		 "xcustom",
+#
+# Disable interactive X configuration
+#
+#		 "videocard",
+#		 "monitor",
+#		 "xcustom",
 		 "confirminstall",
 		 "install",
 		 "enablefilesystems",
