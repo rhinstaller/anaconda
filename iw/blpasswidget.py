@@ -1,0 +1,166 @@
+#
+# blpasswidget.py - widget for setting of a boot loader password
+#
+# Jeremy Katz <katzj@redhat.com>
+#
+# Copyright 2001-2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+import gtk
+import gobject
+import iutil
+import gui
+from rhpl.translate import _, N_
+
+
+class BootloaderPasswordWidget:
+    def __init__(self, bl, parent, intf):
+        self.parent = parent
+        self.intf = intf
+        
+        if bl.getPassword():
+            usePass = 1
+            self.password = bl.getPassword()
+        else:
+            usePass = 0
+            self.password = None
+        
+        vbox = gtk.VBox(gtk.FALSE, 5)
+        
+        label = gui.WrappingLabel(_("A boot loader password prevents users from passing arbitrary options to the kernel.  For highest security, we recommend setting a password, but this is not necessary for more casual users."))
+        label.set_alignment(0.0, 0.5)
+        vbox.pack_start(label, gtk.FALSE)
+
+        # password widgets + callback
+        self.usePassCb = gtk.CheckButton(_("_Use a Boot Loader Password"))
+        self.passButton = gtk.Button("No password")
+        if usePass:
+            self.usePassCb.set_active(gtk.TRUE)
+            self.passButton.set_sensitive(gtk.TRUE)
+        else:
+            self.usePassCb.set_active(gtk.FALSE)
+            self.passButton.set_sensitive(gtk.FALSE)
+        self.usePassCb.connect("toggled", self.passCallback)
+        self.passButton.connect("clicked", self.passButtonCallback)
+        self.setPassLabel()
+            
+        box = gtk.HBox(gtk.FALSE, 5)
+        box.pack_start(self.usePassCb)
+        box.pack_start(self.passButton)
+        vbox.pack_start(box, gtk.FALSE)
+
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0, 0, 0)
+        alignment.add(vbox)
+        self.widget = alignment
+
+    def getWidget(self):
+        return self.widget
+
+    def getPassword(self):
+        # XXX should we handle the only having a crypted password case?
+        if self.usePassCb.get_active() and self.password:
+            return self.password
+        else:
+            return None
+
+    # set the label on the button for the bootloader password
+    def setPassLabel(self):
+        if not self.usePassCb.get_active() or not self.password:
+            self.passButton.set_label(_("No password"))
+        else:
+            self.passButton.set_label(_("Change _Password"))
+            self.passButton.set_sensitive(gtk.TRUE)
+
+    # callback for when the password checkbox is clicked
+    def passCallback(self, widget, *args):
+        if not widget.get_active():
+            self.passButton.set_sensitive(gtk.FALSE)
+            self.setPassLabel()
+        else:
+            if self.passwordWindow() == 2:
+                widget.set_active(0)
+            self.setPassLabel()
+
+    # callback for when the password button is clicked
+    def passButtonCallback(self, widget, *args):
+        self.passwordWindow()
+        self.setPassLabel()
+
+    # get the bootloader password
+    def passwordWindow(self, *args):
+        dialog = gtk.Dialog(_("Enter Boot Loader Password"), self.parent)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(dialog)
+        
+        label = gui.WrappingLabel(_("A boot loader password prevents users "
+                                    "from passing arbitrary options to the "
+                                    "kernel.  For highest security, we "
+                                    "recommend setting a password, but this "
+                                    "is not necessary for more casual users."))
+        label.set_alignment(0.0, 0.0)
+        dialog.vbox.pack_start(label)
+
+        table = gtk.Table(2, 2)
+        table.set_row_spacings(5)
+        table.set_col_spacings(5)
+        table.attach(gtk.Label(_("Password:")), 0, 1, 2, 3,
+                              gtk.FILL, 0, 10)
+        pwEntry = gtk.Entry (16)
+        pwEntry.set_visibility (gtk.FALSE)
+        table.attach(pwEntry, 1, 2, 2, 3, gtk.FILL, 0, 10)
+        table.attach(gtk.Label(_("Confirm:")), 0, 1, 3, 4,
+                              gtk.FILL, 0, 10) 
+        confirmEntry = gtk.Entry (16)
+        confirmEntry.set_visibility (gtk.FALSE)
+        table.attach(confirmEntry, 1, 2, 3, 4, gtk.FILL, 0, 10)
+        dialog.vbox.pack_start(table)
+
+        # set the default
+        if self.password:
+            pwEntry.set_text(self.password)
+            confirmEntry.set_text(self.password)
+
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+            if rc == 2:
+                break
+
+            if pwEntry.get_text() != confirmEntry.get_text():
+                self.intf.messageWindow(_("Passwords don't match"),
+                                        _("Passwords do not match"),
+                                        type='warning')
+                continue
+
+            thePass = pwEntry.get_text()
+            if not thePass:
+                continue
+            if len(thePass) < 6:
+                ret = self.intf.messageWindow(_("Warning"),
+                                    _("Your boot loader password is less than "
+                                      "six characters.  We recommend a longer "
+                                      "boot loader password."
+                                      "\n\n"
+                                      "Would you like to continue with this "
+                                      "password?"),
+                                             type = "yesno")
+                if ret == 0:
+                    continue
+
+            self.password = thePass
+            break
+
+        dialog.destroy()
+        return rc
+

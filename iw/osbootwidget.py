@@ -1,0 +1,391 @@
+#
+# osbootwidget.py: gui bootloader list of operating systems to boot
+#
+# Jeremy Katz <katzj@redhat.com>
+#
+# Copyright 2001-2002 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
+import gtk
+import gobject
+import iutil
+import partedUtils
+import gui
+from rhpl.translate import _, N_
+
+
+class OSBootWidget:
+    """Widget to display OSes to boot and allow adding new ones."""
+    
+    def __init__(self, bl, fsset, diskset, parent, intf):
+        self.bl = bl
+        self.fsset = fsset
+        self.diskset = diskset
+        self.parent = parent
+        self.intf = intf
+
+        # illegal characters for boot loader labels
+        if self.bl.useGrub():
+            self.illegalChars = [ "$", "=" ]
+        else:
+            self.illegalChars = [ "$", "=", " " ]
+
+        if self.bl.useGrub():
+            blname = "GRUB"
+        else:
+            blname = "LILO"
+
+        self.vbox = gtk.VBox(gtk.FALSE, 5)
+        label = gui.WrappingLabel(_("You can configure the %s boot loader to boot other operating systems.  Additional operating systems can be added to the below list to choose between them on boot.") % (blname,))
+        self.vbox.pack_start(label, gtk.FALSE)
+
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        self.vbox.pack_start(spacer, gtk.FALSE)
+
+        box = gtk.HBox (gtk.FALSE, 5)
+        sw = gtk.ScrolledWindow()
+        sw.set_shadow_type(gtk.SHADOW_ETCHED_IN)
+        sw.set_policy(gtk.POLICY_NEVER, gtk.POLICY_AUTOMATIC)
+        sw.set_size_request(300, 100)
+        box.pack_start(sw, gtk.TRUE)
+
+
+        self.osStore = gtk.ListStore(gobject.TYPE_BOOLEAN, gobject.TYPE_STRING,
+                                     gobject.TYPE_STRING, gobject.TYPE_BOOLEAN)
+        self.osTreeView = gtk.TreeView(self.osStore)
+        theColumns = [ "Default", "Label", "Device" ]
+
+        self.checkboxrenderer = gtk.CellRendererToggle()
+        column = gtk.TreeViewColumn(theColumns[0], self.checkboxrenderer,
+                                    active = 0)
+        column.set_sizing(gtk.TREE_VIEW_COLUMN_AUTOSIZE)
+        self.checkboxrenderer.connect("toggled", self.toggledDefault)
+        self.osTreeView.append_column(column)
+
+        for columnTitle in theColumns[1:]:
+            renderer = gtk.CellRendererText()
+            column = gtk.TreeViewColumn(columnTitle, renderer,
+                                        text = theColumns.index(columnTitle))
+            column.set_clickable(gtk.FALSE)
+            self.osTreeView.append_column(column)
+
+        self.osTreeView.set_headers_visible(gtk.TRUE)
+        self.osTreeView.columns_autosize()
+        self.osTreeView.set_size_request(100, 100)
+        sw.add(self.osTreeView)
+        self.osTreeView.connect('row-activated', self.osTreeActivateCb)
+
+        self.imagelist = self.bl.images.getImages()
+        self.defaultDev = self.bl.images.getDefault()
+        self.fillOSList()
+
+        buttonbar = gtk.VButtonBox()
+        buttonbar.set_layout(gtk.BUTTONBOX_START)
+        buttonbar.set_border_width(5)
+        add = gtk.Button(_("_Add"))
+        buttonbar.pack_start(add, gtk.FALSE)
+        add.connect("clicked", self.addEntry)
+
+        edit = gtk.Button(_("_Edit"))
+        buttonbar.pack_start(edit, gtk.FALSE)
+        edit.connect("clicked", self.editEntry)
+
+        delete = gtk.Button(_("_Delete"))
+        buttonbar.pack_start(delete, gtk.FALSE)
+        delete.connect("clicked", self.deleteEntry)
+        box.pack_start(buttonbar, gtk.FALSE)
+
+        self.vbox.pack_start(box, gtk.FALSE)
+
+        alignment = gtk.Alignment()
+        alignment.set(0.1, 0, 0, 0)
+        alignment.add(self.vbox)
+        self.widget = alignment
+
+    # adds/edits a new "other" os to the boot loader config
+    def editOther(self, oldDevice, oldLabel, isDefault, isRoot = 0):
+        dialog = gtk.Dialog(_("Image"), self.parent)
+        dialog.add_button('gtk-cancel', 2)
+        dialog.add_button('gtk-ok', 1)
+        dialog.set_position(gtk.WIN_POS_CENTER)
+        gui.addFrame(dialog)
+
+        dialog.vbox.pack_start(gui.WrappingLabel(
+            _("The label is what is displayed in the boot loader to "
+              "choose to boot this operating system.  The device "
+              "is the device which it boots from.")))
+
+        spacer = gtk.Label("")
+        spacer.set_size_request(10, 1)
+        dialog.vbox.pack_start(spacer, gtk.FALSE)
+
+        table = gtk.Table(2, 5)
+        table.set_row_spacings(5)
+        table.set_col_spacings(5)
+
+        table.attach(gtk.Label(_("Label")), 0, 1, 1, 2, gtk.FILL, 0, 10)
+        labelEntry = gtk.Entry(32)
+        table.attach(labelEntry, 1, 2, 1, 2, gtk.FILL, 0, 10)
+        if oldLabel:
+            labelEntry.set_text(oldLabel)
+
+        table.attach(gtk.Label(_("Device")), 0, 1, 2, 3, gtk.FILL, 0, 10)
+        if not isRoot:
+            # XXX should potentially abstract this out into a function
+            pedparts = []
+            parts = []
+            disks = self.diskset.disks
+            for drive in disks.keys():
+                pedparts.extend(partedUtils.get_all_partitions(disks[drive]))
+            for part in pedparts:
+                parts.append(partedUtils.get_partition_name(part))
+            del pedparts
+            parts.sort()
+            
+            deviceOption = gtk.OptionMenu()
+            deviceMenu = gtk.Menu()
+            defindex = None
+            i = 0
+            for part in  parts:
+                item = gtk.MenuItem("/dev/" + part)
+                item.set_data("part", part)
+                # XXX gtk bug -- have to show so that the menu is sized right
+                item.show()
+                deviceMenu.add(item)
+                if oldDevice and oldDevice == part:
+                    defindex = i
+                i = i + 1
+            deviceOption.set_menu(deviceMenu)
+            if defindex:
+                deviceOption.set_history(defindex)
+            
+            table.attach(deviceOption, 1, 2, 2, 3, gtk.FILL, 0, 10)
+        else:
+            table.attach(gtk.Label(oldDevice), 1, 2, 2, 3, gtk.FILL, 0, 10)
+
+        default = gtk.CheckButton(_("Default Boot Target"))
+        table.attach(default, 0, 2, 3, 4, gtk.FILL, 0, 10)
+        if isDefault != 0:
+            default.set_active(gtk.TRUE)
+
+        if self.numentries == 1 and oldDevice != None:
+            default.set_sensitive(gtk.FALSE)
+        else:
+            default.set_sensitive(gtk.TRUE)
+        
+        dialog.vbox.pack_start(table)
+        dialog.show_all()
+
+        while 1:
+            rc = dialog.run()
+
+            # cancel
+            if rc == 2:
+                break
+
+            label = labelEntry.get_text()
+
+            if not isRoot:
+                dev = deviceMenu.get_active().get_data("part")
+            else:
+                dev = oldDevice
+
+            if not label:
+                self.intf.messageWindow(_("Error"),
+                                        _("You must specify a label for the "
+                                          "entry"),
+                                        type="warning")
+                continue
+
+            foundBad = 0
+            for char in self.illegalChars:
+                if char in label:
+                    self.intf.messageWindow(_("Error"),
+                                            _("Boot label contains illegal "
+                                              "characters"),
+                                            type="warning")
+                    foundBad = 1
+                    break
+            if foundBad:
+                continue
+
+            # verify that the label hasn't been used
+            foundBad = 0
+            for key in self.imagelist.keys():
+                if dev == key:
+                    continue
+                if self.bl.useGrub():
+                    thisLabel = self.imagelist[key][1]
+                else:
+                    thisLabel = self.imagelist[key][0]
+
+                # if the label is the same as it used to be, they must
+                # have changed the device which is fine
+                if thisLabel == oldLabel:
+                    continue
+
+                if thisLabel == label:
+                    self.intf.messageWindow(_("Duplicate Label"),
+                                            _("This label is already in "
+                                              "use for another boot entry."),
+                                            type="warning")
+                    foundBad = 1
+                    break
+            if foundBad:
+                continue
+
+            # XXX need to do some sort of validation of the device?
+
+            # they could be duplicating a device, which we don't handle
+            if dev in self.imagelist.keys() and (not oldDevice or
+                                                 dev != oldDevice):
+                self.intf.messageWindow(_("Duplicate Device"),
+                                        _("This device is already being "
+                                          "used for another boot entry."),
+                                        type="warning")
+                continue
+
+            # if we're editing a previous, get what the old info was for
+            # labels.  otherwise, make it something safe for grub and the
+            # device name for lilo for lack of any better ideas
+            if oldDevice:
+                (oldshort, oldlong, oldisroot) = self.imagelist[oldDevice]
+            else:
+                (oldshort, oldlong, oldisroot) = (dev, label, None)
+                
+            # if we're editing and the device has changed, delete the old
+            if oldDevice and dev != oldDevice:
+                del self.imagelist[oldDevice]
+                
+            # go ahead and add it
+            if self.bl.useGrub():
+                self.imagelist[dev] = (oldshort, label, isRoot)
+            else:
+                self.imagelist[dev] = (label, oldlong, isRoot)
+
+            if default.get_active():
+                self.defaultDev = dev
+
+            # refill the os list store
+            self.fillOSList()
+            break
+        
+        dialog.destroy()
+
+    def getSelected(self):
+        selection = self.osTreeView.get_selection()
+        (model, iter) = selection.get_selected()
+        if not iter:
+            return None
+
+        dev = model.get_value(iter, 2)
+        theDev = dev[5:] # strip /dev/
+        
+        label = model.get_value(iter, 1)
+        isRoot = model.get_value(iter, 3)
+        isDefault = model.get_value(iter, 0)
+        return (theDev, label, isDefault, isRoot)
+
+
+    def addEntry(self, widget, *args):
+        self.editOther(None, None, 0)
+
+    def deleteEntry(self, widget, *args):
+        rc = self.getSelected()
+        if not rc:
+            return
+        (dev, label, isDefault, isRoot) = rc
+        if not isRoot:
+            del self.imagelist[dev]
+            if isDefault:
+                keys = self.imagelist.keys()
+                keys.sort()
+                self.defaultDev = keys[0]
+                
+            self.fillOSList()
+        else:
+            self.intf.messageWindow(_("Cannot Delete"),
+                                    _("This boot target cannot be deleted "
+				      "because it is for the Red Hat Linux "
+				      "system you are about to install."),
+                                      type="warning")
+
+    def editEntry(self, widget, *args):
+        rc = self.getSelected()
+        if not rc:
+            return
+        (dev, label, isDefault, isRoot) = rc
+        self.editOther(dev, label, isDefault, isRoot)
+
+    # the default os was changed in the treeview
+    def toggledDefault(self, widget, *args):
+        if widget.get_active():
+            return
+
+        rc = self.getSelected()
+        if not rc:
+            return
+        self.defaultDev = rc[0]
+        self.fillOSList()
+
+    # fill in the os list tree view
+    def fillOSList(self):
+        self.osStore.clear()
+        
+        keys = self.imagelist.keys()
+        keys.sort()
+
+        for dev in keys:
+            (label, longlabel, fstype) = self.imagelist[dev]
+            if self.bl.useGrub():
+                theLabel = longlabel
+            else:
+                theLabel = label
+
+            # if the label is empty, remove from the image list and don't
+            # worry about it
+            if not theLabel:
+                del self.imagelist[dev]
+                continue
+
+	    isRoot = 0
+	    fsentry = self.fsset.getEntryByDeviceName(dev)
+	    if fsentry and fsentry.getMountPoint() == '/':
+		isRoot = 1
+
+            iter = self.osStore.append()
+            self.osStore.set_value(iter, 1, theLabel)
+            self.osStore.set_value(iter, 2, "/dev/%s" % (dev,))
+            self.osStore.set_value(iter, 3, isRoot)
+            if self.defaultDev == dev:
+                self.osStore.set_value(iter, 0, gtk.TRUE)
+            else:
+                self.osStore.set_value(iter, 0, gtk.FALSE)
+
+        self.numentries = len(keys)
+
+    def osTreeActivateCb(self, view, path, col):
+        self.editEntry(view)
+        
+        
+    def getWidget(self):
+        return self.widget
+
+    # FIXME: I really shouldn't have such intimate knowledge of
+    # the bootloader object
+    def setBootloaderImages(self):
+        "Apply the changes from our list into the self.bl object"
+        # make a copy of our image list to shove into the bl struct
+        self.bl.images.images = {}
+        for key in self.imagelist.keys():
+            self.bl.images.images[key] = self.imagelist[key]
+        self.bl.images.setDefault(self.defaultDev)
+        
