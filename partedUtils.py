@@ -764,8 +764,7 @@ class DiskSet:
                         DiskSet.skippedDisks.append(drive)
                         continue
 
-            # MSWFIXME: enable once parted binding complete
-            # filter_partitions(disk, validateFsType)
+            filter_partitions(disk, validateFsType)
 
             # check that their partition table is valid for their architecture
             ret = checkDiskLabel(disk, intf)
