@@ -1,4 +1,4 @@
-from lilo import LiloConfiguration
+#from lilo import LiloConfiguration
 import iutil
 import isys
 import string

@@ -21,7 +21,7 @@ class InstallClass(BaseInstallClass):
 		    "mouse",
 		    "welcome",
 		    "installtype",
-		    "custom-upgrade",
+		    "findinstall",
 		    "addswap",
                     "upgradecontinue",
 		    "indivpackage",

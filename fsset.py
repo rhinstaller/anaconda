@@ -84,6 +84,8 @@ class LabelFactory:
         return mountpoint
 
     def reserveLabels(self, labels):
+        if self.labels == None:
+            self.labels = {}
         for device, label in labels.items():
             self.labels[label] = 1
 
@@ -934,6 +936,21 @@ def isValidExt2(device):
 	return 1
 
     return 0
+
+def mountLoopbackRoot(device, skipMount = 0):
+    isys.mount(device, '/mnt/loophost', fstype = "vfat")
+    isys.makeDevInode("loop1", '/tmp/' + "loop1")
+    isys.losetup("/tmp/loop1", "/mnt/loophost/redhat.img")
+
+    if not skipMount:
+	isys.mount("loop1", '/mnt/sysimage')
+
+def unmountLoopbackRoot(skipMount = 0):
+    if not skipMount:
+	isys.umount('/mnt/sysimage')        
+    isys.makeDevInode("loop1", '/tmp/' + "loop1")
+    isys.unlosetup("/tmp/loop1")
+    isys.umount('/mnt/loophost')        
 
 def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
     if windowCreator:

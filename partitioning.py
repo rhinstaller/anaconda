@@ -576,7 +576,7 @@ class DiskSet:
         labels = {}
         
         drives = self.disks.keys()
-        drives.sort
+        drives.sort()
 
         for drive in drives:
             disk = self.disks[drive]
@@ -591,6 +591,69 @@ class DiskSet:
                 part = disk.next_partition(part)
 
         return labels
+
+    def findExistingRootPartitions(self):
+        rootparts = []
+
+        drives = self.disks.keys()
+        drives.sort()
+        
+        mdList = raid.startAllRaid(drives)
+
+        for dev in mdList:
+            if not fsset.isValidExt2 (dev):
+                continue
+
+            try:
+                isys.mount(dev, '/mnt/sysimage', readOnly = 1)
+            except SystemError, (errno, msg):
+                intf.messageWindow(_("Error"),
+                                   _("Error mounting filesystem on %s: %s") % (dev, msg))
+                continue
+            if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+                rootparts.append ((dev, "ext2"))
+            isys.umount('/mnt/sysimage')
+
+        raid.stopAllRaid(mdList)
+        
+        drives = self.disks.keys()
+        drives.sort()
+
+        for drive in drives:
+            disk = self.disks[drive]
+            part = disk.next_partition ()
+            while part:
+                if part.fs_type and (part.fs_type.name == "ext2"
+                                     or part.fs_type.name == "ext3"):
+                    node = get_partition_name(part)
+		    try:
+			isys.mount(dev, '/mnt/sysimage')
+		    except SystemError, (errno, msg):
+			intf.messageWindow(_("Error"),
+                                           _("Error mounting filesystem on "
+                                             "%s: %s") % (dev, msg))
+                        part = disk.next_partition(part)
+			continue
+		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
+			rootparts.append ((dev, "ext2"))
+		    isys.umount('/mnt/sysimage')
+                if part.fs_type and (part.fs_type.name == "DOS"):
+                    try:
+                        isys.mount(dev, '/mnt/sysimage', fstype = "vfat",
+                                   readOnly = 1)
+                    except:
+			log("failed to mount vfat filesystem on %s\n" 
+                            % dev)
+                        part = disk.next_partition(part)
+			continue
+                        
+		    if os.access('/mnt/sysimage/redhat.img', os.R_OK):
+                        rootparts.append((dev, "vfat"))
+
+		    isys.umount('/mnt/sysimage')
+                    
+                part = disk.next_partition(part)
+        return rootparts
 
     def driveList (self):
 	drives = isys.hardDriveDict().keys()

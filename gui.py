@@ -29,7 +29,7 @@ stepToClass = {
     "installtype" : ( "installpath_gui", "InstallPathWindow" ),
     "partitionmethod" : ( "partmethod_gui", "PartitionMethodWindow" ),
     "partition" : ( "partition_gui", "PartitionWindow" ),
-    "custom-upgrade" : ( "examine_gui", "UpgradeExamineWindow" ),
+    "findinstall" : ( "examine_gui", "UpgradeExamineWindow" ),
     "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
     "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
     "format" : ( "format_gui", "FormatWindow" ),
@@ -77,7 +77,6 @@ root.set_cursor (cursor)
 splashwindow = None
 
 def display_splash_screen():
-
     def load_image(file):
         try:
             im = GdkImlib.Image("/usr/share/anaconda/pixmaps/" + file)

@@ -1,3 +1,18 @@
+#
+# upgrade_swap_gui.py: dialog for adding swap files for 2.4
+#
+# Mike Fulbright <msf@redhat.com>
+#
+# Copyright 2001 Red Hat, Inc.
+#
+# This software may be freely redistributed under the terms of the GNU
+# library public license.
+#
+# You should have received a copy of the GNU Library Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+#
+
 from gtk import *
 from iw_gui import *
 from translate import _, N_
@@ -11,7 +26,6 @@ from package_gui import queryUpgradeContinue
 import gui
 
 class UpgradeSwapWindow (InstallWindow):		
-
     windowTitle = N_("Upgrade Swap Partition")
     htmlTag = "upswapfile"
 
@@ -70,11 +84,16 @@ class UpgradeSwapWindow (InstallWindow):
     def clist_cb(self, clist, row, col, data):
         self.row = row
     
-    def getScreen (self):
+    def getScreen (self, dispatch, intf, fsset, diskset, instPath):
         self.neededSwap = 0
-        rc = upgrade.swapSuggestion(self.todo.instPath, self.todo.fstab)
+        self.fsset = fsset
+        self.diskset = diskset
+        self.dispatch = dispatch
+        self.instPath = instPath
+        self.intf = intf
+        
+        rc = upgrade.swapSuggestion(self.instPath, self.fsset)
 	if not rc:
-	    self.todo.upgradeFindPackages ()
             return None
 
         self.neededSwap = 1
@@ -82,11 +101,13 @@ class UpgradeSwapWindow (InstallWindow):
         box = GtkVBox (FALSE, 5)
         box.set_border_width (5)
 
-	label = GtkLabel (_("The 2.4 kernel needs significantly more swap than older "
-		 "kernels, as much as twice as much swap space as RAM on the "
-		 "system. You currently have %dMB of swap configured, but "
-		 "you may create additional swap space on one of your "
-		 "file systems now.") % (iutil.swapAmount() / 1024))
+	label = GtkLabel (_("The 2.4 kernel needs significantly more "
+                            "swap than older kernels, as much as twice "
+                            "as much swap space as RAM on the system.  "
+                            "You currently have %dMB of swap configured, but "
+                            "you may create additional swap space on one of "
+                            "your file systems now.")
+                          % (iutil.swapAmount() / 1024))
 
         label.set_alignment (0.5, 0.0)
         label.set_usize(400, 80)
@@ -96,7 +117,8 @@ class UpgradeSwapWindow (InstallWindow):
         hs = GtkHSeparator()
         box.pack_start(hs, FALSE)
 
-        self.option1 = GtkRadioButton(None, (_("I want to create a swap file")))
+        self.option1 = GtkRadioButton(None,
+                                      (_("I want to create a swap file")))
         box.pack_start(self.option1, FALSE)
 
         (fsList, suggSize, suggMntPoint) = rc
@@ -110,7 +132,7 @@ class UpgradeSwapWindow (InstallWindow):
         a.add(label)
         self.swapbox.pack_start(a, FALSE)
 
-        titles = [(_("Mount Point")), (_("Partition")), (_("Free Space (MB)"))]        
+        titles = ((_("Mount Point")), (_("Partition")), (_("Free Space (MB)")))
         self.clist = GtkCList(3, titles)
         self.clist.connect("select-row", self.clist_cb)
         a = GtkAlignment(0.5, 0.5)
@@ -125,7 +147,9 @@ class UpgradeSwapWindow (InstallWindow):
 
         self.clist.select_row(0, 0)
 
-        label = GtkLabel (_("It is recommended that your swap file be at least %d MB.  Please enter a size for the swap file:") % suggSize)
+        label = GtkLabel (_("It is recommended that your swap file be at "
+                            "least %d MB.  Please enter a size for the swap "
+                            "file:") % suggSize)
         label.set_usize(400, 40)
         label.set_line_wrap (TRUE)
         a = GtkAlignment(0.5, 0.5)
@@ -146,7 +170,9 @@ class UpgradeSwapWindow (InstallWindow):
         self.entry.set_text(str(suggSize))
         hbox.pack_start(self.entry, FALSE, TRUE, 10)
 
-        self.option2 = GtkRadioButton(self.option1, (_("I don't want to create a swap file")))
+        self.option2 = GtkRadioButton(self.option1,
+                                      (_("I don't want to create a swap "
+                                         "file")))
         box.pack_start(self.option2, FALSE, TRUE, 20)
 
         self.option1.connect("toggled", self.toggle)
@@ -154,24 +180,22 @@ class UpgradeSwapWindow (InstallWindow):
 
 
     def warning(self):
-        
-        rc = self.todo.intf.messageWindow(_("Warning"), 
-                    _("It is stongly recommended that you create a swap file.  "
-                            "Failure to do so could cause the installer to abort "
-                            "abnormally.  Are you sure that you wish to continue?"),
-                             type = "yesno").getrc()
+        rc = self.intf.messageWindow(_("Warning"), 
+                    _("It is stongly recommended that you create a swap "
+                      "file.  Failure to do so could cause the installer "
+                      "to abort abnormally.  Are you sure that you wish "
+                      "to continue?"), type = "yesno").getrc()
         return rc
 
     def swapWrongSize(self):
-        
-        rc = self.todo.intf.messageWindow(_("Warning"), 
+        rc = self.intf.messageWindow(_("Warning"), 
                     _("The swap file must be between 1 and 2000 MB in size."),
                        type = "okcancel").getrc()
         return rc
 
     def swapTooBig(self):
         
-        rc = self.todo.intf.messageWindow(_("Warning"), 
+        rc = self.intf.messageWindow(_("Warning"), 
                     _("There is not enough space on the device you "
 			  "selected for the swap partition."),
                        type = "okcancel").getrc()

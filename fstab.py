@@ -188,6 +188,24 @@ class Fstab:
             
 	isys.mount('/proc', instPath + '/proc', 'proc')
 
+    def hasDirtyFilesystems(self):
+	if self.rootOnLoop():
+	    (rootDev, rootFs) = self.getRootDevice()
+	    mountLoopbackRoot(rootDev, skipMount = 1)
+	    dirty = isys.ext2IsDirty("loop1")
+	    unmountLoopbackRoot(skipMount = 1)
+	    if dirty: return 1
+
+	for entry in self.entries:
+            # XXX - multifsify, virtualize isdirty per fstype
+	    if fsystem != "ext2": continue
+	    if doFormat: continue
+
+	    if isys.ext2IsDirty(entry.device.getDevice()): return 1
+
+	return 0
+
+
     def write(self, prefix):
 	format = fstabFormatString
 

@@ -4,97 +4,51 @@ import os
 from translate import _
 import raid
 import iutil
-import fstab
 from log import log
 import os.path
+from flags import flags
+from partitioning import *
+import fsset
 
-def findExistingRoots (intf, diskset):
-    rootparts = []
+def findExistingRoots (intf, id, chroot):
+    if not flags.setupFilesystems: return [ (chroot, 'ext2') ]
+
+    diskset = DiskSet()
+    diskset.openDevices()
+    
     win = intf.waitWindow (_("Searching"),
 		    _("Searching for Red Hat Linux installations..."))
 
-    drives = theFstab.driveList()
-    mdList = raid.startAllRaid(drives)
-
-    for dev in mdList:
-	if fstab.isValidExt2 (dev):
-	    try:
-		isys.mount(dev, '/mnt/sysimage', readOnly = 1)
-	    except SystemError, (errno, msg):
-		intf.messageWindow(_("Error"),
-					_("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-		continue
-	    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-		rootparts.append ((dev, "ext2"))
-	    isys.umount('/mnt/sysimage')
-
-    raid.stopAllRaid(mdList)
-    
-    for drive in drives:
-	isys.makeDevInode(drive, '/tmp/' + drive)
-	
-	try:
-	    table = _balkan.readTable ('/tmp/' + drive)
-	except SystemError:
-	    pass
-	else:
-	    for i in range (len (table)):
-		(type, sector, size) = table[i]
-		if size and type == _balkan.EXT2:
-		    # for RAID arrays of format c0d0p1
-		    if drive [:3] == "rd/" or drive [:4] == "ida/" or drive [:6] == "cciss/":
-			dev = drive + 'p' + str (i + 1)
-		    else:
-			dev = drive + str (i + 1)
-		    try:
-			isys.mount(dev, '/mnt/sysimage')
-		    except SystemError, (errno, msg):
-			intf.messageWindow(_("Error"),
-						_("Error mounting ext2 filesystem on %s: %s") % (dev, msg))
-			continue
-		    if os.access ('/mnt/sysimage/etc/fstab', os.R_OK):
-			rootparts.append ((dev, "ext2"))
-		    isys.umount('/mnt/sysimage')
-		elif size and type == _balkan.DOS:
-		    dev = drive + str (i + 1)
-		    try:
-			isys.mount(dev, '/mnt/sysimage', fstype = "vfat",
-				   readOnly = 1)
-		    except SystemError, (errno, msg):
-			log("failed to mount vfat filesystem on %s\n" 
-				    % dev)
-			continue
-
-		    if os.access('/mnt/sysimage/redhat.img', os.R_OK):
-                        rootparts.append((dev, "vfat"))
-
-		    isys.umount('/mnt/sysimage')
-
-	os.remove ('/tmp/' + drive)
+    rootparts = diskset.findExistingRootPartitions()
     win.pop ()
+
     return rootparts
 
-def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
+def mountRootPartition(intf, rootInfo, oldfsset, instPath, allowDirty = 0,
 		       raiseErrors = 0):
     (root, rootFs) = rootInfo
 
-    mdList = raid.startAllRaid(theFstab.driveList())
+    diskset = DiskSet()
+    mdList = raid.startAllRaid(diskset.driveList())
 
     if rootFs == "vfat":
-	fstab.mountLoopbackRoot(root)
+	fsset.mountLoopbackRoot(root)
     else:
 	isys.mount(root, '/mnt/sysimage')
 
-    fstab.readFstab(instPath + '/etc/fstab', theFstab)
+    oldfsset.reset()
+    newfsset = fsset.readFstab(instPath + '/etc/fstab')
+    for entry in newfsset.entries:
+        oldfsset.add(entry)
 
     if rootFs == "vfat":
-	fstab.unmountLoopbackRoot()
+	fsset.unmountLoopbackRoot()
     else:
 	isys.umount('/mnt/sysimage')        
 
     raid.stopAllRaid(mdList)
 
-    if not allowDirty and theFstab.hasDirtyFilesystems():
+    if not allowDirty and oldfsset.hasDirtyFilesystems():
         import sys
 	intf.messageWindow(_("Dirty Filesystems"),
 	    _("One or more of the filesystems for your Linux system "
@@ -103,10 +57,11 @@ def mountRootPartition(intf, rootInfo, theFstab, instPath, allowDirty = 0,
 	      "shut down cleanly to upgrade."))
 	sys.exit(0)
 
-    theFstab.mountFilesystems (instPath, raiseErrors = raiseErrors)
+    if flags.setupFilesystems:
+        oldfsset.mountFilesystems (instPath)
 
 # returns None if no more swap is needed
-def swapSuggestion(instPath, fstab):
+def swapSuggestion(instPath, fsset):
     # mem is in kb -- round it up to the nearest 4Mb
     mem = iutil.memInstalled(corrected = 0)
     rem = mem % 16384
@@ -125,21 +80,24 @@ def swapSuggestion(instPath, fstab):
 
     fsList = []
 
-    if fstab.rootOnLoop():
+    if fsset.rootOnLoop():
 	space = isys.pathSpaceAvailable("/mnt/loophost")
 
-	for info in fstab.mountList():
-	    (mntpoint, partition) = info[0:2]
-	    if mntpoint != '/': continue
-	    info = (mntpoint, partition, space)
+        for entry in fsset.entries:
+            if entry.mountpoint != '/':
+                continue
+            
+	    info = (entry.mountpoint, entry.device.getDevice(), space)
 	    fsList.append(info)
     else:
-	for info in fstab.mountList():
-	    (mntpoint, partition, fsystem) = info[0:3]
-	    if fsystem == "ext2":
-		space = isys.pathSpaceAvailable(instPath + mntpoint)
-		info = (mntpoint, partition, space)
-		fsList.append(info)
+        for entry in fsset.entries:
+            if not entry.isMounted():
+                continue
+            if (entry.fsystem.getName() == "ext2"
+                or entry.fsystem.getName() == "ext3"):
+                space = isys.pathSpaceAvailable(instPath + entry.mountpoint)
+                info = (mntpoint, entry.device.getDevice(), space)
+                fsList.append(info)
 
     suggestion = mem * 2 - swap
     suggSize = 0
@@ -149,7 +107,6 @@ def swapSuggestion(instPath, fstab):
 	    suggMnt = mnt
 
     return (fsList, suggestion, suggMnt)
-
 
 def swapfileExists(swapname):
 
@@ -195,18 +152,13 @@ def createSwapFile(instPath, theFstab, mntPoint, size):
 	    0, 0))
     f.close()
 
-def upgradeFindRoot(self):
-    if not self.setupFilesystems: return [ (self.instPath, 'ext2') ]
-    return upgrade.findExistingRoots(self.intf, self.fstab)
-
-def upgradeMountFilesystems(self, rootInfo):
+def upgradeMountFilesystems(intf, rootInfo, oldfsset, instPath):
     # mount everything and turn on swap
 
-    if self.setupFilesystems:
+    if flags.setupFilesystems:
 	try:
-	    upgrade.mountRootPartition(self.intf,rootInfo,
-				       self.fstab, self.instPath,
-				       allowDirty = 0)
+	    mountRootPartition(intf, rootInfo, oldfsset, instPath,
+                               allowDirty = 0)
 	except SystemError, msg:
 	    self.intf.messageWindow(_("Dirty Filesystems"),
 		_("One or more of the filesystems listed in the "
@@ -233,10 +185,12 @@ def upgradeMountFilesystems(self, rootInfo):
 	    self.intf.messageWindow(("Absolute Symlinks"), message)
 	    sys.exit(0)
     else:
-	fstab.readFstab(self.instPath + '/etc/fstab', self.fstab)
-	
-    # XXX fssetify
-    self.fstab.turnOnSwap(self.instPath, formatSwap = 0)
+	newfsset = fsset.readFstab(instPath + '/etc/fstab')
+        for entry in newfsset.entries:
+            oldfsset.add(entry)
+        
+    if flags.setupFilesystems:
+        oldfsset.turnOnSwap(self.instPath)
 		
 def upgradeFindPackages (self):
     if not self.rebuildTime:

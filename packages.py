@@ -26,8 +26,8 @@ import dispatch
 from log import log
 from flags import flags
 
-def queryUpgradeContinue(intf, dir, dispatch):
-    if dir == dispatch.DISPATCH_BACK:
+def queryUpgradeContinue(intf, dir):
+    if dir == dispatch.DISPATCH_FORWARD:
         return
 
     rc = intf.messageWindow(_("Proceed with upgrade?"),
@@ -39,7 +39,6 @@ def queryUpgradeContinue(intf, dir, dispatch):
                                       type = "yesno").getrc()
     if rc == 1:
         sys.exit(0)
-    dispatch.gotoNext()
 
 def writeConfiguration(id, instPath):
     log("Writing main configuration")
