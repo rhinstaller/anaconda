@@ -1039,9 +1039,10 @@ def ext2FormatFilesystem(argList, messageFile, windowCreator, mntpoint):
                     val = (int(l[0]) * 100) / int(l[1])
                     w and w.set(val)
                     # sync every 10%
-                    if sync + 10 < val:
-                        isys.sync()
-                        sync = val
+# XXX comment out for now because kernel seems to hang on < 256M machines!
+#                    if sync + 10 < val:
+#                        isys.sync()
+#                        sync = val
                 num = ''
         except OSError, args:
             (num, str) = args
