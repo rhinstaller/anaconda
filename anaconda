@@ -301,7 +301,7 @@ logFile = None			# may be a file object or a file name
 doXProbe = 1
 
 # probing for hardware on an s390 seems silly...
-if iutil.getArch() == "s390"
+if iutil.getArch() == "s390":
     doXProbe = 0
 # probing for hardware is equally silly on iSeries
 if iutil.getPPCMachine() == "iSeries":
