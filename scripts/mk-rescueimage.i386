@@ -37,11 +37,7 @@ os.system("mkdir %s" % (destdir,))
 
 # copy documentation
 for pat in ["*eula*", "*EULA*", "README*", "RELEASE*", "GPL", "RPM-*"]:
-    try:
-	os.system("cp -p %s/%s       %s/" % (srcdir, pat, destdir))
-    except:
-	print "Unable to find pattern %s" % (pat,)
-
+    os.system("cp -p %s/%s       %s/ 2>/dev/null" % (srcdir, pat, destdir))
 
 # cp isolinux boot image
 os.system("cp -a %s/isolinux     %s/" % (srcdir, destdir))
