@@ -543,7 +543,7 @@ class InstallControlWindow:
                 fn = "%s/RELEASE-NOTES%s" % (sourcepath, suffix)
                 if os.access(fn, os.R_OK):
                     file = open(fn, "r")
-                    if suffix == '.html':
+                    if suffix[-5:] == '.html':
                         buffer = htmlbuffer.HTMLBuffer()
                         buffer.feed(utf8(file.read()))
                         self.releaseNotesBuffer = buffer.get_buffer()
