@@ -3,7 +3,8 @@
 #
 VERSION = 8.0.93
 RELEASE = 0
-SNAPRELEASE = $(RELEASE)$(shell date "+.%Y%m%d%H%M")
+TIMESTAMP := $(shell date "+.%Y%m%d%H%M%S")
+SNAPRELEASE := $(RELEASE)$(TIMESTAMP)
 
 PYTHONLIBDIR = /usr/lib/anaconda
 RUNTIMEDIR = /usr/lib/anaconda-runtime
