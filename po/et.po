@@ -7,6 +7,7 @@
 #
 #
 #
+#
 # translation of et.po to Estonian
 #
 # Anaconda eesti keele tõlge.
@@ -21,7 +22,7 @@ msgstr ""
 "Project-Id-Version: et\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-06-30 16:31-0400\n"
-"PO-Revision-Date: 2004-08-11 22:59+0300\n"
+"PO-Revision-Date: 2004-08-12 18:40+0300\n"
 "Last-Translator: Allan Sims <allsi@eau.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -4350,7 +4351,7 @@ msgstr "Kokkuvõte"
 #: ../iw/progress_gui.py:379 ../iw/progress_gui.py:643
 #: ../textw/progress_text.py:130
 msgid "Status: "
-msgstr "Olek: "
+msgstr "Toiming: "
 
 #: ../iw/progress_gui.py:419 ../textw/progress_text.py:65
 #, python-format
@@ -4380,7 +4381,7 @@ msgstr "Installeerimise edenemine:   "
 
 #: ../iw/progress_gui.py:685
 msgid "Status"
-msgstr "Olek"
+msgstr "Toiming"
 
 #: ../iw/progress_gui.py:685
 msgid "Packages"
@@ -6650,8 +6651,8 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Draiverikettalt ei leitud ühtegi antud tüüpi seadet.  Kas soovid draiveri "
-"käsitsi valida, siiski jätkata või proovida mõnda muud draiveriketast?"
+"Draiverikettalt ei leitud ühtegi antud tüüpi seadet.  Kas soovid draiverit "
+"käsitsi valida, jätkata või proovida mõnda muud draiveriketast?"
 
 #: ../loader2/driverdisk.c:506
 msgid "Driver disk"
@@ -6700,8 +6701,7 @@ msgid ""
 "obtained by pressing the F1 key."
 msgstr ""
 "Sisesta moodulile %s edastatavad parameetrid (eraldajaks on tühik).  Kui "
-"parameetrid ei ole täpselt teada, siis sulge see aken nuppu \"Olgu\" "
-"vajutades.  Lubatavate parameetrite kohta saab infot F1 klahvi abil."
+"parameetrid ei ole täpselt teada, siis sulge see aken vajutades nuppu \"Olgu\".  Lubatavate parameetrite kohta saab infot F1 klahvi abil."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
@@ -6836,7 +6836,7 @@ msgstr "Vigane argument kiirstardi seiskamise meetodi käsule %s: %s"
 #: ../loader2/lang.c:52 ../loader2/loader.c:170
 #, c-format
 msgid "Welcome to %s"
-msgstr "%s"
+msgstr "Tere tulemast %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:176
 msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
@@ -6936,7 +6936,7 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"Ei leitud installatsioonitüübile vastavaid seadmeid.  Kas soovid draiveri "
+"Ei leitud installatsioonitüübile vastavaid seadmeid.  Kas soovid draiverit "
 "käsitsi valida või kasutada draiveriketast?"
 
 #: ../loader2/loader.c:1013
@@ -6982,7 +6982,7 @@ msgid ""
 "probably means the disc was created without adding the checksum."
 msgstr ""
 "Viga ketta kontrollsumma lugemisel esmaselt ketta deskriptorilt.  "
-"Tõenäoliselt on selle põhjuseks ketta tegemine ilma kontrollsummat lisamata."
+"Tõenäoliselt on kettale jäänud kontrollsumma lisamata."
 
 #: ../loader2/mediacheck.c:264
 #, c-format
@@ -7032,7 +7032,7 @@ msgid ""
 msgstr ""
 "INFO PUUDU.\n"
 "\n"
-"Kontrollsumma pole kättesaadav, andmekandjat ei saa verifitseerida."
+"Kontrollsumma pole kättesaadav, andmekandjat ei saa kontrollida."
 
 #: ../loader2/mediacheck.c:341
 msgid "Media Check Result"
@@ -7054,7 +7054,7 @@ msgstr ""
 #: ../loader2/mediacheck.c:349
 #, c-format
 msgid "The media check %sis complete, and the result is: %s\n"
-msgstr "Andmekandja kontroll %s lõpetatud ja tulemus on:%s\n"
+msgstr "Andmekandja kontroll %s lõpetatud ja tulemus on: %s\n"
 
 #: ../loader2/method.c:151 ../loader2/method.c:360 ../loader2/method.c:445
 #, c-format
@@ -7180,7 +7180,7 @@ msgstr "Seadista TCP/IP"
 
 #: ../loader2/net.c:549
 msgid "Missing Information"
-msgstr "Puudub informatsioon"
+msgstr "Informatsioon puudub"
 
 #: ../loader2/net.c:550
 msgid "You must enter both a valid IP address and a netmask."
@@ -7283,7 +7283,7 @@ msgstr "Tundmatu Url meetod %s"
 #: ../loader2/urls.c:172
 #, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Ebaõnnestus sisse logida %s: %s"
+msgstr "%s sisse logimine ebaõnnestus: %s"
 
 #: ../loader2/urls.c:182 ../loader2/urls.c:190
 #, c-format
@@ -7292,7 +7292,7 @@ msgstr "%s ei saadud kätte: %s"
 
 #: ../loader2/urls.c:196
 msgid "Retrieving"
-msgstr "Välja otsimine"
+msgstr "Otsimine"
 
 #: ../loader2/urls.c:280
 msgid "FTP site name:"
@@ -7759,7 +7759,7 @@ msgstr "Moskva+10 - Beringi meri"
 
 #. generated from zone.tab
 msgid "most locations"
-msgstr "Enamus kohti"
+msgstr "enamus kohti"
 
 #. generated from zone.tab
 msgid "most locations (CB,CC,CH,CN,ER,FM,LP,LR,MN,NQ,RN,SA,SE,SF,SJ,SL,TM)"
@@ -8107,7 +8107,7 @@ msgstr "portugali keel"
 
 #. generated from lang-table
 msgid "Punjabi"
-msgstr "pand abi keel"
+msgstr "pandzabi keel"
 
 #. generated from lang-table
 msgid "Russian"
