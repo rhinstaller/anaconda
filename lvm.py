@@ -72,7 +72,7 @@ def vgactivate(volgroup = None):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["lvm", "vgchange", "-ay", "-An"]
+    args = ["lvm", "vgchange", "-ay"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -104,7 +104,7 @@ def vgdeactivate(volgroup = None):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["lvm", "vgchange", "-an", "-An"]
+    args = ["lvm", "vgchange", "-an"]
     if volgroup:
         args.append(volgroup)
     rc = iutil.execWithRedirect(args[0], args,
@@ -126,7 +126,7 @@ def lvremove(lvname, vgname):
     if flags.test or lvmDevicePresent == 0:
         return
 
-    args = ["lvm", "lvremove", "-f", "-An"]
+    args = ["lvm", "lvremove", "-f"]
     dev = "/dev/%s/%s" %(vgname, lvname)
     args.append(dev)
 
