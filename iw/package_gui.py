@@ -43,8 +43,8 @@ class IndividualPackageSelectionWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setHelpEnabled (FALSE)
+        self.ics = ics
+        self.ics.setHelpEnabled (FALSE)
         self.DIR = 0
         self.DIR_UP = 1
         self.RPM = 2
@@ -53,6 +53,7 @@ class IndividualPackageSelectionWindow (InstallWindow):
         self.updatingIcons = FALSE
 
     def getPrev (self):
+        self.ics.setHelpEnabled (TRUE)
         return None
     
     def build_tree (self, x):
@@ -497,8 +498,8 @@ class PackageSelectionWindow (InstallWindow):
 
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-
-        ics.setNextEnabled (1)
+        self.ics = ics
+        self.ics.setNextEnabled (1)
         self.files_found = "FALSE"
         
     def getPrev (self):
@@ -509,7 +510,7 @@ class PackageSelectionWindow (InstallWindow):
 	    self.dispatch.skipStep("indivpackage", skip = 0)
 	else:
 	    self.dispatch.skipStep("indivpackage")
-	    
+
         return None
 
     def setSize(self):

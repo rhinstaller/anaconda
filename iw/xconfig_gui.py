@@ -660,7 +660,7 @@ class XConfigWindow (InstallWindow):
         
     def __init__ (self, ics):
 	InstallWindow.__init__ (self, ics)
-        self.ics.setNextEnabled (TRUE)
+        self.ics = ics
 
     def getNext (self):
         if self.skip.get_active():
@@ -789,6 +789,8 @@ class XConfigWindow (InstallWindow):
 
     # XConfigWindow tag="xconf"
     def getScreen (self, dispatch, xconfig, videocard, intf):
+        self.ics.setHelpEnabled (TRUE)
+
         def makeFormattedLabel(text):
             label = GtkLabel (text)
             label.set_justify (JUSTIFY_LEFT)
