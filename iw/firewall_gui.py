@@ -300,7 +300,7 @@ class FirewallWindow (InstallWindow):
             if self.todo.firewall.trustdevs == []:
                 self.trusted.append_row ((device, device), FALSE)
             else:
-                if self.todo.firewall.trustdevs.index(device) >= 0:
+                if device in self.todo.firewall.trustdevs:
                     self.trusted.append_row ((device, device), TRUE)
 
             count = count + 1
