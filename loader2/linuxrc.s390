@@ -193,9 +193,9 @@ else  # ctc0, escon0, iucv0
 			   read MTU
 		 fi
 		 if [ -z "$MTU" ]; then
-			   MTU="4096"
+			   MTU="1500"
 		 fi
-		 MMTU="mtu 4096"   # always use mtu 4096 for the installer
+		 MMTU="mtu 1500"   # always use mtu 1500 for the installer
 	 fi
 	 if [ ":$NETTYPE" = ":iucv" ]; then
 		  while [ -z "$IUCV" ]; do
