@@ -43,12 +43,12 @@ def comparePackageForUpgrade(updDict, h, pkg):
 def findBestArch(archlist):
     bestarch = None
     for availarch in archlist:
-        newscore = rpm.archscore(availarch)
+        newscore = rhpl.arch.score(availarch)
         # unsupported
         if newscore <= 0:
             continue
         # If old arch is better or same
-        if bestarch and rpm.archscore(bestarch) <= newscore:
+        if bestarch and rhpl.arch.score(bestarch) <= newscore:
             continue
                 
         # If we get here we're better
@@ -61,7 +61,7 @@ def getAvailPackages(hdrlist):
     pkgDict = {}
     nameDict = {}
     for h in hdrlist:
-        score1 = rpm.archscore(h[rpm.RPMTAG_ARCH])
+        score1 = rhpl.arch.score(h[rpm.RPMTAG_ARCH])
         if (score1):
             name = h[rpm.RPMTAG_NAME]
             arch = h[rpm.RPMTAG_ARCH]

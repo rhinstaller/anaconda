@@ -320,11 +320,15 @@ class BaseInstallClass:
     def setNetwork(self, id, bootProto, ip, netmask, ethtool, device = None, onboot = 1, dhcpclass = None, essid = None, wepkey = None):
 	if bootProto:
 	    devices = id.network.available ()
+            firstdev = id.network.getFirstDeviceName()
 	    if (devices and bootProto):
 		if not device:
-		    list = devices.keys ()
-		    list.sort()
-		    device = list[0]
+                    if devices.has_key(firstdev):
+                        device = firstdev
+                    else:
+                        list = devices.keys ()
+                        list.sort()
+                        device = list[0]
 		dev = devices[device]
                 dev.set (("bootproto", bootProto))
                 dev.set (("dhcpclass", dhcpclass))

@@ -1,3 +1,11 @@
+2005-02-08  Paul Nasrat  <pnasrat@redhat.com>
+
+	* findpackageset.py:
+	Don't use rpm.archscore as iseries upgrades don't work (#146915)
+
+	* installclass.py, network.py:
+	Only configure ksdevice if no --device (#138852)
+
 2005-02-07  Chris Lumens  <clumens@redhat.com>
 
 	* gui.py (helpClicked, refreshHelp):  If help is disabled, don't
