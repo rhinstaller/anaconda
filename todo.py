@@ -296,6 +296,7 @@ class Authentication:
         self.useLdapauth = 0
         self.ldapServer = ""
         self.ldapBasedn = ""
+        self.ldapTLS = ""
 
         self.useKrb5 = 0
         self.krb5Realm = ""
@@ -730,6 +731,10 @@ class ToDo:
             args.append (self.auth.ldapServer)
             args.append ("--ldapbasedn")
             args.append (self.auth.ldapBasedn)
+        if self.auth.ldapTLS:
+            args.append ("--enableldaptls")
+        else:
+            args.append ("--disableldaptls")
 
         if self.auth.useKrb5:
             args.append ("--enablekrb5")
@@ -747,7 +752,8 @@ class ToDo:
             args.append ("--hesiodrhs")
             args.append (self.auth.hesiodRhs)
 
-#        log ("running authentication cmd |%s|" % args)
+
+        log ("running authentication cmd |%s|" % args)
         try:
             iutil.execWithRedirect(args[0], args,
                                    stdout = None, stderr = None,
