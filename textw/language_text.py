@@ -25,8 +25,11 @@ class LanguageWindow:
         languages = instLanguage.available ()
 
         haveKon = os.access ("/sbin/continue", os.X_OK)
-        if "Japanese" in languages and not haveKon:
-	    languages.remove("Japanese")
+        if not haveKon:
+            # the slice gives us another working copy of the list
+            for lang in languages[:]:
+                if instLanguage.getFontFile(lang) == "None":
+                    languages.remove(lang)
 
         current = instLanguage.getCurrent()
 
