@@ -17,7 +17,6 @@ DISPATCH_BACK = -1
 DISPATCH_FORWARD = 1
 DISPATCH_NOOP = None
 
-
 # different types of partition requests
 # REQUEST_PREEXIST is a placeholder for a pre-existing partition on the system
 # REQUEST_NEW is a request for a partition which will be automatically
@@ -37,3 +36,8 @@ REQUEST_LV = 32 # logical volume
 CLEARPART_TYPE_LINUX = 1
 CLEARPART_TYPE_ALL   = 2
 CLEARPART_TYPE_NONE  = 3
+
+# these are used for kickstart
+CHECK_DEPS = 0
+IGNORE_DEPS = 1
+RESOLVE_DEPS = 2
