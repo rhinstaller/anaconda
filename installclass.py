@@ -217,22 +217,23 @@ class InstallClass:
 # we need to be able to differentiate between this and custom
 class DefaultInstall(InstallClass):
 
-    def __init__(self):
+    def __init__(self, expert):
 	InstallClass.__init__(self)
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
 
-    def __init__(self):
+    def __init__(self, expert):
 	InstallClass.__init__(self)
 
 # GNOME and KDE installs are derived from this
 class Workstation(InstallClass):
 
-    def __init__(self):
+    def __init__(self, expert):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
-	self.addToSkipList("lilo")
+	if not expert:
+	    self.addToSkipList("lilo")
 	self.addToSkipList("authentication")
 	self.addToSkipList("partition")
 	self.addToSkipList("package-selection")
@@ -248,26 +249,27 @@ class Workstation(InstallClass):
 
 class GNOMEWorkstation(Workstation):
 
-    def __init__(self):
-	Workstation.__init__(self)
+    def __init__(self, expert):
+	Workstation.__init__(self, expert)
         self.desktop = "GNOME"
 	self.setGroups(["GNOME Workstation"])
 	self.addToSkipList("package-selection")
 
 class KDEWorkstation(Workstation):
 
-    def __init__(self):
-	Workstation.__init__(self)
+    def __init__(self, expert):
+	Workstation.__init__(self, expert)
         self.desktop = "KDE"
 	self.setGroups(["KDE Workstation"])
 
 class Server(InstallClass):
 
-    def __init__(self):
+    def __init__(self, expert):
 	InstallClass.__init__(self)
 	self.setGroups(["Server"])
 	self.setHostname("localhost.localdomain")
-	self.addToSkipList("lilo")
+	if not expert:
+	    self.addToSkipList("lilo")
 	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("partition")
@@ -287,7 +289,7 @@ class Server(InstallClass):
 # reconfig machine w/o reinstall
 class ReconfigStation(InstallClass):
 
-    def __init__(self):
+    def __init__(self, expert):
 	InstallClass.__init__(self)
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")

@@ -300,9 +300,9 @@ if forceMount:
 if kickstart:
     instClass = Kickstart(kickstart)
 elif reconfigOnly:
-    instClass = ReconfigStation()
+    instClass = ReconfigStation(expert)
 else:
-    instClass = DefaultInstall()
+    instClass = DefaultInstall(expert)
 
 if lang:
     instClass.addToSkipList("language")

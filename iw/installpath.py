@@ -121,14 +121,14 @@ class InstallPathWindow (InstallWindow):
 		    break
 
 	    if type == WORKSTATION_GNOME and self.orig != WORKSTATION_GNOME:
-		self.todo.setClass (installclass.GNOMEWorkstation ())
+		self.todo.setClass (installclass.GNOMEWorkstation (self.todo.expert))
 	    elif type == WORKSTATION_KDE and self.orig != WORKSTATION_KDE:
-		self.todo.setClass (installclass.KDEWorkstation ())
+		self.todo.setClass (installclass.KDEWorkstation (self.todo.expert))
 	    elif type == SERVER and self.orig != SERVER:
                 print "SERVER"
-		self.todo.setClass (installclass.Server ())
+		self.todo.setClass (installclass.Server (self.todo.expert))
 	    elif type == CUSTOM and self.orig != CUSTOM:
-		self.todo.setClass (installclass.CustomInstall ())
+		self.todo.setClass (installclass.CustomInstall (self.todo.expert))
 
     def toggled (self, widget, type):
         if not widget.get_active (): return
