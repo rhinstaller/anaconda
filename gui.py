@@ -45,6 +45,7 @@ stepToClass = {
     "installtype" : ( "installpath_gui", "InstallPathWindow" ),
     "partitionmethod" : ( "partmethod_gui", "PartitionMethodWindow" ),
     "partition" : ( "partition_gui", "PartitionWindow" ),
+    "autopartition" : ("partition_gui", "AutoPartitionWindow" ),
     "findinstall" : ( "examine_gui", "UpgradeExamineWindow" ),
     "addswap" : ( "upgrade_swap_gui", "UpgradeSwapWindow" ),
     "fdisk" : ( "fdisk_gui", "FDiskWindow" ),
