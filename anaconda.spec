@@ -1,5 +1,5 @@
 Name: anaconda
-Version: 10.2.0.41
+Version: 10.2.0.42
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -69,6 +69,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Tue Apr 05 2005 Peter Jones <pjones@redhat.com> - 10.2.0.42-1
+- Use linuxthreads libraries even if they're not the default, unless
+  explicitly told to use nptl
+
 * Tue Apr 05 2005 Chris Lumens <clumens@redhat.com> 10.2.0.41-1
 - Make sure $LANG is set right for the second stage.
 - Fix kickstart traceback trying to skip a nonexistant step.
