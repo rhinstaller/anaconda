@@ -19,7 +19,7 @@ class InstallPathWindow (InstallWindow):
 
     installTypes = installclass.availableClasses()
     htmlTag = "instpath"
-    windowTitle = N_("Install Type")
+    windowTitle = N_("Installation Type")
 
     def getNext(self):
 	# Hack to let backing out of upgrades work properly
