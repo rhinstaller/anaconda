@@ -24,7 +24,6 @@ def _(str):
     return str
 
 class Fstab:
-
     def attemptPartitioning(self, partitions, clearParts):
 	attempt = []
 	swapCount = 0
@@ -139,7 +138,7 @@ class Fstab:
 	    w.pop()
 
 	    if rc:
-		self.waitWindow("Error creating swap on device " + device)
+		self.messageWindow(_("Error"), _("Error creating swap on device ") + device)
 	    else:
 		isys.swapon (file)
 
