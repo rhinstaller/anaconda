@@ -22,7 +22,7 @@ class InstallMethod:
 
 	for line in l:
 	    s = string.split(line)
-	    if s == "/tmp/" + self.device:
+	    if s[0] == "/tmp/" + self.device:
 		self.tree = s[1] + "/"
 		return
 	
