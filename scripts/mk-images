@@ -18,9 +18,16 @@ TOPDIR=$(cd $TOPDIR; pwd)
     KERNELPATH=$1
     IMAGEPATH=$2
     FULLMODPATH=$3
+    IMGPATH=$(echo $FULLMODPATH | sed 's,/[^/]*$,,')
     KERNELROOT=/tmp/updboot.kernel
     MODDEPS=$KERNELROOT/moddeps
     ARCH=$(uname -m | sed 's/i.86/i386/')
+
+    if [ ! -d "$1" ]; then
+	LATEST=latest --arch $ARCH 
+    else
+	LATEST=findPackage
+    fi
 
     rm -rf $IMAGEPATH
     rm -rf $FULLMODPATH
@@ -30,17 +37,20 @@ TOPDIR=$(cd $TOPDIR; pwd)
     mkdir -p $KERNELROOT
 
 # Stuff that we need
-    TRIMPCITABLE=$FULLMODPATH/../usr/lib/anaconda-runtime/trimpcitable
-    GETMODDEPS=$FULLMODPATH/../usr/lib/anaconda-runtime/moddeps
-    MODLIST=$FULLMODPATH/../usr/lib/anaconda-runtime/modlist
-    MODINFO=$FULLMODPATH/../usr/lib/anaconda-runtime/loader/module-info
-    FILTERMODDEPS=$FULLMODPATH/../usr/lib/anaconda-runtime/filtermoddeps
-    LOADERBINDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/loader
-    BOOTDISKDIR=$FULLMODPATH/../usr/lib/anaconda-runtime/boot
-    LANGTABLE=$FULLMODPATH/../usr/lib/anaconda/lang-table
-    SYSLINUX=$FULLMODPATH/../usr/bin/syslinux
-    PCITABLE=$FULLMODPATH/../usr/share/kudzu/pcitable
+    TRIMPCITABLE=$IMGPATH/usr/lib/anaconda-runtime/trimpcitable
+    GETMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/moddeps
+    MODLIST=$IMGPATH/usr/lib/anaconda-runtime/modlist
+    MODINFO=$IMGPATH/usr/lib/anaconda-runtime/loader/module-info
+    FILTERMODDEPS=$IMGPATH/usr/lib/anaconda-runtime/filtermoddeps
+    LOADERBINDIR=$IMGPATH/usr/lib/anaconda-runtime/loader
+    BOOTDISKDIR=$IMGPATH/usr/lib/anaconda-runtime/boot
+    LANGTABLE=$IMGPATH/usr/lib/anaconda/lang-table
+    SYSLINUX=$IMGPATH/usr/bin/syslinux
+    PCITABLE=$IMGPATH/usr/share/kudzu/pcitable
     CACHE=$KERNELROOT/lib/modules/.cache
+    MODULESUSED=$KERNELROOT/modules-used
+
+    touch $MODULESUSED
 
     dieLater=
     for n in $TRIMPCITABLE $PCITABLE $GETMODDEPS $MODINFO $FILTERMODDEPS \
@@ -59,6 +69,22 @@ TOPDIR=$(cd $TOPDIR; pwd)
     done
 
     if [ -n "$dieLater" ]; then exit 1; fi
+
+findPackage() {
+    dir=$1
+    name=$2
+    
+    for n in $dir/$name*; do
+	thisName=$(rpm --qf '%{NAME}' -qp $n)
+	if [ $thisName = $name ]; then
+	    echo $n
+	    return
+	fi
+    done
+
+    echo "cannot find package $name in path $dir" >&2
+    kill -9 $$
+}
 
 findmodule () {
     if [ ! -f $CACHE ]; then
@@ -94,21 +120,26 @@ getmoddeps () {
 }
 
 intcopymodules () {
+    dir=$2
+
     for n in $1; do
 	m=$(findmodule $n)
 	if [ -z "$m" ]; then
             echo "Module $n not found in kernel rpm"
         else 
-	    for dir in $2; do
-	        if ! cp $m $dir ; then
-		    echo "Failed to copy $m to $dir (for module $n)"
-	        fi
-	    done
+	    echo $n >> $MODULESUSED
+	    if ! cp $m $dir ; then
+		echo "Failed to copy $m to $dir (for module $n)"
+	    fi
         fi
     done
 }
 
 resdeps () {
+    $GETMODDEPS -m $MODDEPS $* 2>&1
+    if [ $? != "0" ] ; then
+	kill -9 $$
+    fi	
     list=`$GETMODDEPS -m $MODDEPS $*`
     items=$(for n in $* $list; do echo $n; done | sort -u)
     echo $items
@@ -117,9 +148,14 @@ resdeps () {
 expandModuleSet() {
     SET=""
     for name in $1; do
-        if [ $(echo $name | cut -c1) = '+' ]; then
+	char=$(echo $name | cut -c1)
+        if [ $char = '=' ]; then
 	    NAME=$(echo $name | cut -c2-)
 	    SET="$SET $($MODLIST --modinfo-file $MODINFO $NAME)"
+	elif [ $char = '+' ]; then
+	    NAME=$(echo $name | cut -c2-)
+
+	    SET=$( ($MODLIST --modinfo-file $MODINFO $NAME; cat $MODULESUSED) | sort | uniq -u)
 	else
 	    SET="$SET $name"
 	fi
@@ -171,13 +207,11 @@ makemoduleball() {
 }
 
 makemainmodules() {
-set -x
     modlist=`expandModuleSet "$1"`
 
     rm -rf $FULLMODPATH
 
     makemoduleball $FULLMODPATH "$modlist"
-set +x
 }
 
 makebootdisk() {
@@ -282,7 +316,7 @@ EOF
     gzip -9 < $MBD_FSIMAGE.uncompressed > $MBD_FSIMAGE
     rm -rf $MBD_FSIMAGE.uncompressed $MBD_DIR
 
-    rm -f $MBD_TMPIMAGE $MBD_BOOTTREE
+    rm -rf $MBD_TMPIMAGE $MBD_BOOTTREE
     dd if=/dev/zero bs=1k count=$FLOPPYSIZE of=/$MBD_TMPIMAGE
 
     # Create the bootdisk image as $MBD_TMPIMAGE, mount it, copy
@@ -315,7 +349,7 @@ EOF
 
 makedriverdisk () {
     diskname=$1
-    modlist=$2
+    modlist=$(expandModuleSet $2)
     diskpath=/tmp/makedriverdisk.$$/$diskname
 
     rm -rf $diskpath
@@ -323,18 +357,31 @@ makedriverdisk () {
 
     makemoduleball $diskpath "$modlist"
 
-    size=$(expr 20 + $(du -sk $diskpath | awk '{print $1}'))
+    size=$(expr 60 + $(du -sk $diskpath | awk '{print $1}'))
     if [ $size -lt 57 ]; then
 	size=64
     fi
 
     dd if=/dev/zero of=/tmp/$diskname.img bs=1k count=$size 2> /dev/null
-    echo y | mke2fs /tmp/$diskname.img  > /dev/null 2>/dev/null
+    echo y | mke2fs -i 4096 /tmp/$diskname.img  > /dev/null 2>/dev/null
     mkdir -p /tmp/mkdd.$$
-    mount -o loop /tmp/$diskname.img /tmp/mkdd.$$
+    mount -t ext2 -o loop /tmp/$diskname.img /tmp/mkdd.$$
+    rmdir /tmp/mkdd.$$/lost+found
     (cd $diskpath; tar cSpf - .) | (cd /tmp/mkdd.$$; tar xSpf -)
+    DIE=""
+    if [ $(du -s $diskpath | cut -f1) != $(du -s /tmp/mkdd.$$ | cut -f1) ]; then
+	echo copy to disk image failed
+	ls -l /tmp/mkdd.$$
+	echo "disk size: $size"
+	ls -l $diskpath
+	DIE=1
+    fi
     umount /tmp/mkdd.$$
     rm -rf /tmp/mkdd.$$
+
+    if [ -n "$DIE" ]; then
+	kill -9 $$
+    fi
 
     cp /tmp/${diskname}.img $IMAGEPATH/${diskname}.img
     rm /tmp/${diskname}.img
@@ -342,8 +389,8 @@ makedriverdisk () {
 }
 
 # Find the kernel, unpack it, and verify it
-    kpackage=$(latest --arch $ARCH $KERNELPATH kernel-BOOT)
-    ppackage=$(latest --arch $ARCH $KERNELPATH kernel-pcmcia-cs)
+    kpackage=$($LATEST $KERNELPATH kernel-BOOT)
+    ppackage=$($LATEST $KERNELPATH kernel-pcmcia-cs)
     version=$(rpm --qf '%{VERSION}-%{RELEASE}' -qp $kpackage)BOOT
 
     rpm2cpio $kpackage | (cd $KERNELROOT; cpio --quiet -iumd)
