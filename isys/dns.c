@@ -9,6 +9,7 @@
 
 /* This is dumb, but glibc doesn't like to do hostname lookups w/o libc.so */
 
+#ifndef DIET
 union dns_response{
     HEADER hdr;
     u_char buf[PACKETSZ];
@@ -117,3 +118,29 @@ char * mygethostbyaddr(char * ipnum) {
 int mygethostbyname(char * name, struct in_addr * addr) {
     return doQuery(name, T_A, NULL, addr);
 }
+
+#else
+#include <netdb.h>
+
+
+int mygethostbyname(char * host, struct in_addr * address) {
+    struct hostent * hostinfo;
+
+    hostinfo = gethostbyname(host);
+    if (!hostinfo) return 1;
+
+    memcpy(address, hostinfo->h_addr_list[0], hostinfo->h_length);
+    return 0;
+}
+
+char * mygethostbyaddr(char * ipnum) {
+    struct hostent * he;
+
+    he = gethostbyaddr( ipnum, strlen(ipnum), AF_INET);
+    if (he) 
+        return he->h_name;
+    else
+        return NULL;
+}
+
+#endif

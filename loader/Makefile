@@ -96,10 +96,12 @@ ifeq (sparc, $(ARCH))
 MINILIBC=minilibc.o /usr/lib/libc.a
 CFLAGS+=-DUSE_MINILIBC=1 -DUSE_LOGDEV
 LDFLAGS = -nostdlib /usr/lib/crt1.o
+LOADERLIBS += -lresolv
 STATIC=-static
 else
 CFLAGS+=-DUSE_MINILIBC=0
 STATIC=-static
+LOADERLIBS += -lresolv
 endif
 endif
 
