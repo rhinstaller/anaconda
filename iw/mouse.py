@@ -2,30 +2,15 @@ from gtk import *
 from iw import *
 from string import *
 from re import *
+import tree
 
 class MouseWindow (InstallWindow):
-
-    def build_tree (self, x):
-        if (x == ()): return ()
-        if (len (x) == 1): return (x[0],)
-        else: return (x[0], self.build_tree (x[1:]))
 
     def reduce_leafs (self, a):
         if a == (): return a
         if len (a) > 1 and isinstance (a[1], type (())) and len (a[1]) == 1:
             return ("%s - %s" % (a[0], a[1][0]),) + self.reduce_leafs (a[2:])
         return (a[0],) + self.reduce_leafs (a[1:])
-
-    def merge (self, a, b):
-        if a == (): return self.build_tree (b)
-        if b == (): return a
-        if b[0] == a[0]:
-            if len (a) > 1 and isinstance (a[1], type (())):
-                return (a[0],) + (self.merge (a[1], b[1:]),) + a[2:]
-            elif b[1:] == (): return a
-            else: return (a[0],) + (self.build_tree (b[1:]),) + a[1:]
-        else:
-            return (a[0],) + self.merge (a[1:], b)
 
     def build_ctree (self, list, cur_parent = None, prev_node = None):
         if (list == ()): return
@@ -48,7 +33,6 @@ class MouseWindow (InstallWindow):
             self.ctree.node_set_row_data (node, list[0])
             self.build_ctree (list[1:], cur_parent, node)
 
-   
     def selectMouse (self, ctreeNode, mouseNode):
         if len (ctreeNode) == 0 or len (mouseNode) == 0: return
         
@@ -68,8 +52,6 @@ class MouseWindow (InstallWindow):
 	InstallWindow.__init__ (self, ics)
 
         ics.setTitle ("Mouse Configuration")
-##         ics.setHTML ("<HTML><BODY>Select your mouse."
-##                      "</BODY></HTML>")
         ics.readHTML ("mouse")
         ics.setNextEnabled (TRUE)
 
@@ -144,9 +126,9 @@ class MouseWindow (InstallWindow):
 	(currentMouse, emulate3) = self.todo.mouse.get ()
 
 	deviceList = [ ("/dev/ttyS0 (COM1 under DOS)", "ttyS0" ),
-		    ("/dev/ttyS1 (COM2 under DOS)", "ttyS1" ),
-		    ("/dev/ttyS2 (COM3 under DOS)", "ttyS2" ),
-		    ("/dev/ttyS3 (COM4 under DOS)", "ttyS3" ) ]
+    		       ("/dev/ttyS1 (COM2 under DOS)", "ttyS1" ),
+		       ("/dev/ttyS2 (COM3 under DOS)", "ttyS2" ),
+		       ("/dev/ttyS3 (COM4 under DOS)", "ttyS3" ) ]
 
         self.emulate3 = GtkCheckButton ("Emulate 3 Buttons")
         box = GtkVBox (FALSE)
@@ -173,7 +155,7 @@ class MouseWindow (InstallWindow):
 
         groups = ()
         for x in sorted_mice_keys:
-            groups = self.merge (groups, string.split (x, " - ", 1))
+            groups = tree.merge (groups, string.split (x, " - ", 1))
         groups = self.reduce_leafs (groups)
 
         self.build_ctree (groups)
