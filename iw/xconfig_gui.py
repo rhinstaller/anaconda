@@ -138,7 +138,10 @@ class XCustomWindow (InstallWindow):
         if self.monitor_pixmaps == None:
             self.monitor_pixmaps = find_monitor_pixmaps()
 
-        self.load_monitor_preview_pixmap(self.monitor_pixmaps[num])
+	try:
+	    self.load_monitor_preview_pixmap(self.monitor_pixmaps[num])
+	except:
+	    log("Unable to load monitor preview #%s", num)
 
     def display_desktop_pixmap(self, desktop):
         self.vbox4.destroy ()
@@ -221,7 +224,8 @@ class XCustomWindow (InstallWindow):
         hbox1.pack_start (frame2, gtk.TRUE, gtk.FALSE, 2)
 
         self.res_list = ["640x480", "800x600", "1024x768", "1152x864",
-                         "1280x1024", "1400x1050", "1600x1200"]
+			 "1280x960", "1280x1024", "1400x1050", "1600x1200",
+			 "1920x1440", "2048x1536"]
 
         self.res_combo = gtk.Combo ()
         self.res_combo.entry.set_property("editable", gtk.FALSE)
