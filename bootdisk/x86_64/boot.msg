@@ -1,9 +1,9 @@
  
 
- -  To install or upgrade 02Red Hat07 Linux in graphical mode, 
+ -  To install or upgrade 02Red Hat07 Enterprise Linux in graphical mode, 
     press the 0f<ENTER>07 key.
 
- -  To install or upgrade 02Red Hat07 Linux in text mode, type: 
+ -  To install or upgrade 02Red Hat07 Enterprise Linux in text mode, type: 
     0flinux text <ENTER>07.
 
  -  Use the function keys listed below for more information.
