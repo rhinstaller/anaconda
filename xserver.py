@@ -154,6 +154,12 @@ EndSection
 		os.unlink("/dev/mouse")
 	    except:
 		pass
+	    try:
+		f = open("/dev/tty5", "w")
+		f.write("\n")
+		f.close()
+	    except:
+		pass
 	    os.symlink(mouseDev, "/dev/mouse")
 	    if x.device:
 		args.append ("-dev")
