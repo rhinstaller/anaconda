@@ -123,7 +123,7 @@ class XCustomWindow (InstallWindow):
     
     def res_cb (self, widget, data):
         self.currentRes = self.res_combo.list.child_position (data)
-#        print self.currentRes
+        print self.currentRes
         self.selectedRes = self.res_list[self.currentRes]
 
     def desktop_cb (self, widget, desktop):
@@ -243,7 +243,7 @@ class XCustomWindow (InstallWindow):
         frame2.set_border_width (10)
         hbox1.pack_start (frame2, TRUE, FALSE, 10)
 
-        self.res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1600x1200"]
+        self.res_list = ["640x480", "800x600", "1024x768", "1152x864", "1280x1024", "1400x1050", "1600x1200"]
 
         self.res_combo = GtkCombo ()
         self.res_combo.entry.set_editable (FALSE)
