@@ -523,11 +523,16 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
         if vers > currentVersion:
             currentVersion = vers
 
+        if h[rpm.RPMTAG_EPOCH] is None:
+            epoch = None
+        else:
+            epoch = str(h[rpm.RPMTAG_EPOCH])
+
         # if we haven't found a redhat-release that compares favorably
         # to 6.2, check this one
         if supportedUpgradeVersion <= 0:
             val = rpm.labelCompare((None, '6.2', '1'),
-                                   (h[rpm.RPMTAG_EPOCH], h[rpm.RPMTAG_VERSION],
+                                   (epoch, h[rpm.RPMTAG_VERSION],
                                     h[rpm.RPMTAG_RELEASE]))
             if val > 0:
                 supportedUpgradeVersion = 0
