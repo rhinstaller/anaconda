@@ -55,16 +55,16 @@ int zip(in, out)
     /* Write deflated file to zip file */
     crc = updcrc(0, 0);
 
-    bi_init(out);
+    gzbi_init(out);
     ct_init(&attr, &method);
-    lm_init(level, &deflate_flags);
+    gzlm_init(level, &deflate_flags);
 
     put_byte((uch)deflate_flags); /* extra flags */
     put_byte(OS_CODE);            /* OS identifier */
 
     header_bytes = (off_t)outcnt;
 
-    (void)deflate();
+    (void)gzdeflate();
 
 #if !defined(NO_SIZE_CHECK) && !defined(RECORD_IO)
   /* Check input size (but not in VMS -- variable record lengths mess it up)

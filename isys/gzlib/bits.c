@@ -95,7 +95,7 @@ int (*read_buf) OF((char *buf, unsigned size));
 /* ===========================================================================
  * Initialize the bit string routines.
  */
-void bi_init (zipfile)
+void gzbi_init (zipfile)
     file_t zipfile; /* output zip file, NO_FILE for in-memory compression */
 {
     zfile  = zipfile;
@@ -117,7 +117,7 @@ void bi_init (zipfile)
  * Send a value on a given number of bits.
  * IN assertion: length <= 16 and value fits in length bits.
  */
-void send_bits(value, length)
+void gzsend_bits(value, length)
     int value;  /* value to send */
     int length; /* number of bits */
 {
@@ -146,7 +146,7 @@ void send_bits(value, length)
  * method would use a table)
  * IN assertion: 1 <= len <= 15
  */
-unsigned bi_reverse(code, len)
+unsigned gzbi_reverse(code, len)
     unsigned code; /* the value to invert */
     int len;       /* its bit length */
 {
@@ -161,7 +161,7 @@ unsigned bi_reverse(code, len)
 /* ===========================================================================
  * Write out any remaining bits in an incomplete byte.
  */
-void bi_windup()
+void gzbi_windup()
 {
     if (bi_valid > 8) {
         put_short(bi_buf);
@@ -179,12 +179,12 @@ void bi_windup()
  * Copy a stored block to the zip file, storing first the length and its
  * one's complement if requested.
  */
-void copy_block(buf, len, header)
+void gzcopy_block(buf, len, header)
     char     *buf;    /* the input data */
     unsigned len;     /* its length */
     int      header;  /* true if block header must be written */
 {
-    bi_windup();              /* align on byte boundary */
+    gzbi_windup();              /* align on byte boundary */
 
     if (header) {
         put_short((ush)len);   

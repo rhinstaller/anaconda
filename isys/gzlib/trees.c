@@ -305,12 +305,12 @@ local void set_file_type  OF((void));
 
 
 #ifndef DEBUG
-#  define send_code(c, tree) send_bits(tree[c].Code, tree[c].Len)
+#  define send_code(c, tree) gzsend_bits(tree[c].Code, tree[c].Len)
    /* Send a code of the given tree. c and tree must not have side effects */
 
 #else /* DEBUG */
 #  define send_code(c, tree) \
-     { send_bits(tree[c].Code, tree[c].Len); }
+     { gzsend_bits(tree[c].Code, tree[c].Len); }
 #endif
 
 #define d_code(dist) \
@@ -393,7 +393,7 @@ void ct_init(attr, methodp)
     /* The static distance tree is trivial: */
     for (n = 0; n < D_CODES; n++) {
         static_dtree[n].Len = 5;
-        static_dtree[n].Code = bi_reverse(n, 5);
+        static_dtree[n].Code = gzbi_reverse(n, 5);
     }
 
     /* Initialize the first block of the first file: */
@@ -590,7 +590,7 @@ local void gen_codes (tree, max_code)
         int len = tree[n].Len;
         if (len == 0) continue;
         /* Now reverse the bits */
-        tree[n].Code = bi_reverse(next_code[len]++, len);
+        tree[n].Code = gzbi_reverse(next_code[len]++, len);
 
         Tracec(tree != static_ltree, (stderr,"\nn %3d %c l %2d c %4x (%x) ",
              n, (isgraph(n) ? n : ' '), len, tree[n].Code, next_code[len]-1));
@@ -763,13 +763,13 @@ local void send_tree (tree, max_code)
                 send_code(curlen, bl_tree); count--;
             }
             Assert(count >= 3 && count <= 6, " 3_6?");
-            send_code(REP_3_6, bl_tree); send_bits(count-3, 2);
+            send_code(REP_3_6, bl_tree); gzsend_bits(count-3, 2);
 
         } else if (count <= 10) {
-            send_code(REPZ_3_10, bl_tree); send_bits(count-3, 3);
+            send_code(REPZ_3_10, bl_tree); gzsend_bits(count-3, 3);
 
         } else {
-            send_code(REPZ_11_138, bl_tree); send_bits(count-11, 7);
+            send_code(REPZ_11_138, bl_tree); gzsend_bits(count-11, 7);
         }
         count = 0; prevlen = curlen;
         if (nextlen == 0) {
@@ -828,12 +828,12 @@ local void send_all_trees(lcodes, dcodes, blcodes)
     Assert (lcodes <= L_CODES && dcodes <= D_CODES && blcodes <= BL_CODES,
             "too many codes");
     Tracev((stderr, "\nbl counts: "));
-    send_bits(lcodes-257, 5); /* not +255 as stated in appnote.txt */
-    send_bits(dcodes-1,   5);
-    send_bits(blcodes-4,  4); /* not -3 as stated in appnote.txt */
+    gzsend_bits(lcodes-257, 5); /* not +255 as stated in appnote.txt */
+    gzsend_bits(dcodes-1,   5);
+    gzsend_bits(blcodes-4,  4); /* not -3 as stated in appnote.txt */
     for (rank = 0; rank < blcodes; rank++) {
         Tracev((stderr, "\nbl code %2d ", bl_order[rank]));
-        send_bits(bl_tree[bl_order[rank]].Len, 3);
+        gzsend_bits(bl_tree[bl_order[rank]].Len, 3);
     }
 
     send_tree((ct_data near *)dyn_ltree, lcodes-1); /* send the literal tree */
@@ -897,7 +897,7 @@ off_t flush_block(buf, stored_len, eof)
         /* Since LIT_BUFSIZE <= 2*WSIZE, the input data must be there: */
         if (buf == (char*)0) error ("block vanished");
 
-        copy_block(buf, (unsigned)stored_len, 0); /* without header */
+        gzcopy_block(buf, (unsigned)stored_len, 0); /* without header */
         compressed_len = stored_len << 3;
         *file_method = STORED;
 
@@ -913,22 +913,22 @@ off_t flush_block(buf, stored_len, eof)
          * successful. If LIT_BUFSIZE <= WSIZE, it is never too late to
          * transform a block into a stored block.
          */
-        send_bits((STORED_BLOCK<<1)+eof, 3);  /* send block type */
+        gzsend_bits((STORED_BLOCK<<1)+eof, 3);  /* send block type */
         compressed_len = (compressed_len + 3 + 7) & ~7L;
         compressed_len += (stored_len + 4) << 3;
 
-        copy_block(buf, (unsigned)stored_len, 1); /* with header */
+        gzcopy_block(buf, (unsigned)stored_len, 1); /* with header */
 
 #ifdef FORCE_METHOD
     } else if (level == 3) { /* force static trees */
 #else
     } else if (static_lenb == opt_lenb) {
 #endif
-        send_bits((STATIC_TREES<<1)+eof, 3);
+        gzsend_bits((STATIC_TREES<<1)+eof, 3);
         compress_block((ct_data near *)static_ltree, (ct_data near *)static_dtree);
         compressed_len += 3 + static_len;
     } else {
-        send_bits((DYN_TREES<<1)+eof, 3);
+        gzsend_bits((DYN_TREES<<1)+eof, 3);
         send_all_trees(l_desc.max_code+1, d_desc.max_code+1, max_blindex+1);
         compress_block((ct_data near *)dyn_ltree, (ct_data near *)dyn_dtree);
         compressed_len += 3 + opt_len;
@@ -938,7 +938,7 @@ off_t flush_block(buf, stored_len, eof)
 
     if (eof) {
         Assert (input_len == bytes_in, "bad input size");
-        bi_windup();
+        gzbi_windup();
         compressed_len += 7;  /* align on byte boundary */
     }
 
@@ -1028,7 +1028,7 @@ local void compress_block(ltree, dtree)
             extra = extra_lbits[code];
             if (extra != 0) {
                 lc -= base_length[code];
-                send_bits(lc, extra);        /* send the extra length bits */
+                gzsend_bits(lc, extra);        /* send the extra length bits */
             }
             dist = d_buf[dx++];
             /* Here, dist is the match distance - 1 */
@@ -1039,7 +1039,7 @@ local void compress_block(ltree, dtree)
             extra = extra_dbits[code];
             if (extra != 0) {
                 dist -= base_dist[code];
-                send_bits(dist, extra);   /* send the extra distance bits */
+                gzsend_bits(dist, extra);   /* send the extra distance bits */
             }
         } /* literal or match pair ? */
         flag >>= 1;

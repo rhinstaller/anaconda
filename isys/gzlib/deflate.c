@@ -284,7 +284,7 @@ local  void check_match OF((IPos start, IPos match, int length));
 /* ===========================================================================
  * Initialize the "longest match" routines for a new file
  */
-void lm_init (pack_level, flags)
+void gzlm_init (pack_level, flags)
     int pack_level; /* 0: store, 1: best speed, 9: best compression */
     ush *flags;     /* general purpose bit flag */
 {
@@ -659,7 +659,7 @@ local off_t deflate_fast()
  * evaluation for matches: a match is finally adopted only if there is
  * no better match at the next window position.
  */
-off_t deflate()
+off_t gzdeflate()
 {
     IPos hash_head;          /* head of hash chain */
     IPos prev_match;         /* previous match */

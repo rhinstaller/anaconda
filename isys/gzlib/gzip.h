@@ -274,8 +274,8 @@ extern int unlzh      OF((int in, int out));
 RETSIGTYPE abort_gzip OF((void));
 
         /* in deflate.c */
-void lm_init OF((int pack_level, ush *flags));
-off_t deflate OF((void));
+void gzlm_init OF((int pack_level, ush *flags));
+off_t gzdeflate OF((void));
 
         /* in trees.c */
 void ct_init     OF((ush *attr, int *method));
@@ -283,11 +283,11 @@ int  ct_tally    OF((int dist, int lc));
 off_t flush_block OF((char *buf, ulg stored_len, int eof));
 
         /* in bits.c */
-void     bi_init    OF((file_t zipfile));
-void     send_bits  OF((int value, int length));
-unsigned bi_reverse OF((unsigned value, int length));
-void     bi_windup  OF((void));
-void     copy_block OF((char *buf, unsigned len, int header));
+void     gzbi_init    OF((file_t zipfile));
+void     gzsend_bits  OF((int value, int length));
+unsigned gzbi_reverse OF((unsigned value, int length));
+void     gzbi_windup  OF((void));
+void     gzcopy_block OF((char *buf, unsigned len, int header));
 extern   int (*read_buf) OF((char *buf, unsigned size));
 
 	/* in util.c: */
@@ -312,4 +312,4 @@ extern void fprint_off    OF((FILE *, off_t, int));
 extern voidp gzxmalloc      OF((unsigned int size));
 
 	/* in inflate.c */
-extern int inflate OF((void));
+extern int gzinflate OF((void));

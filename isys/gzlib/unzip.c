@@ -120,7 +120,7 @@ int unzip(in, out)
     /* Decompress */
     if (method == DEFLATED)  {
 
-	int res = inflate();
+	int res = gzinflate();
 
 	if (res == 3) {
 	    gzerror("out of memory");

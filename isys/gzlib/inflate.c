@@ -128,15 +128,15 @@ struct huft {
 
 
 /* Function prototypes */
-int huft_build OF((unsigned *, unsigned, unsigned, ush *, ush *,
+static int huft_build OF((unsigned *, unsigned, unsigned, ush *, ush *,
                    struct huft **, int *));
-int huft_free OF((struct huft *));
-int inflate_codes OF((struct huft *, struct huft *, int, int));
-int inflate_stored OF((void));
-int inflate_fixed OF((void));
-int inflate_dynamic OF((void));
-int inflate_block OF((int *));
-int inflate OF((void));
+static int huft_free OF((struct huft *));
+static int inflate_codes OF((struct huft *, struct huft *, int, int));
+static int inflate_stored OF((void));
+static int inflate_fixed OF((void));
+static int inflate_dynamic OF((void));
+static int inflate_block OF((int *));
+int gzinflate OF((void));
 
 
 /* The inflate algorithm uses a sliding 32K byte window on the uncompressed
@@ -267,7 +267,7 @@ int dbits = 6;          /* bits in base distance lookup table */
 unsigned hufts;         /* track memory usage */
 
 
-int huft_build(b, n, s, d, e, t, m)
+static int huft_build(b, n, s, d, e, t, m)
 unsigned *b;            /* code lengths in bits (all assumed <= BMAX) */
 unsigned n;             /* number of codes (assumed <= N_MAX) */
 unsigned s;             /* number of simple-valued codes (0..s-1) */
@@ -467,7 +467,7 @@ int *m;                 /* maximum lookup bits, returns actual */
 
 
 
-int huft_free(t)
+static int huft_free(t)
 struct huft *t;         /* table to free */
 /* Free the malloc'ed tables built by huft_build(), which makes a linked
    list of the tables it made, with the links in a dummy first entry of
@@ -488,7 +488,7 @@ struct huft *t;         /* table to free */
 }
 
 
-int inflate_codes(tl, td, bl, bd)
+static int inflate_codes(tl, td, bl, bd)
 struct huft *tl, *td;   /* literal/length and distance decoder tables */
 int bl, bd;             /* number of bits decoded by tl[] and td[] */
 /* inflate (decompress) the codes in a deflated (compressed) block.
@@ -597,7 +597,7 @@ int bl, bd;             /* number of bits decoded by tl[] and td[] */
 
 
 
-int inflate_stored()
+static int inflate_stored()
 /* "decompress" an inflated type 0 (stored) block. */
 {
   unsigned n;           /* number of bytes in block */
@@ -650,7 +650,7 @@ int inflate_stored()
 
 
 
-int inflate_fixed()
+static int inflate_fixed()
 /* decompress an inflated type 1 (fixed Huffman codes) block.  We should
    either replace this with a custom decoder, or at least precompute the
    Huffman tables. */
@@ -701,7 +701,7 @@ int inflate_fixed()
 
 
 
-int inflate_dynamic()
+static int inflate_dynamic()
 /* decompress an inflated type 2 (dynamic Huffman codes) block. */
 {
   int i;                /* temporary variables */
@@ -867,7 +867,7 @@ int inflate_dynamic()
 
 
 
-int inflate_block(e)
+static int inflate_block(e)
 int *e;                 /* last block flag */
 /* decompress an inflated block */
 {
@@ -913,7 +913,7 @@ int *e;                 /* last block flag */
 
 
 
-int inflate()
+int gzinflate()
 /* decompress an inflated entry */
 {
   int e;                /* last block flag */
