@@ -71,24 +71,20 @@ class InstallPathWindow (InstallWindow):
 	    pix = None
 	    xpad = 0
 
-	table = gtk.Table()
-
-	if pix is not None:
-	    table.attach(pix, 0, 1, 0, 1)
-
+	hbox = gtk.HBox (gtk.FALSE, 18)
+	if pix != None:
+	    hbox.pack_start (pix, gtk.FALSE, gtk.FALSE, 0)
 	label = gtk.Label("")
-	label.set_markup("<b>"+labelstr+"</b>")
+	label.set_line_wrap(gtk.TRUE)
+	label.set_label("<b>"+labelstr+"</b>")
 	label.set_alignment (0.0, 0.5)
-	table.attach(label, 1, 2, 0, 1, xpadding=xpad)
-
 	if description is not None:
-	    label = gtk.Label("")
-	    label.set_markup("<small>"+description+"</small>")
+	    label.set_text (label.get_text() + "\n<small>"+description+"</small>")
 	    label.set_line_wrap(gtk.TRUE)
-	    table.attach(label, 1, 2, 1, 2, xpadding=xpad)
-	
+	label.set_use_markup (gtk.TRUE)
+	hbox.pack_start (label, gtk.TRUE, gtk.TRUE, 0)
 	button = gtk.RadioButton (group)
-	button.add (table)
+	button.add (hbox)
         return button
 
     # InstallPathWindow tag="instpath"
@@ -149,7 +145,7 @@ class InstallPathWindow (InstallWindow):
 		    _(parentName), "workstation.png")
 #		    _(parentName), parentPixmap)
 
-		box = gtk.VBox (gtk.FALSE, 0)
+		box = gtk.VBox (gtk.FALSE, 9)
 		group = None
 
 		for obj in topButtons[item]:
@@ -170,11 +166,13 @@ class InstallPathWindow (InstallWindow):
 	    self.topLevelButtonList.append((topLevelGroup, box, buttons))
 	    topLevelGroup.connect("toggled", self.toggled)
 
-	finalVBox = gtk.VBox(gtk.FALSE)
+	finalVBox = gtk.VBox(gtk.FALSE, 18)
 	finalVBox.set_border_width (5)
 
 	for (button, box, buttons) in self.topLevelButtonList:
-	    finalVBox.pack_start(button, gtk.FALSE, gtk.FALSE)
+	    vbox = gtk.VBox (gtk.FALSE, 9)
+	    finalVBox.pack_start(vbox, gtk.FALSE, gtk.FALSE)
+	    vbox.pack_start (button, gtk.FALSE, gtk.FALSE)
 	    
 	    if box:
 		tmphbox = gtk.HBox(gtk.FALSE)
@@ -183,8 +181,8 @@ class InstallPathWindow (InstallWindow):
 		crackhbox.set_size_request(50, -1)
 
 		tmphbox.pack_start(crackhbox, gtk.FALSE, gtk.FALSE)
-		tmphbox.pack_start(box, gtk.FALSE, gtk.FALSE)
-		finalVBox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE)
+		tmphbox.pack_start(box, gtk.TRUE, gtk.TRUE)
+		vbox.pack_start(tmphbox, gtk.FALSE, gtk.FALSE)
 		
                 self.toggled(button)
 
