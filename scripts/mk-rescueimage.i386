@@ -24,7 +24,7 @@ if len(sys.argv) < 4:
     sys.exit(1)
     
 if not os.access("%s/i386" % (sys.argv[2],), os.F_OK):
-    print "ERROR - Destination directory %s does not contain an i386 directory!" % (srcdir,)
+    print "ERROR - Destination directory %s does not contain an i386 directory!" % (sys.argv[2],)
     sys.exit(1)
 
 srcdir  = sys.argv[1]
