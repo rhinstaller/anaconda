@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+import rpm
+
+def printlist(h, tag):
+    print "####### %s tag contains:" % tag
+    i = 0
+    list = h[tag]
+    if not list:
+        print "NO SUCH TAG"
+        return
+    
+    for file in list:
+        print file
+        i = i + 1
+    print "******** %d files" % i
+    
+
+db = rpm.opendb(0)
+rc = db.findbyname('redhat-release')
+h = db[rc[0]]
+printlist (h, 'filenames')
+printlist (h, 'oldfilenames')
+h.expandFilelist()
+print "-------------- expand --------------------"
+printlist (h, 'oldfilenames')
+printlist (h, 'filenames')
+print "-------------- compress --------------------"
+h.compressFilelist()
+printlist (h, 'oldfilenames')
+printlist (h, 'filenames')
