@@ -279,6 +279,8 @@ class KickstartBase(BaseInstallClass):
         if upgrade:
             id.bootloader.kickstart = 1
             id.bootloader.doUpgradeOnly = 1
+        else:
+            self.showSteps.append("bootloadersetup")
                 
         self.setBootloader(id, useLilo, location, linear, forceLBA,
                            password, md5pass, appendLine)
@@ -1047,6 +1049,8 @@ class KickstartBase(BaseInstallClass):
 
 	for n in self.skipSteps:
 	    dispatch.skipStep(n)
+        for n in self.showSteps:
+            dispatch.skipStep(n, skip = 0)
 
     def setInstallData(self, id):
 	BaseInstallClass.setInstallData(self, id)
@@ -1092,6 +1096,7 @@ class KickstartBase(BaseInstallClass):
 	self.serial = serial
 	self.file = file
 	self.skipSteps = []
+        self.showSteps = []
         self.interactive = 0
         self.ksRaidMapping = {}
         self.ksPVMapping = {}
