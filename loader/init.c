@@ -505,6 +505,25 @@ void disableSwap(void) {
     }
 }
 
+void ejectCdrom(void) {
+  int ejectfd;
+  struct stat sb;
+
+  stat("/tmp/cdrom", &sb);
+
+  if ((sb.st_mode & S_IFBLK) == S_IFBLK) {
+    printf("ejecting /tmp/cdrom...");
+    if ((ejectfd = open("/tmp/cdrom", O_RDONLY | O_NONBLOCK, 0)) >= 0) {
+      if (ioctl(ejectfd, CDROMEJECT, 0))
+	printf("eject failed %d ", errno);
+      close(ejectfd);
+    } else {
+      printf("eject failed %d ", errno);
+    }
+    printf("\n");
+  }
+}
+
 int main(int argc, char **argv) {
     pid_t installpid, childpid;
     int waitStatus;
@@ -737,6 +756,9 @@ int main(int argc, char **argv) {
 
     printf("unmounting filesystems...\n"); 
     unmountFilesystems();
+
+    printf("ejecting cdrom (if it exists)...\n");
+    ejectCdrom();
 
     if (doReboot) {
 	printf("rebooting system\n");
