@@ -353,7 +353,7 @@ class ComponentSet:
                     if len(l) != 2:
                         raise ValueError, "too many arguments for lang"
                     if l[1] and l[1][0] == "!":
-                        newTruth = l[1] not in langs
+                        newTruth = l[1][1:] not in langs
                     else:
                         newTruth = l[1] in langs
 	    elif l[0] == "arch":
@@ -362,7 +362,7 @@ class ComponentSet:
                 if len(l) != 2:
                     raise ValueError, "too many arguments for arch"
                 if l[1] and l[1][0] == "!":
-                    newTruth = l[1] not in self.archList
+                    newTruth = l[1][1:] not in self.archList
                 else:
                     newTruth = l[1] in self.archList
 	    else:
