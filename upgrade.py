@@ -188,7 +188,7 @@ def createSwapFile(instPath, theFstab, mntPoint, size, progressWindow):
             file = tmpFile
 
     theFstab.addMount(file, size, "swap")
-    theFstab.turnOnSwap(instPath, progressWindow)
+    theFstab.turnOnSwap(instPath)
 
     f = open(fstabPath, "a")
     f.write(fstab.fstabFormatString % (prefix + file, "swap", "swap", "defaults",
