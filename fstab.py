@@ -241,20 +241,25 @@ class Fstab:
 	raise TypeError, "unknown partition to format %s" % (device,)
 
     # sorted largest to smallest
+    def spaceSort(self, a, b):
+    	(m1, s1) = a
+        (m2, s2) = b
+	
+        if (s1 > s2):
+            return -1
+        elif s1 < s2:
+            return 1
+
+        return 0
+
+
     def filesystemSpace(self, topMount):
-	space = {}
+	space = []
 	for (mntpoint, partition, fsystem, doFormat, size) in self.mountList():
-	    space[mntpoint] = isys.fsSpaceAvailable(topMount + '/' + mntpoint)
+	    space.append((mntpoint, isys.fsSpaceAvailable(topMount + '/' + mntpoint)))
 
-	list = space.keys()
-	list.sort()
-	list.reverse()
-
-	newList = []
-	for mnt in list:
-	    newList.append((mnt, space[mnt]))
-
-	return newList
+	space.sort(self.spaceSort)
+	return space
 
     def formatAllFilesystems(self):
 	for (partition, mount, fsystem, size) in self.ddruid.getFstab():
