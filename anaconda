@@ -407,7 +407,7 @@ if (progmode == 'reconfig'):
 if (display_mode != 't' and method and
     method.startswith('ftp://') or
     method.startswith('http://') or
-    method.startswith('hd://'))
+    method.startswith('hd://')):
     print _("Graphical installation not available for %s installs.  "
             "Starting text mode.") % (string.split(method, ':')[0],)
     display_mode = 't'
