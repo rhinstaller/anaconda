@@ -278,9 +278,12 @@ class InstallControlWindow (Thread):
             self.html.source (ics.getHTML ())
 
     def __init__ (self, ii, steps, todo):
+        Thread.__init__ (self)
         self.ii = ii
         self.todo = todo
+        self.steps = steps
 
+    def run (self):
         threads_enter ()
         self.window = GtkWindow ()
 
@@ -335,7 +338,7 @@ class InstallControlWindow (Thread):
 
         self.windowList = []
 
-        self.setStateList (steps, 0)
+        self.setStateList (self.steps, 0)
         self.currentScreen = self.stateList[self.stateListIndex]
         self.initialScreenShown = 0
         self.setScreen (self.currentScreen, self.nextClicked)
@@ -351,9 +354,8 @@ class InstallControlWindow (Thread):
 
         self.window.add (vbox)
         threads_leave ()
-        Thread.__init__ (self)
 
-    def run (self):
+        # let her rip...
 	self.mutex = allocate_lock ()
         self.mutex.acquire ()
 
