@@ -1,12 +1,13 @@
 # anaconda/ja.po
-# Copyright (C) 2001 Red Hat, Inc.
+# Copyright (C) 2001-2002 Red Hat, Inc.
 # SATO Satoru <ssato@redhat.com>
+# Akira TAGOH <tagoh@redhat.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 7.1\n"
-"POT-Creation-Date: 2002-05-13 14:39+0200\n"
-"PO-Revision-Date: 2001-08-30 22:01+0900\n"
-"Last-Translator: Matt Wilson <msw@redhat.com>\n"
+"POT-Creation-Date: 2002-05-16 21:04+0900\n"
+"PO-Revision-Date: 2002-05-16 22:27+0900\n"
+"Last-Translator: Akira TAGOH <tagoh@redhat.com>\n"
 "Language-Team: Japanese <eng-jp@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
@@ -94,7 +95,7 @@ msgstr "使用するマウスタイプ: "
 
 #: ../anaconda:437
 msgid "DISPLAY variable not set. Starting text mode!"
-msgstr ""
+msgstr "DISPLAY環境変数が設定されていません。テキストモードで開始します!"
 
 #: ../autopart.py:699
 msgid "Could not allocate cylinder-based partitions as primary partitions"
@@ -542,15 +543,11 @@ msgid "Cancel"
 msgstr "取り消し"
 
 #: ../gui.py:200 ../text.py:265
-#, fuzzy
 msgid ""
 "An unhandled exception has occured.  This is most likely a bug.  Please copy "
 "the full text of this exception and file a detailed bug report against "
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
-msgstr ""
-"未処理の例外発生。バグの可能性が考えられます。この例外の全メッセージをコ"
-"ピー、あるいはクラッシュアンプをフロッピーにコピーし、anaconda に対する詳細な"
-"バグ報告を http://bugzilla.redhat.com/bugzilla に送って下さい"
+msgstr "未処理の例外発生。バグの可能性が考えられます。この例外の全メッセージをコピー、あるいはanaconda に対する詳細なバグ報告を http://bugzilla.redhat.com/bugzilla に送って下さい"
 
 #: ../gui.py:206 ../text.py:271
 msgid ""
@@ -760,18 +757,18 @@ msgid "Setting up RPM transaction..."
 msgstr "RPMトランザクションを設定中..."
 
 #: ../packages.py:530
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Upgrading %s packages\n"
 "\n"
-msgstr "%s をアップグレード中\n"
+msgstr "%s パッケージをアップグレード中\n\n"
 
 #: ../packages.py:532
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "Installing %s packages\n"
 "\n"
-msgstr "パッケージのインストール"
+msgstr "%s パッケージをインストール中\n\n"
 
 #: ../packages.py:539
 #, c-format
@@ -793,6 +790,12 @@ msgid ""
 "%s\n"
 "\n"
 msgstr ""
+"\n"
+"\n"
+"以下のパッケージはインストールのために\n"
+"自動的に選択されました:\n"
+"%s\n"
+"\n"
 
 #: ../packages.py:608
 msgid ""
@@ -836,7 +839,7 @@ msgid ""
 "\n"
 "\n"
 "The following packages were available in this version but NOT upgraded:\n"
-msgstr ""
+msgstr "\n\n以下のパッケージはこのバージョンでは利用可能でしたがアップグレードされません:\n"
 
 #: ../packages.py:682
 msgid "Post Install"
@@ -911,9 +914,8 @@ msgid "No members in RAID request, or not RAID level specified."
 msgstr "RAID要求の中にメンバーが含まれていない、または RAIDレベルが未指定です"
 
 #: ../partitioning.py:525 ../partitioning.py:610
-#, fuzzy
 msgid "Bootable partitions can only be on non-RAID devices."
-msgstr "起動可能なパーティションが存在できるのは RAID-1 デバイス上だけです"
+msgstr "起動可能なパーティションはRAIDデバイス以外です"
 
 #: ../partitioning.py:529
 #, c-format
@@ -985,7 +987,7 @@ msgstr ""
 "小さくなっています。これによって性能が劣化します"
 
 #: ../partitioning.py:705
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "The partition table on device /dev/%s is of an unexpected type %s for your "
 "architecture.  To use this disk for installation of Red Hat Linux, it must "
@@ -993,12 +995,9 @@ msgid ""
 "\n"
 "Would you like to initialize this drive?"
 msgstr ""
-"デバイス /dev/%s のパーティションテーブルはシステムには未知のタイプです。Red "
-"Hat Linux をインストールするために新規パーティションを作成するためには初期化"
-"しなければなりませんが、このドライブ上のすべてのデータを失うことになりま"
-"す。\n"
+"デバイス /dev/%s のパーティションテーブルはあなたのアーキテクチャでは予期せぬタイプ %s です。Red Hat Linux のインストールでこのディスクを使うためには、再インストールさせなければなりませんが、このドライブ上の*すべてのデータ*を失う原因にもなります。\n"
 "\n"
-"このディスクを初期化しますか?"
+"このドライブを初期化してもよろしいですか?"
 
 #: ../partitioning.py:1277 ../partitioning.py:1308
 #, c-format
@@ -1006,14 +1005,13 @@ msgid "Error mounting filesystem on %s: %s"
 msgstr "%s 上にファイルシステムをマウント中にエラー発生: %s"
 
 #: ../partitioning.py:1388
-#, fuzzy
 msgid "Initializing"
-msgstr "初期化"
+msgstr "初期化中"
 
 #: ../partitioning.py:1389
 #, c-format
 msgid "Please wait while formatting drive %s...\n"
-msgstr ""
+msgstr "ドライブ %sのフォーマット中の間しばらくお待ちください...\n"
 
 #: ../partitioning.py:1503
 #, c-format
@@ -1397,8 +1395,8 @@ msgid "Debug"
 msgstr "デバッグ"
 
 #: ../text.py:314
-msgid "Red Hat Linux (C) 2001 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 2001 Red Hat, Inc."
+msgid "Red Hat Linux (C) 2002 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2002 Red Hat, Inc."
 
 #: ../text.py:317
 msgid ""
@@ -1455,15 +1453,11 @@ msgstr ""
 "さい"
 
 #: ../upgrade.py:226
-#, fuzzy
 msgid ""
 "One or more of the filesystems listed in the /etc/fstab of your Linux system "
 "are inconsistent and cannot be mounted.  Please fix this problem and try to "
 "upgrade again."
-msgstr ""
-"Linux システムの /etc/fstab の中にリストされた一つまたは複数のファイルシステ"
-"ムをマウントすることができません。問題を解決してから再度アップグレードして下"
-"さい"
+msgstr "Linux システムの /etc/fstab の中にリストされた一つまたは複数のファイルシステムが矛盾しているかマウントすることができません。問題を解決してから再度アップグレードして下さい"
 
 #: ../upgrade.py:242
 msgid ""
@@ -1945,7 +1939,6 @@ msgid "About to Install"
 msgstr "インストール準備完了"
 
 #: ../iw/confirm_gui.py:59
-#, fuzzy
 msgid ""
 "A complete log of your installation will be in /tmp/install.log after "
 "rebooting your system. You may want to keep this file for later reference. "
@@ -1957,7 +1950,7 @@ msgstr ""
 msgid ""
 "A kickstart file representing the choices you have made will be in /root/"
 "anaconda-ks.cfg."
-msgstr ""
+msgstr "あなたが行った選択が記述されたキックスタートファイルは/root/anaconda-ks.cfgにあります"
 
 #: ../iw/confirm_gui.py:66 ../iw/confirm_gui.py:70
 msgid "Click next to begin installation of Red Hat Linux."
@@ -2019,7 +2012,6 @@ msgstr ""
 "manuals/ にあるRed Hat Linuxのマニュアルでご覧になれます。"
 
 #: ../iw/congrats_gui.py:73
-#, fuzzy
 msgid ""
 "Congratulations, your Red Hat Linux installation is complete.\n"
 "\n"
@@ -2033,14 +2025,11 @@ msgid ""
 msgstr ""
 "おめでとうございます、Red Hat Linux インストールは完了しました。\n"
 "\n"
-"インストールで使用したフロッピーディスクを抜き、[Enter]を押してシステムを再起"
-"動して下さい。\n"
+"[Enter]を押してシステムを再起動して下さい。\n"
 "\n"
-"%sエラータ(アップデートやバグフィクス)の情報についてはhttp://www.redhat.com/"
-"errata/ を参照して下さい。\n"
+"エラータ(アップデートやバグフィクス)の情報についてはhttp://www.redhat.com/errata/ を参照して下さい。\n"
 "\n"
-"システムの使い方や追加設定などについての情報は http://www.redhat.com/support/"
-"manuals/ にあるRed Hat Linuxのマニュアルでご覧になれます。"
+"システムの使い方や追加設定などについての情報は http://www.redhat.com/support/manuals/ にあるRed Hat Linuxのマニュアルでご覧になれます。"
 
 #: ../iw/congrats_gui.py:134
 msgid ""
@@ -2118,18 +2107,17 @@ msgstr "アップグレードパッケージをカスタマイズ"
 
 #: ../iw/fdasd_gui.py:27
 msgid "fdasd"
-msgstr ""
+msgstr "fdasd"
 
 #: ../iw/fdasd_gui.py:28
-#, fuzzy
 msgid "Select drive to run fdasd on"
-msgstr "fdisk を実行するドライブを選択して下さい"
+msgstr "fdasdを実行するドライブを選択して下さい"
 
 #: ../iw/fdasd_gui.py:92
 msgid ""
 "Formating the selected DASD device will destroy all contents of the device. "
 "Do you really want to format the selected DASD device?"
-msgstr ""
+msgstr "選択したDASDデバイスのフォーマットはデバイスの内容すべてを破壊します。選択したDASDデバイスをフォーマットしてもよろしいですか?"
 
 #: ../iw/fdisk_gui.py:28
 msgid "Select drive to run fdisk on"
@@ -2322,7 +2310,7 @@ msgstr "ブロードキャスト"
 
 #: ../iw/network_gui.py:200
 msgid "Point to Point (IP)"
-msgstr ""
+msgstr "PPP (IP)"
 
 #: ../iw/network_gui.py:256 ../loader/net.c:643 ../loader/net.c:841
 #: ../textw/network_text.py:193
@@ -2558,7 +2546,7 @@ msgstr "要求された設定にエラーがあります"
 
 #: ../iw/partition_gui.py:1255 ../textw/partition_text.py:960
 msgid "DASD partitions can only be deleted with fdasd"
-msgstr ""
+msgstr "DASDパーティションはfdasdでのみ削除することができます"
 
 #: ../iw/partition_gui.py:1291 ../textw/partition_text.py:165
 #, c-format
@@ -2580,7 +2568,7 @@ msgstr "警告: %s."
 
 #: ../iw/partition_gui.py:1332
 msgid "You must go back and use fdasd to inititalize this partition"
-msgstr ""
+msgstr "戻ってこのパーティションを初期化するためにfdasdを使う必要があります"
 
 #: ../iw/partition_gui.py:1343 ../textw/partition_text.py:807
 msgid "Make RAID Device"
@@ -3037,9 +3025,8 @@ msgid "Skip X Configuration"
 msgstr "X の設定を行わない"
 
 #: ../iw/zipl_gui.py:32
-#, fuzzy
 msgid "z/IPL Boot Loader Configuration"
-msgstr "ブートローダの設定"
+msgstr "z/IPLブートローダの設定"
 
 #: ../iw/zipl_gui.py:74
 msgid ""
@@ -3057,6 +3044,15 @@ msgid ""
 "You can now enter any additional kernel parameters which your machine or "
 "your setup may require."
 msgstr ""
+"z/IPLブートローダは現在システムにインストールされています。\n"
+"\n"
+"ルートパーティションは以前パーティションの設定で選択したひとつになるでしょう。\n"
+"\n"
+"カーネルはデフォルトでインストールされるひとつのマシン上で開始されます。\n"
+"\n"
+"もし後で変更したいなら、インストールが完了した後/etc/zipl.conf設定ファイルを自由に変更してください。\n"
+"\n"
+"あなたのマシンあるいは設定が必要とする追加カーネルパラメータを今入力することができます。"
 
 #: ../textw/bootdisk_text.py:27
 msgid ""
@@ -3280,24 +3276,21 @@ msgid "Upgrade to begin"
 msgstr "アップデートの開始"
 
 #: ../textw/fdasd_text.py:31
-#, fuzzy
 msgid "Choose a disk to run fdasd or dasdfmt on"
-msgstr "fdisk を実行するドライブを選択して下さい"
+msgstr "fdasdあるいはdasdfmtを実行するディスクを選択してください"
 
 #: ../textw/fdasd_text.py:32
-#, fuzzy
 msgid "Edit Partitions"
 msgstr "パーティションの編集"
 
 #: ../textw/fdasd_text.py:33
-#, fuzzy
 msgid "Format DASD"
-msgstr "フォーマット"
+msgstr "DASDのフォーマット"
 
 #: ../textw/fdasd_text.py:74
-#, fuzzy, c-format
+#, c-format
 msgid "An error occured while running %s on drive %s."
-msgstr "アップグレードするパッケージを検索中にエラーが起りました"
+msgstr "動作中の%s(ドライブ %s)でエラーが発生しました"
 
 #: ../textw/fdasd_text.py:85
 #, c-format
@@ -3307,9 +3300,11 @@ msgid ""
 "\n"
 "Do you really want this?"
 msgstr ""
+"dasdfmtが動作するのはドライブ%s上の*すべてのデータ*を失うことを意味します。\n"
+"\n"
+"本当にこれをしてもよろしいですか?"
 
 #: ../textw/fdasd_text.py:101
-#, fuzzy
 msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems. Please check your hardware for the cause of this problem or use "
@@ -3317,8 +3312,9 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"エラー発生 - 新規ファイルシステム作成のための有効なデバイスが見つかりません。"
-"ハードウェアをチェックして、この問題の原因を調査して下さい"
+"エラーが発生しました - 新規ファイルシステム作成のための有効なデバイスが見つかりません。ハードウェアをチェックして、この問題の原因を調査するか、dasdfmtを使ってください\n"
+"\n"
+"fdasd画面に戻りますか?"
 
 #: ../textw/fdisk_text.py:40
 msgid "Choose a disk to run fdisk on"
@@ -3486,9 +3482,8 @@ msgid "Ternary nameserver:"
 msgstr "3 番目のネームサーバ:"
 
 #: ../textw/network_text.py:95
-#, fuzzy
 msgid "Point to Point (IP):"
-msgstr "マウントポイント:"
+msgstr "PPP (IP):"
 
 #: ../textw/network_text.py:146
 msgid "Invalid information"
@@ -3651,7 +3646,7 @@ msgstr "RAID0 アレイでの最大スペア数は 0 です"
 
 #: ../textw/partition_text.py:948
 msgid "You must go back and use fdasd to initialize this partition"
-msgstr ""
+msgstr "戻ってこのパーティションを初期化するためにfdasdを使う必要があります"
 
 #: ../textw/partition_text.py:990
 msgid "Partitioning"
@@ -3662,12 +3657,9 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1002
-#, fuzzy
 msgid ""
 "    F1-Help                 F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    <F1> - ヘルプ   <F2> - 新規    <F3> - 編集   <F4> - 削除  <F5> - リセッ"
-"ト  <F12> - OK        "
+msgstr "    <F1> - ヘルプ                 <F3> - 編集   <F4> - 削除  <F5> - リセット  <F12> - OK        "
 
 #: ../textw/partition_text.py:1004
 msgid "New"
@@ -4207,16 +4199,15 @@ msgid ""
 "The z/IPL Boot Loader will be installed on your system after installations "
 "is complete. You can now enter any additional kernel and chandev parameters "
 "which your machine or your setup may require."
-msgstr ""
+msgstr "z/IPLブートローダはインストールが完了した後でシステムにインストールされます。あなたのマシンあるいは設定が必要とする追加カーネルとチャネルデバイスパラメータを今入力することができます。"
 
 #: ../textw/zipl_text.py:48
-#, fuzzy
 msgid "z/IPL Configuration"
-msgstr "SILO の設定"
+msgstr "z/IPLの設定"
 
 #: ../textw/zipl_text.py:56 ../textw/zipl_text.py:60
 msgid "Chandev line "
-msgstr ""
+msgstr "チャネルデバイス行"
 
 #: ../installclasses/custom.py:12
 msgid "Custom"
@@ -4455,14 +4446,10 @@ msgstr ""
 "して追加デバイスを設定して下さい。"
 
 #: ../loader/loader.c:890
-#, fuzzy
 msgid ""
 "What partition and directory on that partition hold the CD (iso9660) images "
 "for Red Hat Linux?  "
-msgstr ""
-"RedHat/RPMS および RedHat/base のあるパーティションとディレクトリを指定して下"
-"さい。使用しているディスクドライブがこの一覧に含まれていない場合は、[F2] を押"
-"して追加デバイスを設定して下さい。"
+msgstr "Red Hat LinuxのCD (iso9660)イメージが置いてあるパーティションとディレクトリは何ですか?  "
 
 #: ../loader/loader.c:903
 msgid "Directory holding images:"
@@ -5072,6 +5059,10 @@ msgid "Amundsen-Scott Station, South Pole"
 msgstr "アムンゼン-スコット基地、南極"
 
 #. generated from zone.tab
+msgid "Aqtobe (Aktobe)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
 msgstr "アトランティック時間 - E Labrador"
 
@@ -5091,6 +5082,10 @@ msgstr ""
 #. generated from zone.tab
 msgid "Atlantic islands"
 msgstr "アトランティック諸島"
+
+#. generated from zone.tab
+msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Azores"
@@ -5142,6 +5137,10 @@ msgid "Central Time - Michigan - Wisconsin border"
 msgstr "中央時間 - ミシガン・ウィスコンシン境界"
 
 #. generated from zone.tab
+msgid "Central Time - North Dakota - Oliver County"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Central Time - Quintana Roo"
 msgstr "中央時間 - キンタナロー"
 
@@ -5169,20 +5168,12 @@ msgid "Chatham Islands"
 msgstr "チャタム島"
 
 #. generated from zone.tab
-msgid "China coast"
-msgstr "中国海岸"
-
-#. generated from zone.tab
-msgid "China mountains"
-msgstr "中国山脈"
-
-#. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
 msgstr "デーヴィス基地、ヴェストフォールド丘陵"
 
 # モンゴル
 #. generated from zone.tab
-msgid "Dornod, Sukhbaatar (unsure about this)"
+msgid "Dornod, Sukhbaatar"
 msgstr "ドルノド、サクバータ州"
 
 # 南極
@@ -5260,10 +5251,6 @@ msgid "Eastern Time - Thunder Bay, Ontario"
 msgstr "東部時間 - サンダーベイ、オンタリオ"
 
 #. generated from zone.tab
-msgid "Eastern Turkestan"
-msgstr "東トルキスタン"
-
-#. generated from zone.tab
 msgid "Galapagos Islands"
 msgstr "ガラパゴス諸島"
 
@@ -5282,6 +5269,10 @@ msgstr "英国"
 #. generated from zone.tab
 msgid "Hawaii"
 msgstr "ハワイ"
+
+#. generated from zone.tab
+msgid "Heilongjiang"
+msgstr "ヘイロンチヤン"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
@@ -5385,8 +5376,12 @@ msgid "Moscow+07 - Amur River"
 msgstr "モスクワ+07 - アムール川"
 
 #. generated from zone.tab
-msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr "モスクワ+08 - マガダン、サハリン"
+msgid "Moscow+07 - Sakhalin Island"
+msgstr "モスクワ+07 - サハリン島"
+
+#. generated from zone.tab
+msgid "Moscow+08 - Magadan"
+msgstr "モスクワ+08 - マガダン"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
@@ -5513,6 +5508,10 @@ msgid "Queensland - most locations"
 msgstr "クィーンズランド - most locations"
 
 #. generated from zone.tab
+msgid "Qyzylorda (Kyzylorda, Kzyl-Orda)"
+msgstr ""
+
+#. generated from zone.tab
 msgid "Roraima"
 msgstr "ロライマ"
 
@@ -5528,6 +5527,10 @@ msgstr "S & SE ブラジル(BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
 msgstr "サバ・サラワク"
+
+#. generated from zone.tab
+msgid "Scoresbysund / Ittoqqortoormiit"
+msgstr ""
 
 #. generated from zone.tab
 msgid "Society Islands"
@@ -5551,8 +5554,12 @@ msgid "Tasmania"
 msgstr "タスマニア"
 
 #. generated from zone.tab
-msgid "Tibet & Xinjiang"
-msgstr "チベット、新彊"
+msgid "Thule / Pituffik"
+msgstr ""
+
+#. generated from zone.tab
+msgid "Tibet & most of Xinjiang Uyghur"
+msgstr "チベット、シンチヤンウイグルの大部分"
 
 #. generated from zone.tab
 msgid "Tocantins"
@@ -5587,6 +5594,10 @@ msgid "Wake Island"
 msgstr "ウェイク諸島"
 
 #. generated from zone.tab
+msgid "West Kazakhstan"
+msgstr "西カザフスタン"
+
+#. generated from zone.tab
 msgid "Western Australia"
 msgstr "西部オーストラリア"
 
@@ -5599,56 +5610,48 @@ msgid "Zaporozh'ye, E Lugansk"
 msgstr "ウクライナ/ルガンスク州"
 
 #. generated from zone.tab
-msgid "central Crimea"
-msgstr "中央クリミア"
+msgid "central China - Gansu, Guizhou, Sichuan, Yunnan, etc."
+msgstr ""
 
 #. generated from zone.tab
-msgid "central Kazakhstan"
-msgstr "中央カザフスタン"
+msgid "central Crimea"
+msgstr "中央クリミア"
 
 #. generated from zone.tab
 msgid "east & south Borneo, Celebes, Bali, Nusa Tengarra, west Timor"
 msgstr "東、南ボルネオ、セレベス、バリ、ヌサ・テンガラ、西ティモール"
 
 #. generated from zone.tab
+msgid "east China - Beijing, Guangdong, Shanghai, etc."
+msgstr ""
+
+#. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
 msgstr "東コンゴ民主共和国"
-
-#. generated from zone.tab
-msgid "east Greenland"
-msgstr "東グリーンランド"
-
-#. generated from zone.tab
-msgid "east Kazakhstan"
-msgstr "東カザフスタン"
 
 #. generated from zone.tab
 msgid "east Uzbekistan"
 msgstr "東ウズベキスタン"
 
 #. generated from zone.tab
-msgid "north Manchuria"
-msgstr "北マンチュリア"
+msgid "east coast, north of Scoresbysund"
+msgstr ""
 
 #. generated from zone.tab
 msgid "northeast Mali"
 msgstr "北東マリ"
 
 #. generated from zone.tab
-msgid "northwest Greenland"
-msgstr "北西グリーンランド"
-
-#. generated from zone.tab
 msgid "peninsular Malaysia"
 msgstr "西マレーシア"
 
 #. generated from zone.tab
-msgid "southwest Greenland"
-msgstr "南西グリーンランド"
-
-#. generated from zone.tab
 msgid "southwest Mali"
 msgstr "南西マリ"
+
+#. generated from zone.tab
+msgid "southwest Xinjiang Uyghur"
+msgstr "南西シンチヤンウイグル"
 
 #. generated from zone.tab
 msgid "west & central Borneo"
@@ -5657,10 +5660,6 @@ msgstr "西、中央ボルネオ"
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
 msgstr "西コンゴ民主共和国"
-
-#. generated from zone.tab
-msgid "west Kazakhstan"
-msgstr "西カザフスタン"
 
 #. generated from zone.tab
 msgid "west Uzbekistan"
@@ -5725,712 +5724,3 @@ msgstr "スウェーデン語"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "ウクライナ語"
-
-#~ msgid ""
-#~ "A complete log of your installation will be in /tmp/install.log after "
-#~ "rebooting your system. You may want to keep this file for later "
-#~ "reference. A kickstart file representing the choices you have made will "
-#~ "be in /root/anaconda-ks.cfg."
-#~ msgstr ""
-#~ "完全なインストール記録はシステムの再起動後も /tmp/install.log に残っていま"
-#~ "す。後で参照できるようにこのファイルを保管しておくことをお勧めします。選択"
-#~ "結果を表す kickstartファイルは /root/anacocnda-ks.cfgに保存されています。"
-
-#~ msgid "Chinese(Simplified)"
-#~ msgstr "中国(簡体)"
-
-#~ msgid "Chinese(Traditional)"
-#~ msgstr "中国(繁体)"
-
-#~ msgid "Hungarian"
-#~ msgstr "ハンガリー語"
-
-#~ msgid "Portuguese"
-#~ msgstr "ポルトガル語"
-
-#~ msgid "Romanian"
-#~ msgstr "ローマ語"
-
-#~ msgid "Serbian"
-#~ msgstr "セルビア語"
-
-#~ msgid "Slovak"
-#~ msgstr "スロヴァキア語"
-
-#~ msgid "Turkish"
-#~ msgstr "トルコ語"
-
-#~ msgid "You cannot edit this partition, as it is in use by the installer."
-#~ msgstr "インストーラが使用中なので編集できません"
-
-#~ msgid "Ok"
-#~ msgstr "OK"
-
-#~ msgid "Must specify a base size for the partition."
-#~ msgstr "このパーティションの基本容量を指定して下さい"
-
-#~ msgid "Please specify a maximum size for the partition."
-#~ msgstr "このパーティションの最大容量を指定して下さい"
-
-#~ msgid "Specify Start"
-#~ msgstr "開始点を指定"
-
-#~ msgid "Please specify a starting cylinder for the partition."
-#~ msgstr "このパーティションの開始シリンダを指定して下さい"
-
-#~ msgid "Specify End"
-#~ msgstr "終了点を指定"
-
-#~ msgid "Please specify the end cylinder for the partition."
-#~ msgstr "このパーティションの終了シリンダを指定して下さい"
-
-#~ msgid "Specify Size"
-#~ msgstr "容量を指定"
-
-#~ msgid "Please specify the  size for the partition."
-#~ msgstr "このパーティションの容量を指定して下さい"
-
-#~ msgid "Horizontal Frequency Range"
-#~ msgstr "水平周波数の範囲"
-
-#~ msgid "Vertical Frequency Range"
-#~ msgstr "垂直周波数の範囲"
-
-#~ msgid "partitioning did not meet requirements"
-#~ msgstr "パーティション設定が要件を満たしていません"
-
-#~ msgid "The %s directory must be on the root filesystem."
-#~ msgstr "%s ディレクトリはルートファイルシステム上になければなりません"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points must begin with a leading /."
-#~ msgstr ""
-#~ "マウントポイント %s が不適切です\n"
-#~ "\n"
-#~ "マウントポイントの先頭は / でなければなりません"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may not end with a /."
-#~ msgstr ""
-#~ "マウントポイント %s が不適切です\n"
-#~ "\n"
-#~ "マウントポイントの最後には / を使用できません"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "Mount points may only printable characters."
-#~ msgstr ""
-#~ "マウントポイント %s が不適切です\n"
-#~ "\n"
-#~ "マウントポイントは表示可能文字でなければなりません"
-
-#~ msgid ""
-#~ "You've asked to put your root (/) filesystem on a DOS-style FAT "
-#~ "partition. You can do this, but you may not use any other filesystems for "
-#~ "your Linux system. Additionally, there will be a speed penalty for not "
-#~ "using Linux-native partitions. Do you want to continue?"
-#~ msgstr ""
-#~ "DOS の FAT パーティション上にルート (/) ファイルシステムを作成するように指"
-#~ "定されました。作成することは可能ですが、その他のファイルシステムを Linux "
-#~ "用に使用することはできません。さらに、Linux-native パーティションを使用し"
-#~ "ないことで性能上のデメリットが発生します。続行しますか?"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "System partitions must be on Linux Native partitions."
-#~ msgstr ""
-#~ "マウントポイント %s が不適切です\n"
-#~ "\n"
-#~ "システムパーティションは Linux Native パーティション上になければなりません"
-
-#~ msgid "On this platform, /boot must be on a DOS-compatible filesystem %x."
-#~ msgstr ""
-#~ "このパーティションでは、/boot は DOS 対応のファイルシステム %x 上になけれ"
-#~ "ばいけません"
-
-#~ msgid ""
-#~ "The mount point %s is illegal.\n"
-#~ "\n"
-#~ "/usr must be on a Linux Native partition or an NFS volume."
-#~ msgstr ""
-#~ "マウントポイント %s が不適切です\n"
-#~ "\n"
-#~ "/usr は Linux Native パーティションまたは NFS ボリューム上になければなりま"
-#~ "せん"
-
-#~ msgid "Too Many Drives"
-#~ msgstr "ドライブ数が多過ぎます"
-
-#~ msgid ""
-#~ "You have more drives than this program supports. Please use the standard "
-#~ "fdisk program to setup your drives and please notify Red Hat Software "
-#~ "that you saw this message."
-#~ msgstr ""
-#~ "ドライブ数がこのプログラムでサポートできる数を超えています。標準の fdisk "
-#~ "を使用してドライブのセットアップを行ない、このメッセージが表示されたこと"
-#~ "を Red Hat Software にご連絡下さい。"
-
-#~ msgid "Error Creating Device Nodes"
-#~ msgstr "デバイスノードの作成中にエラー発生"
-
-#~ msgid ""
-#~ "An error has occurred while trying to create device nodes for the hard "
-#~ "drives in your system.  This may be because you have run out of disk "
-#~ "space on the /tmp partition."
-#~ msgstr ""
-#~ "システムのハードディスクに対するデバイスノードの作成中にエラーが発生しまし"
-#~ "た。/tmp パーティションのディスク容量が不足している可能性があります。"
-
-#~ msgid ""
-#~ "An error has occurred - no valid devices were found on which to create "
-#~ "new filesystems.  Please check your hardware for the cause of this "
-#~ "problem."
-#~ msgstr ""
-#~ "エラーが発生しました - 新規ファイルシステムを作成するための有効なデバイス"
-#~ "が見つかりません。ハードウェアをチェックして、この問題の原因を調査して下さ"
-#~ "い。"
-
-#~ msgid ""
-#~ "An error occurred reading the partition table for the block device %s.  "
-#~ "The error was"
-#~ msgstr ""
-#~ "ブロックデバイス %s のパーティションテーブルの読み込みの際にエラー発生。エ"
-#~ "ラー内容:"
-
-#~ msgid "Skip Drive"
-#~ msgstr "ドライブをスキップ"
-
-#~ msgid ""
-#~ "The partition table on device %s is corrupted.  To create new partitions "
-#~ "it must be initialized, causing the loss of ALL DATA on this drive."
-#~ msgstr ""
-#~ "デバイス %s のパーティションテーブルが壊れています。新しいパーティションを"
-#~ "作成するためには、初期化しなければなりません。この場合、このドライブ上のす"
-#~ "べてのデータが失われます。"
-
-#~ msgid "Bad Partition Table"
-#~ msgstr "不適切なパーティションテーブル"
-
-#~ msgid "BSD Disklabel"
-#~ msgstr "BSD ディスクラベル"
-
-#~ msgid ""
-#~ "A disk with a BSD disklabel has been found. The Red Hat installation only "
-#~ "supports BSD Disklabels in read-only mode, so you must use a custom "
-#~ "install and fdisk (instead of Disk Druid) for machines with BSD "
-#~ "Disklabels."
-#~ msgstr ""
-#~ "BSD ディスクラベル付きのディスクが見つかりました。Red Hat のインストールで"
-#~ "は、読み込み専用モードの BSD ディスクラベルのみをサポートしています。した"
-#~ "がって、BSD ディスクラベルを使用したマシンの場合には、カスタムインストール"
-#~ "および fdisk (Disk Druid ではなく) を使用して下さい。"
-
-#~ msgid "System error %d"
-#~ msgstr "システムエラー %d"
-
-#~ msgid "Fdisk Error"
-#~ msgstr "Fdisk エラー"
-
-#~ msgid ""
-#~ "This occurs because the drive geometry detected by the kernel used by the "
-#~ "installer is different than the drive geometry used when the drive was "
-#~ "partitioned.  This can be corrected by specifying the drive geometry on "
-#~ "the kernel command line when booting the installer."
-#~ msgstr ""
-#~ "これはインストーラのカーネルが検出したドライブジオメトリとドライブがパー"
-#~ "ティション設定されたときのものと異なるためです。おそらくインストーラ起動時"
-#~ "のカーネルにコマンドラインオプションを与えることで修正することができます。"
-
-#~ msgid ""
-#~ "This error has occurred because there is a logical partition on the drive "
-#~ "which has a partition type of zero (0).  A partition type of zero means "
-#~ "that the drive's partitioning is not completely defined, and may have "
-#~ "been caused by another operating system's partitioning program.  This "
-#~ "condition is not supported by the anaconda installer.  You may be able to "
-#~ "set the partition type correctly using your other operating system's "
-#~ "partitioning program."
-#~ msgstr ""
-#~ "これはパーティションタイプ 0 のドライブ上に論理パーティションがあるためで"
-#~ "す。anaconda インストーラはこれをサポートしていません。この論理パーティ"
-#~ "ションはたいていの場合他の OS 上で動作するプログラムによってつくられたもの"
-#~ "です。anaconda インストーラはこのような条件をサポートしていません。おそら"
-#~ "くこの問題はそのユーティリティを使って修正できるでしょう。"
-
-#~ msgid "<Swap Partition>"
-#~ msgstr "<スワップパーティション>"
-
-#~ msgid "Couldnt find partition named %s\n"
-#~ msgstr "パーティション %s をみつけることができませんでした\n"
-
-#~ msgid "Root partition"
-#~ msgstr "ルートパーティション"
-
-#~ msgid ""
-#~ "The growth of the root (/) RAID array appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
-#~ msgstr ""
-#~ "ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。この"
-#~ "場合は /boot パーティション(50 MB がいいでしょう)を追加することでディスク"
-#~ "一杯までルートパーティションを大きくすることができます。"
-
-#~ msgid ""
-#~ "The growth of the root (/) partition appears to have been stunted by the "
-#~ "1024 cylinder boot limit. If this is the case then adding a /boot "
-#~ "partition (50 MB is fine) may allow the root partition to grow to fill "
-#~ "the disk."
-#~ msgstr ""
-#~ "ルート (/) RAID アレーの容量が 1024 シリンダ制限を越えているようです。この"
-#~ "場合は /boot パーティション(50 MB がいいでしょう)を追加することでディスク"
-#~ "一杯までルートパーティションを大きくすることができます。"
-
-#~ msgid "Delete Partition"
-#~ msgstr "パーティションの削除"
-
-#~ msgid "Cannot Edit Partitions"
-#~ msgstr "パーティションを編集できません"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit other partitions."
-#~ msgstr ""
-#~ "ext2 パーティション上以外に '/' ファイルシステムが定義されているため、他の"
-#~ "パーティションを編集することはできません"
-
-#~ msgid "Size (Megs):"
-#~ msgstr "容量 (メガバイト):"
-
-#~ msgid "Use remaining space?"
-#~ msgstr "残りの領域を使用しますか?"
-
-#~ msgid "Allocation Status:"
-#~ msgstr "アロケーションの状態:"
-
-#~ msgid "Successful"
-#~ msgstr "成功"
-
-#~ msgid "Failed"
-#~ msgstr "失敗"
-
-#~ msgid "Failure Reason:"
-#~ msgstr "失敗の原因:"
-
-#~ msgid "Partition Type:"
-#~ msgstr "パーティションタイプ:"
-
-#~ msgid "No Mount Point"
-#~ msgstr "マウントポイントがありません"
-
-#~ msgid ""
-#~ "You have not selected a mount point for this partition. Are you sure you "
-#~ "want to do this?"
-#~ msgstr ""
-#~ "このパーティション用のマウントポイントが選択されていません。よろしいです"
-#~ "か?"
-
-#~ msgid "Mount Point Error"
-#~ msgstr "マウントポイントエラー"
-
-#~ msgid ""
-#~ "You have tried to assign the '/' mount point to a FAT-style partition.  "
-#~ "You cannot do this now because mount points have been assigned to ext2 "
-#~ "partitions also.  Clear those mount points and then you will be able to "
-#~ "assign '/' to this partition."
-#~ msgstr ""
-#~ "FAT 形式のパーティションに '/' マウントポイントを割り当てようとしました。"
-#~ "ext2 パーティションに、このマウントポイントが割り当てられているため、ここ"
-#~ "で割り当てることはできません。これらのマウントポイントをクリアしてから、こ"
-#~ "のパーティションに '/' を割り当てて下さい。"
-
-#~ msgid ""
-#~ "The mount point requested is either an illegal path or is already in use. "
-#~ "Please select a valid mount point."
-#~ msgstr ""
-#~ "指定したたマウントポイントが不適当なパスであるか、すでに使用されています。"
-#~ "有効なマウントポイントを選択して下さい。"
-
-#~ msgid "Size Error"
-#~ msgstr "容量エラー"
-
-#~ msgid ""
-#~ "The size requested is illegal. Make sure the size is greater and zero "
-#~ "(0), and is specified int decimal (base 10) format."
-#~ msgstr ""
-#~ "要求された容量は不適当です。容量がゼロ (0) より大きく、10 進整数で指定され"
-#~ "ていることを確認して下さい。"
-
-#~ msgid "Swap Size Error"
-#~ msgstr "スワップ容量エラー"
-
-#~ msgid ""
-#~ "You have created a swap partition which is too large. The maximum size of "
-#~ "a swap partition is %ld Megabytes."
-#~ msgstr ""
-#~ "作成したスワップパーティションが大き過ぎます。スワップパーティションの最大"
-#~ "サイズは %ld メガバイトです。"
-
-#~ msgid ""
-#~ "It is recommended that the root (/) partition have a minimum size of %ld "
-#~ "Megabytes. You are trying to create one which is %ld Megabytes, which "
-#~ "could cause the install to fail.\n"
-#~ "\n"
-#~ "Are you sure you want to do this?"
-#~ msgstr ""
-#~ "ルート (/) パーティションの最小サイズを %ld メガバイトにすることを推奨しま"
-#~ "す。%ld メガバイトのものを作成しようとしていますが、インストールが失敗する"
-#~ "可能性があります。\n"
-#~ "\n"
-#~ "続行しますか?"
-
-#~ msgid "Warning: Root FS Size"
-#~ msgstr "警告：ルートファイルシステム容量"
-
-#~ msgid "No Drives Specified"
-#~ msgstr "ドライブが指定されていません"
-
-#~ msgid "You must constrain this partition to at least one drive."
-#~ msgstr ""
-#~ "このパーティションは少なくとも一つのドライブ内に置く必要があります。"
-
-#~ msgid "No RAID Drive Constraint"
-#~ msgstr "RAID ドライブの制限がありません"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive.\n"
-#~ " Are you sure you want to do this?"
-#~ msgstr ""
-#~ "一つのドライブにパーティションを制限することなく RAID パーティションを構成"
-#~ "しようとしています。よろしいですか?"
-
-#~ msgid ""
-#~ "You have configured a RAID partition without constraining the partition "
-#~ "to a single drive. Please select one drive to constrain this partition to."
-#~ msgstr ""
-#~ "一つのドライブにパーティションを制限することなく RAID パーティションを構成"
-#~ "しようとしています。ドライブを一つ選択して、このパーティションをそのドライ"
-#~ "ブに制限して下さい。"
-
-#~ msgid "Cannot Add Partitions"
-#~ msgstr "パーティションを追加できません"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add other partitions."
-#~ msgstr ""
-#~ "ext2 パーティション上以外に '/' ファイルシステムが定義されているため、他の"
-#~ "パーティションを追加することはできません"
-
-#~ msgid "RAID Entry Incomplete"
-#~ msgstr "RAID エントリが不完全です"
-
-#~ msgid ""
-#~ "The raid device /dev/%s now contains partitions which are unallocated. "
-#~ "The raid device /dev/%s will now be decomposed into its component "
-#~ "partitions. Please recompose the raid device with allocated partitions."
-#~ msgstr ""
-#~ "RAID デバイス /dev/%s に、未割当のパーティションが含まれています。RAID デ"
-#~ "バイス /dev/%s はコンポーネントパーティション群に分割されます。割当済みの"
-#~ "パーティションを含む RAID デバイスを再整理して下さい。"
-
-#~ msgid "Cannot Remove /boot"
-#~ msgstr "/boot を削除できません。"
-
-#~ msgid ""
-#~ "You cannot remove \"/boot\" if \"/\" is on a RAID device.  Switch \"/\" "
-#~ "to a non-RAID device first."
-#~ msgstr ""
-#~ "RAID デバイス上に \"/\" がある場合は \"/boot\" を削除できません。まず \"/"
-#~ "\" を非 RAID デバイスに切り替えて下さい。"
-
-#~ msgid "Unallocated Partitions"
-#~ msgstr "未割当のパーティションがあります"
-
-#~ msgid ""
-#~ "There are currently unallocated partition(s) present in the list of "
-#~ "requested partitions. The unallocated partition(s) are shown below, along "
-#~ "with the reason they were not allocated."
-#~ msgstr ""
-#~ "指定されたパーティション一覧中に、未割当のパーティション (群) があります。"
-#~ "未割当のパーティション (群) と、その理由を以下に示します。"
-
-#~ msgid "Cannot Edit Raid"
-#~ msgstr "RAID を編集できません"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot edit RAID devices."
-#~ msgstr ""
-#~ "ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、"
-#~ "RAID デバイスを編集することはできません"
-
-#~ msgid "RAID Device: /dev/"
-#~ msgstr "RAID デバイス:/dev/"
-
-#~ msgid "RAID Type:"
-#~ msgstr "RAID タイプ:"
-
-#~ msgid "Partitions For RAID Array:"
-#~ msgstr "RAID アレイ用パーティション:"
-
-#~ msgid "You have not selected a mount point. A mount point is required."
-#~ msgstr "マウントポイントが選択されていません。マウントポイントが必要です。"
-
-#~ msgid ""
-#~ "The mount point requested is already in use. Please select a valid mount "
-#~ "point."
-#~ msgstr ""
-#~ "要求されたマウントポイントはすでに使用されています。有効なマウントポイント"
-#~ "を選択して下さい。"
-
-#~ msgid ""
-#~ "The bootable raid device can only include partitions from the first two "
-#~ "drives on your system.\n"
-#~ "\n"
-#~ "These drives are: "
-#~ msgstr ""
-#~ "プート可能な RAID デバイスには、システムの最初から 2 つのパーティションの"
-#~ "みを含めることができます。\n"
-#~ "\n"
-#~ "これらのドライブは： "
-
-#~ msgid "Booting From RAID Warning"
-#~ msgstr "RAID からの起動の警告"
-
-#~ msgid "No RAID Device"
-#~ msgstr "RAID デバイスがありません"
-
-#~ msgid "You need to selected a RAID device."
-#~ msgstr "RAID デバイスを選択する必要があります。"
-
-#~ msgid "Used Raid Device"
-#~ msgstr "使用済の RAID デバイスです"
-
-#~ msgid ""
-#~ "The raid device \"/dev/%s\" is already configured as a raid device. "
-#~ "Please select another."
-#~ msgstr ""
-#~ "RAID デバイス \"/dev/%s\" はすでに RAID デバイスとして構成されています。別"
-#~ "のデバイスを選択して下さい。"
-
-#~ msgid "Not Enough Partitions"
-#~ msgstr "パーティションが不足しています"
-
-#~ msgid ""
-#~ "You have not configured enough partitions for the RAID type you have "
-#~ "selected."
-#~ msgstr "選択した RAID タイプのためのパーティションが不足しています"
-
-#~ msgid "Illegal /boot RAID Type"
-#~ msgstr "/boot のRAID タイプが不適当です"
-
-#~ msgid "Boot partitions (/boot) are only allowed on RAID-1."
-#~ msgstr "ブートパーティション (/boot) が存在できるのは RAID-1 上のみです。"
-
-#~ msgid "Illegal RAID mountpoint"
-#~ msgstr "RAID マウントポイントが不適当です"
-
-#~ msgid ""
-#~ "RAID partitions cannot be mounted as root (/) on Alpha without a /boot "
-#~ "partition (non-RAID) as well."
-#~ msgstr ""
-#~ "Alpha システムでは RAID パーティションをルート (/) としてマウントすること"
-#~ "はできません。"
-
-#~ msgid ""
-#~ "The partition %s is a pre-existing partition in the set of partitions for "
-#~ "this RAID device.  The mount point is set to /boot. Are you sure that it "
-#~ "is possible to boot from this partition?"
-#~ msgstr ""
-#~ "パーティション %s は、この RAID デバイス用のパーティションセットに含まれる"
-#~ "既存のパーティションです。マウントポイントは /boot と設定されます。この"
-#~ "パーティションからのブートが可能になります。よろしいですか?"
-
-#~ msgid "Use Pre-existing Partition?"
-#~ msgstr "既存のパーティションを使用しますか?"
-
-#~ msgid "Cannot Add RAID Devices"
-#~ msgstr "RAID デバイスを追加することができません"
-
-#~ msgid ""
-#~ "You have defined the '/' filesystem on a non-ext2 partition, so you "
-#~ "cannot add RAID devices."
-#~ msgstr ""
-#~ "ext2 以外のパーティション上に '/' ファイルシステムが定義されているため、"
-#~ "RAID デバイスを追加することはできません"
-
-#~ msgid "Auto-Partition"
-#~ msgstr "自動パーティション設定"
-
-#~ msgid "Using Existing Disk Space"
-#~ msgstr "既存のディスク領域を使用"
-
-#~ msgid "Remove Linux partitions"
-#~ msgstr "Linux パーティションを削除"
-
-#~ msgid "Use existing free space"
-#~ msgstr "既存の空き領域を使用"
-
-#~ msgid "Intended Use"
-#~ msgstr "意識的に使用"
-
-#~ msgid "Delete RAID Device?"
-#~ msgstr "RAID デバイスを削除しますか?"
-
-#~ msgid "Are you sure you want to remove this RAID device?"
-#~ msgstr "この RAID デバイスを削除してよろしいですか？"
-
-#~ msgid "Reset Partition Table"
-#~ msgstr "パーティションテーブルをリセット"
-
-#~ msgid "Reset partition table to original contents? "
-#~ msgstr "パーティションテーブルを元の内容にリセットしますか? "
-
-#~ msgid "<Swap>"
-#~ msgstr "<スワップ>"
-
-#~ msgid "<RAID>"
-#~ msgstr "<RAID>"
-
-#~ msgid "<not set>"
-#~ msgstr "<設定しない>"
-
-#~ msgid "Requested"
-#~ msgstr "[要求]:"
-
-#~ msgid "Actual"
-#~ msgstr "[実際]:"
-
-#~ msgid "Drive"
-#~ msgstr "[ドライブ]:"
-
-#~ msgid "Geom [C/H/S]"
-#~ msgstr "ジオメトリ [C/H/S]:"
-
-#~ msgid "Total (M)"
-#~ msgstr "合計 (M)"
-
-#~ msgid "Free (M)"
-#~ msgstr "空き (M)"
-
-#~ msgid "Used (M)"
-#~ msgstr "使用 (M)"
-
-#~ msgid "Used (%)"
-#~ msgstr "使用 (%)"
-
-#~ msgid "Unallocated Partitions Exist..."
-#~ msgstr "未割当のパーティションが存在します..."
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "or a RAID partition for the install to proceed."
-#~ msgstr ""
-#~ "インストールを続行するためには、ルート (/) パーティションを Linux 本来の"
-#~ "パーティション (ext2) または RAID パーティションに割り当てなければなりませ"
-#~ "ん。"
-
-#~ msgid "Partitions"
-#~ msgstr "パーティション"
-
-#~ msgid "_Add..."
-#~ msgstr "追加(_A)..."
-
-#~ msgid "_Edit..."
-#~ msgstr "編集(_E)..."
-
-#~ msgid "_Make RAID Device"
-#~ msgstr "RAID デバイスの作成(_M)"
-
-#~ msgid "Auto Partition"
-#~ msgstr "自動パーティション設定"
-
-#~ msgid "Drive Summary"
-#~ msgstr "ドライブの説明"
-
-#~ msgid "Swap Partition"
-#~ msgstr "スワップパーティション"
-
-#~ msgid "Raid Partition"
-#~ msgstr "RAID パーティション"
-
-#~ msgid "Edit New Partition"
-#~ msgstr "新規パーティションの編集"
-
-#~ msgid "Use remaining space?:"
-#~ msgstr "残りの領域を使用しますか?"
-
-#~ msgid "Type:"
-#~ msgstr "タイプ:"
-
-#~ msgid "Current Disk Partitions"
-#~ msgstr "現在のディスクパーティション"
-
-#~ msgid "   Mount Point          Device     Requested   Actual         Type"
-#~ msgstr "  マウントポイント     デバイス   要求        実際           種類"
-
-#~ msgid ""
-#~ "    F1-Help     F2-Add      F3-Edit   F4-Delete    F5-Reset    F12-"
-#~ "Ok        "
-#~ msgstr ""
-#~ "    <F1> - ヘルプ   <F2> - 追加    <F3> - 編集   <F4> - 削除  <F5> - リ"
-#~ "セット  <F12> - OK        "
-
-#~ msgid "Drive Summaries"
-#~ msgstr "ドライブの説明"
-
-#~ msgid "  Drive      Geom [C/H/S]      Total    Used    Free"
-#~ msgstr ""
-#~ "  ドライブ      ジオメトリ [C/H/S]      合計領域   使用領域    空き領域"
-
-#~ msgid ""
-#~ "You must assign a root (/) partition to a Linux native partition (ext2) "
-#~ "for the install to proceed."
-#~ msgstr ""
-#~ "インストールを続行するためには、ルート (/) パーティションを Linux native "
-#~ "パーティション (ext2) に割り当てなければなりません。"
-
-#~ msgid "No Swap Partition"
-#~ msgstr "スワップパーティションがありません"
-
-#~ msgid "You must assign a swap partition for the install to proceed."
-#~ msgstr ""
-#~ "インストールを続行するためにはスワップパーティションを割り当てなければなり"
-#~ "ません。"
-
-#~ msgid "No /boot/efi Partition"
-#~ msgstr "/boot/efi パーティションがありません"
-
-#~ msgid ""
-#~ "You must assign the mount point /boot/efi to a FAT-style primary "
-#~ "partition for the install to proceed."
-#~ msgstr ""
-#~ "インストールを続行するには、FAT 型のプライマリパーティションにマウントポイ"
-#~ "ント /boot/efi を割り当てなければなりません。"
-
-#~ msgid ""
-#~ "There are unallocated partitions left. If you quit now they will not be "
-#~ "written to the disk.\n"
-#~ "\n"
-#~ "Are you sure you want to exit?"
-#~ msgstr ""
-#~ "未割当のパーティションが残っています。ここで中断すると、情報はディスクに書"
-#~ "き込まれません。\n"
-#~ "\n"
-#~ "終了してよろしいですか？"
-
-#~ msgid "Save Changes"
-#~ msgstr "変更内容を保存"
-
-#~ msgid "Save changes to partition table(s)?"
-#~ msgstr "変更内容をパーティションテーブルに保存しますか?"
-
-#~ msgid "You may only delete NFS mounts."
-#~ msgstr "NFS マウントのみを削除することができます。"
