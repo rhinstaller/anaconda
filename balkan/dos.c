@@ -1,9 +1,10 @@
 /* DOS style partitioning */
+#include "balkan.h"
 
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/types.h>
 
-#include "balkan.h"
 #include "byteswap.h"
 
 struct singlePartition {
@@ -34,11 +35,11 @@ struct singlePartitionTable {
 #define LINUX_TYPE_EXTENDED     0x85
 
 static int readSingleTable(int fd, struct singlePartitionTable * table,
-			long long partSector) {
+			off64_t partSector) {
     unsigned char sector[SECTOR_SIZE];
     unsigned short magic;
 
-    if (lseek64(fd, ((long long) SECTOR_SIZE * (long long) partSector),
+    if (lseek64(fd, ((off64_t) SECTOR_SIZE * (off64_t) partSector),
 	       SEEK_SET) < 0)
 	return BALKAN_ERROR_ERRNO;
 
@@ -55,7 +56,7 @@ static int readSingleTable(int fd, struct singlePartitionTable * table,
 }
 
 static int readNextTable(int fd, struct partitionTable * table, int nextNum, 
-		  long long partSector, long long sectorOffset) {
+		  off64_t partSector, off64_t sectorOffset) {
     struct singlePartitionTable singleTable;
     int rc;
     int i, thisPart;

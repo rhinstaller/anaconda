@@ -1,6 +1,6 @@
 #ifndef H_BALKAN
 #define H_BALKAN 1
-
+#define _LARGEFILE_SOURCE 1
 #define _LARGEFILE64_SOURCE 1
 
 #define BALKAN_ERROR_ERRNO	1
