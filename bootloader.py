@@ -15,16 +15,17 @@
 
 import isys
 import partitioning
-from translate import _
-from lilo import LiloConfigFile
 import os
 import crypt
 import whrandom
 import language
-from flags import flags
 import iutil
 import string
+from flags import flags
 from log import log
+from constants import *
+from lilo import LiloConfigFile
+from translate import _
 
 initrdsMade = {}
 
@@ -95,7 +96,7 @@ class BootImages:
 	return dict
 
     def setImageLabel(self, dev, label):
-	self.images[dev] = (label, label, self.images[dev][1])
+	self.images[dev] = (label, label, self.images[dev][2])
 
     # default is a device
     def setDefault(self, default):
@@ -112,7 +113,7 @@ class BootImages:
 
 	# These partitions have disappeared
 	for dev in self.images.keys():
-	    if devices.has_key(dev): del self.images[dev]
+	    if not devices.has_key(dev): del self.images[dev]
 
 	# These have appeared
 	for (dev, type) in devs:
@@ -533,7 +534,10 @@ def availableBootDevices(diskSet, fsset):
 
     return devs
 
-def bootloaderSetupChoices(dispatch, bl, fsset, diskSet):
+def bootloaderSetupChoices(dispatch, bl, fsset, diskSet, dir):
+    if dir == DISPATCH_BACK:
+        return
+    
     choices = fsset.bootloaderChoices(diskSet)
     if not choices:
 	dispatch.skipStep("instbootloader")
