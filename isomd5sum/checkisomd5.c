@@ -36,7 +36,9 @@ int parsepvd(int isofd, char *mediasum, int *skipsectors, long long *isosize, in
 
     offset = (16L * 2048L);
     for (;1;) {
-	read(isofd, buf, 2048);
+	if (read(isofd, buf, 2048) <=0)
+	    return ((long long)-1);
+
 	if (buf[0] == 1)
 	    /* found primary volume descriptor */
 	    break;
