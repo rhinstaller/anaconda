@@ -86,11 +86,11 @@ export HOME
 PYTHONPATH=/tmp/updates
 export PYTHONPATH
 
+mount -t proc none /proc
+mount -t devpts /dev/pts /dev/pts
 # remount root fs rw
 mount /dev/root /  -o remount,rw
 
-mount -t proc none /proc
-mount -t devpts /dev/pts /dev/pts
 # limit output on x3270 console (well, not really -- need debugging now)
 echo "8 4 1 1" > /proc/sys/kernel/printk
 
