@@ -8,7 +8,7 @@ import string
 class Kickstart(InstallClass):
 
     def doRootPw(self, args):
-	(args, extra) = isys.getopt(args, '', [ 'iscrypted=' ])
+	(args, extra) = isys.getopt(args, '', [ 'iscrypted' ])
 
 	isCrypted = 0
 	for n in args:
