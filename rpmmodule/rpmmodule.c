@@ -15,9 +15,6 @@ typedef struct hdrObject_s hdrObject;
 
 /* Prototypes */
 
-static void rpmtransDealloc(PyObject * o);
-static PyObject * rpmtransGetAttr(PyObject * o, char * name);
-
 static void rpmdbDealloc(rpmdbObject * s);
 static PyObject * rpmdbGetAttr(rpmdbObject * s, char * name);
 static PyObject * rpmdbFirst(rpmdbObject * s, PyObject * args);
@@ -41,6 +38,10 @@ static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args);
 static PyObject * rpmtransDepCheck(rpmtransObject * s, PyObject * args);
 static PyObject * rpmtransRun(rpmtransObject * s, PyObject * args);
 static PyObject * rpmtransOrder(rpmtransObject * s, PyObject * args);
+static void rpmtransDealloc(PyObject * o);
+static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name);
+static PyObject * rpmtransSetAttr(rpmtransObject * o, char * name, 
+				  PyObject * val);
 
 /* Types */
 
@@ -63,6 +64,7 @@ struct rpmtransObject_s {
     rpmdbObject * dbo;
     rpmTransactionSet ts;
     PyObject * keyList;			/* keeps reference counts correct */
+    FD_t scriptFd;
 } ;
 
 struct hdrObject_s {
@@ -141,7 +143,7 @@ static PyTypeObject rpmtransType = {
 	(destructor) rpmtransDealloc, 	/* tp_dealloc */
 	0,				/* tp_print */
 	(getattrfunc) rpmtransGetAttr, 	/* tp_getattr */
-	0,				/* tp_setattr */
+	(setattrfunc) rpmtransSetAttr,	/* tp_setattr */
 	0,				/* tp_compare */
 	0,				/* tp_repr */
 	0,				/* tp_as_number */
@@ -790,11 +792,26 @@ static void rpmtransDealloc(PyObject * o) {
 
     rpmtransFree(trans->ts);
     if (trans->dbo) Py_DECREF(trans->dbo);
+    if (trans->scriptFd) fdClose(trans->scriptFd);
     Py_DECREF(trans->keyList);
 }
 
-static PyObject * rpmtransGetAttr(PyObject * o, char * name) {
-    return Py_FindMethod(rpmtransMethods, o, name);
+static PyObject * rpmtransGetAttr(rpmtransObject * o, char * name) {
+    return Py_FindMethod(rpmtransMethods, (PyObject *) o, name);
+}
+
+static PyObject * rpmtransSetAttr(rpmtransObject * o, char * name,
+				  PyObject * val) {
+    int i;
+
+    if (!strcmp(name, "scriptFd")) {
+	if (!PyArg_Parse(val, "d", &i)) return NULL;
+	o->scriptFd = fdDup(i);
+	
+	rpmtransSetScriptFd(o->ts, o->scriptFd);
+    }
+	
+    return NULL;
 }
 
 static PyObject * rpmtransAdd(rpmtransObject * s, PyObject * args) {
