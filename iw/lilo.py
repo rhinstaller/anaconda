@@ -27,8 +27,6 @@ class LiloWindow (InstallWindow):
             else:
                 self.todo.bootdisk = 0
 
-        # XXX why is this here?
-	return
         if self.lilo.get_active ():
             self.todo.setLiloLocation (None)
         else:
