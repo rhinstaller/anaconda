@@ -1,6 +1,7 @@
 from installclass import BaseInstallClass
 from translate import N_
 import os
+import iutil
 
 class InstallClass(BaseInstallClass):
     name = "upgradeonly"
@@ -24,7 +25,7 @@ class InstallClass(BaseInstallClass):
                     "upgradecontinue",
                     "bootloadersetup",
 		    "bootloader",
-                    "bootloaderpassword"
+                    "bootloaderpassword",
                     "checkdeps",
 		    "dependencies",
 		    "confirmupgrade",
