@@ -1,0 +1,76 @@
+SECSTAGE="vfat raid0 raid1 raid5"
+TILO=$IMGPATH/usr/bin/tilo
+SILO=$IMGPATH/sbin/silo
+
+prepareBootImage() {
+	loopdev=`findloopdevice $MBD_TMPIMAGE`
+	stagedir=/tmp/sparcboot.$$
+	rm -rf $stagedir
+	mkdir -p $stagedir
+	cp $KERNELROOT/boot/vmlinuz-* $stagedir/vmlinux64.gz
+	cp $MBD_FSIMAGE $MBD_BOOTTREE/initrd64.img
+        cp $IMGPATH/boot/fd.b $stagedir
+	cp $IMGPATH/boot/second.b $stagedir
+	cp $BOOTDISKDIR/*.msg $stagedir
+	cp $BOOTDISKDIR/silo64.conf  $stagedir/silo.conf
+        genromfs -V "Red Hat Linux Install" -d $stagedir -f $loopdev -a 512 -A 2048,/..
+	rm -rf $stagedir
+	losetup -d $loopdev
+	mount -tromfs -oloop $MBD_TMPIMAGE $MBD_BOOTTREE
+	$SILO -r $MBD_BOOTTREE -i /fd.b -b /second.b -C /silo.conf -F
+}
+
+maketftp() {
+    while [ x$(echo $1 | cut -c1-2) = x"--" ]; do
+	if [ $1 = "kernel" ]; then
+	    TFTPKERNEL=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "initrdfrom" ]; then
+	    TFTPINITRD=$2
+	    shift; shift
+	    continue
+	elif [ $1 = "imagename" ]; then
+	    TFTPIMAGE=$2
+	    shift; shift
+	    continue
+	fi
+	echo "bad argument passed to maketftp"
+	exit 1
+    $TILO vmlinux64 $TFTPKERNEL $TFTPINITRD $TFTPIMAGE
+}
+
+# set up the silo files
+rm -rf $TOPDESTPATH/boot
+rm -rf $TOPDESTPATH/etc
+mkdir -p $TOPDESTPATH/boot
+mkdir -p $TOPDESTPATH/etc
+
+cp $IMGPATH/boot/cd.b $TOPDESTPATH/boot
+cp $IMGPATH/boot/second.b $TOPDESTPATH/boot
+cp $BOOTDISKDIR/*.msg $TOPDESTPATH/etc
+cp $BOOTDISKDIR/silo.conf $TOPDESTPATH/etc
+
+# set up aout kernel images
+rm -rf $TOPDESTPATH/kernels
+elf2aout -o $TOPDESTPATH/kernels/vmlinux64 $KERNELROOT/boot/vmlinux-*
+gzip -9 $TOPDESTPATH/kernels/vmlinux64
+
+makekinitrd --initrdto $TOPDESTPATH/boot/initrd64.img \
+	 --initrdsize 2000 \
+	 --loaderbin loader \
+         --modules "=scsi =net"
+
+maketftp --kernel $TOPDESTPATH/kernels/vmlinux64.gz \
+	 --imagename $TOPDESTPATH/boot/tftp64.img \
+         --initrdfrom $TOPDESTPATH/boot/initrd64.img
+
+makebootdisk --kernelto $TOPDESTPATH/boot/vmlinux64.gz  \
+	     --bootdisksize 1440 \
+	     --imagename boot64.img \
+	     --initrdflags '--initrdto $TOPDESTPATH/boot/initrd64.img \
+			    --initrdsize 2000 \
+			    --loaderbin loader \
+			    --modules "=scsi"'
+
+makemainmodules "$SECSTAGE =scsi =net"

@@ -37,6 +37,11 @@ else
 fi
 MK_IMAGES=$BUILDINSTDIR/mk-images
 
+# XXX hack - msw
+if [ $BUILDARCH = "sparc" ]; then
+    BUILDARCH=sparc64
+fi
+
 echo "Building images..."
 $UPD_INSTROOT $p/RedHat/RPMS $p/image-template $p/RedHat/instimage $BUILDARCH
 if [ -x /usr/bin/runroot ]; then
