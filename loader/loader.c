@@ -2996,6 +2996,22 @@ static int usbInitialize(moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+/* This loads the necessary parallel port drivers for printers so that
+   kudzu can autodetect and setup printers in post install*/
+static void initializeParallelPort(moduleList modLoaded, moduleDeps modDeps,
+				   moduleInfoSet modInfo, int flags) {
+#if !defined (__i386__)
+    return;
+#endif
+    if (FL_NOPARPORT(flags)) return;
+
+    logMessage("loading parallel port drivers...");
+    if (mlLoadModuleSet("parport_pc", modLoaded, modDeps, modInfo, flags)) {
+	logMessage("failed to load parport_pc module");
+	return;
+    }
+}
+
 /* This forces a pause between initializing usb and trusting the /proc 
    stuff */
 static void usbInitializeMouse(moduleList modLoaded, moduleDeps modDeps,
@@ -3543,6 +3559,7 @@ int main(int argc, char ** argv) {
     mlLoadModuleSet("raid0:raid1:raid5:msdos:ext3:reiserfs:jfs:xfs:lvm-mod", 
 		    modLoaded, modDeps, modInfo, flags);
 
+    initializeParallelPort(modLoaded, modDeps, modInfo, flags);
 
     usbInitializeMouse(modLoaded, modDeps, modInfo, flags);
 

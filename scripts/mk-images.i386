@@ -90,7 +90,7 @@ IDEMODS=""
 SCSIMODS="sd_mod sr_mod"
 
 FSMODS="msdos vfat ext3 reiserfs jfs"
-SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st"
+SECSTAGE="agpgart raid0 raid1 raid5 lvm-mod $FSMODS $IDEMODS $SCSIMODS $LATEUSBMODS st parport_pc parport"
 
 COMMONMODULES="vfat $USBMODS"
 LOCALMODULES="$COMMONMODULES aic7xxx megaraid ncr53c8xx 

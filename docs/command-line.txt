@@ -23,6 +23,8 @@ askmethod       Do not automatically use the CD-ROM as the install
 nousbstorage	Do not load usbstorage module in loader.  May help with
 		device ordering on SCSI systems.
 
+noparport       Do not attempt to load support for parallel ports
+
 noprobe         Do not attempt to detect hw, prompts user instead.
 
 nopcmcia        Ignore PCMCIA controller in system.
