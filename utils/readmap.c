@@ -19,11 +19,15 @@ int main(int argc, char ** argv) {
     int out;
     short keymap[NR_KEYS];
     int magic = KMAP_MAGIC;
+    int verbose = 0;
 
     if (argc != 2) {
 	printf("bad usage\n");
 	exit(1);
     }
+
+    if (getenv("DEBUG") != NULL)
+        verbose = 1;
  
     memset(keymaps, 0, sizeof(keymaps));
 
@@ -48,9 +52,9 @@ int main(int argc, char ** argv) {
 	}
     }
 
-    printf("found %d valid keymaps\n", count);
+    if (verbose) fprintf(stderr, "found %d valid keymaps\n", count);
 
-    printf("creating keymap file %s\n", argv[1]);
+    if (verbose) fprintf(stderr"creating keymap file %s\n", argv[1]);
     if ((out = open(argv[1], O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 1) {
 	perror("open keymap");
 	exit(1);
