@@ -22,10 +22,8 @@ modlist:    modlist.o ../isys/libisys.a
 
 moddeps: moddeps.o
 	$(CC) $(LDFLAGS) -o moddeps moddeps.o ../loader/modules.o \
-            $(LOADLIBES) \
-	    ../isys/modutils/insmod/libmodutils.a    \
-	    ../isys/modutils/util/libutil.a          \
-	    ../isys/modutils/obj/libobj.a -lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt
+            $(LOADLIBES) -lmodutils -lmodutilobj -lmodutilutil \
+	    -lrpm -lrpmdb -lrpmio -lbz2 -lz -lpopt
 
 genhdlist: genhdlist.c hash.c
 	$(CC) $(LDFLAGS) $(CFLAGS) -o genhdlist genhdlist.c hash.c -lrpm -lrpmdb -lrpmio \

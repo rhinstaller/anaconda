@@ -12,7 +12,6 @@ SOURCES = $(patsubst %.o,%.c,$(OBJECTS)) isys.c
 STATICOBJS = otherinsmod.o
 LOADLIBES = -lresolv -lz -lpci -lpopt -lpump -lext2fs
 PYMODULES = _isys.so
-SUBDIRS = modutils
 
 GENERATED = nfs_mountversion.h
 
@@ -29,7 +28,7 @@ endif
 
 everything: $(TARGET)
 
-all: subdirs $(PYMODULES) libisys.a
+all: $(PYMODULES) libisys.a
 
 %.lo: %.c
 	$(CC) -c $(CFLAGS) -fPIC -o $@ $<
@@ -44,14 +43,10 @@ libisys.a: libisys.a($(OBJECTS) $(STATICOBJS))
 
 clean:
 	rm -f *.o *.so *.lo *.a *.pyc $(TARGET) $(SOBJECTS) $(OBJECTS) $(GENERATED)
-	for d in $(SUBDIRS); do make -C $$d clean; done
 
 install: all
 	install -s $(PYMODULES) $(DESTDIR)/$(PYTHONLIBDIR)
 	install isys.py $(DESTDIR)/$(PYTHONLIBDIR)
-
-subdirs:
-	for d in $(SUBDIRS); do make -C $$d; done
 
 nfsmount.o: nfs_mountversion.h
 

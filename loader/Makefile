@@ -25,9 +25,7 @@ PCMCIAOBJS = pcmcia.o $(NETOBJS)
 #OPTS = -Os -g
 OPTS = -Os -g
 
-MODULELINKAGE :=../isys/modutils/insmod/libmodutils.a    \
-	       	../isys/modutils/util/libutil.a          \
-	       	../isys/modutils/obj/libobj.a
+MODULELINKAGE := -lmodutils -lmodutilutil -lmodutilobj
 
 CFLAGS = $(DEBUG) $(OPTS) -ffunction-sections -Wall -D_GNU_SOURCE=1 -I/usr/include/kudzu -I/usr/include/rpm -I.. -DUSE_ALT_DNS=1 -DVERSION='"$(VERSION)"' -DHAVE_LIBIO_H -ggdb
 
