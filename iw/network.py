@@ -139,7 +139,6 @@ class NetworkWindow (InstallWindow):
             devbox = GtkVBox ()
             align = GtkAlignment ()
             DHCPcb = GtkCheckButton (_("Configure using DHCP"))
-            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 
             align.add (DHCPcb)
             devbox.pack_start (align, FALSE)
@@ -160,6 +159,7 @@ class NetworkWindow (InstallWindow):
             ipTable = GtkTable (len (options), 2)
 
             DHCPcb.connect ("toggled", self.DHCPtoggled, (devs[i], ipTable))
+            DHCPcb.set_active (devs[i].get ("bootproto") == "dhcp")
 
             forward = lambda widget, box=box: box.focus (DIR_TAB_FORWARD)
 
