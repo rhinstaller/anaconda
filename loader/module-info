@@ -552,11 +552,17 @@ pluto
 	scsi_hostadapter
 	"SparcSTORAGE Array"
 
-# <SIGH>
-#ppa
-	#scsi_hostadapter
-	#"IOMEGA PPA3/Parallel ZIP"
-	#ppa_base "Base I/O address" "0x[0-9a-fA-F]+"
+ppa
+	scsi_hostadapter
+	"IOMEGA VPI0/Parallel ZIP"
+
+imm
+	scsi_hostadapter
+	"IOMEGA VPI2/Parallel ZIP"
+
+pcd
+	block-major-46  cdrom
+	"Parallel-port IDE CDROM"
 
 psi240i
 	scsi_hostadapter
