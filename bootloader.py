@@ -506,6 +506,7 @@ class x86BootloaderInfo(bootloaderInfo):
 
 	f.close()
         os.chmod(instRoot + "/boot/grub/grub.conf", self.perms)
+        os.symlink("./grub.conf", instRoot + "/boot/grub/menu.lst")
 
         if not os.access(instRoot + "/boot/grub/device.map", os.R_OK):
             f = open(instRoot + "/boot/grub/device.map", "w+")
