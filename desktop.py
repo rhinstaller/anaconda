@@ -43,11 +43,6 @@ class Desktop:
         self.runlevel = 3
 
     def write (self, instPath):
-	#
-	# XXX
-	#
-	return
-
         try:
             inittab = open (instPath + '/etc/inittab', 'r')
         except IOError:
