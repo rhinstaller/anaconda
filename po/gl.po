@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
 "POT-Creation-Date: 2001-02-05 12:49-0500\n"
-"PO-Revision-Date: 2001-01-30 20:56+0100\n"
+"PO-Revision-Date: 2001-02-06 10:43+0100\n"
 "Last-Translator: Jesús Bravo Álvarez <jba@pobox.com>\n"
 "Language-Team: Galician <trasno@ceu.fi.udc.es>\n"
 "MIME-Version: 1.0\n"
@@ -439,9 +439,8 @@ msgid "What language would you like to use during the installation process?"
 msgstr "¿Que lingua quere usar no proceso de instalación?"
 
 #: ../text.py:146
-#, fuzzy
 msgid "Select All"
-msgstr "Seleccionar todas"
+msgstr "Seleccionar Todas"
 
 #: ../iw/language_support_gui.py:199 ../text.py:146
 msgid "Reset"
@@ -2751,6 +2750,10 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Solicitou pór o sistema de ficheiros raíz (/) nunha partición FAT de DOS. "
+"Pode facelo, pero non poderá usar ningún outro sistema de ficheiros no seu "
+"sistema Linux. Ademais diso, haberá unha diminución da velocidade por non "
+"usar particións nativas de Linux. ¿Desexa continuar?"
 
 #: ../libfdisk/fsedit.c:969
 #, c-format
@@ -2891,6 +2894,10 @@ msgid ""
 "partitioned.  This can be corrected by specifying the drive geometry on the "
 "kernel command line when booting the installer."
 msgstr ""
+"Isto acontece porque a xeometría da unidade que detectou o núcleo usado polo "
+"instalador, é diferente á xeometría usada cando se particionou o disco. Isto "
+"pode solucionarse indicando a xeometría da unidade na liña de comandos do "
+"núcleo ó executar o instalador."
 
 #: ../libfdisk/gnomefsedit.c:551 ../libfdisk/gnomefsedit.c:951
 #: ../libfdisk/gnomefsedit.c:2049
@@ -2904,12 +2911,11 @@ msgstr "<Partición RAID>"
 #: ../libfdisk/gnomefsedit.c:744
 #, c-format
 msgid "Couldnt find partition named %s\n"
-msgstr ""
+msgstr "Non se atopou a partición co nome %s\n"
 
 #: ../libfdisk/gnomefsedit.c:754 ../libfdisk/gnomefsedit.c:786
-#, fuzzy
 msgid "Root partition"
-msgstr "Sen Partición Raíz"
+msgstr "Partición raíz"
 
 #: ../libfdisk/gnomefsedit.c:756
 msgid ""
@@ -2917,6 +2923,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Semella que o medre do array RAID raíz (/) fixo que se superase o límite do "
+"cilindro 1024 no arrinque. Se é o caso, podería engadir unha partición /boot "
+"para permitir que a partición raíz medre ata encher o disco."
 
 #: ../libfdisk/gnomefsedit.c:788
 msgid ""
@@ -2924,6 +2933,9 @@ msgid ""
 "1024 cylinder boot limit. If this is the case then adding a /boot partition "
 "may allow the root partition to grow to fill the disk."
 msgstr ""
+"Semella que o medre da partición raíz (/) fixo que se superase o límite do "
+"cilindro 1024 no arrinque. Se é o caso, podería engadir unha partición /boot "
+"para permitir que a partición raíz medre ata encher o disco."
 
 #: ../libfdisk/gnomefsedit.c:828 ../libfdisk/newtfsedit.c:871
 msgid "Delete Partition"
@@ -4273,23 +4285,3 @@ msgstr "Desenvolvemento do Núcleo"
 
 msgid "Utilities"
 msgstr "Utilidades"
-
-#~ msgid "Partitionless upgrades are NOT supported in this beta"
-#~ msgstr "As actualizacións 'partitionless' NON están soportadas nesta beta"
-
-#~ msgid "Horizontal Sync"
-#~ msgstr "Sincronismo Horizontal"
-
-#~ msgid "Vertical Sync"
-#~ msgstr "Sincronismo Vertical"
-
-#~ msgid ""
-#~ "\n"
-#~ "WARNING: Partitionless installs are known to often fail in this BETA release "
-#~ "so do NOT report errors if you choose to do this.\n"
-#~ " Do you want to continue?"
-#~ msgstr ""
-#~ "\n"
-#~ "AVISO: As instalacións 'partitionless' (sen particións) fallan a miúdo nesta "
-#~ "versión BETA, polo tanto NON informe de erros se decide usala.\n"
-#~ " ¿Desexa continuar?"
