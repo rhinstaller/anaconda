@@ -2825,9 +2825,8 @@ DB
 #if !defined (__s390__) && !defined (__s390x__)
 	unlink("/lib");
 #else
-	rename("/lib", "/libold");
-	symlink("mnt/runtime/lib", "/lib");
-	system("/mnt/runtime/usr/sbin/glibc_post_upgrade");
+	symlink("../usr/sbin/ldconfig", "/sbin/ldconfig");
+	system("/sbin/ldconfig 2>/dev/null >/dev/null");
 #endif
 	unlink("/modules/modules.dep");
 	unlink("/modules/module-info");
