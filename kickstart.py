@@ -792,15 +792,20 @@ class KickstartBase(BaseInstallClass):
 
     def setSteps(self, dispatch):
         if self.installType == "upgrade":
-            from upgradeonly import InstallClass
-            upgradeclass = InstallClass(0)
-            upgradeclass.setSteps(dispatch)
+            from upgradeclass import InstallClass
+            theUpgradeclass = InstallClass(0)
+            theUpgradeclass.setSteps(dispatch)
             
             # we have no way to specify migrating yet
             dispatch.skipStep("upgrademigfind")
             dispatch.skipStep("upgrademigratefs")
             dispatch.skipStep("upgradecontinue")
             dispatch.skipStep("findinstall")
+            dispatch.skipStep("language")
+            dispatch.skipStep("keyboard")
+            dispatch.skipStep("mouse")
+            dispatch.skipStep("welcome")
+            dispatch.skipStep("installtype")
         else:
             BaseInstallClass.setSteps(self, dispatch)            
 
