@@ -75,12 +75,6 @@ class BootloaderWindow (InstallWindow):
             self.dispatch.skipStep("instbootloader", skip = 0)
             self.dispatch.skipStep("bootloaderadvanced", skip = 0)            
         
-        if self.useFbcb.get_active():
-            (res, depth) = self.fbMode
-            video = " vga=%s" % (fbModes[depth][res],)
-        else:
-            video = ""
-
         # set the bootloader pass XXX should handle the only crypted pass case
         if self.usePassCb and self.password:
             self.bl.setPassword(self.password, isCrypted = 0)
@@ -88,7 +82,7 @@ class BootloaderWindow (InstallWindow):
             self.bl.setPassword(None)
 
         # set kernel args
-        self.bl.args.set(self.appendEntry.get_text() + video)
+        self.bl.args.set(self.appendEntry.get_text())
 
         # set forcelba
         self.bl.setForceLBA(self.forceLBA.get_active())
@@ -318,21 +312,6 @@ class BootloaderWindow (InstallWindow):
 
         # find the video mode... this is pretty ugly
         args = self.bl.args.get()
-        if args and args.find("vga=") != -1:
-            start = args.find("vga=")
-            end = args[start:].find(" ")
-            if end == -1:
-                end = len(args)
-            # grab just the number
-            video = args[start + 4:end]
-            args = args[:start] + args[end:]
-
-            # traverse the dictionary looking for the mode
-            for depth in fbModes.keys():
-                for res in fbModes[depth].keys():
-                    if int(video) == int(fbModes[depth][res]):
-                        self.fbMode = (res, depth)
-                        self.useFb = 1
         
         if self.bl.getPassword():
             self.usePass = 1
@@ -397,24 +376,6 @@ class BootloaderWindow (InstallWindow):
                                     "Obviously there needs to be more explanatory text here and throughout and better spacing"))
         label.set_alignment(0.0, 0.5)
         self.options_vbox.pack_start(label, gtk.FALSE)
-
-        # framebuffer mode widgets + callbacks
-        self.useFbcb = gtk.CheckButton(_("Use Framebuffer Mode"))
-        self.fbButton = gtk.Button()
-        if self.useFb:
-            self.useFbcb.set_active(gtk.TRUE)
-            self.fbButton.set_sensitive(gtk.TRUE)
-        else:
-            self.useFbcb.set_active(gtk.FALSE)
-            self.fbButton.set_sensitive(gtk.FALSE)
-        self.useFbcb.connect("toggled", self.fbCallback)
-        self.fbButton.connect("clicked", self.fbButtonCallback)
-        self.setFbModeLabel()
-        
-        box = gtk.HBox(gtk.FALSE, 5)
-        box.pack_start(self.useFbcb)
-        box.pack_start(self.fbButton)
-        self.options_vbox.pack_start(box, gtk.FALSE)
 
         # password widgets + callback
         self.usePassCb = gtk.CheckButton(_("Use a Boot Loader Password"))
