@@ -42,7 +42,9 @@ extern int testing;
 void undoLoop(struct unmountInfo * fs, int numFs, int this);
 
 static void printstr(char * string) {
-    write(1, string, strlen(string));
+    int ret;
+    
+    ret = write(1, string, strlen(string));
 }
 
 void undoMount(struct unmountInfo * fs, int numFs, int this) {

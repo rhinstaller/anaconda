@@ -130,7 +130,9 @@ static int mystrstr(char *str1, char *str2) {
 }
 
 static void printstr(char * string) {
-    write(1, string, strlen(string));
+    int ret;
+
+    ret = write(1, string, strlen(string));
 }
 
 static void fatal_error(int usePerror) {
@@ -158,6 +160,7 @@ static void doklog(char * fn) {
     struct sockaddr_un sockaddr;
     char buf[1024];
     int readfd;
+    int ret;
 
     in = open("/proc/kmsg", O_RDONLY,0);
     if (in < 0) {
@@ -233,8 +236,9 @@ static void doklog(char * fn) {
 	if (FD_ISSET(in, &readset)) {
 	    i = read(in, buf, sizeof(buf));
 	    if (i > 0) {
-		if (out >= 0) write(out, buf, i);
-		write(log, buf, i);
+		if (out >= 0)
+		    ret = write(out, buf, i);
+		ret = write(log, buf, i);
 	    }
 	} 
 
@@ -243,12 +247,12 @@ static void doklog(char * fn) {
 		i = read(readfd, buf, sizeof(buf));
 		if (i > 0) {
 		    if (out >= 0) {
-			write(out, buf, i);
-			write(out, "\n", 1);
+			ret = write(out, buf, i);
+			ret = write(out, "\n", 1);
 		    }
 
-		    write(log, buf, i);
-		    write(log, "\n", 1);
+		    ret = write(log, buf, i);
+		    ret = write(log, "\n", 1);
 		} else if (i == 0) {
 		    /* socket closed */
 		    close(readfd);
@@ -261,8 +265,9 @@ static void doklog(char * fn) {
 	    s = sizeof(sockaddr);
 	    readfd = accept(sock, (struct sockaddr *) &sockaddr, &s);
 	    if (readfd < 0) {
-		if (out >= 0) write(out, "error in accept\n", 16);
-		write(log, "error in accept\n", 16);
+		if (out >= 0)
+		    ret = write(out, "error in accept\n", 16);
+		ret = write(log, "error in accept\n", 16);
 		close(sock);
 		sock = -1;
 	    } else {
@@ -327,6 +332,7 @@ static int copyDirectory(char * from, char * to) {
     char filespec[256];
     char filespec2[256];
     char link[1024];
+    int ret;
 
     mkdir(to, 0755);
 
@@ -366,7 +372,7 @@ static int copyDirectory(char * from, char * to) {
                 fchmod(outfd, sb.st_mode & 07777);
 
                 while ((i = read(fd, buf, sizeof(buf))) > 0)
-                    write(outfd, buf, i);
+                    ret = write(outfd, buf, i);
                 close(outfd);
             }
 
@@ -456,7 +462,7 @@ static int getNoKill(void) {
 }
 
 static int getInitPid(void) {
-    int fd = 0, pid = -1;
+    int fd = 0, pid = -1, ret;
     char * buf = malloc(10);
 
     fd = open("/var/run/init.pid", O_RDONLY);
@@ -464,9 +470,9 @@ static int getInitPid(void) {
         fprintf(stderr, "Unable to find pid of init!!!\n");
         return -1;
     }
-    read(fd, buf, 9);
+    ret = read(fd, buf, 9);
     close(fd);
-    sscanf(buf, "%d", &pid);
+    ret = sscanf(buf, "%d", &pid);
     return pid;
 }
 
@@ -675,10 +681,11 @@ int main(int argc, char **argv) {
     }
 
     if (!testing) {
-	sethostname("localhost.localdomain", 21);
+	int ret;
+	ret = sethostname("localhost.localdomain", 21);
 	/* the default domainname (as of 2.0.35) is "(none)", which confuses 
 	   glibc */
-	setdomainname("", 0);
+	ret = setdomainname("", 0);
     }
 
     printf("trying to remount root filesystem read write... ");
@@ -712,8 +719,10 @@ int main(int argc, char **argv) {
     /* write out a pid file */
     if ((fd = open("/var/run/init.pid", O_WRONLY|O_CREAT)) > 0) {
         char * buf = malloc(10);
+	int ret;
+
         snprintf(buf, 9, "%d", getpid());
-        write(fd, buf, strlen(buf));
+        ret = write(fd, buf, strlen(buf));
         close(fd);
         free(buf);
     } else {
@@ -763,7 +772,9 @@ int main(int argc, char **argv) {
 	   ctrl-alt-del handler */
 	if (count == strlen(buf) &&
 	    (fd = open("/proc/sys/kernel/ctrl-alt-del", O_WRONLY)) != -1) {
-	    write(fd, "0", 1);
+	    int ret;
+
+	    ret = write(fd, "0", 1);
 	    close(fd);
 	}
     }
