@@ -7,6 +7,7 @@
 import os
 import rpm
 import rhpl.arch
+from rhpl.log import log
 from flags import flags
 
 # set DB_PRIVATE to make rpm happy...  do it in here since we include
