@@ -155,8 +155,9 @@ class Network:
 	self.isConfigured = 0
         self.hostname = "localhost.localdomain"
 
-	# this is only currently used in GUI
-	# elsewhere we test if the hostname is localhost.localdomain
+        # if we specify a hostname and are using dhcp, do an override
+        # originally used by the gui but overloaded now
+	# we also test in places if the hostname is localhost.localdomain
 	# to see if its been override. Need some consolidation in future.
 	self.overrideDHCPhostname = 0
 
@@ -183,6 +184,8 @@ class Network:
                 self.domains.append(info["DOMAIN"])
             if info.has_key("HOSTNAME"):
                 self.hostname = info["HOSTNAME"]
+                if info.has_key("BOOTPROTO") and info["BOOTPROTO"] == "dhcp":
+                    self.overrideDHCPhostname = 1
             
 	try:
 	    f = open("/etc/resolv.conf", "r")
