@@ -745,7 +745,7 @@ def doInstall(method, id, intf, instPath):
     cb.initWindow = intf.waitWindow(_("Install Starting"),
 				    _("Starting install process, this may take several minutes..."))
 
-#    ts.setProbFilter(rpm.RPMPROB_FILTER_DISKSPACE)
+    ts.setProbFilter(~rpm.RPMPROB_FILTER_DISKSPACE)
     problems = ts.run(cb.cb, 0)
 
     if problems:
@@ -779,9 +779,11 @@ def doInstall(method, id, intf, instPath):
 		else:
 		    nodeneeded[mount] = need
 	    else:
+                if descr is None:
+                    descr = "no description"
 		log ("WARNING: unhandled problem returned from "
-                     "transaction set type %d",
-		     type)
+                     "transaction set type %d (%s)",
+		     type, descr)
 
 	probs = ""
 	if spaceneeded:
