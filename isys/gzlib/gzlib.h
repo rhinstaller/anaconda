@@ -4,6 +4,7 @@
 typedef struct gzFile_s * gzFile;
 
 gzFile gunzip_open(const char * file);
+gzFile gunzip_dopen(int fd);
 int gunzip_read(gzFile str, void * buf, int bytes);
 int gunzip_close(gzFile str);
 

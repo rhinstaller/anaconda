@@ -9,15 +9,11 @@ struct gzFile_s {
     int fd;
 };
 
-gzFile gunzip_open(const char * file) {
-    int fd;
+gzFile gunzip_dopen(int fd) {
     int p[2];
     void * oldsig;
     pid_t child;
     gzFile str;
-
-    fd = open(file, O_RDONLY);
-    if (fd < 0) return NULL;
 
     pipe(p);
 
@@ -44,6 +40,15 @@ gzFile gunzip_open(const char * file) {
     str->fd = p[0];
 
     return str;
+}
+
+gzFile gunzip_open(const char * file) {
+    int fd;
+
+    fd = open(file, O_RDONLY);
+    if (fd < 0) return NULL;
+
+    return gunzip_dopen(fd); 
 }
 
 int gunzip_read(gzFile str, void * buf, int bytes) {
