@@ -1,8 +1,3 @@
-# For an install to proceed, the following todo fields must be filled in
-#
-#	mount list (unless todo.runLive)		addMount()
-#	lilo boot.b installation (may be None)		liloLocation()
-
 import rpm, os
 import iutil, isys
 from lilo import LiloConfiguration
@@ -84,6 +79,7 @@ class Network:
         self.ternaryNS = ""
         self.domains = []
         self.readData = 0
+        self.hostname = "localhost.localdomain"
         try:
             f = open ("/tmp/netinfo", "r")
         except:
@@ -137,6 +133,8 @@ class Network:
                     if '.' in hostname:
                         # chop off everything before the leading '.'
                         self.domains.append (hostname[(string.find (hostname, '.') + 1):])
+                if self.hostname == "localhost.localdomain":
+                    self.hostname = hostname
             else:
                 dev.hostname = "localhost.localdomain"
         if not self.domains:
@@ -425,10 +423,11 @@ class ToDo:
 	keys.sort()
         for mntpoint in keys:
             (device, fsystem, format) = self.mounts[mntpoint]
+            isys.makeDevInode(device, '/tmp/' + device)
             if fsystem == "swap":
                 isys.swapon ('/tmp/' + device)
-
-            isys.makeDevInode(device, '/tmp/' + device)
+                os.remove ('/tmp/' + device);
+                break
 	    try:
 		os.mkdir (self.instPath + mntpoint)
 	    except:
@@ -655,16 +654,22 @@ class ToDo:
             f.close ()
 
         # /etc/sysconfig/network
+
+        for dev in self.network.netdevices.values ():
+            if dev.hostname:
+                hostname = dev.hostname
+                break
+        
         f = open (self.instPath + "/etc/sysconfig/network", "w")
         f.write ("NETWORKING=yes\n"
                  "FORWARD_IPV4=false\n"
-                 "HOSTNAME=localhost.localdomain\n"
+                 "HOSTNAME=" + self.network.hostname + "\n"
                  "GATEWAY=" + self.network.gateway + "\n")
         f.close ()
 
         # /etc/hosts
         f = open (self.instPath + "/etc/hosts", "w")
-        f.write ("127.0.0.1\t\tlocalhost.localdomain\n")
+        f.write ("127.0.0.1\t\tlocalhost.localdomain " + self.network.hostname + "\n")
         for dev in self.network.netdevices.values ():
             ip = dev.get ("ipaddr")
             if dev.hostname and ip:
