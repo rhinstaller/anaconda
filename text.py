@@ -100,18 +100,6 @@ class WelcomeWindow:
         return INSTALL_OK
 
 class NetworkWindow:
-    def calculateIPs (self):
-        ip = self.ip.value ()
-        nm = self.nm.value ()
-        if ip and nm:
-            ipaddr = isys.inet_aton (ip)
-            nmaddr = isys.inet_aton (nm)
-            
-            netaddr = ipaddr & nmaddr
-            bcaddr = netaddr | (~nmaddr);
-            
-            self.network = isys.inet_ntoa (netaddr)
-            self.broadcast = isys.inet_ntoa (bcaddr)
             
     def run(self, screen, todo):
         def setsensitive (self):
@@ -125,33 +113,29 @@ class NetworkWindow:
 
         def calcNM (self):
             ip = self.ip.value ()
-            if ip:
-                ipaddr = isys.inet_aton (ip)
-                if (ipaddr >> 24 & 0x000000ff) <= 127:
-                    mask = "255.0.0.0";
-                elif (ipaddr >> 24 & 0x000000ff) <= 191:
-                    mask = "255.255.0.0";
-                else:
-                    mask = "255.255.255.0";
-                    
+            if ip and not self.nm.value ():
+                try:
+                    mask = isys.inet_calcNetmask (ip)
+                except ValueError:
+                    return
+
                 self.nm.set (mask)
 
         def calcGW (self):
             ip = self.ip.value ()
             nm = self.nm.value ()
             if ip and nm:
-                ipaddr = isys.inet_aton (ip)
-                nmaddr = isys.inet_aton (nm)
-
-                self.calculateIPs ()
-                
-                netaddr = ipaddr & nmaddr
-                bcaddr = netaddr | (~nmaddr);
+                try:
+                    (net, bcast) = isys.inet_calcNetBroad (ip, nm)
+                except ValueError:
+                    return
 
                 if not self.gw.value ():
-                    self.gw.set (isys.inet_ntoa (bcaddr - 1))
+                    gw = isys.inet_calcGateway (bcast)
+                    self.gw.set (gw)
                 if not self.ns.value ():
-                    self.ns.set (isys.inet_ntoa (netaddr + 1))
+                    ns = isys.inet_calcNS (net)
+                    self.ns.set (ns)
 
         devices = todo.network.available ()
         dev = devices[devices.keys ()[0]]
