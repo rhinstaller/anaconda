@@ -716,6 +716,19 @@ def upgradeFindPackages(intf, method, id, instPath, dir):
                 log(text)
                 id.grpset.hdrlist[new].select()
 
+    # firefox replaces mozilla/netscape (#137244)
+    if (id.grpset.hdrlist.has_key("firefox") and
+        not id.grpset.hdrlist["firefox"].isSelected()):
+        found = 0
+        for p in ("mozilla", "netscape-navigator", "netscape-communicator"):
+            mi = ts.dbMatch("name", p)
+            found += mi.count()
+        if found > 0:
+            text = "Upgrade: Found a graphical browser.  Pulling in firefox"
+            id.upgradeDeps = "%s%s\n" %(id.upgradeDeps, text)
+            log(text)
+            id.grpset.hdrlist["firefox"].select()
+
     # now some upgrade removal black list checking... there are things that
     # if they were installed in the past, we want to remove them because
     # they'll screw up the upgrade otherwise

@@ -1,6 +1,6 @@
 ExcludeArch: ppc64
 Name: anaconda
-Version: 10.1.0.1
+Version: 10.1.0.2
 Release: 1
 License: GPL
 Summary: Graphical system installer
@@ -74,6 +74,10 @@ rm -rf $RPM_BUILD_ROOT
 /sbin/chkconfig --del reconfig >/dev/null 2>&1 || :
 
 %changelog
+* Thu Oct 28 2004 Jeremy Katz <katzj@redhat.com> - 10.1.0.2-1
+- Bring in firefox on upgrade if mozilla/netscape were 
+  previously installed  (#137244)
+
 * Wed Oct 27 2004 Jeremy Katz <katzj@redhat.com> - 10.1.0.1-1
 - Punjabi shouldn't try to do text mode (#137030)
 - Fix traceback on upgrade (#137345)
