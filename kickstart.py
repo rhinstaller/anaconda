@@ -24,7 +24,7 @@ import sys
 import raid
 import string
 import partRequests
-import urlgrabber.grabber
+import urlgrabber.grabber as grabber
 import lvm
 
 from rhpl.translate import _

@@ -906,7 +906,7 @@ class GroupSet:
 
 
 def groupSetFromCompsFile(filename, hdrlist, doSelect = 1):
-    import urlgrabber.grabber
+    import urlgrabber.grabber as grabber
 
     try:
         file = grabber.urlopen (filename, retry = 5)

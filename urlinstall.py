@@ -21,7 +21,7 @@ import time
 import string
 import struct
 import socket
-import urlgrabber.grabber
+import urlgrabber.grabber as grabber
 
 from snack import *
 from constants import *
