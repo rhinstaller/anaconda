@@ -110,7 +110,7 @@ class AutoPartitionWindow:
             pp = todo.method.protectedPartitions()
             if pp:
                 for p in pp:
-                    if p[-1:] > 4:
+                    if int(p[-1:]) > 4:
                         todo.fstab.setRunDruid(1)
                         return
 
