@@ -1,6 +1,7 @@
 import rpm
 import rhpl.arch
 import string
+import types
 from constants import *
 
 # set DB_PRIVATE to make rpm happy
@@ -146,13 +147,33 @@ def findpackageset(hdrlist, dbPath='/'):
                             epoch = '0'
                         else:
                             epoch = str(h[rpm.RPMTAG_EPOCH])
-                        val = rpm.labelCompare(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
+                        val = compareEVR(oevr,(epoch,h[rpm.RPMTAG_VERSION],h[rpm.RPMTAG_RELEASE]))
                         if val > 0:
 #                    dEBUG("adding %(name)s %(version)s to the upgrade set for obsoletes" % pkg)
                             updDict[(name,arch)] = pkg 
                             break
 
     return updDict.values()
+
+def rpmOutToStr(arg):
+    if type(arg) != types.StringType:
+    # and arg is not None:
+        arg = str(arg)
+
+    return arg
+
+def compareEVR((e1, v1, r1), (e2, v2, r2)):
+    # return 1: a is newer than b
+    # 0: a and b are the same version
+    # -1: b is newer than a
+    e1 = rpmOutToStr(e1)
+    v1 = rpmOutToStr(v1)
+    r1 = rpmOutToStr(r1)
+    e2 = rpmOutToStr(e2)
+    v2 = rpmOutToStr(v2)
+    r2 = rpmOutToStr(r2)
+    rc = rpm.labelCompare((e1, v1, r1), (e2, v2, r2))
+    return rc
 
 def strToVersion(str):
     """Parse a string such as in obsoleteversion into evr.
