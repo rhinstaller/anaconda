@@ -474,24 +474,7 @@ Section "Screen"
 	Identifier   "Screen0"
         Device       "%(cardID)s"
         Monitor      "Monitor0"
-        SubSection "Display"
-                Depth     1
-        EndSubSection
-        SubSection "Display"
-                Depth     4
-        EndSubSection
-        SubSection "Display"
-                Depth     8
-        EndSubSection
-        SubSection "Display"
-                Depth     15
-        EndSubSection
-        SubSection "Display"
-                Depth     16
-        EndSubSection
-        SubSection "Display"
-                Depth     24
-        EndSubSection
+%(screenModes)s
 EndSection
 
 Section "DRI"
@@ -975,7 +958,7 @@ Section "Screen"
                  "XkbOptions"         : self.keyOptions,
                  "monitorID"	      : self.monID,
                  "monitorHoriz"       : self.monHoriz,
-                 "monitorVert"        : self.monHoriz,
+                 "monitorVert"        : self.monVert,
                  "files"              : self.files }
 	if iutil.getArch() == "sparc":
 	    info["autorepeat"] = "#   AutoRepeat  200 20"
@@ -985,6 +968,18 @@ Section "Screen"
         return XF86Config_template % info
         
     def Version4Config(self):
+        screens = ""
+        for depth in self.modes.keys ():
+            if not self.modes[depth]: continue
+            screens = screens + """
+	Subsection "Display"
+        	Depth       %s
+                Modes       """ % depth
+            for res in self.modes[depth]:
+                screens = screens + '"' + res + '" '
+            screens = screens + """
+	EndSubsection
+"""
         data = { "mouseProto"   : self.mouse.info['XMOUSETYPE'],
                  "mouseDevice"  : self.mouse.device,
                  "cardsOptions" :
@@ -993,9 +988,10 @@ Section "Screen"
                  "cardID"       : self.vidCards[self.primary]["NAME"],
                  "cardVendor"   : self.vidCards[self.primary]["NAME"],
                  "cardBoardName": self.vidCards[self.primary]["NAME"],
-                 "monitorHoriz"       : self.monHoriz,
-                 "monitorVert"        : self.monHoriz,
-                 "files"        : self.files
+                 "monitorHoriz" : self.monHoriz,
+                 "monitorVert"  : self.monVert,
+                 "files"        : self.files,
+                 "screenModes"  : screens
                  }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
         if self.vidCards[self.primary].has_key ("DRIVER"):
