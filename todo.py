@@ -203,11 +203,13 @@ class Language (SimpleConfigFile):
 	lines = f.readlines ()
 	f.close()
 	self.langs = {}
+	self.font = {}
 
 	for line in lines:
 	    string.strip(line)
 	    l = string.split(line)
 	    self.langs[l[0]] = l[4]
+	    self.font[l[0]] = l[2]
 	
         # kickstart needs this
         self.abbrevMap = {}
@@ -232,6 +234,9 @@ class Language (SimpleConfigFile):
         
     def get (self):
 	return self.lang
+
+    def getFont (self, lang):
+	return self.font[lang]
 
 class Authentication:
     def __init__ (self):

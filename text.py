@@ -73,6 +73,13 @@ class LanguageWindow:
         global cat
         cat = gettext_rh.Catalog ("anaconda", "/usr/share/locale")
         todo.language.set (choice)
+	if not todo.serial:
+	    font = todo.language.getFont(choice)
+	    if font != "None":
+		try:
+		    isys.loadFont(font)
+		except SystemError, (errno, msg):
+		    todo.log("Could not load font %s: %s" % (font, msg))
         return INSTALL_OK
 
 class MouseDeviceWindow:
@@ -176,6 +183,11 @@ class KeyboardWindow:
         if button == string.lower (_("Back")):
             return INSTALL_BACK
         todo.keyboard.set (keyboards[choice])
+	if not todo.serial:
+	    try:
+		isys.loadKeymap(keyboards[choice])
+	    except SystemError, (errno, msg):
+		todo.log("Could not install keymap %s: %s" % (keymap, msg))
         return INSTALL_OK
     
 class InstallPathWindow:
