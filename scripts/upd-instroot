@@ -101,7 +101,7 @@ PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
            net-tools traceroute tar procps textutils sed ncurses bash
            cpio mt-st iputils sh-utils XFree86-cyrillic-fonts XFree86
            Xconfigurator pygnome pygtk pygtk-libglade pygnome-libglade
-           pygnome-applet pygnome-capplet"
+           pygnome-applet pygnome-capplet gdk-pixbuf"
 
 if [ $ARCH != ia64 ]; then
     PACKAGESGR="$PACKAGESGR mtools pine modutils"
@@ -308,6 +308,7 @@ usr/bin/tail
 usr/bin/uniq
 usr/lib/anaconda/iw
 usr/lib/gconv/*
+usr/lib/gdk-pixbuf/loaders/*png*
 usr/lib/gdkimlib*
 usr/lib/libImlib*
 usr/lib/libart*
