@@ -1,6 +1,6 @@
 #import gettext_rh
 from snack import *
-from textw.constants import *
+from constants import *
 from translate import _
 import iutil
 

@@ -1,7 +1,7 @@
 import iutil
 from translate import _
 from snack import *
-from textw.constants import *
+from constants import *
 
 class BootDiskWindow:
     def __call__(self, screen, todo):

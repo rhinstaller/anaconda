@@ -1,7 +1,7 @@
 import rpm
 #import gettext
 from snack import *
-from textw.constants import *
+from constants import *
 from translate import _
 
 class PackageGroupWindow:

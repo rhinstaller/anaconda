@@ -2,7 +2,7 @@ import iutil
 import os
 import isys
 from snack import *
-from textw.constants import *
+from constants import *
 from translate import _
 
 class NetworkWindow:
