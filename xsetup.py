@@ -16,6 +16,7 @@
 #
 # should probably go in rhpl
 #
+import iutil
 import rhpl.xserver as xserver
 from rhpl.translate import _
 
@@ -62,6 +63,11 @@ class XSetup:
 	self.xhwstate.set_monitor_name(monname)
 
     def writeKS(self, f, desktop=None):
+        # FIXME: we really should have at least teh startxonboot and
+        # defaultdesktop bits on s390
+        if iutil.getArch() == "s390":
+            return
+        
 	if self.skipx:
 	    f.write("skipx\n")
 	    return

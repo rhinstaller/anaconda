@@ -1335,18 +1335,12 @@ class PartitionWindow(InstallWindow):
         buttonBox = gtk.HButtonBox()
         buttonBox.set_layout(gtk.BUTTONBOX_SPREAD)
 
-        if iutil.getArch() == "s390":
-            ops = ((_("_Edit"), self.editCb),
-                   (_("_Delete"), self.deleteCb),
-                   (_("_Reset"), self.resetCb),
-                   (_("Make _RAID"), self.makeraidCB),)
-        else:
-            ops = ((_("Ne_w"), self.newCB),
-                   (_("_Edit"), self.editCb),
-                   (_("_Delete"), self.deleteCb),
-                   (_("Re_set"), self.resetCb),
-                   (_("R_AID"), self.makeraidCB),
-                   (_("_LVM"), self.makeLvmCB))
+        ops = ((_("Ne_w"), self.newCB),
+               (_("_Edit"), self.editCb),
+               (_("_Delete"), self.deleteCb),
+               (_("Re_set"), self.resetCb),
+               (_("R_AID"), self.makeraidCB),
+               (_("_LVM"), self.makeLvmCB))
         
         for label, cb in ops:
             button = gtk.Button(label)

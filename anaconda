@@ -469,8 +469,7 @@ kbd = keyboard.Keyboard()
 if keymap:
     kbd.set(keymap)
 
-# setup a X hw state for use later with configuration
-xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
+# setup a X hw state for use later with configuration.  
 try:
     xcfg = xhwstate.XF86HardwareState(defcard=videohw, defmon=monitorhw)
 except:
@@ -607,18 +606,14 @@ if (display_mode == 'g'):
 	    if 'DISPLAY' in os.environ.keys():
 		del os.environ['DISPLAY']
             time.sleep(2)            
-            from text import InstallInterface
 
 if (display_mode == 't'):
     from text import InstallInterface
     from text import stepToClasses
 
 
-if display_mode == "t":
-    intf = InstallInterface ()
-else:
-    # determine the mode we actually ended up in
-    intf = InstallInterface ()
+# go ahead and set up the interface
+intf = InstallInterface ()
 
 # imports after setting up the path
 if method:

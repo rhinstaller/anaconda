@@ -15,11 +15,13 @@
 #
 
 import sys
+import iutil
 
 class Anaconda_LogFile:
     def __init__ (self):
         self.logFile = None
         self.logFile2 = None
+        self.failcount = 0
 
     def close (self):
         try:
@@ -37,27 +39,39 @@ class Anaconda_LogFile:
 	elif file:
 	    self.logFile = file
 	else:
-            self.logFile = open("/dev/tty3", "w")
+            if iutil.getArch() != "s390":
+                self.logFile = open("/dev/tty3", "w")
+            else:
+                # we don't really want to have to write this stuff to two
+                # files.  
+                self.logFile = None
             try:
                 self.logFile2 = open("/tmp/anaconda.log", "a")
             except:
-                pass
+                self.logFile2 = None
 
     def __call__ (self, format, *args):
         if not self.logFile:
             raise RuntimeError, "log file not open yet"
-        
-        if args:
-            self.logFile.write ("* %s\n" % (format % args))
-        else:
-            self.logFile.write ("* %s\n" % format)
 
-        if self.logFile2:
+        for file in [self.logFile, self.logFile2]:
+            if file is None:
+                continue
             if args:
-                self.logFile2.write ("* %s\n" % (format % args))
+                file.write ("* %s\n" % (format % args))
             else:
-                self.logFile2.write ("* %s\n" % format)
-            self.logFile2.flush()
+                file.write ("* %s\n" % format)
+
+            try:
+                file.flush()
+            except IOError:
+                # if we can't write here, there's not much we can do.
+                # keep a counter of the number of times it's failed
+                # if we fail more than 10 times, just abort writing to
+                # the logfile
+                self.failcount = self.failcount + 1
+                if self.failcount > 10:
+                    file = None
 
     def getFile (self):
         return self.logFile.fileno ()

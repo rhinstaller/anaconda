@@ -47,7 +47,7 @@ all: subdirs $(PYMODULES) libisys.a $(DIETLIB)
 	$(DIET) $(CC) -c $(CFLAGS) -DGZLIB=1 -DDIET=1 "-Du_char=unsigned char" -o $@ $<
 
 _isys.so: isys.lo $(SOBJECTS)
-	gcc -shared -g -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
+	gcc -shared -g -fPIC -o $@ isys.lo $(SOBJECTS) $(LOADLIBES)
 
 _silo.so: silo.c
 	gcc -shared $(CFLAGS) -fpic -o $@ silo.c ../balkan/libbalkan.a

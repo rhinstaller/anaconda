@@ -51,7 +51,6 @@ stepToClass = {
     "addswap" : ("upgrade_swap_gui", "UpgradeSwapWindow"),
     "upgrademigratefs" : ("upgrade_migratefs_gui", "UpgradeMigrateFSWindow"),
     "fdisk" : ("fdisk_gui", "FDiskWindow"),
-    "fdasd" : ("fdasd_gui", "FDasdWindow"),
     "bootloader": ("bootloader_main_gui", "MainBootloaderWindow"),
     "bootloaderadvanced": ("bootloader_advanced_gui", "AdvancedBootloaderWindow"),
     "upgbootloader": ("upgrade_bootloader_gui", "UpgradeBootloaderWindow"),

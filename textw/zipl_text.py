@@ -12,6 +12,8 @@
 #
 
 import iutil
+import isys
+import string
 from snack import *
 from constants_text import *
 from rhpl.translate import _
@@ -25,12 +27,16 @@ class ZiplWindow:
                            "chandev parameters which your machine or your "
                            "setup may require."))
 
+        kernelparms = ""
         kernelentry = Entry(48, scroll = 1, returnExit = 1)
         chandeventry1 = Entry(48, scroll = 1, returnExit = 1)
         chandeventry2 = Entry(48, scroll = 1, returnExit = 1)
 
         if bl.args and bl.args.get():
-            kernelentry.set(bl.args.get())
+            kernelparms = bl.args.get()
+        if isys.getDasdPorts():
+            kernelparms = kernelparms + " dasd=" + isys.getDasdPorts()
+        kernelentry.set(kernelparms)
 
         if bl.args and bl.args.chandevget():
             cdevs = bl.args.chandevget()
@@ -51,14 +57,15 @@ class ZiplWindow:
         sg.setField(Label(_("Kernel Parameters") + ": "), 0, 0, anchorLeft=1)
         sg.setField(kernelentry, 1, 0, anchorLeft=1)
         grid.add(sg, 0, 1, padding = (0, 1, 0, 1))
+        sg = Grid(2, 1)
         sg.setField(Label(_("Chandev line ") + "1: "), 0, 0, anchorLeft=1)
         sg.setField(chandeventry1, 1, 0, anchorLeft=1)
+        grid.add(sg, 0, 2, padding = (0, 1, 0, 1))
         sg = Grid(2, 1)
         sg.setField(Label(_("Chandev line ") + "2: "), 0, 0, anchorLeft=1)
         sg.setField(chandeventry2, 1, 0, anchorLeft=1)
         grid.add(sg, 0, 3, padding = (0, 1, 0, 1))
         grid.add(buttons, 0, 4, growx = 1)
-        sg = Grid(2, 1)
 
         result = grid.runOnce ()
         button = buttons.buttonPressed(result)
