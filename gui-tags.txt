@@ -1,0 +1,31 @@
+List of GUI classes and sgml help tag associated with that screen.
+
+# AccountWindow tag="accts"
+# AuthWindow tag="authconf"
+# BootdiskWindow tag="bootdisk"
+# ConfirmWindow tag="aboutupgrade" or "aboutinstall"
+# CongratulationWindow tag=NA
+# ReconfigCongratulationWindow tag=NA
+# UnresolvedDependenciesWindow tag="depend"
+# UpgradeExamineWindow tag = "upgrade"
+# FDiskWindow tag="fdisk"
+# FormatWindow tag="format"
+# InstallPathWindow tag="instpath"
+# KeyboardWindow tag="kybd"
+# LanguageWindow tag="lang"
+# LiloWindow tag="lilo"
+# MouseWindow tag="mouse"
+# NetworkWindow tag="netconf"
+# IndividualPackageSelectionWindow tag="sel-indiv"
+# PackageSelectionWindow tag="sel-group"
+# InstallProgressWindow tag="installing"
+# PartitionWindow tag="partition"
+# LoopSizeWindow tag="loopback"
+# AutoPartitionWindow tag="wkst" or "svr", in installclass.py:setClearParts
+# SiloWindow tag="silo"
+# TimezoneWindow tag="timezone"
+# WelcomeWindow tag="wel"
+# ReconfigWelcomeWindow tag="welreconfig"
+# XCustomWindow tag="xcustom"
+# MonitorWindow tag="monitor"
+# XConfigWindow tag="xconf"

@@ -1,0 +1,55 @@
+List of TUI screens and matching help tags
+
+text.py:
+	LanguageWindow		"lang"
+	KeyboardWindow		"kybd"
+	InstallPathWindow	"installpath"
+	UpgradeExamineWindow	"multipleroot"
+	CustomizeUpgradeWindow	"custupgrade"
+	WelcomeWindow		"welcome"
+	ReconfigWelcomeWindow	"reconfigwelcome"
+	XconfigWindow		"xprobe" and "videocard" and "xserver"
+	BeginInstallWindow	"begininstall" and "beginupgrade"
+	FinishedWindow		"finished"
+	ReconfigFinishedWindow	"reconfigfinished"
+
+textw/bootdisk_text.py
+	BootDiskWindow		"bootdiskquery"
+	MakeBootDiskWindow	"insertbootdisk"
+
+textw/lilo_text.py
+	LiloAppendWindow	"kernelopts"
+
+textw/mouse_text.py
+	MouseDeviceWindow	"mousedevice"
+	MouseWindow		"mousetype"
+
+textw/network_text.py
+	NetworkWindow		"network"
+	HostnameWindow		"hostname", but going away.
+
+textw/packages_text.py
+	PackageGroupWindow	"components"
+	IndividualPackageWindow	"packagetree"
+	PackageDepWindow	"packagedeps"
+
+textw/partitioning_text.py
+	PartitionMethod		"parttool"
+	ManualPartitionWindow	"fdisk"
+	AutoPartitionWindow	"confirmautopart"
+	TurnOnsSwapWindow	"earlyswapon"
+	FormatWindow		"formatwhat"
+	LoopSizeWindow		"loopbacksize"
+
+textw/silo_text.py
+	SiloAppendWindow	"silokernelopts"
+	SiloWindow		"silowin"
+	SiloImagesWindow	"bootlabel"
+
+textw/timezone_text.py
+	TimezoneWindow		"timezone"
+
+textw/userauth_text.py
+	RootPasswordWindow	"rootpw"
+	UsersWindow		"edituser" or "newuser"
+	AuthConfigWindow	"authconfig"
