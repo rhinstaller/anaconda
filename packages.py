@@ -1108,6 +1108,7 @@ def doPostInstall(method, id, intf, instPath):
     # XXX hack - we should really write a proper /etc/lvmtab.  but for now
     # just create the lvmtab if they have /sbin/vgscan and some VGs
     if (os.access(instPath + "/sbin/vgscan", os.X_OK) and
+        os.access(instPath + "/proc/lvm", os.R_OK) and
         len(os.listdir("/proc/lvm/VGs")) > 0):
         rc = iutil.execWithRedirect("/sbin/vgscan",
                                     ["vgscan", "-v"],
