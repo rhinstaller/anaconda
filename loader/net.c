@@ -440,7 +440,6 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
     } while (i != 2);
 
 #else /* s390 now */
-<<<<<<< net.c
    /* quick and dirty hack by opaukstadt@millenux.com for s390 */
    /* ctc stores remoteip in broadcast-field until pump.h is changed */
    memset(&newCfg, 0, sizeof(newCfg));
@@ -470,6 +469,7 @@ int readNetConfig(char * device, struct networkDeviceConfig * cfg, int flags) {
    if (env) {
       inet_aton(strtok(env,":"), &newCfg.dev.dnsServers[0]);
       newCfg.dev.set |= PUMP_NETINFO_HAS_DNS;
+   }
    if (!strncmp(newCfg.dev.device, "ctc", 3)) {
       env = getenv("REMIP");
       if (env) {
