@@ -25,6 +25,7 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <kudzu/kudzu.h>
 #include <net/if.h>
 #include <newt.h>
 #include <popt.h>
@@ -56,7 +57,6 @@
 #include "isys/imount.h"
 #include "isys/isys.h"
 #include "isys/probe.h"
-#include "kudzu/kudzu.h"
 
 #include "cdrom.h"
 #include "devices.h"
@@ -2436,6 +2436,14 @@ static int agpgartInitialize(moduleList modLoaded, moduleDeps modDeps,
     return 0;
 }
 
+static void scsiSetup(moduleList modLoaded, moduleDeps modDeps,
+			      moduleInfoSet modInfo, int flags,
+			      struct knownDevices * kd) {
+    mlLoadModule("sd_mod", NULL, modLoaded, modDeps, NULL, modInfo, flags);
+    mlLoadModule("sr_mod", NULL, modLoaded, modDeps, NULL, modInfo, 
+		 flags);
+}
+
 static void ideSetup(moduleList modLoaded, moduleDeps modDeps,
 			      moduleInfoSet modInfo, int flags,
 			      struct knownDevices * kd) {
@@ -2560,6 +2568,7 @@ int main(int argc, char ** argv) {
 
     if (!continuing) {
 	ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
+	scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
 	/* Note we *always* do this. If you could avoid this you could get
 	   a system w/o USB keyboard support, which would be bad. */
@@ -2721,7 +2730,7 @@ int main(int argc, char ** argv) {
     /* We may already have these modules loaded, but trying again won't
        hurt. */
     ideSetup(modLoaded, modDeps, modInfo, flags, &kd);
-
+    scsiSetup(modLoaded, modDeps, modInfo, flags, &kd);
 
     busProbe(modInfo, modLoaded, modDeps, 0, &kd, flags);
 
