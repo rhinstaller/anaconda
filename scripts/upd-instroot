@@ -109,7 +109,7 @@ fi
 
 # Some packages are listed twice, but that's okay
 
-PACKAGESGR="anaconda XFree86-libs imlib libpng libtiff libjpeg
+PACKAGESGR="anaconda XFree86-libs imlib libpng libpng10 libtiff libjpeg
            XFree86-S3 XFree86-SVGA XFree86-75dpi-fonts
            XFree86-ISO8859-2-75dpi-fonts glib2 gtk2
            XFree86-ISO8859-9-75dpi-fonts esound audiofile libgnome
@@ -430,7 +430,7 @@ usr/lib/libimlib-xpm*
 usr/lib/libjpeg*
 usr/lib/libncurses*
 usr/lib/libpango*
-usr/lib/libpng*
+usr/lib/libpng.so.2*
 usr/lib/libreadline*
 usr/lib/libthread*
 usr/lib/libtiff*
