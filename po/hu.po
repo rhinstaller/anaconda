@@ -1,10 +1,8 @@
-# Hungarian translation by László Németh <nemeth@qwertynet.hu>,
-# with great help from Andrea Vida <vidaa@bibl.u-szeged.hu> :-)
 msgid ""
 msgstr ""
 "Project-Id-Version: install\n"
 "POT-Creation-Date: 2000-02-17 18:41-0500\n"
-"PO-Revision-Date: 1999-09-22 14:13+0200\n"
+"PO-Revision-Date: 2000-02-22 18:05+0200\n"
 "Last-Translator: László Németh <nemeth@qwertynet.hu>\n"
 "Language-Team: Hungarian\n"
 "MIME-Version: 1.0\n"
@@ -12,14 +10,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8-bit\n"
 
 #: ../fstab.py:235 ../fstab.py:394
-#, fuzzy
 msgid "Formatting"
-msgstr "Filerendszer Formázás"
+msgstr "Formázás"
 
 #: ../fstab.py:236
 #, c-format
 msgid "Formatting swap space on /dev/%s..."
-msgstr ""
+msgstr "Swap terület formázása /dev/%s-en..."
 
 #: ../fstab.py:246 ../fstab.py:326 ../fstab.py:460
 #: ../libfdisk/newtfsedit.c:1541 ../loader/devices.c:182
@@ -35,42 +32,39 @@ msgstr "Hiba"
 
 #: ../fstab.py:246
 msgid "Error creating swap on device "
-msgstr ""
+msgstr "Hiba a swap létrehozásánál a köv. eszközön: "
 
-# , c-format
 #: ../fstab.py:327
-#, fuzzy, c-format
+#, c-format
 msgid "Error unmounting %s: %s"
-msgstr "Hiba a %s kickstart file megnyitásakor: %s"
+msgstr "Hiba %s unmount-olásánál: %s"
 
 #: ../fstab.py:349 ../todo.py:419
 msgid "Creating"
-msgstr ""
+msgstr "Letrehozás"
 
 #: ../fstab.py:349
-#, fuzzy
 msgid "Creating RAID devices..."
-msgstr "RAID eszköz törlése?"
+msgstr "RAID eszközök létrehozása..."
 
 #: ../fstab.py:395
 #, c-format
 msgid "Formatting %s filesystem..."
-msgstr ""
+msgstr "%s filerendszer formázása..."
 
 #: ../fstab.py:417
 msgid "Loopback"
-msgstr ""
+msgstr "Loopback"
 
 #: ../fstab.py:418
 #, c-format
 msgid "Creating loopback filesystem on device /dev/%s..."
-msgstr ""
+msgstr "Loopback filerendszer létrehozása a /dev/%s eszközön..."
 
-# , c-format
 #: ../fstab.py:461
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting %s: %s"
-msgstr "Hiba a %s kickstart file megnyitásakor: %s"
+msgstr "Hiba %s mountolásánál: %s"
 
 #: ../gui.py:277 ../gui.py:523
 msgid "Next"
@@ -125,30 +119,32 @@ msgid "Red Hat Linux Installer"
 msgstr "Red Hat Linux Telepítõ"
 
 #: ../gui.py:493
-#, fuzzy
 msgid "Red Hat Linux Install Shell"
-msgstr "Red Hat Linux Telepítõ"
+msgstr "Red Hat Linux Telepítõ Shell"
 
 #: ../gui.py:504
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Installer on %s"
-msgstr "Red Hat Linux Telepítõ"
+msgstr "Red Hat Linux Telepítõ %s-en"
 
 #: ../gui.py:505
-#, fuzzy, c-format
+#, c-format
 msgid "Red Hat Linux Install Shell on %s"
-msgstr "Red Hat Linux Telepítõ"
+msgstr "Red Hat Linux Telepítõ Shell %s-en"
 
 #: ../installclass.py:252
 msgid ""
 "You are about to erase any preexisting Linux installations on your system."
 msgstr ""
+"Arra készül, hogy minden meglévõ Linux rendszert eltávolítson a rendszerbõl."
 
 #: ../installclass.py:289
 msgid ""
 "You are about to erase ALL DATA on your hard drive to make room for your "
 "Linux installation."
 msgstr ""
+"Arra készül, hogy minden adatot eltávolítson a merevlemezes meghajtóról, így "
+"szabadítva fel helyet a Linux rendszer telepítéséhez."
 
 #. code to create dialog in gtk+
 #: ../libfdisk/fsedit.c:739 ../libfdisk/fsedit.c:746 ../libfdisk/fsedit.c:753
@@ -285,7 +281,6 @@ msgstr "Milyen típusú rendszert szeretne telepíteni?"
 msgid "You don't have any Linux partitions. You can't upgrade this system!"
 msgstr "Nincsenek Linux partíciók. Ez a rendszer nem frissíthetõ!"
 
-# , c-format
 #: ../text.py:295
 msgid "System to Upgrade"
 msgstr "Frissítendõ rendszer"
@@ -363,6 +358,12 @@ msgid ""
 "\n"
 "To exit without changing your setup select the Cancel button below."
 msgstr ""
+"Üdvözli a Red Hat Linux!\n"
+"\n"
+"Belépett az újra-beállítási üzemmódba, amely lehetõvé teszi, hogy "
+"megváltoztassa a számítógép egyéni beállításait.\n"
+"\n"
+"Változtatás nélküli kilépéshez válassza a Mégsem gombot."
 
 #: ../libfdisk/gnomefsedit.c:788 ../libfdisk/gnomefsedit.c:1770
 #: ../libfdisk/gnomefsedit.c:2278 ../libfdisk/newtfsedit.c:463
@@ -421,7 +422,6 @@ msgid "Hostname"
 msgstr "Host név"
 
 #: ../text.py:518
-#, fuzzy
 msgid ""
 "A custom boot disk provides a way of booting into your Linux system without "
 "depending on the normal bootloader. This is useful if you don't want to "
@@ -447,6 +447,9 @@ msgid ""
 "On SMCC made Ultra machines floppy booting probably does not work\n"
 "\n"
 msgstr ""
+"\n"
+"SMCC gyártmányú Ultra gépeken valószínüleg nem lehet floppyról bootolni\n"
+"\n"
 
 #: ../text.py:540 ../text.py:753
 msgid "Bootdisk"
@@ -494,7 +497,6 @@ msgid "Complete"
 msgstr "Kész"
 
 #: ../iw/congrats.py:32 ../text.py:700
-#, fuzzy
 msgid ""
 "Congratulations, installation is complete.\n"
 "\n"
@@ -509,15 +511,14 @@ msgstr ""
 "Gratulálunk, a telepítés kész.\n"
 "\n"
 "Távolítsa el a bootoláshoz használt lemezt és nyomja meg a Return gombot a "
-"rendszer újraindításához. A Red Hat Linux rendszerhez tartozó "
-"hibajavításokról további információt talál a http://www.redhat.com címen, az "
-"Errata oldalakon.\n"
+"rendszer újraindításához. Ha nem távolítja el a lemezt, a telepítõ "
+"újraindul. A Red Hat Linux rendszerhez tartozó hibajavításokról további "
+"információt talál a http://www.redhat.com címen, az Errata oldalon.\n"
 "\n"
-"A rendszer beállításáról az Official Red Hat Linux User's Guide címû könyv "
-"\"post install\" fejezetében olvashat."
+"A Red Hat Linux rendszer beállításáról és használatáról a Red Hat Linux "
+"kézikönyvekben olvashat."
 
 #: ../text.py:715 ../text.py:735
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -527,15 +528,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulálunk, a telepítés kész.\n"
+"Gratulálunk, a beállítás kész.\n"
 "\n"
-"Távolítsa el a bootoláshoz használt lemezt és nyomja meg a Return gombot a "
-"rendszer újraindításához. A Red Hat Linux rendszerhez tartozó "
-"hibajavításokról további információt talál a http://www.redhat.com címen, az "
-"Errata oldalakon.\n"
+"A Red Hat Linux rendszerhez tartozó hibajavításokról további információt "
+"talál a http://www.redhat.com címen, az Errata oldalakon.\n"
 "\n"
-"A rendszer beállításáról az Official Red Hat Linux User's Guide címû könyv "
-"\"post install\" fejezetében olvashat."
+"A rendszer további beállításáról az Official Red Hat Linux User's Guide címû "
+"könyv \"post install\" fejezetében olvashat."
 
 #: ../iw/bootdisk.py:57 ../text.py:754
 msgid ""
@@ -603,9 +602,8 @@ msgid "Debug"
 msgstr "Debug"
 
 #: ../text.py:981
-#, fuzzy
 msgid "Red Hat Linux (C) 2000 Red Hat, Inc."
-msgstr "Red Hat Linux (C) 1999 Red Hat, Inc."
+msgstr "Red Hat Linux (C) 2000 Red Hat, Inc."
 
 #: ../text.py:983
 msgid ""
@@ -643,15 +641,13 @@ msgid "Authentication"
 msgstr "Azonosítás"
 
 #: ../text.py:1029
-#, fuzzy
 msgid "Configuration Complete"
-msgstr "X beállítás"
+msgstr "Beállítás kész"
 
 #: ../text.py:1047 ../textw/silo.py:28 ../textw/silo.py:100
 #: ../textw/silo.py:212
-#, fuzzy
 msgid "SILO Configuration"
-msgstr "LILO beállítás"
+msgstr "SILO beállítás"
 
 #: ../text.py:1053 ../textw/lilo.py:33 ../textw/lilo.py:84
 #: ../textw/lilo.py:186
@@ -673,7 +669,7 @@ msgstr "Automatikus Particionálás"
 
 #: ../text.py:1065 ../textw/partitioning.py:272
 msgid "Root Filesystem Size"
-msgstr ""
+msgstr "Root filerendszer méret"
 
 #: ../text.py:1067
 msgid "Swap"
@@ -736,80 +732,72 @@ msgid "Upgrade Complete"
 msgstr "Frissítés kész"
 
 #: ../text.py:1162
-#, fuzzy
 msgid "Cancelled"
-msgstr "Mégsem"
+msgstr "Leállítva"
 
 #: ../text.py:1163
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
+msgstr "Innen nem tudok visszalépni. Sajna újra kell próbálkoznia."
 
-# , c-format
 #: ../todo.py:337
-#, fuzzy, c-format
+#, c-format
 msgid "Error copying file: %s"
-msgstr "Hiba a %s kickstart file megnyitásakor: %s"
+msgstr "Hiba a %s file másolásánál"
 
 #: ../todo.py:419
-#, fuzzy
 msgid "Creating boot disk..."
-msgstr "Boot lemez létrehozása"
+msgstr "Boot lemez létrehozása..."
 
 #: ../todo.py:439
-#, fuzzy
 msgid "Reading"
-msgstr "Hátralévõ"
+msgstr "Olvasás"
 
 #: ../todo.py:440
-#, fuzzy
 msgid "Reading package information..."
-msgstr "IP információ kérelem küldése..."
+msgstr "Csomag információ olvasása..."
 
 #: ../todo.py:624 ../todo.py:637
 msgid "no suggestion"
-msgstr ""
+msgstr "nincs ajánlás"
 
 #: ../todo.py:643
 msgid "Searching"
-msgstr ""
+msgstr "Keresés"
 
 #: ../todo.py:644
 msgid "Searching for Red Hat Linux installations..."
-msgstr ""
+msgstr "Red Hat Linux rendszerek keresése..."
 
-# , c-format
 #: ../todo.py:655 ../todo.py:686
-#, fuzzy, c-format
+#, c-format
 msgid "Error mounting ext2 filesystem on %s: %s"
-msgstr "Hiba a %s kickstart file megnyitásakor: %s"
+msgstr "Hiba az ext2 filerendszer mountolásánal %s-en: %s"
 
 #: ../todo.py:697
-#, fuzzy
 msgid "Finding"
-msgstr "Hátralévõ"
+msgstr "Keresés"
 
 #: ../todo.py:698
-#, fuzzy
 msgid "Finding packages to upgrade..."
-msgstr "Válassza ki a frissítendõ csomagokat"
+msgstr "Frissítendõ csomagok keresése..."
 
 #: ../todo.py:954
 msgid "Processing"
-msgstr ""
+msgstr "Feldolgozás"
 
 #: ../todo.py:955
 msgid "Preparing to install..."
-msgstr ""
+msgstr "Felkészülés telepítésre..."
 
 #: ../todo.py:1134
 #, c-format
 msgid "Upgrading %s.\n"
-msgstr ""
+msgstr "%s frissítése.\n"
 
 #: ../todo.py:1136
-#, fuzzy, c-format
+#, c-format
 msgid "Installing %s.\n"
-msgstr "Csomagok telepítése"
+msgstr "%s telepítése.\n"
 
 #: ../todo.py:1157
 msgid ""
@@ -817,30 +805,28 @@ msgid ""
 "selected. You need more space on the following filesystems:\n"
 "\n"
 msgstr ""
+"Nincsen elegendõ lemezterülete a kiválasztott csomagok telepítéséhez. A "
+"következõ filerendszereken van szükség több helyre:\n"
 
 #: ../todo.py:1160
-#, fuzzy
 msgid "Mount Point"
-msgstr "Mount pont:"
+msgstr "Mount pont"
 
 #: ../todo.py:1160
 msgid "Space Needed"
-msgstr ""
+msgstr "Szükséges hely"
 
 #: ../todo.py:1173
-#, fuzzy
 msgid "Disk Space"
-msgstr "Lemez beállítás"
+msgstr "Lemez terület"
 
 #: ../todo.py:1197
-#, fuzzy
 msgid "Post Install"
-msgstr "Telepítés"
+msgstr "Telepítés utáni szakasz"
 
 #: ../todo.py:1198
-#, fuzzy
 msgid "Performing post install configuration..."
-msgstr "A beállítás kipróbálása"
+msgstr "Telepítés utáni konfigurálás..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:257
 msgid "Video Card"
@@ -851,15 +837,12 @@ msgid "Video Ram"
 msgstr "Video RAM"
 
 #: ../xf86config.py:261
-#, fuzzy
 msgid "X server"
-msgstr "Szerver"
+msgstr "X szerver"
 
-# , c-format
 #: ../xf86config.py:263
-#, fuzzy
 msgid "Unable to detect video card"
-msgstr "Nem tudom beolvasni a második fázis ramdisk-jét"
+msgstr "Nem találok videokártyát"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
 msgid "Monitor"
@@ -867,15 +850,13 @@ msgstr "Monitor"
 
 #: ../xf86config.py:272
 msgid "Plug and Play Monitor"
-msgstr ""
+msgstr "Plug and Play monitor"
 
 #: ../xf86config.py:274
-#, fuzzy
 msgid "Horizontal frequency range"
 msgstr "Vízszintes eltérítési frekvencia-tartomány"
 
 #: ../xf86config.py:276
-#, fuzzy
 msgid "Vertical frequency range"
 msgstr "Függõleges eltérítési frekvencia-tartomány"
 
@@ -884,19 +865,16 @@ msgid "Account Configuration"
 msgstr "Account beállítás"
 
 #: ../iw/account.py:36
-#, fuzzy
 msgid "Root password accepted."
-msgstr "Root jelszó  : "
+msgstr "Root jelszó elfogadva."
 
 #: ../iw/account.py:39
-#, fuzzy
 msgid "Root password is too short."
-msgstr "Root jelszó  : "
+msgstr "Root jelszó túl rövid."
 
 #: ../iw/account.py:41
-#, fuzzy
 msgid "Root password does not match."
-msgstr "Hibás jelszó"
+msgstr "Root jelszók nem egyeznek."
 
 #: ../iw/account.py:168
 msgid "Root Password: "
@@ -996,7 +974,6 @@ msgid "Exit"
 msgstr "Kilépés"
 
 #: ../iw/congrats.py:80
-#, fuzzy
 msgid ""
 "Congratulations, configuration is complete.\n"
 "\n"
@@ -1006,15 +983,13 @@ msgid ""
 "Information on further configuring your system is available in the post "
 "install chapter of the Official Red Hat Linux User's Guide."
 msgstr ""
-"Gratulálunk, a telepítés kész.\n"
+"Gratulálunk, a beállítás kész.\n"
 "\n"
-"Távolítsa el a bootoláshoz használt lemezt és nyomja meg a Return gombot a "
-"rendszer újraindításához. A Red Hat Linux rendszerhez tartozó "
-"hibajavításokról további információt talál a http://www.redhat.com címen, az "
-"Errata oldalakon.\n"
+"A Red Hat Linux rendszerhez tartozó hibajavításokról további információt "
+"talál a http://www.redhat.com címen, az Errata oldalon.\n"
 "\n"
-"A rendszer beállításáról az Official Red Hat Linux User's Guide címû könyv "
-"\"post install\" fejezetében olvashat."
+"A rendszer további beállításáról az Official Red Hat Linux User's Guide címû "
+"könyv \"post install\" fejezetében olvashat."
 
 #: ../iw/dependencies.py:9
 msgid "Unresolved Dependencies"
@@ -1111,15 +1086,15 @@ msgstr "Elrendezés"
 
 #: ../iw/keyboard.py:94
 msgid "Dead Keys"
-msgstr ""
+msgstr "Dead keys"
 
 #: ../iw/keyboard.py:103
 msgid "Enable dead keys"
-msgstr ""
+msgstr "Dead keys engedélyezése"
 
 #: ../iw/keyboard.py:104
 msgid "Disable dead keys"
-msgstr ""
+msgstr "Dead keys tiltása"
 
 #: ../iw/keyboard.py:113
 msgid "Test your selection here:"
@@ -1322,14 +1297,18 @@ msgid ""
 "the root filesystem to be, and how much swap space would you like? They must "
 "total less then %d megabytes in size."
 msgstr ""
+"Azt választotta, hogy egy meglévõ DOS vagy Windows filerendszeren levõ "
+"file-ba kerüljön a root filerendszer. Megabyte-ban kifejezve, mekkora legyen "
+"a root filerendszer, és mennyi swap területet szeretne? Ezek együttes "
+"méretének %d Megabyte-nál kevesebbnek kell lennie."
 
 #: ../iw/rootpartition.py:135
 msgid "Root filesystem size:"
-msgstr ""
+msgstr "Root filerendszer méret:"
 
 #: ../iw/rootpartition.py:140
 msgid "Swap space size:"
-msgstr ""
+msgstr "Swap terület méret:"
 
 #: ../iw/rootpartition.py:159 ../textw/partitioning.py:125
 msgid "Automatic Partitioning"
@@ -1358,28 +1337,24 @@ msgid "Manually partition"
 msgstr "Kézi particionálás"
 
 #: ../iw/silo.py:18
-#, fuzzy
 msgid "Silo Configuration"
-msgstr "LILO beállítás"
+msgstr "Silo beállítás"
 
 #: ../iw/silo.py:161
-#, fuzzy
 msgid "Install SILO boot record on:"
-msgstr "LILO boot record telepítése:"
+msgstr "SILO boot record telepítése:"
 
 #: ../iw/silo.py:178
-#, fuzzy
 msgid "Create PROM alias"
-msgstr "Boot lemez létrehozása"
+msgstr "PROM alias létrehozása"
 
 #: ../iw/silo.py:201
 msgid "Set default PROM boot device to linux"
-msgstr ""
+msgstr "Alapértelmezett PROM boot device linux-ra állítása"
 
 #: ../iw/silo.py:233
-#, fuzzy
 msgid "Do not install SILO"
-msgstr "Ne telepítse a LILO-t"
+msgstr "Ne telepítse a SILO-t"
 
 #: ../iw/timezone.py:30 ../textw/timezone.py:83
 msgid "Time Zone Selection"
@@ -1394,9 +1369,8 @@ msgid "System clock uses UTC"
 msgstr "A rendszeróra UTC-re van állítva"
 
 #: ../iw/timezone.py:204
-#, fuzzy
 msgid "Use Daylight Saving Time (US only)"
-msgstr "Téli/nyári idõszámítás alkalmazása"
+msgstr "Téli/nyári idõszámítás alkalmazása (csak USA)"
 
 #: ../iw/timezone.py:218
 msgid "Location"
@@ -1407,9 +1381,8 @@ msgid "UTC Offset"
 msgstr "UTC idõeltolódás"
 
 #: ../iw/welcome.py:80
-#, fuzzy
 msgid "Would you like to configure your system?"
-msgstr "Szeretne hálózatot beállítani?"
+msgstr "Szeretné beállítani a rendszert?"
 
 #: ../iw/xconfig.py:13
 msgid "Horizontal Frequency Range"
@@ -1436,26 +1409,23 @@ msgid "Test this configuration"
 msgstr "A beállítás kipróbálása"
 
 #: ../iw/xconfig.py:112
-#, fuzzy
 msgid "Monitor Configuration"
-msgstr "LILO beállítás"
+msgstr "Monitor beállítás"
 
 #: ../iw/xconfig.py:216
-#, fuzzy
 msgid "Horizontal Sync"
-msgstr "Vízszintes eltérítési frekvencia-tartomány"
+msgstr "Vízszintes szinkron"
 
 #: ../iw/xconfig.py:225
 msgid "Vertical Sync"
-msgstr ""
+msgstr "Függõleges szinkron"
 
 #: ../iw/xconfig.py:331
-#, fuzzy
 msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"A monitor típusát nem sikerült automatikusan meghatározni. Válasszon az "
+"A videomemória méretét nem sikerült automatikusan meghatározni. Válasszon az "
 "alábbi listából:"
 
 #: ../iw/xconfig.py:342 ../iw/xconfig.py:363
@@ -1471,6 +1441,8 @@ msgid ""
 "If the probed settings do not match your hardware select the correct setting "
 "below:"
 msgstr ""
+"Ha a detektált beállítások nem felelnek meg a hardware-nek, akkor válassza "
+"ki a megfelelõt az alábbi listából:"
 
 #: ../iw/xconfig.py:372
 msgid "Autoprobe results:"
@@ -1587,20 +1559,19 @@ msgstr "Válassza ki a formázandó partíciókat"
 
 #: ../textw/partitioning.py:278
 msgid "Root filesystem size"
-msgstr ""
+msgstr "Root filerendszer méret"
 
 #: ../textw/partitioning.py:279
 msgid "Swap space"
-msgstr ""
+msgstr "Swap terület"
 
 #: ../textw/partitioning.py:288 ../textw/partitioning.py:294
-#, fuzzy
 msgid "Bad Size"
-msgstr "Méret"
+msgstr "Hibás méret"
 
 #: ../textw/partitioning.py:289
 msgid "The size you enter must be a number."
-msgstr ""
+msgstr "A megadott méretnek számnak kell lennie."
 
 #: ../textw/partitioning.py:295
 #, c-format
@@ -1608,15 +1579,16 @@ msgid ""
 "The total size must be smaller then the amount of free space on the disk, "
 "which is %d megabytes."
 msgstr ""
+"A teljes méretnek kisebbnek kell lennie, mint a lemezen lévõ szabad terület, "
+"ami %d Megabyte."
 
 #: ../textw/silo.py:65
-#, fuzzy
 msgid "Create PROM alias `linux'"
-msgstr "Boot lemez létrehozása"
+msgstr "`linux' PROM alias létrehozása"
 
 #: ../textw/silo.py:66
 msgid "Set default PROM boot device"
-msgstr ""
+msgstr "Alapértelmezett PROM boot device beállítása"
 
 #: ../textw/timezone.py:68
 msgid "What time zone are you located in?"
@@ -1673,25 +1645,24 @@ msgid "User ID"
 msgstr "Felhasználó azonosító"
 
 #: ../textw/userauth.py:91
-#, fuzzy
 msgid "Bad User ID"
-msgstr "Felhasználó azonosító"
+msgstr "Hibás felhasználó azonosító"
 
 #: ../textw/userauth.py:92
 msgid ""
 "User IDs must be less than 8 characters and contain only characters A-Z, "
 "a-z, and 0-9."
 msgstr ""
+"A felhasználó azonosítónak 8 karakternél rövidebbnek kell lennie, és az A-Z, "
+"a-z, és 0-9 karakterekbõl állhat."
 
 #: ../textw/userauth.py:99
-#, fuzzy
 msgid "Missing User ID"
-msgstr "Felhasználó azonosító"
+msgstr "Hiányzó felhasználó azonosító"
 
 #: ../textw/userauth.py:100
-#, fuzzy
 msgid "You must provide a user ID"
-msgstr "Meg kell adnia egy szerver nevet."
+msgstr "Meg kell adnia egy felhasználó azonosítót."
 
 #: ../textw/userauth.py:105
 msgid "The password must be at least 6 characters long."
@@ -1766,13 +1737,11 @@ msgstr "Szerver kérése broadcast-tal"
 msgid "Bad Mount Point"
 msgstr "Hibás mount-pont"
 
-# , c-format
 #: ../libfdisk/fsedit.c:740
 #, c-format
 msgid "The %s directory must be on the root filesystem."
 msgstr "A(z) %s könyvtárnak a root file-rendszeren kell lenni."
 
-# , c-format
 #: ../libfdisk/fsedit.c:747
 #, c-format
 msgid ""
@@ -1784,7 +1753,6 @@ msgstr ""
 "\n"
 "A mount-pontok nevének bevezetõ / jellel kell kezdõdni."
 
-# , c-format
 #: ../libfdisk/fsedit.c:754
 #, c-format
 msgid ""
@@ -1796,7 +1764,6 @@ msgstr ""
 "\n"
 "A mount-pontok neve nem végzõdhet / jellel."
 
-# , c-format
 #: ../libfdisk/fsedit.c:763
 #, c-format
 msgid ""
@@ -1815,8 +1782,11 @@ msgid ""
 "system. Additionally, there will be a speed penalty for not using "
 "Linux-native partitions. Do you want to continue?"
 msgstr ""
+"Azt kérte, hogy a root (/) filerendszer egy DOS stílusú FAT partíción "
+"legyen. Ezt megteheti, de nem használhat más filerendszereket a Linux "
+"rendszerhez. Emellett sebesség-csökkenéssel is számolnia kell, ha nem natív "
+"Linux partíciókat használ. Akarja folytatni?"
 
-# , c-format
 #: ../libfdisk/fsedit.c:790
 #, c-format
 msgid ""
@@ -1828,7 +1798,6 @@ msgstr ""
 "\n"
 "A rendszer-partícióknak Linux Native partíciókon kell lenniük."
 
-# , c-format
 #: ../libfdisk/fsedit.c:800
 #, c-format
 msgid ""
@@ -1866,7 +1835,6 @@ msgstr ""
 "Hiba történt - nincsenek érvényes eszközök, amiken létre lehetne hozni új "
 "file-rendszereket. Ellenõrizze a hardvert a probléma okának kiderítéséhez."
 
-# , c-format
 #: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
 #, c-format
 msgid ""
@@ -1874,7 +1842,6 @@ msgid ""
 "error was"
 msgstr "Hiba a %s blokk eszköz partíciós táblájának olvasásakor. A hiba:"
 
-# , c-format
 #: ../libfdisk/fsedit.c:1199
 #, c-format
 msgid ""
@@ -1914,7 +1881,6 @@ msgstr ""
 "tudja a BSD disklabel-t, így egy saját telepítõre és (a Disk Druid helyett) "
 "az fdisk programra lesz szüksége BSD disklabel-t használó gépeken."
 
-# , c-format
 #: ../libfdisk/fsedit.c:1268
 #, c-format
 msgid "System error %d"
@@ -2024,7 +1990,6 @@ msgstr ""
 msgid "Swap Size Error"
 msgstr "Swapméret-hiba"
 
-# , c-format
 #: ../libfdisk/gnomefsedit.c:1203 ../libfdisk/gnomefsedit.c:2118
 #: ../libfdisk/newtfsedit.c:577
 #, c-format
@@ -2174,13 +2139,12 @@ msgid "Boot partitions (/boot) are only allowed on RAID-1."
 msgstr "Boot partíciót (/boot) csak RAID-1 meghajtón lehet létrehozni."
 
 #: ../libfdisk/gnomefsedit.c:2077
-#, fuzzy
 msgid "Illegal RAID mountpoint"
-msgstr "Illegális /boot RAID típus"
+msgstr "Illegális RAID mount-pont"
 
 #: ../libfdisk/gnomefsedit.c:2079
 msgid "RAID partitions cannot be mounted as root (/) on Alpha."
-msgstr ""
+msgstr "Alpha rendszereken nem lehet RAID partíciót root-ként (/) mountolni."
 
 #: ../libfdisk/gnomefsedit.c:2162
 #, c-format
@@ -2425,19 +2389,16 @@ msgstr "Adja meg a modul-paramétereket"
 msgid "Kickstart Error"
 msgstr "Kickstart hiba"
 
-# , c-format
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
 msgstr "Hiba a %s kickstart file megnyitásakor: %s"
 
-# , c-format
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
 msgstr "Hiba a %s kickstart file tartalmának olvasásakor: %s"
 
-# , c-format
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
@@ -2543,7 +2504,6 @@ msgstr "A Red Hat könyvtár:"
 msgid "Select Partition"
 msgstr "Válasszon partíciót"
 
-# , c-format
 #: ../loader/loader.c:702
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
@@ -2569,7 +2529,6 @@ msgstr "Nem tudom mountolni a megadott könyvtárat a szerverrõl"
 msgid "FTP"
 msgstr "FTP"
 
-# , c-format
 #: ../loader/loader.c:1005
 msgid "Unable to retrieve the second stage ramdisk"
 msgstr "Nem tudom beolvasni a második fázis ramdisk-jét"
@@ -2595,26 +2554,25 @@ msgid "Cannot find ks.cfg on boot floppy."
 msgstr "Nem találom a ks.cfg file-t a boot floppyn."
 
 #: ../loader/loader.c:1739
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to read directory %s: %s"
-msgstr "Red Hat könyvtár:"
+msgstr "Hiba a %s könyvtár olvasásánál: %s"
 
 #: ../loader/loader.c:1802
-#, fuzzy
 msgid "Insert your updates disk and press \"OK\" to continue."
 msgstr ""
-"Helyezze be a driver lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
+"Helyezze be az updates lemezt, majd a folytatáshoz nyomja meg az \"OK\"-t."
 
 #. Copy everything to /tmp/updates so .so files don't get run
 #. from /dev/fd0. We could (and probably should) get smarter about
 #. this at some point.
 #: ../loader/loader.c:1815
 msgid "Updates"
-msgstr ""
+msgstr "Updates"
 
 #: ../loader/loader.c:1815
 msgid "Reading anaconda updates..."
-msgstr ""
+msgstr "Az anaconda frissítéseinek olvasása..."
 
 #: ../loader/loader.c:1969
 msgid "PC Card"
@@ -2690,7 +2648,6 @@ msgstr "Host név és domain megállapítása..."
 msgid "kickstart"
 msgstr "kickstart"
 
-# , c-format
 #: ../loader/net.c:561
 #, c-format
 msgid "bad argument to kickstart network command %s: %s"
@@ -2699,7 +2656,7 @@ msgstr "hibás argumentum a kickstart network parancsban %s: %s"
 #: ../loader/net.c:592
 #, c-format
 msgid "Bad bootproto %s specified in network command"
-msgstr ""
+msgstr "Rossz bootproto (%s) van megadva a network parancsban"
 
 #: ../loader/net.c:628
 msgid "Boot protocol to use"
@@ -2746,14 +2703,14 @@ msgid "Would you like to set up networking?"
 msgstr "Szeretne hálózatot beállítani?"
 
 #: ../loader/urls.c:71
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to log into %s: %s"
-msgstr "Red Hat könyvtár:"
+msgstr "Hiba %s-re történõ bejelentkezéskor: %s"
 
 #: ../loader/urls.c:80 ../loader/urls.c:87
-#, fuzzy, c-format
+#, c-format
 msgid "Failed to retrieve %s: %s"
-msgstr "Red Hat könyvtár:"
+msgstr "Hiba %s letöltésénél: %s"
 
 #: ../loader/urls.c:92
 msgid "Retrieving"
@@ -2821,12 +2778,12 @@ msgstr "Meg kell adnia egy konyvtárat."
 
 #: ../loader/urls.c:234
 msgid "Unknown Host"
-msgstr ""
+msgstr "Ismeretlen host"
 
 #: ../loader/urls.c:235
 #, c-format
 msgid "%s is not a valid hostname."
-msgstr ""
+msgstr "%s nem érvényes host név."
 
 #: ../loader/urls.c:307
 msgid ""
@@ -2867,39 +2824,3 @@ msgstr "HTTP proxy port:"
 #: ../loader/windows.c:46
 msgid "Loading SCSI driver"
 msgstr "SCSI meghajtó betöltése"
-
-#, fuzzy
-#~ msgid "Rebuilding"
-#~ msgstr "Hátralévõ"
-
-#~ msgid "Variant"
-#~ msgstr "Variáció"
-
-# , c-format
-#~ msgid ""
-#~ "A disk with a corrupt Sun disklabel has been found while reading block "
-#~ "device %s.  You must use fdisk to create and write a new label to this "
-#~ "device."
-#~ msgstr ""
-#~ "A %s blokk eszköz olvasása során hibás Sun disklabel-t tartalmazó lemezt "
-#~ "találtam. Új label létrehozásához és erre az eszközre írásához az fdisk-et "
-#~ "alkalmazza."
-
-#~ msgid "Corrupt Sun disklabel"
-#~ msgstr "Hibás Sun disklabel"
-
-#~ msgid ""
-#~ "You must assign a boot (/boot) partition to a Linux native partition (ext2) "
-#~ "or a RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "A telepítés folytatásához hozzá kell rendelnie egy boot (/boot) partíciót "
-#~ "valamelyik Linux Native (ext2) vagy RAID-1 partícióhoz."
-
-#~ msgid ""
-#~ "Because you have assigned the root partition (/) to a RAID device, you must "
-#~ "also assign a boot (/boot) partition to a Linux native partition (ext2) or a "
-#~ "RAID-1 partition for the install to proceed."
-#~ msgstr ""
-#~ "Mivel a root (/) partíciót RAID eszközhöz rendelte, a telepítés "
-#~ "folytatásához hozzá kell rendelnie egy boot (/boot) partíciót egy Linux "
-#~ "Native (ext2) vagy RAID-1 partícióhoz."
