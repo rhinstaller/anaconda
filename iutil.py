@@ -452,6 +452,111 @@ def isUSBDevFSMounted():
 
     return 0
 
-    
+# return the ppc machine variety type
+def getPPCMachine():
+    machine = None
+    # ppc machine hash
+    # PPC XXX: add MAI
+    ppcType = { 'Mac'      : 'PMac',
+                'Book'     : 'PMac',
+                'CHRP IBM' : 'pSeries',
+                'iSeries'  : 'iSeries',
+                'PReP'     : 'PReP',
+                'CHRP'     : 'CHRP',
+                'Amiga'    : 'APUS',
+                'Gemini'   : 'Gemini',
+                'Shiner'   : 'ANS',
+                'BRIQ'     : 'BRIQ'
+                }
 
+    if getArch() != "ppc":
+        return 0
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+        if line.find('machine') != -1:
+            machine = line.split(':')[1]
+            break
+
+    if machine is None:
+        log("Unable to find PowerPC machine type")
+        return
+
+    for type in ppcType.items():
+        if machine.find(type[0]) != -1:
+            log("PowerPC machine type: %s", type[1])
+            return type[1]
+
+    log("Unknown PowerPC machine type: %s" %(machine,))
+    return 0
+
+# return the pmac machine id
+def getPPCMacID():
+    machine = None
     
+    if getArch() != "ppc":
+        return 0
+    if getPPCMachine() != "PMac":
+        return 0
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+    for line in lines:
+      if line.find('machine') != -1:
+        machine = line.split(':')[1]
+        machine = machine.strip()
+        log("Power Mac machine id: %s", machine)
+        return machine
+
+    log("WARNING: No Power Mac machine id")
+    return 0
+
+# return the pmac generation
+def getPPCMacGen():
+    # XXX: should NuBus be here?
+    pmacGen = ['OldWorld', 'NewWorld', 'NuBus']
+    
+    if getArch() != "ppc":
+        return 0
+    if getPPCMachine() != "PMac":
+        return 0
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+    gen = None
+    for line in lines:
+      if line.find('pmac-generation') != -1:
+        gen = line.split(':')[1]
+        break
+
+    if gen is None:
+        log("Unable to find pmac-generation")
+
+    for type in pmacGen:
+      if gen.find(type) != -1:
+          log("Power Mac generation: %s", type)
+          return type
+
+    log("Unknown Power Mac generation: %s" %(gen,))
+    return 0
+
+# return if pmac machine is it an iBook/PowerBook
+def getPPCMacBook():
+    if getArch() != "ppc":
+        return 0
+    if getPPCMachine() != "PMac":
+        return 0
+
+    f = open('/proc/cpuinfo', 'r')
+    lines = f.readlines()
+    f.close()
+
+    for line in lines:
+      if not string.find(string.lower(line), 'book') == -1:
+        log("PowerBook/iBook: 1")
+        return 1
+    return 0
