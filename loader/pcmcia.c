@@ -91,8 +91,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
     logMessage("need to load %s", pcic);
 
     winStatus(40, 3, title, text);
-    if (mlLoadModule("pcmcia_core", modLoaded, modDeps, 
-		     NULL, modInfo, flags)) {
+    if (mlLoadModuleSet("pcmcia_core", modLoaded, modDeps, modInfo, flags)) {
 	logMessage("failed to load pcmcia_core -- ask for pcmciadd");
 	rc = 1;
 	newtPopWindow();
@@ -125,8 +124,8 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 		logMessage("read %s", buf);
 		if (i == 23 && !strcmp(buf, "PCMCIA Driver Diskette\n")) {
 		    winStatus(40, 3, title, text);
-		    if (mlLoadModule("pcmcia_core", modLoaded, modDeps, 
-				     NULL, modInfo, flags)) {
+		    if (mlLoadModuleSet("pcmcia_core", modLoaded, modDeps, 
+				     modInfo, flags)) {
 			newtPopWindow();
 			newtWinMessage(_("Error"), _("OK"),
 				_("That floppy does not look like a "
@@ -146,8 +145,7 @@ int startPcmcia(char * floppyDevice, moduleList modLoaded, moduleDeps modDeps,
 
     sprintf("%s:ds", pcic);
 
-    if (mlLoadModuleSet(pcic, modLoaded, modDeps, NULL, 
-		        modInfo, flags)) {
+    if (mlLoadModuleSet(pcic, modLoaded, modDeps, modInfo, flags)) {
 	logMessage("failed to load pcic/ds");
 	umount("/modules");
 	return LOADER_ERROR;

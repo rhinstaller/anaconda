@@ -391,11 +391,9 @@ static int loadModule(const char * modName, char * path, moduleList modLoaded,
     return rc;
 }
 
-/* loads a : separated list of modules. the arg only applies to the
-   first module in the list */
-int mlLoadModuleSet(const char * origModNames, 
-		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
-		    moduleInfoSet modInfo, int flags) {
+static int doLoadModules(const char * origModNames, moduleList modLoaded, 
+		    moduleDeps modDeps, moduleInfoSet modInfo, int flags,
+		    const char * argModule, char ** args) {
     char * modNames;
     char * end, * start, * next;
     char ** initialList;
@@ -476,7 +474,7 @@ int mlLoadModuleSet(const char * origModNames,
     /* insert the modules now */
     for (l = list, p = paths; !i && *l; l++, p++) {
 	if (loadModule(*l, *p, modLoaded, 
-		       !strcmp(initialList[0], *l) ? args : NULL, 
+		       (argModule && !strcmp(argModule, *l)) ? args : NULL, 
 		       modInfo, flags)) {
 	    logMessage("failed to insert %s\n", *p);
 	    i++;
@@ -510,6 +508,24 @@ int mlLoadModuleSet(const char * origModNames,
     logMessage("load module set done");
 
     return i;
+}
+
+/* loads a single module (preloading and dependencies), passing "args" to
+   the module as its argument */
+int mlLoadModule(const char * modName, 
+		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
+		    moduleInfoSet modInfo, int flags) {
+    return doLoadModules(modName, modLoaded, modDeps, modInfo, flags,
+			 modName, args);
+}
+
+/* loads a : separated list of modules. the arg only applies to the
+   first module in the list */
+int mlLoadModuleSet(const char * modNames, 
+		    moduleList modLoaded, moduleDeps modDeps, 
+		    moduleInfoSet modInfo, int flags) {
+    return doLoadModules(modNames, modLoaded, modDeps, modInfo, flags,
+			 NULL, NULL);
 }
 
 char ** mlGetDeps(moduleDeps modDeps, const char * modName) {

@@ -28,11 +28,14 @@ void mlFreeList(moduleList list);
 int mlLoadDeps(moduleDeps * moduleDepList, const char * path);
 moduleDeps mlNewDeps(void);
 
-#define mlLoadModule mlLoadModuleSet
+int mlLoadModuleSet(const char * origModNames, moduleList modLoaded, 
+		    moduleDeps modDeps, moduleInfoSet modInfo, 
+		    int flags);
 
-int mlLoadModuleSet(const char * origModNames, 
-		    moduleList modLoaded, moduleDeps modDeps, char ** args, 
-		    moduleInfoSet modInfo, int flags);
+int mlLoadModule(const char * origModNames, moduleList modLoaded, 
+		    moduleDeps modDeps, char ** args, moduleInfoSet modInfo, 
+		    int flags);
+
 char ** mlGetDeps(moduleDeps modDeps, const char * modName);
 int mlModuleInList(const char * modName, moduleList list);
 int mlWriteConfModules(moduleList list, int fd);
