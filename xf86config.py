@@ -1003,7 +1003,7 @@ Section "Screen"
                  }
 #        self.vidCards[self.primary]["DRIVER"] = "vga"
 	if iutil.getArch() == "ia64":
-	    data.ia64Mods = """
+	    data["ia64Mods"] = """
         Load  "mfb"
         Load  "cfb"
         Load  "cfb16"
