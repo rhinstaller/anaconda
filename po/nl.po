@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: anaconda\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-16 12:06-0400\n"
-"PO-Revision-Date: 2004-09-05 19:51+0200\n"
+"PO-Revision-Date: 2004-09-16 21:25+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -2644,7 +2644,6 @@ msgid "DDC Probed Monitor"
 msgstr "Beeldscherm onderzocht met DDC"
 
 #: ../zfcp.py:27
-#, fuzzy
 msgid ""
 "zSeries machines can access industry-standard SCSI devices via Fibre Channel "
 "(FCP). You need to provide 5 parameters for each device: a 16 bit device "
@@ -2653,7 +2652,7 @@ msgid ""
 msgstr ""
 "zSeries machines kunnen industrie-standaard SCSI apparaten benaderen via "
 "Fibre Channel (FCP). U dient 5 parameters op te geven voor elk apparaat: een "
-"16 bit apparaatnummer, een 16 bit SCSI ID, een 64 bit World Wide Port Number "
+"16 bit apparaatnummer, een 16 bit SCSI ID, een 64 bit World Wide Port Name "
 "(WWPN), een 16 bit SCSI LUN en een 64 bit FCP LUN."
 
 #: ../zfcp.py:29
@@ -3405,14 +3404,13 @@ msgid "_Enable firewall"
 msgstr "_Firewall aanzetten"
 
 #: ../iw/firewall_gui.py:109
-#, fuzzy
 msgid ""
 "You can use a firewall to allow access to specific services on your computer "
 "from other computers. Which services, if any, do you wish to allow access "
 "to ?"
 msgstr ""
-"Met behulp van een firewall kunt u toegang verlenen tot bepaalde services op "
-"uw computer aan anderen.  Tot welke services wilt u toegang verlenen?"
+"U kunt een firewall gebruiken om aan andere computers toegang te verlenen tot "
+"bepaalde services op uw computer. Tot welke services wilt u toegang verlenen?"
 
 #: ../iw/firewall_gui.py:146 ../textw/firewall_text.py:161
 msgid ""
@@ -6169,7 +6167,6 @@ msgid "No Volume Groups"
 msgstr "Geen Volumegroepen"
 
 #: ../textw/partition_text.py:1175
-#, fuzzy
 msgid "No volume groups in which to create a logical volume"
 msgstr "Er zijn geen volumegroepen om een logisch volume in aan te maken."
 
@@ -8528,9 +8525,8 @@ msgid "Bengali"
 msgstr "Bengaals"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Bengali(India)"
-msgstr "Bengaals"
+msgstr "Bengaals(India)"
 
 #. generated from lang-table
 msgid "Bulgarian"
@@ -8586,7 +8582,7 @@ msgstr "Duits"
 
 #. generated from lang-table
 msgid "Gujarati"
-msgstr ""
+msgstr "Gujarati"
 
 # Vinden is letterlijk, maar zoeken is hier beter
 #. generated from lang-table
