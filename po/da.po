@@ -1,13 +1,8 @@
-# Danish translation of / Dansk oversættelse af RH Install
-# Copyright (C) 1999 Free Software Foundation, Inc.
-# Kenneth Christiansen <kenneth@ripen.dk>, 1999.
-# Birger Langkjer <birger.langkjer@image.dk>, 1999.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.1 Install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-17 02:47+01:00\n"
+"PO-Revision-Date: 2000-02-18 16:53+01:00\n"
 "Last-Translator: Birger Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locate@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -1434,6 +1429,8 @@ msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
+"I de fleste tilfælde kan din video hardware undersøges for automatisk at "
+"afgøre de optimale indstillinger for din skærm."
 
 #: ../iw/xconfig.py:351
 msgid ""
@@ -1486,6 +1483,9 @@ msgid ""
 "not selected. If you just select Ok all of those required packages will be "
 "installed."
 msgstr ""
+"Nogle af de pakker du har valgt at installere kræver pakker som du ikke har "
+"valgt for at virke. Hvis du vælger Ok, vil alle disse påkrævede pakker blive "
+"installeret."
 
 #: ../textw/partitioning.py:14 ../textw/partitioning.py:57
 msgid "Disk Setup"
@@ -1797,6 +1797,9 @@ msgid ""
 "fdisk program to setup your drives and please notify Red Hat Software that "
 "you saw this message."
 msgstr ""
+"Du har flere drev end dette pogram kan klare. Brug venligst standard 'fdisk' "
+"programmet til at opsætte dine drev og giv venligst besked til Red Hat "
+"Software om at du så denne besked."
 
 #: ../libfdisk/fsedit.c:845
 msgid "No Drives Found"
@@ -1807,6 +1810,9 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "filesystems.  Please check your hardware for the cause of this problem."
 msgstr ""
+"En fejl er opstået - ingen gyldige enheder blev fundet på hvilke nye "
+"filsystemer kunne oprettes. Tjek venligst din hardware for at finde grunden "
+"til dette problem."
 
 #: ../libfdisk/fsedit.c:1159 ../libfdisk/fsedit.c:1222
 #, c-format
@@ -1814,6 +1820,8 @@ msgid ""
 "An error occurred reading the partition table for the block device %s.  The "
 "error was"
 msgstr ""
+"En fejl opstod under læsning af partitionstabellen for blokenheden %s.  "
+"Fejlen var"
 
 #: ../libfdisk/fsedit.c:1199
 #, c-format
@@ -1942,6 +1950,8 @@ msgid ""
 "The mount point requested is either an illegal path or is already in use. "
 "Please select a valid mount point."
 msgstr ""
+"Det ønskede monteringspunkt er enten en ulovlig sti eller er allerede i "
+"brug. Vælg venligst et gyldigt monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:1184 ../libfdisk/newtfsedit.c:558
 msgid "Size Error"
@@ -1952,6 +1962,8 @@ msgid ""
 "The size requested is illegal. Make sure the size is greater and zero (0), "
 "and is specified int decimal (base 10) format."
 msgstr ""
+"Den ønskede størrelse er ulovlig. Sørg for at størrelsen er større end nul "
+"(0) og er angivet som int decimal (base 10) format."
 
 #: ../libfdisk/gnomefsedit.c:1202 ../libfdisk/gnomefsedit.c:2117
 #: ../libfdisk/newtfsedit.c:576
@@ -1965,6 +1977,8 @@ msgid ""
 "You have created a swap partition which is too large. The maximum size of a "
 "swap partition is %ld Megabytes."
 msgstr ""
+"Du har oprettet en swappartition der er for stor. Den maksimalt tilladte "
+"størrelse på en swappartition er %ld megabyte."
 
 #: ../libfdisk/gnomefsedit.c:1219 ../libfdisk/gnomefsedit.c:1226
 msgid "No RAID Drive Constraint"
@@ -2040,6 +2054,8 @@ msgid ""
 "The mount point requested is already in use. Please select a valid mount "
 "point."
 msgstr ""
+"Monteringspunktet er allerede i brug. Vælg venligst et gyldigt "
+"monteringspunkt."
 
 #: ../libfdisk/gnomefsedit.c:2027
 msgid "Booting From RAID Warning"
@@ -2069,6 +2085,8 @@ msgid ""
 "The raid device \"/dev/%s\" is already configured as a raid device. Please "
 "select another."
 msgstr ""
+"Raid enheden \"/dev/%s\" er allerede konfigureret som en raid enhed. Vælg "
+"venligst en anden."
 
 #: ../libfdisk/gnomefsedit.c:2059
 msgid "Not Enough Partitions"
@@ -2079,6 +2097,7 @@ msgid ""
 "You have not configured enough partitions for the RAID type you have "
 "selected."
 msgstr ""
+"Du har ikke konfigureret nok partitioner for den RAID typr du har valgt."
 
 #: ../libfdisk/gnomefsedit.c:2068
 msgid "Illegal /boot RAID Type"
@@ -2127,7 +2146,7 @@ msgstr "Brug eksisterende ledig plads"
 #. workstation or server?
 #: ../libfdisk/gnomefsedit.c:2327
 msgid "Intended Use"
-msgstr ""
+msgstr "Forventet brug"
 
 #: ../libfdisk/gnomefsedit.c:2366
 msgid "Workstation"
@@ -2143,11 +2162,11 @@ msgstr "Er du sikker på at du vil fjerne denne RAID enhed?"
 
 #: ../libfdisk/gnomefsedit.c:2492 ../libfdisk/newtfsedit.c:1581
 msgid "Reset Partition Table"
-msgstr ""
+msgstr "Gendan partitionstabel"
 
 #: ../libfdisk/gnomefsedit.c:2494 ../libfdisk/newtfsedit.c:1583
 msgid "Reset partition table to original contents? "
-msgstr ""
+msgstr "Gendan partitionstabel til det oprindelige indhold?"
 
 #: ../libfdisk/gnomefsedit.c:2530 ../libfdisk/gnomefsedit.c:2581
 msgid "<Swap>"
@@ -2245,8 +2264,8 @@ msgid ""
 "\n"
 "Are you sure you want to exit?"
 msgstr ""
-"Der er uallokerede partitioner tilbage. Hvis du afslutter nu, vil de ikke "
-"blive skrevet på disken.\n"
+"Der er stadig uallokerede partitioner tilbage. Hvis du afslutter nu, vil de "
+"ikke blive skrevet på disken.\n"
 "\n"
 "Er du sikker på at du vil afslutte?"
 
@@ -2311,12 +2330,16 @@ msgid ""
 "The floppy disk you inserted is not a valid driver disk for this release of "
 "Red Hat Linux."
 msgstr ""
+"Disketten du indsatte er ikke en gyldig driverdisk for denne udgave af Red "
+"Hat Linux."
 
 #: ../loader/devices.c:237
 msgid ""
 "Which driver should I try?. If the driver you need does not appear in this "
 "list, and you have a separate driver disk, please press F2."
 msgstr ""
+"Hvilken driver skal jeg prøve? Hvis driveren du mangler ikke findes på denne "
+"liste og du har en separat driverdisk, tryk venligst på F2."
 
 #: ../loader/devices.c:242
 msgid "Which driver should I try?"
@@ -2333,17 +2356,17 @@ msgstr "Kickstartfejl"
 #: ../loader/kickstart.c:59
 #, c-format
 msgid "Error opening: kickstart file %s: %s"
-msgstr ""
+msgstr "Fejl ved åbning: kickstartfil %s: %s"
 
 #: ../loader/kickstart.c:69
 #, c-format
 msgid "Error reading contents of kickstart file %s: %s"
-msgstr ""
+msgstr "Fejl ved læsning af indhold af kickstartfil %s: %s"
 
 #: ../loader/kickstart.c:108
 #, c-format
 msgid "Error on line %d of kickstart file %s."
-msgstr ""
+msgstr "Fejl på linie %d i kickstartfilen %s."
 
 #: ../loader/lang.c:275
 msgid "Choose a Language"
@@ -2409,11 +2432,11 @@ msgstr "Indlæser"
 
 #: ../loader/loader.c:467
 msgid "Loading second stage ramdisk..."
-msgstr ""
+msgstr "Indlæser andet trins ramdisk..."
 
 #: ../loader/loader.c:471
 msgid "Error loading ramdisk."
-msgstr ""
+msgstr "Fejl ved indlæsning af ramdisk."
 
 #: ../loader/loader.c:608
 msgid "Hard Drives"
@@ -2443,17 +2466,19 @@ msgstr "Vælg partition"
 #: ../loader/loader.c:702
 #, c-format
 msgid "Device %s does not appear to contain a Red Hat installation tree."
-msgstr ""
+msgstr "Enheden %s ser ikke ud til at indholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:754
 msgid ""
 "I could not find a Red Hat Linux CDROM in any of your CDROM drives. Please "
 "insert the Red Hat CD and press \"OK\" to retry."
 msgstr ""
+"Jeg kunne ikke finde en Red Hat Linux CDROM i nogen af dine CDROM drev. "
+"Indsæt venligst Red Hat CD'en og tryk på \"OK\" for at prøve igen."
 
 #: ../loader/loader.c:911
 msgid "That directory does not seem to contain a Red Hat installation tree."
-msgstr ""
+msgstr "Den mappe ser ikke ud til at indholde et Red Hat installationstræ."
 
 #: ../loader/loader.c:916
 msgid "I could not mount that directory from the server"
@@ -2477,11 +2502,11 @@ msgstr "Installationsmetode"
 
 #: ../loader/loader.c:1155
 msgid "What type of media contains the rescue image?"
-msgstr ""
+msgstr "Hvilken type medium befinder rednings-imaget sig på?"
 
 #: ../loader/loader.c:1157
 msgid "What type of media contains the packages to be installed?"
-msgstr ""
+msgstr "Hvilken type medium befinder pakkerne som skal installeres sig på?"
 
 #: ../loader/loader.c:1693
 msgid "Cannot find ks.cfg on boot floppy."
@@ -2725,12 +2750,17 @@ msgid ""
 "wish to use below. If you are using an FTP proxy enter the name of the FTP "
 "proxy server to use."
 msgstr ""
+"Hvis du bruger ikke-anonym ftp, så indtast det kontonavn og den adgangskode "
+"du vil bruge herunder. Hvis du bruger en FTP proxy så indtast navnet på den "
+"FTP proxyserver du vil bruge."
 
 #: ../loader/urls.c:313
 msgid ""
 "If you are using a HTTP proxy server enter the name of the HTTP proxy server "
 "to use."
 msgstr ""
+"Hvis du bruger en HTTP proxyserver så indtast navnet på den HTTP proxy "
+"server du vil bruge."
 
 #: ../loader/urls.c:334
 msgid "Account name:"
