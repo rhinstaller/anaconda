@@ -360,6 +360,9 @@ class Network:
                                                                 device)
             f = open(fn, "w")
 	    os.chmod(fn, 0644)
+	    if len(dev.get("DESC")) > 0:
+		f.write("# %s\n" % (dev.get("DESC"),))
+		
             f.write(str(dev))
             f.close()
 
