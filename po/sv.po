@@ -6,9 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-02 22:34-0400\n"
-"PO-Revision-Date: 2003-10-03 01:53+0200\n"
+"PO-Revision-Date: 2003-10-03 12:45+0200\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -172,9 +171,9 @@ msgstr ""
 "Ingen mus hittades. En mus krävs för grafisk installation. Startar textläge."
 
 #: ../anaconda:856
-#, fuzzy, c-format
+#, c-format
 msgid "Detected mouse type: %s"
-msgstr "Använder mustyp: %s"
+msgstr "Upptäckte mustyp: %s"
 
 #: ../anaconda:860
 #, c-format
@@ -1445,12 +1444,11 @@ msgstr ""
 "Följande paket är tillgängliga i denna version men installerades INTE:\n"
 
 #: ../packages.py:1350
-#, fuzzy
 msgid "Warning! This is pre-release software!"
-msgstr "Varning! Detta är en beta!"
+msgstr "Varning! Detta är en förhandsutgåva av programvara!"
 
 #: ../packages.py:1351
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1464,7 +1462,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Tack för att du har hämtat denna %s-betaversion.\n"
+"Tack för att du har hämtat denna förhandsutgåva av %s.\n"
 "\n"
 "Detta är inte den slutgiltiga versionen och den är inte avsedd för "
 "användning på system i produktion. Ändamålet med denna version är att samla "
@@ -1477,9 +1475,11 @@ msgstr ""
 "och fyller i en felrapport mot \"%s\".\n"
 
 #: ../packages.py:1364
-#, fuzzy
 msgid "_Install anyway"
-msgstr "_Installera %s"
+msgstr "_Installera ändå"
+
+msgid "Install %s"
+msgstr "Installera %s"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:498
 msgid "Foreign"
@@ -2914,9 +2914,11 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gratulerar, installationen är färdig.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2932,9 +2934,7 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Gratulerar, installationen är färdig.\n"
-"\n"
-"%s%sFör information om uppdateringar och felfixar, besök:\n"
+"För information om uppdateringar och felfixar, besök:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "För information om automatiska uppdateringar genom Red Hat Network, besök:\n"
@@ -3122,11 +3122,18 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Om detta system är anslutet direkt till Internet eller om det finns på ett "
+"stort allmänt nätverk rekommenderas det att en brandvägg konfigureras för "
+"att hjälpa till att förhindra otillåten åtkomst. Du har dock valt att inte "
+"konfigurera en brandvägg. Välj \"Fortsätt\" för att fortsätta utan en "
+"brandvägg."
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Router/brandvägg"
+msgstr "_Konfigurera brandvägg"
+
+msgid "Configure Firewall"
+msgstr "Konfigurera brandvägg"
 
 #: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:201
@@ -3857,13 +3864,13 @@ msgid "Cannot Delete"
 msgstr "Kan inte ta bort"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Detta startmål kan inte tas bort eftersom det är avsett för det Red Hat "
-"Linux-system du håller på att installera."
+"Detta startmål kan inte tas bort eftersom det är avsett för det %s-system du "
+"håller på att installera."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4284,37 +4291,46 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Partitionera manuellt med _Disk Druid"
 
 #: ../iw/progress_gui.py:37
-#, fuzzy
 msgid " MB"
-msgstr "SMB"
+msgstr " MB"
+
+msgid "MB"
+msgstr "MB"
 
 #: ../iw/progress_gui.py:40
 msgid " KB"
-msgstr ""
+msgstr " kB"
+
+msgid "KB"
+msgstr "kB"
 
 #: ../iw/progress_gui.py:43
-#, fuzzy
 msgid " Byte"
-msgstr "%s kilobyte"
+msgstr " byte"
+
+msgid "Byte"
+msgstr "byte"
 
 #: ../iw/progress_gui.py:45
-#, fuzzy
 msgid " Bytes"
-msgstr "%s kilobyte"
+msgstr " byte"
+
+msgid "Bytes"
+msgstr "byte"
 
 #: ../iw/progress_gui.py:50 ../iw/progress_gui.py:321
 msgid "Installing Packages"
 msgstr "Installerar paket"
 
 #: ../iw/progress_gui.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading %s"
-msgstr "Hämtar - %s"
+msgstr "Hämtar %s"
 
 #: ../iw/progress_gui.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Installerar %s-%s-%s.%s.\n"
+msgstr "Installerar %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:271 ../iw/progress_gui.py:526
 msgid "Summary"
@@ -4339,9 +4355,9 @@ msgid "Remaining"
 msgstr "Återstår"
 
 #: ../iw/progress_gui.py:439
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Installerar %s-%s-%s.%s.\n"
+msgstr "Installerar %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:576
 msgid "Package Progress: "
@@ -5201,9 +5217,12 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gratulerar, din installation av %s är färdig.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5211,13 +5230,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Gratulerar, din installation av %s är färdig.\n"
-"\n"
-"%s%sInformation om uppdateringar och programfixar hittar du på http://www."
-"redhat.com/errata.\n"
+"Information om uppdateringar och programfixar hittar du på http://www."
+"redhat.com/errata/.\n"
 "\n"
 "Information om användning och konfiguration av ditt system finns i %s-"
-"manualerna på http://www.redhat.com/docs."
+"manualerna på http://www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:53
 msgid "Complete"
@@ -5884,8 +5901,10 @@ msgid "    Packages"
 msgstr "       Paket"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
+msgstr "        Byte"
+
+msgid "       Byte"
 msgstr "        Byte"
 
 #: ../textw/progress_text.py:149
@@ -8035,9 +8054,8 @@ msgid "Chinese(Traditional)"
 msgstr "Kinesiska (traditionell)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Skapar"
+msgstr "Kroatiska"
 
 #. generated from lang-table
 msgid "Czech"

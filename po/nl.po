@@ -12,10 +12,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: anaconda-9.0.94\n"
+"Project-Id-Version: anaconda-9.0.95\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-02 22:34-0400\n"
-"PO-Revision-Date: 2003-09-28 14:49+0200\n"
+"PO-Revision-Date: 2003-10-04 13:35+0200\n"
 "Last-Translator: Peter van Egdom <p.van.egdom@chello.nl>\n"
 "Language-Team: Dutch <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -187,9 +187,9 @@ msgstr ""
 "vereist. Tekstmodus wordt nu opgestart."
 
 #: ../anaconda:856
-#, fuzzy, c-format
+#, c-format
 msgid "Detected mouse type: %s"
-msgstr "Muistype dat nu wordt gebruikt: %s"
+msgstr "Gedetecteerd muistype: %s"
 
 #: ../anaconda:860
 #, c-format
@@ -1382,12 +1382,12 @@ msgstr ""
 #: ../packages.py:850 ../packages.py:1143
 #, python-format
 msgid "Upgrading %s-%s-%s.%s.\n"
-msgstr "Bezig met upgraden %s-%s-%s.%s.\n"
+msgstr "Bezig met upgraden van %s-%s-%s.%s.\n"
 
 #: ../packages.py:852 ../packages.py:1145
 #, python-format
 msgid "Installing %s-%s-%s.%s.\n"
-msgstr "Bezig met installeren %s-%s-%s.%s.\n"
+msgstr "Bezig met installeren van %s-%s-%s.%s.\n"
 
 #: ../packages.py:868
 #, python-format
@@ -1461,7 +1461,7 @@ msgstr "Na-installatie"
 
 #: ../packages.py:999
 msgid "Performing post install configuration..."
-msgstr "Bezig met configureren na de installatie..."
+msgstr "Bezig met na-installatie configuratie..."
 
 #: ../packages.py:1168
 msgid ""
@@ -1486,12 +1486,11 @@ msgstr ""
 "geïnstalleerd:\n"
 
 #: ../packages.py:1350
-#, fuzzy
 msgid "Warning! This is pre-release software!"
-msgstr "Opgepast! Dit is een betaversie!"
+msgstr "Opgepast! Deze software is een proefversie!"
 
 #: ../packages.py:1351
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1505,7 +1504,7 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Dank u voor het downloaden van deze %s Beta-versie.\n"
+"Dank u voor het downloaden van deze proefversie van %s.\n"
 "\n"
 "Dit is niet de uiteindelijke versie en het is niet bedoeld voor gebruik op "
 "productie-systemen. De bedoeling van deze versie is het verzamelen van "
@@ -1518,9 +1517,8 @@ msgstr ""
 "en maak een foutrapportage voor '%s'.\n"
 
 #: ../packages.py:1364
-#, fuzzy
 msgid "_Install anyway"
-msgstr "_Installeer %s"
+msgstr "_Installeer toch"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:498
 msgid "Foreign"
@@ -2983,9 +2981,11 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gefeliciteerd, de installatie is voltooid.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -3001,9 +3001,7 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Gefeliciteerd, de installatie is voltooid.\n"
-"\n"
-"%s%sVoor Errata-informatie (updates en bug fixes), bezoek:\n"
+"Voor Errata-informatie (updates en bug fixes), bezoek:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "Voor informatie over automatische updates via Red Hat Network, bezoek:\n"
@@ -3193,11 +3191,15 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Als dit systeem rechtstreeks met het Internet is verbonden of deel uitmaakt "
+"van een groot publiek netwerk, is het aan te raden om een firewall te "
+"configureren om ongeautoriseerde toegang te helpen voorkomen. Echter, u heeft "
+"er voor gekozen om geen firewall te configureren.  Kies \"Verder gaan\" om "
+"door te gaan zonder firewall."
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "%s configureren"
+msgstr "_Configureer Firewall"
 
 #: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:201
@@ -3939,13 +3941,13 @@ msgid "Cannot Delete"
 msgstr "Kan niet verwijderen"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Dit opstartdoel kan niet worden verwijderd omdat het voor het Red Hat Linux "
-"systeem is dat u wilt gaan installeren."
+"Dit opstartdoel kan niet worden verwijderd omdat het voor het %s systeem is "
+"dat u wilt gaan installeren."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4372,37 +4374,34 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Handmatig partitioneren met _Disk Druid"
 
 #: ../iw/progress_gui.py:37
-#, fuzzy
 msgid " MB"
-msgstr "SMB"
+msgstr " MB"
 
 #: ../iw/progress_gui.py:40
 msgid " KB"
-msgstr ""
+msgstr " KB"
 
 #: ../iw/progress_gui.py:43
-#, fuzzy
 msgid " Byte"
-msgstr "%s KByte"
+msgstr " Byte"
 
 #: ../iw/progress_gui.py:45
-#, fuzzy
 msgid " Bytes"
-msgstr "%s KByte"
+msgstr " Bytes"
 
 #: ../iw/progress_gui.py:50 ../iw/progress_gui.py:321
 msgid "Installing Packages"
 msgstr "Pakketten Installeren"
 
 #: ../iw/progress_gui.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading %s"
-msgstr "Downloaden - %s"
+msgstr "Downloaden van %s"
 
 #: ../iw/progress_gui.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Bezig met installeren %s-%s-%s.%s.\n"
+msgstr "Bezig met installeren van %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:271 ../iw/progress_gui.py:526
 msgid "Summary"
@@ -4427,9 +4426,9 @@ msgid "Remaining"
 msgstr "Resterend"
 
 #: ../iw/progress_gui.py:439
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Bezig met installeren %s-%s-%s.%s.\n"
+msgstr "Bezig met installeren van %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:576
 msgid "Package Progress: "
@@ -5300,9 +5299,12 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Gefeliciteerd! uw %s installatie is voltooid.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5310,13 +5312,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Gefeliciteerd! uw %s installatie is voltooid.\n"
-"\n"
-"%s%sVoor informatie over errata (updates en bug fixes), bezoek http://www."
+"Voor informatie over errata (updates en bug fixes), bezoek http://www."
 "redhat.com/errata.\n"
 "\n"
 "Informatie over het gebruik van uw systeem is beschikbaar in de %s "
-"handleiding op http://www.redhat.com/docs."
+"handleidingen op http://www.redhat.com/docs."
 
 #: ../textw/complete_text.py:53
 msgid "Complete"
@@ -5991,9 +5991,8 @@ msgid "    Packages"
 msgstr "    Pakketten"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "       Bytes"
+msgstr "      Bytes"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -8154,9 +8153,8 @@ msgid "Chinese(Traditional)"
 msgstr "Chinees(Traditioneel)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Aanmaken"
+msgstr "Kroatisch"
 
 #. generated from lang-table
 msgid "Czech"

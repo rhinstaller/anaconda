@@ -173,9 +173,9 @@ msgstr ""
 "textaham."
 
 #: ../anaconda:856
-#, fuzzy, c-format
+#, c-format
 msgid "Detected mouse type: %s"
-msgstr "Músartegund: %s"
+msgstr "Músargerðin sem fannst: %s"
 
 #: ../anaconda:860
 #, c-format
@@ -1438,12 +1438,11 @@ msgstr ""
 "Eftirfarandi pakkar voru til staðar í þessari útgáfu en EKKI settir inn:\n"
 
 #: ../packages.py:1350
-#, fuzzy
 msgid "Warning! This is pre-release software!"
 msgstr "Aðvörun! Þetta er beta-hugbúnaður!"
 
 #: ../packages.py:1351
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1469,9 +1468,8 @@ msgstr ""
 "og flokkað það í flokkinn '%s'.\n"
 
 #: ../packages.py:1364
-#, fuzzy
 msgid "_Install anyway"
-msgstr "_Setja upp %s"
+msgstr "_Setja samt upp"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:498
 msgid "Foreign"
@@ -2883,9 +2881,11 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Til hamingju, uppsetningu er lokið.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2901,10 +2901,7 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Til hamingju, uppsetningu er lokið.\n"
-"\n"
-"%s%sFyrir frekari upplýsingar um villuleiðréttingar eða uppfærslur, farðu "
-"á:\n"
+"Fyrir frekari upplýsingar um villuleiðréttingar eða uppfærslur, farðu á:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "Upplýsingar um sjálfvirkar uppfærslur um Red Hat Network eru á:\n"
@@ -3089,11 +3086,14 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Ef þessi vél er tengd við Internetið eða annað stórt almennt net mælum við "
+"með því að þú stillir eldvegginn til að fyrirbyggja að óprúttnir aðilar "
+"geti notað vélina. Þú hefur hinsvegar kosið að nota ekki eldvegginn. "
+"Veldu \"Halda áfram\" til að halda áfram uppsetningunni án eldveggs."
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Stillingar %s"
+msgstr "_Stillingar eldveggs"
 
 #: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:201
@@ -3825,13 +3825,13 @@ msgid "Cannot Delete"
 msgstr "Get ekki eytt"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
 "Þessu ræsitæki er ekki hægt að eyða vegna þess að það verður notað í þessari "
-"Red Hat Linux vél sem þú ert að fara að setja upp."
+"%s vél sem þú ert að fara að setja upp."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4252,37 +4252,34 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Sneiða handvirkt með _Diska Drúídanum"
 
 #: ../iw/progress_gui.py:37
-#, fuzzy
 msgid " MB"
-msgstr "SMB"
+msgstr " MB"
 
 #: ../iw/progress_gui.py:40
 msgid " KB"
-msgstr ""
+msgstr " KB"
 
 #: ../iw/progress_gui.py:43
-#, fuzzy
 msgid " Byte"
-msgstr "%s KBæti"
+msgstr " Bæti"
 
 #: ../iw/progress_gui.py:45
-#, fuzzy
 msgid " Bytes"
-msgstr "%s KBæti"
+msgstr " Bæti"
 
 #: ../iw/progress_gui.py:50 ../iw/progress_gui.py:321
 msgid "Installing Packages"
 msgstr "Set inn pakka"
 
 #: ../iw/progress_gui.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading %s"
-msgstr "Sæki - %s"
+msgstr "Sæki %s"
 
 #: ../iw/progress_gui.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Set inn %s-%s-%s.%s.\n"
+msgstr "Set inn %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:271 ../iw/progress_gui.py:526
 msgid "Summary"
@@ -4307,13 +4304,13 @@ msgid "Remaining"
 msgstr "Eftir"
 
 #: ../iw/progress_gui.py:439
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Set inn %s-%s-%s.%s.\n"
+msgstr "Set inn %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:576
 msgid "Package Progress: "
-msgstr "Framvinda pakka:  "
+msgstr "Framvinda pakka: "
 
 #: ../iw/progress_gui.py:581
 msgid "Total Progress:   "
@@ -5155,9 +5152,12 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Til hamingju, uppsetningu %s er lokið.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5165,9 +5165,7 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Til hamingju, uppsetningu %s er lokið.\n"
-"\n"
-"%s%sÁ http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
+"Á http://www.redhat.com/errata má finna uppfærslur, viðbætur og/eða "
 "lagfæringar á göllum sem gætu verið til staðar í þessari útgáfu af "
 "stýrikerfinu.\n"
 "\n"
@@ -5839,9 +5837,8 @@ msgid "    Packages"
 msgstr "    Pakkar"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "       Bæti"
+msgstr "      Bæti"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -7979,9 +7976,8 @@ msgid "Chinese(Traditional)"
 msgstr "Kínverska(hefðbundin)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Bý til"
+msgstr "Króatíska"
 
 #. generated from lang-table
 msgid "Czech"
@@ -8054,30 +8050,3 @@ msgstr "Sænska"
 #. generated from lang-table
 msgid "Turkish"
 msgstr "Tyrkneska"
-
-#~ msgid "Online Help"
-#~ msgstr "Hjálp"
-
-#~ msgid "_Install BETA"
-#~ msgstr "_Setja upp BETU"
-
-#~ msgid ""
-#~ "You have elected to disable the firewall on this system.  This is not "
-#~ "recomended if this system is attached directly to the Internet or is on a "
-#~ "large public network. A firewall will help prevent unauthorized access to "
-#~ "your system.\n"
-#~ "\n"
-#~ "Are you sure you want to turn off the firewall?"
-#~ msgstr ""
-#~ "Þú hefur kosið að slökkva á eldveggnum í þessari vél. Við mælum ekki með "
-#~ "að þetta sé gert ef vélin er tengd við Internetið eða önnur stór net. "
-#~ "Eldveggurinn mun aðstoða við það að halda óvelkomnum gestum frá vélinni "
-#~ "þinni.\n"
-#~ "\n"
-#~ "Ertu viss um að þú viljir slökkva á eldveggnum?"
-
-#~ msgid "Set hostname"
-#~ msgstr "Setja vélarheiti"
-
-#~ msgid "Welcome"
-#~ msgstr "Velkomin(n)"

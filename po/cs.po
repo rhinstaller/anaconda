@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: install VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-02 22:34-0400\n"
-"PO-Revision-Date: 2003-09-20 18:32+0200\n"
+"PO-Revision-Date: 2003-10-03 15:56+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -171,9 +171,9 @@ msgstr ""
 "spuštěna textová verze instalačního programu."
 
 #: ../anaconda:856
-#, fuzzy, c-format
+#, c-format
 msgid "Detected mouse type: %s"
-msgstr "Používám typ myši: %s"
+msgstr "Detekovaný typ typ myši: %s"
 
 #: ../anaconda:860
 #, c-format
@@ -1437,12 +1437,11 @@ msgstr ""
 "nainstalovány:\n"
 
 #: ../packages.py:1350
-#, fuzzy
 msgid "Warning! This is pre-release software!"
-msgstr "Varování! Toto je betaverze!"
+msgstr "Varování! Toto není konečná verze software!"
 
 #: ../packages.py:1351
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1456,21 +1455,20 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Děkujeme vám, že jste si stáhli tuto betaverzi %s.\n"
+"Děkujeme vám, že jste si stáhli tuto předběžnou verzi %s.\n"
 "\n"
 "Toto není konečná verze a není určena pro nasazení na důležitých počítačích. "
 "Účel této verze je získat ohlasy od testerů, není vhodná pro běžné použití.\n"
 "\n"
-"Pro nahlášení svých poznatků prosím navštivte\n"
+"Pro nahlášení svých poznatků prosím navštivte:\n"
 "\n"
 "    http://bugzilla.redhat.com/bugzilla\n"
 "\n"
 "a založte zprávu pro '%s'.\n"
 
 #: ../packages.py:1364
-#, fuzzy
 msgid "_Install anyway"
-msgstr "_Instalovat %s"
+msgstr "Přesto _instalovat"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:498
 msgid "Foreign"
@@ -2880,9 +2878,11 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Blahopřejeme, instalace je dokončena.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2898,9 +2898,7 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Blahopřejeme, instalace je hotova.\n"
-"\n"
-"%s%sPro informace o errata (aktualizace a opravy chyb) navštivte:\n"
+"Pro informace o errata (aktualizacích a opravách chyb) navštivte:\n"
 "\thttp://www.redhat.com/errata/\n"
 "\n"
 "Pro informace o automatických aktualizacích pomocí Red Hat Network "
@@ -3087,11 +3085,14 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Pokud je tento systém připojen přímo k Internetu nebo je ve velké veřejné "
+"síti, doporučuje se nastavit firewall, který pomůže zabránit "
+"neautorizovanému přístupu. Vy jste se ale rozhodli nenastavovat firewall. "
+"Pokračujte bez firewallu zvolením \"Pokračovat\"."
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Nastavit %s"
+msgstr "_Nastavit firewall"
 
 #: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:201
@@ -3822,13 +3823,13 @@ msgid "Cannot Delete"
 msgstr "Nelze odstranit"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Tento cíl zavádění nelze odstranit, protože je pro systém Red Hat Linux, "
-"který budete instalovat."
+"Tento cíl zavádění nelze odstranit, protože je pro systém %s, který budete "
+"instalovat."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -4250,37 +4251,34 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Ruční vytvoření oddílů pomocí programu Dis_k Druid"
 
 #: ../iw/progress_gui.py:37
-#, fuzzy
 msgid " MB"
-msgstr "SMB"
+msgstr " MB"
 
 #: ../iw/progress_gui.py:40
 msgid " KB"
-msgstr ""
+msgstr " KB"
 
 #: ../iw/progress_gui.py:43
-#, fuzzy
 msgid " Byte"
-msgstr "%s KB"
+msgstr " bajt"
 
 #: ../iw/progress_gui.py:45
-#, fuzzy
 msgid " Bytes"
-msgstr "%s KB"
+msgstr " bajtů"
 
 #: ../iw/progress_gui.py:50 ../iw/progress_gui.py:321
 msgid "Installing Packages"
 msgstr "Instaluji balíčky"
 
 #: ../iw/progress_gui.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading %s"
-msgstr "Stahuji - %s"
+msgstr "Stahuji %s"
 
 #: ../iw/progress_gui.py:155
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Instaluji %s-%s-%s.%s.\n"
+msgstr "Instaluji %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:271 ../iw/progress_gui.py:526
 msgid "Summary"
@@ -4305,9 +4303,9 @@ msgid "Remaining"
 msgstr "Zbývá"
 
 #: ../iw/progress_gui.py:439
-#, fuzzy, python-format
+#, python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Instaluji %s-%s-%s.%s.\n"
+msgstr "Instaluji %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:576
 msgid "Package Progress: "
@@ -5154,9 +5152,12 @@ msgid ""
 "\n"
 "%s%s"
 msgstr ""
+"Blahopřejeme, vaše instalace %s je dokončena.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:47
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5164,13 +5165,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Blahopřejeme, instalace systému %s je dokončena.\n"
-"\n"
-"%s%sPro informace o errata (aktualizacích a opravách chyb) navštivte http://"
-"www.redhat.com/errata.\n"
+"Pro informace o errata (aktualizacích a opravách chyb) navštivte http://www."
+"redhat.com/errata/.\n"
 "\n"
 "Informace o používání systému naleznete v manuálech distribuce %s na http://"
-"www.redhat.com/docs."
+"www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:53
 msgid "Complete"
@@ -5837,9 +5836,8 @@ msgid "    Packages"
 msgstr "    Balíčků "
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "       Bajtů"
+msgstr "      Bajtů"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -7974,9 +7972,8 @@ msgid "Chinese(Traditional)"
 msgstr "Čínština(tradiční)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Vytváření"
+msgstr "Chorvatština"
 
 #. generated from lang-table
 msgid "Czech"
@@ -8053,24 +8050,6 @@ msgstr "Turečtina"
 #~ msgid "Online Help"
 #~ msgstr "Online nápověda"
 
-#~ msgid "_Install BETA"
-#~ msgstr "_Instalovat BETAVERZI"
-
-#~ msgid ""
-#~ "You have elected to disable the firewall on this system.  This is not "
-#~ "recomended if this system is attached directly to the Internet or is on a "
-#~ "large public network. A firewall will help prevent unauthorized access to "
-#~ "your system.\n"
-#~ "\n"
-#~ "Are you sure you want to turn off the firewall?"
-#~ msgstr ""
-#~ "Rozhodli jste se zakázat v tomto systému firewall. Toto se nedoporučuje, "
-#~ "pokud je tento systém připojen přímo k Internetu nebo je na velké veřejné "
-#~ "síti. Firewall pomůže zabránit nautorizovanému přístupu k vašemu "
-#~ "systému.\n"
-#~ "\n"
-#~ "Jste si jisti, že chcete vypnout firewall?"
-
 #~ msgid "Set hostname"
 #~ msgstr "Nastavit jméno počítače"
 
@@ -8126,9 +8105,6 @@ msgstr "Turečtina"
 #~ msgid "Use _default firewall rules"
 #~ msgstr "Použít _implicitní pravidla pro firewall"
 
-#~ msgid "_Customize"
-#~ msgstr "_Upravit pravidla pro firewall"
-
 #~ msgid ""
 #~ "Your system will be setup to use the frame buffer driver for the X Window "
 #~ "System.  If you do not want to setup the X Window System , choose 'Skip X "
@@ -8137,27 +8113,6 @@ msgstr "Turečtina"
 #~ "Váš systém bude nastaven pro použití ovladače framebuffer pro X Window "
 #~ "System. Pokud nechcete nastavit X Window System, zvolte 'Přeskočit "
 #~ "nastavování X' níže."
-
-#~ msgid ""
-#~ "A firewall protects against unauthorized network intrusions. High "
-#~ "security blocks all incoming accesses. Medium blocks access to system "
-#~ "services (such as telnet or printing), but allows other connections. No "
-#~ "firewall allows all connections and is not recommended. "
-#~ msgstr ""
-#~ "Firewall chrání proti neoprávněnému přístupu po síti. Vysoké zabezpečení "
-#~ "blokuje veškerý příchozí provoz. Střední zabezpečení blokuje přístup k "
-#~ "systémovým službám (například telnet nebo tisk), ale umožňuje ostatní "
-#~ "spojení. Pokud firewall nepoužijete, jsou povolena všechna spojení "
-#~ "(nedoporučujeme)."
-
-#~ msgid "Security Level:"
-#~ msgstr "Úroveň zabezpečení:"
-
-#~ msgid "High"
-#~ msgstr "Vysoká"
-
-#~ msgid "Medium"
-#~ msgstr "Střední"
 
 #~ msgid "Generic"
 #~ msgstr "Obecný"

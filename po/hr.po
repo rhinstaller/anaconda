@@ -1,9 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: anaconda 0\n"
-"Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2003-10-02 22:34-0400\n"
-"PO-Revision-Date: 2003-09-28 17:06+CEST\n"
+"PO-Revision-Date: 2003-10-03 17:25+CEST\n"
 "Last-Translator: auto\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "MIME-Version: 1.0\n"
@@ -141,8 +140,8 @@ msgid ""
 "You do not have enough RAM to use the graphical installer.  Starting text "
 "mode."
 msgstr ""
-"Nemate dovoljno RAM-a za korištenje grafičkog instacijskog programa. "
-"Pokrećem tekstualni način rada."
+"Nemate dovoljno RAM-a za korištenje grafičkog instacijskog programa. Pokrećem "
+"tekstualni način rada."
 
 #: ../anaconda:769
 msgid "Install class forcing text mode installation"
@@ -150,8 +149,7 @@ msgstr "Instalacijska klasa inzistira na tekstualnom načinu instalacije"
 
 #: ../anaconda:796
 msgid "No video hardware found, assuming headless"
-msgstr ""
-"Nije nađen nikakav video uređaj, pretpostavljam da je bez video uređaja"
+msgstr "Nije nađen nikakav video uređaj, pretpostavljam da je bez video uređaja"
 
 #: ../anaconda:807 ../anaconda:1054 ../bar.py:23
 msgid "Unable to instantiate a X hardware state object."
@@ -166,13 +164,13 @@ msgid ""
 "No mouse was detected.  A mouse is required for graphical installation.  "
 "Starting text mode."
 msgstr ""
-"Miš nije pronađen. Miš je potreban za grafičku instalaciju.  Pokrećem "
-"tekstualni način rada."
+"Miš nije pronađen. Miš je potreban za grafičku instalaciju.  "
+"Pokrećem tekstualni način rada."
 
 #: ../anaconda:856
-#, fuzzy, c-format
+#,  c-format
 msgid "Detected mouse type: %s"
-msgstr "Koristim vrstu miša: %s"
+msgstr "Pronašao tip miša: %s"
 
 #: ../anaconda:860
 #, c-format
@@ -181,9 +179,7 @@ msgstr "Koristim vrstu miša: %s"
 
 #: ../autopart.py:933
 msgid "Could not allocate cylinder-based partitions as primary partitions"
-msgstr ""
-"Ne mogu dodjeliti particije, koje su bazirane na cilindrima, kao primarne "
-"particije."
+msgstr "Ne mogu dodjeliti particije, koje su bazirane na cilindrima, kao primarne particije."
 
 #: ../autopart.py:936
 msgid "Could not allocate partitions as primary partitions"
@@ -204,9 +200,9 @@ msgid ""
 "boot from this paritition. Use a partition belonging to a BSD disk label or "
 "change this device disk label to BSD."
 msgstr ""
-"Pokretačka particija %s ne pripada oznaci BSD diska. SRM neće biti u "
-"mogučnostipokrenuti se s ove particije. Koristite particiju koja pripada "
-"oznaci BSD diskaili promjenite oznaku ovog diska u BSD."
+"Pokretačka particija %s ne pripada oznaci BSD diska. SRM neće biti u mogučnosti"
+"pokrenuti se s ove particije. Koristite particiju koja pripada oznaci BSD diska"
+"ili promjenite oznaku ovog diska u BSD."
 
 #: ../autopart.py:1006
 #, python-format
@@ -215,9 +211,9 @@ msgid ""
 "beginning for the bootloader to live on. Make sure that there's at least 5MB "
 "of free space at the beginning of the disk that contains /boot"
 msgstr ""
-"Pokretačka particija %s ne pripada disku s dovoljno slobodnog prostora "
-"nanjegovom početku za postavljanje pokretačkog programa. Budite sigurni "
-"dapostoji najmanje 5MB slobodnog prostora na početku diska koji sadrži /boot"
+"Pokretačka particija %s ne pripada disku s dovoljno slobodnog prostora na"
+"njegovom početku za postavljanje pokretačkog programa. Budite sigurni da"
+"postoji najmanje 5MB slobodnog prostora na početku diska koji sadrži /boot"
 
 #: ../autopart.py:1008
 #, python-format
@@ -225,8 +221,8 @@ msgid ""
 "Boot partition %s isn't a VFAT partition.  EFI won't be able to boot from "
 "this partition."
 msgstr ""
-"Pokretačka particija %s nije VFAT particija. EFI neće biti u "
-"mogučnostipokrenuti se s ove particije."
+"Pokretačka particija %s nije VFAT particija. EFI neće biti u mogučnosti"
+"pokrenuti se s ove particije."
 
 #: ../autopart.py:1010
 msgid ""
@@ -242,8 +238,8 @@ msgid ""
 "Boot partition %s may not meet booting constraints for your architecture.  "
 "Creation of a boot disk is highly encouraged."
 msgstr ""
-"Pokretačka particija %s možda ne zadovoljava uvjete pokretanja na vašem "
-"sustavu.Vrlo preporučujem stvaranje diskete za pokretanje."
+"Pokretačka particija %s možda ne zadovoljava uvjete pokretanja na vašem sustavu."
+"Vrlo preporučujem stvaranje diskete za pokretanje."
 
 #: ../autopart.py:1038
 #, python-format
@@ -251,8 +247,8 @@ msgid ""
 "Adding this partition would not leave enough disk space for already "
 "allocated logical volumes in %s."
 msgstr ""
-"Dodavanje ove particije neće ostaviti dovoljno diskovnog prostora za "
-"većdodjeljene logičke diskove u %s."
+"Dodavanje ove particije neće ostaviti dovoljno diskovnog prostora za već"
+"dodjeljene logičke diskove u %s."
 
 #: ../autopart.py:1195
 msgid "Requested Partition Does Not Exist"
@@ -385,8 +381,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Možete odabrati drugu vrstu automatskog particioniranja, ili kliknuti "
-"'Natrag' za odabir ručnog particioniranja.\n"
+"Možete odabrati drugu vrstu automatskog particioniranja, ili kliknuti 'Natrag' "
+"za odabir ručnog particioniranja.\n"
 "\n"
 "Pritisnite 'U redu' za nastavak."
 
@@ -404,8 +400,8 @@ msgstr ""
 "\n"
 "%s\n"
 "\n"
-"Ovo se može dogoditi ako ne postoji dovoljno prostora za instalaciju na vašem"
-"(m) disku(ovima).%s"
+"Ovo se može dogoditi ako ne postoji dovoljno prostora za instalaciju na "
+"vašem(m) disku(ovima).%s"
 
 #: ../autopart.py:1380
 msgid "Unrecoverable Error"
@@ -437,9 +433,8 @@ msgid ""
 "partitions in an interactive environment. You can set the file system types, "
 "mount points, partition sizes, and more."
 msgstr ""
-"Automatsko particioniranje podešava particije temeljem izabranog tipa "
-"instalacije Jednom stvorene particije također možete prilagoditi vašim "
-"potrebama.\n"
+"Automatsko particioniranje podešava particije temeljem izabranog tipa instalacije "
+"Jednom stvorene particije također možete prilagoditi vašim potrebama.\n"
 "\n"
 "Alat za ručno particioniranje, Disk Druid, omogućava vam stvaranje particija "
 "u interaktivnom okruženju. Možete postaviti tipove datotečnog sustava, mount "
@@ -499,8 +494,8 @@ msgid ""
 "No kernel packages were installed on your system.  Your boot loader "
 "configuration will not be changed."
 msgstr ""
-"Nema instaliranih kernel paketa na sustavu. Postavke vašeg programa za "
-"podizanje sustava neće biti promijenjene."
+"Nema instaliranih kernel paketa na sustavu. Postavke vašeg "
+"programa za podizanje sustava neće biti promijenjene."
 
 #: ../cmdline.py:42 ../iw/progress_gui.py:395 ../iw/progress_gui.py:596
 msgid "Completed"
@@ -516,8 +511,7 @@ msgstr "Ne mogu imati pitanje u naredbenom načinu rada!"
 
 #: ../cmdline.py:86
 msgid "Parted exceptions can't be handled in command line mode!"
-msgstr ""
-"Iznimke programa parted ne mogu biti obrađene u naredbenom načinu rada!"
+msgstr "Iznimke programa parted ne mogu biti obrađene u naredbenom načinu rada!"
 
 #: ../cmdline.py:131
 #, python-format
@@ -577,8 +571,8 @@ msgid ""
 "anaconda at http://bugzilla.redhat.com/bugzilla/"
 msgstr ""
 "Dogodila se nepoznata greška. To bi mogla biti greška u programu. Molim, "
-"kopirajte cijeli tekst koji opisuje ovu grešku i prijavite detaljni "
-"izvještaj o programu anaconda na http://bugzilla.redhat.com/bugzilla/"
+"kopirajte cijeli tekst koji opisuje ovu grešku i prijavite detaljni izvještaj "
+"o programu anaconda na http://bugzilla.redhat.com/bugzilla/"
 
 #: ../exception.py:227 ../text.py:239
 msgid "Exception Occurred"
@@ -605,8 +599,8 @@ msgid ""
 "The size of the kernel modules needed for your machine make it impossible to "
 "create a boot disk that will fit on a floppy diskette."
 msgstr ""
-"Potrebna veličina modula jezgre za vaše računalo omogućuje stvaranje diska "
-"za pokretanje sustava koji stane na disketu."
+"Potrebna veličina modula jezgre za vaše računalo omogućuje stvaranje diska za "
+"pokretanje sustava koji stane na disketu."
 
 #: ../floppy.py:113
 msgid "Insert a floppy disk"
@@ -663,8 +657,8 @@ msgid ""
 "An error occurred while making the boot disk. Please make sure that there is "
 "a floppy in the first floppy drive."
 msgstr ""
-"Dogodila se greška kod stvaranja diskete za pokretanje szstava. Molim, "
-"buditesigurni da se disketa nalazi u prvom disketnoj jedinici."
+"Dogodila se greška kod stvaranja diskete za pokretanje szstava. Molim, budite"
+"sigurni da se disketa nalazi u prvom disketnoj jedinici."
 
 #: ../floppy.py:141
 msgid "Creating"
@@ -688,9 +682,9 @@ msgid ""
 "floppy.  Please make sure that you have a good floppy in the first floppy "
 "drive."
 msgstr ""
-"Izgleda da je vaša disketa za pokretanje sustava neispravna. To je "
-"vjerojatno zbog oštečene diskete. Molim, budite sigurni da imate ispravnu "
-"disketu u prvom disketnom pogonu."
+"Izgleda da je vaša disketa za pokretanje sustava neispravna. To je vjerojatno "
+"zbog oštečene diskete. Molim, budite sigurni da imate ispravnu disketu u "
+"prvom disketnom pogonu."
 
 #: ../fsset.py:174
 msgid "Checking for Bad Blocks"
@@ -770,8 +764,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system"
 msgstr ""
-"Pronađen je neispravni blok podataka na uređaju /dev/%s. Ne preporučujemo "
-"vam korištenje ovog uređaja.\n"
+"Pronađen je neispravni blok podataka na uređaju /dev/%s. Ne preporučujemo vam "
+"korištenje ovog uređaja.\n"
 "\n"
 "Pritisnite <Enter> za ponovno pokretanje sustava."
 
@@ -783,8 +777,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Dogodila se greška prilikom pretraživanja loših blokova na %s. Ovo je "
-"ozbiljan problem i instalacija se ne može nastaviti.\n"
+"Dogodila se greška prilikom pretraživanja loših blokova na %s. Ovo je ozbiljan "
+"problem i instalacija se ne može nastaviti.\n"
 "\n"
 "Pritisnite <Enter> za ponovno pokretanje sustava."
 
@@ -796,8 +790,8 @@ msgid ""
 "\n"
 "Press <Enter> to reboot your system."
 msgstr ""
-"Dogodila se greška prilikom pokušaja oblikovanja %s. Ovo je ozbiljan "
-"problem, te se instalacija ne može nastaviti.\n"
+"Dogodila se greška prilikom pokušaja oblikovanja %s. Ovo je ozbiljan problem, "
+"te se instalacija ne može nastaviti.\n"
 "\n"
 "Pritisnite <Enter> za ponovno pokretanje sustava."
 
@@ -911,8 +905,7 @@ msgstr ""
 "\n"
 "\t/root/anaconda-screenshots/\n"
 "\n"
-"Možete im pristupiti kada ponovno pokrenete računalo i prijavite se kao root "
-"korisnik."
+"Možete im pristupiti kada ponovno pokrenete računalo i prijavite se kao root korisnik."
 
 #: ../gui.py:162
 msgid "Saving Screenshot"
@@ -979,8 +972,8 @@ msgid ""
 "Please insert a floppy now. All contents of the disk will be erased, so "
 "please choose your diskette carefully."
 msgstr ""
-"Molim, sada umetnite disketu. Cijeli sadržaj diskete će biti izbrisan, "
-"stogapazite koju disketu umećete."
+"Molim, sada umetnite disketu. Cijeli sadržaj diskete će biti izbrisan, stoga"
+"pazite koju disketu umećete."
 
 #: ../gui.py:810 ../iw/release_notes_viewer_gui.py:44
 msgid "Release notes are missing.\n"
@@ -1001,8 +994,7 @@ msgid ""
 "\n"
 "className = %s"
 msgstr ""
-"Dogodila se greška prilikom pokušaja učitavanja komponente sučelja "
-"instalacije.\n"
+"Dogodila se greška prilikom pokušaja učitavanja komponente sučelja instalacije.\n"
 "\n"
 "imeKlase = %s"
 
@@ -1085,7 +1077,7 @@ msgid "Required Install Media"
 msgstr "Potreban je instalacijski medij"
 
 #: ../image.py:64
-#, python-format
+#,  python-format
 msgid ""
 "The software you have selected to install will require the following CDs:\n"
 "\n"
@@ -1096,8 +1088,9 @@ msgstr ""
 "Softver odabran za instalaciju treba slijedeće CD medije:\n"
 "\n"
 "%s\n"
-"Pripremite ih prije nastavka instalacije. Ako trebate prekinuti instalaciju "
-"i ponovopokrenuti stroj, odaberite \"Ponovno pokretanje\"."
+"Pripremite ih prije nastavka instalacije. Ako trebate prekinuti instalaciju i ponovo"
+"pokrenuti stroj, odaberite \"Ponovno pokretanje\"."
+""
 
 #: ../image.py:72 ../kickstart.py:1284 ../kickstart.py:1311
 #: ../iw/partition_gui.py:1012
@@ -1110,9 +1103,8 @@ msgid ""
 "An error occurred unmounting the CD.  Please make sure you're not accessing %"
 "s from the shell on tty2 and then click OK to retry."
 msgstr ""
-"Dogodila se greška prilikom odmontiranja CD-a. Molim, budite sigurni da "
-"niste pristupili %s-u iz korisničke ljuske u tty2 i tada pritisnite U redu "
-"za ponovni pokušaj."
+"Dogodila se greška prilikom odmontiranja CD-a. Molim, budite sigurni da niste "
+"pristupili %s-u iz korisničke ljuske u tty2 i tada pritisnite U redu za ponovni pokušaj."
 
 #: ../image.py:163
 msgid "Copying File"
@@ -1127,8 +1119,8 @@ msgid ""
 "An error occurred transferring the install image to your hard drive. You are "
 "probably out of disk space."
 msgstr ""
-"Dogodila se greška prilikom prijenosa instalacijske preslike na vaš tvrdi "
-"disk. Vjerojatno ste ostali bez slobodnog prostora na disku."
+"Dogodila se greška prilikom prijenosa instalacijske preslike na vaš tvrdi disk. "
+"Vjerojatno ste ostali bez slobodnog prostora na disku."
 
 #: ../image.py:257
 msgid "Change CDROM"
@@ -1280,10 +1272,9 @@ msgid ""
 "\n"
 "Press <return> to try again."
 msgstr ""
-"Paket %s-%s-%s ne može biti otvoren. To se dogodilo zbog nepostojanja "
-"datoteke ili možda zbor oštećene datoteke. Ako instalirate s CD medija, to "
-"obično znači da je CD medij oštećen, ili CDROM uređaj ne može čitati taj "
-"medij.\n"
+"Paket %s-%s-%s ne može biti otvoren. To se dogodilo zbog nepostojanja datoteke "
+"ili možda zbor oštećene datoteke. Ako instalirate s CD medija, to obično znači "
+"da je CD medij oštećen, ili CDROM uređaj ne može čitati taj medij.\n"
 "\n"
 "Pritisnite <return> za ponovni pokušaj."
 
@@ -1307,8 +1298,8 @@ msgid ""
 msgstr ""
 "Postoji greška kod instalacija %s-a. To može upućivati na grešku medija, "
 "nedostatak prostora na disku i/ili neispravnost sklopovlja. Ovo je opasna "
-"greška, te će vaša instalacija biti prekinuta. Molim, provjerite vaš medij, "
-"tepokušajte ponovno instalirati.\n"
+"greška, te će vaša instalacija biti prekinuta. Molim, provjerite vaš medij, te"
+"pokušajte ponovno instalirati.\n"
 "\n"
 "Pritisnite 'U redu' tipku za ponovno pokretanje vašeg sustava."
 
@@ -1375,8 +1366,8 @@ msgid ""
 "selected. You need more space on the following file systems:\n"
 "\n"
 msgstr ""
-"Izgleda da nemate dovoljno diskovnog prostora za instaliranje paketa koje "
-"steoznačili. Trebate više prostora na sljedećem datotečnom sustavu:\n"
+"Izgleda da nemate dovoljno diskovnog prostora za instaliranje paketa koje ste"
+"označili. Trebate više prostora na sljedećem datotečnom sustavu:\n"
 "\n"
 
 #: ../packages.py:919 ../packages.py:940 ../iw/lvm_dialog_gui.py:1064
@@ -1395,9 +1386,8 @@ msgid ""
 "selected. You need more file nodes on the following file systems:\n"
 "\n"
 msgstr ""
-"Izgleda da nemate dovoljno diskovnog prostora za instaliranje paketa koje "
-"steoznačili. Trebate više datotečnih čvorova na sljedećem datotečnom "
-"sustavu:\n"
+"Izgleda da nemate dovoljno diskovnog prostora za instaliranje paketa koje ste"
+"označili. Trebate više datotečnih čvorova na sljedećem datotečnom sustavu:\n"
 "\n"
 
 #: ../packages.py:941
@@ -1437,12 +1427,11 @@ msgstr ""
 "Sljedeći paketi dostupni su u ovoj inačici, ali NISU instalirani:\n"
 
 #: ../packages.py:1350
-#, fuzzy
 msgid "Warning! This is pre-release software!"
-msgstr "Upozorenje! Ovo je beta!"
+msgstr "Upozorenje! Ovo je probna inačica softvera!"
 
 #: ../packages.py:1351
-#, fuzzy, python-format
+#,  python-format
 msgid ""
 "Thank you for downloading this pre-release of %s.\n"
 "\n"
@@ -1456,22 +1445,21 @@ msgid ""
 "\n"
 "and file a report against '%s'.\n"
 msgstr ""
-"Hvala Vam na preuzimanju ove %s Beta izdanja.\n"
+"Hvala na skidanju ove probne inačice %s.\n"
 "\n"
-"Ovo nije završno izdanje i nije mu namjnjeno korištenju u prozivodnim "
-"sustavima. Svrha ovog izdanja je sakupljanje povratnih informacija od "
-"ispitivača i nije pogodna za svakodnevnu uporabu.\n"
+"Ovo nije zadnje izdanje i nije namijenjeno produkcijskim sustavima."
+"Svrha ovog izdanja je dobiti povratne informacije od osoba koje će testirati sustav,"
+"te ono nije prigodno za svakodnevnu uporabu.\n"
 "\n"
-"Za slanje povratnih informacija, molim, posjetite:\n"
+"Za slanje povratnih informacije, molim posjetite:\n"
 "\n"
 "   http://bugzilla.redhat.com/bugzilla\n"
 "\n"
-"i podnesite izvještaj za '%s'.\n"
+"i ispunite izveštaj o '%s'.\n"
 
 #: ../packages.py:1364
-#, fuzzy
 msgid "_Install anyway"
-msgstr "_Instaliraj %s"
+msgstr "Ipak instaliraj"
 
 #: ../partedUtils.py:185 ../textw/partition_text.py:498
 msgid "Foreign"
@@ -1487,10 +1475,10 @@ msgid ""
 "\n"
 "Would you like to reformat this DASD using CDL format?"
 msgstr ""
-"Uređaj %s je oblikovan LDL oblikom umjesto CDL oblikom. LDL oblikovani DASD-"
-"ovi ne mogu se koristiti za vrijeme instalacije %s-a. Ako želite koristiti "
-"ovaj disk za instalaciju, on mora biti ponovo oblikovan što će uzrokovati "
-"gubitak SVIH PODATAKA na ovom diksu.\n"
+"Uređaj %s je oblikovan LDL oblikom umjesto CDL oblikom. LDL oblikovani DASD-ovi "
+"ne mogu se koristiti za vrijeme instalacije %s-a. Ako želite koristiti ovaj "
+"disk za instalaciju, on mora biti ponovo oblikovan što će uzrokovati gubitak "
+"SVIH PODATAKA na ovom diksu.\n"
 "\n"
 "Želite li ponovo oblikovati DASD koristeći CDL oblik?"
 
@@ -1535,11 +1523,10 @@ msgid ""
 "Would you like to initialize this drive, erasing ALL DATA?"
 msgstr ""
 "Particijska tablica na uređaju %s nije bila čitljiva. Mora biti inicirana za "
-"stvaranje novih particija, što će prouzročiti gubitak SVIH PODATAKA na ovom "
-"sieku.\n"
+"stvaranje novih particija, što će prouzročiti gubitak SVIH PODATAKA na ovom sieku.\n"
 "\n"
-"Ova operacija će prepisati bilo kakav prijašnji odabir instalacije o "
-"diskovima koji neće biti korišteni.\n"
+"Ova operacija će prepisati bilo kakav prijašnji odabir instalacije o diskovima "
+"koji neće biti korišteni.\n"
 "\n"
 "Želite li inicirati ovaj disk, brišući SVE PODATKE?"
 
@@ -1552,9 +1539,8 @@ msgid ""
 "An error has occurred - no valid devices were found on which to create new "
 "file systems. Please check your hardware for the cause of this problem."
 msgstr ""
-"Dogodila se greška - nađen je neispravan uređaj na kojem se želi stvoriti "
-"novi datotečni sustav. Molim, provjerite vaše sklopolje za pronalaženje "
-"razloga problema."
+"Dogodila se greška - nađen je neispravan uređaj na kojem se želi stvoriti novi "
+"datotečni sustav. Molim, provjerite vaše sklopolje za pronalaženje razloga problema."
 
 #: ../partIntfHelpers.py:35
 msgid "Please enter a volume group name."
@@ -1604,8 +1590,8 @@ msgid ""
 "with '/', and must contain printable characters and no spaces."
 msgstr ""
 "Točka montiranja nije ispravna. Točka montiranja mora početi s '/' i ne može "
-"završiti s '/', te mora sadržavati znakove koji se mogu ispisivati i ne "
-"smije imati razmake."
+"završiti s '/', te mora sadržavati znakove koji se mogu ispisivati i ne smije "
+"imati razmake."
 
 #: ../partIntfHelpers.py:101
 msgid "Please specify a mount point for this partition."
@@ -1737,8 +1723,8 @@ msgid ""
 "\n"
 "Would you like to format this partition as a swap partition?"
 msgstr ""
-"/dev/%s ima tip particije 0x82 (Linux swap) ali čini se da nije formatiran "
-"kao Linux swap particija.\n"
+"/dev/%s ima tip particije 0x82 (Linux swap) ali čini se da nije "
+"formatiran kao Linux swap particija.\n"
 "\n"
 "Želite li formatirati ovu particiju kao swap particiju?"
 
@@ -1783,8 +1769,7 @@ msgid ""
 "%s"
 msgstr ""
 "U particijskoj shemi koju zahtjevate postoje sljedeće kritične greške. Te "
-"greške moraju biti ispravljene prije nego nastavite s vašom instalacijom %s-"
-"a.\n"
+"greške moraju biti ispravljene prije nego nastavite s vašom instalacijom %s-a.\n"
 "\n"
 "%s"
 
@@ -1812,16 +1797,16 @@ msgid ""
 "The following pre-existing partitions have been selected to be formatted, "
 "destroying all data."
 msgstr ""
-"Sljedeće prije postojeće particije bile su označene za oblikovanje, "
-"uništavam sve podatke."
+"Sljedeće prije postojeće particije bile su označene za oblikovanje, uništavam "
+"sve podatke."
 
 #: ../partIntfHelpers.py:450
 msgid ""
 "Select 'Yes' to continue and format these partitions, or 'No' to go back and "
 "change these settings."
 msgstr ""
-"Označite 'Da' za nastavak i oblikovanje ovih particija ili 'Ne' za povratak "
-"i promjenu tih postavki."
+"Označite 'Da' za nastavak i oblikovanje ovih particija ili 'Ne' za povratak i "
+"promjenu tih postavki."
 
 #: ../partIntfHelpers.py:456
 msgid "Format Warning"
@@ -1861,11 +1846,8 @@ msgid "Confirm Reset"
 msgstr "Potvrdite ponovno pokretanje"
 
 #: ../partIntfHelpers.py:528
-msgid ""
-"Are you sure you want to reset the partition table to its original state?"
-msgstr ""
-"Sigurni ste da želite ponovno postaviti particijsku tablicu u njeno "
-"prvobitno stanje?"
+msgid "Are you sure you want to reset the partition table to its original state?"
+msgstr "Sigurni ste da želite ponovno postaviti particijsku tablicu u njeno prvobitno stanje?"
 
 #: ../partitioning.py:76
 msgid "Installation cannot continue."
@@ -1892,17 +1874,15 @@ msgid ""
 "disk immediately. Is that OK?"
 msgstr ""
 "S obzirom da nemate dovoljno memorije na ovoo računalu, trebate hitno "
-"uključiti swap prostor. Da bi se to izvršilo, potrebno je odmah zapisati "
-"novu particijsku tablicu na disk. Želite li to?"
+"uključiti swap prostor. Da bi se to izvršilo, potrebno je odmah zapisati novu "
+"particijsku tablicu na disk. Želite li to?"
 
 #: ../partitions.py:807
 #, python-format
 msgid ""
 "You have not defined a root partition (/), which is required for "
 "installation of %s to continue."
-msgstr ""
-"Niste odredili root particiju (/), koja je potrebna za nastavak instalacije %"
-"s-a."
+msgstr "Niste odredili root particiju (/), koja je potrebna za nastavak instalacije %s-a."
 
 #: ../partitions.py:812
 #, python-format
@@ -1914,8 +1894,7 @@ msgstr ""
 "instalaciju %s-a."
 
 #: ../partitions.py:819
-msgid ""
-"You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
+msgid "You must create a /boot/efi partition of type FAT and a size of 50 megabytes."
 msgstr "Morate stvoriti particiju /boot/efi FAT vrste i veličine 50 megabajta."
 
 #: ../partitions.py:835
@@ -1962,8 +1941,8 @@ msgid ""
 "You have allocated less swap space (%dM) than available RAM (%dM) on your "
 "system.  This could negatively impact performance."
 msgstr ""
-"Dodjelili ste manje swap prostora (%dM) nego što je dostupno RAM-a (%dM) na "
-"vašem računalu. To bi se moglo negativno odraziti na izvršavanje."
+"Dodjelili ste manje swap prostora (%dM) nego što je dostupno RAM-a (%dM) "
+"na vašem računalu. To bi se moglo negativno odraziti na izvršavanje."
 
 #: ../partitions.py:1191
 msgid "the partition in use by the installer."
@@ -1979,11 +1958,8 @@ msgstr "particija koja je dio LVM grupe diskova."
 
 #: ../partRequests.py:233
 #, python-format
-msgid ""
-"This mount point is invalid.  The %s directory must be on the / file system."
-msgstr ""
-"Ova točka montiranja nije ispravna. Mapa %s mora biti na / datotečnom "
-"sustavu."
+msgid "This mount point is invalid.  The %s directory must be on the / file system."
+msgstr "Ova točka montiranja nije ispravna. Mapa %s mora biti na / datotečnom sustavu."
 
 #: ../partRequests.py:236
 #, python-format
@@ -1991,8 +1967,8 @@ msgid ""
 "The mount point %s cannot be used.  It must be a symbolic link for proper "
 "system operation.  Please select a different mount point."
 msgstr ""
-"Točka montiranja %s ne može biti korištena. Ona mora biti simbolička veza za "
-"ispravni rad sustava. Molim, označite drugu točku montiranja."
+"Točka montiranja %s ne može biti korištena. Ona mora biti simbolička veza "
+"za ispravni rad sustava. Molim, označite drugu točku montiranja."
 
 #: ../partRequests.py:243
 msgid "This mount point must be on a linux file system."
@@ -2012,9 +1988,7 @@ msgstr ""
 msgid ""
 "The size of the %s partition (%10.2f MB) exceeds the maximum size of %10.2f "
 "MB."
-msgstr ""
-"Veličina particije %s (%10.2f MB) prekoračuje najveću moguću veličinu od %"
-"10.2f MB."
+msgstr "Veličina particije %s (%10.2f MB) prekoračuje najveću moguću veličinu od %10.2f MB."
 
 #: ../partRequests.py:469
 #, python-format
@@ -2022,8 +1996,8 @@ msgid ""
 "The size of the requested partition (size = %s MB) exceeds the maximum size "
 "of %s MB."
 msgstr ""
-"Veličina zahtjevanje particije (veličina= %s MB) prekoračuje najveću "
-"veličinu od %s MB"
+"Veličina zahtjevanje particije (veličina= %s MB) prekoračuje najveću veličinu "
+"od %s MB"
 
 #: ../partRequests.py:474
 #, python-format
@@ -2079,14 +2053,11 @@ msgstr "Otkazano"
 
 #: ../rescue.py:221 ../text.py:468
 msgid "I can't go to the previous step from here. You will have to try again."
-msgstr ""
-"Ne mogu ići na prethodni kora s ove točke. Morati ćete pokušati ponovo."
+msgstr "Ne mogu ići na prethodni kora s ove točke. Morati ćete pokušati ponovo."
 
 #: ../rescue.py:237 ../rescue.py:272 ../rescue.py:426
 msgid "When finished please exit from the shell and your system will reboot."
-msgstr ""
-"Kada završite, molim, izađite iz korisničke ljuske i vaš sustav će se ponovo "
-"pokrenuti."
+msgstr "Kada završite, molim, izađite iz korisničke ljuske i vaš sustav će se ponovo pokrenuti."
 
 #: ../rescue.py:256 ../rescue.py:325 ../rescue.py:333 ../rescue.py:404
 msgid "Rescue"
@@ -2106,10 +2077,10 @@ msgid ""
 "\n"
 msgstr ""
 "Okruženje spašavanja namjerava sada naći vašu Red Hat Linux instalaciju i "
-"montirati ju unutar mape %s. Tada možete napraviti bilo koje potrebne "
-"izmjene na vašem sustavu. Ako želite nastaviti s tim korakom, pritisnite "
-"'Nastavi'. Također, možete odabrati ta se vaš datotečni sustav montira samo "
-"za čitanje, umjesto za čitanje i pisanje, odabravši 'Samo-čitanje'.\n"
+"montirati ju unutar mape %s. Tada možete napraviti bilo koje potrebne izmjene "
+"na vašem sustavu. Ako želite nastaviti s tim korakom, pritisnite 'Nastavi'. "
+"Također, možete odabrati ta se vaš datotečni sustav montira samo za čitanje, "
+"umjesto za čitanje i pisanje, odabravši 'Samo-čitanje'.\n"
 "\n"
 "Ako iz nekog razloga ovaj proces ne uspije možete izabrati 'Preskoči' i ovaj "
 "korak će biti preskočen, te ćete otiči direktno u naredbenu liniju.\n"
@@ -2232,19 +2203,14 @@ msgid "%s (C) 2003 Red Hat, Inc."
 msgstr "%s (C) 2003 Red Hat, Inc."
 
 #: ../text.py:353
-msgid ""
-" <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
-msgstr ""
-" <F1> pomoć   | <Tab> između elemenata | <Space> odabir  | <F12> sljedeći "
-"zaslon"
+msgid " <F1> for help | <Tab> between elements | <Space> selects | <F12> next screen"
+msgstr " <F1> pomoć   | <Tab> između elemenata | <Space> odabir  | <F12> sljedeći zaslon"
 
 #: ../text.py:355
 msgid ""
 "  <Tab>/<Alt-Tab> between elements   |  <Space> selects   |  <F12> next "
 "screen"
-msgstr ""
-"  <Tab>/<Alt-Tab> između elemenata   |  <Space> odabire   |  <F12> sljedeći "
-"zaslon "
+msgstr "  <Tab>/<Alt-Tab> između elemenata   |  <Space> odabire   |  <F12> sljedeći zaslon "
 
 #: ../upgradeclass.py:8
 msgid "Upgrade Existing System"
@@ -2300,8 +2266,8 @@ msgid ""
 "One or more of the file systems listed in the /etc/fstab on your Linux "
 "system cannot be mounted. Please fix this problem and try to upgrade again."
 msgstr ""
-"Jedan ili više datotečnih sustava navedenih u /etc/fstab ne mogu biti "
-"mountani. Ispravite ovaj problem i pokušajte nadogradnju ponovo."
+"Jedan ili više datotečnih sustava navedenih u /etc/fstab ne "
+"mogu biti mountani. Ispravite ovaj problem i pokušajte nadogradnju ponovo."
 
 #: ../upgrade.py:265
 msgid ""
@@ -2309,8 +2275,8 @@ msgid ""
 "system are inconsistent and cannot be mounted.  Please fix this problem and "
 "try to upgrade again."
 msgstr ""
-"Jedan ili više datotečnih sustava navedenih u /etc/fstab je nekonzistentno i "
-"ne mogu biti mountani. Ispravite ovaj problem i pokušajte nadogradnju ponovo."
+"Jedan ili više datotečnih sustava navedenih u /etc/fstab je nekonzistentno "
+"i ne mogu biti mountani. Ispravite ovaj problem i pokušajte nadogradnju ponovo."
 
 #: ../upgrade.py:282
 msgid ""
@@ -2320,8 +2286,8 @@ msgid ""
 "\n"
 msgstr ""
 "Sljedeće datoteke su apsolutnie simboličke veze, koje nisu podržane tijekom "
-"nadogradnje sustava. Molim, promenite ih u relativne simboličke veze i "
-"ponovno pokrenite nadogradnju.\n"
+"nadogradnje sustava. Molim, promenite ih u relativne simboličke veze i ponovno "
+"pokrenite nadogradnju.\n"
 "\n"
 
 #: ../upgrade.py:288
@@ -2345,7 +2311,7 @@ msgid "Invalid Directories"
 msgstr "Neispravne mape"
 
 #: ../upgrade.py:311
-#, python-format
+#,  c-format
 msgid "%s not found"
 msgstr "%s nije nađen"
 
@@ -2363,9 +2329,9 @@ msgid ""
 "database. Please install the errata rpm packages for your release as "
 "described in the release notes and then run the upgrade procedure."
 msgstr ""
-"Instalacijski program ne može nadograditi sustav s pre-rpm 4.x bazom "
-"podataka. Molim, instalirajte errata rpm pakete za vaše izdanje kao što je "
-"opisano i bilješkama izdanja distribucije i pokrenite proceduru nadogradnje."
+"Instalacijski program ne može nadograditi sustav s pre-rpm 4.x bazom podataka. "
+"Molim, instalirajte errata rpm pakete za vaše izdanje kao što je opisano i "
+"bilješkama izdanja distribucije i pokrenite proceduru nadogradnje."
 
 #: ../upgrade.py:394
 msgid "An error occurred when finding the packages to upgrade."
@@ -2408,8 +2374,8 @@ msgid ""
 "process?"
 msgstr ""
 "Ovaj sustav nema datoteku /etc/redhat-release. Moguće je da ovo nije Red Hat "
-"Linux sustav. Nastavljanje procesa nadogradnje možete postaviti ovaj sustav "
-"u nestabilno stanje. Želite li nastaviti s procesom nadogradnje?"
+"Linux sustav. Nastavljanje procesa nadogradnje možete postaviti ovaj sustav u "
+"nestabilno stanje. Želite li nastaviti s procesom nadogradnje?"
 
 #: ../upgrade.py:539
 #, python-format
@@ -2418,8 +2384,8 @@ msgid ""
 "higher.  This appears to be an older system.  Do you wish to continue the "
 "upgrade process?"
 msgstr ""
-"Nadogradnje za ovu inačicu %s su podržane od Red Hata 6.2 naviše. Izgleda da "
-"je ovo stariji sustav. Želite li nastaviti postupak nadogradnje?"
+"Nadogradnje za ovu inačicu %s su podržane od Red Hata 6.2 naviše. Izgleda da je ovo "
+"stariji sustav. Želite li nastaviti postupak nadogradnje?"
 
 #: ../urlinstall.py:45
 msgid "Connecting..."
@@ -2442,9 +2408,7 @@ msgstr "Greška s lozinkom"
 msgid ""
 "You must enter your root password and confirm it by typing it a second time "
 "to continue."
-msgstr ""
-"Morate upisati vašu root lozinku i za nastavak potvrditi ju upisivanjem "
-"drugi put."
+msgstr "Morate upisati vašu root lozinku i za nastavak potvrditi ju upisivanjem drugi put."
 
 #: ../iw/account_gui.py:44
 msgid "The passwords you entered were different.  Please try again."
@@ -2582,8 +2546,7 @@ msgstr "Označite disk(ove) koje ćete koristiti za ovu instalaciju:"
 
 #: ../iw/autopartition_gui.py:159 ../iw/partition_gui.py:1541
 msgid "Re_view (and modify if needed) the partitions created"
-msgstr ""
-"Pono_vo pogledajte (i promjenite ukoliko je to potrebno) stvorene particije:"
+msgstr "Pono_vo pogledajte (i promjenite ukoliko je to potrebno) stvorene particije:"
 
 #: ../iw/blpasswidget.py:37
 msgid ""
@@ -2612,9 +2575,8 @@ msgid ""
 "Enter a boot loader password and then confirm it.  (Note that your BIOS "
 "keymap may be different than the actual keymap you are used to.)"
 msgstr ""
-"Upišite lozinku za program za pokretanje sustava i potvrdite je.(Uzmite u "
-"obzir da je mapa tipkovnice vašeg biosa možda drugačija od one koju obično "
-"koristite)"
+"Upišite lozinku za program za pokretanje sustava i potvrdite je."
+"(Uzmite u obzir da je mapa tipkovnice vašeg biosa možda drugačija od one koju obično koristite)"
 
 #: ../iw/blpasswidget.py:112
 msgid "_Password:"
@@ -2687,9 +2649,9 @@ msgid ""
 "Would you like to continue and force LBA32 mode?"
 msgstr ""
 "Inzistiranje na korištenju LBA32 u vašem programu za pokretanje sustava, "
-"kada nije podržano od BIOS-a može prouzročiti nemogućnost pokretanja "
-"sustava. Preporučujemo vam stvaranje diskete za pokratanje sustava u "
-"kasnijem dijelu procesa instalacije.\n"
+"kada nije podržano od BIOS-a može prouzročiti nemogućnost pokretanja sustava. "
+"Preporučujemo vam stvaranje diskete za pokratanje sustava u kasnijem dijelu "
+"procesa instalacije.\n"
 "\n"
 "Želite li nastaviti i inzistirati na LBA32 načinu rada?"
 
@@ -2809,10 +2771,9 @@ msgid ""
 "Changing the drive order will change where the installation program locates "
 "the Master Boot Record (MBR)."
 msgstr ""
-"Razvrstava diskove po istom redosljedu koji koristi BIOS. Promjena "
-"redosljeda diskova može biti korisna ukoliko imate višestruke SCSI "
-"prilagodnike ili oba i SCSI i IDE adaptera, a želite pokretati sustav sa "
-"SCSI uređaja.\n"
+"Razvrstava diskove po istom redosljedu koji koristi BIOS. Promjena redosljeda "
+"diskova može biti korisna ukoliko imate višestruke SCSI prilagodnike ili oba "
+"i SCSI i IDE adaptera, a želite pokretati sustav sa SCSI uređaja.\n"
 "\n"
 "Promjena redosljeda diskova će biti izvršena kada instalacijski program "
 "pronađe glavni zapis pokretanja sustava (MBR)."
@@ -2848,8 +2809,8 @@ msgstr ""
 "Potpuni dnevnik instalacije može se naći u '%s' datoteci nakon ponovnog "
 "pokretanja vašeg sustava.\n"
 "\n"
-"Kickstart datoteka sadrži označene instalacijske opcije koje mogu biti "
-"nađene u datoteci '%s' nakon ponovnog pokretanja sustava."
+"Kickstart datoteka sadrži označene instalacijske opcije koje mogu biti nađene "
+"u datoteci '%s' nakon ponovnog pokretanja sustava."
 
 #: ../iw/confirm_gui.py:87
 msgid "About to Upgrade"
@@ -2892,19 +2853,21 @@ msgid ""
 "installation process and press <Enter> to reboot your system.\n"
 "\n"
 msgstr ""
-"Uklonite instalacijski medij (diskete ili CD-ROM) korišten uprocesu "
-"instalacije i pritisnite <Enter> za ponovo pokretanje sustava.\n"
+"Uklonite instalacijski medij (diskete ili CD-ROM) korišten u"
+"procesu instalacije i pritisnite <Enter> za ponovo pokretanje sustava.\n"
 
 #: ../iw/congrats_gui.py:68
-#, python-format
+#,  python-format
 msgid ""
 "Congratulations, the installation is complete.\n"
 "\n"
 "%s%s"
 msgstr ""
+"Čestitamo, instalacija je završena.\n"
+"\n"
+"%s%s"
 
 #: ../iw/congrats_gui.py:70
-#, fuzzy
 msgid ""
 "For information on Errata (updates and bug fixes), visit:\n"
 "\thttp://www.redhat.com/errata/\n"
@@ -2920,19 +2883,17 @@ msgid ""
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 msgstr ""
-"Čestitamo, vaša instalacija je gotova.\n"
+"Za informacije o Erratai (svježi paketi i ispravke grešaka), posjetite:\n"
+"\thttp://www.redhat.com/errata/\n"
 "\n"
-"%s%sZa informacije o erratai (ažurirani paketi i popravci), posjetite http://"
-"www.redhat.com/errata.\n"
+"Za podatke o automatskom ažuriranju putem Red Hat Networka, posjetite:\n"
+"\thttp://rhn.redhat.com/\n"
 "\n"
-"Za informacije o automatskom ažuriranju kroz Red Hat Network, posjetite "
-"http://rhnredhat.com/\n"
-"\n"
-"Za podatke o korištenju i podešavanju sustava posjetite:\n"
+"Za informacije o korištenju i podešavanju sustava, posjetite:\n"
 "\thttp://www.redhat.com/docs/\n"
 "\thttp://www.redhat.com/apps/support/\n"
 "\n"
-"Kako biste registrirali proizvod posjetite:\n"
+"Za registraciju proizvoda u svrhu podrške, posjetite:\n"
 "\thttp://www.redhat.com/apps/activate/\n"
 "\n"
 
@@ -2996,8 +2957,8 @@ msgid ""
 msgstr ""
 "\n"
 "\n"
-"Poslije instalacije moguće je ukloniti ili dodati dodatni softver "
-"korištenjem 'redhat-config-packages' alata.\n"
+"Poslije instalacije moguće je ukloniti ili dodati dodatni softver korištenjem "
+"'redhat-config-packages' alata.\n"
 "\n"
 "Ako ste upoznati s %s, možda imate specifične pakete koje želite instalirati "
 "ili izbjeći instalirati. Označite kvadratić ispod kako biste prilagodili "
@@ -3046,8 +3007,8 @@ msgid ""
 "Choose this option if you would like to upgrade your existing %s system.  "
 "This option will preserve the existing data on your drives."
 msgstr ""
-"Odaberite ovu opciju ukoliko želite nadograditi postojeći %s sustav.  Ova "
-"opcija će očuvati postojeće podatke na vašim diskovima."
+"Odaberite ovu opciju ukoliko želite nadograditi postojeći %s sustav.  "
+"Ova opcija će očuvati postojeće podatke na vašim diskovima."
 
 #: ../iw/examine_gui.py:67
 #, python-format
@@ -3109,11 +3070,14 @@ msgid ""
 "unauthorized access.  However, you have selected not to configure a "
 "firewall.  Choose \"Proceed\" to continue without a firewall."
 msgstr ""
+"Ako je sustav izravno spojen na Internet ili je dio velike javne mreže,"
+"preporuča se podešavanje vatrozida kako bi se spriječio"
+"neautorizirani pristup. Ako ste ipak odlučili ne podesiti vatrozid"
+"odaberite \"Nastavi\" za nastavak bez vatrozida."
 
 #: ../iw/firewall_gui.py:39
-#, fuzzy
 msgid "_Configure Firewall"
-msgstr "Postavi %s"
+msgstr "_Podešavanje vatrozida"
 
 #: ../iw/firewall_gui.py:39 ../iw/xconfig_gui.py:444
 #: ../textw/firewall_text.py:201
@@ -3128,8 +3092,8 @@ msgid ""
 "\n"
 "For example, '1234:udp'"
 msgstr ""
-"Dat je neispravan port: %s.  Pravilni format je 'port:protokol', gdje je "
-"port broj između 1 i 65535, a protokol 'tcp' ili 'udp'.\n"
+"Dat je neispravan port: %s.  Pravilni format je 'port:protokol', gdje je port "
+"broj između 1 i 65535, a protokol 'tcp' ili 'udp'.\n"
 "\n"
 "Npr. '1234:udp'"
 
@@ -3238,9 +3202,9 @@ msgid ""
 "required by the currently defined logical volumes will be increased to more "
 "than the available space."
 msgstr ""
-"Veličina fizičkog prostora ne može biti promjenjena jer bi u suprotnom "
-"prostor potreban za trenutno definirane logičke diskove bio veći nego što "
-"postoji slobodan prostor."
+"Veličina fizičkog prostora ne može biti promjenjena jer bi u suprotnom prostor "
+"potreban za trenutno definirane logičke diskove bio veći nego što postoji "
+"slobodan prostor."
 
 #: ../iw/lvm_dialog_gui.py:117
 msgid "Confirm Physical Extent Change"
@@ -3272,9 +3236,8 @@ msgid ""
 "10.2f MB) is larger than the smallest physical volume (%10.2f MB) in the "
 "volume group."
 msgstr ""
-"Veličina fizičkog prostora ne može biti promijenjena jer je označena "
-"vrijednost (%10.2f MB) veća od najmanjeg fizičkog diska (%10.2f MB) u grupi "
-"diskova."
+"Veličina fizičkog prostora ne može biti promijenjena jer je označena vrijednost "
+"(%10.2f MB) veća od najmanjeg fizičkog diska (%10.2f MB) u grupi diskova."
 
 #: ../iw/lvm_dialog_gui.py:165
 #, python-format
@@ -3296,8 +3259,8 @@ msgid ""
 "This change in the value of the physical extent will waste substantial space "
 "on one or more of the physical volumes in the volume group."
 msgstr ""
-"Ova promjena vrijednosti fizičkog prostora potrošiti će značajan prostor na "
-"jednom ili više fizičkih diskova u grupi diskova."
+"Ova promjena vrijednosti fizičkog prostora potrošiti će značajan prostor "
+"na jednom ili više fizičkih diskova u grupi diskova."
 
 #: ../iw/lvm_dialog_gui.py:205
 #, python-format
@@ -3638,8 +3601,8 @@ msgid ""
 "You have not specified a hostname.  Depending on your network environment "
 "this may cause problems later."
 msgstr ""
-"Niste odredili ime računala. Ovisno o vašem mrežnom okruženju to bi kasnije "
-"moglo uzrokovati problemer."
+"Niste odredili ime računala. Ovisno o vašem mrežnom okruženju "
+"to bi kasnije moglo uzrokovati problemer."
 
 #: ../iw/network_gui.py:160
 #, python-format
@@ -3647,8 +3610,8 @@ msgid ""
 "You have not specified the field \"%s\".  Depending on your network "
 "environment this may cause problems later."
 msgstr ""
-"Niste odabrali polje \"%s\". Ovisno o vašoj mrežnoj okolini, to može "
-"kasnijeuzrokovati probleme."
+"Niste odabrali polje \"%s\". Ovisno o vašoj mrežnoj okolini, to može kasnije"
+"uzrokovati probleme."
 
 #: ../iw/network_gui.py:164 ../textw/network_text.py:399
 #, python-format
@@ -3780,8 +3743,8 @@ msgstr ""
 "Može podesiti program za pokretanje sustava da pokreće druge operativne "
 "sustave. Omogućiti će vam odabir operativnog sustava za pokretanje s popisa. "
 "Za dodavanje dodatnih operativnih sustava, koji nisu automatski otkriveni, "
-"pritisnite 'Dodaj'. Za promjenu operativnih ustava koji se uobičajeno "
-"pokreću, odaberite 'Uobičajeno' za željeni operativni sustav."
+"pritisnite 'Dodaj'. Za promjenu operativnih ustava koji se uobičajeno pokreću, "
+"odaberite 'Uobičajeno' za željeni operativni sustav."
 
 #: ../iw/osbootwidget.py:66 ../iw/silo_gui.py:263
 #: ../textw/bootloader_text.py:281 ../textw/silo_text.py:207
@@ -3844,13 +3807,13 @@ msgid "Cannot Delete"
 msgstr "Ne mogu obrisati"
 
 #: ../iw/osbootwidget.py:337
-#, fuzzy, python-format
+#,  python-format
 msgid ""
 "This boot target cannot be deleted because it is for the %s system you are "
 "about to install."
 msgstr ""
-"Ovaj cilj za pokretanje sustav ne može biti obrisan zato što je rezerviran "
-"za Red Hat Linux sustav koji ćete instalirati."
+"Boot odredište ne može biti obrisano, jer je namijenjeno sustavu %s kojeg upravo"
+"želite instalirati."
 
 #: ../iw/package_gui.py:52 ../textw/packages_text.py:318
 msgid "Individual Package Selection"
@@ -3917,8 +3880,8 @@ msgid ""
 "\n"
 "Select the optional packages to be installed:"
 msgstr ""
-"Grupa paketa može imati osnovne i dodatne članove. Osnovni paketi su "
-"uvijekoznačeni sve dok su označene i grupe paketa.\n"
+"Grupa paketa može imati osnovne i dodatne članove. Osnovni paketi su uvijek"
+"označeni sve dok su označene i grupe paketa.\n"
 "\n"
 "Označite dodatne pakete za instalaciju:"
 
@@ -4037,17 +4000,13 @@ msgid "Partitioning"
 msgstr "Particioniranje"
 
 #: ../iw/partition_gui.py:639
-msgid ""
-"The following critical errors exist with your requested partitioning scheme."
+msgid "The following critical errors exist with your requested partitioning scheme."
 msgstr "U particijskoj shemi koju zahtjevate postoje sljedeće kritične greške."
 
 #: ../iw/partition_gui.py:642
 #, python-format
-msgid ""
-"These errors must be corrected prior to continuing with your install of %s."
-msgstr ""
-"Ove greške moraju biti ispravljene prije nego nastavite s vašom instalacijom "
-"%s-a."
+msgid "These errors must be corrected prior to continuing with your install of %s."
+msgstr "Ove greške moraju biti ispravljene prije nego nastavite s vašom instalacijom %s-a."
 
 #: ../iw/partition_gui.py:648
 msgid "Partitioning Errors"
@@ -4156,10 +4115,10 @@ msgid ""
 "You currently have %s software RAID partition(s) free to use.\n"
 "\n"
 msgstr ""
-"Softverski RAID omogućava kombiniranje nekoliko diskova u veći RAID uređaj. "
-"RAID uređaj može biti postavljen kako bi dao veću brzinu i pouzdanost u "
-"usporedbi sa postojećim, pojedinačnim diskovima. Za dodatne informacije o "
-"korištenju RAID uređaja konzultiraje %s dokumentaciju.\n"
+"Softverski RAID omogućava kombiniranje nekoliko diskova u veći RAID "
+"uređaj. RAID uređaj može biti postavljen kako bi dao veću brzinu i "
+"pouzdanost u usporedbi sa postojećim, pojedinačnim diskovima. Za dodatne "
+"informacije o korištenju RAID uređaja konzultiraje %s dokumentaciju.\n"
 "\n"
 "Trenutno imate %s softverskih RAID particija slobodnih za korištenje.\n"
 "\n"
@@ -4271,37 +4230,34 @@ msgid "Manually partition with _Disk Druid"
 msgstr "Ručno particioniraj s _Disk Druid-om"
 
 #: ../iw/progress_gui.py:37
-#, fuzzy
 msgid " MB"
-msgstr "SMB"
+msgstr " MB"
 
 #: ../iw/progress_gui.py:40
 msgid " KB"
-msgstr ""
+msgstr " KB"
 
 #: ../iw/progress_gui.py:43
-#, fuzzy
 msgid " Byte"
-msgstr "%s KBajta"
+msgstr " Bajt"
 
 #: ../iw/progress_gui.py:45
-#, fuzzy
 msgid " Bytes"
-msgstr "%s KBajta"
+msgstr " Bajtova"
 
 #: ../iw/progress_gui.py:50 ../iw/progress_gui.py:321
 msgid "Installing Packages"
 msgstr "Instalacija paketa"
 
 #: ../iw/progress_gui.py:115
-#, fuzzy, python-format
+#, python-format
 msgid "Downloading %s"
 msgstr "Preuzimanje - %s"
 
 #: ../iw/progress_gui.py:155
-#, fuzzy, python-format
+#,  python-format
 msgid "Installing %s-%s-%s.%s (%s)"
-msgstr "Instaliram %s-%s-%s.%s.\n"
+msgstr "Instaliram %s-%s-%s.%s (%s)"
 
 #: ../iw/progress_gui.py:271 ../iw/progress_gui.py:526
 msgid "Summary"
@@ -4326,9 +4282,9 @@ msgid "Remaining"
 msgstr "Preostalo"
 
 #: ../iw/progress_gui.py:439
-#, fuzzy, python-format
+#,  python-format
 msgid "Installing %s-%s-%s.%s"
-msgstr "Instaliram %s-%s-%s.%s.\n"
+msgstr "Instaliram %s-%s-%s.%s"
 
 #: ../iw/progress_gui.py:576
 msgid "Package Progress: "
@@ -4643,11 +4599,9 @@ msgstr "Ovo će nadograditi vaš trenutni program za pokretanje sustava."
 
 #: ../iw/upgrade_bootloader_gui.py:72 ../textw/upgrade_bootloader_text.py:49
 #, python-format
-msgid ""
-"The installer has detected the %s boot loader currently installed on %s."
-msgstr ""
-"Instalacijski program je otkrio %s program za pokretanje sustava trenutno "
-"instaliran na %s."
+msgid "The installer has detected the %s boot loader currently installed on %s."
+msgstr """Instalacijski program je otkrio %s program za pokretanje sustava "
+"trenutno instaliran na %s."
 
 #: ../iw/upgrade_bootloader_gui.py:76
 msgid "This is the recommended option."
@@ -4670,9 +4624,8 @@ msgid ""
 "This will let you create a new boot loader configuration.  If you wish to "
 "switch boot loaders, you should choose this."
 msgstr ""
-"Ovo će vam omogučiti stvaranje postavke novog programa za pokretanje "
-"sustava. Ako želite mijenjati programe za pokretanje sustava, ovo trebate "
-"izabrati."
+"Ovo će vam omogučiti stvaranje postavke novog programa za pokretanje sustava. "
+"Ako želite mijenjati programe za pokretanje sustava, ovo trebate izabrati."
 
 #: ../iw/upgrade_bootloader_gui.py:98
 msgid "_Skip boot loader updating"
@@ -4708,8 +4661,8 @@ msgstr ""
 "Ovo izdanje %s podržava ext3 journaling datotečni sustav. Postoji nekoliko "
 "prednosti u odnosu na ext2 datotečni sustav koji se tradicionalno isporučuje "
 "s %s. Moguće je preseliti ext2 oblikovane particije u ext3 bez gubitka "
-"podataka.\n"
-" \n"
+"podataka.\n "
+"\n"
 "Koje od ovih particija želite preseliti?"
 
 #: ../iw/upgrade_swap_gui.py:31
@@ -4726,8 +4679,7 @@ msgid ""
 msgstr ""
 "2.4 jezgra Linux-a treba daleko više swap-a nego starije jezgre, dvostruko "
 "više swap prostora nego RAM-a u sustavu. Trenutno imate postavljeno %dMB "
-"swap-a, ali sada možete stvoriti dodatni swap na jednom od datotečnih "
-"sustava."
+"swap-a, ali sada možete stvoriti dodatni swap na jednom od datotečnih sustava."
 
 #: ../iw/upgrade_swap_gui.py:108
 #, python-format
@@ -4776,16 +4728,15 @@ msgid ""
 "to continue?"
 msgstr ""
 "Vrlo se preporučuje da stvorite swap datoteku. Izostanak swap datoteke može "
-"uzrokovati nepravilan prekid instalacijskog programa. Sugurni ste da "
-"želitenastaviti?"
+"uzrokovati nepravilan prekid instalacijskog programa. Sugurni ste da želite"
+"nastaviti?"
 
 #: ../iw/upgrade_swap_gui.py:209 ../textw/upgrade_text.py:178
 msgid "The swap file must be between 1 and 2000 MB in size."
 msgstr "Swap datoteka mora biti veličine između 1 i 2000 MB."
 
 #: ../iw/upgrade_swap_gui.py:216 ../textw/upgrade_text.py:173
-msgid ""
-"There is not enough space on the device you selected for the swap partition."
+msgid "There is not enough space on the device you selected for the swap partition."
 msgstr "Nema dovoljno mjesta za swap particiju na uređaju koji ste označili."
 
 #: ../iw/xconfig_gui.py:35 ../textw/xconfig_text.py:23
@@ -4869,8 +4820,8 @@ msgid ""
 "In most cases, the monitor can be automatically detected. If the detected "
 "settings are not correct for the monitor, select the right settings."
 msgstr ""
-"U većini slučajeva, monitor se može automatski detektirati. Ako pronađene "
-"postavke nisu ispravne, tada odaberite ispravne postavke."
+"U većini slučajeva, monitor se može automatski detektirati. Ako "
+"pronađene postavke nisu ispravne, tada odaberite ispravne postavke."
 
 #: ../iw/xconfig_gui.py:740 ../iw/xconfig_gui.py:1103
 msgid "Restore _original values"
@@ -4986,11 +4937,12 @@ msgstr ""
 "\n"
 "Root particija će biti ona koju prethodno označite u postavkama particija.\n"
 "\n"
-"Jezgra Linux-a koja se koristi za pokretanje računala biti će ona koja je je "
-"instalirana prema uobičajenim postavkama.\n"
+"Jezgra Linux-a koja se koristi za pokretanje računala biti će ona koja je "
+"je instalirana prema uobičajenim postavkama.\n"
 "\n"
-"Ako želite napraviti izmjene nakon instalacije, slobodno izmjenite datoteku "
-"s postavkama /etc/zipl.conf.\n"
+"Ako želite napraviti izmjene nakon instalacije, slobodno izmjenite "
+"datoteku s postavkama /etc/zipl.conf."
+"\n"
 "Sada možete upisati bilo koju dodatnu jezgru Linux-a koju može zahtjevati "
 "vaše računalo ili vaše postavke."
 
@@ -5070,8 +5022,8 @@ msgid ""
 msgstr ""
 "Kako bi bolje djelovali, neki sustavi će zahtjevati prosljeđivanje opcija "
 "jezgre Linux-a za vrijeme pokretanja sustava. Ukoliko trebate prosljediti "
-"opcije pokretanja sustava jezgri, unesite ih sada. Ukoliko ne trebate ili "
-"nistesigurni, ostavite prazno polje."
+"opcije pokretanja sustava jezgri, unesite ih sada. Ukoliko ne trebate ili niste"
+"sigurni, ostavite prazno polje."
 
 #: ../textw/bootloader_text.py:117
 msgid "Force use of LBA32 (not normally required)"
@@ -5119,11 +5071,8 @@ msgstr ""
 "pokretačke i koju im oznaku želite postaviti."
 
 #: ../textw/bootloader_text.py:313
-msgid ""
-" <Space> selects button | <F2> select default boot entry | <F12> next screen>"
-msgstr ""
-" <Space> odabire gumb  | <F2> odabir predefiniranog unosa| <F12> slijedeći "
-"zaslon>"
+msgid " <Space> selects button | <F2> select default boot entry | <F12> next screen>"
+msgstr " <Space> odabire gumb  | <F2> odabir predefiniranog unosa| <F12> slijedeći zaslon>"
 
 #: ../textw/bootloader_text.py:392
 msgid ""
@@ -5133,8 +5082,7 @@ msgid ""
 msgstr ""
 "Lozinka programa za pokretanje sustava sprečava korisnike u prosljeđivanju "
 "proizvoljnih opcija jezgri sustava. Da biste dobili najbolju sigurnost, "
-"preporučujemo postavljanje lozinke. Iako to nije neophodno za povremene "
-"korisnike."
+"preporučujemo postavljanje lozinke. Iako to nije neophodno za povremene korisnike."
 
 #: ../textw/bootloader_text.py:402
 msgid "Use a GRUB Password"
@@ -5164,7 +5112,9 @@ msgstr "Lozinka za učitavanja pokretanja sustava je prekratka"
 msgid ""
 "Press <Enter> to end the installation process.\n"
 "\n"
-msgstr "Pritisnite <Enter> za završavanje procesa instalacije.\n"
+msgstr ""
+"Pritisnite <Enter> za završavanje procesa instalacije."
+"\n"
 
 #: ../textw/complete_text.py:34
 msgid "<Enter> to exit"
@@ -5175,15 +5125,18 @@ msgid "<Enter> to reboot"
 msgstr "<Enter> za ponovno pokretanje"
 
 #: ../textw/complete_text.py:44
-#, python-format
+#,  python-format
 msgid ""
 "Congratulations, your %s installation is complete.\n"
 "\n"
 "%s%s"
 msgstr ""
+"Čestitamo, vaša %s instalacija je završena.\n"
+"\n"
+"%s%s"
 
 #: ../textw/complete_text.py:47
-#, fuzzy, python-format
+#,  python-format
 msgid ""
 "For information on errata (updates and bug fixes), visit http://www.redhat."
 "com/errata/.\n"
@@ -5191,13 +5144,11 @@ msgid ""
 "Information on using your system is available in the %s manuals at http://"
 "www.redhat.com/docs/."
 msgstr ""
-"Čestitamo, vaša %s instalacija je završena.\n"
+"Za informacije o erratai (svježi paketi i ispravke grešaka), posjetite http://www.redhat."
+"com/errata/.\n"
 "\n"
-"%s%sZa informacije o erratai (ažurirani paketi i popravci), posjetite http://"
-"www.redhat.com/errata.\n"
-"\n"
-"Podaci o korištenju sustava su dostupni u %s priručnicima na http://www."
-"redhat.com/docs."
+"Informacije o korištenju sustava dosupne su u %s priručnicima na http://"
+"www.redhat.com/docs/."
 
 #: ../textw/complete_text.py:53
 msgid "Complete"
@@ -5214,8 +5165,7 @@ msgid ""
 "system. You may want to keep this file for later reference."
 msgstr ""
 "Potpuni dnevnik instalacije može se naći u '%s' datoteci nakon ponovnog "
-"pokretanja vašeg sustava. Možda želite zadržati tu datoteku zbog kasnijeg "
-"pregledavanja."
+"pokretanja vašeg sustava. Možda želite zadržati tu datoteku zbog kasnijeg pregledavanja."
 
 #: ../textw/confirm_text.py:25 ../textw/confirm_text.py:27
 #: ../textw/confirm_text.py:51 ../textw/confirm_text.py:53
@@ -5241,8 +5191,8 @@ msgid ""
 "A complete log of your upgrade will be in %s after rebooting your system. "
 "You may want to keep this file for later reference."
 msgstr ""
-"Nakon ponovnog pokretanja vašeg sustava čitav dnevnik vaše nadogradnje će "
-"bitiu %s. Možete zadržati tu datoteku za kasnije obraćanje."
+"Nakon ponovnog pokretanja vašeg sustava čitav dnevnik vaše nadogradnje će biti"
+"u %s. Možete zadržati tu datoteku za kasnije obraćanje."
 
 #: ../textw/desktop_choice_text.py:24
 msgid "Workstation Defaults"
@@ -5258,12 +5208,12 @@ msgid ""
 "However %s ships with many more applications, and you may customize the "
 "selection of software installed if you want."
 msgstr ""
-"Uobičajen oinstalacijsko okruženje uključuje odabir vaših preporučenih "
-"paketa.Nakon instalacije, dodatni programi mogu biti dodani ili brisani "
-"korištenjemalata 'redhat-config-packages'.\n"
+"Uobičajen oinstalacijsko okruženje uključuje odabir vaših preporučenih paketa."
+"Nakon instalacije, dodatni programi mogu biti dodani ili brisani korištenjem"
+"alata 'redhat-config-packages'.\n"
 "\n"
-"Međutim, %s se isporučuje se više programa i, ukoliko to želite, vi "
-"možeteprilagoditi odabir instalacije programa."
+"Međutim, %s se isporučuje se više programa i, ukoliko to želite, vi možete"
+"prilagoditi odabir instalacije programa."
 
 #: ../textw/desktop_choice_text.py:37
 msgid "Customize software selection"
@@ -5315,9 +5265,9 @@ msgid ""
 "\n"
 "Back to the fdasd screen?"
 msgstr ""
-"Dogodila se greška - nije našen niti jedan ispravni uređaj za stvaranje "
-"novogdatotečnog sustava. Molim, provjerite vaše sklopovlje pronačaženje "
-"uzroka ovogproblema ili koristite dasdfmt.\n"
+"Dogodila se greška - nije našen niti jedan ispravni uređaj za stvaranje novog"
+"datotečnog sustava. Molim, provjerite vaše sklopovlje pronačaženje uzroka ovog"
+"problema ili koristite dasdfmt.\n"
 "\n"
 "Povratak na prozor fdasdm-a?"
 
@@ -5484,7 +5434,7 @@ msgid "Network Device: %s"
 msgstr "Mrežni uređaj: %s"
 
 #: ../textw/network_text.py:89
-#, python-format
+#,  c-format
 msgid "Description: %s"
 msgstr "Opis: %s"
 
@@ -5549,9 +5499,9 @@ msgid ""
 "'localhost.'"
 msgstr ""
 "Ako je vaš sustav di veće mreže računala gdje se DHCP dodjeljuje nazive "
-"računala, označite 'automatsko pomoći DHCP'. Inače, označite 'ručno' i "
-"upišite naziv računala za vaš sustav. Ako to ne učinite, vaš sustav će imat "
-"ime 'localhost.'"
+"računala, označite 'automatsko pomoći DHCP'. Inače, označite 'ručno' i upišite "
+"naziv računala za vaš sustav. Ako to ne učinite, vaš sustav će imat ime "
+"'localhost.'"
 
 #: ../textw/network_text.py:392 ../textw/network_text.py:398
 msgid "Invalid Hostname"
@@ -5566,10 +5516,8 @@ msgid "Select individual packages"
 msgstr "Odaberite pojedinačne pakete"
 
 #: ../textw/packages_text.py:73
-msgid ""
-"<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
-msgstr ""
-"<Razmak>,<+>,<-> označavanje | <F2> Detalji grupe | <F12> sljedeći ekran"
+msgid "<Space>,<+>,<-> selection   |   <F2> Group Details   |   <F12> next screen"
+msgstr "<Razmak>,<+>,<-> označavanje | <F2> Detalji grupe | <F12> sljedeći ekran"
 
 #: ../textw/packages_text.py:117
 msgid "Package Group Details"
@@ -5593,10 +5541,8 @@ msgid "Total size"
 msgstr "Ukupna veličina"
 
 #: ../textw/packages_text.py:326
-msgid ""
-"   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
-msgstr ""
-"   <Space>,<+>,<-> odabir     |   <F1> pomoć  |   <F2> opis paketa        "
+msgid "   <Space>,<+>,<-> selection   |   <F1> help   |   <F2> package description"
+msgstr "   <Space>,<+>,<-> odabir     |   <F1> pomoć  |   <F2> opis paketa        "
 
 #: ../textw/packages_text.py:374
 msgid "Package Dependencies"
@@ -5608,9 +5554,9 @@ msgid ""
 "not selected. If you just select OK all of those required packages will be "
 "installed."
 msgstr ""
-"Neki paketi koje ste označili za instalciju zahtjevaju pakete koje niste "
-"označili. Ukoliko odaberete 'U redu', svi ti potrebni paketi biti "
-"ćeinstalirani."
+"Neki paketi koje ste označili za instalciju zahtjevaju pakete koje "
+"niste označili. Ukoliko odaberete 'U redu', svi ti potrebni paketi biti će"
+"instalirani."
 
 #: ../textw/packages_text.py:397
 msgid "Install packages to satisfy dependencies"
@@ -5766,9 +5712,7 @@ msgstr "Nije podržano"
 
 #: ../textw/partition_text.py:711
 msgid "LVM Volume Groups can only be edited in the graphical installer."
-msgstr ""
-"Grupe LVM diskova mogu biti uređivane samo u grafičkom instalacijskom "
-"programu."
+msgstr "Grupe LVM diskova mogu biti uređivane samo u grafičkom instalacijskom programu."
 
 #: ../textw/partition_text.py:787 ../textw/partition_text.py:840
 msgid "Invalid Entry for Partition Size"
@@ -5823,10 +5767,8 @@ msgid "RAID"
 msgstr "RAID"
 
 #: ../textw/partition_text.py:1136
-msgid ""
-"    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
-msgstr ""
-"    F1-Pomoć     F2-Novo      F3-Uredi   F4-Briši    F5-Reset    F12-U redu "
+msgid "    F1-Help     F2-New      F3-Edit   F4-Delete    F5-Reset    F12-OK        "
+msgstr "    F1-Pomoć     F2-Novo      F3-Uredi   F4-Briši    F5-Reset    F12-U redu "
 
 #: ../textw/partition_text.py:1165
 msgid "No Root Partition"
@@ -5869,9 +5811,8 @@ msgid "    Packages"
 msgstr "      Paketi"
 
 #: ../textw/progress_text.py:148
-#, fuzzy
 msgid "      Bytes"
-msgstr "     Bajtova"
+msgstr "      bajtova"
 
 #: ../textw/progress_text.py:149
 msgid "        Time"
@@ -5933,8 +5874,7 @@ msgid ""
 msgstr ""
 "2.4 jezgra Linux-a treba daleko više swap-a nego starije jezgre, dvostruko "
 "više swap prostora nego RAM-a u sustavu. Trenutno imate postavljeno %dMB "
-"swap-a, ali sada možete stvoriti dodatni swap na jednom od datotečnih "
-"sustava."
+"swap-a, ali sada možete stvoriti dodatni swap na jednom od datotečnih sustava."
 
 #: ../textw/upgrade_text.py:112
 msgid "Free Space"
@@ -5977,8 +5917,8 @@ msgid ""
 msgstr ""
 "Jedna ili više postojećih Linux instalacija je nađeno na vešem sustavu.\n"
 "\n"
-"Molim odaberite jednu kako biste nadogradili ili odaberite 'Ponovna "
-"instalacija' da ponovo instalirate sustav."
+"Molim odaberite jednu kako biste nadogradili ili odaberite 'Ponovna instalacija' "
+"da ponovo instalirate sustav."
 
 #: ../textw/upgrade_text.py:245
 msgid "Customize Packages to Upgrade"
@@ -5990,9 +5930,9 @@ msgid ""
 "satisfy their dependencies, have been selected for installation. Would you "
 "like to customize the set of packages that will be upgraded?"
 msgstr ""
-"Označeni su za instalaciju: paket koji ste instalirali i drugi paketi koji "
-"supotrebni za zadovoljenje njihovih ovisnosti. Želite li prilagoditi "
-"postavku paketa koji će biti nadograđeni?"
+"Označeni su za instalaciju: paket koji ste instalirali i drugi paketi koji su"
+"potrebni za zadovoljenje njihovih ovisnosti. Želite li prilagoditi postavku "
+"paketa koji će biti nadograđeni?"
 
 #: ../textw/userauth_text.py:29
 msgid "Root Password"
@@ -6082,16 +6022,12 @@ msgid "User Exists"
 msgstr "Korisnik postoji"
 
 #: ../textw/userauth_text.py:156
-msgid ""
-"The root user is already configured. You don't need to add this user here."
+msgid "The root user is already configured. You don't need to add this user here."
 msgstr "Već je postavljen root korisnik. Ovdje ne morate dodati tog korisnika."
 
 #: ../textw/userauth_text.py:163
-msgid ""
-"This system user is already configured. You don't need to add this user here."
-msgstr ""
-"Već je postavljen ovaj korisnik sustava. Ne morate ovdje dodati ovog "
-"korisnika."
+msgid "This system user is already configured. You don't need to add this user here."
+msgstr "Već je postavljen ovaj korisnik sustava. Ne morate ovdje dodati ovog korisnika."
 
 #: ../textw/userauth_text.py:171
 msgid "This user id already exists.  Choose another."
@@ -6119,8 +6055,7 @@ msgid ""
 msgstr ""
 "Koje još korisničke račune želite imati u sustavu? Trebali biste imati "
 "najmanje jednog korisnika koji nije root korisnik za uobičajeni rad, ali "
-"višekorsinčki sustavi mogu imati postavljen bilo koji broj korisničkih "
-"računa."
+"višekorsinčki sustavi mogu imati postavljen bilo koji broj korisničkih računa."
 
 #: ../textw/userauth_text.py:222
 msgid "User name"
@@ -6199,7 +6134,7 @@ msgid "Admin Server:"
 msgstr "Administratorski poslužitelj:"
 
 #: ../textw/welcome_text.py:22
-#, python-format
+#,  c-format
 msgid "%s"
 msgstr "%s"
 
@@ -6217,9 +6152,9 @@ msgid ""
 msgstr ""
 "Dobro došli u %s!\n"
 "\n"
-"Ovaj instalacijski proces je ukratko opisan u službenom instalacijskom "
-"vodiču  %s dostupnom od strane Red Hata. Ako želite pristupiti ovom "
-"priručniku, trebali biste pročitati dio koji se tiče instalacije.\n"
+"Ovaj instalacijski proces je ukratko opisan u službenom instalacijskom vodiču  %s "
+"dostupnom od strane Red Hata. Ako želite pristupiti ovom priručniku, trebali biste "
+"pročitati dio koji se tiče instalacije.\n"
 "\n"
 "Ako ste kupili službeni %s, registrirajte vašu kupovinu kroz web stranicu "
 "http://www.redhat.com/."
@@ -6246,9 +6181,7 @@ msgstr "Prilagođavanje X-a"
 
 #: ../textw/xconfig_text.py:134
 msgid "Select the color depth and video mode you want to use for your system. "
-msgstr ""
-"Odaberite dubinu boja i način rada videa koji želite koristiti na vašem "
-"sustavu."
+msgstr "Odaberite dubinu boja i način rada videa koji želite koristiti na vašem sustavu."
 
 #: ../textw/xconfig_text.py:138
 msgid "Color Depth:"
@@ -6342,8 +6275,8 @@ msgid ""
 "NOTE - it is not usually necessary to edit sync rates manually, and care "
 "should be taken to make sure the values entered are accurate."
 msgstr ""
-"Molim, upišite brzinu sinkronizacije vašeg zaslona. \n"
-" \n"
+"Molim, upišite brzinu sinkronizacije vašeg zaslona. \n "
+"\n"
 "NAPOMENA - obično nije neophodno ručno uređivati brzinu sinkronizacije, te "
 "se pobrinite da unesene vrijednosti budu precizne."
 
@@ -6361,8 +6294,8 @@ msgid ""
 "Select the monitor for your system.  Use the '%s' button to reset to the "
 "probed values."
 msgstr ""
-"Označite zaslon za vaš sustav. Koristite tipku '%s' za ponovno "
-"postavljanjeispitanih vrijednosti."
+"Označite zaslon za vaš sustav. Koristite tipku '%s' za ponovno postavljanje"
+"ispitanih vrijednosti."
 
 #: ../textw/xconfig_text.py:423
 msgid "Monitor:"
@@ -6394,8 +6327,8 @@ msgid ""
 "Please select the video card present in your system.  Choose '%s' to reset "
 "the selection to the card the installer detected in your system."
 msgstr ""
-"Molim, označite video karticu koja ja prisutna u vašem sustavu. Odaberite '%"
-"s'za ponovno postavljanje oznake na karticu koju je instalacijski program "
+"Molim, označite video karticu koja ja prisutna u vašem sustavu. Odaberite '%s'"
+"za ponovno postavljanje oznake na karticu koju je instalacijski program "
 "pronašao u vašem sustavu."
 
 #: ../textw/xconfig_text.py:562
@@ -6464,8 +6397,7 @@ msgid ""
 "process, including software package selection and partitioning."
 msgstr ""
 "Označite ovu vrstu instalacije za postizanje potpune kontrole nad "
-"instlacijskim procesom, uključujući odabir programskih paketa i "
-"particioniranje."
+"instlacijskim procesom, uključujući odabir programskih paketa i particioniranje."
 
 #: ../installclasses/personal_desktop.py:11
 msgid "_Personal Desktop"
@@ -6522,8 +6454,8 @@ msgid ""
 "This option installs a graphical desktop environment with tools for software "
 "development and system administration. "
 msgstr ""
-"Ova opcija instalira okruženje grafičkog sučelja s alatima za razvoj "
-"programa i administracije sustava."
+"Ova opcija instalira okruženje grafičkog sučelja s alatima za razvoj programa "
+"i administracije sustava."
 
 #: ../installclasses/workstation.py:14
 msgid ""
@@ -6585,8 +6517,7 @@ msgstr ""
 "\". Ne morate ispitati sve CD-e, također je preporučljivo da to napravite "
 "najmanje jednom.\n"
 "\n"
-"Za početak instalacijskog procesa umetnite CD #1 u uređaj i pritisnite \"%s"
-"\"."
+"Za početak instalacijskog procesa umetnite CD #1 u uređaj i pritisnite \"%s\"."
 
 #: ../loader2/cdinstall.c:134 ../loader2/cdinstall.c:376
 #, c-format
@@ -6618,8 +6549,8 @@ msgid ""
 "No %s CD was found which matches your boot media.  Please insert the %s CD "
 "and press %s to retry."
 msgstr ""
-"Nije nađen CD %s koji bi odgovarao vašem boot mediju. Molim ubacite %s CD "
-"ipritisnite %s za ponovni pokušaj."
+"Nije nađen CD %s koji bi odgovarao vašem boot mediju. Molim ubacite %s CD i"
+"pritisnite %s za ponovni pokušaj."
 
 #: ../loader2/cdinstall.c:381
 msgid "CD Not Found"
@@ -6652,9 +6583,7 @@ msgstr ""
 #: ../loader2/driverdisk.c:261
 #, c-format
 msgid "Insert your driver disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Umetnite vaš disk s programima za pokretanje uređaja u /dev/%s i pritisnite "
-"\"OK\" za nastavak."
+msgstr "Umetnite vaš disk s programima za pokretanje uređaja u /dev/%s i pritisnite \"OK\" za nastavak."
 
 #: ../loader2/driverdisk.c:263
 msgid "Insert Driver Disk"
@@ -6678,9 +6607,9 @@ msgid ""
 "you like to manually select the driver, continue anyway, or load another "
 "driver disk?"
 msgstr ""
-"Nisu nađeni uređaji odgovarajućeg tipa na ovoj disketi. Želite li ručno "
-"odabrati upravljački program, nastaviti, ili učitati drugu disketu sa "
-"upravljačkim programima?"
+"Nisu nađeni uređaji odgovarajućeg tipa na ovoj disketi. Želite li "
+"ručno odabrati upravljački program, nastaviti, ili učitati drugu "
+"disketu sa upravljačkim programima?"
 
 #: ../loader2/driverdisk.c:394
 msgid "Driver disk"
@@ -6718,8 +6647,8 @@ msgid ""
 "The following invalid argument was specified for the kickstart driver disk "
 "command: %s:%s"
 msgstr ""
-"Navedeni su sljedeći neispravni argumenti za kickstart naredbu diska "
-"supravljačkim programima: %s:%s"
+"Navedeni su sljedeći neispravni argumenti za kickstart naredbu diska s"
+"upravljačkim programima: %s:%s"
 
 #: ../loader2/driverselect.c:60
 #, c-format
@@ -6730,9 +6659,9 @@ msgid ""
 "obtained by pressing the F1 key."
 msgstr ""
 "Molim, upišite bilo koji parametar, odvojen razmaknicom, koji želite "
-"prosljediti modulu %s. Ukoliko neznate koje parametre prosljediti, "
-"preskočite ovaj ekran pritiskom na tipku \"U redu\". Pritiskom na tipku F1 "
-"možete dobiti popis dostupnih opcija."
+"prosljediti modulu %s. Ukoliko neznate koje parametre prosljediti, preskočite "
+"ovaj ekran pritiskom na tipku \"U redu\". Pritiskom na tipku F1 možete dobiti "
+"popis dostupnih opcija."
 
 #: ../loader2/driverselect.c:83
 msgid "Enter Module Parameters"
@@ -6798,8 +6727,8 @@ msgid ""
 "You don't seem to have any hard drives on your system! Would you like to "
 "configure additional devices?"
 msgstr ""
-"Izgleda da nemate niti jedan tvrdi disk na vašem sustavu! Želite li "
-"postaviti dodatne uređaje?"
+"Izgleda da nemate niti jedan tvrdi disk na vašem sustavu! Želite li postaviti "
+"dodatne uređaje?"
 
 #: ../loader2/hdinstall.c:481
 #, c-format
@@ -6867,10 +6796,8 @@ msgid "Welcome to %s"
 msgstr "Dobro došli u %s"
 
 #: ../loader2/lang.c:53 ../loader2/loader.c:173
-msgid ""
-"  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
-msgstr ""
-"  <Tab>/<Alt-Tab> između elemenata  | <Space> bira | <F12> slijedeći zaslon"
+msgid "  <Tab>/<Alt-Tab> between elements  | <Space> selects | <F12> next screen "
+msgstr "  <Tab>/<Alt-Tab> između elemenata  | <Space> bira | <F12> slijedeći zaslon"
 
 #: ../loader2/lang.c:371
 msgid "Choose a Language"
@@ -6903,9 +6830,7 @@ msgstr ""
 #: ../loader2/loader.c:313
 #, c-format
 msgid "Insert your updates disk into /dev/%s and press \"OK\" to continue."
-msgstr ""
-"Umetnite vaše diskove s programima za nadogradnju u /dev/%s i pritisnite \"OK"
-"\" za nastavak."
+msgstr "Umetnite vaše diskove s programima za nadogradnju u /dev/%s i pritisnite \"OK\" za nastavak."
 
 #: ../loader2/loader.c:315
 msgid "Updates Disk"
@@ -6971,9 +6896,8 @@ msgid ""
 "Unable to find any devices of the type needed for this installation type.  "
 "Would you like to manually select your driver or use a driver disk?"
 msgstr ""
-"Ne mogu naći niti jedan uređaj potrebne vrste za ovu vrstu instalacije. "
-"Želite li ručno označiti vaš upravljački program ili koristit disk s "
-"upravljačkim programima?"
+"Ne mogu naći niti jedan uređaj potrebne vrste za ovu vrstu instalacije. Želite "
+"li ručno označiti vaš upravljački program ili koristit disk s upravljačkim programima?"
 
 #: ../loader2/loader.c:949
 msgid "The following devices have been found on your system."
@@ -6983,8 +6907,7 @@ msgstr "Pronađeni su sljedeći uređaji na vašem sustavu."
 msgid ""
 "No device drivers have been loaded for your system.  Would you like to load "
 "any now?"
-msgstr ""
-"Nisu učitani upravaljački programi za vaš sustav. Želite li ih sada učitati?"
+msgstr "Nisu učitani upravaljački programi za vaš sustav. Želite li ih sada učitati?"
 
 #: ../loader2/loader.c:955
 msgid "Devices"
@@ -7005,9 +6928,7 @@ msgstr "pokretač (loader) je već pokrenut. Pokrećem korisničku ljusku."
 #: ../loader2/loader.c:1397
 #, c-format
 msgid "Running anaconda, the %s system installer - please wait...\n"
-msgstr ""
-"Izvršavam anakonda-u, instalacijski program %s sustava - molim "
-"pričekajte...\n"
+msgstr "Izvršavam anakonda-u, instalacijski program %s sustava - molim pričekajte...\n"
 
 #: ../loader2/mediacheck.c:256
 msgid ""
@@ -7042,9 +6963,9 @@ msgstr ""
 "NIJE USPJELO.\n"
 "\n"
 "Slika diska koja je upravo ispitana sadrži greške. Ovo može biti zbog greške "
-"pri preuzimanju ili oštećenog diska. Ako je primjenjivo, molim očistite disk "
-"ipokušajte ponovo. Ako se nastave pojavljivati greške nebiste trebali "
-"nastaviti s instalacijom."
+"pri preuzimanju ili oštećenog diska. Ako je primjenjivo, molim očistite disk i"
+"pokušajte ponovo. Ako se nastave pojavljivati greške nebiste trebali nastaviti"
+" s instalacijom."
 
 #: ../loader2/mediacheck.c:333
 msgid ""
@@ -7420,15 +7341,12 @@ msgid "Atlantic Time - E Labrador"
 msgstr "Atlantsko vrijeme - E Labrador"
 
 #. generated from zone.tab
-msgid ""
-"Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
-msgstr ""
-"Atlantsko vrijeme - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgid "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
+msgstr "Atlantsko vrijeme - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
-msgstr ""
-"Atlantsko vrijeme - Nova Scotia - mjesta koja se ne nadgledaju DST 1966-1971"
+msgstr "Atlantsko vrijeme - Nova Scotia - mjesta koja se ne nadgledaju DST 1966-1971"
 
 #. generated from zone.tab
 msgid "Atyrau (Atirau, Gur'yev), Mangghystau (Mankistau)"
@@ -7603,11 +7521,8 @@ msgid "Eastern Time - Ontario & Quebec - most locations"
 msgstr "Istočno vrijeme - Ontario & Quebec -većina mjesta"
 
 #. generated from zone.tab
-msgid ""
-"Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
-msgstr ""
-"Istočno vrijeme - Ontario & Quebec - mjesta koja se nisu nadgledala DST 1967-"
-"1973"
+msgid "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
+msgstr "Istočno vrijeme - Ontario & Quebec - mjesta koja se nisu nadgledala DST 1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
@@ -7782,11 +7697,8 @@ msgid "Mountain Standard Time - Arizona"
 msgstr "Mountain standardno vrijeme - Arizona"
 
 #. generated from zone.tab
-msgid ""
-"Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
-msgstr ""
-"Planinsko standardno vrijeme  - Dawson Creek & Fort Saint John, British "
-"Columbia"
+msgid "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
+msgstr "Planinsko standardno vrijeme  - Dawson Creek & Fort Saint John, British Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
@@ -7798,8 +7710,7 @@ msgstr "Planinsko vrijeme"
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
-msgstr ""
-"Planinsko vrijeme - Alberta, istočna Britanska Kolumbia i zapad Saskatchewan"
+msgstr "Planinsko vrijeme - Alberta, istočna Britanska Kolumbia i zapad Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
@@ -8026,9 +7937,8 @@ msgid "Chinese(Traditional)"
 msgstr "Kineski(Tradicionalni)"
 
 #. generated from lang-table
-#, fuzzy
 msgid "Croatian"
-msgstr "Stvaram"
+msgstr "Hrvatski"
 
 #. generated from lang-table
 msgid "Czech"
@@ -8102,29 +8012,3 @@ msgstr "Švedski"
 msgid "Turkish"
 msgstr "Turski"
 
-#~ msgid "Online Help"
-#~ msgstr "Pomoć preko Interneta"
-
-#~ msgid "_Install BETA"
-#~ msgstr "_Instaliraj BETU"
-
-#~ msgid ""
-#~ "You have elected to disable the firewall on this system.  This is not "
-#~ "recomended if this system is attached directly to the Internet or is on a "
-#~ "large public network. A firewall will help prevent unauthorized access to "
-#~ "your system.\n"
-#~ "\n"
-#~ "Are you sure you want to turn off the firewall?"
-#~ msgstr ""
-#~ "Odabrali ste onemogućiti vatrozid na ovom sustavu this system.  To "
-#~ "nijepreporučljivo ako se sustav nalazi izravno na Internetu ili ako je "
-#~ "diovelike javne mreže. Vatrozid će onemogućiti neovlašteni pristup na "
-#~ "vašsustav.\n"
-#~ "\n"
-#~ "Jeste li sigurni da želite isključiti vatrozid?"
-
-#~ msgid "Set hostname"
-#~ msgstr "Postavi ime računala"
-
-#~ msgid "Welcome"
-#~ msgstr "Dobro došli"
