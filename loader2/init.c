@@ -50,6 +50,7 @@
 #include <libgen.h>
 
 #include "devt.h"
+#include "devices.h"
 
 #define syslog klogctl
 #endif
@@ -380,6 +381,37 @@ static int copyDirectory(char * from, char * to) {
     return 0;
 }
 
+static void createDevices(void) {
+    int i;
+
+    for (i = 0; devnodes[i].devname; i++) {
+        char devname[64];
+        int type = -1;
+
+        snprintf(devname, 63, "/dev/%s", devnodes[i].devname);
+        switch (devnodes[i].type) {
+        case DIRTYPE:
+            if (mkdir(devname, devnodes[i].perms) < 0) {
+                fprintf(stderr, "Unable to create directory %s: %s\n", 
+                        devname, strerror(errno));
+            break;
+        case CHARDEV:
+            type = S_IFCHR;
+            break;
+        case BLOCKDEV:
+            type = S_IFDIR;
+            break;
+        }
+        if (type == -1) continue;
+
+        if (mknod(devname, type | devnodes[i].perms, 
+                  makedev(devnodes[i].major, devnodes[i].minor)) < 0)
+            fprintf(stderr, "Unable to create device %s: %s\n", devname, 
+                    strerror(errno));
+        }
+    }
+}
+
 static void termReset(void) {
     /* change to tty1 */
     ioctl(0, VT_ACTIVATE, 1);
@@ -495,6 +527,14 @@ int main(int argc, char **argv) {
     if (!testing) {
 	if (mount("/proc", "/proc", "proc", 0, NULL))
 	    fatal_error(1);
+    }
+    printf("done\n");
+
+    printf("creating /dev filesystem... "); 
+    if (!testing) {
+	if (mount("/dev", "/dev", "ramfs", 0, NULL))
+	    fatal_error(1);
+        createDevices();
     }
     printf("done\n");
 

@@ -1,5 +1,11 @@
 2004-12-20  Jeremy Katz  <katzj@redhat.com>
 
+	* loader2/devices.h: Add static list of basic devices to create in 
+	/dev.
+
+	* loader2/init.c: Create /dev as a tmpfs so that we don't try to
+	bind-mount to the rootfs (#141570)
+
 	* packages.py (doPreInstall): Some finagling for kernel-*devel 
 	handling (#143257)
 	
