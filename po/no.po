@@ -86,23 +86,20 @@ msgstr ""
 "Hat Linux nå og trykk \"Ok\" for å starte systemet på nytt.\n"
 
 #: ../fstab.py:492
-#, fuzzy
 msgid "Swap Space"
 msgstr "Swap-område"
 
 #: ../fstab.py:493
-#, fuzzy
 msgid "Creating swap space..."
-msgstr "Formaterer swap-område på /dev/%s..."
+msgstr "Lager swap-område..."
 
 #: ../fstab.py:507 ../fstab.py:771 ../fstab.py:1230
 msgid "Formatting"
 msgstr "Formaterer"
 
 #: ../fstab.py:508
-#, fuzzy
 msgid "Formatting swap space..."
-msgstr "Formaterer swap-område på /dev/%s..."
+msgstr "Formaterer swap-område..."
 
 #: ../fstab.py:517
 msgid "Error creating swap on device "
@@ -887,9 +884,8 @@ msgid "Examine System"
 msgstr "Undersøk system"
 
 #: ../text.py:1079
-#, fuzzy
 msgid "System Swap Space"
-msgstr "Swap-område"
+msgstr "Swapområde for systemet"
 
 #: ../text.py:1086
 msgid "Customize Upgrade"
@@ -1058,10 +1054,17 @@ msgid ""
 "The error reported was:\n"
 "\n"
 msgstr ""
+"En feil oppstod mens bootloaderen ble installert.\n"
+"\n"
+"Vi anbefaler STERKT at du lager en bootdiskett når du blir spurt om dette,\n"
+"hvis ikke kan du få problemer med å starte Red Hat Linux.\n"
+"\n"
+"Den rapporterte feilen var:\n"
+"\n"
 
 #: ../todo.py:2002
 msgid "Bootloader Errors"
-msgstr ""
+msgstr "Bootloader-feil"
 
 #: ../upgrade.py:13
 msgid "Searching"
@@ -1069,7 +1072,7 @@ msgstr "Søker"
 
 #: ../upgrade.py:14
 msgid "Searching for Red Hat Linux installations..."
-msgstr "Søker etter Red Hat Linux-installasjoner..."
+msgstr "Leter etter Red Hat Linux-installasjoner..."
 
 #: ../upgrade.py:25 ../upgrade.py:53
 #, c-format
@@ -2080,15 +2083,15 @@ msgstr "Fargedybde:"
 
 #: ../iw/xconfig_gui.py:238
 msgid "256 Colors (8 Bit)"
-msgstr ""
+msgstr "256 farger (8 bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "High Color (16 Bit)"
-msgstr ""
+msgstr "Tusener av farger (16 bit)"
 
 #: ../iw/xconfig_gui.py:238
 msgid "True Color (24 Bit)"
-msgstr ""
+msgstr "Millioner av farger (24 bit)"
 
 #: ../iw/xconfig_gui.py:256
 msgid "Screen Resolution:"
@@ -2136,7 +2139,7 @@ msgstr "Skjermkonfigurasjon"
 
 #: ../iw/xconfig_gui.py:736
 msgid "DDC Probed Monitor"
-msgstr ""
+msgstr "DDC-monitor"
 
 #: ../iw/xconfig_gui.py:800 ../iw/xconfig_gui.py:1530
 msgid "Restore original values"
@@ -2582,36 +2585,35 @@ msgid ""
 "swap configured, but you may create additional swap space on one of your "
 "file systems now."
 msgstr ""
+"2.4-kjernen trenger vesentlig mer swap enn eldre kjerner, så mye som\n"
+"det dobbelte av systemets RAM er anbefalt. Du har nå %d MB av swap "
+"konfigurert,\n"
+"men du kan opprette mer swap på et av dine filsystemer nå."
 
 #: ../textw/upgrade_text.py:40
-#, fuzzy
 msgid "Free Space"
-msgstr "Diskplass"
+msgstr "Fri diskplass"
 
 #: ../textw/upgrade_text.py:55
-#, fuzzy
 msgid "Suggested size (MB):"
-msgstr "Størrelse (MB)"
+msgstr "Anbefalt størrelse(MB):"
 
 #: ../textw/upgrade_text.py:58
-#, fuzzy
 msgid "Swap file size (MB):"
-msgstr "Størrelse på swap-område:"
+msgstr "Størrelse på swapfil(MB):"
 
 #: ../textw/upgrade_text.py:66
-#, fuzzy
 msgid "Add Swap"
-msgstr "Swap"
+msgstr "Legg til swap"
 
 #: ../textw/upgrade_text.py:90
-#, fuzzy
 msgid "The value you entered is not a valid number."
-msgstr "Størrelsen du oppgir må være et tall."
+msgstr "Størrelsen du oppgav er ikke et gyldig tall."
 
 #: ../textw/upgrade_text.py:96
 msgid ""
 "There is not enough space on the device you selected for the swap partition."
-msgstr ""
+msgstr "Det er ikke nok plass på enheten du oppga for swapområdet."
 
 #: ../textw/upgrade_text.py:116
 msgid ""
@@ -4432,11 +4434,11 @@ msgstr "Alaska-tid"
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle"
-msgstr ""
+msgstr "Alaska-tid - \"Alaska panhandle\""
 
 #. generated from zone.tab
 msgid "Alaska Time - Alaska panhandle neck"
-msgstr ""
+msgstr "Alaska-tid - \"Alaska panhandle neck\""
 
 #. generated from zone.tab
 msgid "Alaska Time - west Alaska"
@@ -4444,11 +4446,11 @@ msgstr "Alaska-tid - vest-Alaska"
 
 #. generated from zone.tab
 msgid "Aleutian Islands"
-msgstr ""
+msgstr "de Aleutiske øyer"
 
 #. generated from zone.tab
 msgid "Amapa, E Para"
-msgstr "Amapa, E Para"
+msgstr "Amapa, østre Para"
 
 #. generated from zone.tab
 msgid "Amundsen-Scott Station, South Pole"
@@ -4460,16 +4462,19 @@ msgstr "Atlanterhavsøyene"
 
 #. generated from zone.tab
 msgid "Atlantic Time - E Labrador"
-msgstr ""
+msgstr "\"Atlantic Time\" - østre Labrador"
 
 #. generated from zone.tab
 msgid ""
 "Atlantic Time - Nova Scotia (most places), NB, W Labrador, E Quebec & PEI"
 msgstr ""
+"\"Atlantic Time\" - de fleste steder i Nova Scotia, NB, vest-Labrador, "
+"øst-Quebec og PEI"
 
 #. generated from zone.tab
 msgid "Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971"
 msgstr ""
+"\"Atlantisk Tid\" - steder i Nova Scotia som ikke hadde sommertid i 1966-1971"
 
 #. generated from zone.tab
 msgid "Azores"
@@ -4477,111 +4482,111 @@ msgstr "Azorene"
 
 #. generated from zone.tab
 msgid "Bayan-Olgiy, Hovd, Uvs"
-msgstr ""
+msgstr "Bayan-Olgiy, Hovd, Uvs"
 
 #. generated from zone.tab
 msgid "Borneo & Celebes"
-msgstr ""
+msgstr "Borneo"
 
 #. generated from zone.tab
 msgid "Canary Islands"
-msgstr ""
+msgstr "Kanariøyene"
 
 #. generated from zone.tab
 msgid "Casey Station, Bailey Peninsula"
-msgstr ""
+msgstr "Casey-stasjonen, Bailey-halvøyen"
 
 #. generated from zone.tab
 msgid "Catamarca (CT)"
-msgstr ""
+msgstr "Catamarca (CT)"
 
 #. generated from zone.tab
 msgid "central Crimea"
-msgstr ""
+msgstr "sentrale Krim"
 
 #. generated from zone.tab
 msgid "central Kazakhstan"
-msgstr ""
+msgstr "midt-Kazakhstan"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - midwest"
-msgstr ""
+msgstr "\"Central Standard Time\" - Saskatchewan - midtvesten"
 
 #. generated from zone.tab
 msgid "Central Standard Time - Saskatchewan - most locations"
-msgstr ""
+msgstr "Central Standard Time - de fleste steder i Saskatchewan"
 
 #. generated from zone.tab
 msgid "Central Time"
-msgstr ""
+msgstr "\"Central Time\""
 
 #. generated from zone.tab
 msgid "Central Time - Campeche, Yucatan"
-msgstr ""
+msgstr "\"Central Time\" - Campeche, Yucatan"
 
 #. generated from zone.tab
 msgid "Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas"
-msgstr ""
+msgstr "\"Central Time\" - Coahuila, Durango, Nuevo Leon, Tamaulipas"
 
 #. generated from zone.tab
 msgid "Central Time - Manitoba & west Ontario"
-msgstr ""
+msgstr "\"Central Time\" - Manitoba og vest-Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - Michigan - Wisconsin border"
-msgstr ""
+msgstr "\"Central Time\" - Michigan - grensen mot Wisconsin"
 
 #. generated from zone.tab
 msgid "Central Time - most locations"
-msgstr ""
+msgstr "De fleste steder med \"Central Time\""
 
 #. generated from zone.tab
 msgid "Central Time - Quintana Roo"
-msgstr ""
+msgstr "\"Central Time\" - Quintana Roo"
 
 #. generated from zone.tab
 msgid "Central Time - Rainy River & Fort Frances, Ontario"
-msgstr ""
+msgstr "\"Central Time\" - Rainy River og Fort Frances, Ontario"
 
 #. generated from zone.tab
 msgid "Central Time - west Nunavut"
-msgstr ""
+msgstr "\"Central Time\" - vest-Nunavut"
 
 #. generated from zone.tab
 msgid "Ceuta & Melilla"
-msgstr ""
+msgstr "Ceuta og Melilla"
 
 #. generated from zone.tab
 msgid "Chatham Islands"
-msgstr ""
+msgstr "Chatham-øyene"
 
 #. generated from zone.tab
 msgid "China coast"
-msgstr ""
+msgstr "Kina-kysten"
 
 #. generated from zone.tab
 msgid "China mountains"
-msgstr ""
+msgstr "Kina - fjellområdene"
 
 #. generated from zone.tab
 msgid "Davis Station, Vestfold Hills"
-msgstr ""
+msgstr "Davis-stasjonen, Vestfold-høydene"
 
 #. generated from zone.tab
 msgid "Dumont-d'Urville Base, Terre Adelie"
-msgstr ""
+msgstr "Dumont-d'Urville-basen, Terre Adelie"
 
 #. generated from zone.tab
 msgid "E Amazonas"
-msgstr ""
+msgstr "Østre Amazonas"
 
 #. generated from zone.tab
 msgid "E Argentina (BA, DF, SC, TF)"
-msgstr ""
+msgstr "Østre Argentina (BA, DF, SC, TF)"
 
 #. generated from zone.tab
 msgid "east Dem. Rep. of Congo"
-msgstr ""
+msgstr "østre Kongo"
 
 #. generated from zone.tab
 msgid "Easter Island"
@@ -4589,68 +4594,70 @@ msgstr "Påskeøyene"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - central Nunavut"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - midt-Nunavut."
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - east Nunavut"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - østre-Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Crawford County"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - Indiana - Crawford County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - most locations"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - de fleste steder i Indiana"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Starke County"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - Indiana - Starke County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Indiana - Switzerland County"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - Indiana - Switzerland County"
 
 #. generated from zone.tab
 msgid "Eastern Standard Time - Pangnirtung, Nunavut"
-msgstr ""
+msgstr "\"Eastern Standard Time\" - Pangnirtung, Nunavut"
 
 #. generated from zone.tab
 msgid "Eastern Time"
-msgstr ""
+msgstr "\"Eastern Time\" (USAs østkyst)"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Louisville area"
-msgstr ""
+msgstr "\"Eastern Time\" - Kentucky - Louisville-området"
 
 #. generated from zone.tab
 msgid "Eastern Time - Kentucky - Wayne County"
-msgstr ""
+msgstr "\"Eastern Time\" - Kentucky - Wayne County"
 
 #. generated from zone.tab
 msgid "Eastern Time - Michigan - most locations"
-msgstr ""
+msgstr "\"Eastern Time\" - de fleste steder i Michigan."
 
 #. generated from zone.tab
 msgid "Eastern Time - Ontario & Quebec - most locations"
-msgstr ""
+msgstr "\"Eastern Time\" - de fleste steder i Ontario og Quebec"
 
 #. generated from zone.tab
 msgid ""
 "Eastern Time - Ontario & Quebec - places that did not observe DST 1967-1973"
 msgstr ""
+"\"Eastern Time\" - steder i Ontario og Quebec som ikke hadde sommertid i "
+"1967-1973"
 
 #. generated from zone.tab
 msgid "Eastern Time - Thunder Bay, Ontario"
-msgstr ""
+msgstr "\"Eastern Time\" - Thunder Bay, Ontario"
 
 #. generated from zone.tab
 msgid "Eastern Turkestan"
-msgstr ""
+msgstr "Østre Turkmenistan"
 
 #. generated from zone.tab
 msgid "east Greenland"
-msgstr ""
+msgstr "øst-Grønland"
 
 #. generated from zone.tab
 msgid "east Kazakhstan"
@@ -4666,11 +4673,11 @@ msgstr "Galapagos-øyene"
 
 #. generated from zone.tab
 msgid "Gambier Islands"
-msgstr ""
+msgstr "Gambier-øyene"
 
 #. generated from zone.tab
 msgid "Gilbert Islands"
-msgstr ""
+msgstr "Gilbert-øyene"
 
 #. generated from zone.tab
 msgid "Great Britain"
@@ -4678,11 +4685,11 @@ msgstr "Storbritania"
 
 #. generated from zone.tab
 msgid "Hawaii"
-msgstr ""
+msgstr "Hawaii"
 
 #. generated from zone.tab
 msgid "Irian Jaya & the Moluccas"
-msgstr ""
+msgstr "Irian Jaya og Molukkene"
 
 #. generated from zone.tab
 msgid "Jan Mayen"
@@ -4690,256 +4697,258 @@ msgstr "Jan Mayen"
 
 #. generated from zone.tab
 msgid "Java & Sumatra"
-msgstr ""
+msgstr "Java og Sumatra"
 
 #. generated from zone.tab
 msgid "Johnston Atoll"
-msgstr ""
+msgstr "Johnston-atollet"
 
 #. generated from zone.tab
 msgid "Jujuy (JY)"
-msgstr ""
+msgstr "Jujuy (JY)"
 
 #. generated from zone.tab
 msgid "Kosrae"
-msgstr ""
+msgstr "Kosrae"
 
 #. generated from zone.tab
 msgid "Kwajalein"
-msgstr ""
+msgstr "Kwajalein"
 
 #. generated from zone.tab
 msgid "Line Islands"
-msgstr ""
+msgstr "Line Islands"
 
 #. generated from zone.tab
 msgid "Lord Howe Island"
-msgstr ""
+msgstr "Lord Howe-øya"
 
 #. generated from zone.tab
 msgid "Madeira Islands"
-msgstr ""
+msgstr "Madeira"
 
 #. generated from zone.tab
 msgid "Marquesas Islands"
-msgstr ""
+msgstr "Marquesas-øyene"
 
 #. generated from zone.tab
 msgid "Mato Grosso, Mato Grosso do Sul"
-msgstr ""
+msgstr "Mato Grosso, Mato Grosso do Sul"
 
 #. generated from zone.tab
 msgid "Mawson Station, Holme Bay"
-msgstr ""
+msgstr "Mawson-stasjonen, Holme-bukta"
 
 #. generated from zone.tab
 msgid "McMurdo Station, Ross Island"
-msgstr ""
+msgstr "McMurdo-stasjonen, Ross Island"
 
 #. generated from zone.tab
 msgid "Mendoza (MZ)"
-msgstr ""
+msgstr "Mendoza (MZ)"
 
 #. generated from zone.tab
 msgid "Midway Islands"
-msgstr ""
+msgstr "Midway-øyene"
 
 #. generated from zone.tab
 msgid "Moscow+00 - west Russia"
-msgstr ""
+msgstr "Moskva+00 - vest-Russland"
 
 #. generated from zone.tab
 msgid "Moscow+01 - Caspian Sea"
-msgstr ""
+msgstr "Moskva+01 - det kaspiske hav"
 
 #. generated from zone.tab
 msgid "Moscow-01 - Kaliningrad"
-msgstr ""
+msgstr "Moskva-01 - Kaliningrad"
 
 #. generated from zone.tab
 msgid "Moscow+02 - Urals"
-msgstr ""
+msgstr "Moskva+02 - Uralfjellene"
 
 #. generated from zone.tab
 msgid "Moscow+03 - Novosibirsk"
-msgstr ""
+msgstr "Moskva+03 - Novosibirsk"
 
 #. generated from zone.tab
 msgid "Moscow+03 - west Siberia"
-msgstr ""
+msgstr "Moskva+03 - vest-Sibir"
 
 #. generated from zone.tab
 msgid "Moscow+04 - Yenisei River"
-msgstr ""
+msgstr "Moskva+04 - Yenisei-elven"
 
 #. generated from zone.tab
 msgid "Moscow+05 - Lake Baikal"
-msgstr ""
+msgstr "Moskva+05 - Baikal-sjøen"
 
 #. generated from zone.tab
 msgid "Moscow+06 - Lena River"
-msgstr ""
+msgstr "Moskva+06 - Lena-elven"
 
 #. generated from zone.tab
 msgid "Moscow+07 - Amur River"
-msgstr ""
+msgstr "Moskva+07 - Amur-elven"
 
 #. generated from zone.tab
 msgid "Moscow+08 - Magadan & Sakhalin"
-msgstr ""
+msgstr "Moskva+08 - Magadan og Sakhalin"
 
 #. generated from zone.tab
 msgid "Moscow+09 - Kamchatka"
-msgstr ""
+msgstr "Moskva+10 - Kamchatka"
 
 #. generated from zone.tab
 msgid "Moscow+10 - Bering Sea"
-msgstr ""
+msgstr "Moskva+10 - Beringstredet"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Arizona"
-msgstr ""
+msgstr "\"Mountain Standard Time\" - Arizona"
 
 #. generated from zone.tab
 msgid ""
 "Mountain Standard Time - Dawson Creek & Fort Saint John, British Columbia"
 msgstr ""
+"\"Mountain Standard Time: - Dawson Creek, Fort Saint John, britisk Columbia"
 
 #. generated from zone.tab
 msgid "Mountain Standard Time - Sonora"
-msgstr ""
+msgstr "\"Mountain Standard Time\" - Sonora"
 
 #. generated from zone.tab
 msgid "Mountain Time"
-msgstr ""
+msgstr "\"Mountain Time\""
 
 #. generated from zone.tab
 msgid "Mountain Time - Alberta, east British Columbia & west Saskatchewan"
 msgstr ""
+"\"Mountain Time\" - Alberta, østre britisk Columbia og vest-Saskatchewan"
 
 #. generated from zone.tab
 msgid "Mountain Time - central Northwest Territories"
-msgstr ""
+msgstr "\"Mountain Time\" - midt-\"Northwest Territories\""
 
 #. generated from zone.tab
 msgid "Mountain Time - Chihuahua"
-msgstr ""
+msgstr "\"Mountain Time\" - Chihuahua"
 
 #. generated from zone.tab
 msgid "Mountain Time - Navajo"
-msgstr ""
+msgstr "\"Mountain Time\" - Navajo"
 
 #. generated from zone.tab
 msgid "Mountain Time - S Baja, Nayarit, Sinaloa"
-msgstr ""
+msgstr "\"Mountain Time\" - S Baja, Nayarit, Sinaloa"
 
 #. generated from zone.tab
 msgid "Mountain Time - south Idaho & east Oregon"
-msgstr ""
+msgstr "\"Mountain Time\" - sør-Idaho og øst-Oregon"
 
 #. generated from zone.tab
 msgid "Mountain Time - west Northwest Territories"
-msgstr ""
+msgstr "\"Mountain Time\" - vest-\"Northwest Territories\""
 
 #. generated from zone.tab
 msgid "NE Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
-msgstr ""
+msgstr "Nordøstre Argentina (SF, ER, CN, MN, CC, FM, LP, CH)"
 
 #. generated from zone.tab
 msgid "NE Brazil (MA, PI, CE, RN, PR)"
-msgstr ""
+msgstr "Nordøstre Brasil (MA, PI, CE, RN, PR)"
 
 #. generated from zone.tab
 msgid "Newfoundland Island"
-msgstr ""
+msgstr "Newfoundland"
 
 #. generated from zone.tab
 msgid "New South Wales - Broken Hill"
-msgstr ""
+msgstr "New South Wales - Broken Hill"
 
 #. generated from zone.tab
 msgid "New South Wales - most locations"
-msgstr ""
+msgstr "De fleste steder i New South Wales"
 
 #. generated from zone.tab
 msgid "northeast Mali"
-msgstr ""
+msgstr "nordøstre Mali"
 
 #. generated from zone.tab
 msgid "Northern Ireland"
-msgstr ""
+msgstr "Nord-Irland"
 
 #. generated from zone.tab
 msgid "Northern Territory"
-msgstr ""
+msgstr "Nordterritoriet"
 
 #. generated from zone.tab
 msgid "north Manchuria"
-msgstr ""
+msgstr "nord-Mandsjuria"
 
 #. generated from zone.tab
 msgid "northwest Greenland"
-msgstr ""
+msgstr "nordvestre Grønland"
 
 #. generated from zone.tab
 msgid "Pacific Time - north Yukon"
-msgstr ""
+msgstr "\"Pacific Time\" - nord-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - south Yukon"
-msgstr ""
+msgstr "\"Pacific Time\" - sør-Yukon"
 
 #. generated from zone.tab
 msgid "Pacific Time - west British Columbia"
-msgstr ""
+msgstr "\"Pacific Time\" - vestre British Columbia"
 
 #. generated from zone.tab
 msgid "Palmer Station, Anvers Island"
-msgstr ""
+msgstr "Palmer Station, Anvers-øya"
 
 #. generated from zone.tab
 msgid "peninsular Malaysia"
-msgstr ""
+msgstr "Malaysia"
 
 #. generated from zone.tab
 msgid "Pernambuco"
-msgstr ""
+msgstr "Pernambuco"
 
 #. generated from zone.tab
 msgid "Phoenix Islands"
-msgstr ""
+msgstr "Phoenix-øyene"
 
 #. generated from zone.tab
 msgid "Ponape (Pohnpei)"
-msgstr ""
+msgstr "Ponape (Pohnpei)"
 
 #. generated from zone.tab
 msgid "Queensland - Holiday Islands"
-msgstr ""
+msgstr "Queensland - Holiday Islands"
 
 #. generated from zone.tab
 msgid "Queensland - most locations"
-msgstr ""
+msgstr "De fleste steder i Queensland"
 
 #. generated from zone.tab
 msgid "Roraima"
-msgstr ""
+msgstr "Roraima"
 
 #. generated from zone.tab
 msgid "Ruthenia"
-msgstr ""
+msgstr "Ruthenia"
 
 #. generated from zone.tab
 msgid "Sabah & Sarawak"
-msgstr ""
+msgstr "Sabah og Sarawak"
 
 #. generated from zone.tab
 msgid "Society Islands"
-msgstr ""
+msgstr "Society Islands"
 
 #. generated from zone.tab
 msgid "South Australia"
-msgstr ""
+msgstr "Syd-Australia"
 
 #. generated from zone.tab
 msgid "southwest Greenland"
@@ -4951,7 +4960,7 @@ msgstr "sydvest-Mali"
 
 #. generated from zone.tab
 msgid "S & SE Brazil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
-msgstr ""
+msgstr "Syd- og Sydøst-Brasil (BA, GO, DF, MG, ES, RJ, SP, PR, SC, RS)"
 
 #. generated from zone.tab
 msgid "Svalbard"
@@ -4959,7 +4968,7 @@ msgstr "Svalbard"
 
 #. generated from zone.tab
 msgid "Syowa Station, E Ongul I"
-msgstr ""
+msgstr "Syowa Station, østre Ongul I"
 
 #. generated from zone.tab
 msgid "Tasmania"
@@ -4971,39 +4980,39 @@ msgstr "Tibet og Xinjiang"
 
 #. generated from zone.tab
 msgid "Tocantins"
-msgstr ""
+msgstr "Tocantins"
 
 #. generated from zone.tab
 msgid "Transdniestria"
-msgstr ""
+msgstr "Transdniestria"
 
 #. generated from zone.tab
 msgid "Truk (Chuuk)"
-msgstr ""
+msgstr "Truk (Chuuk)"
 
 #. generated from zone.tab
 msgid "Victoria"
-msgstr ""
+msgstr "Victoria"
 
 #. generated from zone.tab
 msgid "Wake Island"
-msgstr ""
+msgstr "Wake Island"
 
 #. generated from zone.tab
 msgid "W Amazonas"
-msgstr ""
+msgstr "vestre Amazonas"
 
 #. generated from zone.tab
 msgid "W Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
-msgstr ""
+msgstr "Vest-Argentina (CB, SA, TM, LR, SJ, SL, NQ, RN)"
 
 #. generated from zone.tab
 msgid "west Dem. Rep. of Congo"
-msgstr ""
+msgstr "vest-Kongo"
 
 #. generated from zone.tab
 msgid "Western Australia"
-msgstr ""
+msgstr "Vest-Australia"
 
 #. generated from zone.tab
 msgid "west Kazakhstan"
@@ -5015,7 +5024,7 @@ msgstr "vest-Uzbekistan"
 
 #. generated from zone.tab
 msgid "W Para, Rondonia"
-msgstr ""
+msgstr "Vest-Para, Rondonia"
 
 #. generated from zone.tab
 msgid "Yap"
@@ -5023,7 +5032,7 @@ msgstr "Yap"
 
 #. generated from zone.tab
 msgid "Zaporozh'ye, E Lugansk"
-msgstr ""
+msgstr "Zaporozh'ye, østre Lugansk"
 
 #. generated from lang-table
 msgid "Czech"
@@ -5046,6 +5055,8 @@ msgid ""
 "German          de      lat0-16         iso09           de_DE           "
 "de-latin1-nodeadkeys    Europe/Berlin"
 msgstr ""
+"Tysk     de     lat0-16     iso09       de_DE       \n"
+"de-latin1-nodeadkeys   Europe/Berlin"
 
 #. generated from lang-table
 msgid "Hungarian"
@@ -5106,6 +5117,3 @@ msgstr "Tyrkisk"
 #. generated from lang-table
 msgid "Ukrainian"
 msgstr "Ukrainsk"
-
-#~ msgid "German"
-#~ msgstr "Tysk"
