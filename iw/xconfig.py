@@ -293,6 +293,17 @@ class XConfigWindow (InstallWindow):
         clist.select_row (row, 0)
         clist.moveto (row, 0, 0.5, 0.0)
 
+
+    def selectCb (self, list, row, col, event):
+        cardname = list.get_row_data (row)
+        if cardname:
+            card = self.cards[cardname]
+            depth = 0
+            while depth < 16 and card.has_key ("SEE"):
+                card = self.cards[card["SEE"]]
+                depth = depth + 1
+            self.todo.x.setVidcard (card)
+        
     def getScreen (self):
         # Don't configure X in reconfig mode.
         # in regular install, check to see if the XFree86 package is
@@ -360,11 +371,15 @@ class XConfigWindow (InstallWindow):
         # card configuration
         self.cardList = GtkCList ()
         self.cardList.set_selection_mode (SELECTION_BROWSE)
-        cards = self.todo.x.cards ().keys ()
+        self.cardList.connect ("select_row", self.selectCb)
+
+        self.cards = self.todo.x.cards ()
+        cards = self.cards.keys ()
         cards.sort ()
         select = 0
         for card in cards:
             row = self.cardList.append ((card,))
+            self.cardList.set_row_data (row, card)
             if card == self.todo.x.vidCards[self.todo.x.primary]["NAME"]:
                 select = row
         self.cardList.connect ("draw", self.moveto, select)

@@ -163,7 +163,8 @@ class XF86Config:
         self.monVert = vrange
         
     def setVidcard (self, card):
-        self.vidCards.append (card)
+        self.vidCards = [card]
+        self.primary = 0
 
         if self.vidCards:
             self.devID = self.vidCards[self.primary]["NAME"]
