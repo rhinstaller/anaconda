@@ -611,16 +611,28 @@ def writeRpmPlatform(root="/"):
         return
     if not os.access("%s/etc/rpm" %(root,), os.X_OK):
         os.mkdir("%s/etc/rpm" %(root,))
+
+    myarch = rhpl.arch.canonArch
+
+    # now allow an override with rpmarch=i586 on the command line (#101971)
+    f = open("/proc/cmdline", "r")
+    buf = f.read()
+    f.close()
+    args = buf.split(" ")
+    for arg in args:
+        if arg.startswith("rpmarch="):
+            myarch = arg[8:]
+        
     f = open("%s/etc/rpm/platform" %(root,), 'w+')
-    f.write("%s-redhat-linux\n" %(rhpl.arch.canonArch,))
+    f.write("%s-redhat-linux\n" %(myarch,))
     f.close()
 
     # FIXME: writing /etc/rpm/macros feels wrong somehow
     # temporary workaround for #92285
     if os.access("%s/etc/rpm/macros" %(root,), os.R_OK):
         return
-    if not (rhpl.arch.canonArch.startswith("ppc64") or
-            rhpl.arch.canonArch in ("s390x", "sparc64", "x86_64", "ia64")):
+    if not (myarch.startswith("ppc64") or
+            myarch in ("s390x", "sparc64", "x86_64", "ia64")):
         return
     f = open("%s/etc/rpm/macros" %(root,), 'w+')
     f.write("%_transaction_color   3\n")
