@@ -15,6 +15,15 @@
 #include "bioscall.h"
 #ident "$Id$"
 
+#define DFLAG 0x0400
+#define IFLAG 0x0200
+#define TFLAG 0x0100
+#define SFLAG 0x0080
+#define ZFLAG 0x0040
+#define AFLAG 0x0010
+#define PFLAG 0x0004
+#define CFLAG 0x0001
+
 /* Dump some of the interesting parts of a register struct to stdout. */
 void dump_regs(struct vm86_regs *regs)
 {
@@ -55,7 +64,7 @@ void do_vm86(struct vm86_struct *vm, char *memory, unsigned stop_eip) {
 	ret = syscall(SYS_vm86old, vm);
 	while((vm->regs.cs * 16 + vm->regs.eip) != (start_cs * 16 + stop_eip)) {
 		ip = &memory[vm->regs.cs * 16 + vm->regs.eip];
-#ifdef DEBUG
+#ifdef DEBUG2
 		printf("Unexpected return:\n");
 		dump_regs(&vm->regs);
 		printf("Offending instructions: %02x %02x %02x %02x\n",
@@ -97,13 +106,83 @@ void do_vm86(struct vm86_struct *vm, char *memory, unsigned stop_eip) {
 				vm->regs.eip++;
 				break;
 			}
+			case 0x6c: { /* insb */
+				unsigned char *result = (unsigned char*)
+					&memory[vm->regs.es*16 + vm->regs.edi];
+				*result = inb(vm->regs.edx & 0xffff);
+				if(vm->regs.eflags & DFLAG) {
+					vm->regs.edi -= 1;
+				} else {
+					vm->regs.edi += 1;
+				}
+				if(ip[-1] == 0xf3) { /* rep'ped */
+					vm->regs.ecx--;
+					vm->regs.eip--;
+				} else {
+					vm->regs.eip++;
+				}
+				break;
+			}
+			case 0x6d: { /* insw */
+				u_int16_t *result = (u_int16_t*)
+					&memory[vm->regs.es*16 + vm->regs.edi];
+				*result = inw(vm->regs.edx & 0xffff);
+				if(vm->regs.eflags & DFLAG) {
+					vm->regs.edi -= 2;
+				} else {
+					vm->regs.edi += 2;
+				}
+				if(ip[-1] == 0xf3) { /* rep'ped */
+					vm->regs.ecx--;
+					vm->regs.eip--;
+				} else {
+					vm->regs.eip++;
+				}
+				break;
+			}
+			case 0x6e: { /* outsb */
+				unsigned char *result = (unsigned char*)
+					&memory[vm->regs.es*16 + vm->regs.edi];
+				outb(*result,
+				     vm->regs.edx & 0xffff);
+				if(vm->regs.eflags & DFLAG) {
+					vm->regs.edi -= 1;
+				} else {
+					vm->regs.edi += 1;
+				}
+				if(ip[-1] == 0xf3) { /* rep'ped */
+					vm->regs.ecx--;
+					vm->regs.eip--;
+				} else {
+					vm->regs.eip++;
+				}
+				break;
+			}
+			case 0x6f: { /* outsw */
+				u_int16_t *result = (u_int16_t*)
+					&memory[vm->regs.es*16 + vm->regs.edi];
+				outw(*result,
+				     vm->regs.edx & 0xffff);
+				if(vm->regs.eflags & DFLAG) {
+					vm->regs.edi -= 2;
+				} else {
+					vm->regs.edi += 2;
+				}
+				if(ip[-1] == 0xf3) { /* rep'ped */
+					vm->regs.ecx--;
+					vm->regs.eip--;
+				} else {
+					vm->regs.eip++;
+				}
+				break;
+			}
 			case 0xfa: { /* cli */
-				vm->regs.eflags &= ~(0x0200);
+				vm->regs.eflags &= ~(IFLAG);
 				vm->regs.eip++;
 				break;
 			}
 			case 0xfb: { /* sti */
-				vm->regs.eflags |= ~(0x0200);
+				vm->regs.eflags |= ~(IFLAG);
 				vm->regs.eip++;
 				break;
 			}
@@ -231,7 +310,11 @@ unsigned char *vm86_ram_alloc()
 		perror("reading kernel memory");
 		return MAP_FAILED;
 	}
-	read(fd, memory, 0x110000);
+	// read(fd, memory, 0x110000);
+	lseek(fd, 0, SEEK_SET);
+	read(fd, &memory[0], 0x10000);
+	lseek(fd, 0xa0000, SEEK_SET);
+	read(fd, &memory[0xa0000], 0x50000);
 	close(fd);
 
 	return memory;
@@ -250,7 +333,9 @@ void bioscall(unsigned char int_no, struct vm86_regs *regs, unsigned char *mem)
 	memcpy(&vm.regs, regs, sizeof(vm.regs));
 	vm.regs.cs  = BIOSCALL_START_SEG;
 	vm.regs.eip = BIOSCALL_START_OFS;
-	vm.flags = VM_MASK | IOPL_MASK;
+	vm.regs.ss  = BIOSCALL_START_SEG;
+	vm.regs.esp = 0xfff0 - BIOSCALL_START_OFS;
+	vm.regs.eflags = VM_MASK | IOPL_MASK;
 	memcpy(&mem[BIOSCALL_START_SEG * 16 + BIOSCALL_START_OFS], call,
 	       sizeof(call));
 	do_vm86(&vm, mem, BIOSCALL_START_OFS + sizeof(call));
