@@ -303,6 +303,7 @@ struct defaultKeyboardByLang {
     { "ru", "ru" },
     { "se", "se-latin1" },
     { "tr", "trq" },
+    { "ja", "jp106" },
     { NULL, NULL } };
 
 #ifdef __sparc__
