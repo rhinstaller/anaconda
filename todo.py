@@ -1583,7 +1583,10 @@ class ToDo:
             self.copyConfModules ()
             if not self.x.skip and self.x.server:
 		if len (self.x.server) >= 3 and self.x.server[0:3] == 'Sun':
-		    os.unlink(self.instPath + "/etc/X11/X")
+                    try:
+                        os.unlink(self.instPath + "/etc/X11/X")
+                    except:
+                        pass
 		    script = open(self.instPath + "/etc/X11/X","w")
 		    script.write("#!/bin/bash\n")
 		    script.write("exec /usr/X11R6/bin/Xs%s -fp unix/:-1 $@\n" % self.x.server[1:])
