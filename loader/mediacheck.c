@@ -20,7 +20,7 @@
 #define MIN(x, y)  ((x < y) ? x : y)
 
 /* number of sectors to ignore at end of iso when computing sum */
-#define SKIPSECTORS 15
+#define SKIPSECTORS 150
 
 typedef void (*checkCallback)(void *, long long offset);
 
