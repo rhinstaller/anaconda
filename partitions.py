@@ -421,18 +421,25 @@ class Partitions:
 		    
         return rc
 
-    def isRaidMember(self, request):
-        """Return whether or not the request is being used in a RAID device."""
+    def getRaidMemberParent(self, request):
+        """Return RAID device request containing this request."""
         raiddev = self.getRaidRequests()
         if not raiddev or not request.device:
-            return 0
+            return None
         for dev in raiddev:
             if not dev.raidmembers:
                 continue
             for member in dev.raidmembers:
                 if request.device == self.getRequestByID(member).device:
-                    return 1
-        return 0
+                    return dev
+        return None
+
+    def isRaidMember(self, request):
+        """Return whether or not the request is being used in a RAID device."""
+	if self.getRaidMemberParent(request) is not None:
+	    return 1
+	else:
+	    return 0 
 
     def getLVMLVForVG(self, vgrequest):
         """Find and return a list of all of the LVs in the VG."""
@@ -543,19 +550,26 @@ class Partitions:
 		raidcounter = raidcounter + 1
         return rc
 
-    def isLVMVolumeGroupMember(self, request):
-        """Return whether or not the request is being used in an LVM device."""
+    def getLVMVolumeGroupMemberParent(self, request):
+        """Return parent volume group of a physical volume"""
 	volgroups = self.getLVMVGRequests()
 	if not volgroups:
-	    return 0
+	    return None
 
 	for volgroup in volgroups:
 	    if volgroup.physicalVolumes:
 		if request.uniqueID in volgroup.physicalVolumes:
-		    return 1
+		    return volgroup
 
-	return 0
+	return None
 
+    def isLVMVolumeGroupMember(self, request):
+        """Return whether or not the request is being used in an LVM device."""
+	if self.getLVMVolumeGroupMemberParent(request) is None:
+	    return 0
+	else:
+	    return 1
+    
     def isVolumeGroupNameInUse(self, vgname):
         """Return whether or not the requested volume group name is in use."""
         if not vgname:
