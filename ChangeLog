@@ -1,3 +1,10 @@
+2004-11-24  Jeremy Katz  <katzj@redhat.com>
+
+	* upgrade.py: Remove linuxconf stuff from the upgrade remove
+	blacklist.  They didn't exist in RHEL 3 which is our only
+	supported upgrade version and there are a few weird bugs which
+	seem to be related to this.
+
 2004-11-23  Jeremy Katz  <katzj@redhat.com>
 
 	* upgrade.py (upgradeFindPackages): More iiiimf upgrade (#129218)
