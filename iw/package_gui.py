@@ -412,6 +412,11 @@ class IndividualPackageSelectionWindow (InstallWindow):
         sw = GtkScrolledWindow ()
         sw.set_border_width (5)
         sw.set_policy (POLICY_NEVER, POLICY_AUTOMATIC)
+
+        # Set the style for the tree
+        self.ctree.set_expander_style(CTREE_EXPANDER_TRIANGLE)
+        self.ctree.set_line_style(CTREE_LINES_NONE)
+
         sw.add (self.ctree)
         packageHBox = GtkHBox ()
         packageHBox.pack_start (sw, FALSE)
