@@ -321,7 +321,7 @@ int uncpioCommand(int argc, char ** argv) {
 
     cfd = gzdopen(0, "r");
 
-    rc = cpioInstallArchive(cfd, NULL, 0, NULL, NULL, &fail);
+    rc = myCpioInstallArchive(cfd, NULL, 0, NULL, NULL, &fail);
 
     if (rc) {
 	fprintf(stderr, "cpio failed on %s: ", fail);
