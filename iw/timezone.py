@@ -71,8 +71,9 @@ class TimezoneWindow (InstallWindow):
                     
 
     def getNext (self):
-        self.todo.setTimezoneInfo (self.list.get_text (self.list.selection[0], 0),
-                                   self.systemUTC.get_active ())
+	if self.__dict__.has_key('list'):
+	    self.todo.setTimezoneInfo (self.list.get_text (self.list.selection[0], 0),
+				       self.systemUTC.get_active ())
         return None
 
     def fixUp (self):
