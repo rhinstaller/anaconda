@@ -114,6 +114,9 @@ def startX():
             x.server = probedServer
             testx(mouse, x)
 
+        except:
+            pass
+
     return (mouse, x)
 
 
