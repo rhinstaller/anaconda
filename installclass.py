@@ -28,7 +28,7 @@ class InstallClass:
     def addToSkipList(self, type):
 	# this throws an exception if there is a problem
 	[ "lilo", "mouse", "network", "authentication", "complete",
-	  "package-selection", "bootdisk", "partition", "format",
+	  "package-selection", "bootdisk", "partition", "format", "timezone",
 	  "accounts", "dependencies", "language", "keyboard",
 	  "welcome", "installtype", "mouse" ].index(type)
 	self.skipSteps[type] = 1
@@ -58,6 +58,9 @@ class InstallClass:
     def getGroups(self):
 	return self.groups
 
+    def setRootPassword(self, pw):
+	self.rootPassword = pw
+
     def getMakeBootdisk(self):
 	return self.makeBootdisk
 
@@ -69,6 +72,8 @@ class InstallClass:
 	self.makeBootdisk = 0
 	self.timezone = None
 	self.setAuthentication(1, 1, 0)
+	self.rootPassword = None
+	self.installType = None
 
 # custom installs are easy :-)
 class CustomInstall(InstallClass):
@@ -84,7 +89,6 @@ class Workstation(InstallClass):
 	self.setHostname("localhost.localdomain")
 	self.addToSkipList("lilo")
 	self.addToSkipList("network")
-	self.addToSkipList("package-selection")
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 
@@ -93,6 +97,7 @@ class GNOMEWorkstation(Workstation):
     def __init__(self):
 	Workstation.__init__(self)
 	self.setGroups(["Base"])
+	self.addToSkipList("package-selection")
 
 class KDEWorkstation(Workstation):
 
@@ -111,16 +116,3 @@ class Server(InstallClass):
 	self.addToSkipList("authentication")
 	self.addToSkipList("bootdisk")
 
-class Kickstart(InstallClass):
-    def __init__(self):
-	InstallClass.__init__(self)
-	self.addToSkipList("lilo")
-	self.addToSkipList("bootdisk")
-        self.addToSkipList("installtype")
-        self.addToSkipList("welcome")
-
-        # need to take care of:
-	#[ "lilo", "mouse", "network", "authentication", "complete",
-	  #"package-selection", "bootdisk", "partition", "format",
-	  #"accounts", "dependencies", "language", "keyboard",
-	  #"installtype", "mouse" ].index(type)
