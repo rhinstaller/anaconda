@@ -358,8 +358,3 @@ class Kickstart(InstallClass):
 	self.installType = "install"
 	self.readKickstart(file)
 
-        # need to take care of:
-	#[ "lilo", "mouse", "network", "complete",
-	  #"package-selection", "bootdisk", "partition", "format",
-	  #"dependencies", "language", "keyboard",
-	  # "mouse" ].index(type)
