@@ -527,25 +527,28 @@ class KickstartBase(BaseInstallClass):
         self.setZeroMbr(id, 1)
 
     def doMouse(self, id, args):
-	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
-        mouseType = "none"
-	device = None
-	emulThree = 0
+        #Don't do anything with mice anymore
+        return
 
-	for n in args:
-	    (str, arg) = n
-	    if str == "--device":
-		device = arg
-	    elif str == "--emulthree":
-		emulThree = 1
+## 	(args, extra) = isys.getopt(args, '', [ 'device=', 'emulthree' ])
+##         mouseType = "none"
+## 	device = None
+## 	emulThree = 0
 
-	if extra:
-	    mouseType = extra[0]
+## 	for n in args:
+## 	    (str, arg) = n
+## 	    if str == "--device":
+## 		device = arg
+## 	    elif str == "--emulthree":
+## 		emulThree = 1
 
-## 	if mouseType != "none":
+## 	if extra:
+## 	    mouseType = extra[0]
+
+##  	if mouseType != "none":
 ##             self.setMouse(id, mouseType, device, emulThree)
 
-        self.skipSteps.append("mouse")
+##         self.skipSteps.append("mouse")
 
     def doReboot(self, id, args):
         self.skipSteps.append("complete")
@@ -1231,7 +1234,7 @@ class KickstartBase(BaseInstallClass):
             dispatch.skipStep("findinstall", permanent = 1)
             dispatch.skipStep("language")
             dispatch.skipStep("keyboard")
-            dispatch.skipStep("mouse")
+#            dispatch.skipStep("mouse")
             dispatch.skipStep("welcome")
             dispatch.skipStep("betanag")
             dispatch.skipStep("installtype")
