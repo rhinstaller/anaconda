@@ -71,13 +71,25 @@ class NetworkDeviceWindow:
 	    newopt = (_("Point to Point (IP)"), "remip")
 	    options.append(newopt)
 
-        thegrid = Grid(2, 3 + len(options))
+	descr = dev.get("desc")
+	if descr is not None:
+	    toprows = 2
+	else:
+	    toprows = 1
 
-        thegrid.setField(Label (_("Network Device: %s")
+	topgrid = Grid(1, toprows)
+
+        topgrid.setField(Label (_("Network Device: %s")
                                 %(dev.info['DEVICE'],)),
-                         0, 0, padding = (0, 0, 0, 1), anchorLeft = 1,
+                         0, 0, padding = (0, 0, 0, 0), anchorLeft = 1,
                          growx = 1)
 
+	if descr is not None:
+	    topgrid.setField(Label (_("Description: %s") % (descr[:70],)),
+			     0, 1, padding = (0, 0, 0, 0), anchorLeft = 1,
+			     growx = 1)
+
+	botgrid = Grid(2, 2+len(options))
         self.dhcpCb = Checkbox(_("Configure using DHCP"),
                                isOn = (boot == "dhcp"))
 
@@ -85,27 +97,28 @@ class NetworkDeviceWindow:
 	    ypad = 1
 	else:
 	    ypad = 0
-        thegrid.setField(self.dhcpCb, 0, 1, anchorLeft = 1, growx = 1,
+
+	currow = 0
+        botgrid.setField(self.dhcpCb, 0, currow, anchorLeft = 1, growx = 1,
 			 padding = (0, 0, 0, ypad))
+	currow += 1
         
         self.onbootCb = Checkbox(_("Activate on boot"), isOn = onbootIsOn)
 	if showonboot:
-	    thegrid.setField(self.onbootCb, 0, 2, anchorLeft = 1, growx = 1,
+	    botgrid.setField(self.onbootCb, 0, currow, anchorLeft = 1, growx = 1,
 			     padding = (0, 0, 0, 1))
+	    currow += 1
 
-
-	row = 3
-	    
+	row = currow
         self.entries = {}
         for (name, opt) in options:
-            thegrid.setField(Label(name), 0, row, anchorLeft = 1)
+            botgrid.setField(Label(name), 0, row, anchorLeft = 1)
 
             entry = Entry (16)
             entry.set(dev.get(opt))
-            thegrid.setField(entry, 1, row, padding = (1, 0, 0, 0))
+            botgrid.setField(entry, 1, row, padding = (1, 0, 0, 0))
 
             self.entries[opt] = entry
-
             row = row + 1
 
         self.dhcpCb.setCallback(self.setsensitive)
@@ -115,9 +128,11 @@ class NetworkDeviceWindow:
 
         toplevel = GridFormHelp(screen, _("Network Configuration for %s") %
                                 (dev.info['DEVICE']), 
-                                "networkdev", 1, 3)
-        toplevel.add(thegrid, 0, 0, (0, 0, 0, 1), anchorLeft = 1)
-        toplevel.add(bb, 0, 2, growx = 1)
+                                "networkdev", 1, 4)
+
+        toplevel.add(topgrid,  0, 0, (0, 0, 0, 1), anchorLeft = 1)
+        toplevel.add(botgrid,  0, 1, (0, 0, 0, 1), anchorLeft = 1)
+        toplevel.add(bb, 0, 3, growx = 1)
 
         self.setsensitive()
         
