@@ -1,8 +1,10 @@
 DESTDIR = ../../trees/initrd
 
-OBJS = loader.o log.o windows.o modules.o devices.o net.o cdrom.o urls.o
-SOURCES = $(subst .o,.c,$(OBJS))
-BINS = loader init
+OBJS = log.o windows.o modules.o devices.o net.o cdrom.o urls.o
+LOADEROBJS = loader.o loader-pcmcia.o pcmcia.o popen.o
+SOURCES = $(subst .o,.c,$(OBJS) $(LOADEROBJS))
+BINS = loader loader-pcmcia init
+DIRS = pcmcia-install
 
 ifeq (.depend,$(wildcard .depend))
 TARGET=$(PROGS)
@@ -29,7 +31,12 @@ endif
 
 VERSION = 6.0
 
-all: $(BINS)
+all: dirs $(BINS)
+
+dirs:
+	for n in $(DIRS); do \
+	    cd $$n; make; \
+	done
 
 install: all
 	#mkdir -p $(DESTDIR)/sbin
@@ -40,13 +47,26 @@ install: all
 	#install -s init $(DESTDIR)/sbin/init
 	#install -m 755 ../isys/pci/pcitable $(DESTDIR)/etc
 
-loader: $(OBJS)
-	$(CC) -g $(STATIC) -o $@ $(OBJS) -lpopt     \
+loader: loader.o $(OBJS)
+	$(CC) -g $(STATIC) -o $@ $^ -lpopt     \
         ../isys/pci/libpciprobe.a ../isys/libisys.a ../balkan/libbalkan.a \
         ../isys/modutils/insmod/libmodutils.a    \
         ../isys/modutils/util/libutil.a          \
         ../isys/modutils/obj/libobj.a            \
         -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
+
+loader-pcmcia: loader-pcmcia.o pcmcia.o popen.o $(OBJS) 
+	$(CC) -g $(STATIC) -o $@ loader-pcmcia.o pcmcia.o $(OBJS) \
+		-L pcmcia-install/cardmgr -lcardmgr -lprobe popen.o \
+        -lpopt     \
+        ../isys/pci/libpciprobe.a ../isys/libisys.a ../balkan/libbalkan.a \
+        ../isys/modutils/insmod/libmodutils.a    \
+        ../isys/modutils/util/libutil.a          \
+        ../isys/modutils/obj/libobj.a            \
+        -L../pump -lpump -lrpm -lz -lresolv -lnewt -lslang -lpci
+
+loader-pcmcia.o: loader.c
+	$(CC) -DINCLUDE_PCMCIA $(CFLAGS) -o $@ -c $^
 
 init: init.o $(MINILIBC)
 	$(CC) $(STATIC) -g $(LDFLAGS) -o $@ init.o $(MINILIBC)
