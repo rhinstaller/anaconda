@@ -13,7 +13,7 @@ all:
 install:
 	install -m 755 implantisomd5 $(DESTDIR)/$(RUNTIMEDIR)
 	install -m 755 checkisomd5 $(DESTDIR)/$(RUNTIMEDIR)
-	install -s pyisomd5sum.so $(DESTDIR)/$(PYTHONLIBDIR)
+	install -s pyisomd5sum.so $(DESTDIR)/$(RUNTIMEDIR)
 
 clean:
 	rm -f *.o *.lo *.so *.pyc
