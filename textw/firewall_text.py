@@ -244,7 +244,7 @@ class SELinuxWindow:
     def __call__(self, screen, intf, network, firewall, security):
         if flags.selinux == 0:
             log("selinux disabled, not showing selinux config screen")
-            return INSTALL_OK
+            return INSTALL_NOOP
         
         self.intf = intf
 
