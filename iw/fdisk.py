@@ -1,9 +1,9 @@
 from gtk import *
 from iw import *
 from gnome.zvt import *
-from os import execvp
 from gui import _
 import isys
+import os
 
 class FDiskWindow (InstallWindow):		
 
@@ -15,7 +15,11 @@ class FDiskWindow (InstallWindow):
         self.windowContainer.remove (self.windowContainer.children ()[0])
         self.windowContainer.pack_start (self.buttonBox)
         button.set_state (STATE_NORMAL)
-        
+        try:
+            os.remove ('/tmp/' + self.drive)
+        except:
+            # XXX fixme
+            pass
         self.ics.setPrevEnabled (1)
         self.ics.setNextEnabled (1)
         self.ics.setHelpEnabled (1)
@@ -23,12 +27,18 @@ class FDiskWindow (InstallWindow):
     def button_clicked (self, widget, drive):
         zvt = ZvtTerm (80, 24)
         zvt.connect ("child_died", self.child_died, widget)
+        self.drive = drive
+        if os.access("/sbin/fdisk", os.X_OK):
+            path = "/sbin/fdisk"
+        else:
+            path = "/usr/sbin/fdisk"
+        try:
+            isys.makeDevInode(drive, '/tmp/' + drive)
+        except:
+            # XXX FIXME
+            pass
         if zvt.forkpty() == 0:
-            if not os.access ("/usr/sbin/fdisk", os.X_OK):
-                path = "/usr/sbin/fdisk"
-            else:
-                path = "/sbin/fdisk"
-            execvp (path, ("fdisk", "/dev/%s" % (drive,)))
+            os.execvp (path, (path, '/tmp/' + drive))
         zvt.show ()
 
         self.windowContainer.remove (self.buttonBox)
