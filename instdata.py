@@ -154,7 +154,7 @@ class InstallData:
                     and comp.name != "Core"):
 		    f.write("@ %s\n" % comp.name)
 
-		for pkg in comp.packages():
+		for pkg in comp.newpkgDict.keys():
                     # if it's in base or core, it really should be installed
                     if comp.name == "Base" or comp.name == "Core":
                         packages[pkg] = 1
