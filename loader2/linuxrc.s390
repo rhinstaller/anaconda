@@ -61,6 +61,18 @@ startinetd()
 	fi
 }
 
+# read file from CMS and write it to /tmp
+readcmsfile() # $1=dasdport $2=filename
+{
+   if [ $# -ne 2 ]; then return; fi
+   mknod /dev/dasda b 94 0
+   insmod dasd_mod$LO dasd=$1
+   insmod dasd_eckd_mod$LO
+   cmsfscat -d /dev/dasda -a $2 > /tmp/$2
+   rmmod dasd_eckd_mod.ko
+   rmmod dasd_mod.ko
+}
+
 setupdevice()
 {
    if [ -z "$SUBCHANNELS" -o -z "$DIRNAME" ]; then
@@ -138,6 +150,11 @@ route add -host 127.0.0.1 dev lo 2>/dev/null
 LO=""
 
 [ -L /sbin/insmod ] && LO=".ko"
+
+if [ -n "$CMSDASD" -a -n "$CMSCONFFILE" ]; then
+   readcmsfile $CMSDASD $CMSCONFFILE
+   source /tmp/$CMSCONFFILE #2>/dev/null
+fi
 
 # Parse configuration
 # Check for missing parameters, prompt for them if necessary

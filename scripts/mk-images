@@ -616,6 +616,7 @@ makeinitrd() {
 	cp $IMGPATH/$LIBDIR/libpam_misc.so.0.* $MBD_DIR/$LIBDIR/libpam_misc.so.0
 	ln -s /tmp $MBD_DIR/var/state/xkb
 	cp $IMGPATH/usr/X11R6/bin/xauth $MBD_DIR/sbin/xauth
+        cp $IMGPATH/usr/sbin/cmsfs* $MBD_DIR/sbin/
     fi
 
     if [ -n "$INITRDMODULES" ]; then
