@@ -73,34 +73,35 @@ struct langInfo {
     char * lang, * key, * font, * map, * lc_all;
 } ;
 
-#ifdef INCLUDE_KON
-static const struct langInfo languages[] = {
-        { "English",	"en",	NULL,		NULL,		"en_US" },
-	{ "Japanese",	"ja",	NULL,		NULL,		"ja_JP.ujis" },
-};
-#else
-/* FONT LIST STARTS */
-static const struct langInfo languages[] = {
-        { "Czech", 	"cs", 	"lat2-sun16", 	"iso02",	"cs_CZ" },
-        { "English",	"en",	NULL,		NULL,		"en_US" },
-	{ "French",	"fr",	NULL,		NULL,		"fr_FR" },
-	{ "German",	"de",	NULL,		NULL,		"de_DE" },
-	{ "Hungarian",  "hu",   "lat2-sun16",   "iso02",	"hu_HU" },
-	{ "Icelandic",	"is",	"lat0-sun16",	"iso15",	"is_IS" },
-	{ "Indonesian",	"id",	"lat0-sun16",	"iso15",	"id_ID" },
-	{ "Italian",	"it",	"lat0-sun16",	"iso15",	"it_IT" },
-	{ "Norwegian",	"no",	"lat0-sun16",	"iso15",	"no_NO" },
-	{ "Romanian",	"ro",	"lat2-sun16",	"iso02",	"ro_RO" },
-	{ "Russian", 	"ru", 	"Cyr_a8x16", 	"koi2alt",	"ru_RU.KOI8-R" },
-	{ "Serbian",	"sr",	"lat2-sun16",	"iso02",	"sr_YU" },
-	{ "Slovak",	"sk",	"lat2-sun16",	"iso02",	"sk_SK" },
-	{ "Slovenian",	"sl",	"lat2-sun16",	"iso02",	"sl_SI" },
-	{ "Turkish",	"tr",	"iso05.f16",	"iso05",	"tr_TR" },
-	{ "Ukrainian",  "uk",   "Cyr_a8x16",	"koi2alt",	"ru_RU.KOI8-R" },
-};
-/* FONT LIST ENDS */
-#endif
-const int numLanguages = sizeof(languages) / sizeof(struct langInfo);
+static struct langInfo * languages = NULL;
+static int numLanguages = 0;
+
+static void loadLanguageList(int flags) {
+    char * file = FL_TESTING(flags) ? "../lang-table" :
+		    "/etc/lang-table";
+    FILE * f;
+    char line[256];
+    char name[256], key[256], sun[256], console[256], code[256];
+    int lineNum = 0;
+
+    f = fopen(file, "r");
+
+    while (fgets(line, sizeof(line), f)) {
+	lineNum++;
+	languages = realloc(languages, sizeof(*languages) * (numLanguages + 1));
+	if (sscanf(line, "%s %s %s %s %s\n", name, key, sun, console,
+					     code) != 5) {
+	    logMessage("bad line %d in lang-table", lineNum);
+	} else {
+	    languages[numLanguages].lang = strdup(name);
+	    languages[numLanguages].key	= strdup(key);
+	    languages[numLanguages].font = strdup(sun);
+	    languages[numLanguages].map	= strdup(console);
+	    languages[numLanguages].lc_all = strdup(code);
+	    numLanguages++;
+	}
+    }
+}
 
 void loadLanguage (char * file, int flags) {
     char filename[200];
@@ -245,6 +246,8 @@ int chooseLanguage(char ** lang, int flags) {
     char ** langs;
     int i;
     int english = 0;
+
+    if (!languages) loadLanguageList(flags);
 
     langs = alloca(sizeof(*langs) * (numLanguages + 1)); 
 
