@@ -208,7 +208,9 @@ class AccountWindow (InstallWindow):
         # root password statusbar
         self.rootStatus = GtkLabel ("")
         self.rootPasswordsMatch ()
-        box.pack_start (self.rootStatus, FALSE)
+        wrapper = GtkHBox(0, FALSE)
+        wrapper.pack_start (self.rootStatus)
+        box.pack_start (wrapper, FALSE)
 
         box.pack_start (GtkHSeparator (), FALSE, padding=3)
 
@@ -255,8 +257,10 @@ class AccountWindow (InstallWindow):
         entrytable.attach (self.userPass2,   3, 4, 1, 2, FILL|EXPAND)
 
 	self.userPwLabel = GtkLabel()
-        self.userPwLabel.set_alignment (0.0, 0.5)
-        entrytable.attach (self.userPwLabel, 1, 4, 2, 3, FILL, 0, 10)
+        self.userPwLabel.set_alignment (0.5, 0.5)
+        wrapper = GtkHBox(0, FALSE)
+        wrapper.pack_start (self.userPwLabel)
+        entrytable.attach (wrapper, 0, 4, 2, 3, FILL, 0, 10)
 
         label = GtkLabel (_("Full Name") + ": ")
         label.set_alignment (0.0, 0.5)
