@@ -183,6 +183,7 @@ for n in args:
 	rootPath = '/'
 	logFile = "/var/log/reconfig.log"
 	flags.setupFilesystems = 0
+        flags.reconfig = 1
 	customClass = 'reconfig'
     elif (str == '--rescue'):
         progmode = 'rescue'
@@ -370,6 +371,14 @@ if 1:
         sys.stdout.write(mousehw.shortDescription()+'\n')
     else:
 	sys.stdout.write(_("Skipping mouse probe.\n"))
+
+# determine which mode reconfig should use
+if (progmode == 'reconfig'):
+    if (iutil.getDefaultRunlevel() == '5' and
+        os.access("/etc/X11/XF86Config", os.R_OK)):
+        display_mode = 'g'
+    else:
+        display_mode = 't'
 
 if (method and ((len (method) >= 6 and method[:6] == "ftp://")
     or (len (method) >= 7 and method[:7] == "http://")
