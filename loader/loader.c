@@ -69,6 +69,7 @@
 #include "lang.h"
 #include "loader.h"
 #include "log.h"
+#include "mediacheck.h"
 #include "misc.h"
 #include "modules.h"
 #include "net.h"
@@ -601,8 +602,6 @@ static char * setupOldHardDrive(char * device, char * type, char * dir,
     return url;
 }
 
-#endif
-
 static int umountLoopback(char * mntpoint, char * device) {
     int loopfd;
 
@@ -617,6 +616,10 @@ static int umountLoopback(char * mntpoint, char * device) {
 
     return 0;
 }
+
+#endif
+
+
 
 static int mountLoopback(char * fsystem, char * mntpoint, char * device) {
     struct loop_info loopInfo;
