@@ -26,6 +26,7 @@ import gtk
 import htmlbuffer
 import rpm
 import kudzu
+import gettext
 from language import expandLangs
 from splashscreen import splashScreenPop
 from flags import flags
@@ -721,25 +722,19 @@ class TextViewBrowser(gtk.TextView):
     
 class InstallControlWindow:
     def setLanguage (self, locale):
-        #gtk_set_locale ()
-        #gtk_rc_init ()
-        #gtk_rc_reparse_all ()
-
 	self.langSearchPath = expandLangs(locale) + ['C']
-        
-##         found = 0
-##         for l in self.langSearchPath:
-##             if os.access ("/etc/gtk/gtkrc." + l, os.R_OK):
-##                 rc_parse("/etc/gtk/gtkrc." + l)
-##                 found = 1
-##         if not found:
-##             rc_parse("/etc/gtk/gtkrc")
-
-##         #_gtk_nuke_rc_mtimes ()
-##         gtk_rc_reparse_all ()
         
 	if not self.__dict__.has_key('window'): return
 
+        ltrrtl = gettext.dgettext("gtk20", "default:LTR")
+        if ltrrtl == "default:RTL":
+            gtk.widget_set_default_direction (gtk.TEXT_DIR_RTL)
+        elif ltrrtl == "default:LTR":
+            gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)
+        else:
+            log("someone didn't translate the ltr bits right: %s" %(ltrrtl,))
+            gtk.widget_set_default_direction (gtk.TEXT_DIR_LTR)            
+        
         self.reloadRcQueued = 1
 
 	self.updateStockButtons()
