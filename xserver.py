@@ -45,13 +45,13 @@ def startX():
     x.probe ()
     if x.server and len (x.server) >= 3 and x.server[0:3] == 'Sun':
 	serverPath = '/usr/X11R6/bin/Xs' + x.server[1:]
-    elif x.server:
-        serverPath = '/usr/X11R6/bin/XF86_' + x.server
-    elif iutil.getArch() == "sparc":
-	raise RuntimeError, "Unknown card"
-    else:
-        print "Unknown card, falling back to VGA16"
-        serverPath = '/usr/X11R6/bin/XF86_VGA16'
+#      elif x.server:
+#          serverPath = '/usr/X11R6/bin/XF86_' + x.server
+#      elif iutil.getArch() == "sparc":
+#  	raise RuntimeError, "Unknown card"
+#      else:
+#          print "Unknown card, falling back to VGA16"
+        serverPath = '/usr/X11R6/bin/XFree86'
 
     if not os.access (serverPath, os.X_OK):
 	if iutil.getArch() == "sparc":
@@ -86,78 +86,80 @@ def startX():
 	elif kbd.layout != 'us':
 	    symbols = symbols + "+" + kbd.layout
 	    
-    mouseEmulateStr="""
-    Emulate3Buttons
-    Emulate3Timeout    50
-"""
-    if not mouseEmulate:
-	mouseEmulateStr=""
-    settings = { "mouseDev" : '/dev/' + mouseDev ,
-                 "mouseProto" : mouseProtocol,
-		 "keycodes" : keycodes,
-		 "symbols" : symbols,
-		 "geometry" : geometry,
-		 "rules" : rules,
-		 "model" : model,
-		 "emulate" : mouseEmulateStr }
+#      mouseEmulateStr="""
+#      Emulate3Buttons
+#      Emulate3Timeout    50
+#  """
+#      if not mouseEmulate:
+#  	mouseEmulateStr=""
+#      settings = { "mouseDev" : '/dev/' + mouseDev ,
+#                   "mouseProto" : mouseProtocol,
+#  		 "keycodes" : keycodes,
+#  		 "symbols" : symbols,
+#  		 "geometry" : geometry,
+#  		 "rules" : rules,
+#  		 "model" : model,
+#  		 "emulate" : mouseEmulateStr }
+#      f = open ('/tmp/XF86Config', 'w')
+#      f.write ("""
+#  Section "Files"
+#      RgbPath	"/usr/X11R6/lib/X11/rgb"
+#      FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
+#      FontPath	"/usr/X11R6/lib/X11/fonts/Type1/"
+#      FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
+#      FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
+#      FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
+#      FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic/"
+#      FontPath    "/usr/share/fonts/ISO8859-2/misc/"
+#      FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
+#      FontPath    "/usr/share/fonts/ISO8859-2/100dpi/"
+#      FontPath    "/usr/share/fonts/ISO8859-9/misc/"
+#      FontPath    "/usr/share/fonts/ISO8859-9/75dpi/"
+#      FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
+#  EndSection
+
+#  Section "ServerFlags"
+#  EndSection
+
+#  Section "Keyboard"
+#      Protocol    "Standard"
+#      AutoRepeat  500 5
+#      LeftAlt     Meta
+#      RightAlt    Meta
+#      ScrollLock  Compose
+#      RightCtl    Control
+#      XkbKeycodes     "%(keycodes)s"
+#      XkbTypes        "default"
+#      XkbCompat       "default"
+#      XkbSymbols      "%(symbols)s"
+#      XkbGeometry     "%(geometry)s"
+#      XkbRules        "%(rules)s"
+#      XkbModel        "%(model)s"
+#      XkbLayout       "us"
+#  EndSection
+
+#  Section "Pointer"
+#      Protocol    "%(mouseProto)s"
+#      Device      "%(mouseDev)s"
+#  %(emulate)s
+#  EndSection
+#  """ % settings)
+#      f.write (x.monitorSection (1))
+#      f.write (x.deviceSection ())
+#      if x.monSect:
+#  	bpp = x.bpp
+#      else:
+#          x.modes["32"] = [ ]
+#          x.modes["16"] = [ ]
+#          x.modes["8"] = [ "640x480" ]
+#  	bpp = None
+#      f.write (x.screenSection (1))
     f = open ('/tmp/XF86Config', 'w')
-    f.write ("""
-Section "Files"
-    RgbPath	"/usr/X11R6/lib/X11/rgb"
-    FontPath	"/usr/X11R6/lib/X11/fonts/misc/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/Type1/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/Speedo/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/75dpi/"
-    FontPath	"/usr/X11R6/lib/X11/fonts/100dpi/"
-    FontPath    "/usr/X11R6/lib/X11/fonts/cyrillic/"
-    FontPath    "/usr/share/fonts/ISO8859-2/misc/"
-    FontPath    "/usr/share/fonts/ISO8859-2/75dpi/"
-    FontPath    "/usr/share/fonts/ISO8859-2/100dpi/"
-    FontPath    "/usr/share/fonts/ISO8859-9/misc/"
-    FontPath    "/usr/share/fonts/ISO8859-9/75dpi/"
-    FontPath    "/usr/share/fonts/ISO8859-9/100dpi/"
-EndSection
-
-Section "ServerFlags"
-EndSection
-
-Section "Keyboard"
-    Protocol    "Standard"
-    AutoRepeat  500 5
-    LeftAlt     Meta
-    RightAlt    Meta
-    ScrollLock  Compose
-    RightCtl    Control
-    XkbKeycodes     "%(keycodes)s"
-    XkbTypes        "default"
-    XkbCompat       "default"
-    XkbSymbols      "%(symbols)s"
-    XkbGeometry     "%(geometry)s"
-    XkbRules        "%(rules)s"
-    XkbModel        "%(model)s"
-    XkbLayout       "us"
-EndSection
-
-Section "Pointer"
-    Protocol    "%(mouseProto)s"
-    Device      "%(mouseDev)s"
-%(emulate)s
-EndSection
-""" % settings)
-    f.write (x.monitorSection (1))
-    f.write (x.deviceSection ())
-    if x.monSect:
-	bpp = x.bpp
-    else:
-        x.modes["32"] = [ ]
-        x.modes["16"] = [ ]
-        x.modes["8"] = [ "640x480" ]
-	bpp = None
-    f.write (x.screenSection (1))
+    f.write (x.Version4Config())
     f.close ()
 
     server = os.fork()
-    if (not server):
+    if not server:
         print "starting", serverPath
 	args = [serverPath, ':1', 'vt7', '-s', '1440', '-terminate']
 	if serverPath[0:19] == '/usr/X11R6/bin/Xsun':
