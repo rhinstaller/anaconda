@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Red Hat 6.2 Install\n"
 "POT-Creation-Date: 2000-02-16 14:35-0500\n"
-"PO-Revision-Date: 2000-02-20 14:30+01:00\n"
+"PO-Revision-Date: 2000-02-20 18:38+01:00\n"
 "Last-Translator: K. Christiansen & B. Langkjer <birger.langkjer@image.dk>\n"
 "Language-Team: Danish/Dansk <sslug-locale@sslug.dk>\n"
 "MIME-Version: 1.0\n"
@@ -466,11 +466,11 @@ msgstr "Ulistet kort"
 
 #: ../text.py:611
 msgid "Video Card Selection"
-msgstr "Valg af videokort"
+msgstr "Valg af grafikkort"
 
 #: ../text.py:612
 msgid "Which video card do you have?"
-msgstr "Hvilket videokort har du?"
+msgstr "Hvilket grafikkort har du?"
 
 #: ../text.py:624
 msgid "X Server Selection"
@@ -833,19 +833,19 @@ msgstr "Udfører efterinstallationskonfiguration..."
 
 #: ../iw/xconfig.py:10 ../xf86config.py:257
 msgid "Video Card"
-msgstr "Videokort"
+msgstr "Grafikkort"
 
 #: ../iw/xconfig.py:12 ../xf86config.py:259
 msgid "Video Ram"
-msgstr "Video-ram"
+msgstr "Video-RAM"
 
 #: ../xf86config.py:261
 msgid "X server"
-msgstr "X server"
+msgstr "X-tjener"
 
 #: ../xf86config.py:263
 msgid "Unable to detect video card"
-msgstr "Kunne ikke afgøre videokort"
+msgstr "Kunne ikke bestemme grafikkort"
 
 #: ../iw/xconfig.py:11 ../xf86config.py:270 ../xf86config.py:272
 msgid "Monitor"
@@ -1430,7 +1430,7 @@ msgid ""
 "Your video ram size can not be autodetected.  Choose your video ram size "
 "from the choices below:"
 msgstr ""
-"Kan ikke afgøre mængden af RAM på videokortet.  Vælg mængden af din "
+"Kan ikke bestemme mængden af RAM på grafikkortet.  Vælg mængden af din "
 "video-RAM fra listen herunder:"
 
 #: ../iw/xconfig.py:342 ../iw/xconfig.py:363
@@ -1438,7 +1438,7 @@ msgid ""
 "In most cases your video hardware can be probed to automatically determine "
 "the best settings for your display."
 msgstr ""
-"I de fleste tilfælde kan din video hardware undersøges for automatisk at "
+"I de fleste tilfælde kan din grafikhardware undersøges for automatisk at "
 "afgøre de optimale indstillinger for din skærm."
 
 #: ../iw/xconfig.py:351
