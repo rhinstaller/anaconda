@@ -98,6 +98,13 @@ class Firewall:
                 log ("lokkit run failed: %s", msg)
             except OSError, (errno, msg):
                 log ("lokkit run failed: %s", msg)
+            else:
+                f = open(instPath +
+                         '/etc/sysconfig/redhat-config-securitylevel', 'r')
+                f.write("# redhat-config-securitylevel config written out by anaconda\n\n")
+                for arg in args[3:]:
+                    f.write("%s\n" %(arg,))
+                    
         else:
             # remove /etc/sysconfig/ipchains
 	    file = instPath + "/etc/sysconfig/ipchains"
