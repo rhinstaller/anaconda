@@ -6,6 +6,7 @@ import types
 import urllib
 from translate import _
 from translate import N_
+from log import log
 
 XFreeServerPackages = { 'XFree86-3DLabs' : 1, 	'XFree86-8514' : 1,
 			'XFree86-AGX' : 1, 	'XFree86-I128' : 1,
@@ -351,7 +352,18 @@ class ComponentSet:
 #	    arch2 = "sparc64"
 #
         arch2 = os.uname ()[4]
-	file = urllib.urlopen(filename)
+
+        connected = 0
+        while not connected:
+            try:
+		file = urllib.urlopen(filename)
+            except IOError, (errnum, msg):
+		log("IOError %s occured getting %s: %s", filename,
+			errnum, str(msg))
+                time.sleep(5)
+            else:
+                connected = 1
+
 	lines = file.readlines()
 
 	file.close()
