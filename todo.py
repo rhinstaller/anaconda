@@ -1506,7 +1506,6 @@ class ToDo:
         
         del p
 
-        self.instLog.close ()
         if self.upgrade:
             self.instLog.write ("\n\nThe following packages were available on the CD but NOT upgraded:\n")
             for p in self.hdList.packages.values ():
@@ -1516,6 +1515,7 @@ class ToDo:
                                         p.h[rpm.RPMTAG_VERSION],
                                         p.h[rpm.RPMTAG_RELEASE],
                                         p.h[rpm.RPMTAG_ARCH]))
+        self.instLog.close ()
 
         w = self.intf.waitWindow(_("Post Install"), 
                                  _("Performing post install configuration..."))
