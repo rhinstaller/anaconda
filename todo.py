@@ -746,8 +746,9 @@ class ToDo:
         # selected (i.e. - recurse down the selected comps and turn
         # on the children
         if self.setupFilesystems:
-            self.ddruid.save ()
-            self.makeFilesystems ()
+            if not self.upgrade:
+                self.ddruid.save ()
+                self.makeFilesystems ()
             self.mountFilesystems ()
 
 	if not self.installSystem: 
