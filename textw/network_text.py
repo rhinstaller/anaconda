@@ -152,7 +152,7 @@ class NetworkWindow:
                 dev.set (("ipaddr", self.ip.value ()), ("netmask", self.nm.value ()),
                          ("network", net), ("broadcast", bc))
                 if ask_ptp:
-                    dev.set (("remip", ptp))
+                    dev.set (("remip", self.ptp.value()))
                 network.gateway = self.gw.value ()
                 network.primaryNS = self.ns.value ()
                 network.secondaryNS = self.ns2.value()
