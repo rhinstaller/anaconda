@@ -2,11 +2,8 @@ include Makefile.inc
 
 VERSION = 7.0
 
-ARCH := $(patsubst i%86,i386,$(shell uname -m))
-ARCH := $(patsubst sparc%,sparc,$(ARCH))
-
 SUBDIRSHD = rpmmodule balkan isys libfdisk collage loader po \
-	    minislang textw utils scripts
+	    minislang textw utils scripts boot
 SUBDIRS = $(SUBDIRSHD)
 
 ifneq (ia64, $(ARCH))
