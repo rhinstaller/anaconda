@@ -832,7 +832,7 @@ class XF86Config:
         except RuntimeError:
             return
         config = open (path + "XF86Config-4", 'w')
-        config.write (config)
+        config.write (config4)
         config.close ()        
 
     def test (self, serverflags=None, spawn=0):
