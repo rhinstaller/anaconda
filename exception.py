@@ -20,6 +20,7 @@ import signal
 import traceback
 import iutil
 import types
+import rpm
 from string import joinfields
 from cPickle import Pickler
 from translate import _
@@ -61,6 +62,22 @@ def dumpException(out, text, tb, dispatch):
     except:
         pass
 
+    if dispatch.id.comps:
+        out.write("\n\nPackage Group selection status:\n")
+        for comp in dispatch.id.comps:
+            out.write("%s: %s\n" % (comp.name,
+                                    comp.isSelected(justManual = 1)))
+
+    if dispatch.id.hdList:
+        out.write("\n\nIndividual package selection status:\n")
+        pkgList = dispatch.id.hdList.keys()
+        pkgList.sort()
+        for pkg in pkgList:
+            p = dispatch.id.hdList[pkg]
+            out.write("%s: %s, " % (p[rpm.RPMTAG_NAME],
+                                    p.isSelected()))
+        out.write("\n")
+    
     # these have C objects in them which can't dump
     dispatch.id.hdList = None
     dispatch.id.comps = None
