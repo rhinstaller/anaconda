@@ -760,6 +760,7 @@ int chooseNetworkInterface(struct knownDevices * kd,
 
     /* JKFIXME: this is a lot bigger than it has to be.. */
     devices = alloca((kd->numKnown + 1) * sizeof(*devices));
+    deviceNames = alloca((kd->numKnown + 1) * sizeof(*devices));
     for (i = 0; i < kd->numKnown; i++) {
         if (kd->known[i].class != CLASS_NETWORK)
             continue;
