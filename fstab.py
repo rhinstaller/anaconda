@@ -327,7 +327,7 @@ class Fstab:
                         rdisks = rdisks - 1
                         args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]
                     elif rtype == 0:
-                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]                        
+                        args = args + [ '-R', 'stride=%d' % (rdisks * 16) ]
                         
                 if self.badBlockCheck:
                     args.append ("-c")
