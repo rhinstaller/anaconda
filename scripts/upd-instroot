@@ -969,8 +969,8 @@ for p in $DEST $DESTGR; do
 	   (cd $p/lib; rm -f libnss_files.so.1 libnss_dns.so.1)
 	fi
 
-	if [ -d $TZDIR/usr/share/zoneinfo ]; then
-	    (cd $TZDIR/usr/share/zoneinfo; find . -type f -or -type l | 
+	if [ -d $DEST/usr/share/zoneinfo ]; then
+	    (cd $DEST/usr/share/zoneinfo; find . -type f -or -type l | 
 		grep '^./[A-Z]' | sort | sed 's/^..//' | 
 		gzip -9) > $p/usr/lib/timezones.gz
 	else
