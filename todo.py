@@ -1433,10 +1433,14 @@ class ToDo:
 
 		self.x.write (self.instPath + "/etc/X11")
             self.setDefaultRunlevel ()
+
             # go ahead and depmod modules on alpha, as rtc modprobe
             # will complain loudly if we don't do it now.
-            if arch == "alpha":
-                self.depmodModules()
+#            if arch == "alpha":
+#                self.depmodModules()
+
+            # lets just do it always, not just on alpha
+            self.depmodModules()
                 
             # blah.  If we're on a serial mouse, and we have X, we need to
             # close the mouse device, then run kudzu, then open it again.
