@@ -435,6 +435,15 @@ static void readNetInfo(int flags, struct loaderData_s ** ld) {
            if (strstr(vname, "REMIP")) {
                loaderData->ptpaddr = strdup(vparm);
            }
+           if (strstr(vname, "SUBCHANNELS")) {
+               loaderData->subchannels = strdup(vparm);
+           }
+           if (strstr(vname, "PORTNAME")) {
+               loaderData->portname = strdup(vparm);
+           }
+           if (strstr(vname, "QETH")) {
+               loaderData->is_qeth = 1;
+           }
        }
    }
    fclose(f);

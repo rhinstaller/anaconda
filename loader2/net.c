@@ -333,14 +333,22 @@ void setupNetworkDeviceConfig(struct networkDeviceConfig * cfg,
     }
 
     if (loaderData->mtu) {
-        cfg->dev.mtu = loaderData->mtu;
-        cfg->dev.set |= PUMP_INTFINFO_HAS_MTU;
+        cfg->mtu = loaderData->mtu;
     }
 
     if (loaderData->ptpaddr && (inet_aton(loaderData->ptpaddr, &addr))) {
-        cfg->dev.ptpaddr = addr;
-        cfg->dev.set |= PUMP_INTFINFO_HAS_PTPADDR;
+        cfg->ptpaddr = addr;
     }
+
+    if (loaderData->subchannels) {
+        cfg->subchannels = strdup(loaderData->subchannels);
+    }
+
+    if (loaderData->portname) {
+        cfg->portname = strdup(loaderData->portname);
+    }
+
+    cfg->is_qeth = loaderData->is_qeth;
 
     if (loaderData->ethtool) {
         char * option, * buf;
@@ -677,10 +685,16 @@ int writeNetInfo(const char * fn, struct networkDeviceConfig * dev) {
         fprintf(f, "HOSTNAME=%s\n", dev->dev.hostname);
     if (dev->dev.set & PUMP_NETINFO_HAS_DOMAIN)
         fprintf(f, "DOMAIN=%s\n", dev->dev.domain);
-    if (dev->dev.set & PUMP_INTFINFO_HAS_MTU)
-        fprintf(f, "MTU=%d\n", dev->dev.mtu);
-    if (dev->dev.set & PUMP_INTFINFO_HAS_PTPADDR)
-        fprintf(f, "REMIP=%s\n", inet_ntoa(dev->dev.ptpaddr));
+    if (dev->mtu)
+        fprintf(f, "MTU=%d\n", dev->mtu);
+    if (dev->ptpaddr.s_addr)
+        fprintf(f, "REMIP=%s\n", inet_ntoa(dev->ptpaddr));
+    if (dev->subchannels)
+        fprintf(f, "SUBCHANNELS=%s\n", dev->subchannels);
+    if (dev->portname)
+        fprintf(f, "PORTNAME=%s\n", dev->portname);
+    if (dev->is_qeth)
+        fprintf(f, "QETH=yes\n");
     
     fclose(f);
 

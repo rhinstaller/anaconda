@@ -4,6 +4,7 @@
 #include "loader.h"
 #include "pump.h"
 
+
 struct networkDeviceConfig {
     struct pumpNetIntf dev;
 
@@ -15,6 +16,10 @@ struct networkDeviceConfig {
     int isDynamic;
     int noDns;
     int preset;
+    int mtu;
+    int is_qeth;
+    struct in_addr ptpaddr;
+    char *subchannels, *portname;
 };
 
 int readNetConfig(char * device, struct networkDeviceConfig * dev, 

@@ -87,8 +87,9 @@ struct loaderData_s {
     int netDev_set;
     char * netCls;
     int netCls_set;
-    char * ip, * netmask, *gateway, *dns, *hostname, *ptpaddr, *ethtool;
+    char * ip, *netmask, *gateway, *dns, *hostname, *ptpaddr, *ethtool, *subchannels, *portname;
     int mtu;
+    int is_qeth;
     int noDns;
     int ipinfo_set;
     char * ksFile;
